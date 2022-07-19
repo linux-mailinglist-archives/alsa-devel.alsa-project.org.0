@@ -2,80 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A154579C8E
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 14:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4615579FC9
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 15:37:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DEF616D9;
-	Tue, 19 Jul 2022 14:40:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DEF616D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAB4A1635;
+	Tue, 19 Jul 2022 15:36:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAB4A1635
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658234454;
-	bh=ETMpmzJg6IfMA9Rra/gyQD83utdYYdZ2Itqobxk2WwQ=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1658237820;
+	bh=aCtI/Id5updVlsOBUNhg0yT00gkRb7J9VdhHe3pYbwQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mx/bK6AccLtl76rE50ttIbfEAIZT3fL4wDv4Efe2lSXxMNDjL18v+iScRSNTgkQLd
-	 +BHHVv5eW+VTt+sXJ/oUsHjgxD46Es9f0o4N8qWvZAPlVEBSg7UZKZCzb076ISvrTy
-	 OPsQ2JbvRBQ1GyhGgBH4At9k528+xdIUrTYm0Cr4=
+	b=X3AaI6E4TwWsIhBipwC+ckGF5XRe4vYwM07tpEh/nbFA+ZLminFVkV5aZTekl6Xzm
+	 HPKAVHChuaH9NcJD+DMnVjrrX1w6pM52OTLa415FArpiieahp5tsRIiXIN0MZu2Jxf
+	 bFyXTNOLv0MurycjbaYNl0dHTrrQ3MThAUmZppjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AB5CF80224;
-	Tue, 19 Jul 2022 14:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C81FF80224;
+	Tue, 19 Jul 2022 15:35:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48E4AF80125; Tue, 19 Jul 2022 14:39:52 +0200 (CEST)
+ id 134C9F801EC; Tue, 19 Jul 2022 15:35:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HTML_MESSAGE,PRX_BODY_135,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1DE9F80125
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 14:39:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1DE9F80125
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-314-LGKyWH96MHuXfDktH0oilQ-1; Tue, 19 Jul 2022 13:39:43 +0100
-X-MC-Unique: LGKyWH96MHuXfDktH0oilQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.36; Tue, 19 Jul 2022 13:39:42 +0100
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.036; Tue, 19 Jul 2022 13:39:42 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Shengjiu Wang' <shengjiu.wang@gmail.com>
-Subject: RE: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
-Thread-Topic: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
-Thread-Index: AQHYm1RF9VBLG0gK5ky/ItlmeeUnS62FdfSA///0CICAABRvQP//+YgAgAAnNdA=
-Date: Tue, 19 Jul 2022 12:39:42 +0000
-Message-ID: <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F23AF80118
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 15:35:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F23AF80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Fuq436nZ"
+Received: by mail-lj1-x22e.google.com with SMTP id r14so2645401ljp.2
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 06:35:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EYhNiV6rjAGveB6cgLaFxeAyijGwg5dPmG8gWNP28+Q=;
+ b=Fuq436nZlp7dZAoFB3v943h3EJy4gkCFmW+Rs+eAk+c1ryPOUgP6YHKDmnmv2i/ekW
+ UmRlgWZigwd5giVcpV7eMeWMaR1EXwJN9LMm2JxpP7SP6X0qQxwT5sdChZzkwJcf4/U8
+ ICppFLw5ZYu7B7+922qgn5i2CwTLyrivcKy7uwUdpXeO6SJ7SJqQlcxr1HLFljhZVHLa
+ u/I3CiGNBCEy0pSEsy7gpwTRk1Qg0//ywOtwLW8LpPd+nLotOzkBDvmzVrl0Crw5+ocg
+ MF8+sNCqu6o8QbEISnNxk/WMBWKXNLbV23sI/D89zLqyL8OX/H+bzxyWc1V5ctB5wMW+
+ c7gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EYhNiV6rjAGveB6cgLaFxeAyijGwg5dPmG8gWNP28+Q=;
+ b=lJVWz2D3BbpfrIfOpKsWKHvtAMxJ01fH2WzYHhqBo1JRhAB/omTZ/oU1PsruGrV3oC
+ RNAKTacf6H58YA7TNt4nCZC7dqmGW8SIprzer3wtL2q8VdYk+JhGJqivyB/7ZPolgQ8N
+ +z+HXIoC1grj8okV+KkHf0dssKP0LBuU4pBM47AWQjZnHR6uTCtdbivMqA/kJTTl2P9D
+ FR7QbKxcjex0ymkcWONhpZZHuEXTFJPCcq9bT8ZQ1gOY0VeXrRrfldOwMXB9p7UclnDX
+ uYqXvIXN9AK5SvNphXSPu/iprOhEIc1cv9uPDpuNp2Li65Nd19LkKUOI94IU0Vedo8Qk
+ rpig==
+X-Gm-Message-State: AJIora+hP/fKfaV5++DuaCjYikVYoJBdchFDwUs+wiAvxfnE4CYtHuBj
+ y0bPKWCrmBfaNOEL4uWhASdfOjyVrdVLCzmQCW8=
+X-Google-Smtp-Source: AGRyM1vmXYrnAUoLeBfjgLhOeD/rlORVWUN4WB6Qb74COXtswRcn1mUJowJ338W41KearXy+WM031Zyg46JbD2NF9h0=
+X-Received: by 2002:a2e:9941:0:b0:247:dce8:b0ec with SMTP id
+ r1-20020a2e9941000000b00247dce8b0ecmr15228738ljj.404.1658237746962; Tue, 19
+ Jul 2022 06:35:46 -0700 (PDT)
+MIME-Version: 1.0
 References: <1658222864-25378-1-git-send-email-shengjiu.wang@nxp.com>
  <1658222864-25378-3-git-send-email-shengjiu.wang@nxp.com>
  <f2609401c8834e8bbe926200bfc87971@AcuMS.aculab.com>
  <YtaEpf6Cd7KH7wH4@sirena.org.uk>
  <20cfcc8e59a74166846cff028cd2c4e8@AcuMS.aculab.com>
  <CAA+D8AO6P2AcOJ+E97Y1=P72Qa1wjtMGMneWnsP+VcdnCzzYuw@mail.gmail.com>
-In-Reply-To: <CAA+D8AO6P2AcOJ+E97Y1=P72Qa1wjtMGMneWnsP+VcdnCzzYuw@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+ <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
+In-Reply-To: <c9231becb2cd4e2999ec631f9d2171c3@AcuMS.aculab.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 19 Jul 2022 21:35:34 +0800
+Message-ID: <CAA+D8AMTrp3KXpDEtyJbqgbA8feYCvEcWc4CMYY8zYSMgrvW6w@mail.gmail.com>
+Subject: Re: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the asrc_format type
+To: David Laight <David.Laight@aculab.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
@@ -100,71 +109,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Z3Jyci4uLiB0b3AtcG9zdGluZyBiZWNhdXNlIG91dGx1Y2sgaXMgcmVhbGx5IHN0dXBpZCA6LSgN
-Cg0KVGhlIGRlZmluaXRpb24gc2VlbXMgdG8gYmU6DQp0eXBlZGVmIGludCBfX2JpdHdpc2U8aHR0
-cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjUuMTktcmM3L0MvaWRlbnQvX19iaXR3aXNl
-PiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5
-LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+Ow0KI2RlZmluZSBTTkRSVl9QQ01fRk9STUFU
-X1M4PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L1NO
-RFJWX1BDTV9GT1JNQVRfUzg+ICAgICgoX19mb3JjZTxodHRwczovL2VsaXhpci5ib290bGluLmNv
-bS9saW51eC92NS4xOS1yYzcvQy9pZGVudC9fX2ZvcmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBz
-Oi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9y
-bWF0X3Q+KSAwKQ0KI2RlZmluZSBTTkRSVl9QQ01fRk9STUFUX1U4PGh0dHBzOi8vZWxpeGlyLmJv
-b3RsaW4uY29tL2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L1NORFJWX1BDTV9GT1JNQVRfVTg+ICAg
-ICgoX19mb3JjZTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xOS1yYzcvQy9p
-ZGVudC9fX2ZvcmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29t
-L2xpbnV4L3Y1LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+KSAxKQ0KI2RlZmluZSBT
-TkRSVl9QQ01fRk9STUFUX1MxNl9MRTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92
-NS4xOS1yYzcvQy9pZGVudC9TTkRSVl9QQ01fRk9STUFUX1MxNl9MRT4gICAgICAgICgoX19mb3Jj
-ZTxodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xOS1yYzcvQy9pZGVudC9fX2Zv
-cmNlPiBzbmRfcGNtX2Zvcm1hdF90PGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1
-LjE5LXJjNy9DL2lkZW50L3NuZF9wY21fZm9ybWF0X3Q+KSAyKQ0KLi4uDQooZ29lcyBhd2F5IGFu
-ZCBsb29rcyB1cCBfX2JpdHdJc2UpDQoNCkkgdGhpbmsgSeKAmWQgYWRkOg0KI2RlZmluZSBzbmRf
-cGNtX2Zvcm1hdCh2YWwpICgoX19mb3JjZSBzbmRfcGNtX2Zvcm1hdF90KSh2YWwpKQ0KYW5kIHVz
-ZSB0aGF0IHRvIHJlbW92ZSBtb3N0IG9mIHRoZSBjYXN0cy4NCkJ1dCB0aGUgb25lcyB3aGVyZSB5
-b3UgaGF2ZSAodTMyICopJnh4eCBhcmUgb25seSB2YWxpZCBiZWNhdXNlIHUzMiBhbmQgaW50IGFy
-ZSB0aGUgc2FtZSBzaXplLg0KVGhhdCBkb2VzIHNvcnQgb2YgaGFwcGVuIHRvIGJlIHRydWUsIGJ1
-dCBzb21lb25lIG1pZ2h0IGxvb2sgYXQgYWxsIHRoZSB2YWx1ZXMgYW5kDQpkZWNpZGUgdGhhdCB1
-OCBpcyBiaWcgZW5vdWdoLg0KQWZ0ZXIgd2hpY2ggdGhlIGNvZGUgd2lsbCBzdGlsbCBjb21waWxl
-LCBidXQgdGhlIGRhdGEgYXJlYXMgZ2V0IGNvcnJ1cHRlZC4NClNvIHlvdSByZWFsbHkgbmVlZCB0
-byB1c2UgYSB1MzIg4oCYdGVtcOKAmSB2YXJpYWJsZS4NCg0KSXQgd291bGQgYWxsIGJlIHNsaWdo
-dGx5IGxlc3MgcHJvYmxlbWF0aWMgaWYgdGhlIOKAmGZvcmNl4oCZIGNhc3RzIGNvdWxkIGJlIHNw
-YXJzZSBvbmx5DQooaWUgbm90IHNlZW4gYnkgdGhlIGNvbXBpbGVyKSDigJMgc28gdGhlIGNvbXBp
-bGVyIHdvdWxkIGRvIHRoZSB0eXBlIGNoZWNraW5nLg0KDQogICAgICAgICAgICAgICAgRGF2aWQN
-Cg0KRnJvbTogU2hlbmdqaXUgV2FuZyA8c2hlbmdqaXUud2FuZ0BnbWFpbC5jb20+DQpTZW50OiAx
-OSBKdWx5IDIwMjIgMTI6MDcNClRvOiBEYXZpZCBMYWlnaHQgPERhdmlkLkxhaWdodEBBQ1VMQUIu
-Q09NPg0KQ2M6IE1hcmsgQnJvd24gPGJyb29uaWVAa2VybmVsLm9yZz47IFNoZW5naml1IFdhbmcg
-PHNoZW5naml1LndhbmdAbnhwLmNvbT47IFhpdWJvLkxlZUBnbWFpbC5jb207IGZlc3RldmFtQGdt
-YWlsLmNvbTsgbmljb2xlb3RzdWthQGdtYWlsLmNvbTsgbGdpcmR3b29kQGdtYWlsLmNvbTsgcGVy
-ZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7
-IGxpbnV4cHBjLWRldkBsaXN0cy5vemxhYnMub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwu
-b3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIC1uZXh0IDIvNV0gQVNvQzogZnNsX2FzcmM6IGZvcmNl
-IGNhc3QgdGhlIGFzcmNfZm9ybWF0IHR5cGUNCg0KDQoNCk9uIFR1ZSwgSnVsIDE5LCAyMDIyIGF0
-IDY6MzQgUE0gRGF2aWQgTGFpZ2h0IDxEYXZpZC5MYWlnaHRAYWN1bGFiLmNvbTxtYWlsdG86RGF2
-aWQuTGFpZ2h0QGFjdWxhYi5jb20+PiB3cm90ZToNCkZyb206IE1hcmsgQnJvd24NCj4gU2VudDog
-MTkgSnVseSAyMDIyIDExOjE3DQo+DQo+IE9uIFR1ZSwgSnVsIDE5LCAyMDIyIGF0IDEwOjAxOjU0
-QU0gKzAwMDAsIERhdmlkIExhaWdodCB3cm90ZToNCj4gPiBGcm9tOiBTaGVuZ2ppdSBXYW5nDQo+
-DQo+ID4gPiAtIHJldCA9IG9mX3Byb3BlcnR5X3JlYWRfdTMyKG5wLCAiZnNsLGFzcmMtZm9ybWF0
-IiwgJmFzcmMtPmFzcmNfZm9ybWF0KTsNCj4gPiA+ICsgcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91
-MzIobnAsICJmc2wsYXNyYy1mb3JtYXQiLCAodTMyICopJmFzcmMtPmFzcmNfZm9ybWF0KTsNCj4N
-Cj4gPiBVZ2csIHlvdSByZWFsbHkgc2hvdWxkbid0IG5lZWQgdG8gZG8gdGhhdC4NCj4gPiBJdCBt
-ZWFucyB0aGF0IHNvbWV0aGluZyBpcyBiYWRseSB3cm9uZyBzb21ld2hlcmUuDQo+ID4gQ2FzdGlu
-ZyBwb2ludGVycyB0byBpbnRlZ2VyIHR5cGVzIGlzIGp1c3QgYXNraW5nIGZvciBhIGJ1Zy4NCj4N
-Cj4gVGhhdCdzIGNhc3Rpbmcgb25lIHBvaW50ZXIgdHlwZSB0byBhbm90aGVyIHBvaW50ZXIgdHlw
-ZS4NCg0KSXQgaXMgY2FzdGluZyB0aGUgYWRkcmVzcyBvZiBzb21lIHR5cGUgdG8gYSAndTMyICon
-Lg0KVGhpcyB3aWxsIHRoZW4gYmUgZGVyZWZlcmVuY2VkIGJ5IHRoZSBjYWxsZWQgZnVuY3Rpb24u
-DQpTbyB0aGUgb3JpZ2luYWwgdHlwZSBiZXR0ZXIgYmUgMzIgYml0cy4NCg0KSSdtIGFsc28gZ3Vl
-c3NpbmcgdGhhdCBzcGFyc2Ugd2FzIGNvbXBsYWluaW5nIGFib3V0IGVuZGlhbm5lc3M/DQpJdCBp
-c24ndCBhdCBhbGwgY2xlYXIgdGhhdCB0aGVzZSBjYXN0cyBhY3R1YWxseSBmaXggaXQuDQpUaGUg
-c3BhcnNlIGlzIGNvbXBsYWluaW5nIGFib3V0IHRoZSBzbmRfcGNtX2Zvcm1hdF90IGNhc3QgdG8g
-dTMyL2ludCB0eXBlLg0KDQpUaGUgY29kZSBpbiBpbmNsdWRlL3NvdW5kL3BjbS5oIGFsc28gZG9l
-cyBzdWNoIF9fZm9yY2UgY2FzdC4NCiNkZWZpbmUgX1NORFJWX1BDTV9GTVRCSVQoZm10KSAgICAg
-ICAgICAoMVVMTCA8PCAoX19mb3JjZSBpbnQpU05EUlZfUENNX0ZPUk1BVF8jI2ZtdCkNCg0KVGhl
-IGNoYW5nZSBJIGhhdmUgbWFkZSBkb2VzIG5vdCBjYXVzZSBhbiBpc3N1ZS4NCg0KQmVzdCByZWdh
-cmRzDQpXYW5nIHNoZW5naml1DQoNCihNYXJrOiBZb3UnbGwgYmUgZ2xhZCB0byBoZWFyIHRoYXQg
-dGhlIG9mZmljZSBhaXJjb24gaXMNCmJyb2tlbiBhZ2FpbiAtIHR3byB3ZWVrcyBsZWFkIHRpbWUg
-b24gdGhlIHNwYXJlIHBhcnQuKQ0KDQogICAgICAgIERhdmlkDQoNCi0NClJlZ2lzdGVyZWQgQWRk
-cmVzcyBMYWtlc2lkZSwgQnJhbWxleSBSb2FkLCBNb3VudCBGYXJtLCBNaWx0b24gS2V5bmVzLCBN
-SzEgMVBULCBVSw0KUmVnaXN0cmF0aW9uIE5vOiAxMzk3Mzg2IChXYWxlcykNCg0KLQ0KUmVnaXN0
-ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBL
-ZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEzOTczODYgKFdhbGVzKQ0K
+On Tue, Jul 19, 2022 at 8:39 PM David Laight <David.Laight@aculab.com>
+wrote:
+
+> grrr... top-posting because outluck is really stupid :-(
+>
+>
+>
+> The definition seems to be:
+>
+> typedef int __bitwise
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__bitwise>
+> snd_pcm_format_t
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>;
+>
+> #define SNDRV_PCM_FORMAT_S8
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_S8>
+> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
+> snd_pcm_format_t
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 0)
+>
+> #define SNDRV_PCM_FORMAT_U8
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_U8>
+> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
+> snd_pcm_format_t
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 1)
+>
+> #define SNDRV_PCM_FORMAT_S16_LE
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/SNDRV_PCM_FORMAT_S16_=
+LE>
+> ((__force <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/__force>
+> snd_pcm_format_t
+> <https://elixir.bootlin.com/linux/v5.19-rc7/C/ident/snd_pcm_format_t>) 2)
+>
+> ...
+>
+> (goes away and looks up __bitwIse)
+>
+>
+>
+> I think I=E2=80=99d add:
+>
+> #define snd_pcm_format(val) ((__force snd_pcm_format_t)(val))
+>
+
+Where is this definition? Which header file?
+Thanks.
+
+Best regards
+Wang Shengjiu
+
+> and use that to remove most of the casts.
+>
+But the ones where you have (u32 *)&xxx are only valid because u32 and int
+> are the same size.
+>
+> That does sort of happen to be true, but someone might look at all the
+> values and
+>
+> decide that u8 is big enough.
+>
+> After which the code will still compile, but the data areas get corrupted=
+.
+>
+> So you really need to use a u32 =E2=80=98temp=E2=80=99 variable.
+>
+>
+>
+> It would all be slightly less problematic if the =E2=80=98force=E2=80=99 =
+casts could be
+> sparse only
+>
+> (ie not seen by the compiler) =E2=80=93 so the compiler would do the type=
+ checking.
+>
+>
+>
+>                 David
+>
+>
+>
+> *From:* Shengjiu Wang <shengjiu.wang@gmail.com>
+> *Sent:* 19 July 2022 12:07
+> *To:* David Laight <David.Laight@ACULAB.COM>
+> *Cc:* Mark Brown <broonie@kernel.org>; Shengjiu Wang <
+> shengjiu.wang@nxp.com>; Xiubo.Lee@gmail.com; festevam@gmail.com;
+> nicoleotsuka@gmail.com; lgirdwood@gmail.com; perex@perex.cz;
+> tiwai@suse.com; alsa-devel@alsa-project.org; linuxppc-dev@lists.ozlabs.or=
+g;
+> linux-kernel@vger.kernel.org
+> *Subject:* Re: [PATCH -next 2/5] ASoC: fsl_asrc: force cast the
+> asrc_format type
+>
+>
+>
+>
+>
+>
+>
+> On Tue, Jul 19, 2022 at 6:34 PM David Laight <David.Laight@aculab.com>
+> wrote:
+>
+> From: Mark Brown
+> > Sent: 19 July 2022 11:17
+> >
+> > On Tue, Jul 19, 2022 at 10:01:54AM +0000, David Laight wrote:
+> > > From: Shengjiu Wang
+> >
+> > > > - ret =3D of_property_read_u32(np, "fsl,asrc-format",
+> &asrc->asrc_format);
+> > > > + ret =3D of_property_read_u32(np, "fsl,asrc-format", (u32
+> *)&asrc->asrc_format);
+> >
+> > > Ugg, you really shouldn't need to do that.
+> > > It means that something is badly wrong somewhere.
+> > > Casting pointers to integer types is just asking for a bug.
+> >
+> > That's casting one pointer type to another pointer type.
+>
+> It is casting the address of some type to a 'u32 *'.
+> This will then be dereferenced by the called function.
+> So the original type better be 32 bits.
+>
+> I'm also guessing that sparse was complaining about endianness?
+> It isn't at all clear that these casts actually fix it.
+>
+> The sparse is complaining about the snd_pcm_format_t cast to u32/int type=
+.
+>
+>
+>
+> The code in include/sound/pcm.h also does such __force cast.
+>
+> #define _SNDRV_PCM_FMTBIT(fmt)          (1ULL << (__force
+> int)SNDRV_PCM_FORMAT_##fmt)
+>
+>
+>
+> The change I have made does not cause an issue.
+>
+>
+>
+> Best regards
+>
+> Wang shengjiu
+>
+>
+>
+> (Mark: You'll be glad to hear that the office aircon is
+> broken again - two weeks lead time on the spare part.)
+>
+>         David
+>
+> -
+> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1
+> 1PT, UK
+> Registration No: 1397386 (Wales)
+>
+>
+>
+> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1
+> 1PT, UK
+> Registration No: 1397386 (Wales)
+>
+> P *Please consider the environment and don't print this e-mail unless you
+> really need to*
+>

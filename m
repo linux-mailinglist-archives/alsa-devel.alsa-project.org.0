@@ -2,153 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 535BD57A170
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 16:27:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3EA957A25D
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 16:49:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0563816D1;
-	Tue, 19 Jul 2022 16:26:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0563816D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2976A16DF;
+	Tue, 19 Jul 2022 16:49:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2976A16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658240852;
-	bh=FmjlxNx8CzHpEHImWyI4szb0sr9JdHat72qZaLWjk3U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lBC3oWs/BEhfyI63sn7P6nPaZKvGFYtR6v1jNXhkbe6AGk7P8gj6HoELLxYsxiuKp
-	 NA+fnTiIbQgABzjgCHOarV955eM93qUtqdyW8FNXNAKnkyvVdhYRUs7/aOBQFZfXmR
-	 TcymCHAHhCwmCLrs0roUoD/TrBGvJelPcp5qg5O4=
+	s=default; t=1658242194;
+	bh=EG9zfsMOzqG79IebV8OtZnSRWgl5xJkdBOPe7oy1sas=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uA2Vyvf1EsACf0mtIkFyjliUZzz9CuW6jMHJJhjLV6lQkjqfsDVVE3OF9Ccr/0Pgh
+	 neuoKqQwS5+MZ5THyaW7vRsKqwWVXoxbi0rmNFjrsc0XKxLwmP/wcEp4kwW0z9fBrN
+	 bi0fh7MqSa6U8l7412k+f70MNdQng9FH5OMvUmSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C49CF80118;
-	Tue, 19 Jul 2022 16:26:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F428F80224;
+	Tue, 19 Jul 2022 16:48:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AA0DF801EC; Tue, 19 Jul 2022 16:26:29 +0200 (CEST)
+ id 0E74DF80118; Tue, 19 Jul 2022 16:48:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0ED20F80118
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 16:26:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ED20F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id D26A3F80118
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 16:48:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D26A3F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="F+LLqlyO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KXMRT7TCh4xsE8S8HipXxrXZpQQfoFpejIUBZS4+7KgzC3EsHA2DHXWTGbw8ft9HETIPYh1kT67Mp2rawkdQKs81K0NDacqXFzpqFq0XJIGeBXHkQJq41+Xq1umLYYVeI/XScIu86PxegVPk/cc4S7GOECpgc5dca59HsvDZCuBQYWR1/L0DJRW+qZfSccsVD48ceEFIw1BG88UOknodgE0aD27vpvNvls9TC7tp7ejfYii14f1YEAo5dZtRr/xg0fF3TEvW9pVUQPW4VWANMt+EjraZQfGn0gBN333ChwGsbAu12ZqtxeuqOsMAHDf5Mk/aTigu+Vbl3Opnj1XRkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=doythWpDpqccwky73FyTRDCLB54pmj06Wmne+NobIiE=;
- b=TjtNbpNmhSboabUNH5o98z9PNqLV65HFubJtuJJetVZkDQKvOIMX+AsElZQhcIrLNQY127YwGq19jKdSF80annWoqerDFMNcwBiAWc5V+Kpf6AUAcidXPRQQz3LA1g49AqWA/xKf+04EPYwG1giyLjdocIveFNahawtv3Bu9xmzn3rhUbsUJ8yGd72K7ardBSZNUYaagn+KC+I8V4sg+2AXwuvX33e8ThzHlXbCKV8bIUEQPezYBNm7MeGsAeLTpfqaQn1YCnIJwGhq3Bl0A2OmeOp7irCdprNhIoIMYg7BerAqgS/BP1YFvPf11U8g63hPr4WA7CoaZVEFrAft60g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=doythWpDpqccwky73FyTRDCLB54pmj06Wmne+NobIiE=;
- b=F+LLqlyO3e9a2gwFI5kb240Q2DzjM1xTYvoRPrmhaH2bTqArei2IKEIG6iN316eJyC0O0iUeCsslKlwn8jnt8teAeTHCsgSHYfFmUlwwKJEatO3TeVZ7yobhgDxUQpOxHPL7uD4Q6tO0IZjDi4EopMN3brLNl4FOZ4GwkjkHOn0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Tue, 19 Jul
- 2022 14:26:18 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::6999:13c9:d124:418a]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::6999:13c9:d124:418a%8]) with mapi id 15.20.5438.023; Tue, 19 Jul 2022
- 14:26:18 +0000
-Message-ID: <2407dbc8-33e3-dff8-3543-a5277558aeed@amd.com>
-Date: Tue, 19 Jul 2022 10:26:14 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] docs: driver-api: firmware: add driver firmware
- guidelines. (v2)
-Content-Language: en-US
-To: Dave Airlie <airlied@gmail.com>, torvalds@linux-foundation.org,
- Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- gregkh@linuxfoundation.org, Daniel Vetter <daniel@ffwll.ch>,
- mcgrof@kernel.org
-References: <20220719065357.2705918-1-airlied@gmail.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220719065357.2705918-1-airlied@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0053.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::22) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="M4LBTZOI"
+Received: from localhost.localdomain (unknown [10.101.196.174])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 600193F3BD; 
+ Tue, 19 Jul 2022 14:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1658242122;
+ bh=AvYcZcToBAAnfmFM45alM5FvVGJ3gSm105Dq6wUqcmw=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=M4LBTZOIWTCzLkUwctVzsSbya8Nmf+Nic/k9snJH1tKr8hXrbajBgCf4e/GDxL2BZ
+ YQdiyZ6ce2YAY9N9ToM5sWMqPsfXP93sDzGImIP+u4erSCxL/evPkfO9UHGfPfnm08
+ 9vJc9C93fZHH9SW2oCoT+XitJVQRnI9s9n+bYwHx5iz1Pm9kDxYqV2teZmygxf7389
+ z7bmtF/hum06CSaqay9jFHFBIOiCK+hsAFKE7xGC8IUs4YRYbfN363mwYus/5q52zI
+ w8MZRXbI9vti0BJ+nojXYWRfcti5II6ws4mlLIEUpZP8vUbeljxSPfL+z8dwHD4kjH
+ Xqz3AOh8ahnpA==
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda: Skip creating captures in SOF context
+Date: Tue, 19 Jul 2022 22:47:52 +0800
+Message-Id: <20220719144753.252231-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 412b171a-30ed-4e1b-25a5-08da6992a4e9
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6121:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ujpVV19EC0LOEI1E6ML8PiEPAa28PX8SWu4bmbbaqN9FhYqdc3p1hXwfi+r3Colj0nbdlEcY2CHc3ebOSas9RJXGYa7cLoxwwzBNY4KhoNh1jnb+IZ4QO8cZN7+ydyKxbx7HShXwLRx0tbx3N807myxu7u36vT9XZ/ju8Db0ekUYovbBfK2IkL4p9jkXjxgd4eU38SMrDxPAj1Zg7x9GRqs+gcP9vUwbL4rrauFoPLTxjj+FJQQ8Q2+Igfarm46I8JrjGUxpD+dFp+dH+9kMDogM01bXKrNi/Ie1A0NoNJLyfflRhHU1cKuZeUay+SfYRro8+ic4PyUMv7vYaJvQG465EwTz+0JqNdBFcxwCGnOk/8CenctkeIHnZC9NwNrvfwb9bxJtwkIGK92WjwuLYtnN5evkVg59JPWWm5kKWCsvtvIQSwWq+3Zelc5XJNOP5sR1szakQaLRJGooF8DWeF7zVixy9TDRR9H+aCXR5MrU/nYQHZHgVwVnPF32mx6ZtvMghbFcwpT1sm0fMX67jP16TdoDjsO2CwzPDorNHQ+2EUjlrkUBmhIEbYiVxz7kP/8bmF1E24sWSRwlEfR1Bn9yQ0yvglQag3zN5wfj9NK3xAxI550UsHSD2bdnIN09Ek9dyfpfdQeWytvH1auJgXfsHzdjCBcpa9VqDKlEQbEfuL25tC+HwL1IsrALjytARBleXHvw71DruvQ1j6fMXI/0Zpw77m1KE/qeZ8rycXWY6a5/FWSSCtbnGtMgDzEjyAgt6x28PUlYsRhg+wiP9O76esA/VimKaXYddOmKt29wjTMDsHbdt0Rw2DmLFlf/4E17HYeVLoD1XoO/6TDSlA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(396003)(376002)(346002)(136003)(83380400001)(6512007)(54906003)(26005)(6506007)(53546011)(2616005)(186003)(38100700002)(7416002)(31686004)(66946007)(5660300002)(44832011)(8936002)(2906002)(6666004)(110136005)(66476007)(8676002)(6486002)(36756003)(478600001)(41300700001)(31696002)(66556008)(316002)(86362001)(4326008)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWJMZTRCcUdMc1l0aFB5L04rU0hJRDlMTEdTZThEbHhEWERkTXM1SjFyaE5U?=
- =?utf-8?B?eTBiakhUd25WakNHNFd2UEpPS3lKQUhIeHpwa0RrTFcvWFdUWTRLTTBrdnRX?=
- =?utf-8?B?MzBFdE0xSGFVWmlQSm1XV3lZMHdOb2N1NTV6QjRBYzc3ZHpDN2xqVVRidlNr?=
- =?utf-8?B?bi9iUUV6THBYams2em9nak9VSnh3ZTFpelg5Rm1iYXpJSkJuZElXYW9BTVdz?=
- =?utf-8?B?bzRIYmhBZXNsZ1VWWGpSZ1hzNlhyWkI3VlFlSk5zUXUzdWdjaHYxbk9EUWlW?=
- =?utf-8?B?eGs0ZWZtdFFLb01BTTRrekZ5ckoxek9hN2t3M2N4SGczdFdkUTVnRHd4RFNI?=
- =?utf-8?B?SkVkRmVkckpFZVU1Mm8wSDdBMnJIaWovOFM4OUdqdU05cEhJQkZnRVdUeEVJ?=
- =?utf-8?B?SlZDTGJUWi9mU010YlQ0aC8raEd0d3pmcmQ5b2NVd0dUaml3bjdTM0pJV0lK?=
- =?utf-8?B?bDh4VzdkbmNxQ25iMjZuVFBHVllKN1RKM0tJbEwzbVBhZ2d5MlBJU2loWnB5?=
- =?utf-8?B?YVAybnBOVEtkeW03S3Z0NnVZWWo2R1VtempkT1dVYmV5RE9kdEViRXVPT29T?=
- =?utf-8?B?dWZnakFiMzBoU08xSW0xU3cyaFp4bVcvRDlWUlc2SE55c3JXN0xhR243a2p2?=
- =?utf-8?B?K2NyNzZXQlNVbGhUbTBmcUlQQTNndlBmbWhBNkQ1ZkJxWXE1UTQ2OTFJVnRX?=
- =?utf-8?B?YVc5dk1IL0pYcmhnekJYOUROaXRORVNjcGlnaUxISHcrNy9heU5DeW1ERjRL?=
- =?utf-8?B?K240eVhZQXdncU51SU01bHFPMnExU0s5WWUyNVNkcE1QNGQ1QStLcCtBSy9F?=
- =?utf-8?B?VGZsZE5tbm9pY3o3bzZTZ0F0OHdYaVZ5UXV5TGJXT3BLdjA0bWcyQzdyTVVy?=
- =?utf-8?B?d0hzSm8weVIwcFg4YmRVYi9RWDVmWnp1akg4Ukx1Ukp4cGRxVkxkZk5oR1p4?=
- =?utf-8?B?Q25qS1BvNjFFNzhCM0hQWVZGV2NRcVVkc1EwcDAxTGhXVmI1RExSRHNYVFE3?=
- =?utf-8?B?Tlg2VTVvNEtqSysyOXNFTWJ2bmxDWW9tWjArTnk0QUdqbU02TDk5QytzclV0?=
- =?utf-8?B?alM1cUVrMjE1aC9acGliS3hlbHRBaSs3cnhlSGZkMldMbGllNFc1eFNMNk5X?=
- =?utf-8?B?cTZJMDRVU0RhTUNwaUZHRS84aUpOVWxZVE82QnNzNWdnV0xWSVVBSEp1WWlu?=
- =?utf-8?B?YVhUVWFYMVNOaGh6VVVQQ1FlNVcvdTdKV2ZmbTFXNHhYN29DR21qVWVkMWNW?=
- =?utf-8?B?WmpYU1U4WnBTb2FITW1nRDk1ZkM2aFZsNlc0N3hHYnJXbkVVbHlJdjdmb0dh?=
- =?utf-8?B?SVNhNDQ5RWd5ZkpQNTM1cXdGNnZMMVJCbFBrNklOelpIVkMrMUk2WkR6WnBs?=
- =?utf-8?B?emtnY013MXZBc3djUlYrTE1kLzZkRkVqcWJ1OFQwdUpLajc3RmVzbzZmSHU4?=
- =?utf-8?B?akp5YWE3VFI5YU1paGNWOE5OZjhzaGovVzNHajFNQnZNOFIvSzVGSS9RSGRZ?=
- =?utf-8?B?KzJwWXZVWkZFdG8zczNLRUx3c0V0anZQa2RFS2Jyc0NOeVQ1MFJxT0JYa1JU?=
- =?utf-8?B?NDZnSWdVQjNYWDdYOVYzWCtKUzdzSzljZmhkOTBSZmdQRmVDSDh2cklQWEFq?=
- =?utf-8?B?TFlQdkN4ck1adDZDYTVsME1tMjhjS3N2S1d1dTNlOHN0SzNzMldVSjY1QSt0?=
- =?utf-8?B?Q2tsRzFtRmwwOHVKTkErenQrQXJKRTNNcXNGZUxZMXhRRzllMldteVZqQ1Nm?=
- =?utf-8?B?TzBXTEFYTGVLTmc2MTQzY1QzdHFWSlpsZmJTTlcvM1VGaURONzFHTE9RMDBm?=
- =?utf-8?B?azBEU2kyOVN0d0xGeUJLSjhDbzZ2VTNZR0ttS2JjWnJnMkY5eVJ0aC9Kdit1?=
- =?utf-8?B?TmNVMDdhaFVrNmlwRkJrSDBUbmV5YUdIYitRNDVtYkhzaEUxRzNrUWZnUmtt?=
- =?utf-8?B?cG41MmZBSFh2ZzdhZGVRS09XYUVaYzdFMFlhUmhRa25XWGJqeEJVQ0VjdC9Y?=
- =?utf-8?B?ak5pWWlvdmZUUW5KL0tFUnluTzB5WmJ2VFVUZE1zdmFmSThyUVkzMUlpWGxv?=
- =?utf-8?B?WjhRSXRiV0hnQUpaR2dJRE1aSW1oTlhKTUNrQWx2MVppL1FZdjVBMkxsWmJ0?=
- =?utf-8?Q?WogeUeenzSHV5z8Fc4Z2AADEc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 412b171a-30ed-4e1b-25a5-08da6992a4e9
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2022 14:26:18.1418 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +iRpqHqrJTuKsSPx2/oVkyIZxay3Sb64mHtzHsOv0Hbs4HMmk1xHG0Z32wGVKbZ/o4KUAAde3PSC4KaQEDh/dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6121
-Cc: alsa-devel@alsa-project.org, netdev@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- dri-devel@lists.sf.net, Dave Airlie <airlied@redhat.com>,
- linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,81 +83,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-07-19 02:53, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
-> 
-> A recent snafu where Intel ignored upstream feedback on a firmware
-> change, led to a late rc6 fix being required. In order to avoid this
-> in the future we should document some expectations around
-> linux-firmware.
-> 
-> I was originally going to write this for drm, but it seems quite generic
-> advice.
-> 
-> v2: rewritten with suggestions from Thorsten Leemhuis.
-> 
-> Acked-by: Luis Chamberlain <mcgrof@kernel.org>
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+On HP laptops that use SOF driver for DMIC, the micmute LED doesn't
+light up when mic is muted after commit 9b014266ef8a ("ASoC: SOF:
+topology: use new sound control LED layer").
 
-Acked-by: Harry Wentland <harry.wentland@amd.com>
+The micmute LED itself is still working via sysfs, but it doesn't follow
+mute anymore. That's because unlike vendors like Dell and Lenovo, HP
+laptops use HDA codec to control mute LEDs instead of ACPI. So on HP
+laptops, both SOF and HDA create captures with
+SNDRV_CTL_ELEM_ACCESS_MIC_LED access, snd_ctl_led_set_state() considers
+there are two different kcontrols and one of them is not muted.
 
-Harry
+So skip creating captures for HDA when it's called from SOF, the
+captures are already handled by SOF.
 
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> ---
->  Documentation/driver-api/firmware/core.rst    |  1 +
->  .../firmware/firmware-usage-guidelines.rst    | 34 +++++++++++++++++++
->  2 files changed, 35 insertions(+)
->  create mode 100644 Documentation/driver-api/firmware/firmware-usage-guidelines.rst
-> 
-> diff --git a/Documentation/driver-api/firmware/core.rst b/Documentation/driver-api/firmware/core.rst
-> index 1d1688cbc078..803cd574bbd7 100644
-> --- a/Documentation/driver-api/firmware/core.rst
-> +++ b/Documentation/driver-api/firmware/core.rst
-> @@ -13,4 +13,5 @@ documents these features.
->     direct-fs-lookup
->     fallback-mechanisms
->     lookup-order
-> +   firmware-usage-guidelines
->  
-> diff --git a/Documentation/driver-api/firmware/firmware-usage-guidelines.rst b/Documentation/driver-api/firmware/firmware-usage-guidelines.rst
-> new file mode 100644
-> index 000000000000..34d2412e78c6
-> --- /dev/null
-> +++ b/Documentation/driver-api/firmware/firmware-usage-guidelines.rst
-> @@ -0,0 +1,34 @@
-> +===================
-> +Firmware Guidelines
-> +===================
-> +
-> +Drivers that use firmware from linux-firmware should attempt to follow
-> +the rules in this guide.
-> +
-> +* Firmware should be versioned with at least a major/minor version. It
-> +  is suggested that the firmware files in linux-firmware be named with
-> +  some device specific name, and just the major version. The
-> +  major/minor/patch versions should be stored in a header in the
-> +  firmware file for the driver to detect any non-ABI fixes/issues. The
-> +  firmware files in linux-firmware should be overwritten with the newest
-> +  compatible major version. Newer major version firmware should remain
-> +  compatible with all kernels that load that major number.
-> +
-> +* Users should *not* have to install newer firmware to use existing
-> +  hardware when they install a newer kernel.  If the hardware isn't
-> +  enabled by default or under development, this can be ignored, until
-> +  the first kernel release that enables that hardware.  This means no
-> +  major version bumps without the kernel retaining backwards
-> +  compatibility for the older major versions.  Minor version bumps
-> +  should not introduce new features that newer kernels depend on
-> +  non-optionally.
-> +
-> +* If a security fix needs lockstep firmware and kernel fixes in order to
-> +  be successful, then all supported major versions in the linux-firmware
-> +  repo should be updated with the security fix, and the kernel patches
-> +  should detect if the firmware is new enough to declare if the security
-> +  issue is fixed.  All communications around security fixes should point
-> +  at both the firmware and kernel fixes. If a security fix requires
-> +  deprecating old major versions, then this should only be done as a
-> +  last option, and be stated clearly in all communications.
-> +
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/pci/hda/hda_generic.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index fc114e5224806..2a6c1a77c49ac 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -5075,10 +5075,14 @@ int snd_hda_gen_parse_auto_config(struct hda_codec *codec,
+ 			return err;
+ 	}
+ 
+-
+-	err = create_capture_mixers(codec);
+-	if (err < 0)
+-		return err;
++	/* Skip creating capture on SOF which creates captures based on
++	 * topology file.
++	 */
++	if (codec->core.type != HDA_DEV_ASOC) {
++		err = create_capture_mixers(codec);
++		if (err < 0)
++			return err;
++	}
+ 
+ 	err = parse_mic_boost(codec);
+ 	if (err < 0)
+-- 
+2.36.1
 

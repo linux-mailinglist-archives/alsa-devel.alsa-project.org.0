@@ -2,76 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D5A57A142
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 16:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD9A957A164
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Jul 2022 16:26:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72BFB16EC;
-	Tue, 19 Jul 2022 16:21:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72BFB16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F96B844;
+	Tue, 19 Jul 2022 16:25:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F96B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658240527;
-	bh=EJTuuMhkJXoXFFDj/RFdDNS07MXaNMARV4MsKF9dMNM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=muE+zsuSpGI1QANeHzi5eUAlvqh/eV5G55u92o4ggr2jttlGfPOsXEVDMnGBgnrPX
-	 ZsZmR0ulDqJLgt6R1rAvC7c7MxlriUsT5iVK5jo26wdjUEKqir4qjStxhE+dwGyBsb
-	 Jk22k4uRMiazuQJnN4KpNo2YYFgLRn7k36JvUS3w=
+	s=default; t=1658240771;
+	bh=QymwNLTw+r+SLmXB6/1tpXs8q8Yf+hUenOyUMN0/wGM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bD4bQ9gMVx2J5nyP3ePSjhMTaJEwk7y0kf43E+xMpOEJeXU8CUL9k3P9cnPB0qk+o
+	 QCx8lQLHscjNCMEwUNJyi8dv8AFGQAEo2DIKv3LqWPpSQyffnUPySFAJfyXVjfeGVD
+	 P/cOf72YIILLhaZ9ESgdtBhzWuZPa5zFMyeA8yxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11616F8016D;
-	Tue, 19 Jul 2022 16:21:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E19AEF80224;
+	Tue, 19 Jul 2022 16:25:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 592B6F8016D; Tue, 19 Jul 2022 16:21:15 +0200 (CEST)
+ id CE90CF80125; Tue, 19 Jul 2022 16:25:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EA52F8016D
- for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 16:21:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EA52F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39804F80125
+ for <alsa-devel@alsa-project.org>; Tue, 19 Jul 2022 16:25:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39804F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="JAzgWUHk"
-Received: from localhost.localdomain (unknown [10.101.196.174])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 146933F0E1; 
- Tue, 19 Jul 2022 14:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1658240466;
- bh=oqR8gt4EpFXEUR6Nrtb1vkomwi6qpF5cqH893IhWTiE=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=JAzgWUHk9v5Jk4oTCG/XLItqUEcbufztroYZU1etNuCApOxbbygCjzhVdTh/qOA9h
- FBVxk+98rBVEpzn7r4btBdmdhPRbBPDv4Q1UVzBXRvzziHpvK3zAyV3H0RxATV3gvD
- hJ9pMqiNzBloceYHoUVYbzc/0rLUofbFumcWlGoUUtsByem5bPPe1OQXm1WATvTDhE
- aVBzkxmWH07rJBi/bmtRpgS+lzvLnrCeNMzOyDZp93suqcV2J2/wMLNtgFvG0ODZz4
- k9BWFx6W+klZ1cnfa90sX+7HuQANwjdHzhUNl63WzuxAynC5IqtTeXKE0dIOiot2dS
- rwwf70yu+L8hg==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek: Enable speaker and mute LEDs for HP laptops
-Date: Tue, 19 Jul 2022 22:20:14 +0800
-Message-Id: <20220719142015.244426-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.36.1
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="lpARN0Ic"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658240704; x=1689776704;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=QymwNLTw+r+SLmXB6/1tpXs8q8Yf+hUenOyUMN0/wGM=;
+ b=lpARN0IcezvB1twzlXSRnThklkDByTPvTEXLaGCbTBqduOArzpvieCWX
+ fFZvUNTF5i9t+gsn+xGdNtvvj/3wJcqxdlkS3Zu8Tb/ltSBCWsCeOMOcF
+ 1ga1ayWgai2OQEnb5gPFv+nZar1cqzJGhWiFv6M5tBZ6cuP9FxSwkCwi8
+ i3dPeWyZiNEZBBSJOfVvb6HtNeMLwQ5i3DyuYEIISS8bOMOlP6iZc8lFv
+ r7E6bOjOOouq9zPjc08LT5DrpE3/BU6/K/HKnyZO5+EHI8Ftq3Kag5rd5
+ iZt61J0EwY3gMeOV9o1oyo2h9Qge+grIcbd01z2OSSum+OZyvcsfahFq/ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10413"; a="372805214"
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; d="scan'208";a="372805214"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 07:24:58 -0700
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; d="scan'208";a="594845495"
+Received: from kckollur-mobl1.amr.corp.intel.com (HELO [10.212.118.182])
+ ([10.212.118.182])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 07:24:56 -0700
+Message-ID: <26e40344-453f-6bdb-cd4b-15431a930497@linux.intel.com>
+Date: Tue, 19 Jul 2022 09:24:55 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Kailang Yang <kailang@realtek.com>, linux-kernel@vger.kernel.org,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Meng Tang <tangmeng@uniontech.com>, alsa-devel@alsa-project.org,
- Werner Sembach <wse@tuxedocomputers.com>,
- Tim Crawford <tcrawford@system76.com>, Andy Chi <andy.chi@canonical.com>,
- Cameron Berkenpas <cam@neo-zeon.de>, Yong Wu <yong.wu@mediatek.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH -next v2] ASoC: Intel: Fix missing clk_disable_unprepare()
+ on err in platform_clock_control()
+Content-Language: en-US
+To: Zhang Zekun <zhangzekun11@huawei.com>, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Hans de Goede <hdegoede@redhat.com>
+References: <20220719013628.40153-1-zhangzekun11@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220719013628.40153-1-zhangzekun11@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: xuqiang36@huawei.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,29 +98,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Two more HP laptops that use cs35l41 AMP for speaker and GPIO for mute
-LEDs.
 
-So use the existing quirk to enable them accordingly.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 7/18/22 20:36, Zhang Zekun wrote:
+> Fix the missing clk_disable_unprepare() before return
+> from platform_clock_control() in error handling path.
+> 
+> Fixes: 9a87fc1e0619 ("ASoC: Intel: bytcr_wm5102: Add machine driver for BYT/WM5102")
+> Signed-off-by: Zhang Zekun <zhangzekun11@huawei.com>
+> ---
+>  sound/soc/intel/boards/bytcr_wm5102.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/intel/boards/bytcr_wm5102.c b/sound/soc/intel/boards/bytcr_wm5102.c
+> index 45a6805787f5..3e3cdee4b1ce 100644
+> --- a/sound/soc/intel/boards/bytcr_wm5102.c
+> +++ b/sound/soc/intel/boards/bytcr_wm5102.c
+> @@ -111,6 +111,7 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
+>  		ret = byt_wm5102_prepare_and_enable_pll1(codec_dai, 48000);
+>  		if (ret) {
+>  			dev_err(card->dev, "Error setting codec sysclk: %d\n", ret);
+> +			clk_disable_unprepare(priv->mclk);
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 2f55bc43bfa9c..cdbee71e83216 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9109,6 +9109,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8a78, "HP Dev One", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x103c, 0x8aa0, "HP ProBook 440 G9 (MB 8A9E)", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
--- 
-2.36.1
+This change looks legit to me, but you want to CC: maintainers (Mark
+Brown, Takashi Iwai), use the alsa-devel mailing list and CC: the
+initial contributor Hans de Goede.
 
+>  			return ret;
+>  		}
+>  	} else {

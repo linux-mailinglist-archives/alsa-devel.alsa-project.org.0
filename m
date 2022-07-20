@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5104357B60A
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 13:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C27357B618
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 14:05:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7EEE1759;
-	Wed, 20 Jul 2022 13:58:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7EEE1759
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F9A9175D;
+	Wed, 20 Jul 2022 14:04:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F9A9175D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658318385;
-	bh=OCHV3LrI/vyQixP3DxOoE4b9zuV6oB1vmKK2aXiHK0Y=;
+	s=default; t=1658318727;
+	bh=jbpPX9pe3sNDRFxGrxj0J1L2vf+HANmN5lv+XK7ze18=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NH0m/yQsaA64u4dlmlfwOXfdbqw6ooZFxzqwuAdfR8UQuNmHtPWmXc0JLXRP7VI9B
-	 m8ou+HdCahzwe6G1tXAIJuGMLuPRfljoOCUWLwcaURxgCk6E4orSHGJZ8gJc8KBeMm
-	 y4ZoHPZjAkCk1wgasfRYsNkwq5BOq52YFF+CEuAw=
+	b=ZXRxwk5sgsk0Fp8EMgA52jGqOCdTHkUTLCotnElL+1TJ8TMFBuqz4jteMv+bUlLMU
+	 63lu73Fb2IpnDZBfzMAuNiuogAiLU01zlLpSV9wfsNpti8XHGUjmN7ftOzsY9fO696
+	 bHH04naqoGS98om+9rQ6g18EfCg4MOkstAWcijsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8886CF8025D;
-	Wed, 20 Jul 2022 13:58:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EA40F800BA;
+	Wed, 20 Jul 2022 14:04:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF54CF80169; Wed, 20 Jul 2022 13:58:42 +0200 (CEST)
+ id 8D347F800BA; Wed, 20 Jul 2022 14:04:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1C30F80125
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 13:58:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1C30F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27091F80125
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 14:04:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27091F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="PusYh3vG"
+ header.b="BfHJXcPl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1658318311; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1658318652; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KPPCh6LnPww+kbqa2Z9TXCT7MqlxqoEk5GKe4eZg+d0=;
- b=PusYh3vGIr5JCPPDBQ8btI6tloV/wi1FD8zh2hjxM8uwjCti0yfNjmhO5GKnJTh5bTfvKa
- HDX7u8KKHaMyJ/O8lI7mNxbJowK6byOGJ9D2+YACKn525LYwz/0ZbIDUWSbhCs9N0pSIiR
- +lS+gbFz6RpgFLuOjtkBMjrLqvP6Ltc=
-Date: Wed, 20 Jul 2022 12:58:19 +0100
+ bh=RnfcxwjD5VEqdAApN8ZMGAAkgvJHjWCm9p0n29wZyrM=;
+ b=BfHJXcPl0gTqQpDrY09cVTdgChK8nlMPusOWuVwRkxOdgl3gPDJiEk39+/L/vctWhsB/9g
+ aCx/QmdduNUuDfR6YmIXqok2/foWS6RpP88WwvPja6pTjk/qeP4blL2pCLloi6H9ucXxpt
+ 9oBSxvVdZRNcM+pCfFT2pnJbNPrS3/o=
+Date: Wed, 20 Jul 2022 13:04:00 +0100
 From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v4 10/11] ASoC: jz4740-i2s: Move component functions near
- the component driver
+Subject: Re: [PATCH v4 11/11] ASoC: jz4740-i2s: Refactor DAI probe/remove ops
+ as component ops
 To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <7LIBFR.71QJ7EA1306B1@crapouillou.net>
-In-Reply-To: <20220708160244.21933-11-aidanmacdonald.0x0@gmail.com>
+Message-Id: <OUIBFR.VWH85QRTE1NF3@crapouillou.net>
+In-Reply-To: <20220708160244.21933-12-aidanmacdonald.0x0@gmail.com>
 References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
- <20220708160244.21933-11-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-12-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
@@ -82,98 +82,88 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Aidan,
 
-Le ven., juil. 8 2022 at 17:02:43 +0100, Aidan MacDonald=20
+Le ven., juil. 8 2022 at 17:02:44 +0100, Aidan MacDonald=20
 <aidanmacdonald.0x0@gmail.com> a =E9crit :
-> Move the component suspend/resume functions near the definition
-> of the component driver to emphasize that they're unrelated to
-> the DAI functions.
+> Move most of the DAI probe/remove logic into component ops.
+> This makes things more consistent because the AIC clock is
+> now managed solely from the component side. And it makes it
+> easier to add codec switching support later on.
 >=20
 > Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 
-I'm not really fond of moving code like that, so I'll leave Mark with=20
-the liberty to take or not this patch.
-
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
 Cheers,
 -Paul
 
 > ---
->  sound/soc/jz4740/jz4740-i2s.c | 72=20
-> +++++++++++++++++------------------
->  1 file changed, 36 insertions(+), 36 deletions(-)
+>  sound/soc/jz4740/jz4740-i2s.c | 54=20
+> +++++++++++++++++++----------------
+>  1 file changed, 30 insertions(+), 24 deletions(-)
 >=20
 > diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
 > b/sound/soc/jz4740/jz4740-i2s.c
-> index 70b9d28a40ce..5db73f12efcf 100644
+> index 5db73f12efcf..d99a19bc5166 100644
 > --- a/sound/soc/jz4740/jz4740-i2s.c
 > +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -303,42 +303,6 @@ static int jz4740_i2s_set_sysclk(struct=20
+> @@ -306,32 +306,10 @@ static int jz4740_i2s_set_sysclk(struct=20
 > snd_soc_dai *dai, int clk_id,
->  	return ret;
->  }
->=20
-> -static int jz4740_i2s_suspend(struct snd_soc_component *component)
-> -{
-> -	struct jz4740_i2s *i2s =3D snd_soc_component_get_drvdata(component);
-> -
-> -	if (snd_soc_component_active(component)) {
-> -		regmap_clear_bits(i2s->regmap, JZ_REG_AIC_CONF,=20
-> JZ_AIC_CONF_ENABLE);
-> -		clk_disable_unprepare(i2s->clk_i2s);
-> -	}
-> -
-> -	clk_disable_unprepare(i2s->clk_aic);
-> -
-> -	return 0;
-> -}
-> -
-> -static int jz4740_i2s_resume(struct snd_soc_component *component)
-> -{
-> -	struct jz4740_i2s *i2s =3D snd_soc_component_get_drvdata(component);
+>  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
+>  {
+>  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
 > -	int ret;
 > -
 > -	ret =3D clk_prepare_enable(i2s->clk_aic);
 > -	if (ret)
 > -		return ret;
+>=20
+>  	snd_soc_dai_init_dma_data(dai, &i2s->playback_dma_data,
+>  		&i2s->capture_dma_data);
+>=20
+> -	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
 > -
-> -	if (snd_soc_component_active(component)) {
-> -		ret =3D clk_prepare_enable(i2s->clk_i2s);
-> -		if (ret) {
-> -			clk_disable_unprepare(i2s->clk_aic);
-> -			return ret;
-> -		}
+> -	regmap_write(i2s->regmap, JZ_REG_AIC_CONF,
+> -		     JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
+> -		     JZ_AIC_CONF_I2S | JZ_AIC_CONF_INTERNAL_CODEC);
 > -
-> -		regmap_set_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
-> -	}
+> -	regmap_field_write(i2s->field_rx_fifo_thresh, 7);
+> -	regmap_field_write(i2s->field_tx_fifo_thresh, 8);
 > -
 > -	return 0;
 > -}
 > -
->  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
->  {
->  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
-> @@ -459,6 +423,42 @@ static const struct i2s_soc_info=20
-> jz4780_i2s_soc_info =3D {
->  	.pll_clk_name		=3D "pll half",
->  };
+> -static int jz4740_i2s_dai_remove(struct snd_soc_dai *dai)
+> -{
+> -	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
+> -
+> -	clk_disable_unprepare(i2s->clk_aic);
+>  	return 0;
+>  }
 >=20
-> +static int jz4740_i2s_suspend(struct snd_soc_component *component)
-> +{
-> +	struct jz4740_i2s *i2s =3D snd_soc_component_get_drvdata(component);
-> +
-> +	if (snd_soc_component_active(component)) {
-> +		regmap_clear_bits(i2s->regmap, JZ_REG_AIC_CONF,=20
-> JZ_AIC_CONF_ENABLE);
-> +		clk_disable_unprepare(i2s->clk_i2s);
-> +	}
-> +
-> +	clk_disable_unprepare(i2s->clk_aic);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jz4740_i2s_resume(struct snd_soc_component *component)
+> @@ -351,7 +329,6 @@ static const struct snd_soc_dai_ops=20
+> jz4740_i2s_dai_ops =3D {
+>=20
+>  static struct snd_soc_dai_driver jz4740_i2s_dai =3D {
+>  	.probe =3D jz4740_i2s_dai_probe,
+> -	.remove =3D jz4740_i2s_dai_remove,
+>  	.playback =3D {
+>  		.channels_min =3D 1,
+>  		.channels_max =3D 2,
+> @@ -389,7 +366,6 @@ static const struct i2s_soc_info=20
+> jz4760_i2s_soc_info =3D {
+>=20
+>  static struct snd_soc_dai_driver jz4770_i2s_dai =3D {
+>  	.probe =3D jz4740_i2s_dai_probe,
+> -	.remove =3D jz4740_i2s_dai_remove,
+>  	.playback =3D {
+>  		.channels_min =3D 1,
+>  		.channels_max =3D 2,
+> @@ -459,8 +435,38 @@ static int jz4740_i2s_resume(struct=20
+> snd_soc_component *component)
+>  	return 0;
+>  }
+>=20
+> +static int jz4740_i2s_probe(struct snd_soc_component *component)
 > +{
 > +	struct jz4740_i2s *i2s =3D snd_soc_component_get_drvdata(component);
 > +	int ret;
@@ -182,22 +172,32 @@ Cheers,
 > +	if (ret)
 > +		return ret;
 > +
-> +	if (snd_soc_component_active(component)) {
-> +		ret =3D clk_prepare_enable(i2s->clk_i2s);
-> +		if (ret) {
-> +			clk_disable_unprepare(i2s->clk_aic);
-> +			return ret;
-> +		}
+> +	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
 > +
-> +		regmap_set_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
-> +	}
+> +	regmap_write(i2s->regmap, JZ_REG_AIC_CONF,
+> +		     JZ_AIC_CONF_OVERFLOW_PLAY_LAST |
+> +		     JZ_AIC_CONF_I2S | JZ_AIC_CONF_INTERNAL_CODEC);
+> +
+> +	regmap_field_write(i2s->field_rx_fifo_thresh, 7);
+> +	regmap_field_write(i2s->field_tx_fifo_thresh, 8);
 > +
 > +	return 0;
 > +}
 > +
+> +static void jz4740_i2s_remove(struct snd_soc_component *component)
+> +{
+> +	struct jz4740_i2s *i2s =3D snd_soc_component_get_drvdata(component);
+> +
+> +	clk_disable_unprepare(i2s->clk_aic);
+> +}
+> +
 >  static const struct snd_soc_component_driver jz4740_i2s_component =3D {
 >  	.name			=3D "jz4740-i2s",
+> +	.probe			=3D jz4740_i2s_probe,
+> +	.remove			=3D jz4740_i2s_remove,
 >  	.suspend		=3D jz4740_i2s_suspend,
+>  	.resume			=3D jz4740_i2s_resume,
+>  	.legacy_dai_naming	=3D 1,
 > --
 > 2.35.1
 >=20

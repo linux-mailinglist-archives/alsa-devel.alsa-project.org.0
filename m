@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6528357B5FB
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 13:54:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE8557B606
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 13:57:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59BA31760;
-	Wed, 20 Jul 2022 13:53:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59BA31760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ECD41731;
+	Wed, 20 Jul 2022 13:56:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ECD41731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658318082;
-	bh=oT3ZxOeN/pKkZcrlFi/1jLO/O1AsUG59ci5MERQKZAg=;
+	s=default; t=1658318260;
+	bh=q1Lkek+keCqDzErUiHffgUa3nFsBd4DZkq4lgE+N314=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YM7C9UC64u3AJ+1O7gzzPbuAma0BDZSy7arDzTmKgJMVScp5t6IQtblylPDmZnlDf
-	 6BQfr2hqh5awC2YRO0D0wm4prG90XEhMbhpA+laSliEBxATwbVT5T8xrb0oMHczXrf
-	 1owAkL92sQx7C4QyqBo2KR3l/QAHAIxaWwagYfTU=
+	b=oH8A+lYPr+bzZF5N+yqn7XhhAOahsSk9bUe4QL/qnEn12gshTPdRnDQPlVuQoci9q
+	 jD1kIC09qXiUzP2VWBSR44wgmQIp/y0n2q4/8cBQF+VGqRwHPDOVsklxcGXF28VVxq
+	 yCj69Gz8o4JMbrfKa/Zr7WJfO2z+5YMEKwvui0BM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA96AF8027D;
-	Wed, 20 Jul 2022 13:53:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B61EAF8025D;
+	Wed, 20 Jul 2022 13:56:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2015AF80269; Wed, 20 Jul 2022 13:53:50 +0200 (CEST)
+ id 5D497F800BA; Wed, 20 Jul 2022 13:56:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EA0EF800BA
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 13:53:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EA0EF800BA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A70AF80125
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 13:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A70AF80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="pMvLMo0D"
+ header.b="ouJniZi1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1658318023; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1658318190; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=K09VR+cSE8m5Qqo0hYgGalzaeLuxugQm+MZTPFc0mzs=;
- b=pMvLMo0D2/CPpaCCT1HMTFZQ9TuJRIVZb2u0kKjjWXNyIAMRII1mj5RNX5wjiQJusz72Di
- Rmw6zq9wrc2hLQOMasqK9IMIahTVkEovn1mb9cp0cdZ2s7rtihbyqxJCzeLBcmmNtHjLx+
- pwGRdxkeBBFLiFs5a1hQj5ovjRfLYwk=
-Date: Wed, 20 Jul 2022 12:53:33 +0100
+ bh=Otu7SpCpuiaT1NLh/DRIgkeeMxIACISVLGxUE2EKWbk=;
+ b=ouJniZi1hlAwdQ6wpoWIC/pc0AEoqH+m7LymtYUHg7UFEvQH/nAEtdwWtj9myQp2I7BNOL
+ PE8hIAbItCNKIzmwhmr2C8oser6RREY46gSWp1MVyxGbwHRqvwFnQrBjR2EBPwTjAHxSGe
+ PSX9FxsEHtT8nU9gpMFOCBrUesPA0FE=
+Date: Wed, 20 Jul 2022 12:56:19 +0100
 From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
- SoC-specific
+Subject: Re: [PATCH v4 08/11] ASoC: jz4740-i2s: Support S20_LE and S24_LE
+ sample formats
 To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <9DIBFR.JZ9UUTMAK40G1@crapouillou.net>
-In-Reply-To: <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+Message-Id: <VHIBFR.8XGKG1NT4PHX1@crapouillou.net>
+In-Reply-To: <20220708160244.21933-9-aidanmacdonald.0x0@gmail.com>
 References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
- <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-9-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Transfer-Encoding: quoted-printable
@@ -82,85 +82,63 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Aidan,
 
-Le ven., juil. 8 2022 at 17:02:40 +0100, Aidan MacDonald=20
+Le ven., juil. 8 2022 at 17:02:41 +0100, Aidan MacDonald=20
 <aidanmacdonald.0x0@gmail.com> a =E9crit :
-> On some Ingenic SoCs, such as the X1000, there is a programmable
-> divider used to generate the I2S system clock from a PLL, rather
-> than a fixed PLL/2 clock. It doesn't make much sense to call the
-> clock "pll half" on those SoCs, so the clock name should really be
-> a SoC-dependent value.
+> The audio controller on JZ47xx SoCs can transfer 20- and 24-bit
+> samples in the FIFO, so allow those formats to be used with the
+> I2S driver. Although the FIFO doesn't care about the in-memory
+> sample format, we only support 4-byte format variants because the
+> DMA controller on these SoCs cannot transfer in 3-byte multiples.
 >=20
 > Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+> ---
+>  sound/soc/jz4740/jz4740-i2s.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
+> b/sound/soc/jz4740/jz4740-i2s.c
+> index a41398c24d0e..9be2f3f1b376 100644
+> --- a/sound/soc/jz4740/jz4740-i2s.c
+> +++ b/sound/soc/jz4740/jz4740-i2s.c
+> @@ -238,9 +238,15 @@ static int jz4740_i2s_hw_params(struct=20
+> snd_pcm_substream *substream,
+>  	case SNDRV_PCM_FORMAT_S8:
+>  		sample_size =3D 0;
+>  		break;
+> -	case SNDRV_PCM_FORMAT_S16:
+> +	case SNDRV_PCM_FORMAT_S16_LE:
+
+
+I had to lookup the macro to verify, but this is correct.
 
 Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
 Cheers,
 -Paul
 
-> ---
->  sound/soc/jz4740/jz4740-i2s.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
-> b/sound/soc/jz4740/jz4740-i2s.c
-> index 0dcc658b3784..a41398c24d0e 100644
-> --- a/sound/soc/jz4740/jz4740-i2s.c
-> +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -75,6 +75,8 @@ struct i2s_soc_info {
->  	struct reg_field field_i2sdiv_capture;
->  	struct reg_field field_i2sdiv_playback;
->=20
-> +	const char *pll_clk_name;
-> +
->  	bool shared_fifo_flush;
->  };
->=20
-> @@ -281,7 +283,7 @@ static int jz4740_i2s_set_sysclk(struct=20
-> snd_soc_dai *dai, int clk_id,
->  		clk_set_parent(i2s->clk_i2s, parent);
+>  		sample_size =3D 1;
 >  		break;
->  	case JZ4740_I2S_CLKSRC_PLL:
-> -		parent =3D clk_get(NULL, "pll half");
-> +		parent =3D clk_get(NULL, i2s->soc_info->pll_clk_name);
->  		if (IS_ERR(parent))
->  			return PTR_ERR(parent);
->  		clk_set_parent(i2s->clk_i2s, parent);
-> @@ -400,6 +402,7 @@ static const struct i2s_soc_info=20
-> jz4740_i2s_soc_info =3D {
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 8, 11),
->  	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
->  	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
-> +	.pll_clk_name		=3D "pll half",
->  	.shared_fifo_flush	=3D true,
+> +	case SNDRV_PCM_FORMAT_S20_LE:
+> +		sample_size =3D 3;
+> +		break;
+> +	case SNDRV_PCM_FORMAT_S24_LE:
+> +		sample_size =3D 4;
+> +		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
+> @@ -375,7 +381,9 @@ static const struct snd_soc_dai_ops=20
+> jz4740_i2s_dai_ops =3D {
 >  };
 >=20
-> @@ -409,6 +412,7 @@ static const struct i2s_soc_info=20
-> jz4760_i2s_soc_info =3D {
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
->  	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
->  	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
-> +	.pll_clk_name		=3D "pll half",
->  };
+>  #define JZ4740_I2S_FMTS (SNDRV_PCM_FMTBIT_S8 | \
+> -		SNDRV_PCM_FMTBIT_S16_LE)
+> +			 SNDRV_PCM_FMTBIT_S16_LE | \
+> +			 SNDRV_PCM_FMTBIT_S20_LE | \
+> +			 SNDRV_PCM_FMTBIT_S24_LE)
 >=20
->  static struct snd_soc_dai_driver jz4770_i2s_dai =3D {
-> @@ -435,6 +439,7 @@ static const struct i2s_soc_info=20
-> jz4770_i2s_soc_info =3D {
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
->  	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 8, 11),
->  	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
-> +	.pll_clk_name		=3D "pll half",
->  };
->=20
->  static const struct i2s_soc_info jz4780_i2s_soc_info =3D {
-> @@ -443,6 +448,7 @@ static const struct i2s_soc_info=20
-> jz4780_i2s_soc_info =3D {
->  	.field_tx_fifo_thresh	=3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
->  	.field_i2sdiv_capture	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 8, 11),
->  	.field_i2sdiv_playback	=3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
-> +	.pll_clk_name		=3D "pll half",
->  };
->=20
->  static const struct snd_soc_component_driver jz4740_i2s_component =3D {
+>  static struct snd_soc_dai_driver jz4740_i2s_dai =3D {
+>  	.probe =3D jz4740_i2s_dai_probe,
 > --
 > 2.35.1
 >=20

@@ -2,90 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C9157B550
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 13:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 652F257B5C5
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 13:45:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC563169B;
-	Wed, 20 Jul 2022 13:22:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC563169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8CEC171A;
+	Wed, 20 Jul 2022 13:44:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8CEC171A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658316195;
-	bh=kwVJfQAcSUiYHlV1DtyBbivRlbra9enLBjPSXnY5Sio=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eVazorcHmXCWVD9MOU4csWEvxsx6bopskQ+cTQNM2tVMOn2SwLyahrVNITjbCeGGJ
-	 x/QGQNcBSy5S0gIWm7Gdvj7goS/HpDLbtyOFjFC+GFzQoXwGwI/7iuPGJ/KLQJhPsa
-	 72gSg64nSEqmGHzuoW4WWvsI1qsS+5VrNKdomsvE=
+	s=default; t=1658317549;
+	bh=u2W79I+sNR0o7m3N2djAIybLT4iWXcVJf/XZOANa9WM=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mT/18z5+G4ATC5JRPjlaJ7jX5Ij4UIinFmjnmpIYyKhPlvjtfO0jAaENEpCoKbca5
+	 2f1vXH24DiYGWScQ+MMg5T+odoRFyJp3R+1STl1P58lk7YZd0IPBMGxVeZimqhnetT
+	 z6QvcnBneZr16uxzECb1BE//awl9cMtTlCvlZBNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62DEBF8025D;
-	Wed, 20 Jul 2022 13:22:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55A03F8025D;
+	Wed, 20 Jul 2022 13:44:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B10DEF80169; Wed, 20 Jul 2022 13:22:12 +0200 (CEST)
+ id 0FC80F80169; Wed, 20 Jul 2022 13:44:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 264A6F800BA
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 13:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 264A6F800BA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6ECC8F80139
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 13:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ECC8F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y8uILXcd"
-Received: by mail-ed1-x52d.google.com with SMTP id m8so9900106edd.9
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 04:22:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=x6bTFSKyRmleL7Dcjv7zFamUjXAsDrcKNCo9RyO5i3o=;
- b=Y8uILXcdoWMp6Wk6wHyJ4K/lV45McZ2OZJDHGvs7kZgckdf3wvvdV463+0j93hM44t
- +/V1LEF42K2EjEXWl5+naoF8Wl3/mIFYuyjm0UYHSP4g78XihNv9+eiFvxs4YWsJqmb5
- 3PQsfBDcmM/xumAd1sNDeL7qlwb4CuJ6sI2t4tQ7VTXXKc+P4irlWgGLszKxNJAhV6h0
- u1Yfs7JFXjM4s1i1R3CnOhPXGlVjLuJCIjnFP8PIlh3AqC7O+gG+m3Nzg1q+2cMacTPB
- VzY3wZIPC2xJ0KMljwSkbXrRON2TgitAp+4++P5Sl9UVew/E+KLPF8hRk7ZCfp2QpKrk
- HrnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=x6bTFSKyRmleL7Dcjv7zFamUjXAsDrcKNCo9RyO5i3o=;
- b=z0KpBCc3eLEsOwf/39GoPykfnp61iXCM676yrZPvrY9ru+mnpX/HhLDpOiEJO/HpxS
- fJNgowxlyyRfwqNMr3rUQ5gXWONui9ZMyjT02G7C8IFQjy2HDarxihvZ7H02GRppa9sN
- N1sCOPyMiyguRr9rFBHskPu56A4jVJrLPQi4TeVu8lBG4E/xU6xCYS65N8Ym/OhsDm6D
- 24GjT2XQ6XIdh+3PjLfZX2PrIOP9hhB5YgYdncQDRNPtHt21aCHQPRBfNWckYCMKduyb
- 6KmEI/un2kaCfqD63MCpaT97o7WIA5fPIiy+FTtB5oAe40J9lmI3r+NqJCc0AF+n7g0q
- atgA==
-X-Gm-Message-State: AJIora8v+yKkNNkwH4kogGpu5+NAjY+X6owkBKJS6C8k0KQ3TWRVtPfJ
- YOCg3rzSuxc9kuAGU4ehwYkJRo97pfc=
-X-Google-Smtp-Source: AGRyM1vR/ULUFptmOZ0qgSdaTMZEkAbK7i0xFniwm23m7Y2zbA29wfKRpfqCK5P/rAu97gaFYExbew==
-X-Received: by 2002:aa7:db8a:0:b0:43b:75b1:92e9 with SMTP id
- u10-20020aa7db8a000000b0043b75b192e9mr10819428edt.223.1658316126718; 
- Wed, 20 Jul 2022 04:22:06 -0700 (PDT)
-Received: from felia.fritz.box
- (200116b826a11f008020c2fc6e115b3e.dip.versatel-1u1.de.
- [2001:16b8:26a1:1f00:8020:c2fc:6e11:5b3e])
- by smtp.gmail.com with ESMTPSA id
- v10-20020aa7cd4a000000b00437d3e6c4c7sm12176965edw.53.2022.07.20.04.22.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 04:22:06 -0700 (PDT)
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: ti: remove sound support for DaVinci DM644x and DM646x
-Date: Wed, 20 Jul 2022 13:21:52 +0200
-Message-Id: <20220720112152.22918-1-lukas.bulwahn@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="pmPNW73S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1658317473; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=gfVrDHEaoRWXZN/HPQzTExDiPVvqkM20tNaJY4XTG7k=;
+ b=pmPNW73SsabPhfkXe2GuaO61RJcyuQJkm6+2r6XRpoftHet7iBhMA/kK6MoZm71fxlgAqU
+ GtJSNQlvwU5zitRxPk770YVdDWy26wAit7edFN6EJ6fQhXOtoXPD/pxCN9T9+D+VzSatGd
+ rMYf2pWJsnKmQbjXbACt4m9i6azetrM=
+Date: Wed, 20 Jul 2022 12:44:18 +0100
+From: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v4 01/11] ASoC: jz4740-i2s: Handle independent FIFO flush
+ bits
+To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+Message-Id: <UXHBFR.6W2XPUNX040K1@crapouillou.net>
+In-Reply-To: <20220708160244.21933-2-aidanmacdonald.0x0@gmail.com>
+References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-2-aidanmacdonald.0x0@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,40 +80,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 7dd33764486d ("ARM: davinci: Delete DM644x board files") and commit
-b4aed01de486 ("ARM: davinci: Delete DM646x board files") removes the
-support for DaVinci DM644x and DM646x boards.
+Hi Aidan,
 
-Hence, remove the sound support for those boards as well.
+Le ven., juil. 8 2022 at 17:02:34 +0100, Aidan MacDonald=20
+<aidanmacdonald.0x0@gmail.com> a =E9crit :
+> On the JZ4740, there is a single bit that flushes (empties) both
+> the transmit and receive FIFO. Later SoCs have independent flush
+> bits for each FIFO, which allows us to flush the right FIFO when
+> starting up a stream.
+>=20
+> This also fixes a bug: since we were only setting the JZ4740's
+> flush bit, which corresponds to the TX FIFO flush bit on other
+> SoCs, other SoCs were not having their RX FIFO flushed at all.
+>=20
+> Fixes: 967beb2e8777 ("ASoC: jz4740: Add jz4780 support")
+> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+> ---
+>  sound/soc/jz4740/jz4740-i2s.c | 33 ++++++++++++++++++++++++++++++---
+>  1 file changed, 30 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
+> b/sound/soc/jz4740/jz4740-i2s.c
+> index ecd8df70d39c..576f31f9d734 100644
+> --- a/sound/soc/jz4740/jz4740-i2s.c
+> +++ b/sound/soc/jz4740/jz4740-i2s.c
+> @@ -64,6 +64,9 @@
+>  #define JZ_AIC_CTRL_ENABLE_PLAYBACK BIT(1)
+>  #define JZ_AIC_CTRL_ENABLE_CAPTURE BIT(0)
+>=20
+> +#define JZ4760_AIC_CTRL_TFLUSH BIT(8)
+> +#define JZ4760_AIC_CTRL_RFLUSH BIT(7)
 
-Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
----
- sound/soc/ti/Kconfig | 5 -----
- 1 file changed, 5 deletions(-)
+Just rename JZ_AIC_CTRL_FLUSH to JZ_AIC_CTRL_TFLUSH and introduce=20
+JZ_AIC_CTRL_RLUSH.
 
-diff --git a/sound/soc/ti/Kconfig b/sound/soc/ti/Kconfig
-index 40110e9a9e8a..35fddd7c501a 100644
---- a/sound/soc/ti/Kconfig
-+++ b/sound/soc/ti/Kconfig
-@@ -180,9 +180,6 @@ config SND_SOC_DAVINCI_EVM
- 	select SND_SOC_DAVINCI_ASP if MACH_DAVINCI_DM355_EVM
- 	select SND_SOC_DAVINCI_ASP if SND_SOC_DM365_AIC3X_CODEC
- 	select SND_SOC_DAVINCI_VCIF if SND_SOC_DM365_VOICE_CODEC
--	select SND_SOC_DAVINCI_ASP if MACH_DAVINCI_EVM # DM6446
--	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DM6467_EVM
--	select SND_SOC_SPDIF if MACH_DAVINCI_DM6467_EVM
- 	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DA830_EVM
- 	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DA850_EVM
- 	select SND_SOC_TLV320AIC3X
-@@ -191,8 +188,6 @@ config SND_SOC_DAVINCI_EVM
- 	  DaVinci EVM platforms:
- 	  - DM355
- 	  - DM365
--	  - DM6446
--	  - DM6447
- 	  - DM830
- 	  - DM850
- 
--- 
-2.17.1
+> +
+>  #define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE_OFFSET 19
+>  #define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE_OFFSET  16
+>=20
+> @@ -90,6 +93,8 @@ enum jz47xx_i2s_version {
+>  struct i2s_soc_info {
+>  	enum jz47xx_i2s_version version;
+>  	struct snd_soc_dai_driver *dai;
+> +
+> +	bool shared_fifo_flush;
+>  };
+>=20
+>  struct jz4740_i2s {
+> @@ -124,12 +129,33 @@ static int jz4740_i2s_startup(struct=20
+> snd_pcm_substream *substream,
+>  	uint32_t conf, ctrl;
+>  	int ret;
+>=20
+> +	/*
+> +	 * When we can flush FIFOs independently, only flush the
+> +	 * FIFO that is starting up.
+> +	 */
+> +	if (!i2s->soc_info->shared_fifo_flush) {
+> +		ctrl =3D jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
+> +
+> +		if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> +			ctrl |=3D JZ4760_AIC_CTRL_TFLUSH;
+> +		else
+> +			ctrl |=3D JZ4760_AIC_CTRL_RFLUSH;
+> +
+> +		jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+> +	}
+
+Wouldn't it be simpler to do one single if/else? And hy is one checked=20
+before the (snd_soc_dai_active(dai)) check, and the other is checked=20
+after?
+
+You could do something like this:
+
+ctrl =3D jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
+
+if (i2s->soc_info->shared_fifo_flush ||
+    substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
+    ctrl |=3D JZ_AIC_CTRL_TFLUSH;
+} else {
+    ctrl |=3D JZ_AIC_CTRL_RFLUSH;
+}
+
+jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+
+Cheers,
+-Paul
+
+> +
+>  	if (snd_soc_dai_active(dai))
+>  		return 0;
+>=20
+> -	ctrl =3D jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
+> -	ctrl |=3D JZ_AIC_CTRL_FLUSH;
+> -	jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+> +	/*
+> +	 * When there is a shared flush bit for both FIFOs we can
+> +	 * only flush the FIFOs if no other stream has started.
+> +	 */
+> +	if (i2s->soc_info->shared_fifo_flush) {
+> +		ctrl =3D jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
+> +		ctrl |=3D JZ_AIC_CTRL_FLUSH;
+> +		jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+> +	}
+>=20
+>  	ret =3D clk_prepare_enable(i2s->clk_i2s);
+>  	if (ret)
+> @@ -444,6 +470,7 @@ static struct snd_soc_dai_driver jz4740_i2s_dai =3D=20
+> {
+>  static const struct i2s_soc_info jz4740_i2s_soc_info =3D {
+>  	.version =3D JZ_I2S_JZ4740,
+>  	.dai =3D &jz4740_i2s_dai,
+> +	.shared_fifo_flush =3D true,
+>  };
+>=20
+>  static const struct i2s_soc_info jz4760_i2s_soc_info =3D {
+> --
+> 2.35.1
+>=20
+
 

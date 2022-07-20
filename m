@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5C857ABCF
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 03:17:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A800B57ABD3
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 03:18:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1552F1687;
-	Wed, 20 Jul 2022 03:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1552F1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44DCE1746;
+	Wed, 20 Jul 2022 03:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DCE1746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658279874;
-	bh=4j684ydNnDY2FnLOno8VZSN1YwtwifMKEKDHjbqAIUk=;
+	s=default; t=1658279906;
+	bh=RqGXJUEV+udnJj0vft105RkHj94e+5R2bTLqMsjWMAE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D2exEvpEofCiV8qJN6WfJnku1SIO15O5dpgPAq4sXqwmnzBRbl44KjqBTC2ue5NxR
-	 hRpzVhJ0+EutCmYSXo6zPlHsq2/ypBtf+bii6kS3NqwrpsQoHSwjUhOEbs2lEeWQEK
-	 AgbgrVbMh2PUeCa3egwGfpJqcNgApFYrrz0ASUas=
+	b=GxjFKktQu0wpmzKTthQh5T4tGAPTTgGgU7hXG4NwjhhLYVjvye5VLlm4BfzcXHLSz
+	 6nqK3bBPH1dJz8qp0oxEMlnEB/8ettE/YRb+OM6tBxqCqLlli7PIiyLNY0/2cddlc/
+	 p4OmwqZMchkZYlpEk3LhAQ9DKUyi5cH5yzD5NpCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C295F8055C;
-	Wed, 20 Jul 2022 03:16:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0860F804BB;
+	Wed, 20 Jul 2022 03:17:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B56E5F80552; Wed, 20 Jul 2022 03:16:01 +0200 (CEST)
+ id 48609F80269; Wed, 20 Jul 2022 03:17:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6805EF80169
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 03:15:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6805EF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC7B7F8025D
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 03:17:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC7B7F8025D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ait0Ohib"
+ header.b="sBpJ+LRU"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7BEFC617B4;
- Wed, 20 Jul 2022 01:15:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32CAC341CA;
- Wed, 20 Jul 2022 01:15:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B4C3CB81DF3;
+ Wed, 20 Jul 2022 01:17:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14ACEC36AE2;
+ Wed, 20 Jul 2022 01:17:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658279753;
- bh=4j684ydNnDY2FnLOno8VZSN1YwtwifMKEKDHjbqAIUk=;
+ s=k20201202; t=1658279827;
+ bh=RqGXJUEV+udnJj0vft105RkHj94e+5R2bTLqMsjWMAE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ait0Ohibllvcf9d9B/YR4t7DcFPnzXzgiEsKGNrXoqw82+JJmk8wVYo9fJZNqnhtu
- i06ZTyHhgm+jqRQbjUz0yrKX9lA+JsSIObhkR8RBv/JCajH7fCvGE0QaPUbpcEVDrG
- QsPp1+dlPf5Mfr/FxvzKRKyTh46rJW6eU5bfs34JmVE0+9ZjXTyNR1l0K10GzbJlqg
- T7DjRWwAVwv5lLEqx8TNBmKmtWwpqAKjm64bFVLKM0DLIu9CEbQToAvR9DqYZoAFAs
- kcanBceLVzWicOJ/PT6vJ/TovvfugSlL1CwBIpCpQi02xyqenSbriVhaht2gb2bgIL
- ipMH/QZOxRs3Q==
+ b=sBpJ+LRUOXFaGCzpWKOGSfxTGtHdifWnGBXj0/VY3YYyZSLWWE2AFMg2sF9V+0IBZ
+ NIKCRq14oRJDrzcdRBmYhOzuKD56erbARc/Ke9//S1EaWxc4IKJwJQUixmVmwHKmY3
+ 3QiBtrN3XjGoOSKdHSKKPnkc3XTaKIO5YxQQMTiWYGF32HQBOUx7GV4sfVNhPnDRJ/
+ X5FHzbObUQMXk+P3o/T5AUi96mHo3E6GZUMXqV67b0EPNGzQ6aXjV96zFR1pxt5Ph/
+ k9JjPBuW+scqT+qmNr8KYx2laaelfKYJLuYR+Jn+fczx0VCRaVBNyH9bGsArraf5bf
+ MGBW9MMcfOYZA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 33/42] ASoC: arizona: Update
- arizona_aif_cfg_changed to use RX_BCLK_RATE
-Date: Tue, 19 Jul 2022 21:13:41 -0400
-Message-Id: <20220720011350.1024134-33-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 15/25] ASoC: ti: omap-mcbsp: duplicate sysfs error
+Date: Tue, 19 Jul 2022 21:16:06 -0400
+Message-Id: <20220720011616.1024753-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220720011350.1024134-1-sashal@kernel.org>
-References: <20220720011350.1024134-1-sashal@kernel.org>
+In-Reply-To: <20220720011616.1024753-1-sashal@kernel.org>
+References: <20220720011616.1024753-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
+ David Owens <daowens01@gmail.com>, David Owens <dowens@precisionplanting.com>,
+ tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
+ linux-omap@vger.kernel.org, peter.ujfalusi@gmail.com, jarkko.nikula@bitmer.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,43 +89,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: David Owens <daowens01@gmail.com>
 
-[ Upstream commit f99e930655f411453170a5f332e12c2d2748822e ]
+[ Upstream commit f0d96937d31c4615a6418e4bed5cee50a952040e ]
 
-Currently the function arizona_aif_cfg_changed uses the TX_BCLK_RATE,
-however this register is not used on wm8998. This was not noticed as
-previously snd_soc_component_read did not print an error message.
-However, now the log gets filled with error messages, further more the
-test for if the LRCLK changed will return spurious results.
+Convert to managed versions of sysfs and clk allocation to simplify
+unbinding and error handling in probe.  Managed sysfs node
+creation specifically addresses the following error seen the second time
+probe is attempted after sdma_pcm_platform_register() previously requsted
+probe deferral:
 
-Update the code to use the RX_BCLK_RATE register, the LRCLK parameters
-are written to both registers and the RX_BCLK_RATE register is used
-across all Arizona devices.
+sysfs: cannot create duplicate filename '/devices/platform/68000000.ocp/49022000.mcbsp/max_tx_thres'
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220628153409.3266932-4-ckeepax@opensource.cirrus.com
+Signed-off-by: David Owens <dowens@precisionplanting.com>
+Link: https://lore.kernel.org/r/20220620183744.3176557-1-dowens@precisionplanting.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/arizona.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/ti/omap-mcbsp-priv.h |  2 --
+ sound/soc/ti/omap-mcbsp-st.c   | 14 ++------------
+ sound/soc/ti/omap-mcbsp.c      | 19 ++-----------------
+ 3 files changed, 4 insertions(+), 31 deletions(-)
 
-diff --git a/sound/soc/codecs/arizona.c b/sound/soc/codecs/arizona.c
-index e32871b3f68a..7434aeeda292 100644
---- a/sound/soc/codecs/arizona.c
-+++ b/sound/soc/codecs/arizona.c
-@@ -1760,8 +1760,8 @@ static bool arizona_aif_cfg_changed(struct snd_soc_component *component,
- 	if (bclk != (val & ARIZONA_AIF1_BCLK_FREQ_MASK))
- 		return true;
+diff --git a/sound/soc/ti/omap-mcbsp-priv.h b/sound/soc/ti/omap-mcbsp-priv.h
+index 7865cda4bf0a..da519ea1f303 100644
+--- a/sound/soc/ti/omap-mcbsp-priv.h
++++ b/sound/soc/ti/omap-mcbsp-priv.h
+@@ -316,8 +316,6 @@ static inline int omap_mcbsp_read(struct omap_mcbsp *mcbsp, u16 reg,
  
--	val = snd_soc_component_read(component, base + ARIZONA_AIF_TX_BCLK_RATE);
--	if (lrclk != (val & ARIZONA_AIF1TX_BCPF_MASK))
-+	val = snd_soc_component_read(component, base + ARIZONA_AIF_RX_BCLK_RATE);
-+	if (lrclk != (val & ARIZONA_AIF1RX_BCPF_MASK))
- 		return true;
+ /* Sidetone specific API */
+ int omap_mcbsp_st_init(struct platform_device *pdev);
+-void omap_mcbsp_st_cleanup(struct platform_device *pdev);
+-
+ int omap_mcbsp_st_start(struct omap_mcbsp *mcbsp);
+ int omap_mcbsp_st_stop(struct omap_mcbsp *mcbsp);
  
- 	val = snd_soc_component_read(component, base + ARIZONA_AIF_FRAME_CTRL_1);
+diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
+index 0bc7d26c660a..7e8179cae92e 100644
+--- a/sound/soc/ti/omap-mcbsp-st.c
++++ b/sound/soc/ti/omap-mcbsp-st.c
+@@ -347,7 +347,7 @@ int omap_mcbsp_st_init(struct platform_device *pdev)
+ 	if (!st_data)
+ 		return -ENOMEM;
+ 
+-	st_data->mcbsp_iclk = clk_get(mcbsp->dev, "ick");
++	st_data->mcbsp_iclk = devm_clk_get(mcbsp->dev, "ick");
+ 	if (IS_ERR(st_data->mcbsp_iclk)) {
+ 		dev_warn(mcbsp->dev,
+ 			 "Failed to get ick, sidetone might be broken\n");
+@@ -359,7 +359,7 @@ int omap_mcbsp_st_init(struct platform_device *pdev)
+ 	if (!st_data->io_base_st)
+ 		return -ENOMEM;
+ 
+-	ret = sysfs_create_group(&mcbsp->dev->kobj, &sidetone_attr_group);
++	ret = devm_device_add_group(mcbsp->dev, &sidetone_attr_group);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -368,16 +368,6 @@ int omap_mcbsp_st_init(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-void omap_mcbsp_st_cleanup(struct platform_device *pdev)
+-{
+-	struct omap_mcbsp *mcbsp = platform_get_drvdata(pdev);
+-
+-	if (mcbsp->st_data) {
+-		sysfs_remove_group(&mcbsp->dev->kobj, &sidetone_attr_group);
+-		clk_put(mcbsp->st_data->mcbsp_iclk);
+-	}
+-}
+-
+ static int omap_mcbsp_st_info_volsw(struct snd_kcontrol *kcontrol,
+ 				    struct snd_ctl_elem_info *uinfo)
+ {
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 6025b30bbe77..119e9053d83f 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -703,8 +703,7 @@ static int omap_mcbsp_init(struct platform_device *pdev)
+ 		mcbsp->max_tx_thres = max_thres(mcbsp) - 0x10;
+ 		mcbsp->max_rx_thres = max_thres(mcbsp) - 0x10;
+ 
+-		ret = sysfs_create_group(&mcbsp->dev->kobj,
+-					 &additional_attr_group);
++		ret = devm_device_add_group(mcbsp->dev, &additional_attr_group);
+ 		if (ret) {
+ 			dev_err(mcbsp->dev,
+ 				"Unable to create additional controls\n");
+@@ -712,16 +711,7 @@ static int omap_mcbsp_init(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	ret = omap_mcbsp_st_init(pdev);
+-	if (ret)
+-		goto err_st;
+-
+-	return 0;
+-
+-err_st:
+-	if (mcbsp->pdata->buffer_size)
+-		sysfs_remove_group(&mcbsp->dev->kobj, &additional_attr_group);
+-	return ret;
++	return omap_mcbsp_st_init(pdev);
+ }
+ 
+ /*
+@@ -1432,11 +1422,6 @@ static int asoc_mcbsp_remove(struct platform_device *pdev)
+ 	if (cpu_latency_qos_request_active(&mcbsp->pm_qos_req))
+ 		cpu_latency_qos_remove_request(&mcbsp->pm_qos_req);
+ 
+-	if (mcbsp->pdata->buffer_size)
+-		sysfs_remove_group(&mcbsp->dev->kobj, &additional_attr_group);
+-
+-	omap_mcbsp_st_cleanup(pdev);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.35.1
 

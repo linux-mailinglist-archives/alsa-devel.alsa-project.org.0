@@ -2,82 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F30FC57B6EC
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 14:59:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 340EF57B71F
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Jul 2022 15:15:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81F081774;
-	Wed, 20 Jul 2022 14:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81F081774
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD5C41785;
+	Wed, 20 Jul 2022 15:14:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5C41785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658321970;
-	bh=+d4pHLwFh5sutN8u/eJ1RnyII08eYFrnvxa8InoHZtA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658322909;
+	bh=VV3TXfJF0EGk3ufQk/OkbrFq9j02fP3U8nsiny60AnA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gL62XqRK2h+nu9iDuNFu0+qWN9m5lILs9t6ScGG9zbzoBfpl1CMQplKqWxAn5i4ch
-	 n4e35tDw6ehtmjvwaxxFWgfCmhBp8SdBN9JbG/DwcZm11H1lL240Lp5EFVXE1BJnU1
-	 Q+kXmX1WJkp553hVanvoxfhZyPHgRPeXdnYzmwQY=
+	b=sEibibeO6X8GqIScZ2A84udHCSTMB+myT5ZLwxIDzKn1deCTDSR1ur3e/jqoJQyKD
+	 Kcvhax1/c+NOsIdVmLRJm1gZ71rf7E5Et+uF5dnGwHWaKRPFPKK7hF6T/syHBqXeli
+	 VtaeQRwZgZG0SyDSngmfOI5QX0e7pmmJ5GbKk8eM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78D1EF80559;
-	Wed, 20 Jul 2022 14:57:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D4AEF8025D;
+	Wed, 20 Jul 2022 15:14:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 425DAF80552; Wed, 20 Jul 2022 14:57:19 +0200 (CEST)
+ id B42B9F80118; Wed, 20 Jul 2022 15:14:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78075F8028B
- for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 14:57:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78075F8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6BF5F80118
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 15:13:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6BF5F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="h1JGiUge"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658321833; x=1689857833;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+d4pHLwFh5sutN8u/eJ1RnyII08eYFrnvxa8InoHZtA=;
- b=h1JGiUgeO+EGgTi4j7KBbb1sNNe5AIVY3x9HZX+o4SWoRnsQCpx4C3hW
- qbIOkvVuwRI/I3pS2WifylxGpJHSH06/S+E1NTBny2G9t15ul8tNzeHXu
- QGDEcrfHEUCoB9/vKBCQww2WXcoFTtjLdeizJe9UdFNs6jl95g6oqfQXg
- lp9sPHTYmpHOmafyLwySW/tTQ8F5WKUFM6jq1TRxW1N5QZb8+wjvPfoJ3
- U3WOI3aSfdE+3keJ8Ypzm7nMepJrFdarzA1zP10ryaDmenW2akh3V6k7U
- NTfU1kI5rIJ9vmPtF4UrmgjWWz/NjaAWmm6lBqTJ4VCMSUs1XnW6X7VAU Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10413"; a="269797848"
-X-IronPort-AV: E=Sophos;i="5.92,286,1650956400"; d="scan'208";a="269797848"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2022 05:57:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,286,1650956400"; d="scan'208";a="656259039"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 20 Jul 2022 05:57:08 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	tiwai@suse.com
-Subject: [PATCH 4/4] ALSA: hda: Fix page fault in snd_hda_codec_shutdown()
-Date: Wed, 20 Jul 2022 15:06:22 +0200
-Message-Id: <20220720130622.146973-5-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220720130622.146973-1-cezary.rojewski@intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="tda1LyzF"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="5vgllVUj"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 41D1833CAA;
+ Wed, 20 Jul 2022 13:13:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1658322838; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=t4eDORIH0s8UCVW1NUUF4WcZVmgJBELyeyUkmABGBQo=;
+ b=tda1LyzF4ypn0zvV8j3U+s+jXUp9O4nB0t///OkzG1VE4an4FDLxIFBN6uD6ZC9yhHqdpN
+ CWVcvSk/bvTrIunGIrAUit0KzCqu2Y9ygwRuvP5Bl2a1C2DUZjZaS7O3VrDZHRIiftR93K
+ qJuUk7xuiENyQmPz2Zrgz3KzvP4Nhcs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1658322838;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=t4eDORIH0s8UCVW1NUUF4WcZVmgJBELyeyUkmABGBQo=;
+ b=5vgllVUjj9/3HkZMt20LAQ+huv8Pf2fmHkHTRr7boAX4QaYZPT/WCuyo0b958pNh9xvW6/
+ QX1Ldi35y6sP4ZCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 071AC13AA1;
+ Wed, 20 Jul 2022 13:13:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0ZPnAJb/12LUeQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 20 Jul 2022 13:13:58 +0000
+Date: Wed, 20 Jul 2022 15:13:57 +0200
+Message-ID: <875yjs53l6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 2/4] ALSA: hda: Make snd_hda_codec_device_init() the only
+ codec constructor
+In-Reply-To: <20220720130622.146973-3-cezary.rojewski@intel.com>
 References: <20220720130622.146973-1-cezary.rojewski@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
- peter.ujfalusi@linux.intel.com
+ <20220720130622.146973-3-cezary.rojewski@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ broonie@kernel.org, ranjani.sridharan@linux.intel.com,
+ amadeuszx.slawinski@linux.intel.com, peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,97 +105,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If early probe of HDAudio bus driver fails e.g.: due to missing
-firmware file, snd_hda_codec_shutdown() ends in manipulating
-uninitialized codec->pcm_list_head causing page fault.
+On Wed, 20 Jul 2022 15:06:20 +0200,
+Cezary Rojewski wrote:
+> 
+> Refactor snd_hdac_ext_bus_device_init() so that it makes use of
+> snd_hda_codec_device_init() to create and initialize new codec device.
+> Causes the latter to become the sole codec device constructor.
+> 
+> Users of the refactored function are updated accordingly and now also
+> take responsibility for assigning driver's private data as that task is
+> no longer performed by hdac_hda_dev_probe().
 
-Iinitialization of HDAudio codec in ASoC is split in two:
-- snd_hda_codec_device_init()
-- snd_hda_codec_device_new()
+Hrm, this doesn't look really right.  It means you'll introduce a hard
+dependency chain in a reverse order: snd-hda-ext-core ->
+snd-hda-codec.
 
-snd_hda_codec_device_init() is called during probe_codecs() by HDAudio
-bus driver while snd_hda_codec_device_new() is called by
-codec-component's ->probe(). The second call will not happen until all
-components required by related sound card are present within the ASoC
-framework. With firmware failing to load during the PCI's deferred
-initialization i.e.: probe_work(), no platform components are ever
-registered. HDAudio codec enumeration is done at that point though, so
-the codec components became registered to ASoC framework, calling
-snd_hda_codec_device_init() in the process.
+Originally, the ext bus code was written completely independent from
+the legacy HD-audio implementations, and hdac-hda driver was a kind of
+wrapper / bridge for the legacy codec over the ext bus.  If we want
+change this rule and make the legacy HD-audio codec always tied with
+the ext bus, a likely better way would be to call
+snd_hda_codec_device_init() in the caller's side (e.g. skl or sof),
+then pass the newly created codec object to
+snd_hdac_ext_bus_device_init() for further initialization.
 
-Now, during platform reboot snd_hda_codec_shutdown() is called for every
-codec found on the HDAudio bus causing oops if any of them has not
-completed both of their initialization steps. Relocating field
-initialization fixes the issue.
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/pci/hda/hda_codec.c | 41 +++++++++++++++++++--------------------
- 1 file changed, 20 insertions(+), 21 deletions(-)
+thanks,
 
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index 44395b1b734b..17ff79e971cb 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -925,8 +925,28 @@ snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
- 	}
- 
- 	codec->bus = bus;
-+	codec->depop_delay = -1;
-+	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
-+	codec->core.dev.release = snd_hda_codec_dev_release;
-+	codec->core.exec_verb = codec_exec_verb;
- 	codec->core.type = HDA_DEV_LEGACY;
- 
-+	mutex_init(&codec->spdif_mutex);
-+	mutex_init(&codec->control_mutex);
-+	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
-+	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
-+	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
-+	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
-+	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
-+	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
-+	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
-+	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
-+	INIT_LIST_HEAD(&codec->conn_list);
-+	INIT_LIST_HEAD(&codec->pcm_list_head);
-+	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
-+	refcount_set(&codec->pcm_ref, 1);
-+	init_waitqueue_head(&codec->remove_sleep);
-+
- 	return codec;
- }
- EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
-@@ -979,29 +999,8 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
- 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
- 		return -EINVAL;
- 
--	codec->core.dev.release = snd_hda_codec_dev_release;
--	codec->core.exec_verb = codec_exec_verb;
--
- 	codec->card = card;
- 	codec->addr = codec_addr;
--	mutex_init(&codec->spdif_mutex);
--	mutex_init(&codec->control_mutex);
--	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
--	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
--	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
--	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
--	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
--	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
--	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
--	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
--	INIT_LIST_HEAD(&codec->conn_list);
--	INIT_LIST_HEAD(&codec->pcm_list_head);
--	refcount_set(&codec->pcm_ref, 1);
--	init_waitqueue_head(&codec->remove_sleep);
--
--	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
--	codec->depop_delay = -1;
--	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
- 
- #ifdef CONFIG_PM
- 	codec->power_jiffies = jiffies;
--- 
-2.25.1
+Takashi
 
+> 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  include/sound/hdaudio_ext.h     |  4 ++--
+>  sound/hda/ext/hdac_ext_bus.c    | 34 +++++++++++++++------------------
+>  sound/soc/intel/skylake/skl.c   | 24 ++++++++++-------------
+>  sound/soc/sof/intel/hda-codec.c | 29 ++++++++++++----------------
+>  4 files changed, 39 insertions(+), 52 deletions(-)
+> 
+> diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+> index d26234f9ee46..25c7b13db278 100644
+> --- a/include/sound/hdaudio_ext.h
+> +++ b/include/sound/hdaudio_ext.h
+> @@ -11,8 +11,8 @@ int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
+>  		      const struct hdac_ext_bus_ops *ext_ops);
+>  
+>  void snd_hdac_ext_bus_exit(struct hdac_bus *bus);
+> -int snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr,
+> -				struct hdac_device *hdev, int type);
+> +struct hda_codec *
+> +snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr, int type);
+>  void snd_hdac_ext_bus_device_exit(struct hdac_device *hdev);
+>  void snd_hdac_ext_bus_device_remove(struct hdac_bus *bus);
+>  
+> diff --git a/sound/hda/ext/hdac_ext_bus.c b/sound/hda/ext/hdac_ext_bus.c
+> index 765c40a6ccba..bd3c7124aca1 100644
+> --- a/sound/hda/ext/hdac_ext_bus.c
+> +++ b/sound/hda/ext/hdac_ext_bus.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/io.h>
+> +#include <sound/hda_codec.h>
+>  #include <sound/hdaudio_ext.h>
+>  
+>  MODULE_DESCRIPTION("HDA extended core");
+> @@ -67,39 +68,34 @@ static void default_release(struct device *dev)
+>  
+>  /**
+>   * snd_hdac_ext_bus_device_init - initialize the HDA extended codec base device
+> - * @bus: hdac bus to attach to
+> + * @bus: hda bus to attach to
+>   * @addr: codec address
+> - * @hdev: hdac device to init
+>   * @type: codec type (HDAC_DEV_*) to use for this device
+>   *
+> - * Returns zero for success or a negative error code.
+> + * Returns pointer to newly created codec or ERR_PTR.
+>   */
+> -int snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr,
+> -				 struct hdac_device *hdev, int type)
+> +struct hda_codec *
+> +snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr, int type)
+>  {
+> -	char name[15];
+> +	struct hda_codec *codec;
+>  	int ret;
+>  
+> -	hdev->bus = bus;
+> -
+> -	snprintf(name, sizeof(name), "ehdaudio%dD%d", bus->idx, addr);
+> -
+> -	ret  = snd_hdac_device_init(hdev, bus, name, addr);
+> -	if (ret < 0) {
+> +	codec = snd_hda_codec_device_init(to_hda_bus(bus), addr, "ehdaudio%dD%d", bus->idx, addr);
+> +	if (IS_ERR(codec)) {
+>  		dev_err(bus->dev, "device init failed for hdac device\n");
+> -		return ret;
+> +		return codec;
+>  	}
+> -	hdev->type = type;
+> -	hdev->dev.release = default_release;
+> +	codec->core.type = type;
+> +	codec->core.dev.release = default_release;
+>  
+> -	ret = snd_hdac_device_register(hdev);
+> +	ret = snd_hdac_device_register(&codec->core);
+>  	if (ret) {
+>  		dev_err(bus->dev, "failed to register hdac device\n");
+> -		snd_hdac_ext_bus_device_exit(hdev);
+> -		return ret;
+> +		snd_hdac_ext_bus_device_exit(&codec->core);
+> +		return ERR_PTR(ret);
+>  	}
+>  
+> -	return 0;
+> +	return codec;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_device_init);
+>  
+> diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+> index 7e573a887118..5637292c2aa9 100644
+> --- a/sound/soc/intel/skylake/skl.c
+> +++ b/sound/soc/intel/skylake/skl.c
+> @@ -700,9 +700,8 @@ static int probe_codec(struct hdac_bus *bus, int addr)
+>  	struct skl_dev *skl = bus_to_skl(bus);
+>  #if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+>  	struct hdac_hda_priv *hda_codec;
+> -	int err;
+>  #endif
+> -	struct hdac_device *hdev;
+> +	struct hda_codec *codec;
+>  
+>  	mutex_lock(&bus->cmd_mutex);
+>  	snd_hdac_bus_send_cmd(bus, cmd);
+> @@ -718,25 +717,22 @@ static int probe_codec(struct hdac_bus *bus, int addr)
+>  	if (!hda_codec)
+>  		return -ENOMEM;
+>  
+> -	hda_codec->codec->bus = skl_to_hbus(skl);
+> -	hdev = &hda_codec->codec->core;
+> +	codec = snd_hdac_ext_bus_device_init(bus, addr, HDA_DEV_ASOC);
+> +	if (IS_ERR(codec))
+> +		return PTR_ERR(codec);
+>  
+> -	err = snd_hdac_ext_bus_device_init(bus, addr, hdev, HDA_DEV_ASOC);
+> -	if (err < 0)
+> -		return err;
+> +	hda_codec->codec = codec;
+> +	dev_set_drvdata(&codec->core.dev, hda_codec);
+>  
+>  	/* use legacy bus only for HDA codecs, idisp uses ext bus */
+>  	if ((res & 0xFFFF0000) != IDISP_INTEL_VENDOR_ID) {
+> -		hdev->type = HDA_DEV_LEGACY;
+> -		load_codec_module(hda_codec->codec);
+> +		codec->core.type = HDA_DEV_LEGACY;
+> +		load_codec_module(codec);
+>  	}
+>  	return 0;
+>  #else
+> -	hdev = devm_kzalloc(&skl->pci->dev, sizeof(*hdev), GFP_KERNEL);
+> -	if (!hdev)
+> -		return -ENOMEM;
+> -
+> -	return snd_hdac_ext_bus_device_init(bus, addr, hdev, HDA_DEV_ASOC);
+> +	codec = snd_hdac_ext_bus_device_init(bus, addr, HDA_DEV_ASOC);
+> +	return PTR_ERR_OR_ZERO(codec);
+>  #endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
+>  }
+>  
+> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+> index de7c53224ac3..7c3ea4a12d63 100644
+> --- a/sound/soc/sof/intel/hda-codec.c
+> +++ b/sound/soc/sof/intel/hda-codec.c
+> @@ -115,11 +115,10 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+>  {
+>  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+>  	struct hdac_hda_priv *hda_priv;
+> -	struct hda_codec *codec;
+>  	int type = HDA_DEV_LEGACY;
+>  #endif
+>  	struct hda_bus *hbus = sof_to_hbus(sdev);
+> -	struct hdac_device *hdev;
+> +	struct hda_codec *codec;
+>  	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
+>  		(AC_VERB_PARAMETERS << 8) | AC_PAR_VENDOR_ID;
+>  	u32 resp = -1;
+> @@ -142,20 +141,19 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+>  	if (!hda_priv)
+>  		return -ENOMEM;
+>  
+> -	hda_priv->codec->bus = hbus;
+> -	hdev = &hda_priv->codec->core;
+> -	codec = hda_priv->codec;
+> -
+>  	/* only probe ASoC codec drivers for HDAC-HDMI */
+>  	if (!hda_codec_use_common_hdmi && (resp & 0xFFFF0000) == IDISP_VID_INTEL)
+>  		type = HDA_DEV_ASOC;
+>  
+> -	ret = snd_hdac_ext_bus_device_init(&hbus->core, address, hdev, type);
+> -	if (ret < 0)
+> -		return ret;
+> +	codec = snd_hdac_ext_bus_device_init(&hbus->core, address, type);
+> +	if (IS_ERR(codec))
+> +		return PTR_ERR(codec);
+> +
+> +	hda_priv->codec = codec;
+> +	dev_set_drvdata(&codec->core.dev, hda_priv);
+>  
+>  	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
+> -		if (!hdev->bus->audio_component) {
+> +		if (!hbus->core.audio_component) {
+>  			dev_dbg(sdev->dev,
+>  				"iDisp hw present but no driver\n");
+>  			ret = -ENOENT;
+> @@ -181,15 +179,12 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+>  
+>  out:
+>  	if (ret < 0) {
+> -		snd_hdac_device_unregister(hdev);
+> -		put_device(&hdev->dev);
+> +		snd_hdac_device_unregister(&codec->core);
+> +		put_device(&codec->core.dev);
+>  	}
+>  #else
+> -	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
+> -	if (!hdev)
+> -		return -ENOMEM;
+> -
+> -	ret = snd_hdac_ext_bus_device_init(&hbus->core, address, hdev, HDA_DEV_ASOC);
+> +	codec = snd_hdac_ext_bus_device_init(&hbus->core, address, HDA_DEV_ASOC);
+> +	ret = PTR_ERR_OR_ZERO(codec);
+>  #endif
+>  
+>  	return ret;
+> -- 
+> 2.25.1
+> 

@@ -2,69 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F1257C224
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 04:11:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC45657C2E2
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 05:44:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA928174E;
-	Thu, 21 Jul 2022 04:10:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA928174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDD91774;
+	Thu, 21 Jul 2022 05:43:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDD91774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658369467;
-	bh=VwMJTyuPwk6CN0Y6m66EIqrH1dGKE41zYj6DwqriG+M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658375079;
+	bh=IxndbWF+iYoDEGVDRtxB5l7D6zF0XAS1zFbJO5reIIE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cGXIVhP8ixs32BqrKTe+iy2RTR262KjAPq9lWL6SaGlDFYkzZa3fYp502bqsQTb8s
-	 tW4dXXPfv8WUFTHX6CbbDcBH6zc83SUesnCG+/JQrYOgQhS9Dr7qkxNgfIeisR+zRn
-	 9jZx6yOVpacwv9br5sgmB7bGC6m0jz1bBHJB+4p8=
+	b=hed12WvGqylDfkz/3OPiMvtVv3nLDt4Jar+hoc4amVWjRoi4Cas3OsEy7MghA5WQ4
+	 EsXi3Vup0/7AHejcv0Np3VRVmXUuW/7Bksrz0mf6lbU+9pDcnA+Rwa8Z0T5H0A5HBI
+	 VqD6P6f0RFW+mKy8YSWpV6ZzLwkjBtjVsUTZaSnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E7B7F8052D;
-	Thu, 21 Jul 2022 04:09:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91949F80256;
+	Thu, 21 Jul 2022 05:43:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 557DBF8016D; Thu, 21 Jul 2022 04:09:40 +0200 (CEST)
+ id 39CC4F8016D; Thu, 21 Jul 2022 05:43:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 744A0F800BA;
- Thu, 21 Jul 2022 04:09:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 744A0F800BA
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2896F2008EB;
- Thu, 21 Jul 2022 04:09:31 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BFE92203668;
- Thu, 21 Jul 2022 04:09:30 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8AC331800318;
- Thu, 21 Jul 2022 10:09:28 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- daniel.baluta@nxp.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: SOF: imx: Add i.MX8ULP HW support
-Date: Thu, 21 Jul 2022 09:53:44 +0800
-Message-Id: <1658368424-28247-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1658368424-28247-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1658368424-28247-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DC9CF80166
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 05:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC9CF80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="p1MOI/Pw"
+Received: by mail-ed1-x536.google.com with SMTP id r6so638697edd.7
+ for <alsa-devel@alsa-project.org>; Wed, 20 Jul 2022 20:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=6npaS1zRKm+yyU2zCsQvl5XLwT7kKQ+yzE8xge/iXYI=;
+ b=p1MOI/PwyKmAKZLRGUU7wHJ3gwmCfOuMSd9qe8/di7NRgYoQPVattGIm2LLA/5ZRzt
+ UmkU5j7zN1FHuEPODuf5718XISFVfuLHo7rlPOyFt0V58zPmMwJD1kG7cNARq4n1qG1/
+ xWPDaDD+f5JXnDkwiGvO7GhQVNM9VnDE/QT9Wer6VhUl3z6bBcM9aN93BWHJJX/y/Q3I
+ HBozrneJP0gbcCgI0IKl+MyC0FQKZzDHKL02n/9I3eqSk38jOFbMYJk3ShWxQIAokptk
+ 0ew9hHw8UUP63i9jplHud3h+FVPCkA0FQyUiO55QiCkqmVKmB+mDy86it0JvXhH0iuM9
+ +ncw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=6npaS1zRKm+yyU2zCsQvl5XLwT7kKQ+yzE8xge/iXYI=;
+ b=vN99Ef2dzyTK9E0ou+luoyjAL9WZAryfyt+rbcu1JOH60hHJDoxE2p9E6E7IvWzZwN
+ sZMmOfAuaxRl1uDwL5M76momY/Yfi8peqUOZ+EICUvGxFyqMkmgLG4f4/kxueNA9qE2i
+ AecxERYdlmPJ2HQiHKikB6WPDZy6IORoSCrwGQW7EwUuMRgzFKPf4TClsPspDE67taje
+ KXIOSL7g5b44qSp03LLDkCah4S3kY17LnJ5ue71WGVwVYmJ5GEW7BKHzdvgQ7cZUHv8j
+ +ZxPi9hGCa522Pa8nKHO8yoBbJNQAYJxeyf27r58ZBjKbV6kjZRHwhuMW3UfN29AKnED
+ 1H9Q==
+X-Gm-Message-State: AJIora+77Xuw1YgSNpw+KY87aiGzPzpzI25T0ROuFgK4Qekaab9fN6ZF
+ EU8EVpTwUwyHIkV/Tdw3qiOvUowV9dhfQchuEAM=
+X-Google-Smtp-Source: AGRyM1uOI+8BZmBho8NWh0C+///IOSzyEsQPkRoYp57fJlWZ+qY2k+4HwdfPpAVjNR2BGQDSHLue/6IDKdxW5yyntWw=
+X-Received: by 2002:a05:6402:3326:b0:43a:902b:d335 with SMTP id
+ e38-20020a056402332600b0043a902bd335mr55228432eda.412.1658375009916; Wed, 20
+ Jul 2022 20:43:29 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220719065357.2705918-1-airlied@gmail.com>
+ <20220719094835.52197852@sal.lan>
+In-Reply-To: <20220719094835.52197852@sal.lan>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 21 Jul 2022 13:43:18 +1000
+Message-ID: <CAPM=9tzoB_dJXgb9M7y9cJ24Z4vBmy7NRePxJARdYRLag2Vx9g@mail.gmail.com>
+Subject: Re: [PATCH] docs: driver-api: firmware: add driver firmware
+ guidelines. (v2)
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Linux Wireless List <linux-wireless@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-block@vger.kernel.org,
+ "Luis R. Rodriguez" <mcgrof@kernel.org>,
+ Network Development <netdev@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "dri-devel@lists.sf.net" <dri-devel@lists.sf.net>,
+ Dave Airlie <airlied@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,582 +108,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zhang Peng <peng.zhang_8@nxp.com>
+> It is hard to enforce how vendors will version their firmware. On media,
+> we have some drivers whose major means different hardware versions. For
+> instance, on xc3028, v3.x means low voltage chips, while v2.x means
+> "normal" voltage. We end changing the file name on Linux to avoid the risk
+> of damaging the hardware, as using v27 firmware on low power chips damage
+> them. So, we have:
+>
+>         drivers/media/tuners/xc2028.h:#define XC2028_DEFAULT_FIRMWARE "xc3028-v27.fw"
+>         drivers/media/tuners/xc2028.h:#define XC3028L_DEFAULT_FIRMWARE "xc3028L-v36.fw"
+>
+> As their main market is not Linux - nor PC - as their main sales are on
+> TV sets, and them don't officially support Linux, there's nothing we can
+> do to enforce it.
+>
+> IMO we need a more generic text here to indicate that Linux firmware
+> files should be defined in a way that it should be possible to detect
+> when there are incompatibilities with past versions.
+> So, I would say, instead:
+>
+>         Firmware files shall be designed in a way that it allows
+>         checking for firmware ABI version changes. It is recommended
+>         that firmware files to be versioned with at least major/minor
+>         version.
 
-This adds skeleton support for the audio DSP hardware found on
-NXP i.MX8ULP platform.
+This sounds good, will update with this.
 
-On i.MX8ULP resources (clocks, power, etc) are managed by the
-System Integration Module in LPAV domain and XRDC which is handled
-by arm trusted firmware.
+>
+> > It
+> > +  is suggested that the firmware files in linux-firmware be named with
+> > +  some device specific name, and just the major version.
+>
+> > The
+> > +  major/minor/patch versions should be stored in a header in the
+> > +  firmware file for the driver to detect any non-ABI fixes/issues.
+>
+> I would also make this more generic. On media, we ended adding the firmware
+> version indicated at the file name. For instance, xc4000 driver checks for
+> two firmware files:
+>
+> drivers/media/tuners/xc4000.c:#define XC4000_DEFAULT_FIRMWARE "dvb-fe-xc4000-1.4.fw"
+> drivers/media/tuners/xc4000.c:#define XC4000_DEFAULT_FIRMWARE_NEW "dvb-fe-xc4000-1.4.1.fw"
 
-Signed-off-by: Zhang Peng <peng.zhang_8@nxp.com>
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-changes in v2:
-- Add arm-smccc.h and use snd_sof_ipc_process_reply()
-- Address review comments
+This is probably fine for products where development never produces
+much firmwares, but it quickly becomes unmanageable when you end up
+with _NEW_NEW_NEW etc.
 
- sound/soc/sof/imx/Kconfig   |   9 +
- sound/soc/sof/imx/Makefile  |   2 +
- sound/soc/sof/imx/imx8ulp.c | 514 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 525 insertions(+)
- create mode 100644 sound/soc/sof/imx/imx8ulp.c
+I'd rather not encourage this sort of thing unless it is totally
+outside our control. So I'd like to keep the guidelines for when we
+have some control what we'd recommend.
 
-diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-index cc6e695f913a..4751b04d5e6f 100644
---- a/sound/soc/sof/imx/Kconfig
-+++ b/sound/soc/sof/imx/Kconfig
-@@ -41,4 +41,13 @@ config SND_SOC_SOF_IMX8M
- 	  Say Y if you have such a device.
- 	  If unsure select "N".
- 
-+config SND_SOC_SOF_IMX8ULP
-+	tristate "SOF support for i.MX8ULP"
-+	depends on IMX_DSP
-+	select SND_SOC_SOF_IMX_COMMON
-+	help
-+	  This adds support for Sound Open Firmware for NXP i.MX8ULP platforms.
-+	  Say Y if you have such a device.
-+	  If unsure select "N".
-+
- endif ## SND_SOC_SOF_IMX_TOPLEVEL
-diff --git a/sound/soc/sof/imx/Makefile b/sound/soc/sof/imx/Makefile
-index dba93c3466ec..798b43a415bf 100644
---- a/sound/soc/sof/imx/Makefile
-+++ b/sound/soc/sof/imx/Makefile
-@@ -1,9 +1,11 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
- snd-sof-imx8-objs := imx8.o
- snd-sof-imx8m-objs := imx8m.o
-+snd-sof-imx8ulp-objs := imx8ulp.o
- 
- snd-sof-imx-common-objs := imx-common.o
- 
- obj-$(CONFIG_SND_SOC_SOF_IMX8) += snd-sof-imx8.o
- obj-$(CONFIG_SND_SOC_SOF_IMX8M) += snd-sof-imx8m.o
-+obj-$(CONFIG_SND_SOC_SOF_IMX8ULP) += snd-sof-imx8ulp.o
- obj-$(CONFIG_SND_SOC_SOF_IMX_COMMON) += imx-common.o
-diff --git a/sound/soc/sof/imx/imx8ulp.c b/sound/soc/sof/imx/imx8ulp.c
-new file mode 100644
-index 000000000000..02b496165acc
---- /dev/null
-+++ b/sound/soc/sof/imx/imx8ulp.c
-@@ -0,0 +1,514 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// Copyright 2021-2022 NXP
-+//
-+// Author: Peng Zhang <peng.zhang_8@nxp.com>
-+//
-+// Hardware interface for audio DSP on i.MX8ULP
-+
-+#include <linux/arm-smccc.h>
-+#include <linux/clk.h>
-+#include <linux/firmware.h>
-+#include <linux/firmware/imx/dsp.h>
-+#include <linux/firmware/imx/ipc.h>
-+#include <linux/firmware/imx/svc/misc.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_platform.h>
-+#include <linux/of_reserved_mem.h>
-+
-+#include <sound/sof.h>
-+#include <sound/sof/xtensa.h>
-+
-+#include "../ops.h"
-+#include "../sof-of-dev.h"
-+#include "imx-common.h"
-+
-+#define FSL_SIP_HIFI_XRDC	0xc200000e
-+
-+/* SIM Domain register */
-+#define SYSCTRL0		0x8
-+#define EXECUTE_BIT		BIT(13)
-+#define RESET_BIT		BIT(16)
-+#define HIFI4_CLK_BIT		BIT(17)
-+#define PB_CLK_BIT		BIT(18)
-+#define PLAT_CLK_BIT		BIT(19)
-+#define DEBUG_LOGIC_BIT		BIT(25)
-+
-+#define MBOX_OFFSET		0x800000
-+#define MBOX_SIZE		0x1000
-+
-+static struct clk_bulk_data imx8ulp_dsp_clks[] = {
-+	{ .id = "core" },
-+	{ .id = "ipg" },
-+	{ .id = "ocram" },
-+	{ .id = "mu" },
-+};
-+
-+struct imx8ulp_priv {
-+	struct device *dev;
-+	struct snd_sof_dev *sdev;
-+
-+	/* DSP IPC handler */
-+	struct imx_dsp_ipc *dsp_ipc;
-+	struct platform_device *ipc_dev;
-+
-+	struct regmap *regmap;
-+	struct imx_clocks *clks;
-+};
-+
-+static void imx8ulp_sim_lpav_start(struct imx8ulp_priv *priv)
-+{
-+	/* Controls the HiFi4 DSP Reset: 1 in reset, 0 out of reset */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, RESET_BIT, 0);
-+
-+	/* Reset HiFi4 DSP Debug logic: 1 debug reset, 0  out of reset*/
-+	regmap_update_bits(priv->regmap, SYSCTRL0, DEBUG_LOGIC_BIT, 0);
-+
-+	/* Stall HIFI4 DSP Execution: 1 stall, 0 run */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, 0);
-+}
-+
-+static int imx8ulp_get_mailbox_offset(struct snd_sof_dev *sdev)
-+{
-+	return MBOX_OFFSET;
-+}
-+
-+static int imx8ulp_get_window_offset(struct snd_sof_dev *sdev, u32 id)
-+{
-+	return MBOX_OFFSET;
-+}
-+
-+static void imx8ulp_dsp_handle_reply(struct imx_dsp_ipc *ipc)
-+{
-+	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
-+
-+	snd_sof_ipc_process_reply(priv->sdev, 0);
-+
-+	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
-+}
-+
-+static void imx8ulp_dsp_handle_request(struct imx_dsp_ipc *ipc)
-+{
-+	struct imx8ulp_priv *priv = imx_dsp_get_data(ipc);
-+	u32 p; /* panic code */
-+
-+	/* Read the message from the debug box. */
-+	sof_mailbox_read(priv->sdev, priv->sdev->debug_box.offset + 4, &p, sizeof(p));
-+
-+	/* Check to see if the message is a panic code (0x0dead***) */
-+	if ((p & SOF_IPC_PANIC_MAGIC_MASK) == SOF_IPC_PANIC_MAGIC)
-+		snd_sof_dsp_panic(priv->sdev, p, true);
-+	else
-+		snd_sof_ipc_msgs_rx(priv->sdev);
-+}
-+
-+static struct imx_dsp_ops dsp_ops = {
-+	.handle_reply		= imx8ulp_dsp_handle_reply,
-+	.handle_request		= imx8ulp_dsp_handle_request,
-+};
-+
-+static int imx8ulp_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
-+{
-+	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
-+
-+	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
-+			  msg->msg_size);
-+	imx_dsp_ring_doorbell(priv->dsp_ipc, 0);
-+
-+	return 0;
-+}
-+
-+static int imx8ulp_run(struct snd_sof_dev *sdev)
-+{
-+	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
-+
-+	imx8ulp_sim_lpav_start(priv);
-+
-+	return 0;
-+}
-+
-+static int imx8ulp_reset(struct snd_sof_dev *sdev)
-+{
-+	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
-+	struct arm_smccc_res smc_resource;
-+
-+	/* HiFi4 Platform Clock Enable: 1 enabled, 0 disabled */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, PLAT_CLK_BIT, PLAT_CLK_BIT);
-+
-+	/* HiFi4 PBCLK clock enable: 1 enabled, 0 disabled */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, PB_CLK_BIT, PB_CLK_BIT);
-+
-+	/* HiFi4 Clock Enable: 1 enabled, 0 disabled */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, HIFI4_CLK_BIT, HIFI4_CLK_BIT);
-+
-+	regmap_update_bits(priv->regmap, SYSCTRL0, RESET_BIT, RESET_BIT);
-+	usleep_range(1, 2);
-+
-+	/* Stall HIFI4 DSP Execution: 1 stall, 0 not stall */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
-+	usleep_range(1, 2);
-+
-+	arm_smccc_smc(FSL_SIP_HIFI_XRDC, 0, 0, 0, 0, 0, 0, 0, &smc_resource);
-+
-+	return 0;
-+}
-+
-+static int imx8ulp_probe(struct snd_sof_dev *sdev)
-+{
-+	struct platform_device *pdev =
-+		container_of(sdev->dev, struct platform_device, dev);
-+	struct device_node *np = pdev->dev.of_node;
-+	struct device_node *res_node;
-+	struct resource *mmio;
-+	struct imx8ulp_priv *priv;
-+	struct resource res;
-+	u32 base, size;
-+	int ret = 0;
-+
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->clks = devm_kzalloc(&pdev->dev, sizeof(*priv->clks), GFP_KERNEL);
-+	if (!priv->clks)
-+		return -ENOMEM;
-+
-+	sdev->num_cores = 1;
-+	sdev->pdata->hw_pdata = priv;
-+	priv->dev = sdev->dev;
-+	priv->sdev = sdev;
-+
-+	/* System integration module(SIM) control dsp configuration */
-+	priv->regmap = syscon_regmap_lookup_by_phandle(np, "fsl,dsp-ctrl");
-+	if (IS_ERR(priv->regmap))
-+		return PTR_ERR(priv->regmap);
-+
-+	priv->ipc_dev = platform_device_register_data(sdev->dev, "imx-dsp",
-+						      PLATFORM_DEVID_NONE,
-+						      pdev, sizeof(*pdev));
-+	if (IS_ERR(priv->ipc_dev))
-+		return PTR_ERR(priv->ipc_dev);
-+
-+	priv->dsp_ipc = dev_get_drvdata(&priv->ipc_dev->dev);
-+	if (!priv->dsp_ipc) {
-+		/* DSP IPC driver not probed yet, try later */
-+		ret = -EPROBE_DEFER;
-+		dev_err(sdev->dev, "Failed to get drvdata\n");
-+		goto exit_pdev_unregister;
-+	}
-+
-+	imx_dsp_set_data(priv->dsp_ipc, priv);
-+	priv->dsp_ipc->ops = &dsp_ops;
-+
-+	/* DSP base */
-+	mmio = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (mmio) {
-+		base = mmio->start;
-+		size = resource_size(mmio);
-+	} else {
-+		dev_err(sdev->dev, "error: failed to get DSP base at idx 0\n");
-+		ret = -EINVAL;
-+		goto exit_pdev_unregister;
-+	}
-+
-+	sdev->bar[SOF_FW_BLK_TYPE_IRAM] = devm_ioremap(sdev->dev, base, size);
-+	if (!sdev->bar[SOF_FW_BLK_TYPE_IRAM]) {
-+		dev_err(sdev->dev, "failed to ioremap base 0x%x size 0x%x\n",
-+			base, size);
-+		ret = -ENODEV;
-+		goto exit_pdev_unregister;
-+	}
-+	sdev->mmio_bar = SOF_FW_BLK_TYPE_IRAM;
-+
-+	res_node = of_parse_phandle(np, "memory-reserved", 0);
-+	if (!res_node) {
-+		dev_err(&pdev->dev, "failed to get memory region node\n");
-+		ret = -ENODEV;
-+		goto exit_pdev_unregister;
-+	}
-+
-+	ret = of_address_to_resource(res_node, 0, &res);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to get reserved region address\n");
-+		goto exit_pdev_unregister;
-+	}
-+
-+	sdev->bar[SOF_FW_BLK_TYPE_SRAM] = devm_ioremap_wc(sdev->dev, res.start,
-+							  resource_size(&res));
-+	if (!sdev->bar[SOF_FW_BLK_TYPE_SRAM]) {
-+		dev_err(sdev->dev, "failed to ioremap mem 0x%x size 0x%x\n",
-+			base, size);
-+		ret = -ENOMEM;
-+		goto exit_pdev_unregister;
-+	}
-+	sdev->mailbox_bar = SOF_FW_BLK_TYPE_SRAM;
-+
-+	/* set default mailbox offset for FW ready message */
-+	sdev->dsp_box.offset = MBOX_OFFSET;
-+
-+	ret = of_reserved_mem_device_init(sdev->dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to init reserved memory region %d\n", ret);
-+		goto exit_pdev_unregister;
-+	}
-+
-+	priv->clks->dsp_clks = imx8ulp_dsp_clks;
-+	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8ulp_dsp_clks);
-+
-+	ret = imx8_parse_clocks(sdev, priv->clks);
-+	if (ret < 0)
-+		goto exit_pdev_unregister;
-+
-+	ret = imx8_enable_clocks(sdev, priv->clks);
-+	if (ret < 0)
-+		goto exit_pdev_unregister;
-+
-+	return 0;
-+
-+exit_pdev_unregister:
-+	platform_device_unregister(priv->ipc_dev);
-+
-+	return ret;
-+}
-+
-+static int imx8ulp_remove(struct snd_sof_dev *sdev)
-+{
-+	struct imx8ulp_priv *priv = sdev->pdata->hw_pdata;
-+
-+	imx8_disable_clocks(sdev, priv->clks);
-+	platform_device_unregister(priv->ipc_dev);
-+
-+	return 0;
-+}
-+
-+/* on i.MX8 there is 1 to 1 match between type and BAR idx */
-+static int imx8ulp_get_bar_index(struct snd_sof_dev *sdev, u32 type)
-+{
-+	return type;
-+}
-+
-+static int imx8ulp_suspend(struct snd_sof_dev *sdev)
-+{
-+	int i;
-+	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
-+
-+	/*Stall DSP,  release in .run() */
-+	regmap_update_bits(priv->regmap, SYSCTRL0, EXECUTE_BIT, EXECUTE_BIT);
-+
-+	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
-+		imx_dsp_free_channel(priv->dsp_ipc, i);
-+
-+	imx8_disable_clocks(sdev, priv->clks);
-+
-+	return 0;
-+}
-+
-+static int imx8ulp_resume(struct snd_sof_dev *sdev)
-+{
-+	struct imx8ulp_priv *priv = (struct imx8ulp_priv *)sdev->pdata->hw_pdata;
-+	int i;
-+
-+	imx8_enable_clocks(sdev, priv->clks);
-+
-+	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
-+		imx_dsp_request_channel(priv->dsp_ipc, i);
-+
-+	return 0;
-+}
-+
-+static int imx8ulp_dsp_runtime_resume(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_dsp_power_state target_dsp_state = {
-+		.state = SOF_DSP_PM_D0,
-+		.substate = 0,
-+	};
-+
-+	imx8ulp_resume(sdev);
-+
-+	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
-+}
-+
-+static int imx8ulp_dsp_runtime_suspend(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_dsp_power_state target_dsp_state = {
-+		.state = SOF_DSP_PM_D3,
-+		.substate = 0,
-+	};
-+
-+	imx8ulp_suspend(sdev);
-+
-+	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
-+}
-+
-+static int imx8ulp_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state)
-+{
-+	const struct sof_dsp_power_state target_dsp_state = {
-+		.state = target_state,
-+		.substate = 0,
-+	};
-+
-+	if (!pm_runtime_suspended(sdev->dev))
-+		imx8ulp_suspend(sdev);
-+
-+	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
-+}
-+
-+static int imx8ulp_dsp_resume(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_dsp_power_state target_dsp_state = {
-+		.state = SOF_DSP_PM_D0,
-+		.substate = 0,
-+	};
-+
-+	imx8ulp_resume(sdev);
-+
-+	if (pm_runtime_suspended(sdev->dev)) {
-+		pm_runtime_disable(sdev->dev);
-+		pm_runtime_set_active(sdev->dev);
-+		pm_runtime_mark_last_busy(sdev->dev);
-+		pm_runtime_enable(sdev->dev);
-+		pm_runtime_idle(sdev->dev);
-+	}
-+
-+	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
-+}
-+
-+static struct snd_soc_dai_driver imx8ulp_dai[] = {
-+	{
-+		.name = "sai5",
-+		.playback = {
-+			.channels_min = 1,
-+			.channels_max = 32,
-+		},
-+		.capture = {
-+			.channels_min = 1,
-+			.channels_max = 32,
-+		},
-+	},
-+	{
-+		.name = "sai6",
-+		.playback = {
-+			.channels_min = 1,
-+			.channels_max = 32,
-+		},
-+		.capture = {
-+			.channels_min = 1,
-+			.channels_max = 32,
-+		},
-+	},
-+};
-+
-+static int imx8ulp_dsp_set_power_state(struct snd_sof_dev *sdev,
-+				       const struct sof_dsp_power_state *target_state)
-+{
-+	sdev->dsp_power_state = *target_state;
-+
-+	return 0;
-+}
-+
-+/* i.MX8 ops */
-+struct snd_sof_dsp_ops sof_imx8ulp_ops = {
-+	/* probe and remove */
-+	.probe		= imx8ulp_probe,
-+	.remove		= imx8ulp_remove,
-+	/* DSP core boot */
-+	.run		= imx8ulp_run,
-+	.reset		= imx8ulp_reset,
-+
-+	/* Block IO */
-+	.block_read	= sof_block_read,
-+	.block_write	= sof_block_write,
-+
-+	/* Module IO */
-+	.read64		= sof_io_read64,
-+
-+	/* Mailbox IO */
-+	.mailbox_read	= sof_mailbox_read,
-+	.mailbox_write	= sof_mailbox_write,
-+
-+	/* ipc */
-+	.send_msg	= imx8ulp_send_msg,
-+	.get_mailbox_offset	= imx8ulp_get_mailbox_offset,
-+	.get_window_offset	= imx8ulp_get_window_offset,
-+
-+	.ipc_msg_data	= sof_ipc_msg_data,
-+	.set_stream_data_offset = sof_set_stream_data_offset,
-+
-+	/* stream callbacks */
-+	.pcm_open	= sof_stream_pcm_open,
-+	.pcm_close	= sof_stream_pcm_close,
-+
-+	/* module loading */
-+	.get_bar_index	= imx8ulp_get_bar_index,
-+	/* firmware loading */
-+	.load_firmware	= snd_sof_load_firmware_memcpy,
-+
-+	/* Debug information */
-+	.dbg_dump	= imx8_dump,
-+
-+	/* Firmware ops */
-+	.dsp_arch_ops	= &sof_xtensa_arch_ops,
-+
-+	/* DAI drivers */
-+	.drv		= imx8ulp_dai,
-+	.num_drv	= ARRAY_SIZE(imx8ulp_dai),
-+
-+	/* ALSA HW info flags */
-+	.hw_info	= SNDRV_PCM_INFO_MMAP |
-+			SNDRV_PCM_INFO_MMAP_VALID |
-+			SNDRV_PCM_INFO_INTERLEAVED |
-+			SNDRV_PCM_INFO_PAUSE |
-+			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
-+
-+	/* PM */
-+	.runtime_suspend	= imx8ulp_dsp_runtime_suspend,
-+	.runtime_resume		= imx8ulp_dsp_runtime_resume,
-+
-+	.suspend	= imx8ulp_dsp_suspend,
-+	.resume		= imx8ulp_dsp_resume,
-+
-+	.set_power_state	= imx8ulp_dsp_set_power_state,
-+};
-+
-+static struct sof_dev_desc sof_of_imx8ulp_desc = {
-+	.ipc_supported_mask     = BIT(SOF_IPC),
-+	.ipc_default            = SOF_IPC,
-+	.default_fw_path = {
-+		[SOF_IPC] = "imx/sof",
-+	},
-+	.default_tplg_path = {
-+		[SOF_IPC] = "imx/sof-tplg",
-+	},
-+	.default_fw_filename = {
-+		[SOF_IPC] = "sof-imx8ulp.ri",
-+	},
-+	.nocodec_tplg_filename = "sof-imx8ulp-nocodec.tplg",
-+	.ops = &sof_imx8ulp_ops,
-+};
-+
-+static const struct of_device_id sof_of_imx8ulp_ids[] = {
-+	{ .compatible = "fsl,imx8ulp-dsp", .data = &sof_of_imx8ulp_desc},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sof_of_imx8ulp_ids);
-+
-+/* DT driver definition */
-+static struct platform_driver snd_sof_of_imx8ulp_driver = {
-+	.probe = sof_of_probe,
-+	.remove = sof_of_remove,
-+	.driver = {
-+		.name = "sof-audio-of-imx8ulp",
-+		.pm = &sof_of_pm,
-+		.of_match_table = sof_of_imx8ulp_ids,
-+	},
-+};
-+module_platform_driver(snd_sof_of_imx8ulp_driver);
-+
-+MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
-+MODULE_LICENSE("Dual BSD/GPL");
--- 
-2.34.1
+In this case I'd have recommended you put the 1.4.1 in the header of
+the fw, and just have it called dvb-fe-xc4000-1.fw and overwrite the
+NEW with the OLD, I understand we likely don't have the control here.
 
+> > +  firmware files in linux-firmware should be overwritten with the newest
+> > +  compatible major version.
+>
+> For me "shall" is mandatory, while "should" is optional.
+>
+> In this specific case, I'm not so sure if overriding it is the best thing
+> to do on all subsystems. I mean, even with the same ABI, older firmware
+> usually means that some bugs and/or limitations will be present there.
+
+As long as you can detect the minor/patch versions from the firmware
+file after loading it you should be able to do sufficient workarounds.
+>
+> That's specially true on codecs: even having the same ABI, older versions
+> won't support decoding newer protocols. We have one case with some
+> digital TV decoders that only support some Cable-TV protocols with
+> newer firmware versions. We have also one case were remote controller
+> decoding is buggy with older firmwares. On both situations, the ABI
+> didn't change.
+
+If the only way to figure that out is by the filename or minor
+version, then so be it, but where people have some control I'd rather
+provide some harder guidelines.
+
+Dave.

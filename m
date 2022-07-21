@@ -2,131 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B55E857D09E
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 18:03:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55CF57D09F
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 18:03:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FBA718AF;
-	Thu, 21 Jul 2022 18:02:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FBA718AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D07418B9;
+	Thu, 21 Jul 2022 18:02:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D07418B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658419416;
-	bh=xLgX+dFkZuTbaFjtHR515YWNWFlsaeYsVdUtRfv4mwU=;
+	s=default; t=1658419428;
+	bh=+qDXeupP8UKrTZpLit9aM8bcjdUcrgXR/2lGtX0HLjE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J/EBM/4D0uHwmeC8/0/XeDfl2ILE8NznRRar/fngbw4Hr3KftsJ35CNqFM9UxowLZ
-	 QFMjjFhAGWwPE2nWs+7ZAXdf15tM5IyNa4Z1Ky/f2OSrMyPE2O/xHKHg/ri4/JxkmA
-	 pi0gPoJH1SqyRwlprM3pkYB1Wv1ACU9MPOBodO3I=
+	b=qJy0IBv1EjoH0OzDgA/MS3P0FRK87W/1Qaf13CnRWpgQ+PAxSXPHTvOX55mmTTxw3
+	 kUKna6V3z16d3HJ3mSOE7xA/g5poKZG5+H6tp5apmcCnP8iatAY5hgQ9R/anGcWHtG
+	 GPp7/IeZ/eiGVRTNl9koLyGcEw8QnLBwFLqMY0Ig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3933F805C4;
-	Thu, 21 Jul 2022 17:58:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B1AEF805C5;
+	Thu, 21 Jul 2022 17:58:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE5C6F8016D; Thu, 21 Jul 2022 08:13:21 +0200 (CEST)
+ id CEB68F8016D; Thu, 21 Jul 2022 15:50:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC802F80166
- for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 08:13:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC802F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4A2EF80166
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 15:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4A2EF80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="KSKl4Nni"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M2t0jHNNFAz0K8eUjX2fuw2dZ5+RM64n+CrytLeZStxEqdssm4SGTt8Qcrg4f1zA0d+xSrkaTn0eilgNX4Au86lXFQlCubxHpNiQJkQyqvXI64t8RX5akAQ2+qFRPLAfTandog/mMaW5+/7lfBGsy5hbYAX16EqoS1l2t5XKIwyqdtgqlppRTzzGW0q34TJAyF1YgVBjObH6eoVzb2geWiuYa6OlpTtyfFzudF5OugcmZNkFBuU9DxW0co8ghr1+mvVfRJF/VkibzvYk52aQ9sBpYmypg7jCyRPgFqPWgYsnod6X1X/rMWjuPIym7THXKYnYF6MBCNSi6PNiKoU+0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I0D4igSH7BZLvBKhq9qPOhpohSGkdXgBNNRu0eLmGCQ=;
- b=O0A8OzxxOb08GNzCALQR5P126JUGGH2iU+5dQDB53Qn7K1+XCr38DsxvBnp1XJxRStbmPVgIW1zaIa8zURZmVGwIB+KdbRVOsbiS/QdYh2E4/edIoJJ5wMsr+Gdrudtlg2XXTQMdMYLd8shnFFjaf3kzTFsnXfH3xHEmFfrEzLYP1x/SzgUZZHgMs7oJLPwI+Fg10WN/O8YftmPUhyLh3LhE+qThOL0Vuu9u5CFt0uJ7yRZ6lkYAdNiBwkKXNninOdvCWUhCrUqV/4oE5nHUGE3aJ+/CgA5b6O4n9v37UJmxCbRkXABUg//IeWBxTFuO/gMLHnEuPzjM1h+gJsSLzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I0D4igSH7BZLvBKhq9qPOhpohSGkdXgBNNRu0eLmGCQ=;
- b=KSKl4Nni6Ye9Be6Td3zfQCuTbWgkmbefc7CKdIDSTnxirTP6jjDeRPkmJAPIrBA0KdIRghN06ynlSalScBsC6jKbbmHiZFndpWmTFOS6SeRJjLdwcvKXGfMLVkSgSrlapAbu+5fH4t2IEdGmWzidVOzQeLF11EdY/nohI0OrM9Q=
-Received: from BN9P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::17)
- by SA0PR12MB4384.namprd12.prod.outlook.com (2603:10b6:806:9f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Thu, 21 Jul
- 2022 06:13:11 +0000
-Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::63) by BN9P222CA0012.outlook.office365.com
- (2603:10b6:408:10c::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18 via Frontend
- Transport; Thu, 21 Jul 2022 06:13:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5458.17 via Frontend Transport; Thu, 21 Jul 2022 06:13:11 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 21 Jul
- 2022 01:13:08 -0500
-Received: from amd-Z97X-UD7-TH.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via
- Frontend Transport; Thu, 21 Jul 2022 01:12:58 -0500
-From: syed sabakareem <Syed.SabaKareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 5/5] ASoC: amd: enable RPL Platform acp drivers build
-Date: Thu, 21 Jul 2022 11:40:02 +0530
-Message-ID: <20220721061035.91139-5-Syed.SabaKareem@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220721061035.91139-1-Syed.SabaKareem@amd.com>
-References: <20220721061035.91139-1-Syed.SabaKareem@amd.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="G3gdHUg+"
+Received: by mail-pj1-x102c.google.com with SMTP id ku18so1682575pjb.2
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 06:50:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=uEjSfF+99/HRrfEMs0fz/oyvdJNIzMVZ2NrIMge9YDY=;
+ b=G3gdHUg+uCjmsO/Wxn3dzoE8fIx2mUG0OaV5hLlC1XLq/ZHCRqNwUm+5GuueuEsfUi
+ c2MdBDsaDXi7DZhBkpgE8lekeg+A8WMbFypcfJ8WypuyJAoyA2QGkHcY1KYQe5MJuD9A
+ INT4DUno2z8EtcksjfmJuunh3959Mk5YyDb+T6OnFfGgHvf/XI0KB+BaX8c37YuNSyq6
+ Mt+5fXZDO5jgPx3RUvxsQsECrDw6Wc27XYTCynd6+4AmgAyuaJRsu9G+EawVWHIM9AMt
+ u6nATWl/tYtZwC0/bGXtjRt1A9Q+kcVhs5B5JEL79hNU1vdKiWecly7EMcamhjAQsi/O
+ P8eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=uEjSfF+99/HRrfEMs0fz/oyvdJNIzMVZ2NrIMge9YDY=;
+ b=5fQQn62Ofm8AVFXYXHPcuE5ukonHR2fjd6f4ZVrz0mkA0atSenlOYfPGDb0l8lPgyt
+ M0LL8AD9QfT8O6Mz3TiBuy/GrBWMIddEqVLZqSmmYQJCcSYl9kgx2buq4gnkZo5AXPaA
+ +ZUciFFnHiuk/b583qQC64fxzY3mb5CLXRJbhj7iEUVCV5LbmhZ8F8OM0OA+pcUK1Fc6
+ eovwV0q8Nu6PxzKjQ9VRMJ2E/ASFUxkUdDE1Ad3nub8R8qPC28Gtq6ZWuMpH31stwxWD
+ dltygYItIRPBhv8Kwzt5EEtfmGTpbudF/FD7qQjl3pSVtx98GK803IkYRznrLvLc0tOW
+ hrdA==
+X-Gm-Message-State: AJIora+H9fy7YSFcKJuDAC+K6DGG2XGKDRRnka4oaKo00EUkhmNsNFcL
+ Lave002pCtdZ3SM/r9Ca9tU=
+X-Google-Smtp-Source: AGRyM1tVlFJJ8D0O7DAi0MZsfHRpXKNAT5a//2gM7rpKtWvyT9EePoTM4PI8WjL1FhByjqqlx6ehHA==
+X-Received: by 2002:a17:902:f646:b0:168:e2da:8931 with SMTP id
+ m6-20020a170902f64600b00168e2da8931mr43850943plg.84.1658411411179; 
+ Thu, 21 Jul 2022 06:50:11 -0700 (PDT)
+Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
+ by smtp.gmail.com with ESMTPSA id
+ x2-20020a17090a0bc200b001f239783e3dsm858074pjd.34.2022.07.21.06.50.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Jul 2022 06:50:10 -0700 (PDT)
+From: Stafford Horne <shorne@gmail.com>
+To: LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 2/4] PCI: Move isa_dma_bridge_buggy out of dma.h
+Date: Thu, 21 Jul 2022 22:49:22 +0900
+Message-Id: <20220721134924.596152-3-shorne@gmail.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220721134924.596152-1-shorne@gmail.com>
+References: <20220721134924.596152-1-shorne@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f000a1d5-e8f1-4d5b-ad38-08da6ae016f5
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4384:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S1EOC2ZAnEpkfZMNsWp1nBKpK7OBmdsltmHW8YFwyAyQLDrT4sOXPl804nvgcFBchcLXGZ1B5Yw5XRQ82QlvmLP6bNgi60fPRBb7KqPDhzLSugPG5N/5u6udTriB6mYUBo/nrQ1vl9naqtmE099XVUQ6iNfv7gW+9DsxTDYV0D24d/4qfeFYFeVNfQC3imhgV4Nsqw13CUQM8DJNhgIkRqHHQLZqZHksGWutnrqt5iVNyOmptKAPvxUpR5Rb5XoFWbwE0XXv+6nN8FaNGophl2bL0+M9Vf5vBNDGL3Qu8PawWzJDOeWU2BwL70ub/JjtOUmJzZXL+45CYS3G+AdgKuXOVjRAeQRdN7L0W3PbMUsxB7jceb58/G1Uj5LsCyoIlpl83bZ+7QMowNGviJeViVG+x9X8YohPSv3VQmZT7zdccbYJ4kMWMTiDW3y7bGiTdVZEi1PtJhTLG8RyErNXGXDE98PABUkCkqiqGlrQPnNKk8+Z+iC+daxpVa1nAB91Gy2nL51irO8Cmr/7rzJ5IXRkPF8oglICk6DW8len/Y3PK/M3XdQ5by1tXeS+9o1RNlDYgZFdCT9H1gfSCakKXq7RFgHamcWzeRF86Hk7jy7i0it6tr86Zrxm9AaQl/gYDAzVMdy0wVqaoCIMcdNhULrEhZEwmDDW53i6UJpeVtUgcWCyv2GnpFYPv7E0USaLgQ1wWeJE2cKgffLSW3+MiNyLsU968H0ksbNEg+UhyvVINdsR48K7qNrGn7rzhMSJCbUPIX8bpoE80pBRbwFrDIEvna08/4QsjPWBQtmBWsbp9i73w7aM565OTgnEBuicesDBcLJKWoapdFdLzDKr7A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(39860400002)(346002)(396003)(36840700001)(40470700004)(46966006)(8676002)(4326008)(70586007)(70206006)(82310400005)(110136005)(478600001)(316002)(54906003)(8936002)(40480700001)(2906002)(5660300002)(7416002)(40460700003)(36860700001)(86362001)(36756003)(336012)(426003)(82740400003)(186003)(81166007)(41300700001)(1076003)(26005)(83380400001)(2616005)(356005)(6666004)(47076005)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 06:13:11.5983 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f000a1d5-e8f1-4d5b-ad38-08da6ae016f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4384
 X-Mailman-Approved-At: Thu, 21 Jul 2022 17:58:03 +0200
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam
- Girdwood <lgirdwood@gmail.com>, Randy Dunlap <rdunlap@infradead.org>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Julian Braha <julianbraha@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- Bard Liao <bard.liao@intel.com>
+Cc: alsa-devel@alsa-project.org, Rich Felker <dalias@libc.org>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-sh@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-pci@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>,
+ linux-ia64@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ Vasily Gorbik <gor@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
+ x86@kernel.org, Russell King <linux@armlinux.org.uk>,
+ linux-csky@vger.kernel.org, Greg Ungerer <gerg@linux-m68k.org>,
+ Christoph Hellwig <hch@infradead.org>, linux-alpha@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Matt Turner <mattst88@gmail.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ linux-xtensa@linux-xtensa.org, Albert Ou <aou@eecs.berkeley.edu>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, Heiko Carstens <hca@linux.ibm.com>,
+ Vineet Gupta <vgupta@kernel.org>, linux-um@lists.infradead.org,
+ linux-mips@vger.kernel.org, Ian Abbott <abbotti@mev.co.uk>,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Stafford Horne <shorne@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Richard Henderson <rth@twiddle.net>, Chris Zankel <chris@zankel.net>,
+ Michal Simek <monstr@monstr.eu>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ Pierre Morel <pmorel@linux.ibm.com>, linux-m68k@lists.linux-m68k.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ linux-riscv@lists.infradead.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
+ Paul Mackerras <paulus@samba.org>, Johannes Berg <johannes@sipsolutions.net>,
+ linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,59 +138,421 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+During recent PCI cleanups we noticed that the isa_dma_bridge_buggy
+symbol supported by all architectures is actually only used for x86_32.
 
-RPL Platform drivers can be built by selecting necessary
-kernel config option.
-The patch enables build support of the same.
+This patch moves the symbol out of all architectures limiting usage to
+only x86_32.  This is possible because only x86_32 platforms or quirks
+existing in PCI devices supported on x86_32 ever set this.  A new global
+header linux/isa-dma.h is added to provide a common place to maintain
+the definition.
 
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Suggested-by: Christoph Hellwig <hch@infradead.org>
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Stafford Horne <shorne@gmail.com>
 ---
- sound/soc/amd/Kconfig      | 10 ++++++++++
- sound/soc/amd/Makefile     |  1 +
- sound/soc/amd/rpl/Makefile |  5 +++++
- 3 files changed, 16 insertions(+)
- create mode 100644 sound/soc/amd/rpl/Makefile
+Since v4:
+ - Also remove isa_dma_bridge_buggy from arm64, csky, riscv as this point.
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index 9c2fef2ce89f..08f5289dac54 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -117,3 +117,13 @@ config SND_AMD_ACP_CONFIG
- 	 driver modules to use
+ arch/alpha/include/asm/dma.h           |  9 ---------
+ arch/arc/include/asm/dma.h             |  5 -----
+ arch/arm/include/asm/dma.h             |  6 ------
+ arch/arm64/include/asm/pci.h           |  2 --
+ arch/csky/include/asm/pci.h            |  2 --
+ arch/ia64/include/asm/dma.h            |  2 --
+ arch/m68k/include/asm/dma.h            |  6 ------
+ arch/microblaze/include/asm/dma.h      |  6 ------
+ arch/mips/include/asm/dma.h            |  8 --------
+ arch/parisc/include/asm/dma.h          |  6 ------
+ arch/powerpc/include/asm/dma.h         |  6 ------
+ arch/riscv/include/asm/pci.h           |  2 --
+ arch/s390/include/asm/dma.h            |  6 ------
+ arch/sh/include/asm/dma.h              |  6 ------
+ arch/sparc/include/asm/dma.h           |  8 --------
+ arch/um/include/asm/pci.h              |  2 --
+ arch/x86/include/asm/dma.h             |  8 --------
+ arch/xtensa/include/asm/dma.h          |  7 -------
+ drivers/comedi/drivers/comedi_isadma.c |  2 +-
+ drivers/pci/pci.c                      |  2 ++
+ drivers/pci/quirks.c                   |  4 +++-
+ include/linux/isa-dma.h                | 14 ++++++++++++++
+ sound/core/isadma.c                    |  2 +-
+ 23 files changed, 21 insertions(+), 100 deletions(-)
+ create mode 100644 include/linux/isa-dma.h
+
+diff --git a/arch/alpha/include/asm/dma.h b/arch/alpha/include/asm/dma.h
+index 28610ea7786d..a04d76b96089 100644
+--- a/arch/alpha/include/asm/dma.h
++++ b/arch/alpha/include/asm/dma.h
+@@ -365,13 +365,4 @@ extern void free_dma(unsigned int dmanr);	/* release it again */
+ #define KERNEL_HAVE_CHECK_DMA
+ extern int check_dma(unsigned int dmanr);
  
- source "sound/soc/amd/acp/Kconfig"
-+
-+config SND_SOC_AMD_RPL_ACP6x
-+        tristate "AMD Audio Coprocessor-v6.2 RPL support"
-+        depends on X86 && PCI
-+        help
-+          This option enables Audio Coprocessor i.e ACP v6.2 support on
-+          AMD RPL platform. By enabling this flag build will be
-+          triggered for ACP PCI driver.
-+          Say m if you have such a device.
-+          If unsure select "N".
-diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
-index 8823f6f28611..0592e7c5c407 100644
---- a/sound/soc/amd/Makefile
-+++ b/sound/soc/amd/Makefile
-@@ -17,3 +17,4 @@ obj-$(CONFIG_SND_SOC_AMD_ACP5x) += vangogh/
- obj-$(CONFIG_SND_SOC_AMD_ACP6x) += yc/
- obj-$(CONFIG_SND_SOC_AMD_ACP_COMMON) += acp/
- obj-$(CONFIG_SND_AMD_ACP_CONFIG) += snd-acp-config.o
-+obj-$(CONFIG_SND_SOC_AMD_RPL_ACP6x) += rpl/
-diff --git a/sound/soc/amd/rpl/Makefile b/sound/soc/amd/rpl/Makefile
+-/* From PCI */
+-
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy 	(0)
+-#endif
+-
+-
+ #endif /* _ASM_DMA_H */
+diff --git a/arch/arc/include/asm/dma.h b/arch/arc/include/asm/dma.h
+index 5b744f4b10a7..02431027ed2f 100644
+--- a/arch/arc/include/asm/dma.h
++++ b/arch/arc/include/asm/dma.h
+@@ -7,10 +7,5 @@
+ #define ASM_ARC_DMA_H
+ 
+ #define MAX_DMA_ADDRESS 0xC0000000
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	0
+-#endif
+ 
+ #endif
+diff --git a/arch/arm/include/asm/dma.h b/arch/arm/include/asm/dma.h
+index a81dda65c576..907d139be431 100644
+--- a/arch/arm/include/asm/dma.h
++++ b/arch/arm/include/asm/dma.h
+@@ -143,10 +143,4 @@ extern int  get_dma_residue(unsigned int chan);
+ 
+ #endif /* CONFIG_ISA_DMA_API */
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy    (0)
+-#endif
+-
+ #endif /* __ASM_ARM_DMA_H */
+diff --git a/arch/arm64/include/asm/pci.h b/arch/arm64/include/asm/pci.h
+index 0aebc3488c32..682c922b5658 100644
+--- a/arch/arm64/include/asm/pci.h
++++ b/arch/arm64/include/asm/pci.h
+@@ -20,8 +20,6 @@
+ #define arch_can_pci_mmap_wc() 1
+ #define ARCH_GENERIC_PCI_MMAP_RESOURCE	1
+ 
+-extern int isa_dma_bridge_buggy;
+-
+ #ifdef CONFIG_PCI
+ static inline int pci_proc_domain(struct pci_bus *bus)
+ {
+diff --git a/arch/csky/include/asm/pci.h b/arch/csky/include/asm/pci.h
+index 0535f1aaae38..5c02454ec724 100644
+--- a/arch/csky/include/asm/pci.h
++++ b/arch/csky/include/asm/pci.h
+@@ -15,8 +15,6 @@
+ /* C-SKY shim does not initialize PCI bus */
+ #define pcibios_assign_all_busses() 1
+ 
+-extern int isa_dma_bridge_buggy;
+-
+ #ifdef CONFIG_PCI
+ static inline int pci_proc_domain(struct pci_bus *bus)
+ {
+diff --git a/arch/ia64/include/asm/dma.h b/arch/ia64/include/asm/dma.h
+index 59625e9c1f9c..eaed2626ffda 100644
+--- a/arch/ia64/include/asm/dma.h
++++ b/arch/ia64/include/asm/dma.h
+@@ -12,8 +12,6 @@
+ 
+ extern unsigned long MAX_DMA_ADDRESS;
+ 
+-extern int isa_dma_bridge_buggy;
+-
+ #define free_dma(x)
+ 
+ #endif /* _ASM_IA64_DMA_H */
+diff --git a/arch/m68k/include/asm/dma.h b/arch/m68k/include/asm/dma.h
+index f6c5e0dfb4e5..1c8d9c5bc2fa 100644
+--- a/arch/m68k/include/asm/dma.h
++++ b/arch/m68k/include/asm/dma.h
+@@ -6,10 +6,4 @@
+    bootmem allocator (but this should do it for this) */
+ #define MAX_DMA_ADDRESS PAGE_OFFSET
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy    (0)
+-#endif
+-
+ #endif /* _M68K_DMA_H */
+diff --git a/arch/microblaze/include/asm/dma.h b/arch/microblaze/include/asm/dma.h
+index f801582be912..7484c9eb66c4 100644
+--- a/arch/microblaze/include/asm/dma.h
++++ b/arch/microblaze/include/asm/dma.h
+@@ -9,10 +9,4 @@
+ /* Virtual address corresponding to last available physical memory address.  */
+ #define MAX_DMA_ADDRESS (CONFIG_KERNEL_START + memory_size - 1)
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy     (0)
+-#endif
+-
+ #endif /* _ASM_MICROBLAZE_DMA_H */
+diff --git a/arch/mips/include/asm/dma.h b/arch/mips/include/asm/dma.h
+index be726b943530..d6186e6bea7e 100644
+--- a/arch/mips/include/asm/dma.h
++++ b/arch/mips/include/asm/dma.h
+@@ -307,12 +307,4 @@ static __inline__ int get_dma_residue(unsigned int dmanr)
+ extern int request_dma(unsigned int dmanr, const char * device_id);	/* reserve a DMA channel */
+ extern void free_dma(unsigned int dmanr);	/* release it again */
+ 
+-/* From PCI */
+-
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	(0)
+-#endif
+-
+ #endif /* _ASM_DMA_H */
+diff --git a/arch/parisc/include/asm/dma.h b/arch/parisc/include/asm/dma.h
+index eea80ed34e6d..9e8c101de902 100644
+--- a/arch/parisc/include/asm/dma.h
++++ b/arch/parisc/include/asm/dma.h
+@@ -176,10 +176,4 @@ static __inline__ void set_dma_count(unsigned int dmanr, unsigned int count)
+ 
+ #define free_dma(dmanr)
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy 	(0)
+-#endif
+-
+ #endif /* _ASM_DMA_H */
+diff --git a/arch/powerpc/include/asm/dma.h b/arch/powerpc/include/asm/dma.h
+index 6161a9596196..d97c66d9ae34 100644
+--- a/arch/powerpc/include/asm/dma.h
++++ b/arch/powerpc/include/asm/dma.h
+@@ -340,11 +340,5 @@ extern int request_dma(unsigned int dmanr, const char *device_id);
+ /* release it again */
+ extern void free_dma(unsigned int dmanr);
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	(0)
+-#endif
+-
+ #endif /* __KERNEL__ */
+ #endif	/* _ASM_POWERPC_DMA_H */
+diff --git a/arch/riscv/include/asm/pci.h b/arch/riscv/include/asm/pci.h
+index a7b8f0d0df7f..f904df586c03 100644
+--- a/arch/riscv/include/asm/pci.h
++++ b/arch/riscv/include/asm/pci.h
+@@ -20,8 +20,6 @@
+ 
+ #define ARCH_GENERIC_PCI_MMAP_RESOURCE 1
+ 
+-extern int isa_dma_bridge_buggy;
+-
+ #ifdef CONFIG_PCI
+ static inline int pci_proc_domain(struct pci_bus *bus)
+ {
+diff --git a/arch/s390/include/asm/dma.h b/arch/s390/include/asm/dma.h
+index 6f26f35d4a71..dec1c4ce628c 100644
+--- a/arch/s390/include/asm/dma.h
++++ b/arch/s390/include/asm/dma.h
+@@ -11,10 +11,4 @@
+  */
+ #define MAX_DMA_ADDRESS         0x80000000
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	(0)
+-#endif
+-
+ #endif /* _ASM_S390_DMA_H */
+diff --git a/arch/sh/include/asm/dma.h b/arch/sh/include/asm/dma.h
+index 17d23ae98c77..c8bee3f985a2 100644
+--- a/arch/sh/include/asm/dma.h
++++ b/arch/sh/include/asm/dma.h
+@@ -137,10 +137,4 @@ extern int register_chan_caps(const char *dmac, struct dma_chan_caps *capslist);
+ extern int dma_create_sysfs_files(struct dma_channel *, struct dma_info *);
+ extern void dma_remove_sysfs_files(struct dma_channel *, struct dma_info *);
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	(0)
+-#endif
+-
+ #endif /* __ASM_SH_DMA_H */
+diff --git a/arch/sparc/include/asm/dma.h b/arch/sparc/include/asm/dma.h
+index 462e7c794a09..08043f35b110 100644
+--- a/arch/sparc/include/asm/dma.h
++++ b/arch/sparc/include/asm/dma.h
+@@ -82,14 +82,6 @@
+ #define DMA_BURST64      0x40
+ #define DMA_BURSTBITS    0x7f
+ 
+-/* From PCI */
+-
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy 	(0)
+-#endif
+-
+ #ifdef CONFIG_SPARC32
+ struct device;
+ 
+diff --git a/arch/um/include/asm/pci.h b/arch/um/include/asm/pci.h
+index 26b96c02ef61..1211855aff34 100644
+--- a/arch/um/include/asm/pci.h
++++ b/arch/um/include/asm/pci.h
+@@ -9,8 +9,6 @@
+ 
+ #define pcibios_assign_all_busses() 1
+ 
+-extern int isa_dma_bridge_buggy;
+-
+ #ifdef CONFIG_PCI_DOMAINS
+ static inline int pci_proc_domain(struct pci_bus *bus)
+ {
+diff --git a/arch/x86/include/asm/dma.h b/arch/x86/include/asm/dma.h
+index 8e95aa4b0d17..8ae6e0e11b8b 100644
+--- a/arch/x86/include/asm/dma.h
++++ b/arch/x86/include/asm/dma.h
+@@ -307,12 +307,4 @@ extern int request_dma(unsigned int dmanr, const char *device_id);
+ extern void free_dma(unsigned int dmanr);
+ #endif
+ 
+-/* From PCI */
+-
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy	(0)
+-#endif
+-
+ #endif /* _ASM_X86_DMA_H */
+diff --git a/arch/xtensa/include/asm/dma.h b/arch/xtensa/include/asm/dma.h
+index bb099a373b5a..172644539032 100644
+--- a/arch/xtensa/include/asm/dma.h
++++ b/arch/xtensa/include/asm/dma.h
+@@ -52,11 +52,4 @@
+ extern int request_dma(unsigned int dmanr, const char * device_id);
+ extern void free_dma(unsigned int dmanr);
+ 
+-#ifdef CONFIG_PCI
+-extern int isa_dma_bridge_buggy;
+-#else
+-#define isa_dma_bridge_buggy 	(0)
+-#endif
+-
+-
+ #endif
+diff --git a/drivers/comedi/drivers/comedi_isadma.c b/drivers/comedi/drivers/comedi_isadma.c
+index 700982464c53..020b3d1e1ac0 100644
+--- a/drivers/comedi/drivers/comedi_isadma.c
++++ b/drivers/comedi/drivers/comedi_isadma.c
+@@ -8,7 +8,7 @@
+ #include <linux/slab.h>
+ #include <linux/delay.h>
+ #include <linux/dma-mapping.h>
+-#include <asm/dma.h>
++#include <linux/isa-dma.h>
+ #include <linux/comedi/comedidev.h>
+ #include <linux/comedi/comedi_isadma.h>
+ 
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index cfaf40a540a8..60c55d2cb2cc 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -41,8 +41,10 @@ const char *pci_power_names[] = {
+ };
+ EXPORT_SYMBOL_GPL(pci_power_names);
+ 
++#ifdef CONFIG_X86_32
+ int isa_dma_bridge_buggy;
+ EXPORT_SYMBOL(isa_dma_bridge_buggy);
++#endif
+ 
+ int pci_pci_problems;
+ EXPORT_SYMBOL(pci_pci_problems);
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 41aeaa235132..6fc64509eee7 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -17,6 +17,7 @@
+ #include <linux/kernel.h>
+ #include <linux/export.h>
+ #include <linux/pci.h>
++#include <linux/isa-dma.h> /* isa_dma_bridge_buggy */
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/acpi.h>
+@@ -30,7 +31,6 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/suspend.h>
+ #include <linux/switchtec.h>
+-#include <asm/dma.h>	/* isa_dma_bridge_buggy */
+ #include "pci.h"
+ 
+ static ktime_t fixup_debug_start(struct pci_dev *dev,
+@@ -239,6 +239,7 @@ static void quirk_passive_release(struct pci_dev *dev)
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL,	PCI_DEVICE_ID_INTEL_82441,	quirk_passive_release);
+ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_INTEL,	PCI_DEVICE_ID_INTEL_82441,	quirk_passive_release);
+ 
++#ifdef CONFIG_X86_32
+ /*
+  * The VIA VP2/VP3/MVP3 seem to have some 'features'. There may be a
+  * workaround but VIA don't answer queries. If you happen to have good
+@@ -265,6 +266,7 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AL,	PCI_DEVICE_ID_AL_M1533,		quirk_isa_dma
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NEC,	PCI_DEVICE_ID_NEC_CBUS_1,	quirk_isa_dma_hangs);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NEC,	PCI_DEVICE_ID_NEC_CBUS_2,	quirk_isa_dma_hangs);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NEC,	PCI_DEVICE_ID_NEC_CBUS_3,	quirk_isa_dma_hangs);
++#endif
+ 
+ /*
+  * Intel NM10 "TigerPoint" LPC PM1a_STS.BM_STS must be clear
+diff --git a/include/linux/isa-dma.h b/include/linux/isa-dma.h
 new file mode 100644
-index 000000000000..11a33a05e94b
+index 000000000000..61504a8c1b9e
 --- /dev/null
-+++ b/sound/soc/amd/rpl/Makefile
-@@ -0,0 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0+
-+# RPL platform Support
-+snd-rpl-pci-acp6x-objs	:= rpl-pci-acp6x.o
++++ b/include/linux/isa-dma.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +
-+obj-$(CONFIG_SND_SOC_AMD_RPL_ACP6x) += snd-rpl-pci-acp6x.o
++#ifndef __LINUX_ISA_DMA_H
++#define __LINUX_ISA_DMA_H
++
++#include <asm/dma.h>
++
++#if defined(CONFIG_PCI) && defined(CONFIG_X86_32)
++extern int isa_dma_bridge_buggy;
++#else
++#define isa_dma_bridge_buggy	(0)
++#endif
++
++#endif /* __LINUX_ISA_DMA_H */
+diff --git a/sound/core/isadma.c b/sound/core/isadma.c
+index 1f45ede023b4..18a86212e3a8 100644
+--- a/sound/core/isadma.c
++++ b/sound/core/isadma.c
+@@ -12,8 +12,8 @@
+ #undef HAVE_REALLY_SLOW_DMA_CONTROLLER
+ 
+ #include <linux/export.h>
++#include <linux/isa-dma.h>
+ #include <sound/core.h>
+-#include <asm/dma.h>
+ 
+ /**
+  * snd_dma_program - program an ISA DMA transfer
 -- 
-2.25.1
+2.36.1
 

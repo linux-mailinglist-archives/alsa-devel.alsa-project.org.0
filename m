@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BB757C9B1
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 13:23:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC3C57CA80
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 14:16:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7683917DA;
-	Thu, 21 Jul 2022 13:22:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7683917DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0E2817E5;
+	Thu, 21 Jul 2022 14:15:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0E2817E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658402601;
-	bh=USJlBh7yL447OVSeuPpyWmX+61phCJ207hQItAmCkN8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=r3djVXpierbKDwqHKOeE2lbxy3/ijQZgR2c5Ajw2rs8YbtX0ADJX8XHvDz0dxJ10S
-	 /JFqzTjL58rmzyo8ll+g/cFMq6z5HR02W4BcMOLHQ4O4onbt17NJJJTj30HW38P63V
-	 minfLrlF5yv8oNNDy8qzei6Z4qVRhlSzuUcu+5Dc=
+	s=default; t=1658405773;
+	bh=vBTCRcHWGtDqiA4fxJOYlqI6XHGxo1rup1RqlhRSdD8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m5Hxjg6wvPvg0UGgVPyyj8WFpKVURUJwaIjEMRzYtrALed8IwUn/rQhEDln7sS0GG
+	 4ECaxycXte096hzkao6yZZeLOOzsj48+v8+/CE6kG3YsJSzrjfmQvvTC3AUbxEDB4P
+	 GrPv9Kd/jYpxeZ34bTAxxAmNmGL8FShAC1D68qe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6223F80256;
-	Thu, 21 Jul 2022 13:22:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC402F80256;
+	Thu, 21 Jul 2022 14:15:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C20B2F8016D; Thu, 21 Jul 2022 13:22:19 +0200 (CEST)
+ id 7CFA0F8016D; Thu, 21 Jul 2022 14:15:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 139C9F800BA
- for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 13:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139C9F800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZbLg9oWc"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EBAC6B82342;
- Thu, 21 Jul 2022 11:22:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA288C3411E;
- Thu, 21 Jul 2022 11:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658402532;
- bh=USJlBh7yL447OVSeuPpyWmX+61phCJ207hQItAmCkN8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZbLg9oWcnLQyQ0C9hCkzwpBOhmjhpzC9I0W009Eubw+1APUX8+R42Xu6yZ1004G9a
- TOvBun74ReB0F7GvPJwIRTx047jOLzdwY1TMJBOPxSYQoR7UjdqYCRc65GCx8V+k/0
- FURq+URa7d7elSX/vUunP6OkwW3xdEV+tkfzuIkGeTnX0I2UXYUdsAQdEPQE3BeCXg
- dQgpOXHT+bPknKgxKkKepvoW1bNvgGOKYskyGpCCEBhJYmDAqp7h1DUkq8sGz5oJ3n
- S41DaJYzskDVZ7vhowz5DJXyPWcfniiISbr+0/z/9HrEhfBw8BROG4ZIEFKekpvwo6
- andxDqOMNXBBw==
-Date: Thu, 21 Jul 2022 12:22:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH -next 0/2] ASoC: Cleanup deprecated regmap-irq
- functionality
-Message-ID: <Ytk235u8xWD+vEMB@sirena.org.uk>
-References: <20220721102558.25457-1-aidanmacdonald.0x0@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C608F80166
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 14:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C608F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="IKFaPwbl"
+Received: from localhost (unknown [188.24.146.105])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 861BA6601AA7;
+ Thu, 21 Jul 2022 13:15:01 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1658405701;
+ bh=vBTCRcHWGtDqiA4fxJOYlqI6XHGxo1rup1RqlhRSdD8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IKFaPwbl52WVwlaSmN54Nuw+s49PB1Zgk9vh8UoWwdTUNhU4w74QiBNIAS1n1DLIf
+ KvV+fpoezwrTOfu07V3P9nIAd6Kx6yr/GxdMvARzLtEhw68kshrH4St6X3Ub45rdtz
+ mOUsh0RtHzp52H7FyCr50FrYVVUrTXGxI8bp3piexc4JnLVPl282qP1xQlxWAOdgUK
+ Y86bS6C63NAz/w+nV0z2HO8ukiueNjzCjziO+nDjl6CfOIsRA21F5r8m4EBJPE0ibr
+ XHF0P6e8eOfrGK6rFqSd/cZVqI3kmesKAWp4aO5pzfsDWPAl7b6uS77Ae9fLaSTl00
+ 2W3G6PZO/wJYQ==
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l41: Set the new legacy DAI naming flag
+Date: Thu, 21 Jul 2022 15:14:54 +0300
+Message-Id: <20220721121454.1378945-1-cristian.ciocaltea@collabora.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="KMTdyiBZDjPPqsZY"
-Content-Disposition: inline
-In-Reply-To: <20220721102558.25457-1-aidanmacdonald.0x0@gmail.com>
-X-Cookie: Exercise caution in your daily affairs.
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ kernel@collabora.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,43 +88,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Unlike most CODEC drivers, the CS35L41 driver did not have the
+non_legacy_dai_naming set, meaning it uses the legacy naming.
 
---KMTdyiBZDjPPqsZY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The recent migration to the new legacy DAI naming style has broken
+driver functionality because it is now expected to set the new legacy
+DAI naming flag in order to instruct the core subsystem to use the
+legacy name format on DAI registration.
 
-On Thu, Jul 21, 2022 at 11:25:56AM +0100, Aidan MacDonald wrote:
-> Update two ASoC codec drivers to remove uses of regmap-irq type
-> registers, which have recently been deprecated by the "regmap-irq
-> cleanups and refactoring" series in linux-next.
->=20
-> Link: https://lore.kernel.org/lkml/20220623211420.918875-1-aidanmacdonald=
-=2E0x0@gmail.com/
->=20
-> Aidan MacDonald (2):
->   sound: soc: codecs: wcd9335: Convert irq chip to config regs
->   sound: soc: codecs: wcd938x: Remove spurious type_base from irq chip
+Let's fix this by setting the legacy_dai_naming flag accordingly.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+Fixes: bc949a3b4af3 ("ASoC: core: Switch core to new DAI naming flag")
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ sound/soc/codecs/cs35l41.c | 1 +
+ 1 file changed, 1 insertion(+)
 
---KMTdyiBZDjPPqsZY
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index c223d83e02cf..b49f9a32abf2 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -1028,6 +1028,7 @@ static const struct snd_soc_component_driver soc_component_dev_cs35l41 = {
+ 	.set_sysclk = cs35l41_component_set_sysclk,
 
------BEGIN PGP SIGNATURE-----
+ 	.endianness = 1,
++	.legacy_dai_naming = 1,
+ };
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZNt4ACgkQJNaLcl1U
-h9AuIAgAg9Rr7yRd2g/1EHbmeqzhD4cKtfo9RALBDOIpP/Lmap97lADvcEotdFqG
-tUiFtFqjLZjgbb8pldkuq56YjsZu/F/AhIeNI8iCRPgtqsKWc15wHN2bUp61EVax
-st9M/JdrYOwugRlYZL30W+wugq0Pr+QlUOWax9ZYpz8Va7w62X7UiypHreu/BiQj
-B/o7jsZU6BOyHFP2MPdfWFPfdgQ/SMo6oudT7YC7sWqnNBqIXnaa6ZoPvGWWpMcw
-j4VSAbUJCHcX7E7vs/oLZUb/xot2aYQdYMMAjEOIY7T3M5CKV7gQRNz3+zpsYGNl
-Wb+oALqz8QMsovJqugPmOUhBsudLxw==
-=WUQv
------END PGP SIGNATURE-----
-
---KMTdyiBZDjPPqsZY--
+ static int cs35l41_handle_pdata(struct device *dev, struct cs35l41_hw_cfg *hw_cfg)
+--
+2.37.1

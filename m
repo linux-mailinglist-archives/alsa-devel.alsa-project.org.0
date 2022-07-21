@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C6F57D5DD
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 23:23:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7070957D6D5
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 00:22:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF18A185B;
-	Thu, 21 Jul 2022 23:22:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF18A185B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50A6D1849;
+	Fri, 22 Jul 2022 00:21:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A6D1849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658438622;
-	bh=2csh2IPzZB9Q9+L8yOL8SYU7r0lrEKvI5elBmtDV4/c=;
+	s=default; t=1658442152;
+	bh=WhB1PD1kMyLRf+42xJ1wMh8BKbH3xsmCONTEx0+eMh8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GiNLVSCML9z1WDqtfNaYTr//CwL30iE42dUX2dhxvEfI8wA3dAYuumrG3HGacD/h0
-	 JRbVaBXNDOsZm7WZVlwC8UnMyX43Kx0IQMK4CY+9OTPGgwi2T0d92wYPrswOAy36/q
-	 1Gvlk/7Fn6PbgakUqYDhA0AoJbBvBDN5Tv5JtHCo=
+	b=oQE7C1KvAjm/26j/LYR/zo8lo/yp/5kbCodDzfrY8Zeo7pwDq/Lqy11YrOaDka6DS
+	 6XkxPcX7qgC8Ar6PeiTlvpGyQ9idsO/kJyRBkg+2bPvVBfp/krOgldCeT4kF6Daf/x
+	 KkY+XqyVQYhjaWBuoc/QyP1mcZhcCrXVauQckDoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0849FF80256;
-	Thu, 21 Jul 2022 23:22:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76480F800ED;
+	Fri, 22 Jul 2022 00:21:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C25AF8016D; Thu, 21 Jul 2022 23:22:40 +0200 (CEST)
+ id 7857EF8016D; Fri, 22 Jul 2022 00:21:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BDE6F800ED;
- Thu, 21 Jul 2022 23:22:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BDE6F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31811F80166
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 00:21:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31811F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="b6dgBxwP"
+ header.b="BEZ+jC0r"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6A61461821;
- Thu, 21 Jul 2022 21:22:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD762C3411E;
- Thu, 21 Jul 2022 21:22:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E5D9C61D42;
+ Thu, 21 Jul 2022 22:21:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D09CC341CE;
+ Thu, 21 Jul 2022 22:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658438552;
- bh=2csh2IPzZB9Q9+L8yOL8SYU7r0lrEKvI5elBmtDV4/c=;
+ s=k20201202; t=1658442078;
+ bh=WhB1PD1kMyLRf+42xJ1wMh8BKbH3xsmCONTEx0+eMh8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b6dgBxwPawsXvrs8FUNrO+XL/BjA70/JzCpatMpkSzj7k4H1NCNOiotZyhdFxGAVC
- PP0TouGwpOyksZ+JkyaViKZi3wwSpRxAUa4jll8RuuLciixdPnP+QJ8lxUivlSpKsB
- IZaLl9ccELLbadWEDYu2IUFTzanj8FANZM1pKkqE8MnVhWfswSrv0nZn71HKHlkutm
- rTvsprQlzBRrdkkI6jlkYjSpIZgIRtAsx7h78aYQqKCBAMIfBoZolXCk9gp8uaOVoL
- jXUd9dVTvLgfSfSAipukCS4ycfOPt6bw0Whg/TNDhpzYHimHr2ZCe/fZQOmVqeudAP
- 26pIQWRO6TIwQ==
-Date: Thu, 21 Jul 2022 14:22:30 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Justin Stitt <justinstitt@google.com>
-Subject: Re: [PATCH] soc: sof: fix clang -Wformat warnings
-Message-ID: <YtnDltqEVeJQQkbW@dev-arch.thelio-3990X>
-References: <20220721211218.4039288-1-justinstitt@google.com>
+ b=BEZ+jC0rJiVM+zeUWTx6V2ftRHpCjVGuE2uRsAyTcxM5rv/coRx4w90PZ8fReg8tg
+ blGghO+x7ozDoMwI15kEx5/XuOSO6k2ta02eqRqazL3PVazjiJLjKWytT6yYBjg5J+
+ YUlxbybDmg7HJH3qJlLOMcTIE2JPLVCbqk0fbmUDiOjVGks+zTK1OUhIhuNr6f1S5P
+ P9TV03QOzXRoHybEa4TJqop8MuQ3WifqEM5VkjcsPi131EdS8FV/7b1XpaymqvUy6I
+ LTYzlF8sIOHkfnDj1Nw4N/PyI8HpZAgjidS+k06pNZkcuKxO0MiwoaL2Owkw3ut7bx
+ 8UuEpfVNBQZag==
+Date: Thu, 21 Jul 2022 23:21:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: syed sabakareem <Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH 5/5] ASoC: amd: enable RPL Platform acp drivers build
+Message-ID: <YtnRV4qQoUkLN552@sirena.org.uk>
+References: <20220721061035.91139-1-Syed.SabaKareem@amd.com>
+ <20220721061035.91139-5-Syed.SabaKareem@amd.com>
+ <YtmqzkUjhKDIg0d2@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="oOv3QA6AufJZt5bU"
 Content-Disposition: inline
-In-Reply-To: <20220721211218.4039288-1-justinstitt@google.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, alsa-devel@alsa-project.org,
- llvm@lists.linux.dev, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Tom Rix <trix@redhat.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <YtmqzkUjhKDIg0d2@sirena.org.uk>
+X-Cookie: Do not pick the flowers.
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, vijendar.mukunda@amd.com,
+ Alexander.Deucher@amd.com, Julian Braha <julianbraha@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,54 +95,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 21, 2022 at 02:12:18PM -0700, Justin Stitt wrote:
-> When building with Clang we encounter these warnings:
-> | sound/soc/sof/ipc3-topology.c:2343:4: error: format specifies type
-> | 'unsigned char' but the argument has type 'int' [-Werror,-Wformat]
-> |                  SOF_ABI_MAJOR, SOF_ABI_MINOR, SOF_ABI_PATCH);
-> |                  ^~~~~~~~~~~~~~~^~~~~~~~~~~~~~~^~~~~~~~~~~~~
-> 
-> Use correct format specifier `%d` since args are of type int.
-> 
-> Link: https://github.com/ClangBuiltLinux/linux/issues/378
-> Reported-by: Nathan Chancellor <nathan@kernel.org>
-> Suggested-by: Nathan Chancellor <nathan@kernel.org>
-> Signed-off-by: Justin Stitt <justinstitt@google.com>
 
-Indeed, decimal integer literals with no suffix are of type 'int' when
-they can fit in an 'int'. In this case, there shouldn't be a bug since
-the values of these macros can fit in an 'unsigned char' (so no
-truncation) but it is still correct to use '%d' instead of '%hhu', which
-matches the stance of commit cbacb5ab0aa0 ("docs: printk-formats: Stop
-encouraging use of unnecessary %h[xudi] and %hh[xudi]").
+--oOv3QA6AufJZt5bU
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This was introduced by commit 323aa1f093e6 ("ASoC: SOF: Add a new IPC op
-for parsing topology manifest"), not sure it warrants a fixes tag for
-the reason I outlined above, but it might be helpful for other
-reviewers.
+On Thu, Jul 21, 2022 at 08:36:53PM +0100, Mark Brown wrote:
+> On Thu, Jul 21, 2022 at 11:40:02AM +0530, syed sabakareem wrote:
+> > From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+> >=20
+> > RPL Platform drivers can be built by selecting necessary
+> > kernel config option.
+> > The patch enables build support of the same.
+>=20
+> This breaks an x86 allmodconfig build:
+>=20
+> /build/stage/linux/sound/soc/amd/acp/acp-platform.c: In function =E2=80=
+=98i2s_irq_handle
+> r=E2=80=99:
+> /build/stage/linux/sound/soc/amd/acp/acp-platform.c:108:31: error: =E2=80=
+=98struct acp_d
+> ev_data=E2=80=99 has no member named =E2=80=98stream=E2=80=99
+>   108 |                 stream =3D adata->stream[i];
+>       |                               ^~
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Sorry, this was actually a different commit earlier in the branch
+triggering this.
 
-> ---
-> Reported by Nathan here:
-> https://lore.kernel.org/all/YtmrCJjQrSbv8Aj1@dev-arch.thelio-3990X/
-> 
->  sound/soc/sof/ipc3-topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-> index b2cc046b9f60..65923e7a5976 100644
-> --- a/sound/soc/sof/ipc3-topology.c
-> +++ b/sound/soc/sof/ipc3-topology.c
-> @@ -2338,7 +2338,7 @@ static int sof_ipc3_parse_manifest(struct snd_soc_component *scomp, int index,
->  	}
->  
->  	dev_info(scomp->dev,
-> -		 "Topology: ABI %d:%d:%d Kernel ABI %hhu:%hhu:%hhu\n",
-> +		 "Topology: ABI %d:%d:%d Kernel ABI %d:%d:%d\n",
->  		 man->priv.data[0], man->priv.data[1], man->priv.data[2],
->  		 SOF_ABI_MAJOR, SOF_ABI_MINOR, SOF_ABI_PATCH);
->  
-> -- 
-> 2.37.1.359.gd136c6c3e2-goog
-> 
+--oOv3QA6AufJZt5bU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZ0VYACgkQJNaLcl1U
+h9C4qwf+LvXEf1DhkBwwKhCvfZyKKK9YVzwpry417epDVJnvaorf84Y6FyGJjm6D
+x++atMwrYkY8N6Ro0ls3a8jmHBlozUs8m0uJ9Hlo7k81zANGPzZ5Pyb6VDrdVM/r
+js1NVEvqRu3inNtQQjLu5UjcXISHBUjOWzMVSEfCQ5K2cDklTaItFviXX7ZtA9Fj
+KkE+cmaj5EOk1y5h0MRBITwfeFYcgAm7pviqPzKpXi+h8n2ycutgCjdRztB5C33Q
+bjN0YODYLtm5EinD8u2h+mWk9VmDDmY/t8SrpJ4PE126FsKL2icNoo7sazfHyIiY
+rmdtIVCRSeF7t7Ynvdc1Gf4Z0aYPLA==
+=ujmp
+-----END PGP SIGNATURE-----
+
+--oOv3QA6AufJZt5bU--

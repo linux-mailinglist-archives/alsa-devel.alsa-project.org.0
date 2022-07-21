@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7070957D6D5
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 00:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E57657D6DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 00:24:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50A6D1849;
-	Fri, 22 Jul 2022 00:21:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A6D1849
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA5611868;
+	Fri, 22 Jul 2022 00:23:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA5611868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658442152;
-	bh=WhB1PD1kMyLRf+42xJ1wMh8BKbH3xsmCONTEx0+eMh8=;
+	s=default; t=1658442273;
+	bh=TrB5avJPHQv7ufvHADTIZZvo91GC5AxaOs1zsVkqqRs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oQE7C1KvAjm/26j/LYR/zo8lo/yp/5kbCodDzfrY8Zeo7pwDq/Lqy11YrOaDka6DS
-	 6XkxPcX7qgC8Ar6PeiTlvpGyQ9idsO/kJyRBkg+2bPvVBfp/krOgldCeT4kF6Daf/x
-	 KkY+XqyVQYhjaWBuoc/QyP1mcZhcCrXVauQckDoQ=
+	b=vETAOiohD04eG8jyICMZNXB8rWNdM6CDSL5MpZexhhqwdbDQaYPUKBOLKAZX+Ztvb
+	 io4KmE5Cai+3Z9msZzxcowQJL9b5nqnevsOPFX/0HUHUpyLdCdzCxZd4xPY3s9V9SY
+	 20yLtn7W89lfORcxuy684JAdd4Kulx/nkL60Fw1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76480F800ED;
-	Fri, 22 Jul 2022 00:21:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4964FF80256;
+	Fri, 22 Jul 2022 00:23:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7857EF8016D; Fri, 22 Jul 2022 00:21:29 +0200 (CEST)
+ id DD36BF8016D; Fri, 22 Jul 2022 00:23:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31811F80166
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 00:21:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31811F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACA5CF80166
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 00:23:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA5CF80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BEZ+jC0r"
+ header.b="t3rXYzNR"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E5D9C61D42;
- Thu, 21 Jul 2022 22:21:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D09CC341CE;
- Thu, 21 Jul 2022 22:21:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B8E3A61C61;
+ Thu, 21 Jul 2022 22:23:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3EAC3411E;
+ Thu, 21 Jul 2022 22:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658442078;
- bh=WhB1PD1kMyLRf+42xJ1wMh8BKbH3xsmCONTEx0+eMh8=;
+ s=k20201202; t=1658442202;
+ bh=TrB5avJPHQv7ufvHADTIZZvo91GC5AxaOs1zsVkqqRs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BEZ+jC0rJiVM+zeUWTx6V2ftRHpCjVGuE2uRsAyTcxM5rv/coRx4w90PZ8fReg8tg
- blGghO+x7ozDoMwI15kEx5/XuOSO6k2ta02eqRqazL3PVazjiJLjKWytT6yYBjg5J+
- YUlxbybDmg7HJH3qJlLOMcTIE2JPLVCbqk0fbmUDiOjVGks+zTK1OUhIhuNr6f1S5P
- P9TV03QOzXRoHybEa4TJqop8MuQ3WifqEM5VkjcsPi131EdS8FV/7b1XpaymqvUy6I
- LTYzlF8sIOHkfnDj1Nw4N/PyI8HpZAgjidS+k06pNZkcuKxO0MiwoaL2Owkw3ut7bx
- 8UuEpfVNBQZag==
-Date: Thu, 21 Jul 2022 23:21:11 +0100
+ b=t3rXYzNRTUxaXTideEL6S9A4SKopKTHLjPGekT3xIymzjxElMt/XAVJMSouh8Y5x+
+ 7DVRHw3lahyjN/iOQ1SLqT6SEniI0zzBzL7aQEBPMOErH4oO0cp9F/J51iSdU+TGSa
+ U4jHBcNtWXch1y6P6AQ4Tll8gxqngYksCbcVWi6Cn0OfseUb/roQOYijH2rxtUDM7J
+ yXyAGfx7gQkGnZu7RSbE4vUtUofjviM9fXY6nfMcSRsRTFfLTAx4+5KIvdinRubrZI
+ +j9Q/o5x9B5F2yTASLcnXvjIxT1jGR3YCf0gQMfxl309MXe0279D7hZg28JJx/4mx4
+ yI6JtSD5jiOlA==
+Date: Thu, 21 Jul 2022 23:23:15 +0100
 From: Mark Brown <broonie@kernel.org>
-To: syed sabakareem <Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH 5/5] ASoC: amd: enable RPL Platform acp drivers build
-Message-ID: <YtnRV4qQoUkLN552@sirena.org.uk>
-References: <20220721061035.91139-1-Syed.SabaKareem@amd.com>
- <20220721061035.91139-5-Syed.SabaKareem@amd.com>
- <YtmqzkUjhKDIg0d2@sirena.org.uk>
+To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH 3/5] ASoC: amd: acp: Initialize list to store acp_stream
+ during pcm_open
+Message-ID: <YtnR05hxiWNKOGoC@sirena.org.uk>
+References: <20220721062043.3016985-1-venkataprasad.potturu@amd.com>
+ <20220721062043.3016985-3-venkataprasad.potturu@amd.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oOv3QA6AufJZt5bU"
+ protocol="application/pgp-signature"; boundary="w/c1cvUq36ZEZHgE"
 Content-Disposition: inline
-In-Reply-To: <YtmqzkUjhKDIg0d2@sirena.org.uk>
-X-Cookie: Do not pick the flowers.
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
+In-Reply-To: <20220721062043.3016985-3-venkataprasad.potturu@amd.com>
+X-Cookie: Linux is obsolete
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, ssabakar@amd.com,
  Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
  open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, vijendar.mukunda@amd.com,
- Alexander.Deucher@amd.com, Julian Braha <julianbraha@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Bard Liao <bard.liao@intel.com>
+ Yang Yingliang <yangyingliang@huawei.com>, Vijendar.Mukunda@amd.com,
+ vsujithkumar.reddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,46 +95,45 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---oOv3QA6AufJZt5bU
+--w/c1cvUq36ZEZHgE
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 21, 2022 at 08:36:53PM +0100, Mark Brown wrote:
-> On Thu, Jul 21, 2022 at 11:40:02AM +0530, syed sabakareem wrote:
-> > From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-> >=20
-> > RPL Platform drivers can be built by selecting necessary
-> > kernel config option.
-> > The patch enables build support of the same.
+On Thu, Jul 21, 2022 at 11:50:35AM +0530, Venkata Prasad Potturu wrote:
+> From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 >=20
-> This breaks an x86 allmodconfig build:
->=20
-> /build/stage/linux/sound/soc/amd/acp/acp-platform.c: In function =E2=80=
-=98i2s_irq_handle
-> r=E2=80=99:
-> /build/stage/linux/sound/soc/amd/acp/acp-platform.c:108:31: error: =E2=80=
-=98struct acp_d
-> ev_data=E2=80=99 has no member named =E2=80=98stream=E2=80=99
->   108 |                 stream =3D adata->stream[i];
->       |                               ^~
+> We are currently allocating acp_stream during pcm_open and saving
+> it in static array corresponds to array index calculated based on
+> cpu dai->driver id. This approach will fail if we have single dai
+> linked to multiple pcm device as we will have same dai->driver id
+> or array index for multiple pcm open. Initialize new linked list
+> stream_list to store opened pcm stream info dynamically.
 
-Sorry, this was actually a different commit earlier in the branch
-triggering this.
+This breaks an x86 allmodconfig build:
 
---oOv3QA6AufJZt5bU
+/build/stage/linux/sound/soc/amd/acp/acp-platform.c: In function =E2=80=98i=
+2s_irq_handler=E2=80=99:
+/build/stage/linux/sound/soc/amd/acp/acp-platform.c:108:31: error: =E2=80=
+=98struct acp_dev_data=E2=80=99 has no member named =E2=80=98stream=E2=80=99
+  108 |                 stream =3D adata->stream[i];
+      |                               ^~
+make[5]: *** [/build/stage/linux/scripts/Makefile.build:249: sound/soc/amd/=
+acp/acp-platform.o] Error 1
+
+--w/c1cvUq36ZEZHgE
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZ0VYACgkQJNaLcl1U
-h9C4qwf+LvXEf1DhkBwwKhCvfZyKKK9YVzwpry417epDVJnvaorf84Y6FyGJjm6D
-x++atMwrYkY8N6Ro0ls3a8jmHBlozUs8m0uJ9Hlo7k81zANGPzZ5Pyb6VDrdVM/r
-js1NVEvqRu3inNtQQjLu5UjcXISHBUjOWzMVSEfCQ5K2cDklTaItFviXX7ZtA9Fj
-KkE+cmaj5EOk1y5h0MRBITwfeFYcgAm7pviqPzKpXi+h8n2ycutgCjdRztB5C33Q
-bjN0YODYLtm5EinD8u2h+mWk9VmDDmY/t8SrpJ4PE126FsKL2icNoo7sazfHyIiY
-rmdtIVCRSeF7t7Ynvdc1Gf4Z0aYPLA==
-=ujmp
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZ0dMACgkQJNaLcl1U
+h9A8gwf/fL6DbtvOtKpgGASfHBvRvfVnyGcb4t2YHbwtZTMnfB3M5vvhcARidz6E
+z7OCU5ds6THN+zdyGcm5+z54vHpfdw1xW4MzRiz2zuUdviLPk+op/8FdiTFsuty3
+hEqhv67RHBuvBOHQx1dB4CErspqEaL9+9jX+r5JtLQFyj2isoNGiont3x6I3M1FP
+E/zkne2SyW/Hz466bTPewSdoiYMe5BTDIN6y4qqYiFLWd3wWPWFMMe+Hdv/WkYaX
+CcbsgGy95KfyD6QYjr8AzyCDeu7WDEbs5HuXeCpIaa4JjHZ48ES8Eg1jDy3AlJcy
++HnorlsJYlXPqpDtIPhqiwhd+iM+4A==
+=BIrc
 -----END PGP SIGNATURE-----
 
---oOv3QA6AufJZt5bU--
+--w/c1cvUq36ZEZHgE--

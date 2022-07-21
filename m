@@ -2,86 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03ADE57CFD1
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 17:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7A357D047
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Jul 2022 17:50:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5410E17F0;
-	Thu, 21 Jul 2022 17:40:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5410E17F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96FB317F0;
+	Thu, 21 Jul 2022 17:50:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96FB317F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658418094;
-	bh=ACCj27BOr1R48MusFeGl2HSWOEE0xoKwIzRbX5aiKL4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1658418658;
+	bh=AsV19N6i0PrXUfLOx4veAAHngJhcvTZ9QuGYlLff8wc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=edF0p4Xhb4PG79fYyvmrvyLWtgU/S5Kp/akbVwYUy1E28m0x9KaQj/1Kky71nytUa
-	 3w2OhvZ3XSDdUBb0ZtWat7WtsSfMNkL7T1Zfy9xuASDhHHAswF3WGVg5mfQVOPJKzh
-	 fTNcBRZfQgpAmAm5qmjRwF+9riaIQ+X/KdksMr+s=
+	b=hoQBvIkPuntT/U6ZX5k/enSJAjn/B73cLIwzoDuda7ld1M2HdsaOlKo44lk8Jgjy8
+	 gruV9vc6FR9yvZ8epmImyRuySPnwhUV4iv7Y79EefV2joS+vuT/TQIqo4xWAmUezok
+	 x6E7+nD8c2dLHYlfHz6iiQ8tIt8eeAQQiNbMU1Nc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82AB5F80169;
-	Thu, 21 Jul 2022 17:40:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4C57F80256;
+	Thu, 21 Jul 2022 17:49:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8498AF800BA; Thu, 21 Jul 2022 17:40:31 +0200 (CEST)
+ id 315B4F8016D; Thu, 21 Jul 2022 17:49:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7AA3F800BA
- for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 17:40:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7AA3F800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PQlypRMW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7D226B82580;
- Thu, 21 Jul 2022 15:40:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB8BC341C0;
- Thu, 21 Jul 2022 15:40:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658418022;
- bh=ACCj27BOr1R48MusFeGl2HSWOEE0xoKwIzRbX5aiKL4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PQlypRMW2zxWfY4Bu6/W8sxeu34wdne164ZJePJ6b4A0rq/L2ySDWK9MtbQ/9xsC7
- +o1i9f/33ueF0CV8X9Tuw4iUpJNCa4zU+2P8rGlLGrzEKRgeXAXBoW0P18rB2XRrag
- LrxGKV1hhAW98eZzf8apZxAwIwDCfpWanSjDyMr/h9g11S+jjBdzlJ1pVadUt5uW/B
- r+TyN2v0+wreR4OXdOxhLmhJO6r4+wNZjsGHjH8Os+qEbg38c97juGNVd/OJnQdXzv
- LpX7hkNhbkMx+6AzHUbVody3sr1APq8JmL7+cduMDvuxOXFOyohEPF1U83AKfKcuQW
- sN3iYc5VLJj+w==
-Date: Thu, 21 Jul 2022 08:40:19 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Mark avs_path_module_type_create() as
- noinline
-Message-ID: <YtlzY9aYdbS4Y3+l@dev-arch.thelio-3990X>
-References: <20220720185228.3182663-1-nathan@kernel.org>
- <c00a8b5e-6def-971a-d4f2-cd65c95fe430@linux.intel.com>
- <YtllwRY6F93uYRxz@sirena.org.uk>
- <d8e8e5e5-001d-5f22-b22c-aaea16ed8719@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48B4AF800BA
+ for <alsa-devel@alsa-project.org>; Thu, 21 Jul 2022 17:49:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48B4AF800BA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="dd5tQHfj"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26LBtj1r023900;
+ Thu, 21 Jul 2022 10:49:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=46ySDQe4xkYQJIAAZXfQ37h3NC2XgZ7nTWd8+QKiPEQ=;
+ b=dd5tQHfjGg08umInWAm0hP9jXTLKqHMG/vo1AiHHNKCKiAZsSn5HY/qoYtXrvRtd5L2G
+ 6cgvlpDvR06Vg3+kaYbvWpXZRIUk0aJXhlpy1y7cDUACTkbaRBxGu2uKO9GXOfjM0q5P
+ JXpHjGamLCP15vJw5N8GdH+tMvnvvOCNUfVUPlRQ8cysxfeOfuzPouPoLU5AAFQTUtga
+ bAhWlqh1VITvbECNJxrJwoavZ1qQmAbttGltX1DmSGr/1dt2Aj5u9q6BjwOL0A15rxv3
+ pc3b6PsHUEcJrLSdpo/MNpoFFXya3axWuEz8zZfyDXEHtshMaCGCXHtnhmFoACH8+iOy 2w== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hdxffarpm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Jul 2022 10:49:47 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Thu, 21 Jul
+ 2022 10:49:45 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1118.9 via Frontend Transport; Thu, 21 Jul 2022 10:49:45 -0500
+Received: from [198.90.202.131] (unknown [198.90.202.131])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2D21F7C;
+ Thu, 21 Jul 2022 15:49:45 +0000 (UTC)
+Message-ID: <bf488730-b464-5f1c-4eb8-a150900eb7fd@opensource.cirrus.com>
+Date: Thu, 21 Jul 2022 16:49:44 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable speaker and mute LEDs for HP
+ laptops
+Content-Language: en-US
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+References: <20220719142015.244426-1-kai.heng.feng@canonical.com>
+ <444a7ab6-d47e-6e0a-de0c-1efb292edb8a@opensource.cirrus.com>
+ <CAAd53p45FkTMgV1_iGJfiya-EN7cuv_V1QCvOZirmy7CubxJAA@mail.gmail.com>
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
+In-Reply-To: <CAAd53p45FkTMgV1_iGJfiya-EN7cuv_V1QCvOZirmy7CubxJAA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d8e8e5e5-001d-5f22-b22c-aaea16ed8719@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Tom Rix <trix@redhat.com>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, patches@lists.linux.dev,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
+X-Proofpoint-ORIG-GUID: YqwjOAJeVXq3xV5kz6NtJh_E5TYW2kNR
+X-Proofpoint-GUID: YqwjOAJeVXq3xV5kz6NtJh_E5TYW2kNR
+X-Proofpoint-Spam-Reason: safe
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
+ Meng Tang <tangmeng@uniontech.com>, tiwai@suse.com,
+ Werner Sembach <wse@tuxedocomputers.com>, linux-kernel@vger.kernel.org,
+ Tim Crawford <tcrawford@system76.com>, Andy Chi <andy.chi@canonical.com>,
+ patches@opensource.cirrus.com, Cameron Berkenpas <cam@neo-zeon.de>,
+ Yong Wu <yong.wu@mediatek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,139 +109,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 21, 2022 at 05:28:09PM +0200, Amadeusz Sławiński wrote:
-> On 7/21/2022 4:42 PM, Mark Brown wrote:
-> > On Thu, Jul 21, 2022 at 02:25:20PM +0200, Amadeusz Sławiński wrote:
-> > > On 7/20/2022 8:52 PM, Nathan Chancellor wrote:
-> > 
-> > > > This warning is also visible with allmodconfig on other architectures.
-> > 
-> > > My first question would be what clang does differently in this configuration
-> > > (ARM) than in all other configurations (x86, etc.) and gcc.
-> > 
-> > See above from Nathan's commit message...
-> 
-> Ah, missed that. Anyway, what about if we replace multiple calls to
-> guid_equal with lookup table and one call in loop?
-> 
-> Do let me know if something like the following works and I will send it as a
-> proper patch:
 
-Yes, that works! With ARCH=arm64 allmodconfig + CONFIG_FRAME_WARN=128,
-there is no single large function, they are all far below the default
-2048 limit.
+On 7/20/22 03:07, Kai-Heng Feng wrote:
+> On Tue, Jul 19, 2022 at 11:27 PM Lucas Tanure
+> <tanureal@opensource.cirrus.com> wrote:
+>>
+>> On 7/19/22 15:20, Kai-Heng Feng wrote:
+>>> Two more HP laptops that use cs35l41 AMP for speaker and GPIO for mute
+>>> LEDs.
+>>>
+>>> So use the existing quirk to enable them accordingly.
+>>>
+>>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+>>> ---
+>>>    sound/pci/hda/patch_realtek.c | 2 ++
+>>>    1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+>>> index 2f55bc43bfa9c..cdbee71e83216 100644
+>>> --- a/sound/pci/hda/patch_realtek.c
+>>> +++ b/sound/pci/hda/patch_realtek.c
+>>> @@ -9109,6 +9109,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>>>        SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+>>>        SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+>>>        SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+>>> +     SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+>>> +     SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+>>>        SND_PCI_QUIRK(0x103c, 0x8a78, "HP Dev One", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+>>>        SND_PCI_QUIRK(0x103c, 0x8aa0, "HP ProBook 440 G9 (MB 8A9E)", ALC236_FIXUP_HP_GPIO_LED),
+>>>        SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
+>> Hi,
+>>
+>> Can you send us the ACPI dump (DSDT file) for review for both laptops?
+> As attachment.
+Your DSDT looks good, I will +1 your patch.
+>
+>> We want to ensure that the ACPI has the correct information so the
+>> driver will work properly.
+> One thing we noticed recently is that _all_ systems that are equipped
+> with cs35l41 have rather weak speaker output.
+> Sound is barely audible when the volume is around 50%.
 
-  sound/soc/intel/avs/path.c:819:18: warning: stack frame size (256) exceeds limit (128) in 'avs_path_create' [-Wframe-larger-than]
-  struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
-                   ^
-  sound/soc/intel/avs/path.c:877:5: warning: stack frame size (272) exceeds limit (128) in 'avs_path_bind' [-Wframe-larger-than]
-  int avs_path_bind(struct avs_path *path)
-      ^
-  sound/soc/intel/avs/path.c:143:12: warning: stack frame size (144) exceeds limit (128) in 'avs_copier_create' [-Wframe-larger-than]
-  static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  sound/soc/intel/avs/path.c:379:12: warning: stack frame size (144) exceeds limit (128) in 'avs_micsel_create' [-Wframe-larger-than]
-  static int avs_micsel_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  sound/soc/intel/avs/path.c:344:12: warning: stack frame size (160) exceeds limit (128) in 'avs_mux_create' [-Wframe-larger-than]
-  static int avs_mux_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  sound/soc/intel/avs/path.c:267:12: warning: stack frame size (160) exceeds limit (128) in 'avs_updown_mix_create' [-Wframe-larger-than]
-  static int avs_updown_mix_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  sound/soc/intel/avs/path.c:325:12: warning: stack frame size (176) exceeds limit (128) in 'avs_aec_create' [-Wframe-larger-than]
-  static int avs_aec_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  sound/soc/intel/avs/path.c:306:12: warning: stack frame size (144) exceeds limit (128) in 'avs_asrc_create' [-Wframe-larger-than]
-  static int avs_asrc_create(struct avs_dev *adev, struct avs_path_module *mod)
-             ^
-  8 warnings generated.
+Full speaker performance will be enabled with DSP support. The code for 
+this has recently been merged and you may need to backport it to your 
+code base.
 
-Feel free to add either
+Additionally, the appropriate firmware and tunings need to be available 
+for your specific SKU.  We are in the process of pushing these to the 
+linux-firmware repo now.  If there is a particular SKU you wish to 
+prioritize, then please let us know.
 
-  Tested-by: Nathan Chancellor <nathan@kernel.org> # build
-
-or
-
-  Build-tested-by: Nathan Chancellor <nathan@kernel.org>
-
-when formally sending, thank you a lot for the fix!
-
-Cheers,
-Nathan
-
-> diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-> index 3d46dd5e5bc4..ce157a8d6552 100644
-> --- a/sound/soc/intel/avs/path.c
-> +++ b/sound/soc/intel/avs/path.c
-> @@ -449,35 +449,39 @@ static int avs_modext_create(struct avs_dev *adev,
-> struct avs_path_module *mod)
->         return ret;
->  }
-> 
-> +static int avs_probe_create(struct avs_dev *adev, struct avs_path_module
-> *mod)
-> +{
-> +       dev_err(adev->dev, "Probe module can't be instantiated by
-> topology");
-> +       return -EINVAL;
-> +}
-> +
-> +struct avs_module_create {
-> +       guid_t *guid;
-> +       int (*create)(struct avs_dev *adev, struct avs_path_module *mod);
-> +};
-> +
-> +static struct avs_module_create avs_module_create[] = {
-> +       { &AVS_MIXIN_MOD_UUID, avs_modbase_create },
-> +       { &AVS_MIXOUT_MOD_UUID, avs_modbase_create },
-> +       { &AVS_KPBUFF_MOD_UUID, avs_modbase_create },
-> +       { &AVS_COPIER_MOD_UUID, avs_copier_create },
-> +       { &AVS_MICSEL_MOD_UUID, avs_micsel_create },
-> +       { &AVS_MUX_MOD_UUID, avs_mux_create },
-> +       { &AVS_UPDWMIX_MOD_UUID, avs_updown_mix_create },
-> +       { &AVS_SRCINTC_MOD_UUID, avs_src_create },
-> +       { &AVS_AEC_MOD_UUID, avs_aec_create },
-> +       { &AVS_ASRC_MOD_UUID, avs_asrc_create },
-> +       { &AVS_INTELWOV_MOD_UUID, avs_wov_create },
-> +       { &AVS_PROBE_MOD_UUID, avs_probe_create },
-> +};
-> +
->  static int avs_path_module_type_create(struct avs_dev *adev, struct
-> avs_path_module *mod)
->  {
->         const guid_t *type = &mod->template->cfg_ext->type;
-> 
-> -       if (guid_equal(type, &AVS_MIXIN_MOD_UUID) ||
-> -           guid_equal(type, &AVS_MIXOUT_MOD_UUID) ||
-> -           guid_equal(type, &AVS_KPBUFF_MOD_UUID))
-> -               return avs_modbase_create(adev, mod);
-> -       if (guid_equal(type, &AVS_COPIER_MOD_UUID))
-> -               return avs_copier_create(adev, mod);
-> -       if (guid_equal(type, &AVS_MICSEL_MOD_UUID))
-> -               return avs_micsel_create(adev, mod);
-> -       if (guid_equal(type, &AVS_MUX_MOD_UUID))
-> -               return avs_mux_create(adev, mod);
-> -       if (guid_equal(type, &AVS_UPDWMIX_MOD_UUID))
-> -               return avs_updown_mix_create(adev, mod);
-> -       if (guid_equal(type, &AVS_SRCINTC_MOD_UUID))
-> -               return avs_src_create(adev, mod);
-> -       if (guid_equal(type, &AVS_AEC_MOD_UUID))
-> -               return avs_aec_create(adev, mod);
-> -       if (guid_equal(type, &AVS_ASRC_MOD_UUID))
-> -               return avs_asrc_create(adev, mod);
-> -       if (guid_equal(type, &AVS_INTELWOV_MOD_UUID))
-> -               return avs_wov_create(adev, mod);
-> -
-> -       if (guid_equal(type, &AVS_PROBE_MOD_UUID)) {
-> -               dev_err(adev->dev, "Probe module can't be instantiated by
-> topology");
-> -               return -EINVAL;
-> -       }
-> +       for (int i = 0; i < ARRAY_SIZE(avs_module_create); i++)
-> +               if (guid_equal(type, avs_module_create[i].guid))
-> +                       return avs_module_create[i].create(adev, mod);
-> 
->         return avs_modext_create(adev, mod);
->  }
-> 
+>
+> Kai-Heng
+>
+>> Thanks
+>>
+>> Lucas Tanure
+>>

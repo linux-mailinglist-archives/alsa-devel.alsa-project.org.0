@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2485057E78D
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 21:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E1A57E791
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 21:41:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34CD0185B;
-	Fri, 22 Jul 2022 21:39:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34CD0185B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99E1218E7;
+	Fri, 22 Jul 2022 21:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99E1218E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658518842;
-	bh=pTCw8ObXsDCRk0h5jJUavUZSjr/XJYr7gxR45qvE8nY=;
+	s=default; t=1658518883;
+	bh=VHs38k86FD8Ipse+90wcagxiXIrg0RPFHyV7c6mJ+64=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fopVfD/Y9eyOhDIp6s6VAnttdXMI8bbPKgSps6Z7KUHIzxIDc4UplgiRF8KX98KjD
-	 CGz1TJMRefWU6z/D6wnf15NPyg2yID/zFh2UZUOBCtBHQGo+iJjoPJIM85ebTyHOjl
-	 HRlkE63C0ikO2p5HDIaIAjWQaHT3m7h1Ip3eZ+f4=
+	b=jvSr00LkcXQKql0cWHju1lhvVLu3VTrNFm9TlwXv/praWYljY+sN00JxuzZRZnjXx
+	 8yGSBsSRK1VAUNGzcdmnO/TUN3/l7gCql1X9dcs3tK86Sihu/olJtgpWAP1uPV66GM
+	 GFieDqU41FKq5rsjTZVp1RTFx+ng8KNwjcjwzpP0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1E67F802DB;
-	Fri, 22 Jul 2022 21:39:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09482F8012A;
+	Fri, 22 Jul 2022 21:39:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 286E9F80279; Fri, 22 Jul 2022 21:39:40 +0200 (CEST)
+ id 5F828F80537; Fri, 22 Jul 2022 21:39:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B53D0F8016D
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 21:39:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B53D0F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D09AAF8012A
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 21:39:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D09AAF8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UDjmED47"
+ header.b="rmmlAToJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id ECE00B829D9;
- Fri, 22 Jul 2022 19:39:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11267C341CA;
- Fri, 22 Jul 2022 19:39:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B7B1061E94;
+ Fri, 22 Jul 2022 19:39:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4DDC341C6;
+ Fri, 22 Jul 2022 19:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658518773;
- bh=pTCw8ObXsDCRk0h5jJUavUZSjr/XJYr7gxR45qvE8nY=;
+ s=k20201202; t=1658518775;
+ bh=VHs38k86FD8Ipse+90wcagxiXIrg0RPFHyV7c6mJ+64=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UDjmED47uZ+4Boj+sIyCQNmprg449KHHSlhBH261Qa+HAVgZy1Go92lIzsIU9sVsI
- SQb+2985ikSNT6tvxCIz7vbL0Su/LiBjnOnJjZaV5Ckprqn2fAqE6crpbOIqmTDVMP
- 2ne0mNp3nTqGzPLapehEd4A2sm95OzK07BVEVdQw2r+vGUeOB32FkzSAdSS04mwA3e
- OjOvl4mXPpCxz7SObHP2oGfwufxXFLmI9g6Z9PzucP3n0r+QAAKBCu2qQTp3qYmi95
- XIHaX5dX67/7F0L2Iqvb3avwbVyGApFPuKf9iLgyGvzew5Ch+A+SFyfIh5q39z0eoc
- oUBUHMAks2fbQ==
+ b=rmmlAToJHxOlSd+lXyzxqoLDHJxLNVXR0jYmTDZOW6dOP1oWf7Kd1b4EgT3/LYuYX
+ CKqhNZbCNPsPJnYzq70fkkRfRj6s5fIpWRV851NUzounrBQvNUeIm7yemANusup0pQ
+ clYcQJ6LKrd7cq9X7aBQDU9Cg3Gsufj704tzGdccOsEkAKNWlcMvSut9vwNkmpxnd6
+ /oRTAnlwNs61jSD40S+5decNTMpJ020WHU4OhkaeQUh2sHRdzvdFeDEV6WNTxv+5Er
+ wYw+TTp6+R9bSLmX9lSmNd+7+q9oV91syjwGpJ9LAq2vMt3EN66EpY+TAlwmu+HSlB
+ des/itefRM1mA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20220722092700.8269-1-cristian.ciocaltea@collabora.com>
-References: <20220722092700.8269-1-cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v2] ASoC: amd: vangogh: Use non-legacy DAI naming for
- cs35l41
-Message-Id: <165851877179.1163063.11067472493999733976.b4-ty@kernel.org>
-Date: Fri, 22 Jul 2022 20:39:31 +0100
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20220722094851.92521-1-ckeepax@opensource.cirrus.com>
+References: <20220722094851.92521-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 1/2] firmware: cs_dsp: Add pre_stop callback
+Message-Id: <165851877383.1163063.17627437769670549231.b4-ty@kernel.org>
+Date: Fri, 22 Jul 2022 20:39:33 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-d952f
-Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,16 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 22 Jul 2022 12:27:00 +0300, Cristian Ciocaltea wrote:
-> Unlike most CODEC drivers, the CS35L41 driver did not have the
-> non_legacy_dai_naming set, meaning the corresponding DAI has been
-> traditionally registered using the legacy naming: spi-VLV1776:0x
+On Fri, 22 Jul 2022 10:48:50 +0100, Charles Keepax wrote:
+> The code already has a post_stop callback, add a matching pre_stop
+> callback to the client_ops that is called before execution is stopped.
+> This callback provides a convenient place for the client code to
+> communicate with the DSP before it is stopped.
 > 
-> The recent migration to the new legacy DAI naming style has implicitly
-> corrected that behavior and DAI gets now registered via the non-legacy
-> naming, i.e. cs35l41-pcm.
 > 
-> [...]
 
 Applied to
 
@@ -106,8 +100,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: vangogh: Use non-legacy DAI naming for cs35l41
-      commit: b340128432a2b8849cc34f9653d7c43c83102bbd
+[1/2] firmware: cs_dsp: Add pre_stop callback
+      commit: dea997733575c5793ca77e166bbbf89097987eb4
+[2/2] firmware: cs_dsp: Add memory chunk helpers
+      commit: a4b976552f122ea851f556769874022cf097741e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

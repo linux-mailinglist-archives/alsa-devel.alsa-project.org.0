@@ -2,172 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C7557E05F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 12:58:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 045CB57E0BA
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 13:20:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8523518AF;
-	Fri, 22 Jul 2022 12:57:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8523518AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53DAC18A7;
+	Fri, 22 Jul 2022 13:20:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53DAC18A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658487525;
-	bh=pRX9tV8X0fP/W+yWZgoYhNhuYUrGRwqUyIvTwRSK6Bg=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=t8jEg3bnqd26c6URSqGDD0YkpqSDj3yhR6eyNxRi31vHgNzZxMwdRknWiQ6LqKEak
-	 hVObc45PZDMo/3CQNm8uSlvS0i9ckBJePlZK2HNRBiPwRAozj7L/O1B842vza7xL/5
-	 IAOAj8fy+ef9PVkwcP8AeWPNOf1XZke7g4s4fjok=
+	s=default; t=1658488850;
+	bh=tT9ALYJSV5LaLx0ox9r9S2itnE9o1KOtWzOII8e5iPk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=K1bumdib3ZAuYMo+lkWTPbBO9ponCFVziyE8w0PlSQdfx1jTXwHZ16cTR9nr/xb+5
+	 3dUzLnvrF2Az2fZOg2hCFsaLw2cdLYBGAwWm8C73ltheUlaBNghJE7Mptii5yDFBvi
+	 8RPdtB1+xSAYc+2YY+tutNwBKtHww7eTkFN//z3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBF18F80166;
-	Fri, 22 Jul 2022 12:57:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82222F802DB;
+	Fri, 22 Jul 2022 13:19:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E660CF802DB; Fri, 22 Jul 2022 12:57:42 +0200 (CEST)
+ id 5F6B9F8023B; Fri, 22 Jul 2022 13:19:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E23E7F8012A
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 12:57:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E23E7F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2844F8023B
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 13:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2844F8023B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="C8zs1Z7T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h0WfX3e9FCX1TM4Vx0tR3Dqf93Ddclx93ZbtsAUQINLKUeItDZCLBH47pUq8wxhxWGtCktXUlbBXIE4gy6TloXR53ubG55mPHZ7FBfoEIvf6iiSS1tYVZ5AxeL3dfc+bpGM/2YFhqDTbkA1B5owjwaYq/Yi/orXYCkHeKUl96JjuTXw2QHosQ9pmTcLjtQMUryXJmLQloUFLhLo1+FZVcFYDbG8JZkksmH9ktqr7GH6kULSEr8OIlyfvLWoNhLwxiJV5AGM6AoKTJb1WEDYwCVUvROCLkJqTUTBMjU0zFchMvbtJeaF+RI34MNtVXtrwukeJsH8sgRqEEJGWekT8tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pRX9tV8X0fP/W+yWZgoYhNhuYUrGRwqUyIvTwRSK6Bg=;
- b=l+8qtDdCXXGPGrk46zFnnT3aCuwvC9Knlc6t/KcnPsgQvkYA3upgI3wstFgFXr3b9j6ZY9nywb98EOp7FnoF49zN/saHWe06v/z+LEsgpoiq18qlcuJ1Puu61GBTH06NWo20LzSo3nUyZMug1w3cY74VeoWS0A2Uv1B8jaT0UTsd2W3xGg3Bjic0IJ/SLtGQeQBmkUgunFCGJovClsxL1JeRlgTLUsJArdW25jVQ8oWSMt6rwbmgOuPY92vtcZzS799+8hA3y+a/JZUtvBa8MGnq/98IjCySfA5DUVyqMeYrD1EGXfC6MfFI7mSR1gI6pgRxnb+ZCNQQ5SQzRI2pPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pRX9tV8X0fP/W+yWZgoYhNhuYUrGRwqUyIvTwRSK6Bg=;
- b=C8zs1Z7T9D4yYydA5j1UoPXL7k1vSITyVeCp58qoJJhhqX1uXqCDy0mPyQ4iCBtPtz/ijCGwGUML/FOPIyrKAOoQx4zVadpdpya4/+W+3L49ZERoHL7XG/rl4LzIRKdbS58TrAuKfnOxOoI4rwbOb/gitMOrUHdp28vUcFS9A40=
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
- by BN6PR1201MB2545.namprd12.prod.outlook.com (2603:10b6:404:b1::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Fri, 22 Jul
- 2022 10:57:28 +0000
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::1451:3811:47b6:23]) by MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::1451:3811:47b6:23%5]) with mapi id 15.20.5458.019; Fri, 22 Jul 2022
- 10:57:28 +0000
-From: "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>
-To: Randy Dunlap <rdunlap@infradead.org>, "broonie@kernel.org"
- <broonie@kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 5/5] ASoC: amd: enable RPL Platform acp drivers build
-Thread-Topic: [PATCH 5/5] ASoC: amd: enable RPL Platform acp drivers build
-Thread-Index: AQHYnMj9sPxp+cb6ZE652tQl6C0d1a2I20eAgAFeAcA=
-Date: Fri, 22 Jul 2022 10:57:28 +0000
-Message-ID: <MN2PR12MB36611F7FD471355CF40E2491FC909@MN2PR12MB3661.namprd12.prod.outlook.com>
-References: <20220721061035.91139-1-Syed.SabaKareem@amd.com>
- <20220721061035.91139-5-Syed.SabaKareem@amd.com>
- <9d2da296-80a8-f632-27a4-42cd91cdff3e@infradead.org>
-In-Reply-To: <9d2da296-80a8-f632-27a4-42cd91cdff3e@infradead.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-07-22T10:55:20Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9bffecca-8d3e-464f-ae00-9cf4b3c539d3;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-07-22T10:57:25Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 3c3698c5-a7b5-4ca2-85d4-2f283a6b472a
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 22751ec4-ba07-48c5-99e6-08da6bd0f7cb
-x-ms-traffictypediagnostic: BN6PR1201MB2545:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TwtkAzBvzIoeYJ/gdQKcntVNj2tsa88DGdIG2LhrAt2smTs6lH/QpDZrUJ6Tmb9ai3UAnwfJFbBahtWt3cJlolQqTuKs309G+iByzRexSyJu5ch65RgVfvzaln5SuKDaUE926pfs/0g8Jp5w5fMtxbJinwLwnU+5TkuTx4kZXrV1LhYmeHs5HJW+XITPkIsUCRDESkV4mhJ06HVjOjHmkKhGsO4UNJM5b3kNrPvkBDugNd8NzdBd99LUMBnC9+zyI/atzcO5pSEhEu9M/s9o7m5HvygYSsOP5b0yxo0u+TL8mYeTK1/h1GmxyoXoO+qNLyoYCGZGe8TA9m2p9mCSnzpbr4il5THyHoTYaucpgzQ4l14lZunxDSg/xU3xjPMKvH0t7Mwp+NffqeRw94lbFXvZDf+DR4OxoE+eAsaCAWYFkhfVoXEHRaSuQOdEKHhjHAz/ahMj0DtKacPvub5P378BrXUtr/01TECw/ss2EV+lNQtzpRip5I4KzePHlPV4pp+fthOerWoZ+lgvlAZCFjjYdmQK6yB0nKTYLgj41ktVvx3igDn9UE5N3yJDaV2HcBsR2w419UsTsBU/wh9w/FIIZYo6rxjlSP6bA8Ldse2L5RgN75NWMZDuTQxufB888g0xdhu5I8tfE6pajoOYtpRBGGbn4KSJ694HzU9kr0CdLOz6jMhbcjTtw47pYI/o6i7gtJW943ppSh5uwZ7guq2at/8YicwmruKpL3UGdJNmVxDFkXQWr9opRS84KhmCfwl2EUebz7DJs/2kch5g2axOaXCPzxvq29hD/GHRpKk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3661.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(366004)(396003)(39860400002)(136003)(9686003)(26005)(2906002)(6506007)(7696005)(53546011)(52536014)(5660300002)(8936002)(7416002)(76116006)(71200400001)(478600001)(186003)(41300700001)(110136005)(122000001)(38100700002)(83380400001)(86362001)(8676002)(38070700005)(55016003)(4326008)(66446008)(66946007)(64756008)(54906003)(316002)(66556008)(66476007)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RTkzckRTYjFVVW91L21KL0twRlliVzV2Uy9LUGdvbnNBWVU3aE9qRlg3RTF1?=
- =?utf-8?B?ekRjQi84QUFjQTZSM21QeEpjdVMvRmg0UC9RVkV0VFpENHpJSlkrRjdqQXNk?=
- =?utf-8?B?cENaTFkrMDVuRUZUNGFrczRIRHpzalQvc3NCbk85bWxBcHRZdkR6Z2lWVUp4?=
- =?utf-8?B?RmZ1cE9EakJpeUIvWWo0b0IvMFRXb0VFc3czTm9VYzZUZzI1N2M5LzN6Y3NQ?=
- =?utf-8?B?R1JFdkZ1c3R5UTcySXlhanZkWHRzYlBqRmtya2pxaEFrK1hUUFJuQllnMWMv?=
- =?utf-8?B?aXVud3RKL2RIZzY2azlqdnhLaGF2MTFxQjh5T1VzYWQ2QTNkcHhRdjNjSjhI?=
- =?utf-8?B?d3I2bi82UjJsKzQvQVQzeStNU1dvKzNyVG1kZ2VERkh6Mlg3bmMvdGpxbXlt?=
- =?utf-8?B?WTVQaUdrTGJiUWtqTDRJakJPcE1JdU1XU0xXZzl6S0I1RzI5eWpLWGFQdVk5?=
- =?utf-8?B?S3pPL0hyNGRuMUZlL2JlWG55UE5STGRUV2NXTmhQU3d1TExzaWFGSERoTTNx?=
- =?utf-8?B?dGFVaUkzMjJFUTkxMWNuVVB1YnhNcE9MMkpqcWpLckh4SlpIUHRqY0lkbG1w?=
- =?utf-8?B?TjEyRm1NYjNPcUxmNE5BS0sraHpSejdROThuQ3pWVWUraU5ydE1SU0QzT21I?=
- =?utf-8?B?S0JvNHZSNzF4YlZHWWhTWWh2V3ZjVWFSZ1NabTd5WWtiTm1TcXdmWjh3QzlW?=
- =?utf-8?B?eGlaVkpURDdsQ3lDdHE3TnF6N3JEa0N2R3lKU0dDMWFGdUcxSjIrNDA4SXJz?=
- =?utf-8?B?QVRUVk9UeEQyc1dQRlY1dEhrS1JoTkIzMGNIUlBPUlpOc1RuOEp0RXNYNnhX?=
- =?utf-8?B?Y3hxR0kzMDN6RzMrYlYzWnlOSldtQXlaT3JEMHliRllodnQ5MzJPYUlBN1Vi?=
- =?utf-8?B?MG5oS0NXdlJKRXIzb2lLNGtYUFZ2UHFOVS9uRWtnNmcwYWtMSWFMbm1rRGpv?=
- =?utf-8?B?NHBQVGZ5ZmxiU1ErMXhUdjhTRDYyTXMzTEFRVVZCbGdHTHRObUhuNjkwb2J6?=
- =?utf-8?B?SnRWQ3hFRVYzdXluQlFxMjVwWkJzU2ZrOHZ4WmJMVFU2a0FzaTF4L2ZrVVAx?=
- =?utf-8?B?RUZ4eWR3M2VRRlVOaUEzTWZYSDNWNjdPbmlFNVI1d1QrbjJCZ1NjT04zMjVJ?=
- =?utf-8?B?K1NvNHhyS3VDUS9ndSs4cEY3V1FRb2NRYkVXQnFQY3ZKR3h4TGVvYm95ZUQ1?=
- =?utf-8?B?Rm1DeEhMdnB2VzRxN0cyQnJ6RzZpV0ozcy9oMlFjZzkxVkJtMDVOVjR3ek1m?=
- =?utf-8?B?REpJVnJQU05HM3VKRjhGeFJrUUNaZVk5bm4zMGx3YnlQWXBMb2RWbldaSmVw?=
- =?utf-8?B?Z1Q2YjUyb08rOEU2NXVCQStvdi9YbWllNW15cWVGRWlLL1hselU1a2k0WFl2?=
- =?utf-8?B?QXc0SGF1RTR3RlNQVDNuN3E2WXBUbVZseUJLbi9yM2hmTHBzd1lITTIwSGdi?=
- =?utf-8?B?UHBUUWFJTnlDalRpVU5lTmh3WWdpcHVPbVQwNHU2VE5oanpUY2h2L2dZNEk4?=
- =?utf-8?B?UTRrZElmMEdlRFdmVkJJZG12MzB2UHFnK3doZlprVmRzZEE0dXZ6NlpwUFhQ?=
- =?utf-8?B?NDlDdWhvTUQrVjltcDFnSElDZy90WjNJb1NTSDFMdHRXeVM0MSszTG8zb0Vv?=
- =?utf-8?B?czM3MW1YT0dQMzdpTWR4clg0S1laUlJBQ0lZdTBwbDQvcUI2VW1SaUE2OXFi?=
- =?utf-8?B?TE91SE1YcTFUYVNma0t3a2J0c1lCb05TVGhnTmo0NXNJc1pOQzNmMmJRRXpJ?=
- =?utf-8?B?MG9OblRabjRFb3RrV3hNYm43ZjQ0NDJrMGMrRkpMZHBDMExvZGxRZEpUK3hQ?=
- =?utf-8?B?d21RWkkyRm4xSVJhMG9taTdmMG5WNlFJYktSd3VjdlRtMUZQMVkxMy9rcXpo?=
- =?utf-8?B?REt4dm1tcjhXQTBWUFRaY2R4YWdicW1aa2hWV0VHRS9QV3A1aTR3MFFvZlM2?=
- =?utf-8?B?anQwQiswUEFiSHFrSVpEVEc3UzJQTS9MNWkxbER2SWhZZGwwQjA5Ym9yajlK?=
- =?utf-8?B?OWM5NlcvaC9UNWtqQ3dFREhrcmpqTzlhYjYySGZMVHpYcExJTnFpUDkwdGtJ?=
- =?utf-8?B?SFhHNmlLRE1xRm15eXNLeDZZMlRsZHZWMUdTNDBHR2VwWkRkL0F5MDBrWWFJ?=
- =?utf-8?Q?VTnMySRKFM17ssn0uDu5lGK5G?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="CHWg67CB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658488781; x=1690024781;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tT9ALYJSV5LaLx0ox9r9S2itnE9o1KOtWzOII8e5iPk=;
+ b=CHWg67CB4lg8EEByT5De05vkqRaqLbCWeg401wC4MCvwHIVAoqWN4mrO
+ C/UT5o9pZNLaXCXeneWBA9ndckdthgJpx/hxtJmh9kg1rpZGMBrXH08Dy
+ 7d7ZtFGyhQY3vCs2ddFIxFc/wdfgWBjlBXNskdDAoMVmCk3zgPbkPcNRC
+ v0oYzUKkdHctqsyw+CNsp7xcE122DAujzgt3vDnwDhiMtyeUeyEU/4gaV
+ c1rudo75TfMLq6WVrvEMrATGdIZdGfUfZ8wFUZByjelUlljLFRWFMI9Uu
+ i9LwMfRqzj9WIS/HXHIUdC9MWcsIM6STtJhgfGb2j6y1U7GS45d6cc0UC g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10415"; a="270327068"
+X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="270327068"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2022 04:19:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="657179045"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+ by fmsmga008.fm.intel.com with ESMTP; 22 Jul 2022 04:19:30 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: Intel: avs: Use lookup table to create modules
+Date: Fri, 22 Jul 2022 13:19:59 +0200
+Message-Id: <20220722111959.2588597-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22751ec4-ba07-48c5-99e6-08da6bd0f7cb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2022 10:57:28.0562 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T+R/1GcwG8m5+wWZJJeDtAYj2/Z/uyHdmtz8a5nnyAWXTsnB+u92voAywnnLlM+CHkMVHfOwvr7rAriiX8NiWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2545
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Dommati,
- Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, "Hiregoudar,
- Basavaraj" <Basavaraj.Hiregoudar@amd.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "Mukunda,
- Vijendar" <Vijendar.Mukunda@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Julian Braha <julianbraha@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Bard Liao <bard.liao@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, Tom Rix <trix@redhat.com>,
+ patches@lists.linux.dev, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -183,37 +97,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogUmFuZHkgRHVubGFwIDxyZHVubGFwQGluZnJhZGVhZC5vcmc+IA0K
-U2VudDogVGh1cnNkYXksIEp1bHkgMjEsIDIwMjIgNzozMiBQTQ0KVG86IFNhYmEgS2FyZWVtLCBT
-eWVkIDxTeWVkLlNhYmFLYXJlZW1AYW1kLmNvbT47IGJyb29uaWVAa2VybmVsLm9yZzsgYWxzYS1k
-ZXZlbEBhbHNhLXByb2plY3Qub3JnDQpDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIu
-RGV1Y2hlckBhbWQuY29tPjsgSGlyZWdvdWRhciwgQmFzYXZhcmFqIDxCYXNhdmFyYWouSGlyZWdv
-dWRhckBhbWQuY29tPjsgRG9tbWF0aSwgU3VuaWwta3VtYXIgPFN1bmlsLWt1bWFyLkRvbW1hdGlA
-YW1kLmNvbT47IE11a3VuZGEsIFZpamVuZGFyIDxWaWplbmRhci5NdWt1bmRhQGFtZC5jb20+OyBM
-aWFtIEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgSmFyb3NsYXYgS3lzZWxhIDxwZXJl
-eEBwZXJleC5jej47IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5jb20+OyBBaml0IEt1bWFyIFBh
-bmRleSA8QWppdEt1bWFyLlBhbmRleUBhbWQuY29tPjsgUGllcnJlLUxvdWlzIEJvc3NhcnQgPHBp
-ZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT47IERhbmllbCBCYWx1dGEgPGRhbmll
-bC5iYWx1dGFAbnhwLmNvbT47IEx1Y2FzIFRhbnVyZSA8dGFudXJlYWxAb3BlbnNvdXJjZS5jaXJy
-dXMuY29tPjsgSnVsaWFuIEJyYWhhIDxqdWxpYW5icmFoYUBnbWFpbC5jb20+OyBCYXJkIExpYW8g
-PGJhcmQubGlhb0BpbnRlbC5jb20+OyBvcGVuIGxpc3QgPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
-bC5vcmc+DQpTdWJqZWN0OiBSZTogW1BBVENIIDUvNV0gQVNvQzogYW1kOiBlbmFibGUgUlBMIFBs
-YXRmb3JtIGFjcCBkcml2ZXJzIGJ1aWxkDQoNCltDQVVUSU9OOiBFeHRlcm5hbCBFbWFpbF0NCg0K
-SGktLQ0KDQpPbiA3LzIwLzIyIDIzOjEwLCBzeWVkIHNhYmFrYXJlZW0gd3JvdGU6DQo+IGRpZmYg
-LS1naXQgYS9zb3VuZC9zb2MvYW1kL0tjb25maWcgYi9zb3VuZC9zb2MvYW1kL0tjb25maWcgaW5k
-ZXggDQo+IDljMmZlZjJjZTg5Zi4uMDhmNTI4OWRhYzU0IDEwMDY0NA0KPiAtLS0gYS9zb3VuZC9z
-b2MvYW1kL0tjb25maWcNCj4gKysrIGIvc291bmQvc29jL2FtZC9LY29uZmlnDQo+IEBAIC0xMTcs
-MyArMTE3LDEzIEBAIGNvbmZpZyBTTkRfQU1EX0FDUF9DT05GSUcNCj4gICAgICAgIGRyaXZlciBt
-b2R1bGVzIHRvIHVzZQ0KPg0KPiAgc291cmNlICJzb3VuZC9zb2MvYW1kL2FjcC9LY29uZmlnIg0K
-PiArDQo+ICtjb25maWcgU05EX1NPQ19BTURfUlBMX0FDUDZ4DQo+ICsgICAgICAgIHRyaXN0YXRl
-ICJBTUQgQXVkaW8gQ29wcm9jZXNzb3ItdjYuMiBSUEwgc3VwcG9ydCINCj4gKyAgICAgICAgZGVw
-ZW5kcyBvbiBYODYgJiYgUENJDQo+ICsgICAgICAgIGhlbHANCj4gKyAgICAgICAgICBUaGlzIG9w
-dGlvbiBlbmFibGVzIEF1ZGlvIENvcHJvY2Vzc29yIGkuZSBBQ1AgdjYuMiBzdXBwb3J0IA0KPiAr
-b24NCg0KSWYgdGhhdCAiaS5lIiBpcyBzdXBwb3NlZCB0byBtZWFuICJ0aGF0IGlzIiwgdGhlbiBp
-dCBzaG91bGQgYmUgImkuZS4iLg0KT3IgZG9lcyBpdCBtZWFuIHNvbWV0aGluZyBlbHNlIGhlcmU/
-DQoNCkl0IGlzIGEgdHlwbyBtaXN0YWtlLiBXaWxsIGNvcnJlY3QgaXQuDQo+ICsgICAgICAgICAg
-QU1EIFJQTCBwbGF0Zm9ybS4gQnkgZW5hYmxpbmcgdGhpcyBmbGFnIGJ1aWxkIHdpbGwgYmUNCj4g
-KyAgICAgICAgICB0cmlnZ2VyZWQgZm9yIEFDUCBQQ0kgZHJpdmVyLg0KPiArICAgICAgICAgIFNh
-eSBtIGlmIHlvdSBoYXZlIHN1Y2ggYSBkZXZpY2UuDQo+ICsgICAgICAgICAgSWYgdW5zdXJlIHNl
-bGVjdCAiTiIuDQoNCi0tDQp+UmFuZHkNCg==
+As reported by Nathan, when building avs driver using clang with:
+  CONFIG_COMPILE_TEST=y
+  CONFIG_FORTIFY_SOURCE=y
+  CONFIG_KASAN=y
+  CONFIG_PCI=y
+  CONFIG_SOUND=y
+  CONFIG_SND=y
+  CONFIG_SND_SOC=y
+  CONFIG_SND_SOC_INTEL_AVS=y
+
+there are reports of too big stack use, like:
+  sound/soc/intel/avs/path.c:815:18: error: stack frame size (2176) exceeds limit (2048) in 'avs_path_create' [-Werror,-Wframe-larger-than]
+  struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+                   ^
+  1 error generated.
+
+This is apparently caused by inlining many calls to guid_equal which
+inlines fortified memcpy, using 2 size_t variables.
+
+Instead of hardcoding many calls to guid_equal, use lookup table with
+one call, this improves stack usage.
+
+Link: https://lore.kernel.org/alsa-devel/YtlzY9aYdbS4Y3+l@dev-arch.thelio-3990X/T/
+Link: https://github.com/ClangBuiltLinux/linux/issues/1642
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Build-tested-by: Nathan Chancellor <nathan@kernel.org>
+---
+ sound/soc/intel/avs/path.c | 54 ++++++++++++++++++++------------------
+ 1 file changed, 29 insertions(+), 25 deletions(-)
+
+diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
+index 3d46dd5e5bc4..ce157a8d6552 100644
+--- a/sound/soc/intel/avs/path.c
++++ b/sound/soc/intel/avs/path.c
+@@ -449,35 +449,39 @@ static int avs_modext_create(struct avs_dev *adev, struct avs_path_module *mod)
+ 	return ret;
+ }
+ 
++static int avs_probe_create(struct avs_dev *adev, struct avs_path_module *mod)
++{
++	dev_err(adev->dev, "Probe module can't be instantiated by topology");
++	return -EINVAL;
++}
++
++struct avs_module_create {
++	guid_t *guid;
++	int (*create)(struct avs_dev *adev, struct avs_path_module *mod);
++};
++
++static struct avs_module_create avs_module_create[] = {
++	{ &AVS_MIXIN_MOD_UUID, avs_modbase_create },
++	{ &AVS_MIXOUT_MOD_UUID, avs_modbase_create },
++	{ &AVS_KPBUFF_MOD_UUID, avs_modbase_create },
++	{ &AVS_COPIER_MOD_UUID, avs_copier_create },
++	{ &AVS_MICSEL_MOD_UUID, avs_micsel_create },
++	{ &AVS_MUX_MOD_UUID, avs_mux_create },
++	{ &AVS_UPDWMIX_MOD_UUID, avs_updown_mix_create },
++	{ &AVS_SRCINTC_MOD_UUID, avs_src_create },
++	{ &AVS_AEC_MOD_UUID, avs_aec_create },
++	{ &AVS_ASRC_MOD_UUID, avs_asrc_create },
++	{ &AVS_INTELWOV_MOD_UUID, avs_wov_create },
++	{ &AVS_PROBE_MOD_UUID, avs_probe_create },
++};
++
+ static int avs_path_module_type_create(struct avs_dev *adev, struct avs_path_module *mod)
+ {
+ 	const guid_t *type = &mod->template->cfg_ext->type;
+ 
+-	if (guid_equal(type, &AVS_MIXIN_MOD_UUID) ||
+-	    guid_equal(type, &AVS_MIXOUT_MOD_UUID) ||
+-	    guid_equal(type, &AVS_KPBUFF_MOD_UUID))
+-		return avs_modbase_create(adev, mod);
+-	if (guid_equal(type, &AVS_COPIER_MOD_UUID))
+-		return avs_copier_create(adev, mod);
+-	if (guid_equal(type, &AVS_MICSEL_MOD_UUID))
+-		return avs_micsel_create(adev, mod);
+-	if (guid_equal(type, &AVS_MUX_MOD_UUID))
+-		return avs_mux_create(adev, mod);
+-	if (guid_equal(type, &AVS_UPDWMIX_MOD_UUID))
+-		return avs_updown_mix_create(adev, mod);
+-	if (guid_equal(type, &AVS_SRCINTC_MOD_UUID))
+-		return avs_src_create(adev, mod);
+-	if (guid_equal(type, &AVS_AEC_MOD_UUID))
+-		return avs_aec_create(adev, mod);
+-	if (guid_equal(type, &AVS_ASRC_MOD_UUID))
+-		return avs_asrc_create(adev, mod);
+-	if (guid_equal(type, &AVS_INTELWOV_MOD_UUID))
+-		return avs_wov_create(adev, mod);
+-
+-	if (guid_equal(type, &AVS_PROBE_MOD_UUID)) {
+-		dev_err(adev->dev, "Probe module can't be instantiated by topology");
+-		return -EINVAL;
+-	}
++	for (int i = 0; i < ARRAY_SIZE(avs_module_create); i++)
++		if (guid_equal(type, avs_module_create[i].guid))
++			return avs_module_create[i].create(adev, mod);
+ 
+ 	return avs_modext_create(adev, mod);
+ }
+-- 
+2.25.1
+

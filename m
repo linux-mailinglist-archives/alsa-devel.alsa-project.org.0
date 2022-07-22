@@ -2,95 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D27D57E273
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 15:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4658F57E28A
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 15:48:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D9C218BF;
-	Fri, 22 Jul 2022 15:41:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D9C218BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7C2B16B4;
+	Fri, 22 Jul 2022 15:47:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7C2B16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658497333;
-	bh=FDsPJL9PrKC4jM6kPIaOvUGImerCFUDqpWWoDr6aoiU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UT58kqeKLGSRpGtnNx01A7EH98qjukrizkwKplu4Tip9rIxogrfwHyUFpnZOCJ6tE
-	 vW9wgmKjdh2uUMLztsxcVlnfiQ+2/ePOIq0juFicmWn6K6tJm+NrCutv1Z13yUubJs
-	 M3wy58r2Rq+x+ELIHhpMKmxAiyEN0lMADWgFmBt0=
+	s=default; t=1658497728;
+	bh=ntybmaTJmH7IkwCCmFmrtkUAVY+lotx0kX1bk/JpKjI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iOjsJzWP43Fiqtqzc3DZ3NI60qS2/dHYdaOOreDPjSUHZCJEjTYUCy1wSNlX8bdKD
+	 SYd00H7yNk5Yyb6ktJRH8JX6nrTjw4H5m0qSHGkGgSL3+wdPvf9tOzGXXuxo+s/1Ax
+	 Ns96dNft3i956n42guBplZYIFO+1uXSkarr1nQns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6332CF80279;
-	Fri, 22 Jul 2022 15:41:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E6B8F80279;
+	Fri, 22 Jul 2022 15:47:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8E74F80246; Fri, 22 Jul 2022 15:41:10 +0200 (CEST)
+ id CBBC8F80246; Fri, 22 Jul 2022 15:47:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 883BDF8012A
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 15:41:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 883BDF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C22CFF80166
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 15:47:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C22CFF80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gabumqZv"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PHa4wrnv"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 88AA02054D;
- Fri, 22 Jul 2022 13:41:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658497263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uuyaztEJO/U+txt+TpKrVT4oWz325yRVlHDru4X0shc=;
- b=gabumqZvClIYLtonZ7QRkkmiqS3ZyUOvIjMahdFtEBcZ1LvPkdSYQEQgzcIkJbKcSipAlv
- FE5CEiVnBp6eX0ZxrWMweKEBmiew4iWsbbz59qjkbMmGcGsLA+ZpOc/ZY5W8CHpoIydvsA
- LeYf3a8f7jCUnJM5sudY3ZMYDxQhcaA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658497263;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uuyaztEJO/U+txt+TpKrVT4oWz325yRVlHDru4X0shc=;
- b=PHa4wrnvV89bET21NF6pheiOgMYTKTEH0+M0xZX29BjhJwUYufjp6ymnqHN/nL8t6ja47U
- qBI4oYPwvWAqdCBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 45774134A9;
- Fri, 22 Jul 2022 13:41:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gTw+EO+o2mKVWQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 22 Jul 2022 13:41:03 +0000
-Date: Fri, 22 Jul 2022 15:41:02 +0200
-Message-ID: <87h739464x.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH v2] ASoC: amd: acp: Initialize list to store acp_stream
- during pcm_open
-In-Reply-To: <20220722133530.3314087-1-venkataprasad.potturu@amd.com>
-References: <20220722133530.3314087-1-venkataprasad.potturu@amd.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Charles Keepax <ckeepax@opensource.cirrus.com>, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Yang Yingliang <yangyingliang@huawei.com>, broonie@kernel.org,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="EsYxcl/d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SOmwkCaLgkRIlnsCwGZXZXP+/yUs5siMPqc1MGszwGZtYQU5cuaLL6lR0wDaI5g0MDubvCrugbnteRVnJVWK0yoqTD0vHoQ9bGvvqDTb5gtUHDScgxlfA8tibpUoWRhANuggN5DwHagYtn3gUPg/YAPkNBn0ToC09GAcITxHeTcGuGFSvn6MhRpaTLWfkLvi0OFR2Dp5qMcxkMDoCySwWKlx7YAiy2xG33wFFZEyPzm2nW5qq/V5zaoXzu4mWYorAgwrvz8tmV91zJD6mS6um05/mcL9osMkPPvUpFuZ6aCTdihFr2YD2+TV4Y/yxs/Gt6jdetyqMsQy4GJynx3UJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8dsIJHubxKZ8ZQ4nA2CZ2XhKyMiQBtrgcYeJM4PMVGc=;
+ b=g5ZBknzXr0uRD+BeflGUG/QYdLQeHqIswVsDTVq2maYyDHnkaLoLZn6D8j9ATObDVBG2Zu2COGHtWsFyN7YHBJEXfg/ZiRo6T932jv3DOnj5NLye7O3Jy3XCGuxTpPrXZggxp+mmbp+EiAK0LNhu9wfxB77Y7n2NqxHPsqsxRXczszh6H3+jsJqhbR+EPpB9Oj1PdnpRZf3DsokKNooXyfTtNy8FtAszCZJwTL7D2O+mldYhdusNDJ5n39YZInKUMHkxECXe14l7hlsnuTZlVTVd+SxxrO/KlSQd+tW3Z+tx4z8jW/xxS+RLim0hTj2UFWnJNZ+GiX3uVyaKE1SLrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8dsIJHubxKZ8ZQ4nA2CZ2XhKyMiQBtrgcYeJM4PMVGc=;
+ b=EsYxcl/dlQLgvk0pMWT9JLKjUC0fFKahuyRFrDsYKai2wj5yn11Af64rgn5Q5z0k0/bqPHeRQPHmJuFl6D8KZc5iCDOgGLpV2wcrIRHFfi44g2LLyGGE/mz6mL7FGQlAfbHd+5D3k/EW4sv2g7KS36vMloukP7fpdTwuAtnDDd0=
+Received: from DM6PR04CA0008.namprd04.prod.outlook.com (2603:10b6:5:334::13)
+ by BL3PR12MB6618.namprd12.prod.outlook.com (2603:10b6:208:38d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Fri, 22 Jul
+ 2022 13:47:34 +0000
+Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:334:cafe::1f) by DM6PR04CA0008.outlook.office365.com
+ (2603:10b6:5:334::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
+ Transport; Fri, 22 Jul 2022 13:47:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5458.17 via Frontend Transport; Fri, 22 Jul 2022 13:47:34 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 22 Jul
+ 2022 08:47:33 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 22 Jul
+ 2022 06:47:33 -0700
+Received: from amd-Z97X-UD7-TH.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via
+ Frontend Transport; Fri, 22 Jul 2022 08:47:24 -0500
+From: syed sabakareem <Syed.SabaKareem@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: amd: yc: Update DMI table entries
+Date: Fri, 22 Jul 2022 19:15:32 +0530
+Message-ID: <20220722134603.316668-1-Syed.SabaKareem@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4e5377e2-eb76-41bb-6b8f-08da6be8bb5c
+X-MS-TrafficTypeDiagnostic: BL3PR12MB6618:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JCGz2db2sXGOhd5KqmmezpAMoD/oQ7zb7K0JGPejw2mX+Mf7x88HtPfuOTSN9sxkEt3BIHM0+Fyrom96ljfSNcAzxxpwmd0zFdsK2e5drzugsf2SIN2OOe0w2cjnEZe2LQX5rfXGFVMAle5L1wqsM3kp0lq4Eh7D8F9WFn/gCbsH+BQLJ1CvnTjxdnfp6byVso0wymbAXrDhQml7S+drFjPQPiCbLvgGBhz40O+Li21bLkICwDblbfnas9qQQSiAz+Nj4OeP2fYzkHXIEf1XUlOG2wV+3MfmG8SQRmVjjicntfFIbBCvgnf9vXKkdFJsW1h1lz3jTPdOsDj5YtmmRK6tcDCAKQnnnbapODAUmEinppAdX347MqWeqBpPtHd5SOdW782S4F/ZAJCQIPfgELoBURJCJGLZh76oj+nggFXQMFpbcStcOZ0SxFCBTdQHEoXerv5dRE0pCdKLDtkF0BN8S9Y41e51xCOyBQYd3LtguLCpAiK3VR9Ps31eFvsZTiW2fhBaUsck0eVcyV7oRmsJj+0RAUNboZYfC5WoZzPIt+LYzPzpD/HB/ETonBsVus7/YJtyGKS9ONI7aDNHEuRTOZnAg57EbQdmM2ZNr6BRbBTZUH1qzw/vSD3kNH7pv+IOuYV16tAQFCZcGlY//HmzLmMK9WINKdqq6DeW+0TwYRVugq6wqGMobmAD1dhsWFv4Y7AJaRG0ZRb48S+QGGjCkTGITGlcPFQN1aiUSUIVFeFAiqRRo1tuR1r/xniTf6ADr1n9y1RwXVLrewk3MCgj7BEcYp2Iy2EYkWn4XKCFayNSvtYOOM9fQSeQcdyjbqO5uT2GTCn9oUHhcfNJ8AJUO3ts8cRVQ3+vMnq6L1RGSFmQFDWNEHbzOYnzPFQG
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(376002)(396003)(39860400002)(36840700001)(40470700004)(46966006)(356005)(8676002)(82740400003)(5660300002)(40460700003)(4326008)(36756003)(47076005)(8936002)(70206006)(70586007)(2906002)(36860700001)(7696005)(83380400001)(966005)(26005)(110136005)(316002)(54906003)(186003)(2616005)(1076003)(82310400005)(81166007)(15650500001)(426003)(336012)(6666004)(478600001)(86362001)(40480700001)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 13:47:34.3827 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e5377e2-eb76-41bb-6b8f-08da6be8bb5c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6618
+Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, mario.limonciello@amd.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ markpearson@lenovo.com, syed sabakareem <Syed.SabaKareem@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,167 +137,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 22 Jul 2022 15:35:22 +0200,
-Venkata Prasad Potturu wrote:
-> 
-> From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-> 
-> We are currently allocating acp_stream during pcm_open and saving
-> it in static array corresponds to array index calculated based on
-> cpu dai->driver id. This approach will fail if we have single dai
-> linked to multiple pcm device as we will have same dai->driver id
-> or array index for multiple pcm open. Initialize new linked list
-> stream_list to store opened pcm stream info dynamically.
+Removed intel DMI product id's 21AW/21AX/21D8/21D9/21BN/21BQ
+in DMI table and updated DMI entry for AMD platform X13 Gen 3
+platform 21CM/21CN.
 
-If an IRQ handler refers to the linked list, make sure that no list
-change will happen concurrently during the IRQ handling.  It seems
-that you have no protection for it yet.
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216267
 
+Signed-off-by: syed sabakareem <Syed.SabaKareem@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 32 ++------------------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
 
-thanks,
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index f06e6c1a7799..ecfe7a790790 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -105,28 +105,14 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21AW"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21CM"),
+ 		}
+ 	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+ 			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21AX"),
+-		}
+-	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21BN"),
+-		}
+-	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21BQ"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21CN"),
+ 		}
+ 	},
+ 	{
+@@ -157,20 +143,6 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21CL"),
+ 		}
+ 	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21D8"),
+-		}
+-	},
+-	{
+-		.driver_data = &acp6x_card,
+-		.matches = {
+-			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "21D9"),
+-		}
+-	},
+ 	{}
+ };
+ 
+-- 
+2.25.1
 
-Takashi
-
-> 
-> Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-> Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-> Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
-> 
-> Changes since v1:
->     -- Fix compile error and remove unused variable.
-> 
->  sound/soc/amd/acp/acp-platform.c | 33 ++++++++++++--------------------
->  sound/soc/amd/acp/amd.h          |  3 ++-
->  2 files changed, 14 insertions(+), 22 deletions(-)
-> 
-> diff --git a/sound/soc/amd/acp/acp-platform.c b/sound/soc/amd/acp/acp-platform.c
-> index 10730d33c3b0..20c0f75f7c97 100644
-> --- a/sound/soc/amd/acp/acp-platform.c
-> +++ b/sound/soc/amd/acp/acp-platform.c
-> @@ -94,7 +94,7 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
->  	struct acp_resource *rsrc = adata->rsrc;
->  	struct acp_stream *stream;
->  	u16 i2s_flag = 0;
-> -	u32 ext_intr_stat, ext_intr_stat1, i;
-> +	u32 ext_intr_stat, ext_intr_stat1;
->  
->  	if (!adata)
->  		return IRQ_NONE;
-> @@ -104,8 +104,7 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
->  
->  	ext_intr_stat = readl(ACP_EXTERNAL_INTR_STAT(adata, rsrc->irqp_used));
->  
-> -	for (i = 0; i < ACP_MAX_STREAM; i++) {
-> -		stream = adata->stream[i];
-> +	list_for_each_entry(stream, &adata->stream_list, list) {
->  		if (stream && (ext_intr_stat & stream->irq_bit)) {
->  			writel(stream->irq_bit,
->  			       ACP_EXTERNAL_INTR_STAT(adata, rsrc->irqp_used));
-> @@ -146,9 +145,8 @@ static void config_pte_for_stream(struct acp_dev_data *adata, struct acp_stream
->  	writel(0x01, adata->acp_base + ACPAXI2AXI_ATU_CTRL);
->  }
->  
-> -static void config_acp_dma(struct acp_dev_data *adata, int cpu_id, int size)
-> +static void config_acp_dma(struct acp_dev_data *adata, struct acp_stream *stream, int size)
->  {
-> -	struct acp_stream *stream = adata->stream[cpu_id];
->  	struct snd_pcm_substream *substream = stream->substream;
->  	struct acp_resource *rsrc = adata->rsrc;
->  	dma_addr_t addr = substream->dma_buffer.addr;
-> @@ -174,13 +172,10 @@ static void config_acp_dma(struct acp_dev_data *adata, int cpu_id, int size)
->  
->  static int acp_dma_open(struct snd_soc_component *component, struct snd_pcm_substream *substream)
->  {
-> -	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-> -	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
->  	struct snd_pcm_runtime *runtime = substream->runtime;
->  	struct device *dev = component->dev;
->  	struct acp_dev_data *adata = dev_get_drvdata(dev);
->  	struct acp_stream *stream;
-> -	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
->  	int ret;
->  
->  	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
-> @@ -188,7 +183,8 @@ static int acp_dma_open(struct snd_soc_component *component, struct snd_pcm_subs
->  		return -ENOMEM;
->  
->  	stream->substream = substream;
-> -	adata->stream[stream_id] = stream;
-> +
-> +	list_add_tail(&stream->list, &adata->stream_list);
->  
->  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
->  		runtime->hw = acp_pcm_hardware_playback;
-> @@ -212,16 +208,13 @@ static int acp_dma_hw_params(struct snd_soc_component *component,
->  			     struct snd_pcm_substream *substream,
->  			     struct snd_pcm_hw_params *params)
->  {
-> -	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
->  	struct acp_dev_data *adata = snd_soc_component_get_drvdata(component);
-> -	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
->  	struct acp_stream *stream = substream->runtime->private_data;
-> -	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
->  	u64 size = params_buffer_bytes(params);
->  
->  	/* Configure ACP DMA block with params */
->  	config_pte_for_stream(adata, stream);
-> -	config_acp_dma(adata, stream_id, size);
-> +	config_acp_dma(adata, stream, size);
->  
->  	return 0;
->  }
-> @@ -261,16 +254,11 @@ static int acp_dma_new(struct snd_soc_component *component,
->  static int acp_dma_close(struct snd_soc_component *component,
->  			 struct snd_pcm_substream *substream)
->  {
-> -	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-> -	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
-> -	struct device *dev = component->dev;
-> -	struct acp_dev_data *adata = dev_get_drvdata(dev);
-> -	struct acp_stream *stream;
-> -	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
-> +	struct acp_stream *stream = substream->runtime->private_data;
->  
-> -	stream = adata->stream[stream_id];
-> +	/* Remove entry from list */
-> +	list_del(&stream->list);
->  	kfree(stream);
-> -	adata->stream[stream_id] = NULL;
->  
->  	return 0;
->  }
-> @@ -305,6 +293,9 @@ int acp_platform_register(struct device *dev)
->  		dev_err(dev, "Fail to register acp i2s component\n");
->  		return status;
->  	}
-> +
-> +	INIT_LIST_HEAD(&adata->stream_list);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_NS_GPL(acp_platform_register, SND_SOC_ACP_COMMON);
-> diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-> index af9603724a68..148a9ab6206d 100644
-> --- a/sound/soc/amd/acp/amd.h
-> +++ b/sound/soc/amd/acp/amd.h
-> @@ -91,6 +91,7 @@ struct acp_chip_info {
->  };
->  
->  struct acp_stream {
-> +	struct list_head list;
->  	struct snd_pcm_substream *substream;
->  	int irq_bit;
->  	int dai_id;
-> @@ -123,7 +124,7 @@ struct acp_dev_data {
->  	struct snd_soc_dai_driver *dai_driver;
->  	int num_dai;
->  
-> -	struct acp_stream *stream[ACP_MAX_STREAM];
-> +	struct list_head stream_list;
->  
->  	struct snd_soc_acpi_mach *machines;
->  	struct platform_device *mach_dev;
-> -- 
-> 2.25.1
-> 

@@ -2,77 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1876557E979
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 00:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EBA857EA09
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 00:46:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A514C16D2;
-	Sat, 23 Jul 2022 00:06:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A514C16D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0C30184C;
+	Sat, 23 Jul 2022 00:45:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0C30184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658527646;
-	bh=oU/aXEm4nJoyqONNRlbDnt9H4TtoyZTFmxF9qtTL25w=;
+	s=default; t=1658529969;
+	bh=q0GYJB53qaajgn2Rk8HKDPHWQvrBxjr3J6nXjmkYhtM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sd0XwUAd0g8/cZ4sGj+Paw9uI6dPYlH3U9gnk1sDt0SQODMNsyBooJf531f5S9Rhb
-	 DaxkXh55hg7n4e25aeqA4Eg115lA53xm+XUIVohvvYjNu0LeHrK4Q5uT4hz1OF66nL
-	 w6jFRXOWn8GqzD4qmEySXOcDrhwuAAlflYnSArzw=
+	b=YIVbahowR5gmJ2f+LVQX0aDOGkz6NywXQFWPTJuvC9577JhHEMZ3wU0BVRTDQznxa
+	 Kl9AUTjtmWo2539JT/2IaVYCspBNqTQ0EPfI5WSLNdNLuQABZA5FZoLw4AF+1qohYP
+	 MEVPfEqdMqXga53WDF9gRP5oMj+MtT8AsmsbCqAw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0919F80506;
-	Sat, 23 Jul 2022 00:05:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E648F80279;
+	Sat, 23 Jul 2022 00:45:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C193F80279; Sat, 23 Jul 2022 00:05:53 +0200 (CEST)
+ id EE728F80246; Sat, 23 Jul 2022 00:45:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A6E7F80246
- for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 00:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A6E7F80246
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D/cuEjPr"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 251F8621E2;
- Fri, 22 Jul 2022 22:05:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B925C341CE;
- Fri, 22 Jul 2022 22:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658527548;
- bh=oU/aXEm4nJoyqONNRlbDnt9H4TtoyZTFmxF9qtTL25w=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=D/cuEjPr3ARaTBbeeLJyFTN981UU44GqLg/VbzfQWmk5sdYSjMxvejQxyKg9aBQTW
- DZganrXGblOtY6BFf3ahqTgSDcZzmA5h0iAclGx0rpIUJxHYQmVVzuf+I9Fd1JCFVz
- PGurpeKaJSBpFamkef1HElOFijqpJ97p5Va32Pi4CwTiJhIWypaUTtRCDa5JSfYdhq
- ANtbL/9LICjXxTeWi41X6F+41IxyZtU6bhYIRl33aHZk3H7QFO+PG+6TwGwfdQAV8w
- xXzYFyx7Nxvjyxe5dIb+zclOh/jnhB6oOQcjHgdl87vqoAVEkfKpOcgjB4fl0hcEUu
- koUNRNe3o8Pew==
-From: Mark Brown <broonie@kernel.org>
-To: syed sabakareem <Syed.SabaKareem@amd.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20220722134603.316668-1-Syed.SabaKareem@amd.com>
-References: <20220722134603.316668-1-Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Update DMI table entries
-Message-Id: <165852754583.1234289.15095760330208840152.b4-ty@kernel.org>
-Date: Fri, 22 Jul 2022 23:05:45 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-c7731
-Cc: Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- open list <linux-kernel@vger.kernel.org>, mario.limonciello@amd.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- markpearson@lenovo.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id CEF22F8016D
+ for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 00:45:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEF22F8016D
+Received: by mail-oi1-f175.google.com with SMTP id p132so7073603oif.9
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 15:44:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=7XwmdpKQBMvYl+pH5ar534iWvJuw8dX5bUNNhw01JC0=;
+ b=3+re1nnymmzV5jLHJ3gQ9q43THPUPFQf7UFLYPYoonr/bWIrlSuSnCJVD/mdvNcIlE
+ IiC2fYbuhNOn2kCpgelPR3VAW8pnwAbPV+29+w2cWa0Fo8DVTNdqitr7FjcLVGkSRlOI
+ 7VK9XD6gB+gzLRUh/LHqVn8rlFfTqoJMaJUFdcRv3sf3cJSf0QolMseJeVuSw2Ix9RVG
+ Cg/wtU/jSLqMkfegthVXmVi4oSrASZl5Zb5sQ55jOexTw1Spb4R7uxh0DgEsujU1ZVYT
+ 6mK5LptXL7iueZ2iSBIIFcmVGYTXzvWS4C748M9JeuCJvgmwik56+mDOiY3eX7/mlZHH
+ AN1A==
+X-Gm-Message-State: AJIora+/wPafLt9umAWcmnuxu4Uth2xstK8uEePTSVuFVxqN3Mzc5aNE
+ 4YPBMWAjXvfygh5H56HliA==
+X-Google-Smtp-Source: AGRyM1t567gWXFWJV8Z8P3p6+RpUtCKsfkUs/yIOqGV6OA/Un4DLtV0hOWhNYRcnYaQXHgRiApZdsQ==
+X-Received: by 2002:a05:6808:1286:b0:33a:9a90:68d2 with SMTP id
+ a6-20020a056808128600b0033a9a9068d2mr861852oiw.235.1658529898372; 
+ Fri, 22 Jul 2022 15:44:58 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ y7-20020a05683009c700b0061cb7f17ed7sm2466136ott.11.2022.07.22.15.44.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Jul 2022 15:44:57 -0700 (PDT)
+Received: (nullmailer pid 20323 invoked by uid 1000);
+ Fri, 22 Jul 2022 22:44:50 -0000
+From: Rob Herring <robh@kernel.org>
+To: Ryan.Wanner@microchip.com
+In-Reply-To: <20220722152945.2950807-1-Ryan.Wanner@microchip.com>
+References: <20220722152945.2950807-1-Ryan.Wanner@microchip.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: atmel-i2s: Convert to json-schema
+Date: Fri, 22 Jul 2022 16:44:50 -0600
+Message-Id: <1658529890.319757.20312.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alexandre.belloni@bootlin.com,
+ alsa-devel@alsa-project.org, broonie@kernel.org, nicolas.ferre@microchip.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, claudiu.beznea@microchip.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,40 +92,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 22 Jul 2022 19:15:32 +0530, syed sabakareem wrote:
-> Removed intel DMI product id's 21AW/21AX/21D8/21D9/21BN/21BQ
-> in DMI table and updated DMI entry for AMD platform X13 Gen 3
-> platform 21CM/21CN.
+On Fri, 22 Jul 2022 08:29:45 -0700, Ryan.Wanner@microchip.com wrote:
+> From: Ryan Wanner <Ryan.Wanner@microchip.com>
 > 
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=216267
+> Convert atmel i2s devicetree binding to json-schema.
+> Change file name to match json-schema naming.
 > 
+> Signed-off-by: Ryan Wanner <Ryan.Wanner@microchip.com>
+> ---
+> Note: running dtbs_check will fail unless updated with this patch,
+> https://lore.kernel.org/linux-arm-kernel/20220707215812.193008-1-Ryan.Wanner@microchip.com/
 > 
-> [...]
+> v1 -> v2:
+> - Fix formatting for clock description.
+> - Fix formatting for dma description.
+> 
+>  .../bindings/sound/atmel,sama5d2-i2s.yaml     | 85 +++++++++++++++++++
+>  .../devicetree/bindings/sound/atmel-i2s.txt   | 46 ----------
+>  2 files changed, 85 insertions(+), 46 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/atmel,sama5d2-i2s.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/atmel-i2s.txt
+> 
 
-Applied to
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
 
-Thanks!
+Full log is available here: https://patchwork.ozlabs.org/patch/
 
-[1/1] ASoC: amd: yc: Update DMI table entries
-      commit: be0aa8d4b0fcb4532bf7973141e911998ab39508
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+i2s@fc04c000: 'assigned-parrents' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/at91-kizbox3-hs.dtb
+	arch/arm/boot/dts/at91-sama5d27_som1_ek.dtb
+	arch/arm/boot/dts/at91-sama5d27_wlsom1_ek.dtb
+	arch/arm/boot/dts/at91-sama5d2_icp.dtb
+	arch/arm/boot/dts/at91-sama5d2_ptc_ek.dtb
+	arch/arm/boot/dts/at91-sama5d2_xplained.dtb
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

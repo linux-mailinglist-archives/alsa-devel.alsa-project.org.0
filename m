@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0931E57E1A0
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 14:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC3157E19E
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 14:49:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5C5218C2;
-	Fri, 22 Jul 2022 14:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5C5218C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B8B018B8;
+	Fri, 22 Jul 2022 14:49:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B8B018B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658494222;
-	bh=sr9TSpthQysYY2JifDw21pcWDlAmyQ036571H/CVHyg=;
+	s=default; t=1658494194;
+	bh=lcEC2kCCCKbO1yjbDbyfX8qWq8HYcFr/tlhbvJ8XuHI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AxDTlQfeN4+Ij3tGrV8AWgAgjKEixgsO0/1VuTHj0yNQocfMhZduBPT+GQUahctX7
-	 XIoE5BYqdt1vvYJdDFvmWXwZRFw/kbrA95PU86t9yE3Q1dyRs/4cd6Dr1G2m9Skrua
-	 SMmsp70k/9Cn4MOIX3vXzdbhvw9b/1S7plfTMQ0E=
+	b=cbTzxygNEyDVvU5q38h3TkbbaW+MEBBvVDQB7Qyp+gAd7ceYOXq49aC4HWEMYshG/
+	 MNXGUkVYaupb8lPnDW/Pg/ic8s9zq9oRCrr6qbS5vemscUQqkxyhodlrpIDw49l5Xb
+	 iobx8u4mUPSEmK185j4QK3ya1ZUbXpfdHn8NulG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7163FF80551;
-	Fri, 22 Jul 2022 14:48:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5805F802DB;
+	Fri, 22 Jul 2022 14:48:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18CA4F80538; Fri, 22 Jul 2022 14:48:25 +0200 (CEST)
+ id EF4B5F80506; Fri, 22 Jul 2022 14:48:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,47 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A80BCF80166
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 14:48:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A80BCF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0E69F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 14:48:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E69F8016D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RH7urC7y"
+ header.b="eraogMMy"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 53F98B828E4;
- Fri, 22 Jul 2022 12:48:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC56C341C7;
- Fri, 22 Jul 2022 12:48:10 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 14DDAB828EA;
+ Fri, 22 Jul 2022 12:48:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A290C341CA;
+ Fri, 22 Jul 2022 12:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658494093;
- bh=sr9TSpthQysYY2JifDw21pcWDlAmyQ036571H/CVHyg=;
+ s=k20201202; t=1658494096;
+ bh=lcEC2kCCCKbO1yjbDbyfX8qWq8HYcFr/tlhbvJ8XuHI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RH7urC7yBKGTFFfwLG4KbGtTb+z7BhVtkivw7AssselmbptlC5Yg+lmnfM4eU4+zC
- e2PusPZfv8iGYtjS3egOVr27kMgOe+ftMkOsI/3r1BiYp8FJtSy7o7A0FoDTHLJapH
- iNlxuMI6ZN3eOIw0IblRNSLEILqOMF4ZkpiLv1i15dTZA7e5Wh7irWSLB0kgH/lIi5
- kzc8JGV4OdwyewhQlFatR5hiFldBfLMfZqvcV0hjlkUwhnhY2Ce7cSHh/Zxm6TFD9s
- esxoKS5/OMxnE4+LfXQ+i4EkpuiVS64Yi/y6aO1x0AoGnVoPC8TY5I2Bd7veZvPLcY
- ixIRISZTp05mQ==
+ b=eraogMMyWRM05UkIcrgH2Jet2YLCblC54Gjgn/qqaLdS7jN8hg9jZcniK3hegC6C1
+ 7BZ5DTQkdoFXiFz6lJEyN0CU7h8u1Oa1CFB99AyF7P9MQxmTMB5NxZJjstbzSLf6IM
+ 2ZhzvN8uJEMVQvyLor6UuLx9Hex90dfZizAwCcIHjoziVUa1R++EHhfx3Zj3JHxk3X
+ Pd5Gfx1KkKCWhhBXJCyhd7ItKCsFEl3TXaBpWrYFKyeR5UjCvuOJWHN5UsuleIJEPE
+ xr60HY6gEax+/41XXSBlHHf6X0Bb0wgTVNHfSLAv4ABxWwaovdqR/qAI2qoN4ICzI6
+ QRjgRs/oBuEGw==
 From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- Xiubo.Lee@gmail.com, lgirdwood@gmail.com, 
- nicoleotsuka@gmail.com, festevam@gmail.com, perex@perex.cz,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1658399393-28777-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1658399393-28777-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2 -next 0/5] ASoC: fsl: Fix sparse warning
-Message-Id: <165849408996.139149.2173688518682124551.b4-ty@kernel.org>
-Date: Fri, 22 Jul 2022 13:48:09 +0100
+To: alsa-devel@alsa-project.org,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+In-Reply-To: <20220721062043.3016985-1-venkataprasad.potturu@amd.com>
+References: <20220721062043.3016985-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH 1/5] ASoC: amd: acp: Modify local variables name to generic
+Message-Id: <165849409334.139149.4436089052962761200.b4-ty@kernel.org>
+Date: Fri, 22 Jul 2022 13:48:13 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-d952f
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Sunil-kumar.Dommati@amd.com, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ ssabakar@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Basavaraj.Hiregoudar@amd.com,
+ Vijendar.Mukunda@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Yang Yingliang <yangyingliang@huawei.com>,
+ vsujithkumar.reddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,21 +91,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 21 Jul 2022 18:29:48 +0800, Shengjiu Wang wrote:
-> Fix sparse warning
+On Thu, 21 Jul 2022 11:50:33 +0530, Venkata Prasad Potturu wrote:
+> Change local variables name to be generic in irq handler.
 > 
-> changes in v2:
-> - use pcm_format_to_bits
-> - use u32 asrc_fmt, then convert it to snd_pcm_format_t
 > 
-> Shengjiu Wang (5):
->   ASoC: fsl_sai: Don't use plain integer as NULL pointer
->   ASoC: fsl_asrc: force cast the asrc_format type
->   ASoC: fsl-asoc-card: force cast the asrc_format type
->   ASoC: fsl_easrc: use snd_pcm_format_t type for sample_format
->   ASoC: imx-card: use snd_pcm_format_t type for asrc_format
-> 
-> [...]
 
 Applied to
 
@@ -110,16 +102,16 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: fsl_sai: Don't use plain integer as NULL pointer
-      commit: b17079d37fe1570019d7defd9e341d5c18aba8f5
-[2/5] ASoC: fsl_asrc: force cast the asrc_format type
-      commit: c49932726de24405d45516b3f8ad2735714fdf05
-[3/5] ASoC: fsl-asoc-card: force cast the asrc_format type
-      commit: 6c7b077dad62178c33f9a3ae17f90d6b0bf6e2e5
-[4/5] ASoC: fsl_easrc: use snd_pcm_format_t type for sample_format
-      commit: de27216cf2d645c2fd14e513707bdcd54e5b1de4
-[5/5] ASoC: imx-card: use snd_pcm_format_t type for asrc_format
-      commit: 409a8652e909e323c715f3088e6c3133e37c8881
+[1/5] ASoC: amd: acp: Modify local variables name to generic
+      commit: 93f53881473cbf6a364be36ccbb99568e04ffe59
+[2/5] ASoC: amd: acp: Drop superfluous mmap callback
+      commit: afde6727a9b66ff96e20d74ac392f3efdae1ceaf
+[3/5] ASoC: amd: acp: Initialize list to store acp_stream during pcm_open
+      (no commit info)
+[4/5] ASoC: amd: acp: Modify const resource struct variable to generic
+      commit: 96b008a1c2e9f455d982e9cfb7117a3a0fc8f550
+[5/5] ASoC: amd: acp: Add error handling cases
+      commit: c49f5e74a11e3909c424cada0f5d52345084933f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

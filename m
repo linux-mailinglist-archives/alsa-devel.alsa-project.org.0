@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E1A57E791
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Jul 2022 21:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0288A57E978
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 00:06:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99E1218E7;
-	Fri, 22 Jul 2022 21:40:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99E1218E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9369018C5;
+	Sat, 23 Jul 2022 00:06:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9369018C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658518883;
-	bh=VHs38k86FD8Ipse+90wcagxiXIrg0RPFHyV7c6mJ+64=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1658527614;
+	bh=rtUUWzqigEAhevG/HmR8d2v0CTiqo8Ua1liTqMPr4QA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jvSr00LkcXQKql0cWHju1lhvVLu3VTrNFm9TlwXv/praWYljY+sN00JxuzZRZnjXx
-	 8yGSBsSRK1VAUNGzcdmnO/TUN3/l7gCql1X9dcs3tK86Sihu/olJtgpWAP1uPV66GM
-	 GFieDqU41FKq5rsjTZVp1RTFx+ng8KNwjcjwzpP0=
+	b=UUgp8ahMXpX1ZwJjplESFgfK1gjkOK+ZoVHDYGod5ZyMgcIC1z5uRSLDIdMZQ7CHn
+	 CHXfAa76P2RwaOSUdQ7NL257kPztaqsFlsULWGzqe4kkiF0J8RF09VXUCnIheyq8y6
+	 koB5LiLNgnMuxg/7PY3aI7Aq3l1+q8VjyNyc5By8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09482F8012A;
-	Fri, 22 Jul 2022 21:39:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 067C1F802DB;
+	Sat, 23 Jul 2022 00:05:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F828F80537; Fri, 22 Jul 2022 21:39:42 +0200 (CEST)
+ id 1D4EAF80279; Sat, 23 Jul 2022 00:05:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D09AAF8012A
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 21:39:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D09AAF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E4FAF8016D
+ for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 00:05:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E4FAF8016D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rmmlAToJ"
+ header.b="KgcjxdT4"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B7B1061E94;
- Fri, 22 Jul 2022 19:39:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4DDC341C6;
- Fri, 22 Jul 2022 19:39:33 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id B8AD8CE2BC1;
+ Fri, 22 Jul 2022 22:05:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0327C341C6;
+ Fri, 22 Jul 2022 22:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658518775;
- bh=VHs38k86FD8Ipse+90wcagxiXIrg0RPFHyV7c6mJ+64=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=rmmlAToJHxOlSd+lXyzxqoLDHJxLNVXR0jYmTDZOW6dOP1oWf7Kd1b4EgT3/LYuYX
- CKqhNZbCNPsPJnYzq70fkkRfRj6s5fIpWRV851NUzounrBQvNUeIm7yemANusup0pQ
- clYcQJ6LKrd7cq9X7aBQDU9Cg3Gsufj704tzGdccOsEkAKNWlcMvSut9vwNkmpxnd6
- /oRTAnlwNs61jSD40S+5decNTMpJ020WHU4OhkaeQUh2sHRdzvdFeDEV6WNTxv+5Er
- wYw+TTp6+R9bSLmX9lSmNd+7+q9oV91syjwGpJ9LAq2vMt3EN66EpY+TAlwmu+HSlB
- des/itefRM1mA==
+ s=k20201202; t=1658527543;
+ bh=rtUUWzqigEAhevG/HmR8d2v0CTiqo8Ua1liTqMPr4QA=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=KgcjxdT4cmxGUcvtTEkjQ+8NEp1Wq+CK03O1U6eivdOpTocH85GIsxkWv5XynCZjR
+ tqjdzNhEqopQMCP5XmAOxrezTSK1A0suoyfsccfAyup6C/ouNmEh7TPSG55/RAD6UX
+ jW6FLq3i/61i81XQ+iXHSFyuteVwscpqVdsSjvpqs9FQX6oC1zn8wDzNhbhoUO9Blf
+ Qg1IuXVE77hHFimNSCgKgNF7fIXB8Fkn0PscfW7rPgk1DQnXAC1eNvWxglRN0FWin5
+ GtWCcjfTFwAzQWb4Xy1EyQ5NwPahNaKZzUmx/Xi/Ur98XRF3o/Brt+WWjuePcUrScW
+ zx8KagOBFbbHw==
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20220722094851.92521-1-ckeepax@opensource.cirrus.com>
-References: <20220722094851.92521-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 1/2] firmware: cs_dsp: Add pre_stop callback
-Message-Id: <165851877383.1163063.17627437769670549231.b4-ty@kernel.org>
-Date: Fri, 22 Jul 2022 20:39:33 +0100
+To: lgirdwood@gmail.com, tiwai@suse.com, ckeepax@opensource.cirrus.com,
+ Liang He <windhl@126.com>, alsa-devel@alsa-project.org, perex@perex.cz
+In-Reply-To: <20220722141801.1304854-1-windhl@126.com>
+References: <20220722141801.1304854-1-windhl@126.com>
+Subject: Re: [PATCH] ASoC: audio-graph-card2: Add of_node_put() in fail path
+Message-Id: <165852754151.1234289.3968759856616544921.b4-ty@kernel.org>
+Date: Fri, 22 Jul 2022 23:05:41 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-d952f
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.10.0-dev-c7731
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +85,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 22 Jul 2022 10:48:50 +0100, Charles Keepax wrote:
-> The code already has a post_stop callback, add a matching pre_stop
-> callback to the client_ops that is called before execution is stopped.
-> This callback provides a convenient place for the client code to
-> communicate with the DSP before it is stopped.
+On Fri, 22 Jul 2022 22:18:01 +0800, Liang He wrote:
+> In asoc_simple_parse_dai(), we should call of_node_put() for the
+> reference returned by of_graph_get_port_parent() in fail path.
 > 
 > 
 
@@ -100,10 +97,8 @@ Applied to
 
 Thanks!
 
-[1/2] firmware: cs_dsp: Add pre_stop callback
-      commit: dea997733575c5793ca77e166bbbf89097987eb4
-[2/2] firmware: cs_dsp: Add memory chunk helpers
-      commit: a4b976552f122ea851f556769874022cf097741e
+[1/1] ASoC: audio-graph-card2: Add of_node_put() in fail path
+      commit: 8ebc4dd8250fd1cb5da2869c0fe6ae3686fe41e9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,70 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1BC57EEA1
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 12:15:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB5757EEA5
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 12:18:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D87318CB;
-	Sat, 23 Jul 2022 12:14:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D87318CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id F06641831;
+	Sat, 23 Jul 2022 12:17:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F06641831
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658571348;
-	bh=yZLv9MA8x0u79LbzdG5UpbgD7pS5uacoDHFXiyBkbAI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YCDwNzar6IZBMLeJVzYomdx2CXOaJ9IbUyJzEIY4lwMecllCSeYe8OHXqHOcNzziM
-	 wrW/Qt/BwXGr5Iqm10oxEofCPC5dC84TDNxi7SUhImhngp0xnoYu3EtRXyZRod/6JX
-	 UV4Bu1oKBiNTlFZY975ZYf0eGpFQuMnJsG7a11Cw=
+	s=default; t=1658571493;
+	bh=E6m/VbPaPm4sIWUM5R8isSXljHc3UNfsmakzHI+M+Vw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HX9BDYOXBGzNab7XA6mJcGu8DuR1gUfanPaRGlLLLVNYmt8p2w/LGYxvbJI0nxijY
+	 gIPRjVUszl2knrzaFE++DBpIF6ZFnVedFI7Nso/uY5ikrLD7ENcH4RB5qYIPIxB5dN
+	 dQmvpVAQJDlWoB770nFJTpZU3+ap+JguVv0ECkG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C27B6F8054A;
-	Sat, 23 Jul 2022 12:13:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB421F800E1;
+	Sat, 23 Jul 2022 12:17:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A0ABF8019B; Sat, 23 Jul 2022 05:23:46 +0200 (CEST)
+ id C6512F8019B; Sat, 23 Jul 2022 12:17:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-m975.mail.163.com (mail-m975.mail.163.com [123.126.97.5])
- by alsa1.perex.cz (Postfix) with ESMTP id D4239F800E1
- for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 05:23:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4239F800E1
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92223F800E1
+ for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 12:17:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92223F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="O/nfmU5A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=JiQL3
- v43ih0CKjiymG4BT5ELIGSeW1i9a3/8dRvOgxk=; b=O/nfmU5AT6QRqxMh3N2/1
- jOKCzS/GFksAtNA9TjaBkL9qcWqBfU8K6MSMNQlfUPOvgA7OCosqruRwXJRjBsLi
- JLK4Xk7VijpoZAOf5tPEA3zXzi2oXUoJ0kIkfIljwtqFbv88tmKzCDLuwxE923Mx
- ZFM2UUA4xqZQfT5f+FFEIQ=
-Received: from localhost.localdomain (unknown [123.58.221.99])
- by smtp5 (Coremail) with SMTP id HdxpCgBX2jeyadtiKGBKPw--.22880S2;
- Sat, 23 Jul 2022 11:23:32 +0800 (CST)
-From: williamsukatube@163.com
-To: agross@kernel.org, bjorn.andersson@linaro.org,
- srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] slimbus: qcom-ngd-ctrl: Add check for platform_driver_register
-Date: Sat, 23 Jul 2022 11:23:28 +0800
-Message-Id: <20220723032328.2951275-1-williamsukatube@163.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: HdxpCgBX2jeyadtiKGBKPw--.22880S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jr4DCF47Gry3ZFyDur15urg_yoWkGFgEk3
- 48uF9Fqrs5CFnrAFnFqFnrZ34IvFn5ursa9r10qFy3t3y8XF4DWrn0vFs8CFWUCrWrt34U
- J3Z0krZ7CrW3GjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU51wZ7UUUUU==
-X-Originating-IP: [123.58.221.99]
-X-CM-SenderInfo: xzlozx5dpv3yxdwxuvi6rwjhhfrp/1tbiURRHg2DEOrvjQwAAsE
-X-Mailman-Approved-At: Sat, 23 Jul 2022 12:13:48 +0200
-Cc: Hacash Robot <hacashRobot@santino.com>,
- William Dean <williamsukatube@gmail.com>, konrad.dybcio@somainline.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cE9nJx4A"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UWfRXGVo"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 018B520D97;
+ Sat, 23 Jul 2022 10:17:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1658571420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dlvbdgXo8fZoWYxYl9CDOkJfqtiXJ4xUtfPsj6ix8I4=;
+ b=cE9nJx4AMAeGT6pQwExbaMuSNqt/yNiXS/ExAUEwLPhdIFjclpAt0in6hl/R0XD/im69+n
+ HmbuZIWhUJVzIEEsqH0pNwR1XQtdnyeu6wwMgId4X0pmUK/qEsfHUs+0I9CRW9QSzO9Z9b
+ PgKMA6xnZdYp+7UfSZA+iaNcs1zsrDo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1658571420;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dlvbdgXo8fZoWYxYl9CDOkJfqtiXJ4xUtfPsj6ix8I4=;
+ b=UWfRXGVo4KAK3jap/jHHgTTUp2CDvNk4xYaB49KQj6eKXoQt5i6DLWq7KtTuoHDJ96SXYV
+ 0WgpDqGbPTXGAeBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE0F013A92;
+ Sat, 23 Jul 2022 10:16:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id YSOjKZvK22JROwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 23 Jul 2022 10:16:59 +0000
+Date: Sat, 23 Jul 2022 12:16:59 +0200
+Message-ID: <874jz82kx0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dipanjan Das <mail.dipanjan.das@gmail.com>
+Subject: Re: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
+In-Reply-To: <YtuceCr5OCJcDatJ@kroah.com>
+References: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
+ <YtuceCr5OCJcDatJ@kroah.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, fleischermarius@googlemail.com,
+ Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, consult.awy@gmail.com, syzkaller@googlegroups.com,
+ its.priyanka.bose@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,37 +103,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: William Dean <williamsukatube@gmail.com>
+On Sat, 23 Jul 2022 09:00:08 +0200,
+Greg KH wrote:
+> 
+> On Fri, Jul 22, 2022 at 09:37:52AM -0700, Dipanjan Das wrote:
+> > Hi,
+> > 
+> > We would like to report the following bug which has been found by our
+> > modified version of syzkaller.
+> > 
+> > ======================================================
+> > description: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
+> > affected file: sound/core/pcm_native.c
+> > kernel version: 5.10.131
+> > kernel commit: de62055f423f5dcb548f74cebd68f03c8903f73a
+> > git tree: upstream
+> > kernel config: https://syzkaller.appspot.com/x/.config?x=e49433cfed49b7d9
+> > crash reproducer: attached
+> > ======================================================
+> > Crash log:
+> > ======================================================
+> > BUG: KASAN: vmalloc-out-of-bounds in memset include/linux/string.h:384 [inline]
+> > BUG: KASAN: vmalloc-out-of-bounds in snd_pcm_hw_params+0x19b0/0x1db0
+> > sound/core/pcm_native.c:799
+> > Write of size 2097152 at addr ffffc900113b2000 by task syz-executor.5/14437
+> > 
+> > CPU: 1 PID: 14437 Comm: syz-executor.5 Tainted: G           OE     5.10.131+ #3
+> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+> > 1.13.0-1ubuntu1.1 04/01/2014
+> > Call Trace:
+> >  __dump_stack lib/dump_stack.c:77 [inline]
+> >  dump_stack+0x107/0x163 lib/dump_stack.c:118
+> >  print_address_description.constprop.0.cold+0x5/0x4f7 mm/kasan/report.c:385
+> >  __kasan_report mm/kasan/report.c:545 [inline]
+> >  kasan_report.cold+0x1f/0x37 mm/kasan/report.c:562
+> >  check_memory_region_inline mm/kasan/generic.c:194 [inline]
+> >  check_memory_region+0x187/0x1e0 mm/kasan/generic.c:200
+> >  memset+0x20/0x40 mm/kasan/common.c:85
+> >  memset include/linux/string.h:384 [inline]
+> >  snd_pcm_hw_params+0x19b0/0x1db0 sound/core/pcm_native.c:799
+> >  snd_pcm_kernel_ioctl+0xd1/0x240 sound/core/pcm_native.c:3401
+> >  snd_pcm_oss_change_params_locked+0x17b6/0x3aa0 sound/core/oss/pcm_oss.c:965
+> >  snd_pcm_oss_change_params+0x76/0xd0 sound/core/oss/pcm_oss.c:1107
+> >  snd_pcm_oss_make_ready+0xb7/0x170 sound/core/oss/pcm_oss.c:1166
+> >  snd_pcm_oss_set_trigger.isra.0+0x34f/0x770 sound/core/oss/pcm_oss.c:2074
+> >  snd_pcm_oss_poll+0x679/0xb40 sound/core/oss/pcm_oss.c:2858
+> >  vfs_poll include/linux/poll.h:90 [inline]
+> >  do_pollfd fs/select.c:872 [inline]
+> >  do_poll fs/select.c:920 [inline]
+> >  do_sys_poll+0x63c/0xe40 fs/select.c:1014
+> >  __do_sys_poll fs/select.c:1079 [inline]
+> >  __se_sys_poll fs/select.c:1067 [inline]
+> >  __x64_sys_poll+0x18c/0x490 fs/select.c:1067
+> >  do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+> >  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > RIP: 0033:0x7f095de4f4ed
+> > Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
+> > 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+> > 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+> > RSP: 002b:00007f095bdffbe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000007
+> > RAX: ffffffffffffffda RBX: 00007f095df6df60 RCX: 00007f095de4f4ed
+> > RDX: 0000000000000009 RSI: 0000000000000001 RDI: 00000000200000c0
+> > RBP: 00007f095bdffc40 R08: 0000000000000000 R09: 0000000000000000
+> > R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000001d
+> > R13: 00007ffff286ceff R14: 00007f095df6df60 R15: 00007f095bdffd80
+> > 
+> > 
+> > Memory state around the buggy address:
+> >  ffffc900115b1d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> >  ffffc900115b1d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> > >ffffc900115b1e00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+> >                    ^
+> >  ffffc900115b1e80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+> >  ffffc900115b1f00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+> > ==================================================================
+> 
+> Wondeful, do you have a fix for this that solves the reported problem
+> that you have tested with the reproducer?
 
-As platform_driver_register() could fail, it should be better
-to deal with the return value in order to maintain the code
-consisitency.
+... or at least more detailed information.
 
-Fixes: 1830dad34c070 ("slimbus: ngd: register ngd driver only once.")
-Reported-by: Hacash Robot <hacashRobot@santino.com>
-Signed-off-by: William Dean <williamsukatube@gmail.com>
----
- drivers/slimbus/qcom-ngd-ctrl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+The given log snippet alone doesn't help for further analysis, as it
+doesn't show which device / driver is involved.  The code is the
+common helper and the condition for the trigger might be depending on
+the driver side.  The full kernel log might show which driver (IIUC,
+it's /dev/adsp1) is in place.
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 0aa8408464ad..a31ec00a37ac 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1585,7 +1585,12 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 		return PTR_ERR(pds);
- 	}
- 
--	platform_driver_register(&qcom_slim_ngd_driver);
-+	ret = platform_driver_register(&qcom_slim_ngd_driver);
-+	if (ret) {
-+		dev_err(dev, "platform driver register failed: %d\n", ret);
-+		return ret;
-+	}
-+
- 	return of_qcom_slim_ngd_register(dev, ctrl);
- }
- 
--- 
-2.25.1
+Last but not least, you should check whether it's specific to your
+5.10.x kernel or it's also seen with the latest upstream, too.
 
+
+thanks,
+
+Takashi

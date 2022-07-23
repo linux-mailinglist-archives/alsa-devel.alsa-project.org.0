@@ -2,87 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C96757EB25
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 03:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0269C57EC62
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Jul 2022 09:01:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9834F18D3;
-	Sat, 23 Jul 2022 03:53:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9834F18D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77FDE18BC;
+	Sat, 23 Jul 2022 09:00:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77FDE18BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658541265;
-	bh=qZGsHIGQqk1Ed1G/Ps3KoazOM1ITyhZq/g0CivDyiNU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=brvX+tHL/tZkdPfrcnUwFLj8x8EU6nfG1RnuMmOyHc6gzhI4geq2TQPapNoeQUg/J
-	 0/NZ3pkaxzQr+Bj56PT5Xv3pRJlr0LaeKINyjPBXxDEeLTRRXLfFHEV06G/PPIo0o5
-	 gTLuymAO5wIDXfdjXT3nMY0r7cU1CyGfEhB6P3X4=
+	s=default; t=1658559690;
+	bh=tm9xPYy/QSGHj/QDQyA2Dywv8TAfehEcXfMDxQl0Qlg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=U5LTPJ+5dNfdUHyybUSg2PiWh90z6o32YF+h+167FVmSZJtkxT2sWyE3QyhI0cU0F
+	 a7Sihs+GRP0a38egHSpc+GDthg7qu19cMYtMUvWATl3i97Jk8Ds7oAtmODbgvQoxpl
+	 rryTffbtLV41qLoIoastoPzllbKu+QX0pdDh4+f0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F19EAF80249;
-	Sat, 23 Jul 2022 03:53:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C62AEF80249;
+	Sat, 23 Jul 2022 09:00:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28EECF8019B; Sat, 23 Jul 2022 03:53:22 +0200 (CEST)
+ id A3847F8019B; Sat, 23 Jul 2022 09:00:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D695CF800E1
- for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 03:53:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D695CF800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32225F80128
+ for <alsa-devel@alsa-project.org>; Sat, 23 Jul 2022 09:00:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32225F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="X+SR+9JQ"
-Received: by mail-pj1-x1035.google.com with SMTP id
- t2-20020a17090a4e4200b001f21572f3a4so5603481pjl.0
- for <alsa-devel@alsa-project.org>; Fri, 22 Jul 2022 18:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=zOMb5JQq7oT4D4mCscu+rB2TXNo1OHAZ5Z1k9q2pmg4=;
- b=X+SR+9JQxGmSIJAuRLWqRvFNr5sA17kNdIeoczXoQ5GthCHW9R9pFITkKnj/F4xkXM
- yefY20WDhjHl4plOW8VKsgv1v0NfBRFxfICKLMeO84AL5jLjvq5IVU78BX/yUZkdJ5MS
- s4dVKN7/InHy2mI3kkOkVecKXQfoTOUwoOwKl76TWUxCMUpvX2YeId5rfKquxPB56G1g
- iBW7fWtS5yFYWGukovhANWHm7GLm6Cn7AlvF/jLA1QWPimoiB8a+4sYKEXNGsqqtDwW4
- o61R8ABDkUl0iFzvS1lh5HlNHh6ORnmmsbWx8l8u64W1UBhPmlgtwSPbK5jW4m53bk21
- 7koQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=zOMb5JQq7oT4D4mCscu+rB2TXNo1OHAZ5Z1k9q2pmg4=;
- b=SALHRseAt+2fsLJm477+l1luuxvvRm9YaHMuPF7F3I2BErQ4RrG3O+VY3SwepaEuO4
- ISmmG9JnEfE79RyPbhtUe0E3uiuh8QIHWGAIqp4b55MCq6brDN8b5EaoS4DOTfK61ZiJ
- gQ7W/R8o2+JaLS7o4swkdaZsIEvoqhfc8Wy3gziKnp+RoGhdXt7sMCdYMg8Fh+Oz6Adw
- XR4/wWyKm2ekyFOOpwIZ2ihpgVruwbWq1ATia16wmyKnrV5rSoFjo5xE20ZD237l3wAN
- jZowRWYE2SexO2NhgAzIJffg7U0078kig36bmotyYVdp04YUYXWa6mR7CpmMGv01tiiw
- ASoQ==
-X-Gm-Message-State: AJIora8vfSSB3HPWTlFRpKoFOZFb6zPg6axLIMuTt132/BpBFugyvmZ+
- HSobixhkak9eNwwyjko4zcA=
-X-Google-Smtp-Source: AGRyM1tHEYoT3ayrsB98JEcmHXHTdU2hX7cPvrnxPbmiiFeGAt3ch8zSdaXZ50rY0p1NjwmsZKpSQg==
-X-Received: by 2002:a17:902:a418:b0:16c:9ee2:8a02 with SMTP id
- p24-20020a170902a41800b0016c9ee28a02mr2249570plq.46.1658541188582; 
- Fri, 22 Jul 2022 18:53:08 -0700 (PDT)
-Received: from localhost.localdomain (c-73-241-94-58.hsd1.ca.comcast.net.
- [73.241.94.58]) by smtp.gmail.com with ESMTPSA id
- f64-20020a17090a28c600b001ef7c7564fdsm6250855pjd.21.2022.07.22.18.53.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Jul 2022 18:53:08 -0700 (PDT)
-From: Ryan Lee <ryan.lee.analog@gmail.com>
-X-Google-Original-From: Ryan Lee <ryans.lee@analog.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- steve@sk2.org, ryans.lee@analog.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: max98373: Removing 0x203E from the volatile reg
-Date: Fri, 22 Jul 2022 18:52:20 -0700
-Message-Id: <20220723015220.4169-1-ryans.lee@analog.com>
-X-Mailer: git-send-email 2.17.1
-Cc: ryan.lee.analog@gmail.com
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="e/XYLhBJ"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 46277B8040B;
+ Sat, 23 Jul 2022 07:00:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CBB0C341C0;
+ Sat, 23 Jul 2022 07:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1658559616;
+ bh=tm9xPYy/QSGHj/QDQyA2Dywv8TAfehEcXfMDxQl0Qlg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=e/XYLhBJX+ol32mnT9TBbBbIOjloHmvUPEHP7Q7xkdJaUwSwzhUcL40QyU7di4edW
+ Um4QAZ9sNCCHcoHgxMrEza+DZ/TnEeoODNbD5mU99bhzFs3JMjCBurd7EufO3JO737
+ GJBZE9wP1Bi3YWavwYyr51CrVaYzheOCpLBujtiM=
+Date: Sat, 23 Jul 2022 09:00:08 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Dipanjan Das <mail.dipanjan.das@gmail.com>
+Subject: Re: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
+Message-ID: <YtuceCr5OCJcDatJ@kroah.com>
+References: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
+Cc: alsa-devel@alsa-project.org, fleischermarius@googlemail.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, consult.awy@gmail.com,
+ syzkaller@googlegroups.com, its.priyanka.bose@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +83,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The 0x203E speaker gain register should be non-volatile.
-This register value was not able to be synced because it was marked as
-volatile.
+On Fri, Jul 22, 2022 at 09:37:52AM -0700, Dipanjan Das wrote:
+> Hi,
+> 
+> We would like to report the following bug which has been found by our
+> modified version of syzkaller.
+> 
+> ======================================================
+> description: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
+> affected file: sound/core/pcm_native.c
+> kernel version: 5.10.131
+> kernel commit: de62055f423f5dcb548f74cebd68f03c8903f73a
+> git tree: upstream
+> kernel config: https://syzkaller.appspot.com/x/.config?x=e49433cfed49b7d9
+> crash reproducer: attached
+> ======================================================
+> Crash log:
+> ======================================================
+> BUG: KASAN: vmalloc-out-of-bounds in memset include/linux/string.h:384 [inline]
+> BUG: KASAN: vmalloc-out-of-bounds in snd_pcm_hw_params+0x19b0/0x1db0
+> sound/core/pcm_native.c:799
+> Write of size 2097152 at addr ffffc900113b2000 by task syz-executor.5/14437
+> 
+> CPU: 1 PID: 14437 Comm: syz-executor.5 Tainted: G           OE     5.10.131+ #3
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+> 1.13.0-1ubuntu1.1 04/01/2014
+> Call Trace:
+>  __dump_stack lib/dump_stack.c:77 [inline]
+>  dump_stack+0x107/0x163 lib/dump_stack.c:118
+>  print_address_description.constprop.0.cold+0x5/0x4f7 mm/kasan/report.c:385
+>  __kasan_report mm/kasan/report.c:545 [inline]
+>  kasan_report.cold+0x1f/0x37 mm/kasan/report.c:562
+>  check_memory_region_inline mm/kasan/generic.c:194 [inline]
+>  check_memory_region+0x187/0x1e0 mm/kasan/generic.c:200
+>  memset+0x20/0x40 mm/kasan/common.c:85
+>  memset include/linux/string.h:384 [inline]
+>  snd_pcm_hw_params+0x19b0/0x1db0 sound/core/pcm_native.c:799
+>  snd_pcm_kernel_ioctl+0xd1/0x240 sound/core/pcm_native.c:3401
+>  snd_pcm_oss_change_params_locked+0x17b6/0x3aa0 sound/core/oss/pcm_oss.c:965
+>  snd_pcm_oss_change_params+0x76/0xd0 sound/core/oss/pcm_oss.c:1107
+>  snd_pcm_oss_make_ready+0xb7/0x170 sound/core/oss/pcm_oss.c:1166
+>  snd_pcm_oss_set_trigger.isra.0+0x34f/0x770 sound/core/oss/pcm_oss.c:2074
+>  snd_pcm_oss_poll+0x679/0xb40 sound/core/oss/pcm_oss.c:2858
+>  vfs_poll include/linux/poll.h:90 [inline]
+>  do_pollfd fs/select.c:872 [inline]
+>  do_poll fs/select.c:920 [inline]
+>  do_sys_poll+0x63c/0xe40 fs/select.c:1014
+>  __do_sys_poll fs/select.c:1079 [inline]
+>  __se_sys_poll fs/select.c:1067 [inline]
+>  __x64_sys_poll+0x18c/0x490 fs/select.c:1067
+>  do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+>  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> RIP: 0033:0x7f095de4f4ed
+> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
+> 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+> 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007f095bdffbe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000007
+> RAX: ffffffffffffffda RBX: 00007f095df6df60 RCX: 00007f095de4f4ed
+> RDX: 0000000000000009 RSI: 0000000000000001 RDI: 00000000200000c0
+> RBP: 00007f095bdffc40 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000001d
+> R13: 00007ffff286ceff R14: 00007f095df6df60 R15: 00007f095bdffd80
+> 
+> 
+> Memory state around the buggy address:
+>  ffffc900115b1d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>  ffffc900115b1d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> >ffffc900115b1e00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+>                    ^
+>  ffffc900115b1e80: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+>  ffffc900115b1f00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+> ==================================================================
 
-Signed-off-by: Ryan Lee <ryans.lee@analog.com>
----
- sound/soc/codecs/max98373-i2c.c | 1 -
- 1 file changed, 1 deletion(-)
+Wondeful, do you have a fix for this that solves the reported problem
+that you have tested with the reproducer?
 
-diff --git a/sound/soc/codecs/max98373-i2c.c b/sound/soc/codecs/max98373-i2c.c
-index 4fe065ece17c..3e04c7f0cce4 100644
---- a/sound/soc/codecs/max98373-i2c.c
-+++ b/sound/soc/codecs/max98373-i2c.c
-@@ -442,7 +442,6 @@ static bool max98373_volatile_reg(struct device *dev, unsigned int reg)
- {
- 	switch (reg) {
- 	case MAX98373_R2000_SW_RESET ... MAX98373_R2009_INT_FLAG3:
--	case MAX98373_R203E_AMP_PATH_GAIN:
- 	case MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK:
- 	case MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK:
- 	case MAX98373_R20B6_BDE_CUR_STATE_READBACK:
--- 
-2.37.0
+thanks,
 
+greg k-h

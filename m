@@ -2,80 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B761E57F5BA
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Jul 2022 17:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D3657F95B
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 08:26:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DE3E82E;
-	Sun, 24 Jul 2022 17:22:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DE3E82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFF3F1F4;
+	Mon, 25 Jul 2022 08:26:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF3F1F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658676190;
-	bh=m3sNxePq/vqzVQD5ZtJxunFIrS8mQoJNH2c9YEZNshw=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HtOrtJLSZ7mZ1hsDmq/1eUwKZDxdRngfFgLF2UbxqHY0pxIdUcLwNkUa51oZaIpDa
-	 z9LdlCx9uvTywMPWeUJZZ2bEPOw00PX+gfcy68svQc1Ec8XKeaBIFj9AcsbXwmcy07
-	 jGpNRB9UsSXtAAru4LeinnBBuwnsxWEOydD4s+Pc=
+	s=default; t=1658730411;
+	bh=bo3HTBJtaOj71+AiB4+0yTyUudm/x829645uigsYDIs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vKYHWlNWu2O2EQlpqIbdeB02uL8+2bCqJ7PoizPs+yyp/22PMT6ZZ/F15nr4Zj7+o
+	 i83fFSJ2An2zuIiZ1AnHsj9Gr6T2YIpNg7QtWAzXGheJeCRK50DG6gdlE1kFkOhMPs
+	 +mFRahy33lSaP89O6al7KK+mJlXaAHzKq7YSmI3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BF50F80104;
-	Sun, 24 Jul 2022 17:22:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CC03F80088;
+	Mon, 25 Jul 2022 08:25:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5583F8016A; Sun, 24 Jul 2022 17:22:07 +0200 (CEST)
+ id 1331EF8016A; Sun, 24 Jul 2022 09:07:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=0.5 required=5.0 tests=KHOP_HELO_FCRDNS, RDNS_DYNAMIC,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from sipsolutions.net (s3.sipsolutions.net
- [IPv6:2a01:4f8:191:4433::2])
+Received: from smtpbg.qq.com (biz-43-154-54-12.mail.qq.com [43.154.54.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0830F80104
- for <alsa-devel@alsa-project.org>; Sun, 24 Jul 2022 17:22:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0830F80104
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net
- header.b="FFGLhfM7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=RG/BJ3Nv9HakG4zVWqCXWL3uZp6IBIbE/vdVZRgFNzw=; 
- t=1658676125; x=1659885725; b=FFGLhfM7JqPxgMPWJIFu/9vn1EUcGIwiTIBHU3YUYXMpV8l
- xEgSzlqFqVCJ5BpngJoK5jdSlSB4nOmVuPXF1W9pBUYCA+RcFowBzowWXX01sfx3nePfuDsoUXMS+
- SxoXLvEGjQy6bPCrz+StoSR15RcTwX9RMxZkXpsOFmL+EMBt5lk96vcMjM+IBL2ctgA/zQCYo05b0
- vUlmWQfn2Ev6F4BMjpIyE+NoEbosuWZlbwZ0hBqiBTHOkt2JSXXzdokuSQmMpvCJyor7rHzYlIZpr
- zPnccTuoLv4z/nLGnXnbKQp/8iYiye98Hyej9LlGEk2YSU5kZxdr1LwbEiayahJg==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
- id 1oFdQP-006zmj-2a; Sun, 24 Jul 2022 17:21:45 +0200
-Message-ID: <4f8ab262d98ba2a4d0e106e127c171e75b52ad47.camel@sipsolutions.net>
-Subject: Re: [PATCH] docs: driver-api: firmware: add driver firmware
- guidelines. (v3)
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Dave Airlie <airlied@gmail.com>, torvalds@linux-foundation.org, Jonathan
- Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- gregkh@linuxfoundation.org, Daniel Vetter <daniel@ffwll.ch>,
- mcgrof@kernel.org
-Date: Sun, 24 Jul 2022 17:21:43 +0200
-In-Reply-To: <20220721044352.3110507-1-airlied@gmail.com>
-References: <20220721044352.3110507-1-airlied@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.3 (3.44.3-1.fc36) 
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2C03F8012B
+ for <alsa-devel@alsa-project.org>; Sun, 24 Jul 2022 09:07:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2C03F8012B
+X-QQ-mid: bizesmtp84t1658646464tvo35g03
+Received: from localhost.localdomain ( [125.70.163.183])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Sun, 24 Jul 2022 15:07:42 +0800 (CST)
+X-QQ-SSF: 01000000002000007000B00A0000000
+X-QQ-FEAT: Y5/s5IBMBZKyIROfgtPjanP2EtS6sNh99EoxSLr08yk8ftkXPyGnSwaAMtyi8
+ /qAoEtHxB3DhA6Nt8kou+UVeYRNMvVxU4Yu3FCxk5eqng7nt+gktyOLtozYIlxepklUBZVO
+ GKSge38owMgussSFcxdJHPoFCvvZ3dySUBfj5+siHZAT9fhGuMUOl8pXV3WPSArx3SvQYi+
+ UD9deJWmPUQwUgxIUfx3MTLbRKgKLa64U085pUhAZjW1Ve3TQtXRRo4P3YD1hAM+D+XD591
+ PvC+IaXq5QJn0QzJj65WCIx9r0CM6qm0PGEmO9gDCcUiJChmclBYXOOHkIhdXZJKA2uaKZ1
+ xIcx8SSXEhWWO4uaqOT16ByFQ25KxUKdrASIsGriSby3ibQcjg=
+X-QQ-GoodBg: 0
+From: wangjianli <wangjianli@cdjrlc.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH] pci/emu10k1: fix repeated words in comments
+Date: Sun, 24 Jul 2022 15:07:36 +0800
+Message-Id: <20220724070736.8624-1-wangjianli@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
-Cc: alsa-devel@alsa-project.org, netdev@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- dri-devel@lists.sf.net, Dave Airlie <airlied@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>, linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr7
+X-Mailman-Approved-At: Mon, 25 Jul 2022 08:25:50 +0200
+Cc: wangjianli <wangjianli@cdjrlc.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +77,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2022-07-21 at 14:43 +1000, Dave Airlie wrote:
->=20
-> +Users switching to a newer kernel should *not* have to install newer
-> +firmware files to keep their hardware working. At the same time updated
-> +firmware files must not cause any regressions for users of older kernel
-> +releases.
+ Delete the redundant word 'in'.
 
-That seems sane, and certainly something we've done in wireless in the
-past.
+Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
+---
+ sound/pci/emu10k1/memory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +* Firmware files shall be designed in a way that it allows checking for
-> +  firmware ABI version changes. It is recommended that firmware files be
-> +  versioned with at least a major/minor version. It is suggested that
-> +  the firmware files in linux-firmware be named with some device
-> +  specific name, and just the major version. The firmware version should
-> +  be stored in the firmware header, or as an exception, as part of the
-> +  firmware file name,
+diff --git a/sound/pci/emu10k1/memory.c b/sound/pci/emu10k1/memory.c
+index 9d26535f3fa3..edb3f1763719 100644
+--- a/sound/pci/emu10k1/memory.c
++++ b/sound/pci/emu10k1/memory.c
+@@ -324,7 +324,7 @@ snd_emu10k1_alloc_pages(struct snd_emu10k1 *emu, struct snd_pcm_substream *subst
+ 		return NULL;
+ 	}
+ 	/* fill buffer addresses but pointers are not stored so that
+-	 * snd_free_pci_page() is not called in in synth_free()
++	 * snd_free_pci_page() is not called in synth_free()
+ 	 */
+ 	idx = 0;
+ 	for (page = blk->first_page; page <= blk->last_page; page++, idx++) {
+-- 
+2.36.1
 
-Eh, I went to write a whole paragraph here and then read it again ...
-Maybe this should say "[t]he _full_ firmware version", to contrast with
-the previous sentence mentioning the "major version".
-
->  in order to let the driver detact any non-ABI
-
-typo - 'detect'
-
-> +  fixes/changes. The firmware files in linux-firmware should be
-> +  overwritten with the newest compatible major version.
->=20
-
-That's also a bit confusing IMHO - did that mean "minor version"? Or
-something? I mean ... if you overwrite a file that has the major version
-in the filename then by definition it is the same major version?
-
-> +  This means no major version bumps without the kernel retaining
-> +  backwards compatibility for the older major versions.
-
-Strictly reading this might require aeons of support for firmware
-version, if you have a release cadence of them like every 6 weeks for a
-new _major_ version (yes, because APIs change), then that's rather
-harsh. In practice we've often done this, but I think some reasonable
-cut-off could/should be there, such as dropping support after a
-reasonably long time frame (say a year?)
-
-Often though that's less a question of "does it still work" and rather
-one of "do I still support that" and the answer for the latter is
-obviously "no" much quicker than the former.
-
-johannes

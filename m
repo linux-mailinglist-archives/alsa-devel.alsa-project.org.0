@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9898557FEBC
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 14:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91FBA57FF8A
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 15:09:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0CB1FE;
-	Mon, 25 Jul 2022 14:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0CB1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2E47836;
+	Mon, 25 Jul 2022 15:08:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E47836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658750631;
-	bh=GwbjS3c13lg8fZPA7wDzaCJ7BO5g1uJau5vPd/VCIMk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EaqmkyCPay/RgB3jWzKhdQJIXB/7o3mlQweo6RDZhbtj9teiuq4T8m7K5UcVure2n
-	 EaN327HTNo/Cb/Uhfi13bJ2V5qpp+6XaY+/a0LJW1uStv24SS5lE3hLM7DckgLS74X
-	 C5KhbLa284rp+1mHiEAGeKSDKlc8qxp7idU6r8oo=
+	s=default; t=1658754540;
+	bh=4MVD07uVz8TokT7Qhzd/sDyjjIjUsb7epkzs9go0QoM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tARjINz2EScMMKIDMY7c88x8PjlP3IrgnQOk74Ydqwn2IG/ZBRFgxgagsCxkxG0EA
+	 /EoIi0i0QJz+5ketdZeRbeJ6K8OuUUN7VUk5Qacmt0TkKZLihHEGPD8tJ4CZPM1ubD
+	 Z9xy3lZi5jbadh8+5//kwlfLzSzRIxXdfLKQxJH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF106F80128;
-	Mon, 25 Jul 2022 14:02:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BDD2F80539;
+	Mon, 25 Jul 2022 15:07:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD73FF80163; Mon, 25 Jul 2022 14:02:47 +0200 (CEST)
+ id 34471F804FD; Mon, 25 Jul 2022 15:07:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF475F80115
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 14:02:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF475F80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Vw/15Tdp"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 252E5B80E30;
- Mon, 25 Jul 2022 12:02:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6374CC341C6;
- Mon, 25 Jul 2022 12:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658750561;
- bh=GwbjS3c13lg8fZPA7wDzaCJ7BO5g1uJau5vPd/VCIMk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vw/15TdpwY/XY9VymvbWBN+R50Q+Ox6qLxjQmrvp2bCmODZDfNNehi83cm+eE0Xwc
- QRL5jwGQYNEyoX3OgztWnaNhhuLNIUPiZX0HlVRCkfyHNTgkJFAZ364iJtfgWHUgo3
- WWCo1mYwDZWi3sF/6DDaTk+jtdb94kQQzAXj/+kI9y6HWt36GRLsrse1Gmt34uAIKh
- +v23Ri6I2IQFnM0B1QRAvnhjSpmE9P3AjvSADdWs0z8C6lt6wUXxEb5irNCPKeAH/W
- oRLTlCrCtemLXqTBWzB3EcF0P3jfixV0HuY3k9oGMeOP+L5rl5BNYTuKOqWdrU7KOJ
- ANeYXmryr4fjQ==
-Date: Mon, 25 Jul 2022 13:02:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Prasad, Prasad" <venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH] ASoC: amd: acp: Modify dai_id macros to be more generic
-Message-ID: <Yt6GW/29wJ9081rh@sirena.org.uk>
-References: <20220722141705.3340440-1-venkataprasad.potturu@amd.com>
- <Ytq5rlr/er0wDTae@sirena.org.uk>
- <PH7PR12MB595106BC93458F31B2D8C5A9E9959@PH7PR12MB5951.namprd12.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DC2CF80155
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 15:07:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DC2CF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="tT9qy+YD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1658754436; x=1690290436;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4MVD07uVz8TokT7Qhzd/sDyjjIjUsb7epkzs9go0QoM=;
+ b=tT9qy+YDoJF/CfQC83Otzy0mW3xMHfGdrgo/vAgfFoJVdUzRaMuq47a5
+ JFh6YHdC9ULTPhjTFq25DWY8r/vt8OVo+pz5zhBeHWobVTUxCLb//UacT
+ eJdJ/ngNRO5jm5WnaU0E6s+xbtn9pjCi93NC5VJHFPVR4g4NZ2nbyLdDn
+ qnQEwF3O4aIcmwB9NO867yaHIicXvlkCq3BXBDwFzfBW3kAkVm/HOh9Z0
+ l/9/eahrYxgZH+7zkVYSUQ+ENrSEfpKaogm8DP53/inmNVZ73U7mBqrys
+ 2skm3LWDPPuAbuzCNvcxTqGdSu54wSsyyvucFbYIAlk4ulU+EaPR8gt+k w==;
+X-IronPort-AV: E=Sophos;i="5.93,192,1654585200"; d="scan'208";a="106005848"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 25 Jul 2022 06:07:03 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Mon, 25 Jul 2022 06:07:02 -0700
+Received: from localhost.localdomain (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Mon, 25 Jul 2022 06:07:00 -0700
+From: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <nicolas.ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>
+Subject: [PATCH v2 0/5] ASoC: atmel: one fix and few cleanups
+Date: Mon, 25 Jul 2022 16:09:20 +0300
+Message-ID: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PIF0Y6NPkJF5WZtF"
-Content-Disposition: inline
-In-Reply-To: <PH7PR12MB595106BC93458F31B2D8C5A9E9959@PH7PR12MB5951.namprd12.prod.outlook.com>
-X-Cookie: Replace with same type.
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Dommati,
- Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, "Hiregoudar,
- Basavaraj" <Basavaraj.Hiregoudar@amd.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "Saba Kareem,
- Syed" <Syed.SabaKareem@amd.com>, "Mukunda,
- Vijendar" <Vijendar.Mukunda@amd.com>, "Reddy,
- V sujith kumar" <Vsujithkumar.Reddy@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,43 +92,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---PIF0Y6NPkJF5WZtF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The series adds one fix for mchp-spdifrx and few cleanups for
+mchp-spdifrx and mchp-spdifrx drivers.
 
-On Mon, Jul 25, 2022 at 10:27:19AM +0000, Prasad, Prasad wrote:
+Thank you,
+Claudiu Beznea
 
-> This looks like it's just an indentation/formatting change which isn't
->=20
-> what the changelog said?
+Changes in v2:
+- s/tag/tab in the title of patch 2/5
 
-> We are changing dai_id macro numbers, as renoir platform has 2 I2S instan=
-ces and Rembrandt platform has 3 I2S instances.
->=20
-> To make I2S instances as order, change DMIC_INSTANCE to 0x00, I2S_SP_INST=
-ANCE to 0x01 and I2S_BT_INSTANCE to 0x02.
-> I2S_HS_INSTANCE is already 0x03.
+Claudiu Beznea (5):
+  ASoC: mchp-spdifrx: disable end of block interrupt on failures
+  ASoC: mchp-spdifrx: use single tag indent for structure
+  ASoC: mchp-spdiftx: remove references to mchp_i2s_caps
+  ASoC: mchp-spdiftx: return directly ret
+  ASoC: mchp-spdiftx: add and remove black line around
+    MODULE_DEVICE_TABLE()
 
-Please write a better changelog which makes this clear.
+ sound/soc/atmel/mchp-spdifrx.c | 19 +++++++++++--------
+ sound/soc/atmel/mchp-spdiftx.c | 21 +++++----------------
+ 2 files changed, 16 insertions(+), 24 deletions(-)
 
-Please fix your e-mail client to clearly distinguish between quoted and
-non-quoted text, it's very hard to find your new text in your mail.
+-- 
+2.34.1
 
---PIF0Y6NPkJF5WZtF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLehlsACgkQJNaLcl1U
-h9CgKwf/fMKV9x3binr3akdQUf2tCBjy5NssqkTHNgnFmlRZR16apmsVym3vFcBm
-alf/DJPe6ulDvdyWpaE0pFRby0SMno2QcMAtVBFGqQND6RJj6DIpgCZNkn1ArAH0
-oAK9+7qnpyDEvtBjW5DP1T64t1ODNThOtPqtvRGmNDXZsJzhFq+/Xf/YMd4bsQCK
-Dah7YpjggjmlNcYMV6aFJcrUIOArSRtEtkUb1aeoFPGSFV2FhHiNp7/KXLSCha6F
-kOfTQgoGKrsJ8y0DSMY2j6y49GMK6k8A9H5i7f4lvYIxGpbRspvxjiC+Ch0YF17L
-wA3NhWAIDUvz/EwTQLJUeqbnY2X9Uw==
-=Q0Fq
------END PGP SIGNATURE-----
-
---PIF0Y6NPkJF5WZtF--

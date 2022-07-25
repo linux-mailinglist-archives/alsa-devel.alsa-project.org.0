@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C556658010B
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 16:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2EA858035B
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 19:09:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 646ED112;
-	Mon, 25 Jul 2022 16:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 646ED112
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86BAB20B;
+	Mon, 25 Jul 2022 19:09:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86BAB20B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658760818;
-	bh=kbJUxmbmlwF9LgcJePQrgr/MJJO9V4GeJyCdkIIwgPQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658768990;
+	bh=gaRQ8OrgasXoKsBE8DAQZEaK2QlXpbZjuu5pCy7Jz7A=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hGLqimON0g7WYfVgi3+Xwpgh+idnSOwxPgowzQNnvnvxSPqsHV6/GWo30/9B8xTli
-	 nSxBwP2+rqcS/e4qL+RtKAiu4SPP1lfD5PjgtD/Md3cur5uzyrg0AenbazC4BPMZn/
-	 v72qbPbxXfO/oQ8+GPPUuM5NREetONM9Yq3jIQ64=
+	b=OKA7zEaZqhqaEadhoqRDOfKrJiggJoq91ung8I747ySjWVhemv/AIDK8yS2ZeIEWW
+	 2pazAIHTfikSWnVN3yX2VNwCewljzqP+itacqMTlkkDtdlRneUHt33kv7BL4ZgrwRq
+	 RHyRtrp62msbJ3Ec52Rr1ipG/VHelXKGTqrgs33g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB430F80088;
-	Mon, 25 Jul 2022 16:52:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3705F80115;
+	Mon, 25 Jul 2022 19:08:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA470F80163; Mon, 25 Jul 2022 16:52:35 +0200 (CEST)
+ id 4EF38F80212; Mon, 25 Jul 2022 19:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03584F80128
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 16:52:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03584F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27EF5F80128
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 19:08:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27EF5F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qCYHPxXG"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NXN7r0Vz"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 637CE1FA73;
- Mon, 25 Jul 2022 14:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658760752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=M7ySJc6gw2wivV1RhjHuHOaKku0FpzmbxXG+c/8PXa8=;
- b=qCYHPxXGNzIxGwWJRF0gFD4MGNWmbZhbnT9QxpaP85bOrs5Oes/a0dfvoDXDQ870fg2/nY
- 8I4K2Ob6tC6U0L8G5f6EqE0k4ePr4zE0OMxN9byBGWOAKoZeVJTqLb4nJZiWGBVT4OB9SO
- UrTioQ8okMWQMNBWiKxfpuivrqzwO4k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658760752;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=M7ySJc6gw2wivV1RhjHuHOaKku0FpzmbxXG+c/8PXa8=;
- b=NXN7r0VzIg2PVinxjHBuu7S5MufH+tJLRpIWYMJikeIay/31bPLI4c/OByZha8eRhpU60a
- v629af8RzC+Vv8Dw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 492A013A8D;
- Mon, 25 Jul 2022 14:52:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gJXoEDCu3mIUIgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 25 Jul 2022 14:52:32 +0000
-Date: Mon, 25 Jul 2022 16:52:31 +0200
-Message-ID: <87h735b5xs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2 0/5] ALSA: Drop async signal support
-In-Reply-To: <2c1e5344-2f59-5e09-96a0-58e0afe7360e@perex.cz>
-References: <20220717070549.5993-1-tiwai@suse.de>
- <2c1e5344-2f59-5e09-96a0-58e0afe7360e@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="OE+f5aLm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658768921; x=1690304921;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=gaRQ8OrgasXoKsBE8DAQZEaK2QlXpbZjuu5pCy7Jz7A=;
+ b=OE+f5aLmpUOJjLnjEabgZ+Wg8H5wEkcW20gV595CUKjHN+53/ODk+2H8
+ QsiB743kOsBjwd2TpZXDKIb5RRCGj7CtosgykvR3EYAkEMXmLpWz5c1Vq
+ lCyD32CkP+vd6IoFSNgV39gFwigk27mGvbAhzZHWEXEmj/oFrLPSuFRn/
+ KleOUVu8g5hs5kHJ7HbrrzR+YKc/HPcGtZYNBXp7+q5r/8CCNRxY/W4xO
+ gTvEqvKr3syevXqddi+AdqWsQkdC7KjIVnUbq4CE5g40O7xAoUcyER/mO
+ 2WNHI9tjH0vPJHFMbGuHJ06L41tnvZr9tpTtuE2CHpTrQdwnXG3Bd7sbl Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10419"; a="349449587"
+X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="349449587"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2022 10:08:30 -0700
+X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="550062688"
+Received: from jxzhao-mobl.amr.corp.intel.com (HELO [10.212.0.178])
+ ([10.212.0.178])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2022 10:08:30 -0700
+Message-ID: <bdaec1b0-1385-b376-7640-61d363c9b009@linux.intel.com>
+Date: Mon, 25 Jul 2022 10:03:23 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: max98373: Removing 0x203E from the volatile reg
+Content-Language: en-US
+To: Ryan Lee <ryan.lee.analog@gmail.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com, steve@sk2.org,
+ ryans.lee@analog.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20220723015220.4169-1-ryans.lee@analog.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220723015220.4169-1-ryans.lee@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,280 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 17 Jul 2022 12:16:13 +0200,
-Jaroslav Kysela wrote:
+
+
+On 7/22/22 20:52, Ryan Lee wrote:
+> The 0x203E speaker gain register should be non-volatile.
+> This register value was not able to be synced because it was marked as
+> volatile.
 > 
-> Dne 17. 07. 22 v 9:05 Takashi Iwai napsal(a):
-> > Hi,
-> > 
-> > this is a revised patch set for dropping fasync support from ALSA
-> > core.
-> > 
-> > The async signal itself is very difficult to use properly due to
-> > various restrictions (e.g. you cannot perform any I/O in the context),
-> > hence it's a feature that has been never used by real applications.
-> > 
-> > OTOH, the real problem is that there have been quite a few syzcaller
-> > reports indicating that fasync code path may lead to some potential
-> > deadlocks for long time.  Dropping the feature is the easiest
-> > solution, obviously.
+> Signed-off-by: Ryan Lee <ryans.lee@analog.com>
+> ---
+>  sound/soc/codecs/max98373-i2c.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> I would probably prefer to fix the problem (deferred async kill or so). The
-> SIGIO is just another way to wakeup the applications and there may be some
-> corner cases, where this wakeup is usable (threaded apps). Note that we had
-> some users (or testers) of SIGIO in past (at least there were questions about
-> this support).
+> diff --git a/sound/soc/codecs/max98373-i2c.c b/sound/soc/codecs/max98373-i2c.c
+> index 4fe065ece17c..3e04c7f0cce4 100644
+> --- a/sound/soc/codecs/max98373-i2c.c
+> +++ b/sound/soc/codecs/max98373-i2c.c
+> @@ -442,7 +442,6 @@ static bool max98373_volatile_reg(struct device *dev, unsigned int reg)
+>  {
+>  	switch (reg) {
+>  	case MAX98373_R2000_SW_RESET ... MAX98373_R2009_INT_FLAG3:
+> -	case MAX98373_R203E_AMP_PATH_GAIN:
 
-Hm, OK, then let's discard it for now.
+That register isn't declared as volatile for the SoundWire case so that
+sounds like a good fix
 
-The deferred kill_async() implementation would be something like below.
-A quick test looks OK, so far, with the given syzkaller reproducer.
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Ideally speaking, this should be fixed in the fasync sighandler side,
-but it appears fragile -- kill_fasync() calls send_sigio(), and
-send_sigio() takes read_lock(&tasklist_lock).  And
-read_lock(&tasklist_lock) itself is a common pattern taken in the
-non/soft-IRQ contexts, which would conflict with the call in an
-hard-IRQ context...
-
-
-thanks,
-
-Takashi
-
--- 8< --
-diff --git a/include/sound/control.h b/include/sound/control.h
-index fcd3cce673ec..eae443ba79ba 100644
---- a/include/sound/control.h
-+++ b/include/sound/control.h
-@@ -109,7 +109,7 @@ struct snd_ctl_file {
- 	int preferred_subdevice[SND_CTL_SUBDEV_ITEMS];
- 	wait_queue_head_t change_sleep;
- 	spinlock_t read_lock;
--	struct fasync_struct *fasync;
-+	struct snd_fasync *fasync;
- 	int subscribed;			/* read interface is activated */
- 	struct list_head events;	/* waiting events for read */
- };
-diff --git a/include/sound/core.h b/include/sound/core.h
-index dd28de2343b8..4365c35d038b 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -507,4 +507,12 @@ snd_pci_quirk_lookup_id(u16 vendor, u16 device,
- }
- #endif
- 
-+/* async signal helpers */
-+struct snd_fasync;
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp);
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll);
-+void snd_fasync_free(struct snd_fasync *fasync);
-+
- #endif /* __SOUND_CORE_H */
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 2d03c10f6a36..8c48a5bce88c 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -399,7 +399,7 @@ struct snd_pcm_runtime {
- 	snd_pcm_uframes_t twake; 	/* do transfer (!poll) wakeup if non-zero */
- 	wait_queue_head_t sleep;	/* poll sleep */
- 	wait_queue_head_t tsleep;	/* transfer sleep */
--	struct fasync_struct *fasync;
-+	struct snd_fasync *fasync;
- 	bool stop_operating;		/* sync_stop will be called */
- 	struct mutex buffer_mutex;	/* protect for buffer changes */
- 	atomic_t buffer_accessing;	/* >0: in r/w operation, <0: blocked */
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 4dba3a342458..f3e893715369 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -127,6 +127,7 @@ static int snd_ctl_release(struct inode *inode, struct file *file)
- 			if (control->vd[idx].owner == ctl)
- 				control->vd[idx].owner = NULL;
- 	up_write(&card->controls_rwsem);
-+	snd_fasync_free(ctl->fasync);
- 	snd_ctl_empty_read_queue(ctl);
- 	put_pid(ctl->pid);
- 	kfree(ctl);
-@@ -181,7 +182,7 @@ void snd_ctl_notify(struct snd_card *card, unsigned int mask,
- 	_found:
- 		wake_up(&ctl->change_sleep);
- 		spin_unlock(&ctl->read_lock);
--		kill_fasync(&ctl->fasync, SIGIO, POLL_IN);
-+		snd_kill_fasync(ctl->fasync, SIGIO, POLL_IN);
- 	}
- 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
- }
-@@ -2134,7 +2135,7 @@ static int snd_ctl_fasync(int fd, struct file * file, int on)
- 	struct snd_ctl_file *ctl;
- 
- 	ctl = file->private_data;
--	return fasync_helper(fd, file, on, &ctl->fasync);
-+	return snd_fasync_helper(fd, file, on, &ctl->fasync);
- }
- 
- /* return the preferred subdevice number if already assigned;
-@@ -2302,7 +2303,7 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- 	read_lock_irqsave(&card->ctl_files_rwlock, flags);
- 	list_for_each_entry(ctl, &card->ctl_files, list) {
- 		wake_up(&ctl->change_sleep);
--		kill_fasync(&ctl->fasync, SIGIO, POLL_ERR);
-+		snd_kill_fasync(ctl->fasync, SIGIO, POLL_ERR);
- 	}
- 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
- 
-diff --git a/sound/core/misc.c b/sound/core/misc.c
-index 50e4aaa6270d..f9d100905b98 100644
---- a/sound/core/misc.c
-+++ b/sound/core/misc.c
-@@ -145,3 +145,53 @@ snd_pci_quirk_lookup(struct pci_dev *pci, const struct snd_pci_quirk *list)
- }
- EXPORT_SYMBOL(snd_pci_quirk_lookup);
- #endif
-+
-+/* async signal helpers */
-+struct snd_fasync {
-+	struct fasync_struct *fasync;
-+	struct work_struct work;
-+	int signal;
-+	int poll;
-+};
-+
-+static void snd_fasync_work(struct work_struct *work)
-+{
-+	struct snd_fasync *fasync = container_of(work, struct snd_fasync, work);
-+
-+	kill_fasync(&fasync->fasync, fasync->signal, fasync->poll);
-+}
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp)
-+{
-+	struct snd_fasync *fasync = *fasyncp;
-+
-+	if (!fasync) {
-+		fasync = kzalloc(sizeof(*fasync), GFP_KERNEL);
-+		if (!fasync)
-+			return -ENOMEM;
-+		INIT_WORK(&fasync->work, snd_fasync_work);
-+		*fasyncp = fasync;
-+	}
-+	return fasync_helper(fd, file, on, &fasync->fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_helper);
-+
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll)
-+{
-+	if (!fasync)
-+		return;
-+	fasync->signal = signal;
-+	fasync->poll = poll;
-+	schedule_work(&fasync->work);
-+}
-+EXPORT_SYMBOL_GPL(snd_kill_fasync);
-+
-+void snd_fasync_free(struct snd_fasync *fasync)
-+{
-+	if (!fasync)
-+		return;
-+	cancel_work_sync(&fasync->work);
-+	kfree(fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_free);
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 03fc5fa5813e..2ac742035310 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -1007,6 +1007,7 @@ void snd_pcm_detach_substream(struct snd_pcm_substream *substream)
- 		substream->runtime = NULL;
- 	}
- 	mutex_destroy(&runtime->buffer_mutex);
-+	snd_fasync_free(runtime->fasync);
- 	kfree(runtime);
- 	put_pid(substream->pid);
- 	substream->pid = NULL;
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 1fc7c50ffa62..40751e5aff09 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1822,7 +1822,7 @@ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substrea
- 		snd_timer_interrupt(substream->timer, 1);
- #endif
-  _end:
--	kill_fasync(&runtime->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(runtime->fasync, SIGIO, POLL_IN);
- }
- EXPORT_SYMBOL(snd_pcm_period_elapsed_under_stream_lock);
- 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index aa0453e51595..ad0541e9e888 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3951,7 +3951,7 @@ static int snd_pcm_fasync(int fd, struct file * file, int on)
- 	runtime = substream->runtime;
- 	if (runtime->status->state == SNDRV_PCM_STATE_DISCONNECTED)
- 		return -EBADFD;
--	return fasync_helper(fd, file, on, &runtime->fasync);
-+	return snd_fasync_helper(fd, file, on, &runtime->fasync);
- }
- 
- /*
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index b3214baa8919..e08a37c23add 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -83,7 +83,7 @@ struct snd_timer_user {
- 	unsigned int filter;
- 	struct timespec64 tstamp;		/* trigger tstamp */
- 	wait_queue_head_t qchange_sleep;
--	struct fasync_struct *fasync;
-+	struct snd_fasync *fasync;
- 	struct mutex ioctl_lock;
- };
- 
-@@ -1345,7 +1345,7 @@ static void snd_timer_user_interrupt(struct snd_timer_instance *timeri,
- 	}
-       __wake:
- 	spin_unlock(&tu->qlock);
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
- }
- 
-@@ -1383,7 +1383,7 @@ static void snd_timer_user_ccallback(struct snd_timer_instance *timeri,
- 	spin_lock_irqsave(&tu->qlock, flags);
- 	snd_timer_user_append_to_tqueue(tu, &r1);
- 	spin_unlock_irqrestore(&tu->qlock, flags);
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
- }
- 
-@@ -1453,7 +1453,7 @@ static void snd_timer_user_tinterrupt(struct snd_timer_instance *timeri,
- 	spin_unlock(&tu->qlock);
- 	if (append == 0)
- 		return;
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
- }
- 
-@@ -1521,6 +1521,7 @@ static int snd_timer_user_release(struct inode *inode, struct file *file)
- 			snd_timer_instance_free(tu->timeri);
- 		}
- 		mutex_unlock(&tu->ioctl_lock);
-+		snd_fasync_free(tu->fasync);
- 		kfree(tu->queue);
- 		kfree(tu->tqueue);
- 		kfree(tu);
-@@ -2135,7 +2136,7 @@ static int snd_timer_user_fasync(int fd, struct file * file, int on)
- 	struct snd_timer_user *tu;
- 
- 	tu = file->private_data;
--	return fasync_helper(fd, file, on, &tu->fasync);
-+	return snd_fasync_helper(fd, file, on, &tu->fasync);
- }
- 
- static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
+>  	case MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK:
+>  	case MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK:
+>  	case MAX98373_R20B6_BDE_CUR_STATE_READBACK:

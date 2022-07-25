@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC54257FF9D
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 15:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8E9E57FFA6
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 15:13:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 684B3FA;
-	Mon, 25 Jul 2022 15:09:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 684B3FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93437FA;
+	Mon, 25 Jul 2022 15:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93437FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658754590;
-	bh=zVQNjZCZbrx7YBoEsGRPaUn9ETcmC+pt2UNxfnvHVEk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658754789;
+	bh=xCfaghR0YoO+F57f4jEgiOzm19nfizFOLqgwmH9eA+o=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VSUYP1H1Mm1eNfUBCXXtVOibCSW2imHP8gfHKW51kOrAEYAFLyj7jKy8NstdfzZku
-	 u3zebBtIt22KcO5hPGTEc7eXiytxDJWj+zRmAvxZJZwfhPviufj4luIuXQkjaZWbuy
-	 tocfTMMZyPh5v4hRujY0CRdJ4OmEHqyQuNN6UWNo=
+	b=egMkKO3DLPVaP0n6Lo+rWOtX+1coB8MvlfPgHENr14F3dj178vGokYBSTqXW62lOb
+	 zfLtFSYi8ztQjmwSZSfcbfeA8VQty13R/4ECvn2r7CwIy6SD6bsmO4dZVt8ACTz7Xo
+	 Srx4O7PHyZUNByWhpoJ6FcWQvY3RcA2zJ5MQ9RQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DAB0F80088;
-	Mon, 25 Jul 2022 15:07:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3106F80212;
+	Mon, 25 Jul 2022 15:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 277A9F8055A; Mon, 25 Jul 2022 15:07:32 +0200 (CEST)
+ id 437F0F80163; Mon, 25 Jul 2022 15:12:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DD16F80088
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 15:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DD16F80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="mtmSmXft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1658754446; x=1690290446;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=zVQNjZCZbrx7YBoEsGRPaUn9ETcmC+pt2UNxfnvHVEk=;
- b=mtmSmXftibXdF82iIYR+z9himamx0bSTNOQ6C43LcLbsKP5H15ziw/nG
- np8WL/caX4f2V/mmfrTrO5HcSSgnkkH2WJkpHVQoMmJpXi+orWeb6T8ji
- +g6Y5RSrduaLEveu/jrLLOxsun6ULwj38Yt4WxIoiywfVK2B9S7yjfZYT
- H9mRzL5lmbqlWttr7irZTvyu33vtwoQcOQA1ZVZ+jAE6INGsXFVKqNtRE
- my61rCOkUxG3OmyO7YgNPGUmcZUprid/cLEYtRz0l7gfCgaIMVLNTVuBY
- Xrvoc0ctF760ziITrl854gvkQxMz4xaJbYE3u4gW27vMonkdZ0pcHw2EX w==;
-X-IronPort-AV: E=Sophos;i="5.93,192,1654585200"; d="scan'208";a="166265300"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 25 Jul 2022 06:07:16 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Mon, 25 Jul 2022 06:07:15 -0700
-Received: from localhost.localdomain (10.10.115.15) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2375.17 via Frontend Transport; Mon, 25 Jul 2022 06:07:13 -0700
-From: Claudiu Beznea <claudiu.beznea@microchip.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <nicolas.ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>
-Subject: [PATCH v2 5/5] ASoC: mchp-spdiftx: add and remove black line around
- MODULE_DEVICE_TABLE()
-Date: Mon, 25 Jul 2022 16:09:25 +0300
-Message-ID: <20220725130925.1781791-6-claudiu.beznea@microchip.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
-References: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6FFAF80115
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 15:11:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6FFAF80115
+X-UUID: 49b8b6b8152a47de97605e9701075f54-20220725
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.8, REQID:e1ecf115-3b8c-4c25-b837-21a5f2b6b669, OB:0,
+ LO
+ B:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACT
+ ION:release,TS:45
+X-CID-INFO: VERSION:1.1.8, REQID:e1ecf115-3b8c-4c25-b837-21a5f2b6b669, OB:0,
+ LOB:
+ 0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,RULE:Release_Ham,ACTIO
+ N:release,TS:45
+X-CID-META: VersionHash:0f94e32, CLOUDID:9e1bc529-fd69-41f1-91fc-8b8a329d3a88,
+ C
+ OID:3f88364b277a,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 49b8b6b8152a47de97605e9701075f54-20220725
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 877510035; Mon, 25 Jul 2022 21:11:49 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Mon, 25 Jul 2022 21:11:48 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
+ Transport; Mon, 25 Jul 2022 21:11:48 +0800
+Message-ID: <e4f9510c9a29c4a1ac8a40176d5a69397e3a0417.camel@mediatek.com>
+Subject: Re: [bug report] ASoC: mediatek: mt8186: support adda in platform
+ driver
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Mon, 25 Jul 2022 21:11:48 +0800
+In-Reply-To: <Yt5FY0RffrGZx55I@kili>
+References: <Yt5FY0RffrGZx55I@kili>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,28 +92,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add blank line after MODULE_DEVICE_TABLE() and remove the one
-before it.
+On Mon, 2022-07-25 at 10:25 +0300, Dan Carpenter wrote:
+> Hello Jiaxin Yu,
+> 
+> The patch b65c466220b3: "ASoC: mediatek: mt8186: support adda in
+> platform driver" from May 23, 2022, leads to the following Smatch
+> static checker warning:
+> 
+> 	sound/soc/mediatek/mt8186/mt8186-dai-adda.c:78
+> get_adda_priv_by_name()
+> 	warn: strncmp() with weird length: 17 vs 7
+> 
+> sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+>     72 static struct mtk_afe_adda_priv *get_adda_priv_by_name(struct
+> mtk_base_afe *afe,
+>     73                                                        const
+> char *name)
+>     74 {
+>     75         struct mt8186_afe_private *afe_priv = afe-
+> >platform_priv;
+>     76         int dai_id;
+>     77
+> --> 78         if (strncmp(name, "aud_dac_hires_clk", 7) == 0 ||
+>     79             strncmp(name, "aud_adc_hires_clk", 7) == 0)
+> 
+> 7 is weird.  It would be more readable to say it as:
+> 
+> 	if (strncmp(name, "aud_dac", 7) == 0 ||
+> 	    strncmp(name, "aud_adc", 7) == 0)
+> 
+Yes, I will fix it soon.
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
----
- sound/soc/atmel/mchp-spdiftx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks,
+Jiaxin.Yu
 
-diff --git a/sound/soc/atmel/mchp-spdiftx.c b/sound/soc/atmel/mchp-spdiftx.c
-index 74729ec8423b..e8f4ff1b7c7c 100644
---- a/sound/soc/atmel/mchp-spdiftx.c
-+++ b/sound/soc/atmel/mchp-spdiftx.c
-@@ -760,8 +760,8 @@ static const struct of_device_id mchp_spdiftx_dt_ids[] = {
- 	},
- 	{ /* sentinel */ }
- };
--
- MODULE_DEVICE_TABLE(of, mchp_spdiftx_dt_ids);
-+
- static int mchp_spdiftx_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
--- 
-2.34.1
+>     80                 dai_id = MT8186_DAI_ADDA;
+>     81         else
+>     82                 return NULL;
+>     83
+>     84         return afe_priv->dai_priv[dai_id];
+>     85 }
+> 
+> regards,
+> dan carpenter
 

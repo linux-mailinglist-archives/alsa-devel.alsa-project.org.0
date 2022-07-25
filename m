@@ -2,97 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F657580502
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 22:06:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F147580584
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 22:26:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3298C20C;
-	Mon, 25 Jul 2022 22:06:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3298C20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D09CD83E;
+	Mon, 25 Jul 2022 22:25:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D09CD83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658779610;
-	bh=sJqcfkbh8cGxCg+7Bkykm9n9QVmcxTNmDppcihwKt/o=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1658780805;
+	bh=Yf2EsBohegOJizUmQDV5q44qFQWNz/uxEwWGbI0CIE4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dniknoksL4Q9gar4WONReMapiEPmafUr8+s/HAgu4inmQ8jHiTRgK1GNzWYlFFhAP
-	 ToSKvHX/YYaWz2TjXI5HM8z/z3CrQMg6sB4SGj6Mf7kFdCByGLKddGB3jRSgsGckaw
-	 gfC0AUYzgRf6ZKXEZTlDO4YqfjYNyF9PhboFelQ0=
+	b=Iee8+5ycgomrT2jfgzsPQsKyhrEo/7BFc0NwA1Y474IrN10ziG5QFsdTHr0khj7Nh
+	 Pw/Jw3ZOfgr+Y0az1xjD+GgrzzoY6kSQEWa2G8bqsT3EPY2oV464t8uVdSoBWarc+L
+	 mNZIxFMSB4CHsgyyFApsDLmYCmZ8eNaQz48lOtnA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82D05F80212;
-	Mon, 25 Jul 2022 22:05:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B563F80212;
+	Mon, 25 Jul 2022 22:25:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC779F80163; Mon, 25 Jul 2022 22:05:46 +0200 (CEST)
+ id 1AA82F80163; Mon, 25 Jul 2022 22:25:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
+ [209.85.161.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB440F80088
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 22:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB440F80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xbvE7pFX"
-Received: by mail-lf1-x129.google.com with SMTP id t17so7444420lfk.0
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 13:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Oceg/Pf4ocpuzyoJ2bDgrLZz3+Hr4ukfCLs2bjellJ0=;
- b=xbvE7pFXaNjrko+nOS903yex+fY9Lqzl/dugltKs7yyRNlL+RipCTRGxarErqqJZqz
- 4323Yf7eoI2STUWZBo0sLNSMAL+Lvk4Gc+q1BiGtv/otu+DtzAGz/oJnf4hdTLOfEMor
- zW+A2MqNv4K4M0+88vRPGZbhKKfab4zW/98PjLXa/mkO2zdJkJIUlHhzax1vmiOIpgXY
- IwzxgPZagbt9D7kYbIemJKzG51xcpUujcMEeqQ/c8lUnxXrwuWvw83qOXIUonPeMAWuQ
- mo9gvw4nCivKxT/AtVeTkFMPlLqpFZhRT3/yrATPYtKee7jccdFpJgzkOJ6nIH6J22v4
- do3g==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E2EFF80088
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 22:25:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E2EFF80088
+Received: by mail-oo1-f41.google.com with SMTP id
+ j8-20020a4ac548000000b00435a8dd31a2so2370621ooq.5
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 13:25:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Oceg/Pf4ocpuzyoJ2bDgrLZz3+Hr4ukfCLs2bjellJ0=;
- b=c4w99mlj7Au1s/WbLpBmk9OF+lyOnz1y27zcSlzstaG5XhioEg2h4+0JozwjBt2/bm
- 1nmbR3JtAftYLRMiD9XHvhLvJh09TH0ouC6MkrtLXQRxAlp03fdBZ0Uk0cUcrai4rbgz
- ngSEcMn5adIIzwqB+SXqGs6+pfLUjiDVVf2fe83hBtP5vo89SBouYupe9kgI3pyg/Za6
- px1DjvAoezVOlBXtqhW7It32W48b+aC1wE8wqV7XAe853uIPL1AL2RTnYWLGX9JZnhbd
- fpeYcsDWaMyKTxttX/WYE26cr/Yn4L2Rgs1MNxupNlmWtCyH3yQLY4c0aI43m21U4NZB
- OEZA==
-X-Gm-Message-State: AJIora9lPThI1eysi4ewF3hsfKoH2Io3Gzq4Okk+yV2kw4miqW+YEec2
- NDtwhLiWuqsHh2vxCIknL6tgJQ==
-X-Google-Smtp-Source: AGRyM1sXYCp4Q9ED/TciKrz8jGk4K3lXUkvrseaBvwYdeuV8O0x0U1uIFfHVolrbyOo9xURBlysiIA==
-X-Received: by 2002:a05:6512:a84:b0:48a:556d:5539 with SMTP id
- m4-20020a0565120a8400b0048a556d5539mr5400698lfu.6.1658779536913; 
- Mon, 25 Jul 2022 13:05:36 -0700 (PDT)
-Received: from [192.168.3.197] (78-26-46-173.network.trollfjord.no.
- [78.26.46.173]) by smtp.gmail.com with ESMTPSA id
- g1-20020a056512118100b0048a9d0242c9sm182844lfr.210.2022.07.25.13.05.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Jul 2022 13:05:36 -0700 (PDT)
-Message-ID: <e81d657f-edea-4c5d-e546-e3bdb379c659@linaro.org>
-Date: Mon, 25 Jul 2022 22:05:35 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=JQxHu4a4wv2GlB8Ke6rSU0zLRfgHSssjYhuNGcsfE8k=;
+ b=L+i+jDPrdIY5wfBzEDUI5NXJ2IBzZlxUZv8PMU5LHTMnMpnlc+lE1GWgTCLWK+ivFF
+ HU0MIr9scUOks8qLC4esMeiH51EoqxoFjlXqHaKunA/TlyQV4TQYHva4xmE2Lg7B0rE4
+ kVxuFZy/2ZAS49ZJmpefXxOYOzDU2PFstusB0tU+lvMfD8a2hvsGvb/zNXt21NiJpoty
+ tGBbivCq1NWj97lWVDoHclooXy7Y/2Ie6uc48MZqODj+Gc+gqCeeOAdlkaIYkEVexCYO
+ JIS2oI9pwnxDHrxNSFjDSk7C04rbiACjjPamjDupe87ehGQa26Jc895V/qVudTRTcdOu
+ ErMA==
+X-Gm-Message-State: AJIora8FkW3t9SxnEBdmEnT6u04NM5rmjpKDfYQh8pvVr7y07x6lyhUQ
+ NNmL4ZNFBujTKsHTrgOjfQ==
+X-Google-Smtp-Source: AGRyM1ufpwvixikt2/t7xfjuqVSdirOL2BSlmwLs0O8Fo9v7BwWEXhEzAf5A/d5CnHVJOb+TzO0vUw==
+X-Received: by 2002:a4a:c716:0:b0:435:f656:70f8 with SMTP id
+ n22-20020a4ac716000000b00435f65670f8mr221794ooq.27.1658780735033; 
+ Mon, 25 Jul 2022 13:25:35 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ k23-20020a056870959700b000f5f4ad194bsm6947011oao.25.2022.07.25.13.25.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Jul 2022 13:25:34 -0700 (PDT)
+Received: (nullmailer pid 2653284 invoked by uid 1000);
+ Mon, 25 Jul 2022 20:25:32 -0000
+Date: Mon, 25 Jul 2022 14:25:32 -0600
+From: Rob Herring <robh@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
 Subject: Re: [PATCH] ASoC: dt-bindings: fsl, sai: Convert format to json-schema
-Content-Language: en-US
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Message-ID: <20220725202532.GA2626016-robh@kernel.org>
 References: <1658741467-32620-1-git-send-email-shengjiu.wang@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <1658741467-32620-1-git-send-email-shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: shengjiu.wang@gmail.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,7 +94,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25/07/2022 11:31, Shengjiu Wang wrote:
+On Mon, Jul 25, 2022 at 05:31:07PM +0800, Shengjiu Wang wrote:
 > Convert the NXP SAI binding to DT schema format using json-schema.
 > 
 > The Synchronous Audio Interface (SAI) provides an interface that
@@ -150,10 +136,6 @@ On 25/07/2022 11:31, Shengjiu Wang wrote:
 > +  compatible:
 > +    minItems: 1
 > +    maxItems: 2
-
-You allow anything here, so it's not acceptable. This has to be strictly
-defined.
-
 > +    items:
 > +      enum:
 > +        - fsl,vf610-sai
@@ -166,6 +148,9 @@ defined.
 > +        - fsl,imx8mn-sai
 > +        - fsl,imx8mp-sai
 > +        - fsl,imx8ulp-sai
+
+You need to define the order and combinations which are valid.
+
 > +
 > +  reg:
 > +    maxItems: 1
@@ -176,15 +161,12 @@ defined.
 > +
 > +  dmas:
 > +    minItems: 2
-
-No need for minItems.
-
 > +    maxItems: 2
 > +    description:
 > +      Must contain a list of pairs of references to DMA specifiers, one for
 > +      transmission, and one for reception.
 
-Skip description and instead describe items like you did for interrupts.
+No need for generic descriptions.
 
 > +
 > +  dma-names:
@@ -195,8 +177,7 @@ Skip description and instead describe items like you did for interrupts.
 > +        - tx
 > +        - rx
 
-No, this has to be strictly defined, so items with tx and rx (or
-reversed order).
+We really need to support either order?
 
 > +
 > +  clocks:
@@ -223,8 +204,7 @@ reversed order).
 > +        - pll8k
 > +        - pll11k
 
-Ditto. minItems:4 could stay, but the rest is not correct. This has to
-be strictly ordered/defined list.
+Again, need to define the order.
 
 > +
 > +  lsb-first:
@@ -237,6 +217,9 @@ be strictly ordered/defined list.
 > +
 > +  big-endian:
 > +    $ref: /schemas/types.yaml#/definitions/flag
+
+Common property, already has a type and description.
+
 > +    description: |
 > +      Boolean property, required if all the SAI
 > +      registers are big-endian rather than little-endian.
@@ -244,11 +227,7 @@ be strictly ordered/defined list.
 > +  fsl,sai-synchronous-rx:
 > +    $ref: /schemas/types.yaml#/definitions/flag
 > +    description: |
-> +      This is a boolean property. 
-
-Skip such description, it's useless... Further as well.
-
-If present, indicating
+> +      This is a boolean property. If present, indicating
 > +      that SAI will work in the synchronous mode (sync Tx
 > +      with Rx) which means both the transmitter and the
 > +      receiver will send and receive data by following
@@ -259,6 +238,10 @@ If present, indicating
 > +    $ref: /schemas/types.yaml#/definitions/flag
 > +    description: |
 > +      This is a boolean property. If present, indicating
+
+Schema already says it is boolean property, don't need that in plain 
+text.
+
 > +      that SAI will work in the asynchronous mode, which
 > +      means both transmitter and receiver will send and
 > +      receive data by following their own bit clocks and
@@ -274,9 +257,22 @@ If present, indicating
 > +    description: |
 > +      configure the dataline. it has 3 value for each configuration
 > +      first one means the type: I2S(1) or PDM(2)
+
+Looks like constraints:
+
+items:
+  items:
+    - description: ...
+      enum: [ 1, 2 ]
+    - ...
+    - ...
+
 > +      second one is dataline mask for 'rx'
 > +      third one is dataline mask for 'tx'.
 > +      for example: fsl,dataline = <1 0xff 0xff 2 0xff 0x11>;
+
+Perhaps add to the actual example.
+
 > +      it means I2S type rx mask is 0xff, tx mask is 0xff, PDM type
 > +      rx mask is 0xff, tx mask is 0x11 (dataline 1 and 5 enabled).
 > +
@@ -303,11 +299,26 @@ If present, indicating
 > +  - dma-names
 > +  - clocks
 > +  - clock-names
-
-You need to express the exclusiveness of properties.
-allOf:if:required:then:... would work, like here:
-https://elixir.bootlin.com/linux/v5.17-rc2/source/Documentation/devicetree/bindings/mfd/samsung,s5m8767.yaml#L155
-
-
-Best regards,
-Krzysztof
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/vf610-clock.h>
+> +    sai2: sai@40031000 {
+> +        compatible = "fsl,vf610-sai";
+> +        reg = <0x40031000 0x1000>;
+> +        interrupts = <86 IRQ_TYPE_LEVEL_HIGH>;
+> +        pinctrl-names = "default";
+> +        pinctrl-0 = <&pinctrl_sai2_1>;
+> +        clocks = <&clks VF610_CLK_PLATFORM_BUS>,
+> +                 <&clks VF610_CLK_SAI2>,
+> +                 <&clks 0>, <&clks 0>;
+> +        clock-names = "bus", "mclk1", "mclk2", "mclk3";
+> +        dma-names = "rx", "tx";
+> +        dmas = <&edma0 0 20>,
+> +               <&edma0 0 21>;
+> +        big-endian;
+> +        lsb-first;
+> +    };

@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F59B5804E0
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 21:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D64FC5804E2
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Jul 2022 21:54:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FC02161F;
-	Mon, 25 Jul 2022 21:52:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FC02161F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7233BAEA;
+	Mon, 25 Jul 2022 21:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7233BAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658778819;
-	bh=GhlOaURCfGI6U/9yGMFrHz1TalQ74Jwwzaii3EIrF/M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cCONKJ29XJ9VCZGeD8LjeYuYSbTa6kbc9hTiNCI46oL/FxV8hzpo6M0ibusfPvBTp
-	 8zDLAiuvwMuhYefV69QwkmUrGxPSpxToruW5FwZoBpjE4CK3539apaeHuRpzMlSPm1
-	 jUdhJt9VyUveVXAelqjxWSEyl02ea26+iutkKSt0=
+	s=default; t=1658778899;
+	bh=nGLPlhpxO2YiFzGBdPz1op4nh9eiw+0hHGNdCjMiHZU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WRT4k/eYulcMDROpb096MFmB348+nn+vzAGUD16tt3kj96QXlpDPHSDC0MlcecDbo
+	 Fvm0peks5hwFhSe35rGsqkD5x2FuJGgOuNKnojkX54ar1MkDdl3vkEuMTHtQw0ZwXO
+	 uIaKp4/wkBcr/YIgo9xYmkwEdmwrtax8F8CNFeAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AF9AF805B2;
-	Mon, 25 Jul 2022 21:49:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C617F804B2;
+	Mon, 25 Jul 2022 21:53:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F87BF80579; Mon, 25 Jul 2022 21:49:50 +0200 (CEST)
+ id BF9B6F80163; Mon, 25 Jul 2022 21:53:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 666ACF80543
- for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 21:49:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 666ACF80543
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13E4CF80088
+ for <alsa-devel@alsa-project.org>; Mon, 25 Jul 2022 21:53:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13E4CF80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nuel/rP9"
+ header.b="N8cF5xMw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658778577; x=1690314577;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GhlOaURCfGI6U/9yGMFrHz1TalQ74Jwwzaii3EIrF/M=;
- b=nuel/rP9BhOue43ftViN5BaaZht4coBCIi7dj74hgmom2MHRCOTkR6Ur
- R5x3uXQ+i3+5TL/8VFk0utLaOhO/xXjgYLmQteufYBoetbW9yf/XpWSzq
- rpwcU8dnfDZAo63kNWMrkTmGhXtC8zS1gcKlLX7GbW6L3MM8ceIBQ0B/D
- YQknIPYvolQNEpNiOZQOqlkT8FsTjB4SoNeeYeiCB9Trn4UA34obubitE
- Isjklt7VIzeeFYwuhJwOjEYcuQh4IrysEVuNaURNQsrPVIEyRvcYX/ObH
- aIj/JRvC0nuiG480fNzDiqvImxb47AHfbzii81GoP+34uxns9C+dxXfLM g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10419"; a="267553929"
-X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="267553929"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2022 12:49:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="632479480"
+ t=1658778835; x=1690314835;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=nGLPlhpxO2YiFzGBdPz1op4nh9eiw+0hHGNdCjMiHZU=;
+ b=N8cF5xMwKeH18RioFU5yS3MwIJ6X7ezBrbyGPIaO9k1pd05erIysUUHV
+ 14QBnS9373dOLCEajZ15+FGHLLGhFgjdzz2R4ho5cv6JAwAq49BPQpB6B
+ tF/+QfMXKTUkRaDxNozMYSmzs/SKNJxcTym4gikNbQch7Q8hxT4JSILFG
+ NK7YIhK/pauDBhkeiC/yr0s2BrI8ojkrsVHjEmzMVH8vmbDTlMgsfj/1P
+ f1Hx7jXDcWRAOArw/3N58oScbMdAVnvTCRYvi34Rlq/5k7crd22NeX9S8
+ 84rLCfee78XbhvLjdUZpPr2vUqHn3XpT/io74PDhMyKpU1RrQcZBDtWtx A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10419"; a="270820356"
+X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="270820356"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2022 12:53:51 -0700
+X-IronPort-AV: E=Sophos;i="5.93,193,1654585200"; d="scan'208";a="627593482"
 Received: from mbianco-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.71.159])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2022 12:49:27 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2022 12:53:50 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 10/10] ASoC: Intel: sof_nau8825: Move quirk check to the front
- in late probe
-Date: Mon, 25 Jul 2022 14:49:09 -0500
-Message-Id: <20220725194909.145418-11-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/3] ASoC: SOF: minor updates for 5.20
+Date: Mon, 25 Jul 2022 14:53:40 -0500
+Message-Id: <20220725195343.145603-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220725194909.145418-1-pierre-louis.bossart@linux.intel.com>
-References: <20220725194909.145418-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,47 +86,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yong Zhi <yong.zhi@intel.com>
+One sanity check for SSP index reported by NHLT/BIOS and two updates for
+Mediatek and Intel Chromebooks related to already-merged firmware
+changes.
 
-The sof_rt5682_quirk check was placed in the middle of
-hdmi handling code, move it to the front to be consistent
-with sof_rt5682.c/sof_card_late_probe().
+Ideally this should go in 5.20, time-permitting.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/sof_nau8825.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Brent Lu (1):
+  ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK_AON bit
 
-diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
-index f49700eb721b..8d7e5ba9e516 100644
---- a/sound/soc/intel/boards/sof_nau8825.c
-+++ b/sound/soc/intel/boards/sof_nau8825.c
-@@ -190,11 +190,6 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 	struct sof_hdmi_pcm *pcm;
- 	int err;
- 
--	if (list_empty(&ctx->hdmi_pcm_list))
--		return -EINVAL;
--
--	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct sof_hdmi_pcm, head);
--
- 	if (sof_nau8825_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT) {
- 		/* Disable Left and Right Spk pin after boot */
- 		snd_soc_dapm_disable_pin(dapm, "Left Spk");
-@@ -204,6 +199,11 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 			return err;
- 	}
- 
-+	if (list_empty(&ctx->hdmi_pcm_list))
-+		return -EINVAL;
-+
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct sof_hdmi_pcm, head);
-+
- 	return hda_dsp_hdmi_build_controls(card, pcm->codec_dai->component);
- }
- 
+Pierre-Louis Bossart (1):
+  ASoC: SOF: Intel: hda: add sanity check on SSP index reported by NHLT
+
+YC Hung (1):
+  ASoC: SOF: Add cont_update_posn to platform parameters
+
+ include/sound/sof/dai-intel.h | 2 ++
+ include/uapi/sound/sof/abi.h  | 2 +-
+ sound/soc/sof/intel/hda.c     | 7 +++++++
+ sound/soc/sof/ipc3-pcm.c      | 3 +++
+ sound/soc/sof/sof-priv.h      | 1 +
+ 5 files changed, 14 insertions(+), 1 deletion(-)
+
 -- 
 2.34.1
 

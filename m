@@ -2,77 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95264581464
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:45:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DFA058146F
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:47:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32082AE8;
-	Tue, 26 Jul 2022 15:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32082AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC35E11;
+	Tue, 26 Jul 2022 15:47:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC35E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658843102;
-	bh=mEDN3weHgupnH4A2/+C+Z4+HPL6fCzrzHtbPdOWWPOo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GzhoprAVkG7rHiUBEyvrgOrNPIFqaMhp0kDnMhyiP4fPC0V3+SHApuict/0dzFwHU
-	 V0qjOSt6gILW27W8YhJVTf27YUMkNHBZsmSIslEp8KjSCMLUy2bnpove5tnzjFHMlk
-	 mhIfNx7Om/yRyMCyQATiBrwoGiWImjsRhHzcS20Y=
+	s=default; t=1658843277;
+	bh=ojhq/m4w8zHjOEY7DYramnZ2WBg1Hn3avY/pcVJRe+A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l7H8ltfmyfGVjtzWVdZIayK4yiHuO7Vy0hTAqa995Ijz/fFs7eshtWcHhjvmIat61
+	 k/WeoQZ1WAeqBmqbG+4pmZCcn0CwDSOmwoSXWROMfwwQX/tEc31kaLy6B6Jq79voLx
+	 040J+SPG4Vlngk3bfYAFfkgSMUkNQSXlHVz0zw9w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A54D9F80271;
-	Tue, 26 Jul 2022 15:44:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79B98F80238;
+	Tue, 26 Jul 2022 15:46:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A80EF8025A; Tue, 26 Jul 2022 15:44:00 +0200 (CEST)
+ id 9C49AF8025A; Tue, 26 Jul 2022 15:46:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED199F80153
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:43:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED199F80153
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fDYzXd82"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 30D3DB81649;
- Tue, 26 Jul 2022 13:43:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D10C433C1;
- Tue, 26 Jul 2022 13:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658843034;
- bh=mEDN3weHgupnH4A2/+C+Z4+HPL6fCzrzHtbPdOWWPOo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fDYzXd824a1BboA59GcWAdiwnp7qM0Prk7f7JoA8wAxnUVqUHnba8SxG79B+jEDXj
- 9ZwxYw29hDvjmRQZaiwO1eRqHbcwaSyTRL3KYzST8ihmLjOb99Y+qsgIe1rwqFuYaQ
- AO3R9esauTdfoC9MlpeMaDv4nVgcBTiU9LzAUMPqEo68JsujwQOp0vuiOTRjwVv/l2
- kOP/sze03Su2JKFEHv0ZmPeAU0jDK8M7Qq5Ssbv5IsenL2sFYYlf3NL2EABLiu9j28
- TWFW1vm61Jun7ZiWT39pHLBiRnDH43Z0Bkofg0Z8dcR8K8nHP0vVaJWhL45IltdN7u
- 7FfOvsoBzxPbg==
-Date: Tue, 26 Jul 2022 14:43:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zhu Ning <zhuning0077@gmail.com>
-Subject: Re: [PATCH v3 1/2] ASoC: codecs: add support for ES8326
-Message-ID: <Yt/vlUZ+07/a1pcC@sirena.org.uk>
-References: <20220726131747.127992-1-zhuning0077@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6673F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6673F800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="YVMiMawT"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26Q4TPHH032253;
+ Tue, 26 Jul 2022 08:46:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=4HZ77gT3UYugSEYibBUwTnGXjWmBzs6W8apWPc7c5Z0=;
+ b=YVMiMawTj9DjUVHXvy0UOqVxcotn4AD7IsTPhEs87H9uqPshujWfTaW/rmbZjthlQAlS
+ LGLIoEgV/+Qvzh/lD6trnWBtEmLgYRxH4rt8NxShKRimSNXeLffeKdW1Nmazccl7+Z/N
+ BFPCaNoYUqMCZnDnnMXfqJv57C9ibgtpWm/RLmiARLc2ufLN8TadvLeir0zzWHwFaijn
+ md7YYhiyHC+1Y4SNE2aod+b7/uDT9VC1UB7cliR/GQMKiGcU6sqmLz9DLoDsI8HnA1BB
+ WXgalP48EPhhNDsCK/4mIw/f84y+tFiHCh2BeElPpquSofYdai56dZncZvt6pNXocIRW MQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hgddp3hg6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jul 2022 08:46:45 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Tue, 26 Jul
+ 2022 08:46:44 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1118.9 via Frontend Transport; Tue, 26 Jul 2022 08:46:44 -0500
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 05E4E2C5;
+ Tue, 26 Jul 2022 13:46:44 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Brent Lu
+ <brent.lu@intel.com>, xliu <xiang.liu@cirrus.com>
+Subject: [PATCH v1] ASoC: Intel: cirrus-common: Use UID to map correct amp to
+ prefix
+Date: Tue, 26 Jul 2022 14:46:34 +0100
+Message-ID: <20220726134634.2842185-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="LlQEx/YUHbT7YwWA"
-Content-Disposition: inline
-In-Reply-To: <20220726131747.127992-1-zhuning0077@gmail.com>
-X-Cookie: All rights reserved.
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- devicetree@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, Zhu Ning <zhuning@everest-semi.com>,
- David Yang <yangxiaohua@everest-semi.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: tray4QtAiO20RqjTC30X5rerLhFMTwQN
+X-Proofpoint-ORIG-GUID: tray4QtAiO20RqjTC30X5rerLhFMTwQN
+X-Proofpoint-Spam-Reason: safe
+Cc: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,91 +100,130 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Since the order of the amps in the ACPI determines the device name,
+and the ACPI order may change depending on hardware configuration,
+use UID to dynamically compute the dai links, allowing dynamic
+assignment of the name_prefix.
 
---LlQEx/YUHbT7YwWA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+---
+ sound/soc/intel/boards/sof_cirrus_common.c | 73 +++++++++-------------
+ 1 file changed, 31 insertions(+), 42 deletions(-)
 
-On Tue, Jul 26, 2022 at 09:17:46PM +0800, Zhu Ning wrote:
+diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
+index f4192df962d6..a96bc70a34d7 100644
+--- a/sound/soc/intel/boards/sof_cirrus_common.c
++++ b/sound/soc/intel/boards/sof_cirrus_common.c
+@@ -10,6 +10,9 @@
+ #include "../../codecs/cs35l41.h"
+ #include "sof_cirrus_common.h"
+ 
++#define CS35L41_HID "CSC3541"
++#define CS35L41_MAX_AMPS 4
++
+ /*
+  * Cirrus Logic CS35L41/CS35L53
+  */
+@@ -35,50 +38,12 @@ static const struct snd_soc_dapm_route cs35l41_dapm_routes[] = {
+ 	{"TR Spk", NULL, "TR SPK"},
+ };
+ 
+-static struct snd_soc_dai_link_component cs35l41_components[] = {
+-	{
+-		.name = CS35L41_DEV0_NAME,
+-		.dai_name = CS35L41_CODEC_DAI,
+-	},
+-	{
+-		.name = CS35L41_DEV1_NAME,
+-		.dai_name = CS35L41_CODEC_DAI,
+-	},
+-	{
+-		.name = CS35L41_DEV2_NAME,
+-		.dai_name = CS35L41_CODEC_DAI,
+-	},
+-	{
+-		.name = CS35L41_DEV3_NAME,
+-		.dai_name = CS35L41_CODEC_DAI,
+-	},
+-};
++static struct snd_soc_dai_link_component cs35l41_components[CS35L41_MAX_AMPS];
+ 
+ /*
+  * Mapping between ACPI instance id and speaker position.
+- *
+- * Four speakers:
+- *         0: Tweeter left, 1: Woofer left
+- *         2: Tweeter right, 3: Woofer right
+  */
+-static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
+-	{
+-		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
+-		.name_prefix = "TL",
+-	},
+-	{
+-		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
+-		.name_prefix = "WL",
+-	},
+-	{
+-		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
+-		.name_prefix = "TR",
+-	},
+-	{
+-		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
+-		.name_prefix = "WR",
+-	},
+-};
++static struct snd_soc_codec_conf cs35l41_codec_conf[CS35L41_MAX_AMPS];
+ 
+ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
+ {
+@@ -117,10 +82,10 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
+ static const struct {
+ 	unsigned int rx[2];
+ } cs35l41_channel_map[] = {
+-	{.rx = {0, 1}}, /* TL */
+ 	{.rx = {0, 1}}, /* WL */
+-	{.rx = {1, 0}}, /* TR */
+ 	{.rx = {1, 0}}, /* WR */
++	{.rx = {0, 1}}, /* TL */
++	{.rx = {1, 0}}, /* TR */
+ };
+ 
+ static int cs35l41_hw_params(struct snd_pcm_substream *substream,
+@@ -175,8 +140,32 @@ static const struct snd_soc_ops cs35l41_ops = {
+ 	.hw_params = cs35l41_hw_params,
+ };
+ 
++static const char * const cs35l41_name_prefixes[] = { "WL", "WR", "TL", "TR" };
++
++static const char * const cs35l41_uid_strings[] = { "0", "1", "2", "3" };
++
++static void cs35l41_compute_codec_conf(void)
++{
++	int uid;
++	struct acpi_device *adev;
++	struct device *physdev;
++
++	for (uid = 0; uid < CS35L41_MAX_AMPS; uid++) {
++		adev = acpi_dev_get_first_match_dev(CS35L41_HID, cs35l41_uid_strings[uid], -1);
++		if (!adev)
++			return;
++		physdev = get_device(acpi_get_first_physical_node(adev));
++		cs35l41_components[uid].name = dev_name(physdev);
++		cs35l41_components[uid].dai_name = CS35L41_CODEC_DAI;
++		cs35l41_codec_conf[uid].dlc.name = dev_name(physdev);
++		cs35l41_codec_conf[uid].name_prefix = cs35l41_name_prefixes[uid];
++		acpi_dev_put(adev);
++	}
++}
++
+ void cs35l41_set_dai_link(struct snd_soc_dai_link *link)
+ {
++	cs35l41_compute_codec_conf();
+ 	link->codecs = cs35l41_components;
+ 	link->num_codecs = ARRAY_SIZE(cs35l41_components);
+ 	link->init = cs35l41_init;
+-- 
+2.34.1
 
-> +static struct snd_pcm_hw_constraint_list es8326_constraints = {
-> +	.count = ARRAY_SIZE(es8326_rates),
-> +	.list = es8326_rates,
-> +};
-> +
-> +static int es8326_set_dai_sysclk(struct snd_soc_dai *codec_dai,
-> +				 int clk_id, unsigned int freq, int dir)
-> +{
-> +	struct snd_soc_component *codec = codec_dai->component;
-> +	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(codec);
-> +
-> +	es8326->sysclk = freq;
-> +
-> +	if (freq == 0) {
-> +		es8326->sysclk_constraints->list = NULL;
-> +		es8326->sysclk_constraints->count = 0;
-> +		return 0;
-> +	}
-> +
-> +	es8326->sysclk_constraints = &es8326_constraints;
-
-Nothing ever restores the constraints if a clock is specified again, and
-in general it's odd that the enable/disable don't match up - if we're
-setting variable constraints I'd expect that in the freq == 0 case we
-should be setting ->sysclk_constraints to NULL rather than the contents.
-Indeed, we'll segfault here if the frequency is set to 0 without having
-first been set to some actual value.  It's also bad to modify static
-data potentially shared between multiple instances of the device in a
-system.
-
-Having said all that though I'm not clear why we're doing this
-constraint stuff at all, we never reference sysclk_constraints during
-startup and teardown and you'd usually do this because you want to set
-constraints that depend on the sysclk but this is just a constant set of
-constraints that should be set in the DAI desription.
-
-> +	if (coeff >= 0) {
-> +		regmap_write(es8326->regmap,  ES8326_CLK_DIV1_04,
-> +			     coeff_div[coeff].reg4);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_DIV2_05,
-> +			     coeff_div[coeff].reg5);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_DLL_06,
-> +			     coeff_div[coeff].reg6);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_MUX_07,
-> +			     coeff_div[coeff].reg7);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_ADC_SEL_08,
-> +			     coeff_div[coeff].reg8);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_DAC_SEL_09,
-> +			     coeff_div[coeff].reg9);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_ADC_OSR_0A,
-> +			     coeff_div[coeff].rega);
-> +		regmap_write(es8326->regmap,  ES8326_CLK_DAC_OSR_0B,
-> +			     coeff_div[coeff].regb);
-> +	}
-
-This will just leave the divider setup at whatever they were last set at
-if we don't get a value which given the names of the registers I suspect
-won't go too well, it'd be better to print a warning just in case.
-
-> +	regmap_write(es8326->regmap, ES8326_INT_SOURCE_58, 0x08);
-> +	regmap_write(es8326->regmap, ES8326_INTOUT_IO_59, 0x45);
-
-This really does look like board specific configuration which should
-come from DT.
-
---LlQEx/YUHbT7YwWA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLf75QACgkQJNaLcl1U
-h9Ca6wf9F6IsX1jykGyGTMPOx0Z7JLCC3eCFWZMe2bF7n1bm18s+BLWKRa1wubD8
-kdbk9c43t1fBdDZ9egXT+LQT8vGFqXHuJAAafy1DdiGONLYpWKvoFLiko0InioFw
-+h73Ip54nIgywCvajE8cqmzJ2cNLK60qYk6pbsaqMr6Xe13z3j4i6o6lIUKpYO4O
-1UY9vGTbi3kibHEh8hcDNvxJPVZXYdQwl11q3jLE4V3Shiawb52l0b9Mr1Vq1q28
-K826iAJseC4qTy5ZlIFanrRwCrNUUzQJndtNnHUrQvcCGE07jtoH9dtdh2If3mvo
-YGCBQ5QvD6rkpzkZZlgw2utwpVLCKA==
-=ZL8T
------END PGP SIGNATURE-----
-
---LlQEx/YUHbT7YwWA--

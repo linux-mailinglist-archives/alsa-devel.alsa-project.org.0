@@ -2,94 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A6B58140D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95264581464
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:45:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F71E15E5;
-	Tue, 26 Jul 2022 15:18:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F71E15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32082AE8;
+	Tue, 26 Jul 2022 15:44:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32082AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658841585;
-	bh=72KPcTc9qgkUq28qh2yNrajpqFWWTqZPmZvHKFDySok=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658843102;
+	bh=mEDN3weHgupnH4A2/+C+Z4+HPL6fCzrzHtbPdOWWPOo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tiVKNERQYWzHivuUBQFugdjC2fK/u5VXWddqYozFi7vB2fGqgfJSlsY/Xx8G8J7xS
-	 rqWylzbchF3OGraGmXi9OGS65kZ5tkYk47XH46K/3M0BMCYyuYC4Db544LRTYVzyVj
-	 EiEv3n/8sNAa0TrzKkg2Ax7dnr37ZQeDvrG68UT0=
+	b=GzhoprAVkG7rHiUBEyvrgOrNPIFqaMhp0kDnMhyiP4fPC0V3+SHApuict/0dzFwHU
+	 V0qjOSt6gILW27W8YhJVTf27YUMkNHBZsmSIslEp8KjSCMLUy2bnpove5tnzjFHMlk
+	 mhIfNx7Om/yRyMCyQATiBrwoGiWImjsRhHzcS20Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23CB6F80544;
-	Tue, 26 Jul 2022 15:18:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A54D9F80271;
+	Tue, 26 Jul 2022 15:44:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B90CEF80544; Tue, 26 Jul 2022 15:18:18 +0200 (CEST)
+ id 5A80EF8025A; Tue, 26 Jul 2022 15:44:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A919F80238
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:18:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A919F80238
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED199F80153
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:43:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED199F80153
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="o1HzOE9l"
-Received: by mail-pg1-x52e.google.com with SMTP id f11so13115089pgj.7
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 06:18:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=y1MIWnHCM+GAst9qr5uT5FWNOFAzzBmNsrQ4ccKB8sg=;
- b=o1HzOE9lUNVPGwqVE2FDPK2rOjOpLpgApfnD7kpTCXkG8EI30Vq5i13MZ5OMR8Zdt7
- AE/awwN36Dj98SubOLFQHyBF3uRf+JNhy3NHAhJeYbzg4g8BmHAlkWxZt9nLkCs3DvaR
- KnwK32oVM5srGEDtPXYIeqb4rkvKzy5XVYTN0yyb1oSIuv71yXS7NtvVHBlGKzZcC10C
- Ku2MMd0GNgyyFDIqKwz+LcDZLW0Sy/3KZ1Ra8emHI2m0YK+18myNaJUbEn6R2/ZIH1TZ
- peZJ5H1mXP6eDGyhRSG1rKEUCOcKy9rc6gO/7WJUusQGqNYF/oMsZT4RHLldnVA89kJr
- qwNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=y1MIWnHCM+GAst9qr5uT5FWNOFAzzBmNsrQ4ccKB8sg=;
- b=C4+BmXoDjFrWdGru0jpz5AFHj9JGXeygqhIjrkXQ1cjamK6eUw8GO1t9AWzemNYGN5
- wsus3P5pIt5OxFOmKdvz1LMn0z/UJ/65jCPh0Jc1NcZ8CoTPgwgEcuOFpueMJOkCLLK6
- Mz8qhrWnyJYNw/wHFKH+2thrMLZb+eXQ7De/3MKfI4gHTe0lpOTdZiEg+TaaQnU+EZ84
- oefoUQhSSPVSsCdkwRgsKg1Tz0Kc2YrxWMejjg25bqUp2L4punxj4Rz/Ky2aaoqui3n1
- gukUTvTldP3l1gJwLPhieoatWZwtq15qg82dooVhWnvXWhJt0UxJ1WzO9J7YlgCDq8IE
- jhTg==
-X-Gm-Message-State: AJIora80wr5xdBVUOL2du1uJkQqyCf3CXUwB5bD4AnVFXtOg5MF3HwaN
- kLfBHylgP8+/xh7r+BIxgWR4cVVDBvZC6JelVvs=
-X-Google-Smtp-Source: AGRyM1vYo1jZTJrNdxAIRCKJQ9eRaZlRJ156Fc326My3lXKm/sEHa+Rib2ZfX54N27PMqc2QQOOsuQ==
-X-Received: by 2002:a05:6a00:21c5:b0:52b:fc9c:295b with SMTP id
- t5-20020a056a0021c500b0052bfc9c295bmr8184968pfj.56.1658841489433; 
- Tue, 26 Jul 2022 06:18:09 -0700 (PDT)
-Received: from a-VirtualBox.tendawifi.com ([101.224.225.209])
- by smtp.gmail.com with ESMTPSA id
- ru6-20020a17090b2bc600b001f229f8d7bdsm11227459pjb.16.2022.07.26.06.18.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 06:18:09 -0700 (PDT)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 2/2] ASoC: dt-bindings: Add Everest ES8326 audio CODEC
-Date: Tue, 26 Jul 2022 21:17:47 +0800
-Message-Id: <20220726131747.127992-2-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220726131747.127992-1-zhuning0077@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="fDYzXd82"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 30D3DB81649;
+ Tue, 26 Jul 2022 13:43:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D10C433C1;
+ Tue, 26 Jul 2022 13:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658843034;
+ bh=mEDN3weHgupnH4A2/+C+Z4+HPL6fCzrzHtbPdOWWPOo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fDYzXd824a1BboA59GcWAdiwnp7qM0Prk7f7JoA8wAxnUVqUHnba8SxG79B+jEDXj
+ 9ZwxYw29hDvjmRQZaiwO1eRqHbcwaSyTRL3KYzST8ihmLjOb99Y+qsgIe1rwqFuYaQ
+ AO3R9esauTdfoC9MlpeMaDv4nVgcBTiU9LzAUMPqEo68JsujwQOp0vuiOTRjwVv/l2
+ kOP/sze03Su2JKFEHv0ZmPeAU0jDK8M7Qq5Ssbv5IsenL2sFYYlf3NL2EABLiu9j28
+ TWFW1vm61Jun7ZiWT39pHLBiRnDH43Z0Bkofg0Z8dcR8K8nHP0vVaJWhL45IltdN7u
+ 7FfOvsoBzxPbg==
+Date: Tue, 26 Jul 2022 14:43:49 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhu Ning <zhuning0077@gmail.com>
+Subject: Re: [PATCH v3 1/2] ASoC: codecs: add support for ES8326
+Message-ID: <Yt/vlUZ+07/a1pcC@sirena.org.uk>
 References: <20220726131747.127992-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Cc: robh@kernel.org, ckeepax@opensource.cirrus.com,
- Zhu Ning <zhuning0077@gmail.com>, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org,
- Zhu Ning <zhuning@everest-semi.com>, David Yang <yangxiaohua@everest-semi.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LlQEx/YUHbT7YwWA"
+Content-Disposition: inline
+In-Reply-To: <20220726131747.127992-1-zhuning0077@gmail.com>
+X-Cookie: All rights reserved.
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ devicetree@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, Zhu Ning <zhuning@everest-semi.com>,
+ David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,108 +88,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add device tree binding documentation for Everest ES8326
 
-Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
-Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
----
- .../bindings/sound/everest,es8326.yaml        | 84 +++++++++++++++++++
- 1 file changed, 84 insertions(+)
- create mode 100755 Documentation/devicetree/bindings/sound/everest,es8326.=
-yaml
+--LlQEx/YUHbT7YwWA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8326.yaml b/=
-Documentation/devicetree/bindings/sound/everest,es8326.yaml
-new file mode 100755
-index 000000000000..f6aa3c03d456
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
-@@ -0,0 +1,84 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)=0D
-+%YAML 1.2=0D
-+---=0D
-+$id: http://devicetree.org/schemas/sound/everest,es8326.yaml#=0D
-+$schema: http://devicetree.org/meta-schemas/core.yaml#=0D
-+=0D
-+title: Everest ES8326 audio CODEC=0D
-+=0D
-+maintainers:=0D
-+  - David Yang <yangxiaohua@everest-semi.com>=0D
-+=0D
-+properties:=0D
-+  compatible:=0D
-+    const: everest,es8326=0D
-+=0D
-+  reg:=0D
-+    maxItems: 1=0D
-+=0D
-+  clocks:=0D
-+    items:=0D
-+      - description: clock for master clock (MCLK)=0D
-+=0D
-+  clock-names:=0D
-+    items:=0D
-+      - const: mclk=0D
-+=0D
-+  "#sound-dai-cells":=0D
-+    const: 0=0D
-+=0D
-+  everest,jack-pol:=0D
-+    description:=0D
-+      just the value of reg 57. Bit(3) decides whether the jack polarity i=
-s inverted.=0D
-+      Bit(2) decides whether the bottom on the headset is inverted.=0D
-+      Bit(1)/(0) decides the mic properity to be OMTP/CTIA or auto.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0=0D
-+    maximum: 0x0f=0D
-+    default: 0x0f=0D
-+  =0D
-+  everest,mic1-src:=0D
-+    description:=0D
-+      the value of reg 2A when headset plugged.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0x00=0D
-+    maximum: 0x77=0D
-+    default: 0x22=0D
-+=0D
-+  everest,mic2-src:=0D
-+    description:=0D
-+      the value of reg 2A when headset unplugged.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0x00=0D
-+    maximum: 0x77=0D
-+    default: 0x44=0D
-+=0D
-+  everest,jack-detect-inverted:=0D
-+    description:=0D
-+      Defined to invert the jack detection.=0D
-+    $ref: /schemas/types.yaml#/definitions/flag=0D
-+=0D
-+required:=0D
-+  - compatible=0D
-+  - reg=0D
-+  - "#sound-dai-cells"=0D
-+=0D
-+=0D
-+additionalProperties: false=0D
-+=0D
-+examples:=0D
-+  - |=0D
-+    i2c0 {=0D
-+      #address-cells =3D <1>;=0D
-+      #size-cells =3D <0>;=0D
-+      es8326: codec@19 {=0D
-+        compatible =3D "everest,es8326";=0D
-+        reg =3D <0x19>;=0D
-+        clocks =3D <&clks 10>;=0D
-+        clock-names =3D "mclk";=0D
-+        #sound-dai-cells =3D <0>;=0D
-+        everest,mic1-src =3D [22];=0D
-+        everest,mic2-src =3D [44];=0D
-+        everest,jack-pol =3D [0e];=0D
-+      };=0D
-+    };=0D
---=20
-2.36.1
+On Tue, Jul 26, 2022 at 09:17:46PM +0800, Zhu Ning wrote:
 
+> +static struct snd_pcm_hw_constraint_list es8326_constraints = {
+> +	.count = ARRAY_SIZE(es8326_rates),
+> +	.list = es8326_rates,
+> +};
+> +
+> +static int es8326_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+> +				 int clk_id, unsigned int freq, int dir)
+> +{
+> +	struct snd_soc_component *codec = codec_dai->component;
+> +	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(codec);
+> +
+> +	es8326->sysclk = freq;
+> +
+> +	if (freq == 0) {
+> +		es8326->sysclk_constraints->list = NULL;
+> +		es8326->sysclk_constraints->count = 0;
+> +		return 0;
+> +	}
+> +
+> +	es8326->sysclk_constraints = &es8326_constraints;
+
+Nothing ever restores the constraints if a clock is specified again, and
+in general it's odd that the enable/disable don't match up - if we're
+setting variable constraints I'd expect that in the freq == 0 case we
+should be setting ->sysclk_constraints to NULL rather than the contents.
+Indeed, we'll segfault here if the frequency is set to 0 without having
+first been set to some actual value.  It's also bad to modify static
+data potentially shared between multiple instances of the device in a
+system.
+
+Having said all that though I'm not clear why we're doing this
+constraint stuff at all, we never reference sysclk_constraints during
+startup and teardown and you'd usually do this because you want to set
+constraints that depend on the sysclk but this is just a constant set of
+constraints that should be set in the DAI desription.
+
+> +	if (coeff >= 0) {
+> +		regmap_write(es8326->regmap,  ES8326_CLK_DIV1_04,
+> +			     coeff_div[coeff].reg4);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_DIV2_05,
+> +			     coeff_div[coeff].reg5);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_DLL_06,
+> +			     coeff_div[coeff].reg6);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_MUX_07,
+> +			     coeff_div[coeff].reg7);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_ADC_SEL_08,
+> +			     coeff_div[coeff].reg8);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_DAC_SEL_09,
+> +			     coeff_div[coeff].reg9);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_ADC_OSR_0A,
+> +			     coeff_div[coeff].rega);
+> +		regmap_write(es8326->regmap,  ES8326_CLK_DAC_OSR_0B,
+> +			     coeff_div[coeff].regb);
+> +	}
+
+This will just leave the divider setup at whatever they were last set at
+if we don't get a value which given the names of the registers I suspect
+won't go too well, it'd be better to print a warning just in case.
+
+> +	regmap_write(es8326->regmap, ES8326_INT_SOURCE_58, 0x08);
+> +	regmap_write(es8326->regmap, ES8326_INTOUT_IO_59, 0x45);
+
+This really does look like board specific configuration which should
+come from DT.
+
+--LlQEx/YUHbT7YwWA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLf75QACgkQJNaLcl1U
+h9Ca6wf9F6IsX1jykGyGTMPOx0Z7JLCC3eCFWZMe2bF7n1bm18s+BLWKRa1wubD8
+kdbk9c43t1fBdDZ9egXT+LQT8vGFqXHuJAAafy1DdiGONLYpWKvoFLiko0InioFw
++h73Ip54nIgywCvajE8cqmzJ2cNLK60qYk6pbsaqMr6Xe13z3j4i6o6lIUKpYO4O
+1UY9vGTbi3kibHEh8hcDNvxJPVZXYdQwl11q3jLE4V3Shiawb52l0b9Mr1Vq1q28
+K826iAJseC4qTy5ZlIFanrRwCrNUUzQJndtNnHUrQvcCGE07jtoH9dtdh2If3mvo
+YGCBQ5QvD6rkpzkZZlgw2utwpVLCKA==
+=ZL8T
+-----END PGP SIGNATURE-----
+
+--LlQEx/YUHbT7YwWA--

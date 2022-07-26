@@ -2,94 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A779E5816BC
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 17:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FA05581714
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 18:14:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 545EF836;
-	Tue, 26 Jul 2022 17:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 545EF836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2514615F9;
+	Tue, 26 Jul 2022 18:13:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2514615F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658850466;
-	bh=CinCPkk98sd5AAYVtTz3sRZqjx7IhAofLioyomG0Ni0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658852079;
+	bh=lBXBlTt8of9ENP47XpLIyjUVRBGhosFykkx8XUx780Y=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uBJaJw1AvVC2n1JOuZ6mS5Op2h6eyerTkRRQY/yEAghHvShcV95qssUu7BbCs3RyW
-	 vmS7HsbK10SYItCjbzb4X7THP2wJOjMBUhUIawgHJtHqInmlKimUTsw4JmwwqOxe1W
-	 z2VDEpx6GXTsFjbLz+tY6v3XQz3ALRPDpLDepVIE=
+	b=m36pfGykTo3jYCU8uHjy+is8MaAuQn4URIdHs36dfaVvBOP0XfwXJlOcEgMXLL+1G
+	 qD0XC2/xRlrvXajat1M7ZuRQtrGc246JVQJuWle3HHCsvR1hVk40umdF684g6ZVRJq
+	 HSv1RHUiF4+aTbEKnxb6CnUv5OjwKxOkDLsR0E3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0D03F800FA;
-	Tue, 26 Jul 2022 17:46:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EE72F80155;
+	Tue, 26 Jul 2022 18:13:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9002FF8025A; Tue, 26 Jul 2022 17:46:44 +0200 (CEST)
+ id F1E85F8025A; Tue, 26 Jul 2022 18:13:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71714F800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 17:46:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71714F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F6C3F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 18:13:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F6C3F800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xxWc56g+"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bAr20cBQ"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="M/KOBOQN"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 414D838071;
- Tue, 26 Jul 2022 15:46:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658850396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aIlQ+lIneOAkAkTafeucoNWIdYRQNPe6TwJPpW9sMbw=;
- b=xxWc56g+Wrss0jmeyr1T+3QSxScX3ltUgwV6eiRPJV74aof1hcu2NdZ7PnapjrTdUadVAA
- l2mFawzaRgsv14vbupCusnFL/JFVFZzAggpFY4uNU25UHRybjYwuOaI+5ZH4Wbb2ST0GdT
- GI8MkN9Bp1M6v+LSgMxAZyPXS7kZWcg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658850396;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aIlQ+lIneOAkAkTafeucoNWIdYRQNPe6TwJPpW9sMbw=;
- b=bAr20cBQorHLkYXugJoSLlROnVBxIcv0RXKPnLNL9wjS2byYscWY1fdNTDKwVF1NMBuel3
- byyk0r0dtqT0r/Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 17DA613A7C;
- Tue, 26 Jul 2022 15:46:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MzgVBVwM4GJbXwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 26 Jul 2022 15:46:36 +0000
-Date: Tue, 26 Jul 2022 17:46:35 +0200
-Message-ID: <87y1wfq3l0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cameron Berkenpas <cam@neo-zeon.de>
-Subject: Re: [PATCH 0/2] Add support for CLSA0101
-In-Reply-To: <91e34de4-1c85-073f-9c24-ce3133394fe6@neo-zeon.de>
-References: <20220726101131.68058-1-tanureal@opensource.cirrus.com>
- <91e34de4-1c85-073f-9c24-ce3133394fe6@neo-zeon.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0142860CEE;
+ Tue, 26 Jul 2022 16:13:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F154CC433D6;
+ Tue, 26 Jul 2022 16:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658852008;
+ bh=lBXBlTt8of9ENP47XpLIyjUVRBGhosFykkx8XUx780Y=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=M/KOBOQNa7Pph72JOjmMgxacAb1zaib0xCLuFXfZXEcxJF9Z7EjoxO03lUe8XYnYo
+ rXy5Nq+9HHzedLlKUl4rH3JgkCKO4I+K8v+AQkvjoMpmbqG5GW35YpF8LS5Pzgc0uZ
+ kd9kJPx0R0D9VxXZ/iw4g+5BQ8g04YFWVphw9BR/xPdXXBn+DKlTMEC1OrJpCCTZTr
+ 12cdz2cCDe1sZbp+9OiyY3Pvurdhg1xMn/gIaUdtBTKyRVoQvcX0fK1lMGaIPniXFu
+ 7eWV0dqLsjPepdV80qeMDukZzvGSFeUgBkV587WHR8sk0yWObM+7SQvXOb/eIbLMO+
+ ZFPq51UR1BFQA==
+From: Mark Brown <broonie@kernel.org>
+To: robh+dt@kernel.org, Raphael-Xu <13691752556@139.com>
+In-Reply-To: <20220722105345.175-1-13691752556@139.com>
+References: <20220722105345.175-1-13691752556@139.com>
+Subject: Re: [PATCH v7] ASoc: dt-bindings: tas2780: remove tas2780 and will
+ merge it to tas27xx
+Message-Id: <165885200667.210393.7730933722595002390.b4-ty@kernel.org>
+Date: Tue, 26 Jul 2022 17:13:26 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+X-Mailer: b4 0.10.0-dev-c7731
+Cc: kevin-lu@ti.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ shenghao-ding@ti.com, raphael-xu@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,43 +87,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Jul 2022 17:35:49 +0200,
-Cameron Berkenpas wrote:
+On Fri, 22 Jul 2022 18:53:45 +0800, Raphael-Xu wrote:
+> remove tas2780
 > 
-> Hello,
 > 
-> I can confirm this does _not_ work.
-> 
-> More specifically, with these patches, the original behavior still occurs:
-> 1. You get left channel audio from the right speaker only.
-> 2. No sound at all after resuming from sleep.
-> 3. You get sound after resuming from hibernate, but only as described in #1.
-> 
-> If you apply a patch like this: https://paste-bin.xyz/71355
-> 
-> You  get properly working audio until you put the laptop to sleep or
-> hibernate. Upon resuming from either state, you get no audio at all.
 
-OK, then let's drop them for now.
-Thanks for quick heads up.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
 
-> 
-> On 7/26/22 03:11, Lucas Tanure wrote:
-> > Add Support for the CLSA0101 laptop, an Intel version of CLSA0100.
-> > This patch has been tested using the CLSA0100, ensuring it
-> > doesn't break the sound for it.
-> > We appreciate it if someone with CLSA0101 could verify that this
-> > the patch works for them.
-> > 
-> > Lucas Tanure (2):
-> >    ALSA: hda: cs35l41: Use the CS35L41 HDA internal define
-> >    ALSA: hda: cs35l41: Support CLSA0101
-> > 
-> >   sound/pci/hda/cs35l41_hda.c   | 67 +++++++++++++++++++++--------------
-> >   sound/pci/hda/patch_realtek.c | 12 +++++++
-> >   2 files changed, 53 insertions(+), 26 deletions(-)
-> > 
-> 
+[1/1] ASoc: dt-bindings: tas2780: remove tas2780 and will merge it to tas27xx
+      commit: 7209344223f77311aee677ea820a93b9ba0bcae0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126C8580EE2
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 10:27:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B416E580FC9
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 11:22:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A693D85D;
-	Tue, 26 Jul 2022 10:26:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A693D85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0828E839;
+	Tue, 26 Jul 2022 11:21:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0828E839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658824036;
-	bh=72KPcTc9qgkUq28qh2yNrajpqFWWTqZPmZvHKFDySok=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658827335;
+	bh=qpI/jYh8wmGecYAt6qT8gmbiPkJFDRtgWzXV59vxohg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EzT5repOb4llUrTAWRiaPhOzyvZCMqvApeX+blxcZZw7sGk75hpRrtr+eDp1/WosK
-	 NkNZkdpnSCd9Re9mWGIXuRMf6uza8/BY75jRot+zQAcr6Sn7MIMqXAFq9SCCkZsL/+
-	 gOFriqRT1vfzu/XIIAs0B81pLa1ra1BR+4dH9RwY=
+	b=id26q8tJfR8J2Av4XWSyZOMS1KaIOFnzS9gWhMywOp+YBC2vPJgUvgiwFnAIQl93p
+	 8UCBg2Tp58BzBYI/qgs3CCuof7OT6TMf2244fbaCXNK1RXaCw2dHBT/fDHrVxDWqTD
+	 WFdxSedECM1x7qqPqwuAkib66UhuGSJMw030CeM4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E55A6F80548;
-	Tue, 26 Jul 2022 10:25:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69A37F80271;
+	Tue, 26 Jul 2022 11:21:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F9FDF80544; Tue, 26 Jul 2022 10:25:51 +0200 (CEST)
+ id AE1ABF8025A; Tue, 26 Jul 2022 11:21:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3740CF80153
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 10:25:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3740CF80153
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89620F80153
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 11:21:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89620F80153
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hCAMyRX5"
-Received: by mail-pf1-x436.google.com with SMTP id d10so12609534pfd.9
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 01:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=y1MIWnHCM+GAst9qr5uT5FWNOFAzzBmNsrQ4ccKB8sg=;
- b=hCAMyRX5bwda3HXY2lwU+EyjnGLlHgZuasVDr5bzLtOmT92o+1ZiT80LTsgMOvs+vs
- mN6ge2XpEOKH632dXkeQ0tk1tUB8/31iZAnEblxpLRuEZSy71aD/HU1CxuMIfvylCzXv
- FCDkObDuVWq5PeBij4QUGg+Z0gASZST6Xsvrh4T409gkuDMSXlWEvvnc/G8a4ofNR7LJ
- FRGmFtYRQt0eL2qVh9hslZcfL+r/VSsQMBf2RB19g5unRdFViVyZAuNbr1lm8nmyZ1zM
- aZZFRma1hhxZCOW8JXa1J/CgAeXXkIWp/y83NiTLK87R468kiPd0O+npRtWwMrfCxbFA
- wfRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=y1MIWnHCM+GAst9qr5uT5FWNOFAzzBmNsrQ4ccKB8sg=;
- b=uJsU/wzLCf5/i9eP1OAtD8BLQV9vZttuqjS235JYY1HQDNOnye7i7tmm+1hoN9CzQ5
- pOwMyjxzKInx8q17rN9cu0uQbZ55qnVHCgV5efG/uUrRRDzrWny7fdR6jqeTtCpv5iEh
- 1aylYT7XmhxdOeSqWN63W/bB9PlwMwOG/fzbyYKjruD4m1yBqmmtU2WDQCYtLZsuFL08
- e8hz8JuoiNwWP+QMdgeHhUJcKLf+zHjLgF3yQnuLHsZQRazuDewZC6dgiHXHqgFBpTel
- Sxd13+JWSMzk2OB7GyDJAdn+1F04UY/doxXoUagfi+qdik4ledtvsfhrcWXdzBeVQyxm
- MXcA==
-X-Gm-Message-State: AJIora+VNQLTI3litEc/pNri7s02rUOBVcqrxodp9RAw3Gohar0gcUYp
- S2OUNS1hD5yzIl7v8G+WrVDmW9fGBuQiJi9c73I=
-X-Google-Smtp-Source: AGRyM1ssGcNsC1CNCZvW1Q+AUnTwTpJEiPoGQ8vm7stODtUF5C2WfXk/WXWB3akQBRNsSkhTPvIKoA==
-X-Received: by 2002:a63:1a09:0:b0:415:fa9a:ae57 with SMTP id
- a9-20020a631a09000000b00415fa9aae57mr13725105pga.181.1658823938419; 
- Tue, 26 Jul 2022 01:25:38 -0700 (PDT)
-Received: from a-VirtualBox.. ([116.233.75.140])
- by smtp.gmail.com with ESMTPSA id
- q3-20020a170902a3c300b0016c6a6d8967sm10783991plb.83.2022.07.26.01.25.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 01:25:37 -0700 (PDT)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/2] ASoC: dt-bindings: Add Everest ES8326 audio CODEC
-Date: Tue, 26 Jul 2022 16:25:06 +0800
-Message-Id: <20220726082505.125267-2-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220726082505.125267-1-zhuning0077@gmail.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="DvKXLvHY"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26Q5xlKR018505;
+ Tue, 26 Jul 2022 04:21:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=qL9VQHI6gHzerfDG4MXQcGSbkPxboMLFC/IpYFesMYs=;
+ b=DvKXLvHYwJVrQWdSRifJIE9+BxaquQTUgjWEGM4ehWgRIiCW3UjbgI11WN4KxmiiAb3J
+ uPaM6tipShonTeEz/Juh+He0WVVPq7mbllDzKqV+XNE4ZzdL9sH9u+/CUE+E69yxHEYn
+ lR9LtiuQNIsbq64xnCr2iZzLV2tNhG0dXp2emXXR9sjcTGox8WgGTVldY/ZMgAMBYlhG
+ 0fF7Y/sGEE9Np13hyKwfqR6IDjTcEnShHkxzYcBTDIf3hz9XOH16YHhRgI9TkaICUoT4
+ CZ68TKcg50huLZEAhvRjQ9UsYn+k7XdysYVkz/oQILy9qisdRZNYwVrtdbt5FXN37PB+ Aw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hgddp37sa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jul 2022 04:21:00 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Tue, 26 Jul
+ 2022 04:20:58 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1118.9 via Frontend Transport; Tue, 26 Jul 2022 04:20:58 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B3D78B06;
+ Tue, 26 Jul 2022 09:20:58 +0000 (UTC)
+Date: Tue, 26 Jul 2022 09:20:58 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Zhu Ning <zhuning0077@gmail.com>
+Subject: Re: [PATCH v2 1/2] ASoC: codecs: add support for ES8326
+Message-ID: <20220726092058.GG92394@ediswmail.ad.cirrus.com>
 References: <20220726082505.125267-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Cc: robh@kernel.org, ckeepax@opensource.cirrus.com,
- Zhu Ning <zhuning0077@gmail.com>, devicetree@vger.kernel.org,
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220726082505.125267-1-zhuning0077@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: H_y6NjnjQwwRj69qykbYqBPLToxbXjja
+X-Proofpoint-ORIG-GUID: H_y6NjnjQwwRj69qykbYqBPLToxbXjja
+X-Proofpoint-Spam-Reason: safe
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org,
  Zhu Ning <zhuning@everest-semi.com>, David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -105,108 +100,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add device tree binding documentation for Everest ES8326
+On Tue, Jul 26, 2022 at 04:25:05PM +0800, Zhu Ning wrote:
+> The ES8326 codec is not compatible with ES8316 and requires a dedicated driver.
+> 
+> Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
+> Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
+> -----
+> +static const struct snd_soc_component_driver soc_component_dev_es8326 = {
+> +	.probe		= es8326_probe,
+> +	.remove		= es8326_remove,
+> +	.resume		= es8326_resume,
+> +	.suspend	= es8326_suspend,
+> +	.set_bias_level = es8326_set_bias_level,
+> +	.set_jack	= es8326_set_jack,
+> +	.dapm_widgets	= es8326_dapm_widgets,
+> +	.num_dapm_widgets	= ARRAY_SIZE(es8326_dapm_widgets),
+> +	.dapm_routes		= es8326_dapm_routes,
+> +	.num_dapm_routes	= ARRAY_SIZE(es8326_dapm_routes),
+> +	.controls		= es8326_snd_controls,
+> +	.num_controls		= ARRAY_SIZE(es8326_snd_controls),
+> +	.use_pmdown_time	= 1,
+> +	.endianness		= 1,
+> +	.non_legacy_dai_naming	= 1,
 
-Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
-Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
----
- .../bindings/sound/everest,es8326.yaml        | 84 +++++++++++++++++++
- 1 file changed, 84 insertions(+)
- create mode 100755 Documentation/devicetree/bindings/sound/everest,es8326.=
-yaml
+The non_legacy_dai_naming flag has been removed, you will get
+this behaviour by default now.
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8326.yaml b/=
-Documentation/devicetree/bindings/sound/everest,es8326.yaml
-new file mode 100755
-index 000000000000..f6aa3c03d456
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
-@@ -0,0 +1,84 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)=0D
-+%YAML 1.2=0D
-+---=0D
-+$id: http://devicetree.org/schemas/sound/everest,es8326.yaml#=0D
-+$schema: http://devicetree.org/meta-schemas/core.yaml#=0D
-+=0D
-+title: Everest ES8326 audio CODEC=0D
-+=0D
-+maintainers:=0D
-+  - David Yang <yangxiaohua@everest-semi.com>=0D
-+=0D
-+properties:=0D
-+  compatible:=0D
-+    const: everest,es8326=0D
-+=0D
-+  reg:=0D
-+    maxItems: 1=0D
-+=0D
-+  clocks:=0D
-+    items:=0D
-+      - description: clock for master clock (MCLK)=0D
-+=0D
-+  clock-names:=0D
-+    items:=0D
-+      - const: mclk=0D
-+=0D
-+  "#sound-dai-cells":=0D
-+    const: 0=0D
-+=0D
-+  everest,jack-pol:=0D
-+    description:=0D
-+      just the value of reg 57. Bit(3) decides whether the jack polarity i=
-s inverted.=0D
-+      Bit(2) decides whether the bottom on the headset is inverted.=0D
-+      Bit(1)/(0) decides the mic properity to be OMTP/CTIA or auto.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0=0D
-+    maximum: 0x0f=0D
-+    default: 0x0f=0D
-+  =0D
-+  everest,mic1-src:=0D
-+    description:=0D
-+      the value of reg 2A when headset plugged.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0x00=0D
-+    maximum: 0x77=0D
-+    default: 0x22=0D
-+=0D
-+  everest,mic2-src:=0D
-+    description:=0D
-+      the value of reg 2A when headset unplugged.=0D
-+    $ref: /schemas/types.yaml#/definitions/uint8-array=0D
-+    minimum: 0x00=0D
-+    maximum: 0x77=0D
-+    default: 0x44=0D
-+=0D
-+  everest,jack-detect-inverted:=0D
-+    description:=0D
-+      Defined to invert the jack detection.=0D
-+    $ref: /schemas/types.yaml#/definitions/flag=0D
-+=0D
-+required:=0D
-+  - compatible=0D
-+  - reg=0D
-+  - "#sound-dai-cells"=0D
-+=0D
-+=0D
-+additionalProperties: false=0D
-+=0D
-+examples:=0D
-+  - |=0D
-+    i2c0 {=0D
-+      #address-cells =3D <1>;=0D
-+      #size-cells =3D <0>;=0D
-+      es8326: codec@19 {=0D
-+        compatible =3D "everest,es8326";=0D
-+        reg =3D <0x19>;=0D
-+        clocks =3D <&clks 10>;=0D
-+        clock-names =3D "mclk";=0D
-+        #sound-dai-cells =3D <0>;=0D
-+        everest,mic1-src =3D [22];=0D
-+        everest,mic2-src =3D [44];=0D
-+        everest,jack-pol =3D [0e];=0D
-+      };=0D
-+    };=0D
---=20
-2.36.1
-
+Thanks,
+Charles

@@ -2,75 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B0B65811FD
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 13:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C9B581294
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 14:00:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0D3A843;
-	Tue, 26 Jul 2022 13:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0D3A843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35B3215C1;
+	Tue, 26 Jul 2022 13:59:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35B3215C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658835138;
-	bh=CuKVHLTsrfP4RuoS+xQOvvQp2NiCHeHx4Cgj1DXuw8M=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RPW67f0jE2MbIgNwROpP8cSKBmfyyqdnpQzrqlnHnO4r/+VhmDxTPdayJ+uqc3gOn
-	 JzVL8lQpHX29Ic1YXp7BJT50eHGxa3OZimC+DxW4SvYeI4KEgzsHlN+jeT5KHD9s2r
-	 T2jrbZo0YT30Cg6EGRjVCWuXxSJBPPl2IlypDbcs=
+	s=default; t=1658836831;
+	bh=WZvy09BUqvQyGGFNjyz9Dx7DNLSBPxtBMngA9bHN1qo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YcxJ7fmGk3oOqcA5F4iqJHjg4WtzYzWaIB+/9RMQfKhh6C3jB+xYXylsVyKH+FtHr
+	 nWRRZ6XY18glea9oF8gLkPZVH2+sJeqrp+O06ZkeNqJmcsvDYs6rYcK17W4nITWrHN
+	 NQ/kV5e2WvzKXquywANcfvRg0ZxizCOiawgR6JlY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7295BF80539;
-	Tue, 26 Jul 2022 13:30:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95DE3F80153;
+	Tue, 26 Jul 2022 13:59:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E630EF80155; Tue, 26 Jul 2022 13:30:45 +0200 (CEST)
+ id 0AD13F8025A; Tue, 26 Jul 2022 13:59:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DD82F800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 13:30:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD82F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93C19F80155
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 13:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C19F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Tgli/tZL"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E6641B81608;
- Tue, 26 Jul 2022 11:30:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB94C341C0;
- Tue, 26 Jul 2022 11:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658835040;
- bh=CuKVHLTsrfP4RuoS+xQOvvQp2NiCHeHx4Cgj1DXuw8M=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Tgli/tZLWdwbA9DowozRItw+Sx1zKhTM8Ky7SJDqTb3sKIL4Z7sLL6K96fjdPo/r3
- 6YR5o8NvLzCqBVR3F9FsuSgstW+uSPMRSyAaPaIXcLlmINN3GWc0XXrFasx6dkgbsc
- hq/r1LJ9ZKw7t9l9gXXB97T0peVJqocWZA/mBRHtbNc+fHxyJXKkVUlFgYIFQoJ4a2
- n+vJ+B+PsJCAfiFfVSzdju+buvj+KPc/AmGIaMky8g37eW3YlULhMlhmlDc1TmZ0f0
- +8lpl3DhntwPA3q/t18KEJhPRkVEP4gvzju/ujtX9UfhtdxKgg7IeqrhL5prk5Uqis
- zadiZQDFre0Ww==
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20220725195343.145603-1-pierre-louis.bossart@linux.intel.com>
-References: <20220725195343.145603-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: SOF: minor updates for 5.20
-Message-Id: <165883503969.86475.6560928147582916261.b4-ty@kernel.org>
-Date: Tue, 26 Jul 2022 12:30:39 +0100
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="YpYQNziS"
+Received: by mail-lf1-x135.google.com with SMTP id bf9so22203090lfb.13
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 04:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nbbLcikMYE+MXnxTE0IyRsnB8YfOQz4wU6j1hL6TVU8=;
+ b=YpYQNziSNDPi/wCGg+oi9mzB1khFmS1f2mCTeoJv0v+/BzUYE7V6QinXkBB2EbTgL2
+ +iuqpbaCJbr7n8q126iTIFdfdWCQGPSYMVVS29YYOJ70C/G+y/Y4TOqG+pKs02DXXJdv
+ frRe28nip5IbgU1wkNVKaAx3ZU7UyVouxxESfuSjnSKg0OpNEiVOBEUoyb1WioxMY/XD
+ vR9/BKAHjQX06WNHLQtBhhokf6sS+VkM3W7IM7+AgnjRJ74ULeDs7cAiMXAXQSmk+0hX
+ cqNYcdjQPqp4Dsx3frEJ46+TaXnhug5COomcA2T65UcW73Ioqzf6feEy88o8nnSg/rKZ
+ 0orA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nbbLcikMYE+MXnxTE0IyRsnB8YfOQz4wU6j1hL6TVU8=;
+ b=lJYvUJ/J5i/WFQGHdalfYmxPAua3KgkqxyAOaC49t9ZeEp0+QOiBVoJhQO68OuSP59
+ KxGgBs0qQ8pqzncdBIr8urKXOLIUbLsXmLo4gv4WXdYvWjxOeadshz4nAJ3FgFAEhDnn
+ 2GouiJfeKg9GT0ethHfiZGZoTUdhsmNWoBo6/2N7a1zmncOW6E6VDj6adPfht84ipIjz
+ 7kmY6kU7x5cdEz5vyu3ULD8rfLPyyPZ4kiEj9qd+bvX6hz4YY97xTP8FDIWpvGPhLwVQ
+ h8iCwgVRj3DZeqPxhMa9QTswNuJQPoDj/9Q42wkBG6km3jzBFpUAJrfp4Bhq7eTgejBy
+ EQpA==
+X-Gm-Message-State: AJIora+IBIDuEkJWda2uDeh69sHbzU3gCXFR2Udfuo5fDmvY9r2Q6dnH
+ zKYejkShmYz3B+4oXuSunW0lrg==
+X-Google-Smtp-Source: AGRyM1v35pQlIFP8uSIuV2zi3VN9h5Rd7ZWXuyHKdh5pu2MYS3VHcv19oFsTnHfEbYATIMcatndESw==
+X-Received: by 2002:a05:6512:44b:b0:48a:855e:266a with SMTP id
+ y11-20020a056512044b00b0048a855e266amr4488849lfk.23.1658836760485; 
+ Tue, 26 Jul 2022 04:59:20 -0700 (PDT)
+Received: from krzk-bin.lan (78-26-46-173.network.trollfjord.no.
+ [78.26.46.173]) by smtp.gmail.com with ESMTPSA id
+ t4-20020a192d44000000b0048a751c966dsm2697050lft.224.2022.07.26.04.59.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Jul 2022 04:59:20 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: qcom,
+ wcd934x: use absolute path to other schema
+Date: Tue, 26 Jul 2022 13:59:17 +0200
+Message-Id: <20220726115917.101371-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-c7731
-Cc: tiwai@suse.de
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,46 +107,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jul 2022 14:53:40 -0500, Pierre-Louis Bossart wrote:
-> One sanity check for SSP index reported by NHLT/BIOS and two updates for
-> Mediatek and Intel Chromebooks related to already-merged firmware
-> changes.
-> 
-> Ideally this should go in 5.20, time-permitting.
-> 
-> Brent Lu (1):
->   ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK_AON bit
-> 
-> [...]
+Absolute path to other DT schema is preferred over relative one.
 
-Applied to
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
+index 9b225dbf8b79..8ca19f2b0b3d 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
+@@ -127,7 +127,7 @@ properties:
+ 
+   gpio@42:
+     type: object
+-    $ref: ../gpio/qcom,wcd934x-gpio.yaml#
++    $ref: /schemas/gpio/qcom,wcd934x-gpio.yaml#
+ 
+ patternProperties:
+   "^.*@[0-9a-f]+$":
+-- 
+2.34.1
 
-Thanks!
-
-[1/3] ASoC: SOF: Intel: hda: add sanity check on SSP index reported by NHLT
-      commit: e51699505042fb365df3a0ce68b850ccd9ad0108
-[2/3] ASoC: SOF: Add cont_update_posn to platform parameters
-      commit: d95610a1832993c539be22f0ec3ea8e34a29acff
-[3/3] ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK_AON bit
-      commit: af468aadf00485a2f5e804fe97db4731bc7a9c24
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

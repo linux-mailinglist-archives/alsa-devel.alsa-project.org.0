@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F5815813DE
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:08:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B618E5813E2
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 15:09:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A42C1F7;
-	Tue, 26 Jul 2022 15:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A42C1F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BC9A15DC;
+	Tue, 26 Jul 2022 15:08:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BC9A15DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658840938;
-	bh=5vfyw6yYUChKtbkAcEWjo+xF7Z5H41jAaN5AzeKRx2k=;
+	s=default; t=1658840968;
+	bh=BZmZhFMvhLCfzVe94NTIXknZfxg09pwJ9ByOmnsT3gU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vuRlra6PpUXAuRJ/mzQ3niCQAVVWtSM3DAIrKvp1y0HleI4Z1FxbgyuoG+RMEpsm4
-	 YvMhjb8vqT0axOgA+aawOTHl4aS6cy2MfX/p90SrIGhYo1Hl1fdmneBO07sbjnwS6T
-	 XTCuNhrDHz2+J114o5Q68p4PAX/+pyULnbJAGhU8=
+	b=XW1ohh99MSXtd4MS2Va76otjP5/bt92fvL9yQoVO6KGfRZVBp7yqIobleOP8Om8Sf
+	 ilIXR8q8Dw+wA3D6Cc1FEZD5r8yhlhglZ9mB/DN4EY1zW+5TDIEEkdx3vWJnA2nOwQ
+	 Dt8lK34a/+653c0bHih6CpkefrBZQuSeg0sdfXng=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BF77F80271;
-	Tue, 26 Jul 2022 15:07:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EE37F80539;
+	Tue, 26 Jul 2022 15:07:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 453A7F804C3; Tue, 26 Jul 2022 15:07:55 +0200 (CEST)
+ id 52CC2F8025A; Tue, 26 Jul 2022 15:07:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F8ACF800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F8ACF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1232CF80153
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 15:07:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1232CF80153
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Lk2wM3hv"
+ header.b="lmDZxIKq"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0EF4761565;
- Tue, 26 Jul 2022 13:07:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F5CC341C0;
- Tue, 26 Jul 2022 13:07:41 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 41AE761559;
+ Tue, 26 Jul 2022 13:07:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2880C341C8;
+ Tue, 26 Jul 2022 13:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658840863;
- bh=5vfyw6yYUChKtbkAcEWjo+xF7Z5H41jAaN5AzeKRx2k=;
+ s=k20201202; t=1658840865;
+ bh=BZmZhFMvhLCfzVe94NTIXknZfxg09pwJ9ByOmnsT3gU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Lk2wM3hvB6R5/WDi+JTMbybV/pYDB37LDcZdS09RdSOhYvbSGczbGOGybzA8WeZUM
- NTqvLEDqAhj6794beBR5Q4LbnPufwDHJiWnodiAam6HYyFAFqhcwbHzkYv90nN/b/7
- jn85qFZ0D6KOmlMAG4Y0YvDTWTMCtYgPTkjYoMdFGXVXDp4M3bMvpEmnL/ZiuYuyfv
- WhV2k6oacwVh78KQ747XCYcC48oO0Zm63tIKqUrqruDyDcod/GiUb8T5QiP6YmJFUN
- 0Ur1ArUc3Ein84cjsB9MAlITPoxUVRGA3g9D3MsHZXQk1vHmszH/6P+atkb5YWkFYa
- 0eNjxI2KauDfg==
+ b=lmDZxIKquK0sZqC17xEg183oakX/provokEGWmoKdwdMwjXP+0KfY9ggxIuKmXJkj
+ BYEIJbqUCJKXUZxZT4PiyPjSfMoNUmS6VoD60zT38EE+HeC5o2eNs9apFLpwOiMon9
+ PF5k/qX5x7/74H5IoXKlKatJ7EKL1Tx28OswV58LhTsyqYYhpjkCiMJGb3pU6WDQPB
+ jx/h22t6v9srB68kmhDvH5NyVruMgO64EZ91N4Gz0ZBbutD8PGV94O5kdjvl02Fa68
+ 7GVR7cZv2l2BxUh+jQA/DpmTI49jNBPBfbj97QS7W//2jT/dWRTqzsK1bYu5pKVRQ5
+ MeSQl1Qs2xFhA==
 From: Mark Brown <broonie@kernel.org>
 To: tiwai@suse.com, lgirdwood@gmail.com, alexandre.belloni@bootlin.com,
  perex@perex.cz, nicolas.ferre@microchip.com, 
  Claudiu Beznea <claudiu.beznea@microchip.com>
-In-Reply-To: <20220725101130.1780393-1-claudiu.beznea@microchip.com>
-References: <20220725101130.1780393-1-claudiu.beznea@microchip.com>
-Subject: Re: [PATCH 0/5] ASoC: atmel: one fix and few cleanups
-Message-Id: <165884086146.21705.600847037457505702.b4-ty@kernel.org>
-Date: Tue, 26 Jul 2022 14:07:41 +0100
+In-Reply-To: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
+References: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
+Subject: Re: [PATCH v2 0/5] ASoC: atmel: one fix and few cleanups
+Message-Id: <165884086364.21705.11925129890328770083.b4-ty@kernel.org>
+Date: Tue, 26 Jul 2022 14:07:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -87,20 +87,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 25 Jul 2022 13:11:25 +0300, Claudiu Beznea wrote:
+On Mon, 25 Jul 2022 16:09:20 +0300, Claudiu Beznea wrote:
 > The series adds one fix for mchp-spdifrx and few cleanups for
 > mchp-spdifrx and mchp-spdifrx drivers.
 > 
 > Thank you,
 > Claudiu Beznea
 > 
-> Claudiu Beznea (5):
->   ASoC: mchp-spdifrx: disable end of block interrupt on failures
->   ASoC: mchp-spdifrx: use single tag indent for structure
->   ASoC: mchp-spdiftx: remove references to mchp_i2s_caps
->   ASoC: mchp-spdiftx: return directly ret
->   ASoC: mchp-spdiftx: add and remove black line around
->     MODULE_DEVICE_TABLE()
+> Changes in v2:
+> - s/tag/tab in the title of patch 2/5
 > 
 > [...]
 
@@ -112,8 +107,8 @@ Thanks!
 
 [1/5] ASoC: mchp-spdifrx: disable end of block interrupt on failures
       (no commit info)
-[2/5] ASoC: mchp-spdifrx: use single tag indent for structure
-      (no commit info)
+[2/5] ASoC: mchp-spdifrx: use single tab indent for structure
+      commit: 24e89d6d7da52f8678dc111ffb0ae3590b678ef0
 [3/5] ASoC: mchp-spdiftx: remove references to mchp_i2s_caps
       (no commit info)
 [4/5] ASoC: mchp-spdiftx: return directly ret

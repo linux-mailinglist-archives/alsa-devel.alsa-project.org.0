@@ -2,89 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B416E580FC9
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 11:22:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5A25810D9
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 12:12:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0828E839;
-	Tue, 26 Jul 2022 11:21:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0828E839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29E9084B;
+	Tue, 26 Jul 2022 12:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29E9084B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658827335;
-	bh=qpI/jYh8wmGecYAt6qT8gmbiPkJFDRtgWzXV59vxohg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1658830331;
+	bh=ogVKEyH2n6wMwdJQk64NIQ0QlsvgWIhFyxyWcaMBLaM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=id26q8tJfR8J2Av4XWSyZOMS1KaIOFnzS9gWhMywOp+YBC2vPJgUvgiwFnAIQl93p
-	 8UCBg2Tp58BzBYI/qgs3CCuof7OT6TMf2244fbaCXNK1RXaCw2dHBT/fDHrVxDWqTD
-	 WFdxSedECM1x7qqPqwuAkib66UhuGSJMw030CeM4=
+	b=HGZj5JwdR1HJAWtQyCLo1BH2OPEh/UKnMCu3zC9OsNDanLxuCxERdKRBEHY0ZNbEv
+	 Tz9NWoj9tYF+V02pvM0iJVq5Snlbw95dw8jYCNEGaVQD94FPou0x6SlE8HDbXLU4iD
+	 ZvMWRjLE7jGvUfUDuu11411D29Gklca27DjWQUUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69A37F80271;
-	Tue, 26 Jul 2022 11:21:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3D04F80271;
+	Tue, 26 Jul 2022 12:11:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE1ABF8025A; Tue, 26 Jul 2022 11:21:11 +0200 (CEST)
+ id 6981FF8025A; Tue, 26 Jul 2022 12:11:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4115BF800FA
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 12:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4115BF800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uPMPk00K"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89620F80153
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 11:21:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89620F80153
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="DvKXLvHY"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26Q5xlKR018505;
- Tue, 26 Jul 2022 04:21:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=qL9VQHI6gHzerfDG4MXQcGSbkPxboMLFC/IpYFesMYs=;
- b=DvKXLvHYwJVrQWdSRifJIE9+BxaquQTUgjWEGM4ehWgRIiCW3UjbgI11WN4KxmiiAb3J
- uPaM6tipShonTeEz/Juh+He0WVVPq7mbllDzKqV+XNE4ZzdL9sH9u+/CUE+E69yxHEYn
- lR9LtiuQNIsbq64xnCr2iZzLV2tNhG0dXp2emXXR9sjcTGox8WgGTVldY/ZMgAMBYlhG
- 0fF7Y/sGEE9Np13hyKwfqR6IDjTcEnShHkxzYcBTDIf3hz9XOH16YHhRgI9TkaICUoT4
- CZ68TKcg50huLZEAhvRjQ9UsYn+k7XdysYVkz/oQILy9qisdRZNYwVrtdbt5FXN37PB+ Aw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hgddp37sa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jul 2022 04:21:00 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Tue, 26 Jul
- 2022 04:20:58 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1118.9 via Frontend Transport; Tue, 26 Jul 2022 04:20:58 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B3D78B06;
- Tue, 26 Jul 2022 09:20:58 +0000 (UTC)
-Date: Tue, 26 Jul 2022 09:20:58 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Zhu Ning <zhuning0077@gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: codecs: add support for ES8326
-Message-ID: <20220726092058.GG92394@ediswmail.ad.cirrus.com>
-References: <20220726082505.125267-1-zhuning0077@gmail.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0A7D9B8122F;
+ Tue, 26 Jul 2022 10:10:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C61C341C0;
+ Tue, 26 Jul 2022 10:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658830255;
+ bh=ogVKEyH2n6wMwdJQk64NIQ0QlsvgWIhFyxyWcaMBLaM=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=uPMPk00K6JphqqEuwMR2fgOgr8BEkA20bhMx47J1UOOpD9XX7yhNXbWnds8MaBOAS
+ Bt7wUHkQwZL+/f+NTxv3BPQa1naZ3n1+zPOEeLL6QGnM6pNd1X/6CSPrzk0u/j2P8i
+ EsXASVsHHzQZCbltIe9vG9MfBlO2De0ItFwM2e7O1/IQsNCM8/Ae+IDcqNCHomBDbx
+ VFGpleNa7lKhfc5q3L/uHBusc4kR89fSf7/5W3xHKWHGmVfzxVCDjdylNW676/YCR0
+ 1EHHuEvq+fof6pwWnyqPhr8bjH3IrFgQr5vVoDK5rHu0Df7hnnxHDR/TwMifxqBNnF
+ IuYyOjipJ34mw==
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ steve@sk2.org, alsa-devel@alsa-project.org, 
+ perex@perex.cz, ryans.lee@analog.com, Ryan Lee <ryan.lee.analog@gmail.com>
+In-Reply-To: <20220723015220.4169-1-ryans.lee@analog.com>
+References: <20220723015220.4169-1-ryans.lee@analog.com>
+Subject: Re: [PATCH] ASoC: max98373: Removing 0x203E from the volatile reg
+Message-Id: <165883025392.54936.4365512627715267394.b4-ty@kernel.org>
+Date: Tue, 26 Jul 2022 11:10:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220726082505.125267-1-zhuning0077@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: H_y6NjnjQwwRj69qykbYqBPLToxbXjja
-X-Proofpoint-ORIG-GUID: H_y6NjnjQwwRj69qykbYqBPLToxbXjja
-X-Proofpoint-Spam-Reason: safe
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org,
- Zhu Ning <zhuning@everest-semi.com>, David Yang <yangxiaohua@everest-semi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-c7731
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,31 +86,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 26, 2022 at 04:25:05PM +0800, Zhu Ning wrote:
-> The ES8326 codec is not compatible with ES8316 and requires a dedicated driver.
+On Fri, 22 Jul 2022 18:52:20 -0700, Ryan Lee wrote:
+> The 0x203E speaker gain register should be non-volatile.
+> This register value was not able to be synced because it was marked as
+> volatile.
 > 
-> Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
-> Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
-> -----
-> +static const struct snd_soc_component_driver soc_component_dev_es8326 = {
-> +	.probe		= es8326_probe,
-> +	.remove		= es8326_remove,
-> +	.resume		= es8326_resume,
-> +	.suspend	= es8326_suspend,
-> +	.set_bias_level = es8326_set_bias_level,
-> +	.set_jack	= es8326_set_jack,
-> +	.dapm_widgets	= es8326_dapm_widgets,
-> +	.num_dapm_widgets	= ARRAY_SIZE(es8326_dapm_widgets),
-> +	.dapm_routes		= es8326_dapm_routes,
-> +	.num_dapm_routes	= ARRAY_SIZE(es8326_dapm_routes),
-> +	.controls		= es8326_snd_controls,
-> +	.num_controls		= ARRAY_SIZE(es8326_snd_controls),
-> +	.use_pmdown_time	= 1,
-> +	.endianness		= 1,
-> +	.non_legacy_dai_naming	= 1,
+> 
 
-The non_legacy_dai_naming flag has been removed, you will get
-this behaviour by default now.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: max98373: Removing 0x203E from the volatile reg
+      commit: bd1963d837a082e1083cd396803d3d263a9ef68b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528D85810DE
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 12:12:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA46581168
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Jul 2022 12:46:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0AC485D;
-	Tue, 26 Jul 2022 12:11:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0AC485D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1585F15C3;
+	Tue, 26 Jul 2022 12:45:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1585F15C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658830370;
-	bh=aSCHI1NHCj5q+lgDDhTLBz2NIly5uG9vM9Ws8ooP+II=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658832405;
+	bh=nbaVwL4kXjzhCUBIrQX/hG3/Kht2aI2sNMsVa672Ivc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oaia4pfIr4ymRfKOqQPDznvfJEsg2EuHahQ2g+5frB9yIX8xk85F6aCWWN6Gcofth
-	 Bk/1lLDzM5cXJpFi39y4dbwnkCbQt0R7OKKtFNUUuj6a64hlhYK/aWTbov+MNIHYra
-	 vdndW6ATtsS1KZTPzS73p5sw1+ypEglyM5u+X/DU=
+	b=KCPPMlFaB8gz4XD7lwTeMTKCA4tQDX2UdFSQqfNPtuIHok0jaxIYDmBCeBfZbhj1i
+	 /E6YKhlPfvq7Vhgqz88GINI8EzgS3l9R6moymx+eFw6A40HH+MEH1jg47/8Yb9ijVw
+	 EwyOOcPiBkk/jJz5F3egszFScTVAGbhSGVQ7H/FE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5764EF80539;
-	Tue, 26 Jul 2022 12:11:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87750F800FA;
+	Tue, 26 Jul 2022 12:45:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC4D7F804FD; Tue, 26 Jul 2022 12:11:46 +0200 (CEST)
+ id E0EB0F80155; Tue, 26 Jul 2022 12:45:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A288F80155
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 12:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A288F80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XxOLpDEZ"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF3CEF8025A
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 12:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF3CEF8025A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="MmAJsIDa"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26Q7EUxi002774;
- Tue, 26 Jul 2022 05:11:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=J6a4T8pQxftHI75LH/Irjoxs38fV4yY7RSYMSSab9K4=;
- b=MmAJsIDayach9umbmhJxpygRVzvMiS9BP51/7B3oqLpASHXkV4Xu51AowBqnKQfccPuY
- PDt3NndaCfaqeDVQ8LiQXGB6yRzNurOH/l7SHp6gjfViUS/zcTiMkevRHHmeNfUCaIAq
- XlXiG1fgNF69cDQGZkvgfTyXxHgfXZD9W85yU1jrRZoJHOJkyTi8kEVEWWFEmYGD7ITB
- 1yyQ6M5p91h5mwEKOMky8eZ4YDKdhyFw9A5I/R0gD+hdg2VuMNU28p9HeZYO7HV3ioeS
- /YtrIPZiuiy8fBWK+eXRGCD5SZs5d0MmHbc03CJheox7QUbwjmapc/SfY/Rx3aCr68qs YA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3hged1ub6f-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jul 2022 05:11:38 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Tue, 26 Jul
- 2022 05:11:35 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1118.9 via Frontend Transport; Tue, 26 Jul 2022 05:11:35 -0500
-Received: from aryzen.ad.cirrus.com (unknown [198.61.65.94])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BFD722C5;
- Tue, 26 Jul 2022 10:11:35 +0000 (UTC)
-From: Lucas Tanure <tanureal@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Cameron
- Berkenpas <cam@neo-zeon.de>
-Subject: [PATCH 2/2] ALSA: hda: cs35l41: Support CLSA0101
-Date: Tue, 26 Jul 2022 11:11:31 +0100
-Message-ID: <20220726101131.68058-3-tanureal@opensource.cirrus.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220726101131.68058-1-tanureal@opensource.cirrus.com>
-References: <20220726101131.68058-1-tanureal@opensource.cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9A6FCB811F9;
+ Tue, 26 Jul 2022 10:45:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D251C341C0;
+ Tue, 26 Jul 2022 10:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1658832336;
+ bh=nbaVwL4kXjzhCUBIrQX/hG3/Kht2aI2sNMsVa672Ivc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XxOLpDEZYuQ9XfYA65yY3O2OtXyOKXgUy9DqmCAwmF2ysmC/2KBkogK6CeMrrESGR
+ tFTsHI2EfF4r2GClYoGqrj3ayZdqOvNdaR7hHEDz4cmC1Ws5Ivjg2Dqyf750ROG22e
+ LguP347esIRLrWyY8sRpdaBRJs4H9AuxPM6CL9j9rjyvoH0411YEChpWd7IDeXLyyX
+ aAQykjNgPasrtLHvNT3IDWbk08cJXJQ4loBdfZep4NzG6LazZGAKqx3n8z37fBP8qG
+ BAU1A/dAy2COPUzcZRTBx8QxfOMTfsm518kd6wIr3VVnbGRjmbYgBAKLsFXXdOXoXz
+ Ov8F7odvyihqg==
+Date: Tue, 26 Jul 2022 11:45:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [PATCH v2 1/5] ASoC: mchp-spdifrx: disable end of block
+ interrupt on failures
+Message-ID: <Yt/Fy1xWUHtpbGMn@sirena.org.uk>
+References: <20220725130925.1781791-1-claudiu.beznea@microchip.com>
+ <20220725130925.1781791-2-claudiu.beznea@microchip.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: qMB8JG4mIG_t3gyNHuQ7TjYZvBgoSvf9
-X-Proofpoint-ORIG-GUID: qMB8JG4mIG_t3gyNHuQ7TjYZvBgoSvf9
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="b+XP6nxpxfg5BBfu"
+Content-Disposition: inline
+In-Reply-To: <20220725130925.1781791-2-claudiu.beznea@microchip.com>
+X-Cookie: Save energy:  Drive a smaller shell.
+Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, nicolas.ferre@microchip.com,
+ tiwai@suse.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,149 +90,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for Intel version of Legion 7 laptop.
 
-Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
----
- sound/pci/hda/cs35l41_hda.c   | 66 +++++++++++++++++++++--------------
- sound/pci/hda/patch_realtek.c | 12 +++++++
- 2 files changed, 52 insertions(+), 26 deletions(-)
+--b+XP6nxpxfg5BBfu
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 48d94c683b75..6edf95553745 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1133,6 +1133,45 @@ static int cs35l41_get_speaker_id(struct device *dev, int amp_index,
- 	return speaker_id;
- }
- 
-+/*
-+ * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the label reset won't work.
-+ * And devices created by serial-multi-instantiate don't have their device struct
-+ * pointing to the correct fwnode, so acpi_dev must be used here.
-+ * And devm functions expect that the device requesting the resource has the correct
-+ * fwnode.
-+ */
-+static int cs35l41_no_acpi_dsd(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+			       const char *hid)
-+{
-+	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
-+
-+	/* check I2C address to assign the index */
-+	cs35l41->index = id == 0x40 ? 0 : 1;
-+	cs35l41->channel_index = 0;
-+	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
-+	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, 0, 0, 2);
-+	hw_cfg->spk_pos = cs35l41->index;
-+	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
-+	hw_cfg->gpio2.valid = true;
-+	hw_cfg->valid = true;
-+	put_device(physdev);
-+
-+	if (strncmp(hid, "CLSA0100", 8) == 0) {
-+		hw_cfg->bst_type = CS35L41_EXT_BOOST_NO_VSPK_SWITCH;
-+	} else if (strncmp(hid, "CLSA0101", 8) == 0) {
-+		hw_cfg->bst_type = CS35L41_EXT_BOOST;
-+		hw_cfg->gpio1.func = CS35l41_VSPK_SWITCH;
-+		hw_cfg->gpio1.valid = true;
-+	} else {
-+		hw_cfg->valid = false;
-+		hw_cfg->gpio1.valid = false;
-+		hw_cfg->gpio2.valid = false;
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, int id)
- {
- 	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
-@@ -1161,7 +1200,7 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	property = "cirrus,dev-index";
- 	ret = device_property_count_u32(physdev, property);
- 	if (ret <= 0)
--		goto no_acpi_dsd;
-+		return cs35l41_no_acpi_dsd(cs35l41, physdev, id, hid);
- 
- 	if (ret > ARRAY_SIZE(values)) {
- 		ret = -EINVAL;
-@@ -1255,31 +1294,6 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	dev_err(cs35l41->dev, "Failed property %s: %d\n", property, ret);
- 
- 	return ret;
--
--no_acpi_dsd:
--	/*
--	 * Device CLSA0100 doesn't have _DSD so a gpiod_get by the label reset won't work.
--	 * And devices created by serial-multi-instantiate don't have their device struct
--	 * pointing to the correct fwnode, so acpi_dev must be used here.
--	 * And devm functions expect that the device requesting the resource has the correct
--	 * fwnode.
--	 */
--	if (strncmp(hid, "CLSA0100", 8) != 0)
--		return -EINVAL;
--
--	/* check I2C address to assign the index */
--	cs35l41->index = id == 0x40 ? 0 : 1;
--	cs35l41->hw_cfg.spk_pos = cs35l41->index;
--	cs35l41->channel_index = 0;
--	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
--	cs35l41->hw_cfg.bst_type = CS35L41_EXT_BOOST_NO_VSPK_SWITCH;
--	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, 0, 0, 2);
--	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
--	hw_cfg->gpio2.valid = true;
--	cs35l41->hw_cfg.valid = true;
--	put_device(physdev);
--
--	return 0;
- }
- 
- int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int irq,
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 0e340c0934db..65fd3e599a83 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6710,6 +6710,12 @@ static void alc287_fixup_legion_16achg6_speakers(struct hda_codec *cdc, const st
- 	cs35l41_generic_fixup(cdc, action, "i2c", "CLSA0100", 2);
- }
- 
-+static void alc287_fixup_legion_16ithg6_speakers(struct hda_codec *cdc, const struct hda_fixup *fix,
-+						 int action)
-+{
-+	cs35l41_generic_fixup(cdc, action, "i2c", "CLSA0101", 2);
-+}
-+
- /* for alc295_fixup_hp_top_speakers */
- #include "hp_x360_helper.c"
- 
-@@ -7047,6 +7053,7 @@ enum {
- 	ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED,
- 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
- 	ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE,
-+	ALC287_FIXUP_LEGION_16ITHG6,
- };
- 
- /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -8889,6 +8896,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
- 	},
-+	[ALC287_FIXUP_LEGION_16ITHG6] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_legion_16ithg6_speakers,
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -9353,6 +9364,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x384a, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
- 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
- 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
- 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
--- 
-2.37.1
+On Mon, Jul 25, 2022 at 04:09:21PM +0300, Claudiu Beznea wrote:
 
+> +++ b/sound/soc/atmel/mchp-spdifrx.c
+> @@ -288,15 +288,17 @@ static void mchp_spdifrx_isr_blockend_en(struct mch=
+p_spdifrx_dev *dev)
+>  	spin_unlock_irqrestore(&dev->blockend_lock, flags);
+>  }
+> =20
+> -/* called from atomic context only */
+> +/* called from atomic/non-atomic context */
+>  static void mchp_spdifrx_isr_blockend_dis(struct mchp_spdifrx_dev *dev)
+>  {
+> -	spin_lock(&dev->blockend_lock);
+> +	unsigned int flags;
+> +
+> +	spin_lock_irqsave(&dev->blockend_lock);
+>  	dev->blockend_refcount--;
+>  	/* don't enable BLOCKEND interrupt if it's already enabled */
+>  	if (dev->blockend_refcount =3D=3D 0)
+>  		regmap_write(dev->regmap, SPDIFRX_IDR, SPDIFRX_IR_BLOCKEND);
+> -	spin_unlock(&dev->blockend_lock);
+> +	spin_unlock_irqrestore(&dev->blockend_lock);
+>  }
+
+This breaks an x86_64 allmodconfig build:
+
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c: In function =E2=80=98mch=
+p_spdifrx_isr_blockend_dis=E2=80=99:
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:296:46: error: macro "spi=
+n_lock_irqsave" requires 2 arguments, but only 1 given
+  296 |         spin_lock_irqsave(&dev->blockend_lock);
+      |                                              ^
+In file included from /build/stage/linux/include/linux/rwsem.h:15,
+                 from /build/stage/linux/include/linux/notifier.h:15,
+                 from /build/stage/linux/include/linux/clk.h:14,
+                 from /build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:9:
+/build/stage/linux/include/linux/spinlock.h:377: note: macro "spin_lock_irq=
+save" defined here
+  377 | #define spin_lock_irqsave(lock, flags)                          \
+      |=20
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:296:9: error: =E2=80=98sp=
+in_lock_irqsave=E2=80=99 undeclared (first use in this function); did you m=
+ean =E2=80=98spin_lock_irq=E2=80=99?
+  296 |         spin_lock_irqsave(&dev->blockend_lock);
+      |         ^~~~~~~~~~~~~~~~~
+      |         spin_lock_irq
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:296:9: note: each undecla=
+red identifier is reported only once for each function it appears in
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:301:9: error: too few arg=
+uments to function =E2=80=98spin_unlock_irqrestore=E2=80=99
+  301 |         spin_unlock_irqrestore(&dev->blockend_lock);
+      |         ^~~~~~~~~~~~~~~~~~~~~~
+In file included from /build/stage/linux/include/linux/rwsem.h:15,
+                 from /build/stage/linux/include/linux/notifier.h:15,
+                 from /build/stage/linux/include/linux/clk.h:14,
+                 from /build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:9:
+/build/stage/linux/include/linux/spinlock.h:402:29: note: declared here
+  402 | static __always_inline void spin_unlock_irqrestore(spinlock_t *lock=
+, unsigned long flags)
+      |                             ^~~~~~~~~~~~~~~~~~~~~~
+/build/stage/linux/sound/soc/atmel/mchp-spdifrx.c:294:22: error: unused var=
+iable =E2=80=98flags=E2=80=99 [-Werror=3Dunused-variable]
+  294 |         unsigned int flags;
+      |                      ^~~~~
+cc1: all warnings being treated as errors
+
+--b+XP6nxpxfg5BBfu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLfxcoACgkQJNaLcl1U
+h9AMAQf/ZTHs18/rfqRU4HJc6KLOkajyRypWYU9T41QMxDa2A/tPhxvFZcVAWOlH
+gTxXGPpvcAci0LFAQVRZAB0Qwe4BIe9Bp11pbpADIIzmbRd9ibaChu2tljfssarr
+q05TE4AElzpG1OVce+KmSpxzB8AewceRojlkhnDr3FPmklhNmmKZZCKqrJIZ5rQ5
+HHbPTlO4n568YQxYoTgINEfvgTqIK/XrEpZsVRlAbw3OHbmZksnxXPi/kJRs86rd
+/USNouYj8KNr208jceC57O8uqmE7nP0dzig3OjIcNPZ+xps863Uw03nTqFfnOtIW
+uRXTrfgj80cNEWr2+ddok6ev5vf3zQ==
+=BLt+
+-----END PGP SIGNATURE-----
+
+--b+XP6nxpxfg5BBfu--

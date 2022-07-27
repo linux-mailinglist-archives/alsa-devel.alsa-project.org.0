@@ -2,89 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAB1D582071
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 08:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485435822BB
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 11:07:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59F4884B;
-	Wed, 27 Jul 2022 08:50:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F4884B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4AF584A;
+	Wed, 27 Jul 2022 11:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4AF584A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658904686;
-	bh=aRvcaGLNpW8wOdn3Oyn3uCRvPEuEac8UUVQ5hkTL4hM=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cK20qygUlpHelt+UPHcCv4VXdiViN8AaQpRTTAaIGCG8aMvgIl6ucZ6yeOws/QMUw
-	 2Jsf+7B1kiNlS6/SO4cCP7pBbOIBx81Wumr6RNt7rtX0yPXsa/PfOTRvyP07MmwYy8
-	 TrLIfjfSJ0PM/xFi5Rr+18fHDYXsmxN8PrtAl91c=
+	s=default; t=1658912827;
+	bh=YkUS4VT+nAqLrUuOLwypQQDGOIVF2886Ab8ulGKy5xk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vFZIcxVwHqePUxnjWWsEPzIQ9hDV8aWhcyTNx5+rxvl4U6MoawFU+4gKl2ciWUA2y
+	 tlFgARmrvqhCG7QhxvKtJvq/U4ugUrZsYs4SjtwTCTQaCRyT4SVXFQJjmNMjQrck1p
+	 gjLOg6meLyF0lJUFA51gDBjxG+xzGuuBIYRsRMlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6DD9F80171;
-	Wed, 27 Jul 2022 08:50:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68310F80310;
+	Wed, 27 Jul 2022 11:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7E2EF8015B; Wed, 27 Jul 2022 08:50:23 +0200 (CEST)
+ id F0AB8F8014E; Wed, 27 Jul 2022 11:06:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C39FCF8014E
- for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 08:50:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C39FCF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19784F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 11:05:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19784F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="t1OlMCG9"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9rnMWeLN"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 089F92041C
- for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658904614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xyq7LHcByybjtQmQEjTQXcUng1ZAyOrPCGTvAacK5Sk=;
- b=t1OlMCG9u0pbWt/l8wtydh6DNcLuJ4Mt67H0XtDAAR8p/KFSrZ8v+LAz0CABtU4O2G+vdr
- 7aTjxItplyFMp9YULkMUjrIDEb8M/Ns5t3W4aA1ByblOdgibsjQw2E8noCzFqr0UMlGLqu
- keuUlcVoL+NQ/E7OGCEmO8SSvjxs4iM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658904614;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xyq7LHcByybjtQmQEjTQXcUng1ZAyOrPCGTvAacK5Sk=;
- b=9rnMWeLNr2n1FpKM3cPKm26dn1qUakOPY+gX8NtG56E3zk40CqTQ1JLWEMf6dICaKvSehO
- LbksJH4eAZ92ocDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D809F13A8E
- for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kJbuMyXg4GIiAwAAMHmgww
- (envelope-from <tiwai@suse.de>)
- for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:13 +0000
-Date: Wed, 27 Jul 2022 08:50:13 +0200
-Message-ID: <87fsinoxqy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/4] ALSA: core: Add async signal helpers
-In-Reply-To: <202207270950.zWfcvyEK-lkp@intel.com>
-References: <20220726153420.3403-2-tiwai@suse.de>
- <202207270950.zWfcvyEK-lkp@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="HjeuY16+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1658912760; x=1690448760;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=YkUS4VT+nAqLrUuOLwypQQDGOIVF2886Ab8ulGKy5xk=;
+ b=HjeuY16+SEiOIdja4V+mN1GlRVPdXH3B4Y0beCS2pwH7vbK+1akauY2f
+ IqKRVgI0+KDWuk5szrcTp/nb6GVFhRBGSkjWsgNfnWv8wTKBkymmi6rKK
+ MbR2aWhjm1Jh2V+aHUAbaMsV56UprIfDxr6hm3SkyM3J6Udl0FUJ9Z+BK
+ UZTzW6svO/q1g64+HJCzVmB9HcZ9mqCIgqOmdWiCMmFyMQWJxZ5hlFOEB
+ W2OWDz2X6NUGghRLLswVtpxp1NxDawdt/pVTM5bI1T+iUuMbYfEfTsIDi
+ PGNkN1+wJk5Pn1ODRxGjGGdbApr5kVrCoLdpdIRFafn+a7tSmlepHLcY+ Q==;
+X-IronPort-AV: E=Sophos;i="5.93,195,1654585200"; d="scan'208";a="169710941"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 27 Jul 2022 02:05:52 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Wed, 27 Jul 2022 02:05:50 -0700
+Received: from localhost.localdomain (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Wed, 27 Jul 2022 02:05:48 -0700
+From: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <nicolas.ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>
+Subject: [PATCH v3 0/2] ASoC: atmel: one fix and one cleanup
+Date: Wed, 27 Jul 2022 12:08:12 +0300
+Message-ID: <20220727090814.2446111-1-claudiu.beznea@microchip.com>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,43 +92,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Jul 2022 03:14:53 +0200,
-kernel test robot wrote:
-> 
-> Hi Takashi,
-> 
-> I love your patch! Yet something to improve:
-> 
-> [auto build test ERROR on tiwai-sound/for-next]
-> [also build test ERROR on linus/master v5.19-rc8 next-20220726]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-Defer-async-signal-handling/20220726-233840
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-> config: csky-randconfig-r014-20220726 (https://download.01.org/0day-ci/archive/20220727/202207270950.zWfcvyEK-lkp@intel.com/config)
-> compiler: csky-linux-gcc (GCC) 12.1.0
-> reproduce (this is a W=1 build):
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # https://github.com/intel-lab-lkp/linux/commit/e5977c421331e16237bf3ebd283981757e03f433
->         git remote add linux-review https://github.com/intel-lab-lkp/linux
->         git fetch --no-tags linux-review Takashi-Iwai/ALSA-Defer-async-signal-handling/20220726-233840
->         git checkout e5977c421331e16237bf3ebd283981757e03f433
->         # save the config file
->         mkdir build_dir && cp config build_dir/.config
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=csky SHELL=/bin/bash sound/core/
-> 
-> If you fix the issue, kindly add following tag where applicable
-> Reported-by: kernel test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>):
-> 
->    sound/core/misc.c: In function 'snd_fasync_work_fn':
-> >> sound/core/misc.c:180:25: error: implicit declaration of function 'kill_fasync'; did you mean 'snd_kill_fasync'? [-Werror=implicit-function-declaration]
+Hi,
 
-It needs the inclusion of linux/fs.h.  Will fix up in v2 series.
+The series adds one fix for mchp-spdifrx and one cleanups for
+mchp-spdifrx and mchp-spdifrx drivers.
 
+Thank you,
+Claudiu Beznea
 
-Takashi
+Changes in v3:
+- changed cover letter title s/few/one, s/cleanups/cleanup
+- fix compilation error and warnings
+- keep only patch 1/5 and patch 3/5 from previous version as the rest
+  of them were integrated
+
+Changes in v2:
+- s/tag/tab in the title of patch 2/5
+
+Claudiu Beznea (2):
+  ASoC: mchp-spdifrx: disable end of block interrupt on failures
+  ASoC: mchp-spdiftx: remove references to mchp_i2s_caps
+
+ sound/soc/atmel/mchp-spdifrx.c | 9 ++++++---
+ sound/soc/atmel/mchp-spdiftx.c | 8 --------
+ 2 files changed, 6 insertions(+), 11 deletions(-)
+
+-- 
+2.34.1
+

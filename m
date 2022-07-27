@@ -2,93 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386E2581F77
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 07:26:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB1D582071
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 08:51:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8309D20B;
-	Wed, 27 Jul 2022 07:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8309D20B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59F4884B;
+	Wed, 27 Jul 2022 08:50:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F4884B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658899608;
-	bh=sVh6ABbamvq3k6yhY+MCoVBwmnUR+u9St2BDuFh3xS0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1658904686;
+	bh=aRvcaGLNpW8wOdn3Oyn3uCRvPEuEac8UUVQ5hkTL4hM=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uFNvHpdJ5bAbACHfupoo6WRIS9YLj/WUbYXPwgLqRhGS8WBF/S4pReEMYquTTDc2q
-	 Hbz4WXFL/qCuxK/dYMbqcaKz6o6g0BdVfxOlHEDSKBDIhVF8uEsfvEOg1A45tNVuxA
-	 PpH9UwEbA+sq7A0JhkFYY/8zyT7Ba2AAEYQvbbLc=
+	b=cK20qygUlpHelt+UPHcCv4VXdiViN8AaQpRTTAaIGCG8aMvgIl6ucZ6yeOws/QMUw
+	 2Jsf+7B1kiNlS6/SO4cCP7pBbOIBx81Wumr6RNt7rtX0yPXsa/PfOTRvyP07MmwYy8
+	 TrLIfjfSJ0PM/xFi5Rr+18fHDYXsmxN8PrtAl91c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8355F800FA;
-	Wed, 27 Jul 2022 07:25:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6DD9F80171;
+	Wed, 27 Jul 2022 08:50:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 247F7F8015B; Wed, 27 Jul 2022 07:25:45 +0200 (CEST)
+ id E7E2EF8015B; Wed, 27 Jul 2022 08:50:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A5BFF800FA
- for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 07:25:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A5BFF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id C39FCF8014E
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 08:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C39FCF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="UvMxtc8L"; 
+ header.b="t1OlMCG9"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yu0yTJPq"
+ header.b="9rnMWeLN"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1FA0820156;
- Wed, 27 Jul 2022 05:25:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 089F92041C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1658899534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1658904614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bdqmQ5p2ejZx38NuBZXzRSiBR0XeVRrw8M3dUjIZMMw=;
- b=UvMxtc8LNEj6R91u/dPgYCdwo81tvHkxZHFcc5ChPMt6KGXFEh5ZazTsiTYgGUUKdht70S
- ZBNK/V/prwer8fk6Ef/L4arzxq/Ejb6ovKOUj1HeVWAiwaHJSxXcQJ3L6UXVvE7CjDUuXU
- RpocNP/tRbeaUhXCsyS54EiRHL5+37Q=
+ bh=xyq7LHcByybjtQmQEjTQXcUng1ZAyOrPCGTvAacK5Sk=;
+ b=t1OlMCG9u0pbWt/l8wtydh6DNcLuJ4Mt67H0XtDAAR8p/KFSrZ8v+LAz0CABtU4O2G+vdr
+ 7aTjxItplyFMp9YULkMUjrIDEb8M/Ns5t3W4aA1ByblOdgibsjQw2E8noCzFqr0UMlGLqu
+ keuUlcVoL+NQ/E7OGCEmO8SSvjxs4iM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1658899534;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1658904614;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bdqmQ5p2ejZx38NuBZXzRSiBR0XeVRrw8M3dUjIZMMw=;
- b=yu0yTJPq1NYJt+Rw/fdkL6xr9Uq6K6UfnKT1yAWtwPbiJDzGYALauCC7nIMWm1vfVPDOmg
- /+0lxs6uQVVERHBA==
+ bh=xyq7LHcByybjtQmQEjTQXcUng1ZAyOrPCGTvAacK5Sk=;
+ b=9rnMWeLNr2n1FpKM3cPKm26dn1qUakOPY+gX8NtG56E3zk40CqTQ1JLWEMf6dICaKvSehO
+ LbksJH4eAZ92ocDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9A8213A7C;
- Wed, 27 Jul 2022 05:25:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D809F13A8E
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bFNyNE3M4GJjZQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 27 Jul 2022 05:25:33 +0000
-Date: Wed, 27 Jul 2022 07:25:33 +0200
-Message-ID: <87tu73p1o2.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id kJbuMyXg4GIiAwAAMHmgww
+ (envelope-from <tiwai@suse.de>)
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:50:13 +0000
+Date: Wed, 27 Jul 2022 08:50:13 +0200
+Message-ID: <87fsinoxqy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Dipanjan Das <mail.dipanjan.das@gmail.com>
-Subject: Re: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
-In-Reply-To: <CANX2M5Ywm+GpYY3+GsOWCLH24Nhy0M0LjBE-pHC8wFcd7SO=wQ@mail.gmail.com>
-References: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
- <YtuceCr5OCJcDatJ@kroah.com> <874jz82kx0.wl-tiwai@suse.de>
- <CANX2M5Ywm+GpYY3+GsOWCLH24Nhy0M0LjBE-pHC8wFcd7SO=wQ@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/4] ALSA: core: Add async signal helpers
+In-Reply-To: <202207270950.zWfcvyEK-lkp@intel.com>
+References: <20220726153420.3403-2-tiwai@suse.de>
+ <202207270950.zWfcvyEK-lkp@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, fleischermarius@googlemail.com,
- Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, consult.awy@gmail.com, syzkaller@googlegroups.com,
- its.priyanka.bose@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,56 +100,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Jul 2022 23:40:48 +0200,
-Dipanjan Das wrote:
+On Wed, 27 Jul 2022 03:14:53 +0200,
+kernel test robot wrote:
 > 
-> On Sat, Jul 23, 2022 at 3:17 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Sat, 23 Jul 2022 09:00:08 +0200,
-> > Greg KH wrote:
-> > >
-> > > Wondeful, do you have a fix for this that solves the reported problem
-> > > that you have tested with the reproducer?
-> >
-> > ... or at least more detailed information.
+> Hi Takashi,
 > 
-> Here is our analysis of the bug in the kernel v5.10.131.
+> I love your patch! Yet something to improve:
 > 
-> During allocation, the `size` of the DMA buffer is not page-aligned:
-> https://elixir.bootlin.com/linux/v5.10.131/source/sound/core/memalloc.c#L149.
-> However, in sound/core/pcm_native.c:798
-> (https://elixir.bootlin.com/linux/v5.10.131/source/sound/core/pcm_native.c#L798),
-> the `size` variable is page-aligned before memset-ing the `dma_area`.
-> >From the other BUG_ON assertions in other parts of the code, it looks
-> like the DMA area is not supposed to be equal to or greater than
-> 0x200000 bytes. However, due to page-alignment, the `size` can indeed
-> get rounded up to 0x200000 which causes the out of bound access.
+> [auto build test ERROR on tiwai-sound/for-next]
+> [also build test ERROR on linus/master v5.19-rc8 next-20220726]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
 > 
-> > Last but not least, you should check whether it's specific to your
-> > 5.10.x kernel or it's also seen with the latest upstream, too.
+> url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-Defer-async-signal-handling/20220726-233840
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+> config: csky-randconfig-r014-20220726 (https://download.01.org/0day-ci/archive/20220727/202207270950.zWfcvyEK-lkp@intel.com/config)
+> compiler: csky-linux-gcc (GCC) 12.1.0
+> reproduce (this is a W=1 build):
+>         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>         chmod +x ~/bin/make.cross
+>         # https://github.com/intel-lab-lkp/linux/commit/e5977c421331e16237bf3ebd283981757e03f433
+>         git remote add linux-review https://github.com/intel-lab-lkp/linux
+>         git fetch --no-tags linux-review Takashi-Iwai/ALSA-Defer-async-signal-handling/20220726-233840
+>         git checkout e5977c421331e16237bf3ebd283981757e03f433
+>         # save the config file
+>         mkdir build_dir && cp config build_dir/.config
+>         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=csky SHELL=/bin/bash sound/core/
 > 
-> The bug is not reproducible on the latest mainline, because in
-> sound/core/memalloc.c:66
-> (https://github.com/torvalds/linux/blob/5de64d44968e4ae66ebdb0a2d08b443f189d3651/sound/core/memalloc.c#L66)
-> the allocation function `snd_dma_alloc_dir_pages()` now page-aligns
-> the `size` right before allocating the DMA buffer. Therefore, any
-> subsequent page-alignment, like the one in `snd_pcm_hw_params()` does
-> not cause an out of bound access.
+> If you fix the issue, kindly add following tag where applicable
+> Reported-by: kernel test robot <lkp@intel.com>
+> 
+> All errors (new ones prefixed by >>):
+> 
+>    sound/core/misc.c: In function 'snd_fasync_work_fn':
+> >> sound/core/misc.c:180:25: error: implicit declaration of function 'kill_fasync'; did you mean 'snd_kill_fasync'? [-Werror=implicit-function-declaration]
 
-Thanks for the analysis.  A good news is that, at least for the
-vmalloc() case, it's a kind of false-positive; vmalloc() always takes
-the full pages, so practically seen, the size is page-aligned.  It's
-fooling the memory checker, though.
+It needs the inclusion of linux/fs.h.  Will fix up in v2 series.
 
-But the similar problem could be seen with genalloc calls, and this
-was fixed by the upstream commit
-5c1733e33c888a3cb7f576564d8ad543d5ad4a9e
-    ALSA: memalloc: Align buffer allocations in page size
-
-I suppose you can simply backport this commit to 5.10.y.  Could you
-confirm that this fixes your problem?
-
-
-thanks,
 
 Takashi

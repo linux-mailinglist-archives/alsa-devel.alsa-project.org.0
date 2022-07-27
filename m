@@ -2,73 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D2FB581F9E
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 07:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51D19581E85
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Jul 2022 06:08:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF21B1614;
-	Wed, 27 Jul 2022 07:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF21B1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9A97868;
+	Wed, 27 Jul 2022 06:07:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9A97868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658900569;
-	bh=BaNXWWFyt8OAhwYMd7BZk9if4XfVS7PbdDcVuhzK89w=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1658894888;
+	bh=tIslpZQHFFNT/K9JXOkB7aUsG71ZAPk/2bQTBwz7ToQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=asexqgHWTKHF91ZJFnEoWog2Tb4YRHgartAwEx5P8nviT8UAKvE2Y1Vi4lKlnDra7
-	 ykUNg7y6rksYWiq5J2p4KbquE5M76rUCWTSXM14/J0968sSAgbdTM3IXI6wivp7JkV
-	 fTwz0blrT4C1xcPtQoCYGScR+5FeLhDgJLXIonk0=
+	b=tasf2+0ddiJr6rGTB0pAPH+s1Z5aZl7oZLS2kGtllN/8ngmCefMUsxQW3MbiwxYsH
+	 sCmVYxwBNI+f+1FkWK4R90UOU+EqGj/jwD8agei74YecLCQpl0nCFYUdbuSuyc1Y9+
+	 QQukeB9SVInQfWj3e7uqfOKA9RSQJAtEYjBu53C0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6E0FF804DA;
-	Wed, 27 Jul 2022 07:41:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4008FF800C9;
+	Wed, 27 Jul 2022 06:07:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FB9DF804C3; Tue, 26 Jul 2022 17:36:01 +0200 (CEST)
+ id 16583F8015B; Wed, 27 Jul 2022 06:07:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [IPv6:2607:f8b0:4864:20::1132])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 855F8F800FA
- for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 17:35:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 855F8F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B8D5F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 27 Jul 2022 06:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B8D5F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
- header.b="hwHjKqLQ"
-Received: from neo-zeon.de (localhost [::1])
- by neo-zeon.de (OpenSMTPD) with ESMTP id 359904d2;
- Tue, 26 Jul 2022 08:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=message-id
- :date:mime-version:subject:to:cc:references:from:in-reply-to
- :content-type:content-transfer-encoding; s=1; bh=eSQmzwMTJyGTFWU
- 8+xC/HAoUcSc=; b=hwHjKqLQtvX6aMEmlgrDFEwCCjnMP+TNrFVXy/1irFT4sco
- dhQusQUjsbqySE89nq876HqiYJPE0VLmOuIev4cJ/oKoz0iq2McPGSM6nFLQkd9D
- QVvOfuf4TDVXrG/HFXNiouq8mEpKKVEGggZQYrYU8ItQs9u647ODy+6KSMEI=
-Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 24759ee6
- (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
- Tue, 26 Jul 2022 08:35:49 -0700 (PDT)
-Message-ID: <91e34de4-1c85-073f-9c24-ce3133394fe6@neo-zeon.de>
-Date: Tue, 26 Jul 2022 08:35:49 -0700
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KUQtujJA"
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-31f443e276fso44775187b3.1
+ for <alsa-devel@alsa-project.org>; Tue, 26 Jul 2022 21:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tIslpZQHFFNT/K9JXOkB7aUsG71ZAPk/2bQTBwz7ToQ=;
+ b=KUQtujJAjWwL90RNNQ4NGpYQsLaWmunFoO9ryhmUY4qibNJRzLDuja2VHm2YghJU/g
+ onARSXsmS8n3KUCnD77tEw+eI0pP2RlmAHqF/KICXR7Cro2Z4Rfd3DnmdlvZ7UX1gia0
+ 0AiiF3U7QM1wEDQpA+LDJ74YmJ+r5kIX/dR7/1HdzAMSL8w8HZk9qzFqvSuGhgD1lYl8
+ Ids+f7Qs8O+GhIWlu6rvn/zdRLAY34QrGHKZCwT9dfmd4jfuI8siSmDh7AMN+U2rwNG1
+ wByWrxeQcr80cJotnT1IRrAU3iFcH4x6D1M6p6Dzqc73p5lJuOMocvrlL9FfjBcBz1Hv
+ nZrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tIslpZQHFFNT/K9JXOkB7aUsG71ZAPk/2bQTBwz7ToQ=;
+ b=uc2qKJbqC7aOO9YC2LDjUPBrO80PDkKCZHNshVTg8WVcVO+dxFakYEIh55wox/Jp+6
+ ODwicWjmW/el5JLH38jKQWMb0FH7IEEM3j4FHT98Y8kmr03v2fE+wzlynVcCbPAviVua
+ Gv2y7uxZH6Cx3ZMQJSdCTIlxtbvFxX2UQJvNVNHHd+yIfL3dzSy4AQPOCb841p6PRrFp
+ 06WX5W/6oTKjVjcu3D6KTrTD+G9FU4tLSMnc5EMfRcVsh8B1BFNBWA80VR8F0V0FS4ie
+ CWKf2WYRqQ/T8EQmD2GRs88iTADilPMBrXe13NLD/82lwZsKQDWkn6NuEOFpqYH4YkCg
+ pVRQ==
+X-Gm-Message-State: AJIora+Ri9gw6mxjVfLF75w1UfZ0SqGJJyM/oFh3OncUQilHX2eVc+o+
+ ce+nVDjHOYb98REltQD16ajYl6dIr7Br22W+XMo=
+X-Google-Smtp-Source: AGRyM1vXD6mc7sPNjd40/6i06v830sQUnZYUsuoYHjtDL0+FLAMC5vERedd5qQdHzUhcz3SOFvJ/8dK/bpRZU1Ijzww=
+X-Received: by 2002:a81:1ed3:0:b0:31f:5186:91c0 with SMTP id
+ e202-20020a811ed3000000b0031f518691c0mr4441014ywe.401.1658894816509; Tue, 26
+ Jul 2022 21:06:56 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 0/2] Add support for CLSA0101
-Content-Language: en-US
-To: Lucas Tanure <tanureal@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20220726101131.68058-1-tanureal@opensource.cirrus.com>
-From: Cameron Berkenpas <cam@neo-zeon.de>
-In-Reply-To: <20220726101131.68058-1-tanureal@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 27 Jul 2022 07:41:04 +0200
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+References: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
+ <YtuceCr5OCJcDatJ@kroah.com> <874jz82kx0.wl-tiwai@suse.de>
+ <CANX2M5Ywm+GpYY3+GsOWCLH24Nhy0M0LjBE-pHC8wFcd7SO=wQ@mail.gmail.com>
+In-Reply-To: <CANX2M5Ywm+GpYY3+GsOWCLH24Nhy0M0LjBE-pHC8wFcd7SO=wQ@mail.gmail.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Date: Wed, 27 Jul 2022 06:06:45 +0200
+Message-ID: <CAKXUXMz6EmQJqKg6UNC+qD8GLUpmHfhS7OH9X6tWKpLjFpKfSg@mail.gmail.com>
+Subject: Re: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
+To: Dipanjan Das <mail.dipanjan.das@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, fleischermarius@googlemail.com,
+ Takashi Iwai <tiwai@suse.de>, Greg KH <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>, consult.awy@gmail.com,
+ syzkaller <syzkaller@googlegroups.com>, its.priyanka.bose@gmail.com,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +101,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
-
-I can confirm this does _not_ work.
-
-More specifically, with these patches, the original behavior still occurs:
-1. You get left channel audio from the right speaker only.
-2. No sound at all after resuming from sleep.
-3. You get sound after resuming from hibernate, but only as described in #1.
-
-If you apply a patch like this: https://paste-bin.xyz/71355
-
-You  get properly working audio until you put the laptop to sleep or 
-hibernate. Upon resuming from either state, you get no audio at all.
-
-On 7/26/22 03:11, Lucas Tanure wrote:
-> Add Support for the CLSA0101 laptop, an Intel version of CLSA0100.
-> This patch has been tested using the CLSA0100, ensuring it
-> doesn't break the sound for it.
-> We appreciate it if someone with CLSA0101 could verify that this
-> the patch works for them.
+On Tue, Jul 26, 2022 at 11:41 PM Dipanjan Das
+<mail.dipanjan.das@gmail.com> wrote:
 >
-> Lucas Tanure (2):
->    ALSA: hda: cs35l41: Use the CS35L41 HDA internal define
->    ALSA: hda: cs35l41: Support CLSA0101
+> On Sat, Jul 23, 2022 at 3:17 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Sat, 23 Jul 2022 09:00:08 +0200,
+> > Greg KH wrote:
+> > >
+> > > Wondeful, do you have a fix for this that solves the reported problem
+> > > that you have tested with the reproducer?
+> >
+> > ... or at least more detailed information.
 >
->   sound/pci/hda/cs35l41_hda.c   | 67 +++++++++++++++++++++--------------
->   sound/pci/hda/patch_realtek.c | 12 +++++++
->   2 files changed, 53 insertions(+), 26 deletions(-)
+> Here is our analysis of the bug in the kernel v5.10.131.
+>
+> During allocation, the `size` of the DMA buffer is not page-aligned:
+> https://elixir.bootlin.com/linux/v5.10.131/source/sound/core/memalloc.c#L149.
+> However, in sound/core/pcm_native.c:798
+> (https://elixir.bootlin.com/linux/v5.10.131/source/sound/core/pcm_native.c#L798),
+> the `size` variable is page-aligned before memset-ing the `dma_area`.
+> From the other BUG_ON assertions in other parts of the code, it looks
+> like the DMA area is not supposed to be equal to or greater than
+> 0x200000 bytes. However, due to page-alignment, the `size` can indeed
+> get rounded up to 0x200000 which causes the out of bound access.
+>
+> > Last but not least, you should check whether it's specific to your
+> > 5.10.x kernel or it's also seen with the latest upstream, too.
+>
+> The bug is not reproducible on the latest mainline, because in
+> sound/core/memalloc.c:66
+> (https://github.com/torvalds/linux/blob/5de64d44968e4ae66ebdb0a2d08b443f189d3651/sound/core/memalloc.c#L66)
+> the allocation function `snd_dma_alloc_dir_pages()` now page-aligns
+> the `size` right before allocating the DMA buffer. Therefore, any
+> subsequent page-alignment, like the one in `snd_pcm_hw_params()` does
+> not cause an out of bound access.
 >
 
+Great analysis!
+
+Now, you would just need to identify the specific commit in the
+mainline repository, where 'function `snd_dma_alloc_dir_pages()` now
+page-aligns the `size` right before allocating the DMA buffer.', and
+then ask for applying that commit to the v5.10 stable branch,
+following the guide from
+https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html.
+Greg KH and Sasha Levin are then going to let you know if that works
+or needs rework to backport.
+
+
+Lukas

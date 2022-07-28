@@ -2,49 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BDB583B85
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 11:51:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274B5583C21
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 12:36:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1352E86E;
-	Thu, 28 Jul 2022 11:50:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1352E86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F5C5950;
+	Thu, 28 Jul 2022 12:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F5C5950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659001866;
-	bh=JeZg/88XHY5SMUzEbky60bumltIsFiF9GWshwMpleTs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1659004560;
+	bh=ojVLn6sf2q+d8Rvy08v+5vb6h9b9E3ObCX3xTCxtrdQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fTSsEqDv+qEsj1A8Vi4cS3UEih+133mL4ct2wYW9x//vJdy7rw5sqDnF+IPH+136Q
-	 Nfee4g9gBQS/1Xl95R+FbTK57k8mJp27YH6rmldDOKAUSKVzpMgCTjpaRJtO/t3IT6
-	 68qsnb5sshauC9vrqvZfaP76U13XJgBvcDlI0a3I=
+	b=cPuGWdyVI8jj9eA//4LqVkCNOaXDPwXSW/QOXO5OAhgpdZ3QJWxG+cTUFTPaWlY40
+	 XRYfC2UDsxLdfkS57M8Sv/BjsVTkjsY9HKVz/pA/q6M+oWFM6k07IJ5NkBQsEHdx1M
+	 gLDc47wZ/YPNiiEg+6jGSkzByNOE43w7VYDa0oQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76C59F800FA;
-	Thu, 28 Jul 2022 11:50:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5E06F80508;
+	Thu, 28 Jul 2022 12:35:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC6EEF804EC; Thu, 28 Jul 2022 11:50:04 +0200 (CEST)
+ id EEABDF804EC; Thu, 28 Jul 2022 12:34:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=MISSING_DATE,MISSING_MID,
- NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 71583F800FA
- for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 11:49:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71583F800FA
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1659001798017374992-webhooks-bot@alsa-project.org>
-References: <1659001798017374992-webhooks-bot@alsa-project.org>
-Subject: Add correct support for Rane SL-1
-Message-Id: <20220728095004.AC6EEF804EC@alsa1.perex.cz>
-Date: Thu, 28 Jul 2022 11:50:04 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9B5BF8015B
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 12:34:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9B5BF8015B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="sF03yEIb"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="P4Roukuq"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B362320AEE;
+ Thu, 28 Jul 2022 10:34:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1659004491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=15xB0syOxpUyZLtSuSwIo1ykSjFTZ54OBZTEcJ1JHjs=;
+ b=sF03yEIbEmLKh4FG3rgx6HBm4sfXwOFDufJiJQxSvS04UV1OQ8JVZj+OaHkBGilnUQsPog
+ 7Ig1+Q49JkLxKAEFJG4nLAQDh9+dHIHNlawg9jT7+SIx3/JHMQXhImhNvgLHSKPhXydBO2
+ qgF+2uUKDHnkersI+NggaghUCnK0Kn8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1659004491;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=15xB0syOxpUyZLtSuSwIo1ykSjFTZ54OBZTEcJ1JHjs=;
+ b=P4RoukuqRFQYYDjnXnsfVbF8GhRAF5bEXd9/BKjztctPGVgEbzdZ7WRX0rcvBA1i+SnOrd
+ lzHnB20DNyTZB7DA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7680913427;
+ Thu, 28 Jul 2022 10:34:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id YqskHEtm4mIYbAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 28 Jul 2022 10:34:51 +0000
+Date: Thu, 28 Jul 2022 12:34:50 +0200
+Message-ID: <87a68tmsol.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v2 0/4] Add support for CLSA0101
+In-Reply-To: <20220727095924.80884-1-tanureal@opensource.cirrus.com>
+References: <20220727095924.80884-1-tanureal@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-acpi@vger.kernel.org,
+ "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Cameron Berkenpas <cam@neo-zeon.de>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,18 +103,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #187 was edited from christophehenry:
+On Wed, 27 Jul 2022 11:59:20 +0200,
+Lucas Tanure wrote:
+> 
+> Add Support for the CLSA0101 laptop, an Intel version of CLSA0100.
+> This patch has been tested using the CLSA0100, ensuring it
+> doesn't break the sound for it.
+> We appreciate it if someone with CLSA0101 could verify that this
+> the patch works for them.
+> 
+> Changes from V1:
+>  - Add CLSA0101 id into scan.c, serial-multi-instantiate.c
+>  and cs35l41_hda_i2c.c
+> 
+> Lucas Tanure (4):
+>   ALSA: hda: cs35l41: Use the CS35L41 HDA internal define
+>   ALSA: hda: cs35l41: Support CLSA0101
+>   ACPI: scan: Add CLSA0101 Laptop Support
+>   platform/x86: serial-multi-instantiate: Add CLSA0101 Laptop
 
-Following [this ticket](https://bugzilla.kernel.org/show_bug.cgi?id=216082) on kernel bugzilla, I'm trying to add corect support for [Rane SL-1](https://cdn.korn.eu/pictures/product/400/040506_3.jpg), an old USB soundcard featuring 2 stereo output (RCA) and 3 stereo input (2 RCA, 1 6.3mm jack).
+Applied all four patches now.  Thanks.
 
-Currently, `alsa-info.sh` does show the correct number of inputs and outputs But neither `pavucontrol` nor Mixxx do. I was told complex hardware should be described via UCM but the syntax is unfortunately very poorly documented so I can get my head around it and get `pavucontrol` to show all the inputs and outputs.
 
-Here's what I have so far which, to my disappointment, does not work. If I put only 1 `SectionDevice` section in the file, I can display 1 ouput under `pavucontrol`. With 2 `SectionDevice`, nothing shows.
-
-Without any UCM file, `pavucontrol` shows 2 outputs, 1 intputs (instead of 3) and Mixxx shows 2 outputs and not input.
-
-[The result of `alsa-info.sh` is available here](https://bugzilla.kernel.org/attachment.cgi?id=301351).
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/187
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/187.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Takashi

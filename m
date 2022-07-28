@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 274B5583C21
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 12:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF58583C87
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 12:50:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F5C5950;
-	Thu, 28 Jul 2022 12:35:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F5C5950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33C42950;
+	Thu, 28 Jul 2022 12:50:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33C42950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659004560;
-	bh=ojVLn6sf2q+d8Rvy08v+5vb6h9b9E3ObCX3xTCxtrdQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1659005456;
+	bh=c/xTkxRbWD4FTJsS0u1tXoSZ7j2nlmXNxawdaZwg6Ms=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cPuGWdyVI8jj9eA//4LqVkCNOaXDPwXSW/QOXO5OAhgpdZ3QJWxG+cTUFTPaWlY40
-	 XRYfC2UDsxLdfkS57M8Sv/BjsVTkjsY9HKVz/pA/q6M+oWFM6k07IJ5NkBQsEHdx1M
-	 gLDc47wZ/YPNiiEg+6jGSkzByNOE43w7VYDa0oQA=
+	b=kNzlZqRMx04EbmrtTfiBwvwIcHUWW1DHN4FWIwooKC0ty7iDkDLbSq11MCUqJEvCK
+	 8zQ3BXAbuqJ4K1ssbCJbV+Re3/dGHCs5bEn0RYldF71U4nWmEAq1aEs3IqP9dT9yaJ
+	 x6IFFdekiYb4wkZjT1GMxJvTf/UEIxeosr1YT+gY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5E06F80508;
-	Thu, 28 Jul 2022 12:35:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A33AEF80508;
+	Thu, 28 Jul 2022 12:49:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EEABDF804EC; Thu, 28 Jul 2022 12:34:58 +0200 (CEST)
+ id 41172F800FA; Thu, 28 Jul 2022 12:49:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9B5BF8015B
- for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 12:34:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9B5BF8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5C4BF800FA
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 12:49:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5C4BF800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="sF03yEIb"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="P4Roukuq"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EuPBj5Qb"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B362320AEE;
- Thu, 28 Jul 2022 10:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1659004491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=15xB0syOxpUyZLtSuSwIo1ykSjFTZ54OBZTEcJ1JHjs=;
- b=sF03yEIbEmLKh4FG3rgx6HBm4sfXwOFDufJiJQxSvS04UV1OQ8JVZj+OaHkBGilnUQsPog
- 7Ig1+Q49JkLxKAEFJG4nLAQDh9+dHIHNlawg9jT7+SIx3/JHMQXhImhNvgLHSKPhXydBO2
- qgF+2uUKDHnkersI+NggaghUCnK0Kn8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1659004491;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=15xB0syOxpUyZLtSuSwIo1ykSjFTZ54OBZTEcJ1JHjs=;
- b=P4RoukuqRFQYYDjnXnsfVbF8GhRAF5bEXd9/BKjztctPGVgEbzdZ7WRX0rcvBA1i+SnOrd
- lzHnB20DNyTZB7DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7680913427;
- Thu, 28 Jul 2022 10:34:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YqskHEtm4mIYbAAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 28 Jul 2022 10:34:51 +0000
-Date: Thu, 28 Jul 2022 12:34:50 +0200
-Message-ID: <87a68tmsol.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v2 0/4] Add support for CLSA0101
-In-Reply-To: <20220727095924.80884-1-tanureal@opensource.cirrus.com>
-References: <20220727095924.80884-1-tanureal@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-acpi@vger.kernel.org,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Cameron Berkenpas <cam@neo-zeon.de>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Len Brown <lenb@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 52386B823DC;
+ Thu, 28 Jul 2022 10:49:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB2EC433C1;
+ Thu, 28 Jul 2022 10:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1659005388;
+ bh=c/xTkxRbWD4FTJsS0u1tXoSZ7j2nlmXNxawdaZwg6Ms=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EuPBj5QbHdjkGUBWJJ6hQ+NZfpW65W+gjBZYMO5dwZGGQmnfViFK4YTJ0ScPf/18u
+ grSS/ZSb2vZQfDw35zgn3xdME5hLtn2SXwjhpNZnm36TtD97k7iaQhyeUcRumDc4Oe
+ YrJnFmvdtXlqPgx5sNI42r8uwYwKwT5af83+42LxTjuub/W9cUChEZGTVm/vg6vpWv
+ E0DEOhLq3ZK6X6Dy6bgNn5nnZISii6PY+wEiqjvYL7x98SeebmzUY/xbgDxUYapiCJ
+ Vi9I+7pBEPxKgCoc+jdEfKe0x6a0qlPoPVvTk/LkBIUGr8O0OV1xBnbSSBwLBgS1z9
+ 8r583cZ1J1MuQ==
+Date: Thu, 28 Jul 2022 11:49:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Subject: Re: [PATCH] ASoC: qcom: SC7280: Add support for external DMIC bias
+ supply
+Message-ID: <YuJpxSuPBB++pl/o@sirena.org.uk>
+References: <1658992233-28372-1-git-send-email-quic_srivasam@quicinc.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="19Amlz8gj2K5TooV"
+Content-Disposition: inline
+In-Reply-To: <1658992233-28372-1-git-send-email-quic_srivasam@quicinc.com>
+X-Cookie: People respond to people who respond.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
+ bgoswami@quicinc.com, quic_plai@quicinc.com, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,26 +91,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Jul 2022 11:59:20 +0200,
-Lucas Tanure wrote:
-> 
-> Add Support for the CLSA0101 laptop, an Intel version of CLSA0100.
-> This patch has been tested using the CLSA0100, ensuring it
-> doesn't break the sound for it.
-> We appreciate it if someone with CLSA0101 could verify that this
-> the patch works for them.
-> 
-> Changes from V1:
->  - Add CLSA0101 id into scan.c, serial-multi-instantiate.c
->  and cs35l41_hda_i2c.c
-> 
-> Lucas Tanure (4):
->   ALSA: hda: cs35l41: Use the CS35L41 HDA internal define
->   ALSA: hda: cs35l41: Support CLSA0101
->   ACPI: scan: Add CLSA0101 Laptop Support
->   platform/x86: serial-multi-instantiate: Add CLSA0101 Laptop
 
-Applied all four patches now.  Thanks.
+--19Amlz8gj2K5TooV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Thu, Jul 28, 2022 at 12:40:33PM +0530, Srinivasa Rao Mandadapu wrote:
 
-Takashi
+> +static int sc7280_dmic_micbias(struct snd_soc_dapm_widget *w,
+
+> +				struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_card *card = w->dapm->card;
+> +	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(card);
+> +	int ret = 0;
+> +
+
+This is open coding SND_SOC_DAPM_REGULATOR_SUPPLY() isn't it?
+
+--19Amlz8gj2K5TooV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLiacQACgkQJNaLcl1U
+h9C81gf9Ga+tG1jtopYoO2vybAFTSEv9+weEyQYVfWYlV/dr54/mFfs5thvXdkQy
+C4ZHp1P2Pvc0Zz21fKPITIZ/oUJvMHAFsUN1OvD5QDn9tXyn3QTYjnQvxuKYC9iF
+QuwAqQClFBn+VdUNev78ZC8alwfezPpz3RfFVHg6gO22v9w+tsOe6YPeZYU915is
+0jI/vXl4PYcb7PYgYp7k0Uyr7wdU8Ju6z9HqRC2KRhwasNRZjndt6XRfGF2QpybG
+VOQtO49CDUOLxdDtNfC+hu25oeI4Hi+1WVVpHxmKtzLHlraQkbRf9C94jSyS75qa
+4h/gpJnIHzoUwOmrWzLg3ZS8L/vGyA==
+=k9u9
+-----END PGP SIGNATURE-----
+
+--19Amlz8gj2K5TooV--

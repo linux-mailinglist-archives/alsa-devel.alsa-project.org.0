@@ -2,60 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2DA5837C2
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 05:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6B4583946
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Jul 2022 09:12:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C0C21657;
-	Thu, 28 Jul 2022 05:56:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C0C21657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA3F1631;
+	Thu, 28 Jul 2022 09:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA3F1631
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1658980659;
-	bh=sxwVMh/Ra+cYlUZIp5wupX/OrmGnm876oar4r+QM7no=;
+	s=default; t=1658992331;
+	bh=mejG/NDCyAjMqXkPaA1wiWAjkdJCdXOwRKPUnzLBIqM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=sjbWHrHGLTwiQXNggBYz7OQsqLj82cPzxrXjpc2SjYTJSXiddhxnErh0kTrZ3LWBt
-	 WYbTrmlRXetkEtFYok6ULVeVh/iXRbvh7ofjotztQPkTKypD1fQMRTkgldZhme09SO
-	 5MrNGiaqENptZ9SncTThsxTFEWj6nthJEibl/esc=
+	b=TTjf/IgoBTZqzWK+8MsJeDgpp+GRBuRcDRiUPSDjYX/N2yGi3n+vL3YzeG1WZwVm8
+	 B26ab1ff1stels6uDrgpKEiokj+5+0DDxAKFTf0bSgj63WW+OGl331RGXirjibrkg9
+	 cvj3k5sIoOTlAeBmPGLHKrEs6MQx9VhX9/VXchOs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5046F80508;
-	Thu, 28 Jul 2022 05:56:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C63BDF80508;
+	Thu, 28 Jul 2022 09:11:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07F08F804EC; Thu, 28 Jul 2022 05:56:38 +0200 (CEST)
+ id 77484F800FA; Thu, 28 Jul 2022 09:11:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,NO_DNS_FOR_FROM,
- SPOOFED_FREEMAIL,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from n169-113.mail.139.com (n169-113.mail.139.com [120.232.169.113])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB867F8015B
- for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 05:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB867F8015B
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from LAPTOP-39QA2GAC.localdomain (unknown[192.163.20.102])
- by rmsmtp-lg-appmail-31-12045 (RichMail) with SMTP id 2f0d62e208dbae7-16378;
- Thu, 28 Jul 2022 11:56:24 +0800 (CST)
-X-RM-TRANSID: 2f0d62e208dbae7-16378
-From: Raphael-Xu <13691752556@139.com>
-To: robh+dt@kernel.org
-Subject: [PATCH v1] ASoc: dt-bindings: tas27xx: update maximum I2C address and
- revise the format
-Date: Thu, 28 Jul 2022 11:56:10 +0800
-Message-Id: <20220728035610.158-1-13691752556@139.com>
-X-Mailer: git-send-email 2.35.1
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3D63F800FA
+ for <alsa-devel@alsa-project.org>; Thu, 28 Jul 2022 09:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3D63F800FA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="fpWgvXZb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1658992264; x=1690528264;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=R4lt1h/LtXD8XZCgX0MqvcNhHlPUrXLCVf+2J1eJ5RA=;
+ b=fpWgvXZbxxMFrl1v4hVEhSbzGqHIJJWDcLpd5Aqz5wENPhgJb1XjOoe3
+ BjNv2r0Xbl2pBXVxpIj84o6dfneOcURlnpByCjjg7haejghlk7f8PGMDP
+ IgY3whcs2er7iZVk63nLgVcGP4hQbOeVeIE/S1mi+l6KEaMBrXNs3PVq+ 4=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 28 Jul 2022 00:10:57 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2022 00:10:56 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 28 Jul 2022 00:10:55 -0700
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 28 Jul 2022 00:10:50 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH] ASoC: qcom: SC7280: Add support for external DMIC bias supply
+Date: Thu, 28 Jul 2022 12:40:33 +0530
+Message-ID: <1658992233-28372-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- shenghao-ding@ti.com, kevin-lu@ti.com, broonie@kernel.org,
- Raphael-Xu <13691752556@139.com>, raphael-xu@ti.com
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,66 +95,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1.use correct maximum I2C address 2.revise the format
+Update SC7280 machine driver for enabling external mic bias supply,
+Which is required for villager rev boards.
 
-Signed-off-by: Raphael-Xu <13691752556@139.com>
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 ---
- .../devicetree/bindings/sound/tas27xx.yaml       | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ sound/soc/qcom/sc7280.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/tas27xx.yaml b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-index 66a0df8850ea..573652577462 100644
---- a/Documentation/devicetree/bindings/sound/tas27xx.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-@@ -8,7 +8,7 @@ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
- title: Texas Instruments TAS2764/TAS2780 Smart PA
+diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
+index da7469a..6404e94 100644
+--- a/sound/soc/qcom/sc7280.c
++++ b/sound/soc/qcom/sc7280.c
+@@ -33,6 +33,7 @@ struct sc7280_snd_data {
+ 	struct snd_soc_jack hdmi_jack;
+ 	bool jack_setup;
+ 	bool stream_prepared[LPASS_MAX_PORTS];
++	struct regulator *vdd_supply;
+ };
  
- maintainers:
--  - Shenghao Ding <shenghao-ding@ti.com>
-+  - Raphael Xu <raphael-xu@ti.com>
+ static void sc7280_jack_free(struct snd_jack *jack)
+@@ -345,6 +346,24 @@ static int sc7280_snd_startup(struct snd_pcm_substream *substream)
+ 	return ret;
+ }
  
- description: |
-   The TAS2764/TAS2780 is a mono, digital input Class-D audio amplifier
-@@ -23,17 +23,19 @@ properties:
-       - ti,tas2780
++static int sc7280_dmic_micbias(struct snd_soc_dapm_widget *w,
++				struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_card *card = w->dapm->card;
++	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(card);
++	int ret = 0;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		ret = regulator_enable(data->vdd_supply);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		ret = regulator_disable(data->vdd_supply);
++		break;
++	}
++	return ret;
++}
++
+ static const struct snd_soc_ops sc7280_ops = {
+ 	.startup = sc7280_snd_startup,
+ 	.hw_params = sc7280_snd_hw_params,
+@@ -356,6 +375,7 @@ static const struct snd_soc_ops sc7280_ops = {
+ static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("PMIC BIAS", sc7280_dmic_micbias),
+ };
  
-   reg:
--    maxItems: 1
-     description: |
--       I2C address of the device can be between 0x38 to 0x45.
-+       I2C address of the device can be between 0x38 to 0x3f.
-+    minimum: 0x38
-+    maximum: 0x3f
+ static int sc7280_snd_platform_probe(struct platform_device *pdev)
+@@ -389,6 +409,10 @@ static int sc7280_snd_platform_probe(struct platform_device *pdev)
+ 		link->ops = &sc7280_ops;
+ 	}
  
-   reset-gpios:
--    maxItems: 1
-     description: GPIO used to reset the device.
-+    maxItems: 1
++	data->vdd_supply = devm_regulator_get(dev, "vdd-dmic-bias");
++	if (IS_ERR(data->vdd_supply)
++		return PTR_ERR(data->vdd_supply);
++
+ 	return devm_snd_soc_register_card(dev, card);
+ }
  
-   shutdown-gpios:
-+    description: |
-+       GPIO used to control the state of the device.Only for TAS2764.
-     maxItems: 1
--    description: GPIO used to control the state of the device.
- 
-   interrupts:
-     maxItems: 1
-@@ -41,10 +43,14 @@ properties:
-   ti,imon-slot-no:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description: TDM TX current sense time slot.
-+    minimum: 0
-+    maximum: 3
- 
-   ti,vmon-slot-no:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description: TDM TX voltage sense time slot.
-+    minimum: 0
-+    maximum: 3
- 
-   '#sound-dai-cells':
-     const: 1
 -- 
-2.35.1
-
+2.7.4
 

@@ -2,94 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3778584FF3
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 14:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E961D5850FF
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 15:36:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E532E15F2;
-	Fri, 29 Jul 2022 14:04:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E532E15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEAED161E;
+	Fri, 29 Jul 2022 15:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEAED161E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659096302;
-	bh=5ATU6p7EgKdtSbw4rTU57wnvMnFqgQgxspwLWuEq4vw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1659101799;
+	bh=OPnmHe7xqIRuz4QI8wZC/8APNp4xzRDjJrUr9X3kF9M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fOsB1GRV53MaFK0pl4PZ5vV2sCm/7nkpNlAP8Lmirz7OB1g7w79NmWdlxDju01YaS
-	 FMQSSAW60EyFucDO2KbmFCv3i7Z66z686zlm41+AqDCqQNga/hEt5cCvUZGrCntUjN
-	 EL5dxEvzFbIeeMpIhnq0Jn/fUGMS7Djce7fp5Fx8=
+	b=E10FolLZRGA6qDfrQCUXBwsBAVhc7KEuOmhjuy4LybkMDpShWMtUfFHXvj/iqQcBZ
+	 2NuJnemnjyI4WRWnEFQ0HkYOtLQzeJD1nfpTXK9hM0nSPFvvlHhXnVpiDl+iFvZjtp
+	 lNMrAejof3my1DHLn8722MImyTEshlMySpOtftFg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 431AAF804B1;
-	Fri, 29 Jul 2022 14:04:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B7C0F804B1;
+	Fri, 29 Jul 2022 15:35:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3414CF8015B; Fri, 29 Jul 2022 14:03:59 +0200 (CEST)
+ id DBE79F8049C; Fri, 29 Jul 2022 15:35:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A41A6F8015B
- for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 14:03:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A41A6F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29775F800BD
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 15:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29775F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="zkC3STGa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1659096234; x=1690632234;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=XOAdHZkPV7ADdDAhCaojbFXiiCwa7LMrSGb8t7JH/qw=;
- b=zkC3STGahAdrM8whPu8dWxCSBFzpiUV8QfmxPBoU0zNRGKnEAgBy6odB
- aB5zZQBe7kwPMSN53W+IRTMgs8YsMNnlHBzWHBjq6ZTna1sht5oD54k5z
- jHIkv5F+ztbzqjPKV7kyPEVa1VNxnAEQfIcIt6xJ81B8kcI2VOO0I8OL4 0=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 29 Jul 2022 05:03:49 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2022 05:03:48 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 29 Jul 2022 05:03:47 -0700
-Received: from [10.216.46.173] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 29 Jul
- 2022 05:03:42 -0700
-Message-ID: <f350e75c-d1af-83ad-c7aa-8d29e2b74544@quicinc.com>
-Date: Fri, 29 Jul 2022 17:33:38 +0530
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="t30MSvdu"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 03FF4B827A4;
+ Fri, 29 Jul 2022 13:35:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D89AC433D6;
+ Fri, 29 Jul 2022 13:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1659101733;
+ bh=OPnmHe7xqIRuz4QI8wZC/8APNp4xzRDjJrUr9X3kF9M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=t30MSvduBlMTQZckvb2AxnwIrsTUfq06OH+yTTugp5FVfxSetZjJHMpsou1XXs+AZ
+ OU3fwVUbHqnEz585yxbddmzGZoG2Q3/4/7Yp1pA0e+af/ZIYi7cbLEFX48i/z0XD1d
+ rijRLETJugQ5fi187EHotPsyIiwqcduLHqaaDoZmME/Ua6Mbcapgwf8c9AkJLwydlJ
+ 01T4MFPV8LK2aWi+57gOmBLUxW/LIvivx2BvYIz2+NvF8bnrfmLZAXhuvJS2PBo4E5
+ EWnxmAcqvjFrDXPLzmEsO5to/L3N1OLspHGLB9XCD8qjWltXXp4bm7UHL76ccaGAdA
+ pe66tW/3/0yjg==
+Date: Fri, 29 Jul 2022 14:35:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhu Ning <zhuning0077@gmail.com>
+Subject: Re: [PATCH v4 1/2] ASoC: codecs: add support for ES8326
+Message-ID: <YuPiIHvkK4pb6Mae@sirena.org.uk>
+References: <20220729090857.579785-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2] ASoC: qcom: SC7280: Add support for external DMIC bias
- supply
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Mark Brown
- <broonie@kernel.org>
-References: <1659016789-9933-1-git-send-email-quic_srivasam@quicinc.com>
- <YuKbpXVOeGn2l2gd@sirena.org.uk>
- <a92891b1-1fd0-82fa-3dc4-34282e6c2ef3@quicinc.com>
- <278edf67-834b-b673-8d71-88213130d4c8@linaro.org>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <278edf67-834b-b673-8d71-88213130d4c8@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, agross@kernel.org, bgoswami@quicinc.com,
- quic_plai@quicinc.com, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="A/sDrsDDQfaXBz8i"
+Content-Disposition: inline
+In-Reply-To: <20220729090857.579785-1-zhuning0077@gmail.com>
+X-Cookie: Chairman of the Bored.
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
+ Zhu Ning <zhuning@everest-semi.com>, David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,59 +87,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 7/29/2022 2:09 PM, Srinivas Kandagatla wrote:
-> Thanks for your time and valuable input Srini!!!
->
-> On 28/07/2022 17:09, Srinivasa Rao Mandadapu wrote:
->>
->> On 7/28/2022 7:52 PM, Mark Brown wrote:
->> Thanks for your time Mark!!!
->>> On Thu, Jul 28, 2022 at 07:29:49PM +0530, Srinivasa Rao Mandadapu 
->>> wrote:
->>>> Update SC7280 machine driver for enabling external dmic bias supply,
->>>> which is required for villager evt boards.
->>>> +++ b/sound/soc/qcom/sc7280.c
->>>> @@ -356,6 +356,7 @@ static const struct snd_soc_ops sc7280_ops = {
->>>>   static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
->>>>       SND_SOC_DAPM_HP("Headphone Jack", NULL),
->>>>       SND_SOC_DAPM_MIC("Headset Mic", NULL),
->>>> +    SND_SOC_DAPM_REGULATOR_SUPPLY("DMICVDD", 0, 0),
->>>>   };
->>>>   static int sc7280_snd_platform_probe(struct platform_device *pdev)
->>> Don't you want to connect this to something?  This won't do anything
->>> as-is.  I can't see any references to DMICVDD which might be failing to
->>> resolve in the current sound/soc/qcom.
->>
->> The connection is being done to "VA DMIC"through audio routing in 
->> board specific dts file.
->>
->> Will post the changes once the main dts patches are landed.
->>
->> Ex:-
->>
->> &sound {
->>      DMICVDD-supply = <&pp1800_l2c>;
->>
->>      audio-routing =
->>              "IN1_HPHL", "HPHL_OUT",
->>              "IN2_HPHR", "HPHR_OUT",
->>              "AMIC1", "MIC BIAS1",
->>              "AMIC2", "MIC BIAS2",
->>              "VA DMIC0", "DMICVDD",
->>              "VA DMIC1", "DMICVDD",
->>              "VA DMIC2", "DMICVDD",
->>              "VA DMIC3", "DMICVDD",
->
-> You should just use "vdd-micb" instead of DMICVDD.
-> There is already a SUPPLY DAPM in lpass-va-macro codec.
->
-> --srini
-Yes it's available in va macro. Will test with vdd-micb DAPM. if that 
-works,  I think we can drop this patch.
->>              .....
->>
->>              .....
->>
->> };
->>
->>
+--A/sDrsDDQfaXBz8i
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jul 29, 2022 at 05:08:56PM +0800, Zhu Ning wrote:
+
+> +static unsigned int es8326_rates[] = {
+> +	8000, 12000, 16000, 32000, 48000, 96000
+> +};
+> +
+> +static struct snd_pcm_hw_constraint_list es8326_constraints = {
+> +	.count = ARRAY_SIZE(es8326_rates),
+> +	.list = es8326_rates,
+> +};
+> +
+
+These now aren't used, you should see warnings about this which will
+turn into build failures in an allmodconfig since it's built with
+-Werror.  Otherwise than that one small thing this now looks good.
+
+--A/sDrsDDQfaXBz8i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLj4iAACgkQJNaLcl1U
+h9AKSAf/XESgiF0L737Iu8Wd451H4iGXfZIA2LMbUc9JyLDw0OB/OkiO4otMQxKS
+Am5bXzHPOVaoJuh3iUEq6y2JlWigIQH1vMT8NhkXBWlNoo2Zvz1Tr3XA7uocWV4Y
+Lmr6ThAMjjFy5keWqaxd9KnVsX8yX6srz5uy8LQye3q/LK3AALxwKkojc6GM0rKQ
+Xt+m0e2AHXBQygNc291RpVi45V4UAe8jb4OBiI146U5XZUFCAWaECGtolXQuQLQS
+jN6Hk9yesHh+hp2KplfmQwkGUOYBp1ilBaJs/QxyEBZGSPxAle/9htbTG+Ab9axK
+X+ulIeq85WDKEg3vCKcH9nUTKWquLQ==
+=DHk6
+-----END PGP SIGNATURE-----
+
+--A/sDrsDDQfaXBz8i--

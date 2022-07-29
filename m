@@ -2,72 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9E4585124
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 15:52:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8F74585122
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 15:51:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDBF3161E;
-	Fri, 29 Jul 2022 15:51:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDBF3161E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A9FB162F;
+	Fri, 29 Jul 2022 15:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A9FB162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659102747;
-	bh=PdD5DoxCq3xT3nYlDAEaxAsKCwoQDZbmle9bPVklpBM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=G1dQ7mgULPZ+SeHso6SPEgHIL2M+GUSwq+tF3uJGHu86h74Gh8XycnYIYiW0LVK2B
-	 MWrwC+zRXmtlxu6FuFstaKpBSvwF5F27epgxiOrucm7k1UmnGzWQCoQRSG71+eim4h
-	 LtFSpaV23pmlTKJpRT1j7dQXdWW71vt42x2NOdg4=
+	s=default; t=1659102717;
+	bh=EP6Yu3dCPvwyTA4MaOkILpl77d2Wl68YPVt+IAE/yX8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=C6f7Hgh78FWdIgN2SSQhQcJIWa1sG5tOzIo8usAd+wTemg6FyQfK2EDOxmd7DPDfn
+	 dGUaIiCT/DouSCqvY0xmDuLww/bsD6Et9Rg+P7FBIQKWHjNdXOLwQT1SUgUYi8enyp
+	 vaCu70+/OOYOtNlufqOSP/lRKHlFRyNpdRFM90Vw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D54DF8053C;
-	Fri, 29 Jul 2022 15:51:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E96ACF80430;
+	Fri, 29 Jul 2022 15:50:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49686F804FB; Fri, 29 Jul 2022 15:50:59 +0200 (CEST)
+ id 16E4DF804B1; Fri, 29 Jul 2022 15:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NO_DNS_FOR_FROM,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6487EF80224
- for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 15:50:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6487EF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30615F800BD
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 15:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30615F800BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="l9YUvb/a"
+ header.i=@linuxfoundation.org header.b="JUwCS+jc"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0865FB827DF;
- Fri, 29 Jul 2022 13:50:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D7CC433C1;
- Fri, 29 Jul 2022 13:50:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7B52F61F5B;
+ Fri, 29 Jul 2022 13:50:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E0EC433D6;
+ Fri, 29 Jul 2022 13:50:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1659102648;
- bh=PdD5DoxCq3xT3nYlDAEaxAsKCwoQDZbmle9bPVklpBM=;
- h=From:To:Cc:Subject:Date:From;
- b=l9YUvb/aAavgCsJD0172mHm5qBzjtuZsfVrR6MwfV/IDB+HALe4kHhHHUmiiCfDre
- YrHTcPABa772LBEmED/G1ggBWngQ61Yaxi3JoaC4M7UUHHNT7DEJb5/R2jSgl+CHXY
- 3tswxNHTFXsbu48LNVASnrSDN7ODfBWrEm8ie/K0=
+ s=korg; t=1659102645;
+ bh=EP6Yu3dCPvwyTA4MaOkILpl77d2Wl68YPVt+IAE/yX8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=JUwCS+jctbLKighaJvxZGtBxHAWr9YA6UQ0DzapxLFd762XQvhyosSWYc0bad7ic9
+ tA7eynlL3DjsTcUPbCrFYRm8xPnzYUbnjesMIrOaGrGB0za0QDASpTG4Xj3xqEKWD/
+ +jIFL0ZsvVy8YTeQFGpcreYBYX/iZEdIuHNg23UY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/5] soundwire: sysfs: move sdw_slave_dev_attr_group into the
- existing list of groups
-Date: Fri, 29 Jul 2022 15:50:37 +0200
-Message-Id: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
+Subject: [PATCH 2/5] soundwire: sysfs: cleanup the logic for creating the dp0
+ sysfs attributes
+Date: Fri, 29 Jul 2022 15:50:38 +0200
+Message-Id: <20220729135041.2285908-2-gregkh@linuxfoundation.org>
 X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
+References: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1988;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2218;
  i=gregkh@linuxfoundation.org; h=from:subject;
- bh=PdD5DoxCq3xT3nYlDAEaxAsKCwoQDZbmle9bPVklpBM=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDEmPn66/43DHLLLju1AKw1VT9mgmvkyjAv7JDT1CiSWlQjf8
- nbZ2xLIwCDIxyIopsnzZxnN0f8UhRS9D29Mwc1iZQIYwcHEKwERmszPMZDzXfl/ozZGog0nH/n2x4C
- jfESvAybBgQqTj9K7Oddlq/XwP9xW5mTQJ1PoAAA==
+ bh=EP6Yu3dCPvwyTA4MaOkILpl77d2Wl68YPVt+IAE/yX8=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDEmPn25Y2nKgevpxoUhnD0nvr7UR/lwfEld+eaWj5ve+8ed+
+ lUtZHbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjCRvK8MC3ZLmxnt0LvLlbL4pj2b0Y
+ N/X05de8IwV0pbcEuZvsX8w3u0lPM2LLG5Jy29FAA=
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
@@ -91,9 +94,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The sysfs logic already creates a list of groups for the device, so add
-the sdw_slave_dev_attr_group group to that list instead of having to do
-a two-step process of adding a group list and then an individual group.
+There's no need to special-case the dp0 sysfs attributes, the
+is_visible() callback in the attribute group can handle that for us, so
+add that and add it to the attribute group list making the logic simpler
+overall.
 
 This is a step on the way to moving all of the sysfs attribute handling
 into the default driver core attribute group logic so that the soundwire
@@ -107,48 +111,57 @@ Cc: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/soundwire/sysfs_slave.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/soundwire/sysfs_slave.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/soundwire/sysfs_slave.c b/drivers/soundwire/sysfs_slave.c
-index 3210359cd944..83e3f6cc3250 100644
+index 83e3f6cc3250..3723333a5c2b 100644
 --- a/drivers/soundwire/sysfs_slave.c
 +++ b/drivers/soundwire/sysfs_slave.c
-@@ -105,7 +105,10 @@ static struct attribute *slave_attrs[] = {
- 	&dev_attr_modalias.attr,
- 	NULL,
- };
--ATTRIBUTE_GROUPS(slave);
-+
-+static const struct attribute_group slave_attr_group = {
-+	.attrs = slave_attrs,
-+};
+@@ -174,6 +174,16 @@ static ssize_t words_show(struct device *dev,
+ }
+ static DEVICE_ATTR_RO(words);
  
- static struct attribute *slave_dev_attrs[] = {
- 	&dev_attr_mipi_revision.attr,
-@@ -190,6 +193,12 @@ static const struct attribute_group dp0_group = {
++static umode_t dp0_is_visible(struct kobject *kobj, struct attribute *attr,
++			      int n)
++{
++	struct sdw_slave *slave = dev_to_sdw_dev(kobj_to_dev(kobj));
++
++	if (slave->prop.dp0_prop)
++		return attr->mode;
++	return 0;
++}
++
+ static struct attribute *dp0_attrs[] = {
+ 	&dev_attr_max_word.attr,
+ 	&dev_attr_min_word.attr,
+@@ -190,12 +200,14 @@ static struct attribute *dp0_attrs[] = {
+  */
+ static const struct attribute_group dp0_group = {
+ 	.attrs = dp0_attrs,
++	.is_visible = dp0_is_visible,
  	.name = "dp0",
  };
  
-+static const struct attribute_group *slave_groups[] = {
-+	&slave_attr_group,
-+	&sdw_slave_dev_attr_group,
-+	NULL,
-+};
-+
- int sdw_slave_sysfs_init(struct sdw_slave *slave)
- {
- 	int ret;
-@@ -198,10 +207,6 @@ int sdw_slave_sysfs_init(struct sdw_slave *slave)
+ static const struct attribute_group *slave_groups[] = {
+ 	&slave_attr_group,
+ 	&sdw_slave_dev_attr_group,
++	&dp0_group,
+ 	NULL,
+ };
+ 
+@@ -207,12 +219,6 @@ int sdw_slave_sysfs_init(struct sdw_slave *slave)
  	if (ret < 0)
  		return ret;
  
--	ret = devm_device_add_group(&slave->dev, &sdw_slave_dev_attr_group);
--	if (ret < 0)
--		return ret;
+-	if (slave->prop.dp0_prop) {
+-		ret = devm_device_add_group(&slave->dev, &dp0_group);
+-		if (ret < 0)
+-			return ret;
+-	}
 -
- 	if (slave->prop.dp0_prop) {
- 		ret = devm_device_add_group(&slave->dev, &dp0_group);
+ 	if (slave->prop.source_ports || slave->prop.sink_ports) {
+ 		ret = sdw_slave_sysfs_dpn_init(slave);
  		if (ret < 0)
 -- 
 2.37.1

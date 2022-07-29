@@ -2,95 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D23B6584B63
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 08:09:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 557E8584B9D
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 08:21:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5100C1655;
-	Fri, 29 Jul 2022 08:08:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5100C1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1274815CA;
+	Fri, 29 Jul 2022 08:20:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1274815CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659074953;
-	bh=yKUX3n74ZLq+gD9W7m9vqGicBcdVlmfifpzECgLHQGs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1659075688;
+	bh=FIHNyEexut1uiDgP2WCRuuPdogj72O9cEl987lOFcQ8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jwNaEByQyJZN7L9vGD+PgLci2P1hyEBedPDFm+s2M8j0e/U5i/Xg32Oan/1i3jto2
-	 0TS4JcEhWmlgFkOtsvoI429Q9gRAXwxGwIQT25sEVK6Nn5L4Ci6bWJV8T6k1wswf5p
-	 G9tn0Ee6xl9cpMUY4+wWPA9ZkixavZdH38Mtx/lw=
+	b=lDqxa46QB14+PliNWM405cm3hBSi1+i3ENtjyH6noolKoJtkazjukZrBHuf/8i4D+
+	 hFjWe79TSnr5R9vZlksaq7IO645yRiB9Nq92jN55GerQcuJ20dh5fvaTnz3h1hZN1/
+	 yBrkhYQJm6SeaKhtjUQZOJ4dm+71iUx6ZtFuk5YM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B35B2F804B1;
-	Fri, 29 Jul 2022 08:08:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E671F804B1;
+	Fri, 29 Jul 2022 08:20:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 609C5F8049C; Fri, 29 Jul 2022 08:08:11 +0200 (CEST)
+ id 6BD10F8049C; Fri, 29 Jul 2022 08:20:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D973F8015B
- for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 08:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D973F8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qTvvW1FI"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="dyz3hsPz"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 46DD421BCC;
- Fri, 29 Jul 2022 06:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1659074866; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=76aolg6qJ08B8cgAH4/C8qispGD4s7bPpZZ8CT0aqEs=;
- b=qTvvW1FIHri+HV0kVnxb6vh0t24ok9Wjlbg8AvBfK5ETrIcB0HyhjNzHLP8hePRSzwRLrU
- JSmudM4dcKHXvhIRvrGge93HxBOjUW0OlFjzQGMwz6c3jlipaFKCLtM8Z9mYzak4OMreIv
- 1HwqXAV6u2fkdajD8n3Kslg9JjK6lfk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1659074866;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=76aolg6qJ08B8cgAH4/C8qispGD4s7bPpZZ8CT0aqEs=;
- b=dyz3hsPzI1IvQT9mljSDN0AdGp1amwcrBjLGKPkEvobdc+mTgtIFFjfT0bUR7vHq4y2aQY
- pQnqnK9KcK2G/wBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FE6B13A8E;
- Fri, 29 Jul 2022 06:07:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Pox5AjJ542KMEQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 29 Jul 2022 06:07:46 +0000
-Date: Fri, 29 Jul 2022 08:07:46 +0200
-Message-ID: <87bkt8ladp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dipanjan Das <mail.dipanjan.das@gmail.com>
-Subject: Re: KASAN: vmalloc-out-of-bounds Write in snd_pcm_hw_params
-In-Reply-To: <CANX2M5abRrSADvd3x_rm+TrA2ziu71VL6X3=v_Cft4LtaB=6Eg@mail.gmail.com>
-References: <CANX2M5Zw_zW6ez0_wvaXL1pbLnR2jWY=T7MgkT=4a-zNkiwVig@mail.gmail.com>
- <YtuceCr5OCJcDatJ@kroah.com> <874jz82kx0.wl-tiwai@suse.de>
- <CANX2M5Ywm+GpYY3+GsOWCLH24Nhy0M0LjBE-pHC8wFcd7SO=wQ@mail.gmail.com>
- <87tu73p1o2.wl-tiwai@suse.de>
- <CANX2M5abRrSADvd3x_rm+TrA2ziu71VL6X3=v_Cft4LtaB=6Eg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, fleischermarius@googlemail.com,
- Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, consult.awy@gmail.com, syzkaller@googlegroups.com,
- its.priyanka.bose@gmail.com
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 03B64F8015B
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 08:20:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03B64F8015B
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1659075616578162909-webhooks-bot@alsa-project.org>
+References: <1659075616578162909-webhooks-bot@alsa-project.org>
+Subject: HDA ATI HDMI not supported
+Message-Id: <20220729062025.6BD10F8049C@alsa1.perex.cz>
+Date: Fri, 29 Jul 2022 08:20:25 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,32 +59,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 29 Jul 2022 01:24:12 +0200,
-Dipanjan Das wrote:
-> 
-> On Tue, Jul 26, 2022 at 10:25 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > Thanks for the analysis.  A good news is that, at least for the
-> > vmalloc() case, it's a kind of false-positive; vmalloc() always takes
-> > the full pages, so practically seen, the size is page-aligned.  It's
-> > fooling the memory checker, though.
-> >
-> > But the similar problem could be seen with genalloc calls, and this
-> > was fixed by the upstream commit
-> > 5c1733e33c888a3cb7f576564d8ad543d5ad4a9e
-> >     ALSA: memalloc: Align buffer allocations in page size
-> >
-> > I suppose you can simply backport this commit to 5.10.y.  Could you
-> > confirm that this fixes your problem?
-> 
-> We confirm that the patch you proposed fixes the problem (blocks the
-> reproducer). How do we proceed with getting the issue fixed? Do we
-> send a patch according to the steps detailed here:
-> https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html?
+alsa-project/alsa-ucm-conf issue #194 was edited from yangxiaohua2009:
 
-Don't worry, Greg already picked up the fix commit :)
+I am using the latest ucm2 file and alsalib 
 
+alsainfo [http://alsa-project.org/db/?f=92c58f3a6b72fee05b678386858dbc816d25dbf3](http:)
 
-thanks,
+The `alsaucm reload` command returns error saying:
 
-Takashi
+`ALSA lib parser.c:244:(error_node) UCM is not supported for this HDA model (HDA ATI HDMI at 0xfeb60000 irq 28)`
+
+and the HDMI is not working.
+
+despite the fact that I already added the acpes8336.conf in conf.d and acpes8336 folder.
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/194
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

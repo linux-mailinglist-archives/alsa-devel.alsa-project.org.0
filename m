@@ -2,83 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39792585201
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 17:01:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D91F1585208
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Jul 2022 17:04:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA76C1654;
-	Fri, 29 Jul 2022 17:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA76C1654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7494D15CC;
+	Fri, 29 Jul 2022 17:03:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7494D15CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659106914;
-	bh=FK3X/i4IKUVcxCucyjEQGyuf8/mNmgO73urDBUCLv3U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1659107058;
+	bh=XQhKrj3mBkmm98vaiqZCcsYovhORhaIgbJh9hVRNzwk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qm7Bq+cx4t7Z060RiF+dI2/f3tIAFPX34RNeSDJkzbaU5DKheLz2EWqa9npd/ZllR
-	 d6yP8wtlN7K9hpkvTwA8yADAhl5eDoMgRmIa0VywV4UcHzAT4nPUmzrSnQMP7fXeNz
-	 gqYVYuiYuGBehmjQ474gl820e40gusQOdLP2MqCs=
+	b=JdCnEySFwKe3JXbIm7nsFjCfpTBVaJfX+HeifR7I97Wml5Ay1w+TlsRI8SkG+TqCl
+	 ygStSOqLtSGbGh0BOl9Yzi7itMbaLrFYPY++DFdXvYFtdx1+Jn2COSoMhtEnXLTL5d
+	 BMbDe1BaGb5W0AJaFEbUcPXgCH2xWTTDD8qCRJ0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DA6AF804B1;
-	Fri, 29 Jul 2022 17:00:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE2F6F804B1;
+	Fri, 29 Jul 2022 17:03:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41EB7F8049C; Fri, 29 Jul 2022 17:00:54 +0200 (CEST)
+ id E1020F8049C; Fri, 29 Jul 2022 17:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C83EBF800BD
+ for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 17:03:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83EBF800BD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="daLcI1iv"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21C97F800BD
- for <alsa-devel@alsa-project.org>; Fri, 29 Jul 2022 17:00:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21C97F800BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="UnEmMIIH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659106852; x=1690642852;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=FK3X/i4IKUVcxCucyjEQGyuf8/mNmgO73urDBUCLv3U=;
- b=UnEmMIIHIAWgKhQAmnMJh+Zyy75RVnm5PUZ7/S0Oy5lRQ7uHXnfrdKWK
- SMDgXIYUyghoci37ne29J+R7HaSlpeSeIjyDI+Xp+s6y9tuy2icfr8tz6
- oA/PAbUjddLkwO7NZDkKTpFP3BAEmiCfcQ7vRPEj/yqQFYY25eBLByNH8
- 8mDzSeqPiLgbGeBaRMx7QpK31j9i6h1lS1kptD5tkax3vsjwxSj/LZ/ET
- asvck+LyMdFDESVhL1mBQXP9HybwUmEfZgLsNBRhn/5Gn3dN7T5geV73M
- FjaBX6lN9xY1Y03smLY2dx+lzcwyj/zSk3ovvCvzGpjW9WJrGbQjnP2pU w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10423"; a="271822456"
-X-IronPort-AV: E=Sophos;i="5.93,201,1654585200"; d="scan'208";a="271822456"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2022 08:00:43 -0700
-X-IronPort-AV: E=Sophos;i="5.93,201,1654585200"; d="scan'208";a="604986191"
-Received: from kaholo-mobl.amr.corp.intel.com (HELO [10.212.97.86])
- ([10.212.97.86])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2022 08:00:42 -0700
-Message-ID: <95dcb89d-bfc7-7bc4-5ec5-04537bc0758d@linux.intel.com>
-Date: Fri, 29 Jul 2022 10:00:42 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 4/5] soundwire: sysfs: remove sdw_slave_sysfs_init()
-Content-Language: en-US
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- alsa-devel@alsa-project.org
+ by sin.source.kernel.org (Postfix) with ESMTPS id 637DECE2912;
+ Fri, 29 Jul 2022 15:03:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37BFEC433C1;
+ Fri, 29 Jul 2022 15:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1659106985;
+ bh=XQhKrj3mBkmm98vaiqZCcsYovhORhaIgbJh9hVRNzwk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=daLcI1iv3PX39Fx76j5qPHaQB72ymYbKc6AsnVgpC4NA26mIa9NuZEgWv1+L2oido
+ 1jyvyTg+b0AyKxgzElaxr1hjUS0RZTYC7MPhJxxrqoH9z5vPdpd6GVy8F1eF1qFOze
+ k9GkYl1DuGNkoh7BQ9LpqbApv/HqR7wWd/Try0k8=
+Date: Fri, 29 Jul 2022 17:03:02 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/5] soundwire: sysfs: cleanup the logic for creating the
+ dp0 sysfs attributes
+Message-ID: <YuP2pjhyKTTfpXQq@kroah.com>
 References: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
- <20220729135041.2285908-4-gregkh@linuxfoundation.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220729135041.2285908-4-gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, linux-kernel@vger.kernel.org
+ <20220729135041.2285908-2-gregkh@linuxfoundation.org>
+ <9365e038-2146-98f8-f989-02827f221c34@linux.intel.com>
+ <YuP0Ffs3G7ZBR0AC@kroah.com>
+ <cfacb124-a9ff-0a93-8f92-93d164b15966@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cfacb124-a9ff-0a93-8f92-93d164b15966@linux.intel.com>
+Cc: Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Sanyog Kale <sanyog.r.kale@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,31 +88,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jul 29, 2022 at 09:57:52AM -0500, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 7/29/22 09:52, Greg Kroah-Hartman wrote:
+> > On Fri, Jul 29, 2022 at 09:46:26AM -0500, Pierre-Louis Bossart wrote:
+> >>
+> >>
+> >> On 7/29/22 08:50, Greg Kroah-Hartman wrote:
+> >>> There's no need to special-case the dp0 sysfs attributes, the
+> >>> is_visible() callback in the attribute group can handle that for us, so
+> >>> add that and add it to the attribute group list making the logic simpler
+> >>> overall.
+> >>>
+> >>> This is a step on the way to moving all of the sysfs attribute handling
+> >>> into the default driver core attribute group logic so that the soundwire
+> >>> core does not have to do any of it manually.
+> >>>
+> >>> Cc: Vinod Koul <vkoul@kernel.org>
+> >>> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> >>> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >>> Cc: Sanyog Kale <sanyog.r.kale@intel.com>
+> >>> Cc: alsa-devel@alsa-project.org
+> >>> Cc: linux-kernel@vger.kernel.org
+> >>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> >>> ---
+> >>>  drivers/soundwire/sysfs_slave.c | 18 ++++++++++++------
+> >>>  1 file changed, 12 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/drivers/soundwire/sysfs_slave.c b/drivers/soundwire/sysfs_slave.c
+> >>> index 83e3f6cc3250..3723333a5c2b 100644
+> >>> --- a/drivers/soundwire/sysfs_slave.c
+> >>> +++ b/drivers/soundwire/sysfs_slave.c
+> >>> @@ -174,6 +174,16 @@ static ssize_t words_show(struct device *dev,
+> >>>  }
+> >>>  static DEVICE_ATTR_RO(words);
+> >>>  
+> >>> +static umode_t dp0_is_visible(struct kobject *kobj, struct attribute *attr,
+> >>> +			      int n)
+> >>> +{
+> >>> +	struct sdw_slave *slave = dev_to_sdw_dev(kobj_to_dev(kobj));
+> >>> +
+> >>> +	if (slave->prop.dp0_prop)
+> >>> +		return attr->mode;
+> >>> +	return 0;
+> >>> +}
+> >>
+> >> This changes the results slightly by creating an empty 'dp0' directory
+> >> with no attributes inside.
+> >>
+> >> Before:
+> >>
+> >> [root@fedora ~]# cd /sys/bus/soundwire/devices/sdw:3:025d:0714:01
+> >> [root@fedora sdw:3:025d:0714:01]# ls dp0
+> >> ls: cannot access 'dp0': No such file or directory
+> >>
+> >> After:
+> >> [root@fedora sdw:3:025d:0714:01]# ls dp0
+> > 
+> > That should be fine, tools should just be looking for the attributes,
+> > not the existance of a directory, right?
+> 
+> The idea what that we would only expose ports that actually exist.
+> That's helpful information anyone with a basic knowledge of the
+> SoundWire specification would understand.
 
+Is "dp0" a port?  If so, why isn't it a real device?
 
-> diff --git a/drivers/soundwire/sysfs_slave_dpn.c b/drivers/soundwire/sysfs_slave_dpn.c
-> index c4b6543c09fd..a3fb380ee519 100644
-> --- a/drivers/soundwire/sysfs_slave_dpn.c
-> +++ b/drivers/soundwire/sysfs_slave_dpn.c
-> @@ -283,6 +283,9 @@ int sdw_slave_sysfs_dpn_init(struct sdw_slave *slave)
->  	int ret;
->  	int i;
->  
-> +	if (!slave->prop.source_ports && !slave->prop.sink_ports)
-> +		return 0;
-> +
->  	mask = slave->prop.source_ports;
->  	for_each_set_bit(i, &mask, 32) {
->  		ret = add_all_attributes(&slave->dev, i, 1);
+> The attributes are really details that few people/applications would
+> understand, and unfortunately the information reported in DSDT is more
+> often than not complete garbage.
 
-I am struggling with this one since the driver is still adding
-attributes manually. You mentioned in the other thread that
+I don't understand what DSDT is, or how it is relevant here :(
 
-"
-That's what the is_visible() callback is for in the groups structure,
-you determine if the attribute is visable or not at runtime, you don't
-rely on the driver itself to add/remove attributes, that does not scale
-and again, is racy.
-"
+thanks,
 
-I interpret that as "there's still a race here", no?
+greg k-h

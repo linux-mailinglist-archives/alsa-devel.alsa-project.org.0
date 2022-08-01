@@ -2,156 +2,159 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4BB5863B0
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 06:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B9DE5863BC
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 07:12:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D10811632;
-	Mon,  1 Aug 2022 06:58:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D10811632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91ABE1621;
+	Mon,  1 Aug 2022 07:11:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91ABE1621
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659329973;
-	bh=HgGluL8Z6lEv3R1HcMa6tVw+pYvu/qb5rpDkLbUhvDQ=;
-	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1659330760;
+	bh=AHtmGWlFM5/MhviMGRVP873O+dzkqkhsXmAOZPDV4A4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZG2jsq2m0jocUHqmKG5K+/YUFy2HOb42Qru+tTfCrKpIMm3cbPeWYyi//la/nEKXL
-	 uOLPSNXqu07mK/kwoYwHu711xN+ZV+gSyx90Kp2gJTrPROzw/OuF2lZEvqfmfTAxsy
-	 v4JSVwHDVy7ZzkJt3GjYbz2Qh9Vy5U94dor0xrv0=
+	b=AuoIkRvygD79iCMEb9kqdTZ/WlmIBjx602I6OP6OSF3bCV9xffYTgw8Oyp+CNHoHL
+	 r2kPwh3AdBMqj1wPHdiPZOs1QzhgrJbo3aReb34115g1aeEOnBQNuTnLsc8HubFEOt
+	 Em3FoS4VLNQYkDh5FWgGPrhcKB2WD95tcz2jEQKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600E8F8013D;
-	Mon,  1 Aug 2022 06:58:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AC4BF8013D;
+	Mon,  1 Aug 2022 07:11:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 518B8F8023B; Mon,  1 Aug 2022 06:58:33 +0200 (CEST)
+ id A1E5FF8023B; Mon,  1 Aug 2022 07:11:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, NICE_REPLY_A, NO_DNS_FOR_FROM, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02B0BF8013D
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 06:58:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B0BF8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E2BEF8013D
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 07:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E2BEF8013D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="lrQYEwXl"
+ header.b="aHLkXXk+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iBwlaVCThR/PZ3iV3ezakJnI4GxyDPgPvENZ61hshqaGexaphtrn1YjEL375mfSJTmN+ssVZHnpyTvxFz3CPm+S1/hc+IntRozuYLDmCTZNKRNQLWZ1P+TGifzNRkfPDHfHpqZlUxoILNbAvombeYF9wJW9134PSaWwaLm8BXPnNNgBgfJNpink8qmFKJ8+kEEshzwcMjCn/+d78KGDyBmX0J5Z1pm6u0aPNp4wa2bQa0zIr71GeOhfi2U5vhMkZcaRsK/ojhxNimNwETgLBNUtq1Ug5o+ftAS43sVriBnSysOUNGnBMKkN1DyeWbhDeJ2VHBUy0JsueXtu3/E0Few==
+ b=JN8I7RjR2dDByQiLIoFWtgUo6ib1ap5lWfaYRQQGCMtcVDZ7Z+k6YQnms/2o2KqxaFRflr19mJSITi6j+NbwRKaz7Mkl0QYZbaM0EN95Xzj9T4c4dZgYUCHne2H6L6GGz7S0tUcaDzjMUWRmzX4S+IcdHzs1KaBmCKkERu78Oz7XwG0Y6kpK8TEgBI6CCBPTdOp3szc85hTkDuWorAw3nOnfAhXW91CVilOVfFVLOKFaOiJQchWa2GplpxA8xOfXTtjWMva5sJJjEMaLFjyXV70uJo3ylAZ0SLk8IO2m4IZEdYr0+9LLyDX/uiQzSbPSouCNfdM5hI+StXp7OB/y8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oognVm7C1ZpK4aduw153Wwzl7p4kNcGl5mFJluCL7T8=;
- b=YP/8hKiKBSoNMe1kQl6b52D4l+jz9k4OlgNLB9QoY4kc0+Vp4efQKEv+xOGU/0jLCUJSKfR+d6jCgR3axGuutMsU8oXugYYOdC9d10saqsG2FAVQ51CwTxQjuEcLr5hrP41SBmO/DrGOl3VoSwMGAv3q8JGkPt9+ojVRjjqok/ckOp5Q1kJIuRsnSRJSO1i5IXtL3CDEvpF/GbEJV6SKdSzS3aS8pcAsJrwnvFSJt17rPWdy7E0MaJYNVSdJe8Ex2ZcSxMFeIEgzD86AcZSj1g8IOttmNHU6ejUb8y/tYue6j1wBJc7+Pq4YArg3Z6z0Wee/dGFJcGlqBhbKGsPjDQ==
+ bh=9Pbb3EOCCmDSzFOVsr1oh2rHBxUAHRKaDJAekJwfyVo=;
+ b=OmZk9Zog2V3SgsoPJ5mawMAGyYP7ZW61TIq3EHud1OEhL2jHqe9ulkTUCZT9HHtkA5KAO+1xA1eOVLBZt2S+DUVdgYwEJw2hPZhr2fTIFOGJpgPcQiTRR9fkB2auq7iutTZaI/VDaVb9bLE3fHz6L1gNBJJJQX25GimsyZiFh7A0b6m4ZiAhcbQ7+4NGMJQDFF0PNMhNqt/L0zKL8u6i812a9xPC1cYJPnVUNu0DtiAdK6xAYISeAccq78V2l1il7CGQ4zWXQAyv9bF2jDMQ7BF5QBt94m+abgfM6WWljdnoK64g7z7l3FnPwlNIRzVsHQbV+jdNdxU9sW0+hZ7ROw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oognVm7C1ZpK4aduw153Wwzl7p4kNcGl5mFJluCL7T8=;
- b=lrQYEwXl/C9lv/X/YjEAtTwZenmt0QGnOfSvPsRUMxQXfp6NaxppWZWNnwj8twT/6djNyGQmAumwnFHK7yYpQe4bgLIMORP8QhAn2k7TVkE+bRnWO8IMy1ruBjrcIHqsRUUaYpBOyKRoPIienm6mIbjDCp/NqTtm6+AYTyb5UI4=
+ bh=9Pbb3EOCCmDSzFOVsr1oh2rHBxUAHRKaDJAekJwfyVo=;
+ b=aHLkXXk+bxfLhC96UptTt02wb5fV1qSWNQsj9mynrXVijgmQHDG+1fLX/Ww83celZ7KH7I4ml8N7D08R4WEeTQlBs12YEz2DVvZd79TzAtzPcHVaZhG2WYZ/5sBXA5QEipqKT8MZoSiwJWh1DfgM3IN5jPoOdU9h2v/GueLlh/c=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16)
- by MWHPR12MB1775.namprd12.prod.outlook.com (2603:10b6:300:109::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.12; Mon, 1 Aug
- 2022 04:58:18 +0000
-Received: from PH7PR12MB5951.namprd12.prod.outlook.com
- ([fe80::3869:b51c:42b3:afac]) by PH7PR12MB5951.namprd12.prod.outlook.com
- ([fe80::3869:b51c:42b3:afac%3]) with mapi id 15.20.5482.014; Mon, 1 Aug 2022
- 04:58:17 +0000
-Message-ID: <a218cd09-3ec4-715d-d995-8a93aef16baf@amd.com>
-Date: Mon, 1 Aug 2022 10:31:19 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-From: "Prasad, Prasad" <venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH v3] ASoC: amd: acp: Initialize list to store acp_stream
- during pcm_open
-To: Takashi Iwai <tiwai@suse.de>
-References: <20220728124057.54259-1-venkataprasad.potturu@amd.com>
- <YuKF4l68sLKkjcmQ@sirena.org.uk>
- <3d351235-c11a-234d-7722-447b4f0442e7@amd.com> <87sfmkp520.wl-tiwai@suse.de>
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
+ by DM6PR12MB4973.namprd12.prod.outlook.com (2603:10b6:5:1b7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.11; Mon, 1 Aug
+ 2022 05:11:25 +0000
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e127:3aff:e853:414d]) by DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::e127:3aff:e853:414d%2]) with mapi id 15.20.5482.016; Mon, 1 Aug 2022
+ 05:11:25 +0000
+Subject: Re: [PATCH v1 3/3] ASoC: amd: acp: Add legacy audio driver support
+ for Rembrandt platform
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220707161142.491034-1-Vsujithkumar.Reddy@amd.com>
+ <20220707161142.491034-4-Vsujithkumar.Reddy@amd.com>
+ <e30925e7-56b7-48df-b287-094441f8c586@wanadoo.fr>
+From: "Reddy, V sujith kumar" <vsujithkumar.reddy@amd.com>
+Message-ID: <c510f6f9-ca48-e311-a83d-cb465c630450@amd.com>
+Date: Mon, 1 Aug 2022 10:41:12 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
+In-Reply-To: <e30925e7-56b7-48df-b287-094441f8c586@wanadoo.fr>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-In-Reply-To: <87sfmkp520.wl-tiwai@suse.de>
-X-ClientProxiedBy: PN2PR01CA0059.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::34) To PH7PR12MB5951.namprd12.prod.outlook.com
- (2603:10b6:510:1da::16)
+X-ClientProxiedBy: PN3PR01CA0125.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::11) To DM6PR12MB4171.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 87550ab6-29b2-4ce5-892f-08da737a727d
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1775:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3dd476e6-11c9-4375-04f8-08da737c47f4
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4973:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yWW8YR0/dzUi3lvuAul7ybvLjSoXiOcqNYvlkLjzYn5kdVcShiVGcBBX9y32a6CPaZaRZdi4JdiXhS6KZrpGWDQL6XqDRYqDdbGxMP7iQ0U3gBYqtY3VQl0RVPGCzsjZDV8INFlLhcMCF4ACV5BzbRQo38bPOkAgQaO0D8oKfQk80TwxchswEWHvN7nT1NZA7UZrfto7UqCO5leq2l00S2RJ/UBEil/8XN4g7ZQX6Vj3ZfXyHWjQZwGfjahT1PoKzVOYuuzC203tKRQvvgJmlVZ/eZA2/fUyQrGIXwRxX9isv8PyODfynm08j3K8QWrd7nRZxdNjBzQWWgNRElxnUaekP+Uu8A20ZQX5a+2FhD+hiYOMZL0SvWC8fT3R1+uN8XshLRNTjTh8RQlJ77lW1DAnjvGN2cahK8C61o7U0vRYgxhMh5Aig41S4kshGTCVJPUCVClFuNZRfrrhm5ZVHRfj8gGHPs51RoCB9+d+eyithglsmvzE/q7xhSnAm2XCfCwK8EiCH59HHlcnFRyXI+oxTm8kmhQmSl5/T2f8jDrXIuZcwL63ZnO+cAcauohhDwcJTg4lDfnZUUh2lVVC7+d+6zlX6GW/OxiJZM3qEb1kYomqOqnBsb3UXlK9v56mHrkouudsfiFNCJcZCCEp78JNOmy/Xym5DwKx+CTUSUyoaneTknAVCtiy6ST7wOxHvjbSfWcITNtnepc51l0QZpCbLp5N/v9R9GjLeAZ8j2BHy2OVG+cRdZok+e3cW2bCw+l5Ju9396dOZXB6dn7IfXGFltXOJlzHOXWFWjEEcIIgzKpRBe1BuIaU/ZJN1NYSrA+bTrLKo5vli4FnF9yvlw==
+X-Microsoft-Antispam-Message-Info: oGWNNfAj3cw1XknMdzV1mmULUqHUhPfNDE+Pkwt3q5By1CwKAQRdWyX8OYE7u+4i/DOeaw0sJUBlsxtk3N0N+qJATiCf1PSi31T64h9gln4M9alVl6Je6fPUF3wMwIvKmRX70I+VaN41W/vESY6ocgCKjUfvysCvKXVWUD39RyEbHY6RAs6DcbTAVC0jRHIeN0koZ1TKrVkf2SxpBkCg9232ova31ne3Tdv4raIiZUSSaVRgSdH+ICYbtBnesZKKJPsf83XjI0vhWhjeotyW2BzbX1nORpoNhfSruw3kjtBz701zcO6GLMHcZNo5p12jOlknDPjGrcwU3K+5fQdaHS1cdMnm6ocMAbC5dDK448SrpR00IN4esyerAjnJPuFSH6xoSXks4IWvBaFJa+QX/ba0ygjJj4tntHPDFbM3CPvsxRMBaEhRZVs8/Xwg4mxN/a61CEUEYlaONvTOa3k57N6Y/hISy7psBL1CnZhcA0Xfv/ABIc9cFs6y3wYXW4MUr3dMleZLjvfXwbD+505a3V3z8V9y2/sXRAoMZxluuiyBmVHmAEJrfrbqb++kssYhbSzrfBb4rKJxXBZ7L0QOFpHeL73TTmDHWd94Zp1L/DaQ3ZJX1wa8/1GCsaqI/LR8YBHIoDC4qQNFHBgl0sGvQJgVL0I9OKFBuezw5tIZ9qYsE9CWcVrEFoEj+eQuTyNNGDnKV+OlbQV+bLwlfBjntqWmxcKAxsBqkN3cHzqhNR5xz2dWfcuhVVyAXyPokKwpxzlgiUUvHxxtm3Y6C4tigvpJ2JVwoPuVPPoBeoEJ1SC0gcWWufSdcZFWHF0dwMAoZH7cKt5NKO/7vX7bMk1kvg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5951.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(366004)(136003)(39860400002)(396003)(31686004)(66556008)(8676002)(66476007)(4326008)(66946007)(36756003)(5660300002)(41300700001)(54906003)(6916009)(478600001)(8936002)(316002)(7416002)(6486002)(2906002)(6512007)(2616005)(26005)(33964004)(6506007)(186003)(53546011)(83380400001)(38100700002)(31696002)(86362001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(7416002)(5660300002)(36756003)(8936002)(2906002)(66556008)(66476007)(66946007)(8676002)(4326008)(31686004)(316002)(53546011)(6666004)(54906003)(6486002)(41300700001)(478600001)(2616005)(186003)(38100700002)(31696002)(86362001)(6512007)(26005)(6506007)(66574015)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blUrdFU1ZXBmQ1dLR0lTK3c1OG1kMVcwZnowaEEyVDhMZ1ZScENueE5zMFVU?=
- =?utf-8?B?OHlJZ1k4NWt3Ui9sU0pJVStPSGc2RmlTWWFHMVljT01qUnZ3blBvMlZMWTEv?=
- =?utf-8?B?UUxKbmtPNnFFZENySmRPYWthQ0N4QlJocjEwODQvYjE2YlJyNTNwUGhFL3ps?=
- =?utf-8?B?ZGo3RDEvQjhEMmpPS3dsYnorbU5SRGhkR0VFTkloOUt4Um9pVVVxTFd6b2FD?=
- =?utf-8?B?WEZveWlVNHFWVmRiL2JXc0Jkb2JHcUlBcG5ENldoZHkyenl2R2RQQ0R4dXIy?=
- =?utf-8?B?NCs4SDJXendVVDZMd1RkMGdMaWxhY3pmdkhQT1VUa1o0cXhsUVA2Q1MxT3NB?=
- =?utf-8?B?RVBaZzVMSllVT1dPUXhKbGFvM2lUa0NQbXBNYmluZHRxQlA0eFFNUXVMYVZO?=
- =?utf-8?B?THBTb00wcjNKOVBRcHpnUzQrWTdyRzNIb1NpN3Q2bmZHRFp6d2NCazBqWEht?=
- =?utf-8?B?V3pVTGNiOExxeTY0eFVDQzkwRHZYRDJqcjFIbEVBL043Q0p6ZEdibGpaWk1l?=
- =?utf-8?B?QVBXbWk0aHNsNUFNWVVrc2dBcVBzS2ZvUklXOWdmUk13b1FDb2RqRHY3VzZp?=
- =?utf-8?B?NkJiN1BJL1hTTWVJay9qeEpqUUlLZ2RIQ05rZ29xd3ZJelh0eGY0UWJHOWVY?=
- =?utf-8?B?K2lmVCsvUVQwUG1CSTIxS1llWXFzb0J5eWl3ZGxpVGQ1MUtsaGlpN0lKa0o5?=
- =?utf-8?B?cmlGcC9RZ3gzTlFGSVRpS1dYUFpyRGxHQ0Z0dDVGQitMMTVpTEROR0QxWW04?=
- =?utf-8?B?bmtka1dhMk52aUV3RkNCWHo1NDdGdFBUeEtwNHJOLzBOcG4xRGhzbFRsVDZO?=
- =?utf-8?B?aUo1czNvYUp5bmZFNVc4MUoxZk0vMlI2RTlBbUNQaHNub09jS2M1RC9vQWla?=
- =?utf-8?B?SEx6Wmk3c3Jyd0x4NDR3Z2g2NVI3TEpHaXBONWxzVVBmSGlrOFlrMU5XRG5v?=
- =?utf-8?B?d2dJZkhpUWpUWHlDZjA1NGdHdmdFZEVQVUNaQTgxNEgxbjlwOG1EUDAzVHNy?=
- =?utf-8?B?eHFTNURqYStBWUlJRUpaVEdHK1A1dUJLTWQ3RURxcStLdmhsQXhUVEVET3Fk?=
- =?utf-8?B?SDVBODlVWWdXdmhaUFRIa2xDRXBKalhYNGdHdmphSjRpSGVpZU9KNmVZQmpL?=
- =?utf-8?B?Tm16VjhKbkFiSXprNm5tQi9zc0xDclEwNzMxWjJKd0JoQlJwV1VqYUQ2anNV?=
- =?utf-8?B?cjY0V0ZuNjlrcFgxUVlkTG83QWZxaUs4WnNWYkpSNC9NZVNvekM3M2RUVVpS?=
- =?utf-8?B?NTBzUS83MGx4eURpVThKcnZWT1BGWjRURTlwTWRVTWRCTUN6anp1eGFyU3pV?=
- =?utf-8?B?TEpvUkJlT05oaFZzQUNWSVhwVFUzTnVuMHVLT29hVkx0RGlQV0pSeXUvMDJx?=
- =?utf-8?B?VUxzV3BwaTVyS0ZhTlB3NUVUSVRlNDRMS0NEYzU2ZzBXZlVQS1RtWlVlU1Q2?=
- =?utf-8?B?M0V1TzFaY2ZsQmgwbFBVWjJHdnFyc0JiMVpXV0xYTGxCQ2Q0L3lwbFZKZDhl?=
- =?utf-8?B?bDB3bGRER2t3VTlscXR2dkdtUXJBY0k1Yi9mdUlSNHlyVnYrVWVqTVMzOWEr?=
- =?utf-8?B?dUFoV3pyV1k4Y2FXOVR5cFFFVWVTQzZlU21rQld0WTNaTURNU2UrTThtNjJE?=
- =?utf-8?B?SG1kUndtYzlqc3kyM0JYOUprTyt2dk1URkdSVHI5aTA4VFAySGJvQnNLL3pS?=
- =?utf-8?B?bVZnVm5oUkQ0SHM1T1IwTldETlEyUVpKOVJubnZZaGFLTWFDL2ZVUWQyaVVC?=
- =?utf-8?B?eGUzQmx4b25ua2VCdVZDZFgvY2xsZERERWJHK2JpZ3E1REZWSWVGdGs2NTVR?=
- =?utf-8?B?Z1NDMkxoTlJuOHJBSEVIcytJMFVyQ1Jhc2g0UGpPN09JSjRuT0V1MjdzaWJ2?=
- =?utf-8?B?MXMwcXpvZ0E3dDNPTzBzT25jK0pnNXZGYTR2N0JncWN6dmZRNHBCaTFGQnRi?=
- =?utf-8?B?MmdiK1hULzRSNTJlWktoOTZBUTkyb1U5b05vZStZNVJzenU3TGFnY2VrZmZ5?=
- =?utf-8?B?RTBzaEtQaVJoYzZWVUpWUWp1d0tRS3pNdjFsNWlNd3phM01qbXBaLzFGK0hC?=
- =?utf-8?B?Y3ZDU0l4RkhxenpjaENLbXVIUTMwYzJmZmNZajR4ZTdlbGFYNkNYQkU0U1JL?=
- =?utf-8?Q?h4BCeYfnrlpFksYddPp4AQcL+?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2tZWjdBU3VzSHNJMUlmNlJHSnJOMFI1RDJZZ3hudXIzV1YxRmhYVkNHZE8v?=
+ =?utf-8?B?NXVrZFZXYWtrMEpNaDdnNlpvMS9QdnpQbXRQcXFUNWNKUzMyR2VtamVkLzFL?=
+ =?utf-8?B?LytlU3k4WlJpYUV2ck0yUlFvZ3BwYUpqSjRESWNKUWRLUlFjeDhJR1dOcFZt?=
+ =?utf-8?B?RWw2Qmx6aXFQcGoyWGdMa04vWlN5TkpLcDRPd2czb0xzNTlpZG5xOG5jcG9j?=
+ =?utf-8?B?K2JBbFE0ZWVaQ0pyZ2Y3d1J3TStYRkE3eDNlcEFWWjZBS01vdEhhTytPNEI4?=
+ =?utf-8?B?djJnM0g2RjZVZk5qblRPQmJYTk8yR3pINis1Z1RVVUNGYWl0TC9MODRxVzJo?=
+ =?utf-8?B?WFpCS3hSQ1ZTTnRnK3EySGQ2S3JIdUx5eTNONGQzaElQMkd3UWRpeE55WXlh?=
+ =?utf-8?B?T293RWs0NzdkTU9JWkt2dGhBWW41MWdaTTJVdmxNRkI3UnlXRHAyZ3dVbVNX?=
+ =?utf-8?B?dUVxYTJ5OWlNbHJmMWY4SFJCbnBGNS9EYld0WGNGandEbG9mK0p1dm9OaTVX?=
+ =?utf-8?B?TE9YZmJCTnBabFJ0NjYrNFA0NThXNS9xNTVGQkZLcURMSnVabzRhRG04dWZR?=
+ =?utf-8?B?dXhBL2hJZktWYXF1T3Nkb2l0TFBqaXd2enhrSEhRT2xHTHZZQXhlOFlDL0R1?=
+ =?utf-8?B?aW9nTStBRk1rTE03Z3FmMVlZZHcvSUFxd0ZWZ2cydldNWmFJY0VKbm1iWmt2?=
+ =?utf-8?B?Z3ZOdUY1VG8vRmlzQVhRMlJmOTlEcFQ5M1JtQkw5QTZvK3M1VWNTZTJmbGJ1?=
+ =?utf-8?B?TXFiMUZ6ZG9tL3B3SEFyOC9QamZwSU4xL3IrbjAwZkZDS2kxTXZlOGNJeWNs?=
+ =?utf-8?B?UHpkWGlRUjk5c2hlUVo5M0U0OUsxazluWG9WMFpHMmhvWEtQUENuVnRMV09p?=
+ =?utf-8?B?K1hQbnd5a3I3Q0kyRFVPeDJVRUpXWDlqL1kxeFMzSkE4MUFKSXBBdGdQUUhs?=
+ =?utf-8?B?Q1JXRzFGRklrT292SjNyK0cwYlBma05pWlRNR3JNT1BlVVZoTnpGUC9aRjBz?=
+ =?utf-8?B?dmJOT2E5RXNjdlNSbWd5T01naVFpYllzbFFLYkpPemZRa2RLSHNBV25EZmdi?=
+ =?utf-8?B?b0ZrY01TbmhMVm9DOE9lV0h5cGcxRGRLWU1leWtoUHM1UCtBdHdFaE5XU3Jm?=
+ =?utf-8?B?OCtlZmNZSmUyV2NLb3F6TTEyTDRPaDg3VjkvcnJIaDRQYTVXQkdiTHpZT0ZS?=
+ =?utf-8?B?VHFYTnBWSDczaXRrVnNGNTJRNjRVZnZ2aXVaOGJsblp2R0o2TzFIUm1uNzlO?=
+ =?utf-8?B?R3BWc1FDdndVbUVhVTRxVW8zWW4wTkQvNERwV0ZoR05wZnlpR1Azd216cVFX?=
+ =?utf-8?B?dTFnbUdXeFozWklxcE5VRHkzYUhHUjNDRlhzMEpMVlRQRHdTRjA0LzljZ2Q0?=
+ =?utf-8?B?cldEcVZndjMzSFVyRHhyYVFMRmJWVjZvcnpPMFhRYnZHZnBaL0FiSXVheWlB?=
+ =?utf-8?B?U05QSllCd0ZNbG1HMnBrcVo5MFphazlFUk9tY2tYRzUwaXBLYmQ4eVpvQ2pB?=
+ =?utf-8?B?WmhSV09OTExSTVo4UjRPSzM5RGpzVmthZnczMFAzeGFJMWF2QmdXYUFTZE43?=
+ =?utf-8?B?clcvOE5rdWg5QXVyZEdoTGFaTCtieFdLQWNWNEticVZsZmxSdGhSWlJCRXlx?=
+ =?utf-8?B?aFh2RFR5a0J3TGdBMTNRNjN0QUVPejNKWFN3MUNTMW5KQktEeitQSWd5cGlv?=
+ =?utf-8?B?OFN5OEFrcTdoMXRZL0dlbmFxQ3EzOTR5Nldmanc0TXVrVktNUDJhWiszR0Uw?=
+ =?utf-8?B?YzA4Ry9Hc1dFTFhkOGkyWXd2eGdkc0cxVmpKa1RXc1VQSUcrbWZTb2FQWHFh?=
+ =?utf-8?B?YXdBZDBvS0NGSUs5WDFoVEFZYnU3SUJrNlZ4SUVMOUdic2VFMGdFRWJ2dmpl?=
+ =?utf-8?B?cTVFdkVucGU0UDFwbjF4VzBqL2piUlVndXdHblNkdFA3WTNOc2NLNHpneGNO?=
+ =?utf-8?B?aXJNWU5COFc5QTRXaWtxbjkvMnRNQUhQcmNZYVRsS2htS0htdTdjeE1RUG1R?=
+ =?utf-8?B?K1pLYmR2eWJPbDhHQVNMRzY2MjlXNndFbndzZVkwaE9BbXJIRFJoTkd3c254?=
+ =?utf-8?B?c0tiM3hyL3UySHMwRHlFd1JUd3lhb3p1UVdhZG10S3VxWHI2VlQwdEx0M0xE?=
+ =?utf-8?Q?5efHLbRcJ9xqA4PnWGkwsBQeN?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87550ab6-29b2-4ce5-892f-08da737a727d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5951.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dd476e6-11c9-4375-04f8-08da737c47f4
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 04:58:17.3974 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 05:11:24.9809 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d9JBuywjiuACtQN3iJT/CJMOfB/6kYttKC1E5aph4ocpmhHs/TUTjVM8rU3L1vN0XT55zrJJrWB3zPw4myxm4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1775
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Charles Keepax <ckeepax@opensource.cirrus.com>, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Yang Yingliang <yangyingliang@huawei.com>, Mark Brown <broonie@kernel.org>,
- Vijendar.Mukunda@amd.com, vsujithkumar.reddy@amd.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: QNfeAdiGXVRTdHeFnwntmkgQwi8qKJqO6P/xcN5c0/DFQzHMrqSTQklOJWVLEc50
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4973
+Cc: Sunil-kumar.Dommati@amd.com, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ ssabakar@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, venkataprasad.potturu@amd.com,
+ Meng Tang <tangmeng@uniontech.com>, Basavaraj.Hiregoudar@amd.com,
+ Vijendar.Mukunda@amd.com, Takashi Iwai <tiwai@suse.com>,
+ open list <linux-kernel@vger.kernel.org>, Jia-Ju Bai <baijiaju1990@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,52 +171,163 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 7/29/2022 4:19 PM, Takashi Iwai wrote:
-Thanks for your time.
+On 7/31/2022 9:11 PM, Christophe JAILLET wrote:
 > [CAUTION: External Email]
 >
-> On Fri, 29 Jul 2022 12:34:51 +0200,
-> Venkata Prasad Potturu wrote:
->> On 7/28/22 18:19, Mark Brown wrote:
->> Thanks for your time.
+> Hi,
+>
+> this patch has already reached -next, but a few nit below.
+>
+> Le 07/07/2022 à 18:11, V sujith kumar Reddy a écrit :
+>> Add i2s and dmic support for Rembrandt platform,
+>> Add machine support for nau8825, max98360 and rt5682s,rt1019 codec
+>> in legacy driver for rembrandt platform.
+>> Here codec is in a slave mode.
 >>
->>      On Thu, Jul 28, 2022 at 06:10:50PM +0530, Venkata Prasad Potturu wrote:
+>> Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+>> ---
+>>   sound/soc/amd/acp/Kconfig            |  11 +
+>>   sound/soc/amd/acp/Makefile           |   2 +
+>>   sound/soc/amd/acp/acp-i2s.c          | 137 ++++++++-
+>>   sound/soc/amd/acp/acp-legacy-mach.c  |  32 +++
+>>   sound/soc/amd/acp/acp-mach-common.c  |  86 +++++-
+>>   sound/soc/amd/acp/acp-mach.h         |   6 +
+>>   sound/soc/amd/acp/acp-pci.c          |   6 +
+>>   sound/soc/amd/acp/acp-platform.c     |  16 +-
+>>   sound/soc/amd/acp/acp-rembrandt.c    | 401 +++++++++++++++++++++++++++
+>>   sound/soc/amd/acp/amd.h              |  62 ++++-
+>>   sound/soc/amd/acp/chip_offset_byte.h |  28 ++
+>>   11 files changed, 781 insertions(+), 6 deletions(-)
+>>   create mode 100644 sound/soc/amd/acp/acp-rembrandt.c
 >>
->>          @@ -104,14 +105,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
->>
->>                ext_intr_stat = readl(ACP_EXTERNAL_INTR_STAT(adata, rsrc->irqp_used));
->>
->>          -     for (i = 0; i < ACP_MAX_STREAM; i++) {
->>          -                           stream = adata->stream[i];
->>          +     spin_lock_irqsave(&adata->acp_lock, flags);
->>          +     list_for_each_entry(stream, &adata->stream_list, list) {
->>
->>      If we're already in an interrupt handler here (presumably not a threaded
->>      one) why are we using irqsave?
->>
->> Yes, your statement make sense, I have followed below statement in kernel
->> document. so used irqsave in interrupt context as well.
->>
->> We will change it to spin_lock() and send it in the next version.
->>
->> statement:- spin_lock_irqsave() will turn off interrupts if they are on,
->> otherwise does nothing (if we are already in an interrupt handler), hence
->> these functions are safe to call from any context.
-> Also the open and close callbacks are certainly non-irq context, hence
-> you can use spin_lock_irq() instead of irqsave(), too.
+>
+> [...]
+>
+>> diff --git a/sound/soc/amd/acp/acp-rembrandt.c 
+>> b/sound/soc/amd/acp/acp-rembrandt.c
+>> new file mode 100644
+>> index 000000000000..2b57c0ca4e99
+>> --- /dev/null
+>> +++ b/sound/soc/amd/acp/acp-rembrandt.c
+>> @@ -0,0 +1,401 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+>> +//
+>> +// This file is provided under a dual BSD/GPLv2 license. When using or
+>> +// redistributing this file, you may do so under either license.
+>
+> These lines are useless. There is already a SPDX-License-Identifier just
+> above.
+>
+>> +//
+>> +// Copyright(c) 2022 Advanced Micro Devices, Inc.
+>> +//
+>> +// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+>> +//          V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+>> +/*
+>> + * Hardware interface for Renoir ACP block
+>> + */
+>> +
+>
+> [...]
+>
+>> +static int rembrandt_audio_probe(struct platform_device *pdev)
+>> +{
+>> +     struct device *dev = &pdev->dev;
+>> +     struct acp_chip_info *chip;
+>> +     struct acp_dev_data *adata;
+>> +     struct resource *res;
+>> +
+>> +     chip = dev_get_platdata(&pdev->dev);
+>> +     if (!chip || !chip->base) {
+>> +             dev_err(&pdev->dev, "ACP chip data is NULL\n");
+>> +             return -ENODEV;
+>> +     }
+>> +
+>> +     if (chip->acp_rev != ACP6X_DEV) {
+>> +             dev_err(&pdev->dev, "Un-supported ACP Revision %d\n", 
+>> chip->acp_rev);
+>> +             return -ENODEV;
+>> +     }
+>> +
+>> +     rmb_acp_init(chip->base);
+>
+> Should rmb_acp_deinit() be called if an error occurs below?
+> Or a devm_add_action_or_reset() + .remove() simplification?
+>
+> (this is called in the .remove() function)
 
-One doubt, if we use *spin_lock_irq()* it will do *local_irq_disable() 
-*even if interrupts are already disabled, and when we call 
-*spin_unlock_irq() *after critical section it  will forcibly re-enable 
-interrupts in a potentially unwanted manner.
 
-If we use *spin_lock_irqsave();* and *spin_unlock_irqrestore(); *will 
-save and restore the interrupt state.
+Yes,we can check the error status ,we will do it up in a cleanup patch.
 
-My understanding is *spin_lock_irqsave();* is better instead of improper 
-interrupt enable and disable as like *spin_lock_irq();*
+>
+>> +
+>> +     adata = devm_kzalloc(dev, sizeof(struct acp_dev_data), 
+>> GFP_KERNEL);
+>> +     if (!adata)
+>> +             return -ENOMEM;
+>> +
+>> +     res = platform_get_resource_byname(pdev, IORESOURCE_MEM, 
+>> "acp_mem");
+>> +     if (!res) {
+>> +             dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
+>> +             return -ENODEV;
+>> +     }
+>> +
+>> +     adata->acp_base = devm_ioremap(&pdev->dev, res->start, 
+>> resource_size(res));
+>> +     if (!adata->acp_base)
+>> +             return -ENOMEM;
+>> +
+>> +     res = platform_get_resource_byname(pdev, IORESOURCE_IRQ, 
+>> "acp_dai_irq");
+>> +     if (!res) {
+>> +             dev_err(&pdev->dev, "IORESOURCE_IRQ FAILED\n");
+>> +             return -ENODEV;
+>> +     }
+>> +
+>> +     adata->i2s_irq = res->start;
+>> +     adata->dev = dev;
+>> +     adata->dai_driver = acp_rmb_dai;
+>> +     adata->num_dai = ARRAY_SIZE(acp_rmb_dai);
+>> +     adata->rsrc = &rsrc;
+>> +
+>> +     adata->machines = snd_soc_acpi_amd_rmb_acp_machines;
+>> +     acp_machine_select(adata);
+>> +
+>> +     dev_set_drvdata(dev, adata);
+>> +     acp6x_enable_interrupts(adata);
+>> +     acp_platform_register(dev);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int rembrandt_audio_remove(struct platform_device *pdev)
+>> +{
+>> +     struct device *dev = &pdev->dev;
+>> +     struct acp_dev_data *adata = dev_get_drvdata(dev);
+>> +     struct acp_chip_info *chip;
+>> +
+>> +     chip = dev_get_platdata(&pdev->dev);
+>> +     if (!chip || !chip->base) {
+>> +             dev_err(&pdev->dev, "ACP chip data is NULL\n");
+>> +             return -ENODEV;
+>> +     }
+>
+> These tests and dev_err and return look useless.
+> The same is already tested at the biginning of the probe and if it
+> fails, the probe will fail, right?
 
-Could you please let me know is there any other thing to use 
-*spin_lock_irq(); *particularly here.
 
-> Takashi
+yes ,agreed we will do it in a cleanup patch as it is merged.
+
+>
+>> +
+>> +     rmb_acp_deinit(chip->base);
+>> +
+>> +     acp6x_disable_interrupts(adata);
+>> +     acp_platform_unregister(dev);
+>> +     return 0;
+>> +}
+>
+> [...]
+>

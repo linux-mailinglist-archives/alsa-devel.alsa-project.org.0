@@ -2,82 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CD83586E2E
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 17:59:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1320D586E62
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 18:15:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E759E857;
-	Mon,  1 Aug 2022 17:58:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E759E857
+	by alsa0.perex.cz (Postfix) with ESMTPS id B97C584A;
+	Mon,  1 Aug 2022 18:15:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B97C584A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659369553;
-	bh=rmHwKdV9lnVM+ZhQRC9IpOj7o9J1CdDw1IowlF1itGI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1659370557;
+	bh=Y8Ios2pZ9qLf0wK9KahJsDuQ6Dyzgc57OUm0m3fCS5Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M4LAavMCIwXqQeqb/FdXuQjs4GMl5L1lZFhKoG4BN9Q1anHcKMReeKdVUNc6ouJms
-	 +dAebLgMKVWKMa0pPCW/UjORKwfwCtb9WAkMwMQQkw/XXVW89cmNdtz0DwyT93ZMph
-	 RFNmH6tT4g1b+B1OaCg6EJSP6rD+d+ikqHNtyoVM=
+	b=svIh4moQZoWT0eb+0U45bBXH3FlVZYxon/JXQNjxjsrsKVGcpvTYMrDpq6IglMHdy
+	 Vm8UAcEU4qOpZ2c8KZ3wJFfDM/9unRWOx9ia7o6ywtlKBufMawoc/+ONTVgfxWWoGV
+	 QxwAaE0zTOPe4IXj6ub7roHv+TI/AgYWviSrJdqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50BAEF8014B;
-	Mon,  1 Aug 2022 17:58:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40EA2F80139;
+	Mon,  1 Aug 2022 18:15:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C38C0F80246; Mon,  1 Aug 2022 17:58:13 +0200 (CEST)
+ id 0829EF80139; Mon,  1 Aug 2022 18:14:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
- [209.85.166.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0C39F8014B
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 17:58:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0C39F8014B
-Received: by mail-il1-f172.google.com with SMTP id b12so5046959ils.9
- for <alsa-devel@alsa-project.org>; Mon, 01 Aug 2022 08:58:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=hz7nXHEq1F85KPRnekV1M2XaUBYmmbucYnVIbXgpzws=;
- b=jWSrpddhjZX3h0+JLDCRW2PZxgjb+RUQlaAJbJJxYtjxCj+F3nH3BUrQInhLX9cmvH
- 4FIU+4ojAuQecB/Js0O1TWkVhFfcJHBV3aJdQPupXKXnCR7DMcc1ziesz334M6H+ssET
- 2cCBH5t29vNVyRekLRUzYCqsobIHhbVaU2CViZ9H5/XqLgRmC4bc1Mo73XcQbD/w6I4+
- D18RR0YIowcgeGIRSodBQDgPisd0tYZNamID1LSnDj7F4wsYqUvevAKZGvQMURUJLRP2
- ylQlduBSWruE9yM6Vhzb25Xpi8ty1lDZop+Y+XOuQNg9VHqn450FrDydB9zbtK7j4rnX
- B+YQ==
-X-Gm-Message-State: AJIora9N+c0dvmW1vS0tpI/QaX7yAs0+2m16DUuAK85W/crbVGqgOgh4
- 6GAUyDo6I4kooT9xbAif2A==
-X-Google-Smtp-Source: AGRyM1tj25NZhfphWqwROi3f80JZ6aZpzFI1C0At4lGs4DKytgAiBXKMF13d8KsBa/cQmcDnU9zAlw==
-X-Received: by 2002:a05:6e02:1aab:b0:2dd:1c2e:c495 with SMTP id
- l11-20020a056e021aab00b002dd1c2ec495mr6566304ilv.166.1659369485607; 
- Mon, 01 Aug 2022 08:58:05 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- r15-20020a92d44f000000b002de8a37ceccsm1833683ilm.70.2022.08.01.08.58.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Aug 2022 08:58:05 -0700 (PDT)
-Received: (nullmailer pid 1091762 invoked by uid 1000);
- Mon, 01 Aug 2022 15:58:03 -0000
-Date: Mon, 1 Aug 2022 09:58:03 -0600
-From: Rob Herring <robh@kernel.org>
-To: Raphael-Xu <13691752556@139.com>
-Subject: Re: [PATCH v1] ASoc: dt-bindings: tas27xx: update maximum I2C
- address and revise the format
-Message-ID: <20220801155803.GA1090009-robh@kernel.org>
-References: <20220728035610.158-1-13691752556@139.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C59DF80139
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 18:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C59DF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Q//wh+/k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1659370493; x=1690906493;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Y8Ios2pZ9qLf0wK9KahJsDuQ6Dyzgc57OUm0m3fCS5Y=;
+ b=Q//wh+/kFRPI+ZyMhjtQ+TxENrkD8gkM7F6ydR4J3NYs7ww8iepdEgh5
+ Sfx71xf79NgpLu9h2TWipVSXyz5uQmoGQOwFl6i3KNs812o7W73u92Arv
+ eZUk4rMktwC2V9yd+NJwQHkwYO4iRqNctuaLf0lLFvnk4uDuWMFNVk+u1
+ xrHMns+bQ5NmeTVNr4uGZbj3vn8g0y7Wnut+04j89It3+WY87OAHpxrUF
+ V41IMja6DwXoOzfj2uQAaOpdunmyBinnijAK6LI0DDq5+qtZwkRO2FudQ
+ xjAVMUr8fR8QTmvvP2zV6skK4uEbB1XHCSjOgJEYlC0GdG+96SWxfwphc Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10426"; a="289958111"
+X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="289958111"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2022 09:14:47 -0700
+X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="605708771"
+Received: from yuanbowa-mobl.amr.corp.intel.com (HELO [10.212.86.5])
+ ([10.212.86.5])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2022 09:14:47 -0700
+Message-ID: <1e2c7dd9-0c28-17eb-b166-3bfaf65bbfe4@linux.intel.com>
+Date: Mon, 1 Aug 2022 10:25:14 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220728035610.158-1-13691752556@139.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- shenghao-ding@ti.com, kevin-lu@ti.com, broonie@kernel.org, raphael-xu@ti.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH v3] ASoC: Intel: cirrus-common: Use UID to map correct amp
+ to prefix
+Content-Language: en-US
+To: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Brent Lu <brent.lu@intel.com>, xliu <xiang.liu@cirrus.com>
+References: <20220801094034.3927841-1-sbinding@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220801094034.3927841-1-sbinding@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,71 +96,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 28, 2022 at 11:56:10AM +0800, Raphael-Xu wrote:
-> 1.use correct maximum I2C address 2.revise the format
 
-Same comments from v8 apply.
 
+On 8/1/22 04:40, Stefan Binding wrote:
+> Since the order of the amps in the ACPI determines the device name,
+> and the ACPI order may change depending on hardware configuration,
+> use UID to dynamically compute the dai links, allowing dynamic
+> assignment of the name_prefix.
 > 
-> Signed-off-by: Raphael-Xu <13691752556@139.com>
+> The UIDs for these amps in ACPI are fixed, and map to a name_prefix,
+> where:
+> UID 0x0 -> WL
+> UID 0x1 -> WR
+> UID 0x2 -> TL
+> UID 0x3 -> TR
+> 
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+
+Thanks for the updates, LGTM
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
 > ---
->  .../devicetree/bindings/sound/tas27xx.yaml       | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
+>  sound/soc/intel/boards/sof_cirrus_common.c | 92 ++++++++++++----------
+>  1 file changed, 49 insertions(+), 43 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/tas27xx.yaml b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-> index 66a0df8850ea..573652577462 100644
-> --- a/Documentation/devicetree/bindings/sound/tas27xx.yaml
-> +++ b/Documentation/devicetree/bindings/sound/tas27xx.yaml
-> @@ -8,7 +8,7 @@ $schema: "http://devicetree.org/meta-schemas/core.yaml#"
->  title: Texas Instruments TAS2764/TAS2780 Smart PA
+> diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
+> index f4192df962d6..6e39eda77385 100644
+> --- a/sound/soc/intel/boards/sof_cirrus_common.c
+> +++ b/sound/soc/intel/boards/sof_cirrus_common.c
+> @@ -10,6 +10,9 @@
+>  #include "../../codecs/cs35l41.h"
+>  #include "sof_cirrus_common.h"
 >  
->  maintainers:
-> -  - Shenghao Ding <shenghao-ding@ti.com>
-> +  - Raphael Xu <raphael-xu@ti.com>
+> +#define CS35L41_HID "CSC3541"
+> +#define CS35L41_MAX_AMPS 4
+> +
+>  /*
+>   * Cirrus Logic CS35L41/CS35L53
+>   */
+> @@ -35,50 +38,12 @@ static const struct snd_soc_dapm_route cs35l41_dapm_routes[] = {
+>  	{"TR Spk", NULL, "TR SPK"},
+>  };
 >  
->  description: |
->    The TAS2764/TAS2780 is a mono, digital input Class-D audio amplifier
-> @@ -23,17 +23,19 @@ properties:
->        - ti,tas2780
+> -static struct snd_soc_dai_link_component cs35l41_components[] = {
+> -	{
+> -		.name = CS35L41_DEV0_NAME,
+> -		.dai_name = CS35L41_CODEC_DAI,
+> -	},
+> -	{
+> -		.name = CS35L41_DEV1_NAME,
+> -		.dai_name = CS35L41_CODEC_DAI,
+> -	},
+> -	{
+> -		.name = CS35L41_DEV2_NAME,
+> -		.dai_name = CS35L41_CODEC_DAI,
+> -	},
+> -	{
+> -		.name = CS35L41_DEV3_NAME,
+> -		.dai_name = CS35L41_CODEC_DAI,
+> -	},
+> -};
+> +static struct snd_soc_dai_link_component cs35l41_components[CS35L41_MAX_AMPS];
 >  
->    reg:
-> -    maxItems: 1
->      description: |
-> -       I2C address of the device can be between 0x38 to 0x45.
-> +       I2C address of the device can be between 0x38 to 0x3f.
-> +    minimum: 0x38
-> +    maximum: 0x3f
+>  /*
+>   * Mapping between ACPI instance id and speaker position.
+> - *
+> - * Four speakers:
+> - *         0: Tweeter left, 1: Woofer left
+> - *         2: Tweeter right, 3: Woofer right
+>   */
+> -static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
+> -	{
+> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
+> -		.name_prefix = "TL",
+> -	},
+> -	{
+> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
+> -		.name_prefix = "WL",
+> -	},
+> -	{
+> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
+> -		.name_prefix = "TR",
+> -	},
+> -	{
+> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
+> -		.name_prefix = "WR",
+> -	},
+> -};
+> +static struct snd_soc_codec_conf cs35l41_codec_conf[CS35L41_MAX_AMPS];
 >  
->    reset-gpios:
-> -    maxItems: 1
->      description: GPIO used to reset the device.
-> +    maxItems: 1
+>  static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
+>  {
+> @@ -117,10 +82,10 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
+>  static const struct {
+>  	unsigned int rx[2];
+>  } cs35l41_channel_map[] = {
+> -	{.rx = {0, 1}}, /* TL */
+>  	{.rx = {0, 1}}, /* WL */
+> -	{.rx = {1, 0}}, /* TR */
+>  	{.rx = {1, 0}}, /* WR */
+> +	{.rx = {0, 1}}, /* TL */
+> +	{.rx = {1, 0}}, /* TR */
+>  };
 >  
->    shutdown-gpios:
-> +    description: |
-> +       GPIO used to control the state of the device.Only for TAS2764.
->      maxItems: 1
-> -    description: GPIO used to control the state of the device.
+>  static int cs35l41_hw_params(struct snd_pcm_substream *substream,
+> @@ -175,10 +140,51 @@ static const struct snd_soc_ops cs35l41_ops = {
+>  	.hw_params = cs35l41_hw_params,
+>  };
 >  
->    interrupts:
->      maxItems: 1
-> @@ -41,10 +43,14 @@ properties:
->    ti,imon-slot-no:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      description: TDM TX current sense time slot.
-> +    minimum: 0
-> +    maximum: 3
->  
->    ti,vmon-slot-no:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      description: TDM TX voltage sense time slot.
-> +    minimum: 0
-> +    maximum: 3
->  
->    '#sound-dai-cells':
->      const: 1
-> -- 
-> 2.35.1
-> 
-> 
-> 
+> +static const char * const cs35l41_name_prefixes[] = { "WL", "WR", "TL", "TR" };
+> +
+> +/*
+> + * Expected UIDs are integers (stored as strings).
+> + * UID Mapping is fixed:
+> + * UID 0x0 -> WL
+> + * UID 0x1 -> WR
+> + * UID 0x2 -> TL
+> + * UID 0x3 -> TR
+> + * Note: If there are less than 4 Amps, UIDs still map to WL/WR/TL/TR. Dynamic code will only create
+> + * dai links for UIDs which exist, and ignore non-existant ones. Only 2 or 4 amps are expected.
+> + * Return number of codecs found.
+> + */
+> +static int cs35l41_compute_codec_conf(void)
+> +{
+> +	const char * const uid_strings[] = { "0", "1", "2", "3" };
+> +	unsigned int uid, sz = 0;
+> +	struct acpi_device *adev;
+> +	struct device *physdev;
+> +
+> +	for (uid = 0; uid < CS35L41_MAX_AMPS; uid++) {
+> +		adev = acpi_dev_get_first_match_dev(CS35L41_HID, uid_strings[uid], -1);
+> +		if (!adev) {
+> +			pr_devel("Cannot find match for HID %s UID %u (%s)\n", CS35L41_HID, uid,
+> +				 cs35l41_name_prefixes[uid]);
+> +			continue;
+> +		}
+> +		physdev = get_device(acpi_get_first_physical_node(adev));
+> +		cs35l41_components[sz].name = dev_name(physdev);
+> +		cs35l41_components[sz].dai_name = CS35L41_CODEC_DAI;
+> +		cs35l41_codec_conf[sz].dlc.name = dev_name(physdev);
+> +		cs35l41_codec_conf[sz].name_prefix = cs35l41_name_prefixes[uid];
+> +		acpi_dev_put(adev);
+> +		sz++;
+> +	}
+> +
+> +	if (sz != 2 && sz != 4)
+> +		pr_warn("Invalid number of cs35l41 amps found: %d, expected 2 or 4\n", sz);
+> +	return sz;
+> +}
+> +
+>  void cs35l41_set_dai_link(struct snd_soc_dai_link *link)
+>  {
+> +	link->num_codecs = cs35l41_compute_codec_conf();
+>  	link->codecs = cs35l41_components;
+> -	link->num_codecs = ARRAY_SIZE(cs35l41_components);
+>  	link->init = cs35l41_init;
+>  	link->ops = &cs35l41_ops;
+>  }

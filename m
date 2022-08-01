@@ -2,85 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1320D586E62
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 18:15:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D95586E4C
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 18:09:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B97C584A;
-	Mon,  1 Aug 2022 18:15:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B97C584A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FDA885D;
+	Mon,  1 Aug 2022 18:08:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FDA885D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659370557;
-	bh=Y8Ios2pZ9qLf0wK9KahJsDuQ6Dyzgc57OUm0m3fCS5Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=svIh4moQZoWT0eb+0U45bBXH3FlVZYxon/JXQNjxjsrsKVGcpvTYMrDpq6IglMHdy
-	 Vm8UAcEU4qOpZ2c8KZ3wJFfDM/9unRWOx9ia7o6ywtlKBufMawoc/+ONTVgfxWWoGV
-	 QxwAaE0zTOPe4IXj6ub7roHv+TI/AgYWviSrJdqw=
+	s=default; t=1659370156;
+	bh=i1UETo8NHsUKHWVAZL1XRC4GfRCy1c2tr0QG4/k02ag=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Tp7AtTF1hRqc6cIIuFradUqBt7mXoGocf4VH/cG6TbfvfbQOBPi63RW0s5WKb6ZP0
+	 bg8eK5yQz+yW6G+pgRPqaDNKuIhasQrLhHiyBYMLR/Cm1verBprDirV4R81oU7Z8BJ
+	 4IoTBcmgxHXhDA3E3RHEqSfqXVJtgtH3N02QpnkE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40EA2F80139;
-	Mon,  1 Aug 2022 18:15:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D94AEF8014B;
+	Mon,  1 Aug 2022 18:08:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0829EF80139; Mon,  1 Aug 2022 18:14:59 +0200 (CEST)
+ id 51C78F8023B; Mon,  1 Aug 2022 18:08:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C59DF80139
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 18:14:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C59DF80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF2FAF80139
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 18:08:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF2FAF80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Q//wh+/k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659370493; x=1690906493;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Y8Ios2pZ9qLf0wK9KahJsDuQ6Dyzgc57OUm0m3fCS5Y=;
- b=Q//wh+/kFRPI+ZyMhjtQ+TxENrkD8gkM7F6ydR4J3NYs7ww8iepdEgh5
- Sfx71xf79NgpLu9h2TWipVSXyz5uQmoGQOwFl6i3KNs812o7W73u92Arv
- eZUk4rMktwC2V9yd+NJwQHkwYO4iRqNctuaLf0lLFvnk4uDuWMFNVk+u1
- xrHMns+bQ5NmeTVNr4uGZbj3vn8g0y7Wnut+04j89It3+WY87OAHpxrUF
- V41IMja6DwXoOzfj2uQAaOpdunmyBinnijAK6LI0DDq5+qtZwkRO2FudQ
- xjAVMUr8fR8QTmvvP2zV6skK4uEbB1XHCSjOgJEYlC0GdG+96SWxfwphc Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10426"; a="289958111"
-X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="289958111"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2022 09:14:47 -0700
-X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="605708771"
-Received: from yuanbowa-mobl.amr.corp.intel.com (HELO [10.212.86.5])
- ([10.212.86.5])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2022 09:14:47 -0700
-Message-ID: <1e2c7dd9-0c28-17eb-b166-3bfaf65bbfe4@linux.intel.com>
-Date: Mon, 1 Aug 2022 10:25:14 -0500
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="kGbHbHV5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gxRyMKWIhxgNYaoIFOHxbOkKKiB31nsrF394MhdeW4+dfyUe1uE2uxs/1CV5cy4ve+8VPsat55iOh0e/9SNI9obidNKloPoonSHLhuytRoa5Za3xDni4r8fu/APmC6reHPXnEivexaYxlo6v3k7YH+5UBtKsqJXqFtdohNpcX6uWmivY+NTaNoQJQZc385zqT0PALSNxraCNgyHJUs25uNfx9FFWPN5ATO318RfmBnkNLpGr9R0XSKwayed2tImGnX8d5rWAwI25FISreTZ/28SkkPDHuSE96UvZ5w8Zfxh5dMaW9t1kM7tO9u66X+TiSnH6M5eEV1KlskEcpDk0dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ihmimuOvhmFJpa30MFHQQoKzRcLaE88/5uXq1XikdTo=;
+ b=CVVU9mchN4i/hugE2Ln8CGIyZTDLZDT1M354yK6XJyqTvLVl9jBitFM6tkWXG2RlqZCYusHb5ze2Qwqek08JRNSH0nUtDXATYf74QgJUPwA8x8JZaBUKWO7iy8NsO7wTIXF/05SAdctrzPun5mwPC/WHZqG0E/ip4D1IrfADmyMZ7OrMyA0Y+d9fdAofDkScGiyBVQ0/9Hb6vgSw9/3Wm7RYfowP/NSNpiMuqJ7FENmUiO/jzKWpaw3zmJ8rroTwRhCQ6SuKBHodElAu+TQ7uzA4htLuEKooFbJIXUfRArzpcLNP3OhxCAVfApEgD6j+kDEsX6pLteInvMaJp8+svA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.236) smtp.rcpttodomain=renesas.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ihmimuOvhmFJpa30MFHQQoKzRcLaE88/5uXq1XikdTo=;
+ b=kGbHbHV5DlW0MhJ3WPZfngAmdMH+mQ7WcpoFM0MrLdPoTlEopvWEkz+eGkbcvbU2+wDRH747HwOl/oxb+yHJE9mmSr9sx1rEquIZBqBfpjFSKxtF3+FVf2tcpCM/iJetOOocOsKXV4EVpMLTWzFcgcxYHm08XwB6q6ruL51TWD3clXDMRORlKGSxmx3QIX30l9fpLDhYw6L63NI05qdy7VV3/VggTxKk3zqLA5aj8Q8YpjtVu72tVoW63lqQJJdpd9s8vAuNMC6drNKvysaziOol5M+fHAGwEENTKuAGPxNt582FjuoWcJNBTNp646Mn190hHzO4H5c//B2eokdLvw==
+Received: from BN9PR03CA0101.namprd03.prod.outlook.com (2603:10b6:408:fd::16)
+ by BN8PR12MB3409.namprd12.prod.outlook.com (2603:10b6:408:46::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.12; Mon, 1 Aug
+ 2022 16:08:08 +0000
+Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fd:cafe::72) by BN9PR03CA0101.outlook.office365.com
+ (2603:10b6:408:fd::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.14 via Frontend
+ Transport; Mon, 1 Aug 2022 16:08:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.236; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (12.22.5.236) by
+ BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5482.10 via Frontend Transport; Mon, 1 Aug 2022 16:08:08 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ DRHQMAIL109.nvidia.com (10.27.9.19) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.32; Mon, 1 Aug 2022 16:08:07 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.26; Mon, 1 Aug 2022 09:08:06 -0700
+Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
+ Transport; Mon, 1 Aug 2022 09:08:04 -0700
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 0/3] DT binding for sample format conversion
+Date: Mon, 1 Aug 2022 21:37:29 +0530
+Message-ID: <1659370052-18966-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH v3] ASoC: Intel: cirrus-common: Use UID to map correct amp
- to prefix
-Content-Language: en-US
-To: Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Brent Lu <brent.lu@intel.com>, xliu <xiang.liu@cirrus.com>
-References: <20220801094034.3927841-1-sbinding@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220801094034.3927841-1-sbinding@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 90ef133c-58fd-4476-b6fc-08da73d8065d
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3409:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Fw8qK1yYj39IEwaTlKnHXyZmrt6Ek/5JVr0cVrTfKDziooYmmDjaSLWW35EUrztRyfPAmiKcEF7itEbpqKEW9it9/Ax7MJXFp9XMYQsKtmEsyneLM4cqDcXZOTmrckrALwMbG9r9x8x28BSlNg6bYuU0aUhiOtro/fn+hdLGCAsktGhcKsXp1fBOfjwg4G3Ga2E9cAvDH2U0hjB9ecpxIOzZ5U20dVphLe8NvBeSfXOoCgnIfAt1lqlpm6BBUUvLJUBiiVdIUGa73rx5JNx2vUGfHpJapw2gnEx0jJwxeEzCaz6lIEOPWhq9jI7YPRGB2TJqft36XerhuljW9vv6UiXsgjwMQYfdKyoF2OHjyvWvwa/0PBLUT5ncwe3d+q/5IH09GwNTpglpf2gkoABEDE/NBFrjPiEJDG/CA3ipWoSYa0kBVdYfmXrgz2R+LOaKw6lJaztg3Ro3kQ1O2wT7oz/umw7Q24t0e/4ZNNWLQvncP7xtb4KeW6BPVXMuyOGWVEkSoX0LFGFU9L0BIic5OoC19ZseA8h1fCJLzT3yxURHM8Ll6jOQfHfZauQ6cY+jCgJBsHXtsaSSpBz3VokiLVtajC4pYOcb5uU38pqW/tvatLujAKzO8lJDQsWAOKjHSz05IO+ziKKJRrwdN2EfSNXEdd45D+q9JhXVDrPuy+Ubz2tMSXrc+CZ8sqRogopW3mNlTxY3ShNVbbZZpbCc53kpwWEp9dDOFfxp7wqNIspvLFwTfP/l8JanFaPQPNWeLqzHX+FkrMk1hGi2thdMgYSNgNimgKkgN/m1a3sYGZMxssNwb0KHpSYofDZgRmp/Nsd96mJ8g2co1KdqFuhAXw==
+X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(346002)(39860400002)(136003)(376002)(46966006)(40470700004)(36840700001)(107886003)(186003)(336012)(2616005)(426003)(47076005)(7696005)(86362001)(6666004)(40460700003)(41300700001)(2906002)(26005)(82310400005)(36860700001)(83380400001)(356005)(82740400003)(110136005)(81166007)(5660300002)(36756003)(316002)(7416002)(70586007)(70206006)(40480700001)(4326008)(8936002)(8676002)(54906003)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 16:08:08.1406 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90ef133c-58fd-4476-b6fc-08da73d8065d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3409
+Cc: Sameer Pujar <spujar@nvidia.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,162 +134,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+DT binding properties are available to fixup rate and channel
+parameters of a DAI. This series extends this to sample format
+conversion as well. With this now DAI PCM parameters (channels,
+sample rate and sample format) can be fixed up as necessary
+in an audio path.
 
+Changelog:
+==========
+  v1->v2:
+  -------
+    * Move DAI params properties to a new schema and re-use this
+      for simple-card and audio-graph-card.
+    * Use string type for DAI format binding as suggested by
+      Krzysztof.
 
-On 8/1/22 04:40, Stefan Binding wrote:
-> Since the order of the amps in the ACPI determines the device name,
-> and the ACPI order may change depending on hardware configuration,
-> use UID to dynamically compute the dai links, allowing dynamic
-> assignment of the name_prefix.
-> 
-> The UIDs for these amps in ACPI are fixed, and map to a name_prefix,
-> where:
-> UID 0x0 -> WL
-> UID 0x1 -> WR
-> UID 0x2 -> TL
-> UID 0x3 -> TR
-> 
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Sameer Pujar (3):
+  ASoC: dt-bindings: Add schema for common DAI params
+  ASoC: dt-bindings: Add sample format conversion
+  ASoC: simple-card-utils: Fixup DAI sample format
 
-Thanks for the updates, LGTM
+ .../bindings/sound/audio-graph-port.yaml           | 17 +++++-----
+ .../devicetree/bindings/sound/audio-graph.yaml     |  9 ++---
+ .../devicetree/bindings/sound/dai-params.yaml      | 38 ++++++++++++++++++++++
+ .../devicetree/bindings/sound/simple-card.yaml     | 20 +++++-------
+ include/sound/simple_card_utils.h                  |  1 +
+ sound/soc/generic/simple-card-utils.c              | 34 +++++++++++++++++++
+ 6 files changed, 95 insertions(+), 24 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/dai-params.yaml
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+-- 
+2.7.4
 
-> ---
->  sound/soc/intel/boards/sof_cirrus_common.c | 92 ++++++++++++----------
->  1 file changed, 49 insertions(+), 43 deletions(-)
-> 
-> diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-> index f4192df962d6..6e39eda77385 100644
-> --- a/sound/soc/intel/boards/sof_cirrus_common.c
-> +++ b/sound/soc/intel/boards/sof_cirrus_common.c
-> @@ -10,6 +10,9 @@
->  #include "../../codecs/cs35l41.h"
->  #include "sof_cirrus_common.h"
->  
-> +#define CS35L41_HID "CSC3541"
-> +#define CS35L41_MAX_AMPS 4
-> +
->  /*
->   * Cirrus Logic CS35L41/CS35L53
->   */
-> @@ -35,50 +38,12 @@ static const struct snd_soc_dapm_route cs35l41_dapm_routes[] = {
->  	{"TR Spk", NULL, "TR SPK"},
->  };
->  
-> -static struct snd_soc_dai_link_component cs35l41_components[] = {
-> -	{
-> -		.name = CS35L41_DEV0_NAME,
-> -		.dai_name = CS35L41_CODEC_DAI,
-> -	},
-> -	{
-> -		.name = CS35L41_DEV1_NAME,
-> -		.dai_name = CS35L41_CODEC_DAI,
-> -	},
-> -	{
-> -		.name = CS35L41_DEV2_NAME,
-> -		.dai_name = CS35L41_CODEC_DAI,
-> -	},
-> -	{
-> -		.name = CS35L41_DEV3_NAME,
-> -		.dai_name = CS35L41_CODEC_DAI,
-> -	},
-> -};
-> +static struct snd_soc_dai_link_component cs35l41_components[CS35L41_MAX_AMPS];
->  
->  /*
->   * Mapping between ACPI instance id and speaker position.
-> - *
-> - * Four speakers:
-> - *         0: Tweeter left, 1: Woofer left
-> - *         2: Tweeter right, 3: Woofer right
->   */
-> -static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
-> -	{
-> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
-> -		.name_prefix = "TL",
-> -	},
-> -	{
-> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
-> -		.name_prefix = "WL",
-> -	},
-> -	{
-> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
-> -		.name_prefix = "TR",
-> -	},
-> -	{
-> -		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
-> -		.name_prefix = "WR",
-> -	},
-> -};
-> +static struct snd_soc_codec_conf cs35l41_codec_conf[CS35L41_MAX_AMPS];
->  
->  static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
->  {
-> @@ -117,10 +82,10 @@ static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
->  static const struct {
->  	unsigned int rx[2];
->  } cs35l41_channel_map[] = {
-> -	{.rx = {0, 1}}, /* TL */
->  	{.rx = {0, 1}}, /* WL */
-> -	{.rx = {1, 0}}, /* TR */
->  	{.rx = {1, 0}}, /* WR */
-> +	{.rx = {0, 1}}, /* TL */
-> +	{.rx = {1, 0}}, /* TR */
->  };
->  
->  static int cs35l41_hw_params(struct snd_pcm_substream *substream,
-> @@ -175,10 +140,51 @@ static const struct snd_soc_ops cs35l41_ops = {
->  	.hw_params = cs35l41_hw_params,
->  };
->  
-> +static const char * const cs35l41_name_prefixes[] = { "WL", "WR", "TL", "TR" };
-> +
-> +/*
-> + * Expected UIDs are integers (stored as strings).
-> + * UID Mapping is fixed:
-> + * UID 0x0 -> WL
-> + * UID 0x1 -> WR
-> + * UID 0x2 -> TL
-> + * UID 0x3 -> TR
-> + * Note: If there are less than 4 Amps, UIDs still map to WL/WR/TL/TR. Dynamic code will only create
-> + * dai links for UIDs which exist, and ignore non-existant ones. Only 2 or 4 amps are expected.
-> + * Return number of codecs found.
-> + */
-> +static int cs35l41_compute_codec_conf(void)
-> +{
-> +	const char * const uid_strings[] = { "0", "1", "2", "3" };
-> +	unsigned int uid, sz = 0;
-> +	struct acpi_device *adev;
-> +	struct device *physdev;
-> +
-> +	for (uid = 0; uid < CS35L41_MAX_AMPS; uid++) {
-> +		adev = acpi_dev_get_first_match_dev(CS35L41_HID, uid_strings[uid], -1);
-> +		if (!adev) {
-> +			pr_devel("Cannot find match for HID %s UID %u (%s)\n", CS35L41_HID, uid,
-> +				 cs35l41_name_prefixes[uid]);
-> +			continue;
-> +		}
-> +		physdev = get_device(acpi_get_first_physical_node(adev));
-> +		cs35l41_components[sz].name = dev_name(physdev);
-> +		cs35l41_components[sz].dai_name = CS35L41_CODEC_DAI;
-> +		cs35l41_codec_conf[sz].dlc.name = dev_name(physdev);
-> +		cs35l41_codec_conf[sz].name_prefix = cs35l41_name_prefixes[uid];
-> +		acpi_dev_put(adev);
-> +		sz++;
-> +	}
-> +
-> +	if (sz != 2 && sz != 4)
-> +		pr_warn("Invalid number of cs35l41 amps found: %d, expected 2 or 4\n", sz);
-> +	return sz;
-> +}
-> +
->  void cs35l41_set_dai_link(struct snd_soc_dai_link *link)
->  {
-> +	link->num_codecs = cs35l41_compute_codec_conf();
->  	link->codecs = cs35l41_components;
-> -	link->num_codecs = ARRAY_SIZE(cs35l41_components);
->  	link->init = cs35l41_init;
->  	link->ops = &cs35l41_ops;
->  }

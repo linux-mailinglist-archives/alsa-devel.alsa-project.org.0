@@ -2,92 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62FBF5867CB
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 12:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94C17586B0A
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 14:43:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E244A1FE;
-	Mon,  1 Aug 2022 12:49:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E244A1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 268051EA;
+	Mon,  1 Aug 2022 14:42:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268051EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659350997;
-	bh=gHcEV0SEILLKvXWrYx1UbBCSpckPXxHpQvUsvC+OM5c=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gghmrPky5seWywZw11lF4bKJLxVsva4WVgo/jxFCZHHpfSpUsmMoHxYTV/oNHr7/p
-	 qBoZgfsy0X1icESecmn7vL79ldSSr3LXLqFz/J+KyrqaRhAJXZW3dHlIDjL5KvaEpi
-	 c/bKK0ZZQp38idr7RtpMU2mvfeRYFdXTGPHbdsek=
+	s=default; t=1659357820;
+	bh=Psqus1GXa7Y0rzUkyCWkI7P5MQJU805msxDKsvE3iDM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AORAh7Jy+Q5wsq6KnZW3yYjXHyTtYpdcLa1wkoOKzYl6DTLaMt43L2kNyF1Q7r8m+
+	 VXa8RGrao69rf3itkI11l5EByoXPkk++B+26qBUYooDzI0Urmayr4jWlw2HdtfMN0K
+	 XRjRn8pk6T9nvR6HnMZGBbmrUYykGeqjI8gCAs4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45329F8013D;
-	Mon,  1 Aug 2022 12:48:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EF2DF80246;
+	Mon,  1 Aug 2022 14:42:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EFF7F8023B; Mon,  1 Aug 2022 12:48:57 +0200 (CEST)
+ id B9BA9F8013D; Mon,  1 Aug 2022 14:42:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8061DF8013D
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 12:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8061DF8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="r3bp/qQ6"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RSEYKPia"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 895754DA61;
- Mon,  1 Aug 2022 10:48:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1659350929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=az74vuft2wC8E+2o3hgx4srhX55I77sEaizPCF+H688=;
- b=r3bp/qQ682wWiRijJJTVcim6F+KJnIbEYXEiJr3rBwKsQ8lGmZo+Yjj12lEe2JOrYYzMQs
- 88QvTPQZb5qEEBaQxs7HsTuc6pG8JP81YzVlY5mNqmBlW6s4oh95rjp9Sd6ragtqbT21rL
- T89uBjCmsxaB5kG60alfVr42Sh3N/6M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1659350929;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=az74vuft2wC8E+2o3hgx4srhX55I77sEaizPCF+H688=;
- b=RSEYKPiaLmyfJSzWnjByKLjViGfBOxcUnWDNbxnSPOfW/V9g+IVN4V4wmWPEiIL+dD2Dcz
- UsTC4lh8KBjy9oCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F83D13A72;
- Mon,  1 Aug 2022 10:48:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lhJVGpGv52IebwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 01 Aug 2022 10:48:49 +0000
-Date: Mon, 01 Aug 2022 12:48:49 +0200
-Message-ID: <87y1w8me7i.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2 1/4] ALSA: core: Add async signal helpers
-In-Reply-To: <408af362-0839-e4f0-8dea-15103b269836@perex.cz>
-References: <20220728125945.29533-1-tiwai@suse.de>
- <20220728125945.29533-2-tiwai@suse.de>
- <e903d8ac-7575-77f6-2d6b-a787ea3ec0bb@perex.cz>
- <871qu0nuei.wl-tiwai@suse.de>
- <408af362-0839-e4f0-8dea-15103b269836@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEAB0F8013D
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 14:42:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEAB0F8013D
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0228A20148F;
+ Mon,  1 Aug 2022 14:42:34 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BEB9220130A;
+ Mon,  1 Aug 2022 14:42:33 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 4C22A180031C;
+ Mon,  1 Aug 2022 20:42:32 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: imx-rpmsg: Support configure sysclk for codec dai
+Date: Mon,  1 Aug 2022 20:26:13 +0800
+Message-Id: <1659356773-8315-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,70 +71,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Aug 2022 12:43:36 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 01. 08. 22 12:13, Takashi Iwai wrote:
-> > On Mon, 01 Aug 2022 10:05:59 +0200,
-> > Jaroslav Kysela wrote:
-> >> 
-> >> On 28. 07. 22 14:59, Takashi Iwai wrote:
-> >>> Currently the call of kill_fasync() from an interrupt handler might
-> >>> lead to potential spin deadlocks, as spotted by syzkaller.
-> >>> Unfortunately, it's not so trivial to fix this lock chain as it's
-> >>> involved with the tasklist_lock that is touched in allover places.
-> >>> 
-> >>> As a temporary workaround, this patch provides the way to defer the
-> >>> async signal notification in a work.  The new helper functions,
-> >>> snd_fasync_helper() and snd_kill_faync() are replacements for
-> >>> fasync_helper() and kill_fasync(), respectively.  In addition,
-> >>> snd_fasync_free() needs to be called at the destructor of the relevant
-> >>> file object.
-> >>> 
-> >>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> >> 
-> >> ...
-> >> 
-> >>> +void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll)
-> >>> +{
-> >>> +	unsigned long flags;
-> >>> +
-> >>> +	if (!fasync || !fasync->on)
-> >>> +		return;
-> >>> +	spin_lock_irqsave(&snd_fasync_lock, flags);
-> >>> +	fasync->signal = signal;
-> >>> +	fasync->poll = poll;
-> >>> +	list_move(&fasync->list, &snd_fasync_list);
-> >>> +	schedule_work(&snd_fasync_work);
-> >>> +	spin_unlock_irqrestore(&snd_fasync_lock, flags);
-> >>> +}
-> >> 
-> >> The schedule_work() may be called outside the spinlock - it calls
-> >> queue_work_on() / __queue_work() which has already own protection for
-> >> the concurrent execution.
-> > 
-> > It can be outside, too, but scheduling earlier reduces the possible
-> > unnecessary scheduling.  Suppose that a list is added while the work
-> > is already running in another CPU.  If we call schedule_work() outside
-> > this lock, it might be already the time after the work has processed
-> > the queued item, and hence it can be a superfluous scheduling call.
-> 
-> It's really a negligible optimization. It would be better to not block
-> other CPUs here to allow insertion of the new event. Also the
-> __queue_work() is a bit complex code, so the call outside the spin
-> lock may be better.
+Some codecs need to configure the sysclk even with slave
+mode, otherwise it may not work properly with some case.
 
-It depends on how often this code path is used.  Supposing the rare
-use case of this, we don't need to care too much, IMO.
-And, if we really want better concurrency, it should be replaced with
-RCU :)
+wm8960 is the one that need sysclk be configured, so add
+late_probe() to call the snd_soc_dai_set_sysclk() of codec
 
-> But either code is acceptable for me.
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/imx-rpmsg.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-As I've already queued the patches in the original form in the last
-week, let's keep it as is.
+diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
+index 2e117311e582..bef4bd997c98 100644
+--- a/sound/soc/fsl/imx-rpmsg.c
++++ b/sound/soc/fsl/imx-rpmsg.c
+@@ -19,6 +19,7 @@
+ struct imx_rpmsg {
+ 	struct snd_soc_dai_link dai;
+ 	struct snd_soc_card card;
++	unsigned int sysclk;
+ };
+ 
+ static const struct snd_soc_dapm_widget imx_rpmsg_dapm_widgets[] = {
+@@ -28,6 +29,27 @@ static const struct snd_soc_dapm_widget imx_rpmsg_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIC("Main MIC", NULL),
+ };
+ 
++static int imx_rpmsg_late_probe(struct snd_soc_card *card)
++{
++	struct imx_rpmsg *data = snd_soc_card_get_drvdata(card);
++	struct snd_soc_pcm_runtime *rtd = list_first_entry(&card->rtd_list,
++							   struct snd_soc_pcm_runtime, list);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct device *dev = card->dev;
++	int ret;
++
++	if (!data->sysclk)
++		return 0;
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, 0, data->sysclk, SND_SOC_CLOCK_IN);
++	if (ret && ret != -ENOTSUPP) {
++		dev_err(dev, "failed to set sysclk in %s\n", __func__);
++		return ret;
++	}
++
++	return 0;
++}
++
+ static int imx_rpmsg_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_dai_link_component *dlc;
+@@ -72,12 +94,18 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
+ 		data->dai.codecs->dai_name = "snd-soc-dummy-dai";
+ 		data->dai.codecs->name = "snd-soc-dummy";
+ 	} else {
++		struct clk *clk;
++
+ 		data->dai.codecs->of_node = args.np;
+ 		ret = snd_soc_get_dai_name(&args, &data->dai.codecs->dai_name);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "Unable to get codec_dai_name\n");
+ 			goto fail;
+ 		}
++
++		clk = devm_get_clk_from_child(&pdev->dev, args.np, NULL);
++		if (!IS_ERR(clk))
++			data->sysclk = clk_get_rate(clk);
+ 	}
+ 
+ 	data->dai.cpus->dai_name = dev_name(&rpmsg_pdev->dev);
+@@ -103,6 +131,7 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
+ 	data->card.owner = THIS_MODULE;
+ 	data->card.dapm_widgets = imx_rpmsg_dapm_widgets;
+ 	data->card.num_dapm_widgets = ARRAY_SIZE(imx_rpmsg_dapm_widgets);
++	data->card.late_probe = imx_rpmsg_late_probe;
+ 	/*
+ 	 * Inoder to use common api to get card name and audio routing.
+ 	 * Use parent of_node for this device, revert it after finishing using
+-- 
+2.34.1
 
-
-thanks,
-
-Takashi

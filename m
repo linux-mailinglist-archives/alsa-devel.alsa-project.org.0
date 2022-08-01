@@ -2,100 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23379587099
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 20:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B67AD587179
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 21:32:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2C9F84A;
-	Mon,  1 Aug 2022 20:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C9F84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10F741F7;
+	Mon,  1 Aug 2022 21:31:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10F741F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659380010;
-	bh=b+A+RcXPIZ8XVyhQk2X1hcXBl0z+FLYiaBCWW4RjasY=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1659382318;
+	bh=E/VUtNEBhyfy+YBLuVEOrFseULBpU9wAeh1FYhiYqQU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XnbMOAX5UcfTUY12Do0Zz5dc2/nbHXORTpqgb3Alm8ZwcWiinjsJz5Nd1L/2keWOi
-	 Wbax51DhQw0OR1pmzgyErCnbEyC/kwAiB10HkOCCJ9KOSfkLhYSpwoWQpoG8l3iyT0
-	 9CcNJYh+JLz4WLHf3SGhAB5iuTa24cuP2pOi41t0=
+	b=m4qJF2Nt2QcwJnCF4vWy+n50VJrpYgg7pRiDHDe54/x7/1nbFuS2YTI4B+BF7bka2
+	 7m23i05apJ86uBpY40MamF1eZLZp4ZOpbYn1buah1qNjwjTQz+Z/gK1O9TXkAjh4dC
+	 GFQI8gwS3yig1x+j96lA9l3tKQCFzH8rYCp4Y2r0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D748F80139;
-	Mon,  1 Aug 2022 20:52:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6772EF80246;
+	Mon,  1 Aug 2022 21:31:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1ADDF8023B; Mon,  1 Aug 2022 20:52:30 +0200 (CEST)
+ id 8B4F5F8023B; Mon,  1 Aug 2022 21:30:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, NO_DNS_FOR_FROM,
- T_SCC_BODY_TEXT_LINE, 
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
+ [209.85.166.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CEAB3F80139
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 20:52:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEAB3F80139
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="YXzk9twu"
-Received: by mail-lj1-x22b.google.com with SMTP id v7so5667660ljh.5
- for <alsa-devel@alsa-project.org>; Mon, 01 Aug 2022 11:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=XodWKtMN07V4P1gDY998vleQ9dB+naH4EgPf6/fTaf8=;
- b=YXzk9twu9VI3vnWbgBkmcsoloEmgmYakx4wv+qH0kId5dId3Rce4U1IhtxddjCyvb4
- Za6fegzrfV4CkVq4QgXqn3ieluMuLVSIUxqv8ts6cLF0TZOwTvDpCA0J46cJi48fyE0s
- xfhtXPuGKV7f7myskDTFkecPpfb9oF95rF+mVlMGwh6n/ontfF9mRPi/4l7YMPj6Lx3Y
- QQ426BnUhfe9m6ekbUkrRJ2l3jZinhbO3mNiEqg8bjib3tRMB6hDO72i8ilPYpRXcgip
- FVAfuTF5bBNNRM0zYzNd5xsOpoPToE69/ksdbvlOx7TIFgSaSjfSfmcQO6k+/maKHxRS
- GFzg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A482F8013D
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 21:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A482F8013D
+Received: by mail-il1-f172.google.com with SMTP id w16so6052843ilh.0
+ for <alsa-devel@alsa-project.org>; Mon, 01 Aug 2022 12:30:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=message-id:date:subject:references:in-reply-to:cc:to:from
  :x-gm-message-state:from:to:cc;
- bh=XodWKtMN07V4P1gDY998vleQ9dB+naH4EgPf6/fTaf8=;
- b=bY/NswG6qOZriyfvdSjtXFcHS8byD44S6jvucO8/0qTzSYYgIaRkw/GNVBvhpm1xzr
- 1uq5zulcm06wUeOog373bi5rthYzbPIW0gMJr+8/0qYkUxAxyI1L60EbFWEU34FY4M2w
- 6s/zXxLRQHDFc58bcaK5BMfkV/G5f/OXcFFKj4ScAsbLLxBR08dwDsx++Qj/i2ub0sYi
- 0P7GbdmBT9u+oS0HwSwx2te5Q0V51uy6WOJBO/f0yn/pXwg4GvDATP/SPWCW2wMiJQfi
- 2hWWIdT3XXHE7/3qlPPj5nJaOPeYOAyEGCK6v3bX6fNjc2xO++TL3KIHyDfYSiOIfmKM
- FeyQ==
-X-Gm-Message-State: ACgBeo2pv8J910gftv8PBM3+5CPuRHsoopPYootG/APfQw7XEIv2JFJW
- FsQcJFrlUQhAKv4OJTkvksA=
-X-Google-Smtp-Source: AA6agR7eGf9EPRJ45CCnoeqWBppiY90ZNEtax7jq7hkG2xbUJKsoUKeVlqM0BPO2PYM5CqhkdZyVBA==
-X-Received: by 2002:a05:651c:10a4:b0:25e:48ee:33f5 with SMTP id
- k4-20020a05651c10a400b0025e48ee33f5mr3619243ljn.297.1659379940581; 
- Mon, 01 Aug 2022 11:52:20 -0700 (PDT)
-Received: from [10.0.0.127] (91-159-150-230.elisa-laajakaista.fi.
- [91.159.150.230]) by smtp.gmail.com with ESMTPSA id
- p20-20020a2eba14000000b0025ddad51e48sm1599550lja.140.2022.08.01.11.52.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Aug 2022 11:52:19 -0700 (PDT)
-Message-ID: <4b9855a8-7132-74b0-1573-a775713d8041@gmail.com>
-Date: Mon, 1 Aug 2022 21:54:28 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 8/8] ASoC: omap: Replace sprintf() with sysfs_emit()
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
-References: <20220801170108.26340-1-tiwai@suse.de>
- <20220801170108.26340-9-tiwai@suse.de>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
-In-Reply-To: <20220801170108.26340-9-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ bh=68X4qWbGtTFIeTpRkrQqYh3V9U2RdglpeJ/XvuTio2M=;
+ b=2HgAd1lUeJ8fuXycSmhKDpCr04l2/U+pUnuLJiSU8oHDYpUxFdFbB+hNtprWu7GlgL
+ uE6+tC8+EbWTnTEOnFpo6FHQjkaF7mubiIQrk+7bRm9yLkHGF8bk9DH13+Uc+3ESj/m/
+ +5ewE4lcbESe+k20GJEHTw28C+RrKyoZf+6h0EkkjeCK2a89D3GOb0BwyzFAb1FVbVSG
+ hxUPSiRCTcrVpWUew1wmY9z2DVbS1EQOBDrF5ZWrp9EYTnHszMG6Td7+V9iSzbqCR601
+ IrsqX2aJOiSX0catw5SD351oneSEDHCX6FfUpne0AhLicJdw0/sRTbMYdzrZmR0/U0L1
+ fCqA==
+X-Gm-Message-State: AJIora+NQgDCi0GrDLUFT1EJOQULOX/at3KFrhncV3SpWwmOTOdxr9Ep
+ 4tq3ugTa9LZfuGjGNckMiw==
+X-Google-Smtp-Source: AGRyM1tQNi5twR+ViPskLi6NNiVfaZlNIANTIuqKhF5Nl5YIUD1ubx9Pi6G6HuZVS9nvyPZ5GIuC1g==
+X-Received: by 2002:a92:d752:0:b0:2dd:d885:82f2 with SMTP id
+ e18-20020a92d752000000b002ddd88582f2mr6615271ilq.50.1659382249905; 
+ Mon, 01 Aug 2022 12:30:49 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ o8-20020a92c688000000b002dcf9e17a29sm5021974ilg.76.2022.08.01.12.30.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Aug 2022 12:30:49 -0700 (PDT)
+Received: (nullmailer pid 1380282 invoked by uid 1000);
+ Mon, 01 Aug 2022 19:30:47 -0000
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <1659370052-18966-2-git-send-email-spujar@nvidia.com>
+References: <1659370052-18966-1-git-send-email-spujar@nvidia.com>
+ <1659370052-18966-2-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: Add schema for common DAI params
+Date: Mon, 01 Aug 2022 13:30:47 -0600
+Message-Id: <1659382247.124005.1380281.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,69 +92,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 01/08/2022 20:01, Takashi Iwai wrote:
-> For sysfs outputs, it's safer to use a new helper, sysfs_emit(),
-> instead of the raw sprintf() & co.  This patch replaces the open code
-> with new helpers, sysfs_emit() and sysfs_emit_at(), with the proper
-> string offset.
-
-Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-
+On Mon, 01 Aug 2022 21:37:30 +0530, Sameer Pujar wrote:
+> The "convert-channels" and "convert-rate" bindings are provided for both
+> simple-card and audio-graph-card. However these are separately defined in
+> their respective schemas. For any new binding addition, which is common to
+> both, there will be duplication.
 > 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> Introduce a new schema to have common DAI params properties and these can
+> be re-used in other schemas wherever applicable.
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
->  sound/soc/ti/omap-mcbsp-st.c | 6 +++---
->  sound/soc/ti/omap-mcbsp.c    | 8 ++++----
->  2 files changed, 7 insertions(+), 7 deletions(-)
+>  .../bindings/sound/audio-graph-port.yaml           | 13 ++++------
+>  .../devicetree/bindings/sound/audio-graph.yaml     |  7 +++---
+>  .../devicetree/bindings/sound/dai-params.yaml      | 28 ++++++++++++++++++++++
+>  .../devicetree/bindings/sound/simple-card.yaml     | 16 ++++---------
+>  4 files changed, 40 insertions(+), 24 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/dai-params.yaml
 > 
-> diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
-> index 7e8179cae92e..8163f453bf36 100644
-> --- a/sound/soc/ti/omap-mcbsp-st.c
-> +++ b/sound/soc/ti/omap-mcbsp-st.c
-> @@ -244,10 +244,10 @@ static ssize_t st_taps_show(struct device *dev,
->  
->  	spin_lock_irq(&mcbsp->lock);
->  	for (i = 0; i < st_data->nr_taps; i++)
-> -		status += sprintf(&buf[status], (i ? ", %d" : "%d"),
-> -				  st_data->taps[i]);
-> +		status += sysfs_emit_at(buf, status, (i ? ", %d" : "%d"),
-> +					st_data->taps[i]);
->  	if (i)
-> -		status += sprintf(&buf[status], "\n");
-> +		status += sysfs_emit_at(buf, status, "\n");
->  	spin_unlock_irq(&mcbsp->lock);
->  
->  	return status;
-> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-> index c4ac1f30b9fe..0b377bb7737f 100644
-> --- a/sound/soc/ti/omap-mcbsp.c
-> +++ b/sound/soc/ti/omap-mcbsp.c
-> @@ -517,7 +517,7 @@ static ssize_t prop##_show(struct device *dev,				\
->  {									\
->  	struct omap_mcbsp *mcbsp = dev_get_drvdata(dev);		\
->  									\
-> -	return sprintf(buf, "%u\n", mcbsp->prop);			\
-> +	return sysfs_emit(buf, "%u\n", mcbsp->prop);			\
->  }									\
->  									\
->  static ssize_t prop##_store(struct device *dev,				\
-> @@ -560,11 +560,11 @@ static ssize_t dma_op_mode_show(struct device *dev,
->  
->  	for (s = &dma_op_modes[i]; i < ARRAY_SIZE(dma_op_modes); s++, i++) {
->  		if (dma_op_mode == i)
-> -			len += sprintf(buf + len, "[%s] ", *s);
-> +			len += sysfs_emit_at(buf, len, "[%s] ", *s);
->  		else
-> -			len += sprintf(buf + len, "%s ", *s);
-> +			len += sysfs_emit_at(buf, len, "%s ", *s);
->  	}
-> -	len += sprintf(buf + len, "\n");
-> +	len += sysfs_emit_at(buf, len, "\n");
->  
->  	return len;
->  }
 
--- 
-Péter
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.yaml: properties:simple-audio-card,convert-rate: 'oneOf' conditional failed, one must be fixed:
+	'type' is a required property
+		hint: A vendor boolean property can use "type: boolean"
+	'description' is a required property
+		hint: A vendor boolean property can use "type: boolean"
+	Additional properties are not allowed ('$ref' was unexpected)
+		hint: A vendor boolean property can use "type: boolean"
+	/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.yaml: properties:simple-audio-card,convert-rate: 'oneOf' conditional failed, one must be fixed:
+		'enum' is a required property
+		'const' is a required property
+		hint: A vendor string property with exact values has an implicit type
+		from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+	'/schemas/sound/dai-params.yaml#/properties/dai-sample-rate' does not match 'types.yaml#/definitions/'
+		hint: A vendor property needs a $ref to types.yaml
+	'/schemas/sound/dai-params.yaml#/properties/dai-sample-rate' does not match '^#/(definitions|\\$defs)/'
+		hint: A vendor property can have a $ref to a a $defs schema
+	hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
+	from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.yaml: properties:simple-audio-card,convert-channels: 'oneOf' conditional failed, one must be fixed:
+	'type' is a required property
+		hint: A vendor boolean property can use "type: boolean"
+	'description' is a required property
+		hint: A vendor boolean property can use "type: boolean"
+	Additional properties are not allowed ('$ref' was unexpected)
+		hint: A vendor boolean property can use "type: boolean"
+	/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.yaml: properties:simple-audio-card,convert-channels: 'oneOf' conditional failed, one must be fixed:
+		'enum' is a required property
+		'const' is a required property
+		hint: A vendor string property with exact values has an implicit type
+		from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+	'/schemas/sound/dai-params.yaml#/properties/dai-channels' does not match 'types.yaml#/definitions/'
+		hint: A vendor property needs a $ref to types.yaml
+	'/schemas/sound/dai-params.yaml#/properties/dai-channels' does not match '^#/(definitions|\\$defs)/'
+		hint: A vendor property can have a $ref to a a $defs schema
+	hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
+	from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+./Documentation/devicetree/bindings/sound/simple-card.yaml: Error in referenced schema matching $id: http://devicetree.org/schemas/sound/simple-card.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.yaml: ignoring, error in schema: properties: simple-audio-card,convert-channels
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound: simple-audio-card,widgets: b'Microphone\x00Microphone Jack\x00Headphone\x00Headphone Jack\x00Speaker\x00External Speaker\x00' is not of type 'object', 'array', 'boolean', 'null'
+	From schema: /usr/local/lib/python3.10/dist-packages/dtschema/schemas/dt-core.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound: simple-audio-card,routing: b'MIC_IN\x00Microphone Jack\x00Headphone Jack\x00HP_OUT\x00External Speaker\x00LINE_OUT\x00' is not of type 'object', 'array', 'boolean', 'null'
+	From schema: /usr/local/lib/python3.10/dist-packages/dtschema/schemas/dt-core.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-0/sound: failed to match any schema with compatible: ['simple-audio-card']
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-1/sound: failed to match any schema with compatible: ['simple-audio-card']
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound: simple-audio-card,widgets: b'Headphone\x00Headphone Jack\x00' is not of type 'object', 'array', 'boolean', 'null'
+	From schema: /usr/local/lib/python3.10/dist-packages/dtschema/schemas/dt-core.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-2/sound: failed to match any schema with compatible: ['simple-audio-card']
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound: simple-audio-card,routing: b'ak4642 Playback\x00DAI0 Playback\x00DAI0 Capture\x00ak4642 Capture\x00' is not of type 'object', 'array', 'boolean', 'null'
+	From schema: /usr/local/lib/python3.10/dist-packages/dtschema/schemas/dt-core.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-3/sound: failed to match any schema with compatible: ['simple-audio-card']
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-4/sound: failed to match any schema with compatible: ['simple-audio-card']
+Documentation/devicetree/bindings/sound/simple-card.example.dtb:0:0: /example-5/sound: failed to match any schema with compatible: ['simple-audio-card']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

@@ -2,127 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934CB587004
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 20:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23379587099
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Aug 2022 20:53:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 104641FC;
-	Mon,  1 Aug 2022 20:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 104641FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2C9F84A;
+	Mon,  1 Aug 2022 20:52:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C9F84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659376914;
-	bh=AhaTNH7rBGqx3MQ74jKbHK4V6+3jSqa75LdZk7WU/Ok=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RqMPIlsdXfq9j3j81ATsZpAnF4m6DD6nxofw593MwoZvdD0p5b2/stkj9Dzfo0NQP
-	 tOL3Gl67adiCBKHtzvVX6fdqKN9z4hFl+WZu9v+YhSHsa1nb7bQuWsLj0UdrreizRZ
-	 4PN+diGpTMCcC4P9HuAB3tX5nXZ/yRgPevFw7Me0=
+	s=default; t=1659380010;
+	bh=b+A+RcXPIZ8XVyhQk2X1hcXBl0z+FLYiaBCWW4RjasY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XnbMOAX5UcfTUY12Do0Zz5dc2/nbHXORTpqgb3Alm8ZwcWiinjsJz5Nd1L/2keWOi
+	 Wbax51DhQw0OR1pmzgyErCnbEyC/kwAiB10HkOCCJ9KOSfkLhYSpwoWQpoG8l3iyT0
+	 9CcNJYh+JLz4WLHf3SGhAB5iuTa24cuP2pOi41t0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E76F80246;
-	Mon,  1 Aug 2022 20:00:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D748F80139;
+	Mon,  1 Aug 2022 20:52:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA147F8023B; Mon,  1 Aug 2022 20:00:53 +0200 (CEST)
+ id C1ADDF8023B; Mon,  1 Aug 2022 20:52:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, NO_DNS_FOR_FROM,
+ T_SCC_BODY_TEXT_LINE, 
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BC27F8014B
- for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 20:00:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC27F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id CEAB3F80139
+ for <alsa-devel@alsa-project.org>; Mon,  1 Aug 2022 20:52:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEAB3F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="y3IdrhC+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R9kQBhHCeGBSFYDsbhN6Hjt9RXwioUXi1wCBHZdzXhL30sBOmUBZZS+LfyVGjItG8kfJn/BHgcjYBbDwxhNYt0/i8hsHMZIVfZ9baxVTHFvz3DnrOMZkSyC+3oZLetzrhBjJ6OE5X4iPYHk1AMEtD65qkrDlQbEYcaol/n0ZVrR7gX5En9leH/qewLVrP3g3m7Uvc1+7Dj7jyvX97DqOF8mAU8ZzrRAk1Q7fTV61yLNCw0KibsunpP9andDWcOya7XHURPJSYo3p+q1g2qDZA60RBiYn8PpBeNDJ0PSXzaSdhVltvjVjEKXuEhAEUhSu70mvG++lmhyEo/wAQZhuBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y0Cc9I/ihuZ8iSM87yQUClB9wboqApBdTYpqSYDXQ1w=;
- b=E+QBTaJhFdowDKRlphbv6guRMvm4hXhjxyduBbIP+Om/UnDuk2e4NXC9WSke0hLDE3rsFM737shdRUhAXVtIV5AJSaaGRVAV9lCkVUooABu3BTMxQX2+ispqTJZeJvwy01EhMhxXU/um4HvaFjIcz9ck9WBwr7IxqA7z3hPgioVHbHS3Z5bCXRdpr+v5fZ5H8UXuzQHQgKtKbyN8Ja4ovAZi9F+aViNQGFcHDT3kMObiphOUId6V3wirnwRWnouzZ+PpO0JJpKJ1HmzIhZXOgHPxo2e78tNRj5+dh+Aylh5IxMUMv+emsmOTfHLMs613XNiOV6IYG3KxlH5XB3sZqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y0Cc9I/ihuZ8iSM87yQUClB9wboqApBdTYpqSYDXQ1w=;
- b=y3IdrhC+rCY5j2beEEqZFpzt6CuFdZSR2FYyHLWsKMtZzrcy6pkwrSEsNBODqBuBcwtUcWUop9PgF/U2IoOgS7ZSr5Nhw4vKzxA36cBXLq10PSc6MfJEaUEbqpL3z/P1i9M+z62W6nRfoyR7WVlHcYN8Xrzvdf3hzwgsZH4GIVA=
-Received: from MW4P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::9) by
- BN9PR12MB5353.namprd12.prod.outlook.com (2603:10b6:408:102::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.13; Mon, 1 Aug
- 2022 18:00:41 +0000
-Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::a2) by MW4P221CA0004.outlook.office365.com
- (2603:10b6:303:8b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.14 via Frontend
- Transport; Mon, 1 Aug 2022 18:00:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5482.10 via Frontend Transport; Mon, 1 Aug 2022 18:00:40 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 1 Aug
- 2022 13:00:26 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 1 Aug
- 2022 11:00:25 -0700
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Mon, 1 Aug 2022 13:00:16 -0500
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: amd: acp: Add TDM support for acp i2s stream
-Date: Mon, 1 Aug 2022 23:33:23 +0530
-Message-ID: <20220801180330.288356-1-venkataprasad.potturu@amd.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YXzk9twu"
+Received: by mail-lj1-x22b.google.com with SMTP id v7so5667660ljh.5
+ for <alsa-devel@alsa-project.org>; Mon, 01 Aug 2022 11:52:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=XodWKtMN07V4P1gDY998vleQ9dB+naH4EgPf6/fTaf8=;
+ b=YXzk9twu9VI3vnWbgBkmcsoloEmgmYakx4wv+qH0kId5dId3Rce4U1IhtxddjCyvb4
+ Za6fegzrfV4CkVq4QgXqn3ieluMuLVSIUxqv8ts6cLF0TZOwTvDpCA0J46cJi48fyE0s
+ xfhtXPuGKV7f7myskDTFkecPpfb9oF95rF+mVlMGwh6n/ontfF9mRPi/4l7YMPj6Lx3Y
+ QQ426BnUhfe9m6ekbUkrRJ2l3jZinhbO3mNiEqg8bjib3tRMB6hDO72i8ilPYpRXcgip
+ FVAfuTF5bBNNRM0zYzNd5xsOpoPToE69/ksdbvlOx7TIFgSaSjfSfmcQO6k+/maKHxRS
+ GFzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=XodWKtMN07V4P1gDY998vleQ9dB+naH4EgPf6/fTaf8=;
+ b=bY/NswG6qOZriyfvdSjtXFcHS8byD44S6jvucO8/0qTzSYYgIaRkw/GNVBvhpm1xzr
+ 1uq5zulcm06wUeOog373bi5rthYzbPIW0gMJr+8/0qYkUxAxyI1L60EbFWEU34FY4M2w
+ 6s/zXxLRQHDFc58bcaK5BMfkV/G5f/OXcFFKj4ScAsbLLxBR08dwDsx++Qj/i2ub0sYi
+ 0P7GbdmBT9u+oS0HwSwx2te5Q0V51uy6WOJBO/f0yn/pXwg4GvDATP/SPWCW2wMiJQfi
+ 2hWWIdT3XXHE7/3qlPPj5nJaOPeYOAyEGCK6v3bX6fNjc2xO++TL3KIHyDfYSiOIfmKM
+ FeyQ==
+X-Gm-Message-State: ACgBeo2pv8J910gftv8PBM3+5CPuRHsoopPYootG/APfQw7XEIv2JFJW
+ FsQcJFrlUQhAKv4OJTkvksA=
+X-Google-Smtp-Source: AA6agR7eGf9EPRJ45CCnoeqWBppiY90ZNEtax7jq7hkG2xbUJKsoUKeVlqM0BPO2PYM5CqhkdZyVBA==
+X-Received: by 2002:a05:651c:10a4:b0:25e:48ee:33f5 with SMTP id
+ k4-20020a05651c10a400b0025e48ee33f5mr3619243ljn.297.1659379940581; 
+ Mon, 01 Aug 2022 11:52:20 -0700 (PDT)
+Received: from [10.0.0.127] (91-159-150-230.elisa-laajakaista.fi.
+ [91.159.150.230]) by smtp.gmail.com with ESMTPSA id
+ p20-20020a2eba14000000b0025ddad51e48sm1599550lja.140.2022.08.01.11.52.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Aug 2022 11:52:19 -0700 (PDT)
+Message-ID: <4b9855a8-7132-74b0-1573-a775713d8041@gmail.com>
+Date: Mon, 1 Aug 2022 21:54:28 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 8/8] ASoC: omap: Replace sprintf() with sysfs_emit()
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+References: <20220801170108.26340-1-tiwai@suse.de>
+ <20220801170108.26340-9-tiwai@suse.de>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <20220801170108.26340-9-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1be00aab-0a5d-433b-3f52-08da73e7bf49
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5353:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0ZMmSZiCOx4Y05QNr819gTbOTcsLP4Nj9uhYQpIgIz3rPj8fTkRhUv8RF/57KR3Z7SFrf09tD6bX3eqYREwq+4hWOlVUe/XeJM2wKuJBsOBcKR89vkbDMeyCi6PgofVHOY/w+hnMH7J8h1vwcZCNF5G+gxVuPu1FeamYZYmyS1Ul45pTyakwmc+qdNNfu+Nzibdc2VfZPL6o/lswgayUiQEPPpGGBK84X2YowJZIsmENQ/2WiCYjxcaB9Oway+WXGVpbeAzAeN6GD1i88cFvO+ISMXL5H8Ck3tKDwEyafEr5KyXJ7xP42FCODm6lqmQE6WhcwQvdpUuprt0bMRzC2QhbuhnW88AUbBax4IzlGOFugJtSuYaZtcBZHYu0xihOlfWD7D0vMJLTeassw7WFLrwMSinUZ/YB0prvf3wDiXcs0k2taeAnMq78QuaAwftuTucYiL5fHB9PCfbRgsDKK6sT2qeY6ov+YxzqzlkFiQiOM8bQNlnv34JiNAPy0OH/CCl6j7nB67SliaVDxwu7D7mz1ps/PUCjjfscZ1bpFpJQXYXd3kBf9g118fxqghPTE9ITikw8qNvtrjr8AGlZ4xiZQXyoyiVKH6hK/TrLJ0GGoNzw35Xtb2fiDN5ar+b6pssInpjCpV6tyGOFIvfWWDq+zQ8ZaA5RHc9GB7vMpcx3fwnhL+MVrZGWWtIWlg6jJdlkCUVBMyle1KOEoY7sIHTUhbbxf0oOoqlt2uZPK7xIJ0MCh+6oZnnSjbszywDGx/0CRwfuQqjPPSMJs61YLTYljbfoSBLh41vjv5gH440uhPxlGJLlTgmwU9H+0LuAKYBXdOGknIS7tr2RYyhIDPhdkmx6x922QXWL1otJ6RFyM6YN3MnRvI5B8piIssbF
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(39860400002)(376002)(346002)(396003)(46966006)(40470700004)(36840700001)(478600001)(966005)(316002)(54906003)(40460700003)(70586007)(4326008)(110136005)(8676002)(70206006)(82740400003)(40480700001)(82310400005)(356005)(81166007)(8936002)(86362001)(2906002)(36860700001)(5660300002)(2616005)(1076003)(186003)(336012)(426003)(47076005)(41300700001)(83380400001)(26005)(7696005)(6666004)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 18:00:40.8203 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1be00aab-0a5d-433b-3f52-08da73e7bf49
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5353
-Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,207 +111,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add callback and code changes to enable ACP I2S controller in TDM
-mode. Add new fields in acp_stream and acp_dev_data struct to configure
-tdm related registers for ACP i2s controllers.
 
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
----
 
-Depends on:-
-    -- https://patchwork.kernel.org/project/alsa-devel/patch/20220728124057.54259-1-venkataprasad.potturu@amd.com/
+On 01/08/2022 20:01, Takashi Iwai wrote:
+> For sysfs outputs, it's safer to use a new helper, sysfs_emit(),
+> instead of the raw sprintf() & co.  This patch replaces the open code
+> with new helpers, sysfs_emit() and sysfs_emit_at(), with the proper
+> string offset.
 
- sound/soc/amd/acp/acp-i2s.c | 78 ++++++++++++++++++++++++++++++++++++-
- sound/soc/amd/acp/amd.h     | 12 ++++++
- 2 files changed, 89 insertions(+), 1 deletion(-)
+Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-diff --git a/sound/soc/amd/acp/acp-i2s.c b/sound/soc/amd/acp/acp-i2s.c
-index 393f729ef561..b1257923b225 100644
---- a/sound/soc/amd/acp/acp-i2s.c
-+++ b/sound/soc/amd/acp/acp-i2s.c
-@@ -25,6 +25,63 @@
- 
- #define DRV_NAME "acp_i2s_playcap"
- 
-+static int acp_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
-+			   unsigned int fmt)
-+{
-+	struct acp_dev_data *adata = snd_soc_dai_get_drvdata(cpu_dai);
-+	int mode;
-+
-+	mode = fmt & SND_SOC_DAIFMT_FORMAT_MASK;
-+	switch (mode) {
-+	case SND_SOC_DAIFMT_I2S:
-+		adata->tdm_mode = TDM_DISABLE;
-+		break;
-+	case SND_SOC_DAIFMT_DSP_A:
-+		adata->tdm_mode = TDM_ENABLE;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static int acp_i2s_set_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask, u32 rx_mask,
-+				int slots, int slot_width)
-+{
-+	struct device *dev = dai->component->dev;
-+	struct acp_dev_data *adata = snd_soc_dai_get_drvdata(dai);
-+	struct acp_stream *stream;
-+	int slot_len;
-+
-+	switch (slot_width) {
-+	case SLOT_WIDTH_8:
-+		slot_len = 8;
-+		break;
-+	case SLOT_WIDTH_16:
-+		slot_len = 16;
-+		break;
-+	case SLOT_WIDTH_24:
-+		slot_len = 24;
-+		break;
-+	case SLOT_WIDTH_32:
-+		slot_len = 0;
-+		break;
-+	default:
-+		dev_err(dev, "Unsupported bitdepth %d\n", slot_width);
-+		return -EINVAL;
-+	}
-+
-+	list_for_each_entry(stream, &adata->stream_list, list) {
-+		if (tx_mask && stream->dir == SNDRV_PCM_STREAM_PLAYBACK)
-+			adata->tdm_tx_fmt[stream->dai_id - 1] =
-+					FRM_LEN | (slots << 15) | (slot_len << 18);
-+		else if (rx_mask && stream->dir == SNDRV_PCM_STREAM_CAPTURE)
-+			adata->tdm_rx_fmt[stream->dai_id - 1] =
-+					FRM_LEN | (slots << 15) | (slot_len << 18);
-+	}
-+	return 0;
-+}
-+
- static int acp_i2s_hwparams(struct snd_pcm_substream *substream, struct snd_pcm_hw_params *params,
- 			    struct snd_soc_dai *dai)
- {
-@@ -33,7 +90,7 @@ static int acp_i2s_hwparams(struct snd_pcm_substream *substream, struct snd_pcm_
- 	struct acp_resource *rsrc;
- 	u32 val;
- 	u32 xfer_resolution;
--	u32 reg_val;
-+	u32 reg_val, fmt_reg, tdm_fmt;
- 	u32 lrclk_div_val, bclk_div_val;
- 
- 	adata = snd_soc_dai_get_drvdata(dai);
-@@ -62,12 +119,15 @@ static int acp_i2s_hwparams(struct snd_pcm_substream *substream, struct snd_pcm_
- 		switch (dai->driver->id) {
- 		case I2S_BT_INSTANCE:
- 			reg_val = ACP_BTTDM_ITER;
-+			fmt_reg = ACP_BTTDM_TXFRMT;
- 			break;
- 		case I2S_SP_INSTANCE:
- 			reg_val = ACP_I2STDM_ITER;
-+			fmt_reg = ACP_I2STDM_TXFRMT;
- 			break;
- 		case I2S_HS_INSTANCE:
- 			reg_val = ACP_HSTDM_ITER;
-+			fmt_reg = ACP_HSTDM_TXFRMT;
- 			break;
- 		default:
- 			dev_err(dev, "Invalid dai id %x\n", dai->driver->id);
-@@ -77,12 +137,15 @@ static int acp_i2s_hwparams(struct snd_pcm_substream *substream, struct snd_pcm_
- 		switch (dai->driver->id) {
- 		case I2S_BT_INSTANCE:
- 			reg_val = ACP_BTTDM_IRER;
-+			fmt_reg = ACP_BTTDM_RXFRMT;
- 			break;
- 		case I2S_SP_INSTANCE:
- 			reg_val = ACP_I2STDM_IRER;
-+			fmt_reg = ACP_I2STDM_RXFRMT;
- 			break;
- 		case I2S_HS_INSTANCE:
- 			reg_val = ACP_HSTDM_IRER;
-+			fmt_reg = ACP_HSTDM_RXFRMT;
- 			break;
- 		default:
- 			dev_err(dev, "Invalid dai id %x\n", dai->driver->id);
-@@ -95,6 +158,16 @@ static int acp_i2s_hwparams(struct snd_pcm_substream *substream, struct snd_pcm_
- 	val = val | (xfer_resolution  << 3);
- 	writel(val, adata->acp_base + reg_val);
- 
-+	if (adata->tdm_mode) {
-+		val = readl(adata->acp_base + reg_val);
-+		writel(val | BIT(1), adata->acp_base + reg_val);
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			tdm_fmt = adata->tdm_tx_fmt[dai->driver->id - 1];
-+		else
-+			tdm_fmt = adata->tdm_rx_fmt[dai->driver->id - 1];
-+		writel(tdm_fmt, adata->acp_base + fmt_reg);
-+	}
-+
- 	if (rsrc->soc_mclk) {
- 		switch (params_format(params)) {
- 		case SNDRV_PCM_FORMAT_S16_LE:
-@@ -443,6 +516,7 @@ static int acp_i2s_startup(struct snd_pcm_substream *substream, struct snd_soc_d
- 	stream->id = dai->driver->id + dir;
- 	stream->dai_id = dai->driver->id;
- 	stream->irq_bit = irq_bit;
-+	stream->dir = substream->stream;
- 
- 	return 0;
- }
-@@ -452,6 +526,8 @@ const struct snd_soc_dai_ops asoc_acp_cpu_dai_ops = {
- 	.hw_params = acp_i2s_hwparams,
- 	.prepare = acp_i2s_prepare,
- 	.trigger = acp_i2s_trigger,
-+	.set_fmt = acp_i2s_set_fmt,
-+	.set_tdm_slot = acp_i2s_set_tdm_slot,
- };
- EXPORT_SYMBOL_NS_GPL(asoc_acp_cpu_dai_ops, SND_SOC_ACP_COMMON);
- 
-diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-index be8bb8247c4e..5f2119f42271 100644
---- a/sound/soc/amd/acp/amd.h
-+++ b/sound/soc/amd/acp/amd.h
-@@ -84,6 +84,14 @@
- 
- #define ACP_MAX_STREAM			8
- 
-+#define TDM_ENABLE	1
-+#define TDM_DISABLE	0
-+
-+#define SLOT_WIDTH_8	0x8
-+#define SLOT_WIDTH_16	0x10
-+#define SLOT_WIDTH_24	0x18
-+#define SLOT_WIDTH_32	0x20
-+
- struct acp_chip_info {
- 	char *name;		/* Platform name */
- 	unsigned int acp_rev;	/* ACP Revision id */
-@@ -96,6 +104,7 @@ struct acp_stream {
- 	int irq_bit;
- 	int dai_id;
- 	int id;
-+	int dir;
- 	u64 bytescount;
- 	u32 reg_offset;
- 	u32 pte_offset;
-@@ -120,6 +129,7 @@ struct acp_dev_data {
- 	void __iomem *acp_base;
- 	unsigned int i2s_irq;
- 
-+	bool tdm_mode;
- 	/* SOC specific dais */
- 	struct snd_soc_dai_driver *dai_driver;
- 	int num_dai;
-@@ -134,6 +144,8 @@ struct acp_dev_data {
- 	u32 lrclk_div;
- 
- 	struct acp_resource *rsrc;
-+	u32 tdm_tx_fmt[3];
-+	u32 tdm_rx_fmt[3];
- };
- 
- union acp_i2stdm_mstrclkgen {
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/soc/ti/omap-mcbsp-st.c | 6 +++---
+>  sound/soc/ti/omap-mcbsp.c    | 8 ++++----
+>  2 files changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
+> index 7e8179cae92e..8163f453bf36 100644
+> --- a/sound/soc/ti/omap-mcbsp-st.c
+> +++ b/sound/soc/ti/omap-mcbsp-st.c
+> @@ -244,10 +244,10 @@ static ssize_t st_taps_show(struct device *dev,
+>  
+>  	spin_lock_irq(&mcbsp->lock);
+>  	for (i = 0; i < st_data->nr_taps; i++)
+> -		status += sprintf(&buf[status], (i ? ", %d" : "%d"),
+> -				  st_data->taps[i]);
+> +		status += sysfs_emit_at(buf, status, (i ? ", %d" : "%d"),
+> +					st_data->taps[i]);
+>  	if (i)
+> -		status += sprintf(&buf[status], "\n");
+> +		status += sysfs_emit_at(buf, status, "\n");
+>  	spin_unlock_irq(&mcbsp->lock);
+>  
+>  	return status;
+> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+> index c4ac1f30b9fe..0b377bb7737f 100644
+> --- a/sound/soc/ti/omap-mcbsp.c
+> +++ b/sound/soc/ti/omap-mcbsp.c
+> @@ -517,7 +517,7 @@ static ssize_t prop##_show(struct device *dev,				\
+>  {									\
+>  	struct omap_mcbsp *mcbsp = dev_get_drvdata(dev);		\
+>  									\
+> -	return sprintf(buf, "%u\n", mcbsp->prop);			\
+> +	return sysfs_emit(buf, "%u\n", mcbsp->prop);			\
+>  }									\
+>  									\
+>  static ssize_t prop##_store(struct device *dev,				\
+> @@ -560,11 +560,11 @@ static ssize_t dma_op_mode_show(struct device *dev,
+>  
+>  	for (s = &dma_op_modes[i]; i < ARRAY_SIZE(dma_op_modes); s++, i++) {
+>  		if (dma_op_mode == i)
+> -			len += sprintf(buf + len, "[%s] ", *s);
+> +			len += sysfs_emit_at(buf, len, "[%s] ", *s);
+>  		else
+> -			len += sprintf(buf + len, "%s ", *s);
+> +			len += sysfs_emit_at(buf, len, "%s ", *s);
+>  	}
+> -	len += sprintf(buf + len, "\n");
+> +	len += sysfs_emit_at(buf, len, "\n");
+>  
+>  	return len;
+>  }
+
 -- 
-2.25.1
-
+Péter

@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D17A589240
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Aug 2022 20:28:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D94E589350
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Aug 2022 22:35:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F50D201;
-	Wed,  3 Aug 2022 20:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F50D201
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0C7A836;
+	Wed,  3 Aug 2022 22:34:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0C7A836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659551306;
-	bh=kjr1Te7U1+2UO/TJ3tfuCVB8A8/W4EpkUUDimTById8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1659558933;
+	bh=My2KHBnIj2lvdE7CjMS1RK74UUW+fuO1wkMES/i3tSw=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uhdSzqcryhTfE7As8yOSkK+izBl7BHVwzwJHoBqUx5eae3VcWIM0zi+3TbFFxmVkj
-	 KOdx6vzrXjoF6vMLnFrxfJ13dAM54fm04GsfKz6bFywDu3/pkdaexzJKy6E6lGXeD3
-	 YQc2wzD2L2EJkPBBax4AyKZWYwhr4LL/lxRi9JKA=
+	b=qVp2a7YSnuv8YYM8jLrq9QRSc+czNdkN0RQfNuEv7oLhJfnEgFUE46ojYm3kfLwLv
+	 CfX511yWoIdtHk1ZgaWtjv8WPYHL/BcrRjp5ILqoCo+sTckQj+uat53KZikUFBZnuz
+	 jMCK6HtgGA05qD293lqv2HSmJWpPx2gekFzTWO4Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED097F8025E;
-	Wed,  3 Aug 2022 20:27:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CF67F8025E;
+	Wed,  3 Aug 2022 22:34:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F2A2F8016A; Wed,  3 Aug 2022 20:27:27 +0200 (CEST)
+ id 5C7CDF8016A; Wed,  3 Aug 2022 22:34:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C92A4F80134
- for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 20:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C92A4F80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eAdv4O+O"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="X/blsQ7P"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8DE70200D5;
- Wed,  3 Aug 2022 18:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1659551243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Q5vX1XUoREKfbk+yj/NDjViX0DEeIqZCXCZtY8svfMQ=;
- b=eAdv4O+OlDNct3c3J0+nLHp64NrU6h8ijipoo2nO01lAi1Je2Bp69/XHdwyN05ePaakkQv
- xPMlHL79ESw/yaPYBawcMbkQHFuqjNxEYopgGuQz563P8Vq6IdH0/TlXQwKvRRspZeJCL2
- vlK0IQKIsTnXnRY2vTE/nKmyfWG/7JU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1659551243;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Q5vX1XUoREKfbk+yj/NDjViX0DEeIqZCXCZtY8svfMQ=;
- b=X/blsQ7PEoQopafkfjrVpBY2nBaAie0lDuLHG/RL96jxo5B39+LodUjYEpVtugpYHO3n44
- h533RtoWRaEiJlAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6A15813A94;
- Wed,  3 Aug 2022 18:27:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VkD6GAu+6mKqAQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 03 Aug 2022 18:27:23 +0000
-Date: Wed, 03 Aug 2022 20:27:23 +0200
-Message-ID: <87bkt1yygk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ivan Hasenkampf <ivan.hasenkampf@gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP Spectre x360 15-eb0xxx
-In-Reply-To: <20220803164001.290394-1-ivan.hasenkampf@gmail.com>
-References: <20220803164001.290394-1-ivan.hasenkampf@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id E82D7F800B8
+ for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 22:34:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E82D7F800B8
+Received: by mail-io1-f45.google.com with SMTP id e69so13777121iof.5
+ for <alsa-devel@alsa-project.org>; Wed, 03 Aug 2022 13:34:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:references:in-reply-to:cc:to:from
+ :x-gm-message-state:from:to:cc;
+ bh=sy0PwHGMpgR2DJVISTy8eXI/nlvufmA5Ye3PE/bOB+Q=;
+ b=qKsHCl/rxtSfRTyfzteMn0IhRjtvTrzcJae4zwaSY03itr+VpKvxR870XENHobXwuQ
+ QUZiG8EY8GL1iSXeKkOP+A1065TIgHxnUwTE0rMadtLL1Tl95XEm6yfQeU9RBT1oFP94
+ JdwkmWEXZUdGjAdNwESDr5niR9NvTkovjNt5gOizhSV0QdO/CgYOAaziZ+OXwxdqTNt6
+ YdejO33kdmllfBNDZ2ZgT50TEaCXAEnRSR2+qoL4Uni5+bcneItCtqomTP21ZFbzNTby
+ B3LFa3jXEW6KgjgAt+/qwXD19dB+9OcqM+IGhF6BWHoB6Bi46iUpRBsPswfPOmGeSkYW
+ hByQ==
+X-Gm-Message-State: ACgBeo3djJuzsrBRHSj5JrD8WLJRBrpG09SqksIMM4UuGgxKR5qhAd8V
+ 1OjmOIyH2lznAKnkFzr42Q==
+X-Google-Smtp-Source: AA6agR7LLSQANxQxTu6rbbHddUerm1lOHrVSd3soiL2HV9IzRJfpkFHye/9Vr6sjUkfF/OiI9TlfRQ==
+X-Received: by 2002:a6b:916:0:b0:67f:a5e7:68af with SMTP id
+ t22-20020a6b0916000000b0067fa5e768afmr5081861ioi.89.1659558862764; 
+ Wed, 03 Aug 2022 13:34:22 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ e5-20020a056602158500b006814fd71117sm70746iow.12.2022.08.03.13.34.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Aug 2022 13:34:22 -0700 (PDT)
+Received: (nullmailer pid 2576748 invoked by uid 1000);
+ Wed, 03 Aug 2022 20:34:18 -0000
+From: Rob Herring <robh@kernel.org>
+To: Jai Luthra <j-luthra@ti.com>
+In-Reply-To: <20220803151726.31628-1-j-luthra@ti.com>
+References: <20220803151726.31628-1-j-luthra@ti.com>
+Subject: Re: [PATCH v2] dt-bindings: sound: tlv320aic3x: Convert to dtschema
+Date: Wed, 03 Aug 2022 14:34:18 -0600
+Message-Id: <1659558858.566275.2576747.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,39 +91,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Aug 2022 18:40:01 +0200,
-Ivan Hasenkampf wrote:
+On Wed, 03 Aug 2022 10:17:26 -0500, Jai Luthra wrote:
+> Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
 > 
-> Fixes speaker output on HP Spectre x360 15-eb0xxx
-> 
-> Signed-off-by: Ivan Hasenkampf <ivan.hasenkampf@gmail.com>
-
-Thanks, applied now.
-
-But I had to re-arrange the entries in the (PCI) SSID order.
-At the next time, please keep it in mind.
-
-
-Takashi
-
-
+> Signed-off-by: Jai Luthra <j-luthra@ti.com>
 > ---
->  sound/pci/hda/patch_realtek.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../bindings/sound/ti,tlv320aic3x.yaml        | 158 ++++++++++++++++++
+>  .../devicetree/bindings/sound/tlv320aic3x.txt |  97 -----------
+>  2 files changed, 158 insertions(+), 97 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic3x.txt
 > 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 2f55bc43bfa9..fe43e5807b8c 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -9072,6 +9072,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
->  	SND_PCI_QUIRK(0x103c, 0x8805, "HP ProBook 650 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
->  	SND_PCI_QUIRK(0x103c, 0x880d, "HP EliteBook 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-> +	SND_PCI_QUIRK(0x103c, 0x86e7, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
-> +	SND_PCI_QUIRK(0x103c, 0x86e8, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
->  	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
->  	SND_PCI_QUIRK(0x103c, 0x8812, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
->  	SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-> -- 
-> 2.37.0
-> 
+
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
+
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/patch/
+
+
+aic33@18: 'assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' do not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/omap2420-n810.dtb
+
+codec@18: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/imx6dl-gw5903.dtb
+	arch/arm/boot/dts/imx6q-gw5903.dtb
+
+tlv320aic3104@18: 'adc-settle-ms', 'assigned-clock-parents', 'assigned-clocks' do not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am57xx-beagle-x15.dtb
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dtb
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dtb
+
+tlv320aic3106@18: 'adc-settle-ms' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/da850-lcdk.dtb
+
+tlv320aic3106@19: 'adc-settle-ms' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/dra71-evm.dtb
+	arch/arm/boot/dts/dra72-evm.dtb
+	arch/arm/boot/dts/dra72-evm-revc.dtb
+	arch/arm/boot/dts/dra76-evm.dtb
+	arch/arm/boot/dts/dra7-evm.dtb
+
+tlv320aic3106@1b: 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-sl50.dtb
+

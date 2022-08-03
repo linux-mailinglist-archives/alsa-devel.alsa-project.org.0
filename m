@@ -2,80 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 237B4588476
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Aug 2022 00:39:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C7025885FD
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Aug 2022 05:19:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0071E0E;
-	Wed,  3 Aug 2022 00:38:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0071E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8B2B844;
+	Wed,  3 Aug 2022 05:19:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8B2B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659479986;
-	bh=6NKKV47gVd92vEQ0awvvAHKXeyEi2UVu3H81F8dqh6M=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fdr2gZ2KcBngWkRIsKkjSsX2IatMEZTrYIb8QBwSTUqCTxtAvcOdmoq/T/5sBDIAx
-	 Vqy2wuWZ3ma2P3uCOZYGO+2cWPGDdOR+m+zBgrGLk01ZpINnr0K60cJJ0qAB1R0LMx
-	 puwCSEUZiiujxLuezzvr4aHmuUsSHz8ybUxHke1I=
+	s=default; t=1659496796;
+	bh=pl4XBwwxukrjVq1cdNVG++Z+Gw5mLXPf5U3JO5AXxkA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ak4/Ydsg4w+dRQr0l89jPtPBvT67aG+b9u1uVOSvGFqUZ1fGfcyDfLeIXl6QwL99O
+	 6GoASS6Lwrg7KhRu9CGfexpnHnDTxYEj4EKSvBd3VH0VWOqSRbnILyxYz8sdHrB185
+	 +qpWVWjx9Juf6fLRIQWDF136FEerOb19qGlBalWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 143F7F8013D;
-	Wed,  3 Aug 2022 00:38:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A06DF800B8;
+	Wed,  3 Aug 2022 05:18:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 852FEF8026A; Wed,  3 Aug 2022 00:38:47 +0200 (CEST)
+ id 38A84F8016A; Wed,  3 Aug 2022 05:18:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED369F8013D
- for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 00:38:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED369F8013D
-Received: by mail-io1-f52.google.com with SMTP id 125so11758654iou.6
- for <alsa-devel@alsa-project.org>; Tue, 02 Aug 2022 15:38:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=message-id:date:subject:references:in-reply-to:cc:to:from
- :x-gm-message-state:from:to:cc;
- bh=xc7pVcgM8oggfYYoDi+YgFJKASpGtHTVPBIB9MLasi0=;
- b=ExNn74QzMZl075QoENjnJn6jAMwyJzjC9qNicVCMfvO/pRQcXB+oK1oHh08xR+csz7
- YmAcyQxm0Rhb9V9oxIyzXXN8WDKU9gALe8+iaLAZKFmgJgj9r2DfJlHkFLOHbqQ9AtSa
- sSYW828f3EVSzRTu2KI5HAPPD1pwc1brDnOALWUWKaens1jm2MqhbAsx6l5jdsrQwb4b
- Pduw13/TSxziP+Ip8Ob2yajIFXnjoNkNQhD+alALhuk0U1cAUPq813aZyV8/gsSxqKIL
- +uTuPpA3yYCDkT+gRVvN3/2Z9XD7hZbLZyjBocTSMGLtdeETkTjfnk0mDYB9dgpQtwuw
- zZHQ==
-X-Gm-Message-State: AJIora8RIs+18NuGM0qWHk2RWR6njVHt7SBt8F9z2FUigDmXcY2qpKRr
- lXnedcBurdsxxxazLRM1lQ==
-X-Google-Smtp-Source: AGRyM1uvjDnbb8GnFfjBfYlQ83bdSSQK2oBX9P0LrOPi4jW/MSL2a2C/PDhZtFJlJhS9j6J7oaGaYQ==
-X-Received: by 2002:a02:9046:0:b0:341:af23:4bb5 with SMTP id
- y6-20020a029046000000b00341af234bb5mr8385992jaf.44.1659479911950; 
- Tue, 02 Aug 2022 15:38:31 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- d191-20020a0262c8000000b00341927a1e0dsm7109249jac.72.2022.08.02.15.38.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Aug 2022 15:38:31 -0700 (PDT)
-Received: (nullmailer pid 758799 invoked by uid 1000);
- Tue, 02 Aug 2022 22:38:27 -0000
-From: Rob Herring <robh@kernel.org>
-To: Jai Luthra <j-luthra@ti.com>
-In-Reply-To: <20220802214811.29033-1-j-luthra@ti.com>
-References: <20220802214811.29033-1-j-luthra@ti.com>
-Subject: Re: [PATCH] dt-bindings: sound: tlv320aic3x: Convert to dtschema
-Date: Tue, 02 Aug 2022 16:38:27 -0600
-Message-Id: <1659479907.575212.758797.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16430F800B8
+ for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 05:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16430F800B8
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 47DF31A3399;
+ Wed,  3 Aug 2022 05:18:46 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 1A8011A37D8;
+ Wed,  3 Aug 2022 05:18:46 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 9C4E1180031C;
+ Wed,  3 Aug 2022 11:18:44 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH v2] ASoC: imx-rpmsg: Support configure sysclk for codec dai
+Date: Wed,  3 Aug 2022 11:02:28 +0800
+Message-Id: <1659495748-10876-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,46 +71,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 02 Aug 2022 16:48:11 -0500, Jai Luthra wrote:
-> Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
-> 
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> ---
->  .../devicetree/bindings/sound/tlv320aic3x.txt |  97 ------------
->  .../bindings/sound/tlv320aic3x.yaml           | 145 ++++++++++++++++++
->  2 files changed, 145 insertions(+), 97 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic3x.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/tlv320aic3x.yaml
-> 
+Some codecs need to configure the sysclk even with slave
+mode, otherwise it may not work properly with some case.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+wm8960 is the one that need sysclk be configured, so add
+late_probe() to call the snd_soc_dai_set_sysclk() of codec
 
-yamllint warnings/errors:
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+changes in v2:
+- use unsigned long for sysclk
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/tlv320aic3x.yaml: properties:ai3x-gpio-func:maxItems: False schema does not allow 3
-	hint: Scalar properties should not have array keywords
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/tlv320aic3x.yaml: properties:ai3x-gpio-func:minItems: False schema does not allow 3
-	hint: Scalar properties should not have array keywords
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/tlv320aic3x.yaml: ignoring, error in schema: properties: ai3x-gpio-func: maxItems
-Documentation/devicetree/bindings/sound/tlv320aic3x.example.dtb:0:0: /example-0/i2c/tlv320aic3x@1b: failed to match any schema with compatible: ['ti,tlv320aic3x']
-Documentation/devicetree/bindings/sound/tlv320aic3x.example.dtb:0:0: /example-1/spi/codec@0: failed to match any schema with compatible: ['ti,tlv320aic3x']
+ sound/soc/fsl/imx-rpmsg.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
+index 2e117311e582..4d99f4858a14 100644
+--- a/sound/soc/fsl/imx-rpmsg.c
++++ b/sound/soc/fsl/imx-rpmsg.c
+@@ -19,6 +19,7 @@
+ struct imx_rpmsg {
+ 	struct snd_soc_dai_link dai;
+ 	struct snd_soc_card card;
++	unsigned long sysclk;
+ };
+ 
+ static const struct snd_soc_dapm_widget imx_rpmsg_dapm_widgets[] = {
+@@ -28,6 +29,27 @@ static const struct snd_soc_dapm_widget imx_rpmsg_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIC("Main MIC", NULL),
+ };
+ 
++static int imx_rpmsg_late_probe(struct snd_soc_card *card)
++{
++	struct imx_rpmsg *data = snd_soc_card_get_drvdata(card);
++	struct snd_soc_pcm_runtime *rtd = list_first_entry(&card->rtd_list,
++							   struct snd_soc_pcm_runtime, list);
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct device *dev = card->dev;
++	int ret;
++
++	if (!data->sysclk)
++		return 0;
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, 0, data->sysclk, SND_SOC_CLOCK_IN);
++	if (ret && ret != -ENOTSUPP) {
++		dev_err(dev, "failed to set sysclk in %s\n", __func__);
++		return ret;
++	}
++
++	return 0;
++}
++
+ static int imx_rpmsg_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_dai_link_component *dlc;
+@@ -72,12 +94,18 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
+ 		data->dai.codecs->dai_name = "snd-soc-dummy-dai";
+ 		data->dai.codecs->name = "snd-soc-dummy";
+ 	} else {
++		struct clk *clk;
++
+ 		data->dai.codecs->of_node = args.np;
+ 		ret = snd_soc_get_dai_name(&args, &data->dai.codecs->dai_name);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "Unable to get codec_dai_name\n");
+ 			goto fail;
+ 		}
++
++		clk = devm_get_clk_from_child(&pdev->dev, args.np, NULL);
++		if (!IS_ERR(clk))
++			data->sysclk = clk_get_rate(clk);
+ 	}
+ 
+ 	data->dai.cpus->dai_name = dev_name(&rpmsg_pdev->dev);
+@@ -103,6 +131,7 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
+ 	data->card.owner = THIS_MODULE;
+ 	data->card.dapm_widgets = imx_rpmsg_dapm_widgets;
+ 	data->card.num_dapm_widgets = ARRAY_SIZE(imx_rpmsg_dapm_widgets);
++	data->card.late_probe = imx_rpmsg_late_probe;
+ 	/*
+ 	 * Inoder to use common api to get card name and audio routing.
+ 	 * Use parent of_node for this device, revert it after finishing using
+-- 
+2.34.1
 

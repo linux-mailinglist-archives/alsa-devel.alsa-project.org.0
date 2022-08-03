@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A099C5897D0
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Aug 2022 08:37:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A03355897D2
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Aug 2022 08:37:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E33A51F2;
-	Thu,  4 Aug 2022 08:36:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E33A51F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 350F785D;
+	Thu,  4 Aug 2022 08:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 350F785D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659595050;
+	s=default; t=1659595078;
 	bh=4zCAM/rQ7Mms3TIj2Wh5PNKxNzXcBaLg1ahjtAAqKBo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gCRw/NmLya2iJbA/HvZVKWMNW3bv5J2za5Ff1aQzL9CBJzy3HTrjiZJ7mTWECiKBq
-	 Y7Fl4MwDVUyDRyFVzAmD+gVeseQEVTGlGPT8JXsIytSGhwpPc5KMJhdpTOabjqF0IQ
-	 uwZI8HcHkAnVJyQIzORIjove1Wg8iLXldODbsAkE=
+	b=b2oSBJR5OmPpb466FPnQwVHQBSwxC/Tv3MnF9grAADwTMg7mlNkE/TNw247O7v5HP
+	 G2QTzAw6d8i6lxDj2Zbhc0C2AoryVl2BIFImN17XHnIuaatf+KY9/nn3FKRgKQ6jSt
+	 0uoPNaiADNr9axOuP0owL+nIFZrhs2kLGwgkZ7A4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68C06F80212;
-	Thu,  4 Aug 2022 08:36:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13AB3F804B2;
+	Thu,  4 Aug 2022 08:36:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D262F8016A; Wed,  3 Aug 2022 18:37:22 +0200 (CEST)
+ id 82D90F8016A; Wed,  3 Aug 2022 18:40:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 491A1F80083
- for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 18:37:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 491A1F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 100A0F80134
+ for <alsa-devel@alsa-project.org>; Wed,  3 Aug 2022 18:40:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 100A0F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Uom8+hi1"
-Received: by mail-ej1-x635.google.com with SMTP id a7so19493583ejp.2
- for <alsa-devel@alsa-project.org>; Wed, 03 Aug 2022 09:37:17 -0700 (PDT)
+ header.b="iTQLsQyr"
+Received: by mail-ed1-x52c.google.com with SMTP id x21so9456076edd.3
+ for <alsa-devel@alsa-project.org>; Wed, 03 Aug 2022 09:40:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=KEbeV4OUpZWR/RMps+1B9ugXkfGh+UmPMJhS6NYk2ds=;
- b=Uom8+hi1qOe6jYYwuRozgSx+/4RerfyNdpMqKLynKe7W6Pg3e0BkhAJDHPEqnoaH1M
- Om6A6yZ+45SMFX96Nnzfqnrx7ocnw1W1aPn41gwlBxcJ9D5z+r8vDXhTbCGLdipJ5cnI
- 7Wm+6A6tDdmzpymtAkAthgcofIHMRr2lWj7cl6VBRWn3LxBtGWqeYFJiii/I01+gPKZL
- OpfLznoud6Ag8kA2N/Jr8WKUANbTCqIqWjnFwfdrg+MAwITUBBGgrUXnG4/gKjrchrhI
- +0t+1b9Xxq3DLPkOpXbxXwPCQPvfdMVtXzJc2obzfc9xWHf2Asg2Vjr4CpYgQycWGOb7
- arzQ==
+ b=iTQLsQyrVlJvV4kz1DXLEuJDkKqnmFAsG85k2/+sz8Nij834Sp0Dkm/2zK0mlDi6Cc
+ Nfw2YdUCtVmQAsVEys9Qhau2GdKE+goGut8vyt6+45+2LXu7m5yS6uPaILQg1w5wHW7f
+ ij3juJ7pHyV7XPwyXvL3MFBjH3JNIovN2nshutItkoPjMN7Ey1A8YlBU/Fi1A2wS5j+8
+ DeN47iA+0yEdlL3xvDte7/S40wrq1Siic1bp6jq0p60fJ0xPy+uzk1eBxqhEVcaraVSV
+ Jbywxu+IwlumPMfFhcrb+gdLgztpmGCW3wGY4gqRtefwFn86m+PlMekInjlD6CVOPqns
+ 8N5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=KEbeV4OUpZWR/RMps+1B9ugXkfGh+UmPMJhS6NYk2ds=;
- b=nq1/yg9HBGk5nu2YNh5E0YEkf5LQt7YMrDtF3LVo4zwa6JEf2Erycz/feP1jBFDNtg
- rtTxx/RAnqziEMApMQrQMcVSflCLdYKSMjnj4OXprhnmZ5jcD8NLfKjxtWw8DP9o2J3L
- RANg6hIoRZnHnIgNXLxq/r97XXIGyLh+8ZRao2oS3c73lHYRXuXy3euPfy/PCEs/Gq5l
- S5BQzAtY7gCgecZ8py95UwUX7UndZldIl9s1VSPMWpQvK2g2LC/D+pEEDN3llT2TN+9U
- H3M23Fc1xjCd5MM1k8A38pacfEAUAMWEs9r4lznwofFQEPdBRDWdoMohynFDAmO2mvvW
- yNlA==
-X-Gm-Message-State: AJIora9L//SXyRYBlttGgqyJDasJJ0DXodK+/0pBnbq1fn2plsaEpxAi
- cXeE5k6B1dv1DJn1oYLBLsQ=
-X-Google-Smtp-Source: AGRyM1tIanl7ZiGLSMnNLyLyjbGXKMujp6YV8c9FQtgIXaxCoMiYdQ8GUxeLX0rVHZAoX+O3H8jnIQ==
-X-Received: by 2002:a17:907:9493:b0:72f:40ca:fe79 with SMTP id
- dm19-20020a170907949300b0072f40cafe79mr20805812ejc.511.1659544634816; 
- Wed, 03 Aug 2022 09:37:14 -0700 (PDT)
+ b=RjWNx/wE/yodtgvs4GNK29iZJNmgKVSGJp47F/8HDyPaJAcx6XgKLZjIuBY7XMduBz
+ 4lxTarVW22b6EvOSllbN+nEcm+B0F8F13fKJ35D0JpPl7MIOa5B/q7nxrN4jsYSKEDL9
+ ucaa+OXY7pkAC/H452b+rg21KA4xMUyupOr9/kYRtnmQ/sSKBM5II0htlWUheZy7N0ml
+ /gaad0hVAmmVfjdZca0mbvt+AnpT77UAwF2eZfRZ0UyV7vDFAFHvST3qJGqDQib87hRV
+ uSzKH/d6mmaKXUWy/PlbM7pf4JheclmIv6GKKj0pWPy7NbN88awvPQCbgtnYcxcOVHrb
+ NFfQ==
+X-Gm-Message-State: ACgBeo3fk0pyMFRZYG72IvHlT9p+JKEHsaVObzmwWoC1fd1YUSsVQ++w
+ CkosSyrJThRgBNtwSzf86KM=
+X-Google-Smtp-Source: AA6agR4mnj3cIl/ZowGRVGE7a3UvEnVHL/i/iyJJCDAW1fTvYCfEfo4eFVNVM2ePlqypc1ZG/yV6ng==
+X-Received: by 2002:a05:6402:95c:b0:43d:6297:f241 with SMTP id
+ h28-20020a056402095c00b0043d6297f241mr20049333edz.373.1659544804580; 
+ Wed, 03 Aug 2022 09:40:04 -0700 (PDT)
 Received: from x360.fritz.box ([2001:9e8:a511:4e00:667:64a6:5f64:1055])
  by smtp.gmail.com with ESMTPSA id
- s10-20020aa7c54a000000b0043d1eff72b3sm8361027edr.74.2022.08.03.09.37.13
+ o26-20020a170906769a00b007304924d07asm1508032ejm.172.2022.08.03.09.40.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Aug 2022 09:37:14 -0700 (PDT)
+ Wed, 03 Aug 2022 09:40:04 -0700 (PDT)
 From: Ivan Hasenkampf <ivan.hasenkampf@gmail.com>
 To: tiwai@suse.com
 Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Spectre x360 15-eb0xxx
-Date: Wed,  3 Aug 2022 18:37:11 +0200
-Message-Id: <20220803163711.290011-1-ivan.hasenkampf@gmail.com>
+Date: Wed,  3 Aug 2022 18:40:01 +0200
+Message-Id: <20220803164001.290394-1-ivan.hasenkampf@gmail.com>
 X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit

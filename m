@@ -2,130 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690F0589847
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Aug 2022 09:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5DF35899C8
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Aug 2022 11:15:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5A8E843;
-	Thu,  4 Aug 2022 09:23:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5A8E843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09BEF85D;
+	Thu,  4 Aug 2022 11:14:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09BEF85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659597846;
-	bh=ntmgFvrnUWzioA6Cf3e3LaI3F9GFJLOJ0YVGpsXhJuY=;
+	s=default; t=1659604532;
+	bh=2VuPPmG545zN0cpnJnouPdYqyoDopZkGjUL2UTQHYdo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=p3tLidGDgq9f1FyEV/niAd9sVfZdd3cdSW0yvmuqMjqNhL1DVQM+aMoNzdl0V7GZv
-	 LXMbTH6GkGq9LmBbrYqMZ+LBiLUGSDrxozCKRPK0HL/8MVwlTbzDXJ+ssbiY+WUsVb
-	 0fL5jfesK5VXPwKjMrdPLlb8kNHT23P/x27zDZYY=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5593EF8013D;
-	Thu,  4 Aug 2022 09:23:08 +0200 (CEST)
+	b=A5xPd5+awvTwSG2n+mgdR+r9Kf6+p4qtyMyiILm+vxMsrmA38gSEFH1alEoohxCj8
+	 RbROKTUy93CqV2SHB1DC8lDujvTJGF1YM6s1T4SsQc+WyoiRblSpyPpTCFw4gVD9/M
+	 9C7rIOkYakpwQrIX80vQkiDCfAwUQLRVCW9XYz4E=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F91EF80083;
+	Thu,  4 Aug 2022 11:14:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04DE6F8013D; Thu,  4 Aug 2022 09:23:07 +0200 (CEST)
+ id 693C0F802DF; Thu,  4 Aug 2022 11:14:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NO_DNS_FOR_FROM,RDNS_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF907F8013D
- for <alsa-devel@alsa-project.org>; Thu,  4 Aug 2022 09:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF907F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA5A4F8013D;
+ Thu,  4 Aug 2022 11:14:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5A4F8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="S6/Lgthb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dT+lQf07dm+IaHryMACcgcWSH+LoXMKh51UJTEAN72wHA9BtT8Ik/sMcbgPd6+8SQXcO6XR64ijgoyS6FWZL3Wy1eccOtohJofHN/W8qajBpyjL36f+G8aouUH/JkbIcsCE8YJf4iGFtj80/QMJDRujjdoWtJV8kjAZ9LKGXob9iy17cozH85222NnHpQmFEtqCtLyAh7MrZznugtP7Z4fM7D4bXjQKqCCWNiWSHENB2O1CIOXCNIzDeIkEu2YKceCq/qBKckkQaKBA5M8qhwcFP4s3GpELfBFZxrm88XYaTu9BGBOeMVtJTCj4Nzzwl3K3JMGcmYtsqHBBinF3nCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Q8F3kKdc5m+YkIWrnn+9p/HQv/WaiB8KgctKoh9xZ0=;
- b=Ve7oDbS1DzWE8F01h6xn+iBwsaQkvbnxBBM56Ncaqk3IVFNGfG5wIcag5glahdymnGlOqhgpOsK79NbSycoGJ0bgBGmYIU5C1s6M8oS5FxABOOjoqe4nKTOXU+Edga7UFZtt57MDiLaI1viJFWGPRTxmNJFT+W0fX9PB7eohOoQOcEAY6SVBF1Oy6BkCg/RzIjuwY0X7kfzK4bRMO1m8lyOT9TG2EmU5axrgv/SRvxwiP8Tn1pmZoaczqBVCeh5mqrDCMm7YdjUqOcK/z/v4sosTHHQ0Oj0X/pjpKtTFyFfKkN7t+B429stCHVdoGjrRQxTbTYntuafoOK1Jo0ogwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Q8F3kKdc5m+YkIWrnn+9p/HQv/WaiB8KgctKoh9xZ0=;
- b=S6/LgthbkbQAQHkvN4BMKVP8BzVA268l+hfCzmMDhH0XJyvaw/l8BVFkAsMktoFau4RFVA/N513MtJf96bqb3c/swIUGorPa+m64agSdtl+8VfaZQf8Fdobe2JthLgEYnq+qMRtfJrVcsS6ogmSSj3ceS5JMeCQk0AfH+FTxMvw=
-Received: from BN0PR03CA0026.namprd03.prod.outlook.com (2603:10b6:408:e6::31)
- by DM6PR12MB4878.namprd12.prod.outlook.com (2603:10b6:5:1b8::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 4 Aug
- 2022 07:22:49 +0000
-Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e6:cafe::c9) by BN0PR03CA0026.outlook.office365.com
- (2603:10b6:408:e6::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14 via Frontend
- Transport; Thu, 4 Aug 2022 07:22:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5504.14 via Frontend Transport; Thu, 4 Aug 2022 07:22:49 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 4 Aug
- 2022 02:22:48 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 4 Aug
- 2022 00:22:48 -0700
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Thu, 4 Aug 2022 02:22:39 -0500
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v4] ASoC: amd: acp: Initialize list to store acp_stream during
- pcm_open
-Date: Thu, 4 Aug 2022 12:55:49 +0530
-Message-ID: <20220804072556.601396-1-venkataprasad.potturu@amd.com>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="bbdkB3bl"
+X-UUID: 0a585d82a50d47088d980c8316575351-20220804
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=kjOc5b0zHei77TuohXdV+t0J6qAlX7EzPH7UVwUbzug=; 
+ b=bbdkB3blVJjEA2qkbZy4G1MYaKRhH3OovvYd2bs4f6x6I6mn6w68CT4U8hwkBOOJz4r9LWlofbgWc2DhGDui69VTrSBUh2xcK3wVYqCtdEOpUpcN9uYRuCU3e2n0db/oTzyj/G2l+FkeB+WlwRRf1rJ5Zp8hI9M8nT7AX12jKuc=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.8, REQID:3d8176cc-4d88-4769-b193-5621907c1cea, OB:0,
+ LO
+ B:0,IP:0,URL:5,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,RULE:Release_Ham,AC
+ TION:release,TS:105
+X-CID-INFO: VERSION:1.1.8, REQID:3d8176cc-4d88-4769-b193-5621907c1cea, OB:0,
+ LOB:
+ 0,IP:0,URL:5,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,RULE:Spam_GS981B3D,AC
+ TION:quarantine,TS:105
+X-CID-META: VersionHash:0f94e32, CLOUDID:cf9847d0-a6cf-4fb6-be1b-c60094821ca2,
+ C
+ OID:c5126c913861,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:1,File:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 0a585d82a50d47088d980c8316575351-20220804
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <chunxu.li@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1736508669; Thu, 04 Aug 2022 17:14:10 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 4 Aug 2022 17:14:08 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 4 Aug 2022 17:14:07 +0800
+From: Chunxu Li <chunxu.li@mediatek.com>
+To: <pierre-louis.bossart@linux.intel.com>, <peter.ujfalusi@linux.intel.com>, 
+ <lgirdwood@gmail.com>, <broonie@kernel.org>,
+ <angelogioacchino.delregno@collabora.com>, <daniel.baluta@nxp.com>
+Subject: [PATCH 0/2] ASoC: SOF: Introduce of_machine_select
+Date: Thu, 4 Aug 2022 17:13:57 +0800
+Message-ID: <20220804091359.31449-1-chunxu.li@mediatek.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 652231fd-dd2b-420f-7164-08da75ea22e8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4878:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jVZP+Jw1thH0jZyi5l+AJGQRbwrfFO75h6KuXDCJ01HKF8yAkkc4g6kEWYMijDipzDoftl4u8Xbm28M4pNOYW5Q3yIay6sKJgev+uwjnDHVucNx32q52YsCHeYXJU+pzLdi3HaPPm0jEW9nVZ/oWzY4q9/TozMw7+pkfm5F56gFjXRJDW2i9DTdqxq5Bdt5HaClLScsz8VdPMYTRI9jU5LpoEKTyXCV+yR000bYI8pWnBiuMmrAsClTJXVV1BFOzKEXFtzTlSLP8MD+9msXzFo1dwzCTyy4sKcqdFuABjSLIiMyBvmga8K4ka/fcbKNcaVFxXwM4k6kNAj781s8mSws+U9MOrOuGQMP0UHHlr6Flner1gVdq2nFy0eCXIg4XeBcF2TMHaVFpzPAMfMFwizS8mLd8AWVOsGEdoHyoLn2BuCUsnjr6T5nONguJs2E20C5woblnTFEihJu3TjCxQUqI7tMBkh+HFGZyq43fYJCQS+iVXe8zhJts0kvUfVejUyrVQpHgw0YtBs8A8EI05M/sz1ZoaNTNJAg0qGke+8TkS8I1bQmbb6gYh7ZRsNfJ6xw4FBsBwVXXo78W7SzWdCGK8zmp70DQnBjFH63hIMVvocFs7hM/oWemGMaac7CC9pu5zqfmI4HDLMJySp0yy8eOgxPI2+cX2p/fIhZkcy4xtBUiK1eM7Z37Sa0zPqhbqFAqU28fMEElwhtXcUqQrLF3PVC/QSfqdbLPu5pUMV/1rgGFJJ5koURPJPGjuRzHuycFfkK9w48RYx5ZNwAP60WxHX6/fcaojpWSxdpSd1l0uB8rl67l4Gzd9eGa0Gyfq2PjFBfT1/aAiRsUo8No9w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(396003)(39860400002)(346002)(36840700001)(40470700004)(46966006)(426003)(336012)(47076005)(1076003)(2616005)(186003)(82740400003)(356005)(81166007)(40460700003)(83380400001)(36860700001)(8936002)(5660300002)(8676002)(4326008)(70206006)(70586007)(82310400005)(40480700001)(2906002)(6666004)(41300700001)(478600001)(7696005)(26005)(54906003)(316002)(110136005)(36756003)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2022 07:22:49.4177 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 652231fd-dd2b-420f-7164-08da75ea22e8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4878
-Cc: Sunil-kumar.Dommati@amd.com, Charles
- Keepax <ckeepax@opensource.cirrus.com>, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, Venkata
- Prasad Potturu <venkataprasad.potturu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, Vijendar.Mukunda@amd.com,
- V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: alsa-devel@alsa-project.org, "chunxu.li" <chunxu.li@mediatek.com>,
+ tinghan.shen@mediatek.com, linux-kernel@vger.kernel.org,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,182 +102,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+From: "chunxu.li" <chunxu.li@mediatek.com>
 
-We are currently allocating acp_stream during pcm_open and saving
-it in static array corresponds to array index calculated based on
-cpu dai->driver id. This approach will fail if we have single dai
-linked to multiple pcm device as we will have same dai->driver id
-or array index for multiple pcm open. Initialize new linked list
-stream_list to store opened pcm stream info dynamically.
+In these patches, we introduce of_machine_select for SOF
 
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
-Changes since v3:
-    -- Modify to spin_lock() in irq handler and spin_lock_irq() in dma open and close
-       functions instead of spin_lock_irqsave().
-Changes since v2:
-    -- Add locking mechanism in irq handler, linked list updatation and deletion.
-Changes since v1:
-    -- Fix compile error and remove unused variable.
- sound/soc/amd/acp/acp-platform.c | 40 +++++++++++++++-----------------
- sound/soc/amd/acp/amd.h          |  4 +++-
- 2 files changed, 22 insertions(+), 22 deletions(-)
+Chunxu Li (2):
+  ASoC: SOF: Introduce optional callback of_machine_select
+  ASoC: SOF: mediatek: Add .of_machine_select field for mt8186
 
-diff --git a/sound/soc/amd/acp/acp-platform.c b/sound/soc/amd/acp/acp-platform.c
-index f561d39b33e2..beee53aedeaf 100644
---- a/sound/soc/amd/acp/acp-platform.c
-+++ b/sound/soc/amd/acp/acp-platform.c
-@@ -94,7 +94,7 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
- 	struct acp_resource *rsrc = adata->rsrc;
- 	struct acp_stream *stream;
- 	u16 i2s_flag = 0;
--	u32 ext_intr_stat, ext_intr_stat1, i;
-+	u32 ext_intr_stat, ext_intr_stat1;
- 
- 	if (!adata)
- 		return IRQ_NONE;
-@@ -104,14 +104,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
- 
- 	ext_intr_stat = readl(ACP_EXTERNAL_INTR_STAT(adata, rsrc->irqp_used));
- 
--	for (i = 0; i < ACP_MAX_STREAM; i++) {
--		stream = adata->stream[i];
-+	spin_lock(&adata->acp_lock);
-+	list_for_each_entry(stream, &adata->stream_list, list) {
- 		if (stream && (ext_intr_stat & stream->irq_bit)) {
- 			writel(stream->irq_bit,
- 			       ACP_EXTERNAL_INTR_STAT(adata, rsrc->irqp_used));
- 			snd_pcm_period_elapsed(stream->substream);
- 			i2s_flag = 1;
--			break;
- 		}
- 		if (adata->rsrc->no_of_ctrls == 2) {
- 			if (stream && (ext_intr_stat1 & stream->irq_bit)) {
-@@ -119,10 +118,10 @@ static irqreturn_t i2s_irq_handler(int irq, void *data)
- 				       (rsrc->irqp_used - 1)));
- 				snd_pcm_period_elapsed(stream->substream);
- 				i2s_flag = 1;
--				break;
- 			}
- 		}
- 	}
-+	spin_unlock(&adata->acp_lock);
- 	if (i2s_flag)
- 		return IRQ_HANDLED;
- 
-@@ -146,9 +145,8 @@ static void config_pte_for_stream(struct acp_dev_data *adata, struct acp_stream
- 	writel(0x01, adata->acp_base + ACPAXI2AXI_ATU_CTRL);
- }
- 
--static void config_acp_dma(struct acp_dev_data *adata, int cpu_id, int size)
-+static void config_acp_dma(struct acp_dev_data *adata, struct acp_stream *stream, int size)
- {
--	struct acp_stream *stream = adata->stream[cpu_id];
- 	struct snd_pcm_substream *substream = stream->substream;
- 	struct acp_resource *rsrc = adata->rsrc;
- 	dma_addr_t addr = substream->dma_buffer.addr;
-@@ -174,13 +172,10 @@ static void config_acp_dma(struct acp_dev_data *adata, int cpu_id, int size)
- 
- static int acp_dma_open(struct snd_soc_component *component, struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct device *dev = component->dev;
- 	struct acp_dev_data *adata = dev_get_drvdata(dev);
- 	struct acp_stream *stream;
--	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
- 	int ret;
- 
- 	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
-@@ -188,7 +183,10 @@ static int acp_dma_open(struct snd_soc_component *component, struct snd_pcm_subs
- 		return -ENOMEM;
- 
- 	stream->substream = substream;
--	adata->stream[stream_id] = stream;
-+
-+	spin_lock_irq(&adata->acp_lock);
-+	list_add_tail(&stream->list, &adata->stream_list);
-+	spin_unlock_irq(&adata->acp_lock);
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
- 		runtime->hw = acp_pcm_hardware_playback;
-@@ -212,16 +210,13 @@ static int acp_dma_hw_params(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
- 	struct acp_dev_data *adata = snd_soc_component_get_drvdata(component);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
- 	struct acp_stream *stream = substream->runtime->private_data;
--	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
- 	u64 size = params_buffer_bytes(params);
- 
- 	/* Configure ACP DMA block with params */
- 	config_pte_for_stream(adata, stream);
--	config_acp_dma(adata, stream_id, size);
-+	config_acp_dma(adata, stream, size);
- 
- 	return 0;
- }
-@@ -261,16 +256,15 @@ static int acp_dma_new(struct snd_soc_component *component,
- static int acp_dma_close(struct snd_soc_component *component,
- 			 struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
- 	struct device *dev = component->dev;
- 	struct acp_dev_data *adata = dev_get_drvdata(dev);
--	struct acp_stream *stream;
--	int stream_id = cpu_dai->driver->id * 2 + substream->stream;
-+	struct acp_stream *stream = substream->runtime->private_data;
- 
--	stream = adata->stream[stream_id];
-+	/* Remove entry from list */
-+	spin_lock_irq(&adata->acp_lock);
-+	list_del(&stream->list);
-+	spin_unlock_irq(&adata->acp_lock);
- 	kfree(stream);
--	adata->stream[stream_id] = NULL;
- 
- 	return 0;
- }
-@@ -305,6 +299,10 @@ int acp_platform_register(struct device *dev)
- 		dev_err(dev, "Fail to register acp i2s component\n");
- 		return status;
- 	}
-+
-+	INIT_LIST_HEAD(&adata->stream_list);
-+	spin_lock_init(&adata->acp_lock);
-+
- 	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(acp_platform_register, SND_SOC_ACP_COMMON);
-diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-index 60a7c95f134f..be8bb8247c4e 100644
---- a/sound/soc/amd/acp/amd.h
-+++ b/sound/soc/amd/acp/amd.h
-@@ -91,6 +91,7 @@ struct acp_chip_info {
- };
- 
- struct acp_stream {
-+	struct list_head list;
- 	struct snd_pcm_substream *substream;
- 	int irq_bit;
- 	int dai_id;
-@@ -123,7 +124,8 @@ struct acp_dev_data {
- 	struct snd_soc_dai_driver *dai_driver;
- 	int num_dai;
- 
--	struct acp_stream *stream[ACP_MAX_STREAM];
-+	struct list_head stream_list;
-+	spinlock_t acp_lock;
- 
- 	struct snd_soc_acpi_mach *machines;
- 	struct platform_device *mach_dev;
+ include/sound/sof.h                    |  2 ++
+ sound/soc/sof/mediatek/mt8186/mt8186.c | 11 +++++++++++
+ sound/soc/sof/ops.h                    |  9 +++++++++
+ sound/soc/sof/pcm.c                    |  8 +++++++-
+ sound/soc/sof/sof-audio.c              |  7 +++++++
+ sound/soc/sof/sof-of-dev.c             | 23 +++++++++++++++++++++++
+ sound/soc/sof/sof-of-dev.h             |  8 ++++++++
+ sound/soc/sof/sof-priv.h               |  1 +
+ 8 files changed, 68 insertions(+), 1 deletion(-)
+
 -- 
 2.25.1
 

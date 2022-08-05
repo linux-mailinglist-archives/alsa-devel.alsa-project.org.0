@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80CEA589E05
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Aug 2022 17:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FF8E58A4E5
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Aug 2022 05:07:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 101781E4;
-	Thu,  4 Aug 2022 16:59:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 101781E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8E541D7;
+	Fri,  5 Aug 2022 05:06:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8E541D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659625244;
-	bh=MG/OLbjvUhmhCpOzmNodao8upPyMUSDGDlCf4g1Eh8w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1659668846;
+	bh=fa4oppNs2M0A/J3SllHZ6zUIsZf8hzu21VI0LpPKvU0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d715aAInnuTNutgdV8v9HkB7M1bL9RyZo50YY3UAcal5/NviBPsnRYiq4VYF/8n1U
-	 NVabhXYqBV3ayn5UUNFr28EOvOPqkcfk78QYU5fWZXMc56IRJnVpUlLdLcangSZsR/
-	 6r0HKEdmAKEQkVS0PQJJ7WQjpGqPhtAXEWGn9/i4=
+	b=fe0gIUo2LaZ7Q/ytuaEmQ3280d8Mb6ohhddKcT0B8K4bGrHSwe/8PRtFzN9J1/rje
+	 34gp9ikDDXErDMG03yueb2DT3/eAJTh7I8Ez9CcAct+gWKTEWMWddtKQaMFIiFXnd3
+	 l0oUv21CZBipJJ5irJ0yknyT84CbV6bBuXF/l7qg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7908DF80212;
-	Thu,  4 Aug 2022 16:59:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 351B8F8013D;
+	Fri,  5 Aug 2022 05:06:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E33EF8016A; Thu,  4 Aug 2022 16:59:44 +0200 (CEST)
+ id 9DFB8F8025A; Fri,  5 Aug 2022 05:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, NO_DNS_FOR_FROM,
+ T_SCC_BODY_TEXT_LINE, 
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C3ABF8012F;
- Thu,  4 Aug 2022 16:59:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C3ABF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E110F8013D
+ for <alsa-devel@alsa-project.org>; Fri,  5 Aug 2022 05:06:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E110F8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c0CgKr7e"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5EC0560DF4;
- Thu,  4 Aug 2022 14:59:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3F7C433C1;
- Thu,  4 Aug 2022 14:59:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659625172;
- bh=MG/OLbjvUhmhCpOzmNodao8upPyMUSDGDlCf4g1Eh8w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c0CgKr7ehUtGuS3wp8y8m8OtWbhfEOxk49tcM/MH4FlGcXmpiu6UyWwDl9JQLoS8U
- HNGhEvCTp4Ux90AuEx9zSWQLTkXTo5P1EZL9RJEUbFELp6pjuIqPjvieYGGJ3EMXi8
- jGO+iVCvN14kxXkFuuorjPcXDUUzlo0LHgWvcybGLswb4Ie/FstY+nsdybl8IxPPpz
- tkxl53aibDN5URDHncyDCfT3sVlxslwrQXBOZx99tGeH5lY7fu4KFi7ts5522MIV7X
- htz2sr7xYv82aOqR8tmW7XQDtQC4EdRb/h1Q6XqW8RcSo8PlevvXVrTQZ9j59UJ+Mk
- vE5znSwjnW5mw==
-Date: Thu, 4 Aug 2022 15:59:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "chunxu.li" <chunxu.li@mediatek.com>
-Subject: Re: [PATCH 1/2] ASoC: SOF: Introduce optional callback
- of_machine_select
-Message-ID: <YuvezrxOnAJTLKt9@sirena.org.uk>
-References: <20220804091359.31449-1-chunxu.li@mediatek.com>
- <20220804091359.31449-2-chunxu.li@mediatek.com>
- <YuvG4drwG/rYoozp@sirena.org.uk>
- <644d24503899e6ed8b6a7321979e11e46577a610.camel@mediatek.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oJ5ekvgw"
+Received: by mail-lj1-x22a.google.com with SMTP id v7so1767845ljj.4
+ for <alsa-devel@alsa-project.org>; Thu, 04 Aug 2022 20:06:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=ZLIpc1iSm32r58JEPZxARZQ34IGYBZDuEG4ksn924PE=;
+ b=oJ5ekvgw+xjEtuMaK/m9wdncqUI0BJmyQk6XCQ6n05Ett9KmU0hbdgQjX7DdaG4OYP
+ A8e89RRs15JKYQxKUdVqjIMR4Tdb1qeSLMoggtDhCZ9Yu9Sul1tRk0sPXFZ0qZuF6Tx9
+ K1lom7NYUH8RuuIr2ujolCqjYlZ260ceJEIffuJz28Btewz9lKoC5z5C3CTy/5kKvQKn
+ aRhXPRAv+Y/4DKDOAqhKRaWC/6zUMj0ch7r8aW8KdanfUwz7eUcYIl/GottLCJTNlD2J
+ UK6BxffjmfPeToEh+INGEE07V31wxWQhjcZZ8qTBnDRgfD48dihjaroPURZcW2qDyEW3
+ tJbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=ZLIpc1iSm32r58JEPZxARZQ34IGYBZDuEG4ksn924PE=;
+ b=6R4zYqxSXCQi8OW9/H1FGp45KPvW8mPj/Gy+fRuMrwuFoR93vGCXa4PES4GSsMWlfE
+ JOHrcONOYadQX7tZ+oZR/91GBXTPBrY8+mr9bXSeNy2i4eJp6Wo9fH1tnA5UhAgYjxoP
+ wSGWGlUORU7fa9JzF1Tl14jUI6cO9wvZ942qp5CBHzZAmpGsOfDYac3fiG9E+SkxCcZw
+ Tt1pIZQI6mz1m3YKTg9os7Hjsi7rcmASpXjbS1i/cmHnP73MIHx+HmBQHGJQs0+ThHjQ
+ FUuPMq5JAROXvI6ISWeMs+EKWU1fckXhXZOyNNVRE39i/EpJmzCWbKYDlR0EXb89qyBH
+ l5sQ==
+X-Gm-Message-State: ACgBeo0oEbSbEpsZuH8d0a14vzvPpG08Aw5zCaT0tawlHR7YbHNhMmqn
+ MHritl4UmPTZUoozrwe4S/gym7gzD72cml1CE9Q=
+X-Google-Smtp-Source: AA6agR7M/l1+L36ok65ljy+uPkvx9Pwu3K9f/ZOpU658ytbT6gVjj/TU1WzbMUUgeAO/PdiGnEEmOhEZ1VTPrZHtNIg=
+X-Received: by 2002:a2e:4952:0:b0:25e:42fe:fa60 with SMTP id
+ b18-20020a2e4952000000b0025e42fefa60mr1527762ljd.272.1659668775910; Thu, 04
+ Aug 2022 20:06:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="h0hDaRGCHYmaxJ2S"
-Content-Disposition: inline
-In-Reply-To: <644d24503899e6ed8b6a7321979e11e46577a610.camel@mediatek.com>
-X-Cookie: Did I say 2?  I lied.
-Cc: alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- tinghan.shen@mediatek.com, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com, project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- yc.hung@mediatek.com, matthias.bgg@gmail.com,
- sound-open-firmware@alsa-project.org, daniel.baluta@nxp.com,
- linux-kernel@vger.kernel.org, angelogioacchino.delregno@collabora.com
+References: <20220614101546.1559434-1-s.hauer@pengutronix.de>
+In-Reply-To: <20220614101546.1559434-1-s.hauer@pengutronix.de>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 5 Aug 2022 11:06:04 +0800
+Message-ID: <CAA+D8APYiOVO2xF5tB2DjJWoKmkdzD9Xn3yd3r+m9qCQb01okw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc_dma: fully initialize structs
+To: Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <kernel@pengutronix.de>, Xiubo Li <Xiubo.Lee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,43 +98,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jun 14, 2022 at 6:15 PM Sascha Hauer <s.hauer@pengutronix.de> wrote:
 
---h0hDaRGCHYmaxJ2S
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> The driver uses two statically ininitialized struct dma_slave_config,
+> but only one of them is initialized to zero. Initialize config_be to
+> zero as well to make sure that no fields are filled with random values.
+> Let the compiler do this instead of explicitly calling memset() which
+> makes it easier to read.
+>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+>
 
-On Thu, Aug 04, 2022 at 10:36:07PM +0800, chunxu.li wrote:
+Maybe you need to resend this commit and cc Mark.
 
-> Thanks for you advice, I'll remove the callback function, and directly
-> call sof_of_machine_select() in sof_machine_check() as following.
->=20
-> int sof_machine_check(struct snd_sof_dev *sdev)
-> {
-> 	}
->=20
-> =09
-> +	of_mach =3D sof_of_machine_select(sdev);
-> +	if (of_mach) {
-> +		sof_pdata->of_machine =3D of_mach;
-> +		return 0;
-> +	}
+Best regards
+Wang shengjiu
 
-Looks good.
-
---h0hDaRGCHYmaxJ2S
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLr3s0ACgkQJNaLcl1U
-h9CNtgf/XRsA3q6DYLqEaEXV4tXIlM8fA/R/M0YDmHq6Ue+jq26vdS+Af5jl77wB
-FIpNpuihB4hPSw02XTLtF7vyGr2FovaTLOCQcYI1YFv/HdKvw2e/F7CGKbopburY
-DaP2S1j4l5n/cEGFht//jtFMR1wlmgLPcjcSCx62mZpAqvUulCjnjL5EMhyygC2W
-n+80WJg3AH1EzsDtYEsvjs7xI7zswHcamarrPa3Wgl/FIiAS99nk1PH17AKIlncB
-Gl/wOsK9p5nDKqiKGrLmVuC80G6DOC2NcvMmu+zgElXU6SmUsytHQQWuWxfJ9jpr
-PQ16skJvJ9CihoHwi7dYaA8P6h3J5Q==
-=uDFa
------END PGP SIGNATURE-----
-
---h0hDaRGCHYmaxJ2S--
+> ---
+>  sound/soc/fsl/fsl_asrc_dma.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+> index 5038faf035cba..fec56dbb64e60 100644
+> --- a/sound/soc/fsl/fsl_asrc_dma.c
+> +++ b/sound/soc/fsl/fsl_asrc_dma.c
+> @@ -138,7 +138,7 @@ static int fsl_asrc_dma_hw_params(struct
+> snd_soc_component *component,
+>         struct dma_chan *tmp_chan = NULL, *be_chan = NULL;
+>         struct snd_soc_component *component_be = NULL;
+>         struct fsl_asrc *asrc = pair->asrc;
+> -       struct dma_slave_config config_fe, config_be;
+> +       struct dma_slave_config config_fe = {}, config_be = {};
+>         enum asrc_pair_index index = pair->index;
+>         struct device *dev = component->dev;
+>         struct device_node *of_dma_node;
+> @@ -181,7 +181,6 @@ static int fsl_asrc_dma_hw_params(struct
+> snd_soc_component *component,
+>                 return -EINVAL;
+>         }
+>
+> -       memset(&config_fe, 0, sizeof(config_fe));
+>         ret = snd_dmaengine_pcm_prepare_slave_config(substream, params,
+> &config_fe);
+>         if (ret) {
+>                 dev_err(dev, "failed to prepare DMA config for
+> Front-End\n");
+> --
+> 2.30.2
+>
+>

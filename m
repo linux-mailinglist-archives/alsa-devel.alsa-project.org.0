@@ -2,94 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211DF58A666
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Aug 2022 09:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A550558A760
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Aug 2022 09:46:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DAAD1621;
-	Fri,  5 Aug 2022 09:06:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DAAD1621
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01FD71607;
+	Fri,  5 Aug 2022 09:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01FD71607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659683213;
-	bh=/el9gWcXGcQJQTz6Fp4Zrai+IEt0qowU9uFN7bTkWh0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WIPw0De1QY/5k9XnQs2u6N4ZsTwqmOg7F5xo5UaPPLz/eL6uEkYEMPmNwm8ds1l3h
-	 qEb9d/YsGzevrZkINsnlWoz9krCuNS9nwVw4I0X9CA2Nz17AQYBVB/MEOET/s9TeWd
-	 JT+Q5sqsOlj/ML7EwHwWl933fJOFr3U0FxwwVrF4=
+	s=default; t=1659685616;
+	bh=5eZYJcYE2pZI63e0ivWb7leDxfHyUYgUN8dfBXqBeZo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=C6/UYsr8mi9IpireoDaGKIYy6MlL1nKFOEVQZs6qsbjoChaIBT9mVH8dKOlVDFV+V
+	 EZvRDhoibtoHpXFl0VajFWKogl+FBaPjMULA5jjkck0cxLK1dqwLq/ntPZnA2YNM9v
+	 7eAnvwGlqt294eFdMtcd9z/X0tyroE9zQYsUuqnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCD80F8054A;
-	Fri,  5 Aug 2022 09:05:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EE69F8013D;
+	Fri,  5 Aug 2022 09:45:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C950F80271; Fri,  5 Aug 2022 09:05:15 +0200 (CEST)
+ id 0AF5BF8013D; Fri,  5 Aug 2022 09:45:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,RDNS_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FCA1F8025A;
- Fri,  5 Aug 2022 09:05:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FCA1F8025A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="gyzpiIkb"
-X-UUID: 7006c50aecf840d9b17421e2a64bd0f2-20220805
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=Ge4Ztams+8hhb5ZSxfDb3R2/Fe5D9TrfIwPQGMjH3pM=; 
- b=gyzpiIkbiVGsM2W2owslhjcpLsYaLFHQRNpe2Tu3O75sPxzCaCtiwQI0HPif+cu4nYU0070mxP/k6wctT0pFWfT6mdz1ICR78oc5G79oK4kh1b0TtegrlMD0dKDrP+l9atzKTbsEpO1yIUhX1AHt8BbeURVdY6jEz/Wy024IQzQ=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.8, REQID:25f398e7-406d-48b7-a0a8-1d4e151a5f4e, OB:0,
- LO
- B:0,IP:0,URL:5,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Release_Ham,ACT
- ION:release,TS:100
-X-CID-INFO: VERSION:1.1.8, REQID:25f398e7-406d-48b7-a0a8-1d4e151a5f4e, OB:0,
- LOB:
- 0,IP:0,URL:5,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,RULE:Spam_GS981B3D,ACT
- ION:quarantine,TS:100
-X-CID-META: VersionHash:0f94e32, CLOUDID:c89601ae-9535-44a6-aa9b-7f62b79b6ff6,
- C
- OID:c728ee04f773,Recheck:0,SF:28|17|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:1,File:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 7006c50aecf840d9b17421e2a64bd0f2-20220805
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1371280604; Fri, 05 Aug 2022 15:04:59 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 5 Aug 2022 15:04:58 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 5 Aug 2022 15:04:57 +0800
-From: Chunxu Li <chunxu.li@mediatek.com>
-To: <pierre-louis.bossart@linux.intel.com>, <peter.ujfalusi@linux.intel.com>, 
- <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <angelogioacchino.delregno@collabora.com>, <daniel.baluta@nxp.com>
-Subject: [PATCH v2 2/2] ASoC: SOF: mediatek: Add sof_mt8186_machs for mt8186
-Date: Fri, 5 Aug 2022 15:04:49 +0800
-Message-ID: <20220805070449.6611-3-chunxu.li@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220805070449.6611-1-chunxu.li@mediatek.com>
-References: <20220805070449.6611-1-chunxu.li@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3007DF8013D
+ for <alsa-devel@alsa-project.org>; Fri,  5 Aug 2022 09:45:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3007DF8013D
+X-QQ-mid: bizesmtp77t1659685542t4v7n1qq
+Received: from localhost.localdomain ( [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 05 Aug 2022 15:45:35 +0800 (CST)
+X-QQ-SSF: 01400000002000G0T000B00A0000000
+X-QQ-FEAT: uGhnJwy6xZL//SSZC3HXd/LF7Y+7O4moIWupnV6N5uQNk3UE1T8Ttyb6tSIbA
+ J+ewUm1c5SOaXZxL+/Ue2QUIIJSBS7/p7BIr0E1nquVgyQ4v/bgPPzcq0IkF3GMARxp1CBd
+ 4srJOxvnadce8LximV4oOk9vhukNgDTU/CItX08Yqfyu0GvayvQx9xWz/zJn9qWrcfg701h
+ G0Yb0YkvwL2xtIT0BjNq9qllZbUtD0UwoO319A9XozhIRPZPhKmo10XDjWF127ZLCrokSxt
+ Qfz/Flok4eAeSjt9rkgFhKO2pcC9nLi30JmYg4/m3S39qH30u9FrmWp4pvoHUJ6qa37pWvC
+ /NH+qCTboKcZ0C8IhAyXHtHzJ09azuEQsTAF5jpnA4Z/7YDXzDGUjVvYnkclYpsMBy5U76X
+ +knTQluTscY=
+X-QQ-GoodBg: 2
+From: Meng Tang <tangmeng@uniontech.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH v2] ALSA: hda/realtek: Add quirk for another Asus K42JZ model
+Date: Fri,  5 Aug 2022 15:45:34 +0800
+Message-Id: <20220805074534.20003-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, Chunxu Li <chunxu.li@mediatek.com>,
- tinghan.shen@mediatek.com, linux-kernel@vger.kernel.org,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvr:qybglogicsvr7
+Cc: sbinding@opensource.cirrus.com, kailang@realtek.com,
+ tanureal@opensource.cirrus.com, tcrawford@system76.com,
+ alsa-devel@alsa-project.org, wse@tuxedocomputers.com,
+ linux-kernel@vger.kernel.org, kai.heng.feng@canonical.com,
+ andy.chi@canonical.com, Meng Tang <tangmeng@uniontech.com>, cam@neo-zeon.de,
+ yong.wu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,35 +80,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add .of_machines field sof_mt8186_machs for mt8186
+There is another Asus K42JZ model with the PCI SSID 1043:1313
+that requires the quirk ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE.
+Add the corresponding entry to the quirk table.
 
-Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
+Signed-off-by: Meng Tang <tangmeng@uniontech.com>
 ---
- sound/soc/sof/mediatek/mt8186/mt8186.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ sound/pci/hda/patch_realtek.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c
- b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index e006532caf2f..014afe33b3d9 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -515,7 +515,16 @@ static struct snd_sof_dsp_ops sof_mt8186_ops = {
- 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
- };
- 
-+static struct snd_sof_of_mach sof_mt8186_machs[] = {
-+	{
-+		.compatible = "mediatek,mt8186",
-+		.sof_tplg_filename = "sof-mt8186.tplg",
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 383a814b8539..4461237a3474 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6842,6 +6842,7 @@ enum {
+ 	ALC269_FIXUP_LIMIT_INT_MIC_BOOST,
+ 	ALC269VB_FIXUP_ASUS_ZENBOOK,
+ 	ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A,
++	ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE,
+ 	ALC269_FIXUP_LIMIT_INT_MIC_BOOST_MUTE_LED,
+ 	ALC269VB_FIXUP_ORDISSIMO_EVE2,
+ 	ALC283_FIXUP_CHROME_BOOK,
+@@ -7427,6 +7428,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269VB_FIXUP_ASUS_ZENBOOK,
+ 	},
++	[ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x18, 0x01a110f0 },  /* use as headset mic */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_HEADSET_MIC
 +	},
-+	{}
-+};
-+
- static const struct sof_dev_desc sof_of_mt8186_desc = {
-+	.of_machines = sof_mt8186_machs,
- 	.ipc_supported_mask	= BIT(SOF_IPC),
- 	.ipc_default		= SOF_IPC,
- 	.default_fw_path = {
+ 	[ALC269_FIXUP_LIMIT_INT_MIC_BOOST_MUTE_LED] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc269_fixup_limit_int_mic_boost,
+@@ -9124,6 +9134,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x12a0, "ASUS X441UV", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x12e0, "ASUS X541SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x12f0, "ASUS X541UV", ALC256_FIXUP_ASUS_MIC),
++	SND_PCI_QUIRK(0x1043, 0x1313, "Asus K42JZ", ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x13b0, "ASUS Z550SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
 -- 
-2.25.1
+2.20.1
 

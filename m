@@ -2,91 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5F258BBFF
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Aug 2022 19:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 149AC58BCDE
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Aug 2022 22:20:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E7CA10E;
-	Sun,  7 Aug 2022 19:27:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E7CA10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F19882C;
+	Sun,  7 Aug 2022 22:19:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F19882C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659893296;
-	bh=SF+cmst0YOvBtGZlGtIWLCtrRFNybghg8Ky1cN9EEMk=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XGT9b1S/1Q6E2gqaiQ+qJpQcvnZ0YRU8OVvGvM+9jjHGkjB8c3VK3bCNfz/H0bl/1
-	 cRmI1egkNApJw4iWQGX/LI5ga8/7mqWNwmEtn9frHEP418yUr8jU+Xpru/tSR2dvY9
-	 6S+q2TnOMbaBGVHp8fJE/DkMc2zkLblzEEYArRHs=
+	s=default; t=1659903600;
+	bh=TY/2PoDnYsZV9tjcdM+y8uLeZMCzZVhafKFL8M1rC7M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IF8sZkdElG7pLDJT/TJtFoDzfMMA6eaTS0LL+LQ9C7EPB2rgoMh7Mz2q6pCkfMf4f
+	 /JNLBOr/3FIFObOYDyeByNavHTOiSEHMPneO9H5j6mQVi3TexbdvltSWds32lO2aGM
+	 WDNCNwUVnMcQg5HdJxi66UKVArhNj0Qw4C18eqRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B993F8025C;
-	Sun,  7 Aug 2022 19:27:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1A36F8025C;
+	Sun,  7 Aug 2022 22:19:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55A49F80237; Sun,  7 Aug 2022 19:27:17 +0200 (CEST)
+ id E4D2AF80237; Sun,  7 Aug 2022 22:19:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,PRX_APP_ATTACH,RDNS_NUM_TLD_ATCHNX,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from sender4-op-o18.zoho.com (sender4-op-o18.zoho.com
- [136.143.188.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp01.smtpout.orange.fr
+ [80.12.242.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07C5DF8012B
- for <alsa-devel@alsa-project.org>; Sun,  7 Aug 2022 19:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07C5DF8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=icenowy.me header.i=uwu@icenowy.me
- header.b="EI6EyIm+"
-ARC-Seal: i=1; a=rsa-sha256; t=1659893217; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Wt7C8ix+QRV6we4kN1ZQuJsSrgALXHX4sHyiolawn7o+v5HxpQJRxz/XqmZ6WKLmuTOEnjvG6BzRtpr2EWHND+VySfEItTgR8hcFWmQF1qBXuZJv8j6IoMTqfLqIaMi7r/65TO2+4g71KTwnDSCq5oCLsHowdX8GfbpYklFY8h8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1659893217;
- h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=SF+cmst0YOvBtGZlGtIWLCtrRFNybghg8Ky1cN9EEMk=; 
- b=DdY6O9/Qe7/0V6lgiBzS9h7KQJ2w52C5Ky6uAklGxgVkyBd3BbKfy+aUu440C0orc4EjICkjwYhMF1ZeGiRplD6fZkFuQDpA8ChWXJhS6PPX2DUrbNAh7KsHxMsC3xBgp56N/QTZAGp5UxzbrjNe4CpFsvCxYMAUcujFtyzDPlw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1659893217; 
- s=zmail; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:MIME-Version:Message-Id:Reply-To;
- bh=SF+cmst0YOvBtGZlGtIWLCtrRFNybghg8Ky1cN9EEMk=;
- b=EI6EyIm+M/8fkDBs0Rp4imo9ZbY2/YqfJYIzgez6HzyAPo1NRKjW2Sw+9z6vxwaw
- BAmuNK41GObVSgFu5zLDvQsY3yWBhvBAzfkrqTtcpjR/2aVBKCYzfwmSD4yq1VntpvH
- JHbu/0YT/QVACPCfot0gvCJx+e6qvta5qsEr5lFg=
-Received: from edelgard.icenowy.me (112.94.101.161 [112.94.101.161]) by
- mx.zohomail.com with SMTPS id 1659893215924553.4813978923066;
- Sun, 7 Aug 2022 10:26:55 -0700 (PDT)
-Message-ID: <3346b62c3cd7e07766457c9140849a31d6d8775c.camel@icenowy.me>
-Subject: Re: [PATCH 2/2] ASoC: Intel: Skylake: try to get NHLT blob with PCM
- params as fallback
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Mon, 08 Aug 2022 01:26:48 +0800
-In-Reply-To: <4208aece-0aea-ba86-9a00-9e217546e1dd@intel.com>
-References: <20220725111002.143765-1-uwu@icenowy.me>
- <20220725111002.143765-2-uwu@icenowy.me>
- <4208aece-0aea-ba86-9a00-9e217546e1dd@intel.com>
-Organization: Anthon Open-Source Community
-Content-Type: multipart/mixed; boundary="=-DU22i17Cl0BwIAc7P92o"
-User-Agent: Evolution 3.40.4 
-MIME-Version: 1.0
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D40FF8013D
+ for <alsa-devel@alsa-project.org>; Sun,  7 Aug 2022 22:18:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D40FF8013D
+Received: from pop-os.home ([90.11.190.129]) by smtp.orange.fr with ESMTPA
+ id Kmjfo2a6aEkSDKmjfoUec8; Sun, 07 Aug 2022 22:18:57 +0200
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sun, 07 Aug 2022 22:18:57 +0200
+X-ME-IP: 90.11.190.129
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Harsha Priya <harshapriya.n@intel.com>,
+ "Subhransu S. Prusty" <subhransu.s.prusty@intel.com>,
+ Vinod Koul <vkoul@kernel.org>,
+ Sriram Periyasamy <sriramx.periyasamy@intel.com>
+Subject: [PATCH] ASoC: Intel: kbl_rt5663_max98927: Simplify clk_get() usage
+Date: Sun,  7 Aug 2022 22:18:54 +0200
+Message-Id: <55e59c4792d64ff6336fcaa85ec15590553e9d63.1659903516.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,197 +79,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+If clk_get() returns -ENOENT, there is no need to defer the driver, -ENOENT
+will be returned the same for each retries.
+So, return the error code directly instead of -EPROBE_DEFER.
 
---=-DU22i17Cl0BwIAc7P92o
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Remove this special case and use dev_err_probe() to simplify code. It will
+also be less verbose if the clk is really deferred.
 
-5ZyoIDIwMjItMDgtMDLmmJ/mnJ/kuoznmoQgMTI6MzAgKzAyMDDvvIxDZXphcnkgUm9qZXdza2nl
-hpnpgZPvvJoKPiBPbiAyMDIyLTA3LTI1IDE6MTAgUE0sIEljZW5vd3kgWmhlbmcgd3JvdGU6Cj4g
-PiBTd2l0Y2hpbmcgdG8gdXNlIHBpcGVsaW5lIHBhcmFtZXRlcnMgdG8gZ2V0IE5ITFQgYmxvYiBi
-cmVha3MgYXVkaW8KPiA+IG9uCj4gPiBIUCBDaHJvbWVib29rIDEzIEcxIChhdCBsZWFzdCB3aXRo
-IE1yQ2hyb21lQm94IGZpcm13YXJlKS4KPiA+IAo+ID4gRml4IHRoaXMgYnkgcmV0cnlpbmcgdG8g
-Z2V0IE5ITFQgYmxvYiB3aXRoIFBDTSBwYXJhbWV0ZXJzICh3aGljaCBpcwo+ID4gdGhlCj4gPiBv
-bGQgYmVoYXZpb3IpIGlmIHBpcGVsaW5lIHBhcmFtZXRlcnMgZmFpbC4KPiA+IAo+ID4gRml4ZXM6
-IDg3YjI2NTI2MDA0NiAoIkFTb0M6IEludGVsOiBTa3lsYWtlOiBTZWxlY3QgcHJvcGVyIGZvcm1h
-dAo+ID4gZm9yIE5ITFQgYmxvYiIpCj4gPiBTaWduZWQtb2ZmLWJ5OiBJY2Vub3d5IFpoZW5nIDx1
-d3VAaWNlbm93eS5tZT4KPiAKPiBIZWxsbywKPiAKPiAKPiBDb3VsZCB5b3Ugc2hhcmUgdGhlIE5I
-TFQgZmlsZSBmcm9tIHlvdXIgcGxhdGZvcm0gcGx1cyB0aGUgZm9ybWF0IHVzZWQKPiBieSAKPiB0
-aGUgY3Jhcy91c2Vyc3BhY2UgdG9vbD8gRGlkIHlvdSB0cnkgcGxheWluZyBvdmVyIHNpbXBsZSBh
-cGxheSB0b29sCj4gaW5zdGVhZD8KCkkgdHJpZWQgNDgwMDBIeiAyY2ggMzJiaXQgd2l0aCBzcGVh
-a2VyLXRlc3QuCgpBdHRhY2hlZCBpcyAvc3lzL2Zpcm13YXJlL2FjcGkvdGFibGVzL05ITFQuCgo+
-IAo+IAo+ID4gwqAgc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmMgfCAxMSAr
-KysrKysrKysrKwo+ID4gwqAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKykKPiA+IAo+
-ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9neS5jCj4g
-PiBiL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9neS5jCj4gPiBpbmRleCAxOTk5
-NGVjOGJiYTEuLjNkNWEzZWUxYzgyYyAxMDA2NDQKPiA+IC0tLSBhL3NvdW5kL3NvYy9pbnRlbC9z
-a3lsYWtlL3NrbC10b3BvbG9neS5jCj4gPiArKysgYi9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9z
-a2wtdG9wb2xvZ3kuYwo+ID4gQEAgLTE4NTgsNiArMTg1OCwxNSBAQCBzdGF0aWMgaW50Cj4gPiBz
-a2xfdHBsZ19iZV9maWxsX3BpcGVfcGFyYW1zKHN0cnVjdCBzbmRfc29jX2RhaSAqZGFpLAo+ID4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaXBlX2ZtdC0+YnBzLCBwYXJhbXMtCj4gPiA+c19jb250
-LAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaXBlX2ZtdC0+Y2hhbm5lbHMsCj4gPiBwaXBl
-X2ZtdC0+ZnJlcSwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGlwZS0+ZGlyZWN0aW9uLCBk
-ZXZfdHlwZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqBpZiAoIWNmZykgewo+ID4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoC8qIFJldHJ5IHdpdGggUENNIHBhcmFtZXRlcnMsIGFzIHRoZSBv
-bGQgYmVoYXZpb3IKPiA+ICovCj4gCj4gRHJvcCB0aGUgIm9sZCBiZWhhdmlvciIgLSBtb3N0IG9m
-IHRoZSByZWFkZXJzIGFyZSBub3QgYXdhcmUgb2Ygd2hhdAo+IHRoYXQgCj4gYWN0dWFsbHkgbWVh
-bnMuCj4gCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgY2ZnID0gaW50ZWxfbmhs
-dF9nZXRfZW5kcG9pbnRfYmxvYihkYWktPmRldiwgc2tsLQo+ID4gPm5obHQsCj4gPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoG1jb25maWctPnZidXNfaWQsCj4gPiBsaW5r
-X3R5cGUsCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHBhcmFtcy0+
-c19mbXQsCj4gPiBwYXJhbXMtPnNfY29udCwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgcGFyYW1zLT5jaCwgcGFyYW1zLQo+ID4gPnNfZnJlcSwKPiA+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGFyYW1zLT5zdHJlYW0sCj4gPiBkZXZfdHlw
-ZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqB9Cj4gPiArCj4gPiDCoMKgwqDCoMKgwqDCoMKgaWYgKGNm
-Zykgewo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBtY29uZmlnLT5mb3JtYXRz
-X2NvbmZpZ1tTS0xfUEFSQU1fSU5JVF0uY2Fwc19zaXplID0KPiA+IGNmZy0+c2l6ZTsKPiA+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgbWNvbmZpZy0+Zm9ybWF0c19jb25maWdbU0tM
-X1BBUkFNX0lOSVRdLmNhcHMgPSAodTMyCj4gPiAqKSZjZmctPmNhcHM7Cj4gPiBAQCAtMTg2Niw2
-ICsxODc1LDggQEAgc3RhdGljIGludAo+ID4gc2tsX3RwbGdfYmVfZmlsbF9waXBlX3BhcmFtcyhz
-dHJ1Y3Qgc25kX3NvY19kYWkgKmRhaSwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoG1jb25maWctPnZidXNfaWQsIGxpbmtfdHlwZSwgcGFyYW1zLQo+
-ID4gPnN0cmVhbSwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoHBpcGVfZm10LT5jaGFubmVscywgcGlwZV9mbXQtPmZyZXEsCj4gPiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwaXBlX2ZtdC0+YnBzKTsKPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBkZXZfZXJyKGRhaS0+ZGV2LCAiUENNOiBj
-aCAlZCwgZnJlcSAlZCwgZm10ICVkXG4iLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqBwYXJhbXMtPmNoLCBwYXJhbXMtPnNfZnJlcSwgcGFyYW1zLT5z
-X2ZtdCk7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRUlOVkFM
-Owo+ID4gwqDCoMKgwqDCoMKgwqDCoH0KPiA+IMKgIAoK
+Fixes: f7f61e08fe58 ("ASoC: Intel: kbl: Enable mclk and ssp sclk early")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+This is based on my understanding of clk_get().
+Review with care.
 
+Not sure the Fixes tag is needed. The patch does not fix anything.
+If devm_clk_get() returns -ENOENT, it will just loop several time until
+the framework gives up.
+If it returns -EPROBE_DEFER, this case is already handled by the
+"return ret;"
 
---=-DU22i17Cl0BwIAc7P92o
-Content-Type: application/octet-stream; name="NHLT"
-Content-Disposition: attachment; filename="NHLT"
-Content-Transfer-Encoding: base64
+So this patch should be a no-op, just a clean-up.
+---
+ sound/soc/intel/boards/kbl_rt5663_max98927.c | 31 ++++----------------
+ 1 file changed, 6 insertions(+), 25 deletions(-)
 
-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
-wskAAPK9AADidwAAvAkAAKuSDwAPNg8ADBEPAIwxDwBlkQ8AUBcAAJGdAACQ/AAAbhYBACXgAACJ
-ZQAAx8YPAOovDwCszA4A+rsOAKkGDwAlnA8ALFYAAKkCAQAncQEALIABAN0mAQAreAAApp4PAPDR
-DgCFSA4AiykOAGWCDgCkQg8AcT8AAIw9AQBX/wEAelMCAJ4gAgBzawEAzlUAAEkXDwBC8Q0AKyEN
-AD7UDAAiHw0AD/sNAI5IDwDV1gAAxW0CAETYAwDV7AQAAZMFAO3EBQBvjQUAhQMFAI1EBACCbgMA
-XZsCAC3eAQARQgEAycoAAFt2AAA4PwAASh4AAJMMAAA7BAAA+QAAANb/DwAXAgAAWwIAAIMDAAAH
-BQAA4gYAABYJAAChCwAAew4AAJoRAADsFAAAWRgAAMcbAAAVHwAAHSIAALokAADDJgAAECgAAH4o
-AADsJwAAQCYAAGwjAABqHwAAQBoAAAIUAADTDAAA4gQAAGv8DwC38w8AF+sPAOLiDwBz2w8AJtUP
-AE/QDwA6zQ8AJ8wPAELNDwCl0A8AT9YPACjeDwD95w8AgvMPAE8AAADrDQAAyBsAAE4pAADdNQAA
-2EAAAKdJAADETwAAvlIAAEJSAAAeTgAASkYAAOU6AAA7LAAAwRoAABQHAAD08Q8AO9wPANbGDwDA
-sg8A7KAPAEeSDwChhw8ArYEPAOyADwCxhQ8ADZAPANqfDwCqtA8A2s0PAITqDwCWCQAA0SkAAOBJ
-AABVaAAAz4MAAPSaAACRrAAAnrcAAFW7AAAytwAAC6sAAAOXAACfewAAslkAAGcyAAApBwAApNkP
-AKirDwAkfw8AAlYPACMyDwA8FQ8AzwAPAAr2DgDJ9Q4AeQAPAB4WDwBFNg8ADWAPACWSDwDeyg8A
-MwgAAOFHAAB3hwAAc8QAAFb8AADALAEAiFMBANRuAQArfQEAh30BAGBvAQC5UgEAGigBAJXwAAC9
-rQAAlmEAAIcOAABHtw8AwF4PAPwHDwAFtg4Ay2sOAA8sDgBE+Q0AftUNAF/CDQAKwQ0AGtINAJz1
-DQAUKw4AfHEOAFXHDgCtKg8AOpkPAGQQAABjjQAATw0BAD+NAQBXCgIA5YECAG7xAgDBVgMABbAD
-AMP7AwDqOAQA0mYEAD+FBABXlAQAoZQEAPSGBABzbAQAekYEAJEWBABh3gMAoZ8DAAtcAwBOFQMA
-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
-AAD/DwAAAAAAAA==
-
-
---=-DU22i17Cl0BwIAc7P92o--
+diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+index 2d4224c5b152..07b00af2fa3c 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+@@ -989,7 +989,6 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ {
+ 	struct kbl_rt5663_private *ctx;
+ 	struct snd_soc_acpi_mach *mach;
+-	int ret;
+ 
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
+@@ -1009,32 +1008,14 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ 			&constraints_dmic_2ch : &constraints_dmic_channels;
+ 
+ 	ctx->mclk = devm_clk_get(&pdev->dev, "ssp1_mclk");
+-	if (IS_ERR(ctx->mclk)) {
+-		ret = PTR_ERR(ctx->mclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_sclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
+-
+-		dev_err(&pdev->dev, "Failed to get ssp1_mclk with err:%d\n",
+-								ret);
+-		return ret;
+-	}
++	if (IS_ERR(ctx->mclk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(ctx->mclk),
++				     "Failed to get ssp1_mclk\n");
+ 
+ 	ctx->sclk = devm_clk_get(&pdev->dev, "ssp1_sclk");
+-	if (IS_ERR(ctx->sclk)) {
+-		ret = PTR_ERR(ctx->sclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_sclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
+-
+-		dev_err(&pdev->dev, "Failed to get ssp1_sclk with err:%d\n",
+-								ret);
+-		return ret;
+-	}
++	if (IS_ERR(ctx->sclk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(ctx->sclk),
++				     "Failed to get ssp1_sclk\n");
+ 
+ 	return devm_snd_soc_register_card(&pdev->dev, kabylake_audio_card);
+ }
+-- 
+2.34.1
 

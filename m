@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9212858C9F2
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Aug 2022 15:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA0F58C9FC
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Aug 2022 15:58:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 413B183A;
-	Mon,  8 Aug 2022 15:57:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 413B183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB449850;
+	Mon,  8 Aug 2022 15:57:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB449850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659967074;
-	bh=pw3bKF7eLRdNP6Yek3RK13HTphRzFxO83bPsYytYlMY=;
+	s=default; t=1659967119;
+	bh=N1qUzPeHmq1g9KSDPrV9QPUtEpidQK9hv1HIicasXFY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vRZ4elGxqO3q1D7lFD1pN0E6htiyhVLPR35lwZwmh0POoRoLtYvbasTKHdUSu/9v+
-	 9AR4SpiH4XfgOhgaz97L9EZtTlTSMjUSfh/+IOVugqf+L4cuF9mlSxWhJR0Cqf+iDp
-	 rheJ4HcjQG6reBmtZrj9f8qIWRTHuN/6Bzk2gy9M=
+	b=Uj2SdVbcRGIO2b3LV6y/IxqpvmdyZqYkLJuhPzk3xO9fuj9mkSgyPHNuLHYDIK+IV
+	 3lyymJ2ehmHgPkIPNEzo631G5fBnLJl/KeCX5GFJnZis1HcemQC/cGAQV7cZwwtuFJ
+	 gsfMlkTghlPbjyxNfs+7gel3gC5q9s347eQz9QaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7B6EF8012B;
-	Mon,  8 Aug 2022 15:56:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 480C5F804E5;
+	Mon,  8 Aug 2022 15:57:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DE44F80507; Mon,  8 Aug 2022 15:56:53 +0200 (CEST)
+ id D4CC2F804B1; Mon,  8 Aug 2022 15:57:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM,
@@ -34,28 +34,28 @@ Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0B11F8012B
- for <alsa-devel@alsa-project.org>; Mon,  8 Aug 2022 15:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B11F8012B
-Received: from fraeml742-chm.china.huawei.com (unknown [172.18.147.200])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4M1d6P6zryz6H74g;
- Mon,  8 Aug 2022 21:56:45 +0800 (CST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2948FF800E8
+ for <alsa-devel@alsa-project.org>; Mon,  8 Aug 2022 15:57:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2948FF800E8
+Received: from fraeml735-chm.china.huawei.com (unknown [172.18.147.200])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4M1d7S15Zxz6H76x;
+ Mon,  8 Aug 2022 21:57:40 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (7.191.163.240) by
- fraeml742-chm.china.huawei.com (10.206.15.223) with Microsoft SMTP Server
+ fraeml735-chm.china.huawei.com (10.206.15.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Mon, 8 Aug 2022 15:56:46 +0200
+ 15.1.2375.24; Mon, 8 Aug 2022 15:57:40 +0200
 Received: from localhost (10.122.247.231) by lhrpeml500005.china.huawei.com
  (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 8 Aug
- 2022 14:56:45 +0100
-Date: Mon, 8 Aug 2022 14:56:44 +0100
+ 2022 14:57:39 +0100
+Date: Mon, 8 Aug 2022 14:57:38 +0100
 From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 4/5] dt-bindings: Drop Robert Jones
-Message-ID: <20220808145644.00002168@huawei.com>
-In-Reply-To: <20220808104712.54315-5-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 3/5] dt-bindings: Drop Beniamin Bia and Stefan Popa
+Message-ID: <20220808145738.000040f1@huawei.com>
+In-Reply-To: <20220808104712.54315-4-krzysztof.kozlowski@linaro.org>
 References: <20220808104712.54315-1-krzysztof.kozlowski@linaro.org>
- <20220808104712.54315-5-krzysztof.kozlowski@linaro.org>
+ <20220808104712.54315-4-krzysztof.kozlowski@linaro.org>
 Organization: Huawei Technologies R&D (UK) Ltd.
 X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.29; x86_64-w64-mingw32)
 MIME-Version: 1.0
@@ -97,44 +97,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon,  8 Aug 2022 13:47:11 +0300
+On Mon,  8 Aug 2022 13:47:10 +0300
 Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 
-> Emails to Robert Jones bounce ("550 5.2.1 The email account that you
-> tried to reach is disabled").
+> Emails to Beniamin Bia and Stefan Popa bounce ("550 5.1.10
+> RESOLVER.ADR.RecipientNotFound; Recipient not found by SMTP address
+> lookup").
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml | 2 +-
->  Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml    | 1 -
->  2 files changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml b/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
-> index 479e7065d4eb..0203b83b8587 100644
-> --- a/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
-> +++ b/Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Freescale FXOS8700 Inertial Measurement Unit
->  
->  maintainers:
-> -  - Robert Jones <rjones@gateworks.com>
-> +  - Jonathan Cameron <jic23@kernel.org>
+
+Fine by me.
 
 Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
->  
->  description: |
->    Accelerometer and magnetometer combo device with an i2c and SPI interface.
-> diff --git a/Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml b/Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml
-> index 5a1e8d21f7a0..5e0fe3ebe1d2 100644
-> --- a/Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml
-> @@ -19,7 +19,6 @@ description: |
+> ---
+>  Documentation/devicetree/bindings/hwmon/adi,adm1177.yaml       | 1 -
+>  Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml    | 2 +-
+>  Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml      | 3 +--
+>  .../devicetree/bindings/iio/amplifiers/adi,hmc425a.yaml        | 1 -
+>  4 files changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/adi,adm1177.yaml b/Documentation/devicetree/bindings/hwmon/adi,adm1177.yaml
+> index 154bee851139..d794deb08bb7 100644
+> --- a/Documentation/devicetree/bindings/hwmon/adi,adm1177.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/adi,adm1177.yaml
+> @@ -8,7 +8,6 @@ title: Analog Devices ADM1177 Hot Swap Controller and Digital Power Monitor
 >  
 >  maintainers:
->    - Tim Harvey <tharvey@gateworks.com>
-> -  - Robert Jones <rjones@gateworks.com>
+>    - Michael Hennerich <michael.hennerich@analog.com>
+> -  - Beniamin Bia <beniamin.bia@analog.com>
 >  
->  properties:
->    $nodename:
+>  description: |
+>    Analog Devices ADM1177 Hot Swap Controller and Digital Power Monitor
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml
+> index 31ffa275f5fa..b97559f23b3a 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: Analog Devices AD7091R5 4-Channel 12-Bit ADC
+>  
+>  maintainers:
+> -  - Beniamin Bia <beniamin.bia@analog.com>
+> +  - Michael Hennerich <michael.hennerich@analog.com>
+>  
+>  description: |
+>    Analog Devices AD7091R5 4-Channel 12-Bit ADC
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
+> index 73775174cf57..516fc24d3346 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7606.yaml
+> @@ -7,8 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: Analog Devices AD7606 Simultaneous Sampling ADC
+>  
+>  maintainers:
+> -  - Beniamin Bia <beniamin.bia@analog.com>
+> -  - Stefan Popa <stefan.popa@analog.com>
+> +  - Michael Hennerich <michael.hennerich@analog.com>
+>  
+>  description: |
+>    Analog Devices AD7606 Simultaneous Sampling ADC
+> diff --git a/Documentation/devicetree/bindings/iio/amplifiers/adi,hmc425a.yaml b/Documentation/devicetree/bindings/iio/amplifiers/adi,hmc425a.yaml
+> index a557761d8016..9fda56fa49c3 100644
+> --- a/Documentation/devicetree/bindings/iio/amplifiers/adi,hmc425a.yaml
+> +++ b/Documentation/devicetree/bindings/iio/amplifiers/adi,hmc425a.yaml
+> @@ -8,7 +8,6 @@ title: HMC425A 6-bit Digital Step Attenuator
+>  
+>  maintainers:
+>    - Michael Hennerich <michael.hennerich@analog.com>
+> -  - Beniamin Bia <beniamin.bia@analog.com>
+>  
+>  description: |
+>    Digital Step Attenuator IIO device with gpio interface.
 

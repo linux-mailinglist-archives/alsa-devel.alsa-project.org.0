@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4148E58DED7
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 20:24:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D1B58DED9
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 20:25:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D64DF100;
-	Tue,  9 Aug 2022 20:24:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D64DF100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30B7285D;
+	Tue,  9 Aug 2022 20:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30B7285D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660069498;
-	bh=wIuMzWI3SH6GkOhuSmYYKpDVKw+Zt9Rpl0tkIVhn/mc=;
+	s=default; t=1660069529;
+	bh=Orpxpb4ht5cPC7Dmsq+/pb4XIrE3ThWv+PJnw3hJ7e4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FuS3mzIz4gUX9l18dsBlho/Bbrkxuh7zy8/bsVNLc3vLLhzDj5vapik0HxYR8mw3A
-	 RiMovB9e+MqgkE7aso7jiWLFwQeLfnhtX6rqgj9WwEaI/wyfw9mDRfFV4TAX6fhwLy
-	 aByC/msMLIX8OZ/U32NUnqmtlRXRTi65NvFPfJUU=
+	b=UWn3o954nMZ21BPLAUi3rbqoh3wDjpkJzqU04wLjkAsFifWX0KW4hl29kK6FIqra3
+	 kAd1DiEgpV5wXCv5oUVN0G79Lnd4WK2VuNw5CQgyUXvPeQTvgh9VqY54t/cmB338mz
+	 hFxA5z80+0AJuvljkyKrfiEa7tmc5VLpxUXnrPcA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50F17F801F7;
-	Tue,  9 Aug 2022 20:24:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE4D7F8012A;
+	Tue,  9 Aug 2022 20:24:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A95F2F8016C; Tue,  9 Aug 2022 20:23:58 +0200 (CEST)
+ id D4B1DF8049C; Tue,  9 Aug 2022 20:24:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45AA2F80132
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 20:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45AA2F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70C50F8012A
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 20:24:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C50F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j6BUX+q7"
+ header.b="UfyjxJkB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9216F610AA;
- Tue,  9 Aug 2022 18:23:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68EAC433D7;
- Tue,  9 Aug 2022 18:23:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4610761210;
+ Tue,  9 Aug 2022 18:24:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1456AC433D6;
+ Tue,  9 Aug 2022 18:24:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660069431;
- bh=wIuMzWI3SH6GkOhuSmYYKpDVKw+Zt9Rpl0tkIVhn/mc=;
+ s=k20201202; t=1660069455;
+ bh=Orpxpb4ht5cPC7Dmsq+/pb4XIrE3ThWv+PJnw3hJ7e4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=j6BUX+q7nXY1SgQGco59LqQLSMl8PEPNupt+l7j0AExL9vrcU76xMOfdT8gVgy3jW
- n/4aGpHqmENnxcKmYRuiC33wqZ8sfOX5W1SjCiVul7gj0l1MHTUrVxVexLGCNR9TJN
- VyFRySD7qoVn2l+IW+5ZBPKGU1uCf6z5raHWNg7quGTlK/Yo4BoKR71+g3/S0Rx0Qr
- pSufsNurSB+suT2p0BJpmQyvO9XG/DIiPe4T52pUJLvicGvwp7R/+0qKQ7taVioSdm
- Tw+Us95xoH6KScaoHs744A2Lw3GDuiMwtqJ0DjogeagZXLxdzGy7uEdx1h+ul5KqnQ
- Rq6hc0QHz5+Nw==
-Date: Tue, 9 Aug 2022 11:23:41 -0700
+ b=UfyjxJkBaNxVbvRwC2r0rZpqU53z5JEtiDzCh/itrvbU5rw32TLXOuYECgtiiUh4N
+ sLsmF5mZKHb21ZR/jKEikDBKKGpEjuiZx3DedIlg08AWoPmsMoqv/tiZgwL26OHbj/
+ eOyts2pLeTu12bZm5S5IwUF6sDjZk2CJ1QC/riFKIob9FGSbmRAy1gpky6u5aoLyqO
+ LxNXP57+6cJih1V++iDehFhGJERKHnyYckUHRgVXKiyXhr2F/e5csIJGOikPlorlEh
+ Xi4MuuuHlrenP5ypB06He/SgYZasBbimGB6t3WH3cQFB7H4oUaEiciVj15RhLgKPoa
+ +96h0l6UbpqHg==
+Date: Tue, 9 Aug 2022 11:24:05 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 0/5] iio/hwmon/mfd/leds/net/power/ASoC: dt-bindings: few
- stale maintainers cleanup
-Message-ID: <20220809112341.7599d68e@kernel.org>
-In-Reply-To: <c6b890b6-e72f-0377-f0ae-cd15d29c23a1@linaro.org>
+Subject: Re: [PATCH 5/5] dt-bindings: Drop Dan Murphy
+Message-ID: <20220809112405.071130e2@kernel.org>
+In-Reply-To: <20220808104712.54315-6-krzysztof.kozlowski@linaro.org>
 References: <20220808104712.54315-1-krzysztof.kozlowski@linaro.org>
- <20220808115202.3175eb1f@kernel.org>
- <c6b890b6-e72f-0377-f0ae-cd15d29c23a1@linaro.org>
+ <20220808104712.54315-6-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -100,14 +98,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 9 Aug 2022 08:25:29 +0300 Krzysztof Kozlowski wrote:
-> On 08/08/2022 21:52, Jakub Kicinski wrote:
-> > Integrating it with MAINTAINERS would be another option worth exploring
-> > although slightly tangential.
-> > 
-> > How do you want this merged? It's all over the place subsystem-wise.  
-> 
-> I was thinking this could go via Rob's tree as fixes for current cycle,
-> so your Ack would be great
+On Mon,  8 Aug 2022 13:47:12 +0300 Krzysztof Kozlowski wrote:
+>  Documentation/devicetree/bindings/net/ti,dp83822.yaml           | 2 +-
+>  Documentation/devicetree/bindings/net/ti,dp83867.yaml           | 2 +-
+>  Documentation/devicetree/bindings/net/ti,dp83869.yaml           | 2 +-
 
-Sounds good!
+Acked-by: Jakub Kicinski <kuba@kernel.org>

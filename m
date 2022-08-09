@@ -2,67 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1AAF58D047
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 00:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B5ED58D1D2
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 03:51:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D0AA950;
-	Tue,  9 Aug 2022 00:43:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D0AA950
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8A67822;
+	Tue,  9 Aug 2022 03:51:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8A67822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1659998670;
-	bh=dXJq0S0rDGcdZx+hce5rKdPfO6rpo5M6urF2yU1+emM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660009910;
+	bh=Bfm+Hy5TRMfKh/iN9Ih6MfMX7Ek+cF8yQCd31yggBVo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s/gqm3PcOvVWkVCWGDJYheKo64mugJzKrhar1ad/Uh/j0Tq9Mc8J3G/48GBLPA1hU
-	 oAvsk7Id0vwo6f3HzcizdNDMTQUhhtKQ0JItN+bves0kiSnPWHxPP3NvzqJHhKrBqL
-	 bpr4kjJyOa+Td475QgbWT/K+4xZ3JCKTnSXlVhbs=
+	b=ciP/3fjo5bJpCN9R4mTCsko8LO6ZKnkvKv2Zm1WNK1vDzFY42Irryrr9Q0kRILMYC
+	 kHdn7Knqf+s7lsZxnp/N2wLs/ICdL1l215hzOIk1iwJRe9FMdRaU7D9v69xKH6itnt
+	 wxZsVFL9Nt8qWw+rrhJg0+8eo8IJ+KZOdM9HUC20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4264F8054A;
-	Tue,  9 Aug 2022 00:43:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F3ACF801F7;
+	Tue,  9 Aug 2022 03:50:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F33BF80430; Tue,  9 Aug 2022 00:43:04 +0200 (CEST)
+ id 2AC29F8016C; Tue,  9 Aug 2022 03:50:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C1D1F80430
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 00:42:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C1D1F80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0626F80132
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 03:50:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0626F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="FUrAxoS4"
-From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1659998577; bh=Evgxz11Aca483CwKpixCPJEIqWdyiuYnRJmM8YMhDHo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FUrAxoS4bh8x1LRj2LYfRchN/0r2xGr3wDpR3fhoxoDu18+sevH29/+x8LmP4t39b
- AT3X4bwuWF3b9sqiHlFT1a4ZzHPcscJrEmIqxL0uINuoY4tJUF0jETF7aRzsKqjLIE
- OW99CJC8snI7ayvrYk9m4fliQqBYws9Jz+iPQ8ss=
-To: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 2/3] ASoC: apple: mca: Start new platform driver
-Date: Tue,  9 Aug 2022 00:41:52 +0200
-Message-Id: <20220808224153.3634-3-povik+lin@cutebit.org>
-In-Reply-To: <20220808224153.3634-1-povik+lin@cutebit.org>
-References: <20220808224153.3634-1-povik+lin@cutebit.org>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="cXEmN/GT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660009844; x=1691545844;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Bfm+Hy5TRMfKh/iN9Ih6MfMX7Ek+cF8yQCd31yggBVo=;
+ b=cXEmN/GTzlBYlaSpJUpcxTWHHBxwwGA5bpk8aVlxqcA+F0B1Azv2M23Z
+ LlausX9lkmNpcxUB5am2RT+qM2l/xX22pzF4UlyVLR9JROV9M8xvb04Qe
+ ok/w54qDjy6LwDtH/5PKgZYdH3pOI2PXb7iKVtiHPd9lauAkdBBgvk/h1
+ wdxWkGr8dDuiX6rMF5pUG3SgjjpmAm5t9Gdg4C3nx3g774GUbU5HrTL3J
+ VO9MMtF2OKiAqYjuQIk8yAzsigLFZnz3FSzCZtTCN7TpVWROplyCGXAjJ
+ 0Shbp6DlN6WODgwl3G5+eeaEg/IZ7l0nD8L0fyybz/dyhB6VkE0OZpZd8 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10433"; a="277665897"
+X-IronPort-AV: E=Sophos;i="5.93,223,1654585200"; d="scan'208";a="277665897"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2022 18:50:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,223,1654585200"; d="scan'208";a="932298311"
+Received: from lkp-server01.sh.intel.com (HELO e0eace57cfef) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 08 Aug 2022 18:50:37 -0700
+Received: from kbuild by e0eace57cfef with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oLEOD-000Me9-0A;
+ Tue, 09 Aug 2022 01:50:37 +0000
+Date: Tue, 9 Aug 2022 09:49:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matt Flax <flatmax@flatmax.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2] ASoC: codecs: add uspport for the TI SRC4392 codec
+Message-ID: <202208090909.Pg0BZGie-lkp@intel.com>
+References: <20220808214028.2502801-1-flatmax@flatmax.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220808214028.2502801-1-flatmax@flatmax.com>
+Cc: broonie@kernel.org, llvm@lists.linux.dev, kbuild-all@lists.01.org,
+ Matt Flax <flatmax@flatmax.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,1247 +91,183 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add ASoC platform driver for the MCA peripheral found on Apple M1 and
-other chips.
+Hi Matt,
 
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
----
- MAINTAINERS              |    8 +
- sound/soc/Kconfig        |    1 +
- sound/soc/Makefile       |    1 +
- sound/soc/apple/Kconfig  |    9 +
- sound/soc/apple/Makefile |    3 +
- sound/soc/apple/mca.c    | 1152 ++++++++++++++++++++++++++++++++++++++
- 6 files changed, 1174 insertions(+)
- create mode 100644 sound/soc/apple/Kconfig
- create mode 100644 sound/soc/apple/Makefile
- create mode 100644 sound/soc/apple/mca.c
+Thank you for the patch! Perhaps something to improve:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 64379c699903..071d11f88140 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1861,6 +1861,14 @@ F:	include/dt-bindings/pinctrl/apple.h
- F:	include/linux/apple-mailbox.h
- F:	include/linux/soc/apple/*
- 
-+ARM/APPLE MACHINE SOUND DRIVERS
-+M:	Martin Povišer <povik+lin@cutebit.org>
-+L:	asahi@lists.linux.dev
-+L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/apple,*
-+F:	drivers/sound/apple/*
-+
- ARM/ARTPEC MACHINE SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
- M:	Lars Persson <lars.persson@axis.com>
-diff --git a/sound/soc/Kconfig b/sound/soc/Kconfig
-index 7d4747b6bab2..848fbae26c3b 100644
---- a/sound/soc/Kconfig
-+++ b/sound/soc/Kconfig
-@@ -68,6 +68,7 @@ config SND_SOC_ACPI
- # All the supported SoCs
- source "sound/soc/adi/Kconfig"
- source "sound/soc/amd/Kconfig"
-+source "sound/soc/apple/Kconfig"
- source "sound/soc/atmel/Kconfig"
- source "sound/soc/au1x/Kconfig"
- source "sound/soc/bcm/Kconfig"
-diff --git a/sound/soc/Makefile b/sound/soc/Makefile
-index d4528962ac34..9b198d4edf37 100644
---- a/sound/soc/Makefile
-+++ b/sound/soc/Makefile
-@@ -34,6 +34,7 @@ obj-$(CONFIG_SND_SOC_ACPI) += snd-soc-acpi.o
- obj-$(CONFIG_SND_SOC)	+= snd-soc-core.o
- obj-$(CONFIG_SND_SOC)	+= codecs/
- obj-$(CONFIG_SND_SOC)	+= generic/
-+obj-$(CONFIG_SND_SOC)	+= apple/
- obj-$(CONFIG_SND_SOC)	+= adi/
- obj-$(CONFIG_SND_SOC)	+= amd/
- obj-$(CONFIG_SND_SOC)	+= atmel/
-diff --git a/sound/soc/apple/Kconfig b/sound/soc/apple/Kconfig
-new file mode 100644
-index 000000000000..0ba955657e98
---- /dev/null
-+++ b/sound/soc/apple/Kconfig
-@@ -0,0 +1,9 @@
-+config SND_SOC_APPLE_MCA
-+	tristate "Apple Silicon MCA driver"
-+	depends on ARCH_APPLE || COMPILE_TEST
-+	select SND_DMAENGINE_PCM
-+	select COMMON_CLK
-+	default ARCH_APPLE
-+	help
-+	  This option enables an ASoC platform driver for MCA peripherals found
-+	  on Apple Silicon SoCs.
-diff --git a/sound/soc/apple/Makefile b/sound/soc/apple/Makefile
-new file mode 100644
-index 000000000000..7a30bf452817
---- /dev/null
-+++ b/sound/soc/apple/Makefile
-@@ -0,0 +1,3 @@
-+snd-soc-apple-mca-objs	:= mca.o
-+
-+obj-$(CONFIG_SND_SOC_APPLE_MCA)	+= snd-soc-apple-mca.o
-diff --git a/sound/soc/apple/mca.c b/sound/soc/apple/mca.c
-new file mode 100644
-index 000000000000..ab41fd1a2444
---- /dev/null
-+++ b/sound/soc/apple/mca.c
-@@ -0,0 +1,1152 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Apple SoCs MCA driver
-+ *
-+ * Copyright (C) The Asahi Linux Contributors
-+ *
-+ * The MCA peripheral is made up of a number of identical units called clusters.
-+ * Each cluster has its separate clock parent, SYNC signal generator, carries
-+ * four SERDES units and has a dedicated I2S port on the SoC's periphery.
-+ *
-+ * The clusters can operate independently, or can be combined together in a
-+ * configurable manner. We mostly treat them as self-contained independent
-+ * units and don't configure any cross-cluster connections except for the I2S
-+ * ports. The I2S ports can be routed to any of the clusters (irrespective
-+ * of their native cluster). We map this onto ASoC's (DPCM) notion of backend
-+ * and frontend DAIs. The 'cluster guts' are frontends which are dynamically
-+ * routed to backend I2S ports.
-+ *
-+ * DAI references in devicetree are resolved to backends. The routing between
-+ * frontends and backends is determined by the machine driver in the DAPM paths
-+ * it supplies.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_clk.h>
-+#include <linux/of_dma.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_domain.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
-+
-+#include <sound/core.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/dmaengine_pcm.h>
-+
-+#define USE_RXB_FOR_CAPTURE
-+
-+/* Relative to cluster base */
-+#define REG_STATUS		0x0
-+#define STATUS_MCLK_EN		BIT(0)
-+#define REG_MCLK_CONF		0x4
-+#define MCLK_CONF_DIV		GENMASK(11, 8)
-+
-+#define REG_SYNCGEN_STATUS	0x100
-+#define SYNCGEN_STATUS_EN	BIT(0)
-+#define REG_SYNCGEN_MCLK_SEL	0x104
-+#define SYNCGEN_MCLK_SEL	GENMASK(3, 0)
-+#define REG_SYNCGEN_HI_PERIOD	0x108
-+#define REG_SYNCGEN_LO_PERIOD	0x10c
-+
-+#define REG_PORT_ENABLES	0x600
-+#define PORT_ENABLES_CLOCKS	GENMASK(2, 1)
-+#define PORT_ENABLES_TX_DATA	BIT(3)
-+#define REG_PORT_CLOCK_SEL	0x604
-+#define PORT_CLOCK_SEL		GENMASK(11, 8)
-+#define REG_PORT_DATA_SEL	0x608
-+#define PORT_DATA_SEL_TXA(cl)	(1 << ((cl)*2))
-+#define PORT_DATA_SEL_TXB(cl)	(2 << ((cl)*2))
-+
-+#define REG_INTSTATE		0x700
-+#define REG_INTMASK		0x704
-+
-+/* Bases of serdes units (relative to cluster) */
-+#define CLUSTER_RXA_OFF	0x200
-+#define CLUSTER_TXA_OFF	0x300
-+#define CLUSTER_RXB_OFF	0x400
-+#define CLUSTER_TXB_OFF	0x500
-+
-+#define CLUSTER_TX_OFF	CLUSTER_TXA_OFF
-+
-+#ifndef USE_RXB_FOR_CAPTURE
-+#define CLUSTER_RX_OFF	CLUSTER_RXA_OFF
-+#else
-+#define CLUSTER_RX_OFF	CLUSTER_RXB_OFF
-+#endif
-+
-+/* Relative to serdes unit base */
-+#define REG_SERDES_STATUS	0x00
-+#define SERDES_STATUS_EN	BIT(0)
-+#define SERDES_STATUS_RST	BIT(1)
-+#define REG_TX_SERDES_CONF	0x04
-+#define REG_RX_SERDES_CONF	0x08
-+#define SERDES_CONF_NCHANS	GENMASK(3, 0)
-+#define SERDES_CONF_WIDTH_MASK	GENMASK(8, 4)
-+#define SERDES_CONF_WIDTH_16BIT 0x40
-+#define SERDES_CONF_WIDTH_20BIT 0x80
-+#define SERDES_CONF_WIDTH_24BIT 0xc0
-+#define SERDES_CONF_WIDTH_32BIT 0x100
-+#define SERDES_CONF_BCLK_POL	0x400
-+#define SERDES_CONF_LSB_FIRST	0x800
-+#define SERDES_CONF_UNK1	BIT(12)
-+#define SERDES_CONF_UNK2	BIT(13)
-+#define SERDES_CONF_UNK3	BIT(14)
-+#define SERDES_CONF_NO_DATA_FEEDBACK	BIT(15)
-+#define SERDES_CONF_SYNC_SEL	GENMASK(18, 16)
-+#define SERDES_CONF_SOME_RST	BIT(19)
-+#define REG_TX_SERDES_BITSTART	0x08
-+#define REG_RX_SERDES_BITSTART	0x0c
-+#define REG_TX_SERDES_SLOTMASK	0x0c
-+#define REG_RX_SERDES_SLOTMASK	0x10
-+#define REG_RX_SERDES_PORT	0x04
-+
-+/* Relative to switch base */
-+#define REG_DMA_ADAPTER_A(cl)	(0x8000 * (cl))
-+#define REG_DMA_ADAPTER_B(cl)	(0x8000 * (cl) + 0x4000)
-+#define DMA_ADAPTER_TX_LSB_PAD	GENMASK(4, 0)
-+#define DMA_ADAPTER_TX_NCHANS	GENMASK(6, 5)
-+#define DMA_ADAPTER_RX_MSB_PAD	GENMASK(12, 8)
-+#define DMA_ADAPTER_RX_NCHANS	GENMASK(14, 13)
-+#define DMA_ADAPTER_NCHANS	GENMASK(22, 20)
-+
-+#define SWITCH_STRIDE	0x8000
-+#define CLUSTER_STRIDE	0x4000
-+
-+#define MAX_NCLUSTERS	6
-+
-+#define APPLE_MCA_FMTBITS (SNDRV_PCM_FMTBIT_S16_LE | \
-+			   SNDRV_PCM_FMTBIT_S24_LE | \
-+			   SNDRV_PCM_FMTBIT_S32_LE)
-+
-+struct mca_cluster {
-+	int no;
-+	__iomem void *base;
-+	struct mca_data *host;
-+	struct device *pd_dev;
-+	struct clk *clk_parent;
-+	struct dma_chan *dma_chans[SNDRV_PCM_STREAM_LAST + 1];
-+
-+	bool port_started[SNDRV_PCM_STREAM_LAST + 1];
-+	int port_driver; /* The cluster driving this cluster's port */
-+
-+	bool clocks_in_use[SNDRV_PCM_STREAM_LAST + 1];
-+	struct device_link *pd_link;
-+
-+	unsigned int bclk_ratio;
-+
-+	/* Masks etc. picked up via the set_tdm_slot method */
-+	int tdm_slots;
-+	int tdm_slot_width;
-+	unsigned int tdm_tx_mask;
-+	unsigned int tdm_rx_mask;
-+};
-+
-+struct mca_data {
-+	struct device *dev;
-+
-+	__iomem void *switch_base;
-+
-+	struct device *pd_dev;
-+	struct reset_control *rstc;
-+	struct device_link *pd_link;
-+
-+	int nclusters;
-+	struct mca_cluster clusters[];
-+};
-+
-+static void mca_modify(struct mca_cluster *cl, int regoffset, u32 mask, u32 val)
-+{
-+	__iomem void *ptr = cl->base + regoffset;
-+	u32 newval;
-+
-+	newval = (val & mask) | (readl_relaxed(ptr) & ~mask);
-+	writel_relaxed(newval, ptr);
-+}
-+
-+/*
-+ * Get the cluster of FE or BE DAI
-+ */
-+static struct mca_cluster *mca_dai_to_cluster(struct snd_soc_dai *dai)
-+{
-+	struct mca_data *mca = snd_soc_dai_get_drvdata(dai);
-+	/*
-+	 * FE DAIs are         0 ... nclusters - 1
-+	 * BE DAIs are nclusters ... 2*nclusters - 1
-+	 */
-+	int cluster_no = dai->id % mca->nclusters;
-+
-+	return &mca->clusters[cluster_no];
-+}
-+
-+/* called before PCM trigger */
-+static void mca_fe_early_trigger(struct snd_pcm_substream *substream, int cmd,
-+				 struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	bool is_tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	int serdes_unit = is_tx ? CLUSTER_TX_OFF : CLUSTER_RX_OFF;
-+	int serdes_conf =
-+		serdes_unit + (is_tx ? REG_TX_SERDES_CONF : REG_RX_SERDES_CONF);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		mca_modify(cl, serdes_unit + REG_SERDES_STATUS,
-+			   SERDES_STATUS_EN | SERDES_STATUS_RST,
-+			   SERDES_STATUS_RST);
-+		mca_modify(cl, serdes_conf, SERDES_CONF_SOME_RST,
-+			   SERDES_CONF_SOME_RST);
-+		readl_relaxed(cl->base + serdes_conf);
-+		mca_modify(cl, serdes_conf, SERDES_STATUS_RST, 0);
-+		WARN_ON(readl_relaxed(cl->base + REG_SERDES_STATUS) &
-+			SERDES_STATUS_RST);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static int mca_fe_trigger(struct snd_pcm_substream *substream, int cmd,
-+			  struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	bool is_tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	int serdes_unit = is_tx ? CLUSTER_TX_OFF : CLUSTER_RX_OFF;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		mca_modify(cl, serdes_unit + REG_SERDES_STATUS,
-+			   SERDES_STATUS_EN | SERDES_STATUS_RST,
-+			   SERDES_STATUS_EN);
-+		break;
-+
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		mca_modify(cl, serdes_unit + REG_SERDES_STATUS,
-+			   SERDES_STATUS_EN, 0);
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mca_fe_enable_clocks(struct mca_cluster *cl)
-+{
-+	struct mca_data *mca = cl->host;
-+	int ret;
-+
-+	ret = clk_prepare_enable(cl->clk_parent);
-+	if (ret) {
-+		dev_err(mca->dev,
-+			"cluster %d: unable to enable clock parent: %d\n",
-+			cl->no, ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * We can't power up the device earlier than this because
-+	 * the power state driver would error out on seeing the device
-+	 * as clock-gated.
-+	 */
-+	cl->pd_link = device_link_add(mca->dev, cl->pd_dev,
-+				      DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
-+					      DL_FLAG_RPM_ACTIVE);
-+	if (!cl->pd_link) {
-+		dev_err(mca->dev,
-+			"cluster %d: unable to prop-up power domain\n", cl->no);
-+		clk_disable_unprepare(cl->clk_parent);
-+		return -EINVAL;
-+	}
-+
-+	writel_relaxed(cl->no + 1, cl->base + REG_SYNCGEN_MCLK_SEL);
-+	mca_modify(cl, REG_SYNCGEN_STATUS, SYNCGEN_STATUS_EN,
-+		   SYNCGEN_STATUS_EN);
-+	mca_modify(cl, REG_STATUS, STATUS_MCLK_EN, STATUS_MCLK_EN);
-+
-+	return 0;
-+}
-+
-+static void mca_fe_disable_clocks(struct mca_cluster *cl)
-+{
-+	mca_modify(cl, REG_SYNCGEN_STATUS, SYNCGEN_STATUS_EN, 0);
-+	mca_modify(cl, REG_STATUS, STATUS_MCLK_EN, 0);
-+
-+	device_link_del(cl->pd_link);
-+	clk_disable_unprepare(cl->clk_parent);
-+}
-+
-+static bool mca_fe_clocks_in_use(struct mca_cluster *cl)
-+{
-+	struct mca_data *mca = cl->host;
-+	struct mca_cluster *be_cl;
-+	int stream, i;
-+
-+	for (i = 0; i < mca->nclusters; i++) {
-+		be_cl = &mca->clusters[i];
-+
-+		if (be_cl->port_driver != cl->no)
-+			continue;
-+
-+		for_each_pcm_streams(stream)
-+			if (be_cl->clocks_in_use[stream])
-+				return true;
-+	}
-+	return false;
-+}
-+
-+static int mca_be_prepare(struct snd_pcm_substream *substream,
-+			  struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	struct mca_data *mca = cl->host;
-+	struct mca_cluster *fe_cl;
-+	int ret;
-+
-+	if (cl->port_driver < 0)
-+		return -EINVAL;
-+
-+	fe_cl = &mca->clusters[cl->port_driver];
-+
-+	/*
-+	 * Typically the CODECs we are paired with will require clocks
-+	 * to be present at time of unmute with the 'mute_stream' op
-+	 * or at time of DAPM widget power-up. We need to enable clocks
-+	 * here at the latest (frontend prepare would be too late).
-+	 */
-+	if (!mca_fe_clocks_in_use(fe_cl)) {
-+		ret = mca_fe_enable_clocks(fe_cl);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	cl->clocks_in_use[substream->stream] = true;
-+
-+	return 0;
-+}
-+
-+static int mca_be_hw_free(struct snd_pcm_substream *substream,
-+			  struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	struct mca_data *mca = cl->host;
-+	struct mca_cluster *fe_cl;
-+
-+	if (cl->port_driver < 0)
-+		return -EINVAL;
-+
-+	fe_cl = &mca->clusters[cl->port_driver];
-+	if (!mca_fe_clocks_in_use(fe_cl))
-+		return 0; /* Nothing to do */
-+
-+	cl->clocks_in_use[substream->stream] = false;
-+
-+	if (!mca_fe_clocks_in_use(fe_cl))
-+		mca_fe_disable_clocks(fe_cl);
-+
-+	return 0;
-+}
-+
-+static unsigned int mca_crop_mask(unsigned int mask, int nchans)
-+{
-+	while (hweight32(mask) > nchans)
-+		mask &= ~(1 << __fls(mask));
-+
-+	return mask;
-+}
-+
-+static int mca_configure_serdes(struct mca_cluster *cl, int serdes_unit,
-+				unsigned int mask, int slots, int nchans,
-+				int slot_width, bool is_tx, int port)
-+{
-+	__iomem void *serdes_base = cl->base + serdes_unit;
-+	u32 serdes_conf, serdes_conf_mask;
-+
-+	serdes_conf_mask = SERDES_CONF_WIDTH_MASK | SERDES_CONF_NCHANS;
-+	serdes_conf = FIELD_PREP(SERDES_CONF_NCHANS, max(slots, 1) - 1);
-+	switch (slot_width) {
-+	case 16:
-+		serdes_conf |= SERDES_CONF_WIDTH_16BIT;
-+		break;
-+	case 20:
-+		serdes_conf |= SERDES_CONF_WIDTH_20BIT;
-+		break;
-+	case 24:
-+		serdes_conf |= SERDES_CONF_WIDTH_24BIT;
-+		break;
-+	case 32:
-+		serdes_conf |= SERDES_CONF_WIDTH_32BIT;
-+		break;
-+	default:
-+		goto err;
-+	}
-+
-+	serdes_conf_mask |= SERDES_CONF_SYNC_SEL;
-+	serdes_conf |= FIELD_PREP(SERDES_CONF_SYNC_SEL, cl->no + 1);
-+
-+	if (is_tx) {
-+		serdes_conf_mask |= SERDES_CONF_UNK1 | SERDES_CONF_UNK2 |
-+				    SERDES_CONF_UNK3;
-+		serdes_conf |= SERDES_CONF_UNK1 | SERDES_CONF_UNK2 |
-+			       SERDES_CONF_UNK3;
-+	} else {
-+		serdes_conf_mask |= SERDES_CONF_UNK1 | SERDES_CONF_UNK2 |
-+				    SERDES_CONF_UNK3 |
-+				    SERDES_CONF_NO_DATA_FEEDBACK;
-+		serdes_conf |= SERDES_CONF_UNK1 | SERDES_CONF_UNK2 |
-+			       SERDES_CONF_NO_DATA_FEEDBACK;
-+	}
-+
-+	mca_modify(cl,
-+		   serdes_unit +
-+			   (is_tx ? REG_TX_SERDES_CONF : REG_RX_SERDES_CONF),
-+		   serdes_conf_mask, serdes_conf);
-+
-+	if (is_tx) {
-+		writel_relaxed(0xffffffff,
-+			       serdes_base + REG_TX_SERDES_SLOTMASK);
-+		writel_relaxed(~((u32)mca_crop_mask(mask, nchans)),
-+			       serdes_base + REG_TX_SERDES_SLOTMASK + 0x4);
-+		writel_relaxed(0xffffffff,
-+			       serdes_base + REG_TX_SERDES_SLOTMASK + 0x8);
-+		writel_relaxed(~((u32)mask),
-+			       serdes_base + REG_TX_SERDES_SLOTMASK + 0xc);
-+	} else {
-+		writel_relaxed(0xffffffff,
-+			       serdes_base + REG_RX_SERDES_SLOTMASK);
-+		writel_relaxed(~((u32)mca_crop_mask(mask, nchans)),
-+			       serdes_base + REG_RX_SERDES_SLOTMASK + 0x4);
-+		writel_relaxed(1 << port,
-+			       serdes_base + REG_RX_SERDES_PORT);
-+	}
-+
-+	return 0;
-+
-+err:
-+	dev_err(cl->host->dev,
-+		"unsupported SERDES configuration requested (mask=0x%x slots=%d slot_width=%d)\n",
-+		mask, slots, slot_width);
-+	return -EINVAL;
-+}
-+
-+static int mca_fe_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
-+			       unsigned int rx_mask, int slots, int slot_width)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+
-+	cl->tdm_slots = slots;
-+	cl->tdm_slot_width = slot_width;
-+	cl->tdm_tx_mask = tx_mask;
-+	cl->tdm_rx_mask = rx_mask;
-+
-+	return 0;
-+}
-+
-+static int mca_fe_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	struct mca_data *mca = cl->host;
-+	bool fpol_inv = false;
-+	u32 serdes_conf = 0;
-+	u32 bitstart;
-+
-+	if ((fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) !=
-+	    SND_SOC_DAIFMT_CBC_CFC)
-+		goto err;
-+
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case SND_SOC_DAIFMT_I2S:
-+		fpol_inv = 0;
-+		bitstart = 1;
-+		break;
-+	case SND_SOC_DAIFMT_LEFT_J:
-+		fpol_inv = 1;
-+		bitstart = 0;
-+		break;
-+	default:
-+		goto err;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_IF:
-+	case SND_SOC_DAIFMT_IB_IF:
-+		fpol_inv ^= 1;
-+		break;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+	case SND_SOC_DAIFMT_NB_IF:
-+		serdes_conf |= SERDES_CONF_BCLK_POL;
-+		break;
-+	}
-+
-+	if (!fpol_inv)
-+		goto err;
-+
-+	mca_modify(cl, CLUSTER_TX_OFF + REG_TX_SERDES_CONF,
-+		   SERDES_CONF_BCLK_POL, serdes_conf);
-+	mca_modify(cl, CLUSTER_RX_OFF + REG_RX_SERDES_CONF,
-+		   SERDES_CONF_BCLK_POL, serdes_conf);
-+	writel_relaxed(bitstart,
-+		       cl->base + CLUSTER_TX_OFF + REG_TX_SERDES_BITSTART);
-+	writel_relaxed(bitstart,
-+		       cl->base + CLUSTER_RX_OFF + REG_RX_SERDES_BITSTART);
-+
-+	return 0;
-+
-+err:
-+	dev_err(mca->dev, "unsupported DAI format (0x%x) requested\n", fmt);
-+	return -EINVAL;
-+}
-+
-+static int mca_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+
-+	cl->bclk_ratio = ratio;
-+
-+	return 0;
-+}
-+
-+static int mca_fe_get_port(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
-+	struct snd_soc_pcm_runtime *be;
-+	struct snd_soc_dpcm *dpcm;
-+
-+	be = NULL;
-+	for_each_dpcm_be(fe, substream->stream, dpcm) {
-+		be = dpcm->be;
-+		break;
-+	}
-+
-+	if (!be)
-+		return -EINVAL;
-+
-+	return mca_dai_to_cluster(asoc_rtd_to_cpu(be, 0))->no;
-+}
-+
-+static int mca_fe_hw_params(struct snd_pcm_substream *substream,
-+			    struct snd_pcm_hw_params *params,
-+			    struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	struct mca_data *mca = cl->host;
-+	struct device *dev = mca->dev;
-+	unsigned int samp_rate = params_rate(params);
-+	bool is_tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	bool refine_tdm = false;
-+	unsigned long bclk_ratio;
-+	unsigned int tdm_slots, tdm_slot_width, tdm_mask;
-+	u32 regval, pad;
-+	int ret, port, nchans_ceiled;
-+
-+	if (!cl->tdm_slot_width) {
-+		/*
-+		 * We were not given TDM settings from above, set initial
-+		 * guesses which will later be refined.
-+		 */
-+		tdm_slot_width = params_width(params);
-+		tdm_slots = params_channels(params);
-+		refine_tdm = true;
-+	} else {
-+		tdm_slot_width = cl->tdm_slot_width;
-+		tdm_slots = cl->tdm_slots;
-+		tdm_mask = is_tx ? cl->tdm_tx_mask : cl->tdm_rx_mask;
-+	}
-+
-+	if (cl->bclk_ratio)
-+		bclk_ratio = cl->bclk_ratio;
-+	else
-+		bclk_ratio = tdm_slot_width * tdm_slots;
-+
-+	if (refine_tdm) {
-+		int nchannels = params_channels(params);
-+
-+		if (nchannels > 2) {
-+			dev_err(dev, "missing TDM for stream with two or more channels\n");
-+			return -EINVAL;
-+		}
-+
-+		if ((bclk_ratio % nchannels) != 0) {
-+			dev_err(dev, "BCLK ratio (%ld) not divisible by no. of channels (%d)\n",
-+				bclk_ratio, nchannels);
-+			return -EINVAL;
-+		}
-+
-+		tdm_slot_width = bclk_ratio / nchannels;
-+
-+		if (tdm_slot_width > 32 && nchannels == 1)
-+			tdm_slot_width = 32;
-+
-+		if (tdm_slot_width < params_width(params)) {
-+			dev_err(dev, "TDM slots too narrow (tdm=%d params=%d)\n",
-+				tdm_slot_width, params_width(params));
-+			return -EINVAL;
-+		}
-+
-+		tdm_mask = (1 << tdm_slots) - 1;
-+	}
-+
-+	port = mca_fe_get_port(substream);
-+	if (port < 0)
-+		return port;
-+
-+	ret = mca_configure_serdes(cl, is_tx ? CLUSTER_TX_OFF : CLUSTER_RX_OFF,
-+				   tdm_mask, tdm_slots, params_channels(params),
-+				   tdm_slot_width, is_tx, port);
-+	if (ret)
-+		return ret;
-+
-+	pad = 32 - params_width(params);
-+
-+	/*
-+	 * TODO: Here the register semantics aren't clear.
-+	 */
-+	nchans_ceiled = min_t(int, params_channels(params), 4);
-+	regval = FIELD_PREP(DMA_ADAPTER_NCHANS, nchans_ceiled) |
-+		 FIELD_PREP(DMA_ADAPTER_TX_NCHANS, 0x2) |
-+		 FIELD_PREP(DMA_ADAPTER_RX_NCHANS, 0x2) |
-+		 FIELD_PREP(DMA_ADAPTER_TX_LSB_PAD, pad) |
-+		 FIELD_PREP(DMA_ADAPTER_RX_MSB_PAD, pad);
-+
-+#ifndef USE_RXB_FOR_CAPTURE
-+	writel_relaxed(regval, mca->switch_base + REG_DMA_ADAPTER_A(cl->no));
-+#else
-+	if (is_tx)
-+		writel_relaxed(regval,
-+			       mca->switch_base + REG_DMA_ADAPTER_A(cl->no));
-+	else
-+		writel_relaxed(regval,
-+			       mca->switch_base + REG_DMA_ADAPTER_B(cl->no));
-+#endif
-+
-+	if (!mca_fe_clocks_in_use(cl)) {
-+		/*
-+		 * Set up FSYNC duty cycle as even as possible.
-+		 */
-+		writel_relaxed((bclk_ratio / 2) - 1,
-+			       cl->base + REG_SYNCGEN_HI_PERIOD);
-+		writel_relaxed(((bclk_ratio + 1) / 2) - 1,
-+			       cl->base + REG_SYNCGEN_LO_PERIOD);
-+		writel_relaxed(FIELD_PREP(MCLK_CONF_DIV, 0x1),
-+			       cl->base + REG_MCLK_CONF);
-+
-+		ret = clk_set_rate(cl->clk_parent, bclk_ratio * samp_rate);
-+		if (ret) {
-+			dev_err(mca->dev, "cluster %d: unable to set clock parent: %d\n",
-+				cl->no, ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops mca_fe_ops = {
-+	.set_fmt = mca_fe_set_fmt,
-+	.set_bclk_ratio = mca_set_bclk_ratio,
-+	.set_tdm_slot = mca_fe_set_tdm_slot,
-+	.hw_params = mca_fe_hw_params,
-+	.trigger = mca_fe_trigger,
-+};
-+
-+static bool mca_be_started(struct mca_cluster *cl)
-+{
-+	int stream;
-+
-+	for_each_pcm_streams(stream)
-+		if (cl->port_started[stream])
-+			return true;
-+	return false;
-+}
-+
-+static int mca_be_startup(struct snd_pcm_substream *substream,
-+			  struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_pcm_runtime *be = asoc_substream_to_rtd(substream);
-+	struct snd_soc_pcm_runtime *fe;
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+	struct mca_cluster *fe_cl;
-+	struct mca_data *mca = cl->host;
-+	struct snd_soc_dpcm *dpcm;
-+
-+	fe = NULL;
-+
-+	for_each_dpcm_fe(be, substream->stream, dpcm) {
-+		if (fe && dpcm->fe != fe) {
-+			dev_err(mca->dev, "many FE per one BE unsupported\n");
-+			return -EINVAL;
-+		}
-+
-+		fe = dpcm->fe;
-+	}
-+
-+	if (!fe)
-+		return -EINVAL;
-+
-+	fe_cl = mca_dai_to_cluster(asoc_rtd_to_cpu(fe, 0));
-+
-+	if (mca_be_started(cl)) {
-+		/*
-+		 * Port is already started in the other direction.
-+		 * Make sure there isn't a conflict with another cluster
-+		 * driving the port.
-+		 */
-+		if (cl->port_driver != fe_cl->no)
-+			return -EINVAL;
-+
-+		cl->port_started[substream->stream] = true;
-+		return 0;
-+	}
-+
-+	writel_relaxed(PORT_ENABLES_CLOCKS | PORT_ENABLES_TX_DATA,
-+		       cl->base + REG_PORT_ENABLES);
-+	writel_relaxed(FIELD_PREP(PORT_CLOCK_SEL, fe_cl->no + 1),
-+		       cl->base + REG_PORT_CLOCK_SEL);
-+	writel_relaxed(PORT_DATA_SEL_TXA(fe_cl->no),
-+		       cl->base + REG_PORT_DATA_SEL);
-+	cl->port_driver = fe_cl->no;
-+	cl->port_started[substream->stream] = true;
-+
-+	return 0;
-+}
-+
-+static void mca_be_shutdown(struct snd_pcm_substream *substream,
-+			    struct snd_soc_dai *dai)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(dai);
-+
-+	cl->port_started[substream->stream] = false;
-+
-+	if (!mca_be_started(cl)) {
-+		/*
-+		 * Were we the last direction to shutdown?
-+		 * Turn off the lights.
-+		 */
-+		writel_relaxed(0, cl->base + REG_PORT_ENABLES);
-+		writel_relaxed(0, cl->base + REG_PORT_DATA_SEL);
-+		cl->port_driver = -1;
-+	}
-+}
-+
-+static const struct snd_soc_dai_ops mca_be_ops = {
-+	.prepare = mca_be_prepare,
-+	.hw_free = mca_be_hw_free,
-+	.startup = mca_be_startup,
-+	.shutdown = mca_be_shutdown,
-+};
-+
-+static int mca_set_runtime_hwparams(struct snd_soc_component *component,
-+				    struct snd_pcm_substream *substream,
-+				    struct dma_chan *chan)
-+{
-+	struct device *dma_dev = chan->device->dev;
-+	struct snd_dmaengine_dai_dma_data dma_data = {};
-+	int ret;
-+
-+	struct snd_pcm_hardware hw;
-+
-+	memset(&hw, 0, sizeof(hw));
-+
-+	hw.info = SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
-+		  SNDRV_PCM_INFO_INTERLEAVED;
-+	hw.periods_min = 2;
-+	hw.periods_max = UINT_MAX;
-+	hw.period_bytes_min = 256;
-+	hw.period_bytes_max = dma_get_max_seg_size(dma_dev);
-+	hw.buffer_bytes_max = SIZE_MAX;
-+	hw.fifo_size = 16;
-+
-+	ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream, &dma_data,
-+							&hw, chan);
-+
-+	if (ret)
-+		return ret;
-+
-+	return snd_soc_set_runtime_hwparams(substream, &hw);
-+}
-+
-+static int mca_pcm_open(struct snd_soc_component *component,
-+			struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct mca_cluster *cl = mca_dai_to_cluster(asoc_rtd_to_cpu(rtd, 0));
-+	struct dma_chan *chan = cl->dma_chans[substream->stream];
-+	int ret;
-+
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
-+
-+	ret = mca_set_runtime_hwparams(component, substream, chan);
-+	if (ret)
-+		return ret;
-+
-+	return snd_dmaengine_pcm_open(substream, chan);
-+}
-+
-+static int mca_hw_params(struct snd_soc_component *component,
-+			 struct snd_pcm_substream *substream,
-+			 struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
-+	struct dma_slave_config slave_config;
-+	int ret;
-+
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
-+
-+	memset(&slave_config, 0, sizeof(slave_config));
-+	ret = snd_hwparams_to_dma_slave_config(substream, params,
-+					       &slave_config);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		slave_config.dst_port_window_size =
-+			min_t(u32, params_channels(params), 4);
-+	else
-+		slave_config.src_port_window_size =
-+			min_t(u32, params_channels(params), 4);
-+
-+	return dmaengine_slave_config(chan, &slave_config);
-+}
-+
-+static int mca_close(struct snd_soc_component *component,
-+		     struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
-+
-+	return snd_dmaengine_pcm_close(substream);
-+}
-+
-+static int mca_trigger(struct snd_soc_component *component,
-+		       struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
-+
-+	/*
-+	 * Before we do the PCM trigger proper, insert an opportunity
-+	 * to reset the frontend's SERDES.
-+	 */
-+	mca_fe_early_trigger(substream, cmd, asoc_rtd_to_cpu(rtd, 0));
-+
-+	return snd_dmaengine_pcm_trigger(substream, cmd);
-+}
-+
-+static snd_pcm_uframes_t mca_pointer(struct snd_soc_component *component,
-+				     struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+
-+	if (rtd->dai_link->no_pcm)
-+		return -ENOTSUPP;
-+
-+	return snd_dmaengine_pcm_pointer(substream);
-+}
-+
-+static int mca_pcm_new(struct snd_soc_component *component,
-+		       struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct mca_cluster *cl = mca_dai_to_cluster(asoc_rtd_to_cpu(rtd, 0));
-+	unsigned int i;
-+
-+	if (rtd->dai_link->no_pcm)
-+		return 0;
-+
-+	for_each_pcm_streams(i) {
-+		struct snd_pcm_substream *substream =
-+			rtd->pcm->streams[i].substream;
-+		struct dma_chan *chan = cl->dma_chans[i];
-+
-+		if (!substream)
-+			continue;
-+
-+		if (!chan) {
-+			dev_err(component->dev, "missing DMA channel for stream %d on SERDES %d\n",
-+				i, cl->no);
-+			return -EINVAL;
-+		}
-+
-+		snd_pcm_set_managed_buffer(substream, SNDRV_DMA_TYPE_DEV_IRAM,
-+					   chan->device->dev, 512 * 1024 * 6,
-+					   SIZE_MAX);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver mca_component = {
-+	.name = "apple-mca",
-+	.open = mca_pcm_open,
-+	.close = mca_close,
-+	.hw_params = mca_hw_params,
-+	.trigger = mca_trigger,
-+	.pointer = mca_pointer,
-+	.pcm_construct = mca_pcm_new,
-+};
-+
-+static void apple_mca_release(struct mca_data *mca)
-+{
-+	int i, stream;
-+
-+	for (i = 0; i < mca->nclusters; i++) {
-+		struct mca_cluster *cl = &mca->clusters[i];
-+
-+		for_each_pcm_streams(stream) {
-+			if (IS_ERR_OR_NULL(cl->dma_chans[stream]))
-+				continue;
-+
-+			dma_release_channel(cl->dma_chans[stream]);
-+		}
-+
-+		if (!IS_ERR_OR_NULL(cl->clk_parent))
-+			clk_put(cl->clk_parent);
-+
-+		if (!IS_ERR_OR_NULL(cl->pd_dev))
-+			dev_pm_domain_detach(cl->pd_dev, true);
-+	}
-+
-+	if (mca->pd_link)
-+		device_link_del(mca->pd_link);
-+
-+	if (!IS_ERR_OR_NULL(mca->pd_dev))
-+		dev_pm_domain_detach(mca->pd_dev, true);
-+
-+	reset_control_assert(mca->rstc);
-+}
-+
-+static int apple_mca_probe(struct platform_device *pdev)
-+{
-+	struct mca_data *mca;
-+	struct mca_cluster *clusters;
-+	struct snd_soc_dai_driver *dai_drivers;
-+	struct resource *res;
-+	void __iomem *base;
-+	int nclusters;
-+	int ret, i;
-+
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	if (resource_size(res) < CLUSTER_STRIDE)
-+		return -EINVAL;
-+	nclusters = (resource_size(res) - CLUSTER_STRIDE) / CLUSTER_STRIDE + 1;
-+
-+	mca = devm_kzalloc(&pdev->dev, struct_size(mca, clusters, nclusters),
-+			   GFP_KERNEL);
-+	if (!mca)
-+		return -ENOMEM;
-+	mca->dev = &pdev->dev;
-+	mca->nclusters = nclusters;
-+	platform_set_drvdata(pdev, mca);
-+	clusters = mca->clusters;
-+
-+	mca->switch_base =
-+		devm_platform_ioremap_resource_byname(pdev, "switch");
-+	if (IS_ERR(mca->switch_base))
-+		return PTR_ERR(mca->switch_base);
-+
-+	mca->rstc = devm_reset_control_get_shared(&pdev->dev, NULL);
-+	if (IS_ERR(mca->rstc)) {
-+		dev_dbg(&pdev->dev, "couldn't obtain reset control: %pe\n", mca->rstc);
-+		mca->rstc = NULL;
-+	}
-+
-+	dai_drivers = devm_kzalloc(
-+		&pdev->dev, sizeof(*dai_drivers) * 2 * nclusters, GFP_KERNEL);
-+	if (!dai_drivers)
-+		return -ENOMEM;
-+
-+	mca->pd_dev = dev_pm_domain_attach_by_id(&pdev->dev, 0);
-+	if (IS_ERR(mca->pd_dev))
-+		return -EINVAL;
-+
-+	mca->pd_link = device_link_add(&pdev->dev, mca->pd_dev,
-+				       DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
-+					       DL_FLAG_RPM_ACTIVE);
-+	if (!mca->pd_link) {
-+		ret = -EINVAL;
-+		/* Prevent an unbalanced reset assert */
-+		mca->rstc = NULL;
-+		goto err_release;
-+	}
-+
-+	reset_control_deassert(mca->rstc);
-+
-+	for (i = 0; i < nclusters; i++) {
-+		struct mca_cluster *cl = &clusters[i];
-+		struct snd_soc_dai_driver *fe =
-+			&dai_drivers[mca->nclusters + i];
-+		struct snd_soc_dai_driver *be = &dai_drivers[i];
-+		int stream;
-+
-+		cl->host = mca;
-+		cl->no = i;
-+		cl->base = base + CLUSTER_STRIDE * i;
-+		cl->port_driver = -1;
-+		cl->clk_parent = of_clk_get(pdev->dev.of_node, i);
-+		if (IS_ERR(cl->clk_parent)) {
-+			dev_err(&pdev->dev, "unable to obtain clock %d: %ld\n",
-+				i, PTR_ERR(cl->clk_parent));
-+			ret = PTR_ERR(cl->clk_parent);
-+			goto err_release;
-+		}
-+		cl->pd_dev = dev_pm_domain_attach_by_id(&pdev->dev, i + 1);
-+		if (IS_ERR(cl->pd_dev)) {
-+			dev_err(&pdev->dev,
-+				"unable to obtain cluster %d PD: %ld\n", i,
-+				PTR_ERR(cl->pd_dev));
-+			ret = PTR_ERR(cl->pd_dev);
-+			goto err_release;
-+		}
-+
-+		for_each_pcm_streams(stream) {
-+			struct dma_chan *chan;
-+			bool is_tx = (stream == SNDRV_PCM_STREAM_PLAYBACK);
-+#ifndef USE_RXB_FOR_CAPTURE
-+			char *name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
-+						    is_tx ? "tx%da" : "rx%da",
-+						    i);
-+#else
-+			char *name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
-+						    is_tx ? "tx%da" : "rx%db",
-+						    i);
-+#endif
-+
-+			chan = of_dma_request_slave_channel(pdev->dev.of_node,
-+							    name);
-+			if (IS_ERR(chan)) {
-+				if (PTR_ERR(chan) != -EPROBE_DEFER)
-+					dev_err(&pdev->dev,
-+						"no %s DMA channel: %ld\n",
-+						name, PTR_ERR(chan));
-+
-+				ret = PTR_ERR(chan);
-+				goto err_release;
-+			}
-+
-+			cl->dma_chans[stream] = chan;
-+		}
-+
-+		fe->id = i;
-+		fe->name =
-+			devm_kasprintf(&pdev->dev, GFP_KERNEL, "mca-pcm-%d", i);
-+		if (!fe->name) {
-+			ret = -ENOMEM;
-+			goto err_release;
-+		}
-+		fe->ops = &mca_fe_ops;
-+		fe->playback.channels_min = 1;
-+		fe->playback.channels_max = 32;
-+		fe->playback.rates = SNDRV_PCM_RATE_8000_192000;
-+		fe->playback.formats = APPLE_MCA_FMTBITS;
-+		fe->capture.channels_min = 1;
-+		fe->capture.channels_max = 32;
-+		fe->capture.rates = SNDRV_PCM_RATE_8000_192000;
-+		fe->capture.formats = APPLE_MCA_FMTBITS;
-+		fe->symmetric_rate = 1;
-+
-+		fe->playback.stream_name =
-+			devm_kasprintf(&pdev->dev, GFP_KERNEL, "PCM%d TX", i);
-+		fe->capture.stream_name =
-+			devm_kasprintf(&pdev->dev, GFP_KERNEL, "PCM%d RX", i);
-+
-+		if (!fe->playback.stream_name || !fe->capture.stream_name) {
-+			ret = -ENOMEM;
-+			goto err_release;
-+		}
-+
-+		be->id = i + nclusters;
-+		be->name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "mca-i2s-%d", i);
-+		if (!be->name) {
-+			ret = -ENOMEM;
-+			goto err_release;
-+		}
-+		be->ops = &mca_be_ops;
-+		be->playback.channels_min = 1;
-+		be->playback.channels_max = 32;
-+		be->playback.rates = SNDRV_PCM_RATE_8000_192000;
-+		be->playback.formats = APPLE_MCA_FMTBITS;
-+		be->capture.channels_min = 1;
-+		be->capture.channels_max = 32;
-+		be->capture.rates = SNDRV_PCM_RATE_8000_192000;
-+		be->capture.formats = APPLE_MCA_FMTBITS;
-+
-+		be->playback.stream_name =
-+			devm_kasprintf(&pdev->dev, GFP_KERNEL, "I2S%d TX", i);
-+		be->capture.stream_name =
-+			devm_kasprintf(&pdev->dev, GFP_KERNEL, "I2S%d RX", i);
-+		if (!be->playback.stream_name || !be->capture.stream_name) {
-+			ret = -ENOMEM;
-+			goto err_release;
-+		}
-+	}
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev, &mca_component,
-+					      dai_drivers, nclusters * 2);
-+	if (ret) {
-+		dev_err(&pdev->dev, "unable to register ASoC component: %d\n",
-+			ret);
-+		goto err_release;
-+	}
-+
-+	return 0;
-+
-+err_release:
-+	apple_mca_release(mca);
-+	return ret;
-+}
-+
-+static int apple_mca_remove(struct platform_device *pdev)
-+{
-+	struct mca_data *mca = platform_get_drvdata(pdev);
-+
-+	apple_mca_release(mca);
-+	return 0;
-+}
-+
-+static const struct of_device_id apple_mca_of_match[] = {
-+	{ .compatible = "apple,mca", },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, apple_mca_of_match);
-+
-+static struct platform_driver apple_mca_driver = {
-+	.driver = {
-+		.name = "apple-mca",
-+		.owner = THIS_MODULE,
-+		.of_match_table = apple_mca_of_match,
-+	},
-+	.probe = apple_mca_probe,
-+	.remove = apple_mca_remove,
-+};
-+module_platform_driver(apple_mca_driver);
-+
-+MODULE_AUTHOR("Martin Povišer <povik+lin@cutebit.org>");
-+MODULE_DESCRIPTION("ASoC Apple MCA driver");
-+MODULE_LICENSE("GPL");
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on tiwai-sound/for-next linus/master v5.19 next-20220808]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Matt-Flax/ASoC-codecs-add-uspport-for-the-TI-SRC4392-codec/20220809-054524
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: hexagon-randconfig-r002-20220808 (https://download.01.org/0day-ci/archive/20220809/202208090909.Pg0BZGie-lkp@intel.com/config)
+compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 5f1c7e2cc5a3c07cbc2412e851a7283c1841f520)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/7a9219a8431d7740c0958e53078820cbfef4f3f7
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Matt-Flax/ASoC-codecs-add-uspport-for-the-TI-SRC4392-codec/20220809-054524
+        git checkout 7a9219a8431d7740c0958e53078820cbfef4f3f7
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash sound/soc/codecs/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/codecs/src4xxx.c:277:3: warning: variable 'd' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+                   default:
+                   ^~~~~~~
+   sound/soc/codecs/src4xxx.c:294:59: note: uninitialized use occurs here
+                   ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+                                                                           ^
+   sound/soc/codecs/src4xxx.c:221:20: note: initialize the variable 'd' to silence this warning
+           int val, pj, jd, d;
+                             ^
+                              = 0
+>> sound/soc/codecs/src4xxx.c:277:3: warning: variable 'jd' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+                   default:
+                   ^~~~~~~
+   sound/soc/codecs/src4xxx.c:289:59: note: uninitialized use occurs here
+                   ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+                                                                           ^~
+   sound/soc/codecs/src4xxx.c:221:17: note: initialize the variable 'jd' to silence this warning
+           int val, pj, jd, d;
+                          ^
+                           = 0
+>> sound/soc/codecs/src4xxx.c:277:3: warning: variable 'pj' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+                   default:
+                   ^~~~~~~
+   sound/soc/codecs/src4xxx.c:284:59: note: uninitialized use occurs here
+                   ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+                                                                           ^~
+   sound/soc/codecs/src4xxx.c:221:13: note: initialize the variable 'pj' to silence this warning
+           int val, pj, jd, d;
+                      ^
+                       = 0
+   3 warnings generated.
+--
+>> sound/soc/codecs/src4xxx-i2c.c:35:34: warning: unused variable 'src4xxx_of_match' [-Wunused-const-variable]
+   static const struct of_device_id src4xxx_of_match[] = {
+                                    ^
+   1 warning generated.
+
+
+vim +/d +277 sound/soc/codecs/src4xxx.c
+
+   213	
+   214	static int src4xxx_hw_params(struct snd_pcm_substream *substream,
+   215				struct snd_pcm_hw_params *params,
+   216				struct snd_soc_dai *dai)
+   217	{
+   218		struct snd_soc_component *component = dai->component;
+   219		struct src4xxx *src4xxx = snd_soc_component_get_drvdata(component);
+   220		unsigned int mclk_div;
+   221		int val, pj, jd, d;
+   222		int reg;
+   223		int ret;
+   224	
+   225		switch (dai->id) {
+   226		case SRC4XXX_PORTB:
+   227			reg = SRC4XXX_PORTB_CTL_06;
+   228			break;
+   229		default:
+   230			reg = SRC4XXX_PORTA_CTL_04;
+   231		}
+   232	
+   233		if (src4xxx->master[dai->id]) {
+   234			mclk_div = src4xxx->mclk_hz/params_rate(params);
+   235			if (src4xxx->mclk_hz != mclk_div*params_rate(params)) {
+   236				dev_err(component->dev,
+   237					"mclk %d / rate %d has a remainder.\n",
+   238					src4xxx->mclk_hz, params_rate(params));
+   239				return -EINVAL;
+   240			}
+   241	
+   242			val = ((int)mclk_div - 128) / 128;
+   243			if ((val < 0) | (val > 3)) {
+   244				dev_err(component->dev,
+   245					"div register setting %d is out of range\n",
+   246					val);
+   247				dev_err(component->dev,
+   248					"unsupported sample rate %d Hz for the master clock of %d Hz\n",
+   249					params_rate(params), src4xxx->mclk_hz);
+   250				return -EINVAL;
+   251			}
+   252	
+   253			/* set the TX DIV */
+   254			ret = regmap_update_bits(src4xxx->regmap,
+   255				SRC4XXX_TX_CTL_07, SRC4XXX_TX_MCLK_DIV_MASK,
+   256				val<<SRC4XXX_TX_MCLK_DIV_SHIFT);
+   257			if (ret) {
+   258				dev_err(component->dev,
+   259					"Couldn't set the TX's div register to %d << %d = 0x%x\n",
+   260					val, SRC4XXX_TX_MCLK_DIV_SHIFT,
+   261					val<<SRC4XXX_TX_MCLK_DIV_SHIFT);
+   262				return ret;
+   263			}
+   264	
+   265			/* set the PLL for the digital receiver */
+   266			switch (src4xxx->mclk_hz) {
+   267			case 24576000:
+   268				pj = 0x22;
+   269				jd = 0x00;
+   270				d = 0x00;
+   271				break;
+   272			case 22579200:
+   273				pj = 0x22;
+   274				jd = 0x1b;
+   275				d = 0xa3;
+   276				break;
+ > 277			default:
+   278				/* don't error out here,
+   279				 * other parts of the chip are still functional
+   280				 */
+   281				dev_info(component->dev,
+   282					"Couldn't set the RCV PLL as this master clock rate is unknown\n");
+   283			}
+   284			ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+   285			if (ret < 0)
+   286				dev_err(component->dev,
+   287					"Failed to update PLL register 0x%x\n",
+   288					SRC4XXX_RCV_PLL_0F);
+ > 289			ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+   290			if (ret < 0)
+   291				dev_err(component->dev,
+   292					"Failed to update PLL register 0x%x\n",
+   293					SRC4XXX_RCV_PLL_10);
+ > 294			ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+   295			if (ret < 0)
+   296				dev_err(component->dev,
+   297					"Failed to update PLL register 0x%x\n",
+   298					SRC4XXX_RCV_PLL_11);
+   299	
+   300			ret = regmap_update_bits(src4xxx->regmap,
+   301				SRC4XXX_TX_CTL_07, SRC4XXX_TX_MCLK_DIV_MASK,
+   302				val<<SRC4XXX_TX_MCLK_DIV_SHIFT);
+   303			if (ret < 0) {
+   304				dev_err(component->dev,
+   305					"Couldn't set the TX's div register to %d << %d = 0x%x\n",
+   306					val, SRC4XXX_TX_MCLK_DIV_SHIFT,
+   307					val<<SRC4XXX_TX_MCLK_DIV_SHIFT);
+   308				return ret;
+   309			}
+   310	
+   311			return regmap_update_bits(src4xxx->regmap, reg,
+   312						SRC4XXX_MCLK_DIV_MASK, val);
+   313		} else
+   314			dev_info(dai->dev, "not setting up MCLK as not master\n");
+   315	
+   316		return 0;
+   317	};
+   318	
+
 -- 
-2.33.0
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp

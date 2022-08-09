@@ -2,75 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF9758DF47
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 20:43:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B34558E0DD
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 22:16:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD80846;
-	Tue,  9 Aug 2022 20:43:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD80846
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBAA0826;
+	Tue,  9 Aug 2022 22:16:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBAA0826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660070632;
-	bh=pACUFQcrgf4jDZyW9YY5W+FggE+N1VntD7OTvYdHFIs=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1660076218;
+	bh=wJYlbFOkJJwTgMFJ+I52i56gXBHw0Vqwm9QnnRZ6AYU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WBK4iq+WjFncAVwGEWrIeI5MBG4nl7WJWclSZYD9kiDnaaijelRPcG0ghs/HvCVvr
-	 86vs8uY6R/0Yv4yDDljEMR0uzVRAe+PH251PcV1/wDKCiFs4P3j3hxGe/Cn0rFuJlp
-	 6u6FaZJ77DwqdeY+VX6YS2QmidfvbcOK7mKTrNtI=
+	b=MZEhtBRFBVcdnE7VxDPlnW1JCiL1DjamN0b+lnkY8eeyV57L4/XVZIBu58v4yvOIH
+	 7rmOHFvu8eDQUfJ6+CvYq8hP3yu68lp/sI0uHRnX3Z9SA3cWCYDy3HD5I3QVKoaxJi
+	 QoOi9t3Kb5GVVdqVHM4OE1RF+zxoG/qt8e0M5nz8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8BA9F801F7;
-	Tue,  9 Aug 2022 20:42:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C55CF80162;
+	Tue,  9 Aug 2022 22:16:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEF56F8016C; Tue,  9 Aug 2022 20:42:52 +0200 (CEST)
+ id B7E9DF8016C; Tue,  9 Aug 2022 22:15:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+ [209.85.166.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9252BF8012A
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 20:42:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9252BF8012A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e7uM4ebe"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 00845B81611;
- Tue,  9 Aug 2022 18:42:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7504C433C1;
- Tue,  9 Aug 2022 18:42:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660070567;
- bh=pACUFQcrgf4jDZyW9YY5W+FggE+N1VntD7OTvYdHFIs=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=e7uM4ebebJYxfea/SI26ybVg0bXMS3lx6qbINGTWS/hKTVCGo55D7maiGHMbExh81
- +EdnqKDUpv1DNOgr0n/e1Zo5Yu9FH5cxaNcp/1FeXFeTSp9YQxL993w5SMQN5YJt3m
- hITABIHRGTjAqjEXBGWEFD3pwXD+3/tod7fr+Iseqrlj9R8L5ULO+HN5VSf7LdmLJI
- YF5hxN758jICAyweXIbGcAzZ9s8H66uQAtbUxdej1sjndOwWoSZlKEf9/kDD/4rn9n
- 2fFtBSk1Xo5XVvSkS4btPx592AsHqorsFKj4heCr7hwYQLc96ClReWPkKhIkPl9Ysq
- DggaR3oUSIdtQ==
-From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>, lgirdwood@gmail.com
-In-Reply-To: <20220808052836.25791-1-oder_chiou@realtek.com>
-References: <20220808052836.25791-1-oder_chiou@realtek.com>
-Subject: Re: [PATCH] ASoC: rt5640: Fix the JD voltage dropping issue
-Message-Id: <166007056543.69415.2112585577112979520.b4-ty@kernel.org>
-Date: Tue, 09 Aug 2022 19:42:45 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BE56F80132
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 22:15:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BE56F80132
+Received: by mail-io1-f49.google.com with SMTP id l24so10496592ion.13
+ for <alsa-devel@alsa-project.org>; Tue, 09 Aug 2022 13:15:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=P6nva6fF4oucGEQzdC/pymMNLM5179tf7HGPx3y8Hyc=;
+ b=R26KMfd0L3U2zVXRo8mVDQHSP/yepZQFBC2XVmBmj9cwKzUwoXejZxZ/dM3zEP7yci
+ 1Xy+HolP9E0CJW9zaFrjQvvrqD4oDd1+NHmd0mfnHhnx71shekVuhB7oB7hnCzF4G9Jo
+ cc3IU73vO00N7BsoNZWfgl5VdxgW2SmlVAmeAMztLwGc5G38lsZHL2fi1uJTg94XGqEr
+ kypxrMNGr5cFvhjobZTVB8iRdvnUOwxeH2JZej1TAMP+RmUZmSqqWpYKbqb3Ck6/qKBi
+ jO9YEzvx0I2pEKgcf89aPUCy2qYsX8zeJ96Wk8DXEoUGTjiSWu3Wr7tZCIL9gQ2/hQRY
+ WOlg==
+X-Gm-Message-State: ACgBeo3vTvgZpgRGgj+EBQwQavN/o3gngxj6TvLnmOdX0hzmbuhSxcbX
+ m1+ypk/B7b4/P13ttLHTnw==
+X-Google-Smtp-Source: AA6agR4NKtP/OF5xrXLLg3UNZO4muwOsD9ToaP+gwyexb1NzV6xUl19KqXN5MxSKBjLT4fP4zW+grQ==
+X-Received: by 2002:a05:6638:144a:b0:343:2464:d030 with SMTP id
+ l10-20020a056638144a00b003432464d030mr3269144jad.89.1660076148592; 
+ Tue, 09 Aug 2022 13:15:48 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ w76-20020a022a4f000000b00342d85cde45sm4762488jaw.120.2022.08.09.13.15.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Aug 2022 13:15:47 -0700 (PDT)
+Received: (nullmailer pid 2319487 invoked by uid 1000);
+ Tue, 09 Aug 2022 20:15:44 -0000
+Date: Tue, 9 Aug 2022 14:15:44 -0600
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 2/3] ASoC: dt-bindings: Add sample format conversion
+Message-ID: <20220809201544.GA2319453-robh@kernel.org>
+References: <1659936452-2254-1-git-send-email-spujar@nvidia.com>
+ <1659936452-2254-3-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fe10a
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, jacal_tseng@realtek.com,
- albertchen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
- Mohan Kumar D <mkumard@nvidia.com>, flove@realtek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1659936452-2254-3-git-send-email-spujar@nvidia.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, tiwai@suse.com, lgirdwood@gmail.com,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,35 +95,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 8 Aug 2022 13:28:36 +0800, Oder Chiou wrote:
-> The patch fixes the JD voltage dropping issue in the HDA JD using.
+On Mon, 08 Aug 2022 10:57:31 +0530, Sameer Pujar wrote:
+> Presently "convert-channels" and "convert-rate" DT bindings are available
+> for channel and rate fixups respectively.
 > 
+> Similarly add "convert-sample-format" binding to fixup DAI sample format
+> as well. This is added to audio-graph-card based bindings.
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  Documentation/devicetree/bindings/sound/audio-graph-port.yaml |  4 ++++
+>  Documentation/devicetree/bindings/sound/audio-graph.yaml      |  2 ++
+>  Documentation/devicetree/bindings/sound/dai-params.yaml       | 10 ++++++++++
+>  3 files changed, 16 insertions(+)
 > 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: rt5640: Fix the JD voltage dropping issue
-      commit: afb176d45870048eea540991b082208270824037
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Rob Herring <robh@kernel.org>

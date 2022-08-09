@@ -2,80 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1E8658D4B9
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 09:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C28658D53C
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 10:17:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D9464E;
-	Tue,  9 Aug 2022 09:36:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D9464E
+	by alsa0.perex.cz (Postfix) with ESMTPS id B04C1100;
+	Tue,  9 Aug 2022 10:16:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B04C1100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660030636;
-	bh=gEli8/KpPGBI/WC4JFb2fKTtf8uUj61uieDerQJt/WM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1660033025;
+	bh=aMqtd9kJs1gFAcBOCA3COEXSyZ4fRZf1HB58/VGe/6Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=brmKhjyrhl8dBB8xoU08fiDI5NnW+2Q014LpBMmXbGXXVOMjPniWDDyEOHQTlh7l/
-	 P52hgjDyKajb3da8RU/P4rFIM+OntLY2dKHG/EhjdSN7uBeFF82Wh2IN92gosWAPlS
-	 gnmVrWuIsmqIAjyp67/0cGZRfEpQHb7ay/YFWtgo=
+	b=rVjznHBLE3laoX+LszEcnAC/acN97XL5KrmtzQj9avi5kIyawnyKIu9tFIWdsaiHw
+	 DAnkgpKrR0NATr37qGJeZqG8MtZ1OK/Vt+td3Tlb/ZrunVD8qRc8X7FQjMcbU/aOXI
+	 SBJ4HkBgs0kTqzGckt20XAGXniXdYD9N+/azjuI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6C6AF8049C;
-	Tue,  9 Aug 2022 09:36:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A082F800E8;
+	Tue,  9 Aug 2022 10:16:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55B3AF8012A; Tue,  9 Aug 2022 09:36:16 +0200 (CEST)
+ id 685E6F8016C; Tue,  9 Aug 2022 10:16:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35633F8012A
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 09:36:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35633F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35444F800E8
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 10:15:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35444F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="OEXdWA+W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660030567; x=1691566567;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gEli8/KpPGBI/WC4JFb2fKTtf8uUj61uieDerQJt/WM=;
- b=OEXdWA+WyGrLd5Psb21uYbN/17hPklhXMNR8svKFNYq/psap4kU4WjAh
- DCfYmZCbDpFrzpbNrQ0fTGAS6bkoK8cK5bwu0tPbBEgfEkC6F45qUBuGY
- 5NQQ5gB7cNX0hz8oP5C05yR5OodWxuvjRUtGerjBIfYH+q4oshEjBjKQ0
- rDq804u7xUSFFa103Tp2F7drEr2urIZV8LEXrv5SxMMo20STSIZGHnN8D
- VlUNRlrdVT+rRS5hRRK+iamJgqnSCLmtZAa0L5CorRNxzT1gSdHjG3J+M
- gB1hMY23HY68X41bZjXFXACfxHsXs46cY1RK4ok33mqDoOmJy57fPjTR6 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10433"; a="316703724"
-X-IronPort-AV: E=Sophos;i="5.93,223,1654585200"; d="scan'208";a="316703724"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2022 00:35:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,223,1654585200"; d="scan'208";a="672791451"
-Received: from lkp-server01.sh.intel.com (HELO e0eace57cfef) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 09 Aug 2022 00:35:44 -0700
-Received: from kbuild by e0eace57cfef with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oLJmB-000Mpp-1B;
- Tue, 09 Aug 2022 07:35:43 +0000
-Date: Tue, 9 Aug 2022 15:35:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matt Flax <flatmax@flatmax.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2] ASoC: codecs: add uspport for the TI SRC4392 codec
-Message-ID: <202208091504.Z4NfNeeX-lkp@intel.com>
-References: <20220808214028.2502801-1-flatmax@flatmax.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="WcPB8C9W"
+Received: by mail-lj1-x236.google.com with SMTP id l21so762514ljj.2
+ for <alsa-devel@alsa-project.org>; Tue, 09 Aug 2022 01:15:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=i4iQuVbI+9d0zd0b0jhQFCRBZoVGPueKM3RZjVMejCI=;
+ b=WcPB8C9Wpy4JKS+wa3ogqDTCTitNjB5xjbl3GVmJmBFnwN57erFosPTxu4Bghu9Gvd
+ hWhwv0ojAxwP6jOEiri1EAKImG5N+yBtIHLuRUkZsWEn/Kvf9pBA09AehAP7swtTHk+v
+ ryY8ZsTY+cFpzv51ckXN9xnCOKSC/oGHjvNmxHuVN+viA7vudsmpY2fHuPLz7u4RDKRE
+ cUC96d/urQdJGb+GvEkBG4k+GLTjVjZTrdI6N2UpgpMXTXulCXiOBuvcWVuzGogD+9fD
+ 2vMoj/aE7Ony9MFMdKoVLyg5tsiVL8deafhCdTSszOFZkw5gnwqIsek0OyJonNc5F7kG
+ OSTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=i4iQuVbI+9d0zd0b0jhQFCRBZoVGPueKM3RZjVMejCI=;
+ b=66hacQ1H/7dfYnTuqlr6A3EI8B3k2oVb+n9G77ngQLjsl5kxxxJGJZdtNC9HXGhFeN
+ 7UkzB258siimksp00FQhs4YL+YN5iVBk/mQ0YzkRwpdAzAGHcUHrQ+0+C9KxKRkE0TnP
+ eDZZWXMTn5GhPoGVm8idmFX3wmGGhkHO++AwR/h+O8wt5nmyDnqg1Ezfvu74ysj63PST
+ n/mXKxfb/ThzlIPReb+RyvM1UgLPOCLBHk2YHMFTb2Ggq165t9U7J98ro/ccHHZfRwkz
+ r2V/sNd6ViKVqO5ZWL6MPAVHzs9/uAOT0iQs8E/8Lz/iJE0XakGvzQMOrNAPn1Ohp1+F
+ vG4A==
+X-Gm-Message-State: ACgBeo1X8tmdn1761Os7eFfHwpBZ51fSzMO5tWmWj9K2A7iRkQJ//pH7
+ NquhWXkVe7BroVq+UFfdpxGxcQ==
+X-Google-Smtp-Source: AA6agR6d09fbMfwW14RfB+trmeqi+0SytmqBmON06AUpmV6tqXMlZsMQJgE6vxkA86T2hfetncSzNA==
+X-Received: by 2002:a05:651c:92:b0:25f:f326:f2c1 with SMTP id
+ 18-20020a05651c009200b0025ff326f2c1mr633512ljq.273.1660032952859; 
+ Tue, 09 Aug 2022 01:15:52 -0700 (PDT)
+Received: from [192.168.1.39] ([83.146.140.105])
+ by smtp.gmail.com with ESMTPSA id
+ k21-20020ac24f15000000b0048ae66976ffsm1672088lfr.47.2022.08.09.01.15.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Aug 2022 01:15:51 -0700 (PDT)
+Message-ID: <8ce59940-f559-35cb-5f86-37399da166a1@linaro.org>
+Date: Tue, 9 Aug 2022 11:15:49 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220808214028.2502801-1-flatmax@flatmax.com>
-Cc: broonie@kernel.org, kbuild-all@lists.01.org,
- Matt Flax <flatmax@flatmax.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 1/3] dt-bindings: sound: Add Apple MCA I2S transceiver
+Content-Language: en-US
+To: =?UTF-8?Q?Martin_Povi=c5=a1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20220808224153.3634-1-povik+lin@cutebit.org>
+ <20220808224153.3634-2-povik+lin@cutebit.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220808224153.3634-2-povik+lin@cutebit.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ asahi@lists.linux.dev, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,38 +112,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Matt,
+On 09/08/2022 01:41, Martin Povišer wrote:
+> Add binding schema for MCA I2S transceiver found on Apple M1 and other
+> chips.
 
-Thank you for the patch! Yet something to improve:
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on tiwai-sound/for-next linus/master v5.19 next-20220809]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thank you for your patch. There is something to discuss/improve.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Matt-Flax/ASoC-codecs-add-uspport-for-the-TI-SRC4392-codec/20220809-054524
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-config: openrisc-randconfig-c023-20220808 (https://download.01.org/0day-ci/archive/20220809/202208091504.Z4NfNeeX-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/7a9219a8431d7740c0958e53078820cbfef4f3f7
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Matt-Flax/ASoC-codecs-add-uspport-for-the-TI-SRC4392-codec/20220809-054524
-        git checkout 7a9219a8431d7740c0958e53078820cbfef4f3f7
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=openrisc SHELL=/bin/bash
+> +title: Apple MCA I2S transceiver
+> +
+> +description: |
+> +  MCA is an I2S transceiver peripheral found on M1 and other Apple chips. It is
+> +  composed of a number of identical clusters which can operate independently
+> +  or in an interlinked fashion. Up to 6 clusters have been seen on an MCA.
+> +
+> +maintainers:
+> +  - Martin Povišer <povik+lin@cutebit.org>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - apple,t8103-mca
+> +          - apple,t6000-mca
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+How about alphabetical order?
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+> +      - const: apple,mca
+> +
+> +  reg:
+> +    items:
+> +      - description: Register region of the MCA clusters proper
+> +      - description: Register region of the DMA glue and its FIFOs
+> +
+> +  interrupts:
+> +    minItems: 4
+> +    maxItems: 6
+> +    description:
+> +      One interrupt per each cluster
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  dmas:
+> +    minItems: 16
+> +    maxItems: 24
+> +    description:
+> +      DMA channels corresponding to the SERDES units in the peripheral. They are
+> +      listed in groups of four per cluster, and within the group they are given
+> +      as associated to the TXA, RXA, TXB, RXB units.
+> +
+> +  dma-names:
+> +    minItems: 16
+> +    maxItems: 24
+> +    items:
+> +      pattern: '^(tx|rx)[0-5][ab]$'
 
->> ERROR: modpost: "src4xxx_remove" [sound/soc/codecs/snd-soc-src4xxx-i2c.ko] undefined!
+Use consistent quotes (everywhere " or ').
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Describe the items because otherwise you allow any order. The list will
+be unfortunately quite long, but still readable enough.
+
+
+> +    description: |
+> +      Names for the DMA channels: 'tx'/'rx', then cluster number, then 'a'/'b'
+> +      based on the associated SERDES unit.
+> +
+> +  clocks:
+> +    minItems: 4
+> +    maxItems: 6
+> +    description:
+> +      Clusters' input reference clock.
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    minItems: 5
+> +    maxItems: 7
+> +    description:
+> +      First a general power domain for register access, then the power
+> +      domains of individual clusters for their operation.
+> +
+> +  "#sound-dai-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - dmas
+> +  - dma-names
+> +  - clocks
+> +  - power-domains
+> +  - '#sound-dai-cells'
+
+Use consistent quotes (everywhere " or ').
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    mca: mca@9b600000 {
+
+You called it I2S transceiver but isn't it also actually I2S controller?
+If yes, then the node name should be probably "i2s".
+
+> +      compatible = "apple,t6000-mca", "apple,mca";
+> +      reg = <0x9b600000 0x10000>,
+> +            <0x9b200000 0x20000>;
+> +
+
+
+Best regards,
+Krzysztof

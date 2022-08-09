@@ -2,111 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDBE158D2F7
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 06:35:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD9558D4AD
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 09:34:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F27F83B;
-	Tue,  9 Aug 2022 06:34:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F27F83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 900DE836;
+	Tue,  9 Aug 2022 09:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 900DE836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660019728;
-	bh=lRQ2Z6/UY/bpVJ+rCjff0BhCEN6e3UPG7nKzypJrX2c=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ztb5//jl9NYc808HrAVlSvxA1UKxHYoMkFCC7UF5IQn5EloUhxi73iTBcIMvzsfWq
-	 4FimgohZTRv0Mt6aZCYwpIWND9cUuD0u+oXy4CvBGue6XvehKMrUVsxeKhvD6EvS25
-	 5Qid44RSBWZKPguPXo4GK5lz0BBGeiL3MEtAKpTM=
+	s=default; t=1660030454;
+	bh=IiUsME6HFVnbv57FJJ+nZfPp9kyEHkk3yv+FjJVQTHc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IivgF6hEooFEq2FKBPbjnF1mYGiD0s9wH1Hp+6WbV+OkgueATB07ez1O93wa1dODr
+	 tMe8UTrKq075hhYaTEgH0YxfbTEaBCF4FF00dN5dYnJqhWfmTr5gJVffue51yn2MiS
+	 SJSEte4CAGRBriMge6QOwLdGagGfI8aDcQ2tvhjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1319DF801F7;
-	Tue,  9 Aug 2022 06:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A255F801F7;
+	Tue,  9 Aug 2022 09:33:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAA0BF8016C; Tue,  9 Aug 2022 06:34:27 +0200 (CEST)
+ id 06900F8016C; Tue,  9 Aug 2022 09:33:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5248DF800E8
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 06:34:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5248DF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4116F80132
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 09:33:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4116F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Jj76Z/jK"
-Received: by mail-lf1-x12f.google.com with SMTP id e15so15518932lfs.0
- for <alsa-devel@alsa-project.org>; Mon, 08 Aug 2022 21:34:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=A2cJx4TzfVfLcjEZf5Am6QDuHfwBw6Iwol89LnoU7nc=;
- b=Jj76Z/jKDUcmTCulxZCqo/LuRjfbdQf1qvEHt1HWkgnmwQAefjhDHIaaiCqEFvEYTN
- LIRqrtBLpyDQ8XmzpE1wcv+p+OKdW6SOW/w9GO5PylbeCuI0ZpiUAHUNJLq5Gkzmwhv/
- 6n1C7kFTUqpWcEJ8OAyQ+Ang5aSyQJE6G0fB1tWDKiErdTS3TLHiMS4avkS+93E8vxaW
- aqjdfDBBywZwi8o2eJWlhThCoJNNrrRzb4W5HfyWBg3IquciIg+hMO42TV9o6XKvXVys
- s32eXG5huF8fXFNYFtyZcqyKdwWUDqkztx7dK4X0ml/kis8bFJll6EFESaMA9Q3vxNBi
- GiNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=A2cJx4TzfVfLcjEZf5Am6QDuHfwBw6Iwol89LnoU7nc=;
- b=8I/wVGSWRD/duPUV8ayc9htZYTH7VcVUHkAhmM1v7cwXDyu4F16hdCkx0BWdq/aWnr
- W6cahHKeNCE37zLc8P1OyKZd+Ihpla/4SuVgfBPENYTv/zbRxYEseLT4wrJnYw3kCI5r
- xgUkAtEKz/Od9VOoL6FqC+WprOMk7QnUIDKq78VZZ1OAyBJCw9KMERy+cdHQVJ6vFias
- 74JceLZtjBdHkvYHQ+C4Nb7IlZgB2yDaG8PnUTtC9K8P+sF08SA1C6NA93oNxOAqw/SU
- qqnskxBK9/FA8gp+fOwTMGatep9uGLcblowEzaKf7DFAAOcaWlJs4xxsRgXTNULMJQ2c
- P7SQ==
-X-Gm-Message-State: ACgBeo0Z/i1dOYDtX4fBS/o2TD1onG//KiL+TfuiC+4XHvoI+LmcRZGL
- 0VpdaydDf7ep8qHLIKjugVABNA==
-X-Google-Smtp-Source: AA6agR4BZyPN7vBEUxb+Ezny+n+osGnBvWSa4FG9wknX3U75cx2BkOZ/jdDmNcMZm3gyQUiR3bv27A==
-X-Received: by 2002:a05:6512:ac5:b0:48c:ecd1:4f14 with SMTP id
- n5-20020a0565120ac500b0048cecd14f14mr2407443lfu.287.1660019659041; 
- Mon, 08 Aug 2022 21:34:19 -0700 (PDT)
-Received: from [192.168.1.39] ([83.146.140.105])
- by smtp.gmail.com with ESMTPSA id
- s30-20020a05651c201e00b0025e778f6f13sm1431364ljo.4.2022.08.08.21.34.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Aug 2022 21:34:18 -0700 (PDT)
-Message-ID: <a2136b83-2c96-27c4-c262-d4e75614f9a7@linaro.org>
-Date: Tue, 9 Aug 2022 07:34:16 +0300
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="YC3h+OJU"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="8ow47YQ/"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACB0F34485;
+ Tue,  9 Aug 2022 07:33:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660030381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=AerFrIUSCFsExww7IPN9o+NovLJnx5f0ghJzMgK/hLY=;
+ b=YC3h+OJU6SBPle3fjaRnPpJ7+RarVV1RWWZOahZCtJCQ4ZhDYapCnTLurwIjjFKtb/QLLT
+ Yy8jacXq2F2QEgI7IiZdkUUt4cCKfRHY4WYlrkpP3XeASWy3opA+L6Pq6q6Qu4HpWkHtNZ
+ KCjV6jXzlynH81mZ6YuY6HiyIKDCzw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660030381;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=AerFrIUSCFsExww7IPN9o+NovLJnx5f0ghJzMgK/hLY=;
+ b=8ow47YQ/3e5UPhA0ehsCKox8Wfxa3ptNCMjnE3PXu5CiDhsco5kUe1l/vU9kesHwmsD2t3
+ FTfAg2DuO+95iWBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D5C713A9D;
+ Tue,  9 Aug 2022 07:33:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id nnzeIa0N8mLteQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 09 Aug 2022 07:33:01 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: More comprehensive mixer map for ASUS ROG
+ Zenith II
+Date: Tue,  9 Aug 2022 09:32:59 +0200
+Message-Id: <20220809073259.18849-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 5/5] dt-bindings: Drop Dan Murphy
-Content-Language: en-US
-To: Andrew Davis <afd@ti.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Pavel Machek <pavel@ucw.cz>, Tim Harvey <tharvey@gateworks.com>,
- Robert Jones <rjones@gateworks.com>, Lee Jones <lee@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Sebastian Reichel <sre@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-leds@vger.kernel.org, netdev@vger.kernel.org,
- linux-pm@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20220808104712.54315-1-krzysztof.kozlowski@linaro.org>
- <20220808104712.54315-6-krzysztof.kozlowski@linaro.org>
- <43b3c497-97fd-29aa-a07b-bcd6413802c4@linaro.org>
- <6ae15e00-36a4-09a8-112e-553ed8c5f4da@ti.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <6ae15e00-36a4-09a8-112e-553ed8c5f4da@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,48 +94,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 08/08/2022 18:04, Andrew Davis wrote:
-> On 8/8/22 6:08 AM, Krzysztof Kozlowski wrote:
->> On 08/08/2022 13:47, Krzysztof Kozlowski wrote:
->>> Emails to Dan Murphy bounce ("550 Invalid recipient <dmurphy@ti.com>
->>> (#5.1.1)").
->>
->>
->> (...)
->>
->>>   description: |
->>> diff --git a/Documentation/devicetree/bindings/power/supply/bq25980.yaml b/Documentation/devicetree/bindings/power/supply/bq25980.yaml
->>> index 4883527ab5c7..509a0667b04e 100644
->>> --- a/Documentation/devicetree/bindings/power/supply/bq25980.yaml
->>> +++ b/Documentation/devicetree/bindings/power/supply/bq25980.yaml
->>> @@ -8,7 +8,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->>>   title: TI BQ25980 Flash Charger
->>>   
->>>   maintainers:
->>> -  - Dan Murphy <dmurphy@ti.com>
->>>     - Ricardo Rivera-Matos <r-rivera-matos@ti.com>
->>
->> Ricardo's also bounces... Does it mean TI is not interested in
->> maintaining mainline support for its drivers?
->>
-> 
-> TI is still interested in maintaining support here. But as we know folks
-> come and go, so giving specific emails might not be the best option.
-> Doesn't look like the schema here allows free-form strings, but if it did
-> I'd recommend the TI E2E Power-Management support forum[0] added. Any
-> questions on Linux/DT for these parts posted there would land on my desk
-> just the same, or to whomever is assigned in the future with maintaining
-> these drivers.
+ASUS ROG Zenith II has two USB interfaces, one for the front headphone
+and another for the rest I/O.  Currently we provided the mixer mapping
+for the latter but with an incomplete form.
 
-Currently an email address is required. I am not sure if there is
-intention to change it, because similarly to MAINTAINERS file email is
-the way of our communication. Also in MAINTAINERS we expect to have
-person's address (with M:) and for the lists there is a separate entry.
+This patch corrects and provides more comprehensive mixer mapping, as
+well as providing the proper device names for both the front headphone
+and main audio.
 
-> Either way, I have several of these parts and can support these. Feel free
-> to replace Dan's email with my email if that works better.
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211005
+Fixes: 2a48218f8e23 ("ALSA: usb-audio: Add mixer workaround for TRX40 and co")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/card.c       |  8 ++++++++
+ sound/usb/mixer_maps.c | 34 +++++++++++++++++++++++++---------
+ 2 files changed, 33 insertions(+), 9 deletions(-)
 
-Yes, that would be great, thanks!
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 0fff96a5d3ab..d356743de2ff 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -387,6 +387,14 @@ static const struct usb_audio_device_name usb_audio_names[] = {
+ 	DEVICE_NAME(0x05e1, 0x0408, "Syntek", "STK1160"),
+ 	DEVICE_NAME(0x05e1, 0x0480, "Hauppauge", "Woodbury"),
+ 
++	/* ASUS ROG Zenith II: this machine has also two devices, one for
++	 * the front headphone and another for the rest
++	 */
++	PROFILE_NAME(0x0b05, 0x1915, "ASUS", "Zenith II Front Headphone",
++		     "Zenith-II-Front-Headphone"),
++	PROFILE_NAME(0x0b05, 0x1916, "ASUS", "Zenith II Main Audio",
++		     "Zenith-II-Main-Audio"),
++
+ 	/* ASUS ROG Strix */
+ 	PROFILE_NAME(0x0b05, 0x1917,
+ 		     "Realtek", "ALC1220-VB-DT", "Realtek-ALC1220-VB-Desktop"),
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 3c795675f048..f4bd1e8ae4b6 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -374,13 +374,28 @@ static const struct usbmix_name_map corsair_virtuoso_map[] = {
+ 	{ 0 }
+ };
+ 
+-/* Some mobos shipped with a dummy HD-audio show the invalid GET_MIN/GET_MAX
+- * response for Input Gain Pad (id=19, control=12) and the connector status
+- * for SPDIF terminal (id=18).  Skip them.
+- */
+-static const struct usbmix_name_map asus_rog_map[] = {
+-	{ 18, NULL }, /* OT, connector control */
+-	{ 19, NULL, 12 }, /* FU, Input Gain Pad */
++/* ASUS ROG Zenith II with Realtek ALC1220-VB */
++static const struct usbmix_name_map asus_zenith_ii_map[] = {
++	{ 19, NULL, 12 }, /* FU, Input Gain Pad - broken response, disabled */
++	{ 16, "Speaker" },		/* OT */
++	{ 22, "Speaker Playback" },	/* FU */
++	{ 7, "Line" },			/* IT */
++	{ 19, "Line Capture" },		/* FU */
++	{ 8, "Mic" },			/* IT */
++	{ 20, "Mic Capture" },		/* FU */
++	{ 9, "Front Mic" },		/* IT */
++	{ 21, "Front Mic Capture" },	/* FU */
++	{ 17, "IEC958" },		/* OT */
++	{ 23, "IEC958 Playback" },	/* FU */
++	{}
++};
++
++static const struct usbmix_connector_map asus_zenith_ii_connector_map[] = {
++	{ 10, 16 },	/* (Back) Speaker */
++	{ 11, 17 },	/* SPDIF */
++	{ 13, 7 },	/* Line */
++	{ 14, 8 },	/* Mic */
++	{ 15, 9 },	/* Front Mic */
+ 	{}
+ };
+ 
+@@ -611,9 +626,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.map = gigabyte_b450_map,
+ 		.connector_map = gigabyte_b450_connector_map,
+ 	},
+-	{	/* ASUS ROG Zenith II */
++	{	/* ASUS ROG Zenith II (main audio) */
+ 		.id = USB_ID(0x0b05, 0x1916),
+-		.map = asus_rog_map,
++		.map = asus_zenith_ii_map,
++		.connector_map = asus_zenith_ii_connector_map,
+ 	},
+ 	{	/* ASUS ROG Strix */
+ 		.id = USB_ID(0x0b05, 0x1917),
+-- 
+2.35.3
 
-Best regards,
-Krzysztof

@@ -2,51 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344CC58D2ED
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 06:34:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDBE158D2F7
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 06:35:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9692822;
-	Tue,  9 Aug 2022 06:33:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9692822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F27F83B;
+	Tue,  9 Aug 2022 06:34:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F27F83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660019640;
-	bh=sxioX7gXQoZ8vp8E4aGrjwE8wDHMdS8ikwLv9kB8rXc=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LBnJIMnrI9p3dpU4tBET9Kzd7HWyBdruaAHuY/iwD1N8+qvElN0TIrXMV0V0Vhup8
-	 xO/AK8YrTNHIKxeVnXx6TcwqQbGd7SHXQ9BEmz7gAyWgrKFKpJYinzywBCaG9C/q/u
-	 n0qO9kDkC6W0Gtjcqy+U2qxsXpwo4CELoC8mQG20=
+	s=default; t=1660019728;
+	bh=lRQ2Z6/UY/bpVJ+rCjff0BhCEN6e3UPG7nKzypJrX2c=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ztb5//jl9NYc808HrAVlSvxA1UKxHYoMkFCC7UF5IQn5EloUhxi73iTBcIMvzsfWq
+	 4FimgohZTRv0Mt6aZCYwpIWND9cUuD0u+oXy4CvBGue6XvehKMrUVsxeKhvD6EvS25
+	 5Qid44RSBWZKPguPXo4GK5lz0BBGeiL3MEtAKpTM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32C2DF800E8;
-	Tue,  9 Aug 2022 06:33:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1319DF801F7;
+	Tue,  9 Aug 2022 06:34:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB931F8016C; Tue,  9 Aug 2022 06:32:59 +0200 (CEST)
+ id DAA0BF8016C; Tue,  9 Aug 2022 06:34:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7BB96F800E8
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 06:32:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BB96F800E8
-Received: by m.b4.vu (Postfix, from userid 1000)
- id 0CFC46142184; Tue,  9 Aug 2022 14:02:42 +0930 (ACST)
-Date: Tue, 9 Aug 2022 14:02:41 +0930
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: scarlett2: Add Focusrite Clarett+ 8Pre support
-Message-ID: <20220809043241.GA2749152@m.b4.vu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5248DF800E8
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 06:34:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5248DF800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Jj76Z/jK"
+Received: by mail-lf1-x12f.google.com with SMTP id e15so15518932lfs.0
+ for <alsa-devel@alsa-project.org>; Mon, 08 Aug 2022 21:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=A2cJx4TzfVfLcjEZf5Am6QDuHfwBw6Iwol89LnoU7nc=;
+ b=Jj76Z/jKDUcmTCulxZCqo/LuRjfbdQf1qvEHt1HWkgnmwQAefjhDHIaaiCqEFvEYTN
+ LIRqrtBLpyDQ8XmzpE1wcv+p+OKdW6SOW/w9GO5PylbeCuI0ZpiUAHUNJLq5Gkzmwhv/
+ 6n1C7kFTUqpWcEJ8OAyQ+Ang5aSyQJE6G0fB1tWDKiErdTS3TLHiMS4avkS+93E8vxaW
+ aqjdfDBBywZwi8o2eJWlhThCoJNNrrRzb4W5HfyWBg3IquciIg+hMO42TV9o6XKvXVys
+ s32eXG5huF8fXFNYFtyZcqyKdwWUDqkztx7dK4X0ml/kis8bFJll6EFESaMA9Q3vxNBi
+ GiNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=A2cJx4TzfVfLcjEZf5Am6QDuHfwBw6Iwol89LnoU7nc=;
+ b=8I/wVGSWRD/duPUV8ayc9htZYTH7VcVUHkAhmM1v7cwXDyu4F16hdCkx0BWdq/aWnr
+ W6cahHKeNCE37zLc8P1OyKZd+Ihpla/4SuVgfBPENYTv/zbRxYEseLT4wrJnYw3kCI5r
+ xgUkAtEKz/Od9VOoL6FqC+WprOMk7QnUIDKq78VZZ1OAyBJCw9KMERy+cdHQVJ6vFias
+ 74JceLZtjBdHkvYHQ+C4Nb7IlZgB2yDaG8PnUTtC9K8P+sF08SA1C6NA93oNxOAqw/SU
+ qqnskxBK9/FA8gp+fOwTMGatep9uGLcblowEzaKf7DFAAOcaWlJs4xxsRgXTNULMJQ2c
+ P7SQ==
+X-Gm-Message-State: ACgBeo0Z/i1dOYDtX4fBS/o2TD1onG//KiL+TfuiC+4XHvoI+LmcRZGL
+ 0VpdaydDf7ep8qHLIKjugVABNA==
+X-Google-Smtp-Source: AA6agR4BZyPN7vBEUxb+Ezny+n+osGnBvWSa4FG9wknX3U75cx2BkOZ/jdDmNcMZm3gyQUiR3bv27A==
+X-Received: by 2002:a05:6512:ac5:b0:48c:ecd1:4f14 with SMTP id
+ n5-20020a0565120ac500b0048cecd14f14mr2407443lfu.287.1660019659041; 
+ Mon, 08 Aug 2022 21:34:19 -0700 (PDT)
+Received: from [192.168.1.39] ([83.146.140.105])
+ by smtp.gmail.com with ESMTPSA id
+ s30-20020a05651c201e00b0025e778f6f13sm1431364ljo.4.2022.08.08.21.34.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Aug 2022 21:34:18 -0700 (PDT)
+Message-ID: <a2136b83-2c96-27c4-c262-d4e75614f9a7@linaro.org>
+Date: Tue, 9 Aug 2022 07:34:16 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Christian Colglazier <christian@cacolglazier.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 5/5] dt-bindings: Drop Dan Murphy
+Content-Language: en-US
+To: Andrew Davis <afd@ti.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Pavel Machek <pavel@ucw.cz>, Tim Harvey <tharvey@gateworks.com>,
+ Robert Jones <rjones@gateworks.com>, Lee Jones <lee@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Sebastian Reichel <sre@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-leds@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pm@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20220808104712.54315-1-krzysztof.kozlowski@linaro.org>
+ <20220808104712.54315-6-krzysztof.kozlowski@linaro.org>
+ <43b3c497-97fd-29aa-a07b-bcd6413802c4@linaro.org>
+ <6ae15e00-36a4-09a8-112e-553ed8c5f4da@ti.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <6ae15e00-36a4-09a8-112e-553ed8c5f4da@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,178 +122,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Christian Colglazier <christian@cacolglazier.com>
+On 08/08/2022 18:04, Andrew Davis wrote:
+> On 8/8/22 6:08 AM, Krzysztof Kozlowski wrote:
+>> On 08/08/2022 13:47, Krzysztof Kozlowski wrote:
+>>> Emails to Dan Murphy bounce ("550 Invalid recipient <dmurphy@ti.com>
+>>> (#5.1.1)").
+>>
+>>
+>> (...)
+>>
+>>>   description: |
+>>> diff --git a/Documentation/devicetree/bindings/power/supply/bq25980.yaml b/Documentation/devicetree/bindings/power/supply/bq25980.yaml
+>>> index 4883527ab5c7..509a0667b04e 100644
+>>> --- a/Documentation/devicetree/bindings/power/supply/bq25980.yaml
+>>> +++ b/Documentation/devicetree/bindings/power/supply/bq25980.yaml
+>>> @@ -8,7 +8,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>   title: TI BQ25980 Flash Charger
+>>>   
+>>>   maintainers:
+>>> -  - Dan Murphy <dmurphy@ti.com>
+>>>     - Ricardo Rivera-Matos <r-rivera-matos@ti.com>
+>>
+>> Ricardo's also bounces... Does it mean TI is not interested in
+>> maintaining mainline support for its drivers?
+>>
+> 
+> TI is still interested in maintaining support here. But as we know folks
+> come and go, so giving specific emails might not be the best option.
+> Doesn't look like the schema here allows free-form strings, but if it did
+> I'd recommend the TI E2E Power-Management support forum[0] added. Any
+> questions on Linux/DT for these parts posted there would land on my desk
+> just the same, or to whomever is assigned in the future with maintaining
+> these drivers.
 
-The Focusrite Clarett+ 8Pre uses the same protocol as the Scarlett Gen
-2 and Gen 3 product range. This patch adds support for the Clarett+
-8Pre by adding appropriate entries to the scarlett2 driver.
+Currently an email address is required. I am not sure if there is
+intention to change it, because similarly to MAINTAINERS file email is
+the way of our communication. Also in MAINTAINERS we expect to have
+person's address (with M:) and for the lists there is a separate entry.
 
-The Clarett+ 2Pre and 4Pre, and the Clarett USB product line
-presumably use the same protocol as well, so support for them can
-easily be added if someone can test.
+> Either way, I have several of these parts and can support these. Feel free
+> to replace Dan's email with my email if that works better.
 
-Signed-off-by: Christian Colglazier <christian@cacolglazier.com>
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
----
- sound/usb/mixer_quirks.c        |  1 +
- sound/usb/mixer_scarlett_gen2.c | 91 ++++++++++++++++++++++++++++++++-
- 2 files changed, 90 insertions(+), 2 deletions(-)
+Yes, that would be great, thanks!
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index d35cf54cab33..4a6ee50f69c4 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -3238,6 +3238,7 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x1235, 0x8213): /* Focusrite Scarlett 8i6 3rd Gen */
- 	case USB_ID(0x1235, 0x8214): /* Focusrite Scarlett 18i8 3rd Gen */
- 	case USB_ID(0x1235, 0x8215): /* Focusrite Scarlett 18i20 3rd Gen */
-+	case USB_ID(0x1235, 0x820c): /* Focusrite Clarett+ 8Pre */
- 		err = snd_scarlett_gen2_init(mixer);
- 		break;
- 
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 69a2cd429ee2..9d11bb08667e 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -1,13 +1,15 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- *   Focusrite Scarlett Gen 2/3 Driver for ALSA
-+ *   Focusrite Scarlett Gen 2/3 and Clarett+ Driver for ALSA
-  *
-  *   Supported models:
-  *   - 6i6/18i8/18i20 Gen 2
-  *   - Solo/2i2/4i4/8i6/18i8/18i20 Gen 3
-+ *   - Clarett+ 8Pre
-  *
-  *   Copyright (c) 2018-2022 by Geoffrey D. Bennett <g at b4.vu>
-  *   Copyright (c) 2020-2021 by Vladimir Sadovnikov <sadko4u@gmail.com>
-+ *   Copyright (c) 2022 by Christian Colglazier <christian@cacolglazier.com>
-  *
-  *   Based on the Scarlett (Gen 1) Driver for ALSA:
-  *
-@@ -51,6 +53,9 @@
-  * Support for phantom power, direct monitoring, speaker switching,
-  * and talkback added in May-June 2021.
-  *
-+ * Support for Clarett+ 8Pre added in Aug 2022 by Christian
-+ * Colglazier.
-+ *
-  * This ALSA mixer gives access to (model-dependent):
-  *  - input, output, mixer-matrix muxes
-  *  - mixer-matrix gain stages
-@@ -203,7 +208,8 @@ enum {
- 	SCARLETT2_CONFIG_SET_NO_MIXER = 0,
- 	SCARLETT2_CONFIG_SET_GEN_2 = 1,
- 	SCARLETT2_CONFIG_SET_GEN_3 = 2,
--	SCARLETT2_CONFIG_SET_COUNT = 3
-+	SCARLETT2_CONFIG_SET_CLARETT = 3,
-+	SCARLETT2_CONFIG_SET_COUNT = 4
- };
- 
- /* Hardware port types:
-@@ -841,6 +847,61 @@ static const struct scarlett2_device_info s18i20_gen3_info = {
- 	} },
- };
- 
-+static const struct scarlett2_device_info clarett_8pre_info = {
-+	.usb_id = USB_ID(0x1235, 0x820c),
-+
-+	.config_set = SCARLETT2_CONFIG_SET_CLARETT,
-+	.line_out_hw_vol = 1,
-+	.level_input_count = 2,
-+	.air_input_count = 8,
-+
-+	.line_out_descrs = {
-+		"Monitor L",
-+		"Monitor R",
-+		NULL,
-+		NULL,
-+		NULL,
-+		NULL,
-+		"Headphones 1 L",
-+		"Headphones 1 R",
-+		"Headphones 2 L",
-+		"Headphones 2 R",
-+	},
-+
-+	.port_count = {
-+		[SCARLETT2_PORT_TYPE_NONE]     = {  1,  0 },
-+		[SCARLETT2_PORT_TYPE_ANALOGUE] = {  8, 10 },
-+		[SCARLETT2_PORT_TYPE_SPDIF]    = {  2,  2 },
-+		[SCARLETT2_PORT_TYPE_ADAT]     = {  8,  8 },
-+		[SCARLETT2_PORT_TYPE_MIX]      = { 10, 18 },
-+		[SCARLETT2_PORT_TYPE_PCM]      = { 20, 18 },
-+	},
-+
-+	.mux_assignment = { {
-+		{ SCARLETT2_PORT_TYPE_PCM,      0, 18 },
-+		{ SCARLETT2_PORT_TYPE_ANALOGUE, 0, 10 },
-+		{ SCARLETT2_PORT_TYPE_SPDIF,    0,  2 },
-+		{ SCARLETT2_PORT_TYPE_ADAT,     0,  8 },
-+		{ SCARLETT2_PORT_TYPE_MIX,      0, 18 },
-+		{ SCARLETT2_PORT_TYPE_NONE,     0,  8 },
-+		{ 0,                            0,  0 },
-+	}, {
-+		{ SCARLETT2_PORT_TYPE_PCM,      0, 14 },
-+		{ SCARLETT2_PORT_TYPE_ANALOGUE, 0, 10 },
-+		{ SCARLETT2_PORT_TYPE_SPDIF,    0,  2 },
-+		{ SCARLETT2_PORT_TYPE_ADAT,     0,  4 },
-+		{ SCARLETT2_PORT_TYPE_MIX,      0, 18 },
-+		{ SCARLETT2_PORT_TYPE_NONE,     0,  8 },
-+		{ 0,                            0,  0 },
-+	}, {
-+		{ SCARLETT2_PORT_TYPE_PCM,      0, 12 },
-+		{ SCARLETT2_PORT_TYPE_ANALOGUE, 0, 10 },
-+		{ SCARLETT2_PORT_TYPE_SPDIF,    0,  2 },
-+		{ SCARLETT2_PORT_TYPE_NONE,     0, 22 },
-+		{ 0,                            0,  0 },
-+	} },
-+};
-+
- static const struct scarlett2_device_info *scarlett2_devices[] = {
- 	/* Supported Gen 2 devices */
- 	&s6i6_gen2_info,
-@@ -855,6 +916,9 @@ static const struct scarlett2_device_info *scarlett2_devices[] = {
- 	&s18i8_gen3_info,
- 	&s18i20_gen3_info,
- 
-+	/* Supported Clarett+ devices */
-+	&clarett_8pre_info,
-+
- 	/* End of list */
- 	NULL
- };
-@@ -1047,6 +1111,29 @@ static const struct scarlett2_config
- 
- 	[SCARLETT2_CONFIG_TALKBACK_MAP] = {
- 		.offset = 0xb0, .size = 16, .activate = 10 },
-+
-+/* Clarett+ 8Pre */
-+}, {
-+	[SCARLETT2_CONFIG_DIM_MUTE] = {
-+		.offset = 0x31, .size = 8, .activate = 2 },
-+
-+	[SCARLETT2_CONFIG_LINE_OUT_VOLUME] = {
-+		.offset = 0x34, .size = 16, .activate = 1 },
-+
-+	[SCARLETT2_CONFIG_MUTE_SWITCH] = {
-+		.offset = 0x5c, .size = 8, .activate = 1 },
-+
-+	[SCARLETT2_CONFIG_SW_HW_SWITCH] = {
-+		.offset = 0x66, .size = 8, .activate = 3 },
-+
-+	[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
-+		.offset = 0x7c, .size = 8, .activate = 7 },
-+
-+	[SCARLETT2_CONFIG_AIR_SWITCH] = {
-+		.offset = 0x95, .size = 8, .activate = 8 },
-+
-+	[SCARLETT2_CONFIG_STANDALONE_SWITCH] = {
-+		.offset = 0x8d, .size = 8, .activate = 6 },
- } };
- 
- /* proprietary request/response format */
--- 
-2.37.1
-
+Best regards,
+Krzysztof

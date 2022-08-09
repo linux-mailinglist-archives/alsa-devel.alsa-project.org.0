@@ -2,82 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84FF358DF2E
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 20:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBF9758DF47
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Aug 2022 20:43:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2040684B;
-	Tue,  9 Aug 2022 20:34:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2040684B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD80846;
+	Tue,  9 Aug 2022 20:43:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD80846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660070125;
-	bh=7fKyph/VnwgD4gdFhbx/zyFkwIqYkCu78oepQxP2E5o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1660070632;
+	bh=pACUFQcrgf4jDZyW9YY5W+FggE+N1VntD7OTvYdHFIs=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zd6h5tbfF4FVpXS90WRbd+4kwfoLXq/p6zxo/2oZR32oisV9WuWUIdNSSu8wXsEeS
-	 u/xw6ton7FFWknmML7Je2olxxU90LDa07f5u5dQMoemc4shKHLhIQYMB8tXa0FzBpq
-	 ZnFHElNtc2k69jrHk0N34M96XmAN8/zfVViohlZY=
+	b=WBK4iq+WjFncAVwGEWrIeI5MBG4nl7WJWclSZYD9kiDnaaijelRPcG0ghs/HvCVvr
+	 86vs8uY6R/0Yv4yDDljEMR0uzVRAe+PH251PcV1/wDKCiFs4P3j3hxGe/Cn0rFuJlp
+	 6u6FaZJ77DwqdeY+VX6YS2QmidfvbcOK7mKTrNtI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B190F801F7;
-	Tue,  9 Aug 2022 20:34:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8BA9F801F7;
+	Tue,  9 Aug 2022 20:42:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2757F8016C; Tue,  9 Aug 2022 20:34:24 +0200 (CEST)
+ id DEF56F8016C; Tue,  9 Aug 2022 20:42:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
- [209.85.166.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE86DF80132
- for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 20:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE86DF80132
-Received: by mail-il1-f174.google.com with SMTP id p9so5761072ilq.13
- for <alsa-devel@alsa-project.org>; Tue, 09 Aug 2022 11:34:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=8ogzPNWERYDaKhNvvgajn1anoN29b7H+hifJpwoGmHM=;
- b=Kv3HK6YVt7tVP7QLb8o9lR/qjmloJBisn/4Flj5mNiEjbHS4kSz7omI+hEy9CF3oF/
- Ydd0evTVjo0QHCseGkyVFCh8xo70Dbb5woBdYOjRq/NeL+tcuwTphC0KbL/JZgGkVeH9
- mgTdXrkUqovLVn4xqrZMv9Yk32sB9AuJOQ1Ds35iJNsUpoLZgBmf6DiJfn1VgW0OJrDM
- dm3T35TBTA6jvJ0QBrCphQlm3eprisM5DygCEQSLN/gqTva5HASRv9R0E6u319LxzxY+
- cwOVW2DNKds1QOebsvrCebwYHD6EXULcrUGXpNZVz+Owyj8oPghvLtkqf9MDQo+X6jnY
- vfwQ==
-X-Gm-Message-State: ACgBeo0tVolhVqfBTz2Nn0rsCn28X30S1JDsUgp/hldc9TAKk2VRVhcz
- hnLG+di28mAULxYohxM9hg==
-X-Google-Smtp-Source: AA6agR4PJWlLwUSgKHl9yVe2aHvPKGPlQc+9w37Y+GpjWSGItjiB5WV6pAjqzQQreJ8yjLm/o937fQ==
-X-Received: by 2002:a05:6e02:1a6f:b0:2de:b54a:1ce4 with SMTP id
- w15-20020a056e021a6f00b002deb54a1ce4mr10551590ilv.284.1660070054833; 
- Tue, 09 Aug 2022 11:34:14 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- n16-20020a056602341000b00684f4b808ffsm1394696ioz.39.2022.08.09.11.34.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Aug 2022 11:34:14 -0700 (PDT)
-Received: (nullmailer pid 2158221 invoked by uid 1000);
- Tue, 09 Aug 2022 18:34:12 -0000
-Date: Tue, 9 Aug 2022 12:34:12 -0600
-From: Rob Herring <robh@kernel.org>
-To: Zhu Ning <zhuning0077@gmail.com>
-Subject: Re: [PATCH v5 1/2] ASoC: dt-bindings: Add Everest ES8326 audio CODEC
-Message-ID: <20220809183412.GA2152771-robh@kernel.org>
-References: <20220804091800.744316-1-zhuning0077@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9252BF8012A
+ for <alsa-devel@alsa-project.org>; Tue,  9 Aug 2022 20:42:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9252BF8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="e7uM4ebe"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 00845B81611;
+ Tue,  9 Aug 2022 18:42:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7504C433C1;
+ Tue,  9 Aug 2022 18:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660070567;
+ bh=pACUFQcrgf4jDZyW9YY5W+FggE+N1VntD7OTvYdHFIs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=e7uM4ebebJYxfea/SI26ybVg0bXMS3lx6qbINGTWS/hKTVCGo55D7maiGHMbExh81
+ +EdnqKDUpv1DNOgr0n/e1Zo5Yu9FH5cxaNcp/1FeXFeTSp9YQxL993w5SMQN5YJt3m
+ hITABIHRGTjAqjEXBGWEFD3pwXD+3/tod7fr+Iseqrlj9R8L5ULO+HN5VSf7LdmLJI
+ YF5hxN758jICAyweXIbGcAzZ9s8H66uQAtbUxdej1sjndOwWoSZlKEf9/kDD/4rn9n
+ 2fFtBSk1Xo5XVvSkS4btPx592AsHqorsFKj4heCr7hwYQLc96ClReWPkKhIkPl9Ysq
+ DggaR3oUSIdtQ==
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>, lgirdwood@gmail.com
+In-Reply-To: <20220808052836.25791-1-oder_chiou@realtek.com>
+References: <20220808052836.25791-1-oder_chiou@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5640: Fix the JD voltage dropping issue
+Message-Id: <166007056543.69415.2112585577112979520.b4-ty@kernel.org>
+Date: Tue, 09 Aug 2022 19:42:45 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220804091800.744316-1-zhuning0077@gmail.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org,
- Zhu Ning <zhuning@everest-semi.com>, David Yang <yangxiaohua@everest-semi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fe10a
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, jacal_tseng@realtek.com,
+ albertchen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
+ Mohan Kumar D <mkumard@nvidia.com>, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,84 +86,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 04, 2022 at 05:17:59PM +0800, Zhu Ning wrote:
-> Add device tree binding documentation for Everest ES8326
+On Mon, 8 Aug 2022 13:28:36 +0800, Oder Chiou wrote:
+> The patch fixes the JD voltage dropping issue in the HDA JD using.
 > 
-> Signed-off-by: David Yang <yangxiaohua@everest-semi.com>
-> Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
-> ----
-> v5 tested by dtschema
-> ---
->  .../bindings/sound/everest,es8326.yaml        | 116 ++++++++++++++++++
->  1 file changed, 116 insertions(+)
->  create mode 100755 Documentation/devicetree/bindings/sound/everest,es8326.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/everest,es8326.yaml b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
-> new file mode 100755
-> index 000000000000..07781408e788
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
-> @@ -0,0 +1,116 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/everest,es8326.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Everest ES8326 audio CODEC
-> +
-> +maintainers:
-> +  - David Yang <yangxiaohua@everest-semi.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: everest,es8326
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: clock for master clock (MCLK)
-> +
-> +  clock-names:
-> +    items:
-> +      - const: mclk
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  everest,jack-pol:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description: |
-> +      just the value of reg 57. Bit(3) decides whether the jack polarity is inverted.
-> +      Bit(2) decides whether the button on the headset is inverted.
-> +      Bit(1)/(0) decides the mic properity to be OMTP/CTIA or auto.
-> +    minimum: 0x00
-> +    maximum: 0x0f
-> +    default: 0x0f
-> +
-> +  everest,mic1-src:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      the value of reg 2A when headset plugged.
-> +    minimum: 0x00
-> +    maximum: 0x77
-> +    default: 0x22
-> +
-> +  everest,mic2-src:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      the value of reg 2A when headset unplugged.
-> +    minimum: 0x00
-> +    maximum: 0x77
-> +    default: 0x44
-> +
-> +  everest,jack-detect-inverted:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      Defined to invert the jack detection.
 
-No response to my questions on v3?
+Applied to
 
-Rob
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: rt5640: Fix the JD voltage dropping issue
+      commit: afb176d45870048eea540991b082208270824037
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

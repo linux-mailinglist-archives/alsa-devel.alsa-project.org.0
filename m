@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB13158FB12
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Aug 2022 13:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5931258FB13
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Aug 2022 13:04:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B42E950;
-	Thu, 11 Aug 2022 13:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B42E950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0777B15C1;
+	Thu, 11 Aug 2022 13:03:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0777B15C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660215841;
-	bh=/UT96ff++x2zfpBsE2pzswdgzbNltGEZ/hMX3N7VW58=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TUIiC54n8ZqsuztH4m/OjVoRee7TnhAJ9uLt8UHUekY+alsJVuoUdmScEfo3BcDMc
-	 xEIsI5v0tYqfg9mM4rYrZBLh7nJCfHnLTaeuECwktctMn9CmLxDuzcAaakSfgj+pnQ
-	 S8U5p9YwLt5oEHpgAc/dWBLefWVhO3IClF/PaLPM=
+	s=default; t=1660215865;
+	bh=FyAJSOfnBv6BaOxlfypmmHhsSZ78X7hfzgV+gLj/eFI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RXKnQ0hD5BCkCYvKV8K8cR8DbTo5nxO9ViJz5ntdlJvdB+jrXD3/7lMEtAHfhzvBn
+	 9Ok56weR5rZZxXeym5TZCH0/YkdEurYPWxOedQ+VV+oMd23UvTxEYeJB01jL8Vsyha
+	 eqvJMLJTjxtlp7jaDi8D0G7servLjRndAtmPt5GA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B59ABF80539;
-	Thu, 11 Aug 2022 13:03:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 525C5F80549;
+	Thu, 11 Aug 2022 13:03:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2ECDF801F5; Wed, 10 Aug 2022 13:43:30 +0200 (CEST)
+ id C9013F801F5; Wed, 10 Aug 2022 17:34:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 321AEF80132
- for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 13:43:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321AEF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5BF2F800FB
+ for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 17:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5BF2F800FB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QW066Eh8"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8BDFD61312;
- Wed, 10 Aug 2022 11:43:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90947C433C1;
- Wed, 10 Aug 2022 11:43:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660131799;
- bh=/UT96ff++x2zfpBsE2pzswdgzbNltGEZ/hMX3N7VW58=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QW066Eh867kwheRp0QLWhqI58bqBOREru+c2GBYrj2ZOUniKjPFb5sRYhPcKv/0P/
- CDpWizV1NyGLSEh9y7z0HTbpDizmjAGF9bmByTTQmyuYgQwwKAE4GYt6fM0K31NVEX
- Yp3DctXCRIh08f7dOeMkFKZYAWpZoOdqwHyBuaAY9BYe2aJSH64mn8/z5bR5+dpmOH
- DEr9NlVMs1JFTp9FWboeKrrShWS6ay+d9Q3AWAn8IjuvpQ+ZBqd2LFoyHbFrWtvxbj
- v2Eu3zJfsO9Pw1JFQ23r0+NsBxTe8uzidawfeI9IDp6YACFF+Srga2L12XLreM2V0Y
- oM9YhhpYSg1DQ==
-Date: Wed, 10 Aug 2022 12:43:10 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 4/5] dt-bindings: Drop Robert Jones
-Message-ID: <YvOZzkPeU7dXz0Xo@google.com>
-References: <20220809162752.10186-1-krzysztof.kozlowski@linaro.org>
- <20220809162752.10186-5-krzysztof.kozlowski@linaro.org>
- <YvOP9qr2CR9n1FCe@google.com>
- <f69bf678-0188-7178-7542-9773c15c1463@linaro.org>
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="QU0ALuzh"
+Received: by mail-vs1-xe30.google.com with SMTP id 67so8120633vsv.2
+ for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 08:34:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=dQ01aEhZNYaH2ZhVRRlO0MExQVXwpOhIKdTs5cP1++I=;
+ b=QU0ALuzhQccpKzg5h9xW+3C67U6cZP7AmH8MJtSw3G9rRWRINBmo+z5WMt7HVlpG32
+ OVBmJvD29gJyx8+1G2mPhUbP1960uhhZaWTUodTf1MxurLQhlY82aCMQGlxNChXz7J2i
+ UzopJnD/+nEzuScKTkG3ARlNRBWPxuCbnjFs0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=dQ01aEhZNYaH2ZhVRRlO0MExQVXwpOhIKdTs5cP1++I=;
+ b=TGSK7x4sGySPzRhQ+HNTJ2mdB2V65UYfUgO9aTM9efp5n42n5pOpUBt7h+V/Yep6EH
+ C7MxG9UnUSagmuFs+7gjMNFu32zhcuhvpQu87DFiY0BenpgDNp+7eArmXhLX20frGVmG
+ Xc5DECgLLajAAih2hLJE/cL4lJR3GAg9ybmx0P2og8TqKtUhOJ+WLiPYQd5FyaRwbRcr
+ 0ByyvTdVeWQXgXysXeKu2FYb8YOaT1ZXDy+hw71vdTtIOVMD1KIV3jfZaUrISE/YG0x+
+ 8xxyIsusZBPQQT5e5h89MRZ20ayb2vQ03A2+8zA4IRpD1aSxVBKaSWB+ApgqgAXcPSCB
+ CrFg==
+X-Gm-Message-State: ACgBeo2A+KGIuRN1xVq7aIWreCoq7OrTbeXfYWt84gfKcV9UYOKvbSnO
+ qGX7W0haED7TmvEs6YJ0yP5ZZgGCCof29RkH
+X-Google-Smtp-Source: AA6agR6rNWJJ/UIpT2gl//wtCYsECa4lf534iajVWoCxuILkQfw/V1Tw05+Gd3s3l89osKDR+IF+Hg==
+X-Received: by 2002:a62:18ce:0:b0:52d:3137:d854 with SMTP id
+ 197-20020a6218ce000000b0052d3137d854mr27750426pfy.16.1660145247536; 
+ Wed, 10 Aug 2022 08:27:27 -0700 (PDT)
+Received: from ballway1.c.googlers.com.com
+ (97.173.125.34.bc.googleusercontent.com. [34.125.173.97])
+ by smtp.gmail.com with ESMTPSA id
+ f20-20020a635554000000b0041a716cec9esm9685576pgm.62.2022.08.10.08.27.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Aug 2022 08:27:27 -0700 (PDT)
+From: Allen Ballway <ballway@chromium.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ALSA: hda/cirrus - support for iMac 12,1 model
+Date: Wed, 10 Aug 2022 15:27:22 +0000
+Message-Id: <20220810152701.1.I902c2e591bbf8de9acb649d1322fa1f291849266@changeid>
+X-Mailer: git-send-email 2.37.1.559.g78731f0fdb-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f69bf678-0188-7178-7542-9773c15c1463@linaro.org>
 X-Mailman-Approved-At: Thu, 11 Aug 2022 13:02:59 +0200
-Cc: linux-fbdev@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
- devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>, linux-pm@vger.kernel.org,
- Tim Harvey <tharvey@gateworks.com>, Rob Herring <robh+dt@kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Andrew Davis <afd@ti.com>, Mark Brown <broonie@kernel.org>,
- Sebastian Reichel <sre@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Vitaly Rodionov <vitalyr@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ Allen Ballway <ballway@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,36 +99,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Aug 2022, Krzysztof Kozlowski wrote:
+The 12,1 model requires the same configuration as the 12,2 model
+to enable headphones but has a different codec SSID. Adds
+12,1 SSID for matching quirk.
 
-> On 10/08/2022 14:01, Lee Jones wrote:
-> > On Tue, 09 Aug 2022, Krzysztof Kozlowski wrote:
-> > 
-> >> Emails to Robert Jones bounce ("550 5.2.1 The email account that you
-> >> tried to reach is disabled").
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >> Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-> >>
-> >> ---
-> >>
-> >> For maintainers entry see:
-> >> https://lore.kernel.org/all/20220808111113.71890-1-krzysztof.kozlowski@linaro.org/
-> >> ---
-> >>  Documentation/devicetree/bindings/iio/imu/nxp,fxos8700.yaml | 2 +-
-> >>  Documentation/devicetree/bindings/mfd/gateworks-gsc.yaml    | 1 -
-> > 
-> > Any reason to submit these as one patch?
-> 
-> Less work for me, less work for maintainer applying and sending fixes.
+Signed-off-by: Allen Ballway <ballway@chromium.org>
+---
 
-Easier for Jonathan and I to apply to our respective trees.
+ sound/pci/hda/patch_cirrus.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> I think this could go via Rob's tree as fixes for current cycle.
+diff --git a/sound/pci/hda/patch_cirrus.c b/sound/pci/hda/patch_cirrus.c
+index 678fbcaf2a3b..e1055d7d9be6 100644
+--- a/sound/pci/hda/patch_cirrus.c
++++ b/sound/pci/hda/patch_cirrus.c
+@@ -396,6 +396,7 @@ static const struct snd_pci_quirk cs420x_fixup_tbl[] = {
+ 	/* codec SSID */
+ 	SND_PCI_QUIRK(0x106b, 0x0600, "iMac 14,1", CS420X_IMAC27_122),
+ 	SND_PCI_QUIRK(0x106b, 0x1c00, "MacBookPro 8,1", CS420X_MBP81),
++	SND_PCI_QUIRK(0x106b, 0x0900, "iMac 12,1", CS420X_IMAC27_122),
+ 	SND_PCI_QUIRK(0x106b, 0x2000, "iMac 12,2", CS420X_IMAC27_122),
+ 	SND_PCI_QUIRK(0x106b, 0x2800, "MacBookPro 10,1", CS420X_MBP101),
+ 	SND_PCI_QUIRK(0x106b, 0x5600, "MacBookAir 5,2", CS420X_MBP81),
+--
+2.37.1.559.g78731f0fdb-goog
 
-Happy for that to happen if it's okay with Rob:
-
-Acked-by: Lee Jones <lee@kernel.org>
-
--- 
-Lee Jones [李琼斯]

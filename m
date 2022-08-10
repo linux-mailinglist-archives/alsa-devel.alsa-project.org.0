@@ -2,90 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215BA58EC27
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Aug 2022 14:39:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB0A58EC3C
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Aug 2022 14:45:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AC8515E2;
-	Wed, 10 Aug 2022 14:38:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AC8515E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0E0C15C1;
+	Wed, 10 Aug 2022 14:44:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0E0C15C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660135178;
-	bh=vPpn+dGLzKb7Sc6Czii2tdPohCYiVuar8IVF4AUuPeQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1660135525;
+	bh=KA3dwPhdercQ+bjwAHZSLXEZgALOI5+blLRwOWv3xsk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s8kqSS02Axn2L+q1TlwtHhTJ2ZtK9PhWjnzvfL+Ks0COhIUFNERwr5wf+mCbfg1cH
-	 5xAHFnH21CdIQV+xUCobw//mCIH8GfXdO0wOygeSrjkUDGbudj+6IEt8me0IpjY1PX
-	 wHah1AqhBivxW+H5v3Yqtkmi3R6DtQup79+jhu6Y=
+	b=p4JTtPtgHqf55bXc7ZRqq9HnvL3wA8CGlS8+hg1d2b4LcOW67zC02CRrWcq9Jc/AS
+	 FLIGGvHtLBbtYInOnOvCfdsZnfvmBIDEDREdivkxma3Z8J67qe5kVnZKIfW4ZaFbHc
+	 ZelNkMaK1LiA7N64opi5vHVeSflGA++jrgbimS80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBACFF80240;
-	Wed, 10 Aug 2022 14:38:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16B59F80240;
+	Wed, 10 Aug 2022 14:44:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A1F0F801F5; Wed, 10 Aug 2022 14:38:38 +0200 (CEST)
+ id 4C971F801F5; Wed, 10 Aug 2022 14:44:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EFA3F800FB
- for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 14:38:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EFA3F800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1ECFF8012A
+ for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 14:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1ECFF8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KqEAwT2E"
+ header.b="huzI43NG"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E5FEDB81C3C;
- Wed, 10 Aug 2022 12:38:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DA7C433D6;
- Wed, 10 Aug 2022 12:38:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E6586135C;
+ Wed, 10 Aug 2022 12:44:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB35FC433C1;
+ Wed, 10 Aug 2022 12:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660135107;
- bh=vPpn+dGLzKb7Sc6Czii2tdPohCYiVuar8IVF4AUuPeQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KqEAwT2EOk+jDmHldnh6OQGmRp3C1Bt+kOGg/vQZDwNgQ95yt0/UllzC1sypkM381
- VoVi47u2MxCTA2tW8qWivLBlk+l00O/4JLVXJ3cvwGzmntQ0Oq7uBsfiIzvJ9iTazK
- ghO5qoaVrVkpq2fKn5AOGDJslZn5bROZXmJXdM2iJgVRsDv+UEzm9q8JxCkuoXWRkU
- IFqY0XuBXi+3K/umTuNQcWvaxnbZIFO6vWxcyNt4UroEWmihU0qT23Npd0wmj31cDU
- 58V28sw+rBdPnA5z4ccojXUEWkaIckAAAA523IY012rVUYgB9i+wLLer4nQdFIG8sn
- mY8IBclIh+1Eg==
-Date: Wed, 10 Aug 2022 13:38:19 +0100
+ s=k20201202; t=1660135459;
+ bh=KA3dwPhdercQ+bjwAHZSLXEZgALOI5+blLRwOWv3xsk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=huzI43NGmEQHtVQIKUKaIqn54Pe12Y2tnG9TuUhj4L2l086g3kuVZBX7gWMfyAQnA
+ F/moX5+AjnGTvjlZJDBLinLQXTJhOd5nl2PzNTXDMJMkOIoxM88uyHsFYKWdnkA5Fx
+ HePsksH3dwh4+EcrZTP5Zw2EkJg5qprCzZzXhuMxqUBFmt2IX/4rC43XvLZkWvLATi
+ eMPeCCUV4a735dLWBOZV18fx8NVb8y4eWKqidwBcoz8bmXTdlT/liELClJke81WXok
+ v2x67hTPveR5huz4hYwgl9iZ+LH8IVrmSQ/ZGBs5YF9McIslXt7HlmR1pbPL7KMbEr
+ p0tBB27fxLTWQ==
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 5/5] dt-bindings: Drop Dan Murphy and Ricardo
- Rivera-Matos
-Message-ID: <YvOmu3KvVl5xxtgY@sirena.org.uk>
-References: <20220809162752.10186-1-krzysztof.kozlowski@linaro.org>
- <20220809162752.10186-6-krzysztof.kozlowski@linaro.org>
+To: Martin Povišer <povik+lin@cutebit.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220808141246.5749-1-povik+lin@cutebit.org>
+References: <20220808141246.5749-1-povik+lin@cutebit.org>
+Subject: Re: [PATCH 0/4] TAS2770 fixes
+Message-Id: <166013545745.24388.6261052304965817378.b4-ty@kernel.org>
+Date: Wed, 10 Aug 2022 13:44:17 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="IEszeuZxEA7/bbtR"
-Content-Disposition: inline
-In-Reply-To: <20220809162752.10186-6-krzysztof.kozlowski@linaro.org>
-X-Cookie: First pull up, then pull down.
-Cc: linux-fbdev@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>, linux-pm@vger.kernel.org,
- Tim Harvey <tharvey@gateworks.com>, Rob Herring <robh+dt@kernel.org>,
- linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Andrew Davis <afd@ti.com>,
- Sebastian Reichel <sre@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fe10a
+Cc: Stephen Kitt <steve@sk2.org>, alsa-devel@alsa-project.org,
+ Frank Shi <shifu0704@thundersoft.com>, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,30 +88,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 8 Aug 2022 16:12:42 +0200, Martin Povišer wrote:
+> The first two fixes should be straightforward.
+> 
+> The latter two clean up what looks to me like a mess in the setting of
+> power levels. However we settle it, we should then do the same changes
+> to TAS2764, which has the same template (and maybe there are other
+> drivers).
+> 
+> [...]
 
---IEszeuZxEA7/bbtR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Aug 09, 2022 at 07:27:52PM +0300, Krzysztof Kozlowski wrote:
-> Emails to Dan Murphy and Ricardo Rivera-Matos bounce ("550 Invalid
-> recipient").  Andrew Davis agreed to take over the bindings.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Thanks!
 
---IEszeuZxEA7/bbtR
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/4] ASoC: tas2770: Set correct FSYNC polarity
+      commit: e9ac31f0a5d0e246b046c20348954519f91a297f
+[2/4] ASoC: tas2770: Allow mono streams
+      commit: bf54d97a835dfe62d4d29e245e170c63d0089be7
+[3/4] ASoC: tas2770: Drop conflicting set_bias_level power setting
+      commit: 482c23fbc7e9bf5a7a74defd0735d5346215db58
+[4/4] ASoC: tas2770: Fix handling of mute/unmute
+      commit: 1e5907bcb3a3b569be0a03ebe668bba2ed320a50
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLzproACgkQJNaLcl1U
-h9Btywf/Ylfto3rP12Is+BQJ2PghIgdBExy5qdKGCvvgKFln7xaTTlF3RaoXLQ0d
-VAqhXaSdvHBsHgWzJ8c/B9p71/s7K5CXfcIrGeVm2OY9ZH2Cows3vqURj5tO5/FE
-sEhZRrwYC2bI4okDihJglpf7HSCZT6OjniTKbc7sk3HP3W77xpCu9VPLfBCDreh0
-WI0Uu3/vVOEsDt4IgAHXlqNqbRjQD2Rhwesx2PRPNpzrI7hCZ+qHORgTFlD7Qx3F
-Qa8wcybPT0S6C5o/et9+rajj4M4plbo6uNxd9B4rrTYzLMUDZsMwZOpTkCiMhz7F
-lgDRHQHDel322uDH+eBVQB/Aum7p+g==
-=2qBa
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---IEszeuZxEA7/bbtR--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

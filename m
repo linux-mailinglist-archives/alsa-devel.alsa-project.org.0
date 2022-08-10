@@ -2,108 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C548D58E41F
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Aug 2022 02:34:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E8858E459
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Aug 2022 03:09:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BDCE41;
-	Wed, 10 Aug 2022 02:33:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BDCE41
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9360A84B;
+	Wed, 10 Aug 2022 03:08:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9360A84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660091641;
-	bh=5mHEmJmzPq98jvMap5QuX23aoUdR2xPKvaymteFthSM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qOpHEXvvnThgeFv+ncWIIlMe5Xr1nqgJjRUaKollYNnHbYMepojS71UUn3TFUSazS
-	 WWD9IRjBrJG7MjdIEBqox7GFBcMMtVB9lGitM71jTrPNMmJZx/GKpTTgnm5Z5JJG+C
-	 bN6+xpxA6TYiyutvTGUkJNbEZUGJzj+utk8a8VB4=
+	s=default; t=1660093778;
+	bh=gDpZ800zuPi6XDQp4C0dv++Rl8lv0u6lVZ0kAvYcyxo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DIhkyxfOiVgPdMluWakuZdZEX5yWiNW9izD3kQTf2z38sfkmlvp5C4RsgJ+Sv22/4
+	 kYtoxLrVa4fIqFC9z8QrKHSK5hyHCIEsRV3prMthn8BekQKspKP+gkodSBjeiKPRfx
+	 H5PhaLFhR4QineikSjP6xU7yItWsE1BChZOLFpZg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CAE5F800E8;
-	Wed, 10 Aug 2022 02:33:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDE2CF801F7;
+	Wed, 10 Aug 2022 03:08:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC8EFF8016C; Wed, 10 Aug 2022 02:33:00 +0200 (CEST)
+ id 7ABB8F8016C; Wed, 10 Aug 2022 03:08:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3449DF8012A
- for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 02:32:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3449DF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFB82F8012A
+ for <alsa-devel@alsa-project.org>; Wed, 10 Aug 2022 03:08:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFB82F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="B3BAxjK7"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="4LLcty2f"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id CC6523200906;
- Tue,  9 Aug 2022 20:32:47 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Tue, 09 Aug 2022 20:32:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm1; t=1660091567; x=1660177967; bh=LZ
- pAdembuGdhKW1eypN1bC25S0FWHMVEESr3ekwwsBk=; b=B3BAxjK7JEI8HQTx9K
- K6zhIwf0r/Ii7JiooS3n4mtSbjVPOYH0k84IKNXxVeVIAQKOXV11Wl/xMytmAJc2
- w/uQrSb4vq2yRcW8er2CqERcJfPE4Xy/fkgtj3ZLfzWOP+nBmlq0JTyzSiFeJhpJ
- 4Xwx42c4OFLviWKlaq3GYebGJXs3zLlSsfz77yamJpBbO4jCr0uoteTOi+yNjJ2O
- NOMcymG/OUcgEculEAPLsJg8iIcW0KrumO8G+p2pny1bOSOvv00bgwLN8K1l5s1J
- GoTZHGQiZGNR9t3LWUbre9B7McpnYvsf4hdDF9vdXpCADTWMT07TSn6/MoZ8WvS1
- Fu4g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1660091567; x=1660177967; bh=LZpAdembuGdhKW1eypN1bC25S0FW
- HMVEESr3ekwwsBk=; b=4LLcty2fZq1G7TmIjlBP1s8NX00kq0pzEywft+1mjid1
- 3gRG+UucBRFH2BaR9tDobYBQk4lVy6OIk/nxQuW93qr9J3NOWiH/ZryKOij40TJH
- hSyjkdzwI1oiTOGWGq4Zy6ZFFnVs55WB2dtAOgvubpcSveCSZ8TfbLJU83FLon3a
- LjqgVDZox2lifKFGMttSvc36A6l75HHfa7w2dgaFj2nHSXKvsTAZxe7vHShntpBW
- pwU0cRuD5z9RR8dhRcbk8Gh/0JglKGwHMDIs8cfZR6OQ14jaL0ysk0WkQudH2WmX
- 8mGo1UFkX83J3Z/tdl9ywQCuPQJoMeuW1JaW6n57Rg==
-X-ME-Sender: <xms:rvzyYl9uaBjWEk_GAfKUgf6G8MjYAj58MBZUzs5zzo9VdmId7noaAQ>
- <xme:rvzyYpt0KqHkxd2MjCKP4IRpKBAhgECRfUonOuuMGf09fCZv-_mbgKdcxmYZmQ9Zw
- lD2homP_rLiVeMbEoI>
-X-ME-Received: <xmr:rvzyYjBAG6SJoQmSlA8XaJBpaH7Qck_eacPQ0rk5drPHr0K89LQMxW-Vm6HT5dced7ysXAprNj8LUSAHwVFjp4nlrtRt8kKd>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdeguddgfeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecuggftrfgrthhtvghrnhepvdegveevgfeuvdelffeljeelkeeiheejheelvddu
- heeigeetfeeuveeffefhheeunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdptghrrg
- htvghsrdhiohenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
- ohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:r_zyYpfgaGwz6cKFVTcWYCCLGx5rBcag85WHnKXfZ9zGYIomwBdhWw>
- <xmx:r_zyYqMO55ti2StlFRhF1xWsHdQyxIRqED7qxN2xMydoDxdF58j_vQ>
- <xmx:r_zyYrlJslHZuKIyrECdcGYexRdARJxcQcbuQZS7hdz_5VXTKliwyA>
- <xmx:r_zyYkUznlOOUo58bmx3rtBPJz0NYKA1Guvk4HmS19dC_pGAUwuCmA>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 9 Aug 2022 20:32:46 -0400 (EDT)
-Date: Wed, 10 Aug 2022 09:32:43 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: forevernoob@tutanota.com
-Subject: Re: How trivial would it be to port the DICE driver from FFADO?
-Message-ID: <YvL8q7HII3df7Pte@workstation>
-Mail-Followup-To: forevernoob@tutanota.com,
- Alsa Devel <alsa-devel@alsa-project.org>
-References: <N9213zQ--3-2@tutanota.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="I4WtNltD"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 78ACD6120A;
+ Wed, 10 Aug 2022 01:08:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B7DC433C1;
+ Wed, 10 Aug 2022 01:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660093711;
+ bh=gDpZ800zuPi6XDQp4C0dv++Rl8lv0u6lVZ0kAvYcyxo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=I4WtNltDw7RjbFxENBifLW3+OiG8lw8/Jz0a0jrR+uwxaw+8zEaf9DLpCYzlDEyo6
+ 5jRb7tJkSBdGG+a8nW3sSZ+Q3T3kMFgtjcb9J1yeP+FWTQRhLHNEUpvIc5AnKBMl7u
+ JB80tzys/ze1IShnCWVO/W02G11gRfQesIKCOx15HyD1QmW58+zF9hIs2O/1q0tprI
+ Uzt3W2bIPw9CPvO/tw0Yf6RJG0sFRjfGF7Q/33jrCgjb8TEW2abYzNs1xbMZrAM6+f
+ s3tsJt71azux//4MTS3/Bx9AE+SIHTPQwMKd7ghf7uPsw/2Z4KtuvS0OCz82nuCkze
+ SCdcuNkOjIGyQ==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: mchp-spdiftx: Fix clang -Wbitfield-constant-conversion
+Date: Tue,  9 Aug 2022 18:08:09 -0700
+Message-Id: <20220810010809.2024482-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <N9213zQ--3-2@tutanota.com>
-Cc: Alsa Devel <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ alsa-devel@alsa-project.org, Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,57 +88,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+A recent change in clang strengthened its -Wbitfield-constant-conversion
+to warn when 1 is assigned to a 1-bit signed integer bitfield, as it can
+only be 0 or -1, not 1:
 
-I'm a maintainer of ALSA firewire stack. Thanks for your contacting to the
-list.
+  sound/soc/atmel/mchp-spdiftx.c:505:20: error: implicit truncation from 'int' to bit-field changes value from 1 to -1 [-Werror,-Wbitfield-constant-conversion]
+          dev->gclk_enabled = 1;
+                            ^ ~
+  1 error generated.
 
-On Tue, Aug 09, 2022 at 04:44:23PM +0200, forevernoob@tutanota.com wrote:
-> Hello,
-> 
-> I'm new to these kinds of mailing lists so please forgive me if I'm doing something dumb.
-> 
-> I would love to see Allen & Heath Zed R16 as well as Midas Venice F32 support in ALSA.
-> ...
-> So my question would be: How difficult would it be to port this driver
-> (more specifically: Port it sufficiently enough to support the
-> aforementioned devices) ?
-> 
-> Are we talking trivial enough for someone with minimal C experience, a
-> dedicated team of ALSA devs or something else?
+The actual value of the field is never checked, just that it is not
+zero, so there is not a real bug here. However, it is simple enough to
+silence the warning by making the bitfield unsigned, which matches the
+mchp-spdifrx driver.
 
-If investigating just for code migration from libffado2, it's impossible
-since the implementation of ALSA dice driver is completely different from
-the implementation of the dice part of libffado2. They have different
-root for development. Thus we need to start investigation for the devices
-at the first place. It demands you for a bit patience.
+Fixes: 06ca24e98e6b ("ASoC: mchp-spdiftx: add driver for S/PDIF TX Controller")
+Link: https://github.com/ClangBuiltLinux/linux/issues/1686
+Link: https://github.com/llvm/llvm-project/commit/82afc9b169a67e8b8a1862fb9c41a2cd974d6691
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ sound/soc/atmel/mchp-spdiftx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-As long as reading manuals of the models, hardware vendors selected
-TCD2210 ASIC (Dice Jr.) for them. I know that some options were given to
-the vendors when using the ASIC;
- 1. just with TCAT general protocol
- 2. with both TCAT general protocol and protocol extension
- 3. with Open Generic Transporter (OGT) protocol.
+diff --git a/sound/soc/atmel/mchp-spdiftx.c b/sound/soc/atmel/mchp-spdiftx.c
+index 4850a177803d..ab2d7a791f39 100644
+--- a/sound/soc/atmel/mchp-spdiftx.c
++++ b/sound/soc/atmel/mchp-spdiftx.c
+@@ -196,7 +196,7 @@ struct mchp_spdiftx_dev {
+ 	struct clk				*pclk;
+ 	struct clk				*gclk;
+ 	unsigned int				fmt;
+-	int					gclk_enabled:1;
++	unsigned int				gclk_enabled:1;
+ };
+ 
+ static inline int mchp_spdiftx_is_running(struct mchp_spdiftx_dev *dev)
 
-If you can drive the devices by libffado2, the possibility of OGT is
-dropped. The implementation of libffado2 mention about the 2nd option by
-usage of word, EAP (=Extended Application Protocol), however I know the
-case of TCD2220 without protocol extension. It's Lexicon FW810s[1], In
-the case, we need to hard-code stream formats in ALSA dice driver by
-investigation to actual models.
+base-commit: 15205c2829ca2cbb5ece5ceaafe1171a8470e62b
+-- 
+2.37.1
 
-Anyway, if you are satisfied in libffado2, it's better to continue using
-it. Of course, I would be glad if I got your help to extend ALSA firewire
-stack.
-
-P.S. If you are interested in DICE ASICs and protocols themselves, it's
-a good start to read my user space implementation (but by Rust language),
-which I recently published. You can see overview at crates.io[2].
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git?id=9a08676fc596
-[2] https://crates.io/crates/firewire-dice-protocols
-
-
-Regards
-
-Takashi Sakamoto

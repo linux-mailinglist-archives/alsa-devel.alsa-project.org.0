@@ -2,196 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FB7658FB0F
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Aug 2022 13:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28AF58FE93
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Aug 2022 16:52:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7982C83B;
-	Thu, 11 Aug 2022 13:02:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7982C83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F3ED1E4;
+	Thu, 11 Aug 2022 16:51:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F3ED1E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660215781;
-	bh=F1bhZG1SNV4Ap+aQYLlmZoE5oIIL9sENGT6EzNF2nZw=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1660229530;
+	bh=HSJNSVuAC8YKJX15gVAYrRYQ/PBCo4MOj1lwTuYhLPw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gMkRgCXNwz05oIaa6AqWjmnWgFIIwAhp5mJIL9LMEBF/CnsXi7fW60q5umKsAhky5
-	 7FPObYVaOuMHX5Zmg0nvnnj2oRu8i8zQxJ7akXgxI+EYG3Z06CyR+mQjvOsZiaRE0k
-	 gfHYJhuj0uySfhQ/iD4QMt64x7LHtsVVj4JTN2Ao=
+	b=nSy7eud7Gg6ooLXBEl9xsD43fSA/S2IhixVtpsl8iInFOuTtFDeA3L8tmk+h+wRwp
+	 HoVDq3Z3EFayFHtYlvhvDPslCG1Q9GdvTQggJ3/29REqw0Jl2UvpE+aQ2iij6LjJ3q
+	 wL1Apk8cakL2q90IavKat/SV5rVOFmZCsVch/A1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7B0AF800AA;
-	Thu, 11 Aug 2022 13:02:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF47F802DB;
+	Thu, 11 Aug 2022 16:51:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDF1AF800AA; Thu, 11 Aug 2022 13:02:00 +0200 (CEST)
+ id D49EEF800FB; Thu, 11 Aug 2022 16:51:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1A53F800AA
- for <alsa-devel@alsa-project.org>; Thu, 11 Aug 2022 13:01:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1A53F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6283EF8012A
+ for <alsa-devel@alsa-project.org>; Thu, 11 Aug 2022 16:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6283EF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="WHP6Zr80"; 
- dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="p0uyQvyF"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27B95Qib021745;
- Thu, 11 Aug 2022 11:01:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2022-7-12;
- bh=Kz1UhjyVVCQbJOxQsiMYvgNHKTfNonmjPYzHlgamdSw=;
- b=WHP6Zr80PdUaC9nIKsfGCs2vGn7/rlPs/Mmk2WQ0bw9CKx8x1+LgBXTCRmEyzX+OnEyq
- YixwuQ0+EJcZw/kBBH2Vdst2/TRJLyqD5uHArWHm0VyJhXyeMvfftacPr4UDo2Pf/dap
- UyhotHC+/RZbx6JnohFeGAUhd0Fmuy1bYlp0Y8EEIhDTsTb3BdXcRAUtgibU00vClKDt
- lAUQDL22DmunM4/JftlO5/gR+49yBQu8ofxn6IBRxoUKEoE/qewCbTIPsQxw0t9uuo/6
- x6uMWYNTagce/KTpyIokrvps5CFRkX+jy7T/v4jQBpsPiqyQA41Af48yTbVE26YTmGxl EA== 
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3huwqj4b3b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 11 Aug 2022 11:01:45 +0000
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 27B95gL6019018; Thu, 11 Aug 2022 11:01:44 GMT
-Received: from nam04-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam04lp2043.outbound.protection.outlook.com [104.47.74.43])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3huwqk090a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 11 Aug 2022 11:01:44 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kMkCK/3a1k8S0D212veXCU2ZSszttoMr3o5zIPs4n3RjnK6+WPdQWtbKmFXb7duA0AfufqcjpVIMFBN2mXHrrBxIW1LfnhPmwbEDKoM2T0KJ0kmCYdBJT+GTUPm9jy1Jr0+dujQmEyB6BxIuRl/O7pNbyzp48I/8vt4C5WEm8DXWnPab26zdjFTImY4cZQHp+vnJwsN0yvBcE/KcE8XsX+fKCsBcgETns/D0JdYwGznpALy/S9cMQiNN2gGhkvlVl5xwIe7j9TgdEXbmVUkAVh8wyHdb+UM7vjdCoZBN81zcSYql7OPregjfdkKO+EfA35Mk+yh4VMUd5SW+k5LkDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kz1UhjyVVCQbJOxQsiMYvgNHKTfNonmjPYzHlgamdSw=;
- b=AGhXRSMSZMUNxBxR0xT+cbz33nm2JWZCA0W1oOYKiG8v0jN/Q8fCT0gEe064NT6GNRylQjq/YJlPruvvKzUaJN3PbWptN0XEA0+WocZ2eW9m9YrBztYOqY5N32/KEwsdosgiUaSAXfKaVdCvqhFH3B13y0cDqlMvP2ibTNkigrNNBCBjcS0ganZi2dezPIHwxyxED7EHoWVMqjG6DiSZknw6eykmDK27wwa0J7rk81xxgFU/NdSx76I7OFfdQvssoqSz1h9UYZsbofuGKGaFWLhwJJa64OOg8fWfXws9F5rRn5YQFr16ft6QA6SLA3MEMCLyiZyXJcU1RiFKbmo0Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kz1UhjyVVCQbJOxQsiMYvgNHKTfNonmjPYzHlgamdSw=;
- b=p0uyQvyFdH7qcMu1cOausQxp+rxYsQW+ZWNQHnzjqxehP+7Hf8IjIvC0hlj+GYP2nv9ohQHCodHrBHK1YBVEICyXWXEiA69WTovtutemtSA0cQs4jOZyq3ZreqCWVO/baFl+5n+y3taySZhzq/BpL9aRy2Vt6QQ+VFXC9pdei3s=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by DM5PR10MB1708.namprd10.prod.outlook.com
- (2603:10b6:4:e::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.17; Thu, 11 Aug
- 2022 11:01:42 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::209e:de4d:68ea:c026]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::209e:de4d:68ea:c026%3]) with mapi id 15.20.5504.024; Thu, 11 Aug 2022
- 11:01:41 +0000
-Date: Thu, 11 Aug 2022 14:01:26 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Argus Lin <argus.lin@mediatek.com>
-Subject: [PATCH] ASoC: mt6359: fix tests for platform_get_irq() failure
-Message-ID: <YvThhr86N3qQM2EO@kili>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-ClientProxiedBy: LO2P265CA0269.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a1::17) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 257f8e01-3799-4d88-789f-08da7b88df37
-X-MS-TrafficTypeDiagnostic: DM5PR10MB1708:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DsKXtKW/241AjPypFJFYZuCI7TpY7MxRqDzTyin0IiRZJs8+pDQtN6UliOCysopUBl0VZDvWOID4XAPnm6qQcIi/8uM0JuOEQSW5U0SI4AxKjml+Zj3/MjzplcqfnQ6TQMNmWurgSsIqP/gm9alxAZvHypLMNvaZoB0WOoMSkywPaVA+z2pCMiwCmCO5RosQ4myUchPf4Vk5SOaA1I/Yb2+DhcaAlWXwYGUQKSsBxKFO3kByQxvKVGye28nXuZzI0irkR4oX1D79xXTnYLsT+yTUpP37gN86oNDSrIi0a27/h4pf+vMEj43Y3QBo283VQo8lCgg+wsuIgGEuRdjlTZ0beFBAhWWY2w48miNm1XgVAMa20zRe1KoZw23v4CjDs+kFgR8qQS8fPqNti7JJY8srJZyJWDJffNEf1OrpT5wWyOs/mMOVR3p54WNvRCqmoIYNRCFRoGGvvTxqTjBcCXFSpUkZludFIcTI5oAqfZfWA+VpOCdg83NECn4UtnZUFH9fFVrnG11Tuf1Yf+paKTRyKkgYJGRFGGyxD8g1tVEMGxqRtLNQh27y6lzRDSiWUwcelnx81c0IJOCzQg76jL7taHFNxXT6Nl37SSg8+Anh82KmprBHZrn8iINC2JZGDoRpMCQxs8O0JhQw1WOdqdzxM7ayGxnWxPO1Lzh29G1pLoTWHqtrIHNQfvVToRUf217QPv0t8zdnaTj/Ntezm9+IZfYCi9iAX/hhEI8tM8Fzoh9BtWzudJSK4kEu03VzhzdBqp8COG5BiMhT1LiGQG+UszkXMOGNe+4vtqulumk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(7916004)(396003)(346002)(366004)(376002)(39860400002)(136003)(44832011)(8936002)(9686003)(52116002)(5660300002)(7416002)(186003)(38350700002)(33716001)(38100700002)(2906002)(6666004)(6506007)(6512007)(26005)(86362001)(110136005)(6486002)(4326008)(54906003)(316002)(83380400001)(66556008)(66946007)(66476007)(478600001)(8676002)(41300700001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qh8Zcynev07TXc785o4/hMl0wo72TY9KMvM0libEtTcSNIYc+7ZJ+FDHupBJ?=
- =?us-ascii?Q?Ow7JslUqaeC87/YFH9yJvtGxOCojGQ94HyPvOnqNguYykmsgVBvJXtN0arXd?=
- =?us-ascii?Q?cKFPoosSw8gjmhDu2xCfo0MEfcGLxk4lm4+AzL/KurOmLqq6GmG+GV9LwQE0?=
- =?us-ascii?Q?8Q7o8/9q7jnRXEGyW+7erd0EgfOBeOm/EJZ/SW3GKydxucV/zSqbl3HaD0bq?=
- =?us-ascii?Q?J9s1IzToNlzJHjEp8oXy8VU4l/bW/Y52LdluRl3hUeItwT5GwIdNuWjUvudL?=
- =?us-ascii?Q?J6PPzn5xCEwjyUxxTtdvYWdGdTfUpe5fRuYlbpdH1dz0wyU6dMOoxg8sRS9r?=
- =?us-ascii?Q?7TgSyqThexL2ceDK5tvWl/uEwQ/tW+Jlyieuuf7XZltOb9NsQqO4OYoM1LIj?=
- =?us-ascii?Q?k6gLStKT4M22r904cCgN5jKNSV7OJK1bp/E8P7azjb5k+O6MnBH1Z9hCPsru?=
- =?us-ascii?Q?Zw/4H4Dy8Iy7wcI0mxHUvXsgZeA4eKwB1prkEw6VcXh4IJgX9O5KrutqNzr8?=
- =?us-ascii?Q?7+VMw6zpF+Hg49ktIjsd1myp+J0z4e+afAMnKv8oSMyowBXc884L0dSjGHa4?=
- =?us-ascii?Q?YqJ/MAVqp91CgPg+MwvxQN5Vh5f9eVEitPZs4mFPwBDF27GlPewBgTt5i0ac?=
- =?us-ascii?Q?gYtAeGzS80xRLjlsetn/0TE68MA2NMsGXHsOuSdvfhBERnApsSMjTVlnJoOt?=
- =?us-ascii?Q?h8S/c4dAxnZ4ko16qIhUU7pFzHrKfhMDWsZ1E5bhHSi2ML46C55xb8sICk0s?=
- =?us-ascii?Q?VNQxQwmCwzFlN3IupJpNpLvE1XwJcMF5ewg2HYHqgBN5I+tBe4Mh/OLy+J7P?=
- =?us-ascii?Q?EUw/w62OSVYz+BEfwqgBuZFwdg/UBiYeK6yywbbtAfbxb/3pQK7U/XoZ91Ba?=
- =?us-ascii?Q?h0Vfu37WtvuQweb4sTOkOFLQkDQZAQPMEQPt9MUONOh9Ze4YiJpzDAOsw3o+?=
- =?us-ascii?Q?s5k/VQ6Br4jS9ih5EuRqoSBkvLh7HT2oce1YVJ5hZUnm2O45S2vm3G3IXYG3?=
- =?us-ascii?Q?9NIT8eG7q5AWxaRGmHvioVi67f0fMtLHYrlX5Wq50DX1F644iUe69QCkwfsG?=
- =?us-ascii?Q?iFUNuGBBSOZMt3GCI4Jo+16vPD946GhVNQpvKsG3t5CXWQckt/tI7qztt3N6?=
- =?us-ascii?Q?nExxspvPAGSVmGjB0rIqLk5LJCda9jili/kaHwwGfa/duiaTKUC16p4bP3V4?=
- =?us-ascii?Q?+/2NDtFkZ1Vu/E43Xq138W5XdSCgHlqtR1Jz29ZQQo6YGS1GGmP3ZDavhcUb?=
- =?us-ascii?Q?YOgpj8kH7HlDRUD/9ASdOqThK6yoTT1zWV0VNB/WifxFXw7y8Ip3DxRgPJSC?=
- =?us-ascii?Q?ilZFqc4yhXGZMYGX+7S3pMRUFDS2Gqv+LbNmHMdJhhqPI3cs9MVBhqy/TqUf?=
- =?us-ascii?Q?rKMnsggUyxYlGqrBA9+R5sTfiuKpGwKGrduhIK5sl8txllq0gQNkzRcTpWd+?=
- =?us-ascii?Q?Etvba5as1PO50ZvX7SrGlcMnIY8FKJUppYH+qj06C1DPkc/6dF1mDitpiAbS?=
- =?us-ascii?Q?6mDpPv/fzLwGGy7bxQEhCLzWdyGunZstWAts4F8O2M5JwQYGXmbLFrAhNWEC?=
- =?us-ascii?Q?YxIdd0E5QiRoZ0VYqyNNuEVntgbMXSfTM8FWT5vHOBdxDg+0+m30DE08fngI?=
- =?us-ascii?Q?3A=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?VXWfJ7OU9cV+Z4o92yW2YEF3prvfrRxVNIscOYWgHTzxngQrxVdG1JZf4GGE?=
- =?us-ascii?Q?X54PXE725k7Y4xPv6odP4Wx443RAcPjKC/JBx46PfUeoYFZdIjO3fwGr2hrE?=
- =?us-ascii?Q?jkHtk4tsKApQrCoV9rpp/PBt83R4wA/oSxMUUIztRXqyRwNFciCByPq5YCHm?=
- =?us-ascii?Q?1pn5OucQDbz+8QFJ9noSbGQ8i1wsyTgJB8kkYQELT9sghOYuoENitna1g74h?=
- =?us-ascii?Q?4WSJ22d2SE+ObmfROM2vBcbCU+3qgVmsuIa5jiCNSDbtp3qAhnOfLo/odHkF?=
- =?us-ascii?Q?pvjy85U2zp2VS1fdNjVH+QDXsEajjDq55XIM0Hz352q00/RMDE6LQTx/9zkS?=
- =?us-ascii?Q?CZRywYYFO3R1Jx6a0VjQK9X/NFjnWCKTDy+avUeoXWi6+edBPCsRp0HuUlkg?=
- =?us-ascii?Q?dywo8GYOkpRIW1Ktn6y5HV+tOQX712UmT3JfDZM/XVmD817Rlpp/N7BwmYew?=
- =?us-ascii?Q?omLMAeXXDburx5+FeoV+tFHvvWbcWaNRDfuTtjaPPw3JhQRoWuT2uRaw29KF?=
- =?us-ascii?Q?zB9Za+Kr8wM5t7+NTHUeUrW1qdjvzZ7yulsa2tZ++LHzdfj/r7JUpteRC5kF?=
- =?us-ascii?Q?Z8IREZ6EG//oS1WWAPDXbjITf4v1UT2vh0Z2DJZ5iY8fP2W79BUrp9p3Ui+E?=
- =?us-ascii?Q?fv/onvtPQqF6T93jqScMIqL3ZWOKhefAuHWwNcWdTpBU8/tVzHHRCWrO/FDs?=
- =?us-ascii?Q?qBUuPcI/LVDrQcFYptJt2vLeH1DElZ6qQ9Z5BAsxOT0ziUvW5eHlD7+ceD/N?=
- =?us-ascii?Q?Py1uhytEkw64mJQd/OZvxgn4cj52IhrxBnT4iMeKoLQbDavPAksqViJoRK9H?=
- =?us-ascii?Q?l+BqvEQUe6E3kkpsFEx6My/4drY98psARe7pIWDCB7lCmAJUzRulNNeTkUml?=
- =?us-ascii?Q?zZ3YEVtCVgB+WT9SXfqUrNaniG2/MT1l7YbSWHkE3H7jP19unn8wDUY01922?=
- =?us-ascii?Q?/G45HNorZ01b33EfgrgRCmDqW90sEd0rGB8LyFIVIom2qaJBf1JgqQ7KvrGG?=
- =?us-ascii?Q?q4AfmSf0KPXrwh987LVTUyTZRDocD5ZVAPYq+WxuehPYQ9hzprm1gEl67Nrl?=
- =?us-ascii?Q?S+KEjIJ3JNH6b12ejM1IoX8RLXbQWezKU85nhLwrYya6Lmt0UA11qjq6/FzM?=
- =?us-ascii?Q?77s4cbaDeoyksirbNGBE6IbJIlgoOZsME1HvrsVOQMx1/+yl2JmSIdMC/2o4?=
- =?us-ascii?Q?oDRkBeSHTwdqZDjp6oSAtaUAei8Fhe7BRHlheZntiwN/pQloLxCcanPbFf0C?=
- =?us-ascii?Q?yYJyRyaSLeAXRNP3cSql?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 257f8e01-3799-4d88-789f-08da7b88df37
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2022 11:01:41.8007 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MaBZ3fUf17xRWy4SnFDiCKmob92dqhmRIJ/LAx905dk2kscjHKdmAx+yUHAFIkkC9LC1HnVXgb8P41ER53Y86tiAZaZ2MHiujBsc1iE5wPU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR10MB1708
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-11_05,2022-08-11_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- suspectscore=0
- spamscore=0 phishscore=0 adultscore=0 mlxscore=0 malwarescore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208110032
-X-Proofpoint-ORIG-GUID: aJms0YnZ7zxmMKvizS-9Y-ZcYLCrlkm0
-X-Proofpoint-GUID: aJms0YnZ7zxmMKvizS-9Y-ZcYLCrlkm0
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Liang He <windhl@126.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fShRpGe1"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ t22-20020a17090a449600b001f617f2bf3eso5678733pjg.0
+ for <alsa-devel@alsa-project.org>; Thu, 11 Aug 2022 07:51:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:subject:cc:to:from:from:to:cc;
+ bh=f4yt0AkjwL8NoalcQ6omdo5XI8uZSUPuP9ANadGeBG4=;
+ b=fShRpGe1UxNEOqNsTBN3/zj1kDpUtZWnbSQUvLwgUCV7wOJk7AM0/fNO/X6bzPqQOM
+ pCA7o5AjlJtiYrdxkNvMVpdW/OOxeQSdr01dKzJ0Q42fybQIQs9nvE9Fy3rBdVyMS3WT
+ RVOylgRNz6Sk1PDZpQW26sya4kEr7oOIMuSp9RSMiG0YEyYf9atkq/7Sf6bg6yPR4m5F
+ u2r5u8qa32xhrAdgp+RrOdlbHzB0IUEwsLgADKFRv42U8J2TSqTXDV0r1tNcWP2oa8M8
+ 5Sip2l/6eDUoxp17UHuWpYe7xqkzKL2KzPvomM4Nu1e/c1RsjMHvdiRgFJBGZNs0N5Ml
+ hDgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=f4yt0AkjwL8NoalcQ6omdo5XI8uZSUPuP9ANadGeBG4=;
+ b=DS/wfC6XrI3RQrYIXVaDqXbRV+L8ZhesSHjirFxXEW1VWFZ2UgMfZbuckSG0SggEDR
+ kzsNXeJ8cEB745VEgHucn2uKW/uWa1vV9Ha/kzHFF9jBMuA0W9i+qCpFTaKQBfX7kGmD
+ QBHH7O8+P0ZoG3Hx+A8N/dCHKI4C/BgWG9n6K5hKDmIXFdFCeJP/uYEqUzr9GMyOQP0b
+ KApDOe+mDdTGd89yy4eZTy9lpLu+MRGXj0/L258/dQ/KIsWvJ6Jk2VzzE84EFaMG4N8m
+ 4siC51qWs7BAKd+KG0myiFJAblfcyOwbniKy7uFPRxlC2zPRrHVfV5HeJytEcIW2B/sn
+ EG0g==
+X-Gm-Message-State: ACgBeo0tDBRSODYtajq9xCrYY1smHoQLP+QuyqBrRp2pHfM51wD4LVzB
+ Wo/4dkt2xnvgoWjrwQjlXw==
+X-Google-Smtp-Source: AA6agR6IJruFWNUgShBwzmal5Wxi61PVRBWSXPPFeXL43+iNFMmJ1eaumR5UbtMeIpHYYfzpMTfNzQ==
+X-Received: by 2002:a17:90b:4f8e:b0:1f4:ed30:d286 with SMTP id
+ qe14-20020a17090b4f8e00b001f4ed30d286mr9450339pjb.66.1660229461037; 
+ Thu, 11 Aug 2022 07:51:01 -0700 (PDT)
+Received: from localhost.localdomain ([116.30.110.209])
+ by smtp.gmail.com with ESMTPSA id
+ w13-20020a62820d000000b0052d748498edsm4281028pfd.13.2022.08.11.07.50.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 11 Aug 2022 07:51:00 -0700 (PDT)
+From: Ban Tao <fengzheng923@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ wens@csie.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+ fengzheng923@gmail.com
+Subject: [PATCH v8 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
+Date: Thu, 11 Aug 2022 07:49:03 -0700
+Message-Id: <1660229343-14133-1-git-send-email-fengzheng923@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -207,46 +99,500 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The platform_get_irq() returns negative error codes.  It can't actually
-return zero, but if it did that should be treated as success.
+The Allwinner H6 and later SoCs have an DMIC block
+which is capable of capture.
 
-Fixes: eef07b9e0925 ("ASoC: mediatek: mt6359: add MT6359 accdet jack driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Ban Tao <fengzheng923@gmail.com>
 ---
- sound/soc/codecs/mt6359-accdet.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v1->v2:
+1.Fix some compilation errors.
+2.Modify some code styles.
 
-diff --git a/sound/soc/codecs/mt6359-accdet.c b/sound/soc/codecs/mt6359-accdet.c
-index c190628e2905..7f624854948c 100644
---- a/sound/soc/codecs/mt6359-accdet.c
-+++ b/sound/soc/codecs/mt6359-accdet.c
-@@ -965,7 +965,7 @@ static int mt6359_accdet_probe(struct platform_device *pdev)
- 	mutex_init(&priv->res_lock);
+v2->v3:
+None.
+
+v3->v4:
+1.add sig_bits.
+
+v4->v5:
+None.
+
+v5->v6:
+1.Modify RXFIFO_CTL_MODE to mode 1.
+
+v6->v7:
+1.Modify dmic_rate_s to be a global variable.
+2.Changed some macro names to make more sense.
+3.Align code format.
+4.Add a depends on PM to Kconfig entry.
+
+v7->v8:
+None.
+---
+ MAINTAINERS                   |   7 +
+ sound/soc/sunxi/Kconfig       |   8 +
+ sound/soc/sunxi/Makefile      |   1 +
+ sound/soc/sunxi/sun50i-dmic.c | 405 ++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 421 insertions(+)
+ create mode 100644 sound/soc/sunxi/sun50i-dmic.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e9d5b05..839f625 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -796,6 +796,13 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	drivers/staging/media/sunxi/cedrus/
  
- 	priv->accdet_irq = platform_get_irq(pdev, 0);
--	if (priv->accdet_irq) {
-+	if (priv->accdet_irq >= 0) {
- 		ret = devm_request_threaded_irq(&pdev->dev, priv->accdet_irq,
- 						NULL, mt6359_accdet_irq,
- 						IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-@@ -979,7 +979,7 @@ static int mt6359_accdet_probe(struct platform_device *pdev)
++ALLWINNER DMIC DRIVERS
++M:	Ban Tao <fengzheng923@gmail.com>
++L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
++F:	sound/soc/sunxi/sun50i-dmic.c
++
+ ALPHA PORT
+ M:	Richard Henderson <rth@twiddle.net>
+ M:	Ivan Kokshaysky <ink@jurassic.park.msu.ru>
+diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+index ddcaaa9..8543234 100644
+--- a/sound/soc/sunxi/Kconfig
++++ b/sound/soc/sunxi/Kconfig
+@@ -56,6 +56,14 @@ config SND_SUN4I_SPDIF
+ 	  Say Y or M to add support for the S/PDIF audio block in the Allwinner
+ 	  A10 and affiliated SoCs.
  
- 	if (priv->caps & ACCDET_PMIC_EINT0) {
- 		priv->accdet_eint0 = platform_get_irq(pdev, 1);
--		if (priv->accdet_eint0) {
-+		if (priv->accdet_eint0 >= 0) {
- 			ret = devm_request_threaded_irq(&pdev->dev,
- 							priv->accdet_eint0,
- 							NULL, mt6359_accdet_irq,
-@@ -994,7 +994,7 @@ static int mt6359_accdet_probe(struct platform_device *pdev)
- 		}
- 	} else if (priv->caps & ACCDET_PMIC_EINT1) {
- 		priv->accdet_eint1 = platform_get_irq(pdev, 2);
--		if (priv->accdet_eint1) {
-+		if (priv->accdet_eint1 >= 0) {
- 			ret = devm_request_threaded_irq(&pdev->dev,
- 							priv->accdet_eint1,
- 							NULL, mt6359_accdet_irq,
++config SND_SUN50I_DMIC
++	tristate "Allwinner H6 DMIC Support"
++	depends on (OF && PM && ARCH_SUNXI) || COMPILE_TEST
++	select SND_SOC_GENERIC_DMAENGINE_PCM
++	help
++	  Say Y or M to add support for the DMIC audio block in the Allwinner
++	  H6 and affiliated SoCs.
++
+ config SND_SUN8I_ADDA_PR_REGMAP
+ 	tristate
+ 	select REGMAP
+diff --git a/sound/soc/sunxi/Makefile b/sound/soc/sunxi/Makefile
+index a86be34..4483fe9 100644
+--- a/sound/soc/sunxi/Makefile
++++ b/sound/soc/sunxi/Makefile
+@@ -6,3 +6,4 @@ obj-$(CONFIG_SND_SUN8I_CODEC_ANALOG) += sun8i-codec-analog.o
+ obj-$(CONFIG_SND_SUN50I_CODEC_ANALOG) += sun50i-codec-analog.o
+ obj-$(CONFIG_SND_SUN8I_CODEC) += sun8i-codec.o
+ obj-$(CONFIG_SND_SUN8I_ADDA_PR_REGMAP) += sun8i-adda-pr-regmap.o
++obj-$(CONFIG_SND_SUN50I_DMIC) += sun50i-dmic.o
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+new file mode 100644
+index 0000000..76b3378
+--- /dev/null
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -0,0 +1,405 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++//
++// This driver supports the DMIC in Allwinner's H6 SoCs.
++//
++// Copyright 2021 Ban Tao <fengzheng923@gmail.com>
++
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/of_device.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++#include <sound/dmaengine_pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++
++#define SUN50I_DMIC_EN_CTL             (0x00)
++	#define SUN50I_DMIC_EN_CTL_GLOBE                BIT(8)
++	#define SUN50I_DMIC_EN_CTL_CHAN(v)              ((v) << 0)
++	#define SUN50I_DMIC_EN_CTL_CHAN_MASK            GENMASK(7, 0)
++#define SUN50I_DMIC_SR                 (0x04)
++	#define SUN50I_DMIC_SR_SAMPLE_RATE(v)           ((v) << 0)
++	#define SUN50I_DMIC_SR_SAMPLE_RATE_MASK         GENMASK(2, 0)
++#define SUN50I_DMIC_CTL                (0x08)
++	#define SUN50I_DMIC_CTL_OVERSAMPLE_RATE         BIT(0)
++#define SUN50I_DMIC_DATA               (0x10)
++#define SUN50I_DMIC_INTC               (0x14)
++	#define SUN50I_DMIC_FIFO_DRQ_EN                 BIT(2)
++#define SUN50I_DMIC_INT_STA            (0x18)
++	#define SUN50I_DMIC_INT_STA_OVERRUN_IRQ_PENDING BIT(1)
++	#define SUN50I_DMIC_INT_STA_DATA_IRQ_PENDING    BIT(0)
++#define SUN50I_DMIC_RXFIFO_CTL         (0x1c)
++	#define SUN50I_DMIC_RXFIFO_CTL_FLUSH            BIT(31)
++	#define SUN50I_DMIC_RXFIFO_CTL_MODE_MASK	BIT(9)
++	#define SUN50I_DMIC_RXFIFO_CTL_MODE_LSB		(0 << 9)
++	#define SUN50I_DMIC_RXFIFO_CTL_MODE_MSB		(1 << 9)
++	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK      BIT(8)
++	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_16        (0 << 8)
++	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_24        (1 << 8)
++#define SUN50I_DMIC_CH_NUM             (0x24)
++	#define SUN50I_DMIC_CH_NUM_N(v)                 ((v) << 0)
++	#define SUN50I_DMIC_CH_NUM_N_MASK               GENMASK(2, 0)
++#define SUN50I_DMIC_CNT                (0x2c)
++	#define SUN50I_DMIC_CNT_N                       BIT(0)
++#define SUN50I_DMIC_HPF_CTRL           (0x38)
++#define SUN50I_DMIC_VERSION            (0x50)
++
++struct sun50i_dmic_dev {
++	struct clk *dmic_clk;
++	struct clk *bus_clk;
++	struct reset_control *rst;
++	struct regmap *regmap;
++	struct snd_dmaengine_dai_dma_data dma_params_rx;
++};
++
++struct dmic_rate {
++	unsigned int samplerate;
++	unsigned int rate_bit;
++};
++
++static struct dmic_rate dmic_rate_s[] = {
++	{48000, 0x0},
++	{44100, 0x0},
++	{32000, 0x1},
++	{24000, 0x2},
++	{22050, 0x2},
++	{16000, 0x3},
++	{12000, 0x4},
++	{11025, 0x4},
++	{8000,  0x5},
++};
++
++static int sun50i_dmic_startup(struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *cpu_dai)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
++
++	/* only support capture */
++	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
++		return -EINVAL;
++
++	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++			SUN50I_DMIC_RXFIFO_CTL_FLUSH,
++			SUN50I_DMIC_RXFIFO_CTL_FLUSH);
++	regmap_write(host->regmap, SUN50I_DMIC_CNT, SUN50I_DMIC_CNT_N);
++
++	return 0;
++}
++
++static int sun50i_dmic_hw_params(struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *params,
++				 struct snd_soc_dai *cpu_dai)
++{
++	int i = 0;
++	unsigned long rate = params_rate(params);
++	unsigned int mclk = 0;
++	unsigned int channels = params_channels(params);
++	unsigned int chan_en = (1 << channels) - 1;
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(cpu_dai);
++
++	/* DMIC num is N+1 */
++	regmap_update_bits(host->regmap, SUN50I_DMIC_CH_NUM,
++			   SUN50I_DMIC_CH_NUM_N_MASK,
++			   SUN50I_DMIC_CH_NUM_N(channels - 1));
++	regmap_write(host->regmap, SUN50I_DMIC_HPF_CTRL, chan_en);
++	regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++			   SUN50I_DMIC_EN_CTL_CHAN_MASK,
++			   SUN50I_DMIC_EN_CTL_CHAN(chan_en));
++
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK,
++				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_16);
++		break;
++	case SNDRV_PCM_FORMAT_S24_LE:
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK,
++				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_24);
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Invalid format!\n");
++		return -EINVAL;
++	}
++	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++			   SUN50I_DMIC_RXFIFO_CTL_MODE_MASK,
++			   SUN50I_DMIC_RXFIFO_CTL_MODE_MSB);
++
++	switch (rate) {
++	case 11025:
++	case 22050:
++	case 44100:
++		mclk = 22579200;
++		break;
++	case 8000:
++	case 12000:
++	case 16000:
++	case 24000:
++	case 32000:
++	case 48000:
++		mclk = 24576000;
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Invalid rate!\n");
++		return -EINVAL;
++	}
++
++	if (clk_set_rate(host->dmic_clk, mclk)) {
++		dev_err(cpu_dai->dev, "mclk : %u not support\n", mclk);
++		return -EINVAL;
++	}
++
++	for (i = 0; i < ARRAY_SIZE(dmic_rate_s); i++) {
++		if (dmic_rate_s[i].samplerate == rate) {
++			regmap_update_bits(host->regmap, SUN50I_DMIC_SR,
++					   SUN50I_DMIC_SR_SAMPLE_RATE_MASK,
++					   SUN50I_DMIC_SR_SAMPLE_RATE(dmic_rate_s[i].rate_bit));
++			break;
++		}
++	}
++
++	switch (params_physical_width(params)) {
++	case 16:
++		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
++		break;
++	case 32:
++		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Unsupported physical sample width: %d\n",
++			params_physical_width(params));
++		return -EINVAL;
++	}
++
++	/* oversamplerate adjust */
++	if (params_rate(params) >= 24000)
++		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE);
++	else
++		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE, 0);
++
++	return 0;
++}
++
++static int sun50i_dmic_trigger(struct snd_pcm_substream *substream, int cmd,
++			       struct snd_soc_dai *dai)
++{
++	int ret = 0;
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
++
++	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
++		return -EINVAL;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		/* DRQ ENABLE */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
++				   SUN50I_DMIC_FIFO_DRQ_EN,
++				   SUN50I_DMIC_FIFO_DRQ_EN);
++		/* Global enable */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_GLOBE,
++				   SUN50I_DMIC_EN_CTL_GLOBE);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		/* DRQ DISABLE */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
++				   SUN50I_DMIC_FIFO_DRQ_EN, 0);
++		/* Global disable */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_GLOBE, 0);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++	return ret;
++}
++
++static int sun50i_dmic_soc_dai_probe(struct snd_soc_dai *dai)
++{
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
++
++	snd_soc_dai_init_dma_data(dai, NULL, &host->dma_params_rx);
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops sun50i_dmic_dai_ops = {
++	.startup        = sun50i_dmic_startup,
++	.trigger        = sun50i_dmic_trigger,
++	.hw_params      = sun50i_dmic_hw_params,
++};
++
++static const struct regmap_config sun50i_dmic_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = SUN50I_DMIC_VERSION,
++	.cache_type = REGCACHE_NONE,
++};
++
++#define SUN50I_DMIC_RATES (SNDRV_PCM_RATE_8000_48000)
++#define SUN50I_DMIC_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
++
++static struct snd_soc_dai_driver sun50i_dmic_dai = {
++	.capture = {
++		.channels_min = 1,
++		.channels_max = 8,
++		.rates = SUN50I_DMIC_RATES,
++		.formats = SUN50I_DMIC_FORMATS,
++		.sig_bits = 21,
++	},
++	.probe = sun50i_dmic_soc_dai_probe,
++	.ops = &sun50i_dmic_dai_ops,
++	.name = "dmic",
++};
++
++static const struct of_device_id sun50i_dmic_of_match[] = {
++	{
++		.compatible = "allwinner,sun50i-h6-dmic",
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
++
++static const struct snd_soc_component_driver sun50i_dmic_component = {
++	.name           = "sun50i-dmic",
++};
++
++static int sun50i_dmic_runtime_suspend(struct device *dev)
++{
++	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
++
++	clk_disable_unprepare(host->dmic_clk);
++	clk_disable_unprepare(host->bus_clk);
++
++	return 0;
++}
++
++static int sun50i_dmic_runtime_resume(struct device *dev)
++{
++	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_prepare_enable(host->dmic_clk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(host->bus_clk);
++	if (ret) {
++		clk_disable_unprepare(host->dmic_clk);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int sun50i_dmic_probe(struct platform_device *pdev)
++{
++	struct sun50i_dmic_dev *host;
++	struct resource *res;
++	int ret;
++	void __iomem *base;
++
++	host = devm_kzalloc(&pdev->dev, sizeof(*host), GFP_KERNEL);
++	if (!host)
++		return -ENOMEM;
++
++	/* Get the addresses */
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	base = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(base))
++		return dev_err_probe(&pdev->dev, PTR_ERR(base),
++				     "get resource failed.\n");
++
++	host->regmap = devm_regmap_init_mmio(&pdev->dev, base,
++					     &sun50i_dmic_regmap_config);
++
++	/* Clocks */
++	host->bus_clk = devm_clk_get(&pdev->dev, "bus");
++	if (IS_ERR(host->bus_clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->bus_clk),
++				     "failed to get bus clock.\n");
++
++	host->dmic_clk = devm_clk_get(&pdev->dev, "mod");
++	if (IS_ERR(host->dmic_clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->dmic_clk),
++				     "failed to get dmic clock.\n");
++
++	host->dma_params_rx.addr = res->start + SUN50I_DMIC_DATA;
++	host->dma_params_rx.maxburst = 8;
++
++	platform_set_drvdata(pdev, host);
++
++	host->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
++	if (IS_ERR(host->rst))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->rst),
++				     "Failed to get reset.\n");
++	reset_control_deassert(host->rst);
++
++	ret = devm_snd_soc_register_component(&pdev->dev, &sun50i_dmic_component,
++					      &sun50i_dmic_dai, 1);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to register component.\n");
++
++	pm_runtime_enable(&pdev->dev);
++	if (!pm_runtime_enabled(&pdev->dev)) {
++		ret = sun50i_dmic_runtime_resume(&pdev->dev);
++		if (ret)
++			goto err_disable_runtime_pm;
++	}
++
++	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
++	if (ret)
++		goto err_suspend;
++
++	return 0;
++err_suspend:
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		sun50i_dmic_runtime_suspend(&pdev->dev);
++err_disable_runtime_pm:
++	pm_runtime_disable(&pdev->dev);
++	return ret;
++}
++
++static int sun50i_dmic_remove(struct platform_device *pdev)
++{
++	pm_runtime_disable(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		sun50i_dmic_runtime_suspend(&pdev->dev);
++
++	return 0;
++}
++
++static const struct dev_pm_ops sun50i_dmic_pm = {
++	SET_RUNTIME_PM_OPS(sun50i_dmic_runtime_suspend,
++			   sun50i_dmic_runtime_resume, NULL)
++};
++
++static struct platform_driver sun50i_dmic_driver = {
++	.driver         = {
++		.name   = "sun50i-dmic",
++		.of_match_table = of_match_ptr(sun50i_dmic_of_match),
++		.pm     = &sun50i_dmic_pm,
++	},
++	.probe          = sun50i_dmic_probe,
++	.remove         = sun50i_dmic_remove,
++};
++
++module_platform_driver(sun50i_dmic_driver);
++
++MODULE_DESCRIPTION("Allwinner sun50i DMIC SoC Interface");
++MODULE_AUTHOR("Ban Tao <fengzheng923@gmail.com>");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:sun50i-dmic");
 -- 
-2.35.1
+2.7.4
 

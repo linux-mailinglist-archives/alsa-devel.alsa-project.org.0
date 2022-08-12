@@ -2,79 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A565910CF
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Aug 2022 14:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A104B591110
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Aug 2022 14:52:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25A7D83B;
-	Fri, 12 Aug 2022 14:33:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25A7D83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35E94850;
+	Fri, 12 Aug 2022 14:51:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35E94850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660307682;
-	bh=FUfc1TFo94swYywRR9ki3WQ1R4VUwdEZ+9NUnE3thjU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1660308751;
+	bh=pLT/JhLRJVT6Hx+fXKzxWkT0IVl2IJGUlJL/FYAB+og=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BiSMPhgBI+ADVVQJK2qYUyOaU3a3NSsAwfVF2UBa0/eLTYJddRmtpMXtWUwlU8+SI
-	 Bb0U+YJYIzweBSL9+8/aNXK7sDJCVNyAF6xEkMzbWITWdV+ePhOAj1vcWWuPH8Ca+6
-	 ZNoo9YjdO0YfWjhK2a6sEc0S+OTVVlkJw9jdP/B0=
+	b=eVQZcI9DqCtb9Z17iBYe88szVtGv0FPhT0gw5xzLQE+KNcGY9qHZADawvGRlwv9bA
+	 VI5Z3Vo3d+1xs9qJMg6nFvtbt9epxrYXKITU2hXdzYbQ/CY5G9ab2sJLgOz8gRNjsW
+	 I5McwNgJVVgABVZHzAha5wwdfAOaK8GHXfVu3/kE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72858F8026D;
-	Fri, 12 Aug 2022 14:33:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E208F80054;
+	Fri, 12 Aug 2022 14:51:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26347F8026A; Fri, 12 Aug 2022 14:33:41 +0200 (CEST)
+ id 07310F8026A; Fri, 12 Aug 2022 14:51:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87E5DF8014B
- for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 14:33:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87E5DF8014B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q4KOADSO"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 60CD461786;
- Fri, 12 Aug 2022 12:33:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D419C433C1;
- Fri, 12 Aug 2022 12:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660307614;
- bh=FUfc1TFo94swYywRR9ki3WQ1R4VUwdEZ+9NUnE3thjU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q4KOADSOuJUBf44A8BVVm9ZGOfi3J+RRo3RCr8qQQBV1gTQPgGscyjU+VsRWfko7x
- cOZwfNKqBcU4N/wYGexx3EPC+IPHBFpwKMNc3Qq6CI+4NJqt4g7Jy8u7mozZM/rUCk
- wxD/yvnyfxyRttL7D+ZUcvGc7fnff2WPSlomPe/1COUP5/6rCtzT7wcRt+pWv0q1z2
- GLGWHlHoRNfBymjNYt0BFbMclTHfymRnLj04KhNMbxpsQ/J4hx9gK1rJtMwgk1qPbg
- cdG+sshiD3X77prvAUPcBdnMkgaXdk5BjzqGMI8NVzB4Rt0ZWmMdruFr3rhayRtgu4
- YEwhJKQIV+Pdg==
-Date: Fri, 12 Aug 2022 13:33:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Syed Saba kareem <Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH 03/13] ASoC: amd: add acp6.2 init/de-init functions
-Message-ID: <YvZImUY5VUgnqNGk@sirena.org.uk>
-References: <20220812120731.788052-1-Syed.SabaKareem@amd.com>
- <20220812120731.788052-4-Syed.SabaKareem@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74EEAF80054
+ for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 14:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74EEAF80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TWOKkvCu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660308688; x=1691844688;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=pLT/JhLRJVT6Hx+fXKzxWkT0IVl2IJGUlJL/FYAB+og=;
+ b=TWOKkvCubdHMkUnovV24BbNv9OQvknSJ9qgc6HqDMmsePRBoN+u9YeLp
+ 62lHwB9k/lxUz3av7bHOJ/70655IA1Mon9KNq33+04g3SNmqSz3fd0KcQ
+ mPuFU96tlqzWqPBpNToQymvL+U1fGPF2oM7iAnq99oGhmP4MZ23XBAIkN
+ 9XBpq8thynJBh9ff/jL6ek8m4rjbfyie4m84wHCfHqryde4Wn+DusNJkN
+ aw30n8fw4MqJJDw2jvaBJKRItblt+YwjdaQL+FoeMDnXEW0Bio26EkF3w
+ 5rTxjP2iuDL4rkMkb7EmjkCD+bhyHKjmgGReFLQvH8k0gOczS8DBfUN/q Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="353329570"
+X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="353329570"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2022 05:51:21 -0700
+X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="556506169"
+Received: from pkruijer-mobl.ger.corp.intel.com (HELO [10.249.41.102])
+ ([10.249.41.102])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2022 05:51:16 -0700
+Message-ID: <4fe4853d-a446-1f72-2f32-f63eb6733adc@linux.intel.com>
+Date: Fri, 12 Aug 2022 14:41:09 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="B0pljCE077v7zEjS"
-Content-Disposition: inline
-In-Reply-To: <20220812120731.788052-4-Syed.SabaKareem@amd.com>
-X-Cookie: No foreign coins.
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- mario.limonciello@amd.com, Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: Add support for jsl_rt5682_rt1019
+Content-Language: en-US
+To: Sean Hong <sean.hong@quanta.corp-partner.google.com>, perex@perex.cz,
+ tiwai@suse.com
+References: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, brent.lu@intel.com, yong.zhi@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +97,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---B0pljCE077v7zEjS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>  static const struct snd_soc_acpi_codecs mx98360a_spk = {
+>  	.num_codecs = 1,
+>  	.codecs = {"MX98360A"}
+> @@ -78,6 +83,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+>  		.quirk_data = &mx98360a_spk,
+>  		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
+>  	},
+> +	{
+> +		.comp_ids = &rt5682_rt5682s_hp,
+> +		.drv_name = "jsl_rt5682_rt1019",
+> +		.sof_fw_filename = "sof-jsl.ri",
+> +		.machine_quirk = snd_soc_acpi_codec_list,
+> +		.quirk_data = &rt1019p_spk,
+> +		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
 
-On Fri, Aug 12, 2022 at 05:37:21PM +0530, Syed Saba kareem wrote:
+this patch adds support for the rt1019, the line above looks like a
+copy-paste mistake.
 
-> +	/* power on */
-> +	ret = acp62_power_on(acp_base);
-> +	if (ret) {
-> +		pr_err("ACP power on failed\n");
-> +		return ret;
-> +	}
+We shouldn't use the same topology files for different platforms, it's
+not good maintenance-wise and since we store default values for some
+controls it's really not a good idea.
 
-It would be better if you passed the device in so messages like this
-could be dev_err() rather than just pr_err().
+Please use a unique string such as sof-jsl-rt5682-rt1019.tplg, thanks.
 
---B0pljCE077v7zEjS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmL2SJgACgkQJNaLcl1U
-h9DlOQf9HdVqSnXnN96Td4SQOGqazW0R4j9ss0dhrbUPKYN9e/+jEcE184D1mqqi
-v1xQCwSPhsHWIp0E6CcV7j7j6gZP9mN8S+IZbtlbCRX+OryIXtBnmqvQA74j4Eod
-7H5+FsPWXNpni76NvzfFiEaNXTZZMGUb7jmjqJ78D1mWYju46F5yHpbFgilVvHkf
-j343RbHp3Xj+iZBPcmapv8tVIInoLBYv2nqfpioycJG/WAIi1k5rLNDJ6C0TyhAw
-q6LwW4vmo/jptfJsaWYNwI7mCZh992XmhlGctC7sUy1Uxe+iwAnDvIrM/AHkV2qW
-XAei8F1c0rFanUkRCuzPEkVJtoNZvw==
-=EBfU
------END PGP SIGNATURE-----
-
---B0pljCE077v7zEjS--
+> +	},
+>  	{
+>  		.id = "10134242",
+>  		.drv_name = "jsl_cs4242_mx98360a",

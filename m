@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5157259120F
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Aug 2022 16:20:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82745591210
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Aug 2022 16:21:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDD53829;
-	Fri, 12 Aug 2022 16:20:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDD53829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2895F843;
+	Fri, 12 Aug 2022 16:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2895F843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660314055;
-	bh=KXN+Gs8gDE/y+asR3/oT8SUhOJatnbLYaxzZBiRp2no=;
+	s=default; t=1660314085;
+	bh=7SfuAmb8mmGQTiSG1CTMf6FTKfJ/9PLlg+perjfDTnI=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vZRXy77i9DcYOFxehEZ/eRA6pnOFtnWNiAf5oPVFsE1t6MjqiZwFoIp79Eut9lDio
-	 GHnTT0zVZY/+OVET3whQ7U4bXZigZ5CVTs6HO/oVEXMmzWDQrUOIoTdH3lZ0zLJktF
-	 obsbYUoy8cRp0yUQdkc14jT06YdPKM02pZPIvl/U=
+	b=qpnz5BFDG5GYcDcTtJt4wXuHqRdIiierj7oq5s0JJomoVCOUoxwieRFDs3Nmafs6+
+	 Op6uGdcwgPNWs4Yzwmkf4M+e/XtjnC59fHnQp5YVkY2kkMFYWhT7y2AEDzMbbdWBDG
+	 2INfP9SeMe1jIUKhkXYm+3LArozLwxYzjoawJZhw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36E6DF8026D;
-	Fri, 12 Aug 2022 16:19:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D378AF804A9;
+	Fri, 12 Aug 2022 16:20:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71F5CF800AA; Fri, 12 Aug 2022 16:19:55 +0200 (CEST)
+ id 8EB88F8026A; Fri, 12 Aug 2022 16:20:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED420F80054
- for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 16:19:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED420F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id C64E0F8026A
+ for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 16:19:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C64E0F8026A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="GysdJPhA"
+ header.b="A2Nvuxqb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660313990; x=1691849990;
+ t=1660313999; x=1691849999;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=KXN+Gs8gDE/y+asR3/oT8SUhOJatnbLYaxzZBiRp2no=;
- b=GysdJPhAChcr6B2PEuCihqR+6nDo8KR/PHQys5TquqMWDa2ASJtvYGmH
- UjsXt+tHXFx8WRdAZZKAmkpPLY8j3OnWAw5VRjS8o9KowCFXn3iMCUBZT
- aa2d74MCIUN+P7tbw6qU53l3Yen0LBmvYKZVu8hm8Kx5BXO5GNlSHhlV+
- 1by7dO3UMfYsGnC/dZ13d6BuxZqVu3FmCI6/AmhiWrmbSiuvY/+Hbdc9U
- RcaNf6H6bhUVbAMRuIEj43t9gDGIG1Ua31xoGAjemygvzizhTVAEuJIcW
- 8PLrZ7W63FejiC2wCIcvQvpKmrLeA7aXce0/WL+Cgx89kixbBdd3B82/0 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10437"; a="317573017"
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="317573017"
+ bh=7SfuAmb8mmGQTiSG1CTMf6FTKfJ/9PLlg+perjfDTnI=;
+ b=A2Nvuxqbnl3miP2zSSfcAvcy7pbuoHr0GfZ8SeQzDn3/vWzDMCTKkgK5
+ /4bjDfhNC8btAp9jeLwGU1vsvPRa16E/yBRF/bQ1DfWFcB1tZqyzJTm9B
+ 8kQiKdxH+0bZVW+QHjbo/sowuYhGyJxJwh+RyhJZNvXujXo9ByDHmRpU2
+ 4lAOE0vGA+1tNq0JD0n2GGsGay5FC+4D7BTEQ+QKwG51GPN042uk+Sep/
+ QxyIdHZwqdWM5o3GpkzdTdD5qTcJM/Jb8YWyomiyoSuo6u4msFI9efOz4
+ ztqYjFwERI3VxbZti3juJKHU3FXDKHlau5dhY46CUdy0viQWv7NWWkuge g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10437"; a="278554022"
+X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="278554022"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 07:19:44 -0700
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="634655752"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2022 07:19:54 -0700
+X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="634655774"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.73])
  ([10.99.241.73])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 07:19:41 -0700
-Message-ID: <01c068ec-1cd4-f91a-53d6-9bcba6ae6873@linux.intel.com>
-Date: Fri, 12 Aug 2022 16:19:24 +0200
+ 12 Aug 2022 07:19:51 -0700
+Message-ID: <08ef0e7e-bc7a-9db5-23a4-4fd4fb70dd9a@linux.intel.com>
+Date: Fri, 12 Aug 2022 16:19:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH 02/13] ASoC: amd: add Pink Sardine ACP PCI driver
+Subject: Re: [PATCH 03/13] ASoC: amd: add acp6.2 init/de-init functions
 Content-Language: en-US
 To: Syed Saba kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
  alsa-devel@alsa-project.org
 References: <20220812120731.788052-1-Syed.SabaKareem@amd.com>
- <20220812120731.788052-3-Syed.SabaKareem@amd.com>
+ <20220812120731.788052-4-Syed.SabaKareem@amd.com>
 From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20220812120731.788052-3-Syed.SabaKareem@amd.com>
+In-Reply-To: <20220812120731.788052-4-Syed.SabaKareem@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: Sunil-kumar.Dommati@amd.com, Basavaraj.Hiregoudar@amd.com,
@@ -98,169 +98,185 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 8/12/2022 2:07 PM, Syed Saba kareem wrote:
-> ACP is a PCI audio device.
-> This patch adds PCI driver to bind to this device and get
-> PCI resources for Pink Sardine Platform.
+> Add Pink Sardine platform ACP6.2 PCI driver init/deinit functions.
 > 
 > Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 > Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > ---
->   sound/soc/amd/ps/acp62.h  | 21 +++++++++
->   sound/soc/amd/ps/pci-ps.c | 94 +++++++++++++++++++++++++++++++++++++++
->   2 files changed, 115 insertions(+)
->   create mode 100644 sound/soc/amd/ps/acp62.h
->   create mode 100644 sound/soc/amd/ps/pci-ps.c
+>   sound/soc/amd/ps/acp62.h  |  12 +++++
+>   sound/soc/amd/ps/pci-ps.c | 109 ++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 121 insertions(+)
 > 
 > diff --git a/sound/soc/amd/ps/acp62.h b/sound/soc/amd/ps/acp62.h
-> new file mode 100644
-> index 000000000000..e91762240c93
-> --- /dev/null
+> index e91762240c93..8e734f190b11 100644
+> --- a/sound/soc/amd/ps/acp62.h
 > +++ b/sound/soc/amd/ps/acp62.h
-> @@ -0,0 +1,21 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +/*
-> + * AMD ALSA SoC PDM Driver
-> + *
-> + * Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
-> + */
+> @@ -10,6 +10,18 @@
+>   #define ACP_DEVICE_ID 0x15E2
+>   #define ACP62_PHY_BASE_ADDRESS 0x1240000
+>   
+> +#define ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK	0x00010001
+> +#define ACP_PGFSM_CNTL_POWER_ON_MASK	1
+> +#define ACP_PGFSM_CNTL_POWER_OFF_MASK	0
+> +#define ACP_PGFSM_STATUS_MASK		3
+> +#define ACP_POWERED_ON			0
+> +#define ACP_POWER_ON_IN_PROGRESS	1
+> +#define ACP_POWERED_OFF			2
+> +#define ACP_POWER_OFF_IN_PROGRESS	3
 > +
-> +#include <sound/acp62_chip_offset_byte.h>
+> +#define ACP_ERROR_MASK 0x20000000
+> +#define ACP_EXT_INTR_STAT_CLEAR_MASK 0xFFFFFFFF
 > +
-> +#define ACP_DEVICE_ID 0x15E2
-> +#define ACP62_PHY_BASE_ADDRESS 0x1240000
-> +
-> +static inline u32 acp62_readl(void __iomem *base_addr)
-> +{
-> +	return readl(base_addr - ACP62_PHY_BASE_ADDRESS);
-
-Can't you just define offsets in header, without ACP62_PHY_BASE_ADDRESS? 
-Then you won't need to subtract the value here?
-I mean like:
-#define ACP_DMA_CNTL_0                                0x0000
-#define ACP_DMA_CNTL_1                                0x0004
-...
-instead of
-#define ACP_DMA_CNTL_0                                0x1240000
-#define ACP_DMA_CNTL_1                                0x1240004
-...
-Seems a bit weird to me, to just define values with offset if it is not 
-needed...
-
-> +}
-> +
-> +static inline void acp62_writel(u32 val, void __iomem *base_addr)
-> +{
-> +	writel(val, base_addr - ACP62_PHY_BASE_ADDRESS);
-> +}
-
-Same here
-
+>   static inline u32 acp62_readl(void __iomem *base_addr)
+>   {
+>   	return readl(base_addr - ACP62_PHY_BASE_ADDRESS);
 > diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-> new file mode 100644
-> index 000000000000..25169797275c
-> --- /dev/null
+> index 25169797275c..2014f415af15 100644
+> --- a/sound/soc/amd/ps/pci-ps.c
 > +++ b/sound/soc/amd/ps/pci-ps.c
-> @@ -0,0 +1,94 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * AMD Pink Sardine ACP PCI Driver
-> + *
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <linux/pci.h>
-> +#include <linux/module.h>
-> +#include <linux/io.h>
-> +
-> +#include "acp62.h"
-> +
-> +struct acp62_dev_data {
-> +	void __iomem *acp62_base;
-> +};
-> +
-> +static int snd_acp62_probe(struct pci_dev *pci,
-> +			   const struct pci_device_id *pci_id)
+> @@ -8,6 +8,7 @@
+>   #include <linux/pci.h>
+>   #include <linux/module.h>
+>   #include <linux/io.h>
+> +#include <linux/delay.h>
+>   
+>   #include "acp62.h"
+>   
+> @@ -15,6 +16,103 @@ struct acp62_dev_data {
+>   	void __iomem *acp62_base;
+>   };
+>   
+> +static int acp62_power_on(void __iomem *acp_base)
 > +{
-> +	struct acp62_dev_data *adata;
-> +	u32 addr;
+> +	u32 val;
+> +	int timeout;
+> +
+> +	val = acp62_readl(acp_base + ACP_PGFSM_STATUS);
+> +
+> +	if (!val)
+> +		return val;
+> +
+> +	if ((val & ACP_PGFSM_STATUS_MASK) != ACP_POWER_ON_IN_PROGRESS)
+> +		acp62_writel(ACP_PGFSM_CNTL_POWER_ON_MASK, acp_base + ACP_PGFSM_CONTROL);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp62_readl(acp_base + ACP_PGFSM_STATUS);
+> +		if (!val)
+> +			return 0;
+> +		udelay(1);
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int acp62_reset(void __iomem *acp_base)
+> +{
+> +	u32 val;
+> +	int timeout;
+> +
+> +	acp62_writel(1, acp_base + ACP_SOFT_RESET);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp62_readl(acp_base + ACP_SOFT_RESET);
+> +		if (val & ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK)
+> +			break;
+> +		cpu_relax();
+> +	}
+> +	acp62_writel(0, acp_base + ACP_SOFT_RESET);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp62_readl(acp_base + ACP_SOFT_RESET);
+> +		if (!val)
+> +			return 0;
+> +		cpu_relax();
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static void acp62_enable_interrupts(void __iomem *acp_base)
+> +{
+> +	acp62_writel(0x01, acp_base + ACP_EXTERNAL_INTR_ENB);
+
+In function before you just write decimal 1 and 0, and here and later in 
+patch you use hex values? Should probably be consistent.
+
+> +}
+> +
+> +static void acp62_disable_interrupts(void __iomem *acp_base)
+> +{
+> +	acp62_writel(ACP_EXT_INTR_STAT_CLEAR_MASK, acp_base +
+> +		     ACP_EXTERNAL_INTR_STAT);
+> +	acp62_writel(0x00, acp_base + ACP_EXTERNAL_INTR_CNTL);
+> +	acp62_writel(0x00, acp_base + ACP_EXTERNAL_INTR_ENB);
+> +}
+> +
+> +static int acp62_init(void __iomem *acp_base)
+> +{
 > +	int ret;
 > +
-> +	/* Pink Sardine device check */
-> +	switch (pci->revision) {
-> +	case 0x63:
-> +		break;
-> +	default:
-> +		dev_dbg(&pci->dev, "acp62 pci device not found\n");
-> +		return -ENODEV;
+> +	/* power on */
+Unnecessary comment? Called function name is already self explanatory, 
+no need to repeat it.
+> +	ret = acp62_power_on(acp_base);
+> +	if (ret) {
+> +		pr_err("ACP power on failed\n");
+> +		return ret;
 > +	}
-> +	if (pci_enable_device(pci)) {
-> +		dev_err(&pci->dev, "pci_enable_device failed\n");
-> +		return -ENODEV;
+> +	acp62_writel(0x01, acp_base + ACP_CONTROL);
+> +	/* Reset */
+Same here?
+> +	ret = acp62_reset(acp_base);
+> +	if (ret) {
+> +		pr_err("ACP reset failed\n");
+> +		return ret;
 > +	}
-> +
-> +	ret = pci_request_regions(pci, "AMD ACP6.2 audio");
-> +	if (ret < 0) {
-> +		dev_err(&pci->dev, "pci_request_regions failed\n");
-> +		goto disable_pci;
-> +	}
-> +		adata = devm_kzalloc(&pci->dev, sizeof(struct acp62_dev_data),
-> +				     GFP_KERNEL);
-
-Wrong indentation in assignment above?
-
-> +	if (!adata) {
-> +		ret = -ENOMEM;
-> +		goto release_regions;
-> +	}
-> +
-> +	addr = pci_resource_start(pci, 0);
-> +	adata->acp62_base = devm_ioremap(&pci->dev, addr,
-> +					 pci_resource_len(pci, 0));
-> +	if (!adata->acp62_base) {
-> +		ret = -ENOMEM;
-> +		goto release_regions;
-> +	}
-> +	pci_set_master(pci);
-> +	pci_set_drvdata(pci, adata);
+> +	acp62_writel(0x03, acp_base + ACP_CLKMUX_SEL);
+> +	acp62_enable_interrupts(acp_base);
 > +	return 0;
-> +release_regions:
-> +	pci_release_regions(pci);
-> +disable_pci:
-> +	pci_disable_device(pci);
-> +
-> +	return ret;
 > +}
 > +
-> +static void snd_acp62_remove(struct pci_dev *pci)
+> +static int acp62_deinit(void __iomem *acp_base)
 > +{
-> +	pci_release_regions(pci);
-> +	pci_disable_device(pci);
+> +	int ret;
+> +
+> +	acp62_disable_interrupts(acp_base);
+> +	/* Reset */
+Again
+> +	ret = acp62_reset(acp_base);
+> +	if (ret) {
+> +		pr_err("ACP reset failed\n");
+> +		return ret;
+> +	}
+> +	acp62_writel(0x00, acp_base + ACP_CLKMUX_SEL);
+> +	acp62_writel(0x00, acp_base + ACP_CONTROL);
+> +	return 0;
 > +}
 > +
-> +static const struct pci_device_id snd_acp62_ids[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, ACP_DEVICE_ID),
-
-This one is optional, but you could also use:
-PCI_VDEVICE(AMD, ACP_DEVICE_ID)
-which is bit shorter and at least to me seems a bit more readable.
-
-> +	.class = PCI_CLASS_MULTIMEDIA_OTHER << 8,
-> +	.class_mask = 0xffffff },
-> +	{ 0, },
-> +};
-> +MODULE_DEVICE_TABLE(pci, snd_acp62_ids);
+>   static int snd_acp62_probe(struct pci_dev *pci,
+>   			   const struct pci_device_id *pci_id)
+>   {
+> @@ -56,6 +154,10 @@ static int snd_acp62_probe(struct pci_dev *pci,
+>   	}
+>   	pci_set_master(pci);
+>   	pci_set_drvdata(pci, adata);
+> +	ret = acp62_init(adata->acp62_base);
+> +	if (ret)
+> +		goto release_regions;
 > +
-> +static struct pci_driver ps_acp62_driver  = {
-> +	.name = KBUILD_MODNAME,
-> +	.id_table = snd_acp62_ids,
-> +	.probe = snd_acp62_probe,
-> +	.remove = snd_acp62_remove,
-> +};
+>   	return 0;
+>   release_regions:
+>   	pci_release_regions(pci);
+> @@ -67,6 +169,13 @@ static int snd_acp62_probe(struct pci_dev *pci,
+>   
+>   static void snd_acp62_remove(struct pci_dev *pci)
+>   {
+> +	struct acp62_dev_data *adata;
+> +	int ret;
 > +
-> +module_pci_driver(ps_acp62_driver);
-> +
-> +MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
-> +MODULE_AUTHOR("Syed.SabaKareem@amd.com");
-> +MODULE_DESCRIPTION("AMD ACP Pink Sardine PCI driver");
-> +MODULE_LICENSE("GPL v2");
+> +	adata = pci_get_drvdata(pci);
+> +	ret = acp62_deinit(adata->acp62_base);
+> +	if (ret)
+> +		dev_err(&pci->dev, "ACP de-init failed\n");
+>   	pci_release_regions(pci);
+>   	pci_disable_device(pci);
+>   }
 

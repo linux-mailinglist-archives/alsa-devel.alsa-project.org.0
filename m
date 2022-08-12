@@ -2,87 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 095BD5915CD
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Aug 2022 21:11:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DF75918FF
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Aug 2022 08:09:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 626FB83B;
-	Fri, 12 Aug 2022 21:10:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 626FB83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E037820;
+	Sat, 13 Aug 2022 08:08:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E037820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660331468;
-	bh=8jOYdsTjIERgCZgii8GvHSE+RxiWxjjphILTOFIsJA0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GJvAkFvK0QjQinQqKPHLcYmei4mOMJxcLXmsfKfwNkph1NlDK0WMiD/o5ezxi4HMc
-	 CiKzuLWcz7RHRmWHKQ7ugagdiEpkzmvMfBfHFs71jBJNF+lS/VsFVzTcV9iF5h5JzV
-	 YYBgwNoAB/624Hr3C+3j6LWVgXeAHX/7qkOslqA8=
+	s=default; t=1660370958;
+	bh=8kFxKPy+FhfMBJxlE6LS8IQW/Usfq3pUflxzu5SJqcU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JxFLCV8nIKai4S8pA+0X43iRCMOFlxBmJT9YfvEw1eEKVrdsg057Nl5cP+L1IpcEu
+	 4w5DBnUMGkU++VLqCvQVppdNzhoIlsAaoz8wqf308FSs7v7zZmutvRxKuWq/QEpSS3
+	 Hpox3mRFNLqLW2fADZvsYwErdmC/qZGfMsr3aNdc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C075EF8026D;
-	Fri, 12 Aug 2022 21:10:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74B3BF800CB;
+	Sat, 13 Aug 2022 08:08:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B08EF8026A; Fri, 12 Aug 2022 21:10:07 +0200 (CEST)
+ id CEF09F8026A; Fri, 12 Aug 2022 13:48:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18B34F80054
- for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 21:10:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18B34F80054
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="cT3/pZd4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660331402; x=1691867402;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8jOYdsTjIERgCZgii8GvHSE+RxiWxjjphILTOFIsJA0=;
- b=cT3/pZd45C0UUFr4swJs9nE4v22Z35/RW1HGo84Jo7S3/twfEMC9Gbd9
- hfwVzfcP+yq9pE3yZuNUEcdg7a44QirXgXwCOWsSimpWLcN8LhJCQ67FH
- Ega0E0acgjnsB9SnLbhQRca0WG6bYv09IrCCOh9SzplVfbCs05QWRZ+cj
- bjhJ27PGBKksVmtRwAIu+iuPwLCzawjU6QhgJwSbj3we7FjdjqhEoAjSf
- 5z/Q1V9eNS59pbBZSiricULI8QYqhXDCkHILaaH3YC9Lhmsu4F0fptchI
- ShtY9WQw7hQB8MtEOSJYac3NFj3mYY/6FMu6Q5D7ahyvPOphjWhfFAkZL A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10437"; a="290424256"
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="290424256"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 12:09:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="556628845"
-Received: from lkp-server02.sh.intel.com (HELO 8745164cafc7) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 12 Aug 2022 12:09:52 -0700
-Received: from kbuild by 8745164cafc7 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oMa2a-0000qc-0Q;
- Fri, 12 Aug 2022 19:09:52 +0000
-Date: Sat, 13 Aug 2022 03:09:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sean Hong <sean.hong@quanta.corp-partner.google.com>, perex@perex.cz,
- tiwai@suse.com
-Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: Add support for jsl_rt5682_rt1019
-Message-ID: <202208130220.892ZS1bh-lkp@intel.com>
-References: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41338F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 13:48:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41338F800AA
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
+ header.d=quanta-corp-partner-google-com.20210112.gappssmtp.com
+ header.i=@quanta-corp-partner-google-com.20210112.gappssmtp.com
+ header.b="z7o6YDD1"
+Received: by mail-pj1-x102e.google.com with SMTP id
+ q9-20020a17090a2dc900b001f58bcaca95so8107157pjm.3
+ for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 04:48:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quanta-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=1WPdo9M+Sx6XTbFXOZ/AtUfevOxtbqvZ35Od/wJosKk=;
+ b=z7o6YDD1kXTK8o/DG7hkIWs3Z8hy7Yo6SjbLpSvIWfUN4EG+Ch1bZ3ZBpz6v7RBpud
+ y36XNext6pDcS1uCMdAZqOzQxBc9V1FfdE7xmc6CIonPd1wxpgRn2GSZMY/IUbblmFZ4
+ 6E+y+Z5m71GgwfbcNAB42ohiR5R5VoFRgJ8Nn1EPz1NOMpww7sJi8q182alt/1Ql2Ik1
+ VGOme+UfJy4285EOw2UvJkVBeOvhcGF4EOQucHIjQlQPxUtotN6BctQaVa6WdfLShiHD
+ qmzgFgOGBzNT4F2yPczyhmDuye8ZkLRgeKYTLLiPYFyY3Y1EyRmPmuB2F9bj7C1UiBoK
+ 2fvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=1WPdo9M+Sx6XTbFXOZ/AtUfevOxtbqvZ35Od/wJosKk=;
+ b=PMX2RGrQZ0vLSL8CHjpJlFx5sHJ9a1jESK9gVzYQJ5rYvapbrlzhMrvlp7y3WLhwuW
+ FxSBvGW2aqCp2fiJwd8iHaSb58OA+5xV+x7zNAG20evx+e4wepxSgHHJlkfPUpvCIOuj
+ zpBX6s1MLh6T6b94ULsA+Sv2GoPjU/FA44CHOif/nQxh3sxQHqFN/z43H/reOx7Bpqbm
+ q6joxQjWb109Eam129poWiaj8IXDCrKpC/yPuoNbZffeVLgkadRUYZ3KKUxrcdVewnYI
+ 6hjCHzYwm1OXfApa1XQdhTlL/0ht7I8y6mZB4BQ8HIp8L1y5++xAMKCjQLq1cKg5bVdu
+ QfHg==
+X-Gm-Message-State: ACgBeo1ceYcmAo3kOYcGl+8Wmn8Z9DHnYxj6Fd0cCLbsFDzp6mAOpatW
+ AD/ppeTUtreBQ3bHoNF00B8wIA==
+X-Google-Smtp-Source: AA6agR7d1ezsS3nvkyhQ1bVhlUpxExz65NeFOzJabTp4+B2vJE68BRef/AbGYGLCukUi5Cc1rnwPrA==
+X-Received: by 2002:a17:90b:394:b0:1f5:90a1:acf0 with SMTP id
+ ga20-20020a17090b039400b001f590a1acf0mr13458944pjb.40.1660304892505; 
+ Fri, 12 Aug 2022 04:48:12 -0700 (PDT)
+Received: from sean-biuld-server.itotolink.net
+ (1-34-200-211.hinet-ip.hinet.net. [1.34.200.211])
+ by smtp.gmail.com with ESMTPSA id
+ z6-20020a1709027e8600b0016d7afee272sm1499378pla.153.2022.08.12.04.48.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Aug 2022 04:48:12 -0700 (PDT)
+From: Sean Hong <sean.hong@quanta.corp-partner.google.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH] ASoC: Intel: sof_rt5682: Add support for jsl_rt5682_rt1019
+Date: Fri, 12 Aug 2022 19:48:04 +0800
+Message-Id: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
-Cc: cezary.rojewski@intel.com, kbuild-all@lists.01.org,
- kai.vehmanen@linux.intel.com,
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 13 Aug 2022 08:08:17 +0200
+Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
  Sean Hong <sean.hong@quanta.corp-partner.google.com>,
- yung-chuan.liao@linux.intel.com, llvm@lists.linux.dev,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org,
- alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- brent.lu@intel.com, linux-kernel@vger.kernel.org, yong.zhi@intel.com
+ peter.ujfalusi@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, brent.lu@intel.com,
+ linux-kernel@vger.kernel.org, yong.zhi@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,109 +109,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Sean,
+This patch adds the driver data for rt5682s on SSP0 for ADL platform
 
-Thank you for the patch! Yet something to improve:
+Signed-off-by: Sean Hong <sean.hong@quanta.corp-partner.google.com>
+---
+ sound/soc/intel/boards/sof_rt5682.c               |  9 +++++++++
+ sound/soc/intel/common/soc-acpi-intel-jsl-match.c | 13 +++++++++++++
+ 2 files changed, 22 insertions(+)
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on tiwai-sound/for-next linus/master next-20220812]
-[cannot apply to v5.19]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Sean-Hong/ASoC-Intel-sof_rt5682-Add-support-for-jsl_rt5682_rt1019/20220812-195139
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-config: i386-randconfig-a011 (https://download.01.org/0day-ci/archive/20220813/202208130220.892ZS1bh-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 5f1c7e2cc5a3c07cbc2412e851a7283c1841f520)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/5ab680d85b9dbcaa1929ab9beace3c9622e46d19
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Sean-Hong/ASoC-Intel-sof_rt5682-Add-support-for-jsl_rt5682_rt1019/20220812-195139
-        git checkout 5ab680d85b9dbcaa1929ab9beace3c9622e46d19
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/soc/intel/common/
-
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> sound/soc/intel/common/soc-acpi-intel-jsl-match.c:35:2: error: expected ';' after top level declarator
-   }
-    ^
-    ;
->> sound/soc/intel/common/soc-acpi-intel-jsl-match.c:89:4: error: field designator 'sof_fw_filename' does not refer to any field in type 'struct snd_soc_acpi_mach'
-                   .sof_fw_filename = "sof-jsl.ri",
-                    ^
-   2 errors generated.
-
-
-vim +35 sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-
-    31	
-    32	static struct snd_soc_acpi_codecs rt1019p_spk = {
-    33		.num_codecs = 1,
-    34		.codecs = {"RTL1019"}
-  > 35	}
-    36	
-    37	static const struct snd_soc_acpi_codecs mx98360a_spk = {
-    38		.num_codecs = 1,
-    39		.codecs = {"MX98360A"}
-    40	};
-    41	
-    42	static const struct snd_soc_acpi_codecs rt5682_rt5682s_hp = {
-    43		.num_codecs = 2,
-    44		.codecs = {"10EC5682", "RTL5682"},
-    45	};
-    46	
-    47	/*
-    48	 * When adding new entry to the snd_soc_acpi_intel_jsl_machines array,
-    49	 * use .quirk_data member to distinguish different machine driver,
-    50	 * and keep ACPI .id field unchanged for the common codec.
-    51	 */
-    52	struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
-    53		{
-    54			.id = "DLGS7219",
-    55			.drv_name = "sof_da7219_mx98373",
-    56			.sof_tplg_filename = "sof-jsl-da7219.tplg",
-    57			.machine_quirk = snd_soc_acpi_codec_list,
-    58			.quirk_data = &jsl_7219_98373_codecs,
-    59		},
-    60		{
-    61			.id = "DLGS7219",
-    62			.drv_name = "sof_da7219_mx98360a",
-    63			.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
-    64		},
-    65		{
-    66			.comp_ids = &rt5682_rt5682s_hp,
-    67			.drv_name = "jsl_rt5682_rt1015",
-    68			.machine_quirk = snd_soc_acpi_codec_list,
-    69			.quirk_data = &rt1015_spk,
-    70			.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
-    71		},
-    72		{
-    73			.comp_ids = &rt5682_rt5682s_hp,
-    74			.drv_name = "jsl_rt5682_rt1015p",
-    75			.machine_quirk = snd_soc_acpi_codec_list,
-    76			.quirk_data = &rt1015p_spk,
-    77			.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
-    78		},
-    79		{
-    80			.comp_ids = &rt5682_rt5682s_hp,
-    81			.drv_name = "jsl_rt5682_mx98360",
-    82			.machine_quirk = snd_soc_acpi_codec_list,
-    83			.quirk_data = &mx98360a_spk,
-    84			.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
-    85		},
-    86		{
-    87			.comp_ids = &rt5682_rt5682s_hp,
-    88			.drv_name = "jsl_rt5682_rt1019",
-  > 89			.sof_fw_filename = "sof-jsl.ri",
-
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 045965312245b..3a840f3a9f5d2 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1100,6 +1100,15 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT5682_SSP_AMP(1) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
+ 	},
++	{
++		.name = "jsl_rt5682_rt1019",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_MCLK_24MHZ |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_RT1019_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(1)),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+index b95c4b2cda947..139d2468f5f70 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+@@ -29,6 +29,11 @@ static const struct snd_soc_acpi_codecs rt1015p_spk = {
+ 	.codecs = {"RTL1015"}
+ };
+ 
++static struct snd_soc_acpi_codecs rt1019p_spk = {
++	.num_codecs = 1,
++	.codecs = {"RTL1019"}
++}
++
+ static const struct snd_soc_acpi_codecs mx98360a_spk = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98360A"}
+@@ -78,6 +83,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.quirk_data = &mx98360a_spk,
+ 		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
+ 	},
++	{
++		.comp_ids = &rt5682_rt5682s_hp,
++		.drv_name = "jsl_rt5682_rt1019",
++		.sof_fw_filename = "sof-jsl.ri",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &rt1019p_spk,
++		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
++	},
+ 	{
+ 		.id = "10134242",
+ 		.drv_name = "jsl_cs4242_mx98360a",
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+

@@ -2,98 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DF75918FF
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Aug 2022 08:09:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B49AA591974
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Aug 2022 10:35:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E037820;
-	Sat, 13 Aug 2022 08:08:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E037820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C6EB829;
+	Sat, 13 Aug 2022 10:34:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C6EB829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660370958;
-	bh=8kFxKPy+FhfMBJxlE6LS8IQW/Usfq3pUflxzu5SJqcU=;
+	s=default; t=1660379738;
+	bh=FtdNfMjINTvJpDxfnZe7jiV7bTj40+N4jlglFNF7kTI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JxFLCV8nIKai4S8pA+0X43iRCMOFlxBmJT9YfvEw1eEKVrdsg057Nl5cP+L1IpcEu
-	 4w5DBnUMGkU++VLqCvQVppdNzhoIlsAaoz8wqf308FSs7v7zZmutvRxKuWq/QEpSS3
-	 Hpox3mRFNLqLW2fADZvsYwErdmC/qZGfMsr3aNdc=
+	b=bgWVv8YdnZTBNliVZnTpA4dGem4NcL0yxjd6+dCk35NJ7wUXi2oepxGJ73EvxwWGP
+	 A2+l+cNTf8nDyaiXAvuPIJavI+SrEfxREmUGD3wwcPeXF5XsaI0MGWC7XjXw4VvsY2
+	 toVyl7Dn0JuGyi4cMMPa+/3yyDvSVEoJbjzfcETI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74B3BF800CB;
-	Sat, 13 Aug 2022 08:08:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73F16F800AA;
+	Sat, 13 Aug 2022 10:34:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEF09F8026A; Fri, 12 Aug 2022 13:48:18 +0200 (CEST)
+ id CE2E1F80166; Sat, 13 Aug 2022 10:34:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41338F800AA
- for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 13:48:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41338F800AA
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=quanta-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@quanta-corp-partner-google-com.20210112.gappssmtp.com
- header.b="z7o6YDD1"
-Received: by mail-pj1-x102e.google.com with SMTP id
- q9-20020a17090a2dc900b001f58bcaca95so8107157pjm.3
- for <alsa-devel@alsa-project.org>; Fri, 12 Aug 2022 04:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quanta-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CB81F800AA
+ for <alsa-devel@alsa-project.org>; Sat, 13 Aug 2022 10:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CB81F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CKPeBNjS"
+Received: by mail-ej1-x634.google.com with SMTP id w19so5512876ejc.7
+ for <alsa-devel@alsa-project.org>; Sat, 13 Aug 2022 01:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc;
- bh=1WPdo9M+Sx6XTbFXOZ/AtUfevOxtbqvZ35Od/wJosKk=;
- b=z7o6YDD1kXTK8o/DG7hkIWs3Z8hy7Yo6SjbLpSvIWfUN4EG+Ch1bZ3ZBpz6v7RBpud
- y36XNext6pDcS1uCMdAZqOzQxBc9V1FfdE7xmc6CIonPd1wxpgRn2GSZMY/IUbblmFZ4
- 6E+y+Z5m71GgwfbcNAB42ohiR5R5VoFRgJ8Nn1EPz1NOMpww7sJi8q182alt/1Ql2Ik1
- VGOme+UfJy4285EOw2UvJkVBeOvhcGF4EOQucHIjQlQPxUtotN6BctQaVa6WdfLShiHD
- qmzgFgOGBzNT4F2yPczyhmDuye8ZkLRgeKYTLLiPYFyY3Y1EyRmPmuB2F9bj7C1UiBoK
- 2fvg==
+ bh=giMh6CV+ebQaMfil4WhC+L/0OniXZ48oEVWUpwWfMDs=;
+ b=CKPeBNjSUoVfcYjf2H0tn6lNfb4WCfH+qcPtLe20kpAf1XSdq1ou13nbDylclZhgD6
+ ki1V4f57v8AcfC4HPm7ZSkxfJfiHWfJFaxLzddNKM1YCsQQ0y2mKWNZdL8ixvJ6KD4J8
+ FSylg13oxehSO15OyPeLWb7mTRuYpAAL3frMeLcLMGJVoAOwPze667o7nEn1k72/buOx
+ BvmU9/stXwcHbfLUgxAW0GOsurGBjg3rXdRIeOfzxj0myq77l9NwosfecMYTlrV3UrZb
+ UWcBO43HL3uWb/tUnXCuMy3NlC3B6+MmLoOxACezPUAOC61q0OW8TsrAAXKYtdcVAUr6
+ wbVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc;
- bh=1WPdo9M+Sx6XTbFXOZ/AtUfevOxtbqvZ35Od/wJosKk=;
- b=PMX2RGrQZ0vLSL8CHjpJlFx5sHJ9a1jESK9gVzYQJ5rYvapbrlzhMrvlp7y3WLhwuW
- FxSBvGW2aqCp2fiJwd8iHaSb58OA+5xV+x7zNAG20evx+e4wepxSgHHJlkfPUpvCIOuj
- zpBX6s1MLh6T6b94ULsA+Sv2GoPjU/FA44CHOif/nQxh3sxQHqFN/z43H/reOx7Bpqbm
- q6joxQjWb109Eam129poWiaj8IXDCrKpC/yPuoNbZffeVLgkadRUYZ3KKUxrcdVewnYI
- 6hjCHzYwm1OXfApa1XQdhTlL/0ht7I8y6mZB4BQ8HIp8L1y5++xAMKCjQLq1cKg5bVdu
- QfHg==
-X-Gm-Message-State: ACgBeo1ceYcmAo3kOYcGl+8Wmn8Z9DHnYxj6Fd0cCLbsFDzp6mAOpatW
- AD/ppeTUtreBQ3bHoNF00B8wIA==
-X-Google-Smtp-Source: AA6agR7d1ezsS3nvkyhQ1bVhlUpxExz65NeFOzJabTp4+B2vJE68BRef/AbGYGLCukUi5Cc1rnwPrA==
-X-Received: by 2002:a17:90b:394:b0:1f5:90a1:acf0 with SMTP id
- ga20-20020a17090b039400b001f590a1acf0mr13458944pjb.40.1660304892505; 
- Fri, 12 Aug 2022 04:48:12 -0700 (PDT)
-Received: from sean-biuld-server.itotolink.net
- (1-34-200-211.hinet-ip.hinet.net. [1.34.200.211])
+ bh=giMh6CV+ebQaMfil4WhC+L/0OniXZ48oEVWUpwWfMDs=;
+ b=LzXMlM5DVZp9lXtFrscwmACW9pgBgACie2Fh8tpYsNraQo2LYAxwsWc9ppEieiAQ/R
+ xlApXKGP6gXZaWUVxfvjkBiivHlNWD2Z9d8qawxZteSu8nhzfXSo9izLEXKPUHbnSKMM
+ 5XicdJKg7tORqWBOBgGWLl3WVJi9zR6I1WH6q0/VY90cDo+IhA88hoLX664WAwOIBGPC
+ Jq/ee0eEdUEmdCMH/BdmnUA6mH4KY8xYszpEGWOPJrdYHrh+ZBL7+gQF+iUnzQVbS+BR
+ L1sPMQU1bVKPAEJNJNfMszMr3fb9xy9vURiZMZdJEaKd6j0p/L+ImI6Sy2wB/AHQyKOh
+ 568Q==
+X-Gm-Message-State: ACgBeo0i8ovKwrCINqzncsNOwfbR76TLe2ZG/03A7UZFo3NzEMihIrim
+ UeGz0sxaTBcpwYEG+43YqAU=
+X-Google-Smtp-Source: AA6agR5/50LsvrEBmEVylqJMNR6BNXGjnKBGmDDXPFCJ/to2MC9nIENXqMl7u4Pw4kWk29w7Fk5NdQ==
+X-Received: by 2002:a17:907:e94:b0:730:af21:cf60 with SMTP id
+ ho20-20020a1709070e9400b00730af21cf60mr4639547ejc.681.1660379672269; 
+ Sat, 13 Aug 2022 01:34:32 -0700 (PDT)
+Received: from pca.lan (ptr-dc5856nwo1xazteick5.18120a2.ip6.access.telenet.be.
+ [2a02:1811:bc80:f7f0:d03:1d8d:20cb:2215])
  by smtp.gmail.com with ESMTPSA id
- z6-20020a1709027e8600b0016d7afee272sm1499378pla.153.2022.08.12.04.48.08
+ u26-20020aa7d55a000000b0042de3d661d2sm2718172edr.1.2022.08.13.01.34.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Aug 2022 04:48:12 -0700 (PDT)
-From: Sean Hong <sean.hong@quanta.corp-partner.google.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ASoC: Intel: sof_rt5682: Add support for jsl_rt5682_rt1019
-Date: Fri, 12 Aug 2022 19:48:04 +0800
-Message-Id: <20220812114804.550809-1-sean.hong@quanta.corp-partner.google.com>
+ Sat, 13 Aug 2022 01:34:31 -0700 (PDT)
+From: Pieterjan Camerlynck <pieterjan.camerlynck@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ASoC: fsl_sai: fix incorrect mclk number in error message
+Date: Sat, 13 Aug 2022 10:33:52 +0200
+Message-Id: <20220813083353.8959-1-pieterjan.camerlynck@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 13 Aug 2022 08:08:17 +0200
-Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
- Sean Hong <sean.hong@quanta.corp-partner.google.com>,
- peter.ujfalusi@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, brent.lu@intel.com,
- linux-kernel@vger.kernel.org, yong.zhi@intel.com
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ Pieterjan Camerlynck <pieterjan.camerlynck@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,65 +104,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds the driver data for rt5682s on SSP0 for ADL platform
+In commit c3ecef21c3f26 ("ASoC: fsl_sai: add sai master mode support")
+the loop was changed to start iterating from 1 instead of 0. The error
+message however was not updated, reporting the wrong clock to the user.
 
-Signed-off-by: Sean Hong <sean.hong@quanta.corp-partner.google.com>
+Signed-off-by: Pieterjan Camerlynck <pieterjan.camerlynck@gmail.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c               |  9 +++++++++
- sound/soc/intel/common/soc-acpi-intel-jsl-match.c | 13 +++++++++++++
- 2 files changed, 22 insertions(+)
+V2: rebase against latest version
+---
+ sound/soc/fsl/fsl_sai.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 045965312245b..3a840f3a9f5d2 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -1100,6 +1100,15 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(1) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.name = "jsl_rt5682_rt1019",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT1019_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index b95c4b2cda947..139d2468f5f70 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -29,6 +29,11 @@ static const struct snd_soc_acpi_codecs rt1015p_spk = {
- 	.codecs = {"RTL1015"}
- };
- 
-+static struct snd_soc_acpi_codecs rt1019p_spk = {
-+	.num_codecs = 1,
-+	.codecs = {"RTL1019"}
-+}
-+
- static const struct snd_soc_acpi_codecs mx98360a_spk = {
- 	.num_codecs = 1,
- 	.codecs = {"MX98360A"}
-@@ -78,6 +83,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 		.quirk_data = &mx98360a_spk,
- 		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
- 	},
-+	{
-+		.comp_ids = &rt5682_rt5682s_hp,
-+		.drv_name = "jsl_rt5682_rt1019",
-+		.sof_fw_filename = "sof-jsl.ri",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &rt1019p_spk,
-+		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
-+	},
- 	{
- 		.id = "10134242",
- 		.drv_name = "jsl_cs4242_mx98360a",
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 7523bb944b21..d430eece1d6b 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1306,7 +1306,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 		sai->mclk_clk[i] = devm_clk_get(dev, tmp);
+ 		if (IS_ERR(sai->mclk_clk[i])) {
+ 			dev_err(dev, "failed to get mclk%d clock: %ld\n",
+-					i + 1, PTR_ERR(sai->mclk_clk[i]));
++					i, PTR_ERR(sai->mclk_clk[i]));
+ 			sai->mclk_clk[i] = NULL;
+ 		}
+ 	}
 -- 
 2.25.1
 

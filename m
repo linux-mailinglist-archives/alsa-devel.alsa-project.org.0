@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 836C75923B1
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F405923B3
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:24:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25287886;
-	Sun, 14 Aug 2022 18:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25287886
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2B5B1622;
+	Sun, 14 Aug 2022 18:23:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2B5B1622
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494230;
-	bh=WKWA3UbghQorOkZYcUPew9I9PowLOt2UNz2dEBzlkn0=;
+	s=default; t=1660494249;
+	bh=+bJaLNnj4pmy29dsPfdJ3cwRoJe/UpZzGD3F4vtamfM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W9v6zNnfLjT+CXn+MrhbD/OYTVW0nH3lYY5OrE431g/MoZSiI3vFSk7TxvCb2n1M8
-	 /6WYiewM9oI1Rb1VnQwcs1atmZcUUWb1UltGGObKXIdRos0f+iH1mSPtf9/h4T3LW1
-	 Gd62ComkG7XC6o5xpZLrO/E/UYkq550gspB/Hg/U=
+	b=N35vHrfOmVcRcJLfYT78J05JV64TjTzolrAcxnThkbw/w0Yn2qJgvOqVDDJKvI/gK
+	 yHs6hKcp6WF8UQt4jEIvcy3v8x9AFvSPujDBu+v86kL27IRAnQtNYMhgSIFEPbnPP7
+	 HYeK1rzvDxsLlcEDLijDNfXlA0dvwwo6zuRgDqTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84CFDF804C1;
-	Sun, 14 Aug 2022 18:21:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AC6EF80544;
+	Sun, 14 Aug 2022 18:21:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9234F805A8; Sun, 14 Aug 2022 18:21:19 +0200 (CEST)
+ id 9714AF80557; Sun, 14 Aug 2022 18:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20490F800B8
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:21:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20490F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 494D6F80095
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:21:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 494D6F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="o0NKCGW6"
+ header.b="OJKxhmD1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AFDC360F40;
- Sun, 14 Aug 2022 16:21:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E469C433B5;
- Sun, 14 Aug 2022 16:21:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F26160F49;
+ Sun, 14 Aug 2022 16:21:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69804C433B5;
+ Sun, 14 Aug 2022 16:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494072;
- bh=WKWA3UbghQorOkZYcUPew9I9PowLOt2UNz2dEBzlkn0=;
+ s=k20201202; t=1660494086;
+ bh=+bJaLNnj4pmy29dsPfdJ3cwRoJe/UpZzGD3F4vtamfM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o0NKCGW6cf6MwE+NMh6X3mJgAcVnpBs3ru+eedJh60bU155M0570rLXY0cxUd0Foe
- mlI/Z8r32XTABSUMNLpGVseUCjc7sdYklzgUMW1VHwR1mdxK0AWHid3sc+/fh6URgt
- S0Q2fQENmEVfTSpVRKvNXj0Ose6VSVe45yIMJedu7PWdW1QMDoaDUAy1IxODWmBZzg
- qrC2sStO7hb5uP/+bBAYpg1ZUVhxqG4sCQWg4RcIszthGVJeltquP9tymPRUxdn7Fm
- usIjKNe10lwnaF1nzicKEcUUL9N3sPnHgqDjTnv8lBpEkKYeFoxE9tY5j8eW6ZsUwZ
- NGPkG79oyIhvA==
+ b=OJKxhmD1PdLOsVpw1sz9MR7k4XL0Fy8MKG24slbEKBcWsLZ+MR6B+adxgg5rRaDNX
+ JNQJ8I2Io2/VtjSnYyo5OH0fEghqB1jNQwh8nP4ecs/VfTDcfOv0dqHgJQwNln8qzo
+ pXIlPghiTHrvyPqSjPd9iFWRawVzuwpEUBPauvJ2k3hxAp0OpYvBnJpj9N0NPp4mwB
+ gT2hl85n4/okkgvH8UueF8BDM8Aws9+/Sl5Cks6JxdLRf86ubCAWGiY+NwhcT8I7ow
+ PL5Pm12lNTvxV1MlLCehPDMXSP0BdZa5cRHhLCoL+DFJS7LkeuZGuyuHE079+dhhhJ
+ FxnDPR3Gb4nJw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 23/48] ALSA: hda/realtek: Enable speaker and mute
- LEDs for HP laptops
-Date: Sun, 14 Aug 2022 12:19:16 -0400
-Message-Id: <20220814161943.2394452-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 25/48] ASoC: Intel: sof_es8336: Fix GPIO quirks
+ set via module option
+Date: Sun, 14 Aug 2022 12:19:18 -0400
+Message-Id: <20220814161943.2394452-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220814161943.2394452-1-sashal@kernel.org>
 References: <20220814161943.2394452-1-sashal@kernel.org>
@@ -71,12 +72,14 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, sbinding@opensource.cirrus.com,
- kailang@realtek.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Takashi Iwai <tiwai@suse.de>, tcrawford@system76.com, tiwai@suse.com,
- wse@tuxedocomputers.com, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- andy.chi@canonical.com, tangmeng@uniontech.com, cam@neo-zeon.de,
- alsa-devel@alsa-project.org, yong.wu@mediatek.com
+Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
+ mchehab@kernel.org, Andrey Turkin <andrey.turkin@gmail.com>,
+ kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ akihiko.odaki@gmail.com, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,39 +95,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+From: Andrey Turkin <andrey.turkin@gmail.com>
 
-[ Upstream commit c578d5da10dc429c6676ab09f3fec0b79b31633a ]
+[ Upstream commit 5e60f1cfb830342304200437121f440b72b54f54 ]
 
-Two more HP laptops that use cs35l41 AMP for speaker and GPIO for mute
-LEDs.
+The two GPIO quirk bits only affected actual GPIO selection
+when set by the quirks table. They were reported as being
+in effect when set via module options but actually did nothing.
 
-So use the existing quirk to enable them accordingly.
-
-[ Sort the entries at the SSID order by tiwai ]
-
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Reviewed-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20220719142015.244426-1-kai.heng.feng@canonical.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Andrey Turkin <andrey.turkin@gmail.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20220725194909.145418-4-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/intel/boards/sof_es8336.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 2f55bc43bfa9..8da712c5d743 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9114,6 +9114,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
- 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index 23d03e0f7759..4d0c361fc277 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -77,8 +77,6 @@ static const struct acpi_gpio_mapping acpi_enable_both_gpios_rev_order[] = {
+ 	{ }
+ };
+ 
+-static const struct acpi_gpio_mapping *gpio_mapping = acpi_speakers_enable_gpio0;
+-
+ static void log_quirks(struct device *dev)
+ {
+ 	dev_info(dev, "quirk mask %#lx\n", quirk);
+@@ -272,15 +270,6 @@ static int sof_es8336_quirk_cb(const struct dmi_system_id *id)
+ {
+ 	quirk = (unsigned long)id->driver_data;
+ 
+-	if (quirk & SOF_ES8336_HEADPHONE_GPIO) {
+-		if (quirk & SOF_ES8336_SPEAKERS_EN_GPIO1_QUIRK)
+-			gpio_mapping = acpi_enable_both_gpios;
+-		else
+-			gpio_mapping = acpi_enable_both_gpios_rev_order;
+-	} else if (quirk & SOF_ES8336_SPEAKERS_EN_GPIO1_QUIRK) {
+-		gpio_mapping = acpi_speakers_enable_gpio1;
+-	}
+-
+ 	return 1;
+ }
+ 
+@@ -529,6 +518,7 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 	struct acpi_device *adev;
+ 	struct snd_soc_dai_link *dai_links;
+ 	struct device *codec_dev;
++	const struct acpi_gpio_mapping *gpio_mapping;
+ 	unsigned int cnt = 0;
+ 	int dmic_be_num = 0;
+ 	int hdmi_num = 3;
+@@ -635,6 +625,17 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* get speaker enable GPIO */
++	if (quirk & SOF_ES8336_HEADPHONE_GPIO) {
++		if (quirk & SOF_ES8336_SPEAKERS_EN_GPIO1_QUIRK)
++			gpio_mapping = acpi_enable_both_gpios;
++		else
++			gpio_mapping = acpi_enable_both_gpios_rev_order;
++	} else if (quirk & SOF_ES8336_SPEAKERS_EN_GPIO1_QUIRK) {
++		gpio_mapping = acpi_speakers_enable_gpio1;
++	} else {
++		gpio_mapping = acpi_speakers_enable_gpio0;
++	}
++
+ 	ret = devm_acpi_dev_add_driver_gpios(codec_dev, gpio_mapping);
+ 	if (ret)
+ 		dev_warn(codec_dev, "unable to add GPIO mapping table\n");
 -- 
 2.35.1
 

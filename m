@@ -2,113 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B27F8591F54
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 11:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49DD8591FC5
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 14:39:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C555827;
-	Sun, 14 Aug 2022 11:45:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C555827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EC3B844;
+	Sun, 14 Aug 2022 14:38:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EC3B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660470383;
-	bh=FQPHImPu4yjh6ADH+9enzeF6KN+zI2MmD20GsS9hhOw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HjiZloemI9Zla0adP0d4OwYUqCCL4SaogoGi6JxUtgM8YVZrHgfcNHWefcbDy5dQE
-	 XlXeb4G6laxMiBDipuSoYGakVeR+rNqY5GmVHp/LR0oGvTE3wNvk9kRmMqiKvASsjp
-	 tQjKfoqVpR7rUeYkRlL10p3E08bQ1rw0jQQAPweQ=
+	s=default; t=1660480771;
+	bh=tbju1U6eK/Pt3ML3lhFcbSLpJ1c5VcoBZR635ELDbgs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c1Y67xW70i5S1vYr7KwH4JcSyC44Ytqf9kOuKpewNssaSBpvurlcWr6PzmMGhjJxj
+	 6X+/k7+m0rbCVlvF04DasFhU0Ijq5aVgvmcfoepcn+S9SqZeBZbx1CGfHW5twVqjDA
+	 Vvq2lznXdGN/Nds7TlejtQjZoCpFnDzg44rpTwuI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D25CF80095;
-	Sun, 14 Aug 2022 11:45:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E1F3F800B8;
+	Sun, 14 Aug 2022 14:38:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09F43F804BD; Sun, 14 Aug 2022 11:45:23 +0200 (CEST)
+ id 2AB8DF804BD; Sun, 14 Aug 2022 14:38:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E420F800CB
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 11:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E420F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3944CF800B8
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 14:38:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3944CF800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
- header.b="qAarWNTR"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="WEq9wKKY"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id A524B2B05FDE;
- Sun, 14 Aug 2022 05:45:10 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Sun, 14 Aug 2022 05:45:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm1; t=1660470310; x=1660477510; bh=FdFP/H49+r
- ZQsPEMoSpH1blp96NX4j7NVyCsnlQOwKc=; b=qAarWNTRnx4c01YwaTDmDon3cT
- WoeRczFOoEi+9Yn59fFevm4BDrerzL8Qlujy0xfLMkyaoQfIjNfen2HFSFBZFB0Q
- XNoGICGJC2sUobGRe86muQFZE/cYsqOO0j6IYwB2CS835Qsq6BPjKB+oDCW1JO6C
- pvpC0Mrw3QJMLQBeUlYwEfqvZK9YB3kuH9EMynjrZLBo/InM0t4Q81pjJHfQ/p5C
- 0GtZsBGQ50dS2bXKJjx8WZiCTf9hqEWVJ5wm05nZnJc0C5bBQAUdT1VxX2j9oC6q
- rMDXsGcuxb3sCu+JA4QRd5t25AOxNytA3uK+r1ikFU+3ya5x2lNxSQ3uOUHw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1660470310; x=1660477510; bh=FdFP/H49+rZQsPEMoSpH1blp96NX
- 4j7NVyCsnlQOwKc=; b=WEq9wKKYIAAfYldO75VsevXwtHARcaxZHLAmNnNZOXvl
- wHUSsxEtGpaNN3dcgybyp8V9bC3iR+WQnHsnaCSZtbGUn7WqOOE+y88ew9CrEtx5
- KccnnLpEFgx2sZNnrD+2QgNax+OUTUxes3cue/UpBUigm0LVysdKx6b2edhOsgZT
- mtz4CGcucgfqJpkzKvq1kD0ja/cYYzlwZt12b6/okBLPFIy7Zoi8WEKLybxgSkEn
- qIF4eT4qV55GGWIEmLBKV3yahBmceZa5NbIFCtOF0zUHfm5JHWY+3COP2i5veLeX
- /JfYijRGOvc4xZPuEv0vc7RWsguBIkKbVSYcmDGkGA==
-X-ME-Sender: <xms:JcT4YkO7Ly_4uqAXJmmRm0-QB8iX31G2BqbeQjSuNhwGRG7tSzNZTw>
- <xme:JcT4Yq8JS_2dJZE1m116k-XLejcBKE8CXlzlbLLVZbPd_kPksKcQqN9PjZ4R4de9I
- JgZiTHVVbXg7w>
-X-ME-Received: <xmr:JcT4YrSxWurW3qk0bXoJ6qJhvidpvl77Ew5BY3W3fUuP4WgcOp0HUBSzgKCOyGLpztk9TwoIAtvdkYDS2XLufxfhCqR6R8Xs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdehtddgvddtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
- ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepheegvd
- evvdeljeeugfdtudduhfekledtiefhveejkeejuefhtdeufefhgfehkeetnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
- hhrdgtohhm
-X-ME-Proxy: <xmx:JcT4YsvNGHOewyt4liefkpERA5-M7Vq3i8D1AjJpE7vjFGZ3CcbNKw>
- <xmx:JcT4YsfF20dlijfbWGKDEFXK07WPoktI5RKo7qnDlHFX-qpPjZjqWQ>
- <xmx:JcT4Yg2cnnLquv9NJZJLdzEdV03CcEz03nJMpGhaVZuubGmvSlm6-g>
- <xmx:JsT4YrrN8xxMcyzbPO3A2899hU6_IbdITtL48JdhfnZS1NRAblIm1CKmmu4>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 14 Aug 2022 05:45:09 -0400 (EDT)
-Date: Sun, 14 Aug 2022 11:45:06 +0200
-From: Greg KH <greg@kroah.com>
-To: Khalid Masum <khalid.masum.92@gmail.com>
-Subject: Re: [RFC PATCH] Soundwire: Initialize multi_link with fwnode props
-Message-ID: <YvjEIjXg7KxtTT/0@kroah.com>
-References: <20220814080416.7531-1-khalid.masum.92@gmail.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="DrA9rHep"
+Received: by mail-wr1-x435.google.com with SMTP id bs25so6209051wrb.2
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 05:38:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=9zy3SJGst0p2iFndy5+K6/kB/FEo/jr0yhvZCmdYRAw=;
+ b=DrA9rHepa7ynsd+KY9vkIiAGHJ5w1N0PNC52z/p7tYaPP92NysNCmEeyiCnTqibVM2
+ OppOeRUvuiZYTWJL5dVD6EUwFYQ6jJ9q3kYR2TW1rAed9zJM20uQNYd2P2Z/9fYPqIRy
+ DLOEUPzUUcGbE2u64WSB9z9gzJ7I3RFE8XsoOhvaAgFbYIadNlhF4SJuG3+0j7jdGRL3
+ vz3PLIXLskqcUN+KfYrsApyohENtnxVGarS5qrhDwBgpR9PHgkVpBvReWfr7DZghaD+c
+ mM194025QwnLMusGUso64dUQN25g0sWjhTHVKpMBs3S3ldyVaIVnUeqJrF4CezhW2oXk
+ plCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=9zy3SJGst0p2iFndy5+K6/kB/FEo/jr0yhvZCmdYRAw=;
+ b=DcQkpjTFUoC/D7jhj2jboRtEgvswzRZdZSXya1JslFQoP9cuBWQK7OnigsuTDJDD/j
+ nBr+T7okDYZ3pR58tx2lg7emaSuAu5JqbxZcQ3iWog1o0Ub7ElqbwkjPpvWzErTh+RTr
+ /i63wmYsXouWPf9ZDpn+dlqz3vNX6fPp2qWTSmtPzbZLw5AzRGj3TFT8WoNieL3OBojA
+ i/9kasCr0BWLLM3n2KdtOiNDBIXEKV8zzIudljoqDR4CkBoFL38n+VNCBGVawtpfQ8QB
+ phW3d7I3rAG24n9zkJytwqAnADS7IQPGqAChpNq9jnxY9UlZwlLBWwwWlptq+2HLTGLy
+ 8Alg==
+X-Gm-Message-State: ACgBeo0+VnN2RGS/sFYzihpDORLDGGjPDSrQDDb244BhaNjOm8rtKYl8
+ /HvxY9ZICje7D1QEooziHoxeyJwMMizCpg==
+X-Google-Smtp-Source: AA6agR68F9J2UmzuL1lxnUjOXspEPk7NbC3RogjH8ZV5rUJnFbNxvBRtvtxvD7DnhBT7d/bSItOdQA==
+X-Received: by 2002:a05:6000:381:b0:221:7542:61bb with SMTP id
+ u1-20020a056000038100b00221754261bbmr6212369wrf.305.1660480702193; 
+ Sun, 14 Aug 2022 05:38:22 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ p14-20020a5d48ce000000b0021d76a1b0e3sm4520681wrs.6.2022.08.14.05.38.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Aug 2022 05:38:21 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: amit.pundir@linaro.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: qcom: remove duplicate reset control get
+Date: Sun, 14 Aug 2022 13:38:00 +0100
+Message-Id: <20220814123800.31200-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220814080416.7531-1-khalid.masum.92@gmail.com>
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Scally <djrscally@gmail.com>, linux-acpi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-kernel-mentees@lists.linuxfoundation.org, Len Brown <lenb@kernel.org>
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,68 +101,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Aug 14, 2022 at 02:04:15PM +0600, Khalid Masum wrote:
-> According to the TODO, In sw_bus_master_add, bus->multi_link is to be
-> populated with properties from FW node props. Make this happen by 
-> creating a new fwnode_handle flag FWNODE_FLAG_MULTI_LINKED and use 
-> the flag to store the multi_link value from intel_link_startup. Use 
-> this flag to initialize bus->multi_link.
-> 
-> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
-> ---
-> I do not think adding a new flag for fwnode_handle is a good idea.
-> So, what would be the best way to initialize bus->multilink with 
-> fwnode props?
-> 
->   -- Khalid Masum
-> 
->  drivers/soundwire/bus.c   | 4 ++--
->  drivers/soundwire/intel.c | 1 +
->  include/linux/fwnode.h    | 1 +
->  3 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index a2bfb0434a67..80df1672c60b 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -74,9 +74,9 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
->  
->  	/*
->  	 * Initialize multi_link flag
-> -	 * TODO: populate this flag by reading property from FW node
->  	 */
-> -	bus->multi_link = false;
-> +	bus->multi_link = (fwnode->flags & FWNODE_FLAG_MULTI_LINKED)
-> +		== FWNODE_FLAG_MULTI_LINKED;
->  	if (bus->ops->read_prop) {
->  		ret = bus->ops->read_prop(bus);
->  		if (ret < 0) {
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index 505c5ef061e3..034d1c523ddf 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1347,6 +1347,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
->  		 */
->  		bus->multi_link = true;
->  		bus->hw_sync_min_links = 1;
-> +		dev->fwnode->flags |= FWNODE_FLAG_MULTI_LINKED;
->  	}
->  
->  	/* Initialize shim, controller */
-> diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
-> index 9a81c4410b9f..446a52744953 100644
-> --- a/include/linux/fwnode.h
-> +++ b/include/linux/fwnode.h
-> @@ -32,6 +32,7 @@ struct device;
->  #define FWNODE_FLAG_NOT_DEVICE			BIT(1)
->  #define FWNODE_FLAG_INITIALIZED			BIT(2)
->  #define FWNODE_FLAG_NEEDS_CHILD_BOUND_ON_ADD	BIT(3)
-> +#define FWNODE_FLAG_MULTI_LINKED		BIT(4)
+Looks like adding clock gate flag patch forgot to remove the old code that
+gets reset control.
 
-What does this commit actually change?
+This causes below crash on platforms that do not need reset.
 
-Did you test this on real hardware?
+[   15.653501]  reset_control_reset+0x124/0x170
+[   15.653508]  qcom_swrm_init+0x50/0x1a0
+[   15.653514]  qcom_swrm_probe+0x320/0x668
+[   15.653519]  platform_probe+0x68/0xe0
+[   15.653529]  really_probe+0xbc/0x2a8
+[   15.653535]  __driver_probe_device+0x7c/0xe8
+[   15.653541]  driver_probe_device+0x40/0x110
+[   15.653547]  __device_attach_driver+0x98/0xd0
+[   15.653553]  bus_for_each_drv+0x68/0xd0
+[   15.653559]  __device_attach+0xf4/0x188
+[   15.653565]  device_initial_probe+0x14/0x20
 
-thanks,
+Fix this by removing old code.
 
-greg k-h
+Reported-by: Amit Pundir <amit.pundir@linaro.org>
+Fixes: 1fd0d85affe4 ("soundwire: qcom: Add flag for software clock gating check")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/soundwire/qcom.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 9df970eeca45..a43961ad4614 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1356,10 +1356,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 	ctrl->bus.compute_params = &qcom_swrm_compute_params;
+ 	ctrl->bus.clk_stop_timeout = 300;
+ 
+-	ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+-	if (IS_ERR(ctrl->audio_cgcr))
+-		dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+-
+ 	ret = qcom_swrm_get_port_config(ctrl);
+ 	if (ret)
+ 		goto err_clk;
+-- 
+2.21.0
+

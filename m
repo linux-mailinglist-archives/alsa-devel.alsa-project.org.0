@@ -2,91 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D74594F1A
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 05:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 269915951CD
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 07:17:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4CEF10E;
-	Tue, 16 Aug 2022 05:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4CEF10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66ABA1607;
+	Tue, 16 Aug 2022 07:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66ABA1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660620954;
-	bh=OrhPLo0n4EDyxYz7KCsvj82kV6NSR0qbvoGE6l4vsc8=;
-	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1660627036;
+	bh=lgOOH+B5swTn1k7iQVN9xx1wsG5CEPE14E9lQQgILcY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=upgaUM518i5mEq9iKeLXFBHxzYnZa04iywa9VHzp+9bJWnpur0iYxz0YsKDYbCGdh
-	 xd8iWV98iCMnGiUFnwvoYorLkSn5HPG6p3UJwVU+zhwzto9ojDZiVr3woWFwrW1MUQ
-	 LC9s5gYswmudCzfq9QIltmBExcUl0NlOQSrKg1jM=
+	b=tzukxeQz9cVbLbi3WgtB6l8ybzEFi+YeLggxUJjI9FiwacBYeuJZTBxtKV5ZStR/D
+	 cXCmzHVaqe6AGo6OFnF2YWc8QUCbZ+UoLrLOASvVioBEYW4wPQkwk6HBtbi7Hpu+r/
+	 5kI3N09Evd25u5wZHUk/Vc7gRaXrarFGi2UzkrL8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56914F80082;
-	Tue, 16 Aug 2022 05:34:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEC9DF80095;
+	Tue, 16 Aug 2022 07:16:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F3FFF8032D; Tue, 16 Aug 2022 05:34:53 +0200 (CEST)
+ id 0CBE5F804BD; Sun, 14 Aug 2022 10:05:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
- [IPv6:2607:f8b0:4864:20::536])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [IPv6:2607:f8b0:4864:20::532])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2EF81F80118
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 05:34:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EF81F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6945CF800CB
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 10:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6945CF800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=flatmax-com.20210112.gappssmtp.com
- header.i=@flatmax-com.20210112.gappssmtp.com header.b="k/0B9+Ce"
-Received: by mail-pg1-x536.google.com with SMTP id s206so8193841pgs.3
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 20:34:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flatmax-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:subject:from:content-language:to
- :user-agent:mime-version:date:message-id:from:to:cc;
- bh=rsMIsTdil7J/nfOTy4q74VYe/P2Pbw3k0vGg0EJiatw=;
- b=k/0B9+CewBP8zh+KfbHVlYoZRwg084SJHjnoVPt6vqAO4YFJRy9weWNthja48tOH/f
- ugT23yI6s3Uz4xivvyOsredBOGEvnN0Dt3MGQzXjFrHpMtxS1XIyiEabsSUN8+oXfEuC
- jMo2zygQxTkxnX2xAlE27CiqrRj5J+VzQdZunWo3qyAbqYUJdFOIupF4e59o9bVXEKSp
- ErlacNGxtCAoC4RXiDVki7CScmjY5QGWRml3ew5rRo8TqwsRgpU1VtT+/OFOotWkP+5q
- DrxDcJ0wdxxabg+0/XladbpRH/ArPD0Jvot0ypQlI7k4zy9ZTimdrx21kDMvirubjgwH
- yVCQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="l/H4zND9"
+Received: by mail-pg1-x532.google.com with SMTP id f65so4218913pgc.12
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 01:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=rWqpd+TDL+uhqq+ZM31CgYmJ/5I6ggTeiRIyfhpx6YE=;
+ b=l/H4zND9Wh9LsleFV38bwrmFAMETQ3dei02nqbrPEQvrkhn/Fo7NFXn6zZM3oca66Z
+ dxpf7bLIId8OuGXf8/KlgKEHlTse4HJ9JJWFgYQQakC3KHFaJNFKSf4r07fZTh2ITGbI
+ /ZqPN8tJLKWrBjlCyDXDTtwddtCZKs1wHYyahsF37u2TYduFpYKX4TV4WwkOH7p0Otlo
+ dvUmdgeQARI21JkRN/hstcFfHE/iO4Dt7XBad2lRXDgXkDA+jqh9UZFY/5Bv8sBl59Yh
+ u6/wzAYEXig+/+dj1erB+v2YtTgzAwlTOg3w2GgF2Vp+O/ewzAZ6wkWV45gP8flej8HE
+ YMDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:subject:from:content-language:to
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc; bh=rsMIsTdil7J/nfOTy4q74VYe/P2Pbw3k0vGg0EJiatw=;
- b=zSD5ilLjhn9ewrVTKvzKmTJBeo99ZZbYDYaOAXgdR+HC76MKhvLrPD3p+RYcaQfO65
- 83M1KkbJxzcUp5PWUR9KjGFZBageNGrhOJPfLEFiK2b531C667QUD3gHCqmpYixwUMmw
- BUM8SAZbwPgJALKBYpSUkUnvChUFUQF8DvuAOHDPsD5/yRVUfuaBkYukUbVJ06FjUaqe
- v2D3v/kOEY6ZdjLvy1fpI1Iz7tFww6MOGKXDGHuJFXdXpP6uSnBjDTdWDbMEMJFwmAuL
- dSj7eDvtEvwIYWZ8sJAnm/+be1Z+6YIJxL11vIizr51hRmiGVSPBB2ZMxyl3d3smffm6
- w+vw==
-X-Gm-Message-State: ACgBeo1BcFKDATJFfYOJ0iC7jNctMtFEkh6uxdqewpGZbd5oKG81teBQ
- EhkSiRA/Q5Hur9Hx7J/kL0RG2gcbrxiV2w==
-X-Google-Smtp-Source: AA6agR7ajsk58WdSRf5zsgAgSSibUz1EC9FGG1B++/F7r+qjDqhfACWB1N79mM2K4Z+dKnxSE82YqQ==
-X-Received: by 2002:a63:1f26:0:b0:429:7f1e:4afc with SMTP id
- f38-20020a631f26000000b004297f1e4afcmr4103793pgf.622.1660620881437; 
- Mon, 15 Aug 2022 20:34:41 -0700 (PDT)
-Received: from ?IPV6:2406:3400:213:70c0:9df6:7e57:88ce:1bea?
- ([2406:3400:213:70c0:9df6:7e57:88ce:1bea])
- by smtp.gmail.com with ESMTPSA id
- a12-20020a630b4c000000b004299489dd2bsm915493pgl.8.2022.08.15.20.34.39
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Aug 2022 20:34:41 -0700 (PDT)
-Message-ID: <ee14e446-7db7-aaf8-0208-5e6d9f3f2aa3@flatmax.com>
-Date: Tue, 16 Aug 2022 13:34:38 +1000
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=rWqpd+TDL+uhqq+ZM31CgYmJ/5I6ggTeiRIyfhpx6YE=;
+ b=5hJ9Wd9oWgvG7G8VvgX22cR6d48HP5gIDqBzSqqQnOIQ0CynhQHEKmFZFX0pXNmNnZ
+ VXDFJgAI6evVs1kMLueb4n7X9FWpi93QEdmI3jRlQjEo6TO/9z1qFQ5/YZd1sBLiebqm
+ lvQtt2JlfuFFMY/LfPYyqH+dSZENMFVB+MY0cE8sgUuf+2q9etUbGHKBLKQB15qqBtjZ
+ TQshP382yLm5pEl1lKteqhw8bpzX4VyG5JQiRzS+/DZF8QXXKNoC+GuKU5eiuDcVg1yw
+ 7fjFNGvbTXg9o4CDs5Ute7llxrJOgV5/PqqJLR/kQLXfOdOZKqdropOMzAUBPndpFTy0
+ 9fng==
+X-Gm-Message-State: ACgBeo2Ffdpu1R0lybv4rG0HxC8NtA3jWDf28tZOPn1Ve5r96sbe/TUp
+ 5a7MAGqfPKIBkqO50ayzvTQat4E17CL0a32O
+X-Google-Smtp-Source: AA6agR44dMyyhdx5CLh7qHEoCxg2XQP01uFUUC2ZHzsviRdJfYmkYA7pSnB/CVOgcsGZBfQVeVGwSw==
+X-Received: by 2002:aa7:8e91:0:b0:52d:8ebf:29a4 with SMTP id
+ a17-20020aa78e91000000b0052d8ebf29a4mr11407833pfr.1.1660464337507; 
+ Sun, 14 Aug 2022 01:05:37 -0700 (PDT)
+Received: from fedora.. ([103.159.189.159]) by smtp.gmail.com with ESMTPSA id
+ l27-20020a63ba5b000000b0041d95d805d6sm4173032pgu.57.2022.08.14.01.05.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Aug 2022 01:05:37 -0700 (PDT)
+From: Khalid Masum <khalid.masum.92@gmail.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kernel-mentees@lists.linuxfoundation.org
+Subject: [RFC PATCH] Soundwire: Initialize multi_link with fwnode props
+Date: Sun, 14 Aug 2022 14:04:15 +0600
+Message-Id: <20220814080416.7531-1-khalid.masum.92@gmail.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-To: alsa-devel@alsa-project.org
-Content-Language: en-AU
-From: Matt Flax <flatmax@flatmax.com>
-Subject: UAC gadget audio sample rates
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 16 Aug 2022 07:16:15 +0200
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Khalid Masum <khalid.masum.92@gmail.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Daniel Scally <djrscally@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,10 +107,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi there,
+According to the TODO, In sw_bus_master_add, bus->multi_link is to be
+populated with properties from FW node props. Make this happen by 
+creating a new fwnode_handle flag FWNODE_FLAG_MULTI_LINKED and use 
+the flag to store the multi_link value from intel_link_startup. Use 
+this flag to initialize bus->multi_link.
 
-Is it possible to have a USB audio gadget which supports 
-multiple/arbitrary sample rates ?
+Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
+---
+I do not think adding a new flag for fwnode_handle is a good idea.
+So, what would be the best way to initialize bus->multilink with 
+fwnode props?
 
-Matt
+  -- Khalid Masum
+
+ drivers/soundwire/bus.c   | 4 ++--
+ drivers/soundwire/intel.c | 1 +
+ include/linux/fwnode.h    | 1 +
+ 3 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index a2bfb0434a67..80df1672c60b 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -74,9 +74,9 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
+ 
+ 	/*
+ 	 * Initialize multi_link flag
+-	 * TODO: populate this flag by reading property from FW node
+ 	 */
+-	bus->multi_link = false;
++	bus->multi_link = (fwnode->flags & FWNODE_FLAG_MULTI_LINKED)
++		== FWNODE_FLAG_MULTI_LINKED;
+ 	if (bus->ops->read_prop) {
+ 		ret = bus->ops->read_prop(bus);
+ 		if (ret < 0) {
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 505c5ef061e3..034d1c523ddf 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1347,6 +1347,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+ 		 */
+ 		bus->multi_link = true;
+ 		bus->hw_sync_min_links = 1;
++		dev->fwnode->flags |= FWNODE_FLAG_MULTI_LINKED;
+ 	}
+ 
+ 	/* Initialize shim, controller */
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index 9a81c4410b9f..446a52744953 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -32,6 +32,7 @@ struct device;
+ #define FWNODE_FLAG_NOT_DEVICE			BIT(1)
+ #define FWNODE_FLAG_INITIALIZED			BIT(2)
+ #define FWNODE_FLAG_NEEDS_CHILD_BOUND_ON_ADD	BIT(3)
++#define FWNODE_FLAG_MULTI_LINKED		BIT(4)
+ 
+ struct fwnode_handle {
+ 	struct fwnode_handle *secondary;
+-- 
+2.37.1
 

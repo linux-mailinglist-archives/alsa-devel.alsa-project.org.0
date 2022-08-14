@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5CCB5923CB
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:25:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A92F85923C4
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:25:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59E11163D;
-	Sun, 14 Aug 2022 18:24:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59E11163D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47AF29F6;
+	Sun, 14 Aug 2022 18:24:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47AF29F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494326;
-	bh=ShuwgENlE/EI+6Nzcu62eOBuU19hQbRvJ9/8rsU0Q8s=;
+	s=default; t=1660494300;
+	bh=dJICxAXUVqoAvRcs1iEYL7jr+zKhXIpbPrZJ96/wyv0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rwu6Z5cmQTruF3P5AW0pyUTQ5GQyFQV3bhavVgEEOcCuQ7GZvuR0YlyC7bTx/gV/0
-	 j9efFDv5CMkop4xotmR+XdbSDnrJIG6Ydyx4SEylyTU3wBVVHHXZMgYcQNG8NmlDNf
-	 ZcXtxf3Tf+F1PXfyJkRn9PtK2+LqU2Go7LOPcXzI=
+	b=B5v2wvUw0GI7tGjRaJt6Ac6agfiQD57bL6ZY20Nm61PbWYS35Ux1SVrQam7lcR7/S
+	 CgAI/HHkOWxlMi6EYreGQlGL1g8+EmZJwCqygaZvCmnpC9nFThVtR73IAxzqHSFVUV
+	 Ujayr019yRDzrbr3hKGAwHr+h9f8cWncre//VZek=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CAE9F80552;
-	Sun, 14 Aug 2022 18:23:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65BA9F80551;
+	Sun, 14 Aug 2022 18:23:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22D38F804CC; Sun, 14 Aug 2022 18:23:48 +0200 (CEST)
+ id 6F1AEF804BD; Sun, 14 Aug 2022 18:22:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 855C7F80552
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:22:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 855C7F80552
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2F5EF80559
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2F5EF80559
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CHI3zlrO"
+ header.b="bpNnjalP"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 36715CE0B84;
- Sun, 14 Aug 2022 16:22:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A605C433D6;
- Sun, 14 Aug 2022 16:22:42 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 19340B80B79;
+ Sun, 14 Aug 2022 16:22:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689DAC433C1;
+ Sun, 14 Aug 2022 16:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494163;
- bh=ShuwgENlE/EI+6Nzcu62eOBuU19hQbRvJ9/8rsU0Q8s=;
+ s=k20201202; t=1660494167;
+ bh=dJICxAXUVqoAvRcs1iEYL7jr+zKhXIpbPrZJ96/wyv0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CHI3zlrOUs6Jn+lDqE2um9i9DiLKeP4o4zcQrHZ2u7UNcAZJDSHCK9q1kQWeIOl20
- qwNTsvO1sZMHNJSYWyQGFPRhoiiZFO2sEYi4lFZ0ayYLVRpr3UB+eA5xH3V/GPTIVQ
- 3vNLORHyD4OqVuKDX6IRS4oZms7dvONhzpdYnB1vzZ/rLXCiu50k4KBeNuhJHeWTpS
- 2rCIu7AT695BryJoBWTRumL7S1ruOQNW43FpDLVSavueKnbEzEhFd4rdsH+ZVfTXmD
- Erv/D/RBn7ayP5wgwjD9koJROQxkt/DKdCmiiZPeGSFFq59xWVF0vcMPaYM8ONciV3
- J37Gbgw1bayUA==
+ b=bpNnjalPpQvAV48K/VGswdZgoSjSAchT//1UiI1s8qir+hCTtmp19/9PngRHLfeL5
+ j/fqe1s02SrHb1qVGU27ZQ7YVk6dxjPFROZ5e1DRXRgfxFMWSfCqRP+ACpY9RxLxdy
+ gNOqRSiYeH8tBgbn3yCbBVHATdpUkqrquABH7hzPL+7L07coO+3iTKxWBCeacGZalz
+ PL8ndRW4/4rJA1/Al/SJxIe2umNqx7zKTFL2noalhh/OokUzYgk0+08GoLJTQDpFoP
+ s2HcNK9OEf+ZZ30ue3r6aDFo4BzAADBvo1q6WUdcNpu7NjiH4hEay+0Wa1Sr0DjiJo
+ wWiyU7+nXfpuA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 36/48] ALSA: core: Add async signal helpers
-Date: Sun, 14 Aug 2022 12:19:29 -0400
-Message-Id: <20220814161943.2394452-36-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 37/48] ALSA: timer: Use deferred fasync helper
+Date: Sun, 14 Aug 2022 12:19:30 -0400
+Message-Id: <20220814161943.2394452-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220814161943.2394452-1-sashal@kernel.org>
 References: <20220814161943.2394452-1-sashal@kernel.org>
@@ -71,8 +70,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, wangwensheng4@huawei.com,
+ syzbot+49b10793b867871ee26f@syzkaller.appspotmail.com, tiwai@suse.com,
+ syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com,
+ syzbot+8285e973a41b5aa68902@syzkaller.appspotmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,154 +92,79 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit ef34a0ae7a2654bc9e58675e36898217fb2799d8 ]
+[ Upstream commit 95cc637c1afd83fb7dd3d7c8a53710488f4caf9c ]
 
-Currently the call of kill_fasync() from an interrupt handler might
-lead to potential spin deadlocks, as spotted by syzkaller.
-Unfortunately, it's not so trivial to fix this lock chain as it's
-involved with the tasklist_lock that is touched in allover places.
+For avoiding the potential deadlock via kill_fasync() call, use the
+new fasync helpers to defer the invocation from PCI API.  Note that
+it's merely a workaround.
 
-As a temporary workaround, this patch provides the way to defer the
-async signal notification in a work.  The new helper functions,
-snd_fasync_helper() and snd_kill_faync() are replacements for
-fasync_helper() and kill_fasync(), respectively.  In addition,
-snd_fasync_free() needs to be called at the destructor of the relevant
-file object.
-
-Link: https://lore.kernel.org/r/20220728125945.29533-2-tiwai@suse.de
+Reported-by: syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com
+Reported-by: syzbot+49b10793b867871ee26f@syzkaller.appspotmail.com
+Reported-by: syzbot+8285e973a41b5aa68902@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/r/20220728125945.29533-3-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/core.h |  8 ++++
- sound/core/misc.c    | 94 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 102 insertions(+)
+ sound/core/timer.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 6d4cc49584c6..39cee40ac22e 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -501,4 +501,12 @@ snd_pci_quirk_lookup_id(u16 vendor, u16 device,
- }
- #endif
- 
-+/* async signal helpers */
-+struct snd_fasync;
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp);
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll);
-+void snd_fasync_free(struct snd_fasync *fasync);
-+
- #endif /* __SOUND_CORE_H */
-diff --git a/sound/core/misc.c b/sound/core/misc.c
-index 50e4aaa6270d..d32a19976a2b 100644
---- a/sound/core/misc.c
-+++ b/sound/core/misc.c
-@@ -10,6 +10,7 @@
- #include <linux/time.h>
- #include <linux/slab.h>
- #include <linux/ioport.h>
-+#include <linux/fs.h>
- #include <sound/core.h>
- 
- #ifdef CONFIG_SND_DEBUG
-@@ -145,3 +146,96 @@ snd_pci_quirk_lookup(struct pci_dev *pci, const struct snd_pci_quirk *list)
- }
- EXPORT_SYMBOL(snd_pci_quirk_lookup);
- #endif
-+
-+/*
-+ * Deferred async signal helpers
-+ *
-+ * Below are a few helper functions to wrap the async signal handling
-+ * in the deferred work.  The main purpose is to avoid the messy deadlock
-+ * around tasklist_lock and co at the kill_fasync() invocation.
-+ * fasync_helper() and kill_fasync() are replaced with snd_fasync_helper()
-+ * and snd_kill_fasync(), respectively.  In addition, snd_fasync_free() has
-+ * to be called at releasing the relevant file object.
-+ */
-+struct snd_fasync {
-+	struct fasync_struct *fasync;
-+	int signal;
-+	int poll;
-+	int on;
-+	struct list_head list;
-+};
-+
-+static DEFINE_SPINLOCK(snd_fasync_lock);
-+static LIST_HEAD(snd_fasync_list);
-+
-+static void snd_fasync_work_fn(struct work_struct *work)
-+{
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index b3214baa8919..e08a37c23add 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -83,7 +83,7 @@ struct snd_timer_user {
+ 	unsigned int filter;
+ 	struct timespec64 tstamp;		/* trigger tstamp */
+ 	wait_queue_head_t qchange_sleep;
+-	struct fasync_struct *fasync;
 +	struct snd_fasync *fasync;
-+
-+	spin_lock_irq(&snd_fasync_lock);
-+	while (!list_empty(&snd_fasync_list)) {
-+		fasync = list_first_entry(&snd_fasync_list, struct snd_fasync, list);
-+		list_del_init(&fasync->list);
-+		spin_unlock_irq(&snd_fasync_lock);
-+		if (fasync->on)
-+			kill_fasync(&fasync->fasync, fasync->signal, fasync->poll);
-+		spin_lock_irq(&snd_fasync_lock);
-+	}
-+	spin_unlock_irq(&snd_fasync_lock);
-+}
-+
-+static DECLARE_WORK(snd_fasync_work, snd_fasync_work_fn);
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp)
-+{
-+	struct snd_fasync *fasync = NULL;
-+
-+	if (on) {
-+		fasync = kzalloc(sizeof(*fasync), GFP_KERNEL);
-+		if (!fasync)
-+			return -ENOMEM;
-+		INIT_LIST_HEAD(&fasync->list);
-+	}
-+
-+	spin_lock_irq(&snd_fasync_lock);
-+	if (*fasyncp) {
-+		kfree(fasync);
-+		fasync = *fasyncp;
-+	} else {
-+		if (!fasync) {
-+			spin_unlock_irq(&snd_fasync_lock);
-+			return 0;
-+		}
-+		*fasyncp = fasync;
-+	}
-+	fasync->on = on;
-+	spin_unlock_irq(&snd_fasync_lock);
-+	return fasync_helper(fd, file, on, &fasync->fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_helper);
-+
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll)
-+{
-+	unsigned long flags;
-+
-+	if (!fasync || !fasync->on)
-+		return;
-+	spin_lock_irqsave(&snd_fasync_lock, flags);
-+	fasync->signal = signal;
-+	fasync->poll = poll;
-+	list_move(&fasync->list, &snd_fasync_list);
-+	schedule_work(&snd_fasync_work);
-+	spin_unlock_irqrestore(&snd_fasync_lock, flags);
-+}
-+EXPORT_SYMBOL_GPL(snd_kill_fasync);
-+
-+void snd_fasync_free(struct snd_fasync *fasync)
-+{
-+	if (!fasync)
-+		return;
-+	fasync->on = 0;
-+	flush_work(&snd_fasync_work);
-+	kfree(fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_free);
+ 	struct mutex ioctl_lock;
+ };
+ 
+@@ -1345,7 +1345,7 @@ static void snd_timer_user_interrupt(struct snd_timer_instance *timeri,
+ 	}
+       __wake:
+ 	spin_unlock(&tu->qlock);
+-	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
++	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
+ 	wake_up(&tu->qchange_sleep);
+ }
+ 
+@@ -1383,7 +1383,7 @@ static void snd_timer_user_ccallback(struct snd_timer_instance *timeri,
+ 	spin_lock_irqsave(&tu->qlock, flags);
+ 	snd_timer_user_append_to_tqueue(tu, &r1);
+ 	spin_unlock_irqrestore(&tu->qlock, flags);
+-	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
++	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
+ 	wake_up(&tu->qchange_sleep);
+ }
+ 
+@@ -1453,7 +1453,7 @@ static void snd_timer_user_tinterrupt(struct snd_timer_instance *timeri,
+ 	spin_unlock(&tu->qlock);
+ 	if (append == 0)
+ 		return;
+-	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
++	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
+ 	wake_up(&tu->qchange_sleep);
+ }
+ 
+@@ -1521,6 +1521,7 @@ static int snd_timer_user_release(struct inode *inode, struct file *file)
+ 			snd_timer_instance_free(tu->timeri);
+ 		}
+ 		mutex_unlock(&tu->ioctl_lock);
++		snd_fasync_free(tu->fasync);
+ 		kfree(tu->queue);
+ 		kfree(tu->tqueue);
+ 		kfree(tu);
+@@ -2135,7 +2136,7 @@ static int snd_timer_user_fasync(int fd, struct file * file, int on)
+ 	struct snd_timer_user *tu;
+ 
+ 	tu = file->private_data;
+-	return fasync_helper(fd, file, on, &tu->fasync);
++	return snd_fasync_helper(fd, file, on, &tu->fasync);
+ }
+ 
+ static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
 -- 
 2.35.1
 

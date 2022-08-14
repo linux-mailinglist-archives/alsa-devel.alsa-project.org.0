@@ -2,77 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0A85923D9
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:25:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15EC15923DC
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:26:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7F8D1632;
-	Sun, 14 Aug 2022 18:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F8D1632
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD51E1634;
+	Sun, 14 Aug 2022 18:25:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD51E1634
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494345;
-	bh=X/ZLYxxDnih0e0paGcYJ4tSJ7KVpOyF0ATP2RLTK/q4=;
+	s=default; t=1660494364;
+	bh=x5ASCrXnToq/wocRlVgIEfv6h6Y6j4TKtd+j8l6koo0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fSKVXxiCwd4ekeKr0Lez4quuiIBq6iU2u0quks3Suw58NZtW2CAgSNQeztAp9Uwk3
-	 OTn5uGbapB7IH8+GsoTsopPBqhqi0MWFj7OQ3RpUlD7cWHlegmXxYso2QrsgSvwN38
-	 yNfk4SeTksPxLXk0tqbi57RgWafz6h6HY1oDRQmU=
+	b=gdHHdFIGZ+sYbcQ7HX9hAW1IYj2lyoVRJmNUt4UFIznba4Z/GmehBAeF7EKqVQTNj
+	 X7YjYWStHRbDon2HmhIUJTDo+HBChoEOSZkqH/usz83S/AAEjjGLClLqnLhbeAVIYH
+	 8oOxSF1vNekIT7QHK2+Dkx1UjmN+wxBgYEWbscIg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40C43F80570;
-	Sun, 14 Aug 2022 18:23:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7447FF8057A;
+	Sun, 14 Aug 2022 18:24:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 200BEF80515; Sun, 14 Aug 2022 18:23:48 +0200 (CEST)
+ id 79328F80571; Sun, 14 Aug 2022 18:24:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56F9EF80564
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:23:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56F9EF80564
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89492F804CC
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89492F804CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rNgkc2Ed"
+ header.b="euCMc+QO"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1BFEA60F72;
- Sun, 14 Aug 2022 16:23:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB38C433D6;
- Sun, 14 Aug 2022 16:22:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3845D60EF8;
+ Sun, 14 Aug 2022 16:23:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4E5C433D6;
+ Sun, 14 Aug 2022 16:23:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494180;
- bh=X/ZLYxxDnih0e0paGcYJ4tSJ7KVpOyF0ATP2RLTK/q4=;
+ s=k20201202; t=1660494233;
+ bh=x5ASCrXnToq/wocRlVgIEfv6h6Y6j4TKtd+j8l6koo0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rNgkc2Edr6CfIHuHJc0SdqZusSZJr1+kG3+2ZemK1K9pqrpYY3dxv7O+IFtY2hHNe
- aeDp/32LVz4Eq+Ac4u6wjXKOtu8dKlqeuNLqMDP/KKNtGJbHiG2fhus4N2cFd1iVGJ
- Z3/m28Jk9bUre8TjrC9jLy6hBRhTY2DCCnu9Ck1KXgnpVQeH+UrGCHTsBRRg5ztcR9
- tffaUDv2ogdL/G7iMR+UsoZdqYwZ21EGXVB5vY3o8mKXuaEyC6OohhbZDHgIQhx/6Y
- 7V4IECdlP0uDaryzL4MVsXjeUrd3X0+oeCjqf5d1kAEzsY5oudheC6sR+uXZbcGYLm
- z39kUQ8PXbj0w==
+ b=euCMc+QO/ydLtQyK709b3dG4rqg4VTg/rq/pZRdT/IiG/a3s6j144Mh3mcboSPYy7
+ A2YcHbhFbUsJwQcxKSCURzaHp6G3s4zqjVob969omtQXP+eOO+VJZywK5cjdeHSD6o
+ KK74KUDQFw7hpvAxkfcDGfyqjLrUa/misT3dRVsyEBd0heu2ArTTpKGLdTb2echkPl
+ b68TH8r7tUzChLzAWQfE/m9CsSAtG0ZF27vqBq3YdNrdcpayfjHR59FulldLNPYCAJ
+ WNghh42CSjyYoevQxkrGSjms0zeGCMsXhEvJ5Tf0k0l7ZDR19HhYVuZokRYup6q+JW
+ quUlxs/5Djymw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 39/48] ALSA: control: Use deferred fasync helper
-Date: Sun, 14 Aug 2022 12:19:32 -0400
-Message-Id: <20220814161943.2394452-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.18 08/39] ALSA: hda: Fix page fault in
+ snd_hda_codec_shutdown()
+Date: Sun, 14 Aug 2022 12:22:57 -0400
+Message-Id: <20220814162332.2396012-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220814161943.2394452-1-sashal@kernel.org>
-References: <20220814161943.2394452-1-sashal@kernel.org>
+In-Reply-To: <20220814162332.2396012-1-sashal@kernel.org>
+References: <20220814162332.2396012-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com, peter.ujfalusi@linux.intel.com,
+ mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,79 +91,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit 4a971e84a7ae10a38d875cd2d4e487c8d1682ca3 ]
+[ Upstream commit 980b3a8790b402e959a6d773b38b771019682be1 ]
 
-For avoiding the potential deadlock via kill_fasync() call, use the
-new fasync helpers to defer the invocation from the control API.  Note
-that it's merely a workaround.
+If early probe of HDAudio bus driver fails e.g.: due to missing
+firmware file, snd_hda_codec_shutdown() ends in manipulating
+uninitialized codec->pcm_list_head causing page fault.
 
-Another note: although we haven't received reports about the deadlock
-with the control API, the deadlock is still potentially possible, and
-it's better to align the behavior with other core APIs (PCM and
-timer); so let's move altogether.
+Iinitialization of HDAudio codec in ASoC is split in two:
+- snd_hda_codec_device_init()
+- snd_hda_codec_device_new()
 
-Link: https://lore.kernel.org/r/20220728125945.29533-5-tiwai@suse.de
+snd_hda_codec_device_init() is called during probe_codecs() by HDAudio
+bus driver while snd_hda_codec_device_new() is called by
+codec-component's ->probe(). The second call will not happen until all
+components required by related sound card are present within the ASoC
+framework. With firmware failing to load during the PCI's deferred
+initialization i.e.: probe_work(), no platform components are ever
+registered. HDAudio codec enumeration is done at that point though, so
+the codec components became registered to ASoC framework, calling
+snd_hda_codec_device_init() in the process.
+
+Now, during platform reboot snd_hda_codec_shutdown() is called for every
+codec found on the HDAudio bus causing oops if any of them has not
+completed both of their initialization steps. Relocating field
+initialization fixes the issue.
+
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://lore.kernel.org/r/20220706120230.427296-7-cezary.rojewski@intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/control.h | 2 +-
- sound/core/control.c    | 7 ++++---
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ sound/pci/hda/hda_codec.c | 41 +++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
 
-diff --git a/include/sound/control.h b/include/sound/control.h
-index 985c51a8fb74..a1fc7e0a47d9 100644
---- a/include/sound/control.h
-+++ b/include/sound/control.h
-@@ -109,7 +109,7 @@ struct snd_ctl_file {
- 	int preferred_subdevice[SND_CTL_SUBDEV_ITEMS];
- 	wait_queue_head_t change_sleep;
- 	spinlock_t read_lock;
--	struct fasync_struct *fasync;
-+	struct snd_fasync *fasync;
- 	int subscribed;			/* read interface is activated */
- 	struct list_head events;	/* waiting events for read */
- };
-diff --git a/sound/core/control.c b/sound/core/control.c
-index a25c0d64d104..f66fe4be30d3 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -127,6 +127,7 @@ static int snd_ctl_release(struct inode *inode, struct file *file)
- 			if (control->vd[idx].owner == ctl)
- 				control->vd[idx].owner = NULL;
- 	up_write(&card->controls_rwsem);
-+	snd_fasync_free(ctl->fasync);
- 	snd_ctl_empty_read_queue(ctl);
- 	put_pid(ctl->pid);
- 	kfree(ctl);
-@@ -181,7 +182,7 @@ void snd_ctl_notify(struct snd_card *card, unsigned int mask,
- 	_found:
- 		wake_up(&ctl->change_sleep);
- 		spin_unlock(&ctl->read_lock);
--		kill_fasync(&ctl->fasync, SIGIO, POLL_IN);
-+		snd_kill_fasync(ctl->fasync, SIGIO, POLL_IN);
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 5cbac315dbe1..527616b39043 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -931,8 +931,28 @@ snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
  	}
- 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
+ 
+ 	codec->bus = bus;
++	codec->depop_delay = -1;
++	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
++	codec->core.dev.release = snd_hda_codec_dev_release;
++	codec->core.exec_verb = codec_exec_verb;
+ 	codec->core.type = HDA_DEV_LEGACY;
+ 
++	mutex_init(&codec->spdif_mutex);
++	mutex_init(&codec->control_mutex);
++	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
++	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
++	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
++	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
++	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
++	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
++	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
++	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
++	INIT_LIST_HEAD(&codec->conn_list);
++	INIT_LIST_HEAD(&codec->pcm_list_head);
++	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
++	refcount_set(&codec->pcm_ref, 1);
++	init_waitqueue_head(&codec->remove_sleep);
++
+ 	return codec;
  }
-@@ -2002,7 +2003,7 @@ static int snd_ctl_fasync(int fd, struct file * file, int on)
- 	struct snd_ctl_file *ctl;
+ EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
+@@ -980,29 +1000,8 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
+ 		return -EINVAL;
  
- 	ctl = file->private_data;
--	return fasync_helper(fd, file, on, &ctl->fasync);
-+	return snd_fasync_helper(fd, file, on, &ctl->fasync);
- }
+-	codec->core.dev.release = snd_hda_codec_dev_release;
+-	codec->core.exec_verb = codec_exec_verb;
+-
+ 	codec->card = card;
+ 	codec->addr = codec_addr;
+-	mutex_init(&codec->spdif_mutex);
+-	mutex_init(&codec->control_mutex);
+-	snd_array_init(&codec->mixers, sizeof(struct hda_nid_item), 32);
+-	snd_array_init(&codec->nids, sizeof(struct hda_nid_item), 32);
+-	snd_array_init(&codec->init_pins, sizeof(struct hda_pincfg), 16);
+-	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
+-	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
+-	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
+-	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
+-	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
+-	INIT_LIST_HEAD(&codec->conn_list);
+-	INIT_LIST_HEAD(&codec->pcm_list_head);
+-	refcount_set(&codec->pcm_ref, 1);
+-	init_waitqueue_head(&codec->remove_sleep);
+-
+-	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
+-	codec->depop_delay = -1;
+-	codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
  
- /* return the preferred subdevice number if already assigned;
-@@ -2170,7 +2171,7 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- 	read_lock_irqsave(&card->ctl_files_rwlock, flags);
- 	list_for_each_entry(ctl, &card->ctl_files, list) {
- 		wake_up(&ctl->change_sleep);
--		kill_fasync(&ctl->fasync, SIGIO, POLL_ERR);
-+		snd_kill_fasync(ctl->fasync, SIGIO, POLL_ERR);
- 	}
- 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
- 
+ #ifdef CONFIG_PM
+ 	codec->power_jiffies = jiffies;
 -- 
 2.35.1
 

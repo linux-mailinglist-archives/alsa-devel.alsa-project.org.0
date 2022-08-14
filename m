@@ -2,77 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7EA592466
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86168592609
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 20:48:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78D6F16BB;
-	Sun, 14 Aug 2022 18:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78D6F16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA5C1844;
+	Sun, 14 Aug 2022 20:47:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA5C1844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494778;
-	bh=iS9yqPrrykOoJinZudE3RI49uScGLU+2ThjG/LbrXTs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660502889;
+	bh=KANH+VfZE3ntxuhx96834tqyoYdxrDOe789KT055ePA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a6GhTHlmObw1ZRg54SJo5eaMzuCmAnN+EIhiATrfG5YZaqhx9m9mB+rj017+sOPjD
-	 kM3xszoeityZK3g0mItW5hvJkw++aiYMq0VvrbNwXc1CE9FKFJYC24Og9+Uc6tjhgd
-	 LwJ+KGbVOB6lsEmPKFNlacriCWaSR5AbJVec4Iyc=
+	b=B23g06uEZt3i4VfoSPW27c/2D9ZPy/ucDHv4S+5d3BorjEoWNMHUeoltKmy3qYmc7
+	 qaJUYZMGKaZSfN7qNgBtqHnCZL+n/MWJ16w8eP6oHm6SX2k12LeEzJXFtsV60Db0jj
+	 S56E+hsF1T8PqRe6/K4vaHTJQMRrSyITyuowdrEk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A54BF80564;
-	Sun, 14 Aug 2022 18:31:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F6D0F804C1;
+	Sun, 14 Aug 2022 20:47:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02204F80564; Sun, 14 Aug 2022 18:31:06 +0200 (CEST)
+ id C8E5EF800B8; Sun, 14 Aug 2022 20:47:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [IPv6:2607:f8b0:4864:20::f32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B0B9F804BD
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:31:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B0B9F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4355EF800B8
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 20:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4355EF800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LD06aie8"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C636260FD2;
- Sun, 14 Aug 2022 16:30:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6392EC433D7;
- Sun, 14 Aug 2022 16:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494658;
- bh=iS9yqPrrykOoJinZudE3RI49uScGLU+2ThjG/LbrXTs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LD06aie8VPTm1xhhtvEzzMwJOI3kod/sdbTyUagUV6iUMEqfyP+2Bml3ZPdZ5lxEV
- FJH9Az3/LC+V67IoP0q0RWX2yC+32poZ7uCiFjPFTsnwkSIWy5wA3O3e7MzQkC00vv
- XSNz25St4TSxLd8C6nBdD5rawdr69wOdaIp69w2LYc8vIaTs3q9lqiqDWg1W/MiRp6
- MgLqF+prUgK+BxdksPrWHnEEV7xVA56EVu8csc5G8KJzGNS4Y0Ve2Tt5rGOmokO9lR
- EHFRAnYWWL381YzXzdoP3MXxgPrkowmZkZN/7b2epjPoCVeDYe9mz2ZWD83+L4FawB
- nEli0lswEzsKA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 4/8] ALSA: core: Add async signal helpers
-Date: Sun, 14 Aug 2022 12:30:37 -0400
-Message-Id: <20220814163041.2399552-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220814163041.2399552-1-sashal@kernel.org>
-References: <20220814163041.2399552-1-sashal@kernel.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZcNgkuU+"
+Received: by mail-qv1-xf32.google.com with SMTP id u8so4143916qvv.1
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 11:47:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=dudlmWjuSuvNbi9ZYyo/rAhbjJyLDMtzGN5G53OzaMo=;
+ b=ZcNgkuU+zWbAKcAGArBWE8maGMxvPQ7VlP0YNqDbjIPV8BeVbWwnoua6cHVFuLyH4l
+ Y+eaEC5T+XPw1vLxXzcQsWDey3KX78uyEbjfuqi4pwC+42YiT39WsUA628D79tfh6K8d
+ 4DY725D0GLL5UQ+8tL59nOSTxuD88uzXAM37WpK1T7DkyyJN4R0TRPKJW10UE5YXaqS6
+ qUDPl03aM301291lSSXaacqjwyNXXJDtlXWf0TNGiKDbQiFzQ0K9B20MCltUdnOy1i+Y
+ z0mGQlMIyw7XXHzaEHp31ukbzY5PON8ezIqMqYl5d4JQW2i4XMjGkbiQjLyDVBSeOjLN
+ 6u2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=dudlmWjuSuvNbi9ZYyo/rAhbjJyLDMtzGN5G53OzaMo=;
+ b=RHa00rDwAj7IwX32YMm+ZejlAeQEpbRRjEMCMHedizxOrZPgq/D86MYKQnTR+0wa6L
+ U9RiPBsYzQ87Zxe9q9Ls5FeXN8r7ODnHrLI2r8uoztgp2uz/TOP9ba1E2UqutWUDksxc
+ i3yi3zmoY2+g3Vf+898je4hW8fI6HD0CMCmd1SWn+n3NHYn7WC17qqVwEjW3tXc4Lu4A
+ xDt8KeWpNKzOY89TsqPYLNuetB0Brd9ZMjmmG+F3pSBE358fk/YNm3nsG2cOlmSoLxeK
+ JDfcVAgUfxS7BmwgVl4y/eYjrCxcz5nXQvFjYBYM0p3yh39kBXxkFicH1O+ulRlVScxX
+ c47w==
+X-Gm-Message-State: ACgBeo1zJ5BvhYR6c4aDbIE5evxYioWpHVkQxovNZBaP3yt6/0qdPv5b
+ vycyMjBbLd0JntYWY6skQoXFv8CueX8NDj20dq4=
+X-Google-Smtp-Source: AA6agR4oQuZQwsVyjXb+7L9CQIbO7cRvAMkkYymfXxeLEfz+ouuOzmVVtEFPSsbedtPUWQLE/CKEUbV8wlJCDhKD/P0=
+X-Received: by 2002:a05:6214:5290:b0:479:5df:e654 with SMTP id
+ kj16-20020a056214529000b0047905dfe654mr10935326qvb.97.1660502823159; Sun, 14
+ Aug 2022 11:47:03 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+References: <20220814080416.7531-1-khalid.masum.92@gmail.com>
+In-Reply-To: <20220814080416.7531-1-khalid.masum.92@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sun, 14 Aug 2022 21:46:26 +0300
+Message-ID: <CAHp75Ve4UaLsUknGKm14_-f5=qsq1s_Ws+j6h0kAY5_XMkSmQw@mail.gmail.com>
+Subject: Re: [RFC PATCH] Soundwire: Initialize multi_link with fwnode props
+To: Khalid Masum <khalid.masum.92@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Daniel Scally <djrscally@gmail.com>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,156 +106,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+On Sun, Aug 14, 2022 at 11:31 AM Khalid Masum <khalid.masum.92@gmail.com> wrote:
+>
+> According to the TODO, In sw_bus_master_add, bus->multi_link is to be
+> populated with properties from FW node props. Make this happen by
+> creating a new fwnode_handle flag FWNODE_FLAG_MULTI_LINKED and use
+> the flag to store the multi_link value from intel_link_startup. Use
+> this flag to initialize bus->multi_link.
 
-[ Upstream commit ef34a0ae7a2654bc9e58675e36898217fb2799d8 ]
+...
 
-Currently the call of kill_fasync() from an interrupt handler might
-lead to potential spin deadlocks, as spotted by syzkaller.
-Unfortunately, it's not so trivial to fix this lock chain as it's
-involved with the tasklist_lock that is touched in allover places.
+>         /*
+>          * Initialize multi_link flag
+> -        * TODO: populate this flag by reading property from FW node
+>          */
+> -       bus->multi_link = false;
+> +       bus->multi_link = (fwnode->flags & FWNODE_FLAG_MULTI_LINKED)
+> +               == FWNODE_FLAG_MULTI_LINKED;
 
-As a temporary workaround, this patch provides the way to defer the
-async signal notification in a work.  The new helper functions,
-snd_fasync_helper() and snd_kill_faync() are replacements for
-fasync_helper() and kill_fasync(), respectively.  In addition,
-snd_fasync_free() needs to be called at the destructor of the relevant
-file object.
+NAK (as far as I understood the context of the comment and the change itself).
 
-Link: https://lore.kernel.org/r/20220728125945.29533-2-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/sound/core.h |  8 ++++
- sound/core/misc.c    | 94 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 102 insertions(+)
+These flags are for devlink, we do not mix FW properties with those
+internal flags anyhow. The comment suggests that this should be a
+property. Also commit message doesn't explain the relation to devlink.
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 31079ea5e484..d5d0e5e53920 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -457,4 +457,12 @@ snd_pci_quirk_lookup_id(u16 vendor, u16 device,
- }
- #endif
- 
-+/* async signal helpers */
-+struct snd_fasync;
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp);
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll);
-+void snd_fasync_free(struct snd_fasync *fasync);
-+
- #endif /* __SOUND_CORE_H */
-diff --git a/sound/core/misc.c b/sound/core/misc.c
-index f2e8226c88fb..efe26b8ca57f 100644
---- a/sound/core/misc.c
-+++ b/sound/core/misc.c
-@@ -25,6 +25,7 @@
- #include <linux/time.h>
- #include <linux/slab.h>
- #include <linux/ioport.h>
-+#include <linux/fs.h>
- #include <sound/core.h>
- 
- #ifdef CONFIG_SND_DEBUG
-@@ -153,3 +154,96 @@ snd_pci_quirk_lookup(struct pci_dev *pci, const struct snd_pci_quirk *list)
- }
- EXPORT_SYMBOL(snd_pci_quirk_lookup);
- #endif
-+
-+/*
-+ * Deferred async signal helpers
-+ *
-+ * Below are a few helper functions to wrap the async signal handling
-+ * in the deferred work.  The main purpose is to avoid the messy deadlock
-+ * around tasklist_lock and co at the kill_fasync() invocation.
-+ * fasync_helper() and kill_fasync() are replaced with snd_fasync_helper()
-+ * and snd_kill_fasync(), respectively.  In addition, snd_fasync_free() has
-+ * to be called at releasing the relevant file object.
-+ */
-+struct snd_fasync {
-+	struct fasync_struct *fasync;
-+	int signal;
-+	int poll;
-+	int on;
-+	struct list_head list;
-+};
-+
-+static DEFINE_SPINLOCK(snd_fasync_lock);
-+static LIST_HEAD(snd_fasync_list);
-+
-+static void snd_fasync_work_fn(struct work_struct *work)
-+{
-+	struct snd_fasync *fasync;
-+
-+	spin_lock_irq(&snd_fasync_lock);
-+	while (!list_empty(&snd_fasync_list)) {
-+		fasync = list_first_entry(&snd_fasync_list, struct snd_fasync, list);
-+		list_del_init(&fasync->list);
-+		spin_unlock_irq(&snd_fasync_lock);
-+		if (fasync->on)
-+			kill_fasync(&fasync->fasync, fasync->signal, fasync->poll);
-+		spin_lock_irq(&snd_fasync_lock);
-+	}
-+	spin_unlock_irq(&snd_fasync_lock);
-+}
-+
-+static DECLARE_WORK(snd_fasync_work, snd_fasync_work_fn);
-+
-+int snd_fasync_helper(int fd, struct file *file, int on,
-+		      struct snd_fasync **fasyncp)
-+{
-+	struct snd_fasync *fasync = NULL;
-+
-+	if (on) {
-+		fasync = kzalloc(sizeof(*fasync), GFP_KERNEL);
-+		if (!fasync)
-+			return -ENOMEM;
-+		INIT_LIST_HEAD(&fasync->list);
-+	}
-+
-+	spin_lock_irq(&snd_fasync_lock);
-+	if (*fasyncp) {
-+		kfree(fasync);
-+		fasync = *fasyncp;
-+	} else {
-+		if (!fasync) {
-+			spin_unlock_irq(&snd_fasync_lock);
-+			return 0;
-+		}
-+		*fasyncp = fasync;
-+	}
-+	fasync->on = on;
-+	spin_unlock_irq(&snd_fasync_lock);
-+	return fasync_helper(fd, file, on, &fasync->fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_helper);
-+
-+void snd_kill_fasync(struct snd_fasync *fasync, int signal, int poll)
-+{
-+	unsigned long flags;
-+
-+	if (!fasync || !fasync->on)
-+		return;
-+	spin_lock_irqsave(&snd_fasync_lock, flags);
-+	fasync->signal = signal;
-+	fasync->poll = poll;
-+	list_move(&fasync->list, &snd_fasync_list);
-+	schedule_work(&snd_fasync_work);
-+	spin_unlock_irqrestore(&snd_fasync_lock, flags);
-+}
-+EXPORT_SYMBOL_GPL(snd_kill_fasync);
-+
-+void snd_fasync_free(struct snd_fasync *fasync)
-+{
-+	if (!fasync)
-+		return;
-+	fasync->on = 0;
-+	flush_work(&snd_fasync_work);
-+	kfree(fasync);
-+}
-+EXPORT_SYMBOL_GPL(snd_fasync_free);
 -- 
-2.35.1
-
+With Best Regards,
+Andy Shevchenko

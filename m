@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4A159242F
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:29:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E1C59243E
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:30:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DE3B1685;
-	Sun, 14 Aug 2022 18:29:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DE3B1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0362D16A0;
+	Sun, 14 Aug 2022 18:29:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0362D16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494593;
-	bh=dJICxAXUVqoAvRcs1iEYL7jr+zKhXIpbPrZJ96/wyv0=;
+	s=default; t=1660494615;
+	bh=X/ZLYxxDnih0e0paGcYJ4tSJ7KVpOyF0ATP2RLTK/q4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KevmtlPQ7JXxFc85EhXpsOToeb4go9sMmb0bU5q1bU2qsSMVnt7FAwUnhb32vemDD
-	 9WdGuH+uTly7rgRfC+zdpT8P2BPhM4V/X/8jCbVkDhArMAuL3FB373l1MYvm7Z2d08
-	 zu8nS08+AHvPQiYf+YTAB4IVnjWXWSX6jt+RDx0A=
+	b=HTj4JdKERozmo8jRsvTEppw4AnPcDl3ILLv2IinSp+sDsk8emJ1DPm1z6X8nRPsMM
+	 IjGf5XR1Y6o87NPj9GqzcFVaIFw5+QetcKr24znf11W7ZZKVpbwXDsIfnagLWI3kuJ
+	 nuzvWuTK43e8BY5kd/c7DXnjkHT9C2g7AC6go9tU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 943EBF80557;
-	Sun, 14 Aug 2022 18:27:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA345F80588;
+	Sun, 14 Aug 2022 18:27:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C8FEF80515; Sun, 14 Aug 2022 18:27:28 +0200 (CEST)
+ id 90789F8057C; Sun, 14 Aug 2022 18:27:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 523B6F80515
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 523B6F80515
+ by alsa1.perex.cz (Postfix) with ESMTPS id 694CAF80553
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 18:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 694CAF80553
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Kde2bluc"
+ header.b="uh13lgIt"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 78BCB60FCE;
- Sun, 14 Aug 2022 16:27:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A369C433C1;
- Sun, 14 Aug 2022 16:27:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5D99960C98;
+ Sun, 14 Aug 2022 16:27:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED974C433D7;
+ Sun, 14 Aug 2022 16:27:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494439;
- bh=dJICxAXUVqoAvRcs1iEYL7jr+zKhXIpbPrZJ96/wyv0=;
+ s=k20201202; t=1660494442;
+ bh=X/ZLYxxDnih0e0paGcYJ4tSJ7KVpOyF0ATP2RLTK/q4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Kde2bluc7tVHBKC3Fc7RFxt6FJiCLHs568iDXp4UbGEWJwBcQo2Cj8e2iLJCDTw7O
- 7fsrBBE0UbQmCP4nrMcGakslJW02hZ8tyIBARB4BTKrVKAKCrrJdKtKjRASWJOJC/r
- +urSycRXnFN0WQInVvxYMXt3co/WV02wNFF2Kajd88qUU5FncKIkfXpz5tp+2RGDCn
- cDwtqFRt0OEuuRPPwSQVRJPdlCIEnGNS0ZqOl9XFwzhfXA1AZRGzlK45R68PZ4kicn
- McsD17etgBN6n9G0CbVjZ1SMJngedoQMIbRwx7vLB8ju1xwGkhXa62Z+TMXFTP4vOK
- YZghYxVDn3kJg==
+ b=uh13lgItE4/WLXXSLr3LSEjHbRkjqhIdc2kdnhdKqwhxM3sFPh5IpZWqRvaRDn2Wh
+ KE2wXUllzCp2vdnTsLkTJyt/NnzvM0kHopcs2Ruzq5W5lzIFDB72c4MYrFmhVWTDzD
+ 4O80KDB8KXS/BlTJmsb9Rnw7PqlNRo6R8oCgHJyWH4pezLYIbNMA93Xi1Z8iHzdMxS
+ 2hJe6xE4chMcpid7cwrcASgDOKQHkzInXn+TzFs4gtit90x1ECVk+qS1+Kjw/7XhLY
+ UMjKSbC8FF0SvccndMf3wFHXEZm4XRbQqkZx972mXAwfiNP4KL5toOUBV3N6X0T5j1
+ zxI8rYZ/HSUzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 20/28] ALSA: timer: Use deferred fasync helper
-Date: Sun, 14 Aug 2022 12:26:00 -0400
-Message-Id: <20220814162610.2397644-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 21/28] ALSA: control: Use deferred fasync helper
+Date: Sun, 14 Aug 2022 12:26:01 -0400
+Message-Id: <20220814162610.2397644-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220814162610.2397644-1-sashal@kernel.org>
 References: <20220814162610.2397644-1-sashal@kernel.org>
@@ -70,11 +70,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, wangwensheng4@huawei.com,
- syzbot+49b10793b867871ee26f@syzkaller.appspotmail.com, tiwai@suse.com,
- syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com,
- syzbot+8285e973a41b5aa68902@syzkaller.appspotmail.com
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,79 +89,77 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 95cc637c1afd83fb7dd3d7c8a53710488f4caf9c ]
+[ Upstream commit 4a971e84a7ae10a38d875cd2d4e487c8d1682ca3 ]
 
 For avoiding the potential deadlock via kill_fasync() call, use the
-new fasync helpers to defer the invocation from PCI API.  Note that
-it's merely a workaround.
+new fasync helpers to defer the invocation from the control API.  Note
+that it's merely a workaround.
 
-Reported-by: syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com
-Reported-by: syzbot+49b10793b867871ee26f@syzkaller.appspotmail.com
-Reported-by: syzbot+8285e973a41b5aa68902@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/r/20220728125945.29533-3-tiwai@suse.de
+Another note: although we haven't received reports about the deadlock
+with the control API, the deadlock is still potentially possible, and
+it's better to align the behavior with other core APIs (PCM and
+timer); so let's move altogether.
+
+Link: https://lore.kernel.org/r/20220728125945.29533-5-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/timer.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ include/sound/control.h | 2 +-
+ sound/core/control.c    | 7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index b3214baa8919..e08a37c23add 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -83,7 +83,7 @@ struct snd_timer_user {
- 	unsigned int filter;
- 	struct timespec64 tstamp;		/* trigger tstamp */
- 	wait_queue_head_t qchange_sleep;
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 985c51a8fb74..a1fc7e0a47d9 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -109,7 +109,7 @@ struct snd_ctl_file {
+ 	int preferred_subdevice[SND_CTL_SUBDEV_ITEMS];
+ 	wait_queue_head_t change_sleep;
+ 	spinlock_t read_lock;
 -	struct fasync_struct *fasync;
 +	struct snd_fasync *fasync;
- 	struct mutex ioctl_lock;
+ 	int subscribed;			/* read interface is activated */
+ 	struct list_head events;	/* waiting events for read */
  };
- 
-@@ -1345,7 +1345,7 @@ static void snd_timer_user_interrupt(struct snd_timer_instance *timeri,
+diff --git a/sound/core/control.c b/sound/core/control.c
+index a25c0d64d104..f66fe4be30d3 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -127,6 +127,7 @@ static int snd_ctl_release(struct inode *inode, struct file *file)
+ 			if (control->vd[idx].owner == ctl)
+ 				control->vd[idx].owner = NULL;
+ 	up_write(&card->controls_rwsem);
++	snd_fasync_free(ctl->fasync);
+ 	snd_ctl_empty_read_queue(ctl);
+ 	put_pid(ctl->pid);
+ 	kfree(ctl);
+@@ -181,7 +182,7 @@ void snd_ctl_notify(struct snd_card *card, unsigned int mask,
+ 	_found:
+ 		wake_up(&ctl->change_sleep);
+ 		spin_unlock(&ctl->read_lock);
+-		kill_fasync(&ctl->fasync, SIGIO, POLL_IN);
++		snd_kill_fasync(ctl->fasync, SIGIO, POLL_IN);
  	}
-       __wake:
- 	spin_unlock(&tu->qlock);
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
+ 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
+ }
+@@ -2002,7 +2003,7 @@ static int snd_ctl_fasync(int fd, struct file * file, int on)
+ 	struct snd_ctl_file *ctl;
+ 
+ 	ctl = file->private_data;
+-	return fasync_helper(fd, file, on, &ctl->fasync);
++	return snd_fasync_helper(fd, file, on, &ctl->fasync);
  }
  
-@@ -1383,7 +1383,7 @@ static void snd_timer_user_ccallback(struct snd_timer_instance *timeri,
- 	spin_lock_irqsave(&tu->qlock, flags);
- 	snd_timer_user_append_to_tqueue(tu, &r1);
- 	spin_unlock_irqrestore(&tu->qlock, flags);
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
- }
+ /* return the preferred subdevice number if already assigned;
+@@ -2170,7 +2171,7 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
+ 	read_lock_irqsave(&card->ctl_files_rwlock, flags);
+ 	list_for_each_entry(ctl, &card->ctl_files, list) {
+ 		wake_up(&ctl->change_sleep);
+-		kill_fasync(&ctl->fasync, SIGIO, POLL_ERR);
++		snd_kill_fasync(ctl->fasync, SIGIO, POLL_ERR);
+ 	}
+ 	read_unlock_irqrestore(&card->ctl_files_rwlock, flags);
  
-@@ -1453,7 +1453,7 @@ static void snd_timer_user_tinterrupt(struct snd_timer_instance *timeri,
- 	spin_unlock(&tu->qlock);
- 	if (append == 0)
- 		return;
--	kill_fasync(&tu->fasync, SIGIO, POLL_IN);
-+	snd_kill_fasync(tu->fasync, SIGIO, POLL_IN);
- 	wake_up(&tu->qchange_sleep);
- }
- 
-@@ -1521,6 +1521,7 @@ static int snd_timer_user_release(struct inode *inode, struct file *file)
- 			snd_timer_instance_free(tu->timeri);
- 		}
- 		mutex_unlock(&tu->ioctl_lock);
-+		snd_fasync_free(tu->fasync);
- 		kfree(tu->queue);
- 		kfree(tu->tqueue);
- 		kfree(tu);
-@@ -2135,7 +2136,7 @@ static int snd_timer_user_fasync(int fd, struct file * file, int on)
- 	struct snd_timer_user *tu;
- 
- 	tu = file->private_data;
--	return fasync_helper(fd, file, on, &tu->fasync);
-+	return snd_fasync_helper(fd, file, on, &tu->fasync);
- }
- 
- static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
 -- 
 2.35.1
 

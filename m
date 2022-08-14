@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF227592386
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:22:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69850592388
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Aug 2022 18:22:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80EE086F;
-	Sun, 14 Aug 2022 18:21:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80EE086F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0604CE11;
+	Sun, 14 Aug 2022 18:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0604CE11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660494148;
-	bh=14BEbwuS/9GtFKmOQR6ugEwfl0StUNmna3JofOg1vEc=;
+	s=default; t=1660494172;
+	bh=XMqlULsVRDZW+IEUfiphA3cJNCqcrWzjUawBkqNX6W4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dbwWhsZUiyQM4fSIUqH3mKA/LPRVVUnB2IufP3biu9tx1kjTY+6V8qs21fy/cOXE5
-	 q2LvL9CsXWIr+1lR5Y+kctd88L3aQ/oUENGMV7JIyNX5vrBoB66CKxO/9rAYdayEgR
-	 lfKfw3vaODIfsid9evo0ju4f05uwpkY8FMOZefBs=
+	b=KBbI/jCDPsyrC5tJFnufFTxvvGRvmzfO2JLcmIWcfzs9aOGWFTTf+HYFbIXvIB4ep
+	 j0cIkRYg9OLeJZQUUQ8j4rtl7fvTB4t0LQh3AJELq4ziuZTxqbhk++mF9UIQktNBGS
+	 MLJhBQgSXzzPVLp8bj2Bgv/dSbu/Jod/TpAvPAvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04F77F8055A;
-	Sun, 14 Aug 2022 18:20:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D92EF8057B;
+	Sun, 14 Aug 2022 18:20:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85647F80559; Sun, 14 Aug 2022 18:20:30 +0200 (CEST)
+ id 565F7F8055B; Sun, 14 Aug 2022 18:20:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AEFFF80508;
- Sun, 14 Aug 2022 18:20:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AEFFF80508
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC862F80095;
+ Sun, 14 Aug 2022 18:20:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC862F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="StJS565K"
+ header.b="jzc8pajr"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E42FDB80B3C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4B3AB60F6A;
+ Sun, 14 Aug 2022 16:20:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A916C433D7;
  Sun, 14 Aug 2022 16:20:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C44C433D6;
- Sun, 14 Aug 2022 16:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660494020;
- bh=14BEbwuS/9GtFKmOQR6ugEwfl0StUNmna3JofOg1vEc=;
+ s=k20201202; t=1660494022;
+ bh=XMqlULsVRDZW+IEUfiphA3cJNCqcrWzjUawBkqNX6W4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=StJS565KV8fnAvzIX1WgzwVhUhWcpxsw4gMlON9BxlXEv5yvbjdQPdUpoBo5/8Xau
- FBsSnEtguLfsy1n25+klHsDyk3feorfOSK/xb8e3Tw/AlUlNp146wSfOfYwAV7/QNB
- 9yBQsKNqZmS2/tHquZnMIkpT25utdvsR61LXIeDW5vxhwuSSBGXWp1HWjFe7ziqcU+
- Dv/KhX/ysQUnfwao48QEyDEKbKekaO/QeYrmX42fHeKU4RQnKHRXpbSVpq8XgboWtb
- 5NiBIfEESpNZfFlwcMwQ8BkgVplFPgTYy3QlIsq6WDg5GIDBC8x/l2PDVGcDHudasX
- FeqheuFrxzGTw==
+ b=jzc8pajroHF5mNigjW37/vIYBlwRxXlb/jIbQw+4eM/6hhiviTz5fvAZPefcJJsE6
+ RZs4FPbJh59rOI+oL9UEmDY9pXCHtMd+wjdUTNKal7ZDcl9PMn2vRUbcmWOxVxjnJ6
+ fgf29tjq44eHtxThbLpJouzoTWUjOheTov5voOCVt40GOhVlz4RyfTM3BjCkjjEu8/
+ 8OIcMQ3i4OGMiMqiwjslrzWcaaZnxNVl756FKvZwSVZLiF5p9g9ldklZhFBpExAwGv
+ +1WnsCMkCqs0+zx3rWNramj1xE/CoGtwarfFBbsfDCmKBA0jym7EDG2QA0sabVtZlL
+ POvegh8R4Qw8A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 13/48] ASoC: SOF: Intel: hda-ipc: Do not process
- IPC reply before firmware boot
-Date: Sun, 14 Aug 2022 12:19:06 -0400
-Message-Id: <20220814161943.2394452-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 14/48] ASoC: SOF: sof-client-probes: Only load
+ the driver if IPC3 is used
+Date: Sun, 14 Aug 2022 12:19:07 -0400
+Message-Id: <20220814161943.2394452-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220814161943.2394452-1-sashal@kernel.org>
 References: <20220814161943.2394452-1-sashal@kernel.org>
@@ -72,13 +72,12 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, guennadi.liakhovetski@linux.intel.com,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- lgirdwood@gmail.com, rander.wang@intel.com, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com, lgirdwood@gmail.com,
  daniel.baluta@nxp.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
  sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -98,92 +97,36 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 499cc881b09c8283ab5e75b0d6d21cb427722161 ]
+[ Upstream commit 9b93eda355089b36482f7a2f134bdd24be70f907 ]
 
-It is not yet clear, but it is possible to create a firmware so broken
-that it will send a reply message before a FW_READY message (it is not
-yet clear if FW_READY will arrive later).
-Since the reply_data is allocated only after the FW_READY message, this
-will lead to a NULL pointer dereference if not filtered out.
+The current implementation of probes only supports IPC3 and should not be
+loaded for other IPC implementation.
 
-The issue was reported with IPC4 firmware but the same condition is present
-for IPC3.
-
-Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220712122357.31282-3-peter.ujfalusi@linux.intel.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20220712131022.1124-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/hda-ipc.c | 39 ++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 14 deletions(-)
+ sound/soc/sof/sof-client-probes.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index f08011249955..65e688f749ea 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -148,17 +148,23 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
+diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+index 34e6bd356e71..60e4250fac87 100644
+--- a/sound/soc/sof/sof-client-probes.c
++++ b/sound/soc/sof/sof-client-probes.c
+@@ -693,6 +693,10 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
+ 	if (!sof_probes_enabled)
+ 		return -ENXIO;
  
- 		if (primary & SOF_IPC4_MSG_DIR_MASK) {
- 			/* Reply received */
--			struct sof_ipc4_msg *data = sdev->ipc->msg.reply_data;
-+			if (likely(sdev->fw_state == SOF_FW_BOOT_COMPLETE)) {
-+				struct sof_ipc4_msg *data = sdev->ipc->msg.reply_data;
- 
--			data->primary = primary;
--			data->extension = extension;
-+				data->primary = primary;
-+				data->extension = extension;
- 
--			spin_lock_irq(&sdev->ipc_lock);
-+				spin_lock_irq(&sdev->ipc_lock);
- 
--			snd_sof_ipc_get_reply(sdev);
--			snd_sof_ipc_reply(sdev, data->primary);
-+				snd_sof_ipc_get_reply(sdev);
-+				snd_sof_ipc_reply(sdev, data->primary);
- 
--			spin_unlock_irq(&sdev->ipc_lock);
-+				spin_unlock_irq(&sdev->ipc_lock);
-+			} else {
-+				dev_dbg_ratelimited(sdev->dev,
-+						    "IPC reply before FW_READY: %#x|%#x\n",
-+						    primary, extension);
-+			}
- 		} else {
- 			/* Notification received */
- 
-@@ -225,16 +231,21 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
- 		 * place, the message might not yet be marked as expecting a
- 		 * reply.
- 		 */
--		spin_lock_irq(&sdev->ipc_lock);
-+		if (likely(sdev->fw_state == SOF_FW_BOOT_COMPLETE)) {
-+			spin_lock_irq(&sdev->ipc_lock);
- 
--		/* handle immediate reply from DSP core */
--		hda_dsp_ipc_get_reply(sdev);
--		snd_sof_ipc_reply(sdev, msg);
-+			/* handle immediate reply from DSP core */
-+			hda_dsp_ipc_get_reply(sdev);
-+			snd_sof_ipc_reply(sdev, msg);
- 
--		/* set the done bit */
--		hda_dsp_ipc_dsp_done(sdev);
-+			/* set the done bit */
-+			hda_dsp_ipc_dsp_done(sdev);
- 
--		spin_unlock_irq(&sdev->ipc_lock);
-+			spin_unlock_irq(&sdev->ipc_lock);
-+		} else {
-+			dev_dbg_ratelimited(sdev->dev, "IPC reply before FW_READY: %#x\n",
-+					    msg);
-+		}
- 
- 		ipc_irq = true;
- 	}
++	/* only ipc3 is supported */
++	if (sof_client_get_ipc_type(cdev) != SOF_IPC)
++		return -ENXIO;
++
+ 	if (!dev->platform_data) {
+ 		dev_err(dev, "missing platform data\n");
+ 		return -ENODEV;
 -- 
 2.35.1
 

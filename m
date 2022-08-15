@@ -2,101 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9535951D0
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 07:17:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875805951D3
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 07:18:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 039BE15C1;
-	Tue, 16 Aug 2022 07:16:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 039BE15C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25FE21637;
+	Tue, 16 Aug 2022 07:17:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25FE21637
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660627066;
-	bh=ySf94eO1UDWePfbKlRGmowTvkm3GhgAZk6bfaQoz9Ps=;
+	s=default; t=1660627080;
+	bh=gH4kpM2zoHsS71pXeXN0q4Pz9+SPpIqZ4yT4Au9UauQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JINmcEa7fRwY8uXfOkZDkbfRd4awS9YuqUE+TY2CyjSrdPnxp5mxoLM+cUiLZmemx
-	 MRjORrLB3aLOnh6uet+2DkmpKn8KSqGfHTiBjlPNeUtaCpaxHPbFQaeiw1wdZA2BRD
-	 lV2CSWxcR+PvXzXqZhcXBkbj81TtIUL9Ta6DIe3o=
+	b=iIe5RpKj76rXga3DMlYMIUZTxgqqT4hPcACCFAuTsjQGXGAoHhd5FI/VhSa5yuli4
+	 3V+3P5VnX+tA4uSmCXbqYUnNegN+4IlwszORW+6YOXIHv8tKOM3qAAPBuY3CFn6wmY
+	 6f96neVzPBZF75DL/5HyKl3yZ37CUXRp89oKhOAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D535DF80431;
-	Tue, 16 Aug 2022 07:16:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07FF6F80082;
+	Tue, 16 Aug 2022 07:16:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 695E8F8025A; Mon, 15 Aug 2022 06:08:24 +0200 (CEST)
+ id E07F4F80095; Mon, 15 Aug 2022 06:28:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C5A7F80082
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 06:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C5A7F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8652FF80095
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 06:28:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8652FF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K0mPaT+N"
-Received: by mail-pl1-x62d.google.com with SMTP id 13so5437196plo.12
- for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 21:08:18 -0700 (PDT)
+ header.b="EiZ46NWg"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ e8-20020a17090a280800b001f2fef7886eso5814707pjd.3
+ for <alsa-devel@alsa-project.org>; Sun, 14 Aug 2022 21:28:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=8hntQHoZ9Gf9EapoG7OUHkjCCy7RUxfP8D6OFpiBLZE=;
- b=K0mPaT+Ne0sR56DQhZkB0bHdsZxqQQgYPtaXecGLmhyy89OMj07hkhf4ZjiHNxgMih
- 2C/aj9sPPTJorIJmhN1KFwrfHO5IAmGLlaliYGD3OfwydJNc38oVL+il+TN/iNm4hevE
- 3IrbI6fl4h05tlE9Vx0chJLS9IN9D5gltv/UZNERo4qsG8aj+WHDc+1fGZzthdBjoCFg
- X2b09EmknfCM4ejvoFzWn2GNl+540olVVmkE4dF1tnr16UHKVxHKgzGIDjl34Jq20g0u
- W1nsW9/EVC04ga9kSESpbx1j/9AhuFGYU+p7xsydnmJbiQ1CInBphFmwslnQX51zWBKR
- kPug==
+ :from:to:cc; bh=AxntZ5boEdqFqlgnkvj7nx9yV31SjrqxErxj02VUkgI=;
+ b=EiZ46NWgWvaPrWGZpEefUGH8iyYRrNyxPcZFIYYXH1N8zjQloB6tCImzZpIVPLxywV
+ vvyyCkK9dDeDt7iSwYZs5PMf3Bp037GUBrBFN01bWAJ72NpP06EtdZlV1FKXm653cwX1
+ wo8o5GLfryMyJ+1ZnsFNTEeTf+sdzRGnYhiiFAJbNzKyCg7cKOTj46KZPv9lhejF+hys
+ +f0JYi+/ciwR5SdnaOiW3IGj7nqdcuHuml0Nonjl2N2YXx4U61l5YaMx4ic3xRYZWWQO
+ 0F+OC0HTjyGxpiJOuxcqqEGO1U3lt/938nOLcJ09iB5MjBqOQuLp7rZmVVIdZOKk/eEe
+ m0Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=8hntQHoZ9Gf9EapoG7OUHkjCCy7RUxfP8D6OFpiBLZE=;
- b=o1BbMmQ4VMRdiApypI38JgRIR3LcfysloMynzYhXCWQgkER6k6+nU3W/VesxXJvXHt
- FhTI3lQj13c5vDc1i4VJQ5J9wneVR42VhfeqOZRG+aeUOhWZigv0skTnVDIaG9doGI6i
- OTQbL/CI+MArkn3KCQ7QKEe14mXJ+Dmf12DX3bCj4Z92jd8NEawVLF8ajQPEEXFB79kF
- czv9SqVoY2O/he4t6m0gtPo0zqdHRVYvfU4AwJvcHHYl8xq2laecPRF47/EwTZUOsjC7
- yG/8qUHmbXLiCCFc/djQvzvErvWgHWfXoLAavWx30moHSU4QEbk1WhkG1E3RCKd5sW9c
- pmCg==
-X-Gm-Message-State: ACgBeo2LpeEeZTVv2Pk5XaDZKx0mirkUHMrdRvxhhbe8JzIx6F/l0qW+
- jb5Bi5hACCxl0scgTck+0l0=
-X-Google-Smtp-Source: AA6agR5ZjWehLH23fBf8T62x3uR4J1jayTxfMTMd8U2E8rJ59TUX5AIiemdUO1NZSKljU005g3Z6GA==
-X-Received: by 2002:a17:902:e811:b0:170:8af3:824d with SMTP id
- u17-20020a170902e81100b001708af3824dmr14932403plg.26.1660536496248; 
- Sun, 14 Aug 2022 21:08:16 -0700 (PDT)
+ bh=AxntZ5boEdqFqlgnkvj7nx9yV31SjrqxErxj02VUkgI=;
+ b=SAHjHI/DCs3VsjGdLu8ppUChEIfHn5dffpzrnMmJ2dkfp0AV0AqygX9SAU9uzxlaPq
+ hihPg4MzlyTiJFYpils+ezvUruscbbRmm7OY6+3pq7qPyI4H3CvIxe+HI5cLoc85ocuf
+ gha0uXnuM4k/4oCq/pDl+SPxMXcmfu0gIWHJbbS2UBhcFjgvj6FxgL4mQK7WSEf3coHM
+ 8bsyT5sF87icAdgLeUPNXYz0J8k88L0nD9aWXB843MaQhg0frO0HaHnnBocNVgGUYR8V
+ 0ntEP6Ti1A1PvSFdBpXC76uJsK40gipWFoc3o0NWIc9ki9C4A7P6ksLKwG0OEDaVPlOw
+ T6mQ==
+X-Gm-Message-State: ACgBeo3J03uZDYMExeM0FWmjOgeUClJ5m74Bgp7bPiBr3DcDi/15YUN6
+ h6CcVMOSPmOgFLyq2PCgB84=
+X-Google-Smtp-Source: AA6agR6MAp7+b/8FUDKU99TCqhom1gNdLqL4D9vAA6/sxWFPfnKjoyXgKgGz0y5SYQ1WL0Q+KddeKA==
+X-Received: by 2002:a17:90b:4b91:b0:1f4:e116:8f1 with SMTP id
+ lr17-20020a17090b4b9100b001f4e11608f1mr16664416pjb.121.1660537693908; 
+ Sun, 14 Aug 2022 21:28:13 -0700 (PDT)
 Received: from [192.168.0.110] ([103.159.189.148])
  by smtp.gmail.com with ESMTPSA id
- f2-20020a170902ce8200b0015e8d4eb1d7sm6152838plg.33.2022.08.14.21.08.09
+ e6-20020a170902d38600b001709b9d292esm6118545pld.268.2022.08.14.21.28.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 14 Aug 2022 21:08:15 -0700 (PDT)
-Message-ID: <cc6560c3-98c2-bdb5-cfc3-b39d3675382e@gmail.com>
-Date: Mon, 15 Aug 2022 10:08:07 +0600
+ Sun, 14 Aug 2022 21:28:13 -0700 (PDT)
+Message-ID: <54dd86bd-416b-3048-9bd0-368afa3aaf2f@gmail.com>
+Date: Mon, 15 Aug 2022 10:28:05 +0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
 Subject: Re: [RFC PATCH] Soundwire: Initialize multi_link with fwnode props
 Content-Language: en-US
-To: Greg KH <greg@kroah.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
 References: <20220814080416.7531-1-khalid.masum.92@gmail.com>
- <YvjEIjXg7KxtTT/0@kroah.com>
+ <CAHp75Ve4UaLsUknGKm14_-f5=qsq1s_Ws+j6h0kAY5_XMkSmQw@mail.gmail.com>
 From: Khalid Masum <khalid.masum.92@gmail.com>
-In-Reply-To: <YvjEIjXg7KxtTT/0@kroah.com>
+In-Reply-To: <CAHp75Ve4UaLsUknGKm14_-f5=qsq1s_Ws+j6h0kAY5_XMkSmQw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 16 Aug 2022 07:16:15 +0200
-Cc: alsa-devel@alsa-project.org,
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  "Rafael J . Wysocki" <rafael@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Scally <djrscally@gmail.com>, linux-acpi@vger.kernel.org,
+ Daniel Scally <djrscally@gmail.com>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
  Sanyog Kale <sanyog.r.kale@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -116,83 +119,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/14/22 15:45, Greg KH wrote:
-> On Sun, Aug 14, 2022 at 02:04:15PM +0600, Khalid Masum wrote:
+On 8/15/22 00:46, Andy Shevchenko wrote:
+> On Sun, Aug 14, 2022 at 11:31 AM Khalid Masum <khalid.masum.92@gmail.com> wrote:
+>>
 >> According to the TODO, In sw_bus_master_add, bus->multi_link is to be
 >> populated with properties from FW node props. Make this happen by
 >> creating a new fwnode_handle flag FWNODE_FLAG_MULTI_LINKED and use
 >> the flag to store the multi_link value from intel_link_startup. Use
 >> this flag to initialize bus->multi_link.
->>
->> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
->> ---
->> I do not think adding a new flag for fwnode_handle is a good idea.
->> So, what would be the best way to initialize bus->multilink with
->> fwnode props?
->>
->>    -- Khalid Masum
->>
->>   drivers/soundwire/bus.c   | 4 ++--
->>   drivers/soundwire/intel.c | 1 +
->>   include/linux/fwnode.h    | 1 +
->>   3 files changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
->> index a2bfb0434a67..80df1672c60b 100644
->> --- a/drivers/soundwire/bus.c
->> +++ b/drivers/soundwire/bus.c
->> @@ -74,9 +74,9 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
->>   
->>   	/*
->>   	 * Initialize multi_link flag
->> -	 * TODO: populate this flag by reading property from FW node
->>   	 */
->> -	bus->multi_link = false;
->> +	bus->multi_link = (fwnode->flags & FWNODE_FLAG_MULTI_LINKED)
->> +		== FWNODE_FLAG_MULTI_LINKED;
->>   	if (bus->ops->read_prop) {
->>   		ret = bus->ops->read_prop(bus);
->>   		if (ret < 0) {
->> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
->> index 505c5ef061e3..034d1c523ddf 100644
->> --- a/drivers/soundwire/intel.c
->> +++ b/drivers/soundwire/intel.c
->> @@ -1347,6 +1347,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
->>   		 */
->>   		bus->multi_link = true;
->>   		bus->hw_sync_min_links = 1;
->> +		dev->fwnode->flags |= FWNODE_FLAG_MULTI_LINKED;
->>   	}
->>   
->>   	/* Initialize shim, controller */
->> diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
->> index 9a81c4410b9f..446a52744953 100644
->> --- a/include/linux/fwnode.h
->> +++ b/include/linux/fwnode.h
->> @@ -32,6 +32,7 @@ struct device;
->>   #define FWNODE_FLAG_NOT_DEVICE			BIT(1)
->>   #define FWNODE_FLAG_INITIALIZED			BIT(2)
->>   #define FWNODE_FLAG_NEEDS_CHILD_BOUND_ON_ADD	BIT(3)
->> +#define FWNODE_FLAG_MULTI_LINKED		BIT(4)
 > 
-> What does this commit actually change?
-
-The new flag will lets us save if the device has multilink in 
-fwnode_handle whenever needed.
-Then for soundwire/intel, save the multi_link flag into fwnode during 
-startup.
-Later at master_add, as written in todo, initialize the multilink flag 
-with fwnode's flag property.
-
+> ...
 > 
-> Did you test this on real hardware?
-
-I did not test this on real hardware.
+>>          /*
+>>           * Initialize multi_link flag
+>> -        * TODO: populate this flag by reading property from FW node
+>>           */
+>> -       bus->multi_link = false;
+>> +       bus->multi_link = (fwnode->flags & FWNODE_FLAG_MULTI_LINKED)
+>> +               == FWNODE_FLAG_MULTI_LINKED;
 > 
-> thanks,
+> NAK (as far as I understood the context of the comment and the change itself).
 > 
-> greg k-h
+> These flags are for devlink, we do not mix FW properties with those
+> internal flags anyhow. The comment suggests that this should be az
+> property. Also commit message doesn't explain the relation to devlink.
+> 
+That is a good information to know. Thanks.
 
-thanks,
-  -- Khalid Masum
+I shall try to find out if I can somehow get multi_link's value from 
+fwnode in any other way and look into devlink in the process.
 
+If you have any suggestions regarding this TODO, please let me know.
+
+Thanks,
+   -- Khalid Masum

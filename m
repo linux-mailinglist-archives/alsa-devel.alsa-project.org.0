@@ -2,80 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A48593415
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 19:35:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0087E593C77
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 22:38:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D49EF1632;
-	Mon, 15 Aug 2022 19:34:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D49EF1632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53BAE100;
+	Mon, 15 Aug 2022 22:37:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53BAE100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660584926;
-	bh=d3d+nlhKuxZMjpExiSQXOJQRXtJy+TDAuRNRN5fT154=;
+	s=default; t=1660595926;
+	bh=I2Uxh4EvJCSOE07CYqNhIoCNwu9Uw3Ub0lGO2+m236M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OOmIVZkxRYFfusY9X8IEyMuD7YcaWNWgxItCL9r3ZE6Nc3pbYibRM+YI4HhE2yIoA
-	 pKcrQlrdgM2sOdJNbBvve2lNcTDx7o/u60rHE8jBbDxvLj5Uc75fo3dnyQF8QbxYv9
-	 OCTw2/pBffBMl9NYWzCNEZnoZSIO71T4hqYxlYJ0=
+	b=oj2k/Bn8rh390JklV9qypNTxgq6z9yvggQ395th/y67fdqa4fqNU/avripezN7ccJ
+	 b8p2bRj3fz+n5fotS9CQqGz11b7U81iYMv1AVRnwiTlVX92Ii1DwA+0udTTtodQv9T
+	 LUM4RDITDEOLodZ/nEzDXYZw/zz0BhpqcTQl8Lww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D5A9F80557;
-	Mon, 15 Aug 2022 19:33:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEB65F80271;
+	Mon, 15 Aug 2022 22:37:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E097F80557; Mon, 15 Aug 2022 19:33:37 +0200 (CEST)
+ id 85F69F8025A; Mon, 15 Aug 2022 22:37:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66579F80082
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 22:37:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66579F80082
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="uSb5nlUV"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC37AF804FD
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 19:33:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC37AF804FD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="PogTtYG2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660584810; x=1692120810;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=d3d+nlhKuxZMjpExiSQXOJQRXtJy+TDAuRNRN5fT154=;
- b=PogTtYG2SFIfCzYMXhg0ePG6mbIuNycOzXm1zIOGeGiT2ZGa4d3BFXw1
- 7TYXMN43Xc/xjyh1Ls+zkhIK4tFCwZX/qM7rZpiPhRyCw7STS3PpoAcDF
- A3M/i6dqcq7EDjvTWYlVW38BoskNGpbHAWHJraQilfuOdiFobEpiP7cj7
- q4Yc8DZpUtAUAUZp6XXt3Xf0KJoBfOU27i5T0Onv6g4MlEYtdZcXaVnAs
- HoJZ5/7kKe7MFnvCGTHr6KTWCev4EJ24155Ta7+mPhd5rPrhBV4sk10J9
- v62PbJK9pfrNvUc0BtM87txgzPXCIX5x21pMAEVyus1DAfHBnbm1++oLA A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="356024297"
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="356024297"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2022 10:33:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="696049388"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 15 Aug 2022 10:33:26 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	tiwai@suse.com
-Subject: [PATCH v2 5/6] ALSA: hda: Remove codec init and exit routines
-Date: Mon, 15 Aug 2022 19:42:26 +0200
-Message-Id: <20220815174227.3071323-6-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220815174227.3071323-1-cezary.rojewski@intel.com>
-References: <20220815174227.3071323-1-cezary.rojewski@intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0140660F60;
+ Mon, 15 Aug 2022 20:37:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57A8C433C1;
+ Mon, 15 Aug 2022 20:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1660595852;
+ bh=I2Uxh4EvJCSOE07CYqNhIoCNwu9Uw3Ub0lGO2+m236M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uSb5nlUVSs7UeIz8797dC0ymrYnSL+xFQsLEacYeukABo0MXHJ4J7Pg6dFAyvUaF5
+ +bUZa8I1QUibV/lfyiG3xKd8prt/jE6VBf8WP6SB3/0YF4w08BkHzTfN0i0It05yxd
+ tUxJE2orGOTVvjDOj17dxzodFRfkPILPR/HY1kW8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 5.19 0894/1157] ASoC: max98390: use linux/gpio/consumer.h to
+ fix build
+Date: Mon, 15 Aug 2022 20:04:10 +0200
+Message-Id: <20220815180515.194039678@linuxfoundation.org>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220815180439.416659447@linuxfoundation.org>
+References: <20220815180439.416659447@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+Cc: Steve Lee <steve.lee.analog@gmail.com>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,111 +88,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are no users for snd_hdac_ext_bus_device_init() and
-snd_hdac_ext_bus_device_exit().
+From: Randy Dunlap <rdunlap@infradead.org>
 
-While at it, remove hdac_to_hda_priv() too for the exact same reason.
+[ Upstream commit aa7407f807b250eca7697e5fe9a699bc6c2fab71 ]
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Change the header file to fix build errors in max98390.c:
+
+../sound/soc/codecs/max98390.c: In function 'max98390_i2c_probe':
+../sound/soc/codecs/max98390.c:1076:22: error: implicit declaration of function 'devm_gpiod_get_optional'; did you mean 'devm_regulator_get_optional'? [-Werror=implicit-function-declaration]
+ 1076 |         reset_gpio = devm_gpiod_get_optional(&i2c->dev,
+../sound/soc/codecs/max98390.c:1077:55: error: 'GPIOD_OUT_HIGH' undeclared (first use in this function); did you mean 'GPIOF_INIT_HIGH'?
+ 1077 |                                              "reset", GPIOD_OUT_HIGH);
+../sound/soc/codecs/max98390.c:1077:55: note: each undeclared identifier is reported only once for each function it appears in
+../sound/soc/codecs/max98390.c:1083:17: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
+ 1083 |                 gpiod_set_value_cansleep(reset_gpio, 0);
+
+Fixes: 397ff0249606 ("ASoC: max98390: Add reset gpio control")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Steve Lee <steve.lee.analog@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Link: https://lore.kernel.org/r/20220605163123.23537-1-rdunlap@infradead.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/hda_codec.h    |  2 --
- include/sound/hdaudio_ext.h  |  3 --
- sound/hda/ext/hdac_ext_bus.c | 53 ------------------------------------
- 3 files changed, 58 deletions(-)
+ sound/soc/codecs/max98390.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 6d3c82c4b6ac..2a8fe7240f10 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -293,8 +293,6 @@ struct hda_codec {
- #define dev_to_hda_codec(_dev)	container_of(_dev, struct hda_codec, core.dev)
- #define hda_codec_dev(_dev)	(&(_dev)->core.dev)
- 
--#define hdac_to_hda_priv(_hdac) \
--			container_of(_hdac, struct hdac_hda_priv, codec.core)
- #define hdac_to_hda_codec(_hdac) container_of(_hdac, struct hda_codec, core)
- 
- #define list_for_each_codec(c, bus) \
-diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-index d26234f9ee46..88ebb64fd8a5 100644
---- a/include/sound/hdaudio_ext.h
-+++ b/include/sound/hdaudio_ext.h
-@@ -11,9 +11,6 @@ int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
- 		      const struct hdac_ext_bus_ops *ext_ops);
- 
- void snd_hdac_ext_bus_exit(struct hdac_bus *bus);
--int snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr,
--				struct hdac_device *hdev, int type);
--void snd_hdac_ext_bus_device_exit(struct hdac_device *hdev);
- void snd_hdac_ext_bus_device_remove(struct hdac_bus *bus);
- 
- #define HDA_CODEC_REV_EXT_ENTRY(_vid, _rev, _name, drv_data) \
-diff --git a/sound/hda/ext/hdac_ext_bus.c b/sound/hda/ext/hdac_ext_bus.c
-index 765c40a6ccba..6004ea1c373e 100644
---- a/sound/hda/ext/hdac_ext_bus.c
-+++ b/sound/hda/ext/hdac_ext_bus.c
-@@ -60,59 +60,6 @@ void snd_hdac_ext_bus_exit(struct hdac_bus *bus)
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_exit);
- 
--static void default_release(struct device *dev)
--{
--	snd_hdac_ext_bus_device_exit(dev_to_hdac_dev(dev));
--}
--
--/**
-- * snd_hdac_ext_bus_device_init - initialize the HDA extended codec base device
-- * @bus: hdac bus to attach to
-- * @addr: codec address
-- * @hdev: hdac device to init
-- * @type: codec type (HDAC_DEV_*) to use for this device
-- *
-- * Returns zero for success or a negative error code.
-- */
--int snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr,
--				 struct hdac_device *hdev, int type)
--{
--	char name[15];
--	int ret;
--
--	hdev->bus = bus;
--
--	snprintf(name, sizeof(name), "ehdaudio%dD%d", bus->idx, addr);
--
--	ret  = snd_hdac_device_init(hdev, bus, name, addr);
--	if (ret < 0) {
--		dev_err(bus->dev, "device init failed for hdac device\n");
--		return ret;
--	}
--	hdev->type = type;
--	hdev->dev.release = default_release;
--
--	ret = snd_hdac_device_register(hdev);
--	if (ret) {
--		dev_err(bus->dev, "failed to register hdac device\n");
--		snd_hdac_ext_bus_device_exit(hdev);
--		return ret;
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_device_init);
--
--/**
-- * snd_hdac_ext_bus_device_exit - clean up a HD-audio extended codec base device
-- * @hdev: hdac device to clean up
-- */
--void snd_hdac_ext_bus_device_exit(struct hdac_device *hdev)
--{
--	snd_hdac_device_exit(hdev);
--}
--EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_device_exit);
--
- /**
-  * snd_hdac_ext_bus_device_remove - remove HD-audio extended codec base devices
-  *
+diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
+index 2a6b1648c884..d83f81d9ff4e 100644
+--- a/sound/soc/codecs/max98390.c
++++ b/sound/soc/codecs/max98390.c
+@@ -10,7 +10,7 @@
+ #include <linux/cdev.h>
+ #include <linux/dmi.h>
+ #include <linux/firmware.h>
+-#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/of_gpio.h>
 -- 
-2.25.1
+2.35.1
+
+
 

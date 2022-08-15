@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174FF593380
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 18:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44109593381
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 18:50:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A99B21663;
-	Mon, 15 Aug 2022 18:49:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A99B21663
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB4E5162F;
+	Mon, 15 Aug 2022 18:49:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB4E5162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660582219;
-	bh=7CtIoJsTfO46HEjok6ZWOpFCg+lRcf2v9iBURRJfdtI=;
+	s=default; t=1660582243;
+	bh=I/aUJe+QFHA3J8Sxk1MWzGqbQpKhywkKPbOgnVtPawU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BCPC9PL9SRD1AdSIMaa21TuodYDVMZ9Q3T/sQhRUhmF+hlZwCwuql8JYJuaN/hIYv
-	 a9FLOzPJ35tvkShv6LwZMne0HA5f4ZjgGMyk5uy0zfk9JTgTzrvBEDGTdYnWS7FYXA
-	 uWN+qo2e0H91HnsG+SGu9DgcFTzlHPti09FPqwTw=
+	b=mQLlgwYulNsz4Wkc9YL29sQXfgDszavvJfhsSXXo9AKelg1+OzUhwpxCpXhrYflNi
+	 ldbtoLQrN9PTQFJsV9ToqOccJs0twGElc+rqJYQ13wyDw1S9hyZlZZ3M0fT3ZFfIxw
+	 z8S8edUGzGlf2NoOWUuSSREOFagQd+V7P38kPtwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68040F80125;
-	Mon, 15 Aug 2022 18:48:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65FF5F80564;
+	Mon, 15 Aug 2022 18:48:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC052F80552; Mon, 15 Aug 2022 18:48:33 +0200 (CEST)
+ id 35C33F80553; Mon, 15 Aug 2022 18:48:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1E99F80271
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 18:48:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1E99F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B05CF80125
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 18:48:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B05CF80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="gyg7rj9P"
+ header.b="KMl7bpoR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660582105; x=1692118105;
+ t=1660582109; x=1692118109;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7CtIoJsTfO46HEjok6ZWOpFCg+lRcf2v9iBURRJfdtI=;
- b=gyg7rj9PYrvlaZN5ocBuiU0NjXfQa4Tpa4+wQ4b6kmHUP3ZYbgcZsMov
- fZYQYb0KUArhDnHFinlEJSa6Sg6BxApq0wCt5jbG/3OmZZ2fjyvTDPOyj
- KHxRgmaNsltAiFIRUC8I5KHO7lKC2et2OVxTj1BOSK2aWvXaM6JAMrBy5
- Z5V10ex/qeUhhsYzpmpyrJvpCQGHaavRTfiOCtwdvx2dOI95WyvBjiLhB
- hnCdaSWUHJF+icxUNI8WpSXg0DfZgZhiNvkZd/4nGlE3sMtL4jeYd4UrK
- 5Rvql16onRuSPBoe+ASzBT2bJbwSYtO1P9A7nlzORHxKgctr8XhHhYc5g A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="289570717"
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="289570717"
+ bh=I/aUJe+QFHA3J8Sxk1MWzGqbQpKhywkKPbOgnVtPawU=;
+ b=KMl7bpoR3okVzabNjruVQqhFXT+Q58ZNNc1EBF8/zq3TN+ygsc0gfk2w
+ upfMu81GauEptpsH0rzePnu+I6fiaMhn/4oeBIt8E6i8XNsIuXADge+BK
+ O5hB289/Oqj/Sec58fChCscKGE+Xq3sPvRJH3hZjwkagWXKBdJFTyXkeG
+ 4n4/mEd0grR/jgIpHEdd9Joc+7kcxN7lTmshTS71MWzVMmkGizp+c/hLU
+ 59PBgZr3od/BokJ/9n6Ldrrg0vjwpQjyxdjJqjXM3x28DA+Ck0AEiXY1J
+ d0TNb0+w98NtdsJSQGwd5k7z6EYGLWzBFLqOG47xa5qYdECf4pEkRFx7T g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="289570727"
+X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="289570727"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2022 09:48:24 -0700
+ 15 Aug 2022 09:48:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="582946880"
+X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="582946892"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 15 Aug 2022 09:48:21 -0700
+ by orsmga006.jf.intel.com with ESMTP; 15 Aug 2022 09:48:24 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 3/4] ASoC: Intel: catpt: Drop SND_SOC_ACPI_INTEL_MATCH
- dependency
-Date: Mon, 15 Aug 2022 18:58:17 +0200
-Message-Id: <20220815165818.3050649-4-cezary.rojewski@intel.com>
+Subject: [PATCH 4/4] ASoC: Intel: Drop legacy HSW/BDW board-match information
+Date: Mon, 15 Aug 2022 18:58:18 +0200
+Message-Id: <20220815165818.3050649-5-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220815165818.3050649-1-cezary.rojewski@intel.com>
 References: <20220815165818.3050649-1-cezary.rojewski@intel.com>
@@ -92,91 +91,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-catpt-driver does not make use of most of the fields found in the
-descriptor table and is the sole user of haswell machines list. Move the
-tables to local directory and clean them up so it's clear what's
-actually used by the solution.
+With board-matching information for legacy solution moved to local
+directory, there is no need to expose it globally.
 
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/Kconfig        |  2 +-
- sound/soc/intel/catpt/device.c | 33 ++++++++++++++++++++++++++++++---
- 2 files changed, 31 insertions(+), 4 deletions(-)
+ include/sound/soc-acpi-intel-match.h              |  1 -
+ .../intel/common/soc-acpi-intel-hsw-bdw-match.c   | 15 ---------------
+ 2 files changed, 16 deletions(-)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index ded903f95b67..d2ca710ac3fa 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -23,7 +23,7 @@ config SND_SOC_INTEL_CATPT
- 	depends on ACPI || COMPILE_TEST
- 	depends on DMADEVICES && SND_DMA_SGBUF
- 	select DW_DMAC_CORE
--	select SND_SOC_ACPI_INTEL_MATCH
-+	select SND_SOC_ACPI if ACPI
- 	select WANT_DEV_COREDUMP
- 	select SND_INTEL_DSP_CONFIG
- 	help
-diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/device.c
-index d48a71d2cf1e..d5d08bd766c7 100644
---- a/sound/soc/intel/catpt/device.c
-+++ b/sound/soc/intel/catpt/device.c
-@@ -22,7 +22,6 @@
- #include <sound/intel-dsp-config.h>
- #include <sound/soc.h>
+diff --git a/include/sound/soc-acpi-intel-match.h b/include/sound/soc-acpi-intel-match.h
+index bc7fd46ec2bc..14d783952548 100644
+--- a/include/sound/soc-acpi-intel-match.h
++++ b/include/sound/soc-acpi-intel-match.h
+@@ -14,7 +14,6 @@
+  * these tables are not constants, some fields can be used for
+  * pdata or machine ops
+  */
+-extern struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_baytrail_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cherrytrail_machines[];
+diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+index cbcb649604e5..6daf60b1edf1 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+@@ -9,40 +9,25 @@
  #include <sound/soc-acpi.h>
--#include <sound/soc-acpi-intel-match.h>
- #include "core.h"
- #include "registers.h"
+ #include <sound/soc-acpi-intel-match.h>
  
-@@ -310,8 +309,36 @@ static int catpt_acpi_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static struct snd_soc_acpi_mach lpt_machines[] = {
-+	{
-+		.id = "INT33CA",
-+		.drv_name = "hsw_rt5640",
-+	},
-+	{}
-+};
-+
-+static struct snd_soc_acpi_mach wpt_machines[] = {
-+	{
-+		.id = "INT33CA",
-+		.drv_name = "hsw_rt5640",
-+	},
-+	{
-+		.id = "INT343A",
-+		.drv_name = "bdw_rt286",
-+	},
-+	{
-+		.id = "10EC5650",
-+		.drv_name = "bdw-rt5650",
-+	},
-+	{
-+		.id = "RT5677CE",
-+		.drv_name = "bdw-rt5677",
-+	},
-+	{}
-+};
-+
- static struct catpt_spec lpt_desc = {
--	.machines = snd_soc_acpi_intel_haswell_machines,
-+	.machines = lpt_machines,
- 	.core_id = 0x01,
- 	.host_dram_offset = 0x000000,
- 	.host_iram_offset = 0x080000,
-@@ -326,7 +353,7 @@ static struct catpt_spec lpt_desc = {
- };
- 
- static struct catpt_spec wpt_desc = {
--	.machines = snd_soc_acpi_intel_broadwell_machines,
-+	.machines = wpt_machines,
- 	.core_id = 0x02,
- 	.host_dram_offset = 0x000000,
- 	.host_iram_offset = 0x0A0000,
+-struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[] = {
+-	{
+-		.id = "INT33CA",
+-		.drv_name = "hsw_rt5640",
+-		.fw_filename = "intel/IntcSST1.bin",
+-		.sof_tplg_filename = "sof-hsw.tplg",
+-	},
+-	{}
+-};
+-EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_haswell_machines);
+-
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = {
+ 	{
+ 		.id = "INT343A",
+ 		.drv_name = "bdw_rt286",
+-		.fw_filename =  "intel/IntcSST2.bin",
+ 		.sof_tplg_filename = "sof-bdw-rt286.tplg",
+ 	},
+ 	{
+ 		.id = "10EC5650",
+ 		.drv_name = "bdw-rt5650",
+-		.fw_filename = "intel/IntcSST2.bin",
+ 		.sof_tplg_filename = "sof-bdw-rt5650.tplg",
+ 	},
+ 	{
+ 		.id = "RT5677CE",
+ 		.drv_name = "bdw-rt5677",
+-		.fw_filename =  "intel/IntcSST2.bin",
+ 		.sof_tplg_filename = "sof-bdw-rt5677.tplg",
+ 	},
+ 	{
+ 		.id = "INT33CA",
+ 		.drv_name = "hsw_rt5640",
+-		.fw_filename = "intel/IntcSST2.bin",
+ 		.sof_tplg_filename = "sof-bdw-rt5640.tplg",
+ 	},
+ 	{}
 -- 
 2.25.1
 

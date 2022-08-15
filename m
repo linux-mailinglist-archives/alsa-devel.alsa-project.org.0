@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7001D593315
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 18:24:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5916659331C
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 18:25:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFC901654;
-	Mon, 15 Aug 2022 18:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC901654
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0086161D;
+	Mon, 15 Aug 2022 18:24:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0086161D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660580695;
-	bh=e7z1wZFXKyKTx+/Gp205MIBB5Y2JE/nLNvE5mKdLmXo=;
+	s=default; t=1660580718;
+	bh=YipuA8xpMD2cZk8ply93QvmLbz3xg3Y7+lnuxBQXklI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QH5e8AN0Ye8tgmP6mkdlIMIyRXDEM3MswRuVIBqvGl5NkRzvcIXBkjMqHDCMc/j8q
-	 7bjsKB4HbE1kyRjnRbGMTg44rt+W9tSDqvifaOGB/jGDoKhng7R24VKRzqoGyQZ/CQ
-	 KfOAGbsDJai2AdMc6MwTUbYcgRKnzVjoqwY5Ou80=
+	b=WlmjocyOjkFRAzjGn9Zf+suQFMAbrj0gxgngUJzqej/vSMBdvdenJ3I/5oIRezngz
+	 7vulhT4xHuzLPlzKz7siXBsbSP3+Oum9qqXt1EC+joeAHRjR8VpoGFFMKeqcnsUiXf
+	 X7XqADJCvjnwy7r1fK3pGM6ThTAygmdO+JMk6mys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 956EDF8055A;
-	Mon, 15 Aug 2022 18:23:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BB17F80566;
+	Mon, 15 Aug 2022 18:23:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81AFCF80552; Mon, 15 Aug 2022 18:23:06 +0200 (CEST)
+ id C418AF80563; Mon, 15 Aug 2022 18:23:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2CD9F80082
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 18:23:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CD9F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45051F80558
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 18:23:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45051F80558
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="swWLDFdw"
+ header.b="UQzwbZro"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 83067611B1;
+ by ams.source.kernel.org (Postfix) with ESMTPS id B920BB80EA5;
+ Mon, 15 Aug 2022 16:23:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDF5C433D7;
  Mon, 15 Aug 2022 16:23:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB92EC433C1;
- Mon, 15 Aug 2022 16:22:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660580581;
- bh=e7z1wZFXKyKTx+/Gp205MIBB5Y2JE/nLNvE5mKdLmXo=;
+ s=k20201202; t=1660580584;
+ bh=YipuA8xpMD2cZk8ply93QvmLbz3xg3Y7+lnuxBQXklI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=swWLDFdwixRMFnyIcl35ZTLWeedljORzZDGDlFZh3QvDRfNe6/gmdy6t5vNSOUCMs
- cFISGVQPxpedO9pFaxqUTBkVeCBDd9eaI83aFsIZwpehtBo00koo7k2f12NZUZPKvy
- SmcfpEZvylc2uRegQo9l3/Wl6HwIx06MRNmBLp5zar4H1r/mPBQANOCllbgF0Fcjg4
- rT0d8M16VP0HWqCwV24Mced9oCvNfoPV2ciZw7xFBXfBlUr2gZ6FWsB4+60TPboZsH
- wz1ffFFcu69E/UwtwCCJugZM5Nlmb6Q26yx6CJ+t6gFvWkANg89rGPfSdwd30gSBEv
- STpwYIxwladCw==
+ b=UQzwbZrooVjpbDPace0kLOhxBm3O3DWQtQW7YGvpCe+OBpnNQI6Uu3D7FCGAFtnQf
+ 7VTWS2+uph5eR43mbHEIK8Li/bJGBYONAgjpTJZnMhETjzwrgD9L0fcl58QZQa5Eeo
+ FrSjI2I7BHLaJxOsHOF+qyFOhajKha8bumoQUWoiTjiwi6ZF2khOBv834iXtl6ADKp
+ OmC7lsD1L32zfD8RLhlhv0jHGvtwuumkNqwKB4TNL0CjSqxOCNfHcrsBRYuGrbPs+p
+ yJymnvCQHRo1rlWLCbZhJV4TVpIE2wpCeI7Qy6P25GnQK13VrwLW5gzxRYbSxOUThK
+ RlkaJWCMdPVgw==
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Dan Carpenter <dan.carpenter@oracle.com>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <Yuo7LGPk8KnBW6ac@kili>
-References: <Yuo7LGPk8KnBW6ac@kili>
-Subject: Re: [PATCH] ASoC: mediatek: mt8186: remove unnecessary NULL check
-Message-Id: <166058057968.769843.14245211698253942822.b4-ty@kernel.org>
-Date: Mon, 15 Aug 2022 17:22:59 +0100
+To: lgirdwood@gmail.com, nicoleotsuka@gmail.com, shengjiu.wang@gmail.com,
+ alsa-devel@alsa-project.org, 
+ Xiubo.Lee@gmail.com, tiwai@suse.com, festevam@gmail.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz
+In-Reply-To: <1659495748-10876-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1659495748-10876-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: imx-rpmsg: Support configure sysclk for codec dai
+Message-Id: <166058058210.769843.13008464133060260888.b4-ty@kernel.org>
+Date: Mon, 15 Aug 2022 17:23:02 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fe10a
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,12 +88,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Aug 2022 12:09:00 +0300, Dan Carpenter wrote:
-> The "i2s_priv" pointer cannot be NULL.  Some NULL checks were deleted
-> in commit d7bffbe9cbd3 ("ASoC: mediatek: mt8186: remove unnecessary
-> judgments") but this one was accidentally left behind.
+On Wed, 3 Aug 2022 11:02:28 +0800, Shengjiu Wang wrote:
+> Some codecs need to configure the sysclk even with slave
+> mode, otherwise it may not work properly with some case.
+> 
+> wm8960 is the one that need sysclk be configured, so add
+> late_probe() to call the snd_soc_dai_set_sysclk() of codec
 > 
 > 
+> [...]
 
 Applied to
 
@@ -101,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8186: remove unnecessary NULL check
-      commit: b9f0a8ffd6265e7d8c7464a7990330da85ee07ef
+[1/1] ASoC: imx-rpmsg: Support configure sysclk for codec dai
+      commit: 088f115c6ff664c8afe003bd542e1e662a72aaed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,91 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23ED0592B31
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 11:23:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 800A4592B45
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 11:44:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9335C846;
-	Mon, 15 Aug 2022 11:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9335C846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EB77886;
+	Mon, 15 Aug 2022 11:43:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EB77886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660555424;
-	bh=VjIVnzK1o5kGhUG6dIwR7mEetZrAv1lP00NjZ70Dq6M=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1660556688;
+	bh=gqXxapVTQ3v2W9UxzTNmkkdkxGEApkRjrFUPZjuPGP0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=o8nksKPaC6MkmYXFF6D+0rCzXJnUyLwf/u3f3pm/+I413eEGk3v7YdNWE3FKrxbBW
-	 IGbC+yEUswwFqZEwSrKvKiwdenZye8tjZC2IphZKlGSnQhbzE5aXXHIJDgpC1i3l8r
-	 Oj28bH0EvAzVogWx8sANk1svDU8Xpq/8X10im1kE=
+	b=u0LSIWK8wClcwqLU+hQ6OaK2oH4W+yudW7Hbv0MGv244Ba1zmaLRNTDmXdRwl+QPq
+	 eX6qn59ARjWvPFPC1+8dm4k2UYQT3e41zxlyu3Cy/hfGaNoJ1LxQm8a3OMZz0rzh+A
+	 7fx+/h6lSBl380YADEZ1giDMrM6JdGpIjpXBrBlo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0E71F80095;
-	Mon, 15 Aug 2022 11:22:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 382D3F80271;
+	Mon, 15 Aug 2022 11:43:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47314F8025A; Mon, 15 Aug 2022 11:22:44 +0200 (CEST)
+ id 51F87F8025A; Mon, 15 Aug 2022 11:43:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE3B9F80095
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 11:22:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE3B9F80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ViKn1ZyE"
-Received: by mail-wr1-x432.google.com with SMTP id bv3so8395914wrb.5
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 02:22:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:cc:to:subject:from:content-language
- :user-agent:mime-version:date:message-id:from:to:cc;
- bh=qzcAcm6++5DvbL9ZgETq61fGGJoH3IeKrWjR9cNRVd0=;
- b=ViKn1ZyE2Z7QY99jwh66gZ8eloKi5hAKRHxR0rK0KalHGEkpoRj+ILJeo5OmDGCtwc
- k+1aMDD3y3gnioyb15vKDvR49WEikqljm04lQ33RK2g3vp9fTeGNIWOIa7E9lk4GLdNH
- 9QS+rvaQkDj0n7l6BCg170Otny59jfiaK5Thl/+xRun5d2KmajcCpDgnE6Az7ciReALW
- slQ2/p06YWO0ldJmDfBot2cOvBzhcJsNbM0cwUC/h7hwgMSxncHa4H/+mv9N6X3eT7qQ
- n0/ChLh9Q/4TCs2D4v0V5xAdUQO6I4vzHsDqDpZf1Wntxgyc+D4x08HjHCN0F5ZIu51/
- 6yQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:from:content-language
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc; bh=qzcAcm6++5DvbL9ZgETq61fGGJoH3IeKrWjR9cNRVd0=;
- b=zrsLUPwevL5xzCdMG2sj53WPiJlpGz+avc42xov1mwCQGVDBOhww0oO8oCx2+OrVBb
- OZ49j2cgScivzPH8BE41dTqCss2J220+ZQ6zjEHrO3OBjIeeSjeReuQYgyOApLwb+o6T
- LdRJB6DK2TnZDYSgp6jfHke8yN4K8Id5JA5v8nRMTxKj+P1pk5SQHyK0oCmwq1U2tS2i
- 3im6qBBA6rVOwnkDyfZOyWoaOEq6vQLmkA0Cb2mTaLpcOyoPs/FWdPqrAzrWKJG4INR3
- 0akBmeJueR/4vvoJobmyBPz1PVTtWeqSnN1HLgatjtGEehTnaDa4af7q9J1sW969wsmp
- v0vQ==
-X-Gm-Message-State: ACgBeo3TCoWWsYXJHXUrgL2q2Zskhfl5RF6QpYhFYvOAf0SZog4KgdaM
- KdSgB0E1QHPYPjnqX1+DucgKdQ==
-X-Google-Smtp-Source: AA6agR493IrXmZ/qXguVLTFC0hbVZ36f6jt2WpZZmnV5dtaVod82+9tcxLIgQYTd+wNnC1TtDp5gIw==
-X-Received: by 2002:a5d:5a96:0:b0:223:8131:e4f2 with SMTP id
- bp22-20020a5d5a96000000b002238131e4f2mr8221829wrb.345.1660555358805; 
- Mon, 15 Aug 2022 02:22:38 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- f13-20020a05600c154d00b003a54fffa809sm9704195wmg.17.2022.08.15.02.22.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Aug 2022 02:22:38 -0700 (PDT)
-Message-ID: <b5c31f8e-9401-6ec1-cfbf-3b0977df6fc2@linaro.org>
-Date: Mon, 15 Aug 2022 10:22:37 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: ASoC: snd_soc_info_volsw and platfrom_max
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C77D8F80095
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 11:43:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C77D8F80095
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 059F11A1915;
+ Mon, 15 Aug 2022 11:43:39 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 99B4D1A191B;
+ Mon, 15 Aug 2022 11:43:38 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 2ACE4180031A;
+ Mon, 15 Aug 2022 17:43:37 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_sai: Add support multi fifo sdma script
+Date: Mon, 15 Aug 2022 17:25:46 +0800
+Message-Id: <1660555546-24223-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,47 +71,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+With disabling combine mode, the multiple successive
+FIFO registers or non successive FIFO registers of SAI module
+can work with the sdma multi fifo script.
 
-After patch  30ac49841386 (ASoC: ops: Don't modify the driver's 
-plaform_max when reading state) all the controls that are using signed 
-TLV range like below
-/* -84dB min - 40dB max */
+This patch is to configure the necessary information to
+the SDMA engine driver for support multi fifo script.
 
-SOC_SINGLE_S8_TLV("RX0 Digital Volume", WCD934X_CDC_RX0_RX_VOL_CTL, 
-                    -84, 40, digital_gain),
+'words_per_fifo' is the channels for each dataline
+'n_fifos_src' and 'n_fifos_dst' are the fifo number
+'stride_fifos_src' and 'stride_fifos_dst' are the stride
+between enable FIFOs
+'maxburst' is the multiply of datalines
 
-reports max value as 40 instead of 124.
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_sai.c | 37 ++++++++++++++++++++++++++++++++++++-
+ sound/soc/fsl/fsl_sai.h |  3 +++
+ 2 files changed, 39 insertions(+), 1 deletion(-)
 
-before this patch the controls max value was calculated considering the 
-min value, but with this patch this calculation has changed resulting in 
-low volume on most of the codecs that are using SOC_SINGLE_S8_TLV.
-
-snd_soc_put_volsw does the right thing by considering mc->min, but 
-info_volsw does it differently.
-
-Below change fixes the issue for me, but I am bit confused with the 
-first line of this function that calculates max value as max = mc->max - 
-mc->min and then limits it to platform_max.
-
-diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index bd88de056358..49fb34609202 100644
---- a/sound/soc/soc-ops.c
-+++ b/sound/soc/soc-ops.c
-@@ -196,7 +196,7 @@ int snd_soc_info_volsw(struct snd_kcontrol *kcontrol,
-
-  	uinfo->count = snd_soc_volsw_is_stereo(mc) ? 2 : 1;
-  	uinfo->value.integer.min = 0;
--	uinfo->value.integer.max = max;
-+	uinfo->value.integer.max = max  - mc->min;
-
-  	return 0;
-  }
-
-
-Or should we fix the macro to set platform_max to be max - min.
-
-thanks,
-Srini
-
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index acf76ea21138..a2b375e2b56c 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -533,6 +533,7 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 	u32 slot_width = word_width;
+ 	int adir = tx ? RX : TX;
+ 	u32 pins, bclk;
++	u32 watermark;
+ 	int ret, i;
+ 
+ 	if (sai->slot_width)
+@@ -627,7 +628,15 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 				   FSL_SAI_CR5_FBT_MASK, val_cr5);
+ 	}
+ 
+-	if (hweight8(dl_cfg[dl_cfg_idx].mask[tx]) <= 1)
++	/*
++	 * Combine mode has limation:
++	 * - Can't used for singel dataline/FIFO case except the FIFO0
++	 * - Can't used for multi dataline/FIFO case except the enabled FIFOs
++	 *   are successive and start from FIFO0
++	 *
++	 * So for common usage, all multi fifo case disable the combine mode.
++	 */
++	if (hweight8(dl_cfg[dl_cfg_idx].mask[tx]) <= 1 || sai->is_multi_fifo_dma)
+ 		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
+ 				   FSL_SAI_CR4_FCOMB_MASK, 0);
+ 	else
+@@ -638,6 +647,26 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 	dma_params->addr = sai->res->start + FSL_SAI_xDR0(tx) +
+ 			   dl_cfg[dl_cfg_idx].start_off[tx] * 0x4;
+ 
++	if (sai->is_multi_fifo_dma) {
++		sai->audio_config[tx].words_per_fifo = min(slots, channels);
++		if (tx) {
++			sai->audio_config[tx].n_fifos_dst = pins;
++			sai->audio_config[tx].stride_fifos_dst = dl_cfg[dl_cfg_idx].next_off[tx];
++		} else {
++			sai->audio_config[tx].n_fifos_src = pins;
++			sai->audio_config[tx].stride_fifos_src = dl_cfg[dl_cfg_idx].next_off[tx];
++		}
++		dma_params->maxburst = sai->audio_config[tx].words_per_fifo * pins;
++		dma_params->peripheral_config = &sai->audio_config[tx];
++		dma_params->peripheral_size = sizeof(sai->audio_config[tx]);
++
++		watermark = tx ? (sai->soc_data->fifo_depth - dma_params->maxburst) :
++				 (dma_params->maxburst - 1);
++		regmap_update_bits(sai->regmap, FSL_SAI_xCR1(tx, ofs),
++				   FSL_SAI_CR1_RFW_MASK(sai->soc_data->fifo_depth),
++				   watermark);
++	}
++
+ 	/* Find a proper tcre setting */
+ 	for (i = 0; i < sai->soc_data->pins; i++) {
+ 		trce_mask = (1 << (i + 1)) - 1;
+@@ -1265,6 +1294,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	char tmp[8];
+ 	int irq, ret, i;
+ 	int index;
++	u32 dmas[4];
+ 
+ 	sai = devm_kzalloc(dev, sizeof(*sai), GFP_KERNEL);
+ 	if (!sai)
+@@ -1321,6 +1351,11 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	fsl_asoc_get_pll_clocks(&pdev->dev, &sai->pll8k_clk,
+ 				&sai->pll11k_clk);
+ 
++	/* Use Multi FIFO mode depending on the support from SDMA script */
++	ret = of_property_read_u32_array(np, "dmas", dmas, 4);
++	if (!sai->soc_data->use_edma && !ret && dmas[2] == IMX_DMATYPE_MULTI_SAI)
++		sai->is_multi_fifo_dma = true;
++
+ 	/* read dataline mask for rx and tx*/
+ 	ret = fsl_sai_read_dlcfg(sai);
+ 	if (ret < 0) {
+diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
+index 17956b5731dc..697f6690068c 100644
+--- a/sound/soc/fsl/fsl_sai.h
++++ b/sound/soc/fsl/fsl_sai.h
+@@ -6,6 +6,7 @@
+ #ifndef __FSL_SAI_H
+ #define __FSL_SAI_H
+ 
++#include <linux/dma/imx-dma.h>
+ #include <sound/dmaengine_pcm.h>
+ 
+ #define FSL_SAI_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
+@@ -281,6 +282,7 @@ struct fsl_sai {
+ 	bool is_lsb_first;
+ 	bool is_dsp_mode;
+ 	bool is_pdm_mode;
++	bool is_multi_fifo_dma;
+ 	bool synchronous[2];
+ 	struct fsl_sai_dl_cfg *dl_cfg;
+ 	unsigned int dl_cfg_cnt;
+@@ -300,6 +302,7 @@ struct fsl_sai {
+ 	struct pm_qos_request pm_qos_req;
+ 	struct pinctrl *pinctrl;
+ 	struct pinctrl_state *pins_state;
++	struct sdma_peripheral_config audio_config[2];
+ };
+ 
+ #define TX 1
+-- 
+2.17.1
 

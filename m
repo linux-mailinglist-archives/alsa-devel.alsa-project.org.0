@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89948592E36
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 13:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F5A592E3C
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 13:35:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB6B982C;
-	Mon, 15 Aug 2022 13:29:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB6B982C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09D5C85D;
+	Mon, 15 Aug 2022 13:34:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09D5C85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660563021;
-	bh=0+/5vaKd21gnL/yChKqhtuaYPxjvX9iHyqh94m+IMrk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UTkkN4FxJ6883J27KkM0ol1RTsCnW8+gqG8ckQH5Q1CDNKgI5pJvgn5XOsMpyfQvH
-	 ANwxhFHUh7Osf0Hvc0Ucg4XqKcfNFh3L99WfrK9qRHSnUZjpNwW2TA4hjhhUN6uCAH
-	 MlxlaaUXXdxdkGGI3+qTeuX1i/zwD3FvIgpN7Xoc=
+	s=default; t=1660563300;
+	bh=dHGQeLSi//e5FUlXLZC1w3Wkn3UCAOkJ1whOyECrFj8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aE62PeYyJkn23yaX1AHY/Z3NX48inqHATeEZWEbVD0XZMtRF57yiG/pmpsz2kLOJe
+	 0KdPT3VclaHxDFmjSqF4A3B84jkkRy/6g+7xHELq8jCR5m38o/MfUpXlM9QyWFusyM
+	 SgIKyy3k81kJHg/xkxsHrVYJjqJFalhi4Y4Eo1AI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 229E7F80271;
-	Mon, 15 Aug 2022 13:29:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72107F80271;
+	Mon, 15 Aug 2022 13:34:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00D35F8025A; Mon, 15 Aug 2022 13:29:18 +0200 (CEST)
+ id 85180F8025A; Mon, 15 Aug 2022 13:33:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 053F7F80082
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 13:29:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 053F7F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56F3EF80082
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 13:33:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56F3EF80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="eJYZ3FGZ"
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-10ea9ef5838so7858986fac.3
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 04:29:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=z+5ntkds423GH2S+q7c6xH6Cac8ulGfX/i26LSadang=;
- b=eJYZ3FGZruF6cEfms/jF5hfZVxDihcDOkKvZRzWfNik8dlsmzk7sVnv3xAn/G8/Lv+
- zCCbwxR+6gI0eZtB9Jx4ARAvtO3sEC6CYkFJq91u5Qeow0QbtDvMNn0I3l330WIKtB9W
- nYZFJV9gwR8nIB3uYaWPzgoAng959vkRidYOo/Yt6OfPDH57aY5f07kq9stwAuRtxpr7
- YUU/XygwsQK2Czx2WDY2f2M7EB1oDqfK9hKvbKP8pGrP+RooKu8250Qhqt3wYPqBlUMF
- 7bnagHErisXVaVElJx2g+IWCzJUid3lLlX6mArisq30YXxEJLq8gnXVHPskg457uLFUd
- nH3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=z+5ntkds423GH2S+q7c6xH6Cac8ulGfX/i26LSadang=;
- b=ekj0ww2yQBDSQI++SYX6/6sBDtFTCIPk7B8HQZxvUeXtfvM91Wcy77PdC07vyiWK4J
- VSewKekg5WuBejFvBWuj8U6HEHmif3ow6UOctBTaD3uviYVGrwSfSAkjvm8mm+HGv+GS
- D6ejEgs8CG96K6yrA7fgxCLcFLVy5Htbx8ZvV0QP1lU4LtiMvCyZuQ4In/s+gx/6B77V
- 9Q+/0dIsRCg1BxMxrb6YByG8Jcx0YODpLFTC2G03WvA7J/q9bOo0aBmiNso+Gc6vxEAY
- v846IgskQaE0QvLXW45qq9zaE1UZFPqCS6WGhy/PKtBxQtQVCchwrAzeqFIRuaIbMsop
- 1qCw==
-X-Gm-Message-State: ACgBeo0SGEqo1zTalTi82g0wSwMOlkBs+ep19utabCuFIQaZV7jXSZVg
- y1WM6gu+rw2SzspRFgOwDu4ZL4E4chC4ajti7lH9kA==
-X-Google-Smtp-Source: AA6agR4klgeo4FKfPNCXVaIamabi24zc0cZgO2OntT4EhSadiu9bGxlBDYENRPrVt1joz4tO+Fg2AZxf/HE14x5j4WQ=
-X-Received: by 2002:a05:6871:54a:b0:118:79c1:431c with SMTP id
- t10-20020a056871054a00b0011879c1431cmr5152885oal.18.1660562949023; Mon, 15
- Aug 2022 04:29:09 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="QOYPwyzu"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27F6Gifp000354;
+ Mon, 15 Aug 2022 06:33:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=CdlJBI37lWNvixE57726zjypfORIkbpeqIqDkA6MwRI=;
+ b=QOYPwyzuH6DHJQE8udHEZunK2icIkEYzVslZT6+tZ1MGP4biTSCXUcy3dMsdsu8foRJD
+ AFK9CA6Ou86tuTQDI/rLWXK1g1odfTdZWpqb8ql7rRlwb8xzKLQOpjxp+OIUB4sbsTsn
+ S7mCkMqk2O/WYY9FiQ11KfvcxA17XWKM1nfpapZWwxBajKxxOiNo4hIT+f27rPSFf+Rt
+ FGmVdL/+03Y9Q3EMuN26qKlv3UzNXWrSjWH5uAXNMGJCz+Divy3QRO1PwxyMfrG771t+
+ Z1IcnHuqj/XnK1KxC9dz2PyxC/CKBJ8EzjD4vbCecsdcvfxMKcILnCX6BwImAkHy4dkU 2Q== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3hx9c1t435-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Aug 2022 06:33:49 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Mon, 15 Aug
+ 2022 06:33:47 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.9 via Frontend
+ Transport; Mon, 15 Aug 2022 06:33:47 -0500
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A79F5B06;
+ Mon, 15 Aug 2022 11:33:46 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: soc-utils: Improve kerneldoc for
+ snd_soc_tdm_params_to_bclk()
+Date: Mon, 15 Aug 2022 12:33:46 +0100
+Message-ID: <20220815113346.3805075-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20220814123800.31200-1-srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220814123800.31200-1-srinivas.kandagatla@linaro.org>
-From: Amit Pundir <amit.pundir@linaro.org>
-Date: Mon, 15 Aug 2022 16:58:20 +0530
-Message-ID: <CAMi1Hd22sLzRLsiFhGtihYtP_Y9b6TUyLOf2cxiFXrKhjJc4ig@mail.gmail.com>
-Subject: Re: [PATCH] soundwire: qcom: remove duplicate reset control get
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: LX-acjpnRm2C_z4MKRHKdNb55aGAD31p
+X-Proofpoint-GUID: LX-acjpnRm2C_z4MKRHKdNb55aGAD31p
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,53 +98,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 14 Aug 2022 at 18:08, Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
-> Looks like adding clock gate flag patch forgot to remove the old code that
-> gets reset control.
->
-> This causes below crash on platforms that do not need reset.
->
-> [   15.653501]  reset_control_reset+0x124/0x170
-> [   15.653508]  qcom_swrm_init+0x50/0x1a0
-> [   15.653514]  qcom_swrm_probe+0x320/0x668
-> [   15.653519]  platform_probe+0x68/0xe0
-> [   15.653529]  really_probe+0xbc/0x2a8
-> [   15.653535]  __driver_probe_device+0x7c/0xe8
-> [   15.653541]  driver_probe_device+0x40/0x110
-> [   15.653547]  __device_attach_driver+0x98/0xd0
-> [   15.653553]  bus_for_each_drv+0x68/0xd0
-> [   15.653559]  __device_attach+0xf4/0x188
-> [   15.653565]  device_initial_probe+0x14/0x20
->
-> Fix this by removing old code.
->
+The statement that snd_soc_tdm_params_to_bclk() is equivalent to
+snd_soc_params_to_bclk() if tdm_width==tdm_slots==0 is not accurate,
+it is only true is slot_multiple is also <2.
 
-Tested-by: Amit Pundir <amit.pundir@linaro.org>
+However, the description of special-case behaviour in terms of pairs of
+tdm_width and tdm_slot values is not particularly helpful so we might as
+well take the opportunity to rework the description to say the same thing
+in a simpler way. The behaviour of a pair of values is obvious from a
+description of each argument. At the same time make a few edits to clarify
+the rest of the description.
 
-> Reported-by: Amit Pundir <amit.pundir@linaro.org>
-> Fixes: 1fd0d85affe4 ("soundwire: qcom: Add flag for software clock gating check")
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  drivers/soundwire/qcom.c | 4 ----
->  1 file changed, 4 deletions(-)
->
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 9df970eeca45..a43961ad4614 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -1356,10 +1356,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->         ctrl->bus.compute_params = &qcom_swrm_compute_params;
->         ctrl->bus.clk_stop_timeout = 300;
->
-> -       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
-> -       if (IS_ERR(ctrl->audio_cgcr))
-> -               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
-> -
->         ret = qcom_swrm_get_port_config(ctrl);
->         if (ret)
->                 goto err_clk;
-> --
-> 2.21.0
->
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/soc/soc-utils.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index 70c380c0ac7b..a3b6df2378b4 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -56,23 +56,24 @@ EXPORT_SYMBOL_GPL(snd_soc_params_to_bclk);
+ /**
+  * snd_soc_tdm_params_to_bclk - calculate bclk from params and tdm slot info.
+  *
+- * Calculate the bclk from the params sample rate and the tdm slot count and
+- * tdm slot width. Either or both of tdm_width and tdm_slots can be 0.
++ * Calculate the bclk from the params sample rate, the tdm slot count and the
++ * tdm slot width. Optionally round-up the slot count to a given multiple.
++ * Either or both of tdm_width and tdm_slots can be 0.
+  *
+- * If tdm_width == 0 and tdm_slots > 0:	the params_width will be used.
+- * If tdm_width > 0 and tdm_slots == 0:	the params_channels will be used
+- *					as the slot count.
+- * Both tdm_width and tdm_slots are 0:	this is equivalent to calling
+- *					snd_soc_params_to_bclk().
++ * If tdm_width == 0:	use params_width() as the slot width.
++ * If tdm_slots == 0:	use params_channels() as the slot count.
+  *
+- * If slot_multiple > 1 the slot count (or params_channels if tdm_slots == 0)
+- * will be rounded up to a multiple of this value. This is mainly useful for
++ * If slot_multiple > 1 the slot count (or params_channels() if tdm_slots == 0)
++ * will be rounded up to a multiple of slot_multiple. This is mainly useful for
+  * I2S mode, which has a left and right phase so the number of slots is always
+  * a multiple of 2.
+  *
++ * If tdm_width == 0 && tdm_slots == 0 && slot_multiple < 2, this is equivalent
++ * to calling snd_soc_params_to_bclk().
++ *
+  * @params:        Pointer to struct_pcm_hw_params.
+- * @tdm_width:     Width in bits of the tdm slots.
+- * @tdm_slots:     Number of tdm slots per frame.
++ * @tdm_width:     Width in bits of the tdm slots. Must be >= 0.
++ * @tdm_slots:     Number of tdm slots per frame. Must be >= 0.
+  * @slot_multiple: If >1 roundup slot count to a multiple of this value.
+  *
+  * Return: bclk frequency in Hz, else a negative error code if params format
+-- 
+2.30.2
+

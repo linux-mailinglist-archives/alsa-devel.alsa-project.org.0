@@ -2,77 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0087E593C77
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 22:38:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3805942CB
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 00:15:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53BAE100;
-	Mon, 15 Aug 2022 22:37:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53BAE100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92145868;
+	Tue, 16 Aug 2022 00:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92145868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660595926;
-	bh=I2Uxh4EvJCSOE07CYqNhIoCNwu9Uw3Ub0lGO2+m236M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660601758;
+	bh=cR4MSEwpqikQ9b18WozkbTaFwd6lhSnVAeh3CtQyXlI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oj2k/Bn8rh390JklV9qypNTxgq6z9yvggQ395th/y67fdqa4fqNU/avripezN7ccJ
-	 b8p2bRj3fz+n5fotS9CQqGz11b7U81iYMv1AVRnwiTlVX92Ii1DwA+0udTTtodQv9T
-	 LUM4RDITDEOLodZ/nEzDXYZw/zz0BhpqcTQl8Lww=
+	b=NBV1koJ2hJE3OF8xun3whEJzsWRWGrwK3KW0RiZ8JY/ChoUzutkjfhG7fKSukWydn
+	 hG9lO5qdZqTCfk0/4+V74heBfzCP7MY4L+Dnt2Jb2zt4KL8haASryi2N+qbK9EVJB6
+	 dM7pQNHZ5zIc/41fUy21w0aUNYnMxA3G5lBTneO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEB65F80271;
-	Mon, 15 Aug 2022 22:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F97F80082;
+	Tue, 16 Aug 2022 00:15:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85F69F8025A; Mon, 15 Aug 2022 22:37:45 +0200 (CEST)
+ id 6ECF8F80082; Tue, 16 Aug 2022 00:14:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66579F80082
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 22:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66579F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E2C0F80082
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 00:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E2C0F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="uSb5nlUV"
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="s7bZBqv3"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0140660F60;
- Mon, 15 Aug 2022 20:37:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57A8C433C1;
- Mon, 15 Aug 2022 20:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1660595852;
- bh=I2Uxh4EvJCSOE07CYqNhIoCNwu9Uw3Ub0lGO2+m236M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uSb5nlUVSs7UeIz8797dC0ymrYnSL+xFQsLEacYeukABo0MXHJ4J7Pg6dFAyvUaF5
- +bUZa8I1QUibV/lfyiG3xKd8prt/jE6VBf8WP6SB3/0YF4w08BkHzTfN0i0It05yxd
- tUxJE2orGOTVvjDOj17dxzodFRfkPILPR/HY1kW8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.19 0894/1157] ASoC: max98390: use linux/gpio/consumer.h to
- fix build
-Date: Mon, 15 Aug 2022 20:04:10 +0200
-Message-Id: <20220815180515.194039678@linuxfoundation.org>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220815180439.416659447@linuxfoundation.org>
-References: <20220815180439.416659447@linuxfoundation.org>
-User-Agent: quilt/0.67
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 198B460F9F;
+ Mon, 15 Aug 2022 22:14:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18E9C433D6;
+ Mon, 15 Aug 2022 22:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660601688;
+ bh=cR4MSEwpqikQ9b18WozkbTaFwd6lhSnVAeh3CtQyXlI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=s7bZBqv356zva5qYY2lylE2geDgPUmVCgYZrTFr0jke2XLcRx/cirq5BmDokFm6Vj
+ ZM61lioj87NkG92swOCjdWDf6RJOU/dLNPrZ32+OJxtSPR4/Cka/YQlTHZtemp3fpU
+ A54B6K/rx0T7by98kiYkcjBEm7ICO3gDqgTQ5hMnDiwuSIRL7EZ6+0WWqEniXypJOa
+ qP+iBkVHGF/tnGmbJtVd0bI+tlEQdTX0BbIrNjaHagI7mDtGgTjIDSLQl1jB98qvbC
+ m9vgwGWiMonV6aIb16NyNz6zQTpcdllfizJssm6GV3VgXP8DuEV0H9jh6tfX2TWWnR
+ vtsT/GhUSpFVA==
+Date: Mon, 15 Aug 2022 23:14:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 2/6] ASoC: SOF: Intel: Introduce HDA codec init and
+ exit routines
+Message-ID: <YvrFUwPq/dAG8H7S@sirena.org.uk>
+References: <20220815174227.3071323-1-cezary.rojewski@intel.com>
+ <20220815174227.3071323-3-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Steve Lee <steve.lee.analog@gmail.com>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
- stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qZSOYumMUF1yc4SY"
+Content-Disposition: inline
+In-Reply-To: <20220815174227.3071323-3-cezary.rojewski@intel.com>
+X-Cookie: We have ears, earther...FOUR OF THEM!
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,52 +90,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
 
-[ Upstream commit aa7407f807b250eca7697e5fe9a699bc6c2fab71 ]
+--qZSOYumMUF1yc4SY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Change the header file to fix build errors in max98390.c:
+On Mon, Aug 15, 2022 at 07:42:23PM +0200, Cezary Rojewski wrote:
+> Preliminary step in making snd_hda_codec_device_init() the only
+> constructor for struct hda_codec instances. To do that, existing usage
+> of hdac_ext equivalents has to be dropped.
+>=20
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-../sound/soc/codecs/max98390.c: In function 'max98390_i2c_probe':
-../sound/soc/codecs/max98390.c:1076:22: error: implicit declaration of function 'devm_gpiod_get_optional'; did you mean 'devm_regulator_get_optional'? [-Werror=implicit-function-declaration]
- 1076 |         reset_gpio = devm_gpiod_get_optional(&i2c->dev,
-../sound/soc/codecs/max98390.c:1077:55: error: 'GPIOD_OUT_HIGH' undeclared (first use in this function); did you mean 'GPIOF_INIT_HIGH'?
- 1077 |                                              "reset", GPIOD_OUT_HIGH);
-../sound/soc/codecs/max98390.c:1077:55: note: each undeclared identifier is reported only once for each function it appears in
-../sound/soc/codecs/max98390.c:1083:17: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
- 1083 |                 gpiod_set_value_cansleep(reset_gpio, 0);
+Acked-by: Mark Brown <broonie@kernel.org>
 
-Fixes: 397ff0249606 ("ASoC: max98390: Add reset gpio control")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Cc: Steve Lee <steve.lee.analog@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Link: https://lore.kernel.org/r/20220605163123.23537-1-rdunlap@infradead.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/max98390.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--qZSOYumMUF1yc4SY
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
-index 2a6b1648c884..d83f81d9ff4e 100644
---- a/sound/soc/codecs/max98390.c
-+++ b/sound/soc/codecs/max98390.c
-@@ -10,7 +10,7 @@
- #include <linux/cdev.h>
- #include <linux/dmi.h>
- #include <linux/firmware.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/of_gpio.h>
--- 
-2.35.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmL6xVIACgkQJNaLcl1U
+h9D93Qf9EQbN2e1nR9Xv+DhpubnxtCSQGYsg2MQUZjfSXtho5v4NJxXAsVXDRt4y
+Dlg7kuGcouUEtT/Imbcvs8F91qgOaVRivavKRgkzLUgrcZ04c9JqWFS9wU9QcpyM
+DG2zL5SEPCnMnPdvruiJGoRO8eL2JHOzZ7LHwEER2wpqt+x7Zzlyx/ieOtBuuvk0
+CQekpiLLUqk8dpppQzsidZ+10u9w1MN6XUblkBz+syutXyyB4flZBK97se9zKGqT
+nyJ0l6lha5TjbJeuB4zF9OhVjkQrGsz7qtOISrQkdd0pYmS/zcswMeXdprAq/6KG
+iQgNrASNz4ANUC44Ujw774MbVGWQ8Q==
+=S+0E
+-----END PGP SIGNATURE-----
 
-
+--qZSOYumMUF1yc4SY--

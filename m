@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 927A55933E1
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 19:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BED2593411
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 19:34:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2359F1634;
-	Mon, 15 Aug 2022 19:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2359F1634
+	by alsa0.perex.cz (Postfix) with ESMTPS id B66E2839;
+	Mon, 15 Aug 2022 19:33:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B66E2839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660583499;
-	bh=Z1peZpsOzne+2xZ2cYemgCfk0P/mLViWM3YSQUJEJ5k=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LeZp6Ig43xNZJdmWblPyHUX7eQLEEG9oydObHSb7p2Thn39/oJIvE8SneQv1bPBqT
-	 4s1WJlrbdus4Swbm3der6m1oTmMK2bFOvE5Mv15iRWZWBmGSqHcgThM0DbLQt1p655
-	 EgKHES2TSR3kzzRHOq0llLlQ/pyzrZCRyPKl/nXU=
+	s=default; t=1660584867;
+	bh=x+LWaSuvGOZZ+vM5MW6iXqBf9TS7vTFiX2Fi75J4KAI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FwyQSajUYErxyyCZaaxF0X/b5xKyHa4PfFKzROCVN8TQ5wt5j6xP9fYbB1sH6CoCu
+	 Rq0XcSFIAu4XqF0rhl3A9Mv/4NXEy9QMyf/ghnp6equRu4A4nHXVveectfXUzu5Idx
+	 7iB8any72QXSKdr/m0s7cTh1m8iKR4FgZ2rtM9+U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79482F8027C;
-	Mon, 15 Aug 2022 19:10:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32AE6F80271;
+	Mon, 15 Aug 2022 19:33:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFFE6F80095; Mon, 15 Aug 2022 19:10:38 +0200 (CEST)
+ id 0F2A5F80271; Mon, 15 Aug 2022 19:33:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DE3F80095
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 19:10:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DE3F80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YEyzmZ/r"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 804B9B80EF0;
- Mon, 15 Aug 2022 17:10:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5183EC433C1;
- Mon, 15 Aug 2022 17:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660583434;
- bh=Z1peZpsOzne+2xZ2cYemgCfk0P/mLViWM3YSQUJEJ5k=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YEyzmZ/rnZ0jopHL7ArzPEu/O+lP9imn53xTDBTvRAZbT1mnVna4JxeGaHhht9Gah
- sDoipyabGe4xZO9OQrZJP5tsL6+kKrDfQFIkTxcJvP+8xrGRD64nHGR8Dlz+78hQal
- vGp+kKHZr9eXNsBuG2Nq0PsuswRLQYFe6Nkh8EPngsac/Kh/lFF/WMn2ClLMOSaPWa
- b1sp8mbQwgN69Dkxcfmba6lDsOf5bJ12qx872NsUgucSzAcSoojBkY5ldBhHEo/a8+
- sEbjuUeMeEunPv4JvMEO7cNzbh2dQabKo7SMig27vsz7fsddDJsk1Wr4RwK8XfbUvM
- /P3Au9iqhakAA==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20220815123138.3810249-1-rf@opensource.cirrus.com>
-References: <20220815123138.3810249-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs42l42: Only report button state if there was a
- button interrupt
-Message-Id: <166058343304.814219.14233923632228992383.b4-ty@kernel.org>
-Date: Mon, 15 Aug 2022 18:10:33 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F6D4F80095
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 19:33:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F6D4F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Dq7ppxHD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660584804; x=1692120804;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=x+LWaSuvGOZZ+vM5MW6iXqBf9TS7vTFiX2Fi75J4KAI=;
+ b=Dq7ppxHDbfJluPwPhCe43RZBql2NtTAj4UN/3MSTDC+tL2hqIN20zA2K
+ qsy0agpsLA1pMZCE41FJEPE8zIToFnBCNDoriDKa1HnkiRoRneH7tR0dd
+ hTgG9q+RmTWG3uC3EpDjJXIxnh99yxyqLGX3gwOTP4EGDcLU9BGNlkYrb
+ sfoIzH4Ovf/v+k0KrMtLjCMTCSnU3zzNQwsM1NCTBObAnTO58zG9Incl0
+ Ow38dXmKcMknduMrHGf4fqej66F+muSPkm6LNSQs/MwoyMLvQ3CRjwJix
+ ZRPb89eEKnbwmLDC+zosu+0t2XKOSfQ8Uvj2ybTLu5fotdL5esasK2o+E w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="356024248"
+X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="356024248"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2022 10:33:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="696049316"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Aug 2022 10:33:15 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	tiwai@suse.com
+Subject: [PATCH v2 0/6] ALSA: hda: Unify codec construction
+Date: Mon, 15 Aug 2022 19:42:21 +0200
+Message-Id: <20220815174227.3071323-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fe10a
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,42 +88,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 15 Aug 2022 13:31:38 +0100, Richard Fitzgerald wrote:
-> Only report a button state change if the interrupt status shows that
-> there was a button event.
-> 
-> Previously the code would always drop into the button reporting at the
-> end of interrupt handling if the jack was present. If neither of the
-> button report interrupts were pending it would report all buttons
-> released. This could then lead to a button being reported as released
-> while it is still pressed.
-> 
-> [...]
+A follow up to the recent HDAudio fixes series [1]. Given the recently
+reported regression [2], before the page fault occurring on codec
+shutdown can be fixed, codec construction procedure needs to be updated
+for skylake and sof-intel drivers. Drivers: pci-hda and avs need no
+changes - already making use of snd_hda_codec_device_init().
 
-Applied to
+As subject touches code used by the sof-driver, additional review has
+been conducted on thesofproject/linux [3].
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Changes in v2:
 
-Thanks!
+- dropped snd_hda_ext_core <-> snd_hda_codec dependency by calling
+  snd_hda_codec_device_init() directly in skylake and sof drivers probe
+  enumeration routines, as suggested by Takashi
+- skylake/sof portion of the change has been split into two separate
+  patches
 
-[1/1] ASoC: cs42l42: Only report button state if there was a button interrupt
-      commit: ea75deef1a738d25502cfbb2caa564270b271525
+- new functions that aim to replace hdac_ext codec init & exit
+  functionality are added first - for skylake and sof drivers both
+- third patch in the series now combines the "field -> pointer" change
+  for hdac_hda_priv->codec plus the codec-enumeration adjustments for
+  skylake and sof drivers
+  Both above are here to keep git bisect happy, as suggested by Pierre
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[1]: https://lore.kernel.org/alsa-devel/20220706120230.427296-7-cezary.rojewski@intel.com/
+[2]: https://lore.kernel.org/alsa-devel/3c40df55-3aee-1e08-493b-7b30cd84dc00@linux.intel.com/
+[3]: https://github.com/thesofproject/linux/pull/3775
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Cezary Rojewski (6):
+  ASoC: Intel: Skylake: Introduce HDA codec init and exit routines
+  ASoC: SOF: Intel: Introduce HDA codec init and exit routines
+  ASoC: Intel: Drop hdac_ext usage for codec device creation
+  ALSA: hda: Always free codec on the device release
+  ALSA: hda: Remove codec init and exit routines
+  ALSA: hda: Fix page fault in snd_hda_codec_shutdown()
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ include/sound/hda_codec.h                    |  2 -
+ include/sound/hdaudio_ext.h                  |  3 --
+ sound/hda/ext/hdac_ext_bus.c                 | 53 -------------------
+ sound/pci/hda/hda_codec.c                    | 49 ++++++++---------
+ sound/soc/codecs/hdac_hda.c                  | 26 ++++-----
+ sound/soc/codecs/hdac_hda.h                  |  2 +-
+ sound/soc/intel/boards/hda_dsp_common.c      |  2 +-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  2 +-
+ sound/soc/intel/skylake/skl.c                | 53 ++++++++++++++-----
+ sound/soc/sof/intel/hda-codec.c              | 55 ++++++++++++++------
+ 10 files changed, 113 insertions(+), 134 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-- 
+2.25.1
 
-Thanks,
-Mark

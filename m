@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44109593381
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 18:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927A55933E1
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Aug 2022 19:11:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB4E5162F;
-	Mon, 15 Aug 2022 18:49:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB4E5162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2359F1634;
+	Mon, 15 Aug 2022 19:10:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2359F1634
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660582243;
-	bh=I/aUJe+QFHA3J8Sxk1MWzGqbQpKhywkKPbOgnVtPawU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660583499;
+	bh=Z1peZpsOzne+2xZ2cYemgCfk0P/mLViWM3YSQUJEJ5k=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mQLlgwYulNsz4Wkc9YL29sQXfgDszavvJfhsSXXo9AKelg1+OzUhwpxCpXhrYflNi
-	 ldbtoLQrN9PTQFJsV9ToqOccJs0twGElc+rqJYQ13wyDw1S9hyZlZZ3M0fT3ZFfIxw
-	 z8S8edUGzGlf2NoOWUuSSREOFagQd+V7P38kPtwY=
+	b=LeZp6Ig43xNZJdmWblPyHUX7eQLEEG9oydObHSb7p2Thn39/oJIvE8SneQv1bPBqT
+	 4s1WJlrbdus4Swbm3der6m1oTmMK2bFOvE5Mv15iRWZWBmGSqHcgThM0DbLQt1p655
+	 EgKHES2TSR3kzzRHOq0llLlQ/pyzrZCRyPKl/nXU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65FF5F80564;
-	Mon, 15 Aug 2022 18:48:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79482F8027C;
+	Mon, 15 Aug 2022 19:10:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35C33F80553; Mon, 15 Aug 2022 18:48:35 +0200 (CEST)
+ id DFFE6F80095; Mon, 15 Aug 2022 19:10:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78DE3F80095
+ for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 19:10:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DE3F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YEyzmZ/r"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B05CF80125
- for <alsa-devel@alsa-project.org>; Mon, 15 Aug 2022 18:48:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B05CF80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="KMl7bpoR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660582109; x=1692118109;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=I/aUJe+QFHA3J8Sxk1MWzGqbQpKhywkKPbOgnVtPawU=;
- b=KMl7bpoR3okVzabNjruVQqhFXT+Q58ZNNc1EBF8/zq3TN+ygsc0gfk2w
- upfMu81GauEptpsH0rzePnu+I6fiaMhn/4oeBIt8E6i8XNsIuXADge+BK
- O5hB289/Oqj/Sec58fChCscKGE+Xq3sPvRJH3hZjwkagWXKBdJFTyXkeG
- 4n4/mEd0grR/jgIpHEdd9Joc+7kcxN7lTmshTS71MWzVMmkGizp+c/hLU
- 59PBgZr3od/BokJ/9n6Ldrrg0vjwpQjyxdjJqjXM3x28DA+Ck0AEiXY1J
- d0TNb0+w98NtdsJSQGwd5k7z6EYGLWzBFLqOG47xa5qYdECf4pEkRFx7T g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="289570727"
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="289570727"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2022 09:48:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,238,1654585200"; d="scan'208";a="582946892"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 15 Aug 2022 09:48:24 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 4/4] ASoC: Intel: Drop legacy HSW/BDW board-match information
-Date: Mon, 15 Aug 2022 18:58:18 +0200
-Message-Id: <20220815165818.3050649-5-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220815165818.3050649-1-cezary.rojewski@intel.com>
-References: <20220815165818.3050649-1-cezary.rojewski@intel.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 804B9B80EF0;
+ Mon, 15 Aug 2022 17:10:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5183EC433C1;
+ Mon, 15 Aug 2022 17:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660583434;
+ bh=Z1peZpsOzne+2xZ2cYemgCfk0P/mLViWM3YSQUJEJ5k=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=YEyzmZ/rnZ0jopHL7ArzPEu/O+lP9imn53xTDBTvRAZbT1mnVna4JxeGaHhht9Gah
+ sDoipyabGe4xZO9OQrZJP5tsL6+kKrDfQFIkTxcJvP+8xrGRD64nHGR8Dlz+78hQal
+ vGp+kKHZr9eXNsBuG2Nq0PsuswRLQYFe6Nkh8EPngsac/Kh/lFF/WMn2ClLMOSaPWa
+ b1sp8mbQwgN69Dkxcfmba6lDsOf5bJ12qx872NsUgucSzAcSoojBkY5ldBhHEo/a8+
+ sEbjuUeMeEunPv4JvMEO7cNzbh2dQabKo7SMig27vsz7fsddDJsk1Wr4RwK8XfbUvM
+ /P3Au9iqhakAA==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20220815123138.3810249-1-rf@opensource.cirrus.com>
+References: <20220815123138.3810249-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l42: Only report button state if there was a
+ button interrupt
+Message-Id: <166058343304.814219.14233923632228992383.b4-ty@kernel.org>
+Date: Mon, 15 Aug 2022 18:10:33 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, kai.vehmanen@linux.intel.co,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+X-Mailer: b4 0.10.0-dev-fe10a
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,74 +86,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With board-matching information for legacy solution moved to local
-directory, there is no need to expose it globally.
+On Mon, 15 Aug 2022 13:31:38 +0100, Richard Fitzgerald wrote:
+> Only report a button state change if the interrupt status shows that
+> there was a button event.
+> 
+> Previously the code would always drop into the button reporting at the
+> end of interrupt handling if the jack was present. If neither of the
+> button report interrupts were pending it would report all buttons
+> released. This could then lead to a button being reported as released
+> while it is still pressed.
+> 
+> [...]
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- include/sound/soc-acpi-intel-match.h              |  1 -
- .../intel/common/soc-acpi-intel-hsw-bdw-match.c   | 15 ---------------
- 2 files changed, 16 deletions(-)
+Applied to
 
-diff --git a/include/sound/soc-acpi-intel-match.h b/include/sound/soc-acpi-intel-match.h
-index bc7fd46ec2bc..14d783952548 100644
---- a/include/sound/soc-acpi-intel-match.h
-+++ b/include/sound/soc-acpi-intel-match.h
-@@ -14,7 +14,6 @@
-  * these tables are not constants, some fields can be used for
-  * pdata or machine ops
-  */
--extern struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_baytrail_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cherrytrail_machines[];
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-index cbcb649604e5..6daf60b1edf1 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-@@ -9,40 +9,25 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
- 
--struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[] = {
--	{
--		.id = "INT33CA",
--		.drv_name = "hsw_rt5640",
--		.fw_filename = "intel/IntcSST1.bin",
--		.sof_tplg_filename = "sof-hsw.tplg",
--	},
--	{}
--};
--EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_haswell_machines);
--
- struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = {
- 	{
- 		.id = "INT343A",
- 		.drv_name = "bdw_rt286",
--		.fw_filename =  "intel/IntcSST2.bin",
- 		.sof_tplg_filename = "sof-bdw-rt286.tplg",
- 	},
- 	{
- 		.id = "10EC5650",
- 		.drv_name = "bdw-rt5650",
--		.fw_filename = "intel/IntcSST2.bin",
- 		.sof_tplg_filename = "sof-bdw-rt5650.tplg",
- 	},
- 	{
- 		.id = "RT5677CE",
- 		.drv_name = "bdw-rt5677",
--		.fw_filename =  "intel/IntcSST2.bin",
- 		.sof_tplg_filename = "sof-bdw-rt5677.tplg",
- 	},
- 	{
- 		.id = "INT33CA",
- 		.drv_name = "hsw_rt5640",
--		.fw_filename = "intel/IntcSST2.bin",
- 		.sof_tplg_filename = "sof-bdw-rt5640.tplg",
- 	},
- 	{}
--- 
-2.25.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/1] ASoC: cs42l42: Only report button state if there was a button interrupt
+      commit: ea75deef1a738d25502cfbb2caa564270b271525
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

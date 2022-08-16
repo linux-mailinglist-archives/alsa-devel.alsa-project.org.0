@@ -2,80 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73EF0595D44
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B050A595D82
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:38:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 178D01654;
-	Tue, 16 Aug 2022 15:26:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 178D01654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 503371636;
+	Tue, 16 Aug 2022 15:37:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 503371636
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660656459;
-	bh=JDyNLxdszbDFx0pcncicVcptLBlcDYeGRE01CIKegz8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1660657114;
+	bh=nY2YhApJtZhCdMQ9fGT2N8DgMFSZCVWHe2N5EHl24so=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=acR8XC/7XVd1aBbqfMviCuflD78zRUDxqIhT2nJasmXTEjDr+O3wzCueRe5Q3Ahgc
-	 5bDJyq9B806AjU+sG7sPBmAWrkRpw0ld5lXTtV50/ZK2ZfvzIptKS7TeOZkvfSk/dO
-	 x5uQbQ+iTcHF7BuKIy4Zo5kppomKZp5DR7Nx8kAQ=
+	b=oBtH3TxwHfSR+FcP69UAJQ5dNxj9FMkwCBja+FaMnZNfedTF5hphkDJitNry6EjFi
+	 QpVTSgIPkTNHRzwxgsyCYAMjCpGp6+uI4mZEeUOK4lt5M1n3HjPPvG3/k8bBQ6yiEq
+	 HwV7PApeZr36D7T0s9PpJYS1iZKvUPVAUM/pnFz8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F80AF80424;
-	Tue, 16 Aug 2022 15:26:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA1CDF80095;
+	Tue, 16 Aug 2022 15:37:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D979CF8032D; Tue, 16 Aug 2022 15:26:38 +0200 (CEST)
+ id 5E5D2F80424; Tue, 16 Aug 2022 15:37:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe2d.google.com (mail-vs1-xe2d.google.com
+ [IPv6:2607:f8b0:4864:20::e2d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E83AF80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:26:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E83AF80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id E50F7F80238
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:37:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E50F7F80238
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pJZBp4LN"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F03C561383;
- Tue, 16 Aug 2022 13:26:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A021DC43150;
- Tue, 16 Aug 2022 13:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660656393;
- bh=JDyNLxdszbDFx0pcncicVcptLBlcDYeGRE01CIKegz8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=pJZBp4LN1ZZ7CxpAD+cuw0otGky4k3qxoaYECLg8TO+b7Z/kopPUHJ0Mq/6a5rlZy
- xFKGED1YrZDGY6KwcrtGnfDLqHpjokiyDeBDMYV0wUD4YsZUoOvxSJaVipZTrw5lMV
- 0EL5AqY0S779KBdn7hCkNt1Qf2lBPlQaqOt8gdGbsBC/BuqEG94ZJDmHDIofght8he
- CtFHdNYYLpvfgfYR0C/iyrhfY0fcxryVuZKu8YuM4tzRbDpP/B0careeK04LzeYLY3
- +Tn/1iI+fuXcxIJLzqFv25yxpX1mUY8SCTFn7afHIeUAf8BK8SPmqvJkFatOdFe4VN
- DtFoIzHXX+vtA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Pieterjan Camerlynck <pieterjan.camerlynck@gmail.com>
-In-Reply-To: <20220813083353.8959-1-pieterjan.camerlynck@gmail.com>
-References: <20220813083353.8959-1-pieterjan.camerlynck@gmail.com>
-Subject: Re: [PATCH v2] ASoC: fsl_sai: fix incorrect mclk number in error
- message
-Message-Id: <166065639137.1257437.16040745730898665354.b4-ty@kernel.org>
-Date: Tue, 16 Aug 2022 14:26:31 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="n8ClU9SC"
+Received: by mail-vs1-xe2d.google.com with SMTP id k2so10110390vsk.8
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 06:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc;
+ bh=WTcX5Y71BPdKxWhQiTPJQNqDC+IPRY3B0AkRiOvU51s=;
+ b=n8ClU9SCsLFS+5cuVQZQmz9lcP6R/PdWXjWdmhXeb5vWkH4EPAyC/7fGelTVipWWIA
+ w37XjHVdEOhIKSQ/yeevLqFfSO6Z4XyuA1+CQI/bjJSkJKUACWeqD9oNuLCH1lJn5R1G
+ mihEXLBriu69JtiYfDiIEEq/ByioUrlhRbN+QJABr5ssgLVejmGqzjqHm2RVOe6ZHc0K
+ 2xxaVKtQi1j7bO2fPN4XgL3hNgYonxSTLQ/aachECcvXLP9MVnXwS2e+QTE1wVEizCdd
+ BuG1urPq5KYlST+C67Ty35jAjsPAj7APBaflz9ij2qy0GjKh1N1p8jp74Nu40GGPNfH9
+ jVcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=WTcX5Y71BPdKxWhQiTPJQNqDC+IPRY3B0AkRiOvU51s=;
+ b=buH2k7kNuf6d91msgG4aNpnIOT/yKsWWylwOWajuuwSQ2zgAtFUZ0I43jawAKZN3gY
+ ytzC16YkTdczvih79T3SOk4QSgYJCeNESVjKI5iMbQif+sPNDjdMwrllWF/4w6GgnxNM
+ 5I3Pq37mhDOPqA+kjWTsPRv/UzZ+/1qctRKquj6yUUakm4ysgCyQkpq/VVby0Iek+am3
+ PzzMWMO/lJSfAM70kIh6d5lHiRbuOo5hN9QgU+aw5UOHmASSjTAJRv2d4QG042njERtq
+ vm4giCRjt304VcnRL0Ot5l8BDKDPmoLKlg3MdP1ONNBzZM8Mo7nJ5nlZdpNVsL0HNK2E
+ JPhQ==
+X-Gm-Message-State: ACgBeo07klKhLR5MAvd9X7w6zb48r3KttX8VYjGssxOgnB77YhqV+LtH
+ xf9X65APMjNjsPOqGTgUAlk=
+X-Google-Smtp-Source: AA6agR5TkJ4sp1n17cRgDFnpunC82pUCXqW9LvIjGD3FyrF5haBB6uHlzYHxVFYgRI1zjTkcTd11Ng==
+X-Received: by 2002:a67:c807:0:b0:385:4678:a62b with SMTP id
+ u7-20020a67c807000000b003854678a62bmr8327995vsk.11.1660657044791; 
+ Tue, 16 Aug 2022 06:37:24 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:9bc6:14ea:bdc5:dc66:de30])
+ by smtp.gmail.com with ESMTPSA id
+ 16-20020a1f0210000000b00376b105115bsm8465973vkc.48.2022.08.16.06.37.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Aug 2022 06:37:24 -0700 (PDT)
+Date: Tue, 16 Aug 2022 10:37:18 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: Rockchip I2S commit possibly ignored
+Message-ID: <Yvudjkjxtv7M/DPL@geday>
+References: <YvuYZE0biiAn/sxQ@geday>
+ <YvuZbrBWzRjHYQZj@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fe10a
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YvuZbrBWzRjHYQZj@sirena.org.uk>
+Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
+ ALSA-devel <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,37 +103,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 13 Aug 2022 10:33:52 +0200, Pieterjan Camerlynck wrote:
-> In commit c3ecef21c3f26 ("ASoC: fsl_sai: add sai master mode support")
-> the loop was changed to start iterating from 1 instead of 0. The error
-> message however was not updated, reporting the wrong clock to the user.
+On Tue, Aug 16, 2022 at 02:19:42PM +0100, Mark Brown wrote:
+> On Tue, Aug 16, 2022 at 10:15:16AM -0300, Geraldo Nascimento wrote:
 > 
+> > I was looking at Rockchip I2S commits and it seems "ASoC: rockchip: i2s:
+> > Reset the controller if soft reset failed" was supposed to have been
+> > merged to your sound.git but never was. I don't know if this was
+> > intentional or a real miss but in any case I'm letting you know.
 > 
+> Please don't send content free pings and please allow a reasonable time
+> for review.  People get busy, go on holiday, attend conferences and so 
+> on so unless there is some reason for urgency (like critical bug fixes)
+> please allow at least a couple of weeks for review.  If there have been
+> review comments then people may be waiting for those to be addressed.
+> 
+> Sending content free pings adds to the mail volume (if they are seen at
+> all) which is often the problem and since they can't be reviewed
+> directly if something has gone wrong you'll have to resend the patches
+> anyway, so sending again is generally a better approach though there are
+> some other maintainers who like them - if in doubt look at how patches
+> for the subsystem are normally handled.
 
-Applied to
+This isn't my patch, it's a patch by Sugar Zhang from Rockchip that was
+supposed to have been applied one year ago, give or take 10 days. I
+can't resend a patch that wasn't authored by me.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Therefore I don't see the point of your complaint about "content free pings".
 
-Thanks!
+> 
+> > However in the alsa-devel archives,
+> > https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189050.html
+> > I see there was no commit info for the unmerged patch. Perhaps this
+> > caused it to be black-holed?
+> 
+> If there was no commit info that means it wasn't applied.
 
-[1/1] ASoC: fsl_sai: fix incorrect mclk number in error message
-      commit: dcdfa3471f9c28ee716c687d85701353e2e86fde
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+That's what I thought. Cc:ing Sugar Zhang now.

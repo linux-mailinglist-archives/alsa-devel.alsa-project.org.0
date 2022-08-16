@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5347595DAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 915EF595DAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:50:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A6AF1664;
-	Tue, 16 Aug 2022 15:48:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A6AF1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31D3E166F;
+	Tue, 16 Aug 2022 15:49:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31D3E166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660657789;
-	bh=TZr+q4bfiYW2wrvdLEG6cjLyujc1erJkRV5oTogwpCc=;
+	s=default; t=1660657802;
+	bh=5sSGecXcfo48rI4UDIaF+TdPD0JsW9D4hj58Gsf8jDI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QFDLesPL4+H4z4bRLTc8IRYDp5aQV3mPbaJa7wrr0cyEnzPIR91zBNeK3ASZq2Xpg
-	 h/4qMuxoXBW9WCLS9KBP/bab91RJOkRto2D5xr0D57ZZB+WloLnjeel+3plohNa9bS
-	 4ci9Vj5/lDhqq8lvg4kRbsQMgAtx5f2nXZKffA4s=
+	b=bCnDsBpY9TAkHO1sg2CKWSJDhzQBUnJy05RYePiW8wv5lUFTj6Him3X1P9hS4Zrlf
+	 6BC8a0dDcg40lagH3+mjtGYUwaF4tqTXtYJTcbaQBbMRpXDGAAfLERuLSSwORDIrsX
+	 JRogrEmead6HCywDmysrc3+eWbucnqVZKerPCBJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2107F8051D;
-	Tue, 16 Aug 2022 15:48:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A5B8F8054A;
+	Tue, 16 Aug 2022 15:48:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 113ABF8032D; Tue, 16 Aug 2022 15:48:21 +0200 (CEST)
+ id 5D07FF8051D; Tue, 16 Aug 2022 15:48:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DEF5F80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:48:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DEF5F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13D49F8051D
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:48:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D49F8051D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d8jD+Y9b"
+ header.b="cIihfttf"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F31A160C4A;
- Tue, 16 Aug 2022 13:48:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2BEC433D6;
- Tue, 16 Aug 2022 13:48:15 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 57792B81A61;
+ Tue, 16 Aug 2022 13:48:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F844C433C1;
+ Tue, 16 Aug 2022 13:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660657696;
- bh=TZr+q4bfiYW2wrvdLEG6cjLyujc1erJkRV5oTogwpCc=;
+ s=k20201202; t=1660657699;
+ bh=5sSGecXcfo48rI4UDIaF+TdPD0JsW9D4hj58Gsf8jDI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=d8jD+Y9b1X7SkdfkCJd8ZJ2JE3TOOsDU9d9shf2TQd68nUFqpFD/6IGDbIWUEre4q
- 4aAlrb2l9XNsoSSbLD3sSNUVVpmC36jwP2Nffd5LW1q5FW0rmhVwSIITbw8Cv1UyI0
- rOPYtUXkN4w1oOECzq60RH/5nNppN8PfLO38LBhz+TXe7DuSXJFCKUeRt35BWlHPL8
- S/eYdWqPugIxBrE4UD0nlOo5pgGguoG4vEziEjoOtMrybbyb6F4XJqRqMuxn8/OigX
- fsUtY/KXOriEYlcwt6yNML4UeNED7hqtoKSJo+PiVZ45EYea4lNjrGMI6bI6YuUXLe
- 6iytLEMRI6wYQ==
+ b=cIihfttfpepouUC7BcD/HfS46EXxWy8tNmGsexfxPpNTBxSlhcSLJN+IJ1pyAsDl/
+ f5hTbRoYLpxQrp7uvV5maCJBIcn3gqBTg5HNMP2Z9yk6cylrtEjyz78nkmjcZrNFCG
+ DkM0HjS079APnZe1p9WhC48rt/mqzQKq5BQXAAK2Ypgorv3YSqWeztn0eZGFLuP+ZD
+ t27LBDIsGk+c7rVqTDadZmOSSKiBJL6cyLwYzmqhrK/oo7J/Vgnzf+9AKONjG1Wg1Q
+ S9E/DvMyMIlwVwvfB+F7neCMkYgcdbJcpFBJEATGvSfZmsSBA0r60DmRqjxdoOD13g
+ 2cLipjFW0FPzQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-In-Reply-To: <20220810132913.1181247-1-venkataprasad.potturu@amd.com>
-References: <20220810132913.1181247-1-venkataprasad.potturu@amd.com>
-Subject: Re: [RESEND v4 0/2] Add support for linked list to store acp_stream
- and tdm support.
-Message-Id: <166065769510.1387305.15486480353129377168.b4-ty@kernel.org>
-Date: Tue, 16 Aug 2022 14:48:15 +0100
+To: Zhu Ning <zhuning0077@gmail.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20220816024456.4475-1-zhuning0077@gmail.com>
+References: <20220816024456.4475-1-zhuning0077@gmail.com>
+Subject: Re: [PATCH v6 1/2] ASoC: dt-bindings: Add Everest ES8326 audio CODEC
+Message-Id: <166065769698.1387305.15870348834200450311.b4-ty@kernel.org>
+Date: Tue, 16 Aug 2022 14:48:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fe10a
-Cc: vsujithkumar.reddy@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, ssabakar@amd.com, Vijendar.Mukunda@amd.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, tiwai@suse.com,
+ amadeusz.slawinski@tieto.com, Zhu Ning <zhuning@everest-semi.com>,
+ pierre-louis.bossart@linux.intel.com,
+ David Yang <yangxiaohua@everest-semi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,15 +88,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Aug 2022 18:59:11 +0530, Venkata Prasad Potturu wrote:
-> This patch is to add support for linked list to store acp_stream instead static array and
-> add tdm support for acp I2S stream.
+On Tue, 16 Aug 2022 10:44:55 +0800, Zhu Ning wrote:
+> Add device tree binding documentation for Everest ES8326
+> 
+> ----
+> v5 tested by dtschema
 > 
 > 
-> Ajit Kumar Pandey (1):
->   ASoC: amd: acp: Initialize list to store acp_stream during pcm_open
-> 
-> [...]
 
 Applied to
 
@@ -103,10 +102,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: amd: acp: Initialize list to store acp_stream during pcm_open
-      commit: 7929985cfe36c336e3d0753e9f23ac4c7758ea7e
-[2/2] ASoC: amd: acp: Add TDM support for acp i2s stream
-      commit: 12229b7e50cfa95fda55b83a2617eafd6ac4c8c5
+[1/2] ASoC: dt-bindings: Add Everest ES8326 audio CODEC
+      commit: 8c6789f4e2d4ee7d6c8c60daa88ea7a4c4cf6779
+[2/2] ASoC: codecs: add support for ES8326
+      commit: 5c439937775d77a334696a98fb2a25dee72ffa2d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

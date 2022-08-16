@@ -2,69 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 629EF59571E
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 11:53:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FEB85955E5
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 11:07:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD119163F;
-	Tue, 16 Aug 2022 11:52:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD119163F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28F761FA;
+	Tue, 16 Aug 2022 11:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28F761FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660643586;
-	bh=zm7wuWhUdBYsU+jESMa+goFmxWUZE4GpfIYr5Trwj4Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=elTkoqiCd4dD681DHfBp2OJ79qFj9/wDVK3iPqCOfN5FJxgBPKV4hlLgelsgoQN1j
-	 8PQ4WaI7P0lFjSvDxH8MVmmnuJ1I56hPtkS8MPlsPg49vnjL+uiW7+XEsUDZn7yBuf
-	 gMls+QZXXcL5kRNmXLroqUaXLoLtQeWh9WbPirDs=
+	s=default; t=1660640826;
+	bh=U8hPHbJ3Mo1h7NemDQcHPh7ib7RFiULFQB/3M2RbHi4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=scHWggFjlzeW75m1JrmA+YMpTAbiXs1MCXRmHWlkt90jEuEClkwhCeqZ9ONX+OeQe
+	 ruD98lUeZTzyPRVebznq1kM2E/SikMJ4SiPBLbe2VNiDjksjssatQOW9Pfftu9U+3l
+	 auKIrVedrY2B+r7K4tDqP1YgsXNxZ/X0BcTuy9jQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46EDEF80424;
-	Tue, 16 Aug 2022 11:52:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B508F80082;
+	Tue, 16 Aug 2022 11:06:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2C27F80238; Tue, 16 Aug 2022 10:55:22 +0200 (CEST)
+ id 44739F80095; Tue, 16 Aug 2022 11:06:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7680F80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 10:55:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7680F80082
-X-QQ-mid: bizesmtp75t1660640107t9u3xd1f
-Received: from localhost.localdomain ( [123.114.60.34])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 16 Aug 2022 16:55:04 +0800 (CST)
-X-QQ-SSF: 01400000002000D0T000B00A0000000
-X-QQ-FEAT: 6aXALTFZqPsYTigoi/pJHQIrfEjlbZTVVo4ceE/miflM2QL0ScN/MLKWd9pj/
- GpI0Y0g4qovfiem9q3Z4SWKP5MlRzDTno+u3GL4PM5mbtBXO1WJo87SgDryelNO5b+KbCo1
- NDdEC7iYKBCJIT0zjx28cAXU3afo3bcJHpKQb+2xypQmKjrX3+PeqMkUlok2zrH4YSP6Xof
- P3ocSKToVuCM5NhP6UKY0j5U0XyEvbkqt2W0HGR4i3ACGDI2sCY6IUEAEDzg9Guy1VXWsYn
- 0JNzO3WBs1tO1hvkNDIpnW6zFIBetn4QxfGTB6REcvv59IkDvcTLffgOOQkscmi22zR2iCW
- 23sOHumGks+sjSme0AjnLWeAEAfLBIVMJUhoPNL8cSi/hAbBEWF2FigQ7QXiw==
-X-QQ-GoodBg: 2
-From: zhaoxiao <zhaoxiao@uniontech.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ASoC: intel: Replace scnprintf() calls with sysfs_emit_at()
-Date: Tue, 16 Aug 2022 16:55:02 +0800
-Message-Id: <20220816085502.25295-1-zhaoxiao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C097F80095
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 11:05:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C097F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="hDeJAig6"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27G1cRYr013154;
+ Tue, 16 Aug 2022 04:05:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=V7+EmkrSuZ84Bb1gS/wxH1FOr6TUaRrdnHDtztrgSTo=;
+ b=hDeJAig6BJnBTD5z4jiBt1IdQiSF3hjYucAxgdiRHbbX9J7cMmMBxy78RMBBQFj4J1O+
+ rToQ/FZui015D/7EUuAA/s83U3/Ci89croC9zkjR6NzuvELgsRAluF5vkg+ofgMikp0h
+ CI9vVF4KiolPUQqymIcCtNJhyelnl+DOOjhxRIn6Qt8ESg7FGxee9UR5w9nc6Jq7GK9Y
+ JyQe6K3vwTCiRBTViHq0/pt8n1GzXaChw/SvNx+Fuft8zbRw4J0JGUPKsZyp5XWnqwhp
+ QcwFDv62Q3rlE4Bsp6CEWKALJTuoBaK7NSn8gdNzVUxa1yLdtghmiFB75X8Dez3aif0Y zA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hx8cpbav1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Aug 2022 04:05:55 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Tue, 16 Aug
+ 2022 04:05:54 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.9 via Frontend
+ Transport; Tue, 16 Aug 2022 04:05:54 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5A7F57C;
+ Tue, 16 Aug 2022 09:05:54 +0000 (UTC)
+Date: Tue, 16 Aug 2022 09:05:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: Fix the include guard used for
+ include/sound/wm8904.h
+Message-ID: <20220816090554.GJ92394@ediswmail.ad.cirrus.com>
+References: <eff524b78d1f851e3dc42999e68c286492f92b21.1659800938.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvr:qybglogicsvr1
-X-Mailman-Approved-At: Tue, 16 Aug 2022 11:52:05 +0200
-Cc: daniel.baluta@nxp.com, guennadi.liakhovetski@linux.intel.com,
- alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, zhaoxiao <zhaoxiao@uniontech.com>,
- broonie@kernel.org, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <eff524b78d1f851e3dc42999e68c286492f92b21.1659800938.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: Cv0SVka0lPbtKA-6rDUgNcbQ73hqUg6g
+X-Proofpoint-GUID: Cv0SVka0lPbtKA-6rDUgNcbQ73hqUg6g
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,28 +101,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For sysfs outputs, it's safer to use a new helper, sysfs_emit(),
-instead of the raw sprintf() & co.  This patch replaces the open-code
-with a new helper, sysfs_emit_at(), by passing the string offset.
+On Sat, Aug 06, 2022 at 05:49:14PM +0200, Christophe JAILLET wrote:
+> __MFD_WM8994_PDATA_H__ is already used for:
+>   include/linux/mfd/wm8994/pdata.h
+> 
+> Based on file names, use __MFD_WM8904_PDATA_H__ instead here.
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
 
-Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
----
- sound/soc/sof/intel/hda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 6d4ecbe14adf..917d639671a7 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -574,7 +574,7 @@ static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *le
- 	chip = get_chip_info(sdev->pdata);
- 	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
- 		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
--		len += scnprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
-+		len += sysfs_emit_at(msg, len, " 0x%x", value);
- 	}
- 
- 	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
--- 
-2.20.1
-
+Thanks,
+Charles

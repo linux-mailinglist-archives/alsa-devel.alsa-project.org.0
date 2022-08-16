@@ -2,68 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD97A5959DB
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 13:23:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A1435959F1
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 13:25:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50D701651;
-	Tue, 16 Aug 2022 13:22:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50D701651
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8158165D;
+	Tue, 16 Aug 2022 13:24:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8158165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660649023;
-	bh=QY7qEnBPxJcLJBB5Xbu88inxpJQ6zgpeVPbXNOce7EQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WmMNHKrTCAUwgk1ZGk+2md2HKUtvv/zZKu7RPKCFr6CuYI20VoKCAxFCmF0MLPIlG
-	 m7SdSuCa/47pEkLLZINN0mUrI/vg//9ucJ/+1E9AAGhK6uzVvTS/DhB3EF+P3cqv63
-	 KID5u5VVshyse+kDgGbu+RMf1+IFOFSZVHeVAkZA=
+	s=default; t=1660649105;
+	bh=MpG3kqpg769gPOmaRtZtYvtqJfHCGV4kwVNZYRXpgAE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WJrNWfPkaR2MAbPMD5aY5N7Nt6oY/3YNghVnojI3iqYDTFQQyNVLVDE0btoXxXd0J
+	 VGkjDZfOmRvLMzCh57E0CdCpsgrrbVIIeDzFWo2NzVO4O2PkpZB8IoBjGHo6158i0t
+	 bXHaSsYxjQqqfxa52NpjN6g1C5MGYeujKZYLwHEQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABC1FF80424;
-	Tue, 16 Aug 2022 13:22:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47FEEF80424;
+	Tue, 16 Aug 2022 13:24:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80036F8032D; Tue, 16 Aug 2022 13:22:43 +0200 (CEST)
+ id 4746CF80238; Tue, 16 Aug 2022 13:24:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E523AF80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 13:22:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E523AF80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 137FCF80095
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 13:24:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 137FCF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="g/w5HGcn"
+ header.b="QMMvIGkp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9287D611DD;
- Tue, 16 Aug 2022 11:22:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99086C433B5;
- Tue, 16 Aug 2022 11:22:37 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4C769611B1;
+ Tue, 16 Aug 2022 11:24:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC8EC433D6;
+ Tue, 16 Aug 2022 11:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660648958;
- bh=QY7qEnBPxJcLJBB5Xbu88inxpJQ6zgpeVPbXNOce7EQ=;
- h=From:To:Cc:Subject:Date:From;
- b=g/w5HGcnOdbpIVNjTY0VrFv8NiRewNwmm84jeWDPk+0v8nOj+zaaX6BKo6riFqEY4
- FXlJEiGIdZjRnOp/QpPJFu1Fxf+ke0QjOzDdc2/L9To4iQQRjLp/lNKMeusCFxKZpx
- 1QDEUXtrAWKwcXbNxftWMWxxNJHU6kbXaFUuNFsZ6B79Gayqo97I2ZC2Cgw2LHlgKX
- 6s07uuJLgPMQwtMACAenT34l1TmuXCOH90wg7B+pABRiIu8sVVpBG+sTJGs/x5Y02X
- G53w1v2yVBu6Et4OGxpC4/R67vA/jJa7qk6CuMOX/qlGiSj3HNMCiIyw3L/25kAr78
- I783LlDsntvvA==
+ s=k20201202; t=1660649040;
+ bh=MpG3kqpg769gPOmaRtZtYvtqJfHCGV4kwVNZYRXpgAE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QMMvIGkpOXLBXveZY5o2ZT7uIXXqgJdjAbmg5no8mdj3T1B4+Kc4cK4oj7QL8HQEF
+ Is/Z01G/q4IN+RPgM1+rXOQcfkYJjF6LI/7NjyqQnSf5sikwCRRBrutdvWLs1xNlMS
+ 2850CVgAwXCE9BfZguhylN8lU0LtBQfXau189SQTRaUMDapD9FiKVEQzo1BG3+Oopu
+ Ft3L6B8B9N6/+bsWBlseNyZdWA8OfCLAS81QjrJ8E7cnn7Op13/6d9aTjoxzHxEuGj
+ 2ZxKZlRgc3/sjHuPsmuBVG2nYQg0LAACz/zR/qFxo7ysgFOKEDBLwuPq2dVHDneU1G
+ /2Zb0G7sHjMZw==
+Date: Tue, 16 Aug 2022 12:23:55 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v6.0-rc1
-Date: Tue, 16 Aug 2022 12:22:22 +0100
-Message-Id: <20220816112237.99086C433B5@smtp.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [RESEND PATCH v2 1/6] ASoC: Intel: Skylake: Introduce HDA codec
+ init and exit routines
+Message-ID: <Yvt+S4pCmqloFaAA@sirena.org.uk>
+References: <20220816111727.3218543-1-cezary.rojewski@intel.com>
+ <20220816111727.3218543-2-cezary.rojewski@intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="L8ZCm8/MLgr4CPkd"
+Content-Disposition: inline
+In-Reply-To: <20220816111727.3218543-2-cezary.rojewski@intel.com>
+X-Cookie: A bachelor is an unaltared male.
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,70 +89,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 40d060b8158e26438398bf1132925f666e3b6480:
 
-  ASoC: q6asm: use kcalloc() instead of kzalloc() (2022-07-28 11:59:10 +0100)
+--L8ZCm8/MLgr4CPkd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-are available in the Git repository at:
+On Tue, Aug 16, 2022 at 01:17:22PM +0200, Cezary Rojewski wrote:
+> Preliminary step in making snd_hda_codec_device_init() the only
+> constructor for struct hda_codec instances. To do that, existing usage
+> of hdac_ext equivalents has to be dropped.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.0-rc1
+Acked-by: Mark Brown <broonie@kernel.org>
 
-for you to fetch changes up to b4b5f29a076e52181f63e45a2ad1bc88593072e3:
+--L8ZCm8/MLgr4CPkd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  ASoC: codec: tlv320aic32x4: fix mono playback via I2S (2022-08-10 14:52:05 +0100)
+-----BEGIN PGP SIGNATURE-----
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmL7fksACgkQJNaLcl1U
+h9AU3AgAgisrJXookrNJsSfJ/EaynkGzQYO2nxBtXtd+qYfculKCCHc/zGdAcuoW
+3OdBMKkbBqu2XSasbdEPY6ngxCffkJTYItVzwaLHaueeH388+Qdp24lfvRUjUk6j
+UETyxngCokaf3J1OvOf8o1NMGfw7tDXkK4oGAFZjz0SvOclSuJCY06kw2FzGEc0W
+vbqFBmmmVly1QAiYDgjZSdiCSJA1FWJBYdweSxZBfhoi+NVOFnzkoMytNEGNk/je
+AQZ76s0fcSGxuRKXrCSjSH1Kvx3JiGTdq4ZlqFPoCMyt+4TFrKaMTvYQLTAn19nt
+XaPs+jtFl6iJSYkWrZ/TrCN5lmDUHw==
+=bKnB
+-----END PGP SIGNATURE-----
 
-A relatively large batch of fixes that came in since my pull request,
-none of them too major and mostly device specific apart from a series of
-security/robustness improvements from Takashi.
-
-----------------------------------------------------------------
-Biju Das (1):
-      ASoC: sh: rz-ssi: Improve error handling in rz_ssi_probe() error path
-
-Justin Stitt (1):
-      ASoC: SOF: ipc3-topology: Fix clang -Wformat warning
-
-Mark Brown (2):
-      ASoC: Fix theoretical buffer overflow by snprintf()
-      TAS2770 fixes
-
-Martin Povišer (4):
-      ASoC: tas2770: Set correct FSYNC polarity
-      ASoC: tas2770: Allow mono streams
-      ASoC: tas2770: Drop conflicting set_bias_level power setting
-      ASoC: tas2770: Fix handling of mute/unmute
-
-Oder Chiou (1):
-      ASoC: rt5640: Fix the JD voltage dropping issue
-
-Philipp Zabel (1):
-      ASoC: codec: tlv320aic32x4: fix mono playback via I2S
-
-Pierre-Louis Bossart (1):
-      ASoC: Intel: fix sof_es8336 probe
-
-Takashi Iwai (4):
-      ASoC: Intel: avs: Fix potential buffer overflow by snprintf()
-      ASoC: SOF: debug: Fix potential buffer overflow by snprintf()
-      ASoC: SOF: Intel: hda: Fix potential buffer overflow by snprintf()
-      ASoC: DPCM: Don't pick up BE without substream
-
-syed sabakareem (1):
-      ASoC: amd: yc: Update DMI table entries for AMD platforms
-
- sound/soc/amd/yc/acp6x-mach.c       | 28 +++++++++++
- sound/soc/codecs/rt5640.c           |  5 +-
- sound/soc/codecs/tas2770.c          | 98 ++++++++++++++++---------------------
- sound/soc/codecs/tas2770.h          |  5 ++
- sound/soc/codecs/tlv320aic32x4.c    |  9 ++++
- sound/soc/intel/avs/pcm.c           |  4 +-
- sound/soc/intel/boards/sof_es8336.c |  4 +-
- sound/soc/sh/rz-ssi.c               | 26 +++++-----
- sound/soc/soc-pcm.c                 |  3 ++
- sound/soc/sof/debug.c               |  6 +--
- sound/soc/sof/intel/hda.c           |  2 +-
- sound/soc/sof/ipc3-topology.c       |  2 +-
- 12 files changed, 116 insertions(+), 76 deletions(-)
+--L8ZCm8/MLgr4CPkd--

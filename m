@@ -2,150 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A2E859530C
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 08:52:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5315595350
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 09:05:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7348A163A;
-	Tue, 16 Aug 2022 08:52:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7348A163A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69C8E82A;
+	Tue, 16 Aug 2022 09:04:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69C8E82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660632773;
-	bh=50oB9yLKm+vpJ1iFAqoLrQPU/T/CkPF7HAY5qzy7qgk=;
+	s=default; t=1660633522;
+	bh=wfSaQhTAWQrpTr80g2At61/seD1tdEQKwlBVn5Zy9e4=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CvPznaH2CPNJTmjxKZLTv2z5fAlfHZKTKwlVJ/hDa/LBLlypZWouCWRH90Y2m8GmC
-	 V0fOGS+4mb/XF2DW7Kozjeo7n0y/hl6hGO5skAk/zySoxxC9OWKujkHFaZhapn+S/Z
-	 zb9j0zkaI+VyvrehevhfknNLOAzJSODRSeTOIX2g=
+	b=kFWh8eIq1gekvLA4VYoyEk+jg4ak+T7nFY3+BseQy+e4+MUWFhGVPBs0P1v776mN5
+	 DRW+3hUBaeZ6+CXiYUY3qDUVgJ51tblM/4HwKRtYEYjNfNXGsNYlzki+YPbZklaRiR
+	 t2i/9bXBsbB17Q5nDdrV1f8oD/CUmBMlUE7Kk8LM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F648F80082;
-	Tue, 16 Aug 2022 08:52:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4A59F80424;
+	Tue, 16 Aug 2022 09:04:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65C5BF80424; Tue, 16 Aug 2022 08:52:01 +0200 (CEST)
+ id EFC7BF8032D; Tue, 16 Aug 2022 09:04:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2083.outbound.protection.outlook.com [40.107.94.83])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79C26F80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 08:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C26F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D78DF80095
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 09:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D78DF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="Ml5U1jFb"
+ header.b="u91uoV4V"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SDAGDQtByKdFMNf718gjFc9JQEEPcQjRr/AnxAbAaRB3Ypfhhl9DTqJNzI8dh1Za22QfcTaZvP9rT7wecWTpd6ivnI3gbSVtlyaaqLKDN+LSEHp62aJVyXY/IJgVuh5DvYMzDYkyYtpg4BOstW5SOVkcJCQb/vMd+xWBbyU5pJI9xTXV0yGJI8xPiqU2FincmRSD+ZO78sa5phbnO6W/1/BQF39UkUAZ5OCXO1KBybljBC9TOnnPV9Gh22MWFBhc1KUelk6IDRhorfeP9fM2K+vHnvYl6hbVSJY4IOm6bLDCF4jJqfR/mXZIahyJJjyNru3JsCOramAkiM2gY1Yb1w==
+ b=Szpp7XpapSBOkQSMxtPp/ObUEQ5ZxAc2a/rSrKlj+DSGkuV+YbuqHtA8jRutXVP9bAU9WmoGUaNTXRavG+Aj/Q0GDRM6kG9e7cGuYXbnxfcuw9vUggvjSg2CNvfFnkeXIxbWW5EklLZQMqB4EH3njP+v7en/XRswXJQ+OZgqHVGqIYjJfwbyTUMukQd7MSiI4E+X7TMQQwDO14081ZTkVh5jMOGazx6BVnxxjQO15A/HLwYbI8fMvDUp/GUGdwfAMc1zU2gUrpVX4zy5A3D+rXoF6QMMcWqtTyeOA94tsx5P0cjpYIlBuzKQSrTQVfrMg8r9GobqngbyTPWpDNU12g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ys1x4tb/g/17mSf0RPPZNnvh92yh4LIJAGkb9dh1wjY=;
- b=gNudmKzCI0gm45tyiCuXQGqQ/BP/Nf+bRDwcdKrirVHI+07w/j5XJfFt7fp7Gzj9PbpYzCOanPn/V76re/nITOopBjzoBd9FSE4y+lIU1vxqKIpnj2bhydVDcwP7lx6PatzDTuM6rq9vmOBrv7t3SrPgBukfvMSyPWwNVuXomEbjlP+LQChaXqHuSlwqsvKOFDDHNZfCgFnr5uoyIRI7bxzpWAXToBlZiP0dQDk4WYTHk/UF+u4DVX67BfOxEjdArpB90rzxKDIFXBuSqXaX93WyL7+maRU+Vr0yMzrAtgcofwwjjnOCSwiH+jZglfs0a9RXoCC4pjcLv7GlL5LUzw==
+ bh=+VNt/ynMUnzuGWouSKgTq4OL7BdGPWISe28CVPSo58w=;
+ b=nEo6w9p0QqfWKb8bRRoOkJVOb5jbGYz4Z2hd0oXf5hgAYrFpwrzXDaluFN6UZuj0DBWnBHMZoxiSNdSspawj1MvByZXV5aUb4FsTttLO26naSm39w4k9k4re6d9mCZsxN+PpRy7b9c05GSyi/AyDx5A62eqKl68zUqNb4vFJ/so7G3ZsbC0Nc6sS0eF7mjHdWKb6BNwklN1cOrR1BkVf0qMYQkk12os9BUqayFsWLVywjBSeANXrMe/LNNWFCCQ/yrsGJjWEJhvuhSTg6YW/4qWt0eJivePK/dhj6LtItqoKZOoJWEVJvVUMGQJqIe191C82sQaTOy6EWMkVHzWBTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ys1x4tb/g/17mSf0RPPZNnvh92yh4LIJAGkb9dh1wjY=;
- b=Ml5U1jFb3NI7VL4ES8AytOQumfu8u3UqMY51C+viID5IutM8mJAWenj4woVudZRct7xOowiZJgxzRrukcbhZyElY6zXsJ99C5AoSDD1ekY7urn+KMELgM/mJsOVXR+ot6/9vbC4Rb3KjogxJBJqa4Jm1ElaFU7j2Qkdryufk9N8=
+ bh=+VNt/ynMUnzuGWouSKgTq4OL7BdGPWISe28CVPSo58w=;
+ b=u91uoV4VF7RBJNLJQs9lUtsk5bOqgYVtg1ffGWen3BY41g5UpKJSHmoVYlxvVfv4JFH414k5z7JXyqR5oIXfKTeg/fZnF9Wrg8B0e+6t2lTsJ89pBGkW/xVL6msQZkjzgqc9xOan6x6GOr0y3trD4OJj0XJMKI/COE8vMz+4Ka4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
- by DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.10; Tue, 16 Aug
- 2022 06:51:47 +0000
+ by MN2PR12MB3071.namprd12.prod.outlook.com (2603:10b6:208:cc::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15; Tue, 16 Aug
+ 2022 07:04:07 +0000
 Received: from MN2PR12MB3661.namprd12.prod.outlook.com
  ([fe80::bc80:d6e7:d73f:d955]) by MN2PR12MB3661.namprd12.prod.outlook.com
  ([fe80::bc80:d6e7:d73f:d955%5]) with mapi id 15.20.5504.027; Tue, 16 Aug 2022
- 06:51:47 +0000
-Message-ID: <bd701478-364f-fe3f-e16a-515e2714d430@amd.com>
-Date: Tue, 16 Aug 2022 12:19:48 +0530
+ 07:04:07 +0000
+Message-ID: <a6299f03-91c1-bc7c-7469-9e26a14e3b3c@amd.com>
+Date: Tue, 16 Aug 2022 12:32:08 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH 04/13] ASoC: amd: add platform devices for acp6.2 pdm
- driver and dmic driver
+Subject: Re: [PATCH 07/13] ASoC: amd: add acp6.2 pdm driver dma ops
 Content-Language: en-US
 To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>,
  Syed Saba kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
  alsa-devel@alsa-project.org
 References: <20220812120731.788052-1-Syed.SabaKareem@amd.com>
- <20220812120731.788052-5-Syed.SabaKareem@amd.com>
- <f55c444b-d1c7-9d61-1f0c-c6bfe32ca2db@linux.intel.com>
+ <20220812120731.788052-8-Syed.SabaKareem@amd.com>
+ <2dca1704-c04b-9c42-ce1a-51a16530af38@linux.intel.com>
 From: Syed Saba Kareem <ssabakar@amd.com>
-In-Reply-To: <f55c444b-d1c7-9d61-1f0c-c6bfe32ca2db@linux.intel.com>
+In-Reply-To: <2dca1704-c04b-9c42-ce1a-51a16530af38@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0075.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::15) To MN2PR12MB3661.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0068.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:23::13) To MN2PR12MB3661.namprd12.prod.outlook.com
  (2603:10b6:208:169::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9f97b460-c319-4008-5e40-08da7f53c987
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf540dbd-acfe-4d5e-e26b-08da7f55826a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3071:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4OmMS/AR2qdd+6Pg2h7AQbMrKlezRifh5AgIvZTEd0T1Jdnw20x/H33KAawxy3R88WMaH9Hg/mu9N2iAKVgy/Dy8QnCx8oPMkfdevEXnK5Tr5V+yZg+vTyQPz3AM8GaKfh4m+QplhFdDdKC9Rw2Q46E125WRjXTNWWFx5+fOnR6v6XE/SSAQcGx/o2CsH+nUFBPPAF0UefmHECD2RkD453KxOOx1sajSiuJM3s66Hkou9JIw1RN1/hzfuip0zdfbfMbOzeNhFkoVKexjhF1Rv71cyeAh2qQTT2KIamuIx/bOzNZ5jWlJ/jZ6MrsE/UbPsxPjq+Ro+ipSAR5QrjgbPmC7XeI5gB3HXicfKMZkWu37uXNHOF6ytcAPQY3tHNg2IX6pzGpDJuM++qeUgeBUmcP0lE4pfBPxjV5ILrS5dWVDrEoWOytqx6a7481syIXGpzt7wzx2BdCs806+7CuiHar3O/mnAsgxm5DxXr4T9xkvBkiuGpV/uHnWxf3QAxyYVLOnmd6Jrw/Uccptv6LC8PGKy8U+EdKN6WoN/z2BkYYJdZMqspLE3gWS6LB29rIQm/UVgFg+Vzy124RRPcq9TGTecz5lGvQohmJKAfPmPEOK9JCnZ1juCTyAmSZsROq/CV+hgheeg3Pjs7goODkRAA1gESVonWrBXNEhzunPVhS8PNDurdRMswgAhhOPjqkDYfx8HjMyrwFW9pggCES+1D64Hb3Vxs670yIbGo44HBci5MZ0BYuV96V3OOfOwD6PAQOaZBEXPRaEmxi30JL9tIBwdIoHHJlyJ+pvf7kaEU7jqVtN6UGIfDHnQAxzVTcdW7/tBrAbpgjtQR3wSvCETg==
+X-Microsoft-Antispam-Message-Info: hpbGSHIcd9FVm26OeyBr8vgBMkwT9ZqVjPgEUNUg7CISednlV+WB8F1uZLVUac3WladK3Q29MPxsFmxGCN5O0nZVO3nbkQIxYXvTEndrFqx6VXokbh6+n4Y/4bVZHZZqRkubbJ5KRKW7RnYiPU/n7fVSmavw6uVoLTdL6eO1uKZLCr6SRz6We0CtdqykKB2HXrvR1xEb298McNdhnCO0ruVPnV0PVdfUmasl5mqN1Fch8vr8KmkpFLzhQv0IuISSHTiqiTqmyF/4LtenbueULsrPkRat6QRxcDFEW2iopNLqYoYDeyt64o39+IkdTv1yu8Py8+H9ILByR8QBA+ArUG/GXGYmz2eYic4wdwI4A9vtLe2jz38+3V59jNcHEs7aIWRI5UEnJlOjFaShx/4osuVOrau7nN/u4Vn/rr3+DTdWE555UxSAeWhkvkoLP775KBIwpd21L73wwGI4YbGiK8/bp+CmmoGr4sJy98oCQjC5ZLBU0gQf23aoHtNmAdaZz/y6QKHLFQFtVQsdn3/nDaS+WZ2fpIcO9zhdHpwmeF09WGhYLw9mUjA/0Q0y8X2yKSvBdyU151/07h5kWLX6r+lADWf3s0hvr/EnOmrliF8VrGKhIoQdID1s0SChGL5rfImWl3TSfReGjFZHo5zsT4jYIgaaWlbRNZgcyTh4V131vEpFOz6/j2jjvPZEnpGJimC84gPXZnpfyumpk6HQwIWQCF5n8InavQqsIcAKfldq6Y2hIiaV15U3TRjaQh0Ayz+mWuTSHqv7UzQnCMuy11UMzaIBcE4Px8/W8x0YjsG5Qnzf1z9IVBNsmkbVeV0bi76hfoxNW6ihhWrtWDBdrA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3661.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(54906003)(5660300002)(6506007)(53546011)(41300700001)(26005)(31696002)(6512007)(8936002)(66946007)(6486002)(66476007)(478600001)(110136005)(8676002)(316002)(66556008)(36756003)(2906002)(4326008)(83380400001)(2616005)(31686004)(38100700002)(186003)(43740500002)(45980500001);
+ SFS:(13230016)(4636009)(346002)(136003)(39860400002)(396003)(376002)(366004)(38100700002)(83380400001)(54906003)(186003)(31696002)(66574015)(2906002)(6486002)(2616005)(478600001)(66556008)(5660300002)(31686004)(36756003)(316002)(110136005)(4326008)(6506007)(66476007)(41300700001)(6512007)(66946007)(8936002)(8676002)(53546011)(26005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RE4xS3hzNlRvdURjVnFGRW9qRURlOHJvMDlFMmhrNTlLelBqYStJbEdQWXcw?=
- =?utf-8?B?WWJZb2JucS9YUzhadTlvVVRnT2F0OGFIVEVFVkhWZUlwTCtHcTd5UDRjNVVr?=
- =?utf-8?B?Q2RIYjFiU2w4KzBBb1RBVFZZQlIyUnNJaitxeTROYi9MQWpaamdjREhzZkhl?=
- =?utf-8?B?VEg5b1JmaVcya0VnK3B2ZldmNTRHQ1pOdXB0NlBjVUNpUmFSb01QWStIbjJn?=
- =?utf-8?B?VHpuYklNQ3FJS0ZqSTdhMldIQ1k1ZCs2cVJBbTQzYmhuTjgybnNVdUQvZzZW?=
- =?utf-8?B?cDFuNFRPYU9Ra0lxRTBINzFNMk40ZmNlVmxSQmZ0UDZLNzBTR2FBNC9Ed3NO?=
- =?utf-8?B?QkxEOXV3eDBmRUJRb2c5NnpaWEg0bjhseExORm41UlVwS1JMQTZneEd4d3I4?=
- =?utf-8?B?UFlhNkxrQ3U3MXFUNXJ3R0cxNVQxQ2p2UUJEY2IzcDE0bW4vK0s2ZlpUYnZz?=
- =?utf-8?B?OWp3TnVEUzM2ZHJTLzArS3BUTlJURHpyOVJGMHM2cjRSTU8yZDA4bERPbVU2?=
- =?utf-8?B?Wmk1WWNJUng3eDdzcit0enFRNUNZbkNWOHhzdjlRTGRvSmFHNGJ6ampzWFJH?=
- =?utf-8?B?cVgyQTViUHg1MTlUVXA4TjRXNkxyaHpOY2NITS85K2V1VVFwZnBid3pIM00r?=
- =?utf-8?B?aWE5ME0rcGZta3AwSU5rUHJ6amxaREliQXExaE5GNk9qRHVBYkFRUEc3SGRs?=
- =?utf-8?B?SU9rWE9oOWRYMThVNzdtR0NWOStObVdaQzREVUYzNCtKTS90TnpOWlFYbDRv?=
- =?utf-8?B?QXptVnVHYjZqaW1HdjZvL1dwVkpka2dLUmVpYjBBaHJMMmh0UDlnRHRtSzla?=
- =?utf-8?B?U1lSTm5FOEU3bytTeE9xbjJoR1RKY2cxVjR5ZFNmZFZkOEQwV2dYdHZaWnBk?=
- =?utf-8?B?ZDJUNmZnd3ZIdlljdEEzK2FyNHh3bkh2VktjaEJhalduY0RTMjExdUcvZFFG?=
- =?utf-8?B?b2crd0tiQnRzV0s2dzBYaUdqTkZTRHYvaXc5MStUV3lmOXJmcHlCWlYxcFov?=
- =?utf-8?B?QzhBaEYzcUV6NEFMQUZwYkF3a2RWcktHblMvM2Z2V21VZWdhVTR1SmZtMzJr?=
- =?utf-8?B?TWhwNXAvb0pOdXA0R2NEQTE1N1pzMkRxZGNJcHJzVEhybWt5ZW4waFpxdGt3?=
- =?utf-8?B?YmNPbkdWSUd5VXp0RUY3OWQ0c1dlSXNHUmhNcDFlVGRsRUZLaG1Hejl0Rmh4?=
- =?utf-8?B?TjJETWs1Z2NJcFZkZVpqQ1Ztb3lGWUZDVHlTQ3UwS1lZaXFGSjVndDJlUHFF?=
- =?utf-8?B?REd2QmZmM3dDWVZyMk9MVjlVZ1MzOUIreTJkNFlpbGhEL0JWNUFkTXRlT1ZI?=
- =?utf-8?B?SlFaVXJ4UHE4dlBFUmY0T0V2UEhHUUpNMjNBdXczSWxDRnRnMnRPcjdWOXFs?=
- =?utf-8?B?R2ZZVkFKTVQ4VU0rZ2VXZ2RRNkpvQVFmbjZGREhYNE1RVEllbkpURkV0WlJw?=
- =?utf-8?B?cHVvRnppeHI0Q2lEcGd4STl3YTdSTk10NFVITWtFb0NtK2ozM05lZnUxSE1o?=
- =?utf-8?B?b3gwaVcrdktUWGJCeVkwbXdxd2hnUG4vR094WGNETWYyeDZNeHY3STVJNjVJ?=
- =?utf-8?B?TzBHY2JDVm9DL1hydkg1VkttdFQrSVVtMFVnbC9ocnJ4cmRzNzVtZU1GYWpQ?=
- =?utf-8?B?ZnNEOEZaQ0VpVmlHMTFzMFRTcG1UUmdVcEVGYzZMd0ZRRVZycE9OYjRrd05p?=
- =?utf-8?B?eDhJQmhFRXZZSXYrVU84OU5KZFowQkRRTHIzQnZEdUdTdkV5TVFuN3lmZ3pY?=
- =?utf-8?B?Z0xhN0o5akc4VFlBZjhrRlNTMnExUmZDdzlpN3pETUVZdU92NjAwSi9XdFps?=
- =?utf-8?B?bGdNSEFCaVFxMkJpaUp3N3l1SEtDL3pVQzJ0VnhUbmhGeHA4a2tqVUQ0c3ln?=
- =?utf-8?B?TDRwVUozQ3JlWjM1M2s2dDRPVmxsK3NFNXZUWXRyQStGbzJFdm1ETlFIVGk3?=
- =?utf-8?B?aldOV2tuRmFKT241MWZsdklFM0JnaklBb1d3V1ZUV3BjbktnWWQ2Q2JQZlV6?=
- =?utf-8?B?QXVDaEt2ZDFodzdnY2crdDlUV1haSzRNcGxVNGxKVW1BcG5lQ2l1eUZ5Zmc2?=
- =?utf-8?B?ckVmdFZGRzFZNGE0UDZDVC9OK1AzNWdPMmltZ3VTUzdxejB6Vnh3NjJFOEtm?=
- =?utf-8?Q?4cChjOtK41fiKVp0+ycpeku90?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1FlN0x4YWhhOVVFRzhwcnp3c0VoSU5HOEZINTFsbU5GTVhmckx4cjBMbE9o?=
+ =?utf-8?B?Q1pDT1VHRUgydTE3TjBoclZjU1lJUEdOWm50RVo0MnJ2akVlT3hYdkhadDU1?=
+ =?utf-8?B?RWtzYzNRS2NvcE1zeWFHYmNJM2FVd0E1RW5PeUswYkJQaDRBMVQwQU05ajQ2?=
+ =?utf-8?B?Qy9pWVlwMEF2UGl5SlVOVEtjTk5OZldKRjNoR3phRFhoc1ZuY3E3SlphcE1F?=
+ =?utf-8?B?QTR5VElpeUpNb1c5ZUg3VzlEZ011YVZ2U2JkMEhwWVBxOUxvTHNHVk9BS3da?=
+ =?utf-8?B?dThTSEpaWEhjVXdqWFprT0UwaGFCK0YxT3E0RHdoY2xTYkVwUVM2c1NUOVVr?=
+ =?utf-8?B?TGw0SGcrdW5mNEUyTE9KZXJqU1lFWm9ramliQ1lvTmx1U1pZbCt2RWYwcnBS?=
+ =?utf-8?B?cFRLSmlmc20waTFBeEdPRHZtM0NjMVlmYVh2aEY4THl0VHRtSjJoNFFRR1Nq?=
+ =?utf-8?B?TS9CaFFDN09LZFNxS1d4dE8zSUEyTEw5bFR4bk50bkR6d2lRdk1taWxoTXNk?=
+ =?utf-8?B?Z2Z6R1Q2VkpSc0kzbzBNeHAwM1NVNHRqd01DK1ZmTlBhb1dMS0Y2VmNxYjdw?=
+ =?utf-8?B?WnBuRHRaUzlYT3BtcThKUlROYWRYU3dWNElZNzZxOHJjcEY2eGlRK1UyYkJx?=
+ =?utf-8?B?NXRZbUI0NDI3K3ArZ2RwM0ljVm8yYUdxSUNJbkN3bGlyaS9FSUVQSEtqYnV2?=
+ =?utf-8?B?anFoaTVFa3pxYkNkWFpIYTZqbEEzOVBPaVZvM09kQ0pxQ29vV0lRVXV2N0V0?=
+ =?utf-8?B?blNHNlYwRUxCdmNVMnoyblNINjJLcThOUjVCMmdIT3lRbklGK2RLQXNHLzcx?=
+ =?utf-8?B?aGxNZlB6VVlVcHN5Q2VBSmlTOThEbkdqTEdwZGk0MnUxUXVkNGtsT0kyMktI?=
+ =?utf-8?B?VFY4VDFzVWI1d0puMnovUkdTSUVOU0MzMDgySUx0bjY0dGk3ZVQyUHJXOGZE?=
+ =?utf-8?B?WSt6SjlQNldNd2p1QjkybEViUHZ4NyswU2dSY2M0RDJZWmVCT3VUQk0zYlZa?=
+ =?utf-8?B?RzB1T0FjZUNXMFkvdkJVUXhrL1oyQ0JERllBK3VRRzhRbXFPeVFSc1pGaTBz?=
+ =?utf-8?B?SE9sRHY2bjN6bE44Szg2U0hRdXh5U1lTQVNSS0R4cFdwLzZ4cGZ6VXpuOVlQ?=
+ =?utf-8?B?R0NTd0o3dGdMKzdxVFUycTVhTG9IWVluWEM0czY1SnM1clZhemp6TFBRdEFE?=
+ =?utf-8?B?NXM0RUNIUzdWNHpuL2xhakNpamhGeWh2d0ljMWg3Ukg5eFVDb2NzdjVwV0hq?=
+ =?utf-8?B?L2VnLzFzMDYvTEwxQ1o2eUwyY2FLZFlpbVNjWnlYMUlMR1BPV2xEWk9YRGFT?=
+ =?utf-8?B?TndoNk1URElucUtRcE1lM09BM29aM1VwRGdRUWlhcDNnSjdtOWFOMVBWYlFL?=
+ =?utf-8?B?OVBiOTZRRkhPMzJUSFRsaW84aG9aR3Ntc0hSZ3ByajNldG5PZE5HOHhwOVpa?=
+ =?utf-8?B?Um5Db0dWS2MzaTV1SDY1TlFhdlc0Qkw0STh3RmRpVS9HNis0SHl4dDFhajVZ?=
+ =?utf-8?B?ck1jWFJFaVgzMmZhOHJoSlVFVnIzT2kvR0RPZEtSUU1jWkswbWo0S05VZS8r?=
+ =?utf-8?B?dG9UUHhOOW9mMmFxOUJVTEZtTTZ6ZysvY3VyaEoyalF4YUlsbEZGUE5QOEVF?=
+ =?utf-8?B?RkpZWWFUNDhzQWJyd3dBditiTVB5V0VKbVR5WkcveWozQXh4VWNFTHg2QTNS?=
+ =?utf-8?B?amNFZW5ybFg2amdQdm91cmZrWmhmZjd6d1VDQXN2OTlhM3h0WGpqbzdQdjFw?=
+ =?utf-8?B?K0p2NTUyWjZiR1Zlb1lYZElQVXBZQWlkUjZQalZHMkMyOFNQSzFBdXh4WERj?=
+ =?utf-8?B?Y1lQTWVTVUwxblFIZ09BMkFVTzEyZGY5ZmdRNGR3OE93eDJBZzVzQkppS1hR?=
+ =?utf-8?B?L2IwN2g4UHpLQWI5VGI2a0ZKZVZlK2YvcWM5V292bDFIbjdyczJwNFVXZ1NN?=
+ =?utf-8?B?UEk3bFdOWHNmVi91Snlrb3Z0MXRwTHhUUFFEYSt6TnorMEw4bXA3QWdDWlhW?=
+ =?utf-8?B?ZnYvK1l5UkRUR2xvSnlYZmlvMFVXelN1c2tVUkJlTTVvNis1THA5cmMxK0pn?=
+ =?utf-8?B?WUIzL1VMUENXcnZNMzlwODZIWDlXZFY1YU9LaVc1cElac0JOTkhYZTcrSDRH?=
+ =?utf-8?Q?ADjpTdXr6wfk5Ov1v5TRJISbh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f97b460-c319-4008-5e40-08da7f53c987
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf540dbd-acfe-4d5e-e26b-08da7f55826a
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 06:51:47.0513 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 07:04:07.0211 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gc/f52UcbXHNcF1Sh1HKEiYIkxueuNbAPgAtKcO3Z2ijDZimRjDzXFyS89C9WOuCZSd71L5ABUV5f87ng9Em6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
+X-MS-Exchange-CrossTenant-UserPrincipalName: BwWsSaR6sMueMoHAs+3Py6Xx0PFGbu6Af2Sd/WrENS8xNDUc65rTXC4UVlr6M7ykUh7DiNavuYdKP3AJ+fbyqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3071
 Cc: Sunil-kumar.Dommati@amd.com, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  open list <linux-kernel@vger.kernel.org>, mario.limonciello@amd.com,
@@ -170,197 +169,128 @@ On 8/12/22 19:50, Amadeusz Sławiński wrote:
 > [CAUTION: External Email]
 >
 > On 8/12/2022 2:07 PM, Syed Saba kareem wrote:
->> ACP6.2 IP has PDM decoder block.
->> Create a platform device for it, so that the PDM platform driver
->> can be bound to this device.
->> Pass PCI resources like MMIO to this platform device.
->>
->> Create a platform device for generic dmic codec driver.
+>> This patch adds PDM driver DMA operations for Pink Sardine Platform.
 >>
 >> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 >> ---
->>   sound/soc/amd/ps/acp62.h  | 23 +++++++++++
->>   sound/soc/amd/ps/pci-ps.c | 83 ++++++++++++++++++++++++++++++++++++++-
->>   2 files changed, 104 insertions(+), 2 deletions(-)
+>>   sound/soc/amd/ps/acp62.h      |  41 +++++
+>>   sound/soc/amd/ps/ps-pdm-dma.c | 310 ++++++++++++++++++++++++++++++++++
+>>   2 files changed, 351 insertions(+)
 >>
 >> diff --git a/sound/soc/amd/ps/acp62.h b/sound/soc/amd/ps/acp62.h
->> index 8e734f190b11..ab56e1f8c31b 100644
+>> index 563252834b09..525e8bd225a2 100644
 >> --- a/sound/soc/amd/ps/acp62.h
 >> +++ b/sound/soc/amd/ps/acp62.h
->> @@ -9,6 +9,10 @@
->>
->>   #define ACP_DEVICE_ID 0x15E2
->>   #define ACP62_PHY_BASE_ADDRESS 0x1240000
->> +#define ACP6x_REG_START              0x1240000
->> +#define ACP6x_REG_END                0x1250200
->> +#define ACP6x_DEVS           2
->> +#define ACP6x_PDM_MODE               1
->>
->>   #define ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK       0x00010001
->>   #define ACP_PGFSM_CNTL_POWER_ON_MASK        1
->> @@ -22,6 +26,25 @@
->>   #define ACP_ERROR_MASK 0x20000000
+>> @@ -27,6 +27,31 @@
 >>   #define ACP_EXT_INTR_STAT_CLEAR_MASK 0xFFFFFFFF
+>>   #define PDM_DMA_STAT 0x10
 >>
->> +enum acp_config {
->> +     ACP_CONFIG_0 = 0,
->> +     ACP_CONFIG_1,
->> +     ACP_CONFIG_2,
->> +     ACP_CONFIG_3,
->> +     ACP_CONFIG_4,
->> +     ACP_CONFIG_5,
->> +     ACP_CONFIG_6,
->> +     ACP_CONFIG_7,
->> +     ACP_CONFIG_8,
->> +     ACP_CONFIG_9,
->> +     ACP_CONFIG_10,
->> +     ACP_CONFIG_11,
->> +     ACP_CONFIG_12,
->> +     ACP_CONFIG_13,
->> +     ACP_CONFIG_14,
->> +     ACP_CONFIG_15,
->> +};
+>> +#define PDM_DMA_INTR_MASK    0x10000
+>> +#define ACP_ERROR_STAT       29
+>> +#define PDM_DECIMATION_FACTOR        2
+>> +#define ACP_PDM_CLK_FREQ_MASK        7
+>> +#define ACP_WOV_MISC_CTRL_MASK       0x10
+>> +#define ACP_PDM_ENABLE               1
+>> +#define ACP_PDM_DISABLE              0
+>> +#define ACP_PDM_DMA_EN_STATUS        2
+>> +#define TWO_CH               2
+>> +#define DELAY_US     5
+>> +#define ACP_COUNTER  20000
 >> +
->>   static inline u32 acp62_readl(void __iomem *base_addr)
->>   {
->>       return readl(base_addr - ACP62_PHY_BASE_ADDRESS);
->> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
->> index 2014f415af15..94201f75427a 100644
->> --- a/sound/soc/amd/ps/pci-ps.c
->> +++ b/sound/soc/amd/ps/pci-ps.c
->> @@ -9,11 +9,16 @@
->>   #include <linux/module.h>
->>   #include <linux/io.h>
->>   #include <linux/delay.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/acpi.h>
->>
->>   #include "acp62.h"
->>
->>   struct acp62_dev_data {
->>       void __iomem *acp62_base;
->> +     struct resource *res;
->> +     bool acp62_audio_mode;
->> +     struct platform_device *pdev[ACP6x_DEVS];
+>> +#define ACP_SRAM_PTE_OFFSET  0x03800000
+>> +#define PAGE_SIZE_4K_ENABLE  2
+>> +#define PDM_PTE_OFFSET               0
+>> +#define PDM_MEM_WINDOW_START 0x4000000
+>> +
+>> +#define CAPTURE_MIN_NUM_PERIODS     4
+>> +#define CAPTURE_MAX_NUM_PERIODS     4
+>> +#define CAPTURE_MAX_PERIOD_SIZE     8192
+>> +#define CAPTURE_MIN_PERIOD_SIZE     4096
+>> +
+>> +#define MAX_BUFFER (CAPTURE_MAX_PERIOD_SIZE * CAPTURE_MAX_NUM_PERIODS)
+>> +#define MIN_BUFFER MAX_BUFFER
+>> +
+>>   enum acp_config {
+>>       ACP_CONFIG_0 = 0,
+>>       ACP_CONFIG_1,
+>> @@ -46,6 +71,22 @@ enum acp_config {
+>>       ACP_CONFIG_15,
 >>   };
 >>
->>   static int acp62_power_on(void __iomem *acp_base)
->> @@ -117,8 +122,11 @@ static int snd_acp62_probe(struct pci_dev *pci,
->>                          const struct pci_device_id *pci_id)
->>   {
->>       struct acp62_dev_data *adata;
->> +     struct platform_device_info pdevinfo[ACP6x_DEVS];
->> +     int index, ret;
->> +     int val = 0x00;
->> +     struct acpi_device *adev;
->>       u32 addr;
->> -     int ret;
->>
->>       /* Pink Sardine device check */
->>       switch (pci->revision) {
->> @@ -157,8 +165,75 @@ static int snd_acp62_probe(struct pci_dev *pci,
->>       ret = acp62_init(adata->acp62_base);
->>       if (ret)
->>               goto release_regions;
->> +     val = acp62_readl(adata->acp62_base + ACP_PIN_CONFIG);
->> +     switch (val) {
->> +     case ACP_CONFIG_0:
->> +     case ACP_CONFIG_1:
->> +     case ACP_CONFIG_2:
->> +     case ACP_CONFIG_3:
->> +     case ACP_CONFIG_9:
->> +     case ACP_CONFIG_15:
->> +             dev_info(&pci->dev, "Audio Mode %d\n", val);
->> +             break;
->> +     default:
+>> +struct pdm_stream_instance {
+>> +     u16 num_pages;
+>> +     u16 channels;
+>> +     dma_addr_t dma_addr;
+>> +     u64 bytescount;
+>> +     void __iomem *acp62_base;
+>> +};
 >> +
->> +             /* Checking DMIC hardware*/
->> +             adev = 
->> acpi_find_child_device(ACPI_COMPANION(&pci->dev), 0x02, 0);
+>> +union acp_pdm_dma_count {
+>> +     struct {
+>> +     u32 low;
+>> +     u32 high;
+>> +     } bcount;
+>
+> Fix indentation.
+> Also you can remove struct name, and access fields directly, so instead
+> of accessing somevariable.bcount.low, you would use somevariable.low, it
+> would probably be more readable.
+>
+Okay Will fix it.
+>> +     u64 bytescount;
+>> +};
+>> +
+>>   struct pdm_dev_data {
+>>       u32 pdm_irq;
+>>       void __iomem *acp62_base;
+>> diff --git a/sound/soc/amd/ps/ps-pdm-dma.c 
+>> b/sound/soc/amd/ps/ps-pdm-dma.c
+>> index bca2ac3e81f5..a98a2015015d 100644
+>
+> ...
+>
+>> +
+>> +static int acp62_pdm_dma_open(struct snd_soc_component *component,
+>> +                           struct snd_pcm_substream *substream)
+>> +{
+>> +     struct snd_pcm_runtime *runtime;
+>> +     struct pdm_dev_data *adata;
+>> +     struct pdm_stream_instance *pdm_data;
+>> +     int ret;
+>> +
+>> +     runtime = substream->runtime;
+>> +     adata = dev_get_drvdata(component->dev);
+>> +     pdm_data = kzalloc(sizeof(*pdm_data), GFP_KERNEL);
+>> +     if (!pdm_data)
+>> +             return -EINVAL;
+>> +
+>> +     if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+>> +             runtime->hw = acp62_pdm_hardware_capture;
+>> +
+>> +     ret = snd_pcm_hw_constraint_integer(runtime,
+>> + SNDRV_PCM_HW_PARAM_PERIODS);
+>> +     if (ret < 0) {
+>> +             dev_err(component->dev, "set integer constraint 
+>> failed\n");
+>> +             kfree(pdm_data);
+>> +             return ret;
+>> +     }
+>> +
+>> +     acp62_enable_pdm_interrupts(adata->acp62_base);
+>> +
+>> +     if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+>> +             adata->capture_stream = substream;
+>> +
+>> +     pdm_data->acp62_base = adata->acp62_base;
+>> +     runtime->private_data = pdm_data;
+>
+> Should probably kfree(runtime->private_data) in acp62_pdm_dma_close(),
+> otherwise won't there be a memory leak?
+>
+Will fix it.
+>> +     return ret;
+>> +}
 >> +
 >
-> You can probably remove one level of indentation in following code if
-> you do:
-> if (!adev)
->                        break;
->
-Okay Will use this logic.
->> +             if (adev) {
->> +                     const union acpi_object *obj;
->> +
->> +                     if (!acpi_dev_get_property(adev, 
->> "acp-audio-device-type",
->> + ACPI_TYPE_INTEGER, &obj) &&
->> + obj->integer.value == 2) {
->> +                             adata->res = devm_kzalloc(&pci->dev,
->> + sizeof(struct resource), GFP_KERNEL);
->> +
->> +                             if (!adata->res) {
->> +                                     ret = -ENOMEM;
->> +                                     goto de_init;
->> +                             }
->> +
->> +                             adata->res->name = "acp_iomem";
->> +                             adata->res->flags = IORESOURCE_MEM;
->> +                             adata->res->start = addr;
->> +                             adata->res->end = addr + (ACP6x_REG_END 
->> - ACP6x_REG_START);
->> +                             adata->acp62_audio_mode = ACP6x_PDM_MODE;
->>
->> +                             memset(&pdevinfo, 0, sizeof(pdevinfo));
->> +                             pdevinfo[0].name = "acp_ps_pdm_dma";
->> +                             pdevinfo[0].id = 0;
->> +                             pdevinfo[0].parent = &pci->dev;
->> +                             pdevinfo[0].num_res = 1;
->> +                             pdevinfo[0].res = adata->res;
->> +
->> +                             pdevinfo[1].name = "dmic-codec";
->> +                             pdevinfo[1].id = 0;
->> +                             pdevinfo[1].parent = &pci->dev;
->> +
->> +                             for (index = 0; index < ACP6x_DEVS; 
->> index++) {
->> +                                     adata->pdev[index] =
->> + platform_device_register_full(&pdevinfo[index]);
->> +
->> +                                     if (IS_ERR(adata->pdev[index])) {
->> + dev_err(&pci->dev,
->> +                                                     "cannot 
->> register %s device\n",
->> + pdevinfo[index].name);
->> +                                             ret = 
->> PTR_ERR(adata->pdev[index]);
->> +                                             goto unregister_devs;
->> +                                     }
->> +                             }
->> +                     }
->> +             }
->> +             break;
->> +     }
->>       return 0;
->> +unregister_devs:
->> +     for (--index; index >= 0; index--)
->> +             platform_device_unregister(adata->pdev[index]);
->> +de_init:
->> +     if (acp62_deinit(adata->acp62_base))
->> +             dev_err(&pci->dev, "ACP de-init failed\n");
->>   release_regions:
->>       pci_release_regions(pci);
->>   disable_pci:
->> @@ -170,9 +245,13 @@ static int snd_acp62_probe(struct pci_dev *pci,
->>   static void snd_acp62_remove(struct pci_dev *pci)
->>   {
->>       struct acp62_dev_data *adata;
->> -     int ret;
->> +     int ret, index;
->>
->>       adata = pci_get_drvdata(pci);
->> +     if (adata->acp62_audio_mode == ACP6x_PDM_MODE) {
->> +             for (index = 0; index < ACP6x_DEVS; index++)
->> + platform_device_unregister(adata->pdev[index]);
->> +     }
->>       ret = acp62_deinit(adata->acp62_base);
->>       if (ret)
->>               dev_err(&pci->dev, "ACP de-init failed\n");
+> ...
 >

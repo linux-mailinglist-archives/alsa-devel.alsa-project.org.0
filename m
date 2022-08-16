@@ -2,75 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0062595D1C
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:21:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A44595D2A
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Aug 2022 15:22:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8693A1657;
-	Tue, 16 Aug 2022 15:20:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8693A1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EDFC164D;
+	Tue, 16 Aug 2022 15:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EDFC164D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660656060;
-	bh=P2r9JBc9HBQY/wUStI8UlO5ltmSxbVGZrSKaai4+Nbo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B7Ewaaiqw6PMEUg8XylDfi53mKXDm9sXZqB6i7kP+MVpfHk5+GxjYHhF2Qs4kxQVp
-	 AAkP6+otP90RLGg3ac42Z5Hv64Z8Z/5ZSuRXSGDivLl6bE8wZrejWbepmqldu3sbhg
-	 r4KSBET8djVrV3Und5PHEgzo2EKpiO5N0nPdUGWk=
+	s=default; t=1660656172;
+	bh=+JAnsclmc3fIcswGbTSjj0C3qYCMcOlYf3gHMOdKHuo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R+Biwp2TnUqQB7vpNIf2OaXlZRoUqFph5o4MccSU9G7irPGCqZNxU2hRiyGNZt6QJ
+	 7g2uEWw+4aGm2/5Ller8yCpayColbE+rvsX4IctT8Cz9a5x5gosvv68YyAbeI/da3t
+	 cVcS11NBCZdtlBlwi9VYaEyvb9kLUJk2tYEeHQaA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0097F8032D;
-	Tue, 16 Aug 2022 15:20:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3BF0F80424;
+	Tue, 16 Aug 2022 15:21:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C67AEF8032D; Tue, 16 Aug 2022 15:20:00 +0200 (CEST)
+ id 19291F8032D; Tue, 16 Aug 2022 15:21:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D7D6F80082
- for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:19:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D7D6F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 212BDF80082
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 15:21:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 212BDF80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pFkN9dkl"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="GWFcNIWG"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LJbEYKC3"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DE54A61321;
- Tue, 16 Aug 2022 13:19:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94240C433D6;
- Tue, 16 Aug 2022 13:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660655987;
- bh=P2r9JBc9HBQY/wUStI8UlO5ltmSxbVGZrSKaai4+Nbo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pFkN9dklr49qs8xhsGFKwsHSBGjM5tuFAUIsV+at1ebiwm/EFd0pk8Tc6y8aCCg17
- GyLiHkFmYMxUE7PDdayfqayCzqsUCbT5awKTHzZzerA8peGPuTacY2frfCbKMrA7en
- 9dWbnM7XYhX9b7Nqdtcwdfo1sWyKr7swwIWDgPocy2S0ZZ93OBvuGHoAT7UEk1Y4Do
- SBrebNgbfQRgAIZFfr2ynOA+v6asXd40kLdAlRtC+DbFmfgkerr25asHo8hVX1037n
- eO9KhxEhV4aEdekm8rh/7C8pBlAEIHRr/y43GWfLSiyt9OmLi0GJXELrI2shu8jq9W
- x0jMPBbRM03RQ==
-Date: Tue, 16 Aug 2022 14:19:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Subject: Re: Rockchip I2S commit possibly ignored
-Message-ID: <YvuZbrBWzRjHYQZj@sirena.org.uk>
-References: <YvuYZE0biiAn/sxQ@geday>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BFE693753C;
+ Tue, 16 Aug 2022 13:21:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660656102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Sh72lS1TnudrHzhqpZS+hjYbdxLD+1eH8SJLdeQnEGk=;
+ b=GWFcNIWGqKEJegzMUlYJoZMAIeTXpmCTjd6ZFRz03q01bFYpgRB2zUF3IWK+YXyd7gX82N
+ I6jMaasXIMLiT4lCDnYgLWbVFjjQc1qEK3lO/tWH9yRPQ99Nft7Lyss+919du+atMNAvEM
+ Zh3LgZxxeFfvp348ltw8sA7va61Reek=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660656102;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Sh72lS1TnudrHzhqpZS+hjYbdxLD+1eH8SJLdeQnEGk=;
+ b=LJbEYKC3lPpd2xq2KgB3e6jNpSPzn2dr7g5FqHXcGENLj8mmm71n5VYIiAOWDiw0KSXe5C
+ vpOP6RvNQDpMyxCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E997139B7;
+ Tue, 16 Aug 2022 13:21:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8B/QJeaZ+2I9ZgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 16 Aug 2022 13:21:42 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo Yoga7 14IAL7
+Date: Tue, 16 Aug 2022 15:21:32 +0200
+Message-Id: <20220816132132.15520-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wlmdBkEB7J9ZL05a"
-Content-Disposition: inline
-In-Reply-To: <YvuYZE0biiAn/sxQ@geday>
-X-Cookie: A bachelor is an unaltared male.
-Cc: ALSA-devel <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: Pascal Gross <baipush@tutanota.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,53 +94,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Lenovo Yoga7 14IAL7 requires the same quirk as Lenovo Yoga9 14IAP7 for
+fixing the bass speaker problems.
 
---wlmdBkEB7J9ZL05a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reported-by: Pascal Gross <baipush@tutanota.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/N9_CjBz--3-2@tutanota.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Tue, Aug 16, 2022 at 10:15:16AM -0300, Geraldo Nascimento wrote:
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f544761eb11b..b42496c01c43 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9492,6 +9492,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
++	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+-- 
+2.35.3
 
-> I was looking at Rockchip I2S commits and it seems "ASoC: rockchip: i2s:
-> Reset the controller if soft reset failed" was supposed to have been
-> merged to your sound.git but never was. I don't know if this was
-> intentional or a real miss but in any case I'm letting you know.
-
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
-
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
-
-> However in the alsa-devel archives,
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189050.=
-html
-> I see there was no commit info for the unmerged patch. Perhaps this
-> caused it to be black-holed?
-
-If there was no commit info that means it wasn't applied.
-
---wlmdBkEB7J9ZL05a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmL7mW4ACgkQJNaLcl1U
-h9CfTwf7B3XGeiNNqEFy3rqmQHMi7SV/Ok1Ym0ST+mE4Vaz2VMl9QjijM47QFRBk
-cDFb7LeoQjp8NtOw7gP3sjX2EFC9dxn+B8PZk+J1cUa1RaoRMc++kOIju3VmUyUB
-5KXNrnfpBtLNIaMheQccpa+Ujsr5nsU1tI5qJQc8c0cfw7/mRs/ElpDHl3agmqJv
-lOHX/9RAQp1o80NyVTxHV9Y0VGvRvqq4rrCCxaIiXCG24pgykHN251hNTeRIqyod
-gMegLavy5jBSvqiPu0ZbxC2ZCrRGSCIX/cw5dvFZgAIPnG/zzghmiOlVLKOTlqgn
-bXwuPfo74YAuj6g53saNdfQR4radwQ==
-=GIf1
------END PGP SIGNATURE-----
-
---wlmdBkEB7J9ZL05a--

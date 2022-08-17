@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66204596F4A
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 15:13:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B205F596F4E
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 15:16:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08EFE1677;
-	Wed, 17 Aug 2022 15:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08EFE1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 524BD1638;
+	Wed, 17 Aug 2022 15:15:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 524BD1638
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660742035;
-	bh=3x+LcyE0J2euYhLM1IpvHl25L3fQe/8tiIUAG86+7Jo=;
+	s=default; t=1660742190;
+	bh=zchKea1DFeEKgz2/z4gjlLcpPVjzd7Ixr6oHlx+Kcvo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kdVcMeT6DtxQs76ob7Ytt8MStC56ZaEttrdvPdvDtXk0IWdDDVoaXhO2O0yh1p8zX
-	 gxciSZl2FBXWjeKTerb1g2OdbXJsMRiaYg5dU5pTGbNs6GBXtmReMJyYqrLkSmGfWN
-	 7/LTAvrElNJ3/XZSBg+Iu5PQdPHSyNn2fAWYNpzg=
+	b=ANeVWDHG5aDJ6UIAtliJK+uFT6xom47kToY7U/Yztdmln+M/0ye96LpmjuIMOQ5Pl
+	 d2uqHBt18aXbfsMhUEtHIaZKgSAb8w5qoKZInUAqWuNz1SC2fJNyhfVW4WHgF8Glyh
+	 Be7cvgRZzzQh1FomeZjEGyfgOO+aym3JVfHznXoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB4B7F8051A;
-	Wed, 17 Aug 2022 15:12:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCF2BF802D2;
+	Wed, 17 Aug 2022 15:15:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6ED08F80548; Wed, 17 Aug 2022 15:12:20 +0200 (CEST)
+ id D4CFDF8025C; Wed, 17 Aug 2022 15:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50497F80237
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 15:12:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50497F80237
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1E63F80082
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 15:15:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1E63F80082
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hRocf2Yu"; 
+ header.b="Ryr6LXT+"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="rtw2K8ts"
+ header.b="/pem1fBk"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 444C31F9A8;
- Wed, 17 Aug 2022 13:12:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7FB5937A47;
+ Wed, 17 Aug 2022 13:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1660741931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1660742120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LSKR5hl3tgpKX0usEXDbDtvnkvqMP+IzysUnZiGsz5A=;
- b=hRocf2YuSQcp4APeYj1SbWrJkHGfG4Txf7rwRF6Gtu1wEWhYDD7t8qdWCOhpgdsv1wwp7O
- qj8YpM/bRqQV+3/mLQceLqp0gJx6/rtjqtcSndntK8wjzBBKk89XX4xvqjGvtAjyLrDyf4
- BUrNSE70eoBPpGcVIGZVteQjdYtHH+U=
+ bh=gzWMUo926OQBOYmYnw3ADnCbBaPbZEizFN9qC+x8VIA=;
+ b=Ryr6LXT+25LYEzTLgF9myB+wSGVlrjiIeYZv4us3Ez0zIZQd56e2YEBjcTNfp14U+1Fe3w
+ GYt16OAt6v9xib31CcGK5rH3FsEECwIUQao5qxfmEuIGx5MFj6OuZcSB4iJTgrTGoUqQdU
+ WMt7JJX2tTA1XOLJBlpN+V05VRQjKUM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1660741931;
+ s=susede2_ed25519; t=1660742120;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LSKR5hl3tgpKX0usEXDbDtvnkvqMP+IzysUnZiGsz5A=;
- b=rtw2K8tsLDvxKQbSYjfray2ttErKv1ZxMJM5RfdHpYt9eq9VeaoTdfKQu+42myKjMfDllS
- xdu3rPu0JDYUDADg==
+ bh=gzWMUo926OQBOYmYnw3ADnCbBaPbZEizFN9qC+x8VIA=;
+ b=/pem1fBk4pLJlNOs7XURWIK0sTSuOZ3UrwuLSaWrVrIrOg0VYlgIqSYfnI+bSas34DA5Xd
+ M/y5XJfNVPEa1HDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2680813428;
- Wed, 17 Aug 2022 13:12:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 575B513428;
+ Wed, 17 Aug 2022 13:15:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id itmrCCvp/GKfUgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 17 Aug 2022 13:12:11 +0000
-Date: Wed, 17 Aug 2022 15:12:10 +0200
-Message-ID: <87ilmrauad.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6AKPFOjp/GItVAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 17 Aug 2022 13:15:20 +0000
+Date: Wed, 17 Aug 2022 15:15:19 +0200
+Message-ID: <87h72bau54.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
  <amadeuszx.slawinski@linux.intel.com>
 Subject: Re: [RESEND][PATCH] ALSA: info: Fix llseek return value when using
  callback
-In-Reply-To: <7324df1d-0424-a589-f7c9-df089a6cbefe@linux.intel.com>
+In-Reply-To: <20220817124924.3974577-1-amadeuszx.slawinski@linux.intel.com>
 References: <20220817124924.3974577-1-amadeuszx.slawinski@linux.intel.com>
- <7324df1d-0424-a589-f7c9-df089a6cbefe@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=ISO-8859-2
@@ -106,60 +105,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 17 Aug 2022 14:56:05 +0200,
+On Wed, 17 Aug 2022 14:49:24 +0200,
 Amadeusz S³awiñski wrote:
 > 
-> On 8/17/2022 2:49 PM, Amadeusz S³awiñski wrote:
-> > When using callback there was a flow of
-> > 
-> > 	ret = -EINVAL
-> > 	if (callback) {
-> > 		offset = callback();
-> > 		goto out;
-> > 	}
-> > 	...
-> > 	offset = some other value in case of no callback;
-> > 	ret = offset;
-> > out:
-> > 	return ret;
-> > 
-> > which causes the snd_info_entry_llseek() to return -EINVAL when there is
-> > callback handler. Fix this by setting "ret" directly to callback return
-> > value before jumping to "out".
-> > 
-> > 73029e0ff18d ("ALSA: info - Implement common llseek for binary mode")
-> > Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
-> > ---
-> >   sound/core/info.c | 6 +++---
-> >   1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/sound/core/info.c b/sound/core/info.c
-> > index b8058b341178..0b2f04dcb589 100644
-> > --- a/sound/core/info.c
-> > +++ b/sound/core/info.c
-> > @@ -111,9 +111,9 @@ static loff_t snd_info_entry_llseek(struct file *file, loff_t offset, int orig)
-> >   	entry = data->entry;
-> >   	mutex_lock(&entry->access);
-> >   	if (entry->c.ops->llseek) {
-> > -		offset = entry->c.ops->llseek(entry,
-> > -					      data->file_private_data,
-> > -					      file, offset, orig);
-> > +		ret = entry->c.ops->llseek(entry,
-> > +					   data->file_private_data,
-> > +					   file, offset, orig);
-> >   		goto out;
-> >   	}
-> >   
+> When using callback there was a flow of
 > 
-> Doing resend, because I did copy paste mistake when pasting Takashi
-> email to git command, additionally alsa-devel blocked my previous
-> mail.
-> I've seen that Cezary already discussed this issue, and it doesn't
-> seem to be fixed, can this be somehow investigated? I guess we can
-> provide response we get from server when email fails?
+> 	ret = -EINVAL
+> 	if (callback) {
+> 		offset = callback();
+> 		goto out;
+> 	}
+> 	...
+> 	offset = some other value in case of no callback;
+> 	ret = offset;
+> out:
+> 	return ret;
+> 
+> which causes the snd_info_entry_llseek() to return -EINVAL when there is
+> callback handler. Fix this by setting "ret" directly to callback return
+> value before jumping to "out".
+> 
+> 73029e0ff18d ("ALSA: info - Implement common llseek for binary mode")
 
-It seems working now.  Jaroslav mentioned that it was some DNS
-problem.
+Fixes tag seems missing.  I corrected locally.
 
+> Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
+
+Applied now (with Cc to stable).
+
+
+thanks,
 
 Takashi

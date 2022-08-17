@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643E759712C
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 16:33:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB74C59712A
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 16:32:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11723164E;
-	Wed, 17 Aug 2022 16:32:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11723164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 299C91669;
+	Wed, 17 Aug 2022 16:31:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 299C91669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660746803;
-	bh=+fAp6q0oNEBcBmsZFkorVQv43BFESvY96V4smdRItO0=;
+	s=default; t=1660746769;
+	bh=WQSEZi/ZThfpTh3nKayykvCckCTb+dDa/U+rPQf6mQM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mD5kL/6AQffusXas04/WsjPYd5XhbEQtLoYci7OUgswdOCYQQKi3ExDn+v8tvhZmz
-	 SwK2ww0jsmNBYJnoAV6S6NsL0N8MWeSZBTjCUWp+SlM40CS/uVBN0CJhGxqhsWROaS
-	 I70qOSBqb8UVm5YuAQg2LrnrFs/XnLyouRCbxZrQ=
+	b=vlgSR52TfqJKTnj5xpi7Y3Rll0WYoXIDq8Zbg0jsSsGHMJ7vat+1zlD5cZKoK69g5
+	 LgtvlcJwBdShb7E5swGiNcIflLCtal2w20q6B0K7or2eo8a9AJ0+e9JDMWZJVF5eDt
+	 exz0Es7fWlmk533AmpYQUw3Sm4s6gHXFJBSwcnkU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 261D7F80549;
-	Wed, 17 Aug 2022 16:31:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 711B8F8047D;
+	Wed, 17 Aug 2022 16:31:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06422F804CB; Wed, 17 Aug 2022 16:31:15 +0200 (CEST)
+ id 7A74BF8042F; Wed, 17 Aug 2022 16:31:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01421F803DB
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 16:31:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01421F803DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 165FAF80301
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 16:31:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 165FAF80301
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZMztFhN/"
+ header.b="dlSU1hK7"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6E6EB614B7;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 82A4B614BF;
+ Wed, 17 Aug 2022 14:31:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB88C4314C;
  Wed, 17 Aug 2022 14:31:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02EB0C433D6;
- Wed, 17 Aug 2022 14:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660746666;
- bh=+fAp6q0oNEBcBmsZFkorVQv43BFESvY96V4smdRItO0=;
+ s=k20201202; t=1660746668;
+ bh=WQSEZi/ZThfpTh3nKayykvCckCTb+dDa/U+rPQf6mQM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ZMztFhN/hAv57Vj9ldCdrInquS1yuzUY9MmCzygZ6Di2ZH3ApbYyfvhAbWZyJVTLN
- kbZoOTGJObkZoMPNO/FwaZ4nrFTz7GWE7m028mHG1iOx+I9tXYnczhoNVyykA9IqEK
- sKlLQTbmoPBoCvK4FWO04dLcjyogbccSEmlHoX7Nd/PrKwr+jsnlnR2S9Jlyw3g7Gi
- 0vVTkwNVZv6RDYL+8N4nzUSUgv8A10DwzXqIq2BH+c8AKnayYpxYjvhHB+oyToBfEN
- Hm/9mT9WEFuPBs/SnmoMfjS6pMxRVtWJXKrrhwbeUuC28kxMW4LbA6Z8AnGx45zjrp
- 7xT3ILCxjXk+A==
+ b=dlSU1hK7riqxokULnT4opq7DBwokkzZ9sLHnQi+h8AQgYWkFjkeDfS3vWa87ET/hW
+ UFb+OzMBm9VIeWblR5iJP3PcQU+9bY5n6SPPUxiLRpjTg0GGvuaKjBNGlf0pbxe/pK
+ aHUslcb1xABNBQZMmMOFTgBggpwqVMOMABoNZa3KsUjfM0YgyYkQF3gpPDbEEX5emB
+ j7jx8RY+BY2/bsiQ7mORRua0D2bHePWTHv0k1D58thvlVwn4s4JXp4obByPAttD4UF
+ sqLAd3lOy7ytkl7QQngsFJ7hvplaFb7kLgbxTPyaWh3HBPmplKCReNh88q4I0HGDNW
+ ymMHCFuAhvTAQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20220817080529.10864-1-daniel.baluta@oss.nxp.com>
-References: <20220817080529.10864-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH 0/4] Enable timestamp support for SOF compress driver
-Message-Id: <166074666372.210979.8582498171681865301.b4-ty@kernel.org>
-Date: Wed, 17 Aug 2022 15:31:03 +0100
+To: Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20220817091519.2487385-1-yangyingliang@huawei.com>
+References: <20220817091519.2487385-1-yangyingliang@huawei.com>
+Subject: Re: [PATCH -next] ASoC: codecs: es8326: change es8326_regmap_config
+ to static
+Message-Id: <166074666705.210979.15448004360447274699.b4-ty@kernel.org>
+Date: Wed, 17 Aug 2022 15:31:07 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fe10a
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, pierre-louis.bossart@linux.intel.com,
- daniel.baluta@gmail.com, kai.vehmanen@linux.intel.com,
- peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
- laurentiu.mihalcea@nxp.com, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
+Cc: zhuning@everest-semi.com, yangxiaohua@everest-semi.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,16 +87,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 17 Aug 2022 11:05:25 +0300, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On Wed, 17 Aug 2022 17:15:19 +0800, Yang Yingliang wrote:
+> es8326_regmap_config is only used in es8326.c now, change it to static.
 > 
-> This patchseries computes pcm_io_frames from the DAI position reported
-> by SOF firmware.
 > 
-> Using pcm_io_frames userspace applications can later compute timestamps
-> for compressed stream.
-> 
-> [...]
 
 Applied to
 
@@ -106,14 +98,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: SOF: compress: Remove byte offset computation
-      commit: bab10ec9fd9dc1537b705d0dd3862dd5982b921f
-[2/4] ASoC: SOF: compress: Introduce sof_compr_stream
-      commit: e3091f0a3f563ad1c9b60c290752e1190b67ea97
-[3/4] ASoC: SOF: compress: Save channel count and sample bytes
-      commit: 3ccbe6887747679d15e5c9524b23754281a24d9e
-[4/4] ASoC: SOF: compress: Add support for computing timestamps
-      commit: c1a731c71359407eae4fd0a5fd675ef25a582764
+[1/1] ASoC: codecs: es8326: change es8326_regmap_config to static
+      commit: 5c69f11ce85d4a8ea985a6d266574577e94c6506
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

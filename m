@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A2F597910
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 23:47:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0775979B8
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 00:35:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59A6D164F;
-	Wed, 17 Aug 2022 23:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59A6D164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E516E1657;
+	Thu, 18 Aug 2022 00:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E516E1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660772866;
-	bh=IUjrZ/K2njnD2+46RYP+SHuLgXys0VdU41M8I4rlKfI=;
+	s=default; t=1660775702;
+	bh=xV6QPMtBoBG3MPXdYhPydNPLU90gTnwNcUB/xOq3RnY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N3uRGOu5ZbNqCPcipgEsrzRJXjgotN9AuiC4VkNnlcac58ZHKbmhjE4xgFPmj4q7H
-	 lzsCOWfVIGXOfQvEffG+GvU0foWvbsa3plXHe8WilbrU3BgzqtGtjNF3Tl1S/aKCJO
-	 ktbxRa/V7rvtXkeScSgqtRlM1PZZLKPfb9/Hlwwo=
+	b=R1DoKo3GNoQu1+n1OoeziMIMn3xC2poBkfdMhJtbgKqvV+qbx8focHhs7lo5T7hHv
+	 DmcpTjBvwIoqFJYaiGFIry+VDweSlfFwzr94A1mQXNH9RlMYdetF0JLK7cmg6AYjBx
+	 1JWVrIo9jqL2IWVQlSVXiUPhYs0g3/LPWwDQA8mM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6E51F8021D;
-	Wed, 17 Aug 2022 23:46:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 323A9F80088;
+	Thu, 18 Aug 2022 00:34:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29F14F80130; Wed, 17 Aug 2022 23:46:46 +0200 (CEST)
+ id 44BB0F80130; Thu, 18 Aug 2022 00:34:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 366B7F80088
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 23:46:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 366B7F80088
+ by alsa1.perex.cz (Postfix) with ESMTP id D1C88F80088
+ for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 00:33:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1C88F80088
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1660772802439182997-webhooks-bot@alsa-project.org>
-References: <1660772802439182997-webhooks-bot@alsa-project.org>
+In-Reply-To: <1660775636983509064-webhooks-bot@alsa-project.org>
+References: <1660775636983509064-webhooks-bot@alsa-project.org>
 Subject: snd_hda_intel: Woke up but no data
-Message-Id: <20220817214646.29F14F80130@alsa1.perex.cz>
-Date: Wed, 17 Aug 2022 23:46:46 +0200 (CEST)
+Message-Id: <20220817223401.44BB0F80130@alsa1.perex.cz>
+Date: Thu, 18 Aug 2022 00:34:01 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #262 was opened from shmohawk:
+alsa-project/alsa-lib issue #262 was edited from shmohawk:
 
 ```
 Aug 17 01:11:23 hellokitty pulseaudio[12938]: [alsa-sink-CX20590 Analog] alsa-sink.c: ALSA woke us up to write new data to the device, but there was actually nothing to write.
@@ -67,7 +67,11 @@ Aug 17 01:11:23 hellokitty pulseaudio[12938]: [alsa-sink-CX20590 Analog] alsa-si
 Aug 17 01:11:23 hellokitty pulseaudio[12938]: [alsa-sink-CX20590 Analog] alsa-sink.c: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
 ```
 
-It is symptomous with a crackling sound for ~5 seconds after any playback starts.
+It is symptomous with a crackling sound for ~5 seconds after any playback starts. 
+
+alsa-lib 1.2.7.2
+alsa-utils 1.2.7
+alsa-plugins 1.2.2
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/262
 Repository URL: https://github.com/alsa-project/alsa-lib

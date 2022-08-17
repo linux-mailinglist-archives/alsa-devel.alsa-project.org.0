@@ -2,49 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD87C596C50
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 11:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8106F596DA3
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 13:41:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 491051616;
-	Wed, 17 Aug 2022 11:50:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 491051616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D96C1621;
+	Wed, 17 Aug 2022 13:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D96C1621
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660729899;
-	bh=74eRf57L4lNc73tFdu4bOQlW6M4I9k1UiBKDM+k7wSo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1660736475;
+	bh=tAxziLgNC85rss5KjanACgubW2VS9uSuhJ+/ML74THM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lQD+Yaa0ugsz9p7RIkRvdFdLFaAEf7E1liYohWNPNpyreynO0t2pf6onyowoyLeSh
-	 c/L9VB6jM4fXpJ3ExlInxGnBJpJ5++CijvmkZlnm8GE4bElvl2Wb9A2vkOoq/62UdO
-	 +Q8mvruFGjV2GfHUzmFqMCUzaw4zxiC/djBsI04I=
+	b=sgLlGgDSu03ntPuPHOoDv9ti2z7SiJ0gwMx9h9svfCvcHhyau85vwVaaThr+qw247
+	 W9hoFU/dEDG54yHZEB432i8vHM861tWS4cVk3DFEnTojkirJ+bU3mzjBdeKse0pEPA
+	 2txfwMdkZcdxc2ogBum5l6GPHB705OMc/XCH7sIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2146F80237;
-	Wed, 17 Aug 2022 11:50:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A59BF802D2;
+	Wed, 17 Aug 2022 13:40:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABE41F8025C; Wed, 17 Aug 2022 11:50:38 +0200 (CEST)
+ id 96630F8025C; Wed, 17 Aug 2022 13:40:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id A9C23F800DA
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 11:50:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9C23F800DA
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D3A4F800DA
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 13:40:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3A4F800DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="T3/KpFtv"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B7BD9B81AD4;
+ Wed, 17 Aug 2022 11:40:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0B1C433D6;
+ Wed, 17 Aug 2022 11:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660736406;
+ bh=tAxziLgNC85rss5KjanACgubW2VS9uSuhJ+/ML74THM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T3/KpFtv7iQZzL5njKxRzaLCeNS0h0F8QbbeFHdB76IWFap4SuB6RJ6+95NgoGCtT
+ nWzhlj/TKBLcLHowUnIGscBFxs4B2DelluDdqjOpdqkAWDiVEVlqLCoyRz2HTgiqTA
+ NSo0RJMVk37dyrAr/SQcxfq6O9BmhbUVB+DRG1ToQMgd1SEZfckt+4xZuUAn2drCD/
+ sHf0rYN/Z+d40QQe5Gx3H1cUQNEcEy4LiQeeT2nC+PLq6tX5IMNzAQB5LPJMvwtLl1
+ SRhExETaUY9G2LH0oZ4LICLBXIM85XESWzCO4EUneFt6Wmt7Ja1iMPN+JqoBV4Mstj
+ BcT3VpSuWJYgA==
+Date: Wed, 17 Aug 2022 12:40:01 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Liao, Bard" <bard.liao@intel.com>
+Subject: Re: [PATCH 0/4] ASoC/soundwire: log actual PING status on resume
+ issues
+Message-ID: <YvzTkQ7fkQlecTVe@sirena.org.uk>
+References: <20220714011043.46059-1-yung-chuan.liao@linux.intel.com>
+ <YtTzZ4iA0xt68euH@matsya>
+ <DM6PR11MB40745C1283CFCC3F5D41FAC9FF6A9@DM6PR11MB4074.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1660729834871670961-webhooks-bot@alsa-project.org>
-References: <1660729834871670961-webhooks-bot@alsa-project.org>
-Subject: Channel mapping randomly change on usb soundcard and sucpicious dmesg
- log
-Message-Id: <20220817095038.ABE41F8025C@alsa1.perex.cz>
-Date: Wed, 17 Aug 2022 11:50:38 +0200 (CEST)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="q+ljVR5GQz+Wtprg"
+Content-Disposition: inline
+In-Reply-To: <DM6PR11MB40745C1283CFCC3F5D41FAC9FF6A9@DM6PR11MB4074.namprd11.prod.outlook.com>
+X-Cookie: Use extra care when cleaning on stairs.
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,136 +93,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #261 was opened from sprudent:
 
-Hello erveryone,
+--q+ljVR5GQz+Wtprg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I am getting random channel swap when using speaker test to output sequencially a pink noise on every channel of the soundcard.
-I tested two distinct usb soundcard getting the same issue.
-I could identify a suspicious log showing at the same time the channels swapped.
-Tested and reproduced on a recent archlinux image (see system information).
+On Wed, Aug 17, 2022 at 06:48:56AM +0000, Liao, Bard wrote:
 
-```
-[Aug16 18:26] xhci_hcd 0000:00:14.0: ERROR Transfer event TRB DMA ptr not part of current TD ep_index 11 comp_code 1
-[  +0.000134] xhci_hcd 0000:00:14.0: Looking for event-dma 0000000014ed98e0 trb-start 0000000014ed98f0 trb-end 0000000014ed98f0 seg-start 0000000014ed9000 seg-end 0000000014ed9ff0
-```
+> > > This series just adds a basic read directly from the PING frames to help
+> > > confirm if yes/no the device regain sync.
 
-### system information
-```
-uname -r
+> > > The change is mainly on soundwire. @Mark, Could you ack the ASoC patch
+> > > if it looks good to you?
 
-5.18.7-arch1-1
-```
-```
-aplay -l
+> > The series lgtm, feel free to merge thru ASoC tree with:
 
-**** List of PLAYBACK Hardware Devices ****
-card 0: Audio [Intel HDMI/DP LPE Audio], device 0: HdmiLpeAudio [Intel HDMI/DP LPE Audi]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: Audio [Intel HDMI/DP LPE Audio], device 1: HdmiLpeAudio [Intel HDMI/DP LPE Audi]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: Audio [Intel HDMI/DP LPE Audio], device 2: HdmiLpeAudio [Intel HDMI/DP LPE Audi]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: ICUSBAUDIO7D [ICUSBAUDIO7D], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: bytchtes8316 [bytcht-es8316], device 0: Audio (*) []
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: bytchtes8316 [bytcht-es8316], device 1: Deep-Buffer Audio (*) []
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-[alsa-info.txt](https://github.com/alsa-project/alsa-lib/files/9358483/alsa-info.txt)
-### Test with dmix
-#### Description
-First test was made with alsa dmix plugin. Multiple processes running in parrallel and outputing to dmix pcm device.
+> > Acked-By: Vinod Koul <vkoul@kernel.org>
 
-#### Alsa configuration
-```
-pcm.play_8
-{
-	@args [ CARD ]
-	@args.CARD 
-	{
-		type string
-	}
+> Both of you are acked.
+> Can this series be merged now?
 
-    type dmix
-    
-    ipc_key 5678
-    
-    slave
-    {
-		pcm $CARD
-        channels 8
-        period_time 0
-        period_size 1024
-        buffer_size 4096
-        rate 44100
-	}
-    
-	bindings {
-		0 0
-		1 1
-		2 2
-		3 3
-		4 4
-		5 5
-		6 6
-		7 7
-	} 
-}
-```
-#### Step to reproduce
-Run this script to simulate multiple processes writing to dmix device at the same time
-```
-for i in $(seq 20)
-do
-		speaker-test -r44100 -D"play_8:\"hw:1\"" -c8 -t pink &
-done
-```
-Then on another tty, start a speaker-test command outputing a sine wave in order to identify channel mapping by correlating speaker test output with audio output.
-`speaker-test -r44100 -D"play_8:\"hw:1\"" -c8 -t sine`
-```
- 0 - Front Left
- 4 - Front Center
- 1 - Front Right
- 3 - Side Right
- 7 - Side Right
- 2 - Side Left
- 6 - Side Left
- 5 - LFE
-Time per period = 21.998519
-...
-```
+I guess I'll apply it - given that it's mainly a Soundwire change I
+would have expected it to go via Soundwire as you'd suggested.
 
-#### Expected result
-Audio output to the same channels during all the test
-#### Actual result
-Random audio channel swap correlated with dmesg log mentioned above.
+--q+ljVR5GQz+Wtprg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-### Second test with direct output
-#### Alsa configuration
-No specific configuration required
-#### Step to reproduce
-Run speaker-following test command and wait for channel swap
-`speaker-test -r44100 -Dsurround71:ICUSBAUDIO7D -c8`
-#### Expected result
-Audio output to the same channels during all the test
-#### Actual result
-Random audio channel swap correlated with dmesg log mentioned above. The chanel swap happen far less often than with dmix.
+-----BEGIN PGP SIGNATURE-----
 
-### Interpretation
-The DMA transfer ring buffer get messed up after a while (see dmesg log) and interleaved audio frames get shifted in soundcard buffer. If I unplug/replug usb soundcard  and try again, channel mapping goes back to the correct order.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmL805AACgkQJNaLcl1U
+h9AiSgf/XBVdYlzcxr231NjGvtIDApKXvygvvaqq/W1JkjymmWieaaDh7HP26Iy/
+BZLvAxyC7e7zRVScXKeAtyghwzMeqKIFUH1hVazY4hKPUoiD8wD2QKstxnmpiicU
+m0b5McQwRGvqmk2dmK9XPlCr9j9zERI4wsepRY2z6YrfFOfPbz6z+84aMVN5/j/p
+fs9XVcafVEo9v6lbp2t7y138TFjPL2Wkh3ODPHRKFRupT5ZBAF0R25gePvwD8g9/
+RVmFWTwyUgyoiuDuXAmcJkonHVaaewyBx4GEE5lSIFP+W0YbtLkgxme02gaGgMve
+hNY1iDBUTORh9H92CGKFNKMGZny4iQ==
+=GC7F
+-----END PGP SIGNATURE-----
 
-My alsa, kernel and usb driver knowledge is limited, so I come to you for a little help. Tell me if you need more information to reproduce.
-
-Thank's,
-Sylvain
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/261
-Repository URL: https://github.com/alsa-project/alsa-lib
+--q+ljVR5GQz+Wtprg--

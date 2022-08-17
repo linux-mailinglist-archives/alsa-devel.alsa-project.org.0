@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A02596A9D
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 09:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3A4D596AB2
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 09:56:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 337C6100;
-	Wed, 17 Aug 2022 09:49:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 337C6100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 450453E8;
+	Wed, 17 Aug 2022 09:56:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 450453E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660722620;
-	bh=4VUtyrODzyAAr8Mx+uTQQ1ZptgLFQWCLkj3WewHvYtc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VWknhxZ5IwJ5VhZf1Rj2K6Hc3WfFc17hZE14QO8RB5GOfAZQ0pAOUcWLWVFkZABPB
-	 QZmV/BhLD3xav7v4ZeXmNfHYBJZeaN/zuuw1AaukmuWUOKO7+81MWw43EhtByAi9mP
-	 TKMYFBmIzlpNKfL7LXh/hdYTElxhJyDq0Miodz5w=
+	s=default; t=1660723010;
+	bh=x97QoXg8VAQ8sG5KnpsbYK5icGDG4eTc0vK4/AIbl/0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=q6gZ+W6qQjPHe5m00h1tfyX7rhzL+oRVJvYgA5996ctbMDZeEitos6o2bvzPgaodV
+	 ButBEz9YdQNBnIJnR/OpoPsFyX99xnHtgbacFeRPuQxqVnK9876stCgU6d74EVrtN1
+	 sA7R/oh4rrfNZ8bJ3JiLjvgxBrVqwZGe4dy6a4+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC3A4F802D2;
-	Wed, 17 Aug 2022 09:49:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8F97F80088;
+	Wed, 17 Aug 2022 09:55:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA6F0F8025C; Wed, 17 Aug 2022 09:49:19 +0200 (CEST)
+ id 4CDF6F8025C; Wed, 17 Aug 2022 09:55:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B5E3F80088
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 09:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B5E3F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54B29F800DA
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 09:55:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B29F800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fj7UGrTD"
-Received: by mail-pg1-x530.google.com with SMTP id bh13so11337236pgb.4
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 00:49:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=DNiQd09UafzK11FBkwcs+iSGy+8QGplgYWkm+nS++S0=;
- b=fj7UGrTDJkbe4FoWiYArk+SAIZwBIpOJ3w5z2iz5JNOUtWcHb2r3IvrOOq338ytPo4
- mL9IX54+RP2R5Yrq0rHXROHF39LMDOtiWAx3vrEgr+q8R+Vd7ctvJgALho5IoPZ/PQ6a
- /1bQIoUFBmlFR/5RKc/xOfICfR2SYgfJBw2hFk0qBAU1B2BR6DywKDtUK3zkIjsf6TxK
- G0+JOE1ux1SC+iqIof0qxj+SxF6vafmOVvllp98ElKt/z3eilm9+dGeiAnkkzSIymD2R
- T2icDVH+2Q9u17KY2yi5QZbN0pkGaaTAkz4QOb2upf1r19YyEdz91stc1zCJe1hZj4kQ
- cK8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=DNiQd09UafzK11FBkwcs+iSGy+8QGplgYWkm+nS++S0=;
- b=GCPz/I1cnCjkNSfyb+CLnXWZrASvIQmBOS+bp7ObMwE7WDv3xC3nhDxk64m43JEmE6
- obqyeT0DpwZme4g20Xyb3FCH4RdLKMz1AOW+2aDgtJtJZZOLLQbDr2ptebUS4zG3bLbb
- 4oOKfJAoCNLUI6Sd4r19G3D5nWar0It4nEGlZKCOKhqdbpeEvydsmx2Ko16Q2vxgpPC8
- ajOu0mX/mQuZPRK7CC2yA7bmV4KjnkG0YMQJ6taQbdzWp3p62awrCL/J9cBHWxPa5I3S
- sxMM9BD3GK5NcEnsrk1myetqve8KxxPjlxrrMNdPzGOQQ3SYUIj048+az+tz9Etywy6r
- zXew==
-X-Gm-Message-State: ACgBeo2UwcCYxL6pEJebZlcyoafMbhxix4qQcEgFYS/RqWVbfz1ePhbk
- jPez0DWRNApEWLQsNqgDo1A=
-X-Google-Smtp-Source: AA6agR4vHtGkmizUZ/tTkNHmlQg+RREpiDotcib74icakxpdWZ1be5OldVWCoVxw1rPgpIsSgCXIvg==
-X-Received: by 2002:a63:8b43:0:b0:41c:cb91:2c47 with SMTP id
- j64-20020a638b43000000b0041ccb912c47mr20548848pge.609.1660722549845; 
- Wed, 17 Aug 2022 00:49:09 -0700 (PDT)
-Received: from fedora.. ([103.230.104.51]) by smtp.gmail.com with ESMTPSA id
- b14-20020a170902650e00b00172a2a41064sm427208plk.298.2022.08.17.00.49.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Aug 2022 00:49:09 -0700 (PDT)
-From: Khalid Masum <khalid.masum.92@gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-Subject: [PATCH v3 linux-next] soundwire: intel: Remove unnecessary TODO
-Date: Wed, 17 Aug 2022 13:48:59 +0600
-Message-Id: <20220817074859.4759-1-khalid.masum.92@gmail.com>
-X-Mailer: git-send-email 2.37.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Khalid Masum <khalid.masum.92@gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="IPvEN7dX"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mU+3QLeq"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7F763340F5;
+ Wed, 17 Aug 2022 07:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660722941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=xg4RhB7y6lTYiBljm3+QIzQ0GKR1YlcmdvcTS4xzizE=;
+ b=IPvEN7dXTBJUkfyaSMDqOQSVFidXWJCbgvkcZ0XvXVi77Lng5AR9cdxeXzh+odmVqoslYp
+ WUiL0w60Kkn4h8RtSN2abxBbfTkE8nDNM+Izh5me/tEIAX1WPonKXtf3uPAwxAzDgEMmC3
+ TDjgs68bfFIOgOPI0EBmWuSYGMSzlpY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660722941;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=xg4RhB7y6lTYiBljm3+QIzQ0GKR1YlcmdvcTS4xzizE=;
+ b=mU+3QLeq6WI/E9tt/ismlilZDIl0N7Kp95BYVaWsZKrwm/rkHPanqQJqIfdcW+9ui5Y10L
+ yhR9qU/aW9JtrdDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5EC7213428;
+ Wed, 17 Aug 2022 07:55:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id n6VLFv2e/GIOSQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 17 Aug 2022 07:55:41 +0000
+Date: Wed, 17 Aug 2022 09:55:40 +0200
+Message-ID: <87pmgzwbgj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cameron Berkenpas <cam@neo-zeon.de>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add CLSA0101 to
+ serial-multi-instantiate.
+In-Reply-To: <87v8qrwe23.wl-tiwai@suse.de>
+References: <20220816194639.13870-1-cam@neo-zeon.de>
+ <b62e6b1c-a804-531a-c3bc-d9415805e4c6@neo-zeon.de>
+ <87v8qrwe23.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,40 +102,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The capabilities enabled for multi-link are required as part of the
-programming sequences, even when a stream uses a single link we still
-use the syncArm/syncGo sequences. Therefore the TODO is no longer
-necessary.
+On Wed, 17 Aug 2022 08:59:32 +0200,
+Takashi Iwai wrote:
+> 
+> On Wed, 17 Aug 2022 03:00:43 +0200,
+> Cameron Berkenpas wrote:
+> > 
+> > To add to this, it seems this patch was originally included but was
+> > somehow lost at some point:
+> > https://www.spinics.net/lists/alsa-devel/msg145711.html
+> > 
+> > It seems the rest of the patch series made it in intact.
+> 
+> OK, this looks like some oversight.
+> 
+> Lucas, please check it and give ack if that's OK to merge (I suppose
+> so).
 
-Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
----
-Previous discussions:
-- v2 Link: https://lore.kernel.org/lkml/20220816175954.5259-1-khalid.masum.92@gmail.com/
-- v1 Link: https://lore.kernel.org/lkml/20220814080416.7531-1-khalid.masum.92@gmail.com/
+Actually that was my failure; I overlooked the original patch likely
+because the subject prefix was not ALSA or it couldn't be applied as
+is or so...
 
-Changes since v2:
-- Update commit title.
+Now I took Lucas' original patch
+  https://lore.kernel.org/r/20220727095924.80884-5-tanureal@opensource.cirrus.com
 
-Changes since v1:
-- Remove the todo, leave rest of the code as is.
-- Update commit message.
+thanks,
 
- drivers/soundwire/bus.c | 1 -
- 1 file changed, 1 deletion(-)
+Takashi
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 8d4000664fa3..18158825a6d8 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -75,7 +75,6 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
- 
- 	/*
- 	 * Initialize multi_link flag
--	 * TODO: populate this flag by reading property from FW node
- 	 */
- 	bus->multi_link = false;
- 	if (bus->ops->read_prop) {
--- 
-2.37.1
-
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> > 
+> > On 8/16/22 12:46, Cameron Berkenpas wrote:
+> > > Added CLSA0101 to serial-multi-instantiate.c.
+> > > 
+> > > Signed-off-by: Cameron Berkenpas <cam@neo-zeon.de>
+> > > ---
+> > >   drivers/platform/x86/serial-multi-instantiate.c | 3 ++-
+> > >   1 file changed, 2 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/x86/serial-multi-instantiate.c
+> > > index 1e8063b7c169..bc9bf591dd10 100644
+> > > --- a/drivers/platform/x86/serial-multi-instantiate.c
+> > > +++ b/drivers/platform/x86/serial-multi-instantiate.c
+> > > @@ -327,8 +327,9 @@ static const struct acpi_device_id smi_acpi_ids[] = {
+> > >   	{ "BSG2150", (unsigned long)&bsg2150_data },
+> > >   	{ "INT3515", (unsigned long)&int3515_data },
+> > >   	{ "CSC3551", (unsigned long)&cs35l41_hda },
+> > > -	/* Non-conforming _HID for Cirrus Logic already released */
+> > > +	/* Non-conforming _HIDs for Cirrus Logic already released */
+> > >   	{ "CLSA0100", (unsigned long)&cs35l41_hda },
+> > > +	{ "CLSA0101", (unsigned long)&cs35l41_hda },
+> > >   	{ }
+> > >   };
+> > >   MODULE_DEVICE_TABLE(acpi, smi_acpi_ids);
+> > 

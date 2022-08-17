@@ -2,82 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B23596994
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 08:32:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE4E95969B4
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 08:44:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DD1F829;
-	Wed, 17 Aug 2022 08:31:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DD1F829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 898EFAEA;
+	Wed, 17 Aug 2022 08:43:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 898EFAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660717957;
-	bh=mwtulZ4Hp+CocMD8YRBKXqWk+VW7tePvSlvVSfMPzrE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1660718667;
+	bh=Pl8j8nMikEGLv3auuJamJeuxCXOj7rX7d17W0lTlskY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gu3ISZy8lzIkqp2/cyEsnT5rF6BmEZKaPTLxka8hI1CoV/aJmU0NKzSvB5lWA9v0p
-	 xir1oXnIhtUFRWUmiPePtJkC7iMY1pifMsZUflVjuqPROthgHu5Z2iwlYWinvVtzaX
-	 dUN4LRgEEwNTRcG+IothOhj87YPR76bKca4GLQCw=
+	b=Yq+QiX3Vsci50QLRSRWU6ZXSY3exiEKqokgF/KjriI9QkRExc6Ilnm/WK1BH06G4l
+	 M3WjK8dP7CPolnbXEg0o/Fb94NB243GylkFq/5UnYWJFxYBP6egcNU6NKkJLXksB/I
+	 8LvIk03aZzv/5cPiCtAAjR3Ww/S/dN7rJHyzTmHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB678F80088;
-	Wed, 17 Aug 2022 08:31:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3A11F802D2;
+	Wed, 17 Aug 2022 08:43:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 576B1F8025C; Wed, 17 Aug 2022 08:31:36 +0200 (CEST)
+ id EFCFCF8025C; Wed, 17 Aug 2022 08:43:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8373DF80082
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 08:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8373DF80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8D90F80082
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 08:43:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8D90F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Pa9aqrzo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660717890; x=1692253890;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=mwtulZ4Hp+CocMD8YRBKXqWk+VW7tePvSlvVSfMPzrE=;
- b=Pa9aqrzootKBQT5MZz8XtmH46SPVvOtWVZOO8HvLdj4JY88WMU4d+S3U
- LbPSXQCoBHWyHPfB03QWuLEF+N3VPKxG3GFXzklzCKeaSQyk8jO7KSSbD
- rmBudcpWx3816XmVETVKgGdSCwAYKWMCkz5OLc+u3RxAAHSfsiewu4xi0
- D4LrKBFxxybr97TjulfG2jh/vNsXE1fnW6xS3DA/F1s1l8lZpYJafrNSu
- /t1NLCpVaYoY+Gu9lMR0A+G18A6XRbd2Of8Ajj1pVuqho8vU2e4UVL6Xt
- /qYx2h70WI9GnqeySwqFJEP3+bfWsMa4ilKEL7i+aDejgkzd8OW1wl6+W Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10441"; a="354159698"
-X-IronPort-AV: E=Sophos;i="5.93,242,1654585200"; d="scan'208";a="354159698"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 23:31:26 -0700
-X-IronPort-AV: E=Sophos;i="5.93,242,1654585200"; d="scan'208";a="675518280"
-Received: from rdegreef-mobl1.ger.corp.intel.com (HELO [10.252.49.182])
- ([10.252.49.182])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 23:31:23 -0700
-Message-ID: <a92f5041-9630-66ee-1757-4b58bdaabe90@linux.intel.com>
-Date: Wed, 17 Aug 2022 08:31:20 +0200
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="IOxuVGEu"
+Received: by mail-wm1-x32f.google.com with SMTP id ay12so6259494wmb.1
+ for <alsa-devel@alsa-project.org>; Tue, 16 Aug 2022 23:43:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=Pl8j8nMikEGLv3auuJamJeuxCXOj7rX7d17W0lTlskY=;
+ b=IOxuVGEuuWrhB890xfIpMhVaObL/QznrYMLo0MDJU8skANXcLIpC5rM9IZj9P1k1S9
+ RTPEAdpwwl4G0dBwPFBLTa8u7oyRnV9YiY1/D/muF5gBw8zwSV/R+RccjDUHj6/ThBOT
+ OV4PiVZqQvt1vUIAoHq/jUZDO3oIqeXHxJK/d2FGT6CLpVYrMaQyZqRk17hxWFlq9Ci/
+ LO2AmqpVa4X9M7v/2LShjYzdQUVjSQM0NRDLDUGEG8M1tq3ELCylC683JyE9NYHh4sgL
+ sHHHwPUJeHmp17fhNCvWy4DcEu9PEPM5zQCcwH05fw+IjbjE3IShAewKoqv8ZRiSdGL9
+ 0frQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=Pl8j8nMikEGLv3auuJamJeuxCXOj7rX7d17W0lTlskY=;
+ b=OcYoTV4suH9sT0ojDxeVKEpiKo7JoruEGclJmFOsO93mL63OF8UwgUg1q1K2XWYu8H
+ CbeBtkuFdJWUde01Be9AXi874ZMgHQYnZBieErGam0nQXV15It3onrrbuPClSEwUtiIs
+ zJeHO56EhduVA4QupSqFJmdvUNxgtAmxuprIbfsTV0nqeYyxAVwvuUMAah9qLVSXJGnK
+ ea4dNDeSvWUmQ4C6LR+NJRp52sGC5UzWwEsl5EwWRqd1Hut8Zk9SOixUG/BTTzs1hOQe
+ 5xRKrYM+3ZgabVFxuDgbv1aAGyGjJ2oXeLK1Yv6MQz9w+mCFZfrdvoqq/Xn7Rb2TcjOV
+ CFPw==
+X-Gm-Message-State: ACgBeo3UpmiCyiCVLxgGTPEZ7Kjyh8vAeqvBKiY7+TCqSNB1LLw3kEqg
+ BJSO/LAZ3pBHy8fwS+djboaKwXsEjgbMFl0gRiafyHlK
+X-Google-Smtp-Source: AA6agR4zBXMqxaZAI8I9XcEYwlBHvitoY+sgQ8XMVVj+73mhQTWSmHQhCEcvwzy9GHQ1Z5aLc69TnVciuWCbsk4WbM4=
+X-Received: by 2002:a1c:f718:0:b0:3a3:2416:634d with SMTP id
+ v24-20020a1cf718000000b003a32416634dmr1114507wmh.83.1660718133588; Tue, 16
+ Aug 2022 23:35:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH v2 linux-next] Remove Unnecessary TODO
-Content-Language: en-US
-To: Khalid Masum <khalid.masum.92@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20220816175954.5259-1-khalid.masum.92@gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220816175954.5259-1-khalid.masum.92@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>
+References: <1660713867-26921-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAGoOwPT1tP-HP+0J1ddZ0Ea+67zzLzFFTeptTpNwkzxRK45b5g@mail.gmail.com>
+ <CAA+D8AP2okZdD0YBWrxKGAxvp014S+R-dUSrPqbQN_ja3U5D2Q@mail.gmail.com>
+In-Reply-To: <CAA+D8AP2okZdD0YBWrxKGAxvp014S+R-dUSrPqbQN_ja3U5D2Q@mail.gmail.com>
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+Date: Tue, 16 Aug 2022 23:35:22 -0700
+Message-ID: <CAGoOwPSgPSV2HOqC=t_NVor8YqxaLxmeDvMf8_j25phsPpcd4g@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Remove unnecessary FIFO reset in ISR
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,42 +102,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Aug 16, 2022 at 11:29 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
 
+>> > The FIFO reset drops the words in the FIFO, which may cause
+>> > channel swap when SAI module is running, especially when the
+>> > DMA speed is low. So it is not good to do FIFO reset in ISR,
+>> > then remove the operation.
+>>
+>> I don't recall the details of adding this many years ago, but
+>> leaving underrun/overrun errors unhandled does not sound right
+>> to me either. Would it result in a channel swap also? Perhaps
+>> there needs to be a reset routine that stops and restarts the
+>> DMA as well?
+>
+>
+> Remove the reset, the channel swap is gone.
 
-On 8/16/22 19:59, Khalid Masum wrote:
-> The capabilities enabled for multi-link are required as part of the
-> programming sequences, even when a stream uses a single link we still
-> use the syncArm/syncGo sequences. Therefore the TODO is no longer
-> necessary.
-> 
-> Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Signed-off-by: Khalid Masum <khalid.masum.92@gmail.com>
+I have no doubt about that :)
 
-the title of your patch should be something like
+> IMO, no need to handle the underrun/overrun in driver, the SAI
+> hardware can handle the read/write pointer itself when xrun happen,
+> and we don't need reset routine.
 
-soundwire: intel: remove unnecessary TODO
-
-so that the patch scope and context is clearly identified.
-> ---
-> Previous discussions:
-> - v1 Link: https://lore.kernel.org/lkml/20220814080416.7531-1-khalid.masum.92@gmail.com/
-> 
-> Changes since v1:
-> - Remove the todo, leave rest of the code as is
-> - Update commit message
-> 
->  drivers/soundwire/bus.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index 8d4000664fa3..18158825a6d8 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -75,7 +75,6 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
->  
->  	/*
->  	 * Initialize multi_link flag
-> -	 * TODO: populate this flag by reading property from FW node
->  	 */
->  	bus->multi_link = false;
->  	if (bus->ops->read_prop) {
+That'd be okay then.

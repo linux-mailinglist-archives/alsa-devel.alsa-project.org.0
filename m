@@ -2,82 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22589596F47
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 15:13:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66204596F4A
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Aug 2022 15:13:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAE8C1671;
-	Wed, 17 Aug 2022 15:12:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAE8C1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08EFE1677;
+	Wed, 17 Aug 2022 15:13:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08EFE1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660741993;
-	bh=jN4kHoRUJSHbesemixiddrBAK3WzhEvbf8eObKfKwbU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660742035;
+	bh=3x+LcyE0J2euYhLM1IpvHl25L3fQe/8tiIUAG86+7Jo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o9oqUNIcNn7PqQdkDIog4wNHCLphtR5wbHiJPxDMzvcF7Jfx86kDZsI0BAuzrDGTg
-	 PtW4VbFtZ2G60ooWKG1QSXYQxQtY2AILix426t/CdXRt2h3U2SgV2geqgqEaWYRfGS
-	 Xc0GfNl5WNWR8VwLiGy7XcvfpQ6eu2IP0wV41bcY=
+	b=kdVcMeT6DtxQs76ob7Ytt8MStC56ZaEttrdvPdvDtXk0IWdDDVoaXhO2O0yh1p8zX
+	 gxciSZl2FBXWjeKTerb1g2OdbXJsMRiaYg5dU5pTGbNs6GBXtmReMJyYqrLkSmGfWN
+	 7/LTAvrElNJ3/XZSBg+Iu5PQdPHSyNn2fAWYNpzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6165FF80552;
-	Wed, 17 Aug 2022 15:11:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB4B7F8051A;
+	Wed, 17 Aug 2022 15:12:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD4CAF8053E; Wed, 17 Aug 2022 15:11:25 +0200 (CEST)
+ id 6ED08F80548; Wed, 17 Aug 2022 15:12:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE6AAF80518
- for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 15:11:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE6AAF80518
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50497F80237
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 15:12:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50497F80237
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mUr8Rp7z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660741878; x=1692277878;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jN4kHoRUJSHbesemixiddrBAK3WzhEvbf8eObKfKwbU=;
- b=mUr8Rp7zyvp4AIBFSa5+pCL7PQBUhOSkKNosHXUia1nACMViejKQ9wK8
- iksVZpJTUkpvfHsXHAF7Oskwe/Gd8JF6WaeohzSNb5GhYPVFcdPPoy92L
- wDUHq8lvCuwZyz0E/pc32xsUDtW0cV/mqR35jc9CpL+rK9F45RYViGVmV
- eRL1gVsUiDLwiEMePIU+vV88lS5ZR4YkH4q4mK1/IS+6i+r/nXQlHT7Tr
- BCMRR2UxIKOEEqVml+PUt5nBUlTWOIbdMmRmlG9E9JhH3b+Shp6pKjxYm
- YIkOOKTycbZG+TcQy4x0oae5c4QQ8/wr0oiHNu6QMZQVkTzrdcUco4Xjk g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="318496089"
-X-IronPort-AV: E=Sophos;i="5.93,243,1654585200"; d="scan'208";a="318496089"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2022 06:11:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,243,1654585200"; d="scan'208";a="667609981"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by fmsmga008.fm.intel.com with ESMTP; 17 Aug 2022 06:11:14 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hRocf2Yu"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="rtw2K8ts"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 444C31F9A8;
+ Wed, 17 Aug 2022 13:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660741931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LSKR5hl3tgpKX0usEXDbDtvnkvqMP+IzysUnZiGsz5A=;
+ b=hRocf2YuSQcp4APeYj1SbWrJkHGfG4Txf7rwRF6Gtu1wEWhYDD7t8qdWCOhpgdsv1wwp7O
+ qj8YpM/bRqQV+3/mLQceLqp0gJx6/rtjqtcSndntK8wjzBBKk89XX4xvqjGvtAjyLrDyf4
+ BUrNSE70eoBPpGcVIGZVteQjdYtHH+U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660741931;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LSKR5hl3tgpKX0usEXDbDtvnkvqMP+IzysUnZiGsz5A=;
+ b=rtw2K8tsLDvxKQbSYjfray2ttErKv1ZxMJM5RfdHpYt9eq9VeaoTdfKQu+42myKjMfDllS
+ xdu3rPu0JDYUDADg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2680813428;
+ Wed, 17 Aug 2022 13:12:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id itmrCCvp/GKfUgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 17 Aug 2022 13:12:11 +0000
+Date: Wed, 17 Aug 2022 15:12:10 +0200
+Message-ID: <87ilmrauad.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
  <amadeuszx.slawinski@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ALSA: hda: Remove unused defines
-Date: Wed, 17 Aug 2022 15:11:37 +0200
-Message-Id: <20220817131137.3978523-5-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220817131137.3978523-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220817131137.3978523-1-amadeuszx.slawinski@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RESEND][PATCH] ALSA: info: Fix llseek return value when using
+ callback
+In-Reply-To: <7324df1d-0424-a589-f7c9-df089a6cbefe@linux.intel.com>
+References: <20220817124924.3974577-1-amadeuszx.slawinski@linux.intel.com>
+ <7324df1d-0424-a589-f7c9-df089a6cbefe@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,38 +106,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is no need to keep unused defines in file.
+On Wed, 17 Aug 2022 14:56:05 +0200,
+Amadeusz S³awiñski wrote:
+> 
+> On 8/17/2022 2:49 PM, Amadeusz S³awiñski wrote:
+> > When using callback there was a flow of
+> > 
+> > 	ret = -EINVAL
+> > 	if (callback) {
+> > 		offset = callback();
+> > 		goto out;
+> > 	}
+> > 	...
+> > 	offset = some other value in case of no callback;
+> > 	ret = offset;
+> > out:
+> > 	return ret;
+> > 
+> > which causes the snd_info_entry_llseek() to return -EINVAL when there is
+> > callback handler. Fix this by setting "ret" directly to callback return
+> > value before jumping to "out".
+> > 
+> > 73029e0ff18d ("ALSA: info - Implement common llseek for binary mode")
+> > Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
+> > ---
+> >   sound/core/info.c | 6 +++---
+> >   1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/sound/core/info.c b/sound/core/info.c
+> > index b8058b341178..0b2f04dcb589 100644
+> > --- a/sound/core/info.c
+> > +++ b/sound/core/info.c
+> > @@ -111,9 +111,9 @@ static loff_t snd_info_entry_llseek(struct file *file, loff_t offset, int orig)
+> >   	entry = data->entry;
+> >   	mutex_lock(&entry->access);
+> >   	if (entry->c.ops->llseek) {
+> > -		offset = entry->c.ops->llseek(entry,
+> > -					      data->file_private_data,
+> > -					      file, offset, orig);
+> > +		ret = entry->c.ops->llseek(entry,
+> > +					   data->file_private_data,
+> > +					   file, offset, orig);
+> >   		goto out;
+> >   	}
+> >   
+> 
+> Doing resend, because I did copy paste mistake when pasting Takashi
+> email to git command, additionally alsa-devel blocked my previous
+> mail.
+> I've seen that Cezary already discussed this issue, and it doesn't
+> seem to be fixed, can this be somehow investigated? I guess we can
+> provide response we get from server when email fails?
 
-Signed-off-by: Amadeusz SÅ‚awiÅ„ski <amadeuszx.slawinski@linux.intel.com>
----
- sound/pci/hda/hda_intel.c | 7 -------
- 1 file changed, 7 deletions(-)
+It seems working now.  Jaroslav mentioned that it was some DNS
+problem.
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index a77165bd92a9..7720978dc132 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -86,9 +86,6 @@ enum {
- #define INTEL_SCH_HDA_DEVC      0x78
- #define INTEL_SCH_HDA_DEVC_NOSNOOP       (0x1<<11)
- 
--/* Define VIA HD Audio Device ID*/
--#define VIA_HDAC_DEVICE_ID		0x3288
--
- /* max number of SDs */
- /* ICH, ATI and VIA have 4 playback and 4 capture */
- #define ICH6_NUM_CAPTURE	4
-@@ -102,10 +99,6 @@ enum {
- #define ATIHDMI_NUM_CAPTURE	0
- #define ATIHDMI_NUM_PLAYBACK	8
- 
--/* TERA has 4 playback and 3 capture */
--#define TERA_NUM_CAPTURE	3
--#define TERA_NUM_PLAYBACK	4
--
- 
- static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;
- static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;
--- 
-2.25.1
 
+Takashi

@@ -2,93 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1A8597EF5
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 09:06:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D56597F68
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 09:44:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E3251638;
-	Thu, 18 Aug 2022 09:06:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E3251638
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD8F41654;
+	Thu, 18 Aug 2022 09:43:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8F41654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660806416;
-	bh=a+e+QGhn5sn3V7lUKOzpCWb+9pj3d5N7fTGM2cOhh+s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1660808670;
+	bh=SxrbDdkfy8udLx/QiJ1ypnbgHwPFloknxGI/5iDg4II=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b3At/bC0j4Eeu5YlSO36dHpX46DjPfePq63TrkY8z3gZyHvyaMaEscLhAkI66HeMh
-	 cp7ESgBrVTSvK9jxBnGhs5ieTjhlZvccYJYprt/mFaw1E5HOJG0HlgU5kqdYa7yGSo
-	 5XXjgk7LKPMQZ+NNKBVO32qOG005ZzRejiwhfT2M=
+	b=btTMUJ8FmIKQ6P72oHJqECIcoevbO276IwTKpPH6LyGndoEKpL0bp7bDl9ChDHuTy
+	 ZKaffsJOqHq1w6b29TiuDagpLGObAQVos1ZL0HTH6OyF43Q7o7yqbH/8Lv8NO+QGW0
+	 8ZF3V9uho9damp11UzV6BTMf9P5iJk4YwDadqMLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C12DF804CF;
-	Thu, 18 Aug 2022 09:05:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E8BAF80495;
+	Thu, 18 Aug 2022 09:43:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45205F800E9; Thu, 18 Aug 2022 09:05:57 +0200 (CEST)
+ id 3A731F80430; Thu, 18 Aug 2022 09:43:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [IPv6:2607:f8b0:4864:20::e33])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9EAAF800E9;
- Thu, 18 Aug 2022 09:05:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9EAAF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E19EF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 09:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E19EF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QODEiGDu"
-Received: by mail-vs1-xe33.google.com with SMTP id o123so646813vsc.3;
- Thu, 18 Aug 2022 00:05:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=a+e+QGhn5sn3V7lUKOzpCWb+9pj3d5N7fTGM2cOhh+s=;
- b=QODEiGDu9p0FTrpyiABxU991BdJBWJE6MEs4yngJOvDM8mFSLvsM1NWLXQOHJiDQIZ
- 3IyrYORBDWFDHi3WTZpY1mWH7s31gyxzupk4GHE5zgS0MnB6XJMBrhdY1MNEShjopoWv
- qRKOhLYKc2vvZoPXu+dCCJTIsboWwEmH0S2kAi6Ml6+7JitFCXniYbLO3TGc87lxen0k
- 4ieh81NWgCDJ5rg7PxDrRmwB9TC+iiZsycaF2an30reNzWoV2GdDyNgkvo0a9x3bWQZ1
- 9Eqgz3vLAIWcfMkrAW7U04NiZ9ao9R1ZDKc5PbA8cnFU9rjMzY4+lfmyTkuOoQ9mcZsD
- 5q7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=a+e+QGhn5sn3V7lUKOzpCWb+9pj3d5N7fTGM2cOhh+s=;
- b=ya1NyHZXaJd8GDxG3n8kY90siXDf7FEC+Kf5LjlC9yAx8nCPA5M3j+ln1MuwbjiMvb
- AHWBxD/N+6SpR0D9t0FR8F8pDVnlBgrZQb9yQrsWh/qJAwEfU8VVJC6gvkDsuyG+iUdd
- x7tA6kSFYqk+jc1g1NfNjNSGHc4WALfVTVSHUaRE3lJclrz/mkxNwm0YxPzGfacNaBDi
- jg5HqrWbak3rvsfRGukNauyreFD6Idtauifhxa3XAS+vUbqYjp11JyJ81bECSpY396hD
- 1jFDtuZkurBH7IAVVUk6nv7jeCt6lhqndkHDa9pjcaG2zI+6hoYQ+PlkkeUlCJpwhyYS
- ez7A==
-X-Gm-Message-State: ACgBeo3lnGnQ531amIQSDPZhpjujI83vna2NeuwSgMPRQdXb59Meuu2j
- GhwpF1sAbu6Jy/IdKKWkczeI+6TfItn6pU7fh/g=
-X-Google-Smtp-Source: AA6agR7cE2a2nGxJ/dDd1AfoOz28N0RchW4jLMnj1h1J1ZEbueTzietm5V7RSX4C/+cS+pEWw0zzGxbAmu1XKGsWLpU=
-X-Received: by 2002:a67:c014:0:b0:388:daaf:5029 with SMTP id
- v20-20020a67c014000000b00388daaf5029mr660423vsi.65.1660806349462; Thu, 18 Aug
- 2022 00:05:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 18 Aug 2022 10:05:33 +0300
-Message-ID: <CAEnQRZA=df7xMGvDLD-vcz16hdQBWq2u2xWD=Mo5054wQNrmEw@mail.gmail.com>
-Subject: Re: [Sound-open-firmware] [RESEND PATCH v2 1/2] dt-bindings: dsp:
- fsl: Add SOF compatile string for i.MX8ULP
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, krzysztof.kozlowski+dt@linaro.org, festevam@gmail.com,
- sound-open-firmware@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- shengjiu.wang@gmail.com, ranjani.sridharan@linux.intel.com, linux-imx@nxp.com,
- devicetree@vger.kernel.org, s.hauer@pengutronix.de,
- peter.ujfalusi@linux.intel.com, robh+dt@kernel.org, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- kernel@pengutronix.de, shawnguo@kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mwI/bNH3"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="TCvaO4v4"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 871D838DC4;
+ Thu, 18 Aug 2022 07:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660808603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q6279ySE2TUVFd9OyIRQb20xK4Xub/yBq5/IsQWAxZs=;
+ b=mwI/bNH3NYf64VsSlC+4TI/4nMq3w/yur7mXB71McQByhnbp1xyYnIB+I8TNjbRo2MF0Es
+ 0MEKPapWOXQiN0yfN3T7VGrSXXOW3+XUtKSRT75QxHhiPF2nW2bISv929B8BxCAF8DSGMY
+ 26LG0zvqL/FwlAyNIdoBXUYYs2oU1bE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660808603;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q6279ySE2TUVFd9OyIRQb20xK4Xub/yBq5/IsQWAxZs=;
+ b=TCvaO4v4g0oYHLUdcG+s7FS9n8uwkWFM1stDOQk95oBx5qQ8poxgnlH9Wi61YXE9o1k3+I
+ Zw28QVwLJY28WzCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 66447139B7;
+ Thu, 18 Aug 2022 07:43:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id B1pCGJvt/WLiVwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 18 Aug 2022 07:43:23 +0000
+Date: Thu, 18 Aug 2022 09:43:23 +0200
+Message-ID: <87edxe9euc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NS50PU, NS70PU
+In-Reply-To: <20220817135144.34103-1-wse@tuxedocomputers.com>
+References: <20220817135144.34103-1-wse@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,12 +99,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 18, 2022 at 5:12 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
->
-> Add SOF compatile string "fsl,imx8ulp-dsp" for supporting DSP
-> device on i.MX8ULP platform.
->
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Acked-by: Rob Herring <robh@kernel.org>
+On Wed, 17 Aug 2022 15:51:44 +0200,
+Werner Sembach wrote:
+> 
+> From: Christoffer Sandberg <cs@tuxedo.de>
+> 
+> Fixes headset microphone detection on Clevo NS50PU and NS70PU.
+> 
+> Signed-off-by: Christoffer Sandberg <cs@tuxedo.de>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: <stable@vger.kernel.org>
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Applied, thanks.
+
+
+Takashi

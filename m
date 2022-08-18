@@ -2,87 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D56597F68
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 09:44:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711E5597F71
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 09:47:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD8F41654;
-	Thu, 18 Aug 2022 09:43:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8F41654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0871652;
+	Thu, 18 Aug 2022 09:46:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0871652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660808670;
-	bh=SxrbDdkfy8udLx/QiJ1ypnbgHwPFloknxGI/5iDg4II=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660808831;
+	bh=BwOGLom7QZ+xlkzEkSbHx+Ss562vrDtAMtfCHnu5aHM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=btTMUJ8FmIKQ6P72oHJqECIcoevbO276IwTKpPH6LyGndoEKpL0bp7bDl9ChDHuTy
-	 ZKaffsJOqHq1w6b29TiuDagpLGObAQVos1ZL0HTH6OyF43Q7o7yqbH/8Lv8NO+QGW0
-	 8ZF3V9uho9damp11UzV6BTMf9P5iJk4YwDadqMLU=
+	b=rAIAcoANljucWevbFrvtcqzxC4cF/bU7GhVGvtKaMG1Q49kJF+OcXWvScdpDTPdL6
+	 h5FwUKZOzqCmY73sMK31SnIGaFT+dmgnly9wdb8RQoTUb+LE2j2gtWShegYZ20rE/5
+	 PzVFixVieTQLBJEFJ2YLe4gMDdVP5Hte9LpecQtI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E8BAF80495;
-	Thu, 18 Aug 2022 09:43:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8987CF80495;
+	Thu, 18 Aug 2022 09:46:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A731F80430; Thu, 18 Aug 2022 09:43:30 +0200 (CEST)
+ id 276DEF80430; Thu, 18 Aug 2022 09:46:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E19EF800B5
- for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 09:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E19EF800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mwI/bNH3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TCvaO4v4"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54368F800EE
+ for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 09:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54368F800EE
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id 3E774C800A2;
+ Thu, 18 Aug 2022 09:46:03 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id 8-OXr-g8Y69l; Thu, 18 Aug 2022 09:46:03 +0200 (CEST)
+Received: from [IPV6:2003:e3:7f47:c300:41ac:9de4:5825:30ea]
+ (p200300e37f47c30041Ac9De4582530ea.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f47:c300:41ac:9de4:5825:30ea])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 871D838DC4;
- Thu, 18 Aug 2022 07:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1660808603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Q6279ySE2TUVFd9OyIRQb20xK4Xub/yBq5/IsQWAxZs=;
- b=mwI/bNH3NYf64VsSlC+4TI/4nMq3w/yur7mXB71McQByhnbp1xyYnIB+I8TNjbRo2MF0Es
- 0MEKPapWOXQiN0yfN3T7VGrSXXOW3+XUtKSRT75QxHhiPF2nW2bISv929B8BxCAF8DSGMY
- 26LG0zvqL/FwlAyNIdoBXUYYs2oU1bE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1660808603;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Q6279ySE2TUVFd9OyIRQb20xK4Xub/yBq5/IsQWAxZs=;
- b=TCvaO4v4g0oYHLUdcG+s7FS9n8uwkWFM1stDOQk95oBx5qQ8poxgnlH9Wi61YXE9o1k3+I
- Zw28QVwLJY28WzCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 66447139B7;
- Thu, 18 Aug 2022 07:43:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id B1pCGJvt/WLiVwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 18 Aug 2022 07:43:23 +0000
-Date: Thu, 18 Aug 2022 09:43:23 +0200
-Message-ID: <87edxe9euc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id EEDF5C8009A;
+ Thu, 18 Aug 2022 09:46:02 +0200 (CEST)
+Message-ID: <920e65d4-5760-3e35-8b2a-dae4f9220632@tuxedocomputers.com>
+Date: Thu, 18 Aug 2022 09:46:02 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
 Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NS50PU, NS70PU
-In-Reply-To: <20220817135144.34103-1-wse@tuxedocomputers.com>
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
 References: <20220817135144.34103-1-wse@tuxedocomputers.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ <87edxe9euc.wl-tiwai@suse.de>
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <87edxe9euc.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -99,18 +82,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 17 Aug 2022 15:51:44 +0200,
-Werner Sembach wrote:
-> 
-> From: Christoffer Sandberg <cs@tuxedo.de>
-> 
-> Fixes headset microphone detection on Clevo NS50PU and NS70PU.
-> 
-> Signed-off-by: Christoffer Sandberg <cs@tuxedo.de>
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> Cc: <stable@vger.kernel.org>
+Just realized I forget to change the subject and description: the NS50PU 
+was already added by someone else, this patch only adds the NS70PU.
 
-Applied, thanks.
-
-
-Takashi
+Am 18.08.22 um 09:43 schrieb Takashi Iwai:
+> On Wed, 17 Aug 2022 15:51:44 +0200,
+> Werner Sembach wrote:
+>> From: Christoffer Sandberg <cs@tuxedo.de>
+>>
+>> Fixes headset microphone detection on Clevo NS50PU and NS70PU.
+>>
+>> Signed-off-by: Christoffer Sandberg <cs@tuxedo.de>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> Cc: <stable@vger.kernel.org>
+> Applied, thanks.
+>
+>
+> Takashi

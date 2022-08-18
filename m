@@ -2,89 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B3B597BB0
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 04:53:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31665597C6B
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 05:52:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 901EF1677;
-	Thu, 18 Aug 2022 04:52:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 901EF1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EAF01661;
+	Thu, 18 Aug 2022 05:51:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EAF01661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660791213;
-	bh=q267Av/BjhLQsmGMfA6rp9ZhoCbpPXXMSP4jgeCytGs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c6zuo8FUJpcltCIqX4Mc/qswscbVmuCOv7w91JQjJkhm/89InriL5UnfS4N4RFs+t
-	 9QL/cGyySP6C3993kxF65sDwq4ZY1+XURIbS6VTfcATRrif5ptJQdJ67lmWl4FxaXB
-	 gj++ajd6xX/5svo23o+MpdTayDszzKIMMgZSiGmA=
+	s=default; t=1660794741;
+	bh=AqNccWjhdh6g4UvLUBBjnhob9sKKTJvj7fTB0MrsAhg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=I2BSEjaxgFvJtGiJDU2+6EmGcfqsx8ngwrslTgbNexY/3EyrWHr31d3ogxghM1BrC
+	 5ypqvNB/Uzvvk4goL5Qjn+VDw40ofuzbeYwGj+ywQzDQE//RDPplwjaP9EoJ2FdOBn
+	 agHym9bT3wtkVvbmO5N4jReHihdBvZcfaumPICZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10FDFF804DF;
-	Thu, 18 Aug 2022 04:51:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD8A9F800EE;
+	Thu, 18 Aug 2022 05:51:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E9C0F804C2; Thu, 18 Aug 2022 04:51:41 +0200 (CEST)
+ id 17396F80430; Thu, 18 Aug 2022 05:51:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A4BCF8013D
- for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 04:51:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A4BCF8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C634AF800EE
+ for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 05:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C634AF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="o66araVc"
-X-UUID: b64a40a2e796435bb3639f947e07c2f0-20220818
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=NlUSWo/dINL4cHeCvNWgETfxjDLnRIsYe3tS38l7UtQ=; 
- b=o66araVcaHPRF+EHtgfx+hX164yr0PyeKacsl1FZJTa/ccLV1saU4S3+eHEPK4ejraUBESycOAR1Dohin/mXgPZc8kNQqUfVTi30bt4SJkaqRx4ZBPWmeVDkji7oEVQxb5x2751G1VAS6rjHD2Nn6H5DuLNTrCFuwoADwWe1KaU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:6daf94eb-9bc2-4167-aceb-b0d145139c94, OB:0,
- L
- OB:0,IP:0,URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Releas
- e_Ham,ACTION:release,TS:-25
-X-CID-META: VersionHash:84eae18, CLOUDID:c003a3fd-9e71-4a0f-ba6b-417998daea35,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
- nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: b64a40a2e796435bb3639f947e07c2f0-20220818
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2127082796; Thu, 18 Aug 2022 10:51:22 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 18 Aug 2022 10:51:21 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Thu, 18 Aug 2022 10:51:21 +0800
-From: Chunxu Li <chunxu.li@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH RESEND 3/3] ASoC: mediatek: mt8186: add SOF support on
- mt8186-mt6366-da7219-max98357
-Date: Thu, 18 Aug 2022 10:51:13 +0800
-Message-ID: <20220818025113.17144-4-chunxu.li@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220818025113.17144-1-chunxu.li@mediatek.com>
-References: <20220818025113.17144-1-chunxu.li@mediatek.com>
+ dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
+ header.b="hUsX8rTl"
+Received: by mail-oi1-x22b.google.com with SMTP id w197so383132oie.5
+ for <alsa-devel@alsa-project.org>; Wed, 17 Aug 2022 20:51:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=z/kt4xsiqT5uh1tSKfd39tJzduEkjiNNtsPz4ODYScQ=;
+ b=hUsX8rTlrvTeQvHroIs2XSAw7rftVr3j4T1DMDpJAOhE75zyhypDjS8nZn2dJ1PAtV
+ PyyiE9zWnK4AdZgnzKyYo5SaIU4lzFOnMQhymG4K/BunYWpJmPqfh2ayCKiRVtyMXUSa
+ qWJ/8Kn31W0eviW63LQ0bNlJd7r6XSayEsgXrpJrTkzbtn676A0CSZlXget+ct41QgUJ
+ 6pnc/4akLOnoonrqqS59n0HN3I+svs8h75IiIISyBFN+rKSSBroei3IQKCB+ACuprsL1
+ ysf9YPNasyRTNxgNyKrZrBFrU7rRsKPFfAWfn2JKWrr+VV6hdcFI5VeL8KpweMamYNQs
+ J9Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=z/kt4xsiqT5uh1tSKfd39tJzduEkjiNNtsPz4ODYScQ=;
+ b=nbxdeQeYayyI2Zi5fVgp4+R/yIftXZxoPwixeGj+OFQ469vwIRyhnLkThMbGZPMAVx
+ kL9LBgd0N6814n2pCdmiJxZunClqASb9nE+q4ZAXtdwR1w4yKb1GGwsBavgHirzZN5PO
+ +3ARQiOJxb+3ZbsSS1jXX2FfvYrLhCL/lU6dd/vtWQoQmQsVsmpK4xky2aa8757Y1RN7
+ cKsGpF5L70idw3wu4cTloJkD7WRVbPDsfzjuoZ2kkip9B5cD0JBWMywwtn37Fr4ENIxN
+ jT+f+nVAxrDjX5nLdPPlA26fUoPzznVXmzPnV9tiBUyctct+7il7V7rn8QQSyUAb/fkf
+ mDiw==
+X-Gm-Message-State: ACgBeo0WPUW8mHXOCNeqIJyi1pIR2BFpErFIEgZjM2IfIY1MbZPRMr8d
+ iUkHITiiFgjvTE28DAyHom9OUA==
+X-Google-Smtp-Source: AA6agR5nK0pO97s1k3xUg01xcKqTwc3MTVG/hu97TQDzw0VbKl4p+cqjklTjMetgLlKH5V34+pGaOA==
+X-Received: by 2002:a05:6808:200f:b0:343:470a:cd22 with SMTP id
+ q15-20020a056808200f00b00343470acd22mr2776801oiw.52.1660794671410; 
+ Wed, 17 Aug 2022 20:51:11 -0700 (PDT)
+Received: from localhost (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
+ b6-20020a9d5d06000000b0063695ad0cbesm142984oti.66.2022.08.17.20.51.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Aug 2022 20:51:10 -0700 (PDT)
+From: Steev Klimaszewski <steev@kali.org>
+To: Steev Klimaszewski <steev@kali.org>
+Subject: [PATCH] soundwire: qcom: remove unneeded check
+Date: Wed, 17 Aug 2022 22:51:05 -0500
+Message-Id: <20220818035105.5510-1-steev@kali.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, Chunxu Li <chunxu.li@mediatek.com>,
- linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com,
- project_global_chrome_upstream_group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Amit Pundir <amit.pundir@linaro.org>, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,291 +105,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1. Add widgets, routes and dai-links required by SOF
+commit 1fd0d85affe4d6 ("soundwire: qcom: Add flag for software clock gating check") 
+added a flag for software clock gating check, however in commit
+33ba01788889666 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+the same check was added without the flag, so we would still end up failing
+the software clock gating check.
 
-2. Only when adsp phandle could be retrieved from DTS, the SOF related part
-of machine driver is executed.
+Originally reported by Amit Pundir on DB845c, I also saw it on the
+Lenovo Yoga C630, right before the splat, we would see
 
-3. Support dai-links could be specified from DTS, so that
-we can disable AP side hardware controls when DSP SOF controls the same
-audio FE.
+qcom-soundwire wcd934x-soundwire.6.auto: Failed to get audio_cgcr reset required for soundwire-v1.6.0
 
-Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
+however, SDM845 has a soundwire-v1.3.0
+
+Since the flag was added in 1fd0d85affe, lets just remove this one.
+
+Fixes: 33ba01788889 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+Signed-off-by: Steev Klimaszewski <steev@kali.org>
+Reported-by: Amit Pundir <amit.pundir@linaro.org>
 ---
- .../mt8186/mt8186-mt6366-da7219-max98357.c    | 168 ++++++++++++++++--
- 1 file changed, 155 insertions(+), 13 deletions(-)
+ drivers/soundwire/qcom.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-index 387f25cad809..84ee5d95a9f0 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-@@ -18,6 +18,8 @@
- #include "../../codecs/da7219.h"
- #include "../../codecs/mt6358.h"
- #include "../common/mtk-afe-platform-driver.h"
-+#include "../common/mtk-dsp-sof-common.h"
-+#include "../common/mtk-soc-card.h"
- #include "mt8186-afe-common.h"
- #include "mt8186-afe-clk.h"
- #include "mt8186-afe-gpio.h"
-@@ -26,6 +28,11 @@
- #define DA7219_CODEC_DAI "da7219-hifi"
- #define DA7219_DEV_NAME "da7219.5-001a"
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 709a7c1e0704..b621f7fb866f 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1355,10 +1355,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 	ctrl->bus.compute_params = &qcom_swrm_compute_params;
+ 	ctrl->bus.clk_stop_timeout = 300;
  
-+#define SOF_DMA_DL1 "SOF_DMA_DL1"
-+#define SOF_DMA_DL2 "SOF_DMA_DL2"
-+#define SOF_DMA_UL1 "SOF_DMA_UL1"
-+#define SOF_DMA_UL2 "SOF_DMA_UL2"
-+
- struct mt8186_mt6366_da7219_max98357_priv {
- 	struct snd_soc_jack headset_jack, hdmi_jack;
- };
-@@ -47,8 +54,9 @@ static struct snd_soc_codec_conf mt8186_mt6366_da7219_max98357_codec_conf[] = {
- 
- static int mt8186_da7219_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct mt8186_mt6366_da7219_max98357_priv *priv =
-+	struct mtk_soc_card_data *soc_card_data =
- 		snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8186_mt6366_da7219_max98357_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_jack *jack = &priv->headset_jack;
- 	struct snd_soc_component *cmpnt_codec =
- 		asoc_rtd_to_codec(rtd, 0)->component;
-@@ -154,8 +162,9 @@ static int mt8186_mt6366_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *r
- {
- 	struct snd_soc_component *cmpnt_codec =
- 		asoc_rtd_to_codec(rtd, 0)->component;
--	struct mt8186_mt6366_da7219_max98357_priv *priv =
-+	struct mtk_soc_card_data *soc_card_data =
- 		snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8186_mt6366_da7219_max98357_priv *priv = soc_card_data->mach_priv;
- 	int ret;
- 
- 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT, &priv->hdmi_jack);
-@@ -201,6 +210,24 @@ static int mt8186_anx7625_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 	return mt8186_hw_params_fixup(rtd, params, SNDRV_PCM_FORMAT_S24_LE);
- }
- 
-+/* fixup the BE DAI link to match any values from topology */
-+static int mt8186_sof_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
-+				     struct snd_pcm_hw_params *params)
-+{
-+	int ret;
-+
-+	ret = mtk_sof_dai_link_fixup(rtd, params);
-+
-+	if (!strcmp(rtd->dai_link->name, "I2S0") ||
-+	    !strcmp(rtd->dai_link->name, "I2S1") ||
-+	    !strcmp(rtd->dai_link->name, "I2S2"))
-+		mt8186_i2s_hw_params_fixup(rtd, params);
-+	else if (!strcmp(rtd->dai_link->name, "I2S3"))
-+		mt8186_anx7625_i2s_hw_params_fixup(rtd, params);
-+
-+	return ret;
-+}
-+
- static int mt8186_mt6366_da7219_max98357_playback_startup(struct snd_pcm_substream *substream)
- {
- 	static const unsigned int rates[] = {
-@@ -474,6 +501,33 @@ SND_SOC_DAILINK_DEFS(hostless_src_aaudio,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("Hostless SRC AAudio DAI")),
- 		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL1,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL1")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL2,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL2")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL1,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL1")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL2,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL2")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+static const struct sof_conn_stream g_sof_conn_streams[] = {
-+	{ "I2S1", "AFE_SOF_DL1", SOF_DMA_DL1, SNDRV_PCM_STREAM_PLAYBACK},
-+	{ "I2S3", "AFE_SOF_DL2", SOF_DMA_DL2, SNDRV_PCM_STREAM_PLAYBACK},
-+	{ "Primary Codec", "AFE_SOF_UL1", SOF_DMA_UL1, SNDRV_PCM_STREAM_CAPTURE},
-+	{ "I2S0", "AFE_SOF_UL2", SOF_DMA_UL2, SNDRV_PCM_STREAM_CAPTURE},
-+};
-+
- static struct snd_soc_dai_link mt8186_mt6366_da7219_max98357_dai_links[] = {
- 	/* Front End DAI links */
- 	{
-@@ -848,12 +902,41 @@ static struct snd_soc_dai_link mt8186_mt6366_da7219_max98357_dai_links[] = {
- 		.ignore_suspend = 1,
- 		SND_SOC_DAILINK_REG(hostless_ul6),
- 	},
-+	/* SOF BE */
-+	{
-+		.name = "AFE_SOF_DL1",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL1),
-+	},
-+	{
-+		.name = "AFE_SOF_DL2",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL2),
-+	},
-+	{
-+		.name = "AFE_SOF_UL1",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL1),
-+	},
-+	{
-+		.name = "AFE_SOF_UL2",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL2),
-+	},
- };
- 
- static const struct snd_soc_dapm_widget
- mt8186_mt6366_da7219_max98357_widgets[] = {
- 	SND_SOC_DAPM_SPK("Speakers", NULL),
- 	SND_SOC_DAPM_OUTPUT("HDMI1"),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL1, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL1, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL2, SND_SOC_NOPM, 0, 0, NULL, 0),
- };
- 
- static const struct snd_soc_dapm_route
-@@ -862,6 +945,14 @@ mt8186_mt6366_da7219_max98357_routes[] = {
- 	{ "Speakers", NULL, "Speaker"},
- 	/* HDMI */
- 	{ "HDMI1", NULL, "TX"},
-+	/* SOF Uplink */
-+	{SOF_DMA_UL1, NULL, "UL1_CH1"},
-+	{SOF_DMA_UL1, NULL, "UL1_CH2"},
-+	{SOF_DMA_UL2, NULL, "UL2_CH1"},
-+	{SOF_DMA_UL2, NULL, "UL2_CH2"},
-+	/* SOF Downlink */
-+	{"DSP_DL1_VIRT", NULL, SOF_DMA_DL1},
-+	{"DSP_DL2_VIRT", NULL, SOF_DMA_DL2},
- };
- 
- static const struct snd_kcontrol_new
-@@ -889,8 +980,10 @@ static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card;
- 	struct snd_soc_dai_link *dai_link;
--	struct mt8186_mt6366_da7219_max98357_priv *priv;
--	struct device_node *platform_node, *headset_codec, *playback_codec;
-+	struct mtk_soc_card_data *soc_card_data;
-+	struct mt8186_mt6366_da7219_max98357_priv *mach_priv;
-+	struct device_node *platform_node, *headset_codec, *playback_codec, *adsp_node;
-+	int sof_on = 0;
- 	int ret, i;
- 
- 	card = (struct snd_soc_card *)device_get_match_data(&pdev->dev);
-@@ -898,11 +991,60 @@ static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	card->dev = &pdev->dev;
- 
-+	soc_card_data = devm_kzalloc(&pdev->dev, sizeof(*soc_card_data), GFP_KERNEL);
-+	if (!soc_card_data)
-+		return -ENOMEM;
-+	mach_priv = devm_kzalloc(&pdev->dev, sizeof(*mach_priv), GFP_KERNEL);
-+	if (!mach_priv)
-+		return -ENOMEM;
-+
-+	soc_card_data->mach_priv = mach_priv;
-+
-+	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
-+	if (adsp_node) {
-+		struct mtk_sof_priv *sof_priv;
-+
-+		sof_priv = devm_kzalloc(&pdev->dev, sizeof(*sof_priv), GFP_KERNEL);
-+		if (!sof_priv) {
-+			ret = -ENOMEM;
-+			goto err_adsp_node;
-+		}
-+		sof_priv->conn_streams = g_sof_conn_streams;
-+		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
-+		sof_priv->sof_dai_link_fixup = mt8186_sof_dai_link_fixup;
-+		soc_card_data->sof_priv = sof_priv;
-+		card->probe = mtk_sof_card_probe;
-+		card->late_probe = mtk_sof_card_late_probe;
-+		if (!card->topology_shortname_created) {
-+			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
-+			card->topology_shortname_created = true;
-+		}
-+		card->name = card->topology_shortname;
-+		sof_on = 1;
-+	} else {
-+		dev_info(&pdev->dev, "Probe without adsp\n");
-+	}
-+
-+	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
-+		ret = mtk_sof_dailink_parse_of(card, pdev->dev.of_node,
-+					       "mediatek,dai-link",
-+					       mt8186_mt6366_da7219_max98357_dai_links,
-+					       ARRAY_SIZE(mt8186_mt6366_da7219_max98357_dai_links));
-+		if (ret) {
-+			dev_dbg(&pdev->dev, "Parse dai-link fail\n");
-+			goto err_adsp_node;
-+		}
-+	} else {
-+		if (!sof_on)
-+			card->num_links = ARRAY_SIZE(mt8186_mt6366_da7219_max98357_dai_links)
-+					- ARRAY_SIZE(g_sof_conn_streams);
-+	}
-+
- 	platform_node = of_parse_phandle(pdev->dev.of_node, "mediatek,platform", 0);
- 	if (!platform_node) {
- 		ret = -EINVAL;
- 		dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
--		return ret;
-+		goto err_platform_node;
- 	}
- 
- 	playback_codec = of_get_child_by_name(pdev->dev.of_node, "playback-codecs");
-@@ -941,17 +1083,14 @@ static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
- 			goto err_probe;
- 		}
- 
--		if (!dai_link->platforms->name)
--			dai_link->platforms->of_node = platform_node;
--	}
-+		if (!strncmp(dai_link->name, "AFE_SOF", strlen("AFE_SOF")) && sof_on)
-+			dai_link->platforms->of_node = adsp_node;
- 
--	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv) {
--		ret = -ENOMEM;
--		goto err_probe;
-+		if (!dai_link->platforms->name && !dai_link->platforms->of_node)
-+			dai_link->platforms->of_node = platform_node;
- 	}
- 
--	snd_soc_card_set_drvdata(card, priv);
-+	snd_soc_card_set_drvdata(card, soc_card_data);
- 
- 	ret = mt8186_afe_gpio_init(&pdev->dev);
- 	if (ret) {
-@@ -969,6 +1108,9 @@ static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
- 	of_node_put(playback_codec);
- err_playback_codec:
- 	of_node_put(platform_node);
-+err_platform_node:
-+err_adsp_node:
-+	of_node_put(adsp_node);
- 
- 	return ret;
- }
+-	ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+-	if (IS_ERR(ctrl->audio_cgcr))
+-		dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+-
+ 	ret = qcom_swrm_get_port_config(ctrl);
+ 	if (ret)
+ 		goto err_clk;
 -- 
-2.25.1
+2.35.1
 

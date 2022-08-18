@@ -2,74 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4455980C8
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 11:27:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 948FA598125
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Aug 2022 11:55:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0FFB163B;
-	Thu, 18 Aug 2022 11:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0FFB163B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC841868;
+	Thu, 18 Aug 2022 11:55:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC841868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660814822;
-	bh=n/YmpnnI3jusujPQQ0H9VdujOiT8un6Nr19J1PBA+/o=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660816552;
+	bh=XILJI79B1EMT0pLm48zCqOu473yeVZbm2kLvnZoe2yM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PRbkCHQLo7D79vQg1p2MVMKYg0zQZXOglYVgEjzv7+CkzWs6J3WLOgVdAYuAx1U7q
-	 B5P4Oql0T7+5D2TAOHFCrgEg0zg10Bf/aDVTp/1f6MHslzsVm0MdJwIj+8zhA4OD52
-	 XFwlz2PKUz4Tgxf6bFR++I4xBAiA3Q/NHasxTXVc=
+	b=XHGzqLNBaD/fcBuKO2ch+CVCEyPpJTSHqFI9ZgssS32/moZG461xDaH9bePOrp6iy
+	 iYFGD4XhCdgsoktBaF3KUkBlm9PvBxENaeQHtSxytYoUIZ5XTTGpn4chuUOlnqi1Qg
+	 rz7IFw4ROYiW1itAazLlSEvRsNJfGBZXZ5cHvLCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AF09F80495;
-	Thu, 18 Aug 2022 11:26:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57026F800EE;
+	Thu, 18 Aug 2022 11:54:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FF9EF80430; Thu, 18 Aug 2022 11:26:02 +0200 (CEST)
+ id E5CD5F80430; Thu, 18 Aug 2022 11:54:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sender4-op-o18.zoho.com (sender4-op-o18.zoho.com
- [136.143.188.18])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF344F800E9
- for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 11:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF344F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3789DF800E9
+ for <alsa-devel@alsa-project.org>; Thu, 18 Aug 2022 11:54:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3789DF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=icenowy.me header.i=uwu@icenowy.me
- header.b="YtYiL2JD"
-ARC-Seal: i=1; a=rsa-sha256; t=1660814717; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ecp+b6q9LKlC+2Tp45CO/kCN49M5kVOiRygPDX41MpmcwikQX6nAIfw2WcTqDsosaCBFMqyKvlJ1CzpE+qzRYNAhtXJKr5uXrQNAhfVFq3SFLi6rh/Cu7dTRRvh2LFuc62G4ltcyh16IIhZH8oUxlTOcIAVo20bTCZgs0DlRejE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1660814717;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=n/YmpnnI3jusujPQQ0H9VdujOiT8un6Nr19J1PBA+/o=; 
- b=XnnInuT+ymHQpZb+cpb3rXDGpnLIQ3VfOZrgawaSHRFCxXc3u/etCa6YlZhy6WivsCbVmCuM3o39IoJN6eg1BRt46+HZc5rSOgdUmzppHjg+/HU9pVX1RqvRJrdjJwRCovSzwzMyW/YXDlxweR1RIyFOq74KpdL8ral2uiH3T8Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1660814717; 
- s=zmail; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=n/YmpnnI3jusujPQQ0H9VdujOiT8un6Nr19J1PBA+/o=;
- b=YtYiL2JDifjW/6x7jRqIpLsGi9447JDxwCN1PQJ0W2nO9e0fNfCxHEswjoaSZe76
- tOCdfSNG9rddc6Zw7OuU8b08OSWW2wVXpVIaltQTHj1qyPe5DtUE78g0tXd63Gog7MM
- SZN3pLWNeHbzoKfiPBKidsVXFEZsdI6A/oe/AbEE=
-Received: from edelgard.icenowy.me (112.94.101.156 [112.94.101.156]) by
- mx.zohomail.com with SMTPS id 1660814714900671.9352722842973;
- Thu, 18 Aug 2022 02:25:14 -0700 (PDT)
-Message-ID: <24882ec3fed5c9772e1b04088cecece1b2477b23.camel@icenowy.me>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="H/TtZ8Mj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660816489; x=1692352489;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=XILJI79B1EMT0pLm48zCqOu473yeVZbm2kLvnZoe2yM=;
+ b=H/TtZ8MjLSnrGZEe8iJCn3moncek9fcRbNblhtHu065JWe5WTjbJDyOK
+ VRVfI/fl5fn05nisPlX+uUEe6s4GHUv6hYN3jTPWVeDjuMe+T1xdVEr+5
+ qO1MMtuqh3dcWExguYS5eU/uZyXc6MQ8/14ddZn/gUyZCORnHBXZhPwTi
+ qIh6Gz9FGlCZXq6yVJDlC0kTD9pPPNLPCtgJhhk4Q+t7kccHEG7toFBxh
+ GXp53v5PRuEs9krkbyUE/Bl5com59ZB0bEUlOs14C3deCA/cj9ZlcxWmC
+ mpfpUsbQDAL87lbgIzF9BnvkP+nfQrCEWFajlHmgSp1/WhyWnCuI8Sbb9 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="279684023"
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="279684023"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 02:54:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="584145951"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga006.jf.intel.com with ESMTP; 18 Aug 2022 02:54:17 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Thu, 18 Aug 2022 02:54:17 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28 via Frontend Transport; Thu, 18 Aug 2022 02:54:17 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.106)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.28; Thu, 18 Aug 2022 02:54:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XzwxjwvG5a5v2f3hYHjV9bn7FfJqF09aEsg2NJ2M1OWpfJprU3ItpqGSYxsAtWIpm2nHOgZGru6M4gEaD+3tTZGn/0IoBV/l89szKc/Zcn5XDrns1RUVRveFweajL8RKIh+gcg8qJY98AsqKc+vNwj/c2eFqVt8zF2vYE4HTsIaj7i7bo3mxWBkb4DH8QraOtpqnDIxz/FwomrMUm3mdZMuG6gNrZMfhSbNObuR1qKgrsFXJBfVlJtU8Sp9xN8U+MRYSOTcau3aEHuOxpWa4VI/wvkHioHsI/BeICs/umOVGiM7LNSISBxaEtb7oDlRtmM8fRX1XW/Li5oosSAm/sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D77LS0uFi4sy0fmAFvOzu7lTFz+/m2YuoYJcmFayLR4=;
+ b=a8iFiOkq1tQeK/zuGtIXOSou4Vf+JZ5ouYfmzw3HbeLF5AeG2I+mTYfMYp7zZsLjCUsEl+duHTGNn8eGFV2grFsReZBRvh57qaDhXAS5u7GXQgN8iAikEkQH9FhWm6lS+ZjdX8F2oaW4VYFjACXoABczePGyetNh6souA3eJ3v87e4cYeBecs5GiPz2UZ3xNxU3/AHV9SeT4tWibbrYRv7l8M18CkmqHdaaXYW5wCxflLaOyw2yUgf7P+c2WWa0frYBL9DD1x7J7ixOjxRMQG6+lfSTW7v0tMWpYVzxYX1FNEhQc933xNzo3Qkfgh51QpWvRPpMiBs2naZPfQkPFrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ BN9PR11MB5417.namprd11.prod.outlook.com (2603:10b6:408:11e::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5525.10; Thu, 18 Aug 2022 09:54:15 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::75e3:4009:a5d1:c3ae]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::75e3:4009:a5d1:c3ae%5]) with mapi id 15.20.5525.011; Thu, 18 Aug 2022
+ 09:54:14 +0000
+Message-ID: <2b70d631-1d59-d841-e9d0-9f6b254ed940@intel.com>
+Date: Thu, 18 Aug 2022 11:54:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.12.0
 Subject: Re: [PATCH 2/2] ASoC: Intel: Skylake: try to get NHLT blob with PCM
  params as fallback
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Thu, 18 Aug 2022 17:25:09 +0800
-In-Reply-To: <c3386d45-b643-b4aa-c868-5c113cd2955f@intel.com>
+Content-Language: en-US
+To: Icenowy Zheng <uwu@icenowy.me>
 References: <20220725111002.143765-1-uwu@icenowy.me>
  <20220725111002.143765-2-uwu@icenowy.me>
  <4208aece-0aea-ba86-9a00-9e217546e1dd@intel.com>
@@ -77,12 +109,74 @@ References: <20220725111002.143765-1-uwu@icenowy.me>
  <85648922-27df-051d-8ae8-d0e4e810198a@intel.com>
  <1891bc72834cb6e25d479c3968c04bcef94c3ad5.camel@icenowy.me>
  <c3386d45-b643-b4aa-c868-5c113cd2955f@intel.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.40.4 
+ <24882ec3fed5c9772e1b04088cecece1b2477b23.camel@icenowy.me>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <24882ec3fed5c9772e1b04088cecece1b2477b23.camel@icenowy.me>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0052.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::23) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 99a34ece-2894-4f3b-6978-08da80ff9b8d
+X-MS-TrafficTypeDiagnostic: BN9PR11MB5417:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hHrwcMz8i5LTrfMoGkKe3a/1DFNXFtqcwJwjPTnzBE8h+C6IruI8bdIsJMJqXoFbWQLWUQT8kewEIVjcQ57NpmhKI50o76jEcDREiEZIwgp2oGDqu8bCYrQtVJfxt/emGdOp+Os7mpm8EUUQKJAg7gmLWkBcMUqGMq5knb6YbLKK4R/IWOyW9FFbaHkiiJsddbbH6aanlPz4SiaZ4IJ/zdZDlqmuvyFVESh9qctVpMzLPKu01cAZwZWW1Gl6uZXlicaJ9aG7GDWiA/5IadJ/8EoltX5nCvX114Ro+RZXxNnfD7K76Na4jEJxqqDRu3L7HtSJSKU+gOuEl8vrixt/Q9ptonEvROBAb50/CfLkdds5wRSm3UjwjmZEgt+yu4DFg0ht43WmgK/p+eV6kfza4233TK2/nsASc0VixmcA1zLeHPD2EteiuGuCmdn7ElQlmjlv2dE8x5/6AuYpuajVMWJ3nTSno42uAHJmIb72UOwf32FHDskr6UvKYVRTx+0CwdEUjwQJX5ISIwLy5/dH43yom6z/I1tMmm1Ocn2M5hbYtmPFAo0INH9C0N6hNorjiSdaMefe5xdV0adKVoZsV5Vdsc+OIuJ2wEQBo4YBBWSN1aE1qt0ybfyMxPM31CS0e8zZAJ2egZmdb/0jmRGxThKpBRGvpR4F7USX911lJyEfROV4WpzH5xW3LHf83mctL2lLhSShBjR6CnyJhBKBEyVFXxfEGHRg3KoJE72A2qN7KLhHiQ/puUIlG1MJd7bq/NJNTEdigvljHQeLkgjHcidYMFAN0T05oljRkHSywBM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(346002)(366004)(376002)(396003)(136003)(39860400002)(83380400001)(186003)(2616005)(82960400001)(6486002)(478600001)(38100700002)(6916009)(41300700001)(66556008)(6666004)(316002)(44832011)(6506007)(5660300002)(54906003)(2906002)(66946007)(53546011)(26005)(8936002)(31696002)(31686004)(6512007)(8676002)(4326008)(86362001)(36756003)(7416002)(66476007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVpxWXVXTi9QWWdKY0UveUs0cVZQTmRkdHJHaUt2VkxwWUVJdlMxWlRLNzZV?=
+ =?utf-8?B?RkVPU2NidWZxRzBzb0taUHdqeE5hK1hHd0JBVDVUZkMvSHJ5K052WTlYNnl4?=
+ =?utf-8?B?NGpaeGdGa24vNlpiMndvUGpLd0hFQTgyb2ZOMHcxRmVKYmtyRTBxakpRZ3dY?=
+ =?utf-8?B?R3gyZDhMY1MwSFBSMGk0eXcySVBxVUFvUGZOY0JJeVNOU3JtOVRzMnl0YUc4?=
+ =?utf-8?B?TmNNSzJMRmZnZDUxa29NcVZZL3lNTDRpNXBrdTY1bVVudm5Xb0ZIaWhheXZs?=
+ =?utf-8?B?eWMwQll0N3BCZHRpd3E0OWlnN2lxcGRoQ1BaM2JZZ01kRXVEN3c0a3NvUHd3?=
+ =?utf-8?B?bFVGVEZBVmpEK1FkSVlocm5ubHpsNTdQZ1JpaDJpeGsvRlVEVGNUdTV3TW82?=
+ =?utf-8?B?dlppd29tcmVYMG82clJkR0o5bGdWOHEyOURJbTdRUm16ZWpreDZoNjVDZ2JL?=
+ =?utf-8?B?RDlhb0xVMzV4SitiY3Zic1JFOW9Oak45d0swWnZCbktDL0poRmtDUGpIcVBv?=
+ =?utf-8?B?eGpQUkpmVEo1RWpia08vbkR2VTQyZ2VaSzVidkZJVXRtMFZtZ05sS2dEaFpj?=
+ =?utf-8?B?UGV0c1ZGYlplb0ZuUWk2Wm5vRWttSzU1THlkZ1VHT1RoRE1YWlRZQU1McDlp?=
+ =?utf-8?B?czVIcVJjaHFtdEt5cGFhUTJlLzZ0SktwaEoyNWM5YXNxdVM2MCtSbzE3Umha?=
+ =?utf-8?B?L0tWcFFRdzdCRGhIcFF5Q2NOSDZUc3MyTVcwQ3g4VXNXYy9jWS93Z3ZmMHdk?=
+ =?utf-8?B?aXVDREc5MVppajVxbEZlM3VNb0RSTHJxZVBBTjkvSldFRCtuVEVuNko4V2tY?=
+ =?utf-8?B?QmU4cWNDWDIzbGlMZzF1NTZtc1IveXVmaXJrQXhsOXlNVEhpSTkvbEk1QTNt?=
+ =?utf-8?B?Z0tUUW05aTRkQXZ3WHdWT1IwZGF0U205N3h5aDkvTEJNOW1nMmk2M1UwaSt5?=
+ =?utf-8?B?RDI2WWswQUJCS3hrU1d1dWZmL2F6b1BGMVhjUlAxYTg3N2RGbzRSc0RUQ3Yr?=
+ =?utf-8?B?T01IWDdScGNjQ1F3RnFDNUxWdDhqMHg2NU1KQmloU1c0OTZnOG4xOTFwNXRt?=
+ =?utf-8?B?TjhWaVVDOVExbytsOXR0Sk54VXZWT2RTcTd2RWxXaDExQ0dYWWZqSkRxUHFu?=
+ =?utf-8?B?amoySWFpdGlCaGE0V2xLb0JoQVpwL0EvNENvSWk3NzlYSkpEeWJhMjRRajJJ?=
+ =?utf-8?B?UlVnaUx1emdsb1JuMm90K1BYQUxac1lFTmVGMlZPLy9TY3Q4TklNM0p3c1Zr?=
+ =?utf-8?B?cnV0amc1YW1DYWFSTTByWC8yM1kwak1rNnlPR1hTcmwyY25ZVnpPNk1XV0d0?=
+ =?utf-8?B?THh5c3hoMlJ1MTZoSEhkTURxOTZQRFc2NDBOaG90ZzNMR3ZZMm5NNDFRbWJh?=
+ =?utf-8?B?VHRTM2QxWDF3M1R6Z3dzeG50ZWlhZHN4UEVYY0xyWDYycExMd3B5alo4azBV?=
+ =?utf-8?B?L2R2byt5Q0Fqdkc0Tzc5MGJPMzAwVllRZ004YkJ4V2hBRXhpc29sTXExUnF2?=
+ =?utf-8?B?NnlRakt2Tm9yZlhmU0x4cVB4aE5mcW1zVWs0dk9iRmhuMkkzSVNVRkdneTlx?=
+ =?utf-8?B?bURRQzlpUks0ei9MeVBDWHRldmlvZlUwSnc4NzZVV0QwQ0FFcTk0dkFjNlda?=
+ =?utf-8?B?ak50SzdqUGozalliNmxsTHZiSWNNTFJWOWl2Vm1pY2FrRmFVWVZvZG5IV2ls?=
+ =?utf-8?B?NmtURjhKL0NKRllyQ3Fkd3F5M1BHUHlDaVFSeDI5L0xyaURMZUszZWJ0TFh4?=
+ =?utf-8?B?L2xQb1dORkhTeWM1OENTdm5wZDJaemNsMmRWcDdsZkx5cUltWWlTWEV2RjAw?=
+ =?utf-8?B?QTN4aDk5eVV3NFNjZWNhc2hFN0xYY3dpVzRlc2NYR2g4Vk1GelI4aWRNaDk5?=
+ =?utf-8?B?TTF2b1lreXpxOGxtRnNaeXYxK2hMQVQvRGFIdmZ1bVU4ZUw3NDZRTDlZZi9F?=
+ =?utf-8?B?VFJxL0g0ckNSb2pVQXdQbjdGMVBuL1JCemczcktXbXNUK2l1a2VwWXc5Vjd6?=
+ =?utf-8?B?YUo3TmN1Vm1sNDRpOFpEM2c0aVdHVjdSdG93bnFBRGthaEVZeXp1dXJCMlNl?=
+ =?utf-8?B?ckJWTjFHdzAzY1ppSVRSS3pMeFVBY0Nqem9sZzJnUmFnQzQwME8ya1ZDUC8z?=
+ =?utf-8?B?MWppZEJaRlo5WWdFQ2VCREtROUJ2KysyRldCdHJjUGZJRE1udVptYWxOTTBu?=
+ =?utf-8?B?S0E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99a34ece-2894-4f3b-6978-08da80ff9b8d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 09:54:14.2972 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bWMvkcq6/WRff0ZI2Beqp8FU+NpFDujCSsPE+VS3jd1PNkl9ZgVgXWMD6tcwyS8sWPsYC7h9H6+hzHMkdIytaG2nNi+6hMzIOH6UINMdZpA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5417
+X-OriginatorOrg: intel.com
 Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
  linux-kernel@vger.kernel.org,
@@ -106,65 +200,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-=E5=9C=A8 2022-08-17=E6=98=9F=E6=9C=9F=E4=B8=89=E7=9A=84 15:19 +0200=EF=BC=
-=8CCezary Rojewski=E5=86=99=E9=81=93=EF=BC=9A
-> On 2022-08-17 2:48 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2022-08-16=E6=98=9F=E6=9C=9F=E4=BA=8C=E7=9A=84 21:08 +0200=EF=
-=BC=8CCezary Rojewski=E5=86=99=E9=81=93=EF=BC=9A
->=20
-> ...
->=20
-> >=20
-> > Yes, it's Chell.
-> >=20
-> > BTW do you need other ACPI tables?
->=20
-> At this point, no. Thanks for confirming the platform's name.
->=20
-> > >=20
-> > > ..and at this point I probably know more than enough. We have
-> > > tested
-> > > basically all of the KBL and AML configurations when fixing
-> > > regressions
-> > > during recent skylake-driver up-revs. But Chell (and Lars for
-> > > that
-> > > matter) families were not among them as these are based on SKL.
-> > > I'll
-> > > follow up on this with our partners and come back here. I'm
-> > > almost
-> > > certain topology files for the two families mentioned were not
-> > > updated
-> > > along the way.
-> >=20
-> > Could this be an issue of Coreboot, which generates the NHLT table?
->=20
-> NHLT was left alone across all the updates. Updating it is one way of
-> fixing problems but I don't believe it's necessary in your case.=20
-> Topology update is more desirable approach.
+On 2022-08-18 11:25 AM, Icenowy Zheng wrote:
+> 在 2022-08-17星期三的 15:19 +0200，Cezary Rojewski写道：
 
-BTW how could I fix the topology?
+...
 
-I now use topology files from GalliumOS (which, I assume, is extracted
-from ChromeOS).
+>> NHLT was left alone across all the updates. Updating it is one way of
+>> fixing problems but I don't believe it's necessary in your case.
+>> Topology update is more desirable approach.
+> 
+> BTW how could I fix the topology?
+> 
+> I now use topology files from GalliumOS (which, I assume, is extracted
+> from ChromeOS).
 
->=20
-> > BTW I think Google pinned the official OS of this hardware to a
-> > much
-> > lower kernel version (but I don't want to use the official OS
-> > because
-> > of limited storage of Chell and lack of VM ability of the OS on
-> > Chell).
->=20
-> That clarifies things out. Guess the kernel version used there is
-> v4.4=20
-> (plus a ton of un-upstreamed patches). Again, will propagate the=20
-> information up the chain. Perhaps one of the solutions for end-users=20
-> would be providing working UCM files to alsa-topology-conf repo so
-> users=20
-> are not powerless in situations such as this one.
->=20
->=20
-> Regards,
-> Czarek
+(save)
+
+>> That clarifies things out. Guess the kernel version used there is
+>> v4.4
+>> (plus a ton of un-upstreamed patches). Again, will propagate the
+>> information up the chain. Perhaps one of the solutions for end-users
+>> would be providing working UCM files to alsa-topology-conf repo so
+>> users
+>> are not powerless in situations such as this one.
+
+The message of mine above is the answer to this. Without some ADSP 
+firmware knowledge it's almost impossible to write a topology file from 
+scratch. During v4.4 -> v5.4 transition several problems with endpoints 
+were detected as not all of them were behaving as expected. Long story 
+short, I do not believe pure v4.4 on some of the designs (mainly I2S 
+designs) works as intended. Some external patches are needed for that to 
+happen.
+
+The situation on v5.4 is much cleaner - the problem there are the 
+topology files, as these are not updated automatically when you flash 
+new kernel. In fact, these were never shared in alsa-topology-ucm repo. 
+Only HDAudio topology has been fixed and shared. As long as you stick to 
+the original ChromeOS the issues on your machine should cease to exist. 
+I need some approvals before I2S designs can be shared. It's not a 
+process that takes a day or two, unfortunately.
 
 
+Regards,
+Czarek

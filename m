@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DC3F599625
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 09:42:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212435997F2
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 10:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C9F3163F;
-	Fri, 19 Aug 2022 09:41:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C9F3163F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85D9B9F6;
+	Fri, 19 Aug 2022 10:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85D9B9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660894927;
-	bh=QlyJzkYOXdt9aX/Bwon7uYrwBx7WgOIwLFmnjyF0XaY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660899182;
+	bh=Ve+ctJbtYKLwu+oiOEWL27N6fUcEIoMGbA6/2i8Fpho=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PGUADqa1yY6hOZKpsUsR+A9cfQC1QDvIuDBt9lyffRQDTOW+BWMDtKpLgTNkXiN1/
-	 5JnbnBrp0kXe8CWkh+0e1BmePvqlFzS+HpIyOTG4CNeXjJsJ1dSI8gTG8B+icfofKd
-	 Nbsc8hy5mrh1Jr3mKzxJWHoT30vCjnLvA5AC5EOI=
+	b=uDNR5CSVQpNUljVLkhLZI38d3t27jk00aJ+cqZABp0GRG+GEdQGWAHX2atXoq0O+C
+	 /Nf20T3DOtjCFg7e7M5R/FWKQIh4Dnt86kysSEhcxDX2pBmNI8+i1Eyn+AfeoahTN3
+	 d5JQ1bWk7Dx1vwypovQD/5ArebI8VpCi/jTjIgYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1696F80217;
-	Fri, 19 Aug 2022 09:41:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 038A2F80217;
+	Fri, 19 Aug 2022 10:52:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A016F801F7; Fri, 19 Aug 2022 09:41:05 +0200 (CEST)
+ id 1F458F801F7; Fri, 19 Aug 2022 10:52:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA398F800B5
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 09:41:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA398F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 978CBF800EE
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 10:51:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 978CBF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="N9ULk/nS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="6HSXckWA"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E8AEA5CAC7;
- Fri, 19 Aug 2022 07:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1660894861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qmEmRwbvgXw29M6tJMACSOhRvv5bpX5gPHGr1QrxjWg=;
- b=N9ULk/nSj5ci61DvtWywUkMT1iE7dIgWi7Gv8PWNun41MurpGppwGzShj+qAkJh5f9AEP2
- FjVzllqP6wjTCBnJ31bWQ6kiYvbKUbtC44/3jdTskONNXgz8+yGVI8hSjteqzKEdrRkSlA
- VnFso7+N6Ux3ej8VC5UgUwOv8mxbVxc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1660894861;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qmEmRwbvgXw29M6tJMACSOhRvv5bpX5gPHGr1QrxjWg=;
- b=6HSXckWAKOq9QOhFAT2GgBdiJs0SXMFWK+J7rhSeJ7vMKxtcNaIlfGNxUtUDWcI7tJim9e
- 7iALMLh5xqEszFDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C6D3D13AC1;
- Fri, 19 Aug 2022 07:41:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sRHCL40+/2LPUgAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 19 Aug 2022 07:41:01 +0000
-Date: Fri, 19 Aug 2022 09:41:01 +0200
-Message-ID: <87fshs7kaa.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: abhishek.shah@columbia.edu
-Subject: Re: data-race in snd_seq_oss_midi_check_exit_port /
- snd_seq_oss_midi_setup
-In-Reply-To: <CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com>
-References: <CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Cc: Gabriel Ryan <gabe@cs.columbia.edu>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, tiwai@suse.com
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="blMjc/6k"
+Received: by mail-oi1-x232.google.com with SMTP id w196so4100279oiw.10
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 01:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=nF0tn/gqHX2oF+4Z5pCAzKHZIqOMWauw7VYS0cwAOok=;
+ b=blMjc/6ksopKkDzK5Zegh4Xaa2gWWCSmBGbBg1g5Oc94skjuei7Z8cN2xWs8mLwfSA
+ EZdZU7741dKg5L40fpwDT9AtXZkm/9zMb30QMZoB800mBtS0sK5R4bYp/DCdwi9WLzTj
+ xBjYsU4ZgfefRaDFE9KYGbljqrOPmLtG7UAroVbzFhEE7y571TjJg1IvHGfKHbucSvub
+ nggJMerbg1UGKacrAOxu8iqH++pusk8sL2MnVQmnGVciC+FAczlchs76hdTV0oesbYLK
+ KFOffT5mH62nfGubDd/hW/+nuItXDRT6bOnrRKEqouuJFcT0c5cmMTpDvuvtvPxs7Xs0
+ S2dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=nF0tn/gqHX2oF+4Z5pCAzKHZIqOMWauw7VYS0cwAOok=;
+ b=QZAqFflBaXjKlRoPta++cpPe7h6Io3U+8q6TLLdNmpXmTgMsBT5uSEzwHBCP39I6z9
+ xCr8L7ERMpSiYOsw3toGNkPaDGxlA5d4Qj32VgQsig+Y2FVKbgjlchvq3cNoSG63ft+k
+ U/v1fOHeTHY4pE/z4PnC7fO83px2GBayDb6HJKcaVa28/QcBaQ5q06xWVrFnd4JqKFYJ
+ rhhBAT2GY2NbJFK4JW6lS4NMRQ3vdqdg73Bav/ixUHs+4l9C6a0aTpBO9g4mSh4h3cto
+ Y97+xGHQodjw4rkC1Moy86pMkbDChtwMtsxJUvdjNG9/ut1x/iQROmmthpaX+ud5Yg0D
+ dk6w==
+X-Gm-Message-State: ACgBeo2hVFZlkwO725HlUkAFkjC6hakeDucr16U7K4jMqT46pRNulsdO
+ pIVmXFvr6bfJ1VDZt4KzUlN4y6iwSYYPU0YFZYYLnA==
+X-Google-Smtp-Source: AA6agR6UqzK3ndt0r/lpsmdJ+6+R3XX8weq5nK6uHhY5EviJWIuX2wqEG8EgXjLsPA7Dr2zeXhLnFJymLvNXn75T5fo=
+X-Received: by 2002:a05:6808:3:b0:343:7d5c:ac50 with SMTP id
+ u3-20020a056808000300b003437d5cac50mr3057270oic.108.1660899112103; Fri, 19
+ Aug 2022 01:51:52 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220818035105.5510-1-steev@kali.org>
+In-Reply-To: <20220818035105.5510-1-steev@kali.org>
+From: Amit Pundir <amit.pundir@linaro.org>
+Date: Fri, 19 Aug 2022 14:21:14 +0530
+Message-ID: <CAMi1Hd2uqbs7mmX+FbNxsnqxTCkBW1CbR3En5f+ov7XZ87qPrA@mail.gmail.com>
+Subject: Re: [PATCH] soundwire: qcom: remove unneeded check
+To: Steev Klimaszewski <steev@kali.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,100 +103,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 19 Aug 2022 03:00:00 +0200,
-Abhishek Shah wrote:
-> 
-> 
-> Hi all, 
-> 
-> We found a race involving the max_midi_devs variable. We see an interleaving
-> where the following check here passes before the 
-> snd_seq_oss_midi_check_exit_port() finishes, but this check should not pass
-> if max_midi_devs will become zero, but we are not sure of its implications in
-> terms of security impact. Please let us know what you think.
+Hi Steev,
 
-Through a quick glance, I guess it's rather harmless (although a bit
-fragile from the code sanity POV).
+Thank you for looking into this crash. Srini submitted the same fix
+earlier this week
+https://www.spinics.net/lists/alsa-devel/msg146137.html
 
-A MIDI port could be closed at any time, and the dp->max_mididevs
-holds locally the upper bound of currently possibly accessible ports.
-The actual access to each port is done via get_mdev() in
-seq_oss_midi.c, which is a sort of refcount managed, and it should be
-fine that a port disappears meanwhile.
+Regards,
+Amit Pundir
 
-That said, it'd be even feasible just dropping dp->max_mididevs field
-and scan all MIDI ports at each time, but it won't bring much benefit,
-either.
-
-
-thanks,
-
-Takashi
-
-> 
-> Thanks!
-> 
-> -------------------Report---------------------
-> 
-> write to 0xffffffff88382f80 of 4 bytes by task 6541 on cpu 0:
->  snd_seq_oss_midi_check_exit_port+0x1a6/0x270 sound/core/seq/oss/
-> seq_oss_midi.c:237
->  receive_announce+0x193/0x1b0 sound/core/seq/oss/seq_oss_init.c:143
->  snd_seq_deliver_single_event+0x30d/0x4e0 sound/core/seq/seq_clientmgr.c:640
->  deliver_to_subscribers sound/core/seq/seq_clientmgr.c:695 [inline]
->  snd_seq_deliver_event+0x38c/0x490 sound/core/seq/seq_clientmgr.c:830
->  snd_seq_kernel_client_dispatch+0x189/0x1a0 sound/core/seq/
-> seq_clientmgr.c:2339
->  snd_seq_system_broadcast+0x98/0xd0 sound/core/seq/seq_system.c:86
->  snd_seq_ioctl_delete_port+0x9a/0xc0 sound/core/seq/seq_clientmgr.c:1356
->  snd_seq_ioctl+0x198/0x2d0 sound/core/seq/seq_clientmgr.c:2173
->  vfs_ioctl fs/ioctl.c:51 [inline]
->  __do_sys_ioctl fs/ioctl.c:870 [inline]
->  __se_sys_ioctl+0xe1/0x150 fs/ioctl.c:856
->  __x64_sys_ioctl+0x43/0x50 fs/ioctl.c:856
->  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
->  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
->  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> 
-> read to 0xffffffff88382f80 of 4 bytes by task 6542 on cpu 1:
->  snd_seq_oss_midi_setup+0x1b/0x40 sound/core/seq/oss/seq_oss_midi.c:273
->  snd_seq_oss_open+0x364/0x900 sound/core/seq/oss/seq_oss_init.c:198
->  odev_open+0x55/0x70 sound/core/seq/oss/seq_oss.c:128
->  soundcore_open+0x315/0x3a0 sound/sound_core.c:593
->  chrdev_open+0x373/0x3f0 fs/char_dev.c:414
->  do_dentry_open+0x543/0x8f0 fs/open.c:824
->  vfs_open+0x47/0x50 fs/open.c:958
->  do_open fs/namei.c:3476 [inline]
->  path_openat+0x1906/0x1dc0 fs/namei.c:3609
->  do_filp_open+0xef/0x200 fs/namei.c:3636
->  do_sys_openat2+0xa5/0x2a0 fs/open.c:1213
->  do_sys_open fs/open.c:1229 [inline]
->  __do_sys_openat fs/open.c:1245 [inline]
->  __se_sys_openat fs/open.c:1240 [inline]
->  __x64_sys_openat+0xf0/0x120 fs/open.c:1240
->  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
->  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
->  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> 
-> Reported by Kernel Concurrency Sanitizer on:
-> CPU: 1 PID: 6542 Comm: syz-executor2-n Not tainted 5.18.0-rc5+ #107
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/
-> 2014
-> 
-> Reproducing Inputs
-> 
-> Input CPU 0:
-> r0 = openat$sndseq(0xffffffffffffff9c, &(0x7f0000000040)='/dev/snd/seq\x00',
-> 0x0)
-> ioctl$SNDRV_SEQ_IOCTL_CREATE_PORT(r0, 0xc0a85320, &(0x7f0000000240)={{0x80},
-> 'port1\x00', 0x10})
-> ioctl$SNDRV_SEQ_IOCTL_SET_CLIENT_POOL(r0, 0x40a85321, &(0x7f0000000100)=
-> {0x80})
-> 
-> Input CPU 1:
-> r0 = openat$sequencer2(0xffffff9c, &(0x7f0000000000)='/dev/sequencer2\x00',
-> 0x0, 0x0)
-> ioctl$SNDCTL_SYNTH_INFO(r0, 0xc08c5102, &(0x7f0000000200)=
-> {"02961a3ce6d4828f8b5559726313251b55fa11d8d65406f1f33c9af8e3f8", 0xffffffff})
-> 
-> 
+On Thu, 18 Aug 2022 at 09:21, Steev Klimaszewski <steev@kali.org> wrote:
+>
+> commit 1fd0d85affe4d6 ("soundwire: qcom: Add flag for software clock gating check")
+> added a flag for software clock gating check, however in commit
+> 33ba01788889666 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+> the same check was added without the flag, so we would still end up failing
+> the software clock gating check.
+>
+> Originally reported by Amit Pundir on DB845c, I also saw it on the
+> Lenovo Yoga C630, right before the splat, we would see
+>
+> qcom-soundwire wcd934x-soundwire.6.auto: Failed to get audio_cgcr reset required for soundwire-v1.6.0
+>
+> however, SDM845 has a soundwire-v1.3.0
+>
+> Since the flag was added in 1fd0d85affe, lets just remove this one.
+>
+> Fixes: 33ba01788889 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+> Signed-off-by: Steev Klimaszewski <steev@kali.org>
+> Reported-by: Amit Pundir <amit.pundir@linaro.org>
+> ---
+>  drivers/soundwire/qcom.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 709a7c1e0704..b621f7fb866f 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -1355,10 +1355,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>         ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>         ctrl->bus.clk_stop_timeout = 300;
+>
+> -       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+> -       if (IS_ERR(ctrl->audio_cgcr))
+> -               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+> -
+>         ret = qcom_swrm_get_port_config(ctrl);
+>         if (ret)
+>                 goto err_clk;
+> --
+> 2.35.1
+>

@@ -2,92 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4702F599C90
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 14:58:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E591599C92
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 14:59:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E43C41699;
-	Fri, 19 Aug 2022 14:58:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E43C41699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21CF316C5;
+	Fri, 19 Aug 2022 14:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21CF316C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660913932;
-	bh=Jwv8BKTu4/iWp8Xw8t2ht5PLB4eqd0daPnEuvMdqDMU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660913949;
+	bh=+PklY3EifmA+RaEENxkH9FOzi+/PUk/yRasYbzrGBBk=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K7sLso8jQlsyQ11/uYR9i1yOdm72BDUODjC8GlBVczNpDXQ9J0nINX14q7+/pub66
-	 PuvcTroLByndknPgldDRqwMynDfr0kQT5FprCZ8RCWnFslyrc0x1X8raD1NvbYNDhY
-	 uQEIAT6k4/EgSooVOu6xI06uHJAdV7ryrSQaLwRM=
+	b=QtynuYEP4TtjABFiaHif6l1xc6hB32p8g5GWhmv9it3OOuqUShVnQN0IldlGR8x51
+	 eCt6cAqeHeu8d4a5gCczbRk+kzgyWWXMqsaUSwmg5khuOjELAz+jEjEjYXOFJFgIRL
+	 U9KUu1tU8QIGXtPig4zFw84x+boTsj8iAjfVtN/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72097F80559;
-	Fri, 19 Aug 2022 14:56:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C1C3F801F7;
+	Fri, 19 Aug 2022 14:58:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A971F80557; Fri, 19 Aug 2022 14:56:15 +0200 (CEST)
+ id 511D5F8016C; Fri, 19 Aug 2022 14:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D228F80128
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 14:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D228F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF68CF800B5
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 14:58:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF68CF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zNLfqfMY"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hvtE3YFK"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5B7E41FBA1;
- Fri, 19 Aug 2022 12:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1660913768; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RxLZDe/okGIGQaYgI7kzj7hPr56arytW65DiU/6hAxc=;
- b=zNLfqfMYPUtb6QgOnOQbgBqz3fxEegp4U5uleh8dagODPzD3kJb1Dx7Y3SrXp/DSCFiyk4
- WtfgSXlI9Prb6I0fK9ISny0pMyCkRYPHH9k82Zpo2cAGqjuUk+2NQzthFVEZu+b3c347HG
- AUvWlPN2xbkZfU2nlyzGuSIh6QZYGcs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1660913768;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RxLZDe/okGIGQaYgI7kzj7hPr56arytW65DiU/6hAxc=;
- b=hvtE3YFKbs7kjV5zzPaca3nqHhe1858blhZzQ5z5FNQsURN/MKP3uTa7RtL6zHCXgkLLW3
- Vib5Zzzhh1KNDmCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1B98B13AE9;
- Fri, 19 Aug 2022 12:56:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kakOBmiI/2JRUQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 19 Aug 2022 12:56:08 +0000
-Date: Fri, 19 Aug 2022 14:56:08 +0200
-Message-ID: <87edxco0if.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2] ASoC: SOF: Fix compilation when HDA_AUDIO_CODEC config
- is disabled
-In-Reply-To: <20220819124740.3564862-1-cezary.rojewski@intel.com>
-References: <20220819124740.3564862-1-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+ dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
+ header.b="Hr+iI8YF"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+ t=1660913884; bh=s5P1/ldO6meakYSsej4N49VnAyA6qiJALD2PPNXMMsQ=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=Hr+iI8YFOPLdaTCZsreuXLflX6ftTmJgplJ+SzuSmXEdhkuSsx6sDp9GWrCR4Eb0X
+ +Ci7PrTK0jp9F7S1QlYkdX7shv25Ze3dj2YC96kO8WKhIQh2q/0ezsu5yxzL01PRMI
+ I86CcKeBHeRf08lwdBHsz65amSZ6VL31maa+i6wQ=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
+Subject: Re: [PATCH v2 1/4] dt-bindings: sound: Add Apple MCA I2S transceiver
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <20220819125430.4920-2-povik+lin@cutebit.org>
+Date: Fri, 19 Aug 2022 14:58:03 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <AE646B68-CA14-483C-A1AB-30358560DAAD@cutebit.org>
+References: <20220819125430.4920-1-povik+lin@cutebit.org>
+ <20220819125430.4920-2-povik+lin@cutebit.org>
+To: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ asahi@lists.linux.dev, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,20 +81,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 19 Aug 2022 14:47:40 +0200,
-Cezary Rojewski wrote:
-> 
-> hda_codec_device_init() expects three parameters, not two.
-> 
-> Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+
+> On 19. 8. 2022, at 14:54, Martin Povi=C5=A1er <povik+lin@cutebit.org> =
+wrote:
+>=20
+> Add binding schema for MCA I2S transceiver found on Apple M1 and other
+> chips.
+>=20
+> Signed-off-by: Martin Povi=C5=A1er <povik+lin@cutebit.org>
 > ---
-> 
-> Changes in v2:
-> - adjusted SHA-1 provided in Fixes tag
+> .../devicetree/bindings/sound/apple,mca.yaml  | 131 ++++++++++++++++++
+> 1 file changed, 131 insertions(+)
+> create mode 100644 =
+Documentation/devicetree/bindings/sound/apple,mca.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/apple,mca.yaml =
+b/Documentation/devicetree/bindings/sound/apple,mca.yaml
+> new file mode 100644
+> index 000000000000..7b4f348c2be3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/apple,mca.yaml
+> @@ -0,0 +1,131 @@
 
-Thanks, applied.
 
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - apple,t8103-mca
+> +          - apple,t6000-mca
 
-Takashi
+Since it was brought up last time but I didn=E2=80=99t respond: the
+nonalphabetical order is as the chips were introduced (and
+matches other schemas).
+
+Martin
+

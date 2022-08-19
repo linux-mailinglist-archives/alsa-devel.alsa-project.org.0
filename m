@@ -2,93 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7AEA59A2E0
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 19:26:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B05E59A895
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:39:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CE28828;
-	Fri, 19 Aug 2022 19:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CE28828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EECF1695;
+	Sat, 20 Aug 2022 00:38:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EECF1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660930008;
-	bh=JhHcje9yYleMZ3ecjitQtSAT3TxoK/+DbnRDbF78uxw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1660948770;
+	bh=s/GG84sikI0Itd78mUGXKSubznopCbavV7DFi48tcdg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sd4LXhRvzlivKqbGunpF0t8eVI9b4SRzUz0SECw9vh5inkzRqoDiHt/Q5pERM9FFg
-	 aHJ+HjFD37esbKBrfcA+HOm4LiFZV9Df0TIARAXR2KYTWRUGHwgoG+S/bdbf1MkS8C
-	 PlD0i90S90uokZMdmHC9ofLIOouRqETLYjUr/njo=
+	b=ePKiQ840m91Afh65DN8/AztFZPSCdhCDuYZf71YlmcMEwNx6S2rqompBt7Tp/QjkZ
+	 99Y4wkRso9seKxuDPdMVfBHDeg7cSia3QiF3/SApQ/PjlMzeNNB82hGKlXtal4wd8a
+	 kxgMj4rVUa2LBvjkvwqDTcwGpDlAC2Rj0mrgfDsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50EA0F80217;
-	Fri, 19 Aug 2022 19:25:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05343F800B5;
+	Sat, 20 Aug 2022 00:38:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CC2CF801F7; Fri, 19 Aug 2022 19:25:46 +0200 (CEST)
+ id AD354F801F7; Sat, 20 Aug 2022 00:38:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D606BF800EE
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 19:25:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D606BF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03C7CF800B5
+ for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03C7CF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
- header.b="m5eMFu3n"
-Received: by mail-ed1-x52d.google.com with SMTP id u6so1379909eda.12
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 10:25:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=qzkYwMAvtyCh+8EMy7xCsIla1LIY8R7DNTHAUz0os4I=;
- b=m5eMFu3nPHM0b9xCXd42yvSzIy6NRnYZPewwOGO5BVMGgwKnDLOGfSFJDOIvU94kDL
- I8mrTDyDsaDg0cF+Dz6llUdBkgKXT9/8uXQuWDSafDakxnvBnEkaj4yEHMr01PLb8BuL
- 5wk1BcBYzaPsFcEnW9qZJ1PgirWEPWk1qulXFs/eoulcGYsMpxoXxgBJsNwP1qYZDsy7
- DrQs/pNeL9Q9iftvFr+mtFfdErPj4wUwEu4sSbIdz8TR+gvILK7xLTyg/m/MtX9O0Tjy
- 82cLDWBOIoZmPuZcMNmttdzYMs9IhrWe6EACiQPQNxHjiCdyVy8Dbf2fa+Y7ojJZoEur
- 3Gbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=qzkYwMAvtyCh+8EMy7xCsIla1LIY8R7DNTHAUz0os4I=;
- b=m0LwGqawavZnHG1CfGGU5jHCgY/oxmG72eUwrxV20CqRJGVgGbo/2+wZu1AvDXwaAx
- icvgfBa9G2NKAz0WQh3GeCUS88XbRc63Fx/HmRr9cDyCp7Y/w+RdfIkQcKxajNWLTkFV
- 3TEAeeG6heecX74WyIB/l/yf+Ej03OdvqA8itoBxGcWl7JAXPp6r6lR3kaK5VDdfiB8g
- Ic3xKEwVQuZv/PlH7t9ejtKSRv6y16ocUbq/3K6CGJEJMOEqI4Q2h/t9pqpBTDRbDQen
- D3ghj16/J300l3z7gxsMchX21kkkZSH9fwSgo7D7hDGdlCz/XmBiiBitCbesG/IQgUTt
- zSAQ==
-X-Gm-Message-State: ACgBeo33vy/Tv+uRyUMre6vdL6qBeY4m1US3+P/RfO4IVdqvDvv3UzPe
- kLUrX/ztwARy7zDXVVRipMlhhmbOp0VwPoRd/PD+Wg==
-X-Google-Smtp-Source: AA6agR4xeUfyO9PUiWAnoGFIOuh+WIOVeXWdawvtypKh9M5LE6JbKb1hr9u1STK+EEhPb7d+ysfeAamEXb6BOH+h1eE=
-X-Received: by 2002:a05:6402:50ce:b0:43d:559d:43f4 with SMTP id
- h14-20020a05640250ce00b0043d559d43f4mr6697005edb.325.1660929937682; Fri, 19
- Aug 2022 10:25:37 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jGBhNYcA"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 81115617F7;
+ Fri, 19 Aug 2022 22:38:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16410C433D7;
+ Fri, 19 Aug 2022 22:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1660948703;
+ bh=s/GG84sikI0Itd78mUGXKSubznopCbavV7DFi48tcdg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jGBhNYcANumxEn1f8q5ZLM24OMGhISmjaQ4ziYX7oH+g6bx4ighI0NCoThPLKEr+r
+ 0JE7b50PfbLwyDGsvBMzRd1SH7Ty0ChMC4ySGn4k0dsDbVsVwVp4A/f9h/2EJ+vmtz
+ BVDaS+nMrGY22Z8zTTVFfWEy/U5w5NZoIXZ9NddZ2dfAntNKU+9geLjUxA1fUyO7Cf
+ dccWpp72O3CRr/OTEXtMYtyKAL6hZV9M/c+YpJW6JUOy5HI1TBR8q9O7Mivg+RHyeM
+ TUea/g7hImUCnI5Ki9Kz8OiF/loD1JIgCJF5LVXjcZ4Py+ryba9w02XN3Liod0uDe/
+ yLek/nJMj0t7A==
+Date: Fri, 19 Aug 2022 23:38:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
+Subject: Re: [PATCH] ASoC: ops: Don't modify the driver's plaform_max when
+ reading state
+Message-ID: <YwAQ2+OLowhA+14d@sirena.org.uk>
+References: <20220603112508.3856519-1-broonie@kernel.org>
+ <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
 MIME-Version: 1.0
-References: <20220818035105.5510-1-steev@kali.org>
- <CAMi1Hd2uqbs7mmX+FbNxsnqxTCkBW1CbR3En5f+ov7XZ87qPrA@mail.gmail.com>
-In-Reply-To: <CAMi1Hd2uqbs7mmX+FbNxsnqxTCkBW1CbR3En5f+ov7XZ87qPrA@mail.gmail.com>
-From: Steev Klimaszewski <steev@kali.org>
-Date: Fri, 19 Aug 2022 12:25:26 -0500
-Message-ID: <CAKXuJqjnoZh1azpdAk-QbPQsOK6bLf-RCng1PgA+p6esQj0g7Q@mail.gmail.com>
-Subject: Re: [PATCH] soundwire: qcom: remove unneeded check
-To: Amit Pundir <amit.pundir@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vtze+xjH08JFU6nH"
+Content-Disposition: inline
+In-Reply-To: <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
+X-Cookie: Process promptly.
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,59 +87,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Oh perfect, I'm not sure how I missed that when I was searching.  This
-can be abandoned but it's nice to know I got the fix right :D
 
-On Fri, Aug 19, 2022 at 3:51 AM Amit Pundir <amit.pundir@linaro.org> wrote:
->
-> Hi Steev,
->
-> Thank you for looking into this crash. Srini submitted the same fix
-> earlier this week
-> https://www.spinics.net/lists/alsa-devel/msg146137.html
->
-> Regards,
-> Amit Pundir
->
-> On Thu, 18 Aug 2022 at 09:21, Steev Klimaszewski <steev@kali.org> wrote:
-> >
-> > commit 1fd0d85affe4d6 ("soundwire: qcom: Add flag for software clock gating check")
-> > added a flag for software clock gating check, however in commit
-> > 33ba01788889666 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
-> > the same check was added without the flag, so we would still end up failing
-> > the software clock gating check.
-> >
-> > Originally reported by Amit Pundir on DB845c, I also saw it on the
-> > Lenovo Yoga C630, right before the splat, we would see
-> >
-> > qcom-soundwire wcd934x-soundwire.6.auto: Failed to get audio_cgcr reset required for soundwire-v1.6.0
-> >
-> > however, SDM845 has a soundwire-v1.3.0
-> >
-> > Since the flag was added in 1fd0d85affe, lets just remove this one.
-> >
-> > Fixes: 33ba01788889 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
-> > Signed-off-by: Steev Klimaszewski <steev@kali.org>
-> > Reported-by: Amit Pundir <amit.pundir@linaro.org>
-> > ---
-> >  drivers/soundwire/qcom.c | 4 ----
-> >  1 file changed, 4 deletions(-)
-> >
-> > diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> > index 709a7c1e0704..b621f7fb866f 100644
-> > --- a/drivers/soundwire/qcom.c
-> > +++ b/drivers/soundwire/qcom.c
-> > @@ -1355,10 +1355,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
-> >         ctrl->bus.compute_params = &qcom_swrm_compute_params;
-> >         ctrl->bus.clk_stop_timeout = 300;
-> >
-> > -       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
-> > -       if (IS_ERR(ctrl->audio_cgcr))
-> > -               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
-> > -
-> >         ret = qcom_swrm_get_port_config(ctrl);
-> >         if (ret)
-> >                 goto err_clk;
-> > --
-> > 2.35.1
-> >
+--vtze+xjH08JFU6nH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Aug 19, 2022 at 06:17:25PM +0200, Martin Povi=C5=A1er wrote:
+> > On 3. 6. 2022, at 13:25, Mark Brown <broonie@kernel.org> wrote:
+
+> > This means that platform_max is no longer treated as a direct register
+> > value for controls were min is non-zero. The put() callbacks already
+> > validate on this basis, and there do not appear to be any in tree users
+> > that would be affected.
+
+> At least =E2=80=98put_volsw' seem to validate on the other conflicting in=
+terpretation
+> of platform_max [as was introduced in commit 9bdd10d57a88 (=E2=80=9CASoC:=
+ ops:
+> Shift tested values in snd_soc_put_volsw() by +min=E2=80=9D)].
+
+Ugh, so it does.  The patchwork of reuse and differing interpretations
+of these controls is causing all sorts of confusion :/
+
+> Also, the soc.h definitions of SOC_SINGLE_*/SOC_DOUBLE_* set platform_max
+> to the register maximum, again interpreting platform_max the other way.
+
+That use of platform_max has been removed since it was just obviously
+not sensible anyway, the whole purpose of platform_max is to override
+what was set in the control so having both max and platform_max set is
+just redundant and causing confusion.
+
+> > Signed-off-by: Mark Brown <broonie@kernel.org>
+
+> This commit breaks controls with non-zero minimum.
+
+Could you specify more exactly how it does that, and indeed where we
+have non-zero minimums - all the info callbacks report 0 as a minimum as
+far as I can see?  Life would be a lot simpler if the controls had all
+been defined to just be the register values, I've never been able to
+figure out why they're anything else since the ABI for controls supports
+negative values just fine.
+
+--vtze+xjH08JFU6nH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMAENgACgkQJNaLcl1U
+h9AWlwf/RjiL1boNHRAZYhVGSO1wGB4HirOqVSoG2gp0tgGB2MAhEwlT4R0CR8s4
+irPISWEIyAkYXwT2XZ8ZHltguUdD/a8NWP8Mi4CK+FCbv9dqpQexMG5fITPIZSSQ
+BSjNNQfZiB0EvnrUV1Q8OnsbWregeCxZNkezjT/Z+8pCnDghICdgiWxYTe3Lk7DQ
++/701ULj4JVf/58UnaGcGuTABxLXWJEpErbdUCgPncRm58dReVcJGao3b8na+xpu
+0146ROUId4f5BPVQh4JKsJxpuNHxS9q9r0gOh+WZMrNMQ06NK1K5qo0KB8pcyJ56
+kh5ELy6Oz48mFuOiGpxjDnxJE21hVQ==
+=aY/V
+-----END PGP SIGNATURE-----
+
+--vtze+xjH08JFU6nH--

@@ -2,112 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9A459A2BE
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 19:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7AEA59A2E0
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 19:26:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8D4F168F;
-	Fri, 19 Aug 2022 19:01:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8D4F168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CE28828;
+	Fri, 19 Aug 2022 19:25:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CE28828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660928513;
-	bh=ce10LjNSIVyQ9SJmc4VUQ17KLYzzQMBvrzHsI99V6lA=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Reply-To:From;
-	b=ZgZDp7xfOf8whhImd8Y9fCrC0WWIVwPx8NGIDMznWVz1/TllExKVCj62gqWPAxQsa
-	 N3LnurGfwYmXvWc+T5kabfQjCgNJRxCUVw5SdHm/tfgei/p0Zf9ZC1lwd6SpijpLO/
-	 Q87sH9IayWbiSgv2wPIqW6ukZRo2NQkVdGKUrvzQ=
+	s=default; t=1660930008;
+	bh=JhHcje9yYleMZ3ecjitQtSAT3TxoK/+DbnRDbF78uxw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Sd4LXhRvzlivKqbGunpF0t8eVI9b4SRzUz0SECw9vh5inkzRqoDiHt/Q5pERM9FFg
+	 aHJ+HjFD37esbKBrfcA+HOm4LiFZV9Df0TIARAXR2KYTWRUGHwgoG+S/bdbf1MkS8C
+	 PlD0i90S90uokZMdmHC9ofLIOouRqETLYjUr/njo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D90FFF80217;
-	Fri, 19 Aug 2022 19:00:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50EA0F80217;
+	Fri, 19 Aug 2022 19:25:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5F2AF801F7; Fri, 19 Aug 2022 19:00:52 +0200 (CEST)
+ id 1CC2CF801F7; Fri, 19 Aug 2022 19:25:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com
- [148.163.135.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A404F800EE
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 19:00:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A404F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D606BF800EE
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 19:25:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D606BF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu
- header.b="JOiAheSR"
-Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
- by mx0a-00364e01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27JGvHuB025773
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 13:00:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu;
- h=mime-version :
- reply-to : from : date : message-id : subject : to : cc : content-type;
- s=pps01; bh=oZ7bhEIp8UeZ3V8sb79BDh5Dygq9GufiaLaeFrRlQkU=;
- b=JOiAheSR0423rFC3VIMaFQjAgWu15NvRzQnKzBzlzQX6MqB/SWb3j7DYG2eA+2iy/+yG
- cjuGG3QpXdmEeNj6i5n+4ve4g93BzO3jYYPYORjjIPvB+Ai45v2vGICmLgKrqgefieUV
- cA+XPSRLjM/Iby/dMxf8W63LmR50MdRRxGaX7LkDTiV7yRnchzasVPoFUv+zScZcsO9z
- 0wilmMGOiHfp0SyAfFzOXipKmMuCw3FqWbBVVsOGEYa215OpGoUJdfNq6rs7MqsvONry
- H2CIYdY1Q3tcXmVj8NQ1oyT38+yekO0ocuWcChO6In+kpkoYvymDWwxd7IeWag8iGSYi vg== 
-Received: from sendprdmail22.cc.columbia.edu (sendprdmail22.cc.columbia.edu
- [128.59.72.24])
- by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 3j0f6x7bnr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 13:00:42 -0400
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by sendprdmail22.cc.columbia.edu (8.14.7/8.14.4) with ESMTP id 27JH0PSs060112
- (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 13:00:41 -0400
-Received: by mail-vs1-f71.google.com with SMTP id
- 129-20020a670387000000b00390232a1bfcso756728vsd.21
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 10:00:41 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
+ header.b="m5eMFu3n"
+Received: by mail-ed1-x52d.google.com with SMTP id u6so1379909eda.12
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 10:25:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=qzkYwMAvtyCh+8EMy7xCsIla1LIY8R7DNTHAUz0os4I=;
+ b=m5eMFu3nPHM0b9xCXd42yvSzIy6NRnYZPewwOGO5BVMGgwKnDLOGfSFJDOIvU94kDL
+ I8mrTDyDsaDg0cF+Dz6llUdBkgKXT9/8uXQuWDSafDakxnvBnEkaj4yEHMr01PLb8BuL
+ 5wk1BcBYzaPsFcEnW9qZJ1PgirWEPWk1qulXFs/eoulcGYsMpxoXxgBJsNwP1qYZDsy7
+ DrQs/pNeL9Q9iftvFr+mtFfdErPj4wUwEu4sSbIdz8TR+gvILK7xLTyg/m/MtX9O0Tjy
+ 82cLDWBOIoZmPuZcMNmttdzYMs9IhrWe6EACiQPQNxHjiCdyVy8Dbf2fa+Y7ojJZoEur
+ 3Gbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:reply-to:mime-version
- :x-gm-message-state:from:to:cc;
- bh=oZ7bhEIp8UeZ3V8sb79BDh5Dygq9GufiaLaeFrRlQkU=;
- b=Zeiysp3n8QY+OP37al1eCis7h7XDlmAZ9RXFvoWLWGQQzZW2O6+iJA+QyYgCALx3kz
- 1jGPF4mwKrYtWY+vWGU5YEtZzcjAlAKSbSsvaJsc+EsHKzKXf66oX/SsfW4uyygEAGN8
- hzGpzALbfI/7WlAZEKFMZOGhwF9dOOMmyB4hN9LSUyA2+9EXZJiwBCRXYxfX3uaKzi0L
- 9OhO24jIsabEV8P7yD5vpNwIwJl7sWvWNnnnekprchjVpUh4U2EE0YM3i0V06hlunw1q
- b0Mxz5buezwq1g6b0yXjmtwxZajI48vWeTAXns2LkmZSshTLg1rWXPRBCLfX9ajpqHla
- ytKw==
-X-Gm-Message-State: ACgBeo3nYrQDN/c43knkarP1mIix4WcPNtLSRkbUyrJiUhEWubZn8xDf
- 5y9tkL/RiR2kL5OJh5BZIn/LIrtfZhx6tUAevTeG8i2AniFv3g1cngOLAjI1zSyDhUx91Di7WPF
- DIWca3I3GRqWmU9f4MU3T6rDwMfRRWaRZ3N3Zpa4fYJ+cPzM=
-X-Received: by 2002:a67:b604:0:b0:388:574b:977 with SMTP id
- d4-20020a67b604000000b00388574b0977mr3221646vsm.60.1660928440586; 
- Fri, 19 Aug 2022 10:00:40 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR5ZLAQlOKjjcTHvC2ODzYCGIzIE8mGD8+vwaOS1hp5nT5j8rBZB3IQ1w4uloHJuncZNU0Ih8HJID+uhg+RnXfI=
-X-Received: by 2002:a67:b604:0:b0:388:574b:977 with SMTP id
- d4-20020a67b604000000b00388574b0977mr3221632vsm.60.1660928440105; Fri, 19 Aug
- 2022 10:00:40 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=qzkYwMAvtyCh+8EMy7xCsIla1LIY8R7DNTHAUz0os4I=;
+ b=m0LwGqawavZnHG1CfGGU5jHCgY/oxmG72eUwrxV20CqRJGVgGbo/2+wZu1AvDXwaAx
+ icvgfBa9G2NKAz0WQh3GeCUS88XbRc63Fx/HmRr9cDyCp7Y/w+RdfIkQcKxajNWLTkFV
+ 3TEAeeG6heecX74WyIB/l/yf+Ej03OdvqA8itoBxGcWl7JAXPp6r6lR3kaK5VDdfiB8g
+ Ic3xKEwVQuZv/PlH7t9ejtKSRv6y16ocUbq/3K6CGJEJMOEqI4Q2h/t9pqpBTDRbDQen
+ D3ghj16/J300l3z7gxsMchX21kkkZSH9fwSgo7D7hDGdlCz/XmBiiBitCbesG/IQgUTt
+ zSAQ==
+X-Gm-Message-State: ACgBeo33vy/Tv+uRyUMre6vdL6qBeY4m1US3+P/RfO4IVdqvDvv3UzPe
+ kLUrX/ztwARy7zDXVVRipMlhhmbOp0VwPoRd/PD+Wg==
+X-Google-Smtp-Source: AA6agR4xeUfyO9PUiWAnoGFIOuh+WIOVeXWdawvtypKh9M5LE6JbKb1hr9u1STK+EEhPb7d+ysfeAamEXb6BOH+h1eE=
+X-Received: by 2002:a05:6402:50ce:b0:43d:559d:43f4 with SMTP id
+ h14-20020a05640250ce00b0043d559d43f4mr6697005edb.325.1660929937682; Fri, 19
+ Aug 2022 10:25:37 -0700 (PDT)
 MIME-Version: 1.0
-From: Abhishek Shah <abhishek.shah@columbia.edu>
-Date: Fri, 19 Aug 2022 13:00:00 -0400
-Message-ID: <CAEHB24_ay6YzARpA1zgCsE7=H9CSJJzux618E=Ka4h0YdKn=qA@mail.gmail.com>
-Subject: data-race in snd_seq_client_use_ptr / snd_seq_client_use_ptr
-To: alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com
-X-Proofpoint-ORIG-GUID: ZiQjyJSkMdMF3wCZj27ZUh-0UQYrzP1P
-X-Proofpoint-GUID: ZiQjyJSkMdMF3wCZj27ZUh-0UQYrzP1P
-X-CU-OB: Yes
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-19_08,2022-08-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 spamscore=0
- mlxscore=0 malwarescore=0 lowpriorityscore=10 suspectscore=0
- mlxlogscore=649 clxscore=1015 bulkscore=10 phishscore=0 priorityscore=1501
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208190060
+References: <20220818035105.5510-1-steev@kali.org>
+ <CAMi1Hd2uqbs7mmX+FbNxsnqxTCkBW1CbR3En5f+ov7XZ87qPrA@mail.gmail.com>
+In-Reply-To: <CAMi1Hd2uqbs7mmX+FbNxsnqxTCkBW1CbR3En5f+ov7XZ87qPrA@mail.gmail.com>
+From: Steev Klimaszewski <steev@kali.org>
+Date: Fri, 19 Aug 2022 12:25:26 -0500
+Message-ID: <CAKXuJqjnoZh1azpdAk-QbPQsOK6bLf-RCng1PgA+p6esQj0g7Q@mail.gmail.com>
+Subject: Re: [PATCH] soundwire: qcom: remove unneeded check
+To: Amit Pundir <amit.pundir@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: linux-kernel@vger.kernel.org, Gabriel Ryan <gabe@cs.columbia.edu>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,292 +101,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: abhishek.shah@columbia.edu
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
+Oh perfect, I'm not sure how I missed that when I was searching.  This
+can be abandoned but it's nice to know I got the fix right :D
 
-We found a data race involving the *card_requested[card]* variable here
-<https://elixir.bootlin.com/linux/v5.18-rc5/source/sound/core/seq/seq_clien=
-tmgr.c#L147>,
-which can cause *snd_request_card* to be called multiple times. We are not
-sure if this has security implications however, but we would still like to
-report it. Please let us know what you think.
-
-Thanks!
-
-*----------Report-----------*
-*write* to 0xffffffff88382191 of 1 bytes by task 6541 on cpu 0:
- snd_seq_client_use_ptr+0x254/0x610 sound/core/seq/seq_clientmgr.c:146
- snd_seq_info_clients_read+0xd8/0x480 sound/core/seq/seq_clientmgr.c:2475
- snd_info_seq_show+0x81/0xa0 sound/core/info.c:361
- seq_read_iter+0x2d2/0x8e0 fs/seq_file.c:230
- seq_read+0x1c9/0x210 fs/seq_file.c:162
- pde_read fs/proc/inode.c:311 [inline]
- proc_reg_read+0x123/0x1b0 fs/proc/inode.c:323
- vfs_read+0x1b5/0x6e0 fs/read_write.c:480
- ksys_read+0xde/0x190 fs/read_write.c:620
- __do_sys_read fs/read_write.c:630 [inline]
- __se_sys_read fs/read_write.c:628 [inline]
- __x64_sys_read+0x43/0x50 fs/read_write.c:628
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-
-*read* to 0xffffffff88382191 of 1 bytes by task 6542 on cpu 1:
- snd_seq_client_use_ptr+0x189/0x610 sound/core/seq/seq_clientmgr.c:145
- snd_seq_info_clients_read+0xd8/0x480 sound/core/seq/seq_clientmgr.c:2475
- snd_info_seq_show+0x81/0xa0 sound/core/info.c:361
- seq_read_iter+0x2d2/0x8e0 fs/seq_file.c:230
- seq_read+0x1c9/0x210 fs/seq_file.c:162
- pde_read fs/proc/inode.c:311 [inline]
- proc_reg_read+0x123/0x1b0 fs/proc/inode.c:323
- vfs_read+0x1b5/0x6e0 fs/read_write.c:480
- ksys_read+0xde/0x190 fs/read_write.c:620
- __do_sys_read fs/read_write.c:630 [inline]
- __se_sys_read fs/read_write.c:628 [inline]
- __x64_sys_read+0x43/0x50 fs/read_write.c:628
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 1 PID: 6542 Comm: syz-executor2-n Not tainted 5.18.0-rc5+ #107
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1
-04/01/2014
-
-*Reproducing Inputs*
-
-Input CPU 0:
-r0 =3D openat$procfs(0xffffffffffffff9c,
-&(0x7f00000004c0)=3D'/proc/asound/seq/clients\x00', 0x0, 0x0)
-read$ptp(r0, &(0x7f0000001280)=3D""/4096, 0x1000)
-
-Input CPU 1:
-r0 =3D openat$procfs(0xffffff9c,
-&(0x7f0000000000)=3D'/proc/asound/seq/clients\x00', 0x0, 0x0)
-syz_fuse_handle_req(r0,
-&(0x7f0000000040)=3D"b49dac4d60a4ef29274ad6ec771da74d4c8c0fd83d0aeb9dfe8d26=
-d06f9ce49c698d1b2dbca3915be594ab841c00c1928a4c4363e8b5d17b93829abe5cc366527=
-d477458cd9ea1659ccb0c07b05158926dc748aefe7fbac30da85ef1aff793e0b99ff36257ec=
-864a364666b2151e04e8d9a709e4c300368d5ba364e588c6f32a1829b7dab3a920b39918005=
-984975164f1dedcfd04503f3659ab13386ab13bb7f2f160848a41792cb49eb2ffeca5915ee1=
-46e2c348b8fd37ff56d515b39d85fbb034b8e5e08c96b6579a19efe90844e30a790ec223767=
-b8f5a409433b87dec579dc420a62ab203228136577a9945a59afda7efbe7dde89be13a4fdf5=
-4ead3624b1a5c70efe99d2e36cb5c1001427e116128ce2601e552e2f50642e1dba23f952678=
-8a382acb79f92fd733f10bdcf9a4035122730498ca3481a4d2e7ae2c6bddd8cb1f8899f0f5d=
-36975b1f1aa989a182029e3225d98a503e97073a728978795a6f27457df5fe5d19182d314ba=
-3b15ad8a430e808bcda1bccfc1e6ea459aab7c062fb5d92b54098e73706e4d2b90b3985ce35=
-736e715b04b7e590fa7349b639069928f5153a8d31e443a21546029d24943a69e44f65a4e25=
-3b538b8803366e45cdffa3c45c4c012981eb018dc04af8c082acaa2eff05cb91025d6424a2d=
-9600ac2539deef60540c030f90c8adc939d3b68303babc5da851c88b15e238eb0515c121039=
-8235eb76dba454f4e1f460d3cd13d85cc5a531968955064dae07b2c63d17d343fb80494fcce=
-2f84775be037fd6d0e05834da6408fce3dc3c8d45bf33f500d83c4f5ce015544464daa6b496=
-5987a6454eb6e29bf33d654ab0c6682cbbb5520afeb93c9c9b377886ef4b18f31c6c6e67fff=
-8388e19c5ba73efda0e7874dc365c05da5ac4d360161a8a28aa41a3d410da55e464886bc2c6=
-9d2c441961f5eb7cd428e410d12c0a083f197abc4a249a7cee1d6f495f4513f8ca194c43e96=
-7ddd342ecb3c3cecef199a1beace9e374ebe04e9dfff46fa4d6e3b8296a1a3f8daa431e1a45=
-598100f53292630c7e27efbf18a0236e33fa08b66af22c8325e04f1c6a7e48844fdd6d50666=
-3d15cfdd7c63f60803c6e0db5cef6d111a6401bccc09ec05f56bace7eacfbf2f6954c4e9c00=
-f6e4b8cf6622f7f23570fc4b730d8cd8f9b322eabadffa9631105943e621a018d3cf7fc4242=
-d457c068e94342f819808a491f2c62ea07fba2a08b15ab208d64e1cde2020f0ae9f8f903dcb=
-78bafd589832e4e8a02ac3a27749acee64fba7081c782d68df0a7314f95514e9022845062f8=
-caf3052ffe55a5bc538789ec6eca37a26055ff6768cb5d5158a8be6321233efdb9ce135fccf=
-3f20e696dbeec3776986e210d1c36881657b9eb3708c0437955f8b1ba617b9440dee185741f=
-554facdc7da8daa55015b19dc8f5e32499797e1b85941a801771717184ce09c569cacf82992=
-b2f8c33ede8e02a8a3e1fbd4835c2d943f144498aa1edf50d1d2af669b148d433b7a7e55b08=
-a0fbf49572b4815ae96d35a8297b57b73c8333e7d7718169ac83129eecea08565172ee26e8c=
-c29682fc2af3f8f1fa1fa411205b8376389065551c7cfeb87b6036f91f20566f6274df1365f=
-0122bb139ee6c6298854126ce7d2f69233d1d7a8edcaf6b15d97baaaaeafd1d4069b83bea98=
-694dc9ef8fb6beae9dc5d1ede7458bd897b11fe93ef6f39858dc210419331327fd5dac69c6f=
-f352ea04e439ce97e7ae904db5a86a5ed4bec35cd4e16bc1e3d54c591a93da93645eb697065=
-719a7c41bfc0a4b573961eb6f0a944aea68e65e28713d4ce77bcf5e1cc8c25375f075ac66c2=
-b1116f9d89a7614c60cd5afbc86fdad7fac5a629ed5b808480dd2cd0448f85ef5c308fb4cb9=
-a618bed06155cfd7e6c18f4241bc63a960056dbf837de0dbbf742a23256af0acf855a722bf6=
-2630e8df2c57d92b3cb7aaa6cc26cbb20670fafee9af231f1d391f560f4257bd3a976ea0d22=
-fc05c592adfe85c5f81ebf885eb93c23dd6ed3f84eb39766d28c1de7fd75250dcfc469cfad4=
-ac3cecc8d148de571669ef7d1fe1f115ec7533fb8a81c87b54602a0726a9b47dd31b536fc51=
-f4b7d292b83b191524c457dd618536e3b7ad20e222a1c9bf725ce5586463262d112f3336b9d=
-a8abb55fe4c756808a0b8617fd69d84f91d444a72c22116be94a52d1b2bb79cae60a4b9cf39=
-d19819167d4bd689e752b1ecf5cd50040cf6e6eea9183dfc793c332ce666c66b179363b3fa8=
-65846d6774d050e5037776df34c7ab6672ae1b350dd849b540b8b285eaf6794f507e2c7c10a=
-cf7bf7ad9521e86a1b72a1418c90ab696f8e984ed6c7f0f1810fc9011e8f3f6cd4d1687ea68=
-2a42faffa296a00f9cc7c53210db85c9559207aa664f3c2716f524ad5fc0ed97bd880c14ace=
-7d629c43f02e413c562046eeb2b58f0ead899286ea8b5826af76b3e3d02e71137cbebe55230=
-6d1dd1016e097a54928033ea63f0540b05a3bf331773694b2546e4679c05d488b356a2d37d2=
-75b4ccee590bb7ac7483ca0a72149cea3b39f687fded587e5e94d25c3b3e1b1b0d47b2bde83=
-0331905390837a3fefdda1feba5ffebb6cf9ec2ad3882e3094c39da450daac74592c20ae560=
-c61cbcb1d487f8d54e76c808178b2cc0ab1d072820b291f3092c49b205981f45318135c8075=
-d860e7eefbb640dd8e80498167db26b3ece09c8099eff0c3cf5cbfe6440472ed5d3ce8548b1=
-5004423868118b0e87655315856fc2102b804c1e28b6da7dcdba54ecae6b721477fca494bd3=
-b72f46480ae87f334494c602819d6a3e9cbd6c2f2b3a9d32c8eae8c1484b8dc5eea2c006ad9=
-5fa3d7e80d89e1aa6ae8a98fcb95ecd8a654d176cc7ada0c6424a898ff8a9859b2a29a51d36=
-b879011a24ae2a4e0f69f02c95ac3da7246a45681d91bc0ebf019e3e2031fb3336b2ec10f7d=
-94186fc0520999b775bac2eb542e5e3cfbfbcc5f5f56df6d9d0ca8e2308c6cbaefc861a0acf=
-0622ec9fa7c4cac8590c6b4692219ed38b136ce5d659d00a8710b1ddf384edf573710144801=
-5ea3f8c3fef0cb07602064035a4579a2b6bfc5edc1e81a8ab9522d6711f606183b3f59ec32c=
-4df67da8289ce54ed9f97c7515746b859027c8ab1ddcbec9ab3c37c6dc0a97cb255961c69bc=
-71936364ec49076400b4d918265cfaba0a9475d5dd1b8179653c3892aeb3f434a9ac2d9d3db=
-b81598a44cd90beb48a8949dd31f907465dfd8bf651dc60ef0d535cc9d5493dda2c474a10b7=
-726b63291b0d6107b47faf77ce62eea112fbdfb95481c7f84d6cf9312faea8888284cfc0485=
-4f58fce61988e25a2dc9dbaf8f7659b21ace61be9d83c04789a202d72f2e411ab3db416dcf6=
-3abbc1c6d827aad75579eecb3a81a6e0d0669012db51435d53d3c0bf2426dbb431e2f4bc493=
-8fa458692051f5047610687bc2077edee95274bd653ef1105086563f858c0db245454fe5fc8=
-3e6788c82310a02008ef76a3ffd357d8452cf5a712f421f253cf81232f1ca4d6f8364cb96b9=
-bb2f23ab27a6ce3a2682b615ed762c5210bfc17229b83551af482143374e21a115d77c98c8f=
-b17487b2c9f25d8da17ff3e96b155354f611da1ff91bfd6d89436486a466642f96c5cbbbced=
-eee4d35d26ee982bd152bf309eb1c4f56bd77dc89861bb82eb56405af798c7100768461f1b2=
-1d8e98d498ed5e2f74104d0309b00bf376cf32a82397d1adca7ca86950f5e63c60bd0189bac=
-5dcb596ac0d111f9e6d17ed06a47bb92e49ea2ec4a295acd84b37524fbbd3c7516d4135d6d0=
-625781fa85316098c4a8f94c4f10497ada2332b524e5e91c63ba4df47e1b33e0ebb9f748f1d=
-0a338993cd4f155608e8238d3d574b8b166d46211909128848e96a28282b7cb652d103307c0=
-028653b4fb40379b6d545fb1e2f5b9ea9d57a5b270db019e228b1edde431bd44e5728216781=
-a5ba01163fd803c98e46a440e5617a781f55502c73aa1c417cfdfa7ef95fc83cfc0d9e7140d=
-f356cc0a3bf0824d4f3233ca963d367f9e6bd53b78edc3f5b0c53c9a836e02eb57e0c16417f=
-9e42338aeada43fe34b4c525c29835d77e7695142361a500e097f7d110f1912a534fa9441f1=
-973b123d76817483f51deef7b2f7b3b180cf062b7acba7b77788d7ae6be6cce00296097ae60=
-ad84e588711a5a63b66aed3e01010381dfe53bda06ee770cd3f96b3fb7ec9ad700949e6ad32=
-062958e807b8b03204c3a77b5034143a6b342bb913dfc4a5db48c44235b56ee464e933b2bd7=
-e46b49ab01166492d4d46a48b730532b13e231984c7afd18ae13663ab84c385e367021ad3df=
-a918860243454ac08e00e27ec0b193f67fa33cd43d9bd69b34ad29184924c98e61454afefc5=
-cc69e32d0792c65aa0638b5d128fdee58bdaeae09969fc7493296c0f7689093e24609f44a1e=
-a4a4cb7aa4e46082e89fbcae15862c5f1423ccb651a5b12f952797d0854ebfcf6dc494add5d=
-140a5deee50f3c9729f2779aa0bb0339690770f090b3719a53b9e0a4521d3a9811bcd170264=
-2f7c5d4142044826f97edf713bb6a695b5f34e705eefd386df6ab621fb8f4e39641926908c9=
-a37df76bef9b40fb352c8b2266a079625c81f0b6823348e7dfe593fd6c155fc2b0c082b04a8=
-098712b02a4bb9a60a4f68cbf60b58d61f32798c66edf64d387576630902a13b5a1f8f5f51a=
-79c708d7d2c68d2be1c68e5fd8757a3c3ccf951e65727722868688133ce0cc22a7d3db72fd0=
-d3ae51d9c169055d754011b1de6a6be680c55bf92e6fcbc645941b2e89afa7b91ad61726c87=
-e3c4e131608ce244fea2018925ba74dd8cac6e6f5c455978b7151eb6e6e7a797590d784cd94=
-64450f89a671c29804a1eb7c96612ba025fd4d2564a0199a1c18c20964c2fecc0c463fcf0c1=
-d3089b46ae523b6fb259cce1a0171254f847945a862ceb3ae1fe7082958d06ce952f3f079df=
-3490b448cda60acddbaed7ae50eb32eed1feab15b075e7fac69c4142dab32f9abd562c6a3ff=
-cc6d3fc0595e202f3430080a8c85665a25889fa5f78f403f9ac93cfa160fd242d9cf123e430=
-10891bfb21f7518588aa9f94393daf212c7a396cacfa27f29bdf8ce0c9269c3270466aae1df=
-02832e605dd3aabfde47b93cfc812feb65bf1f0b326f48fa89f00059d0bcab950f229f128ee=
-a46d16a9d3feb5c04f5e707f835de686df16ceaae1ac98cb5a7abd0852cd80f8f2c093ca86b=
-4fcdfcfb4648d244b5bc734ce2bff50880b4de5cad96aff1eca5e3f93dcecbde2a06b037152=
-9d471908c05654e463c787e56e24edcdc363a93b22fa7925a4f205e62ef6d7f7f64b7e9525b=
-7e8c694f19738d5311fbe12f1b8123035323775ba87e1e77bb9eddb09e22f65a175f51bce14=
-ec6bceeca1bfba4bd69d4e18d8442c8f60d2747ec7373e8e49b412b769dde6486eca1b98231=
-ddac5164ace299b5bc3b6cf82c00ae55a1a47af14a72a5f05ce3c94ad6dfb2af8712262a0d2=
-dce422946d84fe643530a0528eafabe77a14c9da86eca5d7556832b2dff7005f79f61ba802b=
-6c855ea38a043d18d996c21897f7c820b1ea63cd5d823472adfd8b56df62d0a14f15c9e48b9=
-ca7d4aceb012a16778d88ebe48c501e9dd460d3a21a0a4bcc4bc7129bda1912eff1a3d43fdd=
-75cf7c2c50978d94fbf65b34fe73d003084fcf6133f2336ffa4a4b927fed2ae7bcb01036080=
-5fa497af8cb3dfd2ea25419f3857899bdab0bdb61f3ea1de0f7d6aa6e79f5493fab9751eb0d=
-9c5fe65956072125c47d94740f2a3ace54719f09ebf3e27d895d51935332265571596731ce3=
-144330ea48d8995038d756986b111899c8630a24920261a1f9907fdabd970f7dc69058a8efc=
-4381b414752b12f3974ded28a149760c7fef4ddf906b8210825d1c98dcdee80994996f6d93f=
-e70d93f1736e362c311ea1fa5d3bce28fe7111c2a9d0baabf6bb77cb9054c863f2d40b990f4=
-1a0766364b31f4cb68bafc05a757abe072d0b389091acff20f3ea906d01b9ca4fb4b251b84b=
-e30e93cb1017f8e1b1147120f6788548c759cf42c399c6b643deeb66a98eee89ade40807724=
-a20e1a3423641b5f03040141914d3d81f9717a85140ffc052c781a59a18a52e08f00da35a57=
-54ca4fbfa77c0c1265d9e28644ba89d4499a31b60e350eb61746207a0469b464303dbec4dbe=
-13d297de3fc3b4e6bd37805ea69bf79e847633a8f68d8a053401f82fafc0c1dbc5f7d03729f=
-306f0d048994b53504aeb0e9dafb93394e6d425d22ff198579d546c63c0c77407c43bf9fbfb=
-fd62ca8ac316ca4d19e4631cbbd9cdf21ecfbb3eeacdfa75605d803184c11bf9ee730942962=
-e688c5fad693a6e88d21d61dfb51d8e84ffd090a5f7c31ef8f77e1a3e7ee77f71531e3d3e19=
-0bc8bbfd5e7b7792a0e361baee79c9db165033a83fda2f1972b75ad31e299ee69af7bb1c508=
-70be803b17f6adc284bd18d10444b9af2a44be791515f2f229d549b8b85d0e05ac418c85233=
-6b917cf6b5cfde4f0521a19d3b888f72b71c5a5b11f96853f76da5cd954ecfde9b37f4f44f3=
-187034c57790be1e696390b9ed4db6d660900b1bdf9f76447037ae56a1ec6d78560afa27aed=
-79ef6b592db1056d97104d5cf8f16e5dc9e8c45915486c042ad29ed2c8084fb94ee9ebf1879=
-2b83220dc38936c3d2e09a1ef541fc7a440b6a09674a55860fd9467efe1580a6601720b36f1=
-28612b20837c6f4cc44a43deb771a001885bb17467d7ec350ddc648f3c13b579213b91d35c0=
-2481280efdee61cae175923fe9e5f218d61b146b71d9d7d60dbf740ee3f53fe46e7952cbca6=
-595e56dfa02aecd623b6be5719f87de725d92df32838f1b61b4e7bae65b683619ed8286e703=
-82f801c067548d6f83c701c92fb84d0e0256114882af2c8fe2b67e456f7c77637560a610693=
-b6302d0f5e135c96036966aa6868b77d10e2272887491fce4ce8ec1e0fadc326707fa1a4043=
-84baec7b1ba0524ee1ee873662c1a530ea396fc5cf5fa3c8b117829cb144577bdce0cca193a=
-180b0b2ba69ca8fec31e70f7f6d5c2f5cbed9bd5a5998ed896fb4d36432b9ba8a6508fac552=
-9cba750da9e2b651127c171fa7774d4c75b5b62fafc114c5775275a8ba20cbe7441a1709c2b=
-0444d7f1721c368f35278c0b294b3cf8cb7fcad332f0f1bd2fdccb4c7e402c7efbfe9260b95=
-ce72dc608897dc394490607c8914d29fd0a37036cdbe69df74e78cad0f11221306fd15acd62=
-2dd709a19fdcf134362c358efc9398162c38b32ae9e66d12d50489643c43a19da922d14a908=
-23d92bf3253a6916dee9768af98ec865f2d2413aeb1455a0d0264a1348757aae7746ad86ebd=
-fe6971dbeec2b30c36802e007da501bf27c68c5a7103d9e437ae6ab58f64b0ed67e258a7c7f=
-9a9b07d6bb11e3e511d877085170d8c33e20a62f34c655cdfc2a788e69339ed9c08be001913=
-0ec88b4a4b213d089bc182f8595547353bb36e1fb2df57405c982070a4ceff26e4ea2a3d2fa=
-a45f1f6a965c83429ce4ce07c6b5db04a4031247babd3cd8cf39861f4702c92ee85251ebe24=
-56e4429f8a32efbac1e57c6baa36554dc807720077a8ca19a9db71710eefa1e9c202878b8b7=
-f4a124db303ccd3a2dfe31cb5f0be4df44b5835cb95b089f5495ce35651a84ac26552c343dc=
-63832a36c966c92ba8e661ddbdab08775d50c40790e597bdc5b452565d0465cd93d6bb681b2=
-596252fd255e4a208eed904dfbab2e6fe2329c97cb3d15ecb63d3aff17e226f2e40c88ea632=
-2bc6bbba4f6d750ed7f50908c3da02b488a4fc86f0270227efb45b6a5382c1994d49fdd2544=
-c0d03b88e410df64cc8dabf83916f3a40257c02ee9d4b67f8dd3297a9695c3ef0d06a28ad66=
-e7619c0bf0fd2542483bd6ec8e9fa829e7a521c522a372364b4c20e5cab35442ce1ac237c3f=
-d9d177c229bdb4ee9667430826e059c59b12bbb5cf03f7291b0afc303844dcf1df174357d7e=
-2f833043595f2d8bcf6271bd2e844238f460ae082f59aebb3d18c87d482688c58c5541c79d1=
-0d44ca6dc221faeab71a36c0ca8fa5eb0cf337077ae07bab63f7aca2caaa588340f8796a564=
-788d7436276039e83f25c6350121078c10d896eb6d9cf6e7ea99290c10378e88d5e7309f175=
-18e28454078d04bcb38f15d1a624cbc5c0d76878df58f220726c8365641e1fd2a66c9233bb3=
-143af62c72bb06fc3cc627fbc66c9b778e254c4680c143b936c69a977fdbd3d5fad2ad6d974=
-796d03e96989863d25de45313bb49421bacb3cd52e379c182b28bdbf18622026619be32e059=
-d267bb1342e82dd0004f48e838ba2a379cd1e2bfc978b8aab80b79630a139c4dd89302547dc=
-3296838f95a211f7a6f74d9e9f977832e7a6c4ccdce6e79c4735d700c81d6bb4c461d3288f4=
-1037abade34b7998ace0af5e7f9697e3042b171cdac15a7102d1b146db3b9057e22c274e6a6=
-c156da70fbf9a07e0b7b22b90400aca401c05f5168483f66d5fc1db6e467463e652ca41ead1=
-57d29ce14c19c493234287578e0e6c21b6aca9f59d6591c09c81649d5c1e4bbb43745e83cd9=
-c23d5b7b89282efba61e3e790dbce7aaae0011c81dae1c48fc4400bd81da44b2417682744bd=
-06ae1b9c63a004d9345202e63eb4a4708e6ddb20be55c843ee3fa19ddacf7ad32d1ded060d9=
-d8bd46bff386e0a3fe41260a8c90a8eb0089083e1b72278e0a7398b6e2e27c256ea426174d6=
-a1fbe4067685f9eab61ace1a655d3ca35cf566fd148112e11ca4f39d0fbe041aba99a93e11c=
-44e4ff07e830a1acfa07132d287fbcdb2eec82e4fb4fad847c29f601c578e6c7109340555fe=
-16f82c058d60aa57d19baf6eccd59b8ffd789de6376dc9356b78494c5ea3d1c29bbeeba8e76=
-433d3caa4adf0db15377834f5bb90f88b680030eb82b63fdd9f922d5bb0b054a50c8ac82c09=
-25902dd351e8d9d61141d34b36f0a1d2a7b6ef6205ee1ceba611964e9e1268c57bed9cd5779=
-961f38c7bc42fb9b66c024727ebe72ed9f6374eb44fa29ac11bf71c626a43c67b917a448182=
-9a053644f769d0024104c9fd8f72fc7534323aab7efb20572fdbf68851c79aeee8137726145=
-e4328fa70c38189f8441438947d6a49e3dd3dc9d5185d810aef71afd8dfbf96339ebd0e2a15=
-9f75d8c34c9bf37ca5cdd791371e4e835962b7d92b5d0924ccb071b841e7f96d0552abcdb3f=
-c692f216fc687f72fbd360f534e2407d01f30ba9427f2fa5007dccb470c60fce127a577f91f=
-07aaeaeff524b3fcdf9311171f443c5ad08b74b60ecbd8bfbb0fa842c18a5c8487f0247acdb=
-eb393dc7cf376f6de99b13550c8db32a08c02a182dd15760da6c8bd3a7259724edec715570b=
-b18465330666bff3a7147bae0d500fe771410efb11b348a194d7ce949ce074ec24fe5f77166=
-71eadb824ff5e1668563a5398b833b1cab4e9d2df97783a52fd91b60d1c700ec0616208f99a=
-d376de03162dd07dd42ffaa7c9ff4af7d48cde82c9dd040bd724039c929219079d23a7ca412=
-aab0ddc833aac5a9afe819fae46cd8c8006dc4e96e11fe826df073b1ad9520b0442af3bde99=
-7b97d23bcf7a284dc89703e0b41b597ca1c64a23944cf6ab196ecd33b1cd764396eded169bc=
-f62c7faa61f386ac64910852ef409c4c4242eb11a0ce5d13205891f3f6e8f568d781fd86636=
-af3393918adcee3a73fac340f486d3c511a64c6587d0e0c553d087c3706bb8498dc059056b8=
-ffd0d185df6c52b482bd55532550e1c9d37279ccf0ba698b90f185dc4c43aee53dacff0887f=
-e842ecffb450088407443b709691fb10a0e9b38c2af46a60e9a02db9d8efcb3e89d0a19ba31=
-ed3975eaa95d8fc6aed274f3a0ebccc99d3c5fb1be2d5a2f5814688db811d8af8fc273a8e47=
-620e23934c1ea642cf776fa276ad857cb023988ef39b237b00c72b85d86fed11fbdeaf31ced=
-509c265822b560e7f0793eb5b53c5c7be3d855d146e2997f9974677dfa7a49f3c685bf24e8d=
-cae56b3352c1038d8c7392af62ed22c5054157812ed4b14e6c7b9e4f8cba3fd99543ea46701=
-9ad74e2025b2b1c4195581ef91a88b999254ac748e748c4a50480a6cd3f5fd7d8bc919bdce7=
-bf51925dc187df60af567ef232cb59d5583d604a19928c2699905446f2758fc7b640fbd0a2b=
-9494b2b13cea88da31c5b643663f592e9b9ba580c16a2371dfdb223c7c803389b331e241286=
-2c26cd9254e1db521f0851d9fe1d9d3cec7718fa785e227ffeda95e47944bd76ad718a1e27f=
-dc7a51bea6f128f593cff860e82a9b474e0956830a35340616f4e8fbb10c94698b4310ee49b=
-9398d0501af47982a7add81fef360000860926d09236532751a54107636120454e9b952ad89=
-1e645c74606a9869e5b6a4e20178decbf842d3aba603be3f4ff149b23776954b4b9898755f0=
-5b91fcee1574dc66de42547cee0b4f23c320224a737776bc4f04bcb996bef301b692d8b64d1=
-d11d54dc5ef5760fda3e16571cac787d1f0e6de4a88b7f6ef8886734a451c4c971545d9ffe3=
-9d80eeaf9f1c77ab04364ad3281a4d41a250e410e138fc759cdf4e408a38d26a72bee16e1dd=
-b1055c391a09fae22209e891d93be9c0cb1a8515e5ff69b55c5d9bc83bf92316d3addc29ed0=
-d3cc1f8c6635f0726014fc7cf5236e7757cac9d391821f239267010b89d3918df46e1b483e5=
-afa999ae7345850e17cf93d2da84d84e1a0d2e2bb95eb890ac6fca1ebfb7387b799b02c275f=
-915b5e4780dde3f738fc2432636d89d620f541d218d39dc7b1854e77c85d3661030e79d7838=
-935724804e5885e901856debc53fd947b6f5239961943ad48d581d88e4ce26c0fbd342fac61=
-59d2264ef4051fa29cb850649650537bcbf3ad06cf8736cf09df521eba9098f532953e1541b=
-223db5f37de855f8673c59fdb1acce1b2cfc9fe50d38dc13f9809ea382cd4863c7c1c691eae=
-1863f563054fa6a0bfb039d1dda3f250f52d155269e3f2ecfbfc57cb3add84f986ef9cb84f4=
-c4b75d32d3edd960ceafbe69ac71a0a524bd79777f20fdfdd29d063e06c0bae7fd247592f05=
-432406afb207f4476e0bed4e7b76395361a1bb7a16db6a95c59ddc1930053b93c51eee3f405=
-f62a9e412d5c1aef4cc7a7ccb70d6d91ae27d477fcee7d84e1e3e519995127a43eb576d9518=
-bd6112686fe7a90c7053d94f67c2878d3537af078ddfbdda06ba4c01888dbe6be9ef4f38e2f=
-8d49a7d023996c516f1289fd9cfd4936089f0bcd0de5156d580b68554e8e9c3874a6b2d56bc=
-736f49217c88859aa63ea1384f3b9dbdc8b30262d0efffddec03fc4241740d23917ef92fc7d=
-e3ae3665ff3c9397bf4fcde524cc403f28806317a0059ae93d82e3fb5cc49596c785f464273=
-17d2f3c9d285d239383dfbea914ad84213e1e0121533dc696bee622d0f93ed8eef2e1eb4083=
-64adfca90eef0236a85c8d5c4a55dd42793d18b9eaceb8727e1a5bf01b1156ca04452485c6e=
-4a9d40185664eec10c5fecc9dfd48536d5aa70c29eeb43c7a1a2ed73ff66a2604ed959a811e=
-2268980958b2ab1682fb2a5966ab85163a34a9efc27d349625970f1",
-0x2000, &(0x7f00000048c0)=3D{0x0, &(0x7f00000020c0)=3D{0x18}, 0x0, 0x0, 0x0=
-,
-0x0, 0x0, &(0x7f0000002280)=3D{0x18, 0x0, 0x0, {0x9}}, 0x0, 0x0, 0x0, 0x0,
-0x0, 0x0, 0x0, 0x0})
+On Fri, Aug 19, 2022 at 3:51 AM Amit Pundir <amit.pundir@linaro.org> wrote:
+>
+> Hi Steev,
+>
+> Thank you for looking into this crash. Srini submitted the same fix
+> earlier this week
+> https://www.spinics.net/lists/alsa-devel/msg146137.html
+>
+> Regards,
+> Amit Pundir
+>
+> On Thu, 18 Aug 2022 at 09:21, Steev Klimaszewski <steev@kali.org> wrote:
+> >
+> > commit 1fd0d85affe4d6 ("soundwire: qcom: Add flag for software clock gating check")
+> > added a flag for software clock gating check, however in commit
+> > 33ba01788889666 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+> > the same check was added without the flag, so we would still end up failing
+> > the software clock gating check.
+> >
+> > Originally reported by Amit Pundir on DB845c, I also saw it on the
+> > Lenovo Yoga C630, right before the splat, we would see
+> >
+> > qcom-soundwire wcd934x-soundwire.6.auto: Failed to get audio_cgcr reset required for soundwire-v1.6.0
+> >
+> > however, SDM845 has a soundwire-v1.3.0
+> >
+> > Since the flag was added in 1fd0d85affe, lets just remove this one.
+> >
+> > Fixes: 33ba01788889 ("soundwire: qcom: Add support for controlling audio CGCR from HLOS")
+> > Signed-off-by: Steev Klimaszewski <steev@kali.org>
+> > Reported-by: Amit Pundir <amit.pundir@linaro.org>
+> > ---
+> >  drivers/soundwire/qcom.c | 4 ----
+> >  1 file changed, 4 deletions(-)
+> >
+> > diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> > index 709a7c1e0704..b621f7fb866f 100644
+> > --- a/drivers/soundwire/qcom.c
+> > +++ b/drivers/soundwire/qcom.c
+> > @@ -1355,10 +1355,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+> >         ctrl->bus.compute_params = &qcom_swrm_compute_params;
+> >         ctrl->bus.clk_stop_timeout = 300;
+> >
+> > -       ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
+> > -       if (IS_ERR(ctrl->audio_cgcr))
+> > -               dev_err(dev, "Failed to get audio_cgcr reset required for soundwire-v1.6.0\n");
+> > -
+> >         ret = qcom_swrm_get_port_config(ctrl);
+> >         if (ret)
+> >                 goto err_clk;
+> > --
+> > 2.35.1
+> >

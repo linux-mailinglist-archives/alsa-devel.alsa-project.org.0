@@ -2,75 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AC259A8BB
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:49:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE8959A8BC
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:49:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ABBA1695;
-	Sat, 20 Aug 2022 00:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ABBA1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 903371693;
+	Sat, 20 Aug 2022 00:48:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 903371693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660949364;
-	bh=T2ZIY+4uZ7FtlXL26qIP7vtXP3FByMTOuhwzDgOCdlM=;
+	s=default; t=1660949385;
+	bh=dxI6vf/bStJmVt0I680tMgmCWDQv72BqvXZPaYcJOxQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U5GeI6lbKpt5MPnKmJjawlLd1A8EsnDHZn9bcN0ZgQCATOn65ekbe96Cb0DennOLN
-	 INT8X/xeRW+firiLkNBFPkobSz7q4Uj6gJrW6mqvUaAHla+lclefSDz1kv30trdfGu
-	 prIOGbhDRnK4YQoGtI4iYTZ1JXRkaN9GiOD7efFo=
+	b=KUb3rMkYoanCzO2gL0aGM4vZ++JAu1wDxiiIT2XRur8Tc9z5SiAn2QEBGMrlEArya
+	 yNNYGadM60/fb7W+2x6KSUTogp1Tlp0FwDVDiux7j4Wcsoh8UL2zCOZ/M9ptQOYW6Y
+	 A5uBv5YzeS3fE1l3RtkiAVFVqafkMBXkWYrlrkYI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B2FBF8051F;
-	Sat, 20 Aug 2022 00:47:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F118F8052D;
+	Sat, 20 Aug 2022 00:47:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55277F804AA; Sat, 20 Aug 2022 00:47:44 +0200 (CEST)
+ id 65D12F80527; Sat, 20 Aug 2022 00:47:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA0D4F802A0
- for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA0D4F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DDA4F80524;
+ Sat, 20 Aug 2022 00:47:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DDA4F80524
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="T3tGisiX"
+ header.b="aPfQwPWY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0EA30B82979;
- Fri, 19 Aug 2022 22:47:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7AAC433D7;
- Fri, 19 Aug 2022 22:47:38 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 47D7CCE266F;
+ Fri, 19 Aug 2022 22:47:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DFAC433D6;
+ Fri, 19 Aug 2022 22:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660949259;
- bh=T2ZIY+4uZ7FtlXL26qIP7vtXP3FByMTOuhwzDgOCdlM=;
+ s=k20201202; t=1660949264;
+ bh=dxI6vf/bStJmVt0I680tMgmCWDQv72BqvXZPaYcJOxQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=T3tGisiXjhDAPfJeYTTCWjlgvPt5eplr5dVivhuV+unKd/nTVWlXBBpKocKpjkpWu
- Un6iuen5du6PXW0//lXn2yalqVRBFagPUE9pRDaXnGMlGM9Yv6GfCmxqbS/riE5jRo
- OZ8fOU2SEmSCmC8IQHsydZPFvDNa/kNT7CvOnuj0uM7tBN5/9NG4QJCG+8TE6TjG51
- wnv2LK0IbsPJ03uQRAJ3rmnMK0+GGIbIZvTd3ngQD9SC5HfkhDQUhv2d0PtiVq/4oK
- Pw7wH+wHIvkkJm4CyRY5qfl89z457MfkbTJh30bKbvuYGiBQMNaFjJ5pu8S4gqDFpI
- DlFdrLABjlkrA==
+ b=aPfQwPWYqbO38H6kKJjbb/+kNhw2REJtzZW+Lpf2pz/6fuu+RwNQfkXpPgh9dHEcf
+ CG8f3AhCaQHapS3WwYoITlWZI8cbx6jex0WLzBbpVCHuqjf1pW/LAgMXdpKaihu1wM
+ /vcm9EcTXHlFcjv3QOzso2K8y1MVRuFN9BfIa61Iq1Rq1ZT7RfG7wQj/icRgXktwCc
+ kr99zJbtz1B+mc4vzYLXqwgqVtZGSqUq4LfB2ZO+GpqW8ufV6bL6MLX4iRh0Azd1Fa
+ pOGGdewbCQiL/y4OKjbU/dtDazqmnbmG3oORULrBQrIeT9k4/TGcBljxkVYvgO3DiX
+ 3OrhBH7pWa53Q==
 From: Mark Brown <broonie@kernel.org>
-To: Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20220819073758.1273160-1-yangyingliang@huawei.com>
-References: <20220819073758.1273160-1-yangyingliang@huawei.com>
-Subject: Re: [PATCH -next 1/3] ASoC: amd: acp: add missing
- platform_device_unregister() in acp_pci_probe()
-Message-Id: <166094925849.19151.6188249886261583368.b4-ty@kernel.org>
-Date: Fri, 19 Aug 2022 23:47:38 +0100
+To: kernel@pengutronix.de, perex@perex.cz, ranjani.sridharan@linux.intel.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ s.hauer@pengutronix.de, kai.vehmanen@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com, 
+ shawnguo@kernel.org, daniel.baluta@nxp.com, peter.ujfalusi@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, 
+ festevam@gmail.com, linux-imx@nxp.com, tiwai@suse.com,
+ devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org, 
+ robh+dt@kernel.org
+In-Reply-To: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [RESEND PATCH v2 1/2] dt-bindings: dsp: fsl: Add SOF compatile
+ string for i.MX8ULP
+Message-Id: <166094926008.19151.7343804058436995082.b4-ty@kernel.org>
+Date: Fri, 19 Aug 2022 23:47:40 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fe10a
-Cc: venkataprasad.potturu@amd.com, Vijendar.Mukunda@amd.com
+Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,8 +95,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 19 Aug 2022 15:37:56 +0800, Yang Yingliang wrote:
-> Add missing platform_device_unregister() in error path in acp_pci_probe().
+On Thu, 18 Aug 2022 09:53:53 +0800, Shengjiu Wang wrote:
+> Add SOF compatile string "fsl,imx8ulp-dsp" for supporting DSP
+> device on i.MX8ULP platform.
 > 
 > 
 
@@ -97,12 +107,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: amd: acp: add missing platform_device_unregister() in acp_pci_probe()
-      commit: 6a4ce20fd776d2fd19ffaf85cf34a53761e2c888
-[2/3] ASoC: amd: acp: switch to use dev_err_probe()
-      commit: f89a8c5bb3489e43ff87b5f91acc8db66a168e8e
-[3/3] ASoC: amd: acp: add a label to make error path more clean
-      commit: fd8ec75207588f85c622ee49e5f32267d2406d92
+[1/2] dt-bindings: dsp: fsl: Add SOF compatile string for i.MX8ULP
+      commit: ee6c42ba5c7670c6f8c17c7bcedbcdaf7b8eb72e
+[2/2] ASoC: SOF: imx: Add i.MX8ULP HW support
+      commit: fb5319af6ad8616b772761ed926ca57e10f30ea4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

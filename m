@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE8959A8BC
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:49:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40DDC59A8BD
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:50:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 903371693;
-	Sat, 20 Aug 2022 00:48:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 903371693
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1FAF1698;
+	Sat, 20 Aug 2022 00:49:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1FAF1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660949385;
-	bh=dxI6vf/bStJmVt0I680tMgmCWDQv72BqvXZPaYcJOxQ=;
+	s=default; t=1660949400;
+	bh=gr61zTXhKdKcoL+U9nYufVpT53h0XuUHqgUWQ/ZCDhk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KUb3rMkYoanCzO2gL0aGM4vZ++JAu1wDxiiIT2XRur8Tc9z5SiAn2QEBGMrlEArya
-	 yNNYGadM60/fb7W+2x6KSUTogp1Tlp0FwDVDiux7j4Wcsoh8UL2zCOZ/M9ptQOYW6Y
-	 A5uBv5YzeS3fE1l3RtkiAVFVqafkMBXkWYrlrkYI=
+	b=iRmTlYfG5P2SFj8H9ZVAIJNgpdATk/VjoUX4+UEquh44VybP2VnxISywIUqQiJlYO
+	 vSMUJcQZ1MoXJnoUksEl1myBa0NcwnrnmzcKa+iwhbPPZCmG9e2izj5V1mjiGdjf5J
+	 og2rm5kfluJYeUYz5O9ug2AbuBZEgxfNl4qBb5HQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F118F8052D;
+	by alsa1.perex.cz (Postfix) with ESMTP id EEC1CF80537;
 	Sat, 20 Aug 2022 00:47:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65D12F80527; Sat, 20 Aug 2022 00:47:53 +0200 (CEST)
+ id 9EECFF80526; Sat, 20 Aug 2022 00:47:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0DDA4F80524;
- Sat, 20 Aug 2022 00:47:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DDA4F80524
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94D9DF8051E
+ for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:47:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D9DF8051E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aPfQwPWY"
+ header.b="H9LOGmLg"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 47D7CCE266F;
- Fri, 19 Aug 2022 22:47:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DFAC433D6;
- Fri, 19 Aug 2022 22:47:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4F0FD61831;
+ Fri, 19 Aug 2022 22:47:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F755C43147;
+ Fri, 19 Aug 2022 22:47:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660949264;
- bh=dxI6vf/bStJmVt0I680tMgmCWDQv72BqvXZPaYcJOxQ=;
+ s=k20201202; t=1660949267;
+ bh=gr61zTXhKdKcoL+U9nYufVpT53h0XuUHqgUWQ/ZCDhk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=aPfQwPWYqbO38H6kKJjbb/+kNhw2REJtzZW+Lpf2pz/6fuu+RwNQfkXpPgh9dHEcf
- CG8f3AhCaQHapS3WwYoITlWZI8cbx6jex0WLzBbpVCHuqjf1pW/LAgMXdpKaihu1wM
- /vcm9EcTXHlFcjv3QOzso2K8y1MVRuFN9BfIa61Iq1Rq1ZT7RfG7wQj/icRgXktwCc
- kr99zJbtz1B+mc4vzYLXqwgqVtZGSqUq4LfB2ZO+GpqW8ufV6bL6MLX4iRh0Azd1Fa
- pOGGdewbCQiL/y4OKjbU/dtDazqmnbmG3oORULrBQrIeT9k4/TGcBljxkVYvgO3DiX
- 3OrhBH7pWa53Q==
+ b=H9LOGmLgCybT/7Njtw0vQgLu4tyWlpZKZpBtljeF1D2v0tJEm64oHQyJ9pKxsXbkm
+ 8DhQ276M9td/uMBrxJpVUNjfe/aDKnyKbAtPHcWUuTdcp3vse12eRjXX4mLVqDOpkI
+ NLUyWC1F1APQlYNXp+HjeF+eGxpMofDvKHM904dkfV0wOqXQ0LG2nbMBJS1rHhvYNu
+ 0vJ7WrpdzsL+25kJoxuBqUomz+zq91FhP7Z0dQ7KVeNJwJASJotpgny/lP4PiH1Jwx
+ EYvI74DbXB92Q7PNOzRFHzWlp/Q7+mjxCXZe0SuDEApcAuQWCXWBBpBFG8CSucvDqm
+ P2y4aBOPMaa2g==
 From: Mark Brown <broonie@kernel.org>
-To: kernel@pengutronix.de, perex@perex.cz, ranjani.sridharan@linux.intel.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- s.hauer@pengutronix.de, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com, 
- shawnguo@kernel.org, daniel.baluta@nxp.com, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, 
- festevam@gmail.com, linux-imx@nxp.com, tiwai@suse.com,
- devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org, 
- robh+dt@kernel.org
-In-Reply-To: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1660787634-28550-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [RESEND PATCH v2 1/2] dt-bindings: dsp: fsl: Add SOF compatile
- string for i.MX8ULP
-Message-Id: <166094926008.19151.7343804058436995082.b4-ty@kernel.org>
-Date: Fri, 19 Aug 2022 23:47:40 +0100
+To: Chunxu Li <chunxu.li@mediatek.com>, angelogioacchino.delregno@collabora.com,
+ lgirdwood@gmail.com
+In-Reply-To: <20220818025113.17144-1-chunxu.li@mediatek.com>
+References: <20220818025113.17144-1-chunxu.li@mediatek.com>
+Subject: Re: [PATCH RESEND 0/3] ASoC: mediatek: support SOF for mt8186
+Message-Id: <166094926478.19151.18027354027835618602.b4-ty@kernel.org>
+Date: Fri, 19 Aug 2022 23:47:44 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fe10a
-Cc: alsa-devel@alsa-project.org, shengjiu.wang@gmail.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ jiaxin.yu@mediatek.com, project_global_chrome_upstream_group@mediatek.com,
+ tzungbi@google.com, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,11 +89,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Aug 2022 09:53:53 +0800, Shengjiu Wang wrote:
-> Add SOF compatile string "fsl,imx8ulp-dsp" for supporting DSP
-> device on i.MX8ULP platform.
+On Thu, 18 Aug 2022 10:51:10 +0800, Chunxu Li wrote:
+> From: "chunxu.li" <chunxu.li@mediatek.com>
 > 
+> In these patches, we add SOF support for mt8186 which have HiFi5 DSP
+> inside.
 > 
+> Chunxu Li (3):
+>   ASoC: mediatek: mt8186: support DSP downlink
+>   ASoC: mediatek: mt8186: add SOF support on
+>     mt8186-mt6366-rt1019-rt5682s
+>   ASoC: mediatek: mt8186: add SOF support on
+>     mt8186-mt6366-da7219-max98357
+> 
+> [...]
 
 Applied to
 
@@ -107,10 +110,12 @@ Applied to
 
 Thanks!
 
-[1/2] dt-bindings: dsp: fsl: Add SOF compatile string for i.MX8ULP
-      commit: ee6c42ba5c7670c6f8c17c7bcedbcdaf7b8eb72e
-[2/2] ASoC: SOF: imx: Add i.MX8ULP HW support
-      commit: fb5319af6ad8616b772761ed926ca57e10f30ea4
+[1/3] ASoC: mediatek: mt8186: support DSP downlink
+      commit: 3c15abbed0ab99bac2e075ad38d43a7004778e91
+[2/3] ASoC: mediatek: mt8186: add SOF support on mt8186-mt6366-rt1019-rt5682s
+      commit: 4be34e1b70ac72415a55e02683cd847436424588
+[3/3] ASoC: mediatek: mt8186: add SOF support on mt8186-mt6366-da7219-max98357
+      commit: 9398381a3904d8849691fb3ec173b48f077c185e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

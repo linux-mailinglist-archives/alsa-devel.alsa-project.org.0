@@ -2,76 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B05E59A895
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 763D359A8B9
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:48:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EECF1695;
-	Sat, 20 Aug 2022 00:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EECF1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18EF41698;
+	Sat, 20 Aug 2022 00:47:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18EF41698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660948770;
-	bh=s/GG84sikI0Itd78mUGXKSubznopCbavV7DFi48tcdg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1660949322;
+	bh=/6ipmcsaaRQMn187N8aThFgVGWkO8zOtXUtqu8qYFDc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ePKiQ840m91Afh65DN8/AztFZPSCdhCDuYZf71YlmcMEwNx6S2rqompBt7Tp/QjkZ
-	 99Y4wkRso9seKxuDPdMVfBHDeg7cSia3QiF3/SApQ/PjlMzeNNB82hGKlXtal4wd8a
-	 kxgMj4rVUa2LBvjkvwqDTcwGpDlAC2Rj0mrgfDsU=
+	b=dAF/Qy41dwnJ6RdhFMKFdrHwI4o+cGQ/x+/Fn36iMsulltelgJQcMc9YNv+AYAj3t
+	 vxxCB45TxVCWhFR1WuPF+w/Tmx7REBr/ieny5syZ7AhJnfjRcTzqFMYKpWYf/WiZaH
+	 Rq1Qsn+y9/0egx1rjgG5+yJ/rRYi3G7Czmdd5o7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05343F800B5;
-	Sat, 20 Aug 2022 00:38:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 818ABF8016C;
+	Sat, 20 Aug 2022 00:47:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD354F801F7; Sat, 20 Aug 2022 00:38:29 +0200 (CEST)
+ id 1BC4FF801F7; Sat, 20 Aug 2022 00:47:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03C7CF800B5
- for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03C7CF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1835F800B5
+ for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1835F800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jGBhNYcA"
+ header.b="AfgOuvt7"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 81115617F7;
- Fri, 19 Aug 2022 22:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16410C433D7;
- Fri, 19 Aug 2022 22:38:22 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CF290B8280F;
+ Fri, 19 Aug 2022 22:47:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8563C433D7;
+ Fri, 19 Aug 2022 22:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660948703;
- bh=s/GG84sikI0Itd78mUGXKSubznopCbavV7DFi48tcdg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jGBhNYcANumxEn1f8q5ZLM24OMGhISmjaQ4ziYX7oH+g6bx4ighI0NCoThPLKEr+r
- 0JE7b50PfbLwyDGsvBMzRd1SH7Ty0ChMC4ySGn4k0dsDbVsVwVp4A/f9h/2EJ+vmtz
- BVDaS+nMrGY22Z8zTTVFfWEy/U5w5NZoIXZ9NddZ2dfAntNKU+9geLjUxA1fUyO7Cf
- dccWpp72O3CRr/OTEXtMYtyKAL6hZV9M/c+YpJW6JUOy5HI1TBR8q9O7Mivg+RHyeM
- TUea/g7hImUCnI5Ki9Kz8OiF/loD1JIgCJF5LVXjcZ4Py+ryba9w02XN3Liod0uDe/
- yLek/nJMj0t7A==
-Date: Fri, 19 Aug 2022 23:38:19 +0100
+ s=k20201202; t=1660949255;
+ bh=/6ipmcsaaRQMn187N8aThFgVGWkO8zOtXUtqu8qYFDc=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=AfgOuvt7po+HQ1UABnL3AJl49XOdQ28PP9FPw+4hiusHP2+4ACy0JkS9vTc+3E4a3
+ 2mM+b9gUcebYqXrpYsxIdZsjvRK7205oNe/u2YpZ7v8QMoETjJxgxdzepPvUIuDpbC
+ kwbQh+jK0Cn7edLLOnFijL+qz9my/vnqoNa5VttfSj+PCb5aMrxwnMQOz5R8MUL4aN
+ mQMB/y+YatZk3NK59zt6QZO7y/bLAYYluIfnPkwSXsanfB32AXCUte1+0PHcQ7HjJd
+ 5jN63gF7D+1DqDqkCDn9QlSEfCEvt6TWYoyb8+hXPjvvwyPw2l7EGSB0Hf+9/7Omrj
+ iGP12I/u6Su2w==
 From: Mark Brown <broonie@kernel.org>
-To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: Re: [PATCH] ASoC: ops: Don't modify the driver's plaform_max when
- reading state
-Message-ID: <YwAQ2+OLowhA+14d@sirena.org.uk>
-References: <20220603112508.3856519-1-broonie@kernel.org>
- <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Martin Povišer <povik+lin@cutebit.org>
+In-Reply-To: <20220818165336.76403-1-povik+lin@cutebit.org>
+References: <20220818165336.76403-1-povik+lin@cutebit.org>
+Subject: Re: [PATCH] ASoC: Change handling of unimplemented set_bclk_ratio
+Message-Id: <166094925439.19151.638543064587781826.b4-ty@kernel.org>
+Date: Fri, 19 Aug 2022 23:47:34 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vtze+xjH08JFU6nH"
-Content-Disposition: inline
-In-Reply-To: <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
-X-Cookie: Process promptly.
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fe10a
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,61 +84,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 18 Aug 2022 18:53:36 +0200, Martin Povišer wrote:
+> If a 'set_bclk_ratio' call is attempted on a DAI not implementing the
+> method, make it an -ENOSUPP error instead of -EINVAL. Assume the DAI can
+> still be okay with the ratio, just does not care to register a handler.
+> 
+> No current in-tree users of snd_soc_dai_set_bclk_ratio seem to inspect
+> the return value, but -ENOSUPP disables an error print from within the
+> common soc_dai_ret return filter. With the new behavior a machine
+> driver can do a blanket 'set_bclk_ratio' on all DAIs on a bus, some of
+> which may care about the ratio, some of which may not.
+> 
+> [...]
 
---vtze+xjH08JFU6nH
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Fri, Aug 19, 2022 at 06:17:25PM +0200, Martin Povi=C5=A1er wrote:
-> > On 3. 6. 2022, at 13:25, Mark Brown <broonie@kernel.org> wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > This means that platform_max is no longer treated as a direct register
-> > value for controls were min is non-zero. The put() callbacks already
-> > validate on this basis, and there do not appear to be any in tree users
-> > that would be affected.
+Thanks!
 
-> At least =E2=80=98put_volsw' seem to validate on the other conflicting in=
-terpretation
-> of platform_max [as was introduced in commit 9bdd10d57a88 (=E2=80=9CASoC:=
- ops:
-> Shift tested values in snd_soc_put_volsw() by +min=E2=80=9D)].
+[1/1] ASoC: Change handling of unimplemented set_bclk_ratio
+      commit: ceff365a29aaf275c0cd1bb7edaf57dcf254bc77
 
-Ugh, so it does.  The patchwork of reuse and differing interpretations
-of these controls is causing all sorts of confusion :/
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> Also, the soc.h definitions of SOC_SINGLE_*/SOC_DOUBLE_* set platform_max
-> to the register maximum, again interpreting platform_max the other way.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-That use of platform_max has been removed since it was just obviously
-not sensible anyway, the whole purpose of platform_max is to override
-what was set in the control so having both max and platform_max set is
-just redundant and causing confusion.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> > Signed-off-by: Mark Brown <broonie@kernel.org>
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> This commit breaks controls with non-zero minimum.
-
-Could you specify more exactly how it does that, and indeed where we
-have non-zero minimums - all the info callbacks report 0 as a minimum as
-far as I can see?  Life would be a lot simpler if the controls had all
-been defined to just be the register values, I've never been able to
-figure out why they're anything else since the ABI for controls supports
-negative values just fine.
-
---vtze+xjH08JFU6nH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMAENgACgkQJNaLcl1U
-h9AWlwf/RjiL1boNHRAZYhVGSO1wGB4HirOqVSoG2gp0tgGB2MAhEwlT4R0CR8s4
-irPISWEIyAkYXwT2XZ8ZHltguUdD/a8NWP8Mi4CK+FCbv9dqpQexMG5fITPIZSSQ
-BSjNNQfZiB0EvnrUV1Q8OnsbWregeCxZNkezjT/Z+8pCnDghICdgiWxYTe3Lk7DQ
-+/701ULj4JVf/58UnaGcGuTABxLXWJEpErbdUCgPncRm58dReVcJGao3b8na+xpu
-0146ROUId4f5BPVQh4JKsJxpuNHxS9q9r0gOh+WZMrNMQ06NK1K5qo0KB8pcyJ56
-kh5ELy6Oz48mFuOiGpxjDnxJE21hVQ==
-=aY/V
------END PGP SIGNATURE-----
-
---vtze+xjH08JFU6nH--
+Thanks,
+Mark

@@ -2,69 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72AED5995FC
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 09:31:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DC3F599625
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 09:42:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3D041614;
-	Fri, 19 Aug 2022 09:30:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3D041614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C9F3163F;
+	Fri, 19 Aug 2022 09:41:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C9F3163F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660894265;
-	bh=MqSi1rb4lcXs5mKYgNI9ZOJHPcqFhs81g9qEg4CLgqM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1660894927;
+	bh=QlyJzkYOXdt9aX/Bwon7uYrwBx7WgOIwLFmnjyF0XaY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SBCIdukiTNFRZ52J3uyt1x5MlT2+3618er+rVWs6k+yEmCH8TGTJBhXP4FDwNbJMe
-	 OXiEhqhbkpmp1zZImu0k5vXFc91SiGiQf1k3MN8lMOr0HFWVvTL3lDzA97bUKdXHRx
-	 ShiudxAati1yuNXAsw7lEz0yktK6NVmssR9PZ04E=
+	b=PGUADqa1yY6hOZKpsUsR+A9cfQC1QDvIuDBt9lyffRQDTOW+BWMDtKpLgTNkXiN1/
+	 5JnbnBrp0kXe8CWkh+0e1BmePvqlFzS+HpIyOTG4CNeXjJsJ1dSI8gTG8B+icfofKd
+	 Nbsc8hy5mrh1Jr3mKzxJWHoT30vCjnLvA5AC5EOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13B9BF8016C;
-	Fri, 19 Aug 2022 09:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1696F80217;
+	Fri, 19 Aug 2022 09:41:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF71CF802A0; Fri, 19 Aug 2022 09:30:02 +0200 (CEST)
+ id 3A016F801F7; Fri, 19 Aug 2022 09:41:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15571F8016C
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 09:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15571F8016C
-Received: from dggpemm500021.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4M8Cz44qSnzGpgt;
- Fri, 19 Aug 2022 15:28:16 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500021.china.huawei.com (7.185.36.109) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Fri, 19 Aug 2022 15:29:51 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 19 Aug
- 2022 15:29:50 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next 3/3] ASoC: amd: acp: add a label to make error path more
- clean
-Date: Fri, 19 Aug 2022 15:37:58 +0800
-Message-ID: <20220819073758.1273160-3-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220819073758.1273160-1-yangyingliang@huawei.com>
-References: <20220819073758.1273160-1-yangyingliang@huawei.com>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA398F800B5
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 09:41:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA398F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="N9ULk/nS"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="6HSXckWA"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E8AEA5CAC7;
+ Fri, 19 Aug 2022 07:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660894861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qmEmRwbvgXw29M6tJMACSOhRvv5bpX5gPHGr1QrxjWg=;
+ b=N9ULk/nSj5ci61DvtWywUkMT1iE7dIgWi7Gv8PWNun41MurpGppwGzShj+qAkJh5f9AEP2
+ FjVzllqP6wjTCBnJ31bWQ6kiYvbKUbtC44/3jdTskONNXgz8+yGVI8hSjteqzKEdrRkSlA
+ VnFso7+N6Ux3ej8VC5UgUwOv8mxbVxc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660894861;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qmEmRwbvgXw29M6tJMACSOhRvv5bpX5gPHGr1QrxjWg=;
+ b=6HSXckWAKOq9QOhFAT2GgBdiJs0SXMFWK+J7rhSeJ7vMKxtcNaIlfGNxUtUDWcI7tJim9e
+ 7iALMLh5xqEszFDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C6D3D13AC1;
+ Fri, 19 Aug 2022 07:41:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id sRHCL40+/2LPUgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 19 Aug 2022 07:41:01 +0000
+Date: Fri, 19 Aug 2022 09:41:01 +0200
+Message-ID: <87fshs7kaa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: abhishek.shah@columbia.edu
+Subject: Re: data-race in snd_seq_oss_midi_check_exit_port /
+ snd_seq_oss_midi_setup
+In-Reply-To: <CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com>
+References: <CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: venkataprasad.potturu@amd.com, broonie@kernel.org, Vijendar.Mukunda@amd.com
+Cc: Gabriel Ryan <gabe@cs.columbia.edu>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,53 +104,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move platform_device_unregister() to a new label to make code more clean.
+On Fri, 19 Aug 2022 03:00:00 +0200,
+Abhishek Shah wrote:
+> 
+> 
+> Hi all, 
+> 
+> We found a race involving the max_midi_devs variable. We see an interleaving
+> where the following check here passes before the 
+> snd_seq_oss_midi_check_exit_port() finishes, but this check should not pass
+> if max_midi_devs will become zero, but we are not sure of its implications in
+> terms of security impact. Please let us know what you think.
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/soc/amd/acp/acp-pci.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+Through a quick glance, I guess it's rather harmless (although a bit
+fragile from the code sanity POV).
 
-diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
-index 691350646f1b..ef2ce083521e 100644
---- a/sound/soc/amd/acp/acp-pci.c
-+++ b/sound/soc/amd/acp/acp-pci.c
-@@ -103,16 +103,14 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 	addr = pci_resource_start(pci, 0);
- 	chip->base = devm_ioremap(&pci->dev, addr, pci_resource_len(pci, 0));
- 	if (!chip->base) {
--		platform_device_unregister(dmic_dev);
- 		ret = -ENOMEM;
--		goto release_regions;
-+		goto unregister_dmic_dev;
- 	}
- 
- 	res = devm_kzalloc(&pci->dev, sizeof(struct resource) * num_res, GFP_KERNEL);
- 	if (!res) {
--		platform_device_unregister(dmic_dev);
- 		ret = -ENOMEM;
--		goto release_regions;
-+		goto unregister_dmic_dev;
- 	}
- 
- 	for (i = 0; i < num_res; i++, res_acp++) {
-@@ -139,13 +137,14 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 	pdev = platform_device_register_full(&pdevinfo);
- 	if (IS_ERR(pdev)) {
- 		dev_err(&pci->dev, "cannot register %s device\n", pdevinfo.name);
--		platform_device_unregister(dmic_dev);
- 		ret = PTR_ERR(pdev);
--		goto release_regions;
-+		goto unregister_dmic_dev;
- 	}
- 
- 	return ret;
- 
-+unregister_dmic_dev:
-+	platform_device_unregister(dmic_dev);
- release_regions:
- 	pci_release_regions(pci);
- disable_pci:
--- 
-2.25.1
+A MIDI port could be closed at any time, and the dp->max_mididevs
+holds locally the upper bound of currently possibly accessible ports.
+The actual access to each port is done via get_mdev() in
+seq_oss_midi.c, which is a sort of refcount managed, and it should be
+fine that a port disappears meanwhile.
 
+That said, it'd be even feasible just dropping dp->max_mididevs field
+and scan all MIDI ports at each time, but it won't bring much benefit,
+either.
+
+
+thanks,
+
+Takashi
+
+> 
+> Thanks!
+> 
+> -------------------Report---------------------
+> 
+> write to 0xffffffff88382f80 of 4 bytes by task 6541 on cpu 0:
+>  snd_seq_oss_midi_check_exit_port+0x1a6/0x270 sound/core/seq/oss/
+> seq_oss_midi.c:237
+>  receive_announce+0x193/0x1b0 sound/core/seq/oss/seq_oss_init.c:143
+>  snd_seq_deliver_single_event+0x30d/0x4e0 sound/core/seq/seq_clientmgr.c:640
+>  deliver_to_subscribers sound/core/seq/seq_clientmgr.c:695 [inline]
+>  snd_seq_deliver_event+0x38c/0x490 sound/core/seq/seq_clientmgr.c:830
+>  snd_seq_kernel_client_dispatch+0x189/0x1a0 sound/core/seq/
+> seq_clientmgr.c:2339
+>  snd_seq_system_broadcast+0x98/0xd0 sound/core/seq/seq_system.c:86
+>  snd_seq_ioctl_delete_port+0x9a/0xc0 sound/core/seq/seq_clientmgr.c:1356
+>  snd_seq_ioctl+0x198/0x2d0 sound/core/seq/seq_clientmgr.c:2173
+>  vfs_ioctl fs/ioctl.c:51 [inline]
+>  __do_sys_ioctl fs/ioctl.c:870 [inline]
+>  __se_sys_ioctl+0xe1/0x150 fs/ioctl.c:856
+>  __x64_sys_ioctl+0x43/0x50 fs/ioctl.c:856
+>  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+>  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
+>  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> 
+> read to 0xffffffff88382f80 of 4 bytes by task 6542 on cpu 1:
+>  snd_seq_oss_midi_setup+0x1b/0x40 sound/core/seq/oss/seq_oss_midi.c:273
+>  snd_seq_oss_open+0x364/0x900 sound/core/seq/oss/seq_oss_init.c:198
+>  odev_open+0x55/0x70 sound/core/seq/oss/seq_oss.c:128
+>  soundcore_open+0x315/0x3a0 sound/sound_core.c:593
+>  chrdev_open+0x373/0x3f0 fs/char_dev.c:414
+>  do_dentry_open+0x543/0x8f0 fs/open.c:824
+>  vfs_open+0x47/0x50 fs/open.c:958
+>  do_open fs/namei.c:3476 [inline]
+>  path_openat+0x1906/0x1dc0 fs/namei.c:3609
+>  do_filp_open+0xef/0x200 fs/namei.c:3636
+>  do_sys_openat2+0xa5/0x2a0 fs/open.c:1213
+>  do_sys_open fs/open.c:1229 [inline]
+>  __do_sys_openat fs/open.c:1245 [inline]
+>  __se_sys_openat fs/open.c:1240 [inline]
+>  __x64_sys_openat+0xf0/0x120 fs/open.c:1240
+>  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+>  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
+>  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> 
+> Reported by Kernel Concurrency Sanitizer on:
+> CPU: 1 PID: 6542 Comm: syz-executor2-n Not tainted 5.18.0-rc5+ #107
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/
+> 2014
+> 
+> Reproducing Inputs
+> 
+> Input CPU 0:
+> r0 = openat$sndseq(0xffffffffffffff9c, &(0x7f0000000040)='/dev/snd/seq\x00',
+> 0x0)
+> ioctl$SNDRV_SEQ_IOCTL_CREATE_PORT(r0, 0xc0a85320, &(0x7f0000000240)={{0x80},
+> 'port1\x00', 0x10})
+> ioctl$SNDRV_SEQ_IOCTL_SET_CLIENT_POOL(r0, 0x40a85321, &(0x7f0000000100)=
+> {0x80})
+> 
+> Input CPU 1:
+> r0 = openat$sequencer2(0xffffff9c, &(0x7f0000000000)='/dev/sequencer2\x00',
+> 0x0, 0x0)
+> ioctl$SNDCTL_SYNTH_INFO(r0, 0xc08c5102, &(0x7f0000000200)=
+> {"02961a3ce6d4828f8b5559726313251b55fa11d8d65406f1f33c9af8e3f8", 0xffffffff})
+> 
+> 

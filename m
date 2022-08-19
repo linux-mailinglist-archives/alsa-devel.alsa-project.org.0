@@ -2,79 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7727D599C13
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 14:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C9C599C3D
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Aug 2022 14:53:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1353A1616;
-	Fri, 19 Aug 2022 14:38:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1353A1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2251616;
+	Fri, 19 Aug 2022 14:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2251616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660912730;
-	bh=x1ugOjRX48eGrt84mYnkV10rWIU/I0OcUgTDAua5LZE=;
+	s=default; t=1660913620;
+	bh=OEOolqllBFDGEwDJDhJ2GSRJ+CX3URgiBpHOKvVObBU=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=DzTbdsGGeQKAbjBgL3skEcDlcfHPd5Wj+BdEcJEy2AZovTEhzPC/UpL9wC8T5Nw5C
-	 qj+VFMp1M7K1be2x3PxmgpISswQm8Jm2VG97JNWYs++crsW/Z/TCP0WSBjbrAy8jAR
-	 tTJYhtNm+xDFWKz+zusr+v8pE3ndBb1R1VSkCDhY=
+	b=jm9lg3oi/RAo3sBpoDPAKpqT7i3BzLdyXk+ZqAkb/cNQOLKzaAfaIGpZNwCa7/ChY
+	 vIb+0QN6VgU0RdVuJtY1Hroh7xt48M5W81PmPwtgoTTzCVbDwX96UnYvR+tL7Yo+Gp
+	 OXiLqsEfem7bvl7evyIWzo0F+FQbHAz3T8RIsOzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89F7FF80128;
-	Fri, 19 Aug 2022 14:37:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB29BF8051B;
+	Fri, 19 Aug 2022 14:52:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26840F80217; Fri, 19 Aug 2022 14:37:49 +0200 (CEST)
+ id DE30CF800EE; Fri, 19 Aug 2022 14:52:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A66D0F800EE
- for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 14:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A66D0F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54B7FF800EE
+ for <alsa-devel@alsa-project.org>; Fri, 19 Aug 2022 14:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B7FF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IeaEOEV7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660912663; x=1692448663;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=x1ugOjRX48eGrt84mYnkV10rWIU/I0OcUgTDAua5LZE=;
- b=IeaEOEV7EcRgIMh9Vl+XkBoZiH8V+gxoQ4bpFVPMB7Uo5lyrZQMUzccI
- 2gski4KEhAbyXcn5Cwo2iqYW1zpNPN6KsQjqQtOWjV9akkPu+XllhDh76
- 8jOPJmtQp9nAi+RGgJ8Lqa+EFHAxE/rOdLFfyB0T43dhoqWL2sC3TcVwl
- oeZJVQbtgrLYfc5KIFvpkZGrvYRK9lSo8Q/zmkeHWJZGQBBg5LlVkHr1k
- RHJLD9Ryo5Sp02C1QalFQhmhAk059K6cE1gk3qfuJmFwwQdNjVUGl9Fhh
- 7KKlfiCf9+NN/2zi6vNNu4kqKpmVe9zTZYxkVmeGaX2YZBGZIJRVTqlsR w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="279966080"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="279966080"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2022 05:37:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="750512910"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 19 Aug 2022 05:37:37 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	tiwai@suse.com
-Subject: [PATCH v2] ASoC: SOF: Fix compilation when HDA_AUDIO_CODEC config is
- disabled
-Date: Fri, 19 Aug 2022 14:47:40 +0200
-Message-Id: <20220819124740.3564862-1-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="IVC4b3HI"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27J5QffN021184;
+ Fri, 19 Aug 2022 07:52:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=DEfJ9i42eqkoVYAgl9Ca7Dg0mjK9CUm+t95OA12w4tg=;
+ b=IVC4b3HIaQPYpyssKEzkaeGiahh07vid5V7vc6MFSxKJkx3xqLkV3U4gsR+RDySRJhZj
+ czm6wQNgE25yGQj4ETx5C8PY1vdQZ8tPu1JcBbruzwL0KA+Rbs9Fp6r+krOP4+RhC8c+
+ IGscNVt3v8pWB5iq7bjYbzLsHD88F4G3URZ9IiLqdWcdqAtNVYyQ9JBlB2jA+1DOftJD
+ 03g1lLDbPk8wUHf4D1gdy8zFIDM+Xi8+k64rSIlaR/DD/cZiRfXCzVbnURsesaRwcsUX
+ dIM0HU2FgLyo9nUEaevhSgQnAR2D55cIUD+TvtClllEgkKRV78QESi8f8yIYzdNxpcCH Qg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3hx8cpfuvk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Aug 2022 07:52:33 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Fri, 19 Aug
+ 2022 07:52:32 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.9 via Frontend
+ Transport; Fri, 19 Aug 2022 07:52:32 -0500
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 19EFD7C;
+ Fri, 19 Aug 2022 12:52:30 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH 00/12] ASoC: cs42l42: Add Soundwire support
+Date: Fri, 19 Aug 2022 13:52:18 +0100
+Message-ID: <20220819125230.42731-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- kernel test robot <lkp@intel.com>, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: iq25F7LQ021Oc1jlEJEc4xq159PP-sYN
+X-Proofpoint-GUID: iq25F7LQ021Oc1jlEJEc4xq159PP-sYN
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,32 +96,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hda_codec_device_init() expects three parameters, not two.
+The CS42L42 has a Soundwire interface for control and audio. This
+chain of patches adds support for this.
 
-Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
+Patches #1 .. #10 split out various changes to the existing code that
+are needed for adding Soundwire. These are mostly around clocking and
+supporting the separate probe and enumeration stages in Soundwire.
 
-Changes in v2:
-- adjusted SHA-1 provided in Fixes tag
+Patches #11 and #12 actually add the Soundwire handling.
 
- sound/soc/sof/intel/hda-codec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Richard Fitzgerald (12):
+  ASoC: cs42l42: Add SOFT_RESET_REBOOT register
+  ASoC: cs42l42: Add bitclock frequency argument to cs42l42_pll_config()
+  ASoC: cs42l42: Ensure MCLKint is a multiple of the sample rate
+  ASoC: cs42l42: Separate ASP config from PLL config
+  ASoC: cs42l42: Use cs42l42->dev instead of &i2c_client->dev
+  ASoC: cs42l42: Split probe() and remove() into stages
+  ASoC: cs42l42: Split cs42l42_resume into two functions
+  ASoC: cs42l42: Pass component and dai defs into common probe
+  ASoC: cs42l42: Split I2C identity into separate module
+  ASoC: cs42l42: Export some functions for Soundwire
+  ASoC: cs42l42: Add Soundwire support
+  ASoC: cs42l42: Add support for Soundwire interrupts
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 73336648cd25..1e9afc48394c 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -213,7 +213,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 		put_device(&codec->core.dev);
- 	}
- #else
--	codec = hda_codec_device_init(&hbus->core, address);
-+	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_ASOC);
- 	ret = PTR_ERR_OR_ZERO(codec);
- #endif
- 
+ include/sound/cs42l42.h        |   5 +
+ sound/soc/codecs/Kconfig       |  14 +-
+ sound/soc/codecs/Makefile      |   6 +-
+ sound/soc/codecs/cs42l42-i2c.c | 107 +++++
+ sound/soc/codecs/cs42l42-sdw.c | 689 +++++++++++++++++++++++++++++++++
+ sound/soc/codecs/cs42l42.c     | 359 +++++++++--------
+ sound/soc/codecs/cs42l42.h     |  30 +-
+ 7 files changed, 1049 insertions(+), 161 deletions(-)
+ create mode 100644 sound/soc/codecs/cs42l42-i2c.c
+ create mode 100644 sound/soc/codecs/cs42l42-sdw.c
+
 -- 
-2.25.1
+2.30.2
 

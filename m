@@ -2,78 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40DDC59A8BD
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 00:50:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51AC759AA5F
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 03:11:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1FAF1698;
-	Sat, 20 Aug 2022 00:49:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1FAF1698
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5E171698;
+	Sat, 20 Aug 2022 03:11:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5E171698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660949400;
-	bh=gr61zTXhKdKcoL+U9nYufVpT53h0XuUHqgUWQ/ZCDhk=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1660957918;
+	bh=BP1Nrss6XrcSBZKvOnOpSp0fkhT5FS/IzNwOZrdH98c=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iRmTlYfG5P2SFj8H9ZVAIJNgpdATk/VjoUX4+UEquh44VybP2VnxISywIUqQiJlYO
-	 vSMUJcQZ1MoXJnoUksEl1myBa0NcwnrnmzcKa+iwhbPPZCmG9e2izj5V1mjiGdjf5J
-	 og2rm5kfluJYeUYz5O9ug2AbuBZEgxfNl4qBb5HQ=
+	b=pB6a5CXWWxqYSBhFeMuqJsIVqEeAc4lCK3trvIPkFtcUZjm4gv+poTPlHRqYT5ium
+	 lvGoLo5NFfy+lTzWxZo4T9NrdyIdpz4e7civd5FPK5M0YdwzUmAQlR30BNhBL5KRXb
+	 X/cRPUMUuj2NfSumZ3CD+DXbwuYzyJbM6FBGQpFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEC1CF80537;
-	Sat, 20 Aug 2022 00:47:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E7EBF800B5;
+	Sat, 20 Aug 2022 03:10:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EECFF80526; Sat, 20 Aug 2022 00:47:54 +0200 (CEST)
+ id 49C00F801F7; Sat, 20 Aug 2022 03:10:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94D9DF8051E
- for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 00:47:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D9DF8051E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H9LOGmLg"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4F0FD61831;
- Fri, 19 Aug 2022 22:47:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F755C43147;
- Fri, 19 Aug 2022 22:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660949267;
- bh=gr61zTXhKdKcoL+U9nYufVpT53h0XuUHqgUWQ/ZCDhk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=H9LOGmLgCybT/7Njtw0vQgLu4tyWlpZKZpBtljeF1D2v0tJEm64oHQyJ9pKxsXbkm
- 8DhQ276M9td/uMBrxJpVUNjfe/aDKnyKbAtPHcWUuTdcp3vse12eRjXX4mLVqDOpkI
- NLUyWC1F1APQlYNXp+HjeF+eGxpMofDvKHM904dkfV0wOqXQ0LG2nbMBJS1rHhvYNu
- 0vJ7WrpdzsL+25kJoxuBqUomz+zq91FhP7Z0dQ7KVeNJwJASJotpgny/lP4PiH1Jwx
- EYvI74DbXB92Q7PNOzRFHzWlp/Q7+mjxCXZe0SuDEApcAuQWCXWBBpBFG8CSucvDqm
- P2y4aBOPMaa2g==
-From: Mark Brown <broonie@kernel.org>
-To: Chunxu Li <chunxu.li@mediatek.com>, angelogioacchino.delregno@collabora.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220818025113.17144-1-chunxu.li@mediatek.com>
-References: <20220818025113.17144-1-chunxu.li@mediatek.com>
-Subject: Re: [PATCH RESEND 0/3] ASoC: mediatek: support SOF for mt8186
-Message-Id: <166094926478.19151.18027354027835618602.b4-ty@kernel.org>
-Date: Fri, 19 Aug 2022 23:47:44 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fe10a
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- jiaxin.yu@mediatek.com, project_global_chrome_upstream_group@mediatek.com,
- tzungbi@google.com, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E982F800B5
+ for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 03:10:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E982F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
+ header.b="NMLybYYs"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+ t=1660957852; bh=ybJdctHu1TALzc3RVz8396vJzGlEsjAlDvYISTn2Zpc=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=NMLybYYswE2AXJ0AfHOLEJ9O9OsV7vw9TcKM4jBcROstfRk3ngLp4bUgUn+Jg6yym
+ 2aSmNFuR1WjJ2l7cvYeVL9Nw3kyPFzsCLXmY1qVKyVrPS/Pd/0op3mt3s9JZxV/Jpu
+ sidknC1fvBFXVpQ5bi5fC+NK+1MxeCcSai48Fy6M=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
+Subject: Re: [PATCH] ASoC: ops: Don't modify the driver's plaform_max when
+ reading state
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <YwAQ2+OLowhA+14d@sirena.org.uk>
+Date: Sat, 20 Aug 2022 03:10:51 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1329B1B6-EA75-481C-A625-058F21D62C3D@cutebit.org>
+References: <20220603112508.3856519-1-broonie@kernel.org>
+ <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
+ <YwAQ2+OLowhA+14d@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,49 +76,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Aug 2022 10:51:10 +0800, Chunxu Li wrote:
-> From: "chunxu.li" <chunxu.li@mediatek.com>
-> 
-> In these patches, we add SOF support for mt8186 which have HiFi5 DSP
-> inside.
-> 
-> Chunxu Li (3):
->   ASoC: mediatek: mt8186: support DSP downlink
->   ASoC: mediatek: mt8186: add SOF support on
->     mt8186-mt6366-rt1019-rt5682s
->   ASoC: mediatek: mt8186: add SOF support on
->     mt8186-mt6366-da7219-max98357
-> 
-> [...]
 
-Applied to
+> On 20. 8. 2022, at 0:38, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> On Fri, Aug 19, 2022 at 06:17:25PM +0200, Martin Povi=C5=A1er wrote:
+>>> On 3. 6. 2022, at 13:25, Mark Brown <broonie@kernel.org> wrote:
+>=20
+>>> This means that platform_max is no longer treated as a direct =
+register
+>>> value for controls were min is non-zero. The put() callbacks already
+>>> validate on this basis, and there do not appear to be any in tree =
+users
+>>> that would be affected.
+>=20
+>> At least =E2=80=98put_volsw' seem to validate on the other =
+conflicting interpretation
+>> of platform_max [as was introduced in commit 9bdd10d57a88 (=E2=80=9CASo=
+C: ops:
+>> Shift tested values in snd_soc_put_volsw() by +min=E2=80=9D)].
+>=20
+> Ugh, so it does.  The patchwork of reuse and differing interpretations
+> of these controls is causing all sorts of confusion :/
+>=20
+>> Also, the soc.h definitions of SOC_SINGLE_*/SOC_DOUBLE_* set =
+platform_max
+>> to the register maximum, again interpreting platform_max the other =
+way.
+>=20
+> That use of platform_max has been removed since it was just obviously
+> not sensible anyway, the whole purpose of platform_max is to override
+> what was set in the control so having both max and platform_max set is
+> just redundant and causing confusion.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Right, I was about to submit removal of it myself to address the issues
+that surfaced with this patch, then I saw there=E2=80=99s more confusion =
+with
+platform_max. Anyway I see the removal=E2=80=99s been done in 26bdcc4b.
 
-Thanks!
+>>> Signed-off-by: Mark Brown <broonie@kernel.org>
+>=20
+>> This commit breaks controls with non-zero minimum.
+>=20
+> Could you specify more exactly how it does that, and indeed where we
+> have non-zero minimums - all the info callbacks report 0 as a minimum =
+as
+> far as I can see?  Life would be a lot simpler if the controls had all
+> been defined to just be the register values, I've never been able to
+> figure out why they're anything else since the ABI for controls =
+supports
+> negative values just fine.
 
-[1/3] ASoC: mediatek: mt8186: support DSP downlink
-      commit: 3c15abbed0ab99bac2e075ad38d43a7004778e91
-[2/3] ASoC: mediatek: mt8186: add SOF support on mt8186-mt6366-rt1019-rt5682s
-      commit: 4be34e1b70ac72415a55e02683cd847436424588
-[3/3] ASoC: mediatek: mt8186: add SOF support on mt8186-mt6366-da7219-max98357
-      commit: 9398381a3904d8849691fb3ec173b48f077c185e
+Sure. What I meant are non-zero register value minimums, especially
+negative ones, and the breaking was in interaction with the default
+platform_max values from SOC_SINGLE_*/SOC_DOUBLE_*.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Taking for example
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+    SOC_SINGLE_S8_TLV("ADC Volume", CS42L42_ADC_VOLUME, -97, 12, =
+adc_tlv),
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+of codecs/cs42l42.c, platform_max was set to 12 and the register value
+was then clipped to -97..-85.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+So this should be fixed by the removal of the default platform_max,
+leaving us with few discrepancies that only manifest if platform_max
+is being actively used (and in that only on controls with non-zero
+register minimum).
 
-Thanks,
-Mark
+Martin
+

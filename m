@@ -2,65 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51AC759AA5F
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 03:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D66F59ABD7
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Aug 2022 08:59:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5E171698;
-	Sat, 20 Aug 2022 03:11:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5E171698
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF3CE168A;
+	Sat, 20 Aug 2022 08:58:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF3CE168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1660957918;
-	bh=BP1Nrss6XrcSBZKvOnOpSp0fkhT5FS/IzNwOZrdH98c=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1660978751;
+	bh=JSCLYe+hcTAnlzJ9iiPA2rJ/2lASOuCrkSILZF+CpGo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pB6a5CXWWxqYSBhFeMuqJsIVqEeAc4lCK3trvIPkFtcUZjm4gv+poTPlHRqYT5ium
-	 lvGoLo5NFfy+lTzWxZo4T9NrdyIdpz4e7civd5FPK5M0YdwzUmAQlR30BNhBL5KRXb
-	 X/cRPUMUuj2NfSumZ3CD+DXbwuYzyJbM6FBGQpFo=
+	b=YdlmETXzKZGm7N8xoBYT4nyYEToCRCBmEgP8qDPOVwh4yrwCwFjxihCEojKdUSKAa
+	 cef6hPZPehquJYpN1xOBH5NE2QpzpjkfcKXfUYVoaWKJdLUXsGf+gn6okYSDJ/I2E5
+	 Fk7ihpM4V+uh3Xsl3N3ppR98blrI+FViaZ0QqsxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E7EBF800B5;
-	Sat, 20 Aug 2022 03:10:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B8DAF80240;
+	Sat, 20 Aug 2022 08:58:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C00F801F7; Sat, 20 Aug 2022 03:10:56 +0200 (CEST)
+ id 152DFF801F5; Sat, 20 Aug 2022 08:58:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E982F800B5
- for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 03:10:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E982F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADE76F800EE
+ for <alsa-devel@alsa-project.org>; Sat, 20 Aug 2022 08:57:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE76F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="NMLybYYs"
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1660957852; bh=ybJdctHu1TALzc3RVz8396vJzGlEsjAlDvYISTn2Zpc=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=NMLybYYswE2AXJ0AfHOLEJ9O9OsV7vw9TcKM4jBcROstfRk3ngLp4bUgUn+Jg6yym
- 2aSmNFuR1WjJ2l7cvYeVL9Nw3kyPFzsCLXmY1qVKyVrPS/Pd/0op3mt3s9JZxV/Jpu
- sidknC1fvBFXVpQ5bi5fC+NK+1MxeCcSai48Fy6M=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
-Subject: Re: [PATCH] ASoC: ops: Don't modify the driver's plaform_max when
- reading state
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-In-Reply-To: <YwAQ2+OLowhA+14d@sirena.org.uk>
-Date: Sat, 20 Aug 2022 03:10:51 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1329B1B6-EA75-481C-A625-058F21D62C3D@cutebit.org>
-References: <20220603112508.3856519-1-broonie@kernel.org>
- <4507B606-8424-4820-A8CE-F79BEDE5181D@cutebit.org>
- <YwAQ2+OLowhA+14d@sirena.org.uk>
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
+ header.b="jU2IA1it"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="0IunKZWE"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id B5BC85C01E7;
+ Sat, 20 Aug 2022 02:57:55 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Sat, 20 Aug 2022 02:57:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1660978675; x=
+ 1661065075; bh=EA5ufC/WgFPB445mJeYn4szYmBjc0cz8G0zs6SD0CbU=; b=j
+ U2IA1itxSnm1JImuigBxXwogvS/z1qnKnbaK9uJVYX59xpYZpn2W+5/JywZ+kR7S
+ KMvY5MpnBu6iT1LfvZ+o2lfbq5QoRHm4z5HiNXtWsS6AZiD6/z4svi19mcPcnTIx
+ V3PCiUnUpzZ14HZy3vd6b2uN/+h8v2njJu9ADZQTYMc3Bmr76USyLCq7iYK1M4cx
+ Y3DT14B/ixJVdzv4Ktok5hFsRGdQ0MyKxyaCWqTD42bj9w4k9rqDjzAOHKMVWvtw
+ 8OfOeBWYUxFf+ZUOCV2vHwFjpcSsnUmAHrtIzE9ISx/P/1hbv2GMy6+UAyG09yWG
+ KspMpQmrlXJ6X7bHtCe8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1660978675; x=
+ 1661065075; bh=EA5ufC/WgFPB445mJeYn4szYmBjc0cz8G0zs6SD0CbU=; b=0
+ IunKZWEX/z8YGOvv2805GoUQuVHwPFWGynMvihRDBqF2Qg74UsgoBsnhY+OrmJsF
+ hNGiTfBLnBEVF6yHJztBbbZaf5WKALkXBgfB9F9o4AQOFotI0VbwfaATcxfTjQUf
+ fWXUrQHCq31DInU2F2UmMubBGF3ukqm919ywTlRqx4sE8cCPPoGjbCRrtB6vcdua
+ BecBPpsQSdtYvWVymRb+iM7/M+pcY0R8R1QC8/047PnjDed28/9Sma/AOaGYtx32
+ +0asZRRQ+lOwACUv//ltA2CuWwYfRzWhvW1AVsmFFdqb+SqKmXcQTXRtktrm5pJF
+ G2YsSz2ix7GMlnq3s4ylw==
+X-ME-Sender: <xms:8oUAY3WlH8lCdLlqoTfOBtChYPnQzip7yu3dMoJnfy0axwaYd63Ihw>
+ <xme:8oUAY_ms8lb85KACVWDe71aAS3nI81xj4QwozPr_28wvhLTh9IF7R1FRapXlzwMuk
+ UvX4Rq7lVVKPulRrA>
+X-ME-Received: <xmr:8oUAYza0p2fGSG4a324BGO-SDq0KBA29Mftq-YmUlagPLE2PClgzoOEgNKwHXmKkkjAU0bbG0FU-gRw-R4udaQy85MWCDdnEV__Poncb4nNHJ_D1EmmDLPfrPQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdeivddgudduvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhepuffvvehfhffkffgfgggjtgfgse
+ htjeertddtfeejnecuhfhrohhmpefurghmuhgvlhcujfholhhlrghnugcuoehsrghmuhgv
+ lhesshhhohhllhgrnhgurdhorhhgqeenucggtffrrghtthgvrhhnpefftdevkedvgeekue
+ eutefgteffieelvedukeeuhfehledvhfeitdehudfhudehhfenucevlhhushhtvghrufhi
+ iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnh
+ gurdhorhhg
+X-ME-Proxy: <xmx:84UAYyWr-wjSecZT2JaDDEnwoTIzQ3PBuToPB_EUmrlwa_gyCwCa6w>
+ <xmx:84UAYxnhSgeIpngjmtzOeG4kQrj54Byltd4rFo0kDBY8rt7gr_ZnWg>
+ <xmx:84UAY_fpEBM0DFHVS_S0S-jMW-1I8i8mHY5q9xdCHh6kjtDe58qrZA>
+ <xmx:84UAYyjfFcmqmIhMedYV8pnI2p3m8TQuDoBahfzIzUlcWQD-fbqO7g>
+Feedback-ID: i0ad843c9:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 20 Aug 2022 02:57:54 -0400 (EDT)
+Subject: Re: [PATCH v8 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
+To: Ban Tao <fengzheng923@gmail.com>
+References: <1660229343-14133-1-git-send-email-fengzheng923@gmail.com>
+From: Samuel Holland <samuel@sholland.org>
+Message-ID: <3fb9adb7-96ef-c85e-069d-ef7f7ff09bc3@sholland.org>
+Date: Sat, 20 Aug 2022 01:57:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <1660229343-14133-1-git-send-email-fengzheng923@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ jernej.skrabec@gmail.com, lgirdwood@gmail.com, wens@csie.org,
+ broonie@kernel.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,72 +123,270 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 8/11/22 9:49 AM, Ban Tao wrote:
+> The Allwinner H6 and later SoCs have an DMIC block
+> which is capable of capture.
+> 
+> Signed-off-by: Ban Tao <fengzheng923@gmail.com>
 
-> On 20. 8. 2022, at 0:38, Mark Brown <broonie@kernel.org> wrote:
->=20
-> On Fri, Aug 19, 2022 at 06:17:25PM +0200, Martin Povi=C5=A1er wrote:
->>> On 3. 6. 2022, at 13:25, Mark Brown <broonie@kernel.org> wrote:
->=20
->>> This means that platform_max is no longer treated as a direct =
-register
->>> value for controls were min is non-zero. The put() callbacks already
->>> validate on this basis, and there do not appear to be any in tree =
-users
->>> that would be affected.
->=20
->> At least =E2=80=98put_volsw' seem to validate on the other =
-conflicting interpretation
->> of platform_max [as was introduced in commit 9bdd10d57a88 (=E2=80=9CASo=
-C: ops:
->> Shift tested values in snd_soc_put_volsw() by +min=E2=80=9D)].
->=20
-> Ugh, so it does.  The patchwork of reuse and differing interpretations
-> of these controls is causing all sorts of confusion :/
->=20
->> Also, the soc.h definitions of SOC_SINGLE_*/SOC_DOUBLE_* set =
-platform_max
->> to the register maximum, again interpreting platform_max the other =
-way.
->=20
-> That use of platform_max has been removed since it was just obviously
-> not sensible anyway, the whole purpose of platform_max is to override
-> what was set in the control so having both max and platform_max set is
-> just redundant and causing confusion.
+First of all, I tested this driver on the Lichee RV 86 Panel (the only board I
+have with DMIC hardware), and it works great, so:
 
-Right, I was about to submit removal of it myself to address the issues
-that surfaced with this patch, then I saw there=E2=80=99s more confusion =
-with
-platform_max. Anyway I see the removal=E2=80=99s been done in 26bdcc4b.
+Tested-by: Samuel Holland <samuel@sholland.org>
 
->>> Signed-off-by: Mark Brown <broonie@kernel.org>
->=20
->> This commit breaks controls with non-zero minimum.
->=20
-> Could you specify more exactly how it does that, and indeed where we
-> have non-zero minimums - all the info callbacks report 0 as a minimum =
-as
-> far as I can see?  Life would be a lot simpler if the controls had all
-> been defined to just be the register values, I've never been able to
-> figure out why they're anything else since the ABI for controls =
-supports
-> negative values just fine.
+> ---
+> v1->v2:
+> 1.Fix some compilation errors.
+> 2.Modify some code styles.
+> 
+> v2->v3:
+> None.
+> 
+> v3->v4:
+> 1.add sig_bits.
+> 
+> v4->v5:
+> None.
+> 
+> v5->v6:
+> 1.Modify RXFIFO_CTL_MODE to mode 1.
+> 
+> v6->v7:
+> 1.Modify dmic_rate_s to be a global variable.
+> 2.Changed some macro names to make more sense.
+> 3.Align code format.
+> 4.Add a depends on PM to Kconfig entry.
+> 
+> v7->v8:
+> None.
+> ---
+>  MAINTAINERS                   |   7 +
+>  sound/soc/sunxi/Kconfig       |   8 +
+>  sound/soc/sunxi/Makefile      |   1 +
+>  sound/soc/sunxi/sun50i-dmic.c | 405 ++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 421 insertions(+)
+>  create mode 100644 sound/soc/sunxi/sun50i-dmic.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e9d5b05..839f625 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -796,6 +796,13 @@ L:	linux-media@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/staging/media/sunxi/cedrus/
+>  
+> +ALLWINNER DMIC DRIVERS
+> +M:	Ban Tao <fengzheng923@gmail.com>
+> +L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
+> +F:	sound/soc/sunxi/sun50i-dmic.c
+> +
+>  ALPHA PORT
+>  M:	Richard Henderson <rth@twiddle.net>
+>  M:	Ivan Kokshaysky <ink@jurassic.park.msu.ru>
+> diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+> index ddcaaa9..8543234 100644
+> --- a/sound/soc/sunxi/Kconfig
+> +++ b/sound/soc/sunxi/Kconfig
+> @@ -56,6 +56,14 @@ config SND_SUN4I_SPDIF
+>  	  Say Y or M to add support for the S/PDIF audio block in the Allwinner
+>  	  A10 and affiliated SoCs.
+>  
+> +config SND_SUN50I_DMIC
+> +	tristate "Allwinner H6 DMIC Support"
+> +	depends on (OF && PM && ARCH_SUNXI) || COMPILE_TEST
 
-Sure. What I meant are non-zero register value minimums, especially
-negative ones, and the breaking was in interaction with the default
-platform_max values from SOC_SINGLE_*/SOC_DOUBLE_*.
+You do not need any of these dependencies. The driver compiles fine with !OF,
+and runs fine with !PM. The "ARCH_SUNXI || COMPILE_TEST" dependency is already
+covered by the "menu" line at the top of the file.
 
-Taking for example
+(In a previous version, Maxime suggested adding a PM dependency and removing the
+fallback code. Since you kept the fallback code, you do not need the PM dependency.)
 
-    SOC_SINGLE_S8_TLV("ADC Volume", CS42L42_ADC_VOLUME, -97, 12, =
-adc_tlv),
+> +	select SND_SOC_GENERIC_DMAENGINE_PCM
+> +	help
+> +	  Say Y or M to add support for the DMIC audio block in the Allwinner
+> +	  H6 and affiliated SoCs.
+> +
+>  config SND_SUN8I_ADDA_PR_REGMAP
+>  	tristate
+>  	select REGMAP
+> diff --git a/sound/soc/sunxi/Makefile b/sound/soc/sunxi/Makefile
+> index a86be34..4483fe9 100644
+> --- a/sound/soc/sunxi/Makefile
+> +++ b/sound/soc/sunxi/Makefile
+> @@ -6,3 +6,4 @@ obj-$(CONFIG_SND_SUN8I_CODEC_ANALOG) += sun8i-codec-analog.o
+>  obj-$(CONFIG_SND_SUN50I_CODEC_ANALOG) += sun50i-codec-analog.o
+>  obj-$(CONFIG_SND_SUN8I_CODEC) += sun8i-codec.o
+>  obj-$(CONFIG_SND_SUN8I_ADDA_PR_REGMAP) += sun8i-adda-pr-regmap.o
+> +obj-$(CONFIG_SND_SUN50I_DMIC) += sun50i-dmic.o
+> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+> new file mode 100644
+> index 0000000..76b3378
+> --- /dev/null
+> +++ b/sound/soc/sunxi/sun50i-dmic.c
+> @@ -0,0 +1,405 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +//
+> +// This driver supports the DMIC in Allwinner's H6 SoCs.
+> +//
+> +// Copyright 2021 Ban Tao <fengzheng923@gmail.com>
+> +
+> +#include <linux/clk.h>
+> +#include <linux/device.h>
+> +#include <linux/of_device.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+> +#include <sound/dmaengine_pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +
+> +#define SUN50I_DMIC_EN_CTL             (0x00)
+> +	#define SUN50I_DMIC_EN_CTL_GLOBE                BIT(8)
+> +	#define SUN50I_DMIC_EN_CTL_CHAN(v)              ((v) << 0)
+> +	#define SUN50I_DMIC_EN_CTL_CHAN_MASK            GENMASK(7, 0)
+> +#define SUN50I_DMIC_SR                 (0x04)
+> +	#define SUN50I_DMIC_SR_SAMPLE_RATE(v)           ((v) << 0)
+> +	#define SUN50I_DMIC_SR_SAMPLE_RATE_MASK         GENMASK(2, 0)
+> +#define SUN50I_DMIC_CTL                (0x08)
+> +	#define SUN50I_DMIC_CTL_OVERSAMPLE_RATE         BIT(0)
+> +#define SUN50I_DMIC_DATA               (0x10)
+> +#define SUN50I_DMIC_INTC               (0x14)
+> +	#define SUN50I_DMIC_FIFO_DRQ_EN                 BIT(2)
+> +#define SUN50I_DMIC_INT_STA            (0x18)
+> +	#define SUN50I_DMIC_INT_STA_OVERRUN_IRQ_PENDING BIT(1)
+> +	#define SUN50I_DMIC_INT_STA_DATA_IRQ_PENDING    BIT(0)
 
-of codecs/cs42l42.c, platform_max was set to 12 and the register value
-was then clipped to -97..-85.
+Please consistently use tabs (not spaces) for aligning the macro values. You
+have a mix here.
 
-So this should be fixed by the removal of the default platform_max,
-leaving us with few discrepancies that only manifest if platform_max
-is being actively used (and in that only on controls with non-zero
-register minimum).
+> +#define SUN50I_DMIC_RXFIFO_CTL         (0x1c)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_FLUSH            BIT(31)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_MODE_MASK	BIT(9)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_MODE_LSB		(0 << 9)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_MODE_MSB		(1 << 9)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK      BIT(8)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_16        (0 << 8)
+> +	#define SUN50I_DMIC_RXFIFO_CTL_SAMPLE_24        (1 << 8)
+> +#define SUN50I_DMIC_CH_NUM             (0x24)
+> +	#define SUN50I_DMIC_CH_NUM_N(v)                 ((v) << 0)
+> +	#define SUN50I_DMIC_CH_NUM_N_MASK               GENMASK(2, 0)
+> +#define SUN50I_DMIC_CNT                (0x2c)
+> +	#define SUN50I_DMIC_CNT_N                       BIT(0)
 
-Martin
+This is a count of samples, not a bit mask, so the BIT() macro is misleading here.
 
+> +#define SUN50I_DMIC_HPF_CTRL           (0x38)
+> +#define SUN50I_DMIC_VERSION            (0x50)
+> +
+> +struct sun50i_dmic_dev {
+> +	struct clk *dmic_clk;
+> +	struct clk *bus_clk;
+> +	struct reset_control *rst;
+> +	struct regmap *regmap;
+> +	struct snd_dmaengine_dai_dma_data dma_params_rx;
+> +};
+> +
+> +struct dmic_rate {
+> +	unsigned int samplerate;
+> +	unsigned int rate_bit;
+> +};
+> +
+> +static struct dmic_rate dmic_rate_s[] = {
+
+Please make this const.
+
+> +	{48000, 0x0},
+> +	{44100, 0x0},
+> +	{32000, 0x1},
+> +	{24000, 0x2},
+> +	{22050, 0x2},
+> +	{16000, 0x3},
+> +	{12000, 0x4},
+> +	{11025, 0x4},
+> +	{8000,  0x5},
+> +};
+> +
+> +static int sun50i_dmic_startup(struct snd_pcm_substream *substream,
+> +			       struct snd_soc_dai *cpu_dai)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+> +
+> +	/* only support capture */
+> +	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
+> +		return -EINVAL;
+> +
+> +	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
+> +			SUN50I_DMIC_RXFIFO_CTL_FLUSH,
+> +			SUN50I_DMIC_RXFIFO_CTL_FLUSH);
+> +	regmap_write(host->regmap, SUN50I_DMIC_CNT, SUN50I_DMIC_CNT_N);
+> +
+> +	return 0;
+> +}
+> +
+> +static int sun50i_dmic_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params,
+> +				 struct snd_soc_dai *cpu_dai)
+> +{
+> +	int i = 0;
+> +	unsigned long rate = params_rate(params);
+> +	unsigned int mclk = 0;
+> +	unsigned int channels = params_channels(params);
+> +	unsigned int chan_en = (1 << channels) - 1;
+> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(cpu_dai);
+> +
+> +	/* DMIC num is N+1 */
+> +	regmap_update_bits(host->regmap, SUN50I_DMIC_CH_NUM,
+> +			   SUN50I_DMIC_CH_NUM_N_MASK,
+> +			   SUN50I_DMIC_CH_NUM_N(channels - 1));
+> +	regmap_write(host->regmap, SUN50I_DMIC_HPF_CTRL, chan_en);
+> +	regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
+> +			   SUN50I_DMIC_EN_CTL_CHAN_MASK,
+> +			   SUN50I_DMIC_EN_CTL_CHAN(chan_en));
+> +
+> +	switch (params_format(params)) {
+> +	case SNDRV_PCM_FORMAT_S16_LE:
+> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
+> +				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK,
+> +				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_16);
+> +		break;
+> +	case SNDRV_PCM_FORMAT_S24_LE:
+> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
+> +				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_MASK,
+> +				   SUN50I_DMIC_RXFIFO_CTL_SAMPLE_24);
+> +		break;
+> +	default:
+> +		dev_err(cpu_dai->dev, "Invalid format!\n");
+> +		return -EINVAL;
+> +	}
+> +	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
+> +			   SUN50I_DMIC_RXFIFO_CTL_MODE_MASK,
+> +			   SUN50I_DMIC_RXFIFO_CTL_MODE_MSB);
+
+I checked the manuals again, and I may have given you bad information. There
+appear to be two variants of the DMIC hardware.
+
+A63, H6, V5 V100, and V5x6 manuals list Mode 1 as "reserved" for a 24-bit sample
+resolution. The newer SoCs (A50, A133, D1, H616, and R329) describe Mode 1 as
+extending the 21-bit sample with three zeros at the LSB to make 24 bits, which
+is what we want.
+
+On my D1 board, recording in S24_LE gives me good audio data, with equivalent
+loudness to S16_LE, as I would expect. If this also works on older SoCs like H6,
+then the manual is wrong, and the driver is fine.
+
+However, if recording in S24_LE does not work on H6, then we will need to limit
+the driver to only S16_LE on H6. We could enable S24_LE on later SoCs with a
+separate compatible string.
+
+Please, can you test S24_LE on one of the older SoCs? (or let me know how it
+works if you have already tested it)
+
+The rest of the driver looks good to me.
+
+Regards,
+Samuel

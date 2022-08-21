@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFBAF59B2BD
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Aug 2022 10:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DDA059B397
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Aug 2022 13:49:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0CAE163C;
-	Sun, 21 Aug 2022 10:23:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0CAE163C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE1C11655;
+	Sun, 21 Aug 2022 13:49:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE1C11655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661070237;
-	bh=xxCLLLFTOG8uj8K1aQQ8GIA0gLzjhS276w0YlVg/G8c=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BFQDpR5WWT6SvGF9aubpm5umZXD6tKKYbXcsKBO803MdnJXka5EkH7Mv2hb3UJ8/6
-	 ffTufJaOF4xjiPF6iKfl/Tqn4y5NlLx863XaOYJkdfrQwRgpQWBHjzs7a0cdXtZx+3
-	 divYioVOMBpL4xqX6+2Pxvec2Zcgw2KltyZForD0=
+	s=default; t=1661082598;
+	bh=slkhOb+kghvwsjRO/rtJvxXma9D499tLTQpiwkDFyqc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=A+0a6IFMuahBazIelJDaKWlmbzm2qHIesZsgpkKzQJXCy6BKj0RzquW6h/FMi3IxK
+	 1nkBsiyYTHdJ6ELQLHVD0oIoy0NdC5s8meL1d7nzUZBpepcqHhHc2GLbJxXloijsif
+	 XbHKcaLs1jqtkdR8+Ib+v5JFFcbY238ooDkkjoLQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E38EF8051C;
-	Sun, 21 Aug 2022 10:22:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B46FF80128;
+	Sun, 21 Aug 2022 13:48:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54497F804AC; Sun, 21 Aug 2022 10:22:55 +0200 (CEST)
+ id 13027F804AC; Sun, 21 Aug 2022 13:48:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04219F80128
- for <alsa-devel@alsa-project.org>; Sun, 21 Aug 2022 10:22:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04219F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4FBCF80163
+ for <alsa-devel@alsa-project.org>; Sun, 21 Aug 2022 13:48:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4FBCF80163
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="njKzEBzw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ifo++N3H"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 52F1D346DF;
- Sun, 21 Aug 2022 08:22:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661070163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=JRBczgZkS8FDM1aj2Qbhx4S35Aoy3Q/DbJn4/7rj8l0=;
- b=njKzEBzw2aHpHCucJiUyL9BgyZQbVU3memG38wwdTVDj9Ax+XbdLMRCCW8vI/65pSZpPk7
- zq2AyHL1w6ittj+XAxGioIdoNFNYoGqo32CKyn1NgPPs0UHJqrM+V/QUHtdOT4tX4CfdCr
- YA0u9mBBonLIgps83wyHFECbAPvFSaM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661070163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=JRBczgZkS8FDM1aj2Qbhx4S35Aoy3Q/DbJn4/7rj8l0=;
- b=ifo++N3HrCgeyzF+nW0peiUUZ5OZddhfiTLcNBlIsi6+VcsXrBSQz3NUGQaRbhBPEudkE0
- 7sgDooJe5dPC/rBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 32C62139C7;
- Sun, 21 Aug 2022 08:22:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1N90C1PrAWMIRgAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 21 Aug 2022 08:22:43 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: memalloc: Revive x86-specific WC page allocations again
-Date: Sun, 21 Aug 2022 10:22:41 +0200
-Message-Id: <20220821082241.23722-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="RKDXEqlW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661082532; x=1692618532;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=slkhOb+kghvwsjRO/rtJvxXma9D499tLTQpiwkDFyqc=;
+ b=RKDXEqlWpLDR8FaPQZFjLlhj1YqbX9n0WMbPO1VINPyEhQpuJFCOU47g
+ 85p8HAgia9exKAigQMticeyEA27YCvahLWL0XWZty/iDsVyrWbuOXhZ7Z
+ QdHitgGlMlnF6I20jtDJEHpflOSdVSdtlUOpPtiGbplqW4EpFAZbFI9B2
+ OkpPyqzRb32XSit8aZrNGN29lK5nrTkShDU0bz1h1BS6wA9toWcAFg05p
+ hvvY/Rw81ZnG+ePhk+rZPVCBFOWtPixIkWviQuqAwVXttn8o2NO9QBH2q
+ bDELgH9l9Wkp0etZ73U534uBDcgLW/ut80iEI3v3LLgrBu3vSmgFLzGV+ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10445"; a="280213556"
+X-IronPort-AV: E=Sophos;i="5.93,252,1654585200"; d="scan'208";a="280213556"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2022 04:48:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,252,1654585200"; d="scan'208";a="585167650"
+Received: from lkp-server01.sh.intel.com (HELO 44b6dac04a33) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 21 Aug 2022 04:48:45 -0700
+Received: from kbuild by 44b6dac04a33 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oPjRc-00041h-1v;
+ Sun, 21 Aug 2022 11:48:44 +0000
+Date: Sun, 21 Aug 2022 19:48:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: memalloc: Revive x86-specific WC page allocations
+ again
+Message-ID: <202208211945.6Lmqeudy-lkp@intel.com>
+References: <20220821082241.23722-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220821082241.23722-1-tiwai@suse.de>
+Cc: kbuild-all@lists.01.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,193 +91,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We dropped the x86-specific hack for WC-page allocations with a hope
-that the standard dma_alloc_wc() works nowadays.  Alas, it doesn't,
-and we need to take back some workaround again, but in a different
-form, as the previous one was broken for some platforms.
+Hi Takashi,
 
-This patch re-introduces the x86-specific WC-page allocations, but it
-uses rather the manual page allocations instead of
-dma_alloc_coherent().  The use of dma_alloc_coherent() was also a
-potential problem in the recent addition of the fallback allocation
-for noncontig pages, and this patch eliminates both at once.
+I love your patch! Perhaps something to improve:
 
-Fixes: 9882d63bea14 ("ALSA: memalloc: Drop x86-specific hack for WC allocations")
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216363
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/memalloc.c | 87 +++++++++++++++++++++++++++++++++++--------
- 1 file changed, 71 insertions(+), 16 deletions(-)
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on linus/master v6.0-rc1 next-20220819]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index d3885cb02270..90d74855d988 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -20,6 +20,13 @@
- 
- static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab);
- 
-+#ifdef CONFIG_SND_DMA_SGBUF
-+static void *do_alloc_fallback_pages(struct device *dev, size_t size,
-+				     dma_addr_t *addr, bool wc);
-+static void do_free_fallback_pages(void *p, size_t size, bool wc);
-+static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size);
-+#endif
-+
- /* a cast to gfp flag from the dev pointer; for CONTINUOUS and VMALLOC types */
- static inline gfp_t snd_mem_get_gfp_flags(const struct snd_dma_buffer *dmab,
- 					  gfp_t default_gfp)
-@@ -277,16 +284,21 @@ EXPORT_SYMBOL(snd_sgbuf_get_chunk_size);
- /*
-  * Continuous pages allocator
-  */
--static void *snd_dma_continuous_alloc(struct snd_dma_buffer *dmab, size_t size)
-+static void *do_alloc_pages(size_t size, dma_addr_t *addr, unsigned long gfp)
- {
--	gfp_t gfp = snd_mem_get_gfp_flags(dmab, GFP_KERNEL);
- 	void *p = alloc_pages_exact(size, gfp);
- 
- 	if (p)
--		dmab->addr = page_to_phys(virt_to_page(p));
-+		*addr = page_to_phys(virt_to_page(p));
- 	return p;
- }
- 
-+static void *snd_dma_continuous_alloc(struct snd_dma_buffer *dmab, size_t size)
-+{
-+	return do_alloc_pages(size, &dmab->addr,
-+			      snd_mem_get_gfp_flags(dmab, GFP_KERNEL));
-+}
-+
- static void snd_dma_continuous_free(struct snd_dma_buffer *dmab)
- {
- 	free_pages_exact(dmab->area, dmab->bytes);
-@@ -463,6 +475,25 @@ static const struct snd_malloc_ops snd_dma_dev_ops = {
- /*
-  * Write-combined pages
-  */
-+/* x86-specific allocations */
-+#ifdef CONFIG_SND_DMA_SGBUF
-+static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
-+{
-+	return do_alloc_fallback_pages(dmab->dev.dev, size, &dmab->addr, true);
-+}
-+
-+static void snd_dma_wc_free(struct snd_dma_buffer *dmab)
-+{
-+	do_free_fallback_pages(dmab->area, dmab->bytes, true);
-+}
-+
-+static int snd_dma_wc_mmap(struct snd_dma_buffer *dmab,
-+			   struct vm_area_struct *area)
-+{
-+	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
-+	return snd_dma_continuous_mmap(dmab, area);
-+}
-+#else
- static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
- {
- 	return dma_alloc_wc(dmab->dev.dev, size, &dmab->addr, DEFAULT_GFP);
-@@ -479,6 +510,7 @@ static int snd_dma_wc_mmap(struct snd_dma_buffer *dmab,
- 	return dma_mmap_wc(dmab->dev.dev, area,
- 			   dmab->area, dmab->addr, dmab->bytes);
- }
-+#endif /* CONFIG_SND_DMA_SGBUF */
- 
- static const struct snd_malloc_ops snd_dma_wc_ops = {
- 	.alloc = snd_dma_wc_alloc,
-@@ -486,10 +518,6 @@ static const struct snd_malloc_ops snd_dma_wc_ops = {
- 	.mmap = snd_dma_wc_mmap,
- };
- 
--#ifdef CONFIG_SND_DMA_SGBUF
--static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size);
--#endif
--
- /*
-  * Non-contiguous pages allocator
-  */
-@@ -669,6 +697,37 @@ static const struct snd_malloc_ops snd_dma_sg_wc_ops = {
- 	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
- };
- 
-+/* manual page allocations with wc setup */
-+static void *do_alloc_fallback_pages(struct device *dev, size_t size,
-+				     dma_addr_t *addr, bool wc)
-+{
-+	void *p;
-+	unsigned long gfp = DEFAULT_GFP & ~__GFP_COMP;
-+
-+ again:
-+	p = do_alloc_pages(size, addr, gfp);
-+	if (!p || (*addr + size - 1) & ~dev->coherent_dma_mask) {
-+		if (IS_ENABLED(CONFIG_ZONE_DMA32) && !(gfp & GFP_DMA32)) {
-+			gfp |= GFP_DMA32;
-+			goto again;
-+		}
-+		if (IS_ENABLED(CONFIG_ZONE_DMA) && !(gfp & GFP_DMA)) {
-+			gfp = (gfp & ~GFP_DMA32) | GFP_DMA;
-+			goto again;
-+		}
-+	}
-+	if (p && wc)
-+		set_memory_wc((unsigned long)(p), size >> PAGE_SHIFT);
-+	return p;
-+}
-+
-+static void do_free_fallback_pages(void *p, size_t size, bool wc)
-+{
-+	if (wc)
-+		set_memory_wb((unsigned long)(p), size >> PAGE_SHIFT);
-+	free_pages_exact(p, size);
-+}
-+
- /* Fallback SG-buffer allocations for x86 */
- struct snd_dma_sg_fallback {
- 	size_t count;
-@@ -679,14 +738,11 @@ struct snd_dma_sg_fallback {
- static void __snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab,
- 				       struct snd_dma_sg_fallback *sgbuf)
- {
-+	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 	size_t i;
- 
--	if (sgbuf->count && dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
--		set_pages_array_wb(sgbuf->pages, sgbuf->count);
- 	for (i = 0; i < sgbuf->count && sgbuf->pages[i]; i++)
--		dma_free_coherent(dmab->dev.dev, PAGE_SIZE,
--				  page_address(sgbuf->pages[i]),
--				  sgbuf->addrs[i]);
-+		do_free_fallback_pages(page_address(sgbuf->pages[i]), PAGE_SIZE, wc);
- 	kvfree(sgbuf->pages);
- 	kvfree(sgbuf->addrs);
- 	kfree(sgbuf);
-@@ -698,6 +754,7 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	struct page **pages;
- 	size_t i, count;
- 	void *p;
-+	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 
- 	sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
- 	if (!sgbuf)
-@@ -712,15 +769,13 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 		goto error;
- 
- 	for (i = 0; i < count; sgbuf->count++, i++) {
--		p = dma_alloc_coherent(dmab->dev.dev, PAGE_SIZE,
--				       &sgbuf->addrs[i], DEFAULT_GFP);
-+		p = do_alloc_fallback_pages(dmab->dev.dev, PAGE_SIZE,
-+					    &sgbuf->addrs[i], wc);
- 		if (!p)
- 			goto error;
- 		sgbuf->pages[i] = virt_to_page(p);
- 	}
- 
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
--		set_pages_array_wc(pages, count);
- 	p = vmap(pages, count, VM_MAP, PAGE_KERNEL);
- 	if (!p)
- 		goto error;
+url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-memalloc-Revive-x86-specific-WC-page-allocations-again/20220821-162443
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: openrisc-randconfig-s052-20220821 (https://download.01.org/0day-ci/archive/20220821/202208211945.6Lmqeudy-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 12.1.0
+reproduce:
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # apt-get install sparse
+        # sparse version: v0.6.4-39-gce1a6720-dirty
+        # https://github.com/intel-lab-lkp/linux/commit/86072b28544f52618e4ce8336ba80be1d67f38d9
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Takashi-Iwai/ALSA-memalloc-Revive-x86-specific-WC-page-allocations-again/20220821-162443
+        git checkout 86072b28544f52618e4ce8336ba80be1d67f38d9
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=openrisc SHELL=/bin/bash sound/core/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+sparse warnings: (new ones prefixed by >>)
+>> sound/core/memalloc.c:289:43: sparse: sparse: incorrect type in argument 2 (different base types) @@     expected restricted gfp_t [usertype] gfp_mask @@     got unsigned long gfp @@
+   sound/core/memalloc.c:289:43: sparse:     expected restricted gfp_t [usertype] gfp_mask
+   sound/core/memalloc.c:289:43: sparse:     got unsigned long gfp
+>> sound/core/memalloc.c:299:52: sparse: sparse: incorrect type in argument 3 (different base types) @@     expected unsigned long gfp @@     got restricted gfp_t @@
+   sound/core/memalloc.c:299:52: sparse:     expected unsigned long gfp
+   sound/core/memalloc.c:299:52: sparse:     got restricted gfp_t
+
+vim +289 sound/core/memalloc.c
+
+37af81c5998f4b Takashi Iwai 2021-06-09  283  
+37af81c5998f4b Takashi Iwai 2021-06-09  284  /*
+37af81c5998f4b Takashi Iwai 2021-06-09  285   * Continuous pages allocator
+37af81c5998f4b Takashi Iwai 2021-06-09  286   */
+86072b28544f52 Takashi Iwai 2022-08-21  287  static void *do_alloc_pages(size_t size, dma_addr_t *addr, unsigned long gfp)
+37af81c5998f4b Takashi Iwai 2021-06-09  288  {
+f84ba106a0185b Takashi Iwai 2021-08-04 @289  	void *p = alloc_pages_exact(size, gfp);
+37af81c5998f4b Takashi Iwai 2021-06-09  290  
+f84ba106a0185b Takashi Iwai 2021-08-04  291  	if (p)
+86072b28544f52 Takashi Iwai 2022-08-21  292  		*addr = page_to_phys(virt_to_page(p));
+f84ba106a0185b Takashi Iwai 2021-08-04  293  	return p;
+37af81c5998f4b Takashi Iwai 2021-06-09  294  }
+37af81c5998f4b Takashi Iwai 2021-06-09  295  
+86072b28544f52 Takashi Iwai 2022-08-21  296  static void *snd_dma_continuous_alloc(struct snd_dma_buffer *dmab, size_t size)
+86072b28544f52 Takashi Iwai 2022-08-21  297  {
+86072b28544f52 Takashi Iwai 2022-08-21  298  	return do_alloc_pages(size, &dmab->addr,
+86072b28544f52 Takashi Iwai 2022-08-21 @299  			      snd_mem_get_gfp_flags(dmab, GFP_KERNEL));
+86072b28544f52 Takashi Iwai 2022-08-21  300  }
+86072b28544f52 Takashi Iwai 2022-08-21  301  
+
 -- 
-2.35.3
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp

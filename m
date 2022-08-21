@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C13559B477
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Aug 2022 16:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C342859B550
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Aug 2022 18:00:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C72E8161E;
-	Sun, 21 Aug 2022 16:32:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C72E8161E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1E9AF3;
+	Sun, 21 Aug 2022 17:59:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1E9AF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661092386;
-	bh=5FrxNbC1vRlh1FAzafksLnU4XwyfVLR+tKZwiEt/j+w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=l9Kb//4vyOJVNjQ5IU6yxC9F0yru0mKGLti6zUXHE/khz8INJdbtKpLaNa84RPFmd
-	 7F4d+GHnCjFNinkjDaDqAD7ls5beRTXMXDFl9Ca9pqRRoxwQ3f6ToeZabfMOYZy5bw
-	 RvD4S7Uil4GJXxx1G3SgRGds/Af2UdzS0oLtwNso=
+	s=default; t=1661097622;
+	bh=Q+0shz8R7XC3L7ugnxxx7kHhZwCLrKtN8LdTgUbS9mk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LxhuGOQ2eorc5BKUkUQx6QnxWwVCuRd3pTDgcjWTUdMrS8CJM8yXGyQZb1pJM12ts
+	 7gtOQ4bzyXujtE/euj+waHrWTH1bchQEu9m2AQGQGl+WP2tPk3Jffta+SACsn6jQPB
+	 l0RfP/gAxxRUm0zkK12H2KFODVPRxQwsZq4s78n4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F316F8051C;
-	Sun, 21 Aug 2022 16:32:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48A5FF8051C;
+	Sun, 21 Aug 2022 17:59:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54CB4F804AC; Sun, 21 Aug 2022 16:32:05 +0200 (CEST)
+ id A2CEEF804AC; Sun, 21 Aug 2022 17:59:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43593F80154
- for <alsa-devel@alsa-project.org>; Sun, 21 Aug 2022 16:31:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43593F80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1DE6F80154
+ for <alsa-devel@alsa-project.org>; Sun, 21 Aug 2022 17:59:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1DE6F80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nv28qNtJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661092319; x=1692628319;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5FrxNbC1vRlh1FAzafksLnU4XwyfVLR+tKZwiEt/j+w=;
- b=nv28qNtJF7UeqcrZ+V1ziT4nqRE3c4ccj65qbuv+wEQUe1rKSwwJgzhh
- WcKmy6EDeajXEriiq1GLhOsT3X2niMUnQOs+QNV42doq7V5/2OeQDJ7Q1
- Svw/X1MEkdPq7JN2BPgCGlb56RztyQQbHFhKbxnhaow70GH6wj0WwHzWD
- rHiyyAgQ7Zac5u6ZU2XoqfKRol7ngbWV1c1P6IkqAQgb1Z6otTPUKWtG2
- Dt0D1wIMAwCVbl8OHAfQkpYjrAha7/w5pu85NYo23cw7HBaDWe00vPD4T
- zYvrTTH8z5J2UTpuDvoTmSMX6WuGPiTBvz1yzvuld1bXhb3G/W7aq53/b A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10446"; a="276286588"
-X-IronPort-AV: E=Sophos;i="5.93,252,1654585200"; d="scan'208";a="276286588"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2022 07:31:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,252,1654585200"; d="scan'208";a="641745409"
-Received: from lkp-server01.sh.intel.com (HELO 44b6dac04a33) ([10.239.97.150])
- by orsmga001.jf.intel.com with ESMTP; 21 Aug 2022 07:31:52 -0700
-Received: from kbuild by 44b6dac04a33 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oPlzT-0004Bz-19;
- Sun, 21 Aug 2022 14:31:51 +0000
-Date: Sun, 21 Aug 2022 22:31:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: memalloc: Revive x86-specific WC page allocations
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hLCLAUVZ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gozf3mDL"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 13D5233B3E;
+ Sun, 21 Aug 2022 15:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1661097555; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=qNpocuYSKlDLObGtMFauZHXUmVZc3kacpUWCdABQ+/c=;
+ b=hLCLAUVZOu3/ICDt9o0AX7nwR8Z2Ac65sNe09zrWYMXe78TT11FubvhT+oCjI6ghkEnwF0
+ +SqWp+/Tl+aDG8OOcHL4qPg+z84FKSSh8vd/TxJ/PYex9xtugCOA04LIkbl+IZmjWQtnHw
+ t5qLV1/LZ8b67TLTArgc7953D1lKhZY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1661097555;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=qNpocuYSKlDLObGtMFauZHXUmVZc3kacpUWCdABQ+/c=;
+ b=gozf3mDL4Ob65omKwhdMKVd+r5VwJZP1B6CIcY6B0vVaoHxS7VMCzxopm2lhH7RdvLOZJS
+ PcG+EdNkUJNnjuAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EEA70139F9;
+ Sun, 21 Aug 2022 15:59:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /Y5lOVJWAmPpMwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 21 Aug 2022 15:59:14 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: memalloc: Revive x86-specific WC page allocations
  again
-Message-ID: <202208212226.7Ji4ZW8k-lkp@intel.com>
-References: <20220821082241.23722-1-tiwai@suse.de>
+Date: Sun, 21 Aug 2022 17:59:11 +0200
+Message-Id: <20220821155911.10715-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220821082241.23722-1-tiwai@suse.de>
-Cc: kbuild-all@lists.01.org
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,80 +94,196 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+We dropped the x86-specific hack for WC-page allocations with a hope
+that the standard dma_alloc_wc() works nowadays.  Alas, it doesn't,
+and we need to take back some workaround again, but in a different
+form, as the previous one was broken for some platforms.
 
-I love your patch! Perhaps something to improve:
+This patch re-introduces the x86-specific WC-page allocations, but it
+uses rather the manual page allocations instead of
+dma_alloc_coherent().  The use of dma_alloc_coherent() was also a
+potential problem in the recent addition of the fallback allocation
+for noncontig pages, and this patch eliminates both at once.
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on linus/master v6.0-rc1 next-20220819]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: 9882d63bea14 ("ALSA: memalloc: Drop x86-specific hack for WC allocations")
+Cc: <stable@vger.kernel.org>
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216363
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: Use gfp_t
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Takashi-Iwai/ALSA-memalloc-Revive-x86-specific-WC-page-allocations-again/20220821-162443
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: i386-randconfig-s001 (https://download.01.org/0day-ci/archive/20220821/202208212226.7Ji4ZW8k-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-5) 11.3.0
-reproduce:
-        # apt-get install sparse
-        # sparse version: v0.6.4-39-gce1a6720-dirty
-        # https://github.com/intel-lab-lkp/linux/commit/86072b28544f52618e4ce8336ba80be1d67f38d9
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Takashi-Iwai/ALSA-memalloc-Revive-x86-specific-WC-page-allocations-again/20220821-162443
-        git checkout 86072b28544f52618e4ce8336ba80be1d67f38d9
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=i386 SHELL=/bin/bash sound/core/
+ sound/core/memalloc.c | 87 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 71 insertions(+), 16 deletions(-)
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-sparse warnings: (new ones prefixed by >>)
->> sound/core/memalloc.c:705:41: sparse: sparse: incorrect type in initializer (different base types) @@     expected unsigned long gfp @@     got restricted gfp_t @@
-   sound/core/memalloc.c:705:41: sparse:     expected unsigned long gfp
-   sound/core/memalloc.c:705:41: sparse:     got restricted gfp_t
->> sound/core/memalloc.c:710:62: sparse: sparse: restricted gfp_t degrades to integer
->> sound/core/memalloc.c:711:29: sparse: sparse: invalid assignment: |=
->> sound/core/memalloc.c:711:29: sparse:    left side has type unsigned long
->> sound/core/memalloc.c:711:29: sparse:    right side has type restricted gfp_t
-   sound/core/memalloc.c:714:60: sparse: sparse: restricted gfp_t degrades to integer
-   sound/core/memalloc.c:715:38: sparse: sparse: restricted gfp_t degrades to integer
-   sound/core/memalloc.c:715:52: sparse: sparse: restricted gfp_t degrades to integer
-   sound/core/memalloc.c:289:43: sparse: sparse: incorrect type in argument 2 (different base types) @@     expected restricted gfp_t [usertype] gfp_mask @@     got unsigned long gfp @@
-   sound/core/memalloc.c:289:43: sparse:     expected restricted gfp_t [usertype] gfp_mask
-   sound/core/memalloc.c:289:43: sparse:     got unsigned long gfp
-   sound/core/memalloc.c:299:52: sparse: sparse: incorrect type in argument 3 (different base types) @@     expected unsigned long gfp @@     got restricted gfp_t @@
-   sound/core/memalloc.c:299:52: sparse:     expected unsigned long gfp
-   sound/core/memalloc.c:299:52: sparse:     got restricted gfp_t
-
-vim +705 sound/core/memalloc.c
-
-   699	
-   700	/* manual page allocations with wc setup */
-   701	static void *do_alloc_fallback_pages(struct device *dev, size_t size,
-   702					     dma_addr_t *addr, bool wc)
-   703	{
-   704		void *p;
- > 705		unsigned long gfp = DEFAULT_GFP & ~__GFP_COMP;
-   706	
-   707	 again:
-   708		p = do_alloc_pages(size, addr, gfp);
-   709		if (!p || (*addr + size - 1) & ~dev->coherent_dma_mask) {
- > 710			if (IS_ENABLED(CONFIG_ZONE_DMA32) && !(gfp & GFP_DMA32)) {
- > 711				gfp |= GFP_DMA32;
-   712				goto again;
-   713			}
-   714			if (IS_ENABLED(CONFIG_ZONE_DMA) && !(gfp & GFP_DMA)) {
-   715				gfp = (gfp & ~GFP_DMA32) | GFP_DMA;
-   716				goto again;
-   717			}
-   718		}
-   719		if (p && wc)
-   720			set_memory_wc((unsigned long)(p), size >> PAGE_SHIFT);
-   721		return p;
-   722	}
-   723	
-
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index d3885cb02270..b665ac66ccbe 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -20,6 +20,13 @@
+ 
+ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab);
+ 
++#ifdef CONFIG_SND_DMA_SGBUF
++static void *do_alloc_fallback_pages(struct device *dev, size_t size,
++				     dma_addr_t *addr, bool wc);
++static void do_free_fallback_pages(void *p, size_t size, bool wc);
++static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size);
++#endif
++
+ /* a cast to gfp flag from the dev pointer; for CONTINUOUS and VMALLOC types */
+ static inline gfp_t snd_mem_get_gfp_flags(const struct snd_dma_buffer *dmab,
+ 					  gfp_t default_gfp)
+@@ -277,16 +284,21 @@ EXPORT_SYMBOL(snd_sgbuf_get_chunk_size);
+ /*
+  * Continuous pages allocator
+  */
+-static void *snd_dma_continuous_alloc(struct snd_dma_buffer *dmab, size_t size)
++static void *do_alloc_pages(size_t size, dma_addr_t *addr, gfp_t gfp)
+ {
+-	gfp_t gfp = snd_mem_get_gfp_flags(dmab, GFP_KERNEL);
+ 	void *p = alloc_pages_exact(size, gfp);
+ 
+ 	if (p)
+-		dmab->addr = page_to_phys(virt_to_page(p));
++		*addr = page_to_phys(virt_to_page(p));
+ 	return p;
+ }
+ 
++static void *snd_dma_continuous_alloc(struct snd_dma_buffer *dmab, size_t size)
++{
++	return do_alloc_pages(size, &dmab->addr,
++			      snd_mem_get_gfp_flags(dmab, GFP_KERNEL));
++}
++
+ static void snd_dma_continuous_free(struct snd_dma_buffer *dmab)
+ {
+ 	free_pages_exact(dmab->area, dmab->bytes);
+@@ -463,6 +475,25 @@ static const struct snd_malloc_ops snd_dma_dev_ops = {
+ /*
+  * Write-combined pages
+  */
++/* x86-specific allocations */
++#ifdef CONFIG_SND_DMA_SGBUF
++static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
++{
++	return do_alloc_fallback_pages(dmab->dev.dev, size, &dmab->addr, true);
++}
++
++static void snd_dma_wc_free(struct snd_dma_buffer *dmab)
++{
++	do_free_fallback_pages(dmab->area, dmab->bytes, true);
++}
++
++static int snd_dma_wc_mmap(struct snd_dma_buffer *dmab,
++			   struct vm_area_struct *area)
++{
++	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
++	return snd_dma_continuous_mmap(dmab, area);
++}
++#else
+ static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
+ {
+ 	return dma_alloc_wc(dmab->dev.dev, size, &dmab->addr, DEFAULT_GFP);
+@@ -479,6 +510,7 @@ static int snd_dma_wc_mmap(struct snd_dma_buffer *dmab,
+ 	return dma_mmap_wc(dmab->dev.dev, area,
+ 			   dmab->area, dmab->addr, dmab->bytes);
+ }
++#endif /* CONFIG_SND_DMA_SGBUF */
+ 
+ static const struct snd_malloc_ops snd_dma_wc_ops = {
+ 	.alloc = snd_dma_wc_alloc,
+@@ -486,10 +518,6 @@ static const struct snd_malloc_ops snd_dma_wc_ops = {
+ 	.mmap = snd_dma_wc_mmap,
+ };
+ 
+-#ifdef CONFIG_SND_DMA_SGBUF
+-static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size);
+-#endif
+-
+ /*
+  * Non-contiguous pages allocator
+  */
+@@ -669,6 +697,37 @@ static const struct snd_malloc_ops snd_dma_sg_wc_ops = {
+ 	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
+ };
+ 
++/* manual page allocations with wc setup */
++static void *do_alloc_fallback_pages(struct device *dev, size_t size,
++				     dma_addr_t *addr, bool wc)
++{
++	gfp_t gfp = GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN;
++	void *p;
++
++ again:
++	p = do_alloc_pages(size, addr, gfp);
++	if (!p || (*addr + size - 1) & ~dev->coherent_dma_mask) {
++		if (IS_ENABLED(CONFIG_ZONE_DMA32) && !(gfp & GFP_DMA32)) {
++			gfp |= GFP_DMA32;
++			goto again;
++		}
++		if (IS_ENABLED(CONFIG_ZONE_DMA) && !(gfp & GFP_DMA)) {
++			gfp = (gfp & ~GFP_DMA32) | GFP_DMA;
++			goto again;
++		}
++	}
++	if (p && wc)
++		set_memory_wc((unsigned long)(p), size >> PAGE_SHIFT);
++	return p;
++}
++
++static void do_free_fallback_pages(void *p, size_t size, bool wc)
++{
++	if (wc)
++		set_memory_wb((unsigned long)(p), size >> PAGE_SHIFT);
++	free_pages_exact(p, size);
++}
++
+ /* Fallback SG-buffer allocations for x86 */
+ struct snd_dma_sg_fallback {
+ 	size_t count;
+@@ -679,14 +738,11 @@ struct snd_dma_sg_fallback {
+ static void __snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab,
+ 				       struct snd_dma_sg_fallback *sgbuf)
+ {
++	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
+ 	size_t i;
+ 
+-	if (sgbuf->count && dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
+-		set_pages_array_wb(sgbuf->pages, sgbuf->count);
+ 	for (i = 0; i < sgbuf->count && sgbuf->pages[i]; i++)
+-		dma_free_coherent(dmab->dev.dev, PAGE_SIZE,
+-				  page_address(sgbuf->pages[i]),
+-				  sgbuf->addrs[i]);
++		do_free_fallback_pages(page_address(sgbuf->pages[i]), PAGE_SIZE, wc);
+ 	kvfree(sgbuf->pages);
+ 	kvfree(sgbuf->addrs);
+ 	kfree(sgbuf);
+@@ -698,6 +754,7 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
+ 	struct page **pages;
+ 	size_t i, count;
+ 	void *p;
++	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
+ 
+ 	sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
+ 	if (!sgbuf)
+@@ -712,15 +769,13 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
+ 		goto error;
+ 
+ 	for (i = 0; i < count; sgbuf->count++, i++) {
+-		p = dma_alloc_coherent(dmab->dev.dev, PAGE_SIZE,
+-				       &sgbuf->addrs[i], DEFAULT_GFP);
++		p = do_alloc_fallback_pages(dmab->dev.dev, PAGE_SIZE,
++					    &sgbuf->addrs[i], wc);
+ 		if (!p)
+ 			goto error;
+ 		sgbuf->pages[i] = virt_to_page(p);
+ 	}
+ 
+-	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
+-		set_pages_array_wc(pages, count);
+ 	p = vmap(pages, count, VM_MAP, PAGE_KERNEL);
+ 	if (!p)
+ 		goto error;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.3
+

@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FF6859C5C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 20:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A9D59C667
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 20:32:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDF4A950;
-	Mon, 22 Aug 2022 20:09:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDF4A950
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9F661630;
+	Mon, 22 Aug 2022 20:31:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9F661630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661191818;
-	bh=9uFjr12ZJn72bY423Jrkibrsve+4lfScTWjUh9RqsRI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=grbzb5qzift4zL/tysXEggmX9FRw0Dnm/ZKx7oAELixkDNKiRutBFHoBoGJD/0Y8T
-	 BcBNg3+mG0ou2ukaOnMDM/lOXNZBaDYw5SeJpsS6MGoQOmK9J26FPpxa8cGq3FnGW6
-	 Mkhau7G1Gs/TANGeUgqQqZcgAyhjpvw3CotvLY3M=
+	s=default; t=1661193140;
+	bh=xXLp8vcpSHFXcg8Thw4aqS7oAXd1A4ff7T8kKAEapI8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DG6640HmyxY7WQTxPiXFdNzoB5C1EdH0nL7LmrX+xBbcNPTdrB1W3d0CY3RMwsb1I
+	 0/dCJ3NJEFAqcPqyQFbYcv/aSQqbyThM24q3FbgL0zJh8cuHU9S8oNI3Z3AYAozbeR
+	 D4BNxrMwjJAV3guOVwxdGl0ySoTtGKYIJFyXqvWw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D19DF800A7;
-	Mon, 22 Aug 2022 20:09:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3F01F8026D;
+	Mon, 22 Aug 2022 20:31:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DF65F8026A; Mon, 22 Aug 2022 20:09:17 +0200 (CEST)
+ id 0539AF8026A; Mon, 22 Aug 2022 20:31:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4EE5F800A7
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 20:09:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4EE5F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 470D3F800A7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 20:31:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 470D3F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e0Bt+a2u"
+ header.b="BJqqyAHD"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 65754B81683;
- Mon, 22 Aug 2022 18:09:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3BEC433D7;
- Mon, 22 Aug 2022 18:09:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 83085612E3;
+ Mon, 22 Aug 2022 18:31:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378F9C433D6;
+ Mon, 22 Aug 2022 18:31:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661191751;
- bh=9uFjr12ZJn72bY423Jrkibrsve+4lfScTWjUh9RqsRI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e0Bt+a2uu1M8rVndbEeewsHyZWzL5KYHdHqi8MfclDkvtyfyASHoUNJwZdEoohdI5
- Sd5gJdHnoSXBCEOeXbrmxtY6oq2syrjf3WwAYfNtkNKV/CYVXIJjDgbTf9eq/Y/rY0
- vIYQKx38AhJBm6yd1Php5fcdUHwqnPB+D7WQnxyGsqeqaQzEc1S4aAvv/wu4G1/pRz
- c1gN5Y63VU+zlFjvkxD6xJUh+/Y8F8PKjYbZBxoT/AjCJbTvhfaetP6rLCoOX8UVG8
- 8bdtY+C/VAlGqcUKyHl+UQ3SXcRpeKicdX9YHU9bky4xoUut+u6YSKBaxNAQm0nRix
- OJ53yJHtLY63A==
-Date: Mon, 22 Aug 2022 19:09:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH v2] ASoC: codecs: add uspport for the TI SRC4392 codec
-Message-ID: <YwPGQZHs1o0jsv2m@sirena.org.uk>
-References: <20220808214028.2502801-1-flatmax@flatmax.com>
- <202208090909.Pg0BZGie-lkp@intel.com>
- <YvvbKry5FVFbNdcI@dev-arch.thelio-3990X>
- <f8439531-897a-c25a-688b-be01290b006d@flatmax.com>
- <Yv0NLxzwqdBaZ3Jf@dev-arch.thelio-3990X>
+ s=k20201202; t=1661193068;
+ bh=xXLp8vcpSHFXcg8Thw4aqS7oAXd1A4ff7T8kKAEapI8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=BJqqyAHDoivLbBiMTx6xaDsVTE0XnbDmqovaLOU1mOvJ22j85rhVQgGVWxN7+bozo
+ b9izsqjngBTe+tmQYon6HJMNUsEOZDAbKq9HdQuJrcyJM9XjFKFwEMHnx4ftqrT9fn
+ hnTp7UCjOyu68bd1yjnrXAab0XBDOjohSaGNC9N0DbXP5wue/CK21Bw/hu/Eww5neC
+ scniUIrRbM6wIdtvmTHIDNApbUBu1lMxpFYKzGOi+CseTrV46rjCcbrxsP49tG7mpm
+ wUBm/GCHACYjoerh1kXVKVtv0pkmmWe2kWp9O/Zwipx4PdM404UcGvH27nhci/CCBz
+ YJKw1xxP7Nd4Q==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Matt Flax <flatmax@flatmax.com>
+Subject: [PATCH] ASoC: codes: src4xxx: Avoid clang -Wsometimes-uninitialized
+ in src4xxx_hw_params()
+Date: Mon, 22 Aug 2022 11:31:01 -0700
+Message-Id: <20220822183101.1115095-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6vU7YlowxUaBWkHl"
-Content-Disposition: inline
-In-Reply-To: <Yv0NLxzwqdBaZ3Jf@dev-arch.thelio-3990X>
-X-Cookie: Do not write in this space.
-Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev, kbuild-all@lists.01.org,
- kernel test robot <lkp@intel.com>, Matt Flax <flatmax@flatmax.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,53 +86,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Clang warns:
 
---6vU7YlowxUaBWkHl
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:298:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+                                                                          ^
+  sound/soc/codecs/src4xxx.c:223:20: note: initialize the variable 'd' to silence this warning
+          int val, pj, jd, d;
+                            ^
+                            = 0
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'jd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:293:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+                                                                          ^~
+  sound/soc/codecs/src4xxx.c:223:17: note: initialize the variable 'jd' to silence this warning
+          int val, pj, jd, d;
+                        ^
+                          = 0
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'pj' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:288:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+                                                                          ^~
+  sound/soc/codecs/src4xxx.c:223:13: note: initialize the variable 'pj' to silence this warning
+          int val, pj, jd, d;
+                    ^
+                      = 0
+  3 errors generated.
 
-On Wed, Aug 17, 2022 at 08:45:51AM -0700, Nathan Chancellor wrote:
-> On Wed, Aug 17, 2022 at 03:44:33PM +1000, Matt Flax wrote:
-> > On 17/8/22 04:00, Nathan Chancellor wrote:
+According to the comment in the default case, other parts of the chip
+are still functional without these values so just return 0 in the
+default case to avoid using these variables uninitialized.
 
-> > > In the final commit, there is a 'break' here. Should it be a 'return =
-0'
-> > > instead? Or should there be a different fix for these warnings?
+Link: https://github.com/ClangBuiltLinux/linux/issues/1691
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ sound/soc/codecs/src4xxx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > The state of DIR PLL registers aren't important if the user doesn't spe=
-cify
-> > a known mclk frequency.=A0 The implication is that the DIR will not fun=
-ction,
-> > however that is already implied by the user lacking to specify a known =
-mclk
-> > frequency.
+diff --git a/sound/soc/codecs/src4xxx.c b/sound/soc/codecs/src4xxx.c
+index a8f143057b41..cf45caa4bf7f 100644
+--- a/sound/soc/codecs/src4xxx.c
++++ b/sound/soc/codecs/src4xxx.c
+@@ -283,7 +283,7 @@ static int src4xxx_hw_params(struct snd_pcm_substream *substream,
+ 			 */
+ 			dev_info(component->dev,
+ 				"Couldn't set the RCV PLL as this master clock rate is unknown\n");
+-			break;
++			return 0;
+ 		}
+ 		ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+ 		if (ret < 0)
 
-> > The other functions on the chip (port A/B I2S, SRC, DIT, etc) will beha=
-ve as
-> > per usual, only the DIR will be dysfunctional.
+base-commit: 94f072748337424c9cf92cd018532a34db3a5516
+-- 
+2.37.2
 
-> So I suppose there is little point to all of the calls to regmap_write()
-> and regmap_update_bits() in the default case then, meaning a 'return 0'
-> would be appropriate? Sorry, I am having a hard time parsing what should
-> be done about the warnings, which are fatal for allmodconfig due to
-> CONFIG_WERROR.
-
-Are either of you still looking at fixing this?
-
---6vU7YlowxUaBWkHl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMDxkAACgkQJNaLcl1U
-h9C73wf/RgzOmsSZTp0Dl2xyhY28TyLQJ3Prc306CZBASMpf/slGe7F+A6tTJU1N
-lFmnFIRhJYOS3NwqDrOZhJrB10MondVH4DKMjjmjZRlcPZPUo/nIU3EFQqYYm1R/
-VtXqOnXEgjbke8d8YI4En+2RoX0WerlLXnANA8YsRpDCCDt2fj/tCKoZeWVx7UsE
-65mnCelZqCDszFoUZJUor7BO8uzJPlxFSqnl8rT+iqYBfpwa9CmExw5CwmYTPuUu
-Gqx7nJdlkaHKgc/XXPPiyNO/79vQYgAWhpxXg3vHkmv6KDOBEbe5VSXXujAyHvn9
-VQryX9/4cKi+z/EzMSZW0oiUew0hdg==
-=enod
------END PGP SIGNATURE-----
-
---6vU7YlowxUaBWkHl--

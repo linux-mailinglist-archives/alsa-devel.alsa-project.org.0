@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24B1F59C7B7
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 21:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1783959C7B8
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 21:01:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DABB41638;
-	Mon, 22 Aug 2022 21:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DABB41638
+	by alsa0.perex.cz (Postfix) with ESMTPS id 872071620;
+	Mon, 22 Aug 2022 21:00:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 872071620
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661194875;
-	bh=o+KXOFTqtH8s8upVfTwOEMUH1AZquDa63HNUjDErzyA=;
+	s=default; t=1661194887;
+	bh=hpv609G6yEl/PzOOZ6oax3gLyf8gUXiq9vfeivxKkOc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aq5HiaWKxZMpmzvorRLeBKLL77Zr7QccTxFlzHYvItkLWgjxigMfp7VqaTOpIGgLB
-	 xX1moHwMduqU2+4kkTu/RSfqbRhiXa2jsYv1Y6sIAl/yEATGMfHmkcxjJmbZAb7A/m
-	 mVzX542EK5XBEQSboWSp0xNP8nWKR/oiXqd0hYIo=
+	b=YK4r72tQFeU0FZeEyWzJQ8MwerfZ/SQxX5A11jiXP9uL4L8jAD4+CoNAuaIcZpoxb
+	 ejnX6LRA+Z8v5YvQWGF6vgHLzr5GPh/Zpa8ES+qi8I+2gEi3yTq4DrE0wNDEcXnczN
+	 4+L4lGY4IvDIYypAyb4E3RNO1O04KsnRZ9TJjunA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A7D8F80537;
-	Mon, 22 Aug 2022 20:59:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22318F80542;
+	Mon, 22 Aug 2022 20:59:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53422F80527; Mon, 22 Aug 2022 20:59:45 +0200 (CEST)
+ id E4830F8053B; Mon, 22 Aug 2022 20:59:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7D75F80527
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 20:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7D75F80527
+ by alsa1.perex.cz (Postfix) with ESMTPS id 362D0F80152
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 20:59:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 362D0F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="bEzI6+ev"
+ header.b="VoovuP+G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661194779; x=1692730779;
+ t=1661194781; x=1692730781;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o+KXOFTqtH8s8upVfTwOEMUH1AZquDa63HNUjDErzyA=;
- b=bEzI6+evn8F9XvYY/KUZriy7i4bW6g0I02udXTyCCESGf/jQ8ivq3RxY
- 7vyuivskG4VU2E/8zNiPmOQdQPsxFdVkISgwZnAviHeu5NYBzFT2eHT9a
- BiQOUdgfAU0unMItBuMgGJIqiBL4cQZyDHsb//Td3Zf6gdxl8APWWoM36
- JCSHvjRtFbD1Bfx9gfyrjVCerpWgj3EhBX24aeAj8QR7I7wRp1bO8XIfd
- A/DqcCZkIUJBS1dUxv/f+4xUxowRHK8U89Dpl4+rbBwZOXAYsvak0k4wV
- MDzSKfy1hTUmEqSDVJhdmZbPIkVB8m7LS6dpzyx8mLjMWbhn4nU0va6L/ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="379786498"
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="379786498"
+ bh=hpv609G6yEl/PzOOZ6oax3gLyf8gUXiq9vfeivxKkOc=;
+ b=VoovuP+GK38Q8aQxKChNapNRVqcseRNFuiR6Gil5mu2/GIgsXI/WMPdw
+ bWDqWvguGvI0X0HLVtqkq9ILtprl7La8LHlZng3Zdd7DvVht1aghbosWM
+ Ll7lGKH4xhUaWOzMU9WF2xlMiNdOuTqKSUIRU+orkMQ9IpE+73Ut63171
+ oLcXGRVDiZoXglRyFkvHET+RTEGsIn+s3VdhpFqoauClkRv3pt9+Hm4zo
+ GNtqCvYZD9b0qGtKyWDYR2eHCDBGMboUHjgNYxAxIPD+yQc7E2Kv0CvJK
+ /N/KJwYQNlHxiAx3TlpbTTHcleCSqxsGg9bNtLrwX+PFJ7yIZuCxtLaAw w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="379786506"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="379786506"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 11:59:37 -0700
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669676497"
+ 22 Aug 2022 11:59:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669676528"
 Received: from apascali-mobl2.ger.corp.intel.com (HELO pbossart-mobl3.home)
  ([10.252.42.21])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 11:59:35 -0700
+ 22 Aug 2022 11:59:37 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/4] ASoC: SOF: add quirk to override topology mclk_id
-Date: Mon, 22 Aug 2022 20:59:08 +0200
-Message-Id: <20220822185911.170440-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/4] ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
+Date: Mon, 22 Aug 2022 20:59:09 +0200
+Message-Id: <20220822185911.170440-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220822185911.170440-1-pierre-louis.bossart@linux.intel.com>
 References: <20220822185911.170440-1-pierre-louis.bossart@linux.intel.com>
@@ -91,96 +91,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some Intel-based platforms rely on a topology file that hard-codes the
-use of MCLK0. This is incorrect in 10% of the cases. Rather than
-generating yet another set of topology files, this patch adds a kernel
-module parameter to override the topology value.
+SOF topologies hard-code the MCLK used for SSP connections. That was a
+bad idea in hindsight, this information should really come from BIOS
+and/or machine driver.
 
-In hindsight, we should never have allowed mclks to be specified in
-topology, this is a hardware-level information that should not have
-been visible in the topology.
+This patch introduces a helper to scan all SSP endpoints connected to
+a codec, and all formats to see what MCLK is used. When BIT(0) of the
+mdivc offset if set in the SSP blob, MCLK0 is used, and likewise when
+BIT(1) is set MCLK1 is used.
 
-Future patches will try to set this value automagically, e.g. by
-parsing the NHLT content.
+The case where both MCLKs are used is possible but has never been seen
+in practice so should be treated as an error by the caller.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/intel/hda.c     | 11 +++++++++++
- sound/soc/sof/ipc3-topology.c |  7 +++++++
- sound/soc/sof/sof-priv.h      |  4 ++++
- 3 files changed, 22 insertions(+)
+ include/sound/intel-nhlt.h |  7 +++++
+ sound/hda/intel-nhlt.c     | 61 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 6d4ecbe14adf3..ada2e67757494 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -376,6 +376,10 @@ static int dmic_num_override = -1;
- module_param_named(dmic_num, dmic_num_override, int, 0444);
- MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
+diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
+index 3d5cf201cd802..53470d6a28d65 100644
+--- a/include/sound/intel-nhlt.h
++++ b/include/sound/intel-nhlt.h
+@@ -136,6 +136,8 @@ bool intel_nhlt_has_endpoint_type(struct nhlt_acpi_table *nhlt, u8 link_type);
  
-+static int mclk_id_override = -1;
-+module_param_named(mclk_id, mclk_id_override, int, 0444);
-+MODULE_PARM_DESC(mclk_id, "SOF SSP mclk_id");
-+
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- static bool hda_codec_use_common_hdmi = IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI);
- module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
-@@ -1565,6 +1569,13 @@ struct snd_soc_acpi_mach *hda_machine_select(struct snd_sof_dev *sdev)
+ int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 device_type);
  
- 			sof_pdata->tplg_filename = tplg_filename;
- 		}
++int intel_nhlt_ssp_mclk_mask(struct nhlt_acpi_table *nhlt, int ssp_num);
 +
-+		/* check if mclk_id should be modified from topology defaults */
-+		if (mclk_id_override >= 0) {
-+			dev_info(sdev->dev, "Overriding topology with MCLK %d from kernel_parameter\n", mclk_id_override);
-+			sdev->mclk_id_override = true;
-+			sdev->mclk_id_quirk = mclk_id_override;
+ struct nhlt_specific_cfg *
+ intel_nhlt_get_endpoint_blob(struct device *dev, struct nhlt_acpi_table *nhlt,
+ 			     u32 bus_id, u8 link_type, u8 vbps, u8 bps,
+@@ -169,6 +171,11 @@ static inline int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8
+ 	return 0;
+ }
+ 
++static inline int intel_nhlt_ssp_mclk_mask(struct nhlt_acpi_table *nhlt, int ssp_num)
++{
++	return 0;
++}
++
+ static inline struct nhlt_specific_cfg *
+ intel_nhlt_get_endpoint_blob(struct device *dev, struct nhlt_acpi_table *nhlt,
+ 			     u32 bus_id, u8 link_type, u8 vbps, u8 bps,
+diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
+index 13bb0ccfb36c0..0323aedb6ecf4 100644
+--- a/sound/hda/intel-nhlt.c
++++ b/sound/hda/intel-nhlt.c
+@@ -157,6 +157,67 @@ int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 device_type)
+ }
+ EXPORT_SYMBOL(intel_nhlt_ssp_endpoint_mask);
+ 
++#define SSP_BLOB_V1_0_SIZE		84
++#define SSP_BLOB_V1_0_MDIVC_OFFSET	19 /* offset in u32 */
++#define SSP_BLOB_V1_5_SIZE		96
++#define SSP_BLOB_V1_5_MDIVC_OFFSET	21 /* offset in u32 */
++#define SSP_BLOB_VER_1_5		0xEE000105
++#define SSP_BLOB_V2_0_MDIVC_OFFSET	20 /* offset in u32 */
++#define SSP_BLOB_VER_2_0		0xEE000200
++
++int intel_nhlt_ssp_mclk_mask(struct nhlt_acpi_table *nhlt, int ssp_num)
++{
++	struct nhlt_endpoint *epnt;
++	struct nhlt_fmt *fmt;
++	struct nhlt_fmt_cfg *cfg;
++	int mclk_mask = 0;
++	int i, j;
++
++	if (!nhlt)
++		return 0;
++
++	epnt = (struct nhlt_endpoint *)nhlt->desc;
++	for (i = 0; i < nhlt->endpoint_count; i++) {
++
++		/* we only care about endpoints connected to an audio codec over SSP */
++		if (epnt->linktype == NHLT_LINK_SSP &&
++		    epnt->device_type == NHLT_DEVICE_I2S &&
++		    epnt->virtual_bus_id == ssp_num) {
++
++			fmt = (struct nhlt_fmt *)(epnt->config.caps + epnt->config.size);
++			cfg = fmt->fmt_config;
++
++			/*
++			 * In theory all formats should use the same MCLK but it doesn't hurt to
++			 * double-check that the configuration is consistent
++			 */
++			for (j = 0; j < fmt->fmt_count; j++) {
++				u32 *blob;
++				int mdivc_offset;
++
++				if (cfg->config.size >= SSP_BLOB_V1_0_SIZE) {
++					blob = (u32 *)cfg->config.caps;
++
++					if (blob[1] == SSP_BLOB_VER_2_0)
++						mdivc_offset = SSP_BLOB_V2_0_MDIVC_OFFSET;
++					else if (blob[1] == SSP_BLOB_VER_1_5)
++						mdivc_offset = SSP_BLOB_V1_5_MDIVC_OFFSET;
++					else
++						mdivc_offset = SSP_BLOB_V1_0_MDIVC_OFFSET;
++
++					mclk_mask |=  blob[mdivc_offset] & GENMASK(1, 0);
++				}
++
++				cfg = (struct nhlt_fmt_cfg *)(cfg->config.caps + cfg->config.size);
++			}
 +		}
- 	}
- 
- 	/*
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 65923e7a5976f..a39b43850f0ed 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -1249,6 +1249,7 @@ static int sof_link_afe_load(struct snd_soc_component *scomp, struct snd_sof_dai
- static int sof_link_ssp_load(struct snd_soc_component *scomp, struct snd_sof_dai_link *slink,
- 			     struct sof_ipc_dai_config *config, struct snd_sof_dai *dai)
- {
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
- 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
- 	struct sof_dai_private_data *private = dai->private;
- 	u32 size = sizeof(*config);
-@@ -1273,6 +1274,12 @@ static int sof_link_ssp_load(struct snd_soc_component *scomp, struct snd_sof_dai
- 
- 		config[i].hdr.size = size;
- 
-+		if (sdev->mclk_id_override) {
-+			dev_dbg(scomp->dev, "tplg: overriding topology mclk_id %d by quirk %d\n",
-+				config[i].ssp.mclk_id, sdev->mclk_id_quirk);
-+			config[i].ssp.mclk_id = sdev->mclk_id_quirk;
-+		}
++		epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
++	}
 +
- 		/* copy differentiating hw configs to ipc structs */
- 		config[i].ssp.mclk_rate = le32_to_cpu(hw_config[i].mclk_rate);
- 		config[i].ssp.bclk_rate = le32_to_cpu(hw_config[i].bclk_rate);
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 33165299a20f1..de08825915b35 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -601,6 +601,10 @@ struct snd_sof_dev {
- 	/* to protect the ipc_rx_handler_list  and  dsp_state_handler_list list */
- 	struct mutex client_event_handler_mutex;
- 
-+	/* quirks to override topology values */
-+	bool mclk_id_override;
-+	u16  mclk_id_quirk; /* same size as in IPC3 definitions */
++	return mclk_mask;
++}
++EXPORT_SYMBOL(intel_nhlt_ssp_mclk_mask);
 +
- 	void *private;			/* core does not touch this */
- };
- 
+ static struct nhlt_specific_cfg *
+ nhlt_get_specific_cfg(struct device *dev, struct nhlt_fmt *fmt, u8 num_ch,
+ 		      u32 rate, u8 vbps, u8 bps)
 -- 
 2.34.1
 

@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153B759C3D6
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 18:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7378059C3E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 18:18:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88E1782C;
-	Mon, 22 Aug 2022 18:14:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88E1782C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4B4EE0E;
+	Mon, 22 Aug 2022 18:17:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4B4EE0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661184933;
-	bh=VfxwmQyY1k2NzPt+1UZYvEgGjJI2gAhCSwC0aBuS5l0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1661185102;
+	bh=u35J4IpHSFEfh+GYLrukSlUjmHxOKq2CFdVZojhZiak=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fL3DgOKq4FNOlul1Rtr7T719M50SvcOVD1ggSroBQYXV3EJuD1M3NZkcMwVrACnAj
-	 4IyyQ/5gD59Ko1LcXyLpXmNt4KkGjJVqT2TrYSj48K9tAaQfOn8hRts2NoRbwIHb9Q
-	 MtsoIR/uEH7muZ3voNU4uBXxunsTvwEl5eo3AhN0=
+	b=JhgsA4Aze7Eu1n7ITHMee5mEeiPV+0LsXGJeln6wgQbDz99KOHnqFvSTyBMBr4un3
+	 JOD4iXeu4VxWipJCLeDkU5y8TARiVcsGx0eucfEOyxoKuYrgp7Zw0TqkA1zd/ukWqc
+	 XCTiY7IZWeo35K270U3By1grNnfdU3zQZ3S2dazM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05C27F800A7;
-	Mon, 22 Aug 2022 18:14:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B1D3F80517;
+	Mon, 22 Aug 2022 18:16:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C625DF8026A; Mon, 22 Aug 2022 18:14:32 +0200 (CEST)
+ id 37972F804D1; Mon, 22 Aug 2022 18:16:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74EF4F800ED
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 18:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74EF4F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 516D2F800ED
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 18:16:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 516D2F800ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e1NwVfeJ"
+ header.b="OGr4nayo"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E3958611D5;
- Mon, 22 Aug 2022 16:14:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D95C433C1;
- Mon, 22 Aug 2022 16:14:20 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9F689B815F3;
+ Mon, 22 Aug 2022 16:16:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACB0C433D6;
+ Mon, 22 Aug 2022 16:16:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661184862;
- bh=VfxwmQyY1k2NzPt+1UZYvEgGjJI2gAhCSwC0aBuS5l0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e1NwVfeJ9Ad/qSBNDH68vNs1WvlmFEYBCjEdHHePKRbkFqng4aiLqjPoiRXO0Wx1e
- IA5FZYoULIcx3QO5frlh9X197PP8TtK++mizaMp+FfrnqNoNzITLLz1oS0TDp9+JA6
- 0yRVMQSS7zG9T6Teuc8ubsI/mGd/GKIXFPcLULQKsKhpDn1QGJSUaGcBOJL3v9EQbM
- FMlCJI7iqDMCi0X9vLxRSeA8R14dwZ4+DDiWIIYEvH2t0cLSLw90ESOTdgu58oExJL
- 5WMcHbb2KLtCP/Z8sdP1n0FBT9z01iJmqeoMKSSr8JZlGwsI7z1UrZRRtuTFaQLuD3
- yBdeuNX22JvGQ==
-Date: Mon, 22 Aug 2022 17:14:17 +0100
+ s=k20201202; t=1661185005;
+ bh=u35J4IpHSFEfh+GYLrukSlUjmHxOKq2CFdVZojhZiak=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=OGr4nayobT6fT8ydoU5LaYZCf1MEoWJVF9F9YmHC7hO56OMJpwx+AyNNt4o7KVqiF
+ x57Bv/LtnMW8C7gcV3uqwyiZQweD07AZ7wmFX16zjILwaF2SxjU+JyZujFcAx18ztk
+ d+bHBKHVw7FRlxhtTPIfdOvzlMORUUa+e5UbGkFksjve2vIQZB+N3wQdRErwYaQBcd
+ EFcSDq9eB+QBQ4GxA4GTN+egSUCfTF8GlnpskD5pE3ehyWMhgsfpWFwAaE/j6o1ERd
+ GwmqQo1kWXPESQ58hduyI2bEnAWtNrR2MX7s2O7eVsUvwu0Xhwj5TikzIAA9Vfenun
+ uHln2YHXB2/Ww==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: dapm: Export new 'graph.dot' file in debugfs
-Message-ID: <YwOrWf3+9c3o5FPO@sirena.org.uk>
-References: <20220822095242.3779-1-povik+lin@cutebit.org>
- <YwN2Pd4Ez08yDFno@sirena.org.uk>
- <3234D74E-0DFF-4BB5-87ED-6135BAC1F31D@cutebit.org>
- <19b60ea9-6bee-1cc9-5384-89231fce3a99@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220821160914.2207116-1-jic23@kernel.org>
+References: <20220821160914.2207116-1-jic23@kernel.org>
+Subject: Re: [PATCH] ASoC: samsung: Use iio_get_channel_type() accessor.
+Message-Id: <166118500362.214851.13933856221972874063.b4-ty@kernel.org>
+Date: Mon, 22 Aug 2022 17:16:43 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/lY9LArAiCvVh4P1"
-Content-Disposition: inline
-In-Reply-To: <19b60ea9-6bee-1cc9-5384-89231fce3a99@linux.intel.com>
-X-Cookie: Do not write in this space.
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fe10a
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,36 +87,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 21 Aug 2022 17:09:14 +0100, Jonathan Cameron wrote:
+> From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+> 
+> struct iio_chan_spec is meant to be opaque to IIO consumer drivers
+> which should only use the interfaces in linux/iio/consumer.h.
+> Use the provided accessor function to find get the type of the
+> channel instead of directly reading it form the structure.
+> 
+> [...]
 
---/lY9LArAiCvVh4P1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Aug 22, 2022 at 03:06:03PM +0200, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> The Chrome folks used an 'asoc_dapm_graph' python script since 2014
-> according to the copyright information. IIRC it was python2 so might
-> need a bit of work.
+Thanks!
 
-> https://chromium.googlesource.com/chromiumos/third_party/adhd/+/refs/heads/master/scripts/asoc_dapm_graph
+[1/1] ASoC: samsung: Use iio_get_channel_type() accessor.
+      commit: 94f072748337424c9cf92cd018532a34db3a5516
 
-That's a different tool but also interesting - doesn't look like it's
-too advanced Python wise so should be fairly easy to update for any
-Python 3 incompatibilities.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---/lY9LArAiCvVh4P1
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMDq1kACgkQJNaLcl1U
-h9CgJQf/T/noyjLy9gGJUSy87tOqoWe7zUNpA0QTr56GbMNO9ICucL8cwYYuoqkL
-JH7Fi++XqbeFFCSsfC13R4cwaJgYCRAshf2Za/IsSn9TTT8InHl6n4OHXo2hV/4E
-4VB7dDPi5pfG2qZXLcJmDMKXekSmUAwPhso0+F/1Yvo6sruKwtYb6DPthKKpadJF
-tXWrYhxxt7/LmDL62PBqUEUV9y7rWj7Hc6tI2Rtba4HGlra+jdQNbMOZDo+3ipkL
-FY8A6RqLDI7J02C8OUEkO77u8jYs3mBlmfiPzZE9EcXhqXlYiWpS7EvPXhL4i0DT
-/L/N6X2H/jfMtn3ywl7/oGFBAjRNfQ==
-=0/Pw
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---/lY9LArAiCvVh4P1--
+Thanks,
+Mark

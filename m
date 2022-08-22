@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C61F459C531
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 19:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE91A59C54F
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 19:46:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1059D844;
-	Mon, 22 Aug 2022 19:40:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1059D844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BE3F836;
+	Mon, 22 Aug 2022 19:45:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BE3F836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661190069;
-	bh=6CmQdowko0m3VEWl0fKzK9C0KmgTv5BlYHbJQN96nP0=;
+	s=default; t=1661190397;
+	bh=11zZAIvln2KnjZa+NDc5/38WwFHC5uUCvQwpMLeQgKA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QT+CoKtRcx0sXHs98r/RRrP9fwfS27CxbEOqfqBXTx/YvGjTG2t3bhLU08QEl0BzS
-	 nzySvwctaxdcJtr8AloaBbG/W9idctUekMV1yG0MmP5YOiZ/tsXfczWw8k9MWWSjTJ
-	 rkScZxJj0fhkyfvl89tXtW/RlWtWYZ9wtOdb8p2M=
+	b=bZE3TLTXH4anjxqiDgalELiLtxvndW5Iud1LSzMUZbeaqe2VUu2TVxJmQtF89XUye
+	 xmnoQ/bMYQMdQ74NzzYkmdn7c3fONxbqIHiN6TdCYVT/SuPzSKsoMa5N80Sx/JFRaz
+	 d8cqg+LKdh680T38DEZUcUPXOzTZa6ksBT/+K6Vw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 699B5F8026D;
-	Mon, 22 Aug 2022 19:40:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2205F8026D;
+	Mon, 22 Aug 2022 19:45:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9C0EF8026A; Mon, 22 Aug 2022 19:40:06 +0200 (CEST)
+ id BA8DBF80152; Mon, 22 Aug 2022 19:45:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21CF9F80152
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 19:40:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21CF9F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56171F80152
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 19:45:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56171F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Js2/6HWD"
+ header.b="WUaaP22a"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE25A61254;
- Mon, 22 Aug 2022 17:40:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0915C433D6;
- Mon, 22 Aug 2022 17:39:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 06EC961263;
+ Mon, 22 Aug 2022 17:45:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8238C433D6;
+ Mon, 22 Aug 2022 17:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661190000;
- bh=6CmQdowko0m3VEWl0fKzK9C0KmgTv5BlYHbJQN96nP0=;
+ s=k20201202; t=1661190331;
+ bh=11zZAIvln2KnjZa+NDc5/38WwFHC5uUCvQwpMLeQgKA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Js2/6HWDWg4NXMH8+tRxvjuUIGmcjy7run71WD6MSM/AxdIYKI24l4Ioagg88clJu
- 2OzQ7ZBhMhpWBnwp/SZPh9w5cseL5P2hF97CMWTZgVA2ZE1MOnngKTyk7qjWTx7Bzn
- muUfo1KOOLzrLJuD6zJviWHZqgR18jy/i0xheu4oaLw6QWqIz0bRa+RusaLpDceMx3
- ppgHLAjtcNjQoe8fMxYi+VPx7eFoUbXWY3PvgVnf2ioweZ6w7Mvqg/4pZsVoiBi2er
- WYGY+r0QaqCUC9PyMSjr5JqJgrcLw9cisr2i5bCF+clJc+QQ62deyf/Z8sYERWKsZX
- FDQVzbkUemRDw==
-Date: Mon, 22 Aug 2022 18:39:54 +0100
+ b=WUaaP22a5zZsy9GiQ8bCYSYGvAqnmUz0lvNXrBFoireqXcRCibtu479FOC+3OkX2r
+ e2MXqPuhICJICWMcFq+cVclfSrp9Yi5KZ6heB9sJ7ulJWRej4BJKMeYR6TeKSefDuY
+ EWBFPfQJtR6EOnJhiXOQTvHYQndzw6XMoJ05CjJUhx+NJnt6hPAiy3su+CrfKUZv1Q
+ KWKG4oBd/cEdIAo+XLWWd5mMcY6ofQKtMBQXCJAp1C83qba9TnZLHu3WtqqF/YbwEx
+ kqZ9A4hnf3PmxuvVL6byKPK1o7+90m0+Va1F1kj46jLjh7yVuu0W0pGxixRT78FDOf
+ akf/B/448h0mw==
+Date: Mon, 22 Aug 2022 18:45:25 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: Re: [PATCH v2 3/4] ASoC: apple: mca: Start new platform driver
-Message-ID: <YwO/aqs7eqZx07kS@sirena.org.uk>
+Subject: Re: [PATCH v2 4/4] ASoC: apple: mca: Add locks on foreign cluster
+ access
+Message-ID: <YwPAtY1kp5tU/isF@sirena.org.uk>
 References: <20220819125430.4920-1-povik+lin@cutebit.org>
- <20220819125430.4920-4-povik+lin@cutebit.org>
+ <20220819125430.4920-5-povik+lin@cutebit.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qCefvYX0tdeieUPa"
+ protocol="application/pgp-signature"; boundary="7TCI7W6orlvhYY9k"
 Content-Disposition: inline
-In-Reply-To: <20220819125430.4920-4-povik+lin@cutebit.org>
+In-Reply-To: <20220819125430.4920-5-povik+lin@cutebit.org>
 X-Cookie: Do not write in this space.
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -93,76 +94,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---qCefvYX0tdeieUPa
+--7TCI7W6orlvhYY9k
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 19, 2022 at 02:54:29PM +0200, Martin Povi=C5=A1er wrote:
+On Fri, Aug 19, 2022 at 02:54:30PM +0200, Martin Povi=C5=A1er wrote:
+> In DAI ops, accesses to the native cluster (of the DAI), and to data of
+> clusters related to it by a DPCM frontend-backend link, should have
+> been synchronized by the 'pcm_mutex' lock at ASoC level.
+>=20
+> What is not covered are the 'port_driver' accesses on foreign clusters
+> to which the current cluster has no a priori relation, so fill in
+> locking for that. (This should only matter in bizarre configurations of
+> sharing one MCA peripheral between ASoC cards.)
 
-This all looks good, one style nit and a couple of requests for
-clarification below but basically this is fine.
+This also looks good.
 
-> +++ b/sound/soc/apple/mca.c
-> @@ -0,0 +1,1149 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Apple SoCs MCA driver
-> + *
-> + * Copyright (C) The Asahi Linux Contributors
-> + *
-> + * The MCA peripheral is made up of a number of identical units called c=
-lusters.
-
-Please make the entire comment block a C++ one so things look more
-intentional.
-
-> +#define USE_RXB_FOR_CAPTURE
-
-What's this all about?
-
-> +static int mca_fe_enable_clocks(struct mca_cluster *cl)
-> +{
-> +	struct mca_data *mca =3D cl->host;
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(cl->clk_parent);
-> +	if (ret) {
-> +		dev_err(mca->dev,
-> +			"cluster %d: unable to enable clock parent: %d\n",
-> +			cl->no, ret);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * We can't power up the device earlier than this because
-> +	 * the power state driver would error out on seeing the device
-> +	 * as clock-gated.
-> +	 */
-> +	cl->pd_link =3D device_link_add(mca->dev, cl->pd_dev,
-> +				      DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
-> +					      DL_FLAG_RPM_ACTIVE);
-
-I'm not clear on this dynamically adding and removing device links stuff
-- it looks like the main (only?) purpose is to take a runtime PM
-reference to the target device which is fine but it's not clear why
-device links are involved given that the links are created and destroyed
-every time the DAI is used, AFAICT always in the same fixed
-relationship.  It's not a problem, it's just unclear.
-
---qCefvYX0tdeieUPa
+--7TCI7W6orlvhYY9k
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMDv2kACgkQJNaLcl1U
-h9Apnwf8DfhwTXhkRk42QdwLlD8jY+ALJxnAnI9N0WL27+ro0ik9D4csIFZ0yyep
-peioVGWLjZDtHb8hU/MA6iwVIjrGfFOaRzacALHikXMaknAqzNGAcY3iYt2PrivX
-l6glTR9aQZ9wqdVYbHjSpStEu4D1Fb+QzdgtJyPTFiduuGhv13pAGscTUmpTHaiL
-Oy80EJMZ1T/TUXevPew4EALeIZiT3dBch98K5VAEhpLpAQlyGjNAaJNMcHHBVyrB
-0NRvDmrVO+pXfiXQb0Fb/NtDm3jT6VJuBvOE7tmIDXL9RTk1NAEJC0qm56IQv1hR
-lDk432wlomyUxhOKnc6xZD51i5We8A==
-=y4jf
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMDwLQACgkQJNaLcl1U
+h9Dvagf/TRY4LCW2H+nmGAoKwC6tDc1DZpexBXRhpqOhlBQD7h3NJbtNN6uIJwK6
+E7n1ORFmQFe7fIgSz9vOQmTFBEGg+wYh/RqvEOZhTC0QpdXYe0l4H9yUMCEabiJg
+Ngf6f0m08vBex9X2NDr+B/wq4xbXbMVlbSuMdNDgIqPqyczuuGFdBbrGuiOQFtFk
+SlCQoiQXWW/OLTcSMok2d7To4zbfON7eaZBZTza8b3XeI5y0vnWyix67qAuhPCMY
+i0SGbf2U8gbnEJzlkUDRpsWNH77Qie7c+VzagvzQvefKZd6Ww+ShI1fYq8CVtf+Q
+BXIFo1OuoozZ7yTj2FWGC/dn2PuSSQ==
+=7Lok
 -----END PGP SIGNATURE-----
 
---qCefvYX0tdeieUPa--
+--7TCI7W6orlvhYY9k--

@@ -2,77 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A52559C190
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 16:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E17459C1B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 16:36:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F486167C;
-	Mon, 22 Aug 2022 16:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F486167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 123B616A2;
+	Mon, 22 Aug 2022 16:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123B616A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661178365;
-	bh=PiktLoy2IS2EfJ927VEsYS/q/dcy6NlvZDENwVBGB5w=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1661179018;
+	bh=84NezB5owjY0HBo2nESIDRVbcvJjVjUGrGNe1bUYREA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Or51sxGPPl6IdjroBcTEMSiCF5HxTqztp8DSAMAKFc9mQIVx0LJdPNeL57g7iBu+N
-	 p3/jTELTJmnPg7tdZ0gnJQtIvKtbExujxD3znY/Bykq8XiNcMsN83dW/cT0n1LQwiD
-	 Nt461lLrvg6icXHgk5iNbZJMxw9DNI/zqM+5vC68=
+	b=PqcoczaCa86WK3VwJD1TZCAzYRqxcFbBCe4svnlbKtJmDE/KnKyRS4MJO0dNKnYVT
+	 /cDF1lggb10viZ/PIi/r1gH3l0FnddAVdSZHouuUC085/il9LpETFWmgFEhgUVDepG
+	 aoExjGRGuy0wXa+qcC1XApRDZN/32MgwkTGwiSfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD39EF8026D;
-	Mon, 22 Aug 2022 16:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60ABDF8026D;
+	Mon, 22 Aug 2022 16:35:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48979F8026A; Mon, 22 Aug 2022 16:25:04 +0200 (CEST)
+ id 36229F8026A; Mon, 22 Aug 2022 16:35:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe2a.google.com (mail-vs1-xe2a.google.com
+ [IPv6:2607:f8b0:4864:20::e2a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D409EF800A7
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 16:25:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D409EF800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 198B5F800A7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 16:35:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 198B5F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QrLNpasp"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C6E1D611B4;
- Mon, 22 Aug 2022 14:24:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76526C433C1;
- Mon, 22 Aug 2022 14:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661178296;
- bh=PiktLoy2IS2EfJ927VEsYS/q/dcy6NlvZDENwVBGB5w=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=QrLNpaspeL5WMdkHA6jOAuKWgVw6AhxGf7tvw7BFaQKSi5e39Y64Djfshm6Hd7R6V
- qjMKDcayPGV/zSVRoM0ycZEgEMlnq3oxrz2B2uo2IhOQRCnBD4dCg+03+YEO9BCVTC
- S1TF4oSRjiix1IBqYBB2lYLIpgvQN7gful9RrCpxu3LO/euPnX7ESoRyRWagLU0/Os
- w0rRFOOwuegGf6D2GvTuTLATG29byW+WMjKLMGi+EtPGzc4LDEp3WdCq51sNbMSy4N
- J7nJcovexmOE21p4iydqe3JWbvGvT4xrZHI9fYbPC0n667UQn1A5e6t9Rd06Ip6ngB
- T+vcq5dDUmLVw==
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, angelogioacchino.delregno@collabora.com
-In-Reply-To: <20220820071925.13557-1-jiaxin.yu@mediatek.com>
-References: <20220820071925.13557-1-jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8186: fix DMIC record noise
-Message-Id: <166117829418.94797.5869443265207499782.b4-ty@kernel.org>
-Date: Mon, 22 Aug 2022 15:24:54 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ev8pDyCs"
+Received: by mail-vs1-xe2a.google.com with SMTP id w188so3286596vsb.10
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 07:35:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc;
+ bh=EZm5ORBQuQPCrjLNzB8gAVLdU71FaSkRuBT/lYxiRxM=;
+ b=ev8pDyCsAVLoRnkW+qhnhg4pf3v9zdQHOQyCRFxDpZGrMwon9XF/hn+vod9LF5Qil4
+ yB5PsB2oCeGGj1HuK+jT7zGyT9b4fdVM41RSl73LnnCuTn3WjHsi1rvEv0JxkgT3JIGi
+ KlHibN1mTXdgY+No2r6+KaUezFAp6wcN9LfEynCEw0fA3wu7uP0nrWcShNqrP7HOvueY
+ ZwIXORi3HRVX/6wWLjS/1I9/xQ5lx2xrSRqU78M7/j+DGUlNMjnftl2B963BaWGHRDxd
+ RxyKCnaZz/yoMJOdhVc+2OHIEINXT5nuskwnenPJMPR7FRUssw+zYDVsFJqQgLFjy5P2
+ NcFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=EZm5ORBQuQPCrjLNzB8gAVLdU71FaSkRuBT/lYxiRxM=;
+ b=e1zY6yXKQRbCu0D6vvCDO+Jk4Q4Iw1FeK8zj1jqosDaI3npB1rUGBxeQtPt9Y/vCXB
+ eD9Cbs+uFY52I14cffut9PfPGa5uEB6IZ1BjiuXnlITfbiiN6NvOekeeqUxNRQPASMRx
+ EIhGPYAfhoik8vlN5u1Hte2EeArBeAnRhdTjLGGAgTQpyX8H7YQoQgMZ7ElGIrU+VsFF
+ qmWtkx0Iw+vhs7FAjxL9CtnCUE/jMUMcN67/KQswXkZcVSLof0ldgMlQWDtwRx3O5jVw
+ K4kQJEsC41HaRm8x3FqgHbCFrTRH8TjjCmKcL/KxoqknSWDKsoUVQaS90sOZAIMtoo76
+ 0Agg==
+X-Gm-Message-State: ACgBeo1lOgFrhh423NiEAtWSNut+Ew1105uDIsJKhdeV/MfEBVckAS+T
+ 5rM4jqSmFtakrRIOnb+EcOI=
+X-Google-Smtp-Source: AA6agR5LDq6p3brI5x2xKpN6R88cXnUYUPmt/0O7q3aJU5n+8aT8GmZ29O2Qr2nJdH6p9P4oqTbnKg==
+X-Received: by 2002:a05:6102:23f2:b0:38a:8fe2:db89 with SMTP id
+ p18-20020a05610223f200b0038a8fe2db89mr6649199vsc.41.1661178949730; 
+ Mon, 22 Aug 2022 07:35:49 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:f71:a581:5947:7302:d05f])
+ by smtp.gmail.com with ESMTPSA id
+ j5-20020a056102000500b0038568ec60e7sm8986466vsp.8.2022.08.22.07.35.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Aug 2022 07:35:49 -0700 (PDT)
+Date: Mon, 22 Aug 2022 11:35:46 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if hardware
+ supports it
+Message-ID: <YwOUQoWiPi17zvYD@geday>
+References: <YwF+JYR5DxLBnE8F@geday>
+ <YwOEPpO0gux+njQe@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fe10a
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- chunxu.li@mediatek.com, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YwOEPpO0gux+njQe@sirena.org.uk>
+Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
+ ALSA-devel <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,37 +105,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 20 Aug 2022 15:19:25 +0800, Jiaxin Yu wrote:
-> When the first DMIC recording is power down, mtkaif_dmic will be reset.
-> This will cause configuration error in the second DMIC recording. So do
-> not reset mtkaif_dmic except in "MTKAIF_DMIC Switch" kcontrol.
+On Mon, Aug 22, 2022 at 02:27:26PM +0100, Mark Brown wrote:
+> On Sat, Aug 20, 2022 at 09:36:53PM -0300, Geraldo Nascimento wrote:
 > 
+> > +	/*
+> > +	 * dw-hdmi introduced insert_pcuv bit in version 2.10a.
+> > +	 * When set (1'b1), this bit enables the insertion of the PCUV
+> > +	 * (Parity, Channel Status, User bit and Validity) bits on the
+> > +	 * incoming audio stream (support limited to Linear PCM audio)
+> > +	 */
+> > +
+> > +	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21)
+> > +		conf2 |= HDMI_AUD_CONF2_INSERT_PCUV;
 > 
+> So what if we're not handlign linear PCM?
 
-Applied to
+Good question, Mark. For HBR and NL-PCM there are different bits that
+need to be set in aud_conf2 Sample Register, and then insert_pcuv bit
+needs to be dropped.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: mediatek: mt8186: fix DMIC record noise
-      commit: 221ab1f0bf46236cf1a3fef5298ff5894acfb0c5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+I don't have a sink handy however to test the other modes. Do you have
+a suggestion on how to make this the default for L-PCM specifically?
 
 Thanks,
-Mark
+Geraldo Nascimento

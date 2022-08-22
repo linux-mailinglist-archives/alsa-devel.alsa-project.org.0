@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F335659BA21
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 09:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F3059BAF8
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 10:08:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4E6B1632;
-	Mon, 22 Aug 2022 09:20:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E6B1632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32CD0163F;
+	Mon, 22 Aug 2022 10:07:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32CD0163F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661152858;
-	bh=8BP5Z6pA2etHtE3avgU0ovLmUxEgk/c6+OYDno5R6c8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jVqLZq1Ch9RJkJ2vNIkrb9rM08lrBHXItsOGoabbqQ2yUic1FDMs5H0QTFp2ClKjC
-	 aj1RiXEc4HVLtfKmuqIm4L0mze7aNT+o8CirXQRKDzHhVevlVccGUCHXZ2V1MA9hxw
-	 YjdJk91IGgomjuJkksEjd9TXE0CrDqK1RZ5QbDrg=
+	s=default; t=1661155695;
+	bh=uPIyaukpJLOLL8QLn4bIZ7TTDmIcWYB3QqtYBB8x4xo=;
+	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tnHsSFlyQ3FVo1k5n4kBunrHArfsW0MFgWYhY5vMQhaNWBv50IGmDB5pzslk3zd5X
+	 dox1PFYv/FZnVgtPSlnw3DJcCEUf0RM5jtwGHEPtugJsuaH67jgRKCzx7OqaySlhqp
+	 NRZtJ/iXoyN77B4SaEm6+V+SRk5FlfyhsnX9WZsg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C341F8026D;
-	Mon, 22 Aug 2022 09:19:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A223DF800ED;
+	Mon, 22 Aug 2022 10:07:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DADE9F8026A; Mon, 22 Aug 2022 09:19:55 +0200 (CEST)
+ id 8E9A6F8026A; Mon, 22 Aug 2022 10:07:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe2a.google.com (mail-vs1-xe2a.google.com
- [IPv6:2607:f8b0:4864:20::e2a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 216E2F800ED
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 09:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 216E2F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBBF2F800ED
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 10:07:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBBF2F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NwXnbE4G"
-Received: by mail-vs1-xe2a.google.com with SMTP id h67so9221791vsc.11
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 00:19:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=uxatvw1oMmZldGuWKfHk8SfbEF6u+jGXT+f23MF0Q3I=;
- b=NwXnbE4GepuPygxawUn+K42hHLYu2nBKAn2uPAy3dPPfy4cwCX0ONgl2vhn8zgC+bj
- xWEajuWehYDDqrwbZP3oNbKibi09dHdBM4TlweD1PAYqeAdHJ7QAnc7UnzS1sOoyGhdp
- iyv9VCFx7/rlO3D+XeruSHA/oDXrUApsI/R7sNMQQJmMbSBCXjkl8A1wFpswGqMh2bZj
- 3fT4Htm2HcyNkv146sM76yNr4iVxIp8FqRKWserSCdQNVowx3S4P+3Gc3zOnG2xk1yhe
- xFoYZofIar8oBLCKNak77aqtN+hW0MVH4KKKmjfJCJxbWGm1jHxTV/ccckz/9U3UztGn
- zyeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=uxatvw1oMmZldGuWKfHk8SfbEF6u+jGXT+f23MF0Q3I=;
- b=hWDz2r2Z/2ZO2sUS2d7Qftpb67M1QxwQYs0kFgANSsdFIOMok1jRTKCiQ6EtU1hGFI
- ZEx7WqWHlM3frpabxueWBRLHOnlsXWxVVGK/rxQeci9OpE5ICUSwT4oW7uPCsIjAOsCv
- gBXY42qJOarVKxef4CyaebBrcxZw2ueCg3ZnHYBzjLIHCYbvy24vcbdFEurxo2r7m/8x
- 84bHrG7PGjgiV6U6Z9tLerDJWGUhailgklamQFIybpRewTV+y8FqEEQ99g5gxSOdZkHQ
- twbHHuHGfQKREZVdjOEZ8RCSn8JWPZi2tcHXZ+GILM1qUORliSfYXTP4ljxxVZRCAY4p
- zAMA==
-X-Gm-Message-State: ACgBeo0ZWDBHqwZTeu/p13wlFiDaFL1MzP/cm1RisPC+fpXv5RuCe3oT
- C8ZFQVK6cQEVgvw3JhKKAqFwFlS8hFkzyioo867Sb9+I3M90Gg==
-X-Google-Smtp-Source: AA6agR4IC9l2G1UhL4QSwOadEDHhqIl7SnVAOT/e5kNyqSNjvYBnibucZRHLDdU9Zi6uP4NCAlQoBJGruRea6xPs4OA=
-X-Received: by 2002:a05:6102:c8a:b0:390:232a:8f29 with SMTP id
- f10-20020a0561020c8a00b00390232a8f29mr4732024vst.81.1661152790435; Mon, 22
- Aug 2022 00:19:50 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAH3TfsQSBesfMRqGYwcR3kfREE5tvtPxiBw+FbA4tmuj06rzfQ@mail.gmail.com>
-In-Reply-To: <CAH3TfsQSBesfMRqGYwcR3kfREE5tvtPxiBw+FbA4tmuj06rzfQ@mail.gmail.com>
-From: XiaoYan Li <lxy.lixiaoyan@gmail.com>
-Date: Mon, 22 Aug 2022 15:19:39 +0800
-Message-ID: <CAH3TfsR=ngT0Xu4Q3iycigg6wNv3Xm-WuYUn90Ce=-3+r=VY_w@mail.gmail.com>
-Subject: The cs35l41 driver does not work on several laptop models that lack
- the _DSD block.
-To: alsa-devel@alsa-project.org, tanureal@opensource.cirrus.com
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="BkACgUDl"
+X-UUID: 8e60ab8b022347d5bb0ab43aebad11c1-20220822
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:Date:CC:To:From:Subject:Message-ID;
+ bh=4YTg09B1vAYVwT4qbNMBjdKvY6UnuybFze8ucc+2wEs=; 
+ b=BkACgUDlxPvN2EM4ksMhCr3Os9B6/bAq+P8sPShax2p1jcS3Fxei3FKYx8wre2EppPX7Q/sULxVh5lG0TB31z7OC+2W5gp2PtJbWUPucxNc1HgOuydUtfNhcivqP8f5OIYrPs615MAKG1TqNI6uk0WNClLd1JZtm/3atcPo3yws=;
+X-CID-UNFAMILIAR: 1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.10, REQID:fe573026-e248-4488-80c8-22a96d5e8152, OB:0,
+ L
+ OB:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Relea
+ se_Ham,ACTION:release,TS:95
+X-CID-INFO: VERSION:1.1.10, REQID:fe573026-e248-4488-80c8-22a96d5e8152, OB:0,
+ LOB
+ :0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Spam_GS
+ 981B3D,ACTION:quarantine,TS:95
+X-CID-META: VersionHash:84eae18, CLOUDID:269365c9-6b09-4f60-bf82-12f039f5d530,
+ C
+ OID:da172a57c5c8,Recheck:0,SF:28|16|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0
+X-UUID: 8e60ab8b022347d5bb0ab43aebad11c1-20220822
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <chihhao.chen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 267542353; Mon, 22 Aug 2022 16:07:00 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Mon, 22 Aug 2022 16:06:59 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 22 Aug 2022 16:06:59 +0800
+Message-ID: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
+Subject: missing sound on kernel-5.15
+From: chihhao chen <chihhao.chen@mediatek.com>
+To: <alsa-devel@alsa-project.org>
+Date: Mon, 22 Aug 2022 16:06:58 +0800
 Content-Type: text/plain; charset="UTF-8"
-Cc: cam@neo-zeon.de, faenkhauser@gmail.com, mario.limonciello@amd.com,
- xw897002528@gmail.com
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: chihhao.chen@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,95 +97,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+I am testing many headsets on Android platform with different kernel
+versions.
 
-Several laptop models employ CSC3551 but lack a corresponding _DSD
-block in the ACPI table, including but not limited to:
-- Zenbook S 13 OLED (UM5302TA)
-- HP Envy x360 ey0xxx
-- Lenovo Legion 7i Gen 7
-Here are some relevant links:
-- https://bugzilla.kernel.org/show_bug.cgi?id=216194
-- https://lore.kernel.org/all/20220703053225.2203-1-xw897002528@gmail.com/T/#u
-- https://lore.kernel.org/all/20220811152923.10143-1-faenkhauser@gmail.com/T/#u
+On kernel-5.10, calling sequence for playback is
+1. snd_usb_hw_params -> set highest sampling rate, no
+SAMPLING_FREQ_CONTROL USB request sent in this stage
+2. snd_pcm_release
+3. snd_usb_hw_params -> set proper sampling rate, still no
+SAMPLING_FREQ_CONTROL USB request 
+4. snd_usb_pcm_parepare -> in configure_endpoint SAMPLING_FREQ_CONTROL
+USB request was sent on USB bus
 
-The following is a snippet of the ACPI table from my laptop (UM5302TA):
----
-Device (SPKR)
-{
-    Name (_HID, "CSC3551")  // _HID: Hardware ID
-    Name (_SUB, "10431F12")  // _SUB: Subsystem ID
-    Name (_UID, One)  // _UID: Unique ID
-    Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
-    {
-        Name (RBUF, ResourceTemplate ()
-        {
-            I2cSerialBusV2 (0x0040, ControllerInitiated, 0x000F4240,
-                AddressingMode7Bit, "\\_SB.I2CA",
-                0x00, ResourceConsumer, , Exclusive,
-                )
-            I2cSerialBusV2 (0x0041, ControllerInitiated, 0x000F4240,
-                AddressingMode7Bit, "\\_SB.I2CA",
-                0x00, ResourceConsumer, , Exclusive,
-                )
-            GpioIo (Exclusive, PullDown, 0x0000, 0x0000,
-IoRestrictionOutputOnly,
-                "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-                )
-                {   // Pin list
-                    0x0004
-                }
-            GpioIo (Exclusive, PullUp, 0x0000, 0x0000, IoRestrictionInputOnly,
-                "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-                )
-                {   // Pin list
-                    0x009B
-                }
-            GpioIo (Shared, PullUp, 0x0064, 0x0000, IoRestrictionInputOnly,
-                "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-                )
-                {   // Pin list
-                    0x0009
-                }
-            GpioInt (Edge, ActiveBoth, Shared, PullUp, 0x0064,
-                "\\_SB.GPIO", 0x00, ResourceConsumer, ,
-                )
-                {   // Pin list
-                    0x0009
-                }
-        })
-        Return (RBUF) /* \_SB_.I2CA.SPKR._CRS.RBUF */
-    }
+With the same calling sequence, a slightly behavior change on kernel-
+5.15 is
+1. snd_usb_hw_params -> set highest sampling rate,
+SAMPLING_FREQ_CONTROL USB request  was sent on USB bus
+2. snd_pcm_release
+3. snd_usb_hw_params -> set proper sampling rate, SAMPLING_FREQ_CONTROL
+USB request  was sent too
+(because configure_endpoint was moved to snd_usb_hw_params function)
+4. snd_usb_pcm_parepare -> no SAMPLING_FREQ_CONTROL USB
+request  because of USB EP flag check
 
-    Method (_STA, 0, NotSerialized)  // _STA: Status
-    {
-        If ((AMPD == Zero))
-        {
-            Return (Zero)
-        }
-        Else
-        {
-            Return (0x0F)
-        }
-    }
+I checked all USB packets and confirmed audio data output was correct.
+But there may be missing sound problem for the first sound with many
+headsets (for example Samsung headset).
+I found this issue is related to two-times sampling rate set request.
+(I tried to forcibly skip first USB request, everything became okay.)
+So do you guys know why configure_endpoint was moved to
+snd_usb_hw_params?
+Or could you provide patch for this problem?
 
-    Method (_DIS, 0, NotSerialized)  // _DIS: Disable Device
-    {
-    }
-}
----
+Many thanks
+Chihhao
 
-The Cirrus driver for Windows works perfectly. I don't see anything
-related to the _DSD stuff in the INF files that came with the driver
-(if I read them correctly).
-For reference, here are the two INF files from UM5302TA:
-https://gist.github.com/lixiaoyan/7e1f11b153b38339007f6ec9aa149f81
-
-I think we should support those devices out of the box, as the Windows
-driver does. This problem does not appear to be limited to a single
-model; rather, it appears to be a widespread issue. At least, we
-should add some quirks for the models listed above.
-
-Thanks.
-
-(resend after joining the mailing list)

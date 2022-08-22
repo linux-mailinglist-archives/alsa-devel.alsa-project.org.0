@@ -2,86 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F3059BAF8
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 10:08:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFAB59BCD9
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Aug 2022 11:30:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32CD0163F;
-	Mon, 22 Aug 2022 10:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32CD0163F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 662D415C3;
+	Mon, 22 Aug 2022 11:29:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 662D415C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661155695;
-	bh=uPIyaukpJLOLL8QLn4bIZ7TTDmIcWYB3QqtYBB8x4xo=;
-	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1661160601;
+	bh=HD0NCw+PTUxtrC3ae7ZLk2UJbVP7J4UBj9jhBp05QnI=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=tnHsSFlyQ3FVo1k5n4kBunrHArfsW0MFgWYhY5vMQhaNWBv50IGmDB5pzslk3zd5X
-	 dox1PFYv/FZnVgtPSlnw3DJcCEUf0RM5jtwGHEPtugJsuaH67jgRKCzx7OqaySlhqp
-	 NRZtJ/iXoyN77B4SaEm6+V+SRk5FlfyhsnX9WZsg=
+	b=LJ/U3Qyx+0Dm2KURfFmi3VlFRiwKQ0zLtdIqIrJBrzi5Pegk5/yJAPPp6HJBJEWtm
+	 R+500AIe9n6r/WacF7+OBtth2VuPTmFwaNM6AE6BB8i3ujia4fz2SlOqD7YyIyEqj4
+	 9rFERTtLsZpOkUhXuj/AXopdvB7BPoq96gSHQ/Ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A223DF800ED;
-	Mon, 22 Aug 2022 10:07:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA430F8026D;
+	Mon, 22 Aug 2022 11:29:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E9A6F8026A; Mon, 22 Aug 2022 10:07:13 +0200 (CEST)
+ id 0BEA2F8026A; Mon, 22 Aug 2022 11:28:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBBF2F800ED
- for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 10:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBBF2F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id F39FDF800A7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 11:28:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F39FDF800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="BkACgUDl"
-X-UUID: 8e60ab8b022347d5bb0ab43aebad11c1-20220822
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:Date:CC:To:From:Subject:Message-ID;
- bh=4YTg09B1vAYVwT4qbNMBjdKvY6UnuybFze8ucc+2wEs=; 
- b=BkACgUDlxPvN2EM4ksMhCr3Os9B6/bAq+P8sPShax2p1jcS3Fxei3FKYx8wre2EppPX7Q/sULxVh5lG0TB31z7OC+2W5gp2PtJbWUPucxNc1HgOuydUtfNhcivqP8f5OIYrPs615MAKG1TqNI6uk0WNClLd1JZtm/3atcPo3yws=;
-X-CID-UNFAMILIAR: 1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:fe573026-e248-4488-80c8-22a96d5e8152, OB:0,
- L
- OB:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Relea
- se_Ham,ACTION:release,TS:95
-X-CID-INFO: VERSION:1.1.10, REQID:fe573026-e248-4488-80c8-22a96d5e8152, OB:0,
- LOB
- :0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Spam_GS
- 981B3D,ACTION:quarantine,TS:95
-X-CID-META: VersionHash:84eae18, CLOUDID:269365c9-6b09-4f60-bf82-12f039f5d530,
- C
- OID:da172a57c5c8,Recheck:0,SF:28|16|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0
-X-UUID: 8e60ab8b022347d5bb0ab43aebad11c1-20220822
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <chihhao.chen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 267542353; Mon, 22 Aug 2022 16:07:00 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Mon, 22 Aug 2022 16:06:59 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 22 Aug 2022 16:06:59 +0800
-Message-ID: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
-Subject: missing sound on kernel-5.15
-From: chihhao chen <chihhao.chen@mediatek.com>
-To: <alsa-devel@alsa-project.org>
-Date: Mon, 22 Aug 2022 16:06:58 +0800
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PpCeVcqM"
+Received: by mail-wr1-x42e.google.com with SMTP id bs25so12424016wrb.2
+ for <alsa-devel@alsa-project.org>; Mon, 22 Aug 2022 02:28:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc; bh=LZiPZabk8uBgJRKOzhDJ2uC93G1aMkxBm+1//LLMvqw=;
+ b=PpCeVcqMgILqQyzKcfm/hYQMiH5rJcmQtUa6hRVk7gORFWsMAM2eLp32v6iNcRPARn
+ fsAkKZTs/7l5zKLu7ltMs1T/BZ5ZGFymB0XPU4Q+y0zBKGi1q/LoFDldlYrZL354K48/
+ dTTuZPFwEoyiKuzStbwLcyQNTCvZUnIqnURkyotQO+xz5KeNVbRlCh9y0xRh6hqHpjyB
+ R7VIFpAB70knHoCKjMHifSF9vovtTz7LBvXMpB4Djr0JBm98LGaAKUowFbNo7hMrzkWd
+ l/bu3mEzm8qZoFWvCwQNw+SLYbKSyK0IyaIvnVsq0KYqo9jPcubYL8FXUg8GJieNuJvm
+ NzWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc;
+ bh=LZiPZabk8uBgJRKOzhDJ2uC93G1aMkxBm+1//LLMvqw=;
+ b=tOjBN91VBswnc1Qs9Ooq8rjQAbaQsgKnpKlwRWTgXLd03xngGa2+obXYmuwTij6jfR
+ M2dwu5tbkVV5R6bLN2Rei9YRcqqs6V0uhUbdfbJzk3pMMPOLFAxasiGVC6rDQxqtsUtA
+ Ff7UW6JC/xpeaoLTpXCKhkdBt5P5eVVBPwSePAselqk9kMyogY2ueVJXjjS64/ACt/x3
+ 8ExybC7HsKogmb8rd63+PMJI8Ya1GbSl4YaQ0YcHa5JWsT9vV1L0LLj6iSFvFnqs0QhK
+ Gi+z+awbZ8BQ5AM6IWvNrsuGEJPQmv+G6IrQ8IK32tysIa0PdZgOt1xfwe4B1vCfUE5S
+ 2LzQ==
+X-Gm-Message-State: ACgBeo0RPabTECstKNQi9u9tsxe6wut9JRxuPpOe0HRV4SrulMXWeO/2
+ T7PAJV/bqIl20j6HgrAFV1g=
+X-Google-Smtp-Source: AA6agR5TCN6tBlMC5N0TVpsdW5/8135kWB6j/OBUdEV/Us8d0j9b322vyx644RgsF8mNnzeqLXBAVA==
+X-Received: by 2002:a05:6000:1acf:b0:222:cff7:3b6c with SMTP id
+ i15-20020a0560001acf00b00222cff73b6cmr10285263wry.191.1661160532519; 
+ Mon, 22 Aug 2022 02:28:52 -0700 (PDT)
+Received: from debian ([167.98.27.226]) by smtp.gmail.com with ESMTPSA id
+ i21-20020a05600c355500b003a5ee64cc98sm19491518wmq.33.2022.08.22.02.28.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Aug 2022 02:28:51 -0700 (PDT)
+Date: Mon, 22 Aug 2022 10:28:50 +0100
+From: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+To: Matt Flax <flatmax@flatmax.com>, Mark Brown <broonie@kernel.org>
+Subject: build failure of next-20220822 due to 4e6bedd3c396 ("ASoC: codecs:
+ add support for the TI SRC4392 codec")
+Message-ID: <YwNMUlAmu/qCjuva@debian>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: chihhao.chen@mediatek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ clang-built-linux <llvm@lists.linux.dev>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Nathan Chancellor <nathan@kernel.org>,
+ linux-next@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,38 +100,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I am testing many headsets on Android platform with different kernel
-versions.
+Hi All,
 
-On kernel-5.10, calling sequence for playback is
-1. snd_usb_hw_params -> set highest sampling rate, no
-SAMPLING_FREQ_CONTROL USB request sent in this stage
-2. snd_pcm_release
-3. snd_usb_hw_params -> set proper sampling rate, still no
-SAMPLING_FREQ_CONTROL USB request 
-4. snd_usb_pcm_parepare -> in configure_endpoint SAMPLING_FREQ_CONTROL
-USB request was sent on USB bus
+Not sure if it has been reported, builds of arm64 with clang failed to
+build next-20220822 with the error:
 
-With the same calling sequence, a slightly behavior change on kernel-
-5.15 is
-1. snd_usb_hw_params -> set highest sampling rate,
-SAMPLING_FREQ_CONTROL USB request  was sent on USB bus
-2. snd_pcm_release
-3. snd_usb_hw_params -> set proper sampling rate, SAMPLING_FREQ_CONTROL
-USB request  was sent too
-(because configure_endpoint was moved to snd_usb_hw_params function)
-4. snd_usb_pcm_parepare -> no SAMPLING_FREQ_CONTROL USB
-request  because of USB EP flag check
+sound/soc/codecs/src4xxx.c:280:3: error: variable 'd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                default:
+                ^~~~~~~
+sound/soc/codecs/src4xxx.c:298:59: note: uninitialized use occurs here
+                ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+                                                                        ^
+sound/soc/codecs/src4xxx.c:223:20: note: initialize the variable 'd' to silence this warning
+        int val, pj, jd, d;
+                          ^
+                           = 0
+sound/soc/codecs/src4xxx.c:280:3: error: variable 'jd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                default:
+                ^~~~~~~
+sound/soc/codecs/src4xxx.c:293:59: note: uninitialized use occurs here
+                ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+                                                                        ^~
+sound/soc/codecs/src4xxx.c:223:17: note: initialize the variable 'jd' to silence this warning
+        int val, pj, jd, d;
+                       ^
+                        = 0
+sound/soc/codecs/src4xxx.c:280:3: error: variable 'pj' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                default:
+                ^~~~~~~
+sound/soc/codecs/src4xxx.c:288:59: note: uninitialized use occurs here
+                ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+                                                                        ^~
+sound/soc/codecs/src4xxx.c:223:13: note: initialize the variable 'pj' to silence this warning
+        int val, pj, jd, d;
+                   ^
+                    = 0
+3 errors generated.
 
-I checked all USB packets and confirmed audio data output was correct.
-But there may be missing sound problem for the first sound with many
-headsets (for example Samsung headset).
-I found this issue is related to two-times sampling rate set request.
-(I tried to forcibly skip first USB request, everything became okay.)
-So do you guys know why configure_endpoint was moved to
-snd_usb_hw_params?
-Or could you provide patch for this problem?
+git bisect pointed to 4e6bedd3c396 ("ASoC: codecs: add support for the TI SRC4392 codec").
 
-Many thanks
-Chihhao
+I will be happy to test any patch or provide any extra log if needed.
 
+
+--
+Regards
+Sudip

@@ -2,97 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0670C59DB07
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 13:57:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB8059DB08
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 13:58:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 900DC857;
-	Tue, 23 Aug 2022 13:56:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 900DC857
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABB4F162F;
+	Tue, 23 Aug 2022 13:57:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABB4F162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661255842;
-	bh=1CWfrtx/cLFcbTDMsWTllAc/6tmzSILjWX/Dk8YiwGE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gkVfAvprco1XRHsjpGPJW/WiY4BeFKis55TuWzV4SZkaD74Jv9TliN8fcCMCffD0T
-	 xbjSBCz2BxpTd4/PezYh78U7iH4uFG2Z7emfAn29GRMSB+TN0sXZbf6R0P6ZdkI6RO
-	 ZbiKCqNy/mzpvC0WuW2nQweK8Qr3M8dU2PiSWVRo=
+	s=default; t=1661255928;
+	bh=wulxSZLwXmYWou/ouwEu8EvMS3+wzOc0DEyPv0w/5sQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XxZHlBdAvTw4CCpsgj00GM6HOQLwTByMVg0u/Nh3ybqP5MDwMyNcrpYhVybUnZ2Iz
+	 P4/ZDFecK3LSkuxa5wvf6NtkmHDQRyZgZO2MNRyR6OMdbeMiQot+ewLIxbcrcdqROu
+	 9te1u1cnCXHY2h4NrqU/k7cyJfh3WGzuahgxq8jk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D166F800A7;
-	Tue, 23 Aug 2022 13:56:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AB1EF80526;
+	Tue, 23 Aug 2022 13:57:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E8C6F8020D; Tue, 23 Aug 2022 13:56:22 +0200 (CEST)
+ id 9878CF800A7; Tue, 23 Aug 2022 13:57:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2815CF800A7
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 13:56:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2815CF800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 403A0F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 13:57:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 403A0F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZDyfq6fy"; 
+ header.b="o04Ga/Lm"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="70zZFJQK"
+ header.b="IfXhG437"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 884D41F86C;
- Tue, 23 Aug 2022 11:56:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D64C8336BA;
+ Tue, 23 Aug 2022 11:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661255775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/PmAyIZgNZbRq1Qey9izx6mMxuTw1W5ecJXvQePMIow=;
- b=ZDyfq6fyCEDiOWSR25dXFCPSsL2bMG3b9VsaNcV5qLaOcIVq07OkuVY1jbKNlcG3r2tP8g
- TOy/LpEIE0ReWglR4pKHfAa0oCWoOQ0C+Yq5VrecU5/e5U3LqQIE9zolrR7qxG1IUD1nVV
- PJ8PJ5BGfLrEAcXRliyNwgwgaAFeVq8=
+ t=1661255863; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Yt8TXnf1Pm+uAk2XxFjARvyi/I6HK3K1O2YepFzlH7c=;
+ b=o04Ga/LmLXNYbHB7LiJ7yfgiAkumS4bxE2zbO988ykFHCUWdhI0EwR1Kn4FYTu6Bb88Q1n
+ keJmXxsygg7SCDJ4CKC8ANjN5jTZ4VHygtZXz8HhlghBvHhUdGFkVJKSL3SUc/YWGuGfNc
+ 4KnSuKJFiXCJUfBF4F+pLlQrHagkiUA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661255775;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/PmAyIZgNZbRq1Qey9izx6mMxuTw1W5ecJXvQePMIow=;
- b=70zZFJQKsFOqPaVswxCh61bOhK75qjwpGDrCPus4jWS50C7XR0Tp3GGCltIUa40lO4sOCK
- JNb+xmBWUu1jssCg==
+ s=susede2_ed25519; t=1661255863;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Yt8TXnf1Pm+uAk2XxFjARvyi/I6HK3K1O2YepFzlH7c=;
+ b=IfXhG437Q6w+qRlPJEdoVuSVRRuBKS0M0C0VwwUYBCRp/iUu6XNntHNxcAGrd7OZ4BjRb/
+ mndfKCMiY5uUzsCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 558D813AB7;
- Tue, 23 Aug 2022 11:56:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BCD8213AB7;
+ Tue, 23 Aug 2022 11:57:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hhTkE1/ABGNFOAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 11:56:15 +0000
-Date: Tue, 23 Aug 2022 13:56:14 +0200
-Message-ID: <87fshnqild.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id LrtULbfABGP1OAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 11:57:43 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: <alsa-devel@alsa-project.org>
-Subject: Re: Buffers used in ASoC Intel Atom SST driver
-In-Reply-To: <87zgg17d4s.wl-tiwai@suse.de>
-References: <874jy98snd.wl-tiwai@suse.de>
- <fdfd19f4-436b-bc1b-65f2-7b60f8e59277@intel.com>
- <87zgg17d4s.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/5] ALSA: Drop hackish GFP giveaway for CONTINUOUS pages
+Date: Tue, 23 Aug 2022 13:57:35 +0200
+Message-Id: <20220823115740.14123-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,79 +93,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Aug 2022 18:03:15 +0200,
-Takashi Iwai wrote:
-> 
-> On Thu, 18 Aug 2022 17:59:36 +0200,
-> Cezary Rojewski wrote:
-> > 
-> > On 2022-08-18 5:42 PM, Takashi Iwai wrote:
-> > > Hi,
-> > > 
-> > > while cleaning up / fixing the memory allocation code, I noticed that
-> > > Intel SST driver is the only driver that currently uses the
-> > > SNDRV_DMA_TYPE_CONTINUOUS pages for its PCM buffer.
-> > > 
-> > > Is there any reason not to use the standard device buffer
-> > > (SNDRV_DMA_TYPE_DEV)?  i.e. the change like below.
-> > 
-> > 
-> > Hello,
-> > 
-> > Does not hurt to check the change out. I'm not aware of such
-> > limitation for any of Intel's AudioDSP solutions. I cannot test this
-> > change though as ATOM devices are not part of my CI. Pierre, do you
-> > have any devices where this change could be tested?
-> > 
-> > Adding Hans as he is the key intel/atom maintainer too and I'm pretty
-> > sure he has few devices on his own.
-> 
-> Oh yeah, thanks, Hans might be able to check.
-> FWIW, the patch I asked is like below.
+Hi,
 
-I guess we can merge and go forward.  The changes are very likely
-safe, judging from the code, as there is no evidence of DMA address
-restriction there.  So I'm going to submit the full patchset for
-cleanups.
+this is a series of cleanup patches for dropping the current hackish
+way of passing the GFP_* flags for CONTINOUS and VMALLOC memory
+allocations.  There are only three users for this legacy feature, and
+all of them seem superfluous.  And, if any driver requires the memory
+restriction in future, it can now pass the proper device pointer for
+specifying the DMA mask.
 
-
-thanks,
 
 Takashi
 
-> 
-> 
-> Takashi
-> 
-> -- 8< --
-> 
-> From: Takashi Iwai <tiwai@suse.de>
-> Subject: [PATCH] ASoC: Intel: sst: Switch to standard device pages
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/soc/intel/atom/sst-mfld-platform-pcm.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> index a56dd48c045f..c75616a5fd0a 100644
-> --- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> +++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> @@ -676,10 +676,9 @@ static int sst_soc_pcm_new(struct snd_soc_component *component,
->  
->  	if (dai->driver->playback.channels_min ||
->  			dai->driver->capture.channels_min) {
-> -		snd_pcm_set_managed_buffer_all(pcm,
-> -			SNDRV_DMA_TYPE_CONTINUOUS,
-> -			snd_dma_continuous_data(GFP_DMA),
-> -			SST_MIN_BUFFER, SST_MAX_BUFFER);
-> +		snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
-> +					       pcm->card->dev,
-> +					       SST_MIN_BUFFER, SST_MAX_BUFFER);
->  	}
->  	return 0;
->  }
-> -- 
-> 2.35.3
-> 
-> 
+===
+
+Takashi Iwai (5):
+  ALSA: vx: Drop superfluous GFP setup
+  ALSA: pdaudiocf: Drop superfluous GFP setup
+  ASoC: Intel: sst: Switch to standard device pages
+  ALSA: memalloc: Drop special handling of GFP for CONTINUOUS allocation
+  ALSA: doc: Drop snd_dma_continuous_data() usages
+
+ .../kernel-api/writing-an-alsa-driver.rst     |  21 ++--
+ include/sound/memalloc.h                      |   3 -
+ sound/core/memalloc.c                         | 113 ++++++++----------
+ sound/drivers/vx/vx_pcm.c                     |   3 +-
+ sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c        |   3 +-
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c  |   7 +-
+ 6 files changed, 61 insertions(+), 89 deletions(-)
+
+-- 
+2.35.3
+

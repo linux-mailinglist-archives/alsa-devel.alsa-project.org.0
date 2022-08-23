@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843CF59E6A7
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 18:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB0259E6E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 18:21:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6EC1660;
-	Tue, 23 Aug 2022 18:11:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6EC1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72CF6167E;
+	Tue, 23 Aug 2022 18:20:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72CF6167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661271137;
-	bh=I2wMQlQE2ea0W3N6RNflFgDwWIvO1yrAEOonIAJwWe0=;
+	s=default; t=1661271688;
+	bh=2xJn1WWK1At2p7Qx2VZJ2urwi9MS7Qonux9saTi6cxE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GphxmXxZtu8/eDOz6nBKP87DrUcYH6c8Udn3avCIbPJokoK8YABQjTMy3zSusLvyP
-	 IcwDTT/A2XpA64tEvasF/uXCIOR3y14I87K2O6PDGql/iaxpEgZqtOO6as8P6sULqQ
-	 mMoF0luOMTU7GsSykWI6cI8pKvDhSST3f6IUrM7I=
+	b=WTItwJDLWcSGDO1Y2VZs7Rzz6LQSUxzQTW2F3XS8luVsEjPMZJd8yG1kyXcpOUzCm
+	 WVpg9JKct5uBmQPJe99tdlpy4pfkn5Fd8L4OaBuunBXGyDWo5ipgWY6hGpJgI6ZFoC
+	 F74ZlSSZay4E2wS39KXQXFXEqmWz9gPRFRD4TraE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 935ACF8027B;
-	Tue, 23 Aug 2022 18:11:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1CBAF8027B;
+	Tue, 23 Aug 2022 18:20:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E2ADF8020D; Tue, 23 Aug 2022 18:11:16 +0200 (CEST)
+ id B8AA2F8020D; Tue, 23 Aug 2022 18:20:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48FD0F800A7
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 18:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48FD0F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0CDCF800C9
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 18:20:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0CDCF800C9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hSNdmwjb"
+ header.b="nmOPq5WQ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7011EB81E65;
- Tue, 23 Aug 2022 16:11:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756FEC433D6;
- Tue, 23 Aug 2022 16:11:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id F1503B81E60;
+ Tue, 23 Aug 2022 16:20:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A689DC433C1;
+ Tue, 23 Aug 2022 16:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661271072;
- bh=I2wMQlQE2ea0W3N6RNflFgDwWIvO1yrAEOonIAJwWe0=;
+ s=k20201202; t=1661271617;
+ bh=2xJn1WWK1At2p7Qx2VZJ2urwi9MS7Qonux9saTi6cxE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hSNdmwjbSdgzxxiy2Qzow0e270Hch77B2bpGjSSvCsBEq0D2lu1fyHza6fmFyevSY
- I651tP7J8TQq8OWHcF3ddOmM58Q232mMCNLsju4WTWaGp1jQdjx9JpupezRSO216s2
- Gi+4M0GDMeNwY8EB83YKlpOnJeOoR4A0zBRIjE5TflYDFKivDoABAY4GrAD60t7vqJ
- WF4oASrfMmg6VsYGrsvEZNqwHqVNYBRDFaIKO5gPs5UamkOflYkkBJUcCqXGpX07wh
- 5kBgJU/plegFl8P78+jzUovFOnAnyZvJEEFkpIVukrEMDVT5YZ70FbtqUvOfCKQgr5
- KG7LbnvSYLkEA==
-Date: Tue, 23 Aug 2022 09:11:09 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: mchp-spdiftx: Fix clang
- -Wbitfield-constant-conversion
-Message-ID: <YwT8HYefLbFaOdJz@dev-arch.thelio-3990X>
-References: <20220810010809.2024482-1-nathan@kernel.org>
- <166058059542.769843.4941839393289864947.b4-ty@kernel.org>
- <YwT0oUjo/lzBDRdH@dev-arch.thelio-3990X>
- <YwT6bmqeBeoYcRi7@sirena.org.uk>
+ b=nmOPq5WQGWQ96KnwtoHrxZfM58H0paONa/YhufZgpdFYMrpLSVIu1VvFWNi/PSC1r
+ BYpUGrpSLVBinRyu1otFZCOxYHdsMMK6kmsQIkhF1p0wRu8DY0Pdv/aKogb5SVEJuL
+ MhrLkk+POT8MXMMibXJnpWil4tLZVnXcwijMHuebjHDDVoZKtqMKQCBLDq31CkkVy0
+ BDuowVxTMMtgcHxq0EHnAeqrDZxdoJpVOv3tpNOHbUJZRZOvoTHGAAgJUH7A0JShCO
+ qXSlXppXAkC3deVaAd97+PO+u/8ix3k/qfIij5qTTdJGfDmwe6IJcXSpOI7/9lE7Ex
+ jdtXrUts8uahg==
+Date: Tue, 23 Aug 2022 17:20:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if hardware
+ supports it
+Message-ID: <YwT+POnqJGHOHYcw@sirena.org.uk>
+References: <YwF+JYR5DxLBnE8F@geday> <YwOEPpO0gux+njQe@sirena.org.uk>
+ <YwToTmr4DI3k+STF@geday>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jAC6LpYhj9svfUcr"
 Content-Disposition: inline
-In-Reply-To: <YwT6bmqeBeoYcRi7@sirena.org.uk>
-Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, Tom Rix <trix@redhat.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <YwToTmr4DI3k+STF@geday>
+X-Cookie: You can't take damsel here now.
+Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
+ ALSA-devel <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,27 +89,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 23, 2022 at 05:03:58PM +0100, Mark Brown wrote:
-> On Tue, Aug 23, 2022 at 08:39:13AM -0700, Nathan Chancellor wrote:
-> 
-> > I noticed that this was applied to for-6.1. I know you do not rebase or
-> > change your trees so this request might be rejected based on that alone
-> > but would it be possible to cherry-pick this to for-6.0 so that it can
-> > be applied to Linus's tree quicker? We have had to apply this change to
-> > our CI to keep our builds green in mainline, -tip, and 5.19/5.15 stable
-> > with clang-16 due to -Werror. If not, no worries, I should have made it
-> > clearer that is what I was looking for with the subject prefix.
-> 
-> Hrm, OK - it's a bit surprising that this didn't get fixed in -next
-> before the clang change made it to mainline TBH, it looked like
-> something that had just hit -next.
 
-Right, sorry for not making that more clear in the commit message. The
-change in clang was made only a few hours before this patch so I did fix
-it quickly but we do not usually get any heads up on new warnings. They
-just appear then we fix them and move on. I'll make it clearer where I
-want the patch to go in the future, thanks for accommodating this one
-time.
+--jAC6LpYhj9svfUcr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Cheers,
-Nathan
+On Tue, Aug 23, 2022 at 11:46:38AM -0300, Geraldo Nascimento wrote:
+
+> I think we may be able to restrict the fix for L-PCM only by checking
+> byte 0 of iec.status, specifically bit 1. Our define is called
+> IEC958_AES0_NONAUDIO but https://tech.ebu.ch/docs/tech/tech3250.pdf
+> calls it the "Linear PCM identification" bit. There's also a
+> supplement to AES/EBU 3250 in https://tech.ebu.ch/docs/n/n009_1.pdf
+
+> Let me know if the following is OK. I'll be happy to submit V2 if
+> it is.
+
+LGTM, though I don't really know anything about the hardware
+specifically.
+
+--jAC6LpYhj9svfUcr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmME/jwACgkQJNaLcl1U
+h9DtYQf+Lxv7tyWQXUfDGmrjE2KgJ3xMGZ3h/nGiqNv0pJuF52cCuSAhGiG8kV7B
+nMyFqlov/r/Ukq62PQiZiEVLpbSgT046M4unsnbbBDDCcK2x7O1i17I7h7vbjIlS
+IVGJAGmCG5YHopNC5UWxlmelTkC/7dtUON+5amuRzKKQ8XdnESKGPeIGsexAqdOx
+V1mQdY28AVXVDrwFxWZiHHkk5UYlVPREmFPVdEOgXaWDCng40mHQmEzt8jMQhq6C
+kRLkE137LUMOtRSST6nKs7h7RWGFySpay8qMRoN7KyNEVgFNuBvlRug+ckvXpMjf
+GDhDmcB81MpEKFenbFYhuE08DTzY1g==
+=fnfJ
+-----END PGP SIGNATURE-----
+
+--jAC6LpYhj9svfUcr--

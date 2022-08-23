@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFEF359EB28
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 20:38:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940BC59EB30
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 20:39:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74894168F;
-	Tue, 23 Aug 2022 20:37:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74894168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FEA916A2;
+	Tue, 23 Aug 2022 20:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FEA916A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661279902;
-	bh=8VJaDM+gCcwlXccf9auZntmnqjppj23P/NhrfUgjIcI=;
+	s=default; t=1661279945;
+	bh=396LYDed7Bdsq00iE/8/5oc0iVtjh5hfvrDI/+33XAU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a1VnI5kXA+989OKwa+rsQDU8Lpw57KCtF6vUtBPvrYt+uM64LcZAHitzbjg7AzQJK
-	 pBSIfpFomydzVmXKYP2Ky3LPFPFtU069WvC6jjjs4ObRfBESSAu3B7ZDvEMwYK973m
-	 MV7CeWR1/0FmLA+73rZ3/gJn7nGnvv68cZ3uLuFc=
+	b=XdQJJ7b/FykXoC+eUtmHVuDoWdqaLl1KQ0Nq+j66TcvGt5G7oiqebk+F7wNnIMdYo
+	 gxxgl3HtDJQXToUM4IdJmRy6oIHqxMPCGixlq1f+ma1qxQ3a7Z4hZ5i8AWL48QiotG
+	 d5OkNjtB9pTMbZ4zgaCHiHERgpbU53E6yHzdX9dA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D34F1F8030F;
-	Tue, 23 Aug 2022 20:37:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF5B7F80528;
+	Tue, 23 Aug 2022 20:37:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88342F8030F; Tue, 23 Aug 2022 20:37:20 +0200 (CEST)
+ id 0BE5BF804E7; Tue, 23 Aug 2022 20:37:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10385F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DE65F800A7
  for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 20:37:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10385F8014E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE65F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HSoYlCUY"
+ header.b="HDrJSdF3"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 09710616FE;
- Tue, 23 Aug 2022 18:37:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27B9C433C1;
- Tue, 23 Aug 2022 18:37:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E99BB61702;
+ Tue, 23 Aug 2022 18:37:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88E0C433D7;
+ Tue, 23 Aug 2022 18:37:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661279832;
- bh=8VJaDM+gCcwlXccf9auZntmnqjppj23P/NhrfUgjIcI=;
+ s=k20201202; t=1661279834;
+ bh=396LYDed7Bdsq00iE/8/5oc0iVtjh5hfvrDI/+33XAU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HSoYlCUYNjWakr2mnhVw3X+csasLlKBm0fnE11FZc7IvSvd0pCCWiGq4MgUEjgEKX
- a+EFwTuE6zUbdl31g+deEd2T3EBtAUExH8bJL15kRxwo4BWo0db3JWu2RM9q7iHlw6
- Wt4xqEJhITaXaTzSxMIFvJpV6dc5pbhajFe+QlOxLjrH6EH91mNQWfwxusFuRlMj21
- GUiY8CZePEH3ISNWMvAAu++pkFZHowywPZv9SzKAYZwNBrV2eotObXNJIq5r1IeGXZ
- bUrVxwihIKCtElcOI9qctT90bgb9dYTeuK2Wf25bFcQc7U3cU0blTsD+sDzrzj6l69
- YNYqU43im3Tng==
+ b=HDrJSdF3KGL2o6E0cfv/kXuEP2uDcu5+W3QjIGXqLNRcLQqOtCI/0FXaYYn6bc6hl
+ zYrXZNn9pfmuntJ40Zbp4RMrCByHrSzWivLxBxIv3ZQkOGy6KFn0pA9+6J0nznM4KT
+ FdP9PIDElP2n/xZ743wD8RBbB0bhth3EfmjO0+qdGxOKLh2LTCtjFHg7CItphc7WKu
+ il0eJypbZ9xmyFT1l7s5UeJwBZA0xoXGzm1AWZejkEXy1rPRn0ELJWRB5wnyVj1bvQ
+ N4TVsjPDzqFtrp76LgtIz3Fe77NcjfD30bZgVE+khJ0jhho1MbBo0DltpCMb0rJLB2
+ Ke2LnRuXFwOfQ==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20220823081000.2965-1-tiwai@suse.de>
-References: <20220823081000.2965-1-tiwai@suse.de>
-Subject: Re: [PATCH 0/5] ASoC: nau8xxx: Implement hw constraint for rates
-Message-Id: <166127983165.711152.16554154070241524592.b4-ty@kernel.org>
-Date: Tue, 23 Aug 2022 19:37:11 +0100
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220822190211.170537-1-pierre-louis.bossart@linux.intel.com>
+References: <20220822190211.170537-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: fix alh_group_ida max value
+Message-Id: <166127983267.711152.8470557815310392863.b4-ty@kernel.org>
+Date: Tue, 23 Aug 2022 19:37:12 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ kernel test robot <lkp@intel.com>, Dan Carpenter <dan.carpenter@oracle.com>,
+ Rander Wang <rander.wang@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,15 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 10:09:55 +0200, Takashi Iwai wrote:
-> this is a series of patches to address the issues on nau8xxx codecs
-> I've stumbled upon while dealing with a bug report for Steam Deck.
-> Most of them are to implement the missing hw constraint for rate
-> restrictions while one patch is to fix the semaphore unbalance in
-> nau8824 driver.
+On Mon, 22 Aug 2022 21:02:11 +0200, Pierre-Louis Bossart wrote:
+> From: Bard Liao <yung-chuan.liao@linux.intel.com>
+> 
+> group_id is from 0 ~ ALH_MULTI_GTW_COUNT - 1, not 0 ~
+> ALH_MULTI_GTW_COUNT.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -101,16 +101,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: nau8821: Implement hw constraint for rates
-      commit: cf5071876baf995f8f98e86ef06f85a58feda63c
-[2/5] ASoC: nau8824: Fix semaphore unbalance at error paths
-      commit: 5628560e90395d3812800a8e44a01c32ffa429ec
-[3/5] ASoC: nau8824: Implement hw constraint for rates
-      commit: 92283c86260d8712b55f97eada13b3c8b2f469b2
-[4/5] ASoC: nau8825: Implement hw constraint for rates
-      commit: bed41de0f679c516de45cfeb2c40c412bc5e0c0b
-[5/5] ASoC: nau8540: Implement hw constraint for rates
-      commit: be919239fbcab19290bfd6802c7ad1dc946c515b
+[1/1] ASoC: SOF: ipc4-topology: fix alh_group_ida max value
+      commit: 4ee6fc271b59e805301371ea3862f558a23d9c7b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

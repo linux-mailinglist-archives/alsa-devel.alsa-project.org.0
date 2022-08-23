@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 022F159E3F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 14:45:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD1F59E487
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 15:35:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9054515E5;
-	Tue, 23 Aug 2022 14:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9054515E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB325166A;
+	Tue, 23 Aug 2022 15:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB325166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661258737;
-	bh=jYV4b6OYBJ3uW2Nj+NTNmh8S3HuxxqbU8PSV6956dJc=;
+	s=default; t=1661261701;
+	bh=KvyKH4tCG8wypTKHfM32t7GmFM5Vps/K2+Zv0yTNZQE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=a3/jRoWIYHK+nxf8RgKAH86Cz2jfP0E7uvIt6qRanuII35oGNezC6OpxXi1XmAjCA
-	 d/4TVYedCJiYS+iTc0E4mE6VWojWcfitecKchec3fOLBE0EpXOV34HL/DJfJqpi2TK
-	 YbxirCNHXbzogNtNOfJK308+krxzzozwFGuexcao=
+	b=pfp3mLN2NrdBTIEi5VpcijlZbf/kL65fdADQhpa2y+seOibOpF8tV75IWVT94p6+y
+	 qSvms2m54flILQPutVyToSwPTJc/j6bM81gf6shyLRrYGQfntyTNMp/oCuJvdaZblA
+	 LMsS5U5Fb8h6xW1V7FcJt4Enu2jEerOC2skDSqNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C416DF804E7;
-	Tue, 23 Aug 2022 14:44:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E034F800A7;
+	Tue, 23 Aug 2022 15:34:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA175F804E6; Tue, 23 Aug 2022 14:44:34 +0200 (CEST)
+ id 3720CF8020D; Tue, 23 Aug 2022 15:34:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39FB1F8020D
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 14:44:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39FB1F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id B92D2F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 15:33:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B92D2F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="UL4TtnQx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661258669; x=1692794669;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jYV4b6OYBJ3uW2Nj+NTNmh8S3HuxxqbU8PSV6956dJc=;
- b=UL4TtnQxqzj0PPfN8RKQl8eLCnLjRxZu0CBXjesSc5XjFzWEAx1aud5c
- QTF97CwE37eEvD+P2dOakyszUdQyGgEDYdqSOD+MnEGx5w9akuj9H9233
- RPWEwQwdzdupr/Yg35Np0SP8uFbUFU8ILe+PiwRJt/OtGy+Nnw7PTWuKx
- D/2PrWIqJj21U/n0eApONM34e8DZU7YOapFN2aR32JBw3EDQRo1c0AeGT
- PP1aJvPvdNB6RjX//hfdoNIvhIXo6w3sOi0F8FzcGXs29q6qZEx2Tkhwp
- LXCROqzlKqh97fsY3wISf1ZsI7Il7Dz97flZ0JpWVhploSqbjThuToo2H g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="319722437"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="319722437"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 05:44:08 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="937447622"
-Received: from mjglynn-mobl2.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.28.206])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 05:44:06 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: [PATCH] ASoC: SOF: Intel: hda: Skip IMR boot after a firmware crash
- or boot failure
-Date: Tue, 23 Aug 2022 15:43:59 +0300
-Message-Id: <20220823124359.24865-1-peter.ujfalusi@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="kdS3FbP7"
+Received: from localhost (unknown [188.27.54.142])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 98CF96601DD8;
+ Tue, 23 Aug 2022 14:33:52 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661261632;
+ bh=KvyKH4tCG8wypTKHfM32t7GmFM5Vps/K2+Zv0yTNZQE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=kdS3FbP71jZnKLHgNZwZBQS46dupsSqvw9DWB5BNUOzjUySdQ6r+bqMoc+sqAz44s
+ qjJWmqi5bqgX/7dIBRRJvxPODJIEsvbnOA8DDCSiRgGOroIFxOo+FPJ2BW+oSuCvdE
+ ylDlVpBfOrbtrXZJwKlpXR2RHHACYreRm9sSH4e8GD09lSjGB2IEvTrc97LdxDKJyT
+ dLcde+uhV19i56WX2mNmZyBKi4/yxHAJwfN7ngOVN52ub9vsL15udkmxqWhliG+fXu
+ x5zbj7XloC35j948sYbZiim+TPSPUjdpR6MqY1JGoqcBDLzrzmxZGy8bcUR+Q2A/68
+ REpeg05rWLfVA==
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Vlad Karpovich <Vlad.Karpovich@cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: [PATCH] ASoC: wm_adsp: Silent parsing error on loading speaker
+ protection fw
+Date: Tue, 23 Aug 2022 16:33:47 +0300
+Message-Id: <20220823133347.919706-1-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ kernel@collabora.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +85,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To make sure that we start from a clean state next time when the DSP is
-powered up after a firmware crash or boot failure we must skip the IMR
-booting attempt.
+The tracing capabilities for the speaker protection fw enabled via
+commit c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker
+protection FW") are not be available on all platforms, such as the
+Valve's Steam Deck which is based on the Halo Core DSP.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+As a consequence, whenever the firmware is loaded, a rather misleading
+'Failed to parse legacy: -19' error message is written to the kernel
+ring buffer:
+
+[  288.977412] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware version: 3
+[  288.978002] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: cs35l41-dsp1-spk-prot.wmfw: Fri 02 Apr 2021 21:03:50 W. Europe Daylight Time
+[  289.094065] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware: 400a4 vendor: 0x2 v0.33.0, 2 algorithms
+[  289.095073] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 0: ID cd v29.53.0 XM@94 YM@e
+[  289.095665] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 1: ID f20b v0.0.1 XM@170 YM@0
+[  289.096275] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Protection: C:\Users\ocanavan\Desktop\cirrusTune_july2021.bin
+[  291.172383] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Failed to parse legacy: -19
+
+Update wm_adsp_buffer_init() to *not* report the ENODEV error when the
+firmware type is WM_ADSP_FW_SPK_PROT.
+
+Fixes: c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker protection FW")
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- sound/soc/sof/intel/hda-dsp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm_adsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index eddfd77ad90f..671c3e02d7df 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -620,8 +620,13 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
- 	/*
- 	 * The memory used for IMR boot loses its content in deeper than S3 state
- 	 * We must not try IMR boot on next power up (as it will fail).
-+	 *
-+	 * In case of firmware crash or boot failure set the skip_imr_boot to true
-+	 * as well in order to try to re-load the firmware to do a 'cold' boot.
- 	 */
--	if (sdev->system_suspend_target > SOF_SUSPEND_S3)
-+	if (sdev->system_suspend_target > SOF_SUSPEND_S3 ||
-+	    sdev->fw_state == SOF_FW_CRASHED ||
-+	    sdev->fw_state == SOF_FW_BOOT_FAILED)
- 		hda->skip_imr_boot = true;
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index cfaa45ede916..7514fc03b468 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -1602,7 +1602,7 @@ static int wm_adsp_buffer_init(struct wm_adsp *dsp)
+ 	if (list_empty(&dsp->buffer_list)) {
+ 		/* Fall back to legacy support */
+ 		ret = wm_adsp_buffer_parse_legacy(dsp);
+-		if (ret)
++		if (ret && (dsp->fw != WM_ADSP_FW_SPK_PROT || ret != -ENODEV))
+ 			adsp_warn(dsp, "Failed to parse legacy: %d\n", ret);
+ 	}
  
- 	hda_sdw_int_enable(sdev, false);
+
+base-commit: 568035b01cfb107af8d2e4bd2fb9aea22cf5b868
 -- 
 2.37.2
 

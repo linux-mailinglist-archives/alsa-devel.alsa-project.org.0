@@ -2,82 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA6959E629
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBCE59E633
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:41:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D8B110E;
-	Tue, 23 Aug 2022 17:39:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D8B110E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9865F1699;
+	Tue, 23 Aug 2022 17:41:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9865F1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661269224;
-	bh=EY7ffbopHvWsKpBVtYBIrPDSyaNtMo8vstLMv2RbPi8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p0xsXRTAL8Unz7yPKOd6w+m21+4f+CYx8T0MWh+/t7CM20z9TE6DJAXYgEZubG/o1
-	 TcotT7EglKlQwrC9WwBWZWNndhsSIgutAJ7G/edWYZS0duz2gLunuJc+4FU+Wb0qIF
-	 1cVkvgonMZKQsQNWgCy5TTjnGPdO/w8Zj0AVjLjQ=
+	s=default; t=1661269318;
+	bh=tqw/1FuEaMsbDG2LaRA4qhPbyUkRfV51pkZPRsSjnp4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jR5hVR4maYkCxlxIFXlOM0y5p3fV/Ty0JM/DlFrAF4pLG9Mv+DutMtlZbSt5m2NZt
+	 eElwpbHOWa7Q1Ey3KJS9djKrveN8pYNh89Md6UBT6Jvzg3PYkBiAPwGX9trrKeJ1P1
+	 RLFYTv8JSb1DU0ywpEXjmgClNmCdLN+94rxMGuok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55D28F8027B;
-	Tue, 23 Aug 2022 17:39:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B748F8027B;
+	Tue, 23 Aug 2022 17:40:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD25FF8020D; Tue, 23 Aug 2022 17:39:22 +0200 (CEST)
+ id 18E20F8020D; Tue, 23 Aug 2022 17:40:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 703F8F800A7
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 17:39:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 703F8F800A7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Q4cLF4ai"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 88337615FA;
- Tue, 23 Aug 2022 15:39:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C33C433B5;
- Tue, 23 Aug 2022 15:39:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661269157;
- bh=EY7ffbopHvWsKpBVtYBIrPDSyaNtMo8vstLMv2RbPi8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q4cLF4ai88z/mqbFHfObkZHkx3eEi9LrgQNCu7fhOmP7r/F+1Nbz9zwGAI7WQkkJm
- M7mrxmZk6dSxVjdCXZCxnh3upzNpqzq8AMMlB+iXd/8UcwIYN2YyK9E2U6yKEVT70E
- KXaE7WVPdZKyOWP1DSMbaZxspsvmlQ0zGizbNpNDwyZ1Rd7xVxlpoIwLzfEkYi9sCQ
- vAmSz40YIMt3v6Z8gC1A5CyZfqg4yUWTja65AZMkdCvEJJwVsbS2sy6T1Qari0jJow
- TUI0EuTu5TiWchDhjT3A7bKme6PtqyolERQg1j5heVQ0PXDqZnzK7dJTo8dahQKadt
- Xo+9oKO4geaFQ==
-Date: Tue, 23 Aug 2022 08:39:13 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: mchp-spdiftx: Fix clang
- -Wbitfield-constant-conversion
-Message-ID: <YwT0oUjo/lzBDRdH@dev-arch.thelio-3990X>
-References: <20220810010809.2024482-1-nathan@kernel.org>
- <166058059542.769843.4941839393289864947.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67E04F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 17:40:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67E04F800A7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="idn5Ql9R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661269252; x=1692805252;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tqw/1FuEaMsbDG2LaRA4qhPbyUkRfV51pkZPRsSjnp4=;
+ b=idn5Ql9RRO7NrSD5eu92QDE/qTpZ2F5o/l8f26hXpSytKzNQ6kc+2Zew
+ t54XPVhafQr8XJ+bpmEOkQ2neYQ/iR3Zejicq2zCjPTkh8qWPdViMijbB
+ cZ3oQsLzkVwV1/1Ob51sRfUBlvaCM1tjRyd+XhL/nS97uVSKIEtJuzUab
+ ZQRgKlbuGHDNCdng4e+F6AZXhgL0z/mVF/S8uQoVGOBwSR/MH3/uieT6T
+ Q/TO6nD/sCs3gUfc7RKjMaaI0Y42IpMHLJ7F1yGUWi+k5s8QnDZYWsysi
+ psVprwMdpFBBKzOZevWD73mxk/H02TBpiLPPai+pfnCbW5FT0pSVgQjJb w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="295004712"
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="295004712"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 08:40:41 -0700
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="670081351"
+Received: from pnystrom-mobl1.ger.corp.intel.com (HELO pbossart-mobl3.home)
+ ([10.252.50.219])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 08:40:39 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: imx: imx8ulp: declare ops structure as static
+Date: Tue, 23 Aug 2022 17:40:27 +0200
+Message-Id: <20220823154027.762889-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <166058059542.769843.4941839393289864947.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, Tom Rix <trix@redhat.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,37 +86,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+Sparse warning:
 
-On Mon, Aug 15, 2022 at 05:23:15PM +0100, Mark Brown wrote:
-> On Tue, 9 Aug 2022 18:08:09 -0700, Nathan Chancellor wrote:
-> > A recent change in clang strengthened its -Wbitfield-constant-conversion
-> > to warn when 1 is assigned to a 1-bit signed integer bitfield, as it can
-> > only be 0 or -1, not 1:
-> > 
-> >   sound/soc/atmel/mchp-spdiftx.c:505:20: error: implicit truncation from 'int' to bit-field changes value from 1 to -1 [-Werror,-Wbitfield-constant-conversion]
-> >           dev->gclk_enabled = 1;
-> >                             ^ ~
-> >   1 error generated.
-> > 
-> > [...]
-> 
-> Applied to
-> 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> 
-> Thanks!
-> 
-> [1/1] ASoC: mchp-spdiftx: Fix clang -Wbitfield-constant-conversion
->       commit: eab9100d9898cbd37882b04415b12156f8942f18
+sound/soc/sof/imx/imx8ulp.c:416:24: error: symbol 'sof_imx8ulp_ops'
+was not declared. Should it be static?
 
-I noticed that this was applied to for-6.1. I know you do not rebase or
-change your trees so this request might be rejected based on that alone
-but would it be possible to cherry-pick this to for-6.0 so that it can
-be applied to Linus's tree quicker? We have had to apply this change to
-our CI to keep our builds green in mainline, -tip, and 5.19/5.15 stable
-with clang-16 due to -Werror. If not, no worries, I should have made it
-clearer that is what I was looking for with the subject prefix.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/imx/imx8ulp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-Nathan
+diff --git a/sound/soc/sof/imx/imx8ulp.c b/sound/soc/sof/imx/imx8ulp.c
+index 02b496165acc3..afab7feab5fb3 100644
+--- a/sound/soc/sof/imx/imx8ulp.c
++++ b/sound/soc/sof/imx/imx8ulp.c
+@@ -413,7 +413,7 @@ static int imx8ulp_dsp_set_power_state(struct snd_sof_dev *sdev,
+ }
+ 
+ /* i.MX8 ops */
+-struct snd_sof_dsp_ops sof_imx8ulp_ops = {
++static struct snd_sof_dsp_ops sof_imx8ulp_ops = {
+ 	/* probe and remove */
+ 	.probe		= imx8ulp_probe,
+ 	.remove		= imx8ulp_remove,
+-- 
+2.34.1
+

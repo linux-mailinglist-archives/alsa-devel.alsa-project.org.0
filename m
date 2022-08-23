@@ -2,91 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF79C59D215
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 09:28:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286A359D249
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 09:34:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22880857;
-	Tue, 23 Aug 2022 09:27:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22880857
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1F7A163C;
+	Tue, 23 Aug 2022 09:33:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1F7A163C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661239707;
-	bh=86qkeW1JrIGOoMIDiPEw3gxNJYwxCpzLYzexmZpcjuU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661240083;
+	bh=jePQ4vKOAaTGNJG59sUIKK/F6+WTyTL/n1YsV3r6QqY=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bh6eS8sqWpJS2TbpGd+mBsCj02z7GlVWq31bHMnZjntjNLe59SxwJ7S5Ni/rEsech
-	 TpuCgOMAI9IxhNA+pH8aSMMM/jKkyE+ItLojhWLMbQ7VQ/M/vwv4E0LlRYIP7SA1k5
-	 DpJex+XZ+oY6R85DoorobXOVqAmGPXD72P0VhoBg=
+	b=TawN+J1iG1erRH+XW1sFLjPv7xxQ2kdPkDypxMPnhV3/yaST4MPi+ZnV8VUt7THiO
+	 zodoeZHYTCtqCSKVXcWzOZxCDFJ5RLd1ZErFMdbxm4H8gl3mqioeKO6PHmXZtbky3m
+	 oQBG6/0Nah+2gpS86Nl46aJhn8sSqoU+xZ1HPu6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93257F8027B;
-	Tue, 23 Aug 2022 09:27:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3924FF8027B;
+	Tue, 23 Aug 2022 09:33:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BE4EF8027B; Tue, 23 Aug 2022 09:27:26 +0200 (CEST)
+ id E8D4CF8020D; Tue, 23 Aug 2022 09:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D8F9F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:27:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D8F9F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0B4BF800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0B4BF800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lLlQLP3w"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4GD2ro2Y"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 80DCB33F81;
- Tue, 23 Aug 2022 07:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661239639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y7xTrYu8sbgUnDBbDyyK3lLwA90zL9gq0/5bZLvFxT0=;
- b=lLlQLP3wE4UQm90iMxs7HzvwWcbNb846eOirZBWWu8PjCXT/sVrba2kF+WKIitxDdzB4d8
- gw84i1UiI4pxSIfgCQInLiYnaYZt/4vBh+hOw/bNOqNZgNv+kdnA4r3A3SVl7QO0Cc8f36
- MM3ifiuEoKR2iqqGSOFdNBGAxuabBC0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661239639;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y7xTrYu8sbgUnDBbDyyK3lLwA90zL9gq0/5bZLvFxT0=;
- b=4GD2ro2YrJ8wMXGXPsCAscchOAIyLzTXgmi+MK+aM83hsspRDzTEFW2zxA8Z5lesPIpAwm
- 4jArsL2UlRctooAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55B9213AE6;
- Tue, 23 Aug 2022 07:27:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0O0yFFeBBGOUPAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 07:27:19 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: seq: Fix data-race at module auto-loading
-Date: Tue, 23 Aug 2022 09:27:17 +0200
-Message-Id: <20220823072717.1706-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220823072717.1706-1-tiwai@suse.de>
-References: <20220823072717.1706-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Abhishek Shah <abhishek.shah@columbia.edu>,
- Gabriel Ryan <gabe@cs.columbia.edu>
+ dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
+ header.b="H2XDFgnS"
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+ t=1661240018; bh=ftKfGYt19SPqa6Cn1sVIOkBEC6upRTpfHplVCy06jFo=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=H2XDFgnSF0seYKYphMwMhHDHqvRe6U0bfcLzS8zKgohwWKDbnplD1OTsGdzFzUesC
+ EXVXvyNF2rFo3RgQI1j1rhIzyKzx/qHIwzcftBWDYQMgr+DDehE+AIDXG7Y798yxxt
+ BqmeeC/X+Bkyi8b2lTLSDnDHrQyrL46eu6s+QWUo=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
+Subject: Re: [PATCH v2 3/4] ASoC: apple: mca: Start new platform driver
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <YwO/aqs7eqZx07kS@sirena.org.uk>
+Date: Tue, 23 Aug 2022 09:33:36 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <24C0ABFA-BF71-4492-8A6A-E9BE1462B403@cutebit.org>
+References: <20220819125430.4920-1-povik+lin@cutebit.org>
+ <20220819125430.4920-4-povik+lin@cutebit.org>
+ <YwO/aqs7eqZx07kS@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sven Peter <sven@svenpeter.dev>, Hector Martin <marcan@marcan.st>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, asahi@lists.linux.dev,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,59 +81,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It's been reported that there is a possible data-race accessing to the
-global card_requested[] array at ALSA sequencer core, which is used
-for determining whether to call request_module() for the card or not.
-This data race itself is almost harmless, as it might end up with one
-extra request_module() call for the already loaded module at most.
-But it's still better to fix.
 
-This patch addresses the possible data race of card_requested[] and
-client_requested[] arrays by replacing them with bitmask.
-It's an atomic operation and can work without locks.
+> On 22. 8. 2022, at 19:39, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> On Fri, Aug 19, 2022 at 02:54:29PM +0200, Martin Povi=C5=A1er wrote:
+>=20
+> This all looks good, one style nit and a couple of requests for
+> clarification below but basically this is fine.
+>=20
+>> +++ b/sound/soc/apple/mca.c
+>> @@ -0,0 +1,1149 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Apple SoCs MCA driver
+>> + *
+>> + * Copyright (C) The Asahi Linux Contributors
+>> + *
+>> + * The MCA peripheral is made up of a number of identical units =
+called clusters.
+>=20
+> Please make the entire comment block a C++ one so things look more
+> intentional.
 
-Reported-by: Abhishek Shah <abhishek.shah@columbia.edu>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/CAEHB24_ay6YzARpA1zgCsE7=H9CSJJzux618E=Ka4h0YdKn=qA@mail.gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/seq/seq_clientmgr.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+Is this so that it does not look like the SPDX header was added
+mechanically? I will do it, just curious what the reasoning is.
 
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 2e9d695d336c..052a690b5e11 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -121,13 +121,13 @@ struct snd_seq_client *snd_seq_client_use_ptr(int clientid)
- 	spin_unlock_irqrestore(&clients_lock, flags);
- #ifdef CONFIG_MODULES
- 	if (!in_interrupt()) {
--		static char client_requested[SNDRV_SEQ_GLOBAL_CLIENTS];
--		static char card_requested[SNDRV_CARDS];
-+		static DECLARE_BITMAP(client_requested, SNDRV_SEQ_GLOBAL_CLIENTS);
-+		static DECLARE_BITMAP(card_requested, SNDRV_CARDS);
-+
- 		if (clientid < SNDRV_SEQ_GLOBAL_CLIENTS) {
- 			int idx;
- 			
--			if (!client_requested[clientid]) {
--				client_requested[clientid] = 1;
-+			if (!test_and_set_bit(clientid, client_requested)) {
- 				for (idx = 0; idx < 15; idx++) {
- 					if (seq_client_load[idx] < 0)
- 						break;
-@@ -142,10 +142,8 @@ struct snd_seq_client *snd_seq_client_use_ptr(int clientid)
- 			int card = (clientid - SNDRV_SEQ_GLOBAL_CLIENTS) /
- 				SNDRV_SEQ_CLIENTS_PER_CARD;
- 			if (card < snd_ecards_limit) {
--				if (! card_requested[card]) {
--					card_requested[card] = 1;
-+				if (!test_and_set_bit(card_requested, card))
- 					snd_request_card(card);
--				}
- 				snd_seq_device_load_drivers();
- 			}
- 		}
--- 
-2.35.3
+>=20
+>> +#define USE_RXB_FOR_CAPTURE
+>=20
+> What's this all about?
+
+There=E2=80=99s something we can configure one way or the other way in =
+the
+hardware (choosing RXA or RXB unit in a cluster for capture). Since this=20=
+
+driver developed along reverse-engineering the hardware, this switch
+got built in. I want to keep it for future experimentation. Also, as
+the driver=E2=80=99s side gig is documenting the hardware, this way it
+documents more.
+
+>> +static int mca_fe_enable_clocks(struct mca_cluster *cl)
+>> +{
+>> +	struct mca_data *mca =3D cl->host;
+>> +	int ret;
+>> +
+>> +	ret =3D clk_prepare_enable(cl->clk_parent);
+>> +	if (ret) {
+>> +		dev_err(mca->dev,
+>> +			"cluster %d: unable to enable clock parent: =
+%d\n",
+>> +			cl->no, ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	/*
+>> +	 * We can't power up the device earlier than this because
+>> +	 * the power state driver would error out on seeing the device
+>> +	 * as clock-gated.
+>> +	 */
+>> +	cl->pd_link =3D device_link_add(mca->dev, cl->pd_dev,
+>> +				      DL_FLAG_STATELESS | =
+DL_FLAG_PM_RUNTIME |
+>> +					      DL_FLAG_RPM_ACTIVE);
+>=20
+> I'm not clear on this dynamically adding and removing device links =
+stuff
+> - it looks like the main (only?) purpose is to take a runtime PM
+> reference to the target device which is fine but it's not clear why
+> device links are involved given that the links are created and =
+destroyed
+> every time the DAI is used, AFAICT always in the same fixed
+> relationship.  It's not a problem, it's just unclear.
+
+Indeed the only purpose is powering up the cluster=E2=80=99s power =
+domain (there=E2=80=99s
+one domain for each cluster). Adding the links is the only way I know to
+do it. They need to be added dynamically (as opposed to statically =
+linking,
+say, the DAI=E2=80=99s ->dev to the cluster=E2=80=99s ->pd_dev, which I =
+guess may do
+something similar), because we need to sequence the power-up/power-down
+with the enablement of the clocks.
+
+Martin
 

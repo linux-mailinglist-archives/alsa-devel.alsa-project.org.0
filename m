@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8AB059E587
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA1A59E588
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:01:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94ABA169F;
-	Tue, 23 Aug 2022 17:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94ABA169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6282A162F;
+	Tue, 23 Aug 2022 17:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6282A162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661266860;
-	bh=EBL9xZ/rwfP1uBOatSCsRHO5etKdD4ri8Q2+0wM/QAI=;
+	s=default; t=1661266879;
+	bh=KHLP2hfNrsTOqj7864INaNcCesiHIIuaXBtSHwrkjSA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=loDB7aSgNU4SiJUsH+qqWKtCUK3Nqc/VJCtKvf9I//VZCDpC+JSOwJif4TuOKlcXS
-	 dI73sXGKCq5fHMjtufL/AabEtCB6TrxR0JMQHxZWnBwYizrK8iQubBYpU5BRGMYbSl
-	 yJLks4oQGdsRcz3D7rrds/GNRcWU/dUwphWdcpc8=
+	b=bThBAFpF0865dXNiGATlkUJhQN13whuudXVFlZn4Unnl70FIBK5ZQBhU4qHW76Zez
+	 vGKq4pGi9AmlXVKbSR712JCq5JKc61dOHppm5dENC9Z6GyHWTp4YoUf/eTvgoGckrq
+	 LHz1r+EtX2/s5YlieJHuPhxVIqlCRv8kwnNKJUgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 847DDF80535;
-	Tue, 23 Aug 2022 16:58:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41FCAF80548;
+	Tue, 23 Aug 2022 16:58:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 883B2F80525; Tue, 23 Aug 2022 15:49:18 +0200 (CEST)
+ id 20EDCF8020D; Tue, 23 Aug 2022 15:50:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,79 +35,78 @@ Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com
  [148.163.135.74])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93ADDF8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 15:49:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93ADDF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB0BBF8014E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 15:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB0BBF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu
- header.b="K/SUY/qV"
-Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
- by mx0a-00364e01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27NDlKEn000318
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:49:10 -0400
+ header.b="JqWJ1Ais"
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+ by mx0a-00364e01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27NDlwwn003686
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:50:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu;
  h=mime-version :
  references : in-reply-to : from : date : message-id : subject : to : cc :
- content-type; s=pps01; bh=XpcSKRmBM31iOTmtJtjEgukFOvgF3GXKFo6Os2xuMl4=;
- b=K/SUY/qV1LeaM1TrsvnuXcH5enNfMVL8njVXAe9LufWg29zYS+mW1akjy/BkwkaQGeLY
- i4KdIhCDMVo2EmR1sIEaJ5ArVdzqFq2ooQGLsDwcQ4gHPOwUH2X0IrNp36Y8RG9+b5jk
- 1vpBvt+QzvqKpYV4CT+dQo/FWiwtbxyZAggNRjc6anYORa9J08SUkvkqBaqHz0rDIBYO
- 2ys40hSvM5CVaXwAdeMT7hPJvkFy+cyvCOgrf8HxSlIaAq4r939L8J3rIzJ1H21FBY5g
- Rr3MwJWhGlPdPregsq1smc6Frmb+38wkvAF+od0mol2B8M+ZSfnxbK/b13KkHLQMfjLk SQ== 
-Received: from sendprdmail21.cc.columbia.edu (sendprdmail21.cc.columbia.edu
- [128.59.72.23])
- by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 3j4wmfh2jh-1
+ content-type; s=pps01; bh=98LWiUOoO/0cptBYctE3qRKyUwqsWVzJm24TMIdithQ=;
+ b=JqWJ1AisRdpXYbUtBUoeNKADzvhB800r1NdjcZ3V7b+D+gRsgzGQEfiJCFHJ6TaYq5UF
+ ENowdjtcVUGTtKN3ZYV9g2b6qX+9Bu7io6DjJvHSx2vI6D0/4VEkIAwLLD7aczgMrBsH
+ bCPplYICTn5q81GyrPibdAAUsT6of5mODoiHui1ABCjGJF3zXK7wIbDwbjfuFCWD8MIr
+ OGY5bWy1FpGuoK1NKS7Vv1MWY0yBLL6n/9xnWPBbxdn3MZxvADIJoGdgwQdVoOG3qQJs
+ mfApT2i7LUhlMlOAlAclHcAlsMIN7fxxEGHS0Cg5t7KsUf50TSYqbnOB8uaVws84fxmP Iw== 
+Received: from sendprdmail22.cc.columbia.edu (sendprdmail22.cc.columbia.edu
+ [128.59.72.24])
+ by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 3j4wma93hs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:49:09 -0400
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69])
- by sendprdmail21.cc.columbia.edu (8.14.7/8.14.4) with ESMTP id 27NDn4BX064043
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:50:33 -0400
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200])
+ by sendprdmail22.cc.columbia.edu (8.14.7/8.14.4) with ESMTP id 27NDoWam123217
  (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:49:08 -0400
-Received: by mail-ua1-f69.google.com with SMTP id
- 97-20020a9f22ea000000b00393a88dd65aso3291476uan.2
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 06:49:08 -0700 (PDT)
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:50:32 -0400
+Received: by mail-vk1-f200.google.com with SMTP id
+ t131-20020a1f9189000000b003841482eeb2so2015366vkd.2
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 06:50:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=XpcSKRmBM31iOTmtJtjEgukFOvgF3GXKFo6Os2xuMl4=;
- b=269j4hi6HQKQ1DlL7Kzw3h8nuUQj1haajAvTQvjvv5ureZ59ZZmV+2skdTZs3wN2hG
- Eu9sEiflVNJqWWDtRCryW9SWnQ25vo04MS7+PGJT445MYxfSa/EW9yYQqkfJKtijwEI/
- 8cH9g3Q0z4CcA0YXv+AbCygnmzVfc8CgljuMn8Cs9Co7KQUTpk1gaM6M9+jG7Ng1oxll
- OW6AH6sEFxlAJXbwVnsvplHH6O3Ihj313twHjWOqLWU5hh81dEOoKWwrR1AVBivL2x6m
- nmcwUpIyI4ZY8olihNmtkPCjnxAizQyDIV8r3uVLDn4GDkNnSF40r1l+cznV0AZmAjeh
- AXWQ==
-X-Gm-Message-State: ACgBeo18aA9mmDrDjwlUlY0Bb8HLHFlSwp8lzaJI/W7dMbdXbhZJ4kca
- Ia8cVNqFTLbGaC3GmxfwvYpe0Ni4tQOYubgbekQ8aDFYeKhzduaIB2E9Lfaktw42OhrqHeKI0Qy
- 3T2FNsZ7gL4fn59Xu2AuYgFEwy7bPMj79Qd13BzgilLnyX/U=
-X-Received: by 2002:a05:6102:5490:b0:380:3982:2f97 with SMTP id
- bk16-20020a056102549000b0038039822f97mr8986133vsb.84.1661262548151; 
- Tue, 23 Aug 2022 06:49:08 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR4mP7YdW2Rpi4uUP8qfJRkpAeJ0+5UXaC0UMoUQZch9M5lszPf8GrjnBXOQRbDCpCXDWA2l4gNoZHRQZ2vSt/Y=
-X-Received: by 2002:a05:6102:5490:b0:380:3982:2f97 with SMTP id
- bk16-20020a056102549000b0038039822f97mr8986121vsb.84.1661262547751; Tue, 23
- Aug 2022 06:49:07 -0700 (PDT)
+ bh=98LWiUOoO/0cptBYctE3qRKyUwqsWVzJm24TMIdithQ=;
+ b=APEo2embq+HaCj2aKLFAm0dFoOJXkmKxhOw+vjcilXJJ6I1SImfLXfYtqio201rnB6
+ AAmYAqNrUos4LGU2R/DcyGIFaCyayXI5+URjNWbDqPUuuqk7H2T1d5wgeUfj0ux+Ln5F
+ 5SHCCRG9hm37aP7ZfOhmPRrLNqrOvfkSGxwqgg9dhXKzUj5nVglHQP+UKu5LbqBmqtDQ
+ 7sLtmKiFkQw+rfKQSTNhhcjSHJO4iZN1+15vwCjN48NQ9NTZANq3SQIKwTP4O0IMMqY7
+ i6xUvkOLllzVD8KttBcL+C7lSB/bZ4e6gkhxQN9mcAJsUiARg+MMkoVNh3OggnU2hv7A
+ 9F3w==
+X-Gm-Message-State: ACgBeo0AeExhAOgKFrF7kMtKvrKQ4MRooI0SKmYSaMdJvut2q/arr9K5
+ n9Oit+s3e4XJ1hIL+g1KC9NPyxxXVfiJmJCmYDyJxoU/4rpDEaxYAeISyaJm1NVVZhjuXdrAHq3
+ 63bgtaFW1PXQqNHTNDjrOyc77AO/EEcG8DN4aWsK5l7Ja/MU=
+X-Received: by 2002:a67:d493:0:b0:390:4c24:804c with SMTP id
+ g19-20020a67d493000000b003904c24804cmr4756235vsj.71.1661262632279; 
+ Tue, 23 Aug 2022 06:50:32 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR7Lz9h4uY61mRqVarfd9qQWDcN0w/JaI5Z/VWo89ISvUO+FTYQLyqkouYYFTT+lZn9u5jkycrx+mCswYyjU8FU=
+X-Received: by 2002:a67:d493:0:b0:390:4c24:804c with SMTP id
+ g19-20020a67d493000000b003904c24804cmr4756222vsj.71.1661262631857; Tue, 23
+ Aug 2022 06:50:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220823072717.1706-1-tiwai@suse.de>
- <20220823072717.1706-2-tiwai@suse.de>
-In-Reply-To: <20220823072717.1706-2-tiwai@suse.de>
+In-Reply-To: <20220823072717.1706-1-tiwai@suse.de>
 From: Gabriel Ryan <gabe@cs.columbia.edu>
-Date: Tue, 23 Aug 2022 09:48:57 -0400
-Message-ID: <CALbthtfyrPfmFLL7hsSRGiuGRmyExgp_HnMZ8kztpmEs0C7J8g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ALSA: seq: Fix data-race at module auto-loading
+Date: Tue, 23 Aug 2022 09:50:21 -0400
+Message-ID: <CALbthtd6wJWWTQ0YM+cHW3-XcJPUzNszZdkpCg=9pnqj_hatRA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ALSA: seq: oss: Fix data-race for max_midi_devs access
 To: Takashi Iwai <tiwai@suse.de>
-X-Proofpoint-ORIG-GUID: bYPmrne1QeGmBZ1z0DY88-on2-cHtwO4
-X-Proofpoint-GUID: bYPmrne1QeGmBZ1z0DY88-on2-cHtwO4
+X-Proofpoint-GUID: 3TxYEdL1JqoprjL0ES-wDAd-47S68WIJ
+X-Proofpoint-ORIG-GUID: 3TxYEdL1JqoprjL0ES-wDAd-47S68WIJ
 X-CU-OB: Yes
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
  definitions=2022-08-23_05,2022-08-22_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0
- impostorscore=10 adultscore=0 lowpriorityscore=10 clxscore=1015
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=10
- mlxlogscore=999 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2207270000 definitions=main-2208230054
+ suspectscore=0 phishscore=0
+ spamscore=0 clxscore=1015 lowpriorityscore=10 impostorscore=10
+ mlxlogscore=999 adultscore=0 mlxscore=0 bulkscore=10 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208230054
 X-Mailman-Approved-At: Tue, 23 Aug 2022 16:58:46 +0200
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -128,8 +127,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We have tested this patch and confirm it eliminates the race we initially
-reported.
+We have tested this patch and confirm it eliminates the race we observed on
+max_mididev.
 
 Best,
 
@@ -137,74 +136,48 @@ Gabe
 
 On Tue, Aug 23, 2022 at 3:27 AM Takashi Iwai <tiwai@suse.de> wrote:
 
-> It's been reported that there is a possible data-race accessing to the
-> global card_requested[] array at ALSA sequencer core, which is used
-> for determining whether to call request_module() for the card or not.
-> This data race itself is almost harmless, as it might end up with one
-> extra request_module() call for the already loaded module at most.
-> But it's still better to fix.
+> ALSA OSS sequencer refers to a global variable max_midi_devs at
+> creating a new port, storing it to its own field.  Meanwhile this
+> variable may be changed by other sequencer events at
+> snd_seq_oss_midi_check_exit_port() in parallel, which may cause a data
+> race.
 >
-> This patch addresses the possible data race of card_requested[] and
-> client_requested[] arrays by replacing them with bitmask.
-> It's an atomic operation and can work without locks.
+> OTOH, this data race itself is almost harmless, as the access to the
+> MIDI device is done via get_mdev() and it's protected with a refcount,
+> hence its presence is guaranteed.
+>
+> Though, it's sill better to address the data-race from the code sanity
+> POV, and this patch adds the proper spinlock for the protection.
 >
 > Reported-by: Abhishek Shah <abhishek.shah@columbia.edu>
 > Cc: <stable@vger.kernel.org>
 > Link:
 > https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kernel.org_r_=
-CAEHB24-5Fay6YzARpA1zgCsE7-3DH9CSJJzux618E-3DKa4h0YdKn-3DqA-40mail.gmail.co=
-m&d=3DDwIDAg&c=3D009klHSCxuh5AI1vNQzSO0KGjl4nbi2Q0M1QLJX9BeE&r=3DEyAJYRJu01=
-oaAhhVVY3o8zKgZvacDAXd_PNRtaqACCo&m=3DoPAvNa2pfJuUIAiwbiE1IJgoQhWb8AB7IBdJq=
-WslhhuZ-LwBrrgAnFUthdapQska&s=3DK26ukWoQce9A8OzoQEGfRXynlOouHQ79dnAnD7xriNw=
-&e=3D
+CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg-40mail.gmail.com&d=3DDw=
+IDAg&c=3D009klHSCxuh5AI1vNQzSO0KGjl4nbi2Q0M1QLJX9BeE&r=3DEyAJYRJu01oaAhhVVY=
+3o8zKgZvacDAXd_PNRtaqACCo&m=3DCxIkVQqIvngOHaCRT98C_jGfJo6SNC38iwxKsCn-3yU1v=
+AYynFqC_nB4PAgPegMm&s=3DB8XPQtfIHmyV0Z-NAEtd5FG1Indh15kFF_yJWOMLnz4&e=3D
 >
 > Signed-off-by: Takashi Iwai <tiwai@suse.de>
 > ---
->  sound/core/seq/seq_clientmgr.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
+>  sound/core/seq/oss/seq_oss_midi.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/sound/core/seq/seq_clientmgr.c
-> b/sound/core/seq/seq_clientmgr.c
-> index 2e9d695d336c..052a690b5e11 100644
-> --- a/sound/core/seq/seq_clientmgr.c
-> +++ b/sound/core/seq/seq_clientmgr.c
-> @@ -121,13 +121,13 @@ struct snd_seq_client *snd_seq_client_use_ptr(int
-> clientid)
->         spin_unlock_irqrestore(&clients_lock, flags);
->  #ifdef CONFIG_MODULES
->         if (!in_interrupt()) {
-> -               static char client_requested[SNDRV_SEQ_GLOBAL_CLIENTS];
-> -               static char card_requested[SNDRV_CARDS];
-> +               static DECLARE_BITMAP(client_requested,
-> SNDRV_SEQ_GLOBAL_CLIENTS);
-> +               static DECLARE_BITMAP(card_requested, SNDRV_CARDS);
-> +
->                 if (clientid < SNDRV_SEQ_GLOBAL_CLIENTS) {
->                         int idx;
+> diff --git a/sound/core/seq/oss/seq_oss_midi.c
+> b/sound/core/seq/oss/seq_oss_midi.c
+> index 1e3bf086f867..07efb38f58ac 100644
+> --- a/sound/core/seq/oss/seq_oss_midi.c
+> +++ b/sound/core/seq/oss/seq_oss_midi.c
+> @@ -270,7 +270,9 @@ snd_seq_oss_midi_clear_all(void)
+>  void
+>  snd_seq_oss_midi_setup(struct seq_oss_devinfo *dp)
+>  {
+> +       spin_lock_irq(&register_lock);
+>         dp->max_mididev =3D max_midi_devs;
+> +       spin_unlock_irq(&register_lock);
+>  }
 >
-> -                       if (!client_requested[clientid]) {
-> -                               client_requested[clientid] =3D 1;
-> +                       if (!test_and_set_bit(clientid, client_requested)=
-)
-> {
->                                 for (idx =3D 0; idx < 15; idx++) {
->                                         if (seq_client_load[idx] < 0)
->                                                 break;
-> @@ -142,10 +142,8 @@ struct snd_seq_client *snd_seq_client_use_ptr(int
-> clientid)
->                         int card =3D (clientid - SNDRV_SEQ_GLOBAL_CLIENTS=
-) /
->                                 SNDRV_SEQ_CLIENTS_PER_CARD;
->                         if (card < snd_ecards_limit) {
-> -                               if (! card_requested[card]) {
-> -                                       card_requested[card] =3D 1;
-> +                               if (!test_and_set_bit(card_requested,
-> card))
->                                         snd_request_card(card);
-> -                               }
->                                 snd_seq_device_load_drivers();
->                         }
->                 }
+>  /*
 > --
 > 2.35.3
 >

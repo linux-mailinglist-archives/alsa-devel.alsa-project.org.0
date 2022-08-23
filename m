@@ -2,95 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31AF559E54B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 16:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6355F59E573
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 16:57:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B41B11675;
-	Tue, 23 Aug 2022 16:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B41B11675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16FBF3E8;
+	Tue, 23 Aug 2022 16:57:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16FBF3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661266068;
-	bh=dmfYriQxeo901lZI5S6yytX6hz3k3DOeAq3cR6hUSQE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1661266675;
+	bh=hw68frbppD7Mlvlxs5XzBRD0+2ym9L9GN1qHi2MhEzw=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FyUnLIu37JEHxuMMSekOzwlvD9cM+ePdVfK9H4qEkYi79Fht9D2tE1nfsM9HDLs3w
-	 dR3Rwdr5N/TFRqQHDeFgXfCgxkOXd9ygJxACtJuKVCiMt+7YpklcQVb9V13s+T9HhH
-	 C4n2myi9kq1SNANxfXbjKOp8cC7Z4n5MCd0SxrBU=
+	b=OY3QOfUI6T22slL8+VvZ1jEXC6GHkbKAnFsc8ob6JI2arJkvNUfTQNmIcDdDNG95P
+	 9uQ0iQoCe1JY6xrwHHP4OD0ManPFhBMMwY1nXEmLnaXljkKRtgeurheVGG9kWBS6rS
+	 e8NTito3Dq1SbAnDSYkowXbhLmXDZ5GwSlgtKkx4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B353F8027B;
-	Tue, 23 Aug 2022 16:46:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74A16F8027B;
+	Tue, 23 Aug 2022 16:56:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF434F8020D; Tue, 23 Aug 2022 16:46:47 +0200 (CEST)
+ id 72EB2F8020D; Tue, 23 Aug 2022 16:56:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7431BF8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 16:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7431BF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D4FCF800C9
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 16:56:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D4FCF800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NGblMmxP"
-Received: by mail-ot1-x32d.google.com with SMTP id
- t11-20020a05683014cb00b0063734a2a786so9902532otq.11
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 07:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc;
- bh=2jfpeWGpRBtOpt5eYln9rpGYhFiNef9meziglYN4UtA=;
- b=NGblMmxP1WCLkpwR2qWByNr2zD0ntLukrfPFLnTMpbuWpF4OVdFfbbprBh2/eoY8Gj
- b7hhQPh4JYe/19ZGIRZXGxNLnQQpMogYL93/i9r9jt7b5GKZv963oLwGIarTCADzh1d6
- aq4dpwemVn/CmIQvkBncgPqSv0LaOryHmKlvoEytdtyM0CTSjqntcFNU9abiBf6ZsbNk
- 7yN10gKA7chm1KOXVgYpoeNDVGgIPGq25VEkIH+GiHV9J5lQRQO1OBj3mTvd3YG5WCpc
- qciOHBE0g2RcG0Rwc/nv390q5ve4/mwFJnDiR73PO/7gaFljbogS7d3gDRhdXaGtxrgb
- PhwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=2jfpeWGpRBtOpt5eYln9rpGYhFiNef9meziglYN4UtA=;
- b=M0JMqf1Qw2cJ4XdfGKrreM/35bt9lHoGG6AcdfIxdYX1st3md4i5XiPN3F+WfH5Kr0
- kXZ3iFSijU+gB417qoPOWQ4KXEZRkrXOe57ZN1fKa+uTtWrTzgUG7cpsjYpuDmmnSN6o
- EgyA3KzpfAskYNRhllvnELo1pQi4ZU715M5hSOy8Z0sObK7++VsqSqHlTtAWadVw3z26
- vsRGJ+4k9kmMz84U1FJsSRpnpbzGaC0NANYOqhSF2VfEuX+8sSiChpN+sJn2xu7oT8Vt
- U/EcTiMQ5+MrgKba9DW8DR3mwN/YI20T26ZJRPXvw2WNcXuOxRz04bNVT2MxDmpIe6R5
- fPAg==
-X-Gm-Message-State: ACgBeo2/Ndhu0SKsp1kcjzupPa5YXPRGfaLorV2k1vt6kyET1eOzx2Xx
- uxkn6748MxtvctgSlHNltH8=
-X-Google-Smtp-Source: AA6agR4L7uHhSh0T0sWt1c++aOY06HS8EOZXFYLG1hMZyJAVmmZwt+UJz0dXZpbyscHu0BdvVeys0w==
-X-Received: by 2002:a05:6830:25c4:b0:637:2a66:1dfd with SMTP id
- d4-20020a05683025c400b006372a661dfdmr9241945otu.383.1661265998963; 
- Tue, 23 Aug 2022 07:46:38 -0700 (PDT)
-Received: from geday ([2804:7f2:8006:f71:a581:5947:7302:d05f])
- by smtp.gmail.com with ESMTPSA id
- cp19-20020a056830661300b0061cd208fadesm3741226otb.71.2022.08.23.07.46.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Aug 2022 07:46:38 -0700 (PDT)
-Date: Tue, 23 Aug 2022 11:46:38 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if hardware
- supports it
-Message-ID: <YwToTmr4DI3k+STF@geday>
-References: <YwF+JYR5DxLBnE8F@geday>
- <YwOEPpO0gux+njQe@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="msHajl/D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661266611; x=1692802611;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=hw68frbppD7Mlvlxs5XzBRD0+2ym9L9GN1qHi2MhEzw=;
+ b=msHajl/Du98UaPob5bUK/ZW0UUgdAcN9eVgcTBhg2fZ7TIAIwIp/2jcP
+ R0sQU7WT0j/cCBoXqnhR+z90cRvcP9DmhXCEI8wYxYabhJvyOwzW/jnfX
+ zk2RPGN92S0TGXMpcbArlOJN3s7YQ6tdZRMIq8mMVjJL6+265DddSoNO1
+ f6NsW9n4/5WmdOcz3LBq4+hK8ge0jR3PRWTYJAw/MPtZdhD0yiEg0VODm
+ nWelqlg1kvD6hPFo9a9f9UXEyE5V5yBocUiGcgNGUI3VaGb9vgVfTKZPn
+ prCDK91aQRqcJrRnFPycvOtHUJDkOkSYKZ9CAqy7474ahQYAbj+aW8m/V w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="357685701"
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="357685701"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 07:55:59 -0700
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="586020960"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.249])
+ ([10.99.241.249])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 07:55:57 -0700
+Message-ID: <6ee7b704-fb40-a5b5-f5c0-a19096f8d1d4@linux.intel.com>
+Date: Tue, 23 Aug 2022 16:55:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YwOEPpO0gux+njQe@sirena.org.uk>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- ALSA-devel <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 2/4] ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20220822185911.170440-1-pierre-louis.bossart@linux.intel.com>
+ <20220822185911.170440-3-pierre-louis.bossart@linux.intel.com>
+ <b112f824-631d-40d4-31bd-9bd56f31930e@linux.intel.com>
+ <c7bd2799-3cbf-a984-8f48-5e069b88db51@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <c7bd2799-3cbf-a984-8f48-5e069b88db51@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,68 +98,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 22, 2022 at 02:27:26PM +0100, Mark Brown wrote:
-> On Sat, Aug 20, 2022 at 09:36:53PM -0300, Geraldo Nascimento wrote:
+On 8/23/2022 10:52 AM, Pierre-Louis Bossart wrote:
+> Hi Amadeusz,
 > 
-> > +	/*
-> > +	 * dw-hdmi introduced insert_pcuv bit in version 2.10a.
-> > +	 * When set (1'b1), this bit enables the insertion of the PCUV
-> > +	 * (Parity, Channel Status, User bit and Validity) bits on the
-> > +	 * incoming audio stream (support limited to Linear PCM audio)
-> > +	 */
-> > +
-> > +	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21)
-> > +		conf2 |= HDMI_AUD_CONF2_INSERT_PCUV;
+>>> +int intel_nhlt_ssp_mclk_mask(struct nhlt_acpi_table *nhlt, int ssp_num)
+>>> +{
+>>> +    struct nhlt_endpoint *epnt;
+>>> +    struct nhlt_fmt *fmt;
+>>> +    struct nhlt_fmt_cfg *cfg;
+>>> +    int mclk_mask = 0;
+>>> +    int i, j;
+>>> +
+>>> +    if (!nhlt)
+>>> +        return 0;
+>>> +
+>>> +    epnt = (struct nhlt_endpoint *)nhlt->desc;
+>>> +    for (i = 0; i < nhlt->endpoint_count; i++) {
+>>> +
+>>> +        /* we only care about endpoints connected to an audio codec
+>>> over SSP */
+>>> +        if (epnt->linktype == NHLT_LINK_SSP &&
+>>> +            epnt->device_type == NHLT_DEVICE_I2S &&
+>>> +            epnt->virtual_bus_id == ssp_num) {
+>>
+>> if (epnt->linktype != NHLT_LINK_SSP ||
+>>      epnt->device_type != NHLT_DEVICE_I2S ||
+>>      epnt->virtual_bus_id != ssp_num)
+>>      continue;
+>>
+>> and then you can remove one indentation level below?
 > 
-> So what if we're not handlign linear PCM?
+> 
+> Would that work? We still need to move the epnt pointer:
+> 
+> epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
+> 
+> and moving this in the endpoint_count loop would be ugly as well.
+> 
+> 
 
-Hi Mark,
+Another solution would be goto to skip, but that also seems ugly :/
+I guess it can stay as it is then.
 
-I think we may be able to restrict the fix for L-PCM only by checking
-byte 0 of iec.status, specifically bit 1. Our define is called
-IEC958_AES0_NONAUDIO but https://tech.ebu.ch/docs/tech/tech3250.pdf
-calls it the "Linear PCM identification" bit. There's also a
-supplement to AES/EBU 3250 in https://tech.ebu.ch/docs/n/n009_1.pdf
+>>> +
+>>> +            fmt = (struct nhlt_fmt *)(epnt->config.caps +
+>>> epnt->config.size);
+>>> +            cfg = fmt->fmt_config;
+>>> +
+>>> +            /*
+>>> +             * In theory all formats should use the same MCLK but it
+>>> doesn't hurt to
+>>> +             * double-check that the configuration is consistent
+>>> +             */
+>>> +            for (j = 0; j < fmt->fmt_count; j++) {
+>>> +                u32 *blob;
+>>> +                int mdivc_offset;
+>>> +
+>>> +                if (cfg->config.size >= SSP_BLOB_V1_0_SIZE) {
+>>> +                    blob = (u32 *)cfg->config.caps;
+>>> +
+>>> +                    if (blob[1] == SSP_BLOB_VER_2_0)
+>>> +                        mdivc_offset = SSP_BLOB_V2_0_MDIVC_OFFSET;
+>>> +                    else if (blob[1] == SSP_BLOB_VER_1_5)
+>>> +                        mdivc_offset = SSP_BLOB_V1_5_MDIVC_OFFSET;
+>>> +                    else
+>>> +                        mdivc_offset = SSP_BLOB_V1_0_MDIVC_OFFSET;
+>>> +
+>>> +                    mclk_mask |=  blob[mdivc_offset] & GENMASK(1, 0);
 
-Let me know if the following is OK. I'll be happy to submit V2 if
-it is.
+One more thing, where does this GENMASK come from, as far as I can tell 
+HW specifies and FW uses one bit field to signal that MCLK is enabled? 
+(mdivc is simply a value written to HW register to configure it).
 
-Thanks,
-Geraldo Nascimento
+>>> +                }
+>>> +
+>>> +                cfg = (struct nhlt_fmt_cfg *)(cfg->config.caps +
+>>> cfg->config.size);
+>>> +            }
+>>> +        }
+>>> +        epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
+>>> +    }
+>>> +
+>>> +    return mclk_mask;
+>>
+>> Although I understand that it is relegated to the caller, but if both
+>> mclk being set is considered an error maybe add some kind of check here
+>> instead and free callers from having to remember about it?
+>>
+>> if (hweight_long(mclk_mask) != 1)
+>>      return -EINVAL;
+>>
+>> return mclk_mask;
+> 
+> I went back and forth multiple times on this one. I can't figure out if
+> this would be a bug or a feature, it could be e.g. a test capability and
+> it's supported in hardware. I decided to make the decision in the caller
+> rather than a lower level in the library.
+> 
+> If the tools used to generate NHLT don't support this multi-MCLK mode
+> then we could indeed move the test here.
+> 
 
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-@@ -42,6 +42,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 	struct dw_hdmi *hdmi = audio->hdmi;
- 	u8 conf0 = 0;
- 	u8 conf1 = 0;
-+	u8 conf2 = 0;
- 	u8 inputclkfs = 0;
- 
- 	/* it cares I2S only */
-@@ -101,6 +102,18 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * dw-hdmi introduced insert_pcuv bit in version 2.10a.
-+	 * When set (1'b1), this bit enables the insertion of the PCUV
-+	 * (Parity, Channel Status, User bit and Validity) bits on the
-+	 * incoming audio stream (support limited to Linear PCM audio)
-+	 */
-+
-+	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21 &&
-+			!(hparms->iec.status[0] & IEC958_AES0_NONAUDIO))
-+		conf2 = HDMI_AUD_CONF2_INSERT_PCUV;
-+
- 	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
- 	dw_hdmi_set_channel_status(hdmi, hparms->iec.status);
- 	dw_hdmi_set_channel_count(hdmi, hparms->channels);
-@@ -109,6 +122,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 	hdmi_write(audio, inputclkfs, HDMI_AUD_INPUTCLKFS);
- 	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
- 	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
-+	hdmi_write(audio, conf2, HDMI_AUD_CONF2);
- 
- 	return 0;
- }
+Considering comment I added above I've asked Czarek to also check this 
+series. I'm not sure it even makes sense to name the field "_mask" when 
+it is one bit...
+
+>>
+>>> +}
+>>> +EXPORT_SYMBOL(intel_nhlt_ssp_mclk_mask);
+>>> +
+>>>    static struct nhlt_specific_cfg *
+>>>    nhlt_get_specific_cfg(struct device *dev, struct nhlt_fmt *fmt, u8
+>>> num_ch,
+>>>                  u32 rate, u8 vbps, u8 bps)
+>>
+

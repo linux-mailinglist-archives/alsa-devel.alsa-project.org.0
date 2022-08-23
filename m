@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D5FB59E753
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 18:33:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB88459E755
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 18:34:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2BEE1685;
-	Tue, 23 Aug 2022 18:32:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2BEE1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 530C51685;
+	Tue, 23 Aug 2022 18:33:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 530C51685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661272384;
-	bh=0OW8QTWj8leOwIvSI2jUOoZZICwcZkui2kQIaQN1eUw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1661272463;
+	bh=iShwDF1LvUqQUhnFrVSrO45fBJAdBU9+ZEnxoDBD0qQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bnP+jUQ5aYgSD21dodeuXojasdkyyJ9IMpMmLBl8qii0RXpjZbvojp/VKjKLUlEeZ
-	 6NcFU+oi81EM+gxbjQkRJTgPk2O48JFomLTCjizU86dYpuFiGFnGwVDmQKhZ/jWi6E
-	 8q3kMPEO8+O/M4CxckHRXkfi6Py+vqB+HOWLgv2k=
+	b=EqOOOX2FV2+FliRdmNeEJZo2T11j+8FRfVb7t++lPHqjSXuBp5qWBCn0/WvStwM5w
+	 Gp7np/J9NoWZdCimfk5vEfT4e11QXyNmp+oJFzshB12/tMVflCCEZDT5qN6YGKYS9l
+	 +mfbeUhcbxMIyXqvvarj3HOxwPLyeKkupcxpnYls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 298CBF8027B;
-	Tue, 23 Aug 2022 18:32:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCF99F8027B;
+	Tue, 23 Aug 2022 18:33:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A550EF8020D; Tue, 23 Aug 2022 18:32:03 +0200 (CEST)
+ id 6FC5BF8014E; Tue, 23 Aug 2022 18:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEC39F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 18:32:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEC39F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C4BFF8014E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 18:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C4BFF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="r/Q9NnLh"
+ header.b="VoAyWUMJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A9E46616C0;
- Tue, 23 Aug 2022 16:31:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4849C433C1;
- Tue, 23 Aug 2022 16:31:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 664B7B81CD5;
+ Tue, 23 Aug 2022 16:33:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 759E9C433C1;
+ Tue, 23 Aug 2022 16:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661272318;
- bh=0OW8QTWj8leOwIvSI2jUOoZZICwcZkui2kQIaQN1eUw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=r/Q9NnLhKgHnZDH15hdmsXxlREi3PAhN4fMAUd7WvnrzkcYkX0zZ4uMJ1N7QPvUoK
- BP6jdW/tqF0Eoe42IWCReMYN9fkT0arN4kvio/mi41D3Zwaca4m9aqnBDwGZP5tNkB
- Or3PaFCUSQ33r252+rbjKuaJwA1a90YazOnbR9277a3SjC4Mxob2FMllIS9LQZAa2r
- 661EHm9mg0PsD4A/GGbcpY/US7uxtrtHwQLyxHJ7MI9yWP5I4ySqs9uhFj2OYGwLsm
- 419O1yEeYEZph+Dgzjuer6YrdFb5YppGRwGziZJ0KFIqeEdMxS2OqAI79WPWz21X0C
- ALxVEPWnym87Q==
+ s=k20201202; t=1661272394;
+ bh=iShwDF1LvUqQUhnFrVSrO45fBJAdBU9+ZEnxoDBD0qQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VoAyWUMJRbqFkLF/T1meoER25n/fOiimaZmsqj1bileYdAhvQYloc1k0nc7mYCS8x
+ Phbhi4L7zV7v9ZJL1wwBeR+Eg1gYniZVwfGy3DuiB0NVRUE2czIXE72IUicW8XMyJG
+ K5UplrltHjMJktACUBoQDTw3ys4Bxgg9VD0/CsJrpIYuf9meNklSmGKVnLIt3wRR4/
+ CQgeegDmyUWFRgW5QDhY5S4VRXQg4GRJ1lHNsJjAzrhwp3MRRsL4yl8G+fGhNPRpww
+ mv99AJ7VqUWhvIFzu+51uxqY8O2OJ0iULbDRzeoyhNy47L85sRQqPtCKc7phGR1/v2
+ RJzgpsIpu9hiA==
+Date: Tue, 23 Aug 2022 17:33:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, Xiubo.Lee@gmail.com, perex@perex.cz,
- nicoleotsuka@gmail.com, tiwai@suse.com, 
- alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>, shengjiu.wang@gmail.com
-In-Reply-To: <1661247308-2650-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1661247308-2650-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_mqs: Fix supported clock DAI format
-Message-Id: <166127231558.397935.4810940436556797260.b4-ty@kernel.org>
-Date: Tue, 23 Aug 2022 17:31:55 +0100
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: fix alh_group_ida max value
+Message-ID: <YwUBRMqD3E1/TqyU@sirena.org.uk>
+References: <20220822190211.170537-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-0c1df
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="RTZFQNjilJYdMnzE"
+Content-Disposition: inline
+In-Reply-To: <20220822190211.170537-1-pierre-louis.bossart@linux.intel.com>
+X-Cookie: (null cookie
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ tiwai@suse.de, Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +88,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 17:35:08 +0800, Shengjiu Wang wrote:
-> The MQS works as codec DAI, not cpu DAI. It is
-> clock consumer, not clock privider.
-> 
-> 
 
-Applied to
+--RTZFQNjilJYdMnzE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Mon, Aug 22, 2022 at 09:02:11PM +0200, Pierre-Louis Bossart wrote:
+> From: Bard Liao <yung-chuan.liao@linux.intel.com>
+>=20
+> group_id is from 0 ~ ALH_MULTI_GTW_COUNT - 1, not 0 ~
+> ALH_MULTI_GTW_COUNT.
+>=20
+> Fixes: 0e357b5290532 ("ASoC: SOF: ipc4-topology: add SoundWire/ALH aggreg=
+ation support"
 
-Thanks!
+This commit doesn't exist upstream, you probably meant
+a150345aa758492e05d2934f318ce7c2566b1cfe.
 
-[1/1] ASoC: fsl_mqs: Fix supported clock DAI format
-      commit: 1faa6f8274e2b08a38c0cca74113dfb26c6ad7b7
+--RTZFQNjilJYdMnzE
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMFAUMACgkQJNaLcl1U
+h9D1Zwf/Zy913HRjpypDBZxxeEPBFtPXyZITuwe876/TOsJBk5z+KFHURIQy8/37
+2ifaFbyhjgFNbBdhiw07s1karXvSbsTKmktK1qm0wL7EuW90VRA2/s3PbpK3Vi3V
+/GLHDlgn7e1diW/d60CpM4B1B1YRbCVbml8epCMe0oLaJKj5zdlhSJYmapgAcsjb
+glv6hVvV/0FuZ5QxyesvFFqnJlcUd0DvbYXnW7DhNj92Pt/RrYHGWHdWcUGo8sF6
+ktE5i2sKuhQjeBu7pbUh5I6Pay5S2P4/78RgvXNhvi8MmvoMjVzLAD0/wwlV+sh3
+QjOxHPWMhLdqkqeqqDZDrnLkpPXPJg==
+=G8jS
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--RTZFQNjilJYdMnzE--

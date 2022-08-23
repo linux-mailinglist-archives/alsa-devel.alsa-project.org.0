@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443FD59E5D9
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEFE259E5E3
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 17:22:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3D1416A5;
-	Tue, 23 Aug 2022 17:18:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3D1416A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FD5E16AF;
+	Tue, 23 Aug 2022 17:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FD5E16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661267970;
-	bh=Y9XsGXFju+QD/q4A5jatgW08ZVFU6STnqGdWntWgdjQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QE9o0kltCd+T4qFMsuCI9vnsTAcsOcuDdLxdnQi2KB76JJlBhe6CmpCMxd79qbQsV
-	 dfriiNGv2MMQirROf2u4CuGyShu1kupgdRyj9Lnnw6nfWf88cvExN95Y4hCeRb9+fl
-	 7cpgTfhRYZRhn4w+7SO2ElVAIkdL1Tb9leW8M7lE=
+	s=default; t=1661268155;
+	bh=d9e8tVoifQ7GaeXefRpR3cOVTXLtya7HeNbAsuHXZEM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UQ0jqiH15calxYZFFQuG2pO3JDkvqo10vW1Yn4tlmvj6DZvx0U7TXY2fcjxlrR/AO
+	 frAyiNtjpib3SoibJTaSdXx47Wugx68w3OY27X/FvENfNFik9LVpgB2Cjly6HRE/Wr
+	 RZSc7686o3wkKfp7GSpBjGV6voUWFJubd/F0B2Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB3A6F8027B;
-	Tue, 23 Aug 2022 17:18:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD783F8014E;
+	Tue, 23 Aug 2022 17:21:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC827F8020D; Tue, 23 Aug 2022 17:18:28 +0200 (CEST)
+ id 68FFAF8020D; Tue, 23 Aug 2022 17:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F3A1F8014E
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 17:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F3A1F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ufjf5RMz"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61D14F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 17:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61D14F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Ea8w/w4/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661267906; x=1692803906;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Y9XsGXFju+QD/q4A5jatgW08ZVFU6STnqGdWntWgdjQ=;
- b=Ea8w/w4/4VmWiZ435K7uIc/+pYNmYpti8JBE8NilegGs0ezxlTBC4nF+
- oFuqxe/thzm6hjjJvVhy1pwtYGzcWTJ/o2Ad75Y3YHnVpHYhP+Kn9AMYa
- wOTib0CINQDEVG3r8x/rAPVUj2oLgwBxhk5AcJOI2IS2/BAHIyJMRm6ql
- FnFtrVO4HnAB7gD2HdgRqtSSwVdGZreH/jdW0NF+eYtGExSwOZHXajwhf
- nIg3AaeyBp/8nhYa1k0YWvEWd4N0bDXot9+CZ/tT+CachDNPYJRrhdGdw
- jG3Bvic1YOHLhQco2h8TDLod1gQpoy7n9sfm+bHW1K+wCXvbHjKRZHDE1 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="357693466"
-X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="357693466"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 08:18:22 -0700
-X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="609383923"
-Received: from pnystrom-mobl1.ger.corp.intel.com (HELO [10.252.50.219])
- ([10.252.50.219])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 08:18:20 -0700
-Message-ID: <1b8dc49b-9a06-c842-5dee-1f44f771b5f0@linux.intel.com>
-Date: Tue, 23 Aug 2022 17:18:17 +0200
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2698CB81E07;
+ Tue, 23 Aug 2022 15:21:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352D5C433D6;
+ Tue, 23 Aug 2022 15:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661268083;
+ bh=d9e8tVoifQ7GaeXefRpR3cOVTXLtya7HeNbAsuHXZEM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Ufjf5RMzDjXQxSoiSj0waZ14yrHv3F1SyHQq5i6E3xBrhcUfCg2Nk8ZoA1P7evjbn
+ 8AA3yhgGjGrhhLyiwV1qMESJA/SjAkg3GAn2lmh0FY+8xfYwEpYrBnhy+WvsImQowr
+ cP2+wzU0UK0V0wChQtCtLlWwhxXcQ9IybZ+LP5NFdRqKCew/Cb2X0Mf/s1bNsaNOeA
+ qmDyDxSqXbrU6O/h25ErMzoLpSfGQJ12gqh3QvZaGVwRHLteJLyrIpqIEP90WJpJ6X
+ kEl8aQZfWCKpBnudiznNQ/h+s+uOyN38giitazXl1t7LLZDrqKKo98mrnpv/6M6yud
+ 8P0M8EOU56/5g==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Matt Flax <flatmax@flatmax.com>
+Subject: [PATCH v2] ASoC: codes: src4xxx: Avoid clang
+ -Wsometimes-uninitialized in src4xxx_hw_params()
+Date: Tue, 23 Aug 2022 08:19:40 -0700
+Message-Id: <20220823151939.2493697-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 2/4] ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20220822185911.170440-1-pierre-louis.bossart@linux.intel.com>
- <20220822185911.170440-3-pierre-louis.bossart@linux.intel.com>
- <b112f824-631d-40d4-31bd-9bd56f31930e@linux.intel.com>
- <c7bd2799-3cbf-a984-8f48-5e069b88db51@linux.intel.com>
- <6ee7b704-fb40-a5b5-f5c0-a19096f8d1d4@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <6ee7b704-fb40-a5b5-f5c0-a19096f8d1d4@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
- broonie@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,78 +86,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Clang warns:
 
->>>> +
->>>> +            fmt = (struct nhlt_fmt *)(epnt->config.caps +
->>>> epnt->config.size);
->>>> +            cfg = fmt->fmt_config;
->>>> +
->>>> +            /*
->>>> +             * In theory all formats should use the same MCLK but it
->>>> doesn't hurt to
->>>> +             * double-check that the configuration is consistent
->>>> +             */
->>>> +            for (j = 0; j < fmt->fmt_count; j++) {
->>>> +                u32 *blob;
->>>> +                int mdivc_offset;
->>>> +
->>>> +                if (cfg->config.size >= SSP_BLOB_V1_0_SIZE) {
->>>> +                    blob = (u32 *)cfg->config.caps;
->>>> +
->>>> +                    if (blob[1] == SSP_BLOB_VER_2_0)
->>>> +                        mdivc_offset = SSP_BLOB_V2_0_MDIVC_OFFSET;
->>>> +                    else if (blob[1] == SSP_BLOB_VER_1_5)
->>>> +                        mdivc_offset = SSP_BLOB_V1_5_MDIVC_OFFSET;
->>>> +                    else
->>>> +                        mdivc_offset = SSP_BLOB_V1_0_MDIVC_OFFSET;
->>>> +
->>>> +                    mclk_mask |=  blob[mdivc_offset] & GENMASK(1, 0);
-> 
-> One more thing, where does this GENMASK come from, as far as I can tell
-> HW specifies and FW uses one bit field to signal that MCLK is enabled?
-> (mdivc is simply a value written to HW register to configure it).
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:298:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+                                                                          ^
+  sound/soc/codecs/src4xxx.c:223:20: note: initialize the variable 'd' to silence this warning
+          int val, pj, jd, d;
+                            ^
+                            = 0
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'jd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:293:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+                                                                          ^~
+  sound/soc/codecs/src4xxx.c:223:17: note: initialize the variable 'jd' to silence this warning
+          int val, pj, jd, d;
+                        ^
+                          = 0
+  sound/soc/codecs/src4xxx.c:280:3: error: variable 'pj' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+                  default:
+                  ^~~~~~~
+  sound/soc/codecs/src4xxx.c:288:59: note: uninitialized use occurs here
+                  ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+                                                                          ^~
+  sound/soc/codecs/src4xxx.c:223:13: note: initialize the variable 'pj' to silence this warning
+          int val, pj, jd, d;
+                    ^
+                      = 0
+  3 errors generated.
 
-There are two MCLK signals, that's the point of this patch. We need to
-find which one is used. Platforms typically use MCLK0 except when they
-don't..
+The datasheet does not have any default values for these regmap values
+so pick some arbitrary values and print to the user that this is the
+case to silence the warnings.
 
-BIT(0) set in mdivc enables MCLK0
-BIT(1) set in mdivc enabled MCLK1
+Link: https://github.com/ClangBuiltLinux/linux/issues/1691
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+Suggested-by: Matt Flax <flatmax@flatmax.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
 
-see
-https://github.com/thesofproject/sof/blob/44a5200c87625588f0028aa08d560e68f2b8dc82/src/drivers/intel/ssp/mn.c#L150
+v1 -> v2: https://lore.kernel.org/20220822183101.1115095-1-nathan@kernel.org/
 
->>>> +                }
->>>> +
->>>> +                cfg = (struct nhlt_fmt_cfg *)(cfg->config.caps +
->>>> cfg->config.size);
->>>> +            }
->>>> +        }
->>>> +        epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
->>>> +    }
->>>> +
->>>> +    return mclk_mask;
->>>
->>> Although I understand that it is relegated to the caller, but if both
->>> mclk being set is considered an error maybe add some kind of check here
->>> instead and free callers from having to remember about it?
->>>
->>> if (hweight_long(mclk_mask) != 1)
->>>      return -EINVAL;
->>>
->>> return mclk_mask;
->>
->> I went back and forth multiple times on this one. I can't figure out if
->> this would be a bug or a feature, it could be e.g. a test capability and
->> it's supported in hardware. I decided to make the decision in the caller
->> rather than a lower level in the library.
->>
->> If the tools used to generate NHLT don't support this multi-MCLK mode
->> then we could indeed move the test here.
->>
-> 
-> Considering comment I added above I've asked Czarek to also check this
-> series. I'm not sure it even makes sense to name the field "_mask" when
-> it is one bit...
+* Don't return early, just initialize the values to some arbitrary
+  numbers and try to hobble along, as other parts of the chip may be
+  functional.
 
-it's two bits, see above.
+* Add message and comment to describe this situation.
+
+ sound/soc/codecs/src4xxx.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/src4xxx.c b/sound/soc/codecs/src4xxx.c
+index a8f143057b41..db4e280dd055 100644
+--- a/sound/soc/codecs/src4xxx.c
++++ b/sound/soc/codecs/src4xxx.c
+@@ -280,9 +280,14 @@ static int src4xxx_hw_params(struct snd_pcm_substream *substream,
+ 		default:
+ 			/* don't error out here,
+ 			 * other parts of the chip are still functional
++			 * Dummy initialize variables to avoid
++			 * -Wsometimes-uninitialized from clang.
+ 			 */
+ 			dev_info(component->dev,
+-				"Couldn't set the RCV PLL as this master clock rate is unknown\n");
++				"Couldn't set the RCV PLL as this master clock rate is unknown. Chosen regmap values may not match real world values.\n");
++			pj = 0x0;
++			jd = 0xff;
++			d = 0xff;
+ 			break;
+ 		}
+ 		ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+
+base-commit: 94f072748337424c9cf92cd018532a34db3a5516
+-- 
+2.37.2
+

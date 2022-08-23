@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07FD459D6B6
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 11:44:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 145E059D526
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 11:09:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D547E886;
-	Tue, 23 Aug 2022 11:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D547E886
+	by alsa0.perex.cz (Postfix) with ESMTPS id A52AA85D;
+	Tue, 23 Aug 2022 11:08:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A52AA85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661247875;
-	bh=mZ3j0hiG2kLjvzEe3fy5jv5APIKg8y9HL3DhAHR11Js=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MBcIJDKhQtau33tA90GtlcBCF/9yO+wcNSm2vW55Fs3pz+Y3BWuxTZd1HGL/P4Ku7
-	 K/or6VSq/CpmnkTH+P/OTI291elh8/v/g+1z6p5F/LVAq1i/d7w+3IwD4UrcbQCCAp
-	 Y9IMpGOBq1mP9pzwh7/gtMLNfGsFCuAfPYrnqdUI=
+	s=default; t=1661245745;
+	bh=X8HDEmvjWU0UT0Oh1NHf8n46Tz8lL6lINST9g3AzZb0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MrkuoaUmXQM9gZj5tyP3spGDx1bSJMtTLWu/gahfvtUm6lBoiiwCnDCdUsMCt0ocE
+	 wyI9NFLxdDU3RIrygxKAwaTUQZVqso4keGDEYi5BGLOoN2vK0cNLYs8oJkj0SCN4Qy
+	 mfx1P5TtAiS4IUKT44dntlHO3vQFwlcWFu1Dndsc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3590F804E7;
-	Tue, 23 Aug 2022 11:43:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03460F8027B;
+	Tue, 23 Aug 2022 11:08:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8896BF804E7; Tue, 23 Aug 2022 11:43:05 +0200 (CEST)
+ id 51C98F800A7; Tue, 23 Aug 2022 11:08:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB454F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 11:43:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB454F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E4A8F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 11:07:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E4A8F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="klpxUFjK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661247781; x=1692783781;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=mZ3j0hiG2kLjvzEe3fy5jv5APIKg8y9HL3DhAHR11Js=;
- b=klpxUFjKtm2jiRjdDTYjKkVmbfudZjHff7sO3af21r1OeNK6NhwZlanA
- eoLLefNKBb3beNSRjH6odUekMAGOgqzzsUgqnp4qOq8ElKPmLAIeDLMXa
- icJBu4s9SXG7g5GJkGTqs23ZVTikH4vYHd45pLad81Xq6t7ST0BwRSPcq
- 2/K0/i30CpygOkWDddEvZ2qLGA8UUZn+2klCtErUJU1q/VIA8mHcrRdHc
- zD+HMvJoGjens/eOee4TNaY42ETuQrPwp1OQ8UiArIRnd3EoIIUtBdKX8
- Yv31hEdRrggpjnliqZeMFMMeAdGd9hDDIhhMK3DpO62JEqTKl38M8Q3z8 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="294431367"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="294431367"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 02:42:45 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="609284399"
-Received: from pnystrom-mobl1.ger.corp.intel.com (HELO [10.252.50.219])
- ([10.252.50.219])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 02:42:43 -0700
-Message-ID: <c7bd2799-3cbf-a984-8f48-5e069b88db51@linux.intel.com>
-Date: Tue, 23 Aug 2022 10:52:25 +0200
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="k/WdqnOv"
+X-UUID: 05552f00082f49c28d1445acb84052e5-20220823
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=hx+ayzKx09KZ0Gg9uXQuy1F49PSrnmcH29QIBYWqewE=; 
+ b=k/WdqnOvVf+HxVhnS3jo31NrT6BKCYBB86PU7lyB/aHKQEo+u6iOzmRUFrm75fz4a45kv3ev771kORtRSg5ONhrebwjE4vXI1+aS7F9fwXxldQUkRn8kkD1OfzIk9ehpcTW06/aCPB4Bp3Den7Wpp+1LXxbFBxf1d8E5SihHang=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.10, REQID:7d70408b-0c61-4808-a431-1cb563830e52, OB:0,
+ L
+ OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_
+ Ham,ACTION:release,TS:0
+X-CID-META: VersionHash:84eae18, CLOUDID:92bd86c9-6b09-4f60-bf82-12f039f5d530,
+ C
+ OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
+ nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 05552f00082f49c28d1445acb84052e5-20220823
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw01.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 635539160; Tue, 23 Aug 2022 17:07:41 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 23 Aug 2022 17:07:40 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 23 Aug 2022 17:07:37 +0800
+From: Chunxu Li <chunxu.li@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <nfraprado@collabora.com>,
+ <angelogioacchino.delregno@collabora.com>
+Subject: [PATCH] ASoC: mediatek: mt8186: rename sound card name
+Date: Tue, 23 Aug 2022 17:07:35 +0800
+Message-ID: <20220823090735.12176-1-chunxu.li@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 2/4] ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20220822185911.170440-1-pierre-louis.bossart@linux.intel.com>
- <20220822185911.170440-3-pierre-louis.bossart@linux.intel.com>
- <b112f824-631d-40d4-31bd-9bd56f31930e@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <b112f824-631d-40d4-31bd-9bd56f31930e@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
- broonie@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, "chunxu.li" <chunxu.li@mediatek.com>,
+ linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,102 +96,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Amadeusz,
+From: "chunxu.li" <chunxu.li@mediatek.com>
 
->> +int intel_nhlt_ssp_mclk_mask(struct nhlt_acpi_table *nhlt, int ssp_num)
->> +{
->> +    struct nhlt_endpoint *epnt;
->> +    struct nhlt_fmt *fmt;
->> +    struct nhlt_fmt_cfg *cfg;
->> +    int mclk_mask = 0;
->> +    int i, j;
->> +
->> +    if (!nhlt)
->> +        return 0;
->> +
->> +    epnt = (struct nhlt_endpoint *)nhlt->desc;
->> +    for (i = 0; i < nhlt->endpoint_count; i++) {
->> +
->> +        /* we only care about endpoints connected to an audio codec
->> over SSP */
->> +        if (epnt->linktype == NHLT_LINK_SSP &&
->> +            epnt->device_type == NHLT_DEVICE_I2S &&
->> +            epnt->virtual_bus_id == ssp_num) {
-> 
-> if (epnt->linktype != NHLT_LINK_SSP ||
->     epnt->device_type != NHLT_DEVICE_I2S ||
->     epnt->virtual_bus_id != ssp_num)
->     continue;
-> 
-> and then you can remove one indentation level below?
+The field 'topology_shortname' in 'snd_soc_card' is defined as char[32],
+Current card name will be truncated when SOF is enabled, so rename the
+sound card name.
 
+Signed-off-by: chunxu.li <chunxu.li@mediatek.com>
+---
+ sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c | 2 +-
+ sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Would that work? We still need to move the epnt pointer:
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+index 84ee5d95a9f0..17a15bec41da 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+@@ -962,7 +962,7 @@ mt8186_mt6366_da7219_max98357_controls[] = {
+ };
+ 
+ static struct snd_soc_card mt8186_mt6366_da7219_max98357_soc_card = {
+-	.name = "mt8186_mt6366_da7219_max98357",
++	.name = "mt8186_da7219_max98357",
+ 	.owner = THIS_MODULE,
+ 	.dai_link = mt8186_mt6366_da7219_max98357_dai_links,
+ 	.num_links = ARRAY_SIZE(mt8186_mt6366_da7219_max98357_dai_links),
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+index 6c41706a5621..393d179d61de 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+@@ -938,7 +938,7 @@ mt8186_mt6366_rt1019_rt5682s_controls[] = {
+ };
+ 
+ static struct snd_soc_card mt8186_mt6366_rt1019_rt5682s_soc_card = {
+-	.name = "mt8186_mt6366_rt1019_rt5682s",
++	.name = "mt8186_rt1019_rt5682s",
+ 	.owner = THIS_MODULE,
+ 	.dai_link = mt8186_mt6366_rt1019_rt5682s_dai_links,
+ 	.num_links = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_dai_links),
+-- 
+2.25.1
 
-epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
-
-and moving this in the endpoint_count loop would be ugly as well.
-
-
->> +
->> +            fmt = (struct nhlt_fmt *)(epnt->config.caps +
->> epnt->config.size);
->> +            cfg = fmt->fmt_config;
->> +
->> +            /*
->> +             * In theory all formats should use the same MCLK but it
->> doesn't hurt to
->> +             * double-check that the configuration is consistent
->> +             */
->> +            for (j = 0; j < fmt->fmt_count; j++) {
->> +                u32 *blob;
->> +                int mdivc_offset;
->> +
->> +                if (cfg->config.size >= SSP_BLOB_V1_0_SIZE) {
->> +                    blob = (u32 *)cfg->config.caps;
->> +
->> +                    if (blob[1] == SSP_BLOB_VER_2_0)
->> +                        mdivc_offset = SSP_BLOB_V2_0_MDIVC_OFFSET;
->> +                    else if (blob[1] == SSP_BLOB_VER_1_5)
->> +                        mdivc_offset = SSP_BLOB_V1_5_MDIVC_OFFSET;
->> +                    else
->> +                        mdivc_offset = SSP_BLOB_V1_0_MDIVC_OFFSET;
->> +
->> +                    mclk_mask |=  blob[mdivc_offset] & GENMASK(1, 0);
->> +                }
->> +
->> +                cfg = (struct nhlt_fmt_cfg *)(cfg->config.caps +
->> cfg->config.size);
->> +            }
->> +        }
->> +        epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
->> +    }
->> +
->> +    return mclk_mask;
-> 
-> Although I understand that it is relegated to the caller, but if both
-> mclk being set is considered an error maybe add some kind of check here
-> instead and free callers from having to remember about it?
-> 
-> if (hweight_long(mclk_mask) != 1)
->     return -EINVAL;
-> 
-> return mclk_mask;
-
-I went back and forth multiple times on this one. I can't figure out if
-this would be a bug or a feature, it could be e.g. a test capability and
-it's supported in hardware. I decided to make the decision in the caller
-rather than a lower level in the library.
-
-If the tools used to generate NHLT don't support this multi-MCLK mode
-then we could indeed move the test here.
-
-> 
->> +}
->> +EXPORT_SYMBOL(intel_nhlt_ssp_mclk_mask);
->> +
->>   static struct nhlt_specific_cfg *
->>   nhlt_get_specific_cfg(struct device *dev, struct nhlt_fmt *fmt, u8
->> num_ch,
->>                 u32 rate, u8 vbps, u8 bps)
-> 

@@ -2,89 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E86859ECE8
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 21:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D90A59EE42
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 23:33:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1AB786E;
-	Tue, 23 Aug 2022 21:52:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1AB786E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F281185D;
+	Tue, 23 Aug 2022 23:32:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F281185D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661284394;
-	bh=BqMgt3InfDXcCa8tdgJBdYUE7HoildIkpPvdNoLPefo=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RxJzQyNyslReUGjiQ0sGnsJGG6XAXTKZPUVdh7OKCYTHj3FpnZlQpYZlydt7z0GIZ
-	 V0QqA9i1/RziaEw1yUo3oTr/AGMntc1kX7izh8wKFkwrCicsdv1/Px/GCyaCJZJncr
-	 5RxndH4bbH7E+3M63Co8IxLNkWOlYxaUtPHmTLcE=
+	s=default; t=1661290416;
+	bh=qB/lDSmvBNBhr5wr2rmKa+lmYAT/T6yiMsEsVTrl5NQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fKXSZvLycmmlOXxyjLx5YkLxYPSuLUwtVw3DUPwNL59utCGy+Zg7657BqPu0Cryym
+	 rJbxQQm4ljbtRVS95HWABMFEAwIXjthptArtCIzqTuIZD8PUPavov6wDDcrT9L98om
+	 lq2KlE2KBhRo4ZQEgjoTovdbNBoslYRKh0pPYaSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67EE4F8014E;
-	Tue, 23 Aug 2022 21:52:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A892F8027B;
+	Tue, 23 Aug 2022 23:32:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77F6BF8020D; Tue, 23 Aug 2022 21:52:12 +0200 (CEST)
+ id 89FEFF800A7; Tue, 23 Aug 2022 23:32:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
- [IPv6:2607:f8b0:4864:20::e35])
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42BB1F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 21:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42BB1F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E911F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 23:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E911F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WIPeZM9C"
-Received: by mail-vs1-xe35.google.com with SMTP id p6so15137831vsr.9
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 12:52:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc; bh=Z8bLHSnfZm9JzvfyfFzFFlipQ5tNIVzzJYTjVAylFsw=;
- b=WIPeZM9C9okS3CiDumAtk/8PhRfyxnvt8ov1bZXIyOuQJM7psNnkrBNpd6lkCznT+d
- VK/B0g3n7ZASEQ10eOBDpFDSodAHC11SXTEkzQughTYjd6D7A3YLheyWCb93vxrHjaNQ
- SX3+8q5aO/KziUpX+5pB1yu/oYN3n2aI/qEteDLR53YrYRza0C/0LAALsLGp3uWgdOA/
- iCJr43e9eYyvjwGiiNgrcW5V1l4OHcTqR21cvKJLrkhETo/z8Mg1JnKQPd7ZUVyyoOv/
- aGpNrSRReB3zCSLtZihVbs8rO0xiEMDGvAj3+cNgGQVU5kpxPdDfvEa8QKZ6/eN0MN8a
- iREg==
+ dkim=pass (2048-bit key) header.d=flatmax-com.20210112.gappssmtp.com
+ header.i=@flatmax-com.20210112.gappssmtp.com header.b="JJpoekHI"
+Received: by mail-pl1-x631.google.com with SMTP id io24so669460plb.1
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 14:32:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=flatmax-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=9Tyv/HjGt+kTjHUdJpqzUz7hlqhqn6nz07i1wBSdcbE=;
+ b=JJpoekHIwEOPtlFjvUifgeyZ4xG06w29FzXSUvKRjB4FUkO7GrtmJZQFl3D/OQKJiD
+ eM8aqGg+O7ONgMqFzDMWoPgMsMA26qqrI8PKcABs+EXPRkdMVA9n2oqlKGjU7qRRgXGO
+ YEhnhWEPA8IoVaiiQ9rJjdDMARUcfZWX1P6c5OAeF9Mpt74wEkftvT9AwsP+yPw0oQ2k
+ 2vBigX/9W+ZVwjkfLTYFYuFm8+T74lB5A64oObWHz4ZSKvb7fRezV93OonDPOtVdBBQd
+ 0eWL6sN10RkE5UyK2hQMDB2aLSo3c1jMqVzqEct+zpzfrswUhYiksW3nXHbJFjL576JC
+ KxTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=Z8bLHSnfZm9JzvfyfFzFFlipQ5tNIVzzJYTjVAylFsw=;
- b=Ss2zqf3mWpf8e9NlgbriQWSt7bW/NdI+0B9ScGBanmFrNiHlcgTR4zRAOL/+DgNaQI
- Fx4CUCXCOjnOCIxsjCu98i3m681IDbUhGzthTOcydxpphbFLtYK8988wQLhF7sPYqvEC
- yuzPNI0shKph7gscD9N5mF4k6VlkiWOdt+AH5Yp9eL/bM5pjQiOGIkcQyW+N4fEsT++K
- bmDnKNlMtARt96o5GF3WWAYilPKkuyTBtBcgH7EiW6fXEDBqmDJbRBTFo17y2g492v7f
- 2SO7MvR/tYCKAiPR5Q4wd0NscrjfmQUdkqg4ddsYRwFFagztbj/M4iVWw5VDN0xngSeZ
- bYrw==
-X-Gm-Message-State: ACgBeo3ezMpqW/IVufrOiS4XkF9dcvBSL26acaDl+HZ+NlzgVzQH0rLV
- +X4FcS2mwuEyCElWLEXUbW0=
-X-Google-Smtp-Source: AA6agR4+0jpxzSAjufkwF8VAhfClNp0hKtN5QZ0GL0hdBn8Mh6nKsbIPMacPfiefrj3AukvmPBWDuw==
-X-Received: by 2002:a67:fd55:0:b0:390:66fd:d7d7 with SMTP id
- g21-20020a67fd55000000b0039066fdd7d7mr3924825vsr.53.1661284326313; 
- Tue, 23 Aug 2022 12:52:06 -0700 (PDT)
-Received: from geday ([2804:7f2:8006:f71:a581:5947:7302:d05f])
+ bh=9Tyv/HjGt+kTjHUdJpqzUz7hlqhqn6nz07i1wBSdcbE=;
+ b=hcBqwB58QGRJFMgSJf4eEJ/JQY44g+8EdS3PZ7hnC8YazH98KJ2FC8cwdTXBnoDI33
+ kKTe4DCqlRGCNJ3Fmy4WfCi1iamIxviBNunxX/QBHtDEVHZFqhRYZXLaIpZEtt38KvWh
+ icVdLEoh0gDRNTLaAyb/kWza00UA0U4TuJQPYQlyJNSFM9h8Zzbth/whMqAGHsfcpRpN
+ XVUAamquFlfZu7/L+fkPE1dj7kwN3MkBc4ljKQ/lYTsrTIX3oU42mUIxuya2SfbNtpZx
+ PJ08Zyu3kmi322lFXG3EdUs9vo99indwNtF/VInOK53Maz9DD7+jsp1pqkPzTiIbklwg
+ TNyA==
+X-Gm-Message-State: ACgBeo2rtWtd9VfUU8EudAiDLaIOgbXqD0UZU4fh9e5VGAj6jK7WxPP/
+ nQ5wHx79WEphEnnsYZ51FXfH3A==
+X-Google-Smtp-Source: AA6agR7aPxzoh7iUSiuk4HHIHeu/lkhIEPudRf53d8nKUbpXo0mZZmRJu+VQtJVnVAPQNEFyYH+yEQ==
+X-Received: by 2002:a17:90a:6001:b0:1fa:e851:3480 with SMTP id
+ y1-20020a17090a600100b001fae8513480mr5098001pji.153.1661290345218; 
+ Tue, 23 Aug 2022 14:32:25 -0700 (PDT)
+Received: from ?IPV6:2406:3400:213:70c0:5c76:4280:5b6b:9ce0?
+ ([2406:3400:213:70c0:5c76:4280:5b6b:9ce0])
  by smtp.gmail.com with ESMTPSA id
- z3-20020a056102066300b0038abb8f3164sm10988801vsf.10.2022.08.23.12.52.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Aug 2022 12:52:05 -0700 (PDT)
-Date: Tue, 23 Aug 2022 16:52:10 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if hardware
- supports it
-Message-ID: <YwUv6qMUlb9WZBm7@geday>
+ i62-20020a626d41000000b0052d27ccea39sm11712035pfc.19.2022.08.23.14.32.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Aug 2022 14:32:24 -0700 (PDT)
+Message-ID: <38754fa6-5d1f-ed9b-9c31-7a443c968cad@flatmax.com>
+Date: Wed, 24 Aug 2022 07:32:18 +1000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>, Takashi Iwai <tiwai@suse.de>,
- ALSA-devel <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] ASoC: codes: src4xxx: Avoid clang
+ -Wsometimes-uninitialized in src4xxx_hw_params()
+Content-Language: en-AU
+To: Nathan Chancellor <nathan@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20220823151939.2493697-1-nathan@kernel.org>
+From: Matt Flax <flatmax@flatmax.com>
+In-Reply-To: <20220823151939.2493697-1-nathan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,80 +113,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Starting with version 2.10a of Synopsys DesignWare HDMI controller the
-insert_pcuv bit was introduced. On RK3399pro SoM (Radxa Rock Pi N10)
-for example if we neglect to set this bit and proceed to enable hdmi_sound
-and i2s2 on the device tree there will be extreme clipping of sound
-output, to the point that music sounds like white noise. Problem
-could also manifest as just mild cracking depending of HDMI audio
-implementation of sink. Setting insert_pcuv bit (bit 2 of
-aud_conf2 Audio Sample register) fixes this.
+This patch looks good.
 
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-
----
-
-v1->v2: SoC->SoM on description, better commenting, minor style changes,
-	conditional application of fix for L-PCM only
-
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-@@ -42,6 +42,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 	struct dw_hdmi *hdmi = audio->hdmi;
- 	u8 conf0 = 0;
- 	u8 conf1 = 0;
-+	u8 conf2 = 0;
- 	u8 inputclkfs = 0;
- 
- 	/* it cares I2S only */
-@@ -101,6 +102,16 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * dw-hdmi introduced insert_pcuv bit in
-+	 * version 2.10a.
-+	 *
-+	 * This single bit (bit 2 of HDMI_AUD_CONF2)
-+	 * when set to 1 will enable the insertion of the PCUV
-+	 * (Parity, Channel Status, User bit and Validity)
-+	 * bits on the incoming audio stream.
-+	 * 
-+	 * Support is limited to Linear PCM audio. If
-+	 * neglected, the lack of valid PCUV bits
-+	 * on L-PCM streams will cause anything from
-+	 * mild cracking to full blown extreme
-+	 * clipping depending of HDMI audio
-+	 * implementation of the sink.
-+	 *
-+	 */
-+
-+	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21 &&
-+			!(hparms->iec.status[0] & IEC958_AES0_NONAUDIO))
-+		conf2 = HDMI_AUD_CONF2_INSERT_PCUV;
-+
- 	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
- 	dw_hdmi_set_channel_status(hdmi, hparms->iec.status);
- 	dw_hdmi_set_channel_count(hdmi, hparms->channels);
-@@ -109,6 +120,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
- 	hdmi_write(audio, inputclkfs, HDMI_AUD_INPUTCLKFS);
- 	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
- 	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
-+	hdmi_write(audio, conf2, HDMI_AUD_CONF2);
- 
- 	return 0;
- }
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
-@@ -931,6 +931,11 @@ enum {
- 	HDMI_AUD_CONF1_WIDTH_16 = 0x10,
- 	HDMI_AUD_CONF1_WIDTH_24 = 0x18,
- 
-+/* AUD_CONF2 field values */
-+	HDMI_AUD_CONF2_HBR = 0x01,
-+	HDMI_AUD_CONF2_NLPCM = 0x02,
-+	HDMI_AUD_CONF2_INSERT_PCUV = 0x04,
-+
- /* AUD_CTS3 field values */
- 	HDMI_AUD_CTS3_N_SHIFT_OFFSET = 5,
- 	HDMI_AUD_CTS3_N_SHIFT_MASK = 0xe0,
+On 24/8/22 01:19, Nathan Chancellor wrote:
+> Clang warns:
+>
+>    sound/soc/codecs/src4xxx.c:280:3: error: variable 'd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+>                    default:
+>                    ^~~~~~~
+>    sound/soc/codecs/src4xxx.c:298:59: note: uninitialized use occurs here
+>                    ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_11, d);
+>                                                                            ^
+>    sound/soc/codecs/src4xxx.c:223:20: note: initialize the variable 'd' to silence this warning
+>            int val, pj, jd, d;
+>                              ^
+>                              = 0
+>    sound/soc/codecs/src4xxx.c:280:3: error: variable 'jd' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+>                    default:
+>                    ^~~~~~~
+>    sound/soc/codecs/src4xxx.c:293:59: note: uninitialized use occurs here
+>                    ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_10, jd);
+>                                                                            ^~
+>    sound/soc/codecs/src4xxx.c:223:17: note: initialize the variable 'jd' to silence this warning
+>            int val, pj, jd, d;
+>                          ^
+>                            = 0
+>    sound/soc/codecs/src4xxx.c:280:3: error: variable 'pj' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+>                    default:
+>                    ^~~~~~~
+>    sound/soc/codecs/src4xxx.c:288:59: note: uninitialized use occurs here
+>                    ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+>                                                                            ^~
+>    sound/soc/codecs/src4xxx.c:223:13: note: initialize the variable 'pj' to silence this warning
+>            int val, pj, jd, d;
+>                      ^
+>                        = 0
+>    3 errors generated.
+>
+> The datasheet does not have any default values for these regmap values
+> so pick some arbitrary values and print to the user that this is the
+> case to silence the warnings.
+>
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1691
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+> Suggested-by: Matt Flax <flatmax@flatmax.com>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>
+> v1 -> v2: https://lore.kernel.org/20220822183101.1115095-1-nathan@kernel.org/
+>
+> * Don't return early, just initialize the values to some arbitrary
+>    numbers and try to hobble along, as other parts of the chip may be
+>    functional.
+>
+> * Add message and comment to describe this situation.
+>
+>   sound/soc/codecs/src4xxx.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/src4xxx.c b/sound/soc/codecs/src4xxx.c
+> index a8f143057b41..db4e280dd055 100644
+> --- a/sound/soc/codecs/src4xxx.c
+> +++ b/sound/soc/codecs/src4xxx.c
+> @@ -280,9 +280,14 @@ static int src4xxx_hw_params(struct snd_pcm_substream *substream,
+>   		default:
+>   			/* don't error out here,
+>   			 * other parts of the chip are still functional
+> +			 * Dummy initialize variables to avoid
+> +			 * -Wsometimes-uninitialized from clang.
+>   			 */
+>   			dev_info(component->dev,
+> -				"Couldn't set the RCV PLL as this master clock rate is unknown\n");
+> +				"Couldn't set the RCV PLL as this master clock rate is unknown. Chosen regmap values may not match real world values.\n");
+> +			pj = 0x0;
+> +			jd = 0xff;
+> +			d = 0xff;
+>   			break;
+>   		}
+>   		ret = regmap_write(src4xxx->regmap, SRC4XXX_RCV_PLL_0F, pj);
+>
+> base-commit: 94f072748337424c9cf92cd018532a34db3a5516

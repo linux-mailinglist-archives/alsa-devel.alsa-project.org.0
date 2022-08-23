@@ -2,92 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF5859D196
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 08:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2630459D217
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 09:28:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4DF1673;
-	Tue, 23 Aug 2022 08:57:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4DF1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC1AF1654;
+	Tue, 23 Aug 2022 09:28:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC1AF1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661237878;
-	bh=58RKEMO+BmxSnD0v+2YaxmIj4P6pdyZv33JyxIVAZko=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OhMVLLft95vwsK8x+jCEn3WLX5MsnMmAVmau6tZdvCnZAFCJWqUKN5QoDmPNSOmls
-	 9RZ1KAn7D1Apm8m/MfFCtFT/fAe1NRVlG4AsiIc/YLk+ynGRqlE5+y0tVaVFDGyqhd
-	 qOAAOZI2Ehl8MjfjKsBs64hh+VXwz883CsMBpAKs=
+	s=default; t=1661239738;
+	bh=+S1F+W8LpGSGfb/dGv+qNixD5KDYZaekjmHNYR4HEac=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YGKj9XI0xewkVHH4IzVEtk99/750iS8rzliAT0al5Ei39aHeVf8+hMUSaa2ZJQxyw
+	 OnP1FPlrZ5nYRRhRbxeBY+FuLMqbmkitTEOUaptn3pYdMPLxFSXUy1DDz2q9cjE9+n
+	 xGVTMKGihEVLrn6+fmnv/w+ObZlsRB5oTqv2RgQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0E19F8027B;
-	Tue, 23 Aug 2022 08:56:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31D06F804E7;
+	Tue, 23 Aug 2022 09:27:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0A4AF8020D; Tue, 23 Aug 2022 08:56:56 +0200 (CEST)
+ id 3181EF8020D; Tue, 23 Aug 2022 09:27:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BA88F8014E
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 08:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BA88F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26430F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 09:27:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26430F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HVnFhtgb"; 
+ header.b="e/F2nVTc"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3j6EZP9Y"
+ header.b="k4R5sjUE"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 042685CE2D;
- Tue, 23 Aug 2022 06:56:48 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 555AF20EAE;
+ Tue, 23 Aug 2022 07:27:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661237808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bqkli4Nux3Wx4xftN5dxoQZEudBfZIfcBHpRPGkS+eE=;
- b=HVnFhtgbh+OBrVESa1QTLta+HpbHaA4bwNIweMBf2oBjOmhcyvVHGr3x4QRTkwqXohHHy4
- WuGj6psBLkdyaDGIlQQWcI2f89A72/4CauVt/IcSNopSPTsRbSI3tdyawd3w9GLG40xmVl
- wuC072auKGbpL/aJMCxCa83NMM3uTu8=
+ t=1661239639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=u+Vc+16iGhYLLsyieitjMYPGvpybqeJY2ZKKhBjouVw=;
+ b=e/F2nVTcJQIAgxSBCPkoe+KleufrgC50Qd8LfQZ/bl9ROCr0pbIHHx+22GEk8eWI52G12z
+ oAaXMOD+OImtCbspeP1+lDazS66E3t5fBR9QqMsJYafBQqHdFdD8XHHKS5mJIefwOJtfsb
+ 1rebfiog8XhgIe5N8wQBQ0nzGNEmsN0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661237808;
+ s=susede2_ed25519; t=1661239639;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bqkli4Nux3Wx4xftN5dxoQZEudBfZIfcBHpRPGkS+eE=;
- b=3j6EZP9YV5g0LQ0ldOo1SYUDI7cz7fSD7LvlyxVVy8YVe86xm3N2lzKYUvZBO9Iae9UW7V
- 9iDBBYf0kHyxf6Cw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=u+Vc+16iGhYLLsyieitjMYPGvpybqeJY2ZKKhBjouVw=;
+ b=k4R5sjUEYdkeM3E4STCris9Xr3D0k/0qcMXoNw7FqEmYhLtqgGpUHHkq9xa2GBBjPUPQY3
+ JKZEAWIa2eQqnuCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CEBC513A89;
- Tue, 23 Aug 2022 06:56:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 29CBA13AB7;
+ Tue, 23 Aug 2022 07:27:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dJiKMS96BGMIMQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 06:56:47 +0000
-Date: Tue, 23 Aug 2022 08:56:47 +0200
-Message-ID: <87a67vsb0w.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id fO80CVeBBGOUPAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 07:27:19 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Gabriel Ryan <gabe@cs.columbia.edu>
-Subject: Re: data-race in snd_seq_oss_midi_check_exit_port /
- snd_seq_oss_midi_setup
-In-Reply-To: <CALbthteSTTb5ok-xhcrkfmbtu+kgnWCX0SMBKJ-yNLzPNWGEvA@mail.gmail.com>
-References: <CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com>
- <87fshs7kaa.wl-tiwai@suse.de>
- <CALbthteSTTb5ok-xhcrkfmbtu+kgnWCX0SMBKJ-yNLzPNWGEvA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: abhishek.shah@columbia.edu, alsa-devel@alsa-project.org, tiwai@suse.com,
- linux-kernel@vger.kernel.org
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 1/2] ALSA: seq: oss: Fix data-race for max_midi_devs access
+Date: Tue, 23 Aug 2022 09:27:16 +0200
+Message-Id: <20220823072717.1706-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Abhishek Shah <abhishek.shah@columbia.edu>,
+ Gabriel Ryan <gabe@cs.columbia.edu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,130 +95,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Aug 2022 22:00:42 +0200,
-Gabriel Ryan wrote:
-> 
-> Hi Takashi,
-> 
-> Makes sense, we'll note this race as benign for our future reference.
-> 
-> Thanks for taking the time to look at this!
+ALSA OSS sequencer refers to a global variable max_midi_devs at
+creating a new port, storing it to its own field.  Meanwhile this
+variable may be changed by other sequencer events at
+snd_seq_oss_midi_check_exit_port() in parallel, which may cause a data
+race.
 
-Although it's more or less harmless, the data-race should be still
-addressed.  I'm going to submit the fixes for both issues you've
-reported.
+OTOH, this data race itself is almost harmless, as the access to the
+MIDI device is done via get_mdev() and it's protected with a refcount,
+hence its presence is guaranteed.
 
+Though, it's sill better to address the data-race from the code sanity
+POV, and this patch adds the proper spinlock for the protection.
 
-thanks,
+Reported-by: Abhishek Shah <abhishek.shah@columbia.edu>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/CAEHB2493pZRXs863w58QWnUTtv3HHfg85aYhLn5HJHCwxqtHQg@mail.gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/oss/seq_oss_midi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Takashi
+diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
+index 1e3bf086f867..07efb38f58ac 100644
+--- a/sound/core/seq/oss/seq_oss_midi.c
++++ b/sound/core/seq/oss/seq_oss_midi.c
+@@ -270,7 +270,9 @@ snd_seq_oss_midi_clear_all(void)
+ void
+ snd_seq_oss_midi_setup(struct seq_oss_devinfo *dp)
+ {
++	spin_lock_irq(&register_lock);
+ 	dp->max_mididev = max_midi_devs;
++	spin_unlock_irq(&register_lock);
+ }
+ 
+ /*
+-- 
+2.35.3
 
-> 
-> Best,
-> 
-> Gabe
-> 
-> On Fri, Aug 19, 2022 at 3:41 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Fri, 19 Aug 2022 03:00:00 +0200,
-> > Abhishek Shah wrote:
-> > >
-> > >
-> > > Hi all,
-> > >
-> > > We found a race involving the max_midi_devs variable. We see an interleaving
-> > > where the following check here passes before the
-> > > snd_seq_oss_midi_check_exit_port() finishes, but this check should not pass
-> > > if max_midi_devs will become zero, but we are not sure of its implications in
-> > > terms of security impact. Please let us know what you think.
-> >
-> > Through a quick glance, I guess it's rather harmless (although a bit
-> > fragile from the code sanity POV).
-> >
-> > A MIDI port could be closed at any time, and the dp->max_mididevs
-> > holds locally the upper bound of currently possibly accessible ports.
-> > The actual access to each port is done via get_mdev() in
-> > seq_oss_midi.c, which is a sort of refcount managed, and it should be
-> > fine that a port disappears meanwhile.
-> >
-> > That said, it'd be even feasible just dropping dp->max_mididevs field
-> > and scan all MIDI ports at each time, but it won't bring much benefit,
-> > either.
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> >
-> > >
-> > > Thanks!
-> > >
-> > > -------------------Report---------------------
-> > >
-> > > write to 0xffffffff88382f80 of 4 bytes by task 6541 on cpu 0:
-> > >  snd_seq_oss_midi_check_exit_port+0x1a6/0x270 sound/core/seq/oss/
-> > > seq_oss_midi.c:237
-> > >  receive_announce+0x193/0x1b0 sound/core/seq/oss/seq_oss_init.c:143
-> > >  snd_seq_deliver_single_event+0x30d/0x4e0 sound/core/seq/seq_clientmgr.c:640
-> > >  deliver_to_subscribers sound/core/seq/seq_clientmgr.c:695 [inline]
-> > >  snd_seq_deliver_event+0x38c/0x490 sound/core/seq/seq_clientmgr.c:830
-> > >  snd_seq_kernel_client_dispatch+0x189/0x1a0 sound/core/seq/
-> > > seq_clientmgr.c:2339
-> > >  snd_seq_system_broadcast+0x98/0xd0 sound/core/seq/seq_system.c:86
-> > >  snd_seq_ioctl_delete_port+0x9a/0xc0 sound/core/seq/seq_clientmgr.c:1356
-> > >  snd_seq_ioctl+0x198/0x2d0 sound/core/seq/seq_clientmgr.c:2173
-> > >  vfs_ioctl fs/ioctl.c:51 [inline]
-> > >  __do_sys_ioctl fs/ioctl.c:870 [inline]
-> > >  __se_sys_ioctl+0xe1/0x150 fs/ioctl.c:856
-> > >  __x64_sys_ioctl+0x43/0x50 fs/ioctl.c:856
-> > >  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
-> > >  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
-> > >  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> > >
-> > > read to 0xffffffff88382f80 of 4 bytes by task 6542 on cpu 1:
-> > >  snd_seq_oss_midi_setup+0x1b/0x40 sound/core/seq/oss/seq_oss_midi.c:273
-> > >  snd_seq_oss_open+0x364/0x900 sound/core/seq/oss/seq_oss_init.c:198
-> > >  odev_open+0x55/0x70 sound/core/seq/oss/seq_oss.c:128
-> > >  soundcore_open+0x315/0x3a0 sound/sound_core.c:593
-> > >  chrdev_open+0x373/0x3f0 fs/char_dev.c:414
-> > >  do_dentry_open+0x543/0x8f0 fs/open.c:824
-> > >  vfs_open+0x47/0x50 fs/open.c:958
-> > >  do_open fs/namei.c:3476 [inline]
-> > >  path_openat+0x1906/0x1dc0 fs/namei.c:3609
-> > >  do_filp_open+0xef/0x200 fs/namei.c:3636
-> > >  do_sys_openat2+0xa5/0x2a0 fs/open.c:1213
-> > >  do_sys_open fs/open.c:1229 [inline]
-> > >  __do_sys_openat fs/open.c:1245 [inline]
-> > >  __se_sys_openat fs/open.c:1240 [inline]
-> > >  __x64_sys_openat+0xf0/0x120 fs/open.c:1240
-> > >  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
-> > >  do_syscall_64+0x3d/0x90 arch/x86/entry/common.c:80
-> > >  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> > >
-> > > Reported by Kernel Concurrency Sanitizer on:
-> > > CPU: 1 PID: 6542 Comm: syz-executor2-n Not tainted 5.18.0-rc5+ #107
-> > > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/
-> > > 2014
-> > >
-> > > Reproducing Inputs
-> > >
-> > > Input CPU 0:
-> > > r0 = openat$sndseq(0xffffffffffffff9c, &(0x7f0000000040)='/dev/snd/seq\x00',
-> > > 0x0)
-> > > ioctl$SNDRV_SEQ_IOCTL_CREATE_PORT(r0, 0xc0a85320, &(0x7f0000000240)={{0x80},
-> > > 'port1\x00', 0x10})
-> > > ioctl$SNDRV_SEQ_IOCTL_SET_CLIENT_POOL(r0, 0x40a85321, &(0x7f0000000100)=
-> > > {0x80})
-> > >
-> > > Input CPU 1:
-> > > r0 = openat$sequencer2(0xffffff9c, &(0x7f0000000000)='/dev/sequencer2\x00',
-> > > 0x0, 0x0)
-> > > ioctl$SNDCTL_SYNTH_INFO(r0, 0xc08c5102, &(0x7f0000000200)=
-> > > {"02961a3ce6d4828f8b5559726313251b55fa11d8d65406f1f33c9af8e3f8", 0xffffffff})
-> > >
-> > >
-> 
-> -- 
-> Gabriel Ryan
-> PhD Candidate at Columbia University
-> 

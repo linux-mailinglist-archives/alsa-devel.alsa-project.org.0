@@ -2,80 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB8059DB08
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 13:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7ED59DB09
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 13:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABB4F162F;
-	Tue, 23 Aug 2022 13:57:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABB4F162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDC09E0E;
+	Tue, 23 Aug 2022 13:58:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDC09E0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661255928;
-	bh=wulxSZLwXmYWou/ouwEu8EvMS3+wzOc0DEyPv0w/5sQ=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XxZHlBdAvTw4CCpsgj00GM6HOQLwTByMVg0u/Nh3ybqP5MDwMyNcrpYhVybUnZ2Iz
-	 P4/ZDFecK3LSkuxa5wvf6NtkmHDQRyZgZO2MNRyR6OMdbeMiQot+ewLIxbcrcdqROu
-	 9te1u1cnCXHY2h4NrqU/k7cyJfh3WGzuahgxq8jk=
+	s=default; t=1661255959;
+	bh=+dqqshU0ljAmVZyhTYG7iiU8fb91m8OUnHtfmn7v4d0=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iNioWTtyJTSVqCM9pSU62+Joxsnta/zoamTzPWl1atrjQgkXovXFbavdbHMhSjkTk
+	 664wnF01YS3xJkKqfIIwgyOMjBTIOsB5VIL3dORY5nVLm/yKhVzVv1Wpn9XkQ5FKeJ
+	 tRGOVob+2UHEc4nZl65M3fk/nHYhIW/FhdXoVNSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AB1EF80526;
-	Tue, 23 Aug 2022 13:57:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37172F800C9;
+	Tue, 23 Aug 2022 13:57:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9878CF800A7; Tue, 23 Aug 2022 13:57:46 +0200 (CEST)
+ id 7CCA1F804E7; Tue, 23 Aug 2022 13:57:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 403A0F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4091EF80152
  for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 13:57:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 403A0F800A7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4091EF80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="o04Ga/Lm"; 
+ header.b="G4CU3WxE"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="IfXhG437"
+ header.b="o1tlDPQf"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D64C8336BA;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F21631F94D;
  Tue, 23 Aug 2022 11:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1661255863; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Yt8TXnf1Pm+uAk2XxFjARvyi/I6HK3K1O2YepFzlH7c=;
- b=o04Ga/LmLXNYbHB7LiJ7yfgiAkumS4bxE2zbO988ykFHCUWdhI0EwR1Kn4FYTu6Bb88Q1n
- keJmXxsygg7SCDJ4CKC8ANjN5jTZ4VHygtZXz8HhlghBvHhUdGFkVJKSL3SUc/YWGuGfNc
- 4KnSuKJFiXCJUfBF4F+pLlQrHagkiUA=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BXF00BisYHzylICag8YIUs03V+Q8c/qjPMlGSFey5XY=;
+ b=G4CU3WxEhhmWhR18rQD/sMR+mlZ1SQwIxDLNMV7qKj23K2dKGDwsO6eUB6O99aeD4oIhC1
+ NBuiTQkEnRCpTKXqhZmerh+gsXP1Kb0qA1DsxO+UHiNgQ6LZTG9EsROZgKj+e0sDHApSHy
+ syKkGrNxjRAH82bcidTTSEFrg28hnLk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1661255863;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Yt8TXnf1Pm+uAk2XxFjARvyi/I6HK3K1O2YepFzlH7c=;
- b=IfXhG437Q6w+qRlPJEdoVuSVRRuBKS0M0C0VwwUYBCRp/iUu6XNntHNxcAGrd7OZ4BjRb/
- mndfKCMiY5uUzsCg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BXF00BisYHzylICag8YIUs03V+Q8c/qjPMlGSFey5XY=;
+ b=o1tlDPQfEFkQ8nYoFHc0ZpARE1QdxNoK0ye/zPPDSiHKmiaRYFgCFt9QzF1h7Y2Y+uWsoR
+ /ip31CDLKJPeLXDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BCD8213AB7;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D5B0613AE6;
  Tue, 23 Aug 2022 11:57:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LrtULbfABGP1OAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id eAGAM7fABGP1OAAAMHmgww
  (envelope-from <tiwai@suse.de>); Tue, 23 Aug 2022 11:57:43 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/5] ALSA: Drop hackish GFP giveaway for CONTINUOUS pages
-Date: Tue, 23 Aug 2022 13:57:35 +0200
-Message-Id: <20220823115740.14123-1-tiwai@suse.de>
+Subject: [PATCH 1/5] ALSA: vx: Drop superfluous GFP setup
+Date: Tue, 23 Aug 2022 13:57:36 +0200
+Message-Id: <20220823115740.14123-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220823115740.14123-1-tiwai@suse.de>
+References: <20220823115740.14123-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -93,35 +100,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The extra setup with GFP_DMA32 is superfluous for this driver.  The
+whole operation is a simple copy loop, and there is no memory address
+restriction at all.  Drop the useless GFP setup.
 
-this is a series of cleanup patches for dropping the current hackish
-way of passing the GFP_* flags for CONTINOUS and VMALLOC memory
-allocations.  There are only three users for this legacy feature, and
-all of them seem superfluous.  And, if any driver requires the memory
-restriction in future, it can now pass the proper device pointer for
-specifying the DMA mask.
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/drivers/vx/vx_pcm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-
-Takashi
-
-===
-
-Takashi Iwai (5):
-  ALSA: vx: Drop superfluous GFP setup
-  ALSA: pdaudiocf: Drop superfluous GFP setup
-  ASoC: Intel: sst: Switch to standard device pages
-  ALSA: memalloc: Drop special handling of GFP for CONTINUOUS allocation
-  ALSA: doc: Drop snd_dma_continuous_data() usages
-
- .../kernel-api/writing-an-alsa-driver.rst     |  21 ++--
- include/sound/memalloc.h                      |   3 -
- sound/core/memalloc.c                         | 113 ++++++++----------
- sound/drivers/vx/vx_pcm.c                     |   3 +-
- sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c        |   3 +-
- sound/soc/intel/atom/sst-mfld-platform-pcm.c  |   7 +-
- 6 files changed, 61 insertions(+), 89 deletions(-)
-
+diff --git a/sound/drivers/vx/vx_pcm.c b/sound/drivers/vx/vx_pcm.c
+index 3924f5283745..ceaeb257003b 100644
+--- a/sound/drivers/vx/vx_pcm.c
++++ b/sound/drivers/vx/vx_pcm.c
+@@ -1215,8 +1215,7 @@ int snd_vx_pcm_new(struct vx_core *chip)
+ 		if (ins)
+ 			snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &vx_pcm_capture_ops);
+ 		snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
+-					       snd_dma_continuous_data(GFP_KERNEL | GFP_DMA32),
+-					       0, 0);
++					       NULL, 0, 0);
+ 
+ 		pcm->private_data = chip;
+ 		pcm->private_free = snd_vx_pcm_free;
 -- 
 2.35.3
 

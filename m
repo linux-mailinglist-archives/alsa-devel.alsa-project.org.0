@@ -2,78 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8BD59D09D
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 07:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78D9659D161
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Aug 2022 08:40:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9582B168B;
-	Tue, 23 Aug 2022 07:38:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9582B168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B27C1650;
+	Tue, 23 Aug 2022 08:39:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B27C1650
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661233130;
-	bh=lIDXQ+rdDpYoI61ktv6nw6pBfN8AbK7G9dl/OtiKCjo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661236844;
+	bh=Z1LMO+W+wszexh5hNyqmWgp4oYI+MQaDcl+ze1Jj2Co=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jhRINP8fOGWXo+JKy4YoYDV0spGByGrYGOTUVCJjIalLbhHp/Tq9lsMIgK/a9zuGi
-	 G3Swyr6UHBuQ1OVTsrWPB0Zm8pp5g3r3qPLhayoqFmCf5Ui8qomx7KfJX0eDGnEjZp
-	 Y13DvDbTqQFSc7F3FfUJo0s4rmB0odleUTloJ2cw=
+	b=rQO1PxazIrLOOfv1d9L2Hm8M+rqRN24J38ujreJkzPawGSDyJYIeDgClm51/Dn9Kq
+	 B9LTi5GFS/XDCn7NDu6dv4em0NFGBblRGuy2YxtLNYpH2PfyRlbYKQ/MqgXvAmQv/5
+	 bAI/KwnDC4zz2cPHVBGkun5bLFK0LgOTYYTbWZ/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D6EEF80579;
-	Tue, 23 Aug 2022 07:35:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73227F8027B;
+	Tue, 23 Aug 2022 08:39:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76D83F80568; Tue, 23 Aug 2022 07:35:47 +0200 (CEST)
+ id 67C7DF8020D; Tue, 23 Aug 2022 08:39:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A58FBF804E6
- for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 07:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A58FBF804E6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="T0tEY39E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661232933; x=1692768933;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lIDXQ+rdDpYoI61ktv6nw6pBfN8AbK7G9dl/OtiKCjo=;
- b=T0tEY39EUUHA1NJ3Vyz6Q3So9gFqf0AJhQhDoLaasXoQn5Xe9rdG0QJJ
- pctIHtWy6V0/pQXvMy7GprkrYZmnf7dKIC0f0lcLjS0SUY7l//iQyKQM2
- DPPRDzZTxAFz5TXfIPA29zCnn0HhSSwJGuh5bcwSB9krXICYKuY9L/HCv
- uj0vTbD877ac2hNwJ0a5tPGHrXciYLEMPgcweksiTRLa9+X+31+lRTAU3
- Zi32lWAnB+kQzZqJTBjyRFRrSU7QiDoy2qy74cs0vvF24YffWtKLYyhNi
- orUQwd1LobYq01JlXEHSS9/qM6M7yJRa9wfaBMZYfJzDrdiQwJnGAgdxo A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273349280"
-X-IronPort-AV: E=Sophos;i="5.93,256,1654585200"; d="scan'208";a="273349280"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 22:35:11 -0700
-X-IronPort-AV: E=Sophos;i="5.93,256,1654585200"; d="scan'208";a="698558361"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 22:35:09 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH 11/11] soundwire: intel: cleanup WakeEnable and WakeStatus
-Date: Tue, 23 Aug 2022 13:38:46 +0800
-Message-Id: <20220823053846.2684635-12-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220823053846.2684635-1-yung-chuan.liao@linux.intel.com>
-References: <20220823053846.2684635-1-yung-chuan.liao@linux.intel.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 32336F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Aug 2022 08:39:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32336F800A7
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- bard.liao@intel.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1661236771808708906-webhooks-bot@alsa-project.org>
+References: <1661236771808708906-webhooks-bot@alsa-project.org>
+Subject: Adding Focusrite Scarlett 2i4 gen2
+Message-Id: <20220823063942.67C7DF8020D@alsa1.perex.cz>
+Date: Tue, 23 Aug 2022 08:39:42 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,48 +59,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+alsa-project/alsa-ucm-conf pull request #203 was opened from PatrickLang:
 
-Regroup offset and bitfield definitions.
+This cleans up the Focusrite Scarlett 2i4 Gen2 device a bit. This device is split into two stereo pairs for output, and has 2 mic/line/instrument inputs. There are no toggles or mixer controls exposed to Alsa.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- include/linux/soundwire/sdw_intel.h | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+It has hardware switches for:
+- Headphones - can monitor line outputs 1+2 or 3+4
+- Headphone input/playback mix
+- Monitor out (Line 1+2)
+- Each input has a level pot, and switches for pad and Z (line/inst)
+- There is 1 physical +48v switch
 
-diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
-index 3a56fd5a6331..2e9fd91572d4 100644
---- a/include/linux/soundwire/sdw_intel.h
-+++ b/include/linux/soundwire/sdw_intel.h
-@@ -76,9 +76,16 @@
- #define SDW_SHIM_IOCTL_CIBD		BIT(8)
- #define SDW_SHIM_IOCTL_DIBD		BIT(9)
- 
-+/* Wake Enable*/
- #define SDW_SHIM_WAKEEN			0x190
-+
-+#define SDW_SHIM_WAKEEN_ENABLE		BIT(0)
-+
-+/* Wake Status */
- #define SDW_SHIM_WAKESTS		0x192
- 
-+#define SDW_SHIM_WAKESTS_STATUS		BIT(0)
-+
- /* AC Timing control */
- #define SDW_SHIM_CTMCTL(x)		(0x06E + 0x60 * (x))
- 
-@@ -86,9 +93,6 @@
- #define SDW_SHIM_CTMCTL_DODS		BIT(1)
- #define SDW_SHIM_CTMCTL_DOAIS		GENMASK(4, 3)
- 
--#define SDW_SHIM_WAKEEN_ENABLE		BIT(0)
--#define SDW_SHIM_WAKESTS_STATUS		BIT(0)
--
- /* Intel ALH Register definitions */
- #define SDW_ALH_STRMZCFG(x)		(0x000 + (0x4 * (x)))
- #define SDW_ALH_NUM_STREAMS		64
--- 
-2.25.1
+Please let me know if any more info would be helpful. I have captured some more notes showing before/after state at https://gist.github.com/PatrickLang/79a3090eea6f2d640179457b5d428134#scarlett-2i4-2nd-gen---initial-state
 
+I'm planning to write a UCM2 profile for the more complicated Focusrite Scarlett 18i8 Gen2 next which has more inputs, but also multiple mix busses controllable through Alsa
+
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/203
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/203.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,74 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FD55A0AC9
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 09:54:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE555A0F1A
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 13:32:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B055A100;
-	Thu, 25 Aug 2022 09:53:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B055A100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3538D822;
+	Thu, 25 Aug 2022 13:31:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3538D822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661414050;
-	bh=w2+CDzxpLXzinHv/LpItV/WhSldf7eSUvIqt6KGdQzw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1661427133;
+	bh=H+veo+Dao6bkJ0QMyFov+hU73WKqs+8y5v0OSddUH8Y=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AxR9LiBeYHSq73fKn9mWGC7ePayhDCCa1AjIsF8YTerCl2K1vtUzRvtZ3tdTB6gdY
-	 k6i7g4AnfJhU8CZgjS1+GpQPtUC/9Y+p7iZrN0dx1iIi0v6/csj0p3PvxYXeorpepM
-	 trKAf9cE2DgdRmFPWDBNytZg3gYlcTEQD1wfV/s8=
+	b=XEKZQlSNUcGtbOQePy4QSKoJbApzB8iauWgQ6p+wKL+FtfR7vJ31clymPGWKZIrj7
+	 uEF0HLhTlAtrdLGB+ZDp4FupTmxKYN20ck0t5JCJ8e0sxFJEOx8+lNxHvoVZULvvkS
+	 BunImvhlOR0XoDrTp0DsKHavI05V3zn/7u928EmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30896F80271;
-	Thu, 25 Aug 2022 09:53:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EFB4F80271;
+	Thu, 25 Aug 2022 13:31:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AD93F800BD; Thu, 25 Aug 2022 09:53:09 +0200 (CEST)
+ id 4DD4BF80528; Wed, 24 Aug 2022 13:12:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5E6CF800BD
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 09:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5E6CF800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C55F3F80525
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C55F3F80525
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="fnzCVtKH"
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="kBHMSKXn"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4C96C61A1D;
- Thu, 25 Aug 2022 07:53:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328A6C433C1;
- Thu, 25 Aug 2022 07:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1661413980;
- bh=w2+CDzxpLXzinHv/LpItV/WhSldf7eSUvIqt6KGdQzw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fnzCVtKHNpcY0e2qXAOg73IGB7exSoP5+NySASktbYFpo6bN8+f3rtzSpollWmKut
- qzr8x7OWCCE5dkMO4gyxAjO7tMD351Jl0EcdKONjp+8KbAxJkq9fvNnixCFf0zxCfV
- Vzk4v0S/ryUSSAtcCPODZNuWUnQZovrtkXCNj4yg=
-Date: Thu, 25 Aug 2022 09:52:57 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 1/6] sysfs: do not create empty directories if no
- attributes are present
-Message-ID: <YwcqWaAX8yv3wyoi@kroah.com>
-References: <20220824135951.3604059-1-gregkh@linuxfoundation.org>
- <fb3a66c6-a8b3-02db-4170-5d5c521165e2@linux.intel.com>
- <YwZCPdPl2T+ndzjU@kroah.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4D1B4618EC;
+ Wed, 24 Aug 2022 11:12:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95404C433B5;
+ Wed, 24 Aug 2022 11:12:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661339544;
+ bh=H+veo+Dao6bkJ0QMyFov+hU73WKqs+8y5v0OSddUH8Y=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=kBHMSKXnm0q0/ig5wiPntO3Jl5ZlIKYg+9lyllxyXo7josUAAKfnl1BGY3qq5uhyO
+ Z39yjwD4/NFhx2B6Wc/+r0hxaXJ3UbARfcsvcwDHtrvsdD9i4JhAPciVl3T+CrM3hE
+ /EfTraglUjPsMItvnKtQPOtWdoDhkRmhY/G/3keG1xGxXbDlJUrW1CZutdptQFqyPk
+ xmLku2O2USngmtzYaRvm9/aAWs6ObNDWc20kLO8WBsH/+ochtgPB/WbGdw8JMgyDNG
+ LzO0IgWc0DDMNlWKK3zbXjCzwriQw4vMTPFYeOP0n1m836BgYwak6uCgFGY1uhlIZY
+ l8v5dwKXirf2Q==
+From: Mark Brown <broonie@kernel.org>
+To: Cheng-Yi Chiang <cychiang@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ NXP Linux Team <linux-imx@nxp.com>, 
+ Fabio Estevam <festevam@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, 
+ Rob Herring <robh@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Andy Gross <agross@kernel.org>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, Jonathan Bakker <xc-racer2@live.ca>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Shane Chien <shane.chien@mediatek.com>
+In-Reply-To: <20220823145649.3118479-8-robh@kernel.org>
+References: <20220823145649.3118479-8-robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: Add missing
+ (unevaluated|additional)Properties on child nodes
+Message-Id: <166133953831.17904.2785802329558247784.b4-ty@kernel.org>
+Date: Wed, 24 Aug 2022 12:12:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YwZCPdPl2T+ndzjU@kroah.com>
-Cc: Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Vinod Koul <vkoul@kernel.org>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-0c1df
+X-Mailman-Approved-At: Thu, 25 Aug 2022 13:31:12 +0200
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +108,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 24, 2022 at 05:22:37PM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Aug 24, 2022 at 05:17:44PM +0200, Pierre-Louis Bossart wrote:
-> > 
-> > 
-> > On 8/24/22 15:59, Greg Kroah-Hartman wrote:
-> > > When creating an attribute group, if it is named a subdirectory is
-> > > created and the sysfs files are placed into that subdirectory.  If no
-> > > files are created, normally the directory would still be present, but it
-> > > would be empty.  Clean this up by removing the directory if no files
-> > > were successfully created in the group at all.
-> > > 
-> > > Cc: Vinod Koul <vkoul@kernel.org>
-> > > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > Cc: Sanyog Kale <sanyog.r.kale@intel.com>
-> > > Cc: alsa-devel@alsa-project.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > ---
-> > > v2: new patch
-> > > 
-> > > Note, totally untested!  The following soundwire patches will need this,
-> > > if a soundwire developer could test this out, it would be most
-> > > apreciated.
-> > 
-> > Not able to see the kernel boot with this first patch. The device is
-> > stuck with the cursor not even blinking. It seems our CI test devices
-> > are also stuck.
-> > 
-> > This is completely beyond my comfort zone but I can run more tests to
-> > root cause this.
+On Tue, 23 Aug 2022 09:56:39 -0500, Rob Herring wrote:
+> In order to ensure only documented properties are present, node schemas
+> must have unevaluatedProperties or additionalProperties set to false
+> (typically).
 > 
-> Ick, ok, so much for sending out untested patches :(
 > 
-> I'll test and debug this tomorrow and resend a correct version, thanks
-> for helping out here, sorry it didn't work.
 
-I have run out of time to work on this for this week, I'll try to pick
-it up next week.  Don't worry about the soundwire changes for now, I'll
-resend them when I get this all working properly.
+Applied to
 
-thanks,
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-greg k-h
+Thanks!
+
+[1/1] ASoC: dt-bindings: Add missing (unevaluated|additional)Properties on child nodes
+      commit: 9e10a1ded6a1b7ffacbb2d9c75fe6aa91623051b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

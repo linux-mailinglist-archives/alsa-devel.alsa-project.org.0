@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677BB59FC5D
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 15:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3ED59FC86
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 16:01:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC445829;
-	Wed, 24 Aug 2022 15:55:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC445829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D47685D;
+	Wed, 24 Aug 2022 16:00:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D47685D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661349390;
-	bh=msSU3qQ+X15SSeIqCsAOSxxkZ8mz3Vrx2NgqrNMhMQc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cgbwM3MzuCbDuTzb5yLNHRlMx5mu2qEBwlrXpwR7C9WeNJnCUDeXO8jUMLpzWbHph
-	 nlnAwZAtHBeU0a1fbb9bJpa5vEKVN8OplIPzKvAjUN9tI8YltZqFAIXu5u9zAX/A8P
-	 fdK/8GIieLGu74jGiAqFE8QEuC89asuJ5sZZ2i60=
+	s=default; t=1661349696;
+	bh=KWnwJ1zMa3C2CDw6Y/OMLmmwDWaJ+biZe3MkwUbZHYs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RyOmbdgh6W8LrM+mNSOVTkm9Olxm+a89cfSIpGIoBOu/eNjEoxmpy24LKr+V5dI7Q
+	 K8upZpysce5/a460byVlPL425DjKz+ORr/3WzZ1yASodeZ+wIJUoz1nlLX2WLhDZuW
+	 WWEG6Mcdz30hkOkO2rKgg4VuZ5k+nSBlPixExkxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B407F804CC;
-	Wed, 24 Aug 2022 15:55:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAE3DF80525;
+	Wed, 24 Aug 2022 16:00:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4AA45F804C1; Wed, 24 Aug 2022 15:55:29 +0200 (CEST)
+ id 3CF32F8014E; Wed, 24 Aug 2022 16:00:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_21,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D0F4F800A7
- for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 15:55:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D0F4F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 153E1F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 16:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 153E1F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="YCV+o6IZ"
+ header.i=@linuxfoundation.org header.b="xYytor4R"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1B45E6125B;
- Wed, 24 Aug 2022 13:55:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FC7C433D6;
- Wed, 24 Aug 2022 13:55:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 78BE9617CA;
+ Wed, 24 Aug 2022 13:59:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65A3EC433D7;
+ Wed, 24 Aug 2022 13:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1661349322;
- bh=msSU3qQ+X15SSeIqCsAOSxxkZ8mz3Vrx2NgqrNMhMQc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YCV+o6IZUkVbur93pUP5AD9xZlPAOSFZjDFhpaQb/YTJXxVk5uRHejQKoYsy5aSO6
- xdb+B1cua2FH2O2RzGEcs7IXVxzyFClxE50L2vukzC9O1iO0eRKBp2Xs4k6NCOYqW+
- 1dhDsruobAQgMlmYIqWnZMtevflm0vioKX9WwpmQ=
-Date: Wed, 24 Aug 2022 15:55:19 +0200
+ s=korg; t=1661349598;
+ bh=KWnwJ1zMa3C2CDw6Y/OMLmmwDWaJ+biZe3MkwUbZHYs=;
+ h=From:To:Cc:Subject:Date:From;
+ b=xYytor4RJ8GRoHDLUA3TaZ9L/xtJ0TSzUzd8eYZwFZUYTlZJoyJzIX6VPNQ4kWlvB
+ /mEkcpnn+u4OEMEyOfh3v66v2TtHwlgpU7ErpY+5PPGzX5QJL9s2ECgzO8NG4T4p10
+ ECDFw+dnybc0XE1nrvBqsyelkp3AwXbRJSEyI2sQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/5] soundwire: sysfs: cleanup the logic for creating the
- dp0 sysfs attributes
-Message-ID: <YwYtxy3auMhDE6y/@kroah.com>
-References: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
- <20220729135041.2285908-2-gregkh@linuxfoundation.org>
- <9365e038-2146-98f8-f989-02827f221c34@linux.intel.com>
- <YuP0Ffs3G7ZBR0AC@kroah.com>
- <cfacb124-a9ff-0a93-8f92-93d164b15966@linux.intel.com>
- <YuP2pjhyKTTfpXQq@kroah.com>
- <5caffe2a-f5a6-e312-a564-5fe29c4e2323@linux.intel.com>
- <YuQMYRYFo9gTk1yL@kroah.com>
- <701aa1ba-9b25-51eb-8bd7-2389b501d79c@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 1/6] sysfs: do not create empty directories if no
+ attributes are present
+Date: Wed, 24 Aug 2022 15:59:46 +0200
+Message-Id: <20220824135951.3604059-1-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <701aa1ba-9b25-51eb-8bd7-2389b501d79c@linux.intel.com>
-Cc: Sanyog Kale <sanyog.r.kale@intel.com>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2703;
+ i=gregkh@linuxfoundation.org; h=from:subject;
+ bh=KWnwJ1zMa3C2CDw6Y/OMLmmwDWaJ+biZe3MkwUbZHYs=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDMlseleWz0p77dt8m1tRzqymifO7SvSa+rS3M/3+ef91PVd/
+ 565YRywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAExkvwDDPPUPRss8Dk0ItLX7e80gh0
+ 32681eC4YFM9ZNVL4f/e7no65TiZp5vyfVvXaWAwA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,55 +91,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 29, 2022 at 11:46:32AM -0500, Pierre-Louis Bossart wrote:
-> 
-> >>>>> That should be fine, tools should just be looking for the attributes,
-> >>>>> not the existance of a directory, right?
-> >>>>
-> >>>> The idea what that we would only expose ports that actually exist.
-> >>>> That's helpful information anyone with a basic knowledge of the
-> >>>> SoundWire specification would understand.
-> >>>
-> >>> Is "dp0" a port?  If so, why isn't it a real device?
-> >>
-> >> The SoundWire spec defines the concept of 'data port'. The valid ranges
-> >> are 1..14, but in all existing devices the number of data ports is way
-> >> smaller, typically 2 to 4. Data ports (DPn) are source or sink, and
-> >> there's no firm rule that data ports needs to be contiguous.
-> >>
-> >> DP0 is a 'special case' where the data transport is used for control
-> >> information, e.g. programming large set of registers or firmware
-> >> download. DP0 is completely optional in hardware, and not handled in
-> >> Linux for now.
-> >>
-> >> DP0 and DPn expose low-level transport registers, which define how the
-> >> contents of a FIFO will be written or read from the bus. Think of it as
-> >> a generalization of the concept of TDM slots, where instead of having a
-> >> fixed slot per frame the slot position/repetition/runlength can be
-> >> programmed.
-> >>
-> >> The data ports could be as simple as 1-bit PDM, or support 8ch PCM
-> >> 24-bits. That's the sort of information reported in attributes.
-> > 
-> > Why not make them a real device like we do for USB endpoints?
-> 
-> I don't see what adding another layer of hierarchy would bring. In their
-> simplest configuration, there are 6 registers 8-bit exposed. And the
-> port registers, when present, are accessed with a plain vanilla offset.
-> 
-> > What uses these sysfs files today that would be confused about an empty
-> > directory?
-> 
-> That's a good question. I am not aware of any tools making use of those
-> attributes. To a large degree, they are helpful only for debug and
-> support, all these read-only attributes could be moved to debugfs. That
-> could be a way to simplify everyone's life....
+When creating an attribute group, if it is named a subdirectory is
+created and the sysfs files are placed into that subdirectory.  If no
+files are created, normally the directory would still be present, but it
+would be empty.  Clean this up by removing the directory if no files
+were successfully created in the group at all.
 
-Ok, this is why I didn't just rebase and resend.  I've now worked on
-sysfs to NOT create the directory if no attributes were present.  I'll
-send out this series rebased along with that commit as well which should
-help with this issue.
+Cc: Vinod Koul <vkoul@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Sanyog Kale <sanyog.r.kale@intel.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+v2: new patch
 
-thanks,
+Note, totally untested!  The following soundwire patches will need this,
+if a soundwire developer could test this out, it would be most
+apreciated.
 
-greg k-h
+fs/sysfs/group.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
+index eeb0e3099421..9fe0b47db47f 100644
+--- a/fs/sysfs/group.c
++++ b/fs/sysfs/group.c
+@@ -31,12 +31,14 @@ static void remove_files(struct kernfs_node *parent,
+ 			kernfs_remove_by_name(parent, (*bin_attr)->attr.name);
+ }
+ 
++/* returns -ERROR if error, or >= 0 for number of files actually created */
+ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 			kuid_t uid, kgid_t gid,
+ 			const struct attribute_group *grp, int update)
+ {
+ 	struct attribute *const *attr;
+ 	struct bin_attribute *const *bin_attr;
++	int files_created = 0;
+ 	int error = 0, i;
+ 
+ 	if (grp->attrs) {
+@@ -65,6 +67,8 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 						       gid, NULL);
+ 			if (unlikely(error))
+ 				break;
++
++			files_created++;
+ 		}
+ 		if (error) {
+ 			remove_files(parent, grp);
+@@ -95,12 +99,15 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 							   NULL);
+ 			if (error)
+ 				break;
++			files_created++;
+ 		}
+ 		if (error)
+ 			remove_files(parent, grp);
+ 	}
+ exit:
+-	return error;
++	if (error)
++		return error;
++	return files_created;
+ }
+ 
+ 
+@@ -146,10 +153,16 @@ static int internal_create_group(struct kobject *kobj, int update,
+ 		kn = kobj->sd;
+ 	kernfs_get(kn);
+ 	error = create_files(kn, kobj, uid, gid, grp, update);
+-	if (error) {
++	if (error <= 0) {
++		/*
++		 * If an error happened _OR_ if no files were created in the
++		 * attribute group, and we have a name for this group, delete
++		 * the name so there's not an empty directory.
++		 */
+ 		if (grp->name)
+ 			kernfs_remove(kn);
+-	}
++	} else
++		error = 0;
+ 	kernfs_put(kn);
+ 
+ 	if (grp->name && update)
+-- 
+2.37.2
+

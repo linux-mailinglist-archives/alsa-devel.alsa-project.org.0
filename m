@@ -2,82 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3C459F49A
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 09:56:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFAE59F4E2
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 10:18:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CFA615C1;
-	Wed, 24 Aug 2022 09:56:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CFA615C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12DAAAEA;
+	Wed, 24 Aug 2022 10:17:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12DAAAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661327810;
-	bh=LqeA44e0s1YgXUHt9917oOHWEVJ8rkKa9fdQohJrry8=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BQ+NYkylD81RL/Q2unzwrSCuugh8BVBWs+wNGjaGEyRAIC7kI6ICob+e+euu+QoqX
-	 FOrwS2a7XzFYWbBG2VSVP7F6JeVvLOEEvzwz+AoVOrJwlHZDkUvSy9FGu+SwJhF06b
-	 uUb4lVanwTiHJ9RaeGK3x14+AaBRkAozl6UXFbu8=
+	s=default; t=1661329105;
+	bh=JYYK/HoSl7QgwJaL0qk/TrC208IOnHGfcXqRF0OPQ8M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ascUq10iZlaRZwJvAAWGSThKiJ0pCs252BAwvgvujOlcvLqZo+X2EuGbAyrC1+A0d
+	 5jRu46TMB9QoK97+/XwdAPfTuU5tDWa1IbNNqylZevowVK7DausH/T0QMuhs7kqIrE
+	 QcyBO4I/BU1CuZjwbMR/voHtxGqBVufA8iu39RRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85F02F8014B;
-	Wed, 24 Aug 2022 09:55:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CA14F804C1;
+	Wed, 24 Aug 2022 10:17:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A8BFF804C1; Wed, 24 Aug 2022 09:55:49 +0200 (CEST)
+ id 631EDF804BD; Wed, 24 Aug 2022 10:17:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8261AF8014B
- for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 09:55:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8261AF8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2C4CF8014B
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 10:17:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C4CF8014B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="L757ufEX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661327746; x=1692863746;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=LqeA44e0s1YgXUHt9917oOHWEVJ8rkKa9fdQohJrry8=;
- b=L757ufEXfg79116P42C0Wai3kD0i6lhOFTy/F8QHXusgrGiiwjBBj0DL
- 6rax0mD7eO7M0aAd/lsYmmAYQmDDgFI/dbAsCmYiq475DXQlqOLgQ0se/
- BnPKziB4xYIi+Y3Q2o/W9jisj9KzoimX1TRJRqnFigvi0dL+ujicK4EaZ
- 1Lj5Yka3QNzZnLypHZ75YxxiwccieiG6dl73Xq+3RcLNf11ht10kg1eQi
- BtlQUYvKDQ6KqoVRnB5a3V17jr69TUZVhIsw+i5IpkbC3o/kyoAvLm/wH
- gnzpyGOUzyX46YaL6TFfYuErEPQScjSSS39FXPLqcBS4DMUqNJBoz0VPM g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="319955039"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="319955039"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 00:55:33 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="639008184"
-Received: from tleistix-mobl2.ger.corp.intel.com (HELO [10.249.43.72])
- ([10.249.43.72])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 00:55:30 -0700
-Message-ID: <6a9ad9b1-a6f2-c380-77a9-f10317f7054f@linux.intel.com>
-Date: Wed, 24 Aug 2022 09:42:22 +0200
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="adyUncsa"
+Received: by mail-pj1-x1031.google.com with SMTP id
+ s36-20020a17090a69a700b001faad0a7a34so797493pjj.4
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 01:17:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=ozY6u65Wi+tb61B+PChTsXWw55lG3sk+g53XzCkY8H8=;
+ b=adyUncsaZuyugIqkgE+MiXTuAYgrLURFpzhiOdHp5Linka3Yr0Y467uxQ0WUvLXnp4
+ 3ruxQKf3TzItSDkp6T+24017+iGgltSAqABJTCfD1x/KMC7NVrv3eb56rjVRr4cDHmhK
+ +iGt4a40f5kWEz3+o1WDZ6SRlaZhyt4ezP0Sht9IvbK2bf9gjrOyOulPROdjN2pQ8kMc
+ PrCSJk+se4jBDgWrX91IqlXOIp7V2JpK7IX/wmEycjshQSPUT1+AA8U40mnz1e/I7xw5
+ ea+xIisJifimHPSi7vEWpPGCgo2Ljew7gH9UDTaBthdbEVOtKkKrud6CUBPdQDXHgyQB
+ RGwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=ozY6u65Wi+tb61B+PChTsXWw55lG3sk+g53XzCkY8H8=;
+ b=oVVTXegXbRjfaF/rV1mWUHqYodyFTPCPrhfeJ7AuXch5jdIDdbN2Ibc5aW22RCMcff
+ /9wRgjyzBFL4DjSBmM1VyLL0IDU4jlRKPM+LOG/nSPdbivhNcptzB9iFMOmvcRGCn46f
+ my7BKvzJRrSqc6U2D3iGDsj5edjJpj7H7t3TM/+rbwStZjX0UKXlzmQk9mjZ3ywnpTua
+ nDC5b57TvPIxHscgjyf0gm4sMbYBN4jXX70k0QsTiV2XCLptXMsDOSQg/uCXxn+TfwdI
+ 6Zgk8pnKOg82gFquUuifX973sLW7RoaDORlgizw6UG//ERZuu9dMKyayh8KYv3BjoPhe
+ n1aA==
+X-Gm-Message-State: ACgBeo2h5u3Ug73ybRvP8vVHBAehqwsRKTcW6scLUTL/Uip9iSVCDdnD
+ E4YFhDspyzPMGXQVIW1ISw==
+X-Google-Smtp-Source: AA6agR6rjNVqUfcFvWmii8TDq32o5AzK/lk3X020Lbxg7Jc9EA12wtGdXpulliMTcEUWMN6OiPG+zA==
+X-Received: by 2002:a17:903:1ce:b0:16f:145c:a842 with SMTP id
+ e14-20020a17090301ce00b0016f145ca842mr27483329plh.83.1661329037147; 
+ Wed, 24 Aug 2022 01:17:17 -0700 (PDT)
+Received: from localhost.localdomain ([166.111.133.51])
+ by smtp.gmail.com with ESMTPSA id
+ j2-20020a63fc02000000b0041a615381d5sm10508288pgi.4.2022.08.24.01.17.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Aug 2022 01:17:16 -0700 (PDT)
+From: Zheyu Ma <zheyuma97@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: control: Fix an out-of-bounds bug in get_ctl_id_hash()
+Date: Wed, 24 Aug 2022 16:16:54 +0800
+Message-Id: <20220824081654.3767739-1-zheyuma97@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 0/3] soundwire: allocate device_number with IDA
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20220823045004.2670658-1-yung-chuan.liao@linux.intel.com>
- <YwUHp3ivSktx6/Lo@matsya>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <YwUHp3ivSktx6/Lo@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- bard.liao@intel.com
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Zheyu Ma <zheyuma97@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,64 +101,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vinod,
+Since the user can control the arguments provided to the kernel by the
+ioctl() system call, an out-of-bounds bug occurs when the 'id->name'
+provided by the user does not end with '\0'.
 
->> The device_number is currently allocated in the scope of each bus and does
->> not need to be unique at the system level.
->> This leads e.g. on Dell devices with three or four Device1 on different
->> bus segments. 
-> 
-> And how is that an issue that should be fixed?
+The following log can reveal it:
 
-1. this makes things simpler for debug. You can look at the logs and see
-what the device is without having to look at the link. It's been much
-easier to track complicated issues when each device is tracked with a
-unique system level number.
+[    10.002313] BUG: KASAN: stack-out-of-bounds in snd_ctl_find_id+0x36c/0x3a0
+[    10.002895] Read of size 1 at addr ffff888109f5fe28 by task snd/439
+[    10.004934] Call Trace:
+[    10.007140]  snd_ctl_find_id+0x36c/0x3a0
+[    10.007489]  snd_ctl_ioctl+0x6cf/0x10e0
 
-2. Intel hardware has a requirement that the device number be unique for
-all links managed by  a given controller. This patch prepares that
-transition. I cannot disclose more details at the moment, you will have
-to trust me on this one.
+Fix this by checking the bound of 'id->name' in the loop.
 
->> To make the device_number unique at the system level, and
-> 
-> Why should we do that...
->> unified with the HDaudio/iDISP SDI values, this series allocates the
->> dev_number with an IDA restricted between 4 and 11 (inclusive).
-> 
-> Does this not place an artificial restriction that a system can have
-> only 12 devices if we have unique device
+Fixes: c27e1efb61c5 ("ALSA: control: Use xarray for faster lookups")
+Signed-off-by: Zheyu Ma <zheyuma97@gmail.com>
+---
+ sound/core/control.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-It does indeed, but it simplifies debug and it allows future hardware to
-be supported.
-
-In practice, the most we've seen on Intel platforms is 4 devices at the
-system level. Even if the SoundWire spec does allow for 11 devices per
-link, it's way over-engineered due to capacitive load and signal
-integrity issues. We've seen an absolute maximum of 4 devices on a
-single link in test rigs, and that was never deployed. Two devices per
-link were also only used in prototypes which never hit the market.
-
-At any rate, this in an opt-in solution, not a requirement for non-Intel
-platforms at all. Others can keep using as many devices as they wish,
-within the bounds allowed by the standard.
-
-Note that the device_number creates a de-facto priority, and it would be
-perfectly acceptable for some platforms to tweak the current first-come
-first-serve allocation to improve interrupt response time on each link,
-etc. The standard says nothing about how the device numbers should be
-allocated, only that they be unique on each link. In other words, you
-should expect additional changes to the existing way of allocating
-device numbers.
-
-> Perhaps a better way would be to use dus:dev combination while dealing
-> with a device always..??
-
-That is not compatible with Intel hardware requirements. This wasn't a
-decision where Bard and I were consulted, it is what it is.
-
-Does this clarify things?
-Thanks
--Pierre
-
+diff --git a/sound/core/control.c b/sound/core/control.c
+index f3e893715369..e8fc4c511e5f 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -385,14 +385,14 @@ static bool elem_id_matches(const struct snd_kcontrol *kctl,
+ #define MULTIPLIER	37
+ static unsigned long get_ctl_id_hash(const struct snd_ctl_elem_id *id)
+ {
++	int i;
+ 	unsigned long h;
+-	const unsigned char *p;
+ 
+ 	h = id->iface;
+ 	h = MULTIPLIER * h + id->device;
+ 	h = MULTIPLIER * h + id->subdevice;
+-	for (p = id->name; *p; p++)
+-		h = MULTIPLIER * h + *p;
++	for (i = 0; id->name[i] && i < SNDRV_CTL_ELEM_ID_NAME_MAXLEN; i++)
++		h = MULTIPLIER * h + id->name[i];
+ 	h = MULTIPLIER * h + id->index;
+ 	h &= LONG_MAX;
+ 	return h;
+-- 
+2.25.1
 

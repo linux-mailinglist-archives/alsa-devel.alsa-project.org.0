@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FC4259F875
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:14:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F0A59F874
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:14:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C09B2167C;
-	Wed, 24 Aug 2022 13:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09B2167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D092D1679;
+	Wed, 24 Aug 2022 13:13:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D092D1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661339656;
-	bh=ztMbvDS4X4BtPDHqKb6pkC5N4tWIWYmDZbAVJe7LfNw=;
+	s=default; t=1661339645;
+	bh=OGlg8pv6kHT4dTZmIiN7JaN/Td1DIt3ykmROSVhjXKk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k+eRVk6wP5GMIw0G1IA3NGuBzkjnspe83VGT8CO7qQqyzCDYSrxTv9OGsS7FjKcLD
-	 l2oda/AAD9VOoTxyal0DyLPAz6p69/EeJr9WIDAiaH+hPRcmi589SEhvUZueYzlzSA
-	 UYmokYX1CrQsY307XHcbXo+tjzc44fvbTxvoTxtY=
+	b=CAYVQKAZKhhCOk9u61IbyTQuhqtFR4Ktmo/GGpVQLboGi57c8G6duIukBurQda6Mg
+	 mcZY8yAinh6nOCxCkdU2cbZCSZkRAAeoEklEVf9hEgyZp4Zr+9wuoI5rylqP/UobzU
+	 02O8RqEF4n9W3JconYTe8eYua6t38lukTns6ZN1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9FFDF80535;
-	Wed, 24 Aug 2022 13:12:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4788EF8052D;
+	Wed, 24 Aug 2022 13:12:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DC04F804CC; Wed, 24 Aug 2022 13:12:35 +0200 (CEST)
+ id 7C7D5F80529; Wed, 24 Aug 2022 13:12:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BDF4F804CC
- for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BDF4F804CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id E88DFF80526
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E88DFF80526
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sm/Du/6O"
+ header.b="R89AQjm5"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 380FDB8238E;
- Wed, 24 Aug 2022 11:12:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3EDC43140;
- Wed, 24 Aug 2022 11:12:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B5403B8238B;
+ Wed, 24 Aug 2022 11:12:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6E5C433D6;
+ Wed, 24 Aug 2022 11:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661339545;
- bh=ztMbvDS4X4BtPDHqKb6pkC5N4tWIWYmDZbAVJe7LfNw=;
+ s=k20201202; t=1661339548;
+ bh=OGlg8pv6kHT4dTZmIiN7JaN/Td1DIt3ykmROSVhjXKk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=sm/Du/6O3fsXUDDcVtgVLQDYE2Wak6eXSpRwhyK9OUoipTKaxGWLar3NX2ej1VY9m
- 7BJSeQSlzw7MVRNPkodk6JTQ9gMOn35gpOSMG2ZVbsy6t5KwPmvWhygJFEoecvcr9y
- hj7mS3yNLIWxU6fW/yfDhKFRZqBR6J9urWsnrdHGv8pC3EMD+dlholIlSkGSKFeegD
- lsjlNBY7t05Bq759daGH3gCAVPqZhmHXv1jgZMWm0J9GswPIJv3SqLJVVeknpSS+20
- 9grgEGb+1ffLqvlM1NruEgjq5gohyEFIPo+EapVJp/AMlnG7Ys8cASKknu/6IhaLh+
- 01XPrbHfQNlaQ==
+ b=R89AQjm5QIFEy1m4KLw/y3y2fnUtsahYYAiDRrKZ7ZVutepzYsjI3j649BIhmpVt6
+ BIWFJ24zWf8uKJTwO1LANI064i3Q62jQ+yYvw/u/dnBJKdhi5e9QydoifyCwe/MjHM
+ 0ZVAG30iOKEHOZovM7etDo7b/5+D6FUkhYJ6YFS+7ltBW9GEgC7dxVTEOxHr6NBk5l
+ EVmUTe5SOqjkkKpguYiDGPkIu3jt7uEhMNl09oAVmExm700bo6jZGgahl7SyVHDnNW
+ +J3qiIHFrMv7UBLBAOjdyFF6h+h2kufzi4Qm5U2kc1FrbqERx9edy/uS/1BORps4Ju
+ WAy5d2T1nRQfw==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20220823154027.762889-1-pierre-louis.bossart@linux.intel.com>
-References: <20220823154027.762889-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: imx: imx8ulp: declare ops structure as static
-Message-Id: <166133954489.17904.12581598154434603889.b4-ty@kernel.org>
-Date: Wed, 24 Aug 2022 12:12:24 +0100
+To: alsa-devel@alsa-project.org, perex@perex.cz, Xiubo.Lee@gmail.com,
+ lgirdwood@gmail.com, nicoleotsuka@gmail.com, 
+ shengjiu.wang@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ festevam@gmail.com, tiwai@suse.com
+In-Reply-To: <1659681926-13493-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1659681926-13493-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Update slots number according to bclk_ratio
+Message-Id: <166133954610.17904.8655688757494279362.b4-ty@kernel.org>
+Date: Wed, 24 Aug 2022 12:12:26 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: tiwai@suse.de
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,11 +87,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 17:40:27 +0200, Pierre-Louis Bossart wrote:
-> Sparse warning:
-> 
-> sound/soc/sof/imx/imx8ulp.c:416:24: error: symbol 'sof_imx8ulp_ops'
-> was not declared. Should it be static?
+On Fri, 5 Aug 2022 14:45:26 +0800, Shengjiu Wang wrote:
+> The bclk_ratio is set by .set_bclk_ratio API.
+> bclk_ratio = slots * slot_width
+> So if slots is not set by .set_tdm_slot, then it can be calculated
+> by bclk_ratio.
 > 
 > 
 
@@ -99,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: imx: imx8ulp: declare ops structure as static
-      commit: 1332d2078a839b371b3d541c3653a800d12a763d
+[1/1] ASoC: fsl_sai: Update slots number according to bclk_ratio
+      commit: 837b40293de66a5b96f883f540512ec5c3867610
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

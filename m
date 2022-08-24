@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE12459F872
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:13:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0249559F873
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:13:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F80F161E;
-	Wed, 24 Aug 2022 13:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F80F161E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 962911657;
+	Wed, 24 Aug 2022 13:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 962911657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661339603;
-	bh=VOqnFDyiEIqBZ8w37kaq14ND+nysAVqM1VyiC0YUPno=;
+	s=default; t=1661339633;
+	bh=WN2bNE7LCOmWySlUEEWLIkJNJKcud+TzDqPnjTAbMsg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qQbinOdsa9obnelicGp0tSdKzZU33ZR0gZaVRFYVo5e+GiZwI270+p5EWBM0Zl6IQ
-	 UfJ488Ba+IEmFaYOGxT2EOCL1PzXmxGSBdByQs4fc0/I/vt7UDYvc4kaKUwaRopuRi
-	 oo92DhUjs3Kz5PypyeHYttrrMCBV0O8mIcqGJad8=
+	b=f+6GU5YAhgSb74tAwJOnd3CArIRY2dU+Obe27g/fYrN5Je6+kzr4/AoQ2ElntrwKp
+	 o/ThEj6YLFuiPDRC+qxgj0Se+f8aZu/SY1rsZV5K1AGdKijvLak0pebkejgfPCM4EY
+	 Obawpz6APjrJ25rKRuZPJg5w/Nx5Q5ZqyBLsG/f4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90BA6F804C1;
-	Wed, 24 Aug 2022 13:12:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43C0BF80515;
+	Wed, 24 Aug 2022 13:12:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AD64F804C1; Wed, 24 Aug 2022 13:12:22 +0200 (CEST)
+ id 74AFFF8014E; Wed, 24 Aug 2022 13:12:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,44 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 770F4F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03D08F8014E
  for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 770F4F800A7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D08F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OHGQoR9T"
+ header.b="s1BbX4zp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8DD03B823A2;
- Wed, 24 Aug 2022 11:12:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5168C43140;
- Wed, 24 Aug 2022 11:12:14 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 37CA5B823A6;
+ Wed, 24 Aug 2022 11:12:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE19C433D7;
+ Wed, 24 Aug 2022 11:12:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661339536;
- bh=VOqnFDyiEIqBZ8w37kaq14ND+nysAVqM1VyiC0YUPno=;
+ s=k20201202; t=1661339537;
+ bh=WN2bNE7LCOmWySlUEEWLIkJNJKcud+TzDqPnjTAbMsg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OHGQoR9TTPNXQKj/m0hbr9KMZlWqQYL1TmXYmCGkJ7hXkjg/yTmKwLudpN0cWh639
- wGCQTYZIFRH/j8O+mC6Ddl+/EbI2yYIxzsSr8dWaXoNtNoV1k0jgphHsDBZ/xKI8XV
- iTjcn8x/285L74LFwRWP6XlgREAi1AkPenTAXk2UNaL5W6WqX0wah/B412t1cdy+Za
- xEoLcodCop8ESOQWEtBlDf/Fbka+NDiFEDvhvcvWE9I2coHBN9jMxXqjiJIMEOJmQq
- I52itM5+w0luE+J8rFSJXSfYHj09ssHEIEMgnn5fFWZNvtjz8QnY7kUxNrD1riNTOx
- xpPRbPZlzeSgQ==
+ b=s1BbX4zp04DOfkshyVXnAv78gF+UR1DDeXcbnQAW89ZJYk8ubed8PMRnNHHcXUwsN
+ StSBms6vHOYCOC+0qB7TRFKlSoGk2ZgQC112ocwodLbfSsJk0/7UoVXu9LkY9IGWFD
+ QSHddN0LXyGS9DnyzrMrn7QVnWF3CnQNMl5ANZqBAjJJPa6NVom5azBx71sQWgi7yj
+ wVeKvFux5wKeiLTPhKGT/3eqdRSoHIV7HJf25+L+MvrC9LAol0WDFRiMFgwITwi3q5
+ tCq6GXs1wDxxXPDiKTIaaYXx2xqBN+1u2Hd7O6f01THAe9DlS4CKEiMBajIlirVNVN
+ hS8pPiuWsJJ2Q==
 From: Mark Brown <broonie@kernel.org>
 To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20220823124219.927-1-peter.ujfalusi@linux.intel.com>
-References: <20220823124219.927-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-loader: Verify ext manifest magic number
-Message-Id: <166133953439.17904.16209764128409365284.b4-ty@kernel.org>
-Date: Wed, 24 Aug 2022 12:12:14 +0100
+In-Reply-To: <20220823124359.24865-1-peter.ujfalusi@linux.intel.com>
+References: <20220823124359.24865-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Skip IMR boot after a firmware
+ crash or boot failure
+Message-Id: <166133953643.17904.7544751600598124284.b4-ty@kernel.org>
+Date: Wed, 24 Aug 2022 12:12:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,15 +88,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 15:42:19 +0300, Peter Ujfalusi wrote:
-> Firmware image must start with an extended manifest. Add a check to make
-> sure that the image does contain it.
-> 
-> The magic number (the first u32 of a firmware image if manifest is present)
-> for an IPC4 image must be 0x31454124 (ASCI "$AE1").
+On Tue, 23 Aug 2022 15:43:59 +0300, Peter Ujfalusi wrote:
+> To make sure that we start from a clean state next time when the DSP is
+> powered up after a firmware crash or boot failure we must skip the IMR
+> booting attempt.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -104,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: ipc4-loader: Verify ext manifest magic number
-      commit: a337c2012774d588fcab318c42edc2601d90e549
+[1/1] ASoC: SOF: Intel: hda: Skip IMR boot after a firmware crash or boot failure
+      commit: 3b99852f4c874062295704dd483b03cab61301fe
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

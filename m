@@ -2,77 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7844D59FAAF
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 14:59:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 677BB59FC5D
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 15:56:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14E0F1622;
-	Wed, 24 Aug 2022 14:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E0F1622
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC445829;
+	Wed, 24 Aug 2022 15:55:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC445829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661345972;
-	bh=d37TvzEEwV/Y4PGipJK/1XGqv3smEB6DxMlu5+fnV+A=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1661349390;
+	bh=msSU3qQ+X15SSeIqCsAOSxxkZ8mz3Vrx2NgqrNMhMQc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U+20GDPshH/O4LFhGDbGn3fIdGkWJtp4hNcvOGTKMmXBAsj9X4KHZTyoACLEZrflF
-	 Z+DK9QFgifsdrya8weqoGHV/cj3q+B5PavQ/8mRs0WbLBCT8W9Py+o9XramHuGevVd
-	 qEDOCp0cCxWaQARFECYmIzdcwR13n4XNOekf2Cwo=
+	b=cgbwM3MzuCbDuTzb5yLNHRlMx5mu2qEBwlrXpwR7C9WeNJnCUDeXO8jUMLpzWbHph
+	 nlnAwZAtHBeU0a1fbb9bJpa5vEKVN8OplIPzKvAjUN9tI8YltZqFAIXu5u9zAX/A8P
+	 fdK/8GIieLGu74jGiAqFE8QEuC89asuJ5sZZ2i60=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 675DAF800A7;
-	Wed, 24 Aug 2022 14:58:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B407F804CC;
+	Wed, 24 Aug 2022 15:55:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29408F804BD; Wed, 24 Aug 2022 14:58:30 +0200 (CEST)
+ id 4AA45F804C1; Wed, 24 Aug 2022 15:55:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_21,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1968F800C8;
- Wed, 24 Aug 2022 14:58:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1968F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D0F4F800A7
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 15:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D0F4F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pEiH716i"
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="YCV+o6IZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B80476162A;
- Wed, 24 Aug 2022 12:58:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F93C433D6;
- Wed, 24 Aug 2022 12:58:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661345901;
- bh=d37TvzEEwV/Y4PGipJK/1XGqv3smEB6DxMlu5+fnV+A=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=pEiH716iUzx0z4CkedRKooX9m+2QGfaaBlPRgPyvrcvjyAm2bfZPg9kyoj4GRDsIW
- HkOpjMKDIKKJ7WURG+sB2E1FY7zfTZ7Jny9YaLzwxVXUlGDDU6y8/+GWPPaixtli0H
- t4lQ3yjtS/TkqzLxd9W+m4IgAQ9LJov5mVFeGEkfkArexirnufQ7jCOhaiEEOIyr/I
- oQuIqr+/hZa334npq348Cxk19Is7jTUYsIsEZy/uHEtKmKPUy1cpivmoRDGZTgfovl
- g9HmNgQNVneBckdPurpdQ6EWvUnWu0Xl7rTZGA8h6py4X/USE8F9JC7BC8SH/mzBr3
- I2y/L77R/6baQ==
-From: Mark Brown <broonie@kernel.org>
-To: linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org,
- linux-kernel@vger.kernel.org, 
- Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20220824013234.375738-1-yangyingliang@huawei.com>
-References: <20220824013234.375738-1-yangyingliang@huawei.com>
-Subject: Re: [PATCH -next 1/2] ASoC: SOF: imx8ulp: change es8326_regmap_config
- to static
-Message-Id: <166134589925.62446.9609144399973742023.b4-ty@kernel.org>
-Date: Wed, 24 Aug 2022 13:58:19 +0100
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1B45E6125B;
+ Wed, 24 Aug 2022 13:55:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FC7C433D6;
+ Wed, 24 Aug 2022 13:55:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1661349322;
+ bh=msSU3qQ+X15SSeIqCsAOSxxkZ8mz3Vrx2NgqrNMhMQc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YCV+o6IZUkVbur93pUP5AD9xZlPAOSFZjDFhpaQb/YTJXxVk5uRHejQKoYsy5aSO6
+ xdb+B1cua2FH2O2RzGEcs7IXVxzyFClxE50L2vukzC9O1iO0eRKBp2Xs4k6NCOYqW+
+ 1dhDsruobAQgMlmYIqWnZMtevflm0vioKX9WwpmQ=
+Date: Wed, 24 Aug 2022 15:55:19 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/5] soundwire: sysfs: cleanup the logic for creating the
+ dp0 sysfs attributes
+Message-ID: <YwYtxy3auMhDE6y/@kroah.com>
+References: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
+ <20220729135041.2285908-2-gregkh@linuxfoundation.org>
+ <9365e038-2146-98f8-f989-02827f221c34@linux.intel.com>
+ <YuP0Ffs3G7ZBR0AC@kroah.com>
+ <cfacb124-a9ff-0a93-8f92-93d164b15966@linux.intel.com>
+ <YuP2pjhyKTTfpXQq@kroah.com>
+ <5caffe2a-f5a6-e312-a564-5fe29c4e2323@linux.intel.com>
+ <YuQMYRYFo9gTk1yL@kroah.com>
+ <701aa1ba-9b25-51eb-8bd7-2389b501d79c@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-0c1df
-Cc: shengjiu.wang@nxp.com, daniel.baluta@nxp.com, peng.zhang_8@nxp.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <701aa1ba-9b25-51eb-8bd7-2389b501d79c@linux.intel.com>
+Cc: Sanyog Kale <sanyog.r.kale@intel.com>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,37 +92,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 24 Aug 2022 09:32:33 +0800, Yang Yingliang wrote:
-> sof_imx8ulp_ops is only used in imx8ulp.c now, change it to static.
+On Fri, Jul 29, 2022 at 11:46:32AM -0500, Pierre-Louis Bossart wrote:
 > 
+> >>>>> That should be fine, tools should just be looking for the attributes,
+> >>>>> not the existance of a directory, right?
+> >>>>
+> >>>> The idea what that we would only expose ports that actually exist.
+> >>>> That's helpful information anyone with a basic knowledge of the
+> >>>> SoundWire specification would understand.
+> >>>
+> >>> Is "dp0" a port?  If so, why isn't it a real device?
+> >>
+> >> The SoundWire spec defines the concept of 'data port'. The valid ranges
+> >> are 1..14, but in all existing devices the number of data ports is way
+> >> smaller, typically 2 to 4. Data ports (DPn) are source or sink, and
+> >> there's no firm rule that data ports needs to be contiguous.
+> >>
+> >> DP0 is a 'special case' where the data transport is used for control
+> >> information, e.g. programming large set of registers or firmware
+> >> download. DP0 is completely optional in hardware, and not handled in
+> >> Linux for now.
+> >>
+> >> DP0 and DPn expose low-level transport registers, which define how the
+> >> contents of a FIFO will be written or read from the bus. Think of it as
+> >> a generalization of the concept of TDM slots, where instead of having a
+> >> fixed slot per frame the slot position/repetition/runlength can be
+> >> programmed.
+> >>
+> >> The data ports could be as simple as 1-bit PDM, or support 8ch PCM
+> >> 24-bits. That's the sort of information reported in attributes.
+> > 
+> > Why not make them a real device like we do for USB endpoints?
 > 
+> I don't see what adding another layer of hierarchy would bring. In their
+> simplest configuration, there are 6 registers 8-bit exposed. And the
+> port registers, when present, are accessed with a plain vanilla offset.
+> 
+> > What uses these sysfs files today that would be confused about an empty
+> > directory?
+> 
+> That's a good question. I am not aware of any tools making use of those
+> attributes. To a large degree, they are helpful only for debug and
+> support, all these read-only attributes could be moved to debugfs. That
+> could be a way to simplify everyone's life....
 
-Applied to
+Ok, this is why I didn't just rebase and resend.  I've now worked on
+sysfs to NOT create the directory if no attributes were present.  I'll
+send out this series rebased along with that commit as well which should
+help with this issue.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+thanks,
 
-Thanks!
-
-[1/2] ASoC: SOF: imx8ulp: change es8326_regmap_config to static
-      (no commit info)
-[2/2] ASoC: SOF: imx8ulp: add missing of_node_put() in imx8ulp_probe()
-      commit: adc641f1dbce48914445efb79f302380ff10df10
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+greg k-h

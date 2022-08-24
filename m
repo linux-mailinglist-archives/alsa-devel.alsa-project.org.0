@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0249559F873
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:13:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC4259F875
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 13:14:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 962911657;
-	Wed, 24 Aug 2022 13:13:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 962911657
+	by alsa0.perex.cz (Postfix) with ESMTPS id C09B2167C;
+	Wed, 24 Aug 2022 13:13:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09B2167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661339633;
-	bh=WN2bNE7LCOmWySlUEEWLIkJNJKcud+TzDqPnjTAbMsg=;
+	s=default; t=1661339656;
+	bh=ztMbvDS4X4BtPDHqKb6pkC5N4tWIWYmDZbAVJe7LfNw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f+6GU5YAhgSb74tAwJOnd3CArIRY2dU+Obe27g/fYrN5Je6+kzr4/AoQ2ElntrwKp
-	 o/ThEj6YLFuiPDRC+qxgj0Se+f8aZu/SY1rsZV5K1AGdKijvLak0pebkejgfPCM4EY
-	 Obawpz6APjrJ25rKRuZPJg5w/Nx5Q5ZqyBLsG/f4=
+	b=k+eRVk6wP5GMIw0G1IA3NGuBzkjnspe83VGT8CO7qQqyzCDYSrxTv9OGsS7FjKcLD
+	 l2oda/AAD9VOoTxyal0DyLPAz6p69/EeJr9WIDAiaH+hPRcmi589SEhvUZueYzlzSA
+	 UYmokYX1CrQsY307XHcbXo+tjzc44fvbTxvoTxtY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43C0BF80515;
-	Wed, 24 Aug 2022 13:12:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9FFDF80535;
+	Wed, 24 Aug 2022 13:12:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74AFFF8014E; Wed, 24 Aug 2022 13:12:22 +0200 (CEST)
+ id 9DC04F804CC; Wed, 24 Aug 2022 13:12:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03D08F8014E
- for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D08F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BDF4F804CC
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 13:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BDF4F804CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s1BbX4zp"
+ header.b="sm/Du/6O"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 37CA5B823A6;
- Wed, 24 Aug 2022 11:12:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE19C433D7;
- Wed, 24 Aug 2022 11:12:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 380FDB8238E;
+ Wed, 24 Aug 2022 11:12:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3EDC43140;
+ Wed, 24 Aug 2022 11:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661339537;
- bh=WN2bNE7LCOmWySlUEEWLIkJNJKcud+TzDqPnjTAbMsg=;
+ s=k20201202; t=1661339545;
+ bh=ztMbvDS4X4BtPDHqKb6pkC5N4tWIWYmDZbAVJe7LfNw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=s1BbX4zp04DOfkshyVXnAv78gF+UR1DDeXcbnQAW89ZJYk8ubed8PMRnNHHcXUwsN
- StSBms6vHOYCOC+0qB7TRFKlSoGk2ZgQC112ocwodLbfSsJk0/7UoVXu9LkY9IGWFD
- QSHddN0LXyGS9DnyzrMrn7QVnWF3CnQNMl5ANZqBAjJJPa6NVom5azBx71sQWgi7yj
- wVeKvFux5wKeiLTPhKGT/3eqdRSoHIV7HJf25+L+MvrC9LAol0WDFRiMFgwITwi3q5
- tCq6GXs1wDxxXPDiKTIaaYXx2xqBN+1u2Hd7O6f01THAe9DlS4CKEiMBajIlirVNVN
- hS8pPiuWsJJ2Q==
+ b=sm/Du/6O3fsXUDDcVtgVLQDYE2Wak6eXSpRwhyK9OUoipTKaxGWLar3NX2ej1VY9m
+ 7BJSeQSlzw7MVRNPkodk6JTQ9gMOn35gpOSMG2ZVbsy6t5KwPmvWhygJFEoecvcr9y
+ hj7mS3yNLIWxU6fW/yfDhKFRZqBR6J9urWsnrdHGv8pC3EMD+dlholIlSkGSKFeegD
+ lsjlNBY7t05Bq759daGH3gCAVPqZhmHXv1jgZMWm0J9GswPIJv3SqLJVVeknpSS+20
+ 9grgEGb+1ffLqvlM1NruEgjq5gohyEFIPo+EapVJp/AMlnG7Ys8cASKknu/6IhaLh+
+ 01XPrbHfQNlaQ==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20220823124359.24865-1-peter.ujfalusi@linux.intel.com>
-References: <20220823124359.24865-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Skip IMR boot after a firmware
- crash or boot failure
-Message-Id: <166133953643.17904.7544751600598124284.b4-ty@kernel.org>
-Date: Wed, 24 Aug 2022 12:12:16 +0100
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20220823154027.762889-1-pierre-louis.bossart@linux.intel.com>
+References: <20220823154027.762889-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: imx: imx8ulp: declare ops structure as static
+Message-Id: <166133954489.17904.12581598154434603889.b4-ty@kernel.org>
+Date: Wed, 24 Aug 2022 12:12:24 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,10 +85,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 15:43:59 +0300, Peter Ujfalusi wrote:
-> To make sure that we start from a clean state next time when the DSP is
-> powered up after a firmware crash or boot failure we must skip the IMR
-> booting attempt.
+On Tue, 23 Aug 2022 17:40:27 +0200, Pierre-Louis Bossart wrote:
+> Sparse warning:
+> 
+> sound/soc/sof/imx/imx8ulp.c:416:24: error: symbol 'sof_imx8ulp_ops'
+> was not declared. Should it be static?
 > 
 > 
 
@@ -101,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda: Skip IMR boot after a firmware crash or boot failure
-      commit: 3b99852f4c874062295704dd483b03cab61301fe
+[1/1] ASoC: SOF: imx: imx8ulp: declare ops structure as static
+      commit: 1332d2078a839b371b3d541c3653a800d12a763d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

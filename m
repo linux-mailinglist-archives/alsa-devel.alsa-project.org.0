@@ -2,90 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F6159F362
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 08:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 731F359F38D
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Aug 2022 08:19:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7615686E;
-	Wed, 24 Aug 2022 08:03:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7615686E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7A5C847;
+	Wed, 24 Aug 2022 08:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7A5C847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661321082;
-	bh=5qzTU4UopHQ/QXScdijmn/cLsoETzVtFT4xXMfKo1lw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661321998;
+	bh=xuOEfRn0BPqX1AVqOWxNeF9MJokEIlZnw9CPZ53hzOA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YBzlqbiemeDNKVBVsUVjTVXJ6WmvcFKjAJBrDEEnUY0IaJzpZ10rKB08yevI2eBfW
-	 JGwMOh6MJcQKVTs7lfY/nWKDnkAC4G5AAVrZa+GBKDrw252u7kOR+fzOmiwYy0Qvgl
-	 z4+/Y39Q8Cb7sGbg9wIFsxKuSK2jp4ZT5s7CO6fI=
+	b=OgMpGSLtc1ymJy6FzZ5bCixYPED2Fm6diMAi49p1lYTFSOaBSBZTH2/v3vVmgH5an
+	 KiVuVOr3aNBOnbIQ1nNAuCP4a26DUlTHNQHtoiUWJ2jD3n9KvjLzlZkDE97EWSZwPX
+	 QhybuGLPdc7MTt0inxDv8/InMpgsAzwrkljFKabE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D26EFF804C1;
-	Wed, 24 Aug 2022 08:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BDE8F804C1;
+	Wed, 24 Aug 2022 08:18:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16F7FF804BD; Wed, 24 Aug 2022 08:03:41 +0200 (CEST)
+ id 05D07F800C8; Wed, 24 Aug 2022 08:18:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87622F800A7
- for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 08:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87622F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31171F800C8
+ for <alsa-devel@alsa-project.org>; Wed, 24 Aug 2022 08:18:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31171F800C8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TqBDQN7+"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jjYngscI"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="Be/1mBwY"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C92DB33893;
- Wed, 24 Aug 2022 06:03:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661321013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZIl1IV+m971YW+SPAR1ZUNMwJ9mEWjX28q7M5OiK1SQ=;
- b=TqBDQN7+BMZoDgrMmXOx2zs42l7c4pId1TRf64cmJSAknFeykCFIFizYEmqd/FrJsW9ZmZ
- 5DXKY6UP2+kotygZlFbFOZJuOHcqUQOUJG3DwStF2NE5f08nkAg0D9MxSdajh7mgB6vQaC
- fNXCj4Is+slq7Eg+E4JIVO8bJXSuUhs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661321013;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZIl1IV+m971YW+SPAR1ZUNMwJ9mEWjX28q7M5OiK1SQ=;
- b=jjYngscIdWjvedULnwSFS8M/bxp5dCq4dSJyp2sUnQ/VKdZLpRW3VOX8lEPyaUr4NBUlNj
- dn9GR5tY42rs5kCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC50013AC0;
- Wed, 24 Aug 2022 06:03:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1xu3KDW/BWPILQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 24 Aug 2022 06:03:33 +0000
-Date: Wed, 24 Aug 2022 08:03:33 +0200
-Message-ID: <87lerenpoq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 2/2] ALSA: seq: Fix data-race at module auto-loading
-In-Reply-To: <20220823072717.1706-2-tiwai@suse.de>
-References: <20220823072717.1706-1-tiwai@suse.de>
- <20220823072717.1706-2-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Abhishek Shah <abhishek.shah@columbia.edu>,
- Gabriel Ryan <gabe@cs.columbia.edu>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B6FC16105C;
+ Wed, 24 Aug 2022 06:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43A9C433C1;
+ Wed, 24 Aug 2022 06:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1661321928;
+ bh=xuOEfRn0BPqX1AVqOWxNeF9MJokEIlZnw9CPZ53hzOA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Be/1mBwYbAEN3+M04cd/EQ53zXBHkTrlGXOTdnHAs2pCkOF4a5YsvC01vDGRxM1hD
+ 8vg9KVrEJ12Onx9kZQNLYjOmDR4QnXy0qJsCfK8NkrNqi60yGClRnDE118F/LaDFe0
+ 3OGGnmVwTPacdjHGS0HGYWC36mUWFlIfDWiRmJyA=
+Date: Wed, 24 Aug 2022 08:18:45 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH 1/5] soundwire: sysfs: move sdw_slave_dev_attr_group into
+ the existing list of groups
+Message-ID: <YwXCxZuaiumS/Am5@kroah.com>
+References: <20220729135041.2285908-1-gregkh@linuxfoundation.org>
+ <YwT5gqOihDYK73aF@matsya>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YwT5gqOihDYK73aF@matsya>
+Cc: Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,93 +86,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Aug 2022 09:27:17 +0200,
-Takashi Iwai wrote:
+On Tue, Aug 23, 2022 at 09:30:02PM +0530, Vinod Koul wrote:
+> On 29-07-22, 15:50, Greg Kroah-Hartman wrote:
+> > The sysfs logic already creates a list of groups for the device, so add
+> > the sdw_slave_dev_attr_group group to that list instead of having to do
+> > a two-step process of adding a group list and then an individual group.
+> > 
+> > This is a step on the way to moving all of the sysfs attribute handling
+> > into the default driver core attribute group logic so that the soundwire
+> > core does not have to do any of it manually.
 > 
-> It's been reported that there is a possible data-race accessing to the
-> global card_requested[] array at ALSA sequencer core, which is used
-> for determining whether to call request_module() for the card or not.
-> This data race itself is almost harmless, as it might end up with one
-> extra request_module() call for the already loaded module at most.
-> But it's still better to fix.
+> Hey Greg,
 > 
-> This patch addresses the possible data race of card_requested[] and
-> client_requested[] arrays by replacing them with bitmask.
-> It's an atomic operation and can work without locks.
-> 
-> Reported-by: Abhishek Shah <abhishek.shah@columbia.edu>
-> Cc: <stable@vger.kernel.org>
-> Link: https://lore.kernel.org/r/CAEHB24_ay6YzARpA1zgCsE7=H9CSJJzux618E=Ka4h0YdKn=qA@mail.gmail.com
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> DO you have a v2 for this, or if you are too busy I can update the
+> patchset...
 
-Gah, there was an obvious type in the patch.
-The correct version is below, and I merged it now.
+Oh wait, I did rebase it, I'll send it out this afternoon, thanks for
+the reminder...
 
-
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH v2] ALSA: seq: Fix data-race at module auto-loading
-
-It's been reported that there is a possible data-race accessing to the
-global card_requested[] array at ALSA sequencer core, which is used
-for determining whether to call request_module() for the card or not.
-This data race itself is almost harmless, as it might end up with one
-extra request_module() call for the already loaded module at most.
-But it's still better to fix.
-
-This patch addresses the possible data race of card_requested[] and
-client_requested[] arrays by replacing them with bitmask.
-It's an atomic operation and can work without locks.
-
-Reported-by: Abhishek Shah <abhishek.shah@columbia.edu>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/CAEHB24_ay6YzARpA1zgCsE7=H9CSJJzux618E=Ka4h0YdKn=qA@mail.gmail.com
-Link: https://lore.kernel.org/r/20220823072717.1706-2-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: fix compile error
-
- sound/core/seq/seq_clientmgr.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 2e9d695d336c..2d707afa1ef1 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -121,13 +121,13 @@ struct snd_seq_client *snd_seq_client_use_ptr(int clientid)
- 	spin_unlock_irqrestore(&clients_lock, flags);
- #ifdef CONFIG_MODULES
- 	if (!in_interrupt()) {
--		static char client_requested[SNDRV_SEQ_GLOBAL_CLIENTS];
--		static char card_requested[SNDRV_CARDS];
-+		static DECLARE_BITMAP(client_requested, SNDRV_SEQ_GLOBAL_CLIENTS);
-+		static DECLARE_BITMAP(card_requested, SNDRV_CARDS);
-+
- 		if (clientid < SNDRV_SEQ_GLOBAL_CLIENTS) {
- 			int idx;
- 			
--			if (!client_requested[clientid]) {
--				client_requested[clientid] = 1;
-+			if (!test_and_set_bit(clientid, client_requested)) {
- 				for (idx = 0; idx < 15; idx++) {
- 					if (seq_client_load[idx] < 0)
- 						break;
-@@ -142,10 +142,8 @@ struct snd_seq_client *snd_seq_client_use_ptr(int clientid)
- 			int card = (clientid - SNDRV_SEQ_GLOBAL_CLIENTS) /
- 				SNDRV_SEQ_CLIENTS_PER_CARD;
- 			if (card < snd_ecards_limit) {
--				if (! card_requested[card]) {
--					card_requested[card] = 1;
-+				if (!test_and_set_bit(card, card_requested))
- 					snd_request_card(card);
--				}
- 				snd_seq_device_load_drivers();
- 			}
- 		}
--- 
-2.35.3
-
+greg k-h

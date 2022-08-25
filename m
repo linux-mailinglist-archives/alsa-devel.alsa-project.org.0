@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15A1F5A16CC
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 18:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 498FF5A16CD
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 18:40:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5483B161D;
-	Thu, 25 Aug 2022 18:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5483B161D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E740D1637;
+	Thu, 25 Aug 2022 18:39:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E740D1637
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661445608;
-	bh=liGkXhlAm+VXFh8bREExCiBE1UTrJqRblYdv6sZW+iA=;
+	s=default; t=1661445639;
+	bh=jW1+QJrbm2Ue8kto7vl18xbElhRMDwx0g4NeT2s/jqI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NQcwObodBWn7eQKFqF7k+Kro2S1AJPEK2l1H02PEyQBQJYIF2rtaj1oDcVBGuZ4Im
-	 4XvY8qa2kFRTtfLpbTugXmbigS3G/GrTZZsDZ/T/q6jQHFjWSrOzAzKxIg1R+g27gU
-	 POqGirWmJXaIQwV+gs7PE9Gbsx2HVtIZSCBqy2A8=
+	b=vSYz1w/6PCXOVXcjk/hbpHjeiW895LHPsm5OD8ZMjqcEmQbRn2lzKdMtjo4XmWeZ6
+	 OTY+AUTPseb9kTKeDtLzSR9mMcSDnBu3o5AH5nI8lEJDFe0EM/t1AVGHuoVHq4q65C
+	 jpK4XpJB44cxqpbTQ1WBg1UH6X6u9ZaOf3bxznRc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF475F80271;
-	Thu, 25 Aug 2022 18:39:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4778AF8014B;
+	Thu, 25 Aug 2022 18:39:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F394F80271; Thu, 25 Aug 2022 18:39:06 +0200 (CEST)
+ id A40A8F804FD; Thu, 25 Aug 2022 18:39:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91B93F800C8
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 18:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91B93F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7019F80245
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 18:39:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7019F80245
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="LZ7EyQHg"
+ header.b="gcw0LEK+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661445541; x=1692981541;
+ t=1661445543; x=1692981543;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=liGkXhlAm+VXFh8bREExCiBE1UTrJqRblYdv6sZW+iA=;
- b=LZ7EyQHgsC2YxJ/ozSOV3rQfZyT8Q+bXj5qZsPxb93yBaUGIMlscyFMS
- hToduK0ryYHHMwafNe/FmcbEYR3UC6BhU06AvvCXb/VfdOlmo33WK6BKa
- ifreGRJBBkLMERt0QiJ9IuVeZTe1npeBJUFVkQwlhsKid+6s4TmInQmef
- j5Tw9FuE1475+Z3ymdsNrm20wqmnHpEry5LYGytyr5n7/cDv6E2zWhGP3
- kxZmhkqTH2K9cgm2NtLAi1vwWlBLA37YiAkMNbGTIzGB7ObUbWmfewTGJ
- Spc6ju+v7oc6MhFRfgfAEgg2nUNPINw5T/+mgvaTo2nLCD5kqOAfuAzjZ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="356013033"
-X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="356013033"
+ bh=jW1+QJrbm2Ue8kto7vl18xbElhRMDwx0g4NeT2s/jqI=;
+ b=gcw0LEK+fvpQ6xbqaOQwRxCxyuXbfIZ8Ov0rOStZ1OAi7SJTDa+9K4ug
+ 0TGO52p6pkd+NoiGW1kztw+fAaI7s2ZHUb41Qkw4DhL7XJEuyyJ/CbkW/
+ 214/IeU3jEa3d0JVXGsN9CmV2KjxcH8pp9yT9ZP0d6/Xi66x+wCZNTH0g
+ j3Vxoa0yz3zwniSZHVRrjusSaz/PgYdb+9aH2rl4BAHUgHd0Ns36JHIK3
+ HE3MSA3ZxcMi/Q/Fn0oNNCkAaocCtvadXx73V9UL7oNu/W1X1MxF60PLr
+ 95Ha+CiYtdCXtBx8pq1z3GHglFPNEJhG/0WoieFtBn5ubMRnZq9hLhYg0 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="356013043"
+X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="356013043"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2022 09:38:55 -0700
+ 25 Aug 2022 09:38:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="671070433"
+X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="671070457"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 25 Aug 2022 09:38:51 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 25 Aug 2022 09:38:56 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 1/2] libfs: Introduce tokenize_user_input()
-Date: Thu, 25 Aug 2022 18:48:32 +0200
-Message-Id: <20220825164833.3923454-2-cezary.rojewski@intel.com>
+Subject: [PATCH v2 2/2] ASoC: SOF: Remove strsplit_u32() and tokenize_input()
+Date: Thu, 25 Aug 2022 18:48:33 +0200
+Message-Id: <20220825164833.3923454-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220825164833.3923454-1-cezary.rojewski@intel.com>
 References: <20220825164833.3923454-1-cezary.rojewski@intel.com>
@@ -94,86 +94,163 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add new helper function to allow for splitting specified user string
-into a sequence of integers. Internally it makes use of get_options() so
-the returned sequence contains the integers extracted plus an additional
-element that begins the sequence and specifies the integers count.
+Make use of global user input tokenization helper instead of the
+internal one as both serve same purpose. With that, both strsplit_u32()
+and tokenize_input() become unused so remove them.
 
-Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- fs/libfs.c         | 45 +++++++++++++++++++++++++++++++++++++++++++++
- include/linux/fs.h |  1 +
- 2 files changed, 46 insertions(+)
+ sound/soc/sof/sof-client-probes.c | 92 ++++---------------------------
+ 1 file changed, 11 insertions(+), 81 deletions(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 31b0ddf01c31..078b23e26741 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -809,6 +809,51 @@ ssize_t simple_write_to_buffer(void *to, size_t available, loff_t *ppos,
- }
- EXPORT_SYMBOL(simple_write_to_buffer);
+diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+index eb246b823461..3bab54cac07b 100644
+--- a/sound/soc/sof/sof-client-probes.c
++++ b/sound/soc/sof/sof-client-probes.c
+@@ -410,79 +410,6 @@ static const struct snd_compress_ops sof_probes_compressed_ops = {
+ 	.copy = sof_probes_compr_copy,
+ };
  
-+/**
-+ * tokenize_user_input - Split string into a sequence of integers
-+ * @from:	The user space buffer to read from
-+ * @ppos:	The current position in the buffer
-+ * @count:	The maximum number of bytes to read
-+ * @tkns:	Returned pointer to sequence of integers
-+ *
-+ * On success @tkns is allocated and initialized with a sequence of
-+ * integers extracted from the @from plus an additional element that
-+ * begins the sequence and specifies the integers count.
-+ *
-+ * Caller takes responsibility for freeing @tkns when it is no longer
-+ * needed.
-+ */
-+int tokenize_user_input(const char __user *from, size_t count, int **tkns)
-+{
-+	int *ints, nints;
-+	char *buf;
-+	int ret = 0;
-+
-+	buf = memdup_user_nul(from, count);
-+	if (IS_ERR(buf))
-+		return PTR_ERR(buf);
-+
-+	get_options(buf, 0, &nints);
-+	if (!nints) {
-+		ret = -ENOENT;
-+		goto free_buf;
-+	}
-+
-+	ints = kcalloc(nints + 1, sizeof(*ints), GFP_KERNEL);
-+	if (!ints) {
-+		ret = -ENOMEM;
-+		goto free_buf;
-+	}
-+
-+	get_options(buf, nints + 1, ints);
-+	*tkns = ints;
-+
-+free_buf:
-+	kfree(buf);
-+	return ret;
-+}
-+EXPORT_SYMBOL(tokenize_user_input);
-+
- /**
-  * memory_read_from_buffer - copy data from the buffer
-  * @to: the kernel space buffer to read to
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 9eced4cc286e..ab04cc7f9efa 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -3345,6 +3345,7 @@ extern ssize_t simple_read_from_buffer(void __user *to, size_t count,
- 			loff_t *ppos, const void *from, size_t available);
- extern ssize_t simple_write_to_buffer(void *to, size_t available, loff_t *ppos,
- 		const void __user *from, size_t count);
-+extern int tokenize_user_input(const char __user *from, size_t count, int **tkns);
+-/**
+- * strsplit_u32 - Split string into sequence of u32 tokens
+- * @buf:	String to split into tokens.
+- * @delim:	String containing delimiter characters.
+- * @tkns:	Returned u32 sequence pointer.
+- * @num_tkns:	Returned number of tokens obtained.
+- */
+-static int strsplit_u32(char *buf, const char *delim, u32 **tkns, size_t *num_tkns)
+-{
+-	char *s;
+-	u32 *data, *tmp;
+-	size_t count = 0;
+-	size_t cap = 32;
+-	int ret = 0;
+-
+-	*tkns = NULL;
+-	*num_tkns = 0;
+-	data = kcalloc(cap, sizeof(*data), GFP_KERNEL);
+-	if (!data)
+-		return -ENOMEM;
+-
+-	while ((s = strsep(&buf, delim)) != NULL) {
+-		ret = kstrtouint(s, 0, data + count);
+-		if (ret)
+-			goto exit;
+-		if (++count >= cap) {
+-			cap *= 2;
+-			tmp = krealloc(data, cap * sizeof(*data), GFP_KERNEL);
+-			if (!tmp) {
+-				ret = -ENOMEM;
+-				goto exit;
+-			}
+-			data = tmp;
+-		}
+-	}
+-
+-	if (!count)
+-		goto exit;
+-	*tkns = kmemdup(data, count * sizeof(*data), GFP_KERNEL);
+-	if (!(*tkns)) {
+-		ret = -ENOMEM;
+-		goto exit;
+-	}
+-	*num_tkns = count;
+-
+-exit:
+-	kfree(data);
+-	return ret;
+-}
+-
+-static int tokenize_input(const char __user *from, size_t count,
+-			  loff_t *ppos, u32 **tkns, size_t *num_tkns)
+-{
+-	char *buf;
+-	int ret;
+-
+-	buf = kmalloc(count + 1, GFP_KERNEL);
+-	if (!buf)
+-		return -ENOMEM;
+-
+-	ret = simple_write_to_buffer(buf, count, ppos, from, count);
+-	if (ret != count) {
+-		ret = ret >= 0 ? -EIO : ret;
+-		goto exit;
+-	}
+-
+-	buf[count] = '\0';
+-	ret = strsplit_u32(buf, ",", tkns, num_tkns);
+-exit:
+-	kfree(buf);
+-	return ret;
+-}
+-
+ static ssize_t sof_probes_dfs_points_read(struct file *file, char __user *to,
+ 					  size_t count, loff_t *ppos)
+ {
+@@ -548,8 +475,8 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
+ 	struct sof_probes_priv *priv = cdev->data;
+ 	struct device *dev = &cdev->auxdev.dev;
+ 	struct sof_probe_point_desc *desc;
+-	size_t num_tkns, bytes;
+-	u32 *tkns;
++	size_t bytes;
++	u32 num_tkns, *tkns;
+ 	int ret, err;
  
- extern int __generic_file_fsync(struct file *, loff_t, loff_t, int);
- extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
+ 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
+@@ -557,16 +484,18 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
+ 		return -ENOENT;
+ 	}
+ 
+-	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
++	ret = tokenize_user_input(from, count, (int **)&tkns);
+ 	if (ret < 0)
+ 		return ret;
++
++	num_tkns = *tkns;
+ 	bytes = sizeof(*tkns) * num_tkns;
+ 	if (!num_tkns || (bytes % sizeof(*desc))) {
+ 		ret = -EINVAL;
+ 		goto exit;
+ 	}
+ 
+-	desc = (struct sof_probe_point_desc *)tkns;
++	desc = (struct sof_probe_point_desc *)&tkns[1];
+ 
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0 && ret != -EACCES) {
+@@ -603,8 +532,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
+ 	struct sof_client_dev *cdev = file->private_data;
+ 	struct sof_probes_priv *priv = cdev->data;
+ 	struct device *dev = &cdev->auxdev.dev;
+-	size_t num_tkns;
+-	u32 *tkns;
++	u32 num_tkns, *tkns;
+ 	int ret, err;
+ 
+ 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
+@@ -612,9 +540,11 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
+ 		return -ENOENT;
+ 	}
+ 
+-	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
++	ret = tokenize_user_input(from, count, (int **)&tkns);
+ 	if (ret < 0)
+ 		return ret;
++
++	num_tkns = *tkns;
+ 	if (!num_tkns) {
+ 		ret = -EINVAL;
+ 		goto exit;
+@@ -626,7 +556,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
+ 		goto exit;
+ 	}
+ 
+-	ret = sof_probes_points_remove(cdev, tkns, num_tkns);
++	ret = sof_probes_points_remove(cdev, &tkns[1], num_tkns);
+ 	if (!ret)
+ 		ret = count;
+ 
 -- 
 2.25.1
 

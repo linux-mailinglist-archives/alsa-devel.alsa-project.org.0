@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F455A12F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:05:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74F765A12F4
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:05:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68A63163E;
-	Thu, 25 Aug 2022 16:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A63163E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3C4915C2;
+	Thu, 25 Aug 2022 16:04:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3C4915C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661436330;
-	bh=2eWtxR6h5cKcaATkGjTf95IBUyrKongIpP1qnmxVxa8=;
+	s=default; t=1661436317;
+	bh=sxdOmuulLJpJw8I5+ILr7Ak6NE/zg8TSZukaNeU2Ook=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j/9y01dsbp4JQbqBKVpRCEC4/VukEbS/8lXbIqpCxqR6ABmlnYEYwaz+D43CJrP7X
-	 PpapCPonJckSJ9dUy30ZpGWDPOfZSwHT9uX/MpOGvevPXaPGwcFZDuM/n9kKYOPdDI
-	 XLiyjBJs+fnOYBbl7nWTuTKbUOPL142NvxaSR3pM=
+	b=oocumVH2U5fea2ArJaEKtRNrvqf62/FSH35fUI5ncMsZTd4o3vqh/JgnjXp2JxoYz
+	 pRBIci97t1+IucPKVojTe3d3ihLEhuJbxvekbTXrbxwwLSiD7HOst39v4TG88MoREx
+	 ziV69xoZ6JF1ZjKspL1Pz7+v3VjDZV0+2R2DmbUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 060BCF80553;
-	Thu, 25 Aug 2022 16:03:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F1CDF80552;
+	Thu, 25 Aug 2022 16:03:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F64AF800C8; Thu, 25 Aug 2022 16:03:02 +0200 (CEST)
+ id 24628F8053B; Thu, 25 Aug 2022 16:03:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,24 +34,24 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9D2DF8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A730F8025A
  for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 16:02:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D2DF8027C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A730F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="r31WAVO2"
+ header.b="kX0d3xmS"
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1661436172; bh=PsCam++xDona5BVDShW7mfj5kX/puOVnGoX+XMGkuc8=;
+ t=1661436172; bh=PCDuP/emdbOrjDqBGMDvA3MxPbkFeQu07VmM0kChmGY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=r31WAVO2XWASiv4N/KJcm/d/M9XAJsD7XFnrJl5o758Se1fe0WQIwxSkjIsVOH5ON
- e8LgKJb+uuhADj085h44Fm4WYlFXHOwzPYJ2e2IAOiehHONsugUmqaPGVO5q9VzE8v
- pGpVTLB8SLg0x9dZdNsml/t7IVBivF031WRMC044=
+ b=kX0d3xmSOxwdAWkd8HaT8AyTqnbip/ZMAXN0kert+xkt4DX9cgtL7rP4bb4me81rF
+ gZmH4ypxdZwEMJYMIAa6+k3pVbQtNgKIC8MDbrXuZlT3AWzTrC92N+doQOAMaCzuNh
+ xa68nQhKtVAfgLZ3v1ulN+7AxmoClwTNvwBZXx5c=
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/5] ASoC: tas2764: Fix mute/unmute
-Date: Thu, 25 Aug 2022 16:02:39 +0200
-Message-Id: <20220825140241.53963-4-povik+lin@cutebit.org>
+Subject: [PATCH 4/5] ASoC: tas2764: Add IRQ handling
+Date: Thu, 25 Aug 2022 16:02:40 +0200
+Message-Id: <20220825140241.53963-5-povik+lin@cutebit.org>
 In-Reply-To: <20220825140241.53963-1-povik+lin@cutebit.org>
 References: <20220825140241.53963-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
@@ -77,127 +77,178 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Because the PWR_CTRL field is modeled as the power state of the DAC
-widget, and at the same time it is used to implement mute/unmute, we
-need some additional book-keeping to have the right end result no matter
-the sequence of calls. Without this fix, one permanently mutes an
-ongoing stream by toggling the associated speaker pin control.
+Add an IRQ handler which logs detected faults (but doesn't do anything
+else).
 
-(This mirrors commit 1e5907bcb3a3 ("ASoC: tas2770: Fix handling of
-mute/unmute") which was a fix to the tas2770 driver.)
-
-Fixes: 827ed8a0fa50 ("ASoC: tas2764: Add the driver for the TAS2764")
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 ---
- sound/soc/codecs/tas2764.c | 57 +++++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 25 deletions(-)
+ sound/soc/codecs/tas2764.c | 93 ++++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/tas2764.h | 19 ++++++++
+ 2 files changed, 112 insertions(+)
 
 diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
-index f4ac6edefdc0..39902f77a2e0 100644
+index 39902f77a2e0..e99a46fb503f 100644
 --- a/sound/soc/codecs/tas2764.c
 +++ b/sound/soc/codecs/tas2764.c
-@@ -34,6 +34,9 @@ struct tas2764_priv {
+@@ -31,6 +31,7 @@ struct tas2764_priv {
+ 	struct gpio_desc *sdz_gpio;
+ 	struct regmap *regmap;
+ 	struct device *dev;
++	int irq;
  	
  	int v_sense_slot;
  	int i_sense_slot;
-+
-+	bool dac_powered;
-+	bool unmuted;
+@@ -39,6 +40,57 @@ struct tas2764_priv {
+ 	bool unmuted;
  };
  
- static void tas2764_reset(struct tas2764_priv *tas2764)
-@@ -50,6 +53,26 @@ static void tas2764_reset(struct tas2764_priv *tas2764)
- 	usleep_range(1000, 2000);
- }
- 
-+static int tas2764_update_pwr_ctrl(struct tas2764_priv *tas2764)
++static const char *tas2764_int_ltch0_msgs[8] = {
++	"fault: over temperature", /* INT_LTCH0 & BIT(0) */
++	"fault: over current",
++	"fault: bad TDM clock",
++	"limiter active",
++	"fault: PVDD below limiter inflection point",
++	"fault: limiter max attenuation",
++	"fault: BOP infinite hold",
++	"fault: BOP mute", /* INT_LTCH0 & BIT(7) */
++};
++
++static const unsigned int tas2764_int_readout_regs[6] = {
++	TAS2764_INT_LTCH0,
++	TAS2764_INT_LTCH1,
++	TAS2764_INT_LTCH1_0,
++	TAS2764_INT_LTCH2,
++	TAS2764_INT_LTCH3,
++	TAS2764_INT_LTCH4,
++};
++
++static irqreturn_t tas2764_irq(int irq, void *data)
 +{
-+	struct snd_soc_component *component = tas2764->component;
-+	unsigned int val;
-+	int ret;
++	struct tas2764_priv *tas2764 = data;
++	u8 latched[6] = {0, 0, 0, 0, 0, 0};
++	int ret = IRQ_NONE;
++	int i;
 +
-+	if (tas2764->dac_powered)
-+		val = tas2764->unmuted ?
-+			TAS2764_PWR_CTRL_ACTIVE : TAS2764_PWR_CTRL_MUTE;
-+	else
-+		val = TAS2764_PWR_CTRL_SHUTDOWN;
++	for (i = 0; i < ARRAY_SIZE(latched); i++)
++		latched[i] = snd_soc_component_read(tas2764->component,
++						    tas2764_int_readout_regs[i]);
 +
-+	ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
-+					    TAS2764_PWR_CTRL_MASK, val);
-+	if (ret < 0)
-+		return ret;
++	for (i = 0; i < 8; i++) {
++		if (latched[0] & BIT(i)) {
++			dev_crit_ratelimited(tas2764->dev, "%s\n",
++					     tas2764_int_ltch0_msgs[i]);
++			ret = IRQ_HANDLED;
++		}
++	}
 +
-+	return 0;
++	if (latched[0]) {
++		dev_err_ratelimited(tas2764->dev, "other context to the fault: %02x,%02x,%02x,%02x,%02x",
++				    latched[1], latched[2], latched[3], latched[4], latched[5]);
++		snd_soc_component_update_bits(tas2764->component,
++					      TAS2764_INT_CLK_CFG,
++					      TAS2764_INT_CLK_CFG_IRQZ_CLR,
++					      TAS2764_INT_CLK_CFG_IRQZ_CLR);
++	}
++
++	return ret;
 +}
 +
- #ifdef CONFIG_PM
- static int tas2764_codec_suspend(struct snd_soc_component *component)
+ static void tas2764_reset(struct tas2764_priv *tas2764)
  {
-@@ -82,9 +105,7 @@ static int tas2764_codec_resume(struct snd_soc_component *component)
- 		usleep_range(1000, 2000);
- 	}
+ 	if (tas2764->reset_gpio) {
+@@ -497,6 +549,34 @@ static int tas2764_codec_probe(struct snd_soc_component *component)
  
--	ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
--					    TAS2764_PWR_CTRL_MASK,
--					    TAS2764_PWR_CTRL_ACTIVE);
-+	ret = tas2764_update_pwr_ctrl(tas2764);
+ 	tas2764_reset(tas2764);
  
++	if (tas2764->irq) {
++		ret = snd_soc_component_write(tas2764->component, TAS2764_INT_MASK0, 0xff);
++		if (ret < 0)
++			return ret;
++
++		ret = snd_soc_component_write(tas2764->component, TAS2764_INT_MASK1, 0xff);
++		if (ret < 0)
++			return ret;
++
++		ret = snd_soc_component_write(tas2764->component, TAS2764_INT_MASK2, 0xff);
++		if (ret < 0)
++			return ret;
++
++		ret = snd_soc_component_write(tas2764->component, TAS2764_INT_MASK3, 0xff);
++		if (ret < 0)
++			return ret;
++
++		ret = snd_soc_component_write(tas2764->component, TAS2764_INT_MASK4, 0xff);
++		if (ret < 0)
++			return ret;
++
++		ret = devm_request_threaded_irq(tas2764->dev, tas2764->irq, NULL, tas2764_irq,
++						IRQF_ONESHOT | IRQF_SHARED | IRQF_TRIGGER_LOW,
++						"tas2764", tas2764);
++		if (ret)
++			dev_warn(tas2764->dev, "failed to request IRQ: %d\n", ret);
++	}
++
+ 	ret = snd_soc_component_update_bits(tas2764->component, TAS2764_TDM_CFG5,
+ 					    TAS2764_TDM_CFG5_VSNS_ENABLE, 0);
  	if (ret < 0)
- 		return ret;
-@@ -118,14 +139,12 @@ static int tas2764_dac_event(struct snd_soc_dapm_widget *w,
+@@ -559,9 +639,21 @@ static const struct regmap_range_cfg tas2764_regmap_ranges[] = {
+ 	},
+ };
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
--						    TAS2764_PWR_CTRL_MASK,
--						    TAS2764_PWR_CTRL_MUTE);
-+		tas2764->dac_powered = true;
-+		ret = tas2764_update_pwr_ctrl(tas2764);
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
--						    TAS2764_PWR_CTRL_MASK,
--						    TAS2764_PWR_CTRL_SHUTDOWN);
-+		tas2764->dac_powered = false;
-+		ret = tas2764_update_pwr_ctrl(tas2764);
- 		break;
- 	default:
- 		dev_err(tas2764->dev, "Unsupported event\n");
-@@ -170,17 +189,11 @@ static const struct snd_soc_dapm_route tas2764_audio_map[] = {
++static bool tas2764_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case TAS2764_INT_LTCH0 ... TAS2764_INT_LTCH4:
++	case TAS2764_INT_CLK_CFG:
++		return true;
++	default:
++		return false;
++	}
++}
++
+ static const struct regmap_config tas2764_i2c_regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
++	.volatile_reg = tas2764_volatile_register,
+ 	.reg_defaults = tas2764_reg_defaults,
+ 	.num_reg_defaults = ARRAY_SIZE(tas2764_reg_defaults),
+ 	.cache_type = REGCACHE_RBTREE,
+@@ -615,6 +707,7 @@ static int tas2764_i2c_probe(struct i2c_client *client)
+ 		return -ENOMEM;
  
- static int tas2764_mute(struct snd_soc_dai *dai, int mute, int direction)
- {
--	struct snd_soc_component *component = dai->component;
--	int ret;
--
--	ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
--					    TAS2764_PWR_CTRL_MASK,
--					    mute ? TAS2764_PWR_CTRL_MUTE : 0);
-+	struct tas2764_priv *tas2764 =
-+			snd_soc_component_get_drvdata(dai->component);
+ 	tas2764->dev = &client->dev;
++	tas2764->irq = client->irq;
+ 	i2c_set_clientdata(client, tas2764);
+ 	dev_set_drvdata(&client->dev, tas2764);
  
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	tas2764->unmuted = !mute;
-+	return tas2764_update_pwr_ctrl(tas2764);
- }
+diff --git a/sound/soc/codecs/tas2764.h b/sound/soc/codecs/tas2764.h
+index f015f22a083b..960b337ed0fc 100644
+--- a/sound/soc/codecs/tas2764.h
++++ b/sound/soc/codecs/tas2764.h
+@@ -87,4 +87,23 @@
+ #define TAS2764_TDM_CFG6_ISNS_ENABLE	BIT(6)
+ #define TAS2764_TDM_CFG6_50_MASK	GENMASK(5, 0)
  
- static int tas2764_set_bitwidth(struct tas2764_priv *tas2764, int bitwidth)
-@@ -494,12 +507,6 @@ static int tas2764_codec_probe(struct snd_soc_component *component)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
--					    TAS2764_PWR_CTRL_MASK,
--					    TAS2764_PWR_CTRL_MUTE);
--	if (ret < 0)
--		return ret;
--
- 	return 0;
- }
- 
++/* Interrupt Masks */
++#define TAS2764_INT_MASK0               TAS2764_REG(0x0, 0x3b)
++#define TAS2764_INT_MASK1               TAS2764_REG(0x0, 0x3c)
++#define TAS2764_INT_MASK2               TAS2764_REG(0x0, 0x40)
++#define TAS2764_INT_MASK3               TAS2764_REG(0x0, 0x41)
++#define TAS2764_INT_MASK4               TAS2764_REG(0x0, 0x3d)
++
++/* Latched Fault Registers */
++#define TAS2764_INT_LTCH0               TAS2764_REG(0x0, 0x49)
++#define TAS2764_INT_LTCH1               TAS2764_REG(0x0, 0x4a)
++#define TAS2764_INT_LTCH1_0             TAS2764_REG(0x0, 0x4b)
++#define TAS2764_INT_LTCH2               TAS2764_REG(0x0, 0x4f)
++#define TAS2764_INT_LTCH3               TAS2764_REG(0x0, 0x50)
++#define TAS2764_INT_LTCH4               TAS2764_REG(0x0, 0x51)
++
++/* Clock/IRQ Settings */
++#define TAS2764_INT_CLK_CFG             TAS2764_REG(0x0, 0x5c)
++#define TAS2764_INT_CLK_CFG_IRQZ_CLR    BIT(2)
++
+ #endif /* __TAS2764__ */
 -- 
 2.33.0
 

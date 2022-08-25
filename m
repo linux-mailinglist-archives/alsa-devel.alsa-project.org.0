@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 336515A1378
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:24:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 536DA5A137E
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:24:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7AB815E5;
-	Thu, 25 Aug 2022 16:23:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7AB815E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E70C61635;
+	Thu, 25 Aug 2022 16:23:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E70C61635
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661437458;
-	bh=cHEfTJuTlgoxPMHR0mPq8LFkKKCefUe5GN1xhRY2NNY=;
+	s=default; t=1661437471;
+	bh=b5f6X0ithoOg3SQ4sZCmhgRue16RFk9R884I7efXspo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HY/FkW72UTdFzSXkTPP2fKIgzisTurCGbW8PZ3trtNB3f3nFzHSnrWEIV0EDqmd9F
-	 y57FwKVlrBNKA0AoefzK/0aeguPkCxMPAeg5THcPrN74I3UhbJ4F0mxETWL4WzQUbC
-	 r5Se1QuBzmjNN0CHKIyIbWGkUMlnSk1XuPcP6xiQ=
+	b=qVoqU2MoBS3mSG44+50767piJ/93sej82ybu4X4CUbjE6H7u+KtBcYleX8DkOBvX5
+	 w5GI/PQRSLSnF2uB83oUU/EgBhjgrq00K8Dm9OARfPkCT+GUFnuu1/1n147GWMG48T
+	 XCW+s7YyH5siJj71nOvru65v0IMg1E+9/Tg8fnkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9CF9F800BD;
-	Thu, 25 Aug 2022 16:22:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A455AF8052D;
+	Thu, 25 Aug 2022 16:22:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75198F80271; Thu, 25 Aug 2022 16:22:48 +0200 (CEST)
+ id 2E6CBF80529; Thu, 25 Aug 2022 16:22:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D026F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 246B6F8025A
  for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 16:22:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D026F800C8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 246B6F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="HeX9EviM"
+ header.b="SYyOmV2P"
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1661437361; bh=snL9pkaE4f5TuEA4/RFJEkEJWue+6V9/ZNAvLVwijxo=;
+ t=1661437362; bh=5RGgH1AcjF5BtsgHx+ZoU5Me0+YKLfaL9/ywuzhYSio=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HeX9EviMcDrqL8Cp3o0I0NsZip/wP6cx8O7XI+5Ljhjl/6Z/SFWupEWE9YXv94xr5
- by5BUoeZ5p1lkrA6B4QHDvACKQx66lA5uSt9vj0SzOH9Iv/f25WY6E8A60Jq468iC1
- 2RS9jmNXinNuBKItlDGDRxdntaLPcgp9G1ydugIs=
+ b=SYyOmV2P5l7WMaWO/z5fBxhZuxZpcmFDcNLB/3Vj+yLexFc/x98roK9dYw4NbNWIk
+ xxyWH6utfs7iE0IF6RTOGYSJiRlkcdXdhbRAibmKNDYsAPYZ+i+HNgBwvVGubkmCv7
+ koH8M+uW3wkHWwmy55xkqXtbs/dHDBE6JV2hOPRM=
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/2] ASoC: tas2562: Drop conflicting set_bias_level power
- setting
-Date: Thu, 25 Aug 2022 16:22:25 +0200
-Message-Id: <20220825142226.80929-2-povik+lin@cutebit.org>
+Subject: [PATCH 2/2] ASoC: tas2562: Fix mute/unmute
+Date: Thu, 25 Aug 2022 16:22:26 +0200
+Message-Id: <20220825142226.80929-3-povik+lin@cutebit.org>
 In-Reply-To: <20220825142226.80929-1-povik+lin@cutebit.org>
 References: <20220825142226.80929-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
@@ -77,79 +76,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver is setting the PWR_CTRL field in both the set_bias_level
-callback and on DAPM events of the DAC widget (and also in the
-mute_stream method). Drop the set_bias_level callback altogether as the
-power setting it does is in conflict with the other code paths.
+Because the PWR_CTRL field is modeled as the power state of the DAC
+widget, and at the same time it is used to implement mute/unmute, we
+need some additional book-keeping to have the right end result no matter
+the sequence of calls. Without this fix, one permanently mutes an
+ongoing stream by toggling the associated speaker pin control.
 
-(This mirrors commit c8a6ae3fe1c8 ("ASoC: tas2770: Drop conflicting
-set_bias_level power setting") which was a fix to the tas2770 driver.)
+(This mirrors commit 1e5907bcb3a3 ("ASoC: tas2770: Fix handling of
+mute/unmute") which was a fix to the tas2770 driver.)
 
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 ---
- sound/soc/codecs/tas2562.c | 35 -----------------------------------
- 1 file changed, 35 deletions(-)
+ sound/soc/codecs/tas2562.c | 55 ++++++++++++++++++++------------------
+ 1 file changed, 29 insertions(+), 26 deletions(-)
 
 diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index dc088a1c6721..2b0cdb6d1600 100644
+index 2b0cdb6d1600..66149055aba9 100644
 --- a/sound/soc/codecs/tas2562.c
 +++ b/sound/soc/codecs/tas2562.c
-@@ -63,39 +63,6 @@ enum tas256x_model {
- 	TAS2110,
+@@ -54,6 +54,8 @@ struct tas2562_data {
+ 	int i_sense_slot;
+ 	int volume_lvl;
+ 	int model_id;
++	bool dac_powered;
++	bool unmuted;
  };
  
--static int tas2562_set_bias_level(struct snd_soc_component *component,
--				 enum snd_soc_bias_level level)
--{
--	struct tas2562_data *tas2562 =
--			snd_soc_component_get_drvdata(component);
--
--	switch (level) {
--	case SND_SOC_BIAS_ON:
--		snd_soc_component_update_bits(component,
--			TAS2562_PWR_CTRL,
--			TAS2562_MODE_MASK, TAS2562_ACTIVE);
--		break;
--	case SND_SOC_BIAS_STANDBY:
--	case SND_SOC_BIAS_PREPARE:
--		snd_soc_component_update_bits(component,
--			TAS2562_PWR_CTRL,
--			TAS2562_MODE_MASK, TAS2562_MUTE);
--		break;
--	case SND_SOC_BIAS_OFF:
--		snd_soc_component_update_bits(component,
--			TAS2562_PWR_CTRL,
--			TAS2562_MODE_MASK, TAS2562_SHUTDOWN);
--		break;
--
--	default:
--		dev_err(tas2562->dev,
--				"wrong power level setting %d\n", level);
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
- static int tas2562_set_samplerate(struct tas2562_data *tas2562, int samplerate)
+ enum tas256x_model {
+@@ -351,30 +353,43 @@ static int tas2562_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
+ 
++static int tas2562_update_pwr_ctrl(struct tas2562_data *tas2562)
++{
++	struct snd_soc_component *component = tas2562->component;
++	unsigned int val;
++	int ret;
++
++	if (tas2562->dac_powered)
++		val = tas2562->unmuted ?
++			TAS2562_ACTIVE : TAS2562_MUTE;
++	else
++		val = TAS2562_SHUTDOWN;
++
++	ret = snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
++					    TAS2562_MODE_MASK, val);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+ static int tas2562_mute(struct snd_soc_dai *dai, int mute, int direction)
  {
- 	int samp_rate;
-@@ -579,7 +546,6 @@ static const struct snd_soc_component_driver soc_component_dev_tas2110 = {
- 	.probe			= tas2562_codec_probe,
- 	.suspend		= tas2562_suspend,
- 	.resume			= tas2562_resume,
--	.set_bias_level		= tas2562_set_bias_level,
- 	.controls		= tas2562_snd_controls,
- 	.num_controls		= ARRAY_SIZE(tas2562_snd_controls),
- 	.dapm_widgets		= tas2110_dapm_widgets,
-@@ -618,7 +584,6 @@ static const struct snd_soc_component_driver soc_component_dev_tas2562 = {
- 	.probe			= tas2562_codec_probe,
- 	.suspend		= tas2562_suspend,
- 	.resume			= tas2562_resume,
--	.set_bias_level		= tas2562_set_bias_level,
- 	.controls		= tas2562_snd_controls,
- 	.num_controls		= ARRAY_SIZE(tas2562_snd_controls),
- 	.dapm_widgets		= tas2562_dapm_widgets,
+-	struct snd_soc_component *component = dai->component;
++	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(dai->component);
+ 
+-	return snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
+-					     TAS2562_MODE_MASK,
+-					     mute ? TAS2562_MUTE : 0);
++	tas2562->unmuted = !mute;
++	return tas2562_update_pwr_ctrl(tas2562);
+ }
+ 
+ static int tas2562_codec_probe(struct snd_soc_component *component)
+ {
+ 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+-	int ret;
+ 
+ 	tas2562->component = component;
+ 
+ 	if (tas2562->sdz_gpio)
+ 		gpiod_set_value_cansleep(tas2562->sdz_gpio, 1);
+ 
+-	ret = snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
+-					    TAS2562_MODE_MASK, TAS2562_MUTE);
+-	if (ret < 0)
+-		return ret;
+-
+ 	return 0;
+ }
+ 
+@@ -428,30 +443,18 @@ static int tas2562_dac_event(struct snd_soc_dapm_widget *w,
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+-		ret = snd_soc_component_update_bits(component,
+-			TAS2562_PWR_CTRL,
+-			TAS2562_MODE_MASK,
+-			TAS2562_MUTE);
+-		if (ret)
+-			goto end;
++		tas2562->dac_powered = true;
++		ret = tas2562_update_pwr_ctrl(tas2562);
+ 		break;
+ 	case SND_SOC_DAPM_PRE_PMD:
+-		ret = snd_soc_component_update_bits(component,
+-			TAS2562_PWR_CTRL,
+-			TAS2562_MODE_MASK,
+-			TAS2562_SHUTDOWN);
+-		if (ret)
+-			goto end;
++		tas2562->dac_powered = false;
++		ret = tas2562_update_pwr_ctrl(tas2562);
+ 		break;
+ 	default:
+ 		dev_err(tas2562->dev, "Not supported evevt\n");
+ 		return -EINVAL;
+ 	}
+ 
+-end:
+-	if (ret < 0)
+-		return ret;
+-
+ 	return 0;
+ }
+ 
 -- 
 2.33.0
 

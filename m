@@ -2,79 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0770F5A1C04
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 00:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CEF55A1CF2
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 01:08:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94E72950;
-	Fri, 26 Aug 2022 00:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E72950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91CA81622;
+	Fri, 26 Aug 2022 01:07:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91CA81622
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661465608;
-	bh=ZpkdgljukMvecL8dgUDfn4ptIdOfX7y4FE5jJ/1fyU8=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PaOMFQlC0oaAJg3IIh+X/IuPRRK3LSITjQBdAhrHMYqv1Agz70ltZcBhxAqy5sq6q
-	 9icLH+ZsiXEhj0SJjrrPbOx59BrlD6dp9PyBzGbgT3NBmCyyRot1mYrklRpSxicFQY
-	 UR4VMd98lD4duA8sHn9SSX86LpD4Vro8NcPjAwhE=
+	s=default; t=1661468884;
+	bh=98r5FBWtGZU73aTtBMFfeCAXP5/TVsfwDrGxUdo2Asg=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=I1tChZq7C1gkzVPhTz5TDZv9Knb2OCFUj6OJzDK7gZJuyT4J9GyAOvQyzDoQxTGQ3
+	 K8ALpJic/LiZMrchtthmDnN/6tJftuKPGh26GggERzVlBREdbLPEEuz0WrZhIGfdf+
+	 kv7tnibIrSr2VdczlCe82B3YdHsBhEJH+M+1KYDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08F7CF80271;
-	Fri, 26 Aug 2022 00:12:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9A34F80271;
+	Fri, 26 Aug 2022 01:07:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBB65F8025A; Fri, 26 Aug 2022 00:12:27 +0200 (CEST)
+ id 07F7AF8025A; Fri, 26 Aug 2022 01:07:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 804A9F800BD
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 00:12:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 804A9F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 921F7F8014B
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 01:06:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 921F7F8014B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="CEbKAGvN"
-Received: from [192.168.1.90] (unknown [188.27.54.142])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 419056601EB5;
- Thu, 25 Aug 2022 23:12:20 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661465540;
- bh=ZpkdgljukMvecL8dgUDfn4ptIdOfX7y4FE5jJ/1fyU8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CEbKAGvNBIYzi/Ti1LMdKMpobOKF+6xnSWpPY8TtbYhJmhvkUPzXS7TCk15ELaiyG
- RmDBvSGUrPPOP36LARHEo/YqzG0abwAvwOsart9PACe+QmB7OTAoOKXwmFWJeP6iv9
- HVu6iQCvpK2lrY/K65Em5GbxT4qem/A/pT7nsO+OGs0yt6PjK5JtsV+GoZnlGXjHee
- NuBCeHYFUFid+sW5x+baxZ4Q8WyfVflumIRXR7VeKnPtcXzfXCm1ZAom8uo80HB2kU
- BkOO2p21RGzk7QYBIJtUP4nRtZoJ9UedFi0R5Vg8zcnHjTp4A4CBB5ad/CumusXZo3
- Bh6D/yQ4w7z/A==
-Message-ID: <1d0bd2ec-ce27-02fa-b538-4636ca9ac289@collabora.com>
-Date: Fri, 26 Aug 2022 01:12:17 +0300
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="MBi4DceF"
+Received: by mail-pj1-x1035.google.com with SMTP id o4so10849pjp.4
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 16:06:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc; bh=ASZScAFd3xb4cxD9Q6pxtvg/PLB75WgObzDXhoHRnHI=;
+ b=MBi4DceFS6uNfPfQDQuupqVrJDGVvnFAF0d4SJ3Jyiaq1+Coztny5KKsMuKgfbRhIA
+ ySY/9HH/hBiEXlpXZHsY417asgqSycnkxF124alsUfxHPOKkZLUyWit3zU6SjcVWhVK+
+ MTvCrnHUgNJW4ZKQZo9JbKSL797sXZEK+IWd72Iyx+r81F7yhTW3ohoIm7Yhm5CPukao
+ qPZC7J/I1mcMwmHso3jsLJbDOBNB4TDUq36V+Gp8Yg1AoXTGSNabWzdMABBAjBKG1d3M
+ CPlS8vbn0xZ+FArVglRe+TPAYivNt6oJE36EDPU+ciXG6OK8SKJ2gNL5a8reOuclj3ii
+ 65Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc;
+ bh=ASZScAFd3xb4cxD9Q6pxtvg/PLB75WgObzDXhoHRnHI=;
+ b=S5r9UtH7yOgCcq1CQAmpl4YAiH8VgptU1KPSYsiUSKAuNPeIPi3GwN0dYRfeSV3cx8
+ OdXzQYDOZtRWZH6//TN3TFDgriavrFFCbwBQaDSDQeDQezcBDX89G94im1WWALfGddYl
+ BPHtgC7OlhCbqFDrsDYIQkSXZikfiBUUMpODRBQ4OiZbmF4MXe96jbVj2eYWsHSQIlx/
+ bVUEr2VtAxIJBp02cbJ+KosQ7fhJpyvdHE8BgJwyiqbQ9EvRih9X+EQpyyDtGf28HZmt
+ +XxfdixX38nrxh91QOlPlkKwoCPAR0kOQVqjdnvyMv+dmVBLp6mNi3UdFT94WRsS6hYk
+ Qx2Q==
+X-Gm-Message-State: ACgBeo1e9OiZLUtBBpdTaH5DPEGBL8ugOY8OFF+47HIrE+sH8RzgZtDc
+ UaENBXBOHGnW/Dv2825/tAE=
+X-Google-Smtp-Source: AA6agR6fsrtfyVgnfxR8WD3JDLKLSe75uRq7/VgAnlTUlzYPtUAFZE1Lt10i99EB7JmrUoyD8SWOdA==
+X-Received: by 2002:a17:903:2585:b0:172:9ac6:30f3 with SMTP id
+ jb5-20020a170903258500b001729ac630f3mr1182621plb.0.1661468813706; 
+ Thu, 25 Aug 2022 16:06:53 -0700 (PDT)
+Received: from thinbox (23-122-134-180.lightspeed.sntcca.sbcglobal.net.
+ [23.122.134.180]) by smtp.gmail.com with ESMTPSA id
+ ds21-20020a17090b08d500b001fbc4b7eafesm247248pjb.49.2022.08.25.16.06.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 16:06:53 -0700 (PDT)
+Date: Thu, 25 Aug 2022 16:06:51 -0700
+From: Maurycy Z <10maurycy10@gmail.com>
+To: LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: Fix misspelling of 'system' as 'ststem'.
+Message-ID: <YwgAi68IzghNf0Dl@thinbox>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH] ASoC: wm_adsp: Silent parsing error on loading speaker
- protection fw
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-References: <20220823133347.919706-1-cristian.ciocaltea@collabora.com>
- <20220825124715.GM92394@ediswmail.ad.cirrus.com>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20220825124715.GM92394@ediswmail.ad.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Vlad Karpovich <Vlad.Karpovich@cirrus.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,58 +99,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Signed-off-by: Maurycy Zalewski <10maurycy10@gmail.com>
+---
+ sound/pci/ice1712/ice1712.c | 2 +-
+ sound/pci/ice1712/ice1724.c | 2 +-
+ sound/soc/fsl/Kconfig       | 2 +-
+ sound/soc/generic/Kconfig   | 4 ++--
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-On 8/25/22 15:47, Charles Keepax wrote:
-> On Tue, Aug 23, 2022 at 04:33:47PM +0300, Cristian Ciocaltea wrote:
->> The tracing capabilities for the speaker protection fw enabled via
->> commit c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker
->> protection FW") are not be available on all platforms, such as the
->> Valve's Steam Deck which is based on the Halo Core DSP.
->>
->> As a consequence, whenever the firmware is loaded, a rather misleading
->> 'Failed to parse legacy: -19' error message is written to the kernel
->> ring buffer:
->>
->> [  288.977412] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware version: 3
->> [  288.978002] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: cs35l41-dsp1-spk-prot.wmfw: Fri 02 Apr 2021 21:03:50 W. Europe Daylight Time
->> [  289.094065] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware: 400a4 vendor: 0x2 v0.33.0, 2 algorithms
->> [  289.095073] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 0: ID cd v29.53.0 XM@94 YM@e
->> [  289.095665] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 1: ID f20b v0.0.1 XM@170 YM@0
->> [  289.096275] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Protection: C:\Users\ocanavan\Desktop\cirrusTune_july2021.bin
->> [  291.172383] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Failed to parse legacy: -19
->>
->> Update wm_adsp_buffer_init() to *not* report the ENODEV error when the
->> firmware type is WM_ADSP_FW_SPK_PROT.
->>
->> Fixes: c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker protection FW")
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>   sound/soc/codecs/wm_adsp.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
->> index cfaa45ede916..7514fc03b468 100644
->> --- a/sound/soc/codecs/wm_adsp.c
->> +++ b/sound/soc/codecs/wm_adsp.c
->> @@ -1602,7 +1602,7 @@ static int wm_adsp_buffer_init(struct wm_adsp *dsp)
->>   	if (list_empty(&dsp->buffer_list)) {
->>   		/* Fall back to legacy support */
->>   		ret = wm_adsp_buffer_parse_legacy(dsp);
->> -		if (ret)
->> +		if (ret && (dsp->fw != WM_ADSP_FW_SPK_PROT || ret != -ENODEV))
->>   			adsp_warn(dsp, "Failed to parse legacy: %d\n", ret);
-> 
-> Fixing this for a single firmware probably doesn't really make
-> the most sense, if we are treating buffers as optional these days
-> I guess really the best solution would be to make this either an
-> info and slightly rephrase the message or make it a dbg message.
+diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
+index a5241a287..ff6ce91bf 100644
+--- a/sound/pci/ice1712/ice1712.c
++++ b/sound/pci/ice1712/ice1712.c
+@@ -2247,7 +2247,7 @@ static int snd_ice1712_read_eeprom(struct snd_ice1712 *ice,
+ 				(snd_ice1712_read_i2c(ice, dev, 0x03) << 24);
+ 		if (ice->eeprom.subvendor == 0 ||
+ 		    ice->eeprom.subvendor == (unsigned int)-1) {
+-			/* invalid subvendor from EEPROM, try the PCI subststem ID instead */
++			/* invalid subvendor from EEPROM, try the PCI subsystem ID instead */
+ 			u16 vendor, device;
+ 			pci_read_config_word(ice->pci, PCI_SUBSYSTEM_VENDOR_ID, &vendor);
+ 			pci_read_config_word(ice->pci, PCI_SUBSYSTEM_ID, &device);
+diff --git a/sound/pci/ice1712/ice1724.c b/sound/pci/ice1712/ice1724.c
+index 6fab2ad85..9e81e6335 100644
+--- a/sound/pci/ice1712/ice1724.c
++++ b/sound/pci/ice1712/ice1724.c
+@@ -2266,7 +2266,7 @@ static int snd_vt1724_read_eeprom(struct snd_ice1712 *ice,
+ 		if (ice->eeprom.subvendor == 0 ||
+ 		    ice->eeprom.subvendor == (unsigned int)-1) {
+ 			/* invalid subvendor from EEPROM, try the PCI
+-			 * subststem ID instead
++			 * subsystem ID instead
+ 			 */
+ 			u16 vendor, device;
+ 			pci_read_config_word(ice->pci, PCI_SUBSYSTEM_VENDOR_ID,
+diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
+index 614eceda6..c7fe12fbd 100644
+--- a/sound/soc/fsl/Kconfig
++++ b/sound/soc/fsl/Kconfig
+@@ -366,7 +366,7 @@ config SND_SOC_IMX_CARD
+ 	help
+ 	  This option enables audio sound card support for i.MX boards
+ 	  with OF-graph DT bindings.
+-	  It also support DPCM of single CPU multi Codec ststem.
++	  It also support DPCM of single CPU multi Codec system.
+ 
+ endif # SND_IMX_SOC
+ 
+diff --git a/sound/soc/generic/Kconfig b/sound/soc/generic/Kconfig
+index b6df4e26b..955ac8d3f 100644
+--- a/sound/soc/generic/Kconfig
++++ b/sound/soc/generic/Kconfig
+@@ -7,7 +7,7 @@ config SND_SIMPLE_CARD
+ 	select SND_SIMPLE_CARD_UTILS
+ 	help
+ 	  This option enables generic simple sound card support
+-	  It also support DPCM of multi CPU single Codec ststem.
++	  It also support DPCM of multi CPU single Codec system.
+ 
+ config SND_AUDIO_GRAPH_CARD
+ 	tristate "ASoC Audio Graph sound card support"
+@@ -16,7 +16,7 @@ config SND_AUDIO_GRAPH_CARD
+ 	help
+ 	  This option enables generic simple sound card support
+ 	  with OF-graph DT bindings.
+-	  It also support DPCM of multi CPU single Codec ststem.
++	  It also support DPCM of multi CPU single Codec system.
+ 
+ config SND_AUDIO_GRAPH_CARD2
+ 	tristate "ASoC Audio Graph sound card2 support"
+-- 
+2.37.2
 
-Indeed, I have just submitted v2 for a more generic handling of the issue:
-
-https://lore.kernel.org/all/20220825220530.1205141-1-cristian.ciocaltea@collabora.com/
-
-Thanks for reviewing,
-Cristian
-
-> Thanks,
-> Charles

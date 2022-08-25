@@ -2,80 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 325795A1920
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 20:52:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4565A1A97
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 22:53:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7635E1621;
-	Thu, 25 Aug 2022 20:51:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7635E1621
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE086850;
+	Thu, 25 Aug 2022 22:52:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE086850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661453550;
-	bh=ZVzSp+LhaVe67miSWt0Ck8nbsAq3kQRzMlHu+eEbWxY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1661460796;
+	bh=n7LQAGiY5NM03/JZWggg58dlXKvE1IQG0IRk2kHR7KI=;
+	h=Date:To:From:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dgRByB9cWFONawylshJW8uXAxnXnSUysX1hSI2ZCuTa9iVXU1v3aU6BM0uEdBj/Fj
-	 3u2hJ5w2soaj/2FigdN2CZOx45cOgTyTSxkog7021DU2SdgVlNfNzzIWxfsgGUz+Qu
-	 vNmpLKQ6Pl9RRLripStFRGalwYdxE7PKQybhkqzE=
+	 Reply-To:From;
+	b=SMJKAnApA/cCYk1DQA5t6NgpwJVQMHdfQLxpyxNHCwjGlufjPuVvBdtUUl6TTJ/4o
+	 nFdzNV3xHkwoW90ZQOmmFXiUXJ+qvQMFNZxL4KsFOZrSMh4RmDa3lruupgm0k6s2II
+	 i71yZ5ZEz+upV2aWN9mNZMl2wamK34L2RHgA2vD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF39BF80271;
-	Thu, 25 Aug 2022 20:51:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2199CF80271;
+	Thu, 25 Aug 2022 22:52:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DFBEF8025A; Thu, 25 Aug 2022 20:51:29 +0200 (CEST)
+ id 13654F8025A; Thu, 25 Aug 2022 22:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-4022.proton.ch (mail-4022.proton.ch [185.70.40.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D3A8F8014B
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 20:51:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3A8F8014B
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-11cab7d7e0fso24886952fac.6
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 11:51:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=message-id:date:subject:references:in-reply-to:cc:to:from
- :x-gm-message-state:from:to:cc;
- bh=X/cVd+KOZMnW5AEd2SXFiu5+u+UnvgqvwY4tvjFkN5w=;
- b=XnZ4r25yeBVrh+JFp1PcD2ggydfw9VDhF0s0NMxFTSKf2qlTgIpCgUsosufsossaz1
- NAWZ219Bouu1VS3IHP1kIvtW7o88gLxcGCRmrQebjmFoF8lkCxfEtq+cn9M20OmrDKx4
- N9KW9HplwmyONOR10Is5EmNZmeLUrDHG7PtXa0YF9tojjLVEv2VjL/5EYiBHs7jZovEK
- Sncn/N0sk6kDw6M/2Ti+LovYGFkkeYFw9Q6B3mQTowNE5hE1FfHjDCJbWsW3Vj1OgaWd
- 2BqqHl+WQO6xPBpodw21jlND7o/zjbIUAryVFgIxq2kwrzs69CpNO2i/kjI9pGeuOZei
- MzOw==
-X-Gm-Message-State: ACgBeo0llvYm8tiz6+SCdYm61satfkC0KvqORGqPQpsruBbQE/M+e5y1
- S+FXipQnUaTNTtiOdaBFzg==
-X-Google-Smtp-Source: AA6agR5at6NFTKiUyIw1Kb0xcXmMgTMvsyGSZx2gNvzl8dWpbxREgES9FDOSuEVhyNfyXQj8Dhkkag==
-X-Received: by 2002:a05:6870:b148:b0:112:cfe1:5062 with SMTP id
- a8-20020a056870b14800b00112cfe15062mr227632oal.297.1661453481259; 
- Thu, 25 Aug 2022 11:51:21 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- f20-20020a9d0394000000b0063736db0ae9sm5573904otf.15.2022.08.25.11.51.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 11:51:20 -0700 (PDT)
-Received: (nullmailer pid 1486937 invoked by uid 1000);
- Thu, 25 Aug 2022 18:51:19 -0000
-From: Rob Herring <robh@kernel.org>
-To: Daniel Mack <daniel@zonque.org>
-In-Reply-To: <20220825140412.2297211-1-daniel@zonque.org>
-References: <20220825140412.2297211-1-daniel@zonque.org>
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: max98396: Document data monitor
- properties
-Date: Thu, 25 Aug 2022 13:51:19 -0500
-Message-Id: <1661453479.979911.1486936.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, ryan.lee.analog@gmail.com, robh+dt@kernel.org,
- broonie@kernel.org, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0DA4F8014B
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 22:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0DA4F8014B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=vanalboom.org header.i=@vanalboom.org
+ header.b="oh21KNba"
+Date: Thu, 25 Aug 2022 20:52:02 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vanalboom.org;
+ s=protonmail3; t=1661460726; x=1661719926;
+ bh=n7LQAGiY5NM03/JZWggg58dlXKvE1IQG0IRk2kHR7KI=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+ Feedback-ID:Message-ID;
+ b=oh21KNbaEb/ZLC9XkncbOn1FUdzkagOftobyIaSzXQqbICSbktgqR81PXZhSeILGp
+ XLd7QE+BjJTgkD78rW+yDLMxynADiLwCeKBXskzABOlzu5J9//U0h93lZ/oPWCfpKv
+ M/mFxjoy57viFzKFb2ISVVpv3IiGNxayVcXVYup3pD2xob+dSuyXpWsgrZgdwCilTl
+ TxOAG8+EUJ4IRTv/9Sf/XlZq0DfNG14z3KHHcKw4DbGhQquVIc86EQ0yhMrvIUmSfe
+ +sh07MJo1wNeVmOXrOA8ROzWBVXTounV5U1224uzywmFT4a8Tuntdhes/F1Fl55gUq
+ TA/PsQAouhpFg==
+To: Takashi Iwai <tiwai@suse.de>
+From: Lennert Van Alboom <lennert@vanalboom.org>
+Subject: Re: USB DAC broken since commit
+ bf6313a0ff766925462e97b4e733d5952de02367 (5.10.0-rc5)
+Message-ID: <JGbq2exwKdQ4T8GQCI5YWzGredZVbYtBOxlnBN0ROtba40PvCdEKfz2mKzClqejgZMck374nGQyEIwzjiBi6sKYYNnJgKp26n1-_j6GT3hw=@vanalboom.org>
+In-Reply-To: <874jy0mvwv.wl-tiwai@suse.de>
+References: <T3VPXtCc4uFws9Gfh2RjX6OdwM1RqfC6VqQr--_LMDyB2x5N3p9_q6AtPna17IXhHwBtcJVdXuS80ZZSCMjh_BafIbnzJPhbrkmhmWS6DlI=@vanalboom.org>
+ <874jy0mvwv.wl-tiwai@suse.de>
+Feedback-ID: 20549952:user:proton
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha512;
+ boundary="------4335f303f65c68eca3e0f08532a8b61bb7072bbe4d5a915d252d9d9d70b44e24";
+ charset=utf-8
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,48 +82,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: Lennert Van Alboom <lennert@vanalboom.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Aug 2022 16:04:11 +0200, Daniel Mack wrote:
-> This device features a data monitor that puts the device in software reset
-> upon a configurable set of events.
-> 
-> Signed-off-by: Daniel Mack <daniel@zonque.org>
-> ---
-> v1 -> v2: fix a typo and remove a stray blank line
-> 
->  .../bindings/sound/adi,max98396.yaml          | 37 +++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------4335f303f65c68eca3e0f08532a8b61bb7072bbe4d5a915d252d9d9d70b44e24
+Content-Type: multipart/mixed;boundary=---------------------76f807876e088460dc4f4074efee6b26
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+-----------------------76f807876e088460dc4f4074efee6b26
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-yamllint warnings/errors:
+------- Original Message -------
+On Thursday, August 25th, 2022 at 12:58, Takashi Iwai <tiwai@suse.de> wrot=
+e:
+> =
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: properties:adi,dmon-stuck-threshold-bits: '$ref' should not be valid under {'const': '$ref'}
-	hint: Standard unit suffix properties don't need a type $ref
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: properties:adi,dmon-magnitude-threshold-bits: '$ref' should not be valid under {'const': '$ref'}
-	hint: Standard unit suffix properties don't need a type $ref
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: ignoring, error in schema: properties: adi,dmon-stuck-threshold-bits
-Documentation/devicetree/bindings/sound/adi,max98396.example.dtb:0:0: /example-0/i2c/amplifier@39: failed to match any schema with compatible: ['adi,max98396']
 
-doc reference errors (make refcheckdocs):
+> There are lots of workarounds for the buggy USB audio firmware, and
+> the latest kernel allows to enable the quirks via quirk_flags module
+> option of snd-usb-audio driver. See
+> Documentation/sound/alsa-configuration.rst.
+> You can try the bit 16 at first, for example.
+> =
 
-See https://patchwork.ozlabs.org/patch/
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
+> =
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
 
-pip3 install dtschema --upgrade
+> Takashi
 
-Please check and re-submit.
+
+Thanks. I tried fiddling around with it for a bit but so far limited succe=
+ss. I wasn't sure about the arguments or counting order of quirk_flags (so=
+me tidbits show it as hex, others as an array of booleans (?)) so tried a =
+few different things. I have no other USB audio devices so didn't see a ne=
+ed to specify vendor or product ID while testing. =
+
+
+
+# modprobe snd_usb_audio quirk_flags=3D0x10000
+# modprobe snd_usb_audio quirk_flags=3D0x1
+# modprobe snd_usb_audio quirk_flags=3D0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+
+No success with any, so far. Is there a way to make the process more verbo=
+se? I can see from the lights on the DAC that the initialisation works dif=
+ferently if I mess with the different quirks but that's not visible in sys=
+log or outcome.
+
+
+Thanks,
+
+
+Lennert
+
+-----------------------76f807876e088460dc4f4074efee6b26
+Content-Type: application/pgp-keys; filename="publickey - lennert@vanalboom.org - 0x0320C886.asc"; name="publickey - lennert@vanalboom.org - 0x0320C886.asc"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - lennert@vanalboom.org - 0x0320C886.asc"; name="publickey - lennert@vanalboom.org - 0x0320C886.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FWHBHZWNoWUpLd1lCQkFI
+YVJ3OEJBUWRBSFBRaWM5VER0TURQaDgwclllNFlDRHh5aEFTdkhMcUcKb1NTQWMwRGNaVGJOTFd4
+bGJtNWxjblJBZG1GdVlXeGliMjl0TG05eVp5QThiR1Z1Ym1WeWRFQjJZVzVoCmJHSnZiMjB1YjNK
+blBzSjRCQkFXQ2dBZ0JRSmVrWjV5QmdzSkJ3Z0RBZ1FWQ0FvQ0JCWUNBUUFDR1FFQwpHd01DSGdF
+QUNna1FmdENYYy9pU21tNE5IZ0QrTUdVQ2hkZHdRckw4R3hGZVlmVFRLSVJiQ2huVTgvK1MKVU8z
+SE1ZdmlnUDRBLzFFdVRhU1RQMU5jVUJkRllvU2pqU2gzQWE2Zis3dFRISXN2TWl0TGF5NEx6amdF
+ClhwR2VjaElLS3dZQkJBR1hWUUVGQVFFSFFOTlR3dG11TGpqOXJNZnhOaUtUZ0JyWVNmY3lEVDRX
+U1grdQpZY1l3RWdCQUF3RUlCOEpoQkJnV0NBQUpCUUpla1o1eUFoc01BQW9KRUg3UWwzUDRrcHB1
+TUlJQkFLMEQKc2g3alVsUHBWTUlzTVdZRDZETkhmaVFEZXcwQVh1WjJhd0JvWEtjRkFQOWJZZkpR
+M29ENTNpelNLYkpFCmlLQkh1Y2pDOWJmRzlOcjdsdFA3OHNZN0NnPT0KPXpraXYKLS0tLS1FTkQg
+UEdQIFBVQkxJQyBLRVkgQkxPQ0stLS0tLQo=
+-----------------------76f807876e088460dc4f4074efee6b26--
+
+--------4335f303f65c68eca3e0f08532a8b61bb7072bbe4d5a915d252d9d9d70b44e24
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wnUEARYKAAYFAmMH4OAAIQkQftCXc/iSmm4WIQQDIMiGf8zUXWpveld+0Jdz
++JKabvDxAQDPhEi0uDbGJTno+jrqi3mOn+iklUu/d9KA82FlfgXGOAD8Cz4E
+k1lNOeUqKKyDbVkZ9tzHSJZVlGpWsV4slXQkHwY=
+=D4ie
+-----END PGP SIGNATURE-----
+
+
+--------4335f303f65c68eca3e0f08532a8b61bb7072bbe4d5a915d252d9d9d70b44e24--
 

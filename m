@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 498FF5A16CD
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 18:40:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 325795A1920
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 20:52:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E740D1637;
-	Thu, 25 Aug 2022 18:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E740D1637
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7635E1621;
+	Thu, 25 Aug 2022 20:51:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7635E1621
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661445639;
-	bh=jW1+QJrbm2Ue8kto7vl18xbElhRMDwx0g4NeT2s/jqI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661453550;
+	bh=ZVzSp+LhaVe67miSWt0Ck8nbsAq3kQRzMlHu+eEbWxY=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vSYz1w/6PCXOVXcjk/hbpHjeiW895LHPsm5OD8ZMjqcEmQbRn2lzKdMtjo4XmWeZ6
-	 OTY+AUTPseb9kTKeDtLzSR9mMcSDnBu3o5AH5nI8lEJDFe0EM/t1AVGHuoVHq4q65C
-	 jpK4XpJB44cxqpbTQ1WBg1UH6X6u9ZaOf3bxznRc=
+	b=dgRByB9cWFONawylshJW8uXAxnXnSUysX1hSI2ZCuTa9iVXU1v3aU6BM0uEdBj/Fj
+	 3u2hJ5w2soaj/2FigdN2CZOx45cOgTyTSxkog7021DU2SdgVlNfNzzIWxfsgGUz+Qu
+	 vNmpLKQ6Pl9RRLripStFRGalwYdxE7PKQybhkqzE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4778AF8014B;
-	Thu, 25 Aug 2022 18:39:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF39BF80271;
+	Thu, 25 Aug 2022 20:51:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A40A8F804FD; Thu, 25 Aug 2022 18:39:08 +0200 (CEST)
+ id 3DFBEF8025A; Thu, 25 Aug 2022 20:51:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
+ [209.85.160.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7019F80245
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 18:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7019F80245
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="gcw0LEK+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661445543; x=1692981543;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jW1+QJrbm2Ue8kto7vl18xbElhRMDwx0g4NeT2s/jqI=;
- b=gcw0LEK+fvpQ6xbqaOQwRxCxyuXbfIZ8Ov0rOStZ1OAi7SJTDa+9K4ug
- 0TGO52p6pkd+NoiGW1kztw+fAaI7s2ZHUb41Qkw4DhL7XJEuyyJ/CbkW/
- 214/IeU3jEa3d0JVXGsN9CmV2KjxcH8pp9yT9ZP0d6/Xi66x+wCZNTH0g
- j3Vxoa0yz3zwniSZHVRrjusSaz/PgYdb+9aH2rl4BAHUgHd0Ns36JHIK3
- HE3MSA3ZxcMi/Q/Fn0oNNCkAaocCtvadXx73V9UL7oNu/W1X1MxF60PLr
- 95Ha+CiYtdCXtBx8pq1z3GHglFPNEJhG/0WoieFtBn5ubMRnZq9hLhYg0 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="356013043"
-X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="356013043"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2022 09:38:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="671070457"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 25 Aug 2022 09:38:56 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH v2 2/2] ASoC: SOF: Remove strsplit_u32() and tokenize_input()
-Date: Thu, 25 Aug 2022 18:48:33 +0200
-Message-Id: <20220825164833.3923454-3-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220825164833.3923454-1-cezary.rojewski@intel.com>
-References: <20220825164833.3923454-1-cezary.rojewski@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, hdegoede@redhat.com,
- andy.shevchenko@gmail.com, ranjani.sridharan@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com, linux-fsdevel@vger.kernel.org,
- peter.ujfalusi@linux.intel.com, linux-kernel@vger.kernel.org,
- viro@zeniv.linux.org.uk
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D3A8F8014B
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 20:51:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3A8F8014B
+Received: by mail-oa1-f52.google.com with SMTP id
+ 586e51a60fabf-11cab7d7e0fso24886952fac.6
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 11:51:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:references:in-reply-to:cc:to:from
+ :x-gm-message-state:from:to:cc;
+ bh=X/cVd+KOZMnW5AEd2SXFiu5+u+UnvgqvwY4tvjFkN5w=;
+ b=XnZ4r25yeBVrh+JFp1PcD2ggydfw9VDhF0s0NMxFTSKf2qlTgIpCgUsosufsossaz1
+ NAWZ219Bouu1VS3IHP1kIvtW7o88gLxcGCRmrQebjmFoF8lkCxfEtq+cn9M20OmrDKx4
+ N9KW9HplwmyONOR10Is5EmNZmeLUrDHG7PtXa0YF9tojjLVEv2VjL/5EYiBHs7jZovEK
+ Sncn/N0sk6kDw6M/2Ti+LovYGFkkeYFw9Q6B3mQTowNE5hE1FfHjDCJbWsW3Vj1OgaWd
+ 2BqqHl+WQO6xPBpodw21jlND7o/zjbIUAryVFgIxq2kwrzs69CpNO2i/kjI9pGeuOZei
+ MzOw==
+X-Gm-Message-State: ACgBeo0llvYm8tiz6+SCdYm61satfkC0KvqORGqPQpsruBbQE/M+e5y1
+ S+FXipQnUaTNTtiOdaBFzg==
+X-Google-Smtp-Source: AA6agR5at6NFTKiUyIw1Kb0xcXmMgTMvsyGSZx2gNvzl8dWpbxREgES9FDOSuEVhyNfyXQj8Dhkkag==
+X-Received: by 2002:a05:6870:b148:b0:112:cfe1:5062 with SMTP id
+ a8-20020a056870b14800b00112cfe15062mr227632oal.297.1661453481259; 
+ Thu, 25 Aug 2022 11:51:21 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ f20-20020a9d0394000000b0063736db0ae9sm5573904otf.15.2022.08.25.11.51.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 11:51:20 -0700 (PDT)
+Received: (nullmailer pid 1486937 invoked by uid 1000);
+ Thu, 25 Aug 2022 18:51:19 -0000
+From: Rob Herring <robh@kernel.org>
+To: Daniel Mack <daniel@zonque.org>
+In-Reply-To: <20220825140412.2297211-1-daniel@zonque.org>
+References: <20220825140412.2297211-1-daniel@zonque.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: max98396: Document data monitor
+ properties
+Date: Thu, 25 Aug 2022 13:51:19 -0500
+Message-Id: <1661453479.979911.1486936.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, ryan.lee.analog@gmail.com, robh+dt@kernel.org,
+ broonie@kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,163 +91,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make use of global user input tokenization helper instead of the
-internal one as both serve same purpose. With that, both strsplit_u32()
-and tokenize_input() become unused so remove them.
+On Thu, 25 Aug 2022 16:04:11 +0200, Daniel Mack wrote:
+> This device features a data monitor that puts the device in software reset
+> upon a configurable set of events.
+> 
+> Signed-off-by: Daniel Mack <daniel@zonque.org>
+> ---
+> v1 -> v2: fix a typo and remove a stray blank line
+> 
+>  .../bindings/sound/adi,max98396.yaml          | 37 +++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+> 
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/sof/sof-client-probes.c | 92 ++++---------------------------
- 1 file changed, 11 insertions(+), 81 deletions(-)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
-index eb246b823461..3bab54cac07b 100644
---- a/sound/soc/sof/sof-client-probes.c
-+++ b/sound/soc/sof/sof-client-probes.c
-@@ -410,79 +410,6 @@ static const struct snd_compress_ops sof_probes_compressed_ops = {
- 	.copy = sof_probes_compr_copy,
- };
- 
--/**
-- * strsplit_u32 - Split string into sequence of u32 tokens
-- * @buf:	String to split into tokens.
-- * @delim:	String containing delimiter characters.
-- * @tkns:	Returned u32 sequence pointer.
-- * @num_tkns:	Returned number of tokens obtained.
-- */
--static int strsplit_u32(char *buf, const char *delim, u32 **tkns, size_t *num_tkns)
--{
--	char *s;
--	u32 *data, *tmp;
--	size_t count = 0;
--	size_t cap = 32;
--	int ret = 0;
--
--	*tkns = NULL;
--	*num_tkns = 0;
--	data = kcalloc(cap, sizeof(*data), GFP_KERNEL);
--	if (!data)
--		return -ENOMEM;
--
--	while ((s = strsep(&buf, delim)) != NULL) {
--		ret = kstrtouint(s, 0, data + count);
--		if (ret)
--			goto exit;
--		if (++count >= cap) {
--			cap *= 2;
--			tmp = krealloc(data, cap * sizeof(*data), GFP_KERNEL);
--			if (!tmp) {
--				ret = -ENOMEM;
--				goto exit;
--			}
--			data = tmp;
--		}
--	}
--
--	if (!count)
--		goto exit;
--	*tkns = kmemdup(data, count * sizeof(*data), GFP_KERNEL);
--	if (!(*tkns)) {
--		ret = -ENOMEM;
--		goto exit;
--	}
--	*num_tkns = count;
--
--exit:
--	kfree(data);
--	return ret;
--}
--
--static int tokenize_input(const char __user *from, size_t count,
--			  loff_t *ppos, u32 **tkns, size_t *num_tkns)
--{
--	char *buf;
--	int ret;
--
--	buf = kmalloc(count + 1, GFP_KERNEL);
--	if (!buf)
--		return -ENOMEM;
--
--	ret = simple_write_to_buffer(buf, count, ppos, from, count);
--	if (ret != count) {
--		ret = ret >= 0 ? -EIO : ret;
--		goto exit;
--	}
--
--	buf[count] = '\0';
--	ret = strsplit_u32(buf, ",", tkns, num_tkns);
--exit:
--	kfree(buf);
--	return ret;
--}
--
- static ssize_t sof_probes_dfs_points_read(struct file *file, char __user *to,
- 					  size_t count, loff_t *ppos)
- {
-@@ -548,8 +475,8 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
- 	struct sof_probes_priv *priv = cdev->data;
- 	struct device *dev = &cdev->auxdev.dev;
- 	struct sof_probe_point_desc *desc;
--	size_t num_tkns, bytes;
--	u32 *tkns;
-+	size_t bytes;
-+	u32 num_tkns, *tkns;
- 	int ret, err;
- 
- 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
-@@ -557,16 +484,18 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
- 		return -ENOENT;
- 	}
- 
--	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
-+	ret = tokenize_user_input(from, count, (int **)&tkns);
- 	if (ret < 0)
- 		return ret;
-+
-+	num_tkns = *tkns;
- 	bytes = sizeof(*tkns) * num_tkns;
- 	if (!num_tkns || (bytes % sizeof(*desc))) {
- 		ret = -EINVAL;
- 		goto exit;
- 	}
- 
--	desc = (struct sof_probe_point_desc *)tkns;
-+	desc = (struct sof_probe_point_desc *)&tkns[1];
- 
- 	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0 && ret != -EACCES) {
-@@ -603,8 +532,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
- 	struct sof_client_dev *cdev = file->private_data;
- 	struct sof_probes_priv *priv = cdev->data;
- 	struct device *dev = &cdev->auxdev.dev;
--	size_t num_tkns;
--	u32 *tkns;
-+	u32 num_tkns, *tkns;
- 	int ret, err;
- 
- 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
-@@ -612,9 +540,11 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
- 		return -ENOENT;
- 	}
- 
--	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
-+	ret = tokenize_user_input(from, count, (int **)&tkns);
- 	if (ret < 0)
- 		return ret;
-+
-+	num_tkns = *tkns;
- 	if (!num_tkns) {
- 		ret = -EINVAL;
- 		goto exit;
-@@ -626,7 +556,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
- 		goto exit;
- 	}
- 
--	ret = sof_probes_points_remove(cdev, tkns, num_tkns);
-+	ret = sof_probes_points_remove(cdev, &tkns[1], num_tkns);
- 	if (!ret)
- 		ret = count;
- 
--- 
-2.25.1
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: properties:adi,dmon-stuck-threshold-bits: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: properties:adi,dmon-magnitude-threshold-bits: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/adi,max98396.yaml: ignoring, error in schema: properties: adi,dmon-stuck-threshold-bits
+Documentation/devicetree/bindings/sound/adi,max98396.example.dtb:0:0: /example-0/i2c/amplifier@39: failed to match any schema with compatible: ['adi,max98396']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

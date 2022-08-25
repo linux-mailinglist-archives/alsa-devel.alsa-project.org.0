@@ -2,106 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0847C5A1BDC
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 00:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03DFE5A1BE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 00:07:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA251638;
-	Fri, 26 Aug 2022 00:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA251638
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32E70950;
+	Fri, 26 Aug 2022 00:06:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32E70950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661465007;
-	bh=rz7VQqcc1mIQQDSGDM9eF3sfzer9VXiScOM0e2s2f6M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mU11yS8amDm6NlVi392XbtzeIyo4356kdiEIKqAK84GTjEcgrqUi1hlDCzKrJvslf
-	 z4QWSQOw1+VOXnXP4tQl/QZRLtGrsqbXGfdN37QpzvhdQL+/gDeWryRWZnVPfFbC/q
-	 2slNyE4uwUBHR6FJJJX+Ffhwx5xExz6NJ1sQgPrU=
+	s=default; t=1661465236;
+	bh=Q5+Bi1B/SMTx6MvZqr40BzbPGKrMBPLeIBYyqLazQ/8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vElAKKBqtia8/egHcnCg8jdymq8GzQC1dM25SFh5aRRvKzm/fhnjg8EbyzgrhdgLg
+	 Ws6nSsfX2Kb4rBtjGceqcvpb1WCvNNA+5A2cTCLV3SfkPaQuLpHNLxS1ZdZxk4MgA8
+	 YRcgQ/NPPoXqe/dMoOU4bOseraigztCZTujITftY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2713F80506;
-	Fri, 26 Aug 2022 00:01:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98893F800BD;
+	Fri, 26 Aug 2022 00:06:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A4CAF8027C; Fri, 26 Aug 2022 00:01:57 +0200 (CEST)
+ id 9338DF8025A; Fri, 26 Aug 2022 00:06:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 422D5F8014B
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 00:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 422D5F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71536F800BD
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 00:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71536F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ljones.dev header.i=@ljones.dev
- header.b="cM9dfZEj"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="bhHbC78o"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C42825C0056;
- Thu, 25 Aug 2022 18:01:46 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 25 Aug 2022 18:01:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
- :cc:content-transfer-encoding:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1661464906; x=1661551306; bh=vx
- IQYb7384ikUOFL0YYanSZM4BK3Ykys553Rk0TizvY=; b=cM9dfZEj0l2R40gIJx
- 046+jU5S1BdBAc/m3p88ls88V1AI+CEgv6RjA0qTMsqRx2t88fQmm0MGE+wIRmkO
- BuhkqEdw4vjj+4YNfaKpCBAL4/pC8pb7Ax9GMjqlrCyr5eibp/cyF1tgea/QlOqq
- BU+qTMHTEZ/tpObSdlVtRGpXl3MzLW30/G4OnU+ug7EXC5/pum698QdIxcdkPwUy
- HkntoOqsVl6NViNV6VPLY6rZIm7FjYeR1P0aEK1m3aXUQwUKG/+mf6bsfBapQM1S
- XbSMEpPHVR/cM2Mw3DQYmyjIeM53fgwHMbP02KVheQdlK2W+/xSMYfTq38Or8x8E
- 0KMw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; t=1661464906; x=1661551306; bh=vxIQYb7384ikU
- OFL0YYanSZM4BK3Ykys553Rk0TizvY=; b=bhHbC78oXHH+PMzfOi+fCKxUuR1CR
- KpSjFgc0k5EUfAsmmZX+PE7DWw02WumP//HhoJWGXFsaubARF0vP78khxHOXhn+Z
- a10FVCdivual/4OjN+wqZx7YdaxzXyDhPTH/PHPgEZIvrO1u/KFa5vnmGTP8YwrK
- Ale4mvrVCPUNXAJUCLjJfsp3yCwl4MJHqz9t/k6Kh+WZ8wTV5OMJ8WMuR5+6wXQZ
- B6zlJUI8e0YY4EOXlzP+LGzx9rVVpDVBplsfzITuiFfPzg0fAjcxAYptIib4PVlc
- gIbPOHibYJ2H/Aj0eXMMpMMFPN182k//VwAIFaAODy2yjaM4NRPtKA7Qg==
-X-ME-Sender: <xms:SvEHY1bcLwhXvldm_OG-pIXr3WHS2GukpDuE4G7qHEYtuGSpnSs64w>
- <xme:SvEHY8YwlHeQ4Qoh04FAaIneySYXZUSfDN3NamDEGtQS3QEAujqPICPsNvz1qDdc8
- AmkaVyZCVomGIjHJbs>
-X-ME-Received: <xmr:SvEHY38A068HozK_2Mg3LYMf-soVdD_0LI6gzbAjS7lLGb_9BnB2JJfqFZ7Y>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejgedgtdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpedfnfhukhgvucffrdculfhonhgvshdfuceolhhukhgvsehl
- jhhonhgvshdruggvvheqnecuggftrfgrthhtvghrnhepgfetfedugfetudeuheetjefhue
- fggfelleetvdevtefhueeujeefvdegleevhefgnecuvehluhhsthgvrhfuihiivgeptden
- ucfrrghrrghmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
-X-ME-Proxy: <xmx:SvEHYzq8QEv89mbD1VSORBK1VxcK1YKTGIbBFu0xuAuzkKrWwdcJlQ>
- <xmx:SvEHYwoFaEFcYYghYHCC3aFIu0TO1_mfNehRhlbNwxv0oTxu7ujGjg>
- <xmx:SvEHY5S97x-Hy-4lYjdt2r5xflFrC6UvEdbYFOQip1MugZCmzEhApg>
- <xmx:SvEHY7XBsjwOVqO-Hc_oF5xK7oSAlP1wbCRCMn5xQIDSMwzA0IpvXw>
-Feedback-ID: i5ec1447f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 25 Aug 2022 18:01:43 -0400 (EDT)
-From: "Luke D. Jones" <luke@ljones.dev>
-To: tiwai@suse.com
-Subject: [PATCH 2/2] sound: realtek: Add pincfg for ASUS G513
-Date: Fri, 26 Aug 2022 10:01:30 +1200
-Message-Id: <20220825220130.331371-2-luke@ljones.dev>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="gh6ftKJI"
+Received: from localhost (unknown [188.27.54.142])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id D20966601EB5;
+ Thu, 25 Aug 2022 23:06:07 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661465168;
+ bh=Q5+Bi1B/SMTx6MvZqr40BzbPGKrMBPLeIBYyqLazQ/8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=gh6ftKJIVQLKO5dOmvcFnfcDOzXHWNzMS9IHXZj2byYLR8MxxEqTYAsGt7UmckXyl
+ bNx2FSRFzzKbrfrDQPx6UsRpdJzjGrAmb/9nJaOD7OyndFWU9x8WtENvd0aq2JYNCU
+ bPGGD1LMHXMtMYWqcN5i4vXfXi22vq0EBK+8kOSD3fhMnY+jvLDCWJcbmLIKl+Ziix
+ K1i8wgWCxzjORxZbhRZfNBwhZcWkjOk8niA0b8YiCI3TO+V2Wn0igc3DyunWYxm2Rv
+ u/Jv9Xoc1Sj8wL6TXlsie24cwPDe+Q6TpC9WzjpCN1VGketA87UoLR8asvOE78Hy1F
+ kxoL511toqAlQ==
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Vlad Karpovich <Vlad.Karpovich@cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: [PATCH v2] ASoC: wm_adsp: Handle optional legacy support
+Date: Fri, 26 Aug 2022 01:05:30 +0300
+Message-Id: <20220825220530.1205141-1-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220825220130.331371-1-luke@ljones.dev>
-References: <20220825220130.331371-1-luke@ljones.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: "Luke D. Jones" <luke@ljones.dev>, alsa-devel@alsa-project.org,
- kai.heng.feng@canonical.com, andy.chi@canonical.com,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ kernel@collabora.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,50 +85,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixes up the pincfg for ASUS ROG Strix G513
+The tracing capabilities for the speaker protection fw enabled via
+commit c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker
+protection FW") are not be available on all platforms, such as the
+Valve's Steam Deck which is based on the Halo Core DSP.
 
-Signed-off-by: Luke D. Jones <luke@ljones.dev>
+As a consequence, whenever the firmware is loaded, a rather misleading
+'Failed to parse legacy: -19' error message is written to the kernel
+ring buffer:
+
+[  288.977412] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware version: 3
+[  288.978002] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: cs35l41-dsp1-spk-prot.wmfw: Fri 02 Apr 2021 21:03:50 W. Europe Daylight Time
+[  289.094065] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Firmware: 400a4 vendor: 0x2 v0.33.0, 2 algorithms
+[  289.095073] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 0: ID cd v29.53.0 XM@94 YM@e
+[  289.095665] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: 1: ID f20b v0.0.1 XM@170 YM@0
+[  289.096275] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Protection: C:\Users\ocanavan\Desktop\cirrusTune_july2021.bin
+[  291.172383] steamdeck kernel: cs35l41 spi-VLV1776:01: DSP1: Failed to parse legacy: -19
+
+Update wm_adsp_buffer_init() to print a more descriptive info message
+when wm_adsp_buffer_parse_legacy() returns -ENODEV.
+
+Fixes: c55b3e46cb99 ("ASoC: wm_adsp: Add trace caps to speaker protection FW")
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- sound/pci/hda/patch_realtek.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changes in v2:
+ - Add a generic handling of the issue, not bound to a particular
+   firmware, as suggested by Charles
+ - Update commit message, including the subject, to reflect the changes
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e9cad49ee2a5..abf3fb50692a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7023,6 +7023,7 @@ enum {
- 	ALC294_FIXUP_ASUS_GX502_PINS,
- 	ALC294_FIXUP_ASUS_GX502_VERBS,
- 	ALC285_FIXUP_ASUS_G533Z_PINS,
-+	ALC294_FIXUP_ASUS_G513_PINS,
- 	ALC294_FIXUP_ASUS_GU502_HP,
- 	ALC294_FIXUP_ASUS_GU502_PINS,
- 	ALC294_FIXUP_ASUS_GU502_VERBS,
-@@ -8308,6 +8309,16 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
- 	},
-+	[ALC294_FIXUP_ASUS_G513_PINS] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x03a11050 }, /* front HP mic */
-+			{ 0x1a, 0x03a11c30 }, /* rear external mic */
-+			{ 0x21, 0x03211420 }, /* front HP out */
-+			{ }
-+		},
-+		.chained = false
-+	},
- 	[ALC294_FIXUP_ASUS_GX502_PINS] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -9307,6 +9318,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x1c92, "ASUS ROG Strix G15", ALC285_FIXUP_ASUS_G533Z_PINS),
-+	SND_PCI_QUIRK(0x1043, 0x1e5e, "ASUS ROG Strix G513", ALC294_FIXUP_ASUS_G513_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x194e, "ASUS UX563FD", ALC294_FIXUP_ASUS_HPE),
+ sound/soc/codecs/wm_adsp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index cfaa45ede916..8a2e9771bb50 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -1602,7 +1602,9 @@ static int wm_adsp_buffer_init(struct wm_adsp *dsp)
+ 	if (list_empty(&dsp->buffer_list)) {
+ 		/* Fall back to legacy support */
+ 		ret = wm_adsp_buffer_parse_legacy(dsp);
+-		if (ret)
++		if (ret == -ENODEV)
++			adsp_info(dsp, "Legacy support not available\n");
++		else if (ret)
+ 			adsp_warn(dsp, "Failed to parse legacy: %d\n", ret);
+ 	}
+ 
+
+base-commit: 568035b01cfb107af8d2e4bd2fb9aea22cf5b868
 -- 
 2.37.2
 

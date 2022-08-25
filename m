@@ -2,49 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660355A12F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:06:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB5F45A12F6
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 16:05:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06B5C161D;
-	Thu, 25 Aug 2022 16:05:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06B5C161D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B3591636;
+	Thu, 25 Aug 2022 16:04:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B3591636
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661436366;
-	bh=lKx4eqhOZ7bV32gAHAxM3bz8qurI2i74vxW4Y0JQzgI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=P1N80lI2fw6OK+8A2zcy9EQOgzuLts5EUEGKed+l5nySrmlWlWsuihaDZH8LTpUsA
-	 YmM9UU4RMcXwOwHwmpJgUsQ+HZfp1gtNnaNVf66HkcEq2yVd0z4aryWMSxCeDYShwL
-	 BP87+R+Odw3qjIerKRFX/ix+0XY/LlIpz48/1FpQ=
+	s=default; t=1661436341;
+	bh=Hc0YojC/fNVVwpIR4SKkMI2whrZshcezncGCRx7y3LI=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=D7Nf8NSYOHWECNQZ2F+2wsStcyjJeVltfF4Oct+N9qn49mO+f811hNmxyUUi50GkI
+	 Jav567kFGXFf1DB39BmFNcCUGsQoHerG2MEbfpqP847LvsQN9CspJxO6LBxjGX377c
+	 EnuFCjeSuiUC9+VOQ7StHxRVW7zybLMujSs+sZkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5BC9F80535;
-	Thu, 25 Aug 2022 16:04:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED120F800C8;
+	Thu, 25 Aug 2022 16:04:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B150F8052D; Thu, 25 Aug 2022 16:04:55 +0200 (CEST)
+ id 51324F804FD; Thu, 25 Aug 2022 16:04:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
- by alsa1.perex.cz (Postfix) with ESMTP id DA205F80245
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 16:04:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA205F80245
+ by alsa1.perex.cz (Postfix) with ESMTP id 1BC80F800BD
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 16:04:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BC80F800BD
 Received: from hq-00021.fritz.box (p57bc9ceb.dip0.t-ipconnect.de
  [87.188.156.235])
- by mail.bugwerft.de (Postfix) with ESMTPSA id EEEEF4210DB;
- Thu, 25 Aug 2022 14:04:17 +0000 (UTC)
+ by mail.bugwerft.de (Postfix) with ESMTPSA id 8A883421360;
+ Thu, 25 Aug 2022 14:04:18 +0000 (UTC)
 From: Daniel Mack <daniel@zonque.org>
 To: broonie@kernel.org,
 	ryan.lee.analog@gmail.com
-Subject: [PATCH v2 1/2] ASoC: dt-bindings: max98396: Document data monitor
- properties
-Date: Thu, 25 Aug 2022 16:04:11 +0200
-Message-Id: <20220825140412.2297211-1-daniel@zonque.org>
+Subject: [PATCH v2 2/2] ASoC: max98396: Make data monitor features configurable
+Date: Thu, 25 Aug 2022 16:04:12 +0200
+Message-Id: <20220825140412.2297211-2-daniel@zonque.org>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220825140412.2297211-1-daniel@zonque.org>
+References: <20220825140412.2297211-1-daniel@zonque.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
@@ -64,64 +66,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This device features a data monitor that puts the device in software reset
-upon a configurable set of events.
+Allow the data monitor features to be enabled explicitly, and enable control
+over their details.
 
 Signed-off-by: Daniel Mack <daniel@zonque.org>
 ---
-v1 -> v2: fix a typo and remove a stray blank line
+ sound/soc/codecs/max98396.c | 102 ++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/max98396.h |  14 +++++
+ 2 files changed, 116 insertions(+)
 
- .../bindings/sound/adi,max98396.yaml          | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/sound/adi,max98396.yaml b/Documentation/devicetree/bindings/sound/adi,max98396.yaml
-index 8d2ef991db40..f4eefe10c494 100644
---- a/Documentation/devicetree/bindings/sound/adi,max98396.yaml
-+++ b/Documentation/devicetree/bindings/sound/adi,max98396.yaml
-@@ -78,6 +78,43 @@ properties:
-       interleaved on a single output channel.
-     type: boolean
+diff --git a/sound/soc/codecs/max98396.c b/sound/soc/codecs/max98396.c
+index 42479f3ab663..9a9be34d7fce 100644
+--- a/sound/soc/codecs/max98396.c
++++ b/sound/soc/codecs/max98396.c
+@@ -1486,6 +1486,87 @@ static int max98396_probe(struct snd_soc_component *component)
+ 			   MAX98396_CLK_MON_AUTO_RESTART_MASK,
+ 			   MAX98396_CLK_MON_AUTO_RESTART_MASK);
  
-+  adi,dmon-stuck-enable:
-+    description:
-+      Enables the "data monitor stuck" feature. Once the data monitor is
-+      enabled, it actively monitors the selected input data (from DIN) to the
-+      speaker amplifier. Once a data error is detected, the data monitor
-+      automatically places the device into software shutdown.
-+    type: boolean
++	regmap_update_bits(max98396->regmap,
++			   MAX98396_R203F_ENABLE_CTRLS,
++			   MAX98396_CTRL_DMON_STUCK_EN_MASK,
++			   max98396->dmon_stuck_enable ?
++				MAX98396_CTRL_DMON_STUCK_EN_MASK : 0);
 +
-+  adi,dmon-stuck-threshold-bits:
-+    description:
-+      Sets the threshold for the "data monitor stuck" feature, in bits.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    enum: [9, 11, 13, 15]
-+    default: 15
++	regmap_update_bits(max98396->regmap,
++			   MAX98396_R203F_ENABLE_CTRLS,
++			   MAX98396_CTRL_DMON_MAG_EN_MASK,
++			   max98396->dmon_mag_enable ?
++				MAX98396_CTRL_DMON_MAG_EN_MASK : 0);
 +
-+  adi,dmon-magnitude-enable:
-+    description:
-+      Enables the "data monitor magnitude" feature. Once the data monitor is
-+      enabled, it actively monitors the selected input data (from DIN) to the
-+      speaker amplifier. Once a data error is detected, the data monitor
-+      automatically places the device into software shutdown.
-+    type: boolean
++	switch (max98396->dmon_duration) {
++	case 64:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_DURATION_MASK, 0);
++		break;
++	case 256:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_DURATION_MASK, 1);
++		break;
++	case 1024:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_DURATION_MASK, 2);
++		break;
++	case 4096:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_DURATION_MASK, 3);
++		break;
++	default:
++		dev_err(component->dev, "Invalid DMON duration %d\n",
++			max98396->dmon_duration);
++	}
 +
-+  adi,dmon-magnitude-threshold-bits:
-+    description:
-+      Sets the threshold for the "data monitor magnitude" feature, in bits.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    enum: [2, 3, 4, 5]
-+    default: 5
++	switch (max98396->dmon_stuck_threshold) {
++	case 15:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_STUCK_THRESH_MASK,
++				   0 << MAX98396_DMON_STUCK_THRESH_SHIFT);
++		break;
++	case 13:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_STUCK_THRESH_MASK,
++				   1 << MAX98396_DMON_STUCK_THRESH_SHIFT);
++		break;
++	case 22:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_STUCK_THRESH_MASK,
++				   2 << MAX98396_DMON_STUCK_THRESH_SHIFT);
++		break;
++	case 9:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_STUCK_THRESH_MASK,
++				   3 << MAX98396_DMON_STUCK_THRESH_SHIFT);
++		break;
++	default:
++		dev_err(component->dev, "Invalid DMON stuck threshold %d\n",
++			max98396->dmon_stuck_threshold);
++	}
 +
-+  adi,dmon-duration-msecs:
-+    description:
-+      Sets the duration for the "data monitor" feature, in milliseconds.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    enum: [64, 256, 1024, 4096]
-+    default: 64
++	switch (max98396->dmon_mag_threshold) {
++	case 2 ... 5:
++		regmap_update_bits(max98396->regmap,
++				   MAX98396_R2039_DATA_MON_CTRL,
++				   MAX98396_DMON_STUCK_THRESH_MASK,
++				   (5 - max98396->dmon_mag_threshold)
++					<< MAX98396_DMON_MAG_THRESH_SHIFT);
++		break;
++	default:
++		dev_err(component->dev, "Invalid DMON magnitude threshold %d\n",
++			max98396->dmon_mag_threshold);
++	}
 +
-   reset-gpios:
-     maxItems: 1
+ 	/* Speaker Amplifier PCM RX Enable by default */
+ 	regmap_update_bits(max98396->regmap,
+ 			   MAX98396_R205E_PCM_RX_EN,
+@@ -1619,6 +1700,27 @@ static void max98396_read_device_property(struct device *dev,
+ 		max98396->bypass_slot = value & 0xF;
+ 	else
+ 		max98396->bypass_slot = 0;
++
++	max98396->dmon_stuck_enable =
++		device_property_read_bool(dev, "adi,dmon-stuck-enable");
++
++	if (!device_property_read_u32(dev, "adi,dmon-stuck-threshold-bits", &value))
++		max98396->dmon_stuck_threshold = value;
++	else
++		max98396->dmon_stuck_threshold = 15;
++
++	max98396->dmon_mag_enable =
++		device_property_read_bool(dev, "adi,dmon-magnitude-enable");
++
++	if (!device_property_read_u32(dev, "adi,dmon-magnitude-threshold-bits", &value))
++		max98396->dmon_mag_threshold = value;
++	else
++		max98396->dmon_mag_threshold = 5;
++
++	if (!device_property_read_u32(dev, "adi,dmon-duration-msecs", &value))
++		max98396->dmon_duration = value;
++	else
++		max98396->dmon_duration = 64;
+ }
  
+ static void max98396_core_supplies_disable(void *priv)
+diff --git a/sound/soc/codecs/max98396.h b/sound/soc/codecs/max98396.h
+index 7278c779989a..d396aa3e698b 100644
+--- a/sound/soc/codecs/max98396.h
++++ b/sound/soc/codecs/max98396.h
+@@ -212,8 +212,17 @@
+ #define MAX98396_CLK_MON_AUTO_RESTART_MASK	(0x1 << 0)
+ #define MAX98396_CLK_MON_AUTO_RESTART_SHIFT	(0)
+ 
++/* MAX98396_R2039_DATA_MON_CTRL */
++#define MAX98396_DMON_MAG_THRESH_SHIFT		(4)
++#define MAX98396_DMON_MAG_THRESH_MASK		(0x3 << MAX98396_DMON_MAG_THRESH_SHIFT)
++#define MAX98396_DMON_STUCK_THRESH_SHIFT	(2)
++#define MAX98396_DMON_STUCK_THRESH_MASK		(0x3 << MAX98396_DMON_STUCK_THRESH_SHIFT)
++#define MAX98396_DMON_DURATION_MASK		(0x3)
++
+ /* MAX98396_R203F_ENABLE_CTRLS */
+ #define MAX98396_CTRL_CMON_EN_SHIFT		(0)
++#define MAX98396_CTRL_DMON_STUCK_EN_MASK	(0x1 << 1)
++#define MAX98396_CTRL_DMON_MAG_EN_MASK		(0x1 << 2)
+ 
+ /* MAX98396_R2041_PCM_MODE_CFG */
+ #define MAX98396_PCM_MODE_CFG_FORMAT_MASK	(0x7 << 3)
+@@ -305,6 +314,11 @@ struct max98396_priv {
+ 	unsigned int i_slot;
+ 	unsigned int spkfb_slot;
+ 	unsigned int bypass_slot;
++	bool dmon_stuck_enable;
++	unsigned int dmon_stuck_threshold;
++	bool dmon_mag_enable;
++	unsigned int dmon_mag_threshold;
++	unsigned int dmon_duration;
+ 	bool interleave_mode;
+ 	bool tdm_mode;
+ 	int tdm_max_samplerate;
 -- 
 2.37.2
 

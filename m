@@ -2,112 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B4CF5A0FF0
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 14:05:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF115A1053
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 14:23:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04052823;
-	Thu, 25 Aug 2022 14:04:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04052823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D5A7826;
+	Thu, 25 Aug 2022 14:23:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D5A7826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661429148;
-	bh=+CMZ0FvLzdtVuLkFyTi3IqHhUGrcRoY/oIYR22emB+k=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QK+G2O5Znc7jSjq41khjO6kEoqDh+IYYEtOIi4wMFaIF3EqF1dLDRvS+NzrvTyKCY
-	 cEp4z2hVb8JK4NXldsZVAENDP3xakZplRl3excbiF/BeDgJ0fRDGNkV61y75pdCiNe
-	 3mmxmkbpGmOLvJ9qAleXWVV+ZA2miS1pjVB7EuhY=
+	s=default; t=1661430232;
+	bh=cHaIIvYilp5uYUZxVHDLR05X6+wPkpv35CWfSpxOlTk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=n8sXYOXrx+QOWmv/KNTohPeOthgeaFn/S6kUgFixQ7n5e8lly4EDnBVGm9dwBtpY6
+	 JcJ4spVz28ZBkvVeJrk/UoXdk3eTjJsOGkKj5oW8E1MRlZokynJh1xAfXhwiVkk95e
+	 ovMEzvYrVktktrNPuDwYxZ4iKAvbAalN9hZ/AkpM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5464CF80271;
-	Thu, 25 Aug 2022 14:04:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD418F80245;
+	Thu, 25 Aug 2022 14:22:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA9F6F8025A; Thu, 25 Aug 2022 14:04:45 +0200 (CEST)
+ id A8FB4F80245; Thu, 25 Aug 2022 14:22:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34CCBF800C8
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 14:04:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34CCBF800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE5B6F800C8
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 14:22:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE5B6F800C8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="AC7iwM+I"
-Received: by mail-lj1-x22b.google.com with SMTP id x10so19220616ljq.4
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 05:04:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=/aAGWIDmltGqXOS1ncXoIYBBvj6+VUj5xGoOzvsU0MA=;
- b=AC7iwM+IU6rZ2DikNLEp56ucV1olYMqe5wPpPx5IJcqfDfIwnjZsXq/r18dgvyR9gy
- VpZuBNdAqojv/7IkgmQLq2E8XyGHApvRu6J8P2q3nEPrFKj1UkdMqnL5TP6VdIY7j6Mw
- uORdf9m7tt4x4PGKy0ZA3snFXrGETle6kJDRZWR/RNcj/fawcnaYbOOzJgfBBzJbvYBy
- tQRDi9nBlFRZB7FOip+qeTQdHflXlM5s2JaZfH60KNK60c7aujOfOuzs++8nIWce4lSk
- /oJ/keczT8JhhPHJ1ybwzx4sm+o79v5xZU3u5Z+JzrJOTkQyTjYcX4vzv3P6u7aAnUpM
- 41Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=/aAGWIDmltGqXOS1ncXoIYBBvj6+VUj5xGoOzvsU0MA=;
- b=iTHtvor2oTPY+NOvE3QDsXZ1Bc1oAvnzVxyWudU51HmCcqiwnd5bpNkX9PJoNiatr+
- 9ECTNRZ8tv7SLmA/nTQdaLnoqDk4n2bVvfYjp6jJIXvh44WzW/nx9R6td8+sdErBbqAc
- MwAdwp51clxz78toFTqg38r1WOQDUzTOmfrMMINbbRx05iIoje+ZAk+AthjuhrPmH2mG
- WiU9AW7ZW77Jt/dnTdfQdzrR5v0LE0uKvoRmkWPJF3OXaKxIUem4OF1T9mB3J02qKs6H
- e7uiJYx4thMefyOBhgMcqpxVlXCAVuJmDr0mjLJN/EqFCz3CSTNzZck7tNMBVr+Rx1c1
- jFcg==
-X-Gm-Message-State: ACgBeo03BLGB+UxTr7hhmRq+Bzd7GmtvqJZ4ZDBFa81EMQekzqxmt/Rv
- TU7sa2hMZNCa5b6SpxnyitnU8w==
-X-Google-Smtp-Source: AA6agR42/GKcvjXHoKZTIcWaMOnISvqmUCz5H3K5w7VvlWmt0SgXX+Q+rpIDqNHTEiSTnkRLIymPBg==
-X-Received: by 2002:a05:651c:2112:b0:261:b9c1:509 with SMTP id
- a18-20020a05651c211200b00261b9c10509mr1078828ljq.39.1661429076514; 
- Thu, 25 Aug 2022 05:04:36 -0700 (PDT)
-Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
- by smtp.gmail.com with ESMTPSA id
- p11-20020a05651211eb00b0047f647414efsm460280lfs.190.2022.08.25.05.04.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Aug 2022 05:04:34 -0700 (PDT)
-Message-ID: <99dfcc39-ab1b-1b24-c6b2-67de5509f5ac@linaro.org>
-Date: Thu, 25 Aug 2022 15:04:33 +0300
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="n2qwHtVQ"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27P5j0L6027893;
+ Thu, 25 Aug 2022 07:22:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=CCuFAyZiovrExMERfDLIiYXf9KCPSBvRWYj4Qh4iCWI=;
+ b=n2qwHtVQQmRZXhmfDj4HXAjBTuuVxpJP0nqLsEOiUnfSzD7/YuEvEq0iaWrhqex85Nbn
+ KU3pCbJMNsN4u59jwtIGrfeNXO+CHWwqC0e0WZwxPOSrLQADz7uzu5KajDpLamZ8A58+
+ 1KViPkML6o1IyY934aUvy9UnZ/drTa7An7b1gA8cw2GUKpmyqLVV0Zu64lulr5RkwDEJ
+ j0lrPU0ToDUGfAgETarp1hSE7PV7dvxZGiFapjcB1ZDwhhT8/wG9vlre4SLU8Rm+x0OE
+ kh8kX4WRji6mrdmhcB2VdvpNMSF4E73U97RMFFkIINnObgfX1VwlXB2i7QOD95iAreSp NA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3j4dgmbu3q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Aug 2022 07:22:43 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.9; Thu, 25 Aug
+ 2022 07:22:41 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.9 via Frontend
+ Transport; Thu, 25 Aug 2022 07:22:41 -0500
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 87C0A45D;
+ Thu, 25 Aug 2022 12:22:41 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+Subject: [PATCH 0/3] soundwire: Fixes for spurious and missing UNATTACH
+Date: Thu, 25 Aug 2022 13:22:38 +0100
+Message-ID: <20220825122241.273090-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH] dt-bindings: iio: Add missing
- (unevaluated|additional)Properties on child nodes
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Cosmin Tanislav <cosmin.tanislav@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- =?UTF-8?Q?Nuno_S=c3=a1?= <nuno.sa@analog.com>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Alexandru Tachici <alexandru.tachici@analog.com>
-References: <20220823145649.3118479-2-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220823145649.3118479-2-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: PZHXXUkqqiQPa5ZAvhvNqKoIVYP3RT6F
+X-Proofpoint-GUID: PZHXXUkqqiQPa5ZAvhvNqKoIVYP3RT6F
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,15 +97,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/08/2022 17:56, Rob Herring wrote:
-> In order to ensure only documented properties are present, node schemas
-> must have unevaluatedProperties or additionalProperties set to false
-> (typically).
-> 
+The bus and cadence code has several bugs that cause UNATTACH notifications
+to either be sent spuriously or to be missed.
 
+These can be seen occasionally with a single peripheral on the bus, but are
+much more frequent with multiple peripherals, where several peripherals
+could change state and report in consecutive PINGs.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+The root of all of these bugs seems to be a code design flaw that assumed
+every PING status change would be handled separately. However, PINGs are
+handled by a workqueue function and there is no guarantee when that function
+will be scheduled to run or how much CPU time it will receive. PINGs will
+continue while the work function is handling a snapshot of a previous PING
+so the code must take account that (a) status could change during the
+work function and (b) there can be a backlog of changes before the IRQ work
+function runs again.
 
+Richard Fitzgerald (2):
+  soundwire: bus: Don't lose unattach notifications
+  soundwire: bus: Fix lost UNATTACH when re-enumerating
 
-Best regards,
-Krzysztof
+Simon Trimmer (1):
+  soundwire: cadence: fix updating slave status when a bus has multiple
+    peripherals
+
+ drivers/soundwire/bus.c            | 44 +++++++++++++++------
+ drivers/soundwire/cadence_master.c | 63 +++++++++++++-----------------
+ 2 files changed, 59 insertions(+), 48 deletions(-)
+
+-- 
+2.30.2
+

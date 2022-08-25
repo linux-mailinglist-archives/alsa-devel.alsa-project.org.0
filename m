@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0005A05D2
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 03:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C1D85A05EF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Aug 2022 03:36:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 460B13E7;
-	Thu, 25 Aug 2022 03:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 460B13E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 762E1839;
+	Thu, 25 Aug 2022 03:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762E1839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661391354;
-	bh=GC2D4ZYN0TLBECgNcs3E4No50naTem2zZ1+F6mlc+oc=;
+	s=default; t=1661391397;
+	bh=D2FNTvX8rWeD9cE8deKNwZXMCdW94viiZgjfmAN5TPA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a2gEnbAsBVPJ7EFAIP4d6+gEJqf/iu/FIhva4ArdA78ZZaJRXAkWpo6KxFxgqJ5PG
-	 GU7wpBGKqhon8trqiZ/rEOdFYuIc/nizTOkKzwqXDv0SVlNyz+MoBFLYe/ZFeWLtEP
-	 vWJl2OqohlZk+j2ePEknruxpuQLq6SYi2aFHOYGw=
+	b=rRDCARBmyZguTryp9BonAQI8adQx0cucu+51e6qEX4IfG/Y9QH5tZ/z4ZllteVHDu
+	 upEnWcR2u23oKUwCEeag/IO7KGH4YETT1JTwZ/45zBF1NadlTBdg1SNhm+ih10efLT
+	 eucBqFlbcnQm4OKUYc1+GrD9vui/xWUaKDe3DbYI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC6CDF80525;
-	Thu, 25 Aug 2022 03:34:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04DC5F8014B;
+	Thu, 25 Aug 2022 03:35:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F195F800BD; Thu, 25 Aug 2022 03:34:21 +0200 (CEST)
+ id 10FF9F8025A; Thu, 25 Aug 2022 03:35:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D3BCF80245
- for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 03:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D3BCF80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6492F8014B
+ for <alsa-devel@alsa-project.org>; Thu, 25 Aug 2022 03:35:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6492F8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Cqnrzwwf"
+ header.b="OTfMEkce"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EE499B826DA;
- Thu, 25 Aug 2022 01:34:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B2AC43470;
- Thu, 25 Aug 2022 01:34:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 766DC6192F;
+ Thu, 25 Aug 2022 01:35:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BA0C433D6;
+ Thu, 25 Aug 2022 01:35:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391252;
- bh=GC2D4ZYN0TLBECgNcs3E4No50naTem2zZ1+F6mlc+oc=;
+ s=k20201202; t=1661391336;
+ bh=D2FNTvX8rWeD9cE8deKNwZXMCdW94viiZgjfmAN5TPA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CqnrzwwfJkSHmcnj4HxdAgrXIZ1I/Ns4lkJY3rm8X3ER4DzbOgveHR24YxeKKO9OA
- XI7/RPuk/2ARPX/1z+IzT1thb7rwzX4vH150Llkbjq/mxT6Yhzp801jOF7aJRu2bXr
- TKeK/75VZbw4hJ+s8j2dEeTln7VtbSU9PCDV8b/ACcBN11uU7LWih85hsA8lefupbF
- Ld5pqi/u06aMUz5EN1nA9bzJ4BX3lwJ9gAWgEcg8oncyaOFQVbOV9Y1m68Cd2GDtIO
- aW5nhsE3cNOeE2Q9dPBYoogDfAteFySm43p8KjyKIWj3SwCoarAULHm6PlpHSr5jeg
- VlaCLsacXYNeA==
+ b=OTfMEkcek45+b6hYt/s+MwVat/FIBVncqoQQ/KG8FPygf/mu08iABA/p8KTW7HvXp
+ 6EEVsiztASjJ1eg00Nrke9AbXXxhH7eh3gxsgW+iDftR73X8WaQLboE4Dni7cxhhs1
+ AwgarnTPhNmJGRJBXN4iwMybyW+Fp6+KRkliMpyLckOq0szFbHqg6K3wRVYeUQ7re1
+ IOFsUSv59mwxhSKDWT0lwHDgXMBH1LdktQYRwMAMdEyhIP639bRLo6ZFetgibK6aln
+ Kkfn7yuHlOVw9aLXdlIq5IbU1zbUYjpxFb+F9rxlvEIJS5dhXad9UKl3+xo8hiDYeN
+ P7AobCd/WLqRw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 03/38] ASoC: rt5640: Fix the JD voltage dropping
- issue
-Date: Wed, 24 Aug 2022 21:33:26 -0400
-Message-Id: <20220825013401.22096-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 18/38] ALSA: hda/realtek: Add quirks for ASUS
+ Zenbooks using CS35L41
+Date: Wed, 24 Aug 2022 21:33:41 -0400
+Message-Id: <20220825013401.22096-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
 References: <20220825013401.22096-1-sashal@kernel.org>
@@ -72,9 +71,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, Mohan Kumar D <mkumard@nvidia.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ tanureal@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+ tangmeng@uniontech.com, p.jungkamp@gmx.net, tiwai@suse.com,
+ wse@tuxedocomputers.com, tcrawford@system76.com, andy.chi@canonical.com,
+ cam@neo-zeon.de, kai.heng.feng@canonical.com, alsa-devel@alsa-project.org,
+ yong.wu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,44 +93,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Oder Chiou <oder_chiou@realtek.com>
+From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-[ Upstream commit afb176d45870048eea540991b082208270824037 ]
+[ Upstream commit 461122b999bda2ebef2086a35d8990f9ccac5ab8 ]
 
-The patch fixes the JD voltage dropping issue in the HDA JD using.
+These Asus Zenbook laptop use Realtek HDA codec combined with
+2xCS35L41 Amplifiers using SPI.
 
-Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-Reported-by: Mohan Kumar D <mkumard@nvidia.com>
-Link: https://lore.kernel.org/r/20220808052836.25791-1-oder_chiou@realtek.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20220815141953.25197-1-sbinding@opensource.cirrus.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt5640.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/pci/hda/patch_realtek.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 18b3da9211e3..5ada0d318d0f 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -1986,7 +1986,7 @@ static int rt5640_set_bias_level(struct snd_soc_component *component,
- 		snd_soc_component_write(component, RT5640_PWR_MIXER, 0x0000);
- 		if (rt5640->jd_src == RT5640_JD_SRC_HDA_HEADER)
- 			snd_soc_component_write(component, RT5640_PWR_ANLG1,
--				0x0018);
-+				0x2818);
- 		else
- 			snd_soc_component_write(component, RT5640_PWR_ANLG1,
- 				0x0000);
-@@ -2592,7 +2592,8 @@ static void rt5640_enable_hda_jack_detect(
- 	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x400, 0x0);
- 
- 	snd_soc_component_update_bits(component, RT5640_PWR_ANLG1,
--		RT5640_PWR_VREF2, RT5640_PWR_VREF2);
-+		RT5640_PWR_VREF2 | RT5640_PWR_MB | RT5640_PWR_BG,
-+		RT5640_PWR_VREF2 | RT5640_PWR_MB | RT5640_PWR_BG);
- 	usleep_range(10000, 15000);
- 	snd_soc_component_update_bits(component, RT5640_PWR_ANLG1,
- 		RT5640_PWR_FV2, RT5640_PWR_FV2);
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 619e6025ba97..7aaa021f550d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9246,6 +9246,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1271, "ASUS X430UN", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x1290, "ASUS X441SA", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x12a0, "ASUS X441UV", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1043, 0x12af, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x1043, 0x12e0, "ASUS X541SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x12f0, "ASUS X541UV", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1313, "Asus K42JZ", ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE),
+@@ -9266,6 +9267,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x19e1, "ASUS UX581LV", ALC295_FIXUP_ASUS_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
+ 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
++	SND_PCI_QUIRK(0x1043, 0x1a8f, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x1043, 0x1b11, "ASUS UX431DA", ALC294_FIXUP_ASUS_COEF_1B),
+ 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
 -- 
 2.35.1
 

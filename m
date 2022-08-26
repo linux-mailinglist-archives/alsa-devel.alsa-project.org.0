@@ -2,127 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DEB5A20FB
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 08:41:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D7D5A23A6
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 11:00:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 978C11632;
-	Fri, 26 Aug 2022 08:40:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 978C11632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FD421633;
+	Fri, 26 Aug 2022 10:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FD421633
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661496091;
-	bh=oW5/4a+H9XH2ve2mL98p74h+vpNDOs9BMPJx4hDhBZs=;
+	s=default; t=1661504440;
+	bh=x/rNVIBA3aXqdgIZVVyYHr79beTMqmNXtmS3W1TDEAs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ifDk15za+qxThCbonWNnqPX87NJ6uK95RncDM8N71xZz50geRAuVJKOgJgkxEy8/u
-	 rO18+kV5Q5R3DCPhKyevJqmzpCPWah7dzACI0u27OF2Ve+D043n2mN0MwVLxs0L2Rt
-	 VUK+8qQpTtn3eR6qMxIEA2fepz7pdvUiDiLIMQqc=
+	b=k9kr8PyAXEiykKJm2f1h3lKMGdAaTEIbLduwbGrsA6EBTOyC4TNRXB/h8W/XIY/aq
+	 6wegcoFZ15TlWf+FGmYquPTq1RT/xRVGYC8m8h0w5a+qbfWAXBkVM7a8OnSEkFeHzf
+	 LE4mc3x54e/D0w3mj/zyoHn4kHf/e7gQn0EsTpLI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3C1CF80105;
-	Fri, 26 Aug 2022 08:40:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B75E4F80105;
+	Fri, 26 Aug 2022 10:59:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF17BF80238; Fri, 26 Aug 2022 08:40:29 +0200 (CEST)
+ id 6C7BCF8032D; Fri, 26 Aug 2022 10:59:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63A24F80105
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 08:40:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63A24F80105
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="TY7X0Cf0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jzj/PbrR50Q3Xp8sDQH3JpCUYgAxT4l5trXcq17RqNskcMYovyVWdzKLT4OifPpRgPYsBbNWh80nk0G2Z5Gi0XiIK+fnS/Z+LBZVL8D1NvIbf9gtjtLcHko6XlP/vMvqUYxQTACw3CGk2/KDueiYE1i+wWqxF68gfPeSdCDD0tduoxTuLlQr9bm6D/0CEwZmJLGsEeN6EibSaSZa+N3ayPJSJ+Cg/JPSsv6umH3zNWZ4MjeadOUKIZaQ6oMuKtDQqFvJxjJ4+uOPYItefQcU5y89KSkTqKQZdAmh8ubjp8DeVWLZhxpzsJTl7XSPBIBUJ+eBkCO7bdcidUPkC6jm2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFOYWb4We7sRfIsKV+ibIkuDuCguNLOo2k4pv2Nm58Q=;
- b=KnlWq+dulnw8+u9A2egDM8o6niugsYZhP3vlZgIeirEuO4AzMovKj6hIyQ7nGHYV0CxUbx6nBteflEV6iozPvlIOfKovghy34tjDjvHfBXc+dwg7dYNYToL8PfNhClG1lEaYQwzlX0LxosDidqROStA+EZAYiH9k3DRXlkoFeds1Y36kDth4Do64IrTnZGJ66pRiW61xSnmoNidJnHya0WRdaEzeL3TN3ht1Kl4OLs+m9cMRKjK3MQCjaCboDWr1lbCgd0JfW3pgvjOeohmbgvL05d3w4ujKMiHgNcGggIx178nmsNPm9mGPAf5cjo8j6sOL2zw6P/zEaso6rkioKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFOYWb4We7sRfIsKV+ibIkuDuCguNLOo2k4pv2Nm58Q=;
- b=TY7X0Cf0mmrS+8zIA0r8mjXcvU4HSHh5aUSIbw1bJ0t8fBZkyR+qQ9RlYxlvxNNMWMfsAj+1pfg2h3n89jajHRm7vOgRCi2PK2JHqvt0B1K7BBF34750nseS0NC/6BCzRV6ojqJPA2DjlTUG1WsiX5Z3MCIZG46gLH9B9Ogasms=
-Received: from DS7PR06CA0033.namprd06.prod.outlook.com (2603:10b6:8:54::15) by
- CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.15; Fri, 26 Aug 2022 06:40:17 +0000
-Received: from CY4PEPF0000B8E8.namprd05.prod.outlook.com
- (2603:10b6:8:54:cafe::a) by DS7PR06CA0033.outlook.office365.com
- (2603:10b6:8:54::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Fri, 26 Aug 2022 06:40:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000B8E8.mail.protection.outlook.com (10.167.241.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.14 via Frontend Transport; Fri, 26 Aug 2022 06:40:16 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 01:40:15 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 01:40:04 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Fri, 26 Aug 2022 01:39:55 -0500
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [RESEND v2] ASoC: amd: acp: Modify dai_id macros to be more generic
-Date: Fri, 26 Aug 2022 12:12:45 +0530
-Message-ID: <20220826064250.3302260-1-venkataprasad.potturu@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
+ by alsa1.perex.cz (Postfix) with ESMTP id 447EBF80134
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 10:59:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 447EBF80134
+Received: from hq-00021.fritz.box (p57bc9b74.dip0.t-ipconnect.de
+ [87.188.155.116])
+ by mail.bugwerft.de (Postfix) with ESMTPSA id 3DDDC421361;
+ Fri, 26 Aug 2022 08:59:32 +0000 (UTC)
+From: Daniel Mack <daniel@zonque.org>
+To: broonie@kernel.org,
+	ryan.lee.analog@gmail.com
+Subject: [PATCH v3 1/2] ASoC: dt-bindings: max98396: Document data monitor
+ properties
+Date: Fri, 26 Aug 2022 10:59:26 +0200
+Message-Id: <20220826085927.2336224-1-daniel@zonque.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e4848c9a-f3e2-44bd-6a44-08da872dd671
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4070:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dKW+l0PTfMmjDtwLVyZpC9iqM+7mOkcX1mgIR5aQ6lckG3P4Xe/1QQalwFq7Vtmo0kUqB2JXiKs/Wir2rlmOwW8QuXZv5K/jfOSCGpcyqYZpfP4PVrG3w/yJa5pyvBLi1kixLlm3fq7Ysa2Fo/EEmxQjBGSThzzlFOHNMzRyGje4h11ANBL0BC34XXp+WFSGzwf5ZVV52WeUhAgv794Av9w1uNeittA5QCqzkNNHFeE6HeyR7ALkmmQOg82VqcxQrcgIirpk5CmFSQYVh2lSB0OSiiN4kttBrlTPvOpol1IxbQYxddiHwXUgeIQYHPnAJIUOgMSDF1eG0s3TgdpGFpcptXg9Le+r5pYkGkZ5kuIOthIrc2yji5Z9q32deb3WqkS2v8UQ9AzDINQx7434sE/HahzJYkW+fGBbv8i7vsovzycXpfvTsLf3FzXQK/qALxdCyhbYf8GJ18QZ9k0RVAhfa2VFKOFdHQVytVldPhzEFKeg9cpk1JfaW30RwL8BhtXFTHYknbaOMzTTZlCezac47EMZU2qlB6D9FycFKiLoFqDFGsIyC3kPSvCtYC20iQZtxTYRE6M6hJyLdpplfUoeeoiLhl+zZwIajAwzmBBu0b9OkwYRTPa1A40Bt/DBA4tGWK1cc6hcqWh4iAFtUh2v9MJFrDsxSsHfnKlnXakjqLE50cfMdY9VA9SfJDmlHHWjOZG8x61xprlsf8MSvC4CK2cLLgXU6Rbht+5fBojI8B4K4zlWr72+s8+55f3nRqZURH2H3c5ltG2dRYBb3+zixqrma5SyfmlWv0mWnBLmJchpes3g3zRnSFJEh3wxyxKi6MGNkpobWRv7FaxdYQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(136003)(39860400002)(376002)(40470700004)(46966006)(36840700001)(86362001)(4744005)(5660300002)(2616005)(6666004)(41300700001)(7696005)(4326008)(8676002)(70586007)(70206006)(40460700003)(478600001)(40480700001)(36860700001)(186003)(83380400001)(426003)(336012)(47076005)(1076003)(26005)(81166007)(356005)(2906002)(8936002)(82740400003)(82310400005)(316002)(36756003)(110136005)(54906003)(41533002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2022 06:40:16.6131 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4848c9a-f3e2-44bd-6a44-08da872dd671
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
-Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
+ Daniel Mack <daniel@zonque.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,30 +64,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change dai_id macros to make I2S instances in order.
+This device features a data monitor that puts the device in software reset
+upon a configurable set of events.
 
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Signed-off-by: Daniel Mack <daniel@zonque.org>
 ---
- sound/soc/amd/acp/amd.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v1 -> v2: fix a typo and remove a stray blank line
+v2 -> v3: Rename device tree properties, drop $ref for standard unit suffix properties
 
-diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-index af9603724a68..60a7c95f134f 100644
---- a/sound/soc/amd/acp/amd.h
-+++ b/sound/soc/amd/acp/amd.h
-@@ -21,9 +21,9 @@
- #define ACP3X_DEV			3
- #define ACP6X_DEV			6
+ .../bindings/sound/adi,max98396.yaml          | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/adi,max98396.yaml b/Documentation/devicetree/bindings/sound/adi,max98396.yaml
+index 8d2ef991db40..7985b1410017 100644
+--- a/Documentation/devicetree/bindings/sound/adi,max98396.yaml
++++ b/Documentation/devicetree/bindings/sound/adi,max98396.yaml
+@@ -78,6 +78,40 @@ properties:
+       interleaved on a single output channel.
+     type: boolean
  
--#define I2S_SP_INSTANCE			0x00
--#define I2S_BT_INSTANCE			0x01
--#define DMIC_INSTANCE			0x02
-+#define DMIC_INSTANCE			0x00
-+#define I2S_SP_INSTANCE			0x01
-+#define I2S_BT_INSTANCE			0x02
- #define I2S_HS_INSTANCE			0x03
++  adi,dmon-stuck-enable:
++    description:
++      Enables the "data monitor stuck" feature. Once the data monitor is
++      enabled, it actively monitors the selected input data (from DIN) to the
++      speaker amplifier. Once a data error is detected, the data monitor
++      automatically places the device into software shutdown.
++    type: boolean
++
++  adi,dmon-stuck-threshold-bits:
++    description:
++      Sets the threshold for the "data monitor stuck" feature, in bits.
++    enum: [9, 11, 13, 15]
++    default: 15
++
++  adi,dmon-magnitude-enable:
++    description:
++      Enables the "data monitor magnitude" feature. Once the data monitor is
++      enabled, it actively monitors the selected input data (from DIN) to the
++      speaker amplifier. Once a data error is detected, the data monitor
++      automatically places the device into software shutdown.
++    type: boolean
++
++  adi,dmon-magnitude-threshold-bits:
++    description:
++      Sets the threshold for the "data monitor magnitude" feature, in bits.
++    enum: [2, 3, 4, 5]
++    default: 5
++
++  adi,dmon-duration-ms:
++    description:
++      Sets the duration for the "data monitor" feature, in milliseconds.
++    enum: [64, 256, 1024, 4096]
++    default: 64
++
+   reset-gpios:
+     maxItems: 1
  
- #define MEM_WINDOW_START		0x4080000
 -- 
-2.25.1
+2.37.2
 

@@ -2,56 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3114A5A23A8
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 11:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED4775A23BD
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 11:09:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B69E01635;
-	Fri, 26 Aug 2022 11:00:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69E01635
+	by alsa0.perex.cz (Postfix) with ESMTPS id 848341633;
+	Fri, 26 Aug 2022 11:08:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 848341633
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661504470;
-	bh=8gYRF+82KS/O992MlaZlXHYnbuKhKkBTyuSEK6rsXDw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661504951;
+	bh=ByKVkoqsfzF79ZB/ZvV56IfLMAx4fDHQRnFU1vkPCkM=;
+	h=Date:To:From:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OYY9gq8rrlSXuD2wE9tf76Mgyj1Ct5O5nCkIops3Rei7NpjNVcwypwC0g2XP0MZX6
-	 JGRj7nKwl3NUEGnCtUK433X2lcsTt7l1TrXQ8iMW3xVy7oqtbC2oejCKOxxw7w0Dxe
-	 m19eYh12FBEqJye8k8LDyy/FJIe0wszX89gcuwiA=
+	 Reply-To:From;
+	b=nTpKI48JGH+Sg3HwYjOGOK6Hctj/BQUmpMSEX78l26fILb8QY1JLhrgdmOamjKbeQ
+	 mYoyMK8SRMFkoba13gt9C+kn3/SqCfG8po5X16vhYnx4Uah6HhWq6XH10tnxWA3atm
+	 9UM/6SVzJXYJ/k/MPjOuZwiBV+FxkHTNmRHpDMSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57982F80482;
-	Fri, 26 Aug 2022 10:59:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFEB8F8032D;
+	Fri, 26 Aug 2022 11:08:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69644F80424; Fri, 26 Aug 2022 10:59:40 +0200 (CEST)
+ id D0892F80238; Fri, 26 Aug 2022 11:08:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
- by alsa1.perex.cz (Postfix) with ESMTP id CE0CAF80105
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 10:59:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE0CAF80105
-Received: from hq-00021.fritz.box (p57bc9b74.dip0.t-ipconnect.de
- [87.188.155.116])
- by mail.bugwerft.de (Postfix) with ESMTPSA id A1282421376;
- Fri, 26 Aug 2022 08:59:32 +0000 (UTC)
-From: Daniel Mack <daniel@zonque.org>
-To: broonie@kernel.org,
-	ryan.lee.analog@gmail.com
-Subject: [PATCH v3 2/2] ASoC: max98396: Make data monitor features configurable
-Date: Fri, 26 Aug 2022 10:59:27 +0200
-Message-Id: <20220826085927.2336224-2-daniel@zonque.org>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220826085927.2336224-1-daniel@zonque.org>
-References: <20220826085927.2336224-1-daniel@zonque.org>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BCAEF80105
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 11:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BCAEF80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=vanalboom.org header.i=@vanalboom.org
+ header.b="TtE6RWLw"
+Date: Fri, 26 Aug 2022 09:07:55 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vanalboom.org;
+ s=protonmail3; t=1661504880; x=1661764080;
+ bh=n+rpQXQC2wMZM690xvnClwo6nWn5j50ssFsl+8Si1bw=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+ Feedback-ID:Message-ID;
+ b=TtE6RWLw7iNHbOO4DQ22V8yTQ1nclLKDoGOZmiclGYqR0B2GFH2HWTKeOsfGkaxVK
+ Y59RRE3F3irhGsFtxjyJPIAkFl41ujHsatPkc3jbPkC8m4qyHGukZ4i1+1kSUU2qfd
+ Zulolfip3tZqYmfw2ouZriRsCmrfGcCsETOA1GWNIt9BNBmbcd5wWIaN/QZ0SJpiIx
+ 70TkuMQk6B3Eonpbrh/hRqwJVd0hP5f76HAaqROxHS08HWptgo33LaH2X0oxttvSfx
+ 0f4X/zJIxgZZLeA82/g3C1WwsCqiW7rCtXgDBa1gdP6BTtgDfZhTkHap6sWpQ6/EOu
+ VqtkqgaPEC+FA==
+To: Takashi Iwai <tiwai@suse.de>
+From: Lennert Van Alboom <lennert@vanalboom.org>
+Subject: Re: [PATCH] USB DAC broken since commit
+ bf6313a0ff766925462e97b4e733d5952de02367 (5.10.0-rc5)
+Message-ID: <m8XpaeWJS23wth20p7EgE-Cxwi-5ZwWl0InTEc-wsDGOwh8Nw5RViGXqM_yP92eOmX0Kxfs2hcizPwZaEce80T3OH1rLQ3ph555M1iTCmFc=@vanalboom.org>
+In-Reply-To: <87bks7leun.wl-tiwai@suse.de>
+References: <T3VPXtCc4uFws9Gfh2RjX6OdwM1RqfC6VqQr--_LMDyB2x5N3p9_q6AtPna17IXhHwBtcJVdXuS80ZZSCMjh_BafIbnzJPhbrkmhmWS6DlI=@vanalboom.org>
+ <874jy0mvwv.wl-tiwai@suse.de>
+ <JGbq2exwKdQ4T8GQCI5YWzGredZVbYtBOxlnBN0ROtba40PvCdEKfz2mKzClqejgZMck374nGQyEIwzjiBi6sKYYNnJgKp26n1-_j6GT3hw=@vanalboom.org>
+ <87bks7leun.wl-tiwai@suse.de>
+Feedback-ID: 20549952:user:proton
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- Daniel Mack <daniel@zonque.org>
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha512;
+ boundary="------ef761aa875a8d72b3eb13d1a059424a33f71dcc57218a91d14c54f84ab374302";
+ charset=utf-8
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "ls.yoyo.m@gmail.com" <ls.yoyo.m@gmail.com>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,172 +84,124 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: Lennert Van Alboom <lennert@vanalboom.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Allow the data monitor features to be enabled explicitly, and enable control
-over their details.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------ef761aa875a8d72b3eb13d1a059424a33f71dcc57218a91d14c54f84ab374302
+Content-Type: multipart/mixed;boundary=---------------------8b892d9366ef34166f40132dbe860f52
 
-Signed-off-by: Daniel Mack <daniel@zonque.org>
----
- sound/soc/codecs/max98396.c | 102 ++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/max98396.h |  14 +++++
- 2 files changed, 116 insertions(+)
+-----------------------8b892d9366ef34166f40132dbe860f52
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-diff --git a/sound/soc/codecs/max98396.c b/sound/soc/codecs/max98396.c
-index 42479f3ab663..b74d667d1476 100644
---- a/sound/soc/codecs/max98396.c
-+++ b/sound/soc/codecs/max98396.c
-@@ -1486,6 +1486,87 @@ static int max98396_probe(struct snd_soc_component *component)
- 			   MAX98396_CLK_MON_AUTO_RESTART_MASK,
- 			   MAX98396_CLK_MON_AUTO_RESTART_MASK);
- 
-+	regmap_update_bits(max98396->regmap,
-+			   MAX98396_R203F_ENABLE_CTRLS,
-+			   MAX98396_CTRL_DMON_STUCK_EN_MASK,
-+			   max98396->dmon_stuck_enable ?
-+				MAX98396_CTRL_DMON_STUCK_EN_MASK : 0);
-+
-+	regmap_update_bits(max98396->regmap,
-+			   MAX98396_R203F_ENABLE_CTRLS,
-+			   MAX98396_CTRL_DMON_MAG_EN_MASK,
-+			   max98396->dmon_mag_enable ?
-+				MAX98396_CTRL_DMON_MAG_EN_MASK : 0);
-+
-+	switch (max98396->dmon_duration) {
-+	case 64:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_DURATION_MASK, 0);
-+		break;
-+	case 256:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_DURATION_MASK, 1);
-+		break;
-+	case 1024:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_DURATION_MASK, 2);
-+		break;
-+	case 4096:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_DURATION_MASK, 3);
-+		break;
-+	default:
-+		dev_err(component->dev, "Invalid DMON duration %d\n",
-+			max98396->dmon_duration);
-+	}
-+
-+	switch (max98396->dmon_stuck_threshold) {
-+	case 15:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_STUCK_THRESH_MASK,
-+				   0 << MAX98396_DMON_STUCK_THRESH_SHIFT);
-+		break;
-+	case 13:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_STUCK_THRESH_MASK,
-+				   1 << MAX98396_DMON_STUCK_THRESH_SHIFT);
-+		break;
-+	case 22:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_STUCK_THRESH_MASK,
-+				   2 << MAX98396_DMON_STUCK_THRESH_SHIFT);
-+		break;
-+	case 9:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_STUCK_THRESH_MASK,
-+				   3 << MAX98396_DMON_STUCK_THRESH_SHIFT);
-+		break;
-+	default:
-+		dev_err(component->dev, "Invalid DMON stuck threshold %d\n",
-+			max98396->dmon_stuck_threshold);
-+	}
-+
-+	switch (max98396->dmon_mag_threshold) {
-+	case 2 ... 5:
-+		regmap_update_bits(max98396->regmap,
-+				   MAX98396_R2039_DATA_MON_CTRL,
-+				   MAX98396_DMON_STUCK_THRESH_MASK,
-+				   (5 - max98396->dmon_mag_threshold)
-+					<< MAX98396_DMON_MAG_THRESH_SHIFT);
-+		break;
-+	default:
-+		dev_err(component->dev, "Invalid DMON magnitude threshold %d\n",
-+			max98396->dmon_mag_threshold);
-+	}
-+
- 	/* Speaker Amplifier PCM RX Enable by default */
- 	regmap_update_bits(max98396->regmap,
- 			   MAX98396_R205E_PCM_RX_EN,
-@@ -1619,6 +1700,27 @@ static void max98396_read_device_property(struct device *dev,
- 		max98396->bypass_slot = value & 0xF;
- 	else
- 		max98396->bypass_slot = 0;
-+
-+	max98396->dmon_stuck_enable =
-+		device_property_read_bool(dev, "adi,dmon-stuck-enable");
-+
-+	if (!device_property_read_u32(dev, "adi,dmon-stuck-threshold-bits", &value))
-+		max98396->dmon_stuck_threshold = value;
-+	else
-+		max98396->dmon_stuck_threshold = 15;
-+
-+	max98396->dmon_mag_enable =
-+		device_property_read_bool(dev, "adi,dmon-magnitude-enable");
-+
-+	if (!device_property_read_u32(dev, "adi,dmon-magnitude-threshold-bits", &value))
-+		max98396->dmon_mag_threshold = value;
-+	else
-+		max98396->dmon_mag_threshold = 5;
-+
-+	if (!device_property_read_u32(dev, "adi,dmon-duration-ms", &value))
-+		max98396->dmon_duration = value;
-+	else
-+		max98396->dmon_duration = 64;
- }
- 
- static void max98396_core_supplies_disable(void *priv)
-diff --git a/sound/soc/codecs/max98396.h b/sound/soc/codecs/max98396.h
-index 7278c779989a..d396aa3e698b 100644
---- a/sound/soc/codecs/max98396.h
-+++ b/sound/soc/codecs/max98396.h
-@@ -212,8 +212,17 @@
- #define MAX98396_CLK_MON_AUTO_RESTART_MASK	(0x1 << 0)
- #define MAX98396_CLK_MON_AUTO_RESTART_SHIFT	(0)
- 
-+/* MAX98396_R2039_DATA_MON_CTRL */
-+#define MAX98396_DMON_MAG_THRESH_SHIFT		(4)
-+#define MAX98396_DMON_MAG_THRESH_MASK		(0x3 << MAX98396_DMON_MAG_THRESH_SHIFT)
-+#define MAX98396_DMON_STUCK_THRESH_SHIFT	(2)
-+#define MAX98396_DMON_STUCK_THRESH_MASK		(0x3 << MAX98396_DMON_STUCK_THRESH_SHIFT)
-+#define MAX98396_DMON_DURATION_MASK		(0x3)
-+
- /* MAX98396_R203F_ENABLE_CTRLS */
- #define MAX98396_CTRL_CMON_EN_SHIFT		(0)
-+#define MAX98396_CTRL_DMON_STUCK_EN_MASK	(0x1 << 1)
-+#define MAX98396_CTRL_DMON_MAG_EN_MASK		(0x1 << 2)
- 
- /* MAX98396_R2041_PCM_MODE_CFG */
- #define MAX98396_PCM_MODE_CFG_FORMAT_MASK	(0x7 << 3)
-@@ -305,6 +314,11 @@ struct max98396_priv {
- 	unsigned int i_slot;
- 	unsigned int spkfb_slot;
- 	unsigned int bypass_slot;
-+	bool dmon_stuck_enable;
-+	unsigned int dmon_stuck_threshold;
-+	bool dmon_mag_enable;
-+	unsigned int dmon_mag_threshold;
-+	unsigned int dmon_duration;
- 	bool interleave_mode;
- 	bool tdm_mode;
- 	int tdm_max_samplerate;
--- 
-2.37.2
+------- Original Message -------
+On Friday, August 26th, 2022 at 08:05, Takashi Iwai <tiwai@suse.de> wrote:
+> =
+
+
+> This option is passed per card instance, as the driver may hold
+> multiple cards. Check your /proc/asound/cards. The first argument of
+> quirk_flags is applied to the first USB-audio card, the second to the
+> second USB audio device, and so on.
+> =
+
+
+> At best, give alsa-info.sh output before and after applying the
+> quirk. Run the script with --no-upload option and attach the
+> outputs.
+> =
+
+
+> And, as a reference, you can see the existing quirk tables in
+> sound/usb/quirks.c.
+> =
+
+
+> =
+
+
+> Takashi
+
+
+Not sure why it failed before (didn't look further then, so possibly PEBKA=
+C) but as you suggested, this works now (tested on debian's 5.19 kernel):
+
+# modprobe snd_usb_audio vid=3D0x2522 pid=3D0x0007 quirk_flags=3D0x10000
+
+
+Confirmed that setting a quirk_alias also works: =
+
+
+
+# grep -A 1 "0x054c, 0x0b8c" linux/sound/usb/quirks.c =
+
+
+	DEVICE_FLG(0x054c, 0x0b8c, /* Sony WALKMAN NW-A45 DAC */
+		   QUIRK_FLAG_SET_IFACE_FIRST),
+# modprobe snd_usb_audio quirk_alias=3D25220007:054c0b8c
+
+
+I've added a patch for quirks.c to make this default behaviour for this de=
+vice. Looking at the Arch bug report at https://bugs.archlinux.org/task/70=
+636, it's likely similar behaviour may be needed for pid=3D0009 (LH Labs G=
+eek Pulse X 1V5) but I have no way of testing this. Added the reporter in =
+CC.
+
+
+Thanks,
+
+
+Lennert
+
+
+-----------------------8b892d9366ef34166f40132dbe860f52
+Content-Type: application/octet-stream; filename="patch"; name="patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="patch"; name="patch"
+
+LS0tIGxpbnV4L3NvdW5kL3VzYi9xdWlya3MuYy5vcmlnCTIwMjItMDgtMjYgMDg6NDk6NDIuNzQ5
+MjQwNDMyICswMDAwCisrKyBsaW51eC9zb3VuZC91c2IvcXVpcmtzLmMJMjAyMi0wOC0yNiAwODo0
+OTozNC4wMTcxMzgwNDIgKzAwMDAKQEAgLTE5MjMsNiArMTkyMyw4IEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgdXNiX2F1ZGlvX3F1aXJrX2ZsYWcKIAkJICAgUVVJUktfRkxBR19HRU5FUklDX0lNUExJ
+Q0lUX0ZCKSwKIAlERVZJQ0VfRkxHKDB4MmI1MywgMHgwMDMxLCAvKiBGaWVybyBTQy0wMSAoZmly
+bXdhcmUgdjEuMS4wKSAqLwogCQkgICBRVUlSS19GTEFHX0dFTkVSSUNfSU1QTElDSVRfRkIpLAor
+CURFVklDRV9GTEcoMHgyNTIyLCAweDAwMDcsIC8qIExIIExhYnMgR2VlayBPdXQgSEQgQXVkaW8g
+MVY1ICovCisJCSAgIFFVSVJLX0ZMQUdfU0VUX0lGQUNFX0ZJUlNUKSwKIAogCS8qIFZlbmRvciBt
+YXRjaGVzICovCiAJVkVORE9SX0ZMRygweDA0NWUsIC8qIE1TIExpZmVjYW0gKi8K
+-----------------------8b892d9366ef34166f40132dbe860f52
+Content-Type: application/pgp-keys; filename="publickey - lennert@vanalboom.org - 0x0320C886.asc"; name="publickey - lennert@vanalboom.org - 0x0320C886.asc"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - lennert@vanalboom.org - 0x0320C886.asc"; name="publickey - lennert@vanalboom.org - 0x0320C886.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FWHBHZWNoWUpLd1lCQkFI
+YVJ3OEJBUWRBSFBRaWM5VER0TURQaDgwclllNFlDRHh5aEFTdkhMcUcKb1NTQWMwRGNaVGJOTFd4
+bGJtNWxjblJBZG1GdVlXeGliMjl0TG05eVp5QThiR1Z1Ym1WeWRFQjJZVzVoCmJHSnZiMjB1YjNK
+blBzSjRCQkFXQ2dBZ0JRSmVrWjV5QmdzSkJ3Z0RBZ1FWQ0FvQ0JCWUNBUUFDR1FFQwpHd01DSGdF
+QUNna1FmdENYYy9pU21tNE5IZ0QrTUdVQ2hkZHdRckw4R3hGZVlmVFRLSVJiQ2huVTgvK1MKVU8z
+SE1ZdmlnUDRBLzFFdVRhU1RQMU5jVUJkRllvU2pqU2gzQWE2Zis3dFRISXN2TWl0TGF5NEx6amdF
+ClhwR2VjaElLS3dZQkJBR1hWUUVGQVFFSFFOTlR3dG11TGpqOXJNZnhOaUtUZ0JyWVNmY3lEVDRX
+U1grdQpZY1l3RWdCQUF3RUlCOEpoQkJnV0NBQUpCUUpla1o1eUFoc01BQW9KRUg3UWwzUDRrcHB1
+TUlJQkFLMEQKc2g3alVsUHBWTUlzTVdZRDZETkhmaVFEZXcwQVh1WjJhd0JvWEtjRkFQOWJZZkpR
+M29ENTNpelNLYkpFCmlLQkh1Y2pDOWJmRzlOcjdsdFA3OHNZN0NnPT0KPXpraXYKLS0tLS1FTkQg
+UEdQIFBVQkxJQyBLRVkgQkxPQ0stLS0tLQo=
+-----------------------8b892d9366ef34166f40132dbe860f52--
+
+--------ef761aa875a8d72b3eb13d1a059424a33f71dcc57218a91d14c54f84ab374302
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wnUEARYKAAYFAmMIjVUAIQkQftCXc/iSmm4WIQQDIMiGf8zUXWpveld+0Jdz
++JKabmKgAP4hkH2QQWqbUzCWRV4OJkkNUXa/I2ZZ0ZLPTdx1vxV2BAD9Ff1V
+W0vO4lniRGQiw7BOv9iRFJvCsXmQrT7lDTxbwAE=
+=ND+y
+-----END PGP SIGNATURE-----
+
+
+--------ef761aa875a8d72b3eb13d1a059424a33f71dcc57218a91d14c54f84ab374302--
 

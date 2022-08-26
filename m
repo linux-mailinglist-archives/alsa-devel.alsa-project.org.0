@@ -2,95 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2EC5A2B04
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 17:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B985A2C6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 18:37:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DD461616;
-	Fri, 26 Aug 2022 17:20:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DD461616
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64A9163E;
+	Fri, 26 Aug 2022 18:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64A9163E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661527275;
-	bh=Em1v7nsS9Ojyh2O088ccSWhcxMn+okohjkJpoLe3y7Y=;
+	s=default; t=1661531830;
+	bh=2ECYPcHkUT2vmz6wyMSpEF488jpaq5C2EeK2A7zjWWw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GkeIMcK5WNiapR/okZFQCbrssVARONZf51ESQVeiY16g7bTqmv8UGtpDMquDAM42a
-	 bRd6cumudtJXZu+4IgPjHGm5jRID84QMeSBG4efIfv7Kl3ofq6N5B6s/eBC7uJ37KA
-	 i15yfmkGQRrOwkFgBoUTCELerk76M7xIbnWJoAXo=
+	b=O8mH1+6+aA4JKG0iNA25/tcW1w2LjOLIt3fC9fIkm063ExvH7z9LbySBpseiKvYgY
+	 Gy0c90zTtCuwAfFFS7VyLGRdp6qAgJAYDASPg1fjmoP/7dw9wnBqDd9FqUZ4nHOt9L
+	 0ZZ6KiukxaJUERiE8ciPAWxDA7fnBicWARHFmFEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDC4FF80134;
-	Fri, 26 Aug 2022 17:20:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BCA4F8032D;
+	Fri, 26 Aug 2022 18:36:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AEC8F80134; Fri, 26 Aug 2022 17:20:15 +0200 (CEST)
+ id 03E13F80238; Fri, 26 Aug 2022 18:36:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6DE5F80134
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 17:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6DE5F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F8B3F800BD
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 18:36:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F8B3F800BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Fvy/YmQ+"; 
+ header.b="ecrqlTFO"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="E3klih5m"
+ header.b="NvW0ZeaC"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 743CF1F949;
- Fri, 26 Aug 2022 15:20:09 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5E3831F903;
+ Fri, 26 Aug 2022 16:36:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661527209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1661531765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=97iE3p86LmL5nUt7jtSPzfO+8BqMwNIDg5V6WRooFvo=;
- b=Fvy/YmQ++k2snw5ygCkZsCkSBP3pMOpZ0kHAWTnhKDLty7Vh6e3U848l3kumjv5agbeQl+
- E+45C2hWkyRllWYaX1VdkHAc6+BmUaJ5gPg7ZoHi9eAL/LYNlk3EievHbV2sBiqgvAiozH
- O3flP2dcxE4IcHiJv2uOaVarlc62O5s=
+ bh=RPDxr3Ztn4+5QsscdSkEfhq+48P+uTXlFovytZKsRYM=;
+ b=ecrqlTFOWRUBuOoMUe8YsWSYSEps3AMAT7sOl415VwcWA31UvP1xa3itBM3pwouuowMDAw
+ 9ZFL7q5ISTrQ7XT4HH3GV7sg70/EoNpesSynvDWmDEf1TxsKK7Acc6RMWPfnAv0GHdqbLv
+ eiPQOiDpnIGqBV3jWvB0QRU9LVeiT+o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661527209;
+ s=susede2_ed25519; t=1661531765;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=97iE3p86LmL5nUt7jtSPzfO+8BqMwNIDg5V6WRooFvo=;
- b=E3klih5m/Ngy7425d9QqRZ7n3kql1r8/nYNwA7Dcn0lO8/mk/VYG2DhOczxseDad7BCr6o
- Yeu70xLSO75fR2Bw==
+ bh=RPDxr3Ztn4+5QsscdSkEfhq+48P+uTXlFovytZKsRYM=;
+ b=NvW0ZeaCQ6niEFZsluRpfPCL3U4QkWuDc8rAY0WutFiSXwSeIIci2AC/ow1zh24Py7KK49
+ mVvri9vyrn3CvLBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4789813A7E;
- Fri, 26 Aug 2022 15:20:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3488A13421;
+ Fri, 26 Aug 2022 16:36:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NAODEKnkCGPMWQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 26 Aug 2022 15:20:09 +0000
-Date: Fri, 26 Aug 2022 17:20:08 +0200
-Message-ID: <87r113jal3.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id pWLeC3X2CGNQdgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 26 Aug 2022 16:36:05 +0000
+Date: Fri, 26 Aug 2022 18:36:04 +0200
+Message-ID: <87ilmfj72j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Lennert Van Alboom <lennert@vanalboom.org>
-Subject: Re: [PATCH] USB DAC broken since commit
- bf6313a0ff766925462e97b4e733d5952de02367 (5.10.0-rc5)
-In-Reply-To: <m8XpaeWJS23wth20p7EgE-Cxwi-5ZwWl0InTEc-wsDGOwh8Nw5RViGXqM_yP92eOmX0Kxfs2hcizPwZaEce80T3OH1rLQ3ph555M1iTCmFc=@vanalboom.org>
-References: <T3VPXtCc4uFws9Gfh2RjX6OdwM1RqfC6VqQr--_LMDyB2x5N3p9_q6AtPna17IXhHwBtcJVdXuS80ZZSCMjh_BafIbnzJPhbrkmhmWS6DlI=@vanalboom.org>
- <874jy0mvwv.wl-tiwai@suse.de>
- <JGbq2exwKdQ4T8GQCI5YWzGredZVbYtBOxlnBN0ROtba40PvCdEKfz2mKzClqejgZMck374nGQyEIwzjiBi6sKYYNnJgKp26n1-_j6GT3hw=@vanalboom.org>
- <87bks7leun.wl-tiwai@suse.de>
- <m8XpaeWJS23wth20p7EgE-Cxwi-5ZwWl0InTEc-wsDGOwh8Nw5RViGXqM_yP92eOmX0Kxfs2hcizPwZaEce80T3OH1rLQ3ph555M1iTCmFc=@vanalboom.org>
+To: Sean Anderson <sean.anderson@seco.com>
+Subject: Re: retire_capture_urb: Corrected urb data len
+In-Reply-To: <68a97d61-21bf-b45e-f6ed-c0906dd4b197@seco.com>
+References: <68a97d61-21bf-b45e-f6ed-c0906dd4b197@seco.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ls.yoyo.m@gmail.com" <ls.yoyo.m@gmail.com>, Takashi Iwai <tiwai@suse.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,60 +100,465 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 26 Aug 2022 11:07:55 +0200,
-Lennert Van Alboom wrote:
+On Fri, 26 Aug 2022 18:22:24 +0200,
+Sean Anderson wrote:
 > 
-> ------- Original Message -------
-> On Friday, August 26th, 2022 at 08:05, Takashi Iwai <tiwai@suse.de> wrote:
-> > 
+> Hi all,
 > 
-> > This option is passed per card instance, as the driver may hold
-> > multiple cards. Check your /proc/asound/cards. The first argument of
-> > quirk_flags is applied to the first USB-audio card, the second to the
-> > second USB audio device, and so on.
-> > 
+> I have a "FiiO DigiHug USB Audio" sound card (1852:7022) [3]. I have had
+> no problems with the audio, but I did notice a large number of message
+> like 
 > 
-> > At best, give alsa-info.sh output before and after applying the
-> > quirk. Run the script with --no-upload option and attach the
-> > outputs.
-> > 
+> retire_capture_urb: 4992 callbacks suppressed
 > 
-> > And, as a reference, you can see the existing quirk tables in
-> > sound/usb/quirks.c.
-> > 
-> 
-> > 
-> 
-> > Takashi
-> 
-> 
-> Not sure why it failed before (didn't look further then, so possibly PEBKAC) but as you suggested, this works now (tested on debian's 5.19 kernel):
-> 
-> # modprobe snd_usb_audio vid=0x2522 pid=0x0007 quirk_flags=0x10000
-> 
-> 
-> Confirmed that setting a quirk_alias also works: 
-> 
-> 
-> # grep -A 1 "0x054c, 0x0b8c" linux/sound/usb/quirks.c 
-> 
-> 	DEVICE_FLG(0x054c, 0x0b8c, /* Sony WALKMAN NW-A45 DAC */
-> 		   QUIRK_FLAG_SET_IFACE_FIRST),
-> # modprobe snd_usb_audio quirk_alias=25220007:054c0b8c
-> 
-> 
-> I've added a patch for quirks.c to make this default behaviour for
-> this device.
+> in my dmesg [1]. This is caused by the "Corrected urb data len."
+> warning.
 
-Good to hear.  Will you submit the fix patch for the merge, or shall I
-do it in my side?
+What exact values are shown there?  The problem is that your hardware
+(likely a buggy firmware) returns the unaligned size of bytes as the
+data.  Maybe it's worth to replace dev_warn_ratelimited() there with
+dev_warn() and take all warnings once.  Then we can see what kind of
+values are delivered from the hardware.
 
-> Looking at the Arch bug report at https://bugs.archlinux.org/task/70636, it's likely similar behaviour may be needed for pid=0009 (LH Labs Geek Pulse X 1V5) but I have no way of testing this. Added the reporter in CC.
+> The patch adding this warning [2] makes it seem like
+> this warning should be an uncommon occurance. However, based on the
+> number of suppressed callbacks, this seems to be happening at a rate of
+> around 500 Hz.
+> 
+> Is this buggy hardware? Or is this a bug in the driver? Does there need
+> to be a quirk? Or perhaps the warning above should be a debug instead?
 
-It's likely OK to apply the same quirk, but it's certainly safer to
-hear the test result, of course.
+There is no quirk for that.  As long as the device works with that
+workaround (except for messages), we can simply add a quirk to not
+warn but always apply the workaround silently for such devices.
 
 
 thanks,
 
 Takashi
+
+> 
+> I'm using 5.15.0-46-generic. I know, I know; this is a vendor
+> kernel. However, I went through the commits for sound/usb/pcm.c and
+> didn't see any major differences. I also previously saw this issue on
+> 5.4, so this probably isn't a regression.
+> 
+> --Sean
+> 
+> [1] I would have liked to post the actual message, but I was unable to
+> figure out how to disable ratelimiting. I tried setting
+> /proc/sys/kernel/printk_ratelimit to 0,
+> /proc/sys/kernel/printk_ratelimit_burst to 5000, and
+> /proc/sys/kernel/printk to 8. However, nothing seemed to have any effect
+> (except that the callbacks suppressed messages were disabled). I find
+> this very strange, given that the callbacks suppressed message uses
+> KERN_WARN, and so does dev_warn_ratelimited.
+> [2] https://lore.kernel.org/all/4B28A659.6070303@ladisch.de/T/
+> [3]
+> Device Descriptor:
+>   bLength                18
+>   bDescriptorType         1
+>   bcdUSB               1.10
+>   bDeviceClass            0 
+>   bDeviceSubClass         0 
+>   bDeviceProtocol         0 
+>   bMaxPacketSize0         8
+>   idVendor           0x1852 GYROCOM C&C Co., LTD
+>   idProduct          0x7022 
+>   bcdDevice            0.01
+>   iManufacturer           1 FiiO
+>   iProduct                2 DigiHug USB Audio
+>   iSerial                 0 
+>   bNumConfigurations      1
+>   Configuration Descriptor:
+>     bLength                 9
+>     bDescriptorType         2
+>     wTotalLength       0x0182
+>     bNumInterfaces          4
+>     bConfigurationValue     1
+>     iConfiguration          0 
+>     bmAttributes         0x80
+>       (Bus Powered)
+>     MaxPower              500mA
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        0
+>       bAlternateSetting       0
+>       bNumEndpoints           1
+>       bInterfaceClass         3 Human Interface Device
+>       bInterfaceSubClass      0 
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>         HID Device Descriptor:
+>           bLength                 9
+>           bDescriptorType        33
+>           bcdHID               1.00
+>           bCountryCode            0 Not supported
+>           bNumDescriptors         1
+>           bDescriptorType        34 Report
+>           wDescriptorLength      58
+>          Report Descriptors: 
+>            ** UNAVAILABLE **
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x81  EP 1 IN
+>         bmAttributes            3
+>           Transfer Type            Interrupt
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0012  1x 18 bytes
+>         bInterval              32
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        1
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      1 Control Device
+>       bInterfaceProtocol      0 
+>       iInterface              3 FiiO USB DAC-E10
+>       AudioControl Interface Descriptor:
+>         bLength                10
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (HEADER)
+>         bcdADC               1.00
+>         wTotalLength       0x003e
+>         bInCollection           2
+>         baInterfaceNr(0)        2
+>         baInterfaceNr(1)        3
+>       AudioControl Interface Descriptor:
+>         bLength                12
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (INPUT_TERMINAL)
+>         bTerminalID             5
+>         wTerminalType      0x0605 SPDIF interface
+>         bAssocTerminal          0
+>         bNrChannels             2
+>         wChannelConfig     0x0003
+>           Left Front (L)
+>           Right Front (R)
+>         iChannelNames           0 
+>         iTerminal               0 
+>       AudioControl Interface Descriptor:
+>         bLength                12
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (INPUT_TERMINAL)
+>         bTerminalID             9
+>         wTerminalType      0x0101 USB Streaming
+>         bAssocTerminal          0
+>         bNrChannels             2
+>         wChannelConfig     0x0003
+>           Left Front (L)
+>           Right Front (R)
+>         iChannelNames           0 
+>         iTerminal               0 
+>       AudioControl Interface Descriptor:
+>         bLength                 9
+>         bDescriptorType        36
+>         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>         bTerminalID             3
+>         wTerminalType      0x0605 SPDIF interface
+>         bAssocTerminal          0
+>         bSourceID              16
+>         iTerminal               0 
+>       AudioControl Interface Descriptor:
+>         bLength                 9
+>         bDescriptorType        36
+>         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+>         bTerminalID             7
+>         wTerminalType      0x0101 USB Streaming
+>         bAssocTerminal          0
+>         bSourceID               5
+>         iTerminal               0 
+>       AudioControl Interface Descriptor:
+>         bLength                10
+>         bDescriptorType        36
+>         bDescriptorSubtype      6 (FEATURE_UNIT)
+>         bUnitID                16
+>         bSourceID               9
+>         bControlSize            1
+>         bmaControls(0)       0x01
+>           Mute Control
+>         bmaControls(1)       0x02
+>           Volume Control
+>         bmaControls(2)       0x02
+>           Volume Control
+>         iFeature                0 
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        2
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        2
+>       bAlternateSetting       1
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           7
+>         bDelay                  0 frames
+>         wFormatTag         0x0001 PCM
+>       AudioStreaming Interface Descriptor:
+>         bLength                26
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             1 (FORMAT_TYPE_I)
+>         bNrChannels             2
+>         bSubframeSize           2
+>         bBitResolution         16
+>         bSamFreqType            6 Discrete
+>         tSamFreq[ 0]         8000
+>         tSamFreq[ 1]        16000
+>         tSamFreq[ 2]        32000
+>         tSamFreq[ 3]        44100
+>         tSamFreq[ 4]        48000
+>         tSamFreq[ 5]        96000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x82  EP 2 IN
+>         bmAttributes            9
+>           Transfer Type            Isochronous
+>           Synch Type               Adaptive
+>           Usage Type               Data
+>         wMaxPacketSize     0x0184  1x 388 bytes
+>         bInterval               1
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         2 Decoded PCM samples
+>           wLockDelay         0x0002
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        2
+>       bAlternateSetting       2
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           7
+>         bDelay                  0 frames
+>         wFormatTag         0x0001 PCM
+>       AudioStreaming Interface Descriptor:
+>         bLength                26
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             1 (FORMAT_TYPE_I)
+>         bNrChannels             2
+>         bSubframeSize           3
+>         bBitResolution         24
+>         bSamFreqType            6 Discrete
+>         tSamFreq[ 0]         8000
+>         tSamFreq[ 1]        16000
+>         tSamFreq[ 2]        32000
+>         tSamFreq[ 3]        44100
+>         tSamFreq[ 4]        48000
+>         tSamFreq[ 5]        96000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x82  EP 2 IN
+>         bmAttributes            9
+>           Transfer Type            Isochronous
+>           Synch Type               Adaptive
+>           Usage Type               Data
+>         wMaxPacketSize     0x0246  1x 582 bytes
+>         bInterval               1
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         2 Decoded PCM samples
+>           wLockDelay         0x0002
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       1
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           9
+>         bDelay                  0 frames
+>         wFormatTag         0x0001 PCM
+>       AudioStreaming Interface Descriptor:
+>         bLength                20
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             1 (FORMAT_TYPE_I)
+>         bNrChannels             2
+>         bSubframeSize           2
+>         bBitResolution         16
+>         bSamFreqType            4 Discrete
+>         tSamFreq[ 0]        32000
+>         tSamFreq[ 1]        44100
+>         tSamFreq[ 2]        48000
+>         tSamFreq[ 3]        96000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x03  EP 3 OUT
+>         bmAttributes            9
+>           Transfer Type            Isochronous
+>           Synch Type               Adaptive
+>           Usage Type               Data
+>         wMaxPacketSize     0x0184  1x 388 bytes
+>         bInterval               1
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         2 Decoded PCM samples
+>           wLockDelay         0x0002
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       2
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           9
+>         bDelay                  0 frames
+>         wFormatTag         0x0001 PCM
+>       AudioStreaming Interface Descriptor:
+>         bLength                20
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             1 (FORMAT_TYPE_I)
+>         bNrChannels             2
+>         bSubframeSize           3
+>         bBitResolution         24
+>         bSamFreqType            4 Discrete
+>         tSamFreq[ 0]        32000
+>         tSamFreq[ 1]        44100
+>         tSamFreq[ 2]        48000
+>         tSamFreq[ 3]        96000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x03  EP 3 OUT
+>         bmAttributes            9
+>           Transfer Type            Isochronous
+>           Synch Type               Adaptive
+>           Usage Type               Data
+>         wMaxPacketSize     0x0246  1x 582 bytes
+>         bInterval               1
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         2 Decoded PCM samples
+>           wLockDelay         0x0002
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       3
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+>       bInterfaceSubClass      2 Streaming
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       AudioStreaming Interface Descriptor:
+>         bLength                 7
+>         bDescriptorType        36
+>         bDescriptorSubtype      1 (AS_GENERAL)
+>         bTerminalLink           9
+>         bDelay                  0 frames
+>         wFormatTag         0x2001 IEC1937_AC-3
+>       AudioStreaming Interface Descriptor:
+>         bLength                11
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (FORMAT_TYPE)
+>         bFormatType             3 (FORMAT_TYPE_III)
+>         bNrChannels             2
+>         bSubframeSize           2
+>         bBitResolution         16
+>         bSamFreqType            1 Discrete
+>         tSamFreq[ 0]        48000
+>       Endpoint Descriptor:
+>         bLength                 9
+>         bDescriptorType         5
+>         bEndpointAddress     0x03  EP 3 OUT
+>         bmAttributes            9
+>           Transfer Type            Isochronous
+>           Synch Type               Adaptive
+>           Usage Type               Data
+>         wMaxPacketSize     0x00c0  1x 192 bytes
+>         bInterval               1
+>         bRefresh                0
+>         bSynchAddress           0
+>         AudioStreaming Endpoint Descriptor:
+>           bLength                 7
+>           bDescriptorType        37
+>           bDescriptorSubtype      1 (EP_GENERAL)
+>           bmAttributes         0x01
+>             Sampling Frequency
+>           bLockDelayUnits         2 Decoded PCM samples
+>           wLockDelay         0x0002
+> can't get debug descriptor: Resource temporarily unavailable
+> Device Status:     0x0000
+>   (Bus Powered)
+> 

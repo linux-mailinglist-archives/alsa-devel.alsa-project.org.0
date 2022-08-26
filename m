@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9668D5A3248
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Aug 2022 00:58:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64A55A324A
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Aug 2022 00:59:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 441231636;
-	Sat, 27 Aug 2022 00:58:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 441231636
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F3851635;
+	Sat, 27 Aug 2022 00:58:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F3851635
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661554731;
+	s=default; t=1661554760;
 	bh=gmZq1m2o64jxSUdmAvKmtAfD8wZ+9OlyufLxrEVrdnA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ElMyQbkj1H663qg2XL7jWtL8bUMBmdigrswJCoPbCUQu11PjSjBnz0VRq6KMnDVY6
-	 73K8E0AU/j23tXSiIpdhp2owUIuEP2iZRn7jnDXaN9RmO5XuNRr3JmMUVvOz+SpV0W
-	 qR56Rh669vtqvoD1HBXkYB+OcFQo/LF1lqBE+6Nw=
+	b=hV9GTYivH1y28lfG8FFRr29z8fo5mAHUz9Egp98t6hi/Z8eS2ceVNmQjNt3xT/21i
+	 FfruTHUtlKVC65niBOQ+FrY69aOeoMBJDqWtvLwv1YjCPzfV8SSO4b7HA0+eqkcqCn
+	 nvr/s3lPUKac2VrKs1e3a3spQwcZZF5/oMIUPcU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD205F8014B;
-	Sat, 27 Aug 2022 00:57:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD7B1F80529;
+	Sat, 27 Aug 2022 00:58:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3CBBF80238; Sat, 27 Aug 2022 00:57:50 +0200 (CEST)
+ id 95C7AF80528; Sat, 27 Aug 2022 00:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 502DEF8014B
- for <alsa-devel@alsa-project.org>; Sat, 27 Aug 2022 00:57:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 502DEF8014B
+ by alsa1.perex.cz (Postfix) with ESMTP id 2BC43F80526
+ for <alsa-devel@alsa-project.org>; Sat, 27 Aug 2022 00:58:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BC43F80526
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1661554668131293058-webhooks-bot@alsa-project.org>
-References: <1661554668131293058-webhooks-bot@alsa-project.org>
-Subject: Fix for ALC4080 (ASUS ROG Strix B660-F Gaming WiFi)
-Message-Id: <20220826225750.D3CBBF80238@alsa1.perex.cz>
-Date: Sat, 27 Aug 2022 00:57:50 +0200 (CEST)
+In-Reply-To: <1661554698006819963-webhooks-bot@alsa-project.org>
+References: <1661554698006819963-webhooks-bot@alsa-project.org>
+Subject: USB-Audio: Fix for ALC4080 (ASUS ROG Strix B660-F Gaming WiFi)
+Message-Id: <20220826225820.95C7AF80528@alsa1.perex.cz>
+Date: Sat, 27 Aug 2022 00:58:20 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

@@ -2,93 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BAB5A20A7
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 08:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF7BD5A20AA
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Aug 2022 08:09:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D1321630;
-	Fri, 26 Aug 2022 08:06:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D1321630
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DA4A163C;
+	Fri, 26 Aug 2022 08:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DA4A163C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661494047;
-	bh=mhakqaZ9qkeNxJP0xqQWhA9ym/aw0p+MQPNLjWP7B6o=;
+	s=default; t=1661494171;
+	bh=hwKxCSzr5BOmI9u3fbyu14RMbUfslWS7gvCXniY5rK8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r2z/3Zh7B1xcd8/t9rXkAaX8M7F1IIADL4Nk3m7VXfLg8TJNUo8vcdiXAydQXkyou
-	 8xoj4qQwMykMmB5poM9UKjL1t8/32IlIo0SGO80gwIhdr5EJdChZk+IA7piH7eDDUj
-	 Fj6lBRIvSs8XeabVKflyRNSNQ99ggmWU6bJgnmH4=
+	b=TFnlS5HIVWlF1edJoiIzRp9jG7c0clVNjRNljOsZrVKu+8YDUIBxeiONRLlZfYF1V
+	 eqkX0KnMNLGE5WAdHfwD+nIEMEPO1I4dOIKLIa6Z9MsUPzjxo+gDsPCDOfpDZGaHkf
+	 CvvBktqD2T4IUj1uKbeYr14lh6H23Yk4ymZ/lS38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 577DAF8032D;
-	Fri, 26 Aug 2022 08:06:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9A7BF80105;
+	Fri, 26 Aug 2022 08:08:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4FFFF80238; Fri, 26 Aug 2022 08:06:25 +0200 (CEST)
+ id 962A7F80238; Fri, 26 Aug 2022 08:08:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A52F8F80134
- for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 08:05:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A52F8F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98A70F80105
+ for <alsa-devel@alsa-project.org>; Fri, 26 Aug 2022 08:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98A70F80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="t+pDgLpj"; 
+ header.b="EKQR/LjF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="a1nwsbCo"
+ header.b="yvKx+Ki+"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1414A1FA84;
- Fri, 26 Aug 2022 06:05:05 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BB92D227C0;
+ Fri, 26 Aug 2022 06:08:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661493905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1661494102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DN02I7kEFmfTtDYmYudlOvukbJZ+sbDOXc3tG40EQgc=;
- b=t+pDgLpjMQP5N01ZSCo3Ks9m2jFxcfJMLe3qXB2u6kZ3VAePU8cQcV9b4f/nNZZWgqh0xj
- 37XX4Ely87hPVAua8g3g5C3JAPb/kwe841HDmD1VPFhxp9qIckCX/TEXWRCw+pAO/S5pWE
- Ch6YrO0jApvYTgleTPQJt2ytgYiPL98=
+ bh=xCXozoclkHh9HB5LH7ku4LFTxjoXrdn4pmU+Orsqo04=;
+ b=EKQR/LjFvRTS8mCIG1M0v8+YYMhDu4/W/mic2GCljX2ykPKCT494RauNCIX7AXkPterkqi
+ +mfHJ5SWq1fS1kzXet32LmT+R9VC7StyBrBttSMdQymp361EY8rmI1CrNujCLN7UJiGtF5
+ MY/Fbt2/beGi+DNwh2NASjzYnozVcCQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661493905;
+ s=susede2_ed25519; t=1661494102;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DN02I7kEFmfTtDYmYudlOvukbJZ+sbDOXc3tG40EQgc=;
- b=a1nwsbCoecvaYMu50APva9q7zZ6Y4XZCmO4t+TiKU7JzavWB4ZVO2l5gx8fGMP9SwbC/uE
- eG6CoJQeWemhd+Cw==
+ bh=xCXozoclkHh9HB5LH7ku4LFTxjoXrdn4pmU+Orsqo04=;
+ b=yvKx+Ki+2f68SPUkQNYuVrY59Ou7UY9UY+nGY2CfKLda93y57TPeXdgo9zEDBJYva2iH2V
+ eZuv1Lz/C1kgEeBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E257113A7E;
- Fri, 26 Aug 2022 06:05:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 933F113A7E;
+ Fri, 26 Aug 2022 06:08:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZdRlNpBiCGNYbQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 26 Aug 2022 06:05:04 +0000
-Date: Fri, 26 Aug 2022 08:05:04 +0200
-Message-ID: <87bks7leun.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id S644I1ZjCGMvbgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 26 Aug 2022 06:08:22 +0000
+Date: Fri, 26 Aug 2022 08:08:21 +0200
+Message-ID: <87a67rlep6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Lennert Van Alboom <lennert@vanalboom.org>
-Subject: Re: USB DAC broken since commit
- bf6313a0ff766925462e97b4e733d5952de02367 (5.10.0-rc5)
-In-Reply-To: <JGbq2exwKdQ4T8GQCI5YWzGredZVbYtBOxlnBN0ROtba40PvCdEKfz2mKzClqejgZMck374nGQyEIwzjiBi6sKYYNnJgKp26n1-_j6GT3hw=@vanalboom.org>
-References: <T3VPXtCc4uFws9Gfh2RjX6OdwM1RqfC6VqQr--_LMDyB2x5N3p9_q6AtPna17IXhHwBtcJVdXuS80ZZSCMjh_BafIbnzJPhbrkmhmWS6DlI=@vanalboom.org>
- <874jy0mvwv.wl-tiwai@suse.de>
- <JGbq2exwKdQ4T8GQCI5YWzGredZVbYtBOxlnBN0ROtba40PvCdEKfz2mKzClqejgZMck374nGQyEIwzjiBi6sKYYNnJgKp26n1-_j6GT3hw=@vanalboom.org>
+To: "Luke D. Jones" <luke@ljones.dev>
+Subject: Re: [PATCH 1/2] sound: realtek: Add pincfg for ASUS G533Z
+In-Reply-To: <20220825220130.331371-1-luke@ljones.dev>
+References: <20220825220130.331371-1-luke@ljones.dev>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kai.heng.feng@canonical.com, tiwai@suse.com, andy.chi@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,45 +100,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Aug 2022 22:52:02 +0200,
-Lennert Van Alboom wrote:
+On Fri, 26 Aug 2022 00:01:29 +0200,
+Luke D. Jones wrote:
 > 
-> ------- Original Message -------
-> On Thursday, August 25th, 2022 at 12:58, Takashi Iwai <tiwai@suse.de> wrote:
-> > 
+> Fixes up the pincfg for ASUS ROG Strix G15 (G533Z) laptop.
 > 
-> > There are lots of workarounds for the buggy USB audio firmware, and
-> > the latest kernel allows to enable the quirks via quirk_flags module
-> > option of snd-usb-audio driver. See
-> > Documentation/sound/alsa-configuration.rst.
-> > You can try the bit 16 at first, for example.
-> > 
-> 
-> > 
-> 
-> > Takashi
-> 
-> 
-> Thanks. I tried fiddling around with it for a bit but so far limited success. I wasn't sure about the arguments or counting order of quirk_flags (some tidbits show it as hex, others as an array of booleans (?)) so tried a few different things. I have no other USB audio devices so didn't see a need to specify vendor or product ID while testing. 
-> 
-> 
-> # modprobe snd_usb_audio quirk_flags=0x10000
-> # modprobe snd_usb_audio quirk_flags=0x1
-> # modprobe snd_usb_audio quirk_flags=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-> 
-> No success with any, so far. Is there a way to make the process more verbose? I can see from the lights on the DAC that the initialisation works differently if I mess with the different quirks but that's not visible in syslog or outcome.
+> Signed-off-by: Luke D. Jones <luke@ljones.dev>
 
-This option is passed per card instance, as the driver may hold
-multiple cards.  Check your /proc/asound/cards.  The first argument of
-quirk_flags is applied to the first USB-audio card, the second to the
-second USB audio device, and so on.
+Just minor nitpicking:
 
-At best, give alsa-info.sh output before and after applying the
-quirk.  Run the script with --no-upload option and attach the
-outputs.
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -5828,7 +5828,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
+>  		struct alc_spec *spec = codec->spec;
+>  		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+>  		alc255_set_default_jack_type(codec);
+> -	} 
+> +	}
+>  	else
+>  		alc_fixup_headset_mode(codec, fix, action);
+>  }
 
-And, as a reference, you can see the existing quirk tables in
-sound/usb/quirks.c.
+Please avoid touching unnecessary parts.
 
+> @@ -8363,6 +8364,17 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc294_fixup_gu502_hp,
+>  	},
+> +	[ALC285_FIXUP_ASUS_G533Z_PINS] = {
+> +		.type = HDA_FIXUP_PINS,
+> +		.v.pins = (const struct hda_pintbl[]) {
+> +			{ 0x14, 0x90170120 },
+> +			{ 0x19, 0x03A11050 }, /* front HP mic */
+> +			{ 0x1B, 0x03A11C30 }, /* rear external mic */
+> +			{ 0x21, 0x03211420 }, /* front HP out */
+
+We prefer the lower letters for hex numbers.
+
+> +			{ }
+> +		},
+> +		.chained = false,
+
+This is initialization superfluous, please drop.
+
+Last but not least, the subject prefix should be rather "ALSA:"
+instead of "sound:".
+
+The same applied to the second patch.
+Could you try to address those and resubmit as v2?
+
+
+thanks,
 
 Takashi

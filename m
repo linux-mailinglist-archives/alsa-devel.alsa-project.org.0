@@ -2,72 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B115A3FD0
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 23:04:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 658285A3FD4
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 23:05:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 420391F1;
-	Sun, 28 Aug 2022 23:04:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420391F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3722AE9;
+	Sun, 28 Aug 2022 23:04:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3722AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661720697;
-	bh=4gkTUeiRK5zM3wWcBtMtiz5SQ2W33WXk8U26hETwVcg=;
+	s=default; t=1661720728;
+	bh=dvr+0FsOsHb/g/YQGPJX8tDGZzGNU6WJ7c4FEWevhk4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G67Kxlm12fDPtt0DL/Vu67A1DdH4H3uMXExYDON/6yv7U/CxnktZyXSmDI05Z3mGg
-	 OmIKzVL6Pib0hdY411SZHtNIguHlz0we9LmC2psW3RCYA+qdswEqRAXmEKOAwlgotJ
-	 gwhTPMUjslhQeCALKwN/2J0lTr5LLJ0O1jOT5hDs=
+	b=RDjoh+KIQalIePeJHv7YWEONrGXlRL1JLNLj0SL3aGdccbdCgF/MIzsFSzoEv9H9X
+	 QNrm78goxmVCH+8Vl0DXrncG/dn3rs2XBO9pX1K0/PkU1JNPPPvN4AIpmfFpMK0ZIY
+	 feqPxCxwVpx6iXUBNg2MI3Hp0AUe4NNmpGnyUX+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B1A3F80423;
-	Sun, 28 Aug 2022 23:03:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EFAAF804D6;
+	Sun, 28 Aug 2022 23:04:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B4E8F8028D; Sun, 28 Aug 2022 23:03:57 +0200 (CEST)
+ id 485E6F804B3; Sun, 28 Aug 2022 23:04:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01865F800AA
- for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 23:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01865F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1425F8012A
+ for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 23:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1425F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AIKlJPHR"
+ header.b="UDXSH6F0"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6D8C260E0A;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DE1E360E9A;
+ Sun, 28 Aug 2022 21:03:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577B6C433D7;
  Sun, 28 Aug 2022 21:03:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16342C433C1;
- Sun, 28 Aug 2022 21:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661720630;
- bh=4gkTUeiRK5zM3wWcBtMtiz5SQ2W33WXk8U26hETwVcg=;
+ s=k20201202; t=1661720633;
+ bh=dvr+0FsOsHb/g/YQGPJX8tDGZzGNU6WJ7c4FEWevhk4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AIKlJPHRaIIuzzbtvkLLZ3Qdethc2MA27673g5Fzk4h9dDy295WrHOQu2PElKXGS3
- QrUmjhlyCm/xbK3HBgJihDN1cq/guR30jSo5dWRS6QhGqndPRSzCovH18RiAtAcgQA
- Uxsspo8dJHJPqz0vxGtfJVZU68AUM1qLDto7XVQXQPC4rd8fx9GMGoearL52Z1cQBS
- dO7yPiAhE+Pf/1W1d2P0BGLBFPGVYyetm7jiOxKuYxoYSNCT/Oh1l9Aww//Wi7mua5
- L+NOsf0NF8i+uV5nvS3EMPxjohJEcpiFNnJnMa56q2tBWWqgq7sYKMa29ll1E0XxOt
- 9gL02Ii349f8Q==
+ b=UDXSH6F0xwcjYkF3/UgiFvOJ/gXimbJUsU2LpRndksy/Cht1hAolAVbiGVF+MCnWl
+ VpoxRaG1IrAQHa59C2u2CoGecoinG7ud9FLHhatYQvnf4upIPijUlL6hAWTemPkeKd
+ 826bWsX1/ScEBHAd+XSYAaVT3umH+Q1gC2IVTUZpY+PrAiDuYMBClXZ9qsmD7AOCQB
+ NapkFQGs+tax8oQZleKDTBy+hGALKYbf+H4B8qn8u82pcqY+u2OUzr+2vRE2s9jh2r
+ WOUmvX4YYrIeMdbjYoTYpbYZmvJAo6BM4RtRs5mQRsIpfZ/DxuD+pILPk/MOCS2D8a
+ Pab0O8wmxubLA==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87czctgg3w.wl-kuninori.morimoto.gx@renesas.com>
-References: <87czctgg3w.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-pcm.c: call __soc_pcm_close() in soc_pcm_close()
-Message-Id: <166172062971.600125.5471609144931735249.b4-ty@kernel.org>
-Date: Sun, 28 Aug 2022 22:03:49 +0100
+To: perex@perex.cz, lgirdwood@gmail.com, bgoswami@quicinc.com, tiwai@suse.com,
+ aidanmacdonald.0x0@gmail.com, srinivas.kandagatla@linaro.org
+In-Reply-To: <20220721102558.25457-1-aidanmacdonald.0x0@gmail.com>
+References: <20220721102558.25457-1-aidanmacdonald.0x0@gmail.com>
+Subject: Re: [PATCH -next 0/2] ASoC: Cleanup deprecated regmap-irq
+ functionality
+Message-Id: <166172063107.600125.6867338355172165841.b4-ty@kernel.org>
+Date: Sun, 28 Aug 2022 22:03:51 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +86,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Aug 2022 02:35:32 +0000, Kuninori Morimoto wrote:
-> commit b7898396f4bbe16 ("ASoC: soc-pcm: Fix and cleanup DPCM locking")
-> added __soc_pcm_close() for non-lock version of soc_pcm_close().
-> But soc_pcm_close() is not using it. It is no problem, but confusable.
+On Thu, 21 Jul 2022 11:25:56 +0100, Aidan MacDonald wrote:
+> Update two ASoC codec drivers to remove uses of regmap-irq type
+> registers, which have recently been deprecated by the "regmap-irq
+> cleanups and refactoring" series in linux-next.
 > 
-> 	static int __soc_pcm_close(...)
-> 	{
-> =>		return soc_pcm_clean(rtd, substream, 0);
-> 	}
+> Link: https://lore.kernel.org/lkml/20220623211420.918875-1-aidanmacdonald.0x0@gmail.com/
+> 
+> Aidan MacDonald (2):
+>   sound: soc: codecs: wcd9335: Convert irq chip to config regs
+>   sound: soc: codecs: wcd938x: Remove spurious type_base from irq chip
 > 
 > [...]
 
@@ -101,8 +105,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm.c: call __soc_pcm_close() in soc_pcm_close()
-      commit: 6bbabd28805f36baf6d0f3eb082db032a638f612
+[1/2] sound: soc: codecs: wcd9335: Convert irq chip to config regs
+      commit: 255a03bb1bb3b10d1c1ca785c596db84723f59d7
+[2/2] sound: soc: codecs: wcd938x: Remove spurious type_base from irq chip
+      commit: de3287f177a5666409978a1a0331a33e2842d43b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

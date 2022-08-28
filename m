@@ -2,91 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E7A5A3EE7
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 19:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7B115A3FD0
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 23:04:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44C04210;
-	Sun, 28 Aug 2022 19:36:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C04210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 420391F1;
+	Sun, 28 Aug 2022 23:04:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420391F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661708236;
-	bh=zk0aZVHiItxWxC0upniYjtmDuwhHEaADU5YLRrj+ZxE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661720697;
+	bh=4gkTUeiRK5zM3wWcBtMtiz5SQ2W33WXk8U26hETwVcg=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WZwfyp2y2Tp+UJ2ajvrFlqGtLYe9dQJ9rCqbQS2bQzapVWheXZVwV71meqo+WUqOn
-	 6Bkpkqz6ooZ3tzaG5ebzIL5L//0qraRAy35RxI1g/KZTXq2lrL2nRDtBnSJvTHwbPK
-	 zbabt5s4AMPcvWFqAgd8r9Js1rlcHJ4Is39WTx+4=
+	b=G67Kxlm12fDPtt0DL/Vu67A1DdH4H3uMXExYDON/6yv7U/CxnktZyXSmDI05Z3mGg
+	 OmIKzVL6Pib0hdY411SZHtNIguHlz0we9LmC2psW3RCYA+qdswEqRAXmEKOAwlgotJ
+	 gwhTPMUjslhQeCALKwN/2J0lTr5LLJ0O1jOT5hDs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58C04F80423;
-	Sun, 28 Aug 2022 19:36:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B1A3F80423;
+	Sun, 28 Aug 2022 23:03:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1502EF8028D; Sun, 28 Aug 2022 19:36:16 +0200 (CEST)
+ id 1B4E8F8028D; Sun, 28 Aug 2022 23:03:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CC6DF8012A
- for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 19:36:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CC6DF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01865F800AA
+ for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 23:03:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01865F800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZeTrYGel"
+ header.b="AIKlJPHR"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A2C37B80B18;
- Sun, 28 Aug 2022 17:36:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC922C433C1;
- Sun, 28 Aug 2022 17:36:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6D8C260E0A;
+ Sun, 28 Aug 2022 21:03:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16342C433C1;
+ Sun, 28 Aug 2022 21:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661708166;
- bh=zk0aZVHiItxWxC0upniYjtmDuwhHEaADU5YLRrj+ZxE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ZeTrYGelgpW8o1guW26ZZlNZjQaFs6rtHOOR6aJNM3xKbHt4g4Z8R9wld8xFLxAJx
- wVIsW37alkXZzNwzXxtnnqVm3KdkFL5uqPJ+T7OmYlN8qeuBok0Nl8pX4QbCuwnxFj
- AoBhJs7DjSPN0UtcDTdcZ4zJe9Ao2G550k/r0o0dPzkntvFlR8KR3pOBbCbLnt2tdV
- 1pKuSUQ+/aHfwEvTk8JWf+hfovsx12KQ/PthVLDMzvo9sImIv/vcyAQIUReNk/zj03
- AFSH6xA1No/e/MZXgBIKHjE2tljQqWtt/QmLDmI3hkTMeIpThZl/a7mc5Ycywj24Fk
- rOSWld2vCFv3Q==
-Date: Sun, 28 Aug 2022 18:01:41 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] dt-bindings: iio: Add missing
- (unevaluated|additional)Properties on child nodes
-Message-ID: <20220828180050.51c3e857@jic23-huawei>
-In-Reply-To: <99dfcc39-ab1b-1b24-c6b2-67de5509f5ac@linaro.org>
-References: <20220823145649.3118479-2-robh@kernel.org>
- <99dfcc39-ab1b-1b24-c6b2-67de5509f5ac@linaro.org>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
+ s=k20201202; t=1661720630;
+ bh=4gkTUeiRK5zM3wWcBtMtiz5SQ2W33WXk8U26hETwVcg=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=AIKlJPHRaIIuzzbtvkLLZ3Qdethc2MA27673g5Fzk4h9dDy295WrHOQu2PElKXGS3
+ QrUmjhlyCm/xbK3HBgJihDN1cq/guR30jSo5dWRS6QhGqndPRSzCovH18RiAtAcgQA
+ Uxsspo8dJHJPqz0vxGtfJVZU68AUM1qLDto7XVQXQPC4rd8fx9GMGoearL52Z1cQBS
+ dO7yPiAhE+Pf/1W1d2P0BGLBFPGVYyetm7jiOxKuYxoYSNCT/Oh1l9Aww//Wi7mua5
+ L+NOsf0NF8i+uV5nvS3EMPxjohJEcpiFNnJnMa56q2tBWWqgq7sYKMa29ll1E0XxOt
+ 9gL02Ii349f8Q==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87czctgg3w.wl-kuninori.morimoto.gx@renesas.com>
+References: <87czctgg3w.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: soc-pcm.c: call __soc_pcm_close() in soc_pcm_close()
+Message-Id: <166172062971.600125.5471609144931735249.b4-ty@kernel.org>
+Date: Sun, 28 Aug 2022 22:03:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Michal Simek <michal.simek@xilinx.com>,
- Andy Gross <agross@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Cosmin Tanislav <cosmin.tanislav@analog.com>,
- Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,29 +83,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Aug 2022 15:04:33 +0300
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-
-> On 23/08/2022 17:56, Rob Herring wrote:
-> > In order to ensure only documented properties are present, node schemas
-> > must have unevaluatedProperties or additionalProperties set to false
-> > (typically).
-> >   
+On Mon, 22 Aug 2022 02:35:32 +0000, Kuninori Morimoto wrote:
+> commit b7898396f4bbe16 ("ASoC: soc-pcm: Fix and cleanup DPCM locking")
+> added __soc_pcm_close() for non-lock version of soc_pcm_close().
+> But soc_pcm_close() is not using it. It is no problem, but confusable.
 > 
+> 	static int __soc_pcm_close(...)
+> 	{
+> =>		return soc_pcm_clean(rtd, substream, 0);
+> 	}
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> [...]
 
-Applied to the togreg branch of iio.git and pushed out as testing for 0-day
-to poke at it before I push out as togreg for linux-next to pick up.
+Applied to
 
-Side note. Some odd entries in your cc list...  alsa-devel?
+   broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: soc-pcm.c: call __soc_pcm_close() in soc_pcm_close()
+      commit: 6bbabd28805f36baf6d0f3eb082db032a638f612
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-
-Jonathan
-
-> 
-> 
-> Best regards,
-> Krzysztof
-
+Mark

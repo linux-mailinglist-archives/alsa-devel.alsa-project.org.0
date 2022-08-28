@@ -2,83 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACC05A3C86
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 09:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB2685A3C91
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Aug 2022 09:50:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF315820;
-	Sun, 28 Aug 2022 09:42:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF315820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E793AE8;
+	Sun, 28 Aug 2022 09:49:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E793AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661672573;
-	bh=Y8KQ3VO+7vNKowTs9vnFn13hH2wR/mMx7w9Wxm5CPYg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nCCEr0NQvr0k6NJZG40Xr4rXhWyNkPFK7XztGtlBlmXGOyXzufDrcxgrzQJ1VKJDC
-	 6po2i+Fjlnnfd35rNIsJJu/xTlg8vdwVOBX67s7//FBRIDUTrggckxsa+It59mLvrM
-	 r5D5IJxb1cUrxT+UIWyYH37EHinYmBCSeFh8p1yM=
+	s=default; t=1661673041;
+	bh=H8GtG7fhscSg0Wm0nqnZHEEns6VkBSkpS+ud8E+J0bk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=C2fcmYGKACfLrrU+dtTHjQzWjoswAyFqigHjTs9yin7V9XNeOLKK6UjDQxIKBa5+k
+	 VU6YCCodAsGmaePDDXM7HzIVKjrP0exGjoo67Db31KkkPDWObfb0fhzHBo93h/2cp6
+	 zof8tiaQX+9tly4/K2LRXDACeIOAnb74J4Xw4j4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50467F80423;
-	Sun, 28 Aug 2022 09:41:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C00C7F80423;
+	Sun, 28 Aug 2022 09:49:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C454F8028D; Sun, 28 Aug 2022 09:41:53 +0200 (CEST)
+ id ECD2DF800AA; Sun, 28 Aug 2022 09:49:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35E49F800AA
- for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 09:41:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35E49F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D2E1F800AA
+ for <alsa-devel@alsa-project.org>; Sun, 28 Aug 2022 09:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D2E1F800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jOq6t+GD"; 
+ header.b="bq/8iHPQ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5627rIKL"
+ header.b="GigM/Qmv"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8F3115BDCE;
- Sun, 28 Aug 2022 07:41:46 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 705F733686;
+ Sun, 28 Aug 2022 07:49:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661672506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=71qIyQrXK9/gl07CIA1fcfEL2rHzS2xvQcWt6r9VyBc=;
- b=jOq6t+GDalME1YkrRVvIMZw1wK30hi7t3JAVPhbmeZuPaC+lIcufPoyOLitxNPOiMS7HsX
- /QYz8r3wrX99zQ5KKPqgeLZPGsQq9Y3Eatb1QyVBRH9nL5T8qRrNYjrofeCOgHHaJsr7Fj
- T15WMQAAksPpPhn5FTHD/4sq3Y/EhwE=
+ t=1661672976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DJVPwI1SQW1ugxTkbUHGFWs/aY/52eay/l04VrZPyTM=;
+ b=bq/8iHPQw5+JhEo7UduZr1wtM5gSgjb/LbHPkT2dJ2movE/eE3Gie3I2eUfk8xSpbxs13p
+ p1bIoxlginjUrpBeJDgadw3xDTpJwnCXC++ftSgWhV8XoMcKm+pw72Co1zxKiqOCNK4fJU
+ u9UoPloFHaLd4TXnNR4upLH9w9GC1dk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661672506;
+ s=susede2_ed25519; t=1661672976;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=71qIyQrXK9/gl07CIA1fcfEL2rHzS2xvQcWt6r9VyBc=;
- b=5627rIKLd2NETLDc+KsR97YetJW5Vg4tFTUCcLwN2F+Usq3rtl7S4/2VGqGglsUBTIA2CN
- DNQkDj7Eo/NQ3IDg==
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DJVPwI1SQW1ugxTkbUHGFWs/aY/52eay/l04VrZPyTM=;
+ b=GigM/Qmv3yE+y+XWxx0802Ez5+5qkX8U3uTdT5tY+myptJVTeFZEVnraRc0Rk/Z55tm5eq
+ xhskzc0TT2IeULCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5BD2A13A65;
- Sun, 28 Aug 2022 07:41:46 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4936213A65;
+ Sun, 28 Aug 2022 07:49:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sXrAEzocC2P5bwAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 28 Aug 2022 07:41:46 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id y94pERAeC2MGcgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 28 Aug 2022 07:49:36 +0000
+Date: Sun, 28 Aug 2022 09:49:35 +0200
+Message-ID: <87r110iz8w.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add quirk for LH Labs Geek Out HD Audio 1V5
-Date: Sun, 28 Aug 2022 09:41:43 +0200
-Message-Id: <20220828074143.14736-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Lennert Van Alboom <lennert@vanalboom.org>
+To: Sean Anderson <sean.anderson@seco.com>
+Subject: Re: retire_capture_urb: Corrected urb data len
+In-Reply-To: <9d41eda1-1172-ea60-dd87-b3e38a529170@seco.com>
+References: <68a97d61-21bf-b45e-f6ed-c0906dd4b197@seco.com>
+ <87ilmfj72j.wl-tiwai@suse.de>
+ <9d41eda1-1172-ea60-dd87-b3e38a529170@seco.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,32 +102,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The USB DAC from LH Labs (2522:0007) seems requiring the same quirk as
-Sony Walkman to set up the interface like UAC1; otherwise it gets the
-constant errors "usb_set_interface failed (-71)".  This patch adds a
-quirk entry for addressing the buggy behavior.
+On Fri, 26 Aug 2022 20:57:53 +0200,
+Sean Anderson wrote:
+> 
+> On 8/26/22 12:36 PM, Takashi Iwai wrote:
+> > On Fri, 26 Aug 2022 18:22:24 +0200,
+> > Sean Anderson wrote:
+> >> 
+> >> Hi all,
+> >> 
+> >> I have a "FiiO DigiHug USB Audio" sound card (1852:7022) [3]. I have had
+> >> no problems with the audio, but I did notice a large number of message
+> >> like 
+> >> 
+> >> retire_capture_urb: 4992 callbacks suppressed
+> >> 
+> >> in my dmesg [1]. This is caused by the "Corrected urb data len."
+> >> warning.
+> > 
+> > What exact values are shown there?
+> 
+> Unfortunately, as detailed below, I was unable to turn off ratelimiting.
+> 
+> > The problem is that your hardware
+> > (likely a buggy firmware) returns the unaligned size of bytes as the
+> > data.  Maybe it's worth to replace dev_warn_ratelimited() there with
+> > dev_warn() and take all warnings once.  Then we can see what kind of
+> > values are delivered from the hardware.
+> 
+> I'll have an attempt at that next week
+> 
+> >> The patch adding this warning [2] makes it seem like
+> >> this warning should be an uncommon occurance. However, based on the
+> >> number of suppressed callbacks, this seems to be happening at a rate of
+> >> around 500 Hz.
+> >> 
+> >> Is this buggy hardware? Or is this a bug in the driver? Does there need
+> >> to be a quirk? Or perhaps the warning above should be a debug instead?
+> > 
+> > There is no quirk for that.  As long as the device works with that
+> > workaround (except for messages), we can simply add a quirk to not
+> > warn but always apply the workaround silently for such devices.
+> 
+> OK. I wasn't sure what the correct resolution would be.
 
-Reported-by: Lennert Van Alboom <lennert@vanalboom.org>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/T3VPXtCc4uFws9Gfh2RjX6OdwM1RqfC6VqQr--_LMDyB2x5N3p9_q6AtPna17IXhHwBtcJVdXuS80ZZSCMjh_BafIbnzJPhbrkmhmWS6DlI=@vanalboom.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+Actually I was wrong: the existing quirk QUIRK_FLAG_ALIGN_TRANSFER
+should cover that.
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 168fd802d70b..9bfead5efc4c 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1903,6 +1903,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_SHARE_MEDIA_DEVICE | QUIRK_FLAG_ALIGN_TRANSFER),
- 	DEVICE_FLG(0x21b4, 0x0081, /* AudioQuest DragonFly */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
-+	DEVICE_FLG(0x2522, 0x0007, /* LH Labs Geek Out HD Audio 1V5 */
-+		   QUIRK_FLAG_SET_IFACE_FIRST),
- 	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
- 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
- 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
--- 
-2.35.3
+Could you try to pass quirk_flags=0x04 for the corresponding card slot
+(the option takes an array) to snd-usb-audio module?  Alternatively,
+try to pass quirk_alias=18557022:0e510408 to snd-usb-audio?
 
+
+thanks,
+
+Takashi

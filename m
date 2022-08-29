@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5CD5A45D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 11:14:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B2AE5A4654
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 11:46:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8C4386E;
-	Mon, 29 Aug 2022 11:13:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8C4386E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D318822;
+	Mon, 29 Aug 2022 11:45:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D318822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661764479;
-	bh=AlQyGFRcWwxUgoOejrBsR1Ds7shH7miJ+XqxOibG/RI=;
+	s=default; t=1661766367;
+	bh=N8vs6WN+WlhPhE1pqP0GrSk0Z4Q593JRf4W9viSCHAw=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kwsx9C6sNwwgCTrBEqr/JWruyABdn+F7AKQWI9DA3zWSm2cqw/gdgxn16KJvMRtsG
-	 GdSwMHLYvBTRAGbIhkF89IYOuI+gJp1f7EzMVKfVJj/dh8EJsblh53mqR+5ydTxGSc
-	 Vofgfo+BCW9B+mcMx4JDuef50LF7VuS/vyBodGNg=
+	b=XB+sNB2NOIVpx8YzxHl1SRo2LSDFMGxAY7fJKnYueIWbiVqlcJ5F20g8ziuw06aqD
+	 Q3L8+Lm5WREbt1JijcuSXRcUZDCCBlZ3KcKnNHXegpQSav0ocJkadTiLYl7GAhK+0x
+	 ngvpYeMyerhkL4xkDT/Bqen35GwTSLi6NTsw1ecM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 179C8F80115;
-	Mon, 29 Aug 2022 11:13:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D753CF802A0;
+	Mon, 29 Aug 2022 11:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6B10F80115; Mon, 29 Aug 2022 11:13:38 +0200 (CEST)
+ id 32D86F8012A; Mon, 29 Aug 2022 11:45:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35E9FF8012A
- for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 11:13:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35E9FF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75240F8012A
+ for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 11:45:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75240F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kf8UdLoG"
-Received: by mail-pf1-x431.google.com with SMTP id t129so7573625pfb.6
- for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 02:13:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=cK9gFkwcVqBLXSkw4yJqMZFLcyT936UDHTKjLWRpM7c=;
- b=kf8UdLoG7Ht7Jcb3/PwyD5CLqoyET5/HlWgYtG5WpoUpvw2y3rGpYhi7JPKNsP5rV2
- HVsoRX5Aq0mJOlV7CW8EyK1jp95z98f+M3haosjwWfbuiHPAARSOug3neRY7sVY0mBVi
- +WQtKj8SbTnVEST48gH+/d8O2nQqEhKi+7AWUw+FubjiaJHuO0dv5o1zg1A0RF8qfnIn
- mjuXfJ1b7Hsye9aM2jT5enJcXeoXp0MHwtALIIjDVxzlX3izmO86qANgFGFSIPfTR+t/
- 8mFphPXLzKaf+a7RAUthjwk7IpSgpxwzObk3EOKItmW1w5cqSj7ZzAnq5FdwDa1bF+L+
- tYfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=cK9gFkwcVqBLXSkw4yJqMZFLcyT936UDHTKjLWRpM7c=;
- b=dirfhN75/gGbxaD0dXDD+oyuo82dZ/2T2FkJAVHT2TElVCTFtG86Y8OPsw8qGMqafW
- 2AIS0MiGf/pBvL4JYeAFq3FijuwwSgnN3gPwZ6/xDOkygzEDPcOl103KAQRD9D7L8aGv
- bXwysS6uKYG0LE4+dSq5Bzm86bTWdwL+HsPswstbtF4TRYOkYy38L1jrM/ktSlR0hKO/
- PGbq8PL05IWzRCyer14vpkaEGvqRdTxLh17r3T71wpyhCZpkDiV9+JQ7iPaNKGu1Co7d
- CRPW+kmZrN3Cfv9rCPXAkhwTSLINagLf6h5U9cbjb6jJPOSnPeW9G3qG1fBMG30mM8z0
- invw==
-X-Gm-Message-State: ACgBeo0eSYcTsOs5J3e83bPDolHRNJn/0YSqqkz4g6zx5F2uoVaKD98G
- XN03gBNPFBfwC+8qdCMPX+8=
-X-Google-Smtp-Source: AA6agR6AGSiG4FoJKYvBtVFtKdgps4YVa0oOGS+yvyvkUiJcgqSc1EL4lEKJSItJS+Bt63snYd74zA==
-X-Received: by 2002:a05:6a00:2787:b0:537:d9b1:f942 with SMTP id
- bd7-20020a056a00278700b00537d9b1f942mr12615968pfb.30.1661764406193; 
- Mon, 29 Aug 2022 02:13:26 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- r4-20020a63e504000000b0041c66a66d41sm5982280pgh.45.2022.08.29.02.13.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Aug 2022 02:13:25 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: cui.jinpeng2@zte.com.cn
-To: lgirdwood@gmail.com
-Subject: [PATCH linux-next] ASoC: codecs: max98088: remove redundant ret
- variable
-Date: Mon, 29 Aug 2022 09:13:19 +0000
-Message-Id: <20220829091319.266068-1-cui.jinpeng2@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Iodnet+Q"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27T5g85k004126;
+ Mon, 29 Aug 2022 04:45:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=0QrEnrGyT0A123XlPnuSeRTt5nZfbiGJ6EqrLxHEoHY=;
+ b=Iodnet+QDKFo+xsv7jt3dabVbWQtBNdu+bi83ecNw8FLRvb1k2IEpxa+WHGWfcRzoCS+
+ JSywybQFMpG+W6rBR1coRC17jI6f5lakskB3JS/ef7y37eynK2UTExwK/PPU/m1mglFw
+ MpbE1Ia0x3DVmt/g4K4scDpPZFmo4olkohAuBURA5ufalpMUc4JolMTRtRbyJ15McKed
+ R0sEiY6QMelYRI1maXW4M4HcYZnDEFMr9jZ584M6pIN44A8w8yp8Mx7iDyBMb/nBl05u
+ qtYou8rG5nxd6C0d253ocPXWEbf0klmZFNTn5MKCqSvWPLrpUch/b42ZgP/tnP6/2sru mQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3j7fpp9v2f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Aug 2022 04:45:00 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Mon, 29 Aug
+ 2022 04:44:58 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
+ Frontend Transport; Mon, 29 Aug 2022 04:44:58 -0500
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CF6D67C;
+ Mon, 29 Aug 2022 09:44:58 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+Subject: [PATCH 0/1] soundwire: bus: Fix for missing UNATTACH when
+ re-enumerating
+Date: Mon, 29 Aug 2022 10:44:57 +0100
+Message-ID: <20220829094458.1169504-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: jiapeng.chong@linux.alibaba.com, alsa-devel@alsa-project.org, steve@sk2.org,
- linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
- tommaso.merciai@amarulasolutions.com, broonie@kernel.org,
- ckeepax@opensource.cirrus.com, cui.jinpeng2@zte.com.cn
+Content-Type: text/plain
+X-Proofpoint-GUID: xPM0AhWVeq-oAxelvi8BAYNz_uA8Hj91
+X-Proofpoint-ORIG-GUID: xPM0AhWVeq-oAxelvi8BAYNz_uA8Hj91
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,40 +98,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
+This is an alternative fix for the race where a device that is reset can
+be found on #0 and its ID reprogrammed before the bus code has handled
+a PING showing it unattached.
 
-Return value from devm_snd_soc_register_component() directly
-instead of taking this in another redundant variable.
+The other possible fix is here:
+https://lore.kernel.org/all/20220825122241.273090-4-rf@opensource.cirrus.com/
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
----
- sound/soc/codecs/max98088.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Richard Fitzgerald (1):
+  soundwire: bus: Don't re-enumerate before status is UNATTACHED
 
-diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
-index b208fb530a8b..405ec16be2b6 100644
---- a/sound/soc/codecs/max98088.c
-+++ b/sound/soc/codecs/max98088.c
-@@ -1749,7 +1749,6 @@ MODULE_DEVICE_TABLE(i2c, max98088_i2c_id);
- static int max98088_i2c_probe(struct i2c_client *i2c)
- {
- 	struct max98088_priv *max98088;
--	int ret;
- 	const struct i2c_device_id *id;
- 
- 	max98088 = devm_kzalloc(&i2c->dev, sizeof(struct max98088_priv),
-@@ -1772,9 +1771,8 @@ static int max98088_i2c_probe(struct i2c_client *i2c)
- 	i2c_set_clientdata(i2c, max98088);
- 	max98088->pdata = i2c->dev.platform_data;
- 
--	ret = devm_snd_soc_register_component(&i2c->dev, &soc_component_dev_max98088,
-+	return devm_snd_soc_register_component(&i2c->dev, &soc_component_dev_max98088,
- 					      &max98088_dai[0], 2);
--	return ret;
- }
- 
- #if defined(CONFIG_OF)
+ drivers/soundwire/bus.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
 -- 
-2.25.1
+2.30.2
 

@@ -2,141 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC7525A5111
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 18:08:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2DEC5A51E5
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 18:35:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CD1A167C;
-	Mon, 29 Aug 2022 18:07:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CD1A167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED39C1635;
+	Mon, 29 Aug 2022 18:34:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED39C1635
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661789307;
-	bh=EFI6OayM8qkkkJBujIIOeux7Qo9628Rqa+z/77qsrNE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661790928;
+	bh=EHNP4RzQnuQOX+7RxLEAqc1syZDl49UGa8ehhKTXRQg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JGbLTN7sRi40zJ5LSRGKy+fJ4VRvi1l3KnOTsBxc5ryLHZWGHWFMgI8m/LQWna+bL
-	 l83PjupurAm369wCyTpj1uI0w4z9iaG3OrJydLLcDQq9JqYUuubQy9vUk61feI8pfC
-	 YFoPj2hno5ZUqmvfrxGJlSrcG+OV0/QceDP0dawQ=
+	b=UU89Fo3/pn74rIlHOMNRSHbtrJqu44uuYmfNtqoDsnmp3NJcpEcb0Z3YxH2HCtimF
+	 /D2QhrrT3qjMRovom/YanVq2WSYcm2fWtBh12x4nKUumNs0pUZLVeNn972kxS6icfG
+	 3tCuhHPtcsKmAGNhZ9I11lV33ftXqeEqSHDkthLc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42932F80552;
-	Mon, 29 Aug 2022 18:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B7C9F8016C;
+	Mon, 29 Aug 2022 18:34:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49A44F80217; Mon, 29 Aug 2022 09:56:26 +0200 (CEST)
+ id 06047F801F7; Mon, 29 Aug 2022 18:34:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60069.outbound.protection.outlook.com [40.107.6.69])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2659F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 18:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2659F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cDp7X8gB"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B6C5F80115
- for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 09:56:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6C5F80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="XCT3jI+l"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FcamN6l+ZqBiIt/SfrCoek7npEQbEFYt3k/yzIi7+qQet6ovoZELw9RsYJX15L5SIZ8KmCpMoZIyEMptPekSbC++BYUV3nTWs99WMOQi3S0vjKzD+MHcC1j+fv4GpX8M900qKXlQZANHGoWk1P7NUY7L21cIr9ptObNKMibvyy0y5l8MdsW3xKTv80EzD12vmBX61sFHfAMDaQun3hO6itgEDqSksSCSwYGL6sCuOU78qx7E3XFBi2FvQYvPSH3/DB1iYl9WfrZpfBybbta1w365yyUdDkcoEdmfROxEExkLrWz18BH6Ki+q+mpFhEqoMOo2Zz1hEmYGLd3mKfrRdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V3rcps9Ux2yF0dLMCGKlmvX1I3K+2JMwGgrblKW04Gg=;
- b=jt2Mr5aWq7GnPQKnkhKD4xdutPUJggeHx+BmALhW5eL1zBmtfipDdi3NcCcmCrnsN60GISzERhC+50AXiqfEwbaMeVKx2/9Rv16nQUlJTUv7MMyrh6F3rUhmuOWWqJbKZQRtW6LAVcglb026s4dPwrXemHyRcihg/0XyNWZD+u9VY++AeV1JRtdCHlpRPMwqhJyfmXGTq9/Wjpo/33IemTUbhEIk5JUEb2d84Ddsuy5Rap2Q69JLXq2FRwZsEctir3NUR7CxqFJqvgHbTd/BvzqsTq4BviBqX35XWXtshexJuxrqia4dFm+QFyBbxFwJX/FEMTgQbG+ZwJ5dgtpmhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V3rcps9Ux2yF0dLMCGKlmvX1I3K+2JMwGgrblKW04Gg=;
- b=XCT3jI+l21iJfgAmPW1WHJ1/X6lhHJjCTYZ8PknRxGWRxilYPbFOpj9Y8raVVwYN/iOY5VDoPECUA6aOeVkEs40zLd/c32Phvvu41UcbbCldm3DdP49qSN3O9X8esR0j8hJmIKthtAIc9OV5SfAZKNMAtoUGbbN9QR8QHUw7iK4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
- by DB7PR04MB4220.eurprd04.prod.outlook.com (2603:10a6:5:27::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Mon, 29 Aug
- 2022 07:56:17 +0000
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::3139:70b4:6648:bd32]) by VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::3139:70b4:6648:bd32%4]) with mapi id 15.20.5566.021; Mon, 29 Aug 2022
- 07:56:16 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH 5/5] ASoC: imx-rpmsg: Assign platform driver used by machine
- driver to link with
-Date: Mon, 29 Aug 2022 15:51:44 +0800
-Message-Id: <20220829075144.2405000-6-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220829075144.2405000-1-chancel.liu@nxp.com>
-References: <20220829075144.2405000-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR06CA0012.apcprd06.prod.outlook.com
- (2603:1096:4:186::13) To VI1PR04MB4222.eurprd04.prod.outlook.com
- (2603:10a6:803:46::19)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3B31EB81160;
+ Mon, 29 Aug 2022 16:34:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BADC433C1;
+ Mon, 29 Aug 2022 16:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661790853;
+ bh=EHNP4RzQnuQOX+7RxLEAqc1syZDl49UGa8ehhKTXRQg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=cDp7X8gBmpAOAKJ8Rlu6UmYCh/TwfAd+Jwhm1G1Jt0ADl/0+xpDQqwt1xfPELrpMx
+ ldgBmtZYVf7Ppsyy3Pytt6xBmXCK6ejuba3d7PxD8NolqsJPBsZepd0w9dBLtnRFfV
+ ONSDgqTK/PV84hBTcRtABTBs1RaIeKNRoOpAa3CJOPACNNqoRQ8KCvkDNT7jCAuU0S
+ kb2ekjtAWyRQD1WjoPZRpVw+FP+Oe+/QVHD6QAmMR/6FyMdCw2MqByS5BbA8lB9y4G
+ 04a3AvVZ9ZNMS6LkZqYUQinoBzbvgdpDDaze8B1XDISXxfQSH8AviJsLmWtCdeHzfX
+ fOJH30FPzz/NQ==
+Date: Mon, 29 Aug 2022 16:59:50 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: iio: Add missing
+ (unevaluated|additional)Properties on child nodes
+Message-ID: <20220829165950.268433ca@jic23-huawei>
+In-Reply-To: <20220829141029.GA1470207-robh@kernel.org>
+References: <20220823145649.3118479-2-robh@kernel.org>
+ <99dfcc39-ab1b-1b24-c6b2-67de5509f5ac@linaro.org>
+ <20220828180050.51c3e857@jic23-huawei>
+ <20220829141029.GA1470207-robh@kernel.org>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3a2dbd6a-087d-45ba-e9ea-08da8993f386
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4220:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ykcmQPY0ax0pEEpv22EBA2hc7hdokClSezxWLCAfM1f2mnN84onZIBI2pd32c3i3cuMf4LUUjXXpY3O4NqR/w2d9eIjHPwBMdyE0YCd+GrUhrSupCv1TXqqa9a4Ebm2p3TPbjuFPjjw+5M+6WS6Vnk3Obxu2KcduI7dA1U7dvankthbxDX8deGTRWIqg98ieHcpgfqgXgJfIm76JFWoJyHpeqVSfEqHq76yAM7yrtxYTgNkhBnD2QFdewxsqUJ6G1QVJN1A0dEN5fWeQ9W89D/XzIbX/ZS9jxYTQ1k1eddCGa6Y+7HmHFlbUccyQRUC7f+j9Hew4CRJp2atJOrJsrZ6iQ4UhJMy976g7gtgb0B5+fYX2329PQBiL2v/9kONb3RH7a/qTE5upngEEqQ+YHu06PA3v/7Jljogfgyq8Pgrjt23PsG81VACXjXz8j5pIPYYm+EH7Emjr4jYyzxPboe/dSqoc1GegUFtl5ks4esumSORfmZbNZRjS9amSjufilteZCmkc5rrTPs6QLsBvmKYPVMtvmaNaOJDKBpv+Yoi7VKgRgrEkZGD2bYuF8QdNQ2XAYTY5SMzFGMY5X9Hp6VzzyL5E5EQQLyhIzHOqNKnfDUTHockNhncv9/bm3urKyHHNJ5UzOh1azw0+vC8HyyFCqGl9vSCviQz4o4bWSKpnGt48127ifgiIyYgd6KjtQ5pDNjGsDMnqCMq15ZMJfXFhRcJD2xEtT2YSMLF0EwWdCrZz96iWKHJlL/uE1gvxa3cavgLW9MJdW7w6tmVPkZYplQJY7XHEULpfZYCqZHk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(136003)(366004)(376002)(396003)(6506007)(38100700002)(52116002)(2906002)(44832011)(38350700002)(6666004)(2616005)(83380400001)(6512007)(186003)(26005)(8676002)(6486002)(4326008)(86362001)(66476007)(66556008)(66946007)(1076003)(316002)(36756003)(7416002)(921005)(8936002)(41300700001)(478600001)(5660300002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?W6157gZvY62kbxHRkGhKxs9CoGKm2LqgvZkHwX+gNrf76DZmiKcDjrXVy1IW?=
- =?us-ascii?Q?risZiVfIsTOFCKvL0dxWz/Wx02ms4mYQLl9QR7Lj3aebw4AwAWj1yzLp2DxY?=
- =?us-ascii?Q?JwFpRjhtJ27DIxm05Q/2j4ukUaGnWMyVXdOt6EkUzWhWpouXVg25hH3TIRdq?=
- =?us-ascii?Q?q2s+J39L+3NszL86UPaZDE52snGI/Uh+Zt+srAek6G/saH0UuhjxVZTtOjbw?=
- =?us-ascii?Q?UJ3p68A2jEBbuN4F4Gsvj8eXLFGibTZlEencb75rtQo/AhjNORI3ErdZ0QWs?=
- =?us-ascii?Q?RsITW9JMlAAmDNYFzVIZBPi2dNvcNqS8KYM+Jk7vfkh7CmvzCbl8c0gSoWxv?=
- =?us-ascii?Q?QirIxcv3mYTsrl1GP1cCzf1dwumKS3w20/LD4pJByGywbM3yaa0Bl68gebon?=
- =?us-ascii?Q?j1f0SCgdIjl/3Ad056h9vsX7Hova+uuU5DgLr3Cq0k869D/ZABp17WY0Qmdf?=
- =?us-ascii?Q?Yw6pr4u648TFILvQCndxRqNwvQR6lmdEsn1O/2pODnTHT/TM2UeHg6zRSfa1?=
- =?us-ascii?Q?RkKrMxjLOmoz+epGO6mKEI5lManNLGBVaOBDb0NCXsljx+cqapQQ/7zjNkye?=
- =?us-ascii?Q?F1Fd67xTvakS5Gyx7mAd7DOLTxuaA35JJdgNkiEAyKC5+v3k/OldfAqV1I+y?=
- =?us-ascii?Q?tZkuW9kPSSFy2DckFgzlhLylQQ5qzch7AEa4XyhXA/PAziL1fW7WqroEQPeC?=
- =?us-ascii?Q?8ls6WPQBQ+cXdDLixs+2qsVXmwMu9It/crOMGpPdK525MkOaw8DASnbnFbRw?=
- =?us-ascii?Q?ZxZGvMN3ehhVzQqtPtu1X+KUtKIzO2R3fbkx6aavbyr6CccKpNBEpif0uVE3?=
- =?us-ascii?Q?xNenEVTKjpCOQ87BV2Oi9CWHcg4AMjn2pwLUrtwYCGDUygUO24wZCzClmiwo?=
- =?us-ascii?Q?27zX2A8Nqg2XwI47XVR0sLDl0p7iWoQ3FqMdohl1Yk59vhz1v2uAMnYjalov?=
- =?us-ascii?Q?5oIzwsF8UIyMkgCQRXE3zWwOsuKgUbChhX5X+eGKjI7Y1mmamsnEtg6FjOlv?=
- =?us-ascii?Q?0rbUEwyyeCDoNBBVOMzgYHVfNyDI66Fx6UIrgeVSLFcnU9Go7zQR5MV/yj1v?=
- =?us-ascii?Q?xLzgwmjvFb4M1VPwVBYWGeKMHf9YHF5TYwi1gCSMSgNg1ZF+NnEdhcKXzZic?=
- =?us-ascii?Q?CRY0QvJK3A1bFP5fLj+Uk+am8zBpyvZmvLq8svaWUqeXYVZI9qtZkFIMHwEO?=
- =?us-ascii?Q?IMcfmx2flO7Q6GMs1Xxy1bY65paKkA6i2EleLbeIlezyeOvEDOSB+i1IztXt?=
- =?us-ascii?Q?lyQLo+pV4gBEUnkzImS+FQ4mnR2kQnLSgujw1NSNMGGKNSNgUrLUsLxDr+up?=
- =?us-ascii?Q?yv340GGoYutcX4N6cpzKm1DDDr54t+cn5EirPGBeyQpnIL0whjm3oIdSTEAW?=
- =?us-ascii?Q?+Cv2oyWd+Sq5FM1a0qdprzhufFhQKIEaUL7K6iz/0IkwpnIBgxVGanY75sxt?=
- =?us-ascii?Q?W8MRa7o9ees+A9ZyoAHCqisl0drh+YPFUO7keCm31B3o1sDjpB7TlCl+8sdk?=
- =?us-ascii?Q?0xdL0ryeXFsFBzG/ygUi+4rkOV5MXFhtpNwaQMbWmtmXvgsFG2X7UUFG015F?=
- =?us-ascii?Q?lnffjaZrjYFehwAANKUYszHoi+YnMwJAEvS1E5tK?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a2dbd6a-087d-45ba-e9ea-08da8993f386
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 07:56:16.8530 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i9qjtdbjAcHDHG41Ls8wMVT8fj0awHbtvygrl3XTYywghQrT1495ESlkglJrWSfqS5P8rzLsCid6IyPs3hO6Lw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4220
-X-Mailman-Approved-At: Mon, 29 Aug 2022 18:05:43 +0200
-Cc: Chancel Liu <chancel.liu@nxp.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Michal Simek <michal.simek@xilinx.com>, Andy Gross <agross@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Alexandru Tachici <alexandru.tachici@analog.com>, devicetree@vger.kernel.org,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>,
+ Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,38 +105,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use "fsl,platform" property to indicate ASoC machine driver which
-ASoC platform driver should link with.
+On Mon, 29 Aug 2022 09:10:29 -0500
+Rob Herring <robh@kernel.org> wrote:
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/fsl/imx-rpmsg.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+> On Sun, Aug 28, 2022 at 06:01:41PM +0100, Jonathan Cameron wrote:
+> > On Thu, 25 Aug 2022 15:04:33 +0300
+> > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+> >   
+> > > On 23/08/2022 17:56, Rob Herring wrote:  
+> > > > In order to ensure only documented properties are present, node schemas
+> > > > must have unevaluatedProperties or additionalProperties set to false
+> > > > (typically).
+> > > >     
+> > > 
+> > > 
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>  
+> > 
+> > Applied to the togreg branch of iio.git and pushed out as testing for 0-day
+> > to poke at it before I push out as togreg for linux-next to pick up.  
+> 
+> Thanks.
+> 
+> > Side note. Some odd entries in your cc list...  alsa-devel?  
+> 
+> Blame MAINTAINERS:
+> 
+> STM32 AUDIO (ASoC) DRIVERS
+> M:      Olivier Moysan <olivier.moysan@foss.st.com>
+> M:      Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> L:      alsa-devel@alsa-project.org (moderated for non-subscribers)
+> S:      Maintained
+> F:      Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> F:      Documentation/devicetree/bindings/sound/st,stm32-*.yaml
+> F:      sound/soc/stm/
 
-diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
-index 2e117311e582..c534b638698e 100644
---- a/sound/soc/fsl/imx-rpmsg.c
-+++ b/sound/soc/fsl/imx-rpmsg.c
-@@ -36,6 +36,7 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
- 	struct platform_device *rpmsg_pdev = to_platform_device(dev);
- 	struct device_node *np = rpmsg_pdev->dev.of_node;
- 	struct of_phandle_args args;
-+	const char *platform_name;
- 	struct imx_rpmsg *data;
- 	int ret = 0;
- 
-@@ -81,7 +82,10 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
- 	}
- 
- 	data->dai.cpus->dai_name = dev_name(&rpmsg_pdev->dev);
--	data->dai.platforms->name = IMX_PCM_DRV_NAME;
-+	if (!of_property_read_string(np, "fsl,platform", &platform_name))
-+		data->dai.platforms->name = platform_name;
-+	else
-+		data->dai.platforms->name = "rpmsg-audio-channel";
- 	data->dai.playback_only = true;
- 	data->dai.capture_only = true;
- 	data->card.num_links = 1;
--- 
-2.25.1
+There is some logic to that entry I suppose.
 
+Thanks for explanation!
+
+Jonathan

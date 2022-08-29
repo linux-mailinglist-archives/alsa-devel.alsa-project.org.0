@@ -2,96 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4715A467F
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 11:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D7A5A4B61
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 14:17:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 074F51616;
-	Mon, 29 Aug 2022 11:50:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 074F51616
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9BED84D;
+	Mon, 29 Aug 2022 14:16:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9BED84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661766709;
-	bh=IlOtdA9WLb/6ov5DHDFtuj55Y3Pki9sLSEp+q9i9tt8=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1661775455;
+	bh=IPwu5a40K/rFQoKXLopJP/EwJo06BCMQx/l4tmBvGjs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YUiJBW7hTQLGNmQx2AdblYb9X0Eqsfy6bnFy8poY7AfpA+c5Kq2RNkSjqVLuKq4G5
-	 OKpFsNKUcsf3ycNzi4G0OUUGQ4X3IRFDPo9z5lHU5Sx5Ehp8nGgrENNGslx6NdrRkx
-	 EGVdXICeo+CYfFS0sUy1cVKF7cXNAL58fP47jkNU=
+	b=kSUgdc95dVUlqJWFn0e4mOlJNl9MwiUxXVTEH9jLoiOBcgmD0IaLyk9fbyS4yLT46
+	 CrZ34oAtEJ0Qqg+9Dz46fQcwAXNKIarIb+t2F8BAW3O1zw9R7GOP0kdaPegdml/pfx
+	 5c8bJD2lKKxwEkfR3XY3po8GSWeK3hvVOYk8w54I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86F4AF8012A;
-	Mon, 29 Aug 2022 11:50:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FF75F80115;
+	Mon, 29 Aug 2022 14:16:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59157F801F7; Mon, 29 Aug 2022 11:50:47 +0200 (CEST)
+ id A3742F801F7; Mon, 29 Aug 2022 14:16:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0276EF80115
- for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 11:50:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0276EF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D118F800AA
+ for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 14:16:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D118F800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Tc08a30i"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27T5Kb9I007486;
- Mon, 29 Aug 2022 04:50:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=Ac1E2dHlHNO3x2YovIPvIWmXBzgoM79hvAsvFpx0KBo=;
- b=Tc08a30i0ip9GJ71TVtXMDIYCV24uqfkO2ABQbCDQW7cAQ1iJ0VKFAyHeQxR/9K10ZX4
- m3V1LjUdLvU4j3wExX7csAwXiEcRvwnwK70RM7TExLypYzgj2Pb9FDwOVBbXUx+WbcSs
- ca8IW+TMsnW70E7pqbXMq43c9mp8f9UG090XtUjBy94IKSwkR0uGYrB0BpFcMsJqkRYj
- mNVn1MoosMQCK0vqYJvEoQ4ymL3jSpUdH3woSvwMSiqa2KiQ0j0i1t0y4x9GQDHeNBk6
- iXmpZ/fdtbNQ/D64OoLZMKUT+w8TiHnMW74DY+/WffyL1pycMiZ6tefsSOEoW5LGLXc8 NQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3j7gp21u5d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Aug 2022 04:50:37 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Mon, 29 Aug
- 2022 04:50:35 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
- Frontend Transport; Mon, 29 Aug 2022 04:50:35 -0500
-Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E511F459;
- Mon, 29 Aug 2022 09:50:34 +0000 (UTC)
-Message-ID: <b163327f-587d-d933-35de-7058cdcd6b9e@opensource.cirrus.com>
-Date: Mon, 29 Aug 2022 10:50:34 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 3/3] soundwire: bus: Fix lost UNATTACH when re-enumerating
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <sanyog.r.kale@intel.com>
-References: <20220825122241.273090-1-rf@opensource.cirrus.com>
- <20220825122241.273090-4-rf@opensource.cirrus.com>
- <adfdf06a-e1a3-e47c-a71f-5e5dccef6fd0@linux.intel.com>
- <e9deb2fb-458a-8136-5ba7-a9e2b0f2d174@opensource.cirrus.com>
- <01e03c55-1fcf-1e33-78e8-398a50b622ce@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <01e03c55-1fcf-1e33-78e8-398a50b622ce@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ykjxJIMpY9jph5RvS6dhUuZyA2n6Im8u
-X-Proofpoint-ORIG-GUID: ykjxJIMpY9jph5RvS6dhUuZyA2n6Im8u
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="lTfiz18s"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Fkgo8WbN"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8BD861F461;
+ Mon, 29 Aug 2022 12:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1661775388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0f4sKEnazllZHxRm2mfWy/p41iU+g5w5v+qKUH2P1os=;
+ b=lTfiz18sVp+8qSxdtlQPqV3jqoFfDyAl+HpekKHs9/CJm/d0iOmtJNWA3LG9D6sgOfqltq
+ xp0i74KpUOgaNIFj398pGv13b3UyQ8NxKEhZEhczxAJbMlgYtAZz2DrLlV1gB15o+gAwqU
+ w6eXS/nSA1WnYacjdH1y22LJOcSbDao=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1661775388;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0f4sKEnazllZHxRm2mfWy/p41iU+g5w5v+qKUH2P1os=;
+ b=Fkgo8WbNEewbmjaDNxAYg1mMXcDMVlrp8YRpHP8lELhnp6iJl+0Bx/H+3bE4NNq31o5t8p
+ rSr9uAGf/u3htkCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DFAE133A6;
+ Mon, 29 Aug 2022 12:16:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZVICGhyuDGOiMAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 29 Aug 2022 12:16:28 +0000
+Date: Mon, 29 Aug 2022 14:16:27 +0200
+Message-ID: <87a67nb5yc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: chihhao chen <chihhao.chen@mediatek.com>
+Subject: Re: missing sound on kernel-5.15
+In-Reply-To: <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
+References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
+ <YwNvQaNNIKB8ELhR@geday>
+ <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
+ <87r10zxyml.wl-tiwai@suse.de>
+ <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,42 +103,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26/08/2022 09:06, Pierre-Louis Bossart wrote:
+On Mon, 29 Aug 2022 10:50:58 +0200,
+chihhao chen wrote:
 > 
-<SNIP>
+> Hi Takashi,
 > 
-> Thanks for the detailed answer, this sequence of events will certainly
-> defeat the Cadence IP and the way sticky bits were handled.
+> Yes.
 > 
-> The UNATTACHED case was assumed to be a really rare case of losing sync,
-> i.e. a SOFT_RESET in SoundWire parlance.
-> 
-> If you explicitly do a device reset, that would be a new scenario that
-> was not considered before on any of the existing SoundWire commercial
-> devices. It's however something we need to support, and your work here
-> is much appreciated.
-> 
-> I still think we should re-check the actual status from a PING frame, in
-> order to work with more current data than the sticky bits taken at an
-> earlier time, but that would only be a minor improvement.
-> 
-> I also have a vague feeling that additional work is needed to make sure
-> the DAIs are not used before that second enumeration and all firmware
-> download complete. I did a couple of tests last year where I used the
-> debugfs interface to issue a device reset command while streaming audio,
-> and the detach/reattach was not handled at the ASoC level.
-> 
-> I really don't see any logical flaws in your patch as is, so
-> 
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
+> To issue SAMPLING_FREQ_CONTROL USB request two times is root cause of
+> this issue.
 
-I have pushed an alternative fix that waits until it sees an UNATTACHED
-status before reprogramming the device ID.
-https://lore.kernel.org/lkml/20220829094458.1169504-1-rf@opensource.cirrus.com/T/#t
+Hm, is it a UAC1 device?  Such a device should work with multiple
+SAMPLING_FREQ_CONTROL invocations, but some device might be not
+tolerant or buggy...  The multiple init_sample_rate() invocations may
+happen with the older kernel under certain situations, so maybe we
+need a different fix.
 
-I've tested it with 4 amps on the same bus, all being reset after their
-firmware has been downloaded.
+How about the patch like below?
 
-I leave it to you to choose which fix you prefer. The second fix is
-simpler and I didn't see any problems in testing.
+
+thanks,
+
+Takashi
+
+---
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index ca75f2206170..507cd62f0ff8 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -134,6 +134,7 @@ struct snd_usb_endpoint {
+ 	/* for hw constraints */
+ 	const struct audioformat *cur_audiofmt;
+ 	unsigned int cur_rate;
++	unsigned int cur_rate_setup;
+ 	snd_pcm_format_t cur_format;
+ 	unsigned int cur_channels;
+ 	unsigned int cur_frame_bytes;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 0d7b73bf7945..1a5a9bc98a96 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -806,6 +806,7 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+ 		ep->cur_audiofmt = fp;
+ 		ep->cur_channels = fp->channels;
+ 		ep->cur_rate = params_rate(params);
++		ep->cur_rate_setup = 0;
+ 		ep->cur_format = params_format(params);
+ 		ep->cur_frame_bytes = snd_pcm_format_physical_width(ep->cur_format) *
+ 			ep->cur_channels / 8;
+@@ -928,6 +929,7 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 		ep->altsetting = 0;
+ 		ep->cur_audiofmt = NULL;
+ 		ep->cur_rate = 0;
++		ep->cur_rate_setup = 0;
+ 		ep->iface_ref = NULL;
+ 		ep->clock_ref = NULL;
+ 		usb_audio_dbg(chip, "EP 0x%x closed\n", ep->ep_num);
+@@ -1356,6 +1358,9 @@ static int init_sample_rate(struct snd_usb_audio *chip,
+ 	struct snd_usb_clock_ref *clock = ep->clock_ref;
+ 	int err;
+ 
++	if (ep->cur_rate == ep->cur_rate_setup)
++		return 0;
++
+ 	if (clock) {
+ 		if (atomic_read(&clock->locked))
+ 			return 0;
+@@ -1374,6 +1379,7 @@ static int init_sample_rate(struct snd_usb_audio *chip,
+ 
+ 	if (clock)
+ 		clock->rate = ep->cur_rate;
++	ep->cur_rate_setup = ep->cur_rate;
+ 	return 0;
+ }
+ 

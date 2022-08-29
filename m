@@ -2,92 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E69335A50F5
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 18:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDFE5A50F9
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Aug 2022 18:07:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 920401632;
-	Mon, 29 Aug 2022 18:05:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 920401632
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4E2E162F;
+	Mon, 29 Aug 2022 18:06:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E2E162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661789204;
-	bh=UZYffjpjeerOon/WNBiec/Og9NDxAYb1jgvKPxf3Evc=;
+	s=default; t=1661789235;
+	bh=GUI+P2O7vVoTNUH4EbWplLhEc5KNxb0+Sush54zLKMc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=oK251TXysoeunA5Sq1sfSDmrfnScQqi5+dZbQDJTING+FtH6sZcGYSRqCbtWSc+2q
-	 RmgcuK4acEBPJDXH3Vm7QjWGOy36DF9XawAZP5uM9FCkH7aX6v++zxBQZnRkujAfPF
-	 IoDjXQy/jH1Xl4ub1IuSjuCTC92Zq0S9WRpto2Ag=
+	b=ieyYvyMnPZSf7CqGzfcuggQFf57+h/IbljsNlSYTEbBHPTkadcxqLJe1PvWKpqS6e
+	 9HeNQtmPuDy4uQoINCtK2pY3Ap7ps77MyFKoDIVxXIzg7R8u8q5t2eVsR040q8AK0n
+	 Dhn9PZUqnXWNsJf5xxOd2H60/z8swvbrBfC3COj4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03262F80217;
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F67EF80525;
 	Mon, 29 Aug 2022 18:05:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADE3DF80132; Sat, 27 Aug 2022 22:34:15 +0200 (CEST)
+ id 767EBF801F7; Mon, 29 Aug 2022 09:55:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2081.outbound.protection.outlook.com [40.107.21.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17D79F8012F
- for <alsa-devel@alsa-project.org>; Sat, 27 Aug 2022 22:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D79F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1292F80115
+ for <alsa-devel@alsa-project.org>; Mon, 29 Aug 2022 09:55:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1292F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="e1d5J9gQ"
-Received: by mail-lf1-x130.google.com with SMTP id bt10so6248764lfb.1
- for <alsa-devel@alsa-project.org>; Sat, 27 Aug 2022 13:34:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=JNKg6FU0SbOnCwksdnMTkZZHM84PvxOtn8A1m5Qs5ls=;
- b=e1d5J9gQQy91ts1nhfSG+NXqdygK5x1n3kbRZmKS2syKB1ZcuSsuow18mGWX64+wx7
- vFm1zuXy+S+jsZvCsbv6LikYsII+IHQY/Xrym2/Y7GwJlqqJPANv4kB2Kd4ZjtE1Zjj1
- u6Ei6qRHCIfu/3tA/UkHAX71M6KnJYu4k5zfnDBgp7qu/d6rUmfJfpJEGcenwjx3i93X
- 9+o0TFcHm2D1xT2GglB8beyJR+UvkssjK8G1k2C6K4/JiFS6aBEdKrqdTtSlcgP+mdSJ
- ghMiCgXr4uB0nReon3/KEw4AOY3uh3BJaJ1nrLXzYdAEPYn0rAWsusr55BWzKjCbbWqe
- XVWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=JNKg6FU0SbOnCwksdnMTkZZHM84PvxOtn8A1m5Qs5ls=;
- b=4oUl6WjKyTJE8WTNImy8UmrbaH1YAnusI+EwRMVffAhj/FL/+kVJa5Z+/ZxC8kVaM6
- 4Cg7EzYEVb9/+hYAJvnpaU+y6n5JKymppPv9sCcZwkjXCR1lyJkQCHGyEzumtjKkIwO0
- 5whMahrJ0eAJdJAJRZXYjLi1+LshGXtg//bYT0uv89I5DC2fPK5aNQjcSfhrza3YvH9q
- 31kLnceUO0bXCVzaShN9CroCrKQ9hz7Uhybwvsk60O99PykFX3O651rmDCYS8zNgbfY9
- m92ofiB5YvGIBg3YxKxbKH0LIVzS4e74/t4U+hZBm+PUjU/z1AYDeQH8qkFty99d6ydH
- PvoA==
-X-Gm-Message-State: ACgBeo0nEQuSOYqRy8Z1hMexP/Wf3QXA9Pn/CaCS3qUeMekX9gMAvnQi
- 9+nlLJggx44EpzxTNET4csO1uM6kDwI=
-X-Google-Smtp-Source: AA6agR4RUeWtJNauairOW7FZiEDNRZiSL1LMLb9GQZbXmW9brI5H4P67IKEpJu6FOvFRI48eYuI1ZA==
-X-Received: by 2002:a05:6512:c11:b0:492:f0b1:1628 with SMTP id
- z17-20020a0565120c1100b00492f0b11628mr3920302lfu.682.1661632446432; 
- Sat, 27 Aug 2022 13:34:06 -0700 (PDT)
-Received: from Arch-Penik.domek (89-74-110-199.dynamic.chello.pl.
- [89.74.110.199]) by smtp.gmail.com with ESMTPSA id
- f29-20020a19381d000000b0048af3154456sm753775lfa.146.2022.08.27.13.34.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Aug 2022 13:34:05 -0700 (PDT)
-From: =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add speaker AMP init for Samsung laptops
- with ALC298
-Date: Sat, 27 Aug 2022 22:33:28 +0200
-Message-Id: <20220827203328.30363-1-kasper93@gmail.com>
-X-Mailer: git-send-email 2.37.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="DGDRD7JI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G7XBzdXNZkAag/qGc07a3Ou9YX6v2bNA0XvSyNm5SjZEYQLtJCNzzzxW3BJ1fEHehhxM7EElzNH8enPhYv2juiGZDnPPD8rrLH5KITDZU9EiqY9wbmMuYkinzhitBg9+heWsKZAmlKBUBSCcrL0xljNpDbQw+KXwAZpc7ZpoKxs5Ktcr8XoNm90jlJlHB8hyZ+9BgvcR6sKqZb5m+DxqXjoiV56g5G8QNTyrvPy3qdrqBRJiq8V6oSUacA6OhEVFJCN89Grdxd6HkhMZkHSp1TLFcWAlguIxc+9IKasFolyGKbSWqztbzPfDgL49gt49z+gwToUGK4AtrOijv8Qmjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JVuBw52pC0wM0ynQfdfQ75zsf3a8DcBHIpsVIwVQkTE=;
+ b=XTJd2yI2govGyAfDazZNpkSO7HAtapNhaEYmUzfYqHXW3fgDENYz46u7pIHeRAKt2AOjmG40Pxrcd1vyYmgK6YE4OI2yJEZmwNNqod2n8e8tx81CHHyNYoAVaj3KRP49j2OR+vBjCHo/udFWrft0qd9El1znsLRjyH1K0unIXcTX3sh/jPBUX+Hrv0VRmmIEI4STbw4Vr6sc2w5KNyuJXxMaBzKGFBXsZHO+l6onXNt1shxwPKtXmJsZpz5vDATylKf0Z+x5TCErEeSA0c9/FKkIqZ5GXUgKVVDX0iH5y1KBykzYUAuTFsXWOYaoHi7k4Lvi3OITZAZXi0WP7bzbtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JVuBw52pC0wM0ynQfdfQ75zsf3a8DcBHIpsVIwVQkTE=;
+ b=DGDRD7JIRE12hw/H3DHNee4rUOLxD4YoTUTTPmBWmYJCV2WLr3h4n54DfcKLQ8D+CwLv23I8oGKK9gpKKnbQq6B1tXcWtzRCKK/wo8C83ooT7xcouKWn0kzlvljV4W2v0mIS4OnN8Iazdk28X/2QGouXDqvHOPQmVcta5S6Ty/o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
+ by PR3PR04MB7482.eurprd04.prod.outlook.com (2603:10a6:102:8f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Mon, 29 Aug
+ 2022 07:55:53 +0000
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::3139:70b4:6648:bd32]) by VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::3139:70b4:6648:bd32%4]) with mapi id 15.20.5566.021; Mon, 29 Aug 2022
+ 07:55:53 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 0/5] Create a new sound card to access MICFIL based on rpmsg
+ channel
+Date: Mon, 29 Aug 2022 15:51:39 +0800
+Message-Id: <20220829075144.2405000-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR06CA0012.apcprd06.prod.outlook.com
+ (2603:1096:4:186::13) To VI1PR04MB4222.eurprd04.prod.outlook.com
+ (2603:10a6:803:46::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 45b6a89b-30a0-4e36-0c92-08da8993e577
+X-MS-TrafficTypeDiagnostic: PR3PR04MB7482:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VgE8hGf73FMjvzg6L5YfJXhz8yuIc+w4vzk7YUPbQbEodUYe00lndtYf4PlRv/u8gKEqtqDRcdd/E5WsVi9kuQNl9HHiImuxP+zXkAIL/azqsJFRt/mSCIy9lsxjdpVq4ShZR4HMz7yL0pN9NHJ3l3mLPvvn3w65bERBj69NJkjKIGcYG477iIGOQDxsxYEv+OcyYH6HM62SKoOOfbou2ZH17gIzIRnOQVD/wOPQPyACZU5DpgbnZEBRp6BX5s3jSybyjdPIdPUiueKRRSP3E7Knb57o0FzQVYVdRsO62nT5uDtlMMFk4SYiEU6hDABcxXD/ph3n+4wL+Au7EpCz+Z5kwcJSoUxlQOMwdlprUkI6mrHQ1cy86ipkDuNI7s+uchF+pAwQYreOmIeAq3tPvWK43rX1xwj31dxQ/QwU9mTaOg/bVOReSxyMSsKpNwaJ2bPGxhnvA4Iw1Iv2qKry1uEFoa8cPqBQYIKJQQyUZidPlaIkeL5xwt/1IVDYxMRVCT1y21aWJITUXYEhvbBhw1n89daK6XSMmiSROLx1Nec79fZBN4SVAs474obqcgrvkw7A0epKMdChhFD4PdUCxKnGw6KIjh5i6TzTZny8NzvVabTqCeF9eM1yKlMyQ5uT0AhEdbc7Ct/4cQQ/p+J2y/flx9zSeYCJtSpAIKxNYa8BT9Pjf9SleB24cL6rNzweLJ2x/LPk4pgd97DUaW8rLMMUhhYK9INwKZUJEUPqty6wkvwUUKk8IgQSddDXv73H+eRPJzkS79qRu+fLF9tXQA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(7416002)(5660300002)(8936002)(41300700001)(186003)(6506007)(2616005)(6512007)(86362001)(1076003)(6666004)(44832011)(52116002)(2906002)(26005)(38350700002)(316002)(36756003)(66476007)(83380400001)(478600001)(38100700002)(921005)(4326008)(6486002)(66556008)(8676002)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZJWI92TsNCnjPLKuPto27fDw1BTpz2jwFUHWz94Ens8eZXsBiu/LH9JKvsjG?=
+ =?us-ascii?Q?nEcSxk+PReMQbnprebIocPn9SIK2KbNJN4V9RHQ0GR4MBY0tcVpFF866w0y3?=
+ =?us-ascii?Q?4iVTBYbv4ILrzKZF/yv7aTnSlzCG4d/HIlo690bMFIB3PgTkMxhBC+vQhsAo?=
+ =?us-ascii?Q?UFOXN2FaQOby7wh/HWqyWOZoQF4cCen2ZcGUojtMo9EAuyjEd6S5lmWdlRE9?=
+ =?us-ascii?Q?CEAM6OE2CLXWg923Jh/jMhfKf+Rp+oK5l0ixpKyn3Rg1h1UrANEE3vHKs48d?=
+ =?us-ascii?Q?BpcE1Bu2C00mGMHNWnLEPjJxAbAx2pc5rOUgZz9nlmVkksJiWBthDOZGgZui?=
+ =?us-ascii?Q?QAuCg43QLwa2DJnP8pRouqcmOgvZmVi+hoQ1iZTyEqI2tYkE3JIvnJVstDje?=
+ =?us-ascii?Q?Ui9OnC/9F5AAEYs58ePnvXzPzDGniVH4kaEcUfTqpWNmLFwIo0lbTLBQHvLJ?=
+ =?us-ascii?Q?hRGUksaVfLrp4QQMv79Aq+FpjENFWU45S9bvJE5IikNAKGjTrWSKOdJ9BkcD?=
+ =?us-ascii?Q?nMeZfx3m3kOwdbmnJQrC2Gicei4IMwPL/1C8g0JOXq1txY5DRfDou2+OWmmL?=
+ =?us-ascii?Q?lO3/Uoxm7zfWvMAX2UCsB75yvyb+3bm472vtYMYE4aIqNRz2BpiRFR2Dv8OC?=
+ =?us-ascii?Q?PogcbZ5y8F0a0b1SZaKH/eiXW2SfEgmkv1WOuqAgw6qe6ixITsLdhsenSdYC?=
+ =?us-ascii?Q?s/nYSiHSptUf/Xff9112prrMzedJeZRDVcp9k7SeKrA4azONexWJq/FI9IiG?=
+ =?us-ascii?Q?Nyx7sg4mP692SCAqJ5VnODbLRHHtrlVDGfzlHefnaRQAWQq975+bITv4CHo9?=
+ =?us-ascii?Q?ksuPzGjFZ4+rnoSCpCKRnRF/l83JJT85gyMkc0OG9YdNtce2Aq1c1SAHHHVo?=
+ =?us-ascii?Q?KfdafV8IuA4/RkajnlYLPDubU/DAiC7ignlebVCiA6rPxTvRDiCos/ao92zo?=
+ =?us-ascii?Q?x/o63R9e15pNYa+bWeuTrNkavrwGzGI0tzkMaVDMlwrbzODmWm/HqiIHWacq?=
+ =?us-ascii?Q?+oIy4godCxZIcekCA8r3AE4w4t+hsF/Rd1M+XlGbF8DMsVDD+nIYpZCKI24/?=
+ =?us-ascii?Q?LSOWlU97tlo3L4BgzPnVhIejoOkz8LCKNwMWEoq7XjFg7rcAQe9D+VVVflug?=
+ =?us-ascii?Q?12LlEydrfDP+/vWnrAaiq//P/QEEIHB3KjYMKiuBPSWnmt1AZ6pgfs6MX/iC?=
+ =?us-ascii?Q?83FeLTEpwdazl6uolEl3P4mHPofraRufLPzVwwPG1guJTPSnJnfNm8OCLnEm?=
+ =?us-ascii?Q?/IPyoC/dChJnzloN+oyi2YdbxBWGxYoCpS7nrFQtW/KMddLtYiCIF78ucc2V?=
+ =?us-ascii?Q?8Ishw4VhdIPklnFox34tN2GkvjaLQsBR/0RCX7nIntWh4C0LOyhT4hc4uipg?=
+ =?us-ascii?Q?3goU1zuPmsOPC232TiMBEHd1ZYbf7YzCNemR1QTLsHlOr+HEulhX3r50iCvH?=
+ =?us-ascii?Q?t30BmiQZAYss1lAsP6x0B1D0rw/cRYS+X5Mz8FBbZaI+3dE/pj13x4tDFPsd?=
+ =?us-ascii?Q?lPb7VZ5PzT+/qB5TbjSrUJDZXbX0V6HLl6W+RhWOwKoWO0FFQF0yhiwOBrlb?=
+ =?us-ascii?Q?u3N7zvox7JJ5CN1nSNIErbIkkfK+RXhFpIELm9cf?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45b6a89b-30a0-4e36-0c92-08da8993e577
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 07:55:53.1828 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iOTs4L9UGsza2Q3tdJEmv1IDQzrUWZCwhnRyU693HMnpg7eXMF1fgEu9k1YCjFsxXfpBeGA3X9SY6MxSMPO49Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7482
 X-Mailman-Approved-At: Mon, 29 Aug 2022 18:05:43 +0200
-Cc: =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
+Cc: Chancel Liu <chancel.liu@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,122 +149,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Magic initialization sequence was extracted from Windows driver and
-cleaned up manually.
+At a previous time, we have successfully created a virtual sound card
+based on rpmsg. The sound card works under this mechanism Cortex-A core
+tells the Cortex-M core the format, rate, channel, .etc configuration
+of the PCM parameters and Cortex-M controls real hardware devices such
+as SAI and DMA. From the view of Linux side, the sound card is bound to
+a rpmsg channel through which it can access SAI.
 
-Fixes internal speakers output.
+Here these patches are introduced to create a new virtual sound card to
+access MICFIL based on a new created rpmsg channel. It's easy to create
+a new rpmsg channel for MICFIL through rpmsg name service announcment.
+Also the other ASoC components bound to this rpmsg MICFIL sound card
+will be registered with these patches.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=207423
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1851518
-Cc: Takashi Iwai <tiwai@suse.com>
-Signed-off-by: Kacper Michajłow <kasper93@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 63 +++++++++++++++++++++++++++++++----
- 1 file changed, 56 insertions(+), 7 deletions(-)
+If other sound cards using different hardware devices needs to be
+created over rpmsg in the future, these patches can be referred.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 47e72cf76608..38930cf5aace 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -4700,6 +4700,48 @@ static void alc236_fixup_hp_mute_led_micmute_vref(struct hda_codec *codec,
- 	alc236_fixup_hp_micmute_led_vref(codec, fix, action);
- }
- 
-+static inline void alc298_samsung_write_coef_pack(struct hda_codec *codec,
-+						  const unsigned short coefs[2])
-+{
-+	alc_write_coef_idx(codec, 0x23, coefs[0]);
-+	alc_write_coef_idx(codec, 0x25, coefs[1]);
-+	alc_write_coef_idx(codec, 0x26, 0xb011);
-+}
-+
-+struct alc298_samsung_amp_desc {
-+	unsigned char nid;
-+	unsigned short init_seq[2][2];
-+};
-+
-+static void alc298_fixup_samsung_amp(struct hda_codec *codec,
-+				     const struct hda_fixup *fix, int action)
-+{
-+	int i, j;
-+	static const unsigned short init_seq[][2] = {
-+		{ 0x19, 0x00 }, { 0x20, 0xc0 }, { 0x22, 0x44 }, { 0x23, 0x08 },
-+		{ 0x24, 0x85 }, { 0x25, 0x41 }, { 0x35, 0x40 }, { 0x36, 0x01 },
-+		{ 0x38, 0x81 }, { 0x3a, 0x03 }, { 0x3b, 0x81 }, { 0x40, 0x3e },
-+		{ 0x41, 0x07 }, { 0x400, 0x1 }
-+	};
-+	static const struct alc298_samsung_amp_desc amps[] = {
-+		{ 0x3a, { { 0x18, 0x1 }, { 0x26, 0x0 } } },
-+		{ 0x39, { { 0x18, 0x2 }, { 0x26, 0x1 } } }
-+	};
-+
-+	if (action != HDA_FIXUP_ACT_INIT)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(amps); i++) {
-+		alc_write_coef_idx(codec, 0x22, amps[i].nid);
-+
-+		for (j = 0; j < ARRAY_SIZE(amps[i].init_seq); j++)
-+			alc298_samsung_write_coef_pack(codec, amps[i].init_seq[j]);
-+
-+		for (j = 0; j < ARRAY_SIZE(init_seq); j++)
-+			alc298_samsung_write_coef_pack(codec, init_seq[j]);
-+	}
-+}
-+
- #if IS_REACHABLE(CONFIG_INPUT)
- static void gpio2_mic_hotkey_event(struct hda_codec *codec,
- 				   struct hda_jack_callback *event)
-@@ -7030,6 +7072,7 @@ enum {
- 	ALC236_FIXUP_HP_GPIO_LED,
- 	ALC236_FIXUP_HP_MUTE_LED,
- 	ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
-+	ALC298_FIXUP_SAMSUNG_AMP,
- 	ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
- 	ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET,
- 	ALC295_FIXUP_ASUS_MIC_NO_PRESENCE,
-@@ -8396,6 +8439,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc236_fixup_hp_mute_led_micmute_vref,
- 	},
-+	[ALC298_FIXUP_SAMSUNG_AMP] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc298_fixup_samsung_amp,
-+		.chained = true,
-+		.chain_id = ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET
-+	},
- 	[ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET] = {
- 		.type = HDA_FIXUP_VERBS,
- 		.v.verbs = (const struct hda_verb[]) {
-@@ -9342,13 +9391,13 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x10ec, 0x1254, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0x10f7, 0x8338, "Panasonic CF-SZ6", ALC269_FIXUP_HEADSET_MODE),
- 	SND_PCI_QUIRK(0x144d, 0xc109, "Samsung Ativ book 9 (NP900X3G)", ALC269_FIXUP_INV_DMIC),
--	SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
--	SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
--	SND_PCI_QUIRK(0x144d, 0xc189, "Samsung Galaxy Flex Book (NT950QCG-X716)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
--	SND_PCI_QUIRK(0x144d, 0xc18a, "Samsung Galaxy Book Ion (NP930XCJ-K01US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)", ALC298_FIXUP_SAMSUNG_AMP),
-+	SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)", ALC298_FIXUP_SAMSUNG_AMP),
-+	SND_PCI_QUIRK(0x144d, 0xc189, "Samsung Galaxy Flex Book (NT950QCG-X716)", ALC298_FIXUP_SAMSUNG_AMP),
-+	SND_PCI_QUIRK(0x144d, 0xc18a, "Samsung Galaxy Book Ion (NP930XCJ-K01US)", ALC298_FIXUP_SAMSUNG_AMP),
- 	SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", ALC269_FIXUP_ATIV_BOOK_8),
--	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
--	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_AMP),
-+	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_AMP),
- 	SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha (NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
-@@ -9716,7 +9765,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC299_FIXUP_PREDATOR_SPK, .name = "predator-spk"},
- 	{.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
- 	{.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-medion-headset"},
--	{.id = ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc298-samsung-headphone"},
-+	{.id = ALC298_FIXUP_SAMSUNG_AMP, .name = "alc298-samsung-amp"},
- 	{.id = ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc256-samsung-headphone"},
- 	{.id = ALC255_FIXUP_XIAOMI_HEADSET_MIC, .name = "alc255-xiaomi-headset"},
- 	{.id = ALC274_FIXUP_HP_MIC, .name = "alc274-hp-mic-detect"},
--- 
-2.37.2
+Chancel Liu (5):
+  ASoC: dt-bindings: fsl_rpmsg: Add a property to assign platform driver
+    name
+  ASoC: imx-audio-rpmsg: Create rpmsg channel for MICFIL
+  ASoC: imx-pcm-rpmsg: Register different platform drivers
+  ASoC: fsl_rpmsg: Register different CPU DAI drivers
+  ASoC: imx-rpmsg: Assign platform driver used by machine driver to link
+    with
+
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 34 +++++++++++++++++--
+ sound/soc/fsl/fsl_rpmsg.c                     |  2 +-
+ sound/soc/fsl/imx-audio-rpmsg.c               |  3 +-
+ sound/soc/fsl/imx-pcm-rpmsg.c                 | 10 ++++--
+ sound/soc/fsl/imx-rpmsg.c                     |  6 +++-
+ 5 files changed, 47 insertions(+), 8 deletions(-)
+
+--
+2.25.1
 

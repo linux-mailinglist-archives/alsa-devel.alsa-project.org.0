@@ -2,101 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB5B5A6BD7
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 20:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B25C25A6C48
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 20:34:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A21E816A9;
-	Tue, 30 Aug 2022 20:11:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A21E816A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E671616A5;
+	Tue, 30 Aug 2022 20:33:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E671616A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661883128;
-	bh=Cs9owmSQktVh3UvVnvO5GKOOUy9EJT+NfXuwpcMvDLU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1661884457;
+	bh=XsUE1WX2iPvSslSTLpbqIWw0tekCnX+Peis1JK0+aMI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=van5H6zGmZsxTOoUK3fiPsUm4FK70XNUao0OjMpRX0+qwok95w3jmiftrxMYORvAW
-	 zAQorlB4FtmJsG29WHFcEoOktMWws8KSGYnZfXMQs1MIyTpmBfEC70TZ4F/ISRVXiC
-	 WssbAUTRS8rS2xA971bO5kiQxZIrdi8SppSNlYW8=
+	b=Ho3JIyvkne5rdROoH70kronzoBynRI7Vk3TSfH2+b2gN8bGLF3HoSOoA4cJshEghS
+	 JFFEaHu/+ZKwU4uSPHfaaR8p06hmK6xN2LxS6n+YkBeX2M+BOae45CBVvquNq3+OQY
+	 AbA0jjMDT2Ka5WjnrF5augHRlMTNuPYlY+9Ek8Nw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 979E6F8012A;
-	Tue, 30 Aug 2022 20:11:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F355F8032B;
+	Tue, 30 Aug 2022 20:33:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 399F8F804C2; Tue, 30 Aug 2022 20:11:11 +0200 (CEST)
+ id C163AF8023A; Tue, 30 Aug 2022 20:33:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99345F8012A
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 20:11:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99345F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C35EF8012A
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 20:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C35EF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="IdHkGy3k"
-Received: by mail-lf1-x134.google.com with SMTP id v26so6400441lfd.10
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 11:11:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=0jx9VNj/HcW0dooShctB6tlNBtRfv946EPoOPim3t0E=;
- b=IdHkGy3kZluHn+s1pCS1fWDIsltwMDgJ5SLNDPu4jLO5nDxOv7HtdjosNkKuyV0DmG
- eUVjPmcsRIc71d5lUiyCBv5yz5iwuKITxlkI2CCTrVITfLANq+620vJrpokgFTnjMf65
- PPqxsSS+0cG9/10Su2NyJ/PoPuhyRXxyjcg+WLJwi+0JwWn4830Atw3YAVd9seGZ8bBd
- pQb455HbnE8H9AyoNrefVsPmjpWDZYG8ji2B4reou+a4cddd1nX5+NK/Opneeh+VVpgv
- 0tybYtY7AnI1k1Wc5+hDcL2lPd/zK924fpvX3KRBLJpdU13SX0L3NR2Wv2HkylcGhsWw
- 6Kig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=0jx9VNj/HcW0dooShctB6tlNBtRfv946EPoOPim3t0E=;
- b=k6BBnt3zIRKseZyWPzkoob0rhkIJThwq1xaQ8FhOKJHHFrNFLGTpeNn1vE4qzIC+F2
- 8h85E+NEOJ8TUQrvDhLVKE5QaKQ1HevEpIMH8jXiZAdYc1bxgU0FCtEFHvVzTa8t9oFl
- Ol8sueCiugDEEFT8Y9TybGzPqc18zo158leoOD7PGSlWg3g3TqtDrKEKMuu2YG5h2hp2
- LUpMZyJRi9SjkJaqR+qUUUrQ8I06pYQ0nhDOdw56AbUscczBuAf/EKyA4Z/7o31p6oX/
- aMxY0niqdvZJXTDCcwLMYQFb5nESv6eHB4FWPXkX1smT1LuZcXYkc5ISnxXLM/rKjwCc
- JVOA==
-X-Gm-Message-State: ACgBeo1EE5UjpC9rpZHV56KC3OIm3zYDR/5oAb4+Ifix+t1F5rkr9zuo
- mvzrAdPA+PG+2zClVuZxiworJg==
-X-Google-Smtp-Source: AA6agR4LS54/XWSxpR5JM4CrvVaGHIeYIc+KzFnzxBcHugfK4mmyTYOXAfXMhla6rcSZpaiqZFIh6g==
-X-Received: by 2002:a05:6512:3503:b0:481:4470:4128 with SMTP id
- h3-20020a056512350300b0048144704128mr7794471lfs.303.1661883066495; 
- Tue, 30 Aug 2022 11:11:06 -0700 (PDT)
-Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
- [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
- o17-20020ac24e91000000b00492ef074fc1sm1683629lfr.183.2022.08.30.11.11.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Aug 2022 11:11:05 -0700 (PDT)
-Message-ID: <ce096b36-b678-63e1-e98c-7549f3df357f@linaro.org>
-Date: Tue, 30 Aug 2022 21:11:03 +0300
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="oPO8HBOu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=WEmQN+6Nw20owgW81yaoQaqKOSVpiLyZb3sg8Y1rIiw=; b=oPO8HBOuU4ELWQw0nJ93ViKWT0
+ yyEf9j8EVAGjU+Mgm+4W3xATroP2LLFq3ZKBZuyRF6optEsL1uplSH+28bKdhvJeYLA2rlqBMq/ia
+ UHgOtVLzm96UdmYim94H1rxEVddp4xubb2i7gP7XLO2qhyY4KI+tBQzWTAoH0BON0glx7myauqHSX
+ jTl/6HdQKyk/d+hJXlzDczGI4fVjsm2rq/8c4JM897q+so9IHHkDwm2YYRvB5aVQjLPrkrwte9Pd7
+ 0mL9I+sXyk7T2oxLx1T92EC7F2OkVuWAzFoFkex93tsvPDYpOht8dqkfsLQhf/aaSTUxVda7QbFMN
+ 0WSFEzww==;
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1oT62p-004K31-S7; Tue, 30 Aug 2022 18:33:03 +0000
+Date: Tue, 30 Aug 2022 19:33:03 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 1/2] libfs: Introduce tokenize_user_input()
+Message-ID: <Yw5X379ct1PK6wZO@casper.infradead.org>
+References: <20220825164833.3923454-1-cezary.rojewski@intel.com>
+ <20220825164833.3923454-2-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH v9 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings
- for DMIC controller
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <1661872039-40174-1-git-send-email-fengzheng923@gmail.com>
- <25072fba-64e2-df11-c8f0-a274037141f0@linaro.org>
- <Yw5Qd7ZNPIc/o7+6@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <Yw5Qd7ZNPIc/o7+6@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Ban Tao <fengzheng923@gmail.com>, samuel@sholland.org, lgirdwood@gmail.com,
- jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org, wens@csie.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220825164833.3923454-2-cezary.rojewski@intel.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ andy.shevchenko@gmail.com, broonie@kernel.org,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ linux-fsdevel@vger.kernel.org, peter.ujfalusi@linux.intel.com,
+ linux-kernel@vger.kernel.org, viro@zeniv.linux.org.uk
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,23 +86,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/08/2022 21:01, Mark Brown wrote:
-> On Tue, Aug 30, 2022 at 08:35:09PM +0300, Krzysztof Kozlowski wrote:
->> On 30/08/2022 18:07, Ban Tao wrote:
->>> DT binding documentation for this new ASoC driver.
+On Thu, Aug 25, 2022 at 06:48:32PM +0200, Cezary Rojewski wrote:
+> Add new helper function to allow for splitting specified user string
+> into a sequence of integers. Internally it makes use of get_options() so
+> the returned sequence contains the integers extracted plus an additional
+> element that begins the sequence and specifies the integers count.
 > 
->>> +properties:
->>> +  "#sound-dai-cells":
->>> +    const: 0
->>> +
->>> +  compatible:
->>> +    const: allwinner,sun50i-h6-dmic
-> 
->> Put compatible first in the list of properties (also in required:).
-> 
-> Can the tooling be taught about this?
+> Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  fs/libfs.c         | 45 +++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/fs.h |  1 +
 
-Probably could save me some time in writing reviews... Let me look.
-
-Best regards,
-Krzysztof
+This really has nothing to do with filesystems.  Surely
+string_helpers.[ch] is the appropriate place for this code?
+Also get_options() should probably move its prototype from kernel.h to
+string_helpers.h.

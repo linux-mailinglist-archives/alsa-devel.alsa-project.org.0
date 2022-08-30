@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45225A6BA1
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 20:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD1F5A6BD5
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 20:11:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81F8F169D;
-	Tue, 30 Aug 2022 20:01:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81F8F169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE22D168E;
+	Tue, 30 Aug 2022 20:10:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE22D168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661882558;
-	bh=0OojOeWriYciWCW7CDS3kKn+DRlqDdnrnDF91OklMPk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1661883088;
+	bh=TG9eRGyQfAqypBfZDj28dH5aY6SKrSmvfeJHkTfmZ1k=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eLuVGf+cBxJ5Cv2eZgEgaUVfrqcqzjoBi/OPa/wbVo86bPlRJcI841vYmgRRchfa8
-	 Pi6gGboZQvLCuNjBFFd9cj5N5lmp37T/6kf1tJxF13JladjB+1/BGyE3x/jKpuaKiW
-	 6Ak18bJDXlsIgPs915YyNHnv0dEBkqyTTRCs/tSk=
+	b=cLtARggWGggizRnblU7JDPv7aISQgCLdEzku17uefB9Z+/AJNtod5VfJM/cnLqsTe
+	 b5LAPsvaC8eIxqlsKi5flacDwYci8mE2j5X1urbIuIx6UmDKlsXGVABudmTynD17Mp
+	 bRwbBYoPBRtsrZ2E4biAPqPLM8ExbvjiGkmqkDcM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2618F800AA;
-	Tue, 30 Aug 2022 20:01:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09609F8032B;
+	Tue, 30 Aug 2022 20:10:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AF6EF8023A; Tue, 30 Aug 2022 20:01:35 +0200 (CEST)
+ id 4578EF8016B; Tue, 30 Aug 2022 20:10:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06658F800AA
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 20:01:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06658F800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Khk4T1th"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A52D2B81D44;
- Tue, 30 Aug 2022 18:01:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B6CC43470;
- Tue, 30 Aug 2022 18:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661882490;
- bh=0OojOeWriYciWCW7CDS3kKn+DRlqDdnrnDF91OklMPk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Khk4T1th+i44VfKwq3RXJb2dAxxojnHAhA3FXFkECpPxArX7mK7MdWrJmw7PrZIr7
- 5WgTA8clP9BzfH4tkxD6Q/SVIyA4AhRw6JUi9GASBU7ncgcIFEM2QswBwfyLbmLjWH
- dyuFyI2dCF5s2exJ+dhPiujDAPdT0ouEkwMAbyZSqbghWUE1MO8SiJlHnuWQ2dwmKg
- JH+AajuHyEbHQIDWLNZhz5AS2dEHdn2HfrBEgJK7w2aJYk5BBbvlzEl8rY1Rwg8ZMN
- zaNbOiRxVEjCsQrizFGs++vjbsRLgY53n9k18worQpDE47g3RX8DyLz0bY11w/4XQv
- Tz0HzYeF2iv3Q==
-Date: Tue, 30 Aug 2022 19:01:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v9 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings
- for DMIC controller
-Message-ID: <Yw5Qd7ZNPIc/o7+6@sirena.org.uk>
-References: <1661872039-40174-1-git-send-email-fengzheng923@gmail.com>
- <25072fba-64e2-df11-c8f0-a274037141f0@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C38EF800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 20:10:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C38EF800F2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="W88hsrHU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=EpEl/DobhYcf1wL8+3jtYw7OG3wsK8lDs0hnWxAIwFI=; b=W88hsrHUWhMA6NG8LTU8d1pbxs
+ +hNb4LUdFnMg9k2YxNI+RTvkRN4NddihmoSbATU6UyeI2TDM6IDP+8c7FhM20V7JBQjmU5ir8dKZb
+ iztuhnFizxfFSGM6ONqL//pFt4oSTT0An9GyAFBYHWuymJOjYlEBFK2d6JM7qPuC6NRrkLQGfTyha
+ yLAMX8TlAJVPcepZOreZvGaD6a7XZAgNMhdiCZ6I0AlawCse4kbhjwICtgnjkBpN63jXPT07vYap6
+ cKMZ9FGN55oxDppqpCD8TU0wumlFgKrdn90TzbcpV2yiVbX+yxIx/PAgAeRVKlIjjRUN0lGS+Y2yL
+ kec4tEEg==;
+Received: from [2601:1c0:6280:3f0::a6b3]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oT5gj-0017CY-8C; Tue, 30 Aug 2022 18:10:13 +0000
+Message-ID: <dd45cdec-ee8c-b699-2e23-064a866caa04@infradead.org>
+Date: Tue, 30 Aug 2022 11:10:11 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="dVf75fQWW/SwR7TB"
-Content-Disposition: inline
-In-Reply-To: <25072fba-64e2-df11-c8f0-a274037141f0@linaro.org>
-X-Cookie: Necessity is a mother.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Ban Tao <fengzheng923@gmail.com>, samuel@sholland.org, lgirdwood@gmail.com,
- jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org, wens@csie.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Subject: Re: [PATCH] ASoC: amd: fix spelling mistake: "i.e" -> "i.e."
+Content-Language: en-US
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220830132259.7759-1-Syed.SabaKareem@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20220830132259.7759-1-Syed.SabaKareem@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Vijendar.Mukunda@amd.com, Julian Braha <julianbraha@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,38 +91,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---dVf75fQWW/SwR7TB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Aug 30, 2022 at 08:35:09PM +0300, Krzysztof Kozlowski wrote:
-> On 30/08/2022 18:07, Ban Tao wrote:
-> > DT binding documentation for this new ASoC driver.
+On 8/30/22 06:22, Syed Saba Kareem wrote:
+> From: Syed Saba kareem <Syed.SabaKareem@amd.com>
+> 
+> trivial fix to spelling mistake in Kconfig File.
+> 
+> Reported by : Randy Dunlap <rdunlap@infradead.org>
+> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-> > +properties:
-> > +  "#sound-dai-cells":
-> > +    const: 0
-> > +
-> > +  compatible:
-> > +    const: allwinner,sun50i-h6-dmic
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-> Put compatible first in the list of properties (also in required:).
+Thanks.
 
-Can the tooling be taught about this?
+> ---
+>  sound/soc/amd/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+> index 68837d42736d..150786279257 100644
+> --- a/sound/soc/amd/Kconfig
+> +++ b/sound/soc/amd/Kconfig
+> @@ -122,7 +122,7 @@ config SND_SOC_AMD_RPL_ACP6x
+>          tristate "AMD Audio Coprocessor-v6.2 RPL support"
+>          depends on X86 && PCI
+>          help
+> -          This option enables Audio Coprocessor i.e ACP v6.2 support on
+> +          This option enables Audio Coprocessor i.e. ACP v6.2 support on
+>            AMD RPL platform. By enabling this flag build will be
+>            triggered for ACP PCI driver.
+>            Say m if you have such a device.
 
---dVf75fQWW/SwR7TB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMOUHYACgkQJNaLcl1U
-h9CT4Af4wwvuSIZlXbwZfwgqtydzN1X3EMrS86L2JcV+PzlV4zr+e35HOC7vomxq
-fbSFJAddJVWTYKIAfu0PpX6ZBO7S+w6/0BBJpk45sQmz7mLgZMOFSnYCcunwBJA1
-3JxBST9Jf764020OPDnnWzzWH/nl6cB3B3pqBTXkYQbHB19qfWyRzPepYcuxX41X
-NGZRFEs4K/gnyRovZ/8eX570MMdjCkuvFK2B5rdrGrZqk6TRfgyZ1b2a6B9luCy2
-/Zn8EyqHOEqDCVZ39gXyRbY3U+kl05pRbtiYAVHC0gLGkf4vc4A88si+W+sRDZEx
-E3I4eExDAgQnQKh4Mq9ye3CbGNKq
-=QqUt
------END PGP SIGNATURE-----
-
---dVf75fQWW/SwR7TB--
+-- 
+~Randy

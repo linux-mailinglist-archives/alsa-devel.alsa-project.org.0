@@ -2,90 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB9455A5B42
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 07:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0CD35A5B49
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 07:56:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A07F162F;
-	Tue, 30 Aug 2022 07:46:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A07F162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B0FB1672;
+	Tue, 30 Aug 2022 07:55:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B0FB1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661838422;
-	bh=SOTud9sUJ5W2godhwQQtGidLtHr5u9iTzMlSieTbB8k=;
+	s=default; t=1661838965;
+	bh=6VsdlE4tP7iGBRs5J3RTSl0xTWZSzmqL/s2uOUcuU8M=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aIOT45aAwfKik7agWt+jMuRXESUjDpT5+w8kuc/6jvkd+estfTdPrXsm2Hqcz4Rxi
-	 cCB88lGGLzWkud60U/S0Udw59wDfszm1KRxpH8upPgxKxb3o99dqh1rVJIGn5hv6DW
-	 Z6ofSGe60fhr8lalUfGfXqMelH4o7QlLA7KJHh4E=
+	b=vJ/ybegO9TSte7qK3ULKQ0fBcUHI0A6f2VlXyjHufKFzk6C0JxXuDfJf3hIhUDyt2
+	 JQl8VlKkl0g90xSxX0oMQIbZoYOV45+Z9mrFWqYlvkDjQEZzx1EqV58C9AqoV518Bq
+	 cCrx2RROhDZG/y1yUU65OBEvnNAjQ8Y3CDFANyrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5984EF800F2;
-	Tue, 30 Aug 2022 07:46:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF15BF800AA;
+	Tue, 30 Aug 2022 07:55:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4061F8023A; Tue, 30 Aug 2022 07:45:59 +0200 (CEST)
+ id 7A192F8023A; Tue, 30 Aug 2022 07:55:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C774F800AA
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 07:45:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C774F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00931F800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 07:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00931F800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="utjal12Z"; 
+ header.b="BBaKZHUv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PVcHLGIj"
+ header.b="mCWudZaH"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 39FCC1F933;
- Tue, 30 Aug 2022 05:45:52 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 682C71F933;
+ Tue, 30 Aug 2022 05:55:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661838352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1661838900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YqbKorGtuIS3BoLpIndm2XA4B0mkE7zTYWV5+s4iNc0=;
- b=utjal12Z5c+zv9kKTNeiz4jaS87QaR8lmDZh5tNRvUA4FEuWWdHjg+QJnUft3AQuqbxt/m
- A9ListbRCAXm+GZqXx5b677Q/lcqcTFlBk6a9C9aT+i++U10gy0TCDgLGV+NYPz4o9p2An
- 5d2LTPkro9vodqcXr5Ijg8iHMMLz11A=
+ bh=4sFJepAmD+I8LgqxN+s6Bmhxc3ZXSAc4iM+4jxcfUCA=;
+ b=BBaKZHUvC04Yfw4BeHtwkt9xGzt2RwJS6XA6ApxYtYqeZzzj74hSe74DGADmeUuNkULVEv
+ KMqe7E7uAjUfR6iF3RuPUdMpiIuOiZk1HcWy+QIoqB+ulPAdYvDq3Wm/CDSkEUFvkluHM+
+ 7J+Mq8YPJJhbdkf+hWoQNyI2DzOfzCM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661838352;
+ s=susede2_ed25519; t=1661838900;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YqbKorGtuIS3BoLpIndm2XA4B0mkE7zTYWV5+s4iNc0=;
- b=PVcHLGIjQ31s8tWq5tBokcK9vyIjleKtLb+YQQZ8fQNt9XImqNQ3R4uqXZnp0mqLzQRaRK
- n/nKVN7saTmefUCw==
+ bh=4sFJepAmD+I8LgqxN+s6Bmhxc3ZXSAc4iM+4jxcfUCA=;
+ b=mCWudZaH3ZbZ1FhD4vtYVUSRtLS9CSYnphACfQBPawfx7Rc99G85YDCTdJqCBSC8VQH8dY
+ +uaf9lGeccmpo2Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 075931352A;
- Tue, 30 Aug 2022 05:45:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4355F1352A;
+ Tue, 30 Aug 2022 05:55:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qMpkABCkDWM+EgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 30 Aug 2022 05:45:51 +0000
-Date: Tue, 30 Aug 2022 07:45:51 +0200
-Message-ID: <87k06q8esw.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4c+JDzSmDWPWFAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 30 Aug 2022 05:55:00 +0000
+Date: Tue, 30 Aug 2022 07:54:59 +0200
+Message-ID: <87ilma8edo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH][next] ALSA: hda/hdmi: Replace zero-length array with
- DECLARE_FLEX_ARRAY() helper
-In-Reply-To: <Yw01A+TvF1FWQ588@work>
-References: <Yw01A+TvF1FWQ588@work>
+To: chihhao chen <chihhao.chen@mediatek.com>
+Subject: Re: missing sound on kernel-5.15
+In-Reply-To: <87r10y9are.wl-tiwai@suse.de>
+References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
+ <YwNvQaNNIKB8ELhR@geday>
+ <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
+ <87r10zxyml.wl-tiwai@suse.de>
+ <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
+ <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-hardening@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,21 +104,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Aug 2022 23:52:03 +0200,
-Gustavo A. R. Silva wrote:
+On Mon, 29 Aug 2022 20:15:33 +0200,
+Takashi Iwai wrote:
 > 
-> Zero-length arrays are deprecated and we are moving towards adopting
-> C99 flexible-array members, instead. So, replace zero-length array
-> declaration in union audio_infoframe with the new DECLARE_FLEX_ARRAY()
-> helper macro.
+> On Mon, 29 Aug 2022 14:16:27 +0200,
+> Takashi Iwai wrote:
+> > 
+> > On Mon, 29 Aug 2022 10:50:58 +0200,
+> > chihhao chen wrote:
+> > > 
+> > > Hi Takashi,
+> > > 
+> > > Yes.
+> > > 
+> > > To issue SAMPLING_FREQ_CONTROL USB request two times is root cause of
+> > > this issue.
+> > 
+> > Hm, is it a UAC1 device?  Such a device should work with multiple
+> > SAMPLING_FREQ_CONTROL invocations, but some device might be not
+> > tolerant or buggy...  The multiple init_sample_rate() invocations may
+> > happen with the older kernel under certain situations, so maybe we
+> > need a different fix.
+> > 
+> > How about the patch like below?
 > 
-> This helper allows for a flexible-array member in a union.
-> 
-> Link: https://github.com/KSPP/linux/issues/193
-> Link: https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> It's missing the clearance for suspend/resume.
+> The revised patch is below.
 
-Thanks, applied to for-next branch.
+... and after reading the mail again, I noticed that it's all
+rubbish, scratch the previous ones.
+
+Have you tested it with the later kernel?  I guess this has been
+already addressed.  In the recent kernel, the rate is set per assigned
+clock, hence it won't be set up twice unnecessarily.
 
 
 Takashi

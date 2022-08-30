@@ -2,95 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33555A5B9B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 08:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 067CE5A5BD3
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 08:29:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC6931E9;
-	Tue, 30 Aug 2022 08:14:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC6931E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C7CC167B;
+	Tue, 30 Aug 2022 08:28:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C7CC167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661840107;
-	bh=qZ1Bx5ZwLuyq7j/ODgPp2HDLtSdQTIaxvWcDvJ9AScA=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661840986;
+	bh=rfUXsaneM+tVKlkMwHpY7O7cAg4OntAHrEoClVVt8ts=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZuKrjBW5L0cyrHmoW9msz0sbaCfPLfVwijlCnt53d6HFQ67b/qNSbDWImrO2qM7u2
-	 LEbOgoNpDwbUvv+DnF9frZVooSlofbXbMlPW5ZLirN8AZ0Oy6tcpywC1kUF6j/Ztat
-	 FLCFz1hMONGLX+rj1hImBjDPiXAA6dmfe2JIqsCw=
+	b=uxrdr3pkr9dZ9gYCZue2u0eM3Fkb3JiABv7CIYwduegiXdVbZKubxpfGGqzEx9Bq8
+	 phzzxslNKFQCo3vjrSVt7MzkRXP/QP+hFedE3YXHoDDYr10EyCyy2kJcRctmB3zbak
+	 uFlvCBI/bxzkIPwHO/5DoG0q7ZLUMLjINLuqPQ/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51E68F8032B;
-	Tue, 30 Aug 2022 08:14:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87473F800AA;
+	Tue, 30 Aug 2022 08:28:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15BC6F8023A; Tue, 30 Aug 2022 08:14:05 +0200 (CEST)
+ id 00F11F8023A; Tue, 30 Aug 2022 08:28:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2082.outbound.protection.outlook.com [40.107.20.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7083FF800AA
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 08:13:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7083FF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3125EF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 08:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3125EF800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="ohaPhd7c"
-X-UUID: ed349467aaaf4bab80b9bfdd177ee281-20220830
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=mvU9HFYA0pdq4Oz4UVKYKFJHVmyfgvx0dqN4f/zLugY=; 
- b=ohaPhd7cOK+lf+/T6/oBY5NrPqMeGqPXPWY6hnXi/TxxFBku3IFhpLKBRqmmei8EwHSL8M5X04/cxlGgXggML1vICEhm3dLSC2zKPy6x+6Wbwi2/mOXBtuAZXodPCyfGO9R5zZ163Q4a3A9pN/d5w4LsyFor3XX9fmqhoP9P4vY=;
-X-CID-UNFAMILIAR: 1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:33a15ba9-ea66-4c91-802c-8b644fcdd7f1, OB:0,
- L
- OB:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:54,FILE:0,BULK:0,RULE:Releas
- e_Ham,ACTION:release,TS:49
-X-CID-INFO: VERSION:1.1.10, REQID:33a15ba9-ea66-4c91-802c-8b644fcdd7f1, OB:0,
- LOB
- :0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:54,FILE:0,BULK:0,RULE:Release_
- HamU,ACTION:release,TS:49
-X-CID-META: VersionHash:84eae18, CLOUDID:7df78320-1c20-48a5-82a0-25f9c331906d,
- C
- OID:0fa05ea2f501,Recheck:0,SF:28|16|19|48,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0
-X-UUID: ed349467aaaf4bab80b9bfdd177ee281-20220830
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <chihhao.chen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1527374398; Tue, 30 Aug 2022 14:13:45 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Tue, 30 Aug 2022 14:13:44 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Tue, 30 Aug 2022 14:13:44 +0800
-Message-ID: <0f36385ad917ac5ec1fdf4fedd8acd6bb3494bdf.camel@mediatek.com>
-Subject: Re: missing sound on kernel-5.15
-From: chihhao chen <chihhao.chen@mediatek.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 30 Aug 2022 14:13:44 +0800
-In-Reply-To: <87ilma8edo.wl-tiwai@suse.de>
-References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
- <YwNvQaNNIKB8ELhR@geday>
- <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
- <87r10zxyml.wl-tiwai@suse.de>
- <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
- <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
- <87ilma8edo.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="WNY9ZGx3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OaLCFKDVfDZlzYwUYQV/YUjH322/k0sSIhDNYyZuo1ju571DjIEytinj5B8ERvXEtiRMYJVHRpJoJ80A4+SwT7Yhm1QYJqEVjieIGrTiSjT6IlpOyW0/TVuoDoLyumk4LiO7igt4QGnTG3K1JmyAdB2nv52FYwosa/4RF1KaTahe7ZVlyWqKXKjL6Kn3sECDi3QLKzbQoW+Q0fI80y/kM65C1EU0m+O/sreKskVS9RXyqb6MmLTSeLUjP665Ik+Mvn+A0iDZrUbcGgrPy4T9TL8QNu5dtTx1EDe63Ao4Qz0fTe/a2z3GturwiF4jCgD+7xqCiZtTm13VJNQpF9HIJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ymfPX6j+OWBEZcxVEjCrH6H9gl3THon3fAx7mHNf2jo=;
+ b=PaeO/miPV17LnTXUr7taWtIsKtSjW6smBcdHo9NbnfpCvwnbNyRdlHU0KfYRmfA463wp8PrSV6ciNHOmth4mjsIAY/TNb37F7TBmtmtMeQHMG6D/B2kjWmp9cBdryQWQ/2tS/rd+WHqvHvu/tKx7+4GRwot1bgO7PeNFWUiJv4ANFlMJEpV48SXKarD7LxoaljwBFi/gcMEvrNJAMK0eTfb/7wCzlGsKbUC9fgS+gMdHpIPcEm4pxrT8uWPQOJYvalJ1kZNn0ldr/N7gXkqg7tnZr/ZFLGlTaofZ+S/NS01JnxCpQFgBjhUghURZ5sUt2QTCP7VnFg8s4pxQ5ZXtHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ymfPX6j+OWBEZcxVEjCrH6H9gl3THon3fAx7mHNf2jo=;
+ b=WNY9ZGx3kL6caCprq3masGR2ZDldhyvZgxNG5KfjFaeRn7BoT3ZIEL2tcgp8cE0SjJQsTlB3KOQ94iapoaQ/pbPuQ7z0v4K1Nta3WjuO9f+7kdBw4fMcmpwhMFLdhBOS1KuVystKNTdEdAyUxkUMS4oLdcHSwNS5TxaPjPVUydk=
+Received: from GV1PR04MB9183.eurprd04.prod.outlook.com (2603:10a6:150:27::9)
+ by HE1PR04MB3098.eurprd04.prod.outlook.com (2603:10a6:7:20::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Tue, 30 Aug
+ 2022 06:28:27 +0000
+Received: from GV1PR04MB9183.eurprd04.prod.outlook.com
+ ([fe80::28cf:2839:247c:b34e]) by GV1PR04MB9183.eurprd04.prod.outlook.com
+ ([fe80::28cf:2839:247c:b34e%6]) with mapi id 15.20.5566.021; Tue, 30 Aug 2022
+ 06:28:27 +0000
+From: "S.J. Wang" <shengjiu.wang@nxp.com>
+To: Chancel Liu <chancel.liu@nxp.com>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>, "broonie@kernel.org" <broonie@kernel.org>,
+ "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "krzysztof.kozlowski+dt@linaro.org"
+ <krzysztof.kozlowski+dt@linaro.org>, "Xiubo.Lee@gmail.com"
+ <Xiubo.Lee@gmail.com>, "festevam@gmail.com" <festevam@gmail.com>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: RE: [PATCH 1/5] ASoC: dt-bindings: fsl_rpmsg: Add a property to
+ assign platform driver name
+Thread-Topic: [PATCH 1/5] ASoC: dt-bindings: fsl_rpmsg: Add a property to
+ assign platform driver name
+Thread-Index: AQHYu3zGgKrj+wHzzkWzPDbVUiF1Eq3G++vw
+Date: Tue, 30 Aug 2022 06:28:26 +0000
+Message-ID: <GV1PR04MB91839C3B94A89F235133374AE3799@GV1PR04MB9183.eurprd04.prod.outlook.com>
+References: <20220829075144.2405000-1-chancel.liu@nxp.com>
+ <20220829075144.2405000-2-chancel.liu@nxp.com>
+In-Reply-To: <20220829075144.2405000-2-chancel.liu@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3b52a81c-075d-4ae9-35c8-08da8a50d919
+x-ms-traffictypediagnostic: HE1PR04MB3098:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: PcAqEkgj1luFMWeOZBjXIFe9uRyYhyl0rrgibiV8sC28UeHRz/YCeY2NcLIx4HWmRm64EswByslWE/mCcO1ZoBn1vExtUqeKBLrrWSMUJacqPaEV2OxUnITmfOsmDae1JAil/ReP87aMDbuMxvo2unAmWPa9y5dtTfJqjn4ZWxYEXJ1SFacky38kGfIICzzHFRdqNv0sz2/hwi0T50OJ27fDeSnqXfiDeDQFyNlUdNgEFkqsdsVZ3Er7iT391m7hYGh+nG0bvGBFgStXL7OZ33IjQOpKIiPREvrhzM3hA4QQpXKWUyIhdM5HWBsp/IiPbA64kf45CIi+Is1ueUkyms7U/uUrlI2HBxt3SwAImASi04wlipE4zghWgvBjG9gEsqkYIoTfUTIGkhvn1vMKgIoq4Re0SVwgogDRO3f+NgI74Bz7Q2l0N1UyVF0fcHaA8Klv+7LQR5SwMLGnM7Snzpwz/yuQ3h3HAQ+ZPYmOrfXoMseCnrGsVcZJr6Un3oxiwQ+F0/JH8YPkLcBDY2qPqjs+imJXP6/0SolUrWEOUNLNqrX33dLKDmPPuARcPRna6uZp2XtzKRJZFKz0ahEekGlTF8ZPUOWAjn49pKPjtufB5/hhjv0whXqQsk+tJyko508ZJ7/X7paqB2u6ne6XY/9JYfSCWx0NhwjJco3nU3udNtMcgRJ8zvaBL8K30KygVNH1r8FhqDvbSE9HZZEEjpEgNf8V3RcApjR38AlBhsbAJ8qqn3atsmllqNNecpfiH28Uc84N6N076QzQbMEN5Pnmjd4+ZP4ZJyCO30lWJ+E=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV1PR04MB9183.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(396003)(346002)(136003)(39860400002)(366004)(9686003)(38070700005)(921005)(83380400001)(186003)(2906002)(5660300002)(66946007)(64756008)(8676002)(66476007)(76116006)(66556008)(66446008)(8936002)(52536014)(55016003)(33656002)(7416002)(316002)(110136005)(71200400001)(7696005)(41300700001)(478600001)(86362001)(6506007)(26005)(122000001)(38100700002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XJC+CgdAXwMPKFJh07LagO4mqvZu3e05fn3U5yobvnLaHL+aeaWX99kcA0tC?=
+ =?us-ascii?Q?UpYWxnGB6WkYQikPsvHm3YiTO2/PTO4H/0v6Y5sCYAmXDGECZWNtGMVvCBrZ?=
+ =?us-ascii?Q?6q2bM6+4V9R1GCqDx3Ont4VWtO8/XbF8uWkRtfoJnqkZpVXP47pGCJOFR3MS?=
+ =?us-ascii?Q?4F4PUEAMv10qacSkTG1q5NEN3c7IdCj3FuIXByctWfo2sSE+Hg/U7HB6dZIW?=
+ =?us-ascii?Q?mu6TYgf84TO4QF9HoKulGBvx3S4S7odcT9ApT2JJbfdBiaF0vlG2GF+R5CEr?=
+ =?us-ascii?Q?hb1NMK4cQcxSM1ua9vDd20BAh66eD+isRTXfH5fDWgAtyZB5INZktHDw+rpj?=
+ =?us-ascii?Q?nmyWJZ4G7xwNpaaHsgpWSsk8m6ywLh2s3acBpP7ayzLdKdYn/mp33L7hGviU?=
+ =?us-ascii?Q?2V+Fe8WdEogomgddhfYlIzpcq2kpfKutIuNQpkhYlItW9ac9CM58CA7sanBw?=
+ =?us-ascii?Q?qGbLG+FgRA3MM1bTzGtZdka+9gOBUCYoMNqvqjtX6B33KTDjfm03HEF7FJSF?=
+ =?us-ascii?Q?zPbi6XPdV1LMf6f52cpa6aGr11EXcap3N7kXQ7Zf2n7TVjUO1mbw8qh0WWql?=
+ =?us-ascii?Q?M8ybMfjpS7OLB/SczC66K3mp+FD/ogp1iIyiF7LouMlJMR4W5x3V9pp6LYTK?=
+ =?us-ascii?Q?jXkEuJ4njJkaTHq3To1jf9Yz+NNmfJX9jpx/jtnsc4WNznprjQ4eJ/sI+JHW?=
+ =?us-ascii?Q?o6O+vveloAQ6fMrfqehKDebzcj8CG1yx8wlmedizF5UQDe7LCCX1ThsXR9Ky?=
+ =?us-ascii?Q?hNd0RYgGfJrp4DuFod7WDfgnYczHlOsW+nrI9MUparDU4en+7iGd7bM0TSvC?=
+ =?us-ascii?Q?mRYpoemviRf9jjGrrY9EoYFUoI+qFAPXpul0VGla1SMVUOFzFaIJ97ohnoM4?=
+ =?us-ascii?Q?JOlmqrkM4IVImgm9ddLTKx1B8cith1ImQSkQn7YjcTQDHF6l0GqFlutEpSO0?=
+ =?us-ascii?Q?xN4U+7uIIOUUOH73XRjK5gO0fbvGw8Lc0eMujbBeNjxYr+F+dnH7fmSgwSEt?=
+ =?us-ascii?Q?TPJ974f+lcG5lSXwrbjPiIERpLZIJp56ND4NvjtihtQIqR+VRduiBZw0dykd?=
+ =?us-ascii?Q?eA/5t8yaVK4L8+bTMe62Iscviq4ZpYl5DV85WqG5uWsYGXEz5KonVe0RT8WV?=
+ =?us-ascii?Q?10uMNvlYCMOgcz8lEKUqK4fcFwurIWZ9Nh/RREdUuJF42I1Fhft9BROx+yHo?=
+ =?us-ascii?Q?jRwVB67zmwbF7xDLWAyQcqEdQjojvEXTI15YoS8EyxLRCpyWFau+MR86NwXy?=
+ =?us-ascii?Q?c2X6/dGCYP1dDvcbpERIxNlds3DMsXthPYChusXNDH2VsD5CY0MGe6YDr02S?=
+ =?us-ascii?Q?EU91xUrXO112mNm3UUXlQUmLPfiVQcZdJUDJQqvN83Yhh8qoNA3zF5Nqe7EW?=
+ =?us-ascii?Q?QDNt28B5Lof74Fm8+ko6/9e0Uu17IM7M+5XjnYXdF1v06hD3HNpCOOcIkYq/?=
+ =?us-ascii?Q?mddR6Ywe63JzbqHq2c+wWi95DynampDJ9W5pw5dDhLgAC+kWmjcTGrjYqjOk?=
+ =?us-ascii?Q?mzr7oEmjyo/3B76qKhE9wyxCGOLDnNew2/C45W3iidC0bnRfN217ZgqODG+z?=
+ =?us-ascii?Q?bNbE4mMX2m6xv5W0wuBcRcFWuozft+qlZgeX5NQR?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: alsa-devel@alsa-project.org
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9183.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b52a81c-075d-4ae9-35c8-08da8a50d919
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Aug 2022 06:28:27.0358 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: B8xQaS0aeD9TwfjiPZ6SjunRO644zBsCzlXK9lHj9w4QqOvv7O4UIqioX8vmh8bP4iNvp52a7oFH0HIW+WrZPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR04MB3098
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,64 +159,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+>=20
+> Add a string property to assign ASoC platform driver name. It also repres=
+ents
+> the rpmsg channel this sound card sits on. This property can be omitted i=
+f
+> there is only one sound card and it sits on "rpmsg-audio-channel".
+>=20
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> ---
+>  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 34 +++++++++++++++++--
+>  1 file changed, 32 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> index d370c98a62c7..35e3cb9f768b 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> @@ -11,8 +11,11 @@ maintainers:
+>=20
+>  description: |
+>    fsl_rpmsg is a virtual audio device. Mapping to real hardware devices
+> -  are SAI, DMA controlled by Cortex M core. What we see from Linux
+> -  side is a device which provides audio service by rpmsg channel.
+> +  are SAI, MICFIL, DMA controlled by Cortex M core. What we see from
+> + Linux side is a device which provides audio service by rpmsg channel.
+> +  We can create different sound cards which access different hardwares
+> + such as SAI, MICFIL, .etc through building rpmsg channels between
+> + Cortex-A and Cortex-M.
+>=20
+>  properties:
+>    compatible:
+> @@ -85,6 +88,14 @@ properties:
+>        This is a boolean property. If present, the receiving function
+>        will be enabled.
+>=20
+> +  fsl,platform:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: |
+> +      A string property to assign ASoC platform driver name. It also
+> +      represents the rpmsg channel this sound card sits on. This propert=
+y
+> +      can be omitted if there is only one sound card and it sits on
+> +      "rpmsg-audio-channel".
 
-I tried the patch but this problem still happens.
+Please add enum to list supported strings.
 
-I add some logs in snd_usb_init_sample_rate() in kernel-5.10
-[  146.260105][T1702328] writer: usb 1-1: [name:snd_usb_audio&]2:2 Set
-sample rate 96000, clock 0 protocol 0
-[  146.289892][T1002328] writer: usb 1-1: [name:snd_usb_audio&]2:2 Set
-sample rate 48000, clock 0 protocol 0
-
-Because TinyAlsa tends to set highest rate for initialization and real
-rate for playback, it will still trigger two-times
-SAMPLING_FREQ_CONTROL USB requests.
-
-Which kernel version should I try? kernel-5.19 or?
-
-Thanks
-
-
-On Tue, 2022-08-30 at 07:54 +0200, Takashi Iwai wrote:
-> On Mon, 29 Aug 2022 20:15:33 +0200,
-> Takashi Iwai wrote:
-> > 
-> > On Mon, 29 Aug 2022 14:16:27 +0200,
-> > Takashi Iwai wrote:
-> > > 
-> > > On Mon, 29 Aug 2022 10:50:58 +0200,
-> > > chihhao chen wrote:
-> > > > 
-> > > > Hi Takashi,
-> > > > 
-> > > > Yes.
-> > > > 
-> > > > To issue SAMPLING_FREQ_CONTROL USB request two times is root
-> > > > cause of
-> > > > this issue.
-> > > 
-> > > Hm, is it a UAC1 device?  Such a device should work with multiple
-> > > SAMPLING_FREQ_CONTROL invocations, but some device might be not
-> > > tolerant or buggy...  The multiple init_sample_rate() invocations
-> > > may
-> > > happen with the older kernel under certain situations, so maybe
-> > > we
-> > > need a different fix.
-> > > 
-> > > How about the patch like below?
-> > 
-> > It's missing the clearance for suspend/resume.
-> > The revised patch is below.
-> 
-> ... and after reading the mail again, I noticed that it's all
-> rubbish, scratch the previous ones.
-> 
-> Have you tested it with the later kernel?  I guess this has been
-> already addressed.  In the recent kernel, the rate is set per
-> assigned
-> clock, hence it won't be set up twice unnecessarily.
-> 
-> 
-> Takashi
+Best regards
+Wang Shengjiu
+> +
+>  required:
+>    - compatible
+>    - model
+> @@ -107,3 +118,22 @@ examples:
+>                   <&clk IMX8MN_AUDIO_PLL2_OUT>;
+>          clock-names =3D "ipg", "mclk", "dma", "pll8k", "pll11k";
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/clock/imx8mm-clock.h>
+> +
+> +    rpmsg_micfil: rpmsg_micfil {
+> +        compatible =3D "fsl,imx8mm-rpmsg-audio";
+> +        model =3D "micfil-audio";
+> +        fsl,platform =3D "rpmsg-micfil-channel";
+> +        fsl,enable-lpa;
+> +        fsl,rpmsg-in;
+> +        clocks =3D <&clk IMX8MM_CLK_PDM_IPG>,
+> +                 <&clk IMX8MM_CLK_PDM_ROOT>,
+> +                 <&clk IMX8MM_CLK_SDMA3_ROOT>,
+> +                 <&clk IMX8MM_AUDIO_PLL1_OUT>,
+> +                 <&clk IMX8MM_AUDIO_PLL2_OUT>;
+> +        clock-names =3D "ipg", "mclk", "dma", "pll8k", "pll11k";
+> +    };
+> +
+> +...
+> --
+> 2.25.1
 

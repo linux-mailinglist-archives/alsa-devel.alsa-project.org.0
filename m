@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0CD35A5B49
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 07:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76BFA5A5B64
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 08:03:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B0FB1672;
-	Tue, 30 Aug 2022 07:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B0FB1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1050E167B;
+	Tue, 30 Aug 2022 08:02:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1050E167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661838965;
-	bh=6VsdlE4tP7iGBRs5J3RTSl0xTWZSzmqL/s2uOUcuU8M=;
+	s=default; t=1661839416;
+	bh=scbE8ehsHr7Z1ut1Dmq992GDWMpTXHftD0X4+wE17sE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vJ/ybegO9TSte7qK3ULKQ0fBcUHI0A6f2VlXyjHufKFzk6C0JxXuDfJf3hIhUDyt2
-	 JQl8VlKkl0g90xSxX0oMQIbZoYOV45+Z9mrFWqYlvkDjQEZzx1EqV58C9AqoV518Bq
-	 cCrx2RROhDZG/y1yUU65OBEvnNAjQ8Y3CDFANyrc=
+	b=uAyxb6hyVvN/BgwRm2vSbNZSg0Y0Evo1VYolM3sGeN1ldByQzAE5cagI9MYrhZ2Mh
+	 gyEANARzORI7JPDcoPOqQ7FETgDBl8hvw6UNJRrge+X3VecMGhK+cGPHSdUK+CDjnA
+	 y10qyYrkx5urbHoGreTvCWx6KCAt0SMOsDZkaOC0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF15BF800AA;
-	Tue, 30 Aug 2022 07:55:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77816F8032B;
+	Tue, 30 Aug 2022 08:02:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A192F8023A; Tue, 30 Aug 2022 07:55:03 +0200 (CEST)
+ id ED5A6F8023A; Tue, 30 Aug 2022 08:02:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00931F800F2
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 07:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00931F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4AC1EF800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 08:02:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AC1EF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="BBaKZHUv"; 
+ header.b="Io3eKnT+"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="mCWudZaH"
+ header.b="mj31RReu"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 682C71F933;
- Tue, 30 Aug 2022 05:55:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B8A3021C7F;
+ Tue, 30 Aug 2022 06:02:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661838900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1661839350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4sFJepAmD+I8LgqxN+s6Bmhxc3ZXSAc4iM+4jxcfUCA=;
- b=BBaKZHUvC04Yfw4BeHtwkt9xGzt2RwJS6XA6ApxYtYqeZzzj74hSe74DGADmeUuNkULVEv
- KMqe7E7uAjUfR6iF3RuPUdMpiIuOiZk1HcWy+QIoqB+ulPAdYvDq3Wm/CDSkEUFvkluHM+
- 7J+Mq8YPJJhbdkf+hWoQNyI2DzOfzCM=
+ bh=ZejuxAE1PQj9TmfRj/5fR/1vUWJtX8c2vAfHVZke/pU=;
+ b=Io3eKnT+yrfW4tKX2EgYZHI2nIIbRmUAHmHsB0tY93jGcAuLaOxcMAlaapwj8y/hxltr3Y
+ g29mLuvO6SQr/oj98/PQJeU+Kny6kcdxSZhj5c9c9QBGodCD/MgcNp3rmDnJx5AxeuCEx7
+ RaC7ql3nxsJ/xvTObtiZPYvCcqsLQiI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661838900;
+ s=susede2_ed25519; t=1661839350;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4sFJepAmD+I8LgqxN+s6Bmhxc3ZXSAc4iM+4jxcfUCA=;
- b=mCWudZaH3ZbZ1FhD4vtYVUSRtLS9CSYnphACfQBPawfx7Rc99G85YDCTdJqCBSC8VQH8dY
- +uaf9lGeccmpo2Dg==
+ bh=ZejuxAE1PQj9TmfRj/5fR/1vUWJtX8c2vAfHVZke/pU=;
+ b=mj31RReuaXOOWc7Qn8u9f9qryTgeUOYoNvlqfvQFknpoUaoAUlogi/nnuqjClrhDLgpQIv
+ 5nT2qkPeiUBr0JBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4355F1352A;
- Tue, 30 Aug 2022 05:55:00 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CB9F13B0C;
+ Tue, 30 Aug 2022 06:02:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4c+JDzSmDWPWFAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 30 Aug 2022 05:55:00 +0000
-Date: Tue, 30 Aug 2022 07:54:59 +0200
-Message-ID: <87ilma8edo.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id FIB+JfanDWMrFwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 30 Aug 2022 06:02:30 +0000
+Date: Tue, 30 Aug 2022 08:02:30 +0200
+Message-ID: <87fshe8e15.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: chihhao chen <chihhao.chen@mediatek.com>
 Subject: Re: missing sound on kernel-5.15
-In-Reply-To: <87r10y9are.wl-tiwai@suse.de>
+In-Reply-To: <87ilma8edo.wl-tiwai@suse.de>
 References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
  <YwNvQaNNIKB8ELhR@geday>
  <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
  <87r10zxyml.wl-tiwai@suse.de>
  <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
  <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
+ <87ilma8edo.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -104,39 +105,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 29 Aug 2022 20:15:33 +0200,
+On Tue, 30 Aug 2022 07:54:59 +0200,
 Takashi Iwai wrote:
 > 
-> On Mon, 29 Aug 2022 14:16:27 +0200,
+> On Mon, 29 Aug 2022 20:15:33 +0200,
 > Takashi Iwai wrote:
 > > 
-> > On Mon, 29 Aug 2022 10:50:58 +0200,
-> > chihhao chen wrote:
+> > On Mon, 29 Aug 2022 14:16:27 +0200,
+> > Takashi Iwai wrote:
 > > > 
-> > > Hi Takashi,
+> > > On Mon, 29 Aug 2022 10:50:58 +0200,
+> > > chihhao chen wrote:
+> > > > 
+> > > > Hi Takashi,
+> > > > 
+> > > > Yes.
+> > > > 
+> > > > To issue SAMPLING_FREQ_CONTROL USB request two times is root cause of
+> > > > this issue.
 > > > 
-> > > Yes.
+> > > Hm, is it a UAC1 device?  Such a device should work with multiple
+> > > SAMPLING_FREQ_CONTROL invocations, but some device might be not
+> > > tolerant or buggy...  The multiple init_sample_rate() invocations may
+> > > happen with the older kernel under certain situations, so maybe we
+> > > need a different fix.
 > > > 
-> > > To issue SAMPLING_FREQ_CONTROL USB request two times is root cause of
-> > > this issue.
+> > > How about the patch like below?
 > > 
-> > Hm, is it a UAC1 device?  Such a device should work with multiple
-> > SAMPLING_FREQ_CONTROL invocations, but some device might be not
-> > tolerant or buggy...  The multiple init_sample_rate() invocations may
-> > happen with the older kernel under certain situations, so maybe we
-> > need a different fix.
-> > 
-> > How about the patch like below?
+> > It's missing the clearance for suspend/resume.
+> > The revised patch is below.
 > 
-> It's missing the clearance for suspend/resume.
-> The revised patch is below.
+> ... and after reading the mail again, I noticed that it's all
+> rubbish, scratch the previous ones.
+> 
+> Have you tested it with the later kernel?  I guess this has been
+> already addressed.  In the recent kernel, the rate is set per assigned
+> clock, hence it won't be set up twice unnecessarily.
 
-... and after reading the mail again, I noticed that it's all
-rubbish, scratch the previous ones.
+That said, try to cherry-pick the upstream commit
+c11117b634f4f832c4420d3cf41c44227f140ce1.
 
-Have you tested it with the later kernel?  I guess this has been
-already addressed.  In the recent kernel, the rate is set per assigned
-clock, hence it won't be set up twice unnecessarily.
+If this is confirmed to work, we can ask Greg to merge it into 5.15.y
+stable tree.
 
 
 Takashi

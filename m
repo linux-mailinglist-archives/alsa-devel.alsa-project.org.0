@@ -2,101 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA8A35A5F6E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 11:29:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BDEC5A6057
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 12:10:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23371169D;
-	Tue, 30 Aug 2022 11:28:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23371169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF8BE169C;
+	Tue, 30 Aug 2022 12:09:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF8BE169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661851787;
-	bh=t2sXGhTn/ac48yQ9/u5cyaBUT2jGdyly46ervd1eQA8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1661854240;
+	bh=fKG1MQyFy/CBRY5IwsgZn8zxL+GpKi0UiL9409hS164=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qcUj1UHac/P19/g9LdN7mWWNfF7xDcM5EciAIBVkWfogvlNfy8/7s5768ZE6sOfDl
-	 MAUgtJiGsWzi3aZ+RWbTD7n3r1L/N4T61c83rc9BXRgxCBlbt6+fBE8Iief3DM+Z37
-	 Zk/yWq5LgMryXzD2hkz3ugLwZs+yGI2GvIz8kkbU=
+	b=TPeRpf0vxhS1PD/OlrgsjsSXz0ruhqedOzaQgzBU7N7OjFhfO+r/QGhCka7Z0+yaw
+	 4xSG7E6lYnYblW1pv5ieiP1CceFuANIF6B3a3vAkXvOvf5fEACrmXwHSFqz24f/5hu
+	 hkliLauntmoxAxx6POO+9CKqZTb7RSPbg1hmaUKw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A538F8032B;
-	Tue, 30 Aug 2022 11:28:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56A3AF8012A;
+	Tue, 30 Aug 2022 12:09:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78855F8023A; Tue, 30 Aug 2022 11:28:43 +0200 (CEST)
+ id 1EC8EF800AA; Tue, 30 Aug 2022 12:09:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E31EEF800F2
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 11:28:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E31EEF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80115F8016B
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 12:09:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80115F8016B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="l/RBizF6"
-Received: by mail-lf1-x133.google.com with SMTP id p5so11550405lfc.6
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 02:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=FmzIDD4Pa7+MmcfVJAwljvGaSQDMssbd6GqQpiHG2xs=;
- b=l/RBizF6kzePEfcYyZqRb6nMeIozE3Plc6MK0BE1z9FSW6eEoTADB7lH50rjVtKVQq
- aTqmCKBtnm6wV5Kxht5W+Ewwq+uFCzHlcHlgGiTPkWOJdSETsWYLh61oYlnGg5owVOt4
- gTgRcao62+Di9UQGpr8ywKs/U7T16LOlJPS3gfiRUCGgQ1t+mGhWOrabo3LCkRdrlRhV
- LGOm4OsQsPsCD1yoyrc1650LghtiO8wVRy/t2PRKP/bbZ8GUCFO4sCcWknY7m03qo9ei
- zhMZEP9GT1iqij0GtA82IvCC+xLVClsJgUcZzL92rTS+HteejrYHKWXXwNnafYTLpewu
- Yppg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=FmzIDD4Pa7+MmcfVJAwljvGaSQDMssbd6GqQpiHG2xs=;
- b=PuW1vNHiXKKhv5T7TS6mqQOGWLtnG+qYoOg9kHzHog+HmaXo9vb+uj9vSffVr/JEHI
- vbtvH29LRyVxFd+Xdn590aoXmiY4T3f75+ECPJRRyonJ9a1tauakZ1pE+tjjMpKxHLNq
- 63lJcMpb684/gf/9jfa7uWxhChC51oKS0RA4TPbeHdieuKlIXn+K4Up3gToNS0vCgd18
- QR/vBnAT1EoBKe0w4LeSmNZHiz1rkB2kbV26n/zkZV3F5vN0EdNTwJRKz5EeSqDUVt3B
- tr5uRlD2yT5C4Kj9z2MWlmKox040dldjhj8sIJrLrBb8zTaY1k+5KyD/jLHEyc8b6I59
- d8qA==
-X-Gm-Message-State: ACgBeo0hX7Nc/06SKqEW0Yzc5peHw0IcOAlslwDnoZ/2IHoyDkQ4kjFC
- KObJ+YrYlyLyAMOkado+BPlbRQ==
-X-Google-Smtp-Source: AA6agR4+KSqYDLnziLnnQeT1r6I0LXNAxazi5IGv/j87wuVt+YLGrV9a67iwU0YcX+hsxrZFnxmBBw==
-X-Received: by 2002:a05:6512:10d4:b0:492:ede1:ec75 with SMTP id
- k20-20020a05651210d400b00492ede1ec75mr7014503lfg.146.1661851713946; 
- Tue, 30 Aug 2022 02:28:33 -0700 (PDT)
-Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
- [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
- t28-20020a056512031c00b00492e4c97ca3sm85446lfp.246.2022.08.30.02.28.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Aug 2022 02:28:33 -0700 (PDT)
-Message-ID: <f614f968-baf4-6b4d-507e-29221e1469bc@linaro.org>
-Date: Tue, 30 Aug 2022 12:28:32 +0300
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Oy599ehG"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4E2DF61456;
+ Tue, 30 Aug 2022 10:09:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0019C433C1;
+ Tue, 30 Aug 2022 10:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661854141;
+ bh=fKG1MQyFy/CBRY5IwsgZn8zxL+GpKi0UiL9409hS164=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Oy599ehGhPgRJWC2PkqoxNVsb8p5EzhliJ8Xak3WwtR4mkdno6LqkXYRDPvB6ASnq
+ KngHLSiYvPzKJDMvS9tYipdqXFXyfnHUVC3x/eE7CcT58HH5QEQO0cSubv1OJKSfec
+ WqpMGqi+hZSaE2otYN87v1psYqz8Xi0qy7oT9jCA8yfTibkcpM/WghNAZTyFHybh0r
+ 5pADQeNXZUi05QfLAJr6Z7+NZfRgCSP5h++crp1T3ZcbUYnxByvKIKlCSF6ibNCLFy
+ qouWmXwMZEQH+DHO7Ft3Y3NO/Q9ZBaPnPpPxMfkv93ZWO3idgrJ6kMHE02kFtEGT0S
+ j1VySYZJbo/TA==
+From: Mark Brown <broonie@kernel.org>
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20220827165657.2343818-1-Syed.SabaKareem@amd.com>
+References: <20220827165657.2343818-1-Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH v2 00/13] Add Pink Sardine platform ASoC driver
+Message-Id: <166185413954.1099664.14581442421276925266.b4-ty@kernel.org>
+Date: Tue, 30 Aug 2022 11:08:59 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH 1/5] ASoC: dt-bindings: fsl_rpmsg: Add a property to
- assign platform driver name
-Content-Language: en-US
-To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- linuxppc-dev@lists.ozlabs.org
-References: <20220829075144.2405000-1-chancel.liu@nxp.com>
- <20220829075144.2405000-2-chancel.liu@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220829075144.2405000-2-chancel.liu@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-65ba7
+Cc: alexander.deucher@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com,
+ Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,69 +87,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29/08/2022 10:51, Chancel Liu wrote:
-> Add a string property to assign ASoC platform driver name. It also
-> represents the rpmsg channel this sound card sits on. This property
-> can be omitted if there is only one sound card and it sits on
-> "rpmsg-audio-channel".
+On Sat, 27 Aug 2022 22:26:44 +0530, Syed Saba Kareem wrote:
+> Pink Sardine platform is new APU series based on acp6.2 design.
+> This patch set adds an ASoC driver for the ACP (Audio CoProcessor) block
+> on AMD Pink Sardine APU with DMIC endpoint support.
 > 
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
-> ---
->  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 34 +++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
+> changes since v1:
+>         -Removed subraction logic in acp62.h header file and changed
+> 	the address in acp62_chip_offset_byte.h file.
+>         -Fixed indentation in pci driver file.
+>         -Removed comments which states function names in pci driver file.
+>         -Replaced some hex values with decimals in pci driver file.
+>         -Corrected MODULE_DESCRIPTION in pdm driver file.
+>         -Removed structure variable which is used for byte count in header
+> 	file and added new local variable for denoting the byte count.
+>         -Added Kfree for freeing the runtime->private data.
+>         -Replaced X86 && PCI with X86 && PCI && ACPI in Kconfig file.
+> Syed Saba Kareem (13):
+>   ASoC: amd: add Pink Sardine platform ACP IP register header
+>   ASoC: amd: add Pink Sardine ACP PCI driver
+>   ASoC: amd: add acp6.2 init/de-init functions
+>   ASoC: amd: add platform devices for acp6.2 pdm driver and dmic driver
+>   ASoC: amd: add acp6.2 pdm platform driver
+>   ASoC: amd: add acp6.2 irq handler
+>   ASoC: amd: add acp6.2 pdm driver dma ops
+>   ASoC: amd: add acp6.2 pci driver pm ops
+>   ASoC: amd: add acp6.2 pdm driver pm ops
+>   ASoC: amd: enable Pink Sardine acp6.2 drivers build
+>   ASoC: amd: create platform device for acp6.2 machine driver
+>   ASoC: amd: add Pink Sardine machine driver using dmic
+>   ASoC: amd: enable Pink sardine platform machine driver build.
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> index d370c98a62c7..35e3cb9f768b 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
-> @@ -11,8 +11,11 @@ maintainers:
->  
->  description: |
->    fsl_rpmsg is a virtual audio device. Mapping to real hardware devices
-> -  are SAI, DMA controlled by Cortex M core. What we see from Linux
-> -  side is a device which provides audio service by rpmsg channel.
-> +  are SAI, MICFIL, DMA controlled by Cortex M core. What we see from
-> +  Linux side is a device which provides audio service by rpmsg channel.
-> +  We can create different sound cards which access different hardwares
-> +  such as SAI, MICFIL, .etc through building rpmsg channels between
-> +  Cortex-A and Cortex-M.
->  
->  properties:
->    compatible:
-> @@ -85,6 +88,14 @@ properties:
->        This is a boolean property. If present, the receiving function
->        will be enabled.
->  
-> +  fsl,platform:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: |
-> +      A string property to assign ASoC platform driver name. 
+> [...]
 
-No, this is not a property of hardware. Naming of some drivers in some
-systems does not fit DTS and bindings.
+Applied to
 
-> It also
-> +      represents the rpmsg channel this sound card sits on. This property
-> +      can be omitted if there is only one sound card and it sits on
-> +      "rpmsg-audio-channel".
-> +
->  required:
->    - compatible
->    - model
-> @@ -107,3 +118,22 @@ examples:
->                   <&clk IMX8MN_AUDIO_PLL2_OUT>;
->          clock-names = "ipg", "mclk", "dma", "pll8k", "pll11k";
->      };
-> +
-> +  - |
-> +    #include <dt-bindings/clock/imx8mm-clock.h>
-> +
-> +    rpmsg_micfil: rpmsg_micfil {
+   broonie/sound.git for-next
 
-Node names should be generic.
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+Thanks!
 
-Also: no underscores in node names.
+[01/13] ASoC: amd: add Pink Sardine platform ACP IP register header
+        commit: 161bff51181f919a4b80fe2ab3504d60ac4b4316
+[02/13] ASoC: amd: add Pink Sardine ACP PCI driver
+        commit: 95e43a170bb1e91a7972610d33a26ea4841e2cdd
+[03/13] ASoC: amd: add acp6.2 init/de-init functions
+        commit: 9766bb62cf315ccbfc6203372074dffe69389356
+[04/13] ASoC: amd: add platform devices for acp6.2 pdm driver and dmic driver
+        commit: 515ee2574aa4d6bf05dce194e342bd2712ea4bd4
+[05/13] ASoC: amd: add acp6.2 pdm platform driver
+        commit: 33cea6bbe48896bcaa03f030f5b52e05de68bccd
+[06/13] ASoC: amd: add acp6.2 irq handler
+        commit: 5bbeca60a57bb9a35cc98c064bbb575738d5be0d
+[07/13] ASoC: amd: add acp6.2 pdm driver dma ops
+        commit: 5137305662ef5cad12ff472ca4c8c3b266fd46c5
+[08/13] ASoC: amd: add acp6.2 pci driver pm ops
+        commit: 3a543d56e3d3c9bb67ffe3ff9ad7ddf77e448019
+[09/13] ASoC: amd: add acp6.2 pdm driver pm ops
+        commit: 28023a78790c33f5df0147fd00ab3cf333edd24f
+[10/13] ASoC: amd: enable Pink Sardine acp6.2 drivers build
+        commit: 1e4366489e2c059cb00e453737e802d74fd9b1d1
+[11/13] ASoC: amd: create platform device for acp6.2 machine driver
+        commit: 76dd567591c89f92dea97b581988538312ae584f
+[12/13] ASoC: amd: add Pink Sardine machine driver using dmic
+        commit: 0c8327c07b2ecc4a4443b1dae407f0d4854b5ae1
+[13/13] ASoC: amd: enable Pink sardine platform machine driver build.
+        commit: 2a09cef652d9c1e76229a4381e928560bec3d878
 
-Best regards,
-Krzysztof
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

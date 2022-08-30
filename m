@@ -2,97 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0D05A5DFF
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 10:25:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 892495A5ED1
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 11:01:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42836168E;
-	Tue, 30 Aug 2022 10:24:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42836168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E23B51676;
+	Tue, 30 Aug 2022 11:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E23B51676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661847926;
-	bh=EuADP4jO6v7z48Ww35fw04RjUGyqvdOznT03e1JNm/I=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661850083;
+	bh=Kuuh9wXUPHy3ZZ+lPFe6JH/8oDguzS1P2yugkIRlrU8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mJJo5y1ay1yKDPAvsQRKwznsXrsAU7kPsu/n7qgMsJOOV6zta4LEmeU88RmZlwxW6
-	 N38hLbbXxVPoTaOG1ylI7yEIsfAYgSXeCLFMdAmb1G/fIic1VzxrmUbkiqXrx4Osf5
-	 W/w7bAhfQzIcxdRqWQ5E8uAeYL9nu6CpdYij39M4=
+	b=HG61+RobISpGNGm2Uw8XPjIt/fFTfTOSF3Dvvt6D8kSAi5IW9CXgUk4bkhr01N9L/
+	 v9yp70GF0J2/P1rgmdBX0sFDil70MBLbj0YkI1oi54pMNs17XqxrbIngDQzK4ljnmZ
+	 faenmxpwP1rgjxsDt3NL1antu1+eEfxZiSdv+A+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCC1DF8032B;
-	Tue, 30 Aug 2022 10:24:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48360F800AA;
+	Tue, 30 Aug 2022 11:00:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA4F7F800F2; Tue, 30 Aug 2022 10:24:24 +0200 (CEST)
+ id E3368F8023A; Tue, 30 Aug 2022 11:00:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 912F4F800F2
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 10:24:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 912F4F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60EB6F800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 11:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60EB6F800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="wISHBTVU"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FbfWN7Bg"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E586521C52;
- Tue, 30 Aug 2022 08:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661847857; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+ynhCfJzgzTSpfGtKPlP/zH+NZYqOSM/uw7MlurZjGo=;
- b=wISHBTVU7H8bZF0OWZeZQrWrNX2eSYi5ZLx73a29rvlRIiVwqvKgF/L0Fr4K/70PY/rr/Z
- RcOjftCMeWBENfThIgO75/qvIY/am0wLjFiXm/6Uff3FvhuHgGwlu74AlkAE+6foXkutp1
- G9v1ar0w4Be2LSrMek4V5Pd8OcvzbhI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661847857;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+ynhCfJzgzTSpfGtKPlP/zH+NZYqOSM/uw7MlurZjGo=;
- b=FbfWN7Bg+jXb2ySmiAdObxhP55oRlP0m709rhiA4Gwn57UHX5/KFngDkr2dxbnWjWfjDW+
- TJ/k1YWg5NH/17CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C948B13B0C;
- Tue, 30 Aug 2022 08:24:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Fu5XMDHJDWMFeQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 30 Aug 2022 08:24:17 +0000
-Date: Tue, 30 Aug 2022 10:24:17 +0200
-Message-ID: <875yia87gu.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: chihhao chen <chihhao.chen@mediatek.com>
-Subject: Re: missing sound on kernel-5.15
-In-Reply-To: <04ecea78ade006c6c7f4575158d1973feb9a6062.camel@mediatek.com>
-References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
- <YwNvQaNNIKB8ELhR@geday>
- <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
- <87r10zxyml.wl-tiwai@suse.de>
- <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
- <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
- <87ilma8edo.wl-tiwai@suse.de>
- <0f36385ad917ac5ec1fdf4fedd8acd6bb3494bdf.camel@mediatek.com>
- <87bks28b8c.wl-tiwai@suse.de>
- <04ecea78ade006c6c7f4575158d1973feb9a6062.camel@mediatek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="cpI3qv8n"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27U6Tnpn015916;
+ Tue, 30 Aug 2022 04:00:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=uRhx0qsItgHE0IAxKDqM89f+96sF81OK+0o/iFCcvgc=;
+ b=cpI3qv8nZ3bz6aZFMMwF48lZRIKJ1bkMiyJRW/QvlydqTx+d8/Bgx7bZYaBmcR0pV6nB
+ ZugUGNv/T97JqpSriapR7s80CF1aKOCpNrqegUxZ3L5AIq2iVcuRrDg3hI9pzBJEOHp2
+ JCssrq1RcyWiaAa5szcooOLNFdOHUVNHyeD7tAIEzxkagiBk22lpxC6L6lXX+ppTzQcl
+ wWn91ISG+vIyf0siIGiQgPC7yJnmOy1MNoIAkHlCSuwpxRBq5fr5d2hTkquN2IEXg6uJ
+ d2Q9EjnEiUF/OKFKMoPMY4e5KuJ6p7BRaYdZwu6CeDteq80uzmEqYLO1hb436WpLyC6T hQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3j7fppb5b3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Aug 2022 04:00:16 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 30 Aug
+ 2022 04:00:15 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Tue, 30 Aug 2022 04:00:15 -0500
+Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CFC7F459;
+ Tue, 30 Aug 2022 09:00:14 +0000 (UTC)
+Message-ID: <b3162f04-5cfe-75c2-6117-d7949ccd0a5a@opensource.cirrus.com>
+Date: Tue, 30 Aug 2022 10:00:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 3/3] soundwire: bus: Fix lost UNATTACH when re-enumerating
+Content-Language: en-US
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+References: <20220825122241.273090-1-rf@opensource.cirrus.com>
+ <20220825122241.273090-4-rf@opensource.cirrus.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20220825122241.273090-4-rf@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: kK2WzBMWuKoTtPqrw0Bpl2oY0_QG6cYL
+X-Proofpoint-ORIG-GUID: kK2WzBMWuKoTtPqrw0Bpl2oY0_QG6cYL
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,97 +103,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Aug 2022 10:08:51 +0200,
-chihhao chen wrote:
+On 25/08/2022 13:22, Richard Fitzgerald wrote:
+> Rearrange sdw_handle_slave_status() so that any peripherals
+> on device #0 that are given a device ID are reported as
+> unattached. The ensures that UNATTACH status is not lost.
 > 
-> Hi Takashi,
+> Handle unenumerated devices first and update the
+> sdw_slave_status array to indicate IDs that must have become
+> UNATTACHED.
 > 
-> I also think it should be a firmware problem but it happens with many
-> different devices because of new set sampling rate behavior in k5.15.
-> 
-> Device 1 UAC1
-> [  134.924359][T1000005] kworker/0:0: usb 1-1: [name:usbcore&]New USB
-> device found, idVendor=04e8, idProduct=a04f, bcdDevice= 1.00
-> [  134.925944][T1000005] kworker/0:0: usb 1-1: [name:usbcore&]New USB
-> device strings: Mfr=1, Product=2, SerialNumber=3
-> [  134.927338][T1000005] kworker/0:0: usb 1-1: [name:usbcore&]Product:
-> Samsung USB C Earphone
-> [  134.928426][T1000005] kworker/0:0: usb 1-1:
-> [name:usbcore&]Manufacturer: bestechnic
-> [  134.929432][T1000005] kworker/0:0: usb 1-1:
-> [name:usbcore&]SerialNumber: 20160406.1
 
-Does this show the same problem?  If so, that's interesting because
-UAC1 has a completely different way of setting the sample rate.
-
-> Device 2 UAC3
-> [  779.645324][T1003414] kworker/0:1: usb 1-1: [name:usbcore&]New USB
-> device found, idVendor=05ac, idProduct=110a, bcdDevice=26.11
-> [  779.647376][T1003414] kworker/0:1: usb 1-1: [name:usbcore&]New USB
-> device strings: Mfr=1, Product=2, SerialNumber=3
-> [  779.649492][T1003414] kworker/0:1: usb 1-1: [name:usbcore&]Product:
-> USB-C to 3.5mm Headphone Jack Adapter
-> [  779.652262][T1003414] kworker/0:1: usb 1-1:
-> [name:usbcore&]Manufacturer: Apple, Inc.
-> [  779.652273][T1003414] kworker/0:1: usb 1-1:
-> [name:usbcore&]SerialNumber: DWH126301CLJKLTAF
-
-> Device 3
-> A XiaoMi adapter but it not in my hand now.
-> 
-> I will try to integrate k5.19 into my codebase.
-
-At best, please give the alsa-info.sh output from each device.
-Run the script with --no-upload option and attach the output.
-
-Then try to test whether the reported highest sample rate actually
-works as-is.  That is, to see whether the problem is really about
-issuing the frequency change multiple times for different rates, or
-it's because issuing the highest rate screws up the device.
-
-And, for UAC2/3 devices, it might be worth to try some known quirks,
-e.g. QUIRK_FLAG_VALIDATE_RATES, which was needed for MOTU (UAC2)
-devices.  It's a bit 12 of quirk_flags option value.
-
-
-Takashi
-
-> 
-> Thanks
-> 
-> 
-> On Tue, 2022-08-30 at 09:02 +0200, Takashi Iwai wrote:
-> > On Tue, 30 Aug 2022 08:13:44 +0200,
-> > chihhao chen wrote:
-> > > 
-> > > Hi Takashi,
-> > > 
-> > > I tried the patch but this problem still happens.
-> > > 
-> > > I add some logs in snd_usb_init_sample_rate() in kernel-5.10
-> > > [  146.260105][T1702328] writer: usb 1-1: [name:snd_usb_audio&]2:2
-> > > Set
-> > > sample rate 96000, clock 0 protocol 0
-> > > [  146.289892][T1002328] writer: usb 1-1: [name:snd_usb_audio&]2:2
-> > > Set
-> > > sample rate 48000, clock 0 protocol 0
-> > > 
-> > > Because TinyAlsa tends to set highest rate for initialization and
-> > > real
-> > > rate for playback, it will still trigger two-times
-> > > SAMPLING_FREQ_CONTROL USB requests.
-> > 
-> > Then this is a firmware problem of your device.
-> > The same problem would happen even with the old kernel if you run the
-> > application with different sample rates.  Does the device work with
-> > 96kHz at all?
-> > 
-> > Could you give the lsusb -v output of the device, too?
-> > 
-> > > Which kernel version should I try? kernel-5.19 or?
-> > 
-> > Yes, 5.19 should suffice.
-> > 
-> > 
-> > Takashi
-> 
+Don't use this patch!
+I found there's a race condition with the Cadence interrupts.
+Use my alternative fix.

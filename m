@@ -2,99 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD795A6AE9
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 19:36:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1406C5A6B30
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 19:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DADFA1687;
-	Tue, 30 Aug 2022 19:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DADFA1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85F38820;
+	Tue, 30 Aug 2022 19:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F38820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661880982;
-	bh=6MjfTfaZ4QLLNQjDtcLgGu373t2zKk6/koDJeuFCOck=;
+	s=default; t=1661881769;
+	bh=OD6nLI2nBr7eJMyT4g+3Gn2B/nPJwACzjrTmwNhZdz0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B63DzykV/+Zmznxa1CeWdMO/wUdsFpov4aVbnu4R91RZxYw/nrp9SN2g4JASvj30r
-	 SHmCBVaqQV+KCeFGpJpf41688//8bJQ5k8gZ7oTsx526xYkfZkcBXkItwS7koi/joK
-	 Y9rBDDjJGTptjXOiKzxjBAsDWDnogbNHYM/QzWMQ=
+	b=Rc+Da9avMsBx/WRWMTiK8D72WHFMgh2oyTIpO3RQVvYtcyONEYMlvAlAh/mlcU19m
+	 uzMt8KIlxxxKZ6RS57HjbRH6IQjYZnavbiiBAmcHbY3qth/X9M7O2hiij0nDpJ1iXM
+	 R35GDov7WyKnnAMm99GR5ayYxZPlDybhtkx/WCUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F2C7F8032B;
-	Tue, 30 Aug 2022 19:35:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07994F800AA;
+	Tue, 30 Aug 2022 19:48:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A2B9F8023A; Tue, 30 Aug 2022 19:35:20 +0200 (CEST)
+ id 3E9E9F8023A; Tue, 30 Aug 2022 19:48:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B8FEF800F2
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 19:35:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B8FEF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFB71F800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 19:48:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFB71F800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="K8NWIl4e"
-Received: by mail-lf1-x12f.google.com with SMTP id bt10so16529434lfb.1
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 10:35:13 -0700 (PDT)
+ header.b="Pa38oV3E"
+Received: by mail-lj1-x22c.google.com with SMTP id q16so12161570ljp.8
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 10:48:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=gNZdcqkFwpNa2I0ZP3eEeP6iX1q8vNso/HI+NR+Wx8E=;
- b=K8NWIl4eTtxKMgxcHr0MIzPzdVgYSCUCp81ghSu7meddtK3chMXIKr+qwyWbPJGzmG
- 8W3xXxN/B51i//ogBN8MeRMD1mToPV2S7fIdmrWGHthGbGQQVaE+LvCi9YmHAnelefy/
- TmfXzAeyUnlChV7q9cYDO5sL8XsU6HiMfyNLN7Vo0YHxcj6trabCeHTss65VulL76M9b
- X1p+mVUnZBCMN6lTnUa7SR14LqISxxeEJmj7dw0rlWcmMdHUNK0fp4q8qHoSTtokjWOV
- 8WLvrLA3MTAMEb/eFPgmmQfnlWXo1Z9B//6B2lGFbGKsX96lem68ssvamyYoeJNlBmZs
- uQ/w==
+ :from:to:cc; bh=PSuf5+uKyRCAUiI+NXml1CeEx283tkYLDjiJC0rmPIc=;
+ b=Pa38oV3EVhdVuxDZfh0mLFLLZj0UBeyf9wUuaxsSKLBOQMSwP/+JXnyg/+1bYSvB6P
+ clumNFaYdbLtvk3RCoO7z7tXkfk3qhapicwWk09WHdnxzWc6l/jfpXnmuEU6KnrEz6Kt
+ VofAZ3ldyFZosiRqzUpeLIlIMVS5EmYCySQI7+EOvU+4cABLf/SL19ENqRy7bEdgXjgl
+ v1/C7lRGBdGDQM+im6QASqFK3eALWIvAwXYcsU/o7jVMguTS3WO9LcyxT/iQR3MKPL/T
+ 5U0Lw0y9tdW7IwO+/VcodE8+Mip00rT3Vv6Vl3fb1N3QUAG1skvdmwM8K6uAuldeB38q
+ PIPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=gNZdcqkFwpNa2I0ZP3eEeP6iX1q8vNso/HI+NR+Wx8E=;
- b=eJlGtB367frcQZLDoD8mtcQP5dvZoUXmeB6QuQxT+phQ4WUhJvrMwv1137SfZlna3u
- JS8JKwXuu0w9IKWybalhG43qOwQLuuvTFo/t9EIzP5sVhfKrwz7QYHAQjAqeuABmbRDi
- UQV/GcL9IZNgAFtj6GStSQIiLsRk4JkBC0APNdGptlR0XQTBO6J7oz+RWqI6AIweEPmy
- pzqlxVxfwmz5wRZFHwSppUzXkKP2QOg/f9o2FG4b8pzdY7qnQQr4CQ5bESyU8F9loYDF
- mMRaXiKTdbbnHapQNLPFynjUAYsSACj7QhTYDJ7e/tch+PExGvnr4FRgHNJea2GwGRBL
- N+Hw==
-X-Gm-Message-State: ACgBeo3GbKpGdXkJWF4XWHnO7CqAtJT0O3jgFph+ttLCphVpwYqIOnCC
- K/H+InN8XpM7z6Vw4f3NeHyiJQ==
-X-Google-Smtp-Source: AA6agR6TqO5OOu79KvMsRgImLRyvGwihNJE/dbXQVJ4Zf+PE3vnSCPfDI1eQNKvWu0egoLgfX/vldA==
-X-Received: by 2002:a05:6512:1686:b0:491:3199:d407 with SMTP id
- bu6-20020a056512168600b004913199d407mr8192887lfb.476.1661880911305; 
- Tue, 30 Aug 2022 10:35:11 -0700 (PDT)
+ bh=PSuf5+uKyRCAUiI+NXml1CeEx283tkYLDjiJC0rmPIc=;
+ b=W5+19UAnuXPZs1FBBk0jrAvWrGtLRafCNs/wV8Q1LpArFpXlOA7eKFPgwXLxxrvoIi
+ Ey9RxOuk4tN8mbAwTRh1pwSuyrLqkLvN67N318hWdKtGjiw3RQCCLbkRHgtTWSHwvb94
+ hnW0ySaY4eaAfCjjW7ZMTfMiYZXJdrQkv5pBE1/kN19KD+UVspgz1JzHVZqKQz00wO9z
+ dyzSJjhgImpf5wsNeilUfFLNlDDxlOMpd5HT7OkNVRSu9fBj+mt2jMH80N5gPH0AtL/W
+ yHJQfQ6M7jldToVMFceNqkycvgA5RBL3cw+o9XgZI4BD7cE7dN8pyMrFVDjzktpG3BfO
+ TdmA==
+X-Gm-Message-State: ACgBeo2JZmIVaBOIKQtA7xzt7xeSg1A69TQ32uXtw1DhxiUiHeevAsuW
+ CWOxWHIue7zkXQyq5DKnPJeDug==
+X-Google-Smtp-Source: AA6agR7HZ6jJHiaVODBD57pgKGHlsu+AMUYygh3v4y+9xL4VMk3jrHV/vfKt6fcZwoaqiu0Yk7UBwg==
+X-Received: by 2002:a05:651c:905:b0:261:d00c:e71 with SMTP id
+ e5-20020a05651c090500b00261d00c0e71mr7370638ljq.407.1661881702529; 
+ Tue, 30 Aug 2022 10:48:22 -0700 (PDT)
 Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
  [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
- m6-20020a056512114600b0048b12c4c7e6sm636622lfg.12.2022.08.30.10.35.09
+ n2-20020a05651203e200b0048a757d1303sm997253lfq.217.2022.08.30.10.48.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Aug 2022 10:35:10 -0700 (PDT)
-Message-ID: <25072fba-64e2-df11-c8f0-a274037141f0@linaro.org>
-Date: Tue, 30 Aug 2022 20:35:09 +0300
+ Tue, 30 Aug 2022 10:48:22 -0700 (PDT)
+Message-ID: <3c319873-72c9-632c-7c32-4ee909aa1e64@linaro.org>
+Date: Tue, 30 Aug 2022 20:48:21 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
-Subject: Re: [PATCH v9 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings
- for DMIC controller
+Subject: Re: [PATCH 1/3] slimbus: qcom-ngd: use correct error in message of
+ pdr_add_lookup() failure
 Content-Language: en-US
-To: Ban Tao <fengzheng923@gmail.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- wens@csie.org, jernej.skrabec@gmail.com, samuel@sholland.org,
- alsa-devel@alsa-project.org
-References: <1661872039-40174-1-git-send-email-fengzheng923@gmail.com>
+To: Jeff Johnson <quic_jjohnson@quicinc.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20220830121359.634344-1-krzysztof.kozlowski@linaro.org>
+ <a437b91a-281d-56b3-41bf-15d9593ece74@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <1661872039-40174-1-git-send-email-fengzheng923@gmail.com>
+In-Reply-To: <a437b91a-281d-56b3-41bf-15d9593ece74@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,47 +113,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/08/2022 18:07, Ban Tao wrote:
-> DT binding documentation for this new ASoC driver.
-
-Thank you for your patch. There is something to discuss/improve.
-
+On 30/08/2022 20:33, Jeff Johnson wrote:
+> On 8/30/2022 5:13 AM, Krzysztof Kozlowski wrote:
+>> Use cprrect error code, instead of previous 'ret' value, when printing
+> 
+> s/cprrect/correct/
 > 
 
->  .../bindings/sound/allwinner,sun50i-h6-dmic.yaml   | 79 ++++++++++++++++++++++
->  1 file changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-> new file mode 100644
-> index 0000000..0cfc07f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/allwinner,sun50i-h6-dmic.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Allwinner H6 DMIC Device Tree Bindings
-
-s/Device Tree Bindings//
-
-> +
-> +maintainers:
-> +  - Ban Tao <fengzheng923@gmail.com>
-> +
-> +properties:
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  compatible:
-> +    const: allwinner,sun50i-h6-dmic
-
-Put compatible first in the list of properties (also in required:).
-
-Rest is ok, so keep the Rb-tags you already got.
+Thanks. I'll fix it.
 
 Best regards,
 Krzysztof

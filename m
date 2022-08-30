@@ -2,93 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DBA95A5EDA
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 11:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8A35A5F6E
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Aug 2022 11:29:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA6721692;
-	Tue, 30 Aug 2022 11:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6721692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23371169D;
+	Tue, 30 Aug 2022 11:28:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23371169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661850207;
-	bh=U4o/VpPZ6hvLKtB9knI1IDw4TNpOhNuHR49xPxvgdTc=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1661851787;
+	bh=t2sXGhTn/ac48yQ9/u5cyaBUT2jGdyly46ervd1eQA8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=myWjJ7USC/1Fs1b9eh1WLZDpnVfTfkVunBlb8fDvlYro7wK22UdZC62V7SJNRyHF1
-	 lzV0wFcrzzP5uKVBD3+XNzBZKhWL1Gssso+t5xTjwyCrOBJoJDClcTvWmi4Ah9nSgQ
-	 J5j73t57i9rpXNbQZG54Z3RJFVFnhovJn9TThxoU=
+	b=qcUj1UHac/P19/g9LdN7mWWNfF7xDcM5EciAIBVkWfogvlNfy8/7s5768ZE6sOfDl
+	 MAUgtJiGsWzi3aZ+RWbTD7n3r1L/N4T61c83rc9BXRgxCBlbt6+fBE8Iief3DM+Z37
+	 Zk/yWq5LgMryXzD2hkz3ugLwZs+yGI2GvIz8kkbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C68CF8032B;
-	Tue, 30 Aug 2022 11:02:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A538F8032B;
+	Tue, 30 Aug 2022 11:28:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 612A6F8023A; Tue, 30 Aug 2022 11:02:26 +0200 (CEST)
+ id 78855F8023A; Tue, 30 Aug 2022 11:28:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E998F800F2
- for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 11:02:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E998F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E31EEF800F2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 11:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E31EEF800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="jvdfEASy"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27U6Pxh5022426;
- Tue, 30 Aug 2022 04:02:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=V3JwjUYaG9//thPC4BpkFa4sbgYWP5F0GzkhlFPquZQ=;
- b=jvdfEASyU4UXTzp4w6xu8HKKXzcfqcLG2X+fVA52ElRbAiESJJil/D043us5JqGoWHoD
- fFjfn0/KkOYkcIL7eoSAsy1du0Z+c80QnD5xtWgXzuwM+Mr4X8Hl0jnUFlvJ3dDupGJJ
- 7oxtQHxMf3Q4/C+C51GrsByRNFado2tZyisBhw25HAMv1QefDNUaXFZESuwPHRqqzV6+
- ZcvUzgIfJHaA6Lc8/lFaPwGreROS/vZsVmzdZSHUPldp0L5od5cgoXQ4y6vCXA4CVy8w
- Jcc7QYcY+t8zxTIQE8XKgJsmyRx4kdc7McTWoEagKHEED2c+n2zoLAan7GqIJxvoxco6 Ow== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3j7gp233mg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 04:02:17 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 30 Aug
- 2022 04:02:15 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Tue, 30 Aug 2022 04:02:15 -0500
-Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6926F46C;
- Tue, 30 Aug 2022 09:02:15 +0000 (UTC)
-Message-ID: <40352b26-97fb-374f-dd3d-52e241399dfb@opensource.cirrus.com>
-Date: Tue, 30 Aug 2022 10:02:15 +0100
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="l/RBizF6"
+Received: by mail-lf1-x133.google.com with SMTP id p5so11550405lfc.6
+ for <alsa-devel@alsa-project.org>; Tue, 30 Aug 2022 02:28:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=FmzIDD4Pa7+MmcfVJAwljvGaSQDMssbd6GqQpiHG2xs=;
+ b=l/RBizF6kzePEfcYyZqRb6nMeIozE3Plc6MK0BE1z9FSW6eEoTADB7lH50rjVtKVQq
+ aTqmCKBtnm6wV5Kxht5W+Ewwq+uFCzHlcHlgGiTPkWOJdSETsWYLh61oYlnGg5owVOt4
+ gTgRcao62+Di9UQGpr8ywKs/U7T16LOlJPS3gfiRUCGgQ1t+mGhWOrabo3LCkRdrlRhV
+ LGOm4OsQsPsCD1yoyrc1650LghtiO8wVRy/t2PRKP/bbZ8GUCFO4sCcWknY7m03qo9ei
+ zhMZEP9GT1iqij0GtA82IvCC+xLVClsJgUcZzL92rTS+HteejrYHKWXXwNnafYTLpewu
+ Yppg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=FmzIDD4Pa7+MmcfVJAwljvGaSQDMssbd6GqQpiHG2xs=;
+ b=PuW1vNHiXKKhv5T7TS6mqQOGWLtnG+qYoOg9kHzHog+HmaXo9vb+uj9vSffVr/JEHI
+ vbtvH29LRyVxFd+Xdn590aoXmiY4T3f75+ECPJRRyonJ9a1tauakZ1pE+tjjMpKxHLNq
+ 63lJcMpb684/gf/9jfa7uWxhChC51oKS0RA4TPbeHdieuKlIXn+K4Up3gToNS0vCgd18
+ QR/vBnAT1EoBKe0w4LeSmNZHiz1rkB2kbV26n/zkZV3F5vN0EdNTwJRKz5EeSqDUVt3B
+ tr5uRlD2yT5C4Kj9z2MWlmKox040dldjhj8sIJrLrBb8zTaY1k+5KyD/jLHEyc8b6I59
+ d8qA==
+X-Gm-Message-State: ACgBeo0hX7Nc/06SKqEW0Yzc5peHw0IcOAlslwDnoZ/2IHoyDkQ4kjFC
+ KObJ+YrYlyLyAMOkado+BPlbRQ==
+X-Google-Smtp-Source: AA6agR4+KSqYDLnziLnnQeT1r6I0LXNAxazi5IGv/j87wuVt+YLGrV9a67iwU0YcX+hsxrZFnxmBBw==
+X-Received: by 2002:a05:6512:10d4:b0:492:ede1:ec75 with SMTP id
+ k20-20020a05651210d400b00492ede1ec75mr7014503lfg.146.1661851713946; 
+ Tue, 30 Aug 2022 02:28:33 -0700 (PDT)
+Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
+ [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
+ t28-20020a056512031c00b00492e4c97ca3sm85446lfp.246.2022.08.30.02.28.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Aug 2022 02:28:33 -0700 (PDT)
+Message-ID: <f614f968-baf4-6b4d-507e-29221e1469bc@linaro.org>
+Date: Tue, 30 Aug 2022 12:28:32 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 1/1] soundwire: bus: Don't re-enumerate before status is
- UNATTACHED
+ Thunderbird/91.13.0
+Subject: Re: [PATCH 1/5] ASoC: dt-bindings: fsl_rpmsg: Add a property to
+ assign platform driver name
 Content-Language: en-US
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-References: <20220829094458.1169504-1-rf@opensource.cirrus.com>
- <20220829094458.1169504-2-rf@opensource.cirrus.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20220829094458.1169504-2-rf@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ linuxppc-dev@lists.ozlabs.org
+References: <20220829075144.2405000-1-chancel.liu@nxp.com>
+ <20220829075144.2405000-2-chancel.liu@nxp.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220829075144.2405000-2-chancel.liu@nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: FpYuGQwy9hoEBeNCqTnUoXKZwco1UU_K
-X-Proofpoint-ORIG-GUID: FpYuGQwy9hoEBeNCqTnUoXKZwco1UU_K
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,54 +112,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29/08/2022 10:44, Richard Fitzgerald wrote:
-> Don't re-enumerate a peripheral on #0 until we have seen and
-> handled an UNATTACHED notification for that peripheral.
+On 29/08/2022 10:51, Chancel Liu wrote:
+> Add a string property to assign ASoC platform driver name. It also
+> represents the rpmsg channel this sound card sits on. This property
+> can be omitted if there is only one sound card and it sits on
+> "rpmsg-audio-channel".
 > 
-> Without this, it is possible for the UNATTACHED status to be missed
-> and so the slave->status remains at ATTACHED. If slave->status never
-> changes to UNATTACHED the child driver will never be notified of the
-> UNATTACH, and the code in sdw_handle_slave_status() will skip the
-> second part of enumeration because the slave->status has not changed.
-> 
-> This scenario can happen because PINGs are handled in a workqueue
-> function which is working from a snapshot of an old PING, and there
-> is no guarantee when this function will run.
-> 
-> A peripheral could report attached in the PING being handled by
-> sdw_handle_slave_status(), but has since reverted to device #0 and is
-> then found in the loop in sdw_program_device_num(). Previously the
-> code would not have updated slave->status to UNATTACHED because it had
-> not yet handled a PING where that peripheral had UNATTACHED.
-> 
-> This situation happens fairly frequently with multiple peripherals on
-> a bus that are intentionally reset (for example after downloading
-> firmware).
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 > ---
->   drivers/soundwire/bus.c | 7 +++++++
->   1 file changed, 7 insertions(+)
+>  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 34 +++++++++++++++++--
+>  1 file changed, 32 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index cb77da84a4f9..a3d3d66b3410 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -766,6 +766,13 @@ static int sdw_program_device_num(struct sdw_bus *bus)
->   			if (sdw_compare_devid(slave, id) == 0) {
->   				found = true;
->   
-> +				/*
-> +				 * Don't re-enumerate a device until we've seen
-> +				 * it UNATTACH.
-> +				 */
-> +				if (slave->status != SDW_SLAVE_UNATTACHED)
-> +					break;
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> index d370c98a62c7..35e3cb9f768b 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> @@ -11,8 +11,11 @@ maintainers:
+>  
+>  description: |
+>    fsl_rpmsg is a virtual audio device. Mapping to real hardware devices
+> -  are SAI, DMA controlled by Cortex M core. What we see from Linux
+> -  side is a device which provides audio service by rpmsg channel.
+> +  are SAI, MICFIL, DMA controlled by Cortex M core. What we see from
+> +  Linux side is a device which provides audio service by rpmsg channel.
+> +  We can create different sound cards which access different hardwares
+> +  such as SAI, MICFIL, .etc through building rpmsg channels between
+> +  Cortex-A and Cortex-M.
+>  
+>  properties:
+>    compatible:
+> @@ -85,6 +88,14 @@ properties:
+>        This is a boolean property. If present, the receiving function
+>        will be enabled.
+>  
+> +  fsl,platform:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: |
+> +      A string property to assign ASoC platform driver name. 
 
-This should return. We're going to keep seeing this peripheral as the
-next to be enumerated until we program its device ID.
+No, this is not a property of hardware. Naming of some drivers in some
+systems does not fit DTS and bindings.
 
+> It also
+> +      represents the rpmsg channel this sound card sits on. This property
+> +      can be omitted if there is only one sound card and it sits on
+> +      "rpmsg-audio-channel".
 > +
->   				/*
->   				 * Assign a new dev_num to this Slave and
->   				 * not mark it present. It will be marked
+>  required:
+>    - compatible
+>    - model
+> @@ -107,3 +118,22 @@ examples:
+>                   <&clk IMX8MN_AUDIO_PLL2_OUT>;
+>          clock-names = "ipg", "mclk", "dma", "pll8k", "pll11k";
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/clock/imx8mm-clock.h>
+> +
+> +    rpmsg_micfil: rpmsg_micfil {
+
+Node names should be generic.
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+
+Also: no underscores in node names.
+
+Best regards,
+Krzysztof

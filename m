@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 835C75A79F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 11:19:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FC95A7A03
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 11:20:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3204016CD;
-	Wed, 31 Aug 2022 11:18:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3204016CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B924416CA;
+	Wed, 31 Aug 2022 11:19:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B924416CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661937544;
-	bh=qQiJiGTDX2hLl/q6qWoXC3OF8anyXmMkuly9eSlmyeg=;
+	s=default; t=1661937623;
+	bh=40TJUbd/LIbC4uJ3UO3rgWT/FK8hXrgj0nhi6gaCxmA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bkMqOkcNVM8EBvelVTiulrx1VNNN5jM+T36lnvF3dY0Jao+zobZU7w0kqP0QBjTnG
-	 B+Z6QHN5GQ4tMOtGjQhrgeVqLNTrZdzC2Q6/2v0YkRsYWn64O3Vvyq8c1oUsBMqSTo
-	 bvKraWiBxLQNJyap+YBqJ9aPWSKwyddlEI7VvmIU=
+	b=p8j/JQoizMRCMnRru5oOttYVk7MWVLLc9lP5IrGUi+QW4RZ1wMlW1ds8ZDj4ntdvn
+	 0LXtSnfhhbISxwbLmNNb4TjkZZS8Zsn/74vjpVokpadvFoRUNwtW96wOy7k9B1pvhO
+	 1UhAZAcc3XjaVtEv/+8tIEpKhS6PdSL+Nt/4MCKg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91BB8F80448;
-	Wed, 31 Aug 2022 11:18:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75BA8F800AA;
+	Wed, 31 Aug 2022 11:19:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B11EF8042F; Wed, 31 Aug 2022 11:18:02 +0200 (CEST)
+ id 1538DF80448; Wed, 31 Aug 2022 11:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D303F800AA
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 11:17:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D303F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 869FAF800AA
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 11:19:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 869FAF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="X3x24bF6"
-Received: by mail-wr1-x434.google.com with SMTP id c7so10734146wrp.11
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 02:17:54 -0700 (PDT)
+ header.b="l/XeKVh2"
+Received: by mail-lf1-x136.google.com with SMTP id w8so10009554lft.12
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 02:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=SXvbV5rcvavP4Jcb2izxYcl7CbRhtBP4rr55k+HGuNU=;
- b=X3x24bF6e1FAOnPOGPbkcK7pFdN7G4u8EQYVcJVjQQXTgufSKLHtIl3ZQe0VghbytW
- Du2+8Ec7aNljPJv6ObaPdvyEkH1Wwam9fzUydUDgl66FRPgYmj1zGbjzK39Tuf6Nvoex
- yU3l9CTgYqLDJflN+BwpL2FhKgNDfukBBVgdY2sz5mqAxYWgQ2EvtLVEg8Bic6ADlQQp
- 1HcbHQfR3pC4V/k6OPENbevkVZzFmrXidf/PJha0HUqPnuQDAH8rUW2S+/0JkOKdIie0
- 9icy0P6voEfb3ahVNuQLxO8A9ZnSs6D5cTcBL6Jn+FutMrbvKSsELxqAeQgOlCPbBRFz
- wgqA==
+ :from:to:cc; bh=+pwFDg0e0j+yXSWZO1QdYOdmfRiXIedB2SifAAmn8XI=;
+ b=l/XeKVh2yJtrLsYPx4G5AdOSXv4Uyh0J3MSLro6syYpwPvq4Bw46hy3wZ1Ilkv5dIF
+ LSrnQ8tjtKNc3SxxPH9lKvuWdhPfJWFUJecLJDYORyahIXTErnRyW3KvzdLT6dWyTS22
+ LfHjdoH9FWpyguDshL/AnL4NhAZInG/YKh7uk/OgCF2cFCbslvKn/CpTS4jApAS0SctR
+ 6yWLpZClaTeXOwjlUxJcMexUH/xsdqd5XvWOl54wSjlSJBxPYUlWq/5f0EEPMoZxQaht
+ Pl9RzmQ4ZrU9r4j58FNmeP0pK1WLGmry0jC2QaO+4hG6HChazS+CDQ5ATVb4RSAJ4Mzc
+ sw+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=SXvbV5rcvavP4Jcb2izxYcl7CbRhtBP4rr55k+HGuNU=;
- b=lBZqEYyMJquiVhflsH+mvDLvyKAqGyWtgpkOD9s8r1IyOGKTuBCth40v7UGlcJKke0
- rHw3ilfxmJrOmf72ORnUgeX0GVrqQUhRIORWzbFT71IB+y02YUc5QiHcU1HaNQA2jTdf
- HI51OmaShkSa3hQkoY1SVlxmxiS9BFrWQmfdP3+t0ZHIjg7nfkzM2D0rEnjRTEp5QKww
- G9y4l6Yh4PQJtSNj7DosM5+fv1o0sDuzi03HsuGJBPIJ34vJD2qRIyzL2lxTt7WP/DxP
- m66esdBqvZ3LAqbo35E07M/5Y/C6x9ylIjuhjvdOmfm4ju6tfm4cEM22BllZyvatFJCu
- zCUA==
-X-Gm-Message-State: ACgBeo23031Z1KH32EX9bX3/RZggixoeKX5Hq2mOL1n2qMxigBmffTvF
- QQWMCIO9efbjpC0z2j8E2PtGfA==
-X-Google-Smtp-Source: AA6agR7mYp7d04nyA8tkM4i7/eoK54yX1PZ3lHZvWrDfNfkP3f5n/Q6nL+co9c5v4UI8d75UmPjhvA==
-X-Received: by 2002:a5d:5143:0:b0:226:de76:be7b with SMTP id
- u3-20020a5d5143000000b00226de76be7bmr6469642wrt.308.1661937473326; 
- Wed, 31 Aug 2022 02:17:53 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- l42-20020a05600c1d2a00b003a3170a7af9sm1659640wms.4.2022.08.31.02.17.52
+ bh=+pwFDg0e0j+yXSWZO1QdYOdmfRiXIedB2SifAAmn8XI=;
+ b=OlGXjlC0X4uFIEbQIG+acvxS51SXoZoO+Oo+usrrte3rzfhYZvc/fLt0XBvlZ7vlrg
+ ztGha/qsj6Nh3FzMnyVdxCm9x2mQjQjR0CzcNgTVgzZxsKUgvhIL8IRc7kqDs9W/lqRF
+ rMKxNFXUlfp4TEGq9DwYlqsW098JC4atowiG6JVlX4biU07LQTK5GqxobanbNjS/FKDi
+ YKs5rPqMXwoOClEmBFgDY/zDyMiXPSHvwousicJr78ZeZHfSLd0rXcCnUmjOJ3D4t9yX
+ dQLOgvL3gDF8NEJTdJ6btW7XtvWp/Vx2M6p+rQSrCLCC4j0C5BpFiulta5/VwczXGKzT
+ 6wBQ==
+X-Gm-Message-State: ACgBeo0zP5PpX0vT/Zv5q1CqurI49WfKW3oH3Kc6RLZYWAwiz5cit8Yh
+ mpQCaPAGGv3aqnm6r14d+9w45w==
+X-Google-Smtp-Source: AA6agR4uihFpaG8nK8poPhUm9j3r98rElE4l/J0Vn5UOIDcFiGql16aEPEIcKVvDvdd4p7q8DsLUng==
+X-Received: by 2002:ac2:5b50:0:b0:494:5ec2:1ea5 with SMTP id
+ i16-20020ac25b50000000b004945ec21ea5mr6367241lfp.276.1661937552410; 
+ Wed, 31 Aug 2022 02:19:12 -0700 (PDT)
+Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
+ [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
+ r7-20020a2e8e27000000b0025dd8b42c64sm1108430ljk.79.2022.08.31.02.19.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Aug 2022 02:17:52 -0700 (PDT)
-Message-ID: <9c9226d9-8470-6672-d8ce-3fb1e4df3fda@linaro.org>
-Date: Wed, 31 Aug 2022 10:17:51 +0100
+ Wed, 31 Aug 2022 02:19:11 -0700 (PDT)
+Message-ID: <5da6171a-4949-9cc7-2967-6cc39a7955c8@linaro.org>
+Date: Wed, 31 Aug 2022 12:19:10 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
+ Thunderbird/91.13.0
 Subject: Re: [PATCH 2/6] ASoC: codecs: wsa-macro: add support for sm8450 and
  sc8280xp
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rob Herring <robh@kernel.org>
 References: <20220818134619.3432-1-srinivas.kandagatla@linaro.org>
  <20220818134619.3432-3-srinivas.kandagatla@linaro.org>
  <20220818171222.GG1978870-robh@kernel.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220818171222.GG1978870-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <9c9226d9-8470-6672-d8ce-3fb1e4df3fda@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <9c9226d9-8470-6672-d8ce-3fb1e4df3fda@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-arm-msm@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
@@ -112,36 +113,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 18/08/2022 18:12, Rob Herring wrote:
-> On Thu, Aug 18, 2022 at 02:46:15PM +0100, Srinivas Kandagatla wrote:
->> Add compatible for sm8450 and sc8280xp.
->>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   sound/soc/codecs/lpass-wsa-macro.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
->> index 27da6c6c3c5a..f82c297ea3ab 100644
->> --- a/sound/soc/codecs/lpass-wsa-macro.c
->> +++ b/sound/soc/codecs/lpass-wsa-macro.c
->> @@ -2561,6 +2561,8 @@ static const struct dev_pm_ops wsa_macro_pm_ops = {
->>   static const struct of_device_id wsa_macro_dt_match[] = {
->>   	{.compatible = "qcom,sc7280-lpass-wsa-macro"},
->>   	{.compatible = "qcom,sm8250-lpass-wsa-macro"},
->> +	{.compatible = "qcom,sm8450-lpass-wsa-macro"},
->> +	{.compatible = "qcom,sc8280xp-lpass-wsa-macro" },
+On 31/08/2022 12:17, Srinivas Kandagatla wrote:
 > 
-> Looks like these are backwards compatible with the existing versions,
-> why not reflect that in the binding?
-Backward compatibility is not always true, some of the registers and 
-there defaults tend to change across SoCs. Having SoC specific 
-compatible could help us deal with this and also make code more inline 
-with other codec macros in LPASS IP.
-
---srini
-
 > 
-> Rob
+> On 18/08/2022 18:12, Rob Herring wrote:
+>> On Thu, Aug 18, 2022 at 02:46:15PM +0100, Srinivas Kandagatla wrote:
+>>> Add compatible for sm8450 and sc8280xp.
+>>>
+>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>> ---
+>>>   sound/soc/codecs/lpass-wsa-macro.c | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+>>> index 27da6c6c3c5a..f82c297ea3ab 100644
+>>> --- a/sound/soc/codecs/lpass-wsa-macro.c
+>>> +++ b/sound/soc/codecs/lpass-wsa-macro.c
+>>> @@ -2561,6 +2561,8 @@ static const struct dev_pm_ops wsa_macro_pm_ops = {
+>>>   static const struct of_device_id wsa_macro_dt_match[] = {
+>>>   	{.compatible = "qcom,sc7280-lpass-wsa-macro"},
+>>>   	{.compatible = "qcom,sm8250-lpass-wsa-macro"},
+>>> +	{.compatible = "qcom,sm8450-lpass-wsa-macro"},
+>>> +	{.compatible = "qcom,sc8280xp-lpass-wsa-macro" },
+>>
+>> Looks like these are backwards compatible with the existing versions,
+>> why not reflect that in the binding?
+> Backward compatibility is not always true, some of the registers and 
+> there defaults tend to change across SoCs. Having SoC specific 
+> compatible could help us deal with this and also make code more inline 
+> with other codec macros in LPASS IP.
+
+I am not saying that there should be no SoC specific compatible. This
+one is a must, but the question why duplicating the entries and not
+using fallback?
+
+Best regards,
+Krzysztof

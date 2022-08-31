@@ -2,84 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83EC65A7E80
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 15:18:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD9F75A7F15
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 15:41:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8D0516DA;
-	Wed, 31 Aug 2022 15:17:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8D0516DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C702516D7;
+	Wed, 31 Aug 2022 15:41:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C702516D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661951882;
-	bh=7BwQfByXZQNPPucml8Gjlxddlx9lmTk+hpU/s44vzp8=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1661953318;
+	bh=H2D5r681sllKuksdiW+2SNVUAEYnDGAhMG2OgIPBeTQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XuLpqfSmdf+4Tl+qqhvSu34XXP2BHlJaZcbW3rqGZCN0JNtaOG9b5sTHX3Eup00Ze
-	 kzAiHlXiGKMV5xd9MmUz3ijJY8Yn6BJb28LrlT1nc1D050s76SOjHab9Xpw4y8gLA2
-	 XL6aMHvXGtQhYXrBMgp3YHl5EDnAcc9mhhjGG1PY=
+	b=trdMETYcLQRrFfxMywO6VXPkeY05P5EghvvXysGzhZmeyBuoRSeA+FlsaiJ7dnRrU
+	 hp1O0vfwuf9jXc3HPQvvhdnbez711sOeyZVK/72rnGZ7NIEk6kESh3bmxvEOmXQ7mi
+	 uQNMuT+JXVcYTrOS+w1d811Q17LjV5jtjfAqpmdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D66FF80448;
-	Wed, 31 Aug 2022 15:17:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30454F80448;
+	Wed, 31 Aug 2022 15:40:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65DC9F8042F; Wed, 31 Aug 2022 15:17:01 +0200 (CEST)
+ id 60C7FF8042F; Wed, 31 Aug 2022 15:40:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92FE1F80128
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 15:16:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92FE1F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4D54F80128
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 15:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4D54F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="kVZl6ZEJ"
-X-UUID: 2cb88d7019fd45578e8c764492075e1c-20220831
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=CBtI/GBV3fnjjRm0RQwymcK/0KEPX+waLsVNMxS2bGw=; 
- b=kVZl6ZEJA3tIgY6eXE8Mbzbo80BAMdfZA7UFLZDTLrK/CaWUWhH0bjgfehffVfGPqZxSq+1nEVmnM3d9b4IayCmJx9qq8LpfocO9/a5cQF5nTeoJg9jz2U3Q61sYYwNbU7QHffNO87HDcAUzNH4g4nbRytKKqUu4+Tg/tZY0A4c=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:ed217c45-3fb0-4b84-a083-b094ee8eeecc, OB:0,
- L
- OB:0,IP:0,URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release
- _Ham,ACTION:release,TS:-5
-X-CID-META: VersionHash:84eae18, CLOUDID:f2f9b120-1c20-48a5-82a0-25f9c331906d,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
- nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 2cb88d7019fd45578e8c764492075e1c-20220831
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw02.mediatek.com (envelope-from <chihhao.chen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1952957339; Wed, 31 Aug 2022 21:16:40 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Wed, 31 Aug 2022 21:16:39 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
- Transport; Wed, 31 Aug 2022 21:16:39 +0800
-Message-ID: <5b47c3025fba9fd7b2156d1260962b1d67c1b2fa.camel@mediatek.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="o6s/m57W"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="HIwCj39d"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 88FB71F897;
+ Wed, 31 Aug 2022 13:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1661953248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yCb+jU/REjhGyv4pQzEWeyTQ3hpWr8NKebsrlrbFqfE=;
+ b=o6s/m57WnS/ZGIfpmFDOJ+X1EGdfvJ9BDMSCv5BjebL12mcPytI4g1lVhyN05v8W0RpUYZ
+ JOV06kLsLKz5BhMuDsWGNPNH8aO6j9i4oYRMBOQSzE1QOlx0/oVzpglrh7rM9w4dV5HoFY
+ hjkjvAaur8ICS6fLkFOj9hGlVf4D6VE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1661953248;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yCb+jU/REjhGyv4pQzEWeyTQ3hpWr8NKebsrlrbFqfE=;
+ b=HIwCj39dB+clNJNaUc4OJb9SQ9V4UULKPlDZnjJfBFIAD3Ho9LVgWwuVdhHKZj6HpUsrXg
+ zJLRyddlfga3E6AQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 702AB1332D;
+ Wed, 31 Aug 2022 13:40:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 942kGuBkD2MPPQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 31 Aug 2022 13:40:48 +0000
+Date: Wed, 31 Aug 2022 15:40:47 +0200
+Message-ID: <87sflcy1i8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: chihhao chen <chihhao.chen@mediatek.com>
 Subject: Re: missing sound on kernel-5.15
-From: chihhao chen <chihhao.chen@mediatek.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 31 Aug 2022 21:16:39 +0800
-In-Reply-To: <87k06owux0.wl-tiwai@suse.de>
+In-Reply-To: <5b47c3025fba9fd7b2156d1260962b1d67c1b2fa.camel@mediatek.com>
 References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
  <YwNvQaNNIKB8ELhR@geday>
  <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
  <87r10zxyml.wl-tiwai@suse.de>
  <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
- <87a67nb5yc.wl-tiwai@suse.de>	<87r10y9are.wl-tiwai@suse.de>
+ <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
  <87ilma8edo.wl-tiwai@suse.de>
  <0f36385ad917ac5ec1fdf4fedd8acd6bb3494bdf.camel@mediatek.com>
  <87bks28b8c.wl-tiwai@suse.de>
@@ -91,11 +96,10 @@ References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
  <87tu5sx2ih.wl-tiwai@suse.de>
  <f0ed9708c99cedd4c6c91c39e905dc7e03cc6bcb.camel@mediatek.com>
  <87k06owux0.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
+ <5b47c3025fba9fd7b2156d1260962b1d67c1b2fa.camel@mediatek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -112,321 +116,205 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
-
-Yes no error reported and data on USB bus is also complete. (Use USB
-analyzer to collect packets on bus and check these data.)
-
-I added delay right after find_substream_format() in
-snd_usb_hw_params() as follows
-1. first time call snd_usb_hw_params(), do nothing
-2. second time call snd_usb_hw_params(), delay 150ms after
-find_substream_format()
-
-I tried to set snd_usb_use_vmalloc false but this problem still
-happened.
-
-Thanks
-
-
-On Wed, 2022-08-31 at 12:48 +0200, Takashi Iwai wrote:
-> On Wed, 31 Aug 2022 11:26:44 +0200,
-> chihhao chen wrote:
-> > 
-> > Hi Takashi,
-> > 
-> > It happens as follows on Android platform
-> > 1. When users want to play a sound, Android system will call
-> > pcm_open
-> > to get highest sample rate. In this function it uses ioctl :
-> > SNDRV_PCM_IOCTL_HW_PARAMS to collect information and triggers set-
-> > rate
-> > behavior. In this stage, system just initializes many audio
-> > parameters
-> > but not start to play yet.
-> > 2. Android system calls pcm_close
-> > 3. Android system calls pcm_open with suitable sample rate
-> > parameter
-> > and triggers set-rate again.
-> > 
-> > (pcm_open and pcm_close are functions in tinyalsa on Android.)
-> > 
-> > Users cannot not start and close immediately because Android system
-> > always auto-close stream if there is no sound for 3 seconds.
-> > 
-> > Yes I think this may be a timing issue. But it takes to much delay
-> > time
-> > to solve this phenomenon. I tested to add delay time and found
-> > 1. pcm_open to get highest sample rate
-> > 2. delay 150ms
-> > 3. pcm_close
-> > 4. pcm_open again
-> > This delay time results in severe playback latency.
+On Wed, 31 Aug 2022 15:16:39 +0200,
+chihhao chen wrote:
 > 
-> OK, and it's only about the missing sound, and no error is reported
-> from the system itself, right?  And at which code path did you put
-> the
-> delay of 150ms?
+> Hi Takashi,
 > 
-> Also, as a blind shot, what if you use the coherency buffer by
-> passing
-> vmalloc=0 option to snd-usb-audio module?
+> Yes no error reported and data on USB bus is also complete. (Use USB
+> analyzer to collect packets on bus and check these data.)
+
+Hm, then it has something to do with the device firmware side...
+
+> I added delay right after find_substream_format() in
+> snd_usb_hw_params() as follows
+> 1. first time call snd_usb_hw_params(), do nothing
+> 2. second time call snd_usb_hw_params(), delay 150ms after
+> find_substream_format()
 > 
-> 
-> Takashi
-> 
-> > 
-> > Thanks
-> > 
-> > 
-> > On Wed, 2022-08-31 at 10:04 +0200, Takashi Iwai wrote:
-> > > On Wed, 31 Aug 2022 09:03:03 +0200,
-> > > chihhao chen wrote:
-> > > > 
-> > > > Hi Takashi,
-> > > > 
-> > > > I will try to insall ALSA tools.
-> > > > 
-> > > > I am testing these typec headsets on ARM8 smart phone platform.
-> > > > Because
-> > > > most x86 laptops support only 3.5mm input, I cannot test these
-> > > > typec
-> > > > devices.
-> > > 
-> > > Hm, but it's a USB-audio device, can't it just be plugged to a
-> > > laptop...?
-> > > 
-> > > > This problem should have something to do with host. 
-> > > > If I remove configure_endpoints() in snd_usb_hw_params() like
-> > > > k5.10
-> > > > behavior, this problem does not happen. It seems that to set
-> > > > frequency
-> > > > multiple times leads to headset abnormal phenomenon.
-> > > 
-> > > I understand that part, but it's still weird.  IIUC, it happens
-> > > after
-> > > closing the previous stream and start a new stream, right?  Then
-> > > can
-> > > you play two different rates on 5.10 kernel; e.g. at first call
-> > > snd_pcm_prepare with a high rate and stop/close
-> > > immediately.  Then
-> > > start quickly the stream in a normal rate again.  That should
-> > > issue
-> > > the sample rate changes in a similar way, and this should cause
-> > > the
-> > > same problem, if it's really about the call of endpoint / rate
-> > > setups.
-> > > 
-> > > Or if it's more or less a timing issue, you might try to apply
-> > > the
-> > > delay quirk such as QUIRK_FLAG_CTL_MSG_DELAY_XXX or
-> > > QUIRK_FLAG_IFACE_DELAY.
-> > > 
-> > > 
-> > > Takashi
-> > > 
-> > > > Thanks 
-> > > > 
-> > > > On Wed, 2022-08-31 at 07:18 +0200, Takashi Iwai wrote:
-> > > > > On Wed, 31 Aug 2022 05:39:56 +0200,
-> > > > > chihhao chen wrote:
-> > > > > > 
-> > > > > > Hi Takashi,
-> > > > > > 
-> > > > > > Yes they all show the same phenomenon : missing first sound
-> > > > > > randomly
-> > > > > > when users start playback.
-> > > > > 
-> > > > > Ah, that's what I misunderstood: I thought the output were
-> > > > > completely
-> > > > > missing.
-> > > > > 
-> > > > > > I tried to run alsa-info.sh but got "This script requires
-> > > > > > amixer
-> > > > > > utility to continue" message.
-> > > > > 
-> > > > > Too bad.  Any chance to install those standard ALSA tools?
-> > > > > 
-> > > > > > For Samsung USB C Earphone UAC1 device, I tested not to set
-> > > > > > 96000(highest rate) but 48000 twice and this issue still
-> > > > > > happened.(Original behavior : set 96000 then set 48000 ->
-> > > > > > Try
-> > > > > > to
-> > > > > > set
-> > > > > > 48000 then set 48000 instead) So I think the problem might
-> > > > > > be
-> > > > > > related
-> > > > > > to setting frequency multiple times.
-> > > > > > 
-> > > > > > For Apple USB-C to 3.5mm Headphone Jack Adapter UAC3
-> > > > > > device, I
-> > > > > > confirmed its badd_profile is
-> > > > > > UAC3_FUNCTION_SUBCLASS_HEADPHONE
-> > > > > > so
-> > > > > > it
-> > > > > > will not go into QUIRK_FLAG_VALIDATE_RATES quirk function. 
-> > > > > > Besides its initialization sequence in k5.15 is to set
-> > > > > > 48000
-> > > > > > twice
-> > > > > > and
-> > > > > > because this rate works well in k5.10, do I still need to
-> > > > > > set
-> > > > > > lower
-> > > > > > rate to test?
-> > > > > 
-> > > > > In that case, better to test a few other options.
-> > > > > 
-> > > > > But before going in that way, let's check whether the problem
-> > > > > depends
-> > > > > on the host or not.  Which host are you testing?  An ARM
-> > > > > system?
-> > > > > Does the problem happen with the same USB-audio device on
-> > > > > another 
-> > > > > machine (e.g. x86 laptop)?
-> > > > > 
-> > > > > 
-> > > > > Takashi
-> > > > > 
-> > > > > > 
-> > > > > > Thanks
-> > > > > > 
-> > > > > > On Tue, 2022-08-30 at 10:24 +0200, Takashi Iwai wrote:
-> > > > > > > On Tue, 30 Aug 2022 10:08:51 +0200,
-> > > > > > > chihhao chen wrote:
-> > > > > > > > 
-> > > > > > > > Hi Takashi,
-> > > > > > > > 
-> > > > > > > > I also think it should be a firmware problem but it
-> > > > > > > > happens
-> > > > > > > > with
-> > > > > > > > many
-> > > > > > > > different devices because of new set sampling rate
-> > > > > > > > behavior
-> > > > > > > > in
-> > > > > > > > k5.15.
-> > > > > > > > 
-> > > > > > > > Device 1 UAC1
-> > > > > > > > [  134.924359][T1000005] kworker/0:0: usb 1-1:
-> > > > > > > > [name:usbcore&]New
-> > > > > > > > USB
-> > > > > > > > device found, idVendor=04e8, idProduct=a04f, bcdDevice=
-> > > > > > > > 1.00
-> > > > > > > > [  134.925944][T1000005] kworker/0:0: usb 1-1:
-> > > > > > > > [name:usbcore&]New
-> > > > > > > > USB
-> > > > > > > > device strings: Mfr=1, Product=2, SerialNumber=3
-> > > > > > > > [  134.927338][T1000005] kworker/0:0: usb 1-1:
-> > > > > > > > [name:usbcore&]Product:
-> > > > > > > > Samsung USB C Earphone
-> > > > > > > > [  134.928426][T1000005] kworker/0:0: usb 1-1:
-> > > > > > > > [name:usbcore&]Manufacturer: bestechnic
-> > > > > > > > [  134.929432][T1000005] kworker/0:0: usb 1-1:
-> > > > > > > > [name:usbcore&]SerialNumber: 20160406.1
-> > > > > > > 
-> > > > > > > Does this show the same problem?  If so, that's
-> > > > > > > interesting
-> > > > > > > because
-> > > > > > > UAC1 has a completely different way of setting the sample
-> > > > > > > rate.
-> > > > > > > 
-> > > > > > > > Device 2 UAC3
-> > > > > > > > [  779.645324][T1003414] kworker/0:1: usb 1-1:
-> > > > > > > > [name:usbcore&]New
-> > > > > > > > USB
-> > > > > > > > device found, idVendor=05ac, idProduct=110a,
-> > > > > > > > bcdDevice=26.11
-> > > > > > > > [  779.647376][T1003414] kworker/0:1: usb 1-1:
-> > > > > > > > [name:usbcore&]New
-> > > > > > > > USB
-> > > > > > > > device strings: Mfr=1, Product=2, SerialNumber=3
-> > > > > > > > [  779.649492][T1003414] kworker/0:1: usb 1-1:
-> > > > > > > > [name:usbcore&]Product:
-> > > > > > > > USB-C to 3.5mm Headphone Jack Adapter
-> > > > > > > > [  779.652262][T1003414] kworker/0:1: usb 1-1:
-> > > > > > > > [name:usbcore&]Manufacturer: Apple, Inc.
-> > > > > > > > [  779.652273][T1003414] kworker/0:1: usb 1-1:
-> > > > > > > > [name:usbcore&]SerialNumber: DWH126301CLJKLTAF
-> > > > > > > > Device 3
-> > > > > > > > A XiaoMi adapter but it not in my hand now.
-> > > > > > > > 
-> > > > > > > > I will try to integrate k5.19 into my codebase.
-> > > > > > > 
-> > > > > > > At best, please give the alsa-info.sh output from each
-> > > > > > > device.
-> > > > > > > Run the script with --no-upload option and attach the
-> > > > > > > output.
-> > > > > > > 
-> > > > > > > Then try to test whether the reported highest sample rate
-> > > > > > > actually
-> > > > > > > works as-is.  That is, to see whether the problem is
-> > > > > > > really
-> > > > > > > about
-> > > > > > > issuing the frequency change multiple times for different
-> > > > > > > rates,
-> > > > > > > or
-> > > > > > > it's because issuing the highest rate screws up the
-> > > > > > > device.
-> > > > > > > 
-> > > > > > > And, for UAC2/3 devices, it might be worth to try some
-> > > > > > > known
-> > > > > > > quirks,
-> > > > > > > e.g. QUIRK_FLAG_VALIDATE_RATES, which was needed for MOTU
-> > > > > > > (UAC2)
-> > > > > > > devices.  It's a bit 12 of quirk_flags option value.
-> > > > > > > 
-> > > > > > > 
-> > > > > > > Takashi
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > Thanks
-> > > > > > > > 
-> > > > > > > > 
-> > > > > > > > On Tue, 2022-08-30 at 09:02 +0200, Takashi Iwai wrote:
-> > > > > > > > > On Tue, 30 Aug 2022 08:13:44 +0200,
-> > > > > > > > > chihhao chen wrote:
-> > > > > > > > > > 
-> > > > > > > > > > Hi Takashi,
-> > > > > > > > > > 
-> > > > > > > > > > I tried the patch but this problem still happens.
-> > > > > > > > > > 
-> > > > > > > > > > I add some logs in snd_usb_init_sample_rate() in
-> > > > > > > > > > kernel-
-> > > > > > > > > > 5.10
-> > > > > > > > > > [  146.260105][T1702328] writer: usb 1-1:
-> > > > > > > > > > [name:snd_usb_audio&]2:2
-> > > > > > > > > > Set
-> > > > > > > > > > sample rate 96000, clock 0 protocol 0
-> > > > > > > > > > [  146.289892][T1002328] writer: usb 1-1:
-> > > > > > > > > > [name:snd_usb_audio&]2:2
-> > > > > > > > > > Set
-> > > > > > > > > > sample rate 48000, clock 0 protocol 0
-> > > > > > > > > > 
-> > > > > > > > > > Because TinyAlsa tends to set highest rate for
-> > > > > > > > > > initialization
-> > > > > > > > > > and
-> > > > > > > > > > real
-> > > > > > > > > > rate for playback, it will still trigger two-times
-> > > > > > > > > > SAMPLING_FREQ_CONTROL USB requests.
-> > > > > > > > > 
-> > > > > > > > > Then this is a firmware problem of your device.
-> > > > > > > > > The same problem would happen even with the old
-> > > > > > > > > kernel if
-> > > > > > > > > you
-> > > > > > > > > run
-> > > > > > > > > the
-> > > > > > > > > application with different sample rates.  Does the
-> > > > > > > > > device
-> > > > > > > > > work
-> > > > > > > > > with
-> > > > > > > > > 96kHz at all?
-> > > > > > > > > 
-> > > > > > > > > Could you give the lsusb -v output of the device,
-> > > > > > > > > too?
-> > > > > > > > > 
-> > > > > > > > > > Which kernel version should I try? kernel-5.19 or?
-> > > > > > > > > 
-> > > > > > > > > Yes, 5.19 should suffice.
-> > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > Takashi
+> I tried to set snd_usb_use_vmalloc false but this problem still
+> happened.
+
+OK, thanks.
+
+On the second thought, it's good to split the existing endpoint setup
+to two parts, and apply the setups involving with the buffer
+allocation at hw_params while the USB interface setup is done at
+prepare.  It'll reduce the unnecessary buffer re-allocation, too, so I
+had such a change in my mind and already cooked some time ago.
+
+Could you try the patch below?  If this actually helps for your use
+case, we should put more information about the good side-effect, too.
+
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
+ prepare
+
+One of the former changes for the endpoint management was the more
+consistent setup of endpoints at hw_params.
+snd_usb_endpoint_configure() is a single function that does the full
+setup, and it's called from both PCM hw_params and prepare callbacks.
+Although the EP setup at the prepare phase is usually skipped (by
+checking need_setup flag), it may be still effective in some cases
+like suspend/resume that requires the interface setup again. 
+
+As it's a full and single setup, the invocation of
+snd_usb_endpoint_configure() includes not only the USB interface setup
+but also the buffer release and allocation.  OTOH, doing the buffer
+release and re-allocation at PCM prepare phase is rather superfluous,
+and better to be only in the hw_params phase.
+
+For those optimizations, this patch splits the endpoint setup to two
+phases: snd_usb_endpoint_set_params() and snd_usb_endpoint_prepare(),
+to be called from hw_params and from prepare, respectively.
+
+This changes the operation slightly, effectively moving the USB
+interface setup again to PCM prepare stage instead of hw_params
+stage, while the buffer allocation and such initializations are still
+done at hw_params stage.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/endpoint.c | 23 +++++++++--------------
+ sound/usb/endpoint.h |  6 ++++--
+ sound/usb/pcm.c      | 14 ++++++++++----
+ 3 files changed, 23 insertions(+), 20 deletions(-)
+
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 0d7b73bf7945..a42f2ce19455 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -758,7 +758,8 @@ bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
+  * The endpoint needs to be closed via snd_usb_endpoint_close() later.
+  *
+  * Note that this function doesn't configure the endpoint.  The substream
+- * needs to set it up later via snd_usb_endpoint_configure().
++ * needs to set it up later via snd_usb_endpoint_set_params() and
++ * snd_usb_endpoint_prepare().
+  */
+ struct snd_usb_endpoint *
+ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+@@ -1290,12 +1291,13 @@ static int sync_ep_set_params(struct snd_usb_endpoint *ep)
+ /*
+  * snd_usb_endpoint_set_params: configure an snd_usb_endpoint
+  *
++ * It's called either from hw_params callback.
+  * Determine the number of URBs to be used on this endpoint.
+  * An endpoint must be configured before it can be started.
+  * An endpoint that is already running can not be reconfigured.
+  */
+-static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+-				       struct snd_usb_endpoint *ep)
++int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
++				struct snd_usb_endpoint *ep)
+ {
+ 	const struct audioformat *fmt = ep->cur_audiofmt;
+ 	int err;
+@@ -1378,18 +1380,18 @@ static int init_sample_rate(struct snd_usb_audio *chip,
+ }
+ 
+ /*
+- * snd_usb_endpoint_configure: Configure the endpoint
++ * snd_usb_endpoint_prepare: Prepare the endpoint
+  *
+  * This function sets up the EP to be fully usable state.
+- * It's called either from hw_params or prepare callback.
++ * It's called either from prepare callback.
+  * The function checks need_setup flag, and performs nothing unless needed,
+  * so it's safe to call this multiple times.
+  *
+  * This returns zero if unchanged, 1 if the configuration has changed,
+  * or a negative error code.
+  */
+-int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+-			       struct snd_usb_endpoint *ep)
++int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
++			     struct snd_usb_endpoint *ep)
+ {
+ 	bool iface_first;
+ 	int err = 0;
+@@ -1410,9 +1412,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+ 			if (err < 0)
+ 				goto unlock;
+ 		}
+-		err = snd_usb_endpoint_set_params(chip, ep);
+-		if (err < 0)
+-			goto unlock;
+ 		goto done;
+ 	}
+ 
+@@ -1440,10 +1439,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+ 	if (err < 0)
+ 		goto unlock;
+ 
+-	err = snd_usb_endpoint_set_params(chip, ep);
+-	if (err < 0)
+-		goto unlock;
+-
+ 	err = snd_usb_select_mode_quirk(chip, ep->cur_audiofmt);
+ 	if (err < 0)
+ 		goto unlock;
+diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+index 6a9af04cf175..e67ea28faa54 100644
+--- a/sound/usb/endpoint.h
++++ b/sound/usb/endpoint.h
+@@ -17,8 +17,10 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+ 		      bool is_sync_ep);
+ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 			    struct snd_usb_endpoint *ep);
+-int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+-			       struct snd_usb_endpoint *ep);
++int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
++				struct snd_usb_endpoint *ep);
++int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
++			     struct snd_usb_endpoint *ep);
+ int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int clock);
+ 
+ bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index d45d1d7e6664..b604f7e95e82 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -443,17 +443,17 @@ static int configure_endpoints(struct snd_usb_audio *chip,
+ 		if (stop_endpoints(subs, false))
+ 			sync_pending_stops(subs);
+ 		if (subs->sync_endpoint) {
+-			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
++			err = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
+ 			if (err < 0)
+ 				return err;
+ 		}
+-		err = snd_usb_endpoint_configure(chip, subs->data_endpoint);
++		err = snd_usb_endpoint_prepare(chip, subs->data_endpoint);
+ 		if (err < 0)
+ 			return err;
+ 		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
+ 	} else {
+ 		if (subs->sync_endpoint) {
+-			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
++			err = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
+ 			if (err < 0)
+ 				return err;
+ 		}
+@@ -551,7 +551,13 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+ 	subs->cur_audiofmt = fmt;
+ 	mutex_unlock(&chip->mutex);
+ 
+-	ret = configure_endpoints(chip, subs);
++	if (subs->sync_endpoint) {
++		ret = snd_usb_endpoint_set_params(chip, subs->sync_endpoint);
++		if (ret < 0)
++			goto unlock;
++	}
++
++	ret = snd_usb_endpoint_set_params(chip, subs->data_endpoint);
+ 
+  unlock:
+ 	if (ret < 0)
+-- 
+2.35.3
 

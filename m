@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286B25A7E0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 14:54:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 778F75A7E0F
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 14:54:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B72EE16CA;
-	Wed, 31 Aug 2022 14:53:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72EE16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDE1E16DC;
+	Wed, 31 Aug 2022 14:53:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDE1E16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661950470;
-	bh=wt5codHPshZK7VHJ956p2ozSievOlG8qxiyO7Ee+UZI=;
+	s=default; t=1661950481;
+	bh=nL6/hWbD7AHWVj/hITRA5on1b+uHLf3GP4zUn748llo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pkdgDZRSj0VhvwwW+Ak5kPJA6MHQ9oD08mQfz7uHUju0Ubty98DOq6Q7/Y8rzk7bC
-	 eX2/mTjguq5WeLapKjrXNBt9szJbRMF9KGrXxWiOrL7cGWySYxHU6J0TagHYsxE6K5
-	 2vzxC4m/kfvQngi3/k+RNZYzfpci3xeST3JC5Dxk=
+	b=u0jUH7nM2SupYSvJhG4koiU71sVXjZdJPbA39SnSQ6lUBRS2zMeOxK9/AExmmqYRC
+	 7MvayigBLyxlBM5Z/fFRQioN4ECihR7pTEh+ELp/06AOhHM4Fq/z6xPVDsV+yOv6cL
+	 wfNAa2m29TguxISp5z4vcXoNj3dnEYgHNVTiFeDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77FE2F80494;
-	Wed, 31 Aug 2022 14:53:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E15B5F80529;
+	Wed, 31 Aug 2022 14:53:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D54FFF80448; Wed, 31 Aug 2022 14:52:59 +0200 (CEST)
+ id 5EE90F80448; Wed, 31 Aug 2022 14:53:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 469A6F80236
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:52:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 469A6F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6486F8047D
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:52:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6486F8047D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Mw3weDLl"
+ header.b="TyWKscgP"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9FE5361A11;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2E8DC61A2A;
+ Wed, 31 Aug 2022 12:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89EC1C433C1;
  Wed, 31 Aug 2022 12:52:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60087C433D6;
- Wed, 31 Aug 2022 12:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661950375;
- bh=wt5codHPshZK7VHJ956p2ozSievOlG8qxiyO7Ee+UZI=;
+ s=k20201202; t=1661950376;
+ bh=nL6/hWbD7AHWVj/hITRA5on1b+uHLf3GP4zUn748llo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Mw3weDLlql7G1SpnyDsUdPvSbpkCkU9KUmHbrExgtzc2nfaMjHKFR4/IznA8oMerc
- +zk+pnBr3vL8soT/SIT+Z16NTN2oUMyLb0Ojs6LdQHlw51kV+ZvUKnmgPpJx79lhI3
- vJaqfg0IMspZg88jkgtPkurfpBXd+tMouV8lazo0ucDmXONJ8hXg13iA4lcG7IUkSz
- f42xgqPyDJNmO1O1GvV2lDsFogqURUif4RR7bIYr3B77uAXokM/QQNRX/qo60lXhak
- sBYRzQDBbgY2yYv7m6rnIfjLhclwGeceIMo0VqQc9Wg/0fmuVDvvpF8AwEz+EWviiR
- 9Muc2jOHIhjbg==
+ b=TyWKscgPnlY56InNkb1dcyKrofZMhA/o2Iwhk8r1TvRv7rMHQy2wk3P3zvrhusZ3v
+ NEuo2kr2seJMfH/3Y174pekbtiiOZubWa2NnvT1MpF7CXNGcUifc/YqcGg5KxbklgY
+ qwiiHFV5kMm+2KnTGZOWDyNtnzW5nGRKNKWHpJ3tFIJtt370CnNO/yKMOiPrpAl0ai
+ h+P2zp0/7Qchx200Y6Tm4HryotaAU2pD3SjUXItQ9PCDN4tsh/wa2Wo1XdQ/WCpiGA
+ jFh3eiBh1ikaf1noura72HBdkGFNgSXx4Fjw9uZc+wq5tRSX10UyY0xU55Lq9WsAdV
+ kRVg/gQFWxyEA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220822184239.169757-1-pierre-louis.bossart@linux.intel.com>
-References: <20220822184239.169757-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: codecs: minor cppcheck cleanups
-Message-Id: <166195037412.99184.15299525182207565398.b4-ty@kernel.org>
-Date: Wed, 31 Aug 2022 13:52:54 +0100
+To: Daniel Mack <daniel@zonque.org>, ryan.lee.analog@gmail.com
+In-Reply-To: <20220826085927.2336224-1-daniel@zonque.org>
+References: <20220826085927.2336224-1-daniel@zonque.org>
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: max98396: Document data monitor
+ properties
+Message-Id: <166195037526.99184.15812768406102730466.b4-ty@kernel.org>
+Date: Wed, 31 Aug 2022 13:52:55 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: tiwai@suse.de
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,18 +85,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Aug 2022 20:42:34 +0200, Pierre-Louis Bossart wrote:
-> Small number of cleanups that were either missed in previous versions
-> or detected by new cppcheck version.
+On Fri, 26 Aug 2022 10:59:26 +0200, Daniel Mack wrote:
+> This device features a data monitor that puts the device in software reset
+> upon a configurable set of events.
 > 
-> Pierre-Louis Bossart (5):
->   ASoC: hdmi-codec: remove unused definitions
->   ASoC: wcd-mbhc-v2: remove always-true condition
->   ASoC: wcd9335: remove always-true condition
->   ASoC: fsl: fsl-utils: remove useless assignment
->   ASoC: ti: omap-mcbsp: remove useless assignment
 > 
-> [...]
 
 Applied to
 
@@ -104,16 +97,10 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: hdmi-codec: remove unused definitions
-      commit: c90d6054ff9d75bc185c48b798b745aa2c05236c
-[2/5] ASoC: wcd-mbhc-v2: remove always-true condition
-      commit: 43265ceeb0b9cb1f8f5fb182adaa6c2ed4941478
-[3/5] ASoC: wcd9335: remove always-true condition
-      commit: c9a9b4dbc18f4dc609d47b9ac19545b31fb21e3f
-[4/5] ASoC: fsl: fsl-utils: remove useless assignment
-      commit: 3653a6a2a7c146f04940d572d2728c939b50cba1
-[5/5] ASoC: ti: omap-mcbsp: remove useless assignment
-      commit: 7a0431bbda8ae24de56ea1dadcf1a2e56f939707
+[1/2] ASoC: dt-bindings: max98396: Document data monitor properties
+      commit: ec2988da1a4671f31b898351daeee2e65ca508f7
+[2/2] ASoC: max98396: Make data monitor features configurable
+      commit: 33b7504ae08a20ad22f3bd867623c72bddefdd12
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0343B5A7E24
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 15:00:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7057D5A7E2C
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 15:00:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 939F216C8;
-	Wed, 31 Aug 2022 14:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 939F216C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0991016DA;
+	Wed, 31 Aug 2022 14:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0991016DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661950816;
-	bh=XTrrF8PLb/iqxabhVGU7Z5Wwz7SSjOjCt7z6Ht8QMh4=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Y1z45w7uHFNKD0X94esaAYJXsjLarsHf6sWKm91/wsOYxKH9+P4OvGwvqwoFHqSwi
-	 zzvpItMtylqeRJrE0Fr2HeInmwqs162GxIVPzO+EWO7Uz2JA12LZQw3pEs7pJRs8kK
-	 OmTo7gWPu4CqUVVm+Eq+qudpQDOuUqIhogZ8O7T0=
+	s=default; t=1661950847;
+	bh=ns/0eGKf3ZGfZHDYuR1QKNX0edBW8Ck848SZeuFzKnk=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NWZ6KrPoXFuOgOA/Pf4H1yuNiOWky8RNZtAZi/EW+T9pBA8Fu3LxgZT8nmrX1KfVc
+	 Qc2E7QFgQSfCKsbxzDi5td5Sw6/LC0CSGLh38RlTlAG/x1bTwlpR1AYaJHn1s/CayN
+	 432bWYjEDBYLqxbMWsXHD+Himvc00nSLSXEK9ys4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1CC8F80448;
-	Wed, 31 Aug 2022 14:59:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 895FDF804AA;
+	Wed, 31 Aug 2022 14:59:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6918F80448; Wed, 31 Aug 2022 14:59:13 +0200 (CEST)
+ id 4BBF0F8012A; Wed, 31 Aug 2022 14:59:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81638F8012A
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:59:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81638F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38B9FF80236
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38B9FF80236
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AsFZQm3t"; 
+ header.b="EwCjc/ty"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9v6UoH1U"
+ header.b="1TBXOiGT"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EF9642216D;
- Wed, 31 Aug 2022 12:59:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BD5901F85D;
+ Wed, 31 Aug 2022 12:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661950746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Rmbez77FS5Hvfp/JMOfp2c+xbsce3BCdyA7QzrOhDrY=;
- b=AsFZQm3tENvl6WUwHEDAAzGpWHo2riDMNEyGnLJT1afslW3CsgBGqKe/4nYKl3rtGOO4Bk
- 3GoZroBad4KQuzAJHmUdB8K9mryt1C5+iHsd+fqUG3u91d0J7AzTB8wYyCPqqcvPY4W9Pb
- kWAzKq0IZ8zX08Gc4SgS3sJBg/8i4ws=
+ t=1661950748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M2WcNl21tqiIqJma1/v60ED5kjw4ECYCIBoTdL0aQHc=;
+ b=EwCjc/ty5mI+ol5SMTboqRtMEzVDW1EGppdkpo+ACyX7yyXxEfJm9P4uTLi2yngGKeO3CI
+ Ml34Zin6BLuqO1UhR33vJPSvsLnpt0rUVUXQOs9L89Xa7HSVl9EQGIEVRAG78te15Qt7CS
+ +keyu+6+GzOVq6/pxno5JLO19HRF2mw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661950746;
+ s=susede2_ed25519; t=1661950748;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Rmbez77FS5Hvfp/JMOfp2c+xbsce3BCdyA7QzrOhDrY=;
- b=9v6UoH1UCeWuoePVCJ0FsRJWZ/h8X93itaS6kQgC+EooaVQrFAWftjJmDb4PCMMNVN++qM
- 7gacPJvv+ymUckBw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M2WcNl21tqiIqJma1/v60ED5kjw4ECYCIBoTdL0aQHc=;
+ b=1TBXOiGTrYg0mJ6vFs0RBJNGt0erXy2rojCt2jqtd7WwKWjdOxGlQ1/XwAA+diaRYbLjLN
+ xuli2IAOaeCDveBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CC25113A7C;
- Wed, 31 Aug 2022 12:59:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A3E3F13A7C;
+ Wed, 31 Aug 2022 12:59:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id u90cMRpbD2NOKgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 31 Aug 2022 12:59:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id cIA9JxxbD2NOKgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 31 Aug 2022 12:59:08 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2] ALSA: usb-audio: Inform the delayed registration more
- properly
-Date: Wed, 31 Aug 2022 14:59:00 +0200
-Message-Id: <20220831125901.4660-1-tiwai@suse.de>
+Subject: [PATCH 2/2] ALSA: usb-audio: Register card again for iface over
+ delayed_register option
+Date: Wed, 31 Aug 2022 14:59:01 +0200
+Message-Id: <20220831125901.4660-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220831125901.4660-1-tiwai@suse.de>
+References: <20220831125901.4660-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -94,50 +101,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The info message that was added in the commit a4aad5636c72 ("ALSA:
-usb-audio: Inform devices that need delayed registration") is actually
-useful to know the need for the delayed registration.  However, it
-turned out that this doesn't catch the all cases; namely, this warned
-only when a PCM stream is attached onto the existing PCM instance, but
-it doesn't count for a newly created PCM instance.  This made
-confusion as if there were no further delayed registration.
+When the delayed registration is specified via either delayed_register
+option or the quirk, we delay the invocation of snd_card_register()
+until the given interface.  But if a wrong value has been set there
+and there are more interfaces over the given interface number,
+snd_card_register() call would be missing for those interfaces.
 
-This patch moves the check to the code path for either adding a stream
-or creating a PCM instance.  Also, make it simpler by checking the
-card->registered flag instead of querying each snd_device state.
+This patch catches up those missing calls by fixing the comparison of
+the interface number.  Now the call is skipped only if the processed
+interface is less than the given interface, instead of the exact
+match.
 
-Fixes: a4aad5636c72 ("ALSA: usb-audio: Inform devices that need delayed registration")
+Fixes: b70038ef4fea ("ALSA: usb-audio: Add delayed_register option")
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=216082
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/stream.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/usb/card.c   | 2 +-
+ sound/usb/quirks.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index ceb93d798182..40b7821c6c99 100644
---- a/sound/usb/stream.c
-+++ b/sound/usb/stream.c
-@@ -495,6 +495,10 @@ static int __snd_usb_add_audio_stream(struct snd_usb_audio *chip,
- 			return 0;
- 		}
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index d356743de2ff..706d249a9ad6 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -699,7 +699,7 @@ static bool check_delayed_register_option(struct snd_usb_audio *chip, int iface)
+ 		if (delayed_register[i] &&
+ 		    sscanf(delayed_register[i], "%x:%x", &id, &inum) == 2 &&
+ 		    id == chip->usb_id)
+-			return inum != iface;
++			return iface < inum;
  	}
-+
-+	if (chip->card->registered)
-+		chip->need_delayed_register = true;
-+
- 	/* look for an empty stream */
- 	list_for_each_entry(as, &chip->pcm_list, list) {
- 		if (as->fmt_type != fp->fmt_type)
-@@ -502,9 +506,6 @@ static int __snd_usb_add_audio_stream(struct snd_usb_audio *chip,
- 		subs = &as->substream[stream];
- 		if (subs->ep_num)
- 			continue;
--		if (snd_device_get_state(chip->card, as->pcm) !=
--		    SNDRV_DEV_BUILD)
--			chip->need_delayed_register = true;
- 		err = snd_pcm_new_stream(as->pcm, stream, 1);
- 		if (err < 0)
- 			return err;
+ 
+ 	return false;
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 9bfead5efc4c..5b4d8f5eade2 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1764,7 +1764,7 @@ bool snd_usb_registration_quirk(struct snd_usb_audio *chip, int iface)
+ 
+ 	for (q = registration_quirks; q->usb_id; q++)
+ 		if (chip->usb_id == q->usb_id)
+-			return iface != q->interface;
++			return iface < q->interface;
+ 
+ 	/* Register as normal */
+ 	return false;
 -- 
 2.35.3
 

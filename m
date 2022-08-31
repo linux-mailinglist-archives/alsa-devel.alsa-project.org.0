@@ -2,79 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A7A5A7E08
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 14:54:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286B25A7E0E
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Aug 2022 14:54:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF3E16CD;
-	Wed, 31 Aug 2022 14:53:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF3E16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B72EE16CA;
+	Wed, 31 Aug 2022 14:53:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72EE16CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1661950440;
-	bh=DyeODZ+gC0WuqPypGEZqeNPo3/H5VBEkRk78HqWNBbc=;
+	s=default; t=1661950470;
+	bh=wt5codHPshZK7VHJ956p2ozSievOlG8qxiyO7Ee+UZI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XvPasSjjajQTH0c4EYlfZZONCKdXofZdcOoMmudVU/CruTWoP5PprDktO+oCXXFOU
-	 n5aFN1Mv8Kwkqi0/z9l9eLZ2eO6332TNPwVUSlSt/c+tZ+XSYP3+hkxIjFGvOFjmLU
-	 DUmYYj87LbBC8z4PDrybZ4jleL/0j/t5r3IzoIto=
+	b=pkdgDZRSj0VhvwwW+Ak5kPJA6MHQ9oD08mQfz7uHUju0Ubty98DOq6Q7/Y8rzk7bC
+	 eX2/mTjguq5WeLapKjrXNBt9szJbRMF9KGrXxWiOrL7cGWySYxHU6J0TagHYsxE6K5
+	 2vzxC4m/kfvQngi3/k+RNZYzfpci3xeST3JC5Dxk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD383F804AA;
-	Wed, 31 Aug 2022 14:52:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77FE2F80494;
+	Wed, 31 Aug 2022 14:53:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59FC1F80128; Wed, 31 Aug 2022 14:52:58 +0200 (CEST)
+ id D54FFF80448; Wed, 31 Aug 2022 14:52:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F231FF80128
- for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:52:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F231FF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 469A6F80236
+ for <alsa-devel@alsa-project.org>; Wed, 31 Aug 2022 14:52:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 469A6F80236
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tS37nHwK"
+ header.b="Mw3weDLl"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 337BAB82077;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9FE5361A11;
  Wed, 31 Aug 2022 12:52:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333E1C433C1;
- Wed, 31 Aug 2022 12:52:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60087C433D6;
+ Wed, 31 Aug 2022 12:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661950373;
- bh=DyeODZ+gC0WuqPypGEZqeNPo3/H5VBEkRk78HqWNBbc=;
+ s=k20201202; t=1661950375;
+ bh=wt5codHPshZK7VHJ956p2ozSievOlG8qxiyO7Ee+UZI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=tS37nHwKrpgZlmSwgPfLXMSXc8KLzYFsqw+PhEjNt0e2w3YH4RgR+wIgOngkK87CG
- 5JmLeXUHkBLmRBLx3JSf6F9RG5qEnRlKObLNnPRW5JH5UJAerzAGtOAfK6vCyta4BB
- 0PAJTU81Vfnud1G65ol5o/j0GNR0ta/usYz0XB7gsYrNK5r0xN/AHnaT5l3e3xWVuB
- 5Sl3opk0OtAQFZw2HxiTAd5PUbwJzEdKJf+2K0zBHGOl+jwtcMYEIet5Z1BYmg7TH6
- KeNce0NR4tiiEL8MR7R0SoXk2Pv7m3gHcyLcjG+xCMnElGdgaO5In27yNIgDokrEyF
- YsaGiLk5V78yQ==
+ b=Mw3weDLlql7G1SpnyDsUdPvSbpkCkU9KUmHbrExgtzc2nfaMjHKFR4/IznA8oMerc
+ +zk+pnBr3vL8soT/SIT+Z16NTN2oUMyLb0Ojs6LdQHlw51kV+ZvUKnmgPpJx79lhI3
+ vJaqfg0IMspZg88jkgtPkurfpBXd+tMouV8lazo0ucDmXONJ8hXg13iA4lcG7IUkSz
+ f42xgqPyDJNmO1O1GvV2lDsFogqURUif4RR7bIYr3B77uAXokM/QQNRX/qo60lXhak
+ sBYRzQDBbgY2yYv7m6rnIfjLhclwGeceIMo0VqQc9Wg/0fmuVDvvpF8AwEz+EWviiR
+ 9Muc2jOHIhjbg==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
- Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-In-Reply-To: <20220822101502.17644-1-laurentiu.mihalcea@nxp.com>
-References: <20220822101502.17644-1-laurentiu.mihalcea@nxp.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: compress: Add support for timestamp on
- capture
-Message-Id: <166195037191.99184.7695234970678699743.b4-ty@kernel.org>
-Date: Wed, 31 Aug 2022 13:52:51 +0100
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220822184239.169757-1-pierre-louis.bossart@linux.intel.com>
+References: <20220822184239.169757-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/5] ASoC: codecs: minor cppcheck cleanups
+Message-Id: <166195037412.99184.15299525182207565398.b4-ty@kernel.org>
+Date: Wed, 31 Aug 2022 13:52:54 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-0c1df
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- ranjani.sridharan@linux.intel.com, peter.ujfalusi@linux.intel.com,
- linux-kernel@vger.kernel.org
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,16 +85,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Aug 2022 13:15:00 +0300, Laurentiu Mihalcea wrote:
-> The purpose of this patch series is to add support for
-> timestamping on capture direction using the compress
-> API.
+On Mon, 22 Aug 2022 20:42:34 +0200, Pierre-Louis Bossart wrote:
+> Small number of cleanups that were either missed in previous versions
+> or detected by new cppcheck version.
 > 
-> This is simply done by splitting sof_compr_copy into 2
-> functions: sof_compr_copy_playback and sof_compr_copy_capture.
-> Each of these functions handles one of the possible directions:
-> capture or playback and is called in sof_compr_copy based on
-> the stream's direction.
+> Pierre-Louis Bossart (5):
+>   ASoC: hdmi-codec: remove unused definitions
+>   ASoC: wcd-mbhc-v2: remove always-true condition
+>   ASoC: wcd9335: remove always-true condition
+>   ASoC: fsl: fsl-utils: remove useless assignment
+>   ASoC: ti: omap-mcbsp: remove useless assignment
 > 
 > [...]
 
@@ -109,10 +104,16 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: compress: Move sof_compr_copy functionality
-      commit: 272ff8828f35658aace17e3227624fbbd68a6bcf
-[2/2] ASoC: SOF: compress: Add copy function for capture case
-      commit: 1a01e19278022cd2f7daa7a065ed47c5022dbad9
+[1/5] ASoC: hdmi-codec: remove unused definitions
+      commit: c90d6054ff9d75bc185c48b798b745aa2c05236c
+[2/5] ASoC: wcd-mbhc-v2: remove always-true condition
+      commit: 43265ceeb0b9cb1f8f5fb182adaa6c2ed4941478
+[3/5] ASoC: wcd9335: remove always-true condition
+      commit: c9a9b4dbc18f4dc609d47b9ac19545b31fb21e3f
+[4/5] ASoC: fsl: fsl-utils: remove useless assignment
+      commit: 3653a6a2a7c146f04940d572d2728c939b50cba1
+[5/5] ASoC: ti: omap-mcbsp: remove useless assignment
+      commit: 7a0431bbda8ae24de56ea1dadcf1a2e56f939707
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

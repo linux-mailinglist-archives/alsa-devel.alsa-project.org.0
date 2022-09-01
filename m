@@ -2,65 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8FC5A95D2
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 13:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68EC25A9604
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 13:50:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 937AE1637;
-	Thu,  1 Sep 2022 13:35:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 937AE1637
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6CA31632;
+	Thu,  1 Sep 2022 13:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6CA31632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662032166;
-	bh=vhVGC2cxDNjYnTqj5N1m7edVJ5wy/+WYxTQ1QdW+FSo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662033026;
+	bh=oQcRcueyeZGLd5NpjwzZcahqf+ZvA/FTegc8Z5bzuu4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X+Os5B9DMwAv8sMEQE0VBY9w1AeZnTNCyDl7aRC/AMs0mjuw65FWZOgBI+pawqICV
-	 LruCYWLrY8I2OP4kigpBo7A/kXwpb0dteRwZHdZwiMlI6nQcZ9E/FRsysh41nAq8/s
-	 jj9T27WqG+rksgeE2VzgbkQkqevc94aYqaHEQT2k=
+	b=nxFY3me+kJ1BeZ+MX1ibHiA8IMwpZm7H3HDuOl5WebRS1aXUK6eLmPyXwCUagKEQa
+	 ojAB5A5GxFfUYxyVdwOsYUTQM2rmlDWqJzWte3JNHByi5JTZyAuJI9J8YnBJq5mQEc
+	 vwVxDpj/4sbFT8aPJPpignpSqMrraqaHjd5jsisY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2036DF80527;
-	Thu,  1 Sep 2022 13:34:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15DE7F804A9;
+	Thu,  1 Sep 2022 13:49:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3C5FF804A9; Thu,  1 Sep 2022 13:34:31 +0200 (CEST)
+ id 7F2C7F8026D; Thu,  1 Sep 2022 13:49:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB77AF80163
+ for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 13:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB77AF80163
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="UasUgYzl"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C1F6F80163
- for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 13:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C1F6F80163
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="QSOcuJpz"
-From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1662032064; bh=9K/ubU5/lJjGhiEptyCyT26bzZBKS5AKwNVg/nBi83E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QSOcuJpz14lYalHW0hwAbrV86WhHflonxSZNXVfz/7SWgKa7GOJPPC0tbM5v6qdPP
- N2GOxWzXjIesNZIdh4BEnDZRrllg8T8DIyr5G6TIhE+IuvvaPo4nSjxJUiT0ZqQNZ8
- BG1lKixb8MlkqZgL/JqpzD64vyoELj8omM92efVc=
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 2/2] MAINTAINERS: Fix file pattern for ARM/APPLE MACHINE SOUND
- DRIVERS
-Date: Thu,  1 Sep 2022 13:34:15 +0200
-Message-Id: <20220901113415.27449-2-povik+lin@cutebit.org>
-In-Reply-To: <20220901113415.27449-1-povik+lin@cutebit.org>
-References: <20220901113415.27449-1-povik+lin@cutebit.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6986161DE7;
+ Thu,  1 Sep 2022 11:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A99C4347C;
+ Thu,  1 Sep 2022 11:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662032956;
+ bh=oQcRcueyeZGLd5NpjwzZcahqf+ZvA/FTegc8Z5bzuu4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=UasUgYzlJUCsMJUVfP4vW6me6slI0D+PxO1y/0Ze2IqeSPEvUS+w6RW+loPT4Li8t
+ NVZBJXqkUWcMKTxqVPL4MQ6WqXOlXE7visxBosES2VstcaoW4dc6R4PKco/P8c+NKb
+ T58g3LdhKp4VKIJSXWehQ2e9xw2j3cUp/8mul1Wwn4bGPiLtm0sMOQOFC35Asjae8v
+ 0chGz/4Y7lQj9w/l4vgUtL2YOetrewcoB/hevdaMlbGZdeGzN/oV4XUut4kXT5XCJ7
+ u5VZmxVc7OzWNQAiKkH1GWOMZ+0XXAgOTnx+N6gs0Ub7mSAmoivPYJwDxSkhnNK6HG
+ mmfgzWeirOK8w==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, 
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220901101458.365354-1-krzysztof.kozlowski@linaro.org>
+References: <20220901101458.365354-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/2] ASoC: codecs: wcd934x: add Slimbus dependency
+Message-Id: <166203295512.40681.12809849481799379505.b4-ty@kernel.org>
+Date: Thu, 01 Sep 2022 12:49:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev
+X-Mailer: b4 0.10.0-dev-0c1df
+Cc: kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,27 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is what was meant of course.
+On Thu, 1 Sep 2022 13:14:57 +0300, Krzysztof Kozlowski wrote:
+> The WCD934X codec is a Slimbus driver, so it must depend on SLIMBUS,
+> also for compile tests:
+> 
+>   ERROR: modpost: "slim_stream_prepare" [sound/soc/codecs/snd-soc-wcd934x.ko] undefined!
+> 
+> 
 
-Fixes: 3df5d0d97289 ("ASoC: apple: mca: Start new platform driver")
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5f91a6b62f2f..895e8ace80dd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1905,7 +1905,7 @@ L:	asahi@lists.linux.dev
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/sound/apple,*
--F:	drivers/sound/apple/*
-+F:	sound/soc/apple/*
- 
- ARM/ARTPEC MACHINE SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
--- 
-2.33.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: codecs: wcd934x: add Slimbus dependency
+      commit: 9815746c48ebbd38d32a7a1dade7fa1e3948c54d
+[2/2] ASoC: codecs: rk817: drop I2C dependencies
+      commit: 69e3e537ec8a2e345f72f65ff24d3486d4764d83
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

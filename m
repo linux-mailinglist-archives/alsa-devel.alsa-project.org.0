@@ -2,99 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A03F85A904F
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 09:31:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561045A913C
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 09:52:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BAF31E8;
-	Thu,  1 Sep 2022 09:30:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BAF31E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1A03161E;
+	Thu,  1 Sep 2022 09:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1A03161E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662017497;
-	bh=nTWlXOEzlMG7A6WMy0e3n2dBzbnqkuwwKbVqnyKs0bo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1662018767;
+	bh=+F/CckdOqpJkX59KZeQqGep4B16MHLOO0sDNiAGEzOk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tm8EOJ2+J/QRrcViFUqfst3rIgk+/EtK42foCXoZVOt9EjEjLAcMw/SyFcqGthen3
-	 qH1Ee5RYUpd6RX5I+PN+3WKoLyYLpaLAEPWc47yrykJNvUDjU3l+o2485qloKj2CHN
-	 W0jJBmPIEaDo+RsaiC0Zf2oMFQe9FN1h3rezqmOA=
+	b=g3TlLl7HEFNncLumScB/C4Se7pG9/0ViPgKCFqFyEKN+D7t/aN7vm1wD6RVvaj4mC
+	 cf+wbolsq57sZOVZeW8ycGvcYe9TmZfaYhO5l34pNEr/wwJGp6TjEPTjQcOwNzI++8
+	 mwc+zoGsNO1IKH7ci+GMM6+8OmWMp51XQZNec2ls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B38B4F800EB;
-	Thu,  1 Sep 2022 09:30:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E3EEF804A9;
+	Thu,  1 Sep 2022 09:51:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7CC8F8026D; Thu,  1 Sep 2022 09:30:34 +0200 (CEST)
+ id 14233F8026D; Thu,  1 Sep 2022 09:51:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CC37F800EB
- for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 09:30:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC37F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA31DF800EB
+ for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 09:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA31DF800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="djMelikW"
-Received: by mail-lf1-x132.google.com with SMTP id br21so17387728lfb.0
- for <alsa-devel@alsa-project.org>; Thu, 01 Sep 2022 00:30:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=Yq1f5sXSl9dJBBsa4JJtzhgEzf3Vcbcgdkoadank0UY=;
- b=djMelikWbC/lJ29b+RcknkU1Y10YBy9OxcmWeKREbcDJZ7sIMbL7ZYDHEtfg7WWj/e
- C3PYlYa3kq3VB8KYoyf9BFYkRuA92YeiaVrBAE7jPxx90EZaorcQn4NE7uKUwV+x87ci
- 4+EE7VD/aU1mjDn5J4ZjZoDb/drWpjXr0y9Dgnbpz124meHVprM6tAfv3z3P4IxXIwQi
- H8mZ/M9p+vrlDwmZNgDeZGS9rYUMB98eJP+9QXE25bCbHVOziulP5lvdpsZhI/6WnGDa
- k6SrtklCLROaDxYaqRxIe/BfgB96gPTfuLve0ZIP1B4LRFM95B5IDAbwI+SXdvVZY+Rd
- uDxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=Yq1f5sXSl9dJBBsa4JJtzhgEzf3Vcbcgdkoadank0UY=;
- b=JNp+hLakmyV33pyN1DFgiMEcZqAG/F16ha2K/pOEzgKlgvEZ2tMKynY09vQJtFYor/
- ZUctIrJbmVBOBHIiXLXnHiGAULWBfRIbpJeK4nnYdqY7+Hx2fiUBE27FM1DPoOUaEgvX
- pyyFd+ATgdD6yH3M/7jDO8H89lgCj1hNEjGHnbv7sJGEZS8cNw/u+EjjkEeYkqgD0aRW
- v6WTc9ImXayfvle82ATMMFCfL+qFarzZl48hHokjiqzKKPCoRg9hThwvLbRfpC+nwWLt
- 6VilGOQXED3tuWXvfIViS11CTj3rSa52tZBmrZaEljb+p2JHew7FIK7JiDYRYxf6llEY
- HWEA==
-X-Gm-Message-State: ACgBeo3lWokB7LnoA8lY4tJzI9Nbsi9X9PItDmDN5RZFZIA4b1FFZrEU
- 5fsYtC7J9T9/B7H1JZDDdOV7aA==
-X-Google-Smtp-Source: AA6agR7yPEX4lBca6MaRVV7FLC8JsJi9f1Qnc5BJpKL2yg/lvtRzib/see+UUQqoafpytn52CBFq6A==
-X-Received: by 2002:a05:6512:1395:b0:48d:81c:5159 with SMTP id
- p21-20020a056512139500b0048d081c5159mr11687844lfa.375.1662017426392; 
- Thu, 01 Sep 2022 00:30:26 -0700 (PDT)
-Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
- [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
- h6-20020a2ea486000000b00268bc2c1ed0sm151744lji.22.2022.09.01.00.30.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Sep 2022 00:30:25 -0700 (PDT)
-Message-ID: <aac3942d-bc0b-7763-0d12-f5d6c585cc97@linaro.org>
-Date: Thu, 1 Sep 2022 10:30:24 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH 6/6] ASoC: codecs: tx-macro: add support for sm8450 and
- sc8280xp
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-References: <20220818134619.3432-1-srinivas.kandagatla@linaro.org>
- <20220818134619.3432-7-srinivas.kandagatla@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220818134619.3432-7-srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="0k7HssTC"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VzUVq5VJ"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 45F7B1FB5A;
+ Thu,  1 Sep 2022 07:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662018698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nSEWsL1+wyhUDZcbYAFPg3SkrROK7u7KWgoltV2Ci/M=;
+ b=0k7HssTCQ+UdjCFrEOyg/8+j2whEPp0HwBpm8G+C0Jx2WP3JwZX7jgMi4HcKKsmdw41JxM
+ /8bAHhSJsz64p3vhBt8AxefhQmatqBorUYEZ7lF/4ItIWZ7XJK4DjmBHqZWoG1nHY4Rx8o
+ 542FKWaWAFysOyLch2K39B8DkS+kXhg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662018698;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nSEWsL1+wyhUDZcbYAFPg3SkrROK7u7KWgoltV2Ci/M=;
+ b=VzUVq5VJfnqnFr8OXgzRjxQhtLoZtZ0ifnGfPmitqSaizCNb0Zlovk3d2bm8+V/Yo3FYb8
+ ZeWnGIL8wPeKCCCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 385B613A89;
+ Thu,  1 Sep 2022 07:51:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id M1NmDYpkEGPbGAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 01 Sep 2022 07:51:38 +0000
+Date: Thu, 01 Sep 2022 09:51:37 +0200
+Message-ID: <878rn3h6ra.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: chihhao chen <chihhao.chen@mediatek.com>
+Subject: Re: missing sound on kernel-5.15
+In-Reply-To: <09f0c52d86155fd6617eec59c341c6cdd4aa5059.camel@mediatek.com>
+References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
+ <YwNvQaNNIKB8ELhR@geday>
+ <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
+ <87r10zxyml.wl-tiwai@suse.de>
+ <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
+ <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
+ <87ilma8edo.wl-tiwai@suse.de>
+ <0f36385ad917ac5ec1fdf4fedd8acd6bb3494bdf.camel@mediatek.com>
+ <87bks28b8c.wl-tiwai@suse.de>
+ <04ecea78ade006c6c7f4575158d1973feb9a6062.camel@mediatek.com>
+ <875yia87gu.wl-tiwai@suse.de>
+ <737b992a1546486fa622c83831209f935e45ffd2.camel@mediatek.com>
+ <871qsxxa6g.wl-tiwai@suse.de>
+ <d161bc518a0313e807a6711150a5a259d93cae29.camel@mediatek.com>
+ <87tu5sx2ih.wl-tiwai@suse.de>
+ <f0ed9708c99cedd4c6c91c39e905dc7e03cc6bcb.camel@mediatek.com>
+ <87k06owux0.wl-tiwai@suse.de>
+ <5b47c3025fba9fd7b2156d1260962b1d67c1b2fa.camel@mediatek.com>
+ <87sflcy1i8.wl-tiwai@suse.de>
+ <09f0c52d86155fd6617eec59c341c6cdd4aa5059.camel@mediatek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,120 +118,247 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/08/2022 16:46, Srinivas Kandagatla wrote:
-> LPASS VA Macro now has soundwire master to deal with access to
-> analog mic in low power island use cases.
+On Thu, 01 Sep 2022 07:50:40 +0200,
+chihhao chen wrote:
 > 
-> This is added after sc8280xp, add support for this.
-> Along with this also add compatibles for sm8450 and sc8280xp.
+> Hi Takashi,
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  sound/soc/codecs/lpass-va-macro.c | 64 ++++++++++++++++++++++++++++++-
->  1 file changed, 62 insertions(+), 2 deletions(-)
+> The patch fixes this problem.
+> I tried it with "Product: Samsung USB C Earphone" and missing sound
+> problem cannot be reproduced.
+
+OK, it's a good news.  I'm going to add more information to the patch
+description about the regression and submit the patch.
+
+
+thanks,
+
+Takashi
+
 > 
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-> index a35f684053d2..f8b0c8caa1db 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
-> @@ -25,6 +25,10 @@
->  #define CDC_VA_FS_CONTROL_EN			BIT(0)
->  #define CDC_VA_FS_COUNTER_CLR			BIT(1)
->  #define CDC_VA_CLK_RST_CTRL_SWR_CONTROL		(0x0008)
-> +#define CDC_VA_SWR_RESET_MASK		BIT(1)
-> +#define CDC_VA_SWR_RESET_ENABLE		BIT(1)
-> +#define CDC_VA_SWR_CLK_EN_MASK		BIT(0)
-> +#define CDC_VA_SWR_CLK_ENABLE		BIT(0)
->  #define CDC_VA_TOP_CSR_TOP_CFG0			(0x0080)
->  #define CDC_VA_FS_BROADCAST_EN			BIT(1)
->  #define CDC_VA_TOP_CSR_DMIC0_CTL		(0x0084)
-> @@ -66,6 +70,8 @@
->  #define CDC_VA_TOP_CSR_SWR_MIC_CTL0		(0x00D0)
->  #define CDC_VA_TOP_CSR_SWR_MIC_CTL1		(0x00D4)
->  #define CDC_VA_TOP_CSR_SWR_MIC_CTL2		(0x00D8)
-> +#define CDC_VA_SWR_MIC_CLK_SEL_0_1_MASK		(0xEE)
-> +#define CDC_VA_SWR_MIC_CLK_SEL_0_1_DIV1		(0xCC)
->  #define CDC_VA_TOP_CSR_SWR_CTRL			(0x00DC)
->  #define CDC_VA_INP_MUX_ADC_MUX0_CFG0		(0x0100)
->  #define CDC_VA_INP_MUX_ADC_MUX0_CFG1		(0x0104)
-> @@ -194,6 +200,8 @@ struct va_macro {
->  	unsigned long active_ch_mask[VA_MACRO_MAX_DAIS];
->  	unsigned long active_ch_cnt[VA_MACRO_MAX_DAIS];
->  	u16 dmic_clk_div;
-> +	bool has_swr_master;
-> +	bool reset_swr;
->  
->  	int dec_mode[VA_MACRO_NUM_DECIMATORS];
->  	struct regmap *regmap;
-> @@ -325,6 +333,9 @@ static bool va_is_rw_register(struct device *dev, unsigned int reg)
->  	case CDC_VA_TOP_CSR_DMIC2_CTL:
->  	case CDC_VA_TOP_CSR_DMIC3_CTL:
->  	case CDC_VA_TOP_CSR_DMIC_CFG:
-> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL0:
-> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL1:
-> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL2:
->  	case CDC_VA_TOP_CSR_DEBUG_BUS:
->  	case CDC_VA_TOP_CSR_DEBUG_EN:
->  	case CDC_VA_TOP_CSR_TX_I2S_CTL:
-> @@ -1306,12 +1317,40 @@ static const struct snd_soc_component_driver va_macro_component_drv = {
->  
->  static int fsgen_gate_enable(struct clk_hw *hw)
->  {
-> -	return va_macro_mclk_enable(to_va_macro(hw), true);
-> +	struct va_macro *va = to_va_macro(hw);
-> +	struct regmap *regmap = va->regmap;
-> +	int ret;
-> +
-> +	ret = va_macro_mclk_enable(va, true);
-> +	if (!va->has_swr_master)
-> +		return ret;
-> +
-> +	if (va->reset_swr)
-> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
-> +				   CDC_VA_SWR_RESET_MASK,
-> +				   CDC_VA_SWR_RESET_ENABLE);
-> +
-> +	regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
-> +			   CDC_VA_SWR_CLK_EN_MASK,
-> +			   CDC_VA_SWR_CLK_ENABLE);
-> +	if (va->reset_swr)
-> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
-> +				   CDC_VA_SWR_RESET_MASK, 0x0);
-> +	va->reset_swr = false;
-> +
-> +	return ret;
->  }
->  
->  static void fsgen_gate_disable(struct clk_hw *hw)
->  {
-> -	va_macro_mclk_enable(to_va_macro(hw), false);
-> +	struct va_macro *va = to_va_macro(hw);
-> +	struct regmap *regmap = va->regmap;
-> +
-> +	if (va->has_swr_master)
-> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
-> +			   CDC_VA_SWR_CLK_EN_MASK, 0x0);
-> +
-> +	va_macro_mclk_enable(va, false);
->  }
->  
->  static int fsgen_gate_is_enabled(struct clk_hw *hw)
-> @@ -1459,6 +1498,11 @@ static int va_macro_probe(struct platform_device *pdev)
->  
->  	dev_set_drvdata(dev, va);
->  
-> +	if (of_device_is_compatible(dev->of_node, "qcom,sm8450-lpass-va-macro") ||
-> +		of_device_is_compatible(dev->of_node, "qcom,sc8280xp-lpass-va-macro")) {
-> +		va->has_swr_master = true;
-> +		va->reset_swr = true;
-
-This should go to driver_data. Either via quirks/flags or device type
-(enum for each device). Usually the first (flags) is more flexible if
-you want to support many devices.
-
-This also explains Rob's concerns about unneeded entries in of_device_id
-table.
-
-
-Best regards,
-Krzysztof
+> Thanks
+> 
+> On Wed, 2022-08-31 at 15:40 +0200, Takashi Iwai wrote:
+> > On Wed, 31 Aug 2022 15:16:39 +0200,
+> > chihhao chen wrote:
+> > > 
+> > > Hi Takashi,
+> > > 
+> > > Yes no error reported and data on USB bus is also complete. (Use
+> > > USB
+> > > analyzer to collect packets on bus and check these data.)
+> > 
+> > Hm, then it has something to do with the device firmware side...
+> > 
+> > > I added delay right after find_substream_format() in
+> > > snd_usb_hw_params() as follows
+> > > 1. first time call snd_usb_hw_params(), do nothing
+> > > 2. second time call snd_usb_hw_params(), delay 150ms after
+> > > find_substream_format()
+> > > 
+> > > I tried to set snd_usb_use_vmalloc false but this problem still
+> > > happened.
+> > 
+> > OK, thanks.
+> > 
+> > On the second thought, it's good to split the existing endpoint setup
+> > to two parts, and apply the setups involving with the buffer
+> > allocation at hw_params while the USB interface setup is done at
+> > prepare.  It'll reduce the unnecessary buffer re-allocation, too, so
+> > I
+> > had such a change in my mind and already cooked some time ago.
+> > 
+> > Could you try the patch below?  If this actually helps for your use
+> > case, we should put more information about the good side-effect, too.
+> > 
+> > 
+> > Takashi
+> > 
+> > -- 8< --
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Subject: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params
+> > and
+> >  prepare
+> > 
+> > One of the former changes for the endpoint management was the more
+> > consistent setup of endpoints at hw_params.
+> > snd_usb_endpoint_configure() is a single function that does the full
+> > setup, and it's called from both PCM hw_params and prepare callbacks.
+> > Although the EP setup at the prepare phase is usually skipped (by
+> > checking need_setup flag), it may be still effective in some cases
+> > like suspend/resume that requires the interface setup again. 
+> > 
+> > As it's a full and single setup, the invocation of
+> > snd_usb_endpoint_configure() includes not only the USB interface
+> > setup
+> > but also the buffer release and allocation.  OTOH, doing the buffer
+> > release and re-allocation at PCM prepare phase is rather superfluous,
+> > and better to be only in the hw_params phase.
+> > 
+> > For those optimizations, this patch splits the endpoint setup to two
+> > phases: snd_usb_endpoint_set_params() and snd_usb_endpoint_prepare(),
+> > to be called from hw_params and from prepare, respectively.
+> > 
+> > This changes the operation slightly, effectively moving the USB
+> > interface setup again to PCM prepare stage instead of hw_params
+> > stage, while the buffer allocation and such initializations are still
+> > done at hw_params stage.
+> > 
+> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > ---
+> >  sound/usb/endpoint.c | 23 +++++++++--------------
+> >  sound/usb/endpoint.h |  6 ++++--
+> >  sound/usb/pcm.c      | 14 ++++++++++----
+> >  3 files changed, 23 insertions(+), 20 deletions(-)
+> > 
+> > diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+> > index 0d7b73bf7945..a42f2ce19455 100644
+> > --- a/sound/usb/endpoint.c
+> > +++ b/sound/usb/endpoint.c
+> > @@ -758,7 +758,8 @@ bool snd_usb_endpoint_compatible(struct
+> > snd_usb_audio *chip,
+> >   * The endpoint needs to be closed via snd_usb_endpoint_close()
+> > later.
+> >   *
+> >   * Note that this function doesn't configure the endpoint.  The
+> > substream
+> > - * needs to set it up later via snd_usb_endpoint_configure().
+> > + * needs to set it up later via snd_usb_endpoint_set_params() and
+> > + * snd_usb_endpoint_prepare().
+> >   */
+> >  struct snd_usb_endpoint *
+> >  snd_usb_endpoint_open(struct snd_usb_audio *chip,
+> > @@ -1290,12 +1291,13 @@ static int sync_ep_set_params(struct
+> > snd_usb_endpoint *ep)
+> >  /*
+> >   * snd_usb_endpoint_set_params: configure an snd_usb_endpoint
+> >   *
+> > + * It's called either from hw_params callback.
+> >   * Determine the number of URBs to be used on this endpoint.
+> >   * An endpoint must be configured before it can be started.
+> >   * An endpoint that is already running can not be reconfigured.
+> >   */
+> > -static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+> > -				       struct snd_usb_endpoint *ep)
+> > +int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+> > +				struct snd_usb_endpoint *ep)
+> >  {
+> >  	const struct audioformat *fmt = ep->cur_audiofmt;
+> >  	int err;
+> > @@ -1378,18 +1380,18 @@ static int init_sample_rate(struct
+> > snd_usb_audio *chip,
+> >  }
+> >  
+> >  /*
+> > - * snd_usb_endpoint_configure: Configure the endpoint
+> > + * snd_usb_endpoint_prepare: Prepare the endpoint
+> >   *
+> >   * This function sets up the EP to be fully usable state.
+> > - * It's called either from hw_params or prepare callback.
+> > + * It's called either from prepare callback.
+> >   * The function checks need_setup flag, and performs nothing unless
+> > needed,
+> >   * so it's safe to call this multiple times.
+> >   *
+> >   * This returns zero if unchanged, 1 if the configuration has
+> > changed,
+> >   * or a negative error code.
+> >   */
+> > -int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+> > -			       struct snd_usb_endpoint *ep)
+> > +int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
+> > +			     struct snd_usb_endpoint *ep)
+> >  {
+> >  	bool iface_first;
+> >  	int err = 0;
+> > @@ -1410,9 +1412,6 @@ int snd_usb_endpoint_configure(struct
+> > snd_usb_audio *chip,
+> >  			if (err < 0)
+> >  				goto unlock;
+> >  		}
+> > -		err = snd_usb_endpoint_set_params(chip, ep);
+> > -		if (err < 0)
+> > -			goto unlock;
+> >  		goto done;
+> >  	}
+> >  
+> > @@ -1440,10 +1439,6 @@ int snd_usb_endpoint_configure(struct
+> > snd_usb_audio *chip,
+> >  	if (err < 0)
+> >  		goto unlock;
+> >  
+> > -	err = snd_usb_endpoint_set_params(chip, ep);
+> > -	if (err < 0)
+> > -		goto unlock;
+> > -
+> >  	err = snd_usb_select_mode_quirk(chip, ep->cur_audiofmt);
+> >  	if (err < 0)
+> >  		goto unlock;
+> > diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+> > index 6a9af04cf175..e67ea28faa54 100644
+> > --- a/sound/usb/endpoint.h
+> > +++ b/sound/usb/endpoint.h
+> > @@ -17,8 +17,10 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+> >  		      bool is_sync_ep);
+> >  void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+> >  			    struct snd_usb_endpoint *ep);
+> > -int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+> > -			       struct snd_usb_endpoint *ep);
+> > +int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+> > +				struct snd_usb_endpoint *ep);
+> > +int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
+> > +			     struct snd_usb_endpoint *ep);
+> >  int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int
+> > clock);
+> >  
+> >  bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
+> > diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+> > index d45d1d7e6664..b604f7e95e82 100644
+> > --- a/sound/usb/pcm.c
+> > +++ b/sound/usb/pcm.c
+> > @@ -443,17 +443,17 @@ static int configure_endpoints(struct
+> > snd_usb_audio *chip,
+> >  		if (stop_endpoints(subs, false))
+> >  			sync_pending_stops(subs);
+> >  		if (subs->sync_endpoint) {
+> > -			err = snd_usb_endpoint_configure(chip, subs-
+> > >sync_endpoint);
+> > +			err = snd_usb_endpoint_prepare(chip, subs-
+> > >sync_endpoint);
+> >  			if (err < 0)
+> >  				return err;
+> >  		}
+> > -		err = snd_usb_endpoint_configure(chip, subs-
+> > >data_endpoint);
+> > +		err = snd_usb_endpoint_prepare(chip, subs-
+> > >data_endpoint);
+> >  		if (err < 0)
+> >  			return err;
+> >  		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
+> >  	} else {
+> >  		if (subs->sync_endpoint) {
+> > -			err = snd_usb_endpoint_configure(chip, subs-
+> > >sync_endpoint);
+> > +			err = snd_usb_endpoint_prepare(chip, subs-
+> > >sync_endpoint);
+> >  			if (err < 0)
+> >  				return err;
+> >  		}
+> > @@ -551,7 +551,13 @@ static int snd_usb_hw_params(struct
+> > snd_pcm_substream *substream,
+> >  	subs->cur_audiofmt = fmt;
+> >  	mutex_unlock(&chip->mutex);
+> >  
+> > -	ret = configure_endpoints(chip, subs);
+> > +	if (subs->sync_endpoint) {
+> > +		ret = snd_usb_endpoint_set_params(chip, subs-
+> > >sync_endpoint);
+> > +		if (ret < 0)
+> > +			goto unlock;
+> > +	}
+> > +
+> > +	ret = snd_usb_endpoint_set_params(chip, subs->data_endpoint);
+> >  
+> >   unlock:
+> >  	if (ret < 0)
+> 

@@ -2,149 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB8595A9B87
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 17:26:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319AE5A9E4A
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 19:41:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41A5815C1;
-	Thu,  1 Sep 2022 17:26:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41A5815C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6B811637;
+	Thu,  1 Sep 2022 19:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B811637
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662046013;
-	bh=RI13jDz8wM2hrfsa66emITmZjc3mEC5agYQo1qjJKMg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pX+hwaHycoDV6uIyAl1HGSpqeXrVoqqMK7dGM4T3ZJWvtYNagdT7mq8DJsUjQ252I
-	 b8Ro8Gmsd25VDPJylnrt0QDlUv1AAGEJwL0bAAJ/e1cg/zlBPVtFz6IGqPtu2F9hDk
-	 qhLibB/S2I1Kb5/fXtxQ3FrJw+CDRrDRArRFB2Lo=
+	s=default; t=1662054098;
+	bh=3QvqwoKmEMN+x9/aOyZ4aYdsCNDJDt7LdBDTdqRDPL8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GYrGPzSr5bzTxW+bGl/p96K4WOhcy3LXkfBSZn9S6wdUkwyTgSU+apLUyaZhqOnU/
+	 +33ql1a5wmapFCUdTrpPZ6I3B8qCDn45V7817EuSxWYiDY81XX4FhWTkNWi9O2D5LF
+	 mQs5y5B9woYgw3/w8UW/ZbxwujUM+Cj5zBu+F9DM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFAF0F804A9;
-	Thu,  1 Sep 2022 17:25:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E022F804D1;
+	Thu,  1 Sep 2022 19:40:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A627BF8026D; Thu,  1 Sep 2022 17:25:51 +0200 (CEST)
+ id 5CEAFF804A9; Thu,  1 Sep 2022 19:40:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2071.outbound.protection.outlook.com [40.107.22.71])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD1A5F80236
- for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 17:25:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD1A5F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDBE9F80236
+ for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 19:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDBE9F80236
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=seco.com header.i=@seco.com
- header.b="uKNb8mon"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c7tUAWpFjogCG7EaSXXhXtWUqaqjfr31iUZNDQ2uzQfiyDI1OXVgrdriHTVP0W6k2O0JHXNuL596J06IMYDEpNTNwJbvCKTbuQyp7BunmcITt8y4PqawvhicMSekQybOg02LtTwf2ek5KPSqLNIw466DmQUiwK7kHeIN+m+6OXq3rux8xP6JuDAegWtPzfmIYYTnz8EfE2o0y1Upe8e96ouNlKAn6uDAiQqvt2Zkcq2jXqIgq3iuD5B7Q4N2WFCJtPVzQgn/DB2EIob6f+XJl6ia5wfQyFxyrZPjR9holAZD7KvVZoO/6Tex8Oho8JEjzJpO+IuHNKWVVDjxI4N6Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jyyvXG9ILCB1oOAl7jBlhgLa82NwdqOv+U0/8rfFhQk=;
- b=jxd3Fq4JaSuHmx5o9pN0WaLiHpSsP6pK6w9aIRWO8+ejaV3MEEOOrn6IvsBCwnXTGyo5qOxYLfRLrMjqo3x8EZV+cWpTA3V5noExcip//ueqiQfaihyJhRlkUvIhXV6w81/b5ArjLlg1X56JD+FTVLYjcLq4cy6UiVq3uCKAyyhVTMmBUxJsLhAOZo5b07772ZPhK5Suj8qTiTitVGO9ujyxLBIW25zcmTDy+jZz7FsxPLnt8oderilyv7uhxMfoZW7RqhBbDpdRnUS+TEoxDcF/bDf405URdZZsR8T1Q7o4ZVNLP/XpgYKIMPNglKoGq5fA1HmK7uWmtoi5JuKOMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
- dkim=pass header.d=seco.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jyyvXG9ILCB1oOAl7jBlhgLa82NwdqOv+U0/8rfFhQk=;
- b=uKNb8monVE9Z8h6TgXKEFnlpi0ZHmDSBfD1V5XqcyynqGTmBInel3N3xH95LYht+NE/bVA+PF6/si97JwA/zGo4My4k1bBee+ohzAg+/jk/h99PKJOkzjpa4JTh8t2iTCRAaRFLXDe32gGz4TMktNVWeW2sLJFLIofGUySDS4g3ZPpHSIKEhVPyuEcpG3jCaRPbCJToI79deAk8nJ52USA4PPdokXxzR8CXr0wP1aJ207oYD4MJItm8P972gjy29/YoGLGFEmFL0UOLJ/eGOgTNe8V/KuDoqFgwUwkupdypBsfbvcfZ7kxuc8iQZg+Ajvhid97Xtx6MiLacminU7aw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=seco.com;
-Received: from DB7PR03MB4972.eurprd03.prod.outlook.com (2603:10a6:10:7d::22)
- by DB8PR03MB6315.eurprd03.prod.outlook.com (2603:10a6:10:136::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Thu, 1 Sep
- 2022 15:25:46 +0000
-Received: from DB7PR03MB4972.eurprd03.prod.outlook.com
- ([fe80::ecaa:a5a9:f0d5:27a2]) by DB7PR03MB4972.eurprd03.prod.outlook.com
- ([fe80::ecaa:a5a9:f0d5:27a2%4]) with mapi id 15.20.5566.019; Thu, 1 Sep 2022
- 15:25:46 +0000
-Subject: Re: retire_capture_urb: Corrected urb data len
-To: Takashi Iwai <tiwai@suse.de>
-References: <68a97d61-21bf-b45e-f6ed-c0906dd4b197@seco.com>
- <87ilmfj72j.wl-tiwai@suse.de> <9d41eda1-1172-ea60-dd87-b3e38a529170@seco.com>
- <87r110iz8w.wl-tiwai@suse.de>
-From: Sean Anderson <sean.anderson@seco.com>
-Message-ID: <53306c0f-e5ef-44ee-b90c-a3ea61ca454c@seco.com>
-Date: Thu, 1 Sep 2022 11:25:41 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <87r110iz8w.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0445.namprd13.prod.outlook.com
- (2603:10b6:208:2c3::30) To DB7PR03MB4972.eurprd03.prod.outlook.com
- (2603:10a6:10:7d::22)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ayGD7zNg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662054035; x=1693590035;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=3QvqwoKmEMN+x9/aOyZ4aYdsCNDJDt7LdBDTdqRDPL8=;
+ b=ayGD7zNg3aM4nO1Ni4t+OR9pgdYaaX0qS9PHdSui727ZSOI/CKd5Oolw
+ CwY6391k18AlSXor25LKa3Osy2PimMToFNQVE100cb6JGp7ZhLgM7PF5g
+ v8V57jAj60J7UXEEucFbSTnGTr8rwwqV3OdMQoQxqDtGAkXEYX6PYP51u
+ Py81G4B2wIEcn47G70OdjIyLOqcXncd8wX9+6S2+r581n+wI5PWAoEO1W
+ BfmOREPrtz7DRRN6e7KGYj13DdrclofdQ+F6N8xhkxeXqkNY3CXSoscv8
+ joLJ7e1pf+QXSSg5qepQsHdwdEGsUTvKtkUGgu2yaPwU3dp1zW2aZ6V2Q w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="295792322"
+X-IronPort-AV: E=Sophos;i="5.93,281,1654585200"; d="scan'208";a="295792322"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 10:40:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,281,1654585200"; d="scan'208";a="680960348"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga004.fm.intel.com with ESMTP; 01 Sep 2022 10:40:26 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v3 0/2] lib/string_helpers: Introduce tokenize_user_input()
+Date: Thu,  1 Sep 2022 19:50:20 +0200
+Message-Id: <20220901175022.334824-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ca630bae-59ad-4644-1bae-08da8c2e3dc0
-X-MS-TrafficTypeDiagnostic: DB8PR03MB6315:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vz5p95hCD1FFj644Nhrh0anJHxpVIl3oKFNmFx9oaFMQ5/O9GANjUWM0MZWSVxd8i7yoDnODO6MwqdYRewrHTDdZfAsdHO6MdWcQxnQPFSkUAOXo4Xms70pzSHWHOs1axCVZMWcl1qV3PknK4WwRFrX/gzzQssxSkzqulNesiT46cLliRaDMt4tx13ymcpUy2bUGQqdgV+BoFL7t9j/dZrSb2XpLqDocJ45lxnRZtU/Sr6WvfE9+Np2WbCZu2d8cyugkVn0o6YLDiGrBYA/ti5tjSezv0D8Uctv2m7xAOWkOTBP/LgjhNadTh0LNrn/9hPRSZhTAO+7m9VF7IXiaj0ehkYyuy0ZQpKXv3SOYaDZVNr5KoSJBn+mKSZUWpP9YUR2tBkx+E+ILmNV6zHFb31wXj5tZUSxqLUEWrVA4fiYgYFWphGqUl/ri5ypaLi5bLFZ4EvUHGLxxF7xsHvLaS6ATeu10GsD0IwXaF805PVuRjmMS1UBwkQcjOgi3UVnZdetQEsDFSpyV3TC8HAQvEenBaXhFa9dc/HPAUP6dZi8ywwB2PFv99VD0PPk8qPeLYY4hkVeYaB/QtvIBcFbSdTQXEjj9GPup50+4dAXprsHe3jUQdTtLi2LE8U+iHFJnQr7U8O6NECTgxUg/ASvIPaCw119CV2Sbc2Ps2R0xpmft8QHZRPiyMGo1AM9jL5BRspbgmMEu18BrCY4rbJbjzhl9WypBqJyPo2gnnGbKWNPgG5wYwVXItIJxevqe2A/K9AXyp+xJdTEhA6GvWmSKoTPmW66iUybW+8QIK5e3KXhOz/WbcYLgzxv33CcL1E2iUxjKrCRi73coTbNodxKjFw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB7PR03MB4972.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(136003)(376002)(346002)(396003)(366004)(39850400004)(8936002)(44832011)(36756003)(38350700002)(38100700002)(6916009)(6666004)(478600001)(66476007)(66946007)(66556008)(6486002)(54906003)(41300700001)(5660300002)(31686004)(316002)(8676002)(4326008)(6506007)(2616005)(186003)(6512007)(26005)(2906002)(83380400001)(53546011)(52116002)(86362001)(31696002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFo4eHNCME5FNTJlY0hZVHVGS1hkRkFPYjF3bGNEWTFPU0JMRTQrT1FGdEFC?=
- =?utf-8?B?bU15VEdvS1lIWXpEaktNS2Z4RWZJb3B1ME5aRE1Hc1JlclFHRnhHejdVVWlO?=
- =?utf-8?B?TGdEeGo0RkM2QjRUazlsRzVnOXNtaWUwS1gwSldRYSt3WVAzMEhQa2diSmFl?=
- =?utf-8?B?UXB1ME5VU2tnMThVdnF5U3FSbGFINVI1cWdrQ2ZrRXJFbWg4RkxMbDNsV1VH?=
- =?utf-8?B?WUd3Z0ZITnZWcU9DTlpRaUQ5cUJqd0pZcytMYWNhKzE2Ukk5TVdzUlZZUngv?=
- =?utf-8?B?UHpsc3VEdVI0amNCMnBjWUovZGdCVDEvd3JQb3hCb2d2eEFKdnd6YVl2dlNK?=
- =?utf-8?B?WFgxSkdFMWU2YWFyMDQzKys0YTZVcjNGTzFMNmw2STZBUDVBa1FZbkZkZXZv?=
- =?utf-8?B?SWF5M3JqUmVRUmV5VEV0VXFMV093SS93MWRaOHpnMklXLzdCNnJKVWNiaG9p?=
- =?utf-8?B?dnN5cTNaK2lCNkVCMldOSnFRdFRKZ2ZTQm83RTVKV0lLUzdTVkJNT0JkTEhn?=
- =?utf-8?B?QnIyUERGOXlhUmRSZUhNVWZuRGlwa1J5bzBNZVpwSVdTMEZXUGdxT3FpaHd2?=
- =?utf-8?B?eUJ5czlqazNLL1VOekdzUXc1NTNWTUVaSkpYQ3VqUzBLRDV3VXJXMEhGWk05?=
- =?utf-8?B?Z2NkeVZySWRSd0ora3lCd2VjQUtyMjlRK2txV29RSnZ0aW5NcVJqcTNlODc1?=
- =?utf-8?B?dDNGUkN0eE15cUYzWTFMdS9DUjdkVkUvYmp0NmFlSjBIdmtFeXdxS1hyT3Zi?=
- =?utf-8?B?R3RSUGtEUFJoS00xalI4SnZMNmMwNzRURkQrWjA5dmxjc2VaODc4d1ViU0xl?=
- =?utf-8?B?bkRmVTIwUzZxN0ZlM1puZ0M2ZThEbTgxZGtFRW1nOS9oRENSbWt6TCs0RE5N?=
- =?utf-8?B?MkYvVlJYWG02NzZTOW9TTTRXdXpYRXY4Q3VSWFMvYzZJeGRzdlNMR2R2K2hk?=
- =?utf-8?B?SnFzSElTeXo4SHVyZ0tqeUJ2MnJWWE5seEg0eCszeHFOMGdnTFhCOTlPQVJE?=
- =?utf-8?B?dFJzbjBBZTVsSzRIaXViRzZ6QWhUMUIzaVRnKzExdWw4ckg4VWZZbGJ1cWcz?=
- =?utf-8?B?NEM0OXBkZDlWa2J3b3hTYUthQit0RzAwajdhMjZPV0Vpc0Y5Mmh0d3Q2TmJQ?=
- =?utf-8?B?K09vTW53SHBuWGhQL1h1U2dBZ0tGVG9NVHVHcmtPVzRMTGpzYmpEQldtZnF0?=
- =?utf-8?B?ay9Ja3JxUnpTUHpNTE9hMW9vRWM4aGJxTG51ZkxWT0hvQm5FN3YvWU0zTDl6?=
- =?utf-8?B?cG1xTXJHOVQzdEovRWd3anNWSVRqdVRWM05xYXBub1lyMXZWRkF3dTZmUkl1?=
- =?utf-8?B?Wk5oNVhqckRoWk9SZU4vNHpyODBYMmxib2ppeGk5NWZSRXF1N1pKUHpGWmpB?=
- =?utf-8?B?cmdEOVZCNG9tb3RTdUpVWFczYWhKT1dZK3lhd1dNdFhXckRSTzR4SkNFUGFW?=
- =?utf-8?B?eDFkdHdQRU1HQkQ0cWtJTGtzRlNhYm02YTNYcTY3UlBQYVVKUk82YU1LYXhr?=
- =?utf-8?B?MEt6dTZhN0JGWVBXUUVyT1N5dEJ5RnQ3Q01Oek1ueG1kUG9JU0RocWpya0s2?=
- =?utf-8?B?eXJ2QW5DSUxQN0s2N2tVRS92OUhyM01DVldSZWpKdjlKK0wzUjUvYVJQWlFU?=
- =?utf-8?B?WmQyNFk4U2t5bkM0L05ObzQwNnUwTFluTHZUY1haemdpWmcrQlNMTFBlWjZ4?=
- =?utf-8?B?VWViMUJsaVpPTGhpMUNvL0t5UGpmS3JNbkdZMDJ1ZnYxSkxneXQ3bHlGeDUz?=
- =?utf-8?B?Qk9oTkpTZll5eXVyVExJanZJV3dvYVozamlQc0tqcy9JYVNjTDFkQ3hSakdI?=
- =?utf-8?B?b3hYaUJxVXVybkh1aVEwUXNmZ0t1OWhEUFNUZHdrVUJnWVhNcVZiWGNzM1Vy?=
- =?utf-8?B?YTFpNVdkZ2FYZHFDYzNEcXhvNVIwWFhkWDV4SWtsY3FyYjQzZUxHcmFpaFJ5?=
- =?utf-8?B?NWVPSlo2TzBvbGpKb3hKZ1hvK1lQYjhhZmp3SFB5MEdkRW42YnFBdG5zci9B?=
- =?utf-8?B?cEhYcjYwNElPZ0tSOEo0RUVSTDRwVXhEbk5PL2VPY0VNL3NJZ1EwOEhEY0hO?=
- =?utf-8?B?T0xjMFpiNGcrdXZhQTE5YUF5eU5VdytpUU95MnVGYld2S05QQm1pWUtkVWpk?=
- =?utf-8?B?dVFKT01MUFo2STB1YklGUjQ0Z29GaE1xYzNybGZEZTFNOElhaFBxK1lhY2xJ?=
- =?utf-8?B?NUE9PQ==?=
-X-OriginatorOrg: seco.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca630bae-59ad-4644-1bae-08da8c2e3dc0
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR03MB4972.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 15:25:46.1855 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DuV7JB9QSZDFEc8TSL4ACBInT2oRw9RDE/nq8w7pq/xmPaPR/pO/np9iRO6IJ13EG65+5OVXkdzlLs15+IGy1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR03MB6315
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+Content-Transfer-Encoding: 8bit
+Cc: andy@kernel.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, willy@infradead.org, lgirdwood@gmail.com,
+ hdegoede@redhat.com, ranjani.sridharan@linux.intel.com,
+ amadeuszx.slawinski@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,60 +90,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Continuation of recent upstream discussion [1] regarding user string
+tokenization.
+
+First, tokenize_user_input() is introduced to allow for splitting
+specified user string into a sequence of integers. Makes use of
+get_options() internally so the parsing logic is not duplicated.
+
+With that done, redundant parts of the sound driver are removed.
+
+Originally similar functionality was added for the SOF sound driver. As
+more users are on the horizon, it is desirable to update existing
+string_helpers code and provide a unified solution.
 
 
-On 8/28/22 3:49 AM, Takashi Iwai wrote:
-> On Fri, 26 Aug 2022 20:57:53 +0200,
-> Sean Anderson wrote:
->> 
->> On 8/26/22 12:36 PM, Takashi Iwai wrote:
->> > On Fri, 26 Aug 2022 18:22:24 +0200,
->> > Sean Anderson wrote:
->> >> 
->> >> Hi all,
->> >> 
->> >> I have a "FiiO DigiHug USB Audio" sound card (1852:7022) [3]. I have had
->> >> no problems with the audio, but I did notice a large number of message
->> >> like 
->> >> 
->> >> retire_capture_urb: 4992 callbacks suppressed
->> >> 
->> >> in my dmesg [1]. This is caused by the "Corrected urb data len."
->> >> warning.
->> > 
->> > What exact values are shown there?
->> 
->> Unfortunately, as detailed below, I was unable to turn off ratelimiting.
->> 
->> > The problem is that your hardware
->> > (likely a buggy firmware) returns the unaligned size of bytes as the
->> > data.  Maybe it's worth to replace dev_warn_ratelimited() there with
->> > dev_warn() and take all warnings once.  Then we can see what kind of
->> > values are delivered from the hardware.
->> 
->> I'll have an attempt at that next week
->> 
->> >> The patch adding this warning [2] makes it seem like
->> >> this warning should be an uncommon occurance. However, based on the
->> >> number of suppressed callbacks, this seems to be happening at a rate of
->> >> around 500 Hz.
->> >> 
->> >> Is this buggy hardware? Or is this a bug in the driver? Does there need
->> >> to be a quirk? Or perhaps the warning above should be a debug instead?
->> > 
->> > There is no quirk for that.  As long as the device works with that
->> > workaround (except for messages), we can simply add a quirk to not
->> > warn but always apply the workaround silently for such devices.
->> 
->> OK. I wasn't sure what the correct resolution would be.
-> 
-> Actually I was wrong: the existing quirk QUIRK_FLAG_ALIGN_TRANSFER
-> should cover that.
-> 
-> Could you try to pass quirk_flags=0x04 for the corresponding card slot
-> (the option takes an array) to snd-usb-audio module?  Alternatively,
-> try to pass quirk_alias=18557022:0e510408 to snd-usb-audio?
+Changes in v3:
+- relocated tokenize_user_input() implementation to string_helpers as
+  requested by Matthew
 
-I tried both options, but neither worked.
+Changes in v2:
+- reused get_options() so no parsing logic is duplicated
+- simplified __user variant with help of memdup_user_nul()
+  Both suggested by Andy, thanks for thourough review
 
---Sean
+
+[1]: https://lore.kernel.org/alsa-devel/20220707091301.1282291-1-cezary.rojewski@intel.com/
+
+
+Cezary Rojewski (2):
+  lib/string_helpers: Introduce tokenize_user_input()
+  ASoC: SOF: Remove strsplit_u32() and tokenize_input()
+
+ include/linux/string_helpers.h    |  2 +
+ lib/string_helpers.c              | 45 +++++++++++++++
+ sound/soc/sof/sof-client-probes.c | 93 ++++---------------------------
+ 3 files changed, 59 insertions(+), 81 deletions(-)
+
+-- 
+2.25.1
+

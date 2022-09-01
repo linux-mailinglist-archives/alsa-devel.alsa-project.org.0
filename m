@@ -2,108 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FEDA5A9213
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 10:29:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1675A9268
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Sep 2022 10:51:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 318DC1635;
-	Thu,  1 Sep 2022 10:28:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318DC1635
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAEB015F9;
+	Thu,  1 Sep 2022 10:51:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAEB015F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662020960;
-	bh=cbWgTs6HtpaLJIHvRp0fmMQ1WQdaJpe2xnGvx1WkVqM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662022310;
+	bh=IYN5w147mEPIh7+I3ZHSNKJex5y+dk+1RgmLsnyQbNc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s92m85eF0yfvRVTvjqBJXpAMSAvGG5w2781HQ4jCDKzJzJXW4fAiAPdJCPHTafRj8
-	 Hu97mjJ2Lpyc9rp1ZIKjq4q0wm6QoxixQoK9pXJ1lrwikzBEiTZj12WiNXX1uy6pBQ
-	 cXq+ZEgtgP7Cgf89lm3ZRb/4d9grfChyVxQ9rTBg=
+	b=H+NA9zRAUG+xOjtEFFuFga4i/xfs/RvyPqHFCZBtMhMcDS8ZqhP0t4Z6yXwjfNAv6
+	 VrDrTltedbEmIUb6B09DrDssvdcxa9IBu4cxjPOjF+2VCgSzCudmYLi5j5TKTPP70M
+	 vK5N6ryy8lMRw8eFBL9Bij/8qxiKu26N5rT5RS6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88082F804A9;
-	Thu,  1 Sep 2022 10:28:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDF32F804A9;
+	Thu,  1 Sep 2022 10:50:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D5B2F8026D; Thu,  1 Sep 2022 10:28:16 +0200 (CEST)
+ id BCE65F8026D; Thu,  1 Sep 2022 10:50:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5412BF80236
- for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 10:28:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5412BF80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 726F4F80236
+ for <alsa-devel@alsa-project.org>; Thu,  1 Sep 2022 10:50:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726F4F80236
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hEXL9ihw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NWRglrXI"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B06E122372;
- Thu,  1 Sep 2022 08:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662020886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ImmTvDYPAhGe2HVbnOwP0nr87lkxFtYDSk+kAfQL/ew=;
- b=hEXL9ihwETJ9ELsuorubctCFGEkHXGsVH++pIELo7B6YshmvP6EuWnWZFminHrT9MhrD1U
- 2R6y/mgRzpvbfODk1BXW/RcsEIUrh8t4g/+3yxbMgqe5LwhawSHsdF7zgjsq2CWEQL4k8H
- L0hBRi+FU585rzgAOQ5Odbp/6NUPJhc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662020886;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ImmTvDYPAhGe2HVbnOwP0nr87lkxFtYDSk+kAfQL/ew=;
- b=NWRglrXIkELJ8CCh0nPxJaBWYJ/5m17OMRWbxPbKKbIw5L51djkLYpQefo7dx236Lm2PU2
- X9TZl/M0gml4GjDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A568113A79;
- Thu,  1 Sep 2022 08:28:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5eAJKBZtEGOvMAAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 01 Sep 2022 08:28:06 +0000
-Date: Thu, 01 Sep 2022 10:28:06 +0200
-Message-ID: <8735dbh52h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: chihhao chen <chihhao.chen@mediatek.com>
-Subject: Re: missing sound on kernel-5.15
-In-Reply-To: <878rn3h6ra.wl-tiwai@suse.de>
-References: <87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com>
- <YwNvQaNNIKB8ELhR@geday>
- <120e52d94c00aab2cf1f3d611b06f03356e8229f.camel@mediatek.com>
- <87r10zxyml.wl-tiwai@suse.de>
- <dcd647b6b5833e08e3ac588685bcdd9f5c625bbb.camel@mediatek.com>
- <87a67nb5yc.wl-tiwai@suse.de> <87r10y9are.wl-tiwai@suse.de>
- <87ilma8edo.wl-tiwai@suse.de>
- <0f36385ad917ac5ec1fdf4fedd8acd6bb3494bdf.camel@mediatek.com>
- <87bks28b8c.wl-tiwai@suse.de>
- <04ecea78ade006c6c7f4575158d1973feb9a6062.camel@mediatek.com>
- <875yia87gu.wl-tiwai@suse.de>
- <737b992a1546486fa622c83831209f935e45ffd2.camel@mediatek.com>
- <871qsxxa6g.wl-tiwai@suse.de>
- <d161bc518a0313e807a6711150a5a259d93cae29.camel@mediatek.com>
- <87tu5sx2ih.wl-tiwai@suse.de>
- <f0ed9708c99cedd4c6c91c39e905dc7e03cc6bcb.camel@mediatek.com>
- <87k06owux0.wl-tiwai@suse.de>
- <5b47c3025fba9fd7b2156d1260962b1d67c1b2fa.camel@mediatek.com>
- <87sflcy1i8.wl-tiwai@suse.de>
- <09f0c52d86155fd6617eec59c341c6cdd4aa5059.camel@mediatek.com>
- <878rn3h6ra.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="H3Q+6UfM"
+Received: by mail-wr1-x429.google.com with SMTP id n17so21373156wrm.4
+ for <alsa-devel@alsa-project.org>; Thu, 01 Sep 2022 01:50:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=A2FQLHZdgWMY5+2Vy68SDBQe0FvAsdbyc6G5rfD5/5o=;
+ b=H3Q+6UfMvhjnOZlqFelmwDsjl2tA0NTYiE9PmJtYHvY0LVTmXtIP2h/5hldu0NLOke
+ GUdEhxQ8A5CNlVtjPMoBCDpVBxrydnv0fOd8T+Hm5Ly4j2/KDWuzIxCK54Ar8HNNb5Wn
+ wjER3HrAPCSHJm9gdDna5GrBcUGrSA77QaY7ufo9UtlQcjxu0AhC0APzK5vtYjHjcT7S
+ EH513Nl875hXgcaC9IaX4N/DFQxsZCL5XH0VBf7hk4Hm6IUohR1SrLYOtYFt6qlCu6Qg
+ CaefkXCVKT3LXzXk7IGSJDo7gqcZjce1tWP5AZmqd/eC1hiQUPLNLgE04w2YV+w3KO3s
+ M4Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=A2FQLHZdgWMY5+2Vy68SDBQe0FvAsdbyc6G5rfD5/5o=;
+ b=CcdoC4x0hiVk0dmE4J1fe4phqmtfFwognTbauL5Z+izkjnz1IQP+s8v7kxgW8Xa/12
+ YgLislrEt+uDQjiQrHsWABXieLAmCS3Jo6eDSrNzbWoQ5xO+WO64420fcs9bEUBJOCZF
+ mWOYHKbZPbwzCKi61B/qVpvhdlsmwUaNAT86BoHByr+D+k/oD5xsySZ8VpShwTVQCRKP
+ Rhx5FWGywJyEND6Klw7wXMVxl/mh/DzW4tx07GGirbUHZNYhFsLZkTWu2Q4Oc/p7lLy0
+ 8LY6iJCuiPVtkQ4QQKHMrxRm7O/dO7rKbtixu/R9MqTYHi9DznbqBlK9uOJ2iDmQtEWi
+ kIDw==
+X-Gm-Message-State: ACgBeo0JdetR7uENWg6D+3AAYzzMPOzDggMtxpO4NLwSDN2tMuAS5CX3
+ VQoRZydkjbZwCAVVB8sxziUnEg==
+X-Google-Smtp-Source: AA6agR757jBQEEOMnzTvdrhLU2kaUT9IXbba0+T96klBBO4KX2U+sFZeASnIiyiMLtKuCJfyOQcPdw==
+X-Received: by 2002:a5d:5b08:0:b0:226:f421:79ba with SMTP id
+ bx8-20020a5d5b08000000b00226f42179bamr1486062wrb.44.1662022238566; 
+ Thu, 01 Sep 2022 01:50:38 -0700 (PDT)
+Received: from [192.168.86.238]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ q16-20020adffed0000000b00226d1821abesm13352278wrs.56.2022.09.01.01.50.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Sep 2022 01:50:37 -0700 (PDT)
+Message-ID: <8f907b3f-b02f-774a-f3f7-844527795fbd@linaro.org>
+Date: Thu, 1 Sep 2022 09:50:35 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 6/6] ASoC: codecs: tx-macro: add support for sm8450 and
+ sc8280xp
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, broonie@kernel.org
+References: <20220818134619.3432-1-srinivas.kandagatla@linaro.org>
+ <20220818134619.3432-7-srinivas.kandagatla@linaro.org>
+ <aac3942d-bc0b-7763-0d12-f5d6c585cc97@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <aac3942d-bc0b-7763-0d12-f5d6c585cc97@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,114 +112,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Sep 2022 09:51:37 +0200,
-Takashi Iwai wrote:
+
+
+On 01/09/2022 08:30, Krzysztof Kozlowski wrote:
+> On 18/08/2022 16:46, Srinivas Kandagatla wrote:
+>> LPASS VA Macro now has soundwire master to deal with access to
+>> analog mic in low power island use cases.
+>>
+>> This is added after sc8280xp, add support for this.
+>> Along with this also add compatibles for sm8450 and sc8280xp.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   sound/soc/codecs/lpass-va-macro.c | 64 ++++++++++++++++++++++++++++++-
+>>   1 file changed, 62 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+>> index a35f684053d2..f8b0c8caa1db 100644
+>> --- a/sound/soc/codecs/lpass-va-macro.c
+>> +++ b/sound/soc/codecs/lpass-va-macro.c
+>> @@ -25,6 +25,10 @@
+>>   #define CDC_VA_FS_CONTROL_EN			BIT(0)
+>>   #define CDC_VA_FS_COUNTER_CLR			BIT(1)
+>>   #define CDC_VA_CLK_RST_CTRL_SWR_CONTROL		(0x0008)
+>> +#define CDC_VA_SWR_RESET_MASK		BIT(1)
+>> +#define CDC_VA_SWR_RESET_ENABLE		BIT(1)
+>> +#define CDC_VA_SWR_CLK_EN_MASK		BIT(0)
+>> +#define CDC_VA_SWR_CLK_ENABLE		BIT(0)
+>>   #define CDC_VA_TOP_CSR_TOP_CFG0			(0x0080)
+>>   #define CDC_VA_FS_BROADCAST_EN			BIT(1)
+>>   #define CDC_VA_TOP_CSR_DMIC0_CTL		(0x0084)
+>> @@ -66,6 +70,8 @@
+>>   #define CDC_VA_TOP_CSR_SWR_MIC_CTL0		(0x00D0)
+>>   #define CDC_VA_TOP_CSR_SWR_MIC_CTL1		(0x00D4)
+>>   #define CDC_VA_TOP_CSR_SWR_MIC_CTL2		(0x00D8)
+>> +#define CDC_VA_SWR_MIC_CLK_SEL_0_1_MASK		(0xEE)
+>> +#define CDC_VA_SWR_MIC_CLK_SEL_0_1_DIV1		(0xCC)
+>>   #define CDC_VA_TOP_CSR_SWR_CTRL			(0x00DC)
+>>   #define CDC_VA_INP_MUX_ADC_MUX0_CFG0		(0x0100)
+>>   #define CDC_VA_INP_MUX_ADC_MUX0_CFG1		(0x0104)
+>> @@ -194,6 +200,8 @@ struct va_macro {
+>>   	unsigned long active_ch_mask[VA_MACRO_MAX_DAIS];
+>>   	unsigned long active_ch_cnt[VA_MACRO_MAX_DAIS];
+>>   	u16 dmic_clk_div;
+>> +	bool has_swr_master;
+>> +	bool reset_swr;
+>>   
+>>   	int dec_mode[VA_MACRO_NUM_DECIMATORS];
+>>   	struct regmap *regmap;
+>> @@ -325,6 +333,9 @@ static bool va_is_rw_register(struct device *dev, unsigned int reg)
+>>   	case CDC_VA_TOP_CSR_DMIC2_CTL:
+>>   	case CDC_VA_TOP_CSR_DMIC3_CTL:
+>>   	case CDC_VA_TOP_CSR_DMIC_CFG:
+>> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL0:
+>> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL1:
+>> +	case CDC_VA_TOP_CSR_SWR_MIC_CTL2:
+>>   	case CDC_VA_TOP_CSR_DEBUG_BUS:
+>>   	case CDC_VA_TOP_CSR_DEBUG_EN:
+>>   	case CDC_VA_TOP_CSR_TX_I2S_CTL:
+>> @@ -1306,12 +1317,40 @@ static const struct snd_soc_component_driver va_macro_component_drv = {
+>>   
+>>   static int fsgen_gate_enable(struct clk_hw *hw)
+>>   {
+>> -	return va_macro_mclk_enable(to_va_macro(hw), true);
+>> +	struct va_macro *va = to_va_macro(hw);
+>> +	struct regmap *regmap = va->regmap;
+>> +	int ret;
+>> +
+>> +	ret = va_macro_mclk_enable(va, true);
+>> +	if (!va->has_swr_master)
+>> +		return ret;
+>> +
+>> +	if (va->reset_swr)
+>> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
+>> +				   CDC_VA_SWR_RESET_MASK,
+>> +				   CDC_VA_SWR_RESET_ENABLE);
+>> +
+>> +	regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
+>> +			   CDC_VA_SWR_CLK_EN_MASK,
+>> +			   CDC_VA_SWR_CLK_ENABLE);
+>> +	if (va->reset_swr)
+>> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
+>> +				   CDC_VA_SWR_RESET_MASK, 0x0);
+>> +	va->reset_swr = false;
+>> +
+>> +	return ret;
+>>   }
+>>   
+>>   static void fsgen_gate_disable(struct clk_hw *hw)
+>>   {
+>> -	va_macro_mclk_enable(to_va_macro(hw), false);
+>> +	struct va_macro *va = to_va_macro(hw);
+>> +	struct regmap *regmap = va->regmap;
+>> +
+>> +	if (va->has_swr_master)
+>> +		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
+>> +			   CDC_VA_SWR_CLK_EN_MASK, 0x0);
+>> +
+>> +	va_macro_mclk_enable(va, false);
+>>   }
+>>   
+>>   static int fsgen_gate_is_enabled(struct clk_hw *hw)
+>> @@ -1459,6 +1498,11 @@ static int va_macro_probe(struct platform_device *pdev)
+>>   
+>>   	dev_set_drvdata(dev, va);
+>>   
+>> +	if (of_device_is_compatible(dev->of_node, "qcom,sm8450-lpass-va-macro") ||
+>> +		of_device_is_compatible(dev->of_node, "qcom,sc8280xp-lpass-va-macro")) {
+>> +		va->has_swr_master = true;
+>> +		va->reset_swr = true;
 > 
-> On Thu, 01 Sep 2022 07:50:40 +0200,
-> chihhao chen wrote:
-> > 
-> > Hi Takashi,
-> > 
-> > The patch fixes this problem.
-> > I tried it with "Product: Samsung USB C Earphone" and missing sound
-> > problem cannot be reproduced.
+> This should go to driver_data. Either via quirks/flags or device type
+> (enum for each device). Usually the first (flags) is more flexible if
+> you want to support many devices.
+
+Yes, at-least this case is easily doable with driver_data, let me try to 
+add this in next spin.
+
+
+--srini
 > 
-> OK, it's a good news.  I'm going to add more information to the patch
-> description about the regression and submit the patch.
-
-Could you check whether the below cleanup patch on top of the previous
-one doesn't break things?  I lightly tested on my devices and don't
-believe it would change the actual behavior, but just to be sure.
-
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: usb-audio: Clean up endpoint setups at PCM prepare
-
-This patch cleans up the superfluous checks and calls for setting up
-the endpoints at PCM prepare callback:
-
-- Drop stop_endpoints() and sync_pending_stops() calls; the stream is
-  guaranteed to have been already stopped and synced at each PCM
-  prepare call by ALSA PCM core
-
-- Call snd_usb_endpoint_prepare() unconditionally;
-  the check for endpoint->need_setup is done in
-  snd_pcm_hw_endpoint_prepare() itself
-
-- Apply snd_usb_set_format_quirk() only when the endpoint is actually
-  set up (i.e. the return code from snd_usb_endpoint_prepare() > 0)
-
-- Move a few lines back into snd_usb_pcm_prepare();
-  it's even easier to follow than a small useless function
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/pcm.c | 40 ++++++++++------------------------------
- 1 file changed, 10 insertions(+), 30 deletions(-)
-
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index b604f7e95e82..4ed53a3dc922 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -433,35 +433,6 @@ static void close_endpoints(struct snd_usb_audio *chip,
- 	}
- }
- 
--static int configure_endpoints(struct snd_usb_audio *chip,
--			       struct snd_usb_substream *subs)
--{
--	int err;
--
--	if (subs->data_endpoint->need_setup) {
--		/* stop any running stream beforehand */
--		if (stop_endpoints(subs, false))
--			sync_pending_stops(subs);
--		if (subs->sync_endpoint) {
--			err = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
--			if (err < 0)
--				return err;
--		}
--		err = snd_usb_endpoint_prepare(chip, subs->data_endpoint);
--		if (err < 0)
--			return err;
--		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
--	} else {
--		if (subs->sync_endpoint) {
--			err = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
--			if (err < 0)
--				return err;
--		}
--	}
--
--	return 0;
--}
--
- /*
-  * hw_params callback
-  *
-@@ -640,9 +611,18 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 		goto unlock;
- 	}
- 
--	ret = configure_endpoints(chip, subs);
-+	if (subs->sync_endpoint) {
-+		ret = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
-+		if (ret < 0)
-+			goto unlock;
-+	}
-+
-+	ret = snd_usb_endpoint_prepare(chip, subs->data_endpoint);
- 	if (ret < 0)
- 		goto unlock;
-+	else if (ret > 0)
-+		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
-+	ret = 0;
- 
- 	/* reset the pointer */
- 	subs->buffer_bytes = frames_to_bytes(runtime, runtime->buffer_size);
--- 
-2.35.3
-
+> This also explains Rob's concerns about unneeded entries in of_device_id
+> table.
+> 
+> 
+> Best regards,
+> Krzysztof

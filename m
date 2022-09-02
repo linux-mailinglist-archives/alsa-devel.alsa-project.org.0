@@ -2,98 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A10D5AAAE1
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 11:06:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 615505AAC42
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 12:21:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A45401636;
-	Fri,  2 Sep 2022 11:05:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A45401636
+	by alsa0.perex.cz (Postfix) with ESMTPS id C13F8163D;
+	Fri,  2 Sep 2022 12:20:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13F8163D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662109565;
-	bh=DByZzEa0/SSV2mogx+3VMuO9XtQSfHUPqskbOIRJ/hI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1662114062;
+	bh=CQFx9BBIPV7rdst2Un3d9cttBBfsNAdm1vSROFPyvS8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HolJQX3BbqdQZUmz5RBiOw3Jz43AQOPzyWjx22TC8fqdAE9Xhm99rALBuFGqPtoWA
-	 YW2X94LhTS5XwkQu7ysIjzxDo35yCuc5RRRF+bh0BGMceFI4nHn3WxHWEdAXGVqKo8
-	 RxJ/NHmYl70jU4iEDJDXAoqKzSV2gRSEC/TgRw1E=
+	b=SUuAcb8GyBI/kQhfvXYQ4Kc7GhAaeEBEgvN6eh62TWct8dnQ5GjsKR1P87xjBTuKv
+	 znWTDtG9qx0J+ndQCYsSYIjOOO0iCcNZoSDMlHkBR9q4Y6QG5Nyw/iYVh+ojZ7E30X
+	 fitYPZHDOFKCYWBQNLwkii6TzNc3ihiY9jeS3uIY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8C14F80125;
-	Fri,  2 Sep 2022 11:05:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CEBAF8030F;
+	Fri,  2 Sep 2022 12:20:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65798F8027B; Fri,  2 Sep 2022 11:05:04 +0200 (CEST)
+ id 1F796F8027B; Fri,  2 Sep 2022 12:20:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82D7AF80125
- for <alsa-devel@alsa-project.org>; Fri,  2 Sep 2022 11:04:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82D7AF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD84CF80154;
+ Fri,  2 Sep 2022 12:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD84CF80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PqG6a4MK"
-Received: by mail-qt1-x82b.google.com with SMTP id c20so971519qtw.8
- for <alsa-devel@alsa-project.org>; Fri, 02 Sep 2022 02:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=A0lRx9LcG2f6vdkkySTxdBxFyRczSLUlrhv0k8CVfMQ=;
- b=PqG6a4MKk2roT2Ce/PJEt8kCVddWYbqLQh141ATH+SE8SYCKK/ZFS9/OCHdfbfSgP8
- mQREKuMuSelAb6SBLEEu74TKUjSBBmwZ8WjygarTrIA/KvHYGyMp8a2J70T92Jg3Pcrb
- kcjEtRkQqjOXCQllUJDzs4CbTXcsIuMEFmKFSormg00PlTnX1F1InK7vkFbhfO4twbjw
- wX8s3+vO/eXcBlAlq1ZPFwMRXYokbFEoLvKUt2HuPvjJ+iL9BHtDGUWj4Z7VTMBrr1UC
- L7HTZSBcu84jPm1mYMiEOrw0O3Q0JaNpk4QrVKItYAbCjz/FlYGhDCg+mGNEqLY5iH3A
- 0oww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=A0lRx9LcG2f6vdkkySTxdBxFyRczSLUlrhv0k8CVfMQ=;
- b=x33TmmtIw9Edfuh1Y4q6bBEKbAM2NLBHpVKVwvhP0Qlo00c1NtkMyEUOsyCDdr7b2l
- o5SviU3GuC2n6RcZww8mH0w6mbyFkzRYGQhYjp+mUAGIraJ2iqdltzD0Yo1EzpP7ySr4
- ThJoikgh2QMLlXfQvfYmBGZ78Bu2L5IfnuAifgGPcKxWPfqZiHhWbX7fahxJFbfkApNw
- xWaj7B/auMsqYpzUvt0eilYnwCo4OEo0r1O+VdPJhUBlCv8GTlQdHk7UuuKIbFoTxQFL
- UKJJGWYPgtqwN1JwdE34KwK9oxEW1kGDGveWzHAplo1/wY6xrTF+ySWtzKIKTCSylSEI
- UMvw==
-X-Gm-Message-State: ACgBeo1G/tU3qFIPW8vezlo84qh0Pg6iZW0HisBK6UySUlAJINoFqC2D
- LDKW3wdg32BUcOVyp9vp8MMNzZcNwMyBUMfUPhY=
-X-Google-Smtp-Source: AA6agR7C4/X8eo8OV4IEGqRGWP09L1le/kpVLIzKikXVS/h8SIICiTqB0VGNInh/3lWYFp6j5asmpgMaMlwtPWel10o=
-X-Received: by 2002:ac8:7dd0:0:b0:344:afc1:b11d with SMTP id
- c16-20020ac87dd0000000b00344afc1b11dmr26659521qte.195.1662109495202; Fri, 02
- Sep 2022 02:04:55 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Af1FAASI"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 66F0B61A14;
+ Fri,  2 Sep 2022 10:19:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE557C433C1;
+ Fri,  2 Sep 2022 10:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662113984;
+ bh=CQFx9BBIPV7rdst2Un3d9cttBBfsNAdm1vSROFPyvS8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Af1FAASI/LcZV3vInAumEI3Ik4yHBJdqHINEcBAVU3Rk3bK+6Yi0dEhhDNXTLh9Yt
+ oyH0YoYmxz2+Qo8yEEeeD3SIOUGi7KpqWLaDObeKUu5sCfsEGRswNuNZeLVn7X4z1c
+ yViv5D5x8PKeeAZY6kAw4dEVkwaRe/bPopwcO9TFCPpusAy2YwVr0UYoz0I1W7UhUj
+ qhbxO9wnqIqoZ4JYv+3QBn/0WsnWFtiiv3YBDw3cJnARowVQSgTgR6cyww/8UUqOvY
+ nbX8d/iSAhiqOgT0dwgV0QNEfiEavxzE/T267GI+0CkDrR126t/DKzkKSbqtAzwzRn
+ IjkqJIeAeOVMQ==
+Date: Fri, 2 Sep 2022 11:19:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "chunxu.li" <chunxu.li@mediatek.com>
+Subject: Re: [PATCH v2 0/2] Introduce sof_of_machine_select
+Message-ID: <YxHYusRPbwO2ZcAt@sirena.org.uk>
+References: <20220805070449.6611-1-chunxu.li@mediatek.com>
+ <166128061023.1031684.5884182401063110421.b4-ty@kernel.org>
+ <9b3d787387685f2153fe7c99b77a8b8b482f8954.camel@mediatek.com>
 MIME-Version: 1.0
-References: <20220901175022.334824-1-cezary.rojewski@intel.com>
- <20220901175022.334824-2-cezary.rojewski@intel.com>
- <CAHp75VfO7_ASHGdpkcb1dwvhyHPT31eYuAkCm2q7B+2WmtZC4g@mail.gmail.com>
- <e8a06f76-9414-6391-0582-667cf817dbcc@intel.com>
-In-Reply-To: <e8a06f76-9414-6391-0582-667cf817dbcc@intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 2 Sep 2022 12:04:19 +0300
-Message-ID: <CAHp75VdCwJMSzVD0_tniFOwshR-5mJqgwL58=aV99XFXgK5Obw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] lib/string_helpers: Introduce tokenize_user_input()
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Andy Shevchenko <andy@kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Matthew Wilcox <willy@infradead.org>, Takashi Iwai <tiwai@suse.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- amadeuszx.slawinski@linux.intel.com,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="U0OKg5qn858JZiGC"
+Content-Disposition: inline
+In-Reply-To: <9b3d787387685f2153fe7c99b77a8b8b482f8954.camel@mediatek.com>
+X-Cookie: I doubt, therefore I might be.
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, daniel.baluta@nxp.com,
+ tinghan.shen@mediatek.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ peter.ujfalusi@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,34 +95,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 2, 2022 at 10:46 AM Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
-> On 2022-09-01 9:34 PM, Andy Shevchenko wrote:
-> > On Thu, Sep 1, 2022 at 8:40 PM Cezary Rojewski
-> > <cezary.rojewski@intel.com> wrote:
 
-...
+--U0OKg5qn858JZiGC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> >> +int tokenize_user_input(const char __user *from, size_t count, int **tkns);
-> >
-> > Not sure how I can deduct from the name what function is actually
-> > doing. Suggested new name: int_array_parse_user().
-> >
-> > int int_array_parse_user(const char __user *from, size_t count, int **array);
-> >
-> > (Note that we have _user suffix for many APIs in the kernel that does
-> > interact with user space memory)
->
-> That's why I've added '_user_' in the middle! Anyway, I guess the
-> expectation is that it's a suffix - precisely at the end of the name.
->
-> Could we reorder it a bit: "parse_int_array_user"?
+On Fri, Sep 02, 2022 at 11:57:51AM +0800, chunxu.li wrote:
+> On Tue, 2022-08-23 at 19:50 +0100, Mark Brown wrote:
 
-Most of the exported functions that have 'parse' word, have it after
-namespace, but in this case there is no dedicated namespace and it
-also will be in alignment with parse_options_str. That said, go for
-it.
+> > If any updates are required or you are submitting further changes
+> > they
+> > should be sent as incremental updates against current git, existing
+> > patches will not be replaced.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> It looks like the patch didn't applied success.
+
+> The patch link is=20
+> https://patchwork.kernel.org/project/alsa-devel/patch/20220805070449.6611=
+-2-chunxu.li@mediatek.com/
+
+> the merged link is=20
+> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/=
+?id=3D6ace85b9838dc0162b474dbbbb6b388e7561f6a7
+
+As covered above please send incremental patches fixing any issues.
+
+--U0OKg5qn858JZiGC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMR2LkACgkQJNaLcl1U
+h9Ay6Qf9H/ErQa/tLh9xUc0xSn/fYKkv8V8kj14lZGVScxHAlQKI4cFqYZ/dRVIH
+/QTdDm4kJ/W9ObW78riLSTYjbYeWHBjcBTsiYjOdFURI7LV5qjCl769st4JkYLpB
+au8x+0B8e/Sv4BLY64KeRBsaQ22JwVrZT6wf9L4WhTwwDA/QpKSLR9nMsB2pwc26
+TGe2wjhXZeu7b9d16wQLQZWZJ2uv0CjWgzcvuloIfTmsG16M5vf9AjCvjjVQ2Si+
+fRNS59ViX8C5SYuY11b55QGMti1+iA0R73lt7tnqeqgKg23pDheUvo2Q4jNx3Lrz
+ZGvqUaJwA69z7a5nAj5Fg2KC0i8btA==
+=/dmj
+-----END PGP SIGNATURE-----
+
+--U0OKg5qn858JZiGC--

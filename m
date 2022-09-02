@@ -2,91 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B7F5AA6B1
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 05:59:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368205AA716
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 06:58:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAB29164E;
-	Fri,  2 Sep 2022 05:58:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAB29164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64F471634;
+	Fri,  2 Sep 2022 06:57:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F471634
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662091157;
-	bh=IVVO2fA60wdbWGCCowif814eNwLORqaGfv9j11sQ3cw=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662094705;
+	bh=yLb8llUZdwvg/rvEYil7cActxOWZ96UmqEZ6m8swdMo=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tFqIeCZ1TVE3GfKn/8UaJRVRzXMNscwMe5YgT6XUjpLTeehEvVu2JtHCdFBu1X9C/
-	 re3raRC5DgavdQtS4rpcWvtpqhR9vjUyUR56CSdBZJxYmg1181S9RyrCAN8njQ2QM4
-	 uKGGtIsbd3jbku4qX42lpWDjQ1Me7hQTmuzssYmQ=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4095AF804E6;
-	Fri,  2 Sep 2022 05:58:18 +0200 (CEST)
+	b=vfNGkv//GWEqSOMkMtrsY3b7GAclkfj+w8xdCdGl3FiJ1J00Sw/jOfdScRJbPOgwx
+	 x2VZpg82iZ3UHGE1gQoyuVBysp2Sf+k4yMWeH2hXcCivsJoq7fTZZPn5nTcCy5xhgz
+	 Le5k6l7szeyqYNw+JSaHTVh1Zijm7Gj7Mo1yayDk=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id AB004F80125;
+	Fri,  2 Sep 2022 06:57:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50A00F8027B; Fri,  2 Sep 2022 05:58:11 +0200 (CEST)
+ id AAFB6F80125; Fri,  2 Sep 2022 06:57:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on2104.outbound.protection.outlook.com [40.107.113.104])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4578F80125;
- Fri,  2 Sep 2022 05:58:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4578F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E29BF80125
+ for <alsa-devel@alsa-project.org>; Fri,  2 Sep 2022 06:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E29BF80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="uj3PGtg1"
-X-UUID: da09cccc653e46f6b7be9721aee07056-20220902
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=O8ywcpytW9+OpMuNWQtzTY6IgtinF6jzWEGtK+dsF/k=; 
- b=uj3PGtg1vq9n5ZQu62whGkrs8WxuAFphNi4ABqaVKsGDHN7+X5cI5bBpbDcXVpOA6cnSj/8zqoxKkPeX35tIce4I/nsSwwQDXiwB/Jel3HJe7PFTOTg0gqYzlOasSMTpcaHEy1ZL45euZ8hSMwwY0BAIDbvWuSy8wjEgAmsgRSs=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.10, REQID:4e92027a-b413-4de0-9a95-33606460dfc4, OB:0,
- L
- OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_
- Ham,ACTION:release,TS:0
-X-CID-META: VersionHash:84eae18, CLOUDID:a01867d0-20bd-4e5e-ace8-00692b7ab380,
- C
- OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
- nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: da09cccc653e46f6b7be9721aee07056-20220902
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1929600818; Fri, 02 Sep 2022 11:57:53 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Fri, 2 Sep 2022 11:57:52 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
- Transport; Fri, 2 Sep 2022 11:57:51 +0800
-Message-ID: <9b3d787387685f2153fe7c99b77a8b8b482f8954.camel@mediatek.com>
-Subject: Re: [PATCH v2 0/2] Introduce sof_of_machine_select
-From: chunxu.li <chunxu.li@mediatek.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Fri, 2 Sep 2022 11:57:51 +0800
-In-Reply-To: <166128061023.1031684.5884182401063110421.b4-ty@kernel.org>
-References: <20220805070449.6611-1-chunxu.li@mediatek.com>
- <166128061023.1031684.5884182401063110421.b4-ty@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
+ header.b="RI/fNe4t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I3wosMud7/OsXTo7EPFc13T2zBs6HJnrpSURQnMlTX5rKJ2BaiknupMosDmqt37Zu/9TOogEktJ5cCZCS95Inr1jtMORt0DFe/XiVRMXwtLHDDhFKU/QwAE4HaA5EvgSEoDRuGnFVUqDd9VJ4e381QvEJspSeTUPfBhjEUYQbVzVkBw4I40+jyVD6Axw8sBkaGDTMHny+ilIJcQRWyM83pBco3SUZfdhkn6zHCfVZUl+fcFjNLPk0UkitCMoHKkRmrz/ZwiixL79RsDU59ATyZ8UBBLlinZWbM1dCVsaAdImlP3tm6RRcBTRtna/zTGRHn7C8E0ZlXrPAqMacgFO9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l6fnx4YSa9QSZYwy9cjuyR6DLMi0FjDS2FfyjXqV5Ek=;
+ b=K8aSmPPeOZsms33oUYDDNNG5EFPHdx+WqDVuB6ayJruaqWpTDjqlWCQo/JaO/cHgxNYRJ/WXqHAbBceshp06m3qN1fR2cTlMJI6hQzephCLOPtgUHTVJ3IbUZL4xXF9haBLEmjboB23d4e135JJrvbdxTyplP5VCeqziRD5yX9xsqGGAeHwP77soJNVi2SVwT/Xl6hNCfc8KQYQ1Y/2I/xPyRsU/OETGWtckUJ24Rv8CZVzLoclF7zmPxSyFytfWP3YaBuWJ/wpG5F7GScb7ufZc5yqH5TZSU8kvEubQepkppiGxK7naZYv8gw8xY376rPBLNlEIVL/C/p8re7QJ2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l6fnx4YSa9QSZYwy9cjuyR6DLMi0FjDS2FfyjXqV5Ek=;
+ b=RI/fNe4tQCB3UFSuiGn9IePFcdlHj+tylXHk3Nu5pVn1HzxRjUfRIJli0ePtS1ydeYB8rwP940UNKDCXf1Wxfs8rqd125CQ+4lps5cLhvWS0cOMDO6ctsnltQraFDxJY3//3ISxKcgkHFGQ2mlrcLWRc827FHGL0cX6Je1QCh1E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by OS3PR01MB8113.jpnprd01.prod.outlook.com (2603:1096:604:163::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Fri, 2 Sep
+ 2022 04:57:08 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::bdab:be26:6e36:88c6]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::bdab:be26:6e36:88c6%3]) with mapi id 15.20.5588.015; Fri, 2 Sep 2022
+ 04:57:08 +0000
+Message-ID: <87pmge5q70.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH v2] ASoC: rsnd: Add check for rsnd_mod_power_on
+In-Reply-To: <20220902013030.3691266-1-jiasheng@iscas.ac.cn>
+References: <20220902013030.3691266-1-jiasheng@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 2 Sep 2022 04:57:08 +0000
+X-ClientProxiedBy: TYCP286CA0099.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::17) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, daniel.baluta@nxp.com,
- tinghan.shen@mediatek.com, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- peter.ujfalusi@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 07546e86-05a9-4e2e-4a43-08da8c9f96aa
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8113:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WNO1GPmFdcHTZTrtzDZut1wQuYtsroUwl9w/ScdyyEHI0yj1UxC0sDepVDApK8dd1LLjvBR1Txaw+GuwdcNMzqiuF6i6ttOuFXg4tKpEDQdtzznF1/ZRzmI1edOg7nQ4SowA9RoQf4tpM4OyYMvi5jO9b53oELBriD+5Yq4x4nB+GsgUChCdhTJyCfCPb6yDOkpiAriqzWzKIk1TkiVPqJZW5BGQY0/odVxtRMCUOmi643uM4JnARkEJKv/ACfm9ei2JFTluFoPgqTCl82OumeVvFyj+qP1xk4l80Uu5OsJxEq4dbWaTITHNf26FpjwmulEwTzIcQd9BgP7j73C1mquhC7D3Uo/MMJDzHrnlndpbCW+wYyzNKet2UTXTU6i7RJpbf0XLF/D12xdDkeuJkhRC/kuT3NiMRc0BuKE741RwABsMAGEWytXuGlUBzyBUP1b/pm/Q9gIpPYDFnSlSzwUihGJO825vkdhIotTgOY6vJu93TN09dlFevXEu/Ah1+tyyrnLs8MtM5/C1SBI9n4xVqG24ok8KC67CGzoWyth8ZhkNFGrCJoLZ/CzorBX3oiwklwjRZnICvrDeX5rNhkoWI4WGpGSV5IzxGNPUwTyup25e2zwtAeo+ygoFLgtqEILBbrFLkXgmq9BC6/v9F2gfb6C9XNCHq500Rc6KV27ANoC/nRkvgtcRF7YTuQNtQCMxmQ1pcdTAFBQLA9r4oz2e3x8VIuvY/DB/Dda/p7EEWXzdEBIwt8U9hHtb8dQ9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(366004)(136003)(376002)(396003)(346002)(316002)(6506007)(86362001)(2906002)(6916009)(52116002)(4326008)(8676002)(8936002)(66556008)(66476007)(41300700001)(5660300002)(38350700002)(38100700002)(36756003)(6486002)(6512007)(26005)(66946007)(186003)(478600001)(4744005)(2616005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PokR/MGpdA6cUm2XxAtxTTiUFOW5B9w9/pwKt4bmOlQ9KV1oFUOs30eMrZEL?=
+ =?us-ascii?Q?JsrmERmakDYtxC6g9WXApKgYUokPqiIBdRLYiph2BA9dg/pGzF4vM9hSW6et?=
+ =?us-ascii?Q?s2vSZumO/XLKMbixyWRTJW9Ny8wSAVvBvXyFBKKtCMCxPIs2kauJ4+L77rAR?=
+ =?us-ascii?Q?CwZjo/BTbfRBF0GYhrkLcNUnIs3T+FaxNXJY0A3SHGcbkmau3tpKjfUgWKzK?=
+ =?us-ascii?Q?R2LH1XIZXZPGsW57yD+3ep2xIEaKnejELTDFW98LyC4sNAEEAGlsq9rbiS3F?=
+ =?us-ascii?Q?s+tckWskxxNAWVsRhVf5akZX8IU70rJUOCHODvulVUogdW8fmEEouutDXdfS?=
+ =?us-ascii?Q?th55Tf1uwjBW9FTIgq87YYC9Z/AKvra2YH5T+2RKa5529yCpNbbwZQ8AGXzD?=
+ =?us-ascii?Q?g7QPeFbVmStV9qLChdrVnPPwA7CcB2afFCky7gM9TbWbPBgO8V082aor9pTJ?=
+ =?us-ascii?Q?Vz9FMlIFgwYzSRpy1PQsJxjq9blTcqdfBqWbF9neY6dqzGg1zliAHuKc+05r?=
+ =?us-ascii?Q?5JnCyKYAREMUEYNxHW/ERaa0Wvf425SV2QSAzmWBm4huXrvyir0D+E7fdkQ1?=
+ =?us-ascii?Q?tp38tp+40AsERLSGSnXXrQE7LgiQUwPU08ibW1XvuF8eyuO3D36QbIr3QQBP?=
+ =?us-ascii?Q?QhPrMA4+CZV2p9tVFI+MMQpesP0y7ZCfYugZxZmDgnrnZADJ6HYB2S189K4I?=
+ =?us-ascii?Q?BM3KctUukrKEkezGd1yV+4A3KpaEnpGrvyBv6JENxXaoxRoIcPzo2AApTxZG?=
+ =?us-ascii?Q?nvjofiLQvPv7e06xlc2hMuP4AJ6VqqmUKtDbwYusbQk0TQg5MELsZwBVUB0z?=
+ =?us-ascii?Q?k5UJWNg8ACioV4lh4oHctx0VsKP5swfOpxJFmY5zNDPmv3PkKKD7wcw8Yq9h?=
+ =?us-ascii?Q?sSV9kybCyKBJlwRmSd6Fv/ZAXzwYVMWap06qmOCm/PJKKgJwv/M0pHSXbDP6?=
+ =?us-ascii?Q?15c4ugheG6puI20tGpUTUd54FZxcNAURaeLEF7cHag+ln7TiVrFMs3ueDCfe?=
+ =?us-ascii?Q?+nf7HnWqgyA0fjtErR8Z2F0/DDCM1JL2s0CJjsmvGNhi6je59LcCfjKvSds+?=
+ =?us-ascii?Q?mFQH6W2XakbwWRPzsGM/ZknrFQc7rMNf+1gDtrBtBUhVIDX7QBB8UdP2FloV?=
+ =?us-ascii?Q?CesP1b7pFr/ccQ6oaz8+22StRTI/3SwskYPDMz890gTLu4u2EFrjL22rGeKf?=
+ =?us-ascii?Q?csP6uAS9LlJxHK2pLZWg0Jgg16TbsCYdE1LHbzo783GWYmv9iMxat0LN8YDD?=
+ =?us-ascii?Q?GnZC6efa2+pgcVLu9sO7EwN/zt4yEXnq4E3Qf2ayNmMH9hOhN/mWvttFwWmj?=
+ =?us-ascii?Q?p4vKz9/i+hvmnjMrPLH7AcUhNf84geN+Is49x3H9XV6865ea1qzj4KnwV0Gf?=
+ =?us-ascii?Q?jBZp/kDLLHZ+SrxnvjJqEjbLCv7Y19w+f1Zvo0HVjwazEAmcqWX9oa9kpBRY?=
+ =?us-ascii?Q?Nh9DuXUPgZCd/m2k1A/c+Zt5ROCYFYVh9mpCg51XxoYYe4mVOOFSwStKjObP?=
+ =?us-ascii?Q?g3IBl2jItyDYOCAdMwp+YpOcK8GAsC+toJ+xEAalsjyYLORBN+q5r+kuS4OI?=
+ =?us-ascii?Q?S1pLUYJQGgjIHzsGTIp4WiD/QSaE1bU07Z9euckFbuIcj/2wmpbTZn9UyL1O?=
+ =?us-ascii?Q?j0U5cTmWS/JUt+Yn/R1wNgc=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07546e86-05a9-4e2e-4a43-08da8c9f96aa
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2022 04:57:08.4745 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qofK4q9sExtVU361UCQ2L1tV3ew8TkwGhWGIbg96k8L1ZPTGJwV+vxpaTNp3nKyzG6XXauLghtZ9iJKGuOcYY2RTj2ZOt2NPMhJxkKHWeldgMJpvLL324p8c7oqdag+R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8113
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,135 +147,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2022-08-23 at 19:50 +0100, Mark Brown wrote:
-> On Fri, 5 Aug 2022 15:04:47 +0800, Chunxu Li wrote:
-> > From: "chunxu.li" <chunxu.li@mediatek.com>
-> > 
-> > Change since v1:
-> >   - remove the callback of_machine_select defined in sof-priv.h
-> >   - move sof_of_machine_select to common code, and called in
-> >     sof_machine_check
-> >   - rename .board field to .compatible in structure snd_sof_of_mach
-> > 
-> > [...]
+
+Hi
+
+> As rsnd_mod_power_on() can return negative numbers,
+> it should be better to check the return value and
+> deal with the exception.
 > 
-> Applied to
-> 
->    
-> https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git__;!!CTRNKA9wMg0ARbw!wdXixJVRiZEF4J6bn68hzN7GZ5gAa67otOgycstenmVEsECqFl08ZMVP2aJBGVuvQg$
->   for-next
-> 
-> Thanks!
-> 
-> [1/2] ASoC: SOF: Introduce function sof_of_machine_select
->       commit: 6ace85b9838dc0162b474dbbbb6b388e7561f6a7
-> [2/2] ASoC: SOF: mediatek: Add sof_mt8186_machs for mt8186
->       commit: 2dec9e09e955dfc4b7843fa4f9c09e7ee8931b1d
-> 
-> All being well this means that it will be integrated into the linux-
-> next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
-> 
-> You may get further e-mails resulting from automated or manual
-> testing
-> and review of the tree, please engage with people reporting problems
-> and
-> send followup patches addressing any issues that are reported if
-> needed.
-> 
-> If any updates are required or you are submitting further changes
-> they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when
-> replying
-> to this mail.
-> 
-> Thanks,
-> Mark
+> Fixes: e7d850dd10f4 ("ASoC: rsnd: use mod base common method on SSI-parent")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+> ---
 
-Hi Mark,
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-It looks like the patch didn't applied success.
+Thank you for your help !!
 
-The patch link is 
-https://patchwork.kernel.org/project/alsa-devel/patch/20220805070449.6611-2-chunxu.li@mediatek.com/
-
-the merged link is 
-https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/?id=6ace85b9838dc0162b474dbbbb6b388e7561f6a7
-
-In sound/soc/sof/sof-audio.c the changes are:
-
- #include <linux/bitfield.h>
- #include "sof-audio.h"
-+#include "sof-of-dev.h"
- #include "ops.h"
- 
- static void sof_reset_route_setup_status(struct snd_sof_dev *sdev,
-struct
- snd_sof_widget *widget)
-@@ -784,6 +785,28 @@  int sof_dai_get_bclk(struct snd_soc_pcm_runtime
-*rtd)
- }
- EXPORT_SYMBOL(sof_dai_get_bclk);
- 
-+static struct snd_sof_of_mach *sof_of_machine_select(struct
-snd_sof_dev
- *sdev)
-+{
-+	struct snd_sof_pdata *sof_pdata = sdev->pdata;
-+	const struct sof_dev_desc *desc = sof_pdata->desc;
-+	struct snd_sof_of_mach *mach = desc->of_machines;
-+
-+	if (!mach)
-+		return NULL;
-+
-+	for (; mach->compatible; mach++) {
-+		if (of_machine_is_compatible(mach->compatible)) {
-+			sof_pdata->tplg_filename = mach-
->sof_tplg_filename;
-+			if (mach->fw_filename)
-+				sof_pdata->fw_filename = mach-
->fw_filename;
-+
-+			return mach;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
- /*
-  * SOF Driver enumeration.
-  */
-@@ -794,6 +817,7 @@  int sof_machine_check(struct snd_sof_dev *sdev)
- 	struct snd_soc_acpi_mach *mach;
- 
- 	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)) {
-+		const struct snd_sof_of_mach *of_mach;
- 
- 		/* find machine */
- 		mach = snd_sof_machine_select(sdev);
-@@ -803,6 +827,12 @@  int sof_machine_check(struct snd_sof_dev *sdev)
- 			return 0;
- 		}
- 
-+		of_mach = sof_of_machine_select(sdev);
-+		if (of_mach) {
-+			sof_pdata->of_machine = of_mach;
-+			return 0;
-+		}
-+
-
-
-But the real applied is only one line as below.
-
- #include <linux/bitfield.h>
- #include "sof-audio.h"
-+#include "sof-of-dev.h"
- #include "ops.h"
-
-
+Best regards
+---
+Kuninori Morimoto

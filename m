@@ -2,69 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793A35AA515
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 03:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99B7F5AA6B1
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Sep 2022 05:59:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED2401630;
-	Fri,  2 Sep 2022 03:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED2401630
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAB29164E;
+	Fri,  2 Sep 2022 05:58:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAB29164E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662082315;
-	bh=5UDGdxBpvs2RB6hwSLIM3RhK700ysbcc8CINd7p6Bu4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FwyIQk6wuV2EIE/mslTJZX1/GJlWXkqR642bQXCRIDCBk3OJ3WXghNQSPi9I0xFzl
-	 FfKnI00jhQTOSGuL52QmHk27KTIP3Cbh7ahUGPDIKnxKV7otZ/AL3OHfUNayR/Aoob
-	 Uc4n7iZgTLoXFhEPOmj4r6VSK+A7lBQfo4yLkGkk=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BA64F8030F;
-	Fri,  2 Sep 2022 03:30:55 +0200 (CEST)
+	s=default; t=1662091157;
+	bh=IVVO2fA60wdbWGCCowif814eNwLORqaGfv9j11sQ3cw=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tFqIeCZ1TVE3GfKn/8UaJRVRzXMNscwMe5YgT6XUjpLTeehEvVu2JtHCdFBu1X9C/
+	 re3raRC5DgavdQtS4rpcWvtpqhR9vjUyUR56CSdBZJxYmg1181S9RyrCAN8njQ2QM4
+	 uKGGtIsbd3jbku4qX42lpWDjQ1Me7hQTmuzssYmQ=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 4095AF804E6;
+	Fri,  2 Sep 2022 05:58:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA116F8027B; Fri,  2 Sep 2022 03:30:52 +0200 (CEST)
+ id 50A00F8027B; Fri,  2 Sep 2022 05:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id 3B26AF80154
- for <alsa-devel@alsa-project.org>; Fri,  2 Sep 2022 03:30:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B26AF80154
-Received: from localhost.localdomain (unknown [124.16.138.126])
- by APP-01 (Coremail) with SMTP id qwCowACn_y63XBFjwMtgAA--.5690S2;
- Fri, 02 Sep 2022 09:30:32 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: kuninori.morimoto.gx@renesas.com
-Subject: [PATCH v2] ASoC: rsnd: Add check for rsnd_mod_power_on
-Date: Fri,  2 Sep 2022 09:30:30 +0800
-Message-Id: <20220902013030.3691266-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4578F80125;
+ Fri,  2 Sep 2022 05:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4578F80125
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="uj3PGtg1"
+X-UUID: da09cccc653e46f6b7be9721aee07056-20220902
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=O8ywcpytW9+OpMuNWQtzTY6IgtinF6jzWEGtK+dsF/k=; 
+ b=uj3PGtg1vq9n5ZQu62whGkrs8WxuAFphNi4ABqaVKsGDHN7+X5cI5bBpbDcXVpOA6cnSj/8zqoxKkPeX35tIce4I/nsSwwQDXiwB/Jel3HJe7PFTOTg0gqYzlOasSMTpcaHEy1ZL45euZ8hSMwwY0BAIDbvWuSy8wjEgAmsgRSs=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.10, REQID:4e92027a-b413-4de0-9a95-33606460dfc4, OB:0,
+ L
+ OB:0,IP:0,URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_
+ Ham,ACTION:release,TS:0
+X-CID-META: VersionHash:84eae18, CLOUDID:a01867d0-20bd-4e5e-ace8-00692b7ab380,
+ C
+ OID:IGNORED,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:
+ nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: da09cccc653e46f6b7be9721aee07056-20220902
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1929600818; Fri, 02 Sep 2022 11:57:53 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Fri, 2 Sep 2022 11:57:52 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
+ Transport; Fri, 2 Sep 2022 11:57:51 +0800
+Message-ID: <9b3d787387685f2153fe7c99b77a8b8b482f8954.camel@mediatek.com>
+Subject: Re: [PATCH v2 0/2] Introduce sof_of_machine_select
+From: chunxu.li <chunxu.li@mediatek.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Fri, 2 Sep 2022 11:57:51 +0800
+In-Reply-To: <166128061023.1031684.5884182401063110421.b4-ty@kernel.org>
+References: <20220805070449.6611-1-chunxu.li@mediatek.com>
+ <166128061023.1031684.5884182401063110421.b4-ty@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowACn_y63XBFjwMtgAA--.5690S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXrykZw1ktF48Xw1DGryxAFb_yoW5WrWrpw
- 4kCrWDWryfAa15u3Z5tr4kAF18uay8AFZxtr4F9w1xA3WxKryDWFn7tr15uF45Wryjkrya
- 9FyDJrn8Cr1rt3JanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY02Avz4vE14v_
- KwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
- 1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
- 64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
- 0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
- IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUOMKZDUUUU
-X-Originating-IP: [124.16.138.126]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, broonie@kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, daniel.baluta@nxp.com,
+ tinghan.shen@mediatek.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ peter.ujfalusi@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,112 +102,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As rsnd_mod_power_on() can return negative numbers,
-it should be better to check the return value and
-deal with the exception.
+On Tue, 2022-08-23 at 19:50 +0100, Mark Brown wrote:
+> On Fri, 5 Aug 2022 15:04:47 +0800, Chunxu Li wrote:
+> > From: "chunxu.li" <chunxu.li@mediatek.com>
+> > 
+> > Change since v1:
+> >   - remove the callback of_machine_select defined in sof-priv.h
+> >   - move sof_of_machine_select to common code, and called in
+> >     sof_machine_check
+> >   - rename .board field to .compatible in structure snd_sof_of_mach
+> > 
+> > [...]
+> 
+> Applied to
+> 
+>    
+> https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git__;!!CTRNKA9wMg0ARbw!wdXixJVRiZEF4J6bn68hzN7GZ5gAa67otOgycstenmVEsECqFl08ZMVP2aJBGVuvQg$
+>   for-next
+> 
+> Thanks!
+> 
+> [1/2] ASoC: SOF: Introduce function sof_of_machine_select
+>       commit: 6ace85b9838dc0162b474dbbbb6b388e7561f6a7
+> [2/2] ASoC: SOF: mediatek: Add sof_mt8186_machs for mt8186
+>       commit: 2dec9e09e955dfc4b7843fa4f9c09e7ee8931b1d
+> 
+> All being well this means that it will be integrated into the linux-
+> next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+> 
+> You may get further e-mails resulting from automated or manual
+> testing
+> and review of the tree, please engage with people reporting problems
+> and
+> send followup patches addressing any issues that are reported if
+> needed.
+> 
+> If any updates are required or you are submitting further changes
+> they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+> 
+> Please add any relevant lists and maintainers to the CCs when
+> replying
+> to this mail.
+> 
+> Thanks,
+> Mark
 
-Fixes: e7d850dd10f4 ("ASoC: rsnd: use mod base common method on SSI-parent")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
-Changelog:
+Hi Mark,
 
-v1 -> v2:
+It looks like the patch didn't applied success.
 
-1. Add check for rsnd_mod_power_on in other files.
----
- sound/soc/sh/rcar/ctu.c | 6 +++++-
- sound/soc/sh/rcar/dvc.c | 6 +++++-
- sound/soc/sh/rcar/mix.c | 6 +++++-
- sound/soc/sh/rcar/src.c | 5 ++++-
- sound/soc/sh/rcar/ssi.c | 4 +++-
- 5 files changed, 22 insertions(+), 5 deletions(-)
+The patch link is 
+https://patchwork.kernel.org/project/alsa-devel/patch/20220805070449.6611-2-chunxu.li@mediatek.com/
 
-diff --git a/sound/soc/sh/rcar/ctu.c b/sound/soc/sh/rcar/ctu.c
-index 6156445bcb69..e39eb2ac7e95 100644
---- a/sound/soc/sh/rcar/ctu.c
-+++ b/sound/soc/sh/rcar/ctu.c
-@@ -171,7 +171,11 @@ static int rsnd_ctu_init(struct rsnd_mod *mod,
- 			 struct rsnd_dai_stream *io,
- 			 struct rsnd_priv *priv)
- {
--	rsnd_mod_power_on(mod);
-+	int ret;
+the merged link is 
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/?id=6ace85b9838dc0162b474dbbbb6b388e7561f6a7
+
+In sound/soc/sof/sof-audio.c the changes are:
+
+ #include <linux/bitfield.h>
+ #include "sof-audio.h"
++#include "sof-of-dev.h"
+ #include "ops.h"
+ 
+ static void sof_reset_route_setup_status(struct snd_sof_dev *sdev,
+struct
+ snd_sof_widget *widget)
+@@ -784,6 +785,28 @@  int sof_dai_get_bclk(struct snd_soc_pcm_runtime
+*rtd)
+ }
+ EXPORT_SYMBOL(sof_dai_get_bclk);
+ 
++static struct snd_sof_of_mach *sof_of_machine_select(struct
+snd_sof_dev
+ *sdev)
++{
++	struct snd_sof_pdata *sof_pdata = sdev->pdata;
++	const struct sof_dev_desc *desc = sof_pdata->desc;
++	struct snd_sof_of_mach *mach = desc->of_machines;
 +
-+	ret = rsnd_mod_power_on(mod);
-+	if (ret < 0)
-+		return ret;
- 
- 	rsnd_ctu_activation(mod);
- 
-diff --git a/sound/soc/sh/rcar/dvc.c b/sound/soc/sh/rcar/dvc.c
-index 5137e03a9d7c..16befcbc312c 100644
---- a/sound/soc/sh/rcar/dvc.c
-+++ b/sound/soc/sh/rcar/dvc.c
-@@ -186,7 +186,11 @@ static int rsnd_dvc_init(struct rsnd_mod *mod,
- 			 struct rsnd_dai_stream *io,
- 			 struct rsnd_priv *priv)
- {
--	rsnd_mod_power_on(mod);
-+	int ret;
++	if (!mach)
++		return NULL;
 +
-+	ret = rsnd_mod_power_on(mod);
-+	if (ret < 0)
-+		return ret;
- 
- 	rsnd_dvc_activation(mod);
- 
-diff --git a/sound/soc/sh/rcar/mix.c b/sound/soc/sh/rcar/mix.c
-index 3572c2c5686c..1de0e085804c 100644
---- a/sound/soc/sh/rcar/mix.c
-+++ b/sound/soc/sh/rcar/mix.c
-@@ -146,7 +146,11 @@ static int rsnd_mix_init(struct rsnd_mod *mod,
- 			 struct rsnd_dai_stream *io,
- 			 struct rsnd_priv *priv)
- {
--	rsnd_mod_power_on(mod);
-+	int ret;
++	for (; mach->compatible; mach++) {
++		if (of_machine_is_compatible(mach->compatible)) {
++			sof_pdata->tplg_filename = mach-
+>sof_tplg_filename;
++			if (mach->fw_filename)
++				sof_pdata->fw_filename = mach-
+>fw_filename;
 +
-+	ret = rsnd_mod_power_on(mod);
-+	if (ret < 0)
-+		return ret;
++			return mach;
++		}
++	}
++
++	return NULL;
++}
++
+ /*
+  * SOF Driver enumeration.
+  */
+@@ -794,6 +817,7 @@  int sof_machine_check(struct snd_sof_dev *sdev)
+ 	struct snd_soc_acpi_mach *mach;
  
- 	rsnd_mix_activation(mod);
+ 	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)) {
++		const struct snd_sof_of_mach *of_mach;
  
-diff --git a/sound/soc/sh/rcar/src.c b/sound/soc/sh/rcar/src.c
-index 0ea84ae57c6a..f832165e46bc 100644
---- a/sound/soc/sh/rcar/src.c
-+++ b/sound/soc/sh/rcar/src.c
-@@ -463,11 +463,14 @@ static int rsnd_src_init(struct rsnd_mod *mod,
- 			 struct rsnd_priv *priv)
- {
- 	struct rsnd_src *src = rsnd_mod_to_src(mod);
-+	int ret;
+ 		/* find machine */
+ 		mach = snd_sof_machine_select(sdev);
+@@ -803,6 +827,12 @@  int sof_machine_check(struct snd_sof_dev *sdev)
+ 			return 0;
+ 		}
  
- 	/* reset sync convert_rate */
- 	src->sync.val = 0;
- 
--	rsnd_mod_power_on(mod);
-+	ret = rsnd_mod_power_on(mod);
-+	if (ret < 0)
-+		return ret;
- 
- 	rsnd_src_activation(mod);
- 
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index 43c5e27dc5c8..7ade6c5ed96f 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -480,7 +480,9 @@ static int rsnd_ssi_init(struct rsnd_mod *mod,
- 
- 	ssi->usrcnt++;
- 
--	rsnd_mod_power_on(mod);
-+	ret = rsnd_mod_power_on(mod);
-+	if (ret < 0)
-+		return ret;
- 
- 	rsnd_ssi_config_init(mod, io);
- 
--- 
-2.25.1
++		of_mach = sof_of_machine_select(sdev);
++		if (of_mach) {
++			sof_pdata->of_machine = of_mach;
++			return 0;
++		}
++
+
+
+But the real applied is only one line as below.
+
+ #include <linux/bitfield.h>
+ #include "sof-audio.h"
++#include "sof-of-dev.h"
+ #include "ops.h"
+
 

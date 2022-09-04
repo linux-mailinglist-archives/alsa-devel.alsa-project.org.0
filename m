@@ -2,89 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC1285AC3E7
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Sep 2022 12:28:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC965AC3DC
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Sep 2022 12:20:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37322E0E;
-	Sun,  4 Sep 2022 12:27:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37322E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9AD8FA;
+	Sun,  4 Sep 2022 12:19:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9AD8FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662287329;
-	bh=hNyZCrFa4i4iQjUHray3sg10+TCSV1/qeuARSRk+0Wk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=R81jBTCk7IVIsz1JRtId88aT5EALq/7xjbGUvvbFKRsAdIZ+AxgpA59dKM0zagWx1
-	 42a1te9nFAmX4NhU6SaDG+bFzbOhydRpIIl3jN2FTGgBogZ6JF+HPUpLJzIJIhFVw5
-	 fvAERotkMufruQOXWWuhQyrPOCYttVVFY5NG+kTU=
+	s=default; t=1662286807;
+	bh=oSm3YqgcF0nA/3IBQeWOjYMotwEj1+DdQMUXqyLYEAg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=esNTO9t2fqBtjLg64AnjO84Hm4/JrM0uAZf4s/8qts0BaBXI+txoCU9LY37Y8am8v
+	 7RbL88hIjAb2uSdYEqlg3bS4BEU2uVj7Z+bVvgyJGi/LtgETclPuUoKtm90hnQkrHo
+	 xbs91o2nQysEBIubZIqwXn4hNUHkaSktAuyV3LIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FFA1F800A7;
-	Sun,  4 Sep 2022 12:27:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1729EF8016E;
+	Sun,  4 Sep 2022 12:19:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A73BF8013D; Sun,  4 Sep 2022 12:27:48 +0200 (CEST)
+ id CE478F8013D; Sun,  4 Sep 2022 12:19:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93BEBF800A7
- for <alsa-devel@alsa-project.org>; Sun,  4 Sep 2022 12:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93BEBF800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B8F9F800A7
+ for <alsa-devel@alsa-project.org>; Sun,  4 Sep 2022 12:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B8F9F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="f/+s4b51"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2XAbT0ba"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CBCD91FCF3;
- Sun,  4 Sep 2022 10:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662287264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ru4cXrU8uZRVJvnYMDLwX+xQ2GsOxjkupeRmR5ICRJ8=;
- b=f/+s4b51ybzY4RD2sc7CJSG6Uw05/CsxEftj1hRVp/HnYwaWvsJYM5sAnQtK4OHcYasKF5
- JblAo9Gb+zIkLUKbWMroaaPceneCdhlDA+ZHHQSGQuFmuWM36+o+tjBgxT7oENISnh9Jdb
- X+bWCCzB/Xny8Jsgct8bmvahO5hzDFI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662287264;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ru4cXrU8uZRVJvnYMDLwX+xQ2GsOxjkupeRmR5ICRJ8=;
- b=2XAbT0bajlkyYwNXv0rippJGG6jFV3x32CckWqSBG91wLPG252WqCuiS6I21DjAScYk9ht
- wvZbfjO77XLBqeCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9DA5313A6B;
- Sun,  4 Sep 2022 10:27:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WiwCJaB9FGNQEQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 04 Sep 2022 10:27:44 +0000
-Date: Sun, 04 Sep 2022 12:27:43 +0200
-Message-ID: <87edwrl9i8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: butt3rflyh4ck <butterflyhuangxx@gmail.com>
-Subject: Re: A new null-ptr-deref Write bug in snd_pcm_format_set_silence
-In-Reply-To: <CAFcO6XN7JDM4xSXGhtusQfS2mSBcx50VJKwQpCq=WeLt57aaZA@mail.gmail.com>
-References: <CAFcO6XN7JDM4xSXGhtusQfS2mSBcx50VJKwQpCq=WeLt57aaZA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: cuibixuan@linux.alibaba.com, LKML <linux-kernel@vger.kernel.org>,
- alsa-devel@alsa-project.org, tiwai@suse.com
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="S3Dq2WOg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662286744; x=1693822744;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=oSm3YqgcF0nA/3IBQeWOjYMotwEj1+DdQMUXqyLYEAg=;
+ b=S3Dq2WOg0yJoYNm7jNZN73eS9CvYKCDP12iuHzaTbgVCiHJ/xIfd0N7S
+ VrOFQLivuDma4hS8Kfa0GuN5hm6Mp2uhvBVNUWm43jlhCWAtiQhxFmPkt
+ D7Rbvx85hiE/JLgZQ0kK44GxvufG1f0YNzseAnOupbKgk138GAUG0p16g
+ rgI7oyOIBBE9bgfZR0UG/tycTkOQ4F+4E0++xyFK6G+VdFYsCSIrLQw+U
+ BU7mO2mWAa8qryYOJlX6lJoL96yKIuRXx2txo6Jsa+Z57/yazEMbZI5cc
+ bX/v4naSlFNQWSxPaXJ8FSN2GFo4ai71z/cd4KIB+iWKWum20lus2VHm3 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="297016177"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="297016177"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2022 03:18:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="646589492"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga001.jf.intel.com with ESMTP; 04 Sep 2022 03:18:53 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v6 0/2] lib/string_helpers: Introduce parse_int_array_user()
+Date: Sun,  4 Sep 2022 12:28:38 +0200
+Message-Id: <20220904102840.862395-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: andy@kernel.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ intel-poland@eclists.intel.com, kai.vehmanen@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, willy@infradead.org, lgirdwood@gmail.com,
+ hdegoede@redhat.com, andy.shevchenko@gmail.com,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,144 +91,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 04 Sep 2022 11:48:37 +0200,
-butt3rflyh4ck wrote:
-> 
-> Hi, there is a new null-ptr-deref Write bug in
-> snd_pcm_format_set_slience in sound/core/pcm_misc.c in the latest
-> upstream kernel and can reproduce it.
-> We call SNDCTL_DSP_SYNC and SNDCTL_DSP_SPEED in multiple threads to
-> trigger the vulnerability.
-> 
-> See the Call Trace:
-> ==================================================================
-> Call Trace:
->  <TASK>
->  __dump_stack lib/dump_stack.c:88 [inline]
->  dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
->  kasan_report+0xb1/0x1e0 mm/kasan/report.c:495
->  check_region_inline mm/kasan/generic.c:183 [inline]
->  kasan_check_range+0x13d/0x180 mm/kasan/generic.c:189
->  memset+0x20/0x40 mm/kasan/shadow.c:44
->  snd_pcm_format_set_silence sound/core/pcm_misc.c:441 [inline]
->  snd_pcm_format_set_silence+0x215/0x350 sound/core/pcm_misc.c:424
->  snd_pcm_oss_sync+0x60e/0x800 sound/core/oss/pcm_oss.c:1690
->  snd_pcm_oss_ioctl+0x2087/0x3420 sound/core/oss/pcm_oss.c:2634
->  vfs_ioctl fs/ioctl.c:51 [inline]
->  __do_sys_ioctl fs/ioctl.c:870 [inline]
->  __se_sys_ioctl fs/ioctl.c:856 [inline]
->  __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:856
->  do_syscall_x64 arch/x86/entry/common.c:50 [inline]
->  do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
->  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> ==================================================================
-> We can see the function snd_pcm_format_set_silence code below:
-> ```
-> int snd_pcm_format_set_silence(snd_pcm_format_t format, void *data,
-> unsigned int samples)
-> {
->         int width;
->         unsigned char *dst;
->         const unsigned char *pat;
-> 
->         if (!valid_format(format))
->                 return -EINVAL;
->         if (samples == 0)
->                 return 0;
->         width = pcm_formats[(INT)format].phys; /* physical width */
->         pat = pcm_formats[(INT)format].silence;
->         if (!width || !pat)
->                 return -EINVAL;
->         /* signed or 1 byte data */
->         if (pcm_formats[(INT)format].signd == 1 || width <= 8) {
->                 unsigned int bytes = samples * width / 8;
->                 memset(data, *pat, bytes);    ///// [1] ---------> data is NULL
->                 return 0;
->         }
->        ......
-> }
-> ```
-> [1], the data pointer is NULL, we can know snd_pcm_format_set_silence
-> called in line 1690 in sound/core/oss/pcm_oss.c from call stack trace.
-> let we see code below:
-> ```
-> static int snd_pcm_oss_sync(struct snd_pcm_oss_file *pcm_oss_file)
-> {
->         int err = 0;
->         unsigned int saved_f_flags;
->         struct snd_pcm_substream *substream;
->         struct snd_pcm_runtime *runtime;
->         snd_pcm_format_t format;
->         unsigned long width;
->         size_t size;
-> 
->         substream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
->         if (substream != NULL) {
->                 runtime = substream->runtime;
->                 if (atomic_read(&substream->mmap_count))
->                         goto __direct;
->                 err = snd_pcm_oss_make_ready(substream);
->                 if (err < 0)
->                         return err;
->                 atomic_inc(&runtime->oss.rw_ref);
->                 if (mutex_lock_interruptible(&runtime->oss.params_lock)) {
->                         atomic_dec(&runtime->oss.rw_ref);
->                         return -ERESTARTSYS;
->                 }
->                 format = snd_pcm_oss_format_from(runtime->oss.format);
->                 width = snd_pcm_format_physical_width(format);
->                 if (runtime->oss.buffer_used > 0) {
-> #ifdef OSS_DEBUG
->                         pcm_dbg(substream->pcm, "sync: buffer_used\n");
-> #endif
->                         size = (8 * (runtime->oss.period_bytes -
-> runtime->oss.buffer_used) + 7) / width;
->                         snd_pcm_format_set_silence(format,
->                                                    runtime->oss.buffer
-> + runtime->oss.buffer_used,   ///// [2]
->                                                    size);
->                         err = snd_pcm_oss_sync1(substream,
-> runtime->oss.period_bytes);
->                         if (err < 0)
->                                 goto unlock;
->                 } else if (runtime->oss.period_ptr > 0) {
-> 
-> ```
-> [2]  runtime->oss.buffer + runtime->oss.buffer_used is the data
-> pointer, but runtime->oss.buffer is NULL here but it doesn't make
-> sense.
-> runtime->oss.buffter is allocated by kvzalloc, if runtime->oss_buffer
-> is NULL, it would return an ENOMEM error.
-> Maybe I think there is a race condition, the runtime->oss.buffer is
-> freed and set to NULL but we can use runtime->oss.buffter via ioctl.
+Continuation of recent upstream discussion [1] regarding user string
+tokenization.
 
-Yeah, likely it's in a small race window between two calls.
+First, parse_int_array_user() is introduced to allow for splitting
+specified user string into a sequence of integers. Makes use of
+get_options() internally so the parsing logic is not duplicated.
 
-Could you try the patch below?
+With that done, redundant parts of the sound driver are removed.
+
+Originally similar functionality was added for the SOF sound driver. As
+more users are on the horizon, it is desirable to update existing
+string_helpers code and provide a unified solution.
 
 
-thanks,
+Changes in v6:
+- minor improvements in SOF code: dropped superfluous array-empty checks
+  as suggested by Andy
 
-Takashi
+Changes in v5:
+- fixed kernel doc for parse_int_array_user()
 
----
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -1672,14 +1672,14 @@ static int snd_pcm_oss_sync(struct snd_pcm_oss_file *pcm_oss_file)
- 		runtime = substream->runtime;
- 		if (atomic_read(&substream->mmap_count))
- 			goto __direct;
--		err = snd_pcm_oss_make_ready(substream);
--		if (err < 0)
--			return err;
- 		atomic_inc(&runtime->oss.rw_ref);
- 		if (mutex_lock_interruptible(&runtime->oss.params_lock)) {
- 			atomic_dec(&runtime->oss.rw_ref);
- 			return -ERESTARTSYS;
- 		}
-+		err = snd_pcm_oss_make_ready_locked(substream);
-+		if (err < 0)
-+			goto unlock;
- 		format = snd_pcm_oss_format_from(runtime->oss.format);
- 		width = snd_pcm_format_physical_width(format);
- 		if (runtime->oss.buffer_used > 0) {
+Changes in v4:
+- renamed the function to parse_int_array_user()
+- at the name several local variable names have been reworded to match
+  the above
+
+Changes in v3:
+- relocated tokenize_user_input() implementation to string_helpers as
+  requested by Matthew
+
+Changes in v2:
+- reused get_options() so no parsing logic is duplicated
+- simplified __user variant with help of memdup_user_nul()
+  Both suggested by Andy, thanks for thorough review
+
+
+[1]: https://lore.kernel.org/alsa-devel/20220707091301.1282291-1-cezary.rojewski@intel.com/
+
+
+Cezary Rojewski (2):
+  lib/string_helpers: Introduce parse_int_array_user()
+  ASoC: SOF: Remove strsplit_u32() and tokenize_input()
+
+ include/linux/string_helpers.h    |   2 +
+ lib/string_helpers.c              |  44 +++++++++++++
+ sound/soc/sof/sof-client-probes.c | 104 +++++-------------------------
+ 3 files changed, 61 insertions(+), 89 deletions(-)
+
+-- 
+2.25.1
+

@@ -2,81 +2,186 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 247575AC3AC
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Sep 2022 11:50:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106EF5AC3CF
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Sep 2022 12:10:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1851673;
-	Sun,  4 Sep 2022 11:49:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1851673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F9ED166A;
+	Sun,  4 Sep 2022 12:09:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F9ED166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662285015;
-	bh=a/YvWxf50jUIWXRrojccLaOEznJbnHezLWrVkeHfKjM=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=abgYJI9RtJvvL+uXyHY6j64IS5c/sXfiv0yGHoXYedB9VoOvREDTzhyBGqFeUlS27
-	 6qBovnIYRYYJMqcHYrrX0DxcagpEtpzwnyFoToTEg2SUUav2ACn4qMzT7adXB1wnJl
-	 CSao7m37jCinS2Ovz62JjCIpQy9PifVQROsftcD8=
+	s=default; t=1662286226;
+	bh=DVQG10NOyonCiTEae0P32MWuNZQBFYwEpLVbK8E76KE=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=L7CCG2st3LCIxpKPSS5YuX71+JDAvWQ+o5sPLlBAyjAXD1MqMQmmtxK1L8din1QDH
+	 nP7ZzBDgeS54HJKWyWQz/bm/Zh9X4AI0LWrWXRx2d+qZVhUpa3Z56F06ePJeXUhhpL
+	 h7mZh0Zaq6X4AnalH3U402jHOS1Ig6K2OSmRsacQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA07CF8016E;
-	Sun,  4 Sep 2022 11:49:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5173F800A7;
+	Sun,  4 Sep 2022 12:09:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD998F8013D; Sun,  4 Sep 2022 11:49:14 +0200 (CEST)
+ id 0DAFDF800A7; Sun,  4 Sep 2022 12:09:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2C1FF800E9
- for <alsa-devel@alsa-project.org>; Sun,  4 Sep 2022 11:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C1FF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2482F800A7
+ for <alsa-devel@alsa-project.org>; Sun,  4 Sep 2022 12:09:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2482F800A7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KVr0X5UO"
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-33dc31f25f9so48794577b3.11
- for <alsa-devel@alsa-project.org>; Sun, 04 Sep 2022 02:49:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date; bh=F21Bj+//ggRk3yzzpw12wST3DISVqXFGdTsD2TfnV/o=;
- b=KVr0X5UOhQ09YBV8ZVBtb7kUuXPLI8hdcT5j18rDfuvGchXmwlKQXC7FIIHdYzrclw
- HFouHEZO1XkQ/C7dXgbMMIFtIieTkXBJU+G/8eRfsuHx10U/PkX74dGjuSw7PnsTDJRJ
- +0QlsvJ8GkTP2gXBn7ChiQ3Fq6a+e3VApIdE5Z+bVslHloq590aRaXZGpPpZZ83+WFFm
- Z25Wb7mhxI6w04J88G1QCcCWawz95SeYY086cvm6GEv5jnB7u0YqlcsUQk4/Pd/Kg23/
- DoW5r7jK7986XVdqRgxSYGtVFpCKLF4wuuedrNPOwPhf508PBwKFiv+Yfn3nGU9Fm1j6
- 4zHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date;
- bh=F21Bj+//ggRk3yzzpw12wST3DISVqXFGdTsD2TfnV/o=;
- b=MJ7vh3rVZdaPHj5nOT2LdBRXHi0q9o8vjnv1XMl+D27kMd51TcJgjfoi0KqEJEFwrk
- LtJ4eRVD01rYeU3CUiYxE6v9KNaSV3D4j0oItfQqCpYot0Jmn3hc5VzMPPaDnlBoNZXd
- SgYDNox4YYZwJ58FuwYPDqqiQ5xjRgsjMAGiok4UhugUj82Mn25PyzkT2HqCmDlDR09l
- q1Tp1eKe9Ik6jHVErA4WxLN4KF+ENG3spzdmNlVP3xLWLUSgUFpluDQBk2YOmQbkTCrb
- SzO/r0IiAPWg13QN/+mUeYtrmi9pUR9RfepLoBpoRhxyeNWwQtaBESd1WIFbvgVl/Gtz
- P+LA==
-X-Gm-Message-State: ACgBeo0pI9B0YLg/E1VZyGt9sUo8WpT5h5CIWtNaoYU/PPyklSnGJypH
- rvLlPRxq8LsdBizPrF4f1EyIzhBqH2LZfZP/i6w=
-X-Google-Smtp-Source: AA6agR4H35a2pOPWUcgq9EqP4rOkPYw+tP5pe1QTl703YDFx5SBe257OrpY3wHXf55lepFt98InwZqbhR976nSJE/TQ=
-X-Received: by 2002:a0d:e850:0:b0:33d:c65e:db0f with SMTP id
- r77-20020a0de850000000b0033dc65edb0fmr33460493ywe.253.1662284949644; Sun, 04
- Sep 2022 02:49:09 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="a1WjJcMS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662286163; x=1693822163;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=DVQG10NOyonCiTEae0P32MWuNZQBFYwEpLVbK8E76KE=;
+ b=a1WjJcMSQ8+SRpY9xpBD0rNwIXPRDsZHPWTGxsg5E4qdVZytT9x95CDJ
+ Zjjf+qqxcRr7Os2HkuRGpDPrkkdd0jqK+pwQnQfBXOrK0bIlzWdY7xRfI
+ fYU2/xL4SJ/hki6nQB7jPSv3MVeAbQeqmMQlFBr0lMGwIpCDFe++A8LP3
+ z66v8Wd7YHKJpUyDtJos49D6DXA+jkCb7C0t7XvOfxX1Mn+/5TKOB2d/w
+ eA/xVPpqreFqZPEPzewQxLD89wPNN55kBfexBCtcBToBDAEo30F/WT/zv
+ pHWqJ7mWLpbuBnc9cGzUAKRA+UAJLKoeS3vROIX40yJZxhyOx79sy0r3F A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="276624180"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="276624180"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2022 03:09:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="681745512"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga004.fm.intel.com with ESMTP; 04 Sep 2022 03:09:19 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sun, 4 Sep 2022 03:09:18 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sun, 4 Sep 2022 03:09:18 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Sun, 4 Sep 2022 03:09:18 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.177)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Sun, 4 Sep 2022 03:09:18 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NmMz4S+YSVqrbMzVSWepsxJH1yhCDWP7+dnGe1IsVh7sJVM+x5Nix5TfBOycXgLOvQeOMUMgM7EfqgHOK7eQSk3y4oi066ObruWWseLDIelrgKrL5h2LexD68zxVNCWxHA7kn5DOlTH+uk3GDwaKUk1xRvGlCJZV/JVRDpQBu+sllxOP4i4tIqHQ3rCQUCNknkiwYp9gxtu3IYi5z3KTPVzH8dZavgUFfFEn/ibfcD2WpEx9zJYQ700gXnseIT4bhkFr0EnMpPN1aBJ+h9bMibFjxcI6+e5AIMxisViVaCxJ9PAxci+XlsMCARwvT23I/79EYwpOvvPV6uxFitElig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OCLns1K2bCi+xj+Id3VSLOkB9xvH1QqdX9vHqzCZJ4E=;
+ b=RRnUa7ha/8c7MpFGk+cDaC/eZ/0PwW9TOyDUE3OtACqjwtWVjBknjPL73giTzyUzaCtSZYDbHJoR8BbvxMykE66qH7Fzd+vPES2U60UMIIw6ez44vr6rWHgH351Mt8qPK5DJInQC6EXR04MDrDXnjHZrbk7TmS+LfWGOASH7SD1KdGAKe+PObzkveL+tdgp4jQtF7v8BkVrLDhuSG5qkoLDlhX2pVP2sg0TAkeP6m1NCAAEKdI/+snlLH9zyLAn37243ZjgyUm1qvxr8X01rUl9OeE/cc8D9rP6WLw61snSpP8e//r8Ooh3+ccGiadgs/m84f3UwmTj39iBFJPFiyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ BYAPR11MB3526.namprd11.prod.outlook.com (2603:10b6:a03:88::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5588.15; Sun, 4 Sep 2022 10:09:16 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::f9e1:f470:f60f:fb02]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::f9e1:f470:f60f:fb02%7]) with mapi id 15.20.5566.015; Sun, 4 Sep 2022
+ 10:09:15 +0000
+Message-ID: <83184fe9-d2a1-8488-65fa-3735b3359bca@intel.com>
+Date: Sun, 4 Sep 2022 12:09:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.2.0
+Subject: Re: [PATCH v5 2/2] ASoC: SOF: Remove strsplit_u32() and
+ tokenize_input()
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20220902133256.789165-1-cezary.rojewski@intel.com>
+ <20220902133256.789165-3-cezary.rojewski@intel.com>
+ <YxISRG13SGScC5Fn@smile.fi.intel.com>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <YxISRG13SGScC5Fn@smile.fi.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0109.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::9) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
 MIME-Version: 1.0
-From: butt3rflyh4ck <butterflyhuangxx@gmail.com>
-Date: Sun, 4 Sep 2022 17:48:37 +0800
-Message-ID: <CAFcO6XN7JDM4xSXGhtusQfS2mSBcx50VJKwQpCq=WeLt57aaZA@mail.gmail.com>
-Subject: A new null-ptr-deref Write bug in snd_pcm_format_set_silence
-To: perex@perex.cz, tiwai@suse.com, cuibixuan@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c374b986-f43d-4b2d-d02a-08da8e5d85a4
+X-MS-TrafficTypeDiagnostic: BYAPR11MB3526:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MxmED9aSVixkqUqxAc0Ehdw1RwKrl6DcdN7kHIJnPhFin0ztMZ4DkmIxSIveC6+YPzmChmaKp/7xVf5N0Y8kJiNGw6KEc90Ivux1djtirKrB5fYD/RpNHquYXxOHfQdxD2AuREH/RWzXAZQVehkO1lwBO52ewYdJICrDQGUm9/sCLVq7fx0qiPi37vYdbETdLtkdhTt+APeHdNMwttLqqgf/PSBCkYi5+2H03xS/P1iOp0EwkO2zSGJWrd03QBflaY6DzRGRuQOf6Q4FcUtdtBCM2EZqGqooJdHDDJkD34bexYQKcMN7RtDPF0fgYFrEVeROBQ+taz7PRBeU+qrGJgLopHbhW53ai4WvuRRIRnxNNwHyKkUFolmEXqrJU0AKlNaaR2eJORL4pEb7xEv/+jqOCFkQo9GXXyfiaIct6mcOc+X+himMHPdl8gC0++X53BXMgQl6lLVLClQxXVckj/hPxtzk/PXDMPRmjr3rYeGOLDAqbC5shMiVNtllAvs+pkAwOp7nMYuUgEtvmODR8b48OovoUAGj67sacK0U1XxxCYhx4YlCcQVYLZ8/Rny0NnquazanIuA1RYsRrWHsQDPFFJz0vBk9KIX6euqUq9y2iH3CM3I1hjnREJoU/a3ruECzyDMZFrkPIEhznCzgRZusJRzYEif3vNBaPz+jLGrvDUk0JNyCm5gy8luWAqCNGtYWSyVxI8e3QYdLWhzFPPtoTV0l4tLFzSol9lQWDn9WHOlrzq0G9lEaYswXttzzzQZHE/9smctv4e8p0rqkIdrIOAiTI3Lsvn5q/J4kFMw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(366004)(136003)(39860400002)(396003)(346002)(376002)(66476007)(5660300002)(86362001)(36756003)(44832011)(6506007)(53546011)(26005)(6512007)(6666004)(4744005)(2906002)(8676002)(7416002)(31696002)(31686004)(66556008)(8936002)(4326008)(6916009)(316002)(66946007)(478600001)(6486002)(41300700001)(82960400001)(38100700002)(2616005)(186003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDBHa2J3ZStTajFIZ2o5MWpZbS9wdFNoVU1qRUY4cC83VmRkZmh4UmZvMHJP?=
+ =?utf-8?B?OXlsbnNoMGZ2QW9sa2FpaXBkUTNWeGxoV2t5WGlpdElhSGpIbm9TZ3Z5MURi?=
+ =?utf-8?B?cG15SzF5VjdhMmVyWkdkSjhwMXRBb0RGSnFFZ1NqZkRxdkFWdis3emJqTHEz?=
+ =?utf-8?B?ZmJBRHlWaHNiNk1ZdzBzUkFZdlg0RzZSYVBYUmN6aWVKMHB6TkRaRUVZc0Jw?=
+ =?utf-8?B?S2VmZWhMMUxPWFJQcHJaMU0vaWxSWWxEd1F1S0FOOEp1WGNQaDBxK1ZiTFB5?=
+ =?utf-8?B?K2NRbkVsRE9QL0xSQXBScWFFbmpVZFhVV2dTVVlxd1cxNFowb1d0SFNyVWZq?=
+ =?utf-8?B?VGZldVhjdllFQnJCM0FmVmU5bUoyTStlWWphcDBkZGhVNVpDMU5MbHVCUkRx?=
+ =?utf-8?B?Smw2eVZtK1BvckZ6K1BOOVRDYlFHaWpoMGJKMlQrUHJ2MSttZjhJQlhhZ1dB?=
+ =?utf-8?B?VWUra29XK2p5WGwzQnM0UkpxV2NzS0xxUnF2TWhuc3dkc2JmWGRkV0JUSnVs?=
+ =?utf-8?B?Y05XWVpnNWpPVHVRZHZla1EvZU9Vc2NrUlZtU0M3WE4vVGtiUy9XdnVENW4y?=
+ =?utf-8?B?T3E3aHZxWlV5QTdqbHo5cnJxRzNpU2hRSjQrVndFRGV3ckV2VXFnaTZYd1VM?=
+ =?utf-8?B?RmFxcGkxYjRzWVY5NkFuVllIelJFZU9Yd3lxTDYvdGNpc2cxTlpscSsyMVZ1?=
+ =?utf-8?B?Q0p1TW9LMUhyOXZuYkxtUVlya1BPQ0ZJMGpQSFd5bjhncG9mUGkxanhRbVlX?=
+ =?utf-8?B?VHc3RmNhbm9VeHA4aXd3NDlYRDhSNXVOa1VaZ2QrUkpzenM1dzlCUTJzTG4w?=
+ =?utf-8?B?TlorUmk3SzRHSjdIWWpZYTl2U3A5TXpZMDlMSVJ4My9JdnFubTNWZ2d6a09P?=
+ =?utf-8?B?a3I1d1d5SERmUlVPZlpyZEUyL2lnVHMrRUNhN3ptRGU5ODg2dDFzRjlITk41?=
+ =?utf-8?B?V0NtRXRjUWRBRmJLYVh0a092a000cFg0bUs4eGp5OWM5NE9KSWtSN2xrM0JP?=
+ =?utf-8?B?M2pOYkY4TStIQUFJS2xaWnMzTTZJMnEvU1hMb2xLZnU5VzBLWXh5N1o4N2tC?=
+ =?utf-8?B?UEJPZExkbkFTZytkaEJlMFJLa2pwTU4vNHQxaXZyaTFVQlJhZDREMFdQOWhS?=
+ =?utf-8?B?eXNRMk1PRU45SzRod0ZNOERFWFJnUjNNNDhkalh6dFlpMGhkNVJudUxqVVJi?=
+ =?utf-8?B?NXNwbXBpRDRyRDRjU1Y4ajdKcnpwYTJndllVclE5ZTV5K3pNNGZNbjQ2Wjhn?=
+ =?utf-8?B?MlA3UjVkaGJNNi93YmdNRFA3MjhVQUV2ZXVNQkh5TnYrQ3V6M3ZYT09sNFRn?=
+ =?utf-8?B?U1J1RkN2Q2hqSTB0WjBqeGdOcm5NM2pDV1lDMDVrdUZjZW1DNnUyaW9DYS9h?=
+ =?utf-8?B?eUlMeVdrbVlYOFZxV21WVW4yZExjaUZ6U1NCS1ZnZ0I1N1pIeFdjOWhiNVdK?=
+ =?utf-8?B?Q0FMbVgrNGR5RmRkeU10V0tEa3VWNEkxS2hYelRtRnROUkxhcEdVNHpQOWt3?=
+ =?utf-8?B?MzFXaDk4TUU2SGZQcG1sYlRLek9zYVVUZU5DdHMwNXMzWm9heCtqZ2c0T0Yv?=
+ =?utf-8?B?anR0b1lLNE5vYmlnNkJnTGVJc2d4RklHdG9iUHhvMFppYmxnUlA1Vy9NWmxJ?=
+ =?utf-8?B?VWkzN3FidmV4QWs1YWVXQXlyOTB0SEZZeEdKVGZtRGpvR25kODZlSzg5anBN?=
+ =?utf-8?B?c1pwL1ErcWJ2LzhRblBsYVdUaGFYcFlFaER2dERJS1o5UWJveXFBckU0c1hs?=
+ =?utf-8?B?K01CcEFkMHk3T0swQ29hbjNKQ2NFeVNJK3Z4Y3Q2WS9sMXUxK1VVRWRpRVJ0?=
+ =?utf-8?B?MHdQTGJmdktFNGU0clhLS21BU3NQclBWZ0pnVU82L1BxL09VMVZ3L21Meld5?=
+ =?utf-8?B?S251VVlVbmVGenNvTmpQQk1hYjBKS2R4REwzUGt1aTduQmpkYXZxSnkzdDZ5?=
+ =?utf-8?B?MkhieHlGUXpYTmxHOVVTdE1xdXN2TERlQzU3a29seTFFalJzRkVtUEwxSjFo?=
+ =?utf-8?B?YTBKaVdZc2VCbVdSVDhyd0g4ZGZzQXJRcGFnajJCM0tmWFJwMmhMb1JYYVhp?=
+ =?utf-8?B?RTNFN2kyNUJXcVFZeWNsRnZhSVZ3UW1OZmw2M1I5dlJqRE5nUGFTSDB0YVg1?=
+ =?utf-8?B?SEtrTXFiekU4dTBFQUxHS2hrZ3pCY0xhN1Q2aktnUWh3VmJCQWF6K2o3cXlu?=
+ =?utf-8?B?V0E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: c374b986-f43d-4b2d-d02a-08da8e5d85a4
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2022 10:09:15.4275 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wlk1ocr9voE3UpkCyhuvXnVAfi1dnPrD6f+jgME49tpHsivxjpVVpgCkgopLIYzQFFEX97zLvKvgpAsX+qv5NdesfewP9GOsZI0oEKHb5IA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB3526
+X-OriginatorOrg: intel.com
+Cc: andy@kernel.org, alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ intel-poland@eclists.intel.com, pierre-louis.bossart@linux.intel.com,
+ willy@infradead.org, tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,169 +197,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, there is a new null-ptr-deref Write bug in
-snd_pcm_format_set_slience in sound/core/pcm_misc.c in the latest
-upstream kernel and can reproduce it.
-We call SNDCTL_DSP_SYNC and SNDCTL_DSP_SPEED in multiple threads to
-trigger the vulnerability.
+On 2022-09-02 4:25 PM, Andy Shevchenko wrote:
+> On Fri, Sep 02, 2022 at 03:32:56PM +0200, Cezary Rojewski wrote:
+>> Make use of global integer-array parsing helper instead of the internal
+>> one as both serve same purpose. With that, both strsplit_u32() and
+>> tokenize_input() become unused so remove them.
+> 
+> More minor comments...
+...
 
-See the Call Trace:
-==================================================================
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
- kasan_report+0xb1/0x1e0 mm/kasan/report.c:495
- check_region_inline mm/kasan/generic.c:183 [inline]
- kasan_check_range+0x13d/0x180 mm/kasan/generic.c:189
- memset+0x20/0x40 mm/kasan/shadow.c:44
- snd_pcm_format_set_silence sound/core/pcm_misc.c:441 [inline]
- snd_pcm_format_set_silence+0x215/0x350 sound/core/pcm_misc.c:424
- snd_pcm_oss_sync+0x60e/0x800 sound/core/oss/pcm_oss.c:1690
- snd_pcm_oss_ioctl+0x2087/0x3420 sound/core/oss/pcm_oss.c:2634
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:870 [inline]
- __se_sys_ioctl fs/ioctl.c:856 [inline]
- __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:856
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-==================================================================
-We can see the function snd_pcm_format_set_silence code below:
-```
-int snd_pcm_format_set_silence(snd_pcm_format_t format, void *data,
-unsigned int samples)
-{
-        int width;
-        unsigned char *dst;
-        const unsigned char *pat;
-
-        if (!valid_format(format))
-                return -EINVAL;
-        if (samples == 0)
-                return 0;
-        width = pcm_formats[(INT)format].phys; /* physical width */
-        pat = pcm_formats[(INT)format].silence;
-        if (!width || !pat)
-                return -EINVAL;
-        /* signed or 1 byte data */
-        if (pcm_formats[(INT)format].signd == 1 || width <= 8) {
-                unsigned int bytes = samples * width / 8;
-                memset(data, *pat, bytes);    ///// [1] ---------> data is NULL
-                return 0;
-        }
-       ......
-}
-```
-[1], the data pointer is NULL, we can know snd_pcm_format_set_silence
-called in line 1690 in sound/core/oss/pcm_oss.c from call stack trace.
-let we see code below:
-```
-static int snd_pcm_oss_sync(struct snd_pcm_oss_file *pcm_oss_file)
-{
-        int err = 0;
-        unsigned int saved_f_flags;
-        struct snd_pcm_substream *substream;
-        struct snd_pcm_runtime *runtime;
-        snd_pcm_format_t format;
-        unsigned long width;
-        size_t size;
-
-        substream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
-        if (substream != NULL) {
-                runtime = substream->runtime;
-                if (atomic_read(&substream->mmap_count))
-                        goto __direct;
-                err = snd_pcm_oss_make_ready(substream);
-                if (err < 0)
-                        return err;
-                atomic_inc(&runtime->oss.rw_ref);
-                if (mutex_lock_interruptible(&runtime->oss.params_lock)) {
-                        atomic_dec(&runtime->oss.rw_ref);
-                        return -ERESTARTSYS;
-                }
-                format = snd_pcm_oss_format_from(runtime->oss.format);
-                width = snd_pcm_format_physical_width(format);
-                if (runtime->oss.buffer_used > 0) {
-#ifdef OSS_DEBUG
-                        pcm_dbg(substream->pcm, "sync: buffer_used\n");
-#endif
-                        size = (8 * (runtime->oss.period_bytes -
-runtime->oss.buffer_used) + 7) / width;
-                        snd_pcm_format_set_silence(format,
-                                                   runtime->oss.buffer
-+ runtime->oss.buffer_used,   ///// [2]
-                                                   size);
-                        err = snd_pcm_oss_sync1(substream,
-runtime->oss.period_bytes);
-                        if (err < 0)
-                                goto unlock;
-                } else if (runtime->oss.period_ptr > 0) {
-
-```
-[2]  runtime->oss.buffer + runtime->oss.buffer_used is the data
-pointer, but runtime->oss.buffer is NULL here but it doesn't make
-sense.
-runtime->oss.buffter is allocated by kvzalloc, if runtime->oss_buffer
-is NULL, it would return an ENOMEM error.
-Maybe I think there is a race condition, the runtime->oss.buffer is
-freed and set to NULL but we can use runtime->oss.buffter via ioctl.
-
-###reproduce it
-[  167.258988][T25615]
-==================================================================
-[  167.265917][T25615] BUG: KASAN: null-ptr-deref in
-snd_pcm_format_set_silence+0x215/0x350
-[  167.266704][T25615] Write of size 16383 at addr 0000000000000001 by
-task snd_pcm_format_/25615
-[  167.267506][T25615]
-[  167.267732][T25615] CPU: 0 PID: 25615 Comm: snd_pcm_format_ Not
-tainted 6.0.0-rc3-00299-gd895ec7938c4 #11
-[  167.268617][T25615] Hardware name: QEMU Standard PC (i440FX + PIIX,
-1996), BIOS 1.14.0-2 04/01/2014
-[  167.269410][T25615] Call Trace:
-[  167.269697][T25615]  <TASK>
-[  167.269977][T25615]  dump_stack_lvl+0xcd/0x134
-[  167.270428][T25615]  ? snd_pcm_format_set_silence+0x215/0x350
-[  167.270985][T25615]  kasan_report+0xb1/0x1e0
-[  167.271405][T25615]  ? snd_pcm_format_set_silence+0x215/0x350
-[  167.271964][T25615]  kasan_check_range+0x13d/0x180
-[  167.272440][T25615]  memset+0x20/0x40
-[  167.272809][T25615]  snd_pcm_format_set_silence+0x215/0x350
-[  167.273366][T25615]  snd_pcm_oss_sync+0x60e/0x800
-[  167.273831][T25615]  snd_pcm_oss_ioctl+0x2087/0x3420
-[  167.274320][T25615]  ? snd_pcm_oss_release+0x300/0x300
-[  167.274817][T25615]  ? __fget_files+0x26a/0x440
-[  167.275262][T25615]  ? bpf_lsm_file_ioctl+0x5/0x10
-[  167.275731][T25615]  ? snd_pcm_oss_release+0x300/0x300
-[  167.276222][T25615]  __x64_sys_ioctl+0x193/0x200
-[  167.276677][T25615]  do_syscall_64+0x35/0xb0
-[  167.277108][T25615]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[  167.277679][T25615] RIP: 0033:0x44af9d
-[  167.278058][T25615] Code: 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3
-0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b
-4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff 8
-[  167.279792][T25615] RSP: 002b:00007f0cb636a178 EFLAGS: 00000246
-ORIG_RAX: 0000000000000010
-[  167.280546][T25615] RAX: ffffffffffffffda RBX: 0000000000000000
-RCX: 000000000044af9d
-[  167.281285][T25615] RDX: 0000000000000000 RSI: 0000000000005001
-RDI: 0000000000000003
-[  167.282001][T25615] RBP: 00007f0cb636a1a0 R08: 0000000000000000
-R09: 0000000000000000
-[  167.282715][T25615] R10: 0000000000000000 R11: 0000000000000246
-R12: 00007ffcfea8e08e
-[  167.283432][T25615] R13: 00007ffcfea8e08f R14: 0000000000000000
-R15: 00007f0cb636a640
-[  167.284164][T25615]  </TASK>
-[  167.284453][T25615]
-==================================================================
-
-If needed I would provide a reproduce.
+>> +	ret = parse_int_array_user(from, count, (int **)&array);
+>>   	if (ret < 0)
+>>   		return ret;
+> 
+>> +	num_elems = *array;
+>> +	bytes = sizeof(*array) * num_elems;
+>> +	if (!num_elems || (bytes % sizeof(*desc))) {
+> 
+> !num_elems is a dup since previous already does this check.
 
 
-Regards,
-   butt3rflyh4ck.
+>> +	ret = parse_int_array_user(from, count, (int **)&array);
+>>   	if (ret < 0)
+>>   		return ret;
+>> +
+>> +	num_elems = *array;
+> 
+>> +	if (!num_elems) {
+>>   		ret = -EINVAL;
+>>   		goto exit;
+>>   	}
+> 
+> Ditto.
 
---
-Active Defense Lab of Venustech
+Ack for both.

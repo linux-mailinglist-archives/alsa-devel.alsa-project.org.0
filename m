@@ -2,91 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84555ACF53
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Sep 2022 11:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D435ACF59
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Sep 2022 12:00:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7124EE0F;
-	Mon,  5 Sep 2022 11:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7124EE0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2807E12;
+	Mon,  5 Sep 2022 11:59:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2807E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662371782;
-	bh=kZwowG+rRON5KFSUE0R9YJYWgBrkd2+kJINr3ZwEXZo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1662372009;
+	bh=pi8Pg5NxSKQl2rjshE2nk7CBMLeWxytIlWnTjWWymeY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gQJxizJMLW7TkyY+Ws/h8a5mhTllTjOnKDoN1WdKYgctSC5FAzM37R/5mVNZrl/FD
-	 jvCc1nzwl6cl2VOYXB7pbNfkd4Nqddq0J05wdVzk4oEmQ2NMJ6Z0PIyz16JDQKhgKh
-	 HUAHB8i+qd3I9B9uU81L5kzl2MHWTtmOjOSOTD7Y=
+	b=YV5P19dhA4paS0WAx994fdABsGw0auUpiS48xs2vljMicfvXH6PIRXMxvoqdY+39Y
+	 Sfxz2LhBWzYMJzmkjllK9hivWV14PUIczn+GVFZAKQUxiBndSQBst5V6YCqi6ywbnq
+	 OnBuk1USU8GUTl9fHoIxbAKQPdvbtgU/BUGX9nco=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A772F8032D;
-	Mon,  5 Sep 2022 11:55:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5479AF800E8;
+	Mon,  5 Sep 2022 11:59:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9AF5F80238; Mon,  5 Sep 2022 11:55:19 +0200 (CEST)
+ id 46945F800E9; Mon,  5 Sep 2022 11:59:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDECFF800E9
- for <alsa-devel@alsa-project.org>; Mon,  5 Sep 2022 11:55:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDECFF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03F4AF800E9
+ for <alsa-devel@alsa-project.org>; Mon,  5 Sep 2022 11:59:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03F4AF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Vl1e3lhr"
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-3321c2a8d4cso65530317b3.5
- for <alsa-devel@alsa-project.org>; Mon, 05 Sep 2022 02:55:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=kZwowG+rRON5KFSUE0R9YJYWgBrkd2+kJINr3ZwEXZo=;
- b=Vl1e3lhr4VBYOH0566THbq5E7P+PDrFu12F8dop24wzAOHlXYdtoS44xu2rgMicuvp
- tA7YB486fFdpf8kVtFpNecJH1s4DXPlxHiW6LQkPh/LWtoRWVE5AHVHmq0SZwgAi87o9
- wEXwyzgeEiMe9khhpJkOsw2zjnF+351IkAyQj1AQodm19bxNYQTuw2r3ZRJi19DQ8Rtx
- 3Om79/0Ta7Gr6MSxgSucqk93FAlG0v0w89dq18ngW9nbBb1AX7Z+BV6kOoLnB8YYNiK3
- nKw+MnTtefiAlqU/F83VERFQTnah38RoRnpml3JJpVMCKDt8aMbdYtZDFbs1AYhOw90P
- JVyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=kZwowG+rRON5KFSUE0R9YJYWgBrkd2+kJINr3ZwEXZo=;
- b=h7Z0dGg/CC4CSTpTagTHYMF0YeaesGLMZIHP/B6yQCAvvN6kAS+3bN36vjGaP1ahEB
- NDAIugMwoL4j9rQf1B70pZ7E+WK9Bfd4vEXNz0B1RlfsEug4UXaCR5m/WYadkwVtbvbd
- xfSv2EuN1J/ZuTJaGLnswqcDtiQndlpKPEDX+MaJ051i5mmPsfH1ows3Y8bAq7g3uVN2
- OKQGNU4ufQQu9m0v2WVg+iw6oB05FPICdJu7ShYj86QFLZ3eLfGPiBkjXMf3hlOZwTdc
- CjauBVCnTY8ub6FNGmqJQv+y5013SYXA/Ri725Gxp8HrF0p2szWjHMeFRwa2YFAxW/C9
- WunQ==
-X-Gm-Message-State: ACgBeo0YOJQzDKz69hakCTGvQvItumzO5q5RN60wWIF1jrooEPrab7b4
- rWzStH2poUFmF5Jp2QpIRBZSRKRlNFytCVYkiIA=
-X-Google-Smtp-Source: AA6agR5VnQe4agp3+bventbZ7vQ9gI0u6eIpSo3fWiJh/oMJA6ijI89J9YKmciXOJw3L4bSRSWRikz9lWxdlZfz3zGk=
-X-Received: by 2002:a0d:f701:0:b0:32a:17d3:d189 with SMTP id
- h1-20020a0df701000000b0032a17d3d189mr38205702ywf.401.1662371711515; Mon, 05
- Sep 2022 02:55:11 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="VWFHvdWM"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C44E3B81002;
+ Mon,  5 Sep 2022 09:58:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1808C433D6;
+ Mon,  5 Sep 2022 09:58:57 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="VWFHvdWM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1662371936;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=djzuTynXF33xQt9q6oEjyvObywHD8Hr3NC7Wxk5AXsI=;
+ b=VWFHvdWMW4zOjNS0XpHuYj0C8Ifmw6QhsyJSAcgctde2p9CBH52A48LgfhTXfQtyaJz2Yf
+ WWfKoJnB7TVplT2la6th76L6BFK/hpCMlDKq35Znht5NX/S7zFO+R6twnFNXvFN18DSEIr
+ 8unP9q4DYGX3c65pLM0vKVmj7+MrPIc=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id d15a05f2
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Mon, 5 Sep 2022 09:58:56 +0000 (UTC)
+Date: Mon, 5 Sep 2022 11:58:50 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Refcount multiple accesses on the
+ single clock
+Message-ID: <YxXIWv8dYmg1tnXP@zx2c4.com>
+References: <20220516104807.16482-1-tiwai@suse.de>
 MIME-Version: 1.0
-References: <20220905093546.19735-1-lukas.bulwahn@gmail.com>
- <4DB82E66-0BB9-4B43-917B-55E115994876@cutebit.org>
-In-Reply-To: <4DB82E66-0BB9-4B43-917B-55E115994876@cutebit.org>
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Date: Mon, 5 Sep 2022 11:55:00 +0200
-Message-ID: <CAKXUXMzGJv=Xvbv8VRqFfa=n-0D84Hk2FALqtyqmxD9ovDKCMw@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: rectify entry in ARM/APPLE MACHINE SOUND
- DRIVERS
-To: =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- kernel-janitors <kernel-janitors@vger.kernel.org>, asahi@lists.linux.dev,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220516104807.16482-1-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, 89q1r14hd@relay.firefox.com,
+ linux-kernel@vger.kernel.org, Wim Taymans <wtaymans@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,35 +91,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 5, 2022 at 11:44 AM Martin Povi=C5=A1er <povik+lin@cutebit.org>=
- wrote:
->
->
-> > On 5. 9. 2022, at 11:35, Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
-> >
-> > Commit 3df5d0d97289 ("ASoC: apple: mca: Start new platform driver") add=
-s
-> > a new sound driver at the location "sound/soc/apple/", but it adds a fi=
-le
-> > entry referring to the non-existing location "drivers/sound/apple/*".
-> >
-> > Hence, ./scripts/get_maintainer.pl --self-test=3Dpatterns complains abo=
-ut a
-> > broken reference.
-> >
-> > Repair this file reference in ARM/APPLE MACHINE SOUND DRIVERS.
-> >
-> > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> > ---
-> > Martin, please ack.
-> > Mark, please pick this patch on top of the commit above.
->
-> Hi Lukas, fixed here already:
-> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/=
-?id=3D55e2bd9c41e800638676dce3f19dcfd16b309a08
->
+Hi Takashi,
 
-Great, thanks! Then, there is nothing more to do. Please ignore this patch =
-then.
+On Mon, May 16, 2022 at 12:48:07PM +0200, Takashi Iwai wrote:
+> When a clock source is connected to multiple nodes / endpoints, the
+> current USB-audio driver tries to set up at each time one of them is
+> configured.  Although it reads the current rate and updates only if it
+> differs, some devices seem unhappy with this behavior and spew the
+> errors when reading/updating the rate unnecessarily.
+> 
+> This patch tries to reduce the redundant clock setup by introducing a
+> refcount for each clock source.  When the stream is actually running,
+> a clock rate is "locked", and it bypasses the clock and/or refuse to
+> change any longer.
 
-Lukas
+This breaks things on 5.19+. Specifically, it causes pipewire and
+pulseaudio to be stuck using 44.1khz rather than 48.0khz (or anything
+else). The reason is that initially devices are started at 44.1khz, and
+then the list of supported sample rates is read, and finally the best
+one is chosen. With this commit, the returned list of sample rates is
+locked at 44.1khz, which means pulseaudio and pipewire can't change it
+to 48.0khz (or anything else).
+
+This headscratcher is being tracked over at:
+https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2620
+where I triaged it to this commit.
+
+Can we revert this for the time being and backport the revert to stable?
+Or might you have some other fix idea in mind?
+
+Thanks,
+Jason

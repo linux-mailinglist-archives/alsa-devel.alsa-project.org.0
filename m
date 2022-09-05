@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B815AD6B2
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Sep 2022 17:40:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1146C5AD6B3
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Sep 2022 17:40:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E02571660;
-	Mon,  5 Sep 2022 17:39:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02571660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EE1F1666;
+	Mon,  5 Sep 2022 17:39:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EE1F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662392423;
-	bh=vf9hq+zxQlqGvspoGjLNLjAvPVtnIzHUqUPzMNofp2c=;
+	s=default; t=1662392439;
+	bh=4u4jqbKnjxr0740mYmvnkQwNn7DrSy8Qxd94JXxLGcQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PM9DCcZWXXZxcDgbz6p4tb2Gpv0K4bUd5hV2ePHJaUx6Xz3z8Ctgyxq1qHNAGzPWp
-	 Te5bF4HO4W5aQh2/05x2HWBOpNEGcXAbfxu3eqLZy6H1xEoVEtkohU4ipfsCRmUgoO
-	 6GLJCbzHrm0p+2PoF7MmK6VCjd6we3c1QKASWv7A=
+	b=N7NGaxSaOxCaZDvO6ayQKpT6hJw8xgjPi8XT3HE7tafudLTNTKToqVmBfzmgs2ysQ
+	 zdom+cA5FWeaah/gsWIawPWEpxZv47ZxIW3bX3vdbiDoCWqMPbcbQizs06s81Aj4kV
+	 pCe5cq0fFXRAoVqc3wnNsRMMjnONxqLqRwab0tMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 080D3F80525;
-	Mon,  5 Sep 2022 17:39:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E200F80482;
+	Mon,  5 Sep 2022 17:39:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AFA1F80506; Mon,  5 Sep 2022 17:38:58 +0200 (CEST)
+ id E4E36F8053B; Mon,  5 Sep 2022 17:39:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5EFAF80165
- for <alsa-devel@alsa-project.org>; Mon,  5 Sep 2022 17:38:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5EFAF80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id E11E4F80424
+ for <alsa-devel@alsa-project.org>; Mon,  5 Sep 2022 17:38:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E11E4F80424
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q8Bu3t2p"
+ header.b="OEgjefpB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EA68EB811F0;
- Mon,  5 Sep 2022 15:38:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A750BC433D6;
- Mon,  5 Sep 2022 15:38:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B311B61329;
+ Mon,  5 Sep 2022 15:38:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1622FC433D7;
+ Mon,  5 Sep 2022 15:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662392329;
- bh=vf9hq+zxQlqGvspoGjLNLjAvPVtnIzHUqUPzMNofp2c=;
+ s=k20201202; t=1662392331;
+ bh=4u4jqbKnjxr0740mYmvnkQwNn7DrSy8Qxd94JXxLGcQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=q8Bu3t2pQYZXAHeNQqW5m2HlLR320JDfH9FgB69+i1BIpZhKM5050t5paziDdvxoG
- 5bA3qHnslHgT6zdLHs5mF6pbwQb8zzddC7MdHLE1D+9NICjhM4K9S00wIos1yT87W7
- GohjViOZrEYWLRgx5af36DymIV/n7Wx2axDd7tma/5p1y4X8oMOST0oqDcZg6Q6hRT
- H8Mfi3PkqGExx6PpfCCIzpiGHZ58Q2ME31hojnblMcaAvT0IZbcb0ce+ZNwZIEsj13
- ulMQyBvdYIrSTqeqTZLBa+5qV00/GB6jmPKYa0EIJKJ9nsQlhciEhvcJ1mf89OBYHP
- wvgm67mLyv+Gg==
+ b=OEgjefpByYac9OU8DroWmjFX+lWlkrXwKE8GdJel8JEq+Su4YUw7IzQVabm9lKlI8
+ cxqLJhRxGZ6XpNMezUOBl2UgHwgOAxu5yg+px/ZXH6xqeq1uj86/84OBWY77fEm8T/
+ VVy/rcG41Tft2jBwtjbFF1YzvyBbff50UABY5bUCzxMUb80Q7XBdC4u9XfHywfk1Av
+ hcVTdMWqLMzeWx6qCyRKDTtg+c+NAsl4RW1mLsLUkeSzAyYpz3hWDkxRCnPpEDIaJT
+ 2Ot2+PfD4r/SYO9XXr3XSDbAugs0YDpnB1MF0ez46dbpG6zVM00/a6h4+aACEshauh
+ 8E/kc9yz+jX2g==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Martin Povišer <povik+lin@cutebit.org>
-In-Reply-To: <20220825142226.80929-1-povik+lin@cutebit.org>
-References: <20220825142226.80929-1-povik+lin@cutebit.org>
-Subject: Re: [PATCH 0/2] Untested TAS2562 power setting fixes
-Message-Id: <166239232739.736206.17258746656389143736.b4-ty@kernel.org>
-Date: Mon, 05 Sep 2022 16:38:47 +0100
+In-Reply-To: <20220905074030.1293-1-povik+lin@cutebit.org>
+References: <20220905074030.1293-1-povik+lin@cutebit.org>
+Subject: Re: [PATCH] ASoC: apple: mca: Postpone requesting of DMA channels
+Message-Id: <166239232981.736206.16201162567715763451.b4-ty@kernel.org>
+Date: Mon, 05 Sep 2022 16:38:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- linux-kernel@vger.kernel.org, navada@ti.com, asyrus@ti.com, raphael-xu@ti.com,
- shenghao-ding@ti.com, Stephen Kitt <steve@sk2.org>
+Cc: alsa-devel@alsa-project.org, asahi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,16 +85,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Aug 2022 16:22:24 +0200, Martin Povišer wrote:
-> The tas2562 driver does the same thing with the setting of PWR_CTRL
-> field as the tas2764/tas2770 drivers were doing.
-> Link: https://lore.kernel.org/alsa-devel/20220808141246.5749-1-povik+lin@cutebit.org/T/#t
-> Link: https://lore.kernel.org/alsa-devel/20220825140241.53963-1-povik+lin@cutebit.org/T/#t
+On Mon, 5 Sep 2022 09:40:30 +0200, Martin Povišer wrote:
+> Move the requesting of DMA channels further down from 'probe' to
+> 'pcm_new'. This is to spare the allocated DMA channel resources as we
+> typically only ever use one or two of the clusters for PCM streaming.
+> Before we would request DMA channels for all clusters.
 > 
-> These are blindly written patches without testing since I don't have
-> the hardware. (I even tried TI's formal sample request program but
-> was refused there. CCing @ti.com addresses I found on other series
-> recently submitted.)
+> (This is prompted by a change in the Audio DMA Controller driver, which
+> will now be allocating cache SRAM to channels.)
 > 
 > [...]
 
@@ -105,10 +102,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: tas2562: Drop conflicting set_bias_level power setting
-      commit: b6b55b232564ade5cd91e9b9e2228b49f230d67f
-[2/2] ASoC: tas2562: Fix mute/unmute
-      commit: 2848d34c3ba1fc6f1ece0736a4faa16c6277f4d3
+[1/1] ASoC: apple: mca: Postpone requesting of DMA channels
+      commit: 4ec8179c212fb1530df4a1df6db75756c06da5f6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

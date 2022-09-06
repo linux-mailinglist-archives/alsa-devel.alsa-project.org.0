@@ -2,105 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66DCC5AFA94
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 05:28:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 793D75AFC04
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 07:54:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D20CAE9;
-	Wed,  7 Sep 2022 05:27:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D20CAE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BA6374C;
+	Wed,  7 Sep 2022 07:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BA6374C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662521280;
-	bh=xPpd+5CwvnDzYrNZuibZU7InZ7IPceWflr26RBpfFPU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KmAJFU/kgFgSjew3Y3JUDf7HuRDQrl1nAjQ4LquGbpR5ZzJxuFgiaPBlYy34CSFCg
-	 FYYb70Pesyn+/6/DYtlMp5mm66Zlb12V45RoxK15BNYyX/KtGuolq09jd45H8JnyEf
-	 TWVBkfaTAzEV2ASYnISkyJp9pV7gYvGrmEu8W1Qk=
+	s=default; t=1662530042;
+	bh=oN5ga2fuB3IK+HFNfiC/4X6kfL1/chvVI9SkGpjxy9s=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uYz/0rlKiyAu8wJgvDRJyQRxU5ofPz/FUa8hez/SmqVl4NBXA30Fxq4a/nCjqSteI
+	 RYcU2H6qqUmuGZA/9BjNEHWDXjIk0kDRqwEUjkQi1blZLPQkf+l03CuhYHVYF3bdjU
+	 JGqP9xN8sPFt4xz21sunVwvHnzuFcC0h0kSsDXDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82D57F80118;
-	Wed,  7 Sep 2022 05:27:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 077A0F80423;
+	Wed,  7 Sep 2022 07:53:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBE36F8028D; Wed,  7 Sep 2022 05:26:56 +0200 (CEST)
+ id 23DE6F80249; Tue,  6 Sep 2022 15:28:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe2b.google.com (mail-vs1-xe2b.google.com
+ [IPv6:2607:f8b0:4864:20::e2b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 557D8F8011C
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 05:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 557D8F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED14AF80165
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 15:28:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED14AF80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
- header.b="Zfrz6fe6"
-Received: by mail-ot1-x330.google.com with SMTP id
- z22-20020a056830129600b0063711f456ceso9404476otp.7
- for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 20:26:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=ZXmqcDwCNHYT98hHW5xGO1fd6xJaEvG9lWSh2f3hy/o=;
- b=Zfrz6fe6Lo9OTxr6Ld7B12LdCNi7ipVOK16cY/oT88UV3+svcizdul7KOGXqYEBXko
- UGC5PTG8Tr7zmeEDcbGH3zbvRbZHaAobvoMle8ptzBbHakxwURUlbhHHWKTMrDgPcrpV
- eKYvp/X2iGg3GMzbm3+YemhVtu7cfdSBNINYiXaUQ0J2iJv2zrdeK1a1wCEASpQb41fb
- okdtHYhJkKgLsN+dUVpkmKPXoRc7zFd4fCjt4lva0XQFBOOyEgFg59SBoKtq/URxVLlh
- cuHpGQLb/tt6Dmcag1M55BAYLz49Yqv//5ljnW0J0962LOjJ0NrLs0cu/NPEw8pQUltC
- 11Iw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eRE94Nix"
+Received: by mail-vs1-xe2b.google.com with SMTP id 190so11650870vsz.7
+ for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 06:28:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date; bh=gzCA9WFEtgYjs0HVgXVw4o7QIWuhc+LJTZt3XCy7BUo=;
+ b=eRE94Nixgcz2K4wETcCkz3cDfD5QPLCSxVCkE/6rtSt9ZkhZxJSpixx12o6gPQyVUc
+ j53otkvqyGg6hcRdKvP94MaEVPLzzvoqh9+ipa+HJxhEO27vYNy4gTp1s/9SF8azlayp
+ l/jWD9/iaKqi3QtglStmga+KmhVfG1TT/74vcuPxEbSBBQK0hL++NymgN2Vidv1SM2Ls
+ 0qgmYpeNzCZLyUSdoZPsjT3EmIk2J1XdeuqHqm9RpBMJCBTrTXIUMZkeofs2rgqTx/K+
+ tyRqkdB0SgIyH1otp61PWdzul8gflOVm3O7VMdW6YU1igm1lu0jsG8iqQKJC4rtsTyKv
+ x5jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=ZXmqcDwCNHYT98hHW5xGO1fd6xJaEvG9lWSh2f3hy/o=;
- b=Q+R8WBlgC3mol33tA8H41Po/wQLPpPwHAezzh/LrGF/IWOnsZeYdaViS3zKX1Wr4tK
- 5wCsTHZqtMgzJJOctK6NQQgsbt77Ml5swftXmJu7tNRJvo1YTjRLRV90kajIB8Zykb88
- fuipUno7ElVDbFQf9Ai+jnNLmUbxoFgLyvw/c9iKB2AHzGt2losGIGBitz5hoj9Z04yW
- KwRYNDmtT8iwxri8+/XupzFI+aoxflAYUL/5pWr+AW6hmhTbTzPeG5lhGXfgr9/QaWOS
- lSXC8MqKJ+jBoYdeFOcJ8pXwGi3D8HGWM8rqJETK22AfnhOdOsEZ5RPwWk2nueyRLHpb
- cILQ==
-X-Gm-Message-State: ACgBeo0BFfV2XFNOS1D3iiS9LRLJPFAzqEzgIL6Rsw61WVBr/PhbfIrZ
- gdqqDCaV6Ol8Lm1oCDO5BJoMwg==
-X-Google-Smtp-Source: AA6agR7YsmduzcN42HFQdUUCbrwuK36JyuKORNqNhUEkKjFlcOBhSt9x9LiHfpoT+hWgIJFU6yQwvg==
-X-Received: by 2002:a9d:4545:0:b0:636:cd1e:494f with SMTP id
- p5-20020a9d4545000000b00636cd1e494fmr670321oti.132.1662521197431; 
- Tue, 06 Sep 2022 20:26:37 -0700 (PDT)
-Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
- [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
- v14-20020a0568301bce00b0063911de9fd8sm6795403ota.24.2022.09.06.20.26.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Sep 2022 20:26:36 -0700 (PDT)
-Message-ID: <a2d5acff-10fd-31da-a04d-f0ecee3c5a44@kali.org>
-Date: Tue, 6 Sep 2022 22:26:34 -0500
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date;
+ bh=gzCA9WFEtgYjs0HVgXVw4o7QIWuhc+LJTZt3XCy7BUo=;
+ b=uY3dwketWpek+Awj1fIY+F7D67+NCgI4GU2e3FMe7gob00zoBDUAW746o/LPpc2JCE
+ jzVY9e4P2GRjgLLFOMxX7mXqWypNsdDTIDV/gEcCxxfZmfK2Q2m9LtMjb1YhFu7i+UWR
+ CVaXnn4PasMiG5U8DfaKruAQK8CAkBQEk1XrNYeEYWDyZItUpSumsBp+v1IP1I9G8Gc+
+ UDg5M+cf3eumneEoK2XRLI0GYPSWAv4fWIlU0v9YyeWxxOzyqICbJG6NYOXUgrDjhg1f
+ +bELPnsQtHkmCaO7IgtFCvCD4CEFkwPulFr9eS1yhtB7jtzMzsuy9qMopICS6eN9l38X
+ mUDw==
+X-Gm-Message-State: ACgBeo0H5UuwOT1unNx7EsZaJPhuA3WqCA2eyhqNwJwxReHm/4sno1Z5
+ kru1BnNodyP/O1Bbvuz0OyNltoBslhEdXxMhn7WemimM
+X-Google-Smtp-Source: AA6agR4g9Zm51/l4mYTqhxYCWKXPhhJFswYVXnsAdZfZYBtq48iDjOzvX2g3nORF+Ejf7dh9jw0W1Ntp9VJhtcRjOXo=
+X-Received: by 2002:a67:b042:0:b0:388:c9d5:8af with SMTP id
+ q2-20020a67b042000000b00388c9d508afmr14574392vsh.40.1662470900898; Tue, 06
+ Sep 2022 06:28:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 02/12] arm64: dts: qcom: sdm845: align APR services node
- names with dtschema
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20220906121655.303693-1-krzysztof.kozlowski@linaro.org>
- <20220906121655.303693-3-krzysztof.kozlowski@linaro.org>
-From: Steev Klimaszewski <steev@kali.org>
-In-Reply-To: <20220906121655.303693-3-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Web X <webx93@gmail.com>
+Date: Tue, 6 Sep 2022 18:58:09 +0530
+Message-ID: <CADP81_VWcrTmQgDRxLwDjMNR9A11q8BTCvZ1bRmPqxcrSkLf9w@mail.gmail.com>
+Subject: Query for snd_pcm_readi function.
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Wed, 07 Sep 2022 07:53:00 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,58 +92,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-On 9/6/22 7:16 AM, Krzysztof Kozlowski wrote:
-> DT schema expects APR services node names to be "service":
->
->    qcom/sdm630-sony-xperia-nile-voyager.dtb: remoteproc@15700000: glink-edge:apr:service@4: 'dais' does not match any of the regexes: '^.*@[0-9a-f]+$', 'pinctrl-[0-9]+'
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845.dtsi | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> index 98d34b5e1df2..8e7b577f78c2 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> @@ -767,13 +767,13 @@ apr {
->   				#size-cells = <0>;
->   				qcom,intents = <512 20>;
->   
-> -				apr-service@3 {
-> +				service@3 {
->   					reg = <APR_SVC_ADSP_CORE>;
->   					compatible = "qcom,q6core";
->   					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
->   				};
->   
-> -				q6afe: apr-service@4 {
-> +				q6afe: service@4 {
->   					compatible = "qcom,q6afe";
->   					reg = <APR_SVC_AFE>;
->   					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-> @@ -785,7 +785,7 @@ q6afedai: dais {
->   					};
->   				};
->   
-> -				q6asm: apr-service@7 {
-> +				q6asm: service@7 {
->   					compatible = "qcom,q6asm";
->   					reg = <APR_SVC_ASM>;
->   					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-> @@ -798,7 +798,7 @@ q6asmdai: dais {
->   					};
->   				};
->   
-> -				q6adm: apr-service@8 {
-> +				q6adm: service@8 {
->   					compatible = "qcom,q6adm";
->   					reg = <APR_SVC_ADM>;
->   					qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+I am using alsa open source library for my project to read and write audio
+data.
 
+For that I am using snd_pcm_readi function to read audio data. I am able to
+read audio data.
 
-Tested on the Lenovo Yoga C630
+But issue is that sometimes it will take so much time to read data.(200-230
+msec).
+Normally this function executed in 1-3 ms that is normal case, but after
+every 2-4 frames it is taking 200-300 msec.
+So this is affecting my whole application process.
 
-Tested-by: Steev Klimaszewski <steev@kali.org>
+I have also try to set this call as nonblock with the help of
+snd_pcm_nonblock function. With that I have observed some improvements but
+still after 2-3 frames it is taking 100msec time to get a data.
 
+Please do needful as soon as possible.
+
+Let me know if you want more details.

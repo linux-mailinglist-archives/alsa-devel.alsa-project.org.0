@@ -2,86 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60BE35AF455
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 21:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 788D95AF8AA
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 01:53:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B162210E;
-	Tue,  6 Sep 2022 21:18:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B162210E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C459082A;
+	Wed,  7 Sep 2022 01:52:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C459082A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662491944;
-	bh=mMXTLXRqhOR549yPMPkM4OHzglrtC5ZpCYNOZXQQAik=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1662508412;
+	bh=V7iMZdPYi1PFbQVGXe2LKEvRhoRPAB6562zf7H6G+yg=;
+	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hJ3oyQnGaGPiRZIVjI4u4rhfXTsoERUGjofgfZN/ahX2Y1a6qR1X3XPlu8oosCoG8
-	 Li1DGU/dYpHkeLujSgVzJd6povREftN/6YNUds/qgdFYKujdGAAZhPzsIcjO865Zv4
-	 meYffcukJztNmVxLvMDIG+cMNIy/NLebq7j0Yueg=
+	b=fRuLC5lkxHutsk9Vcu76fhqQK9AsbpGedR0tpY7gM7M0UYSjIbS6SYctwHB83FJRc
+	 8W48v+6hJyAbw0cBSUxgBXL1DaUlVbxN98Nx77I9ayNG+cJuh0BUd1p63zpoAMP5jb
+	 Y1sX2y7ut0XhdICXNR1TWnUpn4wZxoMyTrhOVi6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C90DF8024C;
-	Tue,  6 Sep 2022 21:18:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 347E5F8024C;
+	Wed,  7 Sep 2022 01:52:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5333EF80165; Tue,  6 Sep 2022 21:18:03 +0200 (CEST)
+ id 8B164F80249; Wed,  7 Sep 2022 01:52:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2120.outbound.protection.outlook.com [40.107.114.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFBF3F80165
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 21:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFBF3F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4ACBEF80165
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 01:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ACBEF80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="B3E8C/TB"
-Received: by mail-ed1-x535.google.com with SMTP id t5so16405291edc.11
- for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 12:17:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=mMXTLXRqhOR549yPMPkM4OHzglrtC5ZpCYNOZXQQAik=;
- b=B3E8C/TBZqnpTcrMrYBP1uypjvJt6LTn5K0aeSFGTGnDM75/SgcLjnH2s1XuyndOr2
- NeXdk4gLnAtC1jnnSpSJcWb1nGw9BZXaiyxFj4nI7r60vra2MaDh1iVW+Vvc5roP7xyo
- +k854UjiXhaYoHukWSGuB1mcHCt99tnhERIvCrrIJubWvsrsQuJuyzqwJhPDs26ygpHa
- HikcX773yxgREPaejt0TfXyqKwSC72yBtS6IEcrjKfhKp/kmBybEA9Smaw16vi39PDAd
- /OBVPT0jcSIp2ASW0+yIy/FiHqpMYqsiePds7WT4ATwMGukbyxhYAyFGT0+e7U5H4Qit
- rlIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=mMXTLXRqhOR549yPMPkM4OHzglrtC5ZpCYNOZXQQAik=;
- b=woml8ys6jNrYRJXJSWRj1E0ev1R3i//J2+4HWPu0eB8JPUlVF6DhMq37VifCcREONH
- cloc7tUWPvjgIaEi+CDdb0Eo0AK4U5zT4xM6Iy1dyfuLrQ5VAznENw4ceHeabix9amQI
- kUxCfXwdwz7Y9bVKbikk+zzR+daMTvmNr/yugxDdZbpR4VRZmojjISTlL+R9EH3BZfu+
- XgFTeGiuMFiPF9BA8fv7WgAYkw/v+9PyYs7F15pcfkpY69KoG9znDU6X1Lyq2t2OL6mr
- AGRlzbrFKcNSXdPZkiUrjvQvLt4s/nmHwM4Pyl5B/NGADTYxEncRwQaZSB7qGhwj9QTm
- 4ieg==
-X-Gm-Message-State: ACgBeo0/5qZL6Tzq+4jleanwtPyEql9Y99STRKvdnZDas7HciuVDHI9j
- m0m4m1llE5OxVFYlwM/basl4hQ7mxBJVh1KhJ8iRug==
-X-Google-Smtp-Source: AA6agR6o8OVhPVYM0ef4LJ7gVnZEfp7DJX8/8ks9/6/dcXNmB91DkT5okCGy8Jsh2ons04HOpj/baeQ+tZHL0Qzh1PY=
-X-Received: by 2002:a05:6402:4517:b0:443:7fe1:2d60 with SMTP id
- ez23-20020a056402451700b004437fe12d60mr85904edb.133.1662491875121; Tue, 06
- Sep 2022 12:17:55 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
+ header.b="fNF1TyLm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TsxpT5onMiXZKSnGu+H730kUJj+4F+uI4a6deWjisbx/obnQ99tw0IfKMCL2xDaXA9VVr6fammxrWSBYoJ9B9RB3EReeG5tWevC+L2jgopH05Bdk0FwA8wSDSfeprT9MdufO+KeOynNZuHPOYjy/g49oOLMTox3BWY2EzU8q7AVLOJyFHz33iYyYFBTqVMKUU8hSQM2BymZU16lhwC8JMX9KQOPEliXSPSwLJqU/ArEHwD6rrvtSkuDH9cISiUKxCOd32VZiv3DCqS+rx9AnkSIJTP+oeGoHiASRQ8iHhGyvdo/FkvNsqVqkkab6HM3Kr+S/RQ6MdugPPeLFSkLXGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6FjkzX2ExR9jCHZFza28WRad+sY+rTglgw0DTGfoPdk=;
+ b=Qslr5ruSlD0/879XUC8EUb39KwSbSSfcNW3WYwaH3XDADMDml/EpH5P1ocLgzl6JQIJJKxLZkbPT95LAfqYapnGWaYmmYuyAr7wCl2r55xgZxD8ZT+IpEKALfqjCtOEm2b79UdZetMI4FKdccAaHxb+7uCKSo1+vaqAt6eCsYlGO6cQelbVRhsjd/TxO0OgizcTebIsjnRQ4Y0yaul85Yr5L++cdcs+91ereQE8s5oLHC3yIp4MaRr8JXqTJmDw9TJQhEgUqvnoMfmcPrBbnUHN4/pnuEJTFwn8m/P9rGjjqYF9c8+7S09pDFU6f0GJAMAjUD+PTSQQeowyN1HyKGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6FjkzX2ExR9jCHZFza28WRad+sY+rTglgw0DTGfoPdk=;
+ b=fNF1TyLmaxj8LBh07rQ5H496Xqa5WTVrRJ7sW5PlMkWmAElBEXS8lFDm8LRRXUktuA2aC86Uc/qMg64W6rOriUiZRkO0cCFvNBDX2zXdKWIi0ICHMcWKQ5rSC/sPQfMQiV2B9147iiSr+x323/xChZWLsMA/twsYGdPS9JrfNUs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com (2603:1096:400:15d::5)
+ by TYCPR01MB5902.jpnprd01.prod.outlook.com (2603:1096:400:40::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.11; Tue, 6 Sep
+ 2022 23:52:19 +0000
+Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com
+ ([fe80::3ce3:3cd2:46cf:6052]) by TYCPR01MB8440.jpnprd01.prod.outlook.com
+ ([fe80::3ce3:3cd2:46cf:6052%2]) with mapi id 15.20.5588.016; Tue, 6 Sep 2022
+ 23:52:19 +0000
+Message-ID: <87leqwuklv.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/4] ASoC: soc-dapm.c: don't use kzalloc() for param on
+ snd_soc_dai_link_event_pre_pmu()
+In-Reply-To: <Yxc2wzbZsSVZNf8Y@sirena.org.uk>
+References: <8735d59zt9.wl-kuninori.morimoto.gx@renesas.com>
+ <871qsp9zsm.wl-kuninori.morimoto.gx@renesas.com>
+ <Yxc2wzbZsSVZNf8Y@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 6 Sep 2022 23:52:19 +0000
+X-ClientProxiedBy: TYCPR01CA0127.jpnprd01.prod.outlook.com
+ (2603:1096:400:26d::12) To TYCPR01MB8440.jpnprd01.prod.outlook.com
+ (2603:1096:400:15d::5)
 MIME-Version: 1.0
-References: <YxeaITtlJexygQo9@google.com>
-In-Reply-To: <YxeaITtlJexygQo9@google.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 6 Sep 2022 21:17:43 +0200
-Message-ID: <CACRpkdb_wksaRhAesjmGjvzm-thB2UdXX04Pd+-qRe2KKZhK4A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: simple-card-utils: switch to using gpiod API
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b6d9e987-547b-41bf-cbed-08da9062d594
+X-MS-TrafficTypeDiagnostic: TYCPR01MB5902:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DLHs81/LGiJEWYX3A5zKt7wq0qIUh6L/3Fmoit8/56cYZpyU/hnuU7DihYGntivhBSeKWzRB3VQiJkRhuEe2T/Md3y0/JbGaJG9Rd98yzT7JLNB3IgA4NvqJBYab8tYcrH/In+ro4kWYgFA4/Egr+H5yN+r/QWKR0CFKQusEwDbEzcgHcZ1jqmLpw3hPsUu/qqD2lUbjOo5db4NdeciD9ygT3xLwbLs0OrBjlbVHy2scg3bM10NnmXD/4gMXFF6AOce26qIFHaawmkoLDlvao4NUYUFMDVucumA4k9uKw2ZxLv47D5xGBHQ7Lj2NLQcOJUWvkdZRf4Pn6T9LMZewN0oYIyv6ATLKvSwrrjsOIPEUJj8Ur0jtmJioQHm7LsR5EbSn3K98X9gRR5rrO4CpJpb7YIK51Gs+shYIuMGV043wHZvpkBQPYneWEH99ioNCe1r2xFlyq5aEwoTAejSebntJXNxfkupQHj2Cv44IYHHYZQFlFJQEm0bG2H5nhI6aHpskxiQ2apcJWXDZvGJ06szRPo3NGaKYecDNl2937bO6dlyqsfLnkOi22LAff/mfBOXzgpPnjl/AO05eZ3q6EWQRwx2vsRSMOxKLIIYTREV+wzfiSqXdPXRoCRg+168hzmHgA0A1e+kMivaUOrMGGozg4iczxuTWlrztgiebmCMQE1kafiNLy2O1qNsEYxK1p0okszvDuvOdax9jBXNAys/PAGhGVFan5lJ7FrW2chFOXceUVtTyvxx55MxFJD8V1RG9mJ0UocLK/ep6UGrBHA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB8440.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(38350700002)(38100700002)(66476007)(66556008)(8676002)(4326008)(6916009)(66946007)(316002)(2906002)(4744005)(5660300002)(8936002)(2616005)(41300700001)(6512007)(186003)(6486002)(478600001)(26005)(52116002)(6506007)(36756003)(86362001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?O+ZT7xlFCOokzez6JurJdpnRftK18BiuKOaxWDqGAVffBnMsStuncAPxZ2uT?=
+ =?us-ascii?Q?/AFAi9GyJCJ9D+CuCSY2Y7voz82XJoOOVaFfMFfpZdAmKPx2uZq7LQtS69lF?=
+ =?us-ascii?Q?STwauugel8J00wwyIAvsVtzoSgXj96E7wEcVZ6Zyt5Q/c8xo5A0B5wsFPbnG?=
+ =?us-ascii?Q?eZlMrBx4UvTNTL0oqQvOtGEghUO8VTETHNjoY07p6iUL/tcsz62Jn7YiT0qn?=
+ =?us-ascii?Q?ZMa5AL2SG6pyewrDfcPIR4kROQMXLKqnNVIU/kI+zmcEidOhYFAlt7JST5Hc?=
+ =?us-ascii?Q?36F6cxIjAvkMyriMw8mzzbZNIbWtNAFsKDm9UqyLidNBuaxLNym9VYXK1K8F?=
+ =?us-ascii?Q?D864pCIWFpNEJ733bX+XA953puejw8pj+iMqBPv2DGRMYhzDZRyvgvUmyg8z?=
+ =?us-ascii?Q?tCZ3u4yWu7yzzEzMN8i/sNYvqfKS2rqyD72TUFNizPQyh5xEvqfh3oGK0ZEt?=
+ =?us-ascii?Q?gkffk3jqSBmv4uvFcz9erARhYqxJsHhWdUQbuUs+33vJMF6Jqzd+cek6snwU?=
+ =?us-ascii?Q?7y1RTB2iNXjsg6j8f2nS/5YVY4tvTxTz7L9DJUOawMvDMm1PsFkdK+XRn3Uf?=
+ =?us-ascii?Q?KO5Vp8QpRjc4pmDq15YELbrkzbIhN4YTUcanlEjwyf0vWoVqip8EUeqBfRJD?=
+ =?us-ascii?Q?P1me3kDMZdlyepRBg3ZpQ9qtxBwnUYUmmz0qzFAw4Skn5g2f3Tr27pcCdRRs?=
+ =?us-ascii?Q?KQJDdJWgRkvf7qaEMvNM5xKf+Ca8C35tHhDqU4ljOYSzUwfvOkIqwq86p0Jd?=
+ =?us-ascii?Q?FZI1XUDSso2LKpcHXE4jrd3RyfnRYDkae6g5AnJZsFDt3xbsxh0XH4BBa3pR?=
+ =?us-ascii?Q?NUpmJ5J3JiYs3xj7vPi5DNx5AmVTmywxOiBUMdy8gaEur1Y6274qwugicwFT?=
+ =?us-ascii?Q?fuVDYHe8fXA9bry/hRV/BiNP3bNCuLDom276jGL/cvH/1rxtk4rn1wcjLTVE?=
+ =?us-ascii?Q?Qk0zTN0Wj8gPvQ+X1uXwQgNppL1uLGQa063wsvKjZ/aY2poGQulpymxlKVxv?=
+ =?us-ascii?Q?YhsOzTqbUlVd6pRfK1DJ3wT32bpl/w+glwM8Gbme9fgLE0HDhcJPGggl66mQ?=
+ =?us-ascii?Q?FY+cv7wsW6EeXrsN4mBYuftc7rLGTftCA3tuH2GVAvIR5gqhNPD3YtElFI92?=
+ =?us-ascii?Q?TtvY6fCfN7JLH5AqvZAS84Euv7yGj0aTXPChew+lFcVaPGlTMyKXHA0wY5Nc?=
+ =?us-ascii?Q?T78Wk2ribLPct0MBAaXiYYDPdOdub1qDBr9fOsokAxgke8BC5EQ9a47Tsc3p?=
+ =?us-ascii?Q?JRQqvIJfz6CPX2lavezpVRX1TSpSAaX6j4ZJK8ST+8xR2WVvRyV81CnYRDja?=
+ =?us-ascii?Q?kQgAcC06kLiOGY5uRxExfSWnJhIlDfUTIIlyhsi7gnLTjDojSaCFmDcdrFwP?=
+ =?us-ascii?Q?xQ+2HYItMoh+k0IsQbt4xCNt6CzlZ0pDevv3B9bwgdCvz3k5UF+qQMOsSXyl?=
+ =?us-ascii?Q?UXjp1dHKzbXDT3YR2Tuk+iNO7TkuuAyjsFnJ9wOxjvf4u2KMJtANpega78eo?=
+ =?us-ascii?Q?97hU3no+DwAPjhg7G7q0zJ7qeRv4fX9JmpFozgzIxHUyUQiY6BXlOp89zzmt?=
+ =?us-ascii?Q?aUZJ0L+qVI/LL9gHRtjrcuf01gpUDFfy05RdOsk0Q7/221Gwzri/syPaT5C8?=
+ =?us-ascii?Q?oHJNRGKpbL+glp4h9UuonrI=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6d9e987-547b-41bf-cbed-08da9062d594
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB8440.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 23:52:19.1777 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IJa0hdgZN6yffC0DEEPCkz+JLWS28/hfCK/EuS1HMv7NNjnKa1UaPKnpbXDlY20gBn9KUJk/BhKxHVQt44zt6h+S2uWJVillsJYZv9WbRQgBwcazbijkN++3JW0PR+h3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB5902
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,17 +149,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 6, 2022 at 9:06 PM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
 
-> This patch switches the driver away from legacy gpio/of_gpio API to
-> gpiod API, and removes use of of_get_named_gpio_flags() which I want to
-> make private to gpiolib.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Hi Mark
 
-Excellent patch, I love what you're doing here!
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> > Current snd_soc_dai_link_event_pre_pmu() is using kzalloc() / kfree()
+> > for "params", but it is fixed size, and not used on private data.
+> > It is used for setup rtd at end of this function, just a local variable.
+> > We don't need to use kzalloc() / kfree() for it.
+> > This patch replace it as local variable.
+> 
+> The reason we're allocating it dynamically is that it's quite large (608
+> bytes on arm64) and is starting to get a bit excessive for allocation on
+> the stack, especially when you're building with some of the KASAN type
+> stuff that increases stack usage.
 
-Yours,
-Linus Walleij
+Oh, I see.
+Thank you for clearing the reason.
+I think it is very nice to have such comment on the code.
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

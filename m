@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DAF75AF181
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 19:03:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65A725AF1C7
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 19:06:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 570F2F3;
-	Tue,  6 Sep 2022 19:03:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 570F2F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 028D486E;
+	Tue,  6 Sep 2022 19:05:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 028D486E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662483835;
-	bh=w8MlgKN856+AzG2hQZVFfgmaQ74UnbMhdDV8nNSmHlI=;
+	s=default; t=1662483979;
+	bh=6vAtZDUhBzhzWcbyEDHHtQVO/kmEGrlxrzpY+OSIcxM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HpTEHzKhNV8PQaCe+WF6P7/oDQCmCR7/je7UcFQbnQHwyQqEExE8RYd5OZWshOElK
-	 5Wi9BoSQPnWENcgae3F5rpfl2NixtPYvYAAJLoQoFcvWdjP3mFFS9+BWAIeYGeF72i
-	 V+KIDV3U0VaVgUCuw3lHj/X+xUGGZbmrUW1UCvuU=
+	b=L4cTDfdSd+CjX9U6JZ7nNrKvlxmZH+RwL/qZqqhTcHQ9ceyoWAopfSgQEZDQrIOPJ
+	 9klNMwlMnK6SA2lmemxwxjsiYrbAG49I+Tehf+OFxDP8s37HA1ByvgSHzG7nHQBJRx
+	 sTU71ZoFqhcKbSFdrIKEM6Sh1JzvHjNq8WEI7X3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1596F8053D;
-	Tue,  6 Sep 2022 19:02:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FC1AF80580;
+	Tue,  6 Sep 2022 19:02:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9C1DF800E9; Tue,  6 Sep 2022 19:02:17 +0200 (CEST)
+ id 31FD7F80563; Tue,  6 Sep 2022 19:02:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0022F800E9
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 19:02:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0022F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id C247EF80537
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 19:02:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C247EF80537
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="DSQDRNxR"
-Received: by mail-wm1-x330.google.com with SMTP id ay12so7225723wmb.1
- for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 10:02:10 -0700 (PDT)
+ header.b="yPFdT/Zl"
+Received: by mail-wr1-x434.google.com with SMTP id c11so12186367wrp.11
+ for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 10:02:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=cKtafl0UjnCIX3Puy9AAJwH+bYrDR15RnaqOt29dt7k=;
- b=DSQDRNxRDpSC0Y2GH8Yr7Qglq0JVaFmbUxckXOzXqDg1GSVXNvnDnKZIBcEfmz2v4D
- 51QsgOKkarGZt2odOQIEJW38dnqxWk4W8lTk4WpfurC1baxWfz56suyQqy5XoBuxATHI
- M68ENoPYJObsFYwRKeKNHIJeKtmnvkqoCOSgks6r1LpZm9i+uzWvQUkn9IsGDWUB6v/Q
- jQ5PIhzfdJ5WG/IQSwHbkMz1yjavPj57XB/TtB4A+OEPZbR38s6/cfRUh+fOV5oXk4Of
- lkqmCMwsDuR67iL+Nvx9f/lJrCy4Iqi7aAhmsY9sYLhI8QdO3TYNoE8SRaJTk7fV4R3u
- uq3A==
+ bh=re8Z9fw7pUFDwz5t2E+fC5AN4inVQugZHn4dMfClz40=;
+ b=yPFdT/Zllm622SFwnkd64Ui2kruuNrAfFuqcDOrHweA+yvDdrO39YO1EiQwIMDl2ih
+ +8LV+TVZGQpbIM0+Va+NdxuOjMhbwnbB0/G7NX42DzUyBMKkhqmiHy5OTDomv1eV1kQp
+ HfVYjRS3sJZdolJi10Ql4H0YLkjFEda9kpIis7EiRFCb4jicKJFR6tDTgPrH5hZ/82PS
+ FShSosLeXqjdER4vZn4DBlyBXJT4TYSbdVLXgbnfgiCd+KKxH6Z0+8mgjIh7RE1KmuET
+ Hf4o4y5jR0nwAFT74MXs/dGBv2ZdtEe9fdaP/o4+CNuhCG52X6JZd19oodsuu3NDJgBV
+ kyTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=cKtafl0UjnCIX3Puy9AAJwH+bYrDR15RnaqOt29dt7k=;
- b=1ZzNq3SxauJetVj9t4fQPSugUO3Fmvr2k3AuimRQF4J6aGJO+Pp2IlTpDE4dpZp2do
- lyR6/qSL+1/m4b/VqCHl0kT3WNXtfoWdrkzbGKa6A27+vgMEpP4tvW+zuxPwNVo42IN6
- NoBRnDk6phYo4wfnPwz/h6dr9nkLeAkCNoUwMqoX9QP6p8WouCC9qm5+RAZWhkCAZ+a8
- PfTBziDblIC3U/R42IylDWZ5E5A/Bd07tcPtx2Ad57uzOck1iZLzL+UrDoaGA9ZCBYpz
- tYZa+5KJlrAmhxH83HJUq5vg9kqULxh7NuKdEFDlTP70LqjWUu1fsJc6gzPyCdoHqYw3
- e5cQ==
-X-Gm-Message-State: ACgBeo0NBwzs22AyatHKj8QZLd1Wvz7jes71QstXxBvXZ9uYzO8wOTjD
- adJugpOc/iZMORtFBUW0E98r6Q==
-X-Google-Smtp-Source: AA6agR7GvICXzJ7qO2wadJGXTUzi4eSPQqWx0ip8nmGBuJcGV1178cRrIrUJDO6x5Vpu8T8sm2sjZA==
-X-Received: by 2002:a05:600c:600c:b0:3a5:abdc:8ce4 with SMTP id
- az12-20020a05600c600c00b003a5abdc8ce4mr14130312wmb.144.1662483729018; 
+ bh=re8Z9fw7pUFDwz5t2E+fC5AN4inVQugZHn4dMfClz40=;
+ b=JA/FVD6Gy09E3dntLMLAfYHOHc1lMTuFRQyyQSrMrMABvYXgCYS66mixPS22FVc/hK
+ 0OmS0uQF/OrVLwW/Ovw4DSMIHQKuvgYJ1eP4nAv5EP9WETUPTvdgW817j2McylfojIbA
+ 5sDzh0V2xirNALARk5gRoWuxgI1ath26Nvkt3KI2Oh3JePtAdozvhZtgO6VdCmX99Chy
+ KOsA5P5TjpB4uhICJ6SB6btRVE8OCWwQ6QIQiCX80zFy3xwzi1S7WHVnduPJxBvHu56W
+ TBk6pN8QHN67Z/ApON0Agw41spm0H1OfgW4WEw5I2zQvh4IoiD0jikCKaqs0JP1J+Oqb
+ 5zNA==
+X-Gm-Message-State: ACgBeo0XVmXALuHrECUD4xrUuJL2AgDTlOn7jdhIIiXJhRdn65N3lSax
+ Fv19GFBXSoH/n+S7PeIebZIrL9gU0FdtTw==
+X-Google-Smtp-Source: AA6agR7zOZdnFhN2Lm6iYdOfoyXNKZSoQYHgG/WRNO3Em3C+1SiStwXoopbjwQyOCd8Gq4bllb3zYQ==
+X-Received: by 2002:a5d:522f:0:b0:228:dc7f:b9a8 with SMTP id
+ i15-20020a5d522f000000b00228dc7fb9a8mr1500645wra.617.1662483729998; 
  Tue, 06 Sep 2022 10:02:09 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
  by smtp.gmail.com with ESMTPSA id
- x13-20020a1c7c0d000000b003a5ca627333sm21085967wmc.8.2022.09.06.10.02.07
+ x13-20020a1c7c0d000000b003a5ca627333sm21085967wmc.8.2022.09.06.10.02.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 10:02:08 -0700 (PDT)
+ Tue, 06 Sep 2022 10:02:09 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v2 02/12] ASoC: codecs: rx-macro: handle swr_reset correctly
-Date: Tue,  6 Sep 2022 18:01:02 +0100
-Message-Id: <20220906170112.1984-3-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v2 03/12] ASoC: codecs: tx-macro: handle swr_reset correctly
+Date: Tue,  6 Sep 2022 18:01:03 +0100
+Message-Id: <20220906170112.1984-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220906170112.1984-1-srinivas.kandagatla@linaro.org>
 References: <20220906170112.1984-1-srinivas.kandagatla@linaro.org>
@@ -113,58 +113,57 @@ runtime pm. Along with this remove a swr_reset redundant flag.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/lpass-rx-macro.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ sound/soc/codecs/lpass-tx-macro.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 3143f9cd7277..338e3f0cad12 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -596,7 +596,6 @@ struct rx_macro {
- 	int rx_port_value[RX_MACRO_PORTS_MAX];
- 	u16 prim_int_users[INTERP_MAX];
- 	int rx_mclk_users;
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 55503ba480bb..c19bb19b717b 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -268,7 +268,6 @@ struct tx_macro {
+ 	struct clk *fsgen;
+ 	struct clk_hw hw;
+ 	bool dec_active[NUM_DECIMATORS];
 -	bool reset_swr;
- 	int clsh_users;
- 	int rx_mclk_cnt;
- 	bool is_ear_mode_on;
-@@ -3442,18 +3441,15 @@ static int swclk_gate_enable(struct clk_hw *hw)
+ 	int tx_mclk_users;
+ 	u16 dmic_clk_div;
+ 	bool bcs_enable;
+@@ -1702,18 +1701,14 @@ static int swclk_gate_enable(struct clk_hw *hw)
  	}
  
- 	rx_macro_mclk_enable(rx, true);
--	if (rx->reset_swr)
--		regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
--				   CDC_RX_SWR_RESET_MASK,
--				   CDC_RX_SWR_RESET);
-+	regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
-+			   CDC_RX_SWR_RESET_MASK,
-+			   CDC_RX_SWR_RESET);
+ 	tx_macro_mclk_enable(tx, true);
+-	if (tx->reset_swr)
+-		regmap_update_bits(regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
+-				   CDC_TX_SWR_RESET_MASK,
+-				   CDC_TX_SWR_RESET_ENABLE);
++	regmap_update_bits(regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
++			   CDC_TX_SWR_RESET_MASK, CDC_TX_SWR_RESET_ENABLE);
  
- 	regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
- 			   CDC_RX_SWR_CLK_EN_MASK, 1);
- 
--	if (rx->reset_swr)
--		regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
--				   CDC_RX_SWR_RESET_MASK, 0);
--	rx->reset_swr = false;
-+	regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
-+			   CDC_RX_SWR_RESET_MASK, 0);
+ 	regmap_update_bits(regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
+ 			   CDC_TX_SWR_CLK_EN_MASK,
+ 			   CDC_TX_SWR_CLK_ENABLE);
+-	if (tx->reset_swr)
+-		regmap_update_bits(regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
+-				   CDC_TX_SWR_RESET_MASK, 0x0);
+-	tx->reset_swr = false;
++	regmap_update_bits(regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
++			   CDC_TX_SWR_RESET_MASK, 0x0);
  
  	return 0;
  }
-@@ -3579,7 +3575,6 @@ static int rx_macro_probe(struct platform_device *pdev)
+@@ -1855,7 +1850,6 @@ static int tx_macro_probe(struct platform_device *pdev)
  
- 	dev_set_drvdata(dev, rx);
+ 	dev_set_drvdata(dev, tx);
  
--	rx->reset_swr = true;
- 	rx->dev = dev;
+-	tx->reset_swr = true;
+ 	tx->dev = dev;
  
  	/* set MCLK and NPL rates */
-@@ -3701,7 +3696,6 @@ static int __maybe_unused rx_macro_runtime_resume(struct device *dev)
- 	}
- 	regcache_cache_only(rx->regmap, false);
- 	regcache_sync(rx->regmap);
--	rx->reset_swr = true;
+@@ -1970,7 +1964,6 @@ static int __maybe_unused tx_macro_runtime_resume(struct device *dev)
+ 
+ 	regcache_cache_only(tx->regmap, false);
+ 	regcache_sync(tx->regmap);
+-	tx->reset_swr = true;
  
  	return 0;
  err_fsgen:

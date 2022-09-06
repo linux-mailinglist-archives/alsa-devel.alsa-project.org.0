@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CDA45AE7AB
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 14:19:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97CE65AE7CB
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 14:20:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5CFD15C3;
-	Tue,  6 Sep 2022 14:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5CFD15C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40ADA84C;
+	Tue,  6 Sep 2022 14:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40ADA84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662466787;
-	bh=bbWa+B6HEK3BnZMvKDXAs3soHsVyx+S6ZewmVIpdIJE=;
+	s=default; t=1662466856;
+	bh=Rtn8/tyivWYRRmh/8EOOhwmZyPwxlYZYPFYiMy5ws3U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dSM3kvWtQ+/2FuCjrPEe4FFzZutjnsVcQWFzq160A+1aDG4HvRcq3h6LAlM5uPBS2
-	 l0qrGykiXVfFUMFiAx1jmS+IplDV8vm/NR9WhPPiBEUJlWWMI2e3DAc/mLdicUleIS
-	 QCHpml5iAfB0Zc4GyTeEYHj5VqCNhdTsyd1TJIaw=
+	b=ey1Xol5NgOiB0mKP7f8fc4F7hCnjDd6pdD3gq0Fj2K4/gPGbicyYCo6yicTemTAiR
+	 KbH5HMEaRC86ouch8PAjjC79fgQ3gV68BFXPYXUzpp6yGt5g4uslZRO2kxNzZ+cIq5
+	 Pyh+9UpVsFTDppR2tE5XSvUtJWuXmtIJJHRU1LI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61E17F80564;
-	Tue,  6 Sep 2022 14:17:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD1B4F8058C;
+	Tue,  6 Sep 2022 14:17:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFA42F80563; Tue,  6 Sep 2022 14:17:15 +0200 (CEST)
+ id 2C862F80537; Tue,  6 Sep 2022 14:17:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 474C8F80537
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 14:17:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 474C8F80537
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99692F8011C
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 14:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99692F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="jD2je3of"
-Received: by mail-lf1-x134.google.com with SMTP id z25so17112890lfr.2
- for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 05:17:09 -0700 (PDT)
+ header.b="AKdYf2tD"
+Received: by mail-lj1-x22e.google.com with SMTP id s15so12075089ljp.5
+ for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 05:17:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Olx2xfEl0PLpI3+3+5Qjw680apGzpUP0gS3Mnyx3230=;
- b=jD2je3ofjQyfg/jOh+LKalUVOeBAAwrbkYEw21Sy5iOwMAdmX9y5mHP53gRvgVND6B
- EvGMCz2fygVPNQWXs8kWLOct/tEKZzBrabZxXRYqsYU6lAtic8byQZqKWL/c/mSjwmWb
- HJIekXpLhTd64mrGYRTulWsVj+73kjg6lVZ/s6U7k8B/ATZq1ydF9iml+OrPWHb83MGf
- /yT5LyvlmjZKTulVOpEzsXzzjQinCIfvydt+CIz95iR9zwB7Q9GtF5YwVDVrC65fC/Fq
- e41P1BghT2SnBLR0EyEaU/iYipZ5gdePZbdgyOtM1jMdgpYim/uRiewF9TKYib7rQJ0r
- mHGQ==
+ bh=4c/EC/fKGrr33lYs8dg9VuKkDELdZWUkP9xmgTJvUBY=;
+ b=AKdYf2tDhidX1KT/T+gAUIvcmI5DL9Hdo42r+/QzKvZtDTIWxfg8mx1MB7sUpzA1qv
+ WGqiKkvZomaXC2cqMPCuzKzeqdvHVYbdkXHpXOMUiv+WeOHLZoOR52ES9q1EqpYaC3tk
+ jODzVpZ85S/wUiME0jHn1SeeWW0r4SXaDP+C0mcijzxqbxTLuCUix+3umAMjp8hEzhzZ
+ /K4LKMuex7a43qIDqz2+/C3yJyhaU2ii2gchFFn5Z7dUVCDQA45sE5c3gCxxeqLl5Tp8
+ w7RO9+wKtZH0N8oOFsKra1FP1ecGBKW0uEicAUp65Q232rQDkHriHIZISNKNCm2qSOTE
+ S1QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Olx2xfEl0PLpI3+3+5Qjw680apGzpUP0gS3Mnyx3230=;
- b=5JcYEejqxB1hLM1hVYOXwEOXIGpHZCnqZa7QcQisjy/gHOPZDgq3Z7sO0d8BOTJOod
- 8j1WX/quBZC3CEHFZvp86vSpOqyuA0SaPzAtF3K2/wbks81Yt9r8QR7hfwi+XbnDsunt
- /7SZpTK9ekn9/AuVxIF/cSrbqT0rq1cPOnLqbpC5yBRgobBEMt9rdP4FWyub6qyzE366
- RV6KTDowKU4028HhHd0cHyFrY2bfoEghsKZRQHOcuqaFG+9Qw+R0RCk0rV+ASGZnlIqq
- tNsV7szLhTjyMgPU9DOZpuZYa1eiqg/f4EGVQXmqLPTdjdRJIqU/3shxyqHdFU38xGgH
- cphA==
-X-Gm-Message-State: ACgBeo0LdnOKPM+fBgdTp61V3Hw67EOMSD4QfutDBOJ8svScORwX6Rpr
- TdIx2vfIlEhHhqfmpvxWvy5juA==
-X-Google-Smtp-Source: AA6agR5TML3s8NoEL5itQJnrQzTJ3E7pKRUH2G3Fd4S7hT94Gg7+NWiCuPmzmzxU5jNAYCnta6P3sg==
-X-Received: by 2002:a05:6512:3503:b0:496:517:5802 with SMTP id
- h3-20020a056512350300b0049605175802mr4379125lfs.83.1662466628883; 
- Tue, 06 Sep 2022 05:17:08 -0700 (PDT)
+ bh=4c/EC/fKGrr33lYs8dg9VuKkDELdZWUkP9xmgTJvUBY=;
+ b=yLKtz5zo1rttO/XSrDFph36kGhM9g/R8LLlbcb7vmFc63oXA5Wt2Yhb65VUZgxP385
+ fvPcRhP3heSbT5kq8bzQbmhk9TEBWZgCAmbMpX8Ngnl+zS4BW37KlN4bnL5HGPP+uaPJ
+ N2T3EXok0F8ua+RE+MmievsKUqdb5PgNzFIZqFQ80CGEeZEUKoc9T4EnAR+HyGJ52wra
+ dnEtwRpLOyqP9usZH/6EBHKiIVsHJ1C0zPbb/TaZypTTLuCgGq+GdxK2pN/13jPH8/v6
+ ZMsFOU+IFtuDWgF3Z7JEdUhrTsGdeorCFTVoUGP8mIocaIsLUYpWKOVyFyfbQxb3KANQ
+ yVyg==
+X-Gm-Message-State: ACgBeo30OPP0EPpIJra3XNFffVF2CygD1ZMOBoXdUb/gkfwfgabhxbJ3
+ JPlwxccz3CkrdvrJTr2kaFBVJQ==
+X-Google-Smtp-Source: AA6agR44+E/liePOSIZSTFuXxRzgwxJb+aWcT5stK1SaSKB7IQQo/JOorZ6imcdLruZUNKfzMndreg==
+X-Received: by 2002:a2e:a408:0:b0:26a:7a25:bbb6 with SMTP id
+ p8-20020a2ea408000000b0026a7a25bbb6mr2031669ljn.221.1662466630141; 
+ Tue, 06 Sep 2022 05:17:10 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- u17-20020a05651c131100b0025df5f38da8sm1882802lja.119.2022.09.06.05.17.07
+ u17-20020a05651c131100b0025df5f38da8sm1882802lja.119.2022.09.06.05.17.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 05:17:08 -0700 (PDT)
+ Tue, 06 Sep 2022 05:17:09 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -86,10 +86,9 @@ To: Andy Gross <agross@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH 08/12] arm64: dts: qcom: sm8250: use generic name for LPASS
- clock controller
-Date: Tue,  6 Sep 2022 14:16:51 +0200
-Message-Id: <20220906121655.303693-9-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 09/12] dt-bindings: soc: qcom: apr: correct service children
+Date: Tue,  6 Sep 2022 14:16:52 +0200
+Message-Id: <20220906121655.303693-10-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220906121655.303693-1-krzysztof.kozlowski@linaro.org>
 References: <20220906121655.303693-1-krzysztof.kozlowski@linaro.org>
@@ -111,28 +110,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The node names should be generic according to Devicetree specification,
-so use "clock-controller" instead of "cc".  The bindings so far did not
-define this name (as child of APR service).
+The APR bindings were not describing properly children nodes for DAIs.
+None of the DTSes use unit addresses for the children, so correct the
+nodes and reference their schema: clock-controller, dais and routing.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/soc/qcom/qcom,apr.yaml           | 38 +++++++++++++------
+ .../sound/qcom,q6dsp-lpass-clocks.yaml        | 16 ++------
+ .../sound/qcom,q6dsp-lpass-ports.yaml         | 16 ++------
+ 3 files changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index da9f7a701bc7..da340159c0f1 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -4799,7 +4799,7 @@ q6afedai: dais {
- 							#sound-dai-cells = <1>;
- 						};
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+index 028c5d105adb..61b010793fca 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+@@ -97,6 +97,22 @@ patternProperties:
+             3 = AMDB Service.
+             4 = Voice processing manager.
  
--						q6afecc: cc {
-+						q6afecc: clock-controller {
- 							compatible = "qcom,q6afe-clocks";
- 							#clock-cells = <2>;
- 						};
++      clock-controller:
++        $ref: /schemas/sound/qcom,q6dsp-lpass-clocks.yaml#
++        description: Qualcomm DSP LPASS clock controller
++        unevaluatedProperties: false
++
++      dais:
++        # TODO: Waiting for Documentation/devicetree/bindings/sound/qcom,q6asm.txt
++        # Ref defined in allOf below.
++        type: object
++        description: Qualcomm DSP LPASS audio ports
++
++      routing:
++        # TODO: Waiting for Documentation/devicetree/bindings/sound/qcom,q6adm.txt
++        type: object
++        description: Qualcomm DSP LPASS audio ports
++
+       qcom,protection-domain:
+         $ref: /schemas/types.yaml#/definitions/string-array
+         description: protection domain service name and path for apr service
+@@ -107,17 +123,17 @@ patternProperties:
+           "tms/servreg", "msm/modem/wlan_pd".
+           "tms/servreg", "msm/slpi/sensor_pd".
+ 
+-      '#address-cells':
+-        const: 1
+-
+-      '#size-cells':
+-        const: 0
+-
+-    patternProperties:
+-      "^.*@[0-9a-f]+$":
+-        type: object
+-        description:
+-          Service based devices like clock controllers or digital audio interfaces.
++    allOf:
++      - if:
++          properties:
++            compatible:
++              enum:
++                - qcom,q6afe
++        then:
++          properties:
++            dais:
++              $ref: /schemas/sound/qcom,q6dsp-lpass-ports.yaml#
++              unevaluatedProperties: false
+ 
+     additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
+index f83f00737a2f..604861d84ffa 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
+@@ -18,9 +18,6 @@ properties:
+       - qcom,q6afe-clocks
+       - qcom,q6prm-lpass-clocks
+ 
+-  reg:
+-    maxItems: 1
+-
+   '#clock-cells':
+     const: 2
+     description:
+@@ -32,7 +29,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - reg
+   - "#clock-cells"
+ 
+ additionalProperties: false
+@@ -46,11 +42,9 @@ examples:
+         #size-cells = <0>;
+         apr-service@4 {
+             reg = <APR_SVC_AFE>;
+-            #address-cells = <1>;
+-            #size-cells = <0>;
+-            clock-controller@2 {
++
++            clock-controller {
+               compatible = "qcom,q6afe-clocks";
+-              reg = <2>;
+               #clock-cells = <2>;
+             };
+         };
+@@ -66,11 +60,9 @@ examples:
+         service@2 {
+             reg = <GPR_PRM_MODULE_IID>;
+             compatible = "qcom,q6prm";
+-            #address-cells = <1>;
+-            #size-cells = <0>;
+-            clock-controller@2 {
++
++            clock-controller {
+               compatible = "qcom,q6prm-lpass-clocks";
+-              reg = <2>;
+               #clock-cells = <2>;
+             };
+         };
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+index dc7fba7b92d5..5e666d9fb388 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+@@ -18,9 +18,6 @@ properties:
+       - qcom,q6afe-dais
+       - qcom,q6apm-lpass-dais
+ 
+-  reg:
+-    maxItems: 1
+-
+   '#sound-dai-cells':
+     const: 1
+ 
+@@ -145,7 +142,6 @@ patternProperties:
+ 
+ required:
+   - compatible
+-  - reg
+   - "#sound-dai-cells"
+   - "#address-cells"
+   - "#size-cells"
+@@ -161,11 +157,9 @@ examples:
+         #size-cells = <0>;
+         apr-service@4 {
+             reg = <APR_SVC_AFE>;
+-            #address-cells = <1>;
+-            #size-cells = <0>;
+-            q6afedai@1 {
++
++            dais {
+               compatible = "qcom,q6afe-dais";
+-              reg = <1>;
+               #address-cells = <1>;
+               #size-cells = <0>;
+               #sound-dai-cells = <1>;
+@@ -187,11 +181,9 @@ examples:
+         service@1 {
+             compatible = "qcom,q6apm";
+             reg = <GPR_APM_MODULE_IID>;
+-            #address-cells = <1>;
+-            #size-cells = <0>;
+-            q6apmdai@1 {
++
++            dais {
+               compatible = "qcom,q6apm-lpass-dais";
+-              reg = <1>;
+               #address-cells = <1>;
+               #size-cells = <0>;
+               #sound-dai-cells = <1>;
 -- 
 2.34.1
 

@@ -2,96 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770A05AEAEA
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 15:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC025AF146
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 18:56:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18CED1E0;
-	Tue,  6 Sep 2022 15:55:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18CED1E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7219B3E7;
+	Tue,  6 Sep 2022 18:55:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7219B3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662472598;
-	bh=lITYO0Yru2HUooVj42T+NHovpxuJjUSH/YAABTqsRlk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nZv4fj+E5iLbv/FStKyCo91aYHDO/tNcSVn79P++kF7VEauxxO1dbcfuKljEKs1S0
-	 fulzxWMYH84qoyQ29HeCw7s8VAF32Js8G6fuf03nq2Ml69maeaZwVtMzCVfrFUaz2A
-	 UbqEaUf9SBVGFxEDR6DGRsq7kUPemG1jgS8w8qQA=
+	s=default; t=1662483380;
+	bh=1VHCaQa5efinGElWof/SpT+iLWPPAyyV0A20ZkpWk30=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BmgOrxhBzXETlCc/wjV3L2+INMU7KLe+syV70lFYYUG9U8XAF1mr1m6KqU6tM4UH0
+	 MZNoZH8ZnqK7FRCsJ+FN+RHjpoa9Bs+RiyVSXS1JvZo7K1OR5tRTWodC7lxWkeLTbG
+	 qah5idhHpsMFiT6TfJuvaNba1nCv4irwTJmH7kb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E492F800E9;
-	Tue,  6 Sep 2022 15:55:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD858F8024C;
+	Tue,  6 Sep 2022 18:55:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FC84F80249; Tue,  6 Sep 2022 15:55:36 +0200 (CEST)
+ id 6F038F8024C; Tue,  6 Sep 2022 18:55:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E48BDF80165
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 15:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48BDF80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id B47E5F800E9
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 18:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B47E5F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="khPzVTI6"
-Received: by mail-lf1-x130.google.com with SMTP id q7so17516751lfu.5
- for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 06:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=9/i7m1vSaW1LQaPczLwKSI2TpE8iLJQt7sa+CqIM8FY=;
- b=khPzVTI69w+JT9PVk+B9mYe6u+7wAQh+/khwSEvFBhYwOw05w2i3NC9672i6KYNNDQ
- mFDxvghmc0dFzilBfcwJsYdW8TXbRTbIhr18bAfAgupS1aaID9uHVpymp1cloD76a/2Q
- n5Oyd56npVznVy0U3nB+oka8sPEH4wZ8Xmucv+aac34g58da2zDm1nFiAbtGD/rzD6MZ
- KoWa5Mz4AXVIuzFjGA4GOcXWvYgaozm/92zYbHcbNW7eCJ2qpVGJRC4ffKgOUB4XrGJ3
- MdnFmmTnKq7N/n9P67u19KaFRJt+BqaV0NCZEaB4bWq2nK8WRghWhQcnTkrWF21+LqgR
- Dtcg==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="yG4ac7Nd"
+Received: by mail-wr1-x435.google.com with SMTP id bz13so12970970wrb.2
+ for <alsa-devel@alsa-project.org>; Tue, 06 Sep 2022 09:55:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=p6vQI2CwgE+q6ddXbTpyyYqLEbh2B3crUHEbmjFAgzQ=;
+ b=yG4ac7NdpzOkvdjn0uedl98YkeL+kblRoBov5U2pz9lKAau5dkhf76ou+R23zJMsW8
+ UsQA31U0Wm+cgwAASCEdxKxiKBh3CwxlUFMeioUUIrW/yuL1IniHDy8lnVEw2Q5uB4Au
+ Yah2UFo4zT+7qOYmqWrV3wlcLHNNiuxxaIiWStu1zjIF64lcr8eCY9Mlrm77no/u2act
+ GNeGiRPet7hR7egf/7IvAnYzjlzMXZEXV7rO4cb/D924vO4/Zqj7v77XvDP+83kVF+mI
+ mgXWDQ9JYm3UJxW4LfDCgOj/WeK+kqiGEqKcwEl+HlfZFcq/O6kNI3qInnTlPHNf6TC5
+ Jt+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=9/i7m1vSaW1LQaPczLwKSI2TpE8iLJQt7sa+CqIM8FY=;
- b=pUlYcLBmwFYnmBcgNZ9E4MLg6TcVvONTGiFsMm+uUo4IPySUtOwjADkPEZXMOj1uY1
- KifnD7GJwhnUd6msZ4TpmSC6D+sfZVchWSXKp9lou6a0NNIUxlOG2JmdMgI3d6yNFDSv
- dRqZA6b+t3aCFl2jShGRthdq8YthqNFRqDB10t9sgaM0batbjUaGTLk3IvRoHLp6zJ2s
- m9FkvlbGPGnzTaGAbn08lKxSimFT2rp9ulEGrMB7gVklfmp5txcDFU/W157ojwr98Tof
- Ijrie88ua15KbLJ6KVCoOrJF2xPo0qFx1MewtfpDn+qUWVis/rKvwy4XcSrYwcFkZGyA
- dQig==
-X-Gm-Message-State: ACgBeo38d2HmAcaeeKYibqCmiclRcKnAPM9dDN3/CyZFQ1QRZMDCd4PS
- 3k48iIw/zjDqUHT01c7otYODn7DMXcwp0j4IPDg=
-X-Google-Smtp-Source: AA6agR7fXY6JLLMiGgiL+UZI+kW9OWzrlIqGs89l0h0PB2WzxGmc1MSJuLS8cf1dRYrCY1GG460oNXb7qw/dZd4LgiU=
-X-Received: by 2002:a05:6512:33cb:b0:494:69e3:5421 with SMTP id
- d11-20020a05651233cb00b0049469e35421mr12981941lfg.283.1662472531096; Tue, 06
- Sep 2022 06:55:31 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=p6vQI2CwgE+q6ddXbTpyyYqLEbh2B3crUHEbmjFAgzQ=;
+ b=hUVUDmLRoIXiQFi1dWuokmtNNZkD4WhfwoffbX+WCUuDDGYmWv1DL5ZaJjS2m9W0xs
+ 03FHDhciXP9ZEodkCVsHTlPx6XtTkGbr3JiZH0DXGmCdBtFYKkMJ0g6xoQY9S7WgHMm3
+ 19p271MJCY2jgCxMv+LvdW5yo66nyv4b4/GwhxVqi6cS11MorQ/RVgmNkmrIQkby4pAY
+ 0UQAML/mdUKMUsTLSd/PQKXTQAlsAdxQkKjQSDGtqclx8sx36NYgn4xa0dIPEAxNspLl
+ FikEFDVK97ifDtKIwB/J3d+gvdMRydjLcfoWphab1TlxP+fO+YO2tUxAFOZMycZfTiKP
+ IGgA==
+X-Gm-Message-State: ACgBeo3nv+OM3kUqJAHz9LMm4KUV8F83kyqNARCJhn+1Y6Hgq9EmTyyG
+ bsVpN2C3E8ttv0kz4dIcj6+rlw==
+X-Google-Smtp-Source: AA6agR7SSqNb1Einsp+U+Aa89KAMr9g5aD0bxAbu3IfTxJLaIRqidiBl5f7PYr1G726iQGq6SEmb7A==
+X-Received: by 2002:a05:6000:18ad:b0:226:f3b4:74f2 with SMTP id
+ b13-20020a05600018ad00b00226f3b474f2mr16033776wri.537.1662483314772; 
+ Tue, 06 Sep 2022 09:55:14 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ co4-20020a0560000a0400b0021eed2414c9sm13775906wrb.40.2022.09.06.09.55.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 09:55:14 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v2 0/4] ASoC: qcom: add support for sc8280xp machine
+Date: Tue,  6 Sep 2022 17:55:04 +0100
+Message-Id: <20220906165508.30801-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <1662373788-19561-1-git-send-email-shengjiu.wang@nxp.com>
- <CAGoOwPQomcnO5dhkT9DBynwJo8LfVvuuwj5AYNpv0KhAGSWLEw@mail.gmail.com>
- <CAA+D8APOL1Qx0fAhyajXXzh0_tqEmDJoDBh3Xgo6uYNhV0usBw@mail.gmail.com>
- <CAGoOwPQfkT2ptdt6mBTAgPfN0NOoR4KfdLE9B2AoL+Qn6bWdFw@mail.gmail.com>
- <CAA+D8AMYrQsu-nM_WdrBtB4iPU2UYNDhPW-zdY_Z+-9L03gu1Q@mail.gmail.com>
- <CAGoOwPSOEmLN+0esj2QfoadN7JZ=TJeZymxcp3MPqP4oLok70w@mail.gmail.com>
-In-Reply-To: <CAGoOwPSOEmLN+0esj2QfoadN7JZ=TJeZymxcp3MPqP4oLok70w@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 6 Sep 2022 21:55:19 +0800
-Message-ID: <CAA+D8ANu11Y5m1jJLEm8==45x5-z7C468JS-u6oMmmsYs1okbg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_asrc: Add initialization finishing check in
- runtime resume
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Fabio Estevam <festevam@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bgoswami@quicinc.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,39 +103,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 6, 2022 at 7:42 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+This patchset adds support for SC8280XP SoC machine driver.
 
-> On Tue, Sep 6, 2022 at 3:50 AM Shengjiu Wang <shengjiu.wang@gmail.com>
-> wrote:
-> >> >> > +       /* Wait for status of initialization for every enabled
-> pairs */
-> >> >> > +       do {
-> >> >> > +               udelay(5);
-> >> >> > +               regmap_read(asrc->regmap, REG_ASRCFG, &reg);
-> >> >> > +               reg = (reg >> ASRCFG_INIRQi_SHIFT(0)) & 0x7;
-> >> >> > +       } while ((reg != ((asrctr >> ASRCTR_ASRCEi_SHIFT(0)) &
-> 0x7)) && --retry);
-> >> >> > +
-> >> >> > +       /* FIXME: Doesn't treat initialization timeout as error */
-> >> >> > +       if (!retry)
-> >> >> > +               dev_warn(dev, "initialization isn't finished\n");
-> >> >>
-> >> >> Any reason why not just dev_err?
-> >> >
-> >> > Just hesitate to use dev_err. if use dev_err, then should return an
-> error.
-> >> > May one of the pairs is finished, it still can continue.
-> >>
-> >> Makes sense. In that case, why "FIXME" :)
->
-> > Just want to have a record/note here, need to care about this warning.
->
-> "FIXME" feels like something is wrong and literally means that it is
-> waiting for a fix/solution. In your case, it's not waiting for a fix
-> at all, but just an annotation? So, shouldn't it be just "Note:"?
->
+First patch moves some of the commonly used code to common from sm8250 machine driver
+and the follow on code adds minimal support for sc8280xp.
 
-ok, let me update it.
+Currently this driver is only tested with SmartSpeakers and Headset
+on Lenovo Thinkpad X13s.
 
-best regards
-wang shengjiu
+Support for sm8450 is tested and I will post the patches soon.
+
+Thanks,
+Srini
+
+Changes since v1:
+- make all the exported symbol as EXPORT_SYMBOL_GPL
+
+
+Srinivas Kandagatla (4):
+  ASoC: qcom: common: use EXPORT_SYMBOL_GPL instead of EXPORT_SYMBOL
+  ASoC: dt-bindings: qcom,sm8250: add compatibles for sm8450 and sm8250
+  ASoC: qcom: sm8250: move some code to common
+  ASoC: qcom: add machine driver for sc8280xp
+
+ .../bindings/sound/qcom,sm8250.yaml           |   2 +
+ sound/soc/qcom/Kconfig                        |  11 ++
+ sound/soc/qcom/Makefile                       |   2 +
+ sound/soc/qcom/common.c                       | 171 +++++++++++++++++-
+ sound/soc/qcom/common.h                       |  12 ++
+ sound/soc/qcom/sc8280xp.c                     | 157 ++++++++++++++++
+ sound/soc/qcom/sm8250.c                       | 152 +---------------
+ 7 files changed, 361 insertions(+), 146 deletions(-)
+ create mode 100644 sound/soc/qcom/sc8280xp.c
+
+-- 
+2.21.0
+

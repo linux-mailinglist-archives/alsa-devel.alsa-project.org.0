@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68FC5ADECB
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 07:15:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 196135ADECC
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 07:16:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14EE3852;
-	Tue,  6 Sep 2022 07:14:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14EE3852
+	by alsa0.perex.cz (Postfix) with ESMTPS id B00B884D;
+	Tue,  6 Sep 2022 07:15:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B00B884D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662441305;
-	bh=NZrYouI6rY0lgA+X9HsKNr5ZY/eS+IRGK5UFlZ3TztE=;
+	s=default; t=1662441386;
+	bh=foMcVL16XY0uFwPWfNNP6LVagERzcIEL5yi2ndQ6/vo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TYX+HxgVvQ9597XKs7NwvFOUB4OjBDDozIHMIqmTHP8DfUYQsSnTKZiotQzVqr768
-	 4WbV8rakp0soM0hBgiXPPxKx0bwOl8RRKCQ4jpX1adR7gRhFfPOFecb1F2ArRQeBql
-	 BJfunLMkzWgtMPGVubV3N+154g/SWNV/m89sIjho=
+	b=cWkSS56yCYQDc063rXT9zM2+O/X6guuGMCHhwWefaNzAmLLvgcYlK/6FMKnJGpiMV
+	 Z2QlW+1LnigPGOdzjqdkZF04cyY+JA+Dc8/5R6J1zqMQnK5Vcrb/uHS8BFYaKeAdoz
+	 M0+SGLUcmsfpVx8mB5Ai3l1XBfcbn2a/Qt6vzL6I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D90EF8011C;
-	Tue,  6 Sep 2022 07:14:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41534F80254;
+	Tue,  6 Sep 2022 07:15:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AF74F80249; Tue,  6 Sep 2022 07:14:03 +0200 (CEST)
+ id 93F4AF800E9; Tue,  6 Sep 2022 07:15:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0040F800E9
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 07:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0040F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0BA1F800E9
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 07:15:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0BA1F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AzxCsts7"; 
+ header.b="la3EXH4p"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="zLQGwy7Z"
+ header.b="4UUwkQ/e"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2206C1F93C;
- Tue,  6 Sep 2022 05:13:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 544191F45B;
+ Tue,  6 Sep 2022 05:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662441236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662441322; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7VZWnvurXqonJpqb+0Yd2nkY/vLptsRNGIBHw8402Xc=;
- b=AzxCsts778tQxlfZSnt27U0nQz6OLuYAS3y/JxK8gXVN5A9+G24c/uEKZkAtxFodOplMIa
- rDRT/1q5hUPae2MeXiM4uTEjqdR44DyeLkhPj2EcbDX5zKbObjHMcUdLK2TCRtiTyCKXNo
- uAMepwaNNolgYggXbfEsnGtRooja6WM=
+ bh=yWUO55Q1PJAdwLgSdbXaf03gIw+P26tewjALMzZ2oSE=;
+ b=la3EXH4pbmOXG3fauz42PKD7x2OMtsWWInCvaOUP6nYLRtWc/WPXZn3bidCw+9UCzhEod1
+ QoirHwPjMmqBUCu3r/wg+wHIrFK9a15z02ddegp43hzBMEBazfxLngmcIyQZcYilSXE/r7
+ 3p9E2bIzKs7lcI9scrzBYMj47sREZ88=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662441236;
+ s=susede2_ed25519; t=1662441322;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7VZWnvurXqonJpqb+0Yd2nkY/vLptsRNGIBHw8402Xc=;
- b=zLQGwy7ZjSV7OOInj4ezzq/zZhA27uWoYX1+9UyTyNyQGDgk4Ab2sX0s4K9lT9Fw4FKEqB
- qZcCXVbBAyxUdAAA==
+ bh=yWUO55Q1PJAdwLgSdbXaf03gIw+P26tewjALMzZ2oSE=;
+ b=4UUwkQ/eZbCTf1umwp7aYRAQVR4CWFVmmXoaqvUZqiojLoNh26qCtJHlGSvpShxDNY19+N
+ OqpIcXDIkgH4KJCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E385813A6B;
- Tue,  6 Sep 2022 05:13:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 31C5813A6B;
+ Tue,  6 Sep 2022 05:15:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5MgjNhPXFmOLCAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 06 Sep 2022 05:13:55 +0000
-Date: Tue, 06 Sep 2022 07:13:55 +0200
-Message-ID: <87czc9hyp8.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id GJxuC2rXFmMRCQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 06 Sep 2022 05:15:22 +0000
+Date: Tue, 06 Sep 2022 07:15:21 +0200
+Message-ID: <87bkrthymu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar <mkumard@nvidia.com>
-Subject: Re: [PATCH] ALSA: hda/tegra: Align BDL entry to 4KB boundary
-In-Reply-To: <20220905172420.3801-1-mkumard@nvidia.com>
-References: <20220905172420.3801-1-mkumard@nvidia.com>
+To: Dongxiang Ke <kdx.glider@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix an out-of-bounds bug in
+ __snd_usb_parse_audio_interface()
+In-Reply-To: <20220906024928.10951-1-kdx.glider@gmail.com>
+References: <20220906024928.10951-1-kdx.glider@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,15 +100,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Sep 2022 19:24:20 +0200,
-Mohan Kumar wrote:
+On Tue, 06 Sep 2022 04:49:28 +0200,
+Dongxiang Ke wrote:
 > 
-> AZA HW may send a burst read/write request crossing 4K memory boundary.
-> The 4KB boundary is not guaranteed by Tegra HDA HW. Make SW change to
-> include the flag AZX_DCAPS_4K_BDLE_BOUNDARY to align BDLE to 4K
-> boundary.
+> There may be a bad USB audio device with a USB ID of (0x04fa, 0x4201) and
+> the number of it's interfaces less than 4, an out-of-bounds read bug occurs
+> when parsing the interface descriptor for this device.
 > 
-> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
+> Fix this by checking the number of interfaces.
+> 
+> Signed-off-by: Dongxiang Ke <kdx.glider@gmail.com>
 
 Thanks, applied.
 

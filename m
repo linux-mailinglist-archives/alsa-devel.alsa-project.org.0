@@ -2,70 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4805C5ADC04
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 01:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0EC45ADD18
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 03:55:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF2C9F6;
-	Tue,  6 Sep 2022 01:52:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF2C9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22FB9164F;
+	Tue,  6 Sep 2022 03:54:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22FB9164F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662421993;
-	bh=hFmXO+D2s4QLAksNbuf61Vq6qMbb+Xr30lEmcZGahpQ=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1662429338;
+	bh=GU7Qqw7lO9awg8Ih2fW3i5q0ueFhVdf6pdbcXQ8ujZE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lh6SoENhdEvtyMR2aWYUZAoekJjghSSeKQvE4onoKF53IZzsvJQI2jIODtR/CyVV1
-	 Z9U78EsjIR5PL7nHZf8kXPv3iVzn+yKhN9C659fFRA8crty328KGubcsBG0n3vugDA
-	 49kdL2c3f5n+/Wr74vz/DzmEYqlBANLmSaks9lZQ=
+	b=Bno3x097q9dDZGBmmB5g9IrVc/3fVRT3SOu6+dQxT+kzu2SstV/sEqx6XGmGhwDrL
+	 qiFxPC/PwyEcBB/qNC4egmyVgZOzohCaJo2GziHUN4+8gTIBq+pFFq+C92x8tVtvsy
+	 Trmeib3R1Wrr5H53Fp7H+TTyWbkfpTuQoPbhEZNk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6155F8032D;
-	Tue,  6 Sep 2022 01:52:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7258EF8024C;
+	Tue,  6 Sep 2022 03:54:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 486B0F80238; Tue,  6 Sep 2022 01:52:12 +0200 (CEST)
+ id 0D190F80249; Tue,  6 Sep 2022 03:54:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E7CEF800E8
- for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 01:52:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E7CEF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA42FF80165
+ for <alsa-devel@alsa-project.org>; Tue,  6 Sep 2022 03:54:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA42FF80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="OJg/WetN"
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1662421924; bh=W3JevZj+Q9D8r4igU1ZJmgIAeBet1bJnmsd/TGyYu1A=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=OJg/WetN0MEqqqGYSigrzdn9TEaFgN9D4ozqzm+x1AYqELC93mC/O+G3wKlMjI0KR
- Yk/acY923n3/RakzT73BXiSFGEW7cbaSfbleD3qB6hSpi4sCaPD5Nd8dCpJheiRl7/
- WXdwJQDItW2qap9E4NKWkWI1T0R7IFvh+PK652Kk=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.80.82.1.1\))
-Subject: Re: [PATCH v3 2/4] arm64: dts: apple: t8103: Add MCA and its support
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-In-Reply-To: <20220905223927.GE10102@jannau.net>
-Date: Tue, 6 Sep 2022 01:52:03 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <27908832-4453-4199-A899-7B93ABD1216B@cutebit.org>
-References: <20220824160715.95779-1-povik+lin@cutebit.org>
- <20220824160715.95779-3-povik+lin@cutebit.org>
- <20220905223927.GE10102@jannau.net>
-To: Janne Grunau <janne@jannau.net>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Philipp Zabel <p.zabel@pengutronix.de>, Sven Peter <sven@svenpeter.dev>,
- Hector Martin <marcan@marcan.st>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, asahi@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lW+LPTis"
+Received: by mail-lf1-x12f.google.com with SMTP id u18so2941979lfo.8
+ for <alsa-devel@alsa-project.org>; Mon, 05 Sep 2022 18:54:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=zcTwaijpd2111xsDdervpJH9/9EDsphYRA2s0wo+LWI=;
+ b=lW+LPTisK5EL83PlNfwHIRgyD85NBZqOEhnGqWrhWcjI4xy7mDs6KH+ClAngeTn3mQ
+ o41+m6JMXXfnI3z7rXvvpHApZi2olOFeCTWeErVjcYbzHcnRO274gIKW9id9dk3LXBnh
+ bbfcWOdXFd8ZBVd7IeBMigdDleaCs9ntPhGI05yA60yusbVBl/jJ/jUNgUFmratMpVWu
+ o5+vAGEvo1bogvKe/e1urzLcG9AROxbJsvBd9Y7NGwPMgz/qKTRuHDO7U0IbosJy5W3b
+ PgPP2rZdU0VwXPD/iKieDymxIIU7vbLOHdmY/5OhVO1y9fem2WppQEMcZ7nY5mXXR8kF
+ K6/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=zcTwaijpd2111xsDdervpJH9/9EDsphYRA2s0wo+LWI=;
+ b=tl2nYz86IhGBf8vxHlpJBRgFLzLYvbZmYcuXTjWFBD5anct0x7N7t2V3M0uMAoZbyo
+ LqcEMSwfQqNga7m258YAN9WuRWAxhBG2wtnvPPpwiVRBg9/p+3Z9bPpen+YCayNTPAy0
+ GhZE6DIBkeOtFjwC3+ldE/CB4GnJxPw8MAwjqd9G3bcWQrvSR92x8c2n96eIRAzXEXgD
+ IQhOnMu2sSDqmyjjOxbyH67pdjSaZrMl7PNXkeSmYIgK5edO3cbmvfSZhR0mPiuZgYXx
+ uXRATRsRfACEVbJxrZS0DWM+reysoFTRX4tdWCYtoOu9ZPCHJ5z2oV9DckI4s+mjuD3u
+ ynWg==
+X-Gm-Message-State: ACgBeo05ShESpUJYisdS+lWG0MnZf0Q3KoPd3Qw4weJGv3VFbjuduIA3
+ vcx90vKPOhBlt1ssAwcq3x5Zz8cFH17IG19d/EU=
+X-Google-Smtp-Source: AA6agR6rpzNvrgDBOH7xaVDM/+HbHO0nMeVMUOH9wH2pSgnS+vmy/lSZkWXIl5pFi/oGBhvCu4veg5fAaBqtC69FIqE=
+X-Received: by 2002:a05:6512:2211:b0:496:7767:28b with SMTP id
+ h17-20020a056512221100b004967767028bmr1252696lfu.433.1662429268454; Mon, 05
+ Sep 2022 18:54:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <1662373788-19561-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAGoOwPQomcnO5dhkT9DBynwJo8LfVvuuwj5AYNpv0KhAGSWLEw@mail.gmail.com>
+In-Reply-To: <CAGoOwPQomcnO5dhkT9DBynwJo8LfVvuuwj5AYNpv0KhAGSWLEw@mail.gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 6 Sep 2022 09:54:16 +0800
+Message-ID: <CAA+D8APOL1Qx0fAhyajXXzh0_tqEmDJoDBh3Xgo6uYNhV0usBw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc: Add initialization finishing check in
+ runtime resume
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,32 +103,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ciao Janne, thanks for the comments and fixes.
+On Mon, Sep 5, 2022 at 9:15 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
 
-> On 6. 9. 2022, at 0:39, Janne Grunau <janne@jannau.net> wrote:
->=20
-> On 2022-08-24 18:07:13 +0200, Martin Povi=C5=A1er wrote:
->> Add the MCA I2S transceiver node and its supporting NCO, ADMAC nodes.
->>=20
->> Signed-off-by: Martin Povi=C5=A1er <povik+lin@cutebit.org>
->> ---
->> arch/arm64/boot/dts/apple/t8103-jxxx.dtsi | 4 ++
->> arch/arm64/boot/dts/apple/t8103.dtsi | 73 +++++++++++++++++++++++
->> 2 files changed, 77 insertions(+)
+> On Mon, Sep 5, 2022 at 3:47 AM Shengjiu Wang <shengjiu.wang@nxp.com>
+> wrote:
+> > @@ -1295,6 +1301,17 @@ static int fsl_asrc_runtime_resume(struct device
+> *dev)
+> >         regmap_update_bits(asrc->regmap, REG_ASRCTR,
+> >                            ASRCTR_ASRCEi_ALL_MASK, asrctr);
+> >
+> > +       /* Wait for status of initialization for every enabled pairs */
+> > +       do {
+> > +               udelay(5);
+> > +               regmap_read(asrc->regmap, REG_ASRCFG, &reg);
+> > +               reg = (reg >> ASRCFG_INIRQi_SHIFT(0)) & 0x7;
+> > +       } while ((reg != ((asrctr >> ASRCTR_ASRCEi_SHIFT(0)) & 0x7)) &&
+> --retry);
+> > +
+> > +       /* FIXME: Doesn't treat initialization timeout as error */
+> > +       if (!retry)
+> > +               dev_warn(dev, "initialization isn't finished\n");
+>
+> Any reason why not just dev_err?
 
 
->> +		/*
->> +		 * This is a fabulated representation of the input clock
->> +		 * to NCO since we don't know the true clock tree.
->> +		 */
->> +		nco_clkref: clock-ref {
->=20
-> clocks are not valid inside "simple-bus", the node name "clock-ref"=20
-> conflicts in "/", maybe use "clock-nco"?
+Just hesitate to use dev_err. if use dev_err, then should return an error.
+May one of the pairs is finished, it still can continue.
 
-I would smuggle =E2=80=98ref=E2=80=99 or something to that effect into =
-the name,
-otherwise sure, let=E2=80=99s do it.
-
-Martin
-
+Best regards
+Wang Shengjiu

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70525AE42B
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 11:29:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A0AA5AE437
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Sep 2022 11:29:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60461E11;
-	Tue,  6 Sep 2022 11:28:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60461E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9444E1652;
+	Tue,  6 Sep 2022 11:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9444E1652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662456554;
-	bh=vXQl6sWYH3s9nZcdEQtm9bzb3mf6vHvob18mX522u5Q=;
+	s=default; t=1662456565;
+	bh=WyVYZj+c9maI28dTmRLQ5XLV8nr4NB4/PmV9sY12Gmk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QI1SOrlhXDJ4I/wmzSydKi1Mk5Q7aHqiPvxD924Xd8Foca3MeYI+t+Db/n51aGXBg
-	 XDy3weBCTCCxRmeQXU2GFjvNBzuCtaJkmvQ9GkjDX2Q+Z9HR6096Evid8wH3BPvkKz
-	 G/mfIXsfhPZf8vFAqiy3GiBIYZC8uz0RpjQDdKhI=
+	b=SwKe+Y6nz9d/6DVnN9geV1JzXv9/7D4MUJhSE8gjPlh/asYQGWkLa9eEPuFYBNLdY
+	 47svOEHOmVBkitmE6/NHISULLB9sqHqWCFwYwRgsvax/xsrq/Oj+8giwj/KHhD6c5j
+	 gh1Jnu1AzzDulRCeUm9/g5Nynz/1cFspFyyR38ls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1FBFF8019B;
-	Tue,  6 Sep 2022 11:27:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0F16F80542;
+	Tue,  6 Sep 2022 11:27:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A31EF8019B; Tue,  6 Sep 2022 11:27:46 +0200 (CEST)
+ id 9E963F80535; Tue,  6 Sep 2022 11:27:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09F32F8019B;
- Tue,  6 Sep 2022 11:27:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09F32F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F492F80165;
+ Tue,  6 Sep 2022 11:27:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F492F80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="gaP7CzHI"
+ header.b="YvL7hcmY"
 Received: from IcarusMOD.eternityproject.eu (2-237-20-237.ip236.fastwebnet.it
  [2.237.20.237])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 68B55660037F;
- Tue,  6 Sep 2022 10:27:36 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 363D46601EB2;
+ Tue,  6 Sep 2022 10:27:38 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662456458;
- bh=vXQl6sWYH3s9nZcdEQtm9bzb3mf6vHvob18mX522u5Q=;
+ s=mail; t=1662456459;
+ bh=WyVYZj+c9maI28dTmRLQ5XLV8nr4NB4/PmV9sY12Gmk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gaP7CzHIWz3oofHqZpF1nJ/2SBzJ0tEF/o0JbZuWbZzz0jtYTgk1OjQ9MhHoPbYte
- +InfDwR1jByO1iziZY8SbfOS2imRGasoF9EQVvm5lxVaaVdciPurOQ9vV7njksGjgZ
- Ms628sECmg3Lk39rxRRyEMz98uT8B/xAtkNukUqWKmCOhFn6HaqVmmlfIfOr6zmUBa
- y9BZ6HipY9RZyh1ADzEmgq5bFBl0Q/ZD1EwwkufgDQV0JtHsAGDu3OfBVC1/0PkChw
- VjXWrMQauz4mC7iw6B+VCQUvq9nSWNNrJz5SGheCGz0if30q5Fj6NrbRTWIf28rLmK
- Jhcg30Re66o5g==
+ b=YvL7hcmYNk/2CwJ3pZ9ZoLT98cjdp69vFL19MlIdv+b7lziyVountzzH4vlXnc+OW
+ ZTh6WDE0KOWl2orEeVlPnAn/FoTp89rCJcgn2Vpe/cDljqQ1xRznKoc7ZYK8cniwN0
+ oJHCPQFf/HvsWwA8hz7UHDIyTlINe1FLJIbh3GOKC5BODT2+k0UE27D5qFz2nsXsBb
+ HjWhFFGg4O4ItFmN6/wKmHnXBw10ndrFevUobUu9h7fUP4TFpVz2mWYvfXa6e/ey2g
+ J7Ef/JeNGkzLlWg2byJkSY0xCD5IQRHpbQPRs7/ogKE7A7NCgHzZASY5PMPtOxELof
+ zDGl05rTg4iwQ==
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: broonie@kernel.org
-Subject: [PATCH 1/5] ASoC: mediatek: mt8195-mt6359: Properly register sound
- card for SOF
-Date: Tue,  6 Sep 2022 11:27:23 +0200
-Message-Id: <20220906092727.37324-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 2/5] ASoC: SOF: mediatek: mt8195: Import namespace
+ SND_SOC_SOF_MTK_COMMON
+Date: Tue,  6 Sep 2022 11:27:24 +0200
+Message-Id: <20220906092727.37324-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220906092727.37324-1-angelogioacchino.delregno@collabora.com>
 References: <20220906092727.37324-1-angelogioacchino.delregno@collabora.com>
@@ -93,37 +93,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adding a probe callback on this snd_soc_card is required when
-Sound Open Firmware support is desired, as we need to appropriately
-populate the stream_name for SOF to be able to bind widgets.
-Failing to do so will produce errors when applying the SOF topology
-leading to card registration failure (so, no sound).
-While at it, also make sure to fill the topology_shortname as required.
+Here we're using function mtk_adsp_dump() from mtk-adsp-common:
+explicitly import its namespace.
 
-Fixes: 0caf1120c583 ("ASoC: mediatek: mt8195: extract SOF common code")
+Fixes: 3a054f90e955 ("ASoC: SOF: mediatek: Add mt8195 debug dump")
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- sound/soc/mediatek/mt8195/mt8195-mt6359.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/sof/mediatek/mt8195/mt8195.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-index c530e3fc27e4..961e769602d6 100644
---- a/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
-@@ -1383,7 +1383,13 @@ static int mt8195_mt6359_dev_probe(struct platform_device *pdev)
- 		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
- 		sof_priv->sof_dai_link_fixup = mt8195_dai_link_fixup;
- 		soc_card_data->sof_priv = sof_priv;
-+		card->probe = mtk_sof_card_probe;
- 		card->late_probe = mtk_sof_card_late_probe;
-+		if (!card->topology_shortname_created) {
-+			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
-+			card->topology_shortname_created = true;
-+		}
-+		card->name = card->topology_shortname;
- 		sof_on = 1;
- 	}
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
+index 9c146015cd1b..ff575de7e46a 100644
+--- a/sound/soc/sof/mediatek/mt8195/mt8195.c
++++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
+@@ -652,4 +652,5 @@ static struct platform_driver snd_sof_of_mt8195_driver = {
+ module_platform_driver(snd_sof_of_mt8195_driver);
  
+ MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
++MODULE_IMPORT_NS(SND_SOC_SOF_MTK_COMMON);
+ MODULE_LICENSE("Dual BSD/GPL");
 -- 
 2.37.2
 

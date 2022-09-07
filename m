@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EBF75B01C3
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 12:21:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F25AA5B01C4
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 12:21:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF35615C3;
-	Wed,  7 Sep 2022 12:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF35615C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B067D16AF;
+	Wed,  7 Sep 2022 12:20:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B067D16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662546072;
-	bh=DRIoh5hCfNENfG/JcUlLQQDz0pWYklCK4FZSRxn/dxI=;
+	s=default; t=1662546088;
+	bh=KQWPkD12Rs7o8LNa474rxh7DzkidhXlStJCX4fjFzso=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ucWR0gt9xFIMrbcFtbbHK5Yj0FNUh2TrG9nIjeCBwZIN1Q9SlhLFWak3zPD+u6faq
-	 RbTcOlStgdSs0My6EzNajJ6AparebTrxtzYiFhHqHnoMvQCq3TTNyKnaHn+xFpYQgw
-	 3edgryvvds/dMAnt6o+Ep0oGMae+o31y7+AQ5dpE=
+	b=SLXYz6XabCwTGlQLcLr7dPeNAlj3Lxd0nk4SR2P037PZjW3Xg5NJOhv1PERktlg8L
+	 9xKtws0bZ7dBeyMr80kIvpbFzM8i/TOutHcunynx1eFKjCOu4Z6e8o62N1S3ztka0h
+	 cYCRKiyeY4zv77lDtQx7ATvk+p+9wiVm1MvnjJJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4EA6F80564;
-	Wed,  7 Sep 2022 12:16:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88D57F805A8;
+	Wed,  7 Sep 2022 12:16:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCED7F80423; Wed,  7 Sep 2022 12:16:42 +0200 (CEST)
+ id 2F55FF8057F; Wed,  7 Sep 2022 12:16:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB664F8057F
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 12:16:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB664F8057F
+ by alsa1.perex.cz (Postfix) with ESMTPS id E452BF805AB
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 12:16:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E452BF805AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ChWRI8qD"
-Received: by mail-lj1-x22a.google.com with SMTP id bn9so15382698ljb.6
- for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 03:16:22 -0700 (PDT)
+ header.b="SqYGb2Sg"
+Received: by mail-lf1-x12c.google.com with SMTP id bt10so21697258lfb.1
+ for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 03:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=IE9iYaf4ljXjTzH90yeiguLHiQ95amY6yCG9ecN7egM=;
- b=ChWRI8qDis+YWkKe0I+qyMCm0aW5WKr/0HGHzuKwD32pRYC5t8LRindSrtP0Cd3ajj
- eIUcTl+TvJd5BR0FR4oHNqM3YPOjV3cNUPt7ubturR3ZceiLSDdufIbavuNYSkhW3APo
- /e+tKcLEObXGRRip17WUYl0nffilkBw2qRH1INCiaoNdj94+ndnw2N02CcylccwJenFk
- EhlX2HfbZKPsrxTRhp+Ep3xcDMioWlBBw5VcV6L2As+NavAZY3izxUb6Gw0IYyYqZWvg
- MrUWAfbWXv74yLWFbkPNguDu0y6bbrdc35P2HV2NOG2gBGtQIDnfmG3y5hvcqi4RtxPJ
- W0MQ==
+ bh=RR3PjHV9nmH/GbIhDoQ0i32DEOxqy1Cnfemy+zsHX2M=;
+ b=SqYGb2SgUnHjteGhc8NyokrY/38tgAr0fl5azwYi3dQL4RVhNvyLC8pdKB6kdq+hTO
+ d5RZ6EfJPA9+LkKSmbv1gKKIZeEmpdR1UqoJ6CPDG3wBfgU4MzXXOQMksXsLfLsq2zku
+ 3RJxa4McHvggTOEWIb/tbjWSgQHLZTXlos3o2+IwtGosQV/xuRDpRUoVzta5Zl4/T3bE
+ /sRGCP2tjz91SpHg82OgRzWZZrugB5AxybUo1khCBEqN2rC9xH0U7yhpkM4FA2WQe4Go
+ kDYU6s3aHcwY7iNg4Fu8cDpxZz6Sw/iSZ7NTDgfhifBPVP9VEp1gtDMnG21gtiLjiyVA
+ W8hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=IE9iYaf4ljXjTzH90yeiguLHiQ95amY6yCG9ecN7egM=;
- b=GpOFe8e4xFZ3uhON0oSmLeDxhMe6LJGAA6s27UZfQpR2SYaxQhsnvfCcUxRma/Tsmk
- CQbH0tFhcFpJPZzsJQs6QsbxGRbWXupxv2HIYXmbhUxDG6aUxsnl5jSeBC/L6Jan7zgv
- co5vTCyCJrq5FZYju3QieVguzkhi3CEb550MSmA6HeH8Iwlpd1Q6agrye9G4Bg0vBMSN
- OYF0selsXgtl3OWg+21YxzZSmoxR4IKW5eP4aUKOAKpP4HlY+aBUDx42SFS3eRP0QtvI
- Leec0Ip9M43jXpByW3aMZJl7Po4JBFfQP6OGZOcgPvJPTxkGxLX+nBR+niTQ5RphB4mk
- 3gHQ==
-X-Gm-Message-State: ACgBeo1s7gWoOdpvXgstiUiRPPUb50ZE2F0v/tLyQreRBr03z1ZSQueJ
- iWyd+sdIHxZPaCp0moZ3RYeFFQ==
-X-Google-Smtp-Source: AA6agR4qNoMuCGTXy/UbzjBcRROS+BhHEWrT0sR/EQ2fEGnRWEpeJSviNxaq4edkYpNdKXZZvg87oQ==
-X-Received: by 2002:a2e:b003:0:b0:26a:d07d:c501 with SMTP id
- y3-20020a2eb003000000b0026ad07dc501mr204338ljk.388.1662545782589; 
- Wed, 07 Sep 2022 03:16:22 -0700 (PDT)
+ bh=RR3PjHV9nmH/GbIhDoQ0i32DEOxqy1Cnfemy+zsHX2M=;
+ b=6YbMlunVPNB17vkdw7w2jgCcJSPF0LsFYkekEsC3mRdrkGUR8uqmgog4QclnDGaQkE
+ JhVA8rT42x3fPba3F3/PJBW2b0XF1gDmJqFb7kTnU+oIAj7IjnijIyo84GAKTL8yhrdm
+ hfyRSv9qbahxrZ3InjCVdAHOiH7uFPbmIkDROZNJ3nQ3HdMHJiooXq2dc1OBlpsP3Cy4
+ O0P1abT7RuC152CrVVh9PBsMr9ueP4Z2NZUKO5HIbai1X8cZ8WB2zPFS1szbnSZvvJF7
+ yV1wxZfRnJqUBDSr7so/eMYykK8gleOsgRSf6UO+Y3vak+SOeZGWKEd3W8xW6dRjRh0j
+ Dqqg==
+X-Gm-Message-State: ACgBeo1NPZkSL318MnCaXtAv5dJRAVXgJw9IdZTTNTmpb7jE1hhTuyZ/
+ 1ruVc+1MUYeEvpmu/0dds0psgQ==
+X-Google-Smtp-Source: AA6agR6DyUOR+dEKXcroet8OSjPW5hDJTdHMyxeQlbulwrF+Cf1t0W2pj2y21Qq1pTGqu8uHmK0r5w==
+X-Received: by 2002:ac2:4901:0:b0:494:88dc:7efc with SMTP id
+ n1-20020ac24901000000b0049488dc7efcmr843550lfi.408.1662545783806; 
+ Wed, 07 Sep 2022 03:16:23 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- u9-20020a2ea169000000b0026ab0e480bcsm960734ljl.39.2022.09.07.03.16.21
+ u9-20020a2ea169000000b0026ab0e480bcsm960734ljl.39.2022.09.07.03.16.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 03:16:22 -0700 (PDT)
+ Wed, 07 Sep 2022 03:16:23 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
@@ -85,10 +85,9 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [PATCH v2 13/14] ASoC: dt-bindings: qcom,
- q6apm-dai: adjust indentation in example
-Date: Wed,  7 Sep 2022 12:15:55 +0200
-Message-Id: <20220907101556.37394-14-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 14/14] dt-bindings: soc: qcom: apr: add missing properties
+Date: Wed,  7 Sep 2022 12:15:56 +0200
+Message-Id: <20220907101556.37394-15-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220907101556.37394-1-krzysztof.kozlowski@linaro.org>
 References: <20220907101556.37394-1-krzysztof.kozlowski@linaro.org>
@@ -110,44 +109,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Cleanup the example DTS by fixing indentation to 4-spaces and adding
-blank lines for readability.
+The APR bindings were not describing all properties already used in DTS:
+1. Add qcom,glink-channels, qcom,smd-channels and qcom,intents (widely
+   used).
+2. Add power-domains for MSM8996.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
+ .../bindings/soc/qcom/qcom,apr.yaml           | 47 +++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-Changes since v1:
-1. New patch
----
- .../devicetree/bindings/sound/qcom,q6apm-dai.yaml   | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-index 844d72b30969..24f7bf2bfd95 100644
---- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-@@ -33,13 +33,14 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         qcom,domain = <GPR_DOMAIN_ID_ADSP>;
-+
-         service@1 {
--          compatible = "qcom,q6apm";
--          reg = <1>;
-+            compatible = "qcom,q6apm";
-+            reg = <1>;
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+index 5b9b9c86e61f..02a261ace221 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+@@ -20,6 +20,9 @@ properties:
+       - qcom,apr-v2
+       - qcom,gpr
  
--          dais {
--            compatible = "qcom,q6apm-dais";
--            iommus = <&apps_smmu 0x1801 0x0>;
--          };
-+            dais {
-+                compatible = "qcom,q6apm-dais";
-+                iommus = <&apps_smmu 0x1801 0x0>;
-+            };
-         };
-     };
++  power-domains:
++    maxItems: 1
++
+   qcom,apr-domain:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     enum: [1, 2, 3, 4, 5, 6, 7]
+@@ -52,6 +55,26 @@ properties:
+         2 = Audio DSP Domain
+         3 = Application Processor Domain
+ 
++  qcom,glink-channels:
++    $ref: /schemas/types.yaml#/definitions/string-array
++    description: Channel name used for the communication
++    items:
++      - const: apr_audio_svc
++
++  qcom,intents:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description:
++      List of (size, amount) pairs describing what intents should be
++      preallocated for this virtual channel. This can be used to tweak the
++      default intents available for the channel to meet expectations of the
++      remote.
++
++  qcom,smd-channels:
++    $ref: /schemas/types.yaml#/definitions/string-array
++    description: Channel name used for the communication
++    items:
++      - const: apr_audio_svc
++
+   '#address-cells':
+     const: 1
+ 
+@@ -171,6 +194,30 @@ required:
+   - compatible
+   - qcom,domain
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,gpr
++    then:
++      properties:
++        power-domains: false
++
++  - if:
++      required:
++        - qcom,glink-channels
++    then:
++      properties:
++        qcom,smd-channels: false
++
++  - if:
++      required:
++        - qcom,smd-channels
++    then:
++      properties:
++        qcom,glink-channels: false
++
+ additionalProperties: false
+ 
+ examples:
 -- 
 2.34.1
 

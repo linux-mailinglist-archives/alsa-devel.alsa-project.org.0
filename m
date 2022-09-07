@@ -2,90 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82B15AFFB2
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 10:55:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4035B007F
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 11:30:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DDEB1637;
-	Wed,  7 Sep 2022 10:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DDEB1637
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B58715C2;
+	Wed,  7 Sep 2022 11:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B58715C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662540930;
-	bh=JzVhLUEQnaqmnzvFLf9MU6qvH7hC/wwMIZX/eEjqxS0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662543013;
+	bh=8m5vdg6DxPXlzmT87wXwI4A2du4uSsmQZUWTo3/dU2s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HKrULp6XrLqpAnr5v3ZRG362OAnUVzKAQHXBn2C8+szldujnW71HRY6y5p2o2RDrc
-	 4xLNSuo7n7cUr29urbhIql0sMPaXkoBhyG5EOPkeyJlRwU9f+VPFzlDMt+kibbVvPR
-	 6kmhHUBvoIMHNSHhPWwJyYMluk8fkknOsIKCc0UY=
+	b=McYeT//y07VgB92JseKXMZzD7Luk/WzgNVejtizQXYub6H3IopUPWBDCzgcXZk1CY
+	 WDFdx95KFkePWwkn1fO0fxxw7H2hhsZe5ow8ccXgJcVqJ7zTctOKCl2TuB3qhvwk77
+	 nGcuWcQtyNdnG+n06qi8OHPxUVr3vX8F8Xo4u9sk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C07CFF80551;
-	Wed,  7 Sep 2022 10:53:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FE8AF80423;
+	Wed,  7 Sep 2022 11:29:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10117F80538; Wed,  7 Sep 2022 10:53:21 +0200 (CEST)
+ id A77AFF8028D; Wed,  7 Sep 2022 11:29:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78EE3F8011C
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 11:29:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78EE3F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="ZogZr9A8"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C08DF804FC
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 10:53:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C08DF804FC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="nnbIaFh3"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2876sQ6A005118;
- Wed, 7 Sep 2022 03:53:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=NO/TgnBOshihnILAwvDzrDcQ8BeiAeimcDuScgp8AQA=;
- b=nnbIaFh34OpFDgKNJWuE1MQRaxytPRVlBUprlW+OAjke9rM0G5ARuxrKEBxJb/GGv3R1
- 36XrT3XTf+d7bc4FMjxfelh+N30hGeAl7AOk5g2hZZfh/2uP8Y1XiHE92tGYNUS09eiT
- 5Nqu99NbSSuh6DnHMT9/KhqCWcNfxN5jWP3p034ISdrB5veGdAsDNLGWFIGyqdB7Juvg
- 7K6VpW8os0w2/lyTsTbF/+SeySjcc6k+0cJMKiCXDQNB7X8k8AS9bwtui69dp59AEybF
- mp17v3QEUC1O54r37+eQj5XZKamPeFmZ+g3zEZ64WU8+FJZJYiX+ODJw9TtRQdJ7P13b nQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3jc4b2dcun-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 Sep 2022 03:53:07 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Wed, 7 Sep
- 2022 03:53:05 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Wed, 7 Sep 2022 03:53:05 -0500
-Received: from debianA11184.ad.cirrus.com (unknown [198.61.65.149])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 18286B10;
- Wed,  7 Sep 2022 08:53:05 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH v2 5/5] soundwire: bus: Don't exit early if no device IDs were
- programmed
-Date: Wed, 7 Sep 2022 09:52:59 +0100
-Message-ID: <20220907085259.3602-6-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220907085259.3602-1-rf@opensource.cirrus.com>
-References: <20220907085259.3602-1-rf@opensource.cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id F175DB81BEB;
+ Wed,  7 Sep 2022 09:29:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D9DC433C1;
+ Wed,  7 Sep 2022 09:28:58 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="ZogZr9A8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1662542937;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uvCPcOxnUC4wGn1S/Nv7nd9/+PzZUA4XVj1lOT3gFj8=;
+ b=ZogZr9A8RtJMjPkzMWOPgXLUIuyAp4smpWeF8UG8T7y3j5NvXCzINOJFhYJuekur2aQ1IV
+ Yd2LUGDH40IXxwcgs4ooIw1jgOi+UjSbltY+FwG8OJdhqIGB0CTs4MtoPOdxjXJlEFiAMv
+ Zzjbs78gDkMqWX7Ma8bS77RmYVILMN0=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 7e084ecb
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Wed, 7 Sep 2022 09:28:57 +0000 (UTC)
+Date: Wed, 7 Sep 2022 11:28:54 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Don't refcount multiple accesses on the
+ single clock
+Message-ID: <YxhkVmiMlKghq+nY@zx2c4.com>
+References: <20220905101403.1435037-1-Jason@zx2c4.com>
+ <87sfl6jbb3.wl-tiwai@suse.de>
+ <CAHmME9oUtVgwtUY5afG5Yed1j6OVKwvLH=keCp63gDSOQRgDSA@mail.gmail.com>
+ <87czc7ehqp.wl-tiwai@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: UQJ2C3Z2WExUYeJlSVo1G2mAbdA1IZED
-X-Proofpoint-ORIG-GUID: UQJ2C3Z2WExUYeJlSVo1G2mAbdA1IZED
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <87czc7ehqp.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Wim Taymans <wtaymans@redhat.com>,
+ =?utf-8?B?TmlrbMSBdnMgS2/EvGVzxYZpa292cw==?= <89q1r14hd@relay.firefox.com>,
+ LKML <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,115 +97,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Only exit sdw_handle_slave_status() right after calling
-sdw_program_device_num() if it actually programmed an ID into at
-least one device.
+On Wed, Sep 07, 2022 at 10:00:46AM +0200, Takashi Iwai wrote:
+> On Mon, 05 Sep 2022 14:16:39 +0200,
+> Jason A. Donenfeld wrote:
+> > 
+> > On Mon, Sep 5, 2022 at 1:44 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > When you load snd-usb-audio with dyndbg=+p option, does it show the
+> > > new error message "Mismatched sample rate xxx"?
+> > 
+> > No.
+> 
+> What about the patch below?
+> 
+> 
+> Takashi
+> 
+> -- 8< --
+> --- a/sound/usb/endpoint.c
+> +++ b/sound/usb/endpoint.c
+> @@ -925,6 +925,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+>  		endpoint_set_interface(chip, ep, false);
+>  
+>  	if (!--ep->opened) {
+> +		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
+> +			ep->clock_ref->rate = 0;
+>  		ep->iface = 0;
+>  		ep->altsetting = 0;
+>  		ep->cur_audiofmt = NULL;
 
-sdw_handle_slave_status() should protect itself against phantom
-device #0 ATTACHED indications. In that case there is no actual
-device still on #0. The early exit relies on there being a status
-change to ATTACHED on the reprogrammed device to trigger another
-call to sdw_handle_slave_status() which will then handle the status
-of all peripherals. If no device was actually programmed with an
-ID there won't be a new ATTACHED indication. This can lead to the
-status of other peripherals not being handled.
+I think this works.
 
-The status passed to sdw_handle_slave_status() is obviously always
-from a point of time in the past, and may indicate accumulated
-unhandled events (depending how the bus manager operates). It's
-possible that a device ID is reprogrammed but the last PING status
-captured state just before that, when it was still reporting on
-ID #0. Then sdw_handle_slave_status() is called with this PING info,
-just before a new PING status is available showing it now on its new
-ID. So sdw_handle_slave_status() will receive a phantom report of a
-device on #0, but it will not find one.
+Niklāvs - can you give it a try to and confirm?
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/bus.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 6e569a875a9b..0bcc2d161eb9 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -736,20 +736,19 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 	struct sdw_slave_id id;
- 	struct sdw_msg msg;
- 	bool found;
--	int count = 0, ret;
-+	int count = 0, num_programmed = 0, ret;
- 	u64 addr;
- 
- 	/* No Slave, so use raw xfer api */
- 	ret = sdw_fill_msg(&msg, NULL, SDW_SCP_DEVID_0,
- 			   SDW_NUM_DEV_ID_REGISTERS, 0, SDW_MSG_FLAG_READ, buf);
- 	if (ret < 0)
--		return ret;
-+		return 0;
- 
- 	do {
- 		ret = sdw_transfer(bus, &msg);
- 		if (ret == -ENODATA) { /* end of device id reads */
- 			dev_dbg(bus->dev, "No more devices to enumerate\n");
--			ret = 0;
- 			break;
- 		}
- 		if (ret < 0) {
-@@ -781,7 +780,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 				 * assigned a device ID.
- 				 */
- 				if (slave->status != SDW_SLAVE_UNATTACHED)
--					return 0;
-+					return num_programmed;
- 
- 				/*
- 				 * Assign a new dev_num to this Slave and
-@@ -794,9 +793,11 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 					dev_err(bus->dev,
- 						"Assign dev_num failed:%d\n",
- 						ret);
--					return ret;
-+					return num_programmed;
- 				}
- 
-+				++num_programmed;
-+
- 				break;
- 			}
- 		}
-@@ -825,7 +826,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 
- 	} while (ret == 0 && count < (SDW_MAX_DEVICES * 2));
- 
--	return ret;
-+	return num_programmed;
- }
- 
- static void sdw_modify_slave_status(struct sdw_slave *slave,
-@@ -1787,14 +1788,16 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 
- 	if (status[0] == SDW_SLAVE_ATTACHED) {
- 		dev_dbg(bus->dev, "Slave attached, programming device number\n");
--		ret = sdw_program_device_num(bus);
--		if (ret < 0)
--			dev_err(bus->dev, "Slave attach failed: %d\n", ret);
-+
- 		/*
--		 * programming a device number will have side effects,
--		 * so we deal with other devices at a later time
-+		 * Programming a device number will have side effects,
-+		 * so we deal with other devices at a later time.
-+		 * But only if any devices were reprogrammed, because
-+		 * this relies on its PING state changing to ATTACHED,
-+		 * triggering a status change.
- 		 */
--		return ret;
-+		if (sdw_program_device_num(bus))
-+			return 0;
- 	}
- 
- 	/* Continue to check other slave statuses */
--- 
-2.30.2
-
+Jason

@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4DAE5B066D
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 16:24:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E045B0668
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 16:23:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56FB8164E;
-	Wed,  7 Sep 2022 16:23:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56FB8164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FDE0167D;
+	Wed,  7 Sep 2022 16:22:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FDE0167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662560642;
-	bh=0AJRaTR99WJiEoPvsDyYYoAlPqKXiSb7ub67S9ixuzM=;
+	s=default; t=1662560605;
+	bh=v/zedDVQfoYzaHd+XKFJHxPu4a2sZ7QvxLsPpxc2y2A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ftwJpEkS8fCvDFVcd/x+oCw03dWfn7XjCV9T0MC3MKXLwXJgso/ICIWHdABcd2FZN
-	 mSX6Gn0/jBtWlVimHXM0OVx7AAFAG+I/nf31OPA05pgLIOucusC39s1ss8lG+AzMsa
-	 /9qm1qSkWIv5drImk0Qp0Q7icv+6iv5WUetfL6u8=
+	b=lEzNPhlf8mQ9w4olKIRVmQ78ZCWDYxoG+q8S+xfjSrZSO8oUCIP+UG0MLEZtM8Fc7
+	 Rh+twV1k8thJ4Z//SehudUPP1VnPQf3UOHFq9SVf0N7rP5DD6iwmFps8aB/QRDfum+
+	 tsbtKxBfnDXHxiche5Vm1wErfqMe5zbWm4j9hOOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30627F80423;
-	Wed,  7 Sep 2022 16:22:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2066F80537;
+	Wed,  7 Sep 2022 16:22:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 449B7F80552; Wed,  7 Sep 2022 16:22:20 +0200 (CEST)
+ id 1D5C2F80536; Wed,  7 Sep 2022 16:22:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::232])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B388F80423
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 16:22:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B388F80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5915F804B2
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 16:22:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5915F804B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com
- header.b="K3xa18hD"
+ header.b="LSdOFgZf"
 Received: from booty.fritz.box (unknown [77.244.183.192])
  (Authenticated sender: luca.ceresoli@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPA id F2C2920000F;
- Wed,  7 Sep 2022 14:22:03 +0000 (UTC)
+ by mail.gandi.net (Postfix) with ESMTPA id 4695B20000D;
+ Wed,  7 Sep 2022 14:22:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1662560526;
+ t=1662560527;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VgbxwdFt5PQppcOV7X5ar9OBFO85n+/rhDp625ejemw=;
- b=K3xa18hD5THvri4wHGXS1ynPnBzxFd5Zor2sm9QM6SMroLfr12HiVYVsbewqW89p0iqgV4
- IlnnpUFS8seVJT3Mtv0E7rprRb3KqgTrVixWJN+fNMl6fibdHrWSEwwduzd3sEN9D7C5Kf
- 7R+Hh0+gkO0A4KbbemjizLE5quL2C8M20AJgKZJhM1WaQ1sNXjU+2lpBbooX5O5HfXNQAx
- q/o/FegSFyelVAKO3y8zlWkcJtcN+6eGCdGElS9d+wfZg76iBu4oazIuQ7Bww9Ry0x2qvA
- rIYgWb+yghfJ2U2bCudSsu/kIAyKbz6kVQr6rHL9gI+PC6OAaCk3UAm1q4QbRg==
+ bh=d12YAjeraqwxRD2IqjgZc6aJaYWV3WXQkVFDeRXfBTA=;
+ b=LSdOFgZfPTa/D1VumgCk6xEvKgX/7vfoT/oRTJ6fjbcCp0KIlM2iMoFtlZqgfNcVGW33/9
+ oR1WVXzp6lZl78tIxjrey5/180SsjzMs0j95C83GbnU2XQvOB2vUWNVeH+M6UqZO0K+AIZ
+ u4rVWAXY3rp6Ubn1hoUwRapgyWPvbFMRymdPeC7ITbsw+K75+rfcwtNHcz3x2IuRu/uRF0
+ g443E9DIOjYXDKBbRmhaOSDl8vq+CESYUjQhL3pSMlJn/cHZw30ttO3vRN8i67WjOvUSUI
+ dDEsxGXCg8IrZTOBezF6EnEvqs9kUouoZfeVnGcOqZWP5iw9371KlePqH2pgtg==
 From: luca.ceresoli@bootlin.com
 To: alsa-devel@alsa-project.org,
 	linux-rockchip@lists.infradead.org
-Subject: [PATCH 2/8] ASoC: rockchip: rk3308: add audio card bindings
-Date: Wed,  7 Sep 2022 16:21:18 +0200
-Message-Id: <20220907142124.2532620-3-luca.ceresoli@bootlin.com>
+Subject: [PATCH 3/8] arm64: dts: rockchip: add i2s_8ch_2 and i2s_8ch_3
+Date: Wed,  7 Sep 2022 16:21:19 +0200
+Message-Id: <20220907142124.2532620-4-luca.ceresoli@bootlin.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220907142124.2532620-1-luca.ceresoli@bootlin.com>
 References: <20220907142124.2532620-1-luca.ceresoli@bootlin.com>
@@ -94,88 +95,78 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Add device tree bindings document for the audio card based on the internal
-I2S of the Rockchip RK3308 SoC.
+These are I2S engines internally connected to the built-in audio codec.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- .../rockchip,rk3308-audio-graph-card.yaml     | 50 +++++++++++++++++++
- MAINTAINERS                                   |  5 ++
- 2 files changed, 55 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3308-audio-graph-card.yaml
+ arch/arm64/boot/dts/rockchip/rk3308.dtsi | 54 ++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-audio-graph-card.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-audio-graph-card.yaml
-new file mode 100644
-index 000000000000..8445a69dcdbb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-audio-graph-card.yaml
-@@ -0,0 +1,50 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,rk3308-audio-graph-card.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip RK3308 Audio card based on internal I2S
-+
-+maintainers:
-+  - Luca Ceresoli <luca.ceresoli@bootlin.com>
-+
-+allOf:
-+  - $ref: /schemas/sound/audio-graph.yaml#
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3308-audio-graph-card
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "rockchip,rk3308-audio-graph-card";
-+        dais = <&i2s_8ch_2_port>;
-+    };
-+
-+    i2s_8ch_2 {
-+        i2s_8ch_2_port: port {
-+            i2s_8ch_2_endpoint: endpoint {
-+                remote-endpoint = <&acodec_endpoint>;
-+                dai-format = "i2s";
-+
-+                /* The RK3308 acodec has no clock dividers, use the CPU */
-+                bitclock-master = <&i2s_8ch_2_endpoint>;
-+                frame-master = <&i2s_8ch_2_endpoint>;
-+            };
-+        };
-+    };
-+
-+    acodec {
-+        port {
-+            acodec_endpoint: endpoint {
-+                remote-endpoint = <&i2s_8ch_2_endpoint>;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d53a8e74cb1e..079bdd95dc49 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17594,6 +17594,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
- F:	include/dt-bindings/sound/rockchip,rk3308-codec.h
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308.dtsi b/arch/arm64/boot/dts/rockchip/rk3308.dtsi
+index 2dfa67f1cd67..093b70563b23 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3308.dtsi
+@@ -571,6 +571,60 @@ dmac1: dma-controller@ff2d0000 {
+ 		#dma-cells = <1>;
+ 	};
  
-+ROCKCHIP RK3308 SOUND CARD DRIVER
-+M:	Luca Ceresoli <luca.ceresoli@bootlin.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/rockchip,rk3308-audio-graph-card.yaml
++	/*
++	 * - can be clock producer or consumer
++	 * - up to 8 capture channels and 2 playback channels
++	 * - connected internally to audio codec
++	 */
++	i2s_8ch_2: i2s@ff320000 {
++		compatible = "rockchip,rk3308-i2s-tdm";
++		reg = <0x0 0xff320000 0x0 0x1000>;
++		interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk",
++			      "mclk_tx_src", "mclk_rx_src",
++			      "mclk_root0", "mclk_root1";
++		clocks = <&cru SCLK_I2S2_8CH_TX>,
++			 <&cru SCLK_I2S2_8CH_RX>,
++			 <&cru HCLK_I2S2_8CH>,
++			 <&cru SCLK_I2S2_8CH_TX_SRC>,
++			 <&cru SCLK_I2S2_8CH_RX_SRC>,
++			 <&cru PLL_VPLL0>,
++			 <&cru PLL_VPLL1>;
++		dmas = <&dmac1 5>, <&dmac1 4>;
++		dma-names = "rx", "tx";
++		resets = <&cru SRST_I2S2_8CH_TX_M>, <&cru SRST_I2S2_8CH_RX_M>;
++		reset-names = "tx-m", "rx-m";
++		rockchip,grf = <&grf>;
++		status = "disabled";
++	};
 +
- ROCKCHIP VIDEO DECODER DRIVER
- M:	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
- L:	linux-media@vger.kernel.org
++	/*
++	 * - can be clock consumer only
++	 * - up to 4 capture channels, no playback
++	 * - connected internally to audio codec
++	 */
++	i2s_8ch_3: i2s@ff330000 {
++		compatible = "rockchip,rk3308-i2s-tdm";
++		reg = <0x0 0xff330000 0x0 0x1000>;
++		interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk",
++			      "mclk_tx_src", "mclk_rx_src",
++			      "mclk_root0", "mclk_root1";
++		clocks = <&cru SCLK_I2S3_8CH_TX>,
++			 <&cru SCLK_I2S3_8CH_RX>,
++			 <&cru HCLK_I2S3_8CH>,
++			 <&cru SCLK_I2S3_8CH_TX_SRC>,
++			 <&cru SCLK_I2S3_8CH_RX_SRC>,
++			 <&cru PLL_VPLL0>,
++			 <&cru PLL_VPLL1>;
++		dmas = <&dmac1 7>;
++		dma-names = "rx";
++		resets = <&cru SRST_I2S3_8CH_TX_M>, <&cru SRST_I2S3_8CH_RX_M>;
++		reset-names = "tx-m", "rx-m";
++		rockchip,grf = <&grf>;
++		status = "disabled";
++	};
++
+ 	i2s_2ch_0: i2s@ff350000 {
+ 		compatible = "rockchip,rk3308-i2s", "rockchip,rk3066-i2s";
+ 		reg = <0x0 0xff350000 0x0 0x1000>;
 -- 
 2.34.1
 

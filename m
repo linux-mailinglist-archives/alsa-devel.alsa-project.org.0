@@ -2,59 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F545AFCE5
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 08:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121735AFDA4
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 09:36:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD7F73E7;
-	Wed,  7 Sep 2022 08:53:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD7F73E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6550B846;
+	Wed,  7 Sep 2022 09:35:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6550B846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662533669;
-	bh=8112fXUzMtZrQB9RgmxgwcRZVy0Tx/LGcaXkX6RXOKM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bFEiyT/j3IWmpv3wzMwY2rlE9xtlUAoyI7WZ7Unp8y0a+1N+0nrDs0K+t3BvvouQb
-	 unf5n5JFmL76HUJN4p4Prg4rwHnStAA8ymuxXT+cNMgdtxRzaKA/8/CNvIOkkYGFiK
-	 +54Nmmq+/ssrAR2XpHFyXTjy1+vdzLWPvBiPVfp0=
+	s=default; t=1662536175;
+	bh=cMKLBxRZ5EkP708M3ezwal0iBVK7kyCxaFcBoyLLX0A=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=t+5kilEi95hrkZNMy07nZ23dNtfRtjSD3TW0AjUfkPWuKWj9sgRF/NfMiTF1Lkjqa
+	 gfgu2O1M4ErQvtsZUWHcCRghvfRCYslxv6YhBdqA2DT2A6t8LG/96I6SOF1oAAPyw6
+	 rWDkdGskTQ9exeGDDWTEEEnwfMPGigcVIvHjsQUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 178DCF80423;
-	Wed,  7 Sep 2022 08:53:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0A54F80118;
+	Wed,  7 Sep 2022 09:35:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 695D5F8028D; Wed,  7 Sep 2022 08:53:27 +0200 (CEST)
+ id 9558BF8028D; Wed,  7 Sep 2022 09:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 49681F8023B
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 08:53:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49681F8023B
-Received: from NTHCCAS01.nuvoton.com (NTHCCAS01.nuvoton.com [10.1.8.28])
- by maillog.nuvoton.com (Postfix) with ESMTP id 5C6EB1C80E4A;
- Wed,  7 Sep 2022 14:53:14 +0800 (CST)
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Wed, 7 Sep 2022
- 14:53:14 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Wed, 7 Sep 2022 14:53:13 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: nau8825: Add ADCOUT IO drive strength control
-Date: Wed, 7 Sep 2022 14:51:27 +0800
-Message-ID: <20220907065126.406208-1-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3889F80118
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 09:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3889F80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="lUqvTen9"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="t5p4GIeP"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A91933AF5;
+ Wed,  7 Sep 2022 07:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662536110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=37dfE1GaBFM9YPRfxf4bLjGrfUKhn0K6cN9Lp4z0Fdo=;
+ b=lUqvTen91LbbGDUg43CG2Zzj6BAU1Xpv9hoL7ju6bwn51EGloRhOa6VZjDhyHwxlSJQ1KD
+ i3RiU85P8rZlILNlZTF3voOqkO/lq8qy2xu3/jXLZ5xaXUYRhGHInO5koGTYvy9zLFcJdn
+ ahoi8SYDPJMzGFI/RWZl4Uy44VBsOrk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662536110;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=37dfE1GaBFM9YPRfxf4bLjGrfUKhn0K6cN9Lp4z0Fdo=;
+ b=t5p4GIePaPW98hM+6VjZztp9ZkXPbd3BgNaAu9kkbmvZBu8cpxo4xoF3Jl9g9xFDetMzPm
+ kLtgCgjZ4Lv4uVCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E8CEE13A66;
+ Wed,  7 Sep 2022 07:35:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kwwbOK1JGGNVfQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 07:35:09 +0000
+Date: Wed, 07 Sep 2022 09:35:08 +0200
+Message-ID: <87illzeixf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jianglei Nie <niejianglei2021@163.com>
+Subject: Re: [PATCH] ALSA: hda/ca0132: fix potential memory leak in
+ dspxfr_image()
+In-Reply-To: <20220907065917.55810-1-niejianglei2021@163.com>
+References: <20220907065917.55810-1-niejianglei2021@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,80 +100,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a property to control the driving of ADCOUT.
+On Wed, 07 Sep 2022 08:59:17 +0200,
+Jianglei Nie wrote:
+> 
+> dspxfr_image() allocates DSP ports for the download stream with
+> dsp_allocate_ports_format(). When gets some error, the allocated
+> DSP ports are not released, which will lead to a memory leak.
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- Documentation/devicetree/bindings/sound/nau8825.txt | 2 ++
- sound/soc/codecs/nau8825.c                          | 6 ++++++
- sound/soc/codecs/nau8825.h                          | 3 +++
- 3 files changed, 11 insertions(+)
+Hmm, those allocate_* functions don't really allocate memories but
+rather allocate virtual ports on the hardware; i.e. it just flips some
+DSP registers.  There should be no "memory leaks".
 
-diff --git a/Documentation/devicetree/bindings/sound/nau8825.txt b/Documentation/devicetree/bindings/sound/nau8825.txt
-index 388a7bc60b1f..54972cc2ca1a 100644
---- a/Documentation/devicetree/bindings/sound/nau8825.txt
-+++ b/Documentation/devicetree/bindings/sound/nau8825.txt
-@@ -71,6 +71,8 @@ Optional properties:
- 
-   - nuvoton,crosstalk-enable: make crosstalk function enable if set.
- 
-+  - nuvoton,adcout-drive-str: ADCOUT IO drive strength. 0 - normal, 1 - stronger.
-+
-   - clocks: list of phandle and clock specifier pairs according to common clock bindings for the
-       clocks described in clock-names
-   - clock-names: should include "mclk" for the MCLK master clock
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index 8213273f501e..fc00e600cf2c 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -1983,6 +1983,10 @@ static void nau8825_init_regs(struct nau8825 *nau8825)
- 	/* Disable short Frame Sync detection logic */
- 	regmap_update_bits(regmap, NAU8825_REG_LEFT_TIME_SLOT,
- 		NAU8825_DIS_FS_SHORT_DET, NAU8825_DIS_FS_SHORT_DET);
-+	/* ADCDAT IO drive strength control */
-+	regmap_update_bits(remap, NAU8825_REG_CHARGE_PUMP,
-+			   NAU8825_ADCOUT_DS_MASK,
-+			   nau8825->adcout_ds << NAU8825_ADCOUT_DS_SFT);
- }
- 
- static const struct regmap_config nau8825_regmap_config = {
-@@ -2521,6 +2525,7 @@ static void nau8825_print_device_properties(struct nau8825 *nau8825)
- 			nau8825->jack_eject_debounce);
- 	dev_dbg(dev, "crosstalk-enable:     %d\n",
- 			nau8825->xtalk_enable);
-+	dev_dbg(dev, "adcout-drive-str:     %d\n", nau8825->adcout_ds);
- }
- 
- static int nau8825_read_device_properties(struct device *dev,
-@@ -2587,6 +2592,7 @@ static int nau8825_read_device_properties(struct device *dev,
- 		nau8825->jack_eject_debounce = 0;
- 	nau8825->xtalk_enable = device_property_read_bool(dev,
- 		"nuvoton,crosstalk-enable");
-+	nau8825->adcout_ds = device_property_read_bool(dev, "nuvoton,adcout-drive-str");
- 
- 	nau8825->mclk = devm_clk_get(dev, "mclk");
- 	if (PTR_ERR(nau8825->mclk) == -EPROBE_DEFER) {
-diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
-index 887bbff03ec6..6d112b6145df 100644
---- a/sound/soc/codecs/nau8825.h
-+++ b/sound/soc/codecs/nau8825.h
-@@ -418,6 +418,8 @@
- #define NAU8825_POWERUP_HP_DRV_L	(1 << 0)
- 
- /* CHARGE_PUMP (0x80) */
-+#define NAU8825_ADCOUT_DS_SFT	12
-+#define NAU8825_ADCOUT_DS_MASK	(1 << NAU8825_ADCOUT_DS_SFT)
- #define NAU8825_JAMNODCLOW	(1 << 10)
- #define NAU8825_POWER_DOWN_DACR	(1 << 9)
- #define NAU8825_POWER_DOWN_DACL	(1 << 8)
-@@ -477,6 +479,7 @@ struct nau8825 {
- 	int imp_rms[NAU8825_XTALK_IMM];
- 	int xtalk_enable;
- 	bool xtalk_baktab_initialized; /* True if initialized. */
-+	bool adcout_ds;
- };
- 
- int nau8825_enable_jack_detect(struct snd_soc_component *component,
--- 
-2.25.1
+> We can fix it by releasing DSP ports with dsp_free_ports() when
+> getting some error.
+> 
+> Signed-off-by: Jianglei Nie <niejianglei2021@163.com>
+> ---
+>  sound/pci/hda/patch_ca0132.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+> index 208933792787..6b8f45e14075 100644
+> --- a/sound/pci/hda/patch_ca0132.c
+> +++ b/sound/pci/hda/patch_ca0132.c
+> @@ -3455,6 +3455,7 @@ static int dspxfr_image(struct hda_codec *codec,
+>  					&port_map_mask);
+>  	if (status < 0) {
+>  		codec_dbg(codec, "alloc ports fail\n");
+> +		dsp_free_ports(codec);
 
+This is likely superfluous.  When an allocation fails, you don't free,
+in general.
+
+
+thanks,
+
+Takashi

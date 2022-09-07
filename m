@@ -2,68 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD7C5AFC8E
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 08:37:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F545AFCE5
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 08:54:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6613220C;
-	Wed,  7 Sep 2022 08:36:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6613220C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD7F73E7;
+	Wed,  7 Sep 2022 08:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD7F73E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662532655;
-	bh=a1lcLGGLHT0sz1LNLscP9liMK3J0I04L0FfjKDfnLQY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ugkoq94H8z2DhcJ84sU6/0fKjkwzVBZRRFx+gpD1yXhILchd8f3eQHYiizv0BpFQ8
-	 /r+7vMU48jmUs1INOFiKOE3br+LJ6wGDWFAwfrVGVPV4PYX+A7DF0sQy2S9m7GpGKW
-	 E8t6GOQvy647DAG6qfBvXGJ21xg4GH0G8cjG9N7M=
+	s=default; t=1662533669;
+	bh=8112fXUzMtZrQB9RgmxgwcRZVy0Tx/LGcaXkX6RXOKM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bFEiyT/j3IWmpv3wzMwY2rlE9xtlUAoyI7WZ7Unp8y0a+1N+0nrDs0K+t3BvvouQb
+	 unf5n5JFmL76HUJN4p4Prg4rwHnStAA8ymuxXT+cNMgdtxRzaKA/8/CNvIOkkYGFiK
+	 +54Nmmq+/ssrAR2XpHFyXTjy1+vdzLWPvBiPVfp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA3EDF80423;
-	Wed,  7 Sep 2022 08:36:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 178DCF80423;
+	Wed,  7 Sep 2022 08:53:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2855F8028D; Wed,  7 Sep 2022 08:36:32 +0200 (CEST)
+ id 695D5F8028D; Wed,  7 Sep 2022 08:53:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 648EBF8023B
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 08:36:25 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 59E0BA0040;
- Wed,  7 Sep 2022 08:36:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 59E0BA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1662532585; bh=GzIN9WKLOsXQF0tibQavGfxltW/YH8mjlBzsDk3r480=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=f4I/kqY7KGHDr+iGzmdkez2JVww0e1O1Sej/Y8PpLGYYs3EqfFXz5HrPQnztRFOO4
- YhayK2l/MJ1OEVhJOxxGTTGK2ddCuU1TS3Cd/GOnnNC2FHJobhvS9+T2DpjDgoGt+h
- XCZtI+AiJoQBlgqfAyXR9IhLfK/MboX0LT8FIaSw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  7 Sep 2022 08:36:23 +0200 (CEST)
-Message-ID: <035e62f9-0f27-9501-dfb8-8af643e52394@perex.cz>
-Date: Wed, 7 Sep 2022 08:36:23 +0200
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 49681F8023B
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 08:53:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49681F8023B
+Received: from NTHCCAS01.nuvoton.com (NTHCCAS01.nuvoton.com [10.1.8.28])
+ by maillog.nuvoton.com (Postfix) with ESMTP id 5C6EB1C80E4A;
+ Wed,  7 Sep 2022 14:53:14 +0800 (CST)
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Wed, 7 Sep 2022
+ 14:53:14 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Wed, 7 Sep 2022 14:53:13 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: nau8825: Add ADCOUT IO drive strength control
+Date: Wed, 7 Sep 2022 14:51:27 +0800
+Message-ID: <20220907065126.406208-1-CTLIN0@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: Query for snd_pcm_readi function.
-Content-Language: en-US
-To: Web X <webx93@gmail.com>, alsa-devel@alsa-project.org
-References: <CADP81_VWcrTmQgDRxLwDjMNR9A11q8BTCvZ1bRmPqxcrSkLf9w@mail.gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <CADP81_VWcrTmQgDRxLwDjMNR9A11q8BTCvZ1bRmPqxcrSkLf9w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +70,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 06. 09. 22 15:28, Web X wrote:
-> Hi,
-> 
-> I am using alsa open source library for my project to read and write audio
-> data.
-> 
-> For that I am using snd_pcm_readi function to read audio data. I am able to
-> read audio data.
-> 
-> But issue is that sometimes it will take so much time to read data.(200-230
-> msec).
-> Normally this function executed in 1-3 ms that is normal case, but after
-> every 2-4 frames it is taking 200-300 msec.
-> So this is affecting my whole application process.
-> 
-> I have also try to set this call as nonblock with the help of
-> snd_pcm_nonblock function. With that I have observed some improvements but
-> still after 2-3 frames it is taking 100msec time to get a data.
-> 
-> Please do needful as soon as possible.
-> 
-> Let me know if you want more details.
+Add a property to control the driving of ADCOUT.
 
-This question is handled in this github issue:
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+---
+ Documentation/devicetree/bindings/sound/nau8825.txt | 2 ++
+ sound/soc/codecs/nau8825.c                          | 6 ++++++
+ sound/soc/codecs/nau8825.h                          | 3 +++
+ 3 files changed, 11 insertions(+)
 
-https://github.com/alsa-project/alsa-lib/issues/270
-
-						Jaroslav
-
+diff --git a/Documentation/devicetree/bindings/sound/nau8825.txt b/Documentation/devicetree/bindings/sound/nau8825.txt
+index 388a7bc60b1f..54972cc2ca1a 100644
+--- a/Documentation/devicetree/bindings/sound/nau8825.txt
++++ b/Documentation/devicetree/bindings/sound/nau8825.txt
+@@ -71,6 +71,8 @@ Optional properties:
+ 
+   - nuvoton,crosstalk-enable: make crosstalk function enable if set.
+ 
++  - nuvoton,adcout-drive-str: ADCOUT IO drive strength. 0 - normal, 1 - stronger.
++
+   - clocks: list of phandle and clock specifier pairs according to common clock bindings for the
+       clocks described in clock-names
+   - clock-names: should include "mclk" for the MCLK master clock
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index 8213273f501e..fc00e600cf2c 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -1983,6 +1983,10 @@ static void nau8825_init_regs(struct nau8825 *nau8825)
+ 	/* Disable short Frame Sync detection logic */
+ 	regmap_update_bits(regmap, NAU8825_REG_LEFT_TIME_SLOT,
+ 		NAU8825_DIS_FS_SHORT_DET, NAU8825_DIS_FS_SHORT_DET);
++	/* ADCDAT IO drive strength control */
++	regmap_update_bits(remap, NAU8825_REG_CHARGE_PUMP,
++			   NAU8825_ADCOUT_DS_MASK,
++			   nau8825->adcout_ds << NAU8825_ADCOUT_DS_SFT);
+ }
+ 
+ static const struct regmap_config nau8825_regmap_config = {
+@@ -2521,6 +2525,7 @@ static void nau8825_print_device_properties(struct nau8825 *nau8825)
+ 			nau8825->jack_eject_debounce);
+ 	dev_dbg(dev, "crosstalk-enable:     %d\n",
+ 			nau8825->xtalk_enable);
++	dev_dbg(dev, "adcout-drive-str:     %d\n", nau8825->adcout_ds);
+ }
+ 
+ static int nau8825_read_device_properties(struct device *dev,
+@@ -2587,6 +2592,7 @@ static int nau8825_read_device_properties(struct device *dev,
+ 		nau8825->jack_eject_debounce = 0;
+ 	nau8825->xtalk_enable = device_property_read_bool(dev,
+ 		"nuvoton,crosstalk-enable");
++	nau8825->adcout_ds = device_property_read_bool(dev, "nuvoton,adcout-drive-str");
+ 
+ 	nau8825->mclk = devm_clk_get(dev, "mclk");
+ 	if (PTR_ERR(nau8825->mclk) == -EPROBE_DEFER) {
+diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
+index 887bbff03ec6..6d112b6145df 100644
+--- a/sound/soc/codecs/nau8825.h
++++ b/sound/soc/codecs/nau8825.h
+@@ -418,6 +418,8 @@
+ #define NAU8825_POWERUP_HP_DRV_L	(1 << 0)
+ 
+ /* CHARGE_PUMP (0x80) */
++#define NAU8825_ADCOUT_DS_SFT	12
++#define NAU8825_ADCOUT_DS_MASK	(1 << NAU8825_ADCOUT_DS_SFT)
+ #define NAU8825_JAMNODCLOW	(1 << 10)
+ #define NAU8825_POWER_DOWN_DACR	(1 << 9)
+ #define NAU8825_POWER_DOWN_DACL	(1 << 8)
+@@ -477,6 +479,7 @@ struct nau8825 {
+ 	int imp_rms[NAU8825_XTALK_IMM];
+ 	int xtalk_enable;
+ 	bool xtalk_baktab_initialized; /* True if initialized. */
++	bool adcout_ds;
+ };
+ 
+ int nau8825_enable_jack_detect(struct snd_soc_component *component,
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.25.1
+

@@ -2,83 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 455B55B02DE
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 13:27:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D11235B0352
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 13:43:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEB421660;
-	Wed,  7 Sep 2022 13:26:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEB421660
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5E431663;
+	Wed,  7 Sep 2022 13:42:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5E431663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662550064;
-	bh=ciKLrkYNMWLS2k+Fc43SiKpXyXILR6c+3eE5MBG7T3A=;
+	s=default; t=1662551005;
+	bh=2fsZ75BvC52Ty2PIpLEYBpfUUZr6AbwDl4URheLPQRg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S9SQ1ma38oV40W4LXdc6gqiBsvdk+bWOfA8Pl72cwzKSu009MfRw/X0Erhf+Z/vuU
-	 NGvAgjJLvCJtf/JaB2OPpSsbKpUut2iMmXZJLjy4mR0CMH2BUMDT9cDQ+La5CUXehJ
-	 5KMh2I93IOmOo7LxeaRZbfaMMBxRpU47cF40ejJA=
+	b=Sm413tSE2hU0iCgQcPMuy6DKVF8MUDlN1Uef7WLQb2CdMnMS74c/5vQ8juN9QCEA9
+	 2WrLFoLLDYFHc4CJ8thHkclD+gitXi+SR4HoU5nWaYNBB2K2G5a5KZ+Wy4LPhpq6Xo
+	 gDnqjcxPw7qkhjYyb8UvVUHZLHgcaRCO4A2y9kWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F7FFF8011C;
-	Wed,  7 Sep 2022 13:26:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F3F2F80423;
+	Wed,  7 Sep 2022 13:42:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C10FDF8011C; Wed,  7 Sep 2022 13:26:43 +0200 (CEST)
+ id A76AEF8028D; Wed,  7 Sep 2022 13:42:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BB81F8011C;
- Wed,  7 Sep 2022 13:26:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BB81F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67DFDF8023B
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 13:42:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67DFDF8023B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LPlQbUpJ"
+ header.b="eG2rBo5j"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 08B51B81BEC;
- Wed,  7 Sep 2022 11:26:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CC3C433D7;
- Wed,  7 Sep 2022 11:26:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 71D2D61868;
+ Wed,  7 Sep 2022 11:42:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE1AC433D6;
+ Wed,  7 Sep 2022 11:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662549993;
- bh=ciKLrkYNMWLS2k+Fc43SiKpXyXILR6c+3eE5MBG7T3A=;
+ s=k20201202; t=1662550933;
+ bh=2fsZ75BvC52Ty2PIpLEYBpfUUZr6AbwDl4URheLPQRg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LPlQbUpJ0/GfVJ79v+DQw7K+hLnoTy6P3P/Eigcwov/vXUqdo+tDEmqOzIN9xpDKO
- pEPDX2/TJBgk0mdc+oLiMaShk9PsbyZrochyu/SWH8d31fKGpRuRaE29JayEEymV0E
- wfsgdVdN+Vl7nVdGac+0JQ+mvPHnqaHQLiJF+762jBE6LLVAZnZT4GxIGAlkSGo1Mk
- SIcHgX4HfZpsmQnBmMrhBv3SqaH5tOkByrDhNszmdjJKex7sSq1YKhDBmZpNOfkM1O
- PuugOHSJpQPDlVP4OQV195vamUDYIUZ811km2Ga53mXj14L32BfHvgmvqRv/4AMu5c
- boGUWYW12sTmQ==
-Date: Wed, 7 Sep 2022 12:26:27 +0100
+ b=eG2rBo5j2cMiNmqzaS2KoXcWqRchau/YIBtYGRpdZzpLg2GwPFSvtGtKqiZ4PNTAF
+ 6X4GYKce4BU6lCVIeg7D2LGewtO9WH0QkwSvp7wA/QWJb22fINGwZFyzEDWxvLsMtD
+ 5qve41DRiUm23ts++81Xykn0sxAFzFOLbZ4d8ytFMbktduTvJQ56xNOJKmYE7q2FRC
+ 8XtU8kaKqve2A1kzKuKe4rRdTUH3aM+Dy8/LJY16f7vHz0V9N4LHI3YbvcxBk+mQjV
+ 4a42TtM9qwm7mYvr2P7cqT7ZrC0iSqluAiyNdm65ECFxoko2XiRfR0RIyn220AXJOJ
+ wq0jUpHRx/pTw==
+Date: Wed, 7 Sep 2022 12:42:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH 3/7] ASoC: SOF: Intel: Don't disable Soundwire interrupt
- before the bus has shut down
-Message-ID: <Yxh/4xQIvitrldRW@sirena.org.uk>
-References: <20220907101402.4685-1-rf@opensource.cirrus.com>
- <20220907101402.4685-4-rf@opensource.cirrus.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 3/4] ASoC: soc-dapm.c: tidyup
+ snd_soc_dai_link_event_pre_pmu()
+Message-ID: <YxiDkDOwRsbXeZ17@sirena.org.uk>
+References: <8735d59zt9.wl-kuninori.morimoto.gx@renesas.com>
+ <87y1ux8l7l.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="y4vOpZSr9wJlnE+n"
+ protocol="application/pgp-signature"; boundary="iKtB9sl4B4WGSoqY"
 Content-Disposition: inline
-In-Reply-To: <20220907101402.4685-4-rf@opensource.cirrus.com>
-X-Cookie: You have a truly strong individuality.
-Cc: daniel.baluta@nxp.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, vkoul@kernel.org,
- patches@opensource.cirrus.com, sanyog.r.kale@intel.com,
- peter.ujfalusi@linux.intel.com, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <87y1ux8l7l.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: See label for sequence.
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,32 +89,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---y4vOpZSr9wJlnE+n
+--iKtB9sl4B4WGSoqY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 07, 2022 at 11:13:58AM +0100, Richard Fitzgerald wrote:
-> Until the Soundwire child drivers have been removed and the bus driver has
-> shut down any of them can still be actively doing something. And any of
-> them may need bus transactions to shut down their hardware. So the
-> Soundwire interrupt must not be disabled until the point that nothing can
-> be using it.
+On Mon, Sep 05, 2022 at 11:17:50PM +0000, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>=20
+> snd_soc_dai_link_event_pre_pmu() is using if/else for config->formats
+> check, but "else" case is for just error.
+> Unnecessary if/else is not good for readable code. this patch checks
+> if config->formats was zero and call "goto out" in such case.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+This isn't applying for me, I suspect it depends on patch 1 though I
+didn't check properly.
 
---y4vOpZSr9wJlnE+n
+--iKtB9sl4B4WGSoqY
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMYf+IACgkQJNaLcl1U
-h9C1lQf/QQ7834+HysNjSeJWB8OQqFmAuvTcRvjskQ7KiMtML52BD0aYaHgAJVNA
-+sPph3cYAkcu4h8OM5G4OZ1nDVHcJ9bIDQO0ybGx4V6B4IfTqm2HcBZI5XjuvAy/
-xcRiOoCR9QoWHe83pNTQMH3j0/sC6WNlE38KMokQS1MFJmx3ld0XdjmOpKhF04TM
-A9tVkWAzzJjFaK9aWY+aJRJkD4xyVJBHq9n/EtgMW4MeppzzBch7tCJrQHh1XG9i
-3kmXQRrQ7S80q9m8zI3UlfvVfTflUPK/h6o+szJTBmyeZLDG4GkPKQyWWm+EwAjY
-9UzaLD8yNp8o9DCGxb6SzOFsfMDzTA==
-=GacH
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMYg5AACgkQJNaLcl1U
+h9AnOAf8DEEfrxCZ7W9DB7Loxf68noHM/yPUBieEaWZdHJVmM8KB0uRD6UI44jnz
+be3/9Gji2m0sjv8z9jG629n9yxqte3CNZYAub1fRKsyeh+fMlAqnKshRtmUudi+m
+HBoHWQi5p6M/reT2iLaKSRBt8jC8k0DmBdzd61/22Zc8xJphL8Do6kqXolpIhmvk
+lSYEKzYJJWl5RPyyI59QjItS/xAYsKkKXJ5fb0OWoTFM7FxMSigCIEDQzDrCCDpz
+loWUJIOeUNF6wSoKCdLgodHKD22NkE643ThJkk7Bv5FzRXbB9nvUsXWIkT/BzfFl
+Qc8KYzD3PNr8Bk9+CV6WbJY4FW472w==
+=l0Dv
 -----END PGP SIGNATURE-----
 
---y4vOpZSr9wJlnE+n--
+--iKtB9sl4B4WGSoqY--

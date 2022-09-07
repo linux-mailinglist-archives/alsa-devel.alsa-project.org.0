@@ -2,81 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F83C5B0559
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 15:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69BAD5B0573
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 15:39:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E6FB1660;
-	Wed,  7 Sep 2022 15:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E6FB1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA805163E;
+	Wed,  7 Sep 2022 15:38:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA805163E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662557936;
-	bh=JKL1A4uDw3eUkWb1gxMvwAzQoLvUzjVP5BQQd7t5e+A=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1662557978;
+	bh=Dd0zVj0VklHGwNIh3GmXrVi5H/IIUqMDQzHTEV3cbZA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TkOSKlraPIO1zLv/OvI3VlnnoZ/1CEobWh9ucUe0C67gMadEULN98IwvOX2euwCNZ
-	 LmH47vgm0eyl/C3mTuLvfZdTkm8wQzAa5lId16Xx/Q3Hv4DwO/pwHK8q12Y91OkXJ9
-	 lYnMVmXJDisj61fU7Gz4Gk69Xt+ax5ARGEUNM64k=
+	b=VwJCiU3yD3tf30IcvbW+6pnkzMQfquNrXINaDNJKKWbhixn1voU2BBtKodv+EFGJz
+	 lXdYo80dOl+KEedtDz1soagfmLQPwNTw+c/TQxSQXCGp7OT3DNX8+yzfAN+NIOmhBB
+	 GX8SXRS/bpnEzRIOAp74EUuCyURb4FdD+hz0aBR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A29D8F80423;
-	Wed,  7 Sep 2022 15:37:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00929F804FC;
+	Wed,  7 Sep 2022 15:38:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 439C8F8028D; Wed,  7 Sep 2022 15:37:54 +0200 (CEST)
+ id 48701F804B1; Wed,  7 Sep 2022 15:37:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0468F8011C
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 15:37:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0468F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60B3BF80249
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 15:37:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60B3BF80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HOzquzxA"
+ header.b="QgYAr6Z2"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8BA27B81CBD;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 527C8618E8;
+ Wed,  7 Sep 2022 13:37:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CFEEC43140;
  Wed,  7 Sep 2022 13:37:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE208C433D6;
- Wed,  7 Sep 2022 13:37:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662557870;
- bh=JKL1A4uDw3eUkWb1gxMvwAzQoLvUzjVP5BQQd7t5e+A=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=HOzquzxAh7+m2PKERBU0uXXOm8FN9n98uxekjmgI7YoSKdeQSrmLU/em089H9QMfD
- VB6nZzWIrMRmpkdAcQXlr8gATjISg7fSPzl9ilRAMdtbrBc8pkouKwONq/eIplfNDw
- SoAM3jk9Pg4Hhu5qmvzoyCisIqN7mej0jMn81LD5U3TVTirHRg2AdbkywbQvkAgbiR
- /Vp9NT3ESVfUmmYocoEfmTR8AluwbnbJvIxA9+WKvjRCsCTz5rIp3abQG5OK63730j
- /fNC/fAy4QuOnYv8ktoapbDbmLbllzHU9FRfUAcpofoP4h3iT4/VXD5RRhmf1D6N/X
- sVRtGsbC0Ln0A==
+ s=k20201202; t=1662557871;
+ bh=Dd0zVj0VklHGwNIh3GmXrVi5H/IIUqMDQzHTEV3cbZA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=QgYAr6Z2uHWXxHvlO+LwPMImS4gbY9od7AtU48hSnVJAng4RW+NUxEz466vv79vKw
+ Aswx5OcFGIBBh8tCaNfVhWpZvt8u3R53kBE81s+z9IRZm27KBDZCVen7ejeLDVeGfF
+ 5AP2qLQcuBYDrg041WGcqGtbkdwxyHV54VoKxlujRTbmAejHIl4hMTbZJwe5x5F6H/
+ yNz2X3mBAzsK+R6wdekjNOuHelAiw0BrSwLDp2JuZNhu6TMtttPfxSqdgelUJdOuW5
+ 4jIndBJgzVOQDnGg1J23gE7Lxnjfv5ZJPzkV+BmKktI8mhyDCTTd+Z/kUAwuIh2Ppw
+ fDsVcQHg4yqwg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, 
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, 
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Andy Gross <agross@kernel.org>
-In-Reply-To: <20220906121110.301900-1-krzysztof.kozlowski@linaro.org>
-References: <20220906121110.301900-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: qcom,q6core: remove binding
-Message-Id: <166255786763.130875.2656165891607180417.b4-ty@kernel.org>
-Date: Wed, 07 Sep 2022 14:37:47 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In-Reply-To: <YxeaITtlJexygQo9@google.com>
+References: <YxeaITtlJexygQo9@google.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: switch to using gpiod API
+Message-Id: <166255787023.130875.15429372687220294884.b4-ty@kernel.org>
+Date: Wed, 07 Sep 2022 14:37:50 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
+Cc: alsa-devel@alsa-project.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,8 +86,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 6 Sep 2022 14:11:10 +0200, Krzysztof Kozlowski wrote:
-> qcom,q6core is already described in soc/qcom/qcom,apr.yaml.
+On Tue, 6 Sep 2022 12:06:09 -0700, Dmitry Torokhov wrote:
+> This patch switches the driver away from legacy gpio/of_gpio API to
+> gpiod API, and removes use of of_get_named_gpio_flags() which I want to
+> make private to gpiolib.
 > 
 > 
 
@@ -103,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: qcom,q6core: remove binding
-      commit: e9d967679e803e7472f06642156f0bb029e26655
+[1/1] ASoC: simple-card-utils: switch to using gpiod API
+      commit: 355beeed9319cf3ceea56c7dec874a8a9c443771
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

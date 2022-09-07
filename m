@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 121735AFDA4
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 09:36:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFB285AFE5F
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 10:01:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6550B846;
-	Wed,  7 Sep 2022 09:35:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6550B846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 780CE100;
+	Wed,  7 Sep 2022 10:01:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780CE100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662536175;
-	bh=cMKLBxRZ5EkP708M3ezwal0iBVK7kyCxaFcBoyLLX0A=;
+	s=default; t=1662537715;
+	bh=ZvEEygYSD2RP9CbLXTlv9TJaCR9sZrlxVZHAW22BRhU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t+5kilEi95hrkZNMy07nZ23dNtfRtjSD3TW0AjUfkPWuKWj9sgRF/NfMiTF1Lkjqa
-	 gfgu2O1M4ErQvtsZUWHcCRghvfRCYslxv6YhBdqA2DT2A6t8LG/96I6SOF1oAAPyw6
-	 rWDkdGskTQ9exeGDDWTEEEnwfMPGigcVIvHjsQUo=
+	b=mNfacwBcRRxmJ6erk4H4CBInuqnf5rTIxq8pJVpLasy7GGceGMcbeZYXdatFcFYqJ
+	 5/w0VGQ6XutbQ3Qw2/kdVdBgRsFrEgiS/zi1zLWdRXrVdZomCS73ol2rkG6FGDQmNl
+	 1VdYH5VeDvRYGkHX7xBSfwQ+F9TGniu6YRA6Bf9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0A54F80118;
-	Wed,  7 Sep 2022 09:35:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 008C6F80118;
+	Wed,  7 Sep 2022 10:00:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9558BF8028D; Wed,  7 Sep 2022 09:35:13 +0200 (CEST)
+ id 91573F8028D; Wed,  7 Sep 2022 10:00:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3889F80118
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 09:35:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3889F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FEA6F8023B
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 10:00:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FEA6F8023B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lUqvTen9"; 
+ header.b="L2usALx8"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="t5p4GIeP"
+ header.b="mHn7DM52"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1A91933AF5;
- Wed,  7 Sep 2022 07:35:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B8BB61F897;
+ Wed,  7 Sep 2022 08:00:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662536110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662537646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=37dfE1GaBFM9YPRfxf4bLjGrfUKhn0K6cN9Lp4z0Fdo=;
- b=lUqvTen91LbbGDUg43CG2Zzj6BAU1Xpv9hoL7ju6bwn51EGloRhOa6VZjDhyHwxlSJQ1KD
- i3RiU85P8rZlILNlZTF3voOqkO/lq8qy2xu3/jXLZ5xaXUYRhGHInO5koGTYvy9zLFcJdn
- ahoi8SYDPJMzGFI/RWZl4Uy44VBsOrk=
+ bh=MTS0xkpOCWUUwhJ2Fb/pObZ9XY5ZZUSzn2pLirlZ190=;
+ b=L2usALx8nlG2n7FXPK6l8HHte8IfBqWbOU+7ruF+DFWa5w5WR7Gw7Zh9YCf4jxfUVLEdRx
+ ss4YIQlCt78Fl4VQC/WBU1IQrzm2xArVLncGeYuZUTiv7CnFhJZ0rOGmy565N5PnYV3SGP
+ Yd6z2pNzvoE4EvqsP4vHLDr8WcDWQZw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662536110;
+ s=susede2_ed25519; t=1662537646;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=37dfE1GaBFM9YPRfxf4bLjGrfUKhn0K6cN9Lp4z0Fdo=;
- b=t5p4GIePaPW98hM+6VjZztp9ZkXPbd3BgNaAu9kkbmvZBu8cpxo4xoF3Jl9g9xFDetMzPm
- kLtgCgjZ4Lv4uVCQ==
+ bh=MTS0xkpOCWUUwhJ2Fb/pObZ9XY5ZZUSzn2pLirlZ190=;
+ b=mHn7DM52lTy5mR8njdQ2Muu5243mMdz5cfQimepAQG7RawghOa5f3FT1wPn4vu8hmR4YP+
+ 1P2830mzNLk0UyCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E8CEE13A66;
- Wed,  7 Sep 2022 07:35:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9290813A66;
+ Wed,  7 Sep 2022 08:00:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kwwbOK1JGGNVfQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 07:35:09 +0000
-Date: Wed, 07 Sep 2022 09:35:08 +0200
-Message-ID: <87illzeixf.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id tTLqIq5PGGO6CQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 08:00:46 +0000
+Date: Wed, 07 Sep 2022 10:00:46 +0200
+Message-ID: <87czc7ehqp.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jianglei Nie <niejianglei2021@163.com>
-Subject: Re: [PATCH] ALSA: hda/ca0132: fix potential memory leak in
- dspxfr_image()
-In-Reply-To: <20220907065917.55810-1-niejianglei2021@163.com>
-References: <20220907065917.55810-1-niejianglei2021@163.com>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Don't refcount multiple accesses on the
+ single clock
+In-Reply-To: <CAHmME9oUtVgwtUY5afG5Yed1j6OVKwvLH=keCp63gDSOQRgDSA@mail.gmail.com>
+References: <20220905101403.1435037-1-Jason@zx2c4.com>
+ <87sfl6jbb3.wl-tiwai@suse.de>
+ <CAHmME9oUtVgwtUY5afG5Yed1j6OVKwvLH=keCp63gDSOQRgDSA@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, Wim Taymans <wtaymans@redhat.com>,
+ =?ISO-8859-4?Q?Nikl=E0vs_Ko=B6es=F1ikovs?= <89q1r14hd@relay.firefox.com>,
+ LKML <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,39 +104,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 07 Sep 2022 08:59:17 +0200,
-Jianglei Nie wrote:
+On Mon, 05 Sep 2022 14:16:39 +0200,
+Jason A. Donenfeld wrote:
 > 
-> dspxfr_image() allocates DSP ports for the download stream with
-> dsp_allocate_ports_format(). When gets some error, the allocated
-> DSP ports are not released, which will lead to a memory leak.
-
-Hmm, those allocate_* functions don't really allocate memories but
-rather allocate virtual ports on the hardware; i.e. it just flips some
-DSP registers.  There should be no "memory leaks".
-
-> We can fix it by releasing DSP ports with dsp_free_ports() when
-> getting some error.
+> On Mon, Sep 5, 2022 at 1:44 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > When you load snd-usb-audio with dyndbg=+p option, does it show the
+> > new error message "Mismatched sample rate xxx"?
 > 
-> Signed-off-by: Jianglei Nie <niejianglei2021@163.com>
-> ---
->  sound/pci/hda/patch_ca0132.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-> index 208933792787..6b8f45e14075 100644
-> --- a/sound/pci/hda/patch_ca0132.c
-> +++ b/sound/pci/hda/patch_ca0132.c
-> @@ -3455,6 +3455,7 @@ static int dspxfr_image(struct hda_codec *codec,
->  					&port_map_mask);
->  	if (status < 0) {
->  		codec_dbg(codec, "alloc ports fail\n");
-> +		dsp_free_ports(codec);
+> No.
 
-This is likely superfluous.  When an allocation fails, you don't free,
-in general.
+What about the patch below?
 
-
-thanks,
 
 Takashi
+
+-- 8< --
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -925,6 +925,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 		endpoint_set_interface(chip, ep, false);
+ 
+ 	if (!--ep->opened) {
++		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
++			ep->clock_ref->rate = 0;
+ 		ep->iface = 0;
+ 		ep->altsetting = 0;
+ 		ep->cur_audiofmt = NULL;

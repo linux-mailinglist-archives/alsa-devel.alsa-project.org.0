@@ -2,89 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12F95AFC17
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 08:00:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBD7C5AFC8E
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 08:37:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BE6D3E;
-	Wed,  7 Sep 2022 07:59:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BE6D3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6613220C;
+	Wed,  7 Sep 2022 08:36:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6613220C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662530435;
-	bh=YcDGj/qBZnxCNSPN9jBNGdS0cyjYkMVS6RXX+0GvU9I=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662532655;
+	bh=a1lcLGGLHT0sz1LNLscP9liMK3J0I04L0FfjKDfnLQY=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UjkuDpQivHwP0eO2Y1PmZvIo7rjkeVF+Ud91Fx88hjr0hWwlTUQv59Xin6hN61bEP
-	 tkTQiX4PkhD7VfuQo8wRj2AfxFAFL61iDIzHbf8QjEYumyOUwYzOc/6n1d5ATWGVxe
-	 VoQqqZWITKbHM4kEaVHIED0v4qJpTvupZ0kF6hOM=
+	b=ugkoq94H8z2DhcJ84sU6/0fKjkwzVBZRRFx+gpD1yXhILchd8f3eQHYiizv0BpFQ8
+	 /r+7vMU48jmUs1INOFiKOE3br+LJ6wGDWFAwfrVGVPV4PYX+A7DF0sQy2S9m7GpGKW
+	 E8t6GOQvy647DAG6qfBvXGJ21xg4GH0G8cjG9N7M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC618F80423;
-	Wed,  7 Sep 2022 07:59:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA3EDF80423;
+	Wed,  7 Sep 2022 08:36:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F9D2F8028D; Wed,  7 Sep 2022 07:59:35 +0200 (CEST)
+ id B2855F8028D; Wed,  7 Sep 2022 08:36:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 648EBF8023B
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 08:36:25 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 59E0BA0040;
+ Wed,  7 Sep 2022 08:36:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 59E0BA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1662532585; bh=GzIN9WKLOsXQF0tibQavGfxltW/YH8mjlBzsDk3r480=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=f4I/kqY7KGHDr+iGzmdkez2JVww0e1O1Sej/Y8PpLGYYs3EqfFXz5HrPQnztRFOO4
+ YhayK2l/MJ1OEVhJOxxGTTGK2ddCuU1TS3Cd/GOnnNC2FHJobhvS9+T2DpjDgoGt+h
+ XCZtI+AiJoQBlgqfAyXR9IhLfK/MboX0LT8FIaSw=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD278F80118
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 07:59:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD278F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hXYRX5Wl"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7v8PjGIU"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E2B2820002;
- Wed,  7 Sep 2022 05:59:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662530367; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cwcjiuBkUe/FtJKT7lUDznO/qVB6v18xiw7jWQvWmZU=;
- b=hXYRX5WlTJ6/RejL4MGt7NSijaMuDjE92Q+NPOl9SczsUA0SaJlbgkhlM8CJgm0FRNPHg8
- eMQjnJB4s+I0daq4RRueN3cRumL0EMd9yy7QClvCR6pxrCzwcbzpjLEG0MVI/go1lsyOik
- pBfzNG2IvPRk69+zOrq4eIOcUDhkx5k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662530367;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cwcjiuBkUe/FtJKT7lUDznO/qVB6v18xiw7jWQvWmZU=;
- b=7v8PjGIU+GRF8l9P4Vu7yKj+PE7QtnFl2dKpgSSu2hHW8uwhlxs/9K2ZJYfedM9WFpfdom
- bGw+yaie3Zx5UABQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C474913A66;
- Wed,  7 Sep 2022 05:59:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yTgvLz8zGGMzVgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 05:59:27 +0000
-Date: Wed, 07 Sep 2022 07:59:26 +0200
-Message-ID: <87pmg7encx.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tasos Sahanidis <tasos@tasossah.com>
-Subject: Re: [PATCH] ALSA: emu10k1: Fix out of bounds access in
- snd_emu10k1_pcm_channel_alloc()
-In-Reply-To: <3707dcab-320a-62ff-63c0-73fc201ef756@tasossah.com>
-References: <3707dcab-320a-62ff-63c0-73fc201ef756@tasossah.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  7 Sep 2022 08:36:23 +0200 (CEST)
+Message-ID: <035e62f9-0f27-9501-dfb8-8af643e52394@perex.cz>
+Date: Wed, 7 Sep 2022 08:36:23 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: Query for snd_pcm_readi function.
+Content-Language: en-US
+To: Web X <webx93@gmail.com>, alsa-devel@alsa-project.org
+References: <CADP81_VWcrTmQgDRxLwDjMNR9A11q8BTCvZ1bRmPqxcrSkLf9w@mail.gmail.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <CADP81_VWcrTmQgDRxLwDjMNR9A11q8BTCvZ1bRmPqxcrSkLf9w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,51 +79,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 07 Sep 2022 03:18:00 +0200,
-Tasos Sahanidis wrote:
+On 06. 09. 22 15:28, Web X wrote:
+> Hi,
 > 
-> The voice allocator sometimes begins allocating from near the end of the
-> array and then wraps around, however snd_emu10k1_pcm_channel_alloc()
-> accesses the newly allocated voices as if it never wrapped around.
+> I am using alsa open source library for my project to read and write audio
+> data.
 > 
-> This results in out of bounds access if the first voice has a high enough
-> index so that first_voice + requested_voice_count > NUM_G (64).
-> The more voices are requested, the more likely it is for this to occur.
+> For that I am using snd_pcm_readi function to read audio data. I am able to
+> read audio data.
 > 
-> This was initially discovered using PipeWire, however it can be reproduced
-> by calling aplay multiple times with 16 channels:
-> aplay -r 48000 -D plughw:CARD=Live,DEV=3 -c 16 /dev/zero
+> But issue is that sometimes it will take so much time to read data.(200-230
+> msec).
+> Normally this function executed in 1-3 ms that is normal case, but after
+> every 2-4 frames it is taking 200-300 msec.
+> So this is affecting my whole application process.
 > 
-> UBSAN: array-index-out-of-bounds in sound/pci/emu10k1/emupcm.c:127:40
-> index 65 is out of range for type 'snd_emu10k1_voice [64]'
-> CPU: 1 PID: 31977 Comm: aplay Tainted: G        W IOE      6.0.0-rc2-emu10k1+ #7
-> Hardware name: ASUSTEK COMPUTER INC P5W DH Deluxe/P5W DH Deluxe, BIOS 3002    07/22/2010
-> Call Trace:
-> <TASK>
-> dump_stack_lvl+0x49/0x63
-> dump_stack+0x10/0x16
-> ubsan_epilogue+0x9/0x3f
-> __ubsan_handle_out_of_bounds.cold+0x44/0x49
-> snd_emu10k1_playback_hw_params+0x3bc/0x420 [snd_emu10k1]
-> snd_pcm_hw_params+0x29f/0x600 [snd_pcm]
-> snd_pcm_common_ioctl+0x188/0x1410 [snd_pcm]
-> ? exit_to_user_mode_prepare+0x35/0x170
-> ? do_syscall_64+0x69/0x90
-> ? syscall_exit_to_user_mode+0x26/0x50
-> ? do_syscall_64+0x69/0x90
-> ? exit_to_user_mode_prepare+0x35/0x170
-> snd_pcm_ioctl+0x27/0x40 [snd_pcm]
-> __x64_sys_ioctl+0x95/0xd0
-> do_syscall_64+0x5c/0x90
-> ? do_syscall_64+0x69/0x90
-> ? do_syscall_64+0x69/0x90
-> entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> I have also try to set this call as nonblock with the help of
+> snd_pcm_nonblock function. With that I have observed some improvements but
+> still after 2-3 frames it is taking 100msec time to get a data.
 > 
-> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
+> Please do needful as soon as possible.
+> 
+> Let me know if you want more details.
 
-Oh it's an old bug...
+This question is handled in this github issue:
 
-Now applied.  Thanks!
+https://github.com/alsa-project/alsa-lib/issues/270
 
+						Jaroslav
 
-Takashi
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

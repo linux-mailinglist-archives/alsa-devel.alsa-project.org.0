@@ -2,69 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE725B0153
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 12:10:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8130E5B013F
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 12:05:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AC481DB;
-	Wed,  7 Sep 2022 12:09:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AC481DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AFA51633;
+	Wed,  7 Sep 2022 12:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AFA51633
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662545417;
-	bh=yDFW8AeMqaFipLKOg9y/+hg+oMClMQZtYyfb7wl4v6o=;
+	s=default; t=1662545132;
+	bh=GwdAoHtbQRK3GNuphzrh6uxT/YSdvfn49m/MtNWrhr0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=N0ynX7zgPo5ANGObPO3MiusAAOoBDLA+6GrBcPYOKYz8H99Pp5TEfqWTgUOGFgHxz
-	 Po0ojEd/jzfYyN0oBeiMYuY4K1UXKm1BJR/IXKaMj+r+2darivof1ogvyP40NeHjLv
-	 btOvOvVbypMe6bzPuRXMkTNz6xmJgBTMGMQBEF00=
+	b=hMrCJxQZII9n2X91jmzJidoz28ZlEOTRcERa3AbyOaEutfNKZmGrh9R8ZEXkym6fq
+	 c3geyH2n20d9nwvYtS1kARYKdH4H23XJWmnMsbZEqy+2PZo01ocgFEru7V4tlcpT8I
+	 me2xIT0hCfkTOqyxNN4g2+vHo6K2Q+egOu9Bqg5I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7403FF80118;
-	Wed,  7 Sep 2022 12:09:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7303CF80423;
+	Wed,  7 Sep 2022 12:04:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B8A4F8028D; Wed,  7 Sep 2022 08:59:39 +0200 (CEST)
+ id D69C0F8028D; Wed,  7 Sep 2022 12:04:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-m975.mail.163.com (mail-m975.mail.163.com [123.126.97.5])
- by alsa1.perex.cz (Postfix) with ESMTP id 508B3F8023B
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 08:59:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 508B3F8023B
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05087F80118
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 12:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05087F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="DAAkSiGC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=gpA8V
- 5pVUBWAKuao2rXSBnqg89Sc8Qap5SeGlb1rPH0=; b=DAAkSiGC+7yrIU20vZ8vp
- B9wBbjLsQdyzBOl2g0JLM+jjfphlgE3BmgKhHEtLQDoPf705ABH40eGkAIcb1I6m
- bP4NWmKIWFZjZoHt4qWSuaU4SgZUKq+UQY0yesKko9MyaiDsfESeWs8Yr0FIfien
- xCYalk1PblhX/tXKznZqE4=
-Received: from localhost.localdomain (unknown [36.112.3.164])
- by smtp5 (Coremail) with SMTP id HdxpCgB3yRFKQRhj9Mwsag--.49282S4;
- Wed, 07 Sep 2022 14:59:30 +0800 (CST)
-From: Jianglei Nie <niejianglei2021@163.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: hda/ca0132: fix potential memory leak in dspxfr_image()
-Date: Wed,  7 Sep 2022 14:59:17 +0800
-Message-Id: <20220907065917.55810-1-niejianglei2021@163.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="exAOF65H"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yZnPunUL"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C818833A34;
+ Wed,  7 Sep 2022 10:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662545063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=koam9iWmkqxBblQN/CmFlUFwe/RfoN8dRZBdFAePZnc=;
+ b=exAOF65HkbAPQqKh14oxZf74OQloi9Xfi7hxl7pOAA/Xx5zkQ6XKNJrH5sUhmOJNEb2fi/
+ ffEx+smYinBuBmlpRcQi9xIRzTosigIBHkxcwuXDNDojYW7zlghfGG+mB0WMmce5jIjsUQ
+ TX3EN/snSvwc1CsPudbrWh+iMgfKXac=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662545063;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=koam9iWmkqxBblQN/CmFlUFwe/RfoN8dRZBdFAePZnc=;
+ b=yZnPunULAAirfaBiHwh/PtXS7snD9B8xWTxVTRFqdoCITDdrx8+noQ9J7AstwUJo+9ppnJ
+ CCHvhqJ549n7dWDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B654513A66;
+ Wed,  7 Sep 2022 10:04:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id HQsHLKdsGGNaPwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 10:04:23 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Clear fixed clock rate at closing EP
+Date: Wed,  7 Sep 2022 12:04:21 +0200
+Message-Id: <20220907100421.6443-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: HdxpCgB3yRFKQRhj9Mwsag--.49282S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1rCFWDGFW7uw43Kw17Wrg_yoW8Jw17pa
- y8KrZ8GrZ7Xr1jyw4rJ34jg3WUW3ykZFyftr4Ykw1fZ3sIgFyDXas8G3sYvF4S9FWvkryU
- XFWkCwn8XayDtF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zilksPUUUUU=
-X-Originating-IP: [36.112.3.164]
-X-CM-SenderInfo: xqlhyxxdqjzvrlsqjii6rwjhhfrp/1tbiQxJ1jFc7bS461AAAsp
-X-Mailman-Approved-At: Wed, 07 Sep 2022 12:09:16 +0200
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Jianglei Nie <niejianglei2021@163.com>
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ =?UTF-8?q?Nikl=C4=81vs=20Ko=C4=BCes=C5=86ikovs?=
+ <89q1r14hd@relay.firefox.com>, Wim Taymans <wtaymans@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,46 +96,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-dspxfr_image() allocates DSP ports for the download stream with
-dsp_allocate_ports_format(). When gets some error, the allocated
-DSP ports are not released, which will lead to a memory leak.
+The recent commit c11117b634f4 ("ALSA: usb-audio: Refcount multiple
+accesses on the single clock") tries to manage the clock rate shared
+by several endpoints.  This was intended for avoiding the unmatched
+rate by a different endpoint, but unfortunately, it introduced a
+regression for PulseAudio and pipewire, too; those applications try to
+probe the multiple possible rates (44.1k and 48kHz) and setting up the
+normal rate fails but only the last rate is applied.
 
-We can fix it by releasing DSP ports with dsp_free_ports() when
-getting some error.
+The cause is that the last sample rate is still left to the clock
+reference even after closing the endpoint, and this value is still
+used at the next open.  It happens only when applications set up via
+PCM prepare but don't start/stop the stream; the rate is reset when
+the stream is stopped, but it's not cleared at close.
 
-Signed-off-by: Jianglei Nie <niejianglei2021@163.com>
+This patch addresses the issue above, simply by clearing the rate set
+in the clock reference at the last close of each endpoint.
+
+Fixes: c11117b634f4 ("ALSA: usb-audio: Refcount multiple accesses on the single clock")
+Reported-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/all/YxXIWv8dYmg1tnXP@zx2c4.com/
+Link: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2620
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_ca0132.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/usb/endpoint.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 208933792787..6b8f45e14075 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -3455,6 +3455,7 @@ static int dspxfr_image(struct hda_codec *codec,
- 					&port_map_mask);
- 	if (status < 0) {
- 		codec_dbg(codec, "alloc ports fail\n");
-+		dsp_free_ports(codec);
- 		goto exit;
- 	}
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index a42f2ce19455..8c8f9a851f89 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -925,6 +925,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 		endpoint_set_interface(chip, ep, false);
  
-@@ -3463,6 +3464,7 @@ static int dspxfr_image(struct hda_codec *codec,
- 			WIDGET_CHIP_CTRL, stream_id, 0, &response);
- 	if (status < 0) {
- 		codec_dbg(codec, "set stream chan fail\n");
-+		dsp_free_ports(codec);
- 		goto exit;
- 	}
- 
-@@ -3470,6 +3472,7 @@ static int dspxfr_image(struct hda_codec *codec,
- 		if (!is_valid(fls_data)) {
- 			codec_dbg(codec, "FLS check fail\n");
- 			status = -EINVAL;
-+			dsp_free_ports(codec);
- 			goto exit;
- 		}
- 		status = dspxfr_one_seg(codec, fls_data, reloc,
+ 	if (!--ep->opened) {
++		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
++			ep->clock_ref->rate = 0;
+ 		ep->iface = 0;
+ 		ep->altsetting = 0;
+ 		ep->cur_audiofmt = NULL;
 -- 
-2.25.1
+2.35.3
 

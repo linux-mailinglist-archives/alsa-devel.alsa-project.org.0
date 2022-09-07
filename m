@@ -2,85 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC4035B007F
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 11:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23CEE5B00C6
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Sep 2022 11:42:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B58715C2;
-	Wed,  7 Sep 2022 11:29:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B58715C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1E3886F;
+	Wed,  7 Sep 2022 11:41:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1E3886F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662543013;
-	bh=8m5vdg6DxPXlzmT87wXwI4A2du4uSsmQZUWTo3/dU2s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1662543762;
+	bh=mdnbTjysnb+CsmA3fsADc9q6d17xIUOv8MbSo9YAqFo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=McYeT//y07VgB92JseKXMZzD7Luk/WzgNVejtizQXYub6H3IopUPWBDCzgcXZk1CY
-	 WDFdx95KFkePWwkn1fO0fxxw7H2hhsZe5ow8ccXgJcVqJ7zTctOKCl2TuB3qhvwk77
-	 nGcuWcQtyNdnG+n06qi8OHPxUVr3vX8F8Xo4u9sk=
+	b=VDC2ywKX49tg32i47inC5RVOaq2EOAASUyZb0qEbUACNa2JGvtrc5Qc/mk4iC5bOE
+	 KLM+qLUn9dIqqB5HYCGuYzDnuRMxQrFIcCM6Cc3ldqOMINiPZtFfCYbGGLx2xgFmLc
+	 132KmCtmXir6akSUG6FfUzCouo0zOeYO9fxx1UMc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FE8AF80423;
-	Wed,  7 Sep 2022 11:29:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24356F80423;
+	Wed,  7 Sep 2022 11:41:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A77AFF8028D; Wed,  7 Sep 2022 11:29:09 +0200 (CEST)
+ id 51980F8023B; Wed,  7 Sep 2022 11:41:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78EE3F8011C
- for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 11:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78EE3F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35947F8023B
+ for <alsa-devel@alsa-project.org>; Wed,  7 Sep 2022 11:41:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35947F8023B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="ZogZr9A8"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="pdv/adkq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="tfRWsEJs"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id F175DB81BEB;
- Wed,  7 Sep 2022 09:29:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D9DC433C1;
- Wed,  7 Sep 2022 09:28:58 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="ZogZr9A8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
- t=1662542937;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5E3CA20244;
+ Wed,  7 Sep 2022 09:41:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662543694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uvCPcOxnUC4wGn1S/Nv7nd9/+PzZUA4XVj1lOT3gFj8=;
- b=ZogZr9A8RtJMjPkzMWOPgXLUIuyAp4smpWeF8UG8T7y3j5NvXCzINOJFhYJuekur2aQ1IV
- Yd2LUGDH40IXxwcgs4ooIw1jgOi+UjSbltY+FwG8OJdhqIGB0CTs4MtoPOdxjXJlEFiAMv
- Zzjbs78gDkMqWX7Ma8bS77RmYVILMN0=
-Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 7e084ecb
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Wed, 7 Sep 2022 09:28:57 +0000 (UTC)
-Date: Wed, 7 Sep 2022 11:28:54 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Takashi Iwai <tiwai@suse.de>
+ bh=ze00JS9YGRsmAOsgdNY0pIe743MLOM0ULC1uIhk+gSI=;
+ b=pdv/adkqMdjWaF2y66ATUsR60vbM0O7UPXb51iHgb0pEVrf2UvXNh2FnzLyBfipQ/7kGYo
+ 4+nN5w1A8fFBp5LhtY2fDYqTFJPASxc7vdDUIuDH9ZOcJLBO/yrlNdKmXgqDz6vy5c8b06
+ DYke03vLgwuchnkpTR9hkqh0pmQJrxg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662543694;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ze00JS9YGRsmAOsgdNY0pIe743MLOM0ULC1uIhk+gSI=;
+ b=tfRWsEJswRREbJ4G7TnFuakduyK92hysTRuQg0+KaImRZDoFb9k3Qum09HGJppbgLLictf
+ Hh1c6TT5AnnyJwCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4A08813486;
+ Wed,  7 Sep 2022 09:41:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1TesEU5nGGMwNQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 07 Sep 2022 09:41:34 +0000
+Date: Wed, 07 Sep 2022 11:41:33 +0200
+Message-ID: <878rmvmshe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
 Subject: Re: [PATCH] ALSA: usb-audio: Don't refcount multiple accesses on the
  single clock
-Message-ID: <YxhkVmiMlKghq+nY@zx2c4.com>
+In-Reply-To: <YxhkVmiMlKghq+nY@zx2c4.com>
 References: <20220905101403.1435037-1-Jason@zx2c4.com>
  <87sfl6jbb3.wl-tiwai@suse.de>
  <CAHmME9oUtVgwtUY5afG5Yed1j6OVKwvLH=keCp63gDSOQRgDSA@mail.gmail.com>
- <87czc7ehqp.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87czc7ehqp.wl-tiwai@suse.de>
+ <87czc7ehqp.wl-tiwai@suse.de> <YxhkVmiMlKghq+nY@zx2c4.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, Wim Taymans <wtaymans@redhat.com>,
- =?utf-8?B?TmlrbMSBdnMgS2/EvGVzxYZpa292cw==?= <89q1r14hd@relay.firefox.com>,
+ =?ISO-8859-4?Q?Nikl=E0vs_Ko=B6es=F1ikovs?= <89q1r14hd@relay.firefox.com>,
  LKML <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,36 +105,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 07, 2022 at 10:00:46AM +0200, Takashi Iwai wrote:
-> On Mon, 05 Sep 2022 14:16:39 +0200,
-> Jason A. Donenfeld wrote:
+On Wed, 07 Sep 2022 11:28:54 +0200,
+Jason A. Donenfeld wrote:
+> 
+> On Wed, Sep 07, 2022 at 10:00:46AM +0200, Takashi Iwai wrote:
+> > On Mon, 05 Sep 2022 14:16:39 +0200,
+> > Jason A. Donenfeld wrote:
+> > > 
+> > > On Mon, Sep 5, 2022 at 1:44 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > When you load snd-usb-audio with dyndbg=+p option, does it show the
+> > > > new error message "Mismatched sample rate xxx"?
+> > > 
+> > > No.
 > > 
-> > On Mon, Sep 5, 2022 at 1:44 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > When you load snd-usb-audio with dyndbg=+p option, does it show the
-> > > new error message "Mismatched sample rate xxx"?
+> > What about the patch below?
 > > 
-> > No.
+> > 
+> > Takashi
+> > 
+> > -- 8< --
+> > --- a/sound/usb/endpoint.c
+> > +++ b/sound/usb/endpoint.c
+> > @@ -925,6 +925,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+> >  		endpoint_set_interface(chip, ep, false);
+> >  
+> >  	if (!--ep->opened) {
+> > +		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
+> > +			ep->clock_ref->rate = 0;
+> >  		ep->iface = 0;
+> >  		ep->altsetting = 0;
+> >  		ep->cur_audiofmt = NULL;
 > 
-> What about the patch below?
-> 
-> 
-> Takashi
-> 
-> -- 8< --
-> --- a/sound/usb/endpoint.c
-> +++ b/sound/usb/endpoint.c
-> @@ -925,6 +925,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
->  		endpoint_set_interface(chip, ep, false);
->  
->  	if (!--ep->opened) {
-> +		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
-> +			ep->clock_ref->rate = 0;
->  		ep->iface = 0;
->  		ep->altsetting = 0;
->  		ep->cur_audiofmt = NULL;
+> I think this works.
 
-I think this works.
+OK, thanks.
 
-Niklāvs - can you give it a try to and confirm?
+If this patch fixes, the problem is that the behavior of the
+applications that do only PCM prepare without actually starting, then
+closes.  This left the last set rate unexpectedly.
 
-Jason
+I'm going to write up the proper patch.
+
+
+Takashi

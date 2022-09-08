@@ -2,86 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A667C5B147B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 08:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F39825B14B2
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 08:36:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0959D169A;
-	Thu,  8 Sep 2022 08:14:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0959D169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A377169C;
+	Thu,  8 Sep 2022 08:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A377169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662617706;
-	bh=12ExutlKcEytTEX44mGCYJcOotVZuLRiUKgvdCHRt1M=;
+	s=default; t=1662618960;
+	bh=YrtGr+KfSEvHW3AfWKWF2oZgqQ5FtKhcvRjR6R138Oc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=nM0nWzBWDlcUd+ZqKpOjVQTKFRhOE3AkpJQLGkm8BqzayAug/HELET11Fs4sbTw2G
-	 vCMSjIecBiE4YNvmzH4juI7F7WDNepgTGDInKmhEsdvvDtl37ahIAajnZg5UHnSqko
-	 fNY9Xf6tDa5ptb27ERSQHvQliwkXbBr/gAN3wpEU=
+	b=ZoLhixivTGeukw9ig0X88393O+rQRzANCtKo94VoZ6CDL/uyRl3ofZm0UhpYxtW6S
+	 qRl24nuBTigCqlJN3Qmwt4zoT5lTPr8mIYKm3yPfKh60vJMtgdW7i1iM7dA4Ba0qNC
+	 BveXUcrGTDGLi9Vh0vcvnaXeGJuQFCoYawUPihdw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 783FDF8023B;
-	Thu,  8 Sep 2022 08:14:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 468B7F804B3;
+	Thu,  8 Sep 2022 08:35:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07B96F80217; Thu,  8 Sep 2022 08:14:05 +0200 (CEST)
+ id 85BA5F8023B; Thu,  8 Sep 2022 08:34:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6F74F8016D
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 08:14:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6F74F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3464F8011C
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 08:34:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3464F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UXmoGztA"
-Received: by mail-pj1-x102b.google.com with SMTP id pj10so6318186pjb.2
- for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 23:14:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=ngoKgI+Gpj5SpGutpSICvbZM5VaeXyWj2yjGsVSlTyI=;
- b=UXmoGztAvkbEq8ev/rCGPZB8yRP3yewWsjk2wn+kToOvlBnkUnfjcJmlUy8VZsh+6o
- upACSRU/9FbMwwZ0C7zy+5PrqftYa6eaR7WnqSL246uw0EdmMQrmF6AgaDl+zSXdCyNB
- m/UM8PnMtSCCyBrBgLy1MsippYNrhWJQveq8t9ROubqbcEiHnTm09hZwdEansfEacwkj
- DYIgydyEQYygV7VI8u9Y3RUTSw1sCWBJle01kKRs9OqS75pscLYWm+W25hx5bjCaPkoP
- TqRr3PCqqduYYIfGksN50DVKUhwOnLD5NHhCOTsMdvP3YmH/fEICOtblI/FqZi++qURU
- oDDw==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ViX7+BLa"
+Received: by mail-wm1-x334.google.com with SMTP id
+ z14-20020a7bc7ce000000b003a5db0388a8so1539106wmk.1
+ for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 23:34:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=tLJi+1w8MGj6nplunwfzLCX3uDNlAZf3MHgDHEZL7Y0=;
+ b=ViX7+BLaUNPNjuus8Uy3mY8zMA8xwBvhnAt7lISD+fG1MbEQHdxoQFqE8eWQzmNLSB
+ Q18yoMXueyqrFpQaJ+XKhiUlOtv1FTnU+7Gm24QDP1SMd2pqnBoaY8llHZA3T72i6GjS
+ 9oP5NZdd36MOz74OQDmwHTgMLb458ju+f49bxUTB2lnVuQWS2oF394OGuDd1LF+7eav6
+ 0/EAM5IU3acuhA+7rXT1G7YsWrma30SUIN7bnrpYpUZaKn/SNM/dd8JvX61eJBCspLLu
+ Y8IyH6sSMHvlyj1EtBvzBnnw6mEY9JosZaWiZq1MbklzeprFr+EzHwAiHWoVPX1wAT/X
+ 8XQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=ngoKgI+Gpj5SpGutpSICvbZM5VaeXyWj2yjGsVSlTyI=;
- b=DDlMZBCEA++QdfvqUBNjepRnFWS0AgT/RlwZkdmY8uuEN19y3h0KSUbML30bMPCxLZ
- 4OPq6KNdoK9kqaoJDwnanM9WxUgo5w2eATqEBISxs1u2gfQB1KfTlse2bSDVKSP0oifW
- B2dJecrSmqZ/A4iC6dpH6SD0L4OQy2ZRWbh2xMw0GWjfvPkEwYYyWh27ficA8yKL7zyj
- xOENim6wEGgMRkCLetG6npCtP5qYVSAjqLO9Qps8FSf+GmCYzh/9LEBzHOfKME19+Q82
- K2ATbMGfLfwZAt1mLKW3a+enSwoPUgvInBwBqa2hS13nkUzeN2QiIyFVbBibV1nVh/fe
- 33fg==
-X-Gm-Message-State: ACgBeo2eD6FMLDhI++KlknuNXV3r5PHmFfbfOkj3BNLCw6TJcRO42OZF
- eBsPCuJtCmiK2/OjD4CrmJ8=
-X-Google-Smtp-Source: AA6agR7vc1mfwDN0ui9GNVakudcVSEUPlFZb5nXcrH5tmYMdajmFL8Dk3nYYXQrt6R5mZvx9uqSPDA==
-X-Received: by 2002:a17:90b:4a09:b0:1fd:d4be:fed4 with SMTP id
- kk9-20020a17090b4a0900b001fdd4befed4mr2578331pjb.6.1662617639152; 
- Wed, 07 Sep 2022 23:13:59 -0700 (PDT)
-Received: from localhost.localdomain ([211.212.143.131])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=tLJi+1w8MGj6nplunwfzLCX3uDNlAZf3MHgDHEZL7Y0=;
+ b=zcmUSs3uDZr6qP3ZzLNDbZv8/a1wtTW0SKS10bRNWFhuUQc1xyGkoZ56fJAm4+4xpE
+ EtfSzG69UANdRHvob4J5t3BrrFvppAdRlDTKuVlAQQEZFdMMDT2tJj+mNk2/nQTtbMQq
+ ejHd8Sc0XE+jpL3i79a+m43OKdj0bryTkRsJ/j6I2EzXFbkKMkMcnj2Vv1rHhWprzQuC
+ cOZr5kzSqAhhdr5r9HreGaQTBd55JurgaEd2QLeJtpcFrn10Ii0WOJ8b5W7HDevqsup3
+ cBbHJob8yMi1C9TFlsli6VilpxSect/wjvofUWzb/7a1Gsa4fPFT1rEmD7jZpLVdC0tP
+ ei2A==
+X-Gm-Message-State: ACgBeo23IsDKgDJ8CK7NPN4jkScl8YANvBKQLxZsSaZS3X/cHr1nrEHx
+ VTMNqLBEffzZF1oitf1vcy4uhg==
+X-Google-Smtp-Source: AA6agR6s//9gR1fHhZrBCiqxjpoMfwFUfUsDvdRjpzedhvYN3EZbN7hnJaY5j8CiNI4QI2dCOqI7Cg==
+X-Received: by 2002:a05:600c:1c1b:b0:3a5:e6ec:d12f with SMTP id
+ j27-20020a05600c1c1b00b003a5e6ecd12fmr1106946wms.2.1662618891588; 
+ Wed, 07 Sep 2022 23:34:51 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
  by smtp.gmail.com with ESMTPSA id
- l8-20020a170902f68800b00176b7dcf2c0sm7775886plg.240.2022.09.07.23.13.56
+ m3-20020a05600c4f4300b003a2e92edeccsm1549598wmq.46.2022.09.07.23.34.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 23:13:58 -0700 (PDT)
-From: Steve Lee <steve.lee.analog@gmail.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [v2] ASoC: max98390: Remove unnecessary amp on/off conrtol
-Date: Thu,  8 Sep 2022 15:03:59 +0900
-Message-Id: <20220908060359.13606-1-steve.lee.analog@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Steve Lee <steve.lee.analog@gmail.com>, ryans.lee@analog.com,
- krzk@kernel.org
+ Wed, 07 Sep 2022 23:34:51 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v3 0/4] ASoC: qcom: add support for sc8280xp machine
+Date: Thu,  8 Sep 2022 07:34:44 +0100
+Message-Id: <20220908063448.27102-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bgoswami@quicinc.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,60 +104,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- The Amp is already control in userspace before trigger calibrate function.
-Remove unnecessary control in calibrate function and
-add condition to check calibration is ready.
+This patchset adds support for SC8280XP SoC machine driver.
 
-Signed-off-by: Steve Lee <steve.lee.analog@gmail.com>
----
- sound/soc/codecs/max98390.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+First patch moves some of the commonly used code to common from sm8250 machine driver
+and the follow on code adds minimal support for sc8280xp.
 
-diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
-index 91c0bf3d76fc..4b2ee70c29d7 100644
---- a/sound/soc/codecs/max98390.c
-+++ b/sound/soc/codecs/max98390.c
-@@ -635,10 +635,19 @@ static int max98390_dsm_calib_get(struct snd_kcontrol *kcontrol,
- static int max98390_dsm_calib_put(struct snd_kcontrol *kcontrol,
- 		struct snd_ctl_elem_value *ucontrol)
- {
-+	unsigned int val;
- 	struct snd_soc_component *component =
- 		snd_soc_kcontrol_component(kcontrol);
-+	struct max98390_priv *max98390 =
-+		snd_soc_component_get_drvdata(component);
- 
--	max98390_dsm_calibrate(component);
-+	regmap_read(max98390->regmap, MAX98390_R23FF_GLOBAL_EN, &val);
-+	if (val == 0x1)
-+		max98390_dsm_calibrate(component);
-+	else {
-+		dev_err(component->dev, "AMP is not ready to run calibration\n");
-+		return -ECANCELED;
-+	}
- 
- 	return 0;
- }
-@@ -826,9 +835,6 @@ static int max98390_dsm_calibrate(struct snd_soc_component *component)
- 	struct max98390_priv *max98390 =
- 		snd_soc_component_get_drvdata(component);
- 
--	regmap_write(max98390->regmap, MAX98390_R203A_AMP_EN, 0x81);
--	regmap_write(max98390->regmap, MAX98390_R23FF_GLOBAL_EN, 0x01);
--
- 	regmap_read(max98390->regmap,
- 		THERMAL_RDC_RD_BACK_BYTE1, &rdc);
- 	regmap_read(max98390->regmap,
-@@ -847,9 +853,6 @@ static int max98390_dsm_calibrate(struct snd_soc_component *component)
- 	dev_info(component->dev, "rdc resistance about %d.%02d ohm, reg=0x%X temp reg=0x%X\n",
- 		 rdc_integer, rdc_factor, rdc_cal_result, temp);
- 
--	regmap_write(max98390->regmap, MAX98390_R23FF_GLOBAL_EN, 0x00);
--	regmap_write(max98390->regmap, MAX98390_R203A_AMP_EN, 0x80);
--
- 	return 0;
- }
- 
+Currently this driver is only tested with SmartSpeakers and Headset
+on Lenovo Thinkpad X13s.
+
+Support for sm8450 is tested and I will post the patches soon.
+
+Thanks,
+Srini
+
+Changes since v2:
+ - put SoundWire specific symbols under IS_ENABLED check as not all
+   Qcom plaforms need SoundWire that use common.c
+
+Srinivas Kandagatla (4):
+  ASoC: qcom: common: use EXPORT_SYMBOL_GPL instead of EXPORT_SYMBOL
+  ASoC: dt-bindings: qcom,sm8250: add compatibles for sm8450 and sm8250
+  ASoC: qcom: sm8250: move some code to common
+  ASoC: qcom: add machine driver for sc8280xp
+
+ .../bindings/sound/qcom,sm8250.yaml           |   2 +
+ sound/soc/qcom/Kconfig                        |  11 ++
+ sound/soc/qcom/Makefile                       |   2 +
+ sound/soc/qcom/common.c                       | 173 +++++++++++++++++-
+ sound/soc/qcom/common.h                       |  35 ++++
+ sound/soc/qcom/sc8280xp.c                     | 157 ++++++++++++++++
+ sound/soc/qcom/sm8250.c                       | 152 +--------------
+ 7 files changed, 386 insertions(+), 146 deletions(-)
+ create mode 100644 sound/soc/qcom/sc8280xp.c
+
 -- 
-2.17.1
+2.21.0
 

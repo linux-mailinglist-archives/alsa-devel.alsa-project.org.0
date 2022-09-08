@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5BC5B235A
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 18:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF63D5B235B
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 18:15:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5FCC1729;
-	Thu,  8 Sep 2022 18:14:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5FCC1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DF891745;
+	Thu,  8 Sep 2022 18:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DF891745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662653724;
-	bh=uhx5omwpic5bk4/kTplSRf0+UKyLNhVsKRgsymwMjJE=;
+	s=default; t=1662653737;
+	bh=jIUdtkT4ddNfSHRyN+v/gxKe5FoYLf2qnOUA50l2MJs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KyTafRTcwqu0jSvchJu23gHg6I01qVAwgcPlexdPB9jDMSfY1dC6Th3w/ca1rtjpg
-	 m/ZjnyAw5iSIjyfTQzRSagihlNBM1RM0pfUQCOUDP9Xq1VC1RQO/fkys6+ManB9BmH
-	 Ho/no9sGhuqCtaHe5Mhz1j+Y0WeypFVqd/SnBDZo=
+	b=S5haVYHjPLY+hB/bRlW8T+RnYXNEi19e5UhA6RJXye5+whpCx9jShF+xj3f0383mj
+	 Pyu4lg5VZc1WblyqlOnVdN66CKk4W0+guSxiBS5LCtYlKE3oEGLLynOa2WBMgK3njw
+	 U4fZstJNGXaHwtffl6cxES/fGr6VROlEwoORW7BY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0191F8057C;
-	Thu,  8 Sep 2022 18:12:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FB53F8057D;
+	Thu,  8 Sep 2022 18:12:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 844A6F8053B; Thu,  8 Sep 2022 18:12:21 +0200 (CEST)
+ id 9A442F80552; Thu,  8 Sep 2022 18:12:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59B05F80542
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 18:12:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59B05F80542
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46C19F80553
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 18:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46C19F80553
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="eGtmnm70"
+ header.b="jtWMhA7r"
 Received: from notapiano.myfiosgateway.com (unknown [70.107.189.129])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E13C26601FAA;
- Thu,  8 Sep 2022 17:12:13 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 888606601FBA;
+ Thu,  8 Sep 2022 17:12:15 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662653535;
- bh=uhx5omwpic5bk4/kTplSRf0+UKyLNhVsKRgsymwMjJE=;
+ s=mail; t=1662653537;
+ bh=jIUdtkT4ddNfSHRyN+v/gxKe5FoYLf2qnOUA50l2MJs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eGtmnm70gO430MvZvviUFurvGCYkSFhzJuJqJbxlkBO1PPiHAXHW+o5xGqHNcSZaB
- uNKM3FgiI93HiqUAkgJVQOQesThAMQ+lGpZsfyanVVFtPFBDH9tvHNOdJyGmIY/M5l
- NANeS7bTJz6h4qCj/CSAe5fiO2+r/AVpYOR32qeb76RmcgD3EwnLiGSA7kchvddR5T
- qKBTWFglh3T2/0qJioVIXsXqrhusD9+Zt7LnSitdcBgw805FdpC/+BavsYDiQDX4Hj
- w4GPoVfB4b/EQT9TKEkGkSO2fVOuWEESLAXUFt4nuPeEbbkYZ0aKAz796XMZA2KyAR
- F6w2SVcV/JLTA==
+ b=jtWMhA7rx+v6qQhy1Em7Y3pjtbUzQj8/i1otNHUbCYCcSaCUyEfcrU2ep2jWw7n+c
+ Vi7Kw2+2ZrR9iKeic1dCieNkmsEanp0Dae2wZImJZrWNi7UyhFIG2bX6hvCUjh6S2R
+ My48lMeVEcfu0JzQXZKVWZrHkuDftmfZ9BCePITcAodyj2OABTO2xo4MCuJfO08ZWc
+ meiQP8R/jUvThecyTUbwOfNjOtkQl1GbPtCf1/xoIJwKQu8WwzWVdkHKF8OrnjPS1B
+ uELc+YqiumTjSPxbkalPp1hg7QzjL51eJyZyiKGo2/hawSfVf94nhOdPd+hpTPOI/M
+ VeILSfFXCcBRQ==
 From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
  <nfraprado@collabora.com>
 To: Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [PATCH 09/10] ASoC: mediatek: mt8186: Configure shared clocks
-Date: Thu,  8 Sep 2022 12:11:53 -0400
-Message-Id: <20220908161154.648557-10-nfraprado@collabora.com>
+Subject: [PATCH 10/10] ASoC: mediatek: mt8186: Remove clock share parsing from
+ DT
+Date: Thu,  8 Sep 2022 12:11:54 -0400
+Message-Id: <20220908161154.648557-11-nfraprado@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220908161154.648557-1-nfraprado@collabora.com>
 References: <20220908161154.648557-1-nfraprado@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, "chunxu.li" <chunxu.li@mediatek.com>,
+Cc: alsa-devel@alsa-project.org, Chunxu Li <chunxu.li@mediatek.com>,
  =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
  <nfraprado@collabora.com>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-mediatek@lists.infradead.org,
- kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,117 +93,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-i2s0 and i2s1 are paired input/output connected to the same codec and
-should share the same clock. Likewise for i2s2 and i2s3. Set the clock
-sharing for each pair during the codec's initialization.
+Now that the clock sharing for i2s ports can be configured from the
+sound machine driver, remove the logic that was used to parse the
+properties from the devicetree.
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 ---
 
- .../mt8186/mt8186-mt6366-da7219-max98357.c     | 18 ++++++++++++++++++
- .../mt8186/mt8186-mt6366-rt1019-rt5682s.c      | 18 ++++++++++++++++++
- 2 files changed, 36 insertions(+)
+ sound/soc/mediatek/mt8186/mt8186-dai-i2s.c | 30 ----------------------
+ 1 file changed, 30 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-index 17a15bec41da..6f93f9dd4623 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-@@ -54,6 +54,9 @@ static struct snd_soc_codec_conf mt8186_mt6366_da7219_max98357_codec_conf[] = {
+diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-i2s.c b/sound/soc/mediatek/mt8186/mt8186-dai-i2s.c
+index 7e8cad682c83..f07181be4370 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-dai-i2s.c
++++ b/sound/soc/mediatek/mt8186/mt8186-dai-i2s.c
+@@ -44,7 +44,6 @@ struct mtk_afe_i2s_priv {
+ 	int low_jitter_en;
+ 	int master; /* only i2s0 has slave mode*/
  
- static int mt8186_da7219_init(struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_component *cmpnt_afe =
-+		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-+	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
- 	struct mtk_soc_card_data *soc_card_data =
- 		snd_soc_card_get_drvdata(rtd->card);
- 	struct mt8186_mt6366_da7219_max98357_priv *priv = soc_card_data->mach_priv;
-@@ -62,6 +65,12 @@ static int mt8186_da7219_init(struct snd_soc_pcm_runtime *rtd)
- 		asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret;
+-	const char *share_property_name;
+ 	int share_i2s_id;
  
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S1", "I2S0");
-+	if (ret) {
-+		dev_err(rtd->dev, "Failed to set up shared clocks\n");
-+		return ret;
-+	}
-+
- 	/* Enable Headset and 4 Buttons Jack detection */
- 	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
- 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
-@@ -160,6 +169,9 @@ static const struct snd_soc_ops mt8186_da7219_i2s_ops = {
+ 	int mclk_id;
+@@ -1140,50 +1139,26 @@ static const struct mtk_afe_i2s_priv mt8186_i2s_priv[DAI_I2S_NUM] = {
+ 	[DAI_I2S0] = {
+ 		.id = MT8186_DAI_I2S_0,
+ 		.mclk_id = MT8186_I2S0_MCK,
+-		.share_property_name = "i2s0-share",
+ 		.share_i2s_id = -1,
+ 	},
+ 	[DAI_I2S1] = {
+ 		.id = MT8186_DAI_I2S_1,
+ 		.mclk_id = MT8186_I2S1_MCK,
+-		.share_property_name = "i2s1-share",
+ 		.share_i2s_id = -1,
+ 	},
+ 	[DAI_I2S2] = {
+ 		.id = MT8186_DAI_I2S_2,
+ 		.mclk_id = MT8186_I2S2_MCK,
+-		.share_property_name = "i2s2-share",
+ 		.share_i2s_id = -1,
+ 	},
+ 	[DAI_I2S3] = {
+ 		.id = MT8186_DAI_I2S_3,
+ 		/*  clock gate naming is hf_faud_i2s4_m_ck*/
+ 		.mclk_id = MT8186_I2S4_MCK,
+-		.share_property_name = "i2s3-share",
+ 		.share_i2s_id = -1,
+ 	}
+ };
  
- static int mt8186_mt6366_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_component *cmpnt_afe =
-+		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-+	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
- 	struct snd_soc_component *cmpnt_codec =
- 		asoc_rtd_to_codec(rtd, 0)->component;
- 	struct mtk_soc_card_data *soc_card_data =
-@@ -167,6 +179,12 @@ static int mt8186_mt6366_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *r
- 	struct mt8186_mt6366_da7219_max98357_priv *priv = soc_card_data->mach_priv;
- 	int ret;
+-static int mt8186_dai_i2s_get_share(struct mtk_base_afe *afe)
+-{
+-	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+-	const struct device_node *of_node = afe->dev->of_node;
+-	const char *of_str;
+-	const char *property_name;
+-	struct mtk_afe_i2s_priv *i2s_priv;
+-	int i;
+-
+-	for (i = 0; i < DAI_I2S_NUM; i++) {
+-		i2s_priv = afe_priv->dai_priv[mt8186_i2s_priv[i].id];
+-		property_name = mt8186_i2s_priv[i].share_property_name;
+-		if (of_property_read_string(of_node, property_name, &of_str))
+-			continue;
+-		i2s_priv->share_i2s_id = get_i2s_id_by_name(afe, of_str);
+-	}
+-
+-	return 0;
+-}
+-
+ /**
+  * mt8186_dai_i2s_set_share() - Set up I2S ports to share a single clock.
+  * @afe: Pointer to &struct mtk_base_afe
+@@ -1252,10 +1227,5 @@ int mt8186_dai_i2s_register(struct mtk_base_afe *afe)
+ 	if (ret)
+ 		return ret;
  
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S3", "I2S2");
-+	if (ret) {
-+		dev_err(rtd->dev, "Failed to set up shared clocks\n");
-+		return ret;
-+	}
-+
- 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT, &priv->hdmi_jack);
- 	if (ret) {
- 		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n", ret);
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-index 393d179d61de..247f20f594d9 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-@@ -58,6 +58,9 @@ static struct snd_soc_codec_conf mt8186_mt6366_rt1019_rt5682s_codec_conf[] = {
- 
- static int mt8186_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_component *cmpnt_afe =
-+		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-+	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
- 	struct mtk_soc_card_data *soc_card_data =
- 		snd_soc_card_get_drvdata(rtd->card);
- 	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
-@@ -66,6 +69,12 @@ static int mt8186_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 		asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret;
- 
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S1", "I2S0");
-+	if (ret) {
-+		dev_err(rtd->dev, "Failed to set up shared clocks\n");
-+		return ret;
-+	}
-+
- 	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
- 				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
- 				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-@@ -136,6 +145,9 @@ static const struct snd_soc_ops mt8186_rt5682s_i2s_ops = {
- 
- static int mt8186_mt6366_rt1019_rt5682s_hdmi_init(struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_component *cmpnt_afe =
-+		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-+	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
- 	struct snd_soc_component *cmpnt_codec =
- 		asoc_rtd_to_codec(rtd, 0)->component;
- 	struct mtk_soc_card_data *soc_card_data =
-@@ -143,6 +155,12 @@ static int mt8186_mt6366_rt1019_rt5682s_hdmi_init(struct snd_soc_pcm_runtime *rt
- 	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
- 	int ret;
- 
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S3", "I2S2");
-+	if (ret) {
-+		dev_err(rtd->dev, "Failed to set up shared clocks\n");
-+		return ret;
-+	}
-+
- 	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT, &priv->hdmi_jack);
- 	if (ret) {
- 		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n", ret);
+-	/* parse share i2s */
+-	ret = mt8186_dai_i2s_get_share(afe);
+-	if (ret)
+-		return ret;
+-
+ 	return 0;
+ }
 -- 
 2.37.3
 

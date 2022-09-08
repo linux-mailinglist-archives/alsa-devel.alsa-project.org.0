@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5587D5B1D7C
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:44:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D779E5B1D7F
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:44:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 014791700;
-	Thu,  8 Sep 2022 14:43:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 014791700
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9140F170E;
+	Thu,  8 Sep 2022 14:43:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9140F170E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662641062;
-	bh=Yn1mgLP0Ax3Z1pgIyIL7q6sYoi3PggAgd2wuqHldp7U=;
+	s=default; t=1662641074;
+	bh=37cWeoqH7Gzne38FCrMcNkjD+PXkpO/LbEOstYxMLno=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tl5y8p64kWGHG57CKayslXU7sCkmTNtxSqvNBHf2OuRJjBH5QMk0wcmd+r2099QeX
-	 dhS4H3EBC5Y8rgSD1lLpk7FKopWhJvAa6xci5DqFtr7fP7adHfIK6bRV8V2b/34OLf
-	 J2I1pKN8mcXvi2ttB8M8XsxfRO2fI2Oq4tG032jU=
+	b=U0Q75QO2BjYiE6CC3dqhVUm1Lj/w76AO+MVkXHQG6GQbjpV1L5lzrzm1y+e7XIcxD
+	 FmIqDD/T7VLS1TSHnXuz4OAuPoWxD+KN1xlW6Zf/xWUH5DwKhaBb/dKhNBeu5fhoXU
+	 kvdWOJL4mUPUbLEn69VKINfjdOxus88ciyw3XPEQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7E8CF8011C;
-	Thu,  8 Sep 2022 14:42:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 604C8F80533;
+	Thu,  8 Sep 2022 14:42:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCA44F802A0; Thu,  8 Sep 2022 14:42:50 +0200 (CEST)
+ id 05476F800CB; Thu,  8 Sep 2022 14:42:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93064F800CB
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:42:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93064F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13B7CF801F7
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:42:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13B7CF801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jqQVSenW"
+ header.b="M4RUdgwv"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CD125B820DB;
- Thu,  8 Sep 2022 12:42:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD5C8C433C1;
- Thu,  8 Sep 2022 12:42:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3158F61CE1;
+ Thu,  8 Sep 2022 12:42:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED797C433D7;
+ Thu,  8 Sep 2022 12:42:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662640962;
- bh=Yn1mgLP0Ax3Z1pgIyIL7q6sYoi3PggAgd2wuqHldp7U=;
+ s=k20201202; t=1662640964;
+ bh=37cWeoqH7Gzne38FCrMcNkjD+PXkpO/LbEOstYxMLno=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=jqQVSenWK6/C3xORle4YN6B/NA/NpaqafFS6BuEiIM3HGorIxhnATdniUTBov3ATx
- abbh9DhQX0dL+oi90ew6oHJvOrAJPVR70gIfF3XBUHytziNO3yTQarhiu6ZsINwx0P
- MwuVccBI/5vXv95vF803nOWOhInf2gfT7+4Tk8xoMeYv9MWJG4Ld10wOHXvlWxeHhN
- ZURQq7+F4R3uW59FHAYfr3tPbovpI5rxdk2qRclYAkC9egvnaLzt7SbYTYpH8a0nId
- FOboJR3w8TXshoxipeo5Y+IGzDDuUhNY7+XVdpYg0bcimitj60Ln4HII1HFNzezDG1
- H3Myq+sJ7R+jw==
+ b=M4RUdgwvzlEQfim9qXJ441hh/BHscU0kgTV6UsMa+oQGIKjoHf6+ki/q5Ar37xCAd
+ HeKVNhanydWqI1h8ytT2EPnQgYS+QcgannGglwCjUjHOxCpAd9UuEjrWZVnzDBwZIG
+ mfbXqFdSV08wg5MivYul+I0CAXOXT/1fn5LiR566AW45vgkcG9sydlGAPODZR1/UVQ
+ YAhU0nXROs7XdQ80b1hckbek3TTyMJQISjuBBS9rMhz2+3se3uBCTHQuYcgLtEqg4h
+ fwmcA28ptADnic3tS7Ue/2JD6ABuyNMR1sDOpQp0sn253vYY/vmV1mA3crBdDEGq+x
+ R/MEb/oEwnHCg==
 From: Mark Brown <broonie@kernel.org>
-To: cgel.zte@gmail.com
-In-Reply-To: <20220908010304.342760-1-ye.xingchen@zte.com.cn>
-References: <20220908010304.342760-1-ye.xingchen@zte.com.cn>
-Subject: Re: [PATCH linux-next] ASoC: sti-sas: Remove the unneeded result
- variable
-Message-Id: <166264096039.88408.2327336590864979124.b4-ty@kernel.org>
-Date: Thu, 08 Sep 2022 13:42:40 +0100
+To: perex@perex.cz, linux-kernel@vger.kernel.org,
+ Steve Lee <steve.lee.analog@gmail.com>, lgirdwood@gmail.com, 
+ tiwai@suse.com, alsa-devel@alsa-project.org
+In-Reply-To: <20220908060359.13606-1-steve.lee.analog@gmail.com>
+References: <20220908060359.13606-1-steve.lee.analog@gmail.com>
+Subject: Re: [v2] ASoC: max98390: Remove unnecessary amp on/off conrtol
+Message-Id: <166264096268.88408.10282562173881107177.b4-ty@kernel.org>
+Date: Thu, 08 Sep 2022 13:42:42 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- ye xingchen <ye.xingchen@zte.com.cn>, Zeal Robot <zealci@zte.com.cn>,
- tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Cc: krzk@kernel.org, ryans.lee@analog.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,11 +86,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Sep 2022 01:03:04 +0000, cgel.zte@gmail.com wrote:
-> From: ye xingchen <ye.xingchen@zte.com.cn>
-> 
-> Return the value regmap_write() and sti_sas_init_sas_registers() directly
-> instead of storing it in another redundant variable.
+On Thu, 8 Sep 2022 15:03:59 +0900, Steve Lee wrote:
+>  The Amp is already control in userspace before trigger calibrate function.
+> Remove unnecessary control in calibrate function and
+> add condition to check calibration is ready.
 > 
 > 
 
@@ -101,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: sti-sas: Remove the unneeded result variable
-      commit: b075f21e533aa51c2bda87d86ddfb6a3c0e38a92
+[1/1] ASoC: max98390: Remove unnecessary amp on/off conrtol
+      commit: 6ac246105b4fd737ed51b8ac3ef031f837686dee
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,74 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB115B1D81
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:44:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827805B1DB4
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:54:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76E691714;
-	Thu,  8 Sep 2022 14:43:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76E691714
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1C00169C;
+	Thu,  8 Sep 2022 14:53:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C00169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662641089;
-	bh=KYuVY123Cpl8CxTz+5p+dI15zTz6ObZlPIUI10xbMao=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1662641683;
+	bh=Gu46DazuNBUooqldl5TxfjOsuqUUsrIpoiwcpkso85I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DA82ubTH0qyXFrFt3m/tbO65qSAGSMrR3DSlrW63fKOvyDExKS9jNwUbt/+7pIVIy
-	 2IsKHqNKRC5HDh+7qc4N3dTs3wbPZl2SlB31fx5MwHp8JbX+kb4jozqKNLe77K3XSx
-	 vwsJc65O9yufIeyYefkmd7vorj2YmsqkXhpTJ5kw=
+	b=CEIcgbnJKIE/zaP6wTKDHrKGwVzOzp7rmVHmNEjVYSpdTXO6/lG7zzq1NvCkoFj2n
+	 xpGOekWl6r5NiBPDhcpN9BTnM6izfQ5TR4/wdEJE3Iu0ycpgir3tWiYTrEXYn/eOxY
+	 USJ4hhJeiF4EJ2IoZmauxxqYwmsyCpqR2JCbDNNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D87B1F80538;
-	Thu,  8 Sep 2022 14:42:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04F8CF8023B;
+	Thu,  8 Sep 2022 14:53:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10608F801F7; Thu,  8 Sep 2022 14:42:52 +0200 (CEST)
+ id B8AF4F80217; Thu,  8 Sep 2022 14:53:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_19,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E41FF80217
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E41FF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AF47F800CB
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:53:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AF47F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DkF7OJLE"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8FC78B820F4;
- Thu,  8 Sep 2022 12:42:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC039C433C1;
- Thu,  8 Sep 2022 12:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662640967;
- bh=KYuVY123Cpl8CxTz+5p+dI15zTz6ObZlPIUI10xbMao=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DkF7OJLEODK0xiBmbwIgSpN8SyM6Gp34q9jY3gmSZiuaFv6oc25h+Ql91Le0oKHkJ
- N3TJQjCET0S3nC+rNCqAkeIKpASgg5N//wdIUkCNOgE1L2JyH6PBkQg1ZiMRZPh3e2
- 9XlvJejsqavnk58UChjiA9YqYTW2einx+RwMz5jRcHB/9npax16lHOn1MeENDZTzhW
- T9EObNI4dBKzbyKw8B7s+CBYt8VqICTn1d6e9wrLbGs9ecr/Wu0K+auE8bPrnTdBtm
- 8MA/HKRz8gsF3rQLApM/J/U/SdZenDEX5mBr/E+kALfOAY+wM1skfMAh/qwHFltyfD
- zRjUbcIRqPOsA==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a67abn54.wl-kuninori.morimoto.gx@renesas.com>
-References: <87a67abn54.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/2] ASoC: soc-dapm.c: random cleanup retry
-Message-Id: <166264096648.88408.6637109403568759158.b4-ty@kernel.org>
-Date: Thu, 08 Sep 2022 13:42:46 +0100
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="CG8I5pf1"
+Received: by mail-pg1-x52b.google.com with SMTP id s206so16668736pgs.3
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 05:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=UZ9peP4x10da9WU+5kZQ3we5/coNwWfoUbIvllgH1xI=;
+ b=CG8I5pf1gu6Fdq+/gn/t5FQ++4yo9HgZUsjBv84K4CgINOpbcPpMbyrlBZWzFi5x67
+ MlM1OsPmVMcdgw7/0kX5c3qNJGjziFWsaBaR5+KUslSdfyaZD7dnwS2K8k/rXlMpERtM
+ Jrd9m8vhGgNSiHBbjvelDWneVTlb162SkkZ1s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=UZ9peP4x10da9WU+5kZQ3we5/coNwWfoUbIvllgH1xI=;
+ b=1F3qyoEuDzJg62BbtOfJXH3tArJHqO8uzobUS7r0NabMBubskHhPhfyxV2QOuPAmch
+ h9KIlFdLk5OiOYM6wE1qIKNhMt4EgE6h45nglB9iqi/VgYkQS32ulD6tYVpvCQdUs3PH
+ SAsp77XgCvrf49FJiSB80jchndPxBnF2A946zvI7jccQDkx9KJPNpIxVq4Vc03irjrUR
+ DxVKVpe5Zja/GeKPnEUbGJdEDI6oXb0lL8sq8VOSPEQ2uKaP+ciVFn4SLvV6XBNk9+EZ
+ 4m6zpH2Yd69MhrzB0mvzioxPke42vJwBo6kURmo+XiCSlA7efBOn3VKSeoyZTZI5k6Ek
+ NFLg==
+X-Gm-Message-State: ACgBeo33Ry8D+vHw8C0cKvFfCWorEcbby4v2I1HZ97E2xpLQMg6HB0k6
+ TimuHli4wrZAbjwP2bI4H7uVFTFCMHSPSkTpi8zyJg==
+X-Google-Smtp-Source: AA6agR7dCr8B4wzx92CEAYx/xvFahkIN09Kn/V3ZV7Dp4tuZvBq/a2ogN24WGDh0eoVdR2jiUFZ2HaX5gv5MbJ3IiuA=
+X-Received: by 2002:a63:4a47:0:b0:42b:e4a4:3aec with SMTP id
+ j7-20020a634a47000000b0042be4a43aecmr7887785pgl.512.1662641612722; Thu, 08
+ Sep 2022 05:53:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+References: <CAPm_npY3SkumWgy8EN65no2iQFj2KWG6pysUchEKHBBPZ9AHsA@mail.gmail.com>
+ <87r10mcmd9.wl-tiwai@suse.de>
+ <CAPm_npaJdGfDBvTuL3nvbyT8Rfx3kC8Gy5dS5PPe78Vu7C2xAg@mail.gmail.com>
+ <871qsmca8n.wl-tiwai@suse.de>
+In-Reply-To: <871qsmca8n.wl-tiwai@suse.de>
+From: YJ Lee <yunjunlee@chromium.org>
+Date: Thu, 8 Sep 2022 20:53:22 +0800
+Message-ID: <CAPm_npbE+Mi_raC-37SuR0Sc_oed1d1agAdShfCjCZ-egVVo4Q@mail.gmail.com>
+Subject: Re: About ALSA dummy module: support customized mixer volume leveling
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Ching Yun Chang <whalechang@google.com>,
+ tiwai@suse.com, Yu-Hsuan Hsu <yuhsuan@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,45 +96,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Sep 2022 02:44:39 +0000, Kuninori Morimoto wrote:
-> These are remains of my previous cleanup patch-set.
-> [1/2] adds comment why kzalloc()/kfree() are needed on snd_soc_dai_link_event_pre_pmu().
-> [2/2] is adjusted to [1/1] patch.
-> 
-> Link: https://lore.kernel.org/all/8735d59zt9.wl-kuninori.morimoto.gx@renesas.com/
-> 
-> Kuninori Morimoto (2):
->   ASoC: soc-dapm.c: add comment for kzalloc()/kfree() on snd_soc_dai_link_event_pre_pmu()
->   ASoC: soc-dapm.c: tidyup snd_soc_dai_link_event_pre_pmu()
-> 
-> [...]
+On Thu, Sep 8, 2022 at 8:38 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Thu, 08 Sep 2022 12:32:14 +0200,
+> YJ Lee wrote:
+> >
+> > On Thu, Sep 8, 2022 at 4:16 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > On Thu, 08 Sep 2022 07:26:02 +0200,
+> > > YJ Lee wrote:
+> > > >
+> > > > Hello Takashi (and the alsa community),
+> > > >
+> > > > This is YJ Lee from chromium.org.
+> > > >
+> > > > I'm thinking about extending the ALSA dummy module to support
+> > > > customized volume leveling. It will be very useful to test devices
+> > > > with different volume granularity. Currently this module is using
+> > > > hard-coded mixer volume leveling, from min=-50 to max=100.
+> > > >
+> > > > See L716: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/tree/sound/drivers/dummy.c?h=queue/5.19#n716
+> > > >
+> > > > My plan (A) is to expose 2 more additional module parameters and
+> > > > replace a few occurrences, from L742-750.
+> > > >
+> > > > Another plan (B) is to leverage the current existing module
+> > > > parameter:model, and make the dummy-module to be able to accept models
+> > > > with customized volume leveling. New dummy models can be provided as
+> > > > configuration files, and be used in the same way as how currently
+> > > > existing dummy models (L146-213) are used. However, it's a bit
+> > > > over-engineering from the original purpose.
+> > > >
+> > > > What do you think about these plans? Any insight you (and the alsa
+> > > > community) can provide will be greatly appreciated.
+> > >
+> > > Only for volume min/max, module options may be an easier way, IMO.
+> > >
+> > > OTOH, if we want to adjust more stuff, another possibility is to
+> > > extend the proc file.  It currently supports the dynamic changes of
+> > > PCM parameters, but we can extend it or add a new proc file for
+> > > adjusting other stuff, too.  So the question is what else we want to
+> > > allow changing.
+> > >
+> > >
+> > > thanks,
+> > >
+> > > Takashi
+> >
+> > Hi Takashi,
+> >
+> > Thanks for your quick reply! I can't express my gratitude enough. Will
+> > stick with plan (A).
+> >
+> > Additionally, I'll take some time to read it and learn how to use the
+> > proc file. Compared with snd-dummy, I've plugged in a physical USB
+> > headset and saw some read-only files (usb*) under /proc/asound/cardX.
+> > By extending the proc file, are you suggesting we can change those
+> > into writable so ALSA will understand and make corresponding changes,
+> > (e.g. 'change' the dummy card into a USB sound card)? Can you tell me
+> > more about how to extend or add a new proc file (as a separate topic)?
+>
+> Some proc files allow writing, and the dummy driver's own proc file is
+> such one (enabled only when CONFIG_SND_DEBUG=y, though).  The proc
+> file is created with snd_card_rw_proc_new() and the passed write
+> callback is dummy_proc_write() in this case.  It parses each text line
+> and overrides the existing struct field accordingly.
+>
+>
+> HTH,
+>
+> Takashi
 
-Applied to
+Hi Takashi,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This greatly helps! Thanks so much for your kind explanation : )
 
-Thanks!
-
-[1/2] ASoC: soc-dapm.c: add comment for kzalloc()/kfree() on snd_soc_dai_link_event_pre_pmu()
-      commit: 6ef8443fb1ced148417d830894240a097ba79a03
-[2/2] ASoC: soc-dapm.c: tidyup snd_soc_dai_link_event_pre_pmu()
-      commit: 59a1063dcaa5c9450dc1d221679418747bf086fc
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best,
+YJ

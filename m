@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A811E5B14C0
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 08:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD44C5B14BA
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 08:36:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4981A16B9;
-	Thu,  8 Sep 2022 08:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4981A16B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49B7716AD;
+	Thu,  8 Sep 2022 08:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49B7716AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662619039;
-	bh=fQYUkAxXY71C935nLCXmBtUClWnIjPfNIksuukkp5SE=;
+	s=default; t=1662618990;
+	bh=gHCXcOehl5TG75hl4UdRCoAh9V6ruw9ULVkhp/re6Oo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QgAJZS7FbRTs3iL5H3Zy7/U+C3vFOWvF37c9PQCLFkkJsqGME+tWmK5jczB6ZjcaO
-	 0ax0hRIajbRuyD849PlXcc8RhCPISUv0D2kQyBKQaosMC3aBZ/RMeGPCNpBbim+4i8
-	 y6HtVOOCyYn3h2keuZ7WskAnewkaU3AA5nILA8fo=
+	b=sT/sXem8J1UlR1jl+GOPGsOpqhfbsQCVO8PCn/IxL8UaCnEIsZbWHsqwRNtiO3TUi
+	 8FdUc5rFU2+qmM2NwfLLJLgKfZNjvvy6NqUXgdxRUBpCYJNS5pBo+nsdJ5eQ//Yb3i
+	 L0SKUb+pvgKHDd5Jmj7fl0cG5zxyNJCu26u2XgIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8546F80551;
-	Thu,  8 Sep 2022 08:35:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8259F80515;
+	Thu,  8 Sep 2022 08:35:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3662F8053A; Thu,  8 Sep 2022 08:35:10 +0200 (CEST)
+ id 49613F80527; Thu,  8 Sep 2022 08:35:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85EC4F803DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E607F8016D
  for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 08:34:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85EC4F803DC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E607F8016D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xLNd7PAO"
-Received: by mail-wm1-x333.google.com with SMTP id
- m17-20020a7bce11000000b003a5bedec07bso952468wmc.0
+ header.b="Sib4vZSo"
+Received: by mail-wm1-x336.google.com with SMTP id
+ n17-20020a05600c3b9100b003b3235574dbso551497wms.2
  for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 23:34:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=xh82u4mQI0vpD+SPbAbOTF4IJW7gl/lNmljBUcHdhrA=;
- b=xLNd7PAOu8tw22FWlOq7W1CbMzEwFQTlM/Y6iTUXUA1f0f+6q+p+EXeWc2ovc3pjJm
- krGpZ47MTG/bc3AfpbPK8Mo72JYFtgm190uLTM3hm0+miLzqQnnf1UAYe35IvfW2x3mM
- 4+LeyZyjj/aM7ICocdv29ZJ+ngiWmEk0EFAvEFOWR7JXfZJkQIUC2Qt6E7M1Dw6PC0Jm
- ddGV9d/TYt2gevjRddtHflLilayIC4CWDGYLBIyOMM8z/9NfWdr2tXfYDo6Ujm93Al5l
- G3nztXGSD1GHDUObY9LJoqFL1B4zxfDMS/HI84U+yL21sVpW7/USDJg0aew5jqhRV/Vh
- 1uYw==
+ bh=WTkzv8YEOlbdjLC6KXa6QEDUYut5q0I2wNQAEMPRcK0=;
+ b=Sib4vZSou3PdVVHgBYUS1T1bEQ4RIm/nW5UZK4b0o1pGgpJV9d92Hu/FdX2wgGH7ik
+ uFGjKuOIOMXAKrA/atvXUEUp9tXXQLKrTURSXmSYl4vdtvcyI6gIJF5QsvlNoSakK/zd
+ Qq/RZ5/S/qjWzornY9hRMCXAEUmIVt7FXLde7CP5Vqp4WaOMop6+U+W7mmx91BNXu/z2
+ pG0ILb+ibuvo25Gb77U4kfrO/DO5mxFmhYnDCpb89JFXK2LfUTUvIYB4ycoAlXN1QpdO
+ xFpFSJHnEIV9FrswjC6MgtJ5v/XoS97dnqjUB0++CsyIXr2GxN4ZExhJROn4VHYvRADG
+ Aakg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=xh82u4mQI0vpD+SPbAbOTF4IJW7gl/lNmljBUcHdhrA=;
- b=MTrhn2CEDP0JKC6ZWq9hE4edNmn4mdTwO76TBqJWc3ZX2/wcFL/bOfFbRqH/8+U8SP
- PnBqUQqRqzfh6LtATb63cFZxiGyn38zbDRmcxrzKdS3EuPtu24PBc1qXtHex0QHS+BWh
- /KedHELC9OyIYPFhfcm2Gsc8Vwy+pkUUrKf1VYHTmee3YPeIz78uXi10op/YYxfWCoj7
- MaznXU46RqSiYz0SuPjE79rwQjEGCVbOZtF6yltuzOhlcWz1d+KGZISODu4EF3DB4rnI
- 5lf4tQR0Cz30oKiysN2QD6M8el+aGug+M5zclI7LVYbHfjE3V2/A9hu4u6rDctJE59p8
- 92yg==
-X-Gm-Message-State: ACgBeo17+9TC4S+lNnxUkPC3qwJL791/hDa257g4eT2bDCNk45n0j89q
- CKuceAho3rYaqMtVZZORgwyp2A==
-X-Google-Smtp-Source: AA6agR6IMmOXsPMzfpADNeN9ao+vWfmfFcp4o0e+Qsx7ABFiigv2viqQnbR6ecjvNDayeYCAzK3SIg==
-X-Received: by 2002:a05:600c:310b:b0:3a6:8970:27fc with SMTP id
- g11-20020a05600c310b00b003a6897027fcmr1079891wmo.98.1662618892783; 
- Wed, 07 Sep 2022 23:34:52 -0700 (PDT)
+ bh=WTkzv8YEOlbdjLC6KXa6QEDUYut5q0I2wNQAEMPRcK0=;
+ b=vsFSFJqk59jpcs+19widis0fVz4SbCRw+Vi/EZrzM4n4VND/KF55Kqx7GYen0awkWV
+ G6+1pb2HLcifoJqbYcukBxNwsu6WPs8dxbUmawqONo0f4g7FcWZfwi4mc0nLdW7y94lc
+ XcALY0df9V2uTDeSEpOJo57tWObtXVfp0URY5+J8i+jWTitEkm7a/GNnfdFx3CRMJc3r
+ yTqU0A29AaEfaEXFD5M1f5g3wY7B4/RseiLhOinY8b/H+ruXn2mWjJgxQDkKACXQsXKO
+ 1mNrF2tgWigkxswZaxMUK7dCausMTZrDA5PyaovnxT8Hp3TuYhSH2tEiMQ2iTSLKtnPU
+ EdkA==
+X-Gm-Message-State: ACgBeo1sMJ+2UDGFcfJj3UoeHP9I1JI2r/5nBuDyr9G+mVzbbPibjXEe
+ NFw+XSKSuhDd/jGdG6o3PPJUoA==
+X-Google-Smtp-Source: AA6agR5mozG3Wx6d3MD3h4jByC/+SyO9pXAW/PlfvvU4Go+7CKyO7+PxIGHFX+EhLYNQCDi1HfHWxQ==
+X-Received: by 2002:a7b:cd0f:0:b0:3a5:ec59:daf0 with SMTP id
+ f15-20020a7bcd0f000000b003a5ec59daf0mr1071842wmj.13.1662618893648; 
+ Wed, 07 Sep 2022 23:34:53 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
  by smtp.gmail.com with ESMTPSA id
- m3-20020a05600c4f4300b003a2e92edeccsm1549598wmq.46.2022.09.07.23.34.51
+ m3-20020a05600c4f4300b003a2e92edeccsm1549598wmq.46.2022.09.07.23.34.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 23:34:52 -0700 (PDT)
+ Wed, 07 Sep 2022 23:34:53 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v3 1/4] ASoC: qcom: common: use EXPORT_SYMBOL_GPL instead of
- EXPORT_SYMBOL
-Date: Thu,  8 Sep 2022 07:34:45 +0100
-Message-Id: <20220908063448.27102-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v3 2/4] ASoC: dt-bindings: qcom,
+ sm8250: add compatibles for sm8450 and sm8250
+Date: Thu,  8 Sep 2022 07:34:46 +0100
+Message-Id: <20220908063448.27102-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220908063448.27102-1-srinivas.kandagatla@linaro.org>
 References: <20220908063448.27102-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bgoswami@quicinc.com,
- linux-kernel@vger.kernel.org
+ krzysztof.kozlowski+dt@linaro.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ robh+dt@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ bgoswami@quicinc.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,26 +109,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-qcom_snd_parse_of depends on ASoC EXPORT_SYMBOL_GPL functions,
-so make qcom_snd_parse_of and EXPORT_SYMBOL_GPL.
+Add compatibles for sm8450 and sm8250xp based soundcards.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
- sound/soc/qcom/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index c407684ce1a2..e53ad84f8ff5 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -175,6 +175,6 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 	of_node_put(np);
- 	return ret;
- }
--EXPORT_SYMBOL(qcom_snd_parse_of);
-+EXPORT_SYMBOL_GPL(qcom_snd_parse_of);
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index a3a4289f713e..58b9c6463364 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -23,6 +23,8 @@ properties:
+       - qcom,sdm845-sndcard
+       - qcom,sm8250-sndcard
+       - qcom,qrb5165-rb5-sndcard
++      - qcom,sm8450-sndcard
++      - qcom,sc8280xp-sndcard
  
- MODULE_LICENSE("GPL v2");
+   audio-routing:
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
 -- 
 2.21.0
 

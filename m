@@ -2,81 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DDBC5B20A8
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 16:36:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E14AF5B21BD
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 17:13:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5D741719;
-	Thu,  8 Sep 2022 16:35:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D741719
+	by alsa0.perex.cz (Postfix) with ESMTPS id 138C6170C;
+	Thu,  8 Sep 2022 17:12:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 138C6170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662647788;
-	bh=PqNEivvRBkbJb/bbw9l3rUVufBVDSk0Ladwi3ZMei4c=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q6xImDT2li3ykYEATVLvnuA50LREVDS0A33J1kTZbXe3YRy8XfHVRQ93Gu+ysdC0J
-	 gkpYmc5sJ4Z46UiocnGcNXeXalJXaPy1GroZNHJNADd6Tw2baVeK43yPOY9BkuYDnE
-	 H3noz3cIrnYLStOxopGCKJndRLqa0zAw+sDXcf1Y=
+	s=default; t=1662649980;
+	bh=4klp8u7UUvE+sf6pUlOFxdJUMw44OmxUrIvExABahI8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lGHAKnBK1MYJs9z58sCCJ3qRzUM1jqpCP5bVxuu86ou2NPrLaISC8lfY91GYAgUBv
+	 QcM80hLnaEpW/AuwZQokAq8DwQ/x78FNs/8AHuPZXPIJvV00SPzF3xUmTpNavD0XX2
+	 Eyjrev44T/4lF+tfCKQEkgLGzkD3qmS/Gx1lF9uM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EF95F800CB;
-	Thu,  8 Sep 2022 16:35:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A73CF8023B;
+	Thu,  8 Sep 2022 17:12:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F191F80217; Thu,  8 Sep 2022 16:35:27 +0200 (CEST)
+ id 12CD3F80217; Thu,  8 Sep 2022 17:11:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0ACFAF8011C
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 16:35:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ACFAF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A436CF800CB
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 17:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A436CF800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DvPM9/MN"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CFB7661D25;
- Thu,  8 Sep 2022 14:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6C0C433D6;
- Thu,  8 Sep 2022 14:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662647720;
- bh=PqNEivvRBkbJb/bbw9l3rUVufBVDSk0Ladwi3ZMei4c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DvPM9/MNiL2AWkrZCDCQVlyvRmAPn1sJ4jgnmoRTJlPISCsQEe9eeLoIZGUSbxYEW
- OQRLRbrrEFn6jS/IIvO4GE02egOz6aFNlk+QyYm+QkWAP7ETaVKx65Y9ahuutZ5yj6
- s+k+djMhH6IbfT6n3C0sfrpgah04rNWTh0pmxzoXeGwy55xu2cQ6ZCHsTfEU/ij5pN
- kzpaTmeUjvJ29PFAncIm0P4H9UMRabQZR6POxAK1hsQWOozBSg7c7QPUAjv0lEfiV0
- wj5a/oI/IIX1Qehx3JE+TbSPKXDhS20frkeySg1/YHZXUcM33TGeOw1sKZzkmf+igW
- iRmd+OyjXQhlA==
-Date: Thu, 8 Sep 2022 15:35:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] dt-bindings: sound: ts3a227e: add control of debounce
- times
-Message-ID: <Yxn9o1MVMPnFO3PM@sirena.org.uk>
-References: <20220907135827.16209-1-astrid.rost@axis.com>
- <2b81d814-f47a-e548-83dc-b1e38857e8ce@linaro.org>
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="EqmtlG1E"
+Received: by mail-pj1-x1036.google.com with SMTP id
+ j6-20020a17090a694600b00200bba67dadso2767367pjm.5
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 08:11:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=evICa2gP1OZP3o4uj2q6UUkKvForG1fKNpFXQceaCWU=;
+ b=EqmtlG1EAApXEHPAJtRBAEY3KRn2qNipV7J7wV23a7+9xkZs61Aozim+Aj5IpshuOL
+ RTvka8w/TCO9lBxh7znsR6pIpfOZv+a2P4ITvHmeV/Kq31miqSqcHlha/9ZVtniOdKmT
+ ky5+rrH1c5YDZVrEZFER1XpuSN1YyZ2LKagyU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=evICa2gP1OZP3o4uj2q6UUkKvForG1fKNpFXQceaCWU=;
+ b=OfpGgCR8yDEFb1MqjWPySOI/FR5Vspq+flqM70iIhIyJJ2HC62o9h4AZoyjjCcda6X
+ JbghNQTNI4c8eMwWmgSpk23xrBJuEYprxIuqiDpJJ//XkDpGYgiun12efARuWxKEA1t2
+ LG2/umcpbFybfVuzaicIIHDzVXKnUVSgAtmXfdVHtKmUw5N8mAT9MX69dlAzc88Vl0DJ
+ bFCYPX+K35WOQNXrLYQZpc2pz8l6dyzrVHY9nTES6XPCas4jG+Cd10ysAC/7fR5k/MFo
+ IDkZCNslKnu2O7rAQwkpiuDfjAc7n7FZVGFe6HVS9BD0VQFtBOJJDgCQU5UEweG1Dw8n
+ KOVw==
+X-Gm-Message-State: ACgBeo3dYMNPW+LqIx8IhxEZs+jV5DmVjU26jJYZ4EzSxqndU1SnRpbH
+ nFZNVlQ/JaXInghKMJc/L3SZJg==
+X-Google-Smtp-Source: AA6agR6yoSUpGUarSfWA17yyn6yPMU3yzNaqtpF6IjQdc28o5dU7QuUtAkXWsncXc5yfzIzSjer2KQ==
+X-Received: by 2002:a17:90a:df13:b0:200:ae8c:700c with SMTP id
+ gp19-20020a17090adf1300b00200ae8c700cmr4784872pjb.203.1662649909840; 
+ Thu, 08 Sep 2022 08:11:49 -0700 (PDT)
+Received: from judyhsiao0523.c.googlers.com.com
+ (21.160.199.104.bc.googleusercontent.com. [104.199.160.21])
+ by smtp.gmail.com with ESMTPSA id
+ e16-20020aa798d0000000b005360da6b26bsm14892692pfm.159.2022.09.08.08.11.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Sep 2022 08:11:49 -0700 (PDT)
+From: Judy Hsiao <judyhsiao@chromium.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v1] ASoC: rockchip: i2s: use regmap_read_poll_timeout to poll
+ I2S_CLR
+Date: Thu,  8 Sep 2022 15:11:42 +0000
+Message-Id: <20220908151142.1479810-1-judyhsiao@chromium.org>
+X-Mailer: git-send-email 2.37.2.789.g6183377224-goog
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="EM1t5E+8UNLJ5GtZ"
-Content-Disposition: inline
-In-Reply-To: <2b81d814-f47a-e548-83dc-b1e38857e8ce@linaro.org>
-X-Cookie: Metermaids eat their young.
-Cc: devicetree@vger.kernel.org,
- alsa-devel-mejlinglistan <alsa-devel@alsa-project.org>,
- Astrid Rost <astrid.rost@axis.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- kernel@axis.com, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Brian Norris <briannorris@chromium.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Judy Hsiao <judyhsiao@chromium.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,36 +102,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Use regmap_read_poll_timeout to poll I2S_CLR.
+It also fixes the 'rockchip-i2s ff070000.i2s; fail to clear' and
+return -EBUSY when the read of I2S_CLR exceeds the retry limit.
 
---EM1t5E+8UNLJ5GtZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 0ff9f8b9f592 ("ASoC: rockchip: i2s: Fix error code when fail
+to read I2S_CLR")
+Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
+---
+ sound/soc/rockchip/rockchip_i2s.c | 39 +++++++++++++------------------
+ 1 file changed, 16 insertions(+), 23 deletions(-)
 
-On Thu, Sep 08, 2022 at 02:20:42PM +0200, Krzysztof Kozlowski wrote:
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index f5f3540a9e18..02905eec615e 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -163,18 +163,14 @@ static int rockchip_snd_txctrl(struct rk_i2s_dev *i2s, int on)
+ 						 I2S_CLR_TXC | I2S_CLR_RXC);
+ 			if (ret < 0)
+ 				goto end;
+-			regmap_read(i2s->regmap, I2S_CLR, &val);
+-
+-			/* Should wait for clear operation to finish */
+-			while (val) {
+-				regmap_read(i2s->regmap, I2S_CLR, &val);
+-				retry--;
+-				if (!retry) {
+-					dev_warn(i2s->dev, "fail to clear\n");
+-					ret = -EBUSY;
+-					break;
+-				}
+-			}
++			ret = regmap_read_poll_timeout(i2s->regmap,
++						       I2S_CLR,
++						       val,
++						       val != 0,
++						       20,
++						       200);
++			if (ret < 0)
++				dev_warn(i2s->dev, "fail to clear\n");
+ 		}
+ 	}
+ end:
+@@ -226,17 +222,14 @@ static int rockchip_snd_rxctrl(struct rk_i2s_dev *i2s, int on)
+ 						 I2S_CLR_TXC | I2S_CLR_RXC);
+ 			if (ret < 0)
+ 				goto end;
+-			regmap_read(i2s->regmap, I2S_CLR, &val);
+-			/* Should wait for clear operation to finish */
+-			while (val) {
+-				regmap_read(i2s->regmap, I2S_CLR, &val);
+-				retry--;
+-				if (!retry) {
+-					dev_warn(i2s->dev, "fail to clear\n");
+-					ret = -EBUSY;
+-					break;
+-				}
+-			}
++			ret = regmap_read_poll_timeout(i2s->regmap,
++						       I2S_CLR,
++						       val,
++						       val != 0,
++						       20,
++						       200);
++			if (ret < 0)
++				dev_warn(i2s->dev, "fail to clear\n");
+ 		}
+ 	}
+ end:
+-- 
+2.37.2.789.g6183377224-goog
 
-> Anyway new properties cannot be accepted. This has to be converted to DT
-> schema (YAML).
-
-Doing a whole binding conversion feels like a bit of a steep requirement
-when people are just adding a simple property, it's a lot of stop energy
-to figure out the tooling, do the conversion and deal with all the
-bikeshedding that the tools don't catch.  It's definitely nice if people
-want to look at that, for more complex binding changes it gets more
-reasonable but for trivial properties it's disproportionate.
-
---EM1t5E+8UNLJ5GtZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMZ/aIACgkQJNaLcl1U
-h9DbfAf/SjeLoEAMFhlUsKxoxGL1+jQv4Ma3wez0+Bs/BrWB8l3ltKTI8q2/mf79
-OtmVsUbz7odAzUgR5Kim/NroXNhPrNSF54TPxCnnDNfYjpQ5lhpuZynnzC7t6MBB
-kUWFp2bUcqTNkJdAm8LMQQ/V9E4Hhs4R3FnJj/rp5t4DhfKPRRQ655Euf2RuQLVo
-c0zRwdfrEctvDWlXMDpSMmvnAOA6W+X7LHZNLq6mGpaplYC762+ZQ1oZanV+DpTc
-FEWB53nfh0lrj+Khe2umbtQiADFitdIOQLZa60fkw9YQAM9zSYr9I4BekdeDVBBQ
-czc028DwfmOyoAEm9lCr7Cr9NwZX1g==
-=XuqR
------END PGP SIGNATURE-----
-
---EM1t5E+8UNLJ5GtZ--

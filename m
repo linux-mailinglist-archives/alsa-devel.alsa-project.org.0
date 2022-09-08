@@ -2,86 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135FE5B17E1
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 10:59:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8214C5B17F6
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 11:07:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 961CD16BC;
-	Thu,  8 Sep 2022 10:58:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 961CD16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2018D16C2;
+	Thu,  8 Sep 2022 11:06:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2018D16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662627559;
-	bh=RuxbtbdvJX1SNTbMCxBOWiHiEn1KRc05yGLDiOfgOtk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1662628020;
+	bh=dGRhAlZJPdjskKwPIWqcnnMgKaVJ/0d7KOOjN4lUxOc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dW5XXbLyvjQUlxgFhcGk+TPmqAQmC8j3s/4/dU+OKdVROENaRJrGjNNIS818M5KbB
-	 4PMfITio23yzhezusG3iY2Icih2+1Xb6w1awmVLaEhq3TFRgs2CkUesjJX3txhEpMr
-	 66tz145JwpgdygmLUQuAaHyq5p7daNcR1pmavSjo=
+	b=BgfuEsK0m19IwK0e070A8rDm8pBtmn29iTjrUM2WsRiHTWmdxwKt3VpTn8ISuX/Hr
+	 xtIhQOe+2t+fJxUGr+lUj4fMksE+V53/fDamk9jVq2wm1CmpbrGoHf9677yU5SqAbj
+	 wmiqWWGYY306I4tx+sP55idK+1JhmsGuHXSc7yOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1BFCF8023B;
-	Thu,  8 Sep 2022 10:58:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A65EF8023B;
+	Thu,  8 Sep 2022 11:06:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7425F80217; Thu,  8 Sep 2022 10:58:17 +0200 (CEST)
+ id 3B379F80217; Thu,  8 Sep 2022 11:05:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08ADEF8016D
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 10:58:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08ADEF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2663F8016D
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 11:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2663F8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="i7a4sZP3"
-Received: by mail-pj1-x102a.google.com with SMTP id
- q15-20020a17090a304f00b002002ac83485so1730368pjl.0
- for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 01:58:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=Yl5dH+M1AECal4jvUQOuJGxEpqBdOe/+ieXwhwCLcIA=;
- b=i7a4sZP3FnbyUkKT8FkldgTI3hWplhLrLiEqax5uxxwsoWP9gf6N8hignXexdO56pf
- pGRznxBg49yjvlJfo/HQhepEoRNmt2PklxkaZltRNoZRv7vkHdewQrt5raOfqgQ6cOFI
- gdzdwvfK402rUb0U2/WrsE2L4kUCkF8RcaStsRL4fj49KYiZvEigyA67txy8eh/bF0pW
- 9nimlMXCSUuv2GHDtWudZDol02Re3+hW96qW1kNULY93AbUvnGhKMK6TrCwc4NarqSwc
- 9fUYIWLkCDHA4VgVNqCkjhe5MPCWVj0WRCZhbm0j7GmpF+32EAP+H62hXYo4LPVmd+vS
- MeEQ==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="GFV1PyuE"
+Received: by mail-lf1-x12f.google.com with SMTP id z25so26675313lfr.2
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 02:05:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=4EXeardeq9HpwiVCQZQ5lt38hZVTwtZGieJK0lljKM8=;
+ b=GFV1PyuEpd72g7+F6AONP4m8l+4Mgx5vfZQ9e6eTMER3UWFHq95qsiLukvu+VyYFxW
+ tlMKSUe9fSe9nzd/d30Yon2MLZdQkCnt5LMCZMrPXdC78fxMUVeglBOjYpl8v599VGZX
+ VXZzIoUZPdxiJyJZ2UOY5VUhzgEmjuh1bn9Kd7D69+ZEt4rfqTdIONvAwC2QUvY5wk6u
+ d3TE0jHXiKheTnqCDkgPA3uKt7VLbbd766PbtwDEvztO28L1uNy4MwObB6UdwoA8FgQv
+ nmNYeEbfhxNDy6a8AJiOwjW0yMrFtB28+NAmZRc9U0+YOwSLaXmXJsAD6iMkw0eVbTE5
+ CMtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=Yl5dH+M1AECal4jvUQOuJGxEpqBdOe/+ieXwhwCLcIA=;
- b=R9gmD+fPCCK+K3YfEPTYE5pBqtq/a1CK0s7qzm3vl8xWFPVrg/ON3Y1wYy8gwmhH7m
- WjntvzyZYOfBNLXx9Jls5B8V2x5NcD7an7L8yc2huO3kOE8fW+Iho7UXBEUgTinni/Fa
- M/oiYxS5IfJ0yOC6g2z4O7SrRORiTqAfnAyqbcV3UgQByfPvOZDmWciseTQOHjhaLcn5
- TBY2x/Vk+q3gNN+lxiO5LvNr1wyczA9aEsyZuGAMFHIouDXZhOdzJT3PHVebRelcMzAs
- bjZV4V5gRezpi/2dOE4P9SmCxauq5DQZesa991bBPG4+60vk/jNK/wzlUtsDHFucOhCJ
- fzng==
-X-Gm-Message-State: ACgBeo3st+zrWFRVnWst13fdDr0DhccNbC6Abiwf20tXugruf3V3vdbz
- 1Y2zq0MW966JCIcM68vGItFQcUCc/ZIsMBuBTYs=
-X-Google-Smtp-Source: AA6agR6XeTaZhnOJWL11eg9HSVayAiNW4O8VHX0b67jvxaqgJXn+KJvwQDYiFLbuRwb9ORorqH1jT+y4at5YZYtWEgg=
-X-Received: by 2002:a17:90b:3b81:b0:202:597a:c71d with SMTP id
- pc1-20020a17090b3b8100b00202597ac71dmr2997392pjb.105.1662627487826; Thu, 08
- Sep 2022 01:58:07 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=4EXeardeq9HpwiVCQZQ5lt38hZVTwtZGieJK0lljKM8=;
+ b=XC+ydha5Wet7zASrSPgN4XSWZsFzRFe1uMbmwAIVLKr7ZGwMWNL37UMw1grQ/8DKRq
+ RjjZQnBuAMGQtZYJARxhJscyP3LXjRIBGb0k3SZwV5Bplxq3B092uc5+bOUFQ9nt5Z4q
+ KTihc9iPYqxGPjauBO5Ou7sobmWRrFALdWz3sR7586muVE5YHJWAvrhsNnZuKLoYZoi2
+ INvU5RraC60rqQ6JhYNQO8dN6OgPaVUhb7NFscto05bgrEbk9EFUgSG/NdStKFDJFumN
+ Y4t958LWoc81PbMDkHo3R5NqNmATVKMhbrmG3cDC1SuG60X28sI4wSYCPp4rnnSChji0
+ roPg==
+X-Gm-Message-State: ACgBeo1/zIJLX+RM8Z12Qdl/Lu0vqzQYW+sTZ2Q+8RYTPPY16lLA6g7k
+ 33B9CXHoqAPamkoCbDDr4/bdHw==
+X-Google-Smtp-Source: AA6agR7L93/MOoDYSIXBA6+h6lEC6mcSj4MEclyOVmbetSPM412RIRG/YwUgew+9bugh6qZXrUpMyQ==
+X-Received: by 2002:a05:6512:1091:b0:491:f135:4633 with SMTP id
+ j17-20020a056512109100b00491f1354633mr2712894lfg.553.1662627949452; 
+ Thu, 08 Sep 2022 02:05:49 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ p15-20020a2eb98f000000b00268d84f8db1sm3086496ljp.92.2022.09.08.02.05.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Sep 2022 02:05:49 -0700 (PDT)
+Message-ID: <ee9b8346-b0fc-8ca5-5858-26534d322362@linaro.org>
+Date: Thu, 8 Sep 2022 11:05:47 +0200
 MIME-Version: 1.0
-References: <1662622316-23426-1-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1662622316-23426-1-git-send-email-shengjiu.wang@nxp.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 8 Sep 2022 11:57:55 +0300
-Message-ID: <CAEnQRZCz_qKUMPqQgADszu_DvBEqNYRqm-wgfiYYEbRfvUEkng@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: ak4458: Remove component probe() and remove()
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH v2 09/14] ASoC: dt-bindings:: qcom,q6asm: convert to
+ dtschema
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+References: <20220907101556.37394-1-krzysztof.kozlowski@linaro.org>
+ <20220907101556.37394-10-krzysztof.kozlowski@linaro.org>
+ <20220907175759.GA3791463-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220907175759.GA3791463-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,105 +116,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Sep 8, 2022 at 11:03 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
->
-> Most function in ak4458_probe() and ak4458_remove() are
-> duplicate with dai ops, so remove them and move dsd_path
-> setting to dai ops.
->
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On 07/09/2022 19:57, Rob Herring wrote:
+> On Wed, Sep 07, 2022 at 12:15:51PM +0200, Krzysztof Kozlowski wrote:
+>> Convert Qualcomm Audio Stream Manager (Q6ASM) bindings to DT schema.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>
+>> ---
+>>
+>> Expected warning because the qcom,apr.yaml is being fixed in next commit:
+>>
+>>   Documentation/devicetree/bindings/sound/qcom,q6asm.example.dtb: apr: service@7: 'dais' does not match any of the regexes: '^.*@[0-9a-f]+$', 'pinctrl-[0-9]+'
+>>     From schema: /home/krzk/dev/linux/linux/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+>>
+>> Changes since v1:
+>> 1. New patch.
+>> ---
+>>  .../devicetree/bindings/sound/qcom,q6asm.txt  |  70 -----------
+>>  .../devicetree/bindings/sound/qcom,q6asm.yaml | 112 ++++++++++++++++++
+>>  2 files changed, 112 insertions(+), 70 deletions(-)
+>>  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6asm.yaml
+> 
+> Should be qcom,q6asm-dais.yaml or you need to add qcom,q6asm compatible?
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Right, it should be -dais.
 
-> ---
->  sound/soc/codecs/ak4458.c | 53 ++++++---------------------------------
->  1 file changed, 7 insertions(+), 46 deletions(-)
->
-> diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
-> index ea33cc83c86c..b534212096ee 100644
-> --- a/sound/soc/codecs/ak4458.c
-> +++ b/sound/soc/codecs/ak4458.c
-> @@ -447,6 +447,13 @@ static int ak4458_hw_params(struct snd_pcm_substream *substream,
->         snd_soc_component_update_bits(component, AK4458_0B_CONTROL7,
->                                       AK4458_DCHAIN_MASK, dchn);
->
-> +       if (ak4458->drvdata->type == AK4497) {
-> +               ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
-> +                                                   0x4, (ak4458->dsd_path << 2));
-> +               if (ret < 0)
-> +                       return ret;
-> +       }
-> +
->         ret = ak4458_rstn_control(component, 0);
->         if (ret)
->                 return ret;
-> @@ -629,48 +636,6 @@ static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
->         }
->  }
->
-> -static int ak4458_init(struct snd_soc_component *component)
-> -{
-> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
-> -       int ret;
-> -
-> -       /* External Mute ON */
-> -       if (ak4458->mute_gpiod)
-> -               gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
-> -
-> -       ak4458_reset(ak4458, false);
-> -
-> -       ret = snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
-> -                           0x80, 0x80);   /* ACKS bit = 1; 10000000 */
-> -       if (ret < 0)
-> -               return ret;
-> -
-> -       if (ak4458->drvdata->type == AK4497) {
-> -               ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
-> -                                                   0x4, (ak4458->dsd_path << 2));
-> -               if (ret < 0)
-> -                       return ret;
-> -       }
-> -
-> -       return ak4458_rstn_control(component, 1);
-> -}
-> -
-> -static int ak4458_probe(struct snd_soc_component *component)
-> -{
-> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
-> -
-> -       ak4458->fs = 48000;
-> -
-> -       return ak4458_init(component);
-> -}
-> -
-> -static void ak4458_remove(struct snd_soc_component *component)
-> -{
-> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
-> -
-> -       ak4458_reset(ak4458, true);
-> -}
-> -
->  #ifdef CONFIG_PM
->  static int __maybe_unused ak4458_runtime_suspend(struct device *dev)
->  {
-> @@ -714,8 +679,6 @@ static int __maybe_unused ak4458_runtime_resume(struct device *dev)
->  #endif /* CONFIG_PM */
->
->  static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
-> -       .probe                  = ak4458_probe,
-> -       .remove                 = ak4458_remove,
->         .controls               = ak4458_snd_controls,
->         .num_controls           = ARRAY_SIZE(ak4458_snd_controls),
->         .dapm_widgets           = ak4458_dapm_widgets,
-> @@ -728,8 +691,6 @@ static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
->  };
->
->  static const struct snd_soc_component_driver soc_codec_dev_ak4497 = {
-> -       .probe                  = ak4458_probe,
-> -       .remove                 = ak4458_remove,
->         .controls               = ak4497_snd_controls,
->         .num_controls           = ARRAY_SIZE(ak4497_snd_controls),
->         .dapm_widgets           = ak4497_dapm_widgets,
-> --
-> 2.34.1
->
+> 
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt b/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+>> deleted file mode 100644
+>> index 0d0075125243..000000000000
+>> --- a/Documentation/devicetree/bindings/sound/qcom,q6asm.txt
+>> +++ /dev/null
+>> @@ -1,70 +0,0 @@
+>> -Qualcomm Audio Stream Manager (Q6ASM) binding
+>> -
+>> -Q6ASM is one of the APR audio service on Q6DSP.
+>> -Please refer to qcom,apr.txt for details of the common apr service bindings
+>> -used by the apr service device.
+>> -
+>> -- but must contain the following property:
+>> -
+>> -- compatible:
+>> -	Usage: required
+>> -	Value type: <stringlist>
+>> -	Definition: must be "qcom,q6asm-v<MAJOR-NUMBER>.<MINOR-NUMBER>".
+>> -		    Or "qcom,q6asm" where the version number can be queried
+>> -		    from DSP.
+>> -		    example "qcom,q6asm-v2.0"
+> 
+> Where is this compatible handled now? 
+
+The "qcom,q6asm" is handled in:
+Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+
+The "qcom,q6asm-v<MAJOR-NUMBER>.<MINOR-NUMBER>" is not handled because
+it seems it is not used anywhere. I did not find such usage also in
+downstream sources, so it seems version can be always auto-detected (I
+did not confirm it with datasheet, though).
+
+I'll explain this in commit msg.
+
+
+
+Best regards,
+Krzysztof

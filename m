@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7ACD5B16B6
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 10:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 135FE5B17E1
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 10:59:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 235D516B5;
-	Thu,  8 Sep 2022 10:16:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 235D516B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 961CD16BC;
+	Thu,  8 Sep 2022 10:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 961CD16BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662625033;
-	bh=0Xcy7Sb8S/Alyqf+xypoaKPuCwt1msXzuWAl9mSjqJM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662627559;
+	bh=RuxbtbdvJX1SNTbMCxBOWiHiEn1KRc05yGLDiOfgOtk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TmyJFtj4XuzCexzAYwDyc/FncdsoWly5t1LB8TF1RmZ62azP+Oi6i2HMielPt27W5
-	 MFVsy9fRJFv8jYl9eAiFIPXgibMHXgZrrT/Q15nyiH3SIZW05pDE7MHYvcea2u2CeV
-	 11J211Jbx0TV3ps8yqWwlIDCgAu7MeeQWlEwk0NM=
+	b=dW5XXbLyvjQUlxgFhcGk+TPmqAQmC8j3s/4/dU+OKdVROENaRJrGjNNIS818M5KbB
+	 4PMfITio23yzhezusG3iY2Icih2+1Xb6w1awmVLaEhq3TFRgs2CkUesjJX3txhEpMr
+	 66tz145JwpgdygmLUQuAaHyq5p7daNcR1pmavSjo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92221F800CB;
-	Thu,  8 Sep 2022 10:16:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1BFCF8023B;
+	Thu,  8 Sep 2022 10:58:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E77E9F800CB; Thu,  8 Sep 2022 10:16:11 +0200 (CEST)
+ id E7425F80217; Thu,  8 Sep 2022 10:58:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8CF9F800CB
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 10:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8CF9F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08ADEF8016D
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 10:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08ADEF8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RJEIcksQ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="egziTsF6"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 659713449D;
- Thu,  8 Sep 2022 08:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662624963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=arESGDH4tHKC/NAVP771DmFPNGw963e2VPRZVSwtGtU=;
- b=RJEIcksQsC+Au1sS6n+iICwJjDbanz7yvijO1jT0tO1jl5IZrbZ1O0VBRalAeChsI7onQW
- 7r6shXJNCWxOk3nB3vp4buA2A05zNKhBcblYvwc9ED21E3TswHC3UnzvFgiSUJZBUSjmr5
- ilK7vXYII5zybyj+lIglrITHREGx/Xk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662624963;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=arESGDH4tHKC/NAVP771DmFPNGw963e2VPRZVSwtGtU=;
- b=egziTsF6yY5BzNTY7et7TGgHlE8iz1MjTu23yPugrIApYRxxoK2o2KfIUVbEtCHcfYeDv7
- o0TwcSNzM6DzfTDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 441691322C;
- Thu,  8 Sep 2022 08:16:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wUTlD8OkGWMXJgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 08 Sep 2022 08:16:03 +0000
-Date: Thu, 08 Sep 2022 10:16:02 +0200
-Message-ID: <87r10mcmd9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: YJ Lee <yunjunlee@chromium.org>
-Subject: Re: About ALSA dummy module: support customized mixer volume leveling
-In-Reply-To: <CAPm_npY3SkumWgy8EN65no2iQFj2KWG6pysUchEKHBBPZ9AHsA@mail.gmail.com>
-References: <CAPm_npY3SkumWgy8EN65no2iQFj2KWG6pysUchEKHBBPZ9AHsA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Ching Yun Chang <whalechang@google.com>,
- tiwai@suse.com, Yu-Hsuan Hsu <yuhsuan@chromium.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="i7a4sZP3"
+Received: by mail-pj1-x102a.google.com with SMTP id
+ q15-20020a17090a304f00b002002ac83485so1730368pjl.0
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 01:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=Yl5dH+M1AECal4jvUQOuJGxEpqBdOe/+ieXwhwCLcIA=;
+ b=i7a4sZP3FnbyUkKT8FkldgTI3hWplhLrLiEqax5uxxwsoWP9gf6N8hignXexdO56pf
+ pGRznxBg49yjvlJfo/HQhepEoRNmt2PklxkaZltRNoZRv7vkHdewQrt5raOfqgQ6cOFI
+ gdzdwvfK402rUb0U2/WrsE2L4kUCkF8RcaStsRL4fj49KYiZvEigyA67txy8eh/bF0pW
+ 9nimlMXCSUuv2GHDtWudZDol02Re3+hW96qW1kNULY93AbUvnGhKMK6TrCwc4NarqSwc
+ 9fUYIWLkCDHA4VgVNqCkjhe5MPCWVj0WRCZhbm0j7GmpF+32EAP+H62hXYo4LPVmd+vS
+ MeEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=Yl5dH+M1AECal4jvUQOuJGxEpqBdOe/+ieXwhwCLcIA=;
+ b=R9gmD+fPCCK+K3YfEPTYE5pBqtq/a1CK0s7qzm3vl8xWFPVrg/ON3Y1wYy8gwmhH7m
+ WjntvzyZYOfBNLXx9Jls5B8V2x5NcD7an7L8yc2huO3kOE8fW+Iho7UXBEUgTinni/Fa
+ M/oiYxS5IfJ0yOC6g2z4O7SrRORiTqAfnAyqbcV3UgQByfPvOZDmWciseTQOHjhaLcn5
+ TBY2x/Vk+q3gNN+lxiO5LvNr1wyczA9aEsyZuGAMFHIouDXZhOdzJT3PHVebRelcMzAs
+ bjZV4V5gRezpi/2dOE4P9SmCxauq5DQZesa991bBPG4+60vk/jNK/wzlUtsDHFucOhCJ
+ fzng==
+X-Gm-Message-State: ACgBeo3st+zrWFRVnWst13fdDr0DhccNbC6Abiwf20tXugruf3V3vdbz
+ 1Y2zq0MW966JCIcM68vGItFQcUCc/ZIsMBuBTYs=
+X-Google-Smtp-Source: AA6agR6XeTaZhnOJWL11eg9HSVayAiNW4O8VHX0b67jvxaqgJXn+KJvwQDYiFLbuRwb9ORorqH1jT+y4at5YZYtWEgg=
+X-Received: by 2002:a17:90b:3b81:b0:202:597a:c71d with SMTP id
+ pc1-20020a17090b3b8100b00202597ac71dmr2997392pjb.105.1662627487826; Thu, 08
+ Sep 2022 01:58:07 -0700 (PDT)
+MIME-Version: 1.0
+References: <1662622316-23426-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1662622316-23426-1-git-send-email-shengjiu.wang@nxp.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 8 Sep 2022 11:57:55 +0300
+Message-ID: <CAEnQRZCz_qKUMPqQgADszu_DvBEqNYRqm-wgfiYYEbRfvUEkng@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: ak4458: Remove component probe() and remove()
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,42 +97,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 08 Sep 2022 07:26:02 +0200,
-YJ Lee wrote:
-> 
-> Hello Takashi (and the alsa community),
-> 
-> This is YJ Lee from chromium.org.
-> 
-> I'm thinking about extending the ALSA dummy module to support
-> customized volume leveling. It will be very useful to test devices
-> with different volume granularity. Currently this module is using
-> hard-coded mixer volume leveling, from min=-50 to max=100.
-> 
-> See L716: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/tree/sound/drivers/dummy.c?h=queue/5.19#n716
-> 
-> My plan (A) is to expose 2 more additional module parameters and
-> replace a few occurrences, from L742-750.
-> 
-> Another plan (B) is to leverage the current existing module
-> parameter:model, and make the dummy-module to be able to accept models
-> with customized volume leveling. New dummy models can be provided as
-> configuration files, and be used in the same way as how currently
-> existing dummy models (L146-213) are used. However, it's a bit
-> over-engineering from the original purpose.
-> 
-> What do you think about these plans? Any insight you (and the alsa
-> community) can provide will be greatly appreciated.
+On Thu, Sep 8, 2022 at 11:03 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+>
+> Most function in ak4458_probe() and ak4458_remove() are
+> duplicate with dai ops, so remove them and move dsd_path
+> setting to dai ops.
+>
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Only for volume min/max, module options may be an easier way, IMO.
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 
-OTOH, if we want to adjust more stuff, another possibility is to
-extend the proc file.  It currently supports the dynamic changes of
-PCM parameters, but we can extend it or add a new proc file for
-adjusting other stuff, too.  So the question is what else we want to
-allow changing.
-
-
-thanks,
-
-Takashi
+> ---
+>  sound/soc/codecs/ak4458.c | 53 ++++++---------------------------------
+>  1 file changed, 7 insertions(+), 46 deletions(-)
+>
+> diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
+> index ea33cc83c86c..b534212096ee 100644
+> --- a/sound/soc/codecs/ak4458.c
+> +++ b/sound/soc/codecs/ak4458.c
+> @@ -447,6 +447,13 @@ static int ak4458_hw_params(struct snd_pcm_substream *substream,
+>         snd_soc_component_update_bits(component, AK4458_0B_CONTROL7,
+>                                       AK4458_DCHAIN_MASK, dchn);
+>
+> +       if (ak4458->drvdata->type == AK4497) {
+> +               ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
+> +                                                   0x4, (ak4458->dsd_path << 2));
+> +               if (ret < 0)
+> +                       return ret;
+> +       }
+> +
+>         ret = ak4458_rstn_control(component, 0);
+>         if (ret)
+>                 return ret;
+> @@ -629,48 +636,6 @@ static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
+>         }
+>  }
+>
+> -static int ak4458_init(struct snd_soc_component *component)
+> -{
+> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+> -       int ret;
+> -
+> -       /* External Mute ON */
+> -       if (ak4458->mute_gpiod)
+> -               gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
+> -
+> -       ak4458_reset(ak4458, false);
+> -
+> -       ret = snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
+> -                           0x80, 0x80);   /* ACKS bit = 1; 10000000 */
+> -       if (ret < 0)
+> -               return ret;
+> -
+> -       if (ak4458->drvdata->type == AK4497) {
+> -               ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
+> -                                                   0x4, (ak4458->dsd_path << 2));
+> -               if (ret < 0)
+> -                       return ret;
+> -       }
+> -
+> -       return ak4458_rstn_control(component, 1);
+> -}
+> -
+> -static int ak4458_probe(struct snd_soc_component *component)
+> -{
+> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+> -
+> -       ak4458->fs = 48000;
+> -
+> -       return ak4458_init(component);
+> -}
+> -
+> -static void ak4458_remove(struct snd_soc_component *component)
+> -{
+> -       struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+> -
+> -       ak4458_reset(ak4458, true);
+> -}
+> -
+>  #ifdef CONFIG_PM
+>  static int __maybe_unused ak4458_runtime_suspend(struct device *dev)
+>  {
+> @@ -714,8 +679,6 @@ static int __maybe_unused ak4458_runtime_resume(struct device *dev)
+>  #endif /* CONFIG_PM */
+>
+>  static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
+> -       .probe                  = ak4458_probe,
+> -       .remove                 = ak4458_remove,
+>         .controls               = ak4458_snd_controls,
+>         .num_controls           = ARRAY_SIZE(ak4458_snd_controls),
+>         .dapm_widgets           = ak4458_dapm_widgets,
+> @@ -728,8 +691,6 @@ static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
+>  };
+>
+>  static const struct snd_soc_component_driver soc_codec_dev_ak4497 = {
+> -       .probe                  = ak4458_probe,
+> -       .remove                 = ak4458_remove,
+>         .controls               = ak4497_snd_controls,
+>         .num_controls           = ARRAY_SIZE(ak4497_snd_controls),
+>         .dapm_widgets           = ak4497_dapm_widgets,
+> --
+> 2.34.1
+>

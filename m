@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1835B23B1
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 18:37:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F59D5B27C0
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 22:33:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48239172B;
-	Thu,  8 Sep 2022 18:36:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48239172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B25BF1685;
+	Thu,  8 Sep 2022 22:33:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B25BF1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662655063;
-	bh=z+EAy5tr+0u3cXH5bl2QTwxzn2sBd84H77A80gvaElU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1662669233;
+	bh=i++WLbBVy90A8e+JAcE9TFJjaYVhyLVFCXcmlYiRhsY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G5h8CicHAteweZqMHi6SWEFfohgdcHauCpOQkT5IstFnjS5b5nlZVL015CkmSE9gR
-	 lmGJrKFFxYghizLlW8EDEWZUCj4G1XF9Jrjl8gXpNSr8mAjJ6eyhsv+YiA6bwe4k9a
-	 s8MV8PxaOfQCvW2HPrOcdFnYAGo1tuCa9xOCHJ7w=
+	b=Njzrww2pVMWhoM1fnsjscHMabe8teUyA4mp4d7yGEaXftWk2pTm+2AHwWCFipiOP4
+	 8N8obtP63X5MoZ+aB9MHz+HHcz2XdqxORIA7DpMlUs4loLJ5I0goptl6Er57Hl9VRW
+	 p12cEJ+LjI1RmYjGVHTaWAFPlC2P6tZ1LvN5R7Dg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC154F8023B;
-	Thu,  8 Sep 2022 18:36:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A8F5F8023B;
+	Thu,  8 Sep 2022 22:32:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0F50F80217; Thu,  8 Sep 2022 18:36:42 +0200 (CEST)
+ id A6ED1F80217; Thu,  8 Sep 2022 22:32:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 828E6F8011C
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 18:36:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 828E6F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8BC6F800CB
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 22:32:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8BC6F800CB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="alCtEdhd"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DBCEB61D09;
- Thu,  8 Sep 2022 16:36:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8FEC433C1;
- Thu,  8 Sep 2022 16:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662654994;
- bh=z+EAy5tr+0u3cXH5bl2QTwxzn2sBd84H77A80gvaElU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=alCtEdhdRgiGW9ouvPeAWzLHKBgiFcKflgrGN4umL8ZgvwlCt/vuOHyxMsZlaOknf
- 6r9awQI3KJ/7JMagoAP2TYbUZN+ihpRJrrqBzXa0775dC/zJbek88ugWWH8ijBKMDC
- SUC1n4tLJ6YaGJCuyYtOMcnKMI3iUxNLqChE4V+nIxwxlaG4jwtRkgHCczbCOAEqhJ
- JjMm9OSWn4KDv5OWHKig1nleHbxkCmn3AcoAW7Wg6MUXy6vvE+a8ecf7NZ12roYK26
- S6toLc9x/ERxzgQLxng2NdgAf1E69bbExqT0yMCbsK+y0EZw6pF++kBtjsMRAhrnVB
- MjlSz3kQONVtA==
-Date: Thu, 8 Sep 2022 17:36:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: luca.ceresoli@bootlin.com
-Subject: Re: [PATCH 5/8] ASoC: rockchip: i2s-tdm: Fix clk_id usage in
- .set_sysclk()
-Message-ID: <YxoaC5OAv/oES+jQ@sirena.org.uk>
-References: <20220907142124.2532620-1-luca.ceresoli@bootlin.com>
- <20220907142124.2532620-6-luca.ceresoli@bootlin.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lCAHHHtG"
+Received: by mail-wr1-x42d.google.com with SMTP id e20so28115802wri.13
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 13:32:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=vaR+PRR/c8VGDxG3pWSaeOmzf/CHklELeimE/+fWPMY=;
+ b=lCAHHHtGrq9cNEZkhFfMbtPxHscDK7s0S4yHqSiFF3nde/Kclq1HENHQQhVHeUt9Yj
+ D/9+fdKfsyfKL3ZSZntsRfDnls3ySehyrEFIyUYVB5xt7JACTP/dkpVza+mmKUvv2FKq
+ oPDBxtsu1GQFlk0Rt+PqICrAQ1shTZq0nXN24wPlw6Aum6LGRiGShk3pLvhytTx2Y1fz
+ UXLNaDng7ZEiYEUBVwbARxTMEvShiKmkHJ0DjHqynta2OncqVGAGUomZZYvL2B4KxOS0
+ 5JC1hJkVwLq/cwbHpzgru3X55StUYRb9OEezfeaoevF5Ba8NAaF7CiEn9cppS4+T/Na/
+ KuBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=vaR+PRR/c8VGDxG3pWSaeOmzf/CHklELeimE/+fWPMY=;
+ b=BrVXrT+um/URuKBnmxlxZ0iGxSxw/KC4hqqEm7zBWvd1rcJIxFW+76OhimKwE92SSz
+ azxA6Mww+CTgINJZzy11tOHGF2V7sqz2lGfthjmu5mbfjE/dKLGxSqEGxLCGve356p6v
+ LUnRTSWpcrJod+Ho7hSmQz9mJx6MLDHvThXawJM0YOkPdMKldtOR2vD2Ui3v3pgs6olh
+ onqqyeSj3jnKD3Eh6VW0PvqrMmoQLSJaUpGzJkMIASldvMfaC9ioFRKkoD0UqYp04HFd
+ Xt9ECuIZyPXQZzHL7D1TvhiPvsLTiW3i818zK5vHGNujCNCF6iKQ9vNMthJUAnDsAK4F
+ HVaQ==
+X-Gm-Message-State: ACgBeo2lR0shjiYsAVf3+M5SBJhh7NjNA9UajenJ4bcCeflftynL5wL9
+ lZo2mCjeS2S/iokHjExVFAcIVrqOgEjqA9zR5+Y=
+X-Google-Smtp-Source: AA6agR7lafh5iFDYSngDCJLO1yWQBBaEIcCgTmgJJZt1Q4q1I7mTv9rD219dWAKV0aSj6u6/8XmjvrSPmjTKI+DJsZU=
+X-Received: by 2002:a05:6000:168e:b0:220:87da:c3e4 with SMTP id
+ y14-20020a056000168e00b0022087dac3e4mr6000203wrd.559.1662669163591; Thu, 08
+ Sep 2022 13:32:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n9PmSJv+Ru1ZxyoW"
-Content-Disposition: inline
-In-Reply-To: <20220907142124.2532620-6-luca.ceresoli@bootlin.com>
-X-Cookie: Metermaids eat their young.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Chris Morgan <macromorgan@hotmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Johan Jonker <jbx6244@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+References: <1662519715-21891-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1662519715-21891-1-git-send-email-shengjiu.wang@nxp.com>
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+Date: Thu, 8 Sep 2022 13:32:32 -0700
+Message-ID: <CAGoOwPSCQF9WC=jhV79wnqDQ-puL+=yuF1u1oEpomZU9FRzBbA@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: fsl_asrc: Add initialization finishing check in
+ runtime resume
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, shengjiu.wang@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,50 +98,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Sep 6, 2022 at 8:20 PM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+>
+> If the initialization is not finished, then filling input data to
+> the FIFO may fail. So it is better to add initialization finishing
+> check in the runtime resume for suspend & resume case.
+>
+> And consider the case of three instances working in parallel,
+> increase the retry times to 50 for more initialization time.
+>
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
---n9PmSJv+Ru1ZxyoW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Some nitpicks inline.
 
-On Wed, Sep 07, 2022 at 04:21:21PM +0200, luca.ceresoli@bootlin.com wrote:
+Otherwise,
+Reviewed-by: Nicolin Chen <nicolinc@gmail.com>
 
-> -static int rockchip_i2s_tdm_set_sysclk(struct snd_soc_dai *cpu_dai, int stream,
-> +static int rockchip_i2s_tdm_set_sysclk(struct snd_soc_dai *cpu_dai, int clk_id,
->  				       unsigned int freq, int dir)
->  {
->  	struct rk_i2s_tdm_dev *i2s_tdm = to_info(cpu_dai);
-> @@ -978,15 +981,18 @@ static int rockchip_i2s_tdm_set_sysclk(struct snd_soc_dai *cpu_dai, int stream,
->  	if (i2s_tdm->clk_trcm) {
->  		i2s_tdm->mclk_tx_freq = freq;
->  		i2s_tdm->mclk_rx_freq = freq;
+> @@ -20,6 +20,7 @@
+>
+>  #define IDEAL_RATIO_DECIMAL_DEPTH 26
+>  #define DIVIDER_NUM  64
+> +#define INIT_TRY_NUM 50
+
+s/TRY/RETRY
+
+> @@ -592,6 +593,10 @@ static void fsl_asrc_start_pair(struct fsl_asrc_pair *pair)
+>                 reg &= ASRCFG_INIRQi_MASK(index);
+>         } while (!reg && --retry);
+>
+> +       /* NOTE: Doesn't treat initialization timeout as error */
+
+s/as error/as an error
+
+> +       if (!retry)
+> +               dev_warn(&asrc->pdev->dev, "initialization isn't finished\n");
+
+Could print which pair; or perhaps pair_warn?
+
+> @@ -1295,6 +1301,20 @@ static int fsl_asrc_runtime_resume(struct device *dev)
+>         regmap_update_bits(asrc->regmap, REG_ASRCTR,
+>                            ASRCTR_ASRCEi_ALL_MASK, asrctr);
+>
+> +       /* Wait for status of initialization for every enabled pairs */
+
+s/every/all
+
+> +       do {
+> +               udelay(5);
+> +               regmap_read(asrc->regmap, REG_ASRCFG, &reg);
+> +               reg = (reg >> ASRCFG_INIRQi_SHIFT(0)) & 0x7;
+> +       } while ((reg != ((asrctr >> ASRCTR_ASRCEi_SHIFT(0)) & 0x7)) && --retry);
 > +
-> +		dev_dbg(i2s_tdm->dev, "mclk freq: %u", freq);
->  	} else {
-> -		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		if (clk_id == CLK_IDX_MCLK_TX)
->  			i2s_tdm->mclk_tx_freq = freq;
-> -		else
-> +		else if (clk_id == CLK_IDX_MCLK_RX)
->  			i2s_tdm->mclk_rx_freq = freq;
-> -	}
-> +		else
-> +			return -ENOTSUPP;
+> +       /*
+> +        * NOTE: Doesn't treat initialization timeout as error
 
-This should be a switch statement for clarity and exensibility.
+s/as error/as an error/
 
---n9PmSJv+Ru1ZxyoW
-Content-Type: application/pgp-signature; name="signature.asc"
+> +        * Some of pair maybe success, then still can continue.
 
------BEGIN PGP SIGNATURE-----
++        * Some of the pairs may succeed, then still can continue.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMaGgoACgkQJNaLcl1U
-h9AUXwf/Ybq47bEk4QDfoPEAToGlvieUKHsFJ8BDFyusjrLmwXm1GWgzWOuF7VuB
-rAHrRYsRWOIXHMW6oVOf+Zlll9w1n292d2eyelotnTsvAAgBi/vG6g4OmOtTD3I9
-W9rPB2x+xkR2rz/sQd/hbGxPxa6sU0ymEX5ScOuA9NejRSr3Y0t/GgY3LWOCKJsC
-2U9Oj5P/qX4qPDo/6Qf7ybfVr7jXwWsatgIzX5DyRpbKbvk9JbDMv5dssp9VStUU
-Q998qqb8+Reec2p62tuZd8JpotC3OVhkiSTcHeO0UCgcuLCz+QQ3PPxgESe9BQWG
-wUSmVEs8J1Ushh+d+5shIT+ZQyBApA==
-=MFhn
------END PGP SIGNATURE-----
+> +        */
+> +       if (!retry)
+> +               dev_warn(dev, "initialization isn't finished\n");
 
---n9PmSJv+Ru1ZxyoW--
+Could print which pair.

@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9328F5B2343
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 18:14:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66B195B2347
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 18:14:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2418F172E;
-	Thu,  8 Sep 2022 18:13:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2418F172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0AB9172B;
+	Thu,  8 Sep 2022 18:13:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0AB9172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662653662;
-	bh=1m8CobNwZn4GhVwZE+bnolPPFRG5PI3OCAmyya1eAAI=;
+	s=default; t=1662653674;
+	bh=8YlofjXhrN57o2uDk2nHW9qNEA9RaDpEWPGfo6KOGqc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q2CV3iGujJzwEYDbi7b3g+Q1TI6hTzR+RXyJkwRm32ZZThl4AlWDBD+BVvy1f4haE
-	 LVGHK5bYjnka8Ygj52EL1bSbiCtZ2E5x6DbguVCy7SiQeH9QacEtQezJFOeSco9Fp1
-	 2Yfh26T9ytbmFlqU3rqEaIm1VbAr82A07UcAsPCM=
+	b=ClV1/LiTxn2NWWJ4yJXWLC5Q05PIc+e9G+vvm+6pg6VZhBYNBiGduR9pLRbSjJ8w6
+	 Jo+lCxB8Oqq9eIgueM0vXy5CQSeB7cZYvmJ2HTUZ67STB8xUSuSCq+ymNORnA4sqF9
+	 o0A4P6bS4Y/vZAghv5qBUo++yMhgjt1xwjlic2+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F08F1F80553;
-	Thu,  8 Sep 2022 18:12:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C44B4F8053B;
+	Thu,  8 Sep 2022 18:12:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CDF4F80558; Thu,  8 Sep 2022 18:12:19 +0200 (CEST)
+ id E8BABF80557; Thu,  8 Sep 2022 18:12:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D20F9F80535
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 18:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D20F9F80535
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84F33F80528
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 18:12:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F33F80528
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="ZXi4qRc1"
+ header.b="Nl/he3U6"
 Received: from notapiano.myfiosgateway.com (unknown [70.107.189.129])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BA9846601FB3;
- Thu,  8 Sep 2022 17:12:05 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 410766601FAC;
+ Thu,  8 Sep 2022 17:12:07 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662653526;
- bh=1m8CobNwZn4GhVwZE+bnolPPFRG5PI3OCAmyya1eAAI=;
+ s=mail; t=1662653528;
+ bh=8YlofjXhrN57o2uDk2nHW9qNEA9RaDpEWPGfo6KOGqc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZXi4qRc1Z4CqK2vX59XBgyqXt/EKvwcoMQvhBcNRm9auQetdppCb3o1TMd26hhmQk
- 5ByJWTReYOHoFECKSxGvFHHj08WqNjQkpkJTvS3pfWc9rMjaH//yttXpb938dSlwpz
- PAsM/6AZRxa/a3DNTokHEoZi2C3UGwmu13IQ4nND6pqiNVDjNaG0Pam3Hg4NvEH1Mv
- a3GF4G8PJ3SizXkExy6WEgzRT5xxTcPy3BRg2Xz44nzWegMw2KyOxnCoB9vuxy5KK1
- +ojlAq2aBAlL3a7xHdFQ61ozPaeeN1sQbjGMW0GEz7kp9S8C/JwpnkaCm5FA5+Olj1
- CBtlDEE0q1FHA==
+ b=Nl/he3U60A7/mmgUgn1oAI3NYZ0K4NjWYcPAeotjqMG63AIKvdYbW22sn8i4sGwfL
+ oBXqKBhTyC2/NAmixhnv90LYSA0vsqOiPSEr+iLwG8Qjkw1lnLlrpyKSSW5nPHupOD
+ FF4cSGmxgnKf1nXBjbO/4XEGxJm5nSyJTqi9g6AeKyAclUV9myPkDGFd5q1iHVIJQd
+ Lz8kvaCZ/fdDdwdC07q0eicmTSJbPjx6ZhMBnUkzBFbGnuUkhZLZQXCgQvMDNT8FvV
+ vWZ9cVL+fkGohQjZRzkURs8TeQvprWWYhve2oFVE8Nfz82XC1/2DSOw9P9fvv4BIgc
+ EhyL3GJLLrtBQ==
 From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
  <nfraprado@collabora.com>
 To: Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [PATCH 04/10] ASoC: mediatek: mt8183: Allow setting shared clocks
- from machine driver
-Date: Thu,  8 Sep 2022 12:11:48 -0400
-Message-Id: <20220908161154.648557-5-nfraprado@collabora.com>
+Subject: [PATCH 05/10] ASoC: mediatek: mt8183: Configure shared clocks
+Date: Thu,  8 Sep 2022 12:11:49 -0400
+Message-Id: <20220908161154.648557-6-nfraprado@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220908161154.648557-1-nfraprado@collabora.com>
 References: <20220908161154.648557-1-nfraprado@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
+Cc: alsa-devel@alsa-project.org, Miaoqian Lin <linmq006@gmail.com>,
  =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-mediatek@lists.infradead.org, kernel@collabora.com,
+ <nfraprado@collabora.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ linux-mediatek@lists.infradead.org,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -92,68 +93,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a new function to configure the shared clock between two i2s ports,
-and export it. This will allow the clock sharing to be set from the
-machine driver instead of the devicetree.
+i2s0 and i2s5 are paired input/output connected to the same codec and
+should share the same clock. Likewise for i2s2 and i2s3. Set the clock
+sharing for each pair during the DAI initialization.
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 ---
 
- sound/soc/mediatek/mt8183/mt8183-afe-common.h |  3 +++
- sound/soc/mediatek/mt8183/mt8183-dai-i2s.c    | 26 +++++++++++++++++++
- 2 files changed, 29 insertions(+)
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 33 +++++++++++++++++++
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 33 +++++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-common.h b/sound/soc/mediatek/mt8183/mt8183-afe-common.h
-index b220e7a7db7e..40ab48c1566c 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-common.h
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-common.h
-@@ -99,6 +99,9 @@ unsigned int mt8183_general_rate_transform(struct device *dev,
- unsigned int mt8183_rate_transform(struct device *dev,
- 				   unsigned int rate, int aud_blk);
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index b33cc9a73ed1..9f22d3939818 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -17,6 +17,7 @@
+ #include "../../codecs/da7219-aad.h"
+ #include "../../codecs/da7219.h"
+ #include "../../codecs/rt1015.h"
++#include "../common/mtk-afe-platform-driver.h"
+ #include "mt8183-afe-common.h"
  
-+int mt8183_dai_i2s_set_share(struct mtk_base_afe *afe, const char *main_i2s_name,
-+			     const char *secondary_i2s_name);
-+
- /* dai register */
- int mt8183_dai_adda_register(struct mtk_base_afe *afe);
- int mt8183_dai_pcm_register(struct mtk_base_afe *afe);
-diff --git a/sound/soc/mediatek/mt8183/mt8183-dai-i2s.c b/sound/soc/mediatek/mt8183/mt8183-dai-i2s.c
-index 138591d71ebd..8902ff608d26 100644
---- a/sound/soc/mediatek/mt8183/mt8183-dai-i2s.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-dai-i2s.c
-@@ -1026,6 +1026,32 @@ static int mt8183_dai_i2s_get_share(struct mtk_base_afe *afe)
- 	return 0;
+ #define DA7219_CODEC_DAI "da7219-hifi"
+@@ -372,6 +373,36 @@ static int mt8183_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 					  &priv->hdmi_jack, NULL);
  }
  
-+/**
-+ * mt8183_dai_i2s_set_share() - Set up I2S ports to share a single clock.
-+ * @afe: Pointer to &struct mtk_base_afe
-+ * @main_i2s_name: The name of the I2S port that will provide the clock
-+ * @secondary_i2s_name: The name of the I2S port that will use this clock
-+ */
-+int mt8183_dai_i2s_set_share(struct mtk_base_afe *afe, const char *main_i2s_name,
-+			     const char *secondary_i2s_name)
++static int mt8183_bt_init(struct snd_soc_pcm_runtime *rtd)
 +{
-+	struct mtk_afe_i2s_priv *secondary_i2s_priv;
-+	int main_i2s_id;
++	struct snd_soc_component *cmpnt_afe =
++		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
++	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
++	int ret;
 +
-+	secondary_i2s_priv = get_i2s_priv_by_name(afe, secondary_i2s_name);
-+	if (!secondary_i2s_priv)
-+		return -EINVAL;
-+
-+	main_i2s_id = get_i2s_id_by_name(afe, main_i2s_name);
-+	if (main_i2s_id < 0)
-+		return main_i2s_id;
-+
-+	secondary_i2s_priv->share_i2s_id = main_i2s_id;
-+
++	ret = mt8183_dai_i2s_set_share(afe, "I2S5", "I2S0");
++	if (ret) {
++		dev_err(rtd->dev, "Failed to set up shared clocks\n");
++		return ret;
++	}
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(mt8183_dai_i2s_set_share);
 +
- static int mt8183_dai_i2s_set_priv(struct mtk_base_afe *afe)
- {
- 	struct mt8183_afe_private *afe_priv = afe->platform_priv;
++static int mt8183_da7219_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_component *cmpnt_afe =
++		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
++	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
++	int ret;
++
++	ret = mt8183_dai_i2s_set_share(afe, "I2S2", "I2S3");
++	if (ret) {
++		dev_err(rtd->dev, "Failed to set up shared clocks\n");
++		return ret;
++	}
++	return 0;
++}
++
+ static struct snd_soc_dai_link mt8183_da7219_dai_links[] = {
+ 	/* FE */
+ 	{
+@@ -500,6 +531,7 @@ static struct snd_soc_dai_link mt8183_da7219_dai_links[] = {
+ 		.ignore_suspend = 1,
+ 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
+ 		.ops = &mt8183_da7219_i2s_ops,
++		.init = &mt8183_da7219_init,
+ 		SND_SOC_DAILINK_REG(i2s2),
+ 	},
+ 	{
+@@ -515,6 +547,7 @@ static struct snd_soc_dai_link mt8183_da7219_dai_links[] = {
+ 		.ignore_suspend = 1,
+ 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
+ 		.ops = &mt8183_mt6358_i2s_ops,
++		.init = &mt8183_bt_init,
+ 		SND_SOC_DAILINK_REG(i2s5),
+ 	},
+ 	{
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index ab157db78335..a86085223677 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -15,6 +15,7 @@
+ 
+ #include "../../codecs/rt1015.h"
+ #include "../../codecs/ts3a227e.h"
++#include "../common/mtk-afe-platform-driver.h"
+ #include "mt8183-afe-common.h"
+ 
+ #define RT1015_CODEC_DAI "rt1015-aif"
+@@ -391,6 +392,36 @@ mt8183_mt6358_ts3a227_max98357_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ 					  &priv->hdmi_jack, NULL);
+ }
+ 
++static int mt8183_bt_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_component *cmpnt_afe =
++		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
++	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
++	int ret;
++
++	ret = mt8183_dai_i2s_set_share(afe, "I2S5", "I2S0");
++	if (ret) {
++		dev_err(rtd->dev, "Failed to set up shared clocks\n");
++		return ret;
++	}
++	return 0;
++}
++
++static int mt8183_i2s2_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_component *cmpnt_afe =
++		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
++	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
++	int ret;
++
++	ret = mt8183_dai_i2s_set_share(afe, "I2S2", "I2S3");
++	if (ret) {
++		dev_err(rtd->dev, "Failed to set up shared clocks\n");
++		return ret;
++	}
++	return 0;
++}
++
+ static struct snd_soc_dai_link mt8183_mt6358_ts3a227_dai_links[] = {
+ 	/* FE */
+ 	{
+@@ -527,6 +558,7 @@ static struct snd_soc_dai_link mt8183_mt6358_ts3a227_dai_links[] = {
+ 		.ignore_suspend = 1,
+ 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
+ 		.ops = &mt8183_mt6358_i2s_ops,
++		.init = &mt8183_i2s2_init,
+ 		SND_SOC_DAILINK_REG(i2s2),
+ 	},
+ 	{
+@@ -541,6 +573,7 @@ static struct snd_soc_dai_link mt8183_mt6358_ts3a227_dai_links[] = {
+ 		.dpcm_playback = 1,
+ 		.ignore_suspend = 1,
+ 		.ops = &mt8183_mt6358_i2s_ops,
++		.init = &mt8183_bt_init,
+ 		SND_SOC_DAILINK_REG(i2s5),
+ 	},
+ 	{
 -- 
 2.37.3
 

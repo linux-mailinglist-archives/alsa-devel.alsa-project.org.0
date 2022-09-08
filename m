@@ -2,97 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB155B14E6
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 08:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3027A5B1603
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 09:51:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5ABD82A;
-	Thu,  8 Sep 2022 08:44:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5ABD82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90CB816B2;
+	Thu,  8 Sep 2022 09:50:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90CB816B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662619511;
-	bh=kYfgZBMl+vQcLb4cjXGirmq2GL/ql+8wEdbYed8BjvU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Y7Jn29w1xEiKfxRTTRLdle/9xvM37BUPC+38kJpIf5oEVW0Vc89ge35cJaPgLa4HQ
-	 WQciFrNyqDmbF/iz80ER/Kw92ZuiUxs4z6+7BHuntWPEDtoqxtunzzsQzIxIdNz8um
-	 EcRkXMrJv6In1A5DFE2CtTpjif8i4jQAbq3LmYxQ=
+	s=default; t=1662623469;
+	bh=n42+F1QIZG4mHZiJpOyyzTzl90fRNpUWkUMCEX5p3YQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R3qIy1uDZNeO3lBDWJ53E9S5NRPz3aZlwD/uLpTGHI1fUbECgZ2OGZGL/E0ydGHwU
+	 IAtLLZX8lRdKBpz/xyXjhMj6dh12TOfcLwG5wDPwyQzWH7gBdBDZXoblFVdFbMHwxl
+	 Bgnd0dRkG1L0alSC7BFBw9BbVOBF0z/+0sLY1fb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E67FF8023B;
-	Thu,  8 Sep 2022 08:44:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06919F800CB;
+	Thu,  8 Sep 2022 09:50:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC802F8016D; Thu,  8 Sep 2022 08:44:09 +0200 (CEST)
+ id 44A3DF80217; Thu,  8 Sep 2022 09:50:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C04CF8016D
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 08:44:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C04CF8016D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="jeKC50xi"
-Received: by mail-wr1-x42a.google.com with SMTP id b5so24342762wrr.5
- for <alsa-devel@alsa-project.org>; Wed, 07 Sep 2022 23:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=b1chxNIA9RagmiiPQ3s0ZgKMM+t+BegCoFA6aXi2sCQ=;
- b=jeKC50xikkVr+XUBcWVw7YZKtH76yHzg6jBpUlm2TN2zSwcymPnD85WGsIDmQw/Bsf
- RBeosEnMZJr4LV/hmfDDMEzkAJwkg1UgmAnzNZBSGKDhXaj+KExW+G0BxqAWNWzupZZb
- /imLfb3UJzBFk4qm5eGD+CcvrXqPRwa7FubEsU6ATiS12x5ryfeuG1MxmJb6RmlY9Fpt
- U8JmDuCFaNRzxqSMxqtAVgZoVSgWs147QP0C1uvlR+oua8f63fB3CcM6pqIEYo7dT8kI
- 0TIQOdE3XDeSb+97TyIvDtlqRAUrDsKIKWhPy5UjYW1EJ5l4Q7SibZdFCjz+iAR82bDN
- FfUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=b1chxNIA9RagmiiPQ3s0ZgKMM+t+BegCoFA6aXi2sCQ=;
- b=uYd1FnFsLqFfX0Czg9Wt9rPZ+IAp3QgSVJDo2W6DzuRpWYuifj/+Izy5PoVOhfKYWB
- ZMuaVrgblrqpvqVzRg4qG8oNmeoF4l6MmHM6IbLHyehWsOvCOliwlW+YhEDUWj7EB587
- CryEUr56QHJlilbx0WjDyE+IASIN7UJSJr9MOYO4nDKfM1c9WTzUGXDPtjj2FvOoduUz
- K35jmgBqg/OaQhSFHfyRYNf2tnwQa9oVMESX3kHi/x6k2WDBTMd1CWbfQ74J6HpOjQNb
- xsPzccHRGSOpki6Qe5JE7WXdSd4N37rKN6BT+TdBamqJWb4Vbie3iA3nLlbjeZRZChFv
- ZV6g==
-X-Gm-Message-State: ACgBeo0W4vbzTxBCNVqmOcFTkJ3ci3iD2WOxr0bIvz1z0f+DrahQwB6W
- yXu2fGliobGzTIxWTULaIAKa8Q==
-X-Google-Smtp-Source: AA6agR7Cp81jZgWnP23GY49qR/Z2d7YmFLYivEyV79iG3OySTF/7KPstfBIxLMAITgWkKhp/wsdIKg==
-X-Received: by 2002:a5d:4d0a:0:b0:228:d9c0:5abe with SMTP id
- z10-20020a5d4d0a000000b00228d9c05abemr4213510wrt.693.1662619441727; 
- Wed, 07 Sep 2022 23:44:01 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- v16-20020a5d5910000000b00228a6ce17b4sm13414688wrd.37.2022.09.07.23.44.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Sep 2022 23:44:01 -0700 (PDT)
-Message-ID: <1f0f036d-2e8c-d95b-5cfb-81a1b538642a@linaro.org>
-Date: Thu, 8 Sep 2022 07:44:00 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: allow compile testing without
- QCOM_RPROC_COMMON
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B998F800CB
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 09:50:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B998F800CB
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 94F331A0EDB;
+ Thu,  8 Sep 2022 09:50:01 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 686241A0ED8;
+ Thu,  8 Sep 2022 09:50:01 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 465B0180031F;
+ Thu,  8 Sep 2022 15:50:00 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20220826093711.1059319-1-krzysztof.kozlowski@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220826093711.1059319-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [PATCH] ASoC: ak4458: Remove component probe() and remove()
+Date: Thu,  8 Sep 2022 15:31:56 +0800
+Message-Id: <1662622316-23426-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,32 +70,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Most function in ak4458_probe() and ak4458_remove() are
+duplicate with dai ops, so remove them and move dsd_path
+setting to dai ops.
 
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/ak4458.c | 53 ++++++---------------------------------
+ 1 file changed, 7 insertions(+), 46 deletions(-)
 
-On 26/08/2022 10:37, Krzysztof Kozlowski wrote:
-> The Qualcomm common remote-proc code (CONFIG_QCOM_RPROC_COMMON) has
-> necessary stubs, so it is not needed for compile testing.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
+index ea33cc83c86c..b534212096ee 100644
+--- a/sound/soc/codecs/ak4458.c
++++ b/sound/soc/codecs/ak4458.c
+@@ -447,6 +447,13 @@ static int ak4458_hw_params(struct snd_pcm_substream *substream,
+ 	snd_soc_component_update_bits(component, AK4458_0B_CONTROL7,
+ 				      AK4458_DCHAIN_MASK, dchn);
+ 
++	if (ak4458->drvdata->type == AK4497) {
++		ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
++						    0x4, (ak4458->dsd_path << 2));
++		if (ret < 0)
++			return ret;
++	}
++
+ 	ret = ak4458_rstn_control(component, 0);
+ 	if (ret)
+ 		return ret;
+@@ -629,48 +636,6 @@ static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
+ 	}
+ }
+ 
+-static int ak4458_init(struct snd_soc_component *component)
+-{
+-	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+-	int ret;
+-
+-	/* External Mute ON */
+-	if (ak4458->mute_gpiod)
+-		gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
+-
+-	ak4458_reset(ak4458, false);
+-
+-	ret = snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
+-			    0x80, 0x80);   /* ACKS bit = 1; 10000000 */
+-	if (ret < 0)
+-		return ret;
+-
+-	if (ak4458->drvdata->type == AK4497) {
+-		ret = snd_soc_component_update_bits(component, AK4458_09_DSD2,
+-						    0x4, (ak4458->dsd_path << 2));
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	return ak4458_rstn_control(component, 1);
+-}
+-
+-static int ak4458_probe(struct snd_soc_component *component)
+-{
+-	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+-
+-	ak4458->fs = 48000;
+-
+-	return ak4458_init(component);
+-}
+-
+-static void ak4458_remove(struct snd_soc_component *component)
+-{
+-	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
+-
+-	ak4458_reset(ak4458, true);
+-}
+-
+ #ifdef CONFIG_PM
+ static int __maybe_unused ak4458_runtime_suspend(struct device *dev)
+ {
+@@ -714,8 +679,6 @@ static int __maybe_unused ak4458_runtime_resume(struct device *dev)
+ #endif /* CONFIG_PM */
+ 
+ static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
+-	.probe			= ak4458_probe,
+-	.remove			= ak4458_remove,
+ 	.controls		= ak4458_snd_controls,
+ 	.num_controls		= ARRAY_SIZE(ak4458_snd_controls),
+ 	.dapm_widgets		= ak4458_dapm_widgets,
+@@ -728,8 +691,6 @@ static const struct snd_soc_component_driver soc_codec_dev_ak4458 = {
+ };
+ 
+ static const struct snd_soc_component_driver soc_codec_dev_ak4497 = {
+-	.probe			= ak4458_probe,
+-	.remove			= ak4458_remove,
+ 	.controls		= ak4497_snd_controls,
+ 	.num_controls		= ARRAY_SIZE(ak4497_snd_controls),
+ 	.dapm_widgets		= ak4497_dapm_widgets,
+-- 
+2.34.1
 
-Applied thanks,
-
---srini
-> ---
->   drivers/slimbus/Kconfig | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/slimbus/Kconfig b/drivers/slimbus/Kconfig
-> index 1235b7dc8496..2ed821f75816 100644
-> --- a/drivers/slimbus/Kconfig
-> +++ b/drivers/slimbus/Kconfig
-> @@ -22,7 +22,8 @@ config SLIM_QCOM_CTRL
->   
->   config SLIM_QCOM_NGD_CTRL
->   	tristate "Qualcomm SLIMbus Satellite Non-Generic Device Component"
-> -	depends on HAS_IOMEM && DMA_ENGINE && NET && QCOM_RPROC_COMMON
-> +	depends on HAS_IOMEM && DMA_ENGINE && NET
-> +	depends on QCOM_RPROC_COMMON || COMPILE_TEST
->   	depends on ARCH_QCOM || COMPILE_TEST
->   	select QCOM_QMI_HELPERS
->   	select QCOM_PDR_HELPERS

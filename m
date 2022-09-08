@@ -2,67 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1A65B1CB2
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:22:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E87E75B1CAE
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:21:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C25516F3;
-	Thu,  8 Sep 2022 14:21:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C25516F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69C8416F4;
+	Thu,  8 Sep 2022 14:21:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69C8416F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662639744;
-	bh=MYLXeYEwJ3veaVQxAvvWtsFWjkpNZidbL4AvWu/+eIs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kVefL6toSUoc3K1D4ugSILp1bMrmfBqxyR9ThvNJiEZ0fa8Fie9UAXq6++0LYHE22
-	 dJP60ujMC4Pr9qle4V6q5T8U/1URuxx7x41YB6RPpdxBUq/R7KVABmbDr0nbW++770
-	 dDDosN4aoKETQSDRyEnO/vc7XwGz9rSbGQw6Fb6E=
+	s=default; t=1662639714;
+	bh=Qvpfo1K8BtdNRRcV9S5Mf5mch444f9Dz8135A3XCGzo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Rg1rCe1//r0CvFdp9VjgcGf8T4zCFPJHie3vAFmvyrswKo1WwUY/BiPRlj9YTKaig
+	 BsEgHJUScob3+RMhKthpet/OFdHxaiN6/EQQ3kjZO5QoQ3S4Xst1emqWRN9PZoUJCb
+	 jg+ewr+VFnkbJ9fnjA2SGxQ2lKvbOw8fLMgpc1Pg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 658F7F804B3;
-	Thu,  8 Sep 2022 14:21:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C66DCF801F7;
+	Thu,  8 Sep 2022 14:20:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20D80F803DC; Thu,  8 Sep 2022 14:20:59 +0200 (CEST)
+ id 6849AF8011C; Thu,  8 Sep 2022 14:20:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83DC4F8023B
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83DC4F8023B
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB851F8011C
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:20:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB851F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ax4aPHuE"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id B4340CE1F14;
- Thu,  8 Sep 2022 12:20:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D789C433C1;
- Thu,  8 Sep 2022 12:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662639644;
- bh=MYLXeYEwJ3veaVQxAvvWtsFWjkpNZidbL4AvWu/+eIs=;
- h=From:To:Cc:Subject:Date:From;
- b=ax4aPHuEe+FEQOnjwcTk4RArbtsZ7rUGyNc3blMQ6cT+fBxgNMMrBI2UJNPRWn7J1
- RA5208O4HF02y9tySs41gSn8kFxA72XkLrUQY7Cyp/+8OtgTDw7jLWfQxGJETFByGZ
- OPKH6zWGX7It95GJf/jbB1BIAcKwxGp007USpe7/+4CiFhWd2/LliH4bl9yGFJTaQY
- pG2X+qY9U70NxWaSctzlWEUP+6ZOstGPlmH9zoLjeDgBV4IXBc9y27NKd1z1yInGTD
- 8gCVZkVwaUVdHIeilCGRnih30xV5GTxC8awagGcFVdAb1zvdBajw4f0J5bxwWMEKla
- revAOL7w8ElNg==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v6.0-rc4
-Date: Thu, 08 Sep 2022 13:20:32 +0100
-Message-Id: <20220908122044.4D789C433C1@smtp.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="lYk5Cwl1"
+Received: by mail-lf1-x12c.google.com with SMTP id bq23so27421942lfb.7
+ for <alsa-devel@alsa-project.org>; Thu, 08 Sep 2022 05:20:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=ZlfvZ8tQr5gNlUoouZ3I9uNRBlKistdcE0MDcCmrbq4=;
+ b=lYk5Cwl1ThhWYFUC/pQfIp7A8QMyj8x/zUm/1s/COaudKrgFe5IPBhLNuWG5Trg0Jn
+ MJOfvY8J+XqxwZDTDPF0gBV3hip+vFdnX32JaOD/turJT3vyHK5L5gC2XPudecHwH9P5
+ VyM6NaGK+XvOVmnuFVl8rJoWLYCfOYHdv6JwZb/TMZtcLGbiqV6stEmh+WLC9y7rysJr
+ +q8KF7RUh8epOBMfdNi+/Eb83XferTCf7HToUMIhHYuyVO6ANib62PhMfHJnzSEq1Qpf
+ t281+Bfhq80x511FOMO/LYUxSLLK7WJZOKKy3AumgJpIU/qtPmngdLN+NRnmddWrvAWL
+ Gk/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=ZlfvZ8tQr5gNlUoouZ3I9uNRBlKistdcE0MDcCmrbq4=;
+ b=OgbW6ceqNoJk2PMvoV//IxuvcNgcjDXKAvWwd2aDVt0FcnBaaKL5dg4z1p0lojUn/H
+ JMf+NhRZRsiADKECqXmnIXsZjMIfqVEUcQLwGIA1iSugiFF1is9cDQ/Xmd6j1a1SL9/7
+ a7oW7jIu1cfkhjkv73tulmHAmGNZrJZsbmHtb2jKVFO6cTF0PxpY2At2+C+iF+dXyZUt
+ 1oQ2SXU4sijACfa+r7Q3k01KqmWEWbbeSLeT4LduUwcY1UkjgflIZCuTBBZtCOMfA+rW
+ 3oL6eseBcwX1WDUpNQj5cFlPwTA3nrvW5Y9+2kmxQpIMrKxo8iVxwcIRNNwRliJiefYe
+ TReA==
+X-Gm-Message-State: ACgBeo1w1+LvA2Fi9zGlmsHpEguYiAw2m86Ht6EYarVFilxfFM5CmfN1
+ F0gdDBDC3NoO5LFMpVYnUiJ6Yw==
+X-Google-Smtp-Source: AA6agR7VMqh8oJ3l0AiaXQ9a3lUiXGzxnL5vBOUpqUUZWZrosS4vE1RT8abc3K2o+aleCTQ3rc4TPw==
+X-Received: by 2002:a05:6512:2252:b0:494:7a42:6ba9 with SMTP id
+ i18-20020a056512225200b004947a426ba9mr2558006lfu.273.1662639643696; 
+ Thu, 08 Sep 2022 05:20:43 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ u10-20020ac258ca000000b0048b0975ac7asm361973lfo.151.2022.09.08.05.20.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Sep 2022 05:20:43 -0700 (PDT)
+Message-ID: <2b81d814-f47a-e548-83dc-b1e38857e8ce@linaro.org>
+Date: Thu, 8 Sep 2022 14:20:42 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH] dt-bindings: sound: ts3a227e: add control of debounce
+ times
+Content-Language: en-US
+To: Astrid Rost <astrid.rost@axis.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220907135827.16209-1-astrid.rost@axis.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220907135827.16209-1-astrid.rost@axis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org,
+ alsa-devel-mejlinglistan <alsa-devel@alsa-project.org>, kernel@axis.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,89 +111,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 568035b01cfb107af8d2e4bd2fb9aea22cf5b868:
+On 07/09/2022 15:58, Astrid Rost wrote:
+> Add devicetree parameters to control the insertion, release and press
+> debounce times.
+> 
+> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
+> ---
+>  Documentation/devicetree/bindings/sound/ts3a227e.txt | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/ts3a227e.txt b/Documentation/devicetree/bindings/sound/ts3a227e.txt
+> index 21ab45bc7e8f..a4aa4154c54c 100644
+> --- a/Documentation/devicetree/bindings/sound/ts3a227e.txt
+> +++ b/Documentation/devicetree/bindings/sound/ts3a227e.txt
+> @@ -17,6 +17,15 @@ Optional properies:
+>        Select 0/1/2/3/4/5/6/7 to specify MICBIAS voltage
+>        2.1V/2.2V/2.3V/2.4V/2.5V/2.6V/2.7V/2.8V
+>        Default value is "1" (2.2V).
+> + - ti,debounce-release: key release debounce (datasheet section 9.6.7).
 
-  Linux 6.0-rc1 (2022-08-14 15:50:18 -0700)
+Use standard property units "-ms".
 
-are available in the Git repository at:
+Anyway new properties cannot be accepted. This has to be converted to DT
+schema (YAML).
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.0-rc4
-
-for you to fetch changes up to b1cd3fd42db7593a2d24c06f1c53b8c886592080:
-
-  ASoC: fsl_aud2htx: Add error handler for pm_runtime_enable (2022-08-25 14:17:31 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.0
-
-Quite a few fixes here, all driver specific and fairly small.
-
-----------------------------------------------------------------
-Bard Liao (1):
-      ASoC: SOF: ipc4-topology: fix alh_group_ida max value
-
-Jiaxin Yu (1):
-      ASoC: mediatek: mt8186: fix DMIC record noise
-
-Mark Brown (3):
-      Merge remote-tracking branch 'asoc/for-5.20' into asoc-6.0
-      ASoC: SOF: Kconfig: Fix the dependency for client modules
-      ASoC: nau8xxx: Implement hw constraint for rates
-
-Nathan Chancellor (1):
-      ASoC: mchp-spdiftx: Fix clang -Wbitfield-constant-conversion
-
-Peter Ujfalusi (2):
-      ASoC: SOF: Kconfig: Make IPC_FLOOD_TEST depend on SND_SOC_SOF
-      ASoC: SOF: Kconfig: Make IPC_MESSAGE_INJECTOR depend on SND_SOC_SOF
-
-Pieterjan Camerlynck (1):
-      ASoC: fsl_sai: fix incorrect mclk number in error message
-
-Richard Fitzgerald (1):
-      ASoC: cs42l42: Only report button state if there was a button interrupt
-
-Shengjiu Wang (3):
-      ASoC: fsl_mqs: Fix supported clock DAI format
-      ASoC: fsl_aud2htx: register platform component before registering cpu dai
-      ASoC: fsl_aud2htx: Add error handler for pm_runtime_enable
-
-Srinivas Kandagatla (1):
-      ASoC: qcom: sm8250: add missing module owner
-
-Takashi Iwai (5):
-      ASoC: nau8821: Implement hw constraint for rates
-      ASoC: nau8824: Fix semaphore unbalance at error paths
-      ASoC: nau8824: Implement hw constraint for rates
-      ASoC: nau8825: Implement hw constraint for rates
-      ASoC: nau8540: Implement hw constraint for rates
-
-Yang Yingliang (1):
-      ASoC: SOF: ipc4-topology: fix wrong use of sizeof in sof_ipc4_widget_setup_comp_src()
-
- sound/soc/amd/yc/acp6x-mach.c               | 28 +++++++++
- sound/soc/atmel/mchp-spdiftx.c              |  2 +-
- sound/soc/codecs/cs42l42.c                  | 13 ++--
- sound/soc/codecs/nau8540.c                  | 40 ++++++++----
- sound/soc/codecs/nau8821.c                  | 66 ++++++++++---------
- sound/soc/codecs/nau8824.c                  | 80 +++++++++++++----------
- sound/soc/codecs/nau8825.c                  | 83 +++++++++++++-----------
- sound/soc/codecs/rt5640.c                   |  5 +-
- sound/soc/codecs/tas2770.c                  | 98 +++++++++++++----------------
- sound/soc/codecs/tas2770.h                  |  5 ++
- sound/soc/codecs/tlv320aic32x4.c            |  9 +++
- sound/soc/fsl/fsl_aud2htx.c                 | 16 +++--
- sound/soc/fsl/fsl_mqs.c                     |  2 +-
- sound/soc/fsl/fsl_sai.c                     |  2 +-
- sound/soc/intel/avs/pcm.c                   |  4 +-
- sound/soc/intel/boards/sof_es8336.c         |  4 +-
- sound/soc/mediatek/mt8186/mt8186-dai-adda.c |  3 -
- sound/soc/qcom/sm8250.c                     |  1 +
- sound/soc/sh/rz-ssi.c                       | 26 ++++----
- sound/soc/soc-pcm.c                         |  3 +
- sound/soc/sof/Kconfig                       |  2 +
- sound/soc/sof/debug.c                       |  6 +-
- sound/soc/sof/intel/hda.c                   |  2 +-
- sound/soc/sof/ipc3-topology.c               |  2 +-
- sound/soc/sof/ipc4-topology.c               |  4 +-
- 25 files changed, 299 insertions(+), 207 deletions(-)
+Best regards,
+Krzysztof

@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598185B1D0E
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:32:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717BA5B1D44
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Sep 2022 14:39:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E54C816EE;
-	Thu,  8 Sep 2022 14:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E54C816EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 144D486F;
+	Thu,  8 Sep 2022 14:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 144D486F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662640353;
-	bh=qqPA7xqEW0ASUrG/42zBTE27V7vPyJpvz05a82ym4a0=;
+	s=default; t=1662640749;
+	bh=yHn4I4Pt+sC8CsP1qVVn2a/fi+5gg/rboNeO0NR++xY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nnIB3zXxNjJQEA2fk+oMUAj8AqJOcG+rSm9YLbusLWNmdBt2L7Nw13q1JF9r8k88n
-	 h41W5uJBPHf8ZS2NURYxj/ffGLlSPaY4y3+HMSjw16lpzWcADuatfiY4Fu3wAxzwK5
-	 KKgqCfztpq/COHH01Pq5HHyIbvNY3xUoLCtPxV5w=
+	b=NYSmZSiEO49LfF1aP/FDhs3/JX5xfK4IGOQNM89a7B6NL47Ou5WijrHuQxvg1lmRF
+	 f26RaLLsFDVg2PGAXjl4VKuDbrvj892ojaeP/gBaqSQ8jl6fGs84MujGMQBUdsQbNp
+	 r3sgek+bQWF4EJzqoapt3el5yaj0bFfk1fPQ/La8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E317F8023B;
-	Thu,  8 Sep 2022 14:31:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73849F8023B;
+	Thu,  8 Sep 2022 14:38:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3317AF80217; Thu,  8 Sep 2022 14:31:32 +0200 (CEST)
+ id F330AF8011C; Thu,  8 Sep 2022 14:38:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_19,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D276F800CB
- for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D276F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09C11F8011C
+ for <alsa-devel@alsa-project.org>; Thu,  8 Sep 2022 14:38:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C11F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0vDqf3wa"; 
+ header.b="fkdj//7N"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="aPi9VPIB"
+ header.b="QDWyrRG5"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4C6D31F930;
- Thu,  8 Sep 2022 12:31:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3D1EB22801;
+ Thu,  8 Sep 2022 12:38:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662640288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662640681; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3ZhPuTka0TL62bqWM3wupO65mGwMujKl0Cd9+ulzTXY=;
- b=0vDqf3waK0fl5xILS5WGJFDSdpmCjHsbvZhPfnrEPB+nXEjLz3SKDiAs+upqHl6V9lw+k+
- jPMX0iEEUo67nkQSyVzG36/PFIIJ2c97xWQeZjs1TYTAw8wK6CcevCPm/WXcQ+r2iECtaY
- nMCjkNjXRGhusrnk2At5tG+eTQCSAAo=
+ bh=/Uwz8QpunTnEMvnjoLB88LUAnhFAw9cTkSaHEsyRm9c=;
+ b=fkdj//7NHV01BWaoOFAg1XXSMuSB/Y3JHDBS8ddI5KObbbrI7IhG2/J6JNj7CDlk/NVgmm
+ QXHHlf7nP66Yk/jgWwwg5WF1gt8kZGy8dQDDUiOZP2iq9HEhCLgEXyQTWYs9s3MPgrcyJr
+ Qqobf9e+DB6T5Xfk7rYvBxA2+9pECsk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662640288;
+ s=susede2_ed25519; t=1662640681;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3ZhPuTka0TL62bqWM3wupO65mGwMujKl0Cd9+ulzTXY=;
- b=aPi9VPIBUTt46kIvgWa770V5Z3C5VT4JirHgoYQGh9NtX0PNtJ8Jntg5nH2rDB2s47Oy1K
- dvToraP0u/10DTAQ==
+ bh=/Uwz8QpunTnEMvnjoLB88LUAnhFAw9cTkSaHEsyRm9c=;
+ b=QDWyrRG59MYlYy39p3Y9WMY5K3Ue5R3fE2gHsNRqsKhTwFaZhi10Mfuf6sJbMxynUwaDZ2
+ qNQz7DACMtRPAoBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3034513A6D;
- Thu,  8 Sep 2022 12:31:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A75E1322C;
+ Thu,  8 Sep 2022 12:38:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ziAVC6DgGWNuIgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 08 Sep 2022 12:31:28 +0000
-Date: Thu, 08 Sep 2022 14:31:27 +0200
-Message-ID: <8735d2cajk.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8eC5BSniGWOtJQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 08 Sep 2022 12:38:01 +0000
+Date: Thu, 08 Sep 2022 14:38:00 +0200
+Message-ID: <871qsmca8n.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.0-rc4
-In-Reply-To: <20220908122044.4D789C433C1@smtp.kernel.org>
-References: <20220908122044.4D789C433C1@smtp.kernel.org>
+To: YJ Lee <yunjunlee@chromium.org>
+Subject: Re: About ALSA dummy module: support customized mixer volume leveling
+In-Reply-To: <CAPm_npaJdGfDBvTuL3nvbyT8Rfx3kC8Gy5dS5PPe78Vu7C2xAg@mail.gmail.com>
+References: <CAPm_npY3SkumWgy8EN65no2iQFj2KWG6pysUchEKHBBPZ9AHsA@mail.gmail.com>
+ <87r10mcmd9.wl-tiwai@suse.de>
+ <CAPm_npaJdGfDBvTuL3nvbyT8Rfx3kC8Gy5dS5PPe78Vu7C2xAg@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Ching Yun Chang <whalechang@google.com>,
+ tiwai@suse.com, Yu-Hsuan Hsu <yuhsuan@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,27 +102,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 08 Sep 2022 14:20:32 +0200,
-Mark Brown wrote:
+On Thu, 08 Sep 2022 12:32:14 +0200,
+YJ Lee wrote:
 > 
-> The following changes since commit 568035b01cfb107af8d2e4bd2fb9aea22cf5b868:
+> On Thu, Sep 8, 2022 at 4:16 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Thu, 08 Sep 2022 07:26:02 +0200,
+> > YJ Lee wrote:
+> > >
+> > > Hello Takashi (and the alsa community),
+> > >
+> > > This is YJ Lee from chromium.org.
+> > >
+> > > I'm thinking about extending the ALSA dummy module to support
+> > > customized volume leveling. It will be very useful to test devices
+> > > with different volume granularity. Currently this module is using
+> > > hard-coded mixer volume leveling, from min=-50 to max=100.
+> > >
+> > > See L716: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/tree/sound/drivers/dummy.c?h=queue/5.19#n716
+> > >
+> > > My plan (A) is to expose 2 more additional module parameters and
+> > > replace a few occurrences, from L742-750.
+> > >
+> > > Another plan (B) is to leverage the current existing module
+> > > parameter:model, and make the dummy-module to be able to accept models
+> > > with customized volume leveling. New dummy models can be provided as
+> > > configuration files, and be used in the same way as how currently
+> > > existing dummy models (L146-213) are used. However, it's a bit
+> > > over-engineering from the original purpose.
+> > >
+> > > What do you think about these plans? Any insight you (and the alsa
+> > > community) can provide will be greatly appreciated.
+> >
+> > Only for volume min/max, module options may be an easier way, IMO.
+> >
+> > OTOH, if we want to adjust more stuff, another possibility is to
+> > extend the proc file.  It currently supports the dynamic changes of
+> > PCM parameters, but we can extend it or add a new proc file for
+> > adjusting other stuff, too.  So the question is what else we want to
+> > allow changing.
+> >
+> >
+> > thanks,
+> >
+> > Takashi
 > 
->   Linux 6.0-rc1 (2022-08-14 15:50:18 -0700)
+> Hi Takashi,
 > 
-> are available in the Git repository at:
+> Thanks for your quick reply! I can't express my gratitude enough. Will
+> stick with plan (A).
 > 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.0-rc4
-> 
-> for you to fetch changes up to b1cd3fd42db7593a2d24c06f1c53b8c886592080:
-> 
->   ASoC: fsl_aud2htx: Add error handler for pm_runtime_enable (2022-08-25 14:17:31 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.0
-> 
-> Quite a few fixes here, all driver specific and fairly small.
+> Additionally, I'll take some time to read it and learn how to use the
+> proc file. Compared with snd-dummy, I've plugged in a physical USB
+> headset and saw some read-only files (usb*) under /proc/asound/cardX.
+> By extending the proc file, are you suggesting we can change those
+> into writable so ALSA will understand and make corresponding changes,
+> (e.g. 'change' the dummy card into a USB sound card)? Can you tell me
+> more about how to extend or add a new proc file (as a separate topic)?
 
-Thanks, pulled now.
+Some proc files allow writing, and the dummy driver's own proc file is
+such one (enabled only when CONFIG_SND_DEBUG=y, though).  The proc
+file is created with snd_card_rw_proc_new() and the passed write
+callback is dummy_proc_write() in this case.  It parses each text line
+and overrides the existing struct field accordingly.
 
+
+HTH,
 
 Takashi

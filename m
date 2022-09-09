@@ -2,90 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454B75B4C6B
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Sep 2022 09:06:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D685B4D1A
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Sep 2022 11:57:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2F0316A5;
-	Sun, 11 Sep 2022 09:05:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2F0316A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93CFC16BE;
+	Sun, 11 Sep 2022 11:56:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93CFC16BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662879991;
-	bh=Q24aO67LJNOAZ1M/gC5d1E35Hjjo+GJKSFXOcKljhzA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662890249;
+	bh=Huvf4jUlfqAE0S3jajz5bFrVu/CfyNFpABu20WmrTOQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I5RKompRu7j4N84j7lJNFHhIpuzzzqVKzIeekg9tJSJkHh8ynocS5WIhGG9ecT2Sw
-	 4wkkJJrUrckbZVRDwy8m/L5VeZ9jZBqc/s907jf1CNIsZ1QHbgtKrukp+orq1axeqd
-	 /faV7GWKrgoD2ahxf99VsRltmFN6IMUb/qESi8MY=
+	b=WGm8iLZ0J6UPRTbfdGm6da6qghRFA0iTj2zxtY4+vEDHkMH+/TNcVH4Atorq1OW24
+	 Vv7NGRscPgNzqLu0EI48BnO7qf7swUZC8ILK+xMuBWY2rFrb38sezAywJEk6x3W2Co
+	 keqBSzowZw9ip7D8DpkH+jrr9oLTBiWo2wMq9d1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EF5CF80425;
-	Sun, 11 Sep 2022 09:05:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12045F80425;
+	Sun, 11 Sep 2022 11:56:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A61FCF80256; Sun, 11 Sep 2022 09:05:30 +0200 (CEST)
+ id 00088F8023A; Fri,  9 Sep 2022 09:16:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62E27F8011C
- for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 09:05:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62E27F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 712C1F8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 09:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 712C1F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="G1X9wlna"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PqmZutqK"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CD51C228E5;
- Sun, 11 Sep 2022 07:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662879927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FJEtZxIA/Evyh2MXH85XBzsQ3OU7JEtHNQGYm8Ao6iA=;
- b=G1X9wlnatH+dkv2o9vxjMRtzrHCPfTyNcZmzhttcPsD6yDy3MKcjh385Nn8HvCTtZhJUa8
- GnfOTHgNTPkjrSgM5ZIeJo6bmSJl5hN3yj/+1TTxREt5c3Lxa4nhcnm6I7bvk37cVuxozo
- J0JVgWsBVzW2+LncjBD/vamsdLlhi2I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662879927;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FJEtZxIA/Evyh2MXH85XBzsQ3OU7JEtHNQGYm8Ao6iA=;
- b=PqmZutqKjg04a1Bbt2NrXOLaa3sJdtSKN4ossbvPHYE6n+TMPEONxQWx/m0+fuXYBrRqRq
- VuV8ldhrzuG5ptBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B6A6B13A11;
- Sun, 11 Sep 2022 07:05:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1nkJLLeIHWOWNgAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 11 Sep 2022 07:05:27 +0000
-Date: Sun, 11 Sep 2022 09:05:27 +0200
-Message-ID: <87tu5ebdc8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: Sound broken (first couple of seconds play looping) on Sony Vaio
- VPX11S1E (HDA, ALC262)
-In-Reply-To: <87y1uqbfmo.wl-tiwai@suse.de>
-References: <3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com>
- <87y1uqbfmo.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="FLKN6r+4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1662707812;
+ x=1694243812;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=DsDCmJm5QnmY/iwJKHdd96PQQQIC67/EgZ6usBBX7d8=;
+ b=FLKN6r+4gHYUDjaDFoK97ZUZuYUpOiZtuucN7p+o+MtwzigtMNIAor0H
+ 444Exip80DQZZObafdi3we8vv6A05/5kfnMUQVHzgQqsDP+wueV0iO1AP
+ Y40UPbBtA36VCcfzs0k0Q1xssyA2yYauiWhbNCFM0OE+zopQdJNYV7uLh
+ S8Wn9adU7bd9pSA3xMdIUVdW1QnFboH0EMP79jikYI4dA+T5PnMXiymgq
+ 4HSyng/O7Bk/Bq+mQ7zE7AWgx6L/sONuvhVT765wcP/Aoq7cXZDsKN+H9
+ x1skOH4MhQu+4VulDn1E7OQsqULgBuhoXNORBqM+7ZNHe57fQ5mTHqWej g==;
+Message-ID: <b42e7fe4-9e1b-fdda-44f2-aa87b06425c8@axis.com>
+Date: Fri, 9 Sep 2022 09:16:49 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH] dt-bindings: sound: ts3a227e: add control of debounce
+ times
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>
+References: <20220907135827.16209-1-astrid.rost@axis.com>
+ <2b81d814-f47a-e548-83dc-b1e38857e8ce@linaro.org>
+ <Yxn9o1MVMPnFO3PM@sirena.org.uk>
+From: Astrid Rost <astridr@axis.com>
+In-Reply-To: <Yxn9o1MVMPnFO3PM@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail01w.axis.com (10.20.40.7) To se-mail05w.axis.com
+ (10.20.40.11)
+X-Mailman-Approved-At: Sun, 11 Sep 2022 11:56:28 +0200
+Cc: devicetree@vger.kernel.org,
+ alsa-devel-mejlinglistan <alsa-devel@alsa-project.org>,
+ Astrid Rost <astrid.rost@axis.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ kernel@axis.com, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,44 +93,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 11 Sep 2022 08:15:59 +0200,
-Takashi Iwai wrote:
-> 
-> On Sat, 10 Sep 2022 19:52:36 +0200,
-> Hans de Goede wrote:
-> > 
-> > Hi All,
-> > 
-> > To test some kernel work (backlight refactor) which I have been doing
-> > I have booted Debian Testing with a 6.0 kernel on a Sony Vaio VPX11S1E
-> > (which is ancient).
-> > 
-> > I noticed that when tab-completing something in a terminal the
-> > terminal bell sound would keep repeating and playing another longer
-> > sound sample gets stuck with the first couple of seconds of that
-> > sample looping.
-> > 
-> > This is under GNOME3 with pulseaudio as sound server.
-> > 
-> > I accidentally found an interesting workaround if I run:
-> > 
-> > aplay -Dplughw:CARD=MID,DEV=0 /usr/share/sounds/alsa/Front_Left.wav
-> > 
-> > once, then that works properly and after that the problem is gone...
-> > 
-> > Note that this laptop does have only 1 speaker AFAICT.
-> > 
-> > alsa-info output below.
-> > 
-> > I would be happy to test any patches / module-options which might
-> > fix this.
-> 
-> Could you check the very latest Linus tree (6.0-rc5)?
-> There has been a regression fix for HD-audio, and possibly this might
-> be your case.
+Hello,
 
-And if this doesn't change the behavior, try snoop=0 option for
-snd-hda-intel module.
+ > Use standard property units "-ms".
+
+I made it in exactly the same way as it is done for the "ti,micbias:".
+
+- ti,micbias:   Intended MICBIAS voltage (datasheet section 9.6.7).
+       Select 0/1/2/3/4/5/6/7 to specify MICBIAS voltage
+       2.1V/2.2V/2.3V/2.4V/2.5V/2.6V/2.7V/2.8V
+       Default value is "1" (2.2V).
 
 
-Takashi
+?> Anyway new properties cannot be accepted. This has to be converted to DT
+?> schema (YAML).
+
+ > Doing a whole binding conversion feels like a bit of a steep requirement
+ > when people are just adding a simple property, it's a lot of stop energy
+ > to figure out the tooling, do the conversion and deal with all the
+ > bikeshedding that the tools don't catch.  It's definitely nice if people
+ > want to look at that, for more complex binding changes it gets more
+ > reasonable but for trivial properties it's disproportionate.
+
+Thanks, I am not really sure how yaml works. But I can have a look.
+
+
+Astrid

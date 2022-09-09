@@ -2,76 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC035B3D9B
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 19:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEACA5B3DC1
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 19:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26F32169F;
-	Fri,  9 Sep 2022 19:01:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26F32169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FD141688;
+	Fri,  9 Sep 2022 19:11:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FD141688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662742968;
-	bh=36he7tSKoMzM24RM5rt2Q1Aw1i6mCldN0UpKpwX535Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1662743566;
+	bh=eBvCTBpjWiHUubp+Rdm/HEOVL94+yLHs4HcGNForHMI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sbxKR+sI5/HPmidNWSVIk0EamolvDKZHL1QY7kZMhrNI7tII8IRLcfwDK7fZ4fDCr
-	 Ne9OgSoOMGCP/O8REcOvI5oaA0JeTdaNSCsyWArLyxeDCHF2Z2yEqHUbIVJsVv4Pnw
-	 PZigSFCHK2s3TU1iHN/PadYNIYhDmoeV2Kpi2TVE=
+	b=PEsmSGRBe7j731K6a3N51HRhy6mG6H38ZfG6Yj3+HQwUcB31C+wxk9zt551Z5VR6T
+	 +fEwwH5Kzj6nQAUxwoWjHyHAekL19hkMipxlaFw6YRj1/r25/oVONTyAMkTDY6tn0G
+	 nalxDsvjRXgRGHDIE2o9vAjZ0cmFghxBwubpNilc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95B93F80105;
-	Fri,  9 Sep 2022 19:01:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0B8F8032B;
+	Fri,  9 Sep 2022 19:11:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56E87F8023A; Fri,  9 Sep 2022 19:01:46 +0200 (CEST)
+ id BCB64F8016C; Fri,  9 Sep 2022 19:11:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::222])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30D99F80105
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 19:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30D99F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id A116EF8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 19:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A116EF8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c4fiD2gF"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4CF55B82588;
- Fri,  9 Sep 2022 17:01:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B470C433D6;
- Fri,  9 Sep 2022 17:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662742898;
- bh=36he7tSKoMzM24RM5rt2Q1Aw1i6mCldN0UpKpwX535Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c4fiD2gF6kGxW7QnOSEOk8EWAdzZgS8nk6iE/BOn9bBfOq3+mFXiu9eJGDVZMNdQi
- y/ttyqAeBWmy6SNvZZytBp5h/yi0OG+q6yT1PIl336EXrqBtmeUrkAcXdalCXUkJ4P
- xOpZqLqap7x+NbZNJWE9vqhcqNrXt/jRFscH+jM5xlj5xPejVs6idN/HxOjSo54X7y
- kkw0oGuaVFiMyEGJh6Rc4uKl199RQvPbbGRXnqlaBBSlje8ub2I3ixBZndLd1nsbtC
- VNC12CrMhac1BbNvwBG8kP7GEyc7tsKx8Tt/I0OmrFdpWrMFE833uHyUAjk1qUj4JL
- xTXuyBAkXS1Og==
-Date: Fri, 9 Sep 2022 18:01:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: ak4458.c: move ak4458_reset() under CONFIG_PM
-Message-ID: <YxtxbQh8x9o9qJgj@sirena.org.uk>
-References: <871qslmf4m.wl-kuninori.morimoto.gx@renesas.com>
+ dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com
+ header.b="czkgcDme"
+Received: from booty (unknown [77.244.183.192])
+ (Authenticated sender: luca.ceresoli@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id D87C240002;
+ Fri,  9 Sep 2022 17:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1662743497;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qzTczB6munZOD4DwLGAw/A7taonsXXSbVs8d7tpSJ3M=;
+ b=czkgcDmevNYuTr84omI64YQ7bf32DFyD3vn9t5gdj9ru9e9w3lYITFnCP81FR2oWOiIGcV
+ 90THyh7b8kJx7inMaW213VE8lE3bsvtuAktpMsIgl5iWB2KGweR/DZwgzzEEGioTjG3Bc4
+ bMYCCaSCIgNncZ0bAbv9wTcKF5QnHtBRSjnDUtm2Y/j6Za9Rm+XMC97wtkGhplR7ufE+uF
+ 8xf40iVDGPzxYQVrNxJTvY9Wh8N1VsudkoYasIXba+j6YvZ7DaTf5aFtwgmWqPfYWMnE6o
+ eIbP+4Y/E1GJ4ct9jDDmsphv8IzVtnkfFQWtFYelErFspv2kVc5nytaKcZP8sg==
+Date: Fri, 9 Sep 2022 19:11:32 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 7/8] ASoC: codecs: Add RK3308 internal audio codec driver
+Message-ID: <20220909191132.6920ba09@booty>
+In-Reply-To: <YxoX+G5OFVDTX7s3@sirena.org.uk>
+References: <20220907142124.2532620-1-luca.ceresoli@bootlin.com>
+ <20220907142124.2532620-8-luca.ceresoli@bootlin.com>
+ <YxoX+G5OFVDTX7s3@sirena.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hlH2pKPYbH8vlKTi"
-Content-Disposition: inline
-In-Reply-To: <871qslmf4m.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: FORTH IF HONK THEN
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
+ Chris Morgan <macromorgan@hotmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Johan Jonker <jbx6244@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,47 +95,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello Mark,
 
---hlH2pKPYbH8vlKTi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, 8 Sep 2022 17:27:36 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
-On Fri, Sep 09, 2022 at 02:54:34AM +0000, Kuninori Morimoto wrote:
+> On Wed, Sep 07, 2022 at 04:21:23PM +0200, luca.ceresoli@bootlin.com wrote:
 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->=20
-> This patch fixup this warning
->=20
-> linux/sound/soc/codecs/ak4458.c:631:13: error: 'ak4458_reset' defined but\
-> 	not used [-Werror=3Dunused-function]
->   631 | static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
->       |             ^~~~~~~~~~~~
-> cc1: all warnings being treated as errors
->=20
-> Fixes: e9e7df88996d64 ("ASoC: ak4458: Remove component probe() and remove=
-()")
+Thank you for taking the time to review my patch in such detail! This
+is my first contribution to ALSA, and it was not clear to me which
+parts of the existing vendor driver needed even more cleanups than I
+have already done. I will probably get back to you with specific
+questions later on, while addressing your comments.
 
-Is this the best fix, or should we be adding _reset() calls into the
-device level probe() and remove() functions?
-
-Actually I'm not sure the driver works without CONFIG_PM since the probe
-isn't powering on the device but then that's not a super realistic use
-case anyway.
-
---hlH2pKPYbH8vlKTi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMbcW0ACgkQJNaLcl1U
-h9AWsgf/e+2s3rfKF2IH/06VvtB3CP0BRC/r2XLuBOESsOsaOQQiY4W5bPM9R598
-sTY2wtHTeyOj/kjkfZl51GSzW9sqNvXIwibm7RkEB/h/p8tqm7VB+Lx9llzyfSaa
-o2Pp34XIKglFihYisIym/5PPBaAubZUOa0qyhwYvunDaBQ8ztFVEBTvFapHNxBhr
-I715g9i7WXosQrkxrkFr2xlLYmp6t7uIKXXVZCoPgSHc8MKW7ZYcho1E8Iat65tO
-lMHH2HsZ7++Czd2wUZHFCza5MzBOz/kFRxPdWvt61bkq/hkORynzZbSZnA5eZYUG
-D2SpN5ibJrUsbrmVrqlAfhzusdybIQ==
-=z/2d
------END PGP SIGNATURE-----
-
---hlH2pKPYbH8vlKTi--
+Best regards,
+Luca
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

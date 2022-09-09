@@ -2,91 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67305B3C84
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 18:00:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03BBE5B3C8A
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 18:01:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 498F8168F;
-	Fri,  9 Sep 2022 18:00:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 498F8168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 049A316A0;
+	Fri,  9 Sep 2022 18:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 049A316A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662739253;
-	bh=IPegQaVJ5BcrY5za71KUf86GJrRbfbHlQtA1b92b33c=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662739303;
+	bh=bpanKMcGFkBYV6st9DBUsGsPDkFJEwsyaU/gGDRgWJ0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TGbEqrH+dZ5NFq+wxXKgQnHscszY7//B6dZnVguefsrG2TSpZzg9f13FQ5XuX5uYr
-	 2uUyXlkNBJ6Ywq4+rq7hzjFjNjGziRI3A1+onRWObL8H6fRFHGWu8w5juMMdfmZcN7
-	 dwIjH6DO67mTt9k4hT1sJvSo1+tvMC+Yd86S0htE=
+	b=hlLmzCzsLNGuNutpozTpcR56bp4DGi/5RmduCAJe+NlAgeS5QG9btpKoAkIMo0T8l
+	 JWjlCQFP1E19RljtCaS27E+BRUvx6P6QxV2Bxp0957Ex0Rx4Pz2tUXG3/8YEaF7lHg
+	 w5RYGY0lbD8V+SdpmYeG/8JmdR+ixlGX9R7DT8F4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6A8AF8032B;
-	Fri,  9 Sep 2022 17:59:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92899F804AE;
+	Fri,  9 Sep 2022 18:00:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F02B5F8023A; Fri,  9 Sep 2022 17:59:51 +0200 (CEST)
+ id 7F4AAF8016C; Fri,  9 Sep 2022 18:00:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F3A9F8016C
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 17:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F3A9F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52837F8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 18:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52837F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="O6BHXY5a"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Bld3I7H+"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0724822CE8;
- Fri,  9 Sep 2022 15:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662739188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pRLas43sjox7U3pbQ+WeY9MwwBLpYupEDL3u9GS1D2Y=;
- b=O6BHXY5aJIlMjCTXh/4pfWdu4N3CvOOylNEcvZXLcdk6yBIczhSW4Pa2EgSaCm/a0i6aBQ
- XkdXw/Ea76YwK09Rb6uz9JCClPaNIiLaYVCZ7Q/86as1E7ZR4gQWO9IUf+RRwC9kpYZRO5
- w/lGlGQlD3ZKz1R41HCi2K+29gy6wbI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662739188;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pRLas43sjox7U3pbQ+WeY9MwwBLpYupEDL3u9GS1D2Y=;
- b=Bld3I7H+60UUHX+C5HP4Av+RYtzfM9vI+58QLY3rN9GwVL+xa8xATdtj0OnJOE8VCZNWC1
- PQ+c7Dx/izihWpCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DF70F139D5;
- Fri,  9 Sep 2022 15:59:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6wjMNfNiG2OVewAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 09 Sep 2022 15:59:47 +0000
-Date: Fri, 09 Sep 2022 17:59:47 +0200
-Message-ID: <87fsh0czd8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: Re: hda codec unbind refcount hang
-In-Reply-To: <YxtflWQnslMHVlU7@intel.com>
-References: <YxtflWQnslMHVlU7@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="hwBsppB6"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 289CQ3NL005944;
+ Fri, 9 Sep 2022 11:00:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=BDK97odaVpX6TQUImAXmUK3Yd76BvsUS+r2Lf6t1i7U=;
+ b=hwBsppB6qm5lRlDtvIqesYgr2e3wUftdBZxNTOzw1tGC4QqssqR0BB6hsdu5o1NeT3Ll
+ /UXjIYfehb0TcGc3xs323S72SMTo0id9Lwl5/7kcOW6II58kzLs1ETKbJ6jxw3jaJxRM
+ YjF9WcX9H7YrgRYG1ecpd1prm7IEv1tcy380brlG0cEGdrQk2xxtgxBzINS0Z0PJiep5
+ fyimrx/GQXKcxh5Q4lSUPkrk4n8hqldgrX2pKZ0lmWiWVjCRy3gVoHTz8oNzp/ycbJbd
+ +lbQHs7zuozbBQoKBD4LkzSIgf83qYiww+C+yXxmbn6vXp7mWgTx+H+TLeTFs02CnUiY YQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3jc4b2hthu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Sep 2022 11:00:41 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 9 Sep
+ 2022 11:00:39 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
+ Frontend Transport; Fri, 9 Sep 2022 11:00:39 -0500
+Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 819B32C5;
+ Fri,  9 Sep 2022 16:00:32 +0000 (UTC)
+Message-ID: <bc87a8a6-63bb-fc77-adf3-2a64890cf86e@opensource.cirrus.com>
+Date: Fri, 9 Sep 2022 17:00:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 07/10] ASoC: cs42l42: Split I2C identity into separate
+ module
+Content-Language: en-US
+To: =?UTF-8?Q?Martin_Povi=c5=a1er?= <povik+lin@cutebit.org>
+References: <20220909135334.98220-1-povik+lin@cutebit.org>
+ <20220909135334.98220-8-povik+lin@cutebit.org>
+ <aabae52f-8230-f837-c17a-59d781b5af62@opensource.cirrus.com>
+ <5C349ED8-BD51-40BA-BD02-A44FBBEF9C52@cutebit.org>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <5C349ED8-BD51-40BA-BD02-A44FBBEF9C52@cutebit.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+X-Proofpoint-GUID: Kz-BnFP64S45rZ1mrXuEjoXEZrbJvfxB
+X-Proofpoint-ORIG-GUID: Kz-BnFP64S45rZ1mrXuEjoXEZrbJvfxB
+X-Proofpoint-Spam-Reason: safe
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, devicetree@vger.kernel.org,
+ - <patches@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
+ ChiYuan Huang <cy_huang@richtek.com>, Rob
+ Herring <robh+dt@kernel.org>, asahi@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ James Schulman <james.schulman@cirrus.com>, Matt Flax <flatmax@flatmax.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,50 +114,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 09 Sep 2022 17:45:25 +0200,
-Ville Syrjälä wrote:
+On 09/09/2022 16:44, Martin PoviÅ¡er wrote:
 > 
-> Hi Takashi,
+>> On 9. 9. 2022, at 17:40, Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+>>
+>> On 09/09/2022 14:53, Martin PoviÅ¡er wrote:
+>>> +static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+>>> +{
+>>> +	struct device *dev = &i2c_client->dev;
+>>> +	struct cs42l42_private *cs42l42;
+>>> +	struct regmap *regmap;
+>>> +	int ret;
+>>> +
+>>> +	cs42l42 = devm_kzalloc(dev, sizeof(*cs42l42), GFP_KERNEL);
+>>> +	if (!cs42l42)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
+>>> +	if (IS_ERR(regmap)) {
+>>> +		ret = PTR_ERR(regmap);
+>>> +		dev_err(&i2c_client->dev, "regmap_init() failed: %d\n", ret);
+>>> +		return ret;
+>>> +	}
+>>> +
+>>> +	cs42l42->dev = dev;
+>>> +	cs42l42->regmap = regmap;
+>>> +	cs42l42->irq = i2c_client->irq;
+>>> +
+>>> +	ret = cs42l42_common_probe(cs42l42, &cs42l42_soc_component, &cs42l42_dai);
+>>> +	if (ret)
+>>> +		return ret;
+>>> +
+>>> +	ret = cs42l42_init(cs42l42);
+>>> +	if (ret)
+>>> +		cs42l42_common_remove(cs42l42);
+>>
+>> This introduces a bug that regulator_bulk_disable() is called
+>> twice if there is an error.
+>>
+>> cs42l42_init() was supposed to clean up if it returns an error, which
+>> it nearly does, but my original patch is missing the call to free_irq()
+>> in the error paths of cs42l42_init().
 > 
-> commit 7206998f578d ("ALSA: hda: Fix potential deadlock at codec
-> unbinding") introduced a problem on at least one of my older machines.
+> Ah! I didnâ€™t inspect it closely enough then, I only ran into the missing
+> free_irq.
 > 
-> The problem happens when hda_codec_driver_remove() encounters a
-> codec without any pcms (and thus the refcount is 1) and tries to
-> call refcount_dec(). Turns out refcount_dec() doesn't like to be
-> used for dropping the refcount to 0, and instead if spews a warning
-> and does its saturate thing. The subsequent wait_event() is then
-> permanently stuck waiting on the saturated refcount.
+
+Yes, that's a bug. I just put a comment on the patch that introduced it.
+When I split probe() into two, I accidentally missed out those two lines
+to call free_irq().
+
+> Martin
 > 
-> I've definitely seen the same kind of pattern used elsewhere
-> in the kernel as well, so the fact that refcount_t can't be used
-> to implement it is a bit of surprise to me. I guess most other
-> places still use atomic_t instead.
-
-Does the patch below work around it?  It seem to be a subtle
-difference between refcount_dec() and refcount_dec_and_test().
-
-
-thanks,
-
-Takashi
-
--- 8< --
---- a/sound/pci/hda/hda_bind.c
-+++ b/sound/pci/hda/hda_bind.c
-@@ -157,10 +157,11 @@ static int hda_codec_driver_remove(struct device *dev)
- 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
- 	}
- 
--	refcount_dec(&codec->pcm_ref);
--	snd_hda_codec_disconnect_pcms(codec);
--	snd_hda_jack_tbl_disconnect(codec);
--	wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
-+	if (!refcount_dec_and_test(&codec->pcm_ref)) {
-+		snd_hda_codec_disconnect_pcms(codec);
-+		snd_hda_jack_tbl_disconnect(codec);
-+		wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
-+	}
- 	snd_power_sync_ref(codec->bus->card);
- 
- 	if (codec->patch_ops.free)

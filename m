@@ -2,102 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E0C95B343E
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 11:43:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B715B3595
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 12:51:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F6221679;
-	Fri,  9 Sep 2022 11:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F6221679
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3D511679;
+	Fri,  9 Sep 2022 12:50:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3D511679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662716618;
-	bh=3r8aSja8xSwmmCnxCZGKKwCdOGoUeZdPdnAElxSvFwM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1662720702;
+	bh=lUmDMhiF8lwwv2lKAciOsvwyDyYY7c9q5moMPEB33mg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R8eG6aIkfm1XwqJpYqi9mkgLCcvw794kOpGa3+gdtDGtf3wxcJqOvosKTXDvZiTml
-	 buzyrQdWUR9OmNNcOwvyRNeekbSof3145dNEc2+jnRw54e3AaXU4exwLwjXIfDenFE
-	 Cs1LpKU7B/qwKMu5dc8ZVUrXlIbcVuasvbuxCIxk=
+	b=HqcLABAmlUEfrc7EGoj03EKKOHUJCmA52j0/b6b9U9xfVlPUf/xl1t34CuFeBKU9i
+	 H6Y3+TtF9jqShX5saMtl/3R8Xdykf+F8gCb5LLra4HZi4GvtYUmlJbCZGuE5HPUrw1
+	 kq7c0AikO+mZdErLt0Se6JF5hDVHNeRF51qtFZpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E400F8032B;
-	Fri,  9 Sep 2022 11:42:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 624DDF8032B;
+	Fri,  9 Sep 2022 12:50:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11410F8023A; Fri,  9 Sep 2022 11:42:37 +0200 (CEST)
+ id C0D07F8023A; Fri,  9 Sep 2022 12:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D68ECF8011C
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 11:42:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D68ECF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2ADDBF8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 12:50:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ADDBF8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xP9k++dx"
-Received: by mail-wr1-x42c.google.com with SMTP id bj14so1754072wrb.12
- for <alsa-devel@alsa-project.org>; Fri, 09 Sep 2022 02:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=JS0Czy7dsUI1cWCRoLjh3QMDTfvpIvOi8LnTDYzrDZ0=;
- b=xP9k++dx7d5LLlwEg98W3EOH+AzIBtMr+JHYdIyjEPUAbvI+red0aOZMzFTj97yEg4
- J/YmlC2Fyvo3OuKGiXm8YqLofQmqpWv9F3aeyayGRbY2g7Sq98oFmhKhryue7TB1k6Hq
- N3GeWWxQCzWsKxy+pGQiK5G0+b1JL+zsKqzWJZVBaKc768padgEjV6zS1QGqyR9wUkDQ
- hXpzsfNtcPZ0b8G21/DlfnJl8tg4xpV1FTQbnxegc/Xu9Mudk9/QUhEDwP6GZw4oIVl4
- taXstMfHj/KQF1CYqgWwlxpzLQ1PZmW5pzJDwuB+31dHUZH6Gwy97bnmJ/2XTL4VVG5A
- JoBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=JS0Czy7dsUI1cWCRoLjh3QMDTfvpIvOi8LnTDYzrDZ0=;
- b=4MNdSruHpuO4d1duqhC1dkr/Y975wleDBOFFieuU//gh5VmrG0hpyk1vuXZnyCcryb
- 9PPPIPjLkUP4fqK1uccRZ7SLJuHjnidbXWvVYU/YOmUtOUOWPXEJc4orr7L+ArO+sGGu
- h4wvIEp2VM0oIhsrGlaqL1pXTHEfDtJNx/zTDm7XwcTWts/EhkypSJSio0/FFjQKpQpT
- n4mJ1h8hIES2t6QROnZX4qadwC9VnJmY6i1CoDRqbPZVV3huFqfGWUp3lRjAac2tvq66
- xo/R0a7Ub8WVcx5XYzAuyums+s7foC9ReoyIEC/TxyMExAWulvEya/KCFawWfvoCukX3
- muSg==
-X-Gm-Message-State: ACgBeo0kyD8zj/thZuXefBiSsVy3R0QcOp40ISSseW/Ko2bWtInzLsCc
- QygPZPdbHHACe5V20IIldk5nhA==
-X-Google-Smtp-Source: AA6agR5TOXDSJeXNS8ameg/jXPtMSLz7G7W0z8By9yV5czl7eFUQKgNjyqjiM/lafjuNn/JAFIwKuA==
-X-Received: by 2002:adf:d1e4:0:b0:22a:34a4:79ab with SMTP id
- g4-20020adfd1e4000000b0022a34a479abmr3438748wrd.188.1662716548864; 
- Fri, 09 Sep 2022 02:42:28 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- p27-20020a05600c1d9b00b003b340cca018sm100814wms.16.2022.09.09.02.42.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Sep 2022 02:42:28 -0700 (PDT)
-Message-ID: <983d552e-1dd1-8881-47e5-5d3e8bfdefb3@linaro.org>
-Date: Fri, 9 Sep 2022 10:42:27 +0100
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="YvwYAveu"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2896qFBf009110;
+ Fri, 9 Sep 2022 05:50:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=wwd6UnFJ7T4llYdZ8VQvB3ojTi24MgDoWfc6lbC7Jk0=;
+ b=YvwYAveuvw93cgOueUwhcOA8wUNKNrMWlx5a5iQ9aizi7kXdLYN98tNXu76E5WSjDNxO
+ WxM1tHxkN1jCgaM1b1MfCXI5lScxHSnY9xY0w40FZ3DBJVBIWQUn0nIZqlCdleAqsWPH
+ sDLudUQ58ze+B/Wt38B0pZgGIWC8JQccAZlj0SX1/G/fm71yd89PrGY60tGPzk8s5zsJ
+ 4x3EUvfRkG3oTnsCPTmKYXVgBGQbeMNTysOcCEoBZGxvf0LxMo4sm1oU5H5tMukFMJN5
+ UULtgm7hWaEIcFYH0qPoOKTgCx+Lj+noRb6ElvY85WyxVg8vIP6drdYAh4t4zA/UZGzX TQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jc3bq0uus-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Sep 2022 05:50:30 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 9 Sep
+ 2022 05:50:29 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Fri, 9 Sep 2022 05:50:29 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 62BB9B16;
+ Fri,  9 Sep 2022 10:50:29 +0000 (UTC)
+Date: Fri, 9 Sep 2022 10:50:29 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: hdmi-codec.c: use devm_kzalloc() for DMA data
+Message-ID: <20220909105029.GQ92394@ediswmail.ad.cirrus.com>
+References: <874jxhmjgw.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 1/3] slimbus: qcom-ngd: use correct error in message of
- pdr_add_lookup() failure
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20220830175207.13315-1-krzysztof.kozlowski@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220830175207.13315-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <874jxhmjgw.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: Q3OjWEcahQeOw2TRMc2dWnONKeAJMuR1
+X-Proofpoint-ORIG-GUID: Q3OjWEcahQeOw2TRMc2dWnONKeAJMuR1
+X-Proofpoint-Spam-Reason: safe
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Chao Song <chao.song@intel.com>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,40 +103,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 30/08/2022 18:52, Krzysztof Kozlowski wrote:
-> Use correct error code, instead of previous 'ret' value, when printing
-> error from pdr_add_lookup() failure.
+On Fri, Sep 09, 2022 at 01:20:48AM +0000, Kuninori Morimoto wrote:
 > 
-> Cc: <stable@vger.kernel.org>
-> Fixes: e1ae85e1830e ("slimbus: qcom-ngd-ctrl: add Protection Domain Restart Support")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
+> hdmi-codec.c is using kzalloc(), but we can replace it to
+> devm_kzalloc() and then, we can remove .remove callback.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
-> 
-Applied all thanks,
 
---srini
-> Changes since v1:
-> 1. Correct typo
-> 2. Return 'ret' instead of again PTR_ERR
-> ---
->   drivers/slimbus/qcom-ngd-ctrl.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-> index 0aa8408464ad..f4f330b9fa72 100644
-> --- a/drivers/slimbus/qcom-ngd-ctrl.c
-> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-> @@ -1581,8 +1581,9 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
->   
->   	pds = pdr_add_lookup(ctrl->pdr, "avs/audio", "msm/adsp/audio_pd");
->   	if (IS_ERR(pds) && PTR_ERR(pds) != -EALREADY) {
-> +		ret = PTR_ERR(pds);
->   		dev_err(dev, "pdr add lookup failed: %d\n", ret);
-> -		return PTR_ERR(pds);
-> +		return ret;
->   	}
->   
->   	platform_driver_register(&qcom_slim_ngd_driver);
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF81B5B2F7D
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 09:11:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10AF75B2F85
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 09:12:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E71015E5;
-	Fri,  9 Sep 2022 09:10:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E71015E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5B151691;
+	Fri,  9 Sep 2022 09:11:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5B151691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662707497;
-	bh=XSjrMRxrqtwUe5TU7ZzfVXFS8mlEdFjUNtQ27ADhozI=;
+	s=default; t=1662707540;
+	bh=E70ZSRxi6whXSraIWCNJU7fellYxbNdFMlQgtZZf9I0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EFwWpxM91E2m1+5huIzIL6or0inV4IDmUi2I5ZUWozhrcIBpD2fx9zhbbeyE3Fn8e
-	 8hWfkPRfE8XNVv3B248q5S0g4t8gcW6nDbDY3xEFKNmkzN2uBRiDPAGvZ2WwULAxGR
-	 tA+rkFx9CkJQrwWET34OEeD4oW1yqoRz67o5p83w=
+	b=qCG9mksk2WX3TCGfx+jFJKgLssElOujlF7fmjCCLp6MHrdBdnOwFk5zdEhk7RQV9Z
+	 JyJ2PNcKDWeWCNH3NJDajOtikq+GUc+yYQYr5nk9a7fmr1ZEcbZ18hnM070cuKOgKK
+	 fmtdEhlP+CHv9tYDUuSm/6XXDdjxgmExn/xjPaQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3B4AF8032B;
-	Fri,  9 Sep 2022 09:10:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84E56F8023A;
+	Fri,  9 Sep 2022 09:11:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C055F8016C; Fri,  9 Sep 2022 09:10:36 +0200 (CEST)
+ id DB62AF804AE; Fri,  9 Sep 2022 09:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CBA0F8016C
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 09:10:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CBA0F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7035F8023A
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 09:11:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7035F8023A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cQPifeWJ"; 
+ header.b="wEEO713d"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="KJSLJg6p"
+ header.b="azGr3ZPQ"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8318F225DC;
- Fri,  9 Sep 2022 07:10:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F35D21F8C7;
+ Fri,  9 Sep 2022 07:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662707432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662707480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XPSOWuSG52ywfJTRUjhZtp9sMl05WwDTgOnE0sdlu2Q=;
- b=cQPifeWJUVo+dfprwqrs5S/ibMMSO1kl5q08YdyHC3McsPrLGI2LWAkHIEHv2oD7NF4akl
- NwWdColp7lFBosB6GRzRECUUWMU7kXZI0pBAKkiQS8jAiUUmLwhckSJ6vpfnTB/TLLZakH
- YpwzouA+Li8jitnzle2Z0XpxtzUeNXM=
+ bh=msI5VePEIl5qbYHxuDVF0R26A8rzImNR5KL5GmNXoTw=;
+ b=wEEO713dTNUYEwFotSOs1nQBnPmyWP0N8pXOw4QQgUxz/rjULfB0c0/AiP5zMkdL862/My
+ PN87PFZHCufiAKuZg5BUN3wyFycCqlFr8EZrtXJ9uNLA50KvpYopkywgupRY6fFhnAH3Jl
+ 4z6A+1mmRj58FbK0t/FYR7B0OmeDL0c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662707432;
+ s=susede2_ed25519; t=1662707480;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XPSOWuSG52ywfJTRUjhZtp9sMl05WwDTgOnE0sdlu2Q=;
- b=KJSLJg6pbrE79GceW712KYAz4vDbg99zvOow66Whwv5saL4ZONH1wmS8ZctLoj6/y+5jdD
- nloexn3TmSSUFvAg==
+ bh=msI5VePEIl5qbYHxuDVF0R26A8rzImNR5KL5GmNXoTw=;
+ b=azGr3ZPQ/fANvZUJdkeyqhBdFjv8XsG7JVssczWVdvAOHf5SodjYASfz337Iv5zschyMXL
+ 8/hN8EScm6S3nUCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48C9A13A93;
- Fri,  9 Sep 2022 07:10:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C64CB13A93;
+ Fri,  9 Sep 2022 07:11:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Tmr3EOjmGmNsKQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 09 Sep 2022 07:10:32 +0000
-Date: Fri, 09 Sep 2022 09:10:31 +0200
-Message-ID: <87bkrpdnvc.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +d+1LxfnGmMdKgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 09 Sep 2022 07:11:19 +0000
+Date: Fri, 09 Sep 2022 09:11:19 +0200
+Message-ID: <87a679dnu0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Gaosheng Cui <cuigaosheng1@huawei.com>
-Subject: Re: [PATCH 0/2] Remove unused declarations
-In-Reply-To: <20220909035443.1065737-1-cuigaosheng1@huawei.com>
-References: <20220909035443.1065737-1-cuigaosheng1@huawei.com>
+Subject: Re: [PATCH] sound: oss: dmasound: remove software_input_volume
+ declaration
+In-Reply-To: <20220909061126.1129585-1-cuigaosheng1@huawei.com>
+References: <20220909061126.1129585-1-cuigaosheng1@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, stefanha@gmail.com, johan@kernel.org,
- tiwai@suse.com, dhowells@redhat.com, linux-kernel@vger.kernel.org
+Cc: bunk@kernel.org, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, tiwai@suse.com, bunk@stusta.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,17 +101,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 09 Sep 2022 05:54:41 +0200,
+On Fri, 09 Sep 2022 08:11:26 +0200,
 Gaosheng Cui wrote:
 > 
-> This series contains a few cleanup patches, to remove unused
-> declarations which have been removed. Thanks!
+> expand_read_bal has been removed since commit fc37449f7959 ("The
+> next round of scheduled OSS code removal").
 > 
-> Gaosheng Cui (2):
->   ALSA: line6: remove line6_set_raw declaration
->   ALSA: memalloc: remove snd_dma_sg_ops declaration
+> software_input_volume has been removed since
+> commit 0a1b42db4bf9 ("sound: sound/oss/dmasound/: cleanups").
+> 
+> so remove the declare for them from header file.
+> 
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 
-Thanks, applied both patches.
+Applied, thanks.
 
 
 Takashi

@@ -2,77 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16425B3C53
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 17:46:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961BD5B3C73
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 17:56:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FCE61697;
-	Fri,  9 Sep 2022 17:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FCE61697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A1341651;
+	Fri,  9 Sep 2022 17:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A1341651
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662738399;
-	bh=TNZ6Tp6AT9E+t804PZOIzJt6ZOTK/oqvgxU3rikq3B8=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=W3ghMXniqvyT/PY24Ph1HUX5fs0zTtp9avRVT9j+Fq5ul0AIk76tQg85ScVEeReA9
-	 o6Foc95q2tX2omtM3+anCjIrsItLCgz9sA+1PVS8lyd6+Pu1Zq+ScdKsw0+qzPRlev
-	 Zf7u4ADm5krz+EtpPPFr/BbPtSvO6hFLXsPSmUVk=
+	s=default; t=1662739016;
+	bh=N3UmQb/J/dVz3Y12p6XtcrMnL6MuX8BFnr+bmkltnlw=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qa0tELS+gcIUhG/NaQN0NMPMJMRozjq3WTwbIQFXua/bsrlGmVPJFG7xYhOUTKFLJ
+	 2xI22h55+j01vs2Vrq7K1ol1y45N5wQI5Kf+S1RvZucprMBcT2CBL+NJN1jVAb4lWZ
+	 XVzuLE+NKROjguGxyPNt5B4zg4xJ4lGvB519xhrk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B91FAF8016D;
-	Fri,  9 Sep 2022 17:45:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89D7BF8032B;
+	Fri,  9 Sep 2022 17:55:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6F12F8032B; Fri,  9 Sep 2022 17:45:33 +0200 (CEST)
+ id D5E07F8023A; Fri,  9 Sep 2022 17:55:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4EE0F8016D
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 17:45:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4EE0F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CD26F8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 17:55:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CD26F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="KZkxX5/Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662738332; x=1694274332;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=TNZ6Tp6AT9E+t804PZOIzJt6ZOTK/oqvgxU3rikq3B8=;
- b=KZkxX5/YgiqzmPBvNvaRvprv0qL6yk0wMVyFmxn6VZy+5NfbDvQDfB9z
- BuHrMB0p0BjmO+WSlLos7dauP8Qm2j2DOOyr4oFSEsAdVsRurdqJLO3SP
- vBCLXaz590/FtA2lQT3h/5MSGFJXn/k0Viyt+nHLtyRsAP8GDXCLGfnmD
- Ll+hRPi16nK7SbBv4ZGWdMLeG/UAaL/OowSsudg4d61lS4tfGLchkPuoL
- 59mUusd6SdXwYA81tGStgrUhp8txh99qM22KCxvqpErlP6or4+8PYa/Ge
- 29FSbqhDGhfzw8RB4HkYZ0ufeRYxkYJFJ7umSfaAtpSURc7sdk8vm7Yxi A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10465"; a="297501167"
-X-IronPort-AV: E=Sophos;i="5.93,303,1654585200"; d="scan'208";a="297501167"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2022 08:45:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,303,1654585200"; d="scan'208";a="648479000"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga001.jf.intel.com with SMTP; 09 Sep 2022 08:45:25 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 09 Sep 2022 18:45:25 +0300
-Date: Fri, 9 Sep 2022 18:45:25 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: hda codec unbind refcount hang
-Message-ID: <YxtflWQnslMHVlU7@intel.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="q44sG+gY"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2896qFNo009110;
+ Fri, 9 Sep 2022 10:55:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=3nHT9uBcMm+Mg6mZ509Ukrc3RClGASZLYFpwg58jTGE=;
+ b=q44sG+gY/lsPHBrCOUP9ij9NNoi6qLerKsYnCAC1xTgMMribA0s/oERPxSBmAN0mndrq
+ PQLuwqJXl8iJxn8J7bM2LLSiSBLYB2Yrt9O+jdjw0B7ziPc+ESoK3mmRwm3Lddoqgu+p
+ PBFm6W2lVIGndfsEFK6aA+YOmaN7QG9eqoMDZgmamGRXJu4rPCiP2695debKqeW0H6Sd
+ 2qyIiCz7Xk/WxHl0KIfYjlmUNoCo8RNcJhCygFPMbyaL4Gjm8/QjA5oLqSBpHPvO1nPe
+ BM/iOsk5/bXiplWteN8UMeZe+18u8CV+CUwNSx2CqoccqJYX7BANkxhtV7bR5TNpza8a 3w== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jc3bq1774-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Sep 2022 10:55:49 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 9 Sep
+ 2022 10:55:48 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Fri, 9 Sep 2022 10:55:48 -0500
+Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 87CF72C5;
+ Fri,  9 Sep 2022 15:55:41 +0000 (UTC)
+Message-ID: <20342329-8525-9081-e1c1-f67067883c72@opensource.cirrus.com>
+Date: Fri, 9 Sep 2022 16:55:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 04/10] ASoC: cs42l42: Split probe() and remove() into
+ stages
+Content-Language: en-US
+To: =?UTF-8?Q?Martin_Povi=c5=a1er?= <povik+lin@cutebit.org>, James Schulman
+ <james.schulman@cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, "Lucas
+ Tanure" <tanureal@opensource.cirrus.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20220909135334.98220-1-povik+lin@cutebit.org>
+ <20220909135334.98220-5-povik+lin@cutebit.org>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20220909135334.98220-5-povik+lin@cutebit.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Patchwork-Hint: comment
-Cc: alsa-devel@alsa-project.org
+X-Proofpoint-GUID: sCliLYKo1kOmkbqQ3fdYLmEc-YZZcr8n
+X-Proofpoint-ORIG-GUID: sCliLYKo1kOmkbqQ3fdYLmEc-YZZcr8n
+X-Proofpoint-Spam-Reason: safe
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ - <patches@opensource.cirrus.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, ChiYuan Huang <cy_huang@richtek.com>,
+ asahi@lists.linux.dev, Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Matt Flax <flatmax@flatmax.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,23 +114,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+On 09/09/2022 14:53, Martin PoviÅ¡er wrote:
+> +static int cs42l42_init(struct cs42l42_private *cs42l42)
+> +{
+> +	unsigned int reg;
+> +	int devid, ret;
+> +
+>   	/* initialize codec */
+>   	devid = cirrus_read_device_id(cs42l42->regmap, CS42L42_DEVID_AB);
+>   	if (devid < 0) {
+> @@ -2320,15 +2331,15 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+>   	/* Setup headset detection */
+>   	cs42l42_setup_hs_type_detect(cs42l42);
+>   
+> +	/*
+> +	 * Set init_done before unmasking interrupts so any triggered
+> +	 * immediately will be handled.
+> +	 */
+> +	cs42l42->init_done = true;
+> +
+>   	/* Mask/Unmask Interrupts */
+>   	cs42l42_set_interrupt_masks(cs42l42);
+>   
+> -	/* Register codec for machine driver */
+> -	ret = devm_snd_soc_register_component(cs42l42->dev,
+> -			&soc_component_dev_cs42l42, &cs42l42_dai, 1);
+> -	if (ret < 0)
+> -		goto err_shutdown;
+> -
+>   	return 0;
+>   
+>   err_shutdown:
+> @@ -2337,34 +2348,69 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+>   	regmap_write(cs42l42->regmap, CS42L42_PWR_CTL1, 0xff);
+>   
+>   err_disable:
+> -	if (i2c_client->irq)
+> -		free_irq(i2c_client->irq, cs42l42);
+> -
 
-commit 7206998f578d ("ALSA: hda: Fix potential deadlock at codec
-unbinding") introduced a problem on at least one of my older machines.
-
-The problem happens when hda_codec_driver_remove() encounters a
-codec without any pcms (and thus the refcount is 1) and tries to
-call refcount_dec(). Turns out refcount_dec() doesn't like to be
-used for dropping the refcount to 0, and instead if spews a warning
-and does its saturate thing. The subsequent wait_event() is then
-permanently stuck waiting on the saturated refcount.
-
-I've definitely seen the same kind of pattern used elsewhere
-in the kernel as well, so the fact that refcount_t can't be used
-to implement it is a bit of surprise to me. I guess most other
-places still use atomic_t instead.
-
--- 
-Ville Syrjälä
-Intel
+These 3 lines should not be removed. cs42l42_init() must free
+the irq in the error paths.

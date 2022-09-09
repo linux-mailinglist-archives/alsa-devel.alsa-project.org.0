@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DFA5B3CFA
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 18:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC035B3D9B
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 19:02:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F38711693;
-	Fri,  9 Sep 2022 18:29:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F38711693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26F32169F;
+	Fri,  9 Sep 2022 19:01:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26F32169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662741015;
-	bh=l8X707fTv5ib7dL7bozpVNfksVOWIll36JNKciNhmVc=;
+	s=default; t=1662742968;
+	bh=36he7tSKoMzM24RM5rt2Q1Aw1i6mCldN0UpKpwX535Q=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RvVXYxI4Ew50m1Dc35XssKMCSbeEoQYRnYK1ztsC0Ik+0iHL+fZQZw5EbyHjUQvmV
-	 xv+QweVHomHm9Q/V7845skQ3WktLQ1F6sKgIXKx8gTYihFShln6BzXRU3962JNcFh9
-	 Ztt/BZIJ8K5aQmvlEoxGNLbnSJNjUrBfPFEYg7TQ=
+	b=sbxKR+sI5/HPmidNWSVIk0EamolvDKZHL1QY7kZMhrNI7tII8IRLcfwDK7fZ4fDCr
+	 Ne9OgSoOMGCP/O8REcOvI5oaA0JeTdaNSCsyWArLyxeDCHF2Z2yEqHUbIVJsVv4Pnw
+	 PZigSFCHK2s3TU1iHN/PadYNIYhDmoeV2Kpi2TVE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C458F8032B;
-	Fri,  9 Sep 2022 18:29:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95B93F80105;
+	Fri,  9 Sep 2022 19:01:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D98C0F8023A; Fri,  9 Sep 2022 18:29:12 +0200 (CEST)
+ id 56E87F8023A; Fri,  9 Sep 2022 19:01:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,48 +35,43 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45C3EF80105
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 18:29:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45C3EF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30D99F80105
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 19:01:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30D99F80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hL+Nxclp"
+ header.b="c4fiD2gF"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BA1FDB82583;
- Fri,  9 Sep 2022 16:29:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0185FC433C1;
- Fri,  9 Sep 2022 16:29:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4CF55B82588;
+ Fri,  9 Sep 2022 17:01:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B470C433D6;
+ Fri,  9 Sep 2022 17:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662740943;
- bh=l8X707fTv5ib7dL7bozpVNfksVOWIll36JNKciNhmVc=;
+ s=k20201202; t=1662742898;
+ bh=36he7tSKoMzM24RM5rt2Q1Aw1i6mCldN0UpKpwX535Q=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hL+NxclpqFVqsV3qZfGbefiizA6c+jW4D0nmAq1IP/Yg6AhTQVfvWUeeueCFNXCm5
- Imm2rvoSBXsYb3VJEVQCbKYNP/jrRyROQRQQ/g4JApT1OXDI7H6bgoQn8HIO7B0+a1
- HxStJE4pTJ/Be4oWWs/Ucy3fIMLsnjGXLikhJf47x61kN0gDWuKEMImmj72HX89szN
- OvA0MtAh+nawzEIResfmUAzvKf/GFtrp7+N5ak084riPJDpXaNTWsZ+3hgFvaHvNYV
- f6shTTdtCq4BqH7uKZcCRwXEj+FaZpdjKMzclDhJOiIEtet4c/Qo9U47NMxX3iDYIX
- vbOM7cpEEKsNQ==
-Date: Fri, 9 Sep 2022 17:28:58 +0100
+ b=c4fiD2gF6kGxW7QnOSEOk8EWAdzZgS8nk6iE/BOn9bBfOq3+mFXiu9eJGDVZMNdQi
+ y/ttyqAeBWmy6SNvZZytBp5h/yi0OG+q6yT1PIl336EXrqBtmeUrkAcXdalCXUkJ4P
+ xOpZqLqap7x+NbZNJWE9vqhcqNrXt/jRFscH+jM5xlj5xPejVs6idN/HxOjSo54X7y
+ kkw0oGuaVFiMyEGJh6Rc4uKl199RQvPbbGRXnqlaBBSlje8ub2I3ixBZndLd1nsbtC
+ VNC12CrMhac1BbNvwBG8kP7GEyc7tsKx8Tt/I0OmrFdpWrMFE833uHyUAjk1qUj4JL
+ xTXuyBAkXS1Og==
+Date: Fri, 9 Sep 2022 18:01:33 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [PATCH] ASoC: meson: aiu-fifo.c: use devm_kzalloc(), and remove
- .remove function
-Message-ID: <YxtpyvC/f6of8scT@sirena.org.uk>
-References: <8735d1mjf3.wl-kuninori.morimoto.gx@renesas.com>
- <1jillxc5en.fsf@starbuckisacylon.baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: ak4458.c: move ak4458_reset() under CONFIG_PM
+Message-ID: <YxtxbQh8x9o9qJgj@sirena.org.uk>
+References: <871qslmf4m.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Vp4UAbmLzb8RzLvj"
+ protocol="application/pgp-signature"; boundary="hlH2pKPYbH8vlKTi"
 Content-Disposition: inline
-In-Reply-To: <1jillxc5en.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <871qslmf4m.wl-kuninori.morimoto.gx@renesas.com>
 X-Cookie: FORTH IF HONK THEN
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,45 +88,46 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Vp4UAbmLzb8RzLvj
+--hlH2pKPYbH8vlKTi
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 09, 2022 at 10:27:22AM +0200, Jerome Brunet wrote:
-> On Fri 09 Sep 2022 at 01:21, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+On Fri, Sep 09, 2022 at 02:54:34AM +0000, Kuninori Morimoto wrote:
 
-> > Current aiu-fifo.c is using kzalloc()/kfree(), but we can replace
-> > it by devm_kzalloc(), and remove kfree().
-> > This patch do it.
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>=20
+> This patch fixup this warning
+>=20
+> linux/sound/soc/codecs/ak4458.c:631:13: error: 'ak4458_reset' defined but\
+> 	not used [-Werror=3Dunused-function]
+>   631 | static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
+>       |             ^~~~~~~~~~~~
+> cc1: all warnings being treated as errors
+>=20
+> Fixes: e9e7df88996d64 ("ASoC: ak4458: Remove component probe() and remove=
+()")
 
-> I'm not sure about this change Kuninori.
+Is this the best fix, or should we be adding _reset() calls into the
+device level probe() and remove() functions?
 
-> This is the dai probe, not the device driver probe.
-> If I'm not mistaken it gets called when binding the card.
+Actually I'm not sure the driver works without CONFIG_PM since the probe
+isn't powering on the device but then that's not a super realistic use
+case anyway.
 
-> The components and card drivers are different here.
-
-> If the card probes several times for any reason, EPROBE_DEFER for
-> example, wouldn't this allocate the memory several times without
-> releasing it ?
-
-Yes, indeed.  You'd need to move the allocation to the device level
-probe to convert to devm (which *would* be a good thing to do if
-possible).
-
---Vp4UAbmLzb8RzLvj
+--hlH2pKPYbH8vlKTi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMbackACgkQJNaLcl1U
-h9ATTQf+P207joBcu+aztOQbXAG89+VwTsW4CCyDJSEk18BZY+HqKptaadrPvWY9
-IgMbSbEI1kXXpav0XYLDbvwSXRiqfDY/iSZCRkwoQVFOLah954qhOtYk0yTAzDGu
-hVcYrYL+8cyli+81tXXgh4ew6gKkW4t0kioCCjE+cUTZ3PUpiLW8EchI1WX+AoNd
-Dq6cwNoJ6FeimiSRT5z/fwXwJ9q072nYxu13jmSGXdcLkTIa6/d0+xv7Hokxb7rQ
-wrUpW8cWUnoK+Wqv0sL2CdnBv96lukXqyIm8gR44QCA1PoJlI6ivINMIymtlLBPn
-FevB/QKo64J/BGkWqYe7mYYt9SE5Fg==
-=BIFc
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMbcW0ACgkQJNaLcl1U
+h9AWsgf/e+2s3rfKF2IH/06VvtB3CP0BRC/r2XLuBOESsOsaOQQiY4W5bPM9R598
+sTY2wtHTeyOj/kjkfZl51GSzW9sqNvXIwibm7RkEB/h/p8tqm7VB+Lx9llzyfSaa
+o2Pp34XIKglFihYisIym/5PPBaAubZUOa0qyhwYvunDaBQ8ztFVEBTvFapHNxBhr
+I715g9i7WXosQrkxrkFr2xlLYmp6t7uIKXXVZCoPgSHc8MKW7ZYcho1E8Iat65tO
+lMHH2HsZ7++Czd2wUZHFCza5MzBOz/kFRxPdWvt61bkq/hkORynzZbSZnA5eZYUG
+D2SpN5ibJrUsbrmVrqlAfhzusdybIQ==
+=z/2d
 -----END PGP SIGNATURE-----
 
---Vp4UAbmLzb8RzLvj--
+--hlH2pKPYbH8vlKTi--

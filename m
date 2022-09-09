@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932DB5B416B
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 23:26:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73D085B4172
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 23:28:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDD1F1679;
-	Fri,  9 Sep 2022 23:26:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD1F1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F01916B5;
+	Fri,  9 Sep 2022 23:27:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F01916B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662758813;
-	bh=Wozw/yqPs4gfJyHWPLCmXCAxjLXL5z0KAfrQpXYhtfg=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1662758880;
+	bh=u0Nh9TSTVTuxdZWi8Dbgj9aIebrzI0l3cSRsCgLMXIk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WsIykFQAAj17CSp5C1PXTLmAbiiEX3dGoau+1mp0A9K8fpMFlBTUX4S2bvMJ4uPQa
-	 dxN5tjd350A2+iXSY4tWkW6SpL4d6Hvnz7KXSoOXBH8CzhslOXHidin2f2A1+/QLde
-	 JyKyjrqhFzUPNePtu7WD9BIkCgD/1qm1qgbAUJ0k=
+	b=b+yQWB5O63qrsltRQfbMciRClyqz7Fp7cu3kZdIVpY63Vc5m3X1syYLHle08kXDVc
+	 6VvwShOgw7/hS+7Mb1e6vOSpsVW338gawEXSnxCDOpWBucE4yci4UbvY+jUDNs8msk
+	 4BMxepLOluR3ls6DIJM9WiOVkj3eCrIHb+yQx+zc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CE84F8011C;
-	Fri,  9 Sep 2022 23:25:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B017F8011C;
+	Fri,  9 Sep 2022 23:27:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C920F8023A; Fri,  9 Sep 2022 23:25:52 +0200 (CEST)
+ id AC684F8023A; Fri,  9 Sep 2022 23:27:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93613F8011C
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 23:25:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93613F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BC98F8011C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 23:27:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC98F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RwMPBRQL"
+ header.b="WvvJcbkZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C976B620F1;
- Fri,  9 Sep 2022 21:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C147DC433C1;
- Fri,  9 Sep 2022 21:25:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2663EB82627;
+ Fri,  9 Sep 2022 21:27:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81DBC433D7;
+ Fri,  9 Sep 2022 21:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662758743;
- bh=Wozw/yqPs4gfJyHWPLCmXCAxjLXL5z0KAfrQpXYhtfg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RwMPBRQLOls3qMAsuV8f4hYs3Zec1ZZ+xkNWci7GiWsdhllEnt3vj/dSMR9+EN+7/
- FmKFnDPPWVjCqgBVCh+g6M7s18f6aWxhkfkomZbRYuXzzw8IGAz0DhykKZtiCV/r/c
- Itya7a6sgZcc1y3BvUIqKKErcr46S9IZrY31KNOm0LwT+ruX626fFQ52eb2QLdQb0V
- wdbYtqDTIEsQQLtQ0ZWsM5AhBaJcK0q9RqokrSW+V9hdK5AT4qkbAAmm6uyZki7C43
- ShudnHXsmFOYYDzcTVa5IJ1eL+crbV3gkNY294ZXzQlP/RLCJqKQmWnXqBaQ/5AWa7
- 5opcynyD/GokQ==
+ s=k20201202; t=1662758822;
+ bh=u0Nh9TSTVTuxdZWi8Dbgj9aIebrzI0l3cSRsCgLMXIk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WvvJcbkZ/tG3EaIqrWFPvzsk5M34BxgnN+Eh+8UUkwXmfAium6lM9+kCrqCYiikjr
+ dK747TwvDbux3CcinsBpx+wF08lzMzQF6oMs2cSxD8PCP9m3wCBoDjyRdFTbfM2emT
+ o5jeHMbAjrsM3gcvNBniW2ZAxqoXim2ZKYni9Ge0S5mJ+6PO1sVnDqSQmaxW0shDoJ
+ gBdLuHLyCjofEBUnhRY4nWVo2exWF15IDNWz9JywMbrnay1IFnOQV9V5XJjkyiogdW
+ HoUMQur0TyUQ1VMKb/xEU84hfpt++PAn7jSPEhgi1RhJDAuHT0gN+JpwRyhS10kocZ
+ cjdiY7IU+6mxg==
+Date: Fri, 9 Sep 2022 22:26:57 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20220909114332.31393-1-peter.ujfalusi@linux.intel.com>
-References: <20220909114332.31393-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/7] ASoC: SOF: ipc4: Add support for 'mtrace' log
- extraction
-Message-Id: <166275874150.232761.14281132372148746631.b4-ty@kernel.org>
-Date: Fri, 09 Sep 2022 22:25:41 +0100
+To: Yu Zhe <yuzhe@nfschina.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt6359: fix platform_get_irq error
+ checking
+Message-ID: <YxuvoTEXIshOy+C7@sirena.org.uk>
+References: <20220909064511.22343-1-yuzhe@nfschina.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gGLklRiEh69K2ySa"
+Content-Disposition: inline
+In-Reply-To: <20220909064511.22343-1-yuzhe@nfschina.com>
+X-Cookie: May all your PUSHes be POPped.
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, liqiong@nfschina.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,56 +88,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 9 Sep 2022 14:43:25 +0300, Peter Ujfalusi wrote:
-> The traditional dtrace used by SOF IPC3 is not available with firmware built
-> as IPC4.
-> With the new IPC implementation we have a new log extraction infrastructure and
-> 'mtrace' is one way to get the logs out from the firmware for debugging.
-> 
-> The protocol is relatively simple:
-> The shared sram's debug window is split up to 'slots'
-> Each DSP core will get a dedicated slot assigned for log output.
-> The function of a slots can be checked in a descriptor table.
-> The slot used for logging has the following layout:
-> 
-> [...]
 
-Applied to
+--gGLklRiEh69K2ySa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Sep 09, 2022 at 02:45:11PM +0800, Yu Zhe wrote:
+> The platform_get_irq() function returns negative error codes on error,
+> fix the checking.
 
-Thanks!
+This doesn't apply against current code, please check and resend.
 
-[1/7] ASoC: SOF: ipc4: Only print LOG BUFFER update message info if requested
-      commit: 621a3f772be5cfcd472880aa12ccb10d4c7afae3
-[2/7] ASoC: SOF: ipc4: Add macro to get core ID from log buffer status message
-      commit: e9bcfea156b4d8563109c17c033fa496f0ec4995
-[3/7] ASoC: SOF: ipc4: Add define for the outbox window index
-      commit: b59f1532e0b17f22965e327f86d04292f496ccaf
-[4/7] ASoC: SOF: ipc4: Configure the debug box offset
-      commit: a5d0147ac9f8ea6c08d00b28f0468c9cb3fdfde8
-[5/7] ASoC: SOF: ipc4: Add support for mtrace log extraction
-      commit: f4ea22f7aa7536560097d765be56445933d07e0d
-[6/7] ASoC: SOF: Intel: icl: Set IPC4-specific DSP ops
-      commit: 9ee71a31602fe72111b7a2d188ff84f7ead4cf92
-[7/7] ASoC: SOF: Intel: Add mtrace type information for IPC4
-      commit: cc4a3a19b986aa13a488c8f319e413e85308f403
+--gGLklRiEh69K2ySa
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMbr6AACgkQJNaLcl1U
+h9Bf9AgAhvx/rf91KwlZu2N+8PgTsgM42+GZFA6dK9i2ML+gdMa5aYMUlrsQ1phE
+fDgTHlDCuRzu4v93hZldk3WCpHvYYs4yoA6Tbx6d6VbQ6xnsyR/gT5FNlcuyRPN2
+Nydc7LMN7uPP22r+8IlzVK0LaPj5x7rSW7G6csoFgHw3C/2VgPUjOBE2N97xs6kw
+RdLU5tCIrKRvhSlVgCaVrMe/mCNAHqoXY7BTCv6nowNfdQ1gfCwrzcJAh6bfrYH1
+FWI60cRcGnYyCyZNeG2bn7ZEG2/zv6nMXxAIqhJXnNnJNd5K6dzaBS7Q3M/3sFsz
+kKKEzwz9vszxXeeI9vzy0QbT9dv18A==
+=s1Us
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--gGLklRiEh69K2ySa--

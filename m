@@ -2,83 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A074B5B2971
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 00:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858E35B2B72
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 03:20:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6B1F1686;
-	Fri,  9 Sep 2022 00:37:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6B1F1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id C20B91690;
+	Fri,  9 Sep 2022 03:19:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C20B91690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662676729;
-	bh=Wg50WZaCdnHgKFNnF024mSmECqYSVjQXtdakITNd+0g=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1662686435;
+	bh=TOsHN6mgcwQguxb1vIMtP2ph6vJQCuk2DI8Y7CErohA=;
+	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ddqPekOxDTvZ63KoxPOeklZf+9CNKcQB6hApvd184DEoc3APqKpVAtF98RpKNn3Yk
-	 oqQ0Shr8GTx7Vrsx+MOWFc9bBSabUFq4ZA2EjB6jJFVrLupFHEnkYPIlD0FejDqC9r
-	 HsYYDNb+iyhDDl6nhJb7x6LVI/MfUTL9b3FNH5jY=
+	b=KMGulGrW7xQE9cbVTYedS+nT65sE9Kx6/GakIqNhiC1S4s4MvxATI27p1s+IeJSDM
+	 +98r45V+aXbx5LrJWEcOEzvrAFLnXPupY6YkzE10ZbJDD/jpvcJMRpzJFCCFeJz23k
+	 +V5l7f+foOT4KF+iHxqDmNyyS/Dbq2GLgcBc79SM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FF0EF8023B;
-	Fri,  9 Sep 2022 00:37:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F8D4F8032B;
+	Fri,  9 Sep 2022 03:19:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47564F80217; Fri,  9 Sep 2022 00:37:48 +0200 (CEST)
+ id 617D1F8011C; Fri,  9 Sep 2022 03:19:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2112.outbound.protection.outlook.com [40.107.114.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2911AF800CB
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 00:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2911AF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63AACF8011C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 03:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63AACF8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RJkZiRYt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662676662; x=1694212662;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=Wg50WZaCdnHgKFNnF024mSmECqYSVjQXtdakITNd+0g=;
- b=RJkZiRYtqN3qDa4TMWbB/Wk+hd9b921f2jUHdnJLER8JLabmbZ29A8Lr
- CxB3Fr1al8DlhBg51zRBpvvnK1tRtNdusPUO/cS/micNgyREjqjjpEMsN
- WpfHAFtrJwVHGJEk9knmI6GcVnBR/LsNV4UKbfAzFHrkECnK2uDCeZ4Xf
- UBTGSzUdGsAzx/9Cg+ULOBmAses0QEUQHEoaEYqUWXFNTAQreY5/sHgYD
- l4AcpEs4HW0Z3c6iEWpwDKiBLkqQJUQrC4K6FjjF6Z40xu0XPhhiHL/4j
- bYQ8DbH7oCIuUTGVNDllDiwgPkdEzKvRP5yLd3OOslhe7niPt/apRTzSJ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="277074719"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="277074719"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 15:37:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="615060039"
-Received: from lkp-server02.sh.intel.com (HELO b2938d2e5c5a) ([10.239.97.151])
- by orsmga002.jf.intel.com with ESMTP; 08 Sep 2022 15:37:33 -0700
-Received: from kbuild by b2938d2e5c5a with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oWQ9N-0000Nt-0V;
- Thu, 08 Sep 2022 22:37:33 +0000
-Date: Fri, 09 Sep 2022 06:37:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 47c191411b68a771261be3dc0bd6f68394cef358
-Message-ID: <631a6e9c.D4HRv8SAAnTyu/QX%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
+ header.b="Uba7XnaA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HAEzSx3taD0lmtOs+s5St+fZX4ae7n0MJ9JmIuP6QohQI9e0yTUerXYVC6uyKU69ERHmzQP2kQ3jpitUxS8nBtzhU9g3ts7voQDZna0IB/vsTkj7gpwOx8qmYNajbSfBlzDNicvTP1QZZocOKeG8khuO6jhhvBJXWtYghOtptsDdt3lp6m2ZVf0xX8SYS9IGt4XLJVyAWEwGm1LTtXdsqXdobKQB8i1vqOAy2LP1b22K1UXJAdDy9y6mn822VHtTjRInjtldZeVn3GQ1u1dxK3osnuOInDnVn6Qcpg3nwhdoTw/JD6F7kKG7G25SA4+S84OTz12pnFzXbY+n+brBGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1xLEjk0PL30aW9zeVfJHrDkUmxvIK/JmdL5//Wy2Aac=;
+ b=EGA9QZZffnBAtaEvgDcVhgTckR24mh/aogcXJ6HTv5eTNYMZlEOCQV5VkxKJSuW3k+ZZQG4GmTByEJsVjJk6hbGwBByfVaATwCAVbRLaGvyp8XyKJCBC/3uBmGl0SB9Dv7OAT9D6G8oTuMm80fS4orHvLYB7zi3cSoENGz03mQRs03ynizvBjD9tUyDoDtRTgbwsaMb53oySlKEVslkVVHnmuLZlig8ApPoR5ubdnf07V9TLLGTuAAtOwkZS1DOwM/zFvsmVitK3YpfmnK4tsQ8sxAMRts9JqI+7CawywnMSB8YiR/8M9C5hOzdQvKiNtPaJ7Iq0BFxnTpoaQT4pPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1xLEjk0PL30aW9zeVfJHrDkUmxvIK/JmdL5//Wy2Aac=;
+ b=Uba7XnaA3hKAcmPar7G3NR0Gq86ANR4XjptnKp4pWChEK08JUR5oMK9NwANZTEE3k5Y1JOYy4+/rZxu+s76MPkEjvQMXnGwVKnMrjfOCXNLsOKhGsf5EmQ0Ebydi3MdThM7LnUzWGfjbibo8NHZCatzsbSXKR4E5akLCBbfmlUU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYCPR01MB8249.jpnprd01.prod.outlook.com (2603:1096:400:183::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Fri, 9 Sep
+ 2022 01:19:19 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::1891:867b:6039:55d3]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::1891:867b:6039:55d3%6]) with mapi id 15.20.5612.019; Fri, 9 Sep 2022
+ 01:19:19 +0000
+Message-ID: <875yhxmjjd.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH] ASoC: soc-core.c: setup rtd->pmdown_time at
+ soc_new_pcm_runtime()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 9 Sep 2022 01:19:18 +0000
+X-ClientProxiedBy: TYCP286CA0090.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::19) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org,
- linux-scsi@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, kasan-dev@googlegroups.com,
- linux-gpio@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fd34f42-c5d1-4230-c715-08da920151c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iU9tuxXRuqc7QQJyg7EybgYVfN0IGk4Epy2mfPdRXNtjheLjTK3TdYjIcTr0qwFGLo3VUebXGb8noPAeZcyQTt28sb97JwZ8TS1XHTy1QQjtWZ2cgPARGAS6ckc9vPyKefrDljMLCTX01QK2tE9dU4BwZ1zNCCOZAs8XJ0hOkqcxtGpB2oyZhnF2RnmSjpIdAvXBvBWLk2DnF8g2X7tU4UUXXs24q+PmyYuegCm9U8ea/MJ8vusjl6dhJvP9sLMYfFnAmcI6lfjUZU9mpg8vNevYgMq5rPj24gm+0JnG//nQ24dTdfJgO1poc83TF+1KsG9KtTHXTTRSSOVEnpHaj2oQIqO4EJk4GtU1BeVyg7Iy7jsoV7VAxJdT0JR+7EX8g5kcfb3Cixzsu3NJfYMBh4TlBzeRuJ+RR9cNUHjCH1RcliyO/O1Q8XFSKb/SaRUvatjLeKX0yI8j9/Vv8F0CK9sVTJx2GGgeUX2/JNWSm+KKmyfOWZFi3/V6e335sb7IppjbgH9yUK6Mk/qJavb9nDCkxnC//chgvlrti12S+Zhk+IuiI5dyC18ecwLx08kzoDYTEnJxYZmadSTLSzuum7s93boFzBPU9vMSyNttfyNizLGUiKml80NyceX7EzIBkPT9jFIXvYiZ34ylk7uOmaaala4+afEkiZ1OBCchSgdeTMtUKSPNMPSiM7a/2C9cq//fIBwuk7WFe75ybsG/jO2zYeIXuZQHMlXUHhIf+tcx6K/uVj/2jlg00FFUpucLIDwdP61rc95FC7bGWKxP8aRbjBnFXxqaW1L35nLnRvM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(52116002)(6506007)(6512007)(2616005)(26005)(6486002)(478600001)(41300700001)(186003)(38350700002)(38100700002)(83380400001)(316002)(66476007)(8676002)(4326008)(66946007)(66556008)(8936002)(36756003)(86362001)(7416002)(5660300002)(54906003)(6916009)(2906002)(21314003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tMMnmu5Vprx0OpOWZBdVaMgLlS78nNIIEhK5ED5QkGF6m7uzDUlGLGralp8i?=
+ =?us-ascii?Q?7FJyeHu24h/Kc8D0xuXyvOW1mlTPshJDRD/gnK86iDj06koJlPvGtjoOqfP2?=
+ =?us-ascii?Q?TOD0i0E479W02tRD+JULMDJinrFrr4O8FQ2LubQc9a1hKbAfHPBb/I8lm93h?=
+ =?us-ascii?Q?v24fwBcTBL/fJIfNLafQJkfLMrrwq2OGQv0egH4LnUMv6tbvOJ0MQCYGKpiz?=
+ =?us-ascii?Q?/5yXChK38OI3Z08NmH8lITwBfzRq85YTB7s9tn2SyfbF24sg0YWnfsd46d/Y?=
+ =?us-ascii?Q?ivSsXyX/cFLjqGzy5mBV6QIh1i7h3V1Pz+d9KeSGJ2ByvKiEPVWs6nPUsg2c?=
+ =?us-ascii?Q?z7+UkeR4KEn6yi+OB0p7otOPO2Q+dqMGRWKd+kmykkwGL3Je+piTprujQiHF?=
+ =?us-ascii?Q?/w+57UBWWbbCauJVvriyZf7l1umbCCLJKovmLX2eSPmAlPkAKHymiZJ6nwu3?=
+ =?us-ascii?Q?01n8h8Xxt07etzIYOhqBja+rEA0zVHnalv7iaQa92CbOdXzOs4K7QDJEy9H7?=
+ =?us-ascii?Q?nAx53Tn9c1gIYQWgrvQ264M/CtIIcEtibZXO4xF02s+jqW1nn075/b04cGN0?=
+ =?us-ascii?Q?yfihxkNvCNiI3kGlodnxUhvHx0rMHGdaERwUx8KnwtjByw4tgpqHXan6Dqjp?=
+ =?us-ascii?Q?ishkF4HsRGoKIFSnzkPp52h+619MJu9l6mNQ1FLIJ4lEedEhwEh2X/dibkAU?=
+ =?us-ascii?Q?TWZ+1FsHyCdI7h8RRXnuejMa/yh1x49omqvmAyyEk6GUwkWwYAm1bE+7a8oA?=
+ =?us-ascii?Q?CKXWGHo0zpYVKVNc0w0Uubm7/QdU0ynMOxawygg6Z2j6qCKY5h31VSCr1yZ+?=
+ =?us-ascii?Q?0UwSh5B9mQWlZseNCtmUcF1Kl1yS6YiK1DbK//CD2V26x00hJbkjHbISmWY0?=
+ =?us-ascii?Q?+ivHyTL+HJ+bxhx8L1an45utIS3A2q421b3yhFuVSo4yaXsKD5qcQPO4ACUa?=
+ =?us-ascii?Q?P2MzOyg+v8WNscB8GPiwkHh8mtgfvaVwl3eQfY2C4nc6D+jkJT6JtxMcqRq5?=
+ =?us-ascii?Q?df4nMzhh0d1/VxE2NmKwbIHYw/oaC/KDynSglSjOfavjFoQm+YABfMLxcUGe?=
+ =?us-ascii?Q?RLTleFJbjYzzefXlhs8Xm/MBANIG+20JyN23w/E7XE3rP03GxDF1brr7v30y?=
+ =?us-ascii?Q?Pay7iAMD340zpaKEbC6Z/gq8KWZX58Abc2MfJdaYNZV8utH7NMJBnB8KNLvY?=
+ =?us-ascii?Q?Qhq7BCS3UHDxW6iyWXq31pR8O9EuRBPHwAqCP2poEAQJ7KYX562FPoDgi4kC?=
+ =?us-ascii?Q?l17zti914lWl92yu3ZVhR9GFLGWtsJR/W9orIHAX2Skq/TIySpizy0EOiKqf?=
+ =?us-ascii?Q?dqOSt4AHRTMEW6ivARuDuk6KJaf2lSDVgVKccDF9esHZuw5iQTukFLHOOs+u?=
+ =?us-ascii?Q?QGX6IOzWoIgGYw+b3ZjEiIHdN/6fxF3knSuBxlN8Q2L7nXM7b9XvpLTAj1Na?=
+ =?us-ascii?Q?/kQuuSMAWAtrIgL2Gnk3iVLX5D9EncR1ayxGnj3YDK/LXhk33KH8MUq1Q4LK?=
+ =?us-ascii?Q?nmgtuNzbzWUj2jz4ErbVBPzAdUssHv6KRTrCDsgr83cQtAf2Dg7vY1nvhWiM?=
+ =?us-ascii?Q?0BEcUD6xlhvoB/mEfKssnQ6uABX2Gvn8kSTpAVwOe1q4SG6C0Rf6BQ3Z3V6O?=
+ =?us-ascii?Q?4zSD2LKzloqf3Bu/PTA4sAo=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd34f42-c5d1-4230-c715-08da920151c1
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 01:19:19.1404 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZqegLXawhXqduITEMcq/WAQmNmHIN0sNPgZS5YZ5OcB9wc6Bk4Zc4SQj4nyseJDiyEkjRRs0MYgRXCWyMMctFhiF8+iWZ/rRuf+ykXNH3NeZRNjb0/8agGvR+5k/xD22
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8249
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ =?ISO-8859-2?Q?=22Amadeusz_S=B3awi=F1ski=22?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,218 +153,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 47c191411b68a771261be3dc0bd6f68394cef358  Add linux-next specific files for 20220908
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Error/Warning reports:
+Almost all default rtd->xxx are setup at soc_new_pcm_runtime()
+which is sub-function of snd_soc_add_pcm_runtime() (A).
+But "rtd->pmdown_time" is setup at soc_init_pcm_runtime() (B).
+It is very random timing setup. This patch setup it at (A),
+same as other rtd->xxx.
 
-https://lore.kernel.org/linux-mm/202209042337.FQi69rLV-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209080718.y5QmlNKH-lkp@intel.com
-https://lore.kernel.org/llvm/202209090343.JPAFJt74-lkp@intel.com
+	static int snd_soc_bind_card(...)
+	{
+		...
+		for_each_card_prelinks(...) {
+(A)			ret = snd_soc_add_pcm_runtime(...);
+			...
+		}
+		...
+		for_each_card_rtds(...) {
+(B)			ret = soc_init_pcm_runtime(...);
+			...
+		}
+		...
+	}
 
-Error/Warning: (recently discovered and may have been fixed)
+One note is that current topology/intel are directly calling
+snd_soc_add_pcm_runtime() (A) without calling soc_init_pcm_runtime() (B).
+This means, its "rtd->pmdown_time settings" was 0, but will have default
+value by this patch.
 
-ERROR: modpost: "__divdi3" [drivers/gpu/drm/vkms/vkms.ko] undefined!
-ERROR: modpost: "__udivdi3" [drivers/gpu/drm/vkms/vkms.ko] undefined!
-arm-linux-gnueabi-ld: vkms_formats.c:(.text+0x824): undefined reference to `__aeabi_ldivmod'
-drivers/base/regmap/regmap-mmio.c:222:17: error: implicit declaration of function 'writesb'; did you mean 'writeb'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:225:17: error: implicit declaration of function 'writesw'; did you mean 'writew'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:228:17: error: implicit declaration of function 'writesl'; did you mean 'writel'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:232:17: error: implicit declaration of function 'writesq'; did you mean 'writeq'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:232:17: error: implicit declaration of function 'writesq'; did you mean 'writesl'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:358:17: error: implicit declaration of function 'readsb'; did you mean 'readb'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:361:17: error: implicit declaration of function 'readsw'; did you mean 'readw'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:364:17: error: implicit declaration of function 'readsl'; did you mean 'readl'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readq'? [-Werror=implicit-function-declaration]
-drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readsl'? [-Werror=implicit-function-declaration]
-drivers/crypto/aspeed/aspeed-hace.c:133 aspeed_hace_probe() warn: platform_get_irq() does not return zero
-drivers/gpu/drm/amd/amdgpu/imu_v11_0_3.c:139:6: warning: no previous prototype for 'imu_v11_0_3_program_rlc_ram' [-Wmissing-prototypes]
-drivers/gpu/drm/drm_atomic_helper.c:802: warning: expecting prototype for drm_atomic_helper_check_wb_connector_state(). Prototype was for drm_atomic_helper_check_wb_encoder_state() instead
-drivers/gpu/drm/vkms/vkms_formats.c:259: undefined reference to `__divdi3'
-drivers/pinctrl/pinctrl-amd.c:288 amd_gpio_dbg_show() warn: format string contains non-ascii character '\x9a'
-drivers/pinctrl/pinctrl-amd.c:288 amd_gpio_dbg_show() warn: format string contains non-ascii character '\xa1'
-drivers/pinctrl/pinctrl-amd.c:370 amd_gpio_dbg_show() warn: format string contains non-ascii character '\x95'
-drivers/scsi/qla2xxx/qla_os.c:2854:23: warning: assignment to 'struct trace_array *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-drivers/scsi/qla2xxx/qla_os.c:2854:25: error: implicit declaration of function 'trace_array_get_by_name'; did you mean 'trace_array_set_clr_event'? [-Werror=implicit-function-declaration]
-drivers/scsi/qla2xxx/qla_os.c:2869:9: error: implicit declaration of function 'trace_array_put' [-Werror=implicit-function-declaration]
-fs/btrfs/volumes.c:6549 __btrfs_map_block() error: we previously assumed 'mirror_num_ret' could be null (see line 6376)
-ld: drivers/gpu/drm/vkms/vkms_formats.c:260: undefined reference to `__divdi3'
-ld: vkms_formats.c:(.text+0x362): undefined reference to `__divdi3'
-ld: vkms_formats.c:(.text+0x3b2): undefined reference to `__divdi3'
-ld: vkms_formats.c:(.text+0x3ba): undefined reference to `__divdi3'
-ld: vkms_formats.c:(.text+0x47f): undefined reference to `__divdi3'
-mips-linux-ld: vkms_formats.c:(.text.argb_u16_to_RGB565+0xd0): undefined reference to `__divdi3'
-mm/kasan/kasan_test_module.c:90:26: sparse:    struct kasan_rcu_info *
-mm/kasan/kasan_test_module.c:90:26: sparse:    struct kasan_rcu_info [noderef] __rcu *
-sound/soc/codecs/tas2562.c:442:13: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
-vkms_formats.c:(.text+0x266): undefined reference to `__divdi3'
-vkms_formats.c:(.text+0x338): undefined reference to `__divdi3'
-vkms_formats.c:(.text+0x388): undefined reference to `__divdi3'
-vkms_formats.c:(.text+0x390): undefined reference to `__divdi3'
-vkms_formats.c:(.text+0x455): undefined reference to `__divdi3'
-vkms_formats.c:(.text+0x804): undefined reference to `__aeabi_ldivmod'
-vkms_formats.c:(.text.argb_u16_to_RGB565+0xb0): undefined reference to `__divdi3'
+"rtd->pmdown_time settings" will be used at
+snd_soc_runtime_ignore_pmdown_time(). This patch adds
+"ignore_pmdown_time" to these driver to keep compatibility.
 
-Error/Warning ids grouped by kconfigs:
+	bool snd_soc_runtime_ignore_pmdown_time(...)
+	{
+		...
+=>		if (!rtd->pmdown_time || rtd->dai_link->ignore_pmdown_time)
+			return true;
+		...
+	}
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
-|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
-|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_get_by_name
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_put
-|   |-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
-|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
-|-- alpha-randconfig-r013-20220907
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
-|-- alpha-randconfig-r034-20220907
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
-|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
-|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
-|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
-|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
-|-- arc-randconfig-r003-20220907
-|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
-|-- arc-randconfig-r026-20220907
-|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
-|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
-|-- arc-randconfig-s033-20220907
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
-|   `-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-clang_recent_errors
-|-- i386-randconfig-a002
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|-- i386-randconfig-a006
-|   `-- ld.lld:error:undefined-symbol:__udivdi3
-|-- i386-randconfig-a013
-|   `-- ld.lld:error:undefined-symbol:__udivdi3
-|-- i386-randconfig-a015
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|-- powerpc-randconfig-r021-20220907
-|   |-- arch-powerpc-math-emu-fre.c:warning:no-previous-prototype-for-function-fre
-|   |-- arch-powerpc-math-emu-frsqrtes.c:warning:no-previous-prototype-for-function-frsqrtes
-|   |-- arch-powerpc-math-emu-fsqrt.c:warning:no-previous-prototype-for-function-fsqrt
-|   |-- arch-powerpc-math-emu-fsqrts.c:warning:no-previous-prototype-for-function-fsqrts
-|   |-- arch-powerpc-math-emu-mtfsf.c:warning:no-previous-prototype-for-function-mtfsf
-|   `-- arch-powerpc-math-emu-mtfsfi.c:warning:no-previous-prototype-for-function-mtfsfi
-|-- x86_64-randconfig-a003
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|-- x86_64-randconfig-a012
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-`-- x86_64-randconfig-a016
-    `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+ sound/soc/intel/avs/boards/hdaudio.c | 1 +
+ sound/soc/soc-core.c                 | 4 +---
+ sound/soc/soc-topology.c             | 1 +
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-elapsed time: 734m
-
-configs tested: 75
-configs skipped: 4
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-m68k                             allmodconfig
-x86_64                        randconfig-a011
-powerpc                           allnoconfig
-arc                              allyesconfig
-powerpc                          allmodconfig
-alpha                            allyesconfig
-mips                             allyesconfig
-m68k                             allyesconfig
-x86_64                        randconfig-a015
-i386                          randconfig-a014
-sh                               allmodconfig
-x86_64                        randconfig-a002
-x86_64                              defconfig
-x86_64                        randconfig-a013
-i386                                defconfig
-i386                          randconfig-a001
-x86_64                          rhel-8.3-func
-i386                          randconfig-a003
-x86_64                        randconfig-a006
-arc                  randconfig-r043-20220908
-x86_64                        randconfig-a004
-i386                          randconfig-a005
-arm                                 defconfig
-i386                          randconfig-a012
-i386                          randconfig-a016
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-kvm
-arm                              allyesconfig
-x86_64                    rhel-8.3-kselftests
-x86_64                           rhel-8.3-syz
-x86_64                               rhel-8.3
-i386                             allyesconfig
-arm64                            allyesconfig
-arc                  randconfig-r043-20220907
-i386                          randconfig-c001
-s390                 randconfig-r044-20220908
-riscv                randconfig-r042-20220908
-x86_64                           allyesconfig
-ia64                             allmodconfig
-csky                              allnoconfig
-arc                               allnoconfig
-alpha                             allnoconfig
-riscv                             allnoconfig
-m68k                       m5275evb_defconfig
-sh                         ap325rxa_defconfig
-arm                        cerfcube_defconfig
-powerpc                         wii_defconfig
-xtensa                  cadence_csp_defconfig
-arm                        mvebu_v7_defconfig
-
-clang tested configs:
-x86_64                        randconfig-a012
-i386                          randconfig-a013
-x86_64                        randconfig-a014
-x86_64                        randconfig-a001
-i386                          randconfig-a002
-x86_64                        randconfig-a003
-x86_64                        randconfig-a016
-i386                          randconfig-a011
-x86_64                        randconfig-a005
-hexagon              randconfig-r041-20220907
-i386                          randconfig-a015
-hexagon              randconfig-r041-20220908
-i386                          randconfig-a006
-i386                          randconfig-a004
-riscv                randconfig-r042-20220907
-hexagon              randconfig-r045-20220908
-hexagon              randconfig-r045-20220907
-s390                 randconfig-r044-20220907
-x86_64                          rhel-8.3-rust
-powerpc                        icon_defconfig
-arm                       spear13xx_defconfig
-arm                         palmz72_defconfig
-powerpc                 mpc832x_rdb_defconfig
-x86_64                        randconfig-k001
-
+diff --git a/sound/soc/intel/avs/boards/hdaudio.c b/sound/soc/intel/avs/boards/hdaudio.c
+index d2fc41d39448..073663ba140d 100644
+--- a/sound/soc/intel/avs/boards/hdaudio.c
++++ b/sound/soc/intel/avs/boards/hdaudio.c
+@@ -42,6 +42,7 @@ static int avs_create_dai_links(struct device *dev, struct hda_codec *codec, int
+ 		dl[i].dpcm_capture = 1;
+ 		dl[i].platforms = platform;
+ 		dl[i].num_platforms = 1;
++		dl[i].ignore_pmdown_time = 1;
+ 
+ 		dl[i].codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
+ 		dl[i].cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index e020ab49cfb1..df2bd8098c63 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -487,6 +487,7 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 	rtd->card	= card;
+ 	rtd->dai_link	= dai_link;
+ 	rtd->num	= card->num_rtd++;
++	rtd->pmdown_time = pmdown_time;			/* default power off timeout */
+ 
+ 	/* see for_each_card_rtds */
+ 	list_add_tail(&rtd->list, &card->rtd_list);
+@@ -1247,9 +1248,6 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
+ 	struct snd_soc_component *component;
+ 	int ret, num, i;
+ 
+-	/* set default power off timeout */
+-	rtd->pmdown_time = pmdown_time;
+-
+ 	/* do machine specific initialization */
+ 	ret = snd_soc_link_init(rtd);
+ 	if (ret < 0)
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index b101db85446f..c3be24b2fac5 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -1755,6 +1755,7 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+ 
+ 	/* enable DPCM */
+ 	link->dynamic = 1;
++	link->ignore_pmdown_time = 1;
+ 	link->dpcm_playback = le32_to_cpu(pcm->playback);
+ 	link->dpcm_capture = le32_to_cpu(pcm->capture);
+ 	if (pcm->flag_mask)
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+

@@ -2,92 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B715B3595
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 12:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5BFF5B35BD
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Sep 2022 12:56:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3D511679;
-	Fri,  9 Sep 2022 12:50:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3D511679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 844C5169A;
+	Fri,  9 Sep 2022 12:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 844C5169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662720702;
-	bh=lUmDMhiF8lwwv2lKAciOsvwyDyYY7c9q5moMPEB33mg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HqcLABAmlUEfrc7EGoj03EKKOHUJCmA52j0/b6b9U9xfVlPUf/xl1t34CuFeBKU9i
-	 H6Y3+TtF9jqShX5saMtl/3R8Xdykf+F8gCb5LLra4HZi4GvtYUmlJbCZGuE5HPUrw1
-	 kq7c0AikO+mZdErLt0Se6JF5hDVHNeRF51qtFZpk=
+	s=default; t=1662720972;
+	bh=X34RN06pM67wn+bbX7oD7FfymFohsHo20qhmxjgOpYQ=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FDdmDTsqg+vog2zHS9ZbBaVhq0hzEc3DGAMlpP1y8eM78TE4isqBpN+7xK91CSkkn
+	 U0IAut8gKwyTz5mnP99YNmsVpmfqouvu2K6drbnLtzEveYXu5ZME2L9z6evZOt/ARt
+	 lRqy0/zGyaP3+pHkzSO3edRIEAcIRKvLxYCXaXI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 624DDF8032B;
-	Fri,  9 Sep 2022 12:50:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF995F8032B;
+	Fri,  9 Sep 2022 12:55:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0D07F8023A; Fri,  9 Sep 2022 12:50:39 +0200 (CEST)
+ id E1E0BF8023A; Fri,  9 Sep 2022 12:55:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2ADDBF8016C
- for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 12:50:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ADDBF8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50672F8016C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Sep 2022 12:55:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50672F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="YvwYAveu"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2896qFBf009110;
- Fri, 9 Sep 2022 05:50:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=wwd6UnFJ7T4llYdZ8VQvB3ojTi24MgDoWfc6lbC7Jk0=;
- b=YvwYAveuvw93cgOueUwhcOA8wUNKNrMWlx5a5iQ9aizi7kXdLYN98tNXu76E5WSjDNxO
- WxM1tHxkN1jCgaM1b1MfCXI5lScxHSnY9xY0w40FZ3DBJVBIWQUn0nIZqlCdleAqsWPH
- sDLudUQ58ze+B/Wt38B0pZgGIWC8JQccAZlj0SX1/G/fm71yd89PrGY60tGPzk8s5zsJ
- 4x3EUvfRkG3oTnsCPTmKYXVgBGQbeMNTysOcCEoBZGxvf0LxMo4sm1oU5H5tMukFMJN5
- UULtgm7hWaEIcFYH0qPoOKTgCx+Lj+noRb6ElvY85WyxVg8vIP6drdYAh4t4zA/UZGzX TQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jc3bq0uus-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 09 Sep 2022 05:50:30 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 9 Sep
- 2022 05:50:29 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Fri, 9 Sep 2022 05:50:29 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 62BB9B16;
- Fri,  9 Sep 2022 10:50:29 +0000 (UTC)
-Date: Fri, 9 Sep 2022 10:50:29 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: hdmi-codec.c: use devm_kzalloc() for DMA data
-Message-ID: <20220909105029.GQ92394@ediswmail.ad.cirrus.com>
-References: <874jxhmjgw.wl-kuninori.morimoto.gx@renesas.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KI2cVGDo"
+Received: by mail-ed1-x531.google.com with SMTP id s11so1878451edd.13
+ for <alsa-devel@alsa-project.org>; Fri, 09 Sep 2022 03:55:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date;
+ bh=2MqAyqB3obT3a9e6Rex16DgbqUANCIruNzkxfEGRAR4=;
+ b=KI2cVGDoYMuU2xHbt2FNMPUBioI6v72PhjgPblqD7QrwXyDQqtL+y5TSUwSRpuckpT
+ ndgVi0Q5u1f+kwsuJnzPCp0AAzRp6zMVlU6U+qUuhm1Muitu2mtXanPcTpGdvE8Ja79r
+ VL/eZU4GCaauqzTStzI/b/fEt9+Jw8hDcLLDz7Af4EwdA5USuy6WnrNVeznbv63iimRZ
+ re+0RhzDxVCihZ9f0uUVGMpVBZbscaZdlZKYGtppUexQ95iQ/PlxmBPskdozaeRFqyo5
+ FtdHnhJPBvsv428qviDaD9RbBY7Hgkb7D7xAhsHTqE3eNXbd3wTv9ZF/Iia4/KoHrSVS
+ qQow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=2MqAyqB3obT3a9e6Rex16DgbqUANCIruNzkxfEGRAR4=;
+ b=txvhy8/eeCMdAl2/Dsh0nVGipwSMYtLY/cA7z+t0ylN0DyvPyPRsig7FT2QijmBUrb
+ t5ta36Pm9mQ1L7yhnt4C+ihEhT5icIBrQSq7x67hin+O9rcQVg70C8GFCTMNRD2d3KjG
+ CDuuZ5wNjQ/MhR+JSOhth/LhY5PFz2TXDymZEtHaFe+o8dfwk/UhcTt9o8V4dQQ2Mfsm
+ 6q4qud+8oKxSuKwDaSxGl+Ekwx/K1agP3nbN7ru3EY9nAgnQVLRMhdzR/fm76MSnskN9
+ +idxDfv5XESTkHCEmPVRRoEjpeS0nd9Gcd+CN6PHvJO0eR41NeSYUudCVL/ERkDHi+f/
+ VH2g==
+X-Gm-Message-State: ACgBeo2k3svxxgDTIuiyyA6T7bO006HHYlaMQ5oJC98kQzbTDKCMMS/f
+ Hkh/9gVAAtlDNjcSdFebcE0=
+X-Google-Smtp-Source: AA6agR7IELyZqytBXA7cLf7FxixJI2HrWYysad8iMYuNpf5NEXQi/mkxnDMMuT3z6p/uu3LZ2RHIDw==
+X-Received: by 2002:a05:6402:33c4:b0:448:e63e:4f40 with SMTP id
+ a4-20020a05640233c400b00448e63e4f40mr10733719edc.203.1662720906670; 
+ Fri, 09 Sep 2022 03:55:06 -0700 (PDT)
+Received: from debian (host-78-150-37-98.as13285.net. [78.150.37.98])
+ by smtp.gmail.com with ESMTPSA id
+ 7-20020a170906318700b0073100dfa7b0sm140821ejy.8.2022.09.09.03.55.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Sep 2022 03:55:06 -0700 (PDT)
+Date: Fri, 9 Sep 2022 11:55:04 +0100
+From: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, Mark Brown <broonie@kernel.org>
+Subject: build failure of next-20220909 due to e9e7df88996d ("ASoC: ak4458:
+ Remove component probe() and remove()")
+Message-ID: <YxsbiCu80EXrVpvn@debian>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <874jxhmjgw.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: Q3OjWEcahQeOw2TRMc2dWnONKeAJMuR1
-X-Proofpoint-ORIG-GUID: Q3OjWEcahQeOw2TRMc2dWnONKeAJMuR1
-X-Proofpoint-Spam-Reason: safe
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Chao Song <chao.song@intel.com>,
- Dmitry Osipenko <digetx@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-next@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,17 +101,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 09, 2022 at 01:20:48AM +0000, Kuninori Morimoto wrote:
-> 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> hdmi-codec.c is using kzalloc(), but we can replace it to
-> devm_kzalloc() and then, we can remove .remove callback.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
+Hi All,
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+The builds of loongarch, alpha, s390, csky and s390allmodconfig have
+failed to build next-20220909 with the error:
 
-Thanks,
-Charles
+sound/soc/codecs/ak4458.c:631:13: error: 'ak4458_reset' defined but not used [-Werror=unused-function]
+  631 | static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
+      |             ^~~~~~~~~~~~
+
+
+git bisect pointed to e9e7df88996d ("ASoC: ak4458: Remove component probe() and remove()")
+
+I will be happy to test any patch or provide any extra log if needed.
+
+
+-- 
+Regards
+Sudip

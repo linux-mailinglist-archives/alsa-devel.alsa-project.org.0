@@ -2,99 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211DB5B459F
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Sep 2022 11:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2F845B45E8
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Sep 2022 12:23:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB70916BE;
-	Sat, 10 Sep 2022 11:17:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB70916BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C0A5169F;
+	Sat, 10 Sep 2022 12:22:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C0A5169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662801484;
-	bh=vFRsZ2ayLbXEGaWA5+PUUGTepFYpvuL5w8eFeyp6o8w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1662805393;
+	bh=Yjkhh8lFzRCV+VhQgkLeJMUhnXYV17OfJWaNtrsmDQg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BnmqUISm8PX9gGsTV87fcweIAuDo5pFDgQkx84NdkdX5umNENX8TSFxVZZpi9hTsU
-	 EkVez55p+Al1LFCf9x8iCRpbqKSXEH9VjeXldvPckvGX66uSBAw9SSLhJBPZaBK29C
-	 gOsGx5Q2/kpnsbmvL/tAJ6RZ+idq+pkVTFWtEikg=
+	b=bYQ692A7aPPG7stFyW8JqZzQEe85ZV8Bb1xa2gT0gagw6YaGvkIco1BX9ixiRDaej
+	 tkyAzdjUCmoWHuV7KY3hslP3vX5gRvBWuqAfKfwYconzKBpgO+lSMcjOkIuxWnRM17
+	 qFXOTuUe8qNkN+fxiZMMbWvoYpwHXevNllOnWKbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9439AF8057C;
-	Sat, 10 Sep 2022 11:15:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A1A3F80448;
+	Sat, 10 Sep 2022 12:22:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3EE2F80568; Sat, 10 Sep 2022 11:15:00 +0200 (CEST)
+ id 114BEF8042F; Sat, 10 Sep 2022 12:22:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81D83F8016C
- for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 11:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D83F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06E0EF8016B
+ for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 12:22:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06E0EF8016B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Vjv2svew"
-Received: by mail-lf1-x132.google.com with SMTP id q21so6786803lfo.0
- for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 02:14:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=rmqQ4kjPWFQWglKjigsMWHNac7/x7IFTq30UtYcnmqY=;
- b=Vjv2svewyIN2U5P6rvQjir03D+g6EpmVV3R6ajRIKLNBxcpOyr4c4UkbjxSM2TJMEy
- X+uE+EHNFtIz8QgvKTsrOU9PktlAgLEH22tw6yVTmv7GIFcDbPr/VtOqGgwfR1NMwfOw
- vILCk45ixAfgzYbW3ggWvrPOSHlJ+0h1N+FUZ4ufHrp0bz93hydaUtQ+mvXQWkWA2Yco
- jcSuqcQkHn1OD5ndnsaPbY5cBFgLLZfKrWIP8iWBBpslUS75Qv0MYRM9aseg1myl8LLC
- VBFGtXf/oWA1EA23L2E/nbzjOC7v0tGI2rZjT0BPoK0wLpfKqFt7jRFs4M9tO7pnq/sy
- i6NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=rmqQ4kjPWFQWglKjigsMWHNac7/x7IFTq30UtYcnmqY=;
- b=y8vLjE54kTUtN71nsDln1YC+RohE/ro4xeGpnJ4cqouta72TwXoJl9mW8Wz0E2YOLA
- 5Nt0DM1RDTg/LKsigUcGpqfsIYILhJ7bNAYfprLT9dM0n7n0oQrT4Lbz0B0K5cvtLknz
- ymyOBdKmN0b24veBcJRqyyTEcFHmYYwoK2VQyf2jXAwJRwqR5X1t8gQfgqtFP5fp5nzr
- 94Hy3Qfb5sDdMyKKtzH7v22m+MlHOZHsc3mBZexhlIFtxeLx99FNrfPvYap3nnmHIO3p
- aOI0/45a8Ak+n7rAfIDxSOINxhv66j6PnrBm32HWKIjovveCwNu0SwUvy2t9hWZXn9ge
- 168Q==
-X-Gm-Message-State: ACgBeo2fASPWn9nF45sL3pMG/vfoVEhxIxB0+q6Tz0vkA+jybFl0lsRc
- zqrEsMlovEXeyx05ghxyE4emag==
-X-Google-Smtp-Source: AA6agR5M2+DIslDj5uqNrZ+M/RK85p19Fiy/OF3lTqm4PY6EnhQ2RxNj9gfL7c/DjWGFWotv07lyEA==
-X-Received: by 2002:a05:6512:4002:b0:499:280:9c5b with SMTP id
- br2-20020a056512400200b0049902809c5bmr1753800lfb.593.1662801295116; 
- Sat, 10 Sep 2022 02:14:55 -0700 (PDT)
-Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
- by smtp.gmail.com with ESMTPSA id
- x22-20020a19e016000000b0048b26d4bb64sm201552lfg.40.2022.09.10.02.14.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Sep 2022 02:14:54 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 15/15] dt-bindings: soc: qcom: apr: add missing properties
-Date: Sat, 10 Sep 2022 11:14:28 +0200
-Message-Id: <20220910091428.50418-16-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
-References: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gP9/G/Yj"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="u8rUZljw"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5E82A22628;
+ Sat, 10 Sep 2022 10:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662805325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VQcqT8yiM0BTjMe2rGPWC4iiIwuFBqoqxMNH24fJDwk=;
+ b=gP9/G/YjZfD9+QJOQBNFX1dlku0Wu/FYH4Mkk6sJQuXgOxg0N39yna58zcoChUOd2gpAcw
+ bcclxFMeK6lZHCvInu6MHUKlECO17Tx1xN6LK2EXHr2Yov7oQxZd3cWICZOmrTY8wVdll2
+ qHhdeUhoauSjKCQkjOLMv32E+pXjop8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662805325;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VQcqT8yiM0BTjMe2rGPWC4iiIwuFBqoqxMNH24fJDwk=;
+ b=u8rUZljwCh1vix/3N1Wci/Os2oNvIz6fY6EVfjSwSb2AGUU8WG8VZ2GNSXb1nVtZyFrjH8
+ Bu/1kkAPbPaZZmCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4732C13441;
+ Sat, 10 Sep 2022 10:22:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id FG6sEE1lHGMbGAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 10 Sep 2022 10:22:05 +0000
+Date: Sat, 10 Sep 2022 12:22:04 +0200
+Message-ID: <8735czcywj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: Re: hda codec unbind refcount hang
+In-Reply-To: <YxuWZ/4+bKYChcge@intel.com>
+References: <YxtflWQnslMHVlU7@intel.com> <87fsh0czd8.wl-tiwai@suse.de>
+ <YxuWZ/4+bKYChcge@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,89 +103,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The APR bindings were not describing all properties already used in DTS:
-1. Add qcom,glink-channels, qcom,smd-channels and qcom,intents (widely
-   used).
-2. Add power-domains for MSM8996.
+On Fri, 09 Sep 2022 21:39:19 +0200,
+Ville Syrjälä wrote:
+> 
+> On Fri, Sep 09, 2022 at 05:59:47PM +0200, Takashi Iwai wrote:
+> > On Fri, 09 Sep 2022 17:45:25 +0200,
+> > Ville Syrjälä wrote:
+> > > 
+> > > Hi Takashi,
+> > > 
+> > > commit 7206998f578d ("ALSA: hda: Fix potential deadlock at codec
+> > > unbinding") introduced a problem on at least one of my older machines.
+> > > 
+> > > The problem happens when hda_codec_driver_remove() encounters a
+> > > codec without any pcms (and thus the refcount is 1) and tries to
+> > > call refcount_dec(). Turns out refcount_dec() doesn't like to be
+> > > used for dropping the refcount to 0, and instead if spews a warning
+> > > and does its saturate thing. The subsequent wait_event() is then
+> > > permanently stuck waiting on the saturated refcount.
+> > > 
+> > > I've definitely seen the same kind of pattern used elsewhere
+> > > in the kernel as well, so the fact that refcount_t can't be used
+> > > to implement it is a bit of surprise to me. I guess most other
+> > > places still use atomic_t instead.
+> > 
+> > Does the patch below work around it?  It seem to be a subtle
+> > difference between refcount_dec() and refcount_dec_and_test().
+> 
+> Aye, this works.
+> 
+> Tested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Good to hear.
+
+I think the below is slightly safer, assuring the other *_disconnect()
+calls.
+
+Could you give it a try again?  Once after confirming it works, I'll
+re-submit and merge to my tree.
+
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda: Fix hang at HD-audio codec unbinding due to refcount saturation
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+We fixed the potential deadlock at dynamic unbinding the HD-audio
+codec at the commit 7206998f578d ("ALSA: hda: Fix potential deadlock
+at codec unbinding"), but ironically, this caused another potential
+deadlock.  The current code uses refcount_dec() and waits for the
+pending task with wait_event for dropping the refcount to 0.  This
+works fine when PCMs are assigned and actually waiting for the
+refcount drop.
+
+Meanwhile, when there was no PCM assigned, the refcount_dec() call
+itself was supposed to drop to zero -- alas, it doesn't in reality;
+refcount_dec() complains, spews kernel warning and it saturates
+instead of dropping to 0, due to the nature of refcount_dec()
+implementation.  This eventually blocks the wait_event() wakeup and
+the code get stuck there.
+
+For avoiding the problem, we call refcount_dec_and_test() and skips
+the sync-wait if it already reaches to zero.
+
+The patch does a slight code reshuffling to make sure to invoke other
+disconnect calls before the sync-wait, too.
+
+Fixes: 7206998f578d ("ALSA: hda: Fix potential deadlock at codec unbinding")
+Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/YxtflWQnslMHVlU7@intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- .../bindings/soc/qcom/qcom,apr.yaml           | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ sound/pci/hda/hda_bind.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-index 54328d74af85..f47491aab3b1 100644
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-@@ -20,6 +20,9 @@ properties:
-       - qcom,apr-v2
-       - qcom,gpr
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index cae9a975cbcc..1a868dd9dc4b 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -157,10 +157,10 @@ static int hda_codec_driver_remove(struct device *dev)
+ 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
+ 	}
  
-+  power-domains:
-+    maxItems: 1
-+
-   qcom,apr-domain:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     enum: [1, 2, 3, 4, 5, 6, 7]
-@@ -52,6 +55,26 @@ properties:
-         2 = Audio DSP Domain
-         3 = Application Processor Domain
+-	refcount_dec(&codec->pcm_ref);
+ 	snd_hda_codec_disconnect_pcms(codec);
+ 	snd_hda_jack_tbl_disconnect(codec);
+-	wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
++	if (!refcount_dec_and_test(&codec->pcm_ref))
++		wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
+ 	snd_power_sync_ref(codec->bus->card);
  
-+  qcom,glink-channels:
-+    $ref: /schemas/types.yaml#/definitions/string-array
-+    description: Channel name used for the communication
-+    items:
-+      - const: apr_audio_svc
-+
-+  qcom,intents:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      List of (size, amount) pairs describing what intents should be
-+      preallocated for this virtual channel. This can be used to tweak the
-+      default intents available for the channel to meet expectations of the
-+      remote.
-+
-+  qcom,smd-channels:
-+    $ref: /schemas/types.yaml#/definitions/string-array
-+    description: Channel name used for the communication
-+    items:
-+      - const: apr_audio_svc
-+
-   '#address-cells':
-     const: 1
- 
-@@ -172,6 +195,30 @@ required:
-   - compatible
-   - qcom,domain
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - qcom,gpr
-+    then:
-+      properties:
-+        power-domains: false
-+
-+  - if:
-+      required:
-+        - qcom,glink-channels
-+    then:
-+      properties:
-+        qcom,smd-channels: false
-+
-+  - if:
-+      required:
-+        - qcom,smd-channels
-+    then:
-+      properties:
-+        qcom,glink-channels: false
-+
- additionalProperties: false
- 
- examples:
+ 	if (codec->patch_ops.free)
 -- 
-2.34.1
+2.35.3
 

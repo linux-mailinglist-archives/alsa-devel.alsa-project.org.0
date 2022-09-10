@@ -2,78 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65BB25B4587
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Sep 2022 11:15:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA98A5B459C
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Sep 2022 11:17:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D474B169D;
-	Sat, 10 Sep 2022 11:14:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D474B169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 585C71679;
+	Sat, 10 Sep 2022 11:16:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 585C71679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662801343;
-	bh=ngaJugOClaP7qWA6RPY8cfMUgZYlNCgq2WpZNfc/VU0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=P7NlmORBLEIpPQu3l6/sNW4yDKtZbEzHt33I5bnvRHWA12QYH0CL2qwBYBTBtylax
-	 1LqJPhpZfn0/zHOHsNADcRgRoo56g5Mh+w/ZGnXj3PoL2FGQ7gwRFW31LEp/Sd3wUU
-	 87RXjFvmP2tJvVOZ6ey3F5nUicOD2OSV6EAFRv5A=
+	s=default; t=1662801432;
+	bh=xdo9lmGeLXAv3Uldv/tBrNhXsh0pfCzfN8Hx3NTqIRc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Qb7JpvDhq08B1XF6sbBiJIIq5LdonCypqODjPp0Mqq1mNwXIn+V2OHiFGwUwIKei4
+	 wtFGEFrqHk5TtoE0/BPpe6BI+muGs+d4oWKTTrHM5dK5oefApOXlfbawUisLq8GaHd
+	 VVAiKd6i7PQxoi1GPp1JTju6N0acd7s8WTQtUi7s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FEA0F80494;
-	Sat, 10 Sep 2022 11:14:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45442F8053B;
+	Sat, 10 Sep 2022 11:15:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCFC0F8042F; Sat, 10 Sep 2022 11:14:41 +0200 (CEST)
+ id AEC4FF80551; Sat, 10 Sep 2022 11:14:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C2E0F800B8
- for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 11:14:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C2E0F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4647DF80536
+ for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 11:14:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4647DF80536
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="qEGQSAJ0"
-Received: by mail-lf1-x130.google.com with SMTP id f14so5739442lfg.5
- for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 02:14:38 -0700 (PDT)
+ header.b="O/Ch6b7h"
+Received: by mail-lj1-x22c.google.com with SMTP id 9so3850319ljr.2
+ for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 02:14:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=MnFJqajPs9w5f0wSrYoTrh6QdL6OalF/XG7fSTrJrsM=;
- b=qEGQSAJ0Y1+A6G7HzR8kqLHxF5qrjFTyfOvB05i+lVHQbXe5GSugzi3ybCXHJKqEIP
- VJPe15RWqRUPEhcDFXZKOModnP6is6ycQRrOqhb6JzUmyzriOM7POX2QWmolnWx2iK6k
- yqd6lAj+dHCSzO+nSl1BT4qvbPkzTO7t9Zyv5ejy585AxhjVfTaqxRK7x1JOQTILiMIq
- /A0svW5ueD32DTuKGQRZwXiM9lmDlvszd0VLC9JVtc1Wx8wdoR4jMP1c/Lmk0klsw7GT
- u92ApASb2ZfXAe9ArYkL64jbRuDZa7sPEMt6usf789GGChiYeln0eepXRjnDGCLxU2im
- xAXA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=I+Cj5rW1qPBHDkQI4vuAbqESvVL5430WmrKXOMhCHDY=;
+ b=O/Ch6b7hOL+11g7GHWsi9eQQ87OhE38Owe7J26Hf+qJkjI3uMtsWTfnUXWG6dFbfKt
+ k9xKNOAejKT4g8aQGXiP2avBx45e6M1pDb/M/+WRVhA5STyn3cjPO1eX08qdvF5FUQna
+ lW4TqOuxtZ/0qhjvdXDH52uLoeiv5bPfVOXCJBzTCGffJAdVv6098cbSaxRRs4c2tvRn
+ CT4tghY+gpBpHKP9LAdl96Xava53XZloZNsvT8gg+Hw+4w4XxvoEf9yP5XiKIPjLqEex
+ 1amt3ChYBfnZDM1vPiCz9nCTkMYC03tCnQvD9X9FxLHNuEk29c3svj40W7YbTcQenb7N
+ TLNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=MnFJqajPs9w5f0wSrYoTrh6QdL6OalF/XG7fSTrJrsM=;
- b=0GBhXUT3m8kvt0zgC77jr+cbWUeMdudt19HKYhph+38WwivDEtLUVjbXtytUaFuA/u
- f23EvJUaabfVjlRzvVqwmstaptAxSLQFx4VkkJ3g8P8mKGtHpLfQFfdUyNqKr+65aw1C
- wFJw03ID915SL1x1j3re3l6TexhHhtpsJvfL0VtHUWskDtRJBwLJal/yKEIm173wSLND
- 1dMpija1r0uCLZT00kvFt4WVPLXzSbF5Clltl1YyEq/TB3h+n/sldtKY0Mht3/FRc7jr
- tKV8ZtdJ9rec38JKbWBeABFbDig41pPu4UhqVqkkkNVOxsGKXXBupE2eym4bUtToBjoo
- 1PCw==
-X-Gm-Message-State: ACgBeo3ngP2k1KHen5fqnLfDHMWfyLwEqHT0upAoIKqV2magI6skW/3c
- NI8DaTRZ3/EgrYNUgiB5IuWQPQ==
-X-Google-Smtp-Source: AA6agR7rvJSireVLEoJSasVipDhF0WWaCEg/d89wEbc83LWJO0cFxfvR1RYvLyQYSOsDVa+/rrGoFg==
-X-Received: by 2002:a05:6512:3292:b0:497:e864:d913 with SMTP id
- p18-20020a056512329200b00497e864d913mr4550224lfe.132.1662801276977; 
- Sat, 10 Sep 2022 02:14:36 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=I+Cj5rW1qPBHDkQI4vuAbqESvVL5430WmrKXOMhCHDY=;
+ b=NUkLXX76TwPaLanU4vpa0SkyYou4kwoXUgNBdaCl4/jDYWkYfMHwPl6W1MyvREUUec
+ yNyY9+0NKvy1y86pQABGAN33U6kCckt7a+FcU60PSCYSNVxd1HqX+J33KYysTZvYWnDb
+ vGGybYfYxjY8p2EHjXbHqieX9yEgzmOSqqbnbe0bFzAtQCIilm1M+25nj4Y7inS0H5Ge
+ ePyNYsSlJzUd/1oMydmaAVPXzWb22acKJ6MN8hkgHQvDvbkxCSe83WSd48piNeraHOuf
+ EYlQW0HuzOqdVA8i42pdN3NUCFEu9bOgCtEEQIzvcUKUQ04AeusblJe+cLw5UT08cWdt
+ 1lNw==
+X-Gm-Message-State: ACgBeo30zcf7BKqZcg4v0gwSanN6mnPe+dQ2MnapSw4bxlGr+QGhIbAm
+ 8orkOi2g7Zeph9B7w8Xk0icAMQ==
+X-Google-Smtp-Source: AA6agR4FCa85+ISTKv3H1d1x6uFzYyQLjUdlJZJ3lzgsxfSiH4+SIbwfwkEuptV+7e+VebV7N1prXA==
+X-Received: by 2002:a2e:9e11:0:b0:268:c7d0:9662 with SMTP id
+ e17-20020a2e9e11000000b00268c7d09662mr4830958ljk.309.1662801278102; 
+ Sat, 10 Sep 2022 02:14:38 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- x22-20020a19e016000000b0048b26d4bb64sm201552lfg.40.2022.09.10.02.14.35
+ x22-20020a19e016000000b0048b26d4bb64sm201552lfg.40.2022.09.10.02.14.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Sep 2022 02:14:36 -0700 (PDT)
+ Sat, 10 Sep 2022 02:14:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
@@ -84,10 +86,13 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 00/15] ASoC/qcom/arm64: Qualcomm ADSP DTS and binding fixes
-Date: Sat, 10 Sep 2022 11:14:13 +0200
-Message-Id: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 01/15] arm64: dts: qcom: sdm630: align APR services node
+ names with dtschema
+Date: Sat, 10 Sep 2022 11:14:14 +0200
+Message-Id: <20220910091428.50418-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
+References: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
@@ -106,75 +111,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+DT schema expects APR services node names to be "service":
 
-Dependencies/merging
-====================
-1. The DTS patches are independent.
-2. The binding patches should come together, because of context changes. Could
-   be one of: Qualcomm SoC, ASoC or DT tree.
+  qcom/sdm850-lenovo-yoga-c630.dtb: remoteproc-adsp: glink-edge:apr: 'apr-service@3', 'apr-service@4', 'apr-service@7', 'apr-service@8', 'qcom,glink-channels', 'qcom,intents' do not match any of the regexes: '^service@[1-9a-d]$', 'pinctrl-[0-9]+'
 
-Changes since v3
-================
-1. Patch 9-10: re-order, so first apr.yaml is corrected and then we convert to
-   DT schema. This makes patchset fully bisectable in expense of changing the same
-   lines twice.
-2. Patch 11: New patch.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Changes since v2
-================
-1. Patch 9: rename and extend commit msg.
-2. Add Rb tags.
-
-Changes since v1
-================
-1. Patch 9: New patch.
-2. Patch 10: Correct also sound/qcom,q6apm-dai.yaml (Rob).
-2. Patch 13: New patch.
-3. Add Rb/Tb tags.
-
-Best regards,
-Krzysztof
-
-Krzysztof Kozlowski (15):
-  arm64: dts: qcom: sdm630: align APR services node names with dtschema
-  arm64: dts: qcom: sdm845: align APR services node names with dtschema
-  arm64: dts: qcom: sm8250: align APR services node names with dtschema
-  arm64: dts: qcom: msm8996: fix APR services nodes
-  arm64: dts: qcom: sdm845: align dai node names with dtschema
-  arm64: dts: qcom: msm8996: align dai node names with dtschema
-  arm64: dts: qcom: qrb5165-rb5: align dai node names with dtschema
-  arm64: dts: qcom: sm8250: use generic name for LPASS clock controller
-  dt-bindings: soc: qcom: apr: correct service children
-  ASoC: dt-bindings: qcom,q6asm: convert to dtschema
-  ASoC: dt-bindings: qcom,q6adm: convert to dtschema
-  ASoC: dt-bindings: qcom,q6dsp-lpass-ports: cleanup example
-  ASoC: dt-bindings: qcom,q6dsp-lpass-clocks: cleanup example
-  ASoC: dt-bindings: qcom,q6apm-dai: adjust indentation in example
-  dt-bindings: soc: qcom: apr: add missing properties
-
- .../bindings/soc/qcom/qcom,apr.yaml           | 112 ++++++++++++++++--
- .../bindings/sound/qcom,q6adm-routing.yaml    |  52 ++++++++
- .../devicetree/bindings/sound/qcom,q6adm.txt  |  39 ------
- .../bindings/sound/qcom,q6apm-dai.yaml        |  21 ++--
- .../bindings/sound/qcom,q6asm-dais.yaml       | 112 ++++++++++++++++++
- .../devicetree/bindings/sound/qcom,q6asm.txt  |  70 -----------
- .../sound/qcom,q6dsp-lpass-clocks.yaml        |  36 +++---
- .../sound/qcom,q6dsp-lpass-ports.yaml         |  64 +++++-----
- arch/arm64/boot/dts/qcom/msm8996.dtsi         |  10 +-
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts      |   4 +-
- arch/arm64/boot/dts/qcom/sdm630.dtsi          |   8 +-
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts    |   2 +-
- .../boot/dts/qcom/sdm845-xiaomi-beryllium.dts |   2 +-
- .../boot/dts/qcom/sdm845-xiaomi-polaris.dts   |   4 +-
- arch/arm64/boot/dts/qcom/sdm845.dtsi          |   8 +-
- arch/arm64/boot/dts/qcom/sm8250.dtsi          |  10 +-
- 16 files changed, 346 insertions(+), 208 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6adm-routing.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/qcom,q6adm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6asm-dais.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/qcom,q6asm.txt
-
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index 9ae6610af93a..3cd1f40b44fb 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -2224,12 +2224,12 @@ apr {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+ 
+-					q6core {
++					service@3 {
+ 						reg = <APR_SVC_ADSP_CORE>;
+ 						compatible = "qcom,q6core";
+ 					};
+ 
+-					q6afe: apr-service@4 {
++					q6afe: service@4 {
+ 						compatible = "qcom,q6afe";
+ 						reg = <APR_SVC_AFE>;
+ 						q6afedai: dais {
+@@ -2240,7 +2240,7 @@ q6afedai: dais {
+ 						};
+ 					};
+ 
+-					q6asm: apr-service@7 {
++					q6asm: service@7 {
+ 						compatible = "qcom,q6asm";
+ 						reg = <APR_SVC_ASM>;
+ 						q6asmdai: dais {
+@@ -2252,7 +2252,7 @@ q6asmdai: dais {
+ 						};
+ 					};
+ 
+-					q6adm: apr-service@8 {
++					q6adm: service@8 {
+ 						compatible = "qcom,q6adm";
+ 						reg = <APR_SVC_ADM>;
+ 						q6routing: routing {
 -- 
 2.34.1
 

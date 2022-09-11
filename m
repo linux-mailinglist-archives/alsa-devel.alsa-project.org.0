@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CAFF5B5563
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 09:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3542B5B5564
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 09:35:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C853C16DC;
-	Mon, 12 Sep 2022 09:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C853C16DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7DC416E4;
+	Mon, 12 Sep 2022 09:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7DC416E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662968072;
-	bh=US8zGry1EpSMTFvnAwMROBYZNwIK0bqrrhQjSvWmd2o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FsWJbHNXbk/sQdcWate4EJaW05EXzL/LLNDedgBXaWjJKONzT2TxmPhj2pjm+5Wnc
-	 YcMVdiCjeNcNsgDKW1w+bFOUqweL+UCOOUdnyfk9HYadn3fy39BCu8bAD+ZsCTtmC1
-	 Dk/Q0vuoQytXfCxXAF5W4QIZ8MdF8osYH714cum0=
+	s=default; t=1662968101;
+	bh=SEmxLa9DeGMwrLIwpxo62R72Cj6ZXdhrenbFqluEJrE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f2XbUuwlxOH3DxUa5vCDKqgXEgyd4VyuNKcNwZYuKaN/yucFljkxM+YquzU9KtGRP
+	 XIl364MgphcjUVSR4P9Qb1C2HjD1eCrcTpLGARyanmGQrWHcg1NIJv8FLHxxP/JRQS
+	 YITbFI7PIA95HxcWbCp6CoaJ97NFQEUX7H7sf7NQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49B83F8030F;
+	by alsa1.perex.cz (Postfix) with ESMTP id CAD5BF804FE;
 	Mon, 12 Sep 2022 09:33:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00894F80256; Sun, 11 Sep 2022 16:57:33 +0200 (CEST)
+ id 2AC0EF80256; Sun, 11 Sep 2022 16:57:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DBBAF8011C
- for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 16:57:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DBBAF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BEA0F800B8
+ for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 16:57:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BEA0F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="i/f4nXEJ"
-Received: by mail-lf1-x12c.google.com with SMTP id bq23so10877394lfb.7
- for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 07:57:30 -0700 (PDT)
+ header.b="QQcsfunS"
+Received: by mail-lj1-x234.google.com with SMTP id y18so7745603ljh.12
+ for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 07:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=eAQ7pZ3gOqppStIbzWQfQ4sG+iuDRIjLuat0vE00Rkw=;
- b=i/f4nXEJosWajMhzlcgxo2AeRYy8/SU8YuJsy/YUexGUSfmdHSfyaXFHg67uwCzsZb
- CR/VJbhPFE3qG02Dz87HQ9kq3KyWDatY6+wb99maWe+95+TNU45rKgTiCOv+VSP/9V1V
- vguqDDgMyaJ1D8i7P6UXyIX41SjYzJx6HmUoG126H/Q+EzuVmAZ7DYCLqVHx3IapunVh
- v1m5TVQdblRjU6beiAIxjsWfs76gCfl3dAqV45FHzMxtddBYYRobhEMYXGHeotwh+sXv
- 1Rq2SavvkmaOgsDp+osvWjbzAHvUIG/Vop9j/gtmGReUBz7NqGju/T7zQxZKpe2oyA2a
- xvcw==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=I8h6IKACxQlXXVq1OeWv2JZIqExd2BXra4rChfH99Xk=;
+ b=QQcsfunSn1opiSC+tGIBb/82hXMfbk8jt/xhW4pgbxegftG1gG0ErLsBhw79+MXAab
+ smwr36fp7WOYftAeRvzqTtLTMoRTkY1RlwVkBKd4o2vxpLJWOe6ozb5P9ntM2HKwLiQO
+ GYLCCugpsnnPcWVXPpZ9hqYklyBCpuNGAEn6I068BtEtVIlQuXOuE92+cCtaZLsgd2Q9
+ vHqz6HIPJ0iVXR3aVsjFVzhDoXPDESwUnytu1VtqmKOzdeqj8to/HMfWG8SwYEFRc3kC
+ minkouqdBBusqivhJeR7GzMNItSHRSlnYUXzV+I953LQkCUVrD0dPPH/AyeIL8cKSHJn
+ Q5Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=eAQ7pZ3gOqppStIbzWQfQ4sG+iuDRIjLuat0vE00Rkw=;
- b=BUa+OnuNOPzrF1xF1Bg7RULvOuAoyqCtjctr2zAFnMzVedeP+gStaDC2o44d1rb4eY
- Qv2l94sxU3t0Eha1XnSIXbX9we/RHh3EAQWPLRPkfgc0Y4vFRHvYoufO59OANrzGqAm9
- bDLEtAzEcxv5CXYG5e4WMrmIyI2tyHOdFt5WAkLj7aw0aKWlQu4gaGEWrwCJgOMVQqWe
- SCttUXky+Lk44CnIQ13/0nP8Gmt+TzcQWEU9aYnoJUIyTFw6zGT004bf25nTJ1TMAPpE
- P7Qv/WNFwSPS7jCarN6iRR7bFiG0neYkqEUyn7bxBhpt2gAHAPaKdnSI1Pj0ZtdafIP5
- aHZw==
-X-Gm-Message-State: ACgBeo0A+CvJsVaQbRBt0I5JxH1H++4PhwMPt3SMVAO0VaIyUSSNjtfQ
- oJe6+fqZQ9wcQoj+pVNu3/8=
-X-Google-Smtp-Source: AA6agR4dOV0r3KZlPBj/fj8prupK0Ya8fCrBCJbZOIV671RYwn5zSNIK6JfGj+HSnJYrgcAzn07meQ==
-X-Received: by 2002:a05:6512:3090:b0:48b:6e1:1b55 with SMTP id
- z16-20020a056512309000b0048b06e11b55mr8106591lfd.535.1662908248930; 
- Sun, 11 Sep 2022 07:57:28 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=I8h6IKACxQlXXVq1OeWv2JZIqExd2BXra4rChfH99Xk=;
+ b=SeILN8G0kpBT9XtoBf2w0zyOAk86sMPM7o1Dj6/HgCWr35N/1W3CTnX0NVbVlGEivB
+ Q+/6II58o8sMNHDv7Q/Cx9XIzs7F1OvNcdPpKactzgQR0k+pbPQ6fPRXRdzK2kE4N34g
+ 78iNXghcdwX8ANJswz4n6MHBc8tE1vNx3OQ2NCellfKu20udV6zAljQduhiQT0kLuEzD
+ UpCbBxTVrpk/QJZIPt4LRd1m1PZXaNKgU0Z4SmrhRKRAV612Mrlu9pG4Yc8xIFGR0SDl
+ mD5hCZl9Q9d9aW8Vh3Noen+8rZS+MAa3spEG3An6jAo+v5eaMRc2dm+coKnDa1+I2F4V
+ Mgpg==
+X-Gm-Message-State: ACgBeo2P0cCIi5GauFMZqsYoczLPlz02QUA83/4TlGG1DVp919/SgQMe
+ s2H7pQlgcsXG/YgCH1tdBPj4Wr0I95kXcg==
+X-Google-Smtp-Source: AA6agR6KZCWm2WPTqfmyxsXJXyYXPDtajUhuPpJYX5iMpEbTFfpkYbV2J5gKHD8BN9cp+Wh+DQVtCA==
+X-Received: by 2002:a2e:a9a9:0:b0:261:bf5a:8ff3 with SMTP id
+ x41-20020a2ea9a9000000b00261bf5a8ff3mr6654761ljq.252.1662908256454; 
+ Sun, 11 Sep 2022 07:57:36 -0700 (PDT)
 Received: from localhost (95-31-185-216.broadband.corbina.ru. [95.31.185.216])
  by smtp.gmail.com with ESMTPSA id
- k5-20020a2e9205000000b0026181f65600sm675817ljg.136.2022.09.11.07.57.27
+ p39-20020a05651213a700b0048a9e18ae67sm636891lfa.84.2022.09.11.07.57.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Sep 2022 07:57:28 -0700 (PDT)
+ Sun, 11 Sep 2022 07:57:35 -0700 (PDT)
 From: Mikhail Rudenko <mike.rudenko@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Samuel Holland <samuel@sholland.org>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: sunxi: sun4i-codec: silence misleading error in
- probe
-Date: Sun, 11 Sep 2022 17:57:11 +0300
-Message-Id: <20220911145713.55199-1-mike.rudenko@gmail.com>
+Subject: [PATCH 2/2] ASoC: sunxi: sun4i-codec: set debugfs_prefix for CPU DAI
+ component
+Date: Sun, 11 Sep 2022 17:57:12 +0300
+Message-Id: <20220911145713.55199-2-mike.rudenko@gmail.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220911145713.55199-1-mike.rudenko@gmail.com>
+References: <20220911145713.55199-1-mike.rudenko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Sep 2022 09:33:31 +0200
@@ -106,33 +110,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the case when a codec device is probed before codec analog
-controls, snd_soc_register_card() returns -EPROBE_DEFER, resulting in
-a misleading error message
+At present, succesfull probing of H3 Codec results in an error
 
-    sun4i-codec 1c22c00.codec: Failed to register our card
+    debugfs: Directory '1c22c00.codec' with parent 'H3 Audio Codec' already present!
 
-even if the device is probed successfully later. Use dev_err_probe()
-to demote the above error to a debug message.
+This is caused by a directory name conflict between codec
+components. Fix it by setting debugfs_prefix for the CPU DAI
+component.
 
 Signed-off-by: Mikhail Rudenko <mike.rudenko@gmail.com>
 ---
- sound/soc/sunxi/sun4i-codec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sunxi/sun4i-codec.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 60712f24ade5..01b461c64d68 100644
+index 01b461c64d68..4d118f271e8c 100644
 --- a/sound/soc/sunxi/sun4i-codec.c
 +++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1825,7 +1825,7 @@ static int sun4i_codec_probe(struct platform_device *pdev)
+@@ -1253,6 +1253,7 @@ static const struct snd_soc_component_driver sun8i_a23_codec_codec = {
  
- 	ret = snd_soc_register_card(card);
- 	if (ret) {
--		dev_err(&pdev->dev, "Failed to register our card\n");
-+		dev_err_probe(&pdev->dev, ret, "Failed to register our card\n");
- 		goto err_assert_reset;
- 	}
+ static const struct snd_soc_component_driver sun4i_codec_component = {
+ 	.name = "sun4i-codec",
++	.debugfs_prefix = "dai",
+ };
  
+ #define SUN4I_CODEC_RATES	SNDRV_PCM_RATE_CONTINUOUS
 -- 
 2.37.3
 

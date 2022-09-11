@@ -2,97 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B8B05B4C61
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Sep 2022 08:37:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 454B75B4C6B
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Sep 2022 09:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9644116AE;
-	Sun, 11 Sep 2022 08:37:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9644116AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2F0316A5;
+	Sun, 11 Sep 2022 09:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2F0316A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662878271;
-	bh=quZBqV1f0MVfaI6Q8HdCGQpEYYUcthXKReBldOeNjK4=;
-	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1662879991;
+	bh=Q24aO67LJNOAZ1M/gC5d1E35Hjjo+GJKSFXOcKljhzA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MoLfXwNFwDgFqdPszBg2UefCYf8lI2kR9XrI6qN7GmLOmo8hTpXmHpKX+mnuVnffh
-	 9J+CYFZKJzNK2GS7nPlBbge01FNCvuARR4NradG4D5FLaJDU9pWaFBHSwq2waI3h3l
-	 b3Z5C66siIqco0wA/JRtjfpSZ3/wchN5Hn/gilVs=
+	b=I5RKompRu7j4N84j7lJNFHhIpuzzzqVKzIeekg9tJSJkHh8ynocS5WIhGG9ecT2Sw
+	 4wkkJJrUrckbZVRDwy8m/L5VeZ9jZBqc/s907jf1CNIsZ1QHbgtKrukp+orq1axeqd
+	 /faV7GWKrgoD2ahxf99VsRltmFN6IMUb/qESi8MY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF15AF80425;
-	Sun, 11 Sep 2022 08:36:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EF5CF80425;
+	Sun, 11 Sep 2022 09:05:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4814DF80256; Sun, 11 Sep 2022 08:36:50 +0200 (CEST)
+ id A61FCF80256; Sun, 11 Sep 2022 09:05:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1947F8011C
- for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 08:36:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1947F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62E27F8011C
+ for <alsa-devel@alsa-project.org>; Sun, 11 Sep 2022 09:05:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62E27F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HpVyDQSx"
-Received: by mail-pj1-x1036.google.com with SMTP id o23so3914665pji.4
- for <alsa-devel@alsa-project.org>; Sat, 10 Sep 2022 23:36:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date;
- bh=rLoZPCz3iqj/otZpqJcV6DJvojjpGid7m4NE/GhnbPY=;
- b=HpVyDQSxgsmV1eBBTUhIdODmdXvEpYb9rx9Q7qy2CDjMRP/ZJ0+2vLsb3+pyUXnw/W
- rUTsvm+ni3bCEti33QBVNaaXchW5IAgISNmBEMgROIfmq6WAyXgPrKuxEg/dbsMPpmRC
- McqaNuCDqMpLC8e/5BO/rkEwhOb8UZHLx9stT6Lw1ge5ACFL/SvNkQRU/ByJOePPB8N+
- BuxhnlHHPff/2qlmFmmfo0OttPD0GxzpKBusQH1FtIa0eBtCYFE0OehbinKCAcmTwcbR
- gNAPZkkyLG+AS24m+FGPccDN/Zosnnf7G1oPNK5nZGySw7M1HeqIQHBekgtNc4Kn1vu9
- a0Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=rLoZPCz3iqj/otZpqJcV6DJvojjpGid7m4NE/GhnbPY=;
- b=IWKImkG26eeOTrRUZffWNkfqkHdPY5+0tudDMI+DfKSmnmLOe4WxoOrz74B10zZoRO
- q1VlYdEgfU1r4Yjr48jVM6rdVefZwgytoTUxBPPzan0vx/fIYLUGyxvDd6+ITRMoHrxW
- oECVkwFcNxpHx61VN9VHK4uZ0LOWG3DFtISz95KdvXe0DxDSJHKXe/dty6AOXM/zaNMl
- g3pl8pKbqaaPZ7FSQg/sQFgCWKmD37vqMNhi3E6Uor/OFZ/PA3Q37KtcV9nvRq9tFQAn
- M3KMcL0A74Vzs5dFMw+aSOSVaaVvzQn8Teo3cBxhIhZcOZORqVZn0FaK950Gfr3nTeHM
- hxbg==
-X-Gm-Message-State: ACgBeo3GSLHrL0p9tbfk79v5e0xdqCD4134/YrtgrQpxQ9T8fv1o7z6/
- Fe84zxL4BPwHfvjm3g9oAcs=
-X-Google-Smtp-Source: AA6agR6DD0403W1ObxUkdI0/nki3p+rM7v1/bwvxo/F1Py/Jx0Rkoc9WzvCe9af/hiCLdnl6nzoz3g==
-X-Received: by 2002:a17:90b:17c5:b0:202:596d:6e40 with SMTP id
- me5-20020a17090b17c500b00202596d6e40mr18269436pjb.53.1662878201310; 
- Sat, 10 Sep 2022 23:36:41 -0700 (PDT)
-Received: from [192.168.0.109] (118-231-217-35.adsl.fetnet.net.
- [118.231.217.35]) by smtp.gmail.com with ESMTPSA id
- w11-20020aa79a0b000000b005375a574846sm2713280pfj.125.2022.09.10.23.36.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 10 Sep 2022 23:36:41 -0700 (PDT)
-Message-ID: <27c23d02-ab49-680b-a334-4b73da4c086d@gmail.com>
-Date: Sun, 11 Sep 2022 14:33:05 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-From: David Lin <ctlin0.linux@gmail.com>
-Subject: Re: [PATCH] ASoC: nau8825: Add ADCOUT IO drive strength control
-To: Mark Brown <broonie@kernel.org>, David Lin <CTLIN0@nuvoton.com>
-References: <20220907065126.406208-1-CTLIN0@nuvoton.com>
- <Yxh+seNpKW5lxhjp@sirena.org.uk>
-Content-Language: en-US
-In-Reply-To: <Yxh+seNpKW5lxhjp@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
- KCHSU0@nuvoton.com, lgirdwood@gmail.com, YHCHuang@nuvoton.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="G1X9wlna"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PqmZutqK"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CD51C228E5;
+ Sun, 11 Sep 2022 07:05:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1662879927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FJEtZxIA/Evyh2MXH85XBzsQ3OU7JEtHNQGYm8Ao6iA=;
+ b=G1X9wlnatH+dkv2o9vxjMRtzrHCPfTyNcZmzhttcPsD6yDy3MKcjh385Nn8HvCTtZhJUa8
+ GnfOTHgNTPkjrSgM5ZIeJo6bmSJl5hN3yj/+1TTxREt5c3Lxa4nhcnm6I7bvk37cVuxozo
+ J0JVgWsBVzW2+LncjBD/vamsdLlhi2I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1662879927;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FJEtZxIA/Evyh2MXH85XBzsQ3OU7JEtHNQGYm8Ao6iA=;
+ b=PqmZutqKjg04a1Bbt2NrXOLaa3sJdtSKN4ossbvPHYE6n+TMPEONxQWx/m0+fuXYBrRqRq
+ VuV8ldhrzuG5ptBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B6A6B13A11;
+ Sun, 11 Sep 2022 07:05:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1nkJLLeIHWOWNgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 11 Sep 2022 07:05:27 +0000
+Date: Sun, 11 Sep 2022 09:05:27 +0200
+Message-ID: <87tu5ebdc8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: Sound broken (first couple of seconds play looping) on Sony Vaio
+ VPX11S1E (HDA, ALC262)
+In-Reply-To: <87y1uqbfmo.wl-tiwai@suse.de>
+References: <3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com>
+ <87y1uqbfmo.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,25 +101,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022/9/7 下午 07:21, Mark Brown wrote:
-> On Wed, Sep 07, 2022 at 02:51:27PM +0800, David Lin wrote:
->> Add a property to control the driving of ADCOUT.
->>
->> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
->> ---
->>   Documentation/devicetree/bindings/sound/nau8825.txt | 2 ++
->>   sound/soc/codecs/nau8825.c                          | 6 ++++++
->>   sound/soc/codecs/nau8825.h                          | 3 +++
->>   3 files changed, 11 insertions(+)
-> Binding and driver patches should normally be separate patches.
-OK, I will separate them.
->> +  - nuvoton,adcout-drive-str: ADCOUT IO drive strength. 0 - normal, 1 - stronger.
-> Why not just make this a boolean property rather than requiring values?
->
->> +	nau8825->adcout_ds = device_property_read_bool(dev, "nuvoton,adcout-drive-str");
-> It looks like it's being parsed as a boolean.
+On Sun, 11 Sep 2022 08:15:59 +0200,
+Takashi Iwai wrote:
+> 
+> On Sat, 10 Sep 2022 19:52:36 +0200,
+> Hans de Goede wrote:
+> > 
+> > Hi All,
+> > 
+> > To test some kernel work (backlight refactor) which I have been doing
+> > I have booted Debian Testing with a 6.0 kernel on a Sony Vaio VPX11S1E
+> > (which is ancient).
+> > 
+> > I noticed that when tab-completing something in a terminal the
+> > terminal bell sound would keep repeating and playing another longer
+> > sound sample gets stuck with the first couple of seconds of that
+> > sample looping.
+> > 
+> > This is under GNOME3 with pulseaudio as sound server.
+> > 
+> > I accidentally found an interesting workaround if I run:
+> > 
+> > aplay -Dplughw:CARD=MID,DEV=0 /usr/share/sounds/alsa/Front_Left.wav
+> > 
+> > once, then that works properly and after that the problem is gone...
+> > 
+> > Note that this laptop does have only 1 speaker AFAICT.
+> > 
+> > alsa-info output below.
+> > 
+> > I would be happy to test any patches / module-options which might
+> > fix this.
+> 
+> Could you check the very latest Linus tree (6.0-rc5)?
+> There has been a regression fix for HD-audio, and possibly this might
+> be your case.
 
-It's my fault. I will correct it as description of boolean.
+And if this doesn't change the behavior, try snoop=0 option for
+snd-hda-intel module.
 
-Besides, kernel bot catch a build error, I will also fix it.
 
+Takashi

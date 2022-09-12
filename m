@@ -2,87 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC375B59D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 14:01:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A685B58CF
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 12:55:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07D2916AF;
-	Mon, 12 Sep 2022 14:00:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D2916AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CD9316CD;
+	Mon, 12 Sep 2022 12:54:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CD9316CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662984094;
-	bh=wv1rqTq8BRjgtfh8asl4Ex9ddD+7awkmX+crc484eSo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Y7RJYq/qKYd3RbTAe0SNAUsCBO93qlwGxaTHUsDOW9nwHySXgld7xCeAAqYoGJsTv
-	 bOSl6gqCVSK2azqF8zvDpRr+GOO/nGDzAf3J8FqTwdyMxGt1YsI7OFZV0sd5Kje2eU
-	 Yhg/nXgksF3N5Jwclt9P9vyo13V9SYCEkIP0F91Q=
+	s=default; t=1662980135;
+	bh=7g1RtnWABQR8awdbSFeX3J+l0L9Keivonbc15GoOU2s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RK8PJvb+p0HTHLZ1Ed/JoBKTO3hOYfYFRyM0jRzUJR3bY2okqeBJhy2IWITdtcmUz
+	 hdaQCKqlIAo2rM/Y8ULEiKMGZsPPV7om9x4qCEyCAnP4QsbpkH0DT0a6LUXS5TuduB
+	 vb116KiWPST1woHGZx7F9BixtRR6qsgT/lEoYJXw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B121AF80535;
-	Mon, 12 Sep 2022 14:00:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E14AF80095;
+	Mon, 12 Sep 2022 12:54:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9B41F80528; Mon, 12 Sep 2022 14:00:05 +0200 (CEST)
+ id E0A44F8027B; Mon, 12 Sep 2022 12:54:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B96EBF800EC;
- Mon, 12 Sep 2022 13:59:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B96EBF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAAE1F80095
+ for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 12:54:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAAE1F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AUeab3+4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662984000; x=1694520000;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=wv1rqTq8BRjgtfh8asl4Ex9ddD+7awkmX+crc484eSo=;
- b=AUeab3+4bLyLOFAo2RnBw4A/965Jsq/BbbkcOlXkKmOm8JTKGGY6hKwd
- 41doHYDKxTk+RRcVIpAcXWBTBu6iVyUwe42U8RuXVAe57SI6qGRzQZN4/
- WdRpZD4kSEd0FGjL4SqogR6SimmkiqDp4m9hn+AQKPutCoCj4ChngWf7p
- VofqRdabrCHF3xwDQqFR+PxWS/IZdCz1kLewyTHANr3wyA1KHN9p+8Nvw
- AEoH7nnghZ24B9r5PE6ebKuXsgRkPdCgATkNYr/ZigsmmNjAI6tWqUjAm
- Bz3PF75bfKvNFEsuYZgWN8Wcqzr6Ar4RGjLhasGScluKZ9JLNNfzKN/8y A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="284866925"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="284866925"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:59:55 -0700
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="705126318"
-Received: from vtsymbal-mobl.ger.corp.intel.com (HELO [10.252.32.67])
- ([10.252.32.67])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:59:49 -0700
-Message-ID: <c83fb25e-ef59-63e1-4223-648dab9885ea@linux.intel.com>
-Date: Mon, 12 Sep 2022 12:53:42 +0200
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="DQPrtibz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1662980069;
+ x=1694516069;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zcCPdyVFjoLSrALVKxpoZHGptNVeUKmuKNlSNE721J4=;
+ b=DQPrtibzm+yuCY9yc0Yk2v6Yb2d1CwDHw3ZYVZiDORH4bXTPgVxsUX+Y
+ l967mUV62wXeKdqXtFMYoYa2OkT8upRGuu0bsCnXYJtAohMLKY02Ru7Ri
+ mgwUPXETcIcy+LDFQQfVaoNLp4H8s/DQCZZz6vxpMShxJHgByP0rtutPd
+ /6G4PJ5ohHmUUyh9PPDHu8v8iC4gQQ12JAV1h55rkGLXwhRH+n6oLcWk0
+ +B3tdYHy6iaZxNqg1J/H4Q+sIaiG/jkuFYqOdlpZ1xoeiwzrnevacqrB0
+ xm1J/CcRfzl2RL3I+T1JCpHr18iQzt4j+k8w1t+3cx66kRTaL8Tk6GXsO w==;
+From: Robert Rosengren <robert.rosengren@axis.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ASoC: fsl_spdif: add ALSA event on dpll locked
+Date: Mon, 12 Sep 2022 12:54:07 +0200
+Message-ID: <20220912105407.3157868-1-robert.rosengren@axis.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 5/7] soundwire: intel: Don't disable interrupt until
- children are removed
-Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, daniel.baluta@nxp.com,
- sanyog.r.kale@intel.com, broonie@kernel.org
-References: <20220907101402.4685-1-rf@opensource.cirrus.com>
- <20220907101402.4685-6-rf@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220907101402.4685-6-rf@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>, kernel@axis.com,
+ alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,60 +79,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add an ALSA event on the RX Sample Rate controller upon the dpll locked
+interrupt, making it possible for audio applications to monitor changes
+in the hardware.
 
+Signed-off-by: Robert Rosengren <robert.rosengren@axis.com>
+---
 
-On 9/7/22 12:14, Richard Fitzgerald wrote:
-> The cadence_master code needs the interrupt to complete message transfers.
-> When the bus driver is being removed child drivers are removed, and their
-> remove actions might need bus transactions.
-> 
-> Use the sdw_master_ops.remove callback to disable the interrupt handling
-> only after the child drivers have been removed.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> ---
->  drivers/soundwire/intel.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index 01be62fa6c83..d5e723a9c80b 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1255,6 +1255,13 @@ static int intel_prop_read(struct sdw_bus *bus)
->  	return 0;
->  }
->  
-> +static void intel_bus_remove(struct sdw_bus *bus)
-> +{
-> +	struct sdw_cdns *cdns = bus_to_cdns(bus);
-> +
-> +	sdw_cdns_enable_interrupt(cdns, false);
+Notes:
+    v2: Cache RX Sample Rate kcontrol to avoid lookup in interrupt.
+    Properly add description to fsl_spdif_priv.
+    Fix indentation.
 
-don't you need to check for any on-going transactions on the bus?
+ sound/soc/fsl/fsl_spdif.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-I wonder if there could be a corner case where there are no child
-devices but still a device physically attached to the bus. I am not sure
-if the 'no devices left' is a good-enough indication of no activity on
-the bus.
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index 7fc1c96929bb..275aba8e0c46 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -44,6 +44,8 @@ static u8 srpc_dpll_locked[] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0xa, 0xb };
+ 
+ #define DEFAULT_RXCLK_SRC	1
+ 
++#define RX_SAMPLE_RATE_KCONTROL "RX Sample Rate"
++
+ /**
+  * struct fsl_spdif_soc_data: soc specific data
+  *
+@@ -98,6 +100,8 @@ struct spdif_mixer_control {
+  * @soc: SPDIF soc data
+  * @fsl_spdif_control: SPDIF control data
+  * @cpu_dai_drv: cpu dai driver
++ * @snd_card: sound card pointer
++ * @rxrate_kcontrol: kcontrol for RX Sample Rate
+  * @pdev: platform device pointer
+  * @regmap: regmap handler
+  * @dpll_locked: dpll lock flag
+@@ -122,6 +126,8 @@ struct fsl_spdif_priv {
+ 	const struct fsl_spdif_soc_data *soc;
+ 	struct spdif_mixer_control fsl_spdif_control;
+ 	struct snd_soc_dai_driver cpu_dai_drv;
++	struct snd_card *snd_card;
++	struct snd_kcontrol *rxrate_kcontrol;
+ 	struct platform_device *pdev;
+ 	struct regmap *regmap;
+ 	bool dpll_locked;
+@@ -226,6 +232,12 @@ static void spdif_irq_dpll_lock(struct fsl_spdif_priv *spdif_priv)
+ 			locked ? "locked" : "loss lock");
+ 
+ 	spdif_priv->dpll_locked = locked ? true : false;
++
++	if (spdif_priv->snd_card && spdif_priv->rxrate_kcontrol) {
++		snd_ctl_notify(spdif_priv->snd_card,
++			       SNDRV_CTL_EVENT_MASK_VALUE,
++			       &spdif_priv->rxrate_kcontrol->id);
++	}
+ }
+ 
+ /* Receiver found illegal symbol interrupt handler */
+@@ -1197,7 +1209,7 @@ static struct snd_kcontrol_new fsl_spdif_ctrls[] = {
+ 	/* DPLL lock info get controller */
+ 	{
+ 		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
+-		.name = "RX Sample Rate",
++		.name = RX_SAMPLE_RATE_KCONTROL,
+ 		.access = SNDRV_CTL_ELEM_ACCESS_READ |
+ 			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
+ 		.info = fsl_spdif_rxrate_info,
+@@ -1251,6 +1263,13 @@ static int fsl_spdif_dai_probe(struct snd_soc_dai *dai)
+ 		snd_soc_add_dai_controls(dai, fsl_spdif_ctrls_rcm,
+ 					 ARRAY_SIZE(fsl_spdif_ctrls_rcm));
+ 
++	spdif_private->snd_card = dai->component->card->snd_card;
++	spdif_private->rxrate_kcontrol = snd_soc_card_get_kcontrol(dai->component->card,
++								   RX_SAMPLE_RATE_KCONTROL);
++	if (!spdif_private->rxrate_kcontrol)
++		dev_err(&spdif_private->pdev->dev, "failed to get %s kcontrol\n",
++			RX_SAMPLE_RATE_KCONTROL);
++
+ 	/*Clear the val bit for Tx*/
+ 	regmap_update_bits(spdif_private->regmap, REG_SPDIF_SCR,
+ 			   SCR_VAL_MASK, SCR_VAL_CLEAR);
+-- 
+2.30.2
 
-> +}
-> +
->  static struct sdw_master_ops sdw_intel_ops = {
->  	.read_prop = sdw_master_read_prop,
->  	.override_adr = sdw_dmi_override_adr,
-> @@ -1264,6 +1271,7 @@ static struct sdw_master_ops sdw_intel_ops = {
->  	.set_bus_conf = cdns_bus_conf,
->  	.pre_bank_switch = intel_pre_bank_switch,
->  	.post_bank_switch = intel_post_bank_switch,
-> +	.remove = intel_bus_remove,
->  };
->  
->  static int intel_init(struct sdw_intel *sdw)
-> @@ -1502,7 +1510,6 @@ static void intel_link_remove(struct auxiliary_device *auxdev)
->  	 */
->  	if (!bus->prop.hw_disabled) {
->  		intel_debugfs_exit(sdw);
-> -		sdw_cdns_enable_interrupt(cdns, false);
->  		snd_soc_unregister_component(dev);
->  	}
->  	sdw_bus_master_delete(bus);

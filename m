@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7475B5588
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 09:48:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CE385B5590
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 09:53:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADC1616E5;
-	Mon, 12 Sep 2022 09:47:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADC1616E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAC8C15C1;
+	Mon, 12 Sep 2022 09:53:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAC8C15C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662968880;
-	bh=P14rjKB4Wl89C3sVaNiI+B0M0QIMe/D0EHaMlVY3cww=;
+	s=default; t=1662969232;
+	bh=yrsBaUoMsikGY4RNhFgQdTOWMAGeplvZAJWLuTCTCy8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OVPQtNNUDmcySPwS3GSLlHzIzsJs3w6PXgJ8SGLTu2FsWc/39QtkGqCXBbrrdFziP
-	 7gJEhfYtnxlIJ6F4LwG8ZJOyVvidLiUnRzecRhJfjAoS78GX4rlr3rVpvjDGijOhJa
-	 FxwtXAbS0TIH++TXC2qd1MtREF8jlpYusnB9STmg=
+	b=Yu+GuRt5vEA6ynQcK18LabfE6IDtmV7vg8xaUKsIF3QiKdb3MzNxdX5LHWwoFsUXL
+	 wtIYE+FrZZWm2O+ueQvyu18i+TSUT19CWOf9wUWLFyfV2yI/Ld3a+TrEudcm9CPEXU
+	 hUGztLjiMw722bj60TnJZVYLznYTGTZSTCE3jEyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F8C7F8030F;
-	Mon, 12 Sep 2022 09:47:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F05E6F80095;
+	Mon, 12 Sep 2022 09:52:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E6E8F8027B; Mon, 12 Sep 2022 09:46:59 +0200 (CEST)
+ id 94A25F8027B; Mon, 12 Sep 2022 09:52:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44477F80095
- for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 09:46:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44477F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E6ABF800EC
+ for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 09:52:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E6ABF800EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MVSCngh8"; 
+ header.b="CgHsDalT"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FnNGCmdo"
+ header.b="p36L/M5N"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6B2F2221D0;
- Mon, 12 Sep 2022 07:46:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 111522264B;
+ Mon, 12 Sep 2022 07:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1662968812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662969161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5mmh3m3FrzXxGn1jxuRAar+Aiwf9zOJMHllSkSSBGdo=;
- b=MVSCngh8A0XLR57DdOUjdWvGGklOeFQgdIphKfXM/EHNZ1iHMsn1sCFWX1YoUiepXv3Vv+
- lxN3QgmD8FRXKmlm4ia/TIVbGDeDRhgya2Syck2SLCnPn+vxwnTfcuv5bkT9+gSEuW0omE
- GQE82IFNpz6axi4U2JeV7M5cgq7ikNY=
+ bh=7e6T9v1um99KM+Ti20fFvByqOWXnRz1VDfkPokeSp40=;
+ b=CgHsDalTGCT+TbQku15wyHuqww2SLchgqHpAzxE6r3apUnKAkofy9i/rKtp5cp/tPdx6fv
+ iKuJ7D3hOuZn0TOEvNxb5XNxY0FUhrnrAP05Lv7BOCdzdh4AwOQvaElNJ3cZTZVu0OyyYw
+ Q7PfF4m8TD1Hhtq1sZ+bOCEqdTG8KwE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1662968812;
+ s=susede2_ed25519; t=1662969161;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5mmh3m3FrzXxGn1jxuRAar+Aiwf9zOJMHllSkSSBGdo=;
- b=FnNGCmdoGgWDwDWzUNvDdg4JQdYwffak/6qjvLGNQ98NB1R/4yL3kCkVuY+hKNTNcNYSCJ
- 1Rvl6csX6j35buAw==
+ bh=7e6T9v1um99KM+Ti20fFvByqOWXnRz1VDfkPokeSp40=;
+ b=p36L/M5NQnKuBVPIkGYKQndefXSBQbhExbSshXw4h3RoKCey7tf1iG2wJmjniMugq/u7oW
+ V01rSxU/VPpRyLBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48D6D139C8;
- Mon, 12 Sep 2022 07:46:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DCB7B139C8;
+ Mon, 12 Sep 2022 07:52:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KnUnEezjHmM2FgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 12 Sep 2022 07:46:52 +0000
-Date: Mon, 12 Sep 2022 09:46:51 +0200
-Message-ID: <87r10hhw5w.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id sNc8NUjlHmPZGAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 12 Sep 2022 07:52:40 +0000
+Date: Mon, 12 Sep 2022 09:52:40 +0200
+Message-ID: <87pmg1hvw7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: YJ Lee <yunjunlee@chromium.org>
-Subject: Re: [PATCH v1] ALSA: dummy: Fix trailing whitespaces.
-In-Reply-To: <20220912072854.760824-1-yunjunlee@chromium.org>
-References: <20220912072854.760824-1-yunjunlee@chromium.org>
+Subject: Re: [PATCH v1] ALSA: dummy: Add customizable volume min/max.
+In-Reply-To: <20220912072945.760949-1-yunjunlee@chromium.org>
+References: <20220912072945.760949-1-yunjunlee@chromium.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -100,14 +100,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 12 Sep 2022 09:28:54 +0200,
+On Mon, 12 Sep 2022 09:29:45 +0200,
 YJ Lee wrote:
 > 
-> Fix checkpatch.pl ERROR: trailing whitespaces.
+> Add module parameters to support customized min/max volume leveling,
+> which will be useful to test devices with different volume granularity.
 > 
 > Signed-off-by: YJ Lee <yunjunlee@chromium.org>
+> ---
+>  sound/drivers/dummy.c | 34 ++++++++++++++++++++++++----------
+>  1 file changed, 24 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
+> index 2a7fc49c1a7c5..64fb2778f1e9a 100644
+> --- a/sound/drivers/dummy.c
+> +++ b/sound/drivers/dummy.c
+> @@ -42,6 +42,8 @@ MODULE_LICENSE("GPL");
+>  #define USE_CHANNELS_MAX 	2
+>  #define USE_PERIODS_MIN 	1
+>  #define USE_PERIODS_MAX 	1024
+> +#define USE_MIXER_VOLUME_LEVEL_MIN	-50
+> +#define USE_MIXER_VOLUME_LEVEL_MAX	100
+>  
+>  static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;	/* Index 0-MAX */
+>  static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;	/* ID for this card */
+> @@ -50,6 +52,8 @@ static char *model[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = NULL};
+>  static int pcm_devs[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = 1};
+>  static int pcm_substreams[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = 8};
+>  //static int midi_devs[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = 2};
+> +static int mixer_volume_level_min = USE_MIXER_VOLUME_LEVEL_MIN;
+> +static int mixer_volume_level_max = USE_MIXER_VOLUME_LEVEL_MAX;
+>  #ifdef CONFIG_HIGH_RES_TIMERS
+>  static bool hrtimer = 1;
+>  #endif
+> @@ -69,6 +73,10 @@ module_param_array(pcm_substreams, int, NULL, 0444);
+>  MODULE_PARM_DESC(pcm_substreams, "PCM substreams # (1-128) for dummy driver.");
+>  //module_param_array(midi_devs, int, NULL, 0444);
+>  //MODULE_PARM_DESC(midi_devs, "MIDI devices # (0-2) for dummy driver.");
+> +module_param(mixer_volume_level_min, int, 0444);
 
-Thanks, applied now.
+I can imagine that the permission could be 0644, so that the
+parameters can be changed dynamically via sysfs, too.  But it may skip
+the sanity check at probe, hence more code would be needed, OTOH.
 
+So I applied the patch as is now.
+
+
+thanks,
 
 Takashi

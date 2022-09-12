@@ -2,186 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45BF65B5E09
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 18:19:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E0085B5F72
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 19:37:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E11DF16CF;
-	Mon, 12 Sep 2022 18:18:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E11DF16CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E6B416DD;
+	Mon, 12 Sep 2022 19:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E6B416DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662999564;
-	bh=h/7VUxxK/gr5mHt8uv27JTJ/cs9sk+zmexkvGe7bA40=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1663004236;
+	bh=AIZnlJYM89tISECNxQc09LxTR6ae1lgY75ZxwPGHJi8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HYjcwiYzC5srPYzF8gn3tfb247IQOchN4LPo/EHTCf5/+FazTN63kxavqTk70sUmB
-	 +7Tf3cz7nrdbmmPb82gOoUIvSWWoyEsjryvMjc3PI9liBTfqAxb0DbqxmmecnjQ1mO
-	 wKCpqCzW3lD8+gHDiyt31mqEeZb3giUKXxH6MsGg=
+	b=idVpQlCc9EFyVdAaCuQ5cmy2D3jXvlGV+TzQg9z3neca5bOutUw3mbNulTugwNn7J
+	 XuEOxLmLtK7kcIlCI/spTUaehopIrO8ZW6E+qcDi1lKykO5nrVnbIPRm24vgrAYFA2
+	 DHu/jCXhmyqcahSC2Xd5oa6qLCKKPDik7oLw7rCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CC17F80095;
-	Mon, 12 Sep 2022 18:18:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58726F8030F;
+	Mon, 12 Sep 2022 19:36:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC410F8027B; Mon, 12 Sep 2022 18:18:21 +0200 (CEST)
+ id 823D2F8030F; Mon, 12 Sep 2022 19:36:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63C28F800FE
- for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 18:18:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63C28F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7E39F8020D
+ for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 19:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7E39F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="MXQCQdHG"
+ header.b="BWFF9IIG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662999496; x=1694535496;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=h/7VUxxK/gr5mHt8uv27JTJ/cs9sk+zmexkvGe7bA40=;
- b=MXQCQdHG6KAFUaLrZJxsUxq1t38OuhZtMerhHcJ+qFmiGVNLu04wnYVM
- sthHONUgPSLJoKu8pwt7W/Gbwnz0d3o6LVDIG04FZQGFzud1EXaRFF3tR
- cpYOszlUds4YkwgUwXkQA2EyKiBK/S+5+6EJfOaHGfdD+bGnbHLfYWQdP
- 7z8VF/Octhp+vmyrqX+odaZsfltQPh0GSBZi15UYVdAUcpd710lwq0ZtB
- UJ9WGAN/EbM71Z2sY4VqGk0/CLicSbBXhchrfwXC8VymSgm2kvP78gBJs
- a+26Ua78toWLbgHPpag8RWD144TTFQIZf6kTHnD6UvJm+WnigGZJ4qzoe w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="280925987"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="280925987"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 09:18:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="593554661"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga006.jf.intel.com with ESMTP; 12 Sep 2022 09:18:12 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 12 Sep 2022 09:18:10 -0700
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 12 Sep 2022 09:18:10 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Mon, 12 Sep 2022 09:18:10 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.174)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Mon, 12 Sep 2022 09:18:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EJQhmJDxsaVZyxuzQ7bCw6d9txF0Op4z6Ny3vjoPWm5n29lbfmXP1Gj+Q7JnA+6RI0GWBsm+j4HVaX/1xls8oFA0STu6CrH7Um3Gam6AEKvHyKO0BKoJoGYO9I5ynPyceWOJUL45SQxCOQnuk+69jS//ttZBJM1Gxn973r9SR1RJgYVU3/XJvZBRUR7/eqmEoq7AiwW2tWjDQTfXC8yzuhVf15ndWwHZUuZvL/fxe1+zsSunvQXRJD5aLQJjfdTg2tsdbRpfTXnx/eXCZ+ZaCW5+6j3h168jUubzX1UmxV0FfEoE1DH6XW4CfmTdEr3nIfCNjxRaNoht6eLiz6Dzcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h/7VUxxK/gr5mHt8uv27JTJ/cs9sk+zmexkvGe7bA40=;
- b=HnPRp0X7nPS++AjnRT1Zqat67VkYo/l/6US91eQ2VcSXS18lij5GrfBXOHnWgR8q3KCWEGxEjAdjQOUfEAVSoKKa19YWFOxJocTT8BCzvqBw92C32Xeps94WPGu1S99DDPkvBtktu5FrUnj/j1yKj8DF7hkJ0n0buS0ekzBuwsXS/U3Rqi/nec7pHZSh0NxyGIqKqn7zhJsZ1rTzOtuJTv1wk2I3txCZWsTBRM8pi6z7Nd0bbE39hGwZ1Oh9uzZQ9cavxOOF1hw8sQQPXuFylyFM0cVuJW2M2hAo4l6gI2KfOCF1MG4JrpH3tPG3lw+1OadoUuiFHVqq3YRo87FAjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com (2603:10b6:5:5::11) by
- BL3PR11MB6433.namprd11.prod.outlook.com (2603:10b6:208:3b9::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Mon, 12 Sep
- 2022 16:18:07 +0000
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::97a1:8b3d:19fc:782a]) by DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::97a1:8b3d:19fc:782a%6]) with mapi id 15.20.5612.022; Mon, 12 Sep 2022
- 16:18:07 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Bard Liao
- <yung-chuan.liao@linux.intel.com>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>
-Subject: RE: [PATCH] soundwire: bus: conditionally recheck UNATTACHED status
-Thread-Topic: [PATCH] soundwire: bus: conditionally recheck UNATTACHED status
-Thread-Index: AQHYvENpJk0QjjzpO0iQiU9SFxRzSq3bxT2AgABIVzA=
-Date: Mon, 12 Sep 2022 16:18:07 +0000
-Message-ID: <DM6PR11MB4074CFFE2403AA0B15A30BC5FF449@DM6PR11MB4074.namprd11.prod.outlook.com>
-References: <20220830074224.2924179-1-yung-chuan.liao@linux.intel.com>
- <1395a163-2e0e-2471-3932-0517a7f6797d@linux.intel.com>
-In-Reply-To: <1395a163-2e0e-2471-3932-0517a7f6797d@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.6.500.17
-dlp-reaction: no-action
-dlp-product: dlpe-windows
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB4074:EE_|BL3PR11MB6433:EE_
-x-ms-office365-filtering-correlation-id: 9fb57a9d-1cef-4509-0890-08da94da60b0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: i6bC0/1hUjyxfaG7RSV8bJlavbnVGbsBYw+6cO+kuvl0wqhBNsFQMS3HA9y6vDliZvkthf51OzlI+SSn0/RtRbfBBUBlISH6SYoQWz8FhlsJcDWkElW7C+aVx0rezqsjhRZw71PmMstWoiIT2wIkW6+rrBG4DlxShBCF2Fze9Tj8/NhiLxKvYt48K8FGx69fWTvmdHTItSWu2kQ28G6fQ1/AKUVgEd0/ux2TEcQ9gGzBW3i26QU4FmBEYevKeXyx/VvoIlTt6XaCrNEbX7mIzcbRvensC9nx+RnBOwHNkVeRVMGhrNLx1JfkX1lUKsJp5F0K4gMCzJPJE6HlkdpnqWz8j4+Ym245S8iDOVW907MQhXH3gZ2ZvhDXoyMUUCbvd0JFakrT4pl12q9QGfpeZlJe8j7SZ1HKqiqPvLB/zj36J7qULoJbM5Q50LnX5UHZp6IkzI0AJI9ZtzL31UekLWMWviVpmBMd3SatJ14FpuibEPlDqdtqROUH66UcnkUArBEO9RtmRJTl8KDaq8NlmoGutd/5/nUUk6uzsjkzRwJ0L6gQU5Ztr9knrkgG/MyBQ9MUjMrKfIpQMOug9Ug4g8WXaG10bt09A5f8mVYITyOkOGznvuVk0OPtM+u8B942zsNioatNtRhZRhwxKjgYiUpczSl5auUZzaAS4TXuSATurnUcxVOTyjRldcmre87uCUy9WeV6f292WUWt9lzgMiAhVdap6IhGYZ/kcwwp/1YdBUjCVq5TMX8RdTnKTLglHiXdIj6Zmt/kTwrnEGVS56rYaJVvNTAfD49H8Qas+e4ZlNJGNFaBMZFZaI+Cd8iJ/xRtdjlusv3yVmePPXVjCA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB4074.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230017)(376002)(136003)(396003)(39860400002)(366004)(346002)(71200400001)(54906003)(110136005)(6506007)(7696005)(186003)(64756008)(66556008)(66946007)(86362001)(5660300002)(38070700005)(8676002)(66446008)(66476007)(33656002)(55016003)(2906002)(38100700002)(26005)(9686003)(83380400001)(41300700001)(53546011)(52536014)(8936002)(966005)(316002)(478600001)(82960400001)(76116006)(122000001)(4326008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NEJKdlR0dlh5cHZ6NTRxbVhCNWx2QnF6OGZPYzR0dVJVUmJIK2JOR2ZCRGY5?=
- =?utf-8?B?R1B3cXNYV3BNdXhEVmRNcnVJZllXbEZ5ZGE4ckVVeFNEK0FucXZVRXdxM0Iv?=
- =?utf-8?B?aDdsd3NCSk9HUXV2K21Jcitidzdzei83K0s4TzZyc0hjUU80bytibm92MDd3?=
- =?utf-8?B?N3RMR1Y1Z01EdzN1NW5iSHQ1ajIvREtpYW9jNDJibWFhWGw1Q0tCTTlRTEF5?=
- =?utf-8?B?eTVOQjhDRlNsRGlLajg0L1JTbS83aXFqU2liY1JtS3dHZE9xMkt6K1hKbmkz?=
- =?utf-8?B?TExKTTJHOE9EVjMramhiTXpibXJkZlhXV3dvTW02SWozaVlOVTE3U0lhRDlO?=
- =?utf-8?B?VUJzSTQ2YmI5RzRNTEZjVGxGaVNYNUJyeUVUQnZpVkh3Y2M4eG5vVHdRMUY0?=
- =?utf-8?B?d3hQTmd3a2VJM2Q1c29yUEIyUHd6enBFY0xGQU0yS2MrSkJjZGEvb0ZsS1dl?=
- =?utf-8?B?WVh0MXBqMlVESStrR1FoQTlwcXZsTTFtOUNWRE41VERvTEorbURURmcyTXIy?=
- =?utf-8?B?TWdNQVJhemhoQkJTKy9ZSlZPSG5iNUpJdGJtTTJPSzdTU0ZVNER3TWdnNG0z?=
- =?utf-8?B?aWxCU2FPSjBtSmd4K1RUY091Q1BFaVZGWXRFYkNlR0RRN25lR0J5QkpuTkxU?=
- =?utf-8?B?VWh1czBVYmFCbkJkLzBIeFVQQkdKMlZncUZIQ1hweUpTWW5vSFVmUXZLZXZ3?=
- =?utf-8?B?akY0S3Y3L1RVenhCRGlrM2NneVAyUmFjVmVlcmlVbVVJVTB5OVZTNjRIeTlL?=
- =?utf-8?B?Rkc3SFN6WTRoNlh4REF2TXN0WXA1RUdVYkc5VytnU1JZTnpCRjhrME1id3Fy?=
- =?utf-8?B?Y2IvdnhobUsvN08xQ25lSHUrRXNTT1M3YW9XVGo0MXVPSDQ1NFNyLzdwL1VP?=
- =?utf-8?B?NDExbHNoNjVGclEvdDRDUTFGdWVJVmFFREo1RjA0KzM3K2lvbUlTcWh3UzRR?=
- =?utf-8?B?NEw3ZFdnc3hIKy9IR0hKQXVaQW9XTElKeXdja2J2Zjh5NFRyWGp0akZjWlh2?=
- =?utf-8?B?WHBiTjMvamF2WCtONnAzTjFneU5neTZxVnRQMmUzTDU1Mm9xMWtzUmR3dGNK?=
- =?utf-8?B?ZGNLQTAyTXdmUFVGU3N5UEhnRzRuOW91SVJEdUlvWXA2TTE4OTFYdUNkOGRs?=
- =?utf-8?B?azZ1MmFaZUx2bUszY2NySC9TSllCak5kSDl6VUEweFF0eHN4dnhJcFBTQm44?=
- =?utf-8?B?SjdPdlh5T1ViWjdGdXRQbytnUEdVdVd2Y3MyZWZMTGpGTXZRMWZYb0k3YldP?=
- =?utf-8?B?QTRscTdiemw1YlpHN0tTanVJQnlRWlZzMmsvZ2E3bE9pSHNpUnpBUHplOFdN?=
- =?utf-8?B?VnpXNmJ6cjd4cWVKQitKOHhiQzl1WFhFZlZYVWFBcTlRTldTbkUvUEFGc081?=
- =?utf-8?B?TWovTjJLMVo2WXVOSHlqS0t0REVmMVdmUmZHQWhkV1FwdU1VdTlCaWltbXlD?=
- =?utf-8?B?WU9XcjNXY01GUlBoWVdlUTNaQUlwZ0lGVS9UdmNTWGJYK1NPb0hjcWFQRWlO?=
- =?utf-8?B?QVFobEVGZzJ1VFd3ZWNmZUsxNzdwVXVTK3hHZlU4TmVBWEh2QVFXZkdCcEZ2?=
- =?utf-8?B?NkFrY2RHcmxZUldZbmhHK1lFWjNHeXlMbmNMSlZuaHRMaXErMFIzbGZqbmFV?=
- =?utf-8?B?ZlJ5THY3TnNwTmVBL1U4T3lDUG9mUllUNzVPVUVBYnpHOEZsdmhYNXp0K2dK?=
- =?utf-8?B?YWtBMVljOXBObE1LWHNlVDFPMlphRHB4SjgyVVFvRmNOV1lrazNoelBmSmtX?=
- =?utf-8?B?c25EQ1ZITWJKN0xzSXArNEM5UzdoQnB1RVBHQWZWVDBXVDI2N2FwZnZBVThS?=
- =?utf-8?B?TC9wTG5ESERFZGxJSEcyNVRqNVlSWDYvRk9iNXlLQmtBaGFaSkJrZWljWTN0?=
- =?utf-8?B?Ykh4Z2JvQWJwSmN3NjBkaWJQUk9iRGxhSVR2NjdjeE9Gck1ZOTFOdmNOY0Uv?=
- =?utf-8?B?Z0M0K1RxUnM0eWNLd3JUeDNrRVFQUkdjT0lGL2N2dTYweTNxUXk1b0oyalNu?=
- =?utf-8?B?NDlmMDJEaHZjdXdCc1dKbEZZMHFJcm1EN1ZNSjF6N3NPQitOL1BnQkhBeXpq?=
- =?utf-8?B?N0lQd2FxeDF2Qng3UWREN3hKK3U1d2dkVW1yNDU4THNBS2tBb3NlNGsybVp1?=
- =?utf-8?Q?F8j9n9EVHdJRke0JlKIbESfVG?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ t=1663004168; x=1694540168;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=AIZnlJYM89tISECNxQc09LxTR6ae1lgY75ZxwPGHJi8=;
+ b=BWFF9IIGryn9nS21t77fsgqQe2S3LqC5yHvpFMRw7hcJFGojM741JkRI
+ rlSojtqn7l3p3+YQEsSAsLTjaBo76T22Q+Vt83yV75qtcqMBwqXmzCuT9
+ y4RI0c3z3CSdDkEChqErhMBfiz+hD0uVmsTBOXCbSlljR8WGOgvEnt0Kv
+ BgHYt8zsulCHJ/9f75IRoV19Et5pD2r1gERhZX1Ld3KiV10KMURdKvyHW
+ 52F1G6asDLjq9SfK4BoreJVwbSM4FP2wEOLWNJ1AbYkasXiwPTuGuzZ+a
+ ExIwcpcr5a4eBsrVPuR+N0xa8DfTXXgcv5YtAgAsdcGoaAATjprmJexOh A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="324164962"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="324164962"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 10:35:55 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="705236390"
+Received: from vtsymbal-mobl.ger.corp.intel.com (HELO [10.252.32.67])
+ ([10.252.32.67])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 10:35:53 -0700
+Message-ID: <c68e5f78-51cc-6b16-dc7d-4540b78e4d2f@linux.intel.com>
+Date: Mon, 12 Sep 2022 19:09:00 +0200
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4074.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fb57a9d-1cef-4509-0890-08da94da60b0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2022 16:18:07.1652 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LJUgRMOAsk+9Olzg9Yi6AfmvwluRVrVr/wKIfXVtF7GX+R913LG98UH8puHLkn3TG4t/bqbPi3LuGIq7XeuGxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6433
-X-OriginatorOrg: intel.com
-Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
- "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH v2 5/5] soundwire: bus: Don't exit early if no device IDs
+ were programmed
+Content-Language: en-US
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com
+References: <20220907085259.3602-1-rf@opensource.cirrus.com>
+ <20220907085259.3602-6-rf@opensource.cirrus.com>
+ <fa14881d-0eb8-f652-aea7-00d8c3f2a6bb@linux.intel.com>
+ <49ee34ef-7d64-aeb6-eb1b-6cdbfd9e36ae@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <49ee34ef-7d64-aeb6-eb1b-6cdbfd9e36ae@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -197,109 +97,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBQaWVycmUtTG91aXMgQm9zc2Fy
-dCA8cGllcnJlLWxvdWlzLmJvc3NhcnRAbGludXguaW50ZWwuY29tPg0KPiBTZW50OiBNb25kYXks
-IFNlcHRlbWJlciAxMiwgMjAyMiA0OjU4IEFNDQo+IFRvOiBCYXJkIExpYW8gPHl1bmctY2h1YW4u
-bGlhb0BsaW51eC5pbnRlbC5jb20+OyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7DQo+IHZr
-b3VsQGtlcm5lbC5vcmc7IGJyb29uaWVAa2VybmVsLm9yZw0KPiBDYzogdmlub2Qua291bEBsaW5h
-cm8ub3JnOyBMaWFvLCBCYXJkIDxiYXJkLmxpYW9AaW50ZWwuY29tPjsgbGludXgtDQo+IGtlcm5l
-bEB2Z2VyLmtlcm5lbC5vcmc7IFJpY2hhcmQgRml0emdlcmFsZCA8cmZAb3BlbnNvdXJjZS5jaXJy
-dXMuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBzb3VuZHdpcmU6IGJ1czogY29uZGl0aW9u
-YWxseSByZWNoZWNrIFVOQVRUQUNIRUQgc3RhdHVzDQo+IA0KPiBbdG9wIHBvc3RpbmddDQo+IEkg
-cmV2ZXJ0ZWQgdGhpcyBwYXRjaCBpbiB0aGUgU09GIHRyZWUgdG8gdXNlIFJpY2hhcmQgRml0emdl
-cmFsZCdzDQo+IHNlcmllcywgc2VlDQo+IA0KPiBodHRwczovL2dpdGh1Yi5jb20vdGhlc29mcHJv
-amVjdC9saW51eC9wdWxsLzM4MzYNCj4gDQo+IEkgZG9uJ3QgdGhpbmsgd2Ugd2FudCB0aGlzIHBh
-dGNoIHVwc3RyZWFtLCBkbyB3ZT8NCg0KQWdyZWUsIGxldCdzIGRvbid0IG1lcmdlIHRoaXMgdXBz
-dHJlYW0uDQoNCj4gDQo+IA0KPiBPbiA4LzMwLzIyIDA5OjQyLCBCYXJkIExpYW8gd3JvdGU6DQo+
-ID4gRnJvbTogUGllcnJlLUxvdWlzIEJvc3NhcnQgPHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4
-LmludGVsLmNvbT4NCj4gPg0KPiA+IEluIGNvbmZpZ3VyYXRpb25zIHdpdGggdHdvIGFtcGxpZmll
-cnMgb24gdGhlIHNhbWUgbGluaywgdGhlIEludGVsIENJDQo+ID4gcmVwb3J0cyBvY2Nhc2lvbmFs
-IGVudW1lcmF0aW9uL2luaXRpYWxpemF0aW9uIHRpbWVvdXRzIGR1cmluZw0KPiA+IHN1c3BlbmQt
-cmVzdW1lIHN0cmVzcyB0ZXN0cywgd2hlcmUgb25lIG9mIHRoZSB0d28gYW1wbGlmaWVycyBiZWNv
-bWVzDQo+ID4gVU5BVFRBQ0hFRCBpbW1lZGlhdGVseSBhZnRlciBiZWluZyBlbnVtZXJhdGVkLiBU
-aGlzIHByb2JsZW0gd2FzDQo+ID4gcmVwb3J0ZWQgYm90aCB3aXRoIE1heGltIGFuZCBSZWFsdGVr
-IGNvZGVjcywgd2hpY2ggcG9pbnRlZCBpbml0aWFsbHkNCj4gPiB0byBhIHByb2JsZW0gd2l0aCBz
-dGF0dXMgaGFuZGxpbmcgb24gdGhlIEludGVsIHNpZGUuDQo+ID4NCj4gPiBUaGUgQ2FkZW5jZSBJ
-UCBpbnRlZ3JhdGVkIG9uIEludGVsIHBsYXRmb3JtcyB0aHJvd3MgYW4gaW50ZXJydXB0IHdoZW4N
-Cj4gPiB0aGUgc3RhdHVzIGNoYW5nZXMsIGFuZCB0aGUgaW5mb3JtYXRpb24gaXMga2VwdCB3aXRo
-IHN0aWNreSBiaXRzIHVudGlsDQo+ID4gY2xlYXJlZC4gV2UgaW5pdGlhbGx5IGFkZGVkIG1vcmUg
-Y2hlY2tzIHRvIG1ha2Ugc3VyZSB0aGUgZWRnZQ0KPiA+IGRldGVjdGlvbiBkaWQgbm90IG1pc3Mg
-YW55IHRyYW5zaXRpb24sIGJ1dCB0aGF0IGRpZCBub3QgaW1wcm92ZSB0aGUNCj4gPiByZXN1bHRz
-IHNpZ25pZmljYW50bHkuDQo+ID4NCj4gPiBXaXRoIHRoZSByZWNlbnQgYWRkaXRpb24gb2YgdGhl
-IHJlYWRfcGluZ19zdGF0dXMoKSBjYWxsYmFjaywgd2Ugd2VyZQ0KPiA+IGFibGUgdG8gc2hvdyB0
-aGF0IHRoZSBzdGF0dXMgaW4gc3RpY2t5IGJpdHMgaXMgc2hvd24gYXMgVU5BVFRBQ0hFRA0KPiA+
-IGV2ZW4gdGhvdWdoIHRoZSBQSU5HIGZyYW1lcyBzaG93IHRoZSBwcm9ibGVtYXRpYyBkZXZpY2Ug
-YXMNCj4gPiBBVFRBQ0hFRC4gVGhhdCBjb21wbGV0ZWx5IGJyZWFrcyB0aGUgZW50aXJlIGxvZ2lj
-IHdoZXJlIHdlIGFzc3VtZWQNCj4gPiB0aGF0IGEgcGVyaXBoZXJhbCB3b3VsZCBhbHdheXMgcmUt
-YXR0YWNoIGFzIGRldmljZTAuIFRoZSByZXN1bWUNCj4gPiB0aW1lb3V0cyBtYWtlIHNlbnNlIGlu
-IHRoYXQgaW4gdGhvc2UgY2FzZXMsIHRoZQ0KPiA+IGVudW1lcmF0aW9uL2luaXRpYWxpemF0aW9u
-IG5ldmVyIGhhcHBlbnMgYSBzZWNvbmQgdGltZS4NCj4gPg0KPiA+IE9uZSBwb3NzaWJsZSBleHBs
-YW5hdGlvbiBpcyB0aGF0IHRoaXMgcHJvYmxlbSB0eXBpY2FsbHkgaGFwcGVucyB3aGVuIGENCj4g
-PiBidXMgY2xhc2ggaXMgcmVwb3J0ZWQsIHNvIGl0IGNvdWxkIHZlcnkgd2VsbCBiZSB0aGF0IHRo
-ZSBkZXRlY3Rpb24gaXMNCj4gPiBmb29sZWQgYnkgYSB0cmFuc2llbnQgZWxlY3RyaWNhbCBpc3N1
-ZSBvciBjb25mbGljdCBiZXR3ZWVuIHR3bw0KPiA+IHBlcmlwaGVyYWxzLg0KPiA+DQo+ID4gVGhp
-cyBwYXRjaCBjb25kaXRpb25hbGx5IGRvdWJsZS1jaGVja3MgdGhlIHN0YXR1cyByZXBvcnRlZCBp
-biB0aGUNCj4gPiBzdGlja3kgYml0cyB3aXRoIHRoZSBhY3R1YWwgUElORyBmcmFtZSBzdGF0dXMu
-IElmIHRoZSBwZXJpcGhlcmFsDQo+ID4gcmVwb3J0cyBhcyBhdHRhY2hlZCBpbiBQSU5HIGZyYW1l
-cywgdGhlIGVhcmx5IGRldGVjdGlvbiBiYXNlZCBvbg0KPiA+IHN0aWNreSBiaXRzIGlzIGRpc2Nh
-cmRlZC4NCj4gPg0KPiA+IE5vdGUgdGhhdCB0aGlzIHBhdGNoIG9ubHkgY29ycmVjdHMgaXNzdWVz
-IG9mIGZhbHNlIHBvc2l0aXZlcyBvbiB0aGUNCj4gPiBtYW5hZ2VyIHNpZGUuDQo+ID4NCj4gPiBJ
-ZiB0aGUgcGVyaXBoZXJhbCBsb3N0IGFuZCByZWdhaW4gc3luYywgdGhlbiBpdCB3b3VsZCByZXBv
-cnQgYXMNCj4gPiBhdHRhY2hlZCBvbiBEZXZpY2UwLiBBIHBlcmlwaGVyYWwgdGhhdCB3b3VsZCBu
-b3QgcmVzZXQgaXRzIGRldl9udW0NCj4gPiB3b3VsZCBub3QgYmUgY29tcGxpYW50IHdpdGggdGhl
-IE1JUEkgc3BlY2lmaWNhdGlvbi4NCj4gPg0KPiA+IEJ1Z0xpbms6IGh0dHBzOi8vZ2l0aHViLmNv
-bS90aGVzb2Zwcm9qZWN0L2xpbnV4L2lzc3Vlcy8zNjM4DQo+ID4gQnVnTGluazogaHR0cHM6Ly9n
-aXRodWIuY29tL3RoZXNvZnByb2plY3QvbGludXgvaXNzdWVzLzMzMjUNCj4gPiBTaWduZWQtb2Zm
-LWJ5OiBQaWVycmUtTG91aXMgQm9zc2FydCA8cGllcnJlLWxvdWlzLmJvc3NhcnRAbGludXguaW50
-ZWwuY29tPg0KPiA+IFJldmlld2VkLWJ5OiBSYW5kZXIgV2FuZyA8cmFuZGVyLndhbmdAaW50ZWwu
-Y29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEJhcmQgTGlhbyA8eXVuZy1jaHVhbi5saWFvQGxpbnV4
-LmludGVsLmNvbT4NCj4gPiAtLS0NCj4gPiBIaSBWaW5vZCwNCj4gPg0KPiA+IFlvdSB3aWxsIG5l
-ZWQgdGhlICJBU29DL3NvdW5kd2lyZTogbG9nIGFjdHVhbCBQSU5HIHN0YXR1cyBvbiByZXN1bWUg
-aXNzdWVzIg0KPiA+IHNlcmllcyB3aGljaCBpcyBhcHBsaWVkIGF0IEFTb0MgdHJlZSBiZWZvcmUg
-YXBwbGluZyB0aGlzIHBhdGNoLg0KPiA+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvc291bmR3aXJl
-L2J1cy5jICAgICAgIHwgMTkgKysrKysrKysrKysrKysrKysrKw0KPiA+ICBkcml2ZXJzL3NvdW5k
-d2lyZS9pbnRlbC5jICAgICB8ICAxICsNCj4gPiAgaW5jbHVkZS9saW51eC9zb3VuZHdpcmUvc2R3
-LmggfCAgMyArKysNCj4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspDQo+ID4N
-Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9zb3VuZHdpcmUvYnVzLmMgYi9kcml2ZXJzL3NvdW5k
-d2lyZS9idXMuYw0KPiA+IGluZGV4IDI3NzI5NzNlZWJiMS4uZDBkNDg2ZjA3NjczIDEwMDY0NA0K
-PiA+IC0tLSBhL2RyaXZlcnMvc291bmR3aXJlL2J1cy5jDQo+ID4gKysrIGIvZHJpdmVycy9zb3Vu
-ZHdpcmUvYnVzLmMNCj4gPiBAQCAtMTc2Nyw2ICsxNzY3LDI1IEBAIGludCBzZHdfaGFuZGxlX3Ns
-YXZlX3N0YXR1cyhzdHJ1Y3Qgc2R3X2J1cyAqYnVzLA0KPiA+ICAJCSAgICBzbGF2ZS0+c3RhdHVz
-ICE9IFNEV19TTEFWRV9VTkFUVEFDSEVEKSB7DQo+ID4gIAkJCWRldl93YXJuKCZzbGF2ZS0+ZGV2
-LCAiU2xhdmUgJWQgc3RhdGUgY2hlY2sxOg0KPiBVTkFUVEFDSEVELCBzdGF0dXMgd2FzICVkXG4i
-LA0KPiA+ICAJCQkJIGksIHNsYXZlLT5zdGF0dXMpOw0KPiA+ICsNCj4gPiArCQkJaWYgKGJ1cy0+
-cmVjaGVja191bmF0dGFjaGVkICYmIGJ1cy0+b3BzLQ0KPiA+cmVhZF9waW5nX3N0YXR1cykgew0K
-PiA+ICsJCQkJdTMyIHBpbmdfc3RhdHVzOw0KPiA+ICsNCj4gPiArCQkJCW11dGV4X2xvY2soJmJ1
-cy0+bXNnX2xvY2spOw0KPiA+ICsNCj4gPiArCQkJCXBpbmdfc3RhdHVzID0gYnVzLT5vcHMtPnJl
-YWRfcGluZ19zdGF0dXMoYnVzKTsNCj4gPiArDQo+ID4gKwkJCQltdXRleF91bmxvY2soJmJ1cy0+
-bXNnX2xvY2spOw0KPiA+ICsNCj4gPiArCQkJCXBpbmdfc3RhdHVzID4+PSAoaSAqIDIpOw0KPiA+
-ICsJCQkJcGluZ19zdGF0dXMgJj0gMHgzOw0KPiA+ICsNCj4gPiArCQkJCWlmIChwaW5nX3N0YXR1
-cyAhPSAwKSB7DQo+ID4gKwkJCQkJZGV2X3dhcm4oJnNsYXZlLT5kZXYsICJTbGF2ZSAlZCBzdGF0
-ZQ0KPiBpbiBQSU5HIGZyYW1lIGlzICVkLCBpZ25vcmluZyBlYXJsaWVyIGRldGVjdGlvblxuIiwN
-Cj4gPiArCQkJCQkJIGksIHBpbmdfc3RhdHVzKTsNCj4gPiArCQkJCQljb250aW51ZTsNCj4gPiAr
-CQkJCX0NCj4gPiArCQkJfQ0KPiA+ICAJCQlzZHdfbW9kaWZ5X3NsYXZlX3N0YXR1cyhzbGF2ZSwN
-Cj4gU0RXX1NMQVZFX1VOQVRUQUNIRUQpOw0KPiA+ICAJCX0NCj4gPiAgCX0NCj4gPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9zb3VuZHdpcmUvaW50ZWwuYyBiL2RyaXZlcnMvc291bmR3aXJlL2ludGVs
-LmMNCj4gPiBpbmRleCAyNWVjOWMyNzIyMzkuLjBjNmU2NzRkYmY4NSAxMDA2NDQNCj4gPiAtLS0g
-YS9kcml2ZXJzL3NvdW5kd2lyZS9pbnRlbC5jDQo+ID4gKysrIGIvZHJpdmVycy9zb3VuZHdpcmUv
-aW50ZWwuYw0KPiA+IEBAIC0xMzExLDYgKzEzMTEsNyBAQCBzdGF0aWMgaW50IGludGVsX2xpbmtf
-cHJvYmUoc3RydWN0IGF1eGlsaWFyeV9kZXZpY2UNCj4gKmF1eGRldiwNCj4gPg0KPiA+ICAJYnVz
-LT5saW5rX2lkID0gYXV4ZGV2LT5pZDsNCj4gPiAgCWJ1cy0+ZGV2X251bV9pZGFfbWluID0gSU5U
-RUxfREVWX05VTV9JREFfTUlOOw0KPiA+ICsJYnVzLT5yZWNoZWNrX3VuYXR0YWNoZWQgPSB0cnVl
-Ow0KPiA+DQo+ID4gIAlzZHdfY2Ruc19wcm9iZShjZG5zKTsNCj4gPg0KPiA+IGRpZmYgLS1naXQg
-YS9pbmNsdWRlL2xpbnV4L3NvdW5kd2lyZS9zZHcuaCBiL2luY2x1ZGUvbGludXgvc291bmR3aXJl
-L3Nkdy5oDQo+ID4gaW5kZXggYTJiMzFkMjVlYTI3Li41MWFjNzE5ODQyNjAgMTAwNjQ0DQo+ID4g
-LS0tIGEvaW5jbHVkZS9saW51eC9zb3VuZHdpcmUvc2R3LmgNCj4gPiArKysgYi9pbmNsdWRlL2xp
-bnV4L3NvdW5kd2lyZS9zZHcuaA0KPiA+IEBAIC04OTIsNiArODkyLDggQEAgc3RydWN0IHNkd19t
-YXN0ZXJfb3BzIHsNCj4gPiAgICogQGRldl9udW1faWRhX21pbjogaWYgc2V0LCBkZWZpbmVzIHRo
-ZSBtaW5pbXVtIHZhbHVlcyBmb3IgdGhlIElEQQ0KPiA+ICAgKiB1c2VkIHRvIGFsbG9jYXRlIHN5
-c3RlbS11bmlxdWUgZGV2aWNlIG51bWJlcnMuIFRoaXMgdmFsdWUgbmVlZHMgdG8gYmUNCj4gPiAg
-ICogaWRlbnRpY2FsIGFjcm9zcyBhbGwgU291bmRXaXJlIGJ1cyBpbiB0aGUgc3lzdGVtLg0KPiA+
-ICsgKiBAcmVjaGVja191bmF0dGFjaGVkOiBpZiBzZXQsIGRvdWJsZS1jaGVjayBVTkFUVEFDSEVE
-IHN0YXR1cyBjaGFuZ2VzDQo+ID4gKyAqIGJ5IHJlYWRpbmcgUElORyBmcmFtZSBzdGF0dXMuDQo+
-ID4gICAqLw0KPiA+ICBzdHJ1Y3Qgc2R3X2J1cyB7DQo+ID4gIAlzdHJ1Y3QgZGV2aWNlICpkZXY7
-DQo+ID4gQEAgLTkxNyw2ICs5MTksNyBAQCBzdHJ1Y3Qgc2R3X2J1cyB7DQo+ID4gIAlib29sIG11
-bHRpX2xpbms7DQo+ID4gIAlpbnQgaHdfc3luY19taW5fbGlua3M7DQo+ID4gIAlpbnQgZGV2X251
-bV9pZGFfbWluOw0KPiA+ICsJYm9vbCByZWNoZWNrX3VuYXR0YWNoZWQ7DQo+ID4gIH07DQo+ID4N
-Cj4gPiAgaW50IHNkd19idXNfbWFzdGVyX2FkZChzdHJ1Y3Qgc2R3X2J1cyAqYnVzLCBzdHJ1Y3Qg
-ZGV2aWNlICpwYXJlbnQsDQo=
+
+
+On 9/12/22 14:25, Richard Fitzgerald wrote:
+> On 12/09/2022 12:43, Pierre-Louis Bossart wrote:
+>>
+>>
+>> On 9/7/22 10:52, Richard Fitzgerald wrote:
+>>> Only exit sdw_handle_slave_status() right after calling
+>>> sdw_program_device_num() if it actually programmed an ID into at
+>>> least one device.
+>>>
+>>> sdw_handle_slave_status() should protect itself against phantom
+>>> device #0 ATTACHED indications. In that case there is no actual
+>>> device still on #0. The early exit relies on there being a status
+>>> change to ATTACHED on the reprogrammed device to trigger another
+>>> call to sdw_handle_slave_status() which will then handle the status
+>>> of all peripherals. If no device was actually programmed with an
+>>> ID there won't be a new ATTACHED indication. This can lead to the
+>>> status of other peripherals not being handled.
+>>>
+>>> The status passed to sdw_handle_slave_status() is obviously always
+>>> from a point of time in the past, and may indicate accumulated
+>>> unhandled events (depending how the bus manager operates). It's
+>>> possible that a device ID is reprogrammed but the last PING status
+>>> captured state just before that, when it was still reporting on
+>>> ID #0. Then sdw_handle_slave_status() is called with this PING info,
+>>> just before a new PING status is available showing it now on its new
+>>> ID. So sdw_handle_slave_status() will receive a phantom report of a
+>>> device on #0, but it will not find one.
+>>>
+>>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>>> ---
+>>>   drivers/soundwire/bus.c | 27 +++++++++++++++------------
+>>>   1 file changed, 15 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+>>> index 6e569a875a9b..0bcc2d161eb9 100644
+>>> --- a/drivers/soundwire/bus.c
+>>> +++ b/drivers/soundwire/bus.c
+>>> @@ -736,20 +736,19 @@ static int sdw_program_device_num(struct
+>>> sdw_bus *bus)
+>>>       struct sdw_slave_id id;
+>>>       struct sdw_msg msg;
+>>>       bool found;
+>>> -    int count = 0, ret;
+>>> +    int count = 0, num_programmed = 0, ret;
+>>>       u64 addr;
+>>>         /* No Slave, so use raw xfer api */
+>>>       ret = sdw_fill_msg(&msg, NULL, SDW_SCP_DEVID_0,
+>>>                  SDW_NUM_DEV_ID_REGISTERS, 0, SDW_MSG_FLAG_READ, buf);
+>>>       if (ret < 0)
+>>> -        return ret;
+>>> +        return 0;
+>>
+>> this doesn't seem quite right to me, there are multiple -EINVAL cases
+>> handled in sdw_fill_msg().
+>>
+>> I didn't check if all these error cases are irrelevant in that specific
+>> enumeration case, if that was the case maybe we need to break that
+>> function in two helpers so that all the checks can be skipped.
+>>
+> 
+> I don't think that there's anything useful that
+> sdw_modify_slave_status() could do to recover from an error.
+> 
+> If any device IDs were programmed then, according to the statement in
+> sdw_modify_slave_status()
+> 
+>     * programming a device number will have side effects,
+>     * so we deal with other devices at a later time
+> 
+> if this is true, then we need to exit to deal with what _was_
+> programmed, even if one of them failed.
+> 
+> If nothing was programmed, and there was an error, we can't bail out of
+> sdw_modify_slave_status(). We have status for other devices which
+> we can't simply ignore.
+> 
+> Ultimately I can't see how pushing the error code up is useful.
+> sdw_modify_slave_status() can't really do any effective recovery action,
+> and the original behavior of giving up and returning means that
+> an error in programming dev ID potentially causes collateral damage to
+> the status of other peripherals.
+
+I was suggesting something like
+
+
+void sdw_fill_msg_data(...)
+{
+  copy data in the msg structure
+}
+
+int sdw_fill_msg(...)
+{
+    sdw_fill_msg_data();
+    handle_error_cases
+}
+
+and in sdw sdw_program_device_num() we call directly sdw_fill_msg_data()
+
+So no change in functionality beyond explicit skip of error checks that
+are not relevant and cannot be handled even if they were.
+
+
+

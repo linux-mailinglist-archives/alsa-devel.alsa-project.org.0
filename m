@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 339805B59D7
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 14:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F3D5B59DB
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Sep 2022 14:02:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACFF786F;
-	Mon, 12 Sep 2022 14:01:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACFF786F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D224167C;
+	Mon, 12 Sep 2022 14:01:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D224167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1662984133;
-	bh=RPWT9rKsWP9FM2ux9RvEk+SvbNcKtBbwIAIZlTXQpKE=;
+	s=default; t=1662984152;
+	bh=zkOXQ6fic21iBzYMitvf8khwq2yyDU+RwPlIGr7j6/o=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nVqlq53a1ff6KAA7V/eeJkko2bI69/J81+6rRlW1cUFk60FpalVCQlnovRmeKDsMt
-	 70wPg7NLrhe77DrTGsGvXMcUuz1fF/fjrv0iIXltwxR14QWNHN/+YFh1KnVOuC1+m1
-	 b8CIVtWetRRwv/7FYpE7EIlMIhmFktO88e+UkQFU=
+	b=ZvCqtCCmPFBBDxOj+E16swpZASVgTNl4DyMrvt8c0hxdBu770LNLmBGKl4CePf7X4
+	 QopvBzfARyaGGsBMI2epQ1mnbqXrPA89kxxc1OpBn3iwOU11NAagDoYepnD8UtBJ7X
+	 OhN8Li2nj4lL4NrqrvKasUzjKENokYXrpFqBNSvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83656F8053C;
-	Mon, 12 Sep 2022 14:00:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37EDFF80552;
+	Mon, 12 Sep 2022 14:00:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D329DF8053C; Mon, 12 Sep 2022 14:00:17 +0200 (CEST)
+ id 55AC3F80552; Mon, 12 Sep 2022 14:00:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EB22F8053C
- for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 14:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EB22F8053C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9442EF80552
+ for <alsa-devel@alsa-project.org>; Mon, 12 Sep 2022 14:00:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9442EF80552
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ELR4svMe"
+ header.b="ihzgmc0V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662984012; x=1694520012;
+ t=1662984017; x=1694520017;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=RPWT9rKsWP9FM2ux9RvEk+SvbNcKtBbwIAIZlTXQpKE=;
- b=ELR4svMe5o/VtpOm7LPbmZ0p1nkICOgwYhZBS8d503CuL/LyfMkt7f9E
- WkuNN8aWaCVxI0zyZjXaXgvQXiKLT19lhq+tkZuIg9LHgkCCmERH26py4
- a0fpNj+VFeBQArUI9x+IyOZ39sY6NqwccLjh0pG0k+vTDm1TyxztMWXOU
- /cUGMA9U2fZ/E49tUDBRH+H+D4vsdzfk0ikOHPvueza92KGy7NOsBeVe8
- +hCEXi/ouQdk3u+fXHQ8PsS/6pIZeyh3r1UFoC2oykUZ1IRpdvJUzYS5o
- Nn+IdAywbHnb7pOsmxgsHX1vVf4+H4wL5hwDopwjV42cUabNtzYXowpCv w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="280864762"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="280864762"
+ bh=zkOXQ6fic21iBzYMitvf8khwq2yyDU+RwPlIGr7j6/o=;
+ b=ihzgmc0VLKgqKaoy1O8oVfLc40Ac1c7tduyuNks9np5iw+VwEQoUpxP+
+ jeN1fXKcwh79J7Bt1eJWokqoUn2/Qq6sTfIuTQlyRcgS5Awfu6shrG1yh
+ xAjw54cjbYRxJDS3wUMELGn/0Hjy4c8ZY6v9XY3DFU2ZZG4XL4L1Fz9i7
+ 3aVAB6+MS0e3abRmwzEnOT+nmq620N/buvv1M73HZdl8B/B4p0W46K1fY
+ BF5bVCutYCFU+idjXKkA9kXHdNtQpL6ZkQbmpuliysqX+mb9F4v2qKs9c
+ TzqWEQcz8SVKZ3lk89K+QNp9sAYSpwcP3H3cilMJIHj3ffIH6K1po6Bp1 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="295430400"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="295430400"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 05:00:08 -0700
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="705126482"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 05:00:14 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="705126574"
 Received: from vtsymbal-mobl.ger.corp.intel.com (HELO [10.252.32.67])
  ([10.252.32.67])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 05:00:05 -0700
-Message-ID: <72cd1004-e952-b167-e08d-2b5623b638fd@linux.intel.com>
-Date: Mon, 12 Sep 2022 13:00:18 +0200
+ 12 Sep 2022 05:00:11 -0700
+Message-ID: <35122b05-4d2f-8c9c-eb5e-c0f96ef585a4@linux.intel.com>
+Date: Mon, 12 Sep 2022 13:05:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH v2 3/5] soundwire: bus: Don't re-enumerate before status
- is UNATTACHED
+Subject: Re: [PATCH v2 4/5] soundwire: cadence: Fix lost ATTACHED interrupts
+ when enumerating
 Content-Language: en-US
 To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org,
  yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com
 References: <20220907085259.3602-1-rf@opensource.cirrus.com>
- <20220907085259.3602-4-rf@opensource.cirrus.com>
+ <20220907085259.3602-5-rf@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220907085259.3602-4-rf@opensource.cirrus.com>
+In-Reply-To: <20220907085259.3602-5-rf@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
@@ -98,55 +98,98 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 9/7/22 10:52, Richard Fitzgerald wrote:
-> Don't re-enumerate a peripheral on #0 until we have seen and
-> handled an UNATTACHED notification for that peripheral.
+> The correct way to handle interrupts is to clear the bits we
+> are about to handle _before_ handling them. Thus if the condition
+> then re-asserts during the handling we won't lose it.
 > 
-> Without this, it is possible for the UNATTACHED status to be missed
-> and so the slave->status remains at ATTACHED. If slave->status never
-> changes to UNATTACHED the child driver will never be notified of the
-> UNATTACH, and the code in sdw_handle_slave_status() will skip the
-> second part of enumeration because the slave->status has not changed.
+> This patch changes cdns_update_slave_status_work() to do this.
 > 
-> This scenario can happen because PINGs are handled in a workqueue
-> function which is working from a snapshot of an old PING, and there
-> is no guarantee when this function will run.
+> The previous code cleared the interrupts after handling them.
+> The problem with this is that when handling enumeration of devices
+> the ATTACH statuses can be accidentally cleared and so some or all
+> of the devices never complete their enumeration.
 > 
-> A peripheral could report attached in the PING being handled by
-> sdw_handle_slave_status(), but has since reverted to device #0 and is
-> then found in the loop in sdw_program_device_num(). Previously the
-> code would not have updated slave->status to UNATTACHED because it had
-> not yet handled a PING where that peripheral had UNATTACHED.
+> Thus we can have a situation like this:
+> - one or more devices are reverting to ID #0
 > 
-> This situation happens fairly frequently with multiple peripherals on
-> a bus that are intentionally reset (for example after downloading
-> firmware).
+> - accumulated status bits indicate some devices attached and some
+>   on ID #0. (Remember: status bits are sticky until they are handled)
+> 
+> - Because of device on #0 sdw_handle_slave_status() programs the
+>   device ID and exits without handling the other status, expecting
+>   to get an ATTACHED from this reprogrammed device.
+> 
+> - The device immediately starts reporting ATTACHED in PINGs, which
+>   will assert its CDNS_MCP_SLAVE_INTSTAT_ATTACHED bit.
+> 
+> - cdns_update_slave_status_work() clears INTSTAT0/1. If the initial
+>   status had CDNS_MCP_SLAVE_INTSTAT_ATTACHED bit set it will be
+>   cleared.
+> 
+> - The ATTACHED change for the device has now been lost.
+> 
+> - cdns_update_slave_status_work() clears CDNS_MCP_INT_SLAVE_MASK so
+>   if the new ATTACHED state had set it, it will be cleared without
+>   ever having been handled.
+> 
+> Unless there is some other state change from another device to cause
+> a new interrupt, the ATTACHED state of the reprogrammed device will
+> never cause an interrupt so its enumeration will not be completed.
 > 
 > Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 > ---
->  drivers/soundwire/bus.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  drivers/soundwire/cadence_master.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index 1cc858b4107d..6e569a875a9b 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -773,6 +773,16 @@ static int sdw_program_device_num(struct sdw_bus *bus)
->  			if (sdw_compare_devid(slave, id) == 0) {
->  				found = true;
+> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> index 245191d22ccd..3acd7b89c940 100644
+> --- a/drivers/soundwire/cadence_master.c
+> +++ b/drivers/soundwire/cadence_master.c
+> @@ -954,9 +954,22 @@ static void cdns_update_slave_status_work(struct work_struct *work)
+>  	u32 device0_status;
+>  	int retry_count = 0;
 >  
-> +				/*
-> +				 * To prevent skipping state-machine stages don't
-> +				 * program a device until we've seen it UNATTACH.
-> +				 * Must return here because no other device on #0
-> +				 * can be detected until this one has been
-> +				 * assigned a device ID.
-> +				 */
-> +				if (slave->status != SDW_SLAVE_UNATTACHED)
-> +					return 0;
+> +	/*
+> +	 * Clear main interrupt first so we don't lose any assertions
+> +	 * the happen during this function.
+> +	 */
+> +	cdns_writel(cdns, CDNS_MCP_INTSTAT, CDNS_MCP_INT_SLAVE_MASK);
 > +
->  				/*
->  				 * Assign a new dev_num to this Slave and
->  				 * not mark it present. It will be marked
+>  	slave0 = cdns_readl(cdns, CDNS_MCP_SLAVE_INTSTAT0);
+>  	slave1 = cdns_readl(cdns, CDNS_MCP_SLAVE_INTSTAT1);
+>  
+> +	/*
+> +	 * Clear the bits before handling so we don't lose any
+> +	 * bits that re-assert.
+> +	 */
+> +	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT0, slave0);
+> +	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT1, slave1);
+> +
+>  	/* combine the two status */
+>  	slave_intstat = ((u64)slave1 << 32) | slave0;
+>  
+> @@ -964,8 +977,6 @@ static void cdns_update_slave_status_work(struct work_struct *work)
+>  
+>  update_status:
+>  	cdns_update_slave_status(cdns, slave_intstat);
+> -	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT0, slave0);
+> -	cdns_writel(cdns, CDNS_MCP_SLAVE_INTSTAT1, slave1);
+
+this one is hard to review, if you don't clear the status here, then how
+does the retry work if there is a new event?
+
+Put differently, do we need to retry and the 'goto update_status' any more?
+
+>  
+>  	/*
+>  	 * When there is more than one peripheral per link, it's
+> @@ -1001,8 +1012,7 @@ static void cdns_update_slave_status_work(struct work_struct *work)
+>  		}
+>  	}
+>  
+> -	/* clear and unmask Slave interrupt now */
+> -	cdns_writel(cdns, CDNS_MCP_INTSTAT, CDNS_MCP_INT_SLAVE_MASK);
+> +	/* unmask Slave interrupt now */
+>  	cdns_updatel(cdns, CDNS_MCP_INTMASK,
+>  		     CDNS_MCP_INT_SLAVE_MASK, CDNS_MCP_INT_SLAVE_MASK);
+>  

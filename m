@@ -2,99 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6044B5B6AB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 11:30:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4B55B6C20
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 13:00:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F40A41799;
-	Tue, 13 Sep 2022 11:30:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F40A41799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348891738;
+	Tue, 13 Sep 2022 12:59:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348891738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663061453;
-	bh=3sb/zPnQLNiN+Dfglsp8V4aQoIdIS64koNU4xp9I7zk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663066828;
+	bh=F4BJY+Kxkpvktn6E6y/lEXX38MJ8/G0TYOUnjy7Afa4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uDT8dcT54nGfJzrC7khuB52YXBf2L5Ww3FGUIsjfp5pmORR8qB6bDpk3ZfxIVJV3r
-	 URmLHsJwp8zruVNsqo0Eiwcp1jsoEPZoRp2uZiLCEi4cjShKRVExjd8tlueJx/aC4+
-	 yKLMejJe8GTp95ORuZqMsHTtpT1BfpDTik6MvB20=
+	b=T0hOtqAicnz+gdVEubX8kguImou+17jjWYuuLqEZQ4EiKyt8qTYVNII3rLBd2y9oD
+	 Bs8KrOCYkwrDGZikdWACqKJtXpkgygyOyDzD6pYY4a9eu7ilYoBWcbI+q/7RyTJobo
+	 je/RL+LULi7NKt1ywatgr/fLU6MyU7OtXo5fgXdA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60E70F80154;
-	Tue, 13 Sep 2022 11:29:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A46E9F80154;
+	Tue, 13 Sep 2022 12:59:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A82A7F80224; Tue, 13 Sep 2022 11:29:51 +0200 (CEST)
+ id E7063F80224; Tue, 13 Sep 2022 12:59:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B09E1F80154
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 12:59:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B09E1F80154
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GdCaLTIe"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E51B4F801EC;
- Tue, 13 Sep 2022 11:29:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E51B4F801EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="fj9g+idn"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28D6ssnw011959;
- Tue, 13 Sep 2022 04:29:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=cxJEoBEl4Vi+BihLQdSoluZlTabtxlkV9KL4mlVwNPw=;
- b=fj9g+idnhP89LHmyMvrW01Ya2ALSSWkYmvh85XH4Z1CS90/NpcOrSY0oXokHG0VPGHV9
- VCLHmWRDY/dgOcjwNSvcUrGd7+pIzAGq2/3oiugXlzfXRFngCRRmp1GSoQZULi64CgNd
- 7cxpScDx13uYBy7xrXEt4OY7LJFIN3hKBjZ8fQDI6iRtqh0WYt97LamwSdBN3pruovy5
- FlJv9w+ZQ8MDGRZwkdCq+GwKTPyRsy6/+r9S+Z9mbSvDueK38AgKruVcwEDt5/i8qhl9
- ntxIW2MnzOHa8oejJjXZo3nUow2x/bZS1JLLgCC/TZIVfSA6pC7cg9CMzfLCU3Bykltt MA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3jgr01umgc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Sep 2022 04:29:40 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 13 Sep
- 2022 04:29:38 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
- Frontend Transport; Tue, 13 Sep 2022 04:29:38 -0500
-Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 65277468;
- Tue, 13 Sep 2022 09:29:38 +0000 (UTC)
-Message-ID: <d0f32ac9-1de3-5047-b01a-04a68934a8a2@opensource.cirrus.com>
-Date: Tue, 13 Sep 2022 10:29:38 +0100
+ by ams.source.kernel.org (Postfix) with ESMTPS id 740E9B80E5F;
+ Tue, 13 Sep 2022 10:59:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6FEEC433C1;
+ Tue, 13 Sep 2022 10:59:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663066762;
+ bh=F4BJY+Kxkpvktn6E6y/lEXX38MJ8/G0TYOUnjy7Afa4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GdCaLTIeFRrkxukFM/KdYmFVc47TDeP2UljXuQG6Ns/imFhT1dF8hulzpd8j4sexF
+ uVSo2EPxtsKIxj4OA+3V/YT+B9bL6cTsZ+XEpYArqsfpEt0zJXaTbhmDHIJ3uDVob8
+ TQ1SXQw0MhKE6FQBRyRwCPGmuuKaK+lmNaHS8jNQNGj6tlIbMzwvRfJxaUhMbTkMZB
+ YHnRSyNgvXgSOBIzX2Sm77H+3xqdSPtshEcNIibeWwFiGe4yED2NoxxczIwqqyp+c6
+ XLpXhDCLB2TUXwoAHGjKUpCI986Douhdj4sQFeSL5Rbm3TydmCOEtsn27kL9gtR7OD
+ 1ntmwLQjTC9nw==
+Date: Tue, 13 Sep 2022 11:59:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: AS50 CTLin0 <ctlin0@nuvoton.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: nau8825: Add ADCOUT IO drive
+ strength control
+Message-ID: <YyBih2PfrNbHpRag@sirena.org.uk>
+References: <20220912115427.710417-1-CTLIN0@nuvoton.com>
+ <20220912115427.710417-2-CTLIN0@nuvoton.com>
+ <Yx8gm2iIsr04r5Fm@sirena.org.uk>
+ <764fb482-743d-ade9-ea8d-8a05be297cf3@nuvoton.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 5/7] soundwire: intel: Don't disable interrupt until
- children are removed
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <lgirdwood@gmail.com>, <peter.ujfalusi@linux.intel.com>,
- <ranjani.sridharan@linux.intel.com>, <kai.vehmanen@linux.intel.com>,
- <daniel.baluta@nxp.com>, <sanyog.r.kale@intel.com>, <broonie@kernel.org>
-References: <20220907101402.4685-1-rf@opensource.cirrus.com>
- <20220907101402.4685-6-rf@opensource.cirrus.com>
- <c83fb25e-ef59-63e1-4223-648dab9885ea@linux.intel.com>
- <9de21235-c77d-f53f-3426-4a5927f484c9@opensource.cirrus.com>
- <9055c565-8616-8480-ea49-8db1b8707b34@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <9055c565-8616-8480-ea49-8db1b8707b34@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: HXhpxVpPyXMEw5PzUMSjeFyU8M-pK2SG
-X-Proofpoint-ORIG-GUID: HXhpxVpPyXMEw5PzUMSjeFyU8M-pK2SG
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gq18q9Ns247R3LcL"
+Content-Disposition: inline
+In-Reply-To: <764fb482-743d-ade9-ea8d-8a05be297cf3@nuvoton.com>
+X-Cookie: One FISHWICH coming up!!
+Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,63 +92,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/09/2022 18:12, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 9/12/22 17:36, Richard Fitzgerald wrote:
->> On 12/09/2022 11:53, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 9/7/22 12:14, Richard Fitzgerald wrote:
->>>> The cadence_master code needs the interrupt to complete message
->>>> transfers.
->>>> When the bus driver is being removed child drivers are removed, and
->>>> their
->>>> remove actions might need bus transactions.
->>>>
->>>> Use the sdw_master_ops.remove callback to disable the interrupt handling
->>>> only after the child drivers have been removed.
->>>>
->>>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->>>> ---
->>>>    drivers/soundwire/intel.c | 9 ++++++++-
->>>>    1 file changed, 8 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
->>>> index 01be62fa6c83..d5e723a9c80b 100644
->>>> --- a/drivers/soundwire/intel.c
->>>> +++ b/drivers/soundwire/intel.c
->>>> @@ -1255,6 +1255,13 @@ static int intel_prop_read(struct sdw_bus *bus)
->>>>        return 0;
->>>>    }
->>>>    +static void intel_bus_remove(struct sdw_bus *bus)
->>>> +{
->>>> +    struct sdw_cdns *cdns = bus_to_cdns(bus);
->>>> +
->>>> +    sdw_cdns_enable_interrupt(cdns, false);
->>>
->>> don't you need to check for any on-going transactions on the bus?
->>>
->>
->> As all the child drivers have removed, I think the only other place that
->> can generate bus transactions is the PING handler but
->> sdw_cdns_enable_interrupt(false) calls cancel_work_sync() to
->> cancel the cdns->work and it sets a flag so that it will not be
->> re-queued.
->>
->>> I wonder if there could be a corner case where there are no child
->>> devices but still a device physically attached to the bus. I am not sure
->>> if the 'no devices left' is a good-enough indication of no activity on
->>> the bus.
->>>
->>
->> As above - yes there could, but sdw_cdns_enable_interrupt(false) will
->> cancel the work and stop it being re-queued.
-> 
-> Ah yes, I forgot that part, thanks!
-> 
 
-... but I have noticed that there is a bug in
-sdw_cdns_enable_interrupt(). It doesn't ensure that the
-IRQ thread has seen the cdns->interrupt_enabled = false.
-I'll add a patch to fix that when I re-push this chain.
+--gq18q9Ns247R3LcL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Sep 13, 2022 at 03:25:39PM +0800, AS50 CTLin0 wrote:
+
+> OK, maybe I should change property name to "adcout-drive-strong" and the
+> description to "make the drive strength of ADCOUT IO PIN strong if set.
+> Otherwise, the drive keeps normal strength.".
+
+That sounds good.
+
+> > Perhaps adding something like "strong" would be good - with the
+> > name I'd expected the property to be a numerical strength rather
+> > than a boolean.
+
+> From our design, the register just have one bit for this feature, so
+> the strength just have normal or stronger. Therefore, I use boolean
+> property for it.
+
+Using a boolean property is fine, it just feels weird that it
+doesn't say specifically what "stronger" means here.  I was just
+thinking adding a note in the description but either way it's not
+essential.
+
+--gq18q9Ns247R3LcL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMgYnwACgkQJNaLcl1U
+h9Acbgf+O0zD7JPr0bc8pXjhWRbJBYYCnfwUsQniBVGETiMo3vWvzCa7EObF2QNh
+sqhS6iwpMln7fAAM2y+1rkdX8wkbyjwvMuRFY6tK63qLDcD/3IDG1yUIbjj3HbHc
+CWklvpzdfRIHS0NL54kr2tFVj3LNAp8WJ9Bo48GLJHvocaumFKWZLjsIpvjFHSHT
+XapT4HFt5OHiRciT0c10Q1Dn8eZXrpfOLMo58i9b8+aYjtjBV+9grZC3BS3fg+wO
+vby+MOHuiwAWu6LGFjZ3vXSv7X1SUjT5IJBYLsKjl3Nn+KX+KazPwF2T7JySabDS
+vxfI8O4FHsRfdK55asczBdHuw61taQ==
+=Ur+Q
+-----END PGP SIGNATURE-----
+
+--gq18q9Ns247R3LcL--

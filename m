@@ -2,160 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0FE5B7245
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 16:54:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7655B7246
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 16:55:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 538D617D1;
-	Tue, 13 Sep 2022 16:53:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 538D617D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3F9117E6;
+	Tue, 13 Sep 2022 16:54:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3F9117E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663080874;
-	bh=72vZyi4s9fdG8Tu1UKZYms8Z2omiiF3+QKRf/arlv/E=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663080901;
+	bh=DawFwVN2MRFNi0HtKDuJgxszSQF3d0uU/4Es/JoXnY4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tbh+ec6K4YXdHgiBC4xJtjEmLspNBfmZLdjWknCpeDfOtPUyDKT9aAZmFXxNDnemT
-	 yUPOOft4ojLZN8jP9BKsTjBhop/sQnLeGpEYa9g1iVyi8Hq/ZCHna2eiI0K8YOKUiW
-	 w5B38MkNFjQqWyrDcSecMDGN7Ru5xnzn411fJucE=
+	b=WTiyxWCzt5rME/o5ku4RzPLWozIMu03YsQCTxd1SbEGnlOc9Sg9LYgKgOUBkHN/y9
+	 6nVQBcIYTR4FSPfyd2lUUQMpOykP46Lr+vmxR2UH69AtTDO68I3sTxXnPZKblHXkzd
+	 E9yPQM6MvGH12LrGLVPq9SvhO9vCAkEDBdQ/DGV4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC97FF801EC;
-	Tue, 13 Sep 2022 16:53:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F175F800FE;
+	Tue, 13 Sep 2022 16:53:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09178F80431; Tue, 13 Sep 2022 16:53:42 +0200 (CEST)
+ id 0BA38F800FE; Tue, 13 Sep 2022 16:53:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2064.outbound.protection.outlook.com [40.107.21.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6320F800FE;
- Tue, 13 Sep 2022 16:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6320F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="OSF5SaUb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cs80BCnlG4LLgwM3EMLx0v1HkgC5xJVPiVOfuqsQiBFuVonYEBt28DdKniqP9YSy+i/jyirjuSwxiTymLaQnTNUmJOFWC3Hx8Y5cv/s3XlRcn+C7Gl1tdNjTds82J5EKs6IeHBFmBAhJQGbRxJXoBf+AoPeimDAOwp5idgleHYsV9WiSnSGJ6LGo15D7LaqEGiNWyobGqyYOkrHnqrvMXCImrGwUzkvpivYak8K6L2rF2QPCglVaa+GaFEV1OyhOfz5oyjLDHmgh1xBWar8zX6MUGyxN4AFFDCAuKyupdOEZX9vZ/R9yIBaGJGHglNf7qcKGzZ0q6uUp+BPsEHe+qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NBzWEidnIevacKB3e6vQXkXoau2X1UYqrx4bzOJaeuQ=;
- b=BALFJ/hUlh5okE+rbILFymJgmyicK/H0st9gawFvKkZBN4dc6xP/1bnDDhKhYACQ+2qsNsxXXdo5qPdHhkQSzUXAuvk8WVDLu1GbteVp+8MGDj6bnSE/S9Kbz6dp4ByxU1/WLUqYkexXiMESgR0/piACdyIvYkENDPx986yT9+AflG2DGjQpFLIsLMdNfOeWc3ap99X522CCNSvC6HYpgCwuVJod5CejbYSQaE3Cv98MClWkAUagWePkjD3DDpuIxNTm/OBAxtzEZuztAbXTQaeXvE1yDNaHLD1fHM5GNHHRcxk2lCMCxOoMeZqda8mpz0l1wvbENfKsW8/5GgV3zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NBzWEidnIevacKB3e6vQXkXoau2X1UYqrx4bzOJaeuQ=;
- b=OSF5SaUb3eaWBYt826+hUW38x2xlEMZcxNOrxJh1TrlzAU/YxSeaX+LdIXmfoI+9qoQ0FQEcfKZVt+q4kKDd9VpKw+QHZrfwP0S1kNZHtfZR6M4S+lsCJFyFqrH+MLseH+w12BYjqrKocdQS6W9cVBALxev99vjfXsD6R+gEBes=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
- by DB9PR04MB8300.eurprd04.prod.outlook.com (2603:10a6:10:243::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Tue, 13 Sep
- 2022 14:53:32 +0000
-Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
- ([fe80::11eb:1811:c8f3:d78e]) by VI1PR04MB5151.eurprd04.prod.outlook.com
- ([fe80::11eb:1811:c8f3:d78e%4]) with mapi id 15.20.5612.022; Tue, 13 Sep 2022
- 14:53:32 +0000
-Message-ID: <d693ed4b-7109-e217-55bb-f4eb66cfe997@nxp.com>
-Date: Tue, 13 Sep 2022 17:53:29 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/4] ASoC: SOF: amd: Make ACP core code generic for newer
- SOC transition
-Content-Language: en-US
-To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20220913144319.1055302-1-Vsujithkumar.Reddy@amd.com>
- <20220913144319.1055302-2-Vsujithkumar.Reddy@amd.com>
-From: Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20220913144319.1055302-2-Vsujithkumar.Reddy@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM3PR05CA0103.eurprd05.prod.outlook.com
- (2603:10a6:207:1::29) To VI1PR04MB5151.eurprd04.prod.outlook.com
- (2603:10a6:803:61::28)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5B19F800FE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 16:53:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5B19F800FE
+Received: by mail-ot1-f41.google.com with SMTP id
+ d25-20020a9d72d9000000b00655d70a1aeaso5171870otk.3
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 07:53:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=TSHBRN52piGzyQ2SeaWNnzbJL+eY7oEAdsKsIXmbyJg=;
+ b=oKvuCgSbgebmtW3BfSS3ZXwO1bpftG/X0RI4XFcN3uwYU1hKa3DmV0w9GPHgOtqQqb
+ S38GlTgv6KZ6sQ9UptcO0j6H/KrGfAJsyagO/S2uv9Bx8wFzTcbjl+dnXU3kThMtCcKR
+ 11be+xiyDyE6XMaHPIgZHbzCzpaMPn0MvsBkMaMynT5eMypvhlMUxz8Of7nPUEWCLN26
+ a/DEaex03GQn2dOfdM7iShdT4NATmLOgLjmJYPVRHC0CA9xWG973ZqRZzKSubXq7aDov
+ hWDD3hutywKiUi/QMYfZuuKPLKNHQ7M4m0fF4Qf0+OWGbbKk/mMgrIQVP3m2qtamzqpy
+ Lb1w==
+X-Gm-Message-State: ACgBeo1pQbL2vlvdrO+mCB6tBHOIjjuJqruW2p7/BSLU2AoLg+/Cbj01
+ Joy1SMtfRyiwoP9nOGtrAQ==
+X-Google-Smtp-Source: AA6agR7b4fCRQV9hAml+0stAXwKyzxgcbUAhzdygqeuyuDl9wz2tq2vdl0oglzsbrDq7JrL4VSC1xg==
+X-Received: by 2002:a05:6830:20cf:b0:655:d9fd:39f9 with SMTP id
+ z15-20020a05683020cf00b00655d9fd39f9mr4700196otq.95.1663080827006; 
+ Tue, 13 Sep 2022 07:53:47 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ y16-20020a9d6350000000b0065689e13f52sm592525otk.71.2022.09.13.07.53.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Sep 2022 07:53:46 -0700 (PDT)
+Received: (nullmailer pid 3658100 invoked by uid 1000);
+ Tue, 13 Sep 2022 14:53:45 -0000
+Date: Tue, 13 Sep 2022 09:53:45 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v4 13/15] ASoC: dt-bindings: qcom,q6dsp-lpass-clocks:
+ cleanup example
+Message-ID: <20220913145345.GA3658055-robh@kernel.org>
+References: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
+ <20220910091428.50418-14-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5151:EE_|DB9PR04MB8300:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc958995-e8e2-44b7-94f2-08da9597b9c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gadYVok9V8x+4wnk2GZvjErJwGTZ8LFEA7aNpsWa5wAkvAIjL1EFcL9Cfa/JVaBcAPH5Zqm4swG9/XdGXDtowxiOX7F9LloESGgEMyTEM410TCPxHsmA9XXli3ZrVWkRzzW9hAntbStYdO0rHe3fYl6FNlhoLPQTEBQIn6RkkH86WppGqMlYMzlDMR1yhYHd5fKb0oByKCPDWmwUsIuHFpBsS+kREK8PZmIlvCzfqjKOboFYbXJrHnbJqwuXzMIj0DKC6a9rvdnJDYbPk25URnMDIX7F2NdnUVeOHnfRgLEd7hjNzSs4ENOtU9Yf9lbJsOHjsfGn3x7juEBn/7QfxJyWSuo1Hp0Lb6seTudrzGqFJwQrFkhwjRMgrueuUkhid4MyA15AtDKeSQomjjzoZlZb14dj64z0Ym3wOosYyZ/abd5CWO5hvyIEb7mRRah6k6nz1P5fymcNhS+a85mUWT82WeRF7GPN3DcdW/T6qQKzYwe7qBtJrpwaduG52EpEUDNN1+LE0oB4ZUKaHiArVKwm3VhTPI/Qmf8nuIO9Sz7BNcGs3vHKVvyXvCaFXRwrHFIoZNTByFc48qjFs92RntsKxnX2L+afkzfVnTtRMfolRUThKnLr2AxVJpJwZoeeB/9rfcIRS2P7Yu6N+LoaLBdFw5oBZfsqeygwjqxkyE8NZPN15BA/1KNPXMzAtypMM5iB1299OqKon7QjNQ9VbWPR0aDyH+7qVnFrzJhSCBQQE5TxiLrGLv18xRw03FyS2rSGF8fytSskqhGmejfJKA/7NbfXjAdGQ2NpFDJgLDBPnHYTfyh8EmrfrO7dT7SMMcUEgnVZgfkj38HgvM1OW0keFzbQLBOjQxkP71xA1rs8JlE1IRNnsYLMAby+ISKE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(346002)(39860400002)(366004)(451199015)(83380400001)(186003)(6486002)(2616005)(8676002)(54906003)(44832011)(5660300002)(53546011)(4326008)(66556008)(6666004)(86362001)(52116002)(66946007)(966005)(6506007)(31696002)(66476007)(7416002)(8936002)(38350700002)(6512007)(38100700002)(478600001)(2906002)(316002)(36756003)(41300700001)(26005)(30864003)(31686004)(41533002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dFpHaDBEY0RPZTA5blR6M1FlcnZ2ck03MVV6VTBtdkxyK0Z1OE11SlRiWU52?=
- =?utf-8?B?Q1ZMc0diSjAvQjNKRkNzM3ZMMllEVTNQRythNFFoM2RWM3hRZWdqZkQ2Wmx0?=
- =?utf-8?B?S1N4SG10aFMzQ2EydG9wVk5SSk9iUmNEaDNjZW5ob3JVZGFsM2o4ZlhLRmkz?=
- =?utf-8?B?VmR0dG5WWG1hZ1FnNDZuZGtHY3dvYWNYRlM2amRiVWFYVDB2SDZHUFVZL3Zi?=
- =?utf-8?B?LzAvVHQ5QlNFdldqRGVYaVVWQ0U2YVBycmpyTzJYNFdLa3NUTDFUekdvQ2hF?=
- =?utf-8?B?eXZENG82ODRaZGxHWGcrV041UkdNWDR5cmkxcGNTYTlneVJDTFdFakhSSDBF?=
- =?utf-8?B?U01YSThyb055bWFtR2JaSm4xa3IreXVVQXNCVmU4NzZ2aUVweXVmcCt6enVi?=
- =?utf-8?B?UytMdW5PUkkvckpUZjFiZEQ4RjByblhaTEV2a3RxUjAwalRoS2o1M0J3ZXhY?=
- =?utf-8?B?YW95YmNDa2lmd1NEWlJLK3BZMms5MVlRVjVITmRueEFZZUwvZ2Mrd2ZhYmw4?=
- =?utf-8?B?Vi9xb0gwOWgwNVY2QTUwWFJUWVBRUmo5M3J3M2E4dDNOL2J5ZGFCWkRLY29P?=
- =?utf-8?B?bGdSeU5yVWUxTnBVeVViRG9OSjBQQUh6WmlLR0pCaDJhOWJ2ZkowREJMMytt?=
- =?utf-8?B?bXgycEpzS0NYTXpNUXkwbGg4dnZYRGMxUlJRMEdrdjAraGIzNWlpTmxBeWxw?=
- =?utf-8?B?ZUlvTnRpT082UzNBeWErclR1RmRkRU9NbUphZVB6ZDdLdHVzSHFucTVKally?=
- =?utf-8?B?bnlDUkUrYzN0cHVKZFNqdEhRbFZmS28weHp1Z1BWQVpQd1hKK3NLQWhZbVdn?=
- =?utf-8?B?YnQ0a2JvclE3ZTBSRURROW9kQ0ROaExMYVpXZUNpMnNmY0QzMUZDWk5JczJ1?=
- =?utf-8?B?Wk1MQXZneU1VWDdwMSszMW5HUnhvS3hCMVlTWVBtT2V3M1QrMnFXRHRTYjZ5?=
- =?utf-8?B?d3RuU3RNU3FQWlpPY0NoZnlWTzI2cEU3bDliM2x6SW5HWnUvUWdHRW1jUS9o?=
- =?utf-8?B?Z2FIeTN4N3p2OUdlSnhTay85M1MwK1ZWbHJkZndUQSt5ZS9YcHUveTArR1RD?=
- =?utf-8?B?NjFtM1o5dkhxeXpld2hOWW1WMmRKUTdER2p2RjdaNEI0aWVzMVJzTTErZWI3?=
- =?utf-8?B?Vkk0c3ZxVUJsZzNzWHNEdk1aNnpWMW9aZlVpajFjamM3TXBjSlFjWjFUbzJV?=
- =?utf-8?B?WFFJZnYrc252M0wwOVovRll4TWpjRUtkUitXUjd5bG5HQXZMU1VrKzdKZU9t?=
- =?utf-8?B?VEpIdXN3MEZjRWtSWGhyUVdMSHRHMGJmVmQzK1hVdzlIT2lseThmSVp4dEFI?=
- =?utf-8?B?Uk1nRGdWUVRDNGgvOEtxZXoxWW5zRlJSRnR2alpDdjVsemdaMVdiRmJOVlpK?=
- =?utf-8?B?Ri9XR3NOc3lJRHdxelBnUXVzM3lkY2RVb0o3SEJhbmkzSXgvODU4QWxJVHlN?=
- =?utf-8?B?MVZqeUxTamtQWnFaUnV6NjJ4bmF2S2l3cFljaG5qYUo4bkdZbnVBMWZkVTZz?=
- =?utf-8?B?VStIYnczWVd0b1l4c2FwcnBUSU9BM2N5ZExnbm9GbHpKY2g1NDZURHJBaUVY?=
- =?utf-8?B?ekZjcjJ2UWRpVEdxUjhXU1Y3SnFVMDhYNWhVTUZkKy9PVTN0ZW9LTXlKbjh3?=
- =?utf-8?B?RkRuWUdKdzFqVVBLYy9kVWdoSkhLbVFWdVhLS0FNdFN1Z1V1ZURTL2ErcU9W?=
- =?utf-8?B?ekxKaEppc2E1WXJqUU5lNTNwSGpBOGwxRUFzWmkxVTNCb2VTNC84cHMyUllq?=
- =?utf-8?B?Wm1OQmdXeXlVMEVsNS9VOHB4TlZuZ3pUYXVSY3dCdUluVkhCS0FkaFBjSGZY?=
- =?utf-8?B?eFZmS01GREVVaUZGcWxKTGF5ck4vTTJJeFgwMjJGcEMwUjVla2dvSThseXpk?=
- =?utf-8?B?ZHRGUVBpektsYVg0UmRSbVhoWlJHMmJsOTcrN29XTFJxdXpmQWtwTDdoQUM1?=
- =?utf-8?B?V2JKZDJNZ2VmMWJaR3ZUY2tFT3lyYUE0dFRHTmZpcXl4eUhSWVloTG90RTc3?=
- =?utf-8?B?TkdxenJUR2hlZk50VG43M1EzRjMvZzRyc0tGV25uZEhFZFpwQ3JpK1VKMm42?=
- =?utf-8?B?UitaQVYyMkRIeC9DdzJVc3hIMFJGV0EzZTU3UW1RSmNhTjE3ZkJ3Q2tQUTFI?=
- =?utf-8?Q?WJlfCa3L2UM/E7ZFk6HzXK6+Z?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc958995-e8e2-44b7-94f2-08da9597b9c9
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2022 14:53:31.8911 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cefswxJnJaz1owSqM6jjzQuo3ZQw9gMxLOSky+WlqQzBsBacflDXVdFxHGEfuMWpaHtWSVoAb0gGW/dHuCBLWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8300
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, Sunil-kumar.Dommati@amd.com,
- ssabakar@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, venkataprasad.potturu@amd.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Zheng Bin <zhengbin13@huawei.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vijendar.Mukunda@amd.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
- <sound-open-firmware@alsa-project.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220910091428.50418-14-krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -171,708 +101,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
-
-Care to add the Reviewed-by tags received on SOF github?
-
-https://github.com/thesofproject/linux/pull/3749
-
- From time to time someone at intel runs a script and does a rebase
-which picks the reviewed-by tags into topic/sof-dev-rebase branch.
-
-thanks,
-Daniel.
-
-
-On 13.09.2022 17:43, V sujith kumar Reddy wrote:
-> From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
->
-> Newer AMD SOC differs slightly in terms of few registers offset and
-> configuration. Add offsets into chip_info struct to make core ACP
-> code more generic and resusable on newer SOC.
->
-> Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-> Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+On Sat, 10 Sep 2022 11:14:26 +0200, Krzysztof Kozlowski wrote:
+> Cleanup the example DTS by adding APR and service compatibles, adding
+> typical properties, using proper device node names for services and
+> fixing indentation to 4-spaces.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> 
 > ---
->   sound/soc/sof/amd/Makefile         |   2 +-
->   sound/soc/sof/amd/acp-common.c     | 110 +++++++++++++++++++++++++++++
->   sound/soc/sof/amd/acp-dsp-offset.h |  25 +++----
->   sound/soc/sof/amd/acp-ipc.c        |  16 +++--
->   sound/soc/sof/amd/acp-loader.c     |  13 ++--
->   sound/soc/sof/amd/acp-stream.c     |   3 +-
->   sound/soc/sof/amd/acp.c            |  37 ++++++----
->   sound/soc/sof/amd/acp.h            |  26 +++++--
->   sound/soc/sof/amd/pci-rn.c         |  11 +++
->   sound/soc/sof/amd/renoir.c         | 101 ++++----------------------
->   10 files changed, 210 insertions(+), 134 deletions(-)
->   create mode 100644 sound/soc/sof/amd/acp-common.c
->
-> diff --git a/sound/soc/sof/amd/Makefile b/sound/soc/sof/amd/Makefile
-> index 7b9f1a0af3c8..efea92f62a86 100644
-> --- a/sound/soc/sof/amd/Makefile
-> +++ b/sound/soc/sof/amd/Makefile
-> @@ -4,7 +4,7 @@
->   #
->   # Copyright(c) 2021 Advanced Micro Devices, Inc. All rights reserved.
->   
-> -snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o acp-pcm.o acp-stream.o acp-trace.o
-> +snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o acp-pcm.o acp-stream.o acp-trace.o acp-common.o
->   snd-sof-amd-renoir-objs := pci-rn.o renoir.o
->   
->   obj-$(CONFIG_SND_SOC_SOF_AMD_COMMON) += snd-sof-amd-acp.o
-> diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
-> new file mode 100644
-> index 000000000000..12bdd97c1aae
-> --- /dev/null
-> +++ b/sound/soc/sof/amd/acp-common.c
-> @@ -0,0 +1,110 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-> +//
-> +// This file is provided under a dual BSD/GPLv2 license. When using or
-> +// redistributing this file, you may do so under either license.
-> +//
-> +// Copyright(c) 2022 Advanced Micro Devices, Inc.
-> +//
-> +// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-> +//	    V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-> +
-> +/* ACP-specific Common code */
-> +
-> +#include "../sof-priv.h"
-> +#include "../sof-audio.h"
-> +#include "../ops.h"
-> +#include "../sof-audio.h"
-> +#include "acp.h"
-> +#include "acp-dsp-offset.h"
-> +
-> +int acp_dai_probe(struct snd_soc_dai *dai)
-> +{
-> +	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(dai->component);
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
-> +	unsigned int val;
-> +
-> +	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->i2s_pin_config_offset);
-> +	if (val != desc->i2s_mode) {
-> +		dev_err(sdev->dev, "I2S Mode is not supported (I2S_PIN_CONFIG: %#x)\n", val);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS(acp_dai_probe, SND_SOC_SOF_AMD_COMMON);
-> +
-> +struct snd_soc_acpi_mach *amd_sof_machine_select(struct snd_sof_dev *sdev)
-> +{
-> +	struct snd_sof_pdata *sof_pdata = sdev->pdata;
-> +	const struct sof_dev_desc *desc = sof_pdata->desc;
-> +	struct snd_soc_acpi_mach *mach;
-> +
-> +	mach = snd_soc_acpi_find_machine(desc->machines);
-> +	if (!mach) {
-> +		dev_warn(sdev->dev, "No matching ASoC machine driver found\n");
-> +		return NULL;
-> +	}
-> +
-> +	sof_pdata->tplg_filename = mach->sof_tplg_filename;
-> +	sof_pdata->fw_filename = mach->fw_filename;
-> +
-> +	return mach;
-> +}
-> +
-> +/* AMD Common DSP ops */
-> +struct snd_sof_dsp_ops sof_acp_common_ops = {
-> +	/* probe and remove */
-> +	.probe			= amd_sof_acp_probe,
-> +	.remove			= amd_sof_acp_remove,
-> +
-> +	/* Register IO */
-> +	.write			= sof_io_write,
-> +	.read			= sof_io_read,
-> +
-> +	/* Block IO */
-> +	.block_read		= acp_dsp_block_read,
-> +	.block_write		= acp_dsp_block_write,
-> +
-> +	/*Firmware loading */
-> +	.load_firmware		= snd_sof_load_firmware_memcpy,
-> +	.pre_fw_run		= acp_dsp_pre_fw_run,
-> +	.get_bar_index		= acp_get_bar_index,
-> +
-> +	/* DSP core boot */
-> +	.run			= acp_sof_dsp_run,
-> +
-> +	/*IPC */
-> +	.send_msg		= acp_sof_ipc_send_msg,
-> +	.ipc_msg_data		= acp_sof_ipc_msg_data,
-> +	.get_mailbox_offset	= acp_sof_ipc_get_mailbox_offset,
-> +	.irq_thread		= acp_sof_ipc_irq_thread,
-> +
-> +	/* stream callbacks */
-> +	.pcm_open		= acp_pcm_open,
-> +	.pcm_close		= acp_pcm_close,
-> +	.pcm_hw_params		= acp_pcm_hw_params,
-> +
-> +	.hw_info		= SNDRV_PCM_INFO_MMAP |
-> +				  SNDRV_PCM_INFO_MMAP_VALID |
-> +				  SNDRV_PCM_INFO_INTERLEAVED |
-> +				  SNDRV_PCM_INFO_PAUSE |
-> +				  SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
-> +
-> +	/* Machine driver callbacks */
-> +	.machine_select		= amd_sof_machine_select,
-> +	.machine_register	= sof_machine_register,
-> +	.machine_unregister	= sof_machine_unregister,
-> +
-> +	/* Trace Logger */
-> +	.trace_init		= acp_sof_trace_init,
-> +	.trace_release		= acp_sof_trace_release,
-> +
-> +	/* PM */
-> +	.suspend                = amd_sof_acp_suspend,
-> +	.resume                 = amd_sof_acp_resume,
-> +};
-> +EXPORT_SYMBOL_NS(sof_acp_common_ops, SND_SOC_SOF_AMD_COMMON);
-> +
-> +MODULE_IMPORT_NS(SND_SOC_SOF_AMD_COMMON);
-> +MODULE_DESCRIPTION("ACP SOF COMMON Driver");
-> +MODULE_LICENSE("Dual BSD/GPL");
-> diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
-> index 56cefd4a84fc..47151a84f90b 100644
-> --- a/sound/soc/sof/amd/acp-dsp-offset.h
-> +++ b/sound/soc/sof/amd/acp-dsp-offset.h
-> @@ -48,22 +48,23 @@
->   #define ACP_SOFT_RESET				0x1000
->   #define ACP_CONTROL				0x1004
->   
-> -#define ACP_I2S_PIN_CONFIG			0x1400
-> +#define ACP3X_I2S_PIN_CONFIG			0x1400
->   
-> -/* Registers from ACP_PGFSM block */
-> -#define ACP_PGFSM_CONTROL			0x141C
-> -#define ACP_PGFSM_STATUS			0x1420
-> -#define ACP_CLKMUX_SEL				0x1424
-> +/* Registers offsets from ACP_PGFSM block */
-> +#define ACP3X_PGFSM_BASE			0x141C
-> +#define PGFSM_CONTROL_OFFSET			0x0
-> +#define PGFSM_STATUS_OFFSET			0x4
-> +#define ACP3X_CLKMUX_SEL			0x1424
->   
->   /* Registers from ACP_INTR block */
-> -#define ACP_EXTERNAL_INTR_ENB			0x1800
-> -#define ACP_EXTERNAL_INTR_CNTL			0x1804
-> -#define ACP_EXTERNAL_INTR_STAT			0x1808
-> -#define ACP_DSP_SW_INTR_CNTL			0x1814
-> -#define ACP_DSP_SW_INTR_STAT                    0x1818
-> -#define ACP_SW_INTR_TRIG                        0x181C
-> +#define ACP3X_EXT_INTR_STAT			0x1808
-> +
-> +#define ACP3X_DSP_SW_INTR_BASE			0x1814
-> +#define DSP_SW_INTR_CNTL_OFFSET			0x0
-> +#define DSP_SW_INTR_STAT_OFFSET			0x4
-> +#define DSP_SW_INTR_TRIG_OFFSET			0x8
->   #define ACP_ERROR_STATUS			0x18C4
-> -#define ACP_AXI2DAGB_SEM_0			0x1880
-> +#define ACP3X_AXI2DAGB_SEM_0			0x1880
->   
->   /* Registers from ACP_SHA block */
->   #define ACP_SHA_DSP_FW_QUALIFIER		0x1C70
-> diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
-> index e1842f037083..e09392498f4c 100644
-> --- a/sound/soc/sof/amd/acp-ipc.c
-> +++ b/sound/soc/sof/amd/acp-ipc.c
-> @@ -30,11 +30,14 @@ EXPORT_SYMBOL_NS(acp_mailbox_read, SND_SOC_SOF_AMD_COMMON);
->   static void acpbus_trigger_host_to_dsp_swintr(struct acp_dev_data *adata)
->   {
->   	struct snd_sof_dev *sdev = adata->dev;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	u32 swintr_trigger;
->   
-> -	swintr_trigger = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SW_INTR_TRIG);
-> +	swintr_trigger = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->dsp_intr_base +
-> +						DSP_SW_INTR_TRIG_OFFSET);
->   	swintr_trigger |= 0x01;
-> -	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SW_INTR_TRIG, swintr_trigger);
-> +	snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->dsp_intr_base + DSP_SW_INTR_TRIG_OFFSET,
-> +			  swintr_trigger);
->   }
->   
->   static void acp_ipc_host_msg_set(struct snd_sof_dev *sdev)
-> @@ -61,10 +64,11 @@ static void acp_dsp_ipc_dsp_done(struct snd_sof_dev *sdev)
->   int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
->   {
->   	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	unsigned int offset = offsetof(struct scratch_ipc_conf, sof_in_box);
->   	unsigned int count = ACP_HW_SEM_RETRY_COUNT;
->   
-> -	while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0)) {
-> +	while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset)) {
->   		/* Wait until acquired HW Semaphore Lock or timeout*/
->   		count--;
->   		if (!count) {
-> @@ -80,7 +84,7 @@ int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
->   	acpbus_trigger_host_to_dsp_swintr(adata);
->   
->   	/* Unlock or Release HW Semaphore */
-> -	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0, 0x0);
-> +	snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset, 0x0);
->   
->   	return 0;
->   }
-> @@ -186,7 +190,9 @@ EXPORT_SYMBOL_NS(acp_sof_ipc_msg_data, SND_SOC_SOF_AMD_COMMON);
->   
->   int acp_sof_ipc_get_mailbox_offset(struct snd_sof_dev *sdev)
->   {
-> -	return ACP_SCRATCH_MEMORY_ADDRESS;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
-> +
-> +	return desc->sram_pte_offset;
->   }
->   EXPORT_SYMBOL_NS(acp_sof_ipc_get_mailbox_offset, SND_SOC_SOF_AMD_COMMON);
->   
-> diff --git a/sound/soc/sof/amd/acp-loader.c b/sound/soc/sof/amd/acp-loader.c
-> index 7ca51e0f3b1b..f372f93094f3 100644
-> --- a/sound/soc/sof/amd/acp-loader.c
-> +++ b/sound/soc/sof/amd/acp-loader.c
-> @@ -30,9 +30,10 @@
->   int acp_dsp_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
->   		       u32 offset, void *dest, size_t size)
->   {
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	switch (blk_type) {
->   	case SOF_FW_BLK_TYPE_SRAM:
-> -		offset = offset - ACP_SCRATCH_MEMORY_ADDRESS;
-> +		offset = offset - desc->sram_pte_offset;
->   		memcpy_from_scratch(sdev, offset, dest, size);
->   		break;
->   	default:
-> @@ -49,6 +50,7 @@ int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_t
->   {
->   	struct snd_sof_pdata *plat_data = sdev->pdata;
->   	struct pci_dev *pci = to_pci_dev(sdev->dev);
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	struct acp_dev_data *adata;
->   	void *dest;
->   	u32 dma_size, page_count;
-> @@ -84,7 +86,7 @@ int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_t
->   		adata->fw_data_bin_size = size + offset;
->   		break;
->   	case SOF_FW_BLK_TYPE_SRAM:
-> -		offset = offset - ACP_SCRATCH_MEMORY_ADDRESS;
-> +		offset = offset - desc->sram_pte_offset;
->   		memcpy_to_scratch(sdev, offset, src, size);
->   		return 0;
->   	default:
-> @@ -105,14 +107,13 @@ EXPORT_SYMBOL_NS(acp_get_bar_index, SND_SOC_SOF_AMD_COMMON);
->   
->   static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev_data *adata)
->   {
-> -	struct snd_sof_dev *sdev;
-> +	struct snd_sof_dev *sdev = adata->dev;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	unsigned int low, high;
->   	dma_addr_t addr;
->   	u16 page_idx;
->   	u32 offset;
->   
-> -	sdev = adata->dev;
-> -
->   	switch (type) {
->   	case FW_BIN:
->   		offset = FW_BIN_PTE_OFFSET;
-> @@ -129,7 +130,7 @@ static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev
->   
->   	/* Group Enable */
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_BASE_ADDR_GRP_1,
-> -			  ACP_SRAM_PTE_OFFSET | BIT(31));
-> +			  desc->sram_pte_offset | BIT(31));
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1,
->   			  PAGE_SIZE_4K_ENABLE);
->   
-> diff --git a/sound/soc/sof/amd/acp-stream.c b/sound/soc/sof/amd/acp-stream.c
-> index b3ca4a90dbf8..f71b4e660b14 100644
-> --- a/sound/soc/sof/amd/acp-stream.c
-> +++ b/sound/soc/sof/amd/acp-stream.c
-> @@ -26,6 +26,7 @@
->   
->   int acp_dsp_stream_config(struct snd_sof_dev *sdev, struct acp_dsp_stream *stream)
->   {
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	unsigned int pte_reg, pte_size, phy_addr_offset, index;
->   	int stream_tag = stream->stream_tag;
->   	u32 low, high, offset, reg_val;
-> @@ -96,7 +97,7 @@ int acp_dsp_stream_config(struct snd_sof_dev *sdev, struct acp_dsp_stream *strea
->   			  phy_addr_offset, stream->reg_offset);
->   
->   	/* Group Enable */
-> -	reg_val = ACP_SRAM_PTE_OFFSET + offset;
-> +	reg_val = desc->sram_pte_offset + offset;
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, pte_reg, reg_val | BIT(31));
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, pte_size, PAGE_SIZE_4K_ENABLE);
->   
-> diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-> index c40d2900dd36..47eaabc95aa5 100644
-> --- a/sound/soc/sof/amd/acp.c
-> +++ b/sound/soc/sof/amd/acp.c
-> @@ -39,9 +39,10 @@ static int smn_read(struct pci_dev *dev, u32 smn_addr, u32 *data)
->   static void init_dma_descriptor(struct acp_dev_data *adata)
->   {
->   	struct snd_sof_dev *sdev = adata->dev;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	unsigned int addr;
->   
-> -	addr = ACP_SRAM_PTE_OFFSET + offsetof(struct scratch_reg_conf, dma_desc);
-> +	addr = desc->sram_pte_offset + offsetof(struct scratch_reg_conf, dma_desc);
->   
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DMA_DESC_BASE_ADDR, addr);
->   	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DMA_DESC_MAX_NUM_DSCR, ACP_MAX_DESC_CNT);
-> @@ -300,8 +301,9 @@ void memcpy_to_scratch(struct snd_sof_dev *sdev, u32 offset, unsigned int *src,
->   static int acp_memory_init(struct snd_sof_dev *sdev)
->   {
->   	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   
-> -	snd_sof_dsp_update_bits(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_CNTL,
-> +	snd_sof_dsp_update_bits(sdev, ACP_DSP_BAR, desc->dsp_intr_base + DSP_SW_INTR_CNTL_OFFSET,
->   				ACP_DSP_INTR_EN_MASK, ACP_DSP_INTR_EN_MASK);
->   	init_dma_descriptor(adata);
->   
-> @@ -311,18 +313,20 @@ static int acp_memory_init(struct snd_sof_dev *sdev)
->   static irqreturn_t acp_irq_thread(int irq, void *context)
->   {
->   	struct snd_sof_dev *sdev = context;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
-> +	unsigned int base = desc->dsp_intr_base;
->   	unsigned int val, count = ACP_HW_SEM_RETRY_COUNT;
->   
-> -	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_EXTERNAL_INTR_STAT);
-> +	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->ext_intr_stat);
->   	if (val & ACP_SHA_STAT) {
->   		/* Clear SHA interrupt raised by PSP */
-> -		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_EXTERNAL_INTR_STAT, val);
-> +		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->ext_intr_stat, val);
->   		return IRQ_HANDLED;
->   	}
->   
-> -	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
-> +	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET);
->   	if (val & ACP_DSP_TO_HOST_IRQ) {
-> -		while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0)) {
-> +		while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset)) {
->   			/* Wait until acquired HW Semaphore lock or timeout */
->   			count--;
->   			if (!count) {
-> @@ -333,10 +337,10 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
->   
->   		sof_ops(sdev)->irq_thread(irq, sdev);
->   		val |= ACP_DSP_TO_HOST_IRQ;
-> -		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT, val);
-> +		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET, val);
->   
->   		/* Unlock or Release HW Semaphore */
-> -		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0, 0x0);
-> +		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset, 0x0);
->   
->   		return IRQ_HANDLED;
->   	}
-> @@ -347,9 +351,11 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
->   static irqreturn_t acp_irq_handler(int irq, void *dev_id)
->   {
->   	struct snd_sof_dev *sdev = dev_id;
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
-> +	unsigned int base = desc->dsp_intr_base;
->   	unsigned int val;
->   
-> -	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
-> +	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET);
->   	if (val)
->   		return IRQ_WAKE_THREAD;
->   
-> @@ -358,20 +364,22 @@ static irqreturn_t acp_irq_handler(int irq, void *dev_id)
->   
->   static int acp_power_on(struct snd_sof_dev *sdev)
->   {
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
-> +	unsigned int base = desc->pgfsm_base;
->   	unsigned int val;
->   	int ret;
->   
-> -	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_PGFSM_STATUS);
-> +	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + PGFSM_STATUS_OFFSET);
->   
->   	if (val == ACP_POWERED_ON)
->   		return 0;
->   
->   	if (val & ACP_PGFSM_STATUS_MASK)
-> -		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_PGFSM_CONTROL,
-> +		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + PGFSM_CONTROL_OFFSET,
->   				  ACP_PGFSM_CNTL_POWER_ON_MASK);
->   
-> -	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_PGFSM_STATUS, val, !val,
-> -					    ACP_REG_POLL_INTERVAL, ACP_REG_POLL_TIMEOUT_US);
-> +	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, base + PGFSM_STATUS_OFFSET, val,
-> +					    !val, ACP_REG_POLL_INTERVAL, ACP_REG_POLL_TIMEOUT_US);
->   	if (ret < 0)
->   		dev_err(sdev->dev, "timeout in ACP_PGFSM_STATUS read\n");
->   
-> @@ -437,6 +445,7 @@ EXPORT_SYMBOL_NS(amd_sof_acp_suspend, SND_SOC_SOF_AMD_COMMON);
->   
->   int amd_sof_acp_resume(struct snd_sof_dev *sdev)
->   {
-> +	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
->   	int ret;
->   
->   	ret = acp_init(sdev);
-> @@ -445,7 +454,7 @@ int amd_sof_acp_resume(struct snd_sof_dev *sdev)
->   		return ret;
->   	}
->   
-> -	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_CLKMUX_SEL, 0x03);
-> +	snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->acp_clkmux_sel, 0x03);
->   
->   	ret = acp_memory_init(sdev);
->   
-> diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-> index 4c42b8fd6abf..bc024be76e09 100644
-> --- a/sound/soc/sof/amd/acp.h
-> +++ b/sound/soc/sof/amd/acp.h
-> @@ -30,7 +30,7 @@
->   #define ACP_SOFT_RESET_DONE_MASK		0x00010001
->   
->   #define ACP_DSP_INTR_EN_MASK			0x00000001
-> -#define ACP_SRAM_PTE_OFFSET			0x02050000
-> +#define ACP3X_SRAM_PTE_OFFSET			0x02050000
->   #define PAGE_SIZE_4K_ENABLE			0x2
->   #define ACP_PAGE_SIZE				0x1000
->   #define ACP_DMA_CH_RUN				0x02
-> @@ -45,7 +45,7 @@
->   #define ACPBUS_REG_BASE_OFFSET			ACP_DMA_CNTL_0
->   
->   #define ACP_DEFAULT_DRAM_LENGTH			0x00080000
-> -#define ACP_SCRATCH_MEMORY_ADDRESS		0x02050000
-> +#define ACP3X_SCRATCH_MEMORY_ADDRESS		0x02050000
->   #define ACP_SYSTEM_MEMORY_WINDOW		0x4000000
->   #define ACP_IRAM_BASE_ADDRESS			0x000000
->   #define ACP_DATA_RAM_BASE_ADDRESS		0x01000000
-> @@ -139,6 +139,19 @@ struct acp_dsp_stream {
->   	unsigned int reg_offset;
->   };
->   
-> +struct sof_amd_acp_desc {
-> +	unsigned int rev;
-> +	unsigned int host_bridge_id;
-> +	unsigned int i2s_mode;
-> +	u32 pgfsm_base;
-> +	u32 ext_intr_stat;
-> +	u32 dsp_intr_base;
-> +	u32 sram_pte_offset;
-> +	u32 i2s_pin_config_offset;
-> +	u32 hw_semaphore_offset;
-> +	u32 acp_clkmux_sel;
-> +};
-> +
->   /* Common device data struct for ACP devices */
->   struct acp_dev_data {
->   	struct snd_sof_dev  *dev;
-> @@ -206,8 +219,13 @@ int acp_pcm_hw_params(struct snd_sof_dev *sdev, struct snd_pcm_substream *substr
->   		      struct snd_pcm_hw_params *params,
->   		      struct snd_sof_platform_stream_params *platform_params);
->   
-> +extern struct snd_sof_dsp_ops sof_acp_common_ops;
-> +
->   extern struct snd_sof_dsp_ops sof_renoir_ops;
-> +int sof_renoir_ops_init(struct snd_sof_dev *sdev);
->   
-> +int acp_dai_probe(struct snd_soc_dai *dai);
-> +struct snd_soc_acpi_mach *amd_sof_machine_select(struct snd_sof_dev *sdev);
->   /* Machine configuration */
->   int snd_amd_acp_find_config(struct pci_dev *pci);
->   
-> @@ -220,10 +238,6 @@ int acp_sof_trace_release(struct snd_sof_dev *sdev);
->   int amd_sof_acp_suspend(struct snd_sof_dev *sdev, u32 target_state);
->   int amd_sof_acp_resume(struct snd_sof_dev *sdev);
->   
-> -struct sof_amd_acp_desc {
-> -	unsigned int host_bridge_id;
-> -};
-> -
->   static inline const struct sof_amd_acp_desc *get_chip_info(struct snd_sof_pdata *pdata)
->   {
->   	const struct sof_dev_desc *desc = pdata->desc;
-> diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
-> index 3a7fed25a226..fca40b261671 100644
-> --- a/sound/soc/sof/amd/pci-rn.c
-> +++ b/sound/soc/sof/amd/pci-rn.c
-> @@ -21,6 +21,7 @@
->   #include "../sof-pci-dev.h"
->   #include "../../amd/mach-config.h"
->   #include "acp.h"
-> +#include "acp-dsp-offset.h"
->   
->   #define ACP3x_REG_START		0x1240000
->   #define ACP3x_REG_END		0x125C000
-> @@ -44,7 +45,16 @@ static const struct resource renoir_res[] = {
->   };
->   
->   static const struct sof_amd_acp_desc renoir_chip_info = {
-> +	.rev		= 3,
->   	.host_bridge_id = HOST_BRIDGE_CZN,
-> +	.i2s_mode	= 0x04,
-> +	.pgfsm_base	= ACP3X_PGFSM_BASE,
-> +	.ext_intr_stat	= ACP3X_EXT_INTR_STAT,
-> +	.dsp_intr_base	= ACP3X_DSP_SW_INTR_BASE,
-> +	.sram_pte_offset = ACP3X_SRAM_PTE_OFFSET,
-> +	.i2s_pin_config_offset = ACP3X_I2S_PIN_CONFIG,
-> +	.hw_semaphore_offset = ACP3X_AXI2DAGB_SEM_0,
-> +	.acp_clkmux_sel	= ACP3X_CLKMUX_SEL,
->   };
->   
->   static const struct sof_dev_desc renoir_desc = {
-> @@ -68,6 +78,7 @@ static const struct sof_dev_desc renoir_desc = {
->   	},
->   	.nocodec_tplg_filename	= "sof-acp.tplg",
->   	.ops			= &sof_renoir_ops,
-> +	.ops_init		= sof_renoir_ops_init,
->   };
->   
->   static int acp_pci_rn_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
-> diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
-> index 9261c8bc2236..6ea8727f977e 100644
-> --- a/sound/soc/sof/amd/renoir.c
-> +++ b/sound/soc/sof/amd/renoir.c
-> @@ -23,22 +23,6 @@
->   #define I2S_SP_INSTANCE		1
->   #define PDM_DMIC_INSTANCE	2
->   
-> -#define I2S_MODE		0x04
-> -
-> -static int renoir_dai_probe(struct snd_soc_dai *dai)
-> -{
-> -	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(dai->component);
-> -	unsigned int val;
-> -
-> -	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_I2S_PIN_CONFIG);
-> -	if (val != I2S_MODE) {
-> -		dev_err(sdev->dev, "I2S Mode is not supported (I2S_PIN_CONFIG: %#x)\n", val);
-> -		return -EINVAL;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->   static struct snd_soc_dai_driver renoir_sof_dai[] = {
->   	[I2S_BT_INSTANCE] = {
->   		.id = I2S_BT_INSTANCE,
-> @@ -62,7 +46,7 @@ static struct snd_soc_dai_driver renoir_sof_dai[] = {
->   			.rate_min = 8000,
->   			.rate_max = 48000,
->   		},
-> -		.probe = &renoir_dai_probe,
-> +		.probe = &acp_dai_probe,
->   	},
->   
->   	[I2S_SP_INSTANCE] = {
-> @@ -87,7 +71,7 @@ static struct snd_soc_dai_driver renoir_sof_dai[] = {
->   			.rate_min = 8000,
->   			.rate_max = 48000,
->   		},
-> -		.probe = &renoir_dai_probe,
-> +		.probe = &acp_dai_probe,
->   	},
->   
->   	[PDM_DMIC_INSTANCE] = {
-> @@ -104,82 +88,21 @@ static struct snd_soc_dai_driver renoir_sof_dai[] = {
->   	},
->   };
->   
-> -static struct snd_soc_acpi_mach *amd_sof_machine_select(struct snd_sof_dev *sdev)
-> -{
-> -	struct snd_sof_pdata *sof_pdata = sdev->pdata;
-> -	const struct sof_dev_desc *desc = sof_pdata->desc;
-> -	struct snd_soc_acpi_mach *mach;
-> +/* Renoir ops */
-> +struct snd_sof_dsp_ops sof_renoir_ops;
-> +EXPORT_SYMBOL_NS(sof_renoir_ops, SND_SOC_SOF_AMD_COMMON);
->   
-> -	mach = snd_soc_acpi_find_machine(desc->machines);
-> -	if (!mach) {
-> -		dev_warn(sdev->dev, "No matching ASoC machine driver found\n");
-> -		return NULL;
-> -	}
-> +int sof_renoir_ops_init(struct snd_sof_dev *sdev)
-> +{
-> +	/* common defaults */
-> +	memcpy(&sof_renoir_ops, &sof_acp_common_ops, sizeof(struct snd_sof_dsp_ops));
->   
-> -	sof_pdata->tplg_filename = mach->sof_tplg_filename;
-> -	sof_pdata->fw_filename = mach->fw_filename;
-> +	sof_renoir_ops.drv = renoir_sof_dai;
-> +	sof_renoir_ops.num_drv = ARRAY_SIZE(renoir_sof_dai);
->   
-> -	return mach;
-> +	return 0;
->   }
->   
-> -/* AMD Renoir DSP ops */
-> -struct snd_sof_dsp_ops sof_renoir_ops = {
-> -	/* probe and remove */
-> -	.probe			= amd_sof_acp_probe,
-> -	.remove			= amd_sof_acp_remove,
-> -
-> -	/* Register IO */
-> -	.write			= sof_io_write,
-> -	.read			= sof_io_read,
-> -
-> -	/* Block IO */
-> -	.block_read		= acp_dsp_block_read,
-> -	.block_write		= acp_dsp_block_write,
-> -
-> -	/*Firmware loading */
-> -	.load_firmware		= snd_sof_load_firmware_memcpy,
-> -	.pre_fw_run		= acp_dsp_pre_fw_run,
-> -	.get_bar_index		= acp_get_bar_index,
-> -
-> -	/* DSP core boot */
-> -	.run			= acp_sof_dsp_run,
-> -
-> -	/*IPC */
-> -	.send_msg		= acp_sof_ipc_send_msg,
-> -	.ipc_msg_data		= acp_sof_ipc_msg_data,
-> -	.get_mailbox_offset	= acp_sof_ipc_get_mailbox_offset,
-> -	.irq_thread		= acp_sof_ipc_irq_thread,
-> -
-> -	/* DAI drivers */
-> -	.drv			= renoir_sof_dai,
-> -	.num_drv		= ARRAY_SIZE(renoir_sof_dai),
-> -
-> -	/* stream callbacks */
-> -	.pcm_open		= acp_pcm_open,
-> -	.pcm_close		= acp_pcm_close,
-> -	.pcm_hw_params		= acp_pcm_hw_params,
-> -
-> -	.hw_info		= SNDRV_PCM_INFO_MMAP |
-> -				  SNDRV_PCM_INFO_MMAP_VALID |
-> -				  SNDRV_PCM_INFO_INTERLEAVED |
-> -				  SNDRV_PCM_INFO_PAUSE |
-> -				  SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
-> -
-> -	/* Machine driver callbacks */
-> -	.machine_select		= amd_sof_machine_select,
-> -	.machine_register	= sof_machine_register,
-> -	.machine_unregister	= sof_machine_unregister,
-> -
-> -	/* Trace Logger */
-> -	.trace_init		= acp_sof_trace_init,
-> -	.trace_release		= acp_sof_trace_release,
-> -
-> -	/* PM */
-> -	.suspend                = amd_sof_acp_suspend,
-> -	.resume                 = amd_sof_acp_resume,
-> -};
-> -EXPORT_SYMBOL(sof_renoir_ops);
-> -
->   MODULE_IMPORT_NS(SND_SOC_SOF_AMD_COMMON);
->   MODULE_DESCRIPTION("RENOIR SOF Driver");
->   MODULE_LICENSE("Dual BSD/GPL");
+> 
+> Changes since v1:
+> 1. Add few more properties.
+> 2. Adjust indentation (better).
+> ---
+>  .../sound/qcom,q6dsp-lpass-clocks.yaml        | 20 ++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
+> 
 
-
+Reviewed-by: Rob Herring <robh@kernel.org>

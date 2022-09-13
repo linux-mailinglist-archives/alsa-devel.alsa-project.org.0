@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FEB55B6909
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 09:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DA35B6912
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 09:54:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E46851705;
-	Tue, 13 Sep 2022 09:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E46851705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59AE11754;
+	Tue, 13 Sep 2022 09:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59AE11754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663055632;
-	bh=JBY33doAvlsL7dh1b4xz2vy4gNREnTbkNUvmE3pwCqs=;
+	s=default; t=1663055682;
+	bh=FKRbY7wBuovxq//cs7aelhstMdKaSRMADb0EUSGg/S0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gIpiM2v1K+Pp9rwqG87wdufZAQy3PMm3aBLGXYmGhxJj217XHMvm5uUvlEELTsCLa
-	 R6qwYS3nNiIxOBAJIt0IfmNv0ayLgvJXsPqmpbhk91IeWL2zLY7zNkNY95hX05eGTk
-	 OVudrGlrKdHMBEcOQpwwSUa19gd1M3fNyPbR+2zw=
+	b=mAe9uYZLteuc8FGnMhf+A3NH2YaQOYKn4Tf4jYvjwvgMupJ4cfNoLGaoj5BfCwNDX
+	 i5DTK8ou+zQIle0Or4UOTuMVEHR9Wj80STen2RUcjIhB/JTAnSXRNv4B2SwmhKBbXx
+	 BAosFCShpJkQe6Rtlk24Wo1xHgcDb5c/JHjpmZEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61472F8008E;
-	Tue, 13 Sep 2022 09:52:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4044F80269;
+	Tue, 13 Sep 2022 09:53:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 224DCF8008E; Tue, 13 Sep 2022 09:52:50 +0200 (CEST)
+ id 6FE14F801EC; Tue, 13 Sep 2022 09:53:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6F66F8008E
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 09:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6F66F8008E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C46CF801EC
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 09:53:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C46CF801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="e4UJKSd1"; 
+ header.b="eI8nTed1"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="uAqtdCa/"
+ header.b="Kl1IP/wM"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7FC4434904;
- Tue, 13 Sep 2022 07:52:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4E5E35BF71;
+ Tue, 13 Sep 2022 07:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663055558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663055623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jfOBxCeILtVmBqnyi93nlnhLNhcCGDKz244rDQpPrnE=;
- b=e4UJKSd1s63cDlV3etPMt+a+vqW1sLWtW2P1cVowq8brEMRhGn4TUDryARLYmSgv8Yjz9e
- HTlXgfTe+VVAv1z6OnkXVCkrECW8I/aB9cnjdsuyYKCD35S3dXbgRi/w46//avFB/vhq+w
- DMhQgD7ZPsO1aMgm4Bij+XKGiV8JiSQ=
+ bh=fvEPiZHVS66YwuLhIAo4LTcR4ZyzVx1HFGaMl9qk0kg=;
+ b=eI8nTed1AiUb4xgr+ct9693UjsIygZu1w2k7MPZa5KNKyw/psXdEEmxOOveo4UQkFllMAg
+ RAwsFesxrz96m3QfSQ+EY5krhnjTUBgYbnnX6wbdNOEJ/BsKnH2U3wf75FT2fQSSnTxNHt
+ uB9tm+n9hNhLaL4m9C2ZDi6KK6mIwmg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663055558;
+ s=susede2_ed25519; t=1663055623;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jfOBxCeILtVmBqnyi93nlnhLNhcCGDKz244rDQpPrnE=;
- b=uAqtdCa/qXHxEsUHBH8+rdMskZBKSiEqw63FI1aq341uLhlsKsuDV928b6UPoaV+olILNc
- qDttnMCZEVsdroCQ==
+ bh=fvEPiZHVS66YwuLhIAo4LTcR4ZyzVx1HFGaMl9qk0kg=;
+ b=Kl1IP/wMEVpbChHj0grnR8SnEpRywWuOsC/Fq//FfcEqJ2ECeYyddVb40mEDxrcv4WKPs+
+ oAOO6jGToDTNptCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5793313AB5;
- Tue, 13 Sep 2022 07:52:38 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28D4B13AB5;
+ Tue, 13 Sep 2022 07:53:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id O+e3FMY2IGNQCgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 13 Sep 2022 07:52:38 +0000
-Date: Tue, 13 Sep 2022 09:52:37 +0200
-Message-ID: <871qsfhfsq.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2sFUCQc3IGOnCgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 13 Sep 2022 07:53:43 +0000
+Date: Tue, 13 Sep 2022 09:53:42 +0200
+Message-ID: <87zgf3g16h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar D <mkumard@nvidia.com>
-Subject: Re: [v2] ALSA: hda: Fix Nvidia dp infoframe
-In-Reply-To: <5f7d294a-5040-a7a7-cee2-d62cfef5b48e@nvidia.com>
-References: <20220913065818.13015-1-mkumard@nvidia.com>
- <874jxbhhin.wl-tiwai@suse.de>
- <5f7d294a-5040-a7a7-cee2-d62cfef5b48e@nvidia.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/hdmi: change type for the 'assigned' variable
+In-Reply-To: <20220913070307.3234038-1-perex@perex.cz>
+References: <20220913070307.3234038-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,32 +99,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Sep 2022 09:18:52 +0200,
-Mohan Kumar D wrote:
+On Tue, 13 Sep 2022 09:03:07 +0200,
+Jaroslav Kysela wrote:
 > 
+> This change converts the assigned value from int type to
+> the bool type to retain consistency with other structure
+> members like 'setup', 'non_pcm' etc.
 > 
-> On 9/13/2022 12:45 PM, Takashi Iwai wrote:
-> > External email: Use caution opening links or attachments
-> > 
-> > 
-> > On Tue, 13 Sep 2022 08:58:18 +0200,
-> > Mohan Kumar wrote:
-> >> Nvidia HDA HW expects infoframe data bytes order same for both
-> >> HDMI and DP i.e infoframe data starts from 5th bytes offset. As
-> >> dp infoframe structure has 4th byte as valid infoframe data, use
-> >> hdmi infoframe structure for nvidia dp infoframe to match HW behvaior.
-> >> 
-> >> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-> > Aha, so this affects on all Nvidia devices, not only on Tegra, but
-> > also on PC?  Then we should put cc-to-stable definitely.
-> Yes, The HDA HW design was common for dGPU and Tegra.
-> > 
-> > (No need to resend, I can put it locally.)
-> Thanks!.
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-OK, applied now.
+Thanks, applied.
 
-
-thanks,
 
 Takashi

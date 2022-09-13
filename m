@@ -2,68 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FBE5B6CC6
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 14:08:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807ED5B6E6B
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 15:33:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD7181768;
-	Tue, 13 Sep 2022 14:08:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD7181768
+	by alsa0.perex.cz (Postfix) with ESMTPS id E34431751;
+	Tue, 13 Sep 2022 15:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E34431751
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663070933;
-	bh=lB1X4RohLeLRoNDFxmyIkvDZX85DQxyc2H6pvZCf63w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663075989;
+	bh=F0cqZytYnDM1UyPSUoRFaYeWA37WWne+bdR5WeTUuDU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IOfDN9Z7LLpiR2B/C82mIz/whPk3L7s1vSHZxIFtFlQgGFCR2pNp3fCSQlQKgsdVx
-	 pGtb7kcER8ZRNaIRnKWLMnh+jEHSNaNuWiLzh6uxIarLLYIXaxi4PauFxkkFNIhD2L
-	 83Pj6mDbknt33NXT+lY9k8D73pA+Y3bvGPD8V2Dc=
+	b=u8QJSPvQuimljljT2g5cg7P7qbzQwpusKo5e767tVOAnpooNOMNWdLtyXXv/eBvRl
+	 CmgrCQIY8D4/Ml4oaNpfztiUQwn6Sw72ljFhGK/CVzYU5xH7JlhLZ2ZgGnKxy2AKgj
+	 8eiNR9yaTIAqA/WMS93ykltsIN1p+DxK8zlD2Do0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1C7EF80528;
-	Tue, 13 Sep 2022 14:07:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51140F8025D;
+	Tue, 13 Sep 2022 15:32:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E46C0F804D6; Tue, 13 Sep 2022 14:07:38 +0200 (CEST)
+ id 9B426F80224; Tue, 13 Sep 2022 15:32:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 8797AF80269
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 14:07:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8797AF80269
-Received: from NTHCCAS04.nuvoton.com (NTHCCAS04.nuvoton.com [10.1.8.29])
- by maillog.nuvoton.com (Postfix) with ESMTP id 052371C80F5C;
- Tue, 13 Sep 2022 20:07:29 +0800 (CST)
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Tue, 13
- Sep 2022 20:07:28 +0800
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Tue, 13 Sep
- 2022 20:07:28 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Tue, 13 Sep 2022 20:07:28 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: dt-bindings: nau8825: Add ADCOUT IO drive strength
- control
-Date: Tue, 13 Sep 2022 20:06:43 +0800
-Message-ID: <20220913120641.792502-2-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220913120641.792502-1-CTLIN0@nuvoton.com>
-References: <20220913120641.792502-1-CTLIN0@nuvoton.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B8F1F800FE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 15:32:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B8F1F800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="RVeOTrx7"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E7A5F6147A;
+ Tue, 13 Sep 2022 13:32:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4674C433D6;
+ Tue, 13 Sep 2022 13:31:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663075921;
+ bh=F0cqZytYnDM1UyPSUoRFaYeWA37WWne+bdR5WeTUuDU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=RVeOTrx70ClhJ+u3/hFZKiE4NdznV8itDQ54ZlvRZTayU0imDhgxDux0kiR3LYGkF
+ SExpFFn+xFNKoMKeI0Yc+DP46uBLCyIUGN+05lYIL6wUdhkzMBjrH5JfKccH5bAKq6
+ xCIjiA6gM6/yBkocCWnJYU072SRbShqmumLKnKK0eOkimaTic3PiK4DS27vpV4FPff
+ HcEA3HSuxw79hZbO9wEJdyR6AN6TAhEYJ4wHQlnNbQQd7d1ws/adm5KFSeEMRm/0/Q
+ MVCjEIWykRyQV1ySASIObu5T+peSkd/VnK8LtviFdAfQhuM5KVkCly4ADv7TeSmall
+ lVggVdBoHkLRQ==
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.com, 
+ Xiubo.Lee@gmail.com, lgirdwood@gmail.com, nicoleotsuka@gmail.com,
+ shengjiu.wang@gmail.com, festevam@gmail.com
+In-Reply-To: <1663059601-29259-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1663059601-29259-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: imx-card: Fix refcount issue with of_node_put
+Message-Id: <166307591852.124960.4909394552213550357.b4-ty@kernel.org>
+Date: Tue, 13 Sep 2022 14:31:58 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+X-Mailer: b4 0.10.0-dev-95855
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,27 +87,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a property to control the driving of ADCOUT.
+On Tue, 13 Sep 2022 17:00:01 +0800, Shengjiu Wang wrote:
+> imx_card_parse_of will search all the node with loop,
+> if there is defer probe happen in the middle of loop,
+> the previous released codec node will be released
+> twice, then cause refcount issue.
+> 
+> Here assign NULL to pointer of released nodes to fix
+> the issue.
+> 
+> [...]
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- Documentation/devicetree/bindings/sound/nau8825.txt | 3 +++
- 1 file changed, 3 insertions(+)
+Applied to
 
-diff --git a/Documentation/devicetree/bindings/sound/nau8825.txt b/Documentation/devicetree/bindings/sound/nau8825.txt
-index 388a7bc60b1f..cb861aca8d40 100644
---- a/Documentation/devicetree/bindings/sound/nau8825.txt
-+++ b/Documentation/devicetree/bindings/sound/nau8825.txt
-@@ -71,6 +71,9 @@ Optional properties:
- 
-   - nuvoton,crosstalk-enable: make crosstalk function enable if set.
- 
-+  - nuvoton,adcout-drive-strong: make the drive strength of ADCOUT IO PIN strong if set.
-+      Otherwise, the drive keeps normal strength.
-+
-   - clocks: list of phandle and clock specifier pairs according to common clock bindings for the
-       clocks described in clock-names
-   - clock-names: should include "mclk" for the MCLK master clock
--- 
-2.25.1
+   broonie/sound.git for-linus
 
+Thanks!
+
+[1/1] ASoC: imx-card: Fix refcount issue with of_node_put
+      commit: d56ba9a04d7548d4149c46ec86a0e3cc41a70f4a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

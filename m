@@ -2,90 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC985B726D
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 16:56:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31375B7445
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 17:22:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26C1917C6;
-	Tue, 13 Sep 2022 16:55:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C1917C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA330172F;
+	Tue, 13 Sep 2022 17:21:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA330172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663080959;
-	bh=GRw7s9B89t6gDYx/ARHCD6vGQw+KW101FUIFaP8FdX4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1663082569;
+	bh=wEYxQZevQnVUYWrbBTRVLZpQWxEN/xP5XgOiuoTYQPg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E7TAe0A/wMRK857N/LTGkq/xqgkrvmENbZAXbDw4z6K2fOUuFey9X/B0OmmdQFjY1
-	 zaTjpfH4cz8s7FUGgiKgrXK85zsJt7o63G+XN5DR71pi72rat6NQeofl9oltNJjOV5
-	 HpUeZpSzRlyTBgONbuFNLGhrEncphNUPGPGWtucg=
+	b=ZXfZ8ulvnNaftuAVNWck+FJUZtI+32VUh4PdqZCKHvH2nvdy17Hk5qbLwU3vawN2s
+	 mSxjjJe/dWQO+/JbQROzMMDSyzwrqQxvlCfeSdKiK0YTL3X5DjgK1fq7zgWFi5EslT
+	 uwruhGcUuvW+c/3hR21jiDw29trZh/tdACc3hPiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3088F8025D;
-	Tue, 13 Sep 2022 16:55:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F3D4F8025D;
+	Tue, 13 Sep 2022 17:21:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE65CF8028B; Tue, 13 Sep 2022 16:55:06 +0200 (CEST)
+ id BA7BDF80224; Tue, 13 Sep 2022 17:21:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CA18F801EC
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 16:54:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA18F801EC
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-127f5411b9cso32790334fac.4
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 07:54:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=2/8jBgH5RIn75yN488C2+nFWx/pd5MIa7k/cppE49Xc=;
- b=BaiyB3DWzxaMwiuagdJwUwOUhYGPZk4/T0XI+KkR/zsHsvbdDVWnzNJlCMngpk8cYl
- +dTjsYRZsUP62PtiEbUEO0Cr5MoYxkFQBk5Tk4oU5xTtCUN5YhpkNIQoGr2nndPoZHe1
- UyhHM9L9s3+AyRhavSAZg12ubIaHKExdy/IMIBw3JMHmfiVIqzNxaOA+k/jCduBKDGuo
- UqYqtz8DiGQGCOTRfUjF5mpGgS0DT02EpLchmMF17PoOipkzOUm4bnKkAbD0/FL2mqzS
- VU4S2GkzKnA/+a664RvIwr1loiRpg4Md6TOnk6xgY7lTytcpKfAa6/CkRcP2Bxj/h8ox
- TTMA==
-X-Gm-Message-State: ACgBeo3CZ0jdqZHxRM5gZnLMlV0cNw6WUTmTdcLdzOar0nIMRY9lFKps
- oKg/HuHpQNXQqWeYmDgLVQ==
-X-Google-Smtp-Source: AA6agR6YnP6ot9GFC2YmsPAFaS8mzStQhLIBYsq7Zg+QUzJJFdErvSL6rj1KCpYcElzx/lMxYLblxA==
-X-Received: by 2002:a05:6870:f203:b0:10b:ad04:57ff with SMTP id
- t3-20020a056870f20300b0010bad0457ffmr1944683oao.219.1663080893771; 
- Tue, 13 Sep 2022 07:54:53 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- q125-20020acac083000000b003437e4f2510sm5203060oif.11.2022.09.13.07.54.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Sep 2022 07:54:53 -0700 (PDT)
-Received: (nullmailer pid 3659687 invoked by uid 1000);
- Tue, 13 Sep 2022 14:54:52 -0000
-Date: Tue, 13 Sep 2022 09:54:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v4 15/15] dt-bindings: soc: qcom: apr: add missing
- properties
-Message-ID: <20220913145452.GA3659654-robh@kernel.org>
-References: <20220910091428.50418-1-krzysztof.kozlowski@linaro.org>
- <20220910091428.50418-16-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220910091428.50418-16-krzysztof.kozlowski@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Andy Gross <agross@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB078F800FE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 17:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB078F800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="xyIQEu8z"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="dYow5v6p"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1CB7434767;
+ Tue, 13 Sep 2022 15:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663082501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jCwdsZHjxPGGiGBXIrdEwcvTl9L7wQxJY4/o2ien4ok=;
+ b=xyIQEu8zZLW8T9vl1Ly75KX5TWGFnVke9XxfE3h3NH2NxT6S37BcXWKn5ZixGI8uMSfvJ8
+ xAJugtSrAZ1n8kUb+6SRYTRV2nt+r/ooo7Wyy1HCSsbsNtvg8eU8yaosASXIUSA4k8lDtx
+ RbV6ijMJCFv6cZCo8v1uvqJ+qfAcINY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663082501;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jCwdsZHjxPGGiGBXIrdEwcvTl9L7wQxJY4/o2ien4ok=;
+ b=dYow5v6prfwQR8Y2hk1GpdUP+PGyf3SmDKUFMVDLXue/mwoFnEbyeinbLsczPkj3h0tOPN
+ Iq9qUWLPeSb9aKAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DAD07139B3;
+ Tue, 13 Sep 2022 15:21:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id PRuXNASgIGMQUwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 13 Sep 2022 15:21:40 +0000
+Date: Tue, 13 Sep 2022 17:21:40 +0200
+Message-ID: <874jxbfgfv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH -next] ASoC: Intel: fix unused-variable warning in
+ probe_codec
+In-Reply-To: <39b0bfef-be7d-05a9-d964-19a74757bb8d@intel.com>
+References: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
+ <39b0bfef-be7d-05a9-d964-19a74757bb8d@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-7
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, tiwai@suse.com,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org,
+ yung-chuan.liao@linux.intel.com, Gaosheng Cui <cuigaosheng1@huawei.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,17 +109,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 10 Sep 2022 11:14:28 +0200, Krzysztof Kozlowski wrote:
-> The APR bindings were not describing all properties already used in DTS:
-> 1. Add qcom,glink-channels, qcom,smd-channels and qcom,intents (widely
->    used).
-> 2. Add power-domains for MSM8996.
+On Tue, 13 Sep 2022 16:03:35 +0200,
+Cezary Rojewski wrote:
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../bindings/soc/qcom/qcom,apr.yaml           | 47 +++++++++++++++++++
->  1 file changed, 47 insertions(+)
+> On 2022-08-22 5:51 AM, Gaosheng Cui wrote:
+> > In configurations with CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC=n,
+> > gcc warns about an unused variable:
+> > 
+> > sound/soc/intel/skylake/skl.c: In function ¡probe_codec¢:
+> > sound/soc/intel/skylake/skl.c:729:18: error: unused variable ¡skl¢ [-Werror=unused-variable]
+> >    struct skl_dev *skl = bus_to_skl(bus);
+> >                    ^~~
+> > cc1: all warnings being treated as errors
+> > 
+> > Fixes: 3fd63658caed9 ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
+> > Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 > 
+> Thanks for the fix.
+> 
+> Acked-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Applied now.
+
+
+Takashi

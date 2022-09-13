@@ -2,97 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B901C5B7502
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 17:31:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A965B75D6
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 17:57:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3773E17DA;
-	Tue, 13 Sep 2022 17:30:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3773E17DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ED6B1788;
+	Tue, 13 Sep 2022 17:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ED6B1788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663083080;
-	bh=S5d2mV+jmShFPOaI+pA9r0iSfqr8Q2oeY6QW19ZWXPk=;
+	s=default; t=1663084630;
+	bh=zHH4zL3e2tuZgX3i66DMMHlfzblJMD19xfnuqdfA0cQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HM9Ru4s72ErbKWGzaEHpgMrRmtQGsvC/b2lbCAw3t9eZo4kP92FnDnd0stj79qXOY
-	 vjcr02ImhJ24r0VM+3YWtEZaCvxpr0Jlbiv7CYZA89GaBx9UnOs2d/ebzGjq5+9Mmn
-	 TZCzAnY3hYwzNM11jHji9L5Q2qlPL37xVr9OTbPQ=
+	b=X9jlHE8KWnZNIv9PsUGgQM2NfnCxM3Z8odmxdWneIuo+aUbIPyVanTtJgQkdEpaOI
+	 r3cpiNBoZ/wfE2cOAUg1mgGRM0qGIXzvWvsEQn2+1ECdfpEg0Q1viIbbllVm0CpjHA
+	 UAzU/Ssq7Lvm0OpUGAuH4zuKdKmFK9WpimGwOIdI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 827D3F8025D;
-	Tue, 13 Sep 2022 17:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CE0BF80154;
+	Tue, 13 Sep 2022 17:56:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 946A5F80224; Tue, 13 Sep 2022 17:30:18 +0200 (CEST)
+ id 4AA6FF80224; Tue, 13 Sep 2022 17:56:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF413F8008E
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 17:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF413F8008E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E971F80154
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 17:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E971F80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="GnXWu0RI"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28D5bvwN030964;
- Tue, 13 Sep 2022 10:30:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=O8HWsGbtyyiZdiGho+QwvfBFN4XxDxMmKvSYhtK9jBI=;
- b=GnXWu0RI/4C6PQBj5o6BbfK+zp9ulEhctQ/M3aNeGpSNrunqKYLMEEjlKVemWyvyVwad
- 5H4rR6ojjaDHE4sc9sUEoko978gdCrmdRdJZcL/UUIsWs68aFdQ2to2cMQtmqLVs6UDy
- DomymtuEEUWf64iq0WVH0bSt/6XKH2XIvcpDOhAIvIhAfOAtam5Aq9owDeqTnMWdU4M4
- ekki/JU864u/VZOJaYNOYYhf21EmW53XYH/sz/1JUjXRtYyBYjsO78J3L/VzcaSyqGYG
- yaq/dUBgpIiRRJkrW+ediqPmELZ0TKs/XcYqRlssP1Kd7jRcszf4FIi5J586FCqLtzY6 AQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jgq0nuxmd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Sep 2022 10:30:09 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 13 Sep
- 2022 10:30:07 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Tue, 13 Sep 2022 10:30:07 -0500
-Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CBD7346C;
- Tue, 13 Sep 2022 15:30:07 +0000 (UTC)
-Message-ID: <11e57078-78c7-6f99-8633-e5e945330550@opensource.cirrus.com>
-Date: Tue, 13 Sep 2022 16:30:07 +0100
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="jnqG/3Xw"
+Received: by mail-wr1-x42d.google.com with SMTP id bz13so21533261wrb.2
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 08:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=A1Eig4ob2xruzFnrOgNkfvNevJMOsIOAHzq6wGFNTHg=;
+ b=jnqG/3Xw42Vw3hCx2tkA1LUWA4X73P8JBwCXnUdjcxmH8K3BrrtIM6OMZP+btxOVPz
+ kKgq37YjjtNc8PDz/BUigJobIHgg7/5eL7X9bT6YMTugqrRNy/NSTU6vOmAfrHCHrnuf
+ NhF2jtGgPfuP2T39ncunefBsR0J+A78NnBBM3KBODOF6GK8W4UQoEuKaLG6jscSeHzIm
+ A+JiQjmcgbKRzh7owhNRLHav15OTGXq/GHgRSpDcMN/G8pDwHGDJD6yRbm7m+BWjl/5R
+ My+9qSZcL9XtCSLrVracdZpj5HHr25rBEFGxOv+0Y6Qm+r8u8IBwm8Fkm7CEBNSeGDqz
+ retQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=A1Eig4ob2xruzFnrOgNkfvNevJMOsIOAHzq6wGFNTHg=;
+ b=jSrF3RTNClyChHUfRyPKoZHmvLuf2Kz6ZAaw5mO2VsKZjdnwVywMjDUeIIxXhE6m6W
+ MdFeSbIVy+Lx9OmP0QmS0uQzMv6hE9JJYXKC2RG9T7+xwqpSQFiINffG4eoUzPxQd0ei
+ 1Y3FHsJoLt6X8ptJr9BtrhKQ69dWFe3qjbK0Zgvu47C+i/pXmqvznnhSMPtMrQqLI5qB
+ uyROieARasawBY8ow+1V6MLay8bmKUEPr/nsS1moAzkAxgE926fKMgNO+YfHKDB4vg84
+ CZHvfKF4z0VdlaEjbys7G0mhWAh+q+ksC7hpiGMlI0YPfjddDFIz0BNHkEsYHFt6i8tE
+ QFQw==
+X-Gm-Message-State: ACgBeo2Yb3PkBjsyHMOT1aNjW5Pwh22gn8KJW7FIhUctuGcRNGoxNxJn
+ uHIJBv3XutyYO7H1pq+jzTw=
+X-Google-Smtp-Source: AA6agR5MXcQhvZeL2lOM1tkCMzp/EfuKffz9Zr/BO5VivjLo3NQ+7pEPi4PF8Ub2szW7vpiCx0FbIA==
+X-Received: by 2002:a05:6000:1acb:b0:226:f39d:1a1f with SMTP id
+ i11-20020a0560001acb00b00226f39d1a1fmr18413148wry.607.1663084564686; 
+ Tue, 13 Sep 2022 08:56:04 -0700 (PDT)
+Received: from [192.168.0.30] ([47.62.125.55])
+ by smtp.gmail.com with ESMTPSA id
+ v8-20020a05600c12c800b003a844885f88sm13138699wmd.22.2022.09.13.08.56.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Sep 2022 08:56:02 -0700 (PDT)
+Message-ID: <96cd0c78-a76d-e32c-8f05-32e127df3fb0@gmail.com>
+Date: Tue, 13 Sep 2022 17:56:00 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH v2 5/5] soundwire: bus: Don't exit early if no device IDs
- were programmed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [PATCH 00/10] ASoC: mediatek: Set i2s clock sharing from machine
+ drivers
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <sanyog.r.kale@intel.com>
-References: <20220907085259.3602-1-rf@opensource.cirrus.com>
- <20220907085259.3602-6-rf@opensource.cirrus.com>
- <fa14881d-0eb8-f652-aea7-00d8c3f2a6bb@linux.intel.com>
- <49ee34ef-7d64-aeb6-eb1b-6cdbfd9e36ae@opensource.cirrus.com>
- <c68e5f78-51cc-6b16-dc7d-4540b78e4d2f@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <c68e5f78-51cc-6b16-dc7d-4540b78e4d2f@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Mark Brown <broonie@kernel.org>,
+ =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>
+References: <20220908161154.648557-1-nfraprado@collabora.com>
+ <166276355052.332114.1969052042106279493.b4-ty@kernel.org>
+From: Matthias Brugger <matthias.bgg@gmail.com>
+In-Reply-To: <166276355052.332114.1969052042106279493.b4-ty@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 0bBmv6ieMR-aH_3STHbOyNgqKT_Cy9A7
-X-Proofpoint-ORIG-GUID: 0bBmv6ieMR-aH_3STHbOyNgqKT_Cy9A7
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Chunxu Li <chunxu.li@mediatek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Miaoqian Lin <linmq006@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Akihiko Odaki <akihiko.odaki@gmail.com>,
+ kernel@collabora.com, Dan Carpenter <dan.carpenter@oracle.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,118 +119,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/09/2022 18:09, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 9/12/22 14:25, Richard Fitzgerald wrote:
->> On 12/09/2022 12:43, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 9/7/22 10:52, Richard Fitzgerald wrote:
->>>> Only exit sdw_handle_slave_status() right after calling
->>>> sdw_program_device_num() if it actually programmed an ID into at
->>>> least one device.
->>>>
->>>> sdw_handle_slave_status() should protect itself against phantom
->>>> device #0 ATTACHED indications. In that case there is no actual
->>>> device still on #0. The early exit relies on there being a status
->>>> change to ATTACHED on the reprogrammed device to trigger another
->>>> call to sdw_handle_slave_status() which will then handle the status
->>>> of all peripherals. If no device was actually programmed with an
->>>> ID there won't be a new ATTACHED indication. This can lead to the
->>>> status of other peripherals not being handled.
->>>>
->>>> The status passed to sdw_handle_slave_status() is obviously always
->>>> from a point of time in the past, and may indicate accumulated
->>>> unhandled events (depending how the bus manager operates). It's
->>>> possible that a device ID is reprogrammed but the last PING status
->>>> captured state just before that, when it was still reporting on
->>>> ID #0. Then sdw_handle_slave_status() is called with this PING info,
->>>> just before a new PING status is available showing it now on its new
->>>> ID. So sdw_handle_slave_status() will receive a phantom report of a
->>>> device on #0, but it will not find one.
->>>>
->>>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->>>> ---
->>>>    drivers/soundwire/bus.c | 27 +++++++++++++++------------
->>>>    1 file changed, 15 insertions(+), 12 deletions(-)
->>>>
->>>> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
->>>> index 6e569a875a9b..0bcc2d161eb9 100644
->>>> --- a/drivers/soundwire/bus.c
->>>> +++ b/drivers/soundwire/bus.c
->>>> @@ -736,20 +736,19 @@ static int sdw_program_device_num(struct
->>>> sdw_bus *bus)
->>>>        struct sdw_slave_id id;
->>>>        struct sdw_msg msg;
->>>>        bool found;
->>>> -    int count = 0, ret;
->>>> +    int count = 0, num_programmed = 0, ret;
->>>>        u64 addr;
->>>>          /* No Slave, so use raw xfer api */
->>>>        ret = sdw_fill_msg(&msg, NULL, SDW_SCP_DEVID_0,
->>>>                   SDW_NUM_DEV_ID_REGISTERS, 0, SDW_MSG_FLAG_READ, buf);
->>>>        if (ret < 0)
->>>> -        return ret;
->>>> +        return 0;
->>>
->>> this doesn't seem quite right to me, there are multiple -EINVAL cases
->>> handled in sdw_fill_msg().
->>>
->>> I didn't check if all these error cases are irrelevant in that specific
->>> enumeration case, if that was the case maybe we need to break that
->>> function in two helpers so that all the checks can be skipped.
->>>
->>
->> I don't think that there's anything useful that
->> sdw_modify_slave_status() could do to recover from an error.
->>
->> If any device IDs were programmed then, according to the statement in
->> sdw_modify_slave_status()
->>
->>      * programming a device number will have side effects,
->>      * so we deal with other devices at a later time
->>
->> if this is true, then we need to exit to deal with what _was_
->> programmed, even if one of them failed.
->>
->> If nothing was programmed, and there was an error, we can't bail out of
->> sdw_modify_slave_status(). We have status for other devices which
->> we can't simply ignore.
->>
->> Ultimately I can't see how pushing the error code up is useful.
->> sdw_modify_slave_status() can't really do any effective recovery action,
->> and the original behavior of giving up and returning means that
->> an error in programming dev ID potentially causes collateral damage to
->> the status of other peripherals.
-> 
-> I was suggesting something like
-> 
-> 
-> void sdw_fill_msg_data(...)
-> {
->    copy data in the msg structure
-> }
-> 
-> int sdw_fill_msg(...)
-> {
->      sdw_fill_msg_data();
->      handle_error_cases
-> }
-> 
-> and in sdw sdw_program_device_num() we call directly sdw_fill_msg_data()
-> 
-> So no change in functionality beyond explicit skip of error checks that
-> are not relevant and cannot be handled even if they were.
-> 
 
-sdw_fill_msg() will never report an error during
-sdw_program_device_num() because the first check is to return if
-the address doesn't need paging, and sdw_program_device_num() only
-accesses SCP registers.
 
-I don't want to mix coding improvements with bugfixes. Splitting
-sdw_fill_msg() isn't needed to fix this bug.
+On 10/09/2022 00:45, Mark Brown wrote:
+> On Thu, 8 Sep 2022 12:11:44 -0400, Nícolas F. R. A. Prado wrote:
+>> The i2s ports on MediaTek SoCs only support a single data lane. In order
+>> to achieve full-duplex operation thus two i2s ports, one for input and
+>> one for output, need to be used together and sharing a single clock from
+>> one of the ports.
+>>
+>> This clock sharing setting was previously read by the sound platform
+>> driver from the devicetree, but given that the input/output pairing is
+>> closely related to which codecs are connected to which ports, the
+>> machine sound driver can infer and set it, so that no DT property is
+>> required.
+>>
+>> [...]
+> 
+> Applied to
+> 
+>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [01/10] ASoC: mediatek: mt8192: Allow setting shared clocks from machine driver
+>          commit: 8ae4fcfd5b11b5c33154732fcad99ad0f5843ce2
+> [02/10] ASoC: mediatek: mt8192-mt6359: Make i2s9 share the clock from i2s8
+>          commit: 3ffb9fa3963964a730c34f48e502ac0625efc145
+> [03/10] ASoC: mediatek: mt8192: Remove clock share parsing from DT
+>          commit: 9ccd51ce396a46d9d4d0c87aa6a82dd26a2f281a
+> [04/10] ASoC: mediatek: mt8183: Allow setting shared clocks from machine driver
+>          commit: fea84890e5c1fb65ae8e25b2f9b86363af1f45f2
+> [05/10] ASoC: mediatek: mt8183: Configure shared clocks
+>          commit: 4583392a135cc30409f5a6ceebb8374e550b03e0
+> [06/10] ASoC: mediatek: mt8183: Remove clock share parsing from DT
+>          commit: cbebe67859a0e8d51e578fdd9f927f8ef2504ba4
+> [07/10] arm64: dts: mediatek: kukui: Remove i2s-share properties
+>          commit: b3821f7839c2ec322926d16557aff29f4be1f4dc
 
+DTS should go through my branch. We can see if there are any merge conflicts in 
+linux-next and fix them somehow or you drop the patch and I take it through my 
+tree. As you like.
+
+Regards,
+Matthias
+
+> [08/10] ASoC: mediatek: mt8186: Allow setting shared clocks from machine driver
+>          commit: 4132a778e806f77c2bd01a9a34b07edc9dd99d76
+> [09/10] ASoC: mediatek: mt8186: Configure shared clocks
+>          commit: 9986bdaee4776c5d595933cace9d54c6bc084e91
+> [10/10] ASoC: mediatek: mt8186: Remove clock share parsing from DT
+>          commit: 62da80c6a124dd68b12c4d2197ecc74b79823571
 > 
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
 > 
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+> 
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+> 
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+> 
+> Thanks,
+> Mark

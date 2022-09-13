@@ -2,89 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F5DF5B6774
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 07:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 877B05B6779
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 07:47:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C316171A;
-	Tue, 13 Sep 2022 07:40:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C316171A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 274721725;
+	Tue, 13 Sep 2022 07:46:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 274721725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663047706;
-	bh=0lbisqvOF41tnaW7z8Q/Py0qkPQwnBPQYel8dmVlwuo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=r6sZlMMkY7pwGPmrb+EMg00YTwTEmqyb8v5CxMBDE1DwS1Bf+mFmhKMJIC3Ny2HXQ
-	 4X+meU7/jMCTuaBn0bjaHbcJjOljwOs2lObXvLIMgdU5udmgSo0gYxtUQ6jjdz5mFK
-	 3YjaftLMZqqS/pwm5chb3bVjJl7Ya2IxU9xTzWo4=
+	s=default; t=1663048065;
+	bh=PYqxCnNkewmZbctv9XV8Fnz7whlaTkBXFJWFK6Z4C44=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c01FcePU0Yty60b8LaD8RQyaVDh3HeQg9/G9/xTJQltlRuTxPImxjIUQWF3UGqgfg
+	 GgwS+bAc5BXKGZI65trW0gEKgI6v9iiJyE+v21xuG4DbTHV1RerwGa2wXLX8SZwcf1
+	 yFsV1kxCtHCt3ZhGwL5PSwT6VoReFmLyRMigGcuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FDE6F8025D;
-	Tue, 13 Sep 2022 07:40:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3235F8025D;
+	Tue, 13 Sep 2022 07:46:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4158DF80224; Tue, 13 Sep 2022 07:40:44 +0200 (CEST)
+ id 4D494F80224; Tue, 13 Sep 2022 07:46:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23E02F800FE
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 07:40:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E02F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="EaU+gESL"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NBwRBC0k"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 574873473C;
- Tue, 13 Sep 2022 05:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663047637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LL+0QmFDBXrLM+is61xFAGwnXTKxqNCWgAvg8pawgpY=;
- b=EaU+gESL3xtq/aEen3T6blqRalP6siQO2A4hDwumO3toCWNH7t2ywz+PKGUn/lOXzilCIV
- 5PsLQJfv25g4NppsZt9HuSNBzaiwQlfd8/TVLTyGwmJXBsgTr0w32V7Kpfd8r6VPBtoStx
- 1+jSWvNsB3iGv0XW2pORS86S0AW8XPk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663047637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LL+0QmFDBXrLM+is61xFAGwnXTKxqNCWgAvg8pawgpY=;
- b=NBwRBC0kBCjLONgs8/lnfMfslVYqM9MnUtIIK0MSn+b3kqNiBG+3TkO3PvwHE6q7J/Xswx
- wW7Tt3hIOaoYXYCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 31A3613A86;
- Tue, 13 Sep 2022 05:40:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4lN6C9UXIGMlWgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 13 Sep 2022 05:40:37 +0000
-Date: Tue, 13 Sep 2022 07:40:36 +0200
-Message-ID: <87fsgvhlwr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar <mkumard@nvidia.com>
-Subject: Re: [PATCH] ALSA: hda: Fix tegra hda dp infoframe struct
-In-Reply-To: <20220913034410.17502-1-mkumard@nvidia.com>
-References: <20220913034410.17502-1-mkumard@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3519FF800FE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 07:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3519FF800FE
+X-QQ-mid: bizesmtp74t1663047985tcen11ia
+Received: from localhost.localdomain ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 13 Sep 2022 13:46:24 +0800 (CST)
+X-QQ-SSF: 01400000000000B0O000000A0000000
+X-QQ-FEAT: o819FCS+0JRTPs05EElOJLI/CrQekINZ5/Hjm1KQ/EL6h5TQThaZsY6LFGoUt
+ +qv3N3nacqJCsisTE6OSwfshzRwU53qT0P1RiljUvtZBZrFao8IhgJhIjPAe7VRONr3BlwO
+ APiBRYPU7Lz4hSvWnQAHGEAxdfIWdCGUTb5BgtVGJYYoCRZ2oUt58IfwYIS0VR/jEsGPnj5
+ xAhVoiZyk2RuoF4eEH6X2lreVCxVbeIMb4x2RLQU20noRep/C4v4TH9Uw8hf6asFOjXWy/6
+ +UPmNfBY+rVMKTHsdLY0DmeKwxTnSLKYzIsS2wA2zXP+n+jgHX+aehWsl0PMjbXokd3ir3Z
+ 3vPBKF/axenJ79CRD+4P9UwR5c1AlEwRPhg4RTibm0ycrOM6gucSdPOJAWt0jaWA8e0QKV/
+X-QQ-GoodBg: 1
+From: huangwenhui <huangwenhuia@uniontech.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for Huawei WRT-WX9
+Date: Tue, 13 Sep 2022 13:46:22 +0800
+Message-Id: <20220913054622.15979-1-huangwenhuia@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvr:qybglogicsvr6
+Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
+ tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
+ linux-kernel@vger.kernel.org, wse@tuxedocomputers.com,
+ huangwenhui <huangwenhuia@uniontech.com>, hui.wang@canonical.com,
+ sami@loone.fi, cam@neo-zeon.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,94 +78,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Sep 2022 05:44:10 +0200,
-Mohan Kumar wrote:
-> 
-> Tegra HDA HW expects infoframe data bytes order same for both
-> HDMI and DP i.e infoframe data starts from 5th bytes offset.
-> This hw behavior mandates to have dummy bytes for dp infoframe
-> structure for Tegra.
-> 
-> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-> ---
->  sound/pci/hda/patch_hdmi.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-> index 6c209cd26c0c..a52e764db2e0 100644
-> --- a/sound/pci/hda/patch_hdmi.c
-> +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -218,6 +218,9 @@ struct dp_audio_infoframe {
->  	u8 type; /* 0x84 */
->  	u8 len;  /* 0x1b */
->  	u8 ver;  /* 0x11 << 2 */
-> +#if IS_ENABLED(CONFIG_SND_HDA_TEGRA)
-> +	u8 checksum; /* Tegra HW expects infoframe bytes from 5th offset */
-> +#endif
+Fixes headphone and headset microphone detection on Huawei WRT-WX9.
 
-I'm afraid that we can't use ifdef here, as this is another module
-that is used not only by snd-hda-tegra.  In theory, snd-hda-intel can
-run on Arm using the same codec driver.
+Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-That is, the check has to be dynamically.  Maybe we need to set a flag
-at tegra_hdmi_init().
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 38930cf5aace..0996a8fd008c 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9569,6 +9569,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
+ 	SND_PCI_QUIRK(0x1849, 0x1233, "ASRock NUC Box 1100", ALC233_FIXUP_NO_AUDIO_JACK),
+ 	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
++	SND_PCI_QUIRK(0x19e5, 0x320f, "Huawei WRT-WX9 ", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1b35, 0x1235, "CZC B20", ALC269_FIXUP_CZC_B20),
+ 	SND_PCI_QUIRK(0x1b35, 0x1236, "CZC TMI", ALC269_FIXUP_CZC_TMI),
+ 	SND_PCI_QUIRK(0x1b35, 0x1237, "CZC L101", ALC269_FIXUP_CZC_L101),
+-- 
+2.20.1
 
-If I understand correctly, Tegra uses the same byte layout for both DP
-and HDMI?  If so, the patch like below should work instead.
-
-Of course, if that's really specific to Tegra, not generically for
-Nvidia graphics, the flag has to be set in a different way...
-
-
-thanks,
-
-Takashi
-
--- 8< --
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -171,6 +171,7 @@ struct hdmi_spec {
- 	/* hdmi interrupt trigger control flag for Nvidia codec */
- 	bool hdmi_intr_trig_ctrl;
- 	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
-+	bool tegra_dp_workaround; /* workaround DP audio infoframe for Tegra */
- 	/*
- 	 * Non-generic VIA/NVIDIA specific
- 	 */
-@@ -679,15 +680,24 @@ static void hdmi_pin_setup_infoframe(struct hda_codec *codec,
- 				     int ca, int active_channels,
- 				     int conn_type)
- {
-+	struct hdmi_spec *spec = codec->spec;
- 	union audio_infoframe ai;
- 
- 	memset(&ai, 0, sizeof(ai));
--	if (conn_type == 0) { /* HDMI */
-+	if (conn_type == 0 || /* HDMI */
-+	    /* DisplayPort for Tegra: Tegra HW expects same layout as HDMI */
-+	    (conn_type == 1 && spec->tegra_dp_workaround)) {
- 		struct hdmi_audio_infoframe *hdmi_ai = &ai.hdmi;
- 
--		hdmi_ai->type		= 0x84;
--		hdmi_ai->ver		= 0x01;
--		hdmi_ai->len		= 0x0a;
-+		if (conn_type == 0) { /* HDMI */
-+			hdmi_ai->type		= 0x84;
-+			hdmi_ai->ver		= 0x01;
-+			hdmi_ai->len		= 0x0a;
-+		} else { /* Tegra DP */
-+			hdmi_ai->type		= 0x84;
-+			hdmi_ai->len		= 0x1b;
-+			hdmi_ai->ver		= 0x11 << 2;
-+		}
- 		hdmi_ai->CC02_CT47	= active_channels - 1;
- 		hdmi_ai->CA		= ca;
- 		hdmi_checksum_audio_infoframe(hdmi_ai);
-@@ -3992,6 +4002,7 @@ static int tegra_hdmi_init(struct hda_codec *codec)
- 	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
- 		nvhdmi_chmap_cea_alloc_validate_get_type;
- 	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
-+	spec->tegra_dp_workaround = true;
- 
- 	return 0;
- }

@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DE15B6873
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 09:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6687C5B6879
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Sep 2022 09:17:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD4D61743;
-	Tue, 13 Sep 2022 09:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD4D61743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 616BB173A;
+	Tue, 13 Sep 2022 09:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 616BB173A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663053387;
-	bh=SBWiBcDEO+0ZC/kj7DO4ZlAg2bKhj2ixZhhded9QzVU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663053441;
+	bh=DG0FkOWLkuAWJO6aMBVGUAyCUusmS8pp7VWMlNga8H4=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RRepa03SiTFNNApVb/CUbI5mFSPFszHUT8l9/FPGiJZtxBco5jJbX1vJ9FX5eR6+A
-	 6QIm2UdwFOvTxsvKhZ6wcfOXdReN5uwNePFDjq6An+wWv5KMahha9advZGCY+X9Ia2
-	 lGlAD/Ipuo9f+BcwLbI/oxDroYwHPMj3m1/XT4fo=
+	b=RRvORcS0nJWQwJZ7nQJbQOlQe4gzuuIlFBtQvJ2dDGKRridb/M6i0tU+1vAvqJuuq
+	 Lckq4iXDRWG5KJTxuJdXwYE//KsIfThdvoyGhwhty3YOaYARwnLGTU3XyLRa2BdRGT
+	 KC9DpJnexftTkS1FQ7aSxT5vieIGyxlfJ3IH16dc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79CCBF8028B;
-	Tue, 13 Sep 2022 09:15:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AFA0F801EC;
+	Tue, 13 Sep 2022 09:16:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60EFBF80269; Tue, 13 Sep 2022 09:15:36 +0200 (CEST)
+ id 7A438F8025D; Tue, 13 Sep 2022 09:16:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A2E8F8008E
- for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 09:15:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2E8F8008E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBDCFF801EC
+ for <alsa-devel@alsa-project.org>; Tue, 13 Sep 2022 09:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBDCFF801EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AOEl/V1m"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="dOOJHHnZ"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A70FA34880;
- Tue, 13 Sep 2022 07:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663053329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Asp3tq6eKpLmJQrxdQF0k5WefKNzKndJj+3xTCza4Jc=;
- b=AOEl/V1myWlE6Y4/RfD9xo9TsT+4dYd391jrdMVYaPWb7xQhbZK0wxbBmj/dQOhOMGPG4Z
- vDEyLauwUfJg4AWfzeAuwgrviT5/KVrRn82wTjD+wfk5QnYqCkdqXctj70ArVIfqu5gLsg
- fHWgacGmQTxGgQgnCP+z4zTJaQp5FqM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663053329;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Asp3tq6eKpLmJQrxdQF0k5WefKNzKndJj+3xTCza4Jc=;
- b=dOOJHHnZbmeqMOfv44zy0dnRHX/qUwKP06n4R+5ZXL7TdHgb3BbJdWI/HabGuSM0T+xzvu
- mEhfLOrtCy9m/0Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7ABF513AB5;
- Tue, 13 Sep 2022 07:15:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Q9w/HREuIGOBegAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 13 Sep 2022 07:15:29 +0000
-Date: Tue, 13 Sep 2022 09:15:28 +0200
-Message-ID: <874jxbhhin.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mohan Kumar <mkumard@nvidia.com>
-Subject: Re: [v2] ALSA: hda: Fix Nvidia dp infoframe
-In-Reply-To: <20220913065818.13015-1-mkumard@nvidia.com>
-References: <20220913065818.13015-1-mkumard@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="XhMLQAnM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1663053387;
+ x=1694589387;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=DG0FkOWLkuAWJO6aMBVGUAyCUusmS8pp7VWMlNga8H4=;
+ b=XhMLQAnMldUGeo906HtVLoT4Q02OijvWcnO76sT6hADRHDDmbmj2JBCt
+ CVJAYsnXaIPDkaC/+Zs+RNiL0uzhnNU03ntamkWAIAFhEm5T7fK2aZl1l
+ jKVsdM3mnZeKKFuxFiZ2zHx89C5WaUTVoU1TRFoet6nExDiNeADjbaadP
+ jcilHACxenJcyOwfoNgOTsQpDrlmJiM8ddiqzp0mZKHcns1scHY0NlRvD
+ 23u9BVr8E8UAJqlmC+uMjzOUxPSXE4pjECfx63Wpd+AN44gHMr2RO9bDF
+ Bq9cFhnVwhapIxY/XWOFDtHQem9KjXK5XTY7XmsvTR4np6+/FVktr4ZHG A==;
+Message-ID: <bdfa3f29-f63d-1fb7-f37b-0b4a1f6374b3@axis.com>
+Date: Tue, 13 Sep 2022 09:16:25 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH] dt-bindings: sound: ts3a227e: add control of debounce
+ times
+Content-Language: en-US
+To: Astrid Rost <Astrid.Rost@axis.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Mark Brown <broonie@kernel.org>, Dylan Reid
+ <dgreid@chromium.org>
+References: <20220907135827.16209-1-astrid.rost@axis.com>
+ <2b81d814-f47a-e548-83dc-b1e38857e8ce@linaro.org>
+ <Yxn9o1MVMPnFO3PM@sirena.org.uk>
+ <ac2bcca1-6997-2d17-b1d6-a5e81ced2613@linaro.org>
+ <9a72bd22-9298-65ce-a894-540f98745a7e@linaro.org>
+ <d521d40e-c79d-b044-44b7-6f10845f4268@axis.com>
+From: Astrid Rost <astridr@axis.com>
+In-Reply-To: <d521d40e-c79d-b044-44b7-6f10845f4268@axis.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail01w.axis.com (10.20.40.7) To se-mail05w.axis.com
+ (10.20.40.11)
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ alsa-devel-mejlinglistan <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, kernel <kernel@axis.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,102 +97,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Sep 2022 08:58:18 +0200,
-Mohan Kumar wrote:
-> 
-> Nvidia HDA HW expects infoframe data bytes order same for both
-> HDMI and DP i.e infoframe data starts from 5th bytes offset. As
-> dp infoframe structure has 4th byte as valid infoframe data, use
-> hdmi infoframe structure for nvidia dp infoframe to match HW behvaior.
-> 
-> Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
 
-Aha, so this affects on all Nvidia devices, not only on Tegra, but
-also on PC?  Then we should put cc-to-stable definitely.
+Hello,
 
-(No need to resend, I can put it locally.)
+I did the conversion from txt to YAML.
+It requests me to add as a maintainer?
 
+Dylan was the original Author.
 
-Takashi
-
-> ---
->  sound/pci/hda/patch_hdmi.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-> index 6c209cd26c0c..9127dd1b1a9c 100644
-> --- a/sound/pci/hda/patch_hdmi.c
-> +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -170,6 +170,8 @@ struct hdmi_spec {
->  	bool dyn_pcm_no_legacy;
->  	/* hdmi interrupt trigger control flag for Nvidia codec */
->  	bool hdmi_intr_trig_ctrl;
-> +	bool nv_dp_workaround; /* workaround DP audio infoframe for Nvidia */
-> +
->  	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
->  	/*
->  	 * Non-generic VIA/NVIDIA specific
-> @@ -679,15 +681,24 @@ static void hdmi_pin_setup_infoframe(struct hda_codec *codec,
->  				     int ca, int active_channels,
->  				     int conn_type)
->  {
-> +	struct hdmi_spec *spec = codec->spec;
->  	union audio_infoframe ai;
->  
->  	memset(&ai, 0, sizeof(ai));
-> -	if (conn_type == 0) { /* HDMI */
-> +	if ((conn_type == 0) || /* HDMI */
-> +		/* Nvidia DisplayPort: Nvidia HW expects same layout as HDMI */
-> +		(conn_type == 1 && spec->nv_dp_workaround)) {
->  		struct hdmi_audio_infoframe *hdmi_ai = &ai.hdmi;
->  
-> -		hdmi_ai->type		= 0x84;
-> -		hdmi_ai->ver		= 0x01;
-> -		hdmi_ai->len		= 0x0a;
-> +		if (conn_type == 0) { /* HDMI */
-> +			hdmi_ai->type		= 0x84;
-> +			hdmi_ai->ver		= 0x01;
-> +			hdmi_ai->len		= 0x0a;
-> +		} else {/* Nvidia DP */
-> +			hdmi_ai->type		= 0x84;
-> +			hdmi_ai->ver		= 0x1b;
-> +			hdmi_ai->len		= 0x11 << 2;
-> +		}
->  		hdmi_ai->CC02_CT47	= active_channels - 1;
->  		hdmi_ai->CA		= ca;
->  		hdmi_checksum_audio_infoframe(hdmi_ai);
-> @@ -3617,6 +3628,7 @@ static int patch_nvhdmi_2ch(struct hda_codec *codec)
->  	spec->pcm_playback.rates = SUPPORTED_RATES;
->  	spec->pcm_playback.maxbps = SUPPORTED_MAXBPS;
->  	spec->pcm_playback.formats = SUPPORTED_FORMATS;
-> +	spec->nv_dp_workaround = true;
->  	return 0;
->  }
->  
-> @@ -3756,6 +3768,7 @@ static int patch_nvhdmi(struct hda_codec *codec)
->  	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
->  		nvhdmi_chmap_cea_alloc_validate_get_type;
->  	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
-> +	spec->nv_dp_workaround = true;
->  
->  	codec->link_down_at_suspend = 1;
->  
-> @@ -3779,6 +3792,7 @@ static int patch_nvhdmi_legacy(struct hda_codec *codec)
->  	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
->  		nvhdmi_chmap_cea_alloc_validate_get_type;
->  	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
-> +	spec->nv_dp_workaround = true;
->  
->  	codec->link_down_at_suspend = 1;
->  
-> @@ -3992,6 +4006,7 @@ static int tegra_hdmi_init(struct hda_codec *codec)
->  	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
->  		nvhdmi_chmap_cea_alloc_validate_get_type;
->  	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
-> +	spec->nv_dp_workaround = true;
->  
->  	return 0;
->  }
-> -- 
-> 2.17.1
-> 
+Astrid

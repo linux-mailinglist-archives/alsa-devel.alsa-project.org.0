@@ -2,96 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEAE5B868B
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 12:44:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E0D5B86B5
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 12:53:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09FEF857;
-	Wed, 14 Sep 2022 12:44:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09FEF857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 652E51872;
+	Wed, 14 Sep 2022 12:52:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652E51872
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663152299;
-	bh=n4UqAseGdtmS96QkWVgSJ5zJIse5crgOdUPyYV7ro2o=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DfBhfXyIpptyrYylI0xT6hWHgon3x62RMBAuq09CmykHiQiUKjjfoPVu6bLdYgkRF
-	 TlO5wLz+bJ04fF041MH7wHMIAlkz8tY9opdAkC1cDnS1UyPeOXOI9egHeS9DGYQsXb
-	 pfjkc8dHnTGTJxaG8WsXMlhCPRFy1QGOQAtZqnKE=
+	s=default; t=1663152829;
+	bh=Cr0BOaCCtWPqyHDM1a5uxccS2qxfGlPIO+GxMIAL2gE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m6dXrFd4y3g0F/NJeZXvQjCWuAB9pWv+cqLHksAO5i9a9f0Wq3ZRHrMt+M/zbPrRL
+	 hBjhwwG7K5GwwZQ+CfEmGrlP6Zgghip0nIKihDZXu4AYB/WFukRjH+rLNvXPdiwd/a
+	 I7pDu8shB7Q/iwudPbDydPS/59NHCleKusy4LOOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E8A1F8016E;
-	Wed, 14 Sep 2022 12:44:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBEE8F8016E;
+	Wed, 14 Sep 2022 12:52:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA6D7F8008E; Wed, 14 Sep 2022 12:43:58 +0200 (CEST)
+ id E3501F8016E; Wed, 14 Sep 2022 12:52:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50051.outbound.protection.outlook.com [40.107.5.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69B3EF8008E
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:43:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69B3EF8008E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CB56F8008E
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CB56F8008E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MgwbfYaj"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NCWFoNLk"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 034D11F74A;
- Wed, 14 Sep 2022 10:43:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663152236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PcVLr9WYJ9BVec82oUwDDAjvUYAC4fWLz+GAaqfWCXo=;
- b=MgwbfYajHqSN62u/3AGxahwjTt1TldXfGpM2koBbr49QYqNgN4PbLDgwJD1bMrPrwp9xrK
- cywZ4mjJZoiM/Q6M8V+kLrjoieGenMFOqkryYRvTVCyyiuRspwwbZM6s0X2lar8LC4/Cmg
- 3XXMJBaFhOatgqUUKx2bkgUdjvATm2M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663152236;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PcVLr9WYJ9BVec82oUwDDAjvUYAC4fWLz+GAaqfWCXo=;
- b=NCWFoNLkoDIpPHVzpHZxyVCPGETTUuFog5S0yZTTyxUsC41ox0mcCjM5vC+OQfMg3Ug93d
- jhzL03FOm67iaTBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB75013494;
- Wed, 14 Sep 2022 10:43:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cSEHLWuwIWMhTwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 10:43:55 +0000
-Date: Wed, 14 Sep 2022 12:43:55 +0200
-Message-ID: <87v8pqtevo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH -next] ASoC: Intel: fix unused-variable warning in
- probe_codec
-In-Reply-To: <YyGte0fkdquTxLC4@sirena.org.uk>
-References: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
- <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
- <87zgf2tfn3.wl-tiwai@suse.de> <YyGte0fkdquTxLC4@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org,
- peter.ujfalusi@linux.intel.com, Gaosheng Cui <cuigaosheng1@huawei.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="kphC23G7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MjtGXM9LBQtNSWHBbKEL7pXQPHY8SuEDKOWJmkVZBNTRoNVQSj28ykRK3sGq3gZmiKFdrVK6QMVQQqOKOyVGwpEFnEoIpub6XV99addHahWKLIXbCgbOV6Xfn0q53mfZe+34/ZSdOUcHdY5UHYojKpQxjkr6L9f2ttPdFwsyuVgU0qIje9348Hr93KtRPYW88aUcJvWdWqEgtMOZyHJTHma2B1OD7rfb2ytlHJwTXzE2W3lpn2a5lu7YmHAwoszctnaMEKlCa4Onwq7RDZIo2LhS6jkjqAetAzcbhurDPydTQ6+5dvhc+XL2t16ZTBsuAgIfUXEepJecp8Ioljc74Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zsrqmrLv74rcLj6YggfdbLsnbkEzyJCO9HjL70xxRms=;
+ b=geBW7NZvKCig3/tJVUFOwMdzuEK8j8vRi6hs14aSXCG/4ECniMXjk3oqx0HBUPP9tAL4sKWX6YsNHUJuoObDzLHWhfbSteyqZTFO9j0y0xk1II5VpBr25cQnRdrYSTLAMyTAqIBKsUeEZlsWFg4IlW1O28b176X1xaLjBF0UkmZVWYyiSdTNbyL9FqThNaZW1wbms4z1y+2gqOa88UkOfENav24uAwwC7uOS7GqvKDOBzN9d3hattct8ipImEfVC4FkqMODClgLDHZaKA+x/A2vQ7vv0mCNjFfj5PrqcinpRDSSqAgdiVPGHCa7WC+xaWdX+Vz/HBWl9bxVOREmR6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zsrqmrLv74rcLj6YggfdbLsnbkEzyJCO9HjL70xxRms=;
+ b=kphC23G7uSR/uGKB9lNFHX37g7hTBrMYoFUnTj35i4Gli/cfMHTT/n/uFA9FZdhutlAE5jy0MM8EI+lQDGUpACRJH/Ht8qly/gVwrcW+grOEh+wShQF8MO8FKHw5qVBPdrTc8xhIuTp/8HKithE4xAzM0py0UwGHAz5syjNERpk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
+ by DU0PR04MB9466.eurprd04.prod.outlook.com (2603:10a6:10:35a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
+ 2022 10:52:36 +0000
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::7008:1596:bb4:d904]) by VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::7008:1596:bb4:d904%4]) with mapi id 15.20.5612.022; Wed, 14 Sep 2022
+ 10:52:36 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
+ shengjiu.wang@nxp.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH v2 0/7] Create a new sound card to access MICFIL based on
+ rpmsg channel
+Date: Wed, 14 Sep 2022 18:51:38 +0800
+Message-Id: <20220914105145.2543646-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0017.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::10) To VI1PR04MB4222.eurprd04.prod.outlook.com
+ (2603:10a6:803:46::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4222:EE_|DU0PR04MB9466:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30fb2649-5d92-4f27-4d3c-08da963f3c4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RQfA72kCzXAvm7CljvDOdL7oZNatUHbBoEh2YrGRv8NRtteOv0moI5vM2UEicStyg7nn2pSLJIvynoSqhDClbbVbrAI7mSWhtzF727yht5waQe61mMryp6CrfWufPxBsGNbtAbdvLo1Q5WFJWnqchcy+FBwe6M/yQ4gRRP29aw0GLIKjlPCVrLgq+9Pi0TlqFkBZTyqmNQiL+U0SCdq3QZk/noUmKTeydKUnXQ58QH/OtWbJj7ZoxD1YvHHMvuwjGQuvyhAh2/SUL2zKiG7Q8wqHLmlHNyvadOjFXhU7CPr4tUoTqcQsxd8Cw+gCIRZBw3qfcdOMpwILgMpme6QAr/S+lhb6kDoKQ6EFVZz8KD4h1DCM874wpgIjYfdF7LDjciUYy9sHKgF9N8CLgTZsz253U7xJu1STBmRGOyDvgZPX3X4na3syF47HozPpjPUeroel4/4Mp6t6IEU/CrhKz8pSBMAxmu08svOqc6fS4SQfTQLC2WtdWwrlX7LgYFPgRUaIQZRCqG82K4JDZ7s6Ts0SiM99V5I7RnfODuJclSVhFbGr1qyYdsqKod7s/xJy6MMBMeaLtXyV0PG9ppoicS2Cz5Bp+8YROSNFbGXQvZl5wBkNCEHW8MBtPyQnjkZW5ga+qql9kYLq0sopitYDNKb8cnRohpwdWebPMwfRVhtdSkVfhED2Q64HevVuqAqRHKBuwIW4rL3j0CUU8PVp0DfqOLcvDxV/TyQVnx+kbcVm3+xSNpgprGUm12932bf5JE0qREWiVe2fEDZRY1mg+t0/kf29nfK7mxAEIKBC1to=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(39860400002)(346002)(136003)(396003)(376002)(451199015)(38350700002)(478600001)(5660300002)(8676002)(8936002)(66476007)(6486002)(66556008)(186003)(2616005)(26005)(41300700001)(6506007)(44832011)(1076003)(83380400001)(921005)(86362001)(38100700002)(52116002)(36756003)(4326008)(7416002)(2906002)(66946007)(316002)(6512007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?deuDKcHOkXqFis8gjP7nBD5rC3xekdDAzNnuoi/ODYKoQxdSoNEndAjf66Og?=
+ =?us-ascii?Q?8kH8MRHeR2RwaAPOGg7fBZ1ScUnFo5RXxrDgC2yCIWxJvHUTdxtTy1DV1SsY?=
+ =?us-ascii?Q?aLjRJPwMnx+iYT7SU/AvgI2D7bhi3sWQUfaZPCT4iDTQnpFqfQSnOruWiOyZ?=
+ =?us-ascii?Q?B1T5BT+RMfFN2HvDaG/CZ13CvoBNysXkk6V8rsm5uhWllmGuRkuJJEkr7lgy?=
+ =?us-ascii?Q?G6m7LZAw3YDBYW8bgCL1uwHGwg/EgJc1u2EuNzgFYqdr4EmqVLOR65vPLlJv?=
+ =?us-ascii?Q?0rVfSngHm4KoxhWQsO4Gogml80jvu5UOnTsb3vubpwa6EE6ogaNxo5QiF8sG?=
+ =?us-ascii?Q?TkH071BfPdd/q2tyzrFBIKwmXYeMSsNbs9YR68RlexIDqlRiHtd0TQHR/BXi?=
+ =?us-ascii?Q?Dc5dxmypdKh/8VMx+x3hZtubcw2x7VtZktj+NuXXXw27Gu4tQRRRWMY5qUK4?=
+ =?us-ascii?Q?d2KVANY+Jym42YCd43GEb4aVqegW7LlhG1WTb1ASvhyLsFaIsXmTYcl7N5Pu?=
+ =?us-ascii?Q?DHqqyI2viVTTJ2wBAqPuEEbO8nj4cGG9b4rlQnQXBqt19059A2dXIiyxnC2f?=
+ =?us-ascii?Q?mw7EVVeKtXmXFLNThgYWpcyngV7SrRutf3Wu/r0723ZGvUNS6pcHvfyzOX2B?=
+ =?us-ascii?Q?1zj7MyRX5xTeZ2ewSkPmXqTDHgjbMRZJ0XRuuc9lzBgL2Umh54WGp1ZNXf82?=
+ =?us-ascii?Q?LBjtweuGu3Vx/10Y5hoNsVCy3GTTfda1H3bwhSDw0spsns/MATVl+MEWMBoW?=
+ =?us-ascii?Q?90AdrsehSwqvxct089RHYocCRWMgsITJctxEHPAFI89HhQCPhE6/UpyQRNJl?=
+ =?us-ascii?Q?IqjS9abtbllgka7ANVHgQB7XyakKX984lYNbdh1VD+iRwxLK3pr6Al4FTyua?=
+ =?us-ascii?Q?45vaw2heETK535cvjWHOPSmrNYnwNnPKEXv1gqAo9XubDKi4IAQBjL7R9hCr?=
+ =?us-ascii?Q?RygWT8IReTHfsQo0uy6tQUEv3zvFt+HASkkIQ77jBLoY+XnxWuLxu9N6zhbM?=
+ =?us-ascii?Q?in/isJeTu9/svr54Q/xlhhENIqWnKI9jQWiVoBNwSNNYLPhfV5LlqN/mre1G?=
+ =?us-ascii?Q?8VtOwq0BHInOVyQqJmE2vO5S5qbYK06QgyNpt8MJfP824rqQb5T+IaekFZxW?=
+ =?us-ascii?Q?vukGZEPVhJ6dMfwvowApFNrAFvtxPeTtDHCTED6jmsoJGTSm2a9nZ1WARZUH?=
+ =?us-ascii?Q?YuIvdGIac0N5Z0bzbihn/RDmpEmWd9R4NYFfxmDb+7jr3J9IZQno81PrJ18F?=
+ =?us-ascii?Q?VITCBqnvScgy2fUo/8/A51Y7aebKx3YmgTiE/sgJWbezf7jQ5QL5sg+i+uGO?=
+ =?us-ascii?Q?Rr+VSFhx84TyViEz2vtDxfUU9np7vCfvaibmx8DqfLp80C/vV/WuMrjpY90J?=
+ =?us-ascii?Q?r3ArGhHW8Eflbs/KH3EI2SsAxwbbL+sZhjgueMTHbZSV+p4A16ZDNMQCqEBp?=
+ =?us-ascii?Q?+/krBSB4swXdFNp94S8kHnLcsf4TcKCjQIxlxf1oP3/m3iUbb+9xf+Dum/3D?=
+ =?us-ascii?Q?eSP7H0QwXZn6ZZF5xiXV7AoYztGl1Qhltl1tOY9u0/JSfY1UZb6eCBtB2QcT?=
+ =?us-ascii?Q?15msaaRrFaKf9xjCHUU3+9gPsuSI093AWQZZwGvj?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30fb2649-5d92-4f27-4d3c-08da963f3c4a
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 10:52:36.7298 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B9xakmwfVQpO5UdqJpfZ9CNvAYywga7qa0A8urBSKnF3k2qNpGz1pf/rujwz9WKFPQnaF7YUF1B6djB0AqMeSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9466
+Cc: Chancel Liu <chancel.liu@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,34 +148,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Sep 2022 12:31:23 +0200,
-Mark Brown wrote:
-> 
-> On Wed, Sep 14, 2022 at 12:27:28PM +0200, Takashi Iwai wrote:
-> > Mark Brown wrote:
-> 
-> > > [1/1] ASoC: Intel: fix unused-variable warning in probe_codec
-> > >       commit: 515626a33a194c4caaf2879dbf9e00e882582af0
-> 
-> > I thought the buggy commit 3fd63658caed9 was present only in my tree
-> > for now, but if it's in your tree, that's fine to apply through
-> > yours.  Then I'll drop from mine.
-> 
-> Huh, right - I think you're right here and it is only in your
-> tree, it just didn't trigger any issues in my coverage tests
-> prior to merge.  Probably best to leave it in your tree and
-> either have a double apply or I'll revert it from mine.  Either
-> way it'll get fixed by the time it gets sent to Linus.
->
-> I'd not remembered that you had any extra stuff for ASoC in your
-> tree, sorry.
+At a previous time, we have successfully created a virtual sound card
+based on rpmsg. The sound card works under this mechanism Cortex-A core
+tells the Cortex-M core the format, rate, channel, .etc configuration
+of the PCM parameters and Cortex-M controls real hardware devices such
+as SAI and DMA. From the view of Linux side, the sound card is bound to
+a rpmsg channel through which it can access SAI.
 
-No problem, it was rather an exception.
+Here these patches are introduced to create a new virtual sound card to
+access MICFIL based on a new created rpmsg channel. It's easy to create
+a new rpmsg channel for MICFIL through rpmsg name service announcment.
+Also the other ASoC components bound to this rpmsg MICFIL sound card
+will be registered with these patches.
 
-I don't mind to keep in both trees; it should be resolved at the merge
-of ASoC tree before the PR to Linus, if any.
+If other sound cards using different hardware devices needs to be
+created over rpmsg in the future, these patches can be referred.
 
+changes in v2:
+- Rename property in bindings file according to Krzysztof's comments
+- Update codes and comments according to Shengjiu's comments
 
-thanks,
+Chancel Liu (7):
+  ASoC: dt-bindings: fsl_rpmsg: Add a property to assign the rpmsg
+    channel
+  ASoC: imx-audio-rpmsg: Create rpmsg channel for MICFIL
+  ASoC: imx-pcm-rpmsg: Register different platform drivers
+  ASoC: imx-pcm-rpmsg: Multi-channel support for sound card based on
+    rpmsg
+  ASoC: fsl_rpmsg: Register different ASoC machine devices
+  ASoC: fsl_rpmsg: Multi-channel support in CPU DAI driver
+  ASoC: imx-rpmsg: Assign platform driver used by machine driver to link
+    with
 
-Takashi
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 37 ++++++++++++++++++-
+ sound/soc/fsl/fsl_rpmsg.c                     |  6 +--
+ sound/soc/fsl/imx-audio-rpmsg.c               |  3 +-
+ sound/soc/fsl/imx-pcm-rpmsg.c                 | 10 +++--
+ sound/soc/fsl/imx-rpmsg.c                     |  6 ++-
+ 5 files changed, 52 insertions(+), 10 deletions(-)
+
+--
+2.25.1
+

@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225415BA9B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 11:54:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD82E5BA9B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 11:55:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C63C11A75;
-	Fri, 16 Sep 2022 11:53:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C63C11A75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 878101A60;
+	Fri, 16 Sep 2022 11:54:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 878101A60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663322076;
-	bh=eYxUG7KHNij4FDw20kfIzj9gN6Ed4YED6QF0HTblcRM=;
+	s=default; t=1663322104;
+	bh=s7JrSuwXyYsbfM6jAHiv0zY1QAgntCI4+R62aTVewY8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dDkh81HOhR8G33TDhoqLHXPEaSPM98pQ2BpEZfmE88A/pEFiq3ETG8S87HASO+KSm
-	 XG9yRIm6Q7MT3Ac9WyRy1FJrFkj6o4/GdY1dvd39cbncHtCYRTk8AXM6rWxwQJcrvT
-	 vVjS6AjO6ZMitlFnepRPG+nRj0tnkWosO/c5m/a8=
+	b=boGrKEQHFY8OMxdllgbA3JSpvmJKj4HEcO+M2Yc+Pxk4bGfZbNtBgC3QdRtkkdlsv
+	 4F6vAFGOBknc2HDskIBR2WsRvyuGg3g2IPPsYbJcBNxbAqSqHUGhQKFO3szZDkUPUu
+	 HzFdNovheKbqCbs2vsp19cCsoKaegCKhZSQh1DXM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34A30F80496;
+	by alsa1.perex.cz (Postfix) with ESMTP id A4D50F80535;
 	Fri, 16 Sep 2022 11:53:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D67F1F8014E; Wed, 14 Sep 2022 12:19:01 +0200 (CEST)
+ id 9D35EF8014E; Wed, 14 Sep 2022 12:22:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71E63F800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71E63F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59F58F8008E
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59F58F8008E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="owEMl6AO"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAEmUd001145;
- Wed, 14 Sep 2022 10:18:52 GMT
+ header.b="DPbru+Wz"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28E9SuJw008032;
+ Wed, 14 Sep 2022 10:22:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TauJo4S33vubiSKMJ8vkdsBpJE36madk8or1JdPhPtE=;
- b=owEMl6AOMvp0gM+XCVPA+DAuIvwts+9qcvs5p0+ATTATOxq5gsI042eFqY3LtH6lW817
- pazqUs6PZly1aKhS4XTQj4/EABeCeCyOVKdSWEjDXgPazjGeEg4yj56VdilzP5ljGKdE
- ThPo8/22y9trmcxzqg9tGSqoKXG5pnFV8zKgPD30+NLaYTedY+PvDwTZGWfG2DZXD7xT
- zIDZnjpNumcuFIDG8S7r1EHd8ypefjrlt5B5cW1bgu+yeZqjX7pQd8ZLuxY8pDp9mxxA
- 4kVSo6jOk2c9mcBvUUIAPSmx9RRr25DzMe1mFj4idKfc78UTMEwagkaBpGGb1HpJSMNw aw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=eEkLslpr+tNgGZKF+emI7z6RQzFcHb8DKHBoODfssng=;
+ b=DPbru+WzqsAQrA3Zt8Z1XhX+nT2lFWfDBWGPQsp9zZx9ZfwcEGKzFdj5HmIN7X5KWGlC
+ /eyF6J51bwzlxpTRSzBb5+BEE1m0pbzaLJlw85772vMhwGNKyGFWNI1lHpAtu2WgrZS9
+ VnLPk7Wt3q1FD07Z6G61TloY7HlVonLj4vgd5rmoLHouGdpsaoC0Yb9hjWDG3wNEi68a
+ gvDvJ5r3yULL/eK6kYdhqSfaG8V6LCF/mCN6TES6AfuNJbB1ybKjBZ51+V6uuFrqqEhD
+ 8Eba3+gK1kk+cjg78OiouFQJIYQ3/zor4Qnjw5KgaLxbJNoH7CKprxarPq9wsqnynsXx ZQ== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjxyva6be-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjy0c9ut7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:18:52 +0000
-Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAIp5D031835; 
- Wed, 14 Sep 2022 10:18:51 GMT
+ Wed, 14 Sep 2022 10:22:22 +0000
+Received: from pps.filterd (NALASPPMTA01.qualcomm.com [127.0.0.1])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAJMaC008864; 
+ Wed, 14 Sep 2022 10:22:21 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 3jjqbt4rfh-1
+ by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 3jh45kn765-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:18:51 +0000
-Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
+ Wed, 14 Sep 2022 10:22:21 +0000
+Received: from NALASPPMTA01.qualcomm.com (NALASPPMTA01.qualcomm.com
  [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28EAIpIO031830;
- Wed, 14 Sep 2022 10:18:51 GMT
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28EAJigW009529;
+ Wed, 14 Sep 2022 10:22:21 GMT
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 28EAIooi031829
+ by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 28EAMK1V012539
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:18:50 +0000
+ Wed, 14 Sep 2022 10:22:20 +0000
 Received: from [10.79.43.230] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 14 Sep
- 2022 03:18:46 -0700
-Subject: Re: [PATCH 4/4] soc: qcom: pdr: Make QMI message rules const
+ 2022 03:22:15 -0700
+Subject: Re: [PATCH 1/4] net: ipa: Make QMI message rules const
 To: Jeff Johnson <quic_jjohnson@quicinc.com>, Alex Elder <elder@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -90,21 +90,18 @@ To: Jeff Johnson <quic_jjohnson@quicinc.com>, Alex Elder <elder@kernel.org>,
  Dybcio" <konrad.dybcio@somainline.org>
 References: <20220912232526.27427-1-quic_jjohnson@quicinc.com>
  <20220912232526.27427-2-quic_jjohnson@quicinc.com>
- <20220912232526.27427-3-quic_jjohnson@quicinc.com>
- <20220912232526.27427-4-quic_jjohnson@quicinc.com>
- <20220912232526.27427-5-quic_jjohnson@quicinc.com>
 From: Sibi Sankar <quic_sibis@quicinc.com>
-Message-ID: <f8f43b22-bb13-71ff-15fc-a323d0b56ead@quicinc.com>
-Date: Wed, 14 Sep 2022 15:48:43 +0530
+Message-ID: <4fe0283d-d2f4-a593-0748-a180e3589832@quicinc.com>
+Date: Wed, 14 Sep 2022 15:52:12 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20220912232526.27427-5-quic_jjohnson@quicinc.com>
+In-Reply-To: <20220912232526.27427-2-quic_jjohnson@quicinc.com>
 Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-QCInternal: smtphost
@@ -112,16 +109,16 @@ X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: bMVDI2dAzz-eh0sNk3DHpUhUOHYrziiX
-X-Proofpoint-ORIG-GUID: bMVDI2dAzz-eh0sNk3DHpUhUOHYrziiX
+X-Proofpoint-ORIG-GUID: WhKfS7_gS2wQmYILn1N4lixApnkS-2dD
+X-Proofpoint-GUID: WhKfS7_gS2wQmYILn1N4lixApnkS-2dD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
  definitions=2022-09-14_03,2022-09-14_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- mlxlogscore=999 suspectscore=0 mlxscore=0 bulkscore=0 spamscore=0
- phishscore=0 priorityscore=1501 clxscore=1011 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ lowpriorityscore=0
+ malwarescore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501
+ phishscore=0 mlxscore=0 bulkscore=0 adultscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2208220000 definitions=main-2209140050
 X-Mailman-Approved-At: Fri, 16 Sep 2022 11:53:37 +0200
 Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -147,108 +144,139 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 On 9/13/22 4:55 AM, Jeff Johnson wrote:
 > Commit ff6d365898d ("soc: qcom: qmi: use const for struct
 > qmi_elem_info") allows QMI message encoding/decoding rules to be
-> const, so do that for QCOM PDR.
+> const, so do that for IPA.
 > 
 > Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
 
 Reviewed-by: Sibi Sankar <quic_sibis@quicinc.com>
 
 > ---
->   drivers/soc/qcom/pdr_internal.h | 20 ++++++++++----------
->   1 file changed, 10 insertions(+), 10 deletions(-)
+>   drivers/net/ipa/ipa_qmi_msg.c | 20 ++++++++++----------
+>   drivers/net/ipa/ipa_qmi_msg.h | 20 ++++++++++----------
+>   2 files changed, 20 insertions(+), 20 deletions(-)
 > 
-> diff --git a/drivers/soc/qcom/pdr_internal.h b/drivers/soc/qcom/pdr_internal.h
-> index a30422214943..03c282b7f17e 100644
-> --- a/drivers/soc/qcom/pdr_internal.h
-> +++ b/drivers/soc/qcom/pdr_internal.h
-> @@ -28,7 +28,7 @@ struct servreg_location_entry {
->   	u32 instance;
+> diff --git a/drivers/net/ipa/ipa_qmi_msg.c b/drivers/net/ipa/ipa_qmi_msg.c
+> index 6838e8065072..c5a5dac284a9 100644
+> --- a/drivers/net/ipa/ipa_qmi_msg.c
+> +++ b/drivers/net/ipa/ipa_qmi_msg.c
+> @@ -9,7 +9,7 @@
+>   #include "ipa_qmi_msg.h"
+>   
+>   /* QMI message structure definition for struct ipa_indication_register_req */
+> -struct qmi_elem_info ipa_indication_register_req_ei[] = {
+> +const struct qmi_elem_info ipa_indication_register_req_ei[] = {
+>   	{
+>   		.data_type	= QMI_OPT_FLAG,
+>   		.elem_len	= 1,
+> @@ -116,7 +116,7 @@ struct qmi_elem_info ipa_indication_register_req_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_location_entry_ei[] = {
-> +static const struct qmi_elem_info servreg_location_entry_ei[] = {
+>   /* QMI message structure definition for struct ipa_indication_register_rsp */
+> -struct qmi_elem_info ipa_indication_register_rsp_ei[] = {
+> +const struct qmi_elem_info ipa_indication_register_rsp_ei[] = {
 >   	{
->   		.data_type      = QMI_STRING,
->   		.elem_len       = SERVREG_NAME_LENGTH + 1,
-> @@ -74,7 +74,7 @@ struct servreg_get_domain_list_req {
->   	u32 domain_offset;
+>   		.data_type	= QMI_STRUCT,
+>   		.elem_len	= 1,
+> @@ -134,7 +134,7 @@ struct qmi_elem_info ipa_indication_register_rsp_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_get_domain_list_req_ei[] = {
-> +static const struct qmi_elem_info servreg_get_domain_list_req_ei[] = {
+>   /* QMI message structure definition for struct ipa_driver_init_complete_req */
+> -struct qmi_elem_info ipa_driver_init_complete_req_ei[] = {
+> +const struct qmi_elem_info ipa_driver_init_complete_req_ei[] = {
 >   	{
->   		.data_type      = QMI_STRING,
->   		.elem_len       = SERVREG_NAME_LENGTH + 1,
-> @@ -116,7 +116,7 @@ struct servreg_get_domain_list_resp {
->   	struct servreg_location_entry domain_list[SERVREG_DOMAIN_LIST_LENGTH];
+>   		.data_type	= QMI_UNSIGNED_1_BYTE,
+>   		.elem_len	= 1,
+> @@ -151,7 +151,7 @@ struct qmi_elem_info ipa_driver_init_complete_req_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_get_domain_list_resp_ei[] = {
-> +static const struct qmi_elem_info servreg_get_domain_list_resp_ei[] = {
+>   /* QMI message structure definition for struct ipa_driver_init_complete_rsp */
+> -struct qmi_elem_info ipa_driver_init_complete_rsp_ei[] = {
+> +const struct qmi_elem_info ipa_driver_init_complete_rsp_ei[] = {
 >   	{
->   		.data_type      = QMI_STRUCT,
->   		.elem_len       = 1,
-> @@ -199,7 +199,7 @@ struct servreg_register_listener_req {
->   	char service_path[SERVREG_NAME_LENGTH + 1];
+>   		.data_type	= QMI_STRUCT,
+>   		.elem_len	= 1,
+> @@ -169,7 +169,7 @@ struct qmi_elem_info ipa_driver_init_complete_rsp_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_register_listener_req_ei[] = {
-> +static const struct qmi_elem_info servreg_register_listener_req_ei[] = {
+>   /* QMI message structure definition for struct ipa_init_complete_ind */
+> -struct qmi_elem_info ipa_init_complete_ind_ei[] = {
+> +const struct qmi_elem_info ipa_init_complete_ind_ei[] = {
 >   	{
->   		.data_type      = QMI_UNSIGNED_1_BYTE,
->   		.elem_len       = 1,
-> @@ -227,7 +227,7 @@ struct servreg_register_listener_resp {
->   	enum servreg_service_state curr_state;
+>   		.data_type	= QMI_STRUCT,
+>   		.elem_len	= 1,
+> @@ -187,7 +187,7 @@ struct qmi_elem_info ipa_init_complete_ind_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_register_listener_resp_ei[] = {
-> +static const struct qmi_elem_info servreg_register_listener_resp_ei[] = {
+>   /* QMI message structure definition for struct ipa_mem_bounds */
+> -struct qmi_elem_info ipa_mem_bounds_ei[] = {
+> +const struct qmi_elem_info ipa_mem_bounds_ei[] = {
 >   	{
->   		.data_type      = QMI_STRUCT,
->   		.elem_len       = 1,
-> @@ -263,7 +263,7 @@ struct servreg_restart_pd_req {
->   	char service_path[SERVREG_NAME_LENGTH + 1];
+>   		.data_type	= QMI_UNSIGNED_4_BYTE,
+>   		.elem_len	= 1,
+> @@ -208,7 +208,7 @@ struct qmi_elem_info ipa_mem_bounds_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_restart_pd_req_ei[] = {
-> +static const struct qmi_elem_info servreg_restart_pd_req_ei[] = {
+>   /* QMI message structure definition for struct ipa_mem_array */
+> -struct qmi_elem_info ipa_mem_array_ei[] = {
+> +const struct qmi_elem_info ipa_mem_array_ei[] = {
 >   	{
->   		.data_type      = QMI_STRING,
->   		.elem_len       = SERVREG_NAME_LENGTH + 1,
-> @@ -280,7 +280,7 @@ struct servreg_restart_pd_resp {
->   	struct qmi_response_type_v01 resp;
+>   		.data_type	= QMI_UNSIGNED_4_BYTE,
+>   		.elem_len	= 1,
+> @@ -229,7 +229,7 @@ struct qmi_elem_info ipa_mem_array_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_restart_pd_resp_ei[] = {
-> +static const struct qmi_elem_info servreg_restart_pd_resp_ei[] = {
+>   /* QMI message structure definition for struct ipa_mem_range */
+> -struct qmi_elem_info ipa_mem_range_ei[] = {
+> +const struct qmi_elem_info ipa_mem_range_ei[] = {
 >   	{
->   		.data_type      = QMI_STRUCT,
->   		.elem_len       = 1,
-> @@ -300,7 +300,7 @@ struct servreg_state_updated_ind {
->   	u16 transaction_id;
+>   		.data_type	= QMI_UNSIGNED_4_BYTE,
+>   		.elem_len	= 1,
+> @@ -250,7 +250,7 @@ struct qmi_elem_info ipa_mem_range_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_state_updated_ind_ei[] = {
-> +static const struct qmi_elem_info servreg_state_updated_ind_ei[] = {
+>   /* QMI message structure definition for struct ipa_init_modem_driver_req */
+> -struct qmi_elem_info ipa_init_modem_driver_req_ei[] = {
+> +const struct qmi_elem_info ipa_init_modem_driver_req_ei[] = {
 >   	{
->   		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
->   		.elem_len       = 1,
-> @@ -336,7 +336,7 @@ struct servreg_set_ack_req {
->   	u16 transaction_id;
+>   		.data_type	= QMI_OPT_FLAG,
+>   		.elem_len	= 1,
+> @@ -645,7 +645,7 @@ struct qmi_elem_info ipa_init_modem_driver_req_ei[] = {
 >   };
 >   
-> -static struct qmi_elem_info servreg_set_ack_req_ei[] = {
-> +static const struct qmi_elem_info servreg_set_ack_req_ei[] = {
+>   /* QMI message structure definition for struct ipa_init_modem_driver_rsp */
+> -struct qmi_elem_info ipa_init_modem_driver_rsp_ei[] = {
+> +const struct qmi_elem_info ipa_init_modem_driver_rsp_ei[] = {
 >   	{
->   		.data_type      = QMI_STRING,
->   		.elem_len       = SERVREG_NAME_LENGTH + 1,
-> @@ -362,7 +362,7 @@ struct servreg_set_ack_resp {
->   	struct qmi_response_type_v01 resp;
+>   		.data_type	= QMI_STRUCT,
+>   		.elem_len	= 1,
+> diff --git a/drivers/net/ipa/ipa_qmi_msg.h b/drivers/net/ipa/ipa_qmi_msg.h
+> index 495e85abe50b..8dfac59ea0ed 100644
+> --- a/drivers/net/ipa/ipa_qmi_msg.h
+> +++ b/drivers/net/ipa/ipa_qmi_msg.h
+> @@ -242,15 +242,15 @@ struct ipa_init_modem_driver_rsp {
 >   };
 >   
-> -static struct qmi_elem_info servreg_set_ack_resp_ei[] = {
-> +static const struct qmi_elem_info servreg_set_ack_resp_ei[] = {
->   	{
->   		.data_type      = QMI_STRUCT,
->   		.elem_len       = 1,
+>   /* Message structure definitions defined in "ipa_qmi_msg.c" */
+> -extern struct qmi_elem_info ipa_indication_register_req_ei[];
+> -extern struct qmi_elem_info ipa_indication_register_rsp_ei[];
+> -extern struct qmi_elem_info ipa_driver_init_complete_req_ei[];
+> -extern struct qmi_elem_info ipa_driver_init_complete_rsp_ei[];
+> -extern struct qmi_elem_info ipa_init_complete_ind_ei[];
+> -extern struct qmi_elem_info ipa_mem_bounds_ei[];
+> -extern struct qmi_elem_info ipa_mem_array_ei[];
+> -extern struct qmi_elem_info ipa_mem_range_ei[];
+> -extern struct qmi_elem_info ipa_init_modem_driver_req_ei[];
+> -extern struct qmi_elem_info ipa_init_modem_driver_rsp_ei[];
+> +extern const struct qmi_elem_info ipa_indication_register_req_ei[];
+> +extern const struct qmi_elem_info ipa_indication_register_rsp_ei[];
+> +extern const struct qmi_elem_info ipa_driver_init_complete_req_ei[];
+> +extern const struct qmi_elem_info ipa_driver_init_complete_rsp_ei[];
+> +extern const struct qmi_elem_info ipa_init_complete_ind_ei[];
+> +extern const struct qmi_elem_info ipa_mem_bounds_ei[];
+> +extern const struct qmi_elem_info ipa_mem_array_ei[];
+> +extern const struct qmi_elem_info ipa_mem_range_ei[];
+> +extern const struct qmi_elem_info ipa_init_modem_driver_req_ei[];
+> +extern const struct qmi_elem_info ipa_init_modem_driver_rsp_ei[];
+>   
+>   #endif /* !_IPA_QMI_MSG_H_ */
 > 

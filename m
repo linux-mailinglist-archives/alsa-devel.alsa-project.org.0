@@ -2,88 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED76D5BA788
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 09:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225415BA9B5
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 11:54:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E52D18BE;
-	Fri, 16 Sep 2022 09:34:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E52D18BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C63C11A75;
+	Fri, 16 Sep 2022 11:53:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C63C11A75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663313735;
-	bh=r1xFM1d/VeuoVrYAkhaYwWHAPHd3oQFEMpELTmAkdWQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1663322076;
+	bh=eYxUG7KHNij4FDw20kfIzj9gN6Ed4YED6QF0HTblcRM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lWh36MfSMBpopvwwwROuR7VCDvkLIlcGOzicdgH4zSTAFNvGEvFxzHPUmSXkocho6
-	 NYIrTw/JxExs9fSkE3xiuD2xEh5In0mMNTTZo50Fm0dEpF2ugkeNBBGIX+F75dL/ei
-	 n1rBAqV2bBKOLO+pm0n5loFi801BPhGcFtZ4X4uc=
+	b=dDkh81HOhR8G33TDhoqLHXPEaSPM98pQ2BpEZfmE88A/pEFiq3ETG8S87HASO+KSm
+	 XG9yRIm6Q7MT3Ac9WyRy1FJrFkj6o4/GdY1dvd39cbncHtCYRTk8AXM6rWxwQJcrvT
+	 vVjS6AjO6ZMitlFnepRPG+nRj0tnkWosO/c5m/a8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3550F8024C;
-	Fri, 16 Sep 2022 09:34:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34A30F80496;
+	Fri, 16 Sep 2022 11:53:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02370F8019B; Fri, 16 Sep 2022 09:34:36 +0200 (CEST)
+ id D67F1F8014E; Wed, 14 Sep 2022 12:19:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71D28F800FE
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 09:34:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D28F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71E63F800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:18:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71E63F800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CMkJB63C"
-Received: by mail-lj1-x235.google.com with SMTP id s10so24365974ljp.5
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 00:34:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=+KrZs1wDWxExKhVZuq9VbQB8vAEX+/GO+05kcKZyQkQ=;
- b=CMkJB63CW8UfY9qgxsBCcLpm8kJ1TYuhg5CCoqrPM2zsjhyMqhHGi0A+V+ztyCBu9V
- eIBaavcXsgyES6UdCHSRnhaXl2Iwr7aARBQv0HbmVQCXDVhEQSUnB/3DeSLDAqLBzKCt
- rKX9fvsx+CXyDiKiDcTX+ph0VMUVrGgPWemMIK+sxA/a9XZrZRVnbCtaqtU7YFhMLS89
- ZwycqWZQkTriCPz78PA49vUGoaTZrjQ+BMlnJE6tOybdTJubNqtW4yQs7Sy2jczIRyhv
- 5gopPleF0gDXeQ7jgpc+/LWN6TKJLPIijQmsUKQf8t9i0X5RDgXWhhAmwbQv6RgfTKvC
- 3MLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=+KrZs1wDWxExKhVZuq9VbQB8vAEX+/GO+05kcKZyQkQ=;
- b=wZOB1lOp5zjyERPI+uxKBrhOn/pyHpSHcQDSkbn/hFaZ4mJ8/GGqmiyF4tJj0ckaeE
- NR+gAPk/z2SuZ57BtzMNjzn68nJuqTc6ZefL2n8g5a3tJpx7Jzalh1ZC0f34ZS2X5i58
- r3BID0AT+jSNa8SBMrznVe6MYW1utlskYmFfp6J7mRdG/kvhw/N/TcspT9zoIrIHWU+U
- TugkUefKKAova9lB1MDmzXRx12+FibV9SeGYdGaH5GhexGA6lSH5HoMxJenBd2a+1Npe
- WP9Fcnfnbw3wGo5sgna8oCgS0DUjAMm4oxtlh84lD/sdelmalrthXHc32rBkGwZJ49mx
- CSFQ==
-X-Gm-Message-State: ACrzQf2MPXlYOzjLh/YHwEzFqOo2w6qlPf16+XUuMusZHH0QXC8yaUAT
- 28ExDI0D/429sNMAexC8SBvKHy0fDiCd92SM6/c=
-X-Google-Smtp-Source: AMsMyM5xmNtG+JOChSzzfIaBx7tOwvOjB7OS4BES0ZusTkDZKwvkz3EEXpM1JsmQf/ndqcljaGgjTKxj7QyVjTp6efc=
-X-Received: by 2002:a2e:960e:0:b0:26b:e5ae:cd78 with SMTP id
- v14-20020a2e960e000000b0026be5aecd78mr1026093ljh.129.1663313667324; Fri, 16
- Sep 2022 00:34:27 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="owEMl6AO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAEmUd001145;
+ Wed, 14 Sep 2022 10:18:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=TauJo4S33vubiSKMJ8vkdsBpJE36madk8or1JdPhPtE=;
+ b=owEMl6AOMvp0gM+XCVPA+DAuIvwts+9qcvs5p0+ATTATOxq5gsI042eFqY3LtH6lW817
+ pazqUs6PZly1aKhS4XTQj4/EABeCeCyOVKdSWEjDXgPazjGeEg4yj56VdilzP5ljGKdE
+ ThPo8/22y9trmcxzqg9tGSqoKXG5pnFV8zKgPD30+NLaYTedY+PvDwTZGWfG2DZXD7xT
+ zIDZnjpNumcuFIDG8S7r1EHd8ypefjrlt5B5cW1bgu+yeZqjX7pQd8ZLuxY8pDp9mxxA
+ 4kVSo6jOk2c9mcBvUUIAPSmx9RRr25DzMe1mFj4idKfc78UTMEwagkaBpGGb1HpJSMNw aw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjxyva6be-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Sep 2022 10:18:52 +0000
+Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAIp5D031835; 
+ Wed, 14 Sep 2022 10:18:51 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 3jjqbt4rfh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Sep 2022 10:18:51 +0000
+Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28EAIpIO031830;
+ Wed, 14 Sep 2022 10:18:51 GMT
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 28EAIooi031829
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Sep 2022 10:18:50 +0000
+Received: from [10.79.43.230] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 14 Sep
+ 2022 03:18:46 -0700
+Subject: Re: [PATCH 4/4] soc: qcom: pdr: Make QMI message rules const
+To: Jeff Johnson <quic_jjohnson@quicinc.com>, Alex Elder <elder@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "Mathieu
+ Poirier" <mathieu.poirier@linaro.org>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Kalle Valo <kvalo@kernel.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, "Konrad
+ Dybcio" <konrad.dybcio@somainline.org>
+References: <20220912232526.27427-1-quic_jjohnson@quicinc.com>
+ <20220912232526.27427-2-quic_jjohnson@quicinc.com>
+ <20220912232526.27427-3-quic_jjohnson@quicinc.com>
+ <20220912232526.27427-4-quic_jjohnson@quicinc.com>
+ <20220912232526.27427-5-quic_jjohnson@quicinc.com>
+From: Sibi Sankar <quic_sibis@quicinc.com>
+Message-ID: <f8f43b22-bb13-71ff-15fc-a323d0b56ead@quicinc.com>
+Date: Wed, 14 Sep 2022 15:48:43 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20220912105407.3157868-1-robert.rosengren@axis.com>
-In-Reply-To: <20220912105407.3157868-1-robert.rosengren@axis.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 16 Sep 2022 15:34:15 +0800
-Message-ID: <CAA+D8AN1-ReuEaQFiJbsUnPo-3eXa2p-rUW7B=tQHesmUEdtSQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: fsl_spdif: add ALSA event on dpll locked
-To: Robert Rosengren <robert.rosengren@axis.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- kernel@axis.com, Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20220912232526.27427-5-quic_jjohnson@quicinc.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: bMVDI2dAzz-eh0sNk3DHpUhUOHYrziiX
+X-Proofpoint-ORIG-GUID: bMVDI2dAzz-eh0sNk3DHpUhUOHYrziiX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-14_03,2022-09-14_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0
+ mlxlogscore=999 suspectscore=0 mlxscore=0 bulkscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 clxscore=1011 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2208220000 definitions=main-2209140050
+X-Mailman-Approved-At: Fri, 16 Sep 2022 11:53:37 +0200
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,105 +142,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 12, 2022 at 6:54 PM Robert Rosengren <robert.rosengren@axis.com>
-wrote:
 
-> Add an ALSA event on the RX Sample Rate controller upon the dpll locked
-> interrupt, making it possible for audio applications to monitor changes
-> in the hardware.
->
-> Signed-off-by: Robert Rosengren <robert.rosengren@axis.com>
->
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+On 9/13/22 4:55 AM, Jeff Johnson wrote:
+> Commit ff6d365898d ("soc: qcom: qmi: use const for struct
+> qmi_elem_info") allows QMI message encoding/decoding rules to be
+> const, so do that for QCOM PDR.
+> 
+> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
 
-Best regards
-Wang Shengjiu
+Reviewed-by: Sibi Sankar <quic_sibis@quicinc.com>
 
 > ---
->
-> Notes:
->     v2: Cache RX Sample Rate kcontrol to avoid lookup in interrupt.
->     Properly add description to fsl_spdif_priv.
->     Fix indentation.
->
->  sound/soc/fsl/fsl_spdif.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->
-> diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-> index 7fc1c96929bb..275aba8e0c46 100644
-> --- a/sound/soc/fsl/fsl_spdif.c
-> +++ b/sound/soc/fsl/fsl_spdif.c
-> @@ -44,6 +44,8 @@ static u8 srpc_dpll_locked[] = { 0x0, 0x1, 0x2, 0x3,
-> 0x4, 0xa, 0xb };
->
->  #define DEFAULT_RXCLK_SRC      1
->
-> +#define RX_SAMPLE_RATE_KCONTROL "RX Sample Rate"
-> +
->  /**
->   * struct fsl_spdif_soc_data: soc specific data
->   *
-> @@ -98,6 +100,8 @@ struct spdif_mixer_control {
->   * @soc: SPDIF soc data
->   * @fsl_spdif_control: SPDIF control data
->   * @cpu_dai_drv: cpu dai driver
-> + * @snd_card: sound card pointer
-> + * @rxrate_kcontrol: kcontrol for RX Sample Rate
->   * @pdev: platform device pointer
->   * @regmap: regmap handler
->   * @dpll_locked: dpll lock flag
-> @@ -122,6 +126,8 @@ struct fsl_spdif_priv {
->         const struct fsl_spdif_soc_data *soc;
->         struct spdif_mixer_control fsl_spdif_control;
->         struct snd_soc_dai_driver cpu_dai_drv;
-> +       struct snd_card *snd_card;
-> +       struct snd_kcontrol *rxrate_kcontrol;
->         struct platform_device *pdev;
->         struct regmap *regmap;
->         bool dpll_locked;
-> @@ -226,6 +232,12 @@ static void spdif_irq_dpll_lock(struct fsl_spdif_priv
-> *spdif_priv)
->                         locked ? "locked" : "loss lock");
->
->         spdif_priv->dpll_locked = locked ? true : false;
-> +
-> +       if (spdif_priv->snd_card && spdif_priv->rxrate_kcontrol) {
-> +               snd_ctl_notify(spdif_priv->snd_card,
-> +                              SNDRV_CTL_EVENT_MASK_VALUE,
-> +                              &spdif_priv->rxrate_kcontrol->id);
-> +       }
->  }
->
->  /* Receiver found illegal symbol interrupt handler */
-> @@ -1197,7 +1209,7 @@ static struct snd_kcontrol_new fsl_spdif_ctrls[] = {
->         /* DPLL lock info get controller */
->         {
->                 .iface = SNDRV_CTL_ELEM_IFACE_PCM,
-> -               .name = "RX Sample Rate",
-> +               .name = RX_SAMPLE_RATE_KCONTROL,
->                 .access = SNDRV_CTL_ELEM_ACCESS_READ |
->                         SNDRV_CTL_ELEM_ACCESS_VOLATILE,
->                 .info = fsl_spdif_rxrate_info,
-> @@ -1251,6 +1263,13 @@ static int fsl_spdif_dai_probe(struct snd_soc_dai
-> *dai)
->                 snd_soc_add_dai_controls(dai, fsl_spdif_ctrls_rcm,
->                                          ARRAY_SIZE(fsl_spdif_ctrls_rcm));
->
-> +       spdif_private->snd_card = dai->component->card->snd_card;
-> +       spdif_private->rxrate_kcontrol =
-> snd_soc_card_get_kcontrol(dai->component->card,
-> +
-> RX_SAMPLE_RATE_KCONTROL);
-> +       if (!spdif_private->rxrate_kcontrol)
-> +               dev_err(&spdif_private->pdev->dev, "failed to get %s
-> kcontrol\n",
-> +                       RX_SAMPLE_RATE_KCONTROL);
-> +
->         /*Clear the val bit for Tx*/
->         regmap_update_bits(spdif_private->regmap, REG_SPDIF_SCR,
->                            SCR_VAL_MASK, SCR_VAL_CLEAR);
-> --
-> 2.30.2
->
->
+>   drivers/soc/qcom/pdr_internal.h | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/soc/qcom/pdr_internal.h b/drivers/soc/qcom/pdr_internal.h
+> index a30422214943..03c282b7f17e 100644
+> --- a/drivers/soc/qcom/pdr_internal.h
+> +++ b/drivers/soc/qcom/pdr_internal.h
+> @@ -28,7 +28,7 @@ struct servreg_location_entry {
+>   	u32 instance;
+>   };
+>   
+> -static struct qmi_elem_info servreg_location_entry_ei[] = {
+> +static const struct qmi_elem_info servreg_location_entry_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRING,
+>   		.elem_len       = SERVREG_NAME_LENGTH + 1,
+> @@ -74,7 +74,7 @@ struct servreg_get_domain_list_req {
+>   	u32 domain_offset;
+>   };
+>   
+> -static struct qmi_elem_info servreg_get_domain_list_req_ei[] = {
+> +static const struct qmi_elem_info servreg_get_domain_list_req_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRING,
+>   		.elem_len       = SERVREG_NAME_LENGTH + 1,
+> @@ -116,7 +116,7 @@ struct servreg_get_domain_list_resp {
+>   	struct servreg_location_entry domain_list[SERVREG_DOMAIN_LIST_LENGTH];
+>   };
+>   
+> -static struct qmi_elem_info servreg_get_domain_list_resp_ei[] = {
+> +static const struct qmi_elem_info servreg_get_domain_list_resp_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRUCT,
+>   		.elem_len       = 1,
+> @@ -199,7 +199,7 @@ struct servreg_register_listener_req {
+>   	char service_path[SERVREG_NAME_LENGTH + 1];
+>   };
+>   
+> -static struct qmi_elem_info servreg_register_listener_req_ei[] = {
+> +static const struct qmi_elem_info servreg_register_listener_req_ei[] = {
+>   	{
+>   		.data_type      = QMI_UNSIGNED_1_BYTE,
+>   		.elem_len       = 1,
+> @@ -227,7 +227,7 @@ struct servreg_register_listener_resp {
+>   	enum servreg_service_state curr_state;
+>   };
+>   
+> -static struct qmi_elem_info servreg_register_listener_resp_ei[] = {
+> +static const struct qmi_elem_info servreg_register_listener_resp_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRUCT,
+>   		.elem_len       = 1,
+> @@ -263,7 +263,7 @@ struct servreg_restart_pd_req {
+>   	char service_path[SERVREG_NAME_LENGTH + 1];
+>   };
+>   
+> -static struct qmi_elem_info servreg_restart_pd_req_ei[] = {
+> +static const struct qmi_elem_info servreg_restart_pd_req_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRING,
+>   		.elem_len       = SERVREG_NAME_LENGTH + 1,
+> @@ -280,7 +280,7 @@ struct servreg_restart_pd_resp {
+>   	struct qmi_response_type_v01 resp;
+>   };
+>   
+> -static struct qmi_elem_info servreg_restart_pd_resp_ei[] = {
+> +static const struct qmi_elem_info servreg_restart_pd_resp_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRUCT,
+>   		.elem_len       = 1,
+> @@ -300,7 +300,7 @@ struct servreg_state_updated_ind {
+>   	u16 transaction_id;
+>   };
+>   
+> -static struct qmi_elem_info servreg_state_updated_ind_ei[] = {
+> +static const struct qmi_elem_info servreg_state_updated_ind_ei[] = {
+>   	{
+>   		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+>   		.elem_len       = 1,
+> @@ -336,7 +336,7 @@ struct servreg_set_ack_req {
+>   	u16 transaction_id;
+>   };
+>   
+> -static struct qmi_elem_info servreg_set_ack_req_ei[] = {
+> +static const struct qmi_elem_info servreg_set_ack_req_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRING,
+>   		.elem_len       = SERVREG_NAME_LENGTH + 1,
+> @@ -362,7 +362,7 @@ struct servreg_set_ack_resp {
+>   	struct qmi_response_type_v01 resp;
+>   };
+>   
+> -static struct qmi_elem_info servreg_set_ack_resp_ei[] = {
+> +static const struct qmi_elem_info servreg_set_ack_resp_ei[] = {
+>   	{
+>   		.data_type      = QMI_STRUCT,
+>   		.elem_len       = 1,
+> 

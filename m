@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC7B5B83E3
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3635B83EA
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:05:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6F29186E;
-	Wed, 14 Sep 2022 11:04:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F29186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E5B91861;
+	Wed, 14 Sep 2022 11:04:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E5B91861
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663146320;
-	bh=qE8upik8CSkwQbkwbPUN5ph1sqSRqQNZlu203IwJKBY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Be6n3iuxCaEbnAr9fQVX0eGB+H9BQfKDldu1BUedC39JLT9jvFJgc9BFublSJUlNp
-	 x3D3XPeWIOVJ8RcC08TOcJnnUu2Kg/55f1/UaMpDwpN0ThTmiubkzeBxkOKyPA1H2Z
-	 WcgB0D60tvwOy/2zBdVpONdUM9hsD4TaaUEmL2ZQ=
+	s=default; t=1663146333;
+	bh=RmkqBW00/cYLa9v7I1fXss+ve2+A/t7XWxHr3HzL58w=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ui6QjDp8/C5ylJGXUULyF1aSdfU1NxUzyRAOsxPSa+QUGmQ7m+FwBPvJK9kkCuhsj
+	 JolC9MEpLoZ5XUwokgsjbwLRRl9GSjbE6i56P2FK0tVCDMPbICSDVhdT5KT1oHHb62
+	 NwnJfsMnCmEINOmmqgjtXw2zX8195jzahdqOAYe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D904CF80549;
-	Wed, 14 Sep 2022 11:03:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88E4FF80543;
+	Wed, 14 Sep 2022 11:03:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67AF3F80537; Wed, 14 Sep 2022 11:03:32 +0200 (CEST)
+ id 295EDF800C0; Wed, 14 Sep 2022 11:03:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51722F801D8
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:03:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51722F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26F75F800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26F75F800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jZKRWpwl"
+ header.b="u114B3PO"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 25279619C2;
- Wed, 14 Sep 2022 09:03:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF8AC433C1;
- Wed, 14 Sep 2022 09:03:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D67106190D;
+ Wed, 14 Sep 2022 09:03:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EF5C433D7;
+ Wed, 14 Sep 2022 09:03:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663146202;
- bh=qE8upik8CSkwQbkwbPUN5ph1sqSRqQNZlu203IwJKBY=;
- h=From:To:Cc:Subject:Date:From;
- b=jZKRWpwlf/F+mjgihSLdOCmzIyGoinxTqCrF+jyjj9HKUn6KQDH40bTV4hD7BSkDA
- 6DNRrt38wy2muFncEW243UVIcbVfL6qw6GPWkD8fRki3qfS0EgU5GCAypG+BvVFA0+
- Pr3LmZKZWB+y+LFloxq2TbdFUYI8IMj1bnnyfNExr7thBrEUHBrUECu83OtUlDvgNb
- Lf6vr3huGEj2sX024l/JWIbaDgCCRfxvpRHvDpBwbc1pEkHJCBcbJgQNIHulCR0Z7A
- mEXOZFJ/46buc4rRIjec2LzxrT+Yl2mg8cht3IkdKRqJn7TAO/8wqDlr0szxwIwfzz
- 8aoF86yitDE7Q==
+ s=k20201202; t=1663146219;
+ bh=RmkqBW00/cYLa9v7I1fXss+ve2+A/t7XWxHr3HzL58w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=u114B3PONQfawD/2inktx1gi1je9FR0CI6DvApZJVSWU6J6E1JRrl/q4RhMTiC1hE
+ W4TQBgEr3KJfGEUb21UzIUt8M4u9gqiFQUBGH4k1YaU6Xl7Xy4YZ2ERWymeJl9ocXM
+ gjjnE7jS/XUJuCal62cICkl6mETQ0rG+VtMBT4HV+cXakB0NGiJQyQ+vtCgQWlc3gN
+ HZTxlxyQcJNZc5+li4xyB8FfCcZpatSPj6dDsOA9KqjI8vmm5hCNw9EaYyziWFgwS7
+ fytSSA0vyl+AqyXQ4fuWOT2lc4RrtCPTwtmvz1BPxwpLDGbNs6j3RnflC2fuWo5/lq
+ D2P9a9000OZGw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 01/13] ASoC: nau8824: Fix semaphore unbalance at
- error paths
-Date: Wed, 14 Sep 2022 05:03:03 -0400
-Message-Id: <20220914090317.471116-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 06/13] ALSA: hda/sigmatel: Keep power up while
+ beep is enabled
+Date: Wed, 14 Sep 2022 05:03:08 -0400
+Message-Id: <20220914090317.471116-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220914090317.471116-1-sashal@kernel.org>
+References: <20220914090317.471116-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org, steve@sk2.org,
- Takashi Iwai <tiwai@suse.de>, tiwai@suse.com, lgirdwood@gmail.com,
- hdegoede@redhat.com, Mark Brown <broonie@kernel.org>,
- ckeepax@opensource.cirrus.com
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,97 +90,67 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 5628560e90395d3812800a8e44a01c32ffa429ec ]
+[ Upstream commit 414d38ba871092aeac4ed097ac4ced89486646f7 ]
 
-The semaphore of nau8824 wasn't properly unlocked at some error
-handling code paths, hence this may result in the unbalance (and
-potential lock-up).  Fix them to handle the semaphore up properly.
+It seems that the beep playback doesn't work well on IDT codec devices
+when the codec auto-pm is enabled.  Keep the power on while the beep
+switch is enabled.
 
+Link: https://bugzilla.suse.com/show_bug.cgi?id=1200544
+Link: https://lore.kernel.org/r/20220904072750.26164-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20220823081000.2965-3-tiwai@suse.de
-Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/nau8824.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ sound/pci/hda/patch_sigmatel.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
-index c8ccfa2fff848..a95fe3fff1db8 100644
---- a/sound/soc/codecs/nau8824.c
-+++ b/sound/soc/codecs/nau8824.c
-@@ -1072,6 +1072,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component = dai->component;
- 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
- 	unsigned int val_len = 0, osr, ctrl_val, bclk_fs, bclk_div;
-+	int err = -EINVAL;
+diff --git a/sound/pci/hda/patch_sigmatel.c b/sound/pci/hda/patch_sigmatel.c
+index c662431bf13a5..e9d0b0a30b99d 100644
+--- a/sound/pci/hda/patch_sigmatel.c
++++ b/sound/pci/hda/patch_sigmatel.c
+@@ -209,6 +209,7 @@ struct sigmatel_spec {
  
- 	nau8824_sema_acquire(nau8824, HZ);
+ 	/* beep widgets */
+ 	hda_nid_t anabeep_nid;
++	bool beep_power_on;
  
-@@ -1088,7 +1089,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		osr &= NAU8824_DAC_OVERSAMPLE_MASK;
- 		if (nau8824_clock_check(nau8824, substream->stream,
- 			nau8824->fs, osr))
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
- 			NAU8824_CLK_DAC_SRC_MASK,
- 			osr_dac_sel[osr].clk_src << NAU8824_CLK_DAC_SRC_SFT);
-@@ -1098,7 +1099,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		osr &= NAU8824_ADC_SYNC_DOWN_MASK;
- 		if (nau8824_clock_check(nau8824, substream->stream,
- 			nau8824->fs, osr))
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
- 			NAU8824_CLK_ADC_SRC_MASK,
- 			osr_adc_sel[osr].clk_src << NAU8824_CLK_ADC_SRC_SFT);
-@@ -1119,7 +1120,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		else if (bclk_fs <= 256)
- 			bclk_div = 0;
- 		else
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap,
- 			NAU8824_REG_PORT0_I2S_PCM_CTRL_2,
- 			NAU8824_I2S_LRC_DIV_MASK | NAU8824_I2S_BLK_DIV_MASK,
-@@ -1140,15 +1141,17 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		val_len |= NAU8824_I2S_DL_32;
- 		break;
- 	default:
--		return -EINVAL;
-+		goto error;
- 	}
- 
- 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
- 		NAU8824_I2S_DL_MASK, val_len);
-+	err = 0;
- 
-+ error:
- 	nau8824_sema_release(nau8824);
- 
--	return 0;
-+	return err;
+ 	/* SPDIF-out mux */
+ 	const char * const *spdif_labels;
+@@ -4447,6 +4448,26 @@ static int stac_suspend(struct hda_codec *codec)
+ 	stac_shutup(codec);
+ 	return 0;
  }
- 
- static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-@@ -1157,8 +1160,6 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
- 	unsigned int ctrl1_val = 0, ctrl2_val = 0;
- 
--	nau8824_sema_acquire(nau8824, HZ);
--
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBM_CFM:
- 		ctrl2_val |= NAU8824_I2S_MS_MASTER;
-@@ -1200,6 +1201,8 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		return -EINVAL;
- 	}
- 
-+	nau8824_sema_acquire(nau8824, HZ);
 +
- 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
- 		NAU8824_I2S_DF_MASK | NAU8824_I2S_BP_MASK |
- 		NAU8824_I2S_PCMB_EN, ctrl1_val);
++static int stac_check_power_status(struct hda_codec *codec, hda_nid_t nid)
++{
++	struct sigmatel_spec *spec = codec->spec;
++	int ret = snd_hda_gen_check_power_status(codec, nid);
++
++#ifdef CONFIG_SND_HDA_INPUT_BEEP
++	if (nid == spec->gen.beep_nid && codec->beep) {
++		if (codec->beep->enabled != spec->beep_power_on) {
++			spec->beep_power_on = codec->beep->enabled;
++			if (spec->beep_power_on)
++				snd_hda_power_up_pm(codec);
++			else
++				snd_hda_power_down_pm(codec);
++		}
++		ret |= spec->beep_power_on;
++	}
++#endif
++	return ret;
++}
+ #else
+ #define stac_suspend		NULL
+ #endif /* CONFIG_PM */
+@@ -4459,6 +4480,7 @@ static const struct hda_codec_ops stac_patch_ops = {
+ 	.unsol_event = snd_hda_jack_unsol_event,
+ #ifdef CONFIG_PM
+ 	.suspend = stac_suspend,
++	.check_power_status = stac_check_power_status,
+ #endif
+ 	.reboot_notify = stac_shutup,
+ };
 -- 
 2.35.1
 

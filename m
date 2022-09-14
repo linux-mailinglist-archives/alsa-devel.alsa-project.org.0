@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD18B5B8216
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 09:38:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1DC5B82D2
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 10:20:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51491171F;
-	Wed, 14 Sep 2022 09:37:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51491171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53FF9181C;
+	Wed, 14 Sep 2022 10:20:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FF9181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663141097;
-	bh=mTgKTXWZ+FoTLPe4xPEqa6P9ZqTK481NgJwKtD6frkU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663143654;
+	bh=UrXNo+gWqBURZ2nQFRzRtZFaCTDBNxWoEIRfC6m6I7o=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TX76o/mAN0sU91KF1Q5vDN8a8wi/2Z8MM/+khsI7tUUnUDsgXn/V/4xsNnlUuyldK
-	 tGbp5jUO9nvwws5ZUD+wjuk8fDmdGztCwVsTi9dPblKByZVhTsGWHBZTIZtc2x9Mrd
-	 JJZDe549dpxJWn1gUZBbDbsnN2ABqe7MFsooi264=
+	b=szu6oW4RnDuJFVYYkwG0W9M7odAo2EqJkkgfu34QCvlL9UreVwWxspwRybSii/XTF
+	 dq2GoaLGhuosyncef7tD+tHwEvJpdxaOm6yXdW0xpQzTpBoqZ5igPGyUkCroeh8YGW
+	 EIZnJpElgpFS/8E2ac8k72idknQhPvlb//A9f4yU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3555F8016E;
-	Wed, 14 Sep 2022 09:37:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA7D8F8016E;
+	Wed, 14 Sep 2022 10:19:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EED27F8014E; Wed, 14 Sep 2022 09:37:16 +0200 (CEST)
+ id 3DA47F8014E; Wed, 14 Sep 2022 10:19:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C588F800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 09:37:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C588F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3C02F8008E
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 10:19:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3C02F8008E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HqL8VRwj"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="qL6L9WFr"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D68885CD04;
- Wed, 14 Sep 2022 07:37:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663141033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SXZWkUQ4+Lx7m01hEmt+A99G5piKcEWqVsZA1ksxIBQ=;
- b=HqL8VRwjQHy4c79ofNmd5hLTeP4w3Tn4roVx1QU6bPOhz110sX5TgWqo6tgJ7IEWfrIa/Z
- v5k1bkrKliG0RSiHhfgHLixdwmbEdBq6mf7z0h8Nk2626TlgLZ/VvQsCiQa4B4sLO6LZVc
- ZhqnhtMxeFccNxzsJisCT4AqxxseEjA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663141033;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SXZWkUQ4+Lx7m01hEmt+A99G5piKcEWqVsZA1ksxIBQ=;
- b=qL6L9WFriIHISPxSuJnTguhtHx9ML5P5srtYk+9E1GsGtMeCgyoaJ+ttDfgpU88J+Uzs8R
- Hh7phbki8XnlMMBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B95B8134B3;
- Wed, 14 Sep 2022 07:37:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iA6LLKmEIWMwcQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 07:37:13 +0000
-Date: Wed, 14 Sep 2022 09:37:13 +0200
-Message-ID: <87mtb2e79y.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Philipp Jungkamp <p.jungkamp@gmx.net>
-Subject: Re: [PATCH] ALSA: patch_realtek: Fix Dell Inspiron Plus 16
-In-Reply-To: <20220914072804.39046-1-p.jungkamp@gmx.net>
-References: <20220914072804.39046-1-p.jungkamp@gmx.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lakotamm@gmail.com
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="K2PUaWke"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663143587; x=1694679587;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=UrXNo+gWqBURZ2nQFRzRtZFaCTDBNxWoEIRfC6m6I7o=;
+ b=K2PUaWke3/E2jjEu7EhAbELn6nDOfjiB2UbLIp0hkjktACCnWHTlaYeI
+ POhk1s+luM3l/i4viDA/IczWKXABV3U9M4GPNhCZ0Xo39aJkwSUPCWzcd
+ ZXxym627kAFQpS6qisCuVPpr/xl3J4D6pker05FVY+1JItai+LiFAuPLD
+ EowCsx4Uy1Tb6dM/A6JYSoh4NgsV650wtt8CRKVbypOLv34xx2Sa6JyGt
+ tMdRNwHk181rrClupDevdPehev6ld3xh3tiRcpQo+3PawyNB97pYSTbFx
+ Wdg33eovHF6M8hr+6/ByRYZyAB0px3UrYs6wYNfws44MwTjKmoSTkbR/M Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="324619843"
+X-IronPort-AV: E=Sophos;i="5.93,315,1654585200"; d="scan'208";a="324619843"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2022 01:19:34 -0700
+X-IronPort-AV: E=Sophos;i="5.93,315,1654585200"; d="scan'208";a="567921671"
+Received: from blaesing-mobl.ger.corp.intel.com (HELO [10.249.45.209])
+ ([10.249.45.209])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2022 01:19:31 -0700
+Message-ID: <b13fa907-6893-c4e2-4da5-204e15271a11@linux.intel.com>
+Date: Wed, 14 Sep 2022 09:51:21 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH linux-next] soundwire: intel: Remove unused parameter ret
+Content-Language: en-US
+To: cgel.zte@gmail.com, vkoul@kernel.org, yung-chuan.liao@linux.intel.com
+References: <20220914015256.22378-1-cui.jinpeng2@zte.com.cn>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220914015256.22378-1-cui.jinpeng2@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: sanyog.r.kale@intel.com, Jinpeng Cui <cui.jinpeng2@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,33 +93,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Sep 2022 09:28:04 +0200,
-Philipp Jungkamp wrote:
+
+
+On 9/14/22 03:52, cgel.zte@gmail.com wrote:
+> From: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
 > 
-> The Dell Inspiron Plus 16 has top speakers connected on NID 0x17, which
-> the codec reports as unconnected.
-> These speakers should be connected to the DAC on NID 0x03.
+> The parameter ret = 0 has not been used.
+> Return 0 directly instead of returning ret.
 
-Could you give your Signed-off-by line?  It's mandatory.
+That code will be modified by a cleanup series that is going to land
+upstream shortly, see https://github.com/thesofproject/linux/pull/3835
 
+It's not an incorrect change but it will introduce unnecessary churn IMHO.
+
+> 
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
 > ---
-> I don't possess this Laptop myself. The owner of this Laptop reports
-> that the speakers are now active, though there are still problem's.
+>  drivers/soundwire/intel.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> > There are still 2 small issues present:
-> > 1. 0,5s delay before the top speakers turn on
-
-Likely a hardware feature.  We may add some delay at the runtime
-resume, if that matters, too.
-
-> > 2. Popping sound from headphones 5s after the music stops playing
-> > and afterwards when it starts playing again. This can be fixed by
-> > disabling power save on the audio driver [...].
-
-You can try some other quirk.  You can try to apply
-alc_fixup_no_shutup() as a start.
-
-
-thanks,
-
-Takashi
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index b006ae6efcb0..26fdf3577454 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -395,7 +395,6 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
+>  {
+>  	void __iomem *shim = sdw->link_res->shim;
+>  	unsigned int link_id = sdw->instance;
+> -	int ret = 0;
+>  	u16 ioctl = 0, act = 0;
+>  
+>  	mutex_lock(sdw->link_res->shim_lock);
+> @@ -427,7 +426,7 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
+>  
+>  	mutex_unlock(sdw->link_res->shim_lock);
+>  
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)

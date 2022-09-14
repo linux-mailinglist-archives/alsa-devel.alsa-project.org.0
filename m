@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D725B83AA
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:02:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8835B83B6
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:02:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6DF011C;
-	Wed, 14 Sep 2022 11:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6DF011C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA59E182F;
+	Wed, 14 Sep 2022 11:02:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA59E182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663146149;
-	bh=9m5W7lH4DrxdFeITuIr/sv2lNngTtPNkfQ9F2jbC9eE=;
+	s=default; t=1663146177;
+	bh=SZXFFr6fQE4QYpoEaaMaZI/GyemsfR2Ojv/xm40sKWw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mhd0Qo7FUXY1TAWivRWNX50KUnmeJM4NqsEx3oqF4g5oOh8UJudatgPJAicBLMRK5
-	 tqsJu+lNMyXNmVfXC1seRmJJHeggO9E4T7lUC50Ki4Hu2Nmw37x6Tc5uHxElyDbYrT
-	 gf9jaZCb+Z/8/xuuaeTlXD59fn7QYPP9tMMFIMVc=
+	b=IdXG2BUdE/jc5BkmCCJP3simwqeF1KmxGJyJODtaPa5/Vd4D1aRX1WUBmv0xRkIY6
+	 uC2QMFD0da1GZaJsiBr53D35FMDZtohSGCE3vJ/pzxhiPyL12EwzrsthruKmZbcKmA
+	 Dbq5HhN/TzkBLs5vXokMtDZHelJw3JT97Lg2Ob1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FDEAF801D8;
-	Wed, 14 Sep 2022 11:01:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC32FF800FE;
+	Wed, 14 Sep 2022 11:01:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F974F800C0; Wed, 14 Sep 2022 11:01:29 +0200 (CEST)
+ id 1E9F3F80507; Wed, 14 Sep 2022 11:01:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8C25F800C0
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:01:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C25F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC63EF800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:01:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC63EF800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="F/Wjb7UC"
+ header.b="SBeoQ035"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8922461812;
- Wed, 14 Sep 2022 09:01:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498BBC433C1;
- Wed, 14 Sep 2022 09:01:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E6DB561999;
+ Wed, 14 Sep 2022 09:01:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4E2C433B5;
+ Wed, 14 Sep 2022 09:01:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663146077;
- bh=9m5W7lH4DrxdFeITuIr/sv2lNngTtPNkfQ9F2jbC9eE=;
+ s=k20201202; t=1663146083;
+ bh=SZXFFr6fQE4QYpoEaaMaZI/GyemsfR2Ojv/xm40sKWw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F/Wjb7UCGPVKHOpbTnlbjgrUKzxFhMkHlPh4E5DVQnxNWQJAV82PyIPsqzZ24KED5
- 26CrLHDDKROF48E2scMO/wmURpx2yTUz2WB2ZElVjuSeQEDvae0uG9XZPDN+nfyV9q
- mWZalkZskra53nRhDG1o6fPYUKkTVBbWaQbqQyy73XRc2tk4KhtpsrGkOGi8zrK6Li
- FObzYTj5HTDIALkee4/roQyZDHDb2V1Cw0ZdQZSnubGNWI9ONkdL/Ta4Zn0vlSx7u1
- vNP3GYN5UzTnonqUqUyuA3aqFxkKSjOtHnIG0dmqLaAR20VPLnXmZxYaEvtpKMv9az
- r2qVNUhfdj4ug==
+ b=SBeoQ0352di0SC94Yge257rfx+gw9hYXb9XSgAdJkagbrVq9iC98hX26J7x9PdPNn
+ 6MhCoMrICFvWBaG92Ul53ie1+rK5RC8JC4hEfN9CPFo4kiDPPg8UW9qg1+VEEWAPBo
+ K4MhRod+xfO5SYjeH6qsXkypLp9RhZpPWlvO0uUuKmdbjLDmqi0BvvOt2Ct/fnNzPP
+ SxXvxvRxM1HPP8AERqRrFzXgPefW0bj2NoifP51A2FktKNdzXEQMifMhMnJifIYhAf
+ 19y2p6jMUxPrElIeKnkCJ0mt1pOOa6qnRb9iz2B+t29AG/SuvVQAfMzkwESKdxosoj
+ YqAMIyg/2OF5w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 03/22] ASoC: nau8824: Fix semaphore unbalance at
- error paths
-Date: Wed, 14 Sep 2022 05:00:44 -0400
-Message-Id: <20220914090103.470630-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 05/22] ASoC: fsl_aud2htx: register platform
+ component before registering cpu dai
+Date: Wed, 14 Sep 2022 05:00:46 -0400
+Message-Id: <20220914090103.470630-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220914090103.470630-1-sashal@kernel.org>
 References: <20220914090103.470630-1-sashal@kernel.org>
@@ -73,9 +72,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- lgirdwood@gmail.com, hdegoede@redhat.com, Mark Brown <broonie@kernel.org>,
- steve@sk2.org
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,99 +90,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-[ Upstream commit 5628560e90395d3812800a8e44a01c32ffa429ec ]
+[ Upstream commit ea532c29972df96fda20393d9bf057e898f5e965 ]
 
-The semaphore of nau8824 wasn't properly unlocked at some error
-handling code paths, hence this may result in the unbalance (and
-potential lock-up).  Fix them to handle the semaphore up properly.
+There is no defer probe when adding platform component to
+snd_soc_pcm_runtime(rtd), the code is in snd_soc_add_pcm_runtime()
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20220823081000.2965-3-tiwai@suse.de
+snd_soc_register_card()
+  -> snd_soc_bind_card()
+    -> snd_soc_add_pcm_runtime()
+      -> adding cpu dai
+      -> adding codec dai
+      -> adding platform component.
+
+So if the platform component is not ready at that time, then the
+sound card still registered successfully, but platform component
+is empty, the sound card can't be used.
+
+As there is defer probe checking for cpu dai component, then register
+platform component before cpu dai to avoid such issue.
+
+And the behavior of imx_pcm_dma_init() is same as common
+devm_snd_dmaengine_pcm_register(), so use
+devm_snd_dmaengine_pcm_register() instead
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://lore.kernel.org/r/1661430460-5234-1-git-send-email-shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/nau8824.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ sound/soc/fsl/fsl_aud2htx.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
-index 2a7c935085353..c263858745ee2 100644
---- a/sound/soc/codecs/nau8824.c
-+++ b/sound/soc/codecs/nau8824.c
-@@ -1043,6 +1043,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component = dai->component;
- 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
- 	unsigned int val_len = 0, osr, ctrl_val, bclk_fs, bclk_div;
-+	int err = -EINVAL;
+diff --git a/sound/soc/fsl/fsl_aud2htx.c b/sound/soc/fsl/fsl_aud2htx.c
+index 422922146f2a5..e09015e7e3c7c 100644
+--- a/sound/soc/fsl/fsl_aud2htx.c
++++ b/sound/soc/fsl/fsl_aud2htx.c
+@@ -233,6 +233,16 @@ static int fsl_aud2htx_probe(struct platform_device *pdev)
  
- 	nau8824_sema_acquire(nau8824, HZ);
+ 	regcache_cache_only(aud2htx->regmap, true);
  
-@@ -1059,7 +1060,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		osr &= NAU8824_DAC_OVERSAMPLE_MASK;
- 		if (nau8824_clock_check(nau8824, substream->stream,
- 			nau8824->fs, osr))
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
- 			NAU8824_CLK_DAC_SRC_MASK,
- 			osr_dac_sel[osr].clk_src << NAU8824_CLK_DAC_SRC_SFT);
-@@ -1069,7 +1070,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		osr &= NAU8824_ADC_SYNC_DOWN_MASK;
- 		if (nau8824_clock_check(nau8824, substream->stream,
- 			nau8824->fs, osr))
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
- 			NAU8824_CLK_ADC_SRC_MASK,
- 			osr_adc_sel[osr].clk_src << NAU8824_CLK_ADC_SRC_SFT);
-@@ -1090,7 +1091,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		else if (bclk_fs <= 256)
- 			bclk_div = 0;
- 		else
--			return -EINVAL;
-+			goto error;
- 		regmap_update_bits(nau8824->regmap,
- 			NAU8824_REG_PORT0_I2S_PCM_CTRL_2,
- 			NAU8824_I2S_LRC_DIV_MASK | NAU8824_I2S_BLK_DIV_MASK,
-@@ -1111,15 +1112,17 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
- 		val_len |= NAU8824_I2S_DL_32;
- 		break;
- 	default:
--		return -EINVAL;
-+		goto error;
++	/*
++	 * Register platform component before registering cpu dai for there
++	 * is not defer probe for platform component in snd_soc_add_pcm_runtime().
++	 */
++	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to pcm register\n");
++		return ret;
++	}
++
+ 	ret = devm_snd_soc_register_component(&pdev->dev,
+ 					      &fsl_aud2htx_component,
+ 					      &fsl_aud2htx_dai, 1);
+@@ -241,10 +251,6 @@ static int fsl_aud2htx_probe(struct platform_device *pdev)
+ 		return ret;
  	}
  
- 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
- 		NAU8824_I2S_DL_MASK, val_len);
-+	err = 0;
- 
-+ error:
- 	nau8824_sema_release(nau8824);
- 
--	return 0;
-+	return err;
+-	ret = imx_pcm_dma_init(pdev);
+-	if (ret)
+-		dev_err(&pdev->dev, "failed to init imx pcm dma: %d\n", ret);
+-
+ 	return ret;
  }
  
- static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-@@ -1128,8 +1131,6 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
- 	unsigned int ctrl1_val = 0, ctrl2_val = 0;
- 
--	nau8824_sema_acquire(nau8824, HZ);
--
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBM_CFM:
- 		ctrl2_val |= NAU8824_I2S_MS_MASTER;
-@@ -1171,6 +1172,8 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		return -EINVAL;
- 	}
- 
-+	nau8824_sema_acquire(nau8824, HZ);
-+
- 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
- 		NAU8824_I2S_DF_MASK | NAU8824_I2S_BP_MASK |
- 		NAU8824_I2S_PCMB_EN, ctrl1_val);
 -- 
 2.35.1
 

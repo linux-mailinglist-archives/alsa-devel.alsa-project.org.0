@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD30F5B854C
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:41:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D69C5B8550
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:41:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02703184E;
-	Wed, 14 Sep 2022 11:40:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02703184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4200F1866;
+	Wed, 14 Sep 2022 11:40:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4200F1866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663148481;
-	bh=NON4s+poYWHm0+VBJ/uGgY91L7qbBPDPpCAWUeFl1lQ=;
+	s=default; t=1663148509;
+	bh=km5Bk53XmyjVKhe3BN3q3R+ZJqLirZyw93oGnlUg00M=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ftgqx9emw2CBRCCjKLVauPLkrZISh8gvuQPgB/6REv22NOPs5l5QfECOoimXBDJ4S
-	 9aQebcMKUg9RK/q9m2UIp3yrE9kIuRSG1dJAt5UZ4hiMrL//sUJ2kPbdgEsJB1b6d7
-	 Pfuo5zqHbjow3c2D9zUeE8eDVFzcU66YIuG+R4Qs=
+	b=e6IFI2yT5+gWj0gcsNdb2clAp35smLnJ6XCwzIeXL6LEHVxN0oZvFcuPGpvDChp3V
+	 f6aLxlDg3h7x2e1ARukTLZ+OUpBKuoQEK4tmR1wBVUDyDpF6p/CAhfvwEXghyjcMJ+
+	 wkx9Ml0/17Z+bpI6bMSGr03YeG4xuQasZ0Gu6Wdo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 526E4F8014B;
-	Wed, 14 Sep 2022 11:40:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F33FAF804E6;
+	Wed, 14 Sep 2022 11:40:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65EFBF8016E; Wed, 14 Sep 2022 11:40:20 +0200 (CEST)
+ id D13EDF8014B; Wed, 14 Sep 2022 11:40:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,47 +35,43 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62EE0F800C0
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62EE0F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56368F8014E
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:40:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56368F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="klEq28NY"
+ header.b="t24P1jIb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4B5E061B01;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D427361AC7;
+ Wed, 14 Sep 2022 09:40:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89067C433C1;
  Wed, 14 Sep 2022 09:40:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F57C433D6;
- Wed, 14 Sep 2022 09:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663148415;
- bh=NON4s+poYWHm0+VBJ/uGgY91L7qbBPDPpCAWUeFl1lQ=;
+ s=k20201202; t=1663148417;
+ bh=km5Bk53XmyjVKhe3BN3q3R+ZJqLirZyw93oGnlUg00M=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=klEq28NYTOqDeVhY2NdGRM0PlDlswUR5qIWh+2AWYNxJdn7RcOBnjqEnUi+RONow2
- WFdL1AeUbgwrXcS9+mMNx8q1f1g6141YjXiX6e9j2Jke5BWWE5im8tT1lnwDpcgWNr
- vIkviUNK34/7W6Bs9WL/J/fcvEtrLgfMkyo9bINmuzWG0et2ddXfKCPUoFO+gxfLwy
- Nla7cSqNNS33XLMVlsOCja3hJdBRTMzKFN2W9dr8L28gXBvD8JqGc6GBJrT5kl12RO
- f51sJmQjqJENyb2tDNlhOA4Yq8hCq69MRPZhSiiPNs6zkhhkb4SHaItJNRGF+BF8xV
- cvuHCLGYiSV0g==
+ b=t24P1jIbpfLNIBgAYfkJOmZWbIBr5Epxt/wZRkXxZLamJE1SGk7KAcs8ZV1MSR3HC
+ uhx/B+NaevtfRE2zgPQ1dasEZ6k2vdaFYPSDfWzB7DwS/MKLnLMonTsud7ZXLQW28G
+ 8oyoq/4TwNHabpgixNY5Bi92YxeYRiaqgNx8rnKWo33huCVOybEM6ZQzmcFNFzyi19
+ +9Q7vlinWmWA3viLUA3m6FB/Ll4PjaAIbak5wzNQA3DeIZUF35lItat2RER93irrh5
+ g4A2Vb47Ea7gxgLV7S9tQUclpY8KEEmegtY+Wb9rfLgg9tG3XEi1kXrgvMhmABhO8Z
+ TGragVYhsothg==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mikhail Rudenko <mike.rudenko@gmail.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20220911145713.55199-1-mike.rudenko@gmail.com>
-References: <20220911145713.55199-1-mike.rudenko@gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: sunxi: sun4i-codec: silence misleading error in
- probe
-Message-Id: <166314841203.314266.13063838088895693930.b4-ty@kernel.org>
-Date: Wed, 14 Sep 2022 10:40:12 +0100
+To: David Lin <CTLIN0@nuvoton.com>
+In-Reply-To: <20220913120641.792502-1-CTLIN0@nuvoton.com>
+References: <20220913120641.792502-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH 1/2] ASoC: nau8825: Add ADCOUT IO drive strength control
+Message-Id: <166314841529.314266.13299542848016745362.b4-ty@kernel.org>
+Date: Wed, 14 Sep 2022 10:40:15 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-7dade
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,17 +87,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 11 Sep 2022 17:57:11 +0300, Mikhail Rudenko wrote:
-> In the case when a codec device is probed before codec analog
-> controls, snd_soc_register_card() returns -EPROBE_DEFER, resulting in
-> a misleading error message
+On Tue, 13 Sep 2022 20:06:41 +0800, David Lin wrote:
+> Add a property to control the driving of ADCOUT.
 > 
->     sun4i-codec 1c22c00.codec: Failed to register our card
 > 
-> even if the device is probed successfully later. Use dev_err_probe()
-> to demote the above error to a debug message.
-> 
-> [...]
 
 Applied to
 
@@ -109,10 +98,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: sunxi: sun4i-codec: silence misleading error in probe
-      commit: 30248f618d30cf1ad9d5a72126799f2f0239860c
-[2/2] ASoC: sunxi: sun4i-codec: set debugfs_prefix for CPU DAI component
-      (no commit info)
+[1/2] ASoC: nau8825: Add ADCOUT IO drive strength control
+      commit: ed8570726ab005da0aa62cc24046ef83fa342e89
+[2/2] ASoC: dt-bindings: nau8825: Add ADCOUT IO drive strength control
+      commit: 40a57d4b2d82fe4a10bc41aa79532ee33ffdb051
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

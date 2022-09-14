@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1965B820A
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 09:32:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD18B5B8216
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 09:38:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D91EE12;
-	Wed, 14 Sep 2022 09:31:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D91EE12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51491171F;
+	Wed, 14 Sep 2022 09:37:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51491171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663140740;
-	bh=eGJEEQGaWbXVMP2wdS5hU6cS1e8CCUpICd1zdnYhApo=;
+	s=default; t=1663141097;
+	bh=mTgKTXWZ+FoTLPe4xPEqa6P9ZqTK481NgJwKtD6frkU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kyHT9bRdZYXjSLmWQBPJKZnZnN2nhrfH1WI1NdkRQiFHduPcUClVLWXaNinK62r1j
-	 UiEmUmV9SenxAmyBOoGHv2SSzRVs0vnWumkn+xCtw9kDV6Hef548ma2Z5cUzM+XXH+
-	 Q08OW+nHD0zsWtrn5o6AOtHAkL6VvzXk7wQvO5Pg=
+	b=TX76o/mAN0sU91KF1Q5vDN8a8wi/2Z8MM/+khsI7tUUnUDsgXn/V/4xsNnlUuyldK
+	 tGbp5jUO9nvwws5ZUD+wjuk8fDmdGztCwVsTi9dPblKByZVhTsGWHBZTIZtc2x9Mrd
+	 JJZDe549dpxJWn1gUZBbDbsnN2ABqe7MFsooi264=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9268F800C0;
-	Wed, 14 Sep 2022 09:31:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3555F8016E;
+	Wed, 14 Sep 2022 09:37:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF500F8014E; Wed, 14 Sep 2022 09:31:19 +0200 (CEST)
+ id EED27F8014E; Wed, 14 Sep 2022 09:37:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73347F800C0
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 09:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73347F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C588F800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 09:37:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C588F800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DTdfEEt8"; 
+ header.b="HqL8VRwj"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5b5knvF0"
+ header.b="qL6L9WFr"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 270F95CD19;
- Wed, 14 Sep 2022 07:31:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D68885CD04;
+ Wed, 14 Sep 2022 07:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663140676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663141033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QnGQU0HXe/e+xbNYokwocBTfSdmim06SFOGKj93RpFk=;
- b=DTdfEEt8fc+MHm7XSJtHwSVn07nU1UcNfaGG91BNtwjCDBHz84SzMI+TaVVTe2CV8xHQbe
- tCxYFZfF+fglWLugQW46zYtGOmq1FdEPm0a9sbeRKXM0wpFHu3xif0c/FoMDjp2vbq1H1e
- 1QunjnQkAIXbvETmU2ZTQdq/+qj31rI=
+ bh=SXZWkUQ4+Lx7m01hEmt+A99G5piKcEWqVsZA1ksxIBQ=;
+ b=HqL8VRwjQHy4c79ofNmd5hLTeP4w3Tn4roVx1QU6bPOhz110sX5TgWqo6tgJ7IEWfrIa/Z
+ v5k1bkrKliG0RSiHhfgHLixdwmbEdBq6mf7z0h8Nk2626TlgLZ/VvQsCiQa4B4sLO6LZVc
+ ZhqnhtMxeFccNxzsJisCT4AqxxseEjA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663140676;
+ s=susede2_ed25519; t=1663141033;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QnGQU0HXe/e+xbNYokwocBTfSdmim06SFOGKj93RpFk=;
- b=5b5knvF0WrF8zpEjYpDJPtKFUTaW82VDvMEswxW8S7sCzGEJ1twcGxyxzk+pXrdh9X+Wbo
- dV+EJFbwLoKmobAg==
+ bh=SXZWkUQ4+Lx7m01hEmt+A99G5piKcEWqVsZA1ksxIBQ=;
+ b=qL6L9WFriIHISPxSuJnTguhtHx9ML5P5srtYk+9E1GsGtMeCgyoaJ+ttDfgpU88J+Uzs8R
+ Hh7phbki8XnlMMBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0DDA3134B3;
- Wed, 14 Sep 2022 07:31:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B95B8134B3;
+ Wed, 14 Sep 2022 07:37:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LGW8AkSDIWM7bwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 07:31:16 +0000
-Date: Wed, 14 Sep 2022 09:31:15 +0200
-Message-ID: <87o7vie7jw.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id iA6LLKmEIWMwcQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 07:37:13 +0000
+Date: Wed, 14 Sep 2022 09:37:13 +0200
+Message-ID: <87mtb2e79y.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: acheronfail <callum.osmotherly@gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable 4-speaker output Dell Precision
- 5560 laptop
-In-Reply-To: <YyF3feC4rwY+IvB8@wolf>
-References: <YyF3feC4rwY+IvB8@wolf>
+To: Philipp Jungkamp <p.jungkamp@gmx.net>
+Subject: Re: [PATCH] ALSA: patch_realtek: Fix Dell Inspiron Plus 16
+In-Reply-To: <20220914072804.39046-1-p.jungkamp@gmx.net>
+References: <20220914072804.39046-1-p.jungkamp@gmx.net>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lakotamm@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,53 +99,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Sep 2022 08:41:01 +0200,
-acheronfail wrote:
+On Wed, 14 Sep 2022 09:28:04 +0200,
+Philipp Jungkamp wrote:
 > 
-> This is my first patch, so let me know if I need to do anything
-> differently. :)
+> The Dell Inspiron Plus 16 has top speakers connected on NID 0x17, which
+> the codec reports as unconnected.
+> These speakers should be connected to the DAC on NID 0x03.
+
+Could you give your Signed-off-by line?  It's mandatory.
+
+> ---
+> I don't possess this Laptop myself. The owner of this Laptop reports
+> that the speakers are now active, though there are still problem's.
 > 
-> The Dell Precision 5570 uses the same 4-speakers-on-ALC289 just like the
-> previous Precision 5560. I replicated that patch onto this one, and can
-> confirm that the audio is much better (the woofers are now working);
-> I've tested it on my Dell Precision 5570.
+> > There are still 2 small issues present:
+> > 1. 0,5s delay before the top speakers turn on
 
-The code change looks OK, but please put your Signed-off-by tag to the
-patch.  This is a legal requirement; it has to be with a real name and
-a mail address.
+Likely a hardware feature.  We may add some delay at the runtime
+resume, if that matters, too.
 
-Also, a comment like a greeting in the above can be placed below the
-line "---" (between that and diffstat lines).  It will be truncated
-when applying the patch, so you can put only the text that should be
-included in the git commit log in the patch description.
+> > 2. Popping sound from headphones 5s after the music stops playing
+> > and afterwards when it starts playing again. This can be fixed by
+> > disabling power save on the audio driver [...].
 
-Last but not least, it's better to add maintainers to Cc.  In this
-case, put me.
-
-Could you fix it and resubmit a v2 patch?
+You can try some other quirk.  You can try to apply
+alc_fixup_no_shutup() as a start.
 
 
 thanks,
 
 Takashi
-
-> 
-> ---
->  sound/pci/hda/patch_realtek.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 799f6bf266dd..b0ad4856b877 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -9130,6 +9130,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x1028, 0x0b19, "Dell XPS 15 9520", ALC289_FIXUP_DUAL_SPK),
-> +	SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_SPK),
->  	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
->  	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
-> -- 
-> 2.37.3
-> 

@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE875B83DF
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC7B5B83E3
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:05:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C6AB185F;
-	Wed, 14 Sep 2022 11:04:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C6AB185F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6F29186E;
+	Wed, 14 Sep 2022 11:04:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F29186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663146304;
-	bh=DJM3CoZYpCVzX8l096vek1rNTFNHFKWn2oEvcTzk1Vs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ealvWT/m/3ibF2wu+fEiAG9qQq7h9Z2U/eo4oiXo6dGXJg9+5V1ATFqdip3HNF1Hi
-	 yjxe2WLg1o2cR3hGqDM5MVpFg8Ql9dOXXAN0JTEzN936jwPUDDSwGAt7dE6u2mmuIc
-	 9z2r62fnwMsxDFI+o/O/Bt51bNJzHGJ0h/u556Ms=
+	s=default; t=1663146320;
+	bh=qE8upik8CSkwQbkwbPUN5ph1sqSRqQNZlu203IwJKBY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Be6n3iuxCaEbnAr9fQVX0eGB+H9BQfKDldu1BUedC39JLT9jvFJgc9BFublSJUlNp
+	 x3D3XPeWIOVJ8RcC08TOcJnnUu2Kg/55f1/UaMpDwpN0ThTmiubkzeBxkOKyPA1H2Z
+	 WcgB0D60tvwOy/2zBdVpONdUM9hsD4TaaUEmL2ZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9CC4F80537;
-	Wed, 14 Sep 2022 11:03:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D904CF80549;
+	Wed, 14 Sep 2022 11:03:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 365EDF80533; Wed, 14 Sep 2022 11:03:24 +0200 (CEST)
+ id 67AF3F80537; Wed, 14 Sep 2022 11:03:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EBD7F801D8
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:02:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EBD7F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51722F801D8
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:03:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51722F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bqGYRGQk"
+ header.b="jZKRWpwl"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4C442B81714;
- Wed, 14 Sep 2022 09:02:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54654C433D7;
- Wed, 14 Sep 2022 09:02:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 25279619C2;
+ Wed, 14 Sep 2022 09:03:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF8AC433C1;
+ Wed, 14 Sep 2022 09:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663146178;
- bh=DJM3CoZYpCVzX8l096vek1rNTFNHFKWn2oEvcTzk1Vs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bqGYRGQklt+VtROx5CbevZalq4pcVTlrri0p+cBrihyDMfHtMucL5erZGF0Ag72RV
- 4rnrrXQVJHzCiT2itQwmK5+lPcLBAvMiFUfbs6M2k4VtkGE7UAtihNhcfuKNyQTSQj
- n7Ht/XYE3HeV08lTmCjeuyMjwpbE6aLrf+D1g4vqn6mz+jokjQZHtC3+onCjuZ3Ct5
- vbxCcIrn0v5Xe24AYvWQPFr1hO4CN+96OQ4t4pynvNPJO0gfWzHPHTUJQmJp+hHQMg
- 6XLHWPjngIBLJMSgoj9I2MoZ3EZVccvCFKlZL6oGASsPupr4+CdN+OAYA2oay8hROl
- 4hzMBOu8dElJQ==
+ s=k20201202; t=1663146202;
+ bh=qE8upik8CSkwQbkwbPUN5ph1sqSRqQNZlu203IwJKBY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jZKRWpwlf/F+mjgihSLdOCmzIyGoinxTqCrF+jyjj9HKUn6KQDH40bTV4hD7BSkDA
+ 6DNRrt38wy2muFncEW243UVIcbVfL6qw6GPWkD8fRki3qfS0EgU5GCAypG+BvVFA0+
+ Pr3LmZKZWB+y+LFloxq2TbdFUYI8IMj1bnnyfNExr7thBrEUHBrUECu83OtUlDvgNb
+ Lf6vr3huGEj2sX024l/JWIbaDgCCRfxvpRHvDpBwbc1pEkHJCBcbJgQNIHulCR0Z7A
+ mEXOZFJ/46buc4rRIjec2LzxrT+Yl2mg8cht3IkdKRqJn7TAO/8wqDlr0szxwIwfzz
+ 8aoF86yitDE7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 10/16] ALSA: usb-audio: Fix an out-of-bounds bug
- in __snd_usb_parse_audio_interface()
-Date: Wed, 14 Sep 2022 05:02:18 -0400
-Message-Id: <20220914090224.470913-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/13] ASoC: nau8824: Fix semaphore unbalance at
+ error paths
+Date: Wed, 14 Sep 2022 05:03:03 -0400
+Message-Id: <20220914090317.471116-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220914090224.470913-1-sashal@kernel.org>
-References: <20220914090224.470913-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Dongxiang Ke <kdx.glider@gmail.com>, Takashi Iwai <tiwai@suse.de>,
- tiwai@suse.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org, steve@sk2.org,
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com, lgirdwood@gmail.com,
+ hdegoede@redhat.com, Mark Brown <broonie@kernel.org>,
+ ckeepax@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +87,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dongxiang Ke <kdx.glider@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit e53f47f6c1a56d2af728909f1cb894da6b43d9bf ]
+[ Upstream commit 5628560e90395d3812800a8e44a01c32ffa429ec ]
 
-There may be a bad USB audio device with a USB ID of (0x04fa, 0x4201) and
-the number of it's interfaces less than 4, an out-of-bounds read bug occurs
-when parsing the interface descriptor for this device.
+The semaphore of nau8824 wasn't properly unlocked at some error
+handling code paths, hence this may result in the unbalance (and
+potential lock-up).  Fix them to handle the semaphore up properly.
 
-Fix this by checking the number of interfaces.
-
-Signed-off-by: Dongxiang Ke <kdx.glider@gmail.com>
-Link: https://lore.kernel.org/r/20220906024928.10951-1-kdx.glider@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20220823081000.2965-3-tiwai@suse.de
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/nau8824.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index ceb93d798182c..40ce8a1cb318a 100644
---- a/sound/usb/stream.c
-+++ b/sound/usb/stream.c
-@@ -1105,7 +1105,7 @@ static int __snd_usb_parse_audio_interface(struct snd_usb_audio *chip,
- 	 * Dallas DS4201 workaround: It presents 5 altsettings, but the last
- 	 * one misses syncpipe, and does not produce any sound.
- 	 */
--	if (chip->usb_id == USB_ID(0x04fa, 0x4201))
-+	if (chip->usb_id == USB_ID(0x04fa, 0x4201) && num >= 4)
- 		num = 4;
+diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
+index c8ccfa2fff848..a95fe3fff1db8 100644
+--- a/sound/soc/codecs/nau8824.c
++++ b/sound/soc/codecs/nau8824.c
+@@ -1072,6 +1072,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
+ 	unsigned int val_len = 0, osr, ctrl_val, bclk_fs, bclk_div;
++	int err = -EINVAL;
  
- 	for (i = 0; i < num; i++) {
+ 	nau8824_sema_acquire(nau8824, HZ);
+ 
+@@ -1088,7 +1089,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		osr &= NAU8824_DAC_OVERSAMPLE_MASK;
+ 		if (nau8824_clock_check(nau8824, substream->stream,
+ 			nau8824->fs, osr))
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
+ 			NAU8824_CLK_DAC_SRC_MASK,
+ 			osr_dac_sel[osr].clk_src << NAU8824_CLK_DAC_SRC_SFT);
+@@ -1098,7 +1099,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		osr &= NAU8824_ADC_SYNC_DOWN_MASK;
+ 		if (nau8824_clock_check(nau8824, substream->stream,
+ 			nau8824->fs, osr))
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
+ 			NAU8824_CLK_ADC_SRC_MASK,
+ 			osr_adc_sel[osr].clk_src << NAU8824_CLK_ADC_SRC_SFT);
+@@ -1119,7 +1120,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		else if (bclk_fs <= 256)
+ 			bclk_div = 0;
+ 		else
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap,
+ 			NAU8824_REG_PORT0_I2S_PCM_CTRL_2,
+ 			NAU8824_I2S_LRC_DIV_MASK | NAU8824_I2S_BLK_DIV_MASK,
+@@ -1140,15 +1141,17 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		val_len |= NAU8824_I2S_DL_32;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		goto error;
+ 	}
+ 
+ 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
+ 		NAU8824_I2S_DL_MASK, val_len);
++	err = 0;
+ 
++ error:
+ 	nau8824_sema_release(nau8824);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+@@ -1157,8 +1160,6 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
+ 	unsigned int ctrl1_val = 0, ctrl2_val = 0;
+ 
+-	nau8824_sema_acquire(nau8824, HZ);
+-
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+ 	case SND_SOC_DAIFMT_CBM_CFM:
+ 		ctrl2_val |= NAU8824_I2S_MS_MASTER;
+@@ -1200,6 +1201,8 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 		return -EINVAL;
+ 	}
+ 
++	nau8824_sema_acquire(nau8824, HZ);
++
+ 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
+ 		NAU8824_I2S_DF_MASK | NAU8824_I2S_BP_MASK |
+ 		NAU8824_I2S_PCMB_EN, ctrl1_val);
 -- 
 2.35.1
 

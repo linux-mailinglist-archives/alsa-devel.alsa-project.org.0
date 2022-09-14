@@ -2,92 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4455F5B865C
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 12:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 481D65B8671
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 12:32:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981C1186B;
-	Wed, 14 Sep 2022 12:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981C1186B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E09E6186C;
+	Wed, 14 Sep 2022 12:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E09E6186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663151312;
-	bh=bsdIyWUUbivE59pV011Yl+mNNjQ4/JK7wov4G4pptA8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663151553;
+	bh=l4wW4IhHFdzTrRQDPvpAZ3ls+LMCcLxPlRB4jghtJK8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G5lcidPeTgx2wvAlP1hIP3Aoy4tjv5qIHxCeXEoNDU6+IlU+8dvMuEvYwx77ulAQB
-	 gJbklanuDiCZSKBnZ88tNw2IvJLXf3AU3axp5e0Nu18nEm+kSNxdTk1Ljf+7lxa0W1
-	 iwM+bLcylEDuffVMPGoMvveZUqU7VTl+ylmYnQwg=
+	b=VfVdx2iK8X6rxPpaL7pT/fizWiYYD13NtuskMRVXWUgDaGqExP4AgiO3XJ/sPMWOs
+	 k4w9E1bNSmdOPIkX/Z1cghR9Wx2MbZMDDimoL5LJBLJ5B+Zd6yCL+qkLyqhf3CIGRA
+	 scYoBsRIPM4pv/um7Pl3Bdqb8sut3vtBuJ+TLrIE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB90CF800FE;
-	Wed, 14 Sep 2022 12:27:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C2A0F8016E;
+	Wed, 14 Sep 2022 12:31:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C614F800FE; Wed, 14 Sep 2022 12:27:32 +0200 (CEST)
+ id 0F314F8014E; Wed, 14 Sep 2022 12:31:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDC3AF800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC3AF800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5DCAF800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5DCAF800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="XQqiHUQp"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cTm91n7A"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pc4mogNG"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D83C93388F;
- Wed, 14 Sep 2022 10:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663151248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bwrqe9juwWAngUflkbqX/hdbOSZnvvFPps+5b1Q+D74=;
- b=XQqiHUQpe0B019/T76+hTeH4+0W8HviqY2hYFqLZrHwYApx+zhPHpqBoYGFkKhKc+duxYZ
- el7VnnVeClFFGHwEqx8meweuWdnHHPVy8h4HR/OLPbx6ji3x1skEmUc1A6S+kmLMaG5af7
- yf2FD0orQKpf7ZiTz/S33xFLoRD/0rE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663151248;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bwrqe9juwWAngUflkbqX/hdbOSZnvvFPps+5b1Q+D74=;
- b=cTm91n7Al3Ll6ff/pdR3nNsXfPPYYJ4tJPNU7MHrDKm7tt/dYV3kMdprrjOkyuJ4y9ua2C
- 1OXk13mzFdWoEZCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A13B1134B3;
- Wed, 14 Sep 2022 10:27:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oJC1JpCsIWOfSAAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 10:27:28 +0000
-Date: Wed, 14 Sep 2022 12:27:28 +0200
-Message-ID: <87zgf2tfn3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B0FF461B8F;
+ Wed, 14 Sep 2022 10:31:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30D4C433C1;
+ Wed, 14 Sep 2022 10:31:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663151486;
+ bh=l4wW4IhHFdzTrRQDPvpAZ3ls+LMCcLxPlRB4jghtJK8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pc4mogNGati1t0kHPVDyVBgeGhO8+K0arXo6U2+5idoDs0DIufVZL88zZ51rz7HYK
+ 5Bns2n2XXn6VZ127ILfg0d7IgDU+Ij2YcOX/MdqiLbfWrHleCEXkK3sx/MeAW8gSwE
+ m88IQjRJqk34Yd5Ae3a8EtApn16cECHYa66w/TY7H2jXGb5SYq6p2EaiPJrGs1hBiG
+ gg4mRpI5Z/Ffb2VlGN255pUAdgPEXwkTOHzZFliXsAOaMnoQkiToEY6UK5DfXPaGr3
+ iqWJAmg3PUcgP7Pmxg8ZqhqcL6q1rqtRYqw+A9SaPLqCEO6Dx6tOwuQ7DJ9OuN8Kyp
+ bQni8vdkg36Cw==
+Date: Wed, 14 Sep 2022 11:31:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH -next] ASoC: Intel: fix unused-variable warning in
  probe_codec
-In-Reply-To: <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
+Message-ID: <YyGte0fkdquTxLC4@sirena.org.uk>
 References: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
  <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-7
-Content-Transfer-Encoding: 8bit
+ <87zgf2tfn3.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="C4xa30MXwHAwdNRz"
+Content-Disposition: inline
+In-Reply-To: <87zgf2tfn3.wl-tiwai@suse.de>
+X-Cookie: One FISHWICH coming up!!
 Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
  yung-chuan.liao@linux.intel.com, tiwai@suse.com,
  pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
@@ -109,51 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Sep 2022 11:40:17 +0200,
-Mark Brown wrote:
-> 
-> On Mon, 22 Aug 2022 11:51:33 +0800, Gaosheng Cui wrote:
-> > In configurations with CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC=n,
-> > gcc warns about an unused variable:
-> > 
-> > sound/soc/intel/skylake/skl.c: In function ¡probe_codec¢:
-> > sound/soc/intel/skylake/skl.c:729:18: error: unused variable ¡skl¢ [-Werror=unused-variable]
-> >   struct skl_dev *skl = bus_to_skl(bus);
-> >                   ^~~
-> > cc1: all warnings being treated as errors
-> > 
-> > [...]
-> 
-> Applied to
-> 
->    broonie/sound.git for-next
-> 
-> Thanks!
-> 
-> [1/1] ASoC: Intel: fix unused-variable warning in probe_codec
->       commit: 515626a33a194c4caaf2879dbf9e00e882582af0
-> 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
-> 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
-> 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
 
-I thought the buggy commit 3fd63658caed9 was present only in my tree
-for now, but if it's in your tree, that's fine to apply through
-yours.  Then I'll drop from mine.
+--C4xa30MXwHAwdNRz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Sep 14, 2022 at 12:27:28PM +0200, Takashi Iwai wrote:
+> Mark Brown wrote:
 
-thanks,
+> > [1/1] ASoC: Intel: fix unused-variable warning in probe_codec
+> >       commit: 515626a33a194c4caaf2879dbf9e00e882582af0
 
-Takashi
+> I thought the buggy commit 3fd63658caed9 was present only in my tree
+> for now, but if it's in your tree, that's fine to apply through
+> yours.  Then I'll drop from mine.
+
+Huh, right - I think you're right here and it is only in your
+tree, it just didn't trigger any issues in my coverage tests
+prior to merge.  Probably best to leave it in your tree and
+either have a double apply or I'll revert it from mine.  Either
+way it'll get fixed by the time it gets sent to Linus.
+
+I'd not remembered that you had any extra stuff for ASoC in your
+tree, sorry.
+
+--C4xa30MXwHAwdNRz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMhrXQACgkQJNaLcl1U
+h9C+jQf9FQwAjMtYvHZ3if8fr7vf+rJEXBpY25PWq5EI+r8ayTVRgzF1WmM1+WVC
+a1JeMj4eyHdSDxCOEkg+DWiE0cxk9MwgmySqmEowRaK8v7H85UDYdeqCToyZLv4J
+gTc6MvXhXrO1XStNEcASI0+SVxJg8PcBMpiGi3O3bAfFjpDLoBAkrlGiQnU3hyal
++MZBvmtlMmFbFvLY1ev0/PCwDlRohCPVc2S/uWVa8oPW7qb+Nfkw7AbYcBUsU3KY
+kKjf9/m6F90yMW4yUzvlOGp43SJcKP4tqQA1d8Da3s4IRw2FJOzd7R0YN9d7eAyq
+fnBS5184hFfUTDFHlMAEFkAQ0N0XSA==
+=fVaV
+-----END PGP SIGNATURE-----
+
+--C4xa30MXwHAwdNRz--

@@ -2,91 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B395B8C6F
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 18:04:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A635B8C7C
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 18:08:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9ADC818F8;
-	Wed, 14 Sep 2022 18:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ADC818F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7D411910;
+	Wed, 14 Sep 2022 18:07:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D411910
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663171492;
-	bh=NyugfmkeYdiHtL1NSo1W1AZPDlQ2WngpD2bt6uZcXHk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663171725;
+	bh=82aUx04eHI09yahgbuVzgSXq0+/mav6hqEkPR67VhsQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eWAGaHMYHcT0D2S0zLwZzbu34q6BZ1FbH22v1Zpun1+w+BDmsmp3eDf5ioy40q55s
-	 e+JA5ENp219nAUJ6sZxZ54xCZdqNEnBg7kFNOBuQxNm1VFUr+/lB1kOvSvhTxY2IV2
-	 AqpXBwWgNldA69/V+Nabixl1IyabxxrGuTPQMVpw=
+	b=X5I++SZe3jLDbq2P9JeWySYGlBkgtcY9eiXDkD0X8EME9EwB266Mavys2xJCjOKm8
+	 ZorU9OaDh3Zcw9SNauN5xXyIBAxCeS62LUwOtfmhC1AF4XEqAHIhbpIW6yG9oUzmWu
+	 GKdYujfWLZGw8Yee+/frh4CDhu0Kh8bnRaXyWJnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5692CF80533;
-	Wed, 14 Sep 2022 18:03:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 314F9F8016E;
+	Wed, 14 Sep 2022 18:07:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41E3AF804E6; Wed, 14 Sep 2022 18:03:25 +0200 (CEST)
+ id 7A13BF8016E; Wed, 14 Sep 2022 18:07:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58A08F8008E
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 18:07:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58A08F8008E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jCS++KJB"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA3F5F800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 18:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA3F5F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="TCxiazcC"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28EDgEGJ005943;
- Wed, 14 Sep 2022 11:02:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=FIRDieEsowSycNKPp8qdtTr+yeOJU0N2yv9agRWOIiY=;
- b=TCxiazcCCT/OmH5ugFrsWwrerVCSx0PFqQiXVBTK0u+ud+7CvZEKy0Z479LPJDrKzOL8
- mlwCn2RCWPqthXKvMzZoIiExtBURJeMejk4EP1e6pohBBgiBiohfOwgJtO2EIW23RCAE
- sBewmMCDwqV8pZNgrcuiu28dhY9ASiIEci1rT4M0wd3JadKv4fdl9iY9eUcq+BFk6lid
- 1SPwR4YwBXBymbtl+jCPeSXqVbX9Sny71k8NGjVVq0b053Tw632HAdaCqno9HTpLIVDP
- 5ss9ZS9zCFMh9TBYMMAokNmb2H8GGUFbzMeqcEqUz1/1yr5LKOPn5RW1rVHs1uaT/KE1 9Q== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3jjy05h8em-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 11:02:59 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Wed, 14 Sep
- 2022 11:02:55 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
- Frontend Transport; Wed, 14 Sep 2022 11:02:55 -0500
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DD67D11DA;
- Wed, 14 Sep 2022 16:02:55 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH v4 5/5] soundwire: bus: Don't exit early if no device IDs were
- programmed
-Date: Wed, 14 Sep 2022 17:02:48 +0100
-Message-ID: <20220914160248.1047627-6-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220914160248.1047627-1-rf@opensource.cirrus.com>
-References: <20220914160248.1047627-1-rf@opensource.cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id B0DB1B815CB;
+ Wed, 14 Sep 2022 16:07:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21AEFC433D7;
+ Wed, 14 Sep 2022 16:07:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663171648;
+ bh=82aUx04eHI09yahgbuVzgSXq0+/mav6hqEkPR67VhsQ=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=jCS++KJB/CZ+B2i/zdT4JAg499bIRZ1AwzeKdtH5jQJ2vOUaDl3wb3VGW7vrfcn3d
+ KaeQKsa5WQlZ7nfvkSPzZQbmKaE4twriBSSM31J6caQPUkPgcv6+oJr5sKJnPHx+zI
+ 5bV1C6qf8nBm2h3aZtL+3dpcM5ry4U2KxNDzl3FoAWUz1JCHl6Nms8p2ELwStDGCx7
+ ntjKzFPNuobJJmH8blUVBg2S2GJtOsiO/x3rtDVlysWdHB6sb+Dtr7GNHtP9O9Ew9D
+ ER/0Np4cEmNJ65xrY2VEKhd0izwKsrYtNUS3xZAsXmrwmy0SXUOFVKHlXoUkTSJ6St
+ yPGYFCl2oZ8IQ==
+From: Mark Brown <broonie@kernel.org>
+To: wangkelin2023@163.com, perex@perex.cz, Liang He <windhl@126.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com
+In-Reply-To: <20220914134354.3995587-1-windhl@126.com>
+References: <20220914134354.3995587-1-windhl@126.com>
+Subject: Re: [PATCH] ASoC: eureka-tlv320: Hold reference returned from
+ of_find_xxx API
+Message-Id: <166317164529.1330978.15444876619664038221.b4-ty@kernel.org>
+Date: Wed, 14 Sep 2022 17:07:25 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: tgoVBfEYbfIhJBtDBTq9zVfqX4vxbrnO
-X-Proofpoint-ORIG-GUID: tgoVBfEYbfIhJBtDBTq9zVfqX4vxbrnO
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.10.0-dev-7dade
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,105 +86,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Only exit sdw_handle_slave_status() right after calling
-sdw_program_device_num() if it actually programmed an ID into at
-least one device.
+On Wed, 14 Sep 2022 21:43:54 +0800, Liang He wrote:
+> In eukrea_tlv320_probe(), we need to hold the reference returned
+> from of_find_compatible_node() which has increased the refcount
+> and then call of_node_put() with it when done.
+> 
+> 
 
-sdw_handle_slave_status() should protect itself against phantom
-device #0 ATTACHED indications. In that case there is no actual
-device still on #0. The early exit relies on there being a status
-change to ATTACHED on the reprogrammed device to trigger another
-call to sdw_handle_slave_status() which will then handle the status
-of all peripherals. If no device was actually programmed with an
-ID there won't be a new ATTACHED indication. This can lead to the
-status of other peripherals not being handled.
+Applied to
 
-The status passed to sdw_handle_slave_status() is obviously always
-from a point of time in the past, and may indicate accumulated
-unhandled events (depending how the bus manager operates). It's
-possible that a device ID is reprogrammed but the last PING status
-captured state just before that, when it was still reporting on
-ID #0. Then sdw_handle_slave_status() is called with this PING info,
-just before a new PING status is available showing it now on its new
-ID. So sdw_handle_slave_status() will receive a phantom report of a
-device on #0, but it will not find one.
+   broonie/sound.git for-next
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/bus.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+Thanks!
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 6e569a875a9b..8eded1a55227 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -729,7 +729,7 @@ void sdw_extract_slave_id(struct sdw_bus *bus,
- }
- EXPORT_SYMBOL(sdw_extract_slave_id);
- 
--static int sdw_program_device_num(struct sdw_bus *bus)
-+static int sdw_program_device_num(struct sdw_bus *bus, bool *programmed)
- {
- 	u8 buf[SDW_NUM_DEV_ID_REGISTERS] = {0};
- 	struct sdw_slave *slave, *_s;
-@@ -739,6 +739,8 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 	int count = 0, ret;
- 	u64 addr;
- 
-+	*programmed = false;
-+
- 	/* No Slave, so use raw xfer api */
- 	ret = sdw_fill_msg(&msg, NULL, SDW_SCP_DEVID_0,
- 			   SDW_NUM_DEV_ID_REGISTERS, 0, SDW_MSG_FLAG_READ, buf);
-@@ -797,6 +799,8 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 					return ret;
- 				}
- 
-+				*programmed = true;
-+
- 				break;
- 			}
- 		}
-@@ -1756,7 +1760,7 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- {
- 	enum sdw_slave_status prev_status;
- 	struct sdw_slave *slave;
--	bool attached_initializing;
-+	bool attached_initializing, id_programmed;
- 	int i, ret = 0;
- 
- 	/* first check if any Slaves fell off the bus */
-@@ -1787,14 +1791,23 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 
- 	if (status[0] == SDW_SLAVE_ATTACHED) {
- 		dev_dbg(bus->dev, "Slave attached, programming device number\n");
--		ret = sdw_program_device_num(bus);
--		if (ret < 0)
--			dev_err(bus->dev, "Slave attach failed: %d\n", ret);
-+
- 		/*
--		 * programming a device number will have side effects,
--		 * so we deal with other devices at a later time
-+		 * Programming a device number will have side effects,
-+		 * so we deal with other devices at a later time.
-+		 * This relies on those devices reporting ATTACHED, which will
-+		 * trigger another call to this function. This will only
-+		 * happen if at least one device ID was programmed.
-+		 * Error returns from sdw_program_device_num() are currently
-+		 * ignored because there's no useful recovery that can be done.
-+		 * Returning the error here could result in the current status
-+		 * of other devices not being handled, because if no device IDs
-+		 * were programmed there's nothing to guarantee a status change
-+		 * to trigger another call to this function.
- 		 */
--		return ret;
-+		sdw_program_device_num(bus, &id_programmed);
-+		if (id_programmed)
-+			return 0;
- 	}
- 
- 	/* Continue to check other slave statuses */
--- 
-2.30.2
+[1/1] ASoC: eureka-tlv320: Hold reference returned from of_find_xxx API
+      commit: bfb735a3ceff0bab6473bac275da96f9b2a06dec
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

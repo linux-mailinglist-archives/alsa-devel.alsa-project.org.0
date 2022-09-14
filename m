@@ -2,76 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1126A5B8567
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4455F5B865C
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 12:28:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5C631843;
-	Wed, 14 Sep 2022 11:44:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5C631843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 981C1186B;
+	Wed, 14 Sep 2022 12:27:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981C1186B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663148691;
-	bh=ftt4KHas9O1x52VvAgYGxjYQEWbrp1OLoaku6EDK78g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1663151312;
+	bh=bsdIyWUUbivE59pV011Yl+mNNjQ4/JK7wov4G4pptA8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JZM2Aui92+NoNjLyeTI2owwLNFMDoMHYHKzqmmOHotnxFA5Readr5y+lklQAt/wgV
-	 lHTfUtAdDIlLbDauUJloT2M9v2XcpiqjiL6oGtfFHfgM6CIKIth1wXBYj0BzxwFlL2
-	 5HXIIYAu7ZNf7U4hQXY6aItYwYZ3MkCGwZkIrSwk=
+	b=G5lcidPeTgx2wvAlP1hIP3Aoy4tjv5qIHxCeXEoNDU6+IlU+8dvMuEvYwx77ulAQB
+	 gJbklanuDiCZSKBnZ88tNw2IvJLXf3AU3axp5e0Nu18nEm+kSNxdTk1Ljf+7lxa0W1
+	 iwM+bLcylEDuffVMPGoMvveZUqU7VTl+ylmYnQwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D65BF800C0;
-	Wed, 14 Sep 2022 11:43:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB90CF800FE;
+	Wed, 14 Sep 2022 12:27:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3616F800C0; Wed, 14 Sep 2022 11:43:51 +0200 (CEST)
+ id 3C614F800FE; Wed, 14 Sep 2022 12:27:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82FFDF800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:43:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82FFDF800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDC3AF800FE
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC3AF800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nC2JRbY1"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XQqiHUQp"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cTm91n7A"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DB1E361AF6;
- Wed, 14 Sep 2022 09:43:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC591C433D6;
- Wed, 14 Sep 2022 09:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663148623;
- bh=ftt4KHas9O1x52VvAgYGxjYQEWbrp1OLoaku6EDK78g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nC2JRbY1UVVLAOWxzO/itNFX9XsiekOEMzXRBEihNgRAMcAuCM9hGXIkYaDcw+DnR
- M9tM5hWiSdycDWEBts+ZRuZ8YqlNCm2VrHSeWNrH1n375rnk2BpjZeGpvKlwf7aje8
- BTOPdEmVpIJ5OciroLqXh/VR2nF7B4X9biGHVuaH+ooT0swQqS/8VqLwGVRtpNDHxT
- jL8D7dZJ1szazR/GNd4PO36z8RMxuZHW5kgq4LNsjoXheEB7JrUYF6G4cS12vKLAV1
- zudP5QsAX3G3RVvucg4x//1OmluJXPlToTJmwkuU72lp/wE1xCMyE1NFoRM5qTsw0u
- RH1XKdo6bjo1Q==
-Date: Wed, 14 Sep 2022 10:43:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kiseok Jo <kiseok.jo@irondevice.com>
-Subject: Re: [PATCH 3/4] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
-Message-ID: <YyGiTHZzUDlSCEpn@sirena.org.uk>
-References: <20220914045712.8775-4-kiseok.jo@irondevice.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="0hJL38rNocqmJAkH"
-Content-Disposition: inline
-In-Reply-To: <20220914045712.8775-4-kiseok.jo@irondevice.com>
-X-Cookie: One FISHWICH coming up!!
-Cc: alsa-devel@alsa-project.org, application@irondevice.com,
- Gyuhwa Park <gyuhwa.park@irondevice.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D83C93388F;
+ Wed, 14 Sep 2022 10:27:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663151248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bwrqe9juwWAngUflkbqX/hdbOSZnvvFPps+5b1Q+D74=;
+ b=XQqiHUQpe0B019/T76+hTeH4+0W8HviqY2hYFqLZrHwYApx+zhPHpqBoYGFkKhKc+duxYZ
+ el7VnnVeClFFGHwEqx8meweuWdnHHPVy8h4HR/OLPbx6ji3x1skEmUc1A6S+kmLMaG5af7
+ yf2FD0orQKpf7ZiTz/S33xFLoRD/0rE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663151248;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bwrqe9juwWAngUflkbqX/hdbOSZnvvFPps+5b1Q+D74=;
+ b=cTm91n7Al3Ll6ff/pdR3nNsXfPPYYJ4tJPNU7MHrDKm7tt/dYV3kMdprrjOkyuJ4y9ua2C
+ 1OXk13mzFdWoEZCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A13B1134B3;
+ Wed, 14 Sep 2022 10:27:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oJC1JpCsIWOfSAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 14 Sep 2022 10:27:28 +0000
+Date: Wed, 14 Sep 2022 12:27:28 +0200
+Message-ID: <87zgf2tfn3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH -next] ASoC: Intel: fix unused-variable warning in
+ probe_codec
+In-Reply-To: <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
+References: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
+ <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-7
+Content-Transfer-Encoding: 8bit
+Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org,
+ peter.ujfalusi@linux.intel.com, Gaosheng Cui <cuigaosheng1@huawei.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +109,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 14 Sep 2022 11:40:17 +0200,
+Mark Brown wrote:
+> 
+> On Mon, 22 Aug 2022 11:51:33 +0800, Gaosheng Cui wrote:
+> > In configurations with CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC=n,
+> > gcc warns about an unused variable:
+> > 
+> > sound/soc/intel/skylake/skl.c: In function ¡probe_codec¢:
+> > sound/soc/intel/skylake/skl.c:729:18: error: unused variable ¡skl¢ [-Werror=unused-variable]
+> >   struct skl_dev *skl = bus_to_skl(bus);
+> >                   ^~~
+> > cc1: all warnings being treated as errors
+> > 
+> > [...]
+> 
+> Applied to
+> 
+>    broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [1/1] ASoC: Intel: fix unused-variable warning in probe_codec
+>       commit: 515626a33a194c4caaf2879dbf9e00e882582af0
+> 
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+> 
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+> 
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+> 
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
 
---0hJL38rNocqmJAkH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I thought the buggy commit 3fd63658caed9 was present only in my tree
+for now, but if it's in your tree, that's fine to apply through
+yours.  Then I'll drop from mine.
 
-On Wed, Sep 14, 2022 at 01:57:10PM +0900, Kiseok Jo wrote:
-> The Iron Device SMA1303 is a boosted Class-D audio amplifier.
->=20
-> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
-> Reviewed-by: Gyuhwa Park <gyuhwa.park@irondevice.com>
-> ---
->  sound/soc/codecs/sma1303.c | 2781 ++++++++++--------------------------
->  sound/soc/codecs/sma1303.h |    7 +-
->  2 files changed, 762 insertions(+), 2026 deletions(-)
 
-These look like incremental patches against some existing code
-(perhaps your previous submission?) rather than a new post.  You
-should be able to combine them with the original patch using git
-rebase -i and resend.
+thanks,
 
---0hJL38rNocqmJAkH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMhoksACgkQJNaLcl1U
-h9CurAf/UCbLukBQrYQOcPgsyFSLen60ZayHqFGQRRA/PMWfIAid4EYWb1kCLLC7
-SBdCPkvX8+nbqRD+uUAjzx24D7eB7oJCGCtGKF/L6qZUUnv6Wrii9lndYYHPnjFi
-7iIEeHrcDxhBaidEdryLFQjW1+7m0nEQP6ZblGCA7j+AytC+R10DpN0hcnif6+nt
-h19TEtLz8Veqig2awpM0pPYWswHDKyuQKANwWVP5X6PWekHS1ZYOGm4ZF+OtWbpn
-+ZxXppe76aPYUI6DLGJSm1qEcWsgIze9hC+UcVsLjdImd7MjnTD0zOQLJ+WvdXQX
-GK6oZD0Fi5UevcormXav+GP5Vqaurg==
-=2Fg+
------END PGP SIGNATURE-----
-
---0hJL38rNocqmJAkH--
+Takashi

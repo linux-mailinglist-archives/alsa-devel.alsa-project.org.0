@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1DC5B82D2
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 10:20:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D725B83AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:02:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53FF9181C;
-	Wed, 14 Sep 2022 10:20:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FF9181C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6DF011C;
+	Wed, 14 Sep 2022 11:01:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6DF011C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663143654;
-	bh=UrXNo+gWqBURZ2nQFRzRtZFaCTDBNxWoEIRfC6m6I7o=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663146149;
+	bh=9m5W7lH4DrxdFeITuIr/sv2lNngTtPNkfQ9F2jbC9eE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=szu6oW4RnDuJFVYYkwG0W9M7odAo2EqJkkgfu34QCvlL9UreVwWxspwRybSii/XTF
-	 dq2GoaLGhuosyncef7tD+tHwEvJpdxaOm6yXdW0xpQzTpBoqZ5igPGyUkCroeh8YGW
-	 EIZnJpElgpFS/8E2ac8k72idknQhPvlb//A9f4yU=
+	b=Mhd0Qo7FUXY1TAWivRWNX50KUnmeJM4NqsEx3oqF4g5oOh8UJudatgPJAicBLMRK5
+	 tqsJu+lNMyXNmVfXC1seRmJJHeggO9E4T7lUC50Ki4Hu2Nmw37x6Tc5uHxElyDbYrT
+	 gf9jaZCb+Z/8/xuuaeTlXD59fn7QYPP9tMMFIMVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA7D8F8016E;
-	Wed, 14 Sep 2022 10:19:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FDEAF801D8;
+	Wed, 14 Sep 2022 11:01:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DA47F8014E; Wed, 14 Sep 2022 10:19:53 +0200 (CEST)
+ id 2F974F800C0; Wed, 14 Sep 2022 11:01:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8C25F800C0
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:01:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C25F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="F/Wjb7UC"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3C02F8008E
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 10:19:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3C02F8008E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="K2PUaWke"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663143587; x=1694679587;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=UrXNo+gWqBURZ2nQFRzRtZFaCTDBNxWoEIRfC6m6I7o=;
- b=K2PUaWke3/E2jjEu7EhAbELn6nDOfjiB2UbLIp0hkjktACCnWHTlaYeI
- POhk1s+luM3l/i4viDA/IczWKXABV3U9M4GPNhCZ0Xo39aJkwSUPCWzcd
- ZXxym627kAFQpS6qisCuVPpr/xl3J4D6pker05FVY+1JItai+LiFAuPLD
- EowCsx4Uy1Tb6dM/A6JYSoh4NgsV650wtt8CRKVbypOLv34xx2Sa6JyGt
- tMdRNwHk181rrClupDevdPehev6ld3xh3tiRcpQo+3PawyNB97pYSTbFx
- Wdg33eovHF6M8hr+6/ByRYZyAB0px3UrYs6wYNfws44MwTjKmoSTkbR/M Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="324619843"
-X-IronPort-AV: E=Sophos;i="5.93,315,1654585200"; d="scan'208";a="324619843"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2022 01:19:34 -0700
-X-IronPort-AV: E=Sophos;i="5.93,315,1654585200"; d="scan'208";a="567921671"
-Received: from blaesing-mobl.ger.corp.intel.com (HELO [10.249.45.209])
- ([10.249.45.209])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2022 01:19:31 -0700
-Message-ID: <b13fa907-6893-c4e2-4da5-204e15271a11@linux.intel.com>
-Date: Wed, 14 Sep 2022 09:51:21 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8922461812;
+ Wed, 14 Sep 2022 09:01:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498BBC433C1;
+ Wed, 14 Sep 2022 09:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663146077;
+ bh=9m5W7lH4DrxdFeITuIr/sv2lNngTtPNkfQ9F2jbC9eE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=F/Wjb7UCGPVKHOpbTnlbjgrUKzxFhMkHlPh4E5DVQnxNWQJAV82PyIPsqzZ24KED5
+ 26CrLHDDKROF48E2scMO/wmURpx2yTUz2WB2ZElVjuSeQEDvae0uG9XZPDN+nfyV9q
+ mWZalkZskra53nRhDG1o6fPYUKkTVBbWaQbqQyy73XRc2tk4KhtpsrGkOGi8zrK6Li
+ FObzYTj5HTDIALkee4/roQyZDHDb2V1Cw0ZdQZSnubGNWI9ONkdL/Ta4Zn0vlSx7u1
+ vNP3GYN5UzTnonqUqUyuA3aqFxkKSjOtHnIG0dmqLaAR20VPLnXmZxYaEvtpKMv9az
+ r2qVNUhfdj4ug==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.19 03/22] ASoC: nau8824: Fix semaphore unbalance at
+ error paths
+Date: Wed, 14 Sep 2022 05:00:44 -0400
+Message-Id: <20220914090103.470630-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220914090103.470630-1-sashal@kernel.org>
+References: <20220914090103.470630-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH linux-next] soundwire: intel: Remove unused parameter ret
-Content-Language: en-US
-To: cgel.zte@gmail.com, vkoul@kernel.org, yung-chuan.liao@linux.intel.com
-References: <20220914015256.22378-1-cui.jinpeng2@zte.com.cn>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220914015256.22378-1-cui.jinpeng2@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: sanyog.r.kale@intel.com, Jinpeng Cui <cui.jinpeng2@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ ckeepax@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
+ lgirdwood@gmail.com, hdegoede@redhat.com, Mark Brown <broonie@kernel.org>,
+ steve@sk2.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,44 +91,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Takashi Iwai <tiwai@suse.de>
 
+[ Upstream commit 5628560e90395d3812800a8e44a01c32ffa429ec ]
 
-On 9/14/22 03:52, cgel.zte@gmail.com wrote:
-> From: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
-> 
-> The parameter ret = 0 has not been used.
-> Return 0 directly instead of returning ret.
+The semaphore of nau8824 wasn't properly unlocked at some error
+handling code paths, hence this may result in the unbalance (and
+potential lock-up).  Fix them to handle the semaphore up properly.
 
-That code will be modified by a cleanup series that is going to land
-upstream shortly, see https://github.com/thesofproject/linux/pull/3835
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20220823081000.2965-3-tiwai@suse.de
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/nau8824.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-It's not an incorrect change but it will introduce unnecessary churn IMHO.
+diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
+index 2a7c935085353..c263858745ee2 100644
+--- a/sound/soc/codecs/nau8824.c
++++ b/sound/soc/codecs/nau8824.c
+@@ -1043,6 +1043,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
+ 	unsigned int val_len = 0, osr, ctrl_val, bclk_fs, bclk_div;
++	int err = -EINVAL;
+ 
+ 	nau8824_sema_acquire(nau8824, HZ);
+ 
+@@ -1059,7 +1060,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		osr &= NAU8824_DAC_OVERSAMPLE_MASK;
+ 		if (nau8824_clock_check(nau8824, substream->stream,
+ 			nau8824->fs, osr))
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
+ 			NAU8824_CLK_DAC_SRC_MASK,
+ 			osr_dac_sel[osr].clk_src << NAU8824_CLK_DAC_SRC_SFT);
+@@ -1069,7 +1070,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		osr &= NAU8824_ADC_SYNC_DOWN_MASK;
+ 		if (nau8824_clock_check(nau8824, substream->stream,
+ 			nau8824->fs, osr))
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap, NAU8824_REG_CLK_DIVIDER,
+ 			NAU8824_CLK_ADC_SRC_MASK,
+ 			osr_adc_sel[osr].clk_src << NAU8824_CLK_ADC_SRC_SFT);
+@@ -1090,7 +1091,7 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		else if (bclk_fs <= 256)
+ 			bclk_div = 0;
+ 		else
+-			return -EINVAL;
++			goto error;
+ 		regmap_update_bits(nau8824->regmap,
+ 			NAU8824_REG_PORT0_I2S_PCM_CTRL_2,
+ 			NAU8824_I2S_LRC_DIV_MASK | NAU8824_I2S_BLK_DIV_MASK,
+@@ -1111,15 +1112,17 @@ static int nau8824_hw_params(struct snd_pcm_substream *substream,
+ 		val_len |= NAU8824_I2S_DL_32;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		goto error;
+ 	}
+ 
+ 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
+ 		NAU8824_I2S_DL_MASK, val_len);
++	err = 0;
+ 
++ error:
+ 	nau8824_sema_release(nau8824);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+@@ -1128,8 +1131,6 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
+ 	unsigned int ctrl1_val = 0, ctrl2_val = 0;
+ 
+-	nau8824_sema_acquire(nau8824, HZ);
+-
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+ 	case SND_SOC_DAIFMT_CBM_CFM:
+ 		ctrl2_val |= NAU8824_I2S_MS_MASTER;
+@@ -1171,6 +1172,8 @@ static int nau8824_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 		return -EINVAL;
+ 	}
+ 
++	nau8824_sema_acquire(nau8824, HZ);
++
+ 	regmap_update_bits(nau8824->regmap, NAU8824_REG_PORT0_I2S_PCM_CTRL_1,
+ 		NAU8824_I2S_DF_MASK | NAU8824_I2S_BP_MASK |
+ 		NAU8824_I2S_PCMB_EN, ctrl1_val);
+-- 
+2.35.1
 
-> 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
-> ---
->  drivers/soundwire/intel.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index b006ae6efcb0..26fdf3577454 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -395,7 +395,6 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
->  {
->  	void __iomem *shim = sdw->link_res->shim;
->  	unsigned int link_id = sdw->instance;
-> -	int ret = 0;
->  	u16 ioctl = 0, act = 0;
->  
->  	mutex_lock(sdw->link_res->shim_lock);
-> @@ -427,7 +426,7 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
->  
->  	mutex_unlock(sdw->link_res->shim_lock);
->  
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)

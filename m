@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D69C5B8550
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:41:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10F3D5B8551
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Sep 2022 11:42:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4200F1866;
-	Wed, 14 Sep 2022 11:40:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4200F1866
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5D621890;
+	Wed, 14 Sep 2022 11:41:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D621890
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663148509;
-	bh=km5Bk53XmyjVKhe3BN3q3R+ZJqLirZyw93oGnlUg00M=;
+	s=default; t=1663148524;
+	bh=9d25q7djykcHE0hT6Fq9ch208cDtKJYVQfvbgze86aM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e6IFI2yT5+gWj0gcsNdb2clAp35smLnJ6XCwzIeXL6LEHVxN0oZvFcuPGpvDChp3V
-	 f6aLxlDg3h7x2e1ARukTLZ+OUpBKuoQEK4tmR1wBVUDyDpF6p/CAhfvwEXghyjcMJ+
-	 wkx9Ml0/17Z+bpI6bMSGr03YeG4xuQasZ0Gu6Wdo=
+	b=rO9oMJ5BpUcdqCv2R2yfQ45616SjjsvBSU9brIuINvdIY2QbW9xD370SCxvsEOlPy
+	 mPRHWgTOAYum4nl6xhjbjGWJCLlKLlzAVam/MIJWLr6afm+biup98YWmgTTiy3Ee51
+	 twsthp7R18H8ZXUswELn/ypRFnPlcd4IRJ8uZtu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F33FAF804E6;
-	Wed, 14 Sep 2022 11:40:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E97AF80507;
+	Wed, 14 Sep 2022 11:40:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D13EDF8014B; Wed, 14 Sep 2022 11:40:21 +0200 (CEST)
+ id B8091F80430; Wed, 14 Sep 2022 11:40:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56368F8014E
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:40:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56368F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39E72F801D8
+ for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 11:40:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39E72F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t24P1jIb"
+ header.b="M20tsW8J"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D427361AC7;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E729361AED;
+ Wed, 14 Sep 2022 09:40:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABD36C43141;
  Wed, 14 Sep 2022 09:40:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89067C433C1;
- Wed, 14 Sep 2022 09:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663148417;
- bh=km5Bk53XmyjVKhe3BN3q3R+ZJqLirZyw93oGnlUg00M=;
+ s=k20201202; t=1663148420;
+ bh=9d25q7djykcHE0hT6Fq9ch208cDtKJYVQfvbgze86aM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=t24P1jIbpfLNIBgAYfkJOmZWbIBr5Epxt/wZRkXxZLamJE1SGk7KAcs8ZV1MSR3HC
- uhx/B+NaevtfRE2zgPQ1dasEZ6k2vdaFYPSDfWzB7DwS/MKLnLMonTsud7ZXLQW28G
- 8oyoq/4TwNHabpgixNY5Bi92YxeYRiaqgNx8rnKWo33huCVOybEM6ZQzmcFNFzyi19
- +9Q7vlinWmWA3viLUA3m6FB/Ll4PjaAIbak5wzNQA3DeIZUF35lItat2RER93irrh5
- g4A2Vb47Ea7gxgLV7S9tQUclpY8KEEmegtY+Wb9rfLgg9tG3XEi1kXrgvMhmABhO8Z
- TGragVYhsothg==
+ b=M20tsW8JimtW/0pw2xZm3L1G3Ax1P8M1qasEDF7rc57ZKVhl21vmyOJDq1PanYHU3
+ K1CMf/zLtsJ0o4WGe87Bt0GT94k6vPT62O3AmxdZDujbeVjzd8mrGtiVEBNNga/cRH
+ L6QWPx435XADr1l3S/5CPrvPJwLCspPx0eQQkVnxdrblo1Gs7AcoNm+KNGEQP0xS1d
+ KQoxlHN4n8MIf5lD1UVyqdY0R2JjJQXceBlGJDEyiFvQEeWRLF9IUlCSilPg1DPKff
+ wfgZPU+k7F7JXrGVMlKxYlcDipssxmQWUVifu/GiXcnzHWPiQ6KVyP/xYKlyWby2Pv
+ CG0wqLYuXD4iA==
 From: Mark Brown <broonie@kernel.org>
-To: David Lin <CTLIN0@nuvoton.com>
-In-Reply-To: <20220913120641.792502-1-CTLIN0@nuvoton.com>
-References: <20220913120641.792502-1-CTLIN0@nuvoton.com>
-Subject: Re: [PATCH 1/2] ASoC: nau8825: Add ADCOUT IO drive strength control
-Message-Id: <166314841529.314266.13299542848016745362.b4-ty@kernel.org>
-Date: Wed, 14 Sep 2022 10:40:15 +0100
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, cezary.rojewski@intel.com,
+ tiwai@suse.com, ranjani.sridharan@linux.intel.com, 
+ pierre-louis.bossart@linux.intel.com, perex@perex.cz,
+ liam.r.girdwood@linux.intel.com, kai.vehmanen@linux.intel.com, 
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com
+In-Reply-To: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
+References: <20220822035133.2147381-1-cuigaosheng1@huawei.com>
+Subject: Re: [PATCH -next] ASoC: Intel: fix unused-variable warning in
+ probe_codec
+Message-Id: <166314841746.314266.6045600836637107787.b4-ty@kernel.org>
+Date: Wed, 14 Sep 2022 10:40:17 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-7dade
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,10 +90,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Sep 2022 20:06:41 +0800, David Lin wrote:
-> Add a property to control the driving of ADCOUT.
+On Mon, 22 Aug 2022 11:51:33 +0800, Gaosheng Cui wrote:
+> In configurations with CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC=n,
+> gcc warns about an unused variable:
 > 
+> sound/soc/intel/skylake/skl.c: In function ‘probe_codec’:
+> sound/soc/intel/skylake/skl.c:729:18: error: unused variable ‘skl’ [-Werror=unused-variable]
+>   struct skl_dev *skl = bus_to_skl(bus);
+>                   ^~~
+> cc1: all warnings being treated as errors
 > 
+> [...]
 
 Applied to
 
@@ -98,10 +108,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: nau8825: Add ADCOUT IO drive strength control
-      commit: ed8570726ab005da0aa62cc24046ef83fa342e89
-[2/2] ASoC: dt-bindings: nau8825: Add ADCOUT IO drive strength control
-      commit: 40a57d4b2d82fe4a10bc41aa79532ee33ffdb051
+[1/1] ASoC: Intel: fix unused-variable warning in probe_codec
+      commit: 515626a33a194c4caaf2879dbf9e00e882582af0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

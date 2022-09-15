@@ -2,130 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49C735BA9B8
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 11:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D0CB5BA9BA
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 11:55:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDE421AA0;
-	Fri, 16 Sep 2022 11:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDE421AA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F5AB1AA1;
+	Fri, 16 Sep 2022 11:54:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F5AB1AA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663322131;
-	bh=eZpX9Q0+2GrKilDiLLymV51xSJb6U6Y0wYpktoaiHhM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1663322148;
+	bh=DQdYvm4gHQ2HiNeRIU1kRsiNIz8EjW/A285YWUqULzs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sQm+Fmb2rKPqsG2wAuokTTAy8/+7xl1OCnDQL89C2GpJgcjsOPMcGG042/IX3tVSx
-	 99KbzQOCRA3fFkTiIn3Tl/GDIe/rdbRVPJb0GQeoju2vgPjZC+spqU2Nf5yM7ZU0+c
-	 3wa0LBF+wtab/+qb8t6OuRi/BlqIpcSp1E1gJtjw=
+	b=Ds5vXOilwZj5ydGqYxz1n19bJq7tJoRyryKiop7E94CtLuEPLwJuNsSzFZEEyV2OC
+	 Y3m1ET8rcClT7TUyQFvZMGZeNU5NYpZgaZVZaqHSPZoI+bD9buCHHqU2BugpF4d0PX
+	 5A72wLCVrbbELqHctbhZYxq5nQVWPKDiCN1wOkUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4EC5F8053C;
-	Fri, 16 Sep 2022 11:53:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7470CF80549;
+	Fri, 16 Sep 2022 11:53:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7965CF8014E; Wed, 14 Sep 2022 12:26:31 +0200 (CEST)
+ id E2A52F80238; Thu, 15 Sep 2022 04:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CF0EF800FE
+ for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 04:25:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CF0EF800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="UN3olh1Q"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14C93F800FE
- for <alsa-devel@alsa-project.org>; Wed, 14 Sep 2022 12:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14C93F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="TL5yKDVh"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28E9mte0007852;
- Wed, 14 Sep 2022 10:26:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=YEISDO6tRN2BKZmf1zGjPFjG8txfCf6PeSIqZVu3kcM=;
- b=TL5yKDVh/yaeYS9WmvGBBuEyLl7zxW1h1w2itMnTjp2MMbbmyNtNDRpAOQT4fD6oUGrX
- QusZ9K7oSTLIhWKOGalS9GhZUnznWfW2ue695Jfatf4geR8N5ykLIPgzh/fsu3BqFgwU
- c4NTv5FiyFG0YpITSt6y9dPdAqPktgjGJaDIgzDzvXCdgFzi5kvzzxprZSW9iysxAHwF
- ycxg2o+DVxOMNu2oK2n3wVmCZwBYDpD/D+CMVv3uAAlT1VMUF0ezrXdpjmNDd9udhU/Y
- sh6TK6FnTZv+CXS5MMmnRvduwKigOCGxXDvxNAqT9xR5wWmNWTyIq7bO7ZSRh1XGlSYD Dg== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjxys27r0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:26:23 +0000
-Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28EAQLXV008247; 
- Wed, 14 Sep 2022 10:26:22 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 3jh430w719-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:26:21 +0000
-Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28EAQLQD008237;
- Wed, 14 Sep 2022 10:26:21 GMT
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 28EAQLa0008236
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Sep 2022 10:26:21 +0000
-Received: from [10.79.43.230] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 14 Sep
- 2022 03:26:17 -0700
-Subject: Re: [PATCH 3/4] slimbus: qcom-ngd-ctrl: Make QMI message rules const
-To: Jeff Johnson <quic_jjohnson@quicinc.com>, Alex Elder <elder@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "Mathieu
- Poirier" <mathieu.poirier@linaro.org>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Kalle Valo <kvalo@kernel.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, "Konrad
- Dybcio" <konrad.dybcio@somainline.org>
-References: <20220912232526.27427-1-quic_jjohnson@quicinc.com>
- <20220912232526.27427-2-quic_jjohnson@quicinc.com>
- <20220912232526.27427-3-quic_jjohnson@quicinc.com>
- <20220912232526.27427-4-quic_jjohnson@quicinc.com>
-From: Sibi Sankar <quic_sibis@quicinc.com>
-Message-ID: <7237445c-98fa-ef2b-8cdb-75656a724422@quicinc.com>
-Date: Wed, 14 Sep 2022 15:56:14 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DDF126203D;
+ Thu, 15 Sep 2022 02:25:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C034C433D6;
+ Thu, 15 Sep 2022 02:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663208723;
+ bh=DQdYvm4gHQ2HiNeRIU1kRsiNIz8EjW/A285YWUqULzs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UN3olh1QPPRsS7euylq9wdzIceFii8blDsKxgfyURpEP5ck4MaGaaCy4rtXEY9pJR
+ URqToh3uurq5cEpATX9dotdWcoAvrY3JasMLYNU/N+/LoARagns8YJIIOFCBQ3AjL+
+ EtvubqlEgvgujyo+SpxmHOTgFRU5P+0C2v9Sn+jF78y7XhMD4dPQ40vMIQCeeUyfP9
+ Puk/frVo8tqBmbohHRN8LOT9MDbEOQ+NMHqrHAb+gHQWZxF+OR0FamP9RJTAYE+S8K
+ UrGmaXFMOwxFivhb5F5qX3pqQD993TbH+CDZnj0ukdyr8+ILy+J4sr3xK7GOUsmXjF
+ vjQJp04bRX3Mg==
+Date: Wed, 14 Sep 2022 21:25:20 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: MAINTAINERS: add bindings and APR to Qualcomm
+ Audio entry
+Message-ID: <20220915022520.kke2t6sylo27jmgd@builder.lan>
+References: <20220907102311.38428-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20220912232526.27427-4-quic_jjohnson@quicinc.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: iaPqmHGDL_hzox27I1LdgUEUrqf183jx
-X-Proofpoint-GUID: iaPqmHGDL_hzox27I1LdgUEUrqf183jx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-14_03,2022-09-14_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- adultscore=0 mlxlogscore=999 spamscore=0 clxscore=1015 phishscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2208220000 definitions=main-2209140050
-X-Mailman-Approved-At: Fri, 16 Sep 2022 11:53:37 +0200
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220907102311.38428-1-krzysztof.kozlowski@linaro.org>
+X-Mailman-Approved-At: Fri, 16 Sep 2022 11:53:36 +0200
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,59 +91,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 9/13/22 4:55 AM, Jeff Johnson wrote:
-> Commit ff6d365898d ("soc: qcom: qmi: use const for struct
-> qmi_elem_info") allows QMI message encoding/decoding rules to be
-> const, so do that for qcom-ngd-ctrl.
+On Wed, Sep 07, 2022 at 12:23:11PM +0200, Krzysztof Kozlowski wrote:
+> Extend the Qualcomm Audio maintainer entry to include sound related
+> bindings and the Qualcomm APR/GPR (Asynchronous/Generic Packet Router)
+> IPC driver, which is tightly related to the Audio DSP.
 > 
-> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Reviewed-by: Sibi Sankar <quic_sibis@quicinc.com>
+Acked-by: Bjorn Andersson <andersson@kernel.org>
 
 > ---
->   drivers/slimbus/qcom-ngd-ctrl.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>  MAINTAINERS | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-> index 0aa8408464ad..931ab6317467 100644
-> --- a/drivers/slimbus/qcom-ngd-ctrl.c
-> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-> @@ -220,7 +220,7 @@ struct slimbus_power_resp_msg_v01 {
->   	struct qmi_response_type_v01 resp;
->   };
->   
-> -static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
-> +static const struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
->   	{
->   		.data_type  = QMI_UNSIGNED_4_BYTE,
->   		.elem_len   = 1,
-> @@ -262,7 +262,7 @@ static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
->   	},
->   };
->   
-> -static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
-> +static const struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
->   	{
->   		.data_type  = QMI_STRUCT,
->   		.elem_len   = 1,
-> @@ -284,7 +284,7 @@ static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
->   	},
->   };
->   
-> -static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
-> +static const struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
->   	{
->   		.data_type  = QMI_UNSIGNED_4_BYTE,
->   		.elem_len   = 1,
-> @@ -324,7 +324,7 @@ static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
->   	},
->   };
->   
-> -static struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
-> +static const struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
->   	{
->   		.data_type  = QMI_STRUCT,
->   		.elem_len   = 1,
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0350effebe8f..453dc6fd0b80 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16710,6 +16710,9 @@ M:	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>  M:	Banajit Goswami <bgoswami@quicinc.com>
+>  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+>  S:	Supported
+> +F:	Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+> +F:	Documentation/devicetree/bindings/sound/qcom,*
+> +F:	drivers/soc/qcom/apr.c
+>  F:	include/dt-bindings/sound/qcom,wcd9335.h
+>  F:	sound/soc/codecs/lpass-rx-macro.*
+>  F:	sound/soc/codecs/lpass-tx-macro.*
+> -- 
+> 2.34.1
 > 

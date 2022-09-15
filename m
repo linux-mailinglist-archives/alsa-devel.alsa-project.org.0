@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74AE5B9807
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 11:49:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9952F5B9811
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 11:49:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE8D193F;
-	Thu, 15 Sep 2022 11:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE8D193F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 370E516FB;
+	Thu, 15 Sep 2022 11:49:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 370E516FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663235353;
-	bh=r3nIjrVx8Gh+9tpLKQizhFAYB5dDvK5YgXnIQpK92B0=;
+	s=default; t=1663235391;
+	bh=5c0oUHNYGH5E+YA9eg8WNykJyMBkwvthfujo3ZZpTPs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pdsglpKz4GTN3adSgJ2e/6CutGEQhy5/2xqBlmkwhkucOZ7Hh4e2OJllEqQ19MuOI
-	 n/sNZTiJV/EkGq12T3Jepx6IPPSjMX0fmOBYOwgkQAW17S74QW9RP66pmjYTXoJ/2w
-	 CVasWKb8i7Ksrz/yqAidHo9Cob9mO1QUacCWdSZw=
+	b=lD1ZkctOamp8cAT9RrcgRevRg1XOwvPBTSHrt0vINl5qpm1yBA5NPiBuVN5OQ//hJ
+	 bdoJPwaoGI1A9ah/I0Qxvm87t7NX5rKP2P5Cl2vmRo/xDi4TXopi0z/AgSV76JXAEW
+	 aOtqx0n/bRyelU9EubRd9wt3ip+iYJqUXqp8KQx4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C046F805A9;
-	Thu, 15 Sep 2022 11:46:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11945F805B3;
+	Thu, 15 Sep 2022 11:46:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B535BF8057F; Thu, 15 Sep 2022 11:45:53 +0200 (CEST)
+ id 185E0F8057E; Thu, 15 Sep 2022 11:45:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FB45F80528
+ by alsa1.perex.cz (Postfix) with ESMTPS id 133F0F80495
  for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 11:45:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FB45F80528
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 133F0F80495
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="cFhRzEko"
+ header.b="gb+bXPbL"
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1663235137; bh=RYvMqhdnzL8RPlR9TpcOtA7UqSXk+T+8HMSs+nwHUT4=;
+ t=1663235138; bh=cW5w38A8GLInG+MinVkl6F+e++EU/JdqSt9RzpfaksU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=cFhRzEkoYwohnQsDEnr6aUWMfMKipUR8Feq3jxl40+gC6PjMguEAK/PFnqbft3/oI
- mcqLjLhoX/Ls1umQzkw5gT9hVnfudMaW/qAmIBI0UZYz0EvpNjWP9MIOnJQbCkg3Bd
- bbZ21Kxxj2ZGj/XdWbnvZRH1jQmdqWO2TVpOAggU=
+ b=gb+bXPbLB9YOA2ZndnvlCuK62asG96OLytjqpzjFrTgE1DVS18ds4rVYtgdOpecbx
+ 7a5pk6VpIgyFXcREdSV24QKrvsrX6DfaF/H6X9qicskfheJMuY9ttmqTs/fUNPCDQ1
+ YnvPXUTUMpeL/c8fvRSuJyMYGgqsBaZIuH0FQeAY=
 To: James Schulman <james.schulman@cirrus.com>,
  David Rhodes <david.rhodes@cirrus.com>,
  Lucas Tanure <tanureal@opensource.cirrus.com>,
@@ -55,9 +55,9 @@ To: James Schulman <james.schulman@cirrus.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: [PATCH v2 10/11] ASoC: cs42l42: Implement 'set_bclk_ratio'
-Date: Thu, 15 Sep 2022 11:44:43 +0200
-Message-Id: <20220915094444.11434-11-povik+lin@cutebit.org>
+Subject: [PATCH v2 11/11] ASoC: cs42l42: Switch to dev_err_probe() helper
+Date: Thu, 15 Sep 2022 11:44:44 +0200
+Message-Id: <20220915094444.11434-12-povik+lin@cutebit.org>
 In-Reply-To: <20220915094444.11434-1-povik+lin@cutebit.org>
 References: <20220915094444.11434-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
@@ -85,71 +85,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver wants to know the bit rate on the serial bus and takes that
-to be the value set by 'set_sysclk'. The 'set_bclk_ratio' op is a better
-fit for figuring out the clocking parameters of the serial bus, so
-implement that and give it precedence over the prior methods.
+Replace dev_err() with dev_err_probe() in the probe path for consistency
+with cs42l83-i2c.c.
 
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 ---
- sound/soc/codecs/cs42l42.c | 17 ++++++++++++++++-
- sound/soc/codecs/cs42l42.h |  1 +
- 2 files changed, 17 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs42l42-i2c.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index c1d7eb12b0ba..05995ed1d3f5 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -898,7 +898,10 @@ static int cs42l42_pcm_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/codecs/cs42l42-i2c.c b/sound/soc/codecs/cs42l42-i2c.c
+index 35fecff0f74f..1900ec75576e 100644
+--- a/sound/soc/codecs/cs42l42-i2c.c
++++ b/sound/soc/codecs/cs42l42-i2c.c
+@@ -25,11 +25,9 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 		return -ENOMEM;
  
- 	cs42l42->srate = params_rate(params);
+ 	regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
+-	if (IS_ERR(regmap)) {
+-		ret = PTR_ERR(regmap);
+-		dev_err(&i2c_client->dev, "regmap_init() failed: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(regmap))
++		return dev_err_probe(&i2c_client->dev, PTR_ERR(regmap),
++				     "regmap_init() failed\n");
  
--	if (cs42l42->sclk) {
-+	if (cs42l42->bclk_ratio) {
-+		/* machine driver has set the BCLK/samp-rate ratio */
-+		bclk = cs42l42->bclk_ratio * params_rate(params);
-+	} else if (cs42l42->sclk) {
- 		/* machine driver has set the SCLK */
- 		bclk = cs42l42->sclk;
- 	} else {
-@@ -984,6 +987,17 @@ static int cs42l42_set_sysclk(struct snd_soc_dai *dai,
- 	return -EINVAL;
- }
- 
-+static int cs42l42_set_bclk_ratio(struct snd_soc_dai *dai,
-+				unsigned int bclk_ratio)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
-+
-+	cs42l42->bclk_ratio = bclk_ratio;
-+
-+	return 0;
-+}
-+
- static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- {
- 	struct snd_soc_component *component = dai->component;
-@@ -1087,6 +1101,7 @@ static const struct snd_soc_dai_ops cs42l42_ops = {
- 	.hw_params	= cs42l42_pcm_hw_params,
- 	.set_fmt	= cs42l42_set_dai_fmt,
- 	.set_sysclk	= cs42l42_set_sysclk,
-+	.set_bclk_ratio	= cs42l42_set_bclk_ratio,
- 	.mute_stream	= cs42l42_mute_stream,
- };
- 
-diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index bc51bb09da5c..a72136664112 100644
---- a/sound/soc/codecs/cs42l42.h
-+++ b/sound/soc/codecs/cs42l42.h
-@@ -35,6 +35,7 @@ struct  cs42l42_private {
- 	int irq;
- 	int pll_config;
- 	u32 sclk;
-+	u32 bclk_ratio;
- 	u32 srate;
- 	u8 plug_state;
- 	u8 hs_type;
+ 	cs42l42->devid = CS42L42_CHIP_ID;
+ 	cs42l42->dev = dev;
 -- 
 2.33.0
 

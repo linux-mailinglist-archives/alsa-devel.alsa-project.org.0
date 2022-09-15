@@ -2,105 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 712805B95FC
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 10:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A285B96D4
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 11:00:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DDAF1926;
-	Thu, 15 Sep 2022 10:10:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DDAF1926
+	by alsa0.perex.cz (Postfix) with ESMTPS id 189FC18FF;
+	Thu, 15 Sep 2022 11:00:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189FC18FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663229500;
-	bh=FuxIPyfxe5kfGacZT8BTpHj6CWvg1eGfQOVPbmlayO8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UTEQFat9677QJUKIDuKTZEar4MFqCGZlfRk9Ca5MfGARIum/AauBOGyIq6LgJ6apv
-	 lDnL/W4Eat6d4B1pM+DKX3Fhw+t1JHcNFcI33qvvknm9oBppfwXWaDCA7giysdmEJd
-	 APf/ZdDZu43+7gRNUyHzGLL6Bb46T/9BaMZQ1ScA=
+	s=default; t=1663232457;
+	bh=pzVKI9VIuq3gSHnz8FsPWP7JpIHr5wL2ljtvBA7RHTU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kiTTN1Z6tQOVzcUzDsoDjxp19ih2PWouNauFJkAU7xhz4CUPt97BasMtDG4rHxVYO
+	 CpqZCmzvkxuGlSNOrqfBWFLmbIl+Me2O0hEMP7ILlLG1LS8fm/2PuvFLwec1tYx6AV
+	 fRbFg4CJxDtxsgyAuTTxzcjgCPzhse/tQ1mZXBZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 197BBF80543;
-	Thu, 15 Sep 2022 10:09:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F784F8027D;
+	Thu, 15 Sep 2022 10:59:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35A1FF80542; Thu, 15 Sep 2022 10:09:56 +0200 (CEST)
+ id A001CF80238; Thu, 15 Sep 2022 10:59:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B714F8013D
- for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 10:09:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B714F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57ADEF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 10:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57ADEF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ljones.dev header.i=@ljones.dev
- header.b="Luzsp/ba"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="EP2EFni2"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 167A93200B73;
- Thu, 15 Sep 2022 04:09:47 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 15 Sep 2022 04:09:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
- :cc:content-transfer-encoding:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1663229386; x=1663315786; bh=0Q
- 04mFgRD7edEsHcym+fN9UcJx2DHyn2Ew32bsA9ExQ=; b=Luzsp/ba1qz1kBcZ3m
- t87N6zIxxrDhm2MvOVnj+ZgtpcPD7ve40DbxQHrGdAzPCJ/1b4/cHbnpKtNXBqmk
- +miEadMKEmYUPj3iOCbaAvzVonBbZjIS0ePprqsmb72lWNVbZX2SshXcVZzOZx9b
- iIO0ny3uVedfix/LAMzMzYQHxmZqtWw1Tlg+5tamgxy3fyOof06/H/dPA1Rm7qHx
- 52OVZTIj8EhutFiYuA9zQUUoW/1/cVRjmqo24Nq5Zx41Xo5w6v9mM54AaWmJ4i50
- U3e6LjJsjt6hSyKOEpp5x5DdSmUxcIFO74Ji+h9yDIV0epsltf7nqgTVkaWqaoZg
- sdgQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1663229386; x=1663315786; bh=0Q04mFgRD7edE
- sHcym+fN9UcJx2DHyn2Ew32bsA9ExQ=; b=EP2EFni2DQQWxuZh6jWnRfT2WB+z8
- t3DDaxhzIgAG1LXYCkj2j1nQbUhnFmqnKEj5RKg6X5jpLxaFfwJWSH6iEPEUq8ta
- dL4xyS2vylwZb/sXl/HPXHCX3qxZgpGENSHmAhYrp3zIbzTKVf2GaaJtK36CIdn0
- 9cQP1xQI1c6fALolle+2xFc4OjnvHlD+067huWJYeGFXmMKckyJw8rw/uVa41n2T
- CvQv9DDDVklLuyxjlxSjIXNnDIwcyME1dZaylB5EICzOUm3w1qV9Ku7NS7bfRthP
- D2etX6ln/G1L7eilnKITMRzmOQhCFnwlvvwMhrG5hirLrlSY3gUunjN1w==
-X-ME-Sender: <xms:yt0iY9cZPhTkSGIxk7e0YiTiDhWUM9aMMu9rFRtIg7FJKHYKPziNJA>
- <xme:yt0iY7NG0vUvCKezU3mr2lWuDuWbMpha5ayrAgx2MrdAZJEMdS5KCn2ILWMbUkYUu
- RNg01216AoP5JR-h9s>
-X-ME-Received: <xmr:yt0iY2hEcfT6NTwj27wPQwozdVH_iaaLx6w02ANy-e2-wnE1Wu4PJvfTWTal>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedukedgtdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpedfnfhukhgvucffrdculfhonhgvshdfuceolhhukhgvsehl
- jhhonhgvshdruggvvheqnecuggftrfgrthhtvghrnhepgfetfedugfetudeuheetjefhue
- fggfelleetvdevtefhueeujeefvdegleevhefgnecuvehluhhsthgvrhfuihiivgeptden
- ucfrrghrrghmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
-X-ME-Proxy: <xmx:yt0iY2_8clyP5Z7kVrMf4zkLVFkVhp3FaHOqOh8Z4vOI8XfpGO34pA>
- <xmx:yt0iY5v5WOCi6sV0Vu9Ezai_EMaQR-39umNDnRNEett7WkeQA4MO1w>
- <xmx:yt0iY1El7nuug-pFavGj2OLffYG8fgHr7QWE0sW25dqchKae84Ytiw>
- <xmx:yt0iYy5_sUM4WJogGFc3e7hQmjlpyB6S0qk_LyyXohmiRct2OtEYKw>
-Feedback-ID: i5ec1447f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Sep 2022 04:09:44 -0400 (EDT)
-From: "Luke D. Jones" <luke@ljones.dev>
-To: tiwai@suse.com
-Subject: [PATCH v2 3/3] sound: realtek: Add quirk for ASUS GA503R laptop
-Date: Thu, 15 Sep 2022 20:09:21 +1200
-Message-Id: <20220915080921.35563-4-luke@ljones.dev>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220915080921.35563-1-luke@ljones.dev>
-References: <20220915080921.35563-1-luke@ljones.dev>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PYemaeOY"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="twg2NEEi"
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6A7F95CCF6;
+ Thu, 15 Sep 2022 08:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663232390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=02QYV8muV3WLcYhIGKHWIq/OEahSQP0rVx+4N0enhLY=;
+ b=PYemaeOYJwdhmLeAVppa9271AdTq0AfL4RRt5enFrAj4TovHeGWQZ7buRoOvzott89/Vmj
+ AMY7GzOc02D+oRk+rUyyZCF9Vpya+S/snGwHbpzZnYUvfS4GwhJdYIGcBrqS805BUu/ktD
+ D0NftcUrRaCYAHu1kH7IGQr7fxIulHc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663232390;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=02QYV8muV3WLcYhIGKHWIq/OEahSQP0rVx+4N0enhLY=;
+ b=twg2NEEiSeeXOCayd0kzoASDnGUhOFZ20ldPwOhcXbMFyzroS9QCoWET3e/e08XHqRDeGK
+ q7qyDMxI5qEVYABA==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 51665132BD;
+ Thu, 15 Sep 2022 08:59:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id /WX/EobpImMtEwAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Thu, 15 Sep 2022 08:59:50 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Fix last interface check for registration
+Date: Thu, 15 Sep 2022 10:59:47 +0200
+Message-Id: <20220915085947.7922-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, "Luke D. Jones" <luke@ljones.dev>,
- linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,29 +93,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The ASUS G15 2022 (GA503R) series laptop has the same node-to-DAC pairs
-as early models and the G14, this includes bass speakers which are by
-default mapped incorrectly to the 0x06 node.
+The recent fix in commit 6392dcd1d0c7 ("ALSA: usb-audio: Register card
+at the last interface") tried to delay the card registration until the
+last found interface is probed.  It assumed that the probe callback
+gets called for those later interfaces, but it's not always true; as
+the driver loops over the descriptor and probes the matching ones,
+it's not separately called via multiple probe calls.  This results in
+the missing card registration, i.e. no sound device.
 
-Add a quirk to use the same DAC pairs as the G14.
+For addressing this problem, replace the check whether the last
+interface is processed with usb_interface_claimed() instead of the
+comparison with the probe interface number.
 
-Signed-off-by: Luke D. Jones <luke@ljones.dev>
+Fixes: 6392dcd1d0c7 ("ALSA: usb-audio: Register card at the last interface")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/usb/card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index a44a55619144..52eb31f4166c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9332,6 +9332,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
- 	SND_PCI_QUIRK(0x1043, 0x1e51, "ASUS Zephyrus M15", ALC294_FIXUP_ASUS_GU502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
-+	SND_PCI_QUIRK(0x1043, 0x1c52, "ASUS Zephyrus G15 2022", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1e5e, "ASUS ROG Strix G513", ALC294_FIXUP_ASUS_G513_PINS),
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 3aea241435fb..a5ed11ea1145 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -884,7 +884,7 @@ static int usb_audio_probe(struct usb_interface *intf,
+ 	 * one given via option
+ 	 */
+ 	if (check_delayed_register_option(chip) == ifnum ||
+-	    chip->last_iface == ifnum) {
++	    usb_interface_claimed(usb_ifnum_to_if(dev, chip->last_iface))) {
+ 		err = snd_card_register(chip->card);
+ 		if (err < 0)
+ 			goto __error;
 -- 
-2.37.3
+2.35.3
 

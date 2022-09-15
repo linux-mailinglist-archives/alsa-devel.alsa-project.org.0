@@ -2,102 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2285B9AA1
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 14:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E06755B9B0B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 14:39:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 635EF18C2;
-	Thu, 15 Sep 2022 14:20:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 635EF18C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2212C1933;
+	Thu, 15 Sep 2022 14:39:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2212C1933
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663244500;
-	bh=IDvW+qok6EOC1gqVl71A0qYv+r0a2m1Tp7WBNvzOYPc=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fFlK+Wk0iYRVZ5x57aDCawmindu2VMkbRXZgBaWBs16oWXYWNf04jpwMMDe9yDEnN
-	 pYQpJFs+BnqzrK9tQa4Ikdwy1hGPrF4MvHknTPojlINFWm4EelxMlMHTioh2aulpkx
-	 Pr2Blhq0KW95enG/3qD7920oWXOtMDdXwc/Jdhr8=
+	s=default; t=1663245592;
+	bh=JW0BDeU4Ul3qtQtdzlc42DdJNERDHpO5V1ZSUo1XKbA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JVMOClY5Esvk7RDaK4qB89yp0imQi9amZXxQzRbDR7XVwupWwgYVUUosAwrFZtE0/
+	 /SuKj2wXESOEyM3YB3ILRyey3ljV6xA0kQJWWpbC4aXGc+itxCAO7zW72sEMhI7kIf
+	 p7N48K3Zhtd0JQ1GVTOvcg16HCRespc4ZmlD2h1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E98BF8027D;
-	Thu, 15 Sep 2022 14:20:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69A8AF8013D;
+	Thu, 15 Sep 2022 14:38:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CBB8F800B5; Thu, 15 Sep 2022 14:20:39 +0200 (CEST)
+ id 4C188F80238; Thu, 15 Sep 2022 14:38:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77F84F800B5
- for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 14:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77F84F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D799F800B5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 14:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D799F800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="V/9llfCj"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28F5erk7015415;
- Thu, 15 Sep 2022 07:20:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=CUUZCN8CbQjdSUIzRh++MknIDM7YeGQKIOTWG5m6Yk0=;
- b=V/9llfCjSPnhOow+ROHdKUa1UlshXzdMA3N+MpTbafilTn9IBHJymHgTFfKI6XruT3Bk
- Dx5Agbd0n/SH1Eu6Y52pa/pJC7FH647QXWtkUIOV+WZtfuHgK0ppxI8ug+tDFn34CJDj
- dqzUqa465i3h6CHoKjHVdgSRtJuFOm9txFrGdXo7AW7ngrMnfgiyFbs2orFB8Xq2hLXj
- s4NRnrlS2EmfFJ6+iTzpObSsm2LJp8DJs3Sw7gYJSUbPxVWqGNWEn3CpHZqU8Q7KTcxp
- L+evTk9rqOTw8hIWoKxTlHEUK1TG25zqm7ZKgSkedXCAVkVayYWgOI8BYNOZ7Q2lpADM 5Q== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jjxyr2ac4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Sep 2022 07:20:31 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Thu, 15 Sep
- 2022 07:20:29 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
- Frontend Transport; Thu, 15 Sep 2022 07:20:29 -0500
-Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E0C66468;
- Thu, 15 Sep 2022 12:20:22 +0000 (UTC)
-Message-ID: <2839a437-a57a-ffc4-da8e-dde9a9a9a5cc@opensource.cirrus.com>
-Date: Thu, 15 Sep 2022 13:20:22 +0100
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="iA0FYP2u"
+Received: by mail-wm1-x32b.google.com with SMTP id
+ n40-20020a05600c3ba800b003b49aefc35fso4446810wms.5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 05:38:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=kbiyzXIrqqVnS3Or15etF5uykJHCKO1KdtudfrmDI3U=;
+ b=iA0FYP2uzJZ+HGL/O25lhf8+gT/9xEuMkiR6ptAaSuYurAgUKJoi2GlBXiQSKUAF+p
+ hZzzJb2lM7JVSh4E4n9RncjJCGh/Sq3IZMRnSekPPzXm6v6A0C2V+7UoucrHUuT30oUs
+ G7kqul1+r7dFC6HjbQ1fQpa4uCOwJCFgrtNemj3ne4UWjzmyLLG/bakhiqMgjI4jV6oy
+ 5z76jiwsRZNmrU3i0M+ollZj7mpsmtIcdC58n+Su9zer/wZouWmiuZZ+xEApDNwRh/Vq
+ t7RrrX8/07LJKtAv3J72NgS21tZIMhH9FS3Au/pLQYraYGX5RK77b7bh9vwvXf64J1Sc
+ x1tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=kbiyzXIrqqVnS3Or15etF5uykJHCKO1KdtudfrmDI3U=;
+ b=DByrPyuIJ9xuc7MJTvu7ayk6jFRw43Hlj0lF9UEN9m1dYvhhiyCM0ZdBd9+7ziuZK5
+ zu+TInyDwiU9A3lthDz0me7ee9132jyKwYdeFZ6OC88XnN5AsSTYd2NQB3zLQj91MJIn
+ OEzlTk13rh5m4Zaf8a7nyWdJKhnKojbyJ6qyGIqy6kAydmMS0oHj9Ht9eePkH0NRMZqU
+ 6fRPnO/qX01TDVrLlhCvt9qRbPUB1oVaMQthTMFFQyFjXOI1EV7CP3UMpQc9z5W8Ntim
+ P0yVD5MX3jDas3TQ5iwEqLn9QeUncM6GwpvEy0Y6NK/74Ez8PfR/3Ti1XFC5ZCjJkwQI
+ meGA==
+X-Gm-Message-State: ACgBeo0DHQIOjCnQHf77D+ceILyp2WByVAUKSHRBTE5now/OPFcjmrO3
+ qg2sbe8NSCYQd23+8qb4f6eTHA==
+X-Google-Smtp-Source: AA6agR6t0LuD3GiIL8CcC5TW8J+oqLST9RZTztmt9uvAY+Da6RjXdnyIFXn4IYzPghMsYlExxPiL+w==
+X-Received: by 2002:a05:600c:19cc:b0:3b4:adca:a821 with SMTP id
+ u12-20020a05600c19cc00b003b4adcaa821mr1715121wmq.37.1663245528107; 
+ Thu, 15 Sep 2022 05:38:48 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ bg13-20020a05600c3c8d00b003a5f4fccd4asm3112559wmb.35.2022.09.15.05.38.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Sep 2022 05:38:46 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH 0/9] ASoC: qdsp6: audioreach: add multi-port,
+ SAL and MFC support
+Date: Thu, 15 Sep 2022 13:38:28 +0100
+Message-Id: <20220915123837.11591-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH v2 04/11] ASoC: cs42l42: Split probe() and remove() into
- stages
-Content-Language: en-US
-To: =?UTF-8?Q?Martin_Povi=c5=a1er?= <povik+lin@cutebit.org>, James Schulman
- <james.schulman@cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, "Lucas
- Tanure" <tanureal@opensource.cirrus.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
- <robh+dt@kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski+dt@linaro.org>
-References: <20220915094444.11434-1-povik+lin@cutebit.org>
- <20220915094444.11434-5-povik+lin@cutebit.org>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20220915094444.11434-5-povik+lin@cutebit.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: y3RD2Dp-yKLUCoYgbRs2U3VWByN4ed9F
-X-Proofpoint-GUID: y3RD2Dp-yKLUCoYgbRs2U3VWByN4ed9F
-X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- - <patches@opensource.cirrus.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, ChiYuan Huang <cy_huang@richtek.com>,
- asahi@lists.linux.dev, Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- Matt Flax <flatmax@flatmax.com>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ bgoswami@quicinc.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,55 +103,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 15/09/2022 10:44, Martin Povišer wrote:
-> From: Richard Fitzgerald <rf@opensource.cirrus.com>
-> 
-> To prepare for adding SoundWire the probe must be split into three
-> parts:
-> 
-> 1) The bus-specific probe
-> 2) Common bus-agnostic probe steps
-> 3) Initialization of the peripheral registers
-> 
-> Step (3) must be separate because on SoundWire devices the probe must
-> enable power supplies and release reset so that the peripheral can be
-> enumerated by the bus, but it isn't possible to access registers until
-> enumeration has completed.
-> 
-> The call to devm_snd_soc_register_component() must be done at stage (2)
-> so that it can EPROBE_DEFER if necessary. In SoundWire systems stage (3)
-> is not a probe event so a deferral at this stage would not result in
-> re-probing dependencies.
-> 
-> A new init_done flag indicates that the chip has been identified and
-> initialized. This is used to prevent cs42l42_remove(), cs42l42_suspend(),
-> cs42l42_restore() and cs42l42_irq_thread() from attempting register
-> accesses if the chip was not successfully initialized. Although this
-> cannot happen on I2C, because the entire probe would fail, it is
-> possible on SoundWire if probe succeeds but the cs42l42 is never
-> enumerated.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
-> ---
->   sound/soc/codecs/cs42l42.c | 127 +++++++++++++++++++++++++------------
->   sound/soc/codecs/cs42l42.h |   2 +
->   2 files changed, 87 insertions(+), 42 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-> index 11cb659f03e0..427b29db2252 100644
-> --- a/sound/soc/codecs/cs42l42.c
-> +++ b/sound/soc/codecs/cs42l42.c
-> @@ -1627,7 +1627,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
->   	int report = 0;
->   
->   	mutex_lock(&cs42l42->irq_lock);
-> -	if (cs42l42->suspended) {
-> +	if (cs42l42->suspended || !cs42l42->init_done) {
->   		mutex_unlock(&cs42l42->irq_lock);
->   		return IRQ_NONE;
->   	}
+This patchset adds support to multi-port connections between AudioReach Modules
+which is required for sophisticated graphs like ECNS or Speaker Protection.
+Also as part of ECNS testing new module support for SAL and MFC are added.
 
-This doesn't apply to broonie/for-next. Needs rebasing onto commit:
-ea75deef1a73 ("ASoC: cs42l42: Only report button state if there was a
-button interrupt")
+
+Tested on SM8450 with ECNS.
+
+Thanks,
+Srini
+
+Srinivas Kandagatla (9):
+  ASoC: qdsp6: audioreach: topology use idr_alloc_u32
+  ASoC: qdsp6: audioreach: remove unused connection_list
+  ASoC: qdsp6: audioreach: update dapm kcontrol private data
+  ASoC: qdsp6: audioreach: Simplify handing FE and BE graph connections
+  ASoC: qdsp6: audioreach: simplify module_list sz calculation
+  ASoC: qdsp6: audioreach: add support for more port connections
+  ASoC: qdsp6: audioreach: add support to enable SAL Module
+  ASoC: qdsp6: audioreach: add support for MFC Module
+  ASoC: qdsp6: audioreach: add support to enable module command
+
+ include/uapi/sound/snd_ar_tokens.h |  27 +++
+ sound/soc/qcom/qdsp6/audioreach.c  | 298 ++++++++++++++++++++---------
+ sound/soc/qcom/qdsp6/audioreach.h  |  47 +++--
+ sound/soc/qcom/qdsp6/q6apm.c       |  84 +-------
+ sound/soc/qcom/qdsp6/q6apm.h       |   6 +-
+ sound/soc/qcom/qdsp6/topology.c    | 242 +++++++++++++++++++----
+ 6 files changed, 480 insertions(+), 224 deletions(-)
+
+-- 
+2.21.0
+

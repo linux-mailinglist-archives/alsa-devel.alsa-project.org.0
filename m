@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50F1E5B97EC
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 11:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58615B97F6
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Sep 2022 11:47:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD1AC183E;
-	Thu, 15 Sep 2022 11:46:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD1AC183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D52A1924;
+	Thu, 15 Sep 2022 11:47:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D52A1924
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663235244;
-	bh=0JgWsIEvS+yhApA5aNZCZox/O7nVshcfLlkhqA6BZ0g=;
+	s=default; t=1663235276;
+	bh=++VPHuzwqwaVIhbnPwasunWRF3SX75IQOjWbjpEVEHI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d3zMFYJw6NJcFin41tdIdZe7AfvU0yqVW0qEASt9H2XMYXmRk1WuqUtUoTBsqGnsW
-	 qGxjmASMFqp3x3Yxc69yxKk1TfdpbvMIJKfIBi2+f5UI9PishgfN4t/znMO6m67fas
-	 3FXPrNNe7cs6LE0qpNGGXj9G2YA+4gpFyQb2bd30=
+	b=sCskWUH/8qgzEwq0RPE77YHSVjtJbUJOxaxZyI9Bpcg9ZucnLV9U4D5iOkWEGUnnH
+	 0BKOlh8m75osAnwusdc8W/mGC4Wq120YJUWvGMOY/uRNQHjXRtLsuDpNHO74ZQDNCx
+	 ajYAZDF4JmUuy0DeesUBYTm2Fih6Fg1fqPo87bzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66BB7F80424;
-	Thu, 15 Sep 2022 11:45:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA5FAF800FE;
+	Thu, 15 Sep 2022 11:45:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F6C5F8054A; Thu, 15 Sep 2022 11:45:45 +0200 (CEST)
+ id 19C1BF80551; Thu, 15 Sep 2022 11:45:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99CF6F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4ACA0F8027D
  for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 11:45:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99CF6F8013D
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ACA0F8027D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=cutebit.org header.i=@cutebit.org
- header.b="eEyhNUA6"
+ header.b="Tn6rpmeS"
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1663235134; bh=Glim46IiadboInQ3/adgJu1cxhrQQu+f688hNINWdOc=;
+ t=1663235134; bh=jeVhB+g+ZfwSKgqzqq2K42knlfYbiLjCGGvelbPU2ko=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=eEyhNUA6kHWOG4O8yUYoTh9wd9AFPPqdq8Xyob8c8uuH13GlD1xbsGiyiDDMmXab4
- kp5BHQasB0gpHE1a1G9oQ8/8RRqY8e8fA/ZTSU/FZA26T4K9XxOnYIj/HfF7UoDsnw
- a/tBESvKANk3EOJwmzEouusQt07oDwIAYm1Nwy4Q=
+ b=Tn6rpmeS5yrwDUpxBMBDBSigM+4HhWHdqYcUUn1wO6dfIMymL0ny6WsVL54wiPjQy
+ bIjG7SbcWkZ7s6d7vd1psTrThA1pLC041B5z/io8Bf0xpKVM/bE72942YeXIo0n/d2
+ T7PDrGmEcf4FSbx/TkQ3PJo8u67VhfzF54DBJh9Q=
 To: James Schulman <james.schulman@cirrus.com>,
  David Rhodes <david.rhodes@cirrus.com>,
  Lucas Tanure <tanureal@opensource.cirrus.com>,
@@ -55,10 +55,9 @@ To: James Schulman <james.schulman@cirrus.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-Subject: [PATCH v2 03/11] ASoC: cs42l42: Use cs42l42->dev instead of
- &i2c_client->dev
-Date: Thu, 15 Sep 2022 11:44:36 +0200
-Message-Id: <20220915094444.11434-4-povik+lin@cutebit.org>
+Subject: [PATCH v2 04/11] ASoC: cs42l42: Split probe() and remove() into stages
+Date: Thu, 15 Sep 2022 11:44:37 +0200
+Message-Id: <20220915094444.11434-5-povik+lin@cutebit.org>
 In-Reply-To: <20220915094444.11434-1-povik+lin@cutebit.org>
 References: <20220915094444.11434-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
@@ -88,131 +87,256 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-In preparation for splitting cs42l42_i2c_probe() into multiple functions
-replace use of &i2c_client->dev with cs42l42->dev. This reduces diff
-clutter in the patch that splits the function.
+To prepare for adding SoundWire the probe must be split into three
+parts:
+
+1) The bus-specific probe
+2) Common bus-agnostic probe steps
+3) Initialization of the peripheral registers
+
+Step (3) must be separate because on SoundWire devices the probe must
+enable power supplies and release reset so that the peripheral can be
+enumerated by the bus, but it isn't possible to access registers until
+enumeration has completed.
+
+The call to devm_snd_soc_register_component() must be done at stage (2)
+so that it can EPROBE_DEFER if necessary. In SoundWire systems stage (3)
+is not a probe event so a deferral at this stage would not result in
+re-probing dependencies.
+
+A new init_done flag indicates that the chip has been identified and
+initialized. This is used to prevent cs42l42_remove(), cs42l42_suspend(),
+cs42l42_restore() and cs42l42_irq_thread() from attempting register
+accesses if the chip was not successfully initialized. Although this
+cannot happen on I2C, because the entire probe would fail, it is
+possible on SoundWire if probe succeeds but the cs42l42 is never
+enumerated.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 ---
- sound/soc/codecs/cs42l42.c | 32 +++++++++++++++++---------------
- 1 file changed, 17 insertions(+), 15 deletions(-)
+ sound/soc/codecs/cs42l42.c | 127 +++++++++++++++++++++++++------------
+ sound/soc/codecs/cs42l42.h |   2 +
+ 2 files changed, 87 insertions(+), 42 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 4b92ee0e67c4..11cb659f03e0 100644
+index 11cb659f03e0..427b29db2252 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -2217,7 +2217,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
- 	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
- 	if (IS_ERR(cs42l42->regmap)) {
- 		ret = PTR_ERR(cs42l42->regmap);
--		dev_err(&i2c_client->dev, "regmap_init() failed: %d\n", ret);
-+		dev_err(cs42l42->dev, "regmap_init() failed: %d\n", ret);
- 		return ret;
- 	}
+@@ -1627,7 +1627,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 	int report = 0;
  
-@@ -2225,11 +2225,11 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 	mutex_lock(&cs42l42->irq_lock);
+-	if (cs42l42->suspended) {
++	if (cs42l42->suspended || !cs42l42->init_done) {
+ 		mutex_unlock(&cs42l42->irq_lock);
+ 		return IRQ_NONE;
+ 	}
+@@ -2199,28 +2199,13 @@ static int __maybe_unused cs42l42_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
++static int cs42l42_common_probe(struct cs42l42_private *cs42l42)
+ {
+-	struct cs42l42_private *cs42l42;
+-	int ret, i, devid;
+-	unsigned int reg;
+-
+-	cs42l42 = devm_kzalloc(&i2c_client->dev, sizeof(struct cs42l42_private),
+-			       GFP_KERNEL);
+-	if (!cs42l42)
+-		return -ENOMEM;
++	int ret, i;
+ 
+-	cs42l42->dev = &i2c_client->dev;
+-	i2c_set_clientdata(i2c_client, cs42l42);
++	dev_set_drvdata(cs42l42->dev, cs42l42);
+ 	mutex_init(&cs42l42->irq_lock);
+ 
+-	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
+-	if (IS_ERR(cs42l42->regmap)) {
+-		ret = PTR_ERR(cs42l42->regmap);
+-		dev_err(cs42l42->dev, "regmap_init() failed: %d\n", ret);
+-		return ret;
+-	}
+-
+ 	BUILD_BUG_ON(ARRAY_SIZE(cs42l42_supply_names) != ARRAY_SIZE(cs42l42->supplies));
  	for (i = 0; i < ARRAY_SIZE(cs42l42->supplies); i++)
  		cs42l42->supplies[i].supply = cs42l42_supply_names[i];
- 
--	ret = devm_regulator_bulk_get(&i2c_client->dev,
-+	ret = devm_regulator_bulk_get(cs42l42->dev,
- 				      ARRAY_SIZE(cs42l42->supplies),
- 				      cs42l42->supplies);
- 	if (ret != 0) {
--		dev_err(&i2c_client->dev,
-+		dev_err(cs42l42->dev,
- 			"Failed to request supplies: %d\n", ret);
- 		return ret;
- 	}
-@@ -2237,13 +2237,13 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
- 	ret = regulator_bulk_enable(ARRAY_SIZE(cs42l42->supplies),
- 				    cs42l42->supplies);
- 	if (ret != 0) {
--		dev_err(&i2c_client->dev,
-+		dev_err(cs42l42->dev,
- 			"Failed to enable supplies: %d\n", ret);
- 		return ret;
- 	}
- 
- 	/* Reset the Device */
--	cs42l42->reset_gpio = devm_gpiod_get_optional(&i2c_client->dev,
-+	cs42l42->reset_gpio = devm_gpiod_get_optional(cs42l42->dev,
- 		"reset", GPIOD_OUT_LOW);
- 	if (IS_ERR(cs42l42->reset_gpio)) {
- 		ret = PTR_ERR(cs42l42->reset_gpio);
-@@ -2251,7 +2251,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
- 	}
- 
- 	if (cs42l42->reset_gpio) {
--		dev_dbg(&i2c_client->dev, "Found reset GPIO\n");
-+		dev_dbg(cs42l42->dev, "Found reset GPIO\n");
- 		gpiod_set_value_cansleep(cs42l42->reset_gpio, 1);
- 	}
+@@ -2257,20 +2242,44 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
  	usleep_range(CS42L42_BOOT_TIME_US, CS42L42_BOOT_TIME_US * 2);
-@@ -2262,9 +2262,11 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 
+ 	/* Request IRQ if one was specified */
+-	if (i2c_client->irq) {
+-		ret = request_threaded_irq(i2c_client->irq,
++	if (cs42l42->irq) {
++		ret = request_threaded_irq(cs42l42->irq,
  					   NULL, cs42l42_irq_thread,
  					   IRQF_ONESHOT | IRQF_TRIGGER_LOW,
  					   "cs42l42", cs42l42);
--		if (ret) {
--			dev_err_probe(&i2c_client->dev, ret,
--				      "Failed to request IRQ\n");
-+		if (ret == -EPROBE_DEFER) {
-+			goto err_disable_noirq;
-+		} else if (ret != 0) {
-+			dev_err_probe(cs42l42->dev, ret,
-+				"Failed to request IRQ\n");
+-		if (ret == -EPROBE_DEFER) {
+-			goto err_disable_noirq;
+-		} else if (ret != 0) {
++		if (ret) {
+ 			dev_err_probe(cs42l42->dev, ret,
+ 				"Failed to request IRQ\n");
  			goto err_disable_noirq;
  		}
  	}
-@@ -2273,13 +2275,13 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 
++	/* Register codec now so it can EPROBE_DEFER */
++	ret = devm_snd_soc_register_component(cs42l42->dev,
++					      &soc_component_dev_cs42l42,
++					      &cs42l42_dai, 1);
++	if (ret < 0)
++		goto err;
++
++	return 0;
++
++err:
++	if (cs42l42->irq)
++		free_irq(cs42l42->irq, cs42l42);
++
++err_disable_noirq:
++	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
++err_disable_noreset:
++	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies), cs42l42->supplies);
++
++	return ret;
++}
++
++static int cs42l42_init(struct cs42l42_private *cs42l42)
++{
++	unsigned int reg;
++	int devid, ret;
++
+ 	/* initialize codec */
  	devid = cirrus_read_device_id(cs42l42->regmap, CS42L42_DEVID_AB);
  	if (devid < 0) {
- 		ret = devid;
--		dev_err(&i2c_client->dev, "Failed to read device ID: %d\n", ret);
-+		dev_err(cs42l42->dev, "Failed to read device ID: %d\n", ret);
- 		goto err_disable;
- 	}
+@@ -2320,15 +2329,15 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 	/* Setup headset detection */
+ 	cs42l42_setup_hs_type_detect(cs42l42);
  
- 	if (devid != CS42L42_CHIP_ID) {
- 		ret = -ENODEV;
--		dev_err(&i2c_client->dev,
-+		dev_err(cs42l42->dev,
- 			"CS42L42 Device ID (%X). Expected %X\n",
- 			devid, CS42L42_CHIP_ID);
- 		goto err_disable;
-@@ -2287,11 +2289,11 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
- 
- 	ret = regmap_read(cs42l42->regmap, CS42L42_REVID, &reg);
- 	if (ret < 0) {
--		dev_err(&i2c_client->dev, "Get Revision ID failed\n");
-+		dev_err(cs42l42->dev, "Get Revision ID failed\n");
- 		goto err_shutdown;
- 	}
- 
--	dev_info(&i2c_client->dev,
-+	dev_info(cs42l42->dev,
- 		 "Cirrus Logic CS42L42, Revision: %02X\n", reg & 0xFF);
- 
- 	/* Power up the codec */
-@@ -2311,7 +2313,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
- 			(1 << CS42L42_ADC_PDN_SHIFT) |
- 			(0 << CS42L42_PDN_ALL_SHIFT));
- 
--	ret = cs42l42_handle_device_data(&i2c_client->dev, cs42l42);
-+	ret = cs42l42_handle_device_data(cs42l42->dev, cs42l42);
- 	if (ret != 0)
- 		goto err_shutdown;
- 
-@@ -2322,7 +2324,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
++	/*
++	 * Set init_done before unmasking interrupts so any triggered
++	 * immediately will be handled.
++	 */
++	cs42l42->init_done = true;
++
+ 	/* Mask/Unmask Interrupts */
  	cs42l42_set_interrupt_masks(cs42l42);
  
- 	/* Register codec for machine driver */
--	ret = devm_snd_soc_register_component(&i2c_client->dev,
-+	ret = devm_snd_soc_register_component(cs42l42->dev,
- 			&soc_component_dev_cs42l42, &cs42l42_dai, 1);
- 	if (ret < 0)
- 		goto err_shutdown;
+-	/* Register codec for machine driver */
+-	ret = devm_snd_soc_register_component(cs42l42->dev,
+-			&soc_component_dev_cs42l42, &cs42l42_dai, 1);
+-	if (ret < 0)
+-		goto err_shutdown;
+-
+ 	return 0;
+ 
+ err_shutdown:
+@@ -2337,34 +2346,68 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
+ 	regmap_write(cs42l42->regmap, CS42L42_PWR_CTL1, 0xff);
+ 
+ err_disable:
+-	if (i2c_client->irq)
+-		free_irq(i2c_client->irq, cs42l42);
++	if (cs42l42->irq)
++		free_irq(cs42l42->irq, cs42l42);
+ 
+-err_disable_noirq:
+ 	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
+-err_disable_noreset:
+ 	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies),
+ 				cs42l42->supplies);
+ 	return ret;
+ }
+ 
+-static int cs42l42_i2c_remove(struct i2c_client *i2c_client)
++static void cs42l42_common_remove(struct cs42l42_private *cs42l42)
+ {
+-	struct cs42l42_private *cs42l42 = i2c_get_clientdata(i2c_client);
+-
+-	if (i2c_client->irq)
+-		free_irq(i2c_client->irq, cs42l42);
++	if (cs42l42->irq)
++		free_irq(cs42l42->irq, cs42l42);
+ 
+ 	/*
+ 	 * The driver might not have control of reset and power supplies,
+ 	 * so ensure that the chip internals are powered down.
+ 	 */
+-	regmap_write(cs42l42->regmap, CS42L42_CODEC_INT_MASK, 0xff);
+-	regmap_write(cs42l42->regmap, CS42L42_TSRS_PLUG_INT_MASK, 0xff);
+-	regmap_write(cs42l42->regmap, CS42L42_PWR_CTL1, 0xff);
++	if (cs42l42->init_done) {
++		regmap_write(cs42l42->regmap, CS42L42_CODEC_INT_MASK, 0xff);
++		regmap_write(cs42l42->regmap, CS42L42_TSRS_PLUG_INT_MASK, 0xff);
++		regmap_write(cs42l42->regmap, CS42L42_PWR_CTL1, 0xff);
++	}
+ 
+ 	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
+ 	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies), cs42l42->supplies);
++}
++
++static int cs42l42_i2c_probe(struct i2c_client *i2c_client)
++{
++	struct device *dev = &i2c_client->dev;
++	struct cs42l42_private *cs42l42;
++	struct regmap *regmap;
++	int ret;
++
++	cs42l42 = devm_kzalloc(dev, sizeof(struct cs42l42_private), GFP_KERNEL);
++	if (!cs42l42)
++		return -ENOMEM;
++
++	regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
++	if (IS_ERR(regmap)) {
++		ret = PTR_ERR(regmap);
++		dev_err(&i2c_client->dev, "regmap_init() failed: %d\n", ret);
++		return ret;
++	}
++
++	cs42l42->dev = dev;
++	cs42l42->regmap = regmap;
++	cs42l42->irq = i2c_client->irq;
++
++	ret = cs42l42_common_probe(cs42l42);
++	if (ret)
++		return ret;
++
++	return cs42l42_init(cs42l42);
++}
++
++static int cs42l42_i2c_remove(struct i2c_client *i2c_client)
++{
++	struct cs42l42_private *cs42l42 = dev_get_drvdata(&i2c_client->dev);
++
++	cs42l42_common_remove(cs42l42);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
+index b4ba1467c558..a8e0d5b414a5 100644
+--- a/sound/soc/codecs/cs42l42.h
++++ b/sound/soc/codecs/cs42l42.h
+@@ -29,6 +29,7 @@ struct  cs42l42_private {
+ 	struct completion pdn_done;
+ 	struct snd_soc_jack *jack;
+ 	struct mutex irq_lock;
++	int irq;
+ 	int pll_config;
+ 	u32 sclk;
+ 	u32 srate;
+@@ -46,6 +47,7 @@ struct  cs42l42_private {
+ 	u8 stream_use;
+ 	bool hp_adc_up_pending;
+ 	bool suspended;
++	bool init_done;
+ };
+ 
+ #endif /* __CS42L42_H__ */
 -- 
 2.33.0
 

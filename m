@@ -2,129 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9373B5BB01A
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 17:21:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 627465BB276
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 20:51:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2BB31AE0;
-	Fri, 16 Sep 2022 17:21:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2BB31AE0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D93F21ACE;
+	Fri, 16 Sep 2022 20:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D93F21ACE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663341717;
-	bh=s/MAFQ9s1jgCRKjHOlURoGpb9Q5UyVHYDO8ubCs1yI4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663354317;
+	bh=HVnTinXgAQeKmoqJuONZW3jdFcqGQ7P9PkquMN448U8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aYRjH5GuqqnkeKKf4HBUEvj8t5pvox3zwxhrM7Fj3EycQnud8MXLqGlAPWw4ZcASs
-	 cS+OlYly9yIXRoyZWD9MxfalUqFXRIkzmilsUrtava+oKZJZ5GHYLFsq5NKvTKtYpe
-	 +LWJAm7e8czmTqRfBWMwkeIEGOAWArj1a4hOdFfc=
+	b=DyRENqdw+tQYcAmqYxcST6KT53HNRDNEsa5tMd2SUyK9571UhdT2ACfQDLQKwUbVX
+	 HVrFlkGWJsf95Ab4GmF4fTCcif4y/Mhdv8QzyWyhDQHn5JCKUVNASWxF56WnNYyLSG
+	 cReFBPoQi2/N4gEv0HcCfhKHu8/6FWkCRUxMJQ84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78F68F80496;
-	Fri, 16 Sep 2022 17:20:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13C91F80496;
+	Fri, 16 Sep 2022 20:51:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A9CFF802BE; Fri, 16 Sep 2022 17:20:57 +0200 (CEST)
+ id 12098F802BE; Fri, 16 Sep 2022 20:50:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EED12F800B5
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 17:20:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EED12F800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="L3MZra1D"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28GD6xEl018195;
- Fri, 16 Sep 2022 15:20:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=wBvc5kjqSvGVlMipQAv6v4gLaFz+BavyO2mTc58+5tg=;
- b=L3MZra1DCquB7AMvqvzOCBtHywAcHq/FnPAFQWo7MkoDYxThaVR1i8b/FPPq5a+H25st
- 58RkEocgYziqLrlqkRJY/WA42EeYK//9yKBzv2G1RzrvDtjSCjvGh5tuX5MQK4fUl51v
- tShMHyoufHbII7p0oXU/Qk2RWi+nfYhXuYqeauWdwN9I2rhUnzDZckJqe6TAA1Hjxsud
- /Ps2PI/KsWv03+16CVUWbudbO/Uykj5iUNakBsNFaoUprPRYdS0Ab34cR7kkaU0S/yWn
- sPB/NTQdycbawnIpp2Y3NuAsjK0HKDmOCqZkHeZnhwym7vA8Da/cBYSLKL/66+uTHmmt XA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jm8xmunbt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Sep 2022 15:20:47 +0000
-Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28GFFnGk008145; 
- Fri, 16 Sep 2022 15:20:46 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 3jkyc2dy25-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Sep 2022 15:20:46 +0000
-Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28GF4o0l026041;
- Fri, 16 Sep 2022 15:20:45 GMT
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 28GFKjZP013121
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Sep 2022 15:20:45 +0000
-Received: from [10.110.7.80] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Fri, 16 Sep
- 2022 08:20:43 -0700
-Message-ID: <f5b2eaa8-70eb-21b2-e2e7-485aaa927a5d@quicinc.com>
-Date: Fri, 16 Sep 2022 08:20:42 -0700
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6694DF8024C
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 20:50:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6694DF8024C
+Received: by mail-oi1-f178.google.com with SMTP id o204so7202980oia.12
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 11:50:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=3UB7ATwI4jkvN5dfzXoHTLYFFznwA2fYTP5Sp8m3D6A=;
+ b=Grs3h4AlZV8fgYiwN587sCD2V3O7ZToQLJpQVRJr5SJ/23d/DdyMRhfz/CI+W/9x/+
+ mWEpYNIHV2vn4Z7NCP9eOTfV5rbzFP+Q5zayN6VZGo4mZnmXb8fh3QbdPAm3A7XS3oXH
+ Ca+OO/aZL2zQxKkx4KEQmAW1IFUGAFHmEzvaDUQtUP42Awbk5bqNRWpAFJOhpdod2JKP
+ DtdL6/mUYSyt4XepAPyMvXfW1gvl5+cib+pI6CuFiyT0qIcUV8ITHVJ0U8BVRjv4h8vp
+ jxOrrYiCIW5osQdyYAmsH1ZWY6qjkFEVJpDhsseZVNIp224PAgwFhUx+paa2BwadrRDs
+ +acg==
+X-Gm-Message-State: ACgBeo1iIehoBqnMQmiWx2YnQHKPm4foeGGV7CUXIaZbeBUo60wUwwXz
+ fWtINpXJ968OJdCAr/P0fQ==
+X-Google-Smtp-Source: AA6agR710WjH2qECtnOYp/b/ibt2BmM7PlV30E4FBE3nldt1uSx9BidvH6yyuvSYQNT0OEBJvdRZbw==
+X-Received: by 2002:a05:6808:1148:b0:344:e58d:7449 with SMTP id
+ u8-20020a056808114800b00344e58d7449mr7495734oiu.209.1663354249346; 
+ Fri, 16 Sep 2022 11:50:49 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ k26-20020a056808069a00b0033a11fcb23bsm9346668oig.27.2022.09.16.11.50.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Sep 2022 11:50:48 -0700 (PDT)
+Received: (nullmailer pid 1065156 invoked by uid 1000);
+ Fri, 16 Sep 2022 18:50:48 -0000
+Date: Fri, 16 Sep 2022 13:50:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Chancel Liu <chancel.liu@nxp.com>
+Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: fsl_rpmsg: Add a property to
+ assign the rpmsg channel
+Message-ID: <20220916185048.GA1061412-robh@kernel.org>
+References: <20220914105145.2543646-1-chancel.liu@nxp.com>
+ <20220914105145.2543646-2-chancel.liu@nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 3/4] slimbus: qcom-ngd-ctrl: Make QMI message rules const
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Alex Elder
- <elder@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Kalle Valo <kvalo@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-References: <20220912232526.27427-1-quic_jjohnson@quicinc.com>
- <20220912232526.27427-2-quic_jjohnson@quicinc.com>
- <20220912232526.27427-3-quic_jjohnson@quicinc.com>
- <20220912232526.27427-4-quic_jjohnson@quicinc.com>
- <65f11ed1-f09f-e0a2-91f5-891394160c96@linaro.org>
-Content-Language: en-US
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <65f11ed1-f09f-e0a2-91f5-891394160c96@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: N1YML4LhMNVhIb3BzHEaZ0fgMRS9KksY
-X-Proofpoint-ORIG-GUID: N1YML4LhMNVhIb3BzHEaZ0fgMRS9KksY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-16_09,2022-09-16_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- suspectscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
- mlxlogscore=723 priorityscore=1501 clxscore=1015 impostorscore=0
- spamscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2209160112
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220914105145.2543646-2-chancel.liu@nxp.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, lgirdwood@gmail.com, festevam@gmail.com,
+ shengjiu.wang@nxp.com, Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, nicoleotsuka@gmail.com, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,29 +97,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/16/2022 6:06 AM, Srinivas Kandagatla wrote:
+On Wed, Sep 14, 2022 at 06:51:39PM +0800, Chancel Liu wrote:
+> Add a string property to assign the rpmsg channel this sound card sits
+> on. It also represents the name of ASoC platform driver. This property
+> can be omitted if there is only one sound card and it sits on
+> "rpmsg-audio-channel".
 > 
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> ---
+>  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 37 ++++++++++++++++++-
+>  1 file changed, 35 insertions(+), 2 deletions(-)
 > 
-> On 13/09/2022 00:25, Jeff Johnson wrote:
->> Commit ff6d365898d ("soc: qcom: qmi: use con
-> 
-> SHA ID should be at least 12 chars long.
-> 
-> Same comment for all the patches in the series.
-> 
-> 
-> st for struct
->> qmi_elem_info") allows QMI message encoding/decoding rules to be
->> const, so do that for qcom-ngd-ctrl.
->>
->> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
-> 
-> Other than that it LGTM,
-> Once fixed:
-> 
-> Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> 
-> 
-> --srini
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> index d370c98a62c7..3744ae794c00 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> @@ -11,8 +11,11 @@ maintainers:
+>  
+>  description: |
+>    fsl_rpmsg is a virtual audio device. Mapping to real hardware devices
+> -  are SAI, DMA controlled by Cortex M core. What we see from Linux
+> -  side is a device which provides audio service by rpmsg channel.
+> +  are SAI, MICFIL, DMA controlled by Cortex M core. What we see from
+> +  Linux side is a device which provides audio service by rpmsg channel.
+> +  We can create different sound cards which access different hardwares
+> +  such as SAI, MICFIL, .etc through building rpmsg channels between
+> +  Cortex-A and Cortex-M.
+>  
+>  properties:
+>    compatible:
+> @@ -85,6 +88,17 @@ properties:
+>        This is a boolean property. If present, the receiving function
+>        will be enabled.
+>  
+> +  fsl,rpmsg-channel-name:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: |
+> +      A string property to assign rpmsg channel this sound card sits on.
+> +      It also represents the name of ASoC platform driver. This property
 
-that was corrected in v2. thx for the ack
+That's a Linux detail which doesn't belong in DT.
+
+> +      can be omitted if there is only one sound card and it sits on
+> +      "rpmsg-audio-channel".
+> +    enum:
+> +      - rpmsg-audio-channel
+> +      - rpmsg-micfil-channel
+> +
+>  required:
+>    - compatible
+>    - model
+> @@ -107,3 +121,22 @@ examples:
+>                   <&clk IMX8MN_AUDIO_PLL2_OUT>;
+>          clock-names = "ipg", "mclk", "dma", "pll8k", "pll11k";
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/clock/imx8mm-clock.h>
+> +
+> +    rpmsg_micfil: audio-controller {
+> +        compatible = "fsl,imx8mm-rpmsg-audio";
+> +        model = "micfil-audio";
+> +        fsl,rpmsg-channel-name = "rpmsg-micfil-channel";
+> +        fsl,enable-lpa;
+> +        fsl,rpmsg-in;
+> +        clocks = <&clk IMX8MM_CLK_PDM_IPG>,
+> +                 <&clk IMX8MM_CLK_PDM_ROOT>,
+> +                 <&clk IMX8MM_CLK_SDMA3_ROOT>,
+> +                 <&clk IMX8MM_AUDIO_PLL1_OUT>,
+> +                 <&clk IMX8MM_AUDIO_PLL2_OUT>;
+> +        clock-names = "ipg", "mclk", "dma", "pll8k", "pll11k";
+> +    };
+> +
+> +...
+> -- 
+> 2.25.1
+> 
+> 

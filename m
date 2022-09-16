@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2EC35BA6CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 08:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3135BA6CC
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 08:27:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4750482A;
-	Fri, 16 Sep 2022 08:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4750482A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 536AE1A9A;
+	Fri, 16 Sep 2022 08:26:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536AE1A9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663309622;
-	bh=m5c/fcI7B/R6iSN9lAC/+4vhtah1Zsaol9QGuEEOEog=;
+	s=default; t=1663309657;
+	bh=9W+nDVeqdLoNY9HTBVz4l2nlcD9nLl7mlXnpkgsDDlg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=NCPubAzeRa/j+lVOwCQMm4YC4Bh4ccBv1Y+woSdUVVL+8iqOhmSRmYkrs1yQK61SX
-	 w90FDJ+rivGVLKn26/e1M6AtRlHtiDpxyQokc9nRdwJniE9fCMPSO8zYOCwsSvUSuU
-	 GKMNTn0KaQbDzA/x70M/61AXCIEgj9ooSsajukGs=
+	b=OWAAiWAFZARCTEe2dGncMIJX3bbFFe7rDeFIFZOMB+HDhVuYOoN31zHhR+9AHG9BF
+	 JS84KYRVBLuwvLRUq4ND1Dbjozp4Em2EgiHibjGHnpej2kh8TgJqnfhLb56KNttgpT
+	 YOAxfQuyvxP/KOL1V1j1IAINLWyYKes6LpJP7AFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3DC5F8019B;
-	Fri, 16 Sep 2022 08:26:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF493F804D2;
+	Fri, 16 Sep 2022 08:26:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7385F80496; Fri, 16 Sep 2022 08:26:02 +0200 (CEST)
+ id F20C5F8024C; Fri, 16 Sep 2022 08:26:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D0BFF800E5
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 08:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D0BFF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB2E7F800FE
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 08:26:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB2E7F800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="eoqTrLR7"
-Received: by mail-pf1-x42e.google.com with SMTP id d82so20285615pfd.10
- for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 23:25:55 -0700 (PDT)
+ header.b="fv+3HMJf"
+Received: by mail-pg1-x52d.google.com with SMTP id 207so11047601pgc.7
+ for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 23:26:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date;
- bh=Lzq4OJ9/dH/QCsn/g5d/W3YD36QlPEBSuggjgpZGHHs=;
- b=eoqTrLR7BMXelG9emwzH54nw3MhxYBhb+3nFGdzWo+EDZ/DxFHX64XUYbUUSC0jNxd
- aPX2BylkhergaQZiwf6l9jJA7HUA0kKn4qf1mn/avXiKSks38y+2/lGGyVpfy3MQ7JV8
- rlQ/obuB2sAgsGl9Ig48dvZQ3yWdyrAxwOlClTzsO/dDBpiudqnIG3h5gzlTDRMdkgeZ
- y7qW+T4BZRa6inyJhy6kOh2ST1McDmbFB2KZt2Cq9B3cWb1/FzH53g7Xgi+MGUHStHn0
- k0EyKgVxKbddbGIxCjbbiV5wk2dzIweBDst4Gh74Q2GC39/cWpevTgnRJEsWj29RpNJa
- NHkA==
+ bh=XCDwki2qZ4Nr/nkC+/OXLcZMdTv44msrWgOLDzkJxRY=;
+ b=fv+3HMJf1UQzCUIvyoizWAgiHV2CIyM/xXZwucrTFjCDQxYW+QFM6ZeoxF26Xo35LY
+ F1EXPI/bAUHuNyarmXJoickZkZb0UsgDRZlWZX2JWHAl1c79WJOdAmV8qrLZ4ZT8oMqD
+ CbYJuNgJPtziiE6Q71ZUFWLtGCk+8yHst6ooc52nwM0+Ivn/DHzHREYkigzZKkUstln2
+ tUK5lJ4oXvx0o8lLXc5yP8iiWmg2rZpH+aXqB+Qe1+7fdj9fxSO/PBKKg9mQneou5e5w
+ UKCBIm4AWVmt/ZrouinRRgc8SLLgdXK2p0GvRB1MyTdOEBtcv4vxojhzNsl9cb7sIEc3
+ klJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=Lzq4OJ9/dH/QCsn/g5d/W3YD36QlPEBSuggjgpZGHHs=;
- b=ga1jYa1azTVxX5wOATdnXWrZJnEfHZWHyw49XaF93ZghdvfNjBsxScx4Ok67xIp3Rh
- B8a+frpEI67uTpK8yZ0LB08vzto9uSJBmclfG74WlBI09OmH5LjMFS66xa2yDbkuYzQ6
- rqtp/X4vUJe3hVC/X8HWPq+7XMrrQM6jKrvTft5h+hpTe7RC2Hx9n9lktXQNLT1kbDQx
- fILw2jVWkz6kmwMf4xuhran957Mhwez9b4KWMudYh+7xhCGBWwxEoSB8oUbjP7FQfnIQ
- mfVevo93pviww96mRmKX3+xeLp55rdOVXl/Jmcyz09aoe+THRMpc2Q/p0z1gg7eV/NqV
- GZaA==
-X-Gm-Message-State: ACrzQf1qAEUR4NMW5WWJtWNOozjoNRyvhcxrg6grpcOBSClWO63vB47l
- 8k9figwfq9shF1f3gWfSw88=
-X-Google-Smtp-Source: AMsMyM7U+wtd7SRHjO5vUG9xPpBAJYTAmuMoZ86bnGBSTF4BCFRRgjmTaixpyEuxPoJQSvFYofCliA==
-X-Received: by 2002:a05:6a00:a82:b0:547:d660:c077 with SMTP id
- b2-20020a056a000a8200b00547d660c077mr3560740pfl.38.1663309554211; 
- Thu, 15 Sep 2022 23:25:54 -0700 (PDT)
+ bh=XCDwki2qZ4Nr/nkC+/OXLcZMdTv44msrWgOLDzkJxRY=;
+ b=jg0k2LGHzRCLaUnUEXM7gZ7UPwa4/HR3B6/c8q3IaS9qcop68LS56NBbbSWhDu2uqH
+ JF/88qGUi2wAZ5/iLKDMTurRU10iZvNk3DYfzyKomJ/OHE1rh/PQGJRulUEg6twNIBo9
+ 4tKbBbSal1nB10jAUMnMlpkh6eM0Bg4L6EfSWZuTQpgf1+kaWkTxKV7pZRQPx/Ds2qKX
+ PN6wFC3xV5Mc84AbdsU4jGVnfE3qucm9moL9r1XTfQCzf2YfSQmrDSw+0RbmIiMCmKe7
+ oZGjtri4bpI24UiAMyqOXQ+nMnr5APrrwvw37HqCVotVzrwC2uBF65ay0EHaeUCI4CAP
+ OY+g==
+X-Gm-Message-State: ACrzQf36Bvm/kMgiZKg6G2Rut1OPnfb3YVjEBSO3m7AuW/ZeTP8fXE4W
+ s8Fkg00aMdXi9wv6CKWw8e0=
+X-Google-Smtp-Source: AMsMyM7htnW8o/km9HpQ/knPb5Q/9DNcisZhgjRQPh61cNMIrdUyyWfMSMlSyHeNkUnGBIDZaJ8QbQ==
+X-Received: by 2002:a05:6a00:1691:b0:53b:3f2c:3257 with SMTP id
+ k17-20020a056a00169100b0053b3f2c3257mr3734327pfc.21.1663309596584; 
+ Thu, 15 Sep 2022 23:26:36 -0700 (PDT)
 Received: from localhost.localdomain ([193.203.214.57])
  by smtp.gmail.com with ESMTPSA id
- d15-20020a621d0f000000b00540ad46bc1dsm13415992pfd.157.2022.09.15.23.25.51
+ w70-20020a628249000000b005363bc65bafsm13565044pfd.57.2022.09.15.23.26.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Sep 2022 23:25:53 -0700 (PDT)
+ Thu, 15 Sep 2022 23:26:36 -0700 (PDT)
 From: cgel.zte@gmail.com
 X-Google-Original-From: ye.xingchen@zte.com.cn
 To: broonie@kernel.org
-Subject: [PATCH linux-next] ASoC: Intel: sof_ssp_amp: use devm_kcalloc()
+Subject: [PATCH linux-next] ASoC: Intel: sof_rt5682: use devm_kcalloc()
  instead of devm_kzalloc()
-Date: Fri, 16 Sep 2022 06:25:49 +0000
-Message-Id: <20220916062549.154114-1-ye.xingchen@zte.com.cn>
+Date: Fri, 16 Sep 2022 06:26:30 +0000
+Message-Id: <20220916062630.154277-1-ye.xingchen@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, cezary.rojewski@intel.com,
- kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com,
- Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, kai.vehmanen@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
  pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- liam.r.girdwood@linux.intel.com, akihiko.odaki@gmail.com,
- ye xingchen <ye.xingchen@zte.com.cn>, yung-chuan.liao@linux.intel.com,
- brent.lu@intel.com, linux-kernel@vger.kernel.org
+ liam.r.girdwood@linux.intel.com, mac.chiang@intel.com,
+ ye xingchen <ye.xingchen@zte.com.cn>, ajye.huang@gmail.com,
+ yung-chuan.liao@linux.intel.com, brent.lu@intel.com,
+ vamshi.krishna.gopal@intel.com, yong.zhi@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,41 +115,41 @@ of devm_kzalloc().
 Reported-by: Zeal Robot <zealci@zte.com.cn>
 Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
 ---
- sound/soc/intel/boards/sof_ssp_amp.c | 15 ++++++++-------
+ sound/soc/intel/boards/sof_rt5682.c | 15 ++++++++-------
  1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
-index 4a762e002ac7..94d25aeb6e7c 100644
---- a/sound/soc/intel/boards/sof_ssp_amp.c
-+++ b/sound/soc/intel/boards/sof_ssp_amp.c
-@@ -210,10 +210,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 045965312245..1bf9455eaf93 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -600,10 +600,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
  	struct snd_soc_dai_link *links;
  	int i, id = 0;
  
 -	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
--					sof_ssp_amp_card.num_links, GFP_KERNEL);
+-			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
 -	cpus = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link_component) *
--					sof_ssp_amp_card.num_links, GFP_KERNEL);
-+	links = devm_kcalloc(dev, sof_ssp_amp_card.num_links,
-+					sizeof(struct snd_soc_dai_link), GFP_KERNEL);
-+	cpus = devm_kcalloc(dev, sof_ssp_amp_card.num_links,
-+					sizeof(struct snd_soc_dai_link_component), GFP_KERNEL);
+-			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
++	links = devm_kcalloc(dev, sof_audio_card_rt5682.num_links,
++			    sizeof(struct snd_soc_dai_link), GFP_KERNEL);
++	cpus = devm_kcalloc(dev, sof_audio_card_rt5682.num_links,
++			    sizeof(struct snd_soc_dai_link_component), GFP_KERNEL);
  	if (!links || !cpus)
- 		return NULL;
+ 		goto devm_err;
  
-@@ -306,9 +306,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	if (sof_ssp_amp_quirk & SOF_HDMI_PLAYBACK_PRESENT) {
- 		/* HDMI */
- 		if (hdmi_num > 0) {
--			idisp_components = devm_kzalloc(dev,
--					   sizeof(struct snd_soc_dai_link_component) *
--					   hdmi_num, GFP_KERNEL);
-+			idisp_components = devm_kcalloc(dev,
-+					   hdmi_num,
-+					   sizeof(struct snd_soc_dai_link_component),
-+					   GFP_KERNEL);
- 			if (!idisp_components)
- 				goto devm_err;
- 		}
+@@ -687,9 +687,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 
+ 	/* HDMI */
+ 	if (hdmi_num > 0) {
+-		idisp_components = devm_kzalloc(dev,
+-				   sizeof(struct snd_soc_dai_link_component) *
+-				   hdmi_num, GFP_KERNEL);
++		idisp_components = devm_kcalloc(dev,
++				   hdmi_num,
++				   sizeof(struct snd_soc_dai_link_component),
++				   GFP_KERNEL);
+ 		if (!idisp_components)
+ 			goto devm_err;
+ 	}
 -- 
 2.25.1

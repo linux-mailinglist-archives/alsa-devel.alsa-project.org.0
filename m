@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538615BA6E3
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 08:34:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED76D5BA788
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 09:35:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCD8F1A42;
-	Fri, 16 Sep 2022 08:34:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD8F1A42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E52D18BE;
+	Fri, 16 Sep 2022 09:34:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E52D18BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663310090;
-	bh=CcQtu7M5Hwg3j2Hj9+QAZNEeLiOmSxNdcPQCjhrtlmw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1663313735;
+	bh=r1xFM1d/VeuoVrYAkhaYwWHAPHd3oQFEMpELTmAkdWQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CN1F33livu65bFE2kCM9V44c90pIOqdyjUvq286jJE+tPGUGjrE41/ll26yKCVUKo
-	 RjA7AJa6ucZziclUH3LX7MC25gcVdVrg0OsXYWyP8sl6wU81q6P8+OodX2FV23A6Ki
-	 bKDUeTDobyTZpqb84sqfgRR8FrLpzgWhGmCOQH1Y=
+	b=lWh36MfSMBpopvwwwROuR7VCDvkLIlcGOzicdgH4zSTAFNvGEvFxzHPUmSXkocho6
+	 NYIrTw/JxExs9fSkE3xiuD2xEh5In0mMNTTZo50Fm0dEpF2ugkeNBBGIX+F75dL/ei
+	 n1rBAqV2bBKOLO+pm0n5loFi801BPhGcFtZ4X4uc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5210EF8024C;
-	Fri, 16 Sep 2022 08:33:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3550F8024C;
+	Fri, 16 Sep 2022 09:34:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74F37F8019B; Fri, 16 Sep 2022 08:33:51 +0200 (CEST)
+ id 02370F8019B; Fri, 16 Sep 2022 09:34:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C678F800FE
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 08:33:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C678F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71D28F800FE
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 09:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D28F800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="CWXzJDai"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663310026; x=1694846026;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=CcQtu7M5Hwg3j2Hj9+QAZNEeLiOmSxNdcPQCjhrtlmw=;
- b=CWXzJDaiAxcmziTe654SWIAv9696D/EXeESUxJdIlG9KvK/qtDj8/klN
- POd8rpuWIhAA+Gv65chtVtoTVIbqgqyAERUnmmlF+PlVSdwkrxibGAi6S
- bLgYIMD5gMkAVfcrH6uS4jPr88ZY7ogthAHGHvAZ+ZxPsXnpxQElSkZCm
- ejk8BIIvwArpnYurGkpzvula9CDtFZmEdarry/3OPASw9XXXkOiY7k62U
- GKOKdMA9nl/gC1lm84gsmVIuQM3KFkL0NeIWRKgQF8J8syIQ7d49ufbZj
- d/ZlrEhVhFlRmspPcSOJjPRSnfBaoBwEau+4hgOZvwfYpkQqGdX5l7/su A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="278653694"
-X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="278653694"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2022 23:33:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="568728749"
-Received: from lkp-server02.sh.intel.com (HELO 41300c7200ea) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 15 Sep 2022 23:33:40 -0700
-Received: from kbuild by 41300c7200ea with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oZ4ux-0001Vq-0z;
- Fri, 16 Sep 2022 06:33:39 +0000
-Date: Fri, 16 Sep 2022 14:32:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	broonie@kernel.org
-Subject: Re: [PATCH 7/9] ASoC: qdsp6: audioreach: add support to enable SAL
- Module
-Message-ID: <202209161405.8VjleAAg-lkp@intel.com>
-References: <20220915123837.11591-8-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CMkJB63C"
+Received: by mail-lj1-x235.google.com with SMTP id s10so24365974ljp.5
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 00:34:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=+KrZs1wDWxExKhVZuq9VbQB8vAEX+/GO+05kcKZyQkQ=;
+ b=CMkJB63CW8UfY9qgxsBCcLpm8kJ1TYuhg5CCoqrPM2zsjhyMqhHGi0A+V+ztyCBu9V
+ eIBaavcXsgyES6UdCHSRnhaXl2Iwr7aARBQv0HbmVQCXDVhEQSUnB/3DeSLDAqLBzKCt
+ rKX9fvsx+CXyDiKiDcTX+ph0VMUVrGgPWemMIK+sxA/a9XZrZRVnbCtaqtU7YFhMLS89
+ ZwycqWZQkTriCPz78PA49vUGoaTZrjQ+BMlnJE6tOybdTJubNqtW4yQs7Sy2jczIRyhv
+ 5gopPleF0gDXeQ7jgpc+/LWN6TKJLPIijQmsUKQf8t9i0X5RDgXWhhAmwbQv6RgfTKvC
+ 3MLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=+KrZs1wDWxExKhVZuq9VbQB8vAEX+/GO+05kcKZyQkQ=;
+ b=wZOB1lOp5zjyERPI+uxKBrhOn/pyHpSHcQDSkbn/hFaZ4mJ8/GGqmiyF4tJj0ckaeE
+ NR+gAPk/z2SuZ57BtzMNjzn68nJuqTc6ZefL2n8g5a3tJpx7Jzalh1ZC0f34ZS2X5i58
+ r3BID0AT+jSNa8SBMrznVe6MYW1utlskYmFfp6J7mRdG/kvhw/N/TcspT9zoIrIHWU+U
+ TugkUefKKAova9lB1MDmzXRx12+FibV9SeGYdGaH5GhexGA6lSH5HoMxJenBd2a+1Npe
+ WP9Fcnfnbw3wGo5sgna8oCgS0DUjAMm4oxtlh84lD/sdelmalrthXHc32rBkGwZJ49mx
+ CSFQ==
+X-Gm-Message-State: ACrzQf2MPXlYOzjLh/YHwEzFqOo2w6qlPf16+XUuMusZHH0QXC8yaUAT
+ 28ExDI0D/429sNMAexC8SBvKHy0fDiCd92SM6/c=
+X-Google-Smtp-Source: AMsMyM5xmNtG+JOChSzzfIaBx7tOwvOjB7OS4BES0ZusTkDZKwvkz3EEXpM1JsmQf/ndqcljaGgjTKxj7QyVjTp6efc=
+X-Received: by 2002:a2e:960e:0:b0:26b:e5ae:cd78 with SMTP id
+ v14-20020a2e960e000000b0026be5aecd78mr1026093ljh.129.1663313667324; Fri, 16
+ Sep 2022 00:34:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220915123837.11591-8-srinivas.kandagatla@linaro.org>
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, tiwai@suse.com,
- lgirdwood@gmail.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- bgoswami@quicinc.com, linux-kernel@vger.kernel.org
+References: <20220912105407.3157868-1-robert.rosengren@axis.com>
+In-Reply-To: <20220912105407.3157868-1-robert.rosengren@axis.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 16 Sep 2022 15:34:15 +0800
+Message-ID: <CAA+D8AN1-ReuEaQFiJbsUnPo-3eXa2p-rUW7B=tQHesmUEdtSQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: fsl_spdif: add ALSA event on dpll locked
+To: Robert Rosengren <robert.rosengren@axis.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ kernel@axis.com, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,100 +99,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Srinivas,
+On Mon, Sep 12, 2022 at 6:54 PM Robert Rosengren <robert.rosengren@axis.com>
+wrote:
 
-I love your patch! Perhaps something to improve:
+> Add an ALSA event on the RX Sample Rate controller upon the dpll locked
+> interrupt, making it possible for audio applications to monitor changes
+> in the hardware.
+>
+> Signed-off-by: Robert Rosengren <robert.rosengren@axis.com>
+>
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on tiwai-sound/for-next linus/master v6.0-rc5 next-20220915]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Srinivas-Kandagatla/ASoC-qdsp6-audioreach-add-multi-port-SAL-and-MFC-support/20220915-204217
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-config: hexagon-randconfig-r021-20220915 (https://download.01.org/0day-ci/archive/20220916/202209161405.8VjleAAg-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 405b19bb679e3371abd9cd02dc1484213a4ebb88)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/deea0cb75db349cdcece853a658b68f4424da861
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Srinivas-Kandagatla/ASoC-qdsp6-audioreach-add-multi-port-SAL-and-MFC-support/20220915-204217
-        git checkout deea0cb75db349cdcece853a658b68f4424da861
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash sound/soc/qcom/qdsp6/
+Best regards
+Wang Shengjiu
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
-   sound/soc/qcom/qdsp6/audioreach.c:434:6: warning: variable 'graph_id' set but not used [-Wunused-but-set-variable]
-           int graph_id;
-               ^
->> sound/soc/qcom/qdsp6/audioreach.c:1050:7: warning: variable 'rc' is used uninitialized whenever switch case is taken [-Wsometimes-uninitialized]
-           case MODULE_ID_SAL:
-                ^~~~~~~~~~~~~
-   sound/soc/qcom/qdsp6/audioreach.h:18:25: note: expanded from macro 'MODULE_ID_SAL'
-   #define MODULE_ID_SAL                   0x07001010
-                                           ^~~~~~~~~~
-   sound/soc/qcom/qdsp6/audioreach.c:1059:9: note: uninitialized use occurs here
-           return rc;
-                  ^~
-   sound/soc/qcom/qdsp6/audioreach.c:1025:8: note: initialize the variable 'rc' to silence this warning
-           int rc;
-                 ^
-                  = 0
-   2 warnings generated.
-
-
-vim +/rc +1050 sound/soc/qcom/qdsp6/audioreach.c
-
-  1021	
-  1022	int audioreach_set_media_format(struct q6apm_graph *graph, struct audioreach_module *module,
-  1023					struct audioreach_module_config *cfg)
-  1024	{
-  1025		int rc;
-  1026	
-  1027		switch (module->module_id) {
-  1028		case MODULE_ID_DATA_LOGGING:
-  1029			rc = audioreach_logging_set_media_format(graph, module);
-  1030			break;
-  1031		case MODULE_ID_PCM_DEC:
-  1032		case MODULE_ID_PCM_ENC:
-  1033		case MODULE_ID_PCM_CNV:
-  1034			rc = audioreach_pcm_set_media_format(graph, module, cfg);
-  1035			break;
-  1036		case MODULE_ID_I2S_SOURCE:
-  1037		case MODULE_ID_I2S_SINK:
-  1038			rc = audioreach_i2s_set_media_format(graph, module, cfg);
-  1039			break;
-  1040		case MODULE_ID_WR_SHARED_MEM_EP:
-  1041			rc = audioreach_shmem_set_media_format(graph, module, cfg);
-  1042			break;
-  1043		case MODULE_ID_GAIN:
-  1044			rc = audioreach_gain_set(graph, module);
-  1045			break;
-  1046		case MODULE_ID_CODEC_DMA_SINK:
-  1047		case MODULE_ID_CODEC_DMA_SOURCE:
-  1048			rc = audioreach_codec_dma_set_media_format(graph, module, cfg);
-  1049			break;
-> 1050		case MODULE_ID_SAL:
-  1051			audioreach_sal_set_media_format(graph, module, cfg);
-  1052			audioreach_sal_limiter_enable(graph, module, true);
-  1053			break;
-  1054	
-  1055		default:
-  1056			rc = 0;
-  1057		}
-  1058	
-  1059		return rc;
-  1060	}
-  1061	EXPORT_SYMBOL_GPL(audioreach_set_media_format);
-  1062	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+> ---
+>
+> Notes:
+>     v2: Cache RX Sample Rate kcontrol to avoid lookup in interrupt.
+>     Properly add description to fsl_spdif_priv.
+>     Fix indentation.
+>
+>  sound/soc/fsl/fsl_spdif.c | 21 ++++++++++++++++++++-
+>  1 file changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+> index 7fc1c96929bb..275aba8e0c46 100644
+> --- a/sound/soc/fsl/fsl_spdif.c
+> +++ b/sound/soc/fsl/fsl_spdif.c
+> @@ -44,6 +44,8 @@ static u8 srpc_dpll_locked[] = { 0x0, 0x1, 0x2, 0x3,
+> 0x4, 0xa, 0xb };
+>
+>  #define DEFAULT_RXCLK_SRC      1
+>
+> +#define RX_SAMPLE_RATE_KCONTROL "RX Sample Rate"
+> +
+>  /**
+>   * struct fsl_spdif_soc_data: soc specific data
+>   *
+> @@ -98,6 +100,8 @@ struct spdif_mixer_control {
+>   * @soc: SPDIF soc data
+>   * @fsl_spdif_control: SPDIF control data
+>   * @cpu_dai_drv: cpu dai driver
+> + * @snd_card: sound card pointer
+> + * @rxrate_kcontrol: kcontrol for RX Sample Rate
+>   * @pdev: platform device pointer
+>   * @regmap: regmap handler
+>   * @dpll_locked: dpll lock flag
+> @@ -122,6 +126,8 @@ struct fsl_spdif_priv {
+>         const struct fsl_spdif_soc_data *soc;
+>         struct spdif_mixer_control fsl_spdif_control;
+>         struct snd_soc_dai_driver cpu_dai_drv;
+> +       struct snd_card *snd_card;
+> +       struct snd_kcontrol *rxrate_kcontrol;
+>         struct platform_device *pdev;
+>         struct regmap *regmap;
+>         bool dpll_locked;
+> @@ -226,6 +232,12 @@ static void spdif_irq_dpll_lock(struct fsl_spdif_priv
+> *spdif_priv)
+>                         locked ? "locked" : "loss lock");
+>
+>         spdif_priv->dpll_locked = locked ? true : false;
+> +
+> +       if (spdif_priv->snd_card && spdif_priv->rxrate_kcontrol) {
+> +               snd_ctl_notify(spdif_priv->snd_card,
+> +                              SNDRV_CTL_EVENT_MASK_VALUE,
+> +                              &spdif_priv->rxrate_kcontrol->id);
+> +       }
+>  }
+>
+>  /* Receiver found illegal symbol interrupt handler */
+> @@ -1197,7 +1209,7 @@ static struct snd_kcontrol_new fsl_spdif_ctrls[] = {
+>         /* DPLL lock info get controller */
+>         {
+>                 .iface = SNDRV_CTL_ELEM_IFACE_PCM,
+> -               .name = "RX Sample Rate",
+> +               .name = RX_SAMPLE_RATE_KCONTROL,
+>                 .access = SNDRV_CTL_ELEM_ACCESS_READ |
+>                         SNDRV_CTL_ELEM_ACCESS_VOLATILE,
+>                 .info = fsl_spdif_rxrate_info,
+> @@ -1251,6 +1263,13 @@ static int fsl_spdif_dai_probe(struct snd_soc_dai
+> *dai)
+>                 snd_soc_add_dai_controls(dai, fsl_spdif_ctrls_rcm,
+>                                          ARRAY_SIZE(fsl_spdif_ctrls_rcm));
+>
+> +       spdif_private->snd_card = dai->component->card->snd_card;
+> +       spdif_private->rxrate_kcontrol =
+> snd_soc_card_get_kcontrol(dai->component->card,
+> +
+> RX_SAMPLE_RATE_KCONTROL);
+> +       if (!spdif_private->rxrate_kcontrol)
+> +               dev_err(&spdif_private->pdev->dev, "failed to get %s
+> kcontrol\n",
+> +                       RX_SAMPLE_RATE_KCONTROL);
+> +
+>         /*Clear the val bit for Tx*/
+>         regmap_update_bits(spdif_private->regmap, REG_SPDIF_SCR,
+>                            SCR_VAL_MASK, SCR_VAL_CLEAR);
+> --
+> 2.30.2
+>
+>

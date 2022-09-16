@@ -2,96 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B3135BA6CC
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 08:27:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538615BA6E3
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Sep 2022 08:34:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 536AE1A9A;
-	Fri, 16 Sep 2022 08:26:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536AE1A9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCD8F1A42;
+	Fri, 16 Sep 2022 08:34:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD8F1A42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663309657;
-	bh=9W+nDVeqdLoNY9HTBVz4l2nlcD9nLl7mlXnpkgsDDlg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OWAAiWAFZARCTEe2dGncMIJX3bbFFe7rDeFIFZOMB+HDhVuYOoN31zHhR+9AHG9BF
-	 JS84KYRVBLuwvLRUq4ND1Dbjozp4Em2EgiHibjGHnpej2kh8TgJqnfhLb56KNttgpT
-	 YOAxfQuyvxP/KOL1V1j1IAINLWyYKes6LpJP7AFs=
+	s=default; t=1663310090;
+	bh=CcQtu7M5Hwg3j2Hj9+QAZNEeLiOmSxNdcPQCjhrtlmw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CN1F33livu65bFE2kCM9V44c90pIOqdyjUvq286jJE+tPGUGjrE41/ll26yKCVUKo
+	 RjA7AJa6ucZziclUH3LX7MC25gcVdVrg0OsXYWyP8sl6wU81q6P8+OodX2FV23A6Ki
+	 bKDUeTDobyTZpqb84sqfgRR8FrLpzgWhGmCOQH1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF493F804D2;
-	Fri, 16 Sep 2022 08:26:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5210EF8024C;
+	Fri, 16 Sep 2022 08:33:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F20C5F8024C; Fri, 16 Sep 2022 08:26:44 +0200 (CEST)
+ id 74F37F8019B; Fri, 16 Sep 2022 08:33:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB2E7F800FE
- for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 08:26:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB2E7F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C678F800FE
+ for <alsa-devel@alsa-project.org>; Fri, 16 Sep 2022 08:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C678F800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fv+3HMJf"
-Received: by mail-pg1-x52d.google.com with SMTP id 207so11047601pgc.7
- for <alsa-devel@alsa-project.org>; Thu, 15 Sep 2022 23:26:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=XCDwki2qZ4Nr/nkC+/OXLcZMdTv44msrWgOLDzkJxRY=;
- b=fv+3HMJf1UQzCUIvyoizWAgiHV2CIyM/xXZwucrTFjCDQxYW+QFM6ZeoxF26Xo35LY
- F1EXPI/bAUHuNyarmXJoickZkZb0UsgDRZlWZX2JWHAl1c79WJOdAmV8qrLZ4ZT8oMqD
- CbYJuNgJPtziiE6Q71ZUFWLtGCk+8yHst6ooc52nwM0+Ivn/DHzHREYkigzZKkUstln2
- tUK5lJ4oXvx0o8lLXc5yP8iiWmg2rZpH+aXqB+Qe1+7fdj9fxSO/PBKKg9mQneou5e5w
- UKCBIm4AWVmt/ZrouinRRgc8SLLgdXK2p0GvRB1MyTdOEBtcv4vxojhzNsl9cb7sIEc3
- klJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=XCDwki2qZ4Nr/nkC+/OXLcZMdTv44msrWgOLDzkJxRY=;
- b=jg0k2LGHzRCLaUnUEXM7gZ7UPwa4/HR3B6/c8q3IaS9qcop68LS56NBbbSWhDu2uqH
- JF/88qGUi2wAZ5/iLKDMTurRU10iZvNk3DYfzyKomJ/OHE1rh/PQGJRulUEg6twNIBo9
- 4tKbBbSal1nB10jAUMnMlpkh6eM0Bg4L6EfSWZuTQpgf1+kaWkTxKV7pZRQPx/Ds2qKX
- PN6wFC3xV5Mc84AbdsU4jGVnfE3qucm9moL9r1XTfQCzf2YfSQmrDSw+0RbmIiMCmKe7
- oZGjtri4bpI24UiAMyqOXQ+nMnr5APrrwvw37HqCVotVzrwC2uBF65ay0EHaeUCI4CAP
- OY+g==
-X-Gm-Message-State: ACrzQf36Bvm/kMgiZKg6G2Rut1OPnfb3YVjEBSO3m7AuW/ZeTP8fXE4W
- s8Fkg00aMdXi9wv6CKWw8e0=
-X-Google-Smtp-Source: AMsMyM7htnW8o/km9HpQ/knPb5Q/9DNcisZhgjRQPh61cNMIrdUyyWfMSMlSyHeNkUnGBIDZaJ8QbQ==
-X-Received: by 2002:a05:6a00:1691:b0:53b:3f2c:3257 with SMTP id
- k17-20020a056a00169100b0053b3f2c3257mr3734327pfc.21.1663309596584; 
- Thu, 15 Sep 2022 23:26:36 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- w70-20020a628249000000b005363bc65bafsm13565044pfd.57.2022.09.15.23.26.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Sep 2022 23:26:36 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: ye.xingchen@zte.com.cn
-To: broonie@kernel.org
-Subject: [PATCH linux-next] ASoC: Intel: sof_rt5682: use devm_kcalloc()
- instead of devm_kzalloc()
-Date: Fri, 16 Sep 2022 06:26:30 +0000
-Message-Id: <20220916062630.154277-1-ye.xingchen@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="CWXzJDai"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663310026; x=1694846026;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=CcQtu7M5Hwg3j2Hj9+QAZNEeLiOmSxNdcPQCjhrtlmw=;
+ b=CWXzJDaiAxcmziTe654SWIAv9696D/EXeESUxJdIlG9KvK/qtDj8/klN
+ POd8rpuWIhAA+Gv65chtVtoTVIbqgqyAERUnmmlF+PlVSdwkrxibGAi6S
+ bLgYIMD5gMkAVfcrH6uS4jPr88ZY7ogthAHGHvAZ+ZxPsXnpxQElSkZCm
+ ejk8BIIvwArpnYurGkpzvula9CDtFZmEdarry/3OPASw9XXXkOiY7k62U
+ GKOKdMA9nl/gC1lm84gsmVIuQM3KFkL0NeIWRKgQF8J8syIQ7d49ufbZj
+ d/ZlrEhVhFlRmspPcSOJjPRSnfBaoBwEau+4hgOZvwfYpkQqGdX5l7/su A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="278653694"
+X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="278653694"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 23:33:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="568728749"
+Received: from lkp-server02.sh.intel.com (HELO 41300c7200ea) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 15 Sep 2022 23:33:40 -0700
+Received: from kbuild by 41300c7200ea with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oZ4ux-0001Vq-0z;
+ Fri, 16 Sep 2022 06:33:39 +0000
+Date: Fri, 16 Sep 2022 14:32:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	broonie@kernel.org
+Subject: Re: [PATCH 7/9] ASoC: qdsp6: audioreach: add support to enable SAL
+ Module
+Message-ID: <202209161405.8VjleAAg-lkp@intel.com>
+References: <20220915123837.11591-8-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, cezary.rojewski@intel.com,
- linux-kernel@vger.kernel.org, kai.vehmanen@linux.intel.com,
- peter.ujfalusi@linux.intel.com, Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- liam.r.girdwood@linux.intel.com, mac.chiang@intel.com,
- ye xingchen <ye.xingchen@zte.com.cn>, ajye.huang@gmail.com,
- yung-chuan.liao@linux.intel.com, brent.lu@intel.com,
- vamshi.krishna.gopal@intel.com, yong.zhi@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220915123837.11591-8-srinivas.kandagatla@linaro.org>
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, tiwai@suse.com,
+ lgirdwood@gmail.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ bgoswami@quicinc.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,49 +95,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: ye xingchen <ye.xingchen@zte.com.cn>
+Hi Srinivas,
 
-Use 2-factor multiplication argument form devm_kcalloc() instead
-of devm_kzalloc().
+I love your patch! Perhaps something to improve:
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
----
- sound/soc/intel/boards/sof_rt5682.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on tiwai-sound/for-next linus/master v6.0-rc5 next-20220915]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 045965312245..1bf9455eaf93 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -600,10 +600,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	struct snd_soc_dai_link *links;
- 	int i, id = 0;
- 
--	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
--			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
--	cpus = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link_component) *
--			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
-+	links = devm_kcalloc(dev, sof_audio_card_rt5682.num_links,
-+			    sizeof(struct snd_soc_dai_link), GFP_KERNEL);
-+	cpus = devm_kcalloc(dev, sof_audio_card_rt5682.num_links,
-+			    sizeof(struct snd_soc_dai_link_component), GFP_KERNEL);
- 	if (!links || !cpus)
- 		goto devm_err;
- 
-@@ -687,9 +687,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 
- 	/* HDMI */
- 	if (hdmi_num > 0) {
--		idisp_components = devm_kzalloc(dev,
--				   sizeof(struct snd_soc_dai_link_component) *
--				   hdmi_num, GFP_KERNEL);
-+		idisp_components = devm_kcalloc(dev,
-+				   hdmi_num,
-+				   sizeof(struct snd_soc_dai_link_component),
-+				   GFP_KERNEL);
- 		if (!idisp_components)
- 			goto devm_err;
- 	}
+url:    https://github.com/intel-lab-lkp/linux/commits/Srinivas-Kandagatla/ASoC-qdsp6-audioreach-add-multi-port-SAL-and-MFC-support/20220915-204217
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: hexagon-randconfig-r021-20220915 (https://download.01.org/0day-ci/archive/20220916/202209161405.8VjleAAg-lkp@intel.com/config)
+compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 405b19bb679e3371abd9cd02dc1484213a4ebb88)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/deea0cb75db349cdcece853a658b68f4424da861
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Srinivas-Kandagatla/ASoC-qdsp6-audioreach-add-multi-port-SAL-and-MFC-support/20220915-204217
+        git checkout deea0cb75db349cdcece853a658b68f4424da861
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash sound/soc/qcom/qdsp6/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+   sound/soc/qcom/qdsp6/audioreach.c:434:6: warning: variable 'graph_id' set but not used [-Wunused-but-set-variable]
+           int graph_id;
+               ^
+>> sound/soc/qcom/qdsp6/audioreach.c:1050:7: warning: variable 'rc' is used uninitialized whenever switch case is taken [-Wsometimes-uninitialized]
+           case MODULE_ID_SAL:
+                ^~~~~~~~~~~~~
+   sound/soc/qcom/qdsp6/audioreach.h:18:25: note: expanded from macro 'MODULE_ID_SAL'
+   #define MODULE_ID_SAL                   0x07001010
+                                           ^~~~~~~~~~
+   sound/soc/qcom/qdsp6/audioreach.c:1059:9: note: uninitialized use occurs here
+           return rc;
+                  ^~
+   sound/soc/qcom/qdsp6/audioreach.c:1025:8: note: initialize the variable 'rc' to silence this warning
+           int rc;
+                 ^
+                  = 0
+   2 warnings generated.
+
+
+vim +/rc +1050 sound/soc/qcom/qdsp6/audioreach.c
+
+  1021	
+  1022	int audioreach_set_media_format(struct q6apm_graph *graph, struct audioreach_module *module,
+  1023					struct audioreach_module_config *cfg)
+  1024	{
+  1025		int rc;
+  1026	
+  1027		switch (module->module_id) {
+  1028		case MODULE_ID_DATA_LOGGING:
+  1029			rc = audioreach_logging_set_media_format(graph, module);
+  1030			break;
+  1031		case MODULE_ID_PCM_DEC:
+  1032		case MODULE_ID_PCM_ENC:
+  1033		case MODULE_ID_PCM_CNV:
+  1034			rc = audioreach_pcm_set_media_format(graph, module, cfg);
+  1035			break;
+  1036		case MODULE_ID_I2S_SOURCE:
+  1037		case MODULE_ID_I2S_SINK:
+  1038			rc = audioreach_i2s_set_media_format(graph, module, cfg);
+  1039			break;
+  1040		case MODULE_ID_WR_SHARED_MEM_EP:
+  1041			rc = audioreach_shmem_set_media_format(graph, module, cfg);
+  1042			break;
+  1043		case MODULE_ID_GAIN:
+  1044			rc = audioreach_gain_set(graph, module);
+  1045			break;
+  1046		case MODULE_ID_CODEC_DMA_SINK:
+  1047		case MODULE_ID_CODEC_DMA_SOURCE:
+  1048			rc = audioreach_codec_dma_set_media_format(graph, module, cfg);
+  1049			break;
+> 1050		case MODULE_ID_SAL:
+  1051			audioreach_sal_set_media_format(graph, module, cfg);
+  1052			audioreach_sal_limiter_enable(graph, module, true);
+  1053			break;
+  1054	
+  1055		default:
+  1056			rc = 0;
+  1057		}
+  1058	
+  1059		return rc;
+  1060	}
+  1061	EXPORT_SYMBOL_GPL(audioreach_set_media_format);
+  1062	
+
 -- 
-2.25.1
+0-DAY CI Kernel Test Service
+https://01.org/lkp

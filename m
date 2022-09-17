@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977DF5BB58E
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Sep 2022 04:27:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 966BF5BB6DF
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Sep 2022 09:10:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 057D91A97;
-	Sat, 17 Sep 2022 04:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 057D91A97
+	by alsa0.perex.cz (Postfix) with ESMTPS id 239CB1ABB;
+	Sat, 17 Sep 2022 09:09:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 239CB1ABB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663381673;
-	bh=OhT4zQ34AzGpB8AJgrEjlXZnsNVyvWTthmB6I9MzeXk=;
+	s=default; t=1663398607;
+	bh=0qLuudgAOfsr+3eg7v2AqEjfbemVfK/AqOz/HCIenyQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ZKYZ0gYkUCWf9VykgFTPR9GOaB7KMr5hiruTev5f5T7RnxROxLPa9ANnmm1gX3k5I
-	 D9E+Uv0Lx1VwsTQd/wyQMQFAdfUPzdeDpp50qcCQsaURBvPiVKuupXdElrL5XdMX6n
-	 o1E2m/uij1U5nTaWsLi6AcdgxpqqXWoWJOgvOs28=
+	b=ejKyElR6myDjQR+30z0aGxGBjj0jy/mndb95+0I7a/mCdENXJiPXXF6BJ9rMz2tkO
+	 LEVONJWYMUWCQ9voUtsrDz7k05Z3y3uiBDUjM+S3CYxrTAEf1EJoFyOrQ/WvPKPKWS
+	 Uhlo0LaWc3glb1v3pCejCEvA1zpxnNDuk1Zj1yo8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FD7BF800E5;
-	Sat, 17 Sep 2022 04:26:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75742F800E9;
+	Sat, 17 Sep 2022 09:09:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C999F80249; Sat, 17 Sep 2022 04:26:53 +0200 (CEST)
+ id 417A9F800E9; Sat, 17 Sep 2022 09:09:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HK_RANDOM_ENVFROM,HK_RANDOM_FROM,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18D9EF800E5;
- Sat, 17 Sep 2022 04:26:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18D9EF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88C3CF800E9
+ for <alsa-devel@alsa-project.org>; Sat, 17 Sep 2022 09:09:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88C3CF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="CgA8GfuG"
-X-UUID: 27ab3eca83b84e74bd3cc993610d7202-20220917
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
- bh=fKvbJABWgQ4iaf/3lMmgdSUEyoDkavfne7wQG/frOBE=; 
- b=CgA8GfuGT51D1Bt0uraxXp/29oMAy4nME/sEiM2BiMM5/XWoKXCRejEKWD27tXMSKXi0CX06CZj2j/28edp7AoSeigMhmQqbwxcHpiV5B8qzSCn4KW2VqR42rz/fM8hjX7nn79QOOKzLnM6NjJXGqoGCgWRVOAH7bFQtZbkKlMU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:616c8ee1-4e0c-4b3c-9b21-26dc725989a6, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:39a5ff1, CLOUDID:e954f35d-5ed4-4e28-8b00-66ed9f042fbd,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:nil,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 27ab3eca83b84e74bd3cc993610d7202-20220917
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <chunxu.li@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 353654201; Sat, 17 Sep 2022 10:26:16 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
- Sat, 17 Sep 2022 10:26:14 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Sat, 17 Sep 2022 10:26:13 +0800
-From: Chunxu Li <chunxu.li@mediatek.com>
-To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
- <peter.ujfalusi@linux.intel.com>, <lgirdwood@gmail.com>,
- <angelogioacchino.delregno@collabora.com>, <daniel.baluta@nxp.com>
-Subject: [PATCH] ASoC: SOF: mediatek: add pcm_hw_params callback for mt8186
-Date: Sat, 17 Sep 2022 10:26:10 +0800
-Message-ID: <20220917022610.594-1-chunxu.li@mediatek.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="jl57GmpM"
+Received: by mail-pg1-x529.google.com with SMTP id t65so22333803pgt.2
+ for <alsa-devel@alsa-project.org>; Sat, 17 Sep 2022 00:09:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=KhFRhgM5kcJii5PkpIG1m9lYD4ttCdbZZRfGcZawQi0=;
+ b=jl57GmpM3wt+pgRYXfGkE5h2IW4F3V7ns109ewy+zAviiVkhQQg8CEnaqJwCBSw3Nx
+ 2xMOsfyCXjioQP2AEjVRaC//bTuW2nD/Dsp4OBAnKLGUKARLLaTUktA0c3tmbYpkvU2x
+ fyg88sJ+cHt1qMwX7IgNkiiVdfK6ggFquKmitEno+NXrw6Qu1jKWQNCDIg0TUBaO45Kw
+ 0sQa5K62yRSLRk8n6X4zhZwGZklRYX9KSLrSg12zABUKJhqPsCY0O9bnUQT5xu2+M7Ea
+ E9Z8v+PCTubV8XNnOv/XAYaSr4YYB07T+EyAzDR/OhD0czGPH13xJ0p3cl9TYU44l7Up
+ JfEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=KhFRhgM5kcJii5PkpIG1m9lYD4ttCdbZZRfGcZawQi0=;
+ b=6CcbP19/611AcoTuI1jF4RJQPus9qO2eyWaNQjNBvcPfOr3X/zIs7XlAKdIxPtuGSs
+ UIFgmazR5CXDHoUUb7M2rPBGgWz2lYXKG/0vZF13d5UCovKQMMVTk2iHV5MHALLhSh8Z
+ PRdA/iKz43Mmr80+mQs8NJlkMXfYtR+xUtMvQxWUOXfPSNsKubDfRgYuRRn+5I0DlPsI
+ 4bXlXK0XiC/ujB+ECbvkVanKCykf/cigTDo0cq5vKzACFBsOxigCJ8Styowd5AVTvkFS
+ qMpU025yCBb0X3G7trQM0bnG8Ahd2bRFr1hHXAid2WdNcu8WAaYqcXe8yRS9c1q7/OJd
+ 3M0A==
+X-Gm-Message-State: ACrzQf3WMbk6W/IOhxeNNaPKTHZDUba9uQI20T2TuVLV+26XYO7LAYvR
+ KxWM6klh1/YfpckgHH3AsC0=
+X-Google-Smtp-Source: AMsMyM6hR9HFU4VbuQiG+7fkKsfvxgEqXLckbx5FAJD3i1VUnC21/8JGzm8RoX5JbEa5lziPu1tAXw==
+X-Received: by 2002:a05:6a00:1945:b0:541:bdab:17c4 with SMTP id
+ s5-20020a056a00194500b00541bdab17c4mr9148873pfk.77.1663398538286; 
+ Sat, 17 Sep 2022 00:08:58 -0700 (PDT)
+Received: from localhost.localdomain ([104.251.239.243])
+ by smtp.gmail.com with ESMTPSA id
+ y12-20020aa78f2c000000b0053e78769470sm15736959pfr.88.2022.09.17.00.08.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 Sep 2022 00:08:58 -0700 (PDT)
+From: Xiaoyan Li <lxy.lixiaoyan@gmail.com>
+To: mario.limonciello@amd.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: amd: yc: Add ASUS UM5302TA into DMI table
+Date: Sat, 17 Sep 2022 15:08:47 +0800
+Message-Id: <20220917070847.14346-1-lxy.lixiaoyan@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, Chunxu Li <chunxu.li@mediatek.com>,
- linux-kernel@vger.kernel.org,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Cc: Xiaoyan Li <lxy.lixiaoyan@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,43 +99,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-add pcm_hw_params callback for mt8186 to support continue
-update dma host position
+ASUS Zenbook S 13 OLED (UM5302TA) needs this quirk to get the built-in
+microphone working properly.
 
-Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216270
+Signed-off-by: Xiaoyan Li <lxy.lixiaoyan@gmail.com>
 ---
- sound/soc/sof/mediatek/mt8186/mt8186.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index a1be5d74f40b..9ec89fc7fec0 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -460,6 +460,16 @@ static int mt8186_get_bar_index(struct snd_sof_dev *sdev, u32 type)
- 	return type;
- }
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index e0b24e1daef3..5eab3baf3573 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -171,6 +171,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21J6"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "UM5302TA"),
++		}
++	},
+ 	{}
+ };
  
-+static int mt8186_pcm_hw_params(struct snd_sof_dev *sdev,
-+				struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_sof_platform_stream_params *platform_params)
-+{
-+	platform_params->cont_update_posn = 1;
-+
-+	return 0;
-+}
-+
- static struct snd_soc_dai_driver mt8186_dai[] = {
- {
- 	.name = "SOF_DL1",
-@@ -526,6 +536,7 @@ static struct snd_sof_dsp_ops sof_mt8186_ops = {
- 
- 	/* stream callbacks */
- 	.pcm_open	= sof_stream_pcm_open,
-+	.pcm_hw_params	= mt8186_pcm_hw_params,
- 	.pcm_close	= sof_stream_pcm_close,
- 
- 	/* firmware loading */
 -- 
-2.25.1
+2.37.3
 

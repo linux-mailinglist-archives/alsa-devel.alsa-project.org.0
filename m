@@ -2,69 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FF55BB82D
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Sep 2022 14:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ACB15BB83A
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Sep 2022 14:36:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3662CAEA;
-	Sat, 17 Sep 2022 14:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3662CAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB101635;
+	Sat, 17 Sep 2022 14:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB101635
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663417554;
-	bh=he7PC1SPBJz2FZeLrLRV2ckdFtszlUAL9yasCvOK6m4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ejh6bTnGZtGIigxxtwgBGp3xMekt63txE/3O6FxfJhLcl70LzNRffz01mYj8k2Ryu
-	 fsuylX6fcYvaX+ZsqEMIA41ATX/BCFBxGU3vv0Kg7NPLDb0xd2ohnc239edP537huf
-	 i5j/tQuJA41DTs82PFdDOV8VD3TcKZIpEH6No+Ec=
+	s=default; t=1663418197;
+	bh=XYJA667fLDOhUS1qkdqDyoyMT3NAnXmTi3A4eSDJP8o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lP/fJ57qEUD2Vzdo8qeDl4ykY8fiobl4v6vFMn6ewsY2YmRW+yaVU2AddC4zZhQJQ
+	 1dRRi/m+Egn7LGLti2EPOjVl2wXYRQUqMfEas2W2Z2CDdL4rOCzwG6AeOILp/UxAW1
+	 OZjylT6pCM+GmohIWJsiC8eqeUEiKwKDa3uAHyVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97556F8047B;
-	Sat, 17 Sep 2022 14:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCE50F800E9;
+	Sat, 17 Sep 2022 14:35:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAAEFF800E9; Sat, 17 Sep 2022 14:24:55 +0200 (CEST)
+ id 8950FF8028D; Sat, 17 Sep 2022 14:35:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85C3FF800E9
- for <alsa-devel@alsa-project.org>; Sat, 17 Sep 2022 14:24:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85C3FF800E9
-Received: from dggpemm500021.china.huawei.com (unknown [172.30.72.55])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MV95B326yz14QQM;
- Sat, 17 Sep 2022 20:20:46 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500021.china.huawei.com (7.185.36.109) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Sat, 17 Sep 2022 20:24:48 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Sat, 17 Sep
- 2022 20:24:47 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next 2/2] ALSA: mtpav: Switch to use list_for_each_entry()
- helper
-Date: Sat, 17 Sep 2022 20:31:55 +0800
-Message-ID: <20220917123155.1899689-2-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220917123155.1899689-1-yangyingliang@huawei.com>
-References: <20220917123155.1899689-1-yangyingliang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18B97F800E9
+ for <alsa-devel@alsa-project.org>; Sat, 17 Sep 2022 14:35:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18B97F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="B53HZiww"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28HC1ILP026878;
+ Sat, 17 Sep 2022 07:35:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=2hDA1iMB+MkH5X+KpV0Xzrm17zBNNXH45EZO+TrYQ2k=;
+ b=B53HZiwwsNkFBLTWJ8spqIo5GkS6Zy6ci8rgAjPbZKWA/1PXUN+s8benA1PNcKSPEZ+L
+ iNbR8BK52LCHEdK3/ojODiggM1ozn6pn1ChTXkjqM5H9lfl9XS8GBaTkDPflT1tn/tWE
+ rYDcOnGoy7zyZBBlmJU9iWA/KxoSkmWleP/toPzPvm5zBpPGm4n/Dpg+wl1eZyVifzuT
+ 45fXkOfMw2mZ9XPpMA/RcfVaKe1iiuL958Ik5IFbGizKZP1zsK+7lIov/kLePtVaB45i
+ N/vv9zhAjuIU+EeG0zEhgYt1kom6lqO7VAkZrb2sc9mYjpeSflxkzv1bDH48LvPy9Znd 5Q== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jnanmg60x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 17 Sep 2022 07:35:29 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Sat, 17 Sep
+ 2022 07:35:27 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Sat, 17 Sep 2022 07:35:27 -0500
+Received: from debianA11184.ad.cirrus.com (unknown [198.61.65.112])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 477EF2BA;
+ Sat, 17 Sep 2022 12:35:21 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+Subject: [PATCH] soundwire: cadence: Write to correct address for each FIFO
+ chunk
+Date: Sat, 17 Sep 2022 13:35:17 +0100
+Message-ID: <20220917123517.229153-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: tiwai@suse.com
+X-Proofpoint-GUID: P01lUcnPOM-azedO6NTkqAeUasUKvcgi
+X-Proofpoint-ORIG-GUID: P01lUcnPOM-azedO6NTkqAeUasUKvcgi
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,46 +98,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use list_for_each_entry() helper instead of list_for_each() and
-list_entry() to simplify code a bit. No functional change.
+_cdns_xfer_msg() must add the fragment offset to msg->addr to get the
+base target address of each FIFO chunk. Otherwise every chunk will
+be written to the first 32 register addresses.
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/drivers/mtpav.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/soundwire/cadence_master.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/drivers/mtpav.c b/sound/drivers/mtpav.c
-index f212f233ea61..717577e2a609 100644
---- a/sound/drivers/mtpav.c
-+++ b/sound/drivers/mtpav.c
-@@ -623,7 +623,6 @@ static int snd_mtpav_get_RAWMIDI(struct mtpav *mcard)
- 	int rval;
- 	struct snd_rawmidi *rawmidi;
- 	struct snd_rawmidi_substream *substream;
--	struct list_head *list;
- 
- 	if (hwports < 1)
- 		hwports = 1;
-@@ -640,13 +639,15 @@ static int snd_mtpav_get_RAWMIDI(struct mtpav *mcard)
- 	rawmidi = mcard->rmidi;
- 	rawmidi->private_data = mcard;
- 
--	list_for_each(list, &rawmidi->streams[SNDRV_RAWMIDI_STREAM_INPUT].substreams) {
--		substream = list_entry(list, struct snd_rawmidi_substream, list);
-+	list_for_each_entry(substream,
-+			    &rawmidi->streams[SNDRV_RAWMIDI_STREAM_INPUT].substreams,
-+			    list) {
- 		snd_mtpav_set_name(mcard, substream);
- 		substream->ops = &snd_mtpav_input;
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index 3ef472049980..ca241bbeadd9 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -569,7 +569,7 @@ _cdns_xfer_msg(struct sdw_cdns *cdns, struct sdw_msg *msg, int cmd,
  	}
--	list_for_each(list, &rawmidi->streams[SNDRV_RAWMIDI_STREAM_OUTPUT].substreams) {
--		substream = list_entry(list, struct snd_rawmidi_substream, list);
-+	list_for_each_entry(substream,
-+			    &rawmidi->streams[SNDRV_RAWMIDI_STREAM_OUTPUT].substreams,
-+			    list) {
- 		snd_mtpav_set_name(mcard, substream);
- 		substream->ops = &snd_mtpav_output;
- 		mcard->ports[substream->number].hwport = translate_subdevice_to_hwport(mcard, substream->number);
+ 
+ 	base = CDNS_MCP_CMD_BASE;
+-	addr = msg->addr;
++	addr = msg->addr + offset;
+ 
+ 	for (i = 0; i < count; i++) {
+ 		data = FIELD_PREP(CDNS_MCP_CMD_DEV_ADDR, msg->dev_num);
 -- 
-2.25.1
+2.30.2
 

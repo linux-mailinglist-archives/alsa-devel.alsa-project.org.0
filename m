@@ -2,90 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D895C5BB935
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Sep 2022 17:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAED55BBCB6
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Sep 2022 11:16:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B22F15F9;
-	Sat, 17 Sep 2022 17:49:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B22F15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C3A615DC;
+	Sun, 18 Sep 2022 11:15:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C3A615DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663429809;
-	bh=A9WniNPPq3o5d3/WIUkoNLpzB40HLRBwwfvQ8Dl4zbI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663492586;
+	bh=jHf4CK1/6PINKJbpng69MJT7gwBr9Ci49gQdk+oe9zI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pWu+oLcRfPoszz46GIhRSAjPbMkOR9NgvVJ3xzLnPup+aBgp0/cmt6P8jj2YYv4B2
-	 06q9cFxXG9S+Lc9eJGUqAOtZiNbJOTSXvNZ+mvl0ZEIhDrvFinQsGU6dMM5XS7AMNI
-	 U8iIuc4H4zU3LmVh+aAgGio5zgw+Yw+zvdNBivJc=
+	b=eUOkWG/da/o17RlFFDV1HiiDvbQrWqwPy8/BMJOD6WRS0wJV2JTwWT3UKpXix+o5j
+	 IwkFceYd4dsg9CD7R0Hb8bCE8ukdlXjXN4zJMQJmP1/TN2MvLWfE5UWoKen/RTq+Iv
+	 gMaB2QD4nRTZqIj/71ZytTi06ap2umy5DJNLBQU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCFC9F8053A;
-	Sat, 17 Sep 2022 17:48:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C43BF804CA;
+	Sun, 18 Sep 2022 11:15:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 348F9F80249; Sat, 17 Sep 2022 17:48:47 +0200 (CEST)
+ id 80AB9F804B3; Sun, 18 Sep 2022 11:15:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB0B0F80249
- for <alsa-devel@alsa-project.org>; Sat, 17 Sep 2022 17:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB0B0F80249
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3811F800E5
+ for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 11:15:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3811F800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="bZ6olJVg"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28HFmbdC028028;
- Sat, 17 Sep 2022 10:48:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=vJHaMLJvcCzzgtqNWiXZsB/9X6s3SfKiDcoQeDm4FFM=;
- b=bZ6olJVgI8XqZpFG5M1+zLqLGu31bSekptfqhHSvQGQumrFPJm7BLHXXA9rjjuGUg06V
- OnWi8XYDSncvf8QKEmJAb2KyJypcNJm1zM2HtU6bUCycXBe/nNjtTO7Rv3LKkYKLRxmf
- N3f2tu9qYhlBY5A8XD0fEjR0yuYDkh8btY/W3jl3Qfjt/2c1rvjzCbw/vWraEmdUBJVT
- hfSG5N6kE2ylGK7PDHIYt8T7303ZAI0N+eV+PzmSg8y7FVqdplkz5x8grWBU14KMhhuV
- ccwlBbXoZvSqKUUQPRL+pnCCYSm3D0+UqVjRaimJX0Eb0YliuI6UOncEETU+4dKm/Wu1 Tg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3jnbn08bd4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 17 Sep 2022 10:48:37 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Sat, 17 Sep
- 2022 10:48:35 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Sat, 17 Sep 2022 10:48:35 -0500
-Received: from debianA11184.ad.cirrus.com (unknown [198.61.65.112])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 411482BA;
- Sat, 17 Sep 2022 15:48:35 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH 2/2] soundwire: cadence: Simplify error paths in
- cdns_xfer_msg()
-Date: Sat, 17 Sep 2022 16:48:22 +0100
-Message-ID: <20220917154822.690472-2-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220917154822.690472-1-rf@opensource.cirrus.com>
-References: <20220917154822.690472-1-rf@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="yWULXnlz"
+Received: by mail-lj1-x22c.google.com with SMTP id h3so22172810lja.1
+ for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 02:15:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=YAmWSRe5Gq0WUlezroDaVszGCMPa6MPQZqhM455jkZs=;
+ b=yWULXnlzzU9J9JFAeAFHcF4ohsKBDJNPio3e5WVpj7TeY7ISuhXGsB1YUVhTFR1kL6
+ PA7lrJ+I9T76dxdfG/Qr0jn0xmX5+ELWU4NKDmek9LNGmJI+nEc4g2t3xioT6ZFFA4Xn
+ ephNeXdxFl2Ppd5TXOeWykGJeg1WKXBA0l1aMssxavcPQYnBNxfXVts0WqNRVyCtG+M9
+ lf3CnmJ6f40dabdeO9YEydoIxvZX7hBgVq6GZaJKdJKq6xKLIqu5FoqhDZ+uK/abu5SP
+ 1hZVXt1KuZJqH5Sx9IDishvXBFA6U+0HVmqNof7RYbCOmnNLZhJ8acuAySvjyE176M88
+ ULvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=YAmWSRe5Gq0WUlezroDaVszGCMPa6MPQZqhM455jkZs=;
+ b=p2Uqo6VJ24dUtBmMygGBJtsd68yxFnq2NIpQpKhO/Fv0V4VqGmKt3auIbagbZeFZOD
+ HRK8wPsKyXC10XXyKORUSJlYf+V2gegU/fufoWkJyipo95heTlhmIwa5NMoh/WdnFDwx
+ 5cAiAnNO0tLSKskkRt+sEo0snFkgMKl9VaPsfK1eUe6hQx420ypBmVxSleWyw9A9MseZ
+ 727dqNOU2j1gOuR6r8STPeSjb7b1a/c3MqEb/Nid9Joj1F3S1SCQmD2Stq2H9ZNgt1Ih
+ Ky/yqYqgTrXG88HehO5BEprA6ulI7/EJ61vfrQIpTy1BL6e1LKxTAyjBUXvpGrQdf3My
+ /0zQ==
+X-Gm-Message-State: ACrzQf2Zlk3YCwvz2+J7bPeFc1pGLmmIYHk6rAcLNQrh7bGbIUYiNzHw
+ e3d6n7p1gUslkX0BfjdmRX8JmtinSb6/HQ==
+X-Google-Smtp-Source: AMsMyM5FhRow4sbIo6dhZeJi0VQSwzplmq2oYHdLZ1viQXHQIF0nIoRivXMABx3g4iq92/PvNdreVA==
+X-Received: by 2002:a2e:9ec3:0:b0:261:c893:679c with SMTP id
+ h3-20020a2e9ec3000000b00261c893679cmr3516027ljk.378.1663492517667; 
+ Sun, 18 Sep 2022 02:15:17 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ v17-20020ac258f1000000b00499b1873d6dsm4486157lfo.269.2022.09.18.02.15.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 18 Sep 2022 02:15:17 -0700 (PDT)
+Message-ID: <d8950be7-7b8b-6ad0-5825-c090e0c9b04d@linaro.org>
+Date: Sun, 18 Sep 2022 10:15:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: VTRd6noz-XehbOX2jNDJSU56AgkzW945
-X-Proofpoint-ORIG-GUID: VTRd6noz-XehbOX2jNDJSU56AgkzW945
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH v5 2/5] ASoC: dt-bindings: qcom: sort compatible strings
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20220916132427.1845-1-srinivas.kandagatla@linaro.org>
+ <20220916132427.1845-3-srinivas.kandagatla@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220916132427.1845-3-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, bgoswami@quicinc.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,42 +110,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There's no need to goto an exit label to return from cdns_xfer_msg().
-It doesn't do any cleanup, only a return statement.
+On 16/09/2022 14:24, Srinivas Kandagatla wrote:
+> Sort compatible strings for consistency reasons.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
 
-Replace the gotos with returns.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/cadence_master.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 3543a923ee6b..30b8c628fdbd 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -709,17 +709,14 @@ cdns_xfer_msg(struct sdw_bus *bus, struct sdw_msg *msg)
- 		ret = _cdns_xfer_msg(cdns, msg, cmd, i * CDNS_MCP_CMD_LEN,
- 				     CDNS_MCP_CMD_LEN, false);
- 		if (ret != SDW_CMD_OK)
--			goto exit;
-+			return ret;
- 	}
- 
- 	if (!(msg->len % CDNS_MCP_CMD_LEN))
--		goto exit;
-+		return SDW_CMD_OK;
- 
--	ret = _cdns_xfer_msg(cdns, msg, cmd, i * CDNS_MCP_CMD_LEN,
--			     msg->len % CDNS_MCP_CMD_LEN, false);
--
--exit:
--	return ret;
-+	return _cdns_xfer_msg(cdns, msg, cmd, i * CDNS_MCP_CMD_LEN,
-+			      msg->len % CDNS_MCP_CMD_LEN, false);
- }
- EXPORT_SYMBOL(cdns_xfer_msg);
- 
--- 
-2.30.2
 
+Best regards,
+Krzysztof

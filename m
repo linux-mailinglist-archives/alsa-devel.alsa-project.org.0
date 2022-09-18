@@ -2,99 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAED55BBCB6
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Sep 2022 11:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF1ED5BBCF6
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Sep 2022 11:51:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C3A615DC;
-	Sun, 18 Sep 2022 11:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C3A615DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A2FD85D;
+	Sun, 18 Sep 2022 11:51:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A2FD85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663492586;
-	bh=jHf4CK1/6PINKJbpng69MJT7gwBr9Ci49gQdk+oe9zI=;
+	s=default; t=1663494716;
+	bh=iXINPMAkjcf8E5x4KSjqZbIUNxb+Pyo6zpWlEXi04Yk=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eUOkWG/da/o17RlFFDV1HiiDvbQrWqwPy8/BMJOD6WRS0wJV2JTwWT3UKpXix+o5j
-	 IwkFceYd4dsg9CD7R0Hb8bCE8ukdlXjXN4zJMQJmP1/TN2MvLWfE5UWoKen/RTq+Iv
-	 gMaB2QD4nRTZqIj/71ZytTi06ap2umy5DJNLBQU8=
+	b=exR177u7FZWxMbIuCsvOdxpDYKQY2TK62xrHucmrD69NeRLePt0iYuP/KRAPcudyx
+	 qKgYcX64ib35WegyGyonvqek+my8aED+esQKznnnOsHU6uy/5T0IfizI1CYYtU808Z
+	 PEHt7dYOUCaMha8hnBFKjpRfIZuBFW+97UpoBDfc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C43BF804CA;
-	Sun, 18 Sep 2022 11:15:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76C41F804CA;
+	Sun, 18 Sep 2022 11:50:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80AB9F804B3; Sun, 18 Sep 2022 11:15:26 +0200 (CEST)
+ id AAEC6F80134; Sun, 18 Sep 2022 11:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3811F800E5
- for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 11:15:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3811F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1E68F80134
+ for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 11:50:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1E68F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="yWULXnlz"
-Received: by mail-lj1-x22c.google.com with SMTP id h3so22172810lja.1
- for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 02:15:19 -0700 (PDT)
+ header.b="Wp0ZjomX"
+Received: by mail-lf1-x131.google.com with SMTP id s6so31072018lfo.7
+ for <alsa-devel@alsa-project.org>; Sun, 18 Sep 2022 02:50:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=YAmWSRe5Gq0WUlezroDaVszGCMPa6MPQZqhM455jkZs=;
- b=yWULXnlzzU9J9JFAeAFHcF4ohsKBDJNPio3e5WVpj7TeY7ISuhXGsB1YUVhTFR1kL6
- PA7lrJ+I9T76dxdfG/Qr0jn0xmX5+ELWU4NKDmek9LNGmJI+nEc4g2t3xioT6ZFFA4Xn
- ephNeXdxFl2Ppd5TXOeWykGJeg1WKXBA0l1aMssxavcPQYnBNxfXVts0WqNRVyCtG+M9
- lf3CnmJ6f40dabdeO9YEydoIxvZX7hBgVq6GZaJKdJKq6xKLIqu5FoqhDZ+uK/abu5SP
- 1hZVXt1KuZJqH5Sx9IDishvXBFA6U+0HVmqNof7RYbCOmnNLZhJ8acuAySvjyE176M88
- ULvg==
+ bh=PKBg5ng7PnWT5G7IkXOVZef3/wyXg4tjFKeAtGbo5Lk=;
+ b=Wp0ZjomX491U2rtytMCDb+CR94gy+1DIlxKK12p7ND8SR/hx3X3hdiRuZ1MbpphJTq
+ txKv40nzT3myoEkSuZB1SCD7vGdILwv6DZ4hzYb4gxbV4wsNef/3Lx435X7KZ3k1YIvH
+ y1EQPXAGFXLS1Q2xdTZJLGMegi4lSAkwQ+UHP9fasg0ftekSOBRryTwXZYncYwsfLJru
+ Nm+ipzZAl93L75RmHQ006JdD2JgzIkpfYFjLjLJQ01dkevVf59iASAz0N5YS9fFD+4uG
+ uUQ7oznjf8vQ+duVO8RWaXxjbVZGU93lGdI8uvCgaJyiwqfxZ1GmxfMwH2DI65MlGw1S
+ 9++g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=YAmWSRe5Gq0WUlezroDaVszGCMPa6MPQZqhM455jkZs=;
- b=p2Uqo6VJ24dUtBmMygGBJtsd68yxFnq2NIpQpKhO/Fv0V4VqGmKt3auIbagbZeFZOD
- HRK8wPsKyXC10XXyKORUSJlYf+V2gegU/fufoWkJyipo95heTlhmIwa5NMoh/WdnFDwx
- 5cAiAnNO0tLSKskkRt+sEo0snFkgMKl9VaPsfK1eUe6hQx420ypBmVxSleWyw9A9MseZ
- 727dqNOU2j1gOuR6r8STPeSjb7b1a/c3MqEb/Nid9Joj1F3S1SCQmD2Stq2H9ZNgt1Ih
- Ky/yqYqgTrXG88HehO5BEprA6ulI7/EJ61vfrQIpTy1BL6e1LKxTAyjBUXvpGrQdf3My
- /0zQ==
-X-Gm-Message-State: ACrzQf2Zlk3YCwvz2+J7bPeFc1pGLmmIYHk6rAcLNQrh7bGbIUYiNzHw
- e3d6n7p1gUslkX0BfjdmRX8JmtinSb6/HQ==
-X-Google-Smtp-Source: AMsMyM5FhRow4sbIo6dhZeJi0VQSwzplmq2oYHdLZ1viQXHQIF0nIoRivXMABx3g4iq92/PvNdreVA==
-X-Received: by 2002:a2e:9ec3:0:b0:261:c893:679c with SMTP id
- h3-20020a2e9ec3000000b00261c893679cmr3516027ljk.378.1663492517667; 
- Sun, 18 Sep 2022 02:15:17 -0700 (PDT)
+ bh=PKBg5ng7PnWT5G7IkXOVZef3/wyXg4tjFKeAtGbo5Lk=;
+ b=0zxKsMQS+G4h0z3HCmSulP6ydmjjlT2lIPPlG3XUerJLu3vs5zkOS9U5HgiIg3w+DW
+ G5DlZE7m8xOJO6SYKraQ5l58YfXc6+eshTTOM8tnrDWA6ht+t7+/Lo613FnbxDF5Q+NX
+ oRzIox8XCUEoTs7uQvNsFUKAt9QHOLQnaQMVoUvphi22g2YPtVnHyU+tgOHGVOz9mPWs
+ kuwIq1p9GI/fVD0Boii51BxXuLNTVdRCZ+5pE57Aa+rJoeAd34Hlog1k6Td87nFFYKFb
+ TAROXjYgKqiTQU7r+Obbb/A3fC5boEoIeL2cQIKmVrppYYi87+fGLIMTBL4H14Mj4viE
+ StWA==
+X-Gm-Message-State: ACrzQf029Lz1UHNtnb/Ca1NQKQXJuo1tBVK7KSL2lW6Jx14Y6rp/OzmA
+ oPHcQNoqWYAxZrIKI5aOjpSl9Q==
+X-Google-Smtp-Source: AMsMyM5fLqyeOXxhQHdX+OOxELBYD3ckReSg83MxwbqlwSMZaQyVVpAnIOHc9SP/XraIp0pF3FQnyQ==
+X-Received: by 2002:a19:6b05:0:b0:49f:53b9:abb0 with SMTP id
+ d5-20020a196b05000000b0049f53b9abb0mr3821048lfa.166.1663494648565; 
+ Sun, 18 Sep 2022 02:50:48 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- v17-20020ac258f1000000b00499b1873d6dsm4486157lfo.269.2022.09.18.02.15.16
+ z15-20020a056512308f00b004977e865220sm4574286lfd.55.2022.09.18.02.50.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 Sep 2022 02:15:17 -0700 (PDT)
-Message-ID: <d8950be7-7b8b-6ad0-5825-c090e0c9b04d@linaro.org>
-Date: Sun, 18 Sep 2022 10:15:16 +0100
+ Sun, 18 Sep 2022 02:50:47 -0700 (PDT)
+Message-ID: <d264ff4f-3aa3-8dd4-26fc-9cffe950f386@linaro.org>
+Date: Sun, 18 Sep 2022 10:50:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
-Subject: Re: [PATCH v5 2/5] ASoC: dt-bindings: qcom: sort compatible strings
+Subject: Re: [PATCH v2 1/3] dt-bindings: sound: ts3a227e: convert to yaml
 Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-References: <20220916132427.1845-1-srinivas.kandagatla@linaro.org>
- <20220916132427.1845-3-srinivas.kandagatla@linaro.org>
+To: Astrid Rost <astrid.rost@axis.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dylan Reid <dgreid@chromium.org>, Rob Herring <robh+dt@kernel.org>
+References: <20220915113955.22521-1-astrid.rost@axis.com>
+ <20220915113955.22521-2-astrid.rost@axis.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220916132427.1845-3-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220915113955.22521-2-astrid.rost@axis.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, bgoswami@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Astrid Rost <astridr@axis.com>, kernel@axis.c, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,14 +111,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16/09/2022 14:24, Srinivas Kandagatla wrote:
-> Sort compatible strings for consistency reasons.
+On 15/09/2022 12:39, Astrid Rost wrote:
+> Convert from ts3a227e.txt to yaml.
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
+
+Thank you for your patch. There is something to discuss/improve.
+
 > ---
+>  .../devicetree/bindings/sound/ts3a227e.txt    | 30 --------
+>  .../devicetree/bindings/sound/ts3a227e.yaml   | 69 +++++++++++++++++++
+>  2 files changed, 69 insertions(+), 30 deletions(-)
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/ts3a227e.yaml
+> @@ -0,0 +1,69 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: "http://devicetree.org/schemas/sound/ts3a227e.yaml#"
+
+
+Filename based on compatible, so ti,ts3a227e.yaml
+
+> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+
+Drop quotes from both lines above.
+
+> +
+> +title: Texas Instruments TS3A227E
+> +  Autonomous Audio Accessory Detection and Configuration Switch
+> +
+> +maintainers:
+> +  - Dylan Reid <dgreid@chromium.org>
+> +
+> +description: |
+> +  The TS3A227E detect headsets of 3-ring and 4-ring standards and
+> +  switches automatically to route the microphone correctly. It also
+> +  handles key press detection in accordance with the Android audio
+> +  headset specification v1.0.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,ts3a227e
+> +
+> +  reg:
+> +    description: I2C address of the device.
+
+Skip description, it's obvious.
+
+> +    const: 0x3b
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: |
+> +      Interrupt number for /INT pin from the ts3a227e.
+
+Skip description
+
+> +
+> +  ti,micbias:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Intended MICBIAS voltage (datasheet section 9.6.7).
+> +    enum:
+> +      - 0 # 2.1 V
+> +      - 1 # 2.2 V
+> +      - 2 # 2.3 V
+> +      - 3 # 2.4 V
+> +      - 4 # 2.5 V
+> +      - 5 # 2.6 V
+> +      - 6 # 2.7 V
+> +      - 7 # 2.8 V
+> +    default: 2
+
+Old bindings said default is 1. It this was intended, please mention in
+commit msg deviations from pure conversion.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+
+This header is not used.
+
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    i2c0 {
+
+Node name just "i2c"
+
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        codec: ts3a227e@3b {
+
+Node names should be generic.
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+
+audio-controller? audio-switch?
+
+> +            compatible = "ti,ts3a227e";
+> +            reg = <0x3b>;
+> +            interrupt-parent = <&gpio1>;
+> +            interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
+> +        };
+> +    };
+> +
+> +...
 
 
 Best regards,

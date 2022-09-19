@@ -2,79 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B795BC4BB
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 10:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B444A5BC549
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 11:25:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C712615E5;
-	Mon, 19 Sep 2022 10:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C712615E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3E4915C3;
+	Mon, 19 Sep 2022 11:24:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3E4915C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663577504;
-	bh=JRoj95ho0T4wLdf19SkxLigD87bfbLJi96G1FQfG/Xk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1663579532;
+	bh=+MKNl9pZW1y2yoYNPbUL0h9/84T1p5kSoZNTn7vsW1I=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s14hgEMz8nIJUijlj3u1dd47/CrSIOs25qBJJV2Quwjt7bM6l7fdqx3GWXqzNWljV
-	 RHCAKRY8jX5rBuPQuuAWswRVBs1wxkn/5N5iZIlR5/mkAcJzTVWq+57Q58KRqHmV9+
-	 3fBQJdMju6Cha4ri05+u0/wxGZ0PiQUXsT0RGFxo=
+	b=ovqUYNgN9qGfJmhVuSz/V9BZxJr8fqqrkV4PjS7ufQzedvp+ZiEHRjxm1vwvO+5Ut
+	 FLm0NfhgKGRxKgi6wq8DU67G1IFyoCfUgRNJbcD2HxqgqE0bZXMLHTboRuAWf3dUef
+	 yKxs6NTZmd9qqFsY9jlRLc/RG6j5E7X86KVEbrxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 311F0F8032B;
-	Mon, 19 Sep 2022 10:50:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EBC1F8032B;
+	Mon, 19 Sep 2022 11:24:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 234E1F8023A; Mon, 19 Sep 2022 10:50:46 +0200 (CEST)
+ id EDEC1F8023A; Mon, 19 Sep 2022 11:24:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC937F80134
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 10:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC937F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04B90F80134
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 11:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04B90F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="j5z/07ky"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663577444; x=1695113444;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=JRoj95ho0T4wLdf19SkxLigD87bfbLJi96G1FQfG/Xk=;
- b=j5z/07kyKo3jsgPWT6IJXsed3xl8skBokfIVUGazgrJCbDJh2Oy5USqA
- I0tSLOUMXgAPQcZMpDjvFAfbzZws/4xWdb+TKEMKlVM1MySSRLqXQTrq1
- msvfKj/7NcNnj4b7zkj5MG0gMPj3PzpENR5ACGnc6SxH/bBDpQfSH2S5u
- N+zHz/7P5uuCq0XygklGEzG/LZBWGhfesIU59m51Ht7+9xXoDPJgxbTMZ
- xQE/tQoXg7VBPYKBEZf/8C69czjYrb+N/kNIvOex52ETN80umpl81wM3h
- 6sJnz/iH+ESOjYjQ6IgWbSOpGwATPm68KtU2ugfLcpCyWCps0+cfN9r1Y Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="385634552"
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="385634552"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:50:39 -0700
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="680760900"
-Received: from ilick-mobl1.ger.corp.intel.com (HELO [10.252.59.91])
- ([10.252.59.91])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:50:38 -0700
-Message-ID: <6a869047-4bb6-86a2-012b-1c5aed5a9d56@linux.intel.com>
-Date: Mon, 19 Sep 2022 10:50:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: "no soundcard" for GeminiLake High Definition Audio (rev 06)
-Content-Language: en-US
-To: linasvepstas@gmail.com, alsa-devel@alsa-project.org
-References: <CAHrUA35O4Av+-+dbr69LrgHfXAWF1+d4xwJSF7k2Tx4YWrQ8kw@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <CAHrUA35O4Av+-+dbr69LrgHfXAWF1+d4xwJSF7k2Tx4YWrQ8kw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="s7BIrRKz"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="0MM+F95W"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 516B1221E2;
+ Mon, 19 Sep 2022 09:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663579466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZbT40zAkjhP9+n399AbT5L2GEVohnR2lNfZdDMkmB2I=;
+ b=s7BIrRKzRZ+RqyZh2vSJZm4djBMvyblnab40+wDxnhBKlf3MB4hBjij98pChd1+S+TzuRa
+ MsteH+FOFgTLCu0kdyL0feWZ913GWoADpX0LuFj/yUQ150nRA+wZaxeF07l6ALfUhN2clr
+ 6GA0quk9IMOYnSlX0qe6nUayb/9Jhfc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663579466;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZbT40zAkjhP9+n399AbT5L2GEVohnR2lNfZdDMkmB2I=;
+ b=0MM+F95WPpXuJsELVkK2StvHIAoYnMOAq3u+fUYU4cuiMs/GOJvupOr/SOIu/K66OB/2fD
+ IpnycQVdVkOjC6Cg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2CEBE13A96;
+ Mon, 19 Sep 2022 09:24:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id xO4ZCko1KGMTVAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 09:24:26 +0000
+Date: Mon, 19 Sep 2022 11:24:25 +0200
+Message-ID: <87r107btti.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: KASAN: invalid-free in snd_card_new
+In-Reply-To: <871qs7dav5.wl-tiwai@suse.de>
+References: <CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com>
+ <871qs7dav5.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,16 +100,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 19 Sep 2022 10:30:54 +0200,
+Takashi Iwai wrote:
+> 
+> On Sun, 18 Sep 2022 15:01:11 +0200,
+> Rondreis wrote:
+> > 
+> > Hello,
+> > 
+> > When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
+> > triggered.
+> > 
+> > HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
+> > git tree: upstream
+> > 
+> > kernel config: https://pastebin.com/raw/xtrgsXP3
+> > C reproducer: https://pastebin.com/raw/w2sdQWYj
+> > console output: https://pastebin.com/raw/Yyf7zw2d
+> > 
+> > Basically, in the c reproducer, we use the gadget module to emulate
+> > attaching a USB device(vendor id: 0x1bc7, product id: 0x1206, with the
+> > midi function) and executing some simple sequence of system calls.
+> > To reproduce this crash, we utilize a third-party library to emulate
+> > the attaching process: https://github.com/linux-usb-gadgets/libusbgx.
+> > Just clone this repository, install it, and compile the c
+> > reproducer with ``` gcc crash.c -lusbgx -lconfig -o crash ``` will do
+> > the trick.
+> > 
+> > I would appreciate it if you have any idea how to solve this bug.
+> 
+> Could you try the patch below?  It looks like a simple double-free in
+> the code.
+
+A more proper patch is below.  Please give it a try.
 
 
-On 9/17/22 20:53, Linas Vepstas wrote:
-> Kernel reports "no soundcard". Presumably, this is why I don't have
-> sound. Let me dive right in with details:
+thanks,
 
-> FWIW, more about this hardware:
-> -- It's a cheap laptop, from newegg, Ipason MaxBook P1X, 4-core Intel
-> Celeron, 12GB RAM, great price.
+Takashi
 
-and no linux support. Yay.
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: core: Fix double-free at snd_card_new()
 
-see https://github.com/thesofproject/linux/wiki/ES8336-support
+During the code change to add the support for devres-managed card
+instance, we put an explicit kfree(card) call at the error path in
+snd_card_new().  This is needed for the early error path before the
+card is initialized with the device, but is rather superfluous and
+causes a double-free at the error path after the card instance is
+initialized, as the destructor of the card object already contains a
+kfree() call.
+
+This patch fixes the double-free situation by removing the superfluous
+kfree().  Meanwhile we need to call kfree() explicitly for the early
+error path, so it's added there instead.
+
+Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
+Reported-by: Rondreis <linhaoguo86@gmail.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/init.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 193dae361fac..5377f94eb211 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -178,10 +178,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 		return -ENOMEM;
+ 
+ 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
+-	if (err < 0) {
+-		kfree(card);
+-		return err;
+-	}
++	if (err < 0)
++		return err; /* card is freed by error handler */
+ 
+ 	*card_ret = card;
+ 	return 0;
+@@ -233,7 +231,7 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
+ 	card->managed = true;
+ 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
+ 	if (err < 0) {
+-		devres_free(card);
++		devres_free(card); /* in managed mode, we need to free manually */
+ 		return err;
+ 	}
+ 
+@@ -297,6 +295,8 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
+ 		mutex_unlock(&snd_card_mutex);
+ 		dev_err(parent, "cannot find the slot for index %d (range 0-%i), error: %d\n",
+ 			 idx, snd_ecards_limit - 1, err);
++		if (!card->managed)
++			kfree(card); /* manually free here, as no destructor called */
+ 		return err;
+ 	}
+ 	set_bit(idx, snd_cards_lock);		/* lock it */
+-- 
+2.35.3
+

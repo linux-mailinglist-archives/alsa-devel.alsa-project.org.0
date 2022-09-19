@@ -2,72 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A969F5BCCC8
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 15:18:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CBA55BCDA2
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 15:50:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E88BE82C;
-	Mon, 19 Sep 2022 15:17:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E88BE82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31E5186E;
+	Mon, 19 Sep 2022 15:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31E5186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663593514;
-	bh=UgckQnmQL/nVuNdWZTUA13EG0Ql67PagNgE7TaO8njM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663595411;
+	bh=/1FtSosHzQ5hkCLrU1jjIDuEL0m5+rJ6Qq6tlVUZg9E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Si2V3ODYYDnt8uMpSDOeuwGCI3sW40BCl6EOop445juSwBIbD9P03hF3GjNptit42
-	 G6Uo0Zlxh+0WwHsd2ZtS/swlnj2DS6HZNEUXDsZO3pfSd9L/PokOoITkGXlGjBLG3V
-	 v6j0yqqGTiHaLIee6IyhGn6I953BbfEDgYfENb0A=
+	b=OLaJwx98WRvzFlhRHWiQV7I3U4M5tmScRFxEz+CeoejRkGI8YLaBjjjmkANnjG+hO
+	 XNjssduhvyjwzndoD4JsjkjNk0KG2Sza5k1PFxrNTZdAgnJLOaEZdghXKMZAQo6NTi
+	 bOc7nZr+FetKpUikZdxe4luM7XXhGp1NJb2k/XEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FDD2F800E5;
-	Mon, 19 Sep 2022 15:17:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91CDEF8032B;
+	Mon, 19 Sep 2022 15:49:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1009F8023A; Mon, 19 Sep 2022 15:17:33 +0200 (CEST)
+ id 0272AF8023A; Mon, 19 Sep 2022 15:49:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2B74F80134
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 15:17:27 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D4A5BA003F;
- Mon, 19 Sep 2022 15:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D4A5BA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1663593446; bh=tvHwleJujRGiUEH/OfL0nVlJAMpPYSh2u3+nTAIKoRw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=u2HPlnuBsZuik2U7Sg+p6eWzHxTLZmz9TU1/q0EudXzFr3wFp8uyIVMQZnSwJe95Q
- 0+DAle5tTvJRbJggKZmq8LlA40GrFgtvgwecKpQ6R7ilf/jDTxu3PvEeKWA0kZbf0T
- WM/6jpPf/W0VzkRsZa+YEcaxU/9k+utayvQiqy3g=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 19 Sep 2022 15:17:23 +0200 (CEST)
-Message-ID: <a846e337-fd8c-f2bd-431f-348900b6f382@perex.cz>
-Date: Mon, 19 Sep 2022 15:17:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] ALSA: hda/hdmi: Fix the converter reuse for the silent
- stream
-Content-Language: en-US
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-References: <20220913070216.3233974-1-perex@perex.cz>
- <alpine.DEB.2.22.394.2209191430310.2722275@eliteleevi.tm.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <alpine.DEB.2.22.394.2209191430310.2722275@eliteleevi.tm.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D3DFF80134
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 15:49:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D3DFF80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mKlBuyMh"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="tL2lQSkO"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ACD5E1F8EF;
+ Mon, 19 Sep 2022 13:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663595343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mG8qNqOUZiLVI5e04ilFKD8dzskLAhThKDItvZFPL00=;
+ b=mKlBuyMhaxiEWWeeZ36dGVKdOLUJsvi/v7udtA+L3KRnmaHO6TbprWfdEkd9QP638w4EVs
+ vctaMH5rD/8wo7ZmD6zqwwPQo4xdlHZTUfdpyqyZk9n+m1DMnrGNvkSQpwcgI1i08/C4hV
+ KP5Xqw34gzOeedfakPutSRCsg1svaWg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663595343;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mG8qNqOUZiLVI5e04ilFKD8dzskLAhThKDItvZFPL00=;
+ b=tL2lQSkOYWYPav1/k/EEQYv6+oBt1pfIJhl/g4139XzF4FNrSqZvwFThX+wGS8oKkNpD4f
+ w2hvtTZvwVAVNvAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8923F13ABD;
+ Mon, 19 Sep 2022 13:49:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id NqW7IE9zKGO5TwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 13:49:03 +0000
+Date: Mon, 19 Sep 2022 15:49:02 +0200
+Message-ID: <87y1ufh3u9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: possible deadlock in snd_rawmidi_free
+In-Reply-To: <CAB7eexJP7w1B0mVgDF0dQ+gWor7UdkiwPczmL7pn91xx8xpzOA@mail.gmail.com>
+References: <CAB7eexJP7w1B0mVgDF0dQ+gWor7UdkiwPczmL7pn91xx8xpzOA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,55 +99,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19. 09. 22 13:33, Kai Vehmanen wrote:
-> Hi,
+On Mon, 19 Sep 2022 14:46:13 +0200,
+Rondreis wrote:
 > 
-> sorry for the late review (as Takashi already applied).
+> Hello,
 > 
-> On Tue, 13 Sep 2022 09:02:16 +0200, Jaroslav Kysela wrote:
->> When the user space pcm stream uses the silent stream converter, it is no
->> longer allocated for the silent stream. Clear the appropriate flag in the
->> hdmi_pcm_open() function. The silent stream setup may be applied in
->> hdmi_pcm_close() (and the error path - open fcn) again.
+> When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
+> triggered.
 > 
-> Jaroslav, did you hit a real-life problem with a particular sequence? The 
-> converter allocation was done in a sticky fashion on purpose. The silent 
-> stream setup (clearing KAE and/or letting codec to power down) was only 
-> released if the receiver is disconnected from the system. I.e. no actions 
-> were done in PCM close (on purpose).
+> HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
+> git tree: upstream
+> 
+> kernel config: https://pastebin.com/raw/xtrgsXP3
+> console output: https://pastebin.com/raw/9tabWDtu
+> 
+> Sorry for failing to extract the reproducer, and the crash occurred at
+> the moment of disconnecting the midi device. On other versions of
+> Linux, I also triggered this crash.
+> 
+> I would appreciate it if you have any idea how to solve this bug.
 
-Thank you for your comments.
+I think there are two ways to work around it.
 
-I just wrote a small test utility which shows the bad converter use:
+The first one is to move the unregister_sound*() calls out of the
+sound_oss_mutex, something like:
+-- 8< --
 
-https://gist.github.com/perexg/4977fcb33101148e578c34bd25db8ce4
+--- a/sound/core/sound_oss.c
++++ b/sound/core/sound_oss.c
+@@ -162,7 +162,6 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
+ 		mutex_unlock(&sound_oss_mutex);
+ 		return -ENOENT;
+ 	}
+-	unregister_sound_special(minor);
+ 	switch (SNDRV_MINOR_OSS_DEVICE(minor)) {
+ 	case SNDRV_MINOR_OSS_PCM:
+ 		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_AUDIO);
+@@ -174,12 +173,18 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
+ 		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_DMMIDI1);
+ 		break;
+ 	}
+-	if (track2 >= 0) {
+-		unregister_sound_special(track2);
++	if (track2 >= 0)
+ 		snd_oss_minors[track2] = NULL;
+-	}
+ 	snd_oss_minors[minor] = NULL;
+ 	mutex_unlock(&sound_oss_mutex);
++
++	/* call unregister_sound_special() outside sound_oss_mutex;
++	 * otherwise may deadlock, as it can trigger the release of a card
++	 */
++	unregister_sound_special(minor);
++	if (track2 >= 0)
++		unregister_sound_special(track2);
++
+ 	kfree(mptr);
+ 	return 0;
+ }
+-- 8< --
 
-For the first use (with one monitor connected) I can open 4 HDMI PCM devices,
-but later, only 3 HDMI PCM devices can be opened, because the converter
-allocation code (3 converters in my case) does a wrong job.
+This should be OK, as the unregister_sound_*() itself can be called
+concurrently.
 
-I though that the silent stream is turned off when new S/PDIF frame parameters 
-are applied, but it seems that this setup is independent as you noted.
+Another workaround would be just to remove the register_mutex call at
+snd_rawmidi_free(), e.g. something like:
 
-> Now if there were issues, I wonder whether we should modify the pcm_close 
-> instead, and avoid some of the cleanup in this case, as a better fix.
+-- 8< --
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -1899,10 +1899,8 @@ static int snd_rawmidi_free(struct snd_rawmidi *rmidi)
+ 
+ 	snd_info_free_entry(rmidi->proc_entry);
+ 	rmidi->proc_entry = NULL;
+-	mutex_lock(&register_mutex);
+ 	if (rmidi->ops && rmidi->ops->dev_unregister)
+ 		rmidi->ops->dev_unregister(rmidi);
+-	mutex_unlock(&register_mutex);
+ 
+ 	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_INPUT]);
+ 	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_OUTPUT]);
+-- 8< --
 
-Yes, I think that we should add a new silent_stream flag to struct 
-hdmi_spec_per_cvt and do not set assigned in this struct when the silent 
-stream is managed. The assigned flag should be used only for open/close calls 
-to track the used converters correctly. Does it sound right for you?
-
-> I think your patch will create a new problem: - receiver A connected to CVT
-> X - silent stream enabled for X - app opens a PCM, connected to A+X, silent
-> stream disabled - receiver A disconnected -> actions in
-> silent_stream_disable() not run correctly for CVT X
-
-Definitely. The silent stream setup won't be deactivated with this simple patch.
-
-					Jaroslav
+This register_mutex there should be superfluous since the device has
+been already processed and detached by snd_rawmidi_dev_disconnect()
+beforehand.  But if the first one is confirmed to work, the second one
+can be left untouched.
 
 
+thanks,
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

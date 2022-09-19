@@ -2,82 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4C85BCBBF
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:24:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4DE75BCBE2
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:35:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 444911679;
-	Mon, 19 Sep 2022 14:23:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 444911679
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCE73204;
+	Mon, 19 Sep 2022 14:34:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE73204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663590279;
-	bh=0aw9qPOHxdJ6SIli7UYXGlRat7MeJcrgwJ3cAhtR010=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663590942;
+	bh=rAcBYb6TWMKvUN03Dmvq81T+/2laDLpSUzeHIC1FESM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GaMKfhjH1qjIpp4Vq5E+6gry0VupkD2NSOjXO6gpq+b3y0BLuK6VBDxiAgZKk10ST
-	 nRkjoVkP2UO3opbEBcEcRHa2wzX7+nSsH1CStghZW+UmmtDDHX1SvSEJtYXYqAoNwD
-	 yHeFsy558RdUw+T6YXsG9HeVbTzc3mgD2DEtmfEA=
+	b=pVfE5P335HWKfVkz+qzz1WyFVAyqt8xrdLhdk01tQ7UKN7yn8s+K6Q1g/CG7NVmgD
+	 7hdBcsB6nZ/DkU2mcFvPUVWLiW9EguvIs5HC1zpDZtwSOq1/kMtXmpWBF0RjTIyn5i
+	 /L59XyYbeItR4qV/8byDTVKn4/lv3DrC1I3ioaZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BE38F80559;
-	Mon, 19 Sep 2022 14:22:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3120AF8032B;
+	Mon, 19 Sep 2022 14:34:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73E59F8056F; Mon, 19 Sep 2022 14:22:15 +0200 (CEST)
+ id EC300F8023A; Mon, 19 Sep 2022 14:34:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8E19F80559
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8E19F80559
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04AA6F800C9
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:34:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04AA6F800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="iZQLwDzY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663590130; x=1695126130;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0aw9qPOHxdJ6SIli7UYXGlRat7MeJcrgwJ3cAhtR010=;
- b=iZQLwDzYNQOirA1jhYs8cZbDu43VJDCqwJf4BCLwZmM4rhkI1lx0jyBU
- yNa54F0/p0J0n+cZ7/U2lvHhaX9Tu3n2uu+J1kZsYNR0V3Qcm3bt+MMIh
- rBl28G35VAAJwpb5zFn2P1SMA00vLSxwhWrBb4HwN8XWqu5h/pdOMr1JK
- pFB645h1HIWYzlZxVN10t/Av0IutvLET9bdy6U1SDnkquqYmLZ5wyuC9v
- Be8muySdNj5RLcPiWxJTIIDsfSmo9pfVMmrQEu9irc/wH84cX4CzsCm3s
- 5bjdVbWFLNJL79dNGqo/GtJk6fOkKPLt8Tdvz2hBWiAxuJZe5O8nINh4t A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="325676028"
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="325676028"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 05:22:08 -0700
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="620837749"
-Received: from amagnus-mobl2.ger.corp.intel.com (HELO pbossart-mobl3.home)
- ([10.249.46.168])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 05:22:04 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 7/7] ASoC: SOF: replace ipc4-loader dev_vdbg with tracepoints
-Date: Mon, 19 Sep 2022 14:21:08 +0200
-Message-Id: <20220919122108.43764-8-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220919122108.43764-1-pierre-louis.bossart@linux.intel.com>
-References: <20220919122108.43764-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Noah Klayman <noah.klayman@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="fX6T9Hxi"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="QLr4Kb70"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 703E41F897;
+ Mon, 19 Sep 2022 12:34:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663590877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=n4DmpZOWDrU0D3NXR2Cd+6cBQKxt/l9K3qGbeLRvP20=;
+ b=fX6T9Hxib+DPXhG/Hv83lhWYbOR0RcJSDJLnmC+Voz70E5gasG6mppv73qUWrWQj8t5Xa4
+ xPdJdfF0MfdvtiXhF/FKZ26WCH/jpEdABIm49dL1td8eOT4righz9mbFpEzEruu12s/VC5
+ /HAkUfIvpPl/FfDx06YthFpKg5ryvCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663590877;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=n4DmpZOWDrU0D3NXR2Cd+6cBQKxt/l9K3qGbeLRvP20=;
+ b=QLr4Kb70gBT49BBjXfJc2C3kh173WpDiUt2SGxi8H5vXGK90EAiCo160ho4G4HKAstsenU
+ LQI3ODlqvRmwv/CQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5297D13A96;
+ Mon, 19 Sep 2022 12:34:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id v4RnE91hKGMILQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 12:34:37 +0000
+Date: Mon, 19 Sep 2022 14:34:36 +0200
+Message-ID: <87bkrbbl0j.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: KASAN: invalid-free in snd_card_new
+In-Reply-To: <CAB7eexL-H7v5+EB6DVLLZSaV0daHtWhr1gjpuMOspJhJSjq5Lw@mail.gmail.com>
+References: <CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com>
+ <871qs7dav5.wl-tiwai@suse.de> <87r107btti.wl-tiwai@suse.de>
+ <CAB7eexL-H7v5+EB6DVLLZSaV0daHtWhr1gjpuMOspJhJSjq5Lw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,76 +101,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Noah Klayman <noah.klayman@intel.com>
+On Mon, 19 Sep 2022 13:46:43 +0200,
+Rondreis wrote:
+> 
+> Hello,
+> 
+> I tested this patch with the reproducer and the crash did not trigger again.
 
-This patch replaces dev_vdbg with tracepoints in new ipc4-loader code.
+Thanks for quick testing.
+I'm going to submit and merge the fix, then.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Noah Klayman <noah.klayman@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/trace/events/sof.h  | 17 +++++++++++++++++
- sound/soc/sof/ipc4-loader.c |  7 ++++---
- 2 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/include/trace/events/sof.h b/include/trace/events/sof.h
-index 03751323aaa84..21c2a1efb9f6e 100644
---- a/include/trace/events/sof.h
-+++ b/include/trace/events/sof.h
-@@ -98,6 +98,23 @@ TRACE_EVENT(sof_stream_position_ipc_rx,
- 	TP_printk("device_name=%s", __get_str(device_name))
- );
- 
-+TRACE_EVENT(sof_ipc4_fw_config,
-+	TP_PROTO(struct snd_sof_dev *sdev, char *key, u32 value),
-+	TP_ARGS(sdev, key, value),
-+	TP_STRUCT__entry(
-+		__string(device_name, dev_name(sdev->dev))
-+		__string(key, key)
-+		__field(u32, value)
-+	),
-+	TP_fast_assign(
-+		__assign_str(device_name, dev_name(sdev->dev));
-+		__assign_str(key, key);
-+		__entry->value = value;
-+	),
-+	TP_printk("device_name=%s key=%s value=%d",
-+		  __get_str(device_name), __get_str(key), __entry->value)
-+);
-+
- #endif /* _TRACE_SOF_H */
- 
- /* This part must be outside protection */
-diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
-index c678f05d0ef55..e635ae515fa9f 100644
---- a/sound/soc/sof/ipc4-loader.c
-+++ b/sound/soc/sof/ipc4-loader.c
-@@ -8,6 +8,7 @@
- #include <linux/firmware.h>
- #include <sound/sof/ext_manifest4.h>
- #include <sound/sof/ipc4/header.h>
-+#include <trace/events/sof.h>
- #include "ipc4-priv.h"
- #include "sof-audio.h"
- #include "sof-priv.h"
-@@ -194,13 +195,13 @@ static int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev)
- 				 fw_ver->build);
- 			break;
- 		case SOF_IPC4_FW_CFG_DL_MAILBOX_BYTES:
--			dev_vdbg(sdev->dev, "DL mailbox size: %u\n", *tuple->value);
-+			trace_sof_ipc4_fw_config(sdev, "DL mailbox size", *tuple->value);
- 			break;
- 		case SOF_IPC4_FW_CFG_UL_MAILBOX_BYTES:
--			dev_vdbg(sdev->dev, "UL mailbox size: %u\n", *tuple->value);
-+			trace_sof_ipc4_fw_config(sdev, "UL mailbox size", *tuple->value);
- 			break;
- 		case SOF_IPC4_FW_CFG_TRACE_LOG_BYTES:
--			dev_vdbg(sdev->dev, "Trace log size: %u\n", *tuple->value);
-+			trace_sof_ipc4_fw_config(sdev, "Trace log size", *tuple->value);
- 			ipc4_data->mtrace_log_bytes = *tuple->value;
- 			break;
- 		default:
--- 
-2.34.1
+Takashi
 
+> 
+> On Mon, Sep 19, 2022 at 5:24 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Mon, 19 Sep 2022 10:30:54 +0200,
+> > Takashi Iwai wrote:
+> > >
+> > > On Sun, 18 Sep 2022 15:01:11 +0200,
+> > > Rondreis wrote:
+> > > >
+> > > > Hello,
+> > > >
+> > > > When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
+> > > > triggered.
+> > > >
+> > > > HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
+> > > > git tree: upstream
+> > > >
+> > > > kernel config: https://pastebin.com/raw/xtrgsXP3
+> > > > C reproducer: https://pastebin.com/raw/w2sdQWYj
+> > > > console output: https://pastebin.com/raw/Yyf7zw2d
+> > > >
+> > > > Basically, in the c reproducer, we use the gadget module to emulate
+> > > > attaching a USB device(vendor id: 0x1bc7, product id: 0x1206, with the
+> > > > midi function) and executing some simple sequence of system calls.
+> > > > To reproduce this crash, we utilize a third-party library to emulate
+> > > > the attaching process: https://github.com/linux-usb-gadgets/libusbgx.
+> > > > Just clone this repository, install it, and compile the c
+> > > > reproducer with ``` gcc crash.c -lusbgx -lconfig -o crash ``` will do
+> > > > the trick.
+> > > >
+> > > > I would appreciate it if you have any idea how to solve this bug.
+> > >
+> > > Could you try the patch below?  It looks like a simple double-free in
+> > > the code.
+> >
+> > A more proper patch is below.  Please give it a try.
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> >
+> > -- 8< --
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Subject: [PATCH] ALSA: core: Fix double-free at snd_card_new()
+> >
+> > During the code change to add the support for devres-managed card
+> > instance, we put an explicit kfree(card) call at the error path in
+> > snd_card_new().  This is needed for the early error path before the
+> > card is initialized with the device, but is rather superfluous and
+> > causes a double-free at the error path after the card instance is
+> > initialized, as the destructor of the card object already contains a
+> > kfree() call.
+> >
+> > This patch fixes the double-free situation by removing the superfluous
+> > kfree().  Meanwhile we need to call kfree() explicitly for the early
+> > error path, so it's added there instead.
+> >
+> > Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
+> > Reported-by: Rondreis <linhaoguo86@gmail.com>
+> > Cc: <stable@vger.kernel.org>
+> > Link: https://lore.kernel.org/r/CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com
+> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > ---
+> >  sound/core/init.c | 10 +++++-----
+> >  1 file changed, 5 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/sound/core/init.c b/sound/core/init.c
+> > index 193dae361fac..5377f94eb211 100644
+> > --- a/sound/core/init.c
+> > +++ b/sound/core/init.c
+> > @@ -178,10 +178,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+> >                 return -ENOMEM;
+> >
+> >         err = snd_card_init(card, parent, idx, xid, module, extra_size);
+> > -       if (err < 0) {
+> > -               kfree(card);
+> > -               return err;
+> > -       }
+> > +       if (err < 0)
+> > +               return err; /* card is freed by error handler */
+> >
+> >         *card_ret = card;
+> >         return 0;
+> > @@ -233,7 +231,7 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
+> >         card->managed = true;
+> >         err = snd_card_init(card, parent, idx, xid, module, extra_size);
+> >         if (err < 0) {
+> > -               devres_free(card);
+> > +               devres_free(card); /* in managed mode, we need to free manually */
+> >                 return err;
+> >         }
+> >
+> > @@ -297,6 +295,8 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
+> >                 mutex_unlock(&snd_card_mutex);
+> >                 dev_err(parent, "cannot find the slot for index %d (range 0-%i), error: %d\n",
+> >                          idx, snd_ecards_limit - 1, err);
+> > +               if (!card->managed)
+> > +                       kfree(card); /* manually free here, as no destructor called */
+> >                 return err;
+> >         }
+> >         set_bit(idx, snd_cards_lock);           /* lock it */
+> > --
+> > 2.35.3
+> >
+> 

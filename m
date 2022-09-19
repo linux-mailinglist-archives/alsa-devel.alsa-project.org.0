@@ -2,88 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CBA55BCDA2
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 15:50:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39115BCDB3
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 15:56:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31E5186E;
-	Mon, 19 Sep 2022 15:49:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31E5186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37C27868;
+	Mon, 19 Sep 2022 15:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C27868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663595411;
-	bh=/1FtSosHzQ5hkCLrU1jjIDuEL0m5+rJ6Qq6tlVUZg9E=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OLaJwx98WRvzFlhRHWiQV7I3U4M5tmScRFxEz+CeoejRkGI8YLaBjjjmkANnjG+hO
-	 XNjssduhvyjwzndoD4JsjkjNk0KG2Sza5k1PFxrNTZdAgnJLOaEZdghXKMZAQo6NTi
-	 bOc7nZr+FetKpUikZdxe4luM7XXhGp1NJb2k/XEY=
+	s=default; t=1663595766;
+	bh=ZeHIFsZX0wgAbro1Yu/dnWB/dd+j8iVyFrRtCDGPCqQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KnwTa+zcwF9g5BF4aUJRFwYk216Ty4B+2TakjXCYS20Xc4aLRQT3gw9a2t4m1Zzyy
+	 ATBTYGEdTFn9qBD1LwKoZE+ppiXdtddC5zBmd7yRNS4c1RHVJEHbVJjIWVKo9RDiM0
+	 doW56yviYietk65GIu5xqN0SpE2ezT2UFCAPPyj8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91CDEF8032B;
-	Mon, 19 Sep 2022 15:49:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AF2FF8032B;
+	Mon, 19 Sep 2022 15:55:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0272AF8023A; Mon, 19 Sep 2022 15:49:11 +0200 (CEST)
+ id DD19CF8023A; Mon, 19 Sep 2022 15:55:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D3DFF80134
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 15:49:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D3DFF80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mKlBuyMh"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tL2lQSkO"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ACD5E1F8EF;
- Mon, 19 Sep 2022 13:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663595343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mG8qNqOUZiLVI5e04ilFKD8dzskLAhThKDItvZFPL00=;
- b=mKlBuyMhaxiEWWeeZ36dGVKdOLUJsvi/v7udtA+L3KRnmaHO6TbprWfdEkd9QP638w4EVs
- vctaMH5rD/8wo7ZmD6zqwwPQo4xdlHZTUfdpyqyZk9n+m1DMnrGNvkSQpwcgI1i08/C4hV
- KP5Xqw34gzOeedfakPutSRCsg1svaWg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663595343;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mG8qNqOUZiLVI5e04ilFKD8dzskLAhThKDItvZFPL00=;
- b=tL2lQSkOYWYPav1/k/EEQYv6+oBt1pfIJhl/g4139XzF4FNrSqZvwFThX+wGS8oKkNpD4f
- w2hvtTZvwVAVNvAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8923F13ABD;
- Mon, 19 Sep 2022 13:49:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NqW7IE9zKGO5TwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 13:49:03 +0000
-Date: Mon, 19 Sep 2022 15:49:02 +0200
-Message-ID: <87y1ufh3u9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rondreis <linhaoguo86@gmail.com>
-Subject: Re: possible deadlock in snd_rawmidi_free
-In-Reply-To: <CAB7eexJP7w1B0mVgDF0dQ+gWor7UdkiwPczmL7pn91xx8xpzOA@mail.gmail.com>
-References: <CAB7eexJP7w1B0mVgDF0dQ+gWor7UdkiwPczmL7pn91xx8xpzOA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48A13F80134
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 15:54:55 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3DEC8A0040;
+ Mon, 19 Sep 2022 15:54:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3DEC8A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1663595694; bh=nfMv+XPgLINBOGWK7jrxpBQizLO2u4YHU+DXzk/0p6c=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lXZa79HeinWplARwuTcrlUxG60o0LmEj0AJGNHG9bY08QaH3IWID09E+SC8mN0jsY
+ tjOElw521dBhribWGgaNAFcNa0YGZvmxOcq3O15tWCcAEZxX/sauCI8limmJYEjZPf
+ XGzLTXWTt8+nlCcrLwdDH7OvEVnXu9F+R898IVN0=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 19 Sep 2022 15:54:50 +0200 (CEST)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH] ALSA: hda/hdmi: Fix the converter allocation for the silent
+ stream
+Date: Mon, 19 Sep 2022 15:54:44 +0200
+Message-Id: <20220919135444.3554982-1-perex@perex.cz>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,94 +75,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 19 Sep 2022 14:46:13 +0200,
-Rondreis wrote:
-> 
-> Hello,
-> 
-> When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
-> triggered.
-> 
-> HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
-> git tree: upstream
-> 
-> kernel config: https://pastebin.com/raw/xtrgsXP3
-> console output: https://pastebin.com/raw/9tabWDtu
-> 
-> Sorry for failing to extract the reproducer, and the crash occurred at
-> the moment of disconnecting the midi device. On other versions of
-> Linux, I also triggered this crash.
-> 
-> I would appreciate it if you have any idea how to solve this bug.
+Track the converters handling the silent stream using a new
+variable to avoid mixing of the open/close and silent stream
+use. This change ensures the proper allocation of the converters.
 
-I think there are two ways to work around it.
+Fixes: 5f80d6bd2b01 ("ALSA: hda/hdmi: Fix the converter reuse for the silent stream")
 
-The first one is to move the unregister_sound*() calls out of the
-sound_oss_mutex, something like:
--- 8< --
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ sound/pci/hda/patch_hdmi.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
---- a/sound/core/sound_oss.c
-+++ b/sound/core/sound_oss.c
-@@ -162,7 +162,6 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
- 		mutex_unlock(&sound_oss_mutex);
- 		return -ENOENT;
- 	}
--	unregister_sound_special(minor);
- 	switch (SNDRV_MINOR_OSS_DEVICE(minor)) {
- 	case SNDRV_MINOR_OSS_PCM:
- 		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_AUDIO);
-@@ -174,12 +173,18 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
- 		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_DMMIDI1);
- 		break;
- 	}
--	if (track2 >= 0) {
--		unregister_sound_special(track2);
-+	if (track2 >= 0)
- 		snd_oss_minors[track2] = NULL;
--	}
- 	snd_oss_minors[minor] = NULL;
- 	mutex_unlock(&sound_oss_mutex);
-+
-+	/* call unregister_sound_special() outside sound_oss_mutex;
-+	 * otherwise may deadlock, as it can trigger the release of a card
-+	 */
-+	unregister_sound_special(minor);
-+	if (track2 >= 0)
-+		unregister_sound_special(track2);
-+
- 	kfree(mptr);
- 	return 0;
- }
--- 8< --
-
-This should be OK, as the unregister_sound_*() itself can be called
-concurrently.
-
-Another workaround would be just to remove the register_mutex call at
-snd_rawmidi_free(), e.g. something like:
-
--- 8< --
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -1899,10 +1899,8 @@ static int snd_rawmidi_free(struct snd_rawmidi *rmidi)
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 4576af4cff90..dc36af2928b7 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -54,6 +54,7 @@ MODULE_PARM_DESC(enable_all_pins, "Forcibly enable all pins");
+ struct hdmi_spec_per_cvt {
+ 	hda_nid_t cvt_nid;
+ 	bool assigned;		/* the stream has been assigned */
++	bool silent_stream;	/* silent stream activated */
+ 	unsigned int channels_min;
+ 	unsigned int channels_max;
+ 	u32 rates;
+@@ -977,7 +978,8 @@ static int hdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+  * of the pin.
+  */
+ static int hdmi_choose_cvt(struct hda_codec *codec,
+-			   int pin_idx, int *cvt_id)
++			   int pin_idx, int *cvt_id,
++			   bool silent)
+ {
+ 	struct hdmi_spec *spec = codec->spec;
+ 	struct hdmi_spec_per_pin *per_pin;
+@@ -992,6 +994,9 @@ static int hdmi_choose_cvt(struct hda_codec *codec,
  
- 	snd_info_free_entry(rmidi->proc_entry);
- 	rmidi->proc_entry = NULL;
--	mutex_lock(&register_mutex);
- 	if (rmidi->ops && rmidi->ops->dev_unregister)
- 		rmidi->ops->dev_unregister(rmidi);
--	mutex_unlock(&register_mutex);
+ 	if (per_pin && per_pin->silent_stream) {
+ 		cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
++		per_cvt = get_cvt(spec, cvt_idx);
++		if (per_cvt->assigned && !silent)
++			return -EBUSY;
+ 		if (cvt_id)
+ 			*cvt_id = cvt_idx;
+ 		return 0;
+@@ -1002,7 +1007,7 @@ static int hdmi_choose_cvt(struct hda_codec *codec,
+ 		per_cvt = get_cvt(spec, cvt_idx);
  
- 	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_INPUT]);
- 	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_OUTPUT]);
--- 8< --
-
-This register_mutex there should be superfluous since the device has
-been already processed and detached by snd_rawmidi_dev_disconnect()
-beforehand.  But if the first one is confirmed to work, the second one
-can be left untouched.
-
-
-thanks,
-
-Takashi
+ 		/* Must not already be assigned */
+-		if (per_cvt->assigned)
++		if (per_cvt->assigned || per_cvt->silent_stream)
+ 			continue;
+ 		if (per_pin == NULL)
+ 			break;
+@@ -1188,7 +1193,7 @@ static int hdmi_pcm_open_no_pin(struct hda_pcm_stream *hinfo,
+ 	if (pcm_idx < 0)
+ 		return -EINVAL;
+ 
+-	err = hdmi_choose_cvt(codec, -1, &cvt_idx);
++	err = hdmi_choose_cvt(codec, -1, &cvt_idx, false);
+ 	if (err)
+ 		return err;
+ 
+@@ -1256,7 +1261,7 @@ static int hdmi_pcm_open(struct hda_pcm_stream *hinfo,
+ 		}
+ 	}
+ 
+-	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx);
++	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx, false);
+ 	if (err < 0)
+ 		goto unlock;
+ 
+@@ -1267,7 +1272,6 @@ static int hdmi_pcm_open(struct hda_pcm_stream *hinfo,
+ 	set_bit(pcm_idx, &spec->pcm_in_use);
+ 	per_pin = get_pin(spec, pin_idx);
+ 	per_pin->cvt_nid = per_cvt->cvt_nid;
+-	per_pin->silent_stream = false;
+ 	hinfo->nid = per_cvt->cvt_nid;
+ 
+ 	/* flip stripe flag for the assigned stream if supported */
+@@ -1749,14 +1753,14 @@ static void silent_stream_enable(struct hda_codec *codec,
+ 	}
+ 
+ 	pin_idx = pin_id_to_pin_index(codec, per_pin->pin_nid, per_pin->dev_id);
+-	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx);
++	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx, true);
+ 	if (err) {
+ 		codec_err(codec, "hdmi: no free converter to enable silent mode\n");
+ 		goto unlock_out;
+ 	}
+ 
+ 	per_cvt = get_cvt(spec, cvt_idx);
+-	per_cvt->assigned = true;
++	per_cvt->silent_stream = true;
+ 	per_pin->cvt_nid = per_cvt->cvt_nid;
+ 	per_pin->silent_stream = true;
+ 
+@@ -1816,7 +1820,7 @@ static void silent_stream_disable(struct hda_codec *codec,
+ 	cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
+ 	if (cvt_idx >= 0 && cvt_idx < spec->num_cvts) {
+ 		per_cvt = get_cvt(spec, cvt_idx);
+-		per_cvt->assigned = false;
++		per_cvt->silent_stream = false;
+ 	}
+ 
+ 	if (spec->silent_stream_type == SILENT_STREAM_I915) {
+-- 
+2.35.3

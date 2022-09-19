@@ -2,62 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017695BCA7A
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 13:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06755BCA7B
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 13:15:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0921651;
-	Mon, 19 Sep 2022 13:14:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0921651
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C3161666;
+	Mon, 19 Sep 2022 13:14:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C3161666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663586093;
-	bh=g8BvxP5XY+ERiIwo6cS/Tvlfw/qayFPLZvltSy+tULU=;
+	s=default; t=1663586103;
+	bh=GXfZ9F4Y3kiUeg3qg5qDl6G4ZJfgeSPaCT6Z1d4mGl4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oMrfNPUdDfF6qM1sp1fcctfJLQvo7xN27y4khSmj+6U0Mw8PuPGLkN0m5+lhEZbaR
-	 1WKK1QZk+aun/8rHiM67cfZTsCegk5QXL7en5ctU94m4Msbldbes7PPTcKF+OtNL6q
-	 GrIoiBhjlBzFIHyOEZTVaKzx1vOFT0bZBuKuS2m4=
+	b=ljLfc0GQn+EUcSYOf9g52IBve2FK1ofNrIR9XEaiSNKDCogUVKVfuxzXSwRbX168F
+	 UqLeXbrsaIPuQOH+xGgBRqqKGA5RvG6dgxx3kk6olrmqn1huIbQkvUYIghZoFFoK4k
+	 rgiYgosFMUpZJhIiXEho8DnBSeNpHTYT3QP7ej80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB06AF8053A;
-	Mon, 19 Sep 2022 13:13:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B23BAF80542;
+	Mon, 19 Sep 2022 13:13:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 752E0F8023A; Mon, 19 Sep 2022 13:13:14 +0200 (CEST)
+ id F1D76F8023A; Mon, 19 Sep 2022 13:13:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7053F8023A
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 13:13:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7053F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78A10F8032B
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 13:13:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78A10F8032B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="XItKhKmo"
+ header.b="V9piG1Sd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1663585985;
- x=1695121985; h=from:to:cc:subject:date:message-id:in-reply-to:
+ d=axis.com; q=dns/txt; s=axis-central1; t=1663585986;
+ x=1695121986; h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w8KzUewuszzBRNR3DKM4RdYTDxQmFGm6YO23DI5b+0I=;
- b=XItKhKmokJcXdGzrwINVVHDjsbMjh3CMYtj7bpwxbVkTgowWWmyw7oI6
- ukaodpf5x28Mop27r9dEs71sq0/wPizVKCXnD9wZsGTqtYeE18MLzLCM3
- xSGkOrtk9sQTxBgl+FsSZPSyE+wP0YR+O87jwSndCqen0KB0+2LKH7Cx4
- eoT1ZDzNpI3oLvtuXtjL1xsvWxBW3LLNppSz4vduZXELyQB5l+Ao2jFRD
- tLqLH7GYqlfZmD+FDhjyPbjIlc9cXYEKhzSwxxHhMH0aFN85lcM9sUmna
- 8hW/Bp7OUZn4sUZEo9B2RILnf8Jm3EeICmyC1Z/gaoBKei2C9bqFKR5Nx g==;
+ bh=Ztqf2NwNv1t+35CYf00l5OZcaluiYfDwfmYhtP8ylqc=;
+ b=V9piG1SdT+OC2Xw7QqhvuJx1HnzFUnl2AT2zdOtFh1VjJw506aCpRjF8
+ T5UhvKZWVTNvHabaJiux9lEBs/npp5Zv626htz4B0uoDc5IiQMGus7JCS
+ kEu1K5pE56baXwcsQ98wRZvf4qA4puH3LmxJpqY7Ay/DXg7/kQ5F03+up
+ 8JgR6EGviSXyBothOckGFHYHrkUfpcJ6GbI71Ke5JlaPD9ClcP8Nti25v
+ 8bXWfZJD0ZRyUKH9Wa+g2zjMD+Qn8cQWJJKMz+8hi0VVjBeAxNjYM+mVT
+ EPDsRL5K/+4W8gYRjaJ/dfau6h18lPr8CyUHn9JJrxJX0+lNcU3z+Pp23 Q==;
 From: Astrid Rost <astrid.rost@axis.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Rob Herring
  <robh+dt@kernel.org>, Dylan Reid <dgreid@chromium.org>
-Subject: [PATCH v3 1/3] dt-bindings: sound: ti,ts3a227e: convert to yaml
-Date: Mon, 19 Sep 2022 13:12:56 +0200
-Message-ID: <20220919111258.3774-2-astrid.rost@axis.com>
+Subject: [PATCH v3 2/3] dt-bindings: sound: ti,
+ s3a227e: add control of debounce
+Date: Mon, 19 Sep 2022 13:12:57 +0200
+Message-ID: <20220919111258.3774-3-astrid.rost@axis.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220919111258.3774-1-astrid.rost@axis.com>
 References: <20220919111258.3774-1-astrid.rost@axis.com>
@@ -82,123 +83,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert from ts3a227e.txt to yaml.
+Add devicetree parameters to control the insertion, release and press
+debounce times.
 
 Signed-off-by: Astrid Rost <astrid.rost@axis.com>
 ---
- .../bindings/sound/ti,ts3a227e.yaml           | 65 +++++++++++++++++++
- .../devicetree/bindings/sound/ts3a227e.txt    | 30 ---------
- 2 files changed, 65 insertions(+), 30 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/ts3a227e.txt
+ .../bindings/sound/ti,ts3a227e.yaml           | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
-new file mode 100644
-index 000000000000..327d204cf957
---- /dev/null
+index 327d204cf957..76ce323ce965 100644
+--- a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
 +++ b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,ts3a227e.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TS3A227E
-+  Autonomous Audio Accessory Detection and Configuration Switch
-+
-+maintainers:
-+  - Dylan Reid <dgreid@chromium.org>
-+
-+description: |
-+  The TS3A227E detect headsets of 3-ring and 4-ring standards and
-+  switches automatically to route the microphone correctly. It also
-+  handles key press detection in accordance with the Android audio
-+  headset specification v1.0.
-+
-+properties:
-+  compatible:
+@@ -41,6 +41,35 @@ properties:
+       - 7 # 2.8 V
+     default: 1
+ 
++  ti,debounce-release-ms:
++    description: key release debounce time in ms (datasheet section 9.6.7).
 +    enum:
-+      - ti,ts3a227e
++      - 0  #  0 ms
++      - 20 # 20 ms
++    default: 20
 +
-+  reg:
-+    const: 0x3b
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  ti,micbias:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Intended MICBIAS voltage (datasheet section 9.6.7).
++  ti,debounce-press-ms:
++    description: key press debounce time in ms (datasheet section 9.6.7).
 +    enum:
-+      - 0 # 2.1 V
-+      - 1 # 2.2 V
-+      - 2 # 2.3 V
-+      - 3 # 2.4 V
-+      - 4 # 2.5 V
-+      - 5 # 2.6 V
-+      - 6 # 2.7 V
-+      - 7 # 2.8 V
-+    default: 1
++      - 2   #   2 ms
++      - 40  #  40 ms
++      - 80  #  80 ms
++      - 120 # 120 ms
++    default: 80
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
++  ti,debounce-insertion-ms:
++    description: headset insertion debounce time in ms (datasheet section 9.6.5).
++    enum:
++      - 2    #   2 ms
++      - 30   #  30 ms
++      - 60   #  60 ms
++      - 90   #  90 ms
++      - 120  # 120 ms
++      - 150  # 150 ms
++      - 1000 # 1 s
++      - 2000 # 2 s
++    default: 90
 +
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        codec: audio-controller@3b {
-+            compatible = "ti,ts3a227e";
-+            reg = <0x3b>;
-+            interrupt-parent = <&gpio1>;
-+            interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
-+        };
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/sound/ts3a227e.txt b/Documentation/devicetree/bindings/sound/ts3a227e.txt
-deleted file mode 100644
-index 21ab45bc7e8f..000000000000
---- a/Documentation/devicetree/bindings/sound/ts3a227e.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--Texas Instruments TS3A227E
--Autonomous Audio Accessory Detection and Configuration Switch
--
--The TS3A227E detect headsets of 3-ring and 4-ring standards and
--switches automatically to route the microphone correctly.  It also
--handles key press detection in accordance with the Android audio
--headset specification v1.0.
--
--Required properties:
--
-- - compatible:		Should contain "ti,ts3a227e".
-- - reg:			The i2c address. Should contain <0x3b>.
-- - interrupts:		Interrupt number for /INT pin from the 227e
--
--Optional properies:
-- - ti,micbias:   Intended MICBIAS voltage (datasheet section 9.6.7).
--      Select 0/1/2/3/4/5/6/7 to specify MICBIAS voltage
--      2.1V/2.2V/2.3V/2.4V/2.5V/2.6V/2.7V/2.8V
--      Default value is "1" (2.2V).
--
--Examples:
--
--	i2c {
--		ts3a227e@3b {
--			compatible = "ti,ts3a227e";
--			reg = <0x3b>;
--			interrupt-parent = <&gpio>;
--			interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
--		};
--	};
+ required:
+   - compatible
+   - reg
 -- 
 2.20.1
 

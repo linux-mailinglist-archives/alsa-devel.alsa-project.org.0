@@ -2,78 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F76A5BD436
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 19:55:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C78D5BD654
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 23:25:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32DF0161E;
-	Mon, 19 Sep 2022 19:54:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32DF0161E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7780846;
+	Mon, 19 Sep 2022 23:24:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7780846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663610102;
-	bh=c6tZxuELr4NSU9kuMAkq1H8+mPlH4jFBJzfU4tnhLOg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663622722;
+	bh=mTiFigv/JZpWDshV7ji9WU4jNfeA8aOADy+LLrcdldk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kXtNYF9QCiRL03gxuRrBwzcc+GjyG2bM5W9Ktwr8STIwcbDAJqdGB8bBX1JPtOgij
-	 VSOWDCJdrOWpTjyA9T4UOcm/aVdWPKWLFVqu6t3/qVgiwEPzkCkEigjf482NKqvI70
-	 1FMz8Vv8ecEMlFQhpF7OwFlQ0wT0nMcQqJ6RoL1k=
+	b=g+gTCBQbRwMIZ6j7X5dFccCmvBJ8GbsDi7Xw2Nv+yzkgrNNw+Rw57bcj2ydLTuddX
+	 FhDkqgQKfqSjWqIPWjVeihgyrjTG/L8QjRuzb7/EukqrTsRRnMMR+6036U8HV/YXic
+	 sGc/5M4uT5GpG2jk+ycozID094GRJ07uC3vDYJh0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFEE6F805A9;
-	Mon, 19 Sep 2022 19:51:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BCA9F800E5;
+	Mon, 19 Sep 2022 23:24:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 272BEF80579; Mon, 19 Sep 2022 19:51:11 +0200 (CEST)
+ id A834AF8023A; Mon, 19 Sep 2022 23:24:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 878C8F800C9
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 19:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 878C8F800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="YRhBLZil"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663609864; x=1695145864;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=c6tZxuELr4NSU9kuMAkq1H8+mPlH4jFBJzfU4tnhLOg=;
- b=YRhBLZilXeOkhyUjI5eyxe3rJRTkAzAHm0sAdoLqagp93XctKX1jDCBy
- EApoTsBKoVmrXwBWHgBAi6nBt8Tqtu+zfwK5klM2mHFFF7/cMbPL+jcSf
- RY5MUPsRFsWzWozH5v7+rryPGvRinDbBCPayT6r5nHqKgMqZdD3sF5fIN
- qY1cli0E6ZlDCGqrpDwjFbpnNmr5N1gsTPIaQ/8HYg9NFWBO1ZLoKM74h
- LOG28cQc7EOHDdYOe1BScCUgkuSF/mGsigPqWF+jt6l+QAesN2qpGCpuh
- Jp27XuqAjKMTO7kkpIEsET0l9LkKk7Z4XE+m7CJVDFKUfYBQXhjga3GWu A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="282498883"
-X-IronPort-AV: E=Sophos;i="5.93,328,1654585200"; d="scan'208";a="282498883"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 10:51:01 -0700
-X-IronPort-AV: E=Sophos;i="5.93,328,1654585200"; d="scan'208";a="863658636"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 10:50:59 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH 11/11] soundwire: intel: add helper to stop bus
-Date: Tue, 20 Sep 2022 01:57:21 +0800
-Message-Id: <20220919175721.354679-12-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220919175721.354679-1-yung-chuan.liao@linux.intel.com>
-References: <20220919175721.354679-1-yung-chuan.liao@linux.intel.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 662AEF800E5
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 23:23:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 662AEF800E5
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- bard.liao@intel.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1663622629266396046-webhooks-bot@alsa-project.org>
+References: <1663622629266396046-webhooks-bot@alsa-project.org>
+Subject: Alsa - has invalid interface number
+Message-Id: <20220919212416.A834AF8023A@alsa1.perex.cz>
+Date: Mon, 19 Sep 2022 23:24:16 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,136 +60,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+alsa-project/alsa-lib issue #271 was opened from smangels:
 
-We have three nearly identical sequences to stop the clock, let's
-introduce a helper to reuse the same code.
+hi,
+I'm running the latest ArchLinux installation using a Behringer Flow8 as my main audio interface. Today I'm running into an issue where the USB audio hardware can not be loaded successfully.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/intel.c | 83 +++++++++++++++++++--------------------
- 1 file changed, 41 insertions(+), 42 deletions(-)
+```
+[ 1690.797522] usb 1-3.1.1.4: new high-speed USB device number 14 using xhci_hcd
+[ 1690.891936] usb 1-3.1.1.4: config 1 has an invalid interface number: 7 but max is 5
+[ 1690.891940] usb 1-3.1.1.4: config 1 has no interface number 5
+[ 1690.892620] usb 1-3.1.1.4: New USB device found, idVendor=1397, idProduct=050d, bcdDevice= 2.10
+[ 1690.892624] usb 1-3.1.1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=6
+[ 1690.892627] usb 1-3.1.1.4: Product: FLOW 8
+[ 1690.892628] usb 1-3.1.1.4: Manufacturer: Behringer
+[ 1690.892630] usb 1-3.1.1.4: SerialNumber: 18-04-ED-FB-BE-A0
+```
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index abe14436d874..15fe083e0402 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1391,6 +1391,38 @@ static int intel_start_bus_after_clock_stop(struct sdw_intel *sdw)
- 	return 0;
- }
- 
-+static int intel_stop_bus(struct sdw_intel *sdw, bool clock_stop)
-+{
-+	struct device *dev = sdw->cdns.dev;
-+	struct sdw_cdns *cdns = &sdw->cdns;
-+	bool wake_enable = false;
-+	int ret;
-+
-+	if (clock_stop) {
-+		ret = sdw_cdns_clock_stop(cdns, true);
-+		if (ret < 0)
-+			dev_err(dev, "%s: cannot stop clock: %d\n", __func__, ret);
-+		else
-+			wake_enable = true;
-+	}
-+
-+	ret = sdw_cdns_enable_interrupt(cdns, false);
-+	if (ret < 0) {
-+		dev_err(dev, "%s: cannot disable interrupts: %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	ret = intel_link_power_down(sdw);
-+	if (ret) {
-+		dev_err(dev, "%s: Link power down failed: %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	intel_shim_wake(sdw, wake_enable);
-+
-+	return 0;
-+}
-+
- static int sdw_master_read_intel_prop(struct sdw_bus *bus)
- {
- 	struct sdw_master_prop *prop = &bus->prop;
-@@ -1790,20 +1822,12 @@ static int __maybe_unused intel_suspend(struct device *dev)
- 		return 0;
- 	}
- 
--	ret = sdw_cdns_enable_interrupt(cdns, false);
-+	ret = intel_stop_bus(sdw, false);
- 	if (ret < 0) {
--		dev_err(dev, "cannot disable interrupts on suspend\n");
-+		dev_err(dev, "%s: cannot stop bus: %d\n", __func__, ret);
- 		return ret;
- 	}
- 
--	ret = intel_link_power_down(sdw);
--	if (ret) {
--		dev_err(dev, "Link power down failed: %d\n", ret);
--		return ret;
--	}
--
--	intel_shim_wake(sdw, false);
--
- 	return 0;
- }
- 
-@@ -1824,44 +1848,19 @@ static int __maybe_unused intel_suspend_runtime(struct device *dev)
- 	clock_stop_quirks = sdw->link_res->clock_stop_quirks;
- 
- 	if (clock_stop_quirks & SDW_INTEL_CLK_STOP_TEARDOWN) {
--
--		ret = sdw_cdns_enable_interrupt(cdns, false);
-+		ret = intel_stop_bus(sdw, false);
- 		if (ret < 0) {
--			dev_err(dev, "cannot disable interrupts on suspend\n");
-+			dev_err(dev, "%s: cannot stop bus during teardown: %d\n",
-+				__func__, ret);
- 			return ret;
- 		}
--
--		ret = intel_link_power_down(sdw);
--		if (ret) {
--			dev_err(dev, "Link power down failed: %d\n", ret);
--			return ret;
--		}
--
--		intel_shim_wake(sdw, false);
--
--	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET ||
--		   !clock_stop_quirks) {
--		bool wake_enable = true;
--
--		ret = sdw_cdns_clock_stop(cdns, true);
--		if (ret < 0) {
--			dev_err(dev, "cannot enable clock stop on suspend\n");
--			wake_enable = false;
--		}
--
--		ret = sdw_cdns_enable_interrupt(cdns, false);
-+	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET || !clock_stop_quirks) {
-+		ret = intel_stop_bus(sdw, true);
- 		if (ret < 0) {
--			dev_err(dev, "cannot disable interrupts on suspend\n");
--			return ret;
--		}
--
--		ret = intel_link_power_down(sdw);
--		if (ret) {
--			dev_err(dev, "Link power down failed: %d\n", ret);
-+			dev_err(dev, "%s: cannot stop bus during clock_stop: %d\n",
-+				__func__, ret);
- 			return ret;
- 		}
--
--		intel_shim_wake(sdw, wake_enable);
- 	} else {
- 		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
- 			__func__, clock_stop_quirks);
--- 
-2.25.1
-
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/271
+Repository URL: https://github.com/alsa-project/alsa-lib

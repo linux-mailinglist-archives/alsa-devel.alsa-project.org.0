@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010305BD7F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 01:13:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AEC55BD7F3
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 01:13:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 944A6851;
-	Tue, 20 Sep 2022 01:12:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 944A6851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 400831638;
+	Tue, 20 Sep 2022 01:12:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 400831638
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663629182;
-	bh=KxyL/YMTe3xp5VtT+ZYbXU19kolGIuUiR4jK0OHYe5M=;
+	s=default; t=1663629191;
+	bh=8/D3JnwU0fDpp4yI4U64lVkY6DwN9AQz/S/fXprKgGo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j7R/b6mm6oSNF9I/SohlRJyR3xxImki/ZLE1f3qf4V/8uoPYMkJ1eR+gNl4c4jZvg
-	 EqTWKHV2hSxd3XCdliMD7m/db9B/ZoH38iK/5QOt1JSOu+S8qQ6luh76UBkh7tI9nL
-	 VtRT8sWOSOWzGj7bn5ZxVXwzWlLDJqKSriyHzrQ0=
+	b=R0uKYwIAMDEs843FafmhVrEOMOasz/Q8g6zFFybBjKtNkfskbKGUN0HwrWG4Mo5Hp
+	 +Dq8ITcU/kYRrJ8mCg//KoL9WW8InBTAmroC9glN/Y1H7yY8Zhtzh4/rVA679vuVjo
+	 2BOduv0kWqunPitWqCIyaro/+V8YKAf2DvVEtwZc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0256CF8057B;
-	Tue, 20 Sep 2022 01:10:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A2AFF80578;
+	Tue, 20 Sep 2022 01:10:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54F2EF8057A; Tue, 20 Sep 2022 01:10:13 +0200 (CEST)
+ id 4B129F8057D; Tue, 20 Sep 2022 01:10:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E874F80566
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 01:10:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E874F80566
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74AFBF8056F;
+ Tue, 20 Sep 2022 01:10:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74AFBF8056F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cZiSGmFX"
+ header.b="PiKcIoG6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AC176B821B7;
- Mon, 19 Sep 2022 23:10:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1841C43149;
- Mon, 19 Sep 2022 23:10:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B0D7D620E5;
+ Mon, 19 Sep 2022 23:10:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE474C433B5;
+ Mon, 19 Sep 2022 23:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663629005;
- bh=KxyL/YMTe3xp5VtT+ZYbXU19kolGIuUiR4jK0OHYe5M=;
+ s=k20201202; t=1663629009;
+ bh=8/D3JnwU0fDpp4yI4U64lVkY6DwN9AQz/S/fXprKgGo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=cZiSGmFXTQnHujmqd/9zcOtcpGeNhtNZV5SZ/yZ58Y6NmzKL3BD9RIbYM/jYkr5Jk
- N2RGyOB3qceEkm8Oz5apptH6k7ATE8xpXksbJ76rcP45pSpPY/iSFvMeKkmG8nbf3H
- rltB+tskfA1KX3RAJn1j3BAYQUzpaoRUO3vo5hle4WTPAAzgGGNWdrhTWvcJbPPgqC
- xSk2MppbWYII+tuUNU10nhnt/kBccUDwZNW0OhZlc1fKv2v4yU9JDFiNkweHg5ZH3N
- cxB01Q2ffcMwmfmj0i5BT6kvqsETNLHHBaB7HyciqQUGXFvjN8pv+Hdtw0MMRH4BMo
- 1GnK1FG6XGDNg==
+ b=PiKcIoG6mxg/eQfMMvxVjJ/L0+FxCZDOpGEyYAfZHvTVUwrhZg7stNmNI1ldlxpMV
+ eBVQbrqpUtrp7wY2ir3BsUIvRCNvPeKitlfSH0AnfYjWdc4fP6HsCzbbXM7aaemNRt
+ SSb2PdRlR8lmtSbjoCdjxar0HghTIwvvNs4nn47Vmvhxur1gCq+bFz8hiXlhJLW/bw
+ 70OQtol93p7LX+TsG3QTvl6fUpCf8xy9wmkp3NpJufmM9713vxaA01H9pHYIWaY++/
+ TLKQabQ5CjEyU3zRkbdxbt9Gl10/v+egv1/jhXqR6W6EXBjHZjD28XoU77vZz8WQO9
+ H4Edvb3ZJMvDQ==
 From: Mark Brown <broonie@kernel.org>
 To: cgel.zte@gmail.com
-In-Reply-To: <20220916062415.153659-1-ye.xingchen@zte.com.cn>
-References: <20220916062415.153659-1-ye.xingchen@zte.com.cn>
-Subject: Re: [PATCH linux-next] ASoC: Intel: sof_es8336: use function
- devm_kcalloc() instead of devm_kzalloc()
-Message-Id: <166362900145.3419825.1680084874127824841.b4-ty@kernel.org>
-Date: Tue, 20 Sep 2022 00:10:01 +0100
+In-Reply-To: <20220916062511.153962-1-ye.xingchen@zte.com.cn>
+References: <20220916062511.153962-1-ye.xingchen@zte.com.cn>
+Subject: Re: [PATCH linux-next] ASOC: SOF: use devm_kcalloc() instead of
+ devm_kzalloc()
+Message-Id: <166362900561.3419825.13047486503989578103.b4-ty@kernel.org>
+Date: Tue, 20 Sep 2022 00:10:05 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.11.0-dev-8af31
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- cezary.rojewski@intel.com, andrey.turkin@gmail.com,
- kai.vehmanen@linux.intel.com, ye xingchen <ye.xingchen@zte.com.cn>,
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, ye xingchen <ye.xingchen@zte.com.cn>,
  Zeal Robot <zealci@zte.com.cn>, peter.ujfalusi@linux.intel.com, tiwai@suse.com,
- ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
- muralidhar.reddy@intel.com, mchehab@kernel.org,
- yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org
+ pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +91,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Sep 2022 06:24:15 +0000, cgel.zte@gmail.com wrote:
+On Fri, 16 Sep 2022 06:25:11 +0000, cgel.zte@gmail.com wrote:
 > From: ye xingchen <ye.xingchen@zte.com.cn>
 > 
 > Use 2-factor multiplication argument form devm_kcalloc() instead
@@ -106,8 +105,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_es8336: use function devm_kcalloc() instead of devm_kzalloc()
-      commit: 59f84d2dd76ad6e681b5135db6e6cc8c8238cd89
+[1/1] ASOC: SOF: use devm_kcalloc() instead of devm_kzalloc()
+      commit: 7b88552c26971ccbc6ff35e9d544f7fac94ffef1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

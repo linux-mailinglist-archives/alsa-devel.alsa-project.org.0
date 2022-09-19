@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820AD5BCB8F
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:13:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F6B95BCB91
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:13:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 204BA1607;
-	Mon, 19 Sep 2022 14:12:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 204BA1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44318163A;
+	Mon, 19 Sep 2022 14:13:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44318163A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663589620;
-	bh=pAAuVbUHI+7GN6OCHHGCWJ2TREEEgGzf4R+/lBp3e3U=;
+	s=default; t=1663589630;
+	bh=+2G88AzKUq2qnc82Q4jrxpEAyDB68Ueqa2VR0Kumd0k=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N3GoGIWwh9vtQ7zRee4lrFWgZAvIj/2b45xoEG95MlTqxyyqPfh6HmDpdzWSdmOz6
-	 gEo/0egkdS6D5wa3MrvGp5PWKdNDBn+4PHmnKlR5AspAObSG27TlJ2YU2p/u0igCN7
-	 7T/vXzIzcEkUfypD3PnlI8sgF5QoacgAaoytYYJ4=
+	b=ToJk9sspdw+wBoVlkw2tIoTuoSYdIrZfrPNWL8F+oJqSVa7C6oJ/NcUYYkcnIrqxS
+	 i4JegaLzb+2MPdIAVeVP6iCa38KI3+hI6ikBFUQ4MfTN1LeTQdKP7X57TxMkeCNlFm
+	 s3V7wuq4JG/E67uTQ7LQPLWuaxSFEvdQ+Xb82B3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9305FF8055C;
-	Mon, 19 Sep 2022 14:11:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95328F80568;
+	Mon, 19 Sep 2022 14:11:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B585EF8055C; Mon, 19 Sep 2022 14:11:33 +0200 (CEST)
+ id 23A35F8055A; Mon, 19 Sep 2022 14:11:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFE20F80553
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:11:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFE20F80553
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7AFCF8055A
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:11:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7AFCF8055A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Qqr2m6U+"
+ header.b="HWpN+KjJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663589488; x=1695125488;
+ t=1663589492; x=1695125492;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pAAuVbUHI+7GN6OCHHGCWJ2TREEEgGzf4R+/lBp3e3U=;
- b=Qqr2m6U+IHrMmw4sl9BewUlz75b4S2UfPC8c+uG/FPuZYIuWm1TfLThX
- Vdv8lEqh3Byj0PGERBF/aTexBbEAYmrbFUlywPCFJccbV79VY68XBCUMx
- 2O14vQOHdFUvY06QgTbapFPyfkXa0sW0LL+V1vaMEvQmfjMlk/YkeXxDm
- TgOuIPiRqJ68mQITIZY589qligGuH8/XcIm9CuuX62tfr3Ri7z9DKOOKD
- aNs5C5A02ZgGJczMat9v4sHRd3GiuskqPIeT7TSSMZ/ocHTR02Us0NCQR
- TsIPzzZfD5z2eTzakDLea4ianADkbPxr2GPPoA57ok8tggfCKI1eNraLS g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="361121107"
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="361121107"
+ bh=+2G88AzKUq2qnc82Q4jrxpEAyDB68Ueqa2VR0Kumd0k=;
+ b=HWpN+KjJgz5hNrkGnkDjQ0vH13vrw7/ynr7PVOYocHiAdAIudN5qLC8f
+ yOyPc9ABH2pCy/j0mYZYVMo45lAps5te+95tTkx6rnoeK6TvdPjRjOK7q
+ HFro1piLBAbR70kEI6XNxUBu79uzZRbGIszBzFihbk7OxJKnTewYmQ3vx
+ d81y4ZZzp672LvtxgdJTk43MkDHg9RXSVKgNbqVtmvvtnYKfucoZgzsNa
+ Rqeag5G5SycEJR4t83WM8m3kKt+5gowTtoNupNdpCV8G2ElqIza9+STiW
+ /pI0J/qsrvztUiaCehqdCk1pwDDW/VnUuAhZEJ3aykPAcch06pyswmj2o g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="361121118"
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="361121118"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 05:11:26 -0700
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="680826144"
+ 19 Sep 2022 05:11:30 -0700
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="680826159"
 Received: from amagnus-mobl2.ger.corp.intel.com (HELO pbossart-mobl3.home)
  ([10.249.46.168])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 05:11:22 -0700
+ 19 Sep 2022 05:11:26 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/8] ALSA: hda: add snd_hdac_stop_streams() helper
-Date: Mon, 19 Sep 2022 14:10:38 +0200
-Message-Id: <20220919121041.43463-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 6/8] ALSA: hda: ext: simplify logic for stream assignment
+Date: Mon, 19 Sep 2022 14:10:39 +0200
+Message-Id: <20220919121041.43463-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220919121041.43463-1-pierre-louis.bossart@linux.intel.com>
 References: <20220919121041.43463-1-pierre-louis.bossart@linux.intel.com>
@@ -94,82 +94,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Minor code reuse, no functionality change.
+The logic is needlessly complicated, the basic rule is:
+
+The host streams can be found by checking the 'opened' boolean.
+The link streams can be found by checking the 'link_locked' boolean.
+
+Once a stream is found, it can be unconditionally decoupled. The
+snd_hdac_ext_stream_decouple_locked() routine will make sure the
+register status is modified as needed and the 'decoupled' boolean set.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- include/sound/hdaudio.h        |  1 +
- sound/hda/hdac_stream.c        | 17 ++++++++++++++---
- sound/pci/hda/hda_controller.c |  4 +---
- 3 files changed, 16 insertions(+), 6 deletions(-)
+ sound/hda/ext/hdac_ext_stream.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 24c731e53ccb6..35459d740f008 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -562,6 +562,7 @@ int snd_hdac_stream_set_params(struct hdac_stream *azx_dev,
- 				unsigned int format_val);
- void snd_hdac_stream_start(struct hdac_stream *azx_dev, bool fresh_start);
- void snd_hdac_stream_stop(struct hdac_stream *azx_dev);
-+void snd_hdac_stop_streams(struct hdac_bus *bus);
- void snd_hdac_stop_streams_and_chip(struct hdac_bus *bus);
- void snd_hdac_stream_reset(struct hdac_stream *azx_dev);
- void snd_hdac_stream_sync_trigger(struct hdac_stream *azx_dev, bool set,
-diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-index 2e98f5fd50e54..c056bcc5543d1 100644
---- a/sound/hda/hdac_stream.c
-+++ b/sound/hda/hdac_stream.c
-@@ -174,17 +174,28 @@ void snd_hdac_stream_stop(struct hdac_stream *azx_dev)
- }
- EXPORT_SYMBOL_GPL(snd_hdac_stream_stop);
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index 9419abd7fc036..254df9a67bd2b 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -267,19 +267,15 @@ hdac_ext_link_stream_assign(struct hdac_bus *bus,
+ 		if (hstream->direction != substream->stream)
+ 			continue;
  
-+/**
-+ * snd_hdac_stop_streams - stop all streams
-+ * @bus: HD-audio core bus
-+ */
-+void snd_hdac_stop_streams(struct hdac_bus *bus)
-+{
-+	struct hdac_stream *stream;
+-		/* check if decoupled stream and not in use is available */
+-		if (hext_stream->decoupled && !hext_stream->link_locked) {
+-			res = hext_stream;
+-			break;
+-		}
+-
++		/* check if link stream is available */
+ 		if (!hext_stream->link_locked) {
+-			snd_hdac_ext_stream_decouple_locked(bus, hext_stream, true);
+ 			res = hext_stream;
+ 			break;
+ 		}
 +
-+	list_for_each_entry(stream, &bus->stream_list, list)
-+		snd_hdac_stream_stop(stream);
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_stop_streams);
-+
- /**
-  * snd_hdac_stop_streams_and_chip - stop all streams and chip if running
-  * @bus: HD-audio core bus
-  */
- void snd_hdac_stop_streams_and_chip(struct hdac_bus *bus)
- {
--	struct hdac_stream *stream;
- 
- 	if (bus->chip_init) {
--		list_for_each_entry(stream, &bus->stream_list, list)
--			snd_hdac_stream_stop(stream);
-+		snd_hdac_stop_streams(bus);
- 		snd_hdac_bus_stop_chip(bus);
  	}
- }
-diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
-index 75dcb14ff20ad..0ff286b7b66be 100644
---- a/sound/pci/hda/hda_controller.c
-+++ b/sound/pci/hda/hda_controller.c
-@@ -1033,10 +1033,8 @@ EXPORT_SYMBOL_GPL(azx_init_chip);
- void azx_stop_all_streams(struct azx *chip)
- {
- 	struct hdac_bus *bus = azx_bus(chip);
--	struct hdac_stream *s;
+ 	if (res) {
++		snd_hdac_ext_stream_decouple_locked(bus, res, true);
+ 		res->link_locked = 1;
+ 		res->link_substream = substream;
+ 	}
+@@ -308,13 +304,12 @@ hdac_ext_host_stream_assign(struct hdac_bus *bus,
+ 			continue;
  
--	list_for_each_entry(s, &bus->stream_list, list)
--		snd_hdac_stream_stop(s);
-+	snd_hdac_stop_streams(bus);
- }
- EXPORT_SYMBOL_GPL(azx_stop_all_streams);
- 
+ 		if (!hstream->opened) {
+-			if (!hext_stream->decoupled)
+-				snd_hdac_ext_stream_decouple_locked(bus, hext_stream, true);
+ 			res = hext_stream;
+ 			break;
+ 		}
+ 	}
+ 	if (res) {
++		snd_hdac_ext_stream_decouple_locked(bus, res, true);
+ 		res->hstream.opened = 1;
+ 		res->hstream.running = 0;
+ 		res->hstream.substream = substream;
 -- 
 2.34.1
 

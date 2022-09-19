@@ -2,86 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8405BCB05
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 13:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E53405BCB29
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 13:55:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 078AB1614;
-	Mon, 19 Sep 2022 13:47:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078AB1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E471915E5;
+	Mon, 19 Sep 2022 13:54:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E471915E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663588075;
-	bh=xgcZi59DJTSa3l9738EbDpIrqcT1ku1DRfKmeaPhb0E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VRdr2QWzSW1rqCiJx7aPts5g+hN4feVEv/0IaidCslsrKFbH+jpLOgNeCALSbA2A6
-	 I5Ru8BhLjJUIQs6ij7cI7VjTDxEWKyEOnEk4pkmyVt6s+G3ecQJ2ZvqWD4RaMvFUX1
-	 Qrh/IEGpmJyhEc8I2CN/VylioIxShBO8xFXm9o+k=
+	s=default; t=1663588513;
+	bh=q/uvWWvW+4M6DKxLEVsLs6ozoctHctaFyRZU9qYPyYQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=B+Ewv1Xp4x+Vu6OzmR8G2HT+tSHvKtNLkxY0iad4pwp1OA2oJHG2YmWnEXUC2OSVW
+	 JWmdHT5UxrK4igCJv3G4VrqoPPofLa5JLmn+6rQEh2yvuj8jBeMHkioxJe/McOdwPN
+	 XOW+r9FDkcd6/SQ9IvzzZs5+7bNeXi+YmpIGdquQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9165DF800E5;
-	Mon, 19 Sep 2022 13:47:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58ED4F8032B;
+	Mon, 19 Sep 2022 13:54:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C4E1F804B4; Mon, 19 Sep 2022 13:47:03 +0200 (CEST)
+ id 92E32F800C9; Mon, 19 Sep 2022 13:54:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe2e.google.com (mail-vs1-xe2e.google.com
- [IPv6:2607:f8b0:4864:20::e2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1C97F803DD
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 13:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1C97F803DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFF3EF800E5
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 13:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFF3EF800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hZ7qcRrA"
-Received: by mail-vs1-xe2e.google.com with SMTP id a129so29616623vsc.0
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 04:46:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=fKtska7zV2Fg+EfIPpoEMTUbCLRCeKFO87xJdNKwlXs=;
- b=hZ7qcRrATubjNu9J6EKzo2G34ZYs2VQWzktnPNz1RQQB229BKCnI7QQ04IdjOhNpiS
- noYMJmgZgiJOwbZTutMyxzTqkxPgPt2bgCPdjvnCuYfqkQFGkr2g8fUr4KHgZipb24FI
- z4KWMWL17qtO0cagxkH24dDB84/YklxtzvCssO2xbuRXTGSlPKw5/CUwi3xTDqnKm31V
- B/ENsTUQZTliTm92Rd+Gdci81MoL4ag72lK0A4uRGsuVu+2X7tBbpW9OkiuW3nA74Bqp
- e2Ve3D2HwkJRQR3gRS+T48vN3oD/SSpnkwFNT3Ajl1Rd3wkQf8edxKQGaiOOHkoAnWjw
- 1gYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=fKtska7zV2Fg+EfIPpoEMTUbCLRCeKFO87xJdNKwlXs=;
- b=juIz87DGaQHn4TikV4ZVVkKJC98hKyJE/R1fzw39ZIvHOm/igM7uekNPDVnx5zuqU0
- 65HCG2hTFr8OPlBWmNWh6jTu9moCZlkhXCGgQGwS9y212GhAEECg6kjNDFLfF2im4opW
- IId/LpPOo7ARlveLH82U2c9L/pVtJUmxl+uSe0cKKPLZkwfxq4+OKHeBSZs5jDDUV87A
- xuhJth+HnLUGjuHTFAT8LKBbldR6Cpm4U7zD50TqJUflj+d95rsbUBXPldZHvOWTvVRz
- 3JkU3OuOw0G12tyZlrcaPZPt4YnEJ2gBhK35aWsU0X1+oKf2jXZdHxkdQwDWHbalohNs
- 6PYA==
-X-Gm-Message-State: ACrzQf16SbfdTeeU+Xr3LFfiyE/hqhOQ+wlxjfeIg1JuUw6SPwC3+jiv
- hl003AWCJKZ0t7vaCyzwLPYSHRaFSwzaZNZyaKg=
-X-Google-Smtp-Source: AMsMyM4M2ser5bOF6J2igC/p57FX5aXjOfh63rBKsvNVK82zChDx25dnwcFkZuYVUg+agaq0+PNxstXRhVrSUizXXIk=
-X-Received: by 2002:a67:8c43:0:b0:398:6815:d340 with SMTP id
- o64-20020a678c43000000b003986815d340mr5863396vsd.42.1663588014187; Mon, 19
- Sep 2022 04:46:54 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ELvldq8a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663588451; x=1695124451;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=q/uvWWvW+4M6DKxLEVsLs6ozoctHctaFyRZU9qYPyYQ=;
+ b=ELvldq8azPVdUulvOe1BnX9S6AVtZylk7s0cYnGRNTBnfREr0IQtAZIz
+ onlT35Lgk84sfCL+D1s4W74R6/9+JseYHTr5QVKVXlXExVFDy+AVrqfYq
+ 1vYYfUMr3y538ZN19nKyY9mz56RjXkT3mK8XdQVwXU8qXzoyCRP0wir4B
+ 55U1aDfGQnR7bJ/be0RI5tlxZC3zCQPYDSFW8mJ6KmLjRZIn2uVxy5zEk
+ lhQZbQsbn4hx4O29B/uC6Cfnl5QdtehHdD8ntAhH4yRxahGCewmJR6ZWi
+ 5uchwVnYtTB/e7MbYtxqErGQRMZv7mJaJBo9fzdpykdYEQbSOVjkqxod1 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="282405540"
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="282405540"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 04:54:07 -0700
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="744086823"
+Received: from amagnus-mobl2.ger.corp.intel.com (HELO pbossart-mobl3.home)
+ ([10.249.46.168])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 04:54:04 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/4] ASoC: SOF: Intel: override mclk_id for ES8336 support
+Date: Mon, 19 Sep 2022 13:53:46 +0200
+Message-Id: <20220919115350.43104-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com>
- <871qs7dav5.wl-tiwai@suse.de> <87r107btti.wl-tiwai@suse.de>
-In-Reply-To: <87r107btti.wl-tiwai@suse.de>
-From: Rondreis <linhaoguo86@gmail.com>
-Date: Mon, 19 Sep 2022 19:46:43 +0800
-Message-ID: <CAB7eexL-H7v5+EB6DVLLZSaV0daHtWhr1gjpuMOspJhJSjq5Lw@mail.gmail.com>
-Subject: Re: KASAN: invalid-free in snd_card_new
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,111 +87,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+This patchset solves a known issue with ES8336 platforms wrt MCLK
+selection. Most of the devices use the MCLK0 signal, but some devices
+do use the MCLK1 signal.
 
-I tested this patch with the reproducer and the crash did not trigger again.
+The MCLK is defined in the topology, it would be a nightmare to
+generate more topology files just for one MCLK difference. With a
+minor extension to the intel-nhlt library, the MCLK information can be
+found by parsing the NHLT table, and we can override the mclk_id at
+boot time.
 
-On Mon, Sep 19, 2022 at 5:24 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 19 Sep 2022 10:30:54 +0200,
-> Takashi Iwai wrote:
-> >
-> > On Sun, 18 Sep 2022 15:01:11 +0200,
-> > Rondreis wrote:
-> > >
-> > > Hello,
-> > >
-> > > When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
-> > > triggered.
-> > >
-> > > HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
-> > > git tree: upstream
-> > >
-> > > kernel config: https://pastebin.com/raw/xtrgsXP3
-> > > C reproducer: https://pastebin.com/raw/w2sdQWYj
-> > > console output: https://pastebin.com/raw/Yyf7zw2d
-> > >
-> > > Basically, in the c reproducer, we use the gadget module to emulate
-> > > attaching a USB device(vendor id: 0x1bc7, product id: 0x1206, with the
-> > > midi function) and executing some simple sequence of system calls.
-> > > To reproduce this crash, we utilize a third-party library to emulate
-> > > the attaching process: https://github.com/linux-usb-gadgets/libusbgx.
-> > > Just clone this repository, install it, and compile the c
-> > > reproducer with ``` gcc crash.c -lusbgx -lconfig -o crash ``` will do
-> > > the trick.
-> > >
-> > > I would appreciate it if you have any idea how to solve this bug.
-> >
-> > Could you try the patch below?  It looks like a simple double-free in
-> > the code.
->
-> A more proper patch is below.  Please give it a try.
->
->
-> thanks,
->
-> Takashi
->
-> -- 8< --
-> From: Takashi Iwai <tiwai@suse.de>
-> Subject: [PATCH] ALSA: core: Fix double-free at snd_card_new()
->
-> During the code change to add the support for devres-managed card
-> instance, we put an explicit kfree(card) call at the error path in
-> snd_card_new().  This is needed for the early error path before the
-> card is initialized with the device, but is rather superfluous and
-> causes a double-free at the error path after the card instance is
-> initialized, as the destructor of the card object already contains a
-> kfree() call.
->
-> This patch fixes the double-free situation by removing the superfluous
-> kfree().  Meanwhile we need to call kfree() explicitly for the early
-> error path, so it's added there instead.
->
-> Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
-> Reported-by: Rondreis <linhaoguo86@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> Link: https://lore.kernel.org/r/CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/core/init.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/sound/core/init.c b/sound/core/init.c
-> index 193dae361fac..5377f94eb211 100644
-> --- a/sound/core/init.c
-> +++ b/sound/core/init.c
-> @@ -178,10 +178,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
->                 return -ENOMEM;
->
->         err = snd_card_init(card, parent, idx, xid, module, extra_size);
-> -       if (err < 0) {
-> -               kfree(card);
-> -               return err;
-> -       }
-> +       if (err < 0)
-> +               return err; /* card is freed by error handler */
->
->         *card_ret = card;
->         return 0;
-> @@ -233,7 +231,7 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
->         card->managed = true;
->         err = snd_card_init(card, parent, idx, xid, module, extra_size);
->         if (err < 0) {
-> -               devres_free(card);
-> +               devres_free(card); /* in managed mode, we need to free manually */
->                 return err;
->         }
->
-> @@ -297,6 +295,8 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
->                 mutex_unlock(&snd_card_mutex);
->                 dev_err(parent, "cannot find the slot for index %d (range 0-%i), error: %d\n",
->                          idx, snd_ecards_limit - 1, err);
-> +               if (!card->managed)
-> +                       kfree(card); /* manually free here, as no destructor called */
->                 return err;
->         }
->         set_bit(idx, snd_cards_lock);           /* lock it */
-> --
-> 2.35.3
->
+The only known issues for this platform remain the detection of GPIO
+and microphone connections, currently only possible with manual
+quirks.
+
+Thanks to Eugene J. Markow for testing this patchset.
+
+v2: addressed comments from Takashi and Amadeusz
+Better error handling for the 1.5 case
+Report error at the library level when 2 mclks are used
+
+Pierre-Louis Bossart (4):
+  ASoC: SOF: Intel: hda: refine SSP count support
+  ASoC: SOF: add quirk to override topology mclk_id
+  ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
+  ASoC: SOF: Intel: hda: override mclk_id after parsing NHLT SSP blob
+
+ include/sound/intel-nhlt.h    |  7 ++++
+ sound/hda/intel-nhlt.c        | 79 +++++++++++++++++++++++++++++++++++
+ sound/soc/sof/intel/hda.c     | 39 +++++++++++++++++
+ sound/soc/sof/intel/hda.h     |  2 +
+ sound/soc/sof/intel/mtl.c     |  2 +-
+ sound/soc/sof/intel/tgl.c     |  8 ++--
+ sound/soc/sof/ipc3-topology.c |  7 ++++
+ sound/soc/sof/sof-priv.h      |  4 ++
+ 8 files changed, 143 insertions(+), 5 deletions(-)
+
+-- 
+2.34.1
+

@@ -2,81 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB345BD255
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 18:38:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274C45BD2C7
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 18:59:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55DC83E8;
-	Mon, 19 Sep 2022 18:37:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55DC83E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4DB620C;
+	Mon, 19 Sep 2022 18:58:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4DB620C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663605500;
-	bh=r+HZWjhnLpHKnwLolm/pb8EvOPq9AuDh1WJbjYTmxqw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663606764;
+	bh=C0nAMxyn3SgqoAnhU2dZuMQuHSZiA5Mv2JW2+3MF/KQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jECGdQE1+2glR/SebyoIDCgjA9EVip7ixr9vU+IgokVbfaitKexuxB/VZ2Iki18qe
-	 efVdAuHyuJXBDM7BnU/f2GGmzrx85M0+XBQoVdfGULFa6TmPsRzOEclhidPgsH6CR4
-	 KIK5t6fR5UdDiTnrnFUx+wIulyTxok4gym1QMtAk=
+	b=IxoH9uaasfmClvkw2X26XHtXIb17h+g59En3MJKPvdWpChmytXJUCviQzr6v20bMH
+	 3Ov7eRy0kyYqnyuc7SZ19O9e8WrsZxw1UpRZtwSI5jXTH/MBgqRWcj6vDOzECgnYXH
+	 V9g5cvuExLIQpFy5RmkdSdyZFMuHSrYncMZKArqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B49F3F8032B;
-	Mon, 19 Sep 2022 18:37:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1335CF8032B;
+	Mon, 19 Sep 2022 18:58:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65901F8023A; Mon, 19 Sep 2022 18:37:21 +0200 (CEST)
+ id 3ACFCF8023A; Mon, 19 Sep 2022 18:58:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F5DFF800E5
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 18:58:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F5DFF800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="U3djGa8f"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DB1FF800C9
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 18:37:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DB1FF800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="eyHZt8MV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663605435; x=1695141435;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=r+HZWjhnLpHKnwLolm/pb8EvOPq9AuDh1WJbjYTmxqw=;
- b=eyHZt8MVfXvvhiW/KpfuIoRQr11/rKthvDqd+2FPAfB4siirkxDi3mub
- tKhiRLjT+knXWy9pGImHmGgJ8KYbuxBiJuLc7N2fZP17vBxKx4F7qvOoA
- SckEqjvqWHvrVU8nARXL2BJ3d3NMHqP/ehNlfECplgfEAcXm6abO/I1LC
- bviXK0Ktqbtn41hUHzyMWkhv/FI0uf4GdTx+cuMcCdhEho9lh+pljkpgE
- PBiM0WYa+gdFVYaZmpb64Cb0KAVWqEO4m2k6N5zRuumGPGSiK0AiN8tCu
- jlndpnKt23ibMIWbURoPLwWRxH4oRS+GvR6CjsQagW/Zaf+2aZFuCf3As Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="363406989"
-X-IronPort-AV: E=Sophos;i="5.93,328,1654585200"; d="scan'208";a="363406989"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 09:37:10 -0700
-X-IronPort-AV: E=Sophos;i="5.93,328,1654585200"; d="scan'208";a="569717770"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 09:37:09 -0700
-Date: Mon, 19 Sep 2022 19:37:55 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Fix the converter allocation for the
- silent stream
-In-Reply-To: <20220919135444.3554982-1-perex@perex.cz>
-Message-ID: <alpine.DEB.2.22.394.2209191937020.2722275@eliteleevi.tm.intel.com>
-References: <20220919135444.3554982-1-perex@perex.cz>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by ams.source.kernel.org (Postfix) with ESMTPS id DEE59B81D6D;
+ Mon, 19 Sep 2022 16:58:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14CDC433C1;
+ Mon, 19 Sep 2022 16:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663606696;
+ bh=C0nAMxyn3SgqoAnhU2dZuMQuHSZiA5Mv2JW2+3MF/KQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U3djGa8f5Lt/G/69FO79jm3ixnOlkiKcpdKVHcpT7vD7SRRe5KNsx16jMSynu8TWv
+ 2Urmia4jSSbRhBKnuFIuZTMf6e/Twk+x9SRq/Rh1kO3kFG3mYJMzUh8ya4OtwN7ZMm
+ phdTzdJl0HRxzC8UGfApRaJ6vBqVyMpqoIgH+JiDqiYQeLPp2YvqCrN/t7Kwx0gLFU
+ a8fVVUkzJ3H9Mq3qQbQ8E+mATcJvep3ohCLv+RHPqTljemXvAf9brKBNJP3BL3GZ91
+ zZS0S5N/p5qQZSaTwJQk6Ufyh7FwNx/ggy3UEEU/g3kjfJNmq8slgTSvnpvF9Qyf6R
+ JnmSzoRrHEseQ==
+Date: Mon, 19 Sep 2022 17:58:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Astrid Rost <astrid.rost@axis.com>
+Subject: Re: [PATCH v2 0/3] ASoC: ts3a227e control debounce times
+Message-ID: <YyifmJz1EUZQioDn@sirena.org.uk>
+References: <20220915113955.22521-1-astrid.rost@axis.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="MMQhPDbTWkSdlB9F"
+Content-Disposition: inline
+In-Reply-To: <20220915113955.22521-1-astrid.rost@axis.com>
+X-Cookie: One FISHWICH coming up!!
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, kernel@axis.c,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dylan Reid <dgreid@chromium.org>, Astrid Rost <astridr@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,18 +89,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Mon, 19 Sep 2022, Jaroslav Kysela wrote:
+--MMQhPDbTWkSdlB9F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Track the converters handling the silent stream using a new
-> variable to avoid mixing of the open/close and silent stream
-> use. This change ensures the proper allocation of the converters.
-> 
-> Fixes: 5f80d6bd2b01 ("ALSA: hda/hdmi: Fix the converter reuse for the silent stream")
+On Thu, Sep 15, 2022 at 01:39:52PM +0200, Astrid Rost wrote:
+> From: Astrid Rost <astridr@axis.com>
+>=20
+> PATCH 1 - convert ts3a227e bindings to yaml.
+> PATCH 2 - add ts3a227e bindings to support debounce times.
+> PATCH 3 - add ts3a227e driver to support debounce times.
 
-thanks, this looks fine now!
+In general it's better to put new features before binding
+conversions, the binding conversions can require more work than
+simple feature additions.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+--MMQhPDbTWkSdlB9F
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Br, Kai
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMon5cACgkQJNaLcl1U
+h9D+uQf/fWSnbD8A4X7r2Xjxroyy/LkMRBRP/NnctY6OgS+lLFESBrnRylKMMU4k
+cVmMNqD/UGdJP+pPdrMk8kCd/vu3M9BCupUFraOaHstBiKwknFZCVlBvvi3cYRn5
+35RP1kIdXSK1VJLyp3WIkpzolZ3qYZS2VZ6CFzWuVK7shRoV5Sdk7sYLTuGpbpZa
+mwhwt+40/yD91RHNZOtUiBkgEYvbDdrSxgzVs4v5EiVRHpO3Sgf5zBhKBcKU+Er+
+S9bHm9vEFlYOBEHUQLpugj0uGCza35sZ3QcifTwuDTJqLjkEbcW3Gi3mxT3Wmt9w
+8JxRPlInIqZc4U7+PHQqobzOPCuhCw==
+=yZTW
+-----END PGP SIGNATURE-----
+
+--MMQhPDbTWkSdlB9F--

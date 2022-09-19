@@ -2,63 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39115BCDB3
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 15:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EFE5BD186
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 17:58:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37C27868;
-	Mon, 19 Sep 2022 15:55:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C27868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 338E2950;
+	Mon, 19 Sep 2022 17:57:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 338E2950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663595766;
-	bh=ZeHIFsZX0wgAbro1Yu/dnWB/dd+j8iVyFrRtCDGPCqQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1663603088;
+	bh=EfneYqeI6pjZUhF5N//HF7NhHVcfFfi8497dpcmXQSs=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=KnwTa+zcwF9g5BF4aUJRFwYk216Ty4B+2TakjXCYS20Xc4aLRQT3gw9a2t4m1Zzyy
-	 ATBTYGEdTFn9qBD1LwKoZE+ppiXdtddC5zBmd7yRNS4c1RHVJEHbVJjIWVKo9RDiM0
-	 doW56yviYietk65GIu5xqN0SpE2ezT2UFCAPPyj8=
+	b=pRTvrIjnLL+nGAml7eV4d/Gn5VEVcTJp1+BIkgox550dn+UDVuORQyozwgiZ4z1hz
+	 E7mp6kDgJvCvRzASvlmQvHJDT2ShUN/Bhj77DXIRr/5l3VGXO1wJZuCo7nvnc2Vx5y
+	 xaOnvD4feKlgUHAB4uyavi5wqb+hsqxI5iLKEmqo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AF2FF8032B;
-	Mon, 19 Sep 2022 15:55:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9125FF8032B;
+	Mon, 19 Sep 2022 17:57:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD19CF8023A; Mon, 19 Sep 2022 15:55:04 +0200 (CEST)
+ id 0EB54F80134; Mon, 19 Sep 2022 17:57:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48A13F80134
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 15:54:55 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3753F80134
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 17:57:02 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3DEC8A0040;
- Mon, 19 Sep 2022 15:54:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3DEC8A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EECCEA0040;
+ Mon, 19 Sep 2022 17:57:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EECCEA0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1663595694; bh=nfMv+XPgLINBOGWK7jrxpBQizLO2u4YHU+DXzk/0p6c=;
- h=From:To:Cc:Subject:Date:From;
- b=lXZa79HeinWplARwuTcrlUxG60o0LmEj0AJGNHG9bY08QaH3IWID09E+SC8mN0jsY
- tjOElw521dBhribWGgaNAFcNa0YGZvmxOcq3O15tWCcAEZxX/sauCI8limmJYEjZPf
- XGzLTXWTt8+nlCcrLwdDH7OvEVnXu9F+R898IVN0=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ t=1663603022; bh=X1870ojty5Wv+67tPAJygd/GU2+yk4IzqfWr8dK8doc=;
+ h=Date:From:Subject:To:Cc:From;
+ b=MWPKVD1UQxr9d4l3nmBbqvBKGkFlmMAnkKES7B0xjiaxBZ5O/sotxm5dfnrjKQGSk
+ ME3ojBnTdb5oW23uIFlbPm3CJ5D7feqyt2j77O9waaMdnnWdl63ai6nvA9o/LnA9HL
+ clE2XURLSghOvSx6zVD1t8xVj8jI1NaXOQ3SLR9k=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 19 Sep 2022 15:54:50 +0200 (CEST)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: hda/hdmi: Fix the converter allocation for the silent
- stream
-Date: Mon, 19 Sep 2022 15:54:44 +0200
-Message-Id: <20220919135444.3554982-1-perex@perex.cz>
-X-Mailer: git-send-email 2.35.3
+ Mon, 19 Sep 2022 17:56:58 +0200 (CEST)
+Message-ID: <2f37e0b2-1e82-8c0b-2bbd-1e5038d6ecc6@perex.cz>
+Date: Mon, 19 Sep 2022 17:56:58 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: HDA HDMI PCM device allocation
+To: ALSA development <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,110 +77,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Track the converters handling the silent stream using a new
-variable to avoid mixing of the open/close and silent stream
-use. This change ensures the proper allocation of the converters.
+Hi,
 
-Fixes: 5f80d6bd2b01 ("ALSA: hda/hdmi: Fix the converter reuse for the silent stream")
+	I am trying to fix some issues in UCM for the HDA HDMI devices [1][2]. I 
+would like to summary the current situation at first (correct me, if I miss 
+something):
 
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
----
- sound/pci/hda/patch_hdmi.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+We have two methods to map the PINs in the HDA HDMI driver to the PCM devices 
+(legacy/static - 1:1 mapping, dynamic - used for new devices with the MST 
+capability). There is also set of converters in each HDMI codec and the number 
+of simultaneously used PCM devices cannot go beyond this count of converters 
+in hardware (otherwise -EBUSY error is returned). The count of converters is 3 
+or 4 depending on the hardware.
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 4576af4cff90..dc36af2928b7 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -54,6 +54,7 @@ MODULE_PARM_DESC(enable_all_pins, "Forcibly enable all pins");
- struct hdmi_spec_per_cvt {
- 	hda_nid_t cvt_nid;
- 	bool assigned;		/* the stream has been assigned */
-+	bool silent_stream;	/* silent stream activated */
- 	unsigned int channels_min;
- 	unsigned int channels_max;
- 	u32 rates;
-@@ -977,7 +978,8 @@ static int hdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
-  * of the pin.
-  */
- static int hdmi_choose_cvt(struct hda_codec *codec,
--			   int pin_idx, int *cvt_id)
-+			   int pin_idx, int *cvt_id,
-+			   bool silent)
- {
- 	struct hdmi_spec *spec = codec->spec;
- 	struct hdmi_spec_per_pin *per_pin;
-@@ -992,6 +994,9 @@ static int hdmi_choose_cvt(struct hda_codec *codec,
- 
- 	if (per_pin && per_pin->silent_stream) {
- 		cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
-+		per_cvt = get_cvt(spec, cvt_idx);
-+		if (per_cvt->assigned && !silent)
-+			return -EBUSY;
- 		if (cvt_id)
- 			*cvt_id = cvt_idx;
- 		return 0;
-@@ -1002,7 +1007,7 @@ static int hdmi_choose_cvt(struct hda_codec *codec,
- 		per_cvt = get_cvt(spec, cvt_idx);
- 
- 		/* Must not already be assigned */
--		if (per_cvt->assigned)
-+		if (per_cvt->assigned || per_cvt->silent_stream)
- 			continue;
- 		if (per_pin == NULL)
- 			break;
-@@ -1188,7 +1193,7 @@ static int hdmi_pcm_open_no_pin(struct hda_pcm_stream *hinfo,
- 	if (pcm_idx < 0)
- 		return -EINVAL;
- 
--	err = hdmi_choose_cvt(codec, -1, &cvt_idx);
-+	err = hdmi_choose_cvt(codec, -1, &cvt_idx, false);
- 	if (err)
- 		return err;
- 
-@@ -1256,7 +1261,7 @@ static int hdmi_pcm_open(struct hda_pcm_stream *hinfo,
- 		}
- 	}
- 
--	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx);
-+	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx, false);
- 	if (err < 0)
- 		goto unlock;
- 
-@@ -1267,7 +1272,6 @@ static int hdmi_pcm_open(struct hda_pcm_stream *hinfo,
- 	set_bit(pcm_idx, &spec->pcm_in_use);
- 	per_pin = get_pin(spec, pin_idx);
- 	per_pin->cvt_nid = per_cvt->cvt_nid;
--	per_pin->silent_stream = false;
- 	hinfo->nid = per_cvt->cvt_nid;
- 
- 	/* flip stripe flag for the assigned stream if supported */
-@@ -1749,14 +1753,14 @@ static void silent_stream_enable(struct hda_codec *codec,
- 	}
- 
- 	pin_idx = pin_id_to_pin_index(codec, per_pin->pin_nid, per_pin->dev_id);
--	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx);
-+	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx, true);
- 	if (err) {
- 		codec_err(codec, "hdmi: no free converter to enable silent mode\n");
- 		goto unlock_out;
- 	}
- 
- 	per_cvt = get_cvt(spec, cvt_idx);
--	per_cvt->assigned = true;
-+	per_cvt->silent_stream = true;
- 	per_pin->cvt_nid = per_cvt->cvt_nid;
- 	per_pin->silent_stream = true;
- 
-@@ -1816,7 +1820,7 @@ static void silent_stream_disable(struct hda_codec *codec,
- 	cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
- 	if (cvt_idx >= 0 && cvt_idx < spec->num_cvts) {
- 		per_cvt = get_cvt(spec, cvt_idx);
--		per_cvt->assigned = false;
-+		per_cvt->silent_stream = false;
- 	}
- 
- 	if (spec->silent_stream_type == SILENT_STREAM_I915) {
+Things to discuss:
+
+It seems quite straight to limit the count of created PCMs to the count of 
+converters. We cannot use more anyway and it does not help, if more PCM 
+devices are allocated (and Jacks reported) to applications when they cannot be 
+used simultaneously.
+
+Legacy/static mapping should be converted to dynamic (unless the count of 
+created PCM devices is equal to the count of codec converters).
+
+There may be 1:1 mapping between the converter and the PCM device to make 
+things easier.
+
+There is a corner case, when more HDMI devices are connected than the count of 
+converters. In this case, an extra method (a module parameter and/or a control 
+element and/or procfs) may be used to filter unwanted HDMI devices. It may be 
+a bit difficult to select the proper filtering key - it may be the PIN/MST 
+device hash or so. The driver may report this key in eld#* files (procfs).
+
+Impact to applications:
+
+Those days, pulseaudio or pipewire servers are mostly used on the current 
+hardware. Both servers share the legacy probe code for HDMI devices - they are 
+trying to open PCM devices sequentially and check for the error code. There 
+should not be a problem when the connected HDMI devices do not go beyond the 
+count of converters. A minor issue is that the name of the used sink/port may 
+be different (users may be forced to reselect the output path).
+
+For other applications, the PCM device assigned to the connected HDMI device 
+may be different (available in a different ALSA device name). I do not think 
+that it's a big issue. It should be easy solvable with an updated software 
+configuration.
+
+
+Let me know about your opinion about this.
+
+					Thank you,
+						Jaroslav
+
+[1] https://github.com/alsa-project/alsa-lib/issues/245
+[2] https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2481
+
 -- 
-2.35.3
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

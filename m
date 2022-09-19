@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00A05BC41E
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 10:17:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 913D45BC458
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 10:32:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A6291607;
-	Mon, 19 Sep 2022 10:16:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A6291607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03F78E11;
+	Mon, 19 Sep 2022 10:31:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03F78E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663575458;
-	bh=iyI4ekMdHn1XT/P74Qs5tMhkHtIrzjIY25ReRP1inVM=;
+	s=default; t=1663576322;
+	bh=vPNCAvWdK4S4tBAf5nTcXkrEcSPuo8U+YI9YgKe8nx0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sEye8oi15UEBwE9t5siqgLNpfRY9LPc3G0u8lJGA7Wyk0BATGnVNv5orcTpvBZp7E
-	 Ny2eyrzQMZ+loQNAqOFZ/udG45nYjxvQGNBc63ZARMP5ukokbcJof6gYNQi1pZ0AtA
-	 hr0CLYA56lOVRKjVMZin0VRqmkD57NUFGiZa5HqM=
+	b=CKxCYa0gqJ/B9Kz1DkisCRkb/4ETH4Kfm5cu3dHfe1rY13ui69/X2wULqaeZhw869
+	 YfF9QAeg14pYzyZRW4Xdo/wsGI5utnUXAQ3uDddWAm86BAiW1OFfLQScvAz5pUn9SA
+	 /pLyiYlDCC/MstGFFxY9DZFJZ7lWn7RsWX6U8XLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8798AF8032B;
-	Mon, 19 Sep 2022 10:16:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B0F0F800C9;
+	Mon, 19 Sep 2022 10:31:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47927F8023A; Mon, 19 Sep 2022 10:16:38 +0200 (CEST)
+ id A7255F8023A; Mon, 19 Sep 2022 10:31:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E89A7F80134
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 10:16:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E89A7F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 151C4F80134
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 10:30:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 151C4F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TH7jq92w"; 
+ header.b="0b+AiYfP"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RGXubFc+"
+ header.b="xkbttTJg"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1B7DD2240F;
- Mon, 19 Sep 2022 08:16:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B9B5022476;
+ Mon, 19 Sep 2022 08:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663575395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663576254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iDWoQtQXweReZ2wejhjRbMKyoea+BKLi+7cfVBVuXM0=;
- b=TH7jq92wspojRkySLSono785iiNzCggfcm8qLkh/eqmI/lik7CIG4Sal5PmDd5iAkijIJs
- aiNW7z6WDYKIcbmIN1BJI+jZrYfCTLwn/+u/CDmKSlMIe1qtFRLPYo/al1MrhXj/YxHbqx
- KHmKIVqecztHvMaWurTbiXoZtPF0vJM=
+ bh=Vnw8yV24NrJVgXHUmASg1y16Kkw1PabPzTLxeE4hH7c=;
+ b=0b+AiYfPPzvDf3SzJQAi6E4IIrVvsGQfoQYZuEqS4iqZh8KL+JIOVSDsu3kI4sxA/WlfJz
+ 86NBOW9Gz5FhAz46ZNRWFyHb2BA/tPjelSRzepF8miISNzmmDHm0OpcpEQ9/CPGG3Q2HjT
+ nG4kdZkwVIHTteTec27nBEE8koMqKas=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663575395;
+ s=susede2_ed25519; t=1663576254;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iDWoQtQXweReZ2wejhjRbMKyoea+BKLi+7cfVBVuXM0=;
- b=RGXubFc+3v6sRPfTzN4cfydDr99HFA2v9wMtNImrQsszeMJRM7lp9o2ZmgN658cWgSwsL3
- 5BWxReWGTiojR/Bw==
+ bh=Vnw8yV24NrJVgXHUmASg1y16Kkw1PabPzTLxeE4hH7c=;
+ b=xkbttTJg2wH1k788pI1dTzlxpyuKr5jlIeNxc9XVpa6qx0m1sdzW9GUR6NmtDT9LVG62mB
+ ZAz4KQ54erC/KPBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDF6513ABD;
- Mon, 19 Sep 2022 08:16:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 960DA13A96;
+ Mon, 19 Sep 2022 08:30:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BmyOOWIlKGNsNQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 08:16:34 +0000
-Date: Mon, 19 Sep 2022 10:16:34 +0200
-Message-ID: <8735cndbj1.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id U9DEI74oKGPtOwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 08:30:54 +0000
+Date: Mon, 19 Sep 2022 10:30:54 +0200
+Message-ID: <871qs7dav5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Daniel Houldsworth <dhould3@gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add a quirk for HP OMEN 16 (8902) mute
- LED
-In-Reply-To: <20220918171300.24693-1-dhould3@gmail.com>
-References: <20220918171300.24693-1-dhould3@gmail.com>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: KASAN: invalid-free in snd_card_new
+In-Reply-To: <CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com>
+References: <CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -100,18 +99,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 18 Sep 2022 19:13:00 +0200,
-Daniel Houldsworth wrote:
+On Sun, 18 Sep 2022 15:01:11 +0200,
+Rondreis wrote:
 > 
-> Similair to the HP OMEN 15, the HP OMEN 16 also needs
-> ALC285_FIXUP_HP_MUTE_LED for the mute LED to work.
+> Hello,
 > 
-> Signed-off-by: Daniel Houldsworth <dhould3@gmail.com>
+> When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
+> triggered.
+> 
+> HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
+> git tree: upstream
+> 
+> kernel config: https://pastebin.com/raw/xtrgsXP3
+> C reproducer: https://pastebin.com/raw/w2sdQWYj
+> console output: https://pastebin.com/raw/Yyf7zw2d
+> 
+> Basically, in the c reproducer, we use the gadget module to emulate
+> attaching a USB device(vendor id: 0x1bc7, product id: 0x1206, with the
+> midi function) and executing some simple sequence of system calls.
+> To reproduce this crash, we utilize a third-party library to emulate
+> the attaching process: https://github.com/linux-usb-gadgets/libusbgx.
+> Just clone this repository, install it, and compile the c
+> reproducer with ``` gcc crash.c -lusbgx -lconfig -o crash ``` will do
+> the trick.
+> 
+> I would appreciate it if you have any idea how to solve this bug.
 
-Applied, but I rearranged the entry in PCI SSID order.
-At the next time, please keep it in mind.
+Could you try the patch below?  It looks like a simple double-free in
+the code.
 
 
-Thanks!
+thanks,
 
 Takashi
+
+---
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -178,10 +178,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 		return -ENOMEM;
+ 
+ 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
+-	if (err < 0) {
+-		kfree(card);
+-		return err;
+-	}
++	if (err < 0)
++		return err; /* card is freed by error handler */
+ 
+ 	*card_ret = card;
+ 	return 0;
+@@ -233,7 +231,7 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
+ 	card->managed = true;
+ 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
+ 	if (err < 0) {
+-		devres_free(card);
++		devres_free(card); /* in managed mode, we need to free manually */
+ 		return err;
+ 	}
+ 

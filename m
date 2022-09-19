@@ -2,83 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 016285BCBE3
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:36:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5895BCBE8
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Sep 2022 14:37:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85D8EE11;
-	Mon, 19 Sep 2022 14:35:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85D8EE11
+	by alsa0.perex.cz (Postfix) with ESMTPS id E71C43E7;
+	Mon, 19 Sep 2022 14:36:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E71C43E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663590985;
-	bh=ieodO+r5ZfXHLplb6MChan+VhRLO+V3vloWyB+AcAkI=;
+	s=default; t=1663591064;
+	bh=y4XZKMyz2BLPm3acYeIG4Vt/JgXp+5y/GPxRCBxaNIs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=HXrUwiu1XD1GPxX8CNsZ80UVAQZho2T2zzGvVZWR4JZ4vt5kmSaa4DTJrEGP4Gmcl
-	 vCJBAJlLhIjol7l7j6OpMqzTko2K10OhJqooMk5lGgCPc6ob0r0zj3s5vG6bq+Y5hD
-	 fW2dDEKAMmr0RXoiFOZN03VkaKDytsIsE4dENgTw=
+	b=T+ekFlxVsRVge81jCIFo9COczEkBNdrsAKH4UYmiLzJvBOhm+IIudCXrA5iGxPYSh
+	 xKK5kiKt9InmMsjOvr3bI8ttEGFaecaJsus/0oBofOAIxecnZA+aekJRS0+uFl+p0N
+	 TWjYsMDRWSSiagz65wwb34DGY93sRp7JBPlKPcnY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2DFDF804B4;
-	Mon, 19 Sep 2022 14:35:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FB38F8016D;
+	Mon, 19 Sep 2022 14:36:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 647F2F800E5; Mon, 19 Sep 2022 14:35:25 +0200 (CEST)
+ id 5FF3BF8032B; Mon, 19 Sep 2022 14:36:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43D5FF800E5
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:35:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43D5FF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 157C6F8016D
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 14:36:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 157C6F8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="oSyu+Boe"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Rsg3lI9f"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C657421ED1;
- Mon, 19 Sep 2022 12:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663590918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=99Ctn0Fwq3Uhz3GtCQL2CDiNdhsMnqx/FrPCcoV9YE4=;
- b=oSyu+BoesYL7jQjqXCxVvDlOL5sQrxrRlo+tSDUrG3lGIpp+o9CJ6DzZB8HsQpYH1fyx+q
- vOuDWNNRH5mEblRAhsn1FFUZJBfDstePwkUY1FdcSwF9c1kJgjpYzp5ao6kY8jFtlgOrgz
- WQCvj3yUz+l/ZHgzJQsni5ZDia3eTvk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663590918;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=99Ctn0Fwq3Uhz3GtCQL2CDiNdhsMnqx/FrPCcoV9YE4=;
- b=Rsg3lI9f2JLbFXQgUoT3LmFUPp2UGMTcn3h2RQTPnL8oDrV5Q5gb4gHD2sQrs/h6Igdikw
- RRf7z9LxOpqWsCCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A2AB313A96;
- Mon, 19 Sep 2022 12:35:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id C/nwJgZiKGNULQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 19 Sep 2022 12:35:18 +0000
-From: Takashi Iwai <tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="B4xzkXKT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663591003; x=1695127003;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=y4XZKMyz2BLPm3acYeIG4Vt/JgXp+5y/GPxRCBxaNIs=;
+ b=B4xzkXKTv7b4mpbxTlx3r+ypQz1J0HEyfgZ0VuoGYv8oV8Xst19yHOdA
+ Acb7jTtVGDMAfcv30efGkSsqDiHNkkIKtio6s336b5n8/GEGEvLZsKIIo
+ ZKqI9nk+0wKkZn/Toy0iDgskAP5ML1YJwMFALXpUlY0KPHzasUw+SacPu
+ DbkOswPQygF+/P8YYcyvCRWPPxh6to2gEmGC+utszUHHudVtN89mHqjOi
+ WxoPhZVkiGkeY0CJ93Zfis8rbm+pWYIvlEGGYPbeZAye2atordRZELe9O
+ q6i6exNd5WCUhBG8cFFR6RpVmjSKV16iLSCxNLxuLvooFvPbzsJiY/wWi A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="385676928"
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="385676928"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 05:36:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="707549734"
+Received: from amagnus-mobl2.ger.corp.intel.com (HELO pbossart-mobl3.home)
+ ([10.249.46.168])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 05:36:36 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: core: Fix double-free at snd_card_new()
-Date: Mon, 19 Sep 2022 14:35:16 +0200
-Message-Id: <20220919123516.28222-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+Subject: [PATCH 0/4] ASoC: SOF: Add SKL/KBL support for IPC4 CI tests
+Date: Mon, 19 Sep 2022 14:36:13 +0200
+Message-Id: <20220919123617.44096-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Rondreis <linhaoguo86@gmail.com>
+Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,62 +87,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-During the code change to add the support for devres-managed card
-instance, we put an explicit kfree(card) call at the error path in
-snd_card_new().  This is needed for the early error path before the
-card is initialized with the device, but is rather superfluous and
-causes a double-free at the error path after the card instance is
-initialized, as the destructor of the card object already contains a
-kfree() call.
+This patchset was submitted earlier in April 2022 as part of the
+"ASoC: SOF: add INTEL_IPC4 plumbing" series. As requested the SKL/KBL
+support is moved to a different series.
 
-This patch fixes the double-free situation by removing the superfluous
-kfree().  Meanwhile we need to call kfree() explicitly for the early
-error path, so it's added there instead.
+This updates adds minor style fixes and the ops that were missing at
+the time.  SKL and KBL daily tests have been running for several
+months and helped identify missing sequences in the SOF driver for
+HDaudio links, or platform differences that the driver did not account
+for (number of pipelines, etc).
 
-Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
-Reported-by: Rondreis <linhaoguo86@gmail.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/CAB7eexL1zBnB636hwS27d-LdPYZ_R1-5fJS_h=ZbCWYU=UPWJg@mail.gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/init.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Note that this capability is not recommended for any distribution, it
+is ONLY for SOF IPC4 CI tests on HDaudio devices, we will not extend
+this SKL/KBL support for I2S devices based on ES8336 or Chromebooks
+which are ONLY supported by the AVS driver.
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 193dae361fac..5377f94eb211 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -178,10 +178,8 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
- 		return -ENOMEM;
- 
- 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
--	if (err < 0) {
--		kfree(card);
--		return err;
--	}
-+	if (err < 0)
-+		return err; /* card is freed by error handler */
- 
- 	*card_ret = card;
- 	return 0;
-@@ -233,7 +231,7 @@ int snd_devm_card_new(struct device *parent, int idx, const char *xid,
- 	card->managed = true;
- 	err = snd_card_init(card, parent, idx, xid, module, extra_size);
- 	if (err < 0) {
--		devres_free(card);
-+		devres_free(card); /* in managed mode, we need to free manually */
- 		return err;
- 	}
- 
-@@ -297,6 +295,8 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
- 		mutex_unlock(&snd_card_mutex);
- 		dev_err(parent, "cannot find the slot for index %d (range 0-%i), error: %d\n",
- 			 idx, snd_ecards_limit - 1, err);
-+		if (!card->managed)
-+			kfree(card); /* manually free here, as no destructor called */
- 		return err;
- 	}
- 	set_bit(idx, snd_cards_lock);		/* lock it */
+This patchset is dependent on the series " ASoC: SOF: start using
+tracing instead of dev_dbg"
+
+Pierre-Louis Bossart (4):
+  ASoC: SOF: Intel: hda-dsp: expose functions for SKL support
+  ASoC: SOF: Intel: add SKL/KBL hardware code loader
+  ASoC: SOF: Intel: add initial SKL/KBL hardware support
+  ASoC: SOF: Intel: add ops for SKL/KBL
+
+ sound/soc/sof/intel/Kconfig          |  25 ++
+ sound/soc/sof/intel/Makefile         |   4 +
+ sound/soc/sof/intel/hda-dsp.c        |   4 +-
+ sound/soc/sof/intel/hda-ipc.c        |   8 +
+ sound/soc/sof/intel/hda-loader-skl.c | 580 +++++++++++++++++++++++++++
+ sound/soc/sof/intel/hda.c            |   2 +
+ sound/soc/sof/intel/hda.h            |  12 +
+ sound/soc/sof/intel/pci-skl.c        |  91 +++++
+ sound/soc/sof/intel/skl.c            | 114 ++++++
+ 9 files changed, 838 insertions(+), 2 deletions(-)
+ create mode 100644 sound/soc/sof/intel/hda-loader-skl.c
+ create mode 100644 sound/soc/sof/intel/pci-skl.c
+ create mode 100644 sound/soc/sof/intel/skl.c
+
 -- 
-2.35.3
+2.34.1
 

@@ -2,65 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C3675E7604
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D14415E7606
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:44:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EBDD82C;
-	Fri, 23 Sep 2022 10:43:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EBDD82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 295DB847;
+	Fri, 23 Sep 2022 10:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 295DB847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663922630;
-	bh=ErvmcgaMaPKlKZ87Wx9k2z+T7Ey3Yaox/7y+QDbvjxY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1663922648;
+	bh=xuDq04V3ERIqON4UuLH1RmjGkFR75KWm8lnYzEvFeDI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=czj4vK91lN489qusfJYbbvClDwiieOOVewaKe1PN86LajgUcuD4xltQ+VVhEDZisc
-	 2bauLcuHMxeKzvEP/zQYsjpgV3VFSq6OFEFs49DbkeNuz1+P64CNYbClOMXQYJdUfZ
-	 kSsmXcHOAWddEFamkYCaE7vhsd6ewhXbWNNjg6i4=
+	b=uNNdob0zafEMfaEQuRFUr5GcRuU3LkFgMA1I1x3hfBrKhQDdOT5hx80ACciWDQLz9
+	 znHswo0/LuuZ074bTVkuBRWznG0kVhRX6E4zJATf0fpedpy2RqeQukcPr68N1tOV9G
+	 UYBhp0/MixDH0ldSTjk9oo7Q0C4dNNWQoXGNCKbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B9BAF804D1;
-	Fri, 23 Sep 2022 10:42:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F69DF8053B;
+	Fri, 23 Sep 2022 10:42:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E88B0F80171; Tue, 20 Sep 2022 05:46:07 +0200 (CEST)
+ id 0FA5BF80155; Tue, 20 Sep 2022 07:25:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-m11883.qiye.163.com (mail-m11883.qiye.163.com
- [115.236.118.83])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9721EF80155
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 05:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9721EF80155
-Received: from rockchip.. (unknown [58.22.7.114])
- by mail-m11883.qiye.163.com (Hmail) with ESMTPA id E29D18401F8;
- Tue, 20 Sep 2022 11:45:53 +0800 (CST)
-From: Jason Zhu <jason.zhu@rock-chips.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH 1/1] ASoC: soc-dai: export some symbols
-Date: Tue, 20 Sep 2022 11:45:45 +0800
-Message-Id: <20220920034545.2820888-2-jason.zhu@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
-References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B526F800C9
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 07:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B526F800C9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="LHecsjIM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663651505; x=1695187505;
+ h=date:from:to:cc:subject:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xuDq04V3ERIqON4UuLH1RmjGkFR75KWm8lnYzEvFeDI=;
+ b=LHecsjIMcxi9LPtOYxrBMTecEvzQcer05YVvlTAR4yPFZdXAXLgNvpjs
+ IEMOgk9YDzE3WQvSPjHu6u6GL6OnO1wX9Wn6zPGkEp53p4nlPRmL1Gz+U
+ VqhkpdxrCrWlG6kNTYzlz5092lk3ktx3XwaWMoh4YRtrVSFYYqvp27Mut
+ ZhDlBshMksXSZhpWWzz5tXRQ4QJoRIEfiH3A1cbc+xyJIHwZjFq3h1n5c
+ tLDFD5lW3RL1B6DB+m1zC2ehVwDnac0I/WXL84kTQtdIHMF6LRn5ewL2f
+ sGRfbKs7fKgB0QbCuvJubL4B4WD63FMQgRv+A9SGBmPlKv/rw9JN83/9C g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="282629096"
+X-IronPort-AV: E=Sophos;i="5.93,329,1654585200"; d="scan'208";a="282629096"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 22:25:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,329,1654585200"; d="scan'208";a="794124954"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga005.jf.intel.com with ESMTP; 19 Sep 2022 22:25:01 -0700
+Received: from maurocar-mobl2 (maurocar-mobl2.ger.corp.intel.com
+ [10.252.59.34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id C58B4580713;
+ Mon, 19 Sep 2022 22:24:56 -0700 (PDT)
+Date: Tue, 20 Sep 2022 07:24:54 +0200
+From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Subject: Re: [PATCH v6 0/4] Let userspace know when snd-hda-intel needs i915
+Message-ID: <20220920072454.4cf91f24@maurocar-mobl2>
+In-Reply-To: <Ynl7xGy+a9MYjXi1@bombadil.infradead.org>
+References: <cover.1652113087.git.mchehab@kernel.org>
+ <Ynl7xGy+a9MYjXi1@bombadil.infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFJSktLSjdXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUpKVkhDGB9JQxpJGEwfTFUTARMWGhIXJB
- QOD1lXWRgSC1lBWU5DVUlJVUxVSkpPWVdZFhoPEhUdFFlBWU9LSFVKSktITkhVSktLVUtZBg++
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6PC46Ayo5KT0uDB0NUR4dN0sw
- HhFPChZVSlVKTU1ITU9OTk5PTkhMVTMWGhIXVREaCBQVVQETDjsJFBgQVhgTEgsIVRgUFkVZV1kS
- C1lBWU5DVUlJVUxVSkpPWVdZCAFZQU9LTUo3Bg++
-X-HM-Tid: 0a83590095b22eb8kusne29d18401f8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 23 Sep 2022 10:42:24 +0200
-Cc: sugar.zhang@rock-chips.com, Jason Zhu <jason.zhu@rock-chips.com>,
- alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Richard Weinberger <richard@nod.at>,
+ Kai Vehmanen <kai.vehmanen@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
+ Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-modules@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ linux-mtd@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,98 +105,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sometimes we need to make some dais alive when close the card, like
-VAD, so these functions must be exported so that they can be called.
+Hi Luis,
 
-Signed-off-by: Jason Zhu <jason.zhu@rock-chips.com>
----
- sound/soc/soc-dai.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+On Mon, 9 May 2022 13:38:28 -0700
+Luis Chamberlain <mcgrof@kernel.org> wrote:
 
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index d530e8c2b77b..75294e830392 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -405,6 +405,7 @@ int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
- end:
- 	return soc_dai_ret(dai, ret);
- }
-+EXPORT_SYMBOL_GPL(snd_soc_dai_hw_params);
- 
- void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
- 			 struct snd_pcm_substream *substream,
-@@ -420,6 +421,7 @@ void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
- 	/* remove marked substream */
- 	soc_dai_mark_pop(dai, substream, hw_params);
- }
-+EXPORT_SYMBOL_GPL(snd_soc_dai_hw_free);
- 
- int snd_soc_dai_startup(struct snd_soc_dai *dai,
- 			struct snd_pcm_substream *substream)
-@@ -436,6 +438,7 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- 
- 	return soc_dai_ret(dai, ret);
- }
-+EXPORT_SYMBOL_GPL(snd_soc_dai_startup);
- 
- void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- 			  struct snd_pcm_substream *substream,
-@@ -451,6 +454,7 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- 	/* remove marked substream */
- 	soc_dai_mark_pop(dai, substream, startup);
- }
-+EXPORT_SYMBOL_GPL(snd_soc_dai_shutdown);
- 
- int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
- 			     struct snd_soc_pcm_runtime *rtd, int num)
-@@ -556,6 +560,7 @@ int snd_soc_pcm_dai_probe(struct snd_soc_pcm_runtime *rtd, int order)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(snd_soc_pcm_dai_probe);
- 
- int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order)
- {
-@@ -578,6 +583,7 @@ int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(snd_soc_pcm_dai_remove);
- 
- int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd)
- {
-@@ -594,6 +600,7 @@ int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(snd_soc_pcm_dai_new);
- 
- int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream)
- {
-@@ -612,6 +619,7 @@ int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(snd_soc_pcm_dai_prepare);
- 
- static int soc_dai_trigger(struct snd_soc_dai *dai,
- 			   struct snd_pcm_substream *substream, int cmd)
-@@ -624,6 +632,7 @@ static int soc_dai_trigger(struct snd_soc_dai *dai,
- 
- 	return soc_dai_ret(dai, ret);
- }
-+EXPORT_SYMBOL_GPL(soc_dai_trigger);
- 
- int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream,
- 			    int cmd, int rollback)
-@@ -659,6 +668,7 @@ int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream,
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(snd_soc_pcm_dai_trigger);
- 
- int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
- 				    int cmd)
--- 
-2.34.1
+> On Mon, May 09, 2022 at 06:23:35PM +0200, Mauro Carvalho Chehab wrote:
+> > Currently, kernel/module annotates module dependencies when
+> > request_symbol is used, but it doesn't cover more complex inter-driver
+> > dependencies that are subsystem and/or driver-specific.
+> >   
+> 
+> At this pount v5.18-rc7 is out and so it is too late to soak this
+> in for the proper level of testing I'd like to see for modules-next.
+> So I can review this after the next merge window. I'd want to beat
+> the hell out of this and if possible I'd like to see if we can have
+> some test coverage for the intended goal and how to break it.
 
+Any news with regards to this patch series?
+
+Regards,
+Mauro

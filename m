@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA87F5BDBF1
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 07:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7154D5BDBF4
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 07:02:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2338D851;
-	Tue, 20 Sep 2022 07:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2338D851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14E81868;
+	Tue, 20 Sep 2022 07:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E81868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663650054;
-	bh=FpIJC/kpLLJSxZQcRSkOGZmZ2DhuZdqOR+7vHg+6TEw=;
+	s=default; t=1663650124;
+	bh=JcZOwfCNW3dBfAsXNvo/jTqcE40QGR1s+zdpQNoCiQI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WWAE+nnx8N0B452kCdN8iJ/+CcVDvGafXaZpxHIaLE4MHqpeKurms0Y3CIQi1+3vM
-	 bz9DJOMmrzpiV7W8xJ1vTlUQZgqRfo5s50bA/cVzpHq9ZyfSKuC0XIYrnMjtswy1We
-	 rQlI9Yr1uO7Tj/wJh8uGFUpUJfu7+Jb3NlAZglIY=
+	b=FG/a2qYBk9hYX7yv62B+37aqUF9/OhmFEE4yPlsAXft8v1yqVQcfM5dwBlYpMjxns
+	 FuTCdZZgydJizMnaWTgZKr4xqRxpIMlciT3eSsH7+9HSPE/NEyFhbEPegBzhFOmEcA
+	 847TvLumAbXdXHGZ5mxCdnO+oa8D5NHnkgg2mV0U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85FD8F80171;
-	Tue, 20 Sep 2022 06:59:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E725F800F2;
+	Tue, 20 Sep 2022 07:01:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 306DFF80155; Tue, 20 Sep 2022 06:59:54 +0200 (CEST)
+ id 244E5F80155; Tue, 20 Sep 2022 07:01:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,39 +35,40 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF1DCF800C9
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 06:59:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF1DCF800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCD55F800F2
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 07:01:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCD55F800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gkONBK34"
+ header.b="Hrc9u/Nu"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D07F7B82471;
- Tue, 20 Sep 2022 04:59:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A81EC433C1;
- Tue, 20 Sep 2022 04:59:46 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3F80AB82469;
+ Tue, 20 Sep 2022 05:01:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1C3C433C1;
+ Tue, 20 Sep 2022 05:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663649987;
- bh=FpIJC/kpLLJSxZQcRSkOGZmZ2DhuZdqOR+7vHg+6TEw=;
+ s=k20201202; t=1663650060;
+ bh=JcZOwfCNW3dBfAsXNvo/jTqcE40QGR1s+zdpQNoCiQI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gkONBK34UTLVMql3fk8fYwpjG1UTHc/hOc6jIWjseGG6j0PaUIHl2RNrQMzAnH60m
- ZzuJVIFnnapjpVr+8zpF72QJDuxvLxXTSd13znEeZr7t/Qzw5oDOaUt8tRET2rA7Av
- BIc7m8NcZU0hv+mU1YGOQu2iNspkyVymuKvoTzHAK5BONwz69hzBzL1I6srgnFRsJ8
- GPsYZvegwiu/m6utEeVtWw2vDDLu4YqESUNxNJ7QW746R5+uetVZcK0wglk75pYPje
- uBIxIz3aHSC177DZF04BJZ1Lf3PZ+U7+nE80zdRzcmBuKkGZXyd8Q55+dP7eH++IiZ
- 26iBut1jenZqg==
-Date: Tue, 20 Sep 2022 10:29:43 +0530
+ b=Hrc9u/NuNYtKURUjWKz2ISE9VZtxrhEVc/aAnu90Z3I/Jybpf7Dr831tnglAZegQz
+ M4BRK41iaIh3aCOmhtvFh1DEt3QiBhU5hwny2E3kuqjS9MyMYCOjOgAei2m6SRqsh+
+ cD3P9Oft5ecsL+gVKbqnEZcdPZRTBkBwMDJ+8FTboc4hdDbR6OuDvFybtxsnSOly/4
+ aeBzxa4+ZRhGt5au9o7lxluzw2kusipuk/2R/2Z2ga4nTchyTdaGqc37MlH0Nh8A3a
+ cCZ3iCsJXkhtK37OhFvK/OY9IA8Oq0VBDAeB/AjBwHbSiV1UZ3ts0cSB/J+zKrIWl2
+ VLClmp7H5RkiA==
+Date: Tue, 20 Sep 2022 10:30:55 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH v4 0/5] soundwire: Fixes for spurious and missing UNATTACH
-Message-ID: <YylIv9VGYl3VqVIZ@matsya>
-References: <20220914160248.1047627-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] soundwire: cadence: Don't overwrite msg->buf during
+ write commands
+Message-ID: <YylJB+GfMxQL3ogS@matsya>
+References: <20220916103505.1562210-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220914160248.1047627-1-rf@opensource.cirrus.com>
+In-Reply-To: <20220916103505.1562210-1-rf@opensource.cirrus.com>
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
  sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
@@ -86,22 +87,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-09-22, 17:02, Richard Fitzgerald wrote:
-> The bus and cadence code has several bugs that cause UNATTACH notifications
-> to either be sent spuriously or to be missed.
+On 16-09-22, 11:35, Richard Fitzgerald wrote:
+> The buf passed in struct sdw_msg must only be written for a READ,
+> in that case the RDATA part of the response is the data value of the
+> register.
 > 
-> These can be seen occasionally with a single peripheral on the bus, but are
-> much more frequent with multiple peripherals, where several peripherals
-> could change state and report in consecutive PINGs.
-> 
-> The root of all of these bugs seems to be a code design flaw that assumed
-> every PING status change would be handled separately. However, PINGs are
-> handled by a workqueue function and there is no guarantee when that function
-> will be scheduled to run or how much CPU time it will receive. PINGs will
-> continue while the work function is handling a snapshot of a previous PING
-> so the code must take account that (a) status could change during the
-> work function and (b) there can be a backlog of changes before the IRQ work
-> function runs again.
+> For a write command there is no RDATA, and buf should be assumed to
+> be const and unmodifable. The original caller should not expect its data
+> buffer to be corrupted by an sdw_nwrite().
 
 Applied, thanks
 

@@ -2,150 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371B75BEC98
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29EE45BEC9A
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:12:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8F15852;
-	Tue, 20 Sep 2022 20:10:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8F15852
+	by alsa0.perex.cz (Postfix) with ESMTPS id B450885D;
+	Tue, 20 Sep 2022 20:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B450885D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663697456;
-	bh=URz/85/sWgHLFqdvLnqWuKlylSwlZ39Ov8MzwFDh9fw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XVlRRkjPaOSmZDl1ayObyS3WUfiMxFdvrH5mwvOCZj4Bn/Gfx+hR9xe3Wmg0WhQva
-	 mI43rNUnssJpX4bofZS8Zl7CfWy3OGWVHcQ25552aj6AxVji06O9LGbIGzlzG45Cry
-	 uAU6Dxr0M6QiIjsS5WWVRfnezwV3hzRaLPE6Yjgo=
+	s=default; t=1663697535;
+	bh=I2CDlKuJdgt5pSB3UdZSSv1nNiB6auepmtLmC/h6kbs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=arVJXhspnSPriwwmf4AWhT4JgLBpzXRCFNKVXDNofElO5hebSnqwGIfLnLesMAtYc
+	 iYGCpGKEXJvifia34LGi0xkMSd3HQR4G+lDjYV+A65+oMpkElpHWS3QUyT0gxT7pXg
+	 AR+q7ytGJBWhgnOixNkIrrKykf+clodAkx1B+QDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B47CF80171;
-	Tue, 20 Sep 2022 20:09:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2136AF800F2;
+	Tue, 20 Sep 2022 20:11:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0BA8F80155; Tue, 20 Sep 2022 20:09:57 +0200 (CEST)
+ id 4E061F80155; Tue, 20 Sep 2022 20:11:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE310F800F2
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:09:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE310F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DF7FF800F2
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:11:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF7FF800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="LZsmdnNy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X0OOc6cPeZB1xCOiswgZgXYhrHvVKmK61jgAORzEEsmO0DufTKdG20dIfYB2npbc5N2RkC4iNpdiXCou0RlWGhIT8kl8euvwrwWpAGWPpd5ABW7b3RkBU2qUcW4W/tV8+4oOmQKYITOBY4p303GIDnOSpg7ebZcgxUyY7TCmn21s8fDfCm479bR/zex9e9N5TqaPRqnjxcxpzPnNaHUK2p9t1QtxzcACUa6K1aFGUaFIVpwzTkD5W+mkzR92TuSUynnBTFPHA1BjDD3qAvtiflxVIRZqv6SDKGcbfk6COEw/1kARDS6OHiL8x36RIFqbUmPw7GG8JvEVsrN/elOxJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n4qAkhIwdgP28/Nt9Hmpfb0dgzUB9w+CcjcQ1WKJ8QA=;
- b=bFvyGtYdPV/mt+sgJtSE0tWvPcnqVv4crRZCh6WNqMs3Cz8lKv9FcsKHUk382kQV54TpVRJ25zTqrA53Aur94YpsAqu/RzUqnOf9lTHLrpiU5/2NPAqVNyQUnrAoxRIxlOOb3pGjvBi3F3FNrdJMSedPUGj7y7UtnTIFpJVMsm1YNQMbSZLoxNkLQFL39KyfQ311KNLUJj3Y65rpBR8tMt8YbxqMKUPeLpcpkN25zIkya1Tw1oBRxZiHOfMvLf3uUH7E6tVR86JbPWSbJTry2P0bOYxHg5Nxv0c0MZTLB+KI4pgX6xMEDGVWhW7s3yHujWBlJOC5oY9vMwAp1Axd+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n4qAkhIwdgP28/Nt9Hmpfb0dgzUB9w+CcjcQ1WKJ8QA=;
- b=LZsmdnNyYtO7Zm8+9k9IER0WDg74vgfP6anHxxYTuum7q1dFjB2VQuq3rKjkDL3tNSa4BghC97fXEZw9itDkYvd7mUYXjonVPAqooMMJUnXBhdhd67MffGZZSQZgKFzl0ni2S49HUqs5vVixn2kk0JSAbdpe1EQBipfFuMz6mJ0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH7PR12MB6420.namprd12.prod.outlook.com (2603:10b6:510:1fc::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.14; Tue, 20 Sep
- 2022 18:09:48 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::76ec:6acf:dd4d:76a3]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::76ec:6acf:dd4d:76a3%7]) with mapi id 15.20.5632.017; Tue, 20 Sep 2022
- 18:09:47 +0000
-Message-ID: <f4fea2ca-00ae-ba85-b666-9fa267961add@amd.com>
-Date: Tue, 20 Sep 2022 13:09:45 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH] ASoC: amd: yc: Add Lenovo Yoga Slim 7 Pro X to quirks
- table
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220920171320.7776-1-mario.limonciello@amd.com>
- <YyoBjHftjG/ACAuJ@sirena.org.uk>
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <YyoBjHftjG/ACAuJ@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0010.namprd03.prod.outlook.com
- (2603:10b6:208:32b::15) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="D9IcLAv5"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="BTYfIf9t"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9A0431F86C;
+ Tue, 20 Sep 2022 18:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663697469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gU8UHBQ3YZYs/N7zsnf9npEIzpotwSjSfanZPhfqCkE=;
+ b=D9IcLAv5PtGAsveyXLxFFATxIOOYXwqHLHXgWHUS9PN/86HK83znUPUXJ2Tk/HswvH+VUM
+ 7uMglcIG/TM+3ylmZART8Zcb3Zw0XzHjwGSZq+b9l+3Eq1ZcXTGYVmU/WnrKuVyvvMbaBV
+ hlwt4Q6iieYjvGOhKlmuHkOMbebd5k0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663697469;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=gU8UHBQ3YZYs/N7zsnf9npEIzpotwSjSfanZPhfqCkE=;
+ b=BTYfIf9tZ9Q8vS/ZbpVZypD6DOqE+I6c1xWsRrNvqZ0iwrsIxG+admo8UZgt/BtmwGiula
+ 7B1UPg4wrDxrhRAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EF451346B;
+ Tue, 20 Sep 2022 18:11:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id VEZmHj0CKmO9dQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 18:11:09 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
+ prepare (take#2)
+Date: Tue, 20 Sep 2022 20:11:06 +0200
+Message-Id: <20220920181106.4894-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB6420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49b56941-cbd0-483f-3ab6-08da9b334dd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: azbCZBwu+DdVfa6cOP4n/rKuBnoiDesQBiWtrGkeYQcz4vQoMz5ICEJylawJ7HR0Tj/RmPq9vhxVM3YLms0R93FbqT04a5EtQlgvlO3r0bEtsDfUWcyfKBw7x9Ka6K/7mSaDYnrC/2Mf7kh7W+TDTy5Wis5hNbgkKmgxnTzf1J0ghYs+5cAsfw3lBDdeqYvXqi8iUb3gQSldtz51Igg691gri2kuzqw1EBwwvB90JMvJqeD9nP/t2zJfoCTRaImdinC73OjkvATNBJGH7AmAx7jYrbQFGyIjFk/5y+pmWf+yEIs15YC4RULSXDF9ZzAyyMJELxdK/aYNvqGcztadBqWjQyCyah9HeYFD0a2Xj42m0hmTkNlv2wPOv2XMEPE7I8vHLIOi1UQN6X/aFHBgdD64VsyOrrg4uTwhoTsnmuAQ1PpCoxTedBImVZTPEylQ4AjEXp+2MdJ6bOg1zo/9SZ4gqx/dvL+JN/DmQGNKOPiXi9Uy+FO1SkomB7Sy8EhoNxUdiQgZOWNdhWiezWaGZDu0WtdoWjdc0KKXaOsrejmyytba/8pHPcE7JlHiDnG74iR9wzgHAr19E8fZfFtNCXIw/+yLebta6B32vbfz1u3YOo2NxiyidPfuJTdUpYAHzGMlGFDtJ8A3mSTxjuuoSxJ16JCG2DFmyAZZt+eoPBDMoHUOZT+7eTTYB/Kj7wzxeI/l9LcmJSYtWHqrX7VZPf38bOpjtgUHUNEZ67ZRWtFw5pUfARa6+DF9KZHNPC+mJRQcKEChlirNbrYdXSPsgM0U3OtYzm8/uSve88sbWLo4hNzCZVycMQ5SePZd4PYb
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(376002)(39860400002)(396003)(136003)(451199015)(316002)(4326008)(8676002)(36756003)(66946007)(66476007)(66556008)(86362001)(31696002)(2906002)(38100700002)(4744005)(478600001)(966005)(6486002)(31686004)(53546011)(26005)(6512007)(2616005)(6916009)(54906003)(8936002)(5660300002)(186003)(41300700001)(6506007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWhwWTczSVM2VUdHUjZ2MTdqY29CMXdDV04wTURGNHNwS09hRjQvSStkU3Yy?=
- =?utf-8?B?UzFqUktsMXpiOW1mVEF2elVUV2ZFZHdyQmxEUlJCUjZ0dkhROU5DVjFyTkJv?=
- =?utf-8?B?VndTUWljWmhXNjBvZHdxU1hOVGZjUXJaQjdpM2grWDdwb1VrUkkrOEE3NWpw?=
- =?utf-8?B?eUtaRjhHVWkwL0YrdFpKcDB5YzIzZlRGMVRtT2FWajNmRXhicHFNYUcwd0oy?=
- =?utf-8?B?Ylo3UnhsZnlUUUhaS1JsTk1JZFFaMnlYOHZpc3NyeUNCbEZaNG0wNDA4V0l6?=
- =?utf-8?B?Y1E3d0hZTW9hQk4xTDVxU3hVZDM0QkM4N1d6eSt3SjU0U2lmZjQ2MC9DL045?=
- =?utf-8?B?TzRRc2k3ZFl3UkRVQmVEbE9oNkd0Z2E1ZXZZQVplYWxXS29kcXcybUhSWDNT?=
- =?utf-8?B?T1MxM1JuTHBleFJOZWlLc2dJa1ExbWQyaHFReGtDKysxTWlUL2xuczNlYlM5?=
- =?utf-8?B?d0YwQXVrU09nSmpxY3RuL3Ixc1hNT2N3T05Ic2dJUW14Y2lCR0lxejhBM2dT?=
- =?utf-8?B?QnRTbmZ0Q1N0b3JEMUh5V3FScXdMYnZ5VElNMFBnek1ZSGpGUE9TajAvM1lk?=
- =?utf-8?B?R3NmWkZJS05TYVVnMjhJVkhqY0JaYi84ekVYVmQrRjZKajdaTDdYV1lpc1hM?=
- =?utf-8?B?eHJ5dy9XWW9CNnQ5MWYyTUZmdlM4WlJwMVJkVzVCdDBMNmdKeHNac3Y4dy9O?=
- =?utf-8?B?bDZSOFJGNjh5NlMyYUcxMEZ4dmI2L3hFaGZicWIyR3dwd09xNDVqalZIempv?=
- =?utf-8?B?dDRMVERic3c2azFmYVUvNmlUM05xbEcwUStocGkzcms1SjFkalhwb2x4bmJI?=
- =?utf-8?B?NlFjdTBSZ25ONjNGR3I2a2FxMitPY21NM01BdDVMNFBkL1BCaGJIekk3Ti9X?=
- =?utf-8?B?Z3FCcWtpRGN5QWRNYjU0cHJ2ZHpPSFVmZXVaNUo2eUpjZDJQNXlxMmFwMDBl?=
- =?utf-8?B?aGd6OFk2RTZqRGpiZXBmU3k5MmMvRS8ySWY5MXlaNnBXUklXMWJtRTY5N1dy?=
- =?utf-8?B?ZGdOQnpYWHhtcGlsQUozUDB4aCtRaE1TeGoyY0laY3RGMFpoUGFjOEx3bk1l?=
- =?utf-8?B?Ull2dVFPWlFldmJvMHhQc0FxM3JZQ1BYT2FUUWNJcGdvRVVLWnhxSzAxS3h0?=
- =?utf-8?B?THJlT25RMzd0b1BqeHM2UHhYTU14UlVDT1Bpa2xIYWZZRkZUSThpdHgyaGs1?=
- =?utf-8?B?MHE3ZmJVWDhrTjhhUEVERDBlVFgvQnZjVFZiSEtQajQ5SEF5L09VRWR1dVlp?=
- =?utf-8?B?TXRBbHI4cSs0NTQxdlVuQXY5SnhSWUJTQVFQajJPa0htUmlHS2dLMkttZlhQ?=
- =?utf-8?B?bzA4WDBFTmJKbys0MXc0QUVBd3h5YkQ5Um5VeDNTK3NkOVo3NzlENXZ0SjRZ?=
- =?utf-8?B?R0VoQ09JNmtzSDVRenR5MzljRHhOdk5DdUVQaXVUemp6YjFBYXhSTkdmRUJk?=
- =?utf-8?B?UGZwUkhVWUZONEIwcVVKdmhhcVdxMWU4amZXaTRoWGorMVlpLzMxQ1dzdXBm?=
- =?utf-8?B?djRnR1RKaEpCZ0hMd294NXl0eTRuYWRSTk1wUERmb2pmeDE5cS9uTmN3VUhC?=
- =?utf-8?B?U1hqaUdBRkp1dXZJdmJrY3dpY3VCSDhWS3NNV0ZRajFEc0ZFT3NhWU95MHIw?=
- =?utf-8?B?SGdtQ0NMS0dyQ2tsWllHNWRwaGRKVDlKL0o1LzRYVWZkY0NmeFVHQ2FkYjR0?=
- =?utf-8?B?dlBCc0pTR0Q5TnByL0lrNml2elhrWFBFcHZYOG1Va2xTZ0xDTTJ3dUV6K0JK?=
- =?utf-8?B?dUY2UDNKWXBDSlE4elFvVnJSV1BnRjhGVytiZ0VqOGNqd29FeVhyVUpWMGVB?=
- =?utf-8?B?bjVEa0NVeTZBNjBTK2RoRmhkNmVXRkEzdzRQQUtibi9zd2xGcGRya1Q4R1Q5?=
- =?utf-8?B?bXJnU3kxOTZVT2gvQ205TDdpcE9PZHovUkRRdFViSFNnUlVjVEp0Ti9HMDE1?=
- =?utf-8?B?QnBYeEVXeWh4aWx0bHBvNFhib005SFJkNlhCWDJCa0t6UUkrZ2poZWVBdW4v?=
- =?utf-8?B?Titxd0hSc296dUZ3aTBYQnQvWWhYQXBvbDJnK3F2QnplQmhWZTlIM25LSHhB?=
- =?utf-8?B?Wmt3Yk9ibnNIWmlIMUNTU0srL29xVXdzWFlDY1FQQm4rL1hxRXFhbzdMTGJo?=
- =?utf-8?Q?A9nP/4kikgHqx0Rr9RRwC2q4T?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49b56941-cbd0-483f-3ab6-08da9b334dd0
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 18:09:47.8100 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4nGhOO2paPw7KR5Vn2KIKpySA70B2tka4yGsiJAr218WtzRQe8xDS7c98JEXxRI0A5fl0QZFB28YL8Lgrnl21Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6420
-Cc: Travis Glenn Hansen <travisghansen@yahoo.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Sebastian S <iam@decentr.al>, Xiaoyan Li <lxy.lixiaoyan@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -161,15 +94,336 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/20/2022 13:08, Mark Brown wrote:
-> On Tue, Sep 20, 2022 at 12:13:20PM -0500, Mario Limonciello wrote:
->> Lenovo Yoga Slim 7 Pro X has an ACP DMIC that isn't specified in the
->> ASL or existing quirk list.  Add it to the quirk table to let DMIC
->> work on these systems.
-> 
-> This doesn't apply against current code, please check and resend.
+This is a second attempt to fix the bug appearing on Android with the
+recent kernel; the first try was ff878b408a03 and reverted at commit
+79764ec772bc.
 
-As I mentioned below the cutline it's on top of the other commit on the 
-list touching the same code:
+The details taken from the v1 patch:
 
-https://lore.kernel.org/alsa-devel/20220917070847.14346-1-lxy.lixiaoyan@gmail.com/
+One of the former changes for the endpoint management was the more
+consistent setup of endpoints at hw_params.
+snd_usb_endpoint_configure() is a single function that does the full
+setup, and it's called from both PCM hw_params and prepare callbacks.
+Although the EP setup at the prepare phase is usually skipped (by
+checking need_setup flag), it may be still effective in some cases
+like suspend/resume that requires the interface setup again.
+
+As it's a full and single setup, the invocation of
+snd_usb_endpoint_configure() includes not only the USB interface setup
+but also the buffer release and allocation.  OTOH, doing the buffer
+release and re-allocation at PCM prepare phase is rather superfluous,
+and better to be done only in the hw_params phase.
+
+For those optimizations, this patch splits the endpoint setup to two
+phases: snd_usb_endpoint_set_params() and snd_usb_endpoint_prepare(),
+to be called from hw_params and from prepare, respectively.
+
+Note that this patch changes the driver operation slightly,
+effectively moving the USB interface setup again to PCM prepare stage
+instead of hw_params stage, while the buffer allocation and such
+initializations are still done at hw_params stage.
+
+And, the change of the USB interface setup timing (moving to prepare)
+gave an interesting "fix", too: it was reported that the recent
+kernels caused silent output at the beginning on playbacks on some
+devices on Android, and this change casually fixed the regression.
+It seems that those devices are picky about the sample rate change (or
+the interface change?), and don't follow the too immediate rate
+changes.
+
+Meanwhile, Android operates the PCM in the following order:
+- open, then hw_params with the possibly highest sample rate
+- close without prepare
+- re-open, hw_params with the normal sample rate
+- prepare, and start streaming
+This procedure ended up the hw_params twice with different rates, and
+because the recent kernel did set up the sample rate twice one and
+after, it screwed up the device.  OTOH, the earlier kernels didn't set
+up the USB interface at hw_params, hence this problem didn't appear.
+
+Now, with this patch, the USB interface setup is again back to the
+prepare phase, and it works around the problem automagically.
+Although we should address the sample rate problem in a more solid
+way in future, let's keep things working as before for now.
+
+***
+
+What's new in the take#2 patch:
+- The regression caused by the v1 patch (bko#216500) was due to the
+  missing check of need_setup flag at hw_params.  Now the check is
+  added, and the snd_usb_endpoint_set_params() call is skipped when
+  the running EP is re-opened.
+
+- There was another bug in v1 where the clock reference rate wasn't
+  updated at hw_params phase, which may lead to a lack of the proper
+  hw constraints when an application doesn't issue the prepare but
+  only the hw_params call.  This patch fixes it as well by tracking
+  the clock rate change in the prepare callback with a new flag
+  "need_update" for the clock reference object, just like others.
+
+- The configure_endpoints() are simplified and folded back into
+  snd_usb_pcm_prepare().
+
+Fixes: bf6313a0ff76 ("ALSA: usb-audio: Refactor endpoint management")
+Fixes: ff878b408a03 ("ALSA: usb-audio: Split endpoint setups for hw_params and prepare")
+Reported-by: chihhao chen <chihhao.chen@mediatek.com>
+Link: https://lore.kernel.org/r/87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com
+Link: https://lore.kernel.org/r/20220901124136.4984-1-tiwai@suse.de
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216500
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/endpoint.c | 76 +++++++++++++++++++++++++++-----------------
+ sound/usb/endpoint.h |  6 ++--
+ sound/usb/pcm.c      | 51 ++++++++++++-----------------
+ 3 files changed, 70 insertions(+), 63 deletions(-)
+
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index eb71df9da831..0c94ebc98e90 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -40,6 +40,7 @@ struct snd_usb_clock_ref {
+ 	unsigned char clock;
+ 	atomic_t locked;
+ 	int rate;
++	bool need_setup;
+ 	struct list_head list;
+ };
+ 
+@@ -758,7 +759,8 @@ bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
+  * The endpoint needs to be closed via snd_usb_endpoint_close() later.
+  *
+  * Note that this function doesn't configure the endpoint.  The substream
+- * needs to set it up later via snd_usb_endpoint_configure().
++ * needs to set it up later via snd_usb_endpoint_set_params() and
++ * snd_usb_endpoint_prepare().
+  */
+ struct snd_usb_endpoint *
+ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+@@ -1289,15 +1291,39 @@ static int sync_ep_set_params(struct snd_usb_endpoint *ep)
+ 	return -ENOMEM;
+ }
+ 
++/* update the rate of the referred clock; return the actual rate */
++static int update_clock_ref_rate(struct snd_usb_audio *chip,
++				 struct snd_usb_endpoint *ep)
++{
++	struct snd_usb_clock_ref *clock = ep->clock_ref;
++	int rate = ep->cur_rate;
++
++	if (!clock || clock->rate == rate)
++		return rate;
++	if (clock->rate) {
++		if (atomic_read(&clock->locked))
++			return clock->rate;
++		if (clock->rate != rate) {
++			usb_audio_err(chip, "Mismatched sample rate %d vs %d for EP 0x%x\n",
++				      clock->rate, rate, ep->ep_num);
++			return clock->rate;
++		}
++	}
++	clock->rate = rate;
++	clock->need_setup = true;
++	return rate;
++}
++
+ /*
+  * snd_usb_endpoint_set_params: configure an snd_usb_endpoint
+  *
++ * It's called either from hw_params callback.
+  * Determine the number of URBs to be used on this endpoint.
+  * An endpoint must be configured before it can be started.
+  * An endpoint that is already running can not be reconfigured.
+  */
+-static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+-				       struct snd_usb_endpoint *ep)
++int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
++				struct snd_usb_endpoint *ep)
+ {
+ 	const struct audioformat *fmt = ep->cur_audiofmt;
+ 	int err;
+@@ -1349,49 +1375,46 @@ static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
+ 	ep->maxframesize = ep->maxpacksize / ep->cur_frame_bytes;
+ 	ep->curframesize = ep->curpacksize / ep->cur_frame_bytes;
+ 
+-	return 0;
++	return update_clock_ref_rate(chip, ep);
+ }
+ 
+ static int init_sample_rate(struct snd_usb_audio *chip,
+ 			    struct snd_usb_endpoint *ep)
+ {
+ 	struct snd_usb_clock_ref *clock = ep->clock_ref;
+-	int err;
++	int rate, err;
+ 
+-	if (clock) {
+-		if (atomic_read(&clock->locked))
+-			return 0;
+-		if (clock->rate == ep->cur_rate)
+-			return 0;
+-		if (clock->rate && clock->rate != ep->cur_rate) {
+-			usb_audio_dbg(chip, "Mismatched sample rate %d vs %d for EP 0x%x\n",
+-				      clock->rate, ep->cur_rate, ep->ep_num);
+-			return -EINVAL;
+-		}
+-	}
++	rate = update_clock_ref_rate(chip, ep);
++	if (rate < 0)
++		return rate;
++	if (clock && !clock->need_setup)
++		return 0;
+ 
+-	err = snd_usb_init_sample_rate(chip, ep->cur_audiofmt, ep->cur_rate);
+-	if (err < 0)
++	err = snd_usb_init_sample_rate(chip, ep->cur_audiofmt, rate);
++	if (err < 0) {
++		if (clock)
++			clock->rate = 0; /* reset rate */
+ 		return err;
++	}
+ 
+ 	if (clock)
+-		clock->rate = ep->cur_rate;
++		clock->need_setup = false;
+ 	return 0;
+ }
+ 
+ /*
+- * snd_usb_endpoint_configure: Configure the endpoint
++ * snd_usb_endpoint_prepare: Prepare the endpoint
+  *
+  * This function sets up the EP to be fully usable state.
+- * It's called either from hw_params or prepare callback.
++ * It's called either from prepare callback.
+  * The function checks need_setup flag, and performs nothing unless needed,
+  * so it's safe to call this multiple times.
+  *
+  * This returns zero if unchanged, 1 if the configuration has changed,
+  * or a negative error code.
+  */
+-int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+-			       struct snd_usb_endpoint *ep)
++int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
++			     struct snd_usb_endpoint *ep)
+ {
+ 	bool iface_first;
+ 	int err = 0;
+@@ -1412,9 +1435,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+ 			if (err < 0)
+ 				goto unlock;
+ 		}
+-		err = snd_usb_endpoint_set_params(chip, ep);
+-		if (err < 0)
+-			goto unlock;
+ 		goto done;
+ 	}
+ 
+@@ -1442,10 +1462,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+ 	if (err < 0)
+ 		goto unlock;
+ 
+-	err = snd_usb_endpoint_set_params(chip, ep);
+-	if (err < 0)
+-		goto unlock;
+-
+ 	err = snd_usb_select_mode_quirk(chip, ep->cur_audiofmt);
+ 	if (err < 0)
+ 		goto unlock;
+diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+index 6a9af04cf175..e67ea28faa54 100644
+--- a/sound/usb/endpoint.h
++++ b/sound/usb/endpoint.h
+@@ -17,8 +17,10 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+ 		      bool is_sync_ep);
+ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 			    struct snd_usb_endpoint *ep);
+-int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
+-			       struct snd_usb_endpoint *ep);
++int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
++				struct snd_usb_endpoint *ep);
++int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
++			     struct snd_usb_endpoint *ep);
+ int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int clock);
+ 
+ bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index d45d1d7e6664..e721fc12acde 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -433,35 +433,6 @@ static void close_endpoints(struct snd_usb_audio *chip,
+ 	}
+ }
+ 
+-static int configure_endpoints(struct snd_usb_audio *chip,
+-			       struct snd_usb_substream *subs)
+-{
+-	int err;
+-
+-	if (subs->data_endpoint->need_setup) {
+-		/* stop any running stream beforehand */
+-		if (stop_endpoints(subs, false))
+-			sync_pending_stops(subs);
+-		if (subs->sync_endpoint) {
+-			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
+-			if (err < 0)
+-				return err;
+-		}
+-		err = snd_usb_endpoint_configure(chip, subs->data_endpoint);
+-		if (err < 0)
+-			return err;
+-		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
+-	} else {
+-		if (subs->sync_endpoint) {
+-			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
+-			if (err < 0)
+-				return err;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+ /*
+  * hw_params callback
+  *
+@@ -551,7 +522,16 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+ 	subs->cur_audiofmt = fmt;
+ 	mutex_unlock(&chip->mutex);
+ 
+-	ret = configure_endpoints(chip, subs);
++	if (!subs->data_endpoint->need_setup)
++		goto unlock;
++
++	if (subs->sync_endpoint) {
++		ret = snd_usb_endpoint_set_params(chip, subs->sync_endpoint);
++		if (ret < 0)
++			goto unlock;
++	}
++
++	ret = snd_usb_endpoint_set_params(chip, subs->data_endpoint);
+ 
+  unlock:
+ 	if (ret < 0)
+@@ -634,9 +614,18 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 		goto unlock;
+ 	}
+ 
+-	ret = configure_endpoints(chip, subs);
++	if (subs->sync_endpoint) {
++		ret = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
++		if (ret < 0)
++			goto unlock;
++	}
++
++	ret = snd_usb_endpoint_prepare(chip, subs->data_endpoint);
+ 	if (ret < 0)
+ 		goto unlock;
++	else if (ret > 0)
++		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
++	ret = 0;
+ 
+ 	/* reset the pointer */
+ 	subs->buffer_bytes = frames_to_bytes(runtime, runtime->buffer_size);
+-- 
+2.35.3
+

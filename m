@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74585BE490
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 13:35:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 949565BE495
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 13:36:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8022A827;
-	Tue, 20 Sep 2022 13:34:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8022A827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A2161F2;
+	Tue, 20 Sep 2022 13:35:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A2161F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663673728;
-	bh=dG65XNEFKX616GwUYtPtnSo7zN6Fo+ULyyqH7qLyTaQ=;
+	s=default; t=1663673792;
+	bh=NhRJrDfTr7bTb460r7KUr9cnZtcpaZUzk6kqRgIqYwE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sbiYqTlER/KfpKhMob+mqFuK0XVAaIR0JViVFGc0VVjCJlGxBVXdmQoYxmLweDY1i
-	 b+Ye33T5GahoRui+tFAQ1cdhsjOpDs/tvQ2fm2JR9enxm7lxESES7yntr3vcXiVAC2
-	 lQMncfFEGHOu70/F5T8mjns8e4pDWVSkENeYCvJA=
+	b=PXcWY//QAfC7KY2oBSEdnb1eYFtaA93Ag//HBbu3i3yz0T3AHXMU2HiejqgA//J/c
+	 URDIrXeJv8WeISBCGI8uFM69T5ggNeVgGgCV0+5UM3eSQlV5cjaVQWpsjXMMVGFo5C
+	 yAWAY+63D8j99eRywK+QMsoVyFIDhhxEDIJqBxvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E41AFF80171;
-	Tue, 20 Sep 2022 13:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9CECF80171;
+	Tue, 20 Sep 2022 13:35:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4FEDF80155; Tue, 20 Sep 2022 13:34:28 +0200 (CEST)
+ id 0DAA0F80155; Tue, 20 Sep 2022 13:35:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C297DF800F2
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 13:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C297DF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E457CF800F2
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 13:35:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E457CF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="C105bVu8"; 
+ header.b="PAqnTuuw"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="lqpQjvLx"
+ header.b="sYMrkr/Q"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1433B21C05;
- Tue, 20 Sep 2022 11:34:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9F5E621BE4;
+ Tue, 20 Sep 2022 11:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663673662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663673726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wX7TmdQ1OP62aWFIOEr5g1c6/w473MUp4aDR/YOmmmg=;
- b=C105bVu8VRNvCsaCIWjGtzoyR1DkmQRCc8G9XDpJ4qxklWITZhK0hWYZwOoVHa/B9Wltrj
- nAGO9qAS0UpxLbKSHRIK8aTYUX9AvwWwSrrizFc0yZu83q/GcWimcwY0kXDXALAGDF1YEX
- 9LEeBdrNHAnRVGdB6hA17LDY+cSRXys=
+ bh=EO2wkZqfwT9DTmM5Nw73PTujWB07LvgVqPcksqDNuPY=;
+ b=PAqnTuuwFLGksia6DhR5SgUPSMjLK9OeBhPEpBEk0yTK0lGIehKapzF6+1sgn6JzE5Zy0b
+ pRI+yAeKYoOH4PvJaRQB21RYBekmopnN8i3AvD1NYgkbr8QcJxHB3oINTH1xCLoUY6dGQY
+ YYfM9eAjubw6aJHxw0iiRptUl0JwfOk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663673662;
+ s=susede2_ed25519; t=1663673726;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wX7TmdQ1OP62aWFIOEr5g1c6/w473MUp4aDR/YOmmmg=;
- b=lqpQjvLxJXl/hiLI/r1WoCRUpA2QIK5TKnuGG4jzWULqXkgrDQA74pDWY30fsLZtU4rIBu
- XaFfHrQVM8yBCSDA==
+ bh=EO2wkZqfwT9DTmM5Nw73PTujWB07LvgVqPcksqDNuPY=;
+ b=sYMrkr/Q6AFJbxZb0hUBr08jXTI+JrVRbnc9tcfS++/ISvhVNDt09o8Yvc0UzJ2YeTJhdx
+ OIu/WWj6Otq3k5CQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE1A41346B;
- Tue, 20 Sep 2022 11:34:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F1121346B;
+ Tue, 20 Sep 2022 11:35:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RJ9bNT2lKWMmQAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 11:34:21 +0000
-Date: Tue, 20 Sep 2022 13:34:21 +0200
-Message-ID: <877d1ygtz6.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3ackHn6lKWOiQAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 11:35:26 +0000
+Date: Tue, 20 Sep 2022 13:35:25 +0200
+Message-ID: <875yhigtxe.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: cgel.zte@gmail.com
-Subject: Re: [PATCH linux-next] ALSA: es18xx: Remove the unneeded result
- variable
-In-Reply-To: <20220920064605.215318-1-ye.xingchen@zte.com.cn>
-References: <20220920064605.215318-1-ye.xingchen@zte.com.cn>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: possible deadlock in snd_rawmidi_free
+In-Reply-To: <87y1ufh3u9.wl-tiwai@suse.de>
+References: <CAB7eexJP7w1B0mVgDF0dQ+gWor7UdkiwPczmL7pn91xx8xpzOA@mail.gmail.com>
+ <87y1ufh3u9.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, ye xingchen <ye.xingchen@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org, tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,18 +100,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Sep 2022 08:46:05 +0200,
-cgel.zte@gmail.com wrote:
+On Mon, 19 Sep 2022 15:49:02 +0200,
+Takashi Iwai wrote:
 > 
-> From: ye xingchen <ye.xingchen@zte.com.cn>
+> On Mon, 19 Sep 2022 14:46:13 +0200,
+> Rondreis wrote:
+> > 
+> > Hello,
+> > 
+> > When fuzzing the Linux kernel driver v6.0-rc4, the following crash was
+> > triggered.
+> > 
+> > HEAD commit: 7e18e42e4b280c85b76967a9106a13ca61c16179
+> > git tree: upstream
+> > 
+> > kernel config: https://pastebin.com/raw/xtrgsXP3
+> > console output: https://pastebin.com/raw/9tabWDtu
+> > 
+> > Sorry for failing to extract the reproducer, and the crash occurred at
+> > the moment of disconnecting the midi device. On other versions of
+> > Linux, I also triggered this crash.
+> > 
+> > I would appreciate it if you have any idea how to solve this bug.
 > 
-> Return the value inb() directly instead of storing it in another redundant
->  variable.
+> I think there are two ways to work around it.
 > 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+> The first one is to move the unregister_sound*() calls out of the
+> sound_oss_mutex, something like:
+> -- 8< --
+> 
+> --- a/sound/core/sound_oss.c
+> +++ b/sound/core/sound_oss.c
+> @@ -162,7 +162,6 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
+>  		mutex_unlock(&sound_oss_mutex);
+>  		return -ENOENT;
+>  	}
+> -	unregister_sound_special(minor);
+>  	switch (SNDRV_MINOR_OSS_DEVICE(minor)) {
+>  	case SNDRV_MINOR_OSS_PCM:
+>  		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_AUDIO);
+> @@ -174,12 +173,18 @@ int snd_unregister_oss_device(int type, struct snd_card *card, int dev)
+>  		track2 = SNDRV_MINOR_OSS(cidx, SNDRV_MINOR_OSS_DMMIDI1);
+>  		break;
+>  	}
+> -	if (track2 >= 0) {
+> -		unregister_sound_special(track2);
+> +	if (track2 >= 0)
+>  		snd_oss_minors[track2] = NULL;
+> -	}
+>  	snd_oss_minors[minor] = NULL;
+>  	mutex_unlock(&sound_oss_mutex);
+> +
+> +	/* call unregister_sound_special() outside sound_oss_mutex;
+> +	 * otherwise may deadlock, as it can trigger the release of a card
+> +	 */
+> +	unregister_sound_special(minor);
+> +	if (track2 >= 0)
+> +		unregister_sound_special(track2);
+> +
+>  	kfree(mptr);
+>  	return 0;
+>  }
+> -- 8< --
+> 
+> This should be OK, as the unregister_sound_*() itself can be called
+> concurrently.
+> 
+> Another workaround would be just to remove the register_mutex call at
+> snd_rawmidi_free(), e.g. something like:
+> 
+> -- 8< --
+> --- a/sound/core/rawmidi.c
+> +++ b/sound/core/rawmidi.c
+> @@ -1899,10 +1899,8 @@ static int snd_rawmidi_free(struct snd_rawmidi *rmidi)
+>  
+>  	snd_info_free_entry(rmidi->proc_entry);
+>  	rmidi->proc_entry = NULL;
+> -	mutex_lock(&register_mutex);
+>  	if (rmidi->ops && rmidi->ops->dev_unregister)
+>  		rmidi->ops->dev_unregister(rmidi);
+> -	mutex_unlock(&register_mutex);
+>  
+>  	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_INPUT]);
+>  	snd_rawmidi_free_substreams(&rmidi->streams[SNDRV_RAWMIDI_STREAM_OUTPUT]);
+> -- 8< --
+> 
+> This register_mutex there should be superfluous since the device has
+> been already processed and detached by snd_rawmidi_dev_disconnect()
+> beforehand.  But if the first one is confirmed to work, the second one
+> can be left untouched.
 
-Thanks, applied.
+Could you check whether one of two changes above fixes the bug?
+Once after confirmed, I'll cook a proper patch for the submission.
 
+
+thanks,
 
 Takashi

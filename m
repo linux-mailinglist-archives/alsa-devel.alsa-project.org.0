@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41575BEEB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 22:48:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEB05BEEBA
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 22:48:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D64F857;
-	Tue, 20 Sep 2022 22:47:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D64F857
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEB18850;
+	Tue, 20 Sep 2022 22:47:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEB18850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663706888;
-	bh=izigipFMIh6xUe1qWd5aM7ceqVZov0+NQEtHgafPAzY=;
+	s=default; t=1663706903;
+	bh=HYli6/cvxotMBPYQELJFv5WGyh/XqaUzoeHSir/vKA8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QYCMG/JTwhLxu2iQSE6QBrDy/gYZReXKrreYI7n1znhUCEza7sQVaznHacCggvNH8
-	 HYfz+DTmDbn1QjMWoQxWNBDZdpJYvlxiCgt8Vur/pVVcEh7nl+NR/TTA+nODKcpTK5
-	 MOW7Afwjmpkz7bj6Gm55tbyWddXVu+kaNuFYkdmc=
+	b=mcXL2aO+/0xOsslsKaTP+GHGgah+wmvCLRC5IhasKqSruriUW2NrJPAlzPvJ9BjWA
+	 ceyogvmd3igTsCDFpnWiYIwTXu4T9be4SLaaCyO/5QCZCmMrU6SwuOxoxrOLZeIKyh
+	 ca2zMzL4yQdtJ3ikgMhk7hZNIAxq2CYuF0WoSVRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 858E9F800C9;
-	Tue, 20 Sep 2022 22:46:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D0F7F80539;
+	Tue, 20 Sep 2022 22:46:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24680F80538; Tue, 20 Sep 2022 22:46:45 +0200 (CEST)
+ id 18157F80539; Tue, 20 Sep 2022 22:46:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,48 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C05CF80538
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 22:46:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C05CF80538
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF617F80539;
+ Tue, 20 Sep 2022 22:46:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF617F80539
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mBHUdPoS"
+ header.b="YbhnGHFY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 6ED8ECE1B7A;
- Tue, 20 Sep 2022 20:46:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6BC5C433B5;
- Tue, 20 Sep 2022 20:46:33 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id B4341CE181A;
+ Tue, 20 Sep 2022 20:46:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AF3C433D6;
+ Tue, 20 Sep 2022 20:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663706795;
- bh=izigipFMIh6xUe1qWd5aM7ceqVZov0+NQEtHgafPAzY=;
+ s=k20201202; t=1663706800;
+ bh=HYli6/cvxotMBPYQELJFv5WGyh/XqaUzoeHSir/vKA8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mBHUdPoS5k5Vhwe7nzgg3HDveZnKVKE9f9EKdYczdTv+vHVrZ+gG3vcb3tBIcd8z3
- kJJiPwcwkuH4nY6Y+DXDMgX/Ipxjl9fazX8zOmGQhlee4JRf1tHFk3z7xGYVGaKoCr
- Y33ixdJvX5EOeiHYMBOBZiQLipnJoIO6FbvRTvJSU5P60wQ8+o7fUERW6DmbZogaJu
- WUc4qbq4ob0/oCi8McqiJom4rEky0uijkNCOsbKf6ZAClc7y4vrqRV8USLRCrZ3+5H
- fJZx9zmzdvIbljI6MUUbHZHaqUnmCaKp2QNLbxRiJJZCwvCI/A9/TCJSzIyIEoDxu3
- JkUPiqop8vLkQ==
+ b=YbhnGHFY/LqduHDsATHsaeiSD1PpZnjnVP61BY+U63BG8Rr/T6Zl+jKsfV87a/JIA
+ KIqajDw/eonnTVG2zxoq/4ck+aqS0LjZ90/+70kP/NYZYgLE1k2r8RDLGDAXmUiQpA
+ y6DVW2JXxWfkESO7UUiDU1iS7xqPyH9TuLkWW33q5jmc8ywDuEHeKrQxPZDDJ+B0uR
+ LYo/EGTH/GxpivGgDXaLiFJ1kdpvCJAF6ULeLP1LImNHsyAyU7bItQ1I4i3PVoBBiA
+ ZG7iuoDfRnLnIfDNsiD4G5jJIBLrvPWina5kP7wnC6uav9foC5rSIrJWMPUY2lEMSt
+ YaLj8ZeUhmilw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220919115350.43104-1-pierre-louis.bossart@linux.intel.com>
-References: <20220919115350.43104-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] ASoC: SOF: Intel: override mclk_id for ES8336
- support
-Message-Id: <166370679353.361668.16848211000357289920.b4-ty@kernel.org>
-Date: Tue, 20 Sep 2022 21:46:33 +0100
+To: peter.ujfalusi@linux.intel.com, Chunxu Li <chunxu.li@mediatek.com>,
+ lgirdwood@gmail.com, 
+ angelogioacchino.delregno@collabora.com, daniel.baluta@nxp.com,
+ pierre-louis.bossart@linux.intel.com
+In-Reply-To: <20220917022610.594-1-chunxu.li@mediatek.com>
+References: <20220917022610.594-1-chunxu.li@mediatek.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: add pcm_hw_params callback for mt8186
+Message-Id: <166370679567.361668.2078852324764910878.b4-ty@kernel.org>
+Date: Tue, 20 Sep 2022 21:46:35 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.11.0-dev-8af31
-Cc: tiwai@suse.de, Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,18 +91,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 19 Sep 2022 13:53:46 +0200, Pierre-Louis Bossart wrote:
-> This patchset solves a known issue with ES8336 platforms wrt MCLK
-> selection. Most of the devices use the MCLK0 signal, but some devices
-> do use the MCLK1 signal.
+On Sat, 17 Sep 2022 10:26:10 +0800, Chunxu Li wrote:
+> add pcm_hw_params callback for mt8186 to support continue
+> update dma host position
 > 
-> The MCLK is defined in the topology, it would be a nightmare to
-> generate more topology files just for one MCLK difference. With a
-> minor extension to the intel-nhlt library, the MCLK information can be
-> found by parsing the NHLT table, and we can override the mclk_id at
-> boot time.
 > 
-> [...]
 
 Applied to
 
@@ -105,14 +103,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: SOF: Intel: hda: refine SSP count support
-      commit: 9ccbc2e12e01b39b804774c3207d2474dd992d95
-[2/4] ASoC: SOF: add quirk to override topology mclk_id
-      commit: d136949dd8e2e309dc2f186507486b71cbe9acdb
-[3/4] ALSA: hda: intel-nhlt: add intel_nhlt_ssp_mclk_mask()
-      commit: 72176fccd5de1d9cf61e42771bb00567723f3353
-[4/4] ASoC: SOF: Intel: hda: override mclk_id after parsing NHLT SSP blob
-      commit: d9252772cdc811beedabbcf21ef856d09b87d1dd
+[1/1] ASoC: SOF: mediatek: add pcm_hw_params callback for mt8186
+      commit: 78091edc1c7806846049e1d480f6a8051507ed94
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

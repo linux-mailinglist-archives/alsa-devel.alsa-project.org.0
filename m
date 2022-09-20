@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420625BE718
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 15:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B01765BE71A
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 15:30:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D548C163E;
-	Tue, 20 Sep 2022 15:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D548C163E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 501B7163C;
+	Tue, 20 Sep 2022 15:29:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 501B7163C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663680569;
-	bh=WOUQBrIy2nuOaYfvDaQXTDXDqtrzKIbQcne/3MYSJbg=;
+	s=default; t=1663680610;
+	bh=j3AJ+gvrSPJXkwy4uwzUn+Y5wSHluaeR3mpbyFCwTGQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b6/RIz/g65uvzUWyUk17xGDwtLT1hIXQqqsUn1M518FZ5lgpi9z0UxGiR53ph80GK
-	 ILFx8EoD2MaAzLXGRJH3hd4rxdUwdN/grfjcF+76zCDEgjrCoMPQgNtXnrZSAwRjMj
-	 kwEemy49GA6d0SWviTaQAVoIb34bDAQKcjePIfV0=
+	b=LkksYvmAcTzELiJwPjjZ5Y2ceZhVR/jV8aylLkiL1Fav1xPDCS9k6tKLMEgg+ZnbL
+	 CdYHECTvfZWVP7ds+01IpzmUbB87aWgGWDKvhxSxzcGKrHjr6r2OeLPmCoU7d6+68u
+	 UYtqlQGwp+TZzsbsx2McV/URf9G50Mjo5ISxd3dQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDD59F8053C;
-	Tue, 20 Sep 2022 15:27:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 871D9F80559;
+	Tue, 20 Sep 2022 15:27:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1DAAF804DA; Tue, 20 Sep 2022 15:27:39 +0200 (CEST)
+ id D9A82F80553; Tue, 20 Sep 2022 15:27:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C94F5F8012B
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 15:27:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C94F5F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47EFBF80171
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 15:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47EFBF80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JGnJqYy9"
+ header.b="UzwC/fMp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A4EE4B8293B;
- Tue, 20 Sep 2022 13:27:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BAB3C433B5;
+ by sin.source.kernel.org (Postfix) with ESMTPS id 16023CE185D;
+ Tue, 20 Sep 2022 13:27:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896EBC43142;
  Tue, 20 Sep 2022 13:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1663680451;
- bh=WOUQBrIy2nuOaYfvDaQXTDXDqtrzKIbQcne/3MYSJbg=;
+ bh=j3AJ+gvrSPJXkwy4uwzUn+Y5wSHluaeR3mpbyFCwTGQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JGnJqYy9PZG4SYQaDS8DD17bSV5ZObGQVIk8b/vW4R+D53BI3IhxOuA7hePFobBs6
- 5UrVMIMaABXcM0Ka/9/6H3sudRQIfbDeTfOWWxo+nGZbHZN45xR725m6GhV0kqugo1
- yrt7iwhKLa43o2nm7TlD33hX9bEpWtPJkLjaiiuUJviXhvMO9NzGmmiC3sWS5cB3Pb
- enZCTUGqgsMB3b3M1R6pRPoa8PX6+gpfLfWUbXL6OsGA+eTKAOvwOt5Egjr73ifsO5
- QxOcOBqrTvcLOz3hsF23mN4v7AqP7n7ktSEUKtkheXOfG9WJENv9CjTAhPhnrJI/Er
- Km4Yh14ldfewA==
+ b=UzwC/fMpcZHK84uKl1WNEWXfZiWlnD4YDAVv6EFoTILb4768oyWqSVjTBD6QHuVK5
+ xB/Q/fsYK5DxTNoJkfKSwBDNNiuwrFLB8YmCMXAVQtwWk9N20TNplX60AUapFg+ONQ
+ ul6/vQRAB99CN2s6op8JgR0AxQNGhwNmbLqonH3JJluEZSZK97kDfRtuKdFPibwaKj
+ 06Boyk+oJ1B55V+WA/4GHIl9GKFWIXMgWD7FLE7RYAWlXQNRBDTLoEzO40zrYGAacS
+ WVsGGLhnCPVzpwd0WDw+lxu+ZjAm5CrkMxsWaaFZAu5xS/rYcmpOg6tGrnvYb8ahii
+ qDc2/z+ljCZkw==
 Received: by pali.im (Postfix)
- id 98E342D4C; Tue, 20 Sep 2022 15:27:28 +0200 (CEST)
+ id 08B1B2D7D; Tue, 20 Sep 2022 15:27:29 +0200 (CEST)
 From: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Andrew Lunn <andrew@lunn.ch>,
  Gregory Clement <gregory.clement@bootlin.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Marcin Wojtas <mw@semihalf.com>
-Subject: [PATCH 2/5] ARM: mvebu: add audio I2S controller to Armada 38x Device
- Tree
-Date: Tue, 20 Sep 2022 15:26:45 +0200
-Message-Id: <20220920132648.2008-3-pali@kernel.org>
+Subject: [PATCH 3/5] ARM: mvebu: add audio support to Armada 385 DB
+Date: Tue, 20 Sep 2022 15:26:46 +0200
+Message-Id: <20220920132648.2008-4-pali@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220920132648.2008-1-pali@kernel.org>
 References: <20220920132648.2008-1-pali@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
@@ -94,56 +93,119 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcin Wojtas <mw@semihalf.com>
 
-This commit adds the description of the I2S controller to the Marvell
-Armada 38x SoC's Device Tree, as well as its pin configuration.
+This commit adds the necessary Device Tree information to enable
+audio support on the Armada 385 DB platform. In details it:
+
+ * Instantiates the CS42L51 audio codec on the I2C0 bus
+
+ * Adds simple-card DT binding for audio on Armada 385 DB
+
+ * Adds description for both analog I2S and S/PDIF I/O
+
+ * Disabled by default
 
 Signed-off-by: Marcin Wojtas <mw@semihalf.com>
-Reviewed-by: Nadav Haklai <nadavh@marvell.com>
-Tested-by: Nadav Haklai <nadavh@marvell.com>
+Signed-off-by: Nadav Haklai <nadavh@marvell.com>
+Tested-by: Star_Automation <star@marvell.com>
 Tested-by: Lior Amsalem <alior@marvell.com>
-[pali: Fix i2s-pins name]
-Signed-off-by: Pali Rohár <pali@kernel.org>
 ---
- arch/arm/boot/dts/armada-38x.dtsi | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ arch/arm/boot/dts/armada-388-db.dts | 69 +++++++++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
 
-diff --git a/arch/arm/boot/dts/armada-38x.dtsi b/arch/arm/boot/dts/armada-38x.dtsi
-index df3c8d1d8f64..11e0e4286ec2 100644
---- a/arch/arm/boot/dts/armada-38x.dtsi
-+++ b/arch/arm/boot/dts/armada-38x.dtsi
-@@ -289,6 +289,13 @@
- 					marvell,pins = "mpp44";
- 					marvell,function = "sata3";
- 				};
-+
-+				i2s_pins: i2s-pins {
-+					marvell,pins = "mpp48", "mpp49",
-+						       "mpp50", "mpp51",
-+						       "mpp52", "mpp53";
-+					marvell,function = "audio";
+diff --git a/arch/arm/boot/dts/armada-388-db.dts b/arch/arm/boot/dts/armada-388-db.dts
+index 5130eccc32af..2bcec5419b66 100644
+--- a/arch/arm/boot/dts/armada-388-db.dts
++++ b/arch/arm/boot/dts/armada-388-db.dts
+@@ -36,6 +36,11 @@
+ 			i2c@11000 {
+ 				status = "okay";
+ 				clock-frequency = <100000>;
++				audio_codec: audio-codec@4a {
++					#sound-dai-cells = <0>;
++					compatible = "cirrus,cs42l51";
++					reg = <0x4a>;
 +				};
  			};
  
- 			gpio0: gpio@18100 {
-@@ -618,6 +625,18 @@
- 				status = "disabled";
+ 			i2c@11100 {
+@@ -99,6 +104,12 @@
+ 				no-1-8-v;
  			};
  
-+			audio_controller: audio-controller@e8000 {
-+				#sound-dai-cells = <1>;
-+				compatible = "marvell,armada-380-audio";
-+				reg = <0xe8000 0x4000>, <0x18410 0xc>,
-+				      <0x18204 0x4>;
-+				reg-names = "i2s_regs", "pll_regs", "soc_ctrl";
-+				interrupts = <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&gateclk 0>;
-+				clock-names = "internal";
++			audio-controller@e8000 {
++				pinctrl-0 = <&i2s_pins>;
++				pinctrl-names = "default";
 +				status = "disabled";
 +			};
 +
- 			usb3_0: usb3@f0000 {
- 				compatible = "marvell,armada-380-xhci";
- 				reg = <0xf0000 0x4000>,<0xf4000 0x4000>;
+ 			usb3@f0000 {
+ 				status = "okay";
+ 			};
+@@ -128,6 +139,64 @@
+ 			};
+ 		};
+ 	};
++
++	sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "Armada 385 DB Audio";
++		simple-audio-card,mclk-fs = <256>;
++		simple-audio-card,widgets =
++			"Headphone", "Out Jack",
++			"Line", "In Jack";
++		simple-audio-card,routing =
++			"Out Jack", "HPL",
++			"Out Jack", "HPR",
++			"AIN1L", "In Jack",
++			"AIN1R", "In Jack";
++		status = "disabled";
++
++		simple-audio-card,dai-link@0 {
++			format = "i2s";
++			cpu {
++				sound-dai = <&audio_controller 0>;
++			};
++
++			codec {
++				sound-dai = <&audio_codec>;
++			};
++		};
++
++		simple-audio-card,dai-link@1 {
++			format = "i2s";
++			cpu {
++				sound-dai = <&audio_controller 1>;
++			};
++
++			codec {
++				sound-dai = <&spdif_out>;
++			};
++		};
++
++		simple-audio-card,dai-link@2 {
++			format = "i2s";
++			cpu {
++				sound-dai = <&audio_controller 1>;
++			};
++
++			codec {
++				sound-dai = <&spdif_in>;
++			};
++		};
++	};
++
++	spdif_out: spdif-out {
++		#sound-dai-cells = <0>;
++		compatible = "linux,spdif-dit";
++	};
++
++	spdif_in: spdif-in {
++		#sound-dai-cells = <0>;
++		compatible = "linux,spdif-dir";
++	};
+ };
+ 
+ &spi0 {
 -- 
 2.20.1
 

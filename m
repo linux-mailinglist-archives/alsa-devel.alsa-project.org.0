@@ -2,78 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E885BDEB1
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 09:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227805BE1BB
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 11:18:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A54BD857;
-	Tue, 20 Sep 2022 09:46:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54BD857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BE8C857;
+	Tue, 20 Sep 2022 11:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BE8C857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663660065;
-	bh=GIU/Dfta7R60N1NbgJ3rAJ6JlM6pFZSvbMagIQOt9Ys=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RWM8IyccyjQIPOCRz5L13FD80TcpVxKs9ywbuQcZnFTSPAOwhwyxo1pXe5PBNYdwe
-	 CP8LB/tbw+++e5oL0tsBpD6Ydn36GJyzZZI8j5t+w/Blfp6rklBdZEqKjqtjEAhsQu
-	 PrXGbHQfU05Nz1kbCNC01+isY1USVWUDGmDTv40U=
+	s=default; t=1663665519;
+	bh=m+ggfILRe4soos/9I5YFTnSL4zlW4UH05McHOPkIq94=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CeGjDiAsLfjyBPEKZUTy8zuKoo3scxuJ1vLb6j7rHmFYfQQuaQX+JDE2XyYhBf3Wu
+	 tvFTZyjJSUX1ruccdGab+Aciys5/vu89aqhCIbJQJyk5zp/v2rzw3YxieOCIwCMK7+
+	 EVFpYeyeIdlM/AcjIBnUyBW2FuBNxTKQzdW8YAKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0260AF800C9;
-	Tue, 20 Sep 2022 09:46:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D31B4F800C9;
+	Tue, 20 Sep 2022 11:17:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1903AF80155; Tue, 20 Sep 2022 09:46:46 +0200 (CEST)
+ id 587EBF80155; Tue, 20 Sep 2022 11:17:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 188B9F800C9
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 09:46:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 188B9F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54FC7F800C9
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 11:17:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54FC7F800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="M364I0V8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663660000; x=1695196000;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GIU/Dfta7R60N1NbgJ3rAJ6JlM6pFZSvbMagIQOt9Ys=;
- b=M364I0V8jsnNZWQZjrggYSKsgHfShh6l/B2ULI12uvHoYDv1u7Dcg2Gq
- Gowcgu1wYvHNd798q4WcnOdFz7CzjO5HBg2tTlBJJxRDnezOilftZ9F/b
- b/39Sx7ad0tj/SNiS+L2FZITmgeit0p7R2JgjfEWd07E7VXqkkv84t8Gh
- c7iqApFYTgmvn+e3AYIlZmtbhx09M4lk12TIh0hIcF3PsPMouZYyOVEJ+
- UG6KZhzsLWTZ0FDb0h6XrzlBHO0ZnaUhuGzZQvrn/2b3eVFTyvuOSCo9+
- Q74FrK6pMYGMQQfTOE8CruVISKDH3V0JUDbXkPUTLMR6TEfvRAyN6QcrI g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="385912850"
-X-IronPort-AV: E=Sophos;i="5.93,329,1654585200"; d="scan'208";a="385912850"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2022 00:46:34 -0700
-X-IronPort-AV: E=Sophos;i="5.93,329,1654585200"; d="scan'208";a="569979349"
-Received: from atcamara-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.251.209.87])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2022 00:46:29 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: Intel: soc-acpi-intel-rpl-match: add rpl_sdca_3_in_1
- support
-Date: Tue, 20 Sep 2022 09:46:17 +0200
-Message-Id: <20220920074617.10300-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ckT1VIou"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28K7UgYp001414;
+ Tue, 20 Sep 2022 04:17:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=5iQ7Hk97DDzsd/9mpNc/KXu5Xgutl+Nll03FBIeS0S0=;
+ b=ckT1VIouTN8aWdhtUD1phL1fw90bHxvFZHrhlhD/3GHxxMVBtD7+Ox9vONRbxcQfSTrj
+ QXvzqkinZ7O0FMmdkmpolOZEmCRoNcgsJUgRkZWH8eyQ2Rx6xmKuWjQI1821KxeZm9S7
+ /FvePxCgQ/1NjQ1N0h7sttYrBPHzMn4aKHmxbsnbozqbQpws5dZkRIAYwWCjYP4g66Pw
+ 172Gm1MtzaTyPcGB1UqzfseK4sUpR96426F5e5PqyP7XwUIC9jOYuDowoweWgT8dr2IX
+ ShqCQO8w4jQ5FIeHTohLsFHt7XCVLshQyk6axImj4PmcbI+eD5P7hjEaeh8GSGcZC15V NQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3jnanmka8f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Sep 2022 04:17:30 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 20 Sep
+ 2022 04:17:29 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.12 via
+ Frontend Transport; Tue, 20 Sep 2022 04:17:29 -0500
+Received: from [198.90.251.95] (edi-sw-dsktp-006.ad.cirrus.com [198.90.251.95])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 201CA475;
+ Tue, 20 Sep 2022 09:17:29 +0000 (UTC)
+Message-ID: <633a7b75-91f8-9a54-c042-87079d27cc8c@opensource.cirrus.com>
+Date: Tue, 20 Sep 2022 10:17:28 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH] soundwire: bus: Fix wrong port number in
+ sdw_handle_slave_alerts()
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <sanyog.r.kale@intel.com>
+References: <20220917140256.689678-1-rf@opensource.cirrus.com>
+ <9edb1178-7454-eb3f-60a5-d3f73d01c9d6@linux.intel.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <9edb1178-7454-eb3f-60a5-d3f73d01c9d6@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: FfAq9d8vE1bFE8VL_Xw0G6Lxgh3j7hlq
+X-Proofpoint-ORIG-GUID: FfAq9d8vE1bFE8VL_Xw0G6Lxgh3j7hlq
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,122 +105,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+On 19/09/2022 09:44, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 9/17/22 16:02, Richard Fitzgerald wrote:
+>> for_each_set_bit() gives the bit-number counting from 0 (LSbit==0).
+>> When processing INTSTAT2, bit 0 is DP4 so the port number is (bit + 4).
+>> Likewise for INTSTAT3 bit 0 is DP11 so port number is (bit + 11).
+>>
+>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> 
+> Another thing that never worked, but no one has used port interrupts so
+> far. I only used it for PRBS tests in early enabling some 3 years ago,
+> and it was for port 2 IIRC.
+> 
 
-Add rpl_sdca_3_in_1 match information.
+Except us because Cirrus Soundwire requires a full DP prepare sequence,
+it doesn't support simplified DP_SM.
 
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- .../intel/common/soc-acpi-intel-rpl-match.c   | 80 +++++++++++++++++++
- 1 file changed, 80 insertions(+)
-
-diff --git a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-index 0b77401e4e6f9..9ccf7370157b4 100644
---- a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-@@ -15,6 +15,20 @@ static const struct snd_soc_acpi_endpoint single_endpoint = {
- 	.group_id = 0,
- };
- 
-+static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 0,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 1,
-+	.group_id = 1,
-+};
-+
- static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	{
- 		.adr = 0x000020025D071100ull,
-@@ -33,6 +47,66 @@ static const struct snd_soc_acpi_link_adr rpl_rvp[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
-+	{
-+		.adr = 0x000030025D071101ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt711"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1316_1_group1_adr[] = {
-+	{
-+		.adr = 0x000131025D131601ull, /* unique ID is set for some reason */
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "rt1316-1"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1316_3_group1_adr[] = {
-+	{
-+		.adr = 0x000330025D131601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "rt1316-2"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt714_2_adr[] = {
-+	{
-+		.adr = 0x000230025D071401ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt714"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_link_adr rpl_sdca_3_in_1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_sdca_0_adr),
-+		.adr_d = rt711_sdca_0_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1316_1_group1_adr),
-+		.adr_d = rt1316_1_group1_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(rt714_2_adr),
-+		.adr_d = rt714_2_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt1316_3_group1_adr),
-+		.adr_d = rt1316_3_group1_adr,
-+	},
-+	{}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_machines[] = {
- 	{},
- };
-@@ -40,6 +114,12 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_rpl_machines);
- 
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[] = {
-+	{
-+		.link_mask = 0xF, /* 4 active links required */
-+		.links = rpl_sdca_3_in_1,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-rpl-rt711-l0-rt1316-l13-rt714-l2.tplg",
-+	},
- 	{
- 		.link_mask = 0x1, /* link0 required */
- 		.links = rpl_rvp,
--- 
-2.34.1
-
+There's still the problem of the code deadlocking while waiting for the
+prepare interrupt, because it holds the bus lock while waiting for the
+completion, so the alert handler can't run. That's something I need to
+look at fixing. But it's not a blocker, just means that the code has to
+wait the whole timeout for each amp. (That's another thing, couldn't we
+issue all the DP prepares first so the amps prepare in parallel, then
+wait for them to ack?)

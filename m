@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29EE45BEC9A
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5FD45BEC9D
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:12:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B450885D;
-	Tue, 20 Sep 2022 20:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B450885D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61C99852;
+	Tue, 20 Sep 2022 20:11:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61C99852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663697535;
-	bh=I2CDlKuJdgt5pSB3UdZSSv1nNiB6auepmtLmC/h6kbs=;
+	s=default; t=1663697563;
+	bh=LI+ORPH3iDBEFs12HuIcG7/Bzq4Qq2Gk9yL9HCuhNRE=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=arVJXhspnSPriwwmf4AWhT4JgLBpzXRCFNKVXDNofElO5hebSnqwGIfLnLesMAtYc
-	 iYGCpGKEXJvifia34LGi0xkMSd3HQR4G+lDjYV+A65+oMpkElpHWS3QUyT0gxT7pXg
-	 AR+q7ytGJBWhgnOixNkIrrKykf+clodAkx1B+QDk=
+	b=olHrv384vyg5cEburt9RcNMUOb9uT6iObAQvbBawck/kYEatMWsb64dURG70fcNUq
+	 FEHE/ZVH92X+EVMCfq/hsZ3AXctbjMvPg6cqYPw4xBH7zW4ALbYBr7DkWTUzJJX2Bp
+	 5XpeYkoAuLBn6MO5LkXCKdBlYtHa8S9PoF39u2Yc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2136AF800F2;
-	Tue, 20 Sep 2022 20:11:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5D31F804DA;
+	Tue, 20 Sep 2022 20:11:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E061F80155; Tue, 20 Sep 2022 20:11:16 +0200 (CEST)
+ id 5FF5BF8012B; Tue, 20 Sep 2022 20:11:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DF7FF800F2
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF7FF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5787FF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:11:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5787FF8012B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="D9IcLAv5"; 
+ header.b="hr8Hzwau"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BTYfIf9t"
+ header.b="Xp0sBwlY"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9A0431F86C;
- Tue, 20 Sep 2022 18:11:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DA29F21A99;
+ Tue, 20 Sep 2022 18:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663697469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1663697487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gU8UHBQ3YZYs/N7zsnf9npEIzpotwSjSfanZPhfqCkE=;
- b=D9IcLAv5PtGAsveyXLxFFATxIOOYXwqHLHXgWHUS9PN/86HK83znUPUXJ2Tk/HswvH+VUM
- 7uMglcIG/TM+3ylmZART8Zcb3Zw0XzHjwGSZq+b9l+3Eq1ZcXTGYVmU/WnrKuVyvvMbaBV
- hlwt4Q6iieYjvGOhKlmuHkOMbebd5k0=
+ bh=KLtCb51gnsxByq4Gfb2Ca9LcGJ1eu+mJK+StsJ2d+QE=;
+ b=hr8HzwauJoo0g5j3xRt5Qb+39l6VjRKa8rGIBWlAzln1n0SykI/vp6MV8eXgsGjITRtn+6
+ AscdxEU3I2lC8WKVKKxDHwm/zfupG6a3XfGjWp7ORM+dH05uYt5jd19oPjDMM6+gu03EF7
+ svUuGob3OyFyLlvxUzWkGLyKpHtnDos=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663697469;
+ s=susede2_ed25519; t=1663697487;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=gU8UHBQ3YZYs/N7zsnf9npEIzpotwSjSfanZPhfqCkE=;
- b=BTYfIf9tZ9Q8vS/ZbpVZypD6DOqE+I6c1xWsRrNvqZ0iwrsIxG+admo8UZgt/BtmwGiula
- 7B1UPg4wrDxrhRAw==
+ bh=KLtCb51gnsxByq4Gfb2Ca9LcGJ1eu+mJK+StsJ2d+QE=;
+ b=Xp0sBwlY2UpWkidRQu1l2p7oIpzZHMIf/JvbmuIQq/+nUHFK0oV+nt+ZoDBBNOeW83FGDz
+ vfi0SfrANns2WqBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EF451346B;
- Tue, 20 Sep 2022 18:11:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEB961346B;
+ Tue, 20 Sep 2022 18:11:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VEZmHj0CKmO9dQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 18:11:09 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id nyjaLU8CKmPRdQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 18:11:27 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
- prepare (take#2)
-Date: Tue, 20 Sep 2022 20:11:06 +0200
-Message-Id: <20220920181106.4894-1-tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Properly refcounting clock rate
+Date: Tue, 20 Sep 2022 20:11:26 +0200
+Message-Id: <20220920181126.4912-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -94,336 +93,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a second attempt to fix the bug appearing on Android with the
-recent kernel; the first try was ff878b408a03 and reverted at commit
-79764ec772bc.
+We fixed the bug introduced by the patch for managing the shared
+clocks at the commit 809f44a0cc5a ("ALSA: usb-audio: Clear fixed clock
+rate at closing EP"), but it was merely a workaround.  By this change,
+the clock reference rate is cleared at each EP close, hence the still
+remaining EP may need a re-setup of rate unnecessarily.
 
-The details taken from the v1 patch:
+This patch introduces the proper refcounting for the clock reference
+object so that the clock setup is done only when needed.
 
-One of the former changes for the endpoint management was the more
-consistent setup of endpoints at hw_params.
-snd_usb_endpoint_configure() is a single function that does the full
-setup, and it's called from both PCM hw_params and prepare callbacks.
-Although the EP setup at the prepare phase is usually skipped (by
-checking need_setup flag), it may be still effective in some cases
-like suspend/resume that requires the interface setup again.
-
-As it's a full and single setup, the invocation of
-snd_usb_endpoint_configure() includes not only the USB interface setup
-but also the buffer release and allocation.  OTOH, doing the buffer
-release and re-allocation at PCM prepare phase is rather superfluous,
-and better to be done only in the hw_params phase.
-
-For those optimizations, this patch splits the endpoint setup to two
-phases: snd_usb_endpoint_set_params() and snd_usb_endpoint_prepare(),
-to be called from hw_params and from prepare, respectively.
-
-Note that this patch changes the driver operation slightly,
-effectively moving the USB interface setup again to PCM prepare stage
-instead of hw_params stage, while the buffer allocation and such
-initializations are still done at hw_params stage.
-
-And, the change of the USB interface setup timing (moving to prepare)
-gave an interesting "fix", too: it was reported that the recent
-kernels caused silent output at the beginning on playbacks on some
-devices on Android, and this change casually fixed the regression.
-It seems that those devices are picky about the sample rate change (or
-the interface change?), and don't follow the too immediate rate
-changes.
-
-Meanwhile, Android operates the PCM in the following order:
-- open, then hw_params with the possibly highest sample rate
-- close without prepare
-- re-open, hw_params with the normal sample rate
-- prepare, and start streaming
-This procedure ended up the hw_params twice with different rates, and
-because the recent kernel did set up the sample rate twice one and
-after, it screwed up the device.  OTOH, the earlier kernels didn't set
-up the USB interface at hw_params, hence this problem didn't appear.
-
-Now, with this patch, the USB interface setup is again back to the
-prepare phase, and it works around the problem automagically.
-Although we should address the sample rate problem in a more solid
-way in future, let's keep things working as before for now.
-
-***
-
-What's new in the take#2 patch:
-- The regression caused by the v1 patch (bko#216500) was due to the
-  missing check of need_setup flag at hw_params.  Now the check is
-  added, and the snd_usb_endpoint_set_params() call is skipped when
-  the running EP is re-opened.
-
-- There was another bug in v1 where the clock reference rate wasn't
-  updated at hw_params phase, which may lead to a lack of the proper
-  hw constraints when an application doesn't issue the prepare but
-  only the hw_params call.  This patch fixes it as well by tracking
-  the clock rate change in the prepare callback with a new flag
-  "need_update" for the clock reference object, just like others.
-
-- The configure_endpoints() are simplified and folded back into
-  snd_usb_pcm_prepare().
-
-Fixes: bf6313a0ff76 ("ALSA: usb-audio: Refactor endpoint management")
-Fixes: ff878b408a03 ("ALSA: usb-audio: Split endpoint setups for hw_params and prepare")
-Reported-by: chihhao chen <chihhao.chen@mediatek.com>
-Link: https://lore.kernel.org/r/87e6d6ae69d68dc588ac9acc8c0f24d6188375c3.camel@mediatek.com
-Link: https://lore.kernel.org/r/20220901124136.4984-1-tiwai@suse.de
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=216500
+Fixes: 809f44a0cc5a ("ALSA: usb-audio: Clear fixed clock rate at closing EP")
+Fixes: c11117b634f4 ("ALSA: usb-audio: Refcount multiple accesses on the single clock")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/endpoint.c | 76 +++++++++++++++++++++++++++-----------------
- sound/usb/endpoint.h |  6 ++--
- sound/usb/pcm.c      | 51 ++++++++++++-----------------
- 3 files changed, 70 insertions(+), 63 deletions(-)
+ sound/usb/endpoint.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index eb71df9da831..0c94ebc98e90 100644
+index 0c94ebc98e90..b2d0b42b581f 100644
 --- a/sound/usb/endpoint.c
 +++ b/sound/usb/endpoint.c
-@@ -40,6 +40,7 @@ struct snd_usb_clock_ref {
+@@ -39,6 +39,7 @@ struct snd_usb_iface_ref {
+ struct snd_usb_clock_ref {
  	unsigned char clock;
  	atomic_t locked;
++	int opened;
  	int rate;
-+	bool need_setup;
+ 	bool need_setup;
  	struct list_head list;
- };
- 
-@@ -758,7 +759,8 @@ bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
-  * The endpoint needs to be closed via snd_usb_endpoint_close() later.
-  *
-  * Note that this function doesn't configure the endpoint.  The substream
-- * needs to set it up later via snd_usb_endpoint_configure().
-+ * needs to set it up later via snd_usb_endpoint_set_params() and
-+ * snd_usb_endpoint_prepare().
-  */
- struct snd_usb_endpoint *
- snd_usb_endpoint_open(struct snd_usb_audio *chip,
-@@ -1289,15 +1291,39 @@ static int sync_ep_set_params(struct snd_usb_endpoint *ep)
- 	return -ENOMEM;
- }
- 
-+/* update the rate of the referred clock; return the actual rate */
-+static int update_clock_ref_rate(struct snd_usb_audio *chip,
-+				 struct snd_usb_endpoint *ep)
-+{
-+	struct snd_usb_clock_ref *clock = ep->clock_ref;
-+	int rate = ep->cur_rate;
-+
-+	if (!clock || clock->rate == rate)
-+		return rate;
-+	if (clock->rate) {
-+		if (atomic_read(&clock->locked))
-+			return clock->rate;
-+		if (clock->rate != rate) {
-+			usb_audio_err(chip, "Mismatched sample rate %d vs %d for EP 0x%x\n",
-+				      clock->rate, rate, ep->ep_num);
-+			return clock->rate;
-+		}
-+	}
-+	clock->rate = rate;
-+	clock->need_setup = true;
-+	return rate;
-+}
-+
- /*
-  * snd_usb_endpoint_set_params: configure an snd_usb_endpoint
-  *
-+ * It's called either from hw_params callback.
-  * Determine the number of URBs to be used on this endpoint.
-  * An endpoint must be configured before it can be started.
-  * An endpoint that is already running can not be reconfigured.
-  */
--static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
--				       struct snd_usb_endpoint *ep)
-+int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
-+				struct snd_usb_endpoint *ep)
- {
- 	const struct audioformat *fmt = ep->cur_audiofmt;
- 	int err;
-@@ -1349,49 +1375,46 @@ static int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
- 	ep->maxframesize = ep->maxpacksize / ep->cur_frame_bytes;
- 	ep->curframesize = ep->curpacksize / ep->cur_frame_bytes;
- 
--	return 0;
-+	return update_clock_ref_rate(chip, ep);
- }
- 
- static int init_sample_rate(struct snd_usb_audio *chip,
- 			    struct snd_usb_endpoint *ep)
- {
- 	struct snd_usb_clock_ref *clock = ep->clock_ref;
--	int err;
-+	int rate, err;
- 
--	if (clock) {
--		if (atomic_read(&clock->locked))
--			return 0;
--		if (clock->rate == ep->cur_rate)
--			return 0;
--		if (clock->rate && clock->rate != ep->cur_rate) {
--			usb_audio_dbg(chip, "Mismatched sample rate %d vs %d for EP 0x%x\n",
--				      clock->rate, ep->cur_rate, ep->ep_num);
--			return -EINVAL;
--		}
--	}
-+	rate = update_clock_ref_rate(chip, ep);
-+	if (rate < 0)
-+		return rate;
-+	if (clock && !clock->need_setup)
-+		return 0;
- 
--	err = snd_usb_init_sample_rate(chip, ep->cur_audiofmt, ep->cur_rate);
--	if (err < 0)
-+	err = snd_usb_init_sample_rate(chip, ep->cur_audiofmt, rate);
-+	if (err < 0) {
-+		if (clock)
-+			clock->rate = 0; /* reset rate */
- 		return err;
-+	}
- 
- 	if (clock)
--		clock->rate = ep->cur_rate;
-+		clock->need_setup = false;
- 	return 0;
- }
- 
- /*
-- * snd_usb_endpoint_configure: Configure the endpoint
-+ * snd_usb_endpoint_prepare: Prepare the endpoint
-  *
-  * This function sets up the EP to be fully usable state.
-- * It's called either from hw_params or prepare callback.
-+ * It's called either from prepare callback.
-  * The function checks need_setup flag, and performs nothing unless needed,
-  * so it's safe to call this multiple times.
-  *
-  * This returns zero if unchanged, 1 if the configuration has changed,
-  * or a negative error code.
-  */
--int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
--			       struct snd_usb_endpoint *ep)
-+int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
-+			     struct snd_usb_endpoint *ep)
- {
- 	bool iface_first;
- 	int err = 0;
-@@ -1412,9 +1435,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
- 			if (err < 0)
+@@ -803,6 +804,7 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
+ 				ep = NULL;
  				goto unlock;
+ 			}
++			ep->clock_ref->opened++;
  		}
--		err = snd_usb_endpoint_set_params(chip, ep);
--		if (err < 0)
--			goto unlock;
- 		goto done;
- 	}
  
-@@ -1442,10 +1462,6 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
- 	if (err < 0)
- 		goto unlock;
+ 		ep->cur_audiofmt = fp;
+@@ -926,8 +928,10 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+ 		endpoint_set_interface(chip, ep, false);
  
--	err = snd_usb_endpoint_set_params(chip, ep);
--	if (err < 0)
--		goto unlock;
--
- 	err = snd_usb_select_mode_quirk(chip, ep->cur_audiofmt);
- 	if (err < 0)
- 		goto unlock;
-diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
-index 6a9af04cf175..e67ea28faa54 100644
---- a/sound/usb/endpoint.h
-+++ b/sound/usb/endpoint.h
-@@ -17,8 +17,10 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
- 		      bool is_sync_ep);
- void snd_usb_endpoint_close(struct snd_usb_audio *chip,
- 			    struct snd_usb_endpoint *ep);
--int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
--			       struct snd_usb_endpoint *ep);
-+int snd_usb_endpoint_set_params(struct snd_usb_audio *chip,
-+				struct snd_usb_endpoint *ep);
-+int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
-+			     struct snd_usb_endpoint *ep);
- int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int clock);
- 
- bool snd_usb_endpoint_compatible(struct snd_usb_audio *chip,
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index d45d1d7e6664..e721fc12acde 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -433,35 +433,6 @@ static void close_endpoints(struct snd_usb_audio *chip,
+ 	if (!--ep->opened) {
+-		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
+-			ep->clock_ref->rate = 0;
++		if (ep->clock_ref) {
++			if (!--ep->clock_ref->opened)
++				ep->clock_ref->rate = 0;
++		}
+ 		ep->iface = 0;
+ 		ep->altsetting = 0;
+ 		ep->cur_audiofmt = NULL;
+@@ -1649,8 +1653,7 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
+ 			WRITE_ONCE(ep->sync_source->sync_sink, NULL);
+ 		stop_urbs(ep, false, keep_pending);
+ 		if (ep->clock_ref)
+-			if (!atomic_dec_return(&ep->clock_ref->locked))
+-				ep->clock_ref->rate = 0;
++			atomic_dec(&ep->clock_ref->locked);
  	}
  }
  
--static int configure_endpoints(struct snd_usb_audio *chip,
--			       struct snd_usb_substream *subs)
--{
--	int err;
--
--	if (subs->data_endpoint->need_setup) {
--		/* stop any running stream beforehand */
--		if (stop_endpoints(subs, false))
--			sync_pending_stops(subs);
--		if (subs->sync_endpoint) {
--			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
--			if (err < 0)
--				return err;
--		}
--		err = snd_usb_endpoint_configure(chip, subs->data_endpoint);
--		if (err < 0)
--			return err;
--		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
--	} else {
--		if (subs->sync_endpoint) {
--			err = snd_usb_endpoint_configure(chip, subs->sync_endpoint);
--			if (err < 0)
--				return err;
--		}
--	}
--
--	return 0;
--}
--
- /*
-  * hw_params callback
-  *
-@@ -551,7 +522,16 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
- 	subs->cur_audiofmt = fmt;
- 	mutex_unlock(&chip->mutex);
- 
--	ret = configure_endpoints(chip, subs);
-+	if (!subs->data_endpoint->need_setup)
-+		goto unlock;
-+
-+	if (subs->sync_endpoint) {
-+		ret = snd_usb_endpoint_set_params(chip, subs->sync_endpoint);
-+		if (ret < 0)
-+			goto unlock;
-+	}
-+
-+	ret = snd_usb_endpoint_set_params(chip, subs->data_endpoint);
- 
-  unlock:
- 	if (ret < 0)
-@@ -634,9 +614,18 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 		goto unlock;
- 	}
- 
--	ret = configure_endpoints(chip, subs);
-+	if (subs->sync_endpoint) {
-+		ret = snd_usb_endpoint_prepare(chip, subs->sync_endpoint);
-+		if (ret < 0)
-+			goto unlock;
-+	}
-+
-+	ret = snd_usb_endpoint_prepare(chip, subs->data_endpoint);
- 	if (ret < 0)
- 		goto unlock;
-+	else if (ret > 0)
-+		snd_usb_set_format_quirk(subs, subs->cur_audiofmt);
-+	ret = 0;
- 
- 	/* reset the pointer */
- 	subs->buffer_bytes = frames_to_bytes(runtime, runtime->buffer_size);
 -- 
 2.35.3
 

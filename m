@@ -2,73 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C4D5BEF31
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 23:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858585BEF34
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 23:35:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FE57852;
-	Tue, 20 Sep 2022 23:33:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FE57852
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7358E0F;
+	Tue, 20 Sep 2022 23:34:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7358E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663709658;
-	bh=opp54YdgdUw3pmnZ9FUXDd6Zzip7bJbUuN39p0Dwp0o=;
+	s=default; t=1663709702;
+	bh=LGXHaxnsi7buEIy15UVaOL9V+aU04sDBY/+LXR8I7is=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KCVUANXD9R0UVEtoj8YKihZwkzgHoJmlr1WtSS+Qs69cr55+KNl2/vYXBHaWNNxRU
-	 SeyAdYKtpglOifqtlvrvCyAZnxbusSG27XhmhSCPPyzQjImYCondW/2E3GPyIDt5Yn
-	 MGpboFmMdWQnjq3vaJ0X1wNZxK2BSsVKLu8TkApo=
+	b=O7XN8P8knidJFiesXqAnIcDX6F+DtVdhDVfjoQcu3YFWHmEK+wdbXRYlIeKHiGJAi
+	 vu+DMmpPvvUd1eL9+EqogsxgUjpm7jalNPf+HQQJef1GjBsA87Vk/0YagYpM6hCNdy
+	 Gx2QUR4g+777jnv3INlSLP8f+tjRYV3R3oCqJITE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 951EDF801D5;
-	Tue, 20 Sep 2022 23:33:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC708F804E4;
+	Tue, 20 Sep 2022 23:33:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBB9CF80171; Tue, 20 Sep 2022 23:33:18 +0200 (CEST)
+ id 4CC7FF80171; Tue, 20 Sep 2022 23:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7936AF8012B
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 23:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7936AF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04EF6F804D8
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 23:33:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04EF6F804D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZyxWmwbt"
+ header.b="kFq+6G9G"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id ABC8CB81A71;
- Tue, 20 Sep 2022 21:33:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5A4C433C1;
- Tue, 20 Sep 2022 21:33:10 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DF2B4B81A71;
+ Tue, 20 Sep 2022 21:33:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF32C433D6;
+ Tue, 20 Sep 2022 21:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663709592;
- bh=opp54YdgdUw3pmnZ9FUXDd6Zzip7bJbUuN39p0Dwp0o=;
+ s=k20201202; t=1663709597;
+ bh=LGXHaxnsi7buEIy15UVaOL9V+aU04sDBY/+LXR8I7is=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ZyxWmwbtFzvCoeDUaSpfFsgdDTO477aNmIc2tFtQmbUwl8L0+OAlJBXgltXoWqiBw
- ClevRYARu4ub1f9/esLpW0hURV6q67pwC9s5x7JvRVTJxBfSM57djw177U6kE5dV3o
- Xuz73u8/OnW8WSD3Gzo5oyU0MCD04b0qv1gX5ayp3tOZ7YVcwd31GQzaCkrNb5UcOy
- w9bR0v3TkUUq9c+uJH0hqf+nZUbY/l2I9SqgHvvdRNVuSBdV+VcGKaoTkqiqk87OhL
- bhZkKLbxADjZLeuGnJJhRs14IAjTqEybxCeH1R93boCZec7lGUwGBFpyESGGDEgUIs
- ocoyEgv1o+6Ww==
+ b=kFq+6G9G+Cd0vK9R4fRTibMYBaWxBRWwCSip0udMyAhYYvHejOL6rsqZa7yht5itl
+ KgZlIRee1A1sMOJoUS+gWolAlfuAz9pikMUNzKvIJpFlNsRLDXfE8v272a/L6mhJAL
+ bZ0DS08ZKzt02FSoO9LSIKGbBTicbxPQ4nvan0+Fb+VwDQs30GO90q2ocDJDYcneH/
+ QleAjVlmI1KoN7zKVqh+4uAChnO9LIPZKBwuVdYgftR24TK6Dil7npTR9BIzlrdNEK
+ LpQHldiXGCoWoUupFth3lxA6iFaxeKs3giJP5QR7+7Jg2EhHEHXNsJ4p/y1G5Ei8eo
+ Ro6DvnNo+SMVw==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87tu52v9nw.wl-kuninori.morimoto.gx@renesas.com>
-References: <87tu52v9nw.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/3] ASoC: soc.h: random cleanup
-Message-Id: <166370959062.476248.7499597459225158192.b4-ty@kernel.org>
-Date: Tue, 20 Sep 2022 22:33:10 +0100
+To: Stephan Gerhold <stephan@gerhold.net>,
+ Alexander Martinz <amartinz@shiftphones.com>
+In-Reply-To: <20220920115014.952062-1-amartinz@shiftphones.com>
+References: <20220920115014.952062-1-amartinz@shiftphones.com>
+Subject: Re: [PATCH] ASoC: codecs: tfa989x: fix register access comments
+Message-Id: <166370959271.476248.6207909034346606474.b4-ty@kernel.org>
+Date: Tue, 20 Sep 2022 22:33:12 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.11.0-dev-8af31
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,15 +86,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Sep 2022 06:31:47 +0000, Kuninori Morimoto wrote:
-> These are random cleanup for soc.h
+On Tue, 20 Sep 2022 13:50:14 +0200, Alexander Martinz wrote:
+> Fix comments regarding register access based on review feedback[1].
 > 
-> Kuninori Morimoto (3):
->   ASoC: soc.h: remove num_cpus/codecs
->   ASoC: soc.h: use defined number instead of direct number
->   ASoC: soc.h: use array instead of playback/capture_widget
+> [1]: https://lore.kernel.org/all/YppQ7BiqlBDMNsuc@gerhold.net/
 > 
-> [...]
+> 
 
 Applied to
 
@@ -100,12 +99,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: soc.h: remove num_cpus/codecs
-      commit: 3989ade2d1e7ffc900e3842dc542b9e4bb3618fe
-[2/3] ASoC: soc.h: use defined number instead of direct number
-      commit: a26ec2acb2043a52c41d2b651b30d2df475f4263
-[3/3] ASoC: soc.h: use array instead of playback/capture_widget
-      commit: 3289dc026a8cf5d6469eb49d838bc971f4370f9d
+[1/1] ASoC: codecs: tfa989x: fix register access comments
+      commit: 9b9def51e1a6de6cd336ae08884f580ebab7d2b2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

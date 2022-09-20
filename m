@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5FD45BEC9D
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:12:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C39305BED26
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 20:51:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61C99852;
-	Tue, 20 Sep 2022 20:11:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61C99852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53960852;
+	Tue, 20 Sep 2022 20:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53960852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663697563;
-	bh=LI+ORPH3iDBEFs12HuIcG7/Bzq4Qq2Gk9yL9HCuhNRE=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=olHrv384vyg5cEburt9RcNMUOb9uT6iObAQvbBawck/kYEatMWsb64dURG70fcNUq
-	 FEHE/ZVH92X+EVMCfq/hsZ3AXctbjMvPg6cqYPw4xBH7zW4ALbYBr7DkWTUzJJX2Bp
-	 5XpeYkoAuLBn6MO5LkXCKdBlYtHa8S9PoF39u2Yc=
+	s=default; t=1663699877;
+	bh=dOYzWRMQWTrZbt6u0ynOkDPBKV+hg47zMmG+PHOrkLw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=M7Tfq55syFI/HO2jUGp16S3PvuaFGgC2aRlAnd4KEer3OELNWWPznBd36ivQaoEBo
+	 qEq5MZKrNWDjXAtrJQvJpZKYtQ7LNM66Q/EyYQBzXaG7aFUSFufBKwVuPvXyzSSUPE
+	 odJ4P8FAst5HruiPo2MpgdszZJOX7xiWG7eA+2PY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5D31F804DA;
-	Tue, 20 Sep 2022 20:11:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A08B6F8012B;
+	Tue, 20 Sep 2022 20:50:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FF5BF8012B; Tue, 20 Sep 2022 20:11:39 +0200 (CEST)
+ id D1E0BF80155; Tue, 20 Sep 2022 20:50:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5787FF8012B
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:11:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5787FF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79EA3F8012B
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 20:50:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79EA3F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hr8Hzwau"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Xp0sBwlY"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KVbuXEeq"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DA29F21A99;
- Tue, 20 Sep 2022 18:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663697487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=KLtCb51gnsxByq4Gfb2Ca9LcGJ1eu+mJK+StsJ2d+QE=;
- b=hr8HzwauJoo0g5j3xRt5Qb+39l6VjRKa8rGIBWlAzln1n0SykI/vp6MV8eXgsGjITRtn+6
- AscdxEU3I2lC8WKVKKxDHwm/zfupG6a3XfGjWp7ORM+dH05uYt5jd19oPjDMM6+gu03EF7
- svUuGob3OyFyLlvxUzWkGLyKpHtnDos=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663697487;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=KLtCb51gnsxByq4Gfb2Ca9LcGJ1eu+mJK+StsJ2d+QE=;
- b=Xp0sBwlY2UpWkidRQu1l2p7oIpzZHMIf/JvbmuIQq/+nUHFK0oV+nt+ZoDBBNOeW83FGDz
- vfi0SfrANns2WqBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEB961346B;
- Tue, 20 Sep 2022 18:11:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nyjaLU8CKmPRdQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 20 Sep 2022 18:11:27 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Properly refcounting clock rate
-Date: Tue, 20 Sep 2022 20:11:26 +0200
-Message-Id: <20220920181126.4912-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9B0FE62BAE;
+ Tue, 20 Sep 2022 18:50:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B5DC433D6;
+ Tue, 20 Sep 2022 18:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663699812;
+ bh=dOYzWRMQWTrZbt6u0ynOkDPBKV+hg47zMmG+PHOrkLw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KVbuXEeqQCjsPYr4c9Ry528aOYGUQGjvDXKCIx5VMK62fu3CmQKR6qNhFA2F1OwZP
+ Lid16WWkb8EhJ5Bk+EjHqs2jILZqSKYFa1LJMaKBWJ2ITh8GTLYcCf9UaG9Uqj92Yb
+ HA3rsYTEu61DYQUEu3a9VqOBDJdoQfIwBHUQ5XW5aFHKwHMEE5lA1bELKCQ/Mc8dBv
+ CO5EDc+Z4yHHdA0w9ShA59XGpTPzasybk5vClgqiFMHKhhW/qBTAuvEAPkGEO8Miq7
+ AxJrab5JSNX6GWhKyHYI4+0TJWYE+qfaH7uZCJ+t6RFTmk+kCTNvhRsciw+Vq323Jz
+ JRblVB8kx5DDQ==
+Date: Tue, 20 Sep 2022 19:50:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Limonciello, Mario" <mario.limonciello@amd.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Add Lenovo Yoga Slim 7 Pro X to quirks
+ table
+Message-ID: <YyoLYe9uGNnfl1iA@sirena.org.uk>
+References: <20220920171320.7776-1-mario.limonciello@amd.com>
+ <YyoBjHftjG/ACAuJ@sirena.org.uk>
+ <f4fea2ca-00ae-ba85-b666-9fa267961add@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3GEW1jVz+nbFLVcE"
+Content-Disposition: inline
+In-Reply-To: <f4fea2ca-00ae-ba85-b666-9fa267961add@amd.com>
+X-Cookie: One FISHWICH coming up!!
+Cc: Travis Glenn Hansen <travisghansen@yahoo.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ Sebastian S <iam@decentr.al>, Xiaoyan Li <lxy.lixiaoyan@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,65 +91,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We fixed the bug introduced by the patch for managing the shared
-clocks at the commit 809f44a0cc5a ("ALSA: usb-audio: Clear fixed clock
-rate at closing EP"), but it was merely a workaround.  By this change,
-the clock reference rate is cleared at each EP close, hence the still
-remaining EP may need a re-setup of rate unnecessarily.
 
-This patch introduces the proper refcounting for the clock reference
-object so that the clock setup is done only when needed.
+--3GEW1jVz+nbFLVcE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: 809f44a0cc5a ("ALSA: usb-audio: Clear fixed clock rate at closing EP")
-Fixes: c11117b634f4 ("ALSA: usb-audio: Refcount multiple accesses on the single clock")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/endpoint.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+On Tue, Sep 20, 2022 at 01:09:45PM -0500, Limonciello, Mario wrote:
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 0c94ebc98e90..b2d0b42b581f 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -39,6 +39,7 @@ struct snd_usb_iface_ref {
- struct snd_usb_clock_ref {
- 	unsigned char clock;
- 	atomic_t locked;
-+	int opened;
- 	int rate;
- 	bool need_setup;
- 	struct list_head list;
-@@ -803,6 +804,7 @@ snd_usb_endpoint_open(struct snd_usb_audio *chip,
- 				ep = NULL;
- 				goto unlock;
- 			}
-+			ep->clock_ref->opened++;
- 		}
- 
- 		ep->cur_audiofmt = fp;
-@@ -926,8 +928,10 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
- 		endpoint_set_interface(chip, ep, false);
- 
- 	if (!--ep->opened) {
--		if (ep->clock_ref && !atomic_read(&ep->clock_ref->locked))
--			ep->clock_ref->rate = 0;
-+		if (ep->clock_ref) {
-+			if (!--ep->clock_ref->opened)
-+				ep->clock_ref->rate = 0;
-+		}
- 		ep->iface = 0;
- 		ep->altsetting = 0;
- 		ep->cur_audiofmt = NULL;
-@@ -1649,8 +1653,7 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
- 			WRITE_ONCE(ep->sync_source->sync_sink, NULL);
- 		stop_urbs(ep, false, keep_pending);
- 		if (ep->clock_ref)
--			if (!atomic_dec_return(&ep->clock_ref->locked))
--				ep->clock_ref->rate = 0;
-+			atomic_dec(&ep->clock_ref->locked);
- 	}
- }
- 
--- 
-2.35.3
+> As I mentioned below the cutline it's on top of the other commit on the list
+> touching the same code:
 
+> https://lore.kernel.org/alsa-devel/20220917070847.14346-1-lxy.lixiaoyan@gmail.com/
+
+That looks like it's some patch which wasn't even sent to me...
+
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
+
+--3GEW1jVz+nbFLVcE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMqC2AACgkQJNaLcl1U
+h9BA7Qf/fhD4DzTx3lYUaQtUnZc84inux3PG7lz1R+vDNWj72rYGyvR2xyT7CZuO
+NRJ/twpIxq9Ny3+TofsUXVi4+h5BFpRx90mJEsvOeZZdCGLFSqxb1YuswBbGCXKQ
+4T8ST7NPSdUChItvFW7ZpnaWKnT78WK2sxYrHTI3D7xkGk3XE7QV74gh0mjWIQqN
+NIjybZCL2qmRnFWt1eYskWizgreuUT0VekJFacKl1SPMOUKABH695h1xlD1j46ym
+G5vf5gWAclU0yXYgXGNyv27pPix/8YKB5yzgKKr5ZuDevrtqdvaw13/d9yXGdc/j
+/paSqx8Z1xhM8e83eG+wxN0UJj5rJw==
+=qdjQ
+-----END PGP SIGNATURE-----
+
+--3GEW1jVz+nbFLVcE--

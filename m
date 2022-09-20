@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192C85BDA87
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 04:59:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0B45BDA86
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 04:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A881A950;
-	Tue, 20 Sep 2022 04:58:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A881A950
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7F1974C;
+	Tue, 20 Sep 2022 04:58:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7F1974C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663642786;
-	bh=lMP4roH4iuj42tgsErA6EpTI3xKh6u5eKyuTzYbIYqs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hgxV/EGXSBMMAfTZjOLB23L+YnIAoXCnJAQoqL4R5I6l6471Q22CyV7KncTkg/SDU
-	 wUtlflpgU6o/hCayL6PdWmMz0L2YqgLL0CB6Az8MtgiWn0N7+vecm87PM4faXhr2OW
-	 FfiEbW2ZJhoPFgOLaPVIN6hwmKh5tFxS9EcPuDRg=
+	s=default; t=1663642758;
+	bh=ZRqgNhu2JyBmkhTCev38DAeNXUqUkV1+ExFUE3RUt24=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IB6GciH12ziDyXFRNZnbotfDZkset2b67Vdi4lv4FOUbtvLOAlcCMSo6a3PAJOPaz
+	 J2cJ+SEU7JZ+kbhzYde9aZo8A3iz1w4JaAn6iZ9jJQJi+8PEwF9eA0600Co8fEhb3z
+	 D580cwEZHvFv007I9FApnYftzvlpZum9cbqO6VPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DB9CF804E4;
-	Tue, 20 Sep 2022 04:58:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBE87F80171;
+	Tue, 20 Sep 2022 04:58:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9878EF80155; Tue, 20 Sep 2022 04:58:19 +0200 (CEST)
+ id 39403F80171; Tue, 20 Sep 2022 04:58:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B39EFF800F2
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 04:58:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B39EFF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8354FF8012B
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 04:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8354FF8012B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mB0m4QXG"
-Received: by mail-pl1-x62e.google.com with SMTP id v1so1041451plo.9
- for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 19:58:11 -0700 (PDT)
+ header.b="FcJF96wn"
+Received: by mail-pg1-x533.google.com with SMTP id t190so1180701pgd.9
+ for <alsa-devel@alsa-project.org>; Mon, 19 Sep 2022 19:58:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=bG3TOlajU16P3gbCwMauLa0qhe+go+yuIOUL4RNlsMs=;
- b=mB0m4QXG1bWuQUYi3KqzpGAYgP8XshwcXa4pcBNoksZRgGI46KWHie5yLhFC+vyYPJ
- NjCkck5Vo0qK30wnb3TD0bVCAB71TJmZSgFtnbxkFmeeU6s6TaRcOZJfmcwSYqRdQei2
- CD4g18SdBpe0zEaU0Kw1GiAICKMXrE26WOWXc/689WbeWxT9Dgm+bYKPgmIpqTb9BbIa
- DiIQzVllOQRwvJ2Ro/adFfTxKEW1HO99ODpEKb64oEx0PMS6b+g0ASjMq24KQDBgUj3a
- nXOnSL1q6BHo1cGSp//lXHCWmuNn/ZrvV8xuLmU3QoRsDEFBMCQeYB9IFip3F2Z6Pb+I
- +tRA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=1D5qXLe1WAPRApCvIfGpFNULKJL8uLPqslDt4MGWmKc=;
+ b=FcJF96wnARQw/7Ye9X492BhO7+gmuFBafL0CjcuOsHdoPko1wwJo13OkjuzHZrE/mR
+ 0dqISXYA0qd6NLuu+4FKvr2z13C0sZZVnjWSIqTROr2suTnKnmbmues+kiOZ4E6hIHiO
+ dGIHeC6fhW+DRgDwQLhB/CA1L2Wo9B5bG+tPNj9/UebzRk8GVCSYvL3DlKas9MeDpSiV
+ jbySi2kmsxU97swYKsbdMXjweWew11EtMO94UAJ4eVr/6ahQtwhS13FD5PmjSrrKWoxm
+ 5iYjc5iitvkfKQFf8FmrbOEs7URP0qPX2NOc2haEOOE7vgB7MIPoyNwVhQpIg5cZxEgl
+ 0+Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=bG3TOlajU16P3gbCwMauLa0qhe+go+yuIOUL4RNlsMs=;
- b=duXbYqtFtgKRtIgbPJLJPBl3128WNAA96f6s2MbfqCKOYhUdhPOpUa2rrKeG72PFOe
- h4pWi/5QzYhAudSJRwRJhb+an/iH7Qyz4NQveiv2vpCO8GdXKOwYKHMyLUbq9EVkLRpp
- IitXyTru9RimIVIp248gxaQuHWzhHjCyIkhov1AlS1mxbO9fJk63oea3LLTIw8pj5woU
- NaxdmbYXW+JrGpV7oO9qREUvTlNgj15nnovy7Z96K/1hQKV2RlOOVr14+3B6GPRqx8Zv
- NSgWFYDNp2lXPST4uPETm9dHoR7pirEGloDGwokQeSJ9XQhAAdAc5V/7adxHq+b33vPM
- L9hQ==
-X-Gm-Message-State: ACrzQf3nObzgZcS28IMDBRR/SZIM/EXYke+AwdPnn6N4EWdMZ3X0sCIq
- rmKpk1/HkUx1abzeH1cDqB0=
-X-Google-Smtp-Source: AMsMyM422QwAquVOaMXBpgC0AQASMi7a0PhUei0xAJVzNK/fyN+cnM/gRRAeitNAdCFk83iiMBHuoQ==
-X-Received: by 2002:a17:90b:1b10:b0:200:934b:741f with SMTP id
- nu16-20020a17090b1b1000b00200934b741fmr1482826pjb.212.1663642688676; 
- Mon, 19 Sep 2022 19:58:08 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=1D5qXLe1WAPRApCvIfGpFNULKJL8uLPqslDt4MGWmKc=;
+ b=BBoL+FPHU4XsPW5BXPAP2cLgWfdoEdHecbbWwtr+2XKlwWez1Wlv1W4+pjRNozUabv
+ w/ECZQu807RvMmsNXeFjlwkkI+CZTzm4nCgzXANnbBLOODGO2WAVLWKkOaQ7EfXTovLc
+ DTtFY4FwACs4UURaCd6XHT/Zb+Z4gDLtxUZU6KzOqV4rCB66r17VY1r0myaH9tqiWJc+
+ 3CBrqA1rwi4jYzHl2WTVxw3nO/0t8Pcd6Y3DfY85FFHuc2r5Rwi+8WVLdgAGBT3xXBlD
+ JS+uMb9CMo8gTS1AzXGWQBuXZCD208M++BTpBGirDy6V5qnqNFDFh/PNni7nC7yv4hJi
+ 8gUw==
+X-Gm-Message-State: ACrzQf223a/c4+kBy+PZYL4ZoRtk1qts7fqf8O/rz0ECI1PYHIb/FMUa
+ BgwoTpDxT6jz6PY2voV/O/8=
+X-Google-Smtp-Source: AMsMyM5EZVdp2ZNER6mMbd7+fkvIe2UprHoJr3m3o7ZL+ib7ei/HkzjmwDyNVjMlgPGXBRs7+MXzsQ==
+X-Received: by 2002:a05:6a00:99c:b0:54c:27c4:3acb with SMTP id
+ u28-20020a056a00099c00b0054c27c43acbmr15230522pfg.22.1663642689973; 
+ Mon, 19 Sep 2022 19:58:09 -0700 (PDT)
 Received: from dtor-ws.mtv.corp.google.com
  ([2620:15c:202:201:b095:5d5d:4c28:8088])
  by smtp.gmail.com with ESMTPSA id
- z128-20020a626586000000b00542e190f6bcsm147499pfb.102.2022.09.19.19.58.07
+ z128-20020a626586000000b00542e190f6bcsm147499pfb.102.2022.09.19.19.58.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Sep 2022 19:58:07 -0700 (PDT)
+ Mon, 19 Sep 2022 19:58:09 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/2] ASoC: ssm2518: drop support for platform data
-Date: Mon, 19 Sep 2022 19:58:03 -0700
-Message-Id: <20220920025804.1788667-1-dmitry.torokhov@gmail.com>
+Subject: [PATCH 2/2] ASoC: ssm2518: switch to using gpiod API
+Date: Mon, 19 Sep 2022 19:58:04 -0700
+Message-Id: <20220920025804.1788667-2-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.37.3.968.ga6b4b080e4-goog
+In-Reply-To: <20220920025804.1788667-1-dmitry.torokhov@gmail.com>
+References: <20220920025804.1788667-1-dmitry.torokhov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
@@ -101,77 +105,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are currently no users of this driver's platform data in the
-mainline kernel, so let's drop it.
-
-Newer devices should use DT, ACPI, or static software properties to
-describe the hardware.
+This patch converts the driver to newer gpiod API, so that we can stop
+exporting OF-specific legacy gpio API.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- include/linux/platform_data/ssm2518.h | 21 ---------------------
- sound/soc/codecs/ssm2518.c            |  6 +-----
- 2 files changed, 1 insertion(+), 26 deletions(-)
- delete mode 100644 include/linux/platform_data/ssm2518.h
+ sound/soc/codecs/ssm2518.c | 30 ++++++++++++------------------
+ 1 file changed, 12 insertions(+), 18 deletions(-)
 
-diff --git a/include/linux/platform_data/ssm2518.h b/include/linux/platform_data/ssm2518.h
-deleted file mode 100644
-index 3f9e632d6f63..000000000000
---- a/include/linux/platform_data/ssm2518.h
-+++ /dev/null
-@@ -1,21 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * SSM2518 amplifier audio driver
-- *
-- * Copyright 2013 Analog Devices Inc.
-- *  Author: Lars-Peter Clausen <lars@metafoo.de>
-- */
--
--#ifndef __LINUX_PLATFORM_DATA_SSM2518_H__
--#define __LINUX_PLATFORM_DATA_SSM2518_H__
--
--/**
-- * struct ssm2518_platform_data - Platform data for the ssm2518 driver
-- * @enable_gpio: GPIO connected to the nSD pin. Set to -1 if the nSD pin is
-- *            hardwired.
-- */
--struct ssm2518_platform_data {
--	int enable_gpio;
--};
--
--#endif
 diff --git a/sound/soc/codecs/ssm2518.c b/sound/soc/codecs/ssm2518.c
-index 6d8847848299..feee28207e5d 100644
+index feee28207e5d..22cb3b7c8283 100644
 --- a/sound/soc/codecs/ssm2518.c
 +++ b/sound/soc/codecs/ssm2518.c
-@@ -13,7 +13,6 @@
+@@ -6,13 +6,13 @@
+  *  Author: Lars-Peter Clausen <lars@metafoo.de>
+  */
+ 
++#include <linux/err.h>
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
+ #include <linux/regmap.h>
  #include <linux/slab.h>
- #include <linux/gpio.h>
- #include <linux/of_gpio.h>
--#include <linux/platform_data/ssm2518.h>
+-#include <linux/gpio.h>
+-#include <linux/of_gpio.h>
++#include <linux/gpio/consumer.h>
  #include <sound/core.h>
  #include <sound/pcm.h>
  #include <sound/pcm_params.h>
-@@ -736,7 +735,6 @@ static const struct regmap_config ssm2518_regmap_config = {
+@@ -113,7 +113,7 @@ struct ssm2518 {
+ 	unsigned int sysclk;
+ 	const struct snd_pcm_hw_constraint_list *constraints;
  
- static int ssm2518_i2c_probe(struct i2c_client *i2c)
- {
--	struct ssm2518_platform_data *pdata = i2c->dev.platform_data;
- 	struct ssm2518 *ssm2518;
- 	int ret;
+-	int enable_gpio;
++	struct gpio_desc *enable_gpio;
+ };
  
-@@ -744,9 +742,7 @@ static int ssm2518_i2c_probe(struct i2c_client *i2c)
+ static const struct reg_default ssm2518_reg_defaults[] = {
+@@ -482,8 +482,8 @@ static int ssm2518_set_power(struct ssm2518 *ssm2518, bool enable)
+ 		regcache_mark_dirty(ssm2518->regmap);
+ 	}
+ 
+-	if (gpio_is_valid(ssm2518->enable_gpio))
+-		gpio_set_value(ssm2518->enable_gpio, enable);
++	if (ssm2518->enable_gpio)
++		gpiod_set_value_cansleep(ssm2518->enable_gpio, enable);
+ 
+ 	regcache_cache_only(ssm2518->regmap, !enable);
+ 
+@@ -742,20 +742,14 @@ static int ssm2518_i2c_probe(struct i2c_client *i2c)
  	if (ssm2518 == NULL)
  		return -ENOMEM;
  
--	if (pdata) {
--		ssm2518->enable_gpio = pdata->enable_gpio;
--	} else if (i2c->dev.of_node) {
-+	if (i2c->dev.of_node) {
- 		ssm2518->enable_gpio = of_get_gpio(i2c->dev.of_node, 0);
- 		if (ssm2518->enable_gpio < 0 && ssm2518->enable_gpio != -ENOENT)
- 			return ssm2518->enable_gpio;
+-	if (i2c->dev.of_node) {
+-		ssm2518->enable_gpio = of_get_gpio(i2c->dev.of_node, 0);
+-		if (ssm2518->enable_gpio < 0 && ssm2518->enable_gpio != -ENOENT)
+-			return ssm2518->enable_gpio;
+-	} else {
+-		ssm2518->enable_gpio = -1;
+-	}
++	/* Start with enabling the chip */
++	ssm2518->enable_gpio = devm_gpiod_get_optional(&i2c->dev, NULL,
++						       GPIOD_OUT_HIGH);
++	ret = PTR_ERR_OR_ZERO(ssm2518->enable_gpio);
++	if (ret)
++		return ret;
+ 
+-	if (gpio_is_valid(ssm2518->enable_gpio)) {
+-		ret = devm_gpio_request_one(&i2c->dev, ssm2518->enable_gpio,
+-				GPIOF_OUT_INIT_HIGH, "SSM2518 nSD");
+-		if (ret)
+-			return ret;
+-	}
++	gpiod_set_consumer_name(ssm2518->enable_gpio, "SSM2518 nSD");
+ 
+ 	i2c_set_clientdata(i2c, ssm2518);
+ 
 -- 
 2.37.3.968.ga6b4b080e4-goog
 

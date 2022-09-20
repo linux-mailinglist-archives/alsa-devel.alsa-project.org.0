@@ -2,78 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E8555BEE43
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 22:11:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBF95BEE53
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Sep 2022 22:16:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4FEF851;
-	Tue, 20 Sep 2022 22:10:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4FEF851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1356C850;
+	Tue, 20 Sep 2022 22:15:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1356C850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663704703;
-	bh=ju5UjKZq4kslVshB6alWMSvgvdnqmkZJiyboxP/Sff4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZC+Zzk/+zEIinerBaXAUMlBGQOzakkk+IwSSiZzBr/HBqIpQjbCVWQxFDc+IpazZc
-	 INKRdli7rhurM+114eCljzoOWOzCFcGHNDh+cs5FIZVhhE+7jfJKYc+On3MP99iwW/
-	 FYdJVxe51jCYL7a4KQ3ie++fSVo39ji2E4amxook=
+	s=default; t=1663704985;
+	bh=fJmHVon2ES9E6vrgiFEMm3pwn83AumrH0/jPx80wg+4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YJiilHoiLhXK/Qg1NHThCDADeGVkDxUhMTkOHD/IH1n4vKo70SbdHTls/UkA98az0
+	 +aRBVH4HwVR3bra4szuRumNjbXY5O6HgcFbgF8+G7UiOxkD+jG4VyhyR0pheABd682
+	 ZHnF1BSMwc3UKx3/WRKEmUqtjjeFPh5KP5rHu4z8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 402FAF800C9;
-	Tue, 20 Sep 2022 22:10:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44939F804DA;
+	Tue, 20 Sep 2022 22:15:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 556C7F80155; Tue, 20 Sep 2022 22:10:44 +0200 (CEST)
+ id 146B3F80171; Tue, 20 Sep 2022 22:14:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FEF3F8012B
- for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 22:10:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FEF3F8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AkmXgPtv"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2078.outbound.protection.outlook.com [40.107.212.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8CB8BB82142;
- Tue, 20 Sep 2022 20:10:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4404EC433D6;
- Tue, 20 Sep 2022 20:10:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663704636;
- bh=ju5UjKZq4kslVshB6alWMSvgvdnqmkZJiyboxP/Sff4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AkmXgPtvvY78KhUlfTn0PIrfzaeVyu1AFAHcFPR6PwkkUHJVYDvjk9Q4UqrXLjDFO
- F3ztkEnaFrersuDVY5Q6k216S3OusOXZZA/2fzUtwqcW6WW7govXwdPm0vj9TuWv9z
- kIwWao3nVwY+i+SwJH6B8+slOHB5WfNNp1eoLMeAN2R6QZ5+oyPzjhi7ojQWisIY7r
- +qAPl2OzyLaOGsHlmfz92zHo6UtJll7l3MXPPlMTv5v55jhODtrdHEJhAuxH5u2bRv
- SnGaRaFjftRcJFDIiFVFqHEDKb1DtJItSzyJyDIU1oVp8yvGxITdpZTkA4y2vgTnNF
- z0lMldD/JAv2w==
-Date: Tue, 20 Sep 2022 21:10:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 1/2] ASoC: amd: yc: Add ASUS UM5302TA into DMI table
-Message-ID: <YyoeIuQkI3SNkjD8@sirena.org.uk>
-References: <20220920194621.19457-1-mario.limonciello@amd.com>
- <20220920194621.19457-2-mario.limonciello@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4902BF80153
+ for <alsa-devel@alsa-project.org>; Tue, 20 Sep 2022 22:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4902BF80153
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="yG7mOnhP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dDL/O1IX9gR92l1KMmLlE3bE34QY6yPMNimSyBSxJq/D1BlUDq4+eVn1ejLMQHGcdLw/XkjEVb7pbtVN/9PghxFI4GkfhT0eESCOj4HrioLSJkZXEOnX/TcRfAanBfIJtndMiHWLX69Djl+uISsTDvceqjloSTM02sznO4Omy33ihu2bblQgNgN/LxFFRm2f1CDT9Wmz4KfNCQhtn2PUldV0hM5IAAdl4xmt04eODnqhvRS8A3zy9qc9eO8SwZIMKOfLVRItwdzIyRdQYLLAhRHgABwViSKt2bRdSyy8+qUsyg7kyAK3CKSj9K+owpypOrzrpjj8bByvTHYvKzPnqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fh2wCj7T0acBU7P/TwlkrC10HoHpBBI6sjMzDPqAluQ=;
+ b=KrFM+mS0NU9eBN5vYuBKetffwqsVq9CaLLrS0SL2sLegMAxSEO7vYj6GOYJLb6MkCe7xTur1IBcVBYI5mU8HrlX3zXobreLa6K3r8ZQGaNw8k+oGho8T0bOXMQRQ5Y+huawkuj0xSHJmXwT9yiwd8o5Zv3A9lhTJA1sSU3ahU7GyPlrrXIC+ThhrPsZiY2uhw2gZjIenvGEYsoVHF7R5zQmUQ25B2ASygPNpU0PaLtUmIe8sz88HeWUh/L2i0Z/tuh1LqYU4CcfHk0B22oDGwTHWpo60V5Omb+P3WdcgytWf+T2ZQojHvuBJutH/XRU8Fd9sRH85jdwG9LhvU8dvLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fh2wCj7T0acBU7P/TwlkrC10HoHpBBI6sjMzDPqAluQ=;
+ b=yG7mOnhPMiFkK2bdhTM1Z0UVUGud34qO4Zgyb+DNeFMwHVyvExGk58Ir+zeNFdLmOhmCvVq2QTiukqKo6yIBIe2KFfG8tskP2/bhPPhCEoAy68mqpAUv+kgmC043shKyLEtvW0LZZbBLefXP1h4lp2U7BvR4ryNYvy6y03AdNe8=
+Received: from BN9PR03CA0869.namprd03.prod.outlook.com (2603:10b6:408:13d::34)
+ by CY5PR12MB6622.namprd12.prod.outlook.com (2603:10b6:930:42::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Tue, 20 Sep
+ 2022 20:14:46 +0000
+Received: from BN8NAM11FT082.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13d:cafe::6b) by BN9PR03CA0869.outlook.office365.com
+ (2603:10b6:408:13d::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21 via Frontend
+ Transport; Tue, 20 Sep 2022 20:14:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT082.mail.protection.outlook.com (10.13.176.94) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Tue, 20 Sep 2022 20:14:46 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 20 Sep
+ 2022 15:14:45 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v3 0/2] Add some models into acp6x quirk list
+Date: Tue, 20 Sep 2022 15:14:33 -0500
+Message-ID: <20220920201436.19734-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="t2Iu1/keNZTUJyRf"
-Content-Disposition: inline
-In-Reply-To: <20220920194621.19457-2-mario.limonciello@amd.com>
-X-Cookie: One FISHWICH coming up!!
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT082:EE_|CY5PR12MB6622:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb509b11-d90f-46fc-dfac-08da9b44c33f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: b3Am2qqdeA/HZdjeu95+3jgyZwHQQH/sY9si0o1P6W5oIRm+VrquLmnGPVjxblpN/LqluGcLNEwJHUc/iKTu8t8DSFf/8ggKPnuM74u2XtFoi22V9nIYaKwJHpSJu99SdwZVihmODBLaktCm/QZB3gb5ZGl0PgnyAMkTWxchYu+XuLhQDVAiVDAxu5mL+phy/GMO0Um328A25IFu64KcWPB+eN6S0daML72Vp1b4wbIw8tx7cSnfUi5H6Iw0n15/4Pxk20damSgibar24yKkvBGHQroMSG8BqCocWfdf+J8IDybvhBAofUDV725FFWyir9HzznRJxs2iWdBlYYNKlyk62SBb5zNADUabyNDyNYCi+uuZk22ne4XxAUalIgjGSIrXiUbMwCdu6W+aFu/B95p819KdLxLYRhCdFwSLbMyWv5L+QehR/TTIxZII0vJZVpmI4y7rDdyIABthJFONcVnx495c4UtXboel2g9+PjdWpq8fq+SOorKeeNiT6GsqGmEYQbXxbonYPrXCyS21OOlVzymDnh4AkiHZcg1NH51jk70WD8Q8ozF04NZ2DnKgF5Jyb6HfPBhembjGmTNaRcSH0SBQM/11fbB8+c9IBonjmJTVb4guCB+UKoiZdEfGhTeLhpjKQxWgcR6WvhfHi2pZ5QfnyJaPhpAk/yHR3Fs0WqXzmvMHHtstgjaHZEJ5CVCdl/XmTMFOxOVeUb+7znYfQmuKCF6qB+LzsDkvBRA9wrPPSk9lADfD7MY43dN6YzKIupyShSn/XdWs/cPy5JdBZMsm7jyOLApBkBO1rnLN2H3hm0kyl8QKzztroe/dsvLWpz60rao87ayIw1Nymg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199015)(46966006)(36840700001)(40470700004)(41300700001)(82740400003)(356005)(81166007)(6666004)(70586007)(2616005)(8936002)(186003)(36860700001)(82310400005)(336012)(47076005)(5660300002)(40480700001)(86362001)(54906003)(40460700003)(44832011)(478600001)(426003)(16526019)(1076003)(6916009)(4744005)(36756003)(8676002)(70206006)(4326008)(316002)(26005)(2906002)(7696005)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 20:14:46.1077 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb509b11-d90f-46fc-dfac-08da9b44c33f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT082.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6622
 Cc: Travis Glenn Hansen <travisghansen@yahoo.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
- Saba Kareem Syed <Syed.SabaKareem@amd.com>, Sebastian S <iam@decentr.al>
+ linux-kernel@vger.kernel.org, Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Sebastian S <iam@decentr.al>,
+ Saba Kareem Syed <Syed.SabaKareem@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,38 +132,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Another model from ASUS and Lenovo have been identified that
+don't include anything in ACPI tables to indicate they require the
+ACP6x DMIC driver to be loaded.
 
---t2Iu1/keNZTUJyRf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series adds them both to the quirk list.
 
-On Tue, Sep 20, 2022 at 02:46:20PM -0500, Mario Limonciello wrote:
+changes from v1->v2:
+ * Both models were independently sent in v1 but touch the same code,
+   so v2 collates them together.
 
->=20
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D216270
-> Signed-off-by: Xiaoyan Li <lxy.lixiaoyan@gmail.com>
-> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
+v2->v3:
+ * Add my missing S-o-B for 1/2
+Mario Limonciello (1):
+  ASoC: amd: yc: Add Lenovo Yoga Slim 7 Pro X to quirks table
 
-You've not provided a Signed-off-by for this so I can't do anything with
-it, please see Documentation/process/submitting-patches.rst for details
-on what this is and why it's important.
+Xiaoyan Li (1):
+  ASoC: amd: yc: Add ASUS UM5302TA into DMI table
 
---t2Iu1/keNZTUJyRf
-Content-Type: application/pgp-signature; name="signature.asc"
+ sound/soc/amd/yc/acp6x-mach.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.34.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMqHh4ACgkQJNaLcl1U
-h9CCjgf9Hx5OKV1Vuzb2J73P8H4hnThiRcynSMMsdSpg1Q52BrwFhqanX2gQT/F9
-X85gdtbaO2rq1fnnmh286DILsbHJBTlnV08nqJIFwmuk+pc+e8mdCeDcwR3utvVp
-N27JV7MqczefPADMQUdx9vXTDnkh6H7phv6/HAzgSCIxS+kNNOaorklmfaiw+94E
-2qnKP1duYWlNRYqYYX5XkR9d7MM7f6Vo0/Flh5KpDGffrYl2GbblZwLSNKvpmXHn
-5+fecbHM8tU6CSIo1VQfzPg4TqO7sh8RJ9WWaCAEaay+6gvb68G0Y900IM9BTkcJ
-CS0LVbZF9tS+CV2GuPG7zUjfHy8jlQ==
-=KOkl
------END PGP SIGNATURE-----
-
---t2Iu1/keNZTUJyRf--

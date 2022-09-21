@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A815BFAD2
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:25:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2205BFAD8
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:26:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D70AB15C3;
-	Wed, 21 Sep 2022 11:24:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D70AB15C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 016EC1640;
+	Wed, 21 Sep 2022 11:25:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016EC1640
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663752349;
-	bh=saf5MjyZS/Ao0yFYu51Y1H/XCy/26iny1D/d5NZk9L8=;
+	s=default; t=1663752364;
+	bh=ofsoQwLujMqNHbDx5gQiRXiSxruzrBVrQ2FYpxBtOtY=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZBOhP/BDU8Np3lVsmtNnvGvImTyVKEGvPaXH3yhvSS3fulLv9+uLloLNNa/cbU2Hg
-	 sjRYqdUNuVHhl7OaIPW9wZbfjyz5JKnNOtxwVIftSZ2S3aT3Er5ffaikTaJAQjB1TL
-	 dE/dxDda+RxTciW5+hSzDaFbUYaLKoUZpNcH0z/g=
+	b=MuB0hdIcSOOwPVTnZJ1DIUFJvOZpklq9pQm5Jnk0Ku2enzkiR9doE3TES0HBD6r+m
+	 /wMTbaMQyBbvItCoeRJn++xUfsLgCm8jWxcPqhYyN50cLCJHQyK4xNkuWu8CR+84Ke
+	 Yw2rzxzTicnbNVLm+aNyJ87iJVa0lz3vs+wfIfVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41BEEF8053B;
-	Wed, 21 Sep 2022 11:24:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD533F804CF;
+	Wed, 21 Sep 2022 11:25:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B94BF8053B; Wed, 21 Sep 2022 11:24:39 +0200 (CEST)
+ id CE94CF804C2; Wed, 21 Sep 2022 11:25:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0FF8F80539
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:24:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0FF8F80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61D8DF80169
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61D8DF80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XRwVQHu9"
+ header.b="V3OxNHyS"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BA55A6303F;
- Wed, 21 Sep 2022 09:24:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD750C433C1;
- Wed, 21 Sep 2022 09:24:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5907C6303E;
+ Wed, 21 Sep 2022 09:25:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80DC5C433D6;
+ Wed, 21 Sep 2022 09:24:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663752273;
- bh=saf5MjyZS/Ao0yFYu51Y1H/XCy/26iny1D/d5NZk9L8=;
+ s=k20201202; t=1663752301;
+ bh=ofsoQwLujMqNHbDx5gQiRXiSxruzrBVrQ2FYpxBtOtY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=XRwVQHu9QfuxxYKt12h7RahLFRZMbqb4pTulq/pvntoq3u9qYtBSHwUtJfs4//ZPa
- J6/xRvABGCWPretGsGzfaWgzGdwzTs26QWNVo9MKa4AF5meWfoIy/v69iTy7tVXGx7
- tCW2QWSq/7autUIrDLcq3yBcSCq4eY0tzcqDBHcD2ZG3Yo+7hAL5koBU/DjDbGZAt2
- E5y+JlcctPfunoD8wBZaLvk6wA58UbKRUpvBC3/N+EExLkP9GiaFlXzUKvd3WT2vkG
- fGhscRUP7UVJDTXMRhjw/tfwZS/b/wK2vhda7Wu6Sckomd/j2Gd147eodO3+FHWal3
- FhU3e2McguOLA==
+ b=V3OxNHySGxo6GNs4UsSKXA1PK0RrRykgstNijVQ85SVx3MH+czYSpCCjE2G/m0p0Q
+ DTVqVUiM9uDvJ2xYdCkrMwUOV1rF6g1zTWZtkHqlh49Q6K9pJrvq2EDtsrhocsqS7b
+ 2RFUeU5HcZYr3G8ibbGx2OnWoglYb0MQrSxTv0r1ECCXc0oCiWUiv9MzuofK65IDHi
+ 36pUolgtw34tasP0VE2YuPUAHOZSIDYgUETgsYcUhi/fuu998E/BXsFnHUOV2RVg3v
+ SYD7ZsqQcHzLaN4luPB6QONAc2mp3s9gVG33yo+OYax0lJm6twBsGE7OTIYcVdf1ZE
+ i5Cu3TKYAZpVA==
 From: Mark Brown <broonie@kernel.org>
-To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
+To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
  alsa-devel@alsa-project.org
-In-Reply-To: <20220920151413.3455255-1-yangyingliang@huawei.com>
-References: <20220920151413.3455255-1-yangyingliang@huawei.com>
-Subject: Re: [PATCH -next] ASoC: rt5682s: simplify the return of
- rt5682s_probe()
-Message-Id: <166375225784.526450.17898794623132964146.b4-ty@kernel.org>
-Date: Wed, 21 Sep 2022 10:24:17 +0100
+In-Reply-To: <20220913144319.1055302-1-Vsujithkumar.Reddy@amd.com>
+References: <20220913144319.1055302-1-Vsujithkumar.Reddy@amd.com>
+Subject: Re: [PATCH 0/4] ADD SOF support for rembrandt platform
+Message-Id: <166375227653.526450.11920634048868931636.b4-ty@kernel.org>
+Date: Wed, 21 Sep 2022 10:24:36 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.11.0-dev-8af31
-Cc: oder_chiou@realtek.com, lgirdwood@gmail.com
+Cc: venkataprasad.potturu@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, ssabakar@amd.com, Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,12 +86,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Sep 2022 23:14:13 +0800, Yang Yingliang wrote:
-> After commit bfc5e8b860ad ("ASoC: rt5682s: Reduce coupling of
-> Micbias and Vref2 settings"), the return of rt5682s_probe()
-> can be simplified. No functional changed.
+On Tue, 13 Sep 2022 20:13:14 +0530, V sujith kumar Reddy wrote:
+> This series consists of
 > 
+> 1.Make ACP core code generic for newer SOC transition
+> 2.Add support for Rembrandt plaform
+> 3.Adding amd HS functionality to the sof core
+> 4.increase SRAM inbox and outbox size to 1024
 > 
+> [...]
 
 Applied to
 
@@ -99,8 +102,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5682s: simplify the return of rt5682s_probe()
-      commit: 2edd66eccfeab9734512fac352b50d17366246f5
+[1/4] ASoC: SOF: amd: Make ACP core code generic for newer SOC transition
+      commit: 4da6b033f5454ccbac2d5795d7edfb3f2a777104
+[2/4] ASoC: SOF: amd: Add support for Rembrandt plaform.
+      commit: 41cb85bc4b526bb228579c04857bc58213e5f9b5
+[3/4] ASoC: SOF: Adding amd HS functionality to the sof core
+      commit: ed2562c64b4f2cb434420f7d2818d0388250ac1a
+[4/4] ASoC: SOF: amd: increase SRAM inbox and outbox size to 1024
+      commit: 40d3c041e2f871b3d2d78c8e360224f788ac17ab
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

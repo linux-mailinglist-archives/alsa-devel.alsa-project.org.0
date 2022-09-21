@@ -2,81 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 708155BFDA9
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 14:19:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 439F95BFE13
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 14:39:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F184086F;
-	Wed, 21 Sep 2022 14:18:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F184086F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4C5A9F6;
+	Wed, 21 Sep 2022 14:38:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4C5A9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663762750;
-	bh=ZqLHdcmZ3jM1WLgRQfy/dghDg8AblsWqEL1j75mDDJ4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1663763943;
+	bh=supMv855KnyburSSx3KwyTUOX8zU5PSNqbdh6ZA3Vz8=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jij9u10mFJ80NOkm3tXWylSSWvVA523JrEl3tT3/51oi+mCXX91BlRBMNIXbRvRuJ
-	 zxbv61x5Rg7BNBfgBuL0rdQU+X7r0d6Ia4t/jESc1ONhpREJN7KlzH/jl8Tz0NyRAa
-	 /jW6J2xOYdsodUhjiqcFEmma3FKtsjsxD5ynQjkU=
+	b=iy7YV7RsepY27EtUjLUjnRFd8k+GyRmAm2kWCkrobQkL+EvN03xzzEzRufbaWiVFj
+	 xo45/xXko9xurUAwgLteJX63f6u/1UXnZv9aJ6bdQIjm44i01IPk8H3LGNIIaOblC7
+	 j2JhmrnvJHryeypBuRT/b1SoiB1u5Sgd0uT8dN9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49947F80425;
-	Wed, 21 Sep 2022 14:18:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D41A5F800C9;
+	Wed, 21 Sep 2022 14:38:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A88C4F800C9; Wed, 21 Sep 2022 14:18:09 +0200 (CEST)
+ id 03EB7F80169; Wed, 21 Sep 2022 14:38:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8744AF800C9
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 14:38:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8744AF800C9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="WZDZuujr"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86AC8F800C9;
- Wed, 21 Sep 2022 14:18:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86AC8F800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="JgLMbHtr"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9416C6600010;
- Wed, 21 Sep 2022 13:18:00 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663762681;
- bh=ZqLHdcmZ3jM1WLgRQfy/dghDg8AblsWqEL1j75mDDJ4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JgLMbHtr14YD0NJw96u62HHbnIPkNyWHmQTWLMe2lDPiHzjbMPk6ds5swVfk8S1Q8
- SLXGwlaKhEetj1yy7nMHlZe95lbBiRNGeIoCnK3BSdL4PvcRy7F2YhtaAkmbMRHlFh
- QaHw5soZow7GVt9GZ4gL0acRAJSS5KmANMqZOa/wr2cRnFOghlk5J5LXClcV5pPKTB
- ic5alO6vUbtxg/hfHepE9R4foLLaZFl+AhRBovlvi6BDBBGFa7HUpxkd/u2Xrn4xL9
- CRrB5jRuHS0RqsHv7EG9A9QbKW3mKukzdLgGT8sj3G2qMyYJI8lG4n13Ox5kgsI6RN
- IiCOX4Z9m3Kog==
-Message-ID: <dbe3f7fb-5fae-b147-f824-cd39ba3900ca@collabora.com>
-Date: Wed, 21 Sep 2022 14:17:57 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A85D6623FE;
+ Wed, 21 Sep 2022 12:37:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96FA9C433D7;
+ Wed, 21 Sep 2022 12:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663763877;
+ bh=supMv855KnyburSSx3KwyTUOX8zU5PSNqbdh6ZA3Vz8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=WZDZuujrMgbAZ0EtjjBEvWI5Ft+3VTLbXG8OKqfuMqpwAuC+EJt8lw4U0viNvEXSD
+ qL/3cVIUW/eMV6lPZ46skTL5Q1JyhJ96bXYX73et6xBHYUwdWpaR+ZA/NCBZJ6vk3F
+ ls+hA9TbIkQDsJnrDyPceXkkKcm4jnFhwWrgOnMExwJpVt+DonbjhuYXLHqyejPIpB
+ V4dQ3uwFBqFGSAkZdrT6eJjabTJtPncSq0B7uTxNikFhokt4aAgGB4f5k2h5G6Hl3Y
+ 9d2QPW2KO+ZtGJKlCuZ4vteUBI/3mUxE+U3f/+uDxKz41SySBNi4W4lTc99bNeQgcc
+ wtMpvwh/RxvPQ==
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, tiwai@suse.com, fengzheng923@gmail.com, lgirdwood@gmail.com,
+ Zeng Heng <zengheng4@huawei.com>, 
+ jernej.skrabec@gmail.com, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 
+ alsa-devel@alsa-project.org, wens@csie.org, samuel@sholland.org
+In-Reply-To: <20220921033819.2188233-1-zengheng4@huawei.com>
+References: <20220921033819.2188233-1-zengheng4@huawei.com>
+Subject: Re: [PATCH -next] sound: sunxi: fix declaration compile error
+Message-Id: <166376386829.569475.6485211079114910926.b4-ty@kernel.org>
+Date: Wed, 21 Sep 2022 13:37:48 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
-Content-Language: en-US
-To: Chunxu Li <chunxu.li@mediatek.com>, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- lgirdwood@gmail.com, daniel.baluta@nxp.com
-References: <20220921120239.31934-1-chunxu.li@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220921120239.31934-1-chunxu.li@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.11.0-dev-8af31
+Cc: liwei391@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,17 +89,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 21/09/22 14:02, Chunxu Li ha scritto:
-> add pcm_pointer callback for mt8186 to support read
-> host position from DSP
+On Wed, 21 Sep 2022 11:38:19 +0800, Zeng Heng wrote:
+> Just fix compile error without any logic changes.
 > 
-> Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
+> sound/soc/sunxi/sun50i-dmic.c:62:1: error: ‘static’ is not at beginning of declaration [-Werror=old-style-declaration]
+>    62 | const static struct dmic_rate dmic_rate_s[] = {
+>       | ^~~~~
+> 
+> 
+> [...]
 
-Hello Chunxu,
-Can you please also add this, along with the .pcm_hw_params callback to mt8195.c?
+Applied to
 
-Anyway, for this one:
+   broonie/sound.git for-next
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Thanks!
 
+[1/1] sound: sunxi: fix declaration compile error
+      commit: ee81cfb58286c1aed3263d2fc94b321e7d963f08
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F4D5BFAE5
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7602F5BFAFA
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:29:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D2EC1655;
-	Wed, 21 Sep 2022 11:26:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D2EC1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1833C86E;
+	Wed, 21 Sep 2022 11:28:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1833C86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663752419;
-	bh=ikIAnfPz4Na5Jtei+lBvQcChdHW0NRZIgwwAQCKhr2U=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1663752577;
+	bh=WDxuopYgb69Vunh7mtLHaLmL+ZS2lN6XufwXUZ+0EdE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KvL0VQWvfjbY6dWv945vops/gSZpsxfzgLzyOUFyXNj5lB9z3mQknMtM1DtZ3yfjb
-	 4mD75PEhkOouasJYv8zktvlcE27RNSvVcNe7amWrpo/PmrKOQCpM+HAavCkn89B2UD
-	 QpOMo2NmT0IWaZBHqWVnN1284xJ1IGVifaGFx+7w=
+	b=SWipJTNGGAixAx6PN5Kt2rhwSCuaiBzUucSK6kAmG1bD+mY0W9FPmCSZITqX89VxE
+	 4iqRfBUB0KvchwUiN8oPkxyZzaPeUqAB6Oj1jZcpHjyTcwvekKxEtPmKDUsjvW68g2
+	 ndsCmd2ib68nlTULTD8cNHQMeoQQ4d98mej8Inrs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C1C2F80538;
-	Wed, 21 Sep 2022 11:26:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CFE9F80107;
+	Wed, 21 Sep 2022 11:28:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98768F804CF; Wed, 21 Sep 2022 11:26:06 +0200 (CEST)
+ id D57EFF80256; Wed, 21 Sep 2022 11:28:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 990DDF80256
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:25:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 990DDF80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5502F80107
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:28:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5502F80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FrU9fVgJ"
+ header.b="bQS4Y46a"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 525E462968;
- Wed, 21 Sep 2022 09:25:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D988C433C1;
- Wed, 21 Sep 2022 09:25:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 84AF26295A;
+ Wed, 21 Sep 2022 09:28:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752F5C433D6;
+ Wed, 21 Sep 2022 09:28:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663752357;
- bh=ikIAnfPz4Na5Jtei+lBvQcChdHW0NRZIgwwAQCKhr2U=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=FrU9fVgJ3MGpcjnwCGjjPkFeZiTWxPYev3+1s+Vlcrt9C8vR+kVAUM7d+3H4Mz/Ju
- nl6Yl3D6INjKko5/MU79jLlRynstoL7AurjPcjYv7GUYdwWyo/0xwsRGSjqRV1JKnF
- BR0HJIZb8fnHFtJdij7gBQOvFjEM6PH+CuAUTSlZdOFKILgjWPCj5Hu8f69jQCsLeb
- Lcuf0kzsbEZrc1/5UQxAFjSBYXzvYWep/Iq93PR10urjnvuaZ6orbLEBVYZVXHkDET
- Q+wtJEN3FcXsx+sZX/WOvg3mz9XiENwCbKwj+xf80gs1aFRykXPvoL9zoT7pKdwNqs
- y3y6+LWA7SNvQ==
+ s=k20201202; t=1663752510;
+ bh=WDxuopYgb69Vunh7mtLHaLmL+ZS2lN6XufwXUZ+0EdE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bQS4Y46aVDSYt251ORFT3NfRYbbyD56HAS5w7pTjG/XLEflGVaujAE5gyT0ZSbZOl
+ F/uAprNsX6ec7il612pHJieVjhd3N57sxPIo+9jKky6PYcCwUzRaaht3UrSUrBqPBL
+ uqDuGZQ4RDjYoaL1hEzIeKIu0Bg2Kn8zkptnVVuB7ttjDDE4+TVde0G2v+I8OlWpPD
+ 9Vlfj+JzAVfGS98q275cX6eSEnHGjl2jHEY8fMdfqdzhSKtLoT3TYM03FbxTpqmL3L
+ HGeez7Gsr4WXkiHZPVX2ZFtpmhYFLhAIANPtPYE5Nk4Ggmsby7f/0EaBZkf77oWM7g
+ dMd5OfyuKwBFg==
+Date: Wed, 21 Sep 2022 10:28:00 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20220920201436.19734-1-mario.limonciello@amd.com>
-References: <20220920201436.19734-1-mario.limonciello@amd.com>
-Subject: Re: [PATCH v3 0/2] Add some models into acp6x quirk list
-Message-Id: <166375233080.526450.10768645288772801022.b4-ty@kernel.org>
-Date: Wed, 21 Sep 2022 10:25:30 +0100
+To: Zeng Heng <zengheng4@huawei.com>
+Subject: Re: [PATCH -next] sound: sunxi: fix declaration compile error
+Message-ID: <YyrZIEH+n5UfbFGZ@sirena.org.uk>
+References: <20220921033819.2188233-1-zengheng4@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-8af31
-Cc: Travis Glenn Hansen <travisghansen@yahoo.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
- Saba Kareem Syed <Syed.SabaKareem@amd.com>, Sebastian S <iam@decentr.al>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ME3YOqXesqoqS5wH"
+Content-Disposition: inline
+In-Reply-To: <20220921033819.2188233-1-zengheng4@huawei.com>
+X-Cookie: One FISHWICH coming up!!
+Cc: alsa-devel@alsa-project.org, fengzheng923@gmail.com, lgirdwood@gmail.com,
+ samuel@sholland.org, tiwai@suse.com, jernej.skrabec@gmail.com, wens@csie.org,
+ liwei391@huawei.com, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,45 +88,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Sep 2022 15:14:33 -0500, Mario Limonciello wrote:
-> Another model from ASUS and Lenovo have been identified that
-> don't include anything in ACPI tables to indicate they require the
-> ACP6x DMIC driver to be loaded.
-> 
-> This series adds them both to the quirk list.
-> 
-> changes from v1->v2:
->  * Both models were independently sent in v1 but touch the same code,
->    so v2 collates them together.
-> 
-> [...]
 
-Applied to
+--ME3YOqXesqoqS5wH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   broonie/sound.git for-next
+On Wed, Sep 21, 2022 at 11:38:19AM +0800, Zeng Heng wrote:
+> Just fix compile error without any logic changes.
 
-Thanks!
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-[1/2] ASoC: amd: yc: Add ASUS UM5302TA into DMI table
-      commit: 4df5b13dec9e1b5a12db47ee92eb3f7da5c3deb5
-[2/2] ASoC: amd: yc: Add Lenovo Yoga Slim 7 Pro X to quirks table
-      commit: 2232b2dd8cd4f1e6d554b2c3f6899ce36f791b67
+--ME3YOqXesqoqS5wH
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMq2SAACgkQJNaLcl1U
+h9Cvxgf+JwuwCJ3WVh4QQFfxsXemu9L+90kzz98/qFyGvhJAZhpNYajQ49zBNl31
+jPkks0Gc2KxpnKmTip+skGzfl+mUYh+KWnZMDnLtRnaXEvxV1Lall1YVFcY+8KI1
+vGYktnyhFH44wj03BJ2j0idUJFVb6U7W19jkMUG7PhgT/lHrOVbhe2RnbmINOkco
+VRxGq50lphPtVsdZgkF4dX7VsFWoY6JYVlIVHBlR3K536EGAw2XmwxqZCJTzt9zT
+Iu7XO9v6uFjTYgLGXzvfu3YmQaQivK/rTyZxTWO2AwiVzSdhVG1dL54KX66C6zXp
+tFsU/enYJXkL2ou81XTRyeKXg5LhYw==
+=MVeU
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--ME3YOqXesqoqS5wH--

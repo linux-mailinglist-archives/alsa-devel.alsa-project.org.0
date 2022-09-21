@@ -2,77 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B995BFCF3
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 13:29:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAF25BFD79
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 14:04:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1CC51607;
-	Wed, 21 Sep 2022 13:28:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1CC51607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78D81850;
+	Wed, 21 Sep 2022 14:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78D81850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663759747;
-	bh=azeYHTE4Cxj/yTYbAGp/wdk3a0HOQ1gAwOBtS0qeOdc=;
+	s=default; t=1663761841;
+	bh=S9QiPNng7eSzJmXiN62sr2BtHMX+egiT7o3LhAj2ygY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=dn65pIoDgCO/PhZaUw+t7br05yPvT/9EeDcxcjHtycImpJw3FRDpmW+h6knqqFcit
-	 hS5d9siq0eKIKEksFUnOSSBcAlnzaO3PYvSzQkPSCRP14Zr2MRS6YF5X5iHIzJE32A
-	 8ey7pqUyIxxhXY5WLj4ATJfOcEO3Q4nMGNOJrG6g=
+	b=tZHl3/tKNyrVSUs+ODu5JmCgtDcKiwu9QG937EogoPuE4L3HL4Zm72y1P4IRRWVmR
+	 hmcz2QHpR43R6FoINEeb3CydV7dGyIxA4B4+hPIayJDZtAwJErX67WSGxACnYJzkY7
+	 JQS7/bktUJ7Yzw/FFU+rHX5mimSPYW6zy6W8SIBA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0C96F80425;
-	Wed, 21 Sep 2022 13:28:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED1FAF80425;
+	Wed, 21 Sep 2022 14:03:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9D1AF80256; Wed, 21 Sep 2022 13:28:04 +0200 (CEST)
+ id 056F5F80256; Wed, 21 Sep 2022 14:03:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96A3CF800F3
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 13:27:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A3CF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79C05F800C9;
+ Wed, 21 Sep 2022 14:02:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C05F800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="es+lyzUr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663759677; x=1695295677;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=azeYHTE4Cxj/yTYbAGp/wdk3a0HOQ1gAwOBtS0qeOdc=;
- b=es+lyzUrNl+YAr/tMZgvPSXNMaQKheo/kkIKGxpa3bjxBCUAXWHf4hbm
- sfgc/dgDjmOKnyhD4yL5KzRhGJ9EzMAkBRoqPT1YOA2cKBrDy6Fd5vvOH
- M16pKXfkJ13g4rgd2ZZNOy7nZoOmox+3eAHuHmwKdPIY3yLPbcMKqe7JL
- 80rZrbG3n5JwppkmhWkJeRPTccYN7LWtMD+2kgvdPZk0juxE8DQsjZ8g8
- 93rNhjU89M9lx4R2frLOl7KQ1dDUvMV8eq+gPZyS6vaFLliRWZVd1K496
- +OVYk8RWzd+JUP8RvhqeFvCttOPl+3EVCNzZYYQcDUX11XomtrEFdkc/t A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10476"; a="386260321"
-X-IronPort-AV: E=Sophos;i="5.93,333,1654585200"; d="scan'208";a="386260321"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2022 04:27:44 -0700
-X-IronPort-AV: E=Sophos;i="5.93,333,1654585200"; d="scan'208";a="744919743"
-Received: from pjmcenea-mobl2.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.2.141])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2022 04:27:41 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: [PATCH] ASoC: SOF: ipc4-topology: Free the ida when IPC fails in
- sof_ipc4_widget_setup()
-Date: Wed, 21 Sep 2022 14:27:51 +0300
-Message-Id: <20220921112751.9253-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.37.3
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="ex6lN7Iq"
+X-UUID: 8976d09486ec49cbb20156b824bca0bb-20220921
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=rnk6XT/XzFAqp50N45m5DaI+6+u2HgKxMgT5LBTZ044=; 
+ b=ex6lN7IqOklTdSG9WF+AOCVQBHETkp0vnp+ccEgXBOwjk/qNKA38S4tv0AWnp37lB9hL68L85imVTa8FQ7otOW3RJUSohvt6jLtRPGkp+1gadm361Hpw34G+ceX8gespqbVqZBsMPEYbUwoqzv5u1EpBUnq2bmSyg9YMI2bdVM4=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:a10e14ed-1b53-40a3-a149-30e93db36d89, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:95
+X-CID-INFO: VERSION:1.1.11, REQID:a10e14ed-1b53-40a3-a149-30e93db36d89, IP:0,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
+ :quarantine,TS:95
+X-CID-META: VersionHash:39a5ff1, CLOUDID:b90e6c5e-5ed4-4e28-8b00-66ed9f042fbd,
+ B
+ ulkID:220921200244SK7U2YH9,BulkQuantity:0,Recheck:0,SF:28|17|19|48|823|824
+ ,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,
+ COL:0
+X-UUID: 8976d09486ec49cbb20156b824bca0bb-20220921
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <chunxu.li@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 157263969; Wed, 21 Sep 2022 20:02:43 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 21 Sep 2022 20:02:42 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 21 Sep 2022 20:02:41 +0800
+From: Chunxu Li <chunxu.li@mediatek.com>
+To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
+ <peter.ujfalusi@linux.intel.com>, <lgirdwood@gmail.com>,
+ <angelogioacchino.delregno@collabora.com>, <daniel.baluta@nxp.com>
+Subject: [PATCH] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
+Date: Wed, 21 Sep 2022 20:02:39 +0800
+Message-ID: <20220921120239.31934-1-chunxu.li@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
+Content-Type: text/plain
+Cc: alsa-devel@alsa-project.org, Chunxu Li <chunxu.li@mediatek.com>,
+ linux-kernel@vger.kernel.org,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +103,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The allocated ida needs to be freed up if the IPC message fails since
-next time when we try again to set up the widget we are going to try to
-allocate another ID and given enough tries, we are going to run out of
-unique IDs.
+add pcm_pointer callback for mt8186 to support read
+host position from DSP
 
-Fixes: 711d0427c713 ("ASoC: SOF: ipc4-topology: move ida allocate/free to widget_setup/free")
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
 ---
- sound/soc/sof/ipc4-topology.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/sof/mediatek/mt8186/mt8186.c | 33 ++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 64929dc9af39..340d92452d7c 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1544,9 +1544,16 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	msg->data_ptr = ipc_data;
- 
- 	ret = sof_ipc_tx_message(sdev->ipc, msg, ipc_size, NULL, 0);
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(sdev->dev, "failed to create module %s\n", swidget->widget->name);
- 
-+		if (swidget->id != snd_soc_dapm_scheduler) {
-+			struct sof_ipc4_fw_module *fw_module = swidget->module_info;
-+
-+			ida_free(&fw_module->m_ida, swidget->instance_id);
-+		}
-+	}
-+
- 	return ret;
+diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
+index 9ec89fc7fec0..181189e00e02 100644
+--- a/sound/soc/sof/mediatek/mt8186/mt8186.c
++++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
+@@ -470,6 +470,38 @@ static int mt8186_pcm_hw_params(struct snd_sof_dev *sdev,
+ 	return 0;
  }
  
++static snd_pcm_uframes_t mt8186_pcm_pointer(struct snd_sof_dev *sdev,
++					    struct snd_pcm_substream *substream)
++{
++	int ret;
++	snd_pcm_uframes_t pos;
++	struct snd_sof_pcm *spcm;
++	struct sof_ipc_stream_posn posn;
++	struct snd_sof_pcm_stream *stream;
++	struct snd_soc_component *scomp = sdev->component;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++
++	spcm = snd_sof_find_spcm_dai(scomp, rtd);
++	if (!spcm) {
++		dev_warn_ratelimited(sdev->dev, "warn: can't find PCM with DAI ID %d\n",
++				     rtd->dai_link->id);
++		return 0;
++	}
++
++	stream = &spcm->stream[substream->stream];
++	ret = snd_sof_ipc_msg_data(sdev, stream->substream, &posn, sizeof(posn));
++	if (ret < 0) {
++		dev_warn(sdev->dev, "failed to read stream position: %d\n", ret);
++		return 0;
++	}
++
++	memcpy(&stream->posn, &posn, sizeof(posn));
++	pos = spcm->stream[substream->stream].posn.host_posn;
++	pos = bytes_to_frames(substream->runtime, pos);
++
++	return pos;
++}
++
+ static struct snd_soc_dai_driver mt8186_dai[] = {
+ {
+ 	.name = "SOF_DL1",
+@@ -537,6 +569,7 @@ static struct snd_sof_dsp_ops sof_mt8186_ops = {
+ 	/* stream callbacks */
+ 	.pcm_open	= sof_stream_pcm_open,
+ 	.pcm_hw_params	= mt8186_pcm_hw_params,
++	.pcm_pointer	= mt8186_pcm_pointer,
+ 	.pcm_close	= sof_stream_pcm_close,
+ 
+ 	/* firmware loading */
 -- 
-2.37.3
+2.25.1
 

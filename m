@@ -2,101 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14775BF936
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 10:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9886E5BFA13
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:05:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43B6786F;
-	Wed, 21 Sep 2022 10:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43B6786F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 282D4828;
+	Wed, 21 Sep 2022 11:04:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 282D4828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663748906;
-	bh=Gv2sf6lMKv2UdKNv0z8IaLXyrae+GO9mLoIbaFCaa3A=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cUDEOvJ1ZJ22351y5q6WA3oGLpp61n9bekdyoU4cFZrilAYvFZ33LrHZwjuSbU/8F
-	 3ieTsqxskp/MJn2lLdMDEOSy6xZnPeE6zdI3tzd5yRUKXsxl/EWdPOnWj4Zg9JxCAv
-	 0r4j8vmTIMFjzYs+FT6Ea/DrVuKN4GZu/MPTZcS4=
+	s=default; t=1663751145;
+	bh=5It2FIrleYwl+s7yKIi1GAR1kB+Rp0pqKCF1wBgXiGY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GYuZL18SdcpUkoXCAdlOrwbtMfkGRUtJ6SchH1eoByV6aLKsWDMpPtjrf+L0UUMb3
+	 PNDN/uxsvkdy9Z50dseRG4XCo+sI2ZpLpBRsXm2iDmYn1mN5y2GWPS/lzYRKewKnYF
+	 xUITb2EOnaGtlHSYMHYMmwswHVrelhCQei7meWHA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FFC0F804CF;
-	Wed, 21 Sep 2022 10:27:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71E6BF80425;
+	Wed, 21 Sep 2022 11:04:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBA13F804C2; Wed, 21 Sep 2022 10:27:18 +0200 (CEST)
+ id 8BCAFF80256; Wed, 21 Sep 2022 11:04:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A923F80107
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 10:27:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A923F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1C7DF80107
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:04:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C7DF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="DziEZGWt"
-Received: by mail-lf1-x12e.google.com with SMTP id j16so7984211lfg.1
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 01:27:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=gY2lzq3N2Qe2ssVBMXnL/s3SN8sMkBLrkElMWRrbxsA=;
- b=DziEZGWtHcHI4L/Gz3wfDxdm66CUhwr+qYwy2jz88G11sb0IHdQPEg0QPm9mNALHFi
- WCWgcC7pK3OrLLH5jhaZk1rPcM1wn3HheatWrvhwTM2BUiHTGwZUVsiYGuumE5KpUABx
- e4HHzRHWaE0XysvOCB8tZzUJgUd1PpPUw17eV7/L7fvGTpSirkV7oVGCnRupcQUDpYuw
- EfGz0Y6NgEJOX2b6iGU5LaKH5eT8Loc30hfbaQUgtiRI3YpQKbA7KXwoAvgSretfdhJE
- PKfzKPRx4R25Z4Y3QC1grCq5kHAsZB47xjyeSC8h7W/9l40YVzqZEmYdstJ3jgmDJmeH
- 6IhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=gY2lzq3N2Qe2ssVBMXnL/s3SN8sMkBLrkElMWRrbxsA=;
- b=Lhtms5nIH6dxUw4xwYtIUywjIevZHPU9RAfVLvBEcJyIVvE2iAghV9Os4ZQfH8Rrm4
- yBp3EIW7sPyULhkw9kEwaPAYFrNfxTVHRerveZw1duYbQ4DtuofblMUcS3eb/eaAYzJC
- jVi74qylPwdfDkat+QMY0gQXGouXCdTO4bXYXV79glKwwE28MC5KitJb2/6z+Ef/Be7P
- oJ5wm+KC7YtZmnNWsgpkCE+bYR34cG1sz9TzLbjOpPEbUvLmQ8tZg+JcDxN+dO5RBvD7
- Te21B5AT8WHDHy3Ir8NI1UZJAvxzKHnZaIJwRCppg16YMi6iAJJCRlyzCf1hPhXEdfu6
- lHQg==
-X-Gm-Message-State: ACrzQf2HplUwH8naWaQVx8VrwLlgyGQgYgNun0HwcJz0VXsUSDDL21Y6
- /Kg3j8TaFoRi5g0pJ/lkLg2gLg==
-X-Google-Smtp-Source: AMsMyM4pf0Cx6J3kAlAnrQDlQNIDLladkdySQ9qoP9yZpwNjyJlZIkYXTUAypORtMZkYYohrGTiAkg==
-X-Received: by 2002:ac2:4d2b:0:b0:498:fbf0:4f89 with SMTP id
- h11-20020ac24d2b000000b00498fbf04f89mr9327153lfk.500.1663748830232; 
- Wed, 21 Sep 2022 01:27:10 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- c20-20020a056512075400b00492e3c8a986sm325857lfs.264.2022.09.21.01.27.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Sep 2022 01:27:08 -0700 (PDT)
-Message-ID: <df77a1d2-ee85-75d4-7341-6949d5b82ccf@linaro.org>
-Date: Wed, 21 Sep 2022 10:27:07 +0200
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="ppvlEWAo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LUAatbUXc2IEv/ICiIPZ7FyRxXB8/OG3xvh0Kc+It8eg+8y4Jw9q3adMYQIi8i+FB2a5H7Hc/6DiTEhjx0UHjiXOr+TBWQPlyLJkawREaD+Pou/a7Ax40jECWuxMmnR/Wp3onQ++wEv+6TbcwaKJ8cAZVSAOfGtJG5maNzH7OOG3jXi128U15m+6Y6GiLtxj4D8GxE84FZntW4krFt97GLTv+9gdIR4CJm5GBitULsN0BsGIIyZz6WbvF1t3IV6qze9LZEuw6/icYv9U8gIrLXARJ+EwooUzuz484jsfuc4ljRCFkTfVypwO5EPAnSERauC11d3u6eZfGjsvbSqveA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AOlvoD3TS2h5CgXe/v5JKQ/yb/nzawbVASZBO3Ok/Xg=;
+ b=HtZtgePOfZHX0JjbjOX19p/CkgbpBCfcB1K40VL+imP22xDx1NsyiFtM7u8RzyRQyTyqy4JRRtbW95t12LsnaA680L289KSIriNn3Sgtxsz/lE6DpgT2yng5MkEgaDXgJqQD5ktxWB5yvLe/RTShIdAjUH43MKRW0KlVHag8D2Pf1eUjnhIJSjywJlqovG0gWBWWoVGcdDWEuIXHRZg9Tb18qtu0I0Ja4xAY0rVDmtncUhm4EeQHQsuyubpARc1JGvYm9gUYwyUI3myrsVI9m2f6GmYcdXphyqQ1SdkdhP6wnH3jOJQeBwsRAuSRhMSlfj84M61AFi2K53MZVjJPNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AOlvoD3TS2h5CgXe/v5JKQ/yb/nzawbVASZBO3Ok/Xg=;
+ b=ppvlEWAoWLdARJ4rBIJSC5dlWqIU8TJv00QTY0sKdAs8gwqegqqW6EEjZbx1XjjBxd4jUE5eEGqGWW8Qy669Ri8u6ZGy6i2wNXBzref8lNm1o9i4J7QIzfp6XSrY3y5K9Y+t5f/1qlJfC+B2zD1EaQD4/VtVejXZXrTU3ApjIr4=
+Received: from MW4PR03CA0262.namprd03.prod.outlook.com (2603:10b6:303:b4::27)
+ by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.17; Wed, 21 Sep
+ 2022 09:04:33 +0000
+Received: from CO1NAM11FT092.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b4:cafe::66) by MW4PR03CA0262.outlook.office365.com
+ (2603:10b6:303:b4::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17 via Frontend
+ Transport; Wed, 21 Sep 2022 09:04:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT092.mail.protection.outlook.com (10.13.175.225) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Wed, 21 Sep 2022 09:04:32 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 21 Sep
+ 2022 04:04:29 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 21 Sep
+ 2022 02:04:07 -0700
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Wed, 21 Sep 2022 04:03:58 -0500
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: amd: acp: Add setbias level for rt5682s codec in
+ machine driver
+Date: Wed, 21 Sep 2022 14:37:44 +0530
+Message-ID: <20220921090750.3833256-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH v4 2/3] dt-bindings: sound: ti,ts3a227e: add control of
- debounce
-Content-Language: en-US
-To: Astrid Rost <astrid.rost@axis.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Dylan Reid <dgreid@chromium.org>
-References: <20220921081834.22009-1-astrid.rost@axis.com>
- <20220921081834.22009-3-astrid.rost@axis.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220921081834.22009-3-astrid.rost@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kernel@axis.com,
- linux-kernel@vger.kernel.org, Astrid Rost <astridr@axis.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT092:EE_|MN0PR12MB5835:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8d988b1-4d29-4bbb-6980-08da9bb04ccf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +2nJDdbctICFyPLP1Ib82orDyH12T3OmHCxoF6OL8ACm0wUypjH9IFQ6BZBqcQ0fvK5kbAlmsZpmWlV8pjqvxjoiIaV1YLVr0by0htjoJT3kWEbmG+7JwUzrKSBzr19LYyha8qC0Ggx7yQiphG4FWpBUiHetXRO4KaW0XunuvtHg5nwFE9EykUJ+KsbMYc6lXidSmn1vUXoj/ifeeOc2A32jUf1EAfMLGlck6ZtIL8eUS+3QE6lE3wDeCEm2Vy6lXUcWWRNZ4Gzr61+Hx69OiNCBaicpATG9WDw9h5XGftVAKhANYUK5L3UqoUA38cB2dBp0HCnGejAgZlrYWqC6JrbA1AwVWnFW90n6P4MDfklWziOwnKKAOJNhOh13X2eH1NSD5eAHuYRU6w1rnvBXdYcKBBKaA7fVFYsbWSapUxeWIedViAOdVKsvXKT/vJLfEJfBeanCXk8Nj1LBPHzGgrFKQC5frRpEIwcJcZwAlOAxZwm/gmTrVbf7uHwvhrMkmwrjHPhCALHSfHJf7DUwXnOMiVbE0VK2FL77TDSKgfxYR5IHOTfx6/RH9HCoMAv7YxRfdQDsOzl/MCZB798JRLfxfruCIuFoRhB0NdyoRumbSdLSlBqifFlOwDo92b+y17rcqaag4iwWuBV4WQDxgQ4K8ojMOfJCLDSfES1ievZtQIziHP5xsXErl6aiz6ss6yBlfzi/kM6A/mKgDYemn+D4iVVbjH255qb0KPlA2jCvi00RNPg60Re2/2Fq/8AOBQ8bFZnThGn9qOj0YS3iaPpUzORP6dYoegaSc0bcM7ASzQpALQMLUCEbgtOQdyrb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199015)(36840700001)(46966006)(40470700004)(82740400003)(336012)(6666004)(478600001)(186003)(47076005)(40480700001)(70206006)(41300700001)(70586007)(1076003)(2616005)(426003)(7696005)(40460700003)(26005)(2906002)(82310400005)(54906003)(316002)(110136005)(8936002)(4326008)(8676002)(5660300002)(81166007)(36756003)(36860700001)(356005)(86362001)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2022 09:04:32.9682 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8d988b1-4d29-4bbb-6980-08da9bb04ccf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT092.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
+Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, Vijendar.Mukunda@amd.com,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,15 +141,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21/09/2022 10:18, Astrid Rost wrote:
-> Add devicetree parameters to control the insertion, release and press
-> debounce times.
-> 
-> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
+Add set_bais_level function for rt5682s codec to enable bclk and lrclk
+before codec widgets power on and disable bclk and lrclk after widgets
+power down, to avoid pop noise
 
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/amd/acp/acp-mach-common.c | 62 ++++++++++++++++++++++++++---
+ 1 file changed, 56 insertions(+), 6 deletions(-)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index 4c69cb6e3400..a78cf29387a7 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -167,11 +167,14 @@ static int acp_card_hs_startup(struct snd_pcm_substream *substream)
+ 				      &constraints_channels);
+ 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+ 				      &constraints_rates);
+-	if (!drvdata->soc_mclk) {
+-		ret = acp_clk_enable(drvdata);
+-		if (ret < 0) {
+-			dev_err(rtd->card->dev, "Failed to enable HS clk: %d\n", ret);
+-			return ret;
++
++	if (strcmp(codec_dai->name, "rt5682s-aif1") && strcmp(codec_dai->name, "rt5682s-aif2")) {
++		if (!drvdata->soc_mclk) {
++			ret = acp_clk_enable(drvdata);
++			if (ret < 0) {
++				dev_err(rtd->card->dev, "Failed to enable HS clk: %d\n", ret);
++				return ret;
++			}
+ 		}
+ 	}
+ 
+@@ -280,7 +283,6 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ static const struct snd_soc_ops acp_card_rt5682s_ops = {
+ 	.startup = acp_card_hs_startup,
+-	.shutdown = acp_card_shutdown,
+ };
+ 
+ static const unsigned int dmic_channels[] = {
+@@ -570,6 +572,52 @@ SND_SOC_DAILINK_DEF(sof_dmic,
+ SND_SOC_DAILINK_DEF(pdm_dmic,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("acp-pdm-dmic")));
+ 
++static int acp_rtk_set_bias_level(struct snd_soc_card *card,
++				  struct snd_soc_dapm_context *dapm,
++				  enum snd_soc_bias_level level)
++{
++	struct snd_soc_component *component = dapm->component;
++	struct acp_card_drvdata *drvdata = card->drvdata;
++	int ret = 0;
++
++	if (!component)
++		return 0;
++
++	if (strncmp(component->name, "i2c-RTL5682", 11) &&
++	    strncmp(component->name, "i2c-10EC1019", 12))
++		return 0;
++
++	/*
++	 * For Realtek's codec and amplifier components,
++	 * the lrck and bclk must be enabled brfore their all dapms be powered on,
++	 * and must be disabled after their all dapms be powered down
++	 * to avoid any pop.
++	 */
++	switch (level) {
++	case SND_SOC_BIAS_STANDBY:
++		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_OFF) {
++			clk_set_rate(drvdata->wclk, 48000);
++			clk_set_rate(drvdata->bclk, 48000 * 64);
++
++			/* Increase bclk's enable_count */
++			ret = clk_prepare_enable(drvdata->bclk);
++			if (ret < 0)
++				dev_err(component->dev, "Failed to enable bclk %d\n", ret);
++		} else {
++			/*
++			 * Decrease bclk's enable_count.
++			 * While the enable_count is 0, the bclk would be closed.
++			 */
++			clk_disable_unprepare(drvdata->bclk);
++		}
++		break;
++	default:
++		break;
++	}
++
++	return ret;
++}
++
+ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_dai_link *links;
+@@ -730,6 +778,7 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+ 
+ 	card->dai_link = links;
+ 	card->num_links = num_links;
++	card->set_bias_level = acp_rtk_set_bias_level;
+ 
+ 	return 0;
+ }
+@@ -907,6 +956,7 @@ int acp_legacy_dai_links_create(struct snd_soc_card *card)
+ 
+ 	card->dai_link = links;
+ 	card->num_links = num_links;
++	card->set_bias_level = acp_rtk_set_bias_level;
+ 
+ 	return 0;
+ }
+-- 
+2.25.1
 
-
-Best regards,
-Krzysztof

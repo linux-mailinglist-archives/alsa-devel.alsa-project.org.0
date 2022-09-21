@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9045BFAE2
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4F4D5BFAE5
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Sep 2022 11:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDD2D1651;
-	Wed, 21 Sep 2022 11:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDD2D1651
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D2EC1655;
+	Wed, 21 Sep 2022 11:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D2EC1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663752387;
-	bh=Fm7uUxvGjUpzhdYGBvMLJdPletDumytisj8ycEeYgK0=;
+	s=default; t=1663752419;
+	bh=ikIAnfPz4Na5Jtei+lBvQcChdHW0NRZIgwwAQCKhr2U=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PbsRrOx30As2DePq+sGo6zN+nHZQkaXOBbEzhz7bw6aK5LCzNlcOxADQYqrLqsB67
-	 82NYG9v3yvjNhQAheyHpW68nXBdY1esDa8jQXGFE12ClhjR9UTDHLe334mJ3eiGtAa
-	 j6QbvAtuY1stzt72x7C9nbtKT4Hzjc0ra/Drwapg=
+	b=KvL0VQWvfjbY6dWv945vops/gSZpsxfzgLzyOUFyXNj5lB9z3mQknMtM1DtZ3yfjb
+	 4mD75PEhkOouasJYv8zktvlcE27RNSvVcNe7amWrpo/PmrKOQCpM+HAavCkn89B2UD
+	 QpOMo2NmT0IWaZBHqWVnN1284xJ1IGVifaGFx+7w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 622D7F80539;
-	Wed, 21 Sep 2022 11:25:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C1C2F80538;
+	Wed, 21 Sep 2022 11:26:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F05A3F804C2; Wed, 21 Sep 2022 11:25:34 +0200 (CEST)
+ id 98768F804CF; Wed, 21 Sep 2022 11:26:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,36 +35,36 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1C97F80107
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:25:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C97F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 990DDF80256
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 11:25:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 990DDF80256
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gmi20xMW"
+ header.b="FrU9fVgJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D4B38623B2;
- Wed, 21 Sep 2022 09:25:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA40C433C1;
- Wed, 21 Sep 2022 09:25:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 525E462968;
+ Wed, 21 Sep 2022 09:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D988C433C1;
+ Wed, 21 Sep 2022 09:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663752329;
- bh=Fm7uUxvGjUpzhdYGBvMLJdPletDumytisj8ycEeYgK0=;
+ s=k20201202; t=1663752357;
+ bh=ikIAnfPz4Na5Jtei+lBvQcChdHW0NRZIgwwAQCKhr2U=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=gmi20xMW6hzLrEFOFX0Zy/6ZspTLaKvcpQaB/LpoQz+SiltCIvWuE/Fr3lQc9+ol/
- kX04ba9r4TZqW+5M2/lu8ncSfDW+4qn0yHIUG61xXQs/4DuVIFkf0D5RLpmd+UwG7k
- r0AMfjALX/5NwNJPcyCX9lZoHuAkR7qttBr+WrkuVnkzd7y5FMeO673ZGOEuiIB4xJ
- S2S7giTPqq0gHENd7E5BIHI0zpAXFprt3qLLU6pIWw5k3Fxs56AI8QiBS+qje5py3g
- QBB4pwoIJ7/DT7BvPEjHOcoGi1yUtHGqI3ZetozvY5PDDtwBnVUwUVNWLGKGNSi1TP
- yJa+B2CrPIetw==
+ b=FrU9fVgJ3MGpcjnwCGjjPkFeZiTWxPYev3+1s+Vlcrt9C8vR+kVAUM7d+3H4Mz/Ju
+ nl6Yl3D6INjKko5/MU79jLlRynstoL7AurjPcjYv7GUYdwWyo/0xwsRGSjqRV1JKnF
+ BR0HJIZb8fnHFtJdij7gBQOvFjEM6PH+CuAUTSlZdOFKILgjWPCj5Hu8f69jQCsLeb
+ Lcuf0kzsbEZrc1/5UQxAFjSBYXzvYWep/Iq93PR10urjnvuaZ6orbLEBVYZVXHkDET
+ Q+wtJEN3FcXsx+sZX/WOvg3mz9XiENwCbKwj+xf80gs1aFRykXPvoL9zoT7pKdwNqs
+ y3y6+LWA7SNvQ==
 From: Mark Brown <broonie@kernel.org>
 To: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20220920194621.19457-1-mario.limonciello@amd.com>
-References: <20220920194621.19457-1-mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 0/2] Add some models into acp6x quirk list
-Message-Id: <166375230411.526450.3070541932734238859.b4-ty@kernel.org>
-Date: Wed, 21 Sep 2022 10:25:04 +0100
+In-Reply-To: <20220920201436.19734-1-mario.limonciello@amd.com>
+References: <20220920201436.19734-1-mario.limonciello@amd.com>
+Subject: Re: [PATCH v3 0/2] Add some models into acp6x quirk list
+Message-Id: <166375233080.526450.10768645288772801022.b4-ty@kernel.org>
+Date: Wed, 21 Sep 2022 10:25:30 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -87,7 +87,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Sep 2022 14:46:19 -0500, Mario Limonciello wrote:
+On Tue, 20 Sep 2022 15:14:33 -0500, Mario Limonciello wrote:
 > Another model from ASUS and Lenovo have been identified that
 > don't include anything in ACPI tables to indicate they require the
 > ACP6x DMIC driver to be loaded.

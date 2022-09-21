@@ -2,68 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F325E760B
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5DD65E7610
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:44:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD89984B;
-	Fri, 23 Sep 2022 10:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD89984B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F33A20C;
+	Fri, 23 Sep 2022 10:44:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F33A20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663922674;
-	bh=eRoKROPrgolTsAuofVkNTgpcsXhkP1JtwlWZjMrN7oM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ako0X9/iJuyzSGIpjfe2UN9cwzUyT37YUbvBgYu1skY8D5+wmiC5+k4yWSdiYCAj8
-	 Mtmx46MgmY5H4EHmWnh29vQJ7wXJlrpoSKUatA6WeFXMiUzPOE7YRaQAL8iR48AYwo
-	 Uxwz+aFTV2VU4R/bebTKm3KqfvGNSxmUe1Fxtfrw=
+	s=default; t=1663922697;
+	bh=3658Tjx4a9jrff+BkNE3sIENj2CyeDzZPJ1jLD3ybpg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Vtz1xQkbUEkA8eq9x6d8GQbzmvf0Y8SmtzACB6Gqg2WJNqw8JcZPGcWycBjA/uXHN
+	 ZhLKT6y4Aks5sYlxGA+G9eHFvtQUq1gvyZCBf9jHOanCQ5M6hKipQJkojYghzQj2Aq
+	 QYYdgn96wmW/kighNLKeXlw9Wxnb8lWBgdyJSWzk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C1D1F8054A;
+	by alsa1.perex.cz (Postfix) with ESMTP id A9DAEF80551;
 	Fri, 23 Sep 2022 10:42:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 799A3F80256; Wed, 21 Sep 2022 04:37:18 +0200 (CEST)
+ id 0C92FF80169; Wed, 21 Sep 2022 05:31:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=NICE_REPLY_A, RCVD_IN_SORBS_WEB,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-m11883.qiye.163.com (mail-m11883.qiye.163.com
- [115.236.118.83])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B84DF800F3
- for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 04:37:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B84DF800F3
-Received: from [172.16.12.74] (unknown [58.22.7.114])
- by mail-m11883.qiye.163.com (Hmail) with ESMTPA id 351DA840709;
- Wed, 21 Sep 2022 10:37:07 +0800 (CST)
-Message-ID: <dfeac54a-a264-835a-f155-90eb8f093314@rock-chips.com>
-Date: Wed, 21 Sep 2022 10:37:06 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C8FBF80107
+ for <alsa-devel@alsa-project.org>; Wed, 21 Sep 2022 05:31:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C8FBF80107
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MXP6B1MqSzHpfS;
+ Wed, 21 Sep 2022 11:29:22 +0800 (CST)
+Received: from huawei.com (10.175.103.91) by dggpemm500022.china.huawei.com
+ (7.185.36.162) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 21 Sep
+ 2022 11:31:30 +0800
+From: Zeng Heng <zengheng4@huawei.com>
+To: <fengzheng923@gmail.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
+ <perex@perex.cz>, <tiwai@suse.com>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <samuel@sholland.org>,
+ <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>
+Subject: [PATCH -next] sound: sunxi: fix declaration compile error
+Date: Wed, 21 Sep 2022 11:38:19 +0800
+Message-ID: <20220921033819.2188233-1-zengheng4@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH 1/1] ASoC: soc-dai: export some symbols
-To: Mark Brown <broonie@kernel.org>
-References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
- <20220920034545.2820888-2-jason.zhu@rock-chips.com>
- <Yym2aURe2+pA3ocn@sirena.org.uk>
-From: Jason Zhu <jason.zhu@rock-chips.com>
-In-Reply-To: <Yym2aURe2+pA3ocn@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFJSktLSjdXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkodVkMZSR4dSB4ZGBpOTFUTARMWGhIXJB
- QOD1lXWRgSC1lBWU5DVUlJVUxVSkpPWVdZFhoPEhUdFFlBWU9LSFVKSktISkNVSktLVUtZBg++
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6PAw6Hgw*Vj0YLhMvLDVRMjAB
- PRoaCxRVSlVKTU1ITElMQ0lMTE9DVTMWGhIXVREaCBQVVQETDjsJFBgQVhgTEgsIVRgUFkVZV1kS
- C1lBWU5DVUlJVUxVSkpPWVdZCAFZQU9KSUo3Bg++
-X-HM-Tid: 0a835de7f9b82eb8kusn351da840709
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 23 Sep 2022 10:42:24 +0200
-Cc: jason.zhu@rock-chips.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, sugar.zhang@rock-chips.com
+Cc: liwei391@huawei.com, zengheng4@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,86 +76,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Just fix compile error without any logic changes.
 
-在 2022/9/20 20:47, Mark Brown 写道:
-> On Tue, Sep 20, 2022 at 11:45:45AM +0800, Jason Zhu wrote:
->
->> Sometimes we need to make some dais alive when close the card, like
->> VAD, so these functions must be exported so that they can be called.
-> I'm not sure I fully understand the use case here - why wouldn't
-> the core know about the audio stream being kept active?  For
-> something like VAD I'd expect this to be just working like a
-> normal audio path, if there's a DSP consuming the audio stream
-> then it'll keep everything open.  If there is a good use case I
-> suspect it'll be clearer if you send the users along with this
-> patch.
+sound/soc/sunxi/sun50i-dmic.c:62:1: error: ‘static’ is not at beginning of declaration [-Werror=old-style-declaration]
+   62 | const static struct dmic_rate dmic_rate_s[] = {
+      | ^~~~~
 
-Thanks. For example, we use the VAD(Voice Activity Detect) & PDM(
-Pulse Density Modulation) to record sound>. The PDM is used to
-record and copy data to DDR memory by DMA when the system is alive.
-The VAD is used to detect voice from PDM and copy data to sram
-(The sram is small) when the system is sleep. If the VAD detect
-specific sound, wake up the system and continue to record sound.
-The data can not be lost in this process. So we attach VAD & PDM
-in the same card, then close the card and wake up VAD & PDM again
-when the system is goto sleep. Like these code:
-vad-sound {
-	...
-	rockchip,cpu = <&pdm0>;
-	rockchip,codec = <&es7202>, <&vad>;
-	...
-};
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+---
+ sound/soc/sunxi/sun50i-dmic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-static int rockchip_vad_enable_cpudai(struct rockchip_vad *vad)
-{
-	struct snd_soc_dai *cpu_dai;
-	struct snd_pcm_substream *substream;
-	int ret = 0;
-
-	cpu_dai = vad->cpu_dai;
-	substream = vad->substream;
-
-	if (!cpu_dai || !substream)
-		return 0;
-
-	pm_runtime_get_sync(cpu_dai->dev);
-
-	if (cpu_dai->driver->ops && cpu_dai->driver->ops->trigger) {
-		ret = cpu_dai->driver->ops->startup(substream,
-					    cpu_dai);
-
-		ret = cpu_dai->driver->ops->trigger(substream,
-						    SNDRV_PCM_TRIGGER_START,
-						    cpu_dai);
-	}
-
-	return ret;
-}
-When the system is waked up, open the sound card. The data in sram
-is copied firstly and close the vad. Then use the DMA to move data
-to DDR memory from PDM.
-
-Now we prefer to use framework code, like:
-static int rockchip_vad_enable_cpudai(struct rockchip_vad *vad)
-{
-	struct snd_soc_dai *cpu_dai;
-	struct snd_pcm_substream *substream;
-	int ret = 0;
-
-	cpu_dai = vad->cpu_dai;
-	substream = vad->substream;
-
-	if (!cpu_dai || !substream)
-		return 0;
-
-	pm_runtime_get_sync(cpu_dai->dev);
-
-	ret = snd_soc_dai_startup(cpu_dai, substream);
-	ret |= snd_soc_pcm_dai_prepare(substream);
-	ret |= snd_soc_pcm_dai_trigger(substream, SNDRV_PCM_TRIGGER_START);
-
-	return ret;
-}
-In this situation, those symbols must be exported.
-Look forward to your reply and suggestions.
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+index cd3c07f2070f..86cff5a5b1bd 100644
+--- a/sound/soc/sunxi/sun50i-dmic.c
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -59,7 +59,7 @@ struct dmic_rate {
+ 	unsigned int rate_bit;
+ };
+ 
+-const static struct dmic_rate dmic_rate_s[] = {
++static const struct dmic_rate dmic_rate_s[] = {
+ 	{48000, 0x0},
+ 	{44100, 0x0},
+ 	{32000, 0x1},
+-- 
+2.25.1
 

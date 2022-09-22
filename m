@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A105E61B5
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:48:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36AA25E61B9
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:51:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D02B4852;
-	Thu, 22 Sep 2022 13:48:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D02B4852
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94AE201;
+	Thu, 22 Sep 2022 13:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94AE201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663847332;
-	bh=9A241Uru0Ur+XyDPCPmYix/tcZ0sputMWptOeHbE9Og=;
+	s=default; t=1663847517;
+	bh=iMdTH2c2UTtQ7U9Y05p1kiKbuuz08xmNE2PPEwwA2uA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I5s7Fp5N/4ROihOL4FvjrIzJwcFvvTBLx87bZELq9rtECYW++FPaGVMQ5o8o9/DGw
-	 KpbAWhYifad8A7jIRwKmyE5sjdbTaGKh8s+w1TmUAh9O3VwhbvTu58fXy7p0ZSr5Wd
-	 V4f+pHnYj5V47ApQOxjwJcDbP0TD0XeS0OdlKYXQ=
+	b=DFS9UOW3Xz7i+eiFugDc7XRKKscg6iO/DUQcPzgAHYc8jknWBBbunDOKpksUOJrIm
+	 E4JhTBcIhqPz5s2FTFOdXvik/jRAtSIVRdMFMBL74pZrYMJefzsXPd0WmeaurhcKkf
+	 5zzfWRFSzeLYm1kD8A+VgBLOPZVm8BPHFL6iK7/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7034AF804BC;
-	Thu, 22 Sep 2022 13:48:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BBB7F8030F;
+	Thu, 22 Sep 2022 13:51:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 951F9F8030F; Thu, 22 Sep 2022 13:48:00 +0200 (CEST)
+ id 9980DF8027B; Thu, 22 Sep 2022 13:50:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9122F80256
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 13:47:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9122F80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70F62F8020D
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 13:50:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70F62F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LJdQ6fiP"; 
+ header.b="SfayJRzs"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PDpy7avc"
+ header.b="RgD5bQdH"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6E2901F907;
- Thu, 22 Sep 2022 11:47:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A0DC61F910;
+ Thu, 22 Sep 2022 11:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663847277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663847451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OdUV7mNp77yj2fyVRhNDt3dNiCjTr/CmVlJzuHbd1cY=;
- b=LJdQ6fiPiHIHmiKtBF5kVNDpVmm4Xxo358anZkqlkD9vhZB3L1SIaLsOaxVQS1TS2+aOHp
- 9iGF2fmYYKxb9r4/nlv8g8n5hNu8HK7efjd//JSTEkf2178he1rCBgA3aglLtvW2d1pvsm
- XgpQZpfTRaYigO590G8yk+ZjyRLpL3A=
+ bh=eOA1HxyBN+3WVhaJxEWaCjXJU8fiJA1bQxr3K31McjY=;
+ b=SfayJRzsez/qNnOSO27Ucn7BkT6fLRPemyvDzcN9ssQTSGV9FxaSnCPHvalut/1RrAtrrp
+ YaTeyIUcdUSfiOVUb/HKPDFrM94dFZHneDjHRCO5yCfzBufSRBVKa8BYJWQuxdlhZrFkgA
+ Nwh6DgK0kcacRgXzUVDhPtsPrhkf3RE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663847277;
+ s=susede2_ed25519; t=1663847451;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OdUV7mNp77yj2fyVRhNDt3dNiCjTr/CmVlJzuHbd1cY=;
- b=PDpy7avcfeHIOC+8+SdRFI3kzOo0IMDYRaUqKEOisjn7DGbHouMgwt7HShy6C/srGeZ7Ut
- Q490EdPnLi+zqoBg==
+ bh=eOA1HxyBN+3WVhaJxEWaCjXJU8fiJA1bQxr3K31McjY=;
+ b=RgD5bQdHh0zlzPkrWLnFX3gI8GQjrOlf2ccrT29DZAciXTzR1saJFsc5lXcf3PpWLGKkQK
+ cFTtOWN3GVeRNyAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4EEC613AA5;
- Thu, 22 Sep 2022 11:47:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E8A413AA5;
+ Thu, 22 Sep 2022 11:50:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id X2lqEm1LLGOiRAAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 22 Sep 2022 11:47:57 +0000
-Date: Thu, 22 Sep 2022 13:47:56 +0200
-Message-ID: <87edw37hqr.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id XloxHhtMLGMWRgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 22 Sep 2022 11:50:51 +0000
+Date: Thu, 22 Sep 2022 13:50:50 +0200
+Message-ID: <87czbn7hlx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.0-rc6
-In-Reply-To: <20220922112513.09721C433C1@smtp.kernel.org>
-References: <20220922112513.09721C433C1@smtp.kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: add missing RaptorLake PCI
+ IDs
+In-Reply-To: <20220922100014.27080-1-pierre-louis.bossart@linux.intel.com>
+References: <20220922100014.27080-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,55 +102,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 22 Sep 2022 13:25:00 +0200,
-Mark Brown wrote:
+On Thu, 22 Sep 2022 12:00:14 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> The following changes since commit 80e78fcce86de0288793a0ef0f6acf37656ee4cf:
+> These two missed IDs need to be added for dynamic selection of drivers.
 > 
->   Linux 6.0-rc5 (2022-09-11 16:22:01 -0400)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.0-rc6
-> 
-> for you to fetch changes up to 0a0342ede303fc420f3a388e1ae82da3ae8ff6bd:
-> 
->   ASoC: tas2770: Reinit regcache on reset (2022-09-19 18:48:43 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.0
-> 
-> A few device specific fixes, nothing too large, and a new device
-> ID for a Dell laptop.
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Thanks, pulled now.
+Thanks, applied.
 
 
 Takashi
-
-> 
-> ----------------------------------------------------------------
-> Martin Povi¹er (1):
->       ASoC: tas2770: Reinit regcache on reset
-> 
-> Oder Chiou (1):
->       ASoC: rt5640: Fix the issue of the abnormal JD2 status
-> 
-> Pierre-Louis Bossart (1):
->       ASoC: Intel: sof_sdw: add support for Dell SKU 0AFF
-> 
-> SJLIN0 (1):
->       ASoC: nau8824: Fix semaphore is released unexpectedly
-> 
-> Shengjiu Wang (1):
->       ASoC: imx-card: Fix refcount issue with of_node_put
-> 
->  sound/soc/codecs/nau8824.c       | 17 +++++++++--
->  sound/soc/codecs/nau8824.h       |  1 +
->  sound/soc/codecs/rt5640.c        | 64 ++++++++++++++++++++++++++++------------
->  sound/soc/codecs/rt5640.h        | 14 +++++++++
->  sound/soc/codecs/tas2770.c       |  3 ++
->  sound/soc/fsl/imx-card.c         |  4 +++
->  sound/soc/intel/boards/sof_sdw.c | 10 +++++++
->  7 files changed, 91 insertions(+), 22 deletions(-)
-> 

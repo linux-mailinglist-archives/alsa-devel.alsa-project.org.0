@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916D25E611C
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:31:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE6F5E61AF
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:47:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32ED2846;
-	Thu, 22 Sep 2022 13:30:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32ED2846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7165F14E;
+	Thu, 22 Sep 2022 13:46:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7165F14E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663846268;
-	bh=vPHa1RwfeSex5KtAHQa+yTSSsZHDEtOtWKVO9DzRPto=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1663847261;
+	bh=wPgME1+vUkfqHPPGiILzCJ+/Q37MrDq7vWODsok5C3Q=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NU/2d72UW1eeiWvK5BsTImJXDpcu7uqZrIGw1VHLPqy4ZKFX0fjL2p703a/++SY2L
-	 JzsBe4VHX0oK6S6ms9R6NSXl1acbgRiASlkCjtgLaa94EiDlkoES6voEnKFlJm4KDB
-	 6haPICe1eyrKUkVyR13kIJlvm/8VcDQgYhz9KZkk=
+	b=du/gFClmfgVMdMiNRgObDD1J2XEMmXYTtEI7yMyWRaxZG1dfh7YvZdODGorhmuk7b
+	 IUC7Rdej4KFhqsGZsAtTPEoDAAHK1tBxWidSlP3gZdMcP59UbTwmGcJlTXWZAn1VkW
+	 9GkVy2bYEooNMe2+8+MKfClp0Eq859akg28cct3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB3FEF804BC;
-	Thu, 22 Sep 2022 13:30:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3FC1F8012A;
+	Thu, 22 Sep 2022 13:46:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E70AF8030F; Thu, 22 Sep 2022 13:30:08 +0200 (CEST)
+ id A72C4F8020D; Thu, 22 Sep 2022 13:46:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BCD8F8012A;
- Thu, 22 Sep 2022 13:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCD8F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87294F8020D
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 13:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87294F8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GGuQbAQC"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JZhKzkRP"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="WgIw10FD"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id B528BCE1D28;
- Thu, 22 Sep 2022 11:30:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9D7C433D6;
- Thu, 22 Sep 2022 11:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663846199;
- bh=vPHa1RwfeSex5KtAHQa+yTSSsZHDEtOtWKVO9DzRPto=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GGuQbAQCYysTxYOcTOH090QGAg/99pXkYsIkcNAib3vcM8xSPeFd7YWJptJXM/Liv
- FmR9cQVxq6xbX3yzpTvv53y7jkEg++PSiD35zMn5Z3RUnMNqvviVF+5XmGMTeq/npt
- sC1bEaQXxw+ODjeyeZm8OdaC/WzAAHWBAEUkaYxE7bCR66I4tL7j4OZm5GxiWhaA/M
- 1giGCdcGhmm6SGuVHDJF8+lvni1QhcicR2LcnzZ7n7A5kcqN9+RSJAysQ0liAuPCzG
- oPyocLexpRtOgRD4iq92g1z14d/uu5pmot1nFDZWs87VwcTBsq/xCqRrHiCiFF3Aqz
- fiH2cV9GOp16w==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- angelogioacchino.delregno@collabora.com, 
- Chunxu Li <chunxu.li@mediatek.com>, daniel.baluta@nxp.com,
- peter.ujfalusi@linux.intel.com
-In-Reply-To: <20220921120239.31934-1-chunxu.li@mediatek.com>
-References: <20220921120239.31934-1-chunxu.li@mediatek.com>
-Subject: Re: [PATCH] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
-Message-Id: <166384619411.629460.11107464039277326622.b4-ty@kernel.org>
-Date: Thu, 22 Sep 2022 12:29:54 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-8af31
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BAF001F906;
+ Thu, 22 Sep 2022 11:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1663847195; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ErrcKD3PpXMohR0cz0JL8n6Zh0hAjkoVNZly84BZbiE=;
+ b=JZhKzkRPAb14DqZ4WTEggyFoRzSY3PkQQgYeiAJeASkOpCG4bvp1OkKo55fNCOWWABLr9+
+ HZR3CPP0jZZ53IuooSJ1ufMN6Of5DlVcl8tH7sHbBldgKqjnuqfnk9wDq+C+nalVkx56F/
+ k59Qxa81cx6cpkcPTg44abANGk01MTw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1663847195;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ErrcKD3PpXMohR0cz0JL8n6Zh0hAjkoVNZly84BZbiE=;
+ b=WgIw10FDbblRFPbn0AMsQjRkclT03lv/3W9yx1Drf4rEMY6HTafbp67YrwOfMxPyqOyeCp
+ lyUCwO9a+/rgY9Bg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9444813AA5;
+ Thu, 22 Sep 2022 11:46:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id hdNqIxtLLGPyQwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 22 Sep 2022 11:46:35 +0000
+Date: Thu, 22 Sep 2022 13:46:35 +0200
+Message-ID: <87fsgj7ht0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rondreis <linhaoguo86@gmail.com>
+Subject: Re: KASAN: use-after-free Write in snd_rawmidi_receive
+In-Reply-To: <CAB7eex+Xh9otK9RF5wnAo+tQrs8B4AJfx3N8xz2-FjPM5XH8zw@mail.gmail.com>
+References: <CAB7eex+Xh9otK9RF5wnAo+tQrs8B4AJfx3N8xz2-FjPM5XH8zw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,36 +99,278 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 21 Sep 2022 20:02:39 +0800, Chunxu Li wrote:
-> add pcm_pointer callback for mt8186 to support read
-> host position from DSP
+On Thu, 22 Sep 2022 13:27:22 +0200,
+Rondreis wrote:
 > 
+> Hello,
 > 
+> When fuzzing the Linux kernel driver v5.18.0, the following crash was
+> triggered.
+> 
+> HEAD commit: 4b0986a3613c92f4ec1bdc7f60ec66fea135991f
+> git tree: upstream
 
-Applied to
+A too old kernel for testing such things.
 
-   broonie/sound.git for-next
+Please try with the newer kernel.  There have been a couple of
+(possibly) relevant fixes already in the recent kernel (around
+sound/core/rawmidi.c).
 
-Thanks!
 
-[1/1] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
-      commit: a921986f445ad611b441c8ee7749dc6dfc770481
+thanks,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Takashi
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> 
+> kernel config: https://pastebin.com/raw/KecL2gaG
+> console output: https://pastebin.com/raw/aJGZYGs4
+> 
+> Sorry for failing to extract the reproducer. But on other versions of
+> Linux, I also triggered this crash.
+> 
+> I would appreciate it if you have any idea how to solve this bug.
+> 
+> The crash report is as follows:
+> ==================================================================
+> BUG: KASAN: use-after-free in snd_rawmidi_receive+0x2f6/0xe70
+> sound/core/rawmidi.c:1097
+> Write of size 3 at addr ffff88803cf1a05a by task kworker/u8:6/13973
+> 
+> CPU: 3 PID: 13973 Comm: kworker/u8:6 Not tainted 5.18.0 #2
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+> 1.13.0-1ubuntu1.1 04/01/2014
+> Workqueue: bat_events batadv_nc_worker
+> Call Trace:
+> <IRQ>
+> __dump_stack lib/dump_stack.c:88 [inline]
+> dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
+> print_address_description mm/kasan/report.c:313 [inline]
+> print_report.cold+0xe5/0x659 mm/kasan/report.c:429
+> kasan_report+0x8a/0x1b0 mm/kasan/report.c:491
+> check_region_inline mm/kasan/generic.c:183 [inline]
+> kasan_check_range+0x13b/0x190 mm/kasan/generic.c:189
+> memcpy+0x39/0x60 mm/kasan/shadow.c:66
+> snd_rawmidi_receive+0x2f6/0xe70 sound/core/rawmidi.c:1097
+> f_midi_read_data drivers/usb/gadget/function/f_midi.c:253 [inline]
+> f_midi_handle_out_data.isra.0+0x1ee/0x290
+> drivers/usb/gadget/function/f_midi.c:265
+> f_midi_complete+0x3b7/0x480 drivers/usb/gadget/function/f_midi.c:280
+> transfer drivers/usb/gadget/udc/dummy_hcd.c:1516 [inline]
+> dummy_timer+0x1866/0x33b0 drivers/usb/gadget/udc/dummy_hcd.c:1972
+> call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+> expire_timers kernel/time/timer.c:1466 [inline]
+> __run_timers kernel/time/timer.c:1737 [inline]
+> __run_timers kernel/time/timer.c:1710 [inline]
+> run_timer_softirq+0x1084/0x16d0 kernel/time/timer.c:1750
+> __do_softirq+0x1d0/0x908 kernel/softirq.c:558
+> invoke_softirq kernel/softirq.c:432 [inline]
+> __irq_exit_rcu kernel/softirq.c:637 [inline]
+> irq_exit_rcu+0xf2/0x130 kernel/softirq.c:649
+> sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+> </IRQ>
+> <TASK>
+> asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:645
+> RIP: 0010:lock_release+0x3f0/0x670 kernel/locking/lockdep.c:5649
+> Code: 7e 83 f8 01 0f 85 59 01 00 00 9c 58 f6 c4 02 0f 85 44 01 00 00
+> 48 f7 04 24 00 02 00 00 74 01 fb 48 b8 00 00 00 00 00 fc ff df <48> 01
+> c5 48 c7 45 00 00 00 00 00 c7 45 08 00 00 00 00 48 8b 84 24
+> RSP: 0018:ffffc90008a0fb90 EFLAGS: 00000206
+> RAX: dffffc0000000000 RBX: c422640388757846 RCX: 0000000000000000
+> RDX: 1ffff11007b1f892 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: 1ffff92001141f74 R08: 0000000000000001 R09: fffffbfff1ce851b
+> R10: ffffffff8e7428d7 R11: fffffbfff1ce851a R12: 0000000000000002
+> R13: ffff88803d8fc498 R14: 0000000000000003 R15: ffff88803d8fba80
+> rcu_lock_release include/linux/rcupdate.h:273 [inline]
+> rcu_read_unlock include/linux/rcupdate.h:727 [inline]
+> batadv_nc_process_nc_paths.part.0+0x235/0x3c0
+> net/batman-adv/network-coding.c:699
+> batadv_nc_process_nc_paths net/batman-adv/network-coding.c:679 [inline]
+> batadv_nc_worker+0x54f/0x770 net/batman-adv/network-coding.c:728
+> process_one_work+0x9cc/0x1650 kernel/workqueue.c:2289
+> worker_thread+0x623/0x1070 kernel/workqueue.c:2436
+> kthread+0x2e9/0x3a0 kernel/kthread.c:376
+> ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:298
+> </TASK>
+> 
+> Allocated by task 17441:
+> kasan_save_stack+0x1e/0x40 mm/kasan/common.c:38
+> kasan_set_track mm/kasan/common.c:45 [inline]
+> set_alloc_info mm/kasan/common.c:436 [inline]
+> ____kasan_kmalloc mm/kasan/common.c:515 [inline]
+> ____kasan_kmalloc mm/kasan/common.c:474 [inline]
+> __kasan_kmalloc+0xa9/0xd0 mm/kasan/common.c:524
+> kasan_kmalloc include/linux/kasan.h:234 [inline]
+> __kmalloc_node+0x1fc/0x450 mm/slub.c:4462
+> kmalloc_node include/linux/slab.h:604 [inline]
+> kvmalloc_node+0x3e/0x190 mm/util.c:580
+> kvmalloc include/linux/slab.h:731 [inline]
+> kvzalloc include/linux/slab.h:739 [inline]
+> snd_rawmidi_runtime_create sound/core/rawmidi.c:162 [inline]
+> open_substream+0x340/0x8b0 sound/core/rawmidi.c:306
+> rawmidi_open_priv+0x2e8/0x6f0 sound/core/rawmidi.c:352
+> snd_rawmidi_kernel_open+0x1b5/0x270 sound/core/rawmidi.c:392
+> midisynth_subscribe+0xf2/0x380 sound/core/seq/seq_midi.c:171
+> subscribe_port sound/core/seq/seq_ports.c:412 [inline]
+> check_and_subscribe_port+0x5be/0x810 sound/core/seq/seq_ports.c:495
+> snd_seq_port_connect+0x2e6/0x520 sound/core/seq/seq_ports.c:576
+> snd_seq_ioctl_subscribe_port+0x1df/0x310 sound/core/seq/seq_clientmgr.c:1492
+> snd_seq_kernel_client_ctl+0x105/0x1b0 sound/core/seq/seq_clientmgr.c:2369
+> snd_seq_oss_midi_open+0x3f4/0x670 sound/core/seq/oss/seq_oss_midi.c:368
+> snd_seq_oss_synth_reset+0x462/0x890 sound/core/seq/oss/seq_oss_synth.c:407
+> snd_seq_oss_reset+0x6f/0x290 sound/core/seq/oss/seq_oss_init.c:435
+> snd_seq_oss_release+0x79/0x160 sound/core/seq/oss/seq_oss_init.c:412
+> odev_release+0x4f/0x70 sound/core/seq/oss/seq_oss.c:144
+> __fput+0x277/0x9d0 fs/file_table.c:317
+> task_work_run+0xe0/0x1a0 kernel/task_work.c:164
+> resume_user_mode_work include/linux/resume_user_mode.h:49 [inline]
+> exit_to_user_mode_loop kernel/entry/common.c:169 [inline]
+> exit_to_user_mode_prepare+0x253/0x260 kernel/entry/common.c:201
+> __syscall_exit_to_user_mode_work kernel/entry/common.c:283 [inline]
+> syscall_exit_to_user_mode+0x19/0x60 kernel/entry/common.c:294
+> do_syscall_64+0x42/0x80 arch/x86/entry/common.c:86
+> entry_SYSCALL_64_after_hwframe+0x44/0xae
+> 
+> Freed by task 17441:
+> kasan_save_stack+0x1e/0x40 mm/kasan/common.c:38
+> kasan_set_track+0x21/0x30 mm/kasan/common.c:45
+> kasan_set_free_info+0x20/0x30 mm/kasan/generic.c:370
+> ____kasan_slab_free mm/kasan/common.c:366 [inline]
+> ____kasan_slab_free mm/kasan/common.c:328 [inline]
+> __kasan_slab_free+0x11d/0x190 mm/kasan/common.c:374
+> kasan_slab_free include/linux/kasan.h:200 [inline]
+> slab_free_hook mm/slub.c:1728 [inline]
+> slab_free_freelist_hook mm/slub.c:1754 [inline]
+> slab_free mm/slub.c:3510 [inline]
+> kfree+0xec/0x4b0 mm/slub.c:4552
+> kvfree+0x42/0x50 mm/util.c:622
+> snd_rawmidi_runtime_free sound/core/rawmidi.c:176 [inline]
+> close_substream.part.0+0x18e/0x650 sound/core/rawmidi.c:528
+> close_substream sound/core/rawmidi.c:507 [inline]
+> rawmidi_release_priv+0xd3/0x270 sound/core/rawmidi.c:543
+> snd_rawmidi_kernel_release+0x39/0xd0 sound/core/rawmidi.c:564
+> midisynth_unsubscribe+0x3b/0x70 sound/core/seq/seq_midi.c:203
+> unsubscribe_port sound/core/seq/seq_ports.c:437 [inline]
+> __delete_and_unsubscribe_port+0x279/0x4e0 sound/core/seq/seq_ports.c:537
+> delete_and_unsubscribe_port+0x59/0x80 sound/core/seq/seq_ports.c:549
+> snd_seq_port_disconnect+0x1ee/0x270 sound/core/seq/seq_ports.c:627
+> snd_seq_ioctl_unsubscribe_port+0x1df/0x310 sound/core/seq/seq_clientmgr.c:1537
+> snd_seq_kernel_client_ctl+0x105/0x1b0 sound/core/seq/seq_clientmgr.c:2369
+> snd_seq_oss_midi_close+0x2ff/0x470 sound/core/seq/oss/seq_oss_midi.c:410
+> snd_seq_oss_synth_cleanup+0x32c/0x480 sound/core/seq/oss/seq_oss_synth.c:307
+> snd_seq_oss_release+0x81/0x160 sound/core/seq/oss/seq_oss_init.c:414
+> odev_release+0x4f/0x70 sound/core/seq/oss/seq_oss.c:144
+> __fput+0x277/0x9d0 fs/file_table.c:317
+> task_work_run+0xe0/0x1a0 kernel/task_work.c:164
+> resume_user_mode_work include/linux/resume_user_mode.h:49 [inline]
+> exit_to_user_mode_loop kernel/entry/common.c:169 [inline]
+> exit_to_user_mode_prepare+0x253/0x260 kernel/entry/common.c:201
+> __syscall_exit_to_user_mode_work kernel/entry/common.c:283 [inline]
+> syscall_exit_to_user_mode+0x19/0x60 kernel/entry/common.c:294
+> do_syscall_64+0x42/0x80 arch/x86/entry/common.c:86
+> entry_SYSCALL_64_after_hwframe+0x44/0xae
+> 
+> The buggy address belongs to the object at ffff88803cf1a000
+> which belongs to the cache kmalloc-4k of size 4096
+> The buggy address is located 90 bytes inside of
+> 4096-byte region [ffff88803cf1a000, ffff88803cf1b000)
+> 
+> The buggy address belongs to the physical page:
+> page:ffffea0000f3c600 refcount:1 mapcount:0 mapping:0000000000000000
+> index:0x0 pfn:0x3cf18
+> head:ffffea0000f3c600 order:3 compound_mapcount:0 compound_pincount:0
+> flags: 0xfff00000010200(slab|head|node=0|zone=1|lastcpupid=0x7ff)
+> raw: 00fff00000010200 0000000000000000 dead000000000122 ffff888011843040
+> raw: 0000000000000000 0000000000040004 00000001ffffffff 0000000000000000
+> page dumped because: kasan: bad access detected
+> page_owner tracks the page as allocated
+> page last allocated via order 3, migratetype Unmovable, gfp_mask
+> 0x1d20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC|__GFP_HARDWALL),
+> pid 17441, tgid 17441 (syz-executor.0), ts 589072773595, free_ts
+> 589014752799
+> set_page_owner include/linux/page_owner.h:31 [inline]
+> post_alloc_hook mm/page_alloc.c:2434 [inline]
+> prep_new_page+0x297/0x330 mm/page_alloc.c:2441
+> get_page_from_freelist+0x210e/0x3ab0 mm/page_alloc.c:4182
+> __alloc_pages+0x30c/0x6e0 mm/page_alloc.c:5408
+> alloc_pages+0x119/0x250 mm/mempolicy.c:2272
+> alloc_slab_page mm/slub.c:1799 [inline]
+> allocate_slab mm/slub.c:1944 [inline]
+> new_slab+0x2a9/0x3f0 mm/slub.c:2004
+> ___slab_alloc+0xc62/0x1080 mm/slub.c:3005
+> __slab_alloc.isra.0+0x4d/0xa0 mm/slub.c:3092
+> slab_alloc_node mm/slub.c:3183 [inline]
+> __kmalloc_node+0x340/0x450 mm/slub.c:4458
+> kmalloc_node include/linux/slab.h:604 [inline]
+> kvmalloc_node+0x3e/0x190 mm/util.c:580
+> kvmalloc include/linux/slab.h:731 [inline]
+> kvzalloc include/linux/slab.h:739 [inline]
+> snd_rawmidi_runtime_create sound/core/rawmidi.c:162 [inline]
+> open_substream+0x340/0x8b0 sound/core/rawmidi.c:306
+> rawmidi_open_priv+0x592/0x6f0 sound/core/rawmidi.c:357
+> snd_rawmidi_kernel_open+0x1b5/0x270 sound/core/rawmidi.c:392
+> midisynth_use+0xee/0x270 sound/core/seq/seq_midi.c:215
+> subscribe_port sound/core/seq/seq_ports.c:412 [inline]
+> check_and_subscribe_port+0x5be/0x810 sound/core/seq/seq_ports.c:495
+> snd_seq_port_connect+0x382/0x520 sound/core/seq/seq_ports.c:581
+> snd_seq_ioctl_subscribe_port+0x1df/0x310 sound/core/seq/seq_clientmgr.c:1492
+> page last free stack trace:
+> reset_page_owner include/linux/page_owner.h:24 [inline]
+> free_pages_prepare mm/page_alloc.c:1356 [inline]
+> free_pcp_prepare+0x51f/0xd00 mm/page_alloc.c:1406
+> free_unref_page_prepare mm/page_alloc.c:3328 [inline]
+> free_unref_page+0x19/0x5b0 mm/page_alloc.c:3423
+> __unfreeze_partials+0x3d2/0x3f0 mm/slub.c:2523
+> do_slab_free mm/slub.c:3498 [inline]
+> ___cache_free+0x12c/0x140 mm/slub.c:3517
+> qlink_free mm/kasan/quarantine.c:157 [inline]
+> qlist_free_all+0x6a/0x170 mm/kasan/quarantine.c:176
+> kasan_quarantine_reduce+0x13d/0x180 mm/kasan/quarantine.c:283
+> __kasan_slab_alloc+0xa2/0xc0 mm/kasan/common.c:446
+> kasan_slab_alloc include/linux/kasan.h:224 [inline]
+> slab_post_alloc_hook+0x4d/0x4f0 mm/slab.h:749
+> slab_alloc_node mm/slub.c:3217 [inline]
+> slab_alloc mm/slub.c:3225 [inline]
+> __kmem_cache_alloc_lru mm/slub.c:3232 [inline]
+> kmem_cache_alloc+0x1be/0x460 mm/slub.c:3242
+> getname_flags fs/namei.c:138 [inline]
+> getname_flags+0xd2/0x5b0 fs/namei.c:128
+> vfs_fstatat+0x73/0xb0 fs/stat.c:254
+> __do_sys_newfstatat+0x91/0x110 fs/stat.c:425
+> do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+> do_syscall_64+0x35/0x80 arch/x86/entry/common.c:80
+> entry_SYSCALL_64_after_hwframe+0x44/0xae
+> 
+> Memory state around the buggy address:
+> ffff88803cf19f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> ffff88803cf19f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> >ffff88803cf1a000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> ^
+> ffff88803cf1a080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> ffff88803cf1a100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> ==================================================================
+> ----------------
+> Code disassembly (best guess):
+> 0: 7e 83 jle 0xffffff85
+> 2: f8 clc
+> 3: 01 0f add %ecx,(%rdi)
+> 5: 85 59 01 test %ebx,0x1(%rcx)
+> 8: 00 00 add %al,(%rax)
+> a: 9c pushfq
+> b: 58 pop %rax
+> c: f6 c4 02 test $0x2,%ah
+> f: 0f 85 44 01 00 00 jne 0x159
+> 15: 48 f7 04 24 00 02 00 testq $0x200,(%rsp)
+> 1c: 00
+> 1d: 74 01 je 0x20
+> 1f: fb sti
+> 20: 48 b8 00 00 00 00 00 movabs $0xdffffc0000000000,%rax
+> 27: fc ff df
+> * 2a: 48 01 c5 add %rax,%rbp <-- trapping instruction
+> 2d: 48 c7 45 00 00 00 00 movq $0x0,0x0(%rbp)
+> 34: 00
+> 35: c7 45 08 00 00 00 00 movl $0x0,0x8(%rbp)
+> 3c: 48 rex.W
+> 3d: 8b .byte 0x8b
+> 3e: 84 .byte 0x84
+> 3f: 24 .byte 0x24
+> 

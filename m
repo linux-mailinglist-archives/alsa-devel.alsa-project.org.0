@@ -2,83 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8896A5E561D
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 00:11:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 238C95E5835
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 03:44:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D429F826;
-	Thu, 22 Sep 2022 00:10:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D429F826
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2984843;
+	Thu, 22 Sep 2022 03:43:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2984843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663798263;
-	bh=R3CpDz+xL1Orecl3r244JO/sBWMMsfvYdEmeOk70BlE=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=P1aQ+jvoKwAqJwJIIWPq57OxddNMIvCzRSbnJY+9HxlOfCEuPVOjHE0YaXJ6qJQQd
-	 YO0xHKG5sVhOlAog5luM/fONzOA2hocmCh/P/OUVCqihdXdQFqskR/YpBWlAGSYC7y
-	 V77SKusgwFbThG4zu9ksWPqtO0+5c4CqRF1tuW6Y=
+	s=default; t=1663811057;
+	bh=MSpIoCfVPW85ZcH8K1OPb7CqLlG1/Zt+BPl7JPBrj0o=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=M+tjN5rE60yp33p7myXbR8J5MVq+qFk4GJ8cNsOhBZxtAW9SCl2EUSoNtFahTtbB9
+	 ZbHpYTQotI2ZMSMnxjcwctMp8foIMShp4k+kUyuek7spqCWqXrgexEdtY24P9wuaEZ
+	 IWybLeMAYi3i406x7sFiJpZ3ArH07DO2iz0g+KIE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53EDFF80425;
-	Thu, 22 Sep 2022 00:10:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A99FF804E7;
+	Thu, 22 Sep 2022 03:43:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03DC9F80107; Thu, 22 Sep 2022 00:10:04 +0200 (CEST)
+ id 937D9F8012A; Thu, 22 Sep 2022 03:43:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
+ version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43155F80107
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 00:09:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43155F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD80DF8020D;
+ Thu, 22 Sep 2022 03:43:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD80DF8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TaVJoTsZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663798198; x=1695334198;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=R3CpDz+xL1Orecl3r244JO/sBWMMsfvYdEmeOk70BlE=;
- b=TaVJoTsZ6Vv9VQ8hz7mmYhKmPVK2yZCea6b0q0OX0Wlu/0lZZ/oCA17h
- iG09jKz8814yvGT1QNYJjY85ip6gYGmdvBFQJbahsYrIFCfVjN5mjNuyR
- mUlhXXYRdwLSOhregbEtjauG+h+5JF75w9xDyyexs+yR+I7/lmAHcXPi6
- l+5twhAkq4EY40SMcdnFfaUv92+fBV45JknWOaV5Wb5hcVMNcksD5lNrX
- nBvurzO/y+f5kWQwUEHR+flvYnESFgm9F7KMyawypX2wWVYOdSHdL0JVX
- gwbm7Ll2L7tFR9cO3rtky/u7GOLK2zlFz5U8lJytJzckq1ambu93HKzof Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="364114786"
-X-IronPort-AV: E=Sophos;i="5.93,334,1654585200"; d="scan'208";a="364114786"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2022 15:09:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,334,1654585200"; d="scan'208";a="652717033"
-Received: from lkp-server01.sh.intel.com (HELO c0a60f19fe7e) ([10.239.97.150])
- by orsmga001.jf.intel.com with ESMTP; 21 Sep 2022 15:09:44 -0700
-Received: from kbuild by c0a60f19fe7e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ob7ua-00041Y-0D;
- Wed, 21 Sep 2022 22:09:44 +0000
-Date: Thu, 22 Sep 2022 06:09:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 483fed3b5dc8ce3644c83d24240cf5756fb0993e
-Message-ID: <632b8b99.vfbuiC8J3oDCVZh4%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="k/ln69CK"
+X-UUID: 4f43afa987a34280aed1746f442474a9-20220922
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=4ooavMI26VS/rgEsvGJZdTi0rwPkW4R7VrMOyd8Gas0=; 
+ b=k/ln69CKqBDVX43egJxyQbJb2YLHXlhn0l00XZkk56xmJaRTmmRtp0xOx57ulhGl4yt+g3OJrEm6sUAesR8+NU4YsPaFYDE2+ietPQiRgrGQ3INUE+FypzW5KDYWUZSk95s8MxTMp55EKsLKfM79sykKiRY1LSHyfjYQGtTyiMw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.11, REQID:c347f47b-e952-45d2-9581-ced0dd693c00, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,BULK:28,RULE:Release_Ham,ACTIO
+ N:release,TS:73
+X-CID-INFO: VERSION:1.1.11, REQID:c347f47b-e952-45d2-9581-ced0dd693c00, IP:0,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:45,FILE:0,BULK:28,RULE:Spam_GS981B3D,ACTIO
+ N:quarantine,TS:73
+X-CID-META: VersionHash:39a5ff1, CLOUDID:80c5c4af-12a8-4d8e-859c-1b6ce09c0eab,
+ B
+ ulkID:2209212018083T3OSIUH,BulkQuantity:69,Recheck:0,SF:28|17|19|48|823|82
+ 4,TC:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:nil,Bulk:40|20,QS:nil,BEC:n
+ il,COL:0
+X-UUID: 4f43afa987a34280aed1746f442474a9-20220922
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <chunxu.li@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1309701659; Thu, 22 Sep 2022 09:42:53 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Thu, 22 Sep 2022 09:42:52 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 22 Sep 2022 09:42:51 +0800
+Message-ID: <45bba23b9bea4c5df0ac1751c9dcd8f1ce5df6e6.camel@mediatek.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
+From: chunxu.li <chunxu.li@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
+ <peter.ujfalusi@linux.intel.com>, <lgirdwood@gmail.com>,
+ <daniel.baluta@nxp.com>
+Date: Thu, 22 Sep 2022 09:42:51 +0800
+In-Reply-To: <dbe3f7fb-5fae-b147-f824-cd39ba3900ca@collabora.com>
+References: <20220921120239.31934-1-chunxu.li@mediatek.com>
+ <dbe3f7fb-5fae-b147-f824-cd39ba3900ca@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,205 +108,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 483fed3b5dc8ce3644c83d24240cf5756fb0993e  Add linux-next specific files for 20220921
+On Wed, 2022-09-21 at 14:17 +0200, AngeloGioacchino Del Regno wrote:
+> Il 21/09/22 14:02, Chunxu Li ha scritto:
+> > add pcm_pointer callback for mt8186 to support read
+> > host position from DSP
+> > 
+> > Signed-off-by: Chunxu Li <chunxu.li@mediatek.com>
+> 
+> Hello Chunxu,
+> Can you please also add this, along with the .pcm_hw_params callback
+> to mt8195.c?
+> 
+> Anyway, for this one:
+> 
+> Reviewed-by: AngeloGioacchino Del Regno <
+> angelogioacchino.delregno@collabora.com>
+> 
 
-Error/Warning reports:
+Sure, certainly.
 
-https://lore.kernel.org/linux-mm/202209042337.FQi69rLV-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209060229.dVuyxjBv-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209150141.WgbAKqmX-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209160607.sE3qvgTy-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209200603.Hpvoa8Ii-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209200949.Vl3xrUYD-lkp@intel.com
-https://lore.kernel.org/llvm/202209220009.8nYpIPST-lkp@intel.com
-https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
-ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/clk/xilinx/clk-xlnx-clock-wizard.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
-arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
-arch/ia64/kernel/sys_ia64.c:188:17: sparse: sparse: typename in expression
-arch/ia64/kernel/sys_ia64.c:188:31: sparse: sparse: Trying to use reserved word 'typeof' as identifier
-arch/ia64/kernel/sys_ia64.c:188:31: sparse: sparse: Trying to use reserved word 'void' as identifier
-arch/ia64/kernel/sys_ia64.c:189:60: sparse: sparse: invalid initializer
-arch/ia64/kernel/sys_ia64.c:190:17: sparse: sparse: Trying to use reserved word 'return' as identifier
-arch/parisc/lib/iomap.c:363:5: warning: no previous prototype for 'ioread64_lo_hi' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:373:5: warning: no previous prototype for 'ioread64_hi_lo' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:448:6: warning: no previous prototype for 'iowrite64_lo_hi' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:454:6: warning: no previous prototype for 'iowrite64_hi_lo' [-Wmissing-prototypes]
-drivers/scsi/qla2xxx/qla_os.c:2854:23: warning: assignment to 'struct trace_array *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-drivers/scsi/qla2xxx/qla_os.c:2854:25: error: implicit declaration of function 'trace_array_get_by_name'; did you mean 'trace_array_set_clr_event'? [-Werror=implicit-function-declaration]
-drivers/scsi/qla2xxx/qla_os.c:2869:9: error: implicit declaration of function 'trace_array_put' [-Werror=implicit-function-declaration]
-mm/hugetlb.c:5539:14: warning: variable 'reserve_alloc' set but not used [-Wunused-but-set-variable]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_get_by_name
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_put
-|   `-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
-|-- alpha-randconfig-s033-20220921
-|   `-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- arm64-randconfig-r013-20220921
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- i386-allyesconfig
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-defconfig
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-c021
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-m021
-|   `-- drivers-gpu-drm-display-drm_dp_helper.c-drm_dp_phy_name()-warn:unsigned-dp_phy-is-never-less-than-zero.
-|-- i386-randconfig-s001
-|   |-- arch-x86-kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__user-to-got-unsigned-long-long-usertype
-|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
-|   `-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|-- i386-randconfig-s002
-|   |-- arch-x86-kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__user-to-got-unsigned-long-long-usertype
-|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
-|   |-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-s003
-|   |-- arch-x86-kernel-signal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__user-to-got-unsigned-long-long-usertype
-|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
-|   |-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|   |-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|   `-- sound-soc-generic-simple-card-utils.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-int-usertype-val-got-restricted-snd_pcm_format_t-usertype
-|-- ia64-allmodconfig
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_get_by_name
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_put
-|   |-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- ia64-randconfig-s052-20220921
-|   |-- arch-ia64-kernel-sys_ia64.c:sparse:sparse:Trying-to-use-reserved-word-return-as-identifier
-|   |-- arch-ia64-kernel-sys_ia64.c:sparse:sparse:Trying-to-use-reserved-word-typeof-as-identifier
-|   |-- arch-ia64-kernel-sys_ia64.c:sparse:sparse:Trying-to-use-reserved-word-void-as-identifier
-|   |-- arch-ia64-kernel-sys_ia64.c:sparse:sparse:invalid-initializer
-|   |-- arch-ia64-kernel-sys_ia64.c:sparse:sparse:typename-in-expression
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
-clang_recent_errors
-|-- arm-randconfig-r014-20220921
-|   `-- make:No-rule-to-make-target-drivers-crypto-aspeed-aspeed_crypto.o-needed-by-drivers-crypto-aspeed-built-in.a-.
-|-- arm-randconfig-r026-20220921
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:call-to-undeclared-function-trace_array_get_by_name-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:call-to-undeclared-function-trace_array_put-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   `-- drivers-scsi-qla2xxx-qla_os.c:error:incompatible-integer-to-pointer-conversion-assigning-to-struct-trace_array-from-int
-|-- i386-randconfig-a015
-|   |-- ERROR:__cpuhp_remove_state-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:__cpuhp_setup_state-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:_printk-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:boot_cpu_data-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:cpu_bit_bitmap-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:perf_msr_probe-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:perf_pmu_register-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:perf_pmu_unregister-arch-x86-events-intel-intel-cstate.ko-undefined
-|   |-- ERROR:x86_match_cpu-arch-x86-events-intel-intel-cstate.ko-undefined
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|-- powerpc-randconfig-r006-20220921
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
-|   `-- ld.lld:error:undefined-symbol:__udivdi3
-|-- x86_64-allyesconfig
-|   |-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-`-- x86_64-randconfig-a016
-    `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-
-elapsed time: 728m
-
-configs tested: 67
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-i386                                defconfig
-arm                                 defconfig
-x86_64                        randconfig-a004
-x86_64                        randconfig-a002
-arc                      axs103_smp_defconfig
-arc                  randconfig-r043-20220921
-arc                                 defconfig
-x86_64                              defconfig
-m68k                             allmodconfig
-powerpc                          allmodconfig
-loongarch                         allnoconfig
-riscv                randconfig-r042-20220921
-sh                               allmodconfig
-x86_64                           rhel-8.3-kvm
-x86_64                    rhel-8.3-kselftests
-s390                 randconfig-r044-20220921
-x86_64                           rhel-8.3-syz
-x86_64                          rhel-8.3-func
-x86_64                         rhel-8.3-kunit
-arc                               allnoconfig
-arm                           viper_defconfig
-alpha                             allnoconfig
-arm                          lpd270_defconfig
-riscv                             allnoconfig
-csky                              allnoconfig
-m68k                          sun3x_defconfig
-sh                          sdk7780_defconfig
-sh                             sh03_defconfig
-sh                              ul2_defconfig
-i386                          randconfig-a016
-powerpc                      ppc6xx_defconfig
-powerpc                    klondike_defconfig
-powerpc                 mpc837x_mds_defconfig
-arm                        trizeps4_defconfig
-sh                        dreamcast_defconfig
-riscv             nommu_k210_sdcard_defconfig
-powerpc                    sam440ep_defconfig
-powerpc                      pcm030_defconfig
-sh                           se7780_defconfig
-i386                          randconfig-c001
-powerpc                         wii_defconfig
-powerpc                           allnoconfig
-alpha                               defconfig
-x86_64                               rhel-8.3
-m68k                             allyesconfig
-s390                                defconfig
-x86_64                           allyesconfig
-s390                             allmodconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-s390                             allyesconfig
-mips                             allyesconfig
-i386                             allyesconfig
-ia64                             allmodconfig
-arm64                            allyesconfig
-arm                              allyesconfig
-
-clang tested configs:
-hexagon              randconfig-r041-20220921
-hexagon              randconfig-r045-20220921
-arm                         hackkit_defconfig
-s390                             alldefconfig
-x86_64                        randconfig-a016
-i386                          randconfig-a015
-powerpc                      katmai_defconfig
-arm                        mvebu_v5_defconfig
-x86_64                        randconfig-k001
-x86_64                           allyesconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp

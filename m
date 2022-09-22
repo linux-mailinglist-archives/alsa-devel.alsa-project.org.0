@@ -2,90 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E82D65E6107
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:29:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916D25E611C
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 13:31:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87910846;
-	Thu, 22 Sep 2022 13:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87910846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32ED2846;
+	Thu, 22 Sep 2022 13:30:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32ED2846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663846197;
-	bh=zen+9bs1IygPam6jy+1xbWvri6jC/dhE+h3xqkKlXKg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ko7FPy3D2tKZsT/h9VuUitGoxSuPGQlfkeFRfQ+kl2Pn+DCpMFdYQgdsgwkzXuPwG
-	 P58USPgdAxE7IujSds91yQy8QUh1YYoLM3+35hgdfTzPfduZkus3yvG6VmNTneo2Rk
-	 jirTTzeLPhEbZMaA2gUBog158pJayORxNEeeEyTc=
+	s=default; t=1663846268;
+	bh=vPHa1RwfeSex5KtAHQa+yTSSsZHDEtOtWKVO9DzRPto=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NU/2d72UW1eeiWvK5BsTImJXDpcu7uqZrIGw1VHLPqy4ZKFX0fjL2p703a/++SY2L
+	 JzsBe4VHX0oK6S6ms9R6NSXl1acbgRiASlkCjtgLaa94EiDlkoES6voEnKFlJm4KDB
+	 6haPICe1eyrKUkVyR13kIJlvm/8VcDQgYhz9KZkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B07CF804AA;
-	Thu, 22 Sep 2022 13:29:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB3FEF804BC;
+	Thu, 22 Sep 2022 13:30:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DA15F8027B; Thu, 22 Sep 2022 13:28:59 +0200 (CEST)
+ id 8E70AF8030F; Thu, 22 Sep 2022 13:30:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC0B6F8020D
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 13:28:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC0B6F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BCD8F8012A;
+ Thu, 22 Sep 2022 13:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCD8F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EmE6k4If"
-Received: by mail-pl1-x629.google.com with SMTP id c24so8522155plo.3
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 04:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=nCK5BNpGpE1s8cljBVp+LVXtq7b3ijRTCH/bNupgy+o=;
- b=EmE6k4IfbUWPUsYrJSnoxltDDw54Atjw4180/xLkc/JO3v+vivH/O1mwwzkAANF1+k
- CI5I2HrBpG95LF9DNTRHYEOsdxfGSM+/d+LEUo8j23SHX3jb/i863/DoS46BXjrnMRGP
- asHDZ8452xDrAhI7nShmhDEPKQB2vyHgX4p4jHnCHN8xY0/cdimLYq1JQoaDFyM/8WGS
- wP4KXp55v+kLPbLPlNSoRxx/9ziUvojHvmHIBIp2mKNn9Jsymc+Sd/awLIojjzGahIJF
- d539NWXVDWc5XySf17J/aSjl4qiY7dsB0mnCsysj+Bru32MCjKT9Jr+p1JmGC69/o506
- q8Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=nCK5BNpGpE1s8cljBVp+LVXtq7b3ijRTCH/bNupgy+o=;
- b=Egi9KQlAnRP4UHa8XuuLJ/4TT+Xdwley7K/bYpT80B67Tq565QJdLFj0B/Z53s92Ci
- 4sgjG99il7t5iLC4JYSB9twuzn5lrVC0Zi8nU91et2TpzBR8BPQCjm14hTCV38NAdmnc
- QLnVgNy7Q/AqPNV+e+sUgAdB0+r+KAadJ4uD+LaIvFQ94kbr5x4ZX6JiRWL0k0HOvcWD
- B0AGYy+Cq9OSmoYdLmPy4BhtxkGgrJ468whlhKqvykdLz15BGVuX1LsTOkB3O0FlmgwH
- cWYEWz093Y5VSffeVOm/32TmO0BKDl56+D7AGyDydVks1jgG7qnQHggz32+o+DT+h+st
- LTPw==
-X-Gm-Message-State: ACrzQf0HqkpRf6o3gGSn1TilEtHE+qPw0gAw2KgYVybGT6cC2iwOYR1I
- bc82xD2NHrXTkY4CBZnCWd9h4KKgvco=
-X-Google-Smtp-Source: AMsMyM4rI1ofld4QpP7RpzQzr2xzg5T3jWtDQIvS9nqUXQ0jCyA7dPOL0oD7qIkfIZ1akG3AQ7OtKA==
-X-Received: by 2002:a17:90a:46c2:b0:203:a2c7:2362 with SMTP id
- x2-20020a17090a46c200b00203a2c72362mr3142196pjg.142.1663846130159; 
- Thu, 22 Sep 2022 04:28:50 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- w22-20020aa79556000000b0053e0d6f353esm4210176pfq.27.2022.09.22.04.28.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Sep 2022 04:28:49 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: ye.xingchen@zte.com.cn
-To: tiwai@suse.com
-Subject: [PATCH linux-next] ALSA: hda/ca0132 - remove the unneeded result
- variable
-Date: Thu, 22 Sep 2022 11:28:46 +0000
-Message-Id: <20220922112846.236987-1-ye.xingchen@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GGuQbAQC"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id B528BCE1D28;
+ Thu, 22 Sep 2022 11:30:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9D7C433D6;
+ Thu, 22 Sep 2022 11:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663846199;
+ bh=vPHa1RwfeSex5KtAHQa+yTSSsZHDEtOtWKVO9DzRPto=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=GGuQbAQCYysTxYOcTOH090QGAg/99pXkYsIkcNAib3vcM8xSPeFd7YWJptJXM/Liv
+ FmR9cQVxq6xbX3yzpTvv53y7jkEg++PSiD35zMn5Z3RUnMNqvviVF+5XmGMTeq/npt
+ sC1bEaQXxw+ODjeyeZm8OdaC/WzAAHWBAEUkaYxE7bCR66I4tL7j4OZm5GxiWhaA/M
+ 1giGCdcGhmm6SGuVHDJF8+lvni1QhcicR2LcnzZ7n7A5kcqN9+RSJAysQ0liAuPCzG
+ oPyocLexpRtOgRD4iq92g1z14d/uu5pmot1nFDZWs87VwcTBsq/xCqRrHiCiFF3Aqz
+ fiH2cV9GOp16w==
+From: Mark Brown <broonie@kernel.org>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ angelogioacchino.delregno@collabora.com, 
+ Chunxu Li <chunxu.li@mediatek.com>, daniel.baluta@nxp.com,
+ peter.ujfalusi@linux.intel.com
+In-Reply-To: <20220921120239.31934-1-chunxu.li@mediatek.com>
+References: <20220921120239.31934-1-chunxu.li@mediatek.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
+Message-Id: <166384619411.629460.11107464039277326622.b4-ty@kernel.org>
+Date: Thu, 22 Sep 2022 12:29:54 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: ye xingchen <ye.xingchen@zte.com.cn>, alsa-devel@alsa-project.org,
- Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.11.0-dev-8af31
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ project_global_chrome_upstream_group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,39 +92,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: ye xingchen <ye.xingchen@zte.com.cn>
+On Wed, 21 Sep 2022 20:02:39 +0800, Chunxu Li wrote:
+> add pcm_pointer callback for mt8186 to support read
+> host position from DSP
+> 
+> 
 
-Return the value dsp_allocate_ports() directly instead of storing it in
-another redundant variable.
+Applied to
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
----
- sound/pci/hda/patch_ca0132.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+   broonie/sound.git for-next
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 208933792787..9580fe00cbd9 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -2962,7 +2962,6 @@ static int dsp_allocate_ports_format(struct hda_codec *codec,
- 			const unsigned short fmt,
- 			unsigned int *port_map)
- {
--	int status;
- 	unsigned int num_chans;
- 
- 	unsigned int sample_rate_div = ((get_hdafmt_rate(fmt) >> 0) & 3) + 1;
-@@ -2976,9 +2975,7 @@ static int dsp_allocate_ports_format(struct hda_codec *codec,
- 
- 	num_chans = get_hdafmt_chs(fmt) + 1;
- 
--	status = dsp_allocate_ports(codec, num_chans, rate_multi, port_map);
--
--	return status;
-+	return dsp_allocate_ports(codec, num_chans, rate_multi, port_map);
- }
- 
- /*
--- 
-2.25.1
+Thanks!
+
+[1/1] ASoC: SOF: mediatek: add pcm_pointer callback for mt8186
+      commit: a921986f445ad611b441c8ee7749dc6dfc770481
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

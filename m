@@ -2,63 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4CB5E5DAD
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 10:41:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27FF85E5F2E
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 12:00:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 472911EF;
-	Thu, 22 Sep 2022 10:40:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 472911EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AF561F2;
+	Thu, 22 Sep 2022 12:00:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AF561F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663836094;
-	bh=6fAGHjrvF5sGyr+5NdhuL/tCKgl8K/Qpk3JzX9y2RKU=;
+	s=default; t=1663840858;
+	bh=QylrjU+4O7+wJLk6wYw6iipOPhmcz4SPOmfsaeKuKos=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gQDDXSnt9LkpB6HNSy4DbG+VQkUUCXIDgg41F43NnPHl14AkaDa2VenD0nfwQePEj
-	 g5w79hNIkfPW96cDgXsvSeZCTuZw2AIE3w0hied5atbuurXGWF/7Hjt8louKGG0FoH
-	 2BNCPgj0USPjh2nCSQteCrJ0ZvZVg8vw6NdxLYuc=
+	b=sWplrf2tHVPaKV2VGM2eNI4zfT7QKrQg83YbN00krYGXVD36GHwfpHStaEChxFCQ1
+	 hDM69R7u3Ydylto4yTUg3onZZS33eTiafFhJZPpR7Pbjy9fN7RYG+N7fzhqHZPHNxX
+	 D3J3pXZiSGc/qBXW0sAI9wvkeuqlBotD8QnRLA6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88152F8030F;
-	Thu, 22 Sep 2022 10:40:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6DC1F8030F;
+	Thu, 22 Sep 2022 11:59:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A9D0F8012A; Thu, 22 Sep 2022 10:40:33 +0200 (CEST)
+ id 08800F80107; Thu, 22 Sep 2022 11:59:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 365FBF80107
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 10:40:26 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 18CD1A003F;
- Thu, 22 Sep 2022 10:40:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 18CD1A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1663836026; bh=rAltC1iWZte7ULhG4QJaMj138mSxVoiIFRTDENJs/O4=;
- h=From:To:Cc:Subject:Date:From;
- b=4szOOn9hDKYZtUXLcVVj1IoQ95BqR58tZLvjNesCBm288m/ennnTlzf3hV3QucgK7
- ev41OOc18iqCgTUFTajeHLwkQPvH3akJsN/R0NUhirk+Blg5ebHeb+j5uVtwp9h6ha
- 9mSXVwHr3kFLsdL+IQJivbjpNVt9Tf2V7YY5HQ+I=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 22 Sep 2022 10:40:22 +0200 (CEST)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: hda/hdmi: Use only dynamic PCM device allocation
-Date: Thu, 22 Sep 2022 10:40:17 +0200
-Message-Id: <20220922084017.25925-1-perex@perex.cz>
-X-Mailer: git-send-email 2.35.3
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73347F8020D
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 11:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73347F8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="NHitN7JP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663840792; x=1695376792;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QylrjU+4O7+wJLk6wYw6iipOPhmcz4SPOmfsaeKuKos=;
+ b=NHitN7JPAkHzNo5bm3hIHl0+HIOdMvQSQK2dAbwUQkfH0E5ZrkPe17BY
+ GPhRz/YUbZ2SeGjyeD0qvkeTcg77PoYoa+Klyca4+/04LLZu94acr7nIT
+ RU7ymk7hZ6IVTUZGfsDfF6qD584+U9mpZfPsBnEajT685TpgabfbmPoHd
+ w5hzbjdWJXbdKrho29oBoz27MvAjHcw0/Iw/cilhCDh4DnSbRve8Qb1Ok
+ cKgWRhhoRKrbh1P//YGKZ1hApju8c2t6TN1u53EC90doXcoCHFipzXW0p
+ q7yv93CBQ67KyFcUg+ytxlAUxT7pvSEzYITVS8W2c6FsX1xQFiWshTUpB Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="300240608"
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="300240608"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 02:59:38 -0700
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="650458349"
+Received: from icostanz-mobl1.amr.corp.intel.com (HELO pbossart-mobl3.home)
+ ([10.251.210.149])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 02:59:26 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: es8316: fix register sync error in suspend/resume tests
+Date: Thu, 22 Sep 2022 11:59:12 +0200
+Message-Id: <20220922095912.27010-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ FRED OH <fred.oh@linux.intel.com>, broonie@kernel.org,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,361 +89,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Per discussion on the alsa-devel mailing list [1], the legacy PIN to PCM
-device mapping is obsolete nowadays. The maximum number of the simultaneously
-usable PCM devices is equal to the HDMI codec converters.
+The SOF CI tests report failures with the following error thrown
 
-Remove the extra PCM devices (beyond the detected converters) and force
-the use of the dynamic PCM device allocation. The legacy code is removed.
+kernel: es8316 i2c-ESSX8336:00: Unable to sync registers 0x0-0x1. -121
 
-I believe that all HDMI codecs have the jack sensing feature. Move the check
-to the codec probe function and print a warning, if a codec without this
-feature is detected.
+ES8336 only supports I2C read/write one byte a time, so we do need to
+set the .use_single_read and .use_single_write flags to avoid this
+sync issue.
 
-[1] https://lore.kernel.org/alsa-devel/2f37e0b2-1e82-8c0b-2bbd-1e5038d6ecc6@perex.cz/
-
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: FRED OH <fred.oh@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- include/sound/hda_codec.h   |   1 -
- sound/pci/hda/patch_hdmi.c  | 153 +++++++-----------------------------
- sound/soc/codecs/hda.c      |   3 -
- sound/soc/codecs/hdac_hda.c |   3 -
- 4 files changed, 28 insertions(+), 132 deletions(-)
+ sound/soc/codecs/es8316.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 6d3c82c4b6ac..684e6131737e 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -258,7 +258,6 @@ struct hda_codec {
- 	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
- 	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
- 	unsigned int forced_resume:1; /* forced resume for jack */
--	unsigned int mst_no_extra_pcms:1; /* no backup PCMs for DP-MST */
- 
- #ifdef CONFIG_PM
- 	unsigned long power_on_acct;
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index f27a4ee810e3..ac520c62ee70 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -167,8 +167,6 @@ struct hdmi_spec {
- 	struct hdmi_ops ops;
- 
- 	bool dyn_pin_out;
--	bool dyn_pcm_assign;
--	bool dyn_pcm_no_legacy;
- 	/* hdmi interrupt trigger control flag for Nvidia codec */
- 	bool hdmi_intr_trig_ctrl;
- 	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
-@@ -1177,9 +1175,7 @@ static void pin_cvt_fixup(struct hda_codec *codec,
- 		spec->ops.pin_cvt_fixup(codec, per_pin, cvt_nid);
- }
- 
--/* called in hdmi_pcm_open when no pin is assigned to the PCM
-- * in dyn_pcm_assign mode.
-- */
-+/* called in hdmi_pcm_open when no pin is assigned to the PCM */
- static int hdmi_pcm_open_no_pin(struct hda_pcm_stream *hinfo,
- 			 struct hda_codec *codec,
- 			 struct snd_pcm_substream *substream)
-@@ -1247,19 +1243,12 @@ static int hdmi_pcm_open(struct hda_pcm_stream *hinfo,
- 
- 	mutex_lock(&spec->pcm_lock);
- 	pin_idx = hinfo_to_pin_index(codec, hinfo);
--	if (!spec->dyn_pcm_assign) {
--		if (snd_BUG_ON(pin_idx < 0)) {
--			err = -EINVAL;
--			goto unlock;
--		}
--	} else {
--		/* no pin is assigned to the PCM
--		 * PA need pcm open successfully when probe
--		 */
--		if (pin_idx < 0) {
--			err = hdmi_pcm_open_no_pin(hinfo, codec, substream);
--			goto unlock;
--		}
-+	/* no pin is assigned to the PCM
-+	 * PA need pcm open successfully when probe
-+	 */
-+	if (pin_idx < 0) {
-+		err = hdmi_pcm_open_no_pin(hinfo, codec, substream);
-+		goto unlock;
- 	}
- 
- 	err = hdmi_choose_cvt(codec, pin_idx, &cvt_idx, false);
-@@ -1364,43 +1353,6 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- {
- 	int i;
- 
--	/* on the new machines, try to assign the pcm slot dynamically,
--	 * not use the preferred fixed map (legacy way) anymore.
--	 */
--	if (spec->dyn_pcm_no_legacy)
--		goto last_try;
--
--	/*
--	 * generic_hdmi_build_pcms() may allocate extra PCMs on some
--	 * platforms (with maximum of 'num_nids + dev_num - 1')
--	 *
--	 * The per_pin of pin_nid_idx=n and dev_id=m prefers to get pcm-n
--	 * if m==0. This guarantees that dynamic pcm assignments are compatible
--	 * with the legacy static per_pin-pcm assignment that existed in the
--	 * days before DP-MST.
--	 *
--	 * Intel DP-MST prefers this legacy behavior for compatibility, too.
--	 *
--	 * per_pin of m!=0 prefers to get pcm=(num_nids + (m - 1)).
--	 */
--
--	if (per_pin->dev_id == 0 || spec->intel_hsw_fixup) {
--		if (!test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
--			return per_pin->pin_nid_idx;
--	} else {
--		i = spec->num_nids + (per_pin->dev_id - 1);
--		if (i < spec->pcm_used && !(test_bit(i, &spec->pcm_bitmap)))
--			return i;
--	}
--
--	/* have a second try; check the area over num_nids */
--	for (i = spec->num_nids; i < spec->pcm_used; i++) {
--		if (!test_bit(i, &spec->pcm_bitmap))
--			return i;
--	}
--
-- last_try:
--	/* the last try; check the empty slots in pins */
- 	for (i = 0; i < spec->pcm_used; i++) {
- 		if (!test_bit(i, &spec->pcm_bitmap))
- 			return i;
-@@ -1562,14 +1514,12 @@ static void update_eld(struct hda_codec *codec,
- 	 */
- 	pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
- 
--	if (spec->dyn_pcm_assign) {
--		if (eld->eld_valid) {
--			hdmi_attach_hda_pcm(spec, per_pin);
--			hdmi_pcm_setup_pin(spec, per_pin);
--		} else {
--			hdmi_pcm_reset_pin(spec, per_pin);
--			hdmi_detach_hda_pcm(spec, per_pin);
--		}
-+	if (eld->eld_valid) {
-+		hdmi_attach_hda_pcm(spec, per_pin);
-+		hdmi_pcm_setup_pin(spec, per_pin);
-+	} else {
-+		hdmi_pcm_reset_pin(spec, per_pin);
-+		hdmi_detach_hda_pcm(spec, per_pin);
- 	}
- 	/* if pcm_idx == -1, it means this is in monitor connection event
- 	 * we can get the correct pcm_idx now.
-@@ -1931,7 +1881,7 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
- 		 * structures based on worst case.
- 		 */
- 		dev_num = spec->dev_num;
--	} else if (spec->dyn_pcm_assign && codec->dp_mst) {
-+	} else if (codec->dp_mst) {
- 		dev_num = snd_hda_get_num_devices(codec, pin_nid) + 1;
- 		/*
- 		 * spec->dev_num is the maxinum number of device entries
-@@ -1956,13 +1906,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
- 		if (!per_pin)
- 			return -ENOMEM;
- 
--		if (spec->dyn_pcm_assign) {
--			per_pin->pcm = NULL;
--			per_pin->pcm_idx = -1;
--		} else {
--			per_pin->pcm = get_hdmi_pcm(spec, pin_idx);
--			per_pin->pcm_idx = pin_idx;
--		}
-+		per_pin->pcm = NULL;
-+		per_pin->pcm_idx = -1;
- 		per_pin->pin_nid = pin_nid;
- 		per_pin->pin_nid_idx = spec->num_nids;
- 		per_pin->dev_id = i;
-@@ -1971,6 +1916,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
- 		err = hdmi_read_pin_conn(codec, pin_idx);
- 		if (err < 0)
- 			return err;
-+		if (!is_jack_detectable(codec, pin_nid))
-+			codec_warn(codec, "HDMI: pin NID 0x%x - jack not detectable\n", pin_nid);
- 		spec->num_pins++;
- 	}
- 	spec->num_nids++;
-@@ -2118,10 +2065,9 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
- 
- 	mutex_lock(&spec->pcm_lock);
- 	pin_idx = hinfo_to_pin_index(codec, hinfo);
--	if (spec->dyn_pcm_assign && pin_idx < 0) {
--		/* when dyn_pcm_assign and pcm is not bound to a pin
--		 * skip pin setup and return 0 to make audio playback
--		 * be ongoing
-+	if (pin_idx < 0) {
-+		/* when pcm is not bound to a pin skip pin setup and return 0
-+		 * to make audio playback be ongoing
- 		 */
- 		pin_cvt_fixup(codec, NULL, cvt_nid);
- 		snd_hda_codec_setup_stream(codec, cvt_nid,
-@@ -2224,7 +2170,7 @@ static int hdmi_pcm_close(struct hda_pcm_stream *hinfo,
- 		snd_hda_spdif_ctls_unassign(codec, pcm_idx);
- 		clear_bit(pcm_idx, &spec->pcm_in_use);
- 		pin_idx = hinfo_to_pin_index(codec, hinfo);
--		if (spec->dyn_pcm_assign && pin_idx < 0)
-+		if (pin_idx < 0)
- 			goto unlock;
- 
- 		if (snd_BUG_ON(pin_idx < 0)) {
-@@ -2322,21 +2268,8 @@ static int generic_hdmi_build_pcms(struct hda_codec *codec)
- 	struct hdmi_spec *spec = codec->spec;
- 	int idx, pcm_num;
- 
--	/*
--	 * for non-mst mode, pcm number is the same as before
--	 * for DP MST mode without extra PCM, pcm number is same
--	 * for DP MST mode with extra PCMs, pcm number is
--	 *  (nid number + dev_num - 1)
--	 * dev_num is the device entry number in a pin
--	 */
--
--	if (spec->dyn_pcm_no_legacy && codec->mst_no_extra_pcms)
--		pcm_num = spec->num_cvts;
--	else if (codec->mst_no_extra_pcms)
--		pcm_num = spec->num_nids;
--	else
--		pcm_num = spec->num_nids + spec->dev_num - 1;
--
-+	/* limit the PCM devices to the codec converters */
-+	pcm_num = spec->num_cvts;
- 	codec_dbg(codec, "hdmi: pcm_num set to %d\n", pcm_num);
- 
- 	for (idx = 0; idx < pcm_num; idx++) {
-@@ -2375,17 +2308,12 @@ static int generic_hdmi_build_jack(struct hda_codec *codec, int pcm_idx)
- {
- 	char hdmi_str[32] = "HDMI/DP";
- 	struct hdmi_spec *spec = codec->spec;
--	struct hdmi_spec_per_pin *per_pin = get_pin(spec, pcm_idx);
- 	struct snd_jack *jack;
- 	int pcmdev = get_pcm_rec(spec, pcm_idx)->device;
- 	int err;
- 
- 	if (pcmdev > 0)
- 		sprintf(hdmi_str + strlen(hdmi_str), ",pcm=%d", pcmdev);
--	if (!spec->dyn_pcm_assign &&
--	    !is_jack_detectable(codec, per_pin->pin_nid))
--		strncat(hdmi_str, " Phantom",
--			sizeof(hdmi_str) - strlen(hdmi_str) - 1);
- 
- 	err = snd_jack_new(codec->card, hdmi_str, SND_JACK_AVOUT, &jack,
- 			   true, false);
-@@ -2418,18 +2346,9 @@ static int generic_hdmi_build_controls(struct hda_codec *codec)
- 		/* create the spdif for each pcm
- 		 * pin will be bound when monitor is connected
- 		 */
--		if (spec->dyn_pcm_assign)
--			err = snd_hda_create_dig_out_ctls(codec,
-+		err = snd_hda_create_dig_out_ctls(codec,
- 					  0, spec->cvt_nids[0],
- 					  HDA_PCM_TYPE_HDMI);
--		else {
--			struct hdmi_spec_per_pin *per_pin =
--				get_pin(spec, pcm_idx);
--			err = snd_hda_create_dig_out_ctls(codec,
--						  per_pin->pin_nid,
--						  per_pin->mux_nids[0],
--						  HDA_PCM_TYPE_HDMI);
--		}
- 		if (err < 0)
- 			return err;
- 		snd_hda_spdif_ctls_unassign(codec, pcm_idx);
-@@ -2549,11 +2468,7 @@ static void generic_hdmi_free(struct hda_codec *codec)
- 	for (pcm_idx = 0; pcm_idx < spec->pcm_used; pcm_idx++) {
- 		if (spec->pcm_rec[pcm_idx].jack == NULL)
- 			continue;
--		if (spec->dyn_pcm_assign)
--			snd_device_free(codec->card,
--					spec->pcm_rec[pcm_idx].jack);
--		else
--			spec->pcm_rec[pcm_idx].jack = NULL;
-+		snd_device_free(codec->card, spec->pcm_rec[pcm_idx].jack);
- 	}
- 
- 	generic_spec_free(codec);
-@@ -3033,7 +2948,6 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
- 		return err;
- 	spec = codec->spec;
- 	codec->dp_mst = true;
--	spec->dyn_pcm_assign = true;
- 	spec->vendor_nid = vendor_nid;
- 	spec->port_map = port_map;
- 	spec->port_num = port_num;
-@@ -3097,17 +3011,9 @@ static int patch_i915_tgl_hdmi(struct hda_codec *codec)
- 	 * the index indicate the port number.
- 	 */
- 	static const int map[] = {0x4, 0x6, 0x8, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
--	int ret;
--
--	ret = intel_hsw_common_init(codec, 0x02, map, ARRAY_SIZE(map), 4,
--				    enable_silent_stream);
--	if (!ret) {
--		struct hdmi_spec *spec = codec->spec;
- 
--		spec->dyn_pcm_no_legacy = true;
--	}
--
--	return ret;
-+	return intel_hsw_common_init(codec, 0x02, map, ARRAY_SIZE(map), 4,
-+				     enable_silent_stream);
- }
- 
- static int patch_i915_adlp_hdmi(struct hda_codec *codec)
-@@ -3746,7 +3652,6 @@ static int patch_nvhdmi(struct hda_codec *codec)
- 	codec->dp_mst = true;
- 
- 	spec = codec->spec;
--	spec->dyn_pcm_assign = true;
- 
- 	err = hdmi_parse_codec(codec);
- 	if (err < 0) {
-@@ -4022,10 +3927,8 @@ static int patch_tegra234_hdmi(struct hda_codec *codec)
- 		return err;
- 
- 	codec->dp_mst = true;
--	codec->mst_no_extra_pcms = true;
- 	spec = codec->spec;
- 	spec->dyn_pin_out = true;
--	spec->dyn_pcm_assign = true;
- 	spec->hdmi_intr_trig_ctrl = true;
- 
- 	return tegra_hdmi_init(codec);
-diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
-index ad20a3dff9b7..61e8e9be6b8d 100644
---- a/sound/soc/codecs/hda.c
-+++ b/sound/soc/codecs/hda.c
-@@ -224,9 +224,6 @@ static int hda_codec_probe(struct snd_soc_component *component)
- 		goto err;
- 	}
- 
--	/* configure codec for 1:1 PCM:DAI mapping */
--	codec->mst_no_extra_pcms = 1;
--
- 	ret = snd_hda_codec_parse_pcms(codec);
- 	if (ret < 0) {
- 		dev_err(&hdev->dev, "unable to map pcms to dai %d\n", ret);
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 8debcee59224..7876bdd558a7 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -461,9 +461,6 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
- 		dev_dbg(&hdev->dev, "no patch file found\n");
- 	}
- 
--	/* configure codec for 1:1 PCM:DAI mapping */
--	hcodec->mst_no_extra_pcms = 1;
--
- 	ret = snd_hda_codec_parse_pcms(hcodec);
- 	if (ret < 0) {
- 		dev_err(&hdev->dev, "unable to map pcms to dai %d\n", ret);
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 8643014472ae6..056c3082fe02c 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -815,6 +815,8 @@ static const struct regmap_access_table es8316_volatile_table = {
+ static const struct regmap_config es8316_regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
++	.use_single_read = true,
++	.use_single_write = true,
+ 	.max_register = 0x53,
+ 	.volatile_table	= &es8316_volatile_table,
+ 	.cache_type = REGCACHE_RBTREE,
 -- 
-2.35.3
+2.34.1
+

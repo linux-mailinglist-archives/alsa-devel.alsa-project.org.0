@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 235F55E5F50
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 12:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DA25E5F51
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 12:05:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0490843;
-	Thu, 22 Sep 2022 12:03:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0490843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A7BC86E;
+	Thu, 22 Sep 2022 12:04:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A7BC86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663841089;
-	bh=2Tmuyx0p237epaP0cGElthhLtwvri63vuDK9srs1uA0=;
+	s=default; t=1663841105;
+	bh=moircuo2tF+ktIg96N5s2b9R60Z+DX5x4nxS7DD+zrM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QL8p/OeOc7Q85Ux8Sa8MsBWtiwuo1RCrB7fexn8DEPKI79qXdG+jCA8rMxOif4YWL
-	 egEaUs08COi9qDGw2fyUp1eR6y3/Sgd/1PsMYZBZX4Swmugjx0vQKxpOr3B2Isv0eb
-	 uuLkUUOyOVObZ1Au9b1Up42dmP6o+z9z2Qc+B7os=
+	b=p+1PHCxXIDiGKP32NM/9ZJutZAgCJTRNSymU2Huv+n8euXz2gwdtNySMfXuHbMz4I
+	 T5SRKqHucolFCiBzLrkTdHSaLpDRDvaPRkXxqsVuf8Mk6Ors6vdNK+Uhq9dabSV0em
+	 l7m07MN5gSqKXDBXAajFRwwMbVfvtlSaPwzhvVuk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C91C2F80538;
-	Thu, 22 Sep 2022 12:03:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DA01F8053A;
+	Thu, 22 Sep 2022 12:03:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BB85F804E7; Thu, 22 Sep 2022 12:03:27 +0200 (CEST)
+ id CC055F80539; Thu, 22 Sep 2022 12:03:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D8EFF80256
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 12:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D8EFF80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3243BF804AA
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 12:03:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3243BF804AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="XmQ5mBrO"
+ header.b="M964CLpF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663841001; x=1695377001;
+ t=1663841003; x=1695377003;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2Tmuyx0p237epaP0cGElthhLtwvri63vuDK9srs1uA0=;
- b=XmQ5mBrOqgVAjYjL6b8vod5P/yEk11uXzw4yoDL1kB8QqmPnzTkLQb0G
- ETtX8rMY5G+JRb/6o6cghav2J+iqlTD8ytfVYSlyKaUG8VrKS//QrwV0f
- oPj6xBjps+z5qX/0eJYwx8cRA8N2WVOwdxSR+T+PI7o6QuXLmglaEuidP
- 4/ba/PA6x3RywV54nRKwiW5XUscaKSvhyNG00E01q3Jj3cAJM9+BFRE3J
- N3mjYqGCEUe/6fxL8HAyH4LcDHte3x99n/IY1h+j/4WFpsnISQM0rX1uV
- thyMScRoJi2qELstZv04hFP/nXXxy1fHq4VlioZlfwFVmk8ITCoVpasBK Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="300241289"
-X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="300241289"
+ bh=moircuo2tF+ktIg96N5s2b9R60Z+DX5x4nxS7DD+zrM=;
+ b=M964CLpFg+FouiX0GArV1SlOkq3SfFQwA3+f56OL24maAEvZeKrCFFVB
+ Ev4QXAgSATNmDG8Cj72H4AqN3BA+vweThOKXaqereO2pxWBVtOS9DtB5+
+ Usl3rYBhuawdrIVaNgkNLqzEodmyGPjHWVRNnJ+Z5SL/OwQ8WFgd1iWZd
+ EUPm+N1VhsIT9le09mhxEU/JdPhbuTLTR4LuWXaTC4jS6XMWdi1zhI7qp
+ 47s/YPHbyMfaqNBFZZed0i6b8DPMAH2lQqmpKosi09GTY1wMwMY4ytSPJ
+ SQt4Q+SLX55kdt7Rd78EtAT+ymVkPokX7LMtjEULsZfxWKl8Wck4hTJZi w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="300241301"
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="300241301"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 03:03:18 -0700
-X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="622036214"
+ 22 Sep 2022 03:03:21 -0700
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="622036230"
 Received: from icostanz-mobl1.amr.corp.intel.com (HELO pbossart-mobl3.home)
  ([10.251.210.149])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 03:03:15 -0700
+ 22 Sep 2022 03:03:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2] ASoC: SOF: Intel: pci-tgl: reorder PCI IDs
-Date: Thu, 22 Sep 2022 12:02:53 +0200
-Message-Id: <20220922100254.27159-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/2] ASoC: SOF: pci-tgl: add missing PCI IDs for RPL
+Date: Thu, 22 Sep 2022 12:02:54 +0200
+Message-Id: <20220922100254.27159-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220922100254.27159-1-pierre-louis.bossart@linux.intel.com>
 References: <20220922100254.27159-1-pierre-louis.bossart@linux.intel.com>
@@ -91,34 +91,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-No functionality change, just sort ADL PCI IDs by increasing order.
+Add IDs for RPL-M and RPL-PX
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/intel/pci-tgl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/pci-tgl.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
-index 34eeec3c1851f..1e0f7f0734e75 100644
+index 1e0f7f0734e75..f9cbf3ad85b32 100644
 --- a/sound/soc/sof/intel/pci-tgl.c
 +++ b/sound/soc/sof/intel/pci-tgl.c
-@@ -252,8 +252,6 @@ static const struct pci_device_id sof_pci_ids[] = {
- 		.driver_data = (unsigned long)&rpls_desc},
- 	{ PCI_DEVICE(0x8086, 0x51c8), /* ADL-P */
+@@ -262,6 +262,10 @@ static const struct pci_device_id sof_pci_ids[] = {
  		.driver_data = (unsigned long)&adl_desc},
--	{ PCI_DEVICE(0x8086, 0x51cd), /* ADL-P */
--		.driver_data = (unsigned long)&adl_desc},
- 	{ PCI_DEVICE(0x8086, 0x51c9), /* ADL-PS */
+ 	{ PCI_DEVICE(0x8086, 0x51cd), /* ADL-P */
  		.driver_data = (unsigned long)&adl_desc},
- 	{ PCI_DEVICE(0x8086, 0x51ca), /* RPL-P */
-@@ -262,6 +260,8 @@ static const struct pci_device_id sof_pci_ids[] = {
- 		.driver_data = (unsigned long)&rpl_desc},
- 	{ PCI_DEVICE(0x8086, 0x51cc), /* ADL-M */
- 		.driver_data = (unsigned long)&adl_desc},
-+	{ PCI_DEVICE(0x8086, 0x51cd), /* ADL-P */
-+		.driver_data = (unsigned long)&adl_desc},
++	{ PCI_DEVICE(0x8086, 0x51ce), /* RPL-M */
++		.driver_data = (unsigned long)&rpl_desc},
++	{ PCI_DEVICE(0x8086, 0x51cf), /* RPL-PX */
++		.driver_data = (unsigned long)&rpl_desc},
  	{ PCI_DEVICE(0x8086, 0x54c8), /* ADL-N */
  		.driver_data = (unsigned long)&adl_desc},
  	{ 0, }

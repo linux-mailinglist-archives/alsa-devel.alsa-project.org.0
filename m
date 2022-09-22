@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C725E6640
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 16:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADAD15E674D
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 17:39:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 183451E0;
-	Thu, 22 Sep 2022 16:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 183451E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4D93D8;
+	Thu, 22 Sep 2022 17:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4D93D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663858589;
-	bh=LKJyfWD2MNueu0E5cfFa/Ja+1cF5IgIGIZGPUjlxK+Q=;
+	s=default; t=1663861149;
+	bh=ufTHqER2911AjYAjMI2Z0KIjReSirktao0U7lSgkAFg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kEVKXWdbKtB4l++N3evtLeP4//vQychE84z0W7XguBptz+/J58+AtYkr0GQTzQS7i
-	 CO4dHth3nH2Uztf00CEGNf4l5j7JKGEFTppADi+72HftoCbrS4yK9WuXZQ5NkiHzet
-	 OS997jVtNextZjFehA/E9ZkmKiiZVcjKE4Z4m2dc=
+	b=NFJFmq/4PWImVEukTcqLS/mpbUOT5ZUWMcFfNLcJ8xjaf6GS6llZBMOjbC/2jwi4f
+	 AaLjJunbaHqhv1Hh27rhcQAZoKm+RLgKbPSycUjItwxmErfSkxgv5ljTsQty3AqFXH
+	 t3AsZOYvc0GRsp/gshae2AA/+qqt8d6+e5MKEO2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A0C9F80107;
-	Thu, 22 Sep 2022 16:55:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51E9BF8030F;
+	Thu, 22 Sep 2022 17:38:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28E12F8027B; Thu, 22 Sep 2022 16:55:29 +0200 (CEST)
+ id DA7ABF8027B; Thu, 22 Sep 2022 17:38:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBD71F80107
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 16:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBD71F80107
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MYJBM4vWPzlWrx;
- Thu, 22 Sep 2022 22:51:07 +0800 (CST)
-Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 22 Sep 2022 22:55:16 +0800
-Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
- (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 22 Sep
- 2022 22:55:15 +0800
-From: Zhang Qilong <zhangqilong3@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>
-Subject: [PATCH -next] ASoC: soc-component: using pm_runtime_resume_and_get
- instead of pm_runtime_get_sync
-Date: Thu, 22 Sep 2022 22:58:46 +0800
-Message-ID: <20220922145846.114312-1-zhangqilong3@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78C25F8012A
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 17:38:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78C25F8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KO4xsI2K"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7B25FB821A3;
+ Thu, 22 Sep 2022 15:38:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8550AC433C1;
+ Thu, 22 Sep 2022 15:38:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663861085;
+ bh=ufTHqER2911AjYAjMI2Z0KIjReSirktao0U7lSgkAFg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KO4xsI2KK5bFenWW+4r39VBMr1Bx5tD3DORVZPNTiKCRfMRI6M9jYitKlvFUepFsl
+ M6IvNWersrjSY07tAN5fgeUTzoLy2WAikvtTL1PZFNrV25tIXMzreVk+MMZOL6XbfK
+ 4NZSp0VmJhZqfaENWZA4arD/aqSpcNeUUAZH/rhp1MvQXytQz8+dad0jXhUd8OQMbM
+ 5yWnSlPQOGI3oazB+75J3ujWyFgmBIUsJ7GBlwuTI9k4vcy6QIHTPJLURqjAWHcb7C
+ +6Y6jWLDRq2mPwsKTunYf+W2AWzu8KmMZW4M/2b1PPUtcyi6NXkcC2nEnGcU5dRWBq
+ fB7++30FBkxAA==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH -next] ASoC: Intel: sof_da7219_mx98360a: Access num_codecs
+ through dai_link
+Date: Thu, 22 Sep 2022 08:37:52 -0700
+Message-Id: <20220922153752.336193-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.225]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- kwepemm600014.china.huawei.com (7.193.23.54)
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org
+Cc: Nathan Chancellor <nathan@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, patches@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,32 +90,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Using the newest pm_runtime_resume_and_get is more appropriate
-for simplifing code here.
+After commit 3989ade2d1e7 ("ASoC: soc.h: remove num_cpus/codecs"), the
+following build error occurs:
 
-Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+  sound/soc/intel/boards/sof_da7219_max98373.c:198:27: error: no member named 'num_codecs' in 'struct snd_soc_pcm_runtime'
+          for (j = 0; j < runtime->num_codecs; j++) {
+                          ~~~~~~~  ^
+  1 error generated.
+
+This conversion was missed by the aforementioned change. Do it now to
+fix the build error.
+
+Fixes: 3989ade2d1e7 ("ASoC: soc.h: remove num_cpus/codecs")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- sound/soc/soc-component.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/sof_da7219_max98373.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index e12f8244242b..659b9ade4158 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -1213,11 +1213,9 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
- 	int i;
+diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+index 34cf849a8344..e048e789e633 100644
+--- a/sound/soc/intel/boards/sof_da7219_max98373.c
++++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+@@ -195,7 +195,7 @@ static int ssp1_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
+ 	int ret, j;
  
- 	for_each_rtd_components(rtd, i, component) {
--		int ret = pm_runtime_get_sync(component->dev);
--		if (ret < 0 && ret != -EACCES) {
--			pm_runtime_put_noidle(component->dev);
-+		int ret = pm_runtime_resume_and_get(component->dev);
-+		if (ret < 0 && ret != -EACCES)
- 			return soc_component_ret(component, ret);
--		}
- 		/* mark stream if succeeded */
- 		soc_component_mark_push(component, stream, pm);
- 	}
+-	for (j = 0; j < runtime->num_codecs; j++) {
++	for (j = 0; j < runtime->dai_link->num_codecs; j++) {
+ 		struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, j);
+ 
+ 		if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME)) {
+
+base-commit: a921986f445ad611b441c8ee7749dc6dfc770481
 -- 
-2.25.1
+2.37.3
 

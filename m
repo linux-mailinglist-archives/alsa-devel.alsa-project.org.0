@@ -2,74 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27B0F5E6A01
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 19:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1675E6A33
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Sep 2022 20:00:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCBA11EF;
-	Thu, 22 Sep 2022 19:54:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCBA11EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BF46100;
+	Thu, 22 Sep 2022 19:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BF46100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663869328;
-	bh=ZiN26jIhpDcjUuX8OzBCi6FQJAgejvV8LF/d8rTxbmE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1663869612;
+	bh=l49MJjVEZg6dHjjz5rjJy7LXGACd9SGftHKcNu/cLYY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KvoikMZ2rm02By5gWQMvfxg2+W9IN83JUzJWtaSwcsODV+vefRdnD8/ruu5URH4cG
-	 kXW3BYhbYZ1q7pbn3UREJ23jN6wyfiuzijpKlwi3CfUVjRrPpb4knJMkNtNAk1+HLI
-	 7zatsDLKf7PWvb85YPq3Qx+ZeDnZdNJXmLuEX/kg=
+	b=sKewuHpgvQZpJhSyU4jXQ3KHWYmVOROpXODv3EDw4/p2FdDPbFn7eMkTqRwysVPJd
+	 IOcbOZUdUsqaH6n/6dAhw5kKVD60tPPGIHVqRgGy6n9R+RFdaYJxwcuMR7b24+7mvU
+	 ciV0kXMrt2loxFSzMo4pQlDIjv0OB4ZPEUExMf+Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1469CF804E7;
-	Thu, 22 Sep 2022 19:54:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADBB2F8030F;
+	Thu, 22 Sep 2022 19:59:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28DF9F804E7; Thu, 22 Sep 2022 19:54:04 +0200 (CEST)
+ id 6470AF8027B; Thu, 22 Sep 2022 19:59:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE247F80107
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 19:54:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE247F80107
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nRTG7xrv"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DDD37B819F6;
- Thu, 22 Sep 2022 17:54:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74708C433D7;
- Thu, 22 Sep 2022 17:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663869239;
- bh=ZiN26jIhpDcjUuX8OzBCi6FQJAgejvV8LF/d8rTxbmE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nRTG7xrvW/TV6MHjXfX6AdY3kP4D45MhEpf2vLD1809I98HGcow0HnH3z14Avh5Vh
- Svc1X+9DpqdJAa5mUYgzr/8J9jvHGFzk4+WnpNNddoFo5zXRA/Fr6BO1MmXVe/8X6c
- 9cq0Jd8639dd3unZ5VpgRka0jV++bc7htlXIWEJCgJ9bq1AyaoWOk+7sYXU6vl3fVk
- 5ECegpdN9cPy582s4RaIoxUqPy92muHEuRT5dSgZ/AoHI6MdNPvyLc0/o06XotJywA
- bVpnNb/9XejjpjeT+HZdnR2s0b1+fsi+4+aQbUhzTHaBPLI71bGVGdSQ9DQ9wD4wpm
- 6kp3K+m7N9tXw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220922100254.27159-1-pierre-louis.bossart@linux.intel.com>
-References: <20220922100254.27159-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: Intel: add missing PCI IDs
-Message-Id: <166386923746.727733.12788369378822193217.b4-ty@kernel.org>
-Date: Thu, 22 Sep 2022 18:53:57 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id D125EF80107
+ for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 19:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D125EF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="F86iEDIl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663869549; x=1695405549;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=l49MJjVEZg6dHjjz5rjJy7LXGACd9SGftHKcNu/cLYY=;
+ b=F86iEDIl8Rk/8RI+r88uR7qHFrSC4F06yM21rSUS1WBkzHOMRg4t5+CM
+ gA/mOejlL3grqcmSSqS8taXnSO3Ixv2e+18CJBCJlDimkTSYZm+GypL5d
+ 3PnnjS6iHAjZYtblUEdMeiqOTvFFZ7nHR4aBc6/5UIue6o8eEMEULM0UG
+ ptC8Yo74DWWgjGQ/YRr7wFlLBif18LdCVwqL6g0pJ2OyugDYm9BS14vU5
+ M2Dq5DpXausq4F2amDdKAiu8GTcDwRD/te6TKNXzFz5r/93CXzk3GOtbt
+ Mc2ilnFmGMMM2ayo5pTcHOaIOpPiQRZpSwwqpdEHNuHagCPW29eypyqcU A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="362151997"
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="362151997"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 10:59:04 -0700
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="688395874"
+Received: from icostanz-mobl1.amr.corp.intel.com (HELO [10.251.210.149])
+ ([10.251.210.149])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 10:59:01 -0700
+Message-ID: <b0595977-7cf4-7261-d006-a43ce6b63e31@linux.intel.com>
+Date: Thu, 22 Sep 2022 19:58:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-8af31
-Cc: tiwai@suse.de
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH -next] ASoC: Intel: sof_da7219_mx98360a: Access num_codecs
+ through dai_link
+Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown <broonie@kernel.org>
+References: <20220922153752.336193-1-nathan@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220922153752.336193-1-nathan@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, patches@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,44 +99,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 22 Sep 2022 12:02:52 +0200, Pierre-Louis Bossart wrote:
-> Two missing PCI IDs already added to hda_intel.c and missed in SOF.
+
+
+On 9/22/22 17:37, Nathan Chancellor wrote:
+> After commit 3989ade2d1e7 ("ASoC: soc.h: remove num_cpus/codecs"), the
+> following build error occurs:
 > 
-> Pierre-Louis Bossart (2):
->   ASoC: SOF: Intel: pci-tgl: reorder PCI IDs
->   ASoC: SOF: pci-tgl: add missing PCI IDs for RPL
+>   sound/soc/intel/boards/sof_da7219_max98373.c:198:27: error: no member named 'num_codecs' in 'struct snd_soc_pcm_runtime'
+>           for (j = 0; j < runtime->num_codecs; j++) {
+>                           ~~~~~~~  ^
+>   1 error generated.
 > 
-> sound/soc/sof/intel/pci-tgl.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> This conversion was missed by the aforementioned change. Do it now to
+> fix the build error.
 > 
-> [...]
+> Fixes: 3989ade2d1e7 ("ASoC: soc.h: remove num_cpus/codecs")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Applied to
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-   broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: SOF: Intel: pci-tgl: reorder PCI IDs
-      commit: 1c9a057eb7f45f8d233ae847d1e9fd64d163bd1c
-[2/2] ASoC: SOF: pci-tgl: add missing PCI IDs for RPL
-      commit: e2f0b9277810685f6a67201847082ec9852853bd
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> ---
+>  sound/soc/intel/boards/sof_da7219_max98373.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+> index 34cf849a8344..e048e789e633 100644
+> --- a/sound/soc/intel/boards/sof_da7219_max98373.c
+> +++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+> @@ -195,7 +195,7 @@ static int ssp1_hw_params(struct snd_pcm_substream *substream,
+>  	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
+>  	int ret, j;
+>  
+> -	for (j = 0; j < runtime->num_codecs; j++) {
+> +	for (j = 0; j < runtime->dai_link->num_codecs; j++) {
+>  		struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, j);
+>  
+>  		if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME)) {
+> 
+> base-commit: a921986f445ad611b441c8ee7749dc6dfc770481

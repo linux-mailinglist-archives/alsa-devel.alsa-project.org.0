@@ -2,76 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6381A5E7612
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:45:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC485E75A2
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 10:23:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1368B83E;
-	Fri, 23 Sep 2022 10:44:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1368B83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 023691E2;
+	Fri, 23 Sep 2022 10:22:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 023691E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663922705;
-	bh=YE8X/zDI7bMlTYRbd+A8gtt2Njzs4d6klYAxWewKdMA=;
+	s=default; t=1663921429;
+	bh=aXAxOUEiuU47bpyJk/zXgB8Q9YqFZrurigyFxHN1QXE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=RON1geVYgmXb+2tvj2A6Ya0PMk2xwZOIfm4JVvdTaHXzGIUHSQOkvq4wMkn9Y7kbr
-	 ork8LvzlcoJtHWGlwn/hS7G8SzH5S1pozGaaQnPIL3WbNcm2g1UhYU32I87qPfwMYe
-	 BDhvy0hXzz/GjLgytf9LPQsC0fzpeeuqYwOkMefU=
+	b=rH4q8Ds3DXFGjMhl8gEihpzRF88YdnRA0GktrMwlUZ2xVO+ewN779QoHVfEeXP+qw
+	 D2l6y0LMAa0YgfuHpudJlzaDf9GBtvTVJHBUVp+62jutia0BXOki8XjA6H1EfaVx+g
+	 qstJiVtMNMFBaDpJ7zELe5978Q1g0lSCdOwIff2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DD60F8055B;
-	Fri, 23 Sep 2022 10:42:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DA6BF80431;
+	Fri, 23 Sep 2022 10:22:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B49C0F8027B; Thu, 22 Sep 2022 15:45:21 +0200 (CEST)
+ id 0AC5AF80269; Fri, 23 Sep 2022 10:22:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 921A4F80107
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 15:45:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 921A4F80107
-Received: by mail-wr1-f44.google.com with SMTP id n15so8719976wrq.5
- for <alsa-devel@alsa-project.org>; Thu, 22 Sep 2022 06:45:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=nVYl4VGBufZGCj8epAifvyAAADocOF/FFC9jfi/VTnQ=;
- b=PUOpH2GdfPO5Sxqb2KJi/+EDMvgtvx3xWy7RO+3UBXaNITFFJUyoUdJ4DJYXWzNuD7
- JZZvJAWBa3yVNddbqs2ZVVrP0gzifMJy56+47CwQ8DTUAO6Rouyn9g/5Z/OwMm0UX1LU
- /6IznAkILYT4CXu9RyGIBDIFGRM4kHMZoggjwwaq4PUtjwRQOH0KgdOsVkOPXEUPXWAi
- JhYnC1d24oeN1z1L86xiaFfbQT1RCZGHHgdcIRSUg2tq+ZZxtbgmD308sn7k3Hu2SUIQ
- YRQQUKLByRMlmOlLnzZCwY4a49LCkVTcqVKDVRarN4/X1HRPTlRE7HJp7vOk/sWFfB/e
- +lUA==
-X-Gm-Message-State: ACrzQf29olth9AKcTd19ekR8ShWK6ULUXIHGmo0CLXiSHXn8FA02+PeZ
- oy3EDE2EkX4ow3tgCloXkRsvYcvoo3ngqw==
-X-Google-Smtp-Source: AMsMyM70dXxaaiVcobZhETv8uF1X+sVra4qFxSV8nXfhygs8CmLcn36cX+qwLRtEqFYJSFv6jY3ttg==
-X-Received: by 2002:a05:6000:a17:b0:22a:2da9:e233 with SMTP id
- co23-20020a0560000a1700b0022a2da9e233mr2078423wrb.248.1663854314843; 
- Thu, 22 Sep 2022 06:45:14 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:168:d80b:1:290f:c2e7:fcc5:19a3])
- by smtp.gmail.com with ESMTPSA id
- x8-20020adff0c8000000b00228c483128dsm5906517wro.90.2022.09.22.06.45.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Sep 2022 06:45:13 -0700 (PDT)
-From: Benjamin Marty <info@benjaminmarty.ch>
-To: alsa-devel@alsa-project.org, ctlin0@nuvoton.com, kchsu0@nuvoton.com,
- wtli@nuvoton.com
-Subject: [PATCH] ASoC: nau8822: add spk boost and spk btl options
-Date: Thu, 22 Sep 2022 15:44:58 +0200
-Message-Id: <20220922134458.3421695-1-info@benjaminmarty.ch>
-X-Mailer: git-send-email 2.37.3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DCDEF801EC
+ for <alsa-devel@alsa-project.org>; Fri, 23 Sep 2022 10:22:44 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 3455EA003F;
+ Fri, 23 Sep 2022 10:22:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 3455EA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1663921364; bh=qJpFTfGAb/k0+6Eg9rWRa9UDCpoTpTN0iGcvoG1fNxQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bLfAqnXP5kRe3lOP1VOcy9Mkdc3DdqjOIR0mEgLqkU/Qy1Z193zUvABDEIjVKuFNP
+ Rv9jTa22Ah55mGhlVQqFH3obx6pCEof9RDg4W6srln4jroViymyATh7ybjnXYKQxNq
+ uD1t1QZIo7eQiHBt4NS0jaInw89PounhfcWbcKRY=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 23 Sep 2022 10:22:41 +0200 (CEST)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH] ALSA: hda/hdmi: Limit the maximal count of PCM devices to 8
+Date: Fri, 23 Sep 2022 10:22:36 +0200
+Message-Id: <20220923082236.61024-1-perex@perex.cz>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 23 Sep 2022 10:42:24 +0200
-Cc: Benjamin Marty <info@benjaminmarty.ch>
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,34 +74,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-These two options are required to use the Speaker output on this codec
-to its full potential, when wiring up the Speaker in an BTL configuration.
+The current hardware has up to 4 converters. Save little space.
+The limit 8 is enough even for a more improved hardware.
 
-The Speaker Boost flag is explained in the Datasheet on page 80.
-The Speaker BTL flag is explained in the Datasheet on page 78.
-
-Signed-off-by: Benjamin Marty <info@benjaminmarty.ch>
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- sound/soc/codecs/nau8822.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
-index 1aef281a9972..812b8254f9a0 100644
---- a/sound/soc/codecs/nau8822.c
-+++ b/sound/soc/codecs/nau8822.c
-@@ -379,6 +379,12 @@ static const struct snd_kcontrol_new nau8822_snd_controls[] = {
- 		NAU8822_REG_DAC_CONTROL, 5, 1, 0),
- 	SOC_SINGLE("ADC 128x Oversampling Switch",
- 		NAU8822_REG_ADC_CONTROL, 5, 1, 0),
-+
-+	SOC_SINGLE("Speaker Gain Boost Control",
-+		NAU8822_REG_OUTPUT_CONTROL, 2, 1, 0),
-+
-+	SOC_SINGLE("Speaker BTL Configuration",
-+		NAU8822_REG_RIGHT_SPEAKER_CONTROL, 4, 1, 0),
- };
- 
- /* LMAIN and RMAIN Mixer */
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index ac520c62ee70..d90c9286ac6d 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -151,7 +151,7 @@ struct hdmi_spec {
+ 	 */
+ 	int dev_num;
+ 	struct snd_array pins; /* struct hdmi_spec_per_pin */
+-	struct hdmi_pcm pcm_rec[16];
++	struct hdmi_pcm pcm_rec[8];
+ 	struct mutex pcm_lock;
+ 	struct mutex bind_lock; /* for audio component binding */
+ 	/* pcm_bitmap means which pcms have been assigned to pins*/
+@@ -2288,8 +2288,8 @@ static int generic_hdmi_build_pcms(struct hda_codec *codec)
+ 		pstr = &info->stream[SNDRV_PCM_STREAM_PLAYBACK];
+ 		pstr->substreams = 1;
+ 		pstr->ops = generic_ops;
+-		/* pcm number is less than 16 */
+-		if (spec->pcm_used >= 16)
++		/* pcm number is less than pcm_rec array size */
++		if (spec->pcm_used >= ARRAY_SIZE(spec->pcm_rec))
+ 			break;
+ 		/* other pstr fields are set in open */
+ 	}
 -- 
-2.37.3
-
+2.35.3

@@ -2,179 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983625E7785
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 11:43:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB245E77C3
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Sep 2022 11:57:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C8FA1E9;
-	Fri, 23 Sep 2022 11:42:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C8FA1E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 923223E;
+	Fri, 23 Sep 2022 11:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 923223E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1663926220;
-	bh=8LUkWI3Ug2Q9aN5pCWibDdSqK9H1T3UXrYv2Uomzz4M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1663927034;
+	bh=4sWBblbm6MUQEepD8aTGXfpUmd4VpmWLtsJVE0kLOLo=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AMlL2nGoPWR1E1uKKl9lHI9xas2KkFSSb7KJrnrjedY0nTJqFdja4vIagzihVFKZN
-	 R2fpIP2oBCsXYjinzc8QaxABbR0Cbhhfp4a8XpFOhcePtb2VzozVBeDsN3l5UGsYzt
-	 FtfMQl/A4tqjXWlfR8mLQX43YBa1ho1bfKgdiEks=
+	b=nShD9hOmmWu/FB9ec5YdXomrULbVlMy9zoVprP9Vw+6JmEzTD94x/QIERp3VP8xdT
+	 WUkXsOc7WHJkqgA9RxgNRaKc8PKp8nr3+zoBevolo4yhkjmueiBBm0O5mWxt5Xw7HP
+	 h5ifFvMYT9f51+6TPoOOWGEX+YxCsY8bWR9eC0EQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B7FCF80107;
-	Fri, 23 Sep 2022 11:42:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C15EF80431;
+	Fri, 23 Sep 2022 11:56:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4D3EF80269; Fri, 23 Sep 2022 11:42:40 +0200 (CEST)
+ id EBBF9F80269; Fri, 23 Sep 2022 11:56:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2057.outbound.protection.outlook.com [40.107.104.57])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54A31F801EC
- for <alsa-devel@alsa-project.org>; Fri, 23 Sep 2022 11:42:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54A31F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADBFCF801EC
+ for <alsa-devel@alsa-project.org>; Fri, 23 Sep 2022 11:56:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADBFCF801EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="N5PO8pav"; 
- dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="jzTXZ7hK"
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28N8v5vb022816;
- Fri, 23 Sep 2022 09:42:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2022-7-12;
- bh=tlQ7vQ11soU0Ru9M02QR/tqfAsmyBXbR07g0ov0Du18=;
- b=N5PO8pavAxchnf5y+WgMmTPD1mS31I1I9h/fJLKuOsP0c6CjFCHIUAz7io+yqobuNhhg
- TjfPHI8I7CsQbJXVVZm+um0P2Zs2m8LiKU2Wa+wThbDbWGvDNp4MHXmoR1I86mivKQz/
- SvU7vk6dexsx8lktsJ9PvHaYuqXHjmVw37K0v3t6dY5L1VB2cm59d2QX2tg6LxtVbSG+
- I2n4VeS67tb7dTFE53dVqP5onA/E2ajRcdHCJAgUbdvk+s1ylv4D9cZPdQZxRWO97Wiw
- TOIYY7QZKhLSSh+iS7spdijiJ8YyOVWPXOluZ2ofltQO+jlN+RDoRCybhEq0W4qyJKMc MA== 
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3jn6strmbv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 23 Sep 2022 09:42:33 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 28N6MFIW028896; Fri, 23 Sep 2022 09:42:32 GMT
-Received: from nam11-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam11lp2168.outbound.protection.outlook.com [104.47.58.168])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3jp3d5jksq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 23 Sep 2022 09:42:32 +0000
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="fy0snUTp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SZK2GXgFkNBecIzTlw64F2BVza7qwNAkgRj8tf750OGxu5o3+6aPBgB8RLWhhpORqx1jPy/w8iUhS8RNPHp9PQNclWEi+pGeB/lgFqwPYZZVSsEg/fWuwJ48izvBusnq4W/Ez6vKMDyOmQw+U5qWtHcPDLsztIeCUHlJeIQSIpodQo7U6FUhdyuAOvw/DxvK+GvoYgL+ZMSkNvaf8zE5KNIZydWymLmk0tYepEyexjo85yp6boQwVzqJGIrSEysOWk1zC6tzeAKZu4wOA2WdbhKVE3ZZPxWCi3b3duNobeW2IKFmBa32N8H2ltcUyFZPIBVB0xJ1yNmANQXCGeJMBw==
+ b=na0kSsRuKOPX9caXV+XlFo1ZF55hoxAVZIBr3+AsoETV84T5nMuACdoK1U+jbDEvkFwGGAFMIYsyG1ihQiGlEA9qdNa1VYdNkfMjwIKn90UTFR35uH97yjUV9maunXYpGB3z7Xb9Epc21G6kk+SdcLvROGqLk21MUo3VMMfVFtAbp3KvIXzEpfsLurPfLv2XuNv2kM7Oug0O/mmo8Ysss/PwCx1S8TM/tqBD9iPYonq0dF6EDdFE65qGB1ur9EdYu3YSneq2i86k/qldEEg8dUFZKA5sRg1iVcIb9762hgyDKFQgBvsiKfgmm1iw8JNZNfOurxx8x1z8+zPQ2WjBbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tlQ7vQ11soU0Ru9M02QR/tqfAsmyBXbR07g0ov0Du18=;
- b=PGZB9euPkYgLVhGbPpQVjumaqeAeeadQzLuIY1Iw7aoXW8Sk6jQSjIsZl/XSkQ5FjoJ2BTHkZutJ56NbgaEDnUW8fQ4DFmQItIfRE8FO6p63gZOjv9cHKzdBfCtI2hpJ0i8pbnlqpFgGLxU5803D4K/UEgcdH+rPxD9vireE7ihhSL7wLx7jYGx4KrHiIAPzmLRHKBS5/kDUxOn7+F3Mf6mpOMVrkPU1EzimqqtvLCHRw08YjCx0q+VNZ7+dbi1wqmEyyzBvWqVwZ5A3OYPE7T73gP+OnUBPo1GRef5aBnp1paZMNUdyEOSUQxAf6xOjlehHzwdi3Cb2FszsJ/zH7w==
+ bh=A07iPSt4dr7WZn0qJ5FzweBarro6FnzJbDXu/QiTapw=;
+ b=oBcaV1qkBo0eyN0r0Gbw5PpgN/mSjGk+9oOx1UwNy/NVWDU/vB6ClSKHVeZ3+Yy/724nd5DW81hWaKbVIxSEgocb9UCs1DOc44B9I+HC69/zADDs4H/5giZEyyj6dKbkF+gYM0IQR6My+cIv/Qmichg8MhSbEREF37kcY3fUqfW8C6WA4JT3/du6SivNY0C+cNuFlMBqzv3XDfeAhnrk9MaikY5qDYw9I4cnzLRylwQj9/VLsGQPxqPp9hUbyt0cKL00c1E2v0pACEYA8cbcJkrbmlcXKzaG5F2BuHMBGcdf5KHSBTk6Lp9gnCVvPABpiriAB4ZMaCVmvb667IpK9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tlQ7vQ11soU0Ru9M02QR/tqfAsmyBXbR07g0ov0Du18=;
- b=jzTXZ7hKkkq+zi1IBR4B5jVZlnfAgB6X6S2Kgy4FR1hEgp65vOazR5BFBh1CFRPy0VlfPeJsBOFSTIdaPMq+iyDS8Id9fAOD6Hjl4S+r54fEL538n2Bl9xOxD+KxBIzBQhGKRZuXyc0YQUADPNDlK1JEKP8yIzNRDF209pX/3xs=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by SJ1PR10MB5905.namprd10.prod.outlook.com
- (2603:10b6:a03:48c::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.17; Fri, 23 Sep
- 2022 09:42:30 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::a493:38d9:86ee:73d6]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::a493:38d9:86ee:73d6%6]) with mapi id 15.20.5654.019; Fri, 23 Sep 2022
- 09:42:30 +0000
-Date: Fri, 23 Sep 2022 12:42:14 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: da7219: Fix an error handling path in
- da7219_register_dai_clks()
-Message-ID: <Yy1/dhtp3VCCRkWI@kadam>
-References: <e4acceab57a0d9e477a8d5890a45c5309e553e7c.1663875789.git.christophe.jaillet@wanadoo.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e4acceab57a0d9e477a8d5890a45c5309e553e7c.1663875789.git.christophe.jaillet@wanadoo.fr>
-X-ClientProxiedBy: MR1P264CA0212.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:56::20) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2365:EE_|SJ1PR10MB5905:EE_
-X-MS-Office365-Filtering-Correlation-Id: cac3adb7-1f88-4456-eba6-08da9d47eed7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: owy9BdFFXuFtqmJaGsK+0RdmtQO17sompuPPNK0mLM9X3jN3fdDnwkLg6nwZzYxPLdVhhFz2kaqzKZORA1P1LS0MKgQR4IUTTvkMnzLIb1QjNppKQpYODZPEqatScsaViib6e85gLeOJTAEV2wVddVic7NteKm9C42ftAWcQ2UmwheApFR/EMzE8Sx49MBOaGl3tPMDSlaR/ZuhYKA3B9bHm0UiZ7FY3RgpQbvyIFvmRdvsVqsqSEobcohGyOMZy6aaRWdjMh32+dnoWjBUNSNkIkBifF4P5WNohBtxYisHMpUIAu1AACIL8abjEGTIs1LbrWcTrFdJoLUvjnI/aTMnGUoXYEOsKLO4F0Q0H25nPwcd8iaH7Y/Js1m8DPBCl0CK3urJj/HoAwB44V6k2tfINn1WArWZwnShNc1bNUJv418+EZyp4GmN8b8BfMj/r4Pw+OLS2ExJ7mjhLc7xz6HOcJQUiTA1+gzJlqWbCPWpZMVPrZVqoOJceR2itXWMzXhNdPqvmlbbhqjBZaGO3+SOQvflXLOIkUp8c9XnuywimjTg7iZwmir3xuH1RVhm/A7mhmlAa6svGkEkFlVi+zNMD15qlFQoobK619nQI/1qhqgSOBSOnmJb5EfnGQFnFVa5lQ9NLvL56KJukIeMmN97w8CpQ0bpRR3eWFBEF9OJBewh2/h6E/9VowJgE256X3H3rzJ5kJ3n/dh/4L0zaomqRNY9k0kd6myt6PVQA6+A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(7916004)(136003)(346002)(396003)(39860400002)(366004)(376002)(451199015)(66946007)(44832011)(5660300002)(41300700001)(8936002)(38100700002)(86362001)(66556008)(33716001)(66476007)(7416002)(2906002)(4744005)(4326008)(8676002)(6916009)(478600001)(26005)(83380400001)(54906003)(316002)(6506007)(6666004)(6512007)(966005)(6486002)(9686003)(186003);
+ bh=A07iPSt4dr7WZn0qJ5FzweBarro6FnzJbDXu/QiTapw=;
+ b=fy0snUTpGDD7Mu1weidtKHqn/HiMxut1K187oRATgMMqq35r241KYQGi+TdDO7xPVYmwZlUtiokD/MbuVTSyq8HSLmYsuBjc4vRNBke1NMcVn4zF9geQo0m4AZgQdWuYx9Yj2MwEAVlC5tj0yXUL2//ceckFHNTa1XF1oxMm2kw=
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
+ by VI1PR04MB6863.eurprd04.prod.outlook.com (2603:10a6:803:12f::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Fri, 23 Sep
+ 2022 09:56:07 +0000
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::7008:1596:bb4:d904]) by VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::7008:1596:bb4:d904%4]) with mapi id 15.20.5654.020; Fri, 23 Sep 2022
+ 09:56:07 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: Rob Herring <robh@kernel.org>
+Subject: RE: Re: [PATCH v2 1/7] ASoC: dt-bindings: fsl_rpmsg: Add a property
+ to assign the rpmsg channel
+Thread-Topic: Re: [PATCH v2 1/7] ASoC: dt-bindings: fsl_rpmsg: Add a property
+ to assign the rpmsg channel
+Thread-Index: AQHYzzKzIRcLJ21/30SyeFStqUuMIg==
+Date: Fri, 23 Sep 2022 09:56:07 +0000
+Message-ID: <VI1PR04MB4222BDB1378A01E99DFC6211E3519@VI1PR04MB4222.eurprd04.prod.outlook.com>
+References: <20220914105145.2543646-1-chancel.liu@nxp.com>
+ <20220914105145.2543646-2-chancel.liu@nxp.com>
+ <20220916185048.GA1061412-robh@kernel.org>
+In-Reply-To: <20220916185048.GA1061412-robh@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR04MB4222:EE_|VI1PR04MB6863:EE_
+x-ms-office365-filtering-correlation-id: 8eeb9b13-ffbc-407c-d2ce-08da9d49d619
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dm0r35HEz6QkYvyHee9QY1RpZSMiwIkQEY/FjrbvLJ0DhR7BVDKaUVyekT4lJ18v7VmV4bhFVHa1xf08Wb/uwMrkj1O8TFkvo19LkA90x01JV2aUVibOAUA66CGTKfznXMTUEwUBvy7qD8j4ql/ufGWlV2MxtAG7Zdejhj7EULTGDIUqJUSxqoWH38uYlzGufTmZ1vIN9wigSGhFGPZ2eTQXR8sXHIrg2Ekbtwa+UhgRyX/I2ge0K+ixczeNh+jJWmggAXe2J5lWRc4PPQF+VOG+EFmuLRvPKrWeu71rb3FFMQUL4F4x/xkipPMHTPXHfRr9kbQfk7QzUAAUINU5OSdCNqVC0LFS/9LDv0oENLuHW1gojTeamn76FdWyHpoWMo7f+R0dK8/DBe2NsaE4QpPjf6EpIgxnEhBaKy53LZhkUy19VLQiaNwM6Erva73Yv8HfEEjn3r0xZh6mb6pkDlY3WeqQkcZDYHebdyhofskreB6gCcwBkgCYcqFbVvIzc5r+aUAWeEiAiiLpiKfJn19dEB9+ks0pMMEdkTZ9bO5YZCx3zW8QgB4UHDq+mKmHzzhzym6uO4v+RFr9lsJ4FAy8N09u9vekfnhh+YuY+Xhwsy8wWv0Xhh1WE5Xl+E8mX4c54nSli1jf8rCQHWuEmaNASn9ceStEUKIzBXy1DI8UqsulXEOSyU943Vo0w5LaRBdCjoVbaV53GAf/Xf9drzPhmS2Q/YEOVfiJKRSkyQJknNtTEKasEQDKWAMCs8qb6pp2RX8E974kWdsVuENcVQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(366004)(346002)(39860400002)(396003)(136003)(451199015)(54906003)(26005)(6916009)(9686003)(2906002)(6506007)(7696005)(76116006)(186003)(66446008)(86362001)(66476007)(66946007)(4326008)(66556008)(64756008)(83380400001)(316002)(33656002)(55016003)(41300700001)(122000001)(8936002)(5660300002)(8676002)(7416002)(52536014)(38100700002)(44832011)(478600001)(38070700005)(71200400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C255m8xxFWjDuptT/GHRXJTeoqbv53SvQtXsMZtNHKLKgOTd/SK+4FDtFbLM?=
- =?us-ascii?Q?uc8LqfFa9L15liDFy53kBls0XzloWJJ0+/HAb2xCjdEF/bCPAwtwaOTitnZe?=
- =?us-ascii?Q?Zw88EC5Yb4vZfa9qXxC7Qunr0iUO+CZCkRzy37e9d1MhJuBqgxgCF8Vq1ZA2?=
- =?us-ascii?Q?sRlSL96T3OEprgRFTBivSrZBIhRYhhilG6k6zN+DeB6GwtoF74OXYqAskymW?=
- =?us-ascii?Q?61n/9FVBR4jA4zHEkC60f35aIg+N3wceLR+c+zXRBfT35SCx3foz9MfnDxUL?=
- =?us-ascii?Q?lEg3zw7TvSG7Nt0/hPYh7y2rFMBxD+QHj2pgsHlaOB9vwu/wojiQTwJSaSJs?=
- =?us-ascii?Q?tss9X6pBxktzfCjwQJ3KtqCp2OY1TAKYYWfeaqeeS4E7Ncvjk1HEnPYAY4cA?=
- =?us-ascii?Q?cLsseyMkynucwcGpceAwMGE4htK8eS+PN9OXWZYNEURp5jMFaoWMDUzypev+?=
- =?us-ascii?Q?YrdWoAZ2SPgMPE92U21Isu6WhiY4ZaZ8TsPEZ8M6gSgM/HzWKXCzdhtoAuCN?=
- =?us-ascii?Q?hMJv1X1lIkUt9XNLFCZZZJBXZTmoftp+svdnJqh/dP8vOtdbXgzFcY9kwAWB?=
- =?us-ascii?Q?iL4FffAmln1vqF3wZZM1wbzSNH0rvIaG2otQ8aCIIlN9N5KRcFwj4+8OMqMC?=
- =?us-ascii?Q?Kifo3Blzb4DDDiMphTMybDdYzfSOHHLmeRYJeHjScB3TXPshF4eg4Cqzrzqx?=
- =?us-ascii?Q?H+jYaubywOL+Sq0eI/indSZsAl2aGEdXIDBjgDCAJ/FUPilY7gYJ5oLlPX55?=
- =?us-ascii?Q?SW7TUtdK3liPfiFeQiG00T3suBAx0vOPTXm6YG3y98hBfPJuGhkwgjqfGg29?=
- =?us-ascii?Q?kc/O3QmMND9T+3Xuo2X8P7Y1XL1B8d/7ak4hfFUcIFKH9Fj0e8ujrO8/iPDn?=
- =?us-ascii?Q?p9sSq6g3s5HF5WKvM7heX1SXFYCXW664oD6XeYqI9gXG/itbiFxnWBNzZWVe?=
- =?us-ascii?Q?MjGdyeyxzMFZh5bFcyMJZhD/8C/VffCNJWEHILvFqB4vSj3B/eC66zgF+8T3?=
- =?us-ascii?Q?VlGwYdDmbUBYXvqpuGqFBxpkq1SS4ben+p1rSzXFsNG6SkwIG1CFg0OJE22y?=
- =?us-ascii?Q?+u90C5cWKkp/lvGe1j5gu5j1TUdSGW3RMdPYuZUfNP5QMnydW2XvZ8Q9TJxq?=
- =?us-ascii?Q?JuANJdZRwD7vplMwV4HBvsTe0RrQZkN+4muYIFRZ1W1lWFahIsCsu97lykBE?=
- =?us-ascii?Q?kT+4JrPdUdJ8So1nL61TAP8Mx4xWOaRCFBIE6Ujwuz9/phAaX1+DIoXUD1y8?=
- =?us-ascii?Q?AdnQOOqBsNEPHOUb7J4vkYc9LTXMy859VhoJxvCJToVrcHqOEFJQt6w40uK/?=
- =?us-ascii?Q?kg6FfCDRtmlOQKwq35+uBQatl/ZYp4sIGBjxDig+kgLFzRM7EYyXCVFKMv70?=
- =?us-ascii?Q?KbN/sZ1EaQFWoXCgs+3o4NO0xCNpGOz25e8HuNDiD6MTjzOq2jVyMOE7UGsS?=
- =?us-ascii?Q?43n3rZugoDTocq2+GiQellSEKhsqCIJvHBfDxdievanTZBJJEHIZ5KmKYcEP?=
- =?us-ascii?Q?Mr+FAghSakQZwh2IQET0AhOx+AbJ8w/pC2fmdjsgTuld1+ZJtsFe6pUK4hW7?=
- =?us-ascii?Q?sFcEWwfYaVPXGGP8GzJFLuWYTjuX41jxR/pQEeNGke2q2JCYEuG0JUITB5Nv?=
- =?us-ascii?Q?JQ=3D=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cac3adb7-1f88-4456-eba6-08da9d47eed7
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zhFPTHMvrad2d+w3NV++4YtpTl+XtURLF2N4aw5A8/6L1Mz5rik24aw+nxFL?=
+ =?us-ascii?Q?H8X+BKbWxOZl/+w4+/EwUNJTcq30GYs27oi+Jv3xs45jfRDv5hdOKfInZoVe?=
+ =?us-ascii?Q?4+cD6m/6Np/+NHPWWg7IqFFm7momVhXoVLFzCxq/oitX3RihQtpwifdkU04E?=
+ =?us-ascii?Q?F/C41EQZo+MevfL7871S64dSOAlkI9JnqVK8Od+h0MvCaApAHGxwBexHF6FN?=
+ =?us-ascii?Q?1Dfu1VoU+wsn/6mJf3G5a7J9s5O2YJxnXssbHngrUxP4YdQEvOXiEtEAjPwP?=
+ =?us-ascii?Q?vrTOFLaRLUjSL1GJE3QvsbOWrqxg6wpJqaR+ep2agVAXRFbLSc1FaZhtZtdD?=
+ =?us-ascii?Q?jO5xFQuwpEABAlwNVEc6UxhF49e4Z/71Xcm1Tn0sla44qWLMuPKXUNDdehUs?=
+ =?us-ascii?Q?gsmKKBbyX6sc4JknEATb9LHF/+pu2GSh8cnkfH6YXuq2avfroPnUj7CYxxrC?=
+ =?us-ascii?Q?GgJFarNEKOvS5LZ6hgRmBTURXZINAL5gL+xUnys0O2eTLyRui3MQHCA7cOhF?=
+ =?us-ascii?Q?4NWhHE3yfALJvaHPbwhaquE3i9BOXAf6C0AGcjHTHuasVz8O1a18FFfyVKjc?=
+ =?us-ascii?Q?wLgsCv2DZVN7qfBb5VYF9cjCnfD1TLw+bXHLH1e0ye4VQ8i1DOUsPYMEVF6E?=
+ =?us-ascii?Q?Ph1kgoGQ3wTDGe7Uq7ISkWmtnpP7h0MtuqL8jPs+C6WPOlaaspghUN7Ignxu?=
+ =?us-ascii?Q?y8MnT3dU2jAujw+IYOZcpBiPz+w0s2ZFV74Q3WiOdMWg0cN+1oRUtMJEIDh9?=
+ =?us-ascii?Q?IKQTnXkn0TTFAA/Y0m1fmdxitqGIb7mrtsVZRC9cxvt3vcMlhiJJhghDJx72?=
+ =?us-ascii?Q?MGS5yp9hq3x+fur17nFiZejEjSyRRQbUgq/AP2F1kXy74z6J1dCH6DhCuWPT?=
+ =?us-ascii?Q?YzsEiy44faogLj6I2Hax3ehYB3e/v+F+aS/a7ddr/kRylRP63Tn3YAHeUnxJ?=
+ =?us-ascii?Q?AQPKwiRzD99RhSymIgYjj/M55Ixq6KmKX7vJk9MLUoI6E6+ZodJQ54I+E3Xy?=
+ =?us-ascii?Q?kJq11peSNkPj5pFn88+zBBI2q94f5aEYqLoPwjYYEN7md91wI/rDYNodjogh?=
+ =?us-ascii?Q?UVAJuc6HCdnANmbmLg8dnEyiJe3D2gA48ibBUSsXo3MpoF7Uf4OUcSU5rYDm?=
+ =?us-ascii?Q?f6M6ZTHSVeUTnElzxUtl6eS2qAKQD+SmliYzmoywre082eGk6naLoeeIfAjO?=
+ =?us-ascii?Q?8ojY51tkHfnyJKR2r/H8eFqqU+L2wAtrCeTK/EG2CCb7oWnDHTRHmb4Z4Ltl?=
+ =?us-ascii?Q?L8J5HOpBMiuAB1lrvSEwIp7qBtj8aHzMFB3LV/Bl7SUXtMC7mObuI3ULwOLv?=
+ =?us-ascii?Q?UDZ6M6oHl2SRJxyjNZTPYDpY95hPNLF58o0xSfWOaT9UIn7t7+HJYUwu59E4?=
+ =?us-ascii?Q?bXXqamtTefE/K7W+ZPKBnh/1ey37yhn8p7x5vL2AqO1IMiUwmh9i7YUlyvAb?=
+ =?us-ascii?Q?6kRlCzVbSBxnMVBGZISaFBec7tze1q0GYwY8i1lGyeVWSyRqzDzK11nfcSdq?=
+ =?us-ascii?Q?vVrE+Xm+kZE9Pz2QDRU3RwTk4D5KzBm3FrwjJyrzWtxm1a5gEqqQQJxYEl+v?=
+ =?us-ascii?Q?Vb0eskD4twcFNXDOklbGaOWyQx0FcaUTLx0YbUA4?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 09:42:30.5150 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TpGyFodM8evPWsXP+Q9vFwsF9a1rRf6ItrevCn8xkjTPAvsfOVlQrjggNe2KvSO3OIqzhFFjQ5AYM7K0fWpWo+qFjwuolD2gh9Rzk5gH+7s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR10MB5905
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-23_02,2022-09-22_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- spamscore=0 malwarescore=0
- bulkscore=0 adultscore=0 suspectscore=0 mlxlogscore=999 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2209230062
-X-Proofpoint-GUID: 3A502JtPGMrCtRvOL5TbQBoLRDBrBcTu
-X-Proofpoint-ORIG-GUID: 3A502JtPGMrCtRvOL5TbQBoLRDBrBcTu
-Cc: alsa-devel@alsa-project.org,
- Support Opensource <support.opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>,
- Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8eeb9b13-ffbc-407c-d2ce-08da9d49d619
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2022 09:56:07.5911 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8qhR0PxfqGbm24lmD/5jz/C6Nbp2Drp3VGAshCDL3I2McdvCTSws264A+QSEn2oe4LEoJ6LPM2fgH49WIustzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6863
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "festevam@gmail.com" <festevam@gmail.com>, "S.J. Wang" <shengjiu.wang@nxp.com>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,25 +162,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Sep 22, 2022 at 09:44:57PM +0200, Christophe JAILLET wrote:
-> If clk_hw_register() fails, the corresponding clk should not be
-> unregistered.
-> 
-> To handle errors from loops, clean up partial iterations before doing the
-> goto.  So add a clk_hw_unregister().
-> Then use a while (--i >= 0) loop in the unwind section.
-> 
-> Fixes: 78013a1cf297 ("ASoC: da7219: Fix clock handling around codec level probe")
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
-> See https://lore.kernel.org/all/4fdde55198294a07f04933f7cef937fcb654c901.1624425670.git.christophe.jaillet@wanadoo.fr/
-> for an incomplete patch sent last year and Dan's comment on it.
+> > Add a string property to assign the rpmsg channel this sound card sits
+> > on. It also represents the name of ASoC platform driver. This property
+> > can be omitted if there is only one sound card and it sits on
+> > "rpmsg-audio-channel".
+> >
+> > Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> > ---
+> >  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 37 ++++++++++++++++++-
+> >  1 file changed, 35 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> > index d370c98a62c7..3744ae794c00 100644
+> > --- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> > +++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+> > @@ -11,8 +11,11 @@ maintainers:
+> >
+> >  description: |
+> >    fsl_rpmsg is a virtual audio device. Mapping to real hardware device=
+s
+> > -  are SAI, DMA controlled by Cortex M core. What we see from Linux
+> > -  side is a device which provides audio service by rpmsg channel.
+> > +  are SAI, MICFIL, DMA controlled by Cortex M core. What we see from
+> > +  Linux side is a device which provides audio service by rpmsg channel=
+.
+> > +  We can create different sound cards which access different hardwares
+> > +  such as SAI, MICFIL, .etc through building rpmsg channels between
+> > +  Cortex-A and Cortex-M.
+> >
+> >  properties:
+> >    compatible:
+> > @@ -85,6 +88,17 @@ properties:
+> >        This is a boolean property. If present, the receiving function
+> >        will be enabled.
+> >
+> > +  fsl,rpmsg-channel-name:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description: |
+> > +      A string property to assign rpmsg channel this sound card sits o=
+n.
+> > +      It also represents the name of ASoC platform driver. This proper=
+ty
+>=20
+> That's a Linux detail which doesn't belong in DT.
+>=20
 
-Thanks!
+We pass hardware parameters in dts node to set up clocks or other
+configurations. These configurations are finally sent to Cortex-M by
+rpmsg channel because Cortex-M actually controls real hardware devices.
+If there's only one sound card sits on one rpmsg channel we will not
+need this property. But if there are several sound cards we need to
+specify correct rpmsg channel. Thus hardware configurations can be
+properly sent to Cortex-M. From this level to speak, this property is
+hardware-related since rpmsg channel represents the real hardware audio
+controller.
 
-Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
+Here I attach the discussion in version 1 patches for your information:
+---
+This property aims to tell the ASoC driver which rpmsg channel the
+sound card depends on. If there are several sound cards sit on rpmsg,
+we should pass correct information in dts node to specify the name of
+rpmsg channel. That is why I meant to add this property.=20
 
-regards,
-dan carpenter
+Actually this property is hardware-related. As we discussed before,
+this kind of sound card based on rpmsg works under this mechanism
+Cortex-A core tells the Cortex-M core configuration of the PCM
+parameters then Cortex-M controls real hardware devices. This property
+specifying rpmsg channel represents the real hardware audio controller.
+---
 
+That's my idea adding this property. Do you have any suggstion?
+
+Regards,=20
+Chancel Liu
+
+> > +      can be omitted if there is only one sound card and it sits on
+> > +      "rpmsg-audio-channel".
+> > +    enum:
+> > +      - rpmsg-audio-channel
+> > +      - rpmsg-micfil-channel
+> > +
+> >  required:
+> >    - compatible
+> >    - model
+> > @@ -107,3 +121,22 @@ examples:
+> >                   <&clk IMX8MN_AUDIO_PLL2_OUT>;
+> >          clock-names =3D "ipg", "mclk", "dma", "pll8k", "pll11k";
+> >      };
+> > +
+> > +  - |
+> > +    #include <dt-bindings/clock/imx8mm-clock.h>
+> > +
+> > +    rpmsg_micfil: audio-controller {
+> > +        compatible =3D "fsl,imx8mm-rpmsg-audio";
+> > +        model =3D "micfil-audio";
+> > +        fsl,rpmsg-channel-name =3D "rpmsg-micfil-channel";
+> > +        fsl,enable-lpa;
+> > +        fsl,rpmsg-in;
+> > +        clocks =3D <&clk IMX8MM_CLK_PDM_IPG>,
+> > +                 <&clk IMX8MM_CLK_PDM_ROOT>,
+> > +                 <&clk IMX8MM_CLK_SDMA3_ROOT>,
+> > +                 <&clk IMX8MM_AUDIO_PLL1_OUT>,
+> > +                 <&clk IMX8MM_AUDIO_PLL2_OUT>;
+> > +        clock-names =3D "ipg", "mclk", "dma", "pll8k", "pll11k";
+> > +    };
+> > +
+> > +...
+> > --
+> > 2.25.1
+> >
+> >

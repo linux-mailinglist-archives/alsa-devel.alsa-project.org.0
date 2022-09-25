@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F19F15E9593
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Sep 2022 20:59:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67CCA5E9594
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Sep 2022 20:59:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78B1D1F7;
-	Sun, 25 Sep 2022 20:58:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78B1D1F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 518D7826;
+	Sun, 25 Sep 2022 20:58:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 518D7826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664132355;
-	bh=n80MfCJCqjKVhW9/ohk9LmD7xYo2KQTl/GOuuT13+T0=;
+	s=default; t=1664132382;
+	bh=BZLxuHxton1J29SKS+drk1iasYK5UqUCMLxUF6/eJO0=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mMj6P+Eya8vpV8FmsO0V6aY4D+hUh/4vperyOv8regtMcUL2tRGHw5aDsam/t3Rwh
-	 KApvpjudvvu+Sb9qoQ9VQ0jQR7JEXDlz58QQ6Qn3xNhwudWkwb4lsQyWeWwEgCEDMn
-	 uQeEJTNFQO8nEj5vK+dMhAp/7U6eryGH01O2pUlk=
+	b=IOZ7Wrg0okKz5jRRMooj5caz7OxlOLr8wPw3XXV0lWW2NvYqckfiOsZw12lCpDqqp
+	 blqpfDNSADuHENZfMjey63lf0i4mS1xOBgA4F1OxDvY4bDp50LCw1ZNaXr/fC/esQG
+	 IkDDJEFZTYHCGzUxpPTbKqpYtuL2D0abE6r/nRv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E288F80543;
-	Sun, 25 Sep 2022 20:58:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF1DF802DF;
+	Sun, 25 Sep 2022 20:58:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15DC2F80525; Sun, 25 Sep 2022 20:57:59 +0200 (CEST)
+ id CAD19F801F7; Sun, 25 Sep 2022 20:58:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0326EF8053C
- for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 20:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0326EF8053C
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0E7BF80137
+ for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 20:58:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E7BF80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
- header.b="ODYOHUvc"
-Received: by mail-oi1-x22c.google.com with SMTP id n124so5981902oih.7
- for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 11:57:52 -0700 (PDT)
+ header.b="KU9NTpKa"
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1279948d93dso6771521fac.10
+ for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 11:58:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=Xkkurc7xmhFTAUmptTAIyBrQNuCw6O40NOONaEt5SY4=;
- b=ODYOHUvchpeTI7kgg2hz3gdVa4Iql7GILhBLA5AMo4BkfIcIM9oUod7Ce3iLkQycID
- 1u6P0YqHGGfeY0UlyLTIOWbZGYzUSu9e+qQGztRmgt/92ptT+hZlATNlfdIDNVklRmgg
- AbGE2XGF1oysM2ls2fvitmVio8TZTahF9dDEg1O/RbZu24YmMR1DT1WP1LStM/YZaDJw
- zVbUBN6s1IltvVGe88QfJQcmv6gOfWBq1LFC2NIm9/4E6IjfidX66mrSl2wGod3UMQPD
- l3X5TWf4Dsg9cUvnjTeJ2MVpUR7Pl2MRfLumQOIVOo3v/G6/qPqVl+SuoB/3e8G+iI6I
- NbnQ==
+ bh=M3tmqKTq30hnagEOzKLlmynUjQTBZCoWj+kBx7NUQOc=;
+ b=KU9NTpKaj9sX6HbIO7VUMhid7Iu14PvSEZSCrkBPcJN7A0Z/b4jHSzehqFPFJ+q3hA
+ Y291vI139cdUevC+1kubb6EY4ozQ50v5OezE4h2R5XkF8GP7dYPIzBXwFr/FXbHuqIKd
+ u2u/LvvBDPulfI9fAyNFfxPt6J2lKH24R5mud3Yp3zk+QjqEGzO/GJiDmu9NW6kJ22kt
+ X2TKZjJ9vvvCTXnpg/WVrXp7Di8ce36ceyVkGJ1dK6u9Wtm654vMKBMPNkX6ulRQ3hHl
+ AbJSr5L6drEJ7Te17lbIGxVXo1iq5xmtCvkLAmOcyHVnKrqj/sM1TqaxFS5T2vKY4K3z
+ LlYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=Xkkurc7xmhFTAUmptTAIyBrQNuCw6O40NOONaEt5SY4=;
- b=PeEV46Bf+iARiGf9OdLbcd1t/T7Gx9SSbdAv+uq1+8HDhBzVqbl6LBd/liNNV248as
- 21Rz9KBZzfUc4OWnaxZT1TqQPaz+M+XJirStguw7tiuJu/sTeH9YFTA2Uk0Ul4hIdN6k
- 7TvnB+NQa2/tQ+d3NMZ1c4+0uK7Vf1cKnnlf3pDtbIF2PtSTfPkhEXFSb0GVrWhiE+eg
- ul9fvFbdmwn4tDyX95XsUtd4xpfqzXDITePBkiEsX+ZpczwLd0okyJt/I6FUmejmk7v1
- pjdQaOn7gI0/9vUSxU2ROdJ5Je6jLz65jFul2STent2PnLPN3bdJqy+gi3ySgy2NjCeG
- 9TUw==
-X-Gm-Message-State: ACrzQf1Q+AOFDL1Zv35msZlsBZqHYDZFJdK11AjGm1mbhkpNDbMWVBtf
- CQdI4dAv4MJzW6SDD5Zp0s/HKiwLeGnwgvSRq80=
-X-Google-Smtp-Source: AMsMyM5jPsdQ9cdIbbiQVtXHLiRsM8nEpBbYgdYcp0q8ndoeeUBtB5jMoDECVwj/c1rIncJJtzm2ZA==
-X-Received: by 2002:a05:6808:1892:b0:350:7c49:649f with SMTP id
- bi18-20020a056808189200b003507c49649fmr13224624oib.219.1664132271066; 
- Sun, 25 Sep 2022 11:57:51 -0700 (PDT)
+ bh=M3tmqKTq30hnagEOzKLlmynUjQTBZCoWj+kBx7NUQOc=;
+ b=nJY4vm7oi/EN8lpoWKlzX7+TJDKDyLVMYrhgmhqQ9l0nn2wE4zvFrUsrgLJ+R6Y4Hq
+ fNZ7Iiy8HUk+rY/hAUX6Jn5R3/qIn6HUcgvan2ewCIq2efDKANtjrGfkzC0zB31xz0Cu
+ j6OHYpmBDNdUD2UTYjQH1PpKkWB8y1WEDHcoTXfmANp3DN9oybApSZIMpYOkzbieGWYR
+ MKEnaz0RvzOqJt/CCcV6MzQ2qKicIMr3VBHV1vnK1GJa3SXjPSSblHjdQd2A4bOZeTgC
+ ewD1wfBKKVB6ZGljQg+hSHQft14/N7kiKlVnAmsv7BPJ87w/556uoFK0QNmpXFdHFF9k
+ jz5w==
+X-Gm-Message-State: ACrzQf3QKeR7flIokH9H4Bb6aV8jNtWY6sERmUfDo1GbMEVP7Edx8PTn
+ YkxSSbxl1Ssg4o8zQoTs7DD6DA==
+X-Google-Smtp-Source: AMsMyM6dfh0CcbJflisdwaZ+hNfWoQV1N1y0eqrFuZDEIicfSlJbuuNrqKvXCOmWVQCqQN9VTUWAmQ==
+X-Received: by 2002:a05:6870:1694:b0:127:8d30:5afc with SMTP id
+ j20-20020a056870169400b001278d305afcmr10882036oae.26.1664132322423; 
+ Sun, 25 Sep 2022 11:58:42 -0700 (PDT)
 Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
  [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
- n124-20020acaef82000000b003502783c454sm6394656oih.0.2022.09.25.11.57.49
+ u8-20020a0568301f4800b0065126423321sm6946171oth.76.2022.09.25.11.58.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 25 Sep 2022 11:57:50 -0700 (PDT)
-Message-ID: <bff64b90-078b-5cb7-edff-4d5308bb7e0b@kali.org>
-Date: Sun, 25 Sep 2022 13:57:49 -0500
+ Sun, 25 Sep 2022 11:58:41 -0700 (PDT)
+Message-ID: <d3218018-45c4-4777-77a7-91947ad48666@kali.org>
+Date: Sun, 25 Sep 2022 13:58:40 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 05/11] arm64: dts: qcom: sdm845: drop unused slimbus dmas
+Subject: Re: [PATCH 07/11] arm64: dts: qcom: sdm8458: align node names with DT
+ schema
 Content-Language: en-US
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -93,9 +95,9 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org
 References: <20220923161453.469179-1-krzysztof.kozlowski@linaro.org>
- <20220923161453.469179-6-krzysztof.kozlowski@linaro.org>
+ <20220923161453.469179-8-krzysztof.kozlowski@linaro.org>
 From: Steev Klimaszewski <steev@kali.org>
-In-Reply-To: <20220923161453.469179-6-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220923161453.469179-8-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -113,32 +115,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Krztof
 
 On 9/23/22 11:14 AM, Krzysztof Kozlowski wrote:
-> Bindings document only two DMA channels.  Linux driver also does not use
-> remaining rx2/tx2.
+> New slimbus DT schema expect only SLIMbus bus nodes to be named
+> "slimbus".  In case of Qualcomm SLIMbus NGD, the bus node is what was
+> called "ngd".
 >
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sdm845.dtsi | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
+>   arch/arm64/boot/dts/qcom/sdm845.dtsi | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
 > diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> index 2264bba69f84..1213f78a8b7a 100644
+> index 1213f78a8b7a..7b62efb180d5 100644
 > --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> @@ -3828,9 +3828,8 @@ slim: slim@171c0000 {
+> @@ -3823,7 +3823,7 @@ qspi: spi@88df000 {
+>   			status = "disabled";
+>   		};
+>   
+> -		slim: slim@171c0000 {
+> +		slim: slim-ngd@171c0000 {
+>   			compatible = "qcom,slim-ngd-v2.1.0";
 >   			reg = <0 0x171c0000 0 0x2c000>;
 >   			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
->   
-> -			dmas = <&slimbam 3>, <&slimbam 4>,
-> -				<&slimbam 5>, <&slimbam 6>;
-> -			dma-names = "rx", "tx", "tx2", "rx2";
-> +			dmas = <&slimbam 3>, <&slimbam 4>;
-> +			dma-names = "rx", "tx";
->   
->   			iommus = <&apps_smmu 0x1806 0x0>;
+> @@ -3835,7 +3835,7 @@ slim: slim@171c0000 {
 >   			#address-cells = <1>;
+>   			#size-cells = <0>;
+>   
+> -			ngd@1 {
+> +			slim@1 {
+>   				reg = <1>;
+>   				#address-cells = <2>;
+>   				#size-cells = <0>;
+
+Subject has a typo - sdm8458 -> sdm845
 
 Tested on Lenovo Yoga C630
 

@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68ADD5E9340
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Sep 2022 14:59:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41125E9358
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Sep 2022 15:22:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D148825;
-	Sun, 25 Sep 2022 14:58:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D148825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40726825;
+	Sun, 25 Sep 2022 15:21:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40726825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664110742;
-	bh=F/5v/OG1tLhnUYdhMIV8Bh9t+QsWgXuh2ncjbgR2jck=;
+	s=default; t=1664112121;
+	bh=065uazugHFvO6eAD/yZCH3lQ/k1mqYGvXgUtUBiWBPE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ZsbQD7q5QeeYv15TLBGgCNJ+vu9rAYznHAM+A4dlOnH4i8V/yDwNVNXk1psdmvl9u
-	 zJ0jXF/oKLto+WjIe/swc4aXCXWQeEVvLvwRcU947mf0MahVFemQr7taeuWA8z03t9
-	 dgjb43oMP/vga0Qiqs5J+gcmtW5yRmfuelyMKaUg=
+	b=nuDg/+Zf+8hijdj6CUwxlLfvtkstNH/7iEwIfD60XLmKvGGVm/sxAZ0GPOvMVxKML
+	 kOy42sN7Lf5zdbcBt48pb7aDHgyqbWXSURNGdh8nnLsfeh6/oaTdhYxBQ9STzInBgp
+	 /BKgacy07sfgrIXeD7gbRQGy/fJN7JtW5qAk2YIs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60966F80212;
-	Sun, 25 Sep 2022 14:58:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FFABF80212;
+	Sun, 25 Sep 2022 15:21:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BAA0F8011C; Sun, 25 Sep 2022 14:58:03 +0200 (CEST)
+ id 26AEDF80137; Sun, 25 Sep 2022 15:21:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
- [80.12.242.126])
+X-Spam-Status: No, score=0.7 required=5.0 tests=KHOP_HELO_FCRDNS, PRX_BODY_64, 
+ SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp-27.smtpout.orange.fr
+ [80.12.242.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C382F8011C
- for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 14:57:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C382F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8E4AF80137
+ for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 15:20:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E4AF80137
 Received: from pop-os.home ([86.243.100.34]) by smtp.orange.fr with ESMTPA
- id cRCkoBFiunj75cRCkozkIF; Sun, 25 Sep 2022 14:57:56 +0200
+ id cRZ1oksgTtUbycRZ1oDXx4; Sun, 25 Sep 2022 15:20:56 +0200
 X-ME-Helo: pop-os.home
 X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 25 Sep 2022 14:57:56 +0200
+X-ME-Date: Sun, 25 Sep 2022 15:20:56 +0200
 X-ME-IP: 86.243.100.34
 From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Clemens Ladisch <clemens@ladisch.de>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] headers: Remove some left-over license text in sound/firewire
-Date: Sun, 25 Sep 2022 14:57:51 +0200
-Message-Id: <2bfe76c7eeb0f5205a1427e280bf8d9da0354a62.1664110649.git.christophe.jaillet@wanadoo.fr>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Vinod Koul <vkoul@kernel.org>
+Subject: [PATCH] headers: Remove some left-over license text in
+ include/uapi/sound/
+Date: Sun, 25 Sep 2022 15:20:46 +0200
+Message-Id: <203c1db92c470925f31e361f6e7d180812501f2e.1664112023.git.christophe.jaillet@wanadoo.fr>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,91 +71,403 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is alredy a SPDX-License-Identifier tag, so the corresponding license
-text can be removed.
-
-While at it, be more consistent and:
-  - add a missing .c (ff-protocol-latter)
-  - remove an empty line (motu-protocol-v1)
+There is already a SPDX-License-Identifier tag, so the corresponding
+license text can be removed.
 
 Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
- sound/firewire/dice/dice-harman.c            | 2 --
- sound/firewire/dice/dice-presonus.c          | 2 --
- sound/firewire/fireface/ff-protocol-former.c | 2 --
- sound/firewire/fireface/ff-protocol-latter.c | 4 +---
- sound/firewire/motu/motu-protocol-v1.c       | 3 ---
- 5 files changed, 1 insertion(+), 12 deletions(-)
+Note: include/uapi/sound/compress_params.h has a slight modification in the
+wording.
+---
+ include/uapi/sound/asequencer.h       | 16 -----------
+ include/uapi/sound/asoc.h             |  4 ---
+ include/uapi/sound/asound.h           | 16 -----------
+ include/uapi/sound/asound_fm.h        | 15 -----------
+ include/uapi/sound/compress_offload.h | 17 ------------
+ include/uapi/sound/compress_params.h  | 38 ++-------------------------
+ include/uapi/sound/emu10k1.h          | 16 -----------
+ include/uapi/sound/hdsp.h             | 14 ----------
+ include/uapi/sound/hdspm.h            | 15 -----------
+ include/uapi/sound/sb16_csp.h         | 15 -----------
+ include/uapi/sound/sfnt_info.h        | 15 -----------
+ include/uapi/sound/snd_sst_tokens.h   | 10 -------
+ include/uapi/sound/tlv.h              | 11 --------
+ include/uapi/sound/usb_stream.h       | 14 ----------
+ 14 files changed, 2 insertions(+), 214 deletions(-)
 
-diff --git a/sound/firewire/dice/dice-harman.c b/sound/firewire/dice/dice-harman.c
-index a8ca00c397e8..212ae77dfca2 100644
---- a/sound/firewire/dice/dice-harman.c
-+++ b/sound/firewire/dice/dice-harman.c
-@@ -2,8 +2,6 @@
- // dice-harman.c - a part of driver for DICE based devices
- //
- // Copyright (c) 2021 Takashi Sakamoto
--//
--// Licensed under the terms of the GNU General Public License, version 2.
+diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
+index a75e14edc957..6d4a2c60808d 100644
+--- a/include/uapi/sound/asequencer.h
++++ b/include/uapi/sound/asequencer.h
+@@ -3,22 +3,6 @@
+  *  Main header file for the ALSA sequencer
+  *  Copyright (c) 1998-1999 by Frank van de Pol <fvdpol@coil.demon.nl>
+  *            (c) 1998-1999 by Jaroslav Kysela <perex@perex.cz>
+- *
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
+ #ifndef _UAPI__SOUND_ASEQUENCER_H
+ #define _UAPI__SOUND_ASEQUENCER_H
+diff --git a/include/uapi/sound/asoc.h b/include/uapi/sound/asoc.h
+index 053949287ce8..9f35bedafcff 100644
+--- a/include/uapi/sound/asoc.h
++++ b/include/uapi/sound/asoc.h
+@@ -5,10 +5,6 @@
+  * Copyright (C) 2012 Texas Instruments Inc.
+  * Copyright (C) 2015 Intel Corporation.
+  *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License version 2 as
+- * published by the Free Software Foundation.
+- *
+  * Simple file API to load FW that includes mixers, coefficients, DAPM graphs,
+  * algorithms, equalisers, DAIs, widgets etc.
+ */
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 3974a2a911cc..de6810e94abe 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -3,22 +3,6 @@
+  *  Advanced Linux Sound Architecture - ALSA - Driver
+  *  Copyright (c) 1994-2003 by Jaroslav Kysela <perex@perex.cz>,
+  *                             Abramo Bagnara <abramo@alsa-project.org>
+- *
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
  
- #include "dice.h"
+ #ifndef _UAPI__SOUND_ASOUND_H
+diff --git a/include/uapi/sound/asound_fm.h b/include/uapi/sound/asound_fm.h
+index 8471f404ff0b..25ec5e38af5c 100644
+--- a/include/uapi/sound/asound_fm.h
++++ b/include/uapi/sound/asound_fm.h
+@@ -10,21 +10,6 @@
+  *                           4Front Technologies
+  *
+  *  Direct FM control
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
  
-diff --git a/sound/firewire/dice/dice-presonus.c b/sound/firewire/dice/dice-presonus.c
-index 503f462a83f4..967cc3119a64 100644
---- a/sound/firewire/dice/dice-presonus.c
-+++ b/sound/firewire/dice/dice-presonus.c
-@@ -2,8 +2,6 @@
- // dice-presonus.c - a part of driver for DICE based devices
- //
- // Copyright (c) 2019 Takashi Sakamoto
--//
--// Licensed under the terms of the GNU General Public License, version 2.
+ #define SNDRV_DM_FM_MODE_OPL2	0x00
+diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
+index 3aef123dbd7f..d185957f3fe0 100644
+--- a/include/uapi/sound/compress_offload.h
++++ b/include/uapi/sound/compress_offload.h
+@@ -5,23 +5,6 @@
+  *  Copyright (C) 2011 Intel Corporation
+  *  Authors:	Vinod Koul <vinod.koul@linux.intel.com>
+  *		Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- *  This program is free software; you can redistribute it and/or modify
+- *  it under the terms of the GNU General Public License as published by
+- *  the Free Software Foundation; version 2 of the License.
+- *
+- *  This program is distributed in the hope that it will be useful, but
+- *  WITHOUT ANY WARRANTY; without even the implied warranty of
+- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- *  General Public License for more details.
+- *
+- *  You should have received a copy of the GNU General Public License along
+- *  with this program; if not, write to the Free Software Foundation, Inc.,
+- *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+  */
+ #ifndef __COMPRESS_OFFLOAD_H
+ #define __COMPRESS_OFFLOAD_H
+diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
+index 726361716919..ddc77322d571 100644
+--- a/include/uapi/sound/compress_params.h
++++ b/include/uapi/sound/compress_params.h
+@@ -7,47 +7,13 @@
+  *  Authors:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+  *              Vinod Koul <vinod.koul@linux.intel.com>
+  *
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- *  This program is free software; you can redistribute it and/or modify
+- *  it under the terms of the GNU General Public License as published by
+- *  the Free Software Foundation; version 2 of the License.
+- *
+- *  This program is distributed in the hope that it will be useful, but
+- *  WITHOUT ANY WARRANTY; without even the implied warranty of
+- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- *  General Public License for more details.
+- *
+- *  You should have received a copy of the GNU General Public License along
+- *  with this program; if not, write to the Free Software Foundation, Inc.,
+- *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+- *
+  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  *
+  * The definitions in this file are derived from the OpenMAX AL version 1.1
+- * and OpenMAX IL v 1.1.2 header files which contain the copyright notice below.
++ * and OpenMAX IL v 1.1.2 header files which contain the copyright notice below
++ * and are licensed under the MIT license.
+  *
+  * Copyright (c) 2007-2010 The Khronos Group Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining
+- * a copy of this software and/or associated documentation files (the
+- * "Materials "), to deal in the Materials without restriction, including
+- * without limitation the rights to use, copy, modify, merge, publish,
+- * distribute, sublicense, and/or sell copies of the Materials, and to
+- * permit persons to whom the Materials are furnished to do so, subject to
+- * the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included
+- * in all copies or substantial portions of the Materials.
+- *
+- * THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+- * MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+- *
+  */
+ #ifndef __SND_COMPRESS_PARAMS_H
+ #define __SND_COMPRESS_PARAMS_H
+diff --git a/include/uapi/sound/emu10k1.h b/include/uapi/sound/emu10k1.h
+index 88609cc0524c..1c1f1dd44611 100644
+--- a/include/uapi/sound/emu10k1.h
++++ b/include/uapi/sound/emu10k1.h
+@@ -3,22 +3,6 @@
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>,
+  *		     Creative Labs, Inc.
+  *  Definitions for EMU10K1 (SB Live!) chips
+- *
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
+ #ifndef _UAPI__SOUND_EMU10K1_H
+ #define _UAPI__SOUND_EMU10K1_H
+diff --git a/include/uapi/sound/hdsp.h b/include/uapi/sound/hdsp.h
+index b8df62b60f4d..0961954658d6 100644
+--- a/include/uapi/sound/hdsp.h
++++ b/include/uapi/sound/hdsp.h
+@@ -4,20 +4,6 @@
  
- #include "dice.h"
+ /*
+  *   Copyright (C) 2003 Thomas Charbonnel (thomas@undata.org)
+- *    
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  */
  
-diff --git a/sound/firewire/fireface/ff-protocol-former.c b/sound/firewire/fireface/ff-protocol-former.c
-index bf44cad7985e..8900ffe517ed 100644
---- a/sound/firewire/fireface/ff-protocol-former.c
-+++ b/sound/firewire/fireface/ff-protocol-former.c
-@@ -2,8 +2,6 @@
- // ff-protocol-former.c - a part of driver for RME Fireface series
- //
- // Copyright (c) 2019 Takashi Sakamoto
--//
--// Licensed under the terms of the GNU General Public License, version 2.
+ #ifdef __linux__
+diff --git a/include/uapi/sound/hdspm.h b/include/uapi/sound/hdspm.h
+index 14af3d00ea3f..7043bb3d435a 100644
+--- a/include/uapi/sound/hdspm.h
++++ b/include/uapi/sound/hdspm.h
+@@ -4,21 +4,6 @@
+ /*
+  *   Copyright (C) 2003 Winfried Ritsch (IEM)
+  *   based on hdsp.h from Thomas Charbonnel (thomas@undata.org)
+- *
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  */
  
- #include <linux/delay.h>
+ #ifdef __linux__
+diff --git a/include/uapi/sound/sb16_csp.h b/include/uapi/sound/sb16_csp.h
+index e64851481d88..5a80f5ec02ee 100644
+--- a/include/uapi/sound/sb16_csp.h
++++ b/include/uapi/sound/sb16_csp.h
+@@ -4,21 +4,6 @@
+  *                        Takashi Iwai <tiwai@suse.de>
+  *
+  *  SB16ASP/AWE32 CSP control
+- *
+- *   This program is free software; you can redistribute it and/or modify 
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
+ #ifndef _UAPI__SOUND_SB16_CSP_H
+ #define _UAPI__SOUND_SB16_CSP_H
+diff --git a/include/uapi/sound/sfnt_info.h b/include/uapi/sound/sfnt_info.h
+index c9a810a6ef48..f2b5e13fb5a7 100644
+--- a/include/uapi/sound/sfnt_info.h
++++ b/include/uapi/sound/sfnt_info.h
+@@ -6,21 +6,6 @@
+  *  Patch record compatible with AWE driver on OSS
+  *
+  *  Copyright (C) 1999-2000 Takashi Iwai
+- *
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program; if not, write to the Free Software
+- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+- *
+  */
  
-diff --git a/sound/firewire/fireface/ff-protocol-latter.c b/sound/firewire/fireface/ff-protocol-latter.c
-index 7ddb7b97f02d..76c3eab36d4e 100644
---- a/sound/firewire/fireface/ff-protocol-latter.c
-+++ b/sound/firewire/fireface/ff-protocol-latter.c
-@@ -1,9 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
--// ff-protocol-latter - a part of driver for RME Fireface series
-+// ff-protocol-latter.c - a part of driver for RME Fireface series
- //
- // Copyright (c) 2019 Takashi Sakamoto
--//
--// Licensed under the terms of the GNU General Public License, version 2.
+ #include <sound/asound.h>
+diff --git a/include/uapi/sound/snd_sst_tokens.h b/include/uapi/sound/snd_sst_tokens.h
+index ff3748e9308a..defeb0c6ed20 100644
+--- a/include/uapi/sound/snd_sst_tokens.h
++++ b/include/uapi/sound/snd_sst_tokens.h
+@@ -4,16 +4,6 @@
+  *
+  * Copyright (C) 2016 Intel Corp
+  * Author: Shreyas NC <shreyas.nc@intel.com>
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as version 2, as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it will be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details.
+  */
+ #ifndef __SND_SST_TOKENS_H__
+ #define __SND_SST_TOKENS_H__
+diff --git a/include/uapi/sound/tlv.h b/include/uapi/sound/tlv.h
+index 7d6d65f60a42..b99a2414b53d 100644
+--- a/include/uapi/sound/tlv.h
++++ b/include/uapi/sound/tlv.h
+@@ -1,15 +1,4 @@
+ /* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
+-/*
+- *   This program is free software; you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *   GNU General Public License for more details.
+- */
  
- #include <linux/delay.h>
+ #ifndef __UAPI_SOUND_TLV_H
+ #define __UAPI_SOUND_TLV_H
+diff --git a/include/uapi/sound/usb_stream.h b/include/uapi/sound/usb_stream.h
+index ffdd3ea1e31d..50609016185a 100644
+--- a/include/uapi/sound/usb_stream.h
++++ b/include/uapi/sound/usb_stream.h
+@@ -1,20 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
+ /*
+  * Copyright (C) 2007, 2008 Karsten Wiese <fzu@wemgehoertderstaat.de>
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of the GNU General Public License as published by the
+- * Free Software Foundation; either version 2 of the License, or (at your
+- * option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+- * for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write to the Free Software Foundation,
+- * Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  */
  
-diff --git a/sound/firewire/motu/motu-protocol-v1.c b/sound/firewire/motu/motu-protocol-v1.c
-index f1d6a326dc07..e811629f167b 100644
---- a/sound/firewire/motu/motu-protocol-v1.c
-+++ b/sound/firewire/motu/motu-protocol-v1.c
-@@ -1,10 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
--
- // motu-protocol-v1.c - a part of driver for MOTU FireWire series
- //
- // Copyright (c) 2021 Takashi Sakamoto <o-takashi@sakamocchi.jp>
--//
--// Licensed under the terms of the GNU General Public License, version 2.
- 
- #include "motu.h"
- 
+ #ifndef _UAPI__SOUND_USB_STREAM_H
 -- 
 2.34.1
 

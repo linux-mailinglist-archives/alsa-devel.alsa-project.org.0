@@ -2,76 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 751E65EAEF6
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 20:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6BB5EAEF8
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 20:02:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE47E828;
-	Mon, 26 Sep 2022 20:01:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE47E828
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA6FD84B;
+	Mon, 26 Sep 2022 20:01:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6FD84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664215336;
-	bh=lwNmNeyM60GxVqrqSHyOzlOccMqPqWIvoP2NFo3qrJk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1664215350;
+	bh=B0qaMjOPQrhLLER5qFWBgX1zQyZxzIBqUercrK+VcD8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MzRzQSu0OCCvOF9YsJJyRjhA1Pj+IXjRRf+4UVKgVjKZpGK0EBhAAAUiX9c0NP2o6
-	 usyrpWa1iqgwsFjMb0eSUcxPfPoaSBefHVX0UNxw6ZAPYfvNmh4PRtifHUVa3nS0Zl
-	 JQh5/wrnkGlCU2VwTfYaCatWiCnnM5e6Cy1yujIw=
+	b=dxlYupPFIU446C5lnT+JH9swGIycBQkkyvxhKf7VY7xw2oc4qMnqeLA4wS/SK7ebg
+	 uiMdyspDCfgijsjgP3853CvvcjJppW47iaygd9PYOrMOzxFvW41aItbUsTE5/SXero
+	 HLkD6Q0cCWGq5k8tLB1x9IeLmtBmCVWIxSKrHFc0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E826F802BE;
-	Mon, 26 Sep 2022 20:01:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1E23F80510;
+	Mon, 26 Sep 2022 20:01:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBCAEF804D2; Mon, 26 Sep 2022 20:01:17 +0200 (CEST)
+ id DBBF9F80535; Mon, 26 Sep 2022 20:01:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_4,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 314F6F802BE
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 20:01:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 314F6F802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BD9DF80510
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 20:01:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BD9DF80510
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K1azSrdA"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jk6T+bEw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="l4NeicHh"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2E25E61132;
- Mon, 26 Sep 2022 18:01:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E083CC433C1;
- Mon, 26 Sep 2022 18:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664215271;
- bh=lwNmNeyM60GxVqrqSHyOzlOccMqPqWIvoP2NFo3qrJk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K1azSrdAnV0qh30TC3R5EgTcoOmieL4rSYhfW4dBmjqG9A+gKjdUPP/710x7J/Afp
- zPAqSX5PbWSzKCBU4tLj98MyX0w6bCTezjuHnjis37BQ1fyBOILqrqrms+tLfKhxLm
- OSbyRY4819dln/8gnWmbL0+j78g5XW8GeDC/Awdi5LljFO8rISqf/y+GfVxiuykqc0
- jAaNeTBJW2TjAcePaLiMnsKMjupDz1v1A0wXf4sgAP7YhQd7c0rIZs/r+TGcsfhyCK
- 0/nB0vc0zMBLMXF7k7hAuLp06kRELiKUf+6hAOHyONFkE2qLA0j7oxLZU6WWnxzZxX
- UeDg/vDTShh2A==
-Date: Mon, 26 Sep 2022 19:01:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 10/11] ASoC: sh: Replace runtime->status->state reference
- to runtime->state
-Message-ID: <YzHo45XFxUe5AmsB@sirena.org.uk>
-References: <20220926135558.26580-1-tiwai@suse.de>
- <20220926135558.26580-11-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n8Zv8fx1nKsck57k"
-Content-Disposition: inline
-In-Reply-To: <20220926135558.26580-11-tiwai@suse.de>
-X-Cookie: You may be recognized soon.  Hide.
-Cc: alsa-devel@alsa-project.org
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6CDA221FE3;
+ Mon, 26 Sep 2022 18:01:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664215286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yw5StaodFQZEHTV1q1ehx9OSHinWzo8zB4H1UQnl29c=;
+ b=jk6T+bEwtInj9L0T4f8Apdicm3roYSDKpHbJaINWSjX7R0Y8IMkEVIySAmkns1QmfKmqgF
+ nGgDXWTYXxcxfywYDKLFjWh7pBDVEcsp3s+xiEbccsL+6+yySwMXsny8kRJGv+d0Vv+DnH
+ tLuMprP3hup2r7gGIX20hlxZxTitJqs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664215286;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yw5StaodFQZEHTV1q1ehx9OSHinWzo8zB4H1UQnl29c=;
+ b=l4NeicHhqv8N+WJ34cNPX/YGK/WA43PUVQN71cTxL5ZN8fZMvNozhJUSEcZgmsvi71e0rK
+ kzJXGwPEaM/vYjAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3FCEF139BD;
+ Mon, 26 Sep 2022 18:01:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id TeyzDvboMWMrYwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 26 Sep 2022 18:01:26 +0000
+Date: Mon, 26 Sep 2022 20:01:25 +0200
+Message-ID: <87leq6gglm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: butt3rflyh4ck <butterflyhuangxx@gmail.com>
+Subject: Re: A divide error bug in snd_pcm_write
+In-Reply-To: <CAFcO6XP2MpiAsF7YXYjgh7FMq+hyzFJjK8iBf=ccZ2B6BpNvOg@mail.gmail.com>
+References: <CAFcO6XNk5Wtjju=DBOcJr46miBbaWT7jL+zjhWMp+xnz7k5K9A@mail.gmail.com>
+ <87v8pa306x.wl-tiwai@suse.de>
+ <CAFcO6XP2MpiAsF7YXYjgh7FMq+hyzFJjK8iBf=ccZ2B6BpNvOg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,30 +102,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 26 Sep 2022 19:16:48 +0200,
+butt3rflyh4ck wrote:
+> 
+> The latest kernel upstream.
+> Yes, but using mmap, you can map the runtime->status page, and then
+> copy the data through memcpy to overwrite the status->state data, or
+> even more, which is incredible.
 
---n8Zv8fx1nKsck57k
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Ah, then that's exactly the case my latest patch set covers.
+Either the first patch or the second patch alone should work.
+  https://lore.kernel.org/r/20220926135558.26580-2-tiwai@suse.de
+  https://lore.kernel.org/r/20220926135558.26580-3-tiwai@suse.de
 
-On Mon, Sep 26, 2022 at 03:55:57PM +0200, Takashi Iwai wrote:
-> The recent change in ALSA core allows drivers to get the current PCM
-> state directly from runtime object.  Replace the calls accordingly.
+Could you verify either of them fixes the problem?
 
-Acked-by: Mark Brown <broonie@kernel.org>
 
---n8Zv8fx1nKsck57k
-Content-Type: application/pgp-signature; name="signature.asc"
+thanks,
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMx6OMACgkQJNaLcl1U
-h9A6vAf/XzJi/4eqSwRyL8n0UigfcC57gM8TszeisfTVcQlM+SIIrNnCIiAu6Lz3
-NH8QWcQCXhxn8OJIPGPs3iotYCDevbgxgbC0mCr5hz9ywwyeDmIQLgYPam+NWxUT
-P7XErU5UjeNfKtpUFWpC/CLNXbbOtXKxKUtQQXZ9Z6prKzU3yWQpaIzTTgemtK6f
-mQ2Y48HrLyeMvof7SCFOpSOEz3PyV/DHnIul+qgnZ6R98LAlvh8gPHGLuUsFVsPM
-XbQ7CYWw1UbM8P1YcgifJman7DfleNR3AnQgecRrRpeNMj8m/qKVOWm5Y5zmNyGz
-tzAl+hb/VznbDt0AlHCfyGw0US+wfw==
-=wW9S
------END PGP SIGNATURE-----
-
---n8Zv8fx1nKsck57k--
+Takashi

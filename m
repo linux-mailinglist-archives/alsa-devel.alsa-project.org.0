@@ -2,75 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B16D15EB45F
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 00:14:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9E35EB48F
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 00:29:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E83B3822;
-	Tue, 27 Sep 2022 00:13:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83B3822
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB0F4826;
+	Tue, 27 Sep 2022 00:28:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB0F4826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664230447;
-	bh=2Qt3W8FkIMIE55ctoj3YAHUay0CBFTZXAHMd7mn4hp8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1664231346;
+	bh=8LS0Sft6HQa/4wmV36gDvW5S2fVgulbDTo2lrYlX6jI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qlc2aHBx+Nw0u1o+V/vpsJVRBoUbjmv5Yny4do+9MFUnoa1Z1WzIdWZF01Qp3gQyx
-	 XIztZcaX5GWWn1Rml5ZZZHc2I9QyVALLOW+BIhMjjNb+Vq9NNaI2wqQCI3uQW+88rP
-	 QDxRf9WJTBcZfmnhQi1nhIVlVijjWS6X1ciCQo5Y=
+	b=rhJQ7vW+JpoLGn3N9khECQw1xjjEa7g5pWdoo+vwEUKKeIs1XHXycPnFL3lfvH68x
+	 NZjM73d/SAOH9FAKt8NuR866Yfa9IBNqb4/0MbOlhlbmQn8soqHyqz8XfPbttCpIE0
+	 hfpZsfgsC54mviI/+mvEXy/lS/th2KjtIyBjul0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65434F80134;
-	Tue, 27 Sep 2022 00:13:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B2C9F80115;
+	Tue, 27 Sep 2022 00:28:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F4141F8027D; Tue, 27 Sep 2022 00:13:07 +0200 (CEST)
+ id 432F3F8027D; Tue, 27 Sep 2022 00:28:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4A38F80134
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 00:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4A38F80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uSbK6VxM"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from omta033.useast.a.cloudfilter.net
+ (omta033.useast.a.cloudfilter.net [44.202.169.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3510CB80DFA;
- Mon, 26 Sep 2022 22:13:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6D0C433D6;
- Mon, 26 Sep 2022 22:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664230382;
- bh=2Qt3W8FkIMIE55ctoj3YAHUay0CBFTZXAHMd7mn4hp8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uSbK6VxMdhw8e8KNUVvQk9DkPang+WcxCaiI8iR6i0u49/s7tfeSlA1U3qzG3PP7E
- 0hLSTj7XSuBf+iaaSaVTCQnf/b8SWpXqgygr7nPZ1N0ZYsuyn5yozA0OaQ0owDr4U2
- 14DUv7Cwf7I12Z49AD/pWdzVKIaa4aDGRC9lnEfIGlPhAGsnOpqAdpdDBrRn0Zatl6
- P8tbfFj01gpS7UaWt/nHhBio+KU3IwCbfigYZMlUw7B/T2VVO8ehrhwEjnfhdANoi5
- o6cSjiEIgIntgdVhhDQs5AWedaOX4MtFDDHxHcMs4D6TcyuW3DlVxZWyv2AZKPTIop
- Y8jWhLS7QmvAg==
-Date: Mon, 26 Sep 2022 23:12:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBE89F80134
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 00:27:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBE89F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com
+ header.b="JBQdcnhc"
+Received: from eig-obgw-6019a.ext.cloudfilter.net ([10.0.30.145])
+ by cmsmtp with ESMTP
+ id cuGxoald5h3t8cwZwoPAIJ; Mon, 26 Sep 2022 22:27:56 +0000
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTP
+ id cwZuoa4ygZ4ClcwZuoEoXe; Mon, 26 Sep 2022 22:27:55 +0000
+X-Authority-Analysis: v=2.4 cv=I9x2+fsg c=1 sm=1 tr=0 ts=6332276b
+ a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=aukr7FhhocSji02eYO7jmA==:17
+ a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10 a=xOM3xZuef0cA:10
+ a=wYkD_t78qR0A:10 a=iox4zFpeAAAA:8 a=foHCeV_ZAAAA:8 a=VwQbUJbxAAAA:8
+ a=P2InLthoESwt6vYYg4gA:9 a=QEXdDO2ut3YA:10 a=WzC6qhA0u3u7Ye7llzcV:22
+ a=h8a9FgHX5U4dIE3jaWyr:22 a=AjGcO6oz07-iQ99wixmX:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4qq7HZal1zXmdipeTuMCQi90iSHTfHneYxHZyhIjH3k=; b=JBQdcnhcWkrdtfhnIY+ItiYfLA
+ SuZmvVNJtRFIRQ49zbxk91lBjJ5SbBysC7ArpbVOeAWWtLt4H0KlGimmzD2u0U6+UPUeCDBDT2nAk
+ alw/D1AvrLeEZ7z9W49dTQbQXoMroTu3Fs7h4pnDiN5UPy8pUfjIdhuyHCUYRyRT/tYA0fw8dNgl4
+ yAOJASCvp3eqyIf/jlhjxAwYn3mIov3Mom/UKCBsVrwP2cu5pOcErmU0wMG1xi4qlpVLbQQt5BqWs
+ QHz+x8mKDOBoUR8Pb4nvngtB+aUwkMYpwZ3r7EmkWm5Ew9WnHJaa8FXYNhMVFBfKQs9Ej8Y/5P6Q4
+ KJJfQREQ==;
+Received: from 187.184.158.174.cable.dyn.cableonline.com.mx
+ ([187.184.158.174]:20322 helo=[192.168.0.24])
+ by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
+ (envelope-from <gustavo@embeddedor.com>) id 1ocwZt-003JXQ-3T;
+ Mon, 26 Sep 2022 17:27:53 -0500
+Message-ID: <81af0106-a732-ce45-bb1c-c45db9e1aeb9@embeddedor.com>
+Date: Mon, 26 Sep 2022 17:27:41 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
 Subject: Re: [PATCH][next] ASoC: SOF: control.h: Replace zero-length array
  with DECLARE_FLEX_ARRAY() helper
-Message-ID: <YzIj6tdtDe9YrX+I@sirena.org.uk>
-References: <YzIcZ11k8RiQtS2T@work>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="34yM7OTcCN4YfrhM"
-Content-Disposition: inline
-In-Reply-To: <YzIcZ11k8RiQtS2T@work>
-X-Cookie: You may be recognized soon.  Hide.
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+References: <YzIcZ11k8RiQtS2T@work> <YzIj6tdtDe9YrX+I@sirena.org.uk>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <YzIj6tdtDe9YrX+I@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 187.184.158.174
+X-Source-L: No
+X-Exim-ID: 1ocwZt-003JXQ-3T
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 187.184.158.174.cable.dyn.cableonline.com.mx ([192.168.0.24])
+ [187.184.158.174]:20322
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 3
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHKIBNcLhoyIUHk8C41F8zpAAshohFhU1BkaOd021PX8pdaIGcftGXq5zErG6EVpu6/TX8zs9B7FXqjPRPXV//hKivoW91aYiUNCZqCPg1CYUpBxgwpn
+ lZtQDrtA8f8VuuOfSumzKdbLllsmn7Td11zLscD9wN9L293YtLWbZsyZFxRlln+iXXe6S21ZmaKS+exxL4/GC5lSrEDW8iEmpMBmaPON5mY30BXVR8mCySXQ
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-hardening@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -89,38 +125,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---34yM7OTcCN4YfrhM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 26, 2022 at 04:40:55PM -0500, Gustavo A. R. Silva wrote:
-> Zero-length arrays are deprecated and we are moving towards adopting
-> C99 flexible-array members, instead. So, replace zero-length arrays
-> declarations in anonymous union with the new DECLARE_FLEX_ARRAY()
-> helper macro.
->=20
-> This helper allows for flexible-array members in unions.
+On 9/26/22 17:12, Mark Brown wrote:
+> On Mon, Sep 26, 2022 at 04:40:55PM -0500, Gustavo A. R. Silva wrote:
+>> Zero-length arrays are deprecated and we are moving towards adopting
+>> C99 flexible-array members, instead. So, replace zero-length arrays
+>> declarations in anonymous union with the new DECLARE_FLEX_ARRAY()
+>> helper macro.
+>>
+>> This helper allows for flexible-array members in unions.
+> 
+> As documented in submitting-patches.rst please send patches to the
+> maintainers for the code you would like to change.  The normal kernel
+> workflow is that people apply patches from their inboxes, if they aren't
+> copied they are likely to not see the patch at all and it is much more
+> difficult to apply patches.
 
-As documented in submitting-patches.rst please send patches to the=20
-maintainers for the code you would like to change.  The normal kernel
-workflow is that people apply patches from their inboxes, if they aren't
-copied they are likely to not see the patch at all and it is much more
-difficult to apply patches.
+That's exactly what I intended to do:
 
---34yM7OTcCN4YfrhM
-Content-Type: application/pgp-signature; name="signature.asc"
+$ scripts/get_maintainer.pl --nokeywords --nogit --nogit-fallback include/sound/sof/control.h
 
------BEGIN PGP SIGNATURE-----
+Jaroslav Kysela <perex@perex.cz> (maintainer:SOUND)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMyI+kACgkQJNaLcl1U
-h9Bl2Af/eq17arOKqHYbB+7ToUShw/rDWN00EYpGJ1L4MTJ0Hrt4JHoK/KoB0pVo
-D4zPrWxnFc/aIvlHvf5zkwHqQvhNMsL+FfB++tS8oLWXdskaSwdZAJOHqU2t5sfb
-6whvYoNoYUD/5acGyMfX2RLCQbIxIAz8q6J7bJY+QfqbXVUHxMHbNSKJ5rkHJTnN
-Bsx1DpzXc10p1PwhVhepbCuJXl+shGRXw6WgjyubQtHjmSWNACm9QF+Hm7w3z3DB
-2dIWI7LQ6x63u+i5vxsInZczO1qWLQmqWHlse4UKKekRIDrfBCVJdS0NEqT48Zpn
-f6yov8ZJ3+TQx64+wsjISFZriatSQw==
-=fi4G
------END PGP SIGNATURE-----
+Takashi Iwai <tiwai@suse.com> (maintainer:SOUND)
 
---34yM7OTcCN4YfrhM--
+alsa-devel@alsa-project.org (moderated list:SOUND)
+
+linux-kernel@vger.kernel.org (open list)
+
+Did you see anything wrong with this or something...?
+
+Thanks
+--
+Gustavo

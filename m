@@ -2,104 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67CCA5E9594
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Sep 2022 20:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1A05E97BC
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 03:35:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 518D7826;
-	Sun, 25 Sep 2022 20:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 518D7826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 865AE41;
+	Mon, 26 Sep 2022 03:34:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 865AE41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664132382;
-	bh=BZLxuHxton1J29SKS+drk1iasYK5UqUCMLxUF6/eJO0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1664156121;
+	bh=6RPp4J7xqSzGlul+DzQ9epAqw7DClU621C6ECV9kE8I=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IOZ7Wrg0okKz5jRRMooj5caz7OxlOLr8wPw3XXV0lWW2NvYqckfiOsZw12lCpDqqp
-	 blqpfDNSADuHENZfMjey63lf0i4mS1xOBgA4F1OxDvY4bDp50LCw1ZNaXr/fC/esQG
-	 IkDDJEFZTYHCGzUxpPTbKqpYtuL2D0abE6r/nRv4=
+	b=HQ1/jCebGtMwehSr82G/MTb90KV5Bwomek2KUp4oG/3V8ReN0jy4G3BGemdWjU87D
+	 524XFn72plzHWZ8ueyLtoH+9ZPdSFlgy/36Cr9nfWfLmXE1C6h2EvB+Er9HV6FRgmX
+	 epqdbc+9GndXJbhc6Q07Zs2QDjTmE/TgcXdHz9k4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFF1DF802DF;
-	Sun, 25 Sep 2022 20:58:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01BFEF80115;
+	Mon, 26 Sep 2022 03:34:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAD19F801F7; Sun, 25 Sep 2022 20:58:50 +0200 (CEST)
+ id 46FACF8027D; Mon, 26 Sep 2022 03:34:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-m11879.qiye.163.com (mail-m11879.qiye.163.com
+ [115.236.118.79])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0E7BF80137
- for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 20:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E7BF80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
- header.b="KU9NTpKa"
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-1279948d93dso6771521fac.10
- for <alsa-devel@alsa-project.org>; Sun, 25 Sep 2022 11:58:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=M3tmqKTq30hnagEOzKLlmynUjQTBZCoWj+kBx7NUQOc=;
- b=KU9NTpKaj9sX6HbIO7VUMhid7Iu14PvSEZSCrkBPcJN7A0Z/b4jHSzehqFPFJ+q3hA
- Y291vI139cdUevC+1kubb6EY4ozQ50v5OezE4h2R5XkF8GP7dYPIzBXwFr/FXbHuqIKd
- u2u/LvvBDPulfI9fAyNFfxPt6J2lKH24R5mud3Yp3zk+QjqEGzO/GJiDmu9NW6kJ22kt
- X2TKZjJ9vvvCTXnpg/WVrXp7Di8ce36ceyVkGJ1dK6u9Wtm654vMKBMPNkX6ulRQ3hHl
- AbJSr5L6drEJ7Te17lbIGxVXo1iq5xmtCvkLAmOcyHVnKrqj/sM1TqaxFS5T2vKY4K3z
- LlYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=M3tmqKTq30hnagEOzKLlmynUjQTBZCoWj+kBx7NUQOc=;
- b=nJY4vm7oi/EN8lpoWKlzX7+TJDKDyLVMYrhgmhqQ9l0nn2wE4zvFrUsrgLJ+R6Y4Hq
- fNZ7Iiy8HUk+rY/hAUX6Jn5R3/qIn6HUcgvan2ewCIq2efDKANtjrGfkzC0zB31xz0Cu
- j6OHYpmBDNdUD2UTYjQH1PpKkWB8y1WEDHcoTXfmANp3DN9oybApSZIMpYOkzbieGWYR
- MKEnaz0RvzOqJt/CCcV6MzQ2qKicIMr3VBHV1vnK1GJa3SXjPSSblHjdQd2A4bOZeTgC
- ewD1wfBKKVB6ZGljQg+hSHQft14/N7kiKlVnAmsv7BPJ87w/556uoFK0QNmpXFdHFF9k
- jz5w==
-X-Gm-Message-State: ACrzQf3QKeR7flIokH9H4Bb6aV8jNtWY6sERmUfDo1GbMEVP7Edx8PTn
- YkxSSbxl1Ssg4o8zQoTs7DD6DA==
-X-Google-Smtp-Source: AMsMyM6dfh0CcbJflisdwaZ+hNfWoQV1N1y0eqrFuZDEIicfSlJbuuNrqKvXCOmWVQCqQN9VTUWAmQ==
-X-Received: by 2002:a05:6870:1694:b0:127:8d30:5afc with SMTP id
- j20-20020a056870169400b001278d305afcmr10882036oae.26.1664132322423; 
- Sun, 25 Sep 2022 11:58:42 -0700 (PDT)
-Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
- [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
- u8-20020a0568301f4800b0065126423321sm6946171oth.76.2022.09.25.11.58.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 25 Sep 2022 11:58:41 -0700 (PDT)
-Message-ID: <d3218018-45c4-4777-77a7-91947ad48666@kali.org>
-Date: Sun, 25 Sep 2022 13:58:40 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 415E1F8011C
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 03:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 415E1F8011C
+Received: from [172.16.12.74] (unknown [58.22.7.114])
+ by mail-m11879.qiye.163.com (Hmail) with ESMTPA id 8A37D680486;
+ Mon, 26 Sep 2022 09:34:05 +0800 (CST)
+Message-ID: <155e10c4-7b08-f1ec-9f28-42a3d982740f@rock-chips.com>
+Date: Mon, 26 Sep 2022 09:34:05 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 07/11] arm64: dts: qcom: sdm8458: align node names with DT
- schema
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20220923161453.469179-1-krzysztof.kozlowski@linaro.org>
- <20220923161453.469179-8-krzysztof.kozlowski@linaro.org>
-From: Steev Klimaszewski <steev@kali.org>
-In-Reply-To: <20220923161453.469179-8-krzysztof.kozlowski@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH 1/1] ASoC: soc-dai: export some symbols
+To: Mark Brown <broonie@kernel.org>
+References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
+ <20220920034545.2820888-2-jason.zhu@rock-chips.com>
+ <Yym2aURe2+pA3ocn@sirena.org.uk>
+ <dfeac54a-a264-835a-f155-90eb8f093314@rock-chips.com>
+ <Yy2s2PA/C1ngeb//@sirena.org.uk>
+From: Jason Zhu <jason.zhu@rock-chips.com>
+In-Reply-To: <Yy2s2PA/C1ngeb//@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFJSktLSjdXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUJPVkJLTRoZTEgYHxkZGVUTARMWGhIXJB
+ QOD1lXWRgSC1lBWU5DVUlJVUxVSkpPWVdZFhoPEhUdFFlBWU9LSFVKSktISkxVSktLVUtZBg++
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Pj46Lzo4CD0oCAoeDCIhFQEC
+ GlEwCkNVSlVKTU1PSk5NS09NSU9MVTMWGhIXVREaCBQVVQETDjsJFBgQVhgTEgsIVRgUFkVZV1kS
+ C1lBWU5DVUlJVUxVSkpPWVdZCAFZQUhDSk43Bg++
+X-HM-Tid: 0a83776e11a32eb5kusn8a37d680486
+Cc: sugar.zhang@rock-chips.com, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,44 +80,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Krztof
 
-On 9/23/22 11:14 AM, Krzysztof Kozlowski wrote:
-> New slimbus DT schema expect only SLIMbus bus nodes to be named
-> "slimbus".  In case of Qualcomm SLIMbus NGD, the bus node is what was
-> called "ngd".
+在 2022/9/23 20:55, Mark Brown 写道:
+> On Wed, Sep 21, 2022 at 10:37:06AM +0800, Jason Zhu wrote:
+>> 在 2022/9/20 20:47, Mark Brown 写道:
+>>> On Tue, Sep 20, 2022 at 11:45:45AM +0800, Jason Zhu wrote:
+>>>> Sometimes we need to make some dais alive when close the card, like
+>>>> VAD, so these functions must be exported so that they can be called.
+>>> I'm not sure I fully understand the use case here - why wouldn't
+>>> the core know about the audio stream being kept active?  For
+>>> something like VAD I'd expect this to be just working like a
+>>> normal audio path, if there's a DSP consuming the audio stream
+>>> then it'll keep everything open.  If there is a good use case I
+>>> suspect it'll be clearer if you send the users along with this
+>>> patch.
+>> Thanks. For example, we use the VAD(Voice Activity Detect) & PDM(
+>> Pulse Density Modulation) to record sound>. The PDM is used to
+>> record and copy data to DDR memory by DMA when the system is alive.
+>> The VAD is used to detect voice from PDM and copy data to sram
+>> (The sram is small) when the system is sleep. If the VAD detect
+>> specific sound, wake up the system and continue to record sound.
+>> The data can not be lost in this process. So we attach VAD & PDM
+>> in the same card, then close the card and wake up VAD & PDM again
+>> when the system is goto sleep. Like these code:
+> This sounds like a very normal thing with a standard audio stream -
+> other devices have similar VAD stuff without needing to open code access
+> to the PCM operations?
+
+
+At present, only VAD is handled in this way by Rockchip.
+
 >
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845.dtsi | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> index 1213f78a8b7a..7b62efb180d5 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> @@ -3823,7 +3823,7 @@ qspi: spi@88df000 {
->   			status = "disabled";
->   		};
->   
-> -		slim: slim@171c0000 {
-> +		slim: slim-ngd@171c0000 {
->   			compatible = "qcom,slim-ngd-v2.1.0";
->   			reg = <0 0x171c0000 0 0x2c000>;
->   			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-> @@ -3835,7 +3835,7 @@ slim: slim@171c0000 {
->   			#address-cells = <1>;
->   			#size-cells = <0>;
->   
-> -			ngd@1 {
-> +			slim@1 {
->   				reg = <1>;
->   				#address-cells = <2>;
->   				#size-cells = <0>;
+>> When the system is waked up, open the sound card. The data in sram
+>> is copied firstly and close the vad. Then use the DMA to move data
+>> to DDR memory from PDM.
+> Generally things just continue to stream the voice data through the same
+> VAD stream IIRC - switching just adds complexity here, you don't have to
+> deal with joining the VAD and regular streams up for one thing.
 
-Subject has a typo - sdm8458 -> sdm845
 
-Tested on Lenovo Yoga C630
+Yes, this looks complicated. But our chip's sram which is assigned to VAD
 
-Tested-by: Steev Klimaszewski <steev@kali.org>
+maybe used by other devices when the system is alive.  So we have to copy
+
+sound data in sram firstly, then use the DDR(SDRAM) to record sound data.
 

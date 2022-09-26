@@ -2,59 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58C785E981B
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 04:58:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C935E996C
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 08:24:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C866474C;
-	Mon, 26 Sep 2022 04:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C866474C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 316E6F3;
+	Mon, 26 Sep 2022 08:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 316E6F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664161120;
-	bh=elBg8K4Vlt/p8gKKn1qaWNKhTp2ZCaTwYBFeMAaypvk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ieFwSt/4IcREOcYkD7kEZgZRy01xaqkN10g03SOoqBV0gzoOpmp7hGQQavPrd49O4
-	 Ecp0I1bV6FyTiJsbzquUqaA89uUwzILHePKa01Upt64s1HsSciYICy6blvhqssb94s
-	 fafiYD/UMwhRo7iK03xP1dYKl3kzSbH8ErvVawjY=
+	s=default; t=1664173474;
+	bh=SLnutiPWiHxaVmhmMd0sQIDNCZbw9gnDuQ45zua1Q/I=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ny8HfjvwSsfTGdWX1+nJ9dBrgGpPiwST2q7LiTJeJi2mNRkh98sNUEUmIq5ewEkFn
+	 PJouPR0ioTxFCsChdsKKiQGWjxa+yKy9R5m7DX1ROF711tHO2KfDNnPCNMV1AcnNYt
+	 +P4i4Jcl8FQF9eCHwlpRAQ0If3Rx4BRFLL+95YCU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32056F802BE;
-	Mon, 26 Sep 2022 04:57:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6C91F80134;
+	Mon, 26 Sep 2022 08:23:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6EBFF8027D; Mon, 26 Sep 2022 04:57:41 +0200 (CEST)
+ id 749D6F8027D; Mon, 26 Sep 2022 08:23:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 817F9F80134
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 04:57:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 817F9F80134
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R511e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
- TI=SMTPD_---0VQeYfWV_1664161035; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VQeYfWV_1664161035) by smtp.aliyun-inc.com;
- Mon, 26 Sep 2022 10:57:29 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: perex@perex.cz
-Subject: [PATCH] ASoC: SOF: amd: Remove duplicate include
-Date: Mon, 26 Sep 2022 10:57:13 +0800
-Message-Id: <20220926025713.39827-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- alsa-devel@alsa-project.org, Abaci Robot <abaci@linux.alibaba.com>,
- tiwai@suse.com, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41276F80115
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 08:23:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41276F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="da+SRmvy"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="F1n2Do46"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7B0031FD13;
+ Mon, 26 Sep 2022 06:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664173401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=veh7t/XDtN7ETq2C4vUlduRWmxbXHXn3ESvF8TWODCU=;
+ b=da+SRmvyRDPWModUTup2sjkqd5Plm31l07JV3xq9651gySVTMMNl4ezfIG0G2z0SApyI3c
+ mNps7vKBFHZTGEnbsYydACXZYL7cuWrND4bYc6XRg6vAASeND6rpoiXHWNlqRLYHRqa2zc
+ HfgWnDXp4u7ZGWLsV9Cp2M9kK1bzDgQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664173401;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=veh7t/XDtN7ETq2C4vUlduRWmxbXHXn3ESvF8TWODCU=;
+ b=F1n2Do46YaaSqygTtXCVomSgMpVRWAOw3p56dmoQcfxK8YSx0mPYR7vE5tJuL0YgiUZOXh
+ NkSBwItpl2cAKrAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5709F13486;
+ Mon, 26 Sep 2022 06:23:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5oqAFFlFMWNBHwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 26 Sep 2022 06:23:21 +0000
+Date: Mon, 26 Sep 2022 08:23:20 +0200
+Message-ID: <87a66m4pt3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Limit the maximal count of PCM devices to
+ 8
+In-Reply-To: <20220923082236.61024-1-perex@perex.cz>
+References: <20220923082236.61024-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,27 +100,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-./sound/soc/sof/amd/acp-common.c: ../sof-audio.h is included more than once.
+On Fri, 23 Sep 2022 10:22:36 +0200,
+Jaroslav Kysela wrote:
+> 
+> The current hardware has up to 4 converters. Save little space.
+> The limit 8 is enough even for a more improved hardware.
+> 
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2270
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- sound/soc/sof/amd/acp-common.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks, applied.
 
-diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
-index 27b95187356e..348e70dfe2a5 100644
---- a/sound/soc/sof/amd/acp-common.c
-+++ b/sound/soc/sof/amd/acp-common.c
-@@ -13,7 +13,6 @@
- #include "../sof-priv.h"
- #include "../sof-audio.h"
- #include "../ops.h"
--#include "../sof-audio.h"
- #include "acp.h"
- #include "acp-dsp-offset.h"
- 
--- 
-2.20.1.7.g153144c
 
+Takashi

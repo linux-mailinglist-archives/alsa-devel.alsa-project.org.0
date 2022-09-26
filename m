@@ -2,79 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 505DC5EA7B8
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 15:57:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C7B05EA7C6
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 15:59:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3FAF3E8;
-	Mon, 26 Sep 2022 15:56:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3FAF3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3AC585D;
+	Mon, 26 Sep 2022 15:58:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3AC585D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664200627;
-	bh=p34+2qpnfD6AreGBPpZ0cE46lXrx78KqMzqC+jEEjdk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1664200772;
+	bh=mc2awtbPaPfr7eN+n6iVyDlW4kApfMurPs8wlQoTTc8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kDgi0suiOnw/SU8vL0UtDxBj31ynQoBvQIDmZJFR5UQNnQnbBnr3GgcU4BqR9pkPu
-	 S2EpVyoQvDiGyT9GP1rtzKAjSkZbzcvi3gQE9LZHOo04VjGR+O/AGTR32M76GBzVeo
-	 chzANhu2SgV/zio3zeKYlHOYCspyaNdkaUMYihrE=
+	b=oyyIG6z0hfiqZQIv8ueAAsPYYopATtmB+tUrYtRi/5Qq9QSfeTzS+pwhlbbxKFn3k
+	 HAWGeaz/Vn+t4Cj5U875bKvQADfLJUX5SlAi5SLs7IkdfRLNJyg1ibqH8FQhgKoT81
+	 6+tMiAN8hWJpAG0duohnetZ+Z4chMhKDLUjY0T04=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F944F80134;
-	Mon, 26 Sep 2022 15:56:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8120FF80580;
+	Mon, 26 Sep 2022 15:56:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7734BF8027D; Mon, 26 Sep 2022 15:56:09 +0200 (CEST)
+ id EF243F80568; Mon, 26 Sep 2022 15:56:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C71CF80115
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 15:56:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C71CF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id A28D3F80539
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 15:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A28D3F80539
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jR7ZS6db"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="WJYvPksx"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="USUiq9Tl"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 10CEF601D2;
- Mon, 26 Sep 2022 13:56:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1CCC433C1;
- Mon, 26 Sep 2022 13:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664200559;
- bh=p34+2qpnfD6AreGBPpZ0cE46lXrx78KqMzqC+jEEjdk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jR7ZS6dbh2uraofF+LAgQi+c/dUTDQ3RlIdrcVrOZqg+QLsWSWWW7wSAAOgnb+UdQ
- 80n4FzWi92qPRqELJpV2OP484mx6NjO3NDihipxDikYWZsWaBn5kTyMIMP81AzKfBi
- AHpaK+Fe6B45JBQsJ9HFTPSRIc1xn7qJO55dESCvKhiiYHioMfNqwTbKtjvDPsY7uG
- V/g29zrizYAvjS9Vf1pHP1ELl+YrZ0zYMzPmxWzcDyD1/baEJjuLbeiRQXeSx6lXYn
- YUYBAf7I+LExU7HC5ZqsxVyBZrEeTT/relTjvI5O7VJz7t6SapSP1CINwpL3LCQnuM
- 9M/9ko/9ptDTw==
-Date: Mon, 26 Sep 2022 14:55:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>
-Subject: Re: [PATCH v2] ASoC: kirkwood: enable Kirkwood driver for Armada 38x
- platforms
-Message-ID: <YzGvalDnGujC2sl/@sirena.org.uk>
-References: <20220920132648.2008-2-pali@kernel.org>
- <20220926110533.13475-1-pali@kernel.org>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3283021DD9;
+ Mon, 26 Sep 2022 13:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664200574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uv2wjzNhqWjZsptPdc3bC1flrDuqWDDoQzwnc8zX9uo=;
+ b=WJYvPksx5gEVD9/c+hxzpB1C+hjx0qUdGTEVmClwcTqcjN/8Q9HuZyr/xpHopk6+P91Qqn
+ +AMuPHlchsae6ndmMu+o3poQkKdRMg/pnD3R/pc3ZCr8FUXYL50KOWNLxDFAnfbJiX82KK
+ 1TU0Pb4ugsoe6zqCkjBILEl+B838zNE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664200574;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uv2wjzNhqWjZsptPdc3bC1flrDuqWDDoQzwnc8zX9uo=;
+ b=USUiq9TljBf/9Rv5d0Oe3YG+iUx9EBjXHUTH5QSMpU04O+u839268CZA612CUpk6S/UlJY
+ erjEmeR7+UnpIlDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 181FF139BD;
+ Mon, 26 Sep 2022 13:56:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OFoJBX6vMWPxegAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 26 Sep 2022 13:56:14 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 08/11] ALSA: usx2y: Replace runtime->status->state reference
+ to runtime->state
+Date: Mon, 26 Sep 2022 15:55:55 +0200
+Message-Id: <20220926135558.26580-9-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220926135558.26580-1-tiwai@suse.de>
+References: <20220926135558.26580-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xsFjxfmwLuMLzuRF"
-Content-Disposition: inline
-In-Reply-To: <20220926110533.13475-1-pali@kernel.org>
-X-Cookie: You may be recognized soon.  Hide.
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Marcin Wojtas <mw@semihalf.com>
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +102,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The recent change in ALSA core allows drivers to get the current PCM
+state directly from runtime object.  Replace the calls accordingly.
 
---xsFjxfmwLuMLzuRF
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/usx2y/usbusx2yaudio.c | 3 +--
+ sound/usb/usx2y/usx2yhwdeppcm.c | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-On Mon, Sep 26, 2022 at 01:05:33PM +0200, Pali Roh=E1r wrote:
-> From: Marcin Wojtas <mw@semihalf.com>
->=20
-> The audio unit of Marvell Armada38x SoC is similar to the ones comprised =
-by
-> other Marvell SoCs (Kirkwood, Dove and Armada 370). Therefore KW audio
-> driver can be used to support it and this commit adds new compatible stri=
-ng
-> to identify Armada 38x variant.
+diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudio.c
+index 9cd5e3aae4f7..5197599e7aa6 100644
+--- a/sound/usb/usx2y/usbusx2yaudio.c
++++ b/sound/usb/usx2y/usbusx2yaudio.c
+@@ -822,8 +822,7 @@ static int snd_usx2y_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		usx2y_urbs_release(subs);
+ 		if (!cap_subs->pcm_substream ||
+ 		    !cap_subs->pcm_substream->runtime ||
+-		    !cap_subs->pcm_substream->runtime->status ||
+-		    cap_subs->pcm_substream->runtime->status->state < SNDRV_PCM_STATE_PREPARED) {
++		    cap_subs->pcm_substream->runtime->state < SNDRV_PCM_STATE_PREPARED) {
+ 			atomic_set(&cap_subs->state, STATE_STOPPED);
+ 			usx2y_urbs_release(cap_subs);
+ 		}
+diff --git a/sound/usb/usx2y/usx2yhwdeppcm.c b/sound/usb/usx2y/usx2yhwdeppcm.c
+index 240349b644f3..767a227d54da 100644
+--- a/sound/usb/usx2y/usx2yhwdeppcm.c
++++ b/sound/usb/usx2y/usx2yhwdeppcm.c
+@@ -374,8 +374,7 @@ static int snd_usx2y_usbpcm_hw_free(struct snd_pcm_substream *substream)
+ 		usx2y_usbpcm_urbs_release(subs);
+ 		if (!cap_subs->pcm_substream ||
+ 		    !cap_subs->pcm_substream->runtime ||
+-		    !cap_subs->pcm_substream->runtime->status ||
+-		    cap_subs->pcm_substream->runtime->status->state < SNDRV_PCM_STATE_PREPARED) {
++		    cap_subs->pcm_substream->runtime->state < SNDRV_PCM_STATE_PREPARED) {
+ 			atomic_set(&cap_subs->state, STATE_STOPPED);
+ 			if (cap_subs2)
+ 				atomic_set(&cap_subs2->state, STATE_STOPPED);
+-- 
+2.35.3
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
-
---xsFjxfmwLuMLzuRF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMxr2kACgkQJNaLcl1U
-h9CRcAf+JuTBZSz2V4JDBCSszUuJCyQMdD3hD7e5kqxtIa5AXxBUh7Igj8pir59o
-l2qbKnF9wPzk1X75wKhUipR9Jgj+id7QmtUfnQEazqBG9ZXtz65FRmPzNh3bLowF
-nZPe/HCZdrShy2+/5F+QF8ZfdBHRXp7XaVD5xOnH3c5AHydMHcz4jYmxiGJLuVC9
-TEbQPZTZomM2qCK0ajEvTIqUJzi+83z7qMsqOea/g/di54uh9NXIM0lxMAsan7ZM
-mRsWFHAyE5jUip9e/CRmZ8UZ2A73vGKL6RfqposWOyJwpyGv4aOO37ltWItrOxOb
-Y+7fXQtzDwTOUhTFpQcteixI7Cyo6g==
-=d5D/
------END PGP SIGNATURE-----
-
---xsFjxfmwLuMLzuRF--

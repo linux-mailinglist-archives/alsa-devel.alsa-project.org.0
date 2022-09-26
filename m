@@ -2,91 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6BB5EAEF8
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 20:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 947BD5EB0F2
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 21:09:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA6FD84B;
-	Mon, 26 Sep 2022 20:01:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6FD84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 269EC826;
+	Mon, 26 Sep 2022 21:08:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 269EC826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664215350;
-	bh=B0qaMjOPQrhLLER5qFWBgX1zQyZxzIBqUercrK+VcD8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664219388;
+	bh=t4QYZgnZxFyp+wdCzckiy3JAvO9yYcx1Bz8Lz04+XEY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dxlYupPFIU446C5lnT+JH9swGIycBQkkyvxhKf7VY7xw2oc4qMnqeLA4wS/SK7ebg
-	 uiMdyspDCfgijsjgP3853CvvcjJppW47iaygd9PYOrMOzxFvW41aItbUsTE5/SXero
-	 HLkD6Q0cCWGq5k8tLB1x9IeLmtBmCVWIxSKrHFc0=
+	b=YTO8f4Pub0VTxe+RKn7c2b2ZMr/Gx3CtvZKwv6GwC7C6w9f0u+Jbx/91M0hzGcxC+
+	 oMFUfCAqNFy6Rc6qskKDFlmRxk7wwQEqnr70YhNqJWIyHhsaWMZWpTEihoBAXGgMmo
+	 7obhjzh4bIVv/CHx3i7yJuhOBh0NSsM4CwYSEoP4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1E23F80510;
-	Mon, 26 Sep 2022 20:01:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CC77F80115;
+	Mon, 26 Sep 2022 21:08:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBBF9F80535; Mon, 26 Sep 2022 20:01:29 +0200 (CEST)
+ id 26533F8027D; Mon, 26 Sep 2022 21:08:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODYSUB_4,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BD9DF80510
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 20:01:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BD9DF80510
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83983F80115
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 21:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83983F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jk6T+bEw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="l4NeicHh"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6CDA221FE3;
- Mon, 26 Sep 2022 18:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664215286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yw5StaodFQZEHTV1q1ehx9OSHinWzo8zB4H1UQnl29c=;
- b=jk6T+bEwtInj9L0T4f8Apdicm3roYSDKpHbJaINWSjX7R0Y8IMkEVIySAmkns1QmfKmqgF
- nGgDXWTYXxcxfywYDKLFjWh7pBDVEcsp3s+xiEbccsL+6+yySwMXsny8kRJGv+d0Vv+DnH
- tLuMprP3hup2r7gGIX20hlxZxTitJqs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664215286;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yw5StaodFQZEHTV1q1ehx9OSHinWzo8zB4H1UQnl29c=;
- b=l4NeicHhqv8N+WJ34cNPX/YGK/WA43PUVQN71cTxL5ZN8fZMvNozhJUSEcZgmsvi71e0rK
- kzJXGwPEaM/vYjAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3FCEF139BD;
- Mon, 26 Sep 2022 18:01:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TeyzDvboMWMrYwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 26 Sep 2022 18:01:26 +0000
-Date: Mon, 26 Sep 2022 20:01:25 +0200
-Message-ID: <87leq6gglm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: butt3rflyh4ck <butterflyhuangxx@gmail.com>
-Subject: Re: A divide error bug in snd_pcm_write
-In-Reply-To: <CAFcO6XP2MpiAsF7YXYjgh7FMq+hyzFJjK8iBf=ccZ2B6BpNvOg@mail.gmail.com>
-References: <CAFcO6XNk5Wtjju=DBOcJr46miBbaWT7jL+zjhWMp+xnz7k5K9A@mail.gmail.com>
- <87v8pa306x.wl-tiwai@suse.de>
- <CAFcO6XP2MpiAsF7YXYjgh7FMq+hyzFJjK8iBf=ccZ2B6BpNvOg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, broonie@kernel.org
+ dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch
+ header.b="KDQSmdTD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=Lagm1lgiVICpYYlD6spdCWdL8atz+TcE9arjcgZyXHI=; b=KD
+ QSmdTDonZqdmlUzSf4l7Iwy6+XgxPWBUnsOZ0J58yO9TSMQxxGQlmCCJi+E5DBizSecOd0ZV4fOGU
+ C4Qiq6hQ4zaXGaUq1MpLJOfHsYc6G3t3kCOPOJ6NPhstzSOxtrwApyahtLvaTNcj8JwqvywJ2nWNp
+ lQOLVGqdNHRuNuU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1octSd-000KoL-Hu; Mon, 26 Sep 2022 21:08:11 +0200
+Date: Mon, 26 Sep 2022 21:08:11 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>
+Subject: Re: [PATCH v2] ASoC: kirkwood: enable Kirkwood driver for Armada 38x
+ platforms
+Message-ID: <YzH4m2piUuPcYJmD@lunn.ch>
+References: <20220920132648.2008-2-pali@kernel.org>
+ <20220926110533.13475-1-pali@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220926110533.13475-1-pali@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Marcin Wojtas <mw@semihalf.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,22 +83,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Sep 2022 19:16:48 +0200,
-butt3rflyh4ck wrote:
+On Mon, Sep 26, 2022 at 01:05:33PM +0200, Pali Rohár wrote:
+> From: Marcin Wojtas <mw@semihalf.com>
 > 
-> The latest kernel upstream.
-> Yes, but using mmap, you can map the runtime->status page, and then
-> copy the data through memcpy to overwrite the status->state data, or
-> even more, which is incredible.
+> The audio unit of Marvell Armada38x SoC is similar to the ones comprised by
+> other Marvell SoCs (Kirkwood, Dove and Armada 370). Therefore KW audio
+> driver can be used to support it and this commit adds new compatible string
+> to identify Armada 38x variant.
+> 
+> Two new memory regions are added: first one for PLL configuration and
+> the second one for choosing one of audio I/O modes (I2S or S/PDIF).
+> For the latter purpose a new optional DT property is added ('spdif-mode').
+> 
+> kirkwood-i2s driver is extended by adding a new init function for Armada
+> 38x flavor and also a routine that enables PLL output (i.e. MCLK)
+> configuration.
+> 
+> Signed-off-by: Marcin Wojtas <mw@semihalf.com>
+> Tested-by: Star_Automation <star@marvell.com>
+> Reviewed-by: Nadav Haklai <nadavh@marvell.com>
+> Reviewed-by: Lior Amsalem <alior@marvell.com>
+> Tested-by: Lior Amsalem <alior@marvell.com>
+> Signed-off-by: Hezi Shahmoon <hezi@marvell.com>
+> Reviewed-by: Neta Zur Hershkovits <neta@marvell.com>
+> [pali: Fix support for pre-38x SoCs]
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
-Ah, then that's exactly the case my latest patch set covers.
-Either the first patch or the second patch alone should work.
-  https://lore.kernel.org/r/20220926135558.26580-2-tiwai@suse.de
-  https://lore.kernel.org/r/20220926135558.26580-3-tiwai@suse.de
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Could you verify either of them fixes the problem?
-
-
-thanks,
-
-Takashi
+    Andrew

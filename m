@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A906F5E99F3
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 08:58:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F65A5E9ABF
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Sep 2022 09:45:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13F15822;
-	Mon, 26 Sep 2022 08:58:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13F15822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BF15100;
+	Mon, 26 Sep 2022 09:44:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BF15100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664175534;
-	bh=8r23R9X27jYrnHl5Gblxk/D/ddqTMH3K5AFcSwzmpg4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YlpMQHa+DxuskNjxofJ3EXnZ+Agp2EvchGyCXAkh8tygoDif6YsqN226nOIpJ5yjQ
-	 H0EN4GPL7PyGmTX/+ES2wiYMMbtHXRnqAkxFnOVReUAdND2JAwjCDYBKfBK36iI1mF
-	 hgNgfQy6HQLmkBkuTAtBAIzxgI2Rb93TroHb97dQ=
+	s=default; t=1664178324;
+	bh=4l6+qdG48IxJe8wGnENlXr8yk1x2lc/wErPKayOZuhc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LN7j9asPIZ0smwPmuu3wtRSGbuIkVDS/AoJAbRG5VKxXb03YzGdZ/I9DPH09seP1n
+	 juH64DQVQmIFR698HrbG8plONTIiXkYrFjF5+/zLqIHqF0D8EMNFChIbDWLZIrFo7w
+	 mkwRj+XLiBC3+L6VDp5dPP7t+abv4gGWriEIU5yQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C145F802BE;
-	Mon, 26 Sep 2022 08:57:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9F44F80134;
+	Mon, 26 Sep 2022 09:44:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F1E2F8027D; Mon, 26 Sep 2022 08:57:56 +0200 (CEST)
+ id 8D228F8027D; Mon, 26 Sep 2022 09:44:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40DEAF80134
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 08:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40DEAF80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NURtnkYS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Yg/WIRxV"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 73E5D1FD5A;
- Mon, 26 Sep 2022 06:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664175469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HvGCRGblRKqpczkrIBa7Na5EeRjeE58QYEnKaH9ObVs=;
- b=NURtnkYSZIhB7Awx1bD/T0wr0VeOK1gcVWLKvMq9LRumyybIzaT50jNuYXB6eYJ0Rz9Zre
- bd8MPc4CgwFLebd1retvi13nbraZsIZFq37T4MEW9YcVz7otNlTb73Pt5RrnZKj9W48Y6m
- KCXH+UG+cpSNd3q5RfVzSg57YRx++kU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664175469;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HvGCRGblRKqpczkrIBa7Na5EeRjeE58QYEnKaH9ObVs=;
- b=Yg/WIRxVtDcjzyM0tiL+O8cD2pf0ETwMAeD682VT8GCTLxZo9nkn/kF3AcRqmnGclSp7kv
- 6fhJz0lslqQjOVDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E32713486;
- Mon, 26 Sep 2022 06:57:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NbHdCG1NMWNkLAAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 26 Sep 2022 06:57:49 +0000
-Date: Mon, 26 Sep 2022 08:57:48 +0200
-Message-ID: <877d1q4o7n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: memalloc: use __GFP_RETRY_MAYFAIL for DMA mem allocs
-In-Reply-To: <20220923153501.3326041-1-kai.vehmanen@linux.intel.com>
-References: <20220923153501.3326041-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48330F8011C
+ for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 09:44:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48330F8011C
+Received: from dggpeml500021.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MbZQW4DfgzHtqV;
+ Mon, 26 Sep 2022 15:39:31 +0800 (CST)
+Received: from dggpeml500008.china.huawei.com (7.185.36.147) by
+ dggpeml500021.china.huawei.com (7.185.36.21) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 26 Sep 2022 15:44:17 +0800
+Received: from huawei.com (10.67.175.34) by dggpeml500008.china.huawei.com
+ (7.185.36.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 26 Sep
+ 2022 15:44:17 +0800
+From: Ren Zhijie <renzhijie2@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <ckeepax@opensource.cirrus.com>,
+ <krzysztof.kozlowski@linaro.org>, <tanureal@opensource.cirrus.com>,
+ <james.schulman@cirrus.com>, <cy_huang@richtek.com>, <flatmax@flatmax.com>,
+ <pierre-louis.bossart@linux.intel.com>, <lukas.bulwahn@gmail.com>,
+ <srinivas.kandagatla@linaro.org>
+Subject: [PATCH -next] ASoC: codecs: wcd934x: Fix Kconfig dependency
+Date: Mon, 26 Sep 2022 07:40:42 +0000
+Message-ID: <20220926074042.13297-1-renzhijie2@huawei.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.67.175.34]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpeml500008.china.huawei.com (7.185.36.147)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, Ren Zhijie <renzhijie2@huawei.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,47 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Sep 2022 17:35:01 +0200,
-Kai Vehmanen wrote:
-> 
-> Use __GFP_RETRY_MAYFAIL instead of __GFP__NORETRY in
-> snd_dma_dev_alloc(), snd_dma_wc_alloc() and friends, to allocate pages
-> for device memory. The MAYFAIL flag retains the semantics of not
-> triggering the OOM killer, but lowers the risk of alloc failure.
-> 
-> MAYFAIL flag was added in commit dcda9b04713c3 ("mm, tree wide: replace
-> __GFP_REPEAT by __GFP_RETRY_MAYFAIL with more useful semantic").
-> 
-> This change addresses recurring failures with SOF audio driver in test
-> cases where a system suspend-resume stress test is run, combined with an
-> active high memory-load use-case. The failure typically shows up as:
-> 
-> [ 379.480229] sof-audio-pci-intel-tgl 0000:00:1f.3: booting DSP firmware
-> [ 379.484803] sof-audio-pci-intel-tgl 0000:00:1f.3: error: memory alloc failed: -12
-> [ 379.484810] sof-audio-pci-intel-tgl 0000:00:1f.3: error: dma prepare for ICCMAX stream failed
-> 
-> Multiple fixes to reduce the memory usage of DSP boot have been
-> identified in SOF driver, but even with those fixes, debug on affected
-> systems has shown that even a single page alloc may fail with
-> __GFP_NORETRY. When this occurs, system is under significant load on
-> physical memory, but a lot of reclaimable pages are available, so the
-> system has not run out of memory. With __GFP_RETRY_MAYFAIL, the errors
-> are not hit in these stress tests.
-> 
-> The alloc failure is severe as audio capability is completely lost if
-> alloc failure is hit at system resume.
-> 
-> An alternative solution was considered where the resources for DSP boot
-> would be kept allocated until driver is unbound. This would avoid the
-> allocation failure, but consume memory that is only needed temporarily
-> at probe and resume time. It seems better to not hang on to the memory,
-> but rather work a bit harder for allocating the pages at resume.
-> 
-> BugLink: https://github.com/thesofproject/linux/issues/3844
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+If CONFIG_REGMAP_SLIMBUS is not set,
+make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu-,
+will be failed, like this:
 
-Thanks, applied.
+sound/soc/codecs/wcd934x.o: In function `wcd934x_codec_probe':
+wcd934x.c:(.text+0x3310): undefined reference to `__regmap_init_slimbus'
+make: *** [vmlinux] Error 1
 
+Add select REGMAP_SLIMBUS to config SND_SOC_WCD934X.
 
-Takashi
+Fixes: a61f3b4f476e ("ASoC: wcd934x: add support to wcd9340/wcd9341 codec")
+Signed-off-by: Ren Zhijie <renzhijie2@huawei.com>
+---
+ sound/soc/codecs/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 444cee829a26..e3b90c425faf 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1757,6 +1757,7 @@ config SND_SOC_WCD934X
+ 	tristate "WCD9340/WCD9341 Codec"
+ 	depends on COMMON_CLK
+ 	depends on SLIMBUS
++	select REGMAP_SLIMBUS
+ 	select SND_SOC_WCD_MBHC
+ 	depends on MFD_WCD934X || COMPILE_TEST
+ 	help
+-- 
+2.17.1
+

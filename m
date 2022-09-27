@@ -2,88 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2548C5EC753
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 17:13:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B05C5ECC63
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 20:49:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6FA084B;
-	Tue, 27 Sep 2022 17:12:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FA084B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F454850;
+	Tue, 27 Sep 2022 20:48:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F454850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664291581;
-	bh=11j1DWcYQenLQKAJfHYCScqK58cZ+h+RiBiDWp3CRV8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=j4ghEkb6Am2N9UcLOpTwMdoas1gIQoA5iYOVYpxr+MZEN20ltb4KSKtmiSCspmxc0
-	 P9DfzuiPoYM1Unk4UoTasqwONKtuEf/S3v71I2W9thooRIm7rNgCCONEmnZEohJO4J
-	 g5gL8fc0TWKIymp5fvjbLvLarfma5LvifYyALFlk=
+	s=default; t=1664304582;
+	bh=DdiNQ6ubKx38dAQV29xM1ugIafN4xWawCAnztFVD/6c=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iGXaaG4DX+Rp2Lm3D3Sid9sAfum964L5W0dvoQa+sXLxGxADfrOg7mkdFA3X0rldY
+	 i7umLkNXpRWaMk1kpRzzKUYW4Nu0w/wvK7jaYGlmVcdQOOedgo0oCENDXz6EflyTfQ
+	 ebnWwugbeV9YBE21C/BMYHHCYYJf8j04dI14Pf1U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEE7BF80496;
-	Tue, 27 Sep 2022 17:12:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91659F80166;
+	Tue, 27 Sep 2022 20:48:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F330F8025E; Tue, 27 Sep 2022 17:12:03 +0200 (CEST)
+ id 1C9DFF8025E; Tue, 27 Sep 2022 20:48:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF472F80166
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 20:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF472F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gjT4Xcce"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C06CF800AA
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 17:11:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C06CF800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="GM3RIT9O"
-X-UUID: 5123190f57b04aac8915a50865dc35ab-20220927
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
- bh=9tjx5t8k5Luxw2O54U9tC1FC5+hKWB1/DzXaoINrLXE=; 
- b=GM3RIT9OpYSuKnPaqG9AWeo7d2qcRYKpeX4zfRzCi5JhE2D+XFKiHO2uYc8Xc1V5+2beI8LoEsXXGzqxufq4ivMffKvWcJ/W9SNiPDehAu8J9HOiJ4H/6kbdQ1LIGgcTeGAweF1gGbCf7bwhhIzzVeybFNYRh1oCgft6XJ+/NfU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.11, REQID:ed2a5966-de9d-4aa5-a0ce-70977a3e2cd6, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:95
-X-CID-INFO: VERSION:1.1.11, REQID:ed2a5966-de9d-4aa5-a0ce-70977a3e2cd6, IP:0,
- URL
- :0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
- :quarantine,TS:95
-X-CID-META: VersionHash:39a5ff1, CLOUDID:f22d40a3-dc04-435c-b19b-71e131a5fc35,
- B
- ulkID:220927231145B3R6UNXY,BulkQuantity:0,Recheck:0,SF:38|28|17|19|48|823|
- 824,TC:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,
- COL:0
-X-UUID: 5123190f57b04aac8915a50865dc35ab-20220927
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 474841654; Tue, 27 Sep 2022 23:11:45 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Tue, 27 Sep 2022 23:11:44 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.792.15 via Frontend Transport; Tue, 27 Sep 2022 23:11:44 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
-Subject: [PATCH] ASoC: mediatek: mt8195: update audio tuner settings
-Date: Tue, 27 Sep 2022 23:11:41 +0800
-Message-ID: <20220927151141.11846-1-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8184A61A01;
+ Tue, 27 Sep 2022 18:48:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FEFBC433C1;
+ Tue, 27 Sep 2022 18:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664304518;
+ bh=DdiNQ6ubKx38dAQV29xM1ugIafN4xWawCAnztFVD/6c=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=gjT4XcceYv7AuT1HcN8uPqr079VEGiZhNM+h8ESBi0D9G6LetQhKR2E+CBjvJAxus
+ FiADT+J7pbBms5Kr2ColQhjbpwtdWbDIZcoS+P/8Izk+/bPqviikf91G16r2OmO/LW
+ F4W1OJWgL15MNmMvj2Laf5ga7yYljhTuUs9bd3iW5S/vn5VrGMCiTglOFijmTcnLgL
+ U8smJwZTMyp7KPJWMFTN3hMh+ouWHiedAUwTN7vr5aveZMtoRz3dI3TyxsMXGYhrfT
+ M6NekLtUHGE5kGLcpBmENYtw6gIfNVrll/fg0hqjXQZxioWLLogTukx2PjCqPJqtZR
+ RhLs601fconGQ==
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, tiwai@suse.com, arnaud.pouliquen@foss.st.com,
+ lgirdwood@gmail.com, mcoquelin.stm32@gmail.com, 
+ Zhang Qilong <zhangqilong3@huawei.com>, olivier.moysan@foss.st.com
+In-Reply-To: <20220927142640.64647-1-zhangqilong3@huawei.com>
+References: <20220927142640.64647-1-zhangqilong3@huawei.com>
+Subject: Re: [PATCH v3 -next] ASoC: stm: Fix PM disable depth imbalance in
+ stm32_i2s_probe
+Message-Id: <166430451684.508490.13326782067739160405.b4-ty@kernel.org>
+Date: Tue, 27 Sep 2022 19:48:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,43 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Audio tuner is used to handle clock drift between 26M and APLL domain.
+On Tue, 27 Sep 2022 22:26:40 +0800, Zhang Qilong wrote:
+> The pm_runtime_enable will increase power disable depth. Thus
+> a pairing decrement is needed on the error handling path to
+> keep it balanced according to context. We fix it by moving
+> pm_runtime_enable to the endding of stm32_i2s_probe.
+> 
+> Fixes:32a956a1fadf ("ASoC: stm32: i2s: add pm_runtime support")
+> 
+> [...]
 
-It's expected when abs(chg_cnt) equals to upper bound, tuner updates pcw
-setting automatically, and then abs(chg_cnt) decreases.
-In the stress test, we found abs(chg_cnt) possibly equals to 2 at the
-unexpected timing. This results in wrong pcw updating.
-Finally, abs(chg_cnt) will always be larger than upper bound,
+Applied to
 
-As a result, we update the upper bound to 3 to handle the corner case.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- sound/soc/mediatek/mt8195/mt8195-afe-clk.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks!
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-index 2ee3872c83c3..9ca2cb8c8a9c 100644
---- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-@@ -117,7 +117,7 @@ static struct mt8195_afe_tuner_cfg mt8195_afe_tuner_cfgs[MT8195_AUD_PLL_NUM] = {
- 		.upper_bound_reg = AFE_APLL_TUNER_CFG,
- 		.upper_bound_shift = 8,
- 		.upper_bound_maskbit = 0xff,
--		.upper_bound_default = 0x2,
-+		.upper_bound_default = 0x3,
- 	},
- 	[MT8195_AUD_PLL2] = {
- 		.id = MT8195_AUD_PLL2,
-@@ -135,7 +135,7 @@ static struct mt8195_afe_tuner_cfg mt8195_afe_tuner_cfgs[MT8195_AUD_PLL_NUM] = {
- 		.upper_bound_reg = AFE_APLL_TUNER_CFG1,
- 		.upper_bound_shift = 8,
- 		.upper_bound_maskbit = 0xff,
--		.upper_bound_default = 0x2,
-+		.upper_bound_default = 0x3,
- 	},
- 	[MT8195_AUD_PLL3] = {
- 		.id = MT8195_AUD_PLL3,
--- 
-2.18.0
+[1/1] ASoC: stm: Fix PM disable depth imbalance in stm32_i2s_probe
+      commit: 93618e5e05a3ce4aa6750268c5025bdb4cb7dc6e
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

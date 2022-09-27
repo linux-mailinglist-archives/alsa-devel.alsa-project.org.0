@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24885EBAE5
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 08:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF815EBB07
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 08:56:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75801850;
-	Tue, 27 Sep 2022 08:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75801850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3893F1E0;
+	Tue, 27 Sep 2022 08:55:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3893F1E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664261067;
-	bh=9SQAififnj6C4dGKA9hacVzA/rzzG2vVuOw/kzIdpQA=;
+	s=default; t=1664261796;
+	bh=/l0Vyv7fIFmvrubtVXCnV0bTxTiKbz5vLPuZPQNTkPY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IscdEVxxO7T8Xjzd5YLwY9hqCIUTKCinS6GDeRam4E1mP6QPstz7fJxlo4+ODkQYu
-	 UyRc6tiPuZvOuZrbP29qZleTIIOznzVGsq0fqmd6WKEl6GQtZ+K2K/IKOlt8Zz3DOM
-	 5GheMnuGuLwHqk5WR2DHTB26sA6PLTLe0xVApvMA=
+	b=ItxUGsXH97ayoFqGSA0j3EesA/HdY2UrJvoTZE/HSkRJpNefdaDM8LL/nvU5lVSPe
+	 iL739dwrj4H24E5DmDja2FRD9adQNw1iDin/DxD67IosUflA2AFKT2jmvA7fbaXTXG
+	 jB+lLmfob80IYZrud4JeICYNs0f/JqVey1ggVsGE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 604BAF80166;
-	Tue, 27 Sep 2022 08:43:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94961F800AA;
+	Tue, 27 Sep 2022 08:55:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2AA1F804D9; Tue, 27 Sep 2022 08:43:30 +0200 (CEST)
+ id 4E4C4F8025E; Tue, 27 Sep 2022 08:55:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6BF2F80496
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 08:43:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6BF2F80496
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F05EF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 08:55:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F05EF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zIpWWayT"; 
+ header.b="ZAT14Rbe"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4Dw8zTir"
+ header.b="ObySHvL4"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8696321E7D;
- Tue, 27 Sep 2022 06:43:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AA7CF1FB93;
+ Tue, 27 Sep 2022 06:55:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664261008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664261731; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5ZxpDsEb1+mKewCmEANaAdXtVhFN/dYIiQ5noUVg3Qw=;
- b=zIpWWayTfGeFuEXjh5v0hmcstGcxFH4k8OaKlCZBICZZYJd/eD8AGXOS6pw4SK2HSF9FRK
- Nf80KahTmA2d4Zz0fLBmaXUFF5vPIzt7nqiwzk2/l1EaEhl609ZPpbMgfujG/g0EIq3RfC
- hgSjyYyyYTZXvAcOWDrV1S8y4nxRROM=
+ bh=isoqgtxwwGPdJR7HTp/w4G+TxaQDh8n/xQARW+V6KkE=;
+ b=ZAT14RbelhAHhtymWngIxMoC++W771o4nfHMSJdQ64JdSgZLOF6MCLBtam0qebQDiEXPZO
+ qR/ZWEdZrfJtAtG5qSj5eUK3bUtkufLE04N1A0AnMnTSPvOSrKLBroB+DMAtaClW3YN8t8
+ aDNWermqX+wYkp616Xo+B5mUPedJeNc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664261008;
+ s=susede2_ed25519; t=1664261731;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5ZxpDsEb1+mKewCmEANaAdXtVhFN/dYIiQ5noUVg3Qw=;
- b=4Dw8zTirRND7Dp24bd4PJfLEvriglIzrB8FK8WTdcXB3ho7QUE4nRR090otMfja6INH6M7
- qkHdGni1iD+oZeDA==
+ bh=isoqgtxwwGPdJR7HTp/w4G+TxaQDh8n/xQARW+V6KkE=;
+ b=ObySHvL4GK01rJSNt36wF5PVI/szzla5G6nGC/dKfxq3N6OcigT+iMpJfQiL10HvGl3oHI
+ cQgx/K3YKTMjY/Cg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 52949139BE;
- Tue, 27 Sep 2022 06:43:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E171139BE;
+ Tue, 27 Sep 2022 06:55:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id D0hmE5CbMmPgZQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 06:43:28 +0000
-Date: Tue, 27 Sep 2022 08:43:27 +0200
-Message-ID: <87edvxgvw0.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id p+0qFmOeMmMiawAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 06:55:31 +0000
+Date: Tue, 27 Sep 2022 08:55:30 +0200
+Message-ID: <87bkr1gvbx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] headers: Remove some left-over license text in
- include/uapi/sound/
-In-Reply-To: <203c1db92c470925f31e361f6e7d180812501f2e.1664112023.git.christophe.jaillet@wanadoo.fr>
-References: <203c1db92c470925f31e361f6e7d180812501f2e.1664112023.git.christophe.jaillet@wanadoo.fr>
+To: Eugeniu Rosca <erosca@de.adit-jv.com>
+Subject: Re: [PATCH] ALSA: dmaengine: increment buffer pointer atomically
+In-Reply-To: <1664211493-11789-1-git-send-email-erosca@de.adit-jv.com>
+References: <1664211493-11789-1-git-send-email-erosca@de.adit-jv.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>, Jiada Wang <jiada_wang@mentor.com>,
  linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>
+ Dean Jenkins <Dean_Jenkins@mentor.com>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Andreas Pape <apape@de.adit-jv.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,18 +103,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 25 Sep 2022 15:20:46 +0200,
-Christophe JAILLET wrote:
+On Mon, 26 Sep 2022 18:58:13 +0200,
+Eugeniu Rosca wrote:
 > 
-> There is already a SPDX-License-Identifier tag, so the corresponding
-> license text can be removed.
+> From: Andreas Pape <apape@de.adit-jv.com>
 > 
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
-> Note: include/uapi/sound/compress_params.h has a slight modification in the
-> wording.
+> Setting pointer and afterwards checking for wraparound leads
+> to the possibility of returning the inconsistent pointer position.
+> 
+> This patch increments buffer pointer atomically to avoid this issue.
+> 
+> Fixes: e7f73a1613567a ("ASoC: Add dmaengine PCM helper functions")
+> Signed-off-by: Andreas Pape <apape@de.adit-jv.com>
+> Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
 
-Thanks, applied now (with the subject prefix change).
+Thanks, applied.
 
 
 Takashi

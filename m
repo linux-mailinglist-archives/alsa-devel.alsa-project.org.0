@@ -2,92 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6715EB88B
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 05:17:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E08D15EB907
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 05:59:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9891822;
-	Tue, 27 Sep 2022 05:16:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9891822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A1DF826;
+	Tue, 27 Sep 2022 05:58:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A1DF826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664248645;
-	bh=9Ee6uuUkVHd7TcoLu0Fw/ihLN0YlMN/TdTxx9kkN9oI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1664251145;
+	bh=TGCYluSRz4/r9XWNJajgm1n0xeMhywoC9xzthlsoP+Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SrMi+fA4bdXiukITKWVe8Blv3d180tg40PlB4ybFjdW6AxSEfTDWzvbrM6mZuDLNI
-	 Yizs4Do6VkPE51q81qXvyGR6oNcqppstnaLxYq19+kadW6cO34LCXF9cWYueJ/WXsw
-	 OdVQ+t289AIdoj3GDUlzChdyEYjrINFP7kg33/KA=
+	b=HaePcIpFNvs4fEYZ1LM8grt4G4Dfryo53DYz4nfnJexy9rcVMJdM6Zr4pIR9iau31
+	 p6ZL6IeIEyV/NpprJIF4C5s56ybQQkBkGTvU0XXL4oBa2eqUa/apKQO85TFyct93qR
+	 vDEerPZXrxNZ36sqPaDT8CDhAmAsvII4y1PJf2tE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51A9BF80496;
-	Tue, 27 Sep 2022 05:16:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E7E4F80496;
+	Tue, 27 Sep 2022 05:58:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 405B0F8025E; Tue, 27 Sep 2022 05:16:27 +0200 (CEST)
+ id 4D1D2F8025E; Tue, 27 Sep 2022 05:58:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-m11879.qiye.163.com (mail-m11879.qiye.163.com
+ [115.236.118.79])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2814F8011C
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 05:16:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2814F8011C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Ys70lYwi"
-Received: by mail-pg1-x52b.google.com with SMTP id r62so4417490pgr.12
- for <alsa-devel@alsa-project.org>; Mon, 26 Sep 2022 20:16:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=cQ6zVkpqugLa9891w98RVMCjnbNxIhz4C6HrHMJZK8I=;
- b=Ys70lYwi0UuItAyKdztaa/QvN/zNeHvK+DYTxNBDjsJxCxH44M11cP9jPnxzHQPNjb
- igvguKL8YyFJNtFEBrZ5W6daU3oui1F9DXIVaw4aE/szAfv+15cUzVL5WS2GxWMW7Yt8
- IPCeEYWTOOuxdVg8giuH8nTC6Yhi4Ev8pRtpc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=cQ6zVkpqugLa9891w98RVMCjnbNxIhz4C6HrHMJZK8I=;
- b=Z01MwBFcfkMWMQaQU4zt4PxFbkFlZ8/CKWa3ri2+N/SGMgaexrEVLpTGBx/ClhSKmT
- Ivlp00N0ZMt6N7KLJAkSoBvRU0RRHZEP2948q3rqBESKzL9/Xtev10YEGjp1gpbLr9Q3
- hJ8zsqWQmK3dpxfAXgfLlAudx+plTBVfYtt6S/Imb1v133xkaafdexyqCpbnexrsb5WV
- M/lorNWPucZskAe/RYUyD2wAMUi6XcV1MO3SmR0Jjwk0IFNy61Mgr7FwXlthD0aWQ8I7
- vAPBLxnUSabUtcKhS2JLIlHsbgbg3xr6FiE9FcmNiYtRAOrBNOiXv0KzIo2gSdXEW1Vy
- Ww7g==
-X-Gm-Message-State: ACrzQf1QogOQtnqxWybLoMuvcQFSY+CN1AEHxrcqF/DvJA3HqF0Oqvgc
- ZbfVt7VDDDV+2h12iaZPjQ5znpfbmVyt7w==
-X-Google-Smtp-Source: AMsMyM4aPQZJmufIlgB90yFaVfoE50JmAVMSvaBvUb81fg56HsalOTyKUNoRqQO6/X3VOyQ7j9y52w==
-X-Received: by 2002:a05:6a00:c89:b0:543:edb9:9dbc with SMTP id
- a9-20020a056a000c8900b00543edb99dbcmr27379913pfv.50.1664248577744; 
- Mon, 26 Sep 2022 20:16:17 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- 82-20020a621955000000b0053812f35a41sm269573pfz.194.2022.09.26.20.16.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Sep 2022 20:16:17 -0700 (PDT)
-Date: Mon, 26 Sep 2022 20:16:16 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH][next] ASoC: SOF: control.h: Replace zero-length array
- with DECLARE_FLEX_ARRAY() helper
-Message-ID: <202209262009.D1377D0C3@keescook>
-References: <YzIcZ11k8RiQtS2T@work> <YzIj6tdtDe9YrX+I@sirena.org.uk>
- <81af0106-a732-ce45-bb1c-c45db9e1aeb9@embeddedor.com>
- <YzIqNqhTIuaWZrOl@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 816FBF80166
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 05:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 816FBF80166
+Received: from [172.16.12.74] (unknown [58.22.7.114])
+ by mail-m11879.qiye.163.com (Hmail) with ESMTPA id 95CC468036D;
+ Tue, 27 Sep 2022 11:57:53 +0800 (CST)
+Message-ID: <678dcfcf-83f0-5969-9b55-79065c042116@rock-chips.com>
+Date: Tue, 27 Sep 2022 11:57:53 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YzIqNqhTIuaWZrOl@sirena.org.uk>
-Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-hardening@vger.kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH 1/1] ASoC: soc-dai: export some symbols
+To: Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
+ <20220920034545.2820888-2-jason.zhu@rock-chips.com>
+ <Yym2aURe2+pA3ocn@sirena.org.uk>
+ <dfeac54a-a264-835a-f155-90eb8f093314@rock-chips.com>
+ <Yy2s2PA/C1ngeb//@sirena.org.uk>
+ <155e10c4-7b08-f1ec-9f28-42a3d982740f@rock-chips.com>
+ <1dc563bf-feda-e11a-c159-91ae0529a36b@linux.intel.com>
+ <YzHGPuajS54y1SV6@sirena.org.uk>
+From: Jason Zhu <jason.zhu@rock-chips.com>
+In-Reply-To: <YzHGPuajS54y1SV6@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFJSktLSjdXWS1ZQUlXWQ8JGhUIEh9ZQVlCSk8YVh1IHU1ISB1JSkxNSFUTARMWGhIXJB
+ QOD1lXWRgSC1lBWU5DVUlJVUxVSkpPWVdZFhoPEhUdFFlBWU9LSFVKSktISkxVSktLVUtZBg++
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6PRg6SQw4SD0fUQgDNQ88Pz8e
+ OS0KCgFVSlVKTU1PSU5KS0xPSElOVTMWGhIXVREaCBQVVQETDjsJFBgQVhgTEgsIVRgUFkVZV1kS
+ C1lBWU5DVUlJVUxVSkpPWVdZCAFZQU9CSkI3Bg++
+X-HM-Tid: 0a837d1815522eb5kusn95cc468036d
+Cc: sugar.zhang@rock-chips.com, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,63 +85,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 26, 2022 at 11:39:50PM +0100, Mark Brown wrote:
-> On Mon, Sep 26, 2022 at 05:27:41PM -0500, Gustavo A. R. Silva wrote:
-> > On 9/26/22 17:12, Mark Brown wrote:
-> > > On Mon, Sep 26, 2022 at 04:40:55PM -0500, Gustavo A. R. Silva wrote:
-> 
-> > > As documented in submitting-patches.rst please send patches to the
-> > > maintainers for the code you would like to change.  The normal kernel
-> > > workflow is that people apply patches from their inboxes, if they aren't
-> > > copied they are likely to not see the patch at all and it is much more
-> > > difficult to apply patches.
-> 
-> > That's exactly what I intended to do:
-> > 
-> > $ scripts/get_maintainer.pl --nokeywords --nogit --nogit-fallback include/sound/sof/control.h
-> > Jaroslav Kysela <perex@perex.cz> (maintainer:SOUND)
-> > Takashi Iwai <tiwai@suse.com> (maintainer:SOUND)
-> > alsa-devel@alsa-project.org (moderated list:SOUND)
-> > linux-kernel@vger.kernel.org (open list)
-> > 
-> > Did you see anything wrong with this or something...?
-> 
-> Yes, you should've also included me and the SOF maintainers.  It looks
-> like the MAINTAINERS patterns aren't entirely up to date there
-> unfortunately.  Though that said given that you'd picked up on the
-> subject line I'd have expected the signoffs on the commits to also be
-> pointing at the right tree as well.
 
-Subject line heuristics look at X-many commits, but it looks like
-get_maintainers stops looking at git history by default after 1 year,
-which seems kind of odd. I had to work at it to get it to emit your
-name. :)
+在 2022/9/26 23:33, Mark Brown 写道:
+> On Mon, Sep 26, 2022 at 09:52:34AM +0200, Pierre-Louis Bossart wrote:
+>> On 9/26/22 03:34, Jason Zhu wrote:
+>>> 在 2022/9/23 20:55, Mark Brown 写道:
+>>>>> The data can not be lost in this process. So we attach VAD & PDM
+>>>>> in the same card, then close the card and wake up VAD & PDM again
+>>>>> when the system is goto sleep. Like these code:
+>>>> This sounds like a very normal thing with a standard audio stream -
+>>>> other devices have similar VAD stuff without needing to open code access
+>>>> to the PCM operations?
+>>> At present, only VAD is handled in this way by Rockchip.
+> The point here is that other non-Rockchip devices do similar sounding
+> things?
 
-scripts/get_maintainer.pl --git --git-since=3-years-ago
+No.  Usually, the vad is integrated in codec, like rt5677, and is linked 
+with DSP to
 
-Seems like it's worth getting the MAINTAINERS regex updated? Is this
-right?
+handle its data. If DSP detects useful sound, send an irq to system to 
+wakeup and
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a34ec41fbf7a..2560dded0e3e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19261,6 +19261,7 @@ F:	Documentation/devicetree/bindings/sound/
- F:	Documentation/sound/soc/
- F:	include/dt-bindings/sound/
- F:	include/sound/soc*
-+F:	include/sound/sof/
- F:	sound/soc/
- 
- SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS
-@@ -19275,6 +19276,7 @@ L:	sound-open-firmware@alsa-project.org (moderated for non-subscribers)
- S:	Supported
- W:	https://github.com/thesofproject/linux/
- F:	sound/soc/sof/
-+F:	include/sound/sof/
- 
- SOUNDWIRE SUBSYSTEM
- M:	Vinod Koul <vkoul@kernel.org>
+record sound.  Others detect and analysis sound by VAD itself, like 
+K32W041A.
 
--- 
-Kees Cook
+>>>> Generally things just continue to stream the voice data through the same
+>>>> VAD stream IIRC - switching just adds complexity here, you don't have to
+>>>> deal with joining the VAD and regular streams up for one thing.
+>>> Yes, this looks complicated. But our chip's sram which is assigned to VAD
+>>>
+>>> maybe used by other devices when the system is alive.  So we have to copy
+>>>
+>>> sound data in sram firstly, then use the DDR(SDRAM) to record sound data.
+>> There are other devices that requires a copy of the history buffer from
+>> one PCM device and a software stitching with the real-time data coming
+>> from another PCM device. It's not ideal but not uncommon either, even
+>> for upcoming SDCA devices, combining data from 2 PCM devices will be an
+>> allowed option (with additional control information to help with the
+>> stitching).
+> If this is something that's not uncommon that sounds like an even
+> stronger reason for not just randomly exporting the symbols and open
+> coding things in individual drivers outside of framework control.  What
+> are these other use cases, or is it other instances of the same thing?
+
+Maybe in this case: One PDM is used to record sound, and there is two way
+
+to move data. Use the VAD to move data to sram when system is sleep and
+
+use DMA to move data when sytem is alive. If we seperate this in two audio
+
+streams, we close the "PDM + VAD" audio stream firstly when system is alive
+
+and open "PDM + DMA" audio stream. This process maybe take long time
+
+that PDM FIFO will be full and lost some data. But we hope that data 
+will not
+
+be lost in the whole proces. So these must be done in one audio stream.
+
+> TBH this sounds like at least partly a userspace problem rather than a
+> kernel one, as with other things that tie multiple audio streams
+> together.
+
+Yes, userspace can tie multiple audio stream together to avoid doing
+
+complicated things in kernel. This is good method!
+

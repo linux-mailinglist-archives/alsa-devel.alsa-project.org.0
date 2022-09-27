@@ -2,85 +2,191 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8128B5EBBB3
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 09:38:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAF0D5EBBFC
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 09:51:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2739086E;
-	Tue, 27 Sep 2022 09:37:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2739086E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 433D782B;
+	Tue, 27 Sep 2022 09:50:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 433D782B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664264316;
-	bh=pX+zNRfLn5le6aSKqq4PcNUTp9fg1Q7IQ0BbM+hchz8=;
+	s=default; t=1664265088;
+	bh=kIS6FbQp4ppqvxhzyDElhxreQOQpl2dqXD3qUtFqwmo=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VCA64kjOyEiL6lO42fRG8ZzIlUCmMue4GOdbe8nG5SdjHX+QgYcu8SXAHfHMnQggM
-	 POhoawE633hsDXMPplnt54ImX8W0mYeK+rqG9gu+Ek0IZrgeD4xDiO8v5NtBpblhdJ
-	 QnzUFZuScqTw5EaT8Oz+UfH9n4WuHIsM2QSA+t8A=
+	b=DO8/M51pMJrHtsvXmFh6rnlkN2EV2UfJepoksVgol6icrIOP2W1MG32mlb5qynIMZ
+	 rynEjMkao9RwfvvPhpQA+rOxEnwOQqgzhelFMakF6zYf44DHRqIo7j1zQ/9S+ay4Rs
+	 g3nRGZ1OPi9o6qIXXX6RUXfi0i4z9iFXE7fjrxSU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D4F6F80496;
-	Tue, 27 Sep 2022 09:37:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A17DFF800AA;
+	Tue, 27 Sep 2022 09:50:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3BC8F8025E; Tue, 27 Sep 2022 09:37:37 +0200 (CEST)
+ id E345EF8025E; Tue, 27 Sep 2022 09:50:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F02EF8011C
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 09:37:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F02EF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B21DFF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 09:50:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B21DFF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="eNBjaDl5"
+ header.b="J9CQc0NQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664264252; x=1695800252;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=pX+zNRfLn5le6aSKqq4PcNUTp9fg1Q7IQ0BbM+hchz8=;
- b=eNBjaDl5z1Ku38ClXZWB/o5CVdJ39mBqN64AJa590hT9wDdaidf2/EJK
- HH+pHcaEex+PwG0Cc649n35QVk8xP9hkpBoZZUyVyYE3Cpl4nyQJRQxZE
- pgNri2mm6gWZjgHc8LmO0gq0lb+HNLgBQxNChVqjZ1lTiJLBR16DQ16b6
- HqoZeX5TCj8s0loHe6QEe6xSbfYfJbPa50SIp40wM2J7xGHlmosEyg5EL
- 42yBBlqeDoKCOTmb12MlrQ2KBIzQrefmKRFBsj7mNsP4KMHXyH2Sc27fb
- 4RfuLblrK8RD8IxSRsZwcVs/Y+phJaGOkkvgFwKQZTX0Jw+sA3aDh8PXw w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="284374728"
-X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="284374728"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 00:37:17 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="599083965"
-X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="599083965"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.206])
- ([10.99.249.206])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 00:37:15 -0700
-Message-ID: <677f4f9d-9224-b2d9-1574-f64985fcedbc@linux.intel.com>
-Date: Tue, 27 Sep 2022 09:37:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH][next] ASoC: uapi: Replace zero-length arrays with
- __DECLARE_FLEX_ARRAY() helper
+ t=1664265024; x=1695801024;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=kIS6FbQp4ppqvxhzyDElhxreQOQpl2dqXD3qUtFqwmo=;
+ b=J9CQc0NQQHxmbmXj59xe5nYwDrWMQ6uAnR7iMcOn2ydQmSl1McwPkWVi
+ inHZOaH36CvYPWiY/7B869evTBWbJNeEgT1A90QcGGt6GxxiIyIg42/pI
+ KMK+E3VXMBjgJoDTm2jpirAO9BsKwKJSsJ4S5XUzKkrzn9KBPOjYB3ctL
+ dPwrmyIMmCvN62dqD3UVYnDKllUAg7zXt3V3GmZd5Sgmk2GGRBXPrvljb
+ ZwyTEVE/beOsBW0zBH2KmTZq1tpBP18wEctOV1SC1Lg1FHJCwbmzTq8c2
+ nqB80CkkiCNZiAumglinb0behjlztiNxETP3/8RNOtAJ6+fZW3T5PljnB w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="301228777"
+X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="301228777"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2022 00:50:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="746954257"
+X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="746954257"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga004.jf.intel.com with ESMTP; 27 Sep 2022 00:50:18 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 27 Sep 2022 00:50:18 -0700
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 27 Sep 2022 00:50:17 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Tue, 27 Sep 2022 00:50:17 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.49) by
+ edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Tue, 27 Sep 2022 00:50:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j3BqyZBKkD0TtQ55PD/N5FgJFXEGhLs4t7/leV2Lz870Hc7ZtF/7gENJ5twuu6U73fg+p0kBZ2eIRk9YlttqloraiVE+6oBjZfCpgNiEN1oH3slmPL/NBR7HmZdDV5Bd+tpc/RccLsriOFDUM1mweqYp4egEj7SAbKQehy3GACTPWTvlG09ho5mTtTQk94ZlogTiyC9BjZTy/izBwQDGZC6zUxUiXevP+Ysu8iF3nV8ZAe2QHfnTodyk4tiA+bg7nVKewqUmozxPGpe2XbxyCHssuvu6t0GwdYibOktTPb67eXEOi4O3JTVvQ+4haKwcCCkYklt6XgUHaRHubfcFPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oIRzFYX7T30QA8lO4MRJUYZrjr+95UJ13DOQZFipfgs=;
+ b=ZloghzkB/XzhQ+OI2jVXu/EdM3GTvbc/Oe44nTfu3NJGvTF4b+KC2mT1tkR6GK1LD1tbl8xnWjeXLqUtMOe3mY94VoJXwahdAbcbQSw8lX+3TKXfiUaHVxM90vTQnucJhIsZwF/Hx5fB6QzEz7pHvy6D8H61BY23dIzyLcKefEq3CJXtjexIsEUHeUE6vXG7+HsCShP/Btx5yRYjm70piBw5/5YucqMZPdKGApzy4U4q0ND5KqP7vPyzPv4r2EEHyIJF17ODvASIiUZlXqT7AQNEw/v6YzJotkm6m+Rq09CSrj360Pf6ACbn5dezM4wShYFP8m3SUNcEg87mnOImhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ BN9PR11MB5557.namprd11.prod.outlook.com (2603:10b6:408:102::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26; Tue, 27 Sep
+ 2022 07:50:16 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::e6f0:5bc:111c:1068]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::e6f0:5bc:111c:1068%6]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
+ 07:50:16 +0000
+Message-ID: <2f5a510b-082a-60e2-5770-58be086b5fc8@intel.com>
+Date: Tue, 27 Sep 2022 09:50:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.2.1
+Subject: Re: [PATCH] ASoC: soc-pcm: fix fe and be race when accessing
+ substream->runtime
 Content-Language: en-US
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <YzIzUjUuJKf0mkKg@work>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <YzIzUjUuJKf0mkKg@work>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
+To: Eugeniu Rosca <erosca@de.adit-jv.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+References: <1664210154-11552-1-git-send-email-erosca@de.adit-jv.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <1664210154-11552-1-git-send-email-erosca@de.adit-jv.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0202CA0001.eurprd02.prod.outlook.com
+ (2603:10a6:203:69::11) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|BN9PR11MB5557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c2a8dec-4924-42c1-ba93-08daa05ceaa2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4MgnT/iMDXm8sGDg5Up6/zmgUTFYG0Mt0dRcosORVU2AyGtUXEIS4ELrhCsrl7v8URUTKvwuqO65yw7UhfLCbjxleKDi/adZwob+cPf6ShOMUjGn5ajEcvT2Ne8amHnH6oucQzkMN0Bd5YakfYDEGHgxnhm+9+3H8ufNoe8jHCM/yr/e5EH/M7B3k8Tk8xFohOdGR7GeIWttB+8qADHX70VMWacPp8i7Z095940YDlHQ2TOvUvFmFy6Ri0bwzORR9WpdYY/g+lE8lEP2C3NJSJDUX8o9QGkOM13vgkRJm46+zp9zlCG/2JQeWwTXWDBfaUpZVEHzQluTEIKedl0UNEDmbCfHKF71m5klr/oKSvd+3uo+uYCooK2/SG3Z5KDn63/QXhtTV9LlX7oO6VPM12XB5LVJGBDP75TjtXtJV5CK4ytJcYw0WnJLPyAtfbjPY8MjSGsBjFTtlOyvQbRqKfVuskr7LF2RUr8oIxi2dzrROlDaeeR2xm8WHdVJ6c4UIIh25EHwgXm9IUid5u8rhFIA812XnUuuZkNWCELwAfU8ObrWMhQgCLImGUCBxssMVk7SSS7WyJgGe29OZYbjSivSC7w6MRDRLgYBzZ9IFIfYzGAfatt7lEEijLTPjCZT9/fBUs+mk5OQUiXNio3sHoVP2lTPfmMwBuAF95itPK1oIS5kQS0LQGWSqGiWzZlpKOIz9vUJdLgNFaxp0F9vEHQEYnBr7ZU3cuu5iwPP4ZH4fpOgkVUtoorLio2Y39RCt+2CDjdgLrZ7+4nJ9UDLhkbpuOcHC1xHtF9necicVDE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(396003)(39860400002)(376002)(366004)(346002)(136003)(451199015)(31686004)(83380400001)(186003)(2616005)(38100700002)(82960400001)(44832011)(6486002)(6512007)(26005)(53546011)(6506007)(478600001)(6666004)(41300700001)(8936002)(66476007)(66556008)(66946007)(8676002)(4326008)(2906002)(7416002)(5660300002)(54906003)(110136005)(316002)(36756003)(86362001)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3hvTUFrOXJjYVh3d1dXUVc0N2JlSjNWc3p0Vm9GNXI5ekFKTkFHVWt0aVBY?=
+ =?utf-8?B?Q2UyTG9iT04xMkNIRWRhcWJTTHFzK0lPOUJ3N2hCNXZlTkhVTHF4Zi9PalNq?=
+ =?utf-8?B?YmoxQXE3c3BCT2FWYU90L0VmZmc0M2JQb3YvbVdKbjNGZjRkZGJVQ294c2dv?=
+ =?utf-8?B?VFpXMVlISklLRVp1YjZVRDlSYnlOM1NHVzN1MENxMGNweHJaTlU1N2FZMkpy?=
+ =?utf-8?B?UHVCQmRRMEZFdjhRUit4R2tGTnQ1eEpLeWpaSVNjZjFza1lNMEdlSk9NdDBY?=
+ =?utf-8?B?cFR0LzV4M3JSekZ3R043dHpBd3Y0bXhuekZnRFJ2WTFLZGVqcWtTc2lrRFJa?=
+ =?utf-8?B?VkJ3L3FYdWQxZ0d5aTZiMzZWTzlYTXFNVS9pZGRQZTBYV0NMWUo0VmYwV2Vj?=
+ =?utf-8?B?WDhlNDVkOGNocHR0by9vcGVUSHNCN0FrdSsrS3RYVDZjOElDSzdaVnlXeVdQ?=
+ =?utf-8?B?djV6WFJhVFhYYmJvdDdIUWRHdjlNaGQrU0NQNFhiOWNHa1RNbytpeDJHUE9P?=
+ =?utf-8?B?YWo1RkIyUnNzbjhON0xLSXJXTWhHc082L3c0QzBhRVNIaTFZVjh3MXV0bG45?=
+ =?utf-8?B?a2IwaHRVWVl1QVdHNWxVdmIxb0NEd3FIaGtkK0pBQkp4WnJPYWY4bEZGOXE1?=
+ =?utf-8?B?SUVScXJtR1ArVUQ3MWU4dVpMbjc2NmhDZFlLZWdTNmxiWVQyQVROdWdmNnpD?=
+ =?utf-8?B?WmVteEpRRHlZa2RRbzZGZHduR2IyT284K09JWmxsbnFMeHZrRzY4WG1iMjlm?=
+ =?utf-8?B?Z0NVTnNoRDRZL0VqejZsZnUzRXcvSkdHNFdDd3dBaENrV0EwRThNTWV4VjNJ?=
+ =?utf-8?B?WDdVS3J2WCsxRXZWSVZWTzNydnhoNWhwOU4raVlGMWUyZnpCektvbnZOd2o5?=
+ =?utf-8?B?MkZKSFJEdGt4a0VSMkY1YkhkYmRQZTJYcTJqNnR0amlpM2xKKzU2Vkt0eE42?=
+ =?utf-8?B?UG1zY2Z1TzBJd3NkK3lBRHNSaUMrVGJGVTZGTFltcGlUSmdGT1NNbnFJUEE1?=
+ =?utf-8?B?T0hSNkVYTDF5QXBBWU9iRlNpMEY0SlhaNGNOUml6K3RsSkJscXlNRjVPb1Fl?=
+ =?utf-8?B?UWJVeDZDMVB0V3FMQWVmc2VnRHRoSmNURGV3YUJLRnFiS1NPYjJhaFJ3d3dD?=
+ =?utf-8?B?MWlKWnVQVjlHUXR5Yi9odFl4WXVQeGJRVXlKV1YxYW53eEYzRXcyeWJsK1Qx?=
+ =?utf-8?B?MDNnZGpid3lUeGprUE5yWTNkM0Y4QjNhRFFFb2RvTmtJRk95dkFmQVNXYmNq?=
+ =?utf-8?B?UWpSSzB0c2hWbEUvZ2xSUWs3OU9jL2IzM2VKU0lBNElQQ0VRaVh3TlIycU1i?=
+ =?utf-8?B?b3ErbGpPell1YUM5T3ZHaHpUMmREWk1zZVo3dlhrbi9SblBpK0MxT002N21x?=
+ =?utf-8?B?Q3laaFVudGYzc2htT3NkWGo2ZUtyZTZySm5aSW5mQkViMUF0ZG9kNmpLS1BN?=
+ =?utf-8?B?Yktza0lsWWdSemV0aC9uZGF4azY3bUtBSzIxREJmY1Z6c2E5Qjk0SGltOWR6?=
+ =?utf-8?B?VXJsS2pmenk0NDdmNkJWait2bDh4UkdnclVWNUJ2MnQ1RU80NkFWd1Rrcjdu?=
+ =?utf-8?B?NHlmUyttdXBRMlFTeFg5R0dLK0xzZk1jTGE5QloweG8zOGpWYW9yMjUvNnZH?=
+ =?utf-8?B?blY1YUdSVGpLQWw4bS83VXp6VTdnK3hselBsQTVJZW5XOU8rc2VJV1prM28y?=
+ =?utf-8?B?ZEE1eFZkaXNSVDFDN3JjQlFBdjlvRHZKaDRFQUFaQmlza0ZQODl2NUhUSU92?=
+ =?utf-8?B?Myt1a3UxMHV5YzZ3SitLU0d6TG96Qmg3ZGFmaVh2VHdOUXU5MmVqRGMzTnJU?=
+ =?utf-8?B?RHpBSlJzSWNXZ2N6TzlFSTJPU09oYmxGVXpYb2t2SGdZdXRvSVZqUURNSG1s?=
+ =?utf-8?B?bUZvN3VsQ29kamNEclVITVp2NGJYOTlmRVI1MzcvYWZqbnNRbFN4bXhUcGJ0?=
+ =?utf-8?B?blYwSmMwQ1RDajZ5REJwektYU2xaOTJXNGNrT1IwcVhaaUZWcU1tbXJkcXZC?=
+ =?utf-8?B?eGNGUVRmb2JHNXR5MkdrWGJkd01VSFdTU0JlQVFENHNPYWUwcUZFS0J4ejI2?=
+ =?utf-8?B?S2VJZWRnZ2FnQ05MVUw3U3JoZEx2UnlmYWwrV2tKY0FQVkhPSE1GZFppK0cz?=
+ =?utf-8?B?dm91dENEc2pueThVbnhsSXBEang3V2RHYlIwMXJad2hMUkpwZmZWby9OeFFa?=
+ =?utf-8?B?RWc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c2a8dec-4924-42c1-ba93-08daa05ceaa2
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 07:50:16.1264 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: crBKLLtamOgVA0+VO0cJLYyoY6ZL5sQ0FnYiNUFr62kerxl+QEeZRR/miIvY+KWet0WERGBx7qXyZv7w3fJpsjY6W/HhZolQzv5oKG3buBw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5557
+X-OriginatorOrg: intel.com
+Cc: Yanmin Zhang <yanmin_zhang@linux.intel.com>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>, Jiada Wang <jiada_wang@mentor.com>,
+ Zhang Yanmin <yanmin.zhang@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ramesh Babu <ramesh.babu@intel.com>, Dean Jenkins <Dean_Jenkins@mentor.com>,
+ Ramesh Babu B <ramesh.babu.b@intel.com>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
+ xiao jin <jin.xiao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,38 +202,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/27/2022 1:18 AM, Gustavo A. R. Silva wrote:
-> Zero-length arrays are deprecated and we are moving towards adopting
-> C99 flexible-array members, instead. So, replace zero-length arrays
-> declarations in anonymous union with the new __DECLARE_FLEX_ARRAY()
-> helper macro.
+On 2022-09-26 6:35 PM, Eugeniu Rosca wrote:
+> From: xiao jin <jin.xiao@intel.com>
 > 
-> This helper allows for flexible-array members in unions.
+> After start of fe and be, fe might go to close without triggering
+> STOP, and substream->runtime is freed. However, be is still at
+> START state and its substream->runtime still points to the
+> freed runtime.
 > 
-> Link: https://github.com/KSPP/linux/issues/193
-> Link: https://github.com/KSPP/linux/issues/227
-> Link: https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> ---
->   include/uapi/sound/asoc.h | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+> Later on, FE is opened/started again, and triggers STOP.
+> snd_pcm_do_stop => dpcm_fe_dai_trigger
+>                  => dpcm_fe_dai_do_trigger
+>                  => dpcm_be_dai_trigger
+>                  => dpcm_do_trigger
+>                  => soc_pcm_trigger
+>                  => skl_platform_pcm_trigger
+> skl_platform_pcm_trigger accesses the freed old runtime data and
+> kernel panic.
 > 
-> diff --git a/include/uapi/sound/asoc.h b/include/uapi/sound/asoc.h
-> index 053949287ce8..dd8ad790fc15 100644
-> --- a/include/uapi/sound/asoc.h
-> +++ b/include/uapi/sound/asoc.h
-> @@ -226,9 +226,9 @@ struct snd_soc_tplg_vendor_array {
->   	__le32 type;	/* SND_SOC_TPLG_TUPLE_TYPE_ */
->   	__le32 num_elems;	/* number of elements in array */
->   	union {
-> -		struct snd_soc_tplg_vendor_uuid_elem uuid[0];
-> -		struct snd_soc_tplg_vendor_value_elem value[0];
-> -		struct snd_soc_tplg_vendor_string_elem string[0];
-> +		__DECLARE_FLEX_ARRAY(struct snd_soc_tplg_vendor_uuid_elem, uuid);
-> +		__DECLARE_FLEX_ARRAY(struct snd_soc_tplg_vendor_value_elem, value);
-> +		__DECLARE_FLEX_ARRAY(struct snd_soc_tplg_vendor_string_elem, string);
->   	};
->   } __attribute__((packed));
->   
+> The patch fixes it by assigning be_substream->runtime in
+> dpcm_be_dai_startup when be's state is START.
+> 
+> Signed-off-by: xiao jin <jin.xiao@intel.com>
+> Signed-off-by: Zhang Yanmin <yanmin.zhang@intel.com>
+> Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
 
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+
+Hello,
+
+The change seems to be driven by the skylake-driver problem. With all 
+due respect, why not ping owners of the driver first? There are some 
+crucial CCs missing.
+
+I'd like to know more about the scenario you guys reproduced the problem 
+in. Configuration details and kernel base would be good to know too. 
+Since our CI did not detect problem of such sort, if the problem 
+actually exists, we would like to append a test or two to cover it later on.
+
+
+Regards,
+Czarek

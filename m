@@ -2,98 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105605EBA97
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 08:27:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12BD55EBAE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 08:43:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60FCA847;
-	Tue, 27 Sep 2022 08:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FCA847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A4C583E;
+	Tue, 27 Sep 2022 08:42:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A4C583E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664260034;
-	bh=71PnI5uEeaoRM/3WmjjajQmBqLbb1aYB3tx5r1+1YJ8=;
+	s=default; t=1664261023;
+	bh=3PgrWl8X+W9s5er+yo5Nox6G+2GS3H9qjogvNz9DHwI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eLLDhrvW67mjSP//ksT9PUO5o8O/oxDVi7Z8tesWAitl/yQizZRUbtjBfxQeKW8rh
-	 5/jvTR36msyEhneI00jCuwO04Y/dB9Y/gUVzi/CSWc0fN484M27IZDKMr0Jf9ZVv3u
-	 BN+ui7YD3LEQAjg88E897GnMOpV68GUonEHm6g00=
+	b=kZzI4Gorj53FkShFI0WX/SD8fTNDwvwhSPhCP63DEZXikRn/yQE6AY++RYKzR7NkD
+	 kkoPbEFauS2YS9OlXsWO8Mu0EbfcCUVRSXQV6iK26z2IUwgsTYIxdDQmEXatjX0JDE
+	 vOKDVczyugd6McwLYtW9P5kR5yB+IAMfRLPzS2LU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7D87F80496;
-	Tue, 27 Sep 2022 08:26:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9843F800AA;
+	Tue, 27 Sep 2022 08:42:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A65EF8025E; Tue, 27 Sep 2022 08:26:16 +0200 (CEST)
+ id D2A6BF8025E; Tue, 27 Sep 2022 08:42:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29BC7F80166
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 08:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29BC7F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 233D3F800AA
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 08:42:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 233D3F800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HU9XjsWs"; 
+ header.b="IU7BfWaR"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="G+gZtmsI"
+ header.b="OBwv5Lst"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7B8301FA40;
- Tue, 27 Sep 2022 06:26:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4173121CE8;
+ Tue, 27 Sep 2022 06:42:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664259972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664260959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MdFl7N6yTBaYGPuLpPaLynnSa4SsB8nBnCi4kklvaPk=;
- b=HU9XjsWsBhBB/U4AmLUEkq0+YgIgQ77C0xDSQ/lKFxPcTRtT/wRESuQW9VSpXiYnySQ+fc
- 4jU15lvgZ6wElphlTvv5jXQT4D69ueyTcmLVFbHYDvr/KUzcfLj9geLLkhxDb7onjr3+kk
- E/LdRvicvcc48dGU+teyKpTGzLt/fs8=
+ bh=taICh2K620crBvOq2OQxmJu+AbXgax7CZvW2EW4pf+s=;
+ b=IU7BfWaRijmTGYASznuCYJLpc1NtCgG2tFT9IOCpNutRPu1HT4Zzthbhl3gHNgV+yTaei0
+ mj1Unnm4ssGb484xY1hfoRukTumWTRbmSNs40tkyxn4Bl3uqXH3iKHaKvEPYhkgKepgGhG
+ +Dp8Rf1hbuK8FAGJri8fBg6alIpTrFw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664259972;
+ s=susede2_ed25519; t=1664260959;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MdFl7N6yTBaYGPuLpPaLynnSa4SsB8nBnCi4kklvaPk=;
- b=G+gZtmsIdihPM5qKnMreX1mag4YdQVAsLDajJ9VMdHO6dITg2dyNh4rov+TWhHGleJAJnj
- +ZBs1Rc+o8ypGsAw==
+ bh=taICh2K620crBvOq2OQxmJu+AbXgax7CZvW2EW4pf+s=;
+ b=OBwv5Lstk9sf5/mbB4uxsLqcRxUt5hnuFREsiivm0XS84rnxlFPpaZKamzMYqKUGiJHOqA
+ NlG7vghYUM5UQ0AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E435139B3;
- Tue, 27 Sep 2022 06:26:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 14873139BE;
+ Tue, 27 Sep 2022 06:42:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2J5vDoSXMmM6XwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 06:26:12 +0000
-Date: Tue, 27 Sep 2022 08:26:11 +0200
-Message-ID: <87h70tgwos.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id STBCBF+bMmOYZQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 06:42:39 +0000
+Date: Tue, 27 Sep 2022 08:42:38 +0200
+Message-ID: <87fsgdgvxd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 00/11] ALSA: PCM state reference optimization
-In-Reply-To: <YzJQP26l3k7yrTrs@workstation>
-References: <20220926135558.26580-1-tiwai@suse.de>
- <YzJQP26l3k7yrTrs@workstation>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] headers: Remove some left-over license text in
+ sound/firewire
+In-Reply-To: <2bfe76c7eeb0f5205a1427e280bf8d9da0354a62.1664110649.git.christophe.jaillet@wanadoo.fr>
+References: <2bfe76c7eeb0f5205a1427e280bf8d9da0354a62.1664110649.git.christophe.jaillet@wanadoo.fr>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Felipe Balbi <balbi@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,63 +102,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Sep 2022 03:22:07 +0200,
-Takashi Sakamoto wrote:
+On Sun, 25 Sep 2022 14:57:51 +0200,
+Christophe JAILLET wrote:
 > 
-> Hi,
+> There is alredy a SPDX-License-Identifier tag, so the corresponding license
+> text can be removed.
 > 
-> On Mon, Sep 26, 2022 at 03:55:47PM +0200, Takashi Iwai wrote:
-> > Hi,
-> > 
-> > this is a patch set for simplifying the reference to the current PCM
-> > state by having the local copy in runtime instead of relying on
-> > runtime->status indirection.  This also hardens against the attack by
-> > modifying the mmapped status record.
->  
-> The overall patches looks good to me and I have no objections, while I
-> have some slight opinions to them in a place of sound driver developer.
+> While at it, be more consistent and:
+>   - add a missing .c (ff-protocol-latter)
+>   - remove an empty line (motu-protocol-v1)
 > 
-> > The first patch does the basic job in the core PCM side,
-> 
-> The main concern is indirect accessing to state field via some pointer
-> hops. I think addition of helper macro at first step eases centre of your
-> work, like:
-> 
-> ```
-> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-> index 8c48a5bce88c..f6a160cb8135 100644
-> --- a/include/sound/pcm.h
-> +++ b/include/sound/pcm.h
-> @@ -669,6 +669,20 @@ void snd_pcm_stream_unlock_irqrestore(struct snd_pcm_substream *substream,
->              stream <= SNDRV_PCM_STREAM_LAST;           \
->              stream++)
->  
-> +/**
-> + * snd_pcm_stream_state - Return state in runtime of the PCM substream.
-> + * @substream: substream to check. runtime should be attached.
-> + *
-> + * Return state in runtime of the PCM substream. The substream should exists and
-> + * runtime should be attached to it.
-> + */
-> +static inline snd_pcm_state_t snd_pcm_stream_state(const snd_pcm_substream *substream)
-> +{
-> +       snd_BUG_ON(!(sub) || !(sub)->runtime);
-> +
-> +       return substream->runtime->status->state;
-> +}
-> ```
-> 
-> As we can see, sound driver programmer sometimes checks state of runtime
-> in their code, thus the macro could helps them as well as centre of your
-> change.
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-This might help if we may need any change in future again.
+Applied with a correction of typo and subject prefix.
 
-But the NULL check is superfluous in most places, and the state check
-is done often in a hot path, it's better to rip off.  So it's only
-about the read of runtime->state, and then it's doubtful whether it
-brings much value at this moment; that's the reason I didn't introduce
-such a macro for now.
 
+thanks,
 
 Takashi

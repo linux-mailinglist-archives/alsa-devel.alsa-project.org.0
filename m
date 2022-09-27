@@ -2,93 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E3A5EC59F
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 16:12:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE1355EC5F5
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 16:26:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5474A82C;
-	Tue, 27 Sep 2022 16:11:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5474A82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A24184B;
+	Tue, 27 Sep 2022 16:26:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A24184B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664287952;
-	bh=QA2fGJ+oY4xpQjlh1fKLfiwAvuRz8yeyghZy6iuegAI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664288814;
+	bh=u5karUteb9j+5evLw4yib2eL16MHQrzR0rAAy3gz32g=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DA57f01nKf7sjaXQ0zr2Ih0Q6X98yGt1XLfzfPyOXoW/4tOVV/nt/O0kcmcJIEMQi
-	 7/TeeJUosSf0gaEQDjBK7g1f1299HgfS7JX4WXVdXGSDPpSY+oI1m++1XEbJN7dPzy
-	 Y8Qhg+jJ+5u5OYhoisDVBRWK9SYcyEJYqK5F/3XM=
+	b=VYTx9XQSFWlZO17H0rKvcIZ3Qya0KawkW/ZxZeA/srs2vgSqfPJu0yFliWIX44U1b
+	 mYOow8az+nJtEs8QUFSDbkq5zq7IYeSgo1TVp/Z3KmqKWf2C0AmlHOf5p+3Xngcc0s
+	 gK2bDz7IB6b2qiBNL+yaB5URVzXUvRt+y7iXcaoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A986FF80166;
-	Tue, 27 Sep 2022 16:11:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B303BF80496;
+	Tue, 27 Sep 2022 16:25:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0479F8025E; Tue, 27 Sep 2022 16:11:34 +0200 (CEST)
+ id 33C37F8025E; Tue, 27 Sep 2022 16:25:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU, RCVD_IN_DNSWL_BLOCKED, RCVD_IN_ZEN_BLOCKED_OPENDNS,
+ SPF_HELO_NONE, 
+ SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE635F80166
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 16:11:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE635F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82E40F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 16:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82E40F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="OEXGCLQV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xFJenLK0"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3658B21EA3;
- Tue, 27 Sep 2022 14:11:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664287888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4Gs2kEEXPWw8vO1C2gEMXnJnBJTxf0UA1/lUrHbqkNA=;
- b=OEXGCLQVDDhZ90tqpTdhiNeEUI4kIbcjSBjKa4C3iw5ydwWyZIglT3szRei6kYK7Ij1THB
- iZ33ZLzckAI1TDAm1lyPnkmCVMIjvVJJ2B5oNhBFTsu/rKg6drPlU/WM9v9+W9LebpnnsU
- 9P9i+Fb4y4C766XjrY9tTT0ao380bzk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664287888;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4Gs2kEEXPWw8vO1C2gEMXnJnBJTxf0UA1/lUrHbqkNA=;
- b=xFJenLK09yl5B9GuvcYmJ2U0WILvMRMEomoZ8vKm02QGZl3ggYvDrwJ4lQ5wCHukhakIm7
- 8UD/VTnf4hvYL9CA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DF666139B3;
- Tue, 27 Sep 2022 14:11:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZsLQNY8EM2OSOQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 14:11:27 +0000
-Date: Tue, 27 Sep 2022 16:11:27 +0200
-Message-ID: <87ill8gb5c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Brent Lu <brent.lu@intel.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: run eld notify in delay work
-In-Reply-To: <20220927135807.4097052-1-brent.lu@intel.com>
-References: <20220927135807.4097052-1-brent.lu@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- linux-kernel@vger.kernel.org,
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ct41H5Pz"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="ld+YG2gg"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id AB80E3200902;
+ Tue, 27 Sep 2022 10:25:42 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Tue, 27 Sep 2022 10:25:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; t=1664288742; x=1664375142; bh=u8
+ LKpjilFMjqvRfP4/Oz9p+QHSDNfwKBfShQj9oyoDU=; b=ct41H5PzwzGw542OQf
+ Urnogk092MnbdHh+HD/m6V2SaHcKlfO/02wh5PTeV2AmFSLDwj2Hf/1rtHfMZ6v9
+ QoCC6r6Ra2haWqJJfCai6BCr6jKUUfXR6Uj9BGO3e1akK6jBo6Q6KDTdDX0Y+KFO
+ uCLGMoSRE7/Chl1mS92He1yGfjujTmy6mU2mudYAPaiJgW3354Tl+reo5fqvgpEJ
+ 7Zsa4wioSh4awyxmeygjaV0AC4SIVw4n3tuf/vy20JgHsv78v4V1EekZuNZq6F+n
+ 4+ni3/V0mglf3DIBpzSX1H0GxOLG2jJg2pS35VpcLRCeri/AWkYhUR88I+ikJAac
+ 5tEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1664288742; x=1664375142; bh=u8LKpjilFMjqvRfP4/Oz9p+QHSDN
+ fwKBfShQj9oyoDU=; b=ld+YG2ggbRlIlm/X3tS6FS3qM7KneZthx/nFYmeNaqCx
+ cmGX0CJQ17T0KMU50RNKQFyY1XwPGc5FKxO8nT/XfzjH71ucpWLV6hSRhdyyjP0f
+ go7iYsGL3ZsJPS23HIMLZvmYF/bjXj06ME2MdDkNVPVAzZAPva+qtfNZY8LJRn8I
+ gFbWd3AIH6lVgfyxgMGWlkxl94g3ZMOj3rlKoftsEV++gMwkPaMYeNmdPQu54q/A
+ kNUsKpnuNkHkYP56MUkJ4ldgzF+YzNleVR5hiifDgQA6uOEDcWKTxXJN/Q8ekaqf
+ ie3jxnf2DNiRumI0WJZQmES1kSxgx070ey60ModT+w==
+X-ME-Sender: <xms:5QczY1THQ0K59BnHl7Xge8VhsZL3bu4oPGD3cNzy9YBfpMQDjg2Ngw>
+ <xme:5QczY-xyV_3e1L_BPqcP0QlIoUPbe6ja46O3YLd0aozuIp6SgftD2iG_Uo7FDwYzc
+ lHWtHP-VLT00utzgB0>
+X-ME-Received: <xmr:5QczY61ObAC7s3zFaEMUI7JWiPbRv2k5ovYN3Mn24elmi8z3o2KIlbPbEsnLyYuMB3lcGEBTrpEwBYj-IIxj-4AaK8dlObS9>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeegiedgheduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeei
+ ieetvdelfedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+ hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:5QczY9BZLE_klaof3GlwiDWIgSmWkSjWz913GREQextJvT0SFqjslw>
+ <xmx:5QczY-jhlvZH7p1gWjOVQkqW-nALQjsdX7x0Uoy4aQH12bYXFwdUNg>
+ <xmx:5QczYxo8-38l6Fh77aFkb2pXQZaDSZNypCJWPGEAw1IM7uXa6YVYaQ>
+ <xmx:5gczYza-mbdAKcU1dTcH3VVsI-MZN2wh3HSwOAztANawZks9463L5w>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Sep 2022 10:25:39 -0400 (EDT)
+Date: Tue, 27 Sep 2022 23:25:36 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 00/11] ALSA: PCM state reference optimization
+Message-ID: <YzMH4AlsIF0Zn0q+@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Felipe Balbi <balbi@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mohan Kumar <mkumard@nvidia.com>,
- Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <20220926135558.26580-1-tiwai@suse.de>
+ <YzJQP26l3k7yrTrs@workstation> <87h70tgwos.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87h70tgwos.wl-tiwai@suse.de>
+Cc: Felipe Balbi <balbi@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,24 +138,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Sep 2022 15:58:07 +0200,
-Brent Lu wrote:
+On Tue, Sep 27, 2022 at 08:26:11AM +0200, Takashi Iwai wrote:
+> On Tue, 27 Sep 2022 03:22:07 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > Hi,
+> > 
+> > On Mon, Sep 26, 2022 at 03:55:47PM +0200, Takashi Iwai wrote:
+> > > Hi,
+> > > 
+> > > this is a patch set for simplifying the reference to the current PCM
+> > > state by having the local copy in runtime instead of relying on
+> > > runtime->status indirection.  This also hardens against the attack by
+> > > modifying the mmapped status record.
+> >  
+> > The overall patches looks good to me and I have no objections, while I
+> > have some slight opinions to them in a place of sound driver developer.
+> > 
+> > > The first patch does the basic job in the core PCM side,
+> > 
+> > The main concern is indirect accessing to state field via some pointer
+> > hops. I think addition of helper macro at first step eases centre of your
+> > work, like:
+> > 
+> > ```
+> > diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> > index 8c48a5bce88c..f6a160cb8135 100644
+> > --- a/include/sound/pcm.h
+> > +++ b/include/sound/pcm.h
+> > @@ -669,6 +669,20 @@ void snd_pcm_stream_unlock_irqrestore(struct snd_pcm_substream *substream,
+> >              stream <= SNDRV_PCM_STREAM_LAST;           \
+> >              stream++)
+> >  
+> > +/**
+> > + * snd_pcm_stream_state - Return state in runtime of the PCM substream.
+> > + * @substream: substream to check. runtime should be attached.
+> > + *
+> > + * Return state in runtime of the PCM substream. The substream should exists and
+> > + * runtime should be attached to it.
+> > + */
+> > +static inline snd_pcm_state_t snd_pcm_stream_state(const snd_pcm_substream *substream)
+> > +{
+> > +       snd_BUG_ON(!(sub) || !(sub)->runtime);
+> > +
+> > +       return substream->runtime->status->state;
+> > +}
+> > ```
+> > 
+> > As we can see, sound driver programmer sometimes checks state of runtime
+> > in their code, thus the macro could helps them as well as centre of your
+> > change.
 > 
-> During resolution change, display driver would disable HDMI audio then
-> enable it in a short time. There is possibility that eld notify for
-> HDMI audio enable is called when previous runtime suspend is still
-> running. In this case, the elf nofity just returns and not updating the
-> status of corresponding HDMI pin/port. Here we move the eld nofity to
-> a delay work so we don't lose it.
+> This might help if we may need any change in future again.
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> But the NULL check is superfluous in most places, and the state check
+> is done often in a hot path, it's better to rip off.  So it's only
+> about the read of runtime->state, and then it's doubtful whether it
+> brings much value at this moment; that's the reason I didn't introduce
+> such a macro for now.
 
-We have already a dedicated per-pin work for the delayed ELD check.
-Can we reuse it instead of inventing yet another work?
-More work needs more cares, and better to avoid unless really needed
-(e.g. you forgot cleanup at suspend/removal in this patch).
+Yes, so I have no strong suggestion to introduce the macro and no
+objections to apply the patches as is.
+
+I'm too conservative developer and consider about usage of memory
+barrier always when seeing such state check since we should pay enough
+attension to instruction reordering and concurrent accesses across
+processors for such case. Fortunately we have no reports for such issue
+yet. When posting the last message, it was on my mind and it's still.
 
 
-thanks,
+Regards
 
-Takashi
+Takashi Sakamoto

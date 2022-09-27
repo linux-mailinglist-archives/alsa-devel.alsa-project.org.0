@@ -2,89 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 045725EBB83
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 09:32:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105605EBA97
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 08:27:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5296F85D;
-	Tue, 27 Sep 2022 09:31:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5296F85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60FCA847;
+	Tue, 27 Sep 2022 08:26:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FCA847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664263947;
-	bh=Fx2Xd/KdloDYAiEf264aMZg7fpUsBCeOrOVXnLI1cP8=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1664260034;
+	bh=71PnI5uEeaoRM/3WmjjajQmBqLbb1aYB3tx5r1+1YJ8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kzDIoM25xQnq/p+ocx7efcVaH0q9y7jTgGsjihEiiCL1hMVB7amh2oZfN8CwXwcy9
-	 1YMiKdFHpWmduURxtJmunI+bmBjGezdcpdIhdElEj6tAUYDyISfpR/9S2x65J429YH
-	 iT3lQxpRGv59gdRATENGSZGGLMBK8Xm/FDF4OMmQ=
+	b=eLLDhrvW67mjSP//ksT9PUO5o8O/oxDVi7Z8tesWAitl/yQizZRUbtjBfxQeKW8rh
+	 5/jvTR36msyEhneI00jCuwO04Y/dB9Y/gUVzi/CSWc0fN484M27IZDKMr0Jf9ZVv3u
+	 BN+ui7YD3LEQAjg88E897GnMOpV68GUonEHm6g00=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEEB8F80496;
-	Tue, 27 Sep 2022 09:31:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7D87F80496;
+	Tue, 27 Sep 2022 08:26:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADF30F8025E; Tue, 27 Sep 2022 09:31:28 +0200 (CEST)
+ id 2A65EF8025E; Tue, 27 Sep 2022 08:26:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_12_24, DKIM_SIGNED,
- DKIM_VALID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BC32F8011C
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 09:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BC32F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29BC7F80166
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 08:26:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29BC7F80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FNUVnqG6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664263882; x=1695799882;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Fx2Xd/KdloDYAiEf264aMZg7fpUsBCeOrOVXnLI1cP8=;
- b=FNUVnqG6dL6VPIAMf8fmS72r4Y3/m+zy8PH5b7mQUnt7vNdPux+aYtm8
- 4f1Gl5JfpprHFNEQxDuTSzRSEldx+9HoYpFLJ1a+jhCg2C5/7LyQageRU
- qzPIxDX2PaTownRmXPYNxmsYrwwXLfwcEWXAur845HynATrx1+L2AjHBz
- iZLINs4LclljlJBDamGjoy+2vuEWUrjxCbZ9Yg15thPssSuSzQkUVdQyU
- kXkpN6KCI3ez9f0kA0uxz37BXuSdYZ/XcRmcLowisHj2ZgccOXhiik2Ez
- 0IFAsNUhS0/6i9Vjrn6WQ275nS2hWzCwozQCn3bGeRsA9s/zQmWMedsC2 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="301225295"
-X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="301225295"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 00:31:17 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10482"; a="866469428"
-X-IronPort-AV: E=Sophos;i="5.93,348,1654585200"; d="scan'208";a="866469428"
-Received: from patils-mobl1.ger.corp.intel.com (HELO [10.252.36.213])
- ([10.252.36.213])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 00:31:15 -0700
-Message-ID: <8100f26f-df84-346d-3e5c-cf9a378f8027@linux.intel.com>
-Date: Mon, 26 Sep 2022 18:07:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.11.0
-Subject: Re: [PATCH 1/1] ASoC: soc-dai: export some symbols
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
- <20220920034545.2820888-2-jason.zhu@rock-chips.com>
- <Yym2aURe2+pA3ocn@sirena.org.uk>
- <dfeac54a-a264-835a-f155-90eb8f093314@rock-chips.com>
- <Yy2s2PA/C1ngeb//@sirena.org.uk>
- <155e10c4-7b08-f1ec-9f28-42a3d982740f@rock-chips.com>
- <1dc563bf-feda-e11a-c159-91ae0529a36b@linux.intel.com>
- <YzHGPuajS54y1SV6@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <YzHGPuajS54y1SV6@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Jason Zhu <jason.zhu@rock-chips.com>, sugar.zhang@rock-chips.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="HU9XjsWs"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="G+gZtmsI"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7B8301FA40;
+ Tue, 27 Sep 2022 06:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664259972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MdFl7N6yTBaYGPuLpPaLynnSa4SsB8nBnCi4kklvaPk=;
+ b=HU9XjsWsBhBB/U4AmLUEkq0+YgIgQ77C0xDSQ/lKFxPcTRtT/wRESuQW9VSpXiYnySQ+fc
+ 4jU15lvgZ6wElphlTvv5jXQT4D69ueyTcmLVFbHYDvr/KUzcfLj9geLLkhxDb7onjr3+kk
+ E/LdRvicvcc48dGU+teyKpTGzLt/fs8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664259972;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MdFl7N6yTBaYGPuLpPaLynnSa4SsB8nBnCi4kklvaPk=;
+ b=G+gZtmsIdihPM5qKnMreX1mag4YdQVAsLDajJ9VMdHO6dITg2dyNh4rov+TWhHGleJAJnj
+ +ZBs1Rc+o8ypGsAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E435139B3;
+ Tue, 27 Sep 2022 06:26:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2J5vDoSXMmM6XwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 27 Sep 2022 06:26:12 +0000
+Date: Tue, 27 Sep 2022 08:26:11 +0200
+Message-ID: <87h70tgwos.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 00/11] ALSA: PCM state reference optimization
+In-Reply-To: <YzJQP26l3k7yrTrs@workstation>
+References: <20220926135558.26580-1-tiwai@suse.de>
+ <YzJQP26l3k7yrTrs@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Felipe Balbi <balbi@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,59 +109,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 27 Sep 2022 03:22:07 +0200,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> On Mon, Sep 26, 2022 at 03:55:47PM +0200, Takashi Iwai wrote:
+> > Hi,
+> > 
+> > this is a patch set for simplifying the reference to the current PCM
+> > state by having the local copy in runtime instead of relying on
+> > runtime->status indirection.  This also hardens against the attack by
+> > modifying the mmapped status record.
+>  
+> The overall patches looks good to me and I have no objections, while I
+> have some slight opinions to them in a place of sound driver developer.
+> 
+> > The first patch does the basic job in the core PCM side,
+> 
+> The main concern is indirect accessing to state field via some pointer
+> hops. I think addition of helper macro at first step eases centre of your
+> work, like:
+> 
+> ```
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 8c48a5bce88c..f6a160cb8135 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -669,6 +669,20 @@ void snd_pcm_stream_unlock_irqrestore(struct snd_pcm_substream *substream,
+>              stream <= SNDRV_PCM_STREAM_LAST;           \
+>              stream++)
+>  
+> +/**
+> + * snd_pcm_stream_state - Return state in runtime of the PCM substream.
+> + * @substream: substream to check. runtime should be attached.
+> + *
+> + * Return state in runtime of the PCM substream. The substream should exists and
+> + * runtime should be attached to it.
+> + */
+> +static inline snd_pcm_state_t snd_pcm_stream_state(const snd_pcm_substream *substream)
+> +{
+> +       snd_BUG_ON(!(sub) || !(sub)->runtime);
+> +
+> +       return substream->runtime->status->state;
+> +}
+> ```
+> 
+> As we can see, sound driver programmer sometimes checks state of runtime
+> in their code, thus the macro could helps them as well as centre of your
+> change.
+
+This might help if we may need any change in future again.
+
+But the NULL check is superfluous in most places, and the state check
+is done often in a hot path, it's better to rip off.  So it's only
+about the read of runtime->state, and then it's doubtful whether it
+brings much value at this moment; that's the reason I didn't introduce
+such a macro for now.
 
 
-On 9/26/22 17:33, Mark Brown wrote:
-> On Mon, Sep 26, 2022 at 09:52:34AM +0200, Pierre-Louis Bossart wrote:
->> On 9/26/22 03:34, Jason Zhu wrote:
->>> 在 2022/9/23 20:55, Mark Brown 写道:
-> 
->>>>> The data can not be lost in this process. So we attach VAD & PDM
->>>>> in the same card, then close the card and wake up VAD & PDM again
->>>>> when the system is goto sleep. Like these code:
-> 
->>>> This sounds like a very normal thing with a standard audio stream -
->>>> other devices have similar VAD stuff without needing to open code access
->>>> to the PCM operations?
-> 
->>> At present, only VAD is handled in this way by Rockchip.
-> 
-> The point here is that other non-Rockchip devices do similar sounding
-> things?
-> 
->>>> Generally things just continue to stream the voice data through the same
->>>> VAD stream IIRC - switching just adds complexity here, you don't have to
->>>> deal with joining the VAD and regular streams up for one thing.
-> 
->>> Yes, this looks complicated. But our chip's sram which is assigned to VAD
->>>
->>> maybe used by other devices when the system is alive.  So we have to copy
->>>
->>> sound data in sram firstly, then use the DDR(SDRAM) to record sound data.
-> 
->> There are other devices that requires a copy of the history buffer from
->> one PCM device and a software stitching with the real-time data coming
->> from another PCM device. It's not ideal but not uncommon either, even
->> for upcoming SDCA devices, combining data from 2 PCM devices will be an
->> allowed option (with additional control information to help with the
->> stitching).
-> 
-> If this is something that's not uncommon that sounds like an even
-> stronger reason for not just randomly exporting the symbols and open
-> coding things in individual drivers outside of framework control.  What
-> are these other use cases, or is it other instances of the same thing?
-> 
-> TBH this sounds like at least partly a userspace problem rather than a
-> kernel one, as with other things that tie multiple audio streams
-> together.
-
-I would tend to agree, the stitching can be either handled in DSP
-firmware or in user-space. In the first case the kernel would expose a
-single PCM to userspace, and in the second there would be two separate
-PCM devices. The kernel drivers would typically do nothing other than
-deal with moving captured data if/when available.
-
-I also don't get the notion of 'keeping some DAIs alive when closing the
-card', maybe the idea is to redefine what 'D3' means or have an 'active
-standby' power state that doesn't exist today. That would in contrast be
-something the frameworks know about.
+Takashi

@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6CA35EBFE0
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 12:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2F215EBFE4
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 12:38:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F872847;
-	Tue, 27 Sep 2022 12:36:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F872847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 902DAF3;
+	Tue, 27 Sep 2022 12:37:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902DAF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664275014;
-	bh=Gq/Ydxuwa5AYGf9ernxE9FxfAvME30nJMsneSS443DI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1664275093;
+	bh=4N6WKH/3dxI6M6RbsWDJhZfD/BEokUj4BWJv4Wu0EU0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m8JE6SZDOzZp/n2eSXMx5JlgQdpBQpMOrjywQ5XJxxtYIBkSMYg5DUVufp4xVWUdQ
-	 LKPkV1xbqwAabAqTokoxV0MggRnXKktLyl5JfmFViAXv7yOywV67BEJt3T0uWp53ph
-	 9/6MRKtJS2XJszW4Kwsu1ZEVA5Bp5ul/A0riwhoU=
+	b=jWckYnc21EFMHqkwt90qzP3GhrsoGiSu4DfAxbX9XclR/Pgg9kdAEi/pfr/hczKvT
+	 kb5ON/vBa0nfMuXCG9LMz6b4ZFdVzqT0s0anJdv+DCc+gHn2mZ14WL18jSAVxRb1oK
+	 YFzTsluceOQxpLVsx8AlUDWudMRTw3KOkHYuU4JU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C107F8053C;
-	Tue, 27 Sep 2022 12:34:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DB85F80496;
+	Tue, 27 Sep 2022 12:37:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7432F8054A; Tue, 27 Sep 2022 12:34:31 +0200 (CEST)
+ id 8B22CF8024C; Tue, 27 Sep 2022 12:37:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 275B4F80549
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 12:34:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 275B4F80549
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CCF2F8025E
+ for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 12:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CCF2F8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Wp6kiQ1D"
+ header.b="AY+QpZ4Q"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6157A617B6;
- Tue, 27 Sep 2022 10:34:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBA4C433B5;
- Tue, 27 Sep 2022 10:34:25 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A06ACB81ADD;
+ Tue, 27 Sep 2022 10:37:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2825C433D6;
+ Tue, 27 Sep 2022 10:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664274867;
- bh=Gq/Ydxuwa5AYGf9ernxE9FxfAvME30nJMsneSS443DI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Wp6kiQ1DzdDH75hcP6pTyGbVmAPEvDORRvGfUx2SEbe2t6fvFmKpH44NNGzTMr4/R
- 7Ro9FZwx7+reXQG7hBdCBX2tokQAAvkqLOz5m2hXRyPQGCjfoVtrVlbv+yoTa8mZpP
- 9+AGEEYZm/GddYx3B+8/zmcYi47rehmqKSaQe7clZc6dg20cxisbbbRhkTxllS0zDJ
- oWHQwdoirMHWc1jQEaINbuIi5aSikDkWHAuATi2c7wVOMY/Tbw+I4A9sTP67j/D187
- vVbv4qX/nGr0uaCxH638EpIJtLKivEf0sO3NF41okFjCYuPJT5YUzdVwqLs13f9RzI
- /p9kFWX6gZE3w==
+ s=k20201202; t=1664275029;
+ bh=4N6WKH/3dxI6M6RbsWDJhZfD/BEokUj4BWJv4Wu0EU0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AY+QpZ4QlPtYpboQIKabFDadUEpFguTdO83MQp1mdSnhFGEAicwIMUbjnk/xblaAG
+ TB3D9tw+qhhQ6oTXmsgbJrKVOSYKR+JmtqgKnPg3AJR3Ua3E3urASywClIoUr3+IvK
+ FNdW39AujXQjvfZ1o3aw0Yv83PsG8Stqe4j0j+dPNmLCW9HZUbLOoBOPLa4mScyngp
+ w/FE0MT4n/zKw1YfHLrH706NQ2WI4R5bqr0uNdgfWI3swAlFdZ3YVweHGkSxEwpd1e
+ zvlp9LxXN5h3yHaNaxNLHgGTVIH+T72BRnEYYkT9p20JUNAI8f9d4NcZ77GjFexeZg
+ Cbmwfdr7eEDFg==
+Date: Tue, 27 Sep 2022 11:37:03 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20220923133616.26267-1-peter.ujfalusi@linux.intel.com>
-References: <20220923133616.26267-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/6] ASoC: SOF: ipc4/Intel: Improve and enable IPC error
- dump
-Message-Id: <166427486547.60697.5904813708821442671.b4-ty@kernel.org>
-Date: Tue, 27 Sep 2022 11:34:25 +0100
+To: Marek Vasut <marex@denx.de>
+Subject: Re: [PATCH] dt-bindings: sound: st,stm32-sai: Document audio OF
+ graph port
+Message-ID: <YzLST/bYxqd0S/i4@sirena.org.uk>
+References: <20220927002004.685108-1-marex@denx.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Du9wpDWt1y+c5xqH"
+Content-Disposition: inline
+In-Reply-To: <20220927002004.685108-1-marex@denx.de>
+X-Cookie: Vote anarchist.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +93,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Sep 2022 16:36:10 +0300, Peter Ujfalusi wrote:
-> On Intel platforms the registers for DSP communications are used differently,
-> the IPC dump information is not correct since important registers are not
-> printed and existing ones are used a bit differently for IPC4.
-> 
-> As a last step, enable the IPC timeout 'handling' and allow the printout of
-> the now usefull IPC dump.
-> 
-> [...]
 
-Applied to
+--Du9wpDWt1y+c5xqH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Sep 27, 2022 at 02:20:04AM +0200, Marek Vasut wrote:
+> It is expected that the SAI subnodes would contain audio OF graph port
+> with endpoint to link it with the other side of audio link. Document
+> the port: property.
 
-Thanks!
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-[1/6] ASoC: SOF: Intel: cnl: Add separate ops for ipc_dump for IPC4
-      commit: a996a333ad74d1f26c3831f1edd94a5d16798a0c
-[2/6] ASoC: SOF: Intel: hda: Add separate ops for ipc_dump for IPC4
-      commit: 32b97c07c2a3b7cccc0c7e9a5b23970bd9a52c5d
-[3/6] ASoC: SOF: Intel: skl: Use the ipc4 version of the ipc_dump
-      commit: 6759f35b234aa94e26e122afcd402ba2a39bd9d3
-[4/6] ASoC: SOF: Intel: mtl: Print relevant register in ipc_dump
-      commit: d01784ee680c558938baf6c4f184bee2bc612798
-[5/6] ASoC: SOF: Intel: hda: Only dump firmware registers for IPC3
-      commit: 01fb69d09afb896579e00c3dbc3c1aa74613dd86
-[6/6] ASoC: SOF: ipc4: Call snd_sof_handle_fw_exception() in case of timeout
-      commit: 4245fdba89b82befee0d963a85f7494c70432ee9
+--Du9wpDWt1y+c5xqH
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmMy0k8ACgkQJNaLcl1U
+h9Andgf/QmV0+vIA5bfdtCHk18ybF0TXlpGWK3K7FAt3k4uJwPybU+rISAH7EiHB
+JkO5dhxqhmjhBMX4nKTAmZUkJKa64n68ZIyBxXgpVCiBa69HeWZYEMPSEW3lTfX6
+RmdFdabCPxtGh+RUdU6rG+VtusMQ1maA6THru9KERBlCWSuQfjVINpIikbIMJ4YP
+GdGga62WSKhUwivJy5JtpJCsfcfFHMiSwLRRYpHKzo5UpHkPMyn74LBxsslZ/v2W
+jtyV0L39m6sR2Mk0UvYD3FdSLxgzHcNABgXXDn+iqr7t9C4W/EjEyQb/T6aj+7NN
+BX+AbFS66KGjeJufKynzBTdxtBA2/Q==
+=iQWe
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--Du9wpDWt1y+c5xqH--

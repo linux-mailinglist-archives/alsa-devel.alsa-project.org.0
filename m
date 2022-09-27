@@ -2,77 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 298B65ECC8E
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Sep 2022 21:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87435ED10B
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Sep 2022 01:33:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6FCB82A;
-	Tue, 27 Sep 2022 20:59:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6FCB82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0672A84C;
+	Wed, 28 Sep 2022 01:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0672A84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664305240;
-	bh=aWwbM2FcbB4m2ZMOVJGrcGwpXL3zIDpNnuzwy+bKje8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1664321597;
+	bh=dDpA331yadXH7kE2bf7N5ubVLSdPzEQpYDPIUgyJZ1s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gaDLwETopNP+44L/9/YMW5RqePT9IRYM3QoCkFaH5mGVuivZeyM5bLtZa6JD3G0sH
-	 zSPTKxhmzDjEHXF9KoZfw5EQ1OF6tTJB61tkAIevgZYNd/zSIobJq6Ljf0zukgntCa
-	 oKZImEidEjuyRJAspvosHmo4VTaOWn3A20bI62WM=
+	b=ih7DrwdqRVP6yC2bHfaozrFAkhM8jZoRR6qlC6SzCrvm9HjQKjDZh+xcU0ICRC39m
+	 NT0l4F9iFoLBWcy6BiRW8+NeayXye4qKjOTCSL34EaECvLFsee3Kwu/0uYc0YQbsCs
+	 3zYxBynZsb6nlRQCU+d9jMYupKEVyZPBUyeMe9kE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19574F80496;
-	Tue, 27 Sep 2022 20:59:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52C58F8011C;
+	Wed, 28 Sep 2022 01:32:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCC4EF8025E; Tue, 27 Sep 2022 20:59:41 +0200 (CEST)
+ id 8DA98F8025E; Wed, 28 Sep 2022 01:32:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8189EF80166
- for <alsa-devel@alsa-project.org>; Tue, 27 Sep 2022 20:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8189EF80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PI86W4WQ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9E52561B41;
- Tue, 27 Sep 2022 18:59:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EA0C433D6;
- Tue, 27 Sep 2022 18:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664305177;
- bh=aWwbM2FcbB4m2ZMOVJGrcGwpXL3zIDpNnuzwy+bKje8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=PI86W4WQZExn9qPgexr8c3lnxMuukf7lbiKbt5mPsHiL+lSPZ13s/gm0FrZsmUyCY
- HRKD7ZzKmK6WyKLZDsiXkRiWW2PGWN+XkUx2WxZg17P8imjWpx+wbH8eWedUVTry/a
- LGXB3IxTv6jwtKTdqXpSor7eq3KxlXJygDw/AfJWehYcebJSxefW5Cg6J9slByamgN
- DgWtRmh0vRoQU2nb1FkLS+vOJkad5LUqipiujkO+VEECkpGWszIgkpnZbJtZDF9e6W
- JhbcBz0IET5hlMH0e/GEo+BQ9cAiAGaltN7fNnjPwvtAd/pJ3fI+Nu50FHcT02yuEA
- 3dHn8ujhZ4I3w==
-From: Mark Brown <broonie@kernel.org>
-To: arnaud.pouliquen@foss.st.com, olivier.moysan@foss.st.com, tiwai@suse.com,
- perex@perex.cz, 
- Zhang Qilong <zhangqilong3@huawei.com>, mcoquelin.stm32@gmail.com,
- lgirdwood@gmail.com
-In-Reply-To: <20220927142601.64266-1-zhangqilong3@huawei.com>
-References: <20220927142601.64266-1-zhangqilong3@huawei.com>
-Subject: Re: [PATCH v2 -next 0/2] Fix PM disable depth imbalance in stm32 probe
-Message-Id: <166430517501.513274.13539394672852355316.b4-ty@kernel.org>
-Date: Tue, 27 Sep 2022 19:59:35 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BC30F8011C
+ for <alsa-devel@alsa-project.org>; Wed, 28 Sep 2022 01:32:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BC30F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="xRpltdoE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=S8UJUP0VBuQngd2OEhP0OtJLPeHHAHk+DG1PtoI2pnk=; b=xRpltdoE+BX4wJj6Dn/xqNhxlx
+ dNbrhZ20jxjllsS1ta1wO+7ebIr+chPK780UY/3Y9XqriWy5TXjz53IfQpA4PQyuszNpgBF79SQ90
+ MKDt/qDALUhpwL/XrjAZzfRVunyxJkfVw3Ka5tk/dqfXjOlsuK0gfBzsGkVG8CToVfU/QRQ+T3nXY
+ 1wXjQlbfLxb9c/A3hML8pHwk6Qg0VU+eNHdUV1EmLgPH1LTXTjrJr6hx5jOyiC6Lyorup2B3f6XQb
+ VQ5Y5BFREOKh5/3Wy8fn0pJIaHZ2+oVmAwD3b9hu1B7FEM9SmJs+RGTJBR8xNdMndP/c5/HTG1pcl
+ VCYMtUqQ==;
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
+ (Red Hat Linux)) id 1odK3O-00D9Po-9y; Tue, 27 Sep 2022 23:31:54 +0000
+Date: Tue, 27 Sep 2022 16:31:54 -0700
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
+Subject: Re: [PATCH v6 0/4] Let userspace know when snd-hda-intel needs i915
+Message-ID: <YzOH6oV6B6UKb7DF@bombadil.infradead.org>
+References: <cover.1652113087.git.mchehab@kernel.org>
+ <Ynl7xGy+a9MYjXi1@bombadil.infradead.org>
+ <20220920072454.4cf91f24@maurocar-mobl2>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220920072454.4cf91f24@maurocar-mobl2>
+Cc: alsa-devel@alsa-project.org, Richard Weinberger <richard@nod.at>,
+ Kai Vehmanen <kai.vehmanen@intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
+ Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-modules@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ linux-mtd@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bart Van Assche <bvanassche@acm.org>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,42 +92,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Sep 2022 22:25:59 +0800, Zhang Qilong wrote:
-> The pm_runtime_enable will increase power disable depth. Thus
-> a pairing decrement is needed on the error handling path to
-> keep it balanced. We fix it by moving pm_runtime_enable to the
-> endding of probe.
-> v2:
-> - Add reviewed-by
+On Tue, Sep 20, 2022 at 07:24:54AM +0200, Mauro Carvalho Chehab wrote:
+> Hi Luis,
 > 
-> [...]
+> On Mon, 9 May 2022 13:38:28 -0700
+> Luis Chamberlain <mcgrof@kernel.org> wrote:
+> 
+> > On Mon, May 09, 2022 at 06:23:35PM +0200, Mauro Carvalho Chehab wrote:
+> > > Currently, kernel/module annotates module dependencies when
+> > > request_symbol is used, but it doesn't cover more complex inter-driver
+> > > dependencies that are subsystem and/or driver-specific.
+> > >   
+> > 
+> > At this pount v5.18-rc7 is out and so it is too late to soak this
+> > in for the proper level of testing I'd like to see for modules-next.
+> > So I can review this after the next merge window. I'd want to beat
+> > the hell out of this and if possible I'd like to see if we can have
+> > some test coverage for the intended goal and how to break it.
+> 
+> Any news with regards to this patch series?
 
-Applied to
+0-day had a rant about a bug with it, it would be wonderful if you can
+fix that bug and rebase. Yet again we're now on v6.0-rc7 but it doesn't
+mean we can't start testing all this on linux-next. I can just get this
+merged to linux-next as soon as this is ready for a new spin, but we
+certainly will have to wait until 6.2 as we haven't yet gotten proper
+coverage for this on v6.1.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Is there any testing situations you can think of using which can demo
+this a bit more separately from existing drivers, perhaps a new
+selftests or something?
 
-Thanks!
-
-[1/2] ASoC: stm32: dfsdm: Fix PM disable depth imbalance in stm32_adfsdm_probe
-      commit: b9a0da5b2edcae2a901b85c8cc42efc5bec4bd7b
-[2/2] ASoC: stm32: spdifrx: Fix PM disable depth imbalance in stm32_spdifrx_probe
-      commit: 0325cc0ac7980e1c7b744aab8df59afab6daeb43
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+  Luis

@@ -2,96 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F124C5ED7FE
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Sep 2022 10:38:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 376885ED80A
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Sep 2022 10:40:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C513852;
-	Wed, 28 Sep 2022 10:37:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C513852
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD7B184A;
+	Wed, 28 Sep 2022 10:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD7B184A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664354307;
-	bh=XkNlERJ9SL/V1Bv82RjBcZs47g1CQUEopM1/Kcp2Kwc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664354441;
+	bh=V5ZHsDB6wcD9KRT2A0rLXsENvTTm9TvpXoN0E3+EoAs=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AZOvHg8/YNdvW6vXeP4Q18lB1S7/X9nY4Ilzi8CBH2iLD6DjxHKH6aC2ClhBdHQJk
-	 3SSA+B7YhixTp1Poc/aW3swZdEDDrlYlIfkXhl2oZptWFtcuccEsY560HEUzX/9yQM
-	 u3xkbxpRxmBUCb9vFOnd9AUAWccXID8Hgfcf95ao=
+	b=UCcCJxjUFF6jxArDkXcVNnSDkfKurPKSA1jQWiRoi6qiyVXcMnuTiWQkiV8r8iDrG
+	 ZFc7jPkthVYHbXxdbJ2OnHw9IoJ413+xVSPFftg0Ezn3nkpiRPaUH/s1lPuse2ykww
+	 c31n3r7x68dsLO+vq4InX/dIHEykg/x/tyoZzCug=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69987F800AA;
-	Wed, 28 Sep 2022 10:37:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40BB2F80310;
+	Wed, 28 Sep 2022 10:39:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C7E1F80310; Wed, 28 Sep 2022 10:37:29 +0200 (CEST)
+ id 28593F80310; Wed, 28 Sep 2022 10:39:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6026EF80109
- for <alsa-devel@alsa-project.org>; Wed, 28 Sep 2022 10:37:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6026EF80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id B03CFF800AA
+ for <alsa-devel@alsa-project.org>; Wed, 28 Sep 2022 10:39:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B03CFF800AA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eDMs515c"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="lviz9IDu"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 93BFA21B20;
- Wed, 28 Sep 2022 08:37:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664354242; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mbYysNXVCBJWhv6YmmbS+6PjzVtkQs9oliOscbllxFE=;
- b=eDMs515cKj3b9Ip9kxDDvhsUX0I76y1Fal1frs4KOBWrfk/O604+G+12HGfzk3nCiL9LIK
- 05kb9uTO4roUPdGzNd2uPJGxQlIyTuW4nZQHbZOWTCtdPOuSp5VD3L8MNDVxxqNOfw1e+R
- zmjtciFKjXcJ0bPJJv3wocxxCDoBem4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664354242;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mbYysNXVCBJWhv6YmmbS+6PjzVtkQs9oliOscbllxFE=;
- b=lviz9IDu4Ai/WKo0Pd4s7JmwQV3HANHJxat51OnnqMVn/AnE+Me/iFDP/+uyPPOgbOtPEQ
- Dt005eoB2W7uAkBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5F25D13A84;
- Wed, 28 Sep 2022 08:37:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id inKPFsIHNGM0VwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 28 Sep 2022 08:37:22 +0000
-Date: Wed, 28 Sep 2022 10:37:21 +0200
-Message-ID: <87y1u3evy6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Lu, Brent" <brent.lu@intel.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: run eld notify in delay work
-In-Reply-To: <871qrvgbsr.wl-tiwai@suse.de>
-References: <20220927135807.4097052-1-brent.lu@intel.com>
- <87ill8gb5c.wl-tiwai@suse.de>
- <CY5PR11MB6257CB33E1EDA90CE2B2F99D97549@CY5PR11MB6257.namprd11.prod.outlook.com>
- <875yh8ezs9.wl-tiwai@suse.de> <871qrvgbsr.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="b1DScQke"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664354377; x=1695890377;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=V5ZHsDB6wcD9KRT2A0rLXsENvTTm9TvpXoN0E3+EoAs=;
+ b=b1DScQke46UkK65CIyjdRq5KiFveHEb2gfm2JyCIwRfOgNj0JT5tQODq
+ 8YrT4Jf95Cuh7hYDyqNib9xbuFghLN1IA/+2Lo+KLUIc58S4RePoAx9pX
+ mYhCYqvHpJd8PNdVxyPtcKkqnTNF/9D0aRjW33Jv098BecFt4loLRJ/pj
+ Cr20oz1s58N1Ti8NcMTrWP3SYaLhsLaB1z0invu5tz3A0wNaWpbCToLby
+ Gn1xybg+mFR3FWZAlQeHMGY10v1AWcJYdzeJK24k/+y8laZ0z0+PyQtCT
+ CvjdI1O/WT7t9bg3hue0gXN3yhUmn2t2ccN890ZtWv0XOv4GiIPAhnSY+ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="288701807"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="288701807"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2022 01:39:30 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="617131390"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="617131390"
+Received: from morank-mobl3.ger.corp.intel.com (HELO [10.251.211.7])
+ ([10.251.211.7])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2022 01:39:25 -0700
+Message-ID: <d94a9abd-95ca-09ba-ab24-e4c38b832678@linux.intel.com>
+Date: Wed, 28 Sep 2022 10:38:29 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: remove
+ SOF_RT1015_SPEAKER_AMP_100FS flag
+Content-Language: en-US
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <20220913074906.926774-1-brent.lu@intel.com>
+ <2577e4db-8593-cf37-135b-aa51b6268cd7@linux.intel.com>
+ <CY5PR11MB6257A5CC3976FAEA2C713A4997559@CY5PR11MB6257.namprd11.prod.outlook.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <CY5PR11MB6257A5CC3976FAEA2C713A4997559@CY5PR11MB6257.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Ajye Huang <ajye.huang@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mohan Kumar <mkumard@nvidia.com>,
- Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, "Zhi,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, "Chiang,
+ Mac" <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, "Gopal,
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>, "Zhi,
  Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -108,135 +106,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 28 Sep 2022 10:09:40 +0200,
-Takashi Iwai wrote:
+
+
+On 9/27/22 15:16, Lu, Brent wrote:
+>>> +		case SND_SOC_DAIFMT_DSP_A:
+>>> +		case SND_SOC_DAIFMT_DSP_B:
+>>> +			/* 4-slot TDM */
+>>> +			ret = snd_soc_dai_set_tdm_slot(codec_dai,
+>>> +						       rt1015_tdm_mask[i].tx,
+>>> +						       rt1015_tdm_mask[i].rx,
+>>> +						       4,
+>>> +						       params_width(params));
+>>
+>> The changes look ok, just wondering if we can avoid hard-coding those 4 values.
+>> Can we not get the number of TDM slots from topology and/or dailink
+>> configuration?
+>>
+>>
 > 
-> On Wed, 28 Sep 2022 09:14:30 +0200,
-> Takashi Iwai wrote:
-> > 
-> > On Wed, 28 Sep 2022 04:06:45 +0200,
-> > Lu, Brent wrote:
-> > > 
-> > > > >
-> > > > > During resolution change, display driver would disable HDMI audio then
-> > > > > enable it in a short time. There is possibility that eld notify for
-> > > > > HDMI audio enable is called when previous runtime suspend is still
-> > > > > running. In this case, the elf nofity just returns and not updating
-> > > > > the status of corresponding HDMI pin/port. Here we move the eld nofity
-> > > > > to a delay work so we don't lose it.
-> > > > >
-> > > > > Signed-off-by: Brent Lu <brent.lu@intel.com>
-> > > > 
-> > > > We have already a dedicated per-pin work for the delayed ELD check.
-> > > > Can we reuse it instead of inventing yet another work?
-> > > > More work needs more cares, and better to avoid unless really needed (e.g.
-> > > > you forgot cleanup at suspend/removal in this patch).
-> > > > 
-> > > > 
-> > > > thanks,
-> > > > 
-> > > > Takashi
-> > > 
-> > > Hi Takashi,
-> > > 
-> > > I've checked the hdmi_repoll_eld() and check_presence_and_report() function to see
-> > > if we can reuse the per-pin work. I've some questions about reusing the per-pin work:
-> > > 
-> > > 1. hdmi_repoll_eld() calls snd_hda_jack_tbl_get_mst() function while
-> > >    check_presence_and_report() doesn't. Is it ok? 
-> > 
-> > For the system with the audio component, there is no jack entry, hence
-> > this will be ignored.
-> > 
-> > > 2. snd_hdac_i915_set_bclk() is called in intel_pin_eld_notify() function. Since it's
-> > >    skipped, we need to call it in the per-pin work. Need to add a flag in hdmi_spec_per_pin
-> > >    to indicate this situation.
-> > 
-> > Yeah, I guess this was already a bug.  It implies that the set_bclk()
-> > call is missing in the suspend/resume case, too.  We need to call it
-> > more consistently.
-> > 
-> > > 3. We can schedule the per-pin work in intel_pin_eld_notify() when snd_hdac_is_in_pm()
-> > >    returns true but there is no guarantee the runtime suspend will finished when the per-pin
-> > >   work is schedule to run.
-> > 
-> > On the second thought, we may simply proceed the notification if it's
-> > in a valid context.  The only period to prohibit the update is during
-> > the suspend/resume until the ELD is updated by the resume itself.
-> > So, something like below may work instead.  Could you give it a try?
+> I think TDM slot number is possible but not TX/RX mask. What we have in topology
+> is union of tx/rx mask of all channels. We don't know the mask of specific channel in
+> DAI_CONFIG.
 > 
-> A correction in the patch, it still has to check in-pm state;
-> otherwise it won't be handled when runtime-suspended.
+> DAI_CONFIG(SSP, 0, BOARD_HP_BE_ID, SSP0-Codec,
+>         SSP_CONFIG(I2S, SSP_CLOCK(mclk, 19200000, codec_mclk_in),
+>                 SSP_CLOCK(bclk, 2400000, codec_slave),
+>                 SSP_CLOCK(fsync, 48000, codec_slave),
+>                 SSP_TDM(2, 25, 3, 3),
 
-... and on the further consideration, I believe the best solution is
-to just get rid of the whole check.
+the 3 3 is precisely the channel mask!
 
-It was introduced by the commit eb399d3c99d8 along with the
-8ae743e82f0b that checks the suspend state.  The latter is still
-meaningful (we should skip the bogus notification at suspend).
-However, the former -- the code path we're dealing with -- doesn't
-help much in the recent code.  That fix was required because the
-driver probed the ELD bits via HD-audio verb at the time of the fix
-commit; that is, the driver had to wake up the codec for updating the
-ELD.  OTOH, now ELD is read directly from the graphics chip without
-the codec wakeup.  So the skip makes little sense.
-
-The fix patch is below.
-
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: hda/hdmi: Don't skip notification handling during PM
- operation
-
-The HDMI driver skips the notification handling from the graphics
-driver when the codec driver is being in the PM operation.  This
-behavior was introduced by the commit eb399d3c99d8 ("ALSA: hda - Skip
-ELD notification during PM process").  This skip may cause a problem,
-as we may miss the ELD update when the connection/disconnection
-happens right at the runtime-PM operation of the audio codec.
-
-Although this workaround was valid at that time, it's no longer true;
-the fix was required just because the ELD update procedure needed to
-wake up the audio codec, which had lead to a runtime-resume during a
-runtime-suspend.  Meanwhile, the ELD update procedure doesn't need a
-codec wake up any longer since the commit 788d441a164c ("ALSA: hda -
-Use component ops for i915 HDMI/DP audio jack handling"); i.e. there
-is no much reason for skipping the notification.
-
-Let's drop those checks for addressing the missing notification.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_hdmi.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index c172640c8a41..21edf7a619f0 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2666,9 +2666,6 @@ static void generic_acomp_pin_eld_notify(void *audio_ptr, int port, int dev_id)
- 	 */
- 	if (codec->core.dev.power.power_state.event == PM_EVENT_SUSPEND)
- 		return;
--	/* ditto during suspend/resume process itself */
--	if (snd_hdac_is_in_pm(&codec->core))
--		return;
- 
- 	check_presence_and_report(codec, pin_nid, dev_id);
- }
-@@ -2852,9 +2849,6 @@ static void intel_pin_eld_notify(void *audio_ptr, int port, int pipe)
- 	 */
- 	if (codec->core.dev.power.power_state.event == PM_EVENT_SUSPEND)
- 		return;
--	/* ditto during suspend/resume process itself */
--	if (snd_hdac_is_in_pm(&codec->core))
--		return;
- 
- 	snd_hdac_i915_set_bclk(&codec->bus->core);
- 	check_presence_and_report(codec, pin_nid, dev_id);
--- 
-2.35.3
-
+>                 SSP_CONFIG_DATA(SSP, 0, 24, 0, 0, 0, SSP_CC_BCLK_ES)))')
+> 
+> Regards,
+> Brent
+> 

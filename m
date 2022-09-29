@@ -2,71 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A635EF844
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 17:05:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FAF15EF87A
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 17:17:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F526163A;
-	Thu, 29 Sep 2022 17:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F526163A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4E3F86F;
+	Thu, 29 Sep 2022 17:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E3F86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664463916;
-	bh=kfzFgPkSZ95mRWl3yGE4/PxTNebTmmVsGQj7kYx5Yp8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664464642;
+	bh=mVEW7JO/5gg4rXh1VB/iXP+N7uIZwhJ9sprNGbG8dR8=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g0jFt16eEaf+mNI0NR9LMjC6xl9DlZ/6TjR+pxoXok7ZhFj/9bY1IoMGffbjhDs86
-	 6wWxIkLfpeNCwtWI0NlA+E/HWaF41RLjgm5uw8XqszuvDnoTmhQP/mW/E25YL3jnBA
-	 0/Ss2XKxgvNaAfa1Dqv75irPxHYGJyHly9oIRisU=
+	b=TOfbIplPljCBUJzxKwGAAqsV8jcOXWMZzUZRKYYpVgvmBkYSiVsSWSbB/fxuBbfmc
+	 nu3Ur8jwkekElQJX4Cx2ZirwaC3xf7qg8+AKMWP955Sf+oNoVbs12u5wb9ePs2iaFu
+	 NL0pGuY9mqHB4KK57hHsDM73M2w+XUI9hSyzvS+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D818F8023A;
-	Thu, 29 Sep 2022 17:03:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A539F800AA;
+	Thu, 29 Sep 2022 17:16:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B79CF80519; Thu, 29 Sep 2022 17:03:37 +0200 (CEST)
+ id 0ADA9F8023A; Thu, 29 Sep 2022 17:16:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB03BF800AA
- for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 17:03:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB03BF800AA
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Mdc404HpMzpVST;
- Thu, 29 Sep 2022 23:00:32 +0800 (CST)
-Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 29 Sep 2022 23:03:25 +0800
-Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
- (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 29 Sep
- 2022 23:03:24 +0800
-From: Zhang Qilong <zhangqilong3@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <matthias.bgg@gmail.com>,
- <ckeepax@opensource.wolfsonmicro.com>, <jeff_chang@richtek.com>
-Subject: [PATCH v2 -next 4/4] ASoC: mt6660: Fix PM disable depth imbalance in
- mt6660_i2c_probe
-Date: Thu, 29 Sep 2022 23:06:53 +0800
-Message-ID: <20220929150653.63845-5-zhangqilong3@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
-In-Reply-To: <20220929150653.63845-1-zhangqilong3@huawei.com>
-References: <20220929150653.63845-1-zhangqilong3@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DFDEF800AA
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 17:16:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DFDEF800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ms21SE7B"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7C0C0B820D1;
+ Thu, 29 Sep 2022 15:16:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F887C433D6;
+ Thu, 29 Sep 2022 15:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664464578;
+ bh=mVEW7JO/5gg4rXh1VB/iXP+N7uIZwhJ9sprNGbG8dR8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=ms21SE7B1GAZIuKbydj1TVvkdbHH24K9WjGzBPO37BM/vPYBV7sUFMIcWSyXLUxte
+ MCndNlidJ523R/WRkwnVzCgShZtzLMQ8iCtawPQe60wBZrvNH48yjlG9cz7XbclF/K
+ nSWYvMqIKdkluiEmNEW0Mvs8aLvXvEp4egc7Itn9KOdmCsC1DUVk5jnVOxxNmhK9xf
+ 4UlF4auB09qZ7HO/hoAkEb5XLM6lEP7rgXdDYBWEXqmJKn2zveKN8+nai3o8h5chaF
+ chD/kVO/51/N3tgLmKhMJbWM/cZStg74nqDjb3rhb0tadd47boUXd9y8zEQP4EHfDD
+ sb/HcXZjiTsjA==
+From: Mark Brown <broonie@kernel.org>
+To: Banajit Goswami <bgoswami@quicinc.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, 
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20220929131528.217502-1-krzysztof.kozlowski@linaro.org>
+References: <20220929131528.217502-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: wcd-mbhc-v2: Revert "ASoC: wcd-mbhc-v2: use
+ pm_runtime_resume_and_get()"
+Message-Id: <166446457527.149592.13835062357104188946.b4-ty@kernel.org>
+Date: Thu, 29 Sep 2022 16:16:15 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.225]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- kwepemm600014.china.huawei.com (7.193.23.54)
-X-CFilter-Loop: Reflected
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +95,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The pm_runtime_enable will increase power disable depth. Thus
-a pairing decrement is needed on the error handling path to
-keep it balanced according to context. We fix it by calling
-pm_runtime_disable when error returns.
+On Thu, 29 Sep 2022 15:15:28 +0200, Krzysztof Kozlowski wrote:
+> This reverts commit ddea4bbf287b6028eaa15a185d0693856956ecf2 ("ASoC:
+> wcd-mbhc-v2: use pm_runtime_resume_and_get()"), because it introduced
+> double runtime PM put if pm_runtime_get_sync() returns -EACCES:
+> 
+>   wcd934x-codec wcd934x-codec.3.auto: WCD934X Minor:0x1 Version:0x401
+>   wcd934x-codec wcd934x-codec.3.auto: Runtime PM usage count underflow!
+> 
+> [...]
 
-Fixes:f289e55c6eeb4 ("ASoC: Add MediaTek MT6660 Speaker Amp Driver")
-Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
----
-v2:
-- call pm_runtime_disable when error returns
----
- sound/soc/codecs/mt6660.c | 3 +++
- 1 file changed, 3 insertions(+)
+Applied to
 
-diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
-index 4971cd0b90f8..36220a1f80a6 100644
---- a/sound/soc/codecs/mt6660.c
-+++ b/sound/soc/codecs/mt6660.c
-@@ -509,6 +509,9 @@ static int mt6660_i2c_probe(struct i2c_client *client)
- 	ret = devm_snd_soc_register_component(chip->dev,
- 					       &mt6660_component_driver,
- 					       &mt6660_codec_dai, 1);
-+	if (ret)
-+		pm_runtime_disable(chip->dev);
-+
- 	return ret;
- probe_fail:
- 	_mt6660_chip_power_on(chip, 0);
--- 
-2.25.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/1] ASoC: wcd-mbhc-v2: Revert "ASoC: wcd-mbhc-v2: use pm_runtime_resume_and_get()"
+      commit: e18f6bcf8e864ea0e9690691d0d749c662b6a2c7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

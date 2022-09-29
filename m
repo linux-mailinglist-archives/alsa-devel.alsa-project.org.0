@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4A5EEF3E
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 09:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D91795EEF42
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 09:39:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5968164F;
-	Thu, 29 Sep 2022 09:37:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5968164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 725221632;
+	Thu, 29 Sep 2022 09:38:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725221632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664437114;
-	bh=qFN7jUuOGMkQOaWtoiGhhdtNWyaUS2lH4zLn4LcbPU0=;
+	s=default; t=1664437146;
+	bh=GfpdYj36xvqhYENPTPuVE9MgIrktoltAjMJddzC8fOY=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=upN8X3P8v7Yvr2xk35qn+yn75lUkfNqIsb75C8G8AxkpwV6vqrgqhwygWb8NObwdH
-	 Bsn1oZmjY4OygM6D7VhLeST8QUsdyg1FDDxrGDtn81wainv8FugVxZYhyrzHT2vOBd
-	 72IyUSIOgsZXmRjYFxlX1J2xy+ol4wEh0vGga38Y=
+	b=N7eA947tY0wbV5XULVgsHOx93llf+2ijRDuPhaJeMTMWAsOBH7WkWJ2Y3HUs4ks9w
+	 Qhf1JIEry+h/KrFvoxOplsug9tNhLDe+XtaiYN/IDR0ZLPMBUJXY5noxNdKGL1n7wI
+	 wY4EwO4Uqs9pb0tGW4VFrgN0j4EzVyyzSyey5xQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73971F80558;
-	Thu, 29 Sep 2022 09:36:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 599E2F80570;
+	Thu, 29 Sep 2022 09:36:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C06FF80552; Thu, 29 Sep 2022 09:36:05 +0200 (CEST)
+ id 2ED33F80539; Thu, 29 Sep 2022 09:36:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,52 +34,52 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39389F8016D
- for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 09:35:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39389F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3C14F804F1
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 09:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3C14F804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="oqxncCfv"; 
+ header.b="KzWpOtcz"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="MsO7N0+T"
+ header.b="UIMGxHfg"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 833081F8EF;
- Thu, 29 Sep 2022 07:35:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0E26C1F919;
+ Thu, 29 Sep 2022 07:35:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664436953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1664436954; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PMq28fUkkr5I3xzrzMWEd0O2MyuxmyzH9Xr7cFN7oiU=;
- b=oqxncCfvk3eFmpq3qaohLv8pEgG4WhkE4zJtHe/EY8XTlS3qJKJ2mE4dtHEo6cAuHSDCgq
- G95aYFzTuWaYvZexfwrGQSMowifxd6zCvEn1wzZPMCpLGeRC3+kGKzOHkC/RZm15ce0cbU
- l88P46qphSSQ4HttPGnGpNF17K8MWMo=
+ bh=mAfnPHJ1H89TtOAUWzbySJIFphztr6xSuVREkF3uLN8=;
+ b=KzWpOtcz4nO8ub893+H9+/zRDdaayBhTsSStucnBabZE6fIzX2C/hVLB+1nhwXcAbsVS8d
+ MJsv3oTy3rWVSvIV4+9c9vnwd45b0JECVjbWQLbFaaLIWDugg5jBCVqikUZJsuc5Tfi0sq
+ +pJYXcuwejYIk53LlCvd1SDrH5d98mM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664436953;
+ s=susede2_ed25519; t=1664436954;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PMq28fUkkr5I3xzrzMWEd0O2MyuxmyzH9Xr7cFN7oiU=;
- b=MsO7N0+TVDIGHJPuKEC1zGKPj+gHjiq8oQzR6DB3U+IQQRqwode/3YMdLLvQu0cVPlzJod
- r6P5WYbNL3e7bkBw==
+ bh=mAfnPHJ1H89TtOAUWzbySJIFphztr6xSuVREkF3uLN8=;
+ b=UIMGxHfgbxhO/uGl000GsLhUv5ZgGPfuQzXRFuF5u7fA+Fd7cgYhQaUy0pwgmGxU6i6Wel
+ gYD6jvz95X3zUrBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5F1061348E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC7B11348E;
  Thu, 29 Sep 2022 07:35:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MEBqFtlKNWMFfQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id UAsWOdlKNWMFfQAAMHmgww
  (envelope-from <tiwai@suse.de>); Thu, 29 Sep 2022 07:35:53 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/8] ALSA: hda/conexant: Add model option to codec driver, too
-Date: Thu, 29 Sep 2022 09:35:40 +0200
-Message-Id: <20220929073545.1085-4-tiwai@suse.de>
+Subject: [PATCH 4/8] ALSA: hda/cs8409: Add model option to codec driver, too
+Date: Thu, 29 Sep 2022 09:35:41 +0200
+Message-Id: <20220929073545.1085-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220929073545.1085-1-tiwai@suse.de>
 References: <20220929073545.1085-1-tiwai@suse.de>
@@ -105,14 +105,14 @@ The model option of snd-hda-intel or SOF driver is useful for testing
 quirk is rather codec-specific, it's often difficult to pass the model
 to the proper target.
 
-This patch adds the equivalent model option to Conexant codec driver,
-so that user can optionally specify the option for the codec instead
-of snd-hda-intel or SOF drivers.
+This patch adds the equivalent model option to CS8409 codec driver, so
+that user can optionally specify the option for the codec instead of
+snd-hda-intel or SOF drivers.
 
 That is, you can pass the boot option like
-  snd_hda_codec_conexant.model=foobar
+  snd_hda_codec_cs8409.model=foobar
 or
-  snd_hda_codec_conexant.model=17aa:3905
+  snd_hda_codec_cs8409.model=1028:0c43
 for applying a quirk no matter whether you use snd-hda-intel or SOF.
 
 The model option of snd-hda-intel or SOF is still effective.  When the
@@ -120,43 +120,40 @@ option is given for both, the option for the controller driver wins.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_conexant.c | 10 ++++++++++
+ sound/pci/hda/patch_cs8409.c | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 7b1a30a551f6..8a4a793740f3 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -11,6 +11,7 @@
- #include <linux/delay.h>
+diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
+index 754aa8ddd2e4..13aef05383a4 100644
+--- a/sound/pci/hda/patch_cs8409.c
++++ b/sound/pci/hda/patch_cs8409.c
+@@ -9,10 +9,16 @@
+ #include <linux/init.h>
  #include <linux/slab.h>
  #include <linux/module.h>
 +#include <linux/moduleparam.h>
  #include <sound/core.h>
- #include <sound/jack.h>
- 
-@@ -21,6 +22,11 @@
- #include "hda_jack.h"
- #include "hda_generic.h"
+ #include <linux/mutex.h>
+ #include <linux/iopoll.h>
  
 +/* codec-specific model option -- equivalent with snd-hda-intel.model option */
 +static char *codec_model;
 +module_param_named(model, codec_model, charp, 0444);
 +MODULE_PARM_DESC(model, "Use the given board model.");
 +
- struct conexant_spec {
- 	struct hda_gen_spec gen;
+ #include "patch_cs8409.h"
  
-@@ -1038,6 +1044,10 @@ static int patch_conexant_auto(struct hda_codec *codec)
- 	codec->spec = spec;
- 	codec->patch_ops = cx_auto_patch_ops;
+ /******************************************************************************
+@@ -66,6 +72,10 @@ static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
+ 	INIT_DELAYED_WORK(&spec->i2c_clk_work, cs8409_disable_i2c_clock_worker);
+ 	snd_hda_gen_spec_init(&spec->gen);
  
 +	/* assign optional modelname; freed at snd_hda_codec_dev_release() */
 +	if (!codec->modelname && codec_model)
 +		codec->modelname = kstrdup(codec_model, GFP_KERNEL);
 +
- 	cx_auto_parse_eapd(codec);
- 	spec->gen.own_eapd_ctl = 1;
+ 	return spec;
+ }
  
 -- 
 2.35.3

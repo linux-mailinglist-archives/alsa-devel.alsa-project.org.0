@@ -2,61 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A0955EED99
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 08:09:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B9585EEDA1
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 08:12:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4F3C15C3;
-	Thu, 29 Sep 2022 08:08:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F3C15C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABC3A829;
+	Thu, 29 Sep 2022 08:11:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABC3A829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664431778;
-	bh=cS2VmoFpVao/CJIFBy26BNirG1eRxl6XQBc/2GUEpl0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pFc0VaWgJe2evL2i0jPSFLEELZwfFIkYP/+R/wJ9QoFCpDGdyIsjIXqNfTJzg9zAw
-	 TUJbWl408XbARq5Or8Hm/xyLbhegCpCsu3kIM2tb9ZC35qSRNWguZeJiExMLzW3+YL
-	 f+wl90ypnA+u5RH8oXqjF6TWGQ4X+xj2MtYuvVds=
+	s=default; t=1664431923;
+	bh=LV/4n52o6AePFzCbywDQEoOM3Ef9Zy4LuOH75LvfaKA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XqTqyjPZfeMjOskvpgfdB8hoiiSCDtueW8GUxIOdvZJOQejdZzDnbbeD0PZ9ULrto
+	 U5GgXQIlaMSEuexSoORDOTn+Ql3opgxN1ReJ2YoivUDYKn6/tR91xDrT8DBqXGMkKJ
+	 5moIVBDtN3aO2QhWGSjg5dSLIRjUe/EXYLkNGT80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1689EF80566;
-	Thu, 29 Sep 2022 08:06:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FD39F80095;
+	Thu, 29 Sep 2022 08:11:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0D17F80310; Wed, 28 Sep 2022 10:50:20 +0200 (CEST)
+ id 5B5F8F804F1; Thu, 29 Sep 2022 08:11:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D8F9F8011C
- for <alsa-devel@alsa-project.org>; Wed, 28 Sep 2022 10:50:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D8F9F8011C
-Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4McqpD5CxlzlXHK;
- Wed, 28 Sep 2022 16:45:56 +0800 (CST)
-Received: from huawei.com (10.175.112.208) by dggpeml500024.china.huawei.com
- (7.185.36.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 28 Sep
- 2022 16:50:12 +0800
-From: Yuan Can <yuancan@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: asihpi - Remove unused struct hpi_subsys_response
-Date: Wed, 28 Sep 2022 08:48:33 +0000
-Message-ID: <20220928084833.61131-1-yuancan@huawei.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.175.112.208]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpeml500024.china.huawei.com (7.185.36.10)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 29 Sep 2022 08:06:37 +0200
-Cc: yuancan@huawei.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DCCDF80095
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 08:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DCCDF80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="itg39IpB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qdRxf9mD"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E50B71FA7A;
+ Thu, 29 Sep 2022 06:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664431856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ixk3Jzdc8JShFuQLc7pAdCCkgsK4EDaSwY1RjnH4mUw=;
+ b=itg39IpBDTxMkLd3xcFmN0xjpBsJXqPcoY1EXkbM5bEnU+JXQHNN7CJ+TulUVNHRBdcMwp
+ LnK0zyF9+zdLYGwe5zdf+Tp2Bk27Uuiex6nUJrUy5uHRz//PpBacDeq9xOQOW8g7NluOMT
+ FIFbWyJQGNGRqGGoz4ol3vf35vy2wpA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664431856;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ixk3Jzdc8JShFuQLc7pAdCCkgsK4EDaSwY1RjnH4mUw=;
+ b=qdRxf9mDTiJnB4TV9IJhqkB2YikHy67CcPIlA0cwJ75HalpmAQppD3FDMM42LwN0AJJnos
+ dIpDpiZ/HoPm9xCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CAC4913A71;
+ Thu, 29 Sep 2022 06:10:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id NXLOMPA2NWOxVQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 29 Sep 2022 06:10:56 +0000
+Date: Thu, 29 Sep 2022 08:10:56 +0200
+Message-ID: <87y1u290cv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: Sound broken (first couple of seconds play looping) on Sony Vaio
+ VPX11S1E (HDA, ALC262)
+In-Reply-To: <61bd7097-afac-5a2d-46a2-aada444a890c@redhat.com>
+References: <3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com>
+ <87y1uqbfmo.wl-tiwai@suse.de> <87tu5ebdc8.wl-tiwai@suse.de>
+ <61bd7097-afac-5a2d-46a2-aada444a890c@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,30 +102,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After commit 3285ea10e9b0("ALSA: asihpi - Interrelated HPI tidy up."),
-struct hpi_subsys_response is not used any more and can be removed as well.
+On Wed, 28 Sep 2022 18:33:55 +0200,
+Hans de Goede wrote:
+> 
+> Hi,
+> 
+> On 9/11/22 09:05, Takashi Iwai wrote:
+> > On Sun, 11 Sep 2022 08:15:59 +0200,
+> > Takashi Iwai wrote:
+> >>
+> >> On Sat, 10 Sep 2022 19:52:36 +0200,
+> >> Hans de Goede wrote:
+> >>>
+> >>> Hi All,
+> >>>
+> >>> To test some kernel work (backlight refactor) which I have been doing
+> >>> I have booted Debian Testing with a 6.0 kernel on a Sony Vaio VPX11S1E
+> >>> (which is ancient).
+> >>>
+> >>> I noticed that when tab-completing something in a terminal the
+> >>> terminal bell sound would keep repeating and playing another longer
+> >>> sound sample gets stuck with the first couple of seconds of that
+> >>> sample looping.
+> >>>
+> >>> This is under GNOME3 with pulseaudio as sound server.
+> >>>
+> >>> I accidentally found an interesting workaround if I run:
+> >>>
+> >>> aplay -Dplughw:CARD=MID,DEV=0 /usr/share/sounds/alsa/Front_Left.wav
+> >>>
+> >>> once, then that works properly and after that the problem is gone...
+> >>>
+> >>> Note that this laptop does have only 1 speaker AFAICT.
+> >>>
+> >>> alsa-info output below.
+> >>>
+> >>> I would be happy to test any patches / module-options which might
+> >>> fix this.
+> >>
+> >> Could you check the very latest Linus tree (6.0-rc5)?
+> >> There has been a regression fix for HD-audio, and possibly this might
+> >> be your case.
+> > 
+> > And if this doesn't change the behavior, try snoop=0 option for
+> > snd-hda-intel module.
+> 
+> Thanks, I've just tried with 6.0-rc6 both with and without snoop=0
+> and neither helps I'm afraid.
 
-Signed-off-by: Yuan Can <yuancan@huawei.com>
----
- sound/pci/asihpi/hpimsgx.c | 5 -----
- 1 file changed, 5 deletions(-)
+Then one another thing could be position_fix option of snd-hda-intel.
+Otherwise we need bisection -- supposing it worked well in the past.
+But as it's a so old laptop, maybe not worth...
 
-diff --git a/sound/pci/asihpi/hpimsgx.c b/sound/pci/asihpi/hpimsgx.c
-index f7427f8eb630..d0caef299481 100644
---- a/sound/pci/asihpi/hpimsgx.c
-+++ b/sound/pci/asihpi/hpimsgx.c
-@@ -93,11 +93,6 @@ static void HPIMSGX__cleanup(u16 adapter_index, void *h_owner);
- #pragma pack(push, 1)
- #endif
- 
--struct hpi_subsys_response {
--	struct hpi_response_header h;
--	struct hpi_subsys_res s;
--};
--
- struct hpi_adapter_response {
- 	struct hpi_response_header h;
- 	struct hpi_adapter_res a;
--- 
-2.17.1
 
+thanks,
+
+Takashi

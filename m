@@ -2,86 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D783A5EF714
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 16:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B8A5EF7CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 16:39:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85C6715C3;
-	Thu, 29 Sep 2022 16:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85C6715C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5B5C15E5;
+	Thu, 29 Sep 2022 16:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5B5C15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664460179;
-	bh=NbQBK0K88I2R53On1jgQPc/QM3SMeQ/eMk4dHm80OcQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aSP54Xk+wt1toIUiKGcRv+mgtodlMMCxnj8Tspx2jTvxJzO/Yq95rsO8cHFzUejZH
-	 oM4/F2Pmkb04Jqukbbu9Ie5m4Ne9j2Ax6z2INurcmT4mYG52WqswJbDMSeA/cbAG7I
-	 A3oGkr/LsxNGL1zp8QQ7jbrfjhUNCjp0lJb85kdM=
+	s=default; t=1664462345;
+	bh=5V7VH2ffRuHdcUyw+iqxWLnZ8shlALGv80z295UqkUs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hOzV3EkmpoMDRLhy+RYZewuLm1GfaZTMZwHQblSySjTr9ZiiDkHUoS+9DjkK0BwU1
+	 eoGbCOj4cICNlXTNHYLJdnJ0U6cir3Otu/xR/qOxXnUT8NE2617yvDTj2JVqM/EOi5
+	 Ep0dsR/ynYsTE0uQZ+19/NvnkFFMs2V4hve7E6OY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1088FF800AA;
-	Thu, 29 Sep 2022 16:02:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E07FF803DD;
+	Thu, 29 Sep 2022 16:38:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76348F80109; Thu, 29 Sep 2022 16:02:02 +0200 (CEST)
+ id 71154F8023A; Thu, 29 Sep 2022 16:38:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3710EF8016D
- for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 16:01:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3710EF8016D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gmTbcvC1"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7962EF800AA
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 16:38:01 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 759BDA0040;
+ Thu, 29 Sep 2022 16:38:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 759BDA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1664462280; bh=riexx/0IFvMNbfOQsvQL/pORuxuu2tFtFM+9Uxs6+pI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=SlZ3GXJkaABaXOAg3wi4Zz11MvkC7yaVD6CEN3uC2/+8q3X+JfeydPBQwAhS0pFUO
+ p/Ppjv523WMtRCqFNr5TdLxxHaCKsfxKk2UfkIgXUnsVhQ9ABNj2vv4pyTatutxd03
+ qA56pzCqgimy3nwByC/tpK+yedHhmTzrhPUEE4j0=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2692CB824A9;
- Thu, 29 Sep 2022 14:01:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D65C433D6;
- Thu, 29 Sep 2022 14:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664460117;
- bh=NbQBK0K88I2R53On1jgQPc/QM3SMeQ/eMk4dHm80OcQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gmTbcvC1yEmw7F1GRoHapSzLYj+IdmomGJ9jUk7Jl8mdnbYj+Dm3ElgvlF0dA/jWb
- Svrd/TMipM3+QYV7JkG62nFhywTSSJmdSz2fZmVlKMZwHM95FaFw/pARM+5J/b0LKw
- MAGMKL+5ywEvTN4waqtEaf+3qJsNdBAbS5BswiOI/O7l8JizhSmMsRFgo3Le4V0wSt
- 0/Uct1OMyKAuIUo31E1sLbPdqyIGvDYKFXfR322owxrU83lW4fGVETV2CBXM0VA/t7
- /7JdEZbyIZyui75PabnkE1VD21g+weqdYESr1JfN1KIpHXpi1CZM/eYyHZGFDQm0zO
- Gp6A25qEFK/kg==
-Date: Thu, 29 Sep 2022 15:01:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: wcd-mbhc-v2: Revert "ASoC: wcd-mbhc-v2: use
- pm_runtime_resume_and_get()"
-Message-ID: <YzWlT11jj0ES0Alv@sirena.org.uk>
-References: <20220929131528.217502-1-krzysztof.kozlowski@linaro.org>
- <YzWgescSJMKzYTAo@sirena.org.uk>
- <88035bdd-3aeb-640e-c001-8823013e5929@linaro.org>
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 29 Sep 2022 16:37:57 +0200 (CEST)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH v2] ASoC: core: clarify the driver name initialization
+Date: Thu, 29 Sep 2022 16:37:54 +0200
+Message-Id: <20220929143754.345144-1-perex@perex.cz>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Ri3zr+BP8FJRoKsl"
-Content-Disposition: inline
-In-Reply-To: <88035bdd-3aeb-640e-c001-8823013e5929@linaro.org>
-X-Cookie: Last week's pet, this week's special.
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,39 +74,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The driver field in the struct snd_ctl_card_info is a valid
+user space identifier. Actually, many ASoC drivers do not care
+and let to initialize this field using a standard wrapping method.
+Unfortunately, in this way, this field becomes unusable and
+unreadable for the drivers with longer card names. Also,
+there is a possibility to have clashes (driver field has
+only limit of 15 characters).
 
---Ri3zr+BP8FJRoKsl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This change will print an error when the wrapping is used.
+The developers of the affected drivers should fix the problem.
 
-On Thu, Sep 29, 2022 at 04:00:26PM +0200, Krzysztof Kozlowski wrote:
-> On 29/09/2022 15:41, Mark Brown wrote:
-> > On Thu, Sep 29, 2022 at 03:15:28PM +0200, Krzysztof Kozlowski wrote:
-> >=20
-> >> Cc: <stable@vger.kernel.org>
-> >> Fixes: ddea4bbf287b ("ASoC: wcd-mbhc-v2: use pm_runtime_resume_and_get=
-()")
-> >=20
-> > That commit isn't in a released kernel.
->=20
-> Oh, indeed, thanks. I'll send a v2 without it.
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-It's fine.
+v1..v2:
+  - remove the wrong DMI condition per Mark's review
+---
+ sound/soc/soc-core.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
---Ri3zr+BP8FJRoKsl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmM1pU8ACgkQJNaLcl1U
-h9CMAAf9Fc6oFeIp3nEEwGKdOHM5vdwkRlxMVNCluVg7AYY64AweWItcTH5zClZA
-mBq8cw1B5aHq+4P8XPgXpfIxw32ITy2mHSIp2B71RAc6RU3mf3ZTFQWCf6WACEl5
-/CcBVxTBFthM2OGUWLjlut3BI6X0bC3V25KQCll3B285BYnE5hZdD52Eq8RO5/e4
-zJ/B7ltFz9EHIIFvtdYbJsz8JQLKlNGgwNQwAovvgT6JdW/P4QlPad8ZQEzA0hNk
-tLn0cC650U9ju/qb9nvVBhkdBt+Hfc+moyjp8obA6JJrC29Ce+hRserfZZlQaj+m
-UetNBjR8IsIrJhMffTaNUTPiJRJXaQ==
-=PNpT
------END PGP SIGNATURE-----
-
---Ri3zr+BP8FJRoKsl--
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index e824ff1a9fc0..590143ebf6df 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1840,21 +1840,22 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 	}
+ }
+ 
+-#define soc_setup_card_name(name, name1, name2, norm)		\
+-	__soc_setup_card_name(name, sizeof(name), name1, name2, norm)
+-static void __soc_setup_card_name(char *name, int len,
+-				  const char *name1, const char *name2,
+-				  int normalization)
++#define soc_setup_card_name(card, name, name1, name2) \
++	__soc_setup_card_name(card, name, sizeof(name), name1, name2)
++static void __soc_setup_card_name(struct snd_soc_card *card,
++				  char *name, int len,
++				  const char *name1, const char *name2)
+ {
++	const char *src = name1 ? name1 : name2;
+ 	int i;
+ 
+-	snprintf(name, len, "%s", name1 ? name1 : name2);
++	snprintf(name, len, "%s", src);
+ 
+-	if (!normalization)
++	if (name != card->snd_card->driver)
+ 		return;
+ 
+ 	/*
+-	 * Name normalization
++	 * Name normalization (driver field)
+ 	 *
+ 	 * The driver name is somewhat special, as it's used as a key for
+ 	 * searches in the user-space.
+@@ -1874,6 +1875,14 @@ static void __soc_setup_card_name(char *name, int len,
+ 			break;
+ 		}
+ 	}
++
++	/*
++	 * The driver field should contain a valid string from the user view.
++	 * The wrapping usually does not work so well here. Set a smaller string
++	 * in the specific ASoC driver.
++	 */
++	if (strlen(src) > len - 1)
++		dev_err(card->dev, "ASoC: driver name too long '%s' -> '%s'\n", src, name);
+ }
+ 
+ static void soc_cleanup_card_resources(struct snd_soc_card *card)
+@@ -2041,12 +2050,12 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+ 	/* try to set some sane longname if DMI is available */
+ 	snd_soc_set_dmi_name(card, NULL);
+ 
+-	soc_setup_card_name(card->snd_card->shortname,
+-			    card->name, NULL, 0);
+-	soc_setup_card_name(card->snd_card->longname,
+-			    card->long_name, card->name, 0);
+-	soc_setup_card_name(card->snd_card->driver,
+-			    card->driver_name, card->name, 1);
++	soc_setup_card_name(card, card->snd_card->shortname,
++			    card->name, NULL);
++	soc_setup_card_name(card, card->snd_card->longname,
++			    card->long_name, card->name);
++	soc_setup_card_name(card, card->snd_card->driver,
++			    card->driver_name, card->name);
+ 
+ 	if (card->components) {
+ 		/* the current implementation of snd_component_add() accepts */
+-- 
+2.35.3

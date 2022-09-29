@@ -2,76 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3432A5EEAA4
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 02:54:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5685EED5C
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 07:48:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5B20846;
-	Thu, 29 Sep 2022 02:53:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5B20846
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1BDA850;
+	Thu, 29 Sep 2022 07:48:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1BDA850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664412845;
-	bh=zyy0HSt5WPEgN6x81rMv1csR+fMD3+FirDrexwPwQf4=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1664430538;
+	bh=U40xE9ls0E3zKDtEvhgKBC9oc0RDPZ/7T8S1nAlnYCE=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k39QwDrZGBGLkhHXt329jQ485/Ku1hBw7XOInhChD4SWrqskRtlWVLqhf0zekvBaN
-	 mG1GDHGlOVtn5/kc1UJzaTXtw/8TMQs7BJWkKGZ6vDRjkqjqvhq8DwmDF3DK8OnOKY
-	 VEFcvjIN73GBTh3b3j070Qm8oxlhRGt8qnU4cNH4=
+	b=JivrzTqickrwrmVwvQHZauEmsHIsi5J3d5YUfPdW+HZbtnzYobmxCM1uXJtfP90nW
+	 1cs7cF+fvO7MMHNNjmaf7uY68thuGkMJ1k4abU7+01JHgWfRyN5TMWdzSltO09kNzl
+	 9bhU42JmHY1r62bf/no03XkOvPmK39/KOZn7YHUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CD61F804B3;
-	Thu, 29 Sep 2022 02:53:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BF05F80095;
+	Thu, 29 Sep 2022 07:48:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EFB3F80310; Thu, 29 Sep 2022 02:53:07 +0200 (CEST)
+ id 96125F80109; Thu, 29 Sep 2022 07:47:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-m11879.qiye.163.com (mail-m11879.qiye.163.com
- [115.236.118.79])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=FORGED_SPF_HELO,
+ KHOP_HELO_FCRDNS,SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from KOR01-PS2-obe.outbound.protection.outlook.com
+ (mail-ps2kor01lp2052.outbound.protection.outlook.com [104.47.109.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9CD0F80109
- for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 02:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9CD0F80109
-Received: from [172.16.12.74] (unknown [58.22.7.114])
- by mail-m11879.qiye.163.com (Hmail) with ESMTPA id 550C268025D;
- Thu, 29 Sep 2022 08:52:54 +0800 (CST)
-Message-ID: <3125964e-5e19-cf2a-c655-c7478b8ecccf@rock-chips.com>
-Date: Thu, 29 Sep 2022 08:52:54 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D1A8F80109
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 07:47:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D1A8F80109
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM (2603:1096:100:7::23) by
+ SL2P216MB0684.KORP216.PROD.OUTLOOK.COM (2603:1096:100:25::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5676.19; Thu, 29 Sep 2022 05:47:41 +0000
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::e8ae:67d:6df8:94a9]) by SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::e8ae:67d:6df8:94a9%8]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
+ 05:47:41 +0000
+From: Ki-Seok Jo <kiseok.jo@irondevice.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Gyu-Hwa Park
+ <gyuhwa.park@irondevice.com>, Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH 1/2] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
+Thread-Topic: [PATCH 1/2] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
+Thread-Index: AQHYzXTdxhnFpwBAAUyL8w2ZOa5UQ63pjM0AgAxl/4A=
+Date: Thu, 29 Sep 2022 05:47:41 +0000
+Message-ID: <SLXP216MB0077606A485A1E0B6F5416308C579@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+References: <20220921044405.4441-1-kiseok.jo@irondevice.com>
+ <20220921044405.4441-2-kiseok.jo@irondevice.com>
+ <5be08dad-271a-a804-0093-8734d81ac6c6@linux.intel.com>
+In-Reply-To: <5be08dad-271a-a804-0093-8734d81ac6c6@linux.intel.com>
+Accept-Language: ko-KR, en-US
+Content-Language: ko-KR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=irondevice.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SLXP216MB0077:EE_|SL2P216MB0684:EE_
+x-ms-office365-filtering-correlation-id: f2348c53-51df-43bf-68df-08daa1de1fb7
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH 1/1] ASoC: soc-dai: export some symbols
-To: Mark Brown <broonie@kernel.org>
-References: <20220920034545.2820888-1-jason.zhu@rock-chips.com>
- <20220920034545.2820888-2-jason.zhu@rock-chips.com>
- <Yym2aURe2+pA3ocn@sirena.org.uk>
- <dfeac54a-a264-835a-f155-90eb8f093314@rock-chips.com>
- <Yy2s2PA/C1ngeb//@sirena.org.uk>
- <155e10c4-7b08-f1ec-9f28-42a3d982740f@rock-chips.com>
- <1dc563bf-feda-e11a-c159-91ae0529a36b@linux.intel.com>
- <YzHGPuajS54y1SV6@sirena.org.uk>
- <678dcfcf-83f0-5969-9b55-79065c042116@rock-chips.com>
- <YzQ1hpJ753Zy5k+a@sirena.org.uk>
-From: Jason Zhu <jason.zhu@rock-chips.com>
-In-Reply-To: <YzQ1hpJ753Zy5k+a@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFJSktLSjdXWS1ZQUlXWQ8JGhUIEh9ZQVlCH04YVk0YQh0ZSxpNSh8dT1UTARMWGhIXJB
- QOD1lXWRgSC1lBWU5DVUlJVUxVSkpPWVdZFhoPEhUdFFlBWU9LSFVKSktISkxVSktLVUtZBg++
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MzI6Pgw*Lj0aPgwJHRxMASM1
- IQJPCRZVSlVKTU1PT0pJTExOS0xKVTMWGhIXVREaCBQVVQETDjsJFBgQVhgTEgsIVRgUFkVZV1kS
- C1lBWU5DVUlJVUxVSkpPWVdZCAFZQU9CT003Bg++
-X-HM-Tid: 0a8386bb705b2eb5kusn550c268025d
-Cc: sugar.zhang@rock-chips.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
+X-OriginatorOrg: irondevice.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2348c53-51df-43bf-68df-08daa1de1fb7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2022 05:47:41.2646 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7XbwFy2Vt4O9ieyryirBXDLIKaicv4naRmBsAY7yEYhMxeHfZQrGMiZ1BK1aWejRdGWxjRYY/Sy9SsWCyVWyb63vqs9AhFk+y4QDj+Q1UxM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2P216MB0684
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Application <application@irondevice.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +98,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-在 2022/9/28 19:52, Mark Brown 写道:
-> On Tue, Sep 27, 2022 at 11:57:53AM +0800, Jason Zhu wrote:
->> 在 2022/9/26 23:33, Mark Brown 写道:
->>> On Mon, Sep 26, 2022 at 09:52:34AM +0200, Pierre-Louis Bossart wrote:
->>>> On 9/26/22 03:34, Jason Zhu wrote:
->>>>> 在 2022/9/23 20:55, Mark Brown 写道:
->>>>>>> The data can not be lost in this process. So we attach VAD & PDM
->>>>>>> in the same card, then close the card and wake up VAD & PDM again
->>>>>>> when the system is goto sleep. Like these code:
->>>>>> This sounds like a very normal thing with a standard audio stream -
->>>>>> other devices have similar VAD stuff without needing to open code access
->>>>>> to the PCM operations?
->>>>> At present, only VAD is handled in this way by Rockchip.
->>> The point here is that other non-Rockchip devices do similar sounding
->>> things?
->> No.  Usually, the vad is integrated in codec, like rt5677, and is linked
->> with DSP to
->> handle its data. If DSP detects useful sound, send an irq to system to
->> wakeup and
->> record sound.  Others detect and analysis sound by VAD itself, like
->> K32W041A.
-> What I mean here is that you're missing my point.  The deferring of full
-> wake word recognition to a secondary algorithm running somewhere else is
-> a pretty common design.
->
->>> If this is something that's not uncommon that sounds like an even
->>> stronger reason for not just randomly exporting the symbols and open
->>> coding things in individual drivers outside of framework control.  What
->>> are these other use cases, or is it other instances of the same thing?
->> Maybe in this case: One PDM is used to record sound, and there is two way
->> to move data. Use the VAD to move data to sram when system is sleep and
->> use DMA to move data when sytem is alive. If we seperate this in two audio
->> streams, we close the "PDM + VAD" audio stream firstly when system is alive
->> and open "PDM + DMA" audio stream. This process maybe take long time
->> that PDM FIFO will be full and lost some data. But we hope that data will
->> not be lost in the whole proces. So these must be done in one audio
->> stream.
-> I'd have exepected that any handover be done such that the low power
-> wake word stream is running concurrently with the main audio stream for
-> some period of time, possibly until the sync between the two has been
-> worked out, and that data would be being read out of the wake word
-> stream while the full stream is starting up.  As you say I'd expect that
-> otherwise you'll run into trouble with dropouts.  I don't see how doing
-> that handover would require that we export any symbols though, if there
-> is any kernel support needed it should be handled in the framework.
-Thank you very much. I will think about how to support it in the framework.
+VGhhbmtzIHlvdXIga2luZGx5IGZlZWRiYWNrLg0KDQpJJ20gY29ycmVjdGluZyB0aGUgcGFydCBJ
+IG1pc3NlZC4NCkknZCBsaWtlIHRvIHRha2UgYSBmZXcgaGludHMuDQooSSByZXZpc2VkIHRoZSBv
+dGhlciBwYXJ0cyB0aGF0IEkgZGlkbid0IG1lbnRpb24gYXMgeW91IHRvbGQgbWUuKQ0KDQoNCj4+
+ICsgKiBDb3B5cmlnaHQgMjAyMiBJcm9uIERldmljZSBDb3Jwb3JhdGlvbg0KDQo+IE1pc3Npbmcg
+Q29weXJpZ2h0IChjKSA/DQoNCkkgZG9uJ3Qga25vdyB0aGlzIHBhcnQgZXhhY3RseSwgc28gd2hl
+biBJIGxvb2tlZCBpdCB1cC4NCk1vc3Qgb2YgdGhlbSB1c2UgYSBtaXggb2YgdHdvIGNhc2VzLiBX
+aGljaCB3b3VsZCBiZSBiZXR0ZXI/IFVzaW5nIFN5bWJvbCBvciBub3Q/DQoNCj4+ICsNCj4+ICtz
+dHJ1Y3Qgc21hMTMwM19wcml2IHsNCj4+ICsJZW51bSBzbWExMzAzX3R5cGUgZGV2dHlwZTsNCj4+
+ICsJc3RydWN0IGRldmljZSAqZGV2Ow0KPj4gKwlzdHJ1Y3QgYXR0cmlidXRlX2dyb3VwICphdHRy
+X2dycDsNCj4+ICsJc3RydWN0IGtvYmplY3QgKmtvYmo7DQoNCj4gVXN1YWxseSBpdCdzIG5vdCBy
+ZWNvbW1lbmRlZCB0byBtdWNrIHdpdGgga29iaiBpbiBkcml2ZXJzLiBJZiB0aGlzIGlzIGZvciBz
+eXNmcyAgc3VwcG9ydCB0aGVyZSBhcmUgYmV0dGVyIGFuZCBzYWZlciB3YXlzLg0KDQpDb3VsZCB5
+b3UgdGVsbCBtZSB3aGljaCBtZXRob2QgeW91IHVzdWFsbHkgdXNlPw0KSSB1c2VkICdzeXNmc19j
+cmVhdGVfZ3JvdXAnIHdpdGggLg0KDQoNCj4+ICtzdGF0aWMgc3RydWN0IHNtYTEzMDNfcGxsX21h
+dGNoIHNtYTEzMDNfcGxsX21hdGNoZXNbXSA9IHsgDQo+PiArUExMX01BVENIKCIxLjQxMU1IeiIs
+ICAiMjQuNTk1TUh6IiwgMTQxMTIwMCwgIDB4MDcsIDB4RjQsIDB4OEIsIA0KPj4gKzB4MDMpLCBQ
+TExfTUFUQ0goIjEuNTM2TUh6IiwgICIyNC41NzZNSHoiLCAxNTM2MDAwLCAgMHgwNywgMHhFMCwg
+DQo+PiArMHg4QiwgMHgwMyksIFBMTF9NQVRDSCgiMy4wNzJNSHoiLCAgIjI0LjU3Nk1IeiIsIDMw
+NzIwMDAsICAweDA3LCANCj4+ICsweDcwLCAweDhCLCAweDAzKSwgUExMX01BVENIKCI2LjE0NE1I
+eiIsICAiMjQuNTc2TUh6IiwgNjE0NDAwMCwgIA0KPj4gKzB4MDcsIDB4NzAsIDB4OEIsIDB4MDcp
+LCBQTExfTUFUQ0goIjEyLjI4OE1IeiIsICIyNC41NzZNSHoiLCAxMjI4ODAwMCwgMHgwNywgMHg3
+MCwgMHg4QiwgMHgwQiksDQo+PiArUExMX01BVENIKCIxOS4yTUh6IiwgICAiMjQuMzQzTUh6Iiwg
+MTkyMDAwMDAsIDB4MDcsIDB4NDcsIDB4OEIsIDB4MEEpLA0KPj4gK1BMTF9NQVRDSCgiMjQuNTc2
+TUh6IiwgIjI0LjU3Nk1IeiIsIDI0NTc2MDAwLCAweDA3LCAweDcwLCAweDhCLCANCj4+ICsweDBG
+KSwgfTsNCg0KPiBBbnkgcmVhc29uIHRvIHVzZSBzdHJpbmdzIGluc3RlYWQgb2YgYWN0dWFsIGlu
+dGVnZXIgdmFsdWVzIGZvciBmcmVxdWVuY2llcz8NCg0KSSBhZGRlZCB0aGUgc3RyaW5nIHRvIHB1
+dCBpdCBzaW1wbHkgZm9yIHRoZSBsb2cuDQoNCg0KPj4gKwkJcmV0dXJuIHJldDsNCj4+ICsJfQ0K
+Pj4gKwl2YWwgPSAodTggKil1Y29udHJvbC0+dmFsdWUuYnl0ZXMuZGF0YTsNCj4+ICsJZm9yIChp
+ID0gMDsgaSA8IHBhcmFtcy0+bWF4OyBpKyspIHsNCj4+ICsJCXJldCA9IHJlZ21hcF9yZWFkKHNt
+YTEzMDMtPnJlZ21hcCwgcmVnICsgaSwgJnJlZ192YWwpOw0KPj4gKwkJaWYgKHJldCA8IDApIHsN
+Cj4+ICsJCQlkZXZfZXJyKGNvbXBvbmVudC0+ZGV2LA0KPj4gKwkJCQkiRmFpbGVkIHRvIHJlYWQs
+IHJlZ2lzdGVyOiAleCByZXQ6ICVkXG4iLA0KPj4gKwkJCQlyZWcgKyBpLCByZXQpOw0KPj4gKwkJ
+CXJldHVybiByZXQ7DQo+PiArCQl9DQo+PiArCQlpZiAoc2l6ZW9mKHJlZ192YWwpID4gMikNCj4+
+ICsJCQlyZWdfdmFsID0gY3B1X3RvX2xlMzIocmVnX3ZhbCk7DQo+PiArCQllbHNlDQo+PiArCQkJ
+cmVnX3ZhbCA9IGNwdV90b19sZTE2KHJlZ192YWwpOw0KPj4gKwkJbWVtY3B5KHZhbCArIGksICZy
+ZWdfdmFsLCBzaXplb2YodTgpKTsNCg0KPiBJIHdhc24ndCBhYmxlIHRvIGZpZ3VyZSBvdXQgd2hh
+dCB0aGlzIGNvZGUgZG9lcy4gc2l6ZW9mKHJlZ192YWwpIGlzIGEgY29uc3RhbnQgc28gdGhlIHNl
+Y29uZCBicmFuY2ggaXMgbmV2ZXIgdGFrZW4sIGFuZCB5b3UgZW5kLXVwIHVzaW5nIG1lbWNweSB0
+byBjb3B5IG9uZSBieXRlLCBzbyB3aGF0IGlzIHRoZSBpc3N1ZSB3aXRoIGVuZGlhbm5lc3M/DQoN
+CkknbSBzb3JyeSBJIGRvbid0IHVuZGVyc3RhbmQgdGhpcyBtZWFuaW5nLg0KSW4gJ3JlZ21hcF9y
+ZWFkJywgdGhlIGxhc3Qgb2YgdGhlIHBhcmFtZXRlcnMgaXMgJ3Vuc2lnbmVkIGludCcgZm9ybWF0
+Lg0KU28sIEkndmUgY29uc2lkZXJlZCB0aGUgdHdvIGZvcm1hdCAyYnl0ZXMgb3IgNGJ5dGVzIGFj
+Y29yZGluZyB0byB0aGUgY29tcGxpZXIuDQpBbmQgb3VyIGNoaXAgaGFzIG9ubHkgMSBieXRlIGRh
+dGEgb2YgZWFjaCByZWdpc3Rlciwgc28gSSBjb3B5IHRoZSBkYXRhIGFuZCBjYXN0IHRoZSBzaXpl
+IG9ubHkgb25lIGJ5dGUuDQpJcyB0aGVyZSBhbnl0aGluZyBJIHRob3VnaHQgd3Jvbmc/DQoNCg0K
+Pj4gKwlzd2l0Y2ggKHNtYTEzMDMtPmFtcF9tb2RlKSB7DQo+PiArCWNhc2UgT05FX0NISVBfU09M
+VVRJT046DQo+PiArCWNhc2UgTU9OT19UV09fQ0hJUF9TT0xVVElPTjoNCj4+ICsJCXJldCArPSBz
+bWExMzAzX3JlZ21hcF91cGRhdGVfYml0cygNCj4+ICsJCQkJc21hMTMwMy0+cmVnbWFwLCBjb21w
+b25lbnQtPmRldiwNCj4+ICsJCQkJU01BMTMwM18xMV9TWVNURU1fQ1RSTDIsDQo+PiArCQkJCU1P
+Tk9NSVhfTUFTSywgTU9OT01JWF9PTik7DQo+PiArCQlyZXQgKz0gc21hMTMwM19yZWdtYXBfdXBk
+YXRlX2JpdHMoDQo+PiArCQkJCXNtYTEzMDMtPnJlZ21hcCwgY29tcG9uZW50LT5kZXYsDQo+PiAr
+CQkJCVNNQTEzMDNfMTFfU1lTVEVNX0NUUkwyLA0KPj4gKwkJCQlMUl9EQVRBX1NXX01BU0ssIExS
+X0RBVEFfU1dfTk9STUFMKTsNCj4+ICsJCWJyZWFrOw0KPj4gKwljYXNlIExFRlRfVFdPX0NISVBf
+U09MVVRJT046DQo+PiArCQlyZXQgKz0gc21hMTMwM19yZWdtYXBfdXBkYXRlX2JpdHMoDQo+PiAr
+CQkJCXNtYTEzMDMtPnJlZ21hcCwgY29tcG9uZW50LT5kZXYsDQo+PiArCQkJCVNNQTEzMDNfMTFf
+U1lTVEVNX0NUUkwyLA0KPj4gKwkJCQlNT05PTUlYX01BU0ssIE1PTk9NSVhfT0ZGKTsNCj4+ICsJ
+CXJldCArPSBzbWExMzAzX3JlZ21hcF91cGRhdGVfYml0cygNCj4+ICsJCQkJc21hMTMwMy0+cmVn
+bWFwLCBjb21wb25lbnQtPmRldiwNCj4+ICsJCQkJU01BMTMwM18xMV9TWVNURU1fQ1RSTDIsDQo+
+PiArCQkJCUxSX0RBVEFfU1dfTUFTSywgTFJfREFUQV9TV19OT1JNQUwpOw0KPj4gKwkJYnJlYWs7
+DQo+PiArCWNhc2UgUklHSFRfVFdPX0NISVBfU09MVVRJT046DQo+PiArCQlyZXQgKz0gc21hMTMw
+M19yZWdtYXBfdXBkYXRlX2JpdHMoDQo+PiArCQkJCXNtYTEzMDMtPnJlZ21hcCwgY29tcG9uZW50
+LT5kZXYsDQo+PiArCQkJCVNNQTEzMDNfMTFfU1lTVEVNX0NUUkwyLA0KPj4gKwkJCQlNT05PTUlY
+X01BU0ssIE1PTk9NSVhfT0ZGKTsNCj4+ICsJCXJldCArPSBzbWExMzAzX3JlZ21hcF91cGRhdGVf
+Yml0cygNCj4+ICsJCQkJc21hMTMwMy0+cmVnbWFwLCBjb21wb25lbnQtPmRldiwNCj4+ICsJCQkJ
+U01BMTMwM18xMV9TWVNURU1fQ1RSTDIsDQo+PiArCQkJCUxSX0RBVEFfU1dfTUFTSywgTFJfREFU
+QV9TV19TV0FQKTsNCj4+ICsJCWJyZWFrOw0KPj4gKwlkZWZhdWx0Og0KPj4gKwkJZGV2X2Vycihj
+b21wb25lbnQtPmRldiwgIkludmFsaWQgVmFsdWUiKTsNCj4+ICsJCXJldCArPSAtMTsNCj4+ICsJ
+fQ0KPj4gKw0KPj4gKwlyZXR1cm4gcmV0Ow0KDQo+IE5vdCBzdXJlIEkgdW5kZXJzdGFuZCB5b3Vy
+IGFyaXRobWV0aWMgb24gY29tYmluaW5nIGVycm9yIGNvZGVzLg0KPiBJZiBvbmUgdHJhbnNhY3Rp
+b24gZmFpbHMsIGlzIHRoZXJlIGFueSBwb2ludCBpbiB0cnlpbmcgYW5vdGhlciByZWdtYXBfdXBk
+YXRlX2JpdHMoKT8NCj4ge3NraXBwaW5nIGFsbCB0aGUgd2F5IHRvIHRoZSBwcm9iZSB3aGljaCBo
+YXMgYSBsb3Qgb2YgaXNzdWVzfQ0KDQpJIHdhbnRlZCB0byBjb250aW51ZSBldmVuIGlmIGl0IGZh
+aWxlZCBpbiBvbmUgcGFydC4gVGhlIHJlYXNvbiBpcyB0byBjaGVjayB3aGV0aGVyIGl0IGlzIGFs
+bCBhIHByb2JsZW0gb3Igb25seSB0aGF0IHBhcnQuIElmIHRoZXJlIGlzIGEgcHJvYmxlbSB3aXRo
+IGVhY2ggcGFydCwgaXQgaXMgc2V0IHRvIGxlYXZlIGEgbG9nIGZvciBlYWNoIHBhcnQuDQpTbyB0
+aGUgZXJyb3IgY29kZSB3YXMgY29tYmluZWQgd2l0aG91dCBpbml0aWFsaXppbmcuIElmIEkgZG8g
+dGhpcywgaXQgd2lsbCBiZSBkaWZmZXJlbnQgZnJvbSB0aGUga2VybmVsIHN0YW5kYXJkIGVycm9y
+IGNvZGUsIHNvIEkgd291bGQgbGlrZSB0byBhc2sgaWYgSSBjYW4gZG8gdGhpcy4gT3IgaXMgdGhl
+cmUgYSBiZXR0ZXIgd2F5Pw0KDQo+PiArDQo+PiArCXNtYTEzMDMtPmF0dHJfZ3JwID0gJnNtYTEz
+MDNfYXR0cl9ncm91cDsNCj4+ICsJcmV0ID0gc3lzZnNfY3JlYXRlX2dyb3VwKHNtYTEzMDMtPmtv
+YmosIHNtYTEzMDMtPmF0dHJfZ3JwKTsNCj4+ICsNCj4+ICsJaWYgKHJldCkgew0KPj4gKwkJZGV2
+X2VycigmY2xpZW50LT5kZXYsDQo+PiArCQkJImZhaWxlZCB0byBjcmVhdGUgYXR0cmlidXRlIGdy
+b3VwIFslZF1cbiIsIHJldCk7DQo+PiArCQlzbWExMzAzLT5hdHRyX2dycCA9IE5VTEw7DQo+PiAr
+CX0NCg0KPiBub3QgY2xlYXIgd2hhdCB5b3UgYXJlIHRyeWluZyB0byBkbyB3aXRoIHN5c2ZzPw0K
+DQpVc2luZyB3b3JrIHF1ZXVlLCBjaGVjayB0aGUgZmF1bHQgc3RhdHVzIG9uIHBvbGxpbmcuDQoN
+Cj4+ICsNCj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgc21hMTMwM19pMmNf
+aWRbXSA9IHsNCj4+ICsJeyJzbWExMzAzIiwgMH0sDQo+PiArCXt9DQo+PiArfTsNCj4+ICtNT0RV
+TEVfREVWSUNFX1RBQkxFKGkyYywgc21hMTMwM19pMmNfaWQpOw0KPj4gKw0KPj4gK3N0YXRpYyBj
+b25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIHNtYTEzMDNfb2ZfbWF0Y2hbXSA9IHsNCj4+ICsJeyAu
+Y29tcGF0aWJsZSA9ICJpcm9uZGV2aWNlLHNtYTEzMDMiLCB9LA0KPj4gKwl7IH0NCj4+ICt9Ow0K
+Pj4gK01PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHNtYTEzMDNfb2ZfbWF0Y2gpOw0KPj4gKw0KPj4g
+K3N0YXRpYyBzdHJ1Y3QgaTJjX2RyaXZlciBzbWExMzAzX2kyY19kcml2ZXIgPSB7DQo+PiArCS5k
+cml2ZXIgPSB7DQo+PiArCQkubmFtZSA9ICJzbWExMzAzIiwNCj4+ICsJCS5vZl9tYXRjaF90YWJs
+ZSA9IHNtYTEzMDNfb2ZfbWF0Y2gsDQo+PiArCX0sDQo+PiArCS5wcm9iZSA9IHNtYTEzMDNfaTJj
+X3Byb2JlLA0KPj4gKwkucmVtb3ZlID0gc21hMTMwM19pMmNfcmVtb3ZlLA0KPj4gKwkuaWRfdGFi
+bGUgPSBzbWExMzAzX2kyY19pZCwNCj4+ICt9Ow0KPj4gKw0KPj4gK3N0YXRpYyBpbnQgX19pbml0
+IHNtYTEzMDNfaW5pdCh2b2lkKQ0KPj4gK3sNCj4+ICsJaW50IHJldDsNCj4+ICsNCj4+ICsJcmV0
+ID0gaTJjX2FkZF9kcml2ZXIoJnNtYTEzMDNfaTJjX2RyaXZlcik7DQo+PiArDQo+PiArCWlmIChy
+ZXQpDQo+PiArCQlwcl9lcnIoIkZhaWxlZCB0byByZWdpc3RlciBzbWExMzAzIEkyQyBkcml2ZXI6
+ICVkXG4iLCByZXQpOw0KPj4gKw0KPj4gKwlyZXR1cm4gcmV0Ow0KPj4gK30NCj4+ICsNCj4+ICtz
+dGF0aWMgdm9pZCBfX2V4aXQgc21hMTMwM19leGl0KHZvaWQpIHsNCj4+ICsJaTJjX2RlbF9kcml2
+ZXIoJnNtYTEzMDNfaTJjX2RyaXZlcik7DQo+PiArfQ0KPj4gKw0KPj4gK21vZHVsZV9pbml0KHNt
+YTEzMDNfaW5pdCk7DQo+PiArbW9kdWxlX2V4aXQoc21hMTMwM19leGl0KTsNCg0KPiB1c2UgbW9k
+dWxlX2kyY19kcml2ZXIoKSA/DQoNCkl0J3MgdGhlIGJldHRlci4gSSdsbCBtb2RpZnkuDQpJcyB0
+aGVyZSBhIHByb2JsZW0gaWYgSSBtYWtlIGEgbW9kdWxlIGFuZCByZWdpc3RlciBpdCB3aXRoIHRo
+ZSBpMmMgZHJpdmVyIGxpa2UgYWJvdmU/DQoNCg==

@@ -2,93 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C77875EF249
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 11:39:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 895D75EF377
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Sep 2022 12:30:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64E7715E0;
-	Thu, 29 Sep 2022 11:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64E7715E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id E840384D;
+	Thu, 29 Sep 2022 12:30:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E840384D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664444397;
-	bh=RtRv/rkQ/6umPfMGjbcpbybAEf60DvjIjLr1IuvLmq8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664447458;
+	bh=Ct3rpu6jdxUMpNcwrqLEGWuHzOZd+t40yGCSzkMNywQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XlOiaKBv9Gq5fdYRsrcm8EjoHUn5oC+YxN7rXzjfT2tfze4asr4qvSL8kKm7eZNKG
-	 UQ3qKOnZ5X+FR+e6Ekn480qJg/sZpiuJwWP4JXIwb/xlKM8wZdE7by9tICwu5ne8jy
-	 qSKVAutI/T2OTq19m9GWBo6q75Z3tM0OjqKl9SM8=
+	b=rlRc3MuG/MNUxw9fnPS7/iJ4G1czR2xrjkUUBaKNlTB5sS7933SvvtiVO7I8wxXf8
+	 CVrj4R7ECmZ2VWzrbA9ZGaeinIm9SdNxTNfNTR+RVAyYcHAV6wO7ZIV+Id0R5vaXuC
+	 AWWphfbH7stdxKI5coK5xQRrSv2CMdIgLUMYex3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0794F80109;
-	Thu, 29 Sep 2022 11:39:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F00BF80095;
+	Thu, 29 Sep 2022 12:30:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A63EF8023A; Thu, 29 Sep 2022 11:38:59 +0200 (CEST)
+ id E95AFF8023A; Thu, 29 Sep 2022 12:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7602F80109
- for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 11:38:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7602F80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4E5CF80109
+ for <alsa-devel@alsa-project.org>; Thu, 29 Sep 2022 12:29:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4E5CF80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zV4Jc4N5"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="U7cH9/ZQ"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="poxnamR5"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 547A221E53;
- Thu, 29 Sep 2022 09:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664444336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jHNjHwNhLr6putWTALtOmPGpZYE6MAPvEerSU3xYtkc=;
- b=zV4Jc4N5rruhv+BGtL1YfYkz5zV53w/OcO9vrHmYyoAl+ssmfJRMwidQvNzdRNk+BP3v59
- nUEyKP+0iIB0m168oZ3QleKrXlprLwdF3Ftane2iUPLHofzWxiSRbadCGdsBsw+uLcOQcd
- rDX4PGbgH1ALKOpR47wkf3Wj0RJMlA0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664444336;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jHNjHwNhLr6putWTALtOmPGpZYE6MAPvEerSU3xYtkc=;
- b=U7cH9/ZQLuaiCDBRD3ln3OTRVP8h5jW839Z/xFH5KZTFmjAztoToiRd/gMcSWzRpF5/4e6
- g1RmG5gCzg1XSqDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F66C1348E;
- Thu, 29 Sep 2022 09:38:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +om8DrBnNWOOOwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 29 Sep 2022 09:38:56 +0000
-Date: Thu, 29 Sep 2022 11:38:55 +0200
-Message-ID: <87h70q8qq8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: Sound broken (first couple of seconds play looping) on Sony Vaio
- VPX11S1E (HDA, ALC262)
-In-Reply-To: <c24d34a9-e609-d44d-8e0f-c2e5928b95f4@redhat.com>
-References: <3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com>
- <87y1uqbfmo.wl-tiwai@suse.de> <87tu5ebdc8.wl-tiwai@suse.de>
- <61bd7097-afac-5a2d-46a2-aada444a890c@redhat.com>
- <87y1u290cv.wl-tiwai@suse.de>
- <c24d34a9-e609-d44d-8e0f-c2e5928b95f4@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EFA7C60F4B;
+ Thu, 29 Sep 2022 10:29:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BF6C433D6;
+ Thu, 29 Sep 2022 10:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664447388;
+ bh=Ct3rpu6jdxUMpNcwrqLEGWuHzOZd+t40yGCSzkMNywQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=poxnamR56W7z9N/18lMs879J5ufX8i2zJa/w/DqL+L/GxfG6LqO7AyxiBdFTVB01x
+ nbht1fRozh7kFBqqvejepcLLIOhASO4/+obkBKm1FjZTJ1DbCyF9RHuwjFMI//cIH+
+ Vx5oZqoybi+7tT7nPFODRVy4bgvEjlRq7+vTZH/2jsMmsFFw4zbXB64QuD5H1eSo60
+ xf8nRPoJG5lhZrvD6QN4rdgA8+IV/vg/mI+N933rGFczyjpzItHcs/Z2xoh89IQVHh
+ yNdq3zGSbR3Lw22aIx1cOI3mrIEGqvohElgRs0Ly4i2X1dcaa/4keeq13DT7yaRibF
+ K/sdOqlLHSFoA==
+Date: Thu, 29 Sep 2022 11:29:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Venkata Prasad Potturu <venkataprasad.potturu@amd.corp-partner.google.com>
+Subject: Re: [RESEND] ASoC: amd: acp: Add setbias level for rt5682s codec in
+ machine driver
+Message-ID: <YzVzlZ4LOwaLkzHo@sirena.org.uk>
+References: <20220929070828.3950101-1-venkataprasad.potturu@amd.corp-partner.google.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="SwTGG9bJqF3v2K7+"
+Content-Disposition: inline
+In-Reply-To: <20220929070828.3950101-1-venkataprasad.potturu@amd.corp-partner.google.com>
+X-Cookie: Last week's pet, this week's special.
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jia-Ju Bai <baijiaju1990@gmail.com>, Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Vijendar.Mukunda@amd.com, vsujithkumar.reddy@amd.com,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,92 +93,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 29 Sep 2022 11:05:47 +0200,
-Hans de Goede wrote:
-> 
-> Hi,
-> 
-> On 9/29/22 08:10, Takashi Iwai wrote:
-> > On Wed, 28 Sep 2022 18:33:55 +0200,
-> > Hans de Goede wrote:
-> >>
-> >> Hi,
-> >>
-> >> On 9/11/22 09:05, Takashi Iwai wrote:
-> >>> On Sun, 11 Sep 2022 08:15:59 +0200,
-> >>> Takashi Iwai wrote:
-> >>>>
-> >>>> On Sat, 10 Sep 2022 19:52:36 +0200,
-> >>>> Hans de Goede wrote:
-> >>>>>
-> >>>>> Hi All,
-> >>>>>
-> >>>>> To test some kernel work (backlight refactor) which I have been doing
-> >>>>> I have booted Debian Testing with a 6.0 kernel on a Sony Vaio VPX11S1E
-> >>>>> (which is ancient).
-> >>>>>
-> >>>>> I noticed that when tab-completing something in a terminal the
-> >>>>> terminal bell sound would keep repeating and playing another longer
-> >>>>> sound sample gets stuck with the first couple of seconds of that
-> >>>>> sample looping.
-> >>>>>
-> >>>>> This is under GNOME3 with pulseaudio as sound server.
-> >>>>>
-> >>>>> I accidentally found an interesting workaround if I run:
-> >>>>>
-> >>>>> aplay -Dplughw:CARD=MID,DEV=0 /usr/share/sounds/alsa/Front_Left.wav
-> >>>>>
-> >>>>> once, then that works properly and after that the problem is gone...
-> >>>>>
-> >>>>> Note that this laptop does have only 1 speaker AFAICT.
-> >>>>>
-> >>>>> alsa-info output below.
-> >>>>>
-> >>>>> I would be happy to test any patches / module-options which might
-> >>>>> fix this.
-> >>>>
-> >>>> Could you check the very latest Linus tree (6.0-rc5)?
-> >>>> There has been a regression fix for HD-audio, and possibly this might
-> >>>> be your case.
-> >>>
-> >>> And if this doesn't change the behavior, try snoop=0 option for
-> >>> snd-hda-intel module.
-> >>
-> >> Thanks, I've just tried with 6.0-rc6 both with and without snoop=0
-> >> and neither helps I'm afraid.
-> > 
-> > Then one another thing could be position_fix option of snd-hda-intel.
-> > Otherwise we need bisection -- supposing it worked well in the past.
-> 
-> Thanks, position_fix=1 does the trick (I did not try any of
-> the other possible values).
-> 
-> I see there is a snd_pci_quirk position_fix_list, so I guess
-> I should prepare a patch adding a quirk for this?
 
-I guess this is rather controller issue, so I'd patch for Poulsbo like
-below.  Let me know if it works, then I'll cook a proper patch.
+--SwTGG9bJqF3v2K7+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Or are some other position_fix values preferred and should
-> I try those first?
+On Thu, Sep 29, 2022 at 12:38:22PM +0530, Venkata Prasad Potturu wrote:
+> From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+>=20
+> Add set_bais_level function for rt5682s codec to enable bclk and lrclk
+> before codec widgets power on and disable bclk and lrclk after widgets
+> power down, to avoid pop noise
 
-LPIB should suffice, so no further test about the option needed.
+Please allow a reasonable time for review...
 
+--SwTGG9bJqF3v2K7+
+Content-Type: application/pgp-signature; name="signature.asc"
 
-thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Takashi
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmM1c5QACgkQJNaLcl1U
+h9CfdQf+JNAC9Md2HFgBnBsxw6gz04oxAb/sihhvpSmvllsnbMTbgWFqOIEjad+P
+JA05eh7PHjC+ljLmmNU+DqK9SABZsnTzGXmMgkCIB//RrqtDIb1KFNZBpN7mozWu
+1UAEX7JdJAAhMU8n2qQTsho62/2g3IjZdwSiDKWK4zesQIDF6QiLNVUmQdyOuaUb
+VZHRafBVF5/k1J02Sl3hulVT6cqVchJ6J9JkHqRbjBo6GAWfld0dXqJyZ5+z/uIY
+P1dtk93LZYFkoDNZf/qcnkXDnC4nrLoU004qBz53EhePo3mB8HqDkzaI8OmCdD1o
+56h27TtvY08e5m8zGV8LKrEii9aEGQ==
+=33hd
+-----END PGP SIGNATURE-----
 
--- 8< --
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2547,7 +2547,8 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_NOPM },
- 	/* Poulsbo */
- 	{ PCI_DEVICE(0x8086, 0x811b),
--	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
-+	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE |
-+	  AZX_DCAPS_POSFIX_LPIB },
- 	/* Oaktrail */
- 	{ PCI_DEVICE(0x8086, 0x080a),
- 	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
+--SwTGG9bJqF3v2K7+--

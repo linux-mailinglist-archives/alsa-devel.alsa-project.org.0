@@ -2,64 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 971DE5F05B6
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 09:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A635F05F2
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 09:45:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11985846;
-	Fri, 30 Sep 2022 09:28:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11985846
+	by alsa0.perex.cz (Postfix) with ESMTPS id B63031657;
+	Fri, 30 Sep 2022 09:44:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B63031657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664522981;
-	bh=Iwi/LS3D+zIRBrzElguCR6rGpWWFWRfAX+egGgnX/so=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1664523924;
+	bh=G+mBcARxluLUNOwRTZdGY68z0TrJha3SpW1z1RkLc6M=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=sqXqHDQ9vPrCoRxTBfCM9X6sBoiD1BNBOf++DVWYHn2hua/QoQz70hBjewjbXTLkn
-	 jlTPZIp+/M2CRVRz4Vn5zN4slVik6514mK9zHERXxuP4GREDq/AGAmE4/WCkjxqpwW
-	 54hT3ZKg3J1XcJ7s4AUOIHdYVeyopnChIAjknhAU=
+	b=e5pL1amxDS40foGrKHfodJTpe6vs2/3Q0/lQf7KLkxxVDBN8cFeO6jX9rtCUfxiFg
+	 wjSo8n+dVYJ6+2U00AAxcilTuWrNQLP0KXbZdpDt+B/RDa9Apd2vqKUBBgOMn2zCZ2
+	 Eg6mVwdTHRySgI9Bfs15M3VThzoMhxrHn3L4/ZBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68796F800E8;
-	Fri, 30 Sep 2022 09:28:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DF21F801D5;
+	Fri, 30 Sep 2022 09:44:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC002F80155; Fri, 30 Sep 2022 09:28:41 +0200 (CEST)
+ id 71587F800E8; Fri, 30 Sep 2022 09:44:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id DE33AF800E8
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 09:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE33AF800E8
-Received: from NTHCCAS04.nuvoton.com (NTHCCAS04.nuvoton.com [10.1.8.29])
- by maillog.nuvoton.com (Postfix) with ESMTP id 7F64F1C80F4A;
- Fri, 30 Sep 2022 15:28:30 +0800 (CST)
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Fri, 30
- Sep 2022 15:28:30 +0800
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Fri, 30 Sep
- 2022 15:28:30 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Fri, 30 Sep 2022 15:28:29 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: nau8825: Add TDM support
-Date: Fri, 30 Sep 2022 15:28:05 +0800
-Message-ID: <20220930072804.2524352-1-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D2C8F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 09:44:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D2C8F800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ge/hbIDT"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="G/C3/A32"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 147271F8C5;
+ Fri, 30 Sep 2022 07:44:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664523859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Qrg4tjvgx5O3Al0jsZy7zgEhI+KvLczCwJCFkd1QA/0=;
+ b=ge/hbIDTqMXEGjKUA+t0F996l+bqsJSLfVhak4i5NvSXwqDmXOKgSn7sBi0iW1KgoOyZjF
+ HZGL+wzT5gwSzJCE1tDEa+CoI9vVvUSUgwji4Qj/QU6Hhx1NrAyICNTPINU2PVN80HpSx3
+ 514sI4kP9JC0BKyiUV1thS3TcTPrxjc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664523859;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Qrg4tjvgx5O3Al0jsZy7zgEhI+KvLczCwJCFkd1QA/0=;
+ b=G/C3/A32iiFIxVp0h7afvj9mn4m5vkBD07HQyWZ1NyH+luLX3s8Kmr0rSsUeQnefJVNFNd
+ Epsz3b2E0rkPx8Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F22B613677;
+ Fri, 30 Sep 2022 07:44:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id alxLOlKeNmPnLwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 30 Sep 2022 07:44:18 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: More robust component matching for CS35L41
+Date: Fri, 30 Sep 2022 09:44:16 +0200
+Message-Id: <20220930074416.26367-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,165 +93,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Support TDM format for NAU88L25.
+As the previous commit implies, a system may have a different SPI bus
+number that is embedded in the device string.  And, assuming the fixed
+bus number is rather fragile; it may be assigned differently depending
+on the configuration or on the boot environment.  Once when a bus
+number change happens, the binding fails, resulting in the silence.
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+This patch tries to make the matching a bit more relaxed, allowing to
+bind with a different bus number (or without it).  So the previous
+fix, the introduction of ALC245_FIXUP_CS35L41_SPI1_2 fixup became
+superfluous, and this is unified to ALC245_FIXUP_CS35L41_SPI_2.
+
+Fixes: 225f6e1bc151 ("ALSA: hda/realtek: Add quirk for HP Zbook Firefly 14 G9 model")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/nau8825.c | 97 ++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/nau8825.h | 14 ++++++
- 2 files changed, 111 insertions(+)
+ sound/pci/hda/patch_realtek.c | 61 +++++++++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 25 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index b3cdbe884c05..6a2c2e373efd 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -1425,10 +1425,107 @@ static int nau8825_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 	return 0;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3dc19174670e..cd670884cfd0 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6704,23 +6704,51 @@ static void comp_generic_playback_hook(struct hda_pcm_stream *hinfo, struct hda_
+ 	}
  }
  
-+/**
-+ * nau8825_set_tdm_slot - configure DAI TDM.
-+ * @dai: DAI
-+ * @tx_mask: bitmask representing active TX slots.
-+ * @rx_mask: bitmask representing active RX slots.
-+ * @slots: Number of slots in use.
-+ * @slot_width: Width in bits for each slot.
-+ *
-+ * Configures a DAI for TDM operation. Support TDM 4/8 slots.
-+ * The limitation is DAC and ADC need shift 4 slots at 8 slots mode.
-+ */
-+static int nau8825_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
-+				unsigned int rx_mask, int slots, int slot_width)
++struct cs35l41_dev_name {
++	const char *bus;
++	const char *hid;
++	int index;
++};
++
++/* match the device name in a slightly relaxed manner */
++static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
 +{
-+	struct snd_soc_component *component = dai->component;
-+	struct nau8825 *nau8825 = snd_soc_component_get_drvdata(component);
-+	unsigned int ctrl_val = 0, ctrl_offset = 0, value = 0, dac_s, adc_s;
++	struct cs35l41_dev_name *p = data;
++	const char *d = dev_name(dev);
++	int n = strlen(p->bus);
++	char tmp[32];
 +
-+	if (slots != 4 && slots != 8) {
-+		dev_err(nau8825->dev, "Only support 4 or 8 slots!\n");
-+		return -EINVAL;
-+	}
-+
-+	/* The driver is limited to 1-channel for ADC, and 2-channel for DAC on TDM mode */
-+	if (hweight_long((unsigned long) tx_mask) != 1 ||
-+	    hweight_long((unsigned long) rx_mask) != 2) {
-+		dev_err(nau8825->dev,
-+			"The limitation is 1-channel for ADC, and 2-channel for DAC on TDM mode.\n");
-+		return -EINVAL;
-+	}
-+
-+	if (((tx_mask & 0xf) && (tx_mask & 0xf0)) ||
-+	    ((rx_mask & 0xf) && (rx_mask & 0xf0)) ||
-+	    ((tx_mask & 0xf) && (rx_mask & 0xf0)) ||
-+	    ((rx_mask & 0xf) && (tx_mask & 0xf0))) {
-+		dev_err(nau8825->dev,
-+			"Slot assignment of DAC and ADC need to set same interval.\n");
-+		return -EINVAL;
-+	}
-+
-+	/* The offset of fixed 4 slots for 8 slots support */
-+	if (rx_mask & 0xf0) {
-+		regmap_update_bits(nau8825->regmap, NAU8825_REG_I2S_PCM_CTRL2,
-+				   NAU8825_I2S_PCM_TS_EN_MASK, NAU8825_I2S_PCM_TS_EN);
-+		regmap_read(nau8825->regmap, NAU8825_REG_I2S_PCM_CTRL1, &value);
-+		ctrl_val |= NAU8825_TDM_OFFSET_EN;
-+		ctrl_offset = 4 * slot_width;
-+		if (!(value & NAU8825_I2S_PCMB_MASK))
-+			ctrl_offset += 1;
-+		dac_s = (rx_mask & 0xf0) >> 4;
-+		adc_s = fls((tx_mask & 0xf0) >> 4);
-+	} else {
-+		dac_s = rx_mask & 0xf;
-+		adc_s = fls(tx_mask & 0xf);
-+	}
-+
-+	ctrl_val |= NAU8825_TDM_MODE;
-+
-+	switch (dac_s) {
-+	case 0x3:
-+		ctrl_val |= 1 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	case 0x5:
-+		ctrl_val |= 2 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	case 0x6:
-+		ctrl_val |= 1 << NAU8825_TDM_DACL_RX_SFT;
-+		ctrl_val |= 2 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	case 0x9:
-+		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	case 0xa:
-+		ctrl_val |= 1 << NAU8825_TDM_DACL_RX_SFT;
-+		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	case 0xc:
-+		ctrl_val |= 2 << NAU8825_TDM_DACL_RX_SFT;
-+		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ctrl_val |= adc_s - 1;
-+
-+	regmap_update_bits(nau8825->regmap, NAU8825_REG_TDM_CTRL,
-+			   NAU8825_TDM_MODE | NAU8825_TDM_OFFSET_EN |
-+			   NAU8825_TDM_DACL_RX_MASK | NAU8825_TDM_DACR_RX_MASK |
-+			   NAU8825_TDM_TX_MASK, ctrl_val);
-+	regmap_update_bits(nau8825->regmap, NAU8825_REG_LEFT_TIME_SLOT,
-+			   NAU8825_TSLOT_L0_MASK, ctrl_offset);
-+
-+	return 0;
++	/* check the bus name */
++	if (strncmp(d, p->bus, n))
++		return 0;
++	/* skip the bus number */
++	if (isdigit(d[n]))
++		n++;
++	/* the rest must be exact matching */
++	snprintf(tmp, sizeof(tmp), "-%s:00-cs35l41-hda.%d", p->hid, p->index);
++	return !strcmp(d + n, tmp);
 +}
 +
- static const struct snd_soc_dai_ops nau8825_dai_ops = {
- 	.startup	= nau8825_dai_startup,
- 	.hw_params	= nau8825_hw_params,
- 	.set_fmt	= nau8825_set_dai_fmt,
-+	.set_tdm_slot	= nau8825_set_tdm_slot,
- };
+ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char *bus,
+ 				  const char *hid, int count)
+ {
+ 	struct device *dev = hda_codec_dev(cdc);
+ 	struct alc_spec *spec = cdc->spec;
+-	char *name;
++	struct cs35l41_dev_name *rec;
+ 	int ret, i;
  
- #define NAU8825_RATES	SNDRV_PCM_RATE_8000_192000
-diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
-index 6d112b6145df..d84191a7beb2 100644
---- a/sound/soc/codecs/nau8825.h
-+++ b/sound/soc/codecs/nau8825.h
-@@ -225,6 +225,15 @@
- #define NAU8825_JKDET_PULL_EN	(1 << 9) /* 0 - enable pull, 1 - disable */
- #define NAU8825_JKDET_OUTPUT_EN	(1 << 8) /* 0 - enable input, 1 - enable output */
+ 	switch (action) {
+ 	case HDA_FIXUP_ACT_PRE_PROBE:
+ 		for (i = 0; i < count; i++) {
+-			name = devm_kasprintf(dev, GFP_KERNEL,
+-					      "%s-%s:00-cs35l41-hda.%d", bus, hid, i);
+-			if (!name)
++			rec = devm_kmalloc(dev, sizeof(*rec), GFP_KERNEL);
++			if (!rec)
+ 				return;
++			rec->bus = bus;
++			rec->hid = hid;
++			rec->index = i;
+ 			spec->comps[i].codec = cdc;
+-			component_match_add(dev, &spec->match, component_compare_dev_name, name);
++			component_match_add(dev, &spec->match,
++					    comp_match_cs35l41_dev_name, rec);
+ 		}
+ 		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
+ 		if (ret)
+@@ -6738,17 +6766,12 @@ static void cs35l41_fixup_i2c_two(struct hda_codec *cdc, const struct hda_fixup
  
-+/* TDM_CTRL (0x1b) */
-+#define NAU8825_TDM_MODE		(0x1 << 15)
-+#define NAU8825_TDM_OFFSET_EN		(0x1 << 14)
-+#define NAU8825_TDM_DACL_RX_SFT		6
-+#define NAU8825_TDM_DACL_RX_MASK	(0x3 << NAU8825_TDM_DACL_RX_SFT)
-+#define NAU8825_TDM_DACR_RX_SFT		4
-+#define NAU8825_TDM_DACR_RX_MASK	(0x3 << NAU8825_TDM_DACR_RX_SFT)
-+#define NAU8825_TDM_TX_MASK		0x3
-+
- /* I2S_PCM_CTRL1 (0x1c) */
- #define NAU8825_I2S_BP_SFT	7
- #define NAU8825_I2S_BP_MASK	(1 << NAU8825_I2S_BP_SFT)
-@@ -249,6 +258,9 @@
- #define NAU8825_I2S_TRISTATE	(1 << 15) /* 0 - normal mode, 1 - Hi-Z output */
- #define NAU8825_I2S_LRC_DIV_SFT	12
- #define NAU8825_I2S_LRC_DIV_MASK	(0x3 << NAU8825_I2S_LRC_DIV_SFT)
-+#define NAU8825_I2S_PCM_TS_EN_SFT	10
-+#define NAU8825_I2S_PCM_TS_EN_MASK	(1 << NAU8825_I2S_PCM_TS_EN_SFT)
-+#define NAU8825_I2S_PCM_TS_EN		(1 << NAU8825_I2S_PCM_TS_EN_SFT)
- #define NAU8825_I2S_MS_SFT	3
- #define NAU8825_I2S_MS_MASK	(1 << NAU8825_I2S_MS_SFT)
- #define NAU8825_I2S_MS_MASTER	(1 << NAU8825_I2S_MS_SFT)
-@@ -259,6 +271,8 @@
- #define NAU8825_FS_ERR_CMP_SEL_SFT	14
- #define NAU8825_FS_ERR_CMP_SEL_MASK	(0x3 << NAU8825_FS_ERR_CMP_SEL_SFT)
- #define NAU8825_DIS_FS_SHORT_DET	(1 << 13)
-+#define NAU8825_TSLOT_L0_MASK		0x3ff
-+#define NAU8825_TSLOT_R0_MASK		0x3ff
+ static void cs35l41_fixup_spi_two(struct hda_codec *codec, const struct hda_fixup *fix, int action)
+ {
+-	cs35l41_generic_fixup(codec, action, "spi0", "CSC3551", 2);
+-}
+-
+-static void cs35l41_fixup_spi1_two(struct hda_codec *codec, const struct hda_fixup *fix, int action)
+-{
+-	cs35l41_generic_fixup(codec, action, "spi1", "CSC3551", 2);
++	cs35l41_generic_fixup(codec, action, "spi", "CSC3551", 2);
+ }
  
- /* BIQ_CTRL (0x20) */
- #define NAU8825_BIQ_WRT_SFT   4
+ static void cs35l41_fixup_spi_four(struct hda_codec *codec, const struct hda_fixup *fix, int action)
+ {
+-	cs35l41_generic_fixup(codec, action, "spi0", "CSC3551", 4);
++	cs35l41_generic_fixup(codec, action, "spi", "CSC3551", 4);
+ }
+ 
+ static void alc287_fixup_legion_16achg6_speakers(struct hda_codec *cdc, const struct hda_fixup *fix,
+@@ -7137,8 +7160,6 @@ enum {
+ 	ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED,
+ 	ALC245_FIXUP_CS35L41_SPI_2,
+ 	ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED,
+-	ALC245_FIXUP_CS35L41_SPI1_2,
+-	ALC245_FIXUP_CS35L41_SPI1_2_HP_GPIO_LED,
+ 	ALC245_FIXUP_CS35L41_SPI_4,
+ 	ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED,
+ 	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
+@@ -8986,16 +9007,6 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_HP_GPIO_LED,
+ 	},
+-	[ALC245_FIXUP_CS35L41_SPI1_2] = {
+-		.type = HDA_FIXUP_FUNC,
+-		.v.func = cs35l41_fixup_spi1_two,
+-	},
+-	[ALC245_FIXUP_CS35L41_SPI1_2_HP_GPIO_LED] = {
+-		.type = HDA_FIXUP_FUNC,
+-		.v.func = cs35l41_fixup_spi1_two,
+-		.chained = true,
+-		.chain_id = ALC285_FIXUP_HP_GPIO_LED,
+-	},
+ 	[ALC245_FIXUP_CS35L41_SPI_4] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_spi_four,
+@@ -9358,7 +9369,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
+-	 SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI1_2_HP_GPIO_LED),
++	 SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
 -- 
-2.25.1
+2.35.3
 

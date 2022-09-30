@@ -2,88 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34C885F0FC7
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 18:21:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E875F1507
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 23:39:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E46F416D1;
-	Fri, 30 Sep 2022 18:20:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E46F416D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4745316BA;
+	Fri, 30 Sep 2022 23:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4745316BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664554882;
-	bh=zHOzuOAsx4FJrbmbBRXCwBpAs3bc84faf59NSjGalQI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664573962;
+	bh=tusUStU1kCMoTV8C8IxmLL86gwzFNICWcH6XWVTfTHk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dEHlsVkFxc3g1VFFjTczWba/+T0bssF05HixsY7VCQVC6e6GnCAGl93p1WLoKGP+c
-	 RHNKNNdXPgVIuBA6jX5BENGEGQOy8iGhfJ9YFTsOxwWjJi8bq4lz2g8AJ2GNKLYdK6
-	 6sQvR+b7VfqF3iAUIl81E2jz5iPo1R8ZS1X3slKI=
+	b=SEEGYVzwe0mWqUGIuf6bcQ3HLfSC6LXue9Iwv3abCjWqzfxLXJR4F63kfjUJwZjYc
+	 XWDg9+FaSGvY2fQghbEPeYG2dp0xGOtriplK+dQTXFIPULWpfazQu6+mnvQ2e2opm9
+	 CFhjHEg2STU+uGxuf45DQSp2VpAOy5ORma8s/mXg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60513F800AA;
-	Fri, 30 Sep 2022 18:20:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E171F800E8;
+	Fri, 30 Sep 2022 23:38:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28154F800E8; Fri, 30 Sep 2022 18:20:23 +0200 (CEST)
+ id 68F3EF80155; Fri, 30 Sep 2022 23:38:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC952F800E8
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 18:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC952F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lAxfCTxN"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bjUo7+fD"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C84D421907;
- Fri, 30 Sep 2022 16:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664554819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TwaqQFvNoCnaPFBmC4MMTJ21z98g0OIvTspvRItG31k=;
- b=lAxfCTxNKMjQKZjncTkE+5Co1av8H7buSuz91zrcUVf0C/1gh5MegBA1YJWkBX0JGXXGAc
- ol2xdClNJvdh1Y60YuBy1HN8fhUZ6Zn8RN6WTOjRV5xugqiWdrHYBb6CPkb5MOS4HL3EYi
- NF4AZjXTTH1+Fs6UwFMbVQKsOSa28A4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664554819;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TwaqQFvNoCnaPFBmC4MMTJ21z98g0OIvTspvRItG31k=;
- b=bjUo7+fD8n/VRkxYEvAwleEgglI2E7+sr1VIlqJFwtzKYAoPQILvJlAy99dvEWv/nPKHNp
- ITipOAFcFTJgnSCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E6B113677;
- Fri, 30 Sep 2022 16:20:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rwjoIUMXN2NJCAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 30 Sep 2022 16:20:19 +0000
-Date: Fri, 30 Sep 2022 18:20:18 +0200
-Message-ID: <871qrsj0l9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.0-rc7
-In-Reply-To: <20220930111000.BF4E8C433C1@smtp.kernel.org>
-References: <20220930111000.BF4E8C433C1@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id E1652F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 23:38:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1652F800E8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1664573896127619028-webhooks-bot@alsa-project.org>
+References: <1664573896127619028-webhooks-bot@alsa-project.org>
+Subject: issues with the Arturia minifuse 1 sound card. i would like help with
+ converting the minifuse 2 UCM config to work with minifuse 1
+Message-Id: <20220930213823.68F3EF80155@alsa1.perex.cz>
+Date: Fri, 30 Sep 2022 23:38:23 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,32 +61,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Sep 2022 13:09:50 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 0a0342ede303fc420f3a388e1ae82da3ae8ff6bd:
-> 
->   ASoC: tas2770: Reinit regcache on reset (2022-09-19 18:48:43 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.0-rc7
-> 
-> for you to fetch changes up to e18f6bcf8e864ea0e9690691d0d749c662b6a2c7:
-> 
->   ASoC: wcd-mbhc-v2: Revert "ASoC: wcd-mbhc-v2: use pm_runtime_resume_and_get()" (2022-09-29 15:20:12 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Last fixes for v6.0
-> 
-> In the even that there's another pull request here's some more driver
-> specific fixes.
+alsa-project/alsa-ucm-conf issue #220 was opened from Ali32bit:
 
-Pulled now.  But I already submitted the PR in this week, so postponed
-until the next one.  If one week delayed for the 6.0 release, we can
-make it in, otherwise it'll be in 6.1-rc1.
+greetings.        so i have a sound card with multiple outputs and some loop back channels.  it is USB complaint but those extra bells and whistles  cause ALSA to think its a surround sound device when its actually just stereo.  and this actually impacts the sound when i play games on it cause sounds from behind are basically muted.   and thats the case with some music too but less obvious
+here is what alsa_info generated for me too : 
 
+http://alsa-project.org/db/?f=b6db7723ffa65f32b93297109bf1f8e4d853cf4e
 
-thanks,
+there should already be a minifuse 2 setup so if possible please adapt it to minifuse 1 or help me convert and install it myself.     the hardware is mostly the same but it has 1 input instead of 2  and no extra midi ports in the back.
 
-Takashi
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/220
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

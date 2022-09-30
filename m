@@ -2,96 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B39D5F0774
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 11:21:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6CA5F0784
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 11:24:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37B5F168E;
-	Fri, 30 Sep 2022 11:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37B5F168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF434826;
+	Fri, 30 Sep 2022 11:23:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF434826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664529701;
-	bh=BmfAjmFoGPgjjbmPaKUTAITyWLuwEC50Z5dJV54F5Ys=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1664529867;
+	bh=oFEZH6LFw0vprxBjZUN0ry7jZ6cJNQF5TfzjNIIzANs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pOG/h/Wm3j6Odw/lU3oT37wZaWhcmumTAvVrpsfure1QlruWpqhSGGJCGX/IAB9LO
-	 SkKqP859PusxmsXx0AeOr07vtcQRUcS3bTUch6SHurECXA8jWxSnfkr9yj3Bn6JA8d
-	 /8g5cHMP5OPlXnMKkYPHeZXNE8Uf5Nx4uG0KbwFg=
+	b=YrkFb2v0b9BsInOoxGxXqTRnHhdx3jRIphb9Wz785STRMGLAy3Rfyn7aAN/d9mf/F
+	 +gPuswighvm9mAQqX6dPTp3pyY/1uyJqE9ML2NE9gf+VRYVXAfYe/9q4nG1czHUuad
+	 Wtiwx9CT48ggj4tXDpn0xKh1zFWTFbrG/3f3LPyc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 973C1F80537;
-	Fri, 30 Sep 2022 11:20:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 650A0F801D5;
+	Fri, 30 Sep 2022 11:23:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17F0AF801D5; Fri, 30 Sep 2022 11:20:17 +0200 (CEST)
+ id 01700F80095; Fri, 30 Sep 2022 11:23:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AD58F80095
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 11:20:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AD58F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3CEDF80095
+ for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 11:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3CEDF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="lDdeIh0c"
-Received: by mail-lf1-x133.google.com with SMTP id 10so5976467lfy.5
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 02:20:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=7Sv5seCRTWybOOOOludWC1A9KTXxVnMAlKH82j49yng=;
- b=lDdeIh0cWxEkskELtP03Xa8NbQmjyC39cByRE9LguZ7etBFGJO1mMkfoIxIHzsDJQc
- 1TW2F3Z9ubFF1rlXTndLb2Xrvz1Fvm0ZVHnCjj+la8YDXH0eDnXmLQiAtZZCXIswyVW0
- +VD3R6ol67HKiwfx1kWAt4HUdjV7Q6lLiAJQznSupBUHmrOsfSc/WxEn7Qb1PvtHlvBn
- PRHnSp3IXcDmflioPwMXVQIX+2Ni801Op1Pe7HI6l1xzhQyz3uzDZGzQW5DIylXPRuXA
- qHUhEXxMEPgdxdmChRdP7LpPXTQ5aNWdk9U9VOEdFQ4INt4ueS5XgRCydwWYxPpvIhga
- 5dLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=7Sv5seCRTWybOOOOludWC1A9KTXxVnMAlKH82j49yng=;
- b=2yg6PAPMrtl86bKbigzwNynAvxCtb3eALz2zeCtUvrZLWQlJHF9yLPR34yFJgmlA5k
- iSZJE+MrarF7DogODexP2qHZNRJBmUvooPyZEBwoEz6L9IvPN7RdHkq3I6jSJWbzR3nz
- DpRjCBTlfga2O80LnWzStGLm/Y2syBK4oRfPbrec3UndSH+wFl4oYQR5PH1viUxYpT8t
- 9G73Hy9s7p2HFaO+SHJK5TeCUom3SjCR0xqcfaMFRE8dizm6xxWkzsKqTGJPXzvflJNk
- GMUe5Com6Zi89LuC6LF1r2+93pSE3fdglZ4Wanzny37BKKdFAFbxrcofZyKkp3k36+0G
- rD1Q==
-X-Gm-Message-State: ACrzQf0eirME9LOd/8fw61TJKjLqLTFOBbQDhOll6GBsj8OlLgcGlBrL
- liPtXFIdSeKTc/1pRLChzwzHaw==
-X-Google-Smtp-Source: AMsMyM4auLp3LAPf6h4uJworyb16xNE8RvMv9WwpYX6v09WUHaBQx0ZOYHzJXC16Alv7j/0sl81oqw==
-X-Received: by 2002:a05:6512:12c5:b0:49e:5431:45d0 with SMTP id
- p5-20020a05651212c500b0049e543145d0mr3223201lfg.111.1664529609923; 
- Fri, 30 Sep 2022 02:20:09 -0700 (PDT)
-Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
- by smtp.gmail.com with ESMTPSA id
- i6-20020a2ea226000000b0026aba858fbfsm103461ljm.137.2022.09.30.02.20.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Sep 2022 02:20:09 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] slimbus: qcom-ngd-ctrl: add support for 44.1 Khz frequency
-Date: Fri, 30 Sep 2022 11:20:06 +0200
-Message-Id: <20220930092006.85982-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220930092006.85982-1-krzysztof.kozlowski@linaro.org>
-References: <20220930092006.85982-1-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Prudhvi Yarlagadda <pyarlaga@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="y7YwubjE"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="NMukCrZp"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2DE712188B;
+ Fri, 30 Sep 2022 09:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1664529802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yleDYryWz/uDRcKJYCE2p+QBKRRwvllI0UIcruHwkko=;
+ b=y7YwubjEYYvg/EdR9jUSDusuul8VuQ2o316Xrfz3Tcyw9AbiazaCAxm/RRybAnneAm18JQ
+ j/kK9zJJ3GFPmqPoxSMtY1XhORTMB58u6NxRLuWkikujB36kDvbNZ9nCvHvwCgxlrf+WYn
+ griKuR4uV9CYNJmceKHz+U5kobKGzPo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1664529802;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yleDYryWz/uDRcKJYCE2p+QBKRRwvllI0UIcruHwkko=;
+ b=NMukCrZpjqs+0jeETVh/vXGpH9lA0MkeAcaERZd3JD5HBgZMov/zqfW/jkRo51rHPdGz+R
+ MAdQET9GeV3j1yAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0900C13677;
+ Fri, 30 Sep 2022 09:23:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Cb4NAYq1NmNuWwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 30 Sep 2022 09:23:22 +0000
+Date: Fri, 30 Sep 2022 11:23:21 +0200
+Message-ID: <87bkqx6ws6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Sabri N. Ferreiro" <snferreiro1@gmail.com>
+Subject: Re: general protection fault in release_urbs
+In-Reply-To: <CAKG+3NRjTey+fFfUEGwuxL-pi_=T4cUskYG9OzpzHytF+tzYng@mail.gmail.com>
+References: <CAKG+3NRjTey+fFfUEGwuxL-pi_=T4cUskYG9OzpzHytF+tzYng@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,103 +99,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for 44.1Khz frequency by dynamically calculating the slimbus
-parameters instead of statically defining them.
+On Fri, 30 Sep 2022 04:23:23 +0200,
+Sabri N. Ferreiro wrote:
+> 
+> Hi,
+> 
+> When I used fuzz testing to test Linux kernel 6.0.0-rc6, the kernel
+> triggered the following error:
+> HEAD commit: 521a547ced6477c54b4b0cc206000406c221b4d6
+> git tree: upstream
 
-Co-developed-by: Prudhvi Yarlagadda <pyarlaga@codeaurora.org>
-Signed-off-by: Prudhvi Yarlagadda <pyarlaga@codeaurora.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/slimbus/qcom-ngd-ctrl.c | 64 ++++++++++++++++++++++++++++++---
- 1 file changed, 59 insertions(+), 5 deletions(-)
+Could you retest with 6.0-rc7 or later?
+A commit reverting the change might influence on the behavior
+significantly.
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index ac84fdc2822f..051ac5cba207 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -944,6 +944,54 @@ static int qcom_slim_ngd_xfer_msg_sync(struct slim_controller *ctrl,
- 	return ret;
- }
- 
-+static int qcom_slim_calc_coef(struct slim_stream_runtime *rt, int *exp)
-+{
-+	struct slim_controller *ctrl = rt->dev->ctrl;
-+	int coef;
-+
-+	if (rt->ratem * ctrl->a_framer->superfreq < rt->rate)
-+		rt->ratem++;
-+
-+	coef = rt->ratem;
-+	*exp = 0;
-+
-+	/*
-+	 * CRM = Cx(2^E) is the formula we are using.
-+	 * Here C is the coffecient and E is the exponent.
-+	 * CRM is the Channel Rate Multiplier.
-+	 * Coefficeint should be either 1 or 3 and exponenet
-+	 * should be an integer between 0 to 9, inclusive.
-+	 */
-+	while (1) {
-+		while ((coef & 0x1) != 0x1) {
-+			coef >>= 1;
-+			*exp = *exp + 1;
-+		}
-+
-+		if (coef <= 3)
-+			break;
-+
-+		coef++;
-+	}
-+
-+	/*
-+	 * we rely on the coef value (1 or 3) to set a bit
-+	 * in the slimbus message packet. This bit is
-+	 * BIT(5) which is the segment rate coefficient.
-+	 */
-+	if (coef == 1) {
-+		if (*exp > 9)
-+			return -EIO;
-+		coef = 0;
-+	} else {
-+		if (*exp > 8)
-+			return -EIO;
-+		coef = 1;
-+	}
-+
-+	return coef;
-+}
-+
- static int qcom_slim_ngd_enable_stream(struct slim_stream_runtime *rt)
- {
- 	struct slim_device *sdev = rt->dev;
-@@ -967,16 +1015,22 @@ static int qcom_slim_ngd_enable_stream(struct slim_stream_runtime *rt)
- 		struct slim_port *port = &rt->ports[i];
- 
- 		if (txn.msg->num_bytes == 0) {
--			int seg_interval = SLIM_SLOTS_PER_SUPERFRAME/rt->ratem;
--			int exp;
-+			int exp = 0, coef = 0;
- 
- 			wbuf[txn.msg->num_bytes++] = sdev->laddr;
- 			wbuf[txn.msg->num_bytes] = rt->bps >> 2 |
- 						   (port->ch.aux_fmt << 6);
- 
--			/* Data channel segment interval not multiple of 3 */
--			exp = seg_interval % 3;
--			if (exp)
-+			/* calculate coef dynamically */
-+			coef = qcom_slim_calc_coef(rt, &exp);
-+			if (coef < 0) {
-+				dev_err(&sdev->dev,
-+				"%s: error calculating coef %d\n", __func__,
-+									coef);
-+				return -EIO;
-+			}
-+
-+			if (coef)
- 				wbuf[txn.msg->num_bytes] |= BIT(5);
- 
- 			txn.msg->num_bytes++;
--- 
-2.34.1
 
+thanks,
+
+Takashi
+
+> kernel config: https://pastebin.com/raw/hekxU61F
+> console log: https://pastebin.com/KVwW9VQs
+> 
+> It seems that the fuzzer failed to extract any C reproducer, but I
+> would so appreciate it if you have any idea how to solve this bug.
+> 
+> general protection fault, probably for non-canonical address
+> 0xdffffc000000000d: 0000 [#1] PREEMPT SMP KASAN
+> KASAN: null-ptr-deref in range [0x0000000000000068-0x000000000000006f]
+> CPU: 1 PID: 29906 Comm: syz-executor.4 Not tainted 6.0.0-rc6+ #3
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+> 1.13.0-1ubuntu1.1 04/01/2014
+> RIP: 0010:release_urb_ctx sound/usb/endpoint.c:97 [inline]
+> RIP: 0010:release_urbs sound/usb/endpoint.c:1046 [inline]
+> RIP: 0010:release_urbs+0x254/0x5a0 sound/usb/endpoint.c:1031
+> Code: 44 89 fe 48 c1 e0 08 4c 8b 74 03 58 e8 75 b4 53 fa 45 85 ff 0f
+> 84 29 ff ff ff e8 07 b3 53 fa 49 8d 7e 68 48 89 f8 48 c1 e8 03 <42> 80
+> 3c 20 00 0f 85 32 03 00 00 49 8d 7e 60 49 8b 4e 68 48 89 f8
+> RSP: 0018:ffffc9001698f8d0 EFLAGS: 00010212
+> RAX: 000000000000000d RBX: ffff88805fc44000 RCX: 0000000000040000
+> RDX: ffffc900169d1000 RSI: ffff888018c21d40 RDI: 0000000000000068
+> RBP: 0000000000000000 R08: ffffffff87273539 R09: 0000000000000000
+> R10: 0000000000000005 R11: ffffed100bf88805 R12: dffffc0000000000
+> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000120
+> FS: 00007febd6e4e700(0000) GS:ffff88807ec00000(0000) knlGS:0000000000000000
+> CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000055555663ddc8 CR3: 0000000065e07000 CR4: 0000000000350ee0
+> Call Trace:
+> <TASK>
+> snd_usb_endpoint_set_params+0x1aab/0x2550
+> snd_mask_min include/sound/pcm_params.h:49 [inline]
+> params_format include/sound/pcm_params.h:315 [inline]
+> snd_usb_hw_params+0x934/0x1180 sound/usb/pcm.c:503
+> snd_pcm_hw_params+0xbad/0x1da0 sound/core/pcm_native.c:767
+> snd_pcm_kernel_ioctl+0x164/0x310 sound/core/pcm_native.c:3437
+> snd_pcm_oss_change_params_locked+0x1834/0x3860 sound/core/oss/pcm_oss.c:976
+> snd_pcm_oss_change_params+0x76/0xd0 sound/core/oss/pcm_oss.c:1116
+> snd_pcm_oss_make_ready+0xb7/0x170 sound/core/oss/pcm_oss.c:1175
+> snd_pcm_oss_get_ptr sound/core/oss/pcm_oss.c:2208 [inline]
+> snd_pcm_oss_ioctl+0x3cd/0x3270 sound/core/oss/pcm_oss.c:2729
+> vfs_ioctl fs/ioctl.c:51 [inline]
+> __do_sys_ioctl fs/ioctl.c:870 [inline]
+> __se_sys_ioctl fs/ioctl.c:856 [inline]
+> __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:856
+> do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+> do_syscall_64+0x35/0x80 arch/x86/entry/common.c:80
+> entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> RIP: 0033:0x7febd66a80fd
+> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
+> 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+> 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007febd6e4dbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> RAX: ffffffffffffffda RBX: 00007febd679c340 RCX: 00007febd66a80fd
+> RDX: 00000000200000c0 RSI: 00000000800c5011 RDI: 0000000000000003
+> RBP: 00007febd6e4dc50 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000005f
+> R13: 00007ffc28c4cf7f R14: 00007ffc28c4d120 R15: 00007febd6e4dd80
+> </TASK>
+> Modules linked in:
+> ---[ end trace 0000000000000000 ]---
+> RIP: 0010:release_urb_ctx sound/usb/endpoint.c:97 [inline]
+> RIP: 0010:release_urbs sound/usb/endpoint.c:1046 [inline]
+> RIP: 0010:release_urbs+0x254/0x5a0 sound/usb/endpoint.c:1031
+> Code: 44 89 fe 48 c1 e0 08 4c 8b 74 03 58 e8 75 b4 53 fa 45 85 ff 0f
+> 84 29 ff ff ff e8 07 b3 53 fa 49 8d 7e 68 48 89 f8 48 c1 e8 03 <42> 80
+> 3c 20 00 0f 85 32 03 00 00 49 8d 7e 60 49 8b 4e 68 48 89 f8
+> RSP: 0018:ffffc9001698f8d0 EFLAGS: 00010212
+> RAX: 000000000000000d RBX: ffff88805fc44000 RCX: 0000000000040000
+> RDX: ffffc900169d1000 RSI: ffff888018c21d40 RDI: 0000000000000068
+> RBP: 0000000000000000 R08: ffffffff87273539 R09: 0000000000000000
+> R10: 0000000000000005 R11: ffffed100bf88805 R12: dffffc0000000000
+> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000120
+> FS: 00007febd6e4e700(0000) GS:ffff88807ec00000(0000) knlGS:0000000000000000
+> CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000001b31424000 CR3: 0000000065e07000 CR4: 0000000000350ee0
+> ----------------
+> Code disassembly (best guess):
+> 0: 44 89 fe mov %r15d,%esi
+> 3: 48 c1 e0 08 shl $0x8,%rax
+> 7: 4c 8b 74 03 58 mov 0x58(%rbx,%rax,1),%r14
+> c: e8 75 b4 53 fa callq 0xfa53b486
+> 11: 45 85 ff test %r15d,%r15d
+> 14: 0f 84 29 ff ff ff je 0xffffff43
+> 1a: e8 07 b3 53 fa callq 0xfa53b326
+> 1f: 49 8d 7e 68 lea 0x68(%r14),%rdi
+> 23: 48 89 f8 mov %rdi,%rax
+> 26: 48 c1 e8 03 shr $0x3,%rax
+> * 2a: 42 80 3c 20 00 cmpb $0x0,(%rax,%r12,1) <-- trapping instruction
+> 2f: 0f 85 32 03 00 00 jne 0x367
+> 35: 49 8d 7e 60 lea 0x60(%r14),%rdi
+> 39: 49 8b 4e 68 mov 0x68(%r14),%rcx
+> 3d: 48 89 f8 mov %rdi,%rax
+> 

@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A6CA5F0784
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 11:24:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A3865F07C7
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 11:40:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF434826;
-	Fri, 30 Sep 2022 11:23:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF434826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43A181657;
+	Fri, 30 Sep 2022 11:39:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A181657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664529867;
-	bh=oFEZH6LFw0vprxBjZUN0ry7jZ6cJNQF5TfzjNIIzANs=;
+	s=default; t=1664530805;
+	bh=UWq4eUsFaWPIyokHMqWgE4AK4C+roW9QWs7c6Di5qW4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YrkFb2v0b9BsInOoxGxXqTRnHhdx3jRIphb9Wz785STRMGLAy3Rfyn7aAN/d9mf/F
-	 +gPuswighvm9mAQqX6dPTp3pyY/1uyJqE9ML2NE9gf+VRYVXAfYe/9q4nG1czHUuad
-	 Wtiwx9CT48ggj4tXDpn0xKh1zFWTFbrG/3f3LPyc=
+	b=lLkq6eaex89PAGo30ZSCFfDnVcjvVLDg5QVGHvPEcgUUw9Yoz8WV5DotOU4EM8e26
+	 U7KBlcFTZuL1uc7cKA1mYcRZLXiuUxqSNNR6m9kqUrQr31yJmpPMx3Bdsh1GDhiidV
+	 1SxchCHSRX5Rc+PfP9/H1e0dJSzJVkaOIx/Pd+q4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 650A0F801D5;
-	Fri, 30 Sep 2022 11:23:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A993DF80095;
+	Fri, 30 Sep 2022 11:39:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01700F80095; Fri, 30 Sep 2022 11:23:28 +0200 (CEST)
+ id 1176CF80155; Fri, 30 Sep 2022 11:39:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3CEDF80095
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 11:23:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3CEDF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0695F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 11:39:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0695F800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="y7YwubjE"; 
+ header.b="14KXKiQ6"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="NMukCrZp"
+ header.b="mn4mnAGA"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2DE712188B;
- Fri, 30 Sep 2022 09:23:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 371021F8D5;
+ Fri, 30 Sep 2022 09:39:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664529802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664530744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yleDYryWz/uDRcKJYCE2p+QBKRRwvllI0UIcruHwkko=;
- b=y7YwubjEYYvg/EdR9jUSDusuul8VuQ2o316Xrfz3Tcyw9AbiazaCAxm/RRybAnneAm18JQ
- j/kK9zJJ3GFPmqPoxSMtY1XhORTMB58u6NxRLuWkikujB36kDvbNZ9nCvHvwCgxlrf+WYn
- griKuR4uV9CYNJmceKHz+U5kobKGzPo=
+ bh=SRMQb52MbT2bpBHYWiJH2YSSNU2RuItMYhSPzZoa3Oc=;
+ b=14KXKiQ6OMLquAPciWpAAvyKma1y1RL97TV6u/7k8/JJEuNL0nd1STpj+pXtJLB5ZJVTej
+ eOAdAkBpUnh32r4q2m9S+5d982k1F1XSMq7AygftZ7IT5c8D7PQPPiorohX9sxQzxjS8iW
+ SVdJZfgre5bU2BgbHvm/1OD6ZnUEFfg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664529802;
+ s=susede2_ed25519; t=1664530744;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yleDYryWz/uDRcKJYCE2p+QBKRRwvllI0UIcruHwkko=;
- b=NMukCrZpjqs+0jeETVh/vXGpH9lA0MkeAcaERZd3JD5HBgZMov/zqfW/jkRo51rHPdGz+R
- MAdQET9GeV3j1yAA==
+ bh=SRMQb52MbT2bpBHYWiJH2YSSNU2RuItMYhSPzZoa3Oc=;
+ b=mn4mnAGADK9HEeTXESCzmZCdK020MkeghP+NEh4Vj9Te0Uz+GK7isyLf4KAnsWKVVj6fS4
+ 6EAF+dpTdOoQmCAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0900C13677;
- Fri, 30 Sep 2022 09:23:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A52213677;
+ Fri, 30 Sep 2022 09:39:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Cb4NAYq1NmNuWwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 30 Sep 2022 09:23:22 +0000
-Date: Fri, 30 Sep 2022 11:23:21 +0200
-Message-ID: <87bkqx6ws6.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id LHKuBTi5NmP3YQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 30 Sep 2022 09:39:04 +0000
+Date: Fri, 30 Sep 2022 11:39:03 +0200
+Message-ID: <877d1l6w20.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Sabri N. Ferreiro" <snferreiro1@gmail.com>
 Subject: Re: general protection fault in release_urbs
-In-Reply-To: <CAKG+3NRjTey+fFfUEGwuxL-pi_=T4cUskYG9OzpzHytF+tzYng@mail.gmail.com>
+In-Reply-To: <87bkqx6ws6.wl-tiwai@suse.de>
 References: <CAKG+3NRjTey+fFfUEGwuxL-pi_=T4cUskYG9OzpzHytF+tzYng@mail.gmail.com>
+ <87bkqx6ws6.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -99,115 +100,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Sep 2022 04:23:23 +0200,
-Sabri N. Ferreiro wrote:
+On Fri, 30 Sep 2022 11:23:21 +0200,
+Takashi Iwai wrote:
 > 
-> Hi,
+> On Fri, 30 Sep 2022 04:23:23 +0200,
+> Sabri N. Ferreiro wrote:
+> > 
+> > Hi,
+> > 
+> > When I used fuzz testing to test Linux kernel 6.0.0-rc6, the kernel
+> > triggered the following error:
+> > HEAD commit: 521a547ced6477c54b4b0cc206000406c221b4d6
+> > git tree: upstream
 > 
-> When I used fuzz testing to test Linux kernel 6.0.0-rc6, the kernel
-> triggered the following error:
-> HEAD commit: 521a547ced6477c54b4b0cc206000406c221b4d6
-> git tree: upstream
+> Could you retest with 6.0-rc7 or later?
+> A commit reverting the change might influence on the behavior
+> significantly.
 
-Could you retest with 6.0-rc7 or later?
-A commit reverting the change might influence on the behavior
-significantly.
+And if it's reproducible on 6.0-rc7, please try the following fix.
 
 
 thanks,
 
 Takashi
 
-> kernel config: https://pastebin.com/raw/hekxU61F
-> console log: https://pastebin.com/KVwW9VQs
-> 
-> It seems that the fuzzer failed to extract any C reproducer, but I
-> would so appreciate it if you have any idea how to solve this bug.
-> 
-> general protection fault, probably for non-canonical address
-> 0xdffffc000000000d: 0000 [#1] PREEMPT SMP KASAN
-> KASAN: null-ptr-deref in range [0x0000000000000068-0x000000000000006f]
-> CPU: 1 PID: 29906 Comm: syz-executor.4 Not tainted 6.0.0-rc6+ #3
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
-> 1.13.0-1ubuntu1.1 04/01/2014
-> RIP: 0010:release_urb_ctx sound/usb/endpoint.c:97 [inline]
-> RIP: 0010:release_urbs sound/usb/endpoint.c:1046 [inline]
-> RIP: 0010:release_urbs+0x254/0x5a0 sound/usb/endpoint.c:1031
-> Code: 44 89 fe 48 c1 e0 08 4c 8b 74 03 58 e8 75 b4 53 fa 45 85 ff 0f
-> 84 29 ff ff ff e8 07 b3 53 fa 49 8d 7e 68 48 89 f8 48 c1 e8 03 <42> 80
-> 3c 20 00 0f 85 32 03 00 00 49 8d 7e 60 49 8b 4e 68 48 89 f8
-> RSP: 0018:ffffc9001698f8d0 EFLAGS: 00010212
-> RAX: 000000000000000d RBX: ffff88805fc44000 RCX: 0000000000040000
-> RDX: ffffc900169d1000 RSI: ffff888018c21d40 RDI: 0000000000000068
-> RBP: 0000000000000000 R08: ffffffff87273539 R09: 0000000000000000
-> R10: 0000000000000005 R11: ffffed100bf88805 R12: dffffc0000000000
-> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000120
-> FS: 00007febd6e4e700(0000) GS:ffff88807ec00000(0000) knlGS:0000000000000000
-> CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000055555663ddc8 CR3: 0000000065e07000 CR4: 0000000000350ee0
-> Call Trace:
-> <TASK>
-> snd_usb_endpoint_set_params+0x1aab/0x2550
-> snd_mask_min include/sound/pcm_params.h:49 [inline]
-> params_format include/sound/pcm_params.h:315 [inline]
-> snd_usb_hw_params+0x934/0x1180 sound/usb/pcm.c:503
-> snd_pcm_hw_params+0xbad/0x1da0 sound/core/pcm_native.c:767
-> snd_pcm_kernel_ioctl+0x164/0x310 sound/core/pcm_native.c:3437
-> snd_pcm_oss_change_params_locked+0x1834/0x3860 sound/core/oss/pcm_oss.c:976
-> snd_pcm_oss_change_params+0x76/0xd0 sound/core/oss/pcm_oss.c:1116
-> snd_pcm_oss_make_ready+0xb7/0x170 sound/core/oss/pcm_oss.c:1175
-> snd_pcm_oss_get_ptr sound/core/oss/pcm_oss.c:2208 [inline]
-> snd_pcm_oss_ioctl+0x3cd/0x3270 sound/core/oss/pcm_oss.c:2729
-> vfs_ioctl fs/ioctl.c:51 [inline]
-> __do_sys_ioctl fs/ioctl.c:870 [inline]
-> __se_sys_ioctl fs/ioctl.c:856 [inline]
-> __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:856
-> do_syscall_x64 arch/x86/entry/common.c:50 [inline]
-> do_syscall_64+0x35/0x80 arch/x86/entry/common.c:80
-> entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> RIP: 0033:0x7febd66a80fd
-> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48
-> 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-> 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007febd6e4dbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 00007febd679c340 RCX: 00007febd66a80fd
-> RDX: 00000000200000c0 RSI: 00000000800c5011 RDI: 0000000000000003
-> RBP: 00007febd6e4dc50 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000005f
-> R13: 00007ffc28c4cf7f R14: 00007ffc28c4d120 R15: 00007febd6e4dd80
-> </TASK>
-> Modules linked in:
-> ---[ end trace 0000000000000000 ]---
-> RIP: 0010:release_urb_ctx sound/usb/endpoint.c:97 [inline]
-> RIP: 0010:release_urbs sound/usb/endpoint.c:1046 [inline]
-> RIP: 0010:release_urbs+0x254/0x5a0 sound/usb/endpoint.c:1031
-> Code: 44 89 fe 48 c1 e0 08 4c 8b 74 03 58 e8 75 b4 53 fa 45 85 ff 0f
-> 84 29 ff ff ff e8 07 b3 53 fa 49 8d 7e 68 48 89 f8 48 c1 e8 03 <42> 80
-> 3c 20 00 0f 85 32 03 00 00 49 8d 7e 60 49 8b 4e 68 48 89 f8
-> RSP: 0018:ffffc9001698f8d0 EFLAGS: 00010212
-> RAX: 000000000000000d RBX: ffff88805fc44000 RCX: 0000000000040000
-> RDX: ffffc900169d1000 RSI: ffff888018c21d40 RDI: 0000000000000068
-> RBP: 0000000000000000 R08: ffffffff87273539 R09: 0000000000000000
-> R10: 0000000000000005 R11: ffffed100bf88805 R12: dffffc0000000000
-> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000120
-> FS: 00007febd6e4e700(0000) GS:ffff88807ec00000(0000) knlGS:0000000000000000
-> CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000001b31424000 CR3: 0000000065e07000 CR4: 0000000000350ee0
-> ----------------
-> Code disassembly (best guess):
-> 0: 44 89 fe mov %r15d,%esi
-> 3: 48 c1 e0 08 shl $0x8,%rax
-> 7: 4c 8b 74 03 58 mov 0x58(%rbx,%rax,1),%r14
-> c: e8 75 b4 53 fa callq 0xfa53b486
-> 11: 45 85 ff test %r15d,%r15d
-> 14: 0f 84 29 ff ff ff je 0xffffff43
-> 1a: e8 07 b3 53 fa callq 0xfa53b326
-> 1f: 49 8d 7e 68 lea 0x68(%r14),%rdi
-> 23: 48 89 f8 mov %rdi,%rax
-> 26: 48 c1 e8 03 shr $0x3,%rax
-> * 2a: 42 80 3c 20 00 cmpb $0x0,(%rax,%r12,1) <-- trapping instruction
-> 2f: 0f 85 32 03 00 00 jne 0x367
-> 35: 49 8d 7e 60 lea 0x60(%r14),%rdi
-> 39: 49 8b 4e 68 mov 0x68(%r14),%rcx
-> 3d: 48 89 f8 mov %rdi,%rax
-> 
+-- 8< --
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -95,12 +95,13 @@ static inline unsigned get_usb_high_speed_rate(unsigned int rate)
+  */
+ static void release_urb_ctx(struct snd_urb_ctx *u)
+ {
+-	if (u->buffer_size)
++	if (u->urb && u->buffer_size)
+ 		usb_free_coherent(u->ep->chip->dev, u->buffer_size,
+ 				  u->urb->transfer_buffer,
+ 				  u->urb->transfer_dma);
+ 	usb_free_urb(u->urb);
+ 	u->urb = NULL;
++	u->buffer_size = 0;
+ }
+ 
+ static const char *usb_error_string(int err)

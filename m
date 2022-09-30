@@ -2,140 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650C45F054F
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 08:48:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971DE5F05B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Sep 2022 09:29:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03E031635;
-	Fri, 30 Sep 2022 08:47:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03E031635
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11985846;
+	Fri, 30 Sep 2022 09:28:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11985846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664520512;
-	bh=vmOV1UZ/E/jX5vU8FUsXTZ3pru3DqVnzfvc5/CU6s/M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WA8hRmT2sLSIWYBkw7JPk2Ffm0O6tLUpE4UT+tkEJZ1wDWRCxhgGoK14s0ZVbbV0h
-	 tXsccm83wt4coyPG8TzRAWsuQj/2L7AAnE07PAocggoIaCAedCPGuYtF0J04RHJ+Vq
-	 BYH8THtC/wOylLEJ1tgR2IF/lwQ9SJ2LF/eHlw6Q=
+	s=default; t=1664522981;
+	bh=Iwi/LS3D+zIRBrzElguCR6rGpWWFWRfAX+egGgnX/so=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sqXqHDQ9vPrCoRxTBfCM9X6sBoiD1BNBOf++DVWYHn2hua/QoQz70hBjewjbXTLkn
+	 jlTPZIp+/M2CRVRz4Vn5zN4slVik6514mK9zHERXxuP4GREDq/AGAmE4/WCkjxqpwW
+	 54hT3ZKg3J1XcJ7s4AUOIHdYVeyopnChIAjknhAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F069F80549;
-	Fri, 30 Sep 2022 08:46:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68796F800E8;
+	Fri, 30 Sep 2022 09:28:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AA49F80153; Fri, 30 Sep 2022 08:46:40 +0200 (CEST)
+ id DC002F80155; Fri, 30 Sep 2022 09:28:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2089.outbound.protection.outlook.com [40.107.20.89])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5163DF80549
- for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 08:46:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5163DF80549
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="ovbyTrKA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L9a+a3HfuvE2oxy6ROf7QtItpuUxepaSt7hzxu/dVCjfWJaeCdFG2VsdIASt9fS7/2EFIPVPG9Z507L0ktcK3XaUizV6SovQ3mahYfV1Yjrko/I0SFOv/wXgeE0sjqjcmgMHn32zNXJI0bmQ8mBrEqxPNOzUOCg59+suyesSnND4BY1DkC5t11p5DlWMxlmPwoxTtPmG8q6OvH0QfoMOhvc+q/Rw0s6OxRX0UrPL31oVUDt3N3as+OZDMADa0jpV9JWcYPJS80Xzbd5059vL1COppE7584FgOhJV6Ugwi1TDrD+HQkXgPU76+LFJFB/gHt12Fbe4lT22/ipMcHUH2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PxTQ7IVzde13UUXchPar1dvJ+XllS83LF43FxapAL3E=;
- b=IppSwjybC6FGRayCWpV0GeS2YuaQgu0VdjkrC8n9OTG1m6yVsj5TljHe+pMy6spNVCAYEfhmWsn+wdp5XtEcYQCrPwYiqvOjy4a1F9y2kn2GTsTTXTDE2zGHSogqU4QD/DJZi43PXLQ0GRJTBqidZHj4KYoxs+YRMVMyOL3yKOqhRFj50YGE2o/1KZjcK4WzXvsrWH3wCZpVN+P5gULD4S+PX5c3PpudtLpjbHK5edXsGRypRNvjy6YONwooE41u9VHqzTMK04Mu13/Dw7QpueMy5rHy7nND4cgLW/ouVVC3CHo5CN45t1fpcixapSEHKIa4c341nrInoSI4Yeo4Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxTQ7IVzde13UUXchPar1dvJ+XllS83LF43FxapAL3E=;
- b=ovbyTrKABrEmgxA2XeeXPMZLJRTzQUpYqFj7ayPbY6UgV94nbLFr+w+zUCGJhfGmTXeDAZzPvduxATSdpueMiE125jvr0HLykNCbJ98/gjVLjUCHbBqKwsJjvaOBxeStJf2nmQQil5mUEPit4wTQlMReiBWFmj9TJ8nxq6oRDF0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
- by PAXPR04MB8640.eurprd04.prod.outlook.com (2603:10a6:102:21f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Fri, 30 Sep
- 2022 06:46:32 +0000
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::7008:1596:bb4:d904]) by VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::7008:1596:bb4:d904%4]) with mapi id 15.20.5676.023; Fri, 30 Sep 2022
- 06:46:32 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v3 7/7] ASoC: imx-rpmsg: Assign platform driver used by
- machine driver to link with
-Date: Fri, 30 Sep 2022 14:44:41 +0800
-Message-Id: <20220930064441.2548505-8-chancel.liu@nxp.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id DE33AF800E8
+ for <alsa-devel@alsa-project.org>; Fri, 30 Sep 2022 09:28:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE33AF800E8
+Received: from NTHCCAS04.nuvoton.com (NTHCCAS04.nuvoton.com [10.1.8.29])
+ by maillog.nuvoton.com (Postfix) with ESMTP id 7F64F1C80F4A;
+ Fri, 30 Sep 2022 15:28:30 +0800 (CST)
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Fri, 30
+ Sep 2022 15:28:30 +0800
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Fri, 30 Sep
+ 2022 15:28:30 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Fri, 30 Sep 2022 15:28:29 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: nau8825: Add TDM support
+Date: Fri, 30 Sep 2022 15:28:05 +0800
+Message-ID: <20220930072804.2524352-1-CTLIN0@nuvoton.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220930064441.2548505-1-chancel.liu@nxp.com>
-References: <20220930064441.2548505-1-chancel.liu@nxp.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SG2P153CA0041.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::10)
- To VI1PR04MB4222.eurprd04.prod.outlook.com
- (2603:10a6:803:46::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4222:EE_|PAXPR04MB8640:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3f9734a-b949-4071-067e-08daa2af82dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: P1RYtWeT0OEu3IGyrZ1PeFVv4tl8Gr/VKdexYZkoSMzBQbaUmZNRwvSDV2hbv5FU0JdSf1CFlTAoXUSbIV2yCuMxWQBMDAgmptIRdqEGj5EZCIfuMatCiijVKyZL0WKhe9JG9A9HSZxAdEAH7pcM/3pu41Xy+Bxn2QbJxrq2bORwn75fUI1+h7F5rS9I+i3r1Wy/vk4QzPaxuRDeFbgeGwdLhJmsMu6GxANCuKNBB3JuA8fcVKoDilMipeQDvOtE5/ih1pcE/BEqxD07nctEXCBk2h1Mj9jVh8VVcfghGuby0v30UGCXCBrYRFlTdLl6OHD1oNvKtCVkOzP9phe1ufYwHDkdOmCivno1LJ4JWAdtKC/21GPto8AolHJw/iesiB453SjHvgbogLlpUnJ0oBZ7CPcylWZ4qt6sGpLtLDubpAYjv1wAwUknnWtVupnlCIi4CENRzkdtVVk7FZS8dTZZO1RwF3OpnUZQu+EoblpqYJRpdHTyQQeAbKBst4CrDLC61gD0lBP5YtXhFEWegds9sw1H/yyIHlSJ4FIKqzIhfEne7wLt3AKpgaaAITWu4NPDkds2m1r8xPbycpoYIO4eruxDao+dDQaky799A09+gY79w0fdC8M7bo2LMQ+eLcM3tzADpiyzUAU6te0LhVYxn/unIFHpg75LW+KSDzoig1PXOSAmICGXMrSKZxk+V7sUfKUgeyi1DKhNEJ6g+1V6UJy1C7ZXZ7w22cGo/gOw//iokpUDFxFNijj8zbm/j8ZkcNX35OcAYy6pblq4ZbD2sk+rtfu2w+LxBffy23c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(39860400002)(376002)(346002)(136003)(451199015)(83380400001)(7416002)(44832011)(5660300002)(66476007)(66556008)(66946007)(316002)(6506007)(41300700001)(4326008)(52116002)(6512007)(26005)(6666004)(36756003)(8936002)(8676002)(86362001)(2906002)(2616005)(186003)(1076003)(38350700002)(38100700002)(921005)(478600001)(6486002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UjSjW1tvTo7XvclbJyYEehLnAVgCYmYe1RsMjJsOdYWfxkkLWo3vXFYjsUEM?=
- =?us-ascii?Q?a3jk5nh8JZ/6tLn/0/BHwwQ9oxFDEYAAWwEbvQ0+DSRMl71XwpN5HsYmE3Oj?=
- =?us-ascii?Q?B0dNaiIJaIbzJFDv38w2qt1K31z3yi3RS8+geVf5shKcu2v0+mybiM24I0bN?=
- =?us-ascii?Q?kkTxjpk5p2i1T90PnUcGECExMGXSnCJAsgBNRowi8RYe74cGQDMhpJ5KM2jI?=
- =?us-ascii?Q?26rUWNcBqVrOIq50n4+uPNb4sIOpbKIsHPS2pnWBpQMP3Gi3zOddhZKaogCV?=
- =?us-ascii?Q?ShYE1zbYFV+o1FIjYLIRKyCB9UJ6d2ldsv/677k2x/Xuy8CBOoct7n6Bms6m?=
- =?us-ascii?Q?6bYbiXJSYLh6ZmwP4qW2i8NMDslKrULhXRF9V78nXCOEVW9TLf5Zj5TDEfGS?=
- =?us-ascii?Q?HeMydM0VFWcaaI0kgkERUAaEaPbgAea4k64OqQ7zQcdlh9jFFtY0tkqae5O7?=
- =?us-ascii?Q?XnzucYiUQBz2F27+synjpuHl2C1PKX6UvAzFE/H9pqeZwY75fediDye+fD9l?=
- =?us-ascii?Q?Ugzi8xJwNx/JasBgyKVjI6O7ESQe/mTF9OfFtZdpd7+EW4Pqkg37VM0y4KK2?=
- =?us-ascii?Q?Mins0lLRJ4tQv6uwCzY5SGHRNLM7KPTugH2ACsKlgZJausedL8NaNNAnsial?=
- =?us-ascii?Q?5VBtA/v9lp6FjFs3dG1CNGVGfLKAZapHe6TO5KyQSusty/C8PK/yJuQCQFK1?=
- =?us-ascii?Q?6IkUA7QDROFbIlMmnCBxA4d7m3QTmfptOyEo/8jgrfH2SrqffJsHKG4bbJmb?=
- =?us-ascii?Q?BliBPjFYMxl3rTt8nH3cSNIW10Q4uMZE3cQ4fMtumrRrv1M94TMAGPh2JEI8?=
- =?us-ascii?Q?H/8VJ3x7Rx+/3vRjSLZrlEkO5+hBMM11JBMlxoxcR/Pl6KcoZ6p0yuGf5P+R?=
- =?us-ascii?Q?Rd/sLPAQxSXlRO8e/6mdTm/VRt37Ye9j2uWNUHHJ51Weq64KJoH1UNh4IK0n?=
- =?us-ascii?Q?gmIF3WjKqX7oWfI1vVZfAN0ClgzYdvEHIntL8F8xhF+zU6s+3F9/OtLw/vrq?=
- =?us-ascii?Q?99KhuERV2NJCr0BRS8CTE0mUDqU8vYyxTGvXOtMCpT6MTkDj2maGkZPTfX6b?=
- =?us-ascii?Q?o8/85Qkq0xQAk3R6YHMnAxGtH9Qh2ikHZ9un3zubeVcP1/BONEPSIxUc4zT8?=
- =?us-ascii?Q?S0RkEqyYV0vPzyY8zns5FRWDOq3woS0xEulLEfKzksTySpj4zTsdU0h4cIth?=
- =?us-ascii?Q?SyXPWmd7dHcnt2ni7KzJs9Of8JoRGdGxNRnxUX/4WD4KkAaQbtYPr+kO+gEe?=
- =?us-ascii?Q?gPjIaE1tSWz+sHdGBGmc3tRjNaV+zJLuY0QHXs+pvLSDCnHlSPpDOwZ+bb1x?=
- =?us-ascii?Q?2NNWvsurtr79q93l4gwAvJPJDsCTtwuyi3ToZItPvCUT/HR9RG+Bu8KPn33f?=
- =?us-ascii?Q?+gGIpuU5UxQj5pl/2vzDVx5bYVZu1zvBlW5AG3VWZaqOliW5SaBz7Z/W8uEQ?=
- =?us-ascii?Q?Lxy5g/5B0Hhk8q2Kdp+BfR9Hb/yNTaKlGYFLb4+2xkpzK/iBU7iwabo5A6TA?=
- =?us-ascii?Q?9LxM/aoR8hiABab/wBkHhFp28jhUOXlf/vLcoxOweOUV2hGXNoFTInoHW7eK?=
- =?us-ascii?Q?bwuN1wxlFco8+EP+8H7jtHFk55C38vxfdAe1sMV3?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3f9734a-b949-4071-067e-08daa2af82dc
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2022 06:46:32.8374 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j5smtdEt7MDHvpjNzyGXwuVPrhX3nxh0nROnHDgVXRF2SgU0MeZNONQt9Hq2sIb4SXSQ6o6bL3IhDWdjf0asOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8640
-Cc: Chancel Liu <chancel.liu@nxp.com>
+Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
+ SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,39 +75,165 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Each ASoC platform driver is named by rpmsg channel. ASoC machine
-driver can parse "fsl,rpmsg-channel-name" property to figure out which
-ASoC platform driver it should link with.
+Support TDM format for NAU88L25.
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
 ---
- sound/soc/fsl/imx-rpmsg.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/soc/codecs/nau8825.c | 97 ++++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/nau8825.h | 14 ++++++
+ 2 files changed, 111 insertions(+)
 
-diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
-index 2e117311e582..57684064c9da 100644
---- a/sound/soc/fsl/imx-rpmsg.c
-+++ b/sound/soc/fsl/imx-rpmsg.c
-@@ -36,6 +36,7 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
- 	struct platform_device *rpmsg_pdev = to_platform_device(dev);
- 	struct device_node *np = rpmsg_pdev->dev.of_node;
- 	struct of_phandle_args args;
-+	const char *platform_name;
- 	struct imx_rpmsg *data;
- 	int ret = 0;
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index b3cdbe884c05..6a2c2e373efd 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -1425,10 +1425,107 @@ static int nau8825_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+ 	return 0;
+ }
  
-@@ -81,7 +82,10 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
- 	}
++/**
++ * nau8825_set_tdm_slot - configure DAI TDM.
++ * @dai: DAI
++ * @tx_mask: bitmask representing active TX slots.
++ * @rx_mask: bitmask representing active RX slots.
++ * @slots: Number of slots in use.
++ * @slot_width: Width in bits for each slot.
++ *
++ * Configures a DAI for TDM operation. Support TDM 4/8 slots.
++ * The limitation is DAC and ADC need shift 4 slots at 8 slots mode.
++ */
++static int nau8825_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
++				unsigned int rx_mask, int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct nau8825 *nau8825 = snd_soc_component_get_drvdata(component);
++	unsigned int ctrl_val = 0, ctrl_offset = 0, value = 0, dac_s, adc_s;
++
++	if (slots != 4 && slots != 8) {
++		dev_err(nau8825->dev, "Only support 4 or 8 slots!\n");
++		return -EINVAL;
++	}
++
++	/* The driver is limited to 1-channel for ADC, and 2-channel for DAC on TDM mode */
++	if (hweight_long((unsigned long) tx_mask) != 1 ||
++	    hweight_long((unsigned long) rx_mask) != 2) {
++		dev_err(nau8825->dev,
++			"The limitation is 1-channel for ADC, and 2-channel for DAC on TDM mode.\n");
++		return -EINVAL;
++	}
++
++	if (((tx_mask & 0xf) && (tx_mask & 0xf0)) ||
++	    ((rx_mask & 0xf) && (rx_mask & 0xf0)) ||
++	    ((tx_mask & 0xf) && (rx_mask & 0xf0)) ||
++	    ((rx_mask & 0xf) && (tx_mask & 0xf0))) {
++		dev_err(nau8825->dev,
++			"Slot assignment of DAC and ADC need to set same interval.\n");
++		return -EINVAL;
++	}
++
++	/* The offset of fixed 4 slots for 8 slots support */
++	if (rx_mask & 0xf0) {
++		regmap_update_bits(nau8825->regmap, NAU8825_REG_I2S_PCM_CTRL2,
++				   NAU8825_I2S_PCM_TS_EN_MASK, NAU8825_I2S_PCM_TS_EN);
++		regmap_read(nau8825->regmap, NAU8825_REG_I2S_PCM_CTRL1, &value);
++		ctrl_val |= NAU8825_TDM_OFFSET_EN;
++		ctrl_offset = 4 * slot_width;
++		if (!(value & NAU8825_I2S_PCMB_MASK))
++			ctrl_offset += 1;
++		dac_s = (rx_mask & 0xf0) >> 4;
++		adc_s = fls((tx_mask & 0xf0) >> 4);
++	} else {
++		dac_s = rx_mask & 0xf;
++		adc_s = fls(tx_mask & 0xf);
++	}
++
++	ctrl_val |= NAU8825_TDM_MODE;
++
++	switch (dac_s) {
++	case 0x3:
++		ctrl_val |= 1 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	case 0x5:
++		ctrl_val |= 2 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	case 0x6:
++		ctrl_val |= 1 << NAU8825_TDM_DACL_RX_SFT;
++		ctrl_val |= 2 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	case 0x9:
++		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	case 0xa:
++		ctrl_val |= 1 << NAU8825_TDM_DACL_RX_SFT;
++		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	case 0xc:
++		ctrl_val |= 2 << NAU8825_TDM_DACL_RX_SFT;
++		ctrl_val |= 3 << NAU8825_TDM_DACR_RX_SFT;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	ctrl_val |= adc_s - 1;
++
++	regmap_update_bits(nau8825->regmap, NAU8825_REG_TDM_CTRL,
++			   NAU8825_TDM_MODE | NAU8825_TDM_OFFSET_EN |
++			   NAU8825_TDM_DACL_RX_MASK | NAU8825_TDM_DACR_RX_MASK |
++			   NAU8825_TDM_TX_MASK, ctrl_val);
++	regmap_update_bits(nau8825->regmap, NAU8825_REG_LEFT_TIME_SLOT,
++			   NAU8825_TSLOT_L0_MASK, ctrl_offset);
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops nau8825_dai_ops = {
+ 	.startup	= nau8825_dai_startup,
+ 	.hw_params	= nau8825_hw_params,
+ 	.set_fmt	= nau8825_set_dai_fmt,
++	.set_tdm_slot	= nau8825_set_tdm_slot,
+ };
  
- 	data->dai.cpus->dai_name = dev_name(&rpmsg_pdev->dev);
--	data->dai.platforms->name = IMX_PCM_DRV_NAME;
-+	if (!of_property_read_string(np, "fsl,rpmsg-channel-name", &platform_name))
-+		data->dai.platforms->name = platform_name;
-+	else
-+		data->dai.platforms->name = "rpmsg-audio-channel";
- 	data->dai.playback_only = true;
- 	data->dai.capture_only = true;
- 	data->card.num_links = 1;
+ #define NAU8825_RATES	SNDRV_PCM_RATE_8000_192000
+diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
+index 6d112b6145df..d84191a7beb2 100644
+--- a/sound/soc/codecs/nau8825.h
++++ b/sound/soc/codecs/nau8825.h
+@@ -225,6 +225,15 @@
+ #define NAU8825_JKDET_PULL_EN	(1 << 9) /* 0 - enable pull, 1 - disable */
+ #define NAU8825_JKDET_OUTPUT_EN	(1 << 8) /* 0 - enable input, 1 - enable output */
+ 
++/* TDM_CTRL (0x1b) */
++#define NAU8825_TDM_MODE		(0x1 << 15)
++#define NAU8825_TDM_OFFSET_EN		(0x1 << 14)
++#define NAU8825_TDM_DACL_RX_SFT		6
++#define NAU8825_TDM_DACL_RX_MASK	(0x3 << NAU8825_TDM_DACL_RX_SFT)
++#define NAU8825_TDM_DACR_RX_SFT		4
++#define NAU8825_TDM_DACR_RX_MASK	(0x3 << NAU8825_TDM_DACR_RX_SFT)
++#define NAU8825_TDM_TX_MASK		0x3
++
+ /* I2S_PCM_CTRL1 (0x1c) */
+ #define NAU8825_I2S_BP_SFT	7
+ #define NAU8825_I2S_BP_MASK	(1 << NAU8825_I2S_BP_SFT)
+@@ -249,6 +258,9 @@
+ #define NAU8825_I2S_TRISTATE	(1 << 15) /* 0 - normal mode, 1 - Hi-Z output */
+ #define NAU8825_I2S_LRC_DIV_SFT	12
+ #define NAU8825_I2S_LRC_DIV_MASK	(0x3 << NAU8825_I2S_LRC_DIV_SFT)
++#define NAU8825_I2S_PCM_TS_EN_SFT	10
++#define NAU8825_I2S_PCM_TS_EN_MASK	(1 << NAU8825_I2S_PCM_TS_EN_SFT)
++#define NAU8825_I2S_PCM_TS_EN		(1 << NAU8825_I2S_PCM_TS_EN_SFT)
+ #define NAU8825_I2S_MS_SFT	3
+ #define NAU8825_I2S_MS_MASK	(1 << NAU8825_I2S_MS_SFT)
+ #define NAU8825_I2S_MS_MASTER	(1 << NAU8825_I2S_MS_SFT)
+@@ -259,6 +271,8 @@
+ #define NAU8825_FS_ERR_CMP_SEL_SFT	14
+ #define NAU8825_FS_ERR_CMP_SEL_MASK	(0x3 << NAU8825_FS_ERR_CMP_SEL_SFT)
+ #define NAU8825_DIS_FS_SHORT_DET	(1 << 13)
++#define NAU8825_TSLOT_L0_MASK		0x3ff
++#define NAU8825_TSLOT_R0_MASK		0x3ff
+ 
+ /* BIQ_CTRL (0x20) */
+ #define NAU8825_BIQ_WRT_SFT   4
 -- 
 2.25.1
 

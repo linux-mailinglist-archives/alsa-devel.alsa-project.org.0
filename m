@@ -2,95 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C97B5F1CA7
-	for <lists+alsa-devel@lfdr.de>; Sat,  1 Oct 2022 16:21:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F64F5F1CA8
+	for <lists+alsa-devel@lfdr.de>; Sat,  1 Oct 2022 16:22:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04D3B1B26;
-	Sat,  1 Oct 2022 16:21:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D3B1B26
+	by alsa0.perex.cz (Postfix) with ESMTPS id A63DB1B2E;
+	Sat,  1 Oct 2022 16:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A63DB1B2E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664634111;
-	bh=RVzk9Bx80kGcxYlQazsvx0Da9zTR+iv/+K7oEQ+Chuc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kZEhy1tldLhqvfCIvObnctFpu5/lVGCfE1FudKq2cMZvPMxIBbCMeydblNBlw710X
-	 R3m0gDIgEJ/ishM9YbAlWV3vz6RUcIpwHFL3b7U6YUgnCu4mrwFo5tvPGTu3lWBIAj
-	 HpIv0ACoMkC6KZUAFyeqnLksTm46ocxUYDGsvnqo=
+	s=default; t=1664634151;
+	bh=Gjn9JrLT9hqKrG2tOHuA+1H8QNVrefPyfnpPlkBWwug=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GK21e7AlGOGy8AUESSSXsF1c5ETGbOVl9gJpRF7/5l0MuoR+rSRtca0nJVXN4TJ/B
+	 yGoWThP6upkRYjEJE4yTmlnl97MN05FVOb36s8s5D/ZKUfVQnze2DEwZMxyjyIPR7d
+	 dDCIYwaiGFZfTDb1sEdICA8+L9d1cT2UeKPJuX7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E0B9F8047C;
-	Sat,  1 Oct 2022 16:20:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E46A1F800A7;
+	Sat,  1 Oct 2022 16:21:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13225F80171; Sat,  1 Oct 2022 16:20:54 +0200 (CEST)
+ id 8C2B6F804CF; Sat,  1 Oct 2022 16:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88B20F8014C
- for <alsa-devel@alsa-project.org>; Sat,  1 Oct 2022 16:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88B20F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CF03F80171
+ for <alsa-devel@alsa-project.org>; Sat,  1 Oct 2022 16:21:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF03F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HCPu3Nm6"; 
+ header.b="BS3GDZXf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="01SL+hsr"
+ header.b="Ez4lvjxg"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F31ED2199F;
- Sat,  1 Oct 2022 14:20:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C01852199B;
+ Sat,  1 Oct 2022 14:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664634050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tfa+3IL+O7QRe4MhPmAI+gtLd6W2MX5UK2yV6T/4o10=;
- b=HCPu3Nm6dxKTTnk9H9WMCtwsoYa4ExMDuNL0lGsG2QKuTcK5tcs971WjLhj7TmTb4T2hMU
- TZz5/O/1W1Qfgg3xGEz5MNvydKx3b5qCexJzKsxtSn02vDRFoYm84kffXOxTfDfDcXV87k
- qNmxW9tldIEJrRBegNsI1oHx50DZjDQ=
+ t=1664634087; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CCWdqjo/cYVhghfKNvjY4x+OiHd5FsnclqiZVfJ+KfY=;
+ b=BS3GDZXfO0ycr4XiExXCySlLAo06ue+wxU0aKQgMWyYr2QDOqm66gPE2+fhSP93t6pa61K
+ 67RWbL6LMN7Xc8kVtFKWbjMngsU1q1+LBFdm3opfa0OT7jz3LdEkTuYe59q9oEApWGy6b1
+ B8Te/5ZTH1DhJhrnwOR3UgCbntrgHqs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664634050;
+ s=susede2_ed25519; t=1664634087;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tfa+3IL+O7QRe4MhPmAI+gtLd6W2MX5UK2yV6T/4o10=;
- b=01SL+hsrFhSJJyKUFnqC27GrlmJuLkKhEAocRrgyZaVfQPxbYEz6mIsR7xickvvQVhX6Lr
- iLMhWjIqB8QgqEDg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CCWdqjo/cYVhghfKNvjY4x+OiHd5FsnclqiZVfJ+KfY=;
+ b=Ez4lvjxgUUo30JNdpKl6gAVm9ik6JQvSj1XIlZZ2I4hbS5jjVztM5hhWfZmFJ2vWcB47gw
+ s1O2pORZC1VlpGBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA99713A7F;
- Sat,  1 Oct 2022 14:20:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A501113A7F;
+ Sat,  1 Oct 2022 14:21:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3XuoNMJMOGOCEgAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 01 Oct 2022 14:20:50 +0000
-Date: Sat, 01 Oct 2022 16:20:50 +0200
-Message-ID: <87v8p3vd4t.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id FAacJ+dMOGOjEgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 01 Oct 2022 14:21:27 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: Sound broken (first couple of seconds play looping) on Sony Vaio
- VPX11S1E (HDA, ALC262)
-In-Reply-To: <e4e07b52-9751-a62c-c384-0abd36ea35f0@redhat.com>
-References: <3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com>
- <87y1uqbfmo.wl-tiwai@suse.de> <87tu5ebdc8.wl-tiwai@suse.de>
- <61bd7097-afac-5a2d-46a2-aada444a890c@redhat.com>
- <87y1u290cv.wl-tiwai@suse.de>
- <c24d34a9-e609-d44d-8e0f-c2e5928b95f4@redhat.com>
- <87h70q8qq8.wl-tiwai@suse.de>
- <e4e07b52-9751-a62c-c384-0abd36ea35f0@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Fix position reporting on Poulsbo
+Date: Sat,  1 Oct 2022 16:21:24 +0200
+Message-Id: <20221001142124.7241-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,109 +94,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 01 Oct 2022 15:36:01 +0200,
-Hans de Goede wrote:
-> 
-> Hi,
-> 
-> On 9/29/22 11:38, Takashi Iwai wrote:
-> > On Thu, 29 Sep 2022 11:05:47 +0200,
-> > Hans de Goede wrote:
-> >>
-> >> Hi,
-> >>
-> >> On 9/29/22 08:10, Takashi Iwai wrote:
-> >>> On Wed, 28 Sep 2022 18:33:55 +0200,
-> >>> Hans de Goede wrote:
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> On 9/11/22 09:05, Takashi Iwai wrote:
-> >>>>> On Sun, 11 Sep 2022 08:15:59 +0200,
-> >>>>> Takashi Iwai wrote:
-> >>>>>>
-> >>>>>> On Sat, 10 Sep 2022 19:52:36 +0200,
-> >>>>>> Hans de Goede wrote:
-> >>>>>>>
-> >>>>>>> Hi All,
-> >>>>>>>
-> >>>>>>> To test some kernel work (backlight refactor) which I have been doing
-> >>>>>>> I have booted Debian Testing with a 6.0 kernel on a Sony Vaio VPX11S1E
-> >>>>>>> (which is ancient).
-> >>>>>>>
-> >>>>>>> I noticed that when tab-completing something in a terminal the
-> >>>>>>> terminal bell sound would keep repeating and playing another longer
-> >>>>>>> sound sample gets stuck with the first couple of seconds of that
-> >>>>>>> sample looping.
-> >>>>>>>
-> >>>>>>> This is under GNOME3 with pulseaudio as sound server.
-> >>>>>>>
-> >>>>>>> I accidentally found an interesting workaround if I run:
-> >>>>>>>
-> >>>>>>> aplay -Dplughw:CARD=MID,DEV=0 /usr/share/sounds/alsa/Front_Left.wav
-> >>>>>>>
-> >>>>>>> once, then that works properly and after that the problem is gone...
-> >>>>>>>
-> >>>>>>> Note that this laptop does have only 1 speaker AFAICT.
-> >>>>>>>
-> >>>>>>> alsa-info output below.
-> >>>>>>>
-> >>>>>>> I would be happy to test any patches / module-options which might
-> >>>>>>> fix this.
-> >>>>>>
-> >>>>>> Could you check the very latest Linus tree (6.0-rc5)?
-> >>>>>> There has been a regression fix for HD-audio, and possibly this might
-> >>>>>> be your case.
-> >>>>>
-> >>>>> And if this doesn't change the behavior, try snoop=0 option for
-> >>>>> snd-hda-intel module.
-> >>>>
-> >>>> Thanks, I've just tried with 6.0-rc6 both with and without snoop=0
-> >>>> and neither helps I'm afraid.
-> >>>
-> >>> Then one another thing could be position_fix option of snd-hda-intel.
-> >>> Otherwise we need bisection -- supposing it worked well in the past.
-> >>
-> >> Thanks, position_fix=1 does the trick (I did not try any of
-> >> the other possible values).
-> >>
-> >> I see there is a snd_pci_quirk position_fix_list, so I guess
-> >> I should prepare a patch adding a quirk for this?
-> > 
-> > I guess this is rather controller issue, so I'd patch for Poulsbo like
-> > below.  Let me know if it works, then I'll cook a proper patch.
-> > 
-> >> Or are some other position_fix values preferred and should
-> >> I try those first?
-> > 
-> > LPIB should suffice, so no further test about the option needed.
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> > -- 8< --
-> > --- a/sound/pci/hda/hda_intel.c
-> > +++ b/sound/pci/hda/hda_intel.c
-> > @@ -2547,7 +2547,8 @@ static const struct pci_device_id azx_ids[] = {
-> >  	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_NOPM },
-> >  	/* Poulsbo */
-> >  	{ PCI_DEVICE(0x8086, 0x811b),
-> > -	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
-> > +	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE |
-> > +	  AZX_DCAPS_POSFIX_LPIB },
-> >  	/* Oaktrail */
-> >  	{ PCI_DEVICE(0x8086, 0x080a),
-> >  	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
-> > 
-> 
-> 
-> I can confirm that this does the trick, thanks:
-> 
-> Reported-and-tested-by: Hans de Goede <hdegoede@redhat.com>
+Hans reported that his Sony VAIO VPX11S1E showed the broken sound
+behavior at the start of the stream for a couple of seconds, and it
+turned out that the position_fix=1 option fixes the issue.  It implies
+that the position reporting is inaccurate, and very likely hitting on
+all Poulsbo devices.
 
-Thanks.  I'll submit and merge the proper patch now.
+The patch applies the workaround for Poulsbo generically to switch to
+LPIB mode instead of the default position buffer.
 
+Reported-and-tested-by: Hans de Goede <hdegoede@redhat.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/3e8697e1-87c6-7a7b-d2e8-b21f1d2f181b@redhat.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_intel.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Takashi
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 2a93bc64c2d8..6ff19dd0d10c 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2547,7 +2547,8 @@ static const struct pci_device_id azx_ids[] = {
+ 	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_NOPM },
+ 	/* Poulsbo */
+ 	{ PCI_DEVICE(0x8086, 0x811b),
+-	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
++	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE |
++	  AZX_DCAPS_POSFIX_LPIB },
+ 	/* Oaktrail */
+ 	{ PCI_DEVICE(0x8086, 0x080a),
+ 	  .driver_data = AZX_DRIVER_SCH | AZX_DCAPS_INTEL_PCH_BASE },
+-- 
+2.35.3
+

@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984915F21DC
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Oct 2022 10:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04CF55F21E1
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Oct 2022 10:09:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1F3E2A1A;
-	Sun,  2 Oct 2022 10:06:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1F3E2A1A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9847F2A20;
+	Sun,  2 Oct 2022 10:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9847F2A20
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664698058;
-	bh=EJ/YQM4QZdLLOs8HJ2hfuMvDQNLL3AkiVwI0zELLAbg=;
+	s=default; t=1664698169;
+	bh=fctstMAmk2W5ZoZTkqiiXMkgt/pInsEW01vMsB74o/4=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BmX769uAqgcELl2+0AWoL4NwBBFRpFeTwuL8fygMPpxBKh9G1i4HlRHsq0dP5Kb33
-	 UTx+gkR6uIQJ/EKALy4uit04Op7FqgqoLjfB378a8UymDYun5cjzj/oB/CRiUp6VwQ
-	 hN5tFMv/SUY9uJbex2PiGOlJtMmkN6pBGTrhs1Vc=
+	b=twzYLChd4c9geLLuJwsZFRj6irxYuY3RdRr3FaCsjwhPk/aD1T9eecr4El+6U3OKf
+	 M0nE8xgHVzUnng8vbK99EbORNZSue6xbr5LApeogmrO6SbiU/eQQSvGLYwbHlFwD2D
+	 SZep7/ul7p15XvHj+36Tqi0LMLdH02LkJIET62U8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BA33F802DB;
-	Sun,  2 Oct 2022 10:06:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0019DF802DB;
+	Sun,  2 Oct 2022 10:08:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 100BEF80246; Sun,  2 Oct 2022 10:06:41 +0200 (CEST)
+ id 009F3F8013D; Sun,  2 Oct 2022 10:08:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 060A3F800A7
- for <alsa-devel@alsa-project.org>; Sun,  2 Oct 2022 10:06:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 060A3F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF75DF80087
+ for <alsa-devel@alsa-project.org>; Sun,  2 Oct 2022 10:08:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF75DF80087
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Q3tr2avw"
-Received: by mail-lf1-x129.google.com with SMTP id c2so6295925lfb.10
- for <alsa-devel@alsa-project.org>; Sun, 02 Oct 2022 01:06:34 -0700 (PDT)
+ header.b="Xg8w105m"
+Received: by mail-lf1-x12d.google.com with SMTP id 25so2405088lft.9
+ for <alsa-devel@alsa-project.org>; Sun, 02 Oct 2022 01:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=Ih52Hlx+eX56tVspyaU7zHlpharxBn/SjHWmXDB6OKk=;
- b=Q3tr2avwURfk+SpVFC96h+4s6UEMfxTfFM4X1ZCQ6OVt4cWO0uTH53x9EFrf6POj5M
- j9CbhhELYz5WkjY8dabptdCLh4HFHDLoVYWlxH1F+/phJ7I8GzQKY3nyZKQstLc39Cyo
- wQdjmt7InEpVv713co5gUtvRGxpjJiYoBvLZAj3fyPU8XfRfZzUnzvFrZ91+JivwQsTa
- w9ZWUdq/7ofLWUBMxfwk+9wSfWcUXMW6jp6zzHZNeQuD2xJlzeloQxkRD6FrnFVt2DtC
- Ju3tMt4FtKr46BcFoa49APPR7O5qrGLAlczuh2U8XDwhGxENFvg8jMp64RyeGZC+eNGb
- /5Iw==
+ bh=O3qGf0Qhm8BJZuYtDeuLoDoOuwVahGZ598SBGYRTnMY=;
+ b=Xg8w105m1rnL+ruXK42WqhCPvp9EDE2N5PW346GAg1e64pEab7F45DAA1rbvB/irlv
+ ++ZcsrKysLtMdSqR5oCulmiin3h6ziA4ueN4MfXgUeJ69XRHqyZGQPjpwjmr5dliPhgx
+ 44C30RKhlYzuFxDa/AG0DDhv6v5/eU1k1T+JFFYmeVpUDCYpzDnLJnbWs8fmJsOMcaZj
+ mQkd06zK2g+M+QONAGHWpwjj793wcF4UNV9BWS9JlShlIE/gdagRZRf4kOwhF/aYlL3C
+ lmjzaFtcyExcqHE0tMGJez+4XFm7eAAKkpq3jZciv3Xj6zQZLGx9AkqfZfKpxvB2vsDa
+ ewBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=Ih52Hlx+eX56tVspyaU7zHlpharxBn/SjHWmXDB6OKk=;
- b=zUsLDvejnZQJWmeVcMaRJbc6GJPXTzA7uyL6SNUQMkAcKURmSjY7XlHK8NlrzGmkcz
- MdY7OVvHr736/HFdcavNC4DtzqqojJMR3Gjr0LeVRIHEGeAB80Xemrx6qUB8L/oUS+82
- alcV67k2yovjoOuCtCiGKpqSYulUQI9BdSFbQaQgN0VN6Bws15gOv+HiChwYFx7MpjPc
- MAN95vDd8TizqzJxmSxHY5ht18h1h6g0ogZ03j7lGTXuBp9Fz77q0aD51St4eIEO/D2J
- 8AD3YFS/v6TnJ8w7lv3KQI/e072JvAA9Q258jU6srOjF6Emn8uyDVCcojKUIvjEAHTxt
- McFQ==
-X-Gm-Message-State: ACrzQf0uLi6gDTAxTJNxUIYah5zo/aaQRfJUmz5/gNdZ7cL0oxZYFkOP
- ED4GBTRVIO754zKbVFYPdM6mkA==
-X-Google-Smtp-Source: AMsMyM5OYdz5lO107vNdyJJf2kCeIrP4T47B3QliEARnAsvn/uTGZmx2R2gLTJ212FHyB/Ar0wsGSQ==
-X-Received: by 2002:a05:6512:533:b0:4a2:f36:bba5 with SMTP id
- o19-20020a056512053300b004a20f36bba5mr4015391lfc.224.1664697992837; 
- Sun, 02 Oct 2022 01:06:32 -0700 (PDT)
+ bh=O3qGf0Qhm8BJZuYtDeuLoDoOuwVahGZ598SBGYRTnMY=;
+ b=ApNyA17jdpFtwaaqmHv4d7uHt3hRiXgUbSteCUxVEoYu1XrzIb4VHsTBFmQtfZILwo
+ 4kmQmSALhS7nJ7c/I0kxlhgWx5d7v8Q4YCrscIClV6nsdEyXrGZqjmzz4k74Zu9Rmvax
+ ALyjZOFZ2TvW1H6ZQLhQWHeQDzFxuh/eVeQlzrquI4fXbE/kuq17tteDHQpGML79RpcU
+ LcMTaCrD+mo0DSX82nq9ve8fm/vw4aiAWUq4Qws7k7S9HQr3jy9OsFCtY2H4EcerkdI+
+ HmcVEmCYG7vbqbWFe/8eZWirCc+Vc32JttdaLiYz/cGZqZekiGU73ntkkVB583ljpg1X
+ Co8Q==
+X-Gm-Message-State: ACrzQf3x1sGqC+j8RJj74c756RRRL+cfUj4yLDjaZx2BkY1M1a4PfSQk
+ aj2dosxtUjzAauZe3p3k9vNySA==
+X-Google-Smtp-Source: AMsMyM76sHuJFoOrGeSwIUeBoMg3REG8ihVa0O3oL2n75PD0oSahxr5nDq+t38k/wfilvQ95ptGBeA==
+X-Received: by 2002:a05:6512:15a0:b0:49b:1eba:89d4 with SMTP id
+ bp32-20020a05651215a000b0049b1eba89d4mr5226436lfb.188.1664698101072; 
+ Sun, 02 Oct 2022 01:08:21 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- a18-20020a05651c031200b0026c5579c64csm579375ljp.89.2022.10.02.01.06.31
+ bd6-20020a05651c168600b0026bf04aafb5sm588339ljb.6.2022.10.02.01.08.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Oct 2022 01:06:32 -0700 (PDT)
-Message-ID: <dc2f73e4-5c8a-5018-f507-8e04d86fc6d5@linaro.org>
-Date: Sun, 2 Oct 2022 10:06:31 +0200
+ Sun, 02 Oct 2022 01:08:20 -0700 (PDT)
+Message-ID: <990c66cc-8cb3-a0bc-f4ee-0908f34f3c38@linaro.org>
+Date: Sun, 2 Oct 2022 10:08:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: add schema for WM8961
+Subject: Re: [PATCH 2/2] ASoC: wm8961: add support for devicetree
 Content-Language: en-US
 To: Doug Brown <doug@schmorgal.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
 References: <20221001200039.21049-1-doug@schmorgal.com>
- <20221001200039.21049-2-doug@schmorgal.com>
+ <20221001200039.21049-3-doug@schmorgal.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221001200039.21049-2-doug@schmorgal.com>
+In-Reply-To: <20221001200039.21049-3-doug@schmorgal.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -112,70 +112,53 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 01/10/2022 22:00, Doug Brown wrote:
-> Create a simple DT schema for the existing Wolfson WM8961 driver so that
-> DT support can be added to the driver.
+> This adds support for devicetree to the WM8961 driver so it can be used
+
+Do not use "This commit/patch adds ...".
+https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+
+Just "Add support for ..."
+
+
+> with modern DT-based kernels.
 > 
 > Signed-off-by: Doug Brown <doug@schmorgal.com>
 > ---
->  .../devicetree/bindings/sound/wlf,wm8961.yaml | 40 +++++++++++++++++++
->  1 file changed, 40 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8961.yaml
+>  sound/soc/codecs/Kconfig  | 2 +-
+>  sound/soc/codecs/wm8961.c | 6 ++++++
+>  2 files changed, 7 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8961.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8961.yaml
-> new file mode 100644
-> index 000000000000..73166cf0fdcf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/wlf,wm8961.yaml
-> @@ -0,0 +1,40 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/wlf,wm8961.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Wolfson WM8961 Ultra-Low Power Stereo CODEC
-> +
-> +maintainers:
-> +  - patches@opensource.cirrus.com
-> +
-> +properties:
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  compatible:
-> +    const: wlf,wm8961
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index e3b90c425faf..2b5787ee8d31 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -1929,7 +1929,7 @@ config SND_SOC_WM8960
+>  	depends on I2C
+>  
+>  config SND_SOC_WM8961
+> -	tristate
+> +	tristate "Wolfson Microelectronics WM8961 CODEC"
 
-Please put compatible first in list of properties (and follow same order
-in "required"). It's the most important piece, so we want it to be the
-first to see. It also follows the convention of DTS, where compatible is
-expected to be first.
+This is independent change. Please split to separate commit.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - '#sound-dai-cells'
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +
-> +          wm8961: codec@4a {
-> +                  #sound-dai-cells = <0>;
-> +                  compatible = "wlf,wm8961";
+>  	depends on I2C
+>  
+>  config SND_SOC_WM8962
+> diff --git a/sound/soc/codecs/wm8961.c b/sound/soc/codecs/wm8961.c
+> index 7dc6aaf65576..539096184eda 100644
+> --- a/sound/soc/codecs/wm8961.c
+> +++ b/sound/soc/codecs/wm8961.c
+> @@ -971,6 +971,12 @@ static const struct i2c_device_id wm8961_i2c_id[] = {
+>  };
+>  MODULE_DEVICE_TABLE(i2c, wm8961_i2c_id);
+>  
+> +static const struct of_device_id wm8961_of_match[] = {
+> +	{ .compatible = "wlf,wm8961", },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, wm8961_of_match);
 
-Here compatible first, reg second, then the rest.
-
-> +                  reg = <0x4a>;
-> +          };
-> +    };
+Compile-test with W=1 and without CONFIG_OF. Is there a warning here?
 
 Best regards,
 Krzysztof

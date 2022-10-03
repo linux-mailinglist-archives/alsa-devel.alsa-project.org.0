@@ -2,54 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5DA5F327C
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Oct 2022 17:28:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBF85F335F
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Oct 2022 18:21:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF0AB172C;
-	Mon,  3 Oct 2022 17:28:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF0AB172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC61167D;
+	Mon,  3 Oct 2022 18:21:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC61167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664810931;
-	bh=3bjNg0senpYsxg8iTNTIKcaF3n/KIdd0MQRGjKWJwCk=;
+	s=default; t=1664814111;
+	bh=nYZ3OPwym3/lCLl802gVWM/RZFxDegAll462MzFd8Hs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FfkKZb59M8E1OjnwwI2U0bzC9irBuRHUXXCvfSi/nUSeSgAKC34vckiHjL4D+4oDV
-	 SLQhPQBWfnIm22Wgf3Yy9ZLmMzIZ4zUdW4ioiEo6HufixV8yDNC4v0GNta0fKgMN22
-	 3CezVb5JGPDzNePV6g1hawsURFcwgZbgQSUK9Yv8=
+	b=ZiNSH85UWp6pll0v8uZ+ki2CxvDWIQQFmYQJEy1iBjvbz0OgX/7ybMsZ++mpFXOAb
+	 9BycCW+mEmj1CpuAJRbTiReoFGyWllHtIS5cpWyYzvMtl/V72roA8Wx69qypLstQKv
+	 II0z/p2S6kEY/j1S9EbHV9W0BYWsRtM5iVNhdfVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF0FDF80431;
-	Mon,  3 Oct 2022 17:27:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7810F800CC;
+	Mon,  3 Oct 2022 18:20:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93D7EF800CC; Mon,  3 Oct 2022 17:27:53 +0200 (CEST)
+ id 436A6F80269; Mon,  3 Oct 2022 18:20:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81120F800CC
- for <alsa-devel@alsa-project.org>; Mon,  3 Oct 2022 17:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81120F800CC
-Received: by m.b4.vu (Postfix, from userid 1000)
- id BEF24604B9E6; Tue,  4 Oct 2022 01:57:37 +1030 (ACDT)
-Date: Tue, 4 Oct 2022 01:57:37 +1030
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
- prepare (take#2)
-Message-ID: <Yzr/aQ3nSTPeGDq1@m.b4.vu>
-References: <20220920181106.4894-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E5B9F800CC
+ for <alsa-devel@alsa-project.org>; Mon,  3 Oct 2022 18:20:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5B9F800CC
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-1327ba38599so2838006fac.11
+ for <alsa-devel@alsa-project.org>; Mon, 03 Oct 2022 09:20:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=SrQIQIx2drceX3SN+9GboVD+7L3gb+zcudmTPkuxG4o=;
+ b=5hCdOrlaj/7RoX8jTQmZDLJDTE1F5RnVja/tsTqdyY6UPe0dH+jgI1N+i4Rd53U4oB
+ 8QjyqY9a/nwYFe0fYmp20xcOKvGzNOsAqMdeb5zffl7NaASOse0pmzap3sExuAG3fj/Z
+ hw/W8APJ2QKyj34csrAFSMBsvCX0/2HPVr0JMBw4LWGTA0Tw1vFDTYt+OxErnvOwHUxC
+ aEn1hCkVRa/oavKduRu6Fzprgc1QClvu+ULkjgraonPnViS244Kfbr6CZPx+uQ0BKA8U
+ ENbEN+7qfUG9ldEbIaJ2D6NSt1bALzswpX7U2eApLyYHyl+2S/HeoWxFkWBVRIOumnxH
+ da8A==
+X-Gm-Message-State: ACrzQf1zFwvsj+6Unq84r4xItJIo46ABF5XA9A1UEPZurBpI978yAEzy
+ +LCCQGgd9H+55Vshc3oEeg==
+X-Google-Smtp-Source: AMsMyM6cKgji6ciyhbfcp4feIvszGehOxAdPhv6e9KCbMI8b2WBWiPgQvBwA1TqrxbMdcC2DrtjgNg==
+X-Received: by 2002:a05:6870:f60e:b0:131:b7cc:f994 with SMTP id
+ ek14-20020a056870f60e00b00131b7ccf994mr5798922oab.113.1664814046016; 
+ Mon, 03 Oct 2022 09:20:46 -0700 (PDT)
+Received: from macbook.herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ u17-20020a4ac991000000b00435a8024bc1sm2146879ooq.4.2022.10.03.09.20.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Oct 2022 09:20:45 -0700 (PDT)
+Received: (nullmailer pid 2402827 invoked by uid 1000);
+ Mon, 03 Oct 2022 16:20:44 -0000
+Date: Mon, 3 Oct 2022 11:20:44 -0500
+From: Rob Herring <robh@kernel.org>
+To: Chancel Liu <chancel.liu@nxp.com>
+Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: fsl_rpmsg: Add a property to
+ assign the rpmsg channel
+Message-ID: <166481404372.2402771.4568296878254068845.robh@kernel.org>
+References: <20220930064441.2548505-1-chancel.liu@nxp.com>
+ <20220930064441.2548505-2-chancel.liu@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220920181106.4894-1-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20220930064441.2548505-2-chancel.liu@nxp.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, Xiubo.Lee@gmail.com, shengjiu.wang@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, tiwai@suse.com, nicoleotsuka@gmail.com, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, festevam@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,42 +98,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+On Fri, 30 Sep 2022 14:44:35 +0800, Chancel Liu wrote:
+> Add a string property to assign the rpmsg channel this sound card sits
+> on. This property can be omitted if there is only one sound card and it
+> sits on "rpmsg-audio-channel".
+> 
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> ---
+>  .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 36 +++++++++++++++++--
+>  1 file changed, 34 insertions(+), 2 deletions(-)
+> 
 
-On Tue, Sep 20, 2022 at 08:11:06PM +0200, Takashi Iwai wrote:
-> This is a second attempt to fix the bug appearing on Android with the
-> recent kernel; the first try was ff878b408a03 and reverted at commit
-> 79764ec772bc.
-
-I found that full-duplex audio for Scarlett devices was broken in
-5.19.11 but working again 5.19.12, presumably due to this. escuta at
-https://linuxmusicians.com/viewtopic.php?p=148734#p148734 reported
-that it was broken from 5.19.9 but 5.19.8 worked (they also reported
-that 5.9.12 didn't work, which I can't explain).
-
-5.19.12 and 6.0.0 work for me, but 6.0.0 + your v2 patch makes the
-gnome sound settings app crash when setting the output device to
-Scarlett if the input device was already set to Scarlett.
-
-Using the gnome-control-center (42.3) app (Fedora 36, PipeWire 0.3.59,
-WirePlumber 0.4.11) to test:
-
-- Kernel 5.19.11: can't set both input and output device to Scarlett;
-  changing output to Scarlett makes the input device switch to
-  something else, and changing the input device to Scarlett makes the
-  output device switch to something else
-
-- Kernel 5.9.12 & 6.0.0: can set both input and output device to
-  Scarlett, all good/normal
-
-- Kernel 6.0.0+v2 patch: if both input and output device are already
-  set to Scarlett, works fine. Change output device to something else
-  then back to Scarlett, the settings app hangs. Kill the app, restart
-  it, the input & output device are both Scarlett & it appears to work
-  fine again until you change the output device to Scarlett when the
-  input device is already Scarlett. Changing it in the other order
-  (set input device to Scarlett when output device is already
-  Scarlett) works no problem.
-
-Regards,
-Geoffrey.
+Acked-by: Rob Herring <robh@kernel.org>

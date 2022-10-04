@@ -2,86 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEA0D5F41D9
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Oct 2022 13:19:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C335F4264
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Oct 2022 13:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0A9D16F0;
-	Tue,  4 Oct 2022 13:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A9D16F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60AC416FE;
+	Tue,  4 Oct 2022 13:51:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60AC416FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664882370;
-	bh=Ydkxtxicfmofj1JjvywIek48xWO5IV7LdpxUXeeo4Fo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tAM3j8cXeT0fpIf+oSRaAzYn2K9U6S/vcnm0m1BHiJeeIbmXnLlBbTNPQPeHJTFBY
-	 HV/lPt4AkPiT/mvH6c84fj/qUGV+7fwgM3xDUt0NPzKQjKQ/Ggng2Y1fWlID8jOjSJ
-	 1y1928Yzui4D4KNwbxXJAPZobbeqQbHfkyjNR9cE=
+	s=default; t=1664884332;
+	bh=ismF+AEGmGPx3QEX3gt85btPu4GDpT1W/+k8ZzsQIoc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lntAvjpdLDIPDDPvONP0VHel4yi5sDnRj7qAw0aB1xjUKC0SUmASdqihUM8nka7mg
+	 lUUNka876sc3ca8t4emTx3gjhs9g8vWwRv16Kf1bLXNmo2sS8JoZJRwNmyHWx5mMRD
+	 9e06a9ACGijH73cXAWJZlZ6+jfToo8xAqQ6YmgW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E2F1F800C1;
-	Tue,  4 Oct 2022 13:18:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B752BF801F5;
+	Tue,  4 Oct 2022 13:51:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9B0EF801EC; Tue,  4 Oct 2022 13:18:32 +0200 (CEST)
+ id D69CEF800C1; Tue,  4 Oct 2022 13:51:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 724F1F80118
- for <alsa-devel@alsa-project.org>; Tue,  4 Oct 2022 13:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724F1F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8D23F800C1
+ for <alsa-devel@alsa-project.org>; Tue,  4 Oct 2022 13:51:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D23F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ljj4x0ni"
-Received: by mail-ej1-x634.google.com with SMTP id qx23so10049124ejb.11
- for <alsa-devel@alsa-project.org>; Tue, 04 Oct 2022 04:18:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=Ydkxtxicfmofj1JjvywIek48xWO5IV7LdpxUXeeo4Fo=;
- b=ljj4x0ni66GLCgns5fww2uZEa8LE4hC2Nr2ajALIEFxbAXVCCqKxTL6A4R85fNRbOO
- F48ueDXQbU1IuETsLVg+y2KgN/mM52yd7/MK9rouelh5N9P71D6NukYQRPBflfiDPkzg
- EqDwtRP9bc8vFyu3S2A+0Ug4rBRT91Yh4rSyqkOin/XpGLQZ2wC61f9Q9/CCeu/8PYnJ
- bpnpnrB0TiSroLkQTsxWEgDo3sDvCYNpVGjwDjbJKbKtmkWvkNQ5NgAdlHbLAzlTaYtM
- CdsNRpAkvmXCbCa6u7LiTllRAyjF/cprrkcU5WJai8sULIY7QrkpiPC7ZB4OD7lX0CiB
- yLPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=Ydkxtxicfmofj1JjvywIek48xWO5IV7LdpxUXeeo4Fo=;
- b=ByaD1va/j6Dm79kLEKxpxb8XdNtaBs+/CaEFWRJCbzLjEMyx2OIhityS/1Q51SnJHO
- 7k96uV8vDaqI1cBTHBjrCDnQw2kTauAhH/ZvP1fzLUlmBuzDVRVthhLPdVpe30BxiraS
- IAVqD+ttBn9CZixzhV34phzU0rEoCsJ3DruqHvEv4KY1X3TLom8M29Bs0gNSZeu4hdKC
- jwAtRiGZIQf1co3Xgk3Bge1UaJIs8vlmMW+ASpix10yQjhPeIjPMIucFul8i2t/ISZd4
- SEN1z/VZWCRwau421qTSNopvRbCSrBR38BXEKGrfpf43Ys0W+8cwZhHBUnnbHZZ1eEb8
- Rvfw==
-X-Gm-Message-State: ACrzQf1dFHXbgU4z5gxKvlaUduYB6WLmbX0auWYBXhFgMc8aENhp+Swd
- Yk7nY6I+FXPTGl49yUn8oR1WSD8gZTxsjbGEUv0=
-X-Google-Smtp-Source: AMsMyM7Dh3Xqsy2vwIP7AlrBx7QANX+cRDYoz4nn3OH/6QgI59fnAx5Uwajm+E8TN3CZAfQ6gkFQKdLFp4gAEv5Mluk=
-X-Received: by 2002:a17:907:e94:b0:782:f9d2:5301 with SMTP id
- ho20-20020a1709070e9400b00782f9d25301mr18872479ejc.393.1664882304274; Tue, 04
- Oct 2022 04:18:24 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="IuhF+C2s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664884272; x=1696420272;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ismF+AEGmGPx3QEX3gt85btPu4GDpT1W/+k8ZzsQIoc=;
+ b=IuhF+C2sM7P0eoXPZJd6gFqCU3FyPWSzJqMx0hejNOfVYpljCijgSDbr
+ kg1/jm7dKQ46lgJR6skLZq+kJQ00BuSkmwRZQofyTb+5hIixRkYW+Td5O
+ bIQ/vvFNoxq1FjfQeDrfd5dr/lKJzU6sR6zHDUYzRk2/n61dXQik3TGhA
+ y4ojKBS5ezEvO3OfttebCVezXRITsYPJFjBHgkS6mVCtzhF0ddfbcGCx9
+ fxSB26O2ZI6+eYZ6bmHKcNrCgv8HU5S1OOH+YdVWSaBcC1fztEdVEWQaB
+ OXPwUbWhqmpPM8WIZK3AIOyx7hCp+C8+1iUeeML65PdpZ2ow/XPp2980M A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="283257321"
+X-IronPort-AV: E=Sophos;i="5.93,157,1654585200"; d="scan'208";a="283257321"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 04:51:07 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="692460120"
+X-IronPort-AV: E=Sophos;i="5.93,157,1654585200"; d="scan'208";a="692460120"
+Received: from apietrus-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.23.101])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 04:51:05 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	zhangqilong3@huawei.com
+Subject: [PATCH] Revert "ASoC: soc-component: using pm_runtime_resume_and_get
+ instead of pm_runtime_get_sync"
+Date: Tue,  4 Oct 2022 14:51:21 +0300
+Message-Id: <20221004115121.26180-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <CAEnQRZALsr3Cf20K103ax9kvk-opAfWMW5XBE6pgu0KKq2Xaxw@mail.gmail.com>
- <2d31661e-0542-69b0-4a97-ff1e277c3351@linux.intel.com>
-In-Reply-To: <2d31661e-0542-69b0-4a97-ff1e277c3351@linux.intel.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Tue, 4 Oct 2022 14:18:15 +0300
-Message-ID: <CAEnQRZCkJGe8OQdFDAhB_p-xLcb+S=6g6JG0jdBhNEUVzuP1ow@mail.gmail.com>
-Subject: Re: ALSA Compress API - system suspend/resume
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Paul Olaru <paul.olaru@nxp.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,36 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 4, 2022 at 12:46 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
-> On 10/4/22 11:07 AM, Daniel Baluta wrote:
-> > Hello all,
-> >
-> > It looks like system suspend is not implemented for Compress streams.
-> >
-> > Any story behind this? Were there any attempts on implementing this?
->
-> It depends on the definition of 'system suspend'.
->
-> What we had in mind back in the early 2010s was to allow for 'active
-> suspend' aka S0ix or low-power playback. That was the main reason for
-> introducing the API.
->
-> For suspend to S3/D3, the plan was to just completely stop any
-> playback/capture and restart on resume. I am not sure if this was ever
-> implemented, that may be a miss.
+From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-I see. Yes, we are looking at S3/D3 suspend and this doesn't look to
-be implemented.
+This reverts commit 08fc2a7448afc1660ec2f1b5c437fcd14155a7ee.
 
->
-> There is a corner case we may have overlooked. I am not sure what
-> happens if the S3/D3 suspend while playing. This is supported with e.g.
-> aplay but for the compressed case it's a bit more complicated. Not all
-> formats support rendering for a random position.
+The reverted commit causes the following warnigs:
+Runtime PM usage count underflow!
 
-True. We want to implement the same behavior as for aplay. Stop
-any playback/capture and restart on resume.
+This is due to the fact that the pm_runtime_resume_and_get() is calling
+pm_runtime_put_noidle() in case of < 0 return value of
+pm_runtime_get_sync() which includes the -EACCES.
+The change is wrong as -EACCES is returned in case of 'nested' get_sync()
+and it is a valid use of PM runtime.
 
-Thanks!
+Fixes: 08fc2a7448af ("ASoC: soc-component: using pm_runtime_resume_and_get instead of pm_runtime_get_sync")
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+---
+ sound/soc/soc-component.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 659b9ade4158..e12f8244242b 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -1213,9 +1213,11 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
+ 	int i;
+ 
+ 	for_each_rtd_components(rtd, i, component) {
+-		int ret = pm_runtime_resume_and_get(component->dev);
+-		if (ret < 0 && ret != -EACCES)
++		int ret = pm_runtime_get_sync(component->dev);
++		if (ret < 0 && ret != -EACCES) {
++			pm_runtime_put_noidle(component->dev);
+ 			return soc_component_ret(component, ret);
++		}
+ 		/* mark stream if succeeded */
+ 		soc_component_mark_push(component, stream, pm);
+ 	}
+-- 
+2.37.3
+

@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FAD15F426D
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Oct 2022 13:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AEB85F4290
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Oct 2022 13:59:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 268A41707;
-	Tue,  4 Oct 2022 13:54:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268A41707
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF371709;
+	Tue,  4 Oct 2022 13:59:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF371709
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664884512;
-	bh=VxuU8+tOXIxlabs6FTo/A5zqins5zLFrcbIP7i9/lIg=;
+	s=default; t=1664884796;
+	bh=Wj4xS8z3elWgsY4toapov2r6ImB/eMVpM7Xb71L1HS4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VFYkR2m51L1iniqJkWNuCzKvFBhtmfwcz2IRxMp8sh4XRSEqSErCrRC8TJoCQpsNY
-	 szLm57Ch8UcLsUIv1eRf5HesH1v3gnLVEiDBhjdZBSoXZmeyu3UZVP8OmE3W9n+Ty7
-	 Hnq4Hq6s6uFG6EHmNuuia8bYtIW+Duq6mlJELSzw=
+	b=cFxbmovy1G2MSHbGXCLLZECL++5CensJ1EiBBRlNJD3fhU6hb4V3yYDQP8BCMBFqT
+	 8E+ZvcUl+7GmvegH3gFE3bUxs6igvNLtkGJSdEcysQ3hsSMNkXjMi7cbkSv427eQxP
+	 QpXSqPi/ni2fluL5igu3ghs6m4ksuziZdStv9sOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84275F801F5;
-	Tue,  4 Oct 2022 13:54:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C4DF8012A;
+	Tue,  4 Oct 2022 13:59:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70BFBF801EC; Tue,  4 Oct 2022 13:54:14 +0200 (CEST)
+ id 787F8F801EC; Tue,  4 Oct 2022 13:58:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76537F8012A
- for <alsa-devel@alsa-project.org>; Tue,  4 Oct 2022 13:54:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76537F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DFA1F8012A
+ for <alsa-devel@alsa-project.org>; Tue,  4 Oct 2022 13:58:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DFA1F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WSkO+80a"; 
+ header.b="TxL5gOta"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="naDGG8Dv"
+ header.b="krUOems5"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 82354218FF;
- Tue,  4 Oct 2022 11:54:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B69D11F90E;
+ Tue,  4 Oct 2022 11:58:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664884447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664884731; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UhmznXb39JLPBgAlyn/HPXax8IfX/xB0HtsJDlZQ+qI=;
- b=WSkO+80aW4JzH2170R7XWiSItGWeL/V9MzvmtFE2C0IYOqweHaEBGst1h5FfvDkn5nSJax
- /mp1e8y5MQRz47+XSyrfAuQ1kxIfVUj3hk9nSGSdvtNist6FwaQJ4i9LLVs/9cC8vxnZGK
- NxAfhCjPemcdtrt5inyE5IyF7BgIDTw=
+ bh=ChV6hj4L+c9J6FMtf2fiYNzRYtihsX93QLSHMCFP/gM=;
+ b=TxL5gOtaPUYsUJ+B83rIg1puCSJzkZ0on3jbyeB1WzHsjPAtlZVfVJ49icWyOAqHaYGnt5
+ Ul0U+oZyrTmcZHLRHVne1MB0iI1L/gpnL9J/LdduQhNVMSG1m1AxIDsWxSGvvk18m5kJbz
+ yEZALeCwrMtQG2MdHo9mIhTaEXsQIUY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664884447;
+ s=susede2_ed25519; t=1664884731;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UhmznXb39JLPBgAlyn/HPXax8IfX/xB0HtsJDlZQ+qI=;
- b=naDGG8Dv3DCJBkvwq12uivCvJ0Ww5tZNVl5wQ2rcSyB7Wwauck159pp0fnpQe1lhxHZsCL
- VhvzotmlVqMsx3DQ==
+ bh=ChV6hj4L+c9J6FMtf2fiYNzRYtihsX93QLSHMCFP/gM=;
+ b=krUOems57OTi8pMI3oLVP0rYjJactlAnyjYUH6+GByVRSBswXrgtIklyPbCURjCZfOr6mU
+ LXqgEDYWVkxbwTAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 66192139D2;
- Tue,  4 Oct 2022 11:54:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8C05B139EF;
+ Tue,  4 Oct 2022 11:58:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8hotGN8ePGPFLwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 04 Oct 2022 11:54:07 +0000
-Date: Tue, 04 Oct 2022 13:54:06 +0200
-Message-ID: <87h70jpzxd.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id IDATIfsfPGP2MQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 04 Oct 2022 11:58:51 +0000
+Date: Tue, 04 Oct 2022 13:58:51 +0200
+Message-ID: <87fsg3pzpg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
- prepare (take#2)
-In-Reply-To: <Yzr/aQ3nSTPeGDq1@m.b4.vu>
-References: <20220920181106.4894-1-tiwai@suse.de>
-	<Yzr/aQ3nSTPeGDq1@m.b4.vu>
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Subject: Re: ALSA Compress API - system suspend/resume
+In-Reply-To: <CAEnQRZCkJGe8OQdFDAhB_p-xLcb+S=6g6JG0jdBhNEUVzuP1ow@mail.gmail.com>
+References: <CAEnQRZALsr3Cf20K103ax9kvk-opAfWMW5XBE6pgu0KKq2Xaxw@mail.gmail.com>
+ <2d31661e-0542-69b0-4a97-ff1e277c3351@linux.intel.com>
+ <CAEnQRZCkJGe8OQdFDAhB_p-xLcb+S=6g6JG0jdBhNEUVzuP1ow@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: Paul Olaru <paul.olaru@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,50 +103,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 03 Oct 2022 17:27:37 +0200,
-Geoffrey D. Bennett wrote:
+On Tue, 04 Oct 2022 13:18:15 +0200,
+Daniel Baluta wrote:
 > 
-> Hi Takashi,
+> On Tue, Oct 4, 2022 at 12:46 PM Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> wrote:
+> >
+> > On 10/4/22 11:07 AM, Daniel Baluta wrote:
+> > > Hello all,
+> > >
+> > > It looks like system suspend is not implemented for Compress streams.
+> > >
+> > > Any story behind this? Were there any attempts on implementing this?
+> >
+> > It depends on the definition of 'system suspend'.
+> >
+> > What we had in mind back in the early 2010s was to allow for 'active
+> > suspend' aka S0ix or low-power playback. That was the main reason for
+> > introducing the API.
+> >
+> > For suspend to S3/D3, the plan was to just completely stop any
+> > playback/capture and restart on resume. I am not sure if this was ever
+> > implemented, that may be a miss.
 > 
-> On Tue, Sep 20, 2022 at 08:11:06PM +0200, Takashi Iwai wrote:
-> > This is a second attempt to fix the bug appearing on Android with the
-> > recent kernel; the first try was ff878b408a03 and reverted at commit
-> > 79764ec772bc.
+> I see. Yes, we are looking at S3/D3 suspend and this doesn't look to
+> be implemented.
 > 
-> I found that full-duplex audio for Scarlett devices was broken in
-> 5.19.11 but working again 5.19.12, presumably due to this. escuta at
-> https://linuxmusicians.com/viewtopic.php?p=148734#p148734 reported
-> that it was broken from 5.19.9 but 5.19.8 worked (they also reported
-> that 5.9.12 didn't work, which I can't explain).
+> >
+> > There is a corner case we may have overlooked. I am not sure what
+> > happens if the S3/D3 suspend while playing. This is supported with e.g.
+> > aplay but for the compressed case it's a bit more complicated. Not all
+> > formats support rendering for a random position.
 > 
-> 5.19.12 and 6.0.0 work for me, but 6.0.0 + your v2 patch makes the
-> gnome sound settings app crash when setting the output device to
-> Scarlett if the input device was already set to Scarlett.
-> 
-> Using the gnome-control-center (42.3) app (Fedora 36, PipeWire 0.3.59,
-> WirePlumber 0.4.11) to test:
-> 
-> - Kernel 5.19.11: can't set both input and output device to Scarlett;
->   changing output to Scarlett makes the input device switch to
->   something else, and changing the input device to Scarlett makes the
->   output device switch to something else
-> 
-> - Kernel 5.9.12 & 6.0.0: can set both input and output device to
->   Scarlett, all good/normal
-> 
-> - Kernel 6.0.0+v2 patch: if both input and output device are already
->   set to Scarlett, works fine. Change output device to something else
->   then back to Scarlett, the settings app hangs. Kill the app, restart
->   it, the input & output device are both Scarlett & it appears to work
->   fine again until you change the output device to Scarlett when the
->   input device is already Scarlett. Changing it in the other order
->   (set input device to Scarlett when output device is already
->   Scarlett) works no problem.
+> True. We want to implement the same behavior as for aplay. Stop
+> any playback/capture and restart on resume.
 
-Hmm.  Just to be sure, could you verify the behavior with 6.0 +
-for-linus branch of sound git repo?
+For PCM, basically the ALSA core doesn't fully "resume" unless the
+driver explicitly implements it.  It merely stops (drops) the stream,
+sets the stream state to SNDRV_PCM_STATE_SUSPENDED, and lest the
+user-space re-prepare and restart.  Each driver is supposed to call
+snd_pcm_suspend*() in the suspend callback, and basically that's all.
 
+I guess the same mechanism should be implemented for the compress
+stream, too.
 
-thanks,
 
 Takashi

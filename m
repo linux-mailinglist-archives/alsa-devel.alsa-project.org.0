@@ -2,99 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB2945F5473
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 14:30:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E765F54C8
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 14:55:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 290E016D9;
-	Wed,  5 Oct 2022 14:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 290E016D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B902C1658;
+	Wed,  5 Oct 2022 14:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B902C1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664973039;
-	bh=AevkXloK9Fk/H7OoMc6vuZPskjgxIBa9cuH5A+DXSP4=;
+	s=default; t=1664974526;
+	bh=GFX9i5jH2FcevlPAJ9fqUIE9UVwZnjQgpveC7UljwHM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LnZQz4R510tY4HDE9oFebZeXP3lgOxdoFDmrB15QlgfWKd0U1npFWUoBFPKsDFZl/
-	 bf/V9+mk4drgcjc51Nsi5FXSf66kSkAhbqxZqLBe2hIfquUItmnEN8erM2pbR74tvJ
-	 2e+V/4RZFPGy4J1n9piYcagoBt45cjvMpAam18EA=
+	b=hpnymv+1GVkHFS6SUsX1EXGGOJBT83SR4DtvbJDBc0+IFO9Yqc/rnFY9uk7hQQw8/
+	 puNOSkaaayVG6/u0Ee8J/GWllmp4zrkBnSFJjsBnMKxxUbMBTWY3PUDIVskNZc01TG
+	 OL9q33cMpIwwGZMD85Ole1dDKcThVIU4TEuO00W0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E207F80212;
-	Wed,  5 Oct 2022 14:29:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18F3DF8012A;
+	Wed,  5 Oct 2022 14:54:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67FFFF801F7; Wed,  5 Oct 2022 14:29:40 +0200 (CEST)
+ id 2363BF801F7; Wed,  5 Oct 2022 14:54:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E88D7F800F8
- for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 14:29:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E88D7F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6911F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 14:54:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6911F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="o80yfHY0"; 
+ header.b="t5yw2h0q"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2LljzEJO"
+ header.b="jh2J2K4c"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BA13B2189F;
- Wed,  5 Oct 2022 12:29:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 28960218A0;
+ Wed,  5 Oct 2022 12:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664972972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664974466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u/8GR/Kq2197POrlb3Z0XSA69VpAh7DDJ2yh6w32HEE=;
- b=o80yfHY0Zi28fKsec7y4wlldToSYEmO8b8DULSvWNGUVVUsRM/vNS9LWGb2/L422ovBWzT
- CV0P7ewIUddqY4xOee3PZWl+oaU1Rs5FXXttyeu78ub/b5p5rVs+hfLRmOSa/32tG0RDCr
- ntvPpjVE481nCWN7mBfzuLlGhmLqEmU=
+ bh=CDqg+vqKilDfetPjww+u79Mr+d3ihV2jPLhPlg4W8N8=;
+ b=t5yw2h0qfhY1ynjtlsXynDWFGrHnDXWQ/lBOB21Rq80+6KhNdK38sRGIqdLV0hnzjDPNOI
+ 2j+Mdm+7Aq6FKzzvfW8WwoVv3OaAJF1voHu2T8kb/TemzaDzCaA2DLTuMt8lg9/OT0O2Cd
+ Xatvl7CNuqvV40+MYHyGYaF4rz+Vxno=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664972972;
+ s=susede2_ed25519; t=1664974466;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u/8GR/Kq2197POrlb3Z0XSA69VpAh7DDJ2yh6w32HEE=;
- b=2LljzEJORJ6XeXKXnZt3J3XtG+rgiTh6Y3tFNuwS/VeLWsKvLqE/eL8bgk047QLztaIVHl
- 5bW7DyxSIOREhpDA==
+ bh=CDqg+vqKilDfetPjww+u79Mr+d3ihV2jPLhPlg4W8N8=;
+ b=jh2J2K4czMxRek3cnoiSuv/wEbOjh3Q5UfhsdC4IaZDZz+iqDn4JPbdpgSBqD25j99sNTd
+ 6WQVwHZLesZKuSDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7AD6E13ABD;
- Wed,  5 Oct 2022 12:29:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 10FF613ABD;
+ Wed,  5 Oct 2022 12:54:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yellHax4PWOCawAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 05 Oct 2022 12:29:32 +0000
-Date: Wed, 05 Oct 2022 14:29:31 +0200
-Message-ID: <87a66av4gk.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id tdg6A4J+PWM5dwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 05 Oct 2022 12:54:26 +0000
+Date: Wed, 05 Oct 2022 14:54:25 +0200
+Message-ID: <874jwiv3b2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH v2 2/4] ALSA: hda: Rework snd_hdac_stream_reset() to use
- macros
-In-Reply-To: <657d2418-0c3e-296f-8f4a-dc10ced2dffe@nvidia.com>
-References: <20220818141517.109280-1-amadeuszx.slawinski@linux.intel.com>
- <20220818141517.109280-3-amadeuszx.slawinski@linux.intel.com>
- <657d2418-0c3e-296f-8f4a-dc10ced2dffe@nvidia.com>
+To: Callum Osmotherly <callum.osmotherly@gmail.com>
+Subject: Re: [PATCH 1/1] ALSA: remove ALC289_FIXUP_DUAL_SPK for Dell 5530
+In-Reply-To: <Yz0uyN1zwZhnyRD6@piranha>
+References: <Yz0uyN1zwZhnyRD6@piranha>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?= <amadeuszx.slawinski@linux.intel.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Mohan Kumar D <mkumard@nvidia.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,98 +99,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 05 Oct 2022 14:10:04 +0200,
-Jon Hunter wrote:
+On Wed, 05 Oct 2022 09:14:16 +0200,
+Callum Osmotherly wrote:
 > 
+> From: Callum Osmotherly <callum.osmotherly@gmail.com>
 > 
-> On 18/08/2022 15:15, Amadeusz S³awiñski wrote:
-> > We can use existing macros to poll and update register values instead of
-> > open coding the functionality.
-> > 
-> > Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> > Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
-> > ---
-> >   sound/hda/hdac_stream.c | 26 ++++++--------------------
-> >   1 file changed, 6 insertions(+), 20 deletions(-)
-> > 
-> > diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-> > index f3582012d22f..bdf6d4db6769 100644
-> > --- a/sound/hda/hdac_stream.c
-> > +++ b/sound/hda/hdac_stream.c
-> > @@ -165,7 +165,6 @@ EXPORT_SYMBOL_GPL(snd_hdac_stop_streams_and_chip);
-> >   void snd_hdac_stream_reset(struct hdac_stream *azx_dev)
-> >   {
-> >   	unsigned char val;
-> > -	int timeout;
-> >   	int dma_run_state;
-> >     	snd_hdac_stream_clear(azx_dev);
-> > @@ -173,30 +172,17 @@ void snd_hdac_stream_reset(struct hdac_stream *azx_dev)
-> >   	dma_run_state = snd_hdac_stream_readb(azx_dev, SD_CTL) & SD_CTL_DMA_START;
-> >     	snd_hdac_stream_updateb(azx_dev, SD_CTL, 0,
-> > SD_CTL_STREAM_RESET);
-> > -	udelay(3);
-> > -	timeout = 300;
-> > -	do {
-> > -		val = snd_hdac_stream_readb(azx_dev, SD_CTL) &
-> > -			SD_CTL_STREAM_RESET;
-> > -		if (val)
-> > -			break;
-> > -	} while (--timeout);
-> > +
-> > +	/* wait for hardware to report that the stream entered reset */
-> > +	snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, (val & SD_CTL_STREAM_RESET), 3, 300);
-> >     	if (azx_dev->bus->dma_stop_delay && dma_run_state)
-> >   		udelay(azx_dev->bus->dma_stop_delay);
-> >   -	val &= ~SD_CTL_STREAM_RESET;
-> > -	snd_hdac_stream_writeb(azx_dev, SD_CTL, val);
-> > -	udelay(3);
-> > +	snd_hdac_stream_updateb(azx_dev, SD_CTL, SD_CTL_STREAM_RESET, 0);
-> >   -	timeout = 300;
-> > -	/* waiting for hardware to report that the stream is out of reset */
-> > -	do {
-> > -		val = snd_hdac_stream_readb(azx_dev, SD_CTL) &
-> > -			SD_CTL_STREAM_RESET;
-> > -		if (!val)
-> > -			break;
-> > -	} while (--timeout);
-> > +	/* wait for hardware to report that the stream is out of reset */
-> > +	snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, !(val & SD_CTL_STREAM_RESET), 3, 300);
-> >     	/* reset first position - may not be synced with hw at this
-> > time */
-> >   	if (azx_dev->posbuf)
+> After some feedback from users with Dell Precision 5530 machines, this
+> patch reverts the previous change to add ALC289_FIXUP_DUAL_SPK.
+> While it improved the speaker output quality, it caused the headphone
+> jack to have an audible "pop" sound when power saving was toggled.
 > 
-> 
-> HDA playback is failing on -next for various Tegra boards. Bisect is
-> point to this commit and reverting it fixes the problem. I was a bit
-> puzzled why this change is causing a problem, but looking closer there
-> is a difference between the previous code that was calling
-> snd_hdac_stream_readb() and the new code that is calling
-> snd_hdac_stream_readb_poll(). The function snd_hdac_stream_readb()
-> calls snd_hdac_aligned_mmio() is see if the device has an aligned MMIO
-> which Tegra does and then would call snd_hdac_aligned_read(). However,
-> now the code always call readb() and this is breaking Tegra.
-> 
-> So it is either necessary to update snd_hdac_stream_readb_poll() to
-> handle this or revert this change.
+> Signed-off-by: Callum Osmotherly <callum.osmotherly@gmail.com>
 
-Does the patch below work?
+Thanks, applied.
 
-
-thanks,
 
 Takashi
-
--- 8< --
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -592,8 +592,8 @@ int snd_hdac_get_stream_stripe_ctl(struct hdac_bus *bus,
- #define snd_hdac_stream_readb(dev, reg) \
- 	snd_hdac_reg_readb((dev)->bus, (dev)->sd_addr + AZX_REG_ ## reg)
- #define snd_hdac_stream_readb_poll(dev, reg, val, cond, delay_us, timeout_us) \
--	readb_poll_timeout((dev)->sd_addr + AZX_REG_ ## reg, val, cond, \
--			   delay_us, timeout_us)
-+	read_poll_timeout(snd_hdac_reg_readb, val, cond, delay_us, timeout_us,\
-+			  false, (dev)->bus, (dev)->sd_addr + AZX_REG_ ## reg)
- #define snd_hdac_stream_readl_poll(dev, reg, val, cond, delay_us, timeout_us) \
- 	readl_poll_timeout((dev)->sd_addr + AZX_REG_ ## reg, val, cond, \
- 			   delay_us, timeout_us)

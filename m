@@ -2,104 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6035F5801
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 18:07:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBB85F5ADB
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 22:17:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 921A215CC;
-	Wed,  5 Oct 2022 18:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 921A215CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C20551686;
+	Wed,  5 Oct 2022 22:16:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C20551686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664986045;
-	bh=XGeSFg2zHyarWq0dddUL3JJy7Z5qt/MndwL/BaETKTc=;
+	s=default; t=1665001067;
+	bh=LsizJ4nBnggcu0KaSBCj15RAyCtmsJV9ibkte9p1C4Q=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Auj1sBosvQiY03/FLme8dTdXcF96xYj1rzVrvDEr+QdjD0bc4BArArnRvoHHasvLb
-	 aDhEyB4mXux3upqC9BtA1wf5uhVkyFsSV26uhjbRi0lc8U1v2+MwkmSgzlEbc1m1En
-	 J3ANsCQnjamchcExxuFxw4Li4P+PG81jA4XQFUpM=
+	b=BMxWX2LYTPN7AMMOSgmRSoAZPOq3UcVy9MreV2TgtW9lDFAonM+cG770dNYJ1XEH8
+	 wtq1sirHajlpAD78WI13JjvgzAtADg05qt67FyoITULYBmtQ8MkoM/NFvqqWGafIPm
+	 nIfGyybNRRFPryF80Lq83CuUgV90twZjpIQnBNIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9C03F80212;
-	Wed,  5 Oct 2022 18:06:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2264EF80212;
+	Wed,  5 Oct 2022 22:16:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 241ACF801F7; Wed,  5 Oct 2022 18:06:28 +0200 (CEST)
+ id 627FAF801F7; Wed,  5 Oct 2022 22:16:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB7E8F800BF
- for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 18:06:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB7E8F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB399F800BF
+ for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 22:16:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB399F800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FAq/yy0v"
-Received: by mail-lj1-x235.google.com with SMTP id q17so19236930lji.11
- for <alsa-devel@alsa-project.org>; Wed, 05 Oct 2022 09:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=ZERdQhbDaczv0NU+A7eG7s+5FSgBpXxPUoSQA8lbTHU=;
- b=FAq/yy0vyfShg8VUiTgEhCo5u+QOkCp1Kva7RTp3z31hiGpLzW9YdJPaTLQ6DhL/gm
- tUvb9YN5jGFenVCT/Kk2sCnpNUR8CSo23Yf5fBzYZdoqok4qOf+IGCjLmZH6JFjN+kEf
- ZkkvyWX4FYcIHSrVNVqAyv09PEsqbx8ifO9DmVuJBsPrESh7TBeQvHQNKHlyjxLQczyq
- BiEMz3/W/iwte9XZhdtCwXEuUMx9pCgs0n+3AWyF1juzWZ5qpelHhG/XPDxA5ioWZk35
- plinV9zxeg9LkiShuXurgCzCYcoR9oEcdfGcHLNu67aPV3ubttklLuEqUiL8umDJGpc9
- Z6Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=ZERdQhbDaczv0NU+A7eG7s+5FSgBpXxPUoSQA8lbTHU=;
- b=KmkZnSEvExUrvXsiEhldKqGGyNKU0fixMJRKtpg9fc2PAVzXimBGXLOqrZMp2u7KFm
- 0KVo7w93x7j6vwvoctN+ImQKIyQzPIqQg5Re7wFq/xSpNGQSWSHXucjIqYxDS86soFDx
- gvqZ+jMuvrbOe38PZ/TFMQHltCK1ZOuxNuVhF6B4OmL646I4r2j2Js00Fs2bSgWxn9Dj
- 4GGBENcQzdXMQdPDxvbRuugk5OC61sBPUt3xLUFB01qlVySQ7twwf00+Albio9lR2nCY
- JzJDWSoXxiFMtPcRtn28xwrHLCS1aJWcFuTubUxYHhMYkhTOilTmw9gTPgJ79QYhjbJI
- VJfg==
-X-Gm-Message-State: ACrzQf2YOvqVU9r/oRnEGl0FEldB7Noho4PQW2dUnuaM4dazbDXsQZUj
- 79oG7AVlMM/qWUJeFJgsBm1x9A==
-X-Google-Smtp-Source: AMsMyM60n0F+taJnxZ8SXzF/fswONKQciihMIO8DZjGfogCLT4EOzDmvfLuPvGPb5MDf4kMPMEKwFw==
-X-Received: by 2002:a05:651c:2107:b0:26c:504f:6de4 with SMTP id
- a7-20020a05651c210700b0026c504f6de4mr129707ljq.414.1664985975207; 
- Wed, 05 Oct 2022 09:06:15 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- i2-20020a2ea362000000b0026c2fec2f8esm1653243ljn.84.2022.10.05.09.06.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Oct 2022 09:06:14 -0700 (PDT)
-Message-ID: <365e37ca-1c70-93ae-8507-35f08639088f@linaro.org>
-Date: Wed, 5 Oct 2022 18:06:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: add pin-switches to
- audio-graph-card2.yaml
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="iDMRlQyR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ONJWIiVu57OA5gs/1JlPsOJliD2Y0ZYNZPkm/SyN+Odxezyxm0G+aFyAZvtf/Ko0rYSXm9IklGTHLQ4esaYID6eEFhNS5qGf/0ZgUOEw0KDTb9Pl2zj4K5jipOsgUBBVxPKjQV9Xif2AcwD6sToKN7IVPJuJq/lV8/GukUQ1oiM6KfG6cswDyXA9JmoosnUhQmfuyXQhoB/DnhJj0HLZ3k7cU3jaOcnhC5rxULc/C9JZ0RGiA6IankJmJAepRRah7kSbjgZuiVXniGuT3++rQcevQZzORhfVtCfQYGPmjwybNvFT93p0GSA9xP7/KPOmdiGh1FnT8Ywx1rA3j6z+EA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2mHBnoijPfOkMvIkS75PcX00WIHRQNsGV7yWprInEfI=;
+ b=GEvKHxiDXoLPV8ll3eDOhoGCDnlhsNcymiSqgfzzAIjrJeSDul3NZ9Hd0VzbcBCSVyEVZbY4F1F9yNScoMPS186NlteP0fIlJjMNzKuuHP5f15dYYWlf5suoXcXZz3ALiCCYDAa+q1Qthl8erkrJ9AfuqtOMdO+XXk7gYofdwWXOTIMXnf24sVzXe4tHzwMR1q2VjlSbCQKRK6Vk8NVp7AKPMMqTjEf0reTKG4uXShvkByUCxIVl681i9+ldfUZp9LdUZ5yiMdvWmmWr5Gpg+gINcYxfOGbZ3TU7RFCTWn0w+GGIb+cubzY2AVyGYsmnpnvlFaruEsFdu0fVu7DGRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2mHBnoijPfOkMvIkS75PcX00WIHRQNsGV7yWprInEfI=;
+ b=iDMRlQyRVYc+rRV+SRo4ofJ7Vahyxe1b0VZJuxutrCrmue0nGS/U5hWyA6T51Z8+49PPJUh/67gDBLgMdFwejxx3GVOXiKSRkrapHfJeDs4CYLXxZdLZRg+L+mJggquTPrlzLL0uxY0i/EvVF5QPIFMkx16aQdOI7YQwcWSM7ZFYD3JG+5UK59fxt5XfJujW98T3VcsL3bmAX+3EZI43w2pGQQn2OUh5Tz8votgk3JqUmhpmKiQtcdib+/99Oz2HLrJrx2S+jIBuOM3O7VsxvL8vvrX09Z2IZ72DUghc5k6qJtZNhrsC8mE+5HX7BiFb1qUH4VxqEZuc5hO71bjImg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com (2603:10b6:5:35e::8) by
+ SJ0PR12MB5502.namprd12.prod.outlook.com (2603:10b6:a03:300::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5676.23; Wed, 5 Oct 2022 20:16:41 +0000
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::b07f:53b1:426e:a29d]) by CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::b07f:53b1:426e:a29d%5]) with mapi id 15.20.5676.033; Wed, 5 Oct 2022
+ 20:16:41 +0000
+Message-ID: <1b154a54-381a-a8f6-f0ce-20bce05f27fc@nvidia.com>
+Date: Wed, 5 Oct 2022 21:16:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 2/4] ALSA: hda: Rework snd_hdac_stream_reset() to use
+ macros
 Content-Language: en-US
-To: Claudio Cabral <CLCA@bang-olufsen.dk>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20221005142734.2724537-1-clca@bang-olufsen.dk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221005142734.2724537-1-clca@bang-olufsen.dk>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Takashi Iwai <tiwai@suse.de>
+References: <20220818141517.109280-1-amadeuszx.slawinski@linux.intel.com>
+ <20220818141517.109280-3-amadeuszx.slawinski@linux.intel.com>
+ <657d2418-0c3e-296f-8f4a-dc10ced2dffe@nvidia.com>
+ <87a66av4gk.wl-tiwai@suse.de>
+ <9677f39a-5297-bb1c-d4e3-62484ec1cf25@nvidia.com>
+ <87lepugy85.wl-tiwai@suse.de>
+ <d2772c7b-bea9-e3bd-3b6b-c657566649d8@nvidia.com>
+ <cd3918c8-64c2-fc8f-c184-3fec3ae01e3c@linux.intel.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <cd3918c8-64c2-fc8f-c184-3fec3ae01e3c@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Alvin_=c5=a0ipraga?= <ALSI@bang-olufsen.dk>
+X-ClientProxiedBy: LO4P123CA0386.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18f::13) To CO6PR12MB5444.namprd12.prod.outlook.com
+ (2603:10b6:5:35e::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5444:EE_|SJ0PR12MB5502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7119c964-8513-4856-1335-08daa70e8429
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rau3+l9cHMPVMNX4qUd8LlRvlw66TUXMr2CvacDqQ/OsaauaimI7ysu8msQ8IDhaBKm/75obCaxz77o+2/M46qH38/Bq2f88ofer/9xvst/su2+LBsLjjLiAzfYGtsa1PBcqH5knyuV51yddNZSpl+Ofq/MPxqJ3ni1htc6IrTCeYr8SaRYtCyeo0XVfvd0Iv8UMRtLRTWePaUkVz3AehhsaY7YHDEhpnLuK7TsUbqfV29Y/Ffuuh9T2OHWGSp75JgwZAf2qTh5OdLekoHylGcuQTu6IJlGTWNUq2hlspsDZDS+pqK0wJeNS5bcVkeZGeoza1pBpNCNJi1Fk2+vynYI1fxx3/M0yPY2Y3otr8sD/dMMXneaF7lis5brcA1aD2kdS4TL9jFT6JsKSzTaEqSgtcB4s7JcsUQ1Gvc6AZSYllDCRWzkXzrH9BbZcq2RgFS8jDntRjmQVeby7QdKNrjyx+kXNIJNVHg4dOzyMCRxsOxwnmdw4BiUkqWdm4iIB4CI2ZNaUoN1dbhFzaEANt+drS9n0MwK6qo4xleTG68fNRu/Kiigckm+40SR79mNq6typ8p5EAvWTcEjV9lQkpDooHDUCcE4ugdQCSsuHz46ghiIuxbPOU8mjqOB1FpMfAWqvLuJPpMOKjF2INhKGAQyxvJiXIQ97rQHyYys9/cYSR+EBjkBHeWS+pYsJM9wwFu2wo5jDD7Csu1Z3swmruf5XC2VnF+kMAdI42FlGY2QZcnNYg8y9npktUmH2i5VnI9HBRO2m9epQndS2QoDaG58EuxeN8U53YeA2aHF19VI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5444.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(136003)(376002)(39860400002)(396003)(451199015)(478600001)(6486002)(83380400001)(110136005)(54906003)(31686004)(53546011)(36756003)(41300700001)(6506007)(107886003)(6666004)(8936002)(6512007)(4326008)(8676002)(5660300002)(66476007)(66556008)(66946007)(86362001)(31696002)(2906002)(186003)(2616005)(316002)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnpJWWNYN096UFdwaXdXTDh3RW14Y0VqZjJMNzQ5UzYxS0ExQUI1V3piNmhL?=
+ =?utf-8?B?dkJLYXFXQXZ1R2xhYmF1OG5LelRyWkViVnYxL3pvTnI2RHhhQmdIMkkxTlZ5?=
+ =?utf-8?B?YkxWVGFQZTJXYmQvcWs5QWZLZk1LeFNqN0NtcVJ6Wm1hZ25nbHFnWXVKWk9y?=
+ =?utf-8?B?SmxhdGhCY1FoOWdvZjBCRStwWWJueEtsdExsTGVwbitpUStHc1p1VzVlWnkx?=
+ =?utf-8?B?d2c2Ly9DTnl0K2wzUG4zck05TXRZQW5hQVpNSHNvN2pGVUZ1VEVtSGNTZEZY?=
+ =?utf-8?B?QjVsS0VYMjR2UjRSZGF6SlZ5OE4zSnFKcWQzM2gvSFRrSTNBWHE4clRMT0Nt?=
+ =?utf-8?B?a1gvR01NV2RqL0F0N3BsVTc1VnpvVVh2RjlTQnAxMWc5dFF3LzlCbUFFcmR3?=
+ =?utf-8?B?ZFFSbGpLei92eU01Nzk3SjN5bFViUVlWeUhaSGFjUmxCYk1aV0k0UWc5eTBh?=
+ =?utf-8?B?Mmd3NEpLTGJLbEZCK21lQ3VqZHo5VGF5aUN1cnpYaVA5MXFteVdoVFozSnIz?=
+ =?utf-8?B?REd0OVlDdmdtRmJuMUFPN21LUEVPaEVrak0va1R5Z0JuMEQ3V0xITk82V0hP?=
+ =?utf-8?B?c2NDYlJQK1hGSDZUbGwrSVpyUWZnTGJiUkNSU1BPMTdjNFFyV2wrd0o2cUtn?=
+ =?utf-8?B?VWQ1eVdaZVEzZmtZSTJDRGNEOHViUUZKY1VvVmtRUHIyOHRTNy9kTUpQK0RI?=
+ =?utf-8?B?TDNManJnMWV4MFMzakhFTUMyaHEyYVdKSmRibURXNmxmcWdBdnM4T2lUT2Jp?=
+ =?utf-8?B?K0lNL1JYSEZHRW5QSVFTRlAydHZRYXU3MFBEMkYwMWZxTjNjNC8rRWdsWkJD?=
+ =?utf-8?B?NnV6UTA0aXBvQS9aVW1xVlN1Wkl1cGdyK1U5dkFIcjh2bWsyWkpiTGdhNVZz?=
+ =?utf-8?B?SVJ0akZGVzk3SXVtMU80REY4Y2I0QUpwRkVzSXpYN0Q1ME5RVEpCcU1Vc3Vy?=
+ =?utf-8?B?a01JQmM2d00va1FHS3dsMnlwSjh2Z3dmNE1KZkt6YmlCSTBvN0RkRjVtVXBI?=
+ =?utf-8?B?Z003T084enR3ZUJOWXNpZzdVMnFXWkVROGRUck8wSkw5UG9ad0FnMExGMFRw?=
+ =?utf-8?B?WkxhN3hlelZmUm1vOFJvR1FTZFhqTG16dzVlVU9LWmlsbG1JZG9yRWxFd2hn?=
+ =?utf-8?B?MlNPWDJ1b3o2WVl4bk0zMXhLOW5aZlJXTUw0ZHdmSjl1NFVBNjZ4d0Z6SXB2?=
+ =?utf-8?B?bXRzREVOMGtsYnNYUVdIcEpacU9vek9hNTNLVkJVQWtNVmMzNmxuUDA4TWhp?=
+ =?utf-8?B?Y1kyK3lPTVRXbWRKSUxKVDdkbys5S2lkd0RCTHQ5RHZXbXEzamc1MHZXU2NP?=
+ =?utf-8?B?aEh6ZFE5OVo4N0xDQW1oeUZURlNmWDR5c0ZYUmZpMnJNZzZ5S3p5UUFKc1Ry?=
+ =?utf-8?B?OUN6ci9paldhbVk1SjJrQ21oRXREaWRGSFh2QzE0V1FvUGFtWlVlZU5mVU9N?=
+ =?utf-8?B?NWE5N2dNTk1LblMvUXpMcHF3dG5ZYThIYTdzdXMxSkdoZ1Fuc2JMNjJvRlFH?=
+ =?utf-8?B?dXJ0b3RHN2pmNkM0a0ZLWWlpOVpuVVRoUTdhVlFEdDNjaWptZ0lEWE5mazhx?=
+ =?utf-8?B?VEJSMDZmdXlaVjM5OTQvdTZRcXJUaHRhUFMxWTJEUXlsNm84akY3MGpwVGVh?=
+ =?utf-8?B?UzhTM0ViRUR5YytPOTlvYlJOMzV6S2gxRlo1MGJwQmpnbExveWRreCtSTzBi?=
+ =?utf-8?B?cU1uTDVxNFpva2RSWnhuK1J4K3d2R05KdjlUMkRPWS9yS2hsTFFtNzRXZVlo?=
+ =?utf-8?B?YkNKR0M3bXdJZXVyekQzVi9xQ3RodFVGMSs5WFQ1dVA0RHE2TU5jSXVRdUkz?=
+ =?utf-8?B?WU5rRDFCNWtjaXJnbElqSTFMU2RySjg4aHJjZ1FGYXYvWStSNU1DK0lIanUz?=
+ =?utf-8?B?TTRFNHdMeUdrbFBpMnN0TUUyejdjMlEwS3R0N2ZSQ0VtclZIeTJPVXdlditl?=
+ =?utf-8?B?NlM1R1lVOUVWb3kvWDhPeko3Ty9BeEZmbjFYY1VMVmEzdFlHNHZ4TE1hb0tu?=
+ =?utf-8?B?QUZTY3hHT0hzWXNUeWVnbFNjdlRWcTQ0WkFsVFY2enNaTDF0Wm1Xdk96ckhE?=
+ =?utf-8?B?YTdCelJKbHdhQllaK1hZOU1xRjg3eFppMlFGOEJsZlVBd1Z1YkF0MXpnUVZn?=
+ =?utf-8?B?bTE1KzZJYjgrZkVLVFdlanZtMVZ1UXdmZlQwbW1RdVBaL2pFQW9kcm1oT0tX?=
+ =?utf-8?B?c1JZdEdFZ3ZBb3JhQlVZZUJ6elArRnVwT0w3dHRWeHN3amV0S1p5S3BNTEg0?=
+ =?utf-8?B?UGIwNStTTENTenNmS2JQSmlPYi93PT0=?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7119c964-8513-4856-1335-08daa70e8429
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5444.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2022 20:16:41.7979 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vWXo+j/rflmN3OEEH26A+sp46NZY6MJ3C8jSuA5SDMxVXHQilK8Q5LJh+PKw8t6UcNh2MgRlSQPRsqDVNk/2Fg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5502
+Cc: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Mohan Kumar D <mkumard@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,31 +172,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 05/10/2022 16:27, Claudio Cabral wrote:
-> Document support for pin-switches in audio-graph-card2
 
-Full stop?
 
-> this devicetree property behaves the same way as its homonym in
-> simple-card
+On 05/10/2022 15:47, Amadeusz Sławiński wrote:
 
-Missing capital letter and full stop?
+...
 
-Instead please describe why do you need pin-switches in this binding...
-
+> Well in worse case we can revert the patch in question, but I would like 
+> to get it working...
 > 
-> Reviewed-by: Alvin Šipraga <alsi@bang-olufsen.dk>
-> Signed-off-by: Alvin Šipraga <alsi@bang-olufsen.dk>
+> Maybe also try to raise timeout to 1000, as what original code called 
+> timeout, was actually number of retries? So 300 * udelay(3) which is 
+> more or less 900us, so we can round it up for test?
+> 
+> I mean, something like:
+> 
+> --- a/sound/hda/hdac_stream.c
+> +++ b/sound/hda/hdac_stream.c
+> @@ -176,7 +176,7 @@ void snd_hdac_stream_reset(struct hdac_stream *azx_dev)
+>          snd_hdac_stream_updateb(azx_dev, SD_CTL, 0, SD_CTL_STREAM_RESET);
+> 
+>          /* wait for hardware to report that the stream entered reset */
+> -       snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, (val & 
+> SD_CTL_STREAM_RESET), 3, 300);
+> +       snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, (val & 
+> SD_CTL_STREAM_RESET), 3, 1000);
+> 
+>          if (azx_dev->bus->dma_stop_delay && dma_run_state)
+>                  udelay(azx_dev->bus->dma_stop_delay);
+> @@ -184,7 +184,7 @@ void snd_hdac_stream_reset(struct hdac_stream *azx_dev)
+>          snd_hdac_stream_updateb(azx_dev, SD_CTL, SD_CTL_STREAM_RESET, 0);
+> 
+>          /* wait for hardware to report that the stream is out of reset */
+> -       snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, !(val & 
+> SD_CTL_STREAM_RESET), 3, 300);
+> +       snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, !(val & 
+> SD_CTL_STREAM_RESET), 3, 1000);
+> 
+>          /* reset first position - may not be synced with hw at this 
+> time */
+>          if (azx_dev->posbuf)
+> 
+> 
+> in addition to Takashi suggestion?
 
-Authorship or contributions (SoB) usually means someone reviewed it and
-there is no need for both tags. The combination of both tags above is a
-bit surprising.
 
-> Signed-off-by: Claudio Cabral <clca@bang-olufsen.dk>
-> ---
->  Documentation/devicetree/bindings/sound/audio-graph-card2.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+Thanks. Tried that on top of Takaski's patch but still not working :-(
 
-Best regards,
-Krzysztof
+Jon
 
+-- 
+nvpublic

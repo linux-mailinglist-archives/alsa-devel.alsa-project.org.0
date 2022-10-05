@@ -2,90 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D219C5F51AD
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 11:22:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491D95F51F1
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Oct 2022 11:46:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8436316D9;
-	Wed,  5 Oct 2022 11:21:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8436316D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C61D16CF;
+	Wed,  5 Oct 2022 11:45:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C61D16CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1664961737;
-	bh=mQL/bXmxeu4fS2QmKGHjmCbjpKGbXg116COvXO42wOg=;
+	s=default; t=1664963199;
+	bh=G00A9sbwgdJNKSutbGerZtysFRrVHobGwE4r3EEVWfc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n/3OH+ZlXvAGKkpLtUwfQHsn2VgtOqfZZKvyAtb88U9blI74pAFtKdgbJhku5rP3h
-	 9X6FMr6tWrqInYftBxT3dR2PVjR9yZ7M9GpmRV0AGoVAdWGj2IZXRHjMaamMfzvn0a
-	 SDo1FyRZMXKigFWElKRgoLKAHDB07Vv+Z+xOsMM8=
+	b=mI76KkzrNghnbitXtJJn6iD/eH8ALpSdDWt/v4nq8m72CebCdygzWipsuuL7pXSgt
+	 NYJcDsfP9CdOUQPMS5RFklrNO64IlyrENqfYAaz1MqiABS5p3OKzNFDOrrQbsylyz9
+	 A0/7NfV4P41F+gmbbbpo+x1//V5wiOP/4pelAsLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2011BF80212;
-	Wed,  5 Oct 2022 11:21:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8B0CF80212;
+	Wed,  5 Oct 2022 11:45:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56F9FF801F7; Wed,  5 Oct 2022 11:21:15 +0200 (CEST)
+ id BA99BF801F7; Wed,  5 Oct 2022 11:45:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46B1EF8012A
- for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 11:21:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B1EF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68067F800F8
+ for <alsa-devel@alsa-project.org>; Wed,  5 Oct 2022 11:45:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68067F800F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Afq7eZSI"; 
+ header.b="PO7heKsi"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="wHVUHuEQ"
+ header.b="PL4zm892"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2FC9521991;
- Wed,  5 Oct 2022 09:21:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BA6B91F74A;
+ Wed,  5 Oct 2022 09:45:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1664961668; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664963138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1eCCPAvax2VZT5GqNlrL00k9zzCHcObGAyKmH+OiG7I=;
- b=Afq7eZSID250ehr52W9kPrM0unEbw43Dq5srACuwfjbdwHVFMBgQip9OesdzeGF70i42zl
- kT2qEWZZq1UeME1U9RXUUdfmtrZDKvYSQUE+L+2IdYB2ExxWGOnROXIs1jQSPtBxMruA9q
- 2QRAUKKpuxNgK/rnX6l1CdTCsuA1+Iw=
+ bh=rU0w0PCNKN0xXBXplJAZJuCSubVSrIsbg46jxnYU5Ro=;
+ b=PO7heKsi5Ujyvjqb3tStJBoAaD6SptlguubNdL61Q7aEbrlvFhCSoWk+tkMKNWhpiTg4tS
+ g3ks5FHa6652/SI5pWZxO/Og3xyTPfvMg57L8TLvyLGltG8qy+M+4WmH/5I2W5H8HdmPpO
+ TrocfGRE5PrEABJeH0ubf2ZHX4TmaLo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1664961668;
+ s=susede2_ed25519; t=1664963138;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=1eCCPAvax2VZT5GqNlrL00k9zzCHcObGAyKmH+OiG7I=;
- b=wHVUHuEQ0ubUduIK3zsgb7PgQZRx1eTKZ1oyRCrGLKFpyIjIgZORvwdKRUsw1kLmd1QCIM
- rAdZ6bH7EHDg1kDQ==
+ bh=rU0w0PCNKN0xXBXplJAZJuCSubVSrIsbg46jxnYU5Ro=;
+ b=PL4zm892o+gVvk86gFP/JfU+yRGr+WLxUCJl4MPQrA2eM3NKILtprURJztcgEGpW8YrJ8d
+ +guh7sMTWYkU3hBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 109DD13345;
- Wed,  5 Oct 2022 09:21:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 84D0B13345;
+ Wed,  5 Oct 2022 09:45:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MNk5A4RMPWM3FgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 05 Oct 2022 09:21:08 +0000
-Date: Wed, 05 Oct 2022 11:21:07 +0200
-Message-ID: <87mtaavd6k.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id MLylH0JSPWNCIAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 05 Oct 2022 09:45:38 +0000
+Date: Wed, 05 Oct 2022 11:45:37 +0200
+Message-ID: <87ilkyvc1q.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: [PATCH] ALSA: usb-audio: Split endpoint setups for hw_params and
- prepare (take#2)
-In-Reply-To: <87h70jpzxd.wl-tiwai@suse.de>
-References: <20220920181106.4894-1-tiwai@suse.de> <Yzr/aQ3nSTPeGDq1@m.b4.vu>
- <87h70jpzxd.wl-tiwai@suse.de>
+To: "Lu, Brent" <brent.lu@intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: run eld notify in delay work
+In-Reply-To: <CY5PR11MB62571E282C37DDFBD4058D99975D9@CY5PR11MB6257.namprd11.prod.outlook.com>
+References: <20220927135807.4097052-1-brent.lu@intel.com>
+ <87ill8gb5c.wl-tiwai@suse.de>
+ <CY5PR11MB6257CB33E1EDA90CE2B2F99D97549@CY5PR11MB6257.namprd11.prod.outlook.com>
+ <875yh8ezs9.wl-tiwai@suse.de> <871qrvgbsr.wl-tiwai@suse.de>
+ <87y1u3evy6.wl-tiwai@suse.de>
+ <CY5PR11MB62571E282C37DDFBD4058D99975D9@CY5PR11MB6257.namprd11.prod.outlook.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: multipart/mixed; boundary="Multipart_Wed_Oct__5_11:21:07_2022-1"
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mohan Kumar <mkumard@nvidia.com>,
+ Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, "Zhi,
+ Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,119 +110,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---Multipart_Wed_Oct__5_11:21:07_2022-1
-Content-Type: text/plain; charset=US-ASCII
-
-On Tue, 04 Oct 2022 13:54:06 +0200,
-Takashi Iwai wrote:
+On Wed, 05 Oct 2022 10:14:19 +0200,
+Lu, Brent wrote:
 > 
-> On Mon, 03 Oct 2022 17:27:37 +0200,
-> Geoffrey D. Bennett wrote:
 > > 
-> > Hi Takashi,
+> > ... and on the further consideration, I believe the best solution is to just get rid of
+> > the whole check.
 > > 
-> > On Tue, Sep 20, 2022 at 08:11:06PM +0200, Takashi Iwai wrote:
-> > > This is a second attempt to fix the bug appearing on Android with the
-> > > recent kernel; the first try was ff878b408a03 and reverted at commit
-> > > 79764ec772bc.
-> > 
-> > I found that full-duplex audio for Scarlett devices was broken in
-> > 5.19.11 but working again 5.19.12, presumably due to this. escuta at
-> > https://linuxmusicians.com/viewtopic.php?p=148734#p148734 reported
-> > that it was broken from 5.19.9 but 5.19.8 worked (they also reported
-> > that 5.9.12 didn't work, which I can't explain).
-> > 
-> > 5.19.12 and 6.0.0 work for me, but 6.0.0 + your v2 patch makes the
-> > gnome sound settings app crash when setting the output device to
-> > Scarlett if the input device was already set to Scarlett.
-> > 
-> > Using the gnome-control-center (42.3) app (Fedora 36, PipeWire 0.3.59,
-> > WirePlumber 0.4.11) to test:
-> > 
-> > - Kernel 5.19.11: can't set both input and output device to Scarlett;
-> >   changing output to Scarlett makes the input device switch to
-> >   something else, and changing the input device to Scarlett makes the
-> >   output device switch to something else
-> > 
-> > - Kernel 5.9.12 & 6.0.0: can set both input and output device to
-> >   Scarlett, all good/normal
-> > 
-> > - Kernel 6.0.0+v2 patch: if both input and output device are already
-> >   set to Scarlett, works fine. Change output device to something else
-> >   then back to Scarlett, the settings app hangs. Kill the app, restart
-> >   it, the input & output device are both Scarlett & it appears to work
-> >   fine again until you change the output device to Scarlett when the
-> >   input device is already Scarlett. Changing it in the other order
-> >   (set input device to Scarlett when output device is already
-> >   Scarlett) works no problem.
+> > It was introduced by the commit eb399d3c99d8 along with the 8ae743e82f0b
+> > that checks the suspend state.  The latter is still meaningful (we should skip the
+> > bogus notification at suspend).
+> > However, the former -- the code path we're dealing with -- doesn't help much in
+> > the recent code.  That fix was required because the driver probed the ELD bits
+> > via HD-audio verb at the time of the fix commit; that is, the driver had to wake
+> > up the codec for updating the ELD.  OTOH, now ELD is read directly from the
+> > graphics chip without the codec wakeup.  So the skip makes little sense.
+> Hi Takashi,
 > 
-> Hmm.  Just to be sure, could you verify the behavior with 6.0 +
-> for-linus branch of sound git repo?
+> I've got the test result from ODM which is positive. During 60 test runs, the elf notify
+> running in suspend happened 10 times and the audio is normal. The patch is looking
+> good.
 
-And if it still doesn't work, try the following patches in addition.
+Thanks for confirmation.  The fix will be included in 6.1-rc1.
 
-Also, pass snd_usb_audio.dyndbg=+p boot option and give the dmesg
-outputs while apps getting the error.
-
-
-thanks,
 
 Takashi
-
-
---Multipart_Wed_Oct__5_11:21:07_2022-1
-Content-Type: application/octet-stream; type=tar+gzip; name="usb-audio-fixes.tar.gz"
-Content-Disposition: attachment; filename="usb-audio-fixes.tar.gz"
-Content-Transfer-Encoding: base64
-
-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
-
---Multipart_Wed_Oct__5_11:21:07_2022-1--

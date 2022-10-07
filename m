@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FE25F7B45
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Oct 2022 18:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5135F7B47
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Oct 2022 18:18:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D104616B5;
-	Fri,  7 Oct 2022 18:16:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D104616B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DC3516C6;
+	Fri,  7 Oct 2022 18:17:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DC3516C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665159454;
-	bh=SMZYy/Tm90/JulgBIwkR+5Hwk+PcvlZsJSgsIJTbYDE=;
+	s=default; t=1665159485;
+	bh=0C18M1EeYvgAMEt5H3ry/qfJWUUHL3rSeRrYBOf0P5o=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S+J+Uca9FDy9gD45dVcFQDFTBW8xkJ5BtITANsW6hh9i00aTyS0LSyvFl97A2R1GD
-	 6vbJ6nP4cp80XcGtGHhqiE74KESKONu+GdglzqBYPXcAf6AK3XZcKwv9+Ts7IaAdf8
-	 sdE01qt6oyW1eDq8YostngNjDiUNv+4UU4bL/7HI=
+	b=DcfiwHu09F8yilIT7SQ9a3Mj2L65Uj8FJ/ky09wvEJnlo0esEKMvP0qGrO24FxW0E
+	 LOjd7VITSmRHrnz+8UPSnujqIXcjzwDavK7RGSMKchpHF6uBRXkgPKxYZ9BkaVp6kz
+	 U9i+l6y5aXDWfK8C1JGccUpX797C53Ggn+d8XN7s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D9A4F80496;
-	Fri,  7 Oct 2022 18:16:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADB8BF804D9;
+	Fri,  7 Oct 2022 18:17:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4B25F8012A; Fri,  7 Oct 2022 18:16:37 +0200 (CEST)
+ id 1321DF804D0; Fri,  7 Oct 2022 18:17:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 067B3F8012B
- for <alsa-devel@alsa-project.org>; Fri,  7 Oct 2022 18:16:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 067B3F8012B
+ by alsa1.perex.cz (Postfix) with ESMTP id 6FDB8F8012B
+ for <alsa-devel@alsa-project.org>; Fri,  7 Oct 2022 18:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FDB8F8012B
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1665159393393438101-webhooks-bot@alsa-project.org>
-References: <1665159393393438101-webhooks-bot@alsa-project.org>
+In-Reply-To: <1665159425251491070-webhooks-bot@alsa-project.org>
+References: <1665159425251491070-webhooks-bot@alsa-project.org>
 Subject: alsa-lib-1.2.7.2/src/pcm/pcm.c:3238 triggers SIGSEGV
-Message-Id: <20221007161637.A4B25F8012A@alsa1.perex.cz>
-Date: Fri,  7 Oct 2022 18:16:37 +0200 (CEST)
+Message-Id: <20221007161708.1321DF804D0@alsa1.perex.cz>
+Date: Fri,  7 Oct 2022 18:17:08 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #274 was opened from mmokrejs:
+alsa-project/alsa-lib issue #274 was edited from mmokrejs:
 
 Hi,
-  I tried and example `espeak-ng "This is a test"` command but it crahes inside libasound2.
+  I tried an example command `espeak-ng "This is a test"` command but it crahes inside `libasound2`.
 
 ```
 [Thread debugging using libthread_db enabled]

@@ -2,48 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5135F7B47
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Oct 2022 18:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A44085F8577
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Oct 2022 15:39:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DC3516C6;
-	Fri,  7 Oct 2022 18:17:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DC3516C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5AAA163E;
+	Sat,  8 Oct 2022 15:39:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5AAA163E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665159485;
-	bh=0C18M1EeYvgAMEt5H3ry/qfJWUUHL3rSeRrYBOf0P5o=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DcfiwHu09F8yilIT7SQ9a3Mj2L65Uj8FJ/ky09wvEJnlo0esEKMvP0qGrO24FxW0E
-	 LOjd7VITSmRHrnz+8UPSnujqIXcjzwDavK7RGSMKchpHF6uBRXkgPKxYZ9BkaVp6kz
-	 U9i+l6y5aXDWfK8C1JGccUpX797C53Ggn+d8XN7s=
+	s=default; t=1665236397;
+	bh=S4Rw4paKJ5VFdeojuiR4BvoBOpZNeqzsdZ/SL1xP7Hc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WHF0dudMNp7qjA8/DFdHcdg9rjvCOOFysKSdyA7UmmU9JUvuMOnspt4lMlWy1d7Sr
+	 nRdrTYISp0nGzjV3f2X6v/d+O1/T3QaLojom9oBDLK1B6506+Shajxi5ZSqgGbIDfx
+	 TxhvM8f6hVJWaJ/8kgg8o9KAP3VeQakrD7IIFvf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADB8BF804D9;
-	Fri,  7 Oct 2022 18:17:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09A35F804D6;
+	Sat,  8 Oct 2022 15:39:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1321DF804D0; Fri,  7 Oct 2022 18:17:08 +0200 (CEST)
+ id 3A415F804D6; Sat,  8 Oct 2022 15:38:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6FDB8F8012B
- for <alsa-devel@alsa-project.org>; Fri,  7 Oct 2022 18:17:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FDB8F8012B
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_ZEN_BLOCKED_OPENDNS, 
+ SPF_HELO_NONE, SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABF9CF8012B
+ for <alsa-devel@alsa-project.org>; Sat,  8 Oct 2022 15:38:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF9CF8012B
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Ml5ml6jfyzkXvR;
+ Sat,  8 Oct 2022 21:36:23 +0800 (CST)
+Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sat, 8 Oct 2022 21:38:51 +0800
+Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
+ (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Sat, 8 Oct
+ 2022 21:38:50 +0800
+From: Zhang Qilong <zhangqilong3@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <matthias.bgg@gmail.com>,
+ <ckeepax@opensource.wolfsonmicro.com>, <jeff_chang@richtek.com>
+Subject: [PATCH -next 0/3] Revert old "Fix PM disable depth imbalance in
+ wmxxxx_probe"
+Date: Sat, 8 Oct 2022 21:43:55 +0800
+Message-ID: <20221008134358.131712-1-zhangqilong3@huawei.com>
+X-Mailer: git-send-email 2.26.0.106.g9fadedd
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1665159425251491070-webhooks-bot@alsa-project.org>
-References: <1665159425251491070-webhooks-bot@alsa-project.org>
-Subject: alsa-lib-1.2.7.2/src/pcm/pcm.c:3238 triggers SIGSEGV
-Message-Id: <20221007161708.1321DF804D0@alsa1.perex.cz>
-Date: Fri,  7 Oct 2022 18:17:08 +0200 (CEST)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.225]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ kwepemm600014.china.huawei.com (7.193.23.54)
+X-CFilter-Loop: Reflected
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,99 +80,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #274 was edited from mmokrejs:
+Both the old and new patch have been applied, it will resulted in
+redundant calling of pm_runtime_disable when error returns. We Just
+revert the old three patches to fix it.
 
-Hi,
-  I tried an example command `espeak-ng "This is a test"` command but it crahes inside `libasound2`.
+Zhang Qilong (3):
+  Revert "ASoC: wm5102: Fix PM disable depth imbalance in wm5102_probe"
+  Revert "ASoC: wm5110: Fix PM disable depth imbalance in wm5110_probe"
+  Revert "ASoC: wm8997: Fix PM disable depth imbalance in wm8997_probe"
 
-```
-[Thread debugging using libthread_db enabled]
-Using host libthread_db library "/lib64/libthread_db.so.1".
-Core was generated by `espeak-ng This is a test'.
-Program terminated with signal SIGSEGV, Segmentation fault.
-#0  0x00007f672678ea6b in __memmove_avx_unaligned_erms () from /lib64/libc.so.6
-[Current thread is 1 (Thread 0x7f6725d4d640 (LWP 9533))]
-(gdb) where
-#0  0x00007f672678ea6b in __memmove_avx_unaligned_erms () from /lib64/libc.so.6
-#1  0x00007f6726492ffd in snd_pcm_area_copy (dst_area=0x7f672001fc90, dst_offset=18, src_area=0x7f672002a4c0, src_offset=0, samples=4026531840, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3238
-#2  0x00007f67264934af in snd_pcm_areas_copy (dst_areas=0x7f672001fca0, dst_offset=18, src_areas=0x7f672002a4d0, src_offset=0, channels=1, frames=18446744073709551608, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3389
-#3  0x00007f67264ba368 in snd_pcm_rate_commit_area (pcm=0x7f6720061cf0, rate=0x7f6720061b00, appl_offset=7508, size=10, slave_size=22) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:817
-#4  0x00007f67264bb217 in snd_pcm_rate_drain (pcm=0x7f6720061cf0) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:1161
-#5  0x00007f6726490548 in snd_pcm_drain (pcm=0x7f6720061700) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:1359
-#6  0x00007f67266347e2 in alsa_object_drain () from /usr/lib64/libpcaudio.so.0
-#7  0x00007f6726873c4e in sync_espeak_Synth () from /usr/lib64/libespeak-ng.so.1
-#8  0x00007f672688e813 in process_espeak_command () from /usr/lib64/libespeak-ng.so.1
-#9  0x00007f672688f708 in say_thread () from /usr/lib64/libespeak-ng.so.1
-#10 0x00007f67266c2485 in start_thread () from /lib64/libc.so.6
-#11 0x00007f672674610c in clone3 () from /lib64/libc.so.6
-(gdb) where
-#0  0x00007f672678ea6b in __memmove_avx_unaligned_erms () from /lib64/libc.so.6
-#1  0x00007f6726492ffd in snd_pcm_area_copy (dst_area=0x7f672001fc90, dst_offset=18, src_area=0x7f672002a4c0, src_offset=0, samples=4026531840, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3238
-#2  0x00007f67264934af in snd_pcm_areas_copy (dst_areas=0x7f672001fca0, dst_offset=18, src_areas=0x7f672002a4d0, src_offset=0, channels=1, frames=18446744073709551608, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3389
-#3  0x00007f67264ba368 in snd_pcm_rate_commit_area (pcm=0x7f6720061cf0, rate=0x7f6720061b00, appl_offset=7508, size=10, slave_size=22) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:817
-#4  0x00007f67264bb217 in snd_pcm_rate_drain (pcm=0x7f6720061cf0) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:1161
-#5  0x00007f6726490548 in snd_pcm_drain (pcm=0x7f6720061700) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:1359
-#6  0x00007f67266347e2 in alsa_object_drain () from /usr/lib64/libpcaudio.so.0
-#7  0x00007f6726873c4e in sync_espeak_Synth () from /usr/lib64/libespeak-ng.so.1
-#8  0x00007f672688e813 in process_espeak_command () from /usr/lib64/libespeak-ng.so.1
-#9  0x00007f672688f708 in say_thread () from /usr/lib64/libespeak-ng.so.1
-#10 0x00007f67266c2485 in start_thread () from /lib64/libc.so.6
-#11 0x00007f672674610c in clone3 () from /lib64/libc.so.6
-(gdb) bt full
-#0  0x00007f672678ea6b in __memmove_avx_unaligned_erms () from /lib64/libc.so.6
-No symbol table info available.
-#1  0x00007f6726492ffd in snd_pcm_area_copy (dst_area=0x7f672001fc90, dst_offset=18, src_area=0x7f672002a4c0, src_offset=0, samples=4026531840, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3238
-        bytes = 536870896
-        src = 0x7f672006ba50 "A\003+\002\205\001\252\001M\001\025\001P\002\317\001\227\001\324\375`\001\341\001Y\377P\002k\377\\"
-        dst = 0x7f6720038814 "P\002\317\001\227\001\324\375`\001\341\001Y\377P\002k\377\\"
-        width = 16
-        src_step = 642318657
-        dst_step = 32615
-#2  0x00007f67264934af in snd_pcm_areas_copy (dst_areas=0x7f672001fca0, dst_offset=18, src_areas=0x7f672002a4d0, src_offset=0, channels=1, frames=18446744073709551608, format=SND_PCM_FORMAT_S16_LE) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:3389
-        step = 16
-        src_addr = 0x7f672006ba50
-        src_start = 0x7f672002a4c0
-        channels1 = 0
-        chns = 1
-        dst_addr = 0x7f67200387f0
-        dst_start = 0x7f672001fc90
-        width = 16
-#3  0x00007f67264ba368 in snd_pcm_rate_commit_area (pcm=0x7f6720061cf0, rate=0x7f6720061b00, appl_offset=7508, size=10, slave_size=22) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:817
-        cont = 18
-        areas = 0x7f672002a4c0
-        slave_areas = 0x38c
-        slave_offset = 13422172416
-        xfer = 2199023255787
-        slave_frames = 18446744073709551615
-        result = 140080984498990
-#4  0x00007f67264bb217 in snd_pcm_rate_drain (pcm=0x7f6720061cf0) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm_rate.c:1161
-        psize = 10
-        spsize = 22
-        err = 1
-        sw_params = {tstamp_mode = 0, period_step = 1, sleep_min = 0, avail_min = 1, xfer_align = 1, start_threshold = 2, stop_threshold = 16384, silence_threshold = 0, silence_size = 0, boundary = 4611686018427387904, proto = 131087, tstamp_type = 1, reserved = '\000' <repeats 55 times>}
-        size = 10
-        ofs = 7508
-        saved_avail_min = 1024
-        commit_err = 0
-        rate = 0x7f6720061b00
-#5  0x00007f6726490548 in snd_pcm_drain (pcm=0x7f6720061700) at /mnt/nocrypt/var/tmp/portage/portage/media-libs/alsa-lib-1.2.7.2-r1/work/alsa-lib-1.2.7.2/src/pcm/pcm.c:1359
-        err = 0
-#6  0x00007f67266347e2 in alsa_object_drain () from /usr/lib64/libpcaudio.so.0
-No symbol table info available.
-#7  0x00007f6726873c4e in sync_espeak_Synth () from /usr/lib64/libespeak-ng.so.1
-No symbol table info available.
-#8  0x00007f672688e813 in process_espeak_command () from /usr/lib64/libespeak-ng.so.1
-No symbol table info available.
-#9  0x00007f672688f708 in say_thread () from /usr/lib64/libespeak-ng.so.1
-No symbol table info available.
-#10 0x00007f67266c2485 in start_thread () from /lib64/libc.so.6
-No symbol table info available.
-#11 0x00007f672674610c in clone3 () from /lib64/libc.so.6
-No symbol table info available.
-(gdb) quit
-```
+ sound/soc/codecs/wm5102.c | 6 +++---
+ sound/soc/codecs/wm5110.c | 6 +++---
+ sound/soc/codecs/wm8997.c | 6 +++---
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-Does it help?
+-- 
+2.25.1
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/274
-Repository URL: https://github.com/alsa-project/alsa-lib

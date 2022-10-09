@@ -2,93 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC2B5F8AB1
-	for <lists+alsa-devel@lfdr.de>; Sun,  9 Oct 2022 12:38:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD9A5F8AB3
+	for <lists+alsa-devel@lfdr.de>; Sun,  9 Oct 2022 12:43:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF163164F;
-	Sun,  9 Oct 2022 12:37:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF163164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A97F61654;
+	Sun,  9 Oct 2022 12:42:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97F61654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665311927;
-	bh=CcsjqTcGwAj+ziFLJaJ3Zrse5rKCk5qYV1LVd7EwuTo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nw8aL0gZlHjuu1Wr83i5/MriikcNpYwMtMTGUbjMmiPT/q8KHesv0s/vQ0Qg+RL71
-	 y5pWqyNJ79G32v0TBQIag/G74Gt5Gev7whFGUi+K1xnX2UTtCZkuyA57J8P1cF3RjL
-	 FTfCKLpbi+x3y8q352FYvvHfzEsS8T5xuQkF/RQ4=
+	s=default; t=1665312195;
+	bh=4DDqoCxVDOHTohl0gQ5OJKp0HLUtZQHk5QqopdCAvO4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lc6fsoQkXrAscmsNNHGoUIxrktjsTa2ZBv2/n0vZ7RStQYIezIE8bTq+AEiFYhkQo
+	 uOFXNrPTHgK/qYCaF85SrGqbTYrjL4XRydLrJfWEabsMNyr50gbsAbuUgLriwXG8YP
+	 c3F8HGpy4L+pldcmwnYkLk4EJ3Ms24Wr7+LsNcEg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41E1DF804F1;
-	Sun,  9 Oct 2022 12:37:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E5B4F804FA;
+	Sun,  9 Oct 2022 12:42:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78667F804CB; Sun,  9 Oct 2022 12:37:49 +0200 (CEST)
+ id 6EFAFF80517; Sun,  9 Oct 2022 12:42:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 982CFF80137
- for <alsa-devel@alsa-project.org>; Sun,  9 Oct 2022 12:37:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982CFF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11711F80137
+ for <alsa-devel@alsa-project.org>; Sun,  9 Oct 2022 12:42:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11711F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hE7TRBfq"; 
+ header.b="lQY/I4B9"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RkW7uCHn"
+ header.b="50k/AQZZ"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AE3261F38C;
- Sun,  9 Oct 2022 10:37:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9EA3E1F38C;
+ Sun,  9 Oct 2022 10:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1665311862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/JwhURA7Ncq8Yvl2ywlztpEJAOr3Of+5oYqA7BiFiE0=;
- b=hE7TRBfqj/Xj07ZzCU040aimpIoE8OrIC781KGtQc/+WrN1fIdIiMGYa5GV9/KddtYNx3r
- Um3KP+KAa3556Lhia5WR+nie9+uvyUMCA9eOnF6M/sQLMrR5XuAhMonPrPy7tBgHWRo2Cb
- vTw7FdDmx7VpstzT3xj602hhMHpNDEI=
+ t=1665312135; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CzdK35GOXe0FHQWGBcfhD4Hk2nPPzbv9LsYZrzXTzko=;
+ b=lQY/I4B9QhJ354jp/Go84SF5ppVSqVls+nGCC97f7/ZtfGJaohk64BeRgt7jmk2Jd0+D/2
+ owACVVlpSXg3/EZtj9ZAi11kQN/CNYUyaNwIKfuPGnslj+c90H0rGFuwttEbFC/49WBiSz
+ agohhOZZcfPgMtLPyQL0sPK24271fzI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1665311862;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/JwhURA7Ncq8Yvl2ywlztpEJAOr3Of+5oYqA7BiFiE0=;
- b=RkW7uCHnMlsgu310MQUFsNNtFEIlcEQkNyULBTMbVXWtcPPPYimLNQb/SNkKgsRhPEre8F
- h1SLceaYjq3kNkAw==
+ s=susede2_ed25519; t=1665312135;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CzdK35GOXe0FHQWGBcfhD4Hk2nPPzbv9LsYZrzXTzko=;
+ b=50k/AQZZ6WkbLokZ/aj/R5Nf7XjJXXG7cRi4iTKwOllDaRBiIA57t7uqsme7Juq7Oh31ZX
+ p3utzdw7hEyhTsAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7DD41139F0;
- Sun,  9 Oct 2022 10:37:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B5B4139F0;
+ Sun,  9 Oct 2022 10:42:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DJMpHXakQmPZegAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 09 Oct 2022 10:37:42 +0000
-Date: Sun, 09 Oct 2022 12:37:41 +0200
-Message-ID: <87o7ulffka.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id r1dQHYelQmMsfAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 09 Oct 2022 10:42:15 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Update register polling macros
-In-Reply-To: <20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com>
-References: <20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/4] ALSA: usb-audio: More EP-related fixes
+Date: Sun,  9 Oct 2022 12:42:08 +0200
+Message-Id: <20221009104212.18877-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,20 +93,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 07 Oct 2022 10:48:56 +0200,
-Amadeusz S³awiñski wrote:
-> 
-> Recent commit d91857059def ("ALSA: hda: Rework snd_hdac_stream_reset() to use macros")
-> missed that on some devices register access needs to be done with
-> unaligned access helper. Change polling macros to use
-> read_poll_timeout_atomic() in order to specify register read function.
-> 
-> Reported-by: Jon Hunter <jonathanh@nvidia.com>
-> Link: https://lore.kernel.org/alsa-devel/20220818141517.109280-1-amadeuszx.slawinski@linux.intel.com/T/#m1270737db52b5ef163eff73cb5f862d16a07a428
-> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
-
-Thanks, applied with Fixes tag.
+This is a series of small fixes for USB-audio endpoint management
+after the latest change to split prepare/hw_params.
 
 
 Takashi
+
+===
+
+Takashi Iwai (4):
+  ALSA: usb-audio: Avoid unnecessary interface change at EP close
+  ALSA: usb-audio: Apply mutex around snd_usb_endpoint_set_params()
+  ALSA: usb-audio: Correct the return code from
+    snd_usb_endpoint_set_params()
+  ALSA: usb-audio: Avoid superfluous endpoint setup
+
+ sound/usb/card.h     |  3 ++-
+ sound/usb/endpoint.c | 32 +++++++++++++++++++++++++-------
+ 2 files changed, 27 insertions(+), 8 deletions(-)
+
+-- 
+2.35.3
+

@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758425F89A7
-	for <lists+alsa-devel@lfdr.de>; Sun,  9 Oct 2022 08:21:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC2B5F8AB1
+	for <lists+alsa-devel@lfdr.de>; Sun,  9 Oct 2022 12:38:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12D55167E;
-	Sun,  9 Oct 2022 08:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12D55167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF163164F;
+	Sun,  9 Oct 2022 12:37:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF163164F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665296471;
-	bh=lQhcXdQmbTDrRmcZ2RcLxQN94pQURosaxI6eV+nnE/g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1665311927;
+	bh=CcsjqTcGwAj+ziFLJaJ3Zrse5rKCk5qYV1LVd7EwuTo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CF4+tjJFp0+gwXeo4Z5bM2p6pCPBQO+DGYXYtA7t0bUAwGXUybT7/8D4pHD4B87nt
-	 1YDfOCTecheT7gOmRHuVNxFZvL2lY1f870YUChlk4B/17eOB6IRvmia7/PXGqsT1uF
-	 7ifUOpCtT7EhefNxCGKGythypT8haF7nUxsD7GtI=
+	b=nw8aL0gZlHjuu1Wr83i5/MriikcNpYwMtMTGUbjMmiPT/q8KHesv0s/vQ0Qg+RL71
+	 y5pWqyNJ79G32v0TBQIag/G74Gt5Gev7whFGUi+K1xnX2UTtCZkuyA57J8P1cF3RjL
+	 FTfCKLpbi+x3y8q352FYvvHfzEsS8T5xuQkF/RQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7F95F8052D;
-	Sun,  9 Oct 2022 08:20:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41E1DF804F1;
+	Sun,  9 Oct 2022 12:37:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8A12F80517; Sun,  9 Oct 2022 08:20:18 +0200 (CEST)
+ id 78667F804CB; Sun,  9 Oct 2022 12:37:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 771AEF804FA
- for <alsa-devel@alsa-project.org>; Sun,  9 Oct 2022 08:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 771AEF804FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 982CFF80137
+ for <alsa-devel@alsa-project.org>; Sun,  9 Oct 2022 12:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982CFF80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HTs0JXol"
-Received: by mail-lf1-x134.google.com with SMTP id bu25so12531442lfb.3
- for <alsa-devel@alsa-project.org>; Sat, 08 Oct 2022 23:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CYVzGBZakWG9d944sIFmE1Um+lw85LRPOYMdx05jQf0=;
- b=HTs0JXolMOFf1NCo7bSwEKMRc5FQjFbYrlESC1Me81oA31Q0IN4P2YOHdSd3WH1wcq
- 6MAXkyCyJbKdIBzlgzlX9PJFrv7q/ecDL7eBG+7/d7ZKOio5/Oe6W6BxarXqmT0drNOq
- 6OsrQy7Q9oCETG4sNQfBG60OaEwmaEMEihgShHMrNWZ+iY2V5RW7AjvZTL7TnDuutDWS
- 0bXBBsnZiso8NqB9jF3dbYEKA5SQ5TSgQNESNxT9YcOKMx2xcSU5DERT21q1muqLH5em
- ynsGQ0+3Y4SwKDS7DCA5aXdIJ0Byon4LcJj5WxMOFQaVoX++48n8QVS/gMeuQIyYZqRo
- 4Lpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CYVzGBZakWG9d944sIFmE1Um+lw85LRPOYMdx05jQf0=;
- b=NQvbpb3bpVZQdNn2oN1txpaO0M2NhUKMT3ib2ySpzmsPiOGFtdFEjMi4mHAYKzJR7i
- SRc2CI+0NBDozPfc3yNBsDMaUDtqBw2KC6/ooIsqxW6KCwqdhaUBIL3QPq5YpI+x/iJJ
- fAJUmjouveOdQDzCgGgUy5tAe8V4CrSypig/vzX9CmP5+ffesgj6IYD2iP06xN+YwWb3
- H/Vu26hRZyvDbiRlmcVGJDYu5HGNlEQeq8vISASkfogapcsOMFJSRRWbN751Vn5hSedc
- v8aCIQi3QdDf2LB+ydY1+1s03ZDRvDNxtNSIU0f0PFxi+yPSfC8BwirjcLQWHSxyCJnG
- 70Pg==
-X-Gm-Message-State: ACrzQf1RczGKkr7yJ3L6TuzkrnIugyCytLXp9y5G/mI4xAV1VdIKlcmR
- jHE0GYz5VhXcErzwX5zMw0vnyuM+uY3KREMQ2ZA=
-X-Google-Smtp-Source: AMsMyM43EKQc0A3gEi6Srb+0JZUb2qESuXVFgLo4VX4Ys0e9RlkHmCC5gePHFp+U5k/LBvJScniUbU6y3FQPZUYPTos=
-X-Received: by 2002:a19:4350:0:b0:4a2:7523:9c6f with SMTP id
- m16-20020a194350000000b004a275239c6fmr4435771lfj.577.1665296410639; Sat, 08
- Oct 2022 23:20:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220930064441.2548505-1-chancel.liu@nxp.com>
- <20220930064441.2548505-8-chancel.liu@nxp.com>
-In-Reply-To: <20220930064441.2548505-8-chancel.liu@nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sun, 9 Oct 2022 14:19:59 +0800
-Message-ID: <CAA+D8AO4_npR6Tm=Dph_E151=NFY+XjZjWth7Y8s6=v7aF+qEQ@mail.gmail.com>
-Subject: Re: [PATCH v3 7/7] ASoC: imx-rpmsg: Assign platform driver used by
- machine driver to link with
-To: Chancel Liu <chancel.liu@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, tiwai@suse.com,
- nicoleotsuka@gmail.com, broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- festevam@gmail.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hE7TRBfq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="RkW7uCHn"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AE3261F38C;
+ Sun,  9 Oct 2022 10:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665311862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/JwhURA7Ncq8Yvl2ywlztpEJAOr3Of+5oYqA7BiFiE0=;
+ b=hE7TRBfqj/Xj07ZzCU040aimpIoE8OrIC781KGtQc/+WrN1fIdIiMGYa5GV9/KddtYNx3r
+ Um3KP+KAa3556Lhia5WR+nie9+uvyUMCA9eOnF6M/sQLMrR5XuAhMonPrPy7tBgHWRo2Cb
+ vTw7FdDmx7VpstzT3xj602hhMHpNDEI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665311862;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/JwhURA7Ncq8Yvl2ywlztpEJAOr3Of+5oYqA7BiFiE0=;
+ b=RkW7uCHnMlsgu310MQUFsNNtFEIlcEQkNyULBTMbVXWtcPPPYimLNQb/SNkKgsRhPEre8F
+ h1SLceaYjq3kNkAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7DD41139F0;
+ Sun,  9 Oct 2022 10:37:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id DJMpHXakQmPZegAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sun, 09 Oct 2022 10:37:42 +0000
+Date: Sun, 09 Oct 2022 12:37:41 +0200
+Message-ID: <87o7ulffka.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: Update register polling macros
+In-Reply-To: <20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com>
+References: <20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,50 +104,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 30, 2022 at 2:46 PM Chancel Liu <chancel.liu@nxp.com> wrote:
+On Fri, 07 Oct 2022 10:48:56 +0200,
+Amadeusz S³awiñski wrote:
+> 
+> Recent commit d91857059def ("ALSA: hda: Rework snd_hdac_stream_reset() to use macros")
+> missed that on some devices register access needs to be done with
+> unaligned access helper. Change polling macros to use
+> read_poll_timeout_atomic() in order to specify register read function.
+> 
+> Reported-by: Jon Hunter <jonathanh@nvidia.com>
+> Link: https://lore.kernel.org/alsa-devel/20220818141517.109280-1-amadeuszx.slawinski@linux.intel.com/T/#m1270737db52b5ef163eff73cb5f862d16a07a428
+> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> Signed-off-by: Amadeusz S³awiñski <amadeuszx.slawinski@linux.intel.com>
 
-> Each ASoC platform driver is named by rpmsg channel. ASoC machine
-> driver can parse "fsl,rpmsg-channel-name" property to figure out which
-> ASoC platform driver it should link with.
->
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
->
+Thanks, applied with Fixes tag.
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-Best regards
-Wang Shengjiu
-
-> ---
->  sound/soc/fsl/imx-rpmsg.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
-> index 2e117311e582..57684064c9da 100644
-> --- a/sound/soc/fsl/imx-rpmsg.c
-> +++ b/sound/soc/fsl/imx-rpmsg.c
-> @@ -36,6 +36,7 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
->         struct platform_device *rpmsg_pdev = to_platform_device(dev);
->         struct device_node *np = rpmsg_pdev->dev.of_node;
->         struct of_phandle_args args;
-> +       const char *platform_name;
->         struct imx_rpmsg *data;
->         int ret = 0;
->
-> @@ -81,7 +82,10 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
->         }
->
->         data->dai.cpus->dai_name = dev_name(&rpmsg_pdev->dev);
-> -       data->dai.platforms->name = IMX_PCM_DRV_NAME;
-> +       if (!of_property_read_string(np, "fsl,rpmsg-channel-name",
-> &platform_name))
-> +               data->dai.platforms->name = platform_name;
-> +       else
-> +               data->dai.platforms->name = "rpmsg-audio-channel";
->         data->dai.playback_only = true;
->         data->dai.capture_only = true;
->         data->card.num_links = 1;
-> --
-> 2.25.1
->
->
+Takashi

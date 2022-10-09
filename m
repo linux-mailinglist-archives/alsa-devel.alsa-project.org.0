@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A335F5F9469
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 01:56:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2005F946C
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 01:56:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2604F16E5;
-	Mon, 10 Oct 2022 01:55:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2604F16E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9280716C8;
+	Mon, 10 Oct 2022 01:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9280716C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665359759;
-	bh=eDeBSiIKixe6Te7PK8P1+e7QjUkM90YCHsUhK7/2fM8=;
+	s=default; t=1665359777;
+	bh=J135anatUTW3EbLfshYvQtJh1Vx3yzaqMkJvXQNgapA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qXEzBTcCjiKXVh8VXrbcZU4h2lDXIuN9fgQ86EX7LWNU/E5mSo6FIXi5uPpsbhXHa
-	 dW20L0saa+vexd3BeM77LMlMikm4q5j8kIf6i3GmIFP5QdRHWukoKYpOWxjn+9JgLH
-	 whK2pf8xoKgCzjgRuvkHPmvZ+uiX8jHRIAGKhnvY=
+	b=sTa1+iYtqrHyCF32/hpSdLcckbYpzBPPqSV334cjzLcxVkJyAIfQH3nk3Doq2fe5R
+	 7sfAuLoMjI+NDP3yOHupWtHRT7nA0ZfT8w3SEeRyFysa5E8dCc9iClh/72eMAEVmz0
+	 qGTB8xZamHfPY9dbUBMreMr9dxzj9VP4zhIf91Ac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB63FF8052E;
-	Mon, 10 Oct 2022 01:55:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03DAAF8054A;
+	Mon, 10 Oct 2022 01:55:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3055F80517; Mon, 10 Oct 2022 01:55:07 +0200 (CEST)
+ id 288A2F8053B; Mon, 10 Oct 2022 01:55:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63B80F80137
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 01:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63B80F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78964F804FA;
+ Mon, 10 Oct 2022 01:55:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78964F804FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z+UbWONW"
+ header.b="Dk6KfsCE"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 26F6460D17;
- Sun,  9 Oct 2022 23:55:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4607AC433C1;
- Sun,  9 Oct 2022 23:54:58 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BFA54B80DDF;
+ Sun,  9 Oct 2022 23:55:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA57C43141;
+ Sun,  9 Oct 2022 23:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359699;
- bh=eDeBSiIKixe6Te7PK8P1+e7QjUkM90YCHsUhK7/2fM8=;
+ s=k20201202; t=1665359708;
+ bh=J135anatUTW3EbLfshYvQtJh1Vx3yzaqMkJvXQNgapA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z+UbWONWr3ti3tfeUJQCm7qtIwU6HLWrXt74+Zzvi7RviEgAEFkZyMBLqSM8iIDPE
- v4myRFsSgF4tGckxGlDm5o2e9guEa9CetA1fh3M2OeExJXK4O+23M2GSiiXcYUwLe0
- yJBx3XTPQ5ei3d2qWRXRpd0iCnFJBzhBbMDqfF7ORAWoJ81DR/N28ii6uFsGQ19HSO
- NufFhy9GH1jF/W+IAlot+0JrPjGdMZ0KMtAZp1LoKRV8LIDxKvgCGTsmj+GHLHaCFi
- yDhOF76B3eEjcsFXz5i0BLx5yvikjdO9LrEOzt6SBG2IMbXSmIfsO+jzkuVCQM85rD
- fJ3ryWECN1QhA==
+ b=Dk6KfsCElnxTnQefItEa3pM5bGrMRv5WSueOtq/gu+cVkyxdKTrZsrtYP2OLOZOsI
+ aWYfDQdXAJGEXIXSlBkvhsYmMbNssz71STB73KXnIXFdARnCmXbX+go5g6ugyE/LTj
+ rBWX0/R+ieqBzR/bWgb2AxbIPWFmSyF/DN/ArqndeQ1UrKFTLE38u3kjcvntpSf/ey
+ +/WcKxB0pvGJJS1h07qkMzMQwTIVIoUZG9B2tnUaZQcKH07bINHPZ+bokyPYkwhCLM
+ xo2xkrwU9OdO3JXvyR7gqqXA6FGj5SNTvJH3FlfffFEUW7dSCvocegdI84xheZgUH7
+ La854GYbNmpNw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 11/25] ALSA: usb-audio: Register card at the last
- interface
-Date: Sun,  9 Oct 2022 19:54:11 -0400
-Message-Id: <20221009235426.1231313-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 17/25] ASoC: SOF: pci: Change DMI match info to
+ support all Chrome platforms
+Date: Sun,  9 Oct 2022 19:54:17 -0400
+Message-Id: <20221009235426.1231313-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009235426.1231313-1-sashal@kernel.org>
 References: <20221009235426.1231313-1-sashal@kernel.org>
@@ -72,9 +72,15 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- connerknoxpublic@gmail.com, Takashi Iwai <tiwai@suse.de>,
- gregkh@linuxfoundation.org, sdoregor@sdore.me, cyrozap@gmail.com,
- tiwai@suse.com, giun7a@gmail.com, bp@suse.de
+ Jairaj Arava <jairaj.arava@intel.com>, lgirdwood@gmail.com,
+ Curtis Malainey <curtis@malainey.com>, yung-chuan.liao@linux.intel.com,
+ tiwai@suse.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ daniel.baluta@nxp.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Chao Song <chao.song@intel.com>, Curtis Malainey <cujomalainey@chromium.org>,
+ peter.ujfalusi@linux.intel.com, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,190 +96,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Jairaj Arava <jairaj.arava@intel.com>
 
-[ Upstream commit 6392dcd1d0c7034ccf630ec55fc9e5810ecadf3b ]
+[ Upstream commit c1c1fc8103f794a10c5c15e3c17879caf4f42c8f ]
 
-The USB-audio driver matches per interface, and as default, it
-registers the card instance at the very first instance.  This can be a
-problem for the devices that have multiple interfaces to be probed, as
-the udev rule isn't applied properly for the later appearing
-interfaces.  Although we introduced the delayed_register option and
-the quirks for covering those shortcomings, it's nothing but a
-workaround for specific devices.
+In some Chrome platforms if OEM's use their own string as SYS_VENDOR than
+"Google", it leads to firmware load failure from intel/sof/community path.
 
-This patch is an another attempt to fix the problem in a more generic
-way.  Now the driver checks the whole USB device descriptor at the
-very first time when an interface is attached to a sound card.  It
-looks at each matching interface in the descriptor and remembers the
-last matching one.  The snd_card_register() is invoked only when this
-last interface is probed.
+Hence, changing SYS_VENDOR to PRODUCT_FAMILY in which "Google" is used
+as common prefix and is supported in all Chrome platforms.
 
-After this change, the quirks for the delayed registration become
-superfluous, hence they are removed along with the patch.  OTOH, the
-delayed_register option is still kept, as it might be useful for some
-corner cases (e.g. a special driver overtakes the interface probe from
-the standard driver, and the last interface probe may miss).
-
-Link: https://lore.kernel.org/r/20220904161247.16461-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Chao Song <chao.song@intel.com>
+Reviewed-by: Curtis Malainey <curtis@malainey.com>
+Signed-off-by: Jairaj Arava <jairaj.arava@intel.com>
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Signed-off-by: Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20220919114429.42700-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.c     | 32 +++++++++++++++++++++++++-------
- sound/usb/quirks.c   | 42 ------------------------------------------
- sound/usb/quirks.h   |  2 --
- sound/usb/usbaudio.h |  1 +
- 4 files changed, 26 insertions(+), 51 deletions(-)
+ sound/soc/sof/sof-pci-dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 713b84d8d42f..207c212eabde 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -689,7 +689,7 @@ static bool get_alias_id(struct usb_device *dev, unsigned int *id)
- 	return false;
- }
- 
--static bool check_delayed_register_option(struct snd_usb_audio *chip, int iface)
-+static int check_delayed_register_option(struct snd_usb_audio *chip)
- {
- 	int i;
- 	unsigned int id, inum;
-@@ -698,14 +698,31 @@ static bool check_delayed_register_option(struct snd_usb_audio *chip, int iface)
- 		if (delayed_register[i] &&
- 		    sscanf(delayed_register[i], "%x:%x", &id, &inum) == 2 &&
- 		    id == chip->usb_id)
--			return iface < inum;
-+			return inum;
- 	}
- 
--	return false;
-+	return -1;
- }
- 
- static const struct usb_device_id usb_audio_ids[]; /* defined below */
- 
-+/* look for the last interface that matches with our ids and remember it */
-+static void find_last_interface(struct snd_usb_audio *chip)
-+{
-+	struct usb_host_config *config = chip->dev->actconfig;
-+	struct usb_interface *intf;
-+	int i;
-+
-+	if (!config)
-+		return;
-+	for (i = 0; i < config->desc.bNumInterfaces; i++) {
-+		intf = config->interface[i];
-+		if (usb_match_id(intf, usb_audio_ids))
-+			chip->last_iface = intf->altsetting[0].desc.bInterfaceNumber;
-+	}
-+	usb_audio_dbg(chip, "Found last interface = %d\n", chip->last_iface);
-+}
-+
- /* look for the corresponding quirk */
- static const struct snd_usb_audio_quirk *
- get_alias_quirk(struct usb_device *dev, unsigned int id)
-@@ -812,6 +829,7 @@ static int usb_audio_probe(struct usb_interface *intf,
- 			err = -ENODEV;
- 			goto __error;
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index b773289c928d..3b4c011e0283 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -80,7 +80,7 @@ static const struct dmi_system_id community_key_platforms[] = {
+ 	{
+ 		.ident = "Google Chromebooks",
+ 		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google"),
  		}
-+		find_last_interface(chip);
- 	}
- 
- 	if (chip->num_interfaces >= MAX_CARD_INTERFACES) {
-@@ -861,11 +879,11 @@ static int usb_audio_probe(struct usb_interface *intf,
- 		chip->need_delayed_register = false; /* clear again */
- 	}
- 
--	/* we are allowed to call snd_card_register() many times, but first
--	 * check to see if a device needs to skip it or do anything special
-+	/* register card if we reach to the last interface or to the specified
-+	 * one given via option
- 	 */
--	if (!snd_usb_registration_quirk(chip, ifnum) &&
--	    !check_delayed_register_option(chip, ifnum)) {
-+	if (check_delayed_register_option(chip) == ifnum ||
-+	    chip->last_iface == ifnum) {
- 		err = snd_card_register(chip->card);
- 		if (err < 0)
- 			goto __error;
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 194c75c45628..eadac586bcc8 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2030,48 +2030,6 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
- 	}
- }
- 
--/*
-- * registration quirk:
-- * the registration is skipped if a device matches with the given ID,
-- * unless the interface reaches to the defined one.  This is for delaying
-- * the registration until the last known interface, so that the card and
-- * devices appear at the same time.
-- */
--
--struct registration_quirk {
--	unsigned int usb_id;	/* composed via USB_ID() */
--	unsigned int interface;	/* the interface to trigger register */
--};
--
--#define REG_QUIRK_ENTRY(vendor, product, iface) \
--	{ .usb_id = USB_ID(vendor, product), .interface = (iface) }
--
--static const struct registration_quirk registration_quirks[] = {
--	REG_QUIRK_ENTRY(0x0951, 0x16d8, 2),	/* Kingston HyperX AMP */
--	REG_QUIRK_ENTRY(0x0951, 0x16ed, 2),	/* Kingston HyperX Cloud Alpha S */
--	REG_QUIRK_ENTRY(0x0951, 0x16ea, 2),	/* Kingston HyperX Cloud Flight S */
--	REG_QUIRK_ENTRY(0x0ecb, 0x1f46, 2),	/* JBL Quantum 600 */
--	REG_QUIRK_ENTRY(0x0ecb, 0x1f47, 2),	/* JBL Quantum 800 */
--	REG_QUIRK_ENTRY(0x0ecb, 0x1f4c, 2),	/* JBL Quantum 400 */
--	REG_QUIRK_ENTRY(0x0ecb, 0x2039, 2),	/* JBL Quantum 400 */
--	REG_QUIRK_ENTRY(0x0ecb, 0x203c, 2),	/* JBL Quantum 600 */
--	REG_QUIRK_ENTRY(0x0ecb, 0x203e, 2),	/* JBL Quantum 800 */
--	{ 0 }					/* terminator */
--};
--
--/* return true if skipping registration */
--bool snd_usb_registration_quirk(struct snd_usb_audio *chip, int iface)
--{
--	const struct registration_quirk *q;
--
--	for (q = registration_quirks; q->usb_id; q++)
--		if (chip->usb_id == q->usb_id)
--			return iface < q->interface;
--
--	/* Register as normal */
--	return false;
--}
--
- /*
-  * driver behavior quirk flags
-  */
-diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-index 31abb7cb01a5..f9bfd5ac7bab 100644
---- a/sound/usb/quirks.h
-+++ b/sound/usb/quirks.h
-@@ -48,8 +48,6 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
- 					  struct audioformat *fp,
- 					  int stream);
- 
--bool snd_usb_registration_quirk(struct snd_usb_audio *chip, int iface);
--
- void snd_usb_init_quirk_flags(struct snd_usb_audio *chip);
- 
- #endif /* __USBAUDIO_QUIRKS_H */
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 044cd7ab27cb..39c3c61a7e49 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -37,6 +37,7 @@ struct snd_usb_audio {
- 	unsigned int quirk_flags;
- 	unsigned int need_delayed_register:1; /* warn for delayed registration */
- 	int num_interfaces;
-+	int last_iface;
- 	int num_suspended_intf;
- 	int sample_rate_read_error;
- 
+ 	},
+ 	{},
 -- 
 2.35.1
 

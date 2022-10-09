@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9DE5F9457
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 01:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 320AB5F944D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 01:54:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA4616ED;
-	Mon, 10 Oct 2022 01:54:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA4616ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id D27B216E5;
+	Mon, 10 Oct 2022 01:53:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D27B216E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665359712;
-	bh=pMbxhj9oyvXcVZkWKcZXy1MVAYMbhd3RSfm4nlEApfQ=;
+	s=default; t=1665359686;
+	bh=iRWAp7mT/u5ZsntRpuy7Qz6GdmF0Etd7XBAveRikPHo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rvzoAsPiHr5+ofsLd+od/Tzom85naMNyjYIGYaIzYpzGyKaUNqjTVVdh2IdgAzsSA
-	 jFEJ3TiKn7dO6zBChZVJ1T7M270sr+L7sribDHNPTZGtzIwWfKR1smBSFgc05dHYGY
-	 o+W4j5skkjRHGraUnR43kwVo8CpokigZVzSmbrS4=
+	b=E4W9rnUX+kxyPvsIy6tYXUZ6Gbmp0OShFeaiugEhzPyRuomuY3UKrrWpG0sptzLOE
+	 qCXYdbsJw7NhcH9JZNmwOEyZoeR1T64cVZgOuplLP9SG5udapVGDy4n0yT1s91x79N
+	 s9tlbNB+9WjALrSSKlElFhUhFkN6wnwo5ubBz8NU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFE25F8056F;
+	by alsa1.perex.cz (Postfix) with ESMTP id 243D6F8055B;
 	Mon, 10 Oct 2022 01:53:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 893E9F804CB; Mon, 10 Oct 2022 01:53:38 +0200 (CEST)
+ id C141BF8053B; Mon, 10 Oct 2022 01:53:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7761F804CB;
- Mon, 10 Oct 2022 01:53:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7761F804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68F38F8053B;
+ Mon, 10 Oct 2022 01:53:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68F38F8053B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WvJp+nU7"
+ header.b="U19v0ect"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 69D2260B85;
- Sun,  9 Oct 2022 23:53:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C73C433C1;
- Sun,  9 Oct 2022 23:53:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 07021B80DF0;
+ Sun,  9 Oct 2022 23:53:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249D8C433D7;
+ Sun,  9 Oct 2022 23:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359609;
- bh=pMbxhj9oyvXcVZkWKcZXy1MVAYMbhd3RSfm4nlEApfQ=;
+ s=k20201202; t=1665359613;
+ bh=iRWAp7mT/u5ZsntRpuy7Qz6GdmF0Etd7XBAveRikPHo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WvJp+nU7bHiFiCPiIDoXEidEEvaS3ifCmnQbnnW1DJOTNB4j51inrxgZwBLWi2nGy
- DItgVzEqoPKVxCLSqMVWEbLvMQnotofFHmz5bvfcp9rTll6MAte3nl5w22YteT3fUr
- HJWgYk+KSP0frFaO/i6Tt1b6gIDmM/bEg+/i8upqOQ8chvbhqmLcFOhfnxvgf4yON3
- JcfeUUntOe/l9y6hHLRVW5LvWEDzMJrkKIkxLWRhBMRezV/2IV93pwI9CfQMt3/vgx
- cXy7DsTQjtbvHKS5ULITyuYdYs5dU9bfIs8yCN3E4ou9ML2knH4q0IWvZBhUqOIBbq
- PZFhq1XxSseIA==
+ b=U19v0ect21f4kGdpjnDbn+5a7mcNnaWVOvR6Yz7KHlsrkp2CEh2YrjKFItgA03Exn
+ 06LYqe7aqe6HXx0xwwX2k3/Ns8pbq6cgpGwFyq5zZb6B36Gh6I2b5I9mLzyUBEbBTm
+ jYAIO3dF3R6D6A/R87HBZqucj2jff1jKZcajTPyno+JOC4rufbVMWNDwhySAXglDmU
+ EH4xomLCkhOIDf3PYYQLDLZBjB+dCZ7yCIn8VPWMoTXDmVUxo4D6+fdE5wtkJ/Lgr5
+ l4+q2QhlBdntfNICZXzCw5bDkqMoaVLJua2xxU9fUWgSikYn6DpA/Uwb4fazNUgM95
+ o26h8DD+Wzn1w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 23/36] ASoC: SOF: pci: Change DMI match info to
- support all Chrome platforms
-Date: Sun,  9 Oct 2022 19:52:09 -0400
-Message-Id: <20221009235222.1230786-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 24/36] ASoC: SOF: add quirk to override topology
+ mclk_id
+Date: Sun,  9 Oct 2022 19:52:10 -0400
+Message-Id: <20221009235222.1230786-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009235222.1230786-1-sashal@kernel.org>
 References: <20221009235222.1230786-1-sashal@kernel.org>
@@ -72,16 +72,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Jairaj Arava <jairaj.arava@intel.com>, lgirdwood@gmail.com,
- Curtis Malainey <curtis@malainey.com>, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- daniel.baluta@nxp.com,
+Cc: Sasha Levin <sashal@kernel.org>, guennadi.liakhovetski@linux.intel.com,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ peter.ujfalusi@linux.intel.com, tiwai@suse.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
- Chao Song <chao.song@intel.com>, Curtis Malainey <cujomalainey@chromium.org>,
- peter.ujfalusi@linux.intel.com, sound-open-firmware@alsa-project.org
+ daniel.baluta@nxp.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
+ ranjani.sridharan@linux.intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,43 +94,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jairaj Arava <jairaj.arava@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit c1c1fc8103f794a10c5c15e3c17879caf4f42c8f ]
+[ Upstream commit d136949dd8e2e309dc2f186507486b71cbe9acdb ]
 
-In some Chrome platforms if OEM's use their own string as SYS_VENDOR than
-"Google", it leads to firmware load failure from intel/sof/community path.
+Some Intel-based platforms rely on a topology file that hard-codes the
+use of MCLK0. This is incorrect in 10% of the cases. Rather than
+generating yet another set of topology files, this patch adds a kernel
+module parameter to override the topology value.
 
-Hence, changing SYS_VENDOR to PRODUCT_FAMILY in which "Google" is used
-as common prefix and is supported in all Chrome platforms.
+In hindsight, we should never have allowed mclks to be specified in
+topology, this is a hardware-level information that should not have
+been visible in the topology.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Chao Song <chao.song@intel.com>
-Reviewed-by: Curtis Malainey <curtis@malainey.com>
-Signed-off-by: Jairaj Arava <jairaj.arava@intel.com>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Signed-off-by: Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>
+Future patches will try to set this value automagically, e.g. by
+parsing the NHLT content.
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20220919114429.42700-1-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20220919115350.43104-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/sof-pci-dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sof/intel/hda.c     | 11 +++++++++++
+ sound/soc/sof/ipc3-topology.c |  7 +++++++
+ sound/soc/sof/sof-priv.h      |  4 ++++
+ 3 files changed, 22 insertions(+)
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index d627092b399d..643fd1036d60 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -138,7 +138,7 @@ static const struct dmi_system_id community_key_platforms[] = {
- 		.ident = "Google Chromebooks",
- 		.callback = chromebook_use_community_key,
- 		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google"),
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 17f2f3a982c3..7d9e62ab9d0e 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -376,6 +376,10 @@ static int dmic_num_override = -1;
+ module_param_named(dmic_num, dmic_num_override, int, 0444);
+ MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
+ 
++static int mclk_id_override = -1;
++module_param_named(mclk_id, mclk_id_override, int, 0444);
++MODULE_PARM_DESC(mclk_id, "SOF SSP mclk_id");
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ static bool hda_codec_use_common_hdmi = IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI);
+ module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
+@@ -1433,6 +1437,13 @@ struct snd_soc_acpi_mach *hda_machine_select(struct snd_sof_dev *sdev)
+ 
+ 			sof_pdata->tplg_filename = tplg_filename;
  		}
- 	},
- 	{},
++
++		/* check if mclk_id should be modified from topology defaults */
++		if (mclk_id_override >= 0) {
++			dev_info(sdev->dev, "Overriding topology with MCLK %d from kernel_parameter\n", mclk_id_override);
++			sdev->mclk_id_override = true;
++			sdev->mclk_id_quirk = mclk_id_override;
++		}
+ 	}
+ 
+ 	/*
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index e97f50d5bcba..b8ec302bc887 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -1233,6 +1233,7 @@ static int sof_link_afe_load(struct snd_soc_component *scomp, struct snd_sof_dai
+ static int sof_link_ssp_load(struct snd_soc_component *scomp, struct snd_sof_dai_link *slink,
+ 			     struct sof_ipc_dai_config *config, struct snd_sof_dai *dai)
+ {
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
+ 	struct sof_dai_private_data *private = dai->private;
+ 	u32 size = sizeof(*config);
+@@ -1257,6 +1258,12 @@ static int sof_link_ssp_load(struct snd_soc_component *scomp, struct snd_sof_dai
+ 
+ 		config[i].hdr.size = size;
+ 
++		if (sdev->mclk_id_override) {
++			dev_dbg(scomp->dev, "tplg: overriding topology mclk_id %d by quirk %d\n",
++				config[i].ssp.mclk_id, sdev->mclk_id_quirk);
++			config[i].ssp.mclk_id = sdev->mclk_id_quirk;
++		}
++
+ 		/* copy differentiating hw configs to ipc structs */
+ 		config[i].ssp.mclk_rate = le32_to_cpu(hw_config[i].mclk_rate);
+ 		config[i].ssp.bclk_rate = le32_to_cpu(hw_config[i].bclk_rate);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index f11f575fd1da..544e5be9d10e 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -585,6 +585,10 @@ struct snd_sof_dev {
+ 	/* to protect the ipc_rx_handler_list  and  dsp_state_handler_list list */
+ 	struct mutex client_event_handler_mutex;
+ 
++	/* quirks to override topology values */
++	bool mclk_id_override;
++	u16  mclk_id_quirk; /* same size as in IPC3 definitions */
++
+ 	void *private;			/* core does not touch this */
+ };
+ 
 -- 
 2.35.1
 

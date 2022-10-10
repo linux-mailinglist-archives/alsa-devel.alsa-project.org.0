@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 039BE5F9E18
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 13:55:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 153A95F9E1A
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 13:56:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D4D32933;
-	Mon, 10 Oct 2022 13:54:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D4D32933
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A00C2931;
+	Mon, 10 Oct 2022 13:55:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A00C2931
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665402940;
-	bh=Kzbz2//MEbFomVYT3Je8Ry2vhVhj4UV2as/D/dMydqQ=;
+	s=default; t=1665402968;
+	bh=1B2hUD1j7bRc11+vDf5SX1yy256UWJMaQb7ipbR3I5g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zibgdlwn5QpiLzMK0fCdv46/VPIXU3J0Ca8I7M+UeLFrmLkJizDjcGGeW3Rlzy+JS
-	 NEpiPmgRuu9G7TZkZ/fpN8xAQ7TptkD8rgTT/YUCABfWOVLVdZCZsa8s4oeYOQBE5Y
-	 Su+WUv346NeXtHxEkSRSrnKZuHIqOlZZqKZ7r5Ws=
+	b=QiowQPycExOe20MRCc3vAUEu20m7RHoMF0buCcaNmUAKmvtELdTFfaD9QkVX51hc0
+	 XP5P8gpwa9Z04hcXAhAxBrRySixCMWrVZydUW7muvgwneSfGLSP7VTsGHS/vaGwR6u
+	 3hevSEW1e4bVy4tLIhTIPOiAzPkde3oIv3kA7Qwo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90F7FF805B2;
-	Mon, 10 Oct 2022 13:52:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C45F804E5;
+	Mon, 10 Oct 2022 13:52:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F194F805B1; Mon, 10 Oct 2022 13:52:02 +0200 (CEST)
+ id 914B6F805BD; Mon, 10 Oct 2022 13:52:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 692E1F805A8
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 13:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 692E1F805A8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DFB4F805AF
+ for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 13:52:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DFB4F805AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RTAAdybq"
+ header.b="UYhPrYgt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665402720; x=1696938720;
+ t=1665402722; x=1696938722;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Kzbz2//MEbFomVYT3Je8Ry2vhVhj4UV2as/D/dMydqQ=;
- b=RTAAdybqIHQErsleRGIREzXCcoNw/9mH6zk5HgTxWrILE+PIF/rXsru2
- +zwnV/gQuuVSltd+Fxvoo6Endf1dDQWnhEMGgctvTdaY9Ti+w1QtaQCKv
- Q0OcLr97zk7sNyk5mHL99kGCU2FrzrxIGFLpczGOu+Ie/eT9zJpNJgDl4
- +ksSd208KXRFMYYdU2HBE/Q9r9DWLxS8IyAnCv6XVty5Y3BqxkE3gs2D4
- Z0lvkACFnO5Uxsv1h6g/QkWHmYzUTPfcNY1GAfTwyYxriDTnVea7pNvER
- z5FFe+JFQcr2r4BIVmrTYq/xa3auaQ3uhq+A9iZfRC5vQKTB1xqORom2H g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="390513259"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="390513259"
+ bh=1B2hUD1j7bRc11+vDf5SX1yy256UWJMaQb7ipbR3I5g=;
+ b=UYhPrYgtrkO90+z81KwIoMkEAcHJ1iOtyz5QEivpGCKXMl6oRNG+Hgty
+ aqa4/3LjooZY6yr0+nDckTBCjz7F6hFvz5ON8PqVH+yhskr3t7aTTSt0o
+ j3qu0HpNpWwBTqdkc5JJ5cDAvXJ1lHqm5SQ+cZZXW7+i8vOo9cJJds+l8
+ RS7cNXDJYMHZy2+jgdOfGItbJal19t9R9oYre/uF736i4qTJqtQW+Qtjb
+ rFbWxUDWGa1YMrZii+lxgd7LbQOqoHb4GHp14kI2EY/tEFQqmpG09OGnJ
+ 7tZDLPL074FoTjS5Ovku8BewdXA0xhWHxXthD04GTU7lWBAy5GElxB1LS g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="390513262"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="390513262"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 04:51:58 -0700
+ 10 Oct 2022 04:52:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="954889101"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="954889101"
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="954889118"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="954889118"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga005.fm.intel.com with ESMTP; 10 Oct 2022 04:51:57 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 10 Oct 2022 04:51:59 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 12/15] ASoC: Intel: avs: Do not print IPC error message twice
-Date: Mon, 10 Oct 2022 14:07:46 +0200
-Message-Id: <20221010120749.716499-13-cezary.rojewski@intel.com>
+Subject: [PATCH 13/15] ASoC: Intel: avs: Simplify ignore_fw_version description
+Date: Mon, 10 Oct 2022 14:07:47 +0200
+Message-Id: <20221010120749.716499-14-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221010120749.716499-1-cezary.rojewski@intel.com>
 References: <20221010120749.716499-1-cezary.rojewski@intel.com>
@@ -91,57 +91,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ENABLE_LOGS and SYSTEM_TIME IPCs call LARGE_CONFIG_SET internally which
-dumps an error message in case of an error. There is no need to repeat
-the process in the top level handler.
+Reword the parameter description to drop any confusion regarding its
+purpose.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/messages.c | 19 ++++---------------
- 1 file changed, 4 insertions(+), 15 deletions(-)
+ sound/soc/intel/avs/loader.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index d4bcee1aabcf..6b0fecbf07c3 100644
---- a/sound/soc/intel/avs/messages.c
-+++ b/sound/soc/intel/avs/messages.c
-@@ -687,20 +687,13 @@ int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info)
+diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
+index 9e3f8ff33a87..2d80a271eb50 100644
+--- a/sound/soc/intel/avs/loader.c
++++ b/sound/soc/intel/avs/loader.c
+@@ -43,7 +43,7 @@
+ /* Occasionally, engineering (release candidate) firmware is provided for testing. */
+ static bool debug_ignore_fw_version;
+ module_param_named(ignore_fw_version, debug_ignore_fw_version, bool, 0444);
+-MODULE_PARM_DESC(ignore_fw_version, "Verify FW version 0=yes (default), 1=no");
++MODULE_PARM_DESC(ignore_fw_version, "Ignore firmware version check 0=no (default), 1=yes");
  
- int avs_ipc_set_enable_logs(struct avs_dev *adev, u8 *log_info, size_t size)
- {
--	int ret;
--
--	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
--				       AVS_BASEFW_ENABLE_LOGS, log_info, size);
--	if (ret)
--		dev_err(adev->dev, "enable logs failed: %d\n", ret);
--
--	return ret;
-+	return avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
-+					AVS_BASEFW_ENABLE_LOGS, log_info, size);
- }
+ #define AVS_LIB_NAME_SIZE	8
  
- int avs_ipc_set_system_time(struct avs_dev *adev)
- {
- 	struct avs_sys_time sys_time;
--	int ret;
- 	u64 us;
- 
- 	/* firmware expects UTC time in micro seconds */
-@@ -708,12 +701,8 @@ int avs_ipc_set_system_time(struct avs_dev *adev)
- 	sys_time.val_l = us & UINT_MAX;
- 	sys_time.val_u = us >> 32;
- 
--	ret = avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
--				       AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
--	if (ret)
--		dev_err(adev->dev, "set system time failed: %d\n", ret);
--
--	return ret;
-+	return avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
-+					AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
- }
- 
- int avs_ipc_copier_set_sink_format(struct avs_dev *adev, u16 module_id,
 -- 
 2.25.1
 

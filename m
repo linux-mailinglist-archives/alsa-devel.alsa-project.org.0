@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 810E95F9ED5
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 14:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05B575F9ED8
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 14:46:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C130C2A45;
-	Mon, 10 Oct 2022 14:44:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C130C2A45
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B5BE2A64;
+	Mon, 10 Oct 2022 14:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B5BE2A64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665405926;
-	bh=YjnheQVMs3rAB3/1RFPxjKtfthxg0rbaLJ+dOTqd8Yc=;
+	s=default; t=1665405988;
+	bh=FaV5t0PqoMv6z3uYiLlcpxapPqXdXC3OMhDUO8lO1D0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=heMEdzuCyhQVXgj7hZnTuT0FyyhawAxn++0RhoCfBCgUePZ2MT/jes+qPZMGPyOAm
-	 wDcfOJL/NdKfxoNg4TjJizA0v4J1a5eD6VQ7uxMCyQeDKjv6dxph7YdJqMz+EZUydG
-	 NWPmp2i0wlibpR90g+mDc0S2mOmA9y0wqkWEShmI=
+	b=HGn8qNj/pNEPnf4KO8r5JHGSQOa3bwfFm8sWpEooUQjsplNG64S41BjQoY2yV3HKp
+	 SME+hvB8ND79gDAIogxJljTaPqcc+3fXAgIG1vwDLTGffdxNwcVclHuKtc0yN4dqhX
+	 VPkwqgWyCzzbqtD6kr9PofRhzevjUCyqGxwmWoaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30959F80155;
-	Mon, 10 Oct 2022 14:44:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7A63F800B8;
+	Mon, 10 Oct 2022 14:45:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D8DBF8032B; Mon, 10 Oct 2022 14:44:29 +0200 (CEST)
+ id 6C9F8F804AE; Mon, 10 Oct 2022 14:45:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9620EF800B8
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 14:44:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9620EF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13274F80155
+ for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 14:45:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13274F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TQ0HmtkY"; 
+ header.b="lhPpDNAy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="IW9H2DAr"
+ header.b="3R1TiEUM"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CABB4218EA;
- Mon, 10 Oct 2022 12:44:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9A2F01F8EC;
+ Mon, 10 Oct 2022 12:45:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1665405861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1665405924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F5IgJriwaayDmrgPwWCQDE5Dc7KPhfEOss9beRoEOaA=;
- b=TQ0HmtkY8qzmBf++MVPUSACx+1B4jvaAePMQL3qxceJ9MMySiNF1UoC9V59o2/J4DXZQwq
- PFDciRaI7bw/v7h4pxqwe+cVD4n3MrEEp4L6d4+RxQq+W1U5nMwAkHEilzcfDS+GyuUv3A
- zgQxn0JAm8vRR1jP9hC0mCwE81ukXBA=
+ bh=nvWa/LIlSk9GcSPDWKnmzvitPJnLHafvuhcImb4Vk5Q=;
+ b=lhPpDNAyA5YoQ5R+kUq5SQ8f4wgtOGtR75a53EeazN7AvcMg20spOJemSTsRXlSoCS2PR9
+ 0viWHS4pwdHjumjBlDtZYn+xRxdauQw40t5glMpVixPshnyQIkIzrqZdUyQFs5F810dr49
+ JWt0yCRR+xYB5arviG5uKVo7VvpR0NU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1665405861;
+ s=susede2_ed25519; t=1665405924;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=F5IgJriwaayDmrgPwWCQDE5Dc7KPhfEOss9beRoEOaA=;
- b=IW9H2DAr+HCysWTYFZw/OJbY+Mv7qTxRnzRmmTEC9jtx/wAQQnbCY9LtIid4LJa8NjYD3f
- VCPc9LMLj3N4VCAQ==
+ bh=nvWa/LIlSk9GcSPDWKnmzvitPJnLHafvuhcImb4Vk5Q=;
+ b=3R1TiEUMmR7sYrsz5vmqXn7nRaH8riO6KF59Wy4DU/04UkxLGCPRO3QLZFxZDxeSnLbvEx
+ EmgAYI5CoI1suBDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A91FC13ACA;
- Mon, 10 Oct 2022 12:44:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F64513ACA;
+ Mon, 10 Oct 2022 12:45:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5/syKKUTRGN1awAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 10 Oct 2022 12:44:21 +0000
-Date: Mon, 10 Oct 2022 14:44:21 +0200
-Message-ID: <871qrfg862.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +C2BGuQTRGMQbAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 10 Oct 2022 12:45:24 +0000
+Date: Mon, 10 Oct 2022 14:45:23 +0200
+Message-ID: <87zge3etjw.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Luke D. Jones" <luke@ljones.dev>
-Subject: Re: [PATCH]  ALSA: hda/realtek: Add quirk for ASUS GV601R laptop
-In-Reply-To: <20221010070347.36883-1-luke@ljones.dev>
-References: <20221010070347.36883-1-luke@ljones.dev>
+Subject: Re: [PATCH] Fixes bc2c23549ccd ("ALSA: hda/realtek: Add pincfg for
+ ASUS G533Z HP jack")
+In-Reply-To: <20221010065702.35190-1-luke@ljones.dev>
+References: <20221010065702.35190-1-luke@ljones.dev>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -99,18 +100,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 10 Oct 2022 09:03:47 +0200,
+On Mon, 10 Oct 2022 08:57:02 +0200,
 Luke D. Jones wrote:
 > 
-> The ASUS ROG X16 (GV601R) series laptop has the same node-to-DAC pairs
-> as early models and the G14, this includes bass speakers which are by
-> default mapped incorrectly to the 0x06 node.
+> The initial fix for ASUS G533Z was based on faulty information. This
+> fixes the pincfg to values that have been verified with no existing
+> module options or other hacks enabled.
 > 
-> Add a quirk to use the same DAC pairs as the G14.
+> Enables headphone jack, and 5.1 surround.
 > 
 > Signed-off-by: Luke D. Jones <luke@ljones.dev>
 
-Thanks, applied (with Cc to stable).
+The changes look OK, but the subject line should be rather describing
+what about the patch is about.  I corrected the subject and put the
+proper Fixes tag (as well as Cc-to-stable).
 
+Also, the indent level wasn't right, so I corrected it locally, too.
+
+
+thanks,
 
 Takashi

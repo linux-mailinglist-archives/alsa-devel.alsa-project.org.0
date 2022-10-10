@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6445FAC5A
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:14:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0485FAC53
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:12:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC886368C;
-	Tue, 11 Oct 2022 08:13:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC886368C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 863A036F8;
+	Tue, 11 Oct 2022 08:12:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863A036F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665468863;
-	bh=tzfMJ0+ACRnxRmcXeKB37BEH/TZzYy5SHS5JK+oMIQY=;
+	s=default; t=1665468773;
+	bh=V5LElSNyhQKrAlq5Wy8yAbor1UnFq6eJo+JhPVoOZ9c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sGX0Q3sZks+pKtHI9Y2zJRT/+9/uppq8n8G/XnvGb33pgA2MQOB4eG1LxhDl2o7Wh
-	 DeIo7qml+6QthJihD4tfj1DF+iskIwEkNkgXOJ08vgcutv51aKc7mgo6F7vQRicwev
-	 +DjlUJfsfEasL1/em1doqHfIsEdEkebmhSpZC0E0=
+	b=SYLO0j8kRVyEX8mJQXordM3296PriLjzHtbNl641FZgmaKottqRzbtZq56pF5ebhW
+	 d1R4YHKLP9G7T4DvszBpG2HIMBabXu2P0t7uu10XTxLU6gIKdxMzGIAgyTZNnNgvWb
+	 mYZXLJ63jrnZiGSVlyeaqYcGaxt861DDInKdx924=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07D54F8063B;
-	Tue, 11 Oct 2022 08:02:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 649A6F8061C;
+	Tue, 11 Oct 2022 08:02:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 328F9F80535; Mon, 10 Oct 2022 22:15:49 +0200 (CEST)
+ id ADF03F8053B; Mon, 10 Oct 2022 22:15:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96746F8032B
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 22:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96746F8032B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C537EF801D5
+ for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 22:15:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C537EF801D5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Zwr4fCRK"
+ header.b="aruteNg7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665432942; x=1696968942;
+ t=1665432944; x=1696968944;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tzfMJ0+ACRnxRmcXeKB37BEH/TZzYy5SHS5JK+oMIQY=;
- b=Zwr4fCRKWdHKptpvIUwqYNpgVUBjR6GF+gN7SMlWzaeBML8e8li7vhC5
- oqssjEAlzZ74ot/gsCqb5a9a1p9H6s9Gn2sSGFR9SryIbjI0QjgMGVJZ2
- wPX+dld6be4fYcQchMudLsm6rRfa/IBAiouv4H2N8SiiPPwsvPzdEG/up
- PTuo1hHb44tOKFQXAdBNh45xHoQSEF1YIR2VaEPGXjcBN7Prqk+WrIX0K
- g6L4YZD5p+iyEzsgo1BeHJ2JsujWD4RIsAjplKdFJi+OkIKwZ/M2L6orF
- TjRTeAHYcCAhg/3riK9OhE1ANdN8puYM6sGM2Pn1mKqcZyyJfC23dQ6Xd w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368491173"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368491173"
+ bh=V5LElSNyhQKrAlq5Wy8yAbor1UnFq6eJo+JhPVoOZ9c=;
+ b=aruteNg7PrHAkiG7ghOr+9BLqUz/ZtDPJYKE6IK5xymN9GqF7bNaj3Fs
+ aNUnBUkgiiLnDNrfwJKrlwqtOgfRgKELKI6dfOg5UzLY8AZLzqxysplsH
+ 7pMKIxw3vQxqscCIJvt9mIJ23bSYa3XIUxj34WV09bPi91xCxxWu9a2gh
+ UVSrbATQY78OmhJlEArIpJssAOJURg6XpWt2/cFrhJKED82nAtFWdzuwg
+ jxd8yp//OuS9Cq2NwZMfRowN+r0PqvyjireFXegyX/gnJWDPqFvvUJ/cm
+ XkqUYUjCLhCkdywVLfTrw4L3PkiJBIx+F3Zqmgfe7HIdGlQ2uz3j8lysB w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368491175"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368491175"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:37 -0700
+ 10 Oct 2022 13:15:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862955"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862955"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862962"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862962"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:26 -0700
+ by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:27 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id B177D89F; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
+ id C1AB58A8; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -97,9 +97,9 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v2 24/36] pinctrl: st: Add missed header(s)
-Date: Mon, 10 Oct 2022 23:14:40 +0300
-Message-Id: <20221010201453.77401-25-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 25/36] pinctrl: starfive: Add missed header(s)
+Date: Mon, 10 Oct 2022 23:14:41 +0300
+Message-Id: <20221010201453.77401-26-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -167,48 +167,24 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/pinctrl-st.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pinctrl/pinctrl-st.c b/drivers/pinctrl/pinctrl-st.c
-index cf7f9cbe6044..985dfceb127d 100644
---- a/drivers/pinctrl/pinctrl-st.c
-+++ b/drivers/pinctrl/pinctrl-st.c
-@@ -5,21 +5,26 @@
-  *	Srinivas Kandagatla <srinivas.kandagatla@st.com>
-  */
- 
--#include <linux/init.h>
--#include <linux/module.h>
--#include <linux/slab.h>
- #include <linux/err.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/init.h>
- #include <linux/io.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
+diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c b/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
+index 5b544fb7f3d8..6a8a9cfe8965 100644
+--- a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
++++ b/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
+@@ -15,8 +15,10 @@
  #include <linux/of.h>
--#include <linux/of_irq.h>
- #include <linux/of_address.h>
--#include <linux/gpio/driver.h>
-+#include <linux/of_irq.h>
-+#include <linux/platform_device.h>
- #include <linux/regmap.h>
--#include <linux/mfd/syscon.h>
+ #include <linux/platform_device.h>
+ #include <linux/reset.h>
 +#include <linux/seq_file.h>
-+#include <linux/slab.h>
-+#include <linux/string_helpers.h>
-+
+ #include <linux/spinlock.h>
+ 
 +#include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/pinconf.h>
  #include <linux/pinctrl/pinctrl.h>
  #include <linux/pinctrl/pinmux.h>
--#include <linux/pinctrl/pinconf.h>
--#include <linux/platform_device.h>
-+
- #include "core.h"
  
- /* PIO Block registers */
 -- 
 2.35.1
 

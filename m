@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF36E5FAC39
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2B35FAC3C
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:10:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5698636EB;
-	Tue, 11 Oct 2022 08:09:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5698636EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51D3536D0;
+	Tue, 11 Oct 2022 08:09:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51D3536D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665468591;
-	bh=EZ3ygaOLlWwepCuvu84+w4yWIH5OPHvluovAh/nnM6E=;
+	s=default; t=1665468622;
+	bh=mywQvBjWPzHdeWDwbOdj9RNfPWL33cKj0x+3gKEqnbA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AbVLE+CO+M+zzhJsmlD0fDt0dkPdkUoLn/x7qlSZyuF8u9u0WdRuW5i/RB0jo4VxD
-	 5IN1z/RhlglUSlTv6V45D2iyqZJvTe1zN56qi7Be6DewMPKweI57+Tkib7LmHl351K
-	 3oCAytYuZBBDz1v5+Y5okvc7cUUC1BTAFHSy4zaA=
+	b=JSUxV732Jn/LjOSoeKcGJbm+Qi8somI049C9Z2ObOoDUAABJ8jzewFpxYWnoz8agq
+	 EJHPHKEyhwCM0aoVyAg/s9/xhVdO9aBcEMPJTO5qHmRVtw8oVpJw+6tePK7BQ8UEmu
+	 yDFfP5MfR0BdndE26rZxKjspBeNa1HV7/ME3LcCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68543F805E9;
-	Tue, 11 Oct 2022 08:02:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 038CBF805F4;
+	Tue, 11 Oct 2022 08:02:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E227F804FF; Mon, 10 Oct 2022 22:15:28 +0200 (CEST)
+ id E0472F8032B; Mon, 10 Oct 2022 22:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50E6BF800B8
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 22:15:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50E6BF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id C18C8F80155
+ for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 22:15:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C18C8F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Wt7yTYYZ"
+ header.b="lDPStsE5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665432926; x=1696968926;
+ t=1665432927; x=1696968927;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EZ3ygaOLlWwepCuvu84+w4yWIH5OPHvluovAh/nnM6E=;
- b=Wt7yTYYZBOeBDxiC3xUOcppgDlnUPLjvgUlqZC6KKsi2Ihm/hCkE2gLz
- SIK+83CDyDptazxINac1rzm3pqfF7/M+cq463uRX9Ep39/x6T5itiKtP6
- /aZmGWFTqSNCAJuS1t22t08k8FvWJL2QVahmrc+39+WEG1e1xg+oZxq0q
- FoH7/THslicmP04eyXHW71nGmEaAjyr1nfPEc8XAF80F+gVddY82rlq9U
- cs/C1Q7rBivkWHKY36LerjHOk5qgGUDeJv0vGXsTDzSxex/ZOGVzC1FAn
- ee/P3b/iD+uSxjoy+Ao1OG4yA+u76RhkXbkWRjTQJ/h4vW74rschQF5RG A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="301936438"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="301936438"
+ bh=mywQvBjWPzHdeWDwbOdj9RNfPWL33cKj0x+3gKEqnbA=;
+ b=lDPStsE5kE5od3lD1bVtl/f7ElYZ+6QylrhZ8ZvGdWG1elXhzH2oNAat
+ VnXrxRCwdWi2nYhQZX0cZB/wxJUDGTWWVrNzijObuJ2osWRPotvPEFa4J
+ Xu5h5Pbtrk9DF4XtVoTYsUflxQdZXUtL26/y/62I8ec+nMqRimstqSUGA
+ zjnk9Lfcnvp7gqaXAG2UZbRYU9RiAvRHV1MSGYkJYCe/WTILyv750ls+s
+ lxIqzZwggnaOYXMWLyD9EPo+p/J4NkDb6idnkLoADjFIrE9D/W5R586Rn
+ cqOFabLKj2qHm97I2jIWE8Ek0m+kwesEgiOStgyPk1zZt5EZiS5fso9cb g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="301936444"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="301936444"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:23 -0700
+ 10 Oct 2022 13:15:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240746"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240746"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="715240751"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="715240751"
 Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:13 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Oct 2022 13:15:14 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id E0BF35A3; Mon, 10 Oct 2022 23:15:12 +0300 (EEST)
+ id 105AD5D2; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -97,9 +97,9 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v2 12/36] pinctrl: k210: Add missed header(s)
-Date: Mon, 10 Oct 2022 23:14:28 +0300
-Message-Id: <20221010201453.77401-13-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 13/36] pinctrl: lochnagar: Add missed header(s)
+Date: Mon, 10 Oct 2022 23:14:29 +0300
+Message-Id: <20221010201453.77401-14-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -167,30 +167,19 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/pinctrl-k210.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/pinctrl/cirrus/pinctrl-lochnagar.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-k210.c b/drivers/pinctrl/pinctrl-k210.c
-index ecab6bf63dc6..288e44457fec 100644
---- a/drivers/pinctrl/pinctrl-k210.c
-+++ b/drivers/pinctrl/pinctrl-k210.c
-@@ -3,18 +3,20 @@
-  * Copyright (C) 2020 Sean Anderson <seanga2@gmail.com>
-  * Copyright (c) 2020 Western Digital Corporation or its affiliates.
-  */
--#include <linux/io.h>
--#include <linux/of_device.h>
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/io.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/of_device.h>
+diff --git a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+index 3fda4446d70b..0b78cf611afe 100644
+--- a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
++++ b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+@@ -15,10 +15,12 @@
+ #include <linux/of.h>
  #include <linux/platform_device.h>
--#include <linux/bitfield.h>
  #include <linux/regmap.h>
-+#include <linux/seq_file.h>
- #include <linux/slab.h>
 +
++#include <linux/pinctrl/consumer.h>
 +#include <linux/pinctrl/pinconf-generic.h>
 +#include <linux/pinctrl/pinconf.h>
  #include <linux/pinctrl/pinctrl.h>
@@ -198,8 +187,8 @@ index ecab6bf63dc6..288e44457fec 100644
 -#include <linux/pinctrl/pinconf.h>
 -#include <linux/pinctrl/pinconf-generic.h>
  
- #include <dt-bindings/pinctrl/k210-fpioa.h>
- 
+ #include <linux/mfd/lochnagar.h>
+ #include <linux/mfd/lochnagar1_regs.h>
 -- 
 2.35.1
 

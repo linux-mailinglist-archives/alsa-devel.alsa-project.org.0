@@ -2,158 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFA65F9BC2
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 11:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9ABC5F9C1E
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Oct 2022 11:40:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 880441B19;
-	Mon, 10 Oct 2022 11:20:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 880441B19
+	by alsa0.perex.cz (Postfix) with ESMTPS id E43751EE1;
+	Mon, 10 Oct 2022 11:39:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E43751EE1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665393699;
-	bh=E0IKdpgdslcK6t2FxjfDl8eb3JHEX33FgxFF3NJ3xI8=;
+	s=default; t=1665394843;
+	bh=HeFPssXpTboEPtYJmiaDZ5UZ3qtHUCtuuUVlP/ypNNs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=FM+RuC/bxlP5Aiub4OPKBbC1OaIkdmayd43EQ0rFEbddVGvur/FqaAQOku9BaxdNp
-	 GGuWP4wDGRfnThfp/9M5R2JNcrXG0aTqusKQk8BTdSYR4kCVG9pgmFVAElPvpg13wJ
-	 nJGsn5FqZbSo+NfdWz4//X4hh5xikCiKUDDcu4no=
+	b=dGGwEBc66KMGY4GpgZdSKprwYHjRlR6u22aE7Ht61k2tMT7fSa5udQteQ0JivzWrL
+	 +qKWu6R2lQiDljeOSXvusE8xfxFpCmf6U2ON/bs/r+fIRNPvSiimLUyUmZz40v1dcG
+	 iUbz+91yNh17KWs0ftel9w/10jZ5KvUWpxYmrYm0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFE38F8032B;
-	Mon, 10 Oct 2022 11:20:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69F84F804AE;
+	Mon, 10 Oct 2022 11:39:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46D4BF80107; Mon, 10 Oct 2022 11:20:42 +0200 (CEST)
+ id B627AF80256; Mon, 10 Oct 2022 11:39:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75
  autolearn=disabled version=3.4.0
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 529E7F80107
- for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 11:20:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 529E7F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E5DFF80155
+ for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 11:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E5DFF80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com
- header.b="bfnMOnEG"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.17.1.19/8.17.1.5) with ESMTP id
- 29A7v6FF005531; Mon, 10 Oct 2022 09:20:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
- h=from : to : cc :
- subject : date : message-id : content-transfer-encoding : content-type :
- mime-version; s=PPS06212021;
- bh=kZ+/a3dZgBVRFPLezszNRFiX+SUtvvzdLqeHNh19s48=;
- b=bfnMOnEGEz2s1m9Cg0qv+nNRmN7978S3jKa2SXij1JYjAzpgdnRy+CYR/X3WsxXI4hz+
- hzT9xMZRfYYFn43NrHs6U+S4oBMh/Moi+wknZHibQKDEMO4k+R1X9LXsbliI5fw2vGE9
- 9jJQv77bQzePtmHMy+LlfpuH7rf3SwYXO4hH5mTncpfyzX4DIkZTmoLE+yhF7QQ6Zmev
- NZMyUN1Qmjs0ZElw5ofYDHTLZP1vgIzEBv7+8fSsbIgHfSG70Eh4O+URY6jqNUO+0jo3
- B5nQB/lJvx9EuKUSYiFllDxOlb3ozv4AgFRo7kKEud5ftihW6SwVz3v7VaXrqsWXfXna FQ== 
-Received: from nam11-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam11lp2169.outbound.protection.outlook.com [104.47.57.169])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3k4feug21u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Oct 2022 09:20:33 +0000
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="fa006w1B"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZkRn19bfquejDttNV7QT1vudmlwQiwjoHhPJ5djo4g2bsckaINDWy1T/nsxeflv1gjOlQg+agwSC6PH46fBLpPK32yG4jUbW+2/rsw9an0kxWKGEKT+wJUM8i7tPDobK3tWceHJFiwliQscRqClH2UvonZxSzGe8JCILwEt77Kx1tE54NRHgxee4+gCLyCV+dd/hnMeT41g9dG2xh0gFq73cX4VWyNx/AvGlZS1fVfyewA4EN3cnD1Sq+SpQLMeIxJJ3ZYLpM2i7a7bgS7o2c7sw960AUaxG0ZB32R8cYBCpduME0INbRhD60jQodhdroA64EyhSJUHtf343jeL/Xw==
+ b=JwZeEbIilMWTL3+B5p6rPaoWykxI4pj/lfBSjG/HLHBoxjVdBu1g81XL0fvxlAc8rIWSucSy7kg6L8B/YWpKhL2PsZz+d0PT2SVaADg00WHfWhooXYMfOYlGnRSxvbMkaRD6SQnd1N4EE+YxfvvrSnmMCX1bswPnxf7R07Ktjq8gK/W5GGc7augTmmF6YFb4prmc0mZ0O109Q4MSYYP6/z8XeUSvH5pCutoZbTIAcp/nlGSy9POfzBd6omqNP7YqOmuJivJzhzBcOm/3TEkPp6pIbecjZTg3PWPwmRudeDtaS8uxoJNYijbW9iGPqWMrQ0bndqDI/2kWRs1pxXr5iA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kZ+/a3dZgBVRFPLezszNRFiX+SUtvvzdLqeHNh19s48=;
- b=aNYygT79MshAQW1W/N6vqeE6URkNsPNvbajUIruGLv2MwV4h06zspALqIe5qGNrZjfwI0lXNLXWbqPb8xELTkLyBS6lIga841YpzRsnVejIX4ZMh34nvMN58x9czmEeDPD3BT1LWNJC18mwq8vpSWdqLlZg4iuSmKxLxEqFn6djmrKmD0gx8ClyoEsLhQ2gdLGYzhUPoxFDybZNbJwEfeYf5UyNtKrXa98QlJy4F4oDR05sIgVSP9r3hsFAF59T3+VTh49xXPur6OC0p81RI1Lc49s0oYLTHqaTRdJqqyrs/WgPIZLv68HNNkNo0qYpJCIlJp74074y8tiXBm+EYew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from MW5PR11MB5764.namprd11.prod.outlook.com (2603:10b6:303:197::8)
- by SA2PR11MB4844.namprd11.prod.outlook.com (2603:10b6:806:f9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Mon, 10 Oct
- 2022 09:20:30 +0000
-Received: from MW5PR11MB5764.namprd11.prod.outlook.com
- ([fe80::25b1:ccb:b06c:ee86]) by MW5PR11MB5764.namprd11.prod.outlook.com
- ([fe80::25b1:ccb:b06c:ee86%4]) with mapi id 15.20.5676.024; Mon, 10 Oct 2022
- 09:20:30 +0000
-From: Xiaolei Wang <xiaolei.wang@windriver.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, steve@sk2.org, geert+renesas@glider.be,
- chi.minghao@zte.com.cn, aford173@gmail.com
-Subject: [PATCH] ASoC: wm8962: Add an event handler for TEMP_HP and TEMP_SPK
-Date: Mon, 10 Oct 2022 17:20:14 +0800
-Message-Id: <20221010092014.2229246-1-xiaolei.wang@windriver.com>
+ bh=ikvjHGu0K0GSAV9OiPdtT0uLqL3ubRQqif8c/YBpaVo=;
+ b=m3YNXEF2YfB2dPlm55wPjLPHr/QG4ebdyhQixLcUMdQmT9h3qU8ChmLhkHsiYQZwOMZacYIVxyo531Ofdq/f0k3YoyS5/RCB9VG+SWVlf/qWEEB1XeN8lAm9Rm1JNxWwXTltYiX9mSaZ0jn9oXLfJXd5oHSEkiZtHQ18LuxBo4N92OXy7cCfu9bC419xHQeN6QOSH2zXC5Gy4XXn2ZIhXh9xV7bjSixStHSgTh9TXJOtmd2XOJ5VpljwmrZrYNg5/28k24UA5CyBDpxifvrCPraAhLkWW5zESCBowhB+l5T8/NrhMSUZYUQWDAKUmsI8TpHW3ZQK467vpxPSCEvHvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ikvjHGu0K0GSAV9OiPdtT0uLqL3ubRQqif8c/YBpaVo=;
+ b=fa006w1BiY/uymBK6Z7W8IqC3ok/aUUY39ehvdrgiJhh0Uq3wqXLPkvSfSVw8KnlyRNOtNMkLxIpVTkmOnJTw8zeEjlHuuGl8yDDBPHEG2c2GlU/rGDDP/y3Y330HKFtBkK0xO0VES+Yz7/yd6FJz7YmgHr9ZbVLMoOBSNfa0M8=
+Received: from MW4PR04CA0380.namprd04.prod.outlook.com (2603:10b6:303:81::25)
+ by PH0PR12MB5646.namprd12.prod.outlook.com (2603:10b6:510:143::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Mon, 10 Oct
+ 2022 09:39:38 +0000
+Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::ef) by MW4PR04CA0380.outlook.office365.com
+ (2603:10b6:303:81::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15 via Frontend
+ Transport; Mon, 10 Oct 2022 09:39:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5709.10 via Frontend Transport; Mon, 10 Oct 2022 09:39:38 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 10 Oct
+ 2022 04:39:32 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 10 Oct
+ 2022 02:39:01 -0700
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Mon, 10 Oct 2022 04:38:59 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: amd: Update Pink Sardine platform ACP register header
+Date: Mon, 10 Oct 2022 15:09:40 +0530
+Message-ID: <20221010093941.2354783-1-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SL2P216CA0159.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:35::10) To MW5PR11MB5764.namprd11.prod.outlook.com
- (2603:10b6:303:197::8)
-MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW5PR11MB5764:EE_|SA2PR11MB4844:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1121cc9-d45b-4b48-cd6b-08daaaa0ad25
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT041:EE_|PH0PR12MB5646:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4eb2c592-4e54-431a-cd84-08daaaa35997
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z/dv80mAIDGzwpmg5h8e1e5p+a+nL0xTuMo1xQwpGX7pFjzSrzlm9W4cIwjPHg76pAOGtnz3KgBO9/CqJVFZOBJyOwH7Qa6z8kSkiaS+jXlmaX9LN2m16fIa8TalDy6Uev8yZ6slSU/BQ2bEDi4S9E3WXzQZuGKBvI4ZAR665ZAVqEFYTAq5HQjJWAJ3MFBGHotLrfKuHt/OyKOQ38iPmSmvw7M185yWaWM7uASfitUFqZtTdTpqk/UXGi4p1QUPhKmqIStob630kEi1B+OYnBjg6viH+Y8g68XYO1/D17MGNM+aYWelCFe4bjFY4M2KudeZgc8BI+IyTFhpIZ7C3VyGmN4VKotj7gmgHTkm/XhwgUHHTw4Raj/eSHZ1Bqliv5ESilebFjUsgwfe2hKKcXRNHpwrxfqnBHOYQa6LBmKyM1g1NtjjQNzY3f4Vefoj8IDfrGNsqprD431ve9b299Z18zwVhnsrpvSIwSDbnEm9MAb7ZLt0pbNt8hMq2mj+KBZ1R+KYVlm1euxt1q7kbOUxAP2FVjm6dx/aVWV1XG7yDWLXzeoLk7pCfRYpJLQ8OUSCRNhVhyDtwrScSfqWEYvplvJdfizWr1rnZQwMkqbb6FMkz+nsSvMlvzBqGwN/gHoRGwxp/6uuGHc1w4UlRHCoEhI6/Wv1aCaWA5oVGm7ib5quW0vWdkJaiUWRaTmNOFA7fzCrWmZxCcn9p82Ktde9ENKBqJMLSKQ9ZSVv8n85gQCQco8me+GHpt7v6adiHI1W2HHFJHGh8KAyl/ZN8g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW5PR11MB5764.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39840400004)(136003)(376002)(396003)(346002)(366004)(451199015)(2616005)(2906002)(316002)(6512007)(26005)(52116002)(36756003)(38350700002)(38100700002)(8936002)(41300700001)(6506007)(86362001)(6666004)(66556008)(66476007)(7416002)(4326008)(8676002)(44832011)(66946007)(6486002)(5660300002)(478600001)(83380400001)(186003)(1076003);
+X-Microsoft-Antispam-Message-Info: AdDauWDi92utC69AuIdamqneCxNhHU49+r3K7PzH6/9STkPhQBSZRzdU0UuMUKoG/inaD2U7L1zkCyGiLnEvZVK8U1VCPECD7ydD1Kh8JPz6vli4d4leCUQpAvxW6+o2SOZ2bQqpjpqktXl9mnHUdULogKock2D+C2A6UVkJZrcDEhwmKXY0BSRbS3m79tHwzVhSBToSQXP7PbL6t9QOd3uv1iD0sfq1fxOzjTmFKiO+tr4ADAzm/PxB9zqpMzYT4j4uZQF7lLGYdslbMjR2gzaLxjblV2om1VsYaElooiMpTWc7A7Z5YzMjomwKQqfX5Ob1yjJj05xyNYS0gFw10m9hZdBYJp4mrqAvj5JRMOEyPpWtrsOcJgaqyS9D9xomhE2uS1M9lFCV365SVSi7McUQT+XyifTDmIhKP8mOJeFtDZbFTWCuakgIwoImIJYksfHGTO8HgN6GESRSRzF4EHUvGwNim2VSQAmGbA3FdBx3xyYeff4MVJBE2d75YSFrXDhlFLMWj0Kg7k87Vi9hLzwoFbFihcP0KRHx3SNXWCTi2lROFvPYxgLuHqUj0WjgXxP5ta5jccZg5Vn1Ln8WOFtP/ILEzaEIYfk3Lqy9sL53gx+qjBB1JPSdGlYzE1kVE4PeAk2FF9lW+NQxXrrZ2VdyfqZpalGxg5ptZA8k+b2Er5X+y4mdmCOed9UugNhkCfrAimmN9vb/u05y8nv1MPIcpkQkhqrYQc318HmZ5NF18X3ajm5q40sF9Gbu6wI/3cuX+1LohjGmPpF59D1AHQKrATEVtDcZ30rSqTQrIZmOX2IQVmLPaXUVbnQ8kQxb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(110136005)(36756003)(86362001)(54906003)(5660300002)(30864003)(82740400003)(36860700001)(83380400001)(336012)(2616005)(356005)(81166007)(186003)(47076005)(1076003)(478600001)(70586007)(8676002)(6666004)(4326008)(70206006)(26005)(316002)(7696005)(426003)(8936002)(15650500001)(82310400005)(41300700001)(2906002)(40460700003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1IatmRPpN6iDCcrGRHglv9iOaKzfGyfYevqykM8kfY1/iVRrUzPhGqGsQOHW?=
- =?us-ascii?Q?0rVnbjBHbjp8DaGZ/WRLP/CYugdzg88NQta4wcohMQZFH0sufs+8nY2xhcfU?=
- =?us-ascii?Q?nCUVXzkxQB9HXEBdmc/DdhLa8MtpIPXjJC7hPUaBpQRSVneu1wWdegK5WOej?=
- =?us-ascii?Q?7kAXyBXUblYB30ZqcvtXM313GL9fHccUrnDSd9j/2z4tpVBgDmdBw+XdE0qw?=
- =?us-ascii?Q?BsXbdxPHWFcOAnqseC/mS+dZWb/VO2RuThZrG8adz15yeWifGOebnN22Bhcn?=
- =?us-ascii?Q?xy2FOCVH/eodRs43lWgO93eoaE7IhYcjH06+PLz/iAZWwr8ptN5yThuxfLO5?=
- =?us-ascii?Q?NhRHZ9fnS/Ms8+xZs4gtQ7DRoqgP3fZhdSZ3YMIfBRZN1AahSiQ77Pn66ElN?=
- =?us-ascii?Q?toGj11rsx7v+v6tp9nCUSeDEdCgaW+Mp938e9T0OENffwd53OlXKe8yx4zPz?=
- =?us-ascii?Q?emGi71YUeVIPQ9bEtSwYKSCKqlQbsGDo08WCQMrxoJIL+qMmQbqjIu0IAUmG?=
- =?us-ascii?Q?krxh2Lo0YAT7Zg9ldcgvxGQNCWbpehquCC0XtEzQK03ttX1JVd+R7YNfc+Rk?=
- =?us-ascii?Q?qCAyY05X7+SQhuX1eLQ5tOMZScMxTDFRhJ3vcwpObL7es+4qoQNnq+HxRMgz?=
- =?us-ascii?Q?/1eZ1IgylacRxHlHoc+m4eZa53mVl8s31QuoOZMz80l6EVSAeopGVMZWZnza?=
- =?us-ascii?Q?0XYlJ/nOiZ8+MWaMHgM2u1oXNmAj9YOoEZCw0gQTg2zUW3jmcza0urk0viG4?=
- =?us-ascii?Q?b25cgn3xYU5Zem/pHalJoI5VhAm+4ylUs5w930XPdbObkCMV9gO6dD1XG7BT?=
- =?us-ascii?Q?mbq/fV7EEK3rQZ5bcNkx3QfJ+wW1y/eyjym6XaZw1ge25BkhkiC+7dS1ya2t?=
- =?us-ascii?Q?VwU+ugwz/usXXx9LGUKyuIy2vU1+S3QKD4R63K3EzREPMLd+lUip1s7kwgXP?=
- =?us-ascii?Q?aTKvU/NRwIrde4BZyMAizFdWij31qIkUXAUIMUhhTtB2mio8CJELGZKQdFTV?=
- =?us-ascii?Q?PB+dU1v1GCjTUI2Hy/uxns7/Nq+izOr9VS2jt64wJkCdhPPYMOv5imxBbRIF?=
- =?us-ascii?Q?ph03SKirzZzZcpcpG/CwP+uuUK1TlL5csvrHe8AFJZlHp2lHrLV1rci2I3xr?=
- =?us-ascii?Q?44dnZrtSmcnr+L8fbSrCrAj+b6KjbxjQMgnSWUoGTZLwShTlwq6QqKvZqYlR?=
- =?us-ascii?Q?cOoWWiMxLXOhjVNBeJ1Im2JM03bcmfixWSENXw9PkApzw83KIWE0yUyEjs1b?=
- =?us-ascii?Q?+TYnl7hehpuOAIRp5f8szZjzEup7dyUO6tIx9AEl1ZC/V+MD2cv8YP4PT1iy?=
- =?us-ascii?Q?TM8RgN0VgG/YuC2M/1a0ydB2C1pwS97yMCtz1n5XdL1ZYoLkN7jy3AHw+Kq/?=
- =?us-ascii?Q?kd31g+BfnapB2SyBvOC/WNiHTyx1gnL8eRBxX7vEzqNODbZypGKoMnB9oQp+?=
- =?us-ascii?Q?pSCG1MbKgaaCGpH+rSSqN27/Nvat7pet0PD8YTp6pZGkGJI3sM6G58V/rYzP?=
- =?us-ascii?Q?oifNU6g5Zdwzy83O4aeql0nIeppDeTsk3iI2KsS+PfTDK7pdbr+VbRKTFg5X?=
- =?us-ascii?Q?wmuKtdh+F3RdeXzmQvWUlEpXQzbOMedti+aoe4zf5hVYoXiRJz/jXPYPOXz0?=
- =?us-ascii?Q?IA=3D=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1121cc9-d45b-4b48-cd6b-08daaaa0ad25
-X-MS-Exchange-CrossTenant-AuthSource: MW5PR11MB5764.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2022 09:20:30.4489 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tewZnQOOulh/TJoCplv3HlhRaMb1DqUaf88WAomItVzModDzx3pu4w56eSkwBMRJDi/AKiPTD37n/3ycDPonq+APEAsLCz4aruJMhFj2obs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4844
-X-Proofpoint-GUID: ZngNdduJcbt3nucQt9cJzW5ZWFsPzz-e
-X-Proofpoint-ORIG-GUID: ZngNdduJcbt3nucQt9cJzW5ZWFsPzz-e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-10-07_04,2022-10-07_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- phishscore=0 spamscore=0 clxscore=1011 priorityscore=1501 mlxlogscore=999
- mlxscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2210100056
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2022 09:39:38.4296 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4eb2c592-4e54-431a-cd84-08daaaa35997
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5646
+Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,105 +135,267 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In wm8962 driver, the WM8962_ADDITIONAL_CONTROL_4 is used as a volatile
-register, but this register mixes a bunch of volatile status bits and a
-bunch of non-volatile control bits. The dapm widgets TEMP_HP and
-TEMP_SPK leverages the control bits in this register. After the wm8962
-probe, the regmap will bet set to cache only mode, then a read error
-like below would be triggered when trying to read the initial power
-state of the dapm widgets TEMP_HP and TEMP_SPK.
-  wm8962 0-001a: ASoC: error at soc_component_read_no_lock
-  on wm8962.0-001a: -16
+Update Pink Sardine platform ACP register header with Soundwire
+Controller specific registers and other ACP registers.
 
-In order to fix this issue, we add event handler to actually power
-up/down these widgets. With this change, we also need to explicitly
-power off these widgets in the wm8962 probe since they are enabled
-by default.
-
-Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/codecs/wm8962.c | 54 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 52 insertions(+), 2 deletions(-)
+ include/sound/acp62_chip_offset_byte.h | 214 +++++++++++++++++++++++++
+ 1 file changed, 214 insertions(+)
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 398c448ea854..6df06fba4377 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -1840,6 +1840,49 @@ SOC_SINGLE_TLV("SPKOUTR Mixer DACR Volume", WM8962_SPEAKER_MIXER_5,
- 	       4, 1, 0, inmix_tlv),
- };
+diff --git a/include/sound/acp62_chip_offset_byte.h b/include/sound/acp62_chip_offset_byte.h
+index f03992f81168..ca38f8a0966e 100644
+--- a/include/sound/acp62_chip_offset_byte.h
++++ b/include/sound/acp62_chip_offset_byte.h
+@@ -131,6 +131,23 @@
+ #define ACP_I2S_WAKE_EN                               0x000145C
+ #define ACP_SW1_WAKE_EN                               0x0001460
  
-+static int tp_event(struct snd_soc_dapm_widget *w,
-+		    struct snd_kcontrol *kcontrol, int event)
-+{
-+	int ret, reg, val, mask;
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++#define ACP_SW_I2S_ERROR_REASON                       0x00018B4
++#define ACP_SW_POS_TRACK_I2S_TX_CTRL                  0x00018B8
++#define ACP_SW_I2S_TX_DMA_POS                         0x00018BC
++#define ACP_SW_POS_TRACK_BT_TX_CTRL                   0x00018C0
++#define ACP_SW_BT_TX_DMA_POS                          0x00018C4
++#define ACP_SW_POS_TRACK_HS_TX_CTRL                   0x00018C8
++#define ACP_SW_HS_TX_DMA_POS                          0x00018CC
++#define ACP_SW_POS_TRACK_I2S_RX_CTRL                  0x00018D0
++#define ACP_SW_I2S_RX_DMA_POS                         0x00018D4
++#define ACP_SW_POS_TRACK_BT_RX_CTRL                   0x00018D8
++#define ACP_SW_BT_RX_DMA_POS                          0x00018DC
++#define ACP_SW_POS_TRACK_HS_RX_CTRL                   0x00018E0
++#define ACP_SW_HS_RX_DMA_POS                          0x00018E4
++#define ACP_ERROR_INTR_MASK1                          0X0001974
++#define ACP_ERROR_INTR_MASK2                          0X0001978
++#define ACP_ERROR_INTR_MASK3                          0X000197C
 +
-+	ret = pm_runtime_resume_and_get(component->dev);
-+	if (ret < 0) {
-+		dev_err(component->dev, "Failed to resume device: %d\n", ret);
-+		return ret;
-+	}
-+
-+	reg = WM8962_ADDITIONAL_CONTROL_4;
-+
-+	if (!strcmp(w->name, "TEMP_HP")) {
-+		mask = WM8962_TEMP_ENA_HP_MASK;
-+		val = WM8962_TEMP_ENA_HP;
-+	} else if (!strcmp(w->name, "TEMP_SPK")) {
-+		mask = WM8962_TEMP_ENA_SPK_MASK;
-+		val = WM8962_TEMP_ENA_SPK;
-+	} else {
-+		pm_runtime_put(component->dev);
-+		return -EINVAL;
-+	}
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMD:
-+		val = 0;
-+		fallthrough;
-+	case SND_SOC_DAPM_POST_PMU:
-+		ret = snd_soc_component_update_bits(component, reg, mask, val);
-+		break;
-+	default:
-+		WARN(1, "Invalid event %d\n", event);
-+		pm_runtime_put(component->dev);
-+		return -EINVAL;
-+	}
-+
-+	pm_runtime_put(component->dev);
-+
-+	return 0;
-+}
-+
- static int cp_event(struct snd_soc_dapm_widget *w,
- 		    struct snd_kcontrol *kcontrol, int event)
- {
-@@ -2140,8 +2183,10 @@ SND_SOC_DAPM_SUPPLY("TOCLK", WM8962_ADDITIONAL_CONTROL_1, 0, 0, NULL, 0),
- SND_SOC_DAPM_SUPPLY_S("DSP2", 1, WM8962_DSP2_POWER_MANAGEMENT,
- 		      WM8962_DSP2_ENA_SHIFT, 0, dsp2_event,
- 		      SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
--SND_SOC_DAPM_SUPPLY("TEMP_HP", WM8962_ADDITIONAL_CONTROL_4, 2, 0, NULL, 0),
--SND_SOC_DAPM_SUPPLY("TEMP_SPK", WM8962_ADDITIONAL_CONTROL_4, 1, 0, NULL, 0),
-+SND_SOC_DAPM_SUPPLY("TEMP_HP", SND_SOC_NOPM, 0, 0, tp_event,
-+		SND_SOC_DAPM_POST_PMU|SND_SOC_DAPM_POST_PMD),
-+SND_SOC_DAPM_SUPPLY("TEMP_SPK", SND_SOC_NOPM, 0, 0, tp_event,
-+		SND_SOC_DAPM_POST_PMU|SND_SOC_DAPM_POST_PMD),
+ /* Registers from ACP_P1_MISC block */
+ #define ACP_EXTERNAL_INTR_ENB                         0x0001A00
+ #define ACP_EXTERNAL_INTR_CNTL                        0x0001A04
+@@ -154,6 +171,8 @@
+ #define ACP_P1_SW_BT_RX_DMA_POS                       0x0001A9C
+ #define ACP_P1_SW_POS_TRACK_HS_RX_CTRL                0x0001AA0
+ #define ACP_P1_SW_HS_RX_DMA_POS                       0x0001AA4
++#define ACP_ERROR_INTR_MASK4                          0X0001AEC
++#define ACP_ERROR_INTR_MASK5                          0X0001AF0
  
- SND_SOC_DAPM_MIXER("INPGAL", WM8962_LEFT_INPUT_PGA_CONTROL, 4, 0,
- 		   inpgal, ARRAY_SIZE(inpgal)),
-@@ -3763,6 +3808,11 @@ static int wm8962_i2c_probe(struct i2c_client *i2c)
- 	if (ret < 0)
- 		goto err_pm_runtime;
+ /* Registers from ACP_AUDIO_BUFFERS block */
+ #define ACP_I2S_RX_RINGBUFADDR                        0x0002000
+@@ -210,6 +229,24 @@
+ #define ACP_HS_TX_LINEARPOSITIONCNTR_HIGH             0x00020CC
+ #define ACP_HS_TX_LINEARPOSITIONCNTR_LOW              0x00020D0
+ #define ACP_HS_TX_INTR_WATERMARK_SIZE                 0x00020D4
++#define ACP_AUDIO_RX_RINGBUFADDR                   ACP_I2S_RX_RINGBUFADDR
++#define ACP_AUDIO_RX_RINGBUFSIZE                   ACP_I2S_RX_RINGBUFSIZE
++#define ACP_AUDIO_RX_LINKPOSITIONCNTR              ACP_I2S_RX_LINKPOSITIONCNTR
++#define ACP_AUDIO_RX_FIFOADDR                      ACP_I2S_RX_FIFOADDR
++#define ACP_AUDIO_RX_FIFOSIZE                      ACP_I2S_RX_FIFOSIZE
++#define ACP_AUDIO_RX_DMA_SIZE                      ACP_I2S_RX_DMA_SIZE
++#define ACP_AUDIO_RX_LINEARPOSITIONCNTR_HIGH       ACP_I2S_RX_LINEARPOSITIONCNTR_HIGH
++#define ACP_AUDIO_RX_LINEARPOSITIONCNTR_LOW        ACP_I2S_RX_LINEARPOSITIONCNTR_LOW
++#define ACP_AUDIO_RX_INTR_WATERMARK_SIZE           ACP_I2S_RX_INTR_WATERMARK_SIZE
++#define ACP_AUDIO_TX_RINGBUFADDR                   ACP_I2S_TX_RINGBUFADDR
++#define ACP_AUDIO_TX_RINGBUFSIZE                   ACP_I2S_TX_RINGBUFSIZE
++#define ACP_AUDIO_TX_LINKPOSITIONCNTR              ACP_I2S_TX_LINKPOSITIONCNTR
++#define ACP_AUDIO_TX_FIFOADDR                      ACP_I2S_TX_FIFOADDR
++#define ACP_AUDIO_TX_FIFOSIZE                      ACP_I2S_TX_FIFOSIZE
++#define ACP_AUDIO_TX_DMA_SIZE                      ACP_I2S_TX_DMA_SIZE
++#define ACP_AUDIO_TX_LINEARPOSITIONCNTR_HIGH       ACP_I2S_TX_LINEARPOSITIONCNTR_HIGH
++#define ACP_AUDIO_TX_LINEARPOSITIONCNTR_LOW        ACP_I2S_TX_LINEARPOSITIONCNTR_LOW
++#define ACP_AUDIO_TX_INTR_WATERMARK_SIZE           ACP_I2S_TX_INTR_WATERMARK_SIZE
  
-+	regmap_update_bits(wm8962->regmap, WM8962_ADDITIONAL_CONTROL_4,
-+			    WM8962_TEMP_ENA_HP_MASK, 0);
-+	regmap_update_bits(wm8962->regmap, WM8962_ADDITIONAL_CONTROL_4,
-+			    WM8962_TEMP_ENA_SPK_MASK, 0);
+ /* Registers from ACP_I2S_TDM block */
+ #define ACP_I2STDM_IER                                0x0002400
+@@ -255,6 +292,102 @@
+ #define ACP_WOV_ERROR_STATUS_REGISTER                 0x0002C68
+ #define ACP_PDM_CLKDIV                                0x0002C6C
+ 
++/* Registers from ACP_SW_SWCLK block */
++#define ACP_SW_EN                                     0x0003000
++#define ACP_SW_EN_STATUS                              0x0003004
++#define ACP_SW_FRAMESIZE                              0x0003008
++#define ACP_SW_SSP_COUNTER                            0x000300C
++#define ACP_SW_AUDIO_TX_EN                            0x0003010
++#define ACP_SW_AUDIO_TX_EN_STATUS                     0x0003014
++#define ACP_SW_AUDIO_TX_FRAME_FORMAT                  0x0003018
++#define ACP_SW_AUDIO_TX_SAMPLEINTERVAL                0x000301C
++#define ACP_SW_AUDIO_TX_HCTRL_DP0                     0x0003020
++#define ACP_SW_AUDIO_TX_HCTRL_DP1                     0x0003024
++#define ACP_SW_AUDIO_TX_HCTRL_DP2                     0x0003028
++#define ACP_SW_AUDIO_TX_HCTRL_DP3                     0x000302C
++#define ACP_SW_AUDIO_TX_OFFSET_DP0                    0x0003030
++#define ACP_SW_AUDIO_TX_OFFSET_DP1                    0x0003034
++#define ACP_SW_AUDIO_TX_OFFSET_DP2                    0x0003038
++#define ACP_SW_AUDIO_TX_OFFSET_DP3                    0x000303C
++#define ACP_SW_AUDIO_TX_CHANNEL_ENABLE_DP0            0x0003040
++#define ACP_SW_AUDIO_TX_CHANNEL_ENABLE_DP1            0x0003044
++#define ACP_SW_AUDIO_TX_CHANNEL_ENABLE_DP2            0x0003048
++#define ACP_SW_AUDIO_TX_CHANNEL_ENABLE_DP3            0x000304C
++#define ACP_SW_BT_TX_EN                               0x0003050
++#define ACP_SW_BT_TX_EN_STATUS                        0x0003054
++#define ACP_SW_BT_TX_FRAME_FORMAT                     0x0003058
++#define ACP_SW_BT_TX_SAMPLEINTERVAL                   0x000305C
++#define ACP_SW_BT_TX_HCTRL                            0x0003060
++#define ACP_SW_BT_TX_OFFSET                           0x0003064
++#define ACP_SW_BT_TX_CHANNEL_ENABLE_DP0               0x0003068
++#define ACP_SW_HEADSET_TX_EN                          0x000306C
++#define ACP_SW_HEADSET_TX_EN_STATUS                   0x0003070
++#define ACP_SW_HEADSET_TX_FRAME_FORMAT                0x0003074
++#define ACP_SW_HEADSET_TX_SAMPLEINTERVAL              0x0003078
++#define ACP_SW_HEADSET_TX_HCTRL                       0x000307C
++#define ACP_SW_HEADSET_TX_OFFSET                      0x0003080
++#define ACP_SW_HEADSET_TX_CHANNEL_ENABLE_DP0          0x0003084
++#define ACP_SW_AUDIO_RX_EN                            0x0003088
++#define ACP_SW_AUDIO_RX_EN_STATUS                     0x000308C
++#define ACP_SW_AUDIO_RX_FRAME_FORMAT                  0x0003090
++#define ACP_SW_AUDIO_RX_SAMPLEINTERVAL                0x0003094
++#define ACP_SW_AUDIO_RX_HCTRL_DP0                     0x0003098
++#define ACP_SW_AUDIO_RX_HCTRL_DP1                     0x000309C
++#define ACP_SW_AUDIO_RX_HCTRL_DP2                     0x0003100
++#define ACP_SW_AUDIO_RX_HCTRL_DP3                     0x0003104
++#define ACP_SW_AUDIO_RX_OFFSET_DP0                    0x0003108
++#define ACP_SW_AUDIO_RX_OFFSET_DP1                    0x000310C
++#define ACP_SW_AUDIO_RX_OFFSET_DP2                    0x0003110
++#define ACP_SW_AUDIO_RX_OFFSET_DP3                    0x0003114
++#define ACP_SW_AUDIO_RX_CHANNEL_ENABLE_DP0            0x0003118
++#define ACP_SW_AUDIO_RX_CHANNEL_ENABLE_DP1            0x000311C
++#define ACP_SW_AUDIO_RX_CHANNEL_ENABLE_DP2            0x0003120
++#define ACP_SW_AUDIO_RX_CHANNEL_ENABLE_DP3            0x0003124
++#define ACP_SW_BT_RX_EN                               0x0003128
++#define ACP_SW_BT_RX_EN_STATUS                        0x000312C
++#define ACP_SW_BT_RX_FRAME_FORMAT                     0x0003130
++#define ACP_SW_BT_RX_SAMPLEINTERVAL                   0x0003134
++#define ACP_SW_BT_RX_HCTRL                            0x0003138
++#define ACP_SW_BT_RX_OFFSET                           0x000313C
++#define ACP_SW_BT_RX_CHANNEL_ENABLE_DP0               0x0003140
++#define ACP_SW_HEADSET_RX_EN                          0x0003144
++#define ACP_SW_HEADSET_RX_EN_STATUS                   0x0003148
++#define ACP_SW_HEADSET_RX_FRAME_FORMAT                0x000314C
++#define ACP_SW_HEADSET_RX_SAMPLEINTERVAL              0x0003150
++#define ACP_SW_HEADSET_RX_HCTRL                       0x0003154
++#define ACP_SW_HEADSET_RX_OFFSET                      0x0003158
++#define ACP_SW_HEADSET_RX_CHANNEL_ENABLE_DP0          0x000315C
++#define ACP_SW_BPT_PORT_EN                            0x0003160
++#define ACP_SW_BPT_PORT_EN_STATUS                     0x0003164
++#define ACP_SW_BPT_PORT_FRAME_FORMAT                  0x0003168
++#define ACP_SW_BPT_PORT_SAMPLEINTERVAL                0x000316C
++#define ACP_SW_BPT_PORT_HCTRL                         0x0003170
++#define ACP_SW_BPT_PORT_OFFSET                        0x0003174
++#define ACP_SW_BPT_PORT_CHANNEL_ENABLE                0x0003178
++#define ACP_SW_BPT_PORT_FIRST_BYTE_ADDR               0x000317C
++#define ACP_SW_CLK_RESUME_CTRL                        0x0003180
++#define ACP_SW_CLK_RESUME_DELAY_CNTR                  0x0003184
++#define ACP_SW_BUS_RESET_CTRL                         0x0003188
++#define ACP_SW_PRBS_ERR_STATUS                        0x000318C
++#define SW_IMM_CMD_UPPER_WORD                         0x0003230
++#define SW_IMM_CMD_LOWER_QWORD                        0x0003234
++#define SW_IMM_RESP_UPPER_WORD                        0x0003238
++#define SW_IMM_RESP_LOWER_QWORD                       0x000323C
++#define SW_IMM_CMD_STS                                0x0003240
++#define SW_BRA_BASE_ADDRESS                           0x0003244
++#define SW_BRA_TRANSFER_SIZE                          0x0003248
++#define SW_BRA_DMA_BUSY                               0x000324C
++#define SW_BRA_RESP                                   0x0003250
++#define SW_BRA_RESP_FRAME_ADDR                        0x0003254
++#define SW_BRA_CURRENT_TRANSFER_SIZE                  0x0003258
++#define SW_STATE_CHANGE_STATUS_0TO7                   0x000325C
++#define SW_STATE_CHANGE_STATUS_8TO11                  0x0003260
++#define SW_STATE_CHANGE_STATUS_MASK_0TO7              0x0003264
++#define SW_STATE_CHANGE_STATUS_MASK_8TO11             0x0003268
++#define SW_CLK_FREQUENCY_CTRL                         0x000326C
++#define SW_ERROR_INTR_MASK                            0x0003270
++#define SW_PHY_TEST_MODE_DATA_OFF                     0x0003274
 +
- 	regcache_cache_only(wm8962->regmap, true);
+ /* Registers from ACP_P1_AUDIO_BUFFERS block */
+ #define ACP_P1_I2S_RX_RINGBUFADDR                     0x0003A00
+ #define ACP_P1_I2S_RX_RINGBUFSIZE                     0x0003A04
+@@ -310,6 +443,87 @@
+ #define ACP_P1_HS_TX_LINEARPOSITIONCNTR_HIGH          0x0003ACC
+ #define ACP_P1_HS_TX_LINEARPOSITIONCNTR_LOW           0x0003AD0
+ #define ACP_P1_HS_TX_INTR_WATERMARK_SIZE              0x0003AD4
++#define ACP_P1_AUDIO_RX_RINGBUFADDR                   ACP_P1_I2S_RX_RINGBUFADDR
++#define ACP_P1_AUDIO_RX_RINGBUFSIZE                   ACP_P1_I2S_RX_RINGBUFSIZE
++#define ACP_P1_AUDIO_RX_LINKPOSITIONCNTR              ACP_P1_I2S_RX_LINKPOSITIONCNTR
++#define ACP_P1_AUDIO_RX_FIFOADDR                      ACP_P1_I2S_RX_FIFOADDR
++#define ACP_P1_AUDIO_RX_FIFOSIZE                      ACP_P1_I2S_RX_FIFOSIZE
++#define ACP_P1_AUDIO_RX_DMA_SIZE                      ACP_P1_I2S_RX_DMA_SIZE
++#define ACP_P1_AUDIO_RX_LINEARPOSITIONCNTR_HIGH       ACP_P1_I2S_RX_LINEARPOSITIONCNTR_HIGH
++#define ACP_P1_AUDIO_RX_LINEARPOSITIONCNTR_LOW        ACP_P1_I2S_RX_LINEARPOSITIONCNTR_LOW
++#define ACP_P1_AUDIO_RX_INTR_WATERMARK_SIZE           ACP_P1_I2S_RX_INTR_WATERMARK_SIZE
++#define ACP_P1_AUDIO_TX_RINGBUFADDR                   ACP_P1_I2S_TX_RINGBUFADDR
++#define ACP_P1_AUDIO_TX_RINGBUFSIZE                   ACP_P1_I2S_TX_RINGBUFSIZE
++#define ACP_P1_AUDIO_TX_LINKPOSITIONCNTR              ACP_P1_I2S_TX_LINKPOSITIONCNTR
++#define ACP_P1_AUDIO_TX_FIFOADDR                      ACP_P1_I2S_TX_FIFOADDR
++#define ACP_P1_AUDIO_TX_FIFOSIZE                      ACP_P1_I2S_TX_FIFOSIZE
++#define ACP_P1_AUDIO_TX_DMA_SIZE                      ACP_P1_I2S_TX_DMA_SIZE
++#define ACP_P1_AUDIO_TX_LINEARPOSITIONCNTR_HIGH       ACP_P1_I2S_TX_LINEARPOSITIONCNTR_HIGH
++#define ACP_P1_AUDIO_TX_LINEARPOSITIONCNTR_LOW        ACP_P1_I2S_TX_LINEARPOSITIONCNTR_LOW
++#define ACP_P1_AUDIO_TX_INTR_WATERMARK_SIZE           ACP_P1_I2S_TX_INTR_WATERMARK_SIZE
++
++/* Registers from ACP_P1_SW_SWCLK block */
++#define ACP_P1_SW_EN                                  0x0003C00
++#define ACP_P1_SW_EN_STATUS                           0x0003C04
++#define ACP_P1_SW_FRAMESIZE                           0x0003C08
++#define ACP_P1_SW_SSP_COUNTER                         0x0003C0C
++#define ACP_P1_SW_BT_TX_EN                            0x0003C50
++#define ACP_P1_SW_BT_TX_EN_STATUS                     0x0003C54
++#define ACP_P1_SW_BT_TX_FRAME_FORMAT                  0x0003C58
++#define ACP_P1_SW_BT_TX_SAMPLEINTERVAL                0x0003C5C
++#define ACP_P1_SW_BT_TX_HCTRL                         0x0003C60
++#define ACP_P1_SW_BT_TX_OFFSET                        0x0003C64
++#define ACP_P1_SW_BT_TX_CHANNEL_ENABLE_DP0            0x0003C68
++#define ACP_P1_SW_BT_RX_EN                            0x0003D28
++#define ACP_P1_SW_BT_RX_EN_STATUS                     0x0003D2C
++#define ACP_P1_SW_BT_RX_FRAME_FORMAT                  0x0003D30
++#define ACP_P1_SW_BT_RX_SAMPLEINTERVAL                0x0003D34
++#define ACP_P1_SW_BT_RX_HCTRL                         0x0003D38
++#define ACP_P1_SW_BT_RX_OFFSET                        0x0003D3C
++#define ACP_P1_SW_BT_RX_CHANNEL_ENABLE_DP0            0x0003D40
++#define ACP_P1_SW_BPT_PORT_EN                         0x0003D60
++#define ACP_P1_SW_BPT_PORT_EN_STATUS                  0x0003D64
++#define ACP_P1_SW_BPT_PORT_FRAME_FORMAT               0x0003D68
++#define ACP_P1_SW_BPT_PORT_SAMPLEINTERVAL             0x0003D6C
++#define ACP_P1_SW_BPT_PORT_HCTRL                      0x0003D70
++#define ACP_P1_SW_BPT_PORT_OFFSET                     0x0003D74
++#define ACP_P1_SW_BPT_PORT_CHANNEL_ENABLE             0x0003D78
++#define ACP_P1_SW_BPT_PORT_FIRST_BYTE_ADDR            0x0003D7C
++#define ACP_P1_SW_CLK_RESUME_CTRL                     0x0003D80
++#define ACP_P1_SW_CLK_RESUME_DELAY_CNTR               0x0003D84
++#define ACP_P1_SW_BUS_RESET_CTRL                      0x0003D88
++#define ACP_P1_SW_PRBS_ERR_STATUS                     0x0003D8C
++
++/* Registers from ACP_P1_SW_ACLK block */
++#define P1_SW_CORB_BASE_ADDRESS                       0x0003E00
++#define P1_SW_CORB_WRITE_POINTER                      0x0003E04
++#define P1_SW_CORB_READ_POINTER                       0x0003E08
++#define P1_SW_CORB_CONTROL                            0x0003E0C
++#define P1_SW_CORB_SIZE                               0x0003E14
++#define P1_SW_RIRB_BASE_ADDRESS                       0x0003E18
++#define P1_SW_RIRB_WRITE_POINTER                      0x0003E1C
++#define P1_SW_RIRB_RESPONSE_INTERRUPT_COUNT           0x0003E20
++#define P1_SW_RIRB_CONTROL                            0x0003E24
++#define P1_SW_RIRB_SIZE                               0x0003E28
++#define P1_SW_RIRB_FIFO_MIN_THDL                      0x0003E2C
++#define P1_SW_IMM_CMD_UPPER_WORD                      0x0003E30
++#define P1_SW_IMM_CMD_LOWER_QWORD                     0x0003E34
++#define P1_SW_IMM_RESP_UPPER_WORD                     0x0003E38
++#define P1_SW_IMM_RESP_LOWER_QWORD                    0x0003E3C
++#define P1_SW_IMM_CMD_STS                             0x0003E40
++#define P1_SW_BRA_BASE_ADDRESS                        0x0003E44
++#define P1_SW_BRA_TRANSFER_SIZE                       0x0003E48
++#define P1_SW_BRA_DMA_BUSY                            0x0003E4C
++#define P1_SW_BRA_RESP                                0x0003E50
++#define P1_SW_BRA_RESP_FRAME_ADDR                     0x0003E54
++#define P1_SW_BRA_CURRENT_TRANSFER_SIZE               0x0003E58
++#define P1_SW_STATE_CHANGE_STATUS_0TO7                0x0003E5C
++#define P1_SW_STATE_CHANGE_STATUS_8TO11               0x0003E60
++#define P1_SW_STATE_CHANGE_STATUS_MASK_0TO7           0x0003E64
++#define P1_SW_STATE_CHANGE_STATUS_MASK_8TO11          0x0003E68
++#define P1_SW_CLK_FREQUENCY_CTRL                      0x0003E6C
++#define P1_SW_ERROR_INTR_MASK                         0x0003E70
++#define P1_SW_PHY_TEST_MODE_DATA_OFF                  0x0003E74
  
- 	/* The drivers should power up as needed */
+ /* Registers from ACP_SCRATCH block */
+ #define ACP_SCRATCH_REG_0                             0x0010000
 -- 
 2.25.1
 

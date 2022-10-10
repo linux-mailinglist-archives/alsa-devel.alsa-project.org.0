@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084AC5FAC56
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:13:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 187105FAC55
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 08:13:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A01983666;
-	Tue, 11 Oct 2022 08:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A01983666
+	by alsa0.perex.cz (Postfix) with ESMTPS id B310E368F;
+	Tue, 11 Oct 2022 08:12:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B310E368F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665468818;
-	bh=Vqk9e7uJaHMyroZJNNgPKjUJ2aUhM3/y2XG2Q7uZFnY=;
+	s=default; t=1665468802;
+	bh=N8pZWCr7gTMWhxzTePXMPack7xbZClEzqrHl5r6Ztik=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cm8nFUBo/dvqsgmnNgvL20hGPdQT+bQA1DA+XYsWYX/1UzGGRwDL4MzzxxnvxNxyT
-	 bcK29h5+Bdz4h1YFTqAdEqQUW8l/fNkt3mOQQxcpTshZADO/ssSyDdX0K5Z/LH3pQ6
-	 wFkq9qGOOiDIZ8LY7K15ANIYYp1yz2NuPs8j/WTE=
+	b=iPijgjgp0YybgQqMVaPwfrFEgjCDQIytUHOc6klOEWFEbVafhIyvey4IrSCJuE4kj
+	 CIDKHfGAriK/elNV/O4Gpt7JsId+VEOwla7t+/ZfdvZXNOSXkN/dhtso7BzFg+C01c
+	 hFyyUGR8je0GeZPzrbDhkERoFoHUqVc8rSu93qes=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB076F80630;
+	by alsa1.perex.cz (Postfix) with ESMTP id 540AAF80624;
 	Tue, 11 Oct 2022 08:02:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5539F80535; Mon, 10 Oct 2022 22:15:47 +0200 (CEST)
+ id 1AC3DF80256; Mon, 10 Oct 2022 22:15:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96510F804FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9060EF80256
  for <alsa-devel@alsa-project.org>; Mon, 10 Oct 2022 22:15:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96510F804FF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9060EF80256
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="E336nyjs"
+ header.b="Xu2/s35Y"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1665432944; x=1696968944;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Vqk9e7uJaHMyroZJNNgPKjUJ2aUhM3/y2XG2Q7uZFnY=;
- b=E336nyjsefuzPWqFtEAuoMvDnohyBx+ybewQrBiGmowDFOPuN3jIiE7S
- rhHRhWmrRFXTGNA7uR+5QspzW7Bqa94t2+IQTxo7ELw2a4g/ghz8vAbLA
- vbtpIJ2hjTIQeWgTTtfBtUcHhfsiGS0hx4SpCNy00GB7LSJTf2RvtH6HJ
- PYGVs4f5tf6j63lmtI585jr05wcmyPyw+sYZh0K9ipFq1eBV4JGf6jTq9
- gCsQ04L+wwG9t2z+jcYWMXiRNn2wgUmpSOC0L91QcSh80UMZogk4osF6V
- UWQc6iFjdx9jhHqG5H0gjL2E+hzySDJBzmp+ic/IJojbeW1LJ6Lx1EHOl Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368491184"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368491184"
+ bh=N8pZWCr7gTMWhxzTePXMPack7xbZClEzqrHl5r6Ztik=;
+ b=Xu2/s35Y3OcTl3fRZoRGYZSh4Y0jLQ3xL/2TXLHEF8tVa4a+33CKAqkn
+ lLPLryfGZeYW4h/VJvmbHJIhGUsMrodHWXQ2vY3KaAwLUec3lFqICpN39
+ nAUOiQ9ZfGYGlQJQAeUSk0FUKgvSQxFvHELyuC7QVM6lzQmdT8FjojUbt
+ aqAU6wI4pkbWcawpNxt1115WJXypVfMq7QImrZXm1uaqbkDRF3iFpygZ7
+ nxAPIt4xSnrKGXMYzATR4Q9IEkx2rRLq92El614SKL9t0RRW8KDW+pQz0
+ qNzLP+5wkxKHFFNk5Tp+8Y7zjNwU36GtF56ONin+zGV38/brKG6mbTOdy Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368491190"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368491190"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 13:15:39 -0700
+ 10 Oct 2022 13:15:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862967"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862967"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603862975"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603862975"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:27 -0700
+ by orsmga006.jf.intel.com with ESMTP; 10 Oct 2022 13:15:28 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id D18F39C0; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
+ id E15949C6; Mon, 10 Oct 2022 23:15:13 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Marc Zyngier <maz@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -97,9 +97,9 @@ To: Marc Zyngier <maz@kernel.org>,
  linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v2 26/36] pinctrl: stm32: Add missed header(s)
-Date: Mon, 10 Oct 2022 23:14:42 +0300
-Message-Id: <20221010201453.77401-27-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 27/36] pinctrl: stmfx: Add missed header(s)
+Date: Mon, 10 Oct 2022 23:14:43 +0300
+Message-Id: <20221010201453.77401-28-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
@@ -167,45 +167,22 @@ While at it, sort headers alphabetically.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/stm32/pinctrl-stm32.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/pinctrl/pinctrl-stmfx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index e485506ea599..cc9472b28404 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -13,22 +13,24 @@
- #include <linux/irq.h>
- #include <linux/mfd/syscon.h>
+diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+index ab4dde40d3ed..1181c4b506b1 100644
+--- a/drivers/pinctrl/pinctrl-stmfx.c
++++ b/drivers/pinctrl/pinctrl-stmfx.c
+@@ -10,6 +10,8 @@
+ #include <linux/mfd/stmfx.h>
  #include <linux/module.h>
--#include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_irq.h>
--#include <linux/pinctrl/consumer.h>
--#include <linux/pinctrl/machine.h>
--#include <linux/pinctrl/pinconf.h>
--#include <linux/pinctrl/pinconf-generic.h>
--#include <linux/pinctrl/pinctrl.h>
--#include <linux/pinctrl/pinmux.h>
  #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
 +#include <linux/seq_file.h>
- #include <linux/slab.h>
- 
-+#include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/machine.h>
-+#include <linux/pinctrl/pinconf-generic.h>
-+#include <linux/pinctrl/pinconf.h>
-+#include <linux/pinctrl/pinctrl.h>
-+#include <linux/pinctrl/pinmux.h>
 +
- #include "../core.h"
- #include "../pinconf.h"
- #include "../pinctrl-utils.h"
+ #include <linux/pinctrl/pinconf.h>
+ #include <linux/pinctrl/pinmux.h>
+ 
 -- 
 2.35.1
 

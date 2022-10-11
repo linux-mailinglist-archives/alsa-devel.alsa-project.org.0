@@ -2,76 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E861D5FABBC
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 06:48:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A5E5FABFE
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 07:46:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD00357D;
-	Tue, 11 Oct 2022 06:47:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD00357D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 700CB365B;
+	Tue, 11 Oct 2022 07:45:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 700CB365B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665463694;
-	bh=P+CTUyLzjwt8HbVP+w5KgKdefA3Llq4TW0i7HuGxH3o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=a6jjU88m+PWP2l1Qpw7q9481MAG/AvTSRFiTYUpqMMgbcfDrZvRcfec7FAw2F49LY
-	 7Mf8lmLWoLQuRdMLd5s3wAWeyo336TXRXeUE1zrZgwcY0rpEc4P53QwG4WvCRg0ZsS
-	 HOEy4Hc4zVnyJsN1ro80AsdjrP2XsHIfIf4Y3h+Q=
+	s=default; t=1665467193;
+	bh=rU+llyjzRU29FkqA7D10u6tsmRTS8mzN61leNEjbo4g=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LkisWBq3jretjjuw4jMdASO3ASQ/BFMYhlKOY8L7bmwLtQaGzSLdmzV5/v2FADePG
+	 UI0SbxTLYkLwLMOtxFKhf3oXv8s9yJbve/HlDBTLJ2+Bf9lAqv77/YJyt63q/gZbfO
+	 aK2T2X6L1ZeT0grD5KFRNtK5X41RF3Bfbw/lfKDo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D658BF8021D;
-	Tue, 11 Oct 2022 06:47:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFF7F80256;
+	Tue, 11 Oct 2022 07:45:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBAA7F801D5; Tue, 11 Oct 2022 06:47:16 +0200 (CEST)
+ id AB8ADF8021D; Tue, 11 Oct 2022 07:45:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB9B6F800C0
- for <alsa-devel@alsa-project.org>; Tue, 11 Oct 2022 06:47:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB9B6F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B055F80132
+ for <alsa-devel@alsa-project.org>; Tue, 11 Oct 2022 07:45:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B055F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="X+n56+GA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665463631; x=1696999631;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=P+CTUyLzjwt8HbVP+w5KgKdefA3Llq4TW0i7HuGxH3o=;
- b=X+n56+GAuYhg7HG+i6CtJ8p3T6Koelg5xjhyLjmm5ujHwF4UV1XXaigJ
- /i/nof+Dcd6mBUFtAfAe1mwFituax+odzi6qyduZ/4lDGVL+qi8yfryBZ
- zzwu/SHEWZlyiWTOHvV3JGUCUal5PzVrjueL64aBISMgRHWGCcJh7kVDh
- xuWK3uq3EfrXoW+gqr3/PCfqbIC2pcJaiSNJ4gQYBEVhst270uBiQi9aS
- ehzB9nH9k9NkiepAVhxnhB5vu4rGjq7RERRbkFT6AwqZgRmYNiev01QYP
- 44MDpSBm0URn388XonUu2JfMvD8TDqYu5J+oKWMztxg24UpGVof2L1Dm+ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="302016899"
-X-IronPort-AV: E=Sophos;i="5.95,175,1661842800"; d="scan'208";a="302016899"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 21:47:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="801327180"
-X-IronPort-AV: E=Sophos;i="5.95,175,1661842800"; d="scan'208";a="801327180"
-Received: from senthil-nuc10i7fnh.iind.intel.com ([10.223.107.62])
- by orsmga005.jf.intel.com with ESMTP; 10 Oct 2022 21:47:03 -0700
-From: Saranya Gopal <saranya.gopal@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add Intel Reference SSID to support
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mz2pRW/b"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="uQ27pNsL"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6EEC91F747;
+ Tue, 11 Oct 2022 05:45:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665467131; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JaPIzxqNCB12MJUj7UjUTs0xW2Hp0BacWtY+KT+AI8k=;
+ b=mz2pRW/bE90qsa5+ba19LrnI+o12gYbYKk/H+/Ij797dHzjdo4g+abEmTtfxxXyNCq+rNA
+ ewLv3UFvx+9DSLBWX0qbibxx3s1ovjht4BTTkAOl6HaKRxUdHrK3nTQ64EVsQK0hYD3xtg
+ TpU3UJiJoQ9p3b6dsRgxENzFODqB5Eg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665467131;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JaPIzxqNCB12MJUj7UjUTs0xW2Hp0BacWtY+KT+AI8k=;
+ b=uQ27pNsLiDSjiKH9NtWXweCkU7NsQRdlC1SaLWJsUOhATKvesERtbE53cR89iCmcK7bgxC
+ Fm9g5AHUh0ccAaDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42010139F0;
+ Tue, 11 Oct 2022 05:45:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id AJBLD/sCRWOIXgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 11 Oct 2022 05:45:31 +0000
+Date: Tue, 11 Oct 2022 07:45:30 +0200
+Message-ID: <87wn96dibp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Saranya Gopal <saranya.gopal@intel.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add Intel Reference SSID to support
  headset keys
-Date: Tue, 11 Oct 2022 10:19:16 +0530
-Message-Id: <20221011044916.2278867-1-saranya.gopal@intel.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, pshou@realtek.com, Saranya Gopal <saranya.gopal@intel.com>,
- Ninad Naik <ninad.naik@intel.com>
+In-Reply-To: <20221011044916.2278867-1-saranya.gopal@intel.com>
+References: <20221011044916.2278867-1-saranya.gopal@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Ninad Naik <ninad.naik@intel.com>, pshou@realtek.com,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,27 +101,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes the issue with 3.5mm headset keys
-on RPL-P platform.
+On Tue, 11 Oct 2022 06:49:16 +0200,
+Saranya Gopal wrote:
+> 
+> This patch fixes the issue with 3.5mm headset keys
+> on RPL-P platform.
+> 
+> Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
+> Signed-off-by: Ninad Naik <ninad.naik@intel.com>
 
-Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
-Signed-off-by: Ninad Naik <ninad.naik@intel.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Applied now (with the rearrangement of the entry in PCI SSID order).
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index bce82b834cec..4ea07634548d 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9444,6 +9444,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x10ec, 0x118c, "Medion EE4254 MD62100", ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x10ec, 0x1230, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0x10ec, 0x1252, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
-+	SND_PCI_QUIRK(0x10ec, 0x124c, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0x10ec, 0x1254, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0x10f7, 0x8338, "Panasonic CF-SZ6", ALC269_FIXUP_HEADSET_MODE),
- 	SND_PCI_QUIRK(0x144d, 0xc109, "Samsung Ativ book 9 (NP900X3G)", ALC269_FIXUP_INV_DMIC),
--- 
-2.25.1
 
+thanks,
+
+Takashi

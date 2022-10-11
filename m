@@ -2,93 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4385FB492
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 16:29:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182DB5FB4AA
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Oct 2022 16:37:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 660FC3DB1;
-	Tue, 11 Oct 2022 16:28:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 660FC3DB1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C89D3DF2;
+	Tue, 11 Oct 2022 16:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C89D3DF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665498577;
-	bh=tDN8pO8vkYfi7aIzDYMNy5iW/C9igDir6WIyp4TE2LA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cX+y7S3FOlocweqwYBCfo1S4KxXFGAeCXaeP/+YOXK3IQzvhDy51ssFp+h9HRJ94/
-	 KOyyV8mWLuK+UkW7drgv5PL/+LFn9qE6xbX37XHtFWvIypvTI0NemaO4aZtq0sJBcH
-	 9usZ4Zh6oRmKrEbxGzhA1yo5va+r2/bj4jSonFDk=
+	s=default; t=1665499036;
+	bh=AicCI9TUkp6Zi4QGMlsQcTRj48lgWX4K/FQBugGwp8k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sY/C+fr4e3Y5i3smUcWDFoazX5iUxgKtqZSCzgss/6NH0WoqGPPMRzMyEGlBjqyho
+	 WTuEjE4gRXAryQ3zyU09IJM8OBMVyj+2KpYb58w+jsRjyoMh1f5Z4Z9KRgKsZ6dhf9
+	 iCCp0kU+wnbCoVX1Lricav6LgPdeXiF/egaLCwI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1E41F8021D;
-	Tue, 11 Oct 2022 16:28:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1027FF80301;
+	Tue, 11 Oct 2022 16:36:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1214EF801D5; Tue, 11 Oct 2022 16:28:39 +0200 (CEST)
+ id 69C7BF80132; Tue, 11 Oct 2022 16:36:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BCD2F80132
- for <alsa-devel@alsa-project.org>; Tue, 11 Oct 2022 16:28:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BCD2F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id A39A0F80132
+ for <alsa-devel@alsa-project.org>; Tue, 11 Oct 2022 16:36:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A39A0F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="MV8l2USb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665498513; x=1697034513;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tDN8pO8vkYfi7aIzDYMNy5iW/C9igDir6WIyp4TE2LA=;
- b=MV8l2USb1oLlzz9v0MBhbVhCHMPWlOFm2klNfcbX/bdhqCaKuirh6lKR
- guU6UhVabKTedi6QfO1KCuV6acHH45DvCr1lvEbNaABBQunbaTjhog/y8
- rB4O+QCXTx8Cfi8SF0zoMvUMYe/lw994yahtRJo6EQwvCjJoZy4eTq62d
- qBvQGaBQygIdTUK9b+f8f1trqmvWSD0dr8GjWZOHOR1YmjZR53qnGSxpu
- acqUVBj4XAyXX/HmeDcol3kkct7RaKxv8LNtX1U5ZOYXTn5JpT8/oSX9B
- kiMWIFsqL/tefTptBOg/zj5n22hdkedgRq+/VU7F+tvAbXdXt7CW6zrJQ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="303254930"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="303254930"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 07:28:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="628713444"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="628713444"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga007.fm.intel.com with ESMTP; 11 Oct 2022 07:28:10 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1oiGEq-005LfS-1Y; Tue, 11 Oct 2022 17:28:08 +0300
-Date: Tue, 11 Oct 2022 17:28:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kent Gibson <warthog618@gmail.com>
-Subject: Re: [PATCH v2 02/36] gpiolib: cdev: Add missed header(s)
-Message-ID: <Y0V9eJX7a0fe6EfX@smile.fi.intel.com>
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-3-andriy.shevchenko@linux.intel.com>
- <Y0SyVwjDl7NGfTPn@sol>
- <CAHp75Vf4oS8g0zxgismtLrzsJ7AE-bdMEq+GAzx2=Mwnhuk3UA@mail.gmail.com>
- <Y0V0IXF3sASTGdMU@smile.fi.intel.com> <Y0V57gI75ik4ki3A@sol>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="JUdnWoNT"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29B6p4J3008726;
+ Tue, 11 Oct 2022 09:36:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=SQd/6TNFJXgCF7iuTtvqQxp6HqvqcwwIrNOxCz6sD/U=;
+ b=JUdnWoNT8/P3ufBp9bDUoORUrAL9yUQL6XOk9Paf6EBhasRyCOT5xKbKff7MLF+BnKZ9
+ y0blw6ZifDbZq/jNfyGom8vzxWWi6V5AvmmNtKpCTtY8pmmUEsS9HFizuFZ0Aa2ZA+H1
+ kxZNfjwC28lgPHK69uEG4BQaN97Oj7I+tmFNBJ7zFo1b2NWhJZKifX8yeHje81PvDcOO
+ 5aEouzOGBCUEkSYlQwHyfB8pLIswOIe8aAw1S76ojOUwlnxIz5IIB8m+ggZJyhG34nZG
+ Gbuthus2cLDexA/Mm//czaS4aTFsQtyOeoJ+U42+3xHE6aa8/NvdN5KzkxnegogMJ0qx aQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3k35mpuhdu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Oct 2022 09:36:14 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Tue, 11 Oct
+ 2022 09:36:13 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Tue, 11 Oct 2022 09:36:13 -0500
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D14B411DC;
+ Tue, 11 Oct 2022 14:36:12 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v1 0/5] Support System Suspend and Resume for CS35L41 HDA
+Date: Tue, 11 Oct 2022 15:35:47 +0100
+Message-ID: <20221011143552.621792-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y0V57gI75ik4ki3A@sol>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
- patches@opensource.cirrus.com, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-omap@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: kxzeKo8pBJXMTwn-o6m8EAC2pH01l1mv
+X-Proofpoint-GUID: kxzeKo8pBJXMTwn-o6m8EAC2pH01l1mv
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,51 +95,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 11, 2022 at 10:13:02PM +0800, Kent Gibson wrote:
-> On Tue, Oct 11, 2022 at 04:48:17PM +0300, Andy Shevchenko wrote:
-> > On Tue, Oct 11, 2022 at 11:05:42AM +0300, Andy Shevchenko wrote:
-> > > On Tue, Oct 11, 2022 at 3:02 AM Kent Gibson <warthog618@gmail.com> wrote:
-> > > > On Mon, Oct 10, 2022 at 11:14:18PM +0300, Andy Shevchenko wrote:
+The CS35L41 HDA driver currently only supports runtime suspend and resume.
+Add support for system suspend and resume into the CS35L41 HDA driver.
+The driver will put the parts into a state where they can be powered down
+during suspend, and on system resume, it will restore the part.
+If firmware was previously loaded, during system suspend, the firmware will
+be unloaded, and during system resume, it will be loaded again.
 
-...
+Note: System suspend is only supported for models which use Internal Boost,
+or models which use External Boost with a Boost Enable GPIO.
 
-> > > > > -#include <linux/gpio.h>
-> > > > >  #include <linux/gpio/driver.h>
-> > > > > +#include <linux/gpio.h>
-> > > > > +#include <linux/hte.h>
-> > > >
-> > > > Ok with the hte re-order.
-> > > >
-> > > > But moving the gpio subsystem header after the gpio/driver is not
-> > > > alphabetical ('.' precedes '/') and it read better and made more sense
-> > > > to me the way it was.
-> > > 
-> > > I see, I guess this is vim sort vs shell sort. Strange, they should
-> > > follow the locale settings...
-> > 
-> > I have checked, the shell and vim sort gave the same result as in this patch.
-> > 
-> 
-> The original order (sans hte.h) was done by VSCode Sort Lines Ascending,
-> and that still returns the same result.  That matches what I would
-> expect to see given the content of the text.
-> 
-> And for me vim also gives the original order.
-> 
-> Just to confirm - is '.' 0x2e and '/' 0x2f in your universe?
+The chain also contains minor bug fixes for the CS35L41 HDA driver, and
+associated hda_cs_dsp_ctl driver.
 
-$ LC_COLLATE=C sort test1.txt
-#include <linux/gpio.h>
-#include <linux/gpio/driver.h>
+Richard Fitzgerald (1):
+  ALSA: hda/cs_dsp_ctl: Fix mutex inversion when creating controls
 
-$ LC_COLLATE= sort test1.txt
-#include <linux/gpio/driver.h>
-#include <linux/gpio.h>
+Stefan Binding (4):
+  ALSA: hda: hda_cs_dsp_ctl: Minor clean and redundant code removal
+  ALSA: hda: hda_cs_dsp_ctl: Ensure pwr_lock is held before
+    reading/writing controls
+  ALSA: hda: cs35l41: Remove suspend/resume hda hooks
+  ALSA: hda: cs35l41: Support System Suspend
 
-I guess this explains the difference. Currently I have en_US.UTF-8.
+ sound/pci/hda/cs35l41_hda.c    | 197 +++++++++++++++++++++++++--------
+ sound/pci/hda/hda_component.h  |   2 -
+ sound/pci/hda/hda_cs_dsp_ctl.c |  79 +++++++------
+ sound/pci/hda/hda_cs_dsp_ctl.h |   2 +-
+ sound/pci/hda/patch_realtek.c  |  19 +---
+ 5 files changed, 198 insertions(+), 101 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 

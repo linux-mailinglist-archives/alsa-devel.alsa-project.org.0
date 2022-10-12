@@ -2,71 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18F8F5FFDE0
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:30:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04C75FFDE6
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:31:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B50FC7E0A;
-	Sun, 16 Oct 2022 09:30:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B50FC7E0A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76C6B68C9;
+	Sun, 16 Oct 2022 09:30:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C6B68C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665905452;
-	bh=eE4ZMZTEp2gdxAOq2sJmDxg04L+pqs16o17c0+ATN90=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1665905476;
+	bh=2F6fKCyGV1IpuHyLH4kMkCnNmLyBDzkZkkEaXvDllGI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=glYeFXelsDfhyW5U2jRFvc798Qhh05eSjKVf/NGGYod3y1pkGt5f+jsOKCclNcrRD
-	 ENzMc0dDUfl6qigyV/Sbt5alMlAAG8mjMU9K5j+oDX+5zV0KHApxvD5Oq6NAr3TvMU
-	 FmOp3oNQ4WM/IVrItrb+WZ+bdRmhiKDxgFbGUAnQ=
+	b=IG1789h7/nk8jzZX+3IOFroFoBk4UNu3GJXsAQ8x1ZT/6BYhVTBwOIhfLcwj7s3VO
+	 Ph8BDerc7v/sCCfKPsDgFncXvvdRuo4JaIJWx47T3pKQcN5h5louEDtFjyEOn/a/bg
+	 bEpH38Dqi58fE1y/qNk2R6kTaNH7KKIjyHiupocs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BAB1F8054A;
+	by alsa1.perex.cz (Postfix) with ESMTP id DD18BF80559;
 	Sun, 16 Oct 2022 09:28:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CADAF804F2; Wed, 12 Oct 2022 11:16:04 +0200 (CEST)
+ id 6F704F80246; Wed, 12 Oct 2022 12:04:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [IPv6:2607:f8b0:4864:20::830])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75D35F80132
- for <alsa-devel@alsa-project.org>; Wed, 12 Oct 2022 11:15:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D35F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF62AF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 12 Oct 2022 12:04:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF62AF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="q1TTDkSv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1665566157; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s+g0+ssYTgL3cZkE5/H6taOX78xERs3DGn3pyH5uewU=;
- b=q1TTDkSv+2wywK6AIXiGaOkH7iZ2YU3VEKYOBAZiyQM7JBPfmc8c6P2ZhHrYUGYo8pdYOS
- dts7t4kZKIQ9e1u3iLHUzQuRMcbtwmO5Z8KpYm4wJCUKd79SLah8Tf9+RyDQWaVWq5AUrm
- d0C/wxgx1Yk/JFU/GDZxLIKL5vEmKNw=
-Date: Wed, 12 Oct 2022 10:15:29 +0100
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v2 11/36] pinctrl: ingenic: Add missed header(s)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-Id: <T1VMJR.YAQIRYFT8EC22@crapouillou.net>
-In-Reply-To: <20221010201453.77401-12-andriy.shevchenko@linux.intel.com>
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <20221010201453.77401-12-andriy.shevchenko@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZuAn0riu"
+Received: by mail-qt1-x830.google.com with SMTP id hh9so9837109qtb.13
+ for <alsa-devel@alsa-project.org>; Wed, 12 Oct 2022 03:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=R2uNoWDHy+GOry29L6DC1dXWZKJOzJDC9JxozJVSpGE=;
+ b=ZuAn0riuXHel9rEBKRhDJaphdwknBUsVfuUv/T2PqZwW+uHUs0jQAoNTggSP2xYvxV
+ AIPBHcfBEeKUY8XaTwBfDZ4rSHoMsN+0EmQWS+Q65k7ex3GR3DSFMtYWLj5CjjdFW5lS
+ H15Im9ztaYgi/pdTI+XTH4+61vil18OUHSI0xGSAcGYNKUvzy6F36vXqiFhOKG65c2tn
+ Hm9UqrwXHcz71mbsaS1jF9iuBu0ckjr5DhBRLVoVyj42mBo6ELsboWfCQHWyRGQ4tlaj
+ QaFlpQ5WtgjVo1xKNFF2bpP4chzh3RulgtzO05YqhYqIONKukzB/OS4NwSuMzh0mSuvU
+ pMLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=R2uNoWDHy+GOry29L6DC1dXWZKJOzJDC9JxozJVSpGE=;
+ b=zPCzv1RPhaJbE5GHPnzFWf+lQj2fcSD7fzBUoZQFZ4lFJx4nrNacwQsw5i9sB8hM48
+ yFgfeIt1+rsI07WOCS0p2T27UXSxCX/PZPR6goIh9VeaSnNfvqmhMV+U1xUWFzx8KZ6i
+ 4Zopmqiq30eqQqBtPGeyXciZIpWmOhEhOsBJEetrlFwUTuRPzzNh+1s8EGMjyao243LJ
+ E28TFvAbJM+dG4L5pltl73VP8cD4xj/yK51RnphQzCUfp86XKi+/K8RCBwQFg1eIUIbz
+ hPsh+RaKl3cta7B1rXj/SdSlymK474IlUQoRXQSeN/4nQDHz2uhgimW2jnnqSe3+tRl1
+ h48Q==
+X-Gm-Message-State: ACrzQf0an8o8lCtp9iVWk6gNA3zVfrd5p1ENgOGEjScQMwoWRk6kElCG
+ cBQcpAcuDhxgaCXWQvDU1cnN5+EBj/GhVucUR58=
+X-Google-Smtp-Source: AMsMyM5ie8LeIoK7BaYP5eKG5FZkx73UfHVDBrIIwi+8uhHlPAnlyvjeeFl/0Iy9XueA0qyfGOPRZ2XY3nQxTptpumo=
+X-Received: by 2002:ac8:7c43:0:b0:35c:cd8f:3da5 with SMTP id
+ o3-20020ac87c43000000b0035ccd8f3da5mr23132665qtv.61.1665569086451; Wed, 12
+ Oct 2022 03:04:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sun, 16 Oct 2022 09:28:42 +0200
+References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
+ <0684f480-2092-d520-2c8e-bd9a2dca47e3@gmail.com>
+In-Reply-To: <0684f480-2092-d520-2c8e-bd9a2dca47e3@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 12 Oct 2022 13:04:10 +0300
+Message-ID: <CAHp75VdDjyUAZBTaoPOe5oA3f_5xRznAooq08=Eff4F1AZyVOQ@mail.gmail.com>
+Subject: Re: [rft, PATCH v2 00/36] pinctrl: Clean up and add missed headers
+To: Florian Fainelli <f.fainelli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Sun, 16 Oct 2022 09:28:43 +0200
 Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Tomer Maimon <tmaimon77@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
- =?iso-8859-2?q?Rafa=B3_Mi=B3ecki?= <rafal@milecki.pl>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
  Horatiu Vultur <horatiu.vultur@microchip.com>,
  Emil Renner Berthing <kernel@esmil.dk>,
  Phil Edworthy <phil.edworthy@renesas.com>, linux-samsung-soc@vger.kernel.org,
@@ -95,9 +115,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Damien Le Moal <damien.lemoal@wdc.com>, linux-renesas-soc@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jacky Bai <ping.bai@nxp.com>,
  Basavaraj Natikar <Basavaraj.Natikar@amd.com>, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
- Benjamin Fair <benjaminfair@google.com>, Nancy Yuen <yuenn@google.com>,
- Chen-Yu Tsai <wens@csie.org>,
+ Fabio Estevam <festevam@gmail.com>, Benjamin Fair <benjaminfair@google.com>,
+ Nancy Yuen <yuenn@google.com>, Chen-Yu Tsai <wens@csie.org>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
  Orson Zhai <orsonzhai@gmail.com>,
@@ -107,10 +126,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?q?F=E4rber?= <afaerber@suse.de>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
  Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>,
  Haojian Zhuang <haojian.zhuang@linaro.org>, linux-riscv@lists.infradead.org,
  Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
@@ -120,6 +140,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Billy Tsai <billy_tsai@aspeedtech.com>, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  patches@opensource.cirrus.com, Sean Wang <sean.wang@kernel.org>,
  linux-mips@vger.kernel.org,
@@ -143,56 +164,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Oct 11, 2022 at 11:56 PM Florian Fainelli <f.fainelli@gmail.com> wrote:
+> On 10/10/2022 1:14 PM, Andy Shevchenko wrote:
+> > Currently the header inclusion inside the pinctrl headers seems more arbitrary
+> > than logical. This series is basically out of two parts:
+> > - add missed headers to the pin control drivers / users
+> > - clean up the headers of pin control subsystem
+> >
+> > The idea is to have this series to be pulled after -rc1 by the GPIO and
+> > pin control subsystems, so all new drivers will utilize cleaned up headers
+> > of the pin control.
+> >
+> > Please, review and comment.
+>
+> Did you really need to split this on a per-driver basis as opposed to
+> just a treewide drivers/pinctrl, drivers/media and drivers/gpiolib patch
+> set?
+>
+> 36 patches seems needlessly high when 4 patches could have achieve the
+> same outcome.
+
+I can combine them if maintainers ask for that, nevertheless for Intel
+pin control and GPIO drivers, which I care more about, I would like to
+leave as separate changes (easy to see in history what was done).
 
 
-Le lun., oct. 10 2022 at 23:14:27 +0300, Andy Shevchenko=20
-<andriy.shevchenko@linux.intel.com> a =E9crit :
-> Do not imply that some of the generic headers may be always included.
-> Instead, include explicitly what we are direct user of.
->=20
-> While at it, sort headers alphabetically.
->=20
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
-
-Cheers,
--Paul
-
-> ---
->  drivers/pinctrl/pinctrl-ingenic.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c=20
-> b/drivers/pinctrl/pinctrl-ingenic.c
-> index 7e732076dedf..dbc25a60fbff 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -14,16 +14,18 @@
->  #include <linux/kernel.h>
->  #include <linux/mod_devicetable.h>
->  #include <linux/of.h>
-> -#include <linux/pinctrl/pinctrl.h>
-> -#include <linux/pinctrl/pinmux.h>
-> -#include <linux/pinctrl/pinconf.h>
-> -#include <linux/pinctrl/pinconf-generic.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
->  #include <linux/regmap.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
->=20
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/pinctrl/pinconf-generic.h>
-> +#include <linux/pinctrl/pinconf.h>
-> +#include <linux/pinctrl/pinctrl.h>
-> +#include <linux/pinctrl/pinmux.h>
-> +
->  #include "core.h"
->  #include "pinconf.h"
->  #include "pinmux.h"
-> --
-> 2.35.1
->=20
-
-
+-- 
+With Best Regards,
+Andy Shevchenko

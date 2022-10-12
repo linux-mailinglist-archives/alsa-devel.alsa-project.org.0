@@ -2,97 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263885FC2D7
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Oct 2022 11:16:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 118FF5FC392
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Oct 2022 12:14:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7333D48E9;
-	Wed, 12 Oct 2022 11:15:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7333D48E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12C7D4962;
+	Wed, 12 Oct 2022 12:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12C7D4962
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665566175;
-	bh=m5uKL20gMuIegwXC6bQxZXdFSk+2EaCDsEPe605raAQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=l+BmwLiA7snRoNoTHrDJ0i8oR/Tm03wVBOHkiCmfkJqbJmCsWc2qqDaIfox4Zvd4X
-	 BO+8C+usRxr98cnGQGIUNNsYxV/gMqJSaDu63NrLTMyHpKjyfNhMPXoeL5RacxqyBu
-	 p4pdjCcfWGgwf59UbStm0a0FwWcTqZw86O8LyKQM=
+	s=default; t=1665569646;
+	bh=WlTjDzCYQ9h0JocMVkoGH2CWA0A4rFiNWa0lgK4cC/c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DtBNYegbRddfb9C097J+2xtqCToK6wN588wqzgnoOV0IixP/7K+IqngWiuy8uNwod
+	 suGFV7EMs/d6L6dmlp8vJfXxZvygObpQLt/i7ca50xBKhftkA9wsSYJjy970jx561W
+	 YI1exSRbLSdNBKnXMRCQ4tvoqQWOpQMxZemheIas=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA7AEF800F4;
-	Wed, 12 Oct 2022 11:15:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84388F800F4;
+	Wed, 12 Oct 2022 12:13:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06731F80246; Wed, 12 Oct 2022 11:15:18 +0200 (CEST)
+ id E2567F80246; Wed, 12 Oct 2022 12:13:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 480B4F800F4
- for <alsa-devel@alsa-project.org>; Wed, 12 Oct 2022 11:15:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 480B4F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65121F800F4
+ for <alsa-devel@alsa-project.org>; Wed, 12 Oct 2022 12:13:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65121F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
- header.b="aw/8jJZg"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29C8tfB7026001;
- Wed, 12 Oct 2022 11:15:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=WuRU+MntGnCMaXFzcXMNoaYrVG/2orVNcEHKCqBKaQg=;
- b=aw/8jJZgI81jBzPEP9vF3LPDs5aPjpEocaar0BEyHQIeBVJf3IwXqr8qU9eA4qNGhZD9
- E/nWHpM0HKAQu6GHR9oua6gbkxKEp8P8I2lo/AA8USiX4Xe+czS5yGGuVt7q+1ZN9Xwn
- ePM0vVGgCRcJnkLY7tg+T3VvVfJ414fl/qxlyr4ks3itHGgzRBBRHp9ywxuXepQEGey/
- T+Xyefm7Ygfu2fYejo3QmnJtKUFGrSTrb+yS8LMlEXZiWh/6XipB/p1YXMR2nZQJA0V8
- McEPwXYZZpTlLsru2vbghdKsFOAMtA36QFVBzB6m+JVbv9Mc4jx3/vva+CYVqy7dyBd1 uA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3k4hwf66qg-1
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="mDaEmnru"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29C800fG009831;
+ Wed, 12 Oct 2022 10:12:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=jctT1Pwbyirimd7TO/R3ucHPbd2O7TZgkHQcGAnQzcE=;
+ b=mDaEmnruhCBRO4sHkUCIUrOCSHsVhPuVkrvmyEUKEbDcfEVIGTi5xhmSlYOceEYceCas
+ ivYwIHs/M0YvxD/SqyLE2iRniYDlR0JmFxe5lmcU3m5ACXOHwRNqkZE4ZNc0yj6ew600
+ mIlcoihpnMbnqZB4sKIDGmFROPXyEJFCwKQy5mGdmGwk0M7jJSngUdkBzxB3S34rHhK6
+ gB+SAeU+YFQ4uapWoq4s1/XQ18jkDWDtnKbBlTxYaLOVqNMeXWsIxV940HyrxBG4QoRf
+ To5UtMSNY7JoMKV0LUFJKkygJVt28BqIr3CrwcdnRauPvBozSFkszsFqIgnyUEwWq//h YQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k5kar1bh8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Oct 2022 11:15:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6AE25100034;
- Wed, 12 Oct 2022 11:15:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A10C32194EC;
- Wed, 12 Oct 2022 11:15:04 +0200 (CEST)
-Received: from [10.201.22.54] (10.75.127.122) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.31; Wed, 12 Oct
- 2022 11:15:01 +0200
-Message-ID: <cce333f4-17db-f891-a9a2-97036c7d7332@foss.st.com>
-Date: Wed, 12 Oct 2022 11:15:00 +0200
+ Wed, 12 Oct 2022 10:12:59 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29CACwbR030429
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Oct 2022 10:12:58 GMT
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Wed, 12 Oct 2022 03:12:52 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <andersson@kernel.org>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH] ASoC: qcom: lpass-cpu: mark HDMI TX registers as volatile
+Date: Wed, 12 Oct 2022 15:42:40 +0530
+Message-ID: <1665569560-28943-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] ASoC: dt-bindings: Convert dmic-codec to DT schema
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, "Mark
- Brown" <broonie@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Arnaud Pouliquen
- <arnaud.pouliquen@st.com>, <arnaud.pouliquen@foss.st.com>, Heiko Stuebner
- <heiko@sntech.de>
-References: <20221011184119.3754096-1-robh@kernel.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <20221011184119.3754096-1-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.75.127.122]
-X-ClientProxiedBy: GPXDAG2NODE4.st.com (10.75.127.68) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: anEvL3smAJq0G8EM2dcP5k2_E3FANk6p
+X-Proofpoint-GUID: anEvL3smAJq0G8EM2dcP5k2_E3FANk6p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-12_04,2022-10-11_02,2022-06-22_01
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ definitions=2022-10-12_04,2022-10-12_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1011
+ phishscore=0 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ priorityscore=1501 mlxscore=0 bulkscore=0 lowpriorityscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210120066
+Cc: Srinivasa Rao Mandadapu <srivasam@qualcomm.corp-partner.google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,119 +113,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+From: Srinivasa Rao Mandadapu <srivasam@qualcomm.corp-partner.google.com>
 
-On 10/11/22 20:41, Rob Herring wrote:
-> Convert the dmic-codec binding to DT schema format.
-> 
-> The '#sound-dai-cells' and 'sound-name-prefix' properties were not
-> documented, but are in use, so add them.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/sound/dmic-codec.yaml | 55 +++++++++++++++++++
->  .../devicetree/bindings/sound/dmic.txt        | 22 --------
->  2 files changed, 55 insertions(+), 22 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/dmic-codec.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/dmic.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/dmic-codec.yaml b/Documentation/devicetree/bindings/sound/dmic-codec.yaml
-> new file mode 100644
-> index 000000000000..767152fa99cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/dmic-codec.yaml
-> @@ -0,0 +1,55 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/dmic-codec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Generic PDM Digital microphone (DMIC) codec
-> +
-> +maintainers:
-> +  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Update HDMI volatile registers list as DMA, Channel Selection registers
+, vbit control registers are being reflected by hardware DP port
+disconnection.
+This update is required to fix no display and no sound issue
+observed after reconnecting TAMA/SANWA DP cables.
+Once DP cable is unplugged, DMA control registers are being reset by
+hardware, however at second plugin, new dma control values does not
+updated to the dma hardware registers since new register value and
+cached values at the time of first plugin are same.
 
-I don't have much activity on the audio topic anymore, so I don't know if I'm
-the best person.
-But if one maintainer is needed, that's fine.
-Please just change my email address to arnaud.pouliquen@foss.st.com
-With that and the fix reported by the bot
-Reviewed-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@qualcomm.corp-partner.google.com>
+---
+ sound/soc/qcom/lpass-cpu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Thanks,
-Arnaud
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index 8a56f38..99a3b44 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -782,10 +782,18 @@ static bool lpass_hdmi_regmap_volatile(struct device *dev, unsigned int reg)
+ 		return true;
+ 	if (reg == LPASS_HDMI_TX_LEGACY_ADDR(v))
+ 		return true;
++	if (reg == LPASS_HDMI_TX_VBIT_CTL_ADDR(v))
++		return true;
+ 
+ 	for (i = 0; i < v->hdmi_rdma_channels; ++i) {
+ 		if (reg == LPAIF_HDMI_RDMACURR_REG(v, i))
+ 			return true;
++		if (reg == LPASS_HDMI_TX_DMA_ADDR(v, i))
++			return true;
++		if (reg == LPASS_HDMI_TX_CH_LSB_ADDR(v, i))
++			return true;
++		if (reg == LPASS_HDMI_TX_CH_MSB_ADDR(v, i))
++			return true;
+ 	}
+ 	return false;
+ }
+-- 
+2.7.4
 
-> +
-> +allOf:
-> +  - $ref: name-prefix.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: dmic-codec
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  dmicen-gpios:
-> +    description: GPIO specifier for DMIC to control start and stop
-> +    maxItems: 1
-> +
-> +  num-channels:
-> +    description: Number of microphones on this DAI
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    maximum: 8
-> +    default: 8
-> +
-> +  modeswitch-delay-ms:
-> +    description: Delay (in ms) to complete DMIC mode switch
-> +
-> +  wakeup-delay-ms:
-> +    description: Delay (in ms) after enabling the DMIC
-> +
-> +required:
-> +  - compatible
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio.h>
-> +
-> +    dmic {
-> +        compatible = "dmic-codec";
-> +        dmicen-gpios = <&gpio4 3 GPIO_ACTIVE_HIGH>;
-> +        num-channels = <1>;
-> +        wakeup-delay-ms <50>;
-> +        modeswitch-delay-ms <35>;
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/sound/dmic.txt b/Documentation/devicetree/bindings/sound/dmic.txt
-> deleted file mode 100644
-> index 32e871037269..000000000000
-> --- a/Documentation/devicetree/bindings/sound/dmic.txt
-> +++ /dev/null
-> @@ -1,22 +0,0 @@
-> -Device-Tree bindings for Digital microphone (DMIC) codec
-> -
-> -This device support generic PDM digital microphone.
-> -
-> -Required properties:
-> -	- compatible: should be "dmic-codec".
-> -
-> -Optional properties:
-> -	- dmicen-gpios: GPIO specifier for dmic to control start and stop
-> -	- num-channels: Number of microphones on this DAI
-> -	- wakeup-delay-ms: Delay (in ms) after enabling the DMIC
-> -	- modeswitch-delay-ms: Delay (in ms) to complete DMIC mode switch
-> -
-> -Example node:
-> -
-> -	dmic_codec: dmic@0 {
-> -		compatible = "dmic-codec";
-> -		dmicen-gpios = <&gpio4 3 GPIO_ACTIVE_HIGH>;
-> -		num-channels = <1>;
-> -		wakeup-delay-ms <50>;
-> -		modeswitch-delay-ms <35>;
-> -	};

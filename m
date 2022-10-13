@@ -2,77 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CCAA5FD8B9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 14:02:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 803365FD9B0
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 14:57:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D566F59C3;
-	Thu, 13 Oct 2022 14:01:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D566F59C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 235DA5ADC;
+	Thu, 13 Oct 2022 14:57:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 235DA5ADC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665662520;
-	bh=+FCy9IpzXmx7uHtC4ADYUS2asoMbszf5dCx25y+DTvs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=os6sk9+0AyJt6WYFZJPow2rXNlwimox580YinaETb+IQl+TUkcdE2VigHLLdOScdz
-	 +yYbec8+K5MMT3H8rsgGqpvgEnu+U7vI//2FBPoz6dhI0C6qCtBcP4CqUriHqfIko2
-	 vIgoApQt7it1qlVDTOYKcikN3+SauJYaKfobB4WU=
+	s=default; t=1665665874;
+	bh=3tE8MvKn++O3yKnIGIxo0pOWUaMlycQva2nyPNKfeec=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Cu8sRyZdRJ/LE3wsfV4SK3Dqb8fHFx0oJ6uavv0TMdNgZBuhizmg04Y6jxr7r8TNB
+	 CIJaH+nebmma9JaqKdElu3c6YXxjX9x2WRSaiFDIiGXJX8xuohjS/8B866/9m4TBQu
+	 62sR6a0fPI4iy6SGxwu1ahhhZ/+I9iv0Lf8rVgUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 537F4F80431;
-	Thu, 13 Oct 2022 14:01:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 887B4F80431;
+	Thu, 13 Oct 2022 14:56:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72E87F80132; Thu, 13 Oct 2022 14:01:03 +0200 (CEST)
+ id 3B61BF800C0; Thu, 13 Oct 2022 14:56:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_ZEN_BLOCKED_OPENDNS, 
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51639F800C0
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 14:00:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51639F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="avM1qtvV"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 62CAFB81D03;
- Thu, 13 Oct 2022 12:00:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA1ADC433B5;
- Thu, 13 Oct 2022 12:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665662455;
- bh=+FCy9IpzXmx7uHtC4ADYUS2asoMbszf5dCx25y+DTvs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=avM1qtvVrCgJBog2hWrTT8iYRENiXteug4Qx4h0lBouKxxaD1c3FUguc79DwjLLp7
- ml3PLpHoilngfJ0oiy3p+j+reVoSGzBJF5qCciAbBHwk9aCRzQr/awfopOLRUyLWEl
- R3C40mtr83LYIezuxhbeNTcEq6mFCX1jgL51NiQJqbj3JIyxkFJeGYyAeCizC8PM21
- 0lubI6T0Y73jKXOsK+JPzYB3NtzieuEjbyocFFD8m1EF5DdOKy+OJuN6OcxvyNh1c/
- OBJZqBWrOQGX7iW4Gx9dCqZLfUILt48DcZew/YCcnXIWuSsjS1hOarWy92Ng1138zQ
- MAUJpQFkOkUiQ==
-Date: Thu, 13 Oct 2022 13:00:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jeff Chang <richtek.jeff.chang@gmail.com>
-Subject: Re: [PATCH] ASoC: Add Richtek RT5512 Speaker Amp Driver
-Message-ID: <Y0f98d0A04f8dzQV@sirena.org.uk>
-References: <20221013080643.6509-1-richtek.jeff.chang@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="EXtVRUMqXconVGNq"
-Content-Disposition: inline
-In-Reply-To: <20221013080643.6509-1-richtek.jeff.chang@gmail.com>
-X-Cookie: Do you like "TENDER VITTLES"?
-Cc: jeff_chang@ricthek.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Jeff <jeff_chang@richtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 378C2F800C0
+ for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 14:56:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 378C2F800C0
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 97F821B45BA;
+ Thu, 13 Oct 2022 14:56:45 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 60F4E1B45BC;
+ Thu, 13 Oct 2022 14:56:45 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 09EF31802204;
+ Thu, 13 Oct 2022 20:56:43 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ p.zabel@pengutronix.de, viorel.suman@nxp.com
+Subject: [PATCH] ASoC: ak4458: add optional reset control to instead of gpio
+Date: Thu, 13 Oct 2022 20:36:51 +0800
+Message-Id: <1665664611-21350-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,263 +72,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Viorel Suman <viorel.suman@nxp.com>
 
---EXtVRUMqXconVGNq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add optional reset control instead of GPIO to manage codec
+PDN pin.
 
-On Thu, Oct 13, 2022 at 04:06:43PM +0800, Jeff Chang wrote:
-> From: Jeff <jeff_chang@richtek.com>
->=20
-> The RT5512 is a boosted class-D amplifier with V/I sensing.
-> A built-in DC-DC step-up converter is used to provide efficient power for
-> class-D amplifier with multi-level class-H operation. The digital audio
+As there is reference counter for reset control, so need
+to remove one ak4458_reset in runtime resume to make the
+reference counter balance.
 
-There's a few issues to clean up here but they're mostly stylistic for
-the upstream kernel rather than major structural things I think.
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/ak4458.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/richtek,rt5512.yaml
+diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
+index 626310859814..ac328d598291 100644
+--- a/sound/soc/codecs/ak4458.c
++++ b/sound/soc/codecs/ak4458.c
+@@ -13,6 +13,7 @@
+ #include <linux/of_gpio.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <sound/initval.h>
+ #include <sound/pcm_params.h>
+@@ -46,6 +47,7 @@ struct ak4458_priv {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+ 	struct gpio_desc *reset_gpiod;
++	struct reset_control *reset;
+ 	struct gpio_desc *mute_gpiod;
+ 	int digfil;	/* SSLOW, SD, SLOW bits */
+ 	int fs;		/* sampling rate */
+@@ -633,6 +635,12 @@ static void ak4458_reset(struct ak4458_priv *ak4458, bool active)
+ 	if (ak4458->reset_gpiod) {
+ 		gpiod_set_value_cansleep(ak4458->reset_gpiod, active);
+ 		usleep_range(1000, 2000);
++	} else if (!IS_ERR_OR_NULL(ak4458->reset)) {
++		if (active)
++			reset_control_assert(ak4458->reset);
++		else
++			reset_control_deassert(ak4458->reset);
++		usleep_range(1000, 2000);
+ 	}
+ }
+ 
+@@ -668,7 +676,6 @@ static int __maybe_unused ak4458_runtime_resume(struct device *dev)
+ 	if (ak4458->mute_gpiod)
+ 		gpiod_set_value_cansleep(ak4458->mute_gpiod, 1);
+ 
+-	ak4458_reset(ak4458, true);
+ 	ak4458_reset(ak4458, false);
+ 
+ 	regcache_cache_only(ak4458->regmap, false);
+@@ -748,6 +755,10 @@ static int ak4458_i2c_probe(struct i2c_client *i2c)
+ 
+ 	ak4458->drvdata = of_device_get_match_data(&i2c->dev);
+ 
++	ak4458->reset = devm_reset_control_get_optional_shared(ak4458->dev, NULL);
++	if (IS_ERR(ak4458->reset))
++		return PTR_ERR(ak4458->reset);
++
+ 	ak4458->reset_gpiod = devm_gpiod_get_optional(ak4458->dev, "reset",
+ 						      GPIOD_OUT_LOW);
+ 	if (IS_ERR(ak4458->reset_gpiod))
+-- 
+2.34.1
 
-The DT bindings seem fine but normally they'd be sent as a separate
-patch so it's easier for the DT reviewers to find them.
-
-> +config SND_SOC_RT5512
-> +	tristate "Mediatek RT5512 speaker amplifier"
-
-Looks like there's some Richtek/Mediatek branding confusion with this -
-it's a bit unclear.  It's all the same company in the end I guess so it
-doesn't matter.
-
-> @@ -0,0 +1,860 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2021 Mediatek Inc.
-> + */
-
-Please make the entire comment a C++ one so things look more
-intentional.
-
-> +static int rt5512_codec_dac_event(struct snd_soc_dapm_widget *w,
-> +	struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_component *component =3D
-> +		snd_soc_dapm_to_component(w->dapm);
-> +	int ret =3D 0;
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		/* un-mute */
-> +		ret =3D snd_soc_component_update_bits(component, 0x03, 0x0002, 0);
-> +		break;
-
-I'm not seeing what turns the mute on?  I'm also not loving all the
-magic numbers in code here, these don't look like things that I'd expect
-to be undocumented and it's an issue through the code.
-
-> +						     0xf9fc);
-> +		mdelay(11);
-> +
-> +		dev_info(component->dev, "%s rt5512 update bst mode %d\n",
-> +			 __func__, chip->bst_mode);
-
-All these dev_info() prints during normal operation are going to be way
-too noisy, at most they should be dev_dbg().
-
-> +static int rt5512_set_bstmode(struct snd_kcontrol *kcontrol,
-> +			      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	struct rt5512_chip *chip =3D snd_soc_component_get_drvdata(component);
-> +	int ret =3D 0;
-> +
-> +	chip->bst_mode =3D ucontrol->value.integer.value[0];
-> +	dev_info(component->dev, "%s, bst_mode =3D %d\n", __func__,
-> +		 chip->bst_mode);
-> +	return ret;
-> +}
-
-You should run the ALSA kselftests on a system with this driver loaded -
-this should tell you that the driver needs to return a 1 when the value
-is changed so that events are generated and will also identify a bunch
-of other issues.
-
-I'd also expect to see some validation of the value set, I'm guessing
-that there's only a limited set of modes?
-
-> +static int rt5512_codec_put_istcbypass(struct snd_kcontrol *kcontrol,
-> +				       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	int ret;
-> +
-> +	pm_runtime_get_sync(component->dev);
-> +	if (ucontrol->value.integer.value[0]) {
-> +		ret =3D snd_soc_component_update_bits(component,
-> +						    RT5512_REG_PATH_BYPASS,
-> +						    0x0004, 0x0004);
-> +	} else {
-> +		ret =3D snd_soc_component_update_bits(component,
-> +						    RT5512_REG_PATH_BYPASS,
-> +						    0x0004, 0x0000);
-> +	}
-> +	if (ret)
-> +		dev_err(component->dev, "%s set CC Max Failed\n", __func__);
-> +	pm_runtime_put_sync(component->dev);
-> +	return ret;
-> +}
-
-Why is this a custom control?  It looks like a normal mux.
-
-> +static int rt5512_codec_put_volsw(struct snd_kcontrol *kcontrol,
-> +				  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	int  put_ret =3D 0;
-> +
-> +	pm_runtime_get_sync(component->dev);
-> +	put_ret =3D snd_soc_put_volsw(kcontrol, ucontrol);
-> +	if (put_ret < 0)
-> +		dev_err(component->dev, "%s put volsw fail\n", __func__);
-> +	pm_runtime_put_sync(component->dev);
-> +	return put_ret;
-> +}
-
-Same here.  The runtime PM stuff here and in all the controls looks
-wasteful as well, why would you need to power up the device here?
-
-> +static const DECLARE_TLV_DB_SCALE(vol_ctl_tlv, -1155, 5, 0);
-> +static const struct snd_kcontrol_new rt5512_component_snd_controls[] =3D=
- {
-> +	SOC_SINGLE_EXT_TLV("Volume_Ctrl", RT5512_REG_VOL_CTRL, 0, 255,
-> +			   1, rt5512_codec_get_volsw, rt5512_codec_put_volsw,
-> +			   vol_ctl_tlv),
-
-Volume controls should end in Volume as per control-names.rst, most of
-the controls here don't seem to follow the ALSA naming coventions at all.
-
-> +static int rt5512_component_setting(struct snd_soc_component *component)
-> +{
-> +	struct rt5512_chip *chip =3D snd_soc_component_get_drvdata(component);
-> +	int ret =3D 0;
-> +
-> +	ret =3D snd_soc_component_read(component, 0x4d);
-> +	if (ret < 0)
-> +		return -EIO;
-> +	chip->ff_gain =3D ret;
-> +	if (chip->chip_rev =3D=3D RT5512_REV_A) {
-
-It would be more idiomatic to do a switch statement here.
-
-> +	.idle_bias_on =3D false,
-
-No need to explicitly set things to false, that's the defualt for
-statics.
-
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-> +		dev_info(dai->dev, "format: 0x%08x, rate: 0x%08x, word_len: %d, aud_bi=
-t: %d\n",
-> +			 params_format(hw_params), params_rate(hw_params), word_len,
-> +			 aud_bit);
-> +	if (word_len > 32 || word_len < 16) {
-> +		dev_err(dai->dev, "not supported word length\n");
-> +		return -ENOTSUPP;
-> +	}
-
-This could use some blank lines between blocks (as could a lot of the
-rest), and it's not clear why there's a check for playback here
-(especially not without reporting an error).
-
-> +static int rt5512_component_aif_hw_free(struct snd_pcm_substream *substr=
-eam,
-> +				    struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_dapm_context *dapm =3D
-> +				snd_soc_component_get_dapm(dai->component);
-> +	int ret =3D 0;
-> +	char *tmp =3D "SPK";
-> +
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_CAPTURE)
-> +		return 0;
-> +	dev_info(dai->dev, "%s successfully start\n", __func__);
-> +
-> +	ret =3D snd_soc_dapm_disable_pin(dapm, tmp);
-> +	if (ret < 0)
-> +		return ret;
-> +	return snd_soc_dapm_sync(dapm);
-
-The driver should be doing no DAPM management in PCM operations, the
-core will manage DAPM for the PCM itself.
-
-> +static inline int _rt5512_chip_sw_reset(struct rt5512_chip *chip)
-> +{
-> +	int ret;
-> +	u8 data[2] =3D {0x00, 0x00};
-> +	u8 reg_data[2] =3D {0x00, 0x80};
-> +
-> +	/* turn on main pll first, then trigger reset */
-> +	ret =3D i2c_smbus_write_i2c_block_data(chip->i2c, RT5512_REG_SYSTEM_CTR=
-L,
-> +					     2, data);
-> +	if (ret < 0)
-> +		return ret;
-
-Why is this bypassing regmap?
-
-> +	chip->chip_rev =3D id[1];
-> +	if (chip->chip_rev !=3D RT5512_REV_A && chip->chip_rev !=3D RT5512_REV_=
-B) {
-> +		dev_err(chip->dev, "%s chip rev not match, rev =3D %d\n",
-> +			__func__, chip->chip_rev);
-> +		return -ENODEV;
-> +	}
-
-Use a switch statement for exensibility here.
-
-> +static inline int rt5512_component_register(struct rt5512_chip *chip)
-> +{
-> +	return devm_snd_soc_register_component(chip->dev,
-> +					       &rt5512_component_driver,
-> +					       rt5512_codec_dai,
-> +					       ARRAY_SIZE(rt5512_codec_dai));
-> +}
-
-This may as well just be inlined.
-
-> +	/* register qos to prevent deep idle during transfer */
-> +	cpu_latency_qos_add_request(&chip->rt5512_qos_request,
-> +				    PM_QOS_DEFAULT_VALUE);
-
-This looks like it's trying to work around some bug in the I2C
-controller driver perhaps?  In any case it needs a lot more explanation
-if it's sensible to have in a CODEC driver, there's nothing unusual here.
-
-> +	ret =3D rt5512_component_register(chip);
-> +	if (!ret) {
-> +		pm_runtime_set_active(chip->dev);
-> +		pm_runtime_enable(chip->dev);
-> +	}
-
-The driver uses runtime PM operations so you should enable runtime PM
-before registering the component, it might be used immediately.
-
---EXtVRUMqXconVGNq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNH/fAACgkQJNaLcl1U
-h9DvAgf/XLUWD3Br2PBnK1JqEZo/j7NBqiVlaRir3GZFW2v/ypVjMVTnPYPcLKyR
-RTfpEDY7liwQKeV12mL4eGKGgtm3dItwriVOSxYs7853H3327Vzo/D6cXC9dingu
-0ByeJrIcTdjP5bRrx647MEMbxQCh8ntjTKThwO9l0HK8jwBDZv6KxHWcf5cFE5EI
-J//UrFVNZN2IEtwle6F6Mp/ivtF9pxNp8fVapFMRQ6yluLQOwv5GbUCt625En8Fv
-PT6arOkrQrsNsaof32v/8ByInyihojxZDJc9DxSk5NJ92qQQmQZo2zMKtouqKWR1
-jukWTr6LvmJfnwr9pm9EAGHph5gaoQ==
-=1cIs
------END PGP SIGNATURE-----
-
---EXtVRUMqXconVGNq--

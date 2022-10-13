@@ -2,79 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99C95FD050
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 02:25:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8DA5FD418
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 07:10:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B5B6541C;
-	Thu, 13 Oct 2022 02:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B5B6541C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08E5A5025;
+	Thu, 13 Oct 2022 07:09:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08E5A5025
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665620745;
-	bh=y1DBNfu6J+1iXQV3cyheZ8RvEKrcWUOykKgA/HCuzNU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q+RaMX4pjSPMVmPxw+xlA/BmLfUxQdMNmx0nTcf7TXxkVnsCmlcsPmDX06ZAt1VDG
-	 fL8uDlhDCwzK+ysoZ/qlgqv/VrxoeL/rJ1Q9lDUiNmk25entKl8FRBzh84OS6gY36J
-	 VMgRNzhVu0F/mrY033xEysun9IL9k8ZToRRtYrGg=
+	s=default; t=1665637802;
+	bh=C3VhjzEHOdLQxrCtsY5a20rZiHhkHO30UcV/i2DPsNs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vksJjarXPTeEgkMqqP5+2vYwu8LbyaPDFln6hz+F3muReiPeuDjdiuWE0X5Nf4G9u
+	 hlT/7Vh4YmFNouhlV7ITFi0TSSvzGrthp1WlxFsiwW2Cf8bxOVpjp2qjz1rZs9WCAc
+	 p58zjkYF5S7NyrXxoSXk+HDAVo0OjlP2azgE7its=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 176DFF8013D;
-	Thu, 13 Oct 2022 02:24:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 832A8F80115;
+	Thu, 13 Oct 2022 07:09:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88A16F804F2; Thu, 13 Oct 2022 02:24:24 +0200 (CEST)
+ id ED589F80269; Thu, 13 Oct 2022 07:09:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 658D3F800F4
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 02:24:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 658D3F800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="g51v7Vzp"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4658D616EA;
- Thu, 13 Oct 2022 00:24:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51630C43470;
- Thu, 13 Oct 2022 00:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665620657;
- bh=y1DBNfu6J+1iXQV3cyheZ8RvEKrcWUOykKgA/HCuzNU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g51v7Vzpss9kAbFj+WE9oD2u57sDyfeJmockRigBNWRCaETFbZQJEzXcL8pdKH3zq
- t5EcI8RQSOAsHBb1Qxuh2O7aXA1NAzjf3YHoVlrockhsUPv7myZ0rtbW62rlMlYh2o
- bdmjoXswhmRBZxU2Jb5jIIQ4iYhcFs/1eTkrolmUbgj+ayKUJWaHAGMwdCk88pMJTx
- MAYSrW7roVRRs7vJHazo5kn5/NMCSLaUsEKVFdkAW/nCFup3GiA/TCSXzJ3/Ou7znL
- 0q5ces0DP1UJZCfLGZ/6txMxZpCbbvukjWjq5qKBwSDVLfKId9b6bj1oeVxxQi768T
- tSURBKcTWUZUA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 17/33] soundwire: intel: fix error handling on
- dai registration issues
-Date: Wed, 12 Oct 2022 20:23:16 -0400
-Message-Id: <20221013002334.1894749-17-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221013002334.1894749-1-sashal@kernel.org>
-References: <20221013002334.1894749-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3E1BF80115
+ for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 07:08:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3E1BF80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="NWQapbWR"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29D4gGDD001011;
+ Thu, 13 Oct 2022 05:08:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=hRi0hxvb8ULH4SSXgcEOBo/E1ayRuxkvHkANtCDsSNs=;
+ b=NWQapbWRWpeLb4s9yBwyktnf27VoiwBfcVAsf4qBKJFNanENqxvI6a8Ragz+WhVyboQ5
+ WIkkB/50Xtj/k6965IpQtdMv5FyAXX0TUZgbQ5BxLttOsmyisvyDAlbaFIyPB5z3/zm9
+ jmBJF30A/OKGj12fgR6xvILvyFm47aMIQbXLe8YCaWH3I5lW/3GBd626yKi77p47/W7Q
+ XPTK8O9GGUxQ0IhWdf+AzYGAiUTEtZJU5XBPak3h0UpnSMFYUKzBZV6U4QQ+RsECvGVv
+ 6gPdolplGM+pXfsdqA1ObFDXBAwp7QiEI2Xt0vlkN9kF1YdPjTKd3hoCVZIbjhtyz0Ty Dw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k6ae4086h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Oct 2022 05:08:52 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29D58pR0024144
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Oct 2022 05:08:51 GMT
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Wed, 12 Oct 2022 22:08:46 -0700
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <andersson@kernel.org>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH v2] ASoC: qcom: lpass-cpu: mark HDMI TX registers as volatile
+Date: Thu, 13 Oct 2022 10:38:31 +0530
+Message-ID: <1665637711-13300-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: OGksqCcJge4VA7HNf3pIL5LRC_Ik1Z3G
+X-Proofpoint-GUID: OGksqCcJge4VA7HNf3pIL5LRC_Ik1Z3G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-13_04,2022-10-12_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ lowpriorityscore=0 clxscore=1015 malwarescore=0 phishscore=0 mlxscore=0
+ spamscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2209130000 definitions=main-2210130030
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +113,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Update HDMI volatile registers list as DMA, Channel Selection registers,
+vbit control registers are being reflected by hardware DP port
+disconnection.
 
-[ Upstream commit c6867cda906aadbce5e71efde9c78a26108b2bad ]
+This update is required to fix no display and no sound issue observed
+after reconnecting TAMA/SANWA DP cables.
+Once DP cable is unplugged, DMA control registers are being reset by
+hardware, however at second plugin, new dma control values does not
+updated to the dma hardware registers since new register value and
+cached values at the time of first plugin are same.
 
-The call to intel_register_dai() may fail because of memory allocation
-issues or problems reported by the ASoC core. In all cases, when a
-error is thrown the component is not registered, it's invalid to
-unregister it.
+Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20220919175721.354679-2-yung-chuan.liao@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
- drivers/soundwire/intel.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/qcom/lpass-cpu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 824d9f900aca..942d2fe13218 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1470,7 +1470,6 @@ int intel_master_startup(struct platform_device *pdev)
- 	ret = intel_register_dai(sdw);
- 	if (ret) {
- 		dev_err(dev, "DAI registration failed: %d\n", ret);
--		snd_soc_unregister_component(dev);
- 		goto err_interrupt;
- 	}
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index 8a56f38..99a3b44 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -782,10 +782,18 @@ static bool lpass_hdmi_regmap_volatile(struct device *dev, unsigned int reg)
+ 		return true;
+ 	if (reg == LPASS_HDMI_TX_LEGACY_ADDR(v))
+ 		return true;
++	if (reg == LPASS_HDMI_TX_VBIT_CTL_ADDR(v))
++		return true;
  
+ 	for (i = 0; i < v->hdmi_rdma_channels; ++i) {
+ 		if (reg == LPAIF_HDMI_RDMACURR_REG(v, i))
+ 			return true;
++		if (reg == LPASS_HDMI_TX_DMA_ADDR(v, i))
++			return true;
++		if (reg == LPASS_HDMI_TX_CH_LSB_ADDR(v, i))
++			return true;
++		if (reg == LPASS_HDMI_TX_CH_MSB_ADDR(v, i))
++			return true;
+ 	}
+ 	return false;
+ }
 -- 
-2.35.1
+2.7.4
 

@@ -2,80 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A3B5FD9E9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 15:07:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFF45FDB3C
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 15:42:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F41155B03;
-	Thu, 13 Oct 2022 15:06:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F41155B03
+	by alsa0.perex.cz (Postfix) with ESMTPS id 981EF5B55;
+	Thu, 13 Oct 2022 15:41:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981EF5B55
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665666432;
-	bh=JHAw2W7prYpOOgCccUOYji7QcBQLE5R+0+cCc0zhULY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1665668566;
+	bh=5RucPzasjZAZP0l3hS+Jt8c2WIjoMrxKXDryqmzXx3c=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eS+qaSMTqHNvm3tSTY3+FAoqcdGMVfQNKWn2cPr0HHnI5VGY2/bP4KDLdSXf6Wiwc
-	 qTudSjJvhjGo8XSfRW++X882um/1r9YRJF8w3W+65CdAKsMiP3goRTlVOzzEIbcJtt
-	 B01bwRbluzMqCHc5g3udbXMc7He8L/KSa3VFVEnE=
+	b=D+60hbFs1At3+EeGZPd87YNhqAIvlBHd8p/PZpMOaUpXB7NQSBl4V9RrM9DrAQUHe
+	 rs3aLfqZdiSrgxQOZnWFsijkzUbN54knRXF5BskQZ2/b0ggJYFQupSZHPqhD+FvsT7
+	 MiPB5iNQ1fcISSl+k5wbXk45uXBU7R/8GzFB61vA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68885F80115;
-	Thu, 13 Oct 2022 15:06:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EE9FF804AC;
+	Thu, 13 Oct 2022 15:41:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6498FF80269; Thu, 13 Oct 2022 15:06:15 +0200 (CEST)
+ id 9D4E8F80431; Thu, 13 Oct 2022 15:41:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47A33F80115
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 15:06:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A33F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37BE2F800A7
+ for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 15:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37BE2F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uStcIrFq"
+ header.b="ioMqYGsM"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 54389B81E23;
- Thu, 13 Oct 2022 13:06:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B706C433D6;
- Thu, 13 Oct 2022 13:06:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1D244617AC;
+ Thu, 13 Oct 2022 13:41:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5739C433C1;
+ Thu, 13 Oct 2022 13:41:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665666367;
- bh=JHAw2W7prYpOOgCccUOYji7QcBQLE5R+0+cCc0zhULY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uStcIrFqZDyUctkzYCTRX6VjcmLA682Ex50GQLamZqei2XpT3BV9rInyEAfAFcay0
- NCcBfJqru0qoAu7fUzgTACNygIQkaEEQ2e1r6KbmpUfngdy1R/wPnjyqrAwSEu8YOi
- r0a8shHWYfrMDPQpAuMokkuWOqQO3/7kvWcw/IaTtnhHbMytyhVYF7Qw+R2xgbDY82
- XD8CeR+9HUV4G8/uuc7f27QKoj8AgrhL+ua+fTO45WOpRyZPxn5t3c0jS4HJeAx8sp
- iv1lxCWMCLatC11zy0tZHdarIbJV0k3PpuE0Ce6gOCZpXxIFcuJZIcdkIvCePlDydF
- 2alM4N0xle84w==
-Date: Thu, 13 Oct 2022 14:05:59 +0100
+ s=k20201202; t=1665668503;
+ bh=5RucPzasjZAZP0l3hS+Jt8c2WIjoMrxKXDryqmzXx3c=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=ioMqYGsMebFmkTKp3SgC+rTybO58zD6GQD+jrSCOCoC4zYMZADhKzyN43eCWrv7to
+ gaTYpDCm1KIKqqao/un9wCgI7AvHLLK57VH+xBVF//iwKpG2Z7xz2zE7vQlunAADab
+ psfewraMVlW1271JEkLpWf+dOofyiALWlt6vd6VtFTBy16E+AqvV9B5tqs3sg7VAnI
+ Ur63JSJ1fbBM5K2sL6w8vFFlMPoVmx7zUjZfa+1e3F8pAytazNLLKFb9+AVIyabCZB
+ BiZwndbQuaUt0cfTA2LOpNYLKU7FyWeT7SmMDI4q74bToJdWdKF9STlRsSZNrIVXM2
+ Qnl8snXE+ibmw==
 From: Mark Brown <broonie@kernel.org>
-To: "Liao, Bard" <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Add Richtek RT5512 Speaker Amp Driver
-Message-ID: <Y0gNN/HB53ISvwI3@sirena.org.uk>
-References: <20221013080643.6509-1-richtek.jeff.chang@gmail.com>
- <Y0f98d0A04f8dzQV@sirena.org.uk>
- <f84e2722-ca56-8440-a5af-550080bd1f8f@linux.intel.com>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <20221006235822.30074-1-rdunlap@infradead.org>
+References: <20221006235822.30074-1-rdunlap@infradead.org>
+Subject: Re: [PATCH v2] ASoC: codec: tlv320adc3xxx: add GPIOLIB dependency
+Message-Id: <166566850165.143340.13619454921265513543.b4-ty@kernel.org>
+Date: Thu, 13 Oct 2022 14:41:41 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="1DqoBQP/S/2TsyJM"
-Content-Disposition: inline
-In-Reply-To: <f84e2722-ca56-8440-a5af-550080bd1f8f@linux.intel.com>
-X-Cookie: Do you like "TENDER VITTLES"?
-Cc: jeff_chang@ricthek.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Jeff Chang <richtek.jeff.chang@gmail.com>,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Jeff <jeff_chang@richtek.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Ricard Wanderlof <ricardw@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,40 +87,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 6 Oct 2022 16:58:22 -0700, Randy Dunlap wrote:
+> Fix build errors when CONFIG_GPIOLIB is not enabled:
+> 
+> ../sound/soc/codecs/tlv320adc3xxx.c: In function 'adc3xxx_i2c_probe':
+> ../sound/soc/codecs/tlv320adc3xxx.c:1352:28: error: implicit declaration of function 'devm_gpiod_get'; did you mean 'devm_gpio_free'? [-Werror=implicit-function-declaration]
+>  1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> ../sound/soc/codecs/tlv320adc3xxx.c:1352:57: error: 'GPIOD_OUT_LOW' undeclared (first use in this function); did you mean 'GPIOF_INIT_LOW'?
+>  1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+>   CC      lib/dynamic_debug.o
+> ../sound/soc/codecs/tlv320adc3xxx.c:1400:9: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
+>  1400 |         gpiod_set_value_cansleep(adc3xxx->rst_pin, 1);
+> 
+> [...]
 
---1DqoBQP/S/2TsyJM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Thu, Oct 13, 2022 at 08:46:26PM +0800, Liao, Bard wrote:
->=20
-> On 10/13/2022 8:00 PM, Mark Brown wrote:
-> > On Thu, Oct 13, 2022 at 04:06:43PM +0800, Jeff Chang wrote:
-> >=20
-> > > +config SND_SOC_RT5512
-> > > +	tristate "Mediatek RT5512 speaker amplifier"
-> > Looks like there's some Richtek/Mediatek branding confusion with this -
-> > it's a bit unclear.  It's all the same company in the end I guess so it
-> > doesn't matter.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> Interesting, the naming of RT5512 looks like a Realtek codec. ^^
+Thanks!
 
-Yeah, exactly.
+[1/1] ASoC: codec: tlv320adc3xxx: add GPIOLIB dependency
+      commit: 551f2994b8ccdbe296e239278531e345d6e94d4d
 
---1DqoBQP/S/2TsyJM
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNIDTcACgkQJNaLcl1U
-h9C8ZQf/Wg+lRkhpkE6ejB/Grl8dHwI6yoskSk9Bxa3ybD4gTRzJxgl4h63BBm+q
-yiY0Npm/r59c8/nAiVucxEQBzNYqZ3jVuS/XIRkZYlDl0FJtwnqmYwOkFu4r37Rq
-5eP6UG6xxBhQOovHRd0Von68ofEKC0UIqFogaqQeivNrCZFJ5URcOzZ9eeMFbs5y
-bdejtGzvggeS5I+sUfw9Uja8I9eMQxn9phHeLObzwQmJVScbAjGwor5tf9pbm7G0
-qyYOAaGVyBcRMQHPg8CFiLXjy1Vl4GcOhGzVgX8B9plEVx3uuVxSx6N3dkV18gS0
-gcVZu5wqfcejMC6IPyfjc0bt/UYU1Q==
-=ACP+
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---1DqoBQP/S/2TsyJM--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

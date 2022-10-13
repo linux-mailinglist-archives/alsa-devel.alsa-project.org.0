@@ -2,80 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8AE05FDC8D
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 16:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8B365FDC8F
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 16:45:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A7795C75;
-	Thu, 13 Oct 2022 16:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A7795C75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 705305C87;
+	Thu, 13 Oct 2022 16:44:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 705305C87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665672307;
-	bh=NvwyE1DUE80ntZaLJ5MtSrUAvFGAB1vF7A51Xc8PXhM=;
+	s=default; t=1665672317;
+	bh=W42GQL7pv6vkfuXrmEpVAq3AR2/GElzKCFsDEllv7hw=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nZinNBBhdr08274ssW5atIVlGTJ+GJVv7DnjKOMc4MSkyZ+lvp9srDUfNab/dlZG7
-	 yKpNxmuL44xsrbCj4oiL/E35TJFx9QxV61MSvOymYwvpCcg9VApsSiTmDeGZ/TjPCh
-	 DuAyW8Fhr35LXPQ5eImcuOehvfsOV7pL+i4afDpM=
+	b=KOC/gL/fCmaiinXWrKCvQCgAxfTjFOMh2X42xRe4a3drrbwBQm2F8HJp+XS/4mQ9S
+	 D8JuHMQiQMqF8FOU8FRCzsGMj1oQc8rOV/2gPsWtn7ea8gJfBT7+H5fJT2ZOcWlV7A
+	 i3uC2oBZYEr9g9FtiYrd0Kf+uYK6fXroJ1VA4NeU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87A46F8053D;
-	Thu, 13 Oct 2022 16:44:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03E0BF80549;
+	Thu, 13 Oct 2022 16:44:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B53C2F8053C; Thu, 13 Oct 2022 16:43:59 +0200 (CEST)
+ id 371ABF80132; Thu, 13 Oct 2022 16:44:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75FB0F80132
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 16:43:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75FB0F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DAACF80132
+ for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 16:43:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DAACF80132
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="g9R9GJtT"
+ header.b="VBwVTJg8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C265661808;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 459F9B81CFF;
+ Thu, 13 Oct 2022 14:43:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A2FC4347C;
  Thu, 13 Oct 2022 14:43:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4D2C433C1;
- Thu, 13 Oct 2022 14:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665672234;
- bh=NvwyE1DUE80ntZaLJ5MtSrUAvFGAB1vF7A51Xc8PXhM=;
+ s=k20201202; t=1665672237;
+ bh=W42GQL7pv6vkfuXrmEpVAq3AR2/GElzKCFsDEllv7hw=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=g9R9GJtTg7FFJe6055C6CXI223Xhi9OyC0wc4IfG8ju3WBbgExL1Y99c+NAPi5nZu
- nLHQkx3d9C6lKkMPiOJBxsM4vEwpbY1ODj4KLv7z+VR2kAZ9npSM3/Q5yWP8e2wAcJ
- 2yb9ot6OFf1BkgRmt/PwVCD+V7URzOw4/n2n3FSEHk6QB0+vOpSACKOpS6BQT0bcz4
- Ke5Im2DGZ6bMaSDE1dxCjK4e/ODNqTm6CeCkQop/vOWoSo9Ih1JZN9oB2TOabe5MKq
- hWyWh0N8sXN769affI4Mr8+G6Z4g+cMF+91d5u1W6Go4+rr+uHnyqG4XlWbE78D55f
- kr6M1X0C1OZQw==
+ b=VBwVTJg8V8KRjFmxiaea9sVRkh9q7btGgFYwMlYXa7uPXic/tTLd3/1VEHODXFCLL
+ xzmYa1bVrqQvTtEdyT4Pgf158+v3nC7K9qY1kxT+3uGoqo0ZnTsslumVWCV79xcnjW
+ YwLdm25K37rU8x0u9yxX1b7Y/EJZh485GZib0sgAvWvC3LcmwTOo5nB72KwCMLVks0
+ RgqEJ1+baTlOEvUWAJ2/kLOp8T1ioy78/TN+URypmryHLgfxs9iyTE93d37TU6sNNK
+ fhzDXhAG80V8AlL1/s3FwLDbJhbPs8f3G5+3IrUVa2e76sD++zb+QOBwa2vFjJ3hEH
+ HChSmQLQo9iJg==
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, quic_rohkumar@quicinc.com,
- linux-kernel@vger.kernel.org, andersson@kernel.org, 
- swboyd@chromium.org, srinivas.kandagatla@linaro.org, tiwai@suse.com,
- alsa-devel@alsa-project.org, 
- judyhsiao@chromium.org, lgirdwood@gmail.com, agross@kernel.org,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, 
- quic_plai@quicinc.com, bgoswami@quicinc.com, perex@perex.cz, robh+dt@kernel.org,
- linux-arm-msm@vger.kernel.org
-In-Reply-To: <1665569560-28943-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1665569560-28943-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-cpu: mark HDMI TX registers as volatile
-Message-Id: <166567223036.170727.7011980883912234789.b4-ty@kernel.org>
-Date: Thu, 13 Oct 2022 15:43:50 +0100
+To: derek.fang@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20221012030102.4042-1-derek.fang@realtek.com>
+References: <20221012030102.4042-1-derek.fang@realtek.com>
+Subject: Re: [PATCH] ASoC: rt1019: Fix the TDM settings
+Message-Id: <166567223440.170727.7359474076645163341.b4-ty@kernel.org>
+Date: Thu, 13 Oct 2022 15:43:54 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Srinivasa Rao Mandadapu <srivasam@qualcomm.corp-partner.google.com>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, kent_chen@realtek.com, albertchen@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,20 +87,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Oct 2022 15:42:40 +0530, Srinivasa Rao Mandadapu wrote:
-> From: Srinivasa Rao Mandadapu <srivasam@qualcomm.corp-partner.google.com>
+On Wed, 12 Oct 2022 11:01:02 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
-> Update HDMI volatile registers list as DMA, Channel Selection registers
-> , vbit control registers are being reflected by hardware DP port
-> disconnection.
-> This update is required to fix no display and no sound issue
-> observed after reconnecting TAMA/SANWA DP cables.
-> Once DP cable is unplugged, DMA control registers are being reset by
-> hardware, however at second plugin, new dma control values does not
-> updated to the dma hardware registers since new register value and
-> cached values at the time of first plugin are same.
+> Complete the missing and correct the TDM settings.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -112,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: lpass-cpu: mark HDMI TX registers as volatile
-      commit: c9a3545b1d771fb7b06a487796c40288c02c41c5
+[1/1] ASoC: rt1019: Fix the TDM settings
+      commit: f2635d45a750182c6d5de15e2d6b059e0c302d7e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

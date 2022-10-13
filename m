@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFF45FDB3C
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 15:42:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1215FDB42
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Oct 2022 15:43:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981EF5B55;
-	Thu, 13 Oct 2022 15:41:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981EF5B55
+	by alsa0.perex.cz (Postfix) with ESMTPS id D560E4AFD;
+	Thu, 13 Oct 2022 15:42:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D560E4AFD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665668566;
-	bh=5RucPzasjZAZP0l3hS+Jt8c2WIjoMrxKXDryqmzXx3c=;
+	s=default; t=1665668591;
+	bh=NeVcqoAgGh1lg3PWWmMZ5nDkI8q9uYsVwlypSbyohVA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D+60hbFs1At3+EeGZPd87YNhqAIvlBHd8p/PZpMOaUpXB7NQSBl4V9RrM9DrAQUHe
-	 rs3aLfqZdiSrgxQOZnWFsijkzUbN54knRXF5BskQZ2/b0ggJYFQupSZHPqhD+FvsT7
-	 MiPB5iNQ1fcISSl+k5wbXk45uXBU7R/8GzFB61vA=
+	b=KNqV4+UFQLuw9XiO1a1szFmjH90EA6Q7eayOTp9EkQmhXoEeKZKP/1+NepbpmpwP0
+	 rdKXnDwlyeChXQj8DRBGga4r/xlhzFEKGlHm5fi6I9HLjdOcWmd5ClvWT+MkD96zMn
+	 EjBnoN9cAMVWJM2XAwyd3xogkmO9+9X2PLVRC9G8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EE9FF804AC;
-	Thu, 13 Oct 2022 15:41:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D6A1F80508;
+	Thu, 13 Oct 2022 15:41:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D4E8F80431; Thu, 13 Oct 2022 15:41:49 +0200 (CEST)
+ id 8D3F6F80269; Thu, 13 Oct 2022 15:41:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37BE2F800A7
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 15:41:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37BE2F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F270F80132
+ for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 15:41:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F270F80132
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ioMqYGsM"
+ header.b="ZAkLT160"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1D244617AC;
- Thu, 13 Oct 2022 13:41:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5739C433C1;
- Thu, 13 Oct 2022 13:41:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 87F62B81E52;
+ Thu, 13 Oct 2022 13:41:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3F7C4347C;
+ Thu, 13 Oct 2022 13:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665668503;
- bh=5RucPzasjZAZP0l3hS+Jt8c2WIjoMrxKXDryqmzXx3c=;
+ s=k20201202; t=1665668506;
+ bh=NeVcqoAgGh1lg3PWWmMZ5nDkI8q9uYsVwlypSbyohVA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ioMqYGsMebFmkTKp3SgC+rTybO58zD6GQD+jrSCOCoC4zYMZADhKzyN43eCWrv7to
- gaTYpDCm1KIKqqao/un9wCgI7AvHLLK57VH+xBVF//iwKpG2Z7xz2zE7vQlunAADab
- psfewraMVlW1271JEkLpWf+dOofyiALWlt6vd6VtFTBy16E+AqvV9B5tqs3sg7VAnI
- Ur63JSJ1fbBM5K2sL6w8vFFlMPoVmx7zUjZfa+1e3F8pAytazNLLKFb9+AVIyabCZB
- BiZwndbQuaUt0cfTA2LOpNYLKU7FyWeT7SmMDI4q74bToJdWdKF9STlRsSZNrIVXM2
- Qnl8snXE+ibmw==
+ b=ZAkLT160sc4//zyppU6zd2zshwlfCZyAsD0INn1oK7/r3PqcmHUe9n1R9DVmqMcny
+ zfd9b01povtaLzdxRnjTWlME7MwZXRdAeX6z8hyCe0M91VhHulDUkb190jDr5wH8Dq
+ FctGAl6QXToNHE+vkj5xadDt6mKlQI4D5WVWlT+aIu6Lcl8gYNuvTkasNeE4DtCrWd
+ JwnypBYqzN6KNp2xBobmOs/VQcYVzWDf8Vp4pY7nDUHoyzZhst39oBA0yULIrFQKCA
+ Sf9Xl10Y5iUjT56U8skhjIquzreyLpc/9UMElTQ3m456IZQqHa6HGoRRs6uCyikHVS
+ 8FXO5D0DGivDg==
 From: Mark Brown <broonie@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-In-Reply-To: <20221006235822.30074-1-rdunlap@infradead.org>
-References: <20221006235822.30074-1-rdunlap@infradead.org>
-Subject: Re: [PATCH v2] ASoC: codec: tlv320adc3xxx: add GPIOLIB dependency
-Message-Id: <166566850165.143340.13619454921265513543.b4-ty@kernel.org>
-Date: Thu, 13 Oct 2022 14:41:41 +0100
+To: ckeepax@opensource.wolfsonmicro.com, matthias.bgg@gmail.com, tiwai@suse.com,
+ Zhang Qilong <zhangqilong3@huawei.com>, 
+ jeff_chang@richtek.com, angelogioacchino.delregno@collabora.com,
+ lgirdwood@gmail.com, perex@perex.cz
+In-Reply-To: <20221008140522.134912-1-zhangqilong3@huawei.com>
+References: <20221008140522.134912-1-zhangqilong3@huawei.com>
+Subject: Re: [PATCH -next] ASoC: mt6660: Keep the pm_runtime enables before
+ component stuff in mt6660_i2c_probe
+Message-Id: <166566850374.143340.3115691779887204250.b4-ty@kernel.org>
+Date: Thu, 13 Oct 2022 14:41:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Ricard Wanderlof <ricardw@axis.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,19 +89,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 6 Oct 2022 16:58:22 -0700, Randy Dunlap wrote:
-> Fix build errors when CONFIG_GPIOLIB is not enabled:
+On Sat, 8 Oct 2022 22:05:22 +0800, Zhang Qilong wrote:
+> It would be better to keep the pm_runtime enables before the
+> IRQ and component stuff. Both of those could start triggering
+> PM runtime events.
 > 
-> ../sound/soc/codecs/tlv320adc3xxx.c: In function 'adc3xxx_i2c_probe':
-> ../sound/soc/codecs/tlv320adc3xxx.c:1352:28: error: implicit declaration of function 'devm_gpiod_get'; did you mean 'devm_gpio_free'? [-Werror=implicit-function-declaration]
->  1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> ../sound/soc/codecs/tlv320adc3xxx.c:1352:57: error: 'GPIOD_OUT_LOW' undeclared (first use in this function); did you mean 'GPIOF_INIT_LOW'?
->  1352 |         adc3xxx->rst_pin = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
->   CC      lib/dynamic_debug.o
-> ../sound/soc/codecs/tlv320adc3xxx.c:1400:9: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
->  1400 |         gpiod_set_value_cansleep(adc3xxx->rst_pin, 1);
 > 
-> [...]
 
 Applied to
 
@@ -107,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codec: tlv320adc3xxx: add GPIOLIB dependency
-      commit: 551f2994b8ccdbe296e239278531e345d6e94d4d
+[1/1] ASoC: mt6660: Keep the pm_runtime enables before component stuff in mt6660_i2c_probe
+      commit: c4ab29b0f3a6f1e167c5a627f7cd036c1d2b7d65
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

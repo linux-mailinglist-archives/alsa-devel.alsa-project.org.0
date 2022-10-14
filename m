@@ -2,93 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B6A5FF0E9
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Oct 2022 17:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 876055FF0F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Oct 2022 17:14:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9ABE86B16;
-	Fri, 14 Oct 2022 17:11:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ABE86B16
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29EA86AFB;
+	Fri, 14 Oct 2022 17:13:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29EA86AFB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665760368;
-	bh=N/njfTWM92urhDh1tc8kt06mInCQV3hTHb5sdf7xqk0=;
+	s=default; t=1665760471;
+	bh=83Z1Qgo5iqOgm0WE4NlAlhtFg+Ss2ozcx46vSwrjg1c=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p1l6MkQ64zyp4pWWdP3VdymAlEcSrsC3AR5h85jfmTpW4AOr2DyGUC30Hl7z65Slo
-	 ogK6A85zky30pzBvkCjtkuedYLoz7hjcRGYYKw5APdMvzvVIV2oQpnWg6/aUx25xoo
-	 JIk5U01GRB0k7KnFCkZfElqhT/nPa/QQaE7GQiNQ=
+	b=MEPzbJzpw1dBurOsyZzylImd0kfWYphah/bHxtVrVbYV8ixK4ne0oe1d9WCah/px1
+	 RrHccSbdXc+nvOL9olQLZQ4oMMOO5g9aP1wfZn6+5E89sUa6eQF6sFF1fQsGlRuAnM
+	 p6lARy0oJW9FfkjTcp2Q2t2g+OGwm14ZgVuu4dwI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FA7CF80240;
-	Fri, 14 Oct 2022 17:11:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 886ADF80240;
+	Fri, 14 Oct 2022 17:13:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AE31F80224; Fri, 14 Oct 2022 17:11:51 +0200 (CEST)
+ id BA1E0F80224; Fri, 14 Oct 2022 17:13:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F235DF800F3
- for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 17:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F235DF800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DDO5aBbZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665760308; x=1697296308;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=N/njfTWM92urhDh1tc8kt06mInCQV3hTHb5sdf7xqk0=;
- b=DDO5aBbZgreLH6nkmVmu92TMI0Usnp2n7otpA35wzBHmJ2icFYrbFmB0
- SMBceCrOJiZzM9BE2wLNWhh8CvQxoNElXnhUBhmKKWICY3nnumXU9juLi
- ChxT3chj6kMCY/dvfg5KxpexfxF3Cx7sBXO+rR7xJtHR+h5MzvxoFcUrz
- exm7P0GoxzA+BeEdg/qj58B1OwTytXWuX40CX9Q20+1U0Hiz0l41gbOzT
- iiqIrLi3+JE41eYyOWBY76qwVQR/Zjgp1oVFThMNEfivajFsAbM1XNaKn
- razdm3C1nKuVFnOIU0W+/nW6seFkVlGs/ie+Msmnyth/kVbTmnQm6OA47 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="331915101"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="331915101"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 08:11:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="660758830"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="660758830"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga001.jf.intel.com with ESMTP; 14 Oct 2022 08:11:36 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1ojMLW-006yCQ-0e; Fri, 14 Oct 2022 18:11:34 +0300
-Date: Fri, 14 Oct 2022 18:11:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Florian Fainelli <f.fainelli@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>
-Subject: Re: [rft, PATCH v2 00/36] pinctrl: Clean up and add missed headers
-Message-ID: <Y0l8JTQQvLzRejk1@smile.fi.intel.com>
-References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
- <0684f480-2092-d520-2c8e-bd9a2dca47e3@gmail.com>
- <CAHp75VdDjyUAZBTaoPOe5oA3f_5xRznAooq08=Eff4F1AZyVOQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2654F800F3
+ for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 17:13:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2654F800F3
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-1370acb6588so6169462fac.9
+ for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 08:13:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jkHJ2WaopDUZ1kn2ahx5rf6aUqRXLuVh4aPcDlWTiFI=;
+ b=zx+onUDIljPAESyq+DFF0qDBNbVJV61elLONJZv/3ZAAztVOpL4ONYQFJmDt3gxQXA
+ /SJoFM6M65wVOEo01JZ2nimVtGt17pqrEp+yaerafHM9EK+dpO6OzZUFZsf5U7vLojAA
+ FyJkrFk1CfG2HpkzO6aXYlP7jk++7CVUkrlKalPOyglhM59ybyyOU4L2P0wKXo65or9j
+ R9njoiug4i9MK/hDjrKIKQsnvsT4KnfwEP4P8DBw+UiwTQiKFERnLFzcMcQOG+fopWNX
+ VL3YpqWPM/OJ6xfF0N1WMWeeJpehxkWbjhe4NlgRLOx0mFZdNE8he1vTyQI0cLfY69Pq
+ YYGw==
+X-Gm-Message-State: ACrzQf0BiriiS9dzzGJ4FYW5erf42G3h23ji7iNMD5ky/o+7lkmfa/JN
+ lp8z7vUeAOsXlIWXWHhFyw==
+X-Google-Smtp-Source: AMsMyM51/rLYMuawRnZOlPd9BCtsnx5WBWRjk6J2A5Ed+h5n+44B2Gd7UIpz5sSnFxMIBbSZEVCa3Q==
+X-Received: by 2002:a05:6870:b68d:b0:12d:484a:2643 with SMTP id
+ cy13-20020a056870b68d00b0012d484a2643mr8576751oab.105.1665760405161; 
+ Fri, 14 Oct 2022 08:13:25 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ v5-20020a056870310500b00136c20b1c59sm1384346oaa.43.2022.10.14.08.13.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Oct 2022 08:13:24 -0700 (PDT)
+Received: (nullmailer pid 1963626 invoked by uid 1000);
+ Fri, 14 Oct 2022 15:13:25 -0000
+Date: Fri, 14 Oct 2022 10:13:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+Subject: Re: [PATCH 3/6] dt-bindings: sound: Add sound card bindings for
+ Tesla FSD
+Message-ID: <20221014151325.GA1940481-robh@kernel.org>
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d@epcas5p1.samsung.com>
+ <20221014102151.108539-4-p.rajanbabu@samsung.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHp75VdDjyUAZBTaoPOe5oA3f_5xRznAooq08=Eff4F1AZyVOQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Kent Gibson <warthog618@gmail.com>, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
- patches@opensource.cirrus.com, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-riscv@lists.infradead.org, alsa-devel@alsa-project.org,
- openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+In-Reply-To: <20221014102151.108539-4-p.rajanbabu@samsung.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,42 +100,216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 12, 2022 at 01:04:10PM +0300, Andy Shevchenko wrote:
-> On Tue, Oct 11, 2022 at 11:56 PM Florian Fainelli <f.fainelli@gmail.com> wrote:
-> > On 10/10/2022 1:14 PM, Andy Shevchenko wrote:
-> > > Currently the header inclusion inside the pinctrl headers seems more arbitrary
-> > > than logical. This series is basically out of two parts:
-> > > - add missed headers to the pin control drivers / users
-> > > - clean up the headers of pin control subsystem
-> > >
-> > > The idea is to have this series to be pulled after -rc1 by the GPIO and
-> > > pin control subsystems, so all new drivers will utilize cleaned up headers
-> > > of the pin control.
-> > >
-> > > Please, review and comment.
-> >
-> > Did you really need to split this on a per-driver basis as opposed to
-> > just a treewide drivers/pinctrl, drivers/media and drivers/gpiolib patch
-> > set?
-> >
-> > 36 patches seems needlessly high when 4 patches could have achieve the
-> > same outcome.
+On Fri, Oct 14, 2022 at 03:51:48PM +0530, Padmanabhan Rajanbabu wrote:
+> Add dt-binding reference document to configure the DAI link for Tesla
+> FSD sound card driver.
+
+The simple-card or graph-card bindings don't work for you?
+
 > 
-> I can combine them if maintainers ask for that, nevertheless for Intel
-> pin control and GPIO drivers, which I care more about, I would like to
-> leave as separate changes (easy to see in history what was done).
+> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> ---
+>  .../bindings/sound/tesla,fsd-card.yaml        | 158 ++++++++++++++++++
+>  1 file changed, 158 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> new file mode 100644
+> index 000000000000..4bd590f4ee27
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> @@ -0,0 +1,158 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2022 Samsung Electronics Co. Ltd.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/tesla,fsd-card.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Tesla FSD ASoC sound card driver
+> +
+> +maintainers:
+> +  - Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> +
+> +description: |
+> +  This binding describes the node properties and essential DT entries of FSD
+> +  SoC sound card node
+> +
+> +select: false
 
-I can now tell why I don't like to combine. While doing a revert (it's not
-related to GPIO nor to pin control), it appears that I reverted extra bits
-as merge conflict resolution. This is per se is not an issue, but when
-I tried to find and reapply that missed piece I can't, because the patch
-is combined and Git simply ignores to have
-`git cherry-pick _something in the past_` done.
+Never apply this schema. Why?
 
-But again, up to maintainers.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - tesla,fsd-sndcard
+> +
+> +  model:
+> +    description: Describes the Name of the sound card
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +
+> +  widgets:
+> +    description: A list of DAPM widgets in the sound card. Each entry is a pair
+> +      of strings, the first being the widget name and the second being the
+> +      widget alias
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +
+> +  audio-routing:
+> +    description: A list of the connections between audio components. Each entry
+> +      is a pair of strings, the first being the connection's sink, the second
+> +      being the connection's source
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +
+> +  dai-tdm-slot-num:
+> +    description: Enables TDM mode and specifies the number of TDM slots to be
+> +      enabled
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
--- 
-With Best Regards,
-Andy Shevchenko
+maximum: 8
 
+> +    default: 2
+> +
+> +  dai-tdm-slot-width:
+> +    description: Specifies the slot width of each TDm slot enabled
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [8, 16, 24]
+> +    default: 16
 
+All the above have types defined. You should not be redefining the 
+types.
+
+> +
+> +  dai-link:
+> +    description: Holds the DAI link data between CPU, Codec and Platform
+> +    type: object
+
+       additionalProperties: false
+
+> +    properties:
+> +      link-name:
+> +        description: Specifies the name of the DAI link
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +
+> +      dai-format:
+> +        description: Specifies the serial data format of CPU DAI
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +
+> +      tesla,bitclock-master:
+> +        description: Specifies the phandle of bitclock master DAI
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +      tesla,frame-master:
+> +        description: Specifies the phandle of frameclock master DAI
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+
+These are common properties. Drop 'tesla'.
+
+> +
+> +      cpu:
+> +        description: Holds the CPU DAI node and instance
+> +        type: object
+
+           additionalProperties: false
+
+> +        properties:
+> +          sound-dai:
+> +            description: Specifies the phandle of CPU DAI node
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +      codec:
+> +        description: Holds the Codec DAI node and instance
+> +        type: object
+
+           additionalProperties: false
+
+> +        properties:
+> +          sound-dai:
+> +            description: Specifies the phandle of Codec DAI node
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+
+Already has a type. Need to define how many entries (maxItems: 1 ?).
+
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +    required:
+> +      - link-name
+> +      - dai-format
+> +      - tesla,bitclock-master
+> +      - tesla,frame-master
+> +      - cpu
+> +
+> +dependencies:
+> +  dai-tdm-slot-width: [ 'dai-tdm-slot-num' ]
+
+This should be captured with tdm-slot.txt converted to schema.
+
+> +
+> +required:
+> +  - compatible
+> +  - model
+> +  - dai-link
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    sound {
+> +        compatible = "tesla,fsd-sndcard";
+> +        status = "disabled";
+
+Why have a disabled example? Other than your example won't pass your 
+schema.
+
+> +        model = "fsd-i2s";
+> +
+> +        primary-dai-link-0 {
+> +            link-name = "fsd-primary-0";
+> +            dai-format = "i2s";
+> +            tesla,bitclock-master = <&tdm_0>;
+> +            tesla,frame-master = <&tdm_0>;
+> +            cpu {
+> +                sound-dai = <&tdm_0 0>;
+> +            };
+> +        };
+> +
+> +        secondary-dai-link-0 {
+> +            link-name = "fsd-secondary-0";
+> +            dai-format = "i2s";
+> +            tesla,bitclock-master = <&tdm_0>;
+> +            tesla,frame-master = <&tdm_0>;
+> +            cpu {
+> +                sound-dai = <&tdm_0 1>;
+> +            };
+> +        };
+> +
+> +        primary-dai-link-1 {
+> +            link-name = "fsd-primary-1";
+> +            dai-format = "i2s";
+> +            tesla,bitclock-master = <&tdm_1>;
+> +            tesla,frame-master = <&tdm_1>;
+> +            cpu {
+> +                sound-dai = <&tdm_1 0>;
+> +            };
+> +        };
+> +
+> +        secondary-dai-link-1 {
+> +            link-name = "fsd-secondary-1";
+> +            dai-format = "i2s";
+> +            tesla,bitclock-master = <&tdm_1>;
+> +            tesla,frame-master = <&tdm_1>;
+> +            cpu {
+> +                sound-dai = <&tdm_1 1>;
+> +            };
+> +        };
+> +    };
+> -- 
+> 2.17.1
+> 
+> 

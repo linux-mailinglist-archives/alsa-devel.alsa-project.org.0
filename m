@@ -2,95 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E6705FFDEB
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:32:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2525FFDEE
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:32:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2471805E;
-	Sun, 16 Oct 2022 09:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2471805E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9BBB8876;
+	Sun, 16 Oct 2022 09:31:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9BBB8876
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665905531;
-	bh=DCpxOcxxtLXFVAXldYQdkH+hDN0wOdHsmDCPY7jp3kE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vmQ3rSq4C02QO0XqdxMQWD3LvKGLBxHgn7T8x2tdpHYSyFh5uL73FgfSk46dm4A3F
-	 7tBqIRGyxdseKr7H7rnEcnjw5KrPgvEx72OsANEnGQCOMS3HCv/tiz4XKquH4yXV/X
-	 uxMeJTqhsY011igsxnAxNrZSj+PjX3u8qIV7X0Ak=
+	s=default; t=1665905557;
+	bh=ObCKnLXPosQn0DIXcA31xsjVRHIJiofzWXBc9ECgQ78=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Iuws254ccyhnkgs1gdn6nw85NYj60SnzwuZ3oBjHxnUNLlEPPZllr6aeIGZrf2nGb
+	 sOT3oJWh3jPZ3+aisAXP1hpPzdpPpOVeogkITnNoyAYyP9DZI1MiR0e1VZDB24Odk4
+	 5kHU7Ou3UXIO8pCQzBrc2s9UDmo2PWswJtyQm7l0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D621FF80579;
-	Sun, 16 Oct 2022 09:28:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 013EDF8057E;
+	Sun, 16 Oct 2022 09:28:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69F33F80269; Fri, 14 Oct 2022 00:07:22 +0200 (CEST)
+ id EA868F80224; Fri, 14 Oct 2022 13:10:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PRX_BODY_41,PRX_BODY_76,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC948F800A7
- for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 00:07:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC948F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD0D7F800F3
+ for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 13:09:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD0D7F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="l0CiGL8d"
-Received: by mail-ed1-x531.google.com with SMTP id g27so4445500edf.11
- for <alsa-devel@alsa-project.org>; Thu, 13 Oct 2022 15:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dShUQq+6E8bRbR3QS/MI9NepBM3UDbF7uFfMQV9Agjc=;
- b=l0CiGL8dfzZHRgncRuorm0R5igmfjXuAuKF7MyqVLtiGa3TdVMg7GI9IanLDDPnrTa
- OU51aOp2g8zZXNFFy6EXRfgJvMozqGdjqYab1DTq4BRcggLO+WLC/igxqep5mpfONYij
- IcTvExeoTb6OKpsrPYq7wquofIfK4MZq99B9B7nkrqNL+FmjpTlPWD/GBYp4CYStKPaZ
- nFV4xNbFqxiAMqfJdYl2VLoO1anBwYFT3TQf8JwoGDfrDtL0vFhtX/dcT376Ew/EuafF
- Z08bdVYHYsqhVVX9KPi1wECGc1ue0FigGZ8WhDLdJXy+P0krKuRXGFiY9nCQyRJ97E/S
- GOyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dShUQq+6E8bRbR3QS/MI9NepBM3UDbF7uFfMQV9Agjc=;
- b=nY+8QNaAXQwMFwAkSZJTz+BMjP5Ut7s5uzqOwo72NBozOzEF1xeuY6FLFtDD+bVFgf
- m5f/d1OZmm/SuQKTzcK97aqyqQgJKm/0Qij9JoYjOa2/+ioEwYmrwtNgHtB2BiYC/9VV
- jmrFIFeZEguXunLtont0FXtLXefGei/x+eA05fRbCekqAsUsijWc35zzjQ0KFedXBaoy
- wyeRU9oBEHapSTNVDel42JQEkH0xQKS2Sor76wrpMT4ZxxzrRt+fLsrEujhnHYKUHtJU
- ug4Cw+myYraP/yIJweX62Ac1A/DfGa8qytpQovTmVMNu2fz9mAHNrqh8dFwltwMS7xvF
- kslg==
-X-Gm-Message-State: ACrzQf0T48jICqAQ0MJeXJKwAO4uafIkKI6McQ5jAJBcGQRTRR1E3WjJ
- RmoMAkeyhU9kBJR/yzCwH3XtIOJ4L6uUKPU2IclLLCb0uKs=
-X-Google-Smtp-Source: AMsMyM7N1RWvzweuV1eWjFtsDpg3kHfLW8g4Zx0CSZ9HZGAakvY6ZxbAdkQjDMGJ8Cw9JJDLlGanH4viFKyDkXfs0/o=
-X-Received: by 2002:a05:6402:8cc:b0:45c:a5c9:c0a with SMTP id
- d12-20020a05640208cc00b0045ca5c90c0amr1576277edz.135.1665698833597; Thu, 13
- Oct 2022 15:07:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <CACGbgQVU8NvZdt-Jud7ybqZSpxFVd3K97KmwPNhUgw68ObTk4g@mail.gmail.com>
- <DS0PR11MB6375F69BCFD35EEF510F1E6AE3549@DS0PR11MB6375.namprd11.prod.outlook.com>
- <CACGbgQVM-5QpBT1otPmBQrvzBiT65aaZZGkQe0RmfnA6eHXqUQ@mail.gmail.com>
- <DS0PR11MB63758AA0C84F3A04D13469AFE3579@DS0PR11MB6375.namprd11.prod.outlook.com>
- <CACGbgQWEa0cEqRmPmhfeXBk_WUizTj6FJ7SaKScbwqqtqzcpUw@mail.gmail.com>
- <NDTavFl--F-2@tutanota.com>
-In-Reply-To: <NDTavFl--F-2@tutanota.com>
-From: CoolStar Organization <coolstarorganization@gmail.com>
-Date: Thu, 13 Oct 2022 15:07:00 -0700
-Message-ID: <CACGbgQXtUv-rGKnB9whXWvsA=ttV+NxWv2jz6FZVL63ToWJoHw@mail.gmail.com>
-Subject: Re: Buffer overflow in AVS driver
-To: alicja.michalska@tutanota.com
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="tq2I/IEh"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20221014110953epoutp0105d4c785d0f4b100e34789bcfef21669~d6vk5pEFP2671426714epoutp01P
+ for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 11:09:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20221014110953epoutp0105d4c785d0f4b100e34789bcfef21669~d6vk5pEFP2671426714epoutp01P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1665745793;
+ bh=drQIuJSWxplbdrmSqi94xu4iCzrCrkKp7js1FjD7pio=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=tq2I/IEhnKRodIHvVU21HPJmi8wKOd7mzFMii7B7Fq0l00pszo4m70Z3yHMULMM7n
+ dsBKnNv8eAoWcTzFbzFGgh9XF5luRpmLHNCUmS7d2jkDuynT8MKvZep2mu8lADcVEk
+ Whd/a+8OGdvEq1w+RffvcRwwOvRiW9VoMHJTcA+Y=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTP id
+ 20221014110952epcas5p11a5258e1f88485433db3d40d6e13ca86~d6vka0eVV0967309673epcas5p1_;
+ Fri, 14 Oct 2022 11:09:52 +0000 (GMT)
+Received: from epsmges5p1new.samsung.com (unknown [182.195.38.177]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4MpkDv0VCGz4x9Px; Fri, 14 Oct
+ 2022 11:09:51 +0000 (GMT)
+Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
+ epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ AE.01.26992.E7349436; Fri, 14 Oct 2022 20:09:50 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20221014104843epcas5p47f6daaad2e67e0c9eedd68c2256c025b~d6dGHtdk61505115051epcas5p44;
+ Fri, 14 Oct 2022 10:48:43 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20221014104843epsmtrp1f2e0545eff7515ee01a22945843d750c~d6dGFpebY3160431604epsmtrp1j;
+ Fri, 14 Oct 2022 10:48:43 +0000 (GMT)
+X-AuditID: b6c32a49-319fb70000016970-ae-6349437e3d6b
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 03.2C.18644.B8E39436; Fri, 14 Oct 2022 19:48:43 +0900 (KST)
+Received: from cheetah.sa.corp.samsungelectronics.net (unknown
+ [107.109.115.53]) by epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20221014104840epsmtip1fcd4e8faf2d2e9cdcaf053d95ed04d5a~d6dD78-cs2737027370epsmtip1S;
+ Fri, 14 Oct 2022 10:48:40 +0000 (GMT)
+From: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, s.nawrocki@samsung.com, perex@perex.cz,
+ tiwai@suse.com, pankaj.dubey@samsung.com, alim.akhtar@samsung.com,
+ rcsekar@samsung.com, aswani.reddy@samsung.com
+Subject: [PATCH 0/6] ASoC: samsung: fsd: audio support for FSD SoC
+Date: Fri, 14 Oct 2022 15:51:45 +0530
+Message-Id: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupnk+LIzCtJLcpLzFFi42LZdlhTU7fO2TPZ4OgnS4sH87axWVy5eIjJ
+ 4tDmrewWUx8+YbOYf+Qcq0Xfi4fMFt+udDBZXN41h81ixvl9TBZHNwZbLNr6hd2ic1c/q8Ws
+ CztYLVr3HmG3OPymndViw/e1jA4CHhs+N7F57Jx1l91j06pONo871/aweex7u4zNo2/LKkaP
+ 9Vuusnh83iQXwBGVbZORmpiSWqSQmpecn5KZl26r5B0c7xxvamZgqGtoaWGupJCXmJtqq+Ti
+ E6DrlpkD9IGSQlliTilQKCCxuFhJ386mKL+0JFUhI7+4xFYptSAlp8CkQK84Mbe4NC9dLy+1
+ xMrQwMDIFKgwITtjw+I9LAVveSoetys3MJ7l7GLk5JAQMJHo/P6NtYuRi0NIYDejxMU1XYwQ
+ zidGidUvupggnM+MEjfen2HrYuQAazl1URsivotR4vfyeewQTiuTxKuD61hA5rIJmEqsmtMI
+ NldEoIlJou3NRBYQh1lgI6PE6WMPmUCqhAWcJL4cfMQIYrMIqEp8bd8J1s0rYCsx/+ZdVogL
+ 5SVWbzjADNIsIdDJIdE/8TULRMJF4ufnKYwQtrDEq+Nb2CFsKYmX/W1Qdr7EtI/NbBB2hUTb
+ xw1MELa9xIErc1hA/mEW0JRYv0sfIiwrMfXUOrASZgE+id7fT6DKeSV2zIOxVSXWL98EtVZa
+ Yt/1vVC2h8TdG3/BbhYSiJU4fPEB+wRG2VkIGxYwMq5ilEwtKM5NTy02LTDMSy2Hx1Ryfu4m
+ RnDK1PLcwXj3wQe9Q4xMHIyHGCU4mJVEeF8reSYL8aYkVlalFuXHF5XmpBYfYjQFhtlEZinR
+ 5Hxg0s4riTc0sTQwMTMzM7E0NjNUEuddPEMrWUggPbEkNTs1tSC1CKaPiYNTqoHJ5aOTPM+b
+ t9pHbaMr2A9NL2SL1Wi74tvzRUesiGdZW3fW64fTXt3wvnK369w3D//dX2z9HytLzpc8UWl7
+ Zf3nWQnM6zjiGU7tsi9dUhddfeREmcCe/wXfWf5L2OubGvMFvZ224ax66iGjzhdvwhP0Qpyz
+ F3msin37XDNTV8Ytau++tTUuAqf7ZizKiHhiFScYadF968Q6Z8X+RYeNy88wtRoEzFxyVXpL
+ ffHk9NkzGr27M/jLVTYGLbSSlt5vqfX40I9utqfLV/e5G7TcLZxw9unZqC18S/Lqb3/sWfsw
+ umwp00+HSpbWF8HbTftPa4aIvAye+Fr8sdbx0/rLtc8dqZ/TFCX58qSfmGjf0g9KLMUZiYZa
+ zEXFiQDpFQPNIgQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrJLMWRmVeSWpSXmKPExsWy7bCSnG63nWeywYGZXBYP5m1js7hy8RCT
+ xaHNW9ktpj58wmYx/8g5Vou+Fw+ZLb5d6WCyuLxrDpvFjPP7mCyObgy2WLT1C7tF565+VotZ
+ F3awWrTuPcJucfhNO6vFhu9rGR0EPDZ8bmLz2DnrLrvHplWdbB53ru1h89j3dhmbR9+WVYwe
+ 67dcZfH4vEkugCOKyyYlNSezLLVI3y6BK2PD4j0sBW95Kh63KzcwnuXsYuTgkBAwkTh1UbuL
+ kYtDSGAHo8Tjy8uYuhg5geLSEtP797BB2MISK/89Z4coamaSeLF0KSNIgk3AVGLVnEZWkISI
+ wAQmiZPvjrGAJJgFtjJKTP1sBGILCzhJfDn4CKyBRUBV4mv7TrAaXgFbifk377JCbJCXWL3h
+ APMERp4FjAyrGCVTC4pz03OLDQuM8lLL9YoTc4tL89L1kvNzNzGCQ1dLawfjnlUf9A4xMnEw
+ HmKU4GBWEuF9reSZLMSbklhZlVqUH19UmpNafIhRmoNFSZz3QtfJeCGB9MSS1OzU1ILUIpgs
+ EwenVANTuMzFVr8LG19fdqosP7Eov+vSRBvTN8uilj82SteuKOg0O3FqZ1BhTHOE8xZP0dIz
+ u9dl2ysc2Bwze9OKXae9b+ZdSGvvKl9a/Znt8IZ79gtNPWY/eCk+u9AtJbvtn3rC5BOv9ptI
+ fZpYuPrI88ci7cw7OxzWb5jM8N9j8Yqpa0O87bwXfU/2tmfu+MpzRPVpSpTa9WOuZS9Fzv/7
+ e7rmqITZMv81l235JE3k1oVoblPVu8+VvlPcwqtx3hJ3hqrZnNpqeucvbayz7bnZqfRCJuwM
+ /70V55vjFErnVi4X/HoxJn1V8H9hJ+71gVYfDHI37MjPCj/1/uTCCI1+Oem4rgO/b09XXLw8
+ 1+ujy9uzSizFGYmGWsxFxYkA8X98b8wCAAA=
+X-CMS-MailID: 20221014104843epcas5p47f6daaad2e67e0c9eedd68c2256c025b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20221014104843epcas5p47f6daaad2e67e0c9eedd68c2256c025b
+References: <CGME20221014104843epcas5p47f6daaad2e67e0c9eedd68c2256c025b@epcas5p4.samsung.com>
 X-Mailman-Approved-At: Sun, 16 Oct 2022 09:28:43 +0200
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Amadeuszx Slawinski <amadeuszx.slawinski@linux.intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,334 +148,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Cezary and  Alicja,
+The intention of this patch series is to enable audio support on FSD SoC.
 
-Just chiming in a bit regarding Geminilake since I figured it out on my
-end. I have been able to get AVS (at least my port anyways) to run on a
-Geminilake chromebook after re-signing + re-packing the DSP firmware with
-the community keys and updating my driver's topology generation to look for
-the correct SSP's on the NHLT.
+The following features are added in samsung I2S interface:
+1. Add TDM support on samsung I2S interface
+2. Allow sound card to directly configure prescaler divider instead of
+calculating it from frame clock
 
-I dug through the older SKL module in Linux and I noticed the topologies
-for that specify a "mixer" module (I'm noting it creates an output and an
-input mixer and binds them together in between the HDA and I2S copier
-modules). Do these mixer modules do any volume adjustment / volume
-limiting? as I didn't see any configuration for the mixers aside from the
-audio format.
+Also the sound card support for FSD SoC is added, which utilizes samsung
+I2S interface as CPU DAI.
 
---CoolStar
+This patch is dependent on fsd-pinctrl fixes patch series [1]
+[1]: https://lkml.org/lkml/2022/10/13/257
 
-On Mon, Oct 3, 2022 at 9:09 AM <alicja.michalska@tutanota.com> wrote:
+Padmanabhan Rajanbabu (6):
+  ASoC: samsung: i2s: TDM Support for CPU DAI driver
+  ASoC: samsung: i2s: configure PSR from sound card
+  dt-bindings: sound: Add sound card bindings for Tesla FSD
+  ASoC: samsung: fsd: Add FSD soundcard driver
+  arm64: dts: fsd: Add I2S DAI node for Tesla FSD
+  arm64: dts: fsd: Add sound card node for Tesla FSD
 
-> Hello Cezary, Amadeusz and CoolStar.
->
-> I'm sure you're waiting for update from me, but unfortunately I got reall=
-y
-> sick with tonsillitis. Hopefully it clears up a bit tomorrow.
->
-> I did some preliminary testing as CoolStar mentioned, but I would like to
-> compare results with GeminiLake Refresh board (google/octopus) that shoul=
-d
-> be arriving tomorrow. It also uses DA7219 + 2x max98357a (max98357a is a
-> mono amplifier, so there are two amplifiers on the board - one per channe=
-l).
->
-> Just from multimeter measurements there's nothing out of ordinary. 5.12v
-> (so basically 5v) driving max98357a, resulting with 2.7v on speaker outpu=
-t
-> which is within spec. I'm still learning how to use an oscilloscope, but
-> I've noticed that Vpp parameter goes up to 2.4v if you set the volume to
-> 100% (I'm testing on google/reef baseboard which is ApolloLake N3350 with
-> DA7219 + 2x max98357a). If you set volume to ~66% it stays around 2v and
-> speakers don't heat up.
->
-> Here you can see that even without any audio playing, left speaker is
-> significantly warmer than right one. I began playback with volume set to
-> 25%, then increased it to 65% and then 100%. Once speaker reaches 60*C,
-> it's permanently damaged. Working speaker has 3.7Ohm resistance, while
-> damaged one has 3.9Ohm.
-> You can also see a pair of max98357a's heating up in the background while
-> playing with volume set to 100% - they reach 40*C.
->
-> https://elly.rocks/tmp/avs_fryingpan.mp4
-> Speaking of which, reading trough the code I've noticed that you intend o=
-n
-> supporting GLK platform. We don't have firmware signed with community key=
-s
-> (GLK doesn't accept Intel-signed keys) so I've been wondering - would it =
-be
-> possible for you to provide such FW?
->
-> It is really baffling to me, because as far as we both (CoolStar and me)
-> see, max98357a is a very simple amplifier controlled by setting GPIO pin
-> low or high. Conclusion would be that the problem lies in how AVS is
-> driving ADAU7002 or DA7219, but I'm definitely not in shape right now to
-> read trough AVS code once again.
->
->
-> Best regards,
-> Alicja Michalska
-> --
-> Sent from Tutanota Client for Linux x86_64
->
->
->
-> Oct 2, 2022, 00:09 by coolstarorganization@gmail.com:
->
-> > Hi  Cezary,
-> >   I was able to get a capture streams working. Thanks for the guidance
-> on the order of operations for that. For the final iteration of my driver
-> port I'm going to be grabbing data from the NHLT to populate topologies i=
-t
-> generates so that should have less hardcoding.
-> >
-> >   Regarding the volume problem, Alicja here ran some tests with AVS on
-> linux with a scope connected to the output pins of the max98357a (we're
-> testing on various Skylake, Kaby Lake and Apollo Lake chromebooks -- I
-> unfortunately blew the left speaker on pantheon here during testing (and
-> Alicja blew a left speaker on snappy). We're using topology files grabbed
-> from Chrome OS's Apollo Lake image (I edited the virtual bus id to get it
-> working on Kaby Lake here), and it seems there's nothing referencing DSM
-> inside either the alsa configs or topology.
-> > --CoolStar
-> >
-> > On Thu, Sep 29, 2022 at 9:41 AM Rojewski, Cezary <>
-> cezary.rojewski@intel.com> > wrote:
-> >
-> >>
-> >> Hello,
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> Indeed, there are means on dealing with volume problem you describe.
-> Not all of them are free though and we cannot share such to the community
-> without client=E2=80=99s ACK.
-> >>
-> >>
-> >> Judging by the max98357a, platform of yours is a Chromebook device,
-> perhaps AML-based, e.g.: Atlas. Said configuration contains the DSM modul=
-e
-> which addresses the problem. The DSM topology and the configuration shoul=
-d
-> be available to public, so filtering google=E2=80=99s public domain shoul=
-d yield
-> positive results.
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> I advise against hardcoding anything within the driver. Within a week
-> or two, tools for compiling the topology as well as several dozens of
-> examples should be present on the upstream, that is on the >>
-> github.com/thesofproject <http://github.com/thesofproject>>> .
-> >>
-> >>
-> >> But yes, there is a requirement for certain ordering of operations. In
-> general, you should be creating stuff from input to output (precisely in
-> that direction). For capture, input stands at BE side while for playback
-> it=E2=80=99s FE instead. There=E2=80=99s also part about configuring the =
-actual hardware
-> that is represented in ASoC as a BE. Files: avs/path.c and avs/pcm.c shou=
-ld
-> provide the pattern you seek.
-> >>
-> >>
-> >>
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> Kind regards,
-> >>
-> >>
-> >> Czarek
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> From:>>  CoolStar Organization <>> coolstarorganization@gmail.com>> >
-> >>  >> Sent:>>  Wednesday, September 28, 2022 11:17 PM
-> >>  >> To:>>  Rojewski, Cezary <>> cezary.rojewski@intel.com>> >
-> >>  >> Cc:>>  >> amadeuszx.slawinski@linux.intel.com
-> >>  >> Subject:>>  Re: Buffer overflow in AVS driver
-> >>
-> >>
-> >>
-> >>
-> >> Hi Czarek,
-> >>
-> >>
-> >> You can mention CoolStar in the Reported-by tag, as that=E2=80=99s the
-> pseudonym I go by.
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> Also I had 2 questions regarding AVS.
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> A friend and I both noticed on max98357a that increasing the volume in
-> the OS past 70% can destroy the speakers. Is there a module or something
-> that could be bound on the speaker path to limit the volume as max98357a
-> itself just has an on/off switch? (I noticed catpt has volume controls.
-> Maybe AVS=E2=80=99s updown mix?).
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> Also, I managed to get my AVS port to output sound on another OS (I=E2=
-=80=99m
-> not using topology files and am hard coding the path). However I noticed
-> I=E2=80=99ve been unable to record sound. I noticed for output streams th=
-e
-> initialization sequence is:
-> >>
-> >>
-> >>     1. Create pipeline 0
-> >>
-> >>
-> >>     2. Create i2s link output path on pipeline 0
-> >>
-> >>
-> >>     3. Grab HDA render stream & program BDL
-> >>
-> >>
-> >>     4. Create pipeline 1
-> >>
-> >>
-> >>     5. Create HDA output path on pipeline 1 with virtual link address
-> (HDA stream tag - 1)
-> >>
-> >>
-> >>     6. Bind pipeline 1 to 0
-> >>
-> >>
-> >>     7. Set pipeline 0 and then 1 to reset & paused
-> >>
-> >>
-> >>     8. Start HDA stream playback
-> >>
-> >>
-> >>     9. Set pipelines 1 and then 0 to running
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> I=E2=80=99ve been attempting to do a similar setup for input (except w=
-ith i2s
-> link input path, an HDA capture stream, and HDA input path) but I don=E2=
-=80=99t see
-> any input. Is there a particular order for input initialization for it to
-> work? (Similar to how for the output I had to set up the HDA stream befor=
-e
-> creating the HDA pipeline before I could get any sound output?)
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> =E2=80=94CoolStar
-> >>
-> >>
-> >>
-> >>
-> >>
-> >> On Wed, Sep 28, 2022 at 1:09 PM Rojewski, Cezary <>>
-> cezary.rojewski@intel.com>> > wrote:
-> >>
-> >>
-> >>>
-> >>> Hello,
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> Please excuse my delay in response. We appreciate the input =E2=80=93=
- in
-> future, please do not be afraid to email us with alsa-devel in CC. It=E2=
-=80=99s
-> easier to not have the mail missed that way.
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> In regard to the actual bug, highly unlikely but indeed you=E2=80=99r=
-e
-> correct. While my response is delayed, patch fixing the problem in our
-> internal tree was not. Said patch should soon appear on the alsa-devel
-> mailing list. Are there any names that you would like us to mention in th=
-e
-> relevant commit message (through =E2=80=9CReported-by:=E2=80=9D tag)?.
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> Kind regards,
-> >>>
-> >>>
-> >>> Czarek
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> From:>>>  CoolStar Organization <>>> coolstarorganization@gmail.com>>=
->
-> >
-> >>>  >>> Sent:>>>  Saturday, September 10, 2022 10:00 PM
-> >>>  >>> To:>>>  Rojewski, Cezary <>>> cezary.rojewski@intel.com>>> >;
-> >>> amadeuszx.slawinski@linux.intel.com
-> >>>  >>> Subject:>>>  Buffer overflow in AVS driver
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> Hi,
-> >>>
-> >>>
-> >>>  I've been looking at porting the avs driver you've written to anothe=
-r
-> OS. During the process I noticed a potential buffer overflow issue in ipc=
-.c.
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> I noticed that ipc->rx.data is allocated a buffer of
-> `AVS_MAILBOX_SIZE` (or 4096 bytes) in the init, and this buffer is not
-> allocated anywhere else. In avs_dsp_receive_rx, if the msg type is set to=
- a
-> large config get, it sets the size to the arbitrary value from the msg
-> struct without any checks, and then immediately does a memcpy to the buff=
-er.
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> I'd highly suggest putting a check to ensure this doesn't go larger
-> than AVS_MAILBOX_SIZE to avoid a buffer overflow as that could crash the
-> system (or potentially be a vulnerability to take over the host system if
-> an attacker somehow gets code execution on the DSP?)
-> >>>
-> >>>
-> >>> --CoolStar
-> >>>
-> >>>
->
->
+ .../bindings/sound/tesla,fsd-card.yaml        | 158 ++++++++
+ arch/arm64/boot/dts/tesla/fsd-evb.dts         |  57 +++
+ arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi    |  14 +
+ arch/arm64/boot/dts/tesla/fsd.dtsi            |  41 ++
+ sound/soc/samsung/Kconfig                     |  12 +
+ sound/soc/samsung/Makefile                    |   2 +
+ sound/soc/samsung/fsd-card.c                  | 349 ++++++++++++++++++
+ sound/soc/samsung/i2s-regs.h                  |  17 +
+ sound/soc/samsung/i2s.c                       | 120 +++++-
+ sound/soc/samsung/i2s.h                       |   1 +
+ 10 files changed, 766 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+ create mode 100644 sound/soc/samsung/fsd-card.c
+
+-- 
+2.17.1
+

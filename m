@@ -2,80 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2983D5FF26A
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Oct 2022 18:42:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EAC55FF46D
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Oct 2022 22:16:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 388986BF1;
-	Fri, 14 Oct 2022 18:41:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 388986BF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBAFD702A;
+	Fri, 14 Oct 2022 22:15:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBAFD702A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665765757;
-	bh=c1S1C3R0hDHsbRXQHKDYc2GWgBLs1i4lKDFkFa7+3j0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KAF3uWBH3SKfejIZ1l6AZwbxfnKJ0pLR7wrqPSKHnSF1uGTIJhDYTP8l8RbHgq6gH
-	 RkbwJEZlD//PLXGcLPqy2C9syPCM7T0amBC8pK0ftBF844wHxC4yH08CBVuNMYmSC2
-	 Wy4JR+UDq0gMKMsTuBdU+COFw01vVJ+H6jUGQiPA=
+	s=default; t=1665778565;
+	bh=daprHI620cy91kHu3D4xEZ58HIOQozicsyEEAiVVF5c=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=jWVfBd8TazvmWrK6PMkOTWbcpiTs69az/WyOT727ljoeon4+wxl/AAMk2QFVpOUNR
+	 z6P5SerXk/wb8gmv07kZ22TKIFmpBbWb3oNzgga/QfUciq8vd8lfYBVYkApGEPfoO5
+	 BJMPQDGSOeV3RAcHnV2W12s9Yf5ZFY0sejnfIns0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7AE7F801F5;
-	Fri, 14 Oct 2022 18:41:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BC26F800F3;
+	Fri, 14 Oct 2022 22:15:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75F65F80224; Fri, 14 Oct 2022 18:41:43 +0200 (CEST)
+ id 77C22F80224; Fri, 14 Oct 2022 22:15:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 767BDF800F3
+ for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 22:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 767BDF800F3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="p2AWD1hT"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88EBAF80115
- for <alsa-devel@alsa-project.org>; Fri, 14 Oct 2022 18:41:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88EBAF80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="lPq/Vu8l"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
- s=default2002;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=r/tbf8YLBLkiTaCcrMweDTtijmuXJ5yHPYAh70dbWzI=; b=lPq/Vu8lkT8up4HXwqP0Ptbn2l
- X2XiI1xyGaJHtRBpTG4waKvIVNE/UywhkI/kGFqSD13+FF60e+WCsSaP+XjsLTcZoFugXiVMNwEJU
- 1Hokpyu6DkhAuy+fr4zTYKvlRWl3gX1q2Ef3xbPhIlzMEEKsG/9lvXbONtNeMSsCZkqB9RLB5py2C
- lqSfAJ4yGZD7B2+YpWAkEa8fvKQE6sqW0/4uZzXH4Ee2GTBajlVlnO80VHiuJCiKXoW3vvO2Drvj/
- SzdlRQb0REAdZUCMvscOnSu49WX9G1HIg8BExUx8VpsRdUklaVOmM1L2asgj/5WlueNn4gaRfvqeP
- y/dWFHUQ==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
- by www381.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <lars@metafoo.de>)
- id 1ojNke-000NSr-HN; Fri, 14 Oct 2022 18:41:36 +0200
-Received: from [2001:a61:2a52:ad01:9e5c:8eff:fe01:8578]
- by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1ojNke-000Bie-Ad; Fri, 14 Oct 2022 18:41:36 +0200
-Message-ID: <e685eb93-d40b-3b8c-41f4-f29af8479d1b@metafoo.de>
-Date: Fri, 14 Oct 2022 18:41:35 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C41A06135D;
+ Fri, 14 Oct 2022 20:14:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076B5C433D7;
+ Fri, 14 Oct 2022 20:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1665778498;
+ bh=daprHI620cy91kHu3D4xEZ58HIOQozicsyEEAiVVF5c=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=p2AWD1hTSCVKY1/Huw6yQZCSkaDmtgEMACuJKrCNUa8CzNmN+B/SwgNhvfw9ds+6R
+ oKUIRJAop++sx12ZWcwOTsfmxUAptD5O6Iq/jJU2kh9r/McXWyk6RpAnF6GjdPmfpW
+ 2z3DfxeQklg5Miq5HXAvHwK8rUud136d8R2iKxpDwnYz5wj5T/kY2JecVn3X0JFj+k
+ n/STfZ0kQuRlNjo3RIRo7G49FfDtUOSV8aKlDLwW1U0NUW+F4ZP3a6i0RV7+HxZ+62
+ mY5Aquy42/Uj+XBYvq7DtdEuwplSbzKTfZ7Lt5rhdizdWPYqJiIzGKusxTZm9p3ko2
+ UMXi+tYhqGccA==
+Date: Fri, 14 Oct 2022 15:14:56 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 1/2] ALSA: hda: Add Intel DG2 PCI ID and HDMI codec vid
+Message-ID: <20221014201456.GA3492621@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: A2B codec chain implementation
-Content-Language: en-US
-To: =?UTF-8?Q?Th=c3=a9o_Lebrun?= <theo.lebrun@bootlin.com>,
- alsa-devel@alsa-project.org, Daniel Mack <daniel@zonque.org>
-References: <7fa7f0ac-eebf-2d91-bc25-882e94da83f6@bootlin.com>
-From: Lars-Peter Clausen <lars@metafoo.de>
-In-Reply-To: <7fa7f0ac-eebf-2d91-bc25-882e94da83f6@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Sender: lars@metafoo.de
-X-Virus-Scanned: Clear (ClamAV 0.103.7/26689/Fri Oct 14 10:01:27 2022)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211130124732.696896-1-kai.vehmanen@linux.intel.com>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Uma Shankar <uma.shankar@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,72 +82,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/14/22 18:05, Théo Lebrun wrote:
-> Hi,
->
-> Automotive Audio Bus (A2B) is a bus that carries a clock, I2S/TDM, I2C,
-> GPIO and mailboxes over a two wire connection that carries power as
-> well. It has a leader-follower (master-slave in the spec) structure,
-> with no obligation to have all samples going from or to the leader.
->
-> Analog Devices sells transceivers, that can also decode PDM inputs.
-> Their configuration is register based, with ways of accessing follower
-> registers from the leader. Here is their technical reference:
-> https://www.analog.com/media/en/technical-documentation/user-guides/AD242x_TRM_Rev1.1.pdf 
->
->
-> The goal is to implement support for those, when the host is connected
-> to the leader. The implementation would be done by registering a new
-> bus_type and device_type, with a device for each functionality (on each
-> bus node) provided by the bus. Two issues were faced though:
->
->  - At runtime, when an PCM stream is started, not only do the CPU and
->    codec need to be configured, but also the leader and follower need
->    some dynamic configuration based on hw_params. We have something
->    resembling a chain, and all 4 devices need to be configured
->    I2S-wise:
->    CPU <-I2S-> leader node <-A2B-> follower node <-I2S-> codec.
->    That does not fit the standard form of a DAI link that only has a CPU
->    and a codec. Is there a way to have a sound card that contains
->    multiple codecs, all actived?
->
->  - Clocks will have to be handled at the bus level and not at the
->    soundcard level, as the master clock is needed at all times for the
->    bus to be functional. Sadly it's probably not doable to use the
->    clocks provided by the I2S/TDM CPU codec (which would be ideal as
->    they are audio rate, which is what the bus expects), because they
->    only get enabled when a PCM stream is active. On the hardware used
->    for testing (SAMA7G54), we can't use an external (relative to the
->    CPU codec) clock as master clock and use the peripheral to generate
->    the bitclock, it doesn't support it; therefore both have to be
->    handled at the bus level using board specific clocks.
->
-> So the first point is the main question: how could a codec chain be
-> modeled?
->
-> I was potentially thinking about a custom soundcard? That could surely
-> help? Would it be the right solution? Any pointers would help.
->
-> The clock aspect would have been an issue as a codec is either a clock
-> provider or consumer but for this particular use it is not as we'll use
-> the bus and not the soundcard to handle the clock management.
->
-Hi,
+On Tue, Nov 30, 2021 at 02:47:31PM +0200, Kai Vehmanen wrote:
+> Add HD Audio PCI ID and HDMI codec vendor ID for Intel DG2.
+> 
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> ---
+>  sound/pci/hda/hda_intel.c  | 12 +++++++++++-
+>  sound/pci/hda/patch_hdmi.c |  1 +
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 221afacbc7fd..b98d7975adea 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -335,7 +335,10 @@ enum {
+>  					((pci)->device == 0x0c0c) || \
+>  					((pci)->device == 0x0d0c) || \
+>  					((pci)->device == 0x160c) || \
+> -					((pci)->device == 0x490d))
+> +					((pci)->device == 0x490d) || \
+> +					((pci)->device == 0x4f90) || \
+> +					((pci)->device == 0x4f91) || \
+> +					((pci)->device == 0x4f92))
 
-Daniel, me and a few others have been working on A2B driver support. We 
-are in the process of getting it ready for upstreaming. Currently public 
-code is in 
-https://github.com/analogdevicesinc/linux/commits/a2bupstream. ADI 
-squashed the commit history. We need to restore that.
+Would you consider adding these device IDs to the Linux PCI ID
+database so lspci knows what they are?  Everything starting with
+0x490d is missing.
 
-At the moment the remote devices are modeled as a codec2codec link with 
-fixed rates. Its not ideal, but the best we can do in the current ALSA 
-framework.
+There's an "Add item" link at the top of https://pci-ids.ucw.cz/read/PC/8086
 
-I did propose some changes that will allow dynamic hwparams domain and 
-propagation through those domains a long long time ago. But that never 
-got to the stage where I was able to work on the implementation. See 
-http://metafoo.de/the_new_asoc.svg
-
-- Lars
-
+Bjorn

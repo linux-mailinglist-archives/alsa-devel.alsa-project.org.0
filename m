@@ -2,70 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD5B35FFDFC
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:34:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E8655FFDDB
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 09:29:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707FD7522;
-	Sun, 16 Oct 2022 09:34:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707FD7522
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5EDC6F81;
+	Sun, 16 Oct 2022 09:28:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5EDC6F81
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665905699;
-	bh=bkT6SjV4/UyDaGXq+jP0PfW64nl6qjIq+BQVyPY1/kw=;
-	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1665905380;
+	bh=9+1swGEePlzzPLuFMDDUTvETtv9LWuYLo7KJFFRzpQg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fS6D/SmAfviCA3kHpnQ0DvIVvOhwK1J3zPIFSyI6yPXqeNarBq4Qr3tBTKiT0GXt0
-	 TCPFRubryeMsTdrw+flfrTH2+HGbKaQQitaAxOv+YkXxbx+3mvYuu+q4T4XLdcB2nn
-	 e9dRkgzkkDbkGrlGmQJU/tte5v0OqIgAETylebKA=
+	b=YnvLvahU0UyZ6Fg991nfB+/oXyPrbmrx4FMaFSn6FtTRgaoPMebAuD3y8w5xRM6cJ
+	 4Dlt2CdNyrY54LnNJ+dTLnELPFYzzOI3exAXk3KOeq1k1JPQAE+KES38Egh709Ov3C
+	 qJNDeE/at/lllc2ZhGakGaWw5CBca8/jvTVvkiJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E283F805CB;
-	Sun, 16 Oct 2022 09:28:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34071F8027C;
+	Sun, 16 Oct 2022 09:28:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E83AEF801F7; Sat, 15 Oct 2022 16:56:34 +0200 (CEST)
+ id DA5A6F801F7; Sun, 16 Oct 2022 01:34:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=HEXHASH_WORD,HTML_MESSAGE,
- KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from tau07.net (svr01.tau07.net [62.112.43.237])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F142F800C1
- for <alsa-devel@alsa-project.org>; Sat, 15 Oct 2022 16:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F142F800C1
-Received: from localhost (localhost [127.0.0.1])
- by tau07.net (Postfix) with ESMTP id 94A7C68005E;
- Sat, 15 Oct 2022 16:56:28 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at taujhe.de
-Received: from tau07.net ([127.0.0.1])
- by localhost (srv01.tau07.net [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id idnl3dPwpGIP; Sat, 15 Oct 2022 16:56:27 +0200 (CEST)
-Received: from [IPV6:2003:f8:7706:8101:794f:8a7e:1941:4f5c]
- (p200300f877068101794f8a7e19414f5c.dip0.t-ipconnect.de
- [IPv6:2003:f8:7706:8101:794f:8a7e:1941:4f5c])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: jan)
- by tau07.net (Postfix) with ESMTPSA id 0ED8B680043;
- Sat, 15 Oct 2022 16:56:27 +0200 (CEST)
-Message-ID: <53ac9cce-51bf-100a-fa61-0dff6acd3a2d@taujhe.de>
-Date: Sat, 15 Oct 2022 16:56:26 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B3FAF8016A
+ for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 01:34:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B3FAF8016A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HeSYkYVF"
+Received: by mail-ot1-x334.google.com with SMTP id
+ a14-20020a9d470e000000b00661b66a5393so3880568otf.11
+ for <alsa-devel@alsa-project.org>; Sat, 15 Oct 2022 16:34:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=a+jzEUqbWtBeB9kCbXWG0XvcCyj0LENJYNoMRZHZ2sQ=;
+ b=HeSYkYVFz5toVpabXxQDB+DAKyZfVC2VSAvN/xbuohc/iQJepvNJcH6kAYXhHIErI6
+ 4RuCrCLOmaxQRMQiCXu6IUlIvnflyIzsZFXwnmjzTpUtRKc+JJcsEv98moo2Yy0ZiHBI
+ OpamfUTOHwdfqhhk5Hz/Xhnjzfyhh3omDkWRscKjOfymKT5l8KMN+GnVpXjL7Y9+qmu2
+ xa8ZiawTMWffwQdUsz3niyISnEIE/lEElLV1NdS/0maRlIGeSYJQfKe+2f7VGnIaoHq7
+ NKRYg3De8/xilI3SpC5s4Mc64qPXICsAvMFvZ8maFh2hWkqSZEpqvZpCyrceVWi10Da8
+ 9QZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=a+jzEUqbWtBeB9kCbXWG0XvcCyj0LENJYNoMRZHZ2sQ=;
+ b=eFyumLns5iWsDiT8TI0WjYWp1yE4YzEcwShggy9Ky7CE2QLu5k6R1EIyhGRgm+1ZWk
+ XRUysncdMnmh1VgYU3tAwjJQW9IgoTqEoUTqKXxjqrEmHjDpglE5u4m2qBwCc68XeLzP
+ QbMRfdq8aGlOidargllhLt4TPpZ1gDbuLIIWBMnBthbq2LKQRs+Gc/8r4pPDJUmVU9sZ
+ OKTkqB9X9Lg2Zt51ik/Ix/NHs3M1IVGg24Zgv5Yj6oxMFjSM6K6SKr0HTaCSuwXtwKD0
+ Ck7150D5GTMYLHDeAevIftyac+wZammV87MFEUWDDqJnx4Nl9Glyr6nmLtV5hLGdLOX7
+ I7qg==
+X-Gm-Message-State: ACrzQf1AQaGUVKsbenjWbp96U3IFSfV3SBoSeJLVYydwB9TeXUXPyWlJ
+ 1tDhdHs8QwJP6Ynd4qU9k4g=
+X-Google-Smtp-Source: AMsMyM7GjyMRI5yohg0orqz5B3sv9bc0OjNgA2CyKOAqR7JhaUTQ+/f+xio/mOyi7OAXaT7UZMbo+Q==
+X-Received: by 2002:a9d:4915:0:b0:661:cf09:1752 with SMTP id
+ e21-20020a9d4915000000b00661cf091752mr2048084otf.346.1665876850286; 
+ Sat, 15 Oct 2022 16:34:10 -0700 (PDT)
+Received: from bebop.lan
+ (2603-8080-2704-6601-b457-170a-9e05-cc6d.res6.spectrum.com.
+ [2603:8080:2704:6601:b457:170a:9e05:cc6d])
+ by smtp.gmail.com with ESMTPSA id
+ w3-20020a4adec3000000b004808e0d8467sm2653858oou.2.2022.10.15.16.34.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 15 Oct 2022 16:34:09 -0700 (PDT)
+From: George Hilliard <thirtythreeforty@gmail.com>
+To: Clemens Ladisch <clemens@ladisch.de>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: [PATCH 0/2] sound: dice: Firestudio Mobile
+Date: Sat, 15 Oct 2022 18:33:28 -0500
+Message-Id: <20221015233330.8679-1-thirtythreeforty@gmail.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Content-Language: de-DE, en-GB
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Jan Henke <Jan.Henke@taujhe.de>
-Subject: Regression in Linux Kernel v5.15.71 / external headset microphone
- stops working
-X-Mailman-Approved-At: Sun, 16 Oct 2022 09:28:43 +0200
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 16 Oct 2022 09:28:42 +0200
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,55 +104,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello sound system maintainers,
+This short series adds a configuration block for the Firestudio Mobile I
+just acquired.  Very similar to the Firestudio, but a lower port count.
 
-a recent patch to the stable 5.15 linux branch unfortunately introduced 
-a regression. From 5.15.71 onward (also in 5.19.15) plugging in an 
-external headset into the audio jack no longer results in a working 
-microphone. Symptoms are that there is no choice to set the connected 
-device to microphone only (I am using GNOME, so once you plugin a device 
-you get a dialogue to choose it's type, normally there are 3 choices, 
-Headphone, Headset and Microphone, with the bug the last one is 
-missing), and the connected microphone no longer records any audio. Note 
-that you can still choose the headset microphone as audio input, it just 
-does not record anything.
+My understanding is that the Low, Medium, and High speeds refer to
+48kHz, 96kHz, and 192kHz sample rates, of which only the first two are
+supported by this hardware line.  Please correct me if this is not
+correct.
 
-Doing a git bisect I was able to identify the commit introducing this 
-regression:
+Thanks!
 
-a963fe6d0eb6ef0a15b3aade7c186cd5bb7bd01f is the first bad commit
-commit a963fe6d0eb6ef0a15b3aade7c186cd5bb7bd01f
-Author: Callum Osmotherly <callum.osmotherly@gmail.com>
-Date:   Thu Sep 15 22:36:08 2022 +0930
 
-     ALSA: hda/realtek: Enable 4-speaker output Dell Precision 5530 laptop
-     
-     commit 1885ff13d4c42910b37a0e3f7c2f182520f4eed1 upstream.
-     
-     Just as with the 5570 (and the other Dell laptops), this enables the two
-     subwoofer speakers on the Dell Precision 5530 together with the main
-     ones, significantly increasing the audio quality. I've tested this
-     myself on a 5530 and can confirm it's working as expected.
-     
-     Signed-off-by: Callum Osmotherly <callum.osmotherly@gmail.com>
-     Cc: <stable@vger.kernel.org>
-     Link:https://lore.kernel.org/r/YyMjQO3mhyXlMbCf@piranha
-     Signed-off-by: Takashi Iwai <tiwai@suse.de>
-     Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-  sound/pci/hda/patch_realtek.c | 1 +
-  1 file changed, 1 insertion(+)
-
-Which makes sense, since I noticed this regression on a Dell Precision 
-5530 laptop.
-
-Downstream bug report: https://bugs.gentoo.org/876843
-
-Please revert this commit to restore the previous working condition on 
-all affected branches, since an external headset is a very common use 
-case with these kinds of laptops. There were similar commits for 
-different laptop models, but I do not have any of these models, so I 
-cannot say if they cause a similar regression.
-
-Best regards,
-Jan Henke

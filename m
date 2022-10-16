@@ -2,112 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4919C5FF972
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Oct 2022 11:24:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 831755FFCEC
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 03:38:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9A427E8B;
-	Sat, 15 Oct 2022 11:23:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9A427E8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DABE7493F;
+	Sun, 16 Oct 2022 03:37:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DABE7493F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665825864;
-	bh=3+jYI6eYFrkUyBHSR2OmESGrRYElF+iIN3/OnJvcFRE=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1665884298;
+	bh=PPWgHhZbcDg7ibdjbh2RS02RQ+zil2LhiDJSGEk7EUg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z3n94N+pUvVXYkdtZFQbEF14yTPwMgdAYenePipuFsCbeEFHi51QFhBRpc7eurhth
-	 fy/YE6pXpKIUYPCM+E8/34bV6yQTj9/E01Hx1Jlbi5MeadBdGxw8eUKd9AIwjtckRo
-	 53D1Povak6FvRuYIvbs4IVI0BaO+yhXsOXmVxRk4=
+	b=SJOxqsiqwOYsi42FgMAiKdgMZ7h01fxVZehSFOnSBB35xZwxGZUggnfmy1KvMU94+
+	 AbWNqEX+wBC34a6FFQJ4WJ/DvBMB4Zx2E4NI82WI6LPHn0S0tLp2Kfvf3ZNFhCYR5j
+	 ynUqwn3PJJtjRFFXemCxlC+JpKIuZXNM6ya7AoJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 769BDF801F7;
-	Sat, 15 Oct 2022 11:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BD03F80212;
+	Sun, 16 Oct 2022 03:37:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ABDAF800C1; Sat, 15 Oct 2022 11:23:26 +0200 (CEST)
+ id 5C66FF801F7; Sun, 16 Oct 2022 03:37:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_59,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A199F800C1
- for <alsa-devel@alsa-project.org>; Sat, 15 Oct 2022 11:23:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A199F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E063F80086
+ for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 03:37:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E063F80086
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="FZMKy17Q"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29F9Lm49019199;
- Sat, 15 Oct 2022 09:23:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ZiQWBQqxGDHFAKWGI6Zhru9TemqX1gmSzeo4Kkz9Cyo=;
- b=FZMKy17Q6UVNT0+f1+wj51lnkasnPQ5N4SlP/93mcfkpiOxuvRRszSxNhPxixdkNlSE8
- xL5rUN0Jwi6/RADI1YB9OUOjPE1YSXrvA5SBZzpbqUIpUHMDRii/poMY6Wpqp3S9O1/C
- 5s/cFECsnwwi8jvcR0vGmZGi5aIBSlb6fb4Lgx+In52a9NACeHJwPB70D64LB3wLegNm
- CCUPYI+0/pAQmTI8FKjXmJpLJ3dsViUO1cvApa84jTPR8UgWEweIa25jvNp4nNMUwcIL
- ixljgRnna4XauWC0jeoaR5CVNJdzrSPLtB+hmt8Sql7APFqasePfalp92xvVrsY/OzmR 0Q== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k7m6u8kuh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 15 Oct 2022 09:23:18 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29F9NHFo008435
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 15 Oct 2022 09:23:17 GMT
-Received: from [10.216.53.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Sat, 15 Oct
- 2022 02:23:12 -0700
-Message-ID: <b0cbb2a4-088a-3f9a-8918-b95687ef2acd@quicinc.com>
-Date: Sat, 15 Oct 2022 14:53:09 +0530
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="D1iA3Gfp"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="gI8Q9Mae"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 5EB0132004ED;
+ Sat, 15 Oct 2022 21:37:10 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Sat, 15 Oct 2022 21:37:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm3; t=1665884229; x=1665970629; bh=us
+ mHFGZvtUt3GSrq2Da8mcGY9SS5vOoXDl/cCx8LI4E=; b=D1iA3Gfp6IRKKyYKla
+ BGRWT6HV5ORZH3XntIHzxDDGMqcVx7p2s3/kC6hjta14oSTfn+j9WyjmvvuVyxPB
+ sx+IYrSNRlm977dUesZ0Hvv3gFIQ4sZbhyNPCf+ylitZCHlmnOhe2adbvv0D/zqW
+ mSD+VzB1UNtvf4FYjxm/XCpLfR/rzAJcQ7k9R8VkCBHuYvmF/MG2eyA19eKzxmO5
+ a8wLo32zN19JGyDI1dEFqZ4rhskaodQybEtQJ6SRc0348495RxwNpKBuQK1W1AMw
+ r2VcqR4K1Oy5i+ptOTf4Lh/ssHCBsh6+xLfS6CK4Ln8TkbZGHYM5b8RORNdYFtAV
+ RwCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1665884229; x=1665970629; bh=usmHFGZvtUt3GSrq2Da8mcGY9SS5
+ vOoXDl/cCx8LI4E=; b=gI8Q9MaeKVW5znaEdWUAn1R/4/m8GhHiqlrdrdkIECPV
+ VbGrYV36EbOjjZkAoGw2s3xv1enK+b+y1oyyrlQFY42TZ0m5WmY+b5SepEihJqwG
+ J4Vk3u607VvjrQVgEObD0mCwSDBO4vF2eaH0gYz11YdUfA+5Bs+1X5KkaIjxM5fy
+ gV4Wo7UuhWYTkHzm6zfrb7RgJiY4HMOg815V3x/+vssDb7pBY/gLkFeNcmq3tfZp
+ WQTwKjlsbZsOTAiORlfb4k9Cy6rSEjTz1QNq7FLmhji6H06cqAOmkwS+LYTAGjip
+ kk8kLOsMXmh6q6lV5pHx4C2LTqH1YcSL7xapIu/PDw==
+X-ME-Sender: <xms:RWBLY8RnzOVWus9YllghGCXsdDG_F36upd0Nj22k79zJzbq07jihfw>
+ <xme:RWBLY5xi6GXxPEKzUcMU6SxX5vDJE5NSAIaIw5mJuRztnCKRz4l5TVfC7xISl47Ph
+ S7nKj1jh8tfK1BdYws>
+X-ME-Received: <xmr:RWBLY518ulMsXKM94RXlbP3nvJuWy21yTj55IS3qwOJ5Ux7EkkaRrx1VzU7acdMkZ26XPpOJz3SFCfHpMJe8hUaH2SrvbHFPwFqN>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeekhedggeeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuggftrfgrthhtvghrnhepgeetuddtgffhfeeuiefggeeljeeuleelteelgfdu
+ gfdtkeeiffetleeugfdtffejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdprghrtg
+ hhihhvvgdrohhrghdpudefleegthgrrdhorhhgnecuvehluhhsthgvrhfuihiivgeptden
+ ucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthh
+ hirdhjph
+X-ME-Proxy: <xmx:RWBLYwCJ-30EGDlAe1yFn39CNlCh2PY56FBnt221LYQawXE6_1UA-A>
+ <xmx:RWBLY1gZcym1328Ugoc_pGuOzJE__MX2wCdW5zUdk_MGuOetwCrfdQ>
+ <xmx:RWBLY8p2zTyh9ijua02YkuSLSfhQOrvwa1kRBHzeEl2hVNIVMHWMqw>
+ <xmx:RWBLY4v5FuNZxCTlhwq8tozncg2jAyYH0XNyNo5R70CXmrN7q7-bfw>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 15 Oct 2022 21:37:07 -0400 (EDT)
+Date: Sun, 16 Oct 2022 10:37:05 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: George Hilliard <thirtythreeforty@gmail.com>
+Subject: Re: [PATCH 0/2] sound: dice: Firestudio Mobile
+Message-ID: <Y0tgQah2qTmOt6KA@workstation>
+Mail-Followup-To: George Hilliard <thirtythreeforty@gmail.com>,
+ Clemens Ladisch <clemens@ladisch.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20221015233330.8679-1-thirtythreeforty@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2] ASoC: qcom: lpass-cpu: mark HDMI TX registers as
- volatile
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <alsa-devel@alsa-project.org>, <andersson@kernel.org>,
- <bgoswami@quicinc.com>, <broonie@kernel.org>,
- <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
- <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <perex@perex.cz>,
- <quic_plai@quicinc.com>, <quic_rohkumar@quicinc.com>,
- <robh+dt@kernel.org>, <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
-References: <1665637711-13300-1-git-send-email-quic_srivasam@quicinc.com>
- <CAE-0n53W3+MgRzpkV-9kBc6Pcvzta+ear3oxgMA-0rpNyJyJwQ@mail.gmail.com>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <CAE-0n53W3+MgRzpkV-9kBc6Pcvzta+ear3oxgMA-0rpNyJyJwQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: TGOfFq2HQkAB1AB9oduswYFG-uTnrxiD
-X-Proofpoint-GUID: TGOfFq2HQkAB1AB9oduswYFG-uTnrxiD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-15_05,2022-10-14_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- bulkscore=0 spamscore=0 malwarescore=0 mlxlogscore=999 priorityscore=1501
- suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2210150053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221015233330.8679-1-thirtythreeforty@gmail.com>
+Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,34 +122,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-On 10/15/2022 2:41 AM, Stephen Boyd wrote:
-> Quoting Srinivasa Rao Mandadapu (2022-10-12 22:08:31)
->> Update HDMI volatile registers list as DMA, Channel Selection registers,
->> vbit control registers are being reflected by hardware DP port
->> disconnection.
->>
->> This update is required to fix no display and no sound issue observed
->> after reconnecting TAMA/SANWA DP cables.
->> Once DP cable is unplugged, DMA control registers are being reset by
->> hardware, however at second plugin, new dma control values does not
->> updated to the dma hardware registers since new register value and
->> cached values at the time of first plugin are same.
->>
->> Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
->>
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
-> I found that another patch in this area hasn't been applied[1]. Is it
-> still relevant? We're still carrying it in the chromium tree. If it is
-> relevant can you please resend it.
->
-> [1] https://lore.kernel.org/all/1602596728-11783-1-git-send-email-srivasam@codeaurora.org/
+On Sat, Oct 15, 2022 at 06:33:28PM -0500, George Hilliard wrote:
+> This short series adds a configuration block for the Firestudio Mobile I
+> just acquired.  Very similar to the Firestudio, but a lower port count.
+> 
+> My understanding is that the Low, Medium, and High speeds refer to
+> 48kHz, 96kHz, and 192kHz sample rates, of which only the first two are
+> supported by this hardware line.  Please correct me if this is not
+> correct.
+> 
+> Thanks!
 
-Thanks for Notifying this untracked patch.
+Thanks for the patches, while the device, FireStudio Mobile, is
+already supported by ALSA dice driver since it has an entry of moddevice
+table which matches your device:
 
-Resent the patch.
-     - 
-https://patchwork.kernel.org/project/alsa-devel/patch/1665825530-7593-1-git-send-email-quic_srivasam@quicinc.com/
+```
+	{
+		.match_flags = IEEE1394_MATCH_VERSION,
+		.version     = DICE_INTERFACE,
+	},
+```
 
+I think you have the other troubles except for device detection.
+
+
+In general protocol defined by TC Applied Technologies (the company
+which designed DICE ASICs and firmwares), two fields of content of
+configuration ROM have pre-defined values.
+
+One of the fields is version field of unit directory. The value is
+0x000001 (=DICE_INTERFACE). In your case, the content of unit directory
+is below. We can see the value of version field is 0x000001.
+
+```
+               unit directory at 430
+               ---------------------------------------------------
+430  00048030  directory_length 4, crc 32816
+434  12000a92  specifier id: Presonus Corporation
+438  13000001  version
+43c  17000011  model
+440  8100000f  --> descriptor leaf at 47c
+```
+
+Another is EUI-64 field in bus information block. the part of field
+is used for 8 bit `category ID` and the value is 0. In your case,
+the value is below. The way to parese the field, please refer to
+`check_dice_category` function in `sound/firewire/dice/dice.c`[1].
+
+```
+               ROM header and bus information block
+               ---------------------------------------------------
+400  0404bc6a  bus_info_length 4, crc_length 4, crc 48234
+404  31333934  bus_name "1394"
+408  e0008102  irmc 1, cmc 1, isc 1, bmc 0, cyc_clk_acc 0, max_rec 8 (512)
+40c  000a9204  company_id 000a92     | Presonus Corporation
+410  047da647  device_id 04047da647  | EUI-64 000a9204047da647
+```
+
+For the content of configuration ROM itself, documentation by 1394
+Trading Association (vendor association back in several years ago) will
+be a great help[2].
+
+
+As a supplement, TCAT general protocol has no way to share available
+stream formats at all of supported sampling transfer frequencies. It
+allows software just to read available stream formats at current
+sampling transfer frequency, while TCAT protocol extension has the
+function.  ALSA dice driver is programmed to try the extension to detect,
+then works at limitation mode at failure. The pre-defined table you coded
+is for the case that the extension is not supported by device, but
+your device supports the extension.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/tree/sound/firewire/dice/dice.c#n33
+[2] https://web.archive.org/web/20210216003042/http://1394ta.org/wp-content/uploads/2015/07/1999027.pdf
+
+
+Thanks
+
+Takashi Sakamoto

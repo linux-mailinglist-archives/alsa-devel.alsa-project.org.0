@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 072815FFFA8
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 15:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396BC5FFFAB
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Oct 2022 15:30:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C37D61FA;
-	Sun, 16 Oct 2022 15:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C37D61FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDE5D61DA;
+	Sun, 16 Oct 2022 15:29:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDE5D61DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1665927025;
-	bh=I336HX1c2WRNZaW8fUehubG98LOs73CoXWdt9DyywFY=;
+	s=default; t=1665927046;
+	bh=GAw/0cPvVF5y28P+zAqaf/mFWtMcoUdj+ef8I4K9Lvo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B5t0GEL2Wnpj0eNyly1v5AroBJIAYi+bku+Cx3AzJiCdAmazjqMqmuCjeLZeKGHOq
-	 lHE5kJOwZSbVvp1YzVKfvBrxJyeLtu+oe1NbxJlHW51/za6HIzY4kdQoAFX/CqpEdj
-	 XxJhQrDwrJ7V4IHzBpr2IIfuh9L4UkS0M2vcyOug=
+	b=M5G6QfSllKnF4Xg+y+PL8bv5yjeeYu7m//LkSC4jYnNiqZjM4se3KBdXM8Xm8id3E
+	 KopuGNhC+lhZSoZSBu/mTZYA3ih+94pdK2BBoTh7rgCv+iUvgaBhxtyP1Plav4HnaU
+	 MImEl8WpF/wWY+/8z5YDzBAX2xVKhgnt65HG7wCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ABA8F8053D;
-	Sun, 16 Oct 2022 15:28:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1677DF80579;
+	Sun, 16 Oct 2022 15:28:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 812E5F80563; Sun, 16 Oct 2022 15:27:59 +0200 (CEST)
+ id 26A9AF8055C; Sun, 16 Oct 2022 15:28:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAA4FF80551
- for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 15:27:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAA4FF80551
+ by alsa1.perex.cz (Postfix) with ESMTPS id 687C9F8053D
+ for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 15:27:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 687C9F8053D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mMrjWmGO"
-Received: by mail-ej1-x632.google.com with SMTP id 13so19626731ejn.3
- for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 06:27:56 -0700 (PDT)
+ header.b="gbkTAWWF"
+Received: by mail-ed1-x533.google.com with SMTP id s2so12694313edd.2
+ for <alsa-devel@alsa-project.org>; Sun, 16 Oct 2022 06:27:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=J+d4zYZ2OcrExgu67AwFyCEVw5ZLbwcKQnaxEzIUbSA=;
- b=mMrjWmGOWPj+C9rRMvyoO46WUEnlfRtEdLgPUR+JGPnHwMPR8SDTdC/OMHqnsvlbsO
- uAwIB6Dii987acRt1fXMF5i0TMU353WzTrDYcnBf1Qy61/5fTgyC8ZS8q1Hmwna9zEgw
- nSx2+QuChjF4E/rqYhj+nfwQ4DnUPgSrjHvw5J0li9Xq4Pk8Ki+MDQU4fkddJfQQBRGN
- sMj6I/x54DLEW1hPsx03ZHWgDNs1SMxzWIZ7iOc/RFOv0ZhVw3EdwsHqdVzXP+4Hh6Kx
- Ikr4iJKaEMbWgE/CeGhUWMVACdvtHreTDJOj+9pdQ5Uq29sHodsIf3dVM08LZqBjQtQk
- ho6w==
+ bh=R19Q50f+4lJZEQStb2xYnMd/U/8/rdyoHM9BaeMxvps=;
+ b=gbkTAWWF6YY0ZHs9zxW1q9aUl6tCSvP9p4r8o3h1d5cTHJFV3BITvz6EgkHXD12VPF
+ r45o4jjfXEVXaDE/HgXGhGzJtcVV2tdAG/hD8z35OgMVtzXvqc0uJhza7xWHJyBjphM5
+ KN/0vaIoXgSILYv9JTWA/uVS6KYRY7P5dD5U9VIfjQ0RjJWD4XYLgl2+UftSL18DV1WT
+ EHX+vVJpBDNvGUneUs+D1qh5G3Yam3mNSxnkhS8egoHtqPFC+yuNa9afL/DT2fBD/U4R
+ vZlRwQPnZoOKFbfVmWMDHxNYmyY8P9UmCCc85qLYSYUpayfKCee0JP+vG0mhZYggG3AY
+ uSiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=J+d4zYZ2OcrExgu67AwFyCEVw5ZLbwcKQnaxEzIUbSA=;
- b=1aOfULKZ7JGRrjvP+MBM8jPITy90ZojOwxg3k53p2RFr5G2M/j1f0YJZPOnxDcmzxh
- 1ZELl71bn6iicS5dokZMSfcEP8V8YyhPT2a2Kf+zzCez5xhK1zVxZtRCeojPVcIe5T+G
- L4ywr3ktZG88dU2PFGyoOkqStlU+vWfjF3E9rFVZlE+xaar335j66f5N5EuudQuZkGmS
- 5tuyBfSXRkhSD5hasOn0F8mxCPk4doUn70W3o17CDH4M9yDoWUOMwNSguWjUuCJY+ZwX
- 7eNFBCCvv3BULdX8sxmwUAv3xou8glzzkRxQwJksh5vG7BPaR57zfDla4JpBN+rHreTz
- ozCQ==
-X-Gm-Message-State: ACrzQf3Wo+KD7We5T7+GXkA+4b1RBrw0Dm8uYbHdhS0hqiTtcHH5oXX+
- 0t/5J41RP6vDw0Z2Dp+8z5A=
-X-Google-Smtp-Source: AMsMyM5dMNtbDLm6MEm7cnMuWNaK+QO5ZZ+c9vzpWV5tcd39S+YzfLjNrzXGd0ed3T23TkI0TChLQQ==
-X-Received: by 2002:a17:906:8479:b0:78d:cf17:2d70 with SMTP id
- hx25-20020a170906847900b0078dcf172d70mr5129252ejc.319.1665926874773; 
- Sun, 16 Oct 2022 06:27:54 -0700 (PDT)
+ bh=R19Q50f+4lJZEQStb2xYnMd/U/8/rdyoHM9BaeMxvps=;
+ b=Vt/F3WvQTGN6YMyw78KSaEhhoFKCOj1jKiJNqNSCxvnRiahsyUvqnQiiU9uNiwUQDU
+ V9g4LlabM/GVJgXM5ZKjkMjYbO9JvS46TmlIYvGz5dsE8L0AyqpyhbJ6tsi0/43nCecs
+ Lk0oAhzO0EMHQWFPjMcft0+7UShP9FVYA/Ntll4hQNTpspHeKvuSoY2GJd7FmYaCNzjI
+ bIVBLXnN+To1n5FT0T973dwBb0tfukyk+RlRuxJCpZ/geiAnCUmbDlo3buF9FJrrVmw2
+ 7iV29fCLU4+/wwLd+kuRUGjCrlPvPh23j2tTxXrdVj0fuXriNZJxITkKfXfItglsE3S2
+ 1qKw==
+X-Gm-Message-State: ACrzQf0v37MyhfTzoHMWxSgF2VUrfk8E7/X8d4wnpEx3usr11RfbTkkx
+ nSynUZH0SKaLdZ5YDuNhyC8=
+X-Google-Smtp-Source: AMsMyM4CLc3sbcJ+XcUb7r1QZ6mjeycYteXNf0YLcpCxBQ7DSnn0VWt1dxwJNrSay4i3SURbUIJ5SA==
+X-Received: by 2002:a05:6402:5190:b0:45c:fca7:e07b with SMTP id
+ q16-20020a056402519000b0045cfca7e07bmr6145825edd.327.1665926876937; 
+ Sun, 16 Oct 2022 06:27:56 -0700 (PDT)
 Received: from hp-power-15.localdomain
  (mm-39-7-212-37.vitebsk.dynamic.pppoe.byfly.by. [37.212.7.39])
  by smtp.gmail.com with ESMTPSA id
- y5-20020aa7ce85000000b0045c72bba0bfsm5572057edv.4.2022.10.16.06.27.53
+ y5-20020aa7ce85000000b0045c72bba0bfsm5572057edv.4.2022.10.16.06.27.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Oct 2022 06:27:54 -0700 (PDT)
+ Sun, 16 Oct 2022 06:27:56 -0700 (PDT)
 From: Siarhei Volkau <lis8215@gmail.com>
 To: 
-Subject: [PATCH v3 6/7] ASoC: codecs: jz4725b: add missed Mixer inputs
-Date: Sun, 16 Oct 2022 16:26:47 +0300
-Message-Id: <20221016132648.3011729-7-lis8215@gmail.com>
+Subject: [PATCH v3 7/7] ASoC: codecs: jz4725b: add missed microphone widgets
+Date: Sun, 16 Oct 2022 16:26:48 +0300
+Message-Id: <20221016132648.3011729-8-lis8215@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20221016132648.3011729-1-lis8215@gmail.com>
 References: <20221016132648.3011729-1-lis8215@gmail.com>
@@ -107,105 +108,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Mixer couples analog input from 4 sources (DAC, Line In, Mic 1,
- Mic 2) each input has its own gain & mute controls.
+Microphone input can be single ended or differential, although
+known SoCs with that codec expose MIC1P only.
 
-At the moment only DAC is implemented fully and Line In path can be
-switched on/off. The patch implements Mic 1 and Mic 2 paths and fully
-implements Line In path.
-
-Manual states that these controls (16.6.3.3 Programmable attenuation:
-GOi) gain varies from -22.5dB to +6.0dB with 1.5dB step. Also there's
-extra values below the minimum, but they behave the same as the minimum
-value.
+Also there is 20dB mic boost in the Mic1 path.
 
 Signed-off-by: Siarhei Volkau <lis8215@gmail.com>
 ---
- sound/soc/codecs/jz4725b.c | 42 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
+ sound/soc/codecs/jz4725b.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index c39398e0a..52b2bb95b 100644
+index 52b2bb95b..685ba1d3a 100644
 --- a/sound/soc/codecs/jz4725b.c
 +++ b/sound/soc/codecs/jz4725b.c
-@@ -136,6 +136,18 @@ enum {
- #define REG_CGR3_GO1L_OFFSET		0
- #define REG_CGR3_GO1L_MASK		(0x1f << REG_CGR3_GO1L_OFFSET)
- 
-+#define REG_CGR4_GO2R_OFFSET		0
-+#define REG_CGR4_GO2R_MASK		(0x1f << REG_CGR4_GO2R_OFFSET)
-+
-+#define REG_CGR5_GO2L_OFFSET		0
-+#define REG_CGR5_GO2L_MASK		(0x1f << REG_CGR5_GO2L_OFFSET)
-+
-+#define REG_CGR6_GO3R_OFFSET		0
-+#define REG_CGR6_GO3R_MASK		(0x1f << REG_CGR6_GO3R_OFFSET)
-+
-+#define REG_CGR7_GO3L_OFFSET		0
-+#define REG_CGR7_GO3L_MASK		(0x1f << REG_CGR7_GO3L_OFFSET)
-+
- #define REG_CGR8_GOR_OFFSET		0
- #define REG_CGR8_GOR_MASK		(0x1f << REG_CGR8_GOR_OFFSET)
- 
-@@ -153,6 +165,11 @@ struct jz_icdc {
- 
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(jz4725b_adc_tlv,     0, 150, 0);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(jz4725b_dac_tlv, -2250, 150, 0);
-+static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(jz4725b_mix_tlv,
-+	 0, 11, TLV_DB_SCALE_ITEM(-2250,   0, 0),
-+	12, 31, TLV_DB_SCALE_ITEM(-2250, 150, 0),
-+);
-+
- static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(jz4725b_out_tlv,
- 	 0, 11, TLV_DB_SCALE_ITEM(-3350, 200, 0),
+@@ -175,6 +175,15 @@ static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(jz4725b_out_tlv,
  	12, 23, TLV_DB_SCALE_ITEM(-1050, 100, 0),
-@@ -170,6 +187,21 @@ static const struct snd_kcontrol_new jz4725b_codec_controls[] = {
- 		       REG_CGR10_GIL_OFFSET,
- 		       REG_CGR10_GIR_OFFSET,
- 		       0xf, 0, jz4725b_adc_tlv),
-+	SOC_DOUBLE_R_TLV("Mixer Line In Bypass Playback Volume",
-+			 JZ4725B_CODEC_REG_CGR3,
-+			 JZ4725B_CODEC_REG_CGR2,
-+			 REG_CGR2_GO1R_OFFSET,
-+			 0x1f, 1, jz4725b_mix_tlv),
-+	SOC_DOUBLE_R_TLV("Mixer Mic 1 Bypass Playback Volume",
-+			 JZ4725B_CODEC_REG_CGR5,
-+			 JZ4725B_CODEC_REG_CGR4,
-+			 REG_CGR4_GO2R_OFFSET,
-+			 0x1f, 1, jz4725b_mix_tlv),
-+	SOC_DOUBLE_R_TLV("Mixer Mic 2 Bypass Playback Volume",
-+			 JZ4725B_CODEC_REG_CGR7,
-+			 JZ4725B_CODEC_REG_CGR6,
-+			 REG_CGR6_GO3R_OFFSET,
-+			 0x1f, 1, jz4725b_mix_tlv),
+ 	24, 31, TLV_DB_SCALE_ITEM(  100,  50, 0),
+ );
++static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(jz4725b_mic_boost_tlv, 0, 2000, 0);
++
++static const char * const jz4725b_mic_mode_texts[] = {
++	"Single Ended", "Differential",
++};
++
++static const struct soc_enum jz4725b_mic_mode_enum =
++	SOC_ENUM_SINGLE(JZ4725B_CODEC_REG_CR3, REG_CR3_MICDIFF_OFFSET,
++			2, jz4725b_mic_mode_texts);
  
- 	SOC_DOUBLE_R_TLV("Master Playback Volume",
- 			 JZ4725B_CODEC_REG_CGR9,
-@@ -203,8 +235,12 @@ static const struct snd_kcontrol_new jz4725b_codec_adc_src_ctrl =
- 	SOC_DAPM_ENUM("ADC Source Capture Route", jz4725b_codec_adc_src_enum);
- 
- static const struct snd_kcontrol_new jz4725b_codec_mixer_controls[] = {
--	SOC_DAPM_SINGLE("Line In Bypass", JZ4725B_CODEC_REG_CR1,
-+	SOC_DAPM_SINGLE("Line In Bypass Playback Switch", JZ4725B_CODEC_REG_CR1,
- 			REG_CR1_BYPASS_OFFSET, 1, 0),
-+	SOC_DAPM_SINGLE("Mic 1 Bypass Playback Switch", JZ4725B_CODEC_REG_CR3,
-+			REG_CR3_SIDETONE1_OFFSET, 1, 0),
-+	SOC_DAPM_SINGLE("Mic 2 Bypass Playback Switch", JZ4725B_CODEC_REG_CR3,
-+			REG_CR3_SIDETONE2_OFFSET, 1, 0),
+ static const struct snd_kcontrol_new jz4725b_codec_controls[] = {
+ 	SOC_DOUBLE_TLV("DAC Playback Volume",
+@@ -219,6 +228,13 @@ static const struct snd_kcontrol_new jz4725b_codec_controls[] = {
+ 	SOC_SINGLE("High-Pass Filter Capture Switch",
+ 		   JZ4725B_CODEC_REG_CR2,
+ 		   REG_CR2_ADC_HPF_OFFSET, 1, 0),
++
++	SOC_ENUM("Mic Mode Capture Switch", jz4725b_mic_mode_enum),
++
++	SOC_SINGLE_TLV("Mic1 Boost Capture Volume",
++		       JZ4725B_CODEC_REG_PMR2,
++		       REG_PMR2_GIM_OFFSET,
++		       1, 0, jz4725b_mic_boost_tlv),
  };
  
- static int jz4725b_out_stage_enable(struct snd_soc_dapm_widget *w,
-@@ -299,7 +335,9 @@ static const struct snd_soc_dapm_route jz4725b_codec_dapm_routes[] = {
- 	{"Line In", NULL, "LLINEIN"},
- 	{"Line In", NULL, "RLINEIN"},
- 
--	{"Mixer", "Line In Bypass", "Line In"},
-+	{"Mixer", "Mic 1 Bypass Playback Switch", "Mic 1"},
-+	{"Mixer", "Mic 2 Bypass Playback Switch", "Mic 2"},
-+	{"Mixer", "Line In Bypass Playback Switch", "Line In"},
- 	{"DAC to Mixer", NULL, "DAC"},
- 	{"Mixer", NULL, "DAC to Mixer"},
- 
+ static const char * const jz4725b_codec_adc_src_texts[] = {
 -- 
 2.36.1
 

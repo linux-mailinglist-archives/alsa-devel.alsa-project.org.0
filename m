@@ -2,92 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FB30605C67
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:34:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88060605C68
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:35:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFA6D9B9D;
-	Thu, 20 Oct 2022 12:33:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFA6D9B9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 022AC9533;
+	Thu, 20 Oct 2022 12:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 022AC9533
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666262079;
-	bh=E/piL+Cl5bNZ+cdgdtRq8tdPhqA168X72rjKGIcj1h4=;
+	s=default; t=1666262101;
+	bh=FViSSKwYNLFy/8i7voLq1fvEAiC2E4b3lKUtg6bhSNs=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mb4HWa6e/TGdEynwjCaYnSwUhCsH+00PeJa/LeNNx8ylNomQPm+bn2tYtrQSKV03e
-	 Z1uDcJ/tNfQkxFCd4KBrXIXCRLe2clR71gEiiM26jgGDuklB1GNjEVURsXnBwbxdv/
-	 8q8giyrMwioTYm2F9TeRkEII9ZEQOfTfxE5Cvx3w=
+	b=eQtCIPNo+3il9O5+25sVWo1ul3qwef+L0/K1DQo7FFP3mGtYwK9t/KimaxVhPSTDE
+	 0MrW8RjNLMr1XCAuMz5mm4qUME8szXCSdzb8hU2k0rXPs+dIgFpOIbr1rfQDS0XIeH
+	 YC8Jv+7EVervBmEJVmqBGAqqR08WQt0CS43H/qyo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FE10F80519;
-	Thu, 20 Oct 2022 12:33:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0079BF8053D;
+	Thu, 20 Oct 2022 12:33:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4554EF8025E; Mon, 17 Oct 2022 11:35:36 +0200 (CEST)
+ id B7619F80496; Mon, 17 Oct 2022 14:16:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
- [IPv6:2607:f8b0:4864:20::a2e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [IPv6:2607:f8b0:4864:20::82b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02909F800E5
- for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 11:35:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02909F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9A51F80149
+ for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 14:16:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9A51F80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=bgdev-pl.20210112.gappssmtp.com
- header.i=@bgdev-pl.20210112.gappssmtp.com header.b="frJwpnQ1"
-Received: by mail-vk1-xa2e.google.com with SMTP id o28so5055034vkn.11
- for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 02:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=E/piL+Cl5bNZ+cdgdtRq8tdPhqA168X72rjKGIcj1h4=;
- b=frJwpnQ1m5aYZphVeeBe7Gk3obDQDvbUlm04wfHh9QiSL/PMF9tB/Oqsh+0kEGhfNO
- IO0xDniqeVyzfdD+JQ/zRq4D21vh7ik7Um8ee3cn8CBCOToSaQ1ZGpd/a2Gve9yyVF34
- ITfWo51grHozApCr0PrB6Bwe0SOYlzp6onCsTl/dTI9MCc6vgY4Nu541uAo++YYBs5A4
- a0vKPtblJ4z5wLnNbmGOx+MINPdJQQEqi1diMlwjfz7XnWKZTtJr/JKwgIM6sTm2WKvz
- GFI/MxIIypmMB3ZgmlItW4/UaPbdgeUgb5Ga5LgkDThgRnOzk/BQFLxn/5jf7fmdM9uK
- /Naw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="G4XBw7Ot"
+Received: by mail-qt1-x82b.google.com with SMTP id g16so2696658qtu.2
+ for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 05:16:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FViSSKwYNLFy/8i7voLq1fvEAiC2E4b3lKUtg6bhSNs=;
+ b=G4XBw7OtjlEVYhvq3ujakfFtUjrlMIkd5uVVPI4L3fSHgn9r2dYLTBKR1DSk55qy8/
+ vjDDH2t4lQErUrsZ81N0WmnCPAq1TAG4psbIGjoQRhntN5Cmq1aF/T5qp0/euyInLZPZ
+ /K8bnHyxQYrmvZCrh75klmy5Bz15Y/XvsM73Xs3LGuMo2izmCHPf5UYpUMbW37BEsOEV
+ sVucDgXlyB1YZt4pqPGa9U7E85eMuIK9JN+tGTbAMfTNB3gqhaNnxWOxBOHdWu8HWlhw
+ 4OAFcfWlF4Cka/k2IMLMYdJ1w8Emhfeq9FKglqB57GbZ26ff4iD6Qp74edFo/4+10u7I
+ pv7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=E/piL+Cl5bNZ+cdgdtRq8tdPhqA168X72rjKGIcj1h4=;
- b=SATgkmrdUqCmdWdfo7325hgqFUIce+WJ151O1ivt4k2MUdwSqggQYQ/Ce44ewkAqfO
- iGJ1RQuRa+SL6jQve8RM36MqCtSAtXNuAXWKBKdtdlCz3g7xy4PRIuLv8denipN6zw3d
- 0SKnJJE+6g5N6Fe9jrbO0xOW6tq8hDkWiLp/EuZT5DDuefJIYFKWFKvAlVfr6KkGb4xd
- YxOjRaTTvcn8EuXXz8Ih/4O16yVbSWE04Y4wFn6pGpQkrBcIUvs0hxLJOezYEPrJIvlP
- sBg4lCgpCeg8PANpKp80ooRSWgKVuJZxceLJ52uK7JnFU94I9hPzeEp9sL8oAw/1pdsQ
- 5lzg==
-X-Gm-Message-State: ACrzQf2ComcXOdsz2ji5rJv9dvjzBQdkvN/6/Ij5K1o/LW9lWL0XqlMr
- 6WOEVJcL3lORKlfHwbjgBERdptitTw1Fc1mwE1+jOQ==
-X-Google-Smtp-Source: AMsMyM6Q6nrL8lOCi83NdWMY6wKW/FytxI2676zCB6+Z2xX8cVC67C12vEdkRnmssQAcscBm4uxHwhyfQkZ6/acn8wI=
-X-Received: by 2002:a1f:4843:0:b0:3ae:c4a3:d653 with SMTP id
- v64-20020a1f4843000000b003aec4a3d653mr3536302vka.1.1665999328063; Mon, 17 Oct
- 2022 02:35:28 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FViSSKwYNLFy/8i7voLq1fvEAiC2E4b3lKUtg6bhSNs=;
+ b=4XGkOovb13kdUgSIPvGAfFQIkYCvRPD41zq9AMVzCEJEq6MEQbvxqQAOgYcF19RD80
+ SBmfduEfVbmOzGdpha+Xd5DmUupjdlfsrjni5xLyrs01WzZX70o97wzj96i/4J1XowFb
+ HbbpulzsPmN/VvbhYFlmI7m+tQdI1r0e/TtpbuXhuCnSLuBmt3bMbmbf/WxMMsW2mDm+
+ y3FbIaG0lofgY6Ubnizs7LGxnmw5FswNZNbzNFZmFbk76BRkaoAIYelMjQL85ub+plx/
+ gYc8I03wDlzXONzR25PJUlYqfLQSM6Rd3+l/ZFWe9aCZaEMBXlK96MdF3o+x70Awasu0
+ fuow==
+X-Gm-Message-State: ACrzQf1N7kbAHdnxfMjJ1GZyLnct5KoRDokfoQ1EV0iHRfeQrDkzDeyq
+ KIUusP7833GCucB9vKDJVByLTzs0DGDwRNqVvpo=
+X-Google-Smtp-Source: AMsMyM5ONAbRwJ0mRV8lFkFN/+yOIGgrHcLBILWbhUW8XaqfnSolfxdkiScuiVdMZUaqcXP+J2a9nYR4SqM8sa8eRyQ=
+X-Received: by 2002:a05:622a:1045:b0:39c:e2e1:dc59 with SMTP id
+ f5-20020a05622a104500b0039ce2e1dc59mr7379719qte.195.1666008987610; Mon, 17
+ Oct 2022 05:16:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
  <20221010201453.77401-2-andriy.shevchenko@linux.intel.com>
  <CACRpkdbdzFR-a_xh8EjLMAshTeesOYhD3-_Bkc=vi7iK72ZKtA@mail.gmail.com>
-In-Reply-To: <CACRpkdbdzFR-a_xh8EjLMAshTeesOYhD3-_Bkc=vi7iK72ZKtA@mail.gmail.com>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 17 Oct 2022 11:35:16 +0200
-Message-ID: <CAMRc=MexjuQw+hUDDfCVxiBEJ573jNb3Ko9SyOU-xJ03wOe8cQ@mail.gmail.com>
+ <CAMRc=MexjuQw+hUDDfCVxiBEJ573jNb3Ko9SyOU-xJ03wOe8cQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MexjuQw+hUDDfCVxiBEJ573jNb3Ko9SyOU-xJ03wOe8cQ@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 17 Oct 2022 15:15:51 +0300
+Message-ID: <CAHp75VftkwPB-+jhCrhCdPRN0hLm5DLADMyAO45eBTRFfxiNuQ@mail.gmail.com>
 Subject: Re: [PATCH v2 01/36] gpiolib: tegra186: Add missed header(s)
-To: Linus Walleij <linus.walleij@linaro.org>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 20 Oct 2022 12:33:16 +0200
 Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
  Tomer Maimon <tmaimon77@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
- Tomasz Figa <tomasz.figa@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
  =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
  Horatiu Vultur <horatiu.vultur@microchip.com>,
  Emil Renner Berthing <kernel@esmil.dk>,
@@ -166,24 +168,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 17, 2022 at 10:52 AM Linus Walleij <linus.walleij@linaro.org> wrote:
->
-> On Mon, Oct 10, 2022 at 10:15 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
->
-> > Do not imply that some of the generic headers may be always included.
-> > Instead, include explicitly what we are direct user of.
+On Mon, Oct 17, 2022 at 12:35 PM Bartosz Golaszewski <brgl@bgdev.pl> wrote:
+> On Mon, Oct 17, 2022 at 10:52 AM Linus Walleij <linus.walleij@linaro.org>=
+ wrote:
+>>=C2=B7On Mon, Oct 10, 2022 at 10:15 PM Andy Shevchenko
+> > <andriy.shevchenko@linux.intel.com> wrote:
 > >
-> > While at it, sort headers alphabetically.
+> > > Do not imply that some of the generic headers may be always included.
+> > > Instead, include explicitly what we are direct user of.
+> > >
+> > > While at it, sort headers alphabetically.
+> > >
+> > > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > >
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
->
-> Yours,
-> Linus Walleij
+> > Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Andy: are you going to send it together with the corresponding pinctrl
-changes in a separate PR?
+> Andy: are you going to send it together with the corresponding pinctrl
+> changes in a separate PR?
 
-Bart
+Yes, this is the plan, but I want first to push it to Linux Next (via
+my tree) for a couple of days, so we will be sure there are no
+compilation issues.
+
+--=20
+With Best Regards,
+Andy Shevchenko

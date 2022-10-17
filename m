@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2BA0601A7E
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Oct 2022 22:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4112F601A80
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Oct 2022 22:43:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 604452D09;
-	Mon, 17 Oct 2022 22:42:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 604452D09
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6369511F;
+	Mon, 17 Oct 2022 22:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6369511F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666039391;
-	bh=RElo47wmE/yzcY2Xn9OnhG9U5VGENaKR3A1O4G5TBuI=;
+	s=default; t=1666039411;
+	bh=o9dp0Ptq/gD60/ZH1buZj5nTrvln923G4TEBO1b/ZQo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=f+NuvYJCe7kaj1/x97k4PveublGQlMuuwijeiv3JTXnT0megXlDwVGEh1h1VYtqr0
-	 Axa8pNoDql8cbNcPbGI1mC5rHIlpFAM+nBWt6N013Lf0HnbfRzCeHmp/RexV+gJGt0
-	 fM1jD36W26WCQZ8CpiRSagXwps76AD4Rn+IIWO1Q=
+	b=Q8kHwEDlLEuqhse5Nox4PP2BICKF+fjQ1IC+JjTXi/qvrsxk2Pk+3PmIbN7gg+TzW
+	 aI2BD+cKIGWVq435mq+nd9XzxJdflLqzTxgIj368CMNktxsj6nWGpliJuF1e1FcgBZ
+	 aYeLsmcJ9rT/1TJZCZiTUD0NHZHmirc8ocxg5o24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10AEBF804FE;
-	Mon, 17 Oct 2022 22:42:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF1C4F804AD;
+	Mon, 17 Oct 2022 22:42:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00975F804AD; Mon, 17 Oct 2022 22:42:08 +0200 (CEST)
+ id 030D9F80533; Mon, 17 Oct 2022 22:42:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A5CBF8025A
- for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 22:42:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5CBF8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0841CF80535
+ for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 22:42:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0841CF80535
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RhV9TtjH"
+ header.b="gruZi4wy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666039323; x=1697575323;
+ t=1666039344; x=1697575344;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=RElo47wmE/yzcY2Xn9OnhG9U5VGENaKR3A1O4G5TBuI=;
- b=RhV9TtjHHIxDjg7Q+cdDw8vMqpo8cHH88SdgH/dxMFZfwqvB/QHqw5n8
- YkeDr5UNmzi5/1KMMz9eIiZJGYEtGkED6R7OigT9wx51jeo0Y8crOFt9k
- pOqYmn9+GjX3HycJKIYsmfYEKO+Jd7BypPFK1swRVQJzffw+p37akmTFM
- qBY1eY7m0o8sQtgje7dRsMQHbN9HVdYpxDCTC6fNWT5Y9MpARz4IXi37h
- VnFL5bb/4K1+fS/9WXLRZozKb7dIqHX+Y+YE56JamdZR/LP2ubTiJPR1j
- 3EolZsO535B2bsf9EXwuRdyh11l6Cpi9p+fwklab5J+J2vrNhlJSiPdn4 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="370114070"
-X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="370114070"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 13:41:39 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="873611927"
-X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="873611927"
+ bh=o9dp0Ptq/gD60/ZH1buZj5nTrvln923G4TEBO1b/ZQo=;
+ b=gruZi4wyrnoz5N5jh/6dC0qnBDym1rtMpllBKld/JwkLBrK3HQtex2dM
+ 0d288djVP3Aj/uz6LvIzAvqynLp8FGeK1BtLs4tHroZvagNep/kO0BeMl
+ mceiF3Q1CzYd1pY8DIvqR4UDl+vw6zzSfJ6gBeHZJgBoFO5UIVzyPFiQR
+ oQ4qixqG5RyijP4jch2QFsne87NfQ0HtKpgJmJXZLcplkOgu3foq3jO21
+ slhx2+vumM2Zc3Ou/5fLsthu2mpU4NkhO0ZXIJLpnUUvpR+2nU2Zvm4fS
+ X/IX+PTy7NmuSSlZ9bK5Uwf6dkjVvhWT8zBKl2Y4IRvIZSpYGOUg14wzI w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="285635848"
+X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="285635848"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2022 13:42:20 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="628439419"
+X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="628439419"
 Received: from cmontgom-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.54.140])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 13:41:38 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2022 13:42:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
-Date: Mon, 17 Oct 2022 15:41:31 -0500
-Message-Id: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: sof_rt5682: Add quirk for Rex board
+Date: Mon, 17 Oct 2022 15:42:07 -0500
+Message-Id: <20221017204207.207608-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- Chao Song <chao.song@intel.com>, Bard Liao <yung-chuan.liao@linux.intel.com>
+ broonie@kernel.org, Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,69 +88,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ADL-N uses a different signing key, which means we can't reuse the
-regular ADL descriptor used for ADL-P/M/S.
+From: Yong Zhi <yong.zhi@intel.com>
 
-Fixes: cd57eb3c403cb ("ASoC: SOF: Intel: pci-tgl: add ADL-N support")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Chao Song <chao.song@intel.com>
+Add mtl_mx98357_rt5682 driver data for Chrome Rex board support.
+
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
 ---
- sound/soc/sof/intel/pci-tgl.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_rt5682.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
-index 2d63cc236a68e..757a7c6bb770c 100644
---- a/sound/soc/sof/intel/pci-tgl.c
-+++ b/sound/soc/sof/intel/pci-tgl.c
-@@ -159,6 +159,37 @@ static const struct sof_dev_desc adl_desc = {
- 	.ops_init = sof_tgl_ops_init,
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 1bf9455eaf935..adc964d363a29 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -225,6 +225,18 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
+ 					SOF_RT5682_SSP_AMP(2) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
+ 	},
++	{
++		.callback = sof_rt5682_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Rex"),
++		},
++		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(2) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(0) |
++					SOF_RT5682_NUM_HDMIDEV(4)
++					),
++	},
+ 	{}
  };
  
-+static const struct sof_dev_desc adl_n_desc = {
-+	.machines               = snd_soc_acpi_intel_adl_machines,
-+	.alt_machines           = snd_soc_acpi_intel_adl_sdw_machines,
-+	.use_acpi_target_states = true,
-+	.resindex_lpe_base      = 0,
-+	.resindex_pcicfg_base   = -1,
-+	.resindex_imr_base      = -1,
-+	.irqindex_host_ipc      = -1,
-+	.chip_info = &tgl_chip_info,
-+	.ipc_supported_mask	= BIT(SOF_IPC) | BIT(SOF_INTEL_IPC4),
-+	.ipc_default		= SOF_IPC,
-+	.default_fw_path = {
-+		[SOF_IPC] = "intel/sof",
-+		[SOF_INTEL_IPC4] = "intel/avs/adl-n",
-+	},
-+	.default_lib_path = {
-+		[SOF_INTEL_IPC4] = "intel/avs-lib/adl-n",
-+	},
-+	.default_tplg_path = {
-+		[SOF_IPC] = "intel/sof-tplg",
-+		[SOF_INTEL_IPC4] = "intel/avs-tplg",
-+	},
-+	.default_fw_filename = {
-+		[SOF_IPC] = "sof-adl-n.ri",
-+		[SOF_INTEL_IPC4] = "dsp_basefw.bin",
-+	},
-+	.nocodec_tplg_filename = "sof-adl-nocodec.tplg",
-+	.ops = &sof_tgl_ops,
-+	.ops_init = sof_tgl_ops_init,
-+};
-+
- static const struct sof_dev_desc rpls_desc = {
- 	.machines               = snd_soc_acpi_intel_rpl_machines,
- 	.alt_machines           = snd_soc_acpi_intel_rpl_sdw_machines,
-@@ -246,7 +277,7 @@ static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0x51cf), /* RPL-PX */
- 		.driver_data = (unsigned long)&rpl_desc},
- 	{ PCI_DEVICE(0x8086, 0x54c8), /* ADL-N */
--		.driver_data = (unsigned long)&adl_desc},
-+		.driver_data = (unsigned long)&adl_n_desc},
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
 -- 
 2.34.1
 

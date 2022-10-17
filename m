@@ -2,77 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F8D601AD1
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Oct 2022 22:58:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD962601B2C
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Oct 2022 23:20:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAAC67E54;
-	Mon, 17 Oct 2022 22:57:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAAC67E54
+	by alsa0.perex.cz (Postfix) with ESMTPS id 774878B38;
+	Mon, 17 Oct 2022 23:19:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 774878B38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666040324;
-	bh=eZlB8/i4dPvSz0StJ7bY65OLZ/psqwi/D0PtBRykriA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1666041642;
+	bh=kCMnB2StDWgmyt+xbgtvPiSAAx09Ii4Ova91zpT/2U8=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=q3BuEFXitXvzwFyd1e0sO61APFYPAM8DpF+svzdPXLpF3Ss8nX+7yV0sS1dXO5nyu
-	 XpVvl4YKVEQa9ISDmxLfUMILL60RUf+HYyKxskFvmfRuxHDr12pjDNDmb2MQ2tUx6o
-	 szQGjj8vjlKy3E+XcHCaW/pRg+VxcpTgHao9JwpI=
+	b=i94hnUheNfD0F72rPe1u3maHZ/zO63Iv5rXskcfcpq723oZoS4AYXD07G8xUgSkFU
+	 vb3TXhJUdGqvhr8ufvmvmaFNk/Nd+hpp3BzWCYAdc8MYdBxCYkahmCEOiRipd/Hgca
+	 jCkcToNhbKs3kgNoMTCzDMw3ujyAtPlC9+WqgOkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FFDCF800AA;
-	Mon, 17 Oct 2022 22:57:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02F02F80496;
+	Mon, 17 Oct 2022 23:19:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 026ECF8025E; Mon, 17 Oct 2022 22:57:47 +0200 (CEST)
+ id 77072F8025E; Mon, 17 Oct 2022 23:19:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mailrelay2-2.pub.mailoutpod2-cph3.one.com
+ (mailrelay2-2.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:407::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 729EFF800AA
- for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 22:57:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 729EFF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAA9AF80149
+ for <alsa-devel@alsa-project.org>; Mon, 17 Oct 2022 23:19:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAA9AF80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="f+smvWSy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666040261; x=1697576261;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=eZlB8/i4dPvSz0StJ7bY65OLZ/psqwi/D0PtBRykriA=;
- b=f+smvWSy2APB+XpoCoiOtVdPczvN30HEFEALzop6MRKR4Z7rwjOB0rf7
- O65gN07ea/Fw604nkqUKrpDbCM6RHIXPtyA5QvdAU/VMBEjwjIhilQKGm
- X+IekZYcIWn4XOOiJSQMaRwVNI4Bqcl9X4nZfR0Md12OlAteY7JyTKrtZ
- w7fIQSm/NROjUDyCVWolKLk7cAzPOiyIORYnOemeufbqRen+FfpKNstHE
- /6CflVgShaAmgO4Wh7bJxVhYABObSAKe55yuidytXZx4KOY05h4I8m6zP
- LqsvSoUqkRIIYztJbn1pqBcvFW85FbR027L7lcd4e5q4aLbT4N+f89obf Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="307003263"
-X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="307003263"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 13:57:38 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="873616685"
-X-IronPort-AV: E=Sophos;i="5.95,192,1661842800"; d="scan'208";a="873616685"
-Received: from cmontgom-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.54.140])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 13:57:37 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: Intel: sof_rt5682: Add quirk for Rex board
-Date: Mon, 17 Oct 2022 15:57:28 -0500
-Message-Id: <20221017205728.210813-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=berginkonsult.se header.i=@berginkonsult.se
+ header.b="N/yMBQyr"; 
+ dkim=permerror (0-bit key) header.d=berginkonsult.se
+ header.i=@berginkonsult.se header.b="aqjxUf3d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=rsa1;
+ h=content-transfer-encoding:content-type:subject:from:to:mime-version:date:
+ message-id:from;
+ bh=+olXPR6CU+w/f4iS4RcGG4InAlp/pvMQeNcgsKrCoRE=;
+ b=N/yMBQyrjHZdt/n/XKWI3dgaoPGIiG+RC7yydzn8yaRbkF2Dbl7VRD3xufYnkLYuueCQZGYsP2GhJ
+ 8KUWzu+1VN+uNfiaVgYS9dTvU2gAgvAY67yt75QaGHJ6Ibca2/o1ceEsM3j9U9psK4Cu7joFeDlQo8
+ ucoHcad5JAXGOVQ+YJL4hEnxZ4Fi/OB6Va/ZLusMwnPmabS8l+xCpoW9vTK7tljLrlmnJteviAbxrk
+ FZzOhSCBzI30yWsUKaB5le8xAxUkeOOFx9Cmnk5GAXFSNJOht0UgXS6qiN/3dSRbZyfQoAddM4lRg7
+ xV7dLR1UIy0BwXE/Nx2kD/AlufTWqFA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=ed1;
+ h=content-transfer-encoding:content-type:subject:from:to:mime-version:date:
+ message-id:from;
+ bh=+olXPR6CU+w/f4iS4RcGG4InAlp/pvMQeNcgsKrCoRE=;
+ b=aqjxUf3drRs6ox5QRMHT4OMFgJdUatnVCoBAuRiB+VZ2ZxwN3HHifBZzg/QfK3W/bTwL838P2CC5d
+ KVuYqtvAQ==
+X-HalOne-ID: 69170662-4e61-11ed-bb7d-335755252108
+Received: from [192.168.100.228] (ua-213-113-159-147.bbcust.telenor.se
+ [213.113.159.147]) by mailrelay2 (Halon) with ESMTPSA
+ id 69170662-4e61-11ed-bb7d-335755252108;
+ Mon, 17 Oct 2022 21:19:41 +0000 (UTC)
+Message-ID: <a6942bb9-5a86-e282-9474-40a42ba8feab@berginkonsult.se>
+Date: Mon, 17 Oct 2022 23:19:41 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: alsa-devel@alsa-project.org
+From: Peter Bergin <peter@berginkonsult.se>
+Subject: cs42xxc-i2c: i2c device and driver not connected through deivce-tree
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Curtis Malainey <cujomalainey@chromium.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +90,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yong Zhi <yong.zhi@intel.com>
+Hi,
 
-Add mtl_mx98357_rt5682 driver data for Chrome Rex board support.
+on my system I have a cs42448 chip connected on a i2c bus to a i.Mx8mp. 
+The chip is connected on i2c-2 with address 0x48 and I can detect it and 
+read registers with help of i2c-tools. Running kernel v6.0 and having 
+problem as the device and driver is not connected in my system. The 
+probe function (cs42xx8_i2c_probe) is never called during 
+initialization. The module is loaded in the kernel.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
-v2: added my Signed-off-by this time.
+Here is a snippet from the dtb file:
 
- sound/soc/intel/boards/sof_rt5682.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+     codec: cs42xx8@48 {
+         compatible = "cirrus,cs42448";
+         reg = <0x48>;
+         reset-gpios = <&gpio4 9 GPIO_ACTIVE_LOW>;
+         #sound-dai-cells = <0>;
+         clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_SAI3_MCLK1>;
+         clock-names = "mclk";
+         VA-supply = <&reg_audio_pwr_5v0>;
+         VD-supply = <&reg_audio_pwr_3v3>;
+         VLS-supply = <&reg_audio_pwr_3v3>;
+         VLC-supply = <&reg_audio_pwr_3v3>;
+     };
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 1bf9455eaf935..adc964d363a29 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -225,6 +225,18 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 					SOF_RT5682_SSP_AMP(2) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Rex"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(2) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(0) |
-+					SOF_RT5682_NUM_HDMIDEV(4)
-+					),
-+	},
- 	{}
- };
- 
--- 
-2.34.1
+Tried to dig in to the code and understand why the device and the driver 
+is not connected with each other. I assumed that they should be 
+connected through device-tree.
+
+In sound/soc/codec/snd-soc-cs42xx8-i2c.mod.c:
+
+MODULE_ALIAS("i2c:cs42448");
+MODULE_ALIAS("i2c:cs42888");
+
+So there are no alias to of: in that file.
+
+Do I have the wrong assumption about connecting the device with the 
+driver through the device-tree? Something wrong in my dts snippet above? 
+Great if someone could help out with some ideas around this.
+
+Thanks,
+/Peter
+
 

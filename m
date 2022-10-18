@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8D33602B70
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C522602B71
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:14:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99CEE8F28;
-	Tue, 18 Oct 2022 14:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99CEE8F28
+	by alsa0.perex.cz (Postfix) with ESMTPS id D180A3F24;
+	Tue, 18 Oct 2022 14:13:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D180A3F24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666095251;
-	bh=UAVA7IWRk0z31t8ze/o9BeuTJFLfNwHtnL2qplQrzfc=;
+	s=default; t=1666095266;
+	bh=izMBF4Qdr6hgAc2auZG1gPmSSnSh2f7dAFVwyWieQe0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d2k096Oz+VvBIQd0dl8Y0ceZGd67hTJlQmcpjRTeeW35SRLt1MqJKL7oaMlIQSgU5
-	 6tAKBpmnGeVaVNk7NbpvoA0Bz7hEELdvt2f11FKY/AaW88NyOTTbGP5cNQSuG1B+S1
-	 SYIDuK/FSPJrYxlKnUMsXRHCwd60SLYsprIw3BzM=
+	b=rFjftmXTX3TspuChbId1bS15ezi01dJYz9aiQJeGi/E8UGf0fbobrnbkYpYNv1i2q
+	 WEQCJ4N0Ee1e+JlMIu8HzDWzIFZw6FJQiBE4+CRzFyDPsuSAyvB++NPbE0u2fM2VS8
+	 meed4zNu/gvh+LOiC+jts8G/55+Waux7OpyddaTs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2CFAF805D2;
-	Tue, 18 Oct 2022 14:09:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DE5DF805D5;
+	Tue, 18 Oct 2022 14:09:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8E87F805B1; Tue, 18 Oct 2022 14:09:39 +0200 (CEST)
+ id 1D7B9F805C2; Tue, 18 Oct 2022 14:09:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3D82F8057E
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:09:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3D82F8057E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C846F805AB
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:09:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C846F805AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EvWyn5n6"
+ header.b="isCg4vhO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666094977; x=1697630977;
+ t=1666094979; x=1697630979;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UAVA7IWRk0z31t8ze/o9BeuTJFLfNwHtnL2qplQrzfc=;
- b=EvWyn5n60+v8nPIp/rnzJ6oxAxKldhBymnqVYwt4HMenaL1Ekd0kzOyN
- 45sGnvKougkHpiCFIkwpeJCAb77rE9R/FLuhIIltpBCFYdjK1KwAW4HMQ
- FTNPp3nftAJe3eapYFQQZ69gPYHqxZJsTMW2emQZaQbNDJdD+xX0wZ5PV
- LJL9gKJUVqMnPWXjeIGCR8M/huWhVZ+YNM2kDJ7m7gL3VxD5QwLHvaqlE
- ZwVGOcDQbRvXl5GIyDPRB/Lg65Ntbp/vSNbHCjaGx3ek+bn3Z3lLeaKUC
- Hpd7K1TTIE4yZrus6gnVCUYnxX80wcbdo5GsXgOvCn9NF26at7sJxh1eQ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293453006"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293453006"
+ bh=izMBF4Qdr6hgAc2auZG1gPmSSnSh2f7dAFVwyWieQe0=;
+ b=isCg4vhOYNutyGvaDRAGXC1MUPGEjifFC61eCE/DUFHl488zMTiF/ytX
+ bdwim8y5jRh2w7OtZpc+SvIO0BiUr2ACtXFrBAsSasC4JZqMloFiRn85s
+ iu+6BBZ4GdCtvI6xAlcisC3vBqAm2E613VAy898rjod7/TTfIg5zKURTd
+ mHGy2Jmk0LR8TvE0Gf7aZTG+qSfR9XnZvM1tAHYbgHieAcktf0YWP+hlP
+ GLwcnJdJ7Uk+0ciNpJdOrIQPWU9PfWJ9wIj3uW/STsoxD6fhBujAHuYry
+ G7OanfkHXzBhurPJWKG7qWT5wdId8mhP/fbVgk/LaOlygBjp/2WNcAxJ+ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293453018"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293453018"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:34 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579758032"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579758032"
+ 18 Oct 2022 05:09:36 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579758042"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579758042"
 Received: from mariaca1-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:31 -0700
+ 18 Oct 2022 05:09:34 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 15/19] ASoC: SOF: Intel: Add ipc4 library loading
- implementation
-Date: Tue, 18 Oct 2022 15:09:12 +0300
-Message-Id: <20221018120916.19820-16-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 16/19] ASoC: SOF: loader: Add support for IPC dependent post
+ firmware boot ops
+Date: Tue, 18 Oct 2022 15:09:13 +0300
+Message-Id: <20221018120916.19820-17-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
 References: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
@@ -93,210 +93,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Intel HDA platforms the library loading is done via DMA and an IPC
-message is also need to be sent to initiate the downloading of the new
-library.
+Add support for executing IPC dependent tasks after a successful firmware
+boot.
 
-Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+The new post_fw_boot ops can make the fw_loader query_fw_configuration
+callback redundant as IPC code can handle the first boot internally.
+
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Chao Song <chao.song@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- include/sound/sof/ipc4/header.h  |  4 ++
- sound/soc/sof/intel/apl.c        |  3 ++
- sound/soc/sof/intel/cnl.c        |  3 ++
- sound/soc/sof/intel/hda-loader.c | 66 ++++++++++++++++++++++++++++++++
- sound/soc/sof/intel/hda.h        |  3 ++
- sound/soc/sof/intel/icl.c        |  3 ++
- sound/soc/sof/intel/mtl.c        |  3 ++
- sound/soc/sof/intel/tgl.c        |  3 ++
- 8 files changed, 88 insertions(+)
+ sound/soc/sof/loader.c   | 6 ++++++
+ sound/soc/sof/sof-priv.h | 3 +++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/include/sound/sof/ipc4/header.h b/include/sound/sof/ipc4/header.h
-index 99efe0ef1784..622193be7ac4 100644
---- a/include/sound/sof/ipc4/header.h
-+++ b/include/sound/sof/ipc4/header.h
-@@ -185,6 +185,10 @@ enum sof_ipc4_pipeline_state {
- #define SOF_IPC4_GLB_PIPE_STATE_MASK		GENMASK(15, 0)
- #define SOF_IPC4_GLB_PIPE_STATE(x)		((x) << SOF_IPC4_GLB_PIPE_STATE_SHIFT)
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index 723bd8267a3d..a1c4a51636c9 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -174,6 +174,12 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
+ 		return ret;
+ 	}
  
-+/* load library ipc msg */
-+#define SOF_IPC4_GLB_LOAD_LIBRARY_LIB_ID_SHIFT	16
-+#define SOF_IPC4_GLB_LOAD_LIBRARY_LIB_ID(x)	((x) << SOF_IPC4_GLB_LOAD_LIBRARY_LIB_ID_SHIFT)
-+
- enum sof_ipc4_channel_config {
- 	/* one channel only. */
- 	SOF_IPC4_CHANNEL_CONFIG_MONO,
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 1549ca7587a4..d93b4ead3c37 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -62,6 +62,9 @@ int sof_apl_ops_init(struct snd_sof_dev *sdev)
- 
- 		ipc4_data->mtrace_type = SOF_IPC4_MTRACE_INTEL_CAVS_1_5;
- 
-+		/* External library loading support */
-+		ipc4_data->load_library = hda_dsp_ipc4_load_library;
-+
- 		/* doorbell */
- 		sof_apl_ops.irq_thread	= hda_dsp_ipc4_irq_thread;
- 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 19d0b1909bfd..f1e74b49deda 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -389,6 +389,9 @@ int sof_cnl_ops_init(struct snd_sof_dev *sdev)
- 
- 		ipc4_data->mtrace_type = SOF_IPC4_MTRACE_INTEL_CAVS_1_8;
- 
-+		/* External library loading support */
-+		ipc4_data->load_library = hda_dsp_ipc4_load_library;
-+
- 		/* doorbell */
- 		sof_cnl_ops.irq_thread	= cnl_ipc4_irq_thread;
- 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 5ed524e166d2..38204541fc5d 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -19,7 +19,9 @@
- #include <sound/hdaudio_ext.h>
- #include <sound/hda_register.h>
- #include <sound/sof.h>
-+#include <sound/sof/ipc4/header.h>
- #include "ext_manifest.h"
-+#include "../ipc4-priv.h"
- #include "../ops.h"
- #include "../sof-priv.h"
- #include "hda.h"
-@@ -518,6 +520,70 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 	return ret;
- }
- 
-+int hda_dsp_ipc4_load_library(struct snd_sof_dev *sdev,
-+			      struct sof_ipc4_fw_library *fw_lib, bool reload)
-+{
-+	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
-+	struct hdac_ext_stream *hext_stream;
-+	struct firmware stripped_firmware;
-+	struct sof_ipc4_msg msg = {};
-+	struct snd_dma_buffer dmab;
-+	int ret, ret1;
-+
-+	/* IMR booting will restore the libraries as well, skip the loading */
-+	if (reload && hda->booted_from_imr)
-+		return 0;
-+
-+	/* the fw_lib has been verified during loading, we can trust the validity here */
-+	stripped_firmware.data = fw_lib->sof_fw.fw->data + fw_lib->sof_fw.payload_offset;
-+	stripped_firmware.size = fw_lib->sof_fw.fw->size - fw_lib->sof_fw.payload_offset;
-+
-+	/* prepare DMA for code loader stream */
-+	hext_stream = hda_cl_stream_prepare(sdev, HDA_CL_STREAM_FORMAT,
-+					    stripped_firmware.size,
-+					    &dmab, SNDRV_PCM_STREAM_PLAYBACK);
-+	if (IS_ERR(hext_stream)) {
-+		dev_err(sdev->dev, "%s: DMA prepare failed\n", __func__);
-+		return PTR_ERR(hext_stream);
++	if (sdev->ipc->ops->post_fw_boot) {
++		ret = sdev->ipc->ops->post_fw_boot(sdev);
++		if (ret)
++			return ret;
 +	}
 +
-+	memcpy(dmab.area, stripped_firmware.data, stripped_firmware.size);
-+
-+	msg.primary = hext_stream->hstream.stream_tag - 1;
-+	msg.primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_LOAD_LIBRARY);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
-+	msg.primary |= SOF_IPC4_GLB_LOAD_LIBRARY_LIB_ID(fw_lib->id);
-+
-+	ret = cl_trigger(sdev, hext_stream, SNDRV_PCM_TRIGGER_START);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "%s: DMA trigger start failed\n", __func__);
-+		goto cleanup;
-+	}
-+
-+	ret = sof_ipc_tx_message(sdev->ipc, &msg, 0, NULL, 0);
-+
-+	ret1 = cl_trigger(sdev, hext_stream, SNDRV_PCM_TRIGGER_STOP);
-+	if (ret1 < 0) {
-+		dev_err(sdev->dev, "%s: DMA trigger stop failed\n", __func__);
-+		if (!ret)
-+			ret = ret1;
-+	}
-+
-+cleanup:
-+	/* clean up even in case of error and return the first error */
-+	ret1 = hda_cl_cleanup(sdev, &dmab, hext_stream);
-+	if (ret1 < 0) {
-+		dev_err(sdev->dev, "%s: Code loader DSP cleanup failed\n", __func__);
-+
-+		/* set return value to indicate cleanup failure */
-+		if (!ret)
-+			ret = ret1;
-+	}
-+
-+	return ret;
-+}
-+
- /* pre fw run operations */
- int hda_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- {
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index d004bcbb6326..4b9f3819f644 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -857,4 +857,7 @@ int hda_dsp_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- void hda_ipc4_dump(struct snd_sof_dev *sdev);
- extern struct sdw_intel_ops sdw_callback;
+ 	if (sdev->first_boot && sdev->ipc->ops->fw_loader->query_fw_configuration)
+ 		return sdev->ipc->ops->fw_loader->query_fw_configuration(sdev);
  
-+struct sof_ipc4_fw_library;
-+int hda_dsp_ipc4_load_library(struct snd_sof_dev *sdev,
-+			      struct sof_ipc4_fw_library *fw_lib, bool reload);
- #endif
-diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index 6d5877108a3d..f95b2ec57077 100644
---- a/sound/soc/sof/intel/icl.c
-+++ b/sound/soc/sof/intel/icl.c
-@@ -130,6 +130,9 @@ int sof_icl_ops_init(struct snd_sof_dev *sdev)
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index ea6013ab1d4a..c7ab78b042aa 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -445,6 +445,8 @@ struct sof_ipc_pcm_ops;
+  *
+  * @init:	Optional pointer for IPC related initialization
+  * @exit:	Optional pointer for IPC related cleanup
++ * @post_fw_boot: Optional pointer to execute IPC related tasks after firmware
++ *		boot.
+  *
+  * @tx_msg:	Function pointer for sending a 'short' IPC message
+  * @set_get_data: Function pointer for set/get data ('large' IPC message). This
+@@ -469,6 +471,7 @@ struct sof_ipc_ops {
  
- 		ipc4_data->mtrace_type = SOF_IPC4_MTRACE_INTEL_CAVS_2;
+ 	int (*init)(struct snd_sof_dev *sdev);
+ 	void (*exit)(struct snd_sof_dev *sdev);
++	int (*post_fw_boot)(struct snd_sof_dev *sdev);
  
-+		/* External library loading support */
-+		ipc4_data->load_library = hda_dsp_ipc4_load_library;
-+
- 		/* doorbell */
- 		sof_icl_ops.irq_thread	= cnl_ipc4_irq_thread;
- 
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 10298532816f..459da05f4d7a 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -641,6 +641,9 @@ int sof_mtl_ops_init(struct snd_sof_dev *sdev)
- 
- 	ipc4_data->mtrace_type = SOF_IPC4_MTRACE_INTEL_CAVS_2;
- 
-+	/* External library loading support */
-+	ipc4_data->load_library = hda_dsp_ipc4_load_library;
-+
- 	/* set DAI ops */
- 	hda_set_dai_drv_ops(sdev, &sof_mtl_ops);
- 
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 9ae2890e9dac..143447f7c1ac 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -85,6 +85,9 @@ int sof_tgl_ops_init(struct snd_sof_dev *sdev)
- 
- 		ipc4_data->mtrace_type = SOF_IPC4_MTRACE_INTEL_CAVS_2;
- 
-+		/* External library loading support */
-+		ipc4_data->load_library = hda_dsp_ipc4_load_library;
-+
- 		/* doorbell */
- 		sof_tgl_ops.irq_thread	= cnl_ipc4_irq_thread;
- 
+ 	int (*tx_msg)(struct snd_sof_dev *sdev, void *msg_data, size_t msg_bytes,
+ 		      void *reply_data, size_t reply_bytes, bool no_pm);
 -- 
 2.38.0
 

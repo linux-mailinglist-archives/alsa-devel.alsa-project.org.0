@@ -2,79 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50508602257
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 05:15:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBB96029A3
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 12:48:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECB719365;
-	Tue, 18 Oct 2022 05:14:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB719365
+	by alsa0.perex.cz (Postfix) with ESMTPS id D16E58A8F;
+	Tue, 18 Oct 2022 12:47:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D16E58A8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666062940;
-	bh=KUiKr47b0U7BG8MHMA6x9yTYT7DWpF6dS63ARtGfCF0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666090123;
+	bh=5z9Qj0QE6GGcAmqUBaoVWARVq1z81/f9SdP0Ih87rkg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kGZ/qJFXKWfvAcxmJFUMaxDqqpNy0t3H4rpRkLyZzNIzA8eRP6SuTNGpNTNiMkNv4
-	 fX4AeqnCFFvLrXcPJyNFefuuAMUQeR6ism51y22TRK35TLXMHdqgaAFyLrVvBX0Z9k
-	 /Bw9ZpZ+9LOHU3AqS3ggYouLVJdqrvLVe2DLqaxg=
+	b=eedORuGpWU5A6GHwBLQwCemwMjOkmHC3mtM28kRBawDgI66Tmd+FLlqlje+XIQOpS
+	 xq8lOV9c5863NrkomWh7bSE6pJflZzJz0Gftwb/Tc+cUVJ8/462QRsC4pfER93TKeo
+	 bzgWdd+iaIfBqtYa48GXfJKdeTC05mz1tL0VFDMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E0B0F804BD;
-	Tue, 18 Oct 2022 05:14:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DCD9F800AA;
+	Tue, 18 Oct 2022 12:47:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98CCEF8024C; Tue, 18 Oct 2022 05:14:43 +0200 (CEST)
+ id 494B3F804C1; Tue, 18 Oct 2022 12:47:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A44ABF800AB
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 05:14:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A44ABF800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H7jsiAFb"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 30F7861405;
- Tue, 18 Oct 2022 03:14:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76590C43141;
- Tue, 18 Oct 2022 03:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666062878;
- bh=KUiKr47b0U7BG8MHMA6x9yTYT7DWpF6dS63ARtGfCF0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H7jsiAFbzP4JuXJyZqurlXGzTQ0FqvwY2WdeRdacspPbGEcg8kV4gn19U9akH08lR
- Ej8kikb0MoYThUOzVaIEW2TQmLqqpXb8NzW64G1ggOlQ8NLC2JEtxM6osfiG8PlWRD
- An27KT5zll6ZfSjupHvU0Z/qvUQ5QFOU6OlcFk/0Av6PGAm8SxkGLWOJkvMzOd7H0W
- tM+invoJZw7rB6sPimsL8GibmCb/SC96gz+BiTowqEZjBLKAFbOndKlbeOdJNB4D2T
- qS42Ld/ax78q7V/OkiT3HuGrQl87Rk5F6uhCTyPebOsAQ9j4fWE76mL1+cGkFeP3uf
- 1Y0NduoqX4XWQ==
-From: Bjorn Andersson <andersson@kernel.org>
-To: pabeni@redhat.com, kuba@kernel.org, kvalo@kernel.org,
- mathieu.poirier@linaro.org, elder@kernel.org, quic_jjohnson@quicinc.com,
- edumazet@google.com, srinivas.kandagatla@linaro.org, davem@davemloft.net,
- agross@kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>
-Subject: Re: [PATCH v2 0/4] Make QMI message rules const
-Date: Mon, 17 Oct 2022 22:14:29 -0500
-Message-Id: <166606235855.3553294.15415652032581758108.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220914234705.28405-1-quic_jjohnson@quicinc.com>
-References: <20220912232526.27427-1-quic_jjohnson@quicinc.com>
- <20220914234705.28405-1-quic_jjohnson@quicinc.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C851F800E5
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 12:47:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C851F800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="DjXDVUPa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666090061; x=1697626061;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=5z9Qj0QE6GGcAmqUBaoVWARVq1z81/f9SdP0Ih87rkg=;
+ b=DjXDVUPaLBypZhZqYVq1N1E78n9Sb+StX5wvWIW5XMFoiBboWhsVxh22
+ L0OZju/rL6yiN+xMqfu1v2smx004XURwMebst70fAlMSDlMGr/hIYLJF9
+ vBxg/wi6etE+LvO1/qHF7Cfqhv4F9+v2SLkXEOlCR5N554JnBtv3wbqdi
+ 3og3twE9CgSH3CJ+rGrHKgvJWH58rW0vngI71l0OIt/3GYuII1wkmQuLZ
+ 68QIj8Hrq/9UR5d4dVddThpvYLRz+6HwAoSj5ZOK/UO7dUbJYEPzayQCq
+ lmbpo9RXLgRhaFBz0G42S8hFX82qPa4Im8mlZliMVHAXGa76Jh56xyoTE Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="307730080"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="307730080"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 03:47:27 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="733567198"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="733567198"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.36])
+ ([10.99.241.36])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 03:47:26 -0700
+Message-ID: <9b721915-1428-81ee-1be9-29c2e9d36d5f@linux.intel.com>
+Date: Tue, 18 Oct 2022 12:47:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH 06/11] ASoC: soc-dapm.c: merge dapm_power_one_widget() and
+ dapm_widget_set_power()
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <8735bmqazf.wl-kuninori.morimoto.gx@renesas.com>
+ <87tu42owdd.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87tu42owdd.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,29 +96,126 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Sep 2022 16:47:01 -0700, Jeff Johnson wrote:
-> Commit ff6d365898d4 ("soc: qcom: qmi: use const for struct
-> qmi_elem_info") allows QMI message encoding/decoding rules to be
-> const. So now update the definitions in the various clients to take
-> advantage of this. Patches for ath10k and ath11k were previously sent
-> separately.
+On 10/18/2022 1:37 AM, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> This series depends upon:
-> https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/commit/?h=for-next&id=ff6d365898d4d31bd557954c7fc53f38977b491c
+> dapm_widget_set_power() (= X) is called only from
+> dapm_power_one_widget() (= Y), and total purpose of these functions are
+> calling dapm_seq_insert() (= a) accordingly for each widget.
 > 
-> [...]
+> (X)	static void dapm_widget_set_power(...)
+> 	{
+> 		...
+> 		if (power)
+> (a)			dapm_seq_insert(w, up_list, true);
+> 		else
+> (a)			dapm_seq_insert(w, down_list, false);
+> 	}
+> 
+> (Y)	static void dapm_power_one_widget(...)
+> 	{
+> 		..
+> 
+> 		switch (w->id) {
+> 		case snd_soc_dapm_pre:
+> (a)			dapm_seq_insert(w, down_list, false);
+> 			break;
+> 		case snd_soc_dapm_post:
+> (a)			dapm_seq_insert(w, up_list, true);
+> 			break;
+> 
+> 		default:
+> 			power = dapm_widget_power_check(w);
+> 
+> (X)			dapm_widget_set_power(w, power, up_list, down_list);
+> 			break;
+> 		}
+> 	}
+> 
+> It should be more simple, but the code is unnecessarily complicated,
+> and difficult to read/understand. This patch merge these into one.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>   sound/soc/soc-dapm.c | 39 +++++++++++++++------------------------
+>   1 file changed, 15 insertions(+), 24 deletions(-)
+> 
+> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+> index d4281e776e44..764830a51d2d 100644
+> --- a/sound/soc/soc-dapm.c
+> +++ b/sound/soc/soc-dapm.c
+> @@ -1873,11 +1873,24 @@ static void dapm_widget_set_peer_power(struct snd_soc_dapm_widget *peer,
+>   		dapm_mark_dirty(peer, "peer state change");
+>   }
+>   
+> -static void dapm_widget_set_power(struct snd_soc_dapm_widget *w, bool power,
+> +static void dapm_power_one_widget(struct snd_soc_dapm_widget *w,
+>   				  struct list_head *up_list,
+>   				  struct list_head *down_list)
+>   {
+>   	struct snd_soc_dapm_path *path;
+> +	int power;
+> +
+> +	switch (w->id) {
+> +	case snd_soc_dapm_pre:
+> +		power = 0;
+> +		goto end;
+> +	case snd_soc_dapm_post:
+> +		power = 1;
+> +		goto end;
+> +	default:
+> +	}
 
-Applied, thanks!
+This introduces build error when applied:
 
-[1/4] net: ipa: Make QMI message rules const
-      (no commit info)
-[2/4] remoteproc: sysmon: Make QMI message rules const
-      (no commit info)
-[3/4] slimbus: qcom-ngd-ctrl: Make QMI message rules const
-      (no commit info)
-[4/4] soc: qcom: pdr: Make QMI message rules const
-      commit: afc7b849ebcf063ca84a79c749d4996a8781fc55
+sound/soc/soc-dapm.c: In function ‘dapm_power_one_widget’:
+sound/soc/soc-dapm.c:1890:2: error: label at end of compound statement
+  1890 |  default:
+       |  ^~~~~~~
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+(May be because of CONFIG_WERROR, but still it would be a warning at 
+least...)
+
+> +
+> +	power = dapm_widget_power_check(w);
+>   
+>   	if (w->power == power)
+>   		return;
+> @@ -1897,35 +1910,13 @@ static void dapm_widget_set_power(struct snd_soc_dapm_widget *w, bool power,
+>   	if (!w->is_supply)
+>   		snd_soc_dapm_widget_for_each_sink_path(w, path)
+>   			dapm_widget_set_peer_power(path->sink, power, path->connect);
+> -
+> +end:
+>   	if (power)
+>   		dapm_seq_insert(w, up_list, true);
+>   	else
+>   		dapm_seq_insert(w, down_list, false);
+>   }
+>   
+> -static void dapm_power_one_widget(struct snd_soc_dapm_widget *w,
+> -				  struct list_head *up_list,
+> -				  struct list_head *down_list)
+> -{
+> -	int power;
+> -
+> -	switch (w->id) {
+> -	case snd_soc_dapm_pre:
+> -		dapm_seq_insert(w, down_list, false);
+> -		break;
+> -	case snd_soc_dapm_post:
+> -		dapm_seq_insert(w, up_list, true);
+> -		break;
+> -
+> -	default:
+> -		power = dapm_widget_power_check(w);
+> -
+> -		dapm_widget_set_power(w, power, up_list, down_list);
+> -		break;
+> -	}
+> -}
+> -
+>   static bool dapm_idle_bias_off(struct snd_soc_dapm_context *dapm)
+>   {
+>   	if (dapm->idle_bias_off)
+

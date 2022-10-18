@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DBEB602B7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E1A602B7D
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:16:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 474E79508;
-	Tue, 18 Oct 2022 14:15:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 474E79508
+	by alsa0.perex.cz (Postfix) with ESMTPS id 148C29D11;
+	Tue, 18 Oct 2022 14:15:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 148C29D11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666095383;
-	bh=ERE5fGH+iI9+kRAgCKLOw9anYezkn5lRnmwLpEkdq0I=;
+	s=default; t=1666095396;
+	bh=FB5kirTisbqaD2j4n/GmaPm6mX+02J8TFDx+9tOPa/E=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fkna9e5Ea08qWECvye2MhOtlVKFpOCD6qyn9RfP3uP8NLNsR7MZxGQaaEkdEADdeL
-	 nJJZ/J/PSG0sdVpHXp9dsWjLkfAZBHyD/he3fXCVDqwjI0XduvNCnV6uzMeoZTGxKm
-	 fAwWcWCpXYjNopXu1DOjnualIIp96bdJGpIjecrg=
+	b=iNHqQSRZX/YmtAdjEL4JI2PGGKRw28U5mHhraWE2fzNKjK7LGBEgytxOhxDyyYYQ6
+	 v+y0gNu1XUOyumVCvMPIirQTENVik0hqZafGLRDKnipprfjRJZvHaetnv2l7YogV6O
+	 tuJNrI5cto62vP8XD7oDaOEQpPiav51sYjwgaLg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CF52F8059F;
-	Tue, 18 Oct 2022 14:13:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0592BF805B2;
+	Tue, 18 Oct 2022 14:13:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26BCAF80564; Tue, 18 Oct 2022 14:13:46 +0200 (CEST)
+ id 63C75F80564; Tue, 18 Oct 2022 14:13:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34E0FF8057B
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:13:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E0FF8057B
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAC52F8057E
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:13:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAC52F8057E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iKdwIl/d"
+ header.b="FHiNLNJX"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 54A04B81EBA;
- Tue, 18 Oct 2022 12:13:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4ABC433C1;
- Tue, 18 Oct 2022 12:13:37 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 36207B81EB7;
+ Tue, 18 Oct 2022 12:13:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80746C433B5;
+ Tue, 18 Oct 2022 12:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666095220;
- bh=ERE5fGH+iI9+kRAgCKLOw9anYezkn5lRnmwLpEkdq0I=;
+ s=k20201202; t=1666095221;
+ bh=FB5kirTisbqaD2j4n/GmaPm6mX+02J8TFDx+9tOPa/E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=iKdwIl/dNubjlRXdkBy5sm5XTV/nRUNOr4+7c2Jf4UKbFzdavPuE7pIDovmKNrsMf
- Z1qzOJ3ChUyGND+QEIOrvWd8Y1rdQqcN/jnZMLFe6p4F5V/jPvrYpE0yFM5cvO0abY
- QKXhmBMUHMzz7yp4XnwT7MoInaySuhEudRKUA9afZ3zBGtHpjJI10HIvo50tm4Xst0
- 4buUCa1PFkcC+mpIWWT9AlQe3+DJh/iwiN+FduL3wdjqPOBxk0l6TrfRcav2tLZSD4
- Mui+G0fxKV8ExF5zgSD9gvjQmvI5VyQJB6duxUi8+h8o+bFkRz4+psR8QbOWYQS/CR
- iMOV+wUEvDh3w==
+ b=FHiNLNJXS1Xj2Sj/3cFmdeY/oQsqrnoI4MEp1+lWi6wYQMjlunlyjaCnJWmplnOJA
+ gmrEzD9nXDEjPcwgZX6AS/dOuqEK3NNdXXRjZJvGJJ6RInMO04BiOLSrJRcheph8D5
+ rVpbZQ8T1o34cGRoHrGu2kiceFaS2wUf9b0s8QM0q1M222Qalp9gA0cp8oeSAFyqQa
+ CTSuqhcxUCd0mUf3LgCoqlD9SAhmx82hkVj2NTFNGdQ+Z/iK8ednzKdvPv63gW10sJ
+ 9yT1k50tR/6gQy1EQwvK0a3ZqPIzMA6HlbhmxnVr9NvqO+Iz3N/+I8DHsxB2VGHFL3
+ /SecK3bkaWzVQ==
 From: Mark Brown <broonie@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-In-Reply-To: <20221015001228.18990-1-rdunlap@infradead.org>
-References: <20221015001228.18990-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: qcom: SND_SOC_SC7180 optionally depends on SOUNDWIRE
-Message-Id: <166609521768.371929.7568128242261436965.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 13:13:37 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Ricard Wanderlof <ricardw@axis.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <3225ba4cfe558d9380155e75385954dd21d4e7eb.1665909132.git.geert@linux-m68k.org>
+References: <3225ba4cfe558d9380155e75385954dd21d4e7eb.1665909132.git.geert@linux-m68k.org>
+Subject: Re: [PATCH] ASoC: codecs: tlv320adc3xxx: Wrap adc3xxx_i2c_remove() in
+ __exit_p()
+Message-Id: <166609522025.371929.16598407249350844860.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 13:13:40 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- stable@vger.kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,20 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 14 Oct 2022 17:12:28 -0700, Randy Dunlap wrote:
-> If SOUNDWIRE is enabled, then SND_SOC_SC7180 should depend on
-> SOUNDWIRE to prevent SOUNDWIRE=m and SND_SOC_SC7180=y, which causes
-> build errors:
+On Sun, 16 Oct 2022 10:33:50 +0200, Geert Uytterhoeven wrote:
+> If CONFIG_SND_SOC_TLV320ADC3XXX=y:
 > 
-> s390-linux-ld: sound/soc/qcom/common.o: in function `qcom_snd_sdw_prepare':
-> common.c:(.text+0x140): undefined reference to `sdw_disable_stream'
-> s390-linux-ld: common.c:(.text+0x14a): undefined reference to `sdw_deprepare_stream'
-> s390-linux-ld: common.c:(.text+0x158): undefined reference to `sdw_prepare_stream'
-> s390-linux-ld: common.c:(.text+0x16a): undefined reference to `sdw_enable_stream'
-> s390-linux-ld: common.c:(.text+0x17c): undefined reference to `sdw_deprepare_stream'
-> s390-linux-ld: sound/soc/qcom/common.o: in function `qcom_snd_sdw_hw_free':
-> common.c:(.text+0x344): undefined reference to `sdw_disable_stream'
-> s390-linux-ld: common.c:(.text+0x34e): undefined reference to `sdw_deprepare_stream'
+>     `.exit.text' referenced in section `.data' of sound/soc/codecs/tlv320adc3xxx.o: defined in discarded section `.exit.text' of sound/soc/codecs/tlv320adc3xxx.o
+> 
+> Fix this by wrapping the adc3xxx_i2c_remove() pointer in __exit_p().
+> 
 > 
 > [...]
 
@@ -111,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: SND_SOC_SC7180 optionally depends on SOUNDWIRE
-      commit: 9a7f2c9e7a19b16b4409f372cf2e16e4334cdca2
+[1/1] ASoC: codecs: tlv320adc3xxx: Wrap adc3xxx_i2c_remove() in __exit_p()
+      commit: 4e8ff35878685291978b93543d6b9e9290be770a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

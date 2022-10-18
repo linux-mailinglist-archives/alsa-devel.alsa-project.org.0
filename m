@@ -2,82 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD33602BE7
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81583602C1F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:50:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01BA38AB8;
-	Tue, 18 Oct 2022 14:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01BA38AB8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F2099D70;
+	Tue, 18 Oct 2022 14:49:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F2099D70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666096895;
-	bh=q3TDQmsvXpHigZwd300mNQ4AnqgLcfawmb7ZEYDgiGk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666097440;
+	bh=TwczKmsg0Mo/4ZwI5MSFQ/oO9PfdbJeeylWhJ79f2qs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a2k4Wt85gO3PzK0eiaJljN8jS3cFFCfEXEVf0UqcEmpG2+sXXy5tC5mndyAR2D+km
-	 RaquhdtCbX0o3dgUsV+IlCn8kCcCxJPG5g/RXWRmvgID9K8JltW8s6+J9TnxKzDZD0
-	 PohQns7bIjlpsFxyDi+YBgKt2ChklqUnvmmF+iaQ=
+	b=l7nSCFuNJ0adHIkr/soDAs5nRGlZUZs4ddSsB2b3/w7AOfQIBZ4Ld2EnLfdn3pxkr
+	 OckD7gb7pR4l1T8uhyja7VvXJWzrB5TVcwlwPp7NiGR+AFmSukB+QJT23b+Io2nYtD
+	 io+2o46qPtJvHG1s5ISm8dg0pB8DqpieVxmCMHcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8A9AF80552;
-	Tue, 18 Oct 2022 14:40:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 907E2F800AA;
+	Tue, 18 Oct 2022 14:49:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E38CF8053D; Tue, 18 Oct 2022 14:40:00 +0200 (CEST)
+ id EA431F8024C; Tue, 18 Oct 2022 14:49:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5559FF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:49:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5559FF800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ur4B27pU"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73C50F8053D
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:39:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73C50F8053D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="JLbTFAjC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666096797; x=1697632797;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=q3TDQmsvXpHigZwd300mNQ4AnqgLcfawmb7ZEYDgiGk=;
- b=JLbTFAjCrlBgUB+Vjcz0OOA4d+lBSgShq7Mem59Z/5NeLSoEO4KfbXu4
- AcjBkzRmMt84VXgqE989mQOYWL3nXNkbXw/R/zDkN02PCIM5UKJ0FSYIL
- gjeGeIWukIGzZE+w9BMAw0lsVAraBmKJdBQfdMRYyClECzYGKsEV6YBGD
- zqKzjq7FV8+LV0XPTOuVo6s4ixjdgL5ONxrHH6ENsQ5/lOCglbKxp7+nQ
- fi7L9owH5U9vPo1gDwZofGVXp9U/24im0sRM6AP/FB2RVFCbvleA4fmPG
- T9Tp6Ut2kFlTtxsMVpM6DLBU79rr4BmJDH4B/U2zTfARGPnuH8mQm3vwt Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="304828573"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="304828573"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:39:55 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="717912789"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="717912789"
-Received: from mariaca1-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:39:53 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 4/4] ASoC: SOF: Intel: ipc4: Ack a received reply or
- notification separately
-Date: Tue, 18 Oct 2022 15:40:08 +0300
-Message-Id: <20221018124008.6846-5-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
-References: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 694AE6153C;
+ Tue, 18 Oct 2022 12:49:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01DDEC433C1;
+ Tue, 18 Oct 2022 12:49:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666097377;
+ bh=TwczKmsg0Mo/4ZwI5MSFQ/oO9PfdbJeeylWhJ79f2qs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ur4B27pUiM+v43sacXhmahlHVrI3vyuRbQpWRLCXgVLC1tfDjDtFmcO/rvZ7MqIOd
+ /lbDHCDkmN4O7IazP+iPhEpseIbEsIGjSm983WakxcvHbGINDra1Y3r9UIHESKQ7H7
+ 0BhNqO+URC4kg+7urSMaFkVDmu3Ud++n4I7bS4i3/7NvJv6P8FKTCXJO+P+l4KoT7z
+ c8AhdbQSj4rgzr8yjb2YnwUezO9MvZBr2PYl8thABU6WbAY56rLBXJkE2w2TgQOb/e
+ zQTuBBjtwHMIMLUbk9lyZ1MMtus03fqKjalBNnjbD5Xzjp8H6TJc5zUDHgBQ2+ZoDl
+ d03VitzTUyTng==
+Date: Tue, 18 Oct 2022 13:49:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 06/11] ASoC: soc-dapm.c: merge dapm_power_one_widget()
+ and dapm_widget_set_power()
+Message-ID: <Y06g3XzdxHmHnGsU@sirena.org.uk>
+References: <8735bmqazf.wl-kuninori.morimoto.gx@renesas.com>
+ <87tu42owdd.wl-kuninori.morimoto.gx@renesas.com>
+ <9b721915-1428-81ee-1be9-29c2e9d36d5f@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, rander.wang@intel.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ceLzI03DYP6VS32+"
+Content-Disposition: inline
+In-Reply-To: <9b721915-1428-81ee-1be9-29c2e9d36d5f@linux.intel.com>
+X-Cookie: Lake Erie died for your sins.
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,108 +89,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-By acking a received message we tell the DSP that we have processed the
-message (reply or notification) and we are open to receive a new one.
 
-The original implementation did this in a common code after the received
-message got handled as reply or notification.
+--ceLzI03DYP6VS32+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-With right timing this opens up a small window when we have processed the
-reply and let the other thread proceed to send a new message to the DSP,
-which is allowed as the DSP is free to receive message.
-But when the message is received and processed by the DSP and it wants to
-send a reply it will still see that the previous message has not been
-acked, so it fails to send a reply. Later the first reply got acked by the
-kernel, but it is too late and the in-flight message got a timeout due to
-firmware not responding (which it tried, but could not).
+On Tue, Oct 18, 2022 at 12:47:24PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
+> On 10/18/2022 1:37 AM, Kuninori Morimoto wrote:
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
----
- sound/soc/sof/intel/cnl.c     | 7 ++++---
- sound/soc/sof/intel/hda-ipc.c | 7 ++++---
- sound/soc/sof/intel/mtl.c     | 5 +++--
- 3 files changed, 11 insertions(+), 8 deletions(-)
+> > +	default:
+> > +	}
+>=20
+> This introduces build error when applied:
+>=20
+> sound/soc/soc-dapm.c: In function =E2=80=98dapm_power_one_widget=E2=80=99:
+> sound/soc/soc-dapm.c:1890:2: error: label at end of compound statement
+>  1890 |  default:
+>       |  ^~~~~~~
+>=20
+> (May be because of CONFIG_WERROR, but still it would be a warning at
+> least...)
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 4bf233787757..da26f0ce9abc 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -72,6 +72,7 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- 				spin_lock_irq(&sdev->ipc_lock);
- 
- 				snd_sof_ipc_get_reply(sdev);
-+				cnl_ipc_host_done(sdev);
- 				snd_sof_ipc_reply(sdev, data->primary);
- 
- 				spin_unlock_irq(&sdev->ipc_lock);
-@@ -88,10 +89,10 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- 			sdev->ipc->msg.rx_data = &notification_data;
- 			snd_sof_ipc_msgs_rx(sdev);
- 			sdev->ipc->msg.rx_data = NULL;
--		}
- 
--		/* Let DSP know that we have finished processing the message */
--		cnl_ipc_host_done(sdev);
-+			/* Let DSP know that we have finished processing the message */
-+			cnl_ipc_host_done(sdev);
-+		}
- 
- 		ipc_irq = true;
- 	}
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index b4668c969a29..a7c454e03952 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -169,6 +169,7 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- 				spin_lock_irq(&sdev->ipc_lock);
- 
- 				snd_sof_ipc_get_reply(sdev);
-+				hda_dsp_ipc_host_done(sdev);
- 				snd_sof_ipc_reply(sdev, data->primary);
- 
- 				spin_unlock_irq(&sdev->ipc_lock);
-@@ -185,10 +186,10 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- 			sdev->ipc->msg.rx_data = &notification_data;
- 			snd_sof_ipc_msgs_rx(sdev);
- 			sdev->ipc->msg.rx_data = NULL;
--		}
- 
--		/* Let DSP know that we have finished processing the message */
--		hda_dsp_ipc_host_done(sdev);
-+			/* Let DSP know that we have finished processing the message */
-+			hda_dsp_ipc_host_done(sdev);
-+		}
- 
- 		ipc_irq = true;
- 	}
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 9d1bc74395e7..054b9ab721ff 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -540,6 +540,7 @@ static irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- 				spin_lock_irq(&sdev->ipc_lock);
- 
- 				snd_sof_ipc_get_reply(sdev);
-+				mtl_ipc_host_done(sdev);
- 				snd_sof_ipc_reply(sdev, data->primary);
- 
- 				spin_unlock_irq(&sdev->ipc_lock);
-@@ -556,9 +557,9 @@ static irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- 			sdev->ipc->msg.rx_data = &notification_data;
- 			snd_sof_ipc_msgs_rx(sdev);
- 			sdev->ipc->msg.rx_data = NULL;
--		}
- 
--		mtl_ipc_host_done(sdev);
-+			mtl_ipc_host_done(sdev);
-+		}
- 
- 		ipc_irq = true;
- 	}
--- 
-2.38.0
+Probably also depends on toolchain.  In any case a break; is needed
+there.
 
+--ceLzI03DYP6VS32+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNOoNwACgkQJNaLcl1U
+h9DupAf+Mrr2mofgOEC4GdP/9+ONtbXJwq4iJ7XUmE465YpGBDmjmtcevGVpmnuh
+kQYbkLpkud++Js2PatBD4njJtTP+vuwK5dULdEQMJDFn/UHKcYY1pJOX4BKXfYBN
+7QgAM+UWUTv/GKh2zQ/vW4w4pmzEdTykXCbo+NImFHpYwOzF63v7vWgljtQ1Kpcr
+ZWnvJheUj6UIPjKF6sPkn3QHnPRVdmv6PrhfFUxrK7/kiMdUNaBvOfu6F2pOgWiu
+kAV6+wKLtPojfzpLE7pIlnKVM3o4X1t9h0l0P49LUflh5RhQKP5XAGYCF8pqABWW
+KVAM6n1g0Tf6MQ/fCiF7q0gkFUCx6A==
+=/xbj
+-----END PGP SIGNATURE-----
+
+--ceLzI03DYP6VS32+--

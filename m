@@ -2,78 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81583602C1F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:50:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91293602C66
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 15:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F2099D70;
-	Tue, 18 Oct 2022 14:49:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F2099D70
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E8BE9D9B;
+	Tue, 18 Oct 2022 15:05:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E8BE9D9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666097440;
-	bh=TwczKmsg0Mo/4ZwI5MSFQ/oO9PfdbJeeylWhJ79f2qs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666098392;
+	bh=uMV15GNGq+bBCla8aqqcV3BTzDp524uwSjUpY0W6ij0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l7nSCFuNJ0adHIkr/soDAs5nRGlZUZs4ddSsB2b3/w7AOfQIBZ4Ld2EnLfdn3pxkr
-	 OckD7gb7pR4l1T8uhyja7VvXJWzrB5TVcwlwPp7NiGR+AFmSukB+QJT23b+Io2nYtD
-	 io+2o46qPtJvHG1s5ISm8dg0pB8DqpieVxmCMHcE=
+	b=CXuhvZZ1WG4j9ca9C4teY/rSfstlUrAEKO+RIwnEpNjuZk9qZSxGlVffwbxI01N10
+	 QY2hMIGxdbU6DSFebkztk0v+FctNm/B6FKv0Vsc2KEEEh3t5pvWOV8sbTBBl0XMXIg
+	 VYtWBhjqtiXN0UDqRDa00yikdrvpoDqQu9H7Q6K0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 907E2F800AA;
-	Tue, 18 Oct 2022 14:49:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B644F8024C;
+	Tue, 18 Oct 2022 15:05:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA431F8024C; Tue, 18 Oct 2022 14:49:43 +0200 (CEST)
+ id BB7A7F800AB; Tue, 18 Oct 2022 15:05:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5559FF800AA
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:49:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5559FF800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ur4B27pU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mailrelay3-1.pub.mailoutpod1-cph3.one.com
+ (mailrelay3-1.pub.mailoutpod1-cph3.one.com [46.30.210.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 694AE6153C;
- Tue, 18 Oct 2022 12:49:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01DDEC433C1;
- Tue, 18 Oct 2022 12:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666097377;
- bh=TwczKmsg0Mo/4ZwI5MSFQ/oO9PfdbJeeylWhJ79f2qs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ur4B27pUiM+v43sacXhmahlHVrI3vyuRbQpWRLCXgVLC1tfDjDtFmcO/rvZ7MqIOd
- /lbDHCDkmN4O7IazP+iPhEpseIbEsIGjSm983WakxcvHbGINDra1Y3r9UIHESKQ7H7
- 0BhNqO+URC4kg+7urSMaFkVDmu3Ud++n4I7bS4i3/7NvJv6P8FKTCXJO+P+l4KoT7z
- c8AhdbQSj4rgzr8yjb2YnwUezO9MvZBr2PYl8thABU6WbAY56rLBXJkE2w2TgQOb/e
- zQTuBBjtwHMIMLUbk9lyZ1MMtus03fqKjalBNnjbD5Xzjp8H6TJc5zUDHgBQ2+ZoDl
- d03VitzTUyTng==
-Date: Tue, 18 Oct 2022 13:49:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 06/11] ASoC: soc-dapm.c: merge dapm_power_one_widget()
- and dapm_widget_set_power()
-Message-ID: <Y06g3XzdxHmHnGsU@sirena.org.uk>
-References: <8735bmqazf.wl-kuninori.morimoto.gx@renesas.com>
- <87tu42owdd.wl-kuninori.morimoto.gx@renesas.com>
- <9b721915-1428-81ee-1be9-29c2e9d36d5f@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0ADD7F800AB
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 15:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ADD7F800AB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=berginkonsult.se header.i=@berginkonsult.se
+ header.b="WjL8Ts2D"; 
+ dkim=permerror (0-bit key) header.d=berginkonsult.se
+ header.i=@berginkonsult.se header.b="+W5AETq4"
+Received: from mailrelay1.pub.mailoutpod2-cph3.one.com
+ (mailrelay1.pub.mailoutpod2-cph3.one.com [104.37.34.6])
+ by mailrelay3.pub.mailoutpod1-cph3.one.com (Halon) with ESMTPS
+ id 8b778a78-4ee5-11ed-be8b-d0431ea8bb03;
+ Tue, 18 Oct 2022 13:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=rsa1;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references:to:subject:
+ mime-version:date:message-id:from;
+ bh=EzgrVvz512sK+bJmv9JFWPN3j/JxLKiN5WSN82yqnU4=;
+ b=WjL8Ts2DG7PLfeJ0hR69jECzfNXNC0bSC/XCChrBRS/geP580coOlU8y+Lxp22T2vaIGTQ0kXQ7li
+ XMH8DBUqi9NdqF+E8CYXNOvR6Cner5EzCLmUTQRkLVevB446jCYOYJAUzfcz78qxaoX7PR/KrD4vRS
+ j90EDSo3QQsZVZgQq61XBCEHOT38JRpw0mv1GEepTo285Kz3sha4dpKvVCIq0n5Mg7ZVjxeM0NgjBX
+ t5+iaLAHkajNLfuILQLFIgpIAKuF1ig/wZBgXqVx+BCHSo31CGqzrYtaPy3tmzmblpSisg1Wx69TBr
+ GcvUrdNB0zIwXgValCttgnLppRC3kaQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=ed1;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references:to:subject:
+ mime-version:date:message-id:from;
+ bh=EzgrVvz512sK+bJmv9JFWPN3j/JxLKiN5WSN82yqnU4=;
+ b=+W5AETq4Bodo73a0mchgU562Dz4xk8jtxnGCReMYhISsuK9GNIn9dHtGM2hhQzldxFdm+3ghlbKw/
+ THufIuMAQ==
+X-HalOne-ID: 8a216623-4ee5-11ed-b432-1b2345786432
+Received: from [10.11.12.89] (unknown [83.218.73.98])
+ by mailrelay1 (Halon) with ESMTPSA
+ id 8a216623-4ee5-11ed-b432-1b2345786432;
+ Tue, 18 Oct 2022 13:05:30 +0000 (UTC)
+Message-ID: <169e4a09-5f86-0e48-af41-6fc6ae42e46c@berginkonsult.se>
+Date: Tue, 18 Oct 2022 15:05:30 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ceLzI03DYP6VS32+"
-Content-Disposition: inline
-In-Reply-To: <9b721915-1428-81ee-1be9-29c2e9d36d5f@linux.intel.com>
-X-Cookie: Lake Erie died for your sins.
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: cs42xxc-i2c: i2c device and driver not connected through
+ deivce-tree
+Content-Language: en-US
+To: alsa-devel@alsa-project.org
+References: <a6942bb9-5a86-e282-9474-40a42ba8feab@berginkonsult.se>
+From: Peter Bergin <peter@berginkonsult.se>
+In-Reply-To: <a6942bb9-5a86-e282-9474-40a42ba8feab@berginkonsult.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,45 +99,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2022-10-17 23:19, Peter Bergin wrote:
+> Hi,
+>
+> on my system I have a cs42448 chip connected on a i2c bus to a 
+> i.Mx8mp. The chip is connected on i2c-2 with address 0x48 and I can 
+> detect it and read registers with help of i2c-tools. Running kernel 
+> v6.0 and having problem as the device and driver is not connected in 
+> my system. The probe function (cs42xx8_i2c_probe) is never called 
+> during initialization. The module is loaded in the kernel.
+>
+> Here is a snippet from the dtb file:
+>
+>     codec: cs42xx8@48 {
+>         compatible = "cirrus,cs42448";
+>         reg = <0x48>;
+>         reset-gpios = <&gpio4 9 GPIO_ACTIVE_LOW>;
+>         #sound-dai-cells = <0>;
+>         clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_SAI3_MCLK1>;
+>         clock-names = "mclk";
+>         VA-supply = <&reg_audio_pwr_5v0>;
+>         VD-supply = <&reg_audio_pwr_3v3>;
+>         VLS-supply = <&reg_audio_pwr_3v3>;
+>         VLC-supply = <&reg_audio_pwr_3v3>;
+>     };
+>
+> Tried to dig in to the code and understand why the device and the 
+> driver is not connected with each other. I assumed that they should be 
+> connected through device-tree.
+>
+> In sound/soc/codec/snd-soc-cs42xx8-i2c.mod.c:
+>
+> MODULE_ALIAS("i2c:cs42448");
+> MODULE_ALIAS("i2c:cs42888");
+>
+> So there are no alias to of: in that file.
+>
+> Do I have the wrong assumption about connecting the device with the 
+> driver through the device-tree? Something wrong in my dts snippet 
+> above? Great if someone could help out with some ideas around this.
+>
+My problem is solved and I can connect device and driver with this patch:
 
---ceLzI03DYP6VS32+
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+diff --git a/sound/soc/codecs/cs42xx8-i2c.c b/sound/soc/codecs/cs42xx8-i2c.c
+index cb06a06d48b0..6e8ee28d01f8 100644
+--- a/sound/soc/codecs/cs42xx8-i2c.c
++++ b/sound/soc/codecs/cs42xx8-i2c.c
+@@ -37,6 +37,13 @@ static int cs42xx8_i2c_remove(struct i2c_client *i2c)
+         return 0;
+  }
 
-On Tue, Oct 18, 2022 at 12:47:24PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
-e:
-> On 10/18/2022 1:37 AM, Kuninori Morimoto wrote:
++const struct of_device_id cs42xx8_of_match[] = {
++       { .compatible = "cirrus,cs42448", .data = &cs42448_data, },
++       { .compatible = "cirrus,cs42888", .data = &cs42888_data, },
++       { /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, cs42xx8_of_match);
++
+  static struct i2c_device_id cs42xx8_i2c_id[] = {
+         {"cs42448", (kernel_ulong_t)&cs42448_data},
+         {"cs42888", (kernel_ulong_t)&cs42888_data},
 
-> > +	default:
-> > +	}
->=20
-> This introduces build error when applied:
->=20
-> sound/soc/soc-dapm.c: In function =E2=80=98dapm_power_one_widget=E2=80=99:
-> sound/soc/soc-dapm.c:1890:2: error: label at end of compound statement
->  1890 |  default:
->       |  ^~~~~~~
->=20
-> (May be because of CONFIG_WERROR, but still it would be a warning at
-> least...)
+That information is already present and copied from 
+sound/soc/codecs/cs42xx8.c. Is this a suitable solution to the problem? 
+Something that can be applied upstream?
 
-Probably also depends on toolchain.  In any case a break; is needed
-there.
+Thanks,
+/Peter
 
---ceLzI03DYP6VS32+
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNOoNwACgkQJNaLcl1U
-h9DupAf+Mrr2mofgOEC4GdP/9+ONtbXJwq4iJ7XUmE465YpGBDmjmtcevGVpmnuh
-kQYbkLpkud++Js2PatBD4njJtTP+vuwK5dULdEQMJDFn/UHKcYY1pJOX4BKXfYBN
-7QgAM+UWUTv/GKh2zQ/vW4w4pmzEdTykXCbo+NImFHpYwOzF63v7vWgljtQ1Kpcr
-ZWnvJheUj6UIPjKF6sPkn3QHnPRVdmv6PrhfFUxrK7/kiMdUNaBvOfu6F2pOgWiu
-kAV6+wKLtPojfzpLE7pIlnKVM3o4X1t9h0l0P49LUflh5RhQKP5XAGYCF8pqABWW
-KVAM6n1g0Tf6MQ/fCiF7q0gkFUCx6A==
-=/xbj
------END PGP SIGNATURE-----
-
---ceLzI03DYP6VS32+--

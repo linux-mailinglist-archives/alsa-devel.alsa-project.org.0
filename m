@@ -2,79 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76D7605CE3
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:38:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC64D605D1C
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D7543FC7;
-	Thu, 20 Oct 2022 12:37:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D7543FC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B11C5954;
+	Thu, 20 Oct 2022 12:37:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B11C5954
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666262299;
-	bh=toWONRPVRyvli0SmA4914dVz6rTlI9dw3LXibjppbHA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rzgq7Fs/cyUtubb+9OiwyqRo4Vc4nkC1ffpj5Rb/J+tblgA6kKNGDCkE+1B5FvW8X
-	 TtRCJlw5/Uy/gA/AglzE7iJqIsYgUu+j5Mu51gpk7vy0BbpFInqB5M/R9nOnaqiUO/
-	 EdI74EEAKJjzr9o6b4e4PJHpMG/Jx0BCYhTbmsm4=
+	s=default; t=1666262310;
+	bh=CP51AzODChhASf++vrai+E9Mw33EtbAduHrU5n2OoMg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sHvGG2mLn/oG47APfStP/JMk7N1HX6qlhksoytSNUuMq45iEDQOcXpGn5m7/uoY5o
+	 /eirfhJtFwLk7p8HmaslJWMEqfE0qBqiC9tpZSIeRF8mOYQd5TqPFQx0Jts/sTSePx
+	 tSA8m1kh+wcWvNlJFL/6JvuNnq2ZsQ2vSEqkKPB8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7947AF805B3;
-	Thu, 20 Oct 2022 12:33:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27912F805BE;
+	Thu, 20 Oct 2022 12:33:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FF2AF804BD; Tue, 18 Oct 2022 05:50:06 +0200 (CEST)
+ id 43D67F8024C; Tue, 18 Oct 2022 15:05:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from zg8tmtm4lje5ny4xodqumjaa.icoremail.net
- (zg8tmtm4lje5ny4xodqumjaa.icoremail.net [138.197.184.20])
- by alsa1.perex.cz (Postfix) with SMTP id AC5C2F800AA
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 05:49:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC5C2F800AA
-Received: from AEPW014EEK (unknown [10.28.61.203])
- by master-mail (Coremail) with SMTP id AQAAfwAnNvhcIk5jAl0DAA--.13022S2;
- Tue, 18 Oct 2022 11:49:53 +0800 (CST)
-From: <wangweidong.a@awinic.com>
-To: "'Mark Brown'" <broonie@kernel.org>
-Subject: Thanks to review question [PATCH V2 1/2] ASoc:codes:Add Awinic
- AW883XX audio amplifier driver
-Date: Tue, 18 Oct 2022 11:49:48 +0800
-Message-ID: <007b01d8e2a4$ae59bc20$0b0d3460$@awinic.com>
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62312F800AB
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 15:05:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62312F800AB
+Received: by mail-qk1-f180.google.com with SMTP id z30so8510768qkz.13
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 06:05:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=B3o3vYAk1VZiDmjBJfHdrW7jPj/9+r6RZmm9abHN1X0=;
+ b=2r3GdbW2iJIuKQ13KVvlEyaBwgY8XH/HHjgufEdvbdGouaibk/AK9xd6S9vUGQUwd1
+ lvkPMn4ehfPPZjAkFyJ13EWhUTu7DZ1IkZPq/JknYq7VUwpbv0Td9Gon25NBjViRN34c
+ TtRfUstiEOg81Iag3aG79ce/1ngFHSfmkgAGuSBPjPZ1olIbmG9Kv49+KBCsXDU7d8fX
+ tHLecF4+mBag3dc150cFUv2l/T1bbTgMYy3bg3XT5inytf4ol/qWJ4DsOB5IhQgQ+iCB
+ tLUuATROB91fx9mArgV/rDW1oUUJqhjxALhTVFhHEZDJ+mHumX0yTLefDqKfy4cgRQk3
+ Saag==
+X-Gm-Message-State: ACrzQf3TW4EZgqr/7JMzTB/C/K64Qws+H9oJTeOI2gckYBkWkr5V+cL3
+ ejcwPt8iHfukqiSCb2xci2B63HS8/oQl4hRs
+X-Google-Smtp-Source: AMsMyM6UapwHGD6ICZCEYyN/T9OAdcoic6gkwaQibZnI5vD7x9600v/rZTKz1CEhw7KTB09F7HYY/g==
+X-Received: by 2002:a05:620a:410f:b0:6cf:c34b:3c64 with SMTP id
+ j15-20020a05620a410f00b006cfc34b3c64mr1720521qko.52.1666098308975; 
+ Tue, 18 Oct 2022 06:05:08 -0700 (PDT)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com.
+ [209.85.128.171]) by smtp.gmail.com with ESMTPSA id
+ x12-20020a05620a448c00b006ec5238eb97sm2366600qkp.83.2022.10.18.06.05.07
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Oct 2022 06:05:07 -0700 (PDT)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-3560e81aa1dso136383557b3.2
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 06:05:07 -0700 (PDT)
+X-Received: by 2002:a25:26c1:0:b0:6c3:bdae:c6d6 with SMTP id
+ m184-20020a2526c1000000b006c3bdaec6d6mr2457054ybm.36.1666098296216; Tue, 18
+ Oct 2022 06:04:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdjipJzgBRqHuVmnSq+4eZlKAbHOow==
-Content-Language: zh-cn
-X-CM-TRANSID: AQAAfwAnNvhcIk5jAl0DAA--.13022S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw17WF18JFWDJr1DKF17ZFb_yoW8Kry8pa
- 9Ikr1SkF4vqr4rXFykJrZ2kF1SvF409an8XrykZr95Jryavr9ayF1xKrWYgryxCFy7AF4Y
- vF4jgas8Zws5ArJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxV
- CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
- 6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
- WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG
- 6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
- W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbveHDUUUUU==
-X-CM-SenderInfo: 5zdqw4phlg00vjodqt5zlqxuoofrz/
-X-Mailman-Approved-At: Thu, 20 Oct 2022 12:33:17 +0200
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
- liweilei@awinic.com, tiwai@suse.com, zhaolei@awinic.com, cy_huang@richtek.com,
- yijiangtao@awinic.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- quic_potturu@quicinc.com
+References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
+ <20221010201453.77401-37-andriy.shevchenko@linux.intel.com>
+ <d63088d7-202b-a550-01e5-345a22de5f7d@amd.com>
+ <CAMuHMdUfdQnisexfs4yLjeKs-LUPY1HjChrgeNjNL1qSErir9Q@mail.gmail.com>
+ <Y0UyOWALxSFai2w6@smile.fi.intel.com>
+In-Reply-To: <Y0UyOWALxSFai2w6@smile.fi.intel.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 18 Oct 2022 15:04:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVU-cTBMzgBrbzA9+ZYybVS8kdYaA9spU9oDfqrLMvCuA@mail.gmail.com>
+Message-ID: <CAMuHMdVU-cTBMzgBrbzA9+ZYybVS8kdYaA9spU9oDfqrLMvCuA@mail.gmail.com>
+Subject: Re: [PATCH v2 36/36] pinctrl: Clean up headers
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 20 Oct 2022 12:33:16 +0200
+Cc: Andrew Lunn <andrew@lunn.ch>, Kent Gibson <warthog618@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Phil Edworthy <phil.edworthy@renesas.com>, linux-samsung-soc@vger.kernel.org,
+ Samuel Holland <samuel@sholland.org>, Michal Simek <michal.simek@xilinx.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Tali Perry <tali.perry1@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-omap@vger.kernel.org, Scott Branden <sbranden@broadcom.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-aspeed@lists.ozlabs.org,
+ Thierry Reding <thierry.reding@gmail.com>, Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>, linux-media@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-arm-msm@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-actions@lists.infradead.org,
+ linux-gpio@vger.kernel.org, soc@kernel.org,
+ linux-rpi-kernel@lists.infradead.org,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Dong Aisheng <aisheng.dong@nxp.com>,
+ Damien Le Moal <damien.lemoal@wdc.com>, linux-renesas-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jacky Bai <ping.bai@nxp.com>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ Benjamin Fair <benjaminfair@google.com>, Nancy Yuen <yuenn@google.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
+ Orson Zhai <orsonzhai@gmail.com>, Basavaraj Natikar <bnatikar@amd.com>,
+ Ray Jui <rjui@broadcom.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Patrick Venture <venture@google.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Tony Lindgren <tony@atomide.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Haojian Zhuang <haojian.zhuang@linaro.org>, linux-riscv@lists.infradead.org,
+ Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Prathamesh Shete <pshete@nvidia.com>, Andy Gross <agross@kernel.org>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ patches@opensource.cirrus.com, Sean Wang <sean.wang@kernel.org>,
+ linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,73 +168,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HI: Mark Brown
+Hi Andy,
 
-Thank you very much for your help. I will correct these problems.
+On Tue, Oct 11, 2022 at 11:07 AM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+> On Tue, Oct 11, 2022 at 10:46:30AM +0200, Geert Uytterhoeven wrote:
+> > On Tue, Oct 11, 2022 at 9:31 AM Basavaraj Natikar <bnatikar@amd.com> wr=
+ote:
+> > > On 10/11/2022 1:44 AM, Andy Shevchenko wrote:
+>
+> > > > +++ b/drivers/pinctrl/core.h
+>
+> > > > -#include <linux/pinctrl/pinconf.h>
+> > >
+> > > Removing pinconf.h from the core.h may cause build failure in other f=
+iles
+> > > because where-ever core.h is included to use =E2=80=9Cstruct pinconf_=
+ops=E2=80=9D, there
+> > > is a need to include pinconf.h.
+> >
+> > I can confirm adding
+> >
+> >     #include <linux/pinctrl/pinconf.h>
+> >
+> > to drivers/pinctrl/renesas/pinctrl-rzn1.c and drivers/pinctrl/pinctrl-s=
+ingle.c
+> > fixes the issues I was seeing with shmobile_defconfig and (out-of-tree)
+> > renesas_defconfig.
+>
+> I will add this, thank you for reporting.
 
-Best regards,
-Weidong Wang
+Same for drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c.
 
+Gr{oetje,eeting}s,
 
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-
-On Mon, Oct 17, 2022 at 04:09:12PM +0800, wangweidong.a@awinic.com wrote:
-> Hi: Mark Brown
-> 
-> Thank you for your suggestion. I will fix the problem you raised in 
-> the next patch, but there is still a question here and I want to 
-> discuss it with you
-> 
-> This is rather too big to go through in one go so the review here is 
-> very high level but that's probably a good level for initial review 
-> here as there
-
-Please fix your mail client to clearly identify quoted text, as you can see
-above it's very dificult for me to tell where you've replied to my mail.
-
-> > +	if (mute) {
-> > +		aw883xx->pstream = AW883XX_STREAM_CLOSE;
-> > +		cancel_delayed_work_sync(&aw883xx->start_work);
-> > +		mutex_lock(&aw883xx->lock);
-> > +		aw883xx_device_stop(aw883xx->aw_pa);
-> > +		mutex_unlock(&aw883xx->lock);
-> > +	} else {
-> > +		aw883xx->pstream = AW883XX_STREAM_OPEN;
-> > +		mutex_lock(&aw883xx->lock);
-> > +		aw883xx_start(aw883xx, AW_ASYNC_START);
-> > +		aw883xx_hold_dsp_spin_st(&aw883xx->aw_pa->spin_desc);
-> > +		mutex_unlock(&aw883xx->lock);
-> > +	}
-> 
-> This doesn't look like a mute operation, it looks like it's starting 
-> and stopping the DSP.
-> 
-> Answer: This is a mute operation ,aw883xx_device_stop is called in th 
-> aw883xx_mute function. This function not only executes the mute 
-> function aw883xx_dev_mute, but also disables dsp and power down. This 
-> is for the aw883xx chip low power optimization.
-
-Then it's not a mute function, the goal of the mute function is to run
-before all the power management code to minimise glitches during power
-management.  Just implement the power management via the standard ASoC power
-management APIs.
-
-> > +	aw883xx_dev_set_fade_time(ucontrol->value.integer.value[0], true);
-> > +
-> > +	aw_pr_dbg("step time %ld", ucontrol->value.integer.value[0]);
-> > +	return 0;
-> > +}
-> 
-> If a control write changes a value it should return 1, you should run 
-> the mixer-test selftest which will identify this and a number of other
-issues.
-
-tools/testing/selftests/alsa
-
-> Answer: Could you tell me what is mixer-test selftest? I have checked 
-> other drivers, and there is no return 1.
-
-Are you *sure* there's none?  Other drivers being buggy isn't a good reason
-to introduce more bugs.
-
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds

@@ -2,74 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B599F602B79
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:15:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DBEB602B7C
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:16:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 603955146;
-	Tue, 18 Oct 2022 14:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 603955146
+	by alsa0.perex.cz (Postfix) with ESMTPS id 474E79508;
+	Tue, 18 Oct 2022 14:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 474E79508
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666095344;
-	bh=loH8bscTnnp22WtnIayDx6s8ChF2+xcx2qq1wi4fE7k=;
+	s=default; t=1666095383;
+	bh=ERE5fGH+iI9+kRAgCKLOw9anYezkn5lRnmwLpEkdq0I=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s99Mk3GOI3gcMqJHM4EATtHkb9kharUsDich/u/tmunmfARBfZnP9reLIVObQP9L3
-	 fQca+ibj3fKUsnk97FQdwEhBjY5KiwhhhqUOuKGIgIy1HWO5F2vGeJhOo+KWJK7NX5
-	 idA8/73ZNgqXIy2MLgVs2D1W7xu0CEJUP8pllW3g=
+	b=fkna9e5Ea08qWECvye2MhOtlVKFpOCD6qyn9RfP3uP8NLNsR7MZxGQaaEkdEADdeL
+	 nJJZ/J/PSG0sdVpHXp9dsWjLkfAZBHyD/he3fXCVDqwjI0XduvNCnV6uzMeoZTGxKm
+	 fAwWcWCpXYjNopXu1DOjnualIIp96bdJGpIjecrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEE5AF80580;
-	Tue, 18 Oct 2022 14:13:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CF52F8059F;
+	Tue, 18 Oct 2022 14:13:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19E2CF80579; Tue, 18 Oct 2022 14:13:42 +0200 (CEST)
+ id 26BCAF80564; Tue, 18 Oct 2022 14:13:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C01AF80579
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:13:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C01AF80579
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34E0FF8057B
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:13:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E0FF8057B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H9YKkqpG"
+ header.b="iKdwIl/d"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0BD4B61536;
- Tue, 18 Oct 2022 12:13:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB8FC433D7;
- Tue, 18 Oct 2022 12:13:36 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 54A04B81EBA;
+ Tue, 18 Oct 2022 12:13:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4ABC433C1;
+ Tue, 18 Oct 2022 12:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666095217;
- bh=loH8bscTnnp22WtnIayDx6s8ChF2+xcx2qq1wi4fE7k=;
+ s=k20201202; t=1666095220;
+ bh=ERE5fGH+iI9+kRAgCKLOw9anYezkn5lRnmwLpEkdq0I=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=H9YKkqpGID+1D2QkyMUBmmFD2QFjFfPQXtfBauV6NwRvQo7+0gziDg7Kc3MUu+msA
- 2iIUSjsqMtLnj3AL06FsJY3SZmRv27WrzIvKkvi0TlbTrEFLgFU5GHY90OcMEGVb32
- 58IrjSfEOgdvUCnHatFuT1LUQ3yDdSZhwlgMr/6d12+itlJgxPS1wGbvVXUHiOR0E1
- 7apQkoeChXnM/Q06s2P14eoMFe1bSs2rHhLkNDOqjNnGAUkuncUD7xZL/3memcB5P1
- s9Q5Pk9fsd3nGOaVgBzVYZMri8sK+FUTUCda/1ILcn0JG//apNf90Vd6/+/tBwegBz
- QD7c8TT88djIQ==
+ b=iKdwIl/dNubjlRXdkBy5sm5XTV/nRUNOr4+7c2Jf4UKbFzdavPuE7pIDovmKNrsMf
+ Z1qzOJ3ChUyGND+QEIOrvWd8Y1rdQqcN/jnZMLFe6p4F5V/jPvrYpE0yFM5cvO0abY
+ QKXhmBMUHMzz7yp4XnwT7MoInaySuhEudRKUA9afZ3zBGtHpjJI10HIvo50tm4Xst0
+ 4buUCa1PFkcC+mpIWWT9AlQe3+DJh/iwiN+FduL3wdjqPOBxk0l6TrfRcav2tLZSD4
+ Mui+G0fxKV8ExF5zgSD9gvjQmvI5VyQJB6duxUi8+h8o+bFkRz4+psR8QbOWYQS/CR
+ iMOV+wUEvDh3w==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20221010121955.718168-1-cezary.rojewski@intel.com>
-References: <20221010121955.718168-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 00/15] ASoC: Intel: avs: Fixes and new boards support
-Message-Id: <166609521598.371929.16651156804710560381.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 13:13:35 +0100
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <20221015001228.18990-1-rdunlap@infradead.org>
+References: <20221015001228.18990-1-rdunlap@infradead.org>
+Subject: Re: [PATCH] ASoC: qcom: SND_SOC_SC7180 optionally depends on SOUNDWIRE
+Message-Id: <166609521768.371929.7568128242261436965.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 13:13:37 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ stable@vger.kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,18 +88,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 10 Oct 2022 14:19:40 +0200, Cezary Rojewski wrote:
-> Two fixes are leading the way - one addresses the incorrect DMA mask
-> assignment (typo) at driver probe. The other, fixes a potential buffer
-> overflow when copying data received from firmware to kernel buffer.
-> However unlikely, the fix should still be there.
+On Fri, 14 Oct 2022 17:12:28 -0700, Randy Dunlap wrote:
+> If SOUNDWIRE is enabled, then SND_SOC_SC7180 should depend on
+> SOUNDWIRE to prevent SOUNDWIRE=m and SND_SOC_SC7180=y, which causes
+> build errors:
 > 
-> Then a range of patches providing the support for:
-> - AML with rt286 (machine board)
-> - KBL-R for rt298 (codec)
-> - KBL-R with rt298 (machine board)
-> - APL/KBL with da7219 (machine board)
-> - Addition of all the missing SKL-based PCI ids to core.c
+> s390-linux-ld: sound/soc/qcom/common.o: in function `qcom_snd_sdw_prepare':
+> common.c:(.text+0x140): undefined reference to `sdw_disable_stream'
+> s390-linux-ld: common.c:(.text+0x14a): undefined reference to `sdw_deprepare_stream'
+> s390-linux-ld: common.c:(.text+0x158): undefined reference to `sdw_prepare_stream'
+> s390-linux-ld: common.c:(.text+0x16a): undefined reference to `sdw_enable_stream'
+> s390-linux-ld: common.c:(.text+0x17c): undefined reference to `sdw_deprepare_stream'
+> s390-linux-ld: sound/soc/qcom/common.o: in function `qcom_snd_sdw_hw_free':
+> common.c:(.text+0x344): undefined reference to `sdw_disable_stream'
+> s390-linux-ld: common.c:(.text+0x34e): undefined reference to `sdw_deprepare_stream'
 > 
 > [...]
 
@@ -106,36 +111,8 @@ Applied to
 
 Thanks!
 
-[01/15] ASoC: Intel: avs: Fix DMA mask assignment
-        commit: 83375566a7a7042cb34b24986d100f46bfa0c1e5
-[02/15] ASoC: Intel: avs: Fix potential RX buffer overflow
-        commit: 23ae34e033b2c0e5e88237af82b163b296fd6aa9
-[03/15] ASoC: codecs: rt298: Add quirk for KBL-R RVP platform
-        commit: 953dbd1cef18ce9ac0d69c1bd735b929fe52a17e
-[04/15] ASoC: Intel: avs: Add quirk for KBL-R RVP platform
-        commit: 9d0737fa0e7530313634c0ecd75f09a95ba8d44a
-[05/15] ASoC: Intel: avs: Support AML with rt286 configuration
-        commit: 8b2446eaa45a3be5bb5c6fb79cc745d228dac431
-[06/15] ASoC: Intel: avs: Support da7219 on both KBL and APL
-        commit: fecc00b448a9b89c858468318bfdddbc5bd9dc6d
-[07/15] ASoC: Intel: avs: Add missing SKL-based device IDs
-        commit: d1356811abf785b995dd74750fc75efffa3d7656
-[08/15] ASoC: Intel: avs: Simplify d0ix disabling routine
-        commit: e720e68b3fa25268e1df8a6d91d3bdb80f4fc38a
-[09/15] ASoC: Intel: avs: Add missing include to HDA board
-        commit: e331b534d3b1a5a36a7bc1e7a85e21d2561aa2e6
-[10/15] ASoC: Intel: avs: Do not reuse msg between different IPC handlers
-        commit: 18a787909ca6bac3a3a3235c08d68a4a9838fe7b
-[11/15] ASoC: Intel: avs: Do not treat unsupported IPCs as invalid
-        commit: 2d27a1caf8ef0c443486b18de2fada3120e3fbe1
-[12/15] ASoC: Intel: avs: Do not print IPC error message twice
-        commit: 65edda6015682a31d82111b7a417eaa8232547f8
-[13/15] ASoC: Intel: avs: Simplify ignore_fw_version description
-        commit: 263e3e2dfef7a9d39c91bbd2ff61bd0619c68e3b
-[14/15] ASoC: Intel: avs: Simplify log control for SKL
-        commit: bfced33e1eb868b1085c7cfadfb71e6e497059cb
-[15/15] ASoC: codecs: hda: Fix spelling error in log message
-        commit: 62d0cee4e6f592a8c6da9e969f404e907ae65d88
+[1/1] ASoC: qcom: SND_SOC_SC7180 optionally depends on SOUNDWIRE
+      commit: 9a7f2c9e7a19b16b4409f372cf2e16e4334cdca2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

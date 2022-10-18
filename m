@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED27602A2C
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1006C602A2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B70559C3A;
-	Tue, 18 Oct 2022 13:30:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70559C3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8A3E8DA1;
+	Tue, 18 Oct 2022 13:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8A3E8DA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666092659;
-	bh=aMk40YL2NOee5eZ/vBDbr31W8TTEy1EI+updjIv2MPw=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1666092700;
+	bh=E4EW/MQguhuWyRl3E5UwUZjot3sh0EapM2CZWbOuS8c=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pkjHMizMA+BzCz64eeLFjIcKCXZGeOILEM5p8IoN0JHknM3mvfjaxKq/8Nu8oYegt
-	 ulUQzDvwpIsHBylVbvpApb4khWKevrTNbLauqSiHdwWbhlvpTMA3fLB1IVdHJ1PZVT
-	 DIStCVk9zwA9KGhKuR13zUpBjETlykIrcveNgzxM=
+	b=a5DGlMgSn/IqvEtGB6k8ObixW59vf1VsrPuvTipSU59yIyoTCTlrdo+tBXuokrAY3
+	 hVzCRptn5VE+RdXyklGwUEa/fJbkn2nELlohbR3Tlzcibo8TfQ3bLl67reRcjwOrRQ
+	 K22VSOEBh+7hiHVXTW79zpNFpjLfZsoFFSI8wz7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63363F8057A;
-	Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18E5CF8057E;
+	Tue, 18 Oct 2022 13:28:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C990CF80578; Tue, 18 Oct 2022 13:28:34 +0200 (CEST)
+ id F3082F8057B; Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84388F80566
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84388F80566
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A940F80566
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A940F80566
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Kh82c687"
+ header.b="TDrlLcHq"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6392C61530;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 73DC061529;
+ Tue, 18 Oct 2022 11:28:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA191C433C1;
  Tue, 18 Oct 2022 11:28:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E326FC433D6;
- Tue, 18 Oct 2022 11:28:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666092511;
- bh=aMk40YL2NOee5eZ/vBDbr31W8TTEy1EI+updjIv2MPw=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=Kh82c6878xY2PUD74wX29c+T0kyWrRD4EKrnE631tDOUXD/9tOJ1gC9Hu9lKL66BG
- awfJv2tkW0AKPb+0tuyvNkqkqxt0JM3Iu1KSEBOTFwKG6bxjvFO1At1fBH1ePR3cYv
- aa4dFCArx6N7wC7WZiuqgkDMaVKkfmE/Ln2YOijmg0wCIEeMkt5iDM3XzkcxdRFwqC
- l6OFutkgLhHdCGIhlKDdO+s8eVAeaNQeGdIp/XvY0TSWZBcJslvg0ryP20wirBWrQE
- mYsbV+DWh0ZT7m8HIFcDvY9eN7fQ4QSDHjFvMGovqV1410slE899SP+OHYfogWNC01
- 6KedUcebMbjTg==
+ s=k20201202; t=1666092512;
+ bh=E4EW/MQguhuWyRl3E5UwUZjot3sh0EapM2CZWbOuS8c=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=TDrlLcHqZwJ8iX/zRFMByB2R7YpU5JRFjC9D8DA/KnV3s2qJr6g1eVAOfVOJ+Uxka
+ ieLYoQALxJtA6ifeEvLbr74ZBbdAQntPp70xpDaDspXA2cTx5oJgWzxyLjldL42P/8
+ k7P9KVrLYDip7aoqFpyZd93SwvCo+1NwqNpkj7j/XugaoSuDTHqICJvZ9f3+G9YLuA
+ fBqs5KXawCFVTofuzgIb2MKFdEh37lyTs5plc4nmhn+rA1qNbOh5V/j8Q1v0xRaj5C
+ Gzl3Ij+HGtiowbN0G+LRJyUXPy7Kt1958ilvHaZRoSK5NT74ok7uHsVkPJ32aKcJEc
+ 7ikRFs3Oh4z6w==
 From: Mark Brown <broonie@kernel.org>
-To: Shang XiaoJing <shangxiaojing@huawei.com>, rf@opensource.cirrus.com,
- tiwai@suse.com, christophe.jaillet@wanadoo.fr, 
- james.schulman@cirrus.com, david.rhodes@cirrus.com, peter.ujfalusi@gmail.com,
- alsa-devel@alsa-project.org, 
- lgirdwood@gmail.com, patches@opensource.cirrus.com,
- tanureal@opensource.cirrus.com, perex@perex.cz
-In-Reply-To: <20220927140948.17696-1-shangxiaojing@huawei.com>
-References: <20220927140948.17696-1-shangxiaojing@huawei.com>
-Subject: Re: [PATCH -next 0/4] ASoC: Use DIV_ROUND_UP() instead of open-coding
- it
-Message-Id: <166609250864.155136.11996964656320484311.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 12:28:28 +0100
+To: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20220930124538.354992-1-amadeuszx.slawinski@linux.intel.com>
+References: <20220930124538.354992-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: Intel: avs: Add support for max98927 codec
+Message-Id: <166609251141.155136.8908728674966003398.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 12:28:31 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,15 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Sep 2022 22:09:44 +0800, Shang XiaoJing wrote:
-> Use DIV_ROUND_UP() instead of open-coding it, which intents and makes
-> it more clear what is going on for the casual reviewer.
+On Fri, 30 Sep 2022 14:45:36 +0200, Amadeusz Sławiński wrote:
+> This series adds machine board for max98927 codec present on some
+> Chromebook devices.
 > 
-> Shang XiaoJing (4):
->   ASoC: cs35l36: Use DIV_ROUND_UP() instead of open-coding it
->   ASoC: wm8978: Use DIV_ROUND_UP() instead of open-coding it
->   ASoC: rsnd: Use DIV_ROUND_UP() instead of open-coding it
->   ASoC: ti: davinci-mcasp: Use DIV_ROUND_UP() instead of open-coding it
+> Amadeusz Sławiński (2):
+>   ASoC: Intel: avs: Add max98927 machine board
+>   ASoC: Intel: avs: Load max98927 on target platform
 > 
 > [...]
 
@@ -107,14 +102,10 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: cs35l36: Use DIV_ROUND_UP() instead of open-coding it
-      commit: ff091dd23b423e19c8191928daedf62eab6ce523
-[2/4] ASoC: wm8978: Use DIV_ROUND_UP() instead of open-coding it
-      commit: c54402609820427ff6f725f9182216e7cfe7cfa7
-[3/4] ASoC: rsnd: Use DIV_ROUND_UP() instead of open-coding it
-      commit: 4aa2b05a24a83cc618fab4c4d343f2179962e5ed
-[4/4] ASoC: ti: davinci-mcasp: Use DIV_ROUND_UP() instead of open-coding it
-      commit: 98059ddfd1ada95fc9f535ea9c08618aa44ad5d3
+[1/2] ASoC: Intel: avs: Add max98927 machine board
+      commit: 1c993300ab1cec9a0a6a3c417614a1d9f35b175b
+[2/2] ASoC: Intel: avs: Load max98927 on target platform
+      commit: 999ce9967a2f5a64c4bd04ae1edf0a979cf68833
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

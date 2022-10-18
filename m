@@ -2,72 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EAC602BE3
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:40:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006C2602BE4
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:40:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17E69988D;
-	Tue, 18 Oct 2022 14:39:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E69988D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86BCA8C67;
+	Tue, 18 Oct 2022 14:40:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86BCA8C67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666096845;
-	bh=Qt/z6hQB/VCau/WGAO3J0/uHlB/5UrNPTfVsqfD/+es=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jH6cX8Ue9/gr7OrPPt03Z+hST8cQNb21bhxZSjW+WemGgaj8GpOrcFsr5TlIZpncT
-	 g/VnfC1qWrpjPbXKkMivo7UydcPuodBHIs10LRxMdYLC2cPc3egY6dNBo9KqkPst0M
-	 XqwjKbxksE5+41F0x3KO/jqDBqwi9ZT2HOKQeVfU=
+	s=default; t=1666096851;
+	bh=vyOl79lnKFcTaoykGkTKSO91hE/fx6d+lWeT8+3jnoc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XhP2fx3hzG6aoETFyK6Z4/GO+ud0xGlNl/yw7jzCYuAIOI84uyOAK1qCKwfggxOdy
+	 s1TdJYX0MaNVDLWkz3PM64hv/ViLmQJlvHtX1MqNjsp/HfACXDLv/o1RhRrGiQG6/z
+	 EmM53mNkMy0SDQOIaE5hvx25p2xb0x2+jZ8sPcGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 821C2F8053C;
-	Tue, 18 Oct 2022 14:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7D75F80542;
+	Tue, 18 Oct 2022 14:39:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF3F4F8024C; Tue, 18 Oct 2022 14:39:52 +0200 (CEST)
+ id 32FE7F80542; Tue, 18 Oct 2022 14:39:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA4D5F8024C
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:39:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4D5F8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97CFAF804C1
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97CFAF804C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="k7kScZvv"
+ header.b="SVz48xYR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666096791; x=1697632791;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Qt/z6hQB/VCau/WGAO3J0/uHlB/5UrNPTfVsqfD/+es=;
- b=k7kScZvv/mFQsTYl3Y6pwbhJxcYyA5N4uEkxMRyIxtXfRGF8cNOGO7mP
- ohvdu09xhoNVOwLcV3c8Kb6edx4TWG25pxHdzbp6AsFTgmeXaZXH/38oj
- JLmOXYYw8Zn9hIORg/l5sMeVJ9WFOv83StH+4yQI4P3vbzCXG9v36d670
- n/IpHeBIqge3gbyc7PVatvFpd4Ok1+ydbh7B/AEr6a4LlstwzzVhbi8si
- gpPoBBTKwPRlyeLRIGQqU0m8A02uScE3/YckIYJ6uwB98iq22e66j+CbY
- MG+0iKlmhKGUabJzkg/YvN9XQ7D8Dak/lF/APiqYbJc980mG89BUrVTlO g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="304828548"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="304828548"
+ t=1666096792; x=1697632792;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vyOl79lnKFcTaoykGkTKSO91hE/fx6d+lWeT8+3jnoc=;
+ b=SVz48xYRwWJGHGyKC3IqJ+k9iptGHlNJ1EQBEVL4BTGes9BYEe2x/mfO
+ x+Z3NNtsA3CePMn6ktnC57wAjyDfb+7CO8snj4cBm+udoWfgXxHx+Pgis
+ BjwilndfX+m1FRLyYJqwWf9bkZQk0rXUmDWhmpripye/OfyWxI8xkOIKb
+ nRtzqLYDQ2+LBNsETCLmPyub4AsZZJx544PCMtgoW59cHwXg8KSEnDCVY
+ 0cJAPmONeHoC/WICgjlnZJ1ZQB3hcP6BXVaZ/Q/AryLt3EjxCFUuUjX2d
+ 70wxmKzQtbzCzsyu1ioHSRM3x/QnaeAwhCMpsGD05YgW0xhnDFqbGIzgo g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="304828555"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="304828555"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:39:47 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="717912752"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="717912752"
+ 18 Oct 2022 05:39:49 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="717912763"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="717912763"
 Received: from mariaca1-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:39:45 -0700
+ 18 Oct 2022 05:39:47 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 0/4] ASoC: SOF: Intel: Harden the IPC4 low level sequencing
-Date: Tue, 18 Oct 2022 15:40:04 +0300
-Message-Id: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 1/4] ASoC: SOF: ipc4: Log the tx message before sending it
+Date: Tue, 18 Oct 2022 15:40:05 +0300
+Message-Id: <20221018124008.6846-2-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
+References: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, rander.wang@intel.com,
@@ -88,41 +92,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+It makes more sense to log the message before it is sent to the DSP.
 
-The IPC4 use of doorbell registers leaves some corner cases not well defined
-and the 'correct sequences' are subjective in a sense.
-The DSP doorbell registers are used as separate and independent channels and
-the sequences for host -> DSP -> host (reply) can be racy.
-
-For example:
-The ACKing of a received message can happen before the firmware sends the reply
-or it can as well happen after the reply has been sent and received by the host.
-Both can be considered 'correct sequences' but they need different handling.
-
-This series will allow the kernel to service any interpretation of the
-sequencing on the firmware side.
-
-Regards,
-Peter
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
-Peter Ujfalusi (4):
-  ASoC: SOF: ipc4: Log the tx message before sending it
-  ASoC: SOF: Intel: ipc4: Read the interrupt reason registers at the
-    same time
-  ASoC: SOF: Intel: ipc4: Wait for channel to be free before sending a
-    message
-  ASoC: SOF: Intel: ipc4: Ack a received reply or notification
-    separately
+ sound/soc/sof/ipc4.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- sound/soc/sof/intel/cnl.c     | 26 ++++++++++++++++++++++----
- sound/soc/sof/intel/hda-ipc.c | 27 +++++++++++++++++++++++----
- sound/soc/sof/intel/hda.c     | 11 +++++++++++
- sound/soc/sof/intel/hda.h     |  9 +++++++++
- sound/soc/sof/intel/mtl.c     | 24 +++++++++++++++++++++---
- sound/soc/sof/ipc4.c          |  4 ++--
- 6 files changed, 88 insertions(+), 13 deletions(-)
-
+diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
+index 6eaa18e27e5a..3c9b8692984a 100644
+--- a/sound/soc/sof/ipc4.c
++++ b/sound/soc/sof/ipc4.c
+@@ -342,6 +342,8 @@ static int ipc4_tx_msg_unlocked(struct snd_sof_ipc *ipc,
+ 	if (msg_bytes > ipc->max_payload_size || reply_bytes > ipc->max_payload_size)
+ 		return -EINVAL;
+ 
++	sof_ipc4_log_header(sdev->dev, "ipc tx      ", msg_data, true);
++
+ 	ret = sof_ipc_send_msg(sdev, msg_data, msg_bytes, reply_bytes);
+ 	if (ret) {
+ 		dev_err_ratelimited(sdev->dev,
+@@ -350,8 +352,6 @@ static int ipc4_tx_msg_unlocked(struct snd_sof_ipc *ipc,
+ 		return ret;
+ 	}
+ 
+-	sof_ipc4_log_header(sdev->dev, "ipc tx      ", msg_data, true);
+-
+ 	/* now wait for completion */
+ 	return ipc4_wait_tx_done(ipc, reply_data);
+ }
 -- 
 2.38.0
 

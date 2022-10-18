@@ -2,76 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BAA1602A2F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DACF2602B4D
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:10:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E02999C3C;
-	Tue, 18 Oct 2022 13:31:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02999C3C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43E359C84;
+	Tue, 18 Oct 2022 14:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43E359C84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666092714;
-	bh=EO5hPshGGBHiFaHBKiOjtX+wVrq1cMA7Ob1kzX2IeQA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bz4H8TwTP0svXWseQPreWjcE5Kg9s+M34x8avdFNPVVXmTmLLNIHTc5iCymAb3RMr
-	 Wzcjb+WI5lcrO/+qg0V91vlSsDM50QyTsfqYNlBNwqYTgmZXvMTCIPi5SDOqFR/KTd
-	 WpZxtB6kGAcpA1wPzo86jZHxacX+UKaNXgKqJT+s=
+	s=default; t=1666094999;
+	bh=ArHjPKsStJ4AOVVcwp/oxUuuGp3xbtf/jkYHrVdHMZU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RAN79CBb0EXJHDt2PowK5OXVW1V252p5AZ0YKvOSd7stjCgvcDClVEfwJLBwVIEnY
+	 2RSLtOdxbm64L4ovpbK0P36mPdak/5I6fBOMTq2C2zHwxdIjZJwggo8jWxC/cszR8V
+	 ubv/84G7bk9gVC9B72sg8lDVdBn7jEOO/DHqwOf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02734F805A9;
-	Tue, 18 Oct 2022 13:28:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 142CAF804DF;
+	Tue, 18 Oct 2022 14:09:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B776F8059F; Tue, 18 Oct 2022 13:28:39 +0200 (CEST)
+ id EBD44F804D0; Tue, 18 Oct 2022 14:09:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82DA9F80566
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82DA9F80566
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BOt7ASQD"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2D0C6B81EA8;
- Tue, 18 Oct 2022 11:28:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B9FC433D6;
- Tue, 18 Oct 2022 11:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666092514;
- bh=EO5hPshGGBHiFaHBKiOjtX+wVrq1cMA7Ob1kzX2IeQA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=BOt7ASQDe6Ct4Bes/agdN3BKa3Qy5i86UMyBwcOi86h+GSsoz7hrLS/liFkDU9u+f
- QenJBDEemTLX/EiWu0IFyIO41lH6cD/6xH5Ib89cLirW7ys/gZRE/B6Kd0Zu1BjVhW
- 5hUbDFl1nujWYcNCGlwjkBq40PlNi/TA1hS3EVBXxUhx+JULWYykIGPOIqEdYM5lMk
- ckL0MhhjpdRaapbJtszjHB6zS2TnsuhAxscVV1NW9N/CvVt3o0OVC1tyrn/Q74wRi6
- EsdW3wdy3nTvwH19rBPnuBO83h8yhww8PQMNBY0vHHsNvah7qmuglvwwnfnm0RHNT+
- M5/347LKwoKQg==
-From: Mark Brown <broonie@kernel.org>
-To: Siarhei Volkau <lis8215@gmail.com>
-In-Reply-To: <20221016132648.3011729-1-lis8215@gmail.com>
-References: <20221016132648.3011729-1-lis8215@gmail.com>
-Subject: Re: [PATCH v3 0/7] ASoC: codecs: jz4725b: Various improvements and
- fixes
-Message-Id: <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 12:28:33 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 569D4F800AB
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:08:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 569D4F800AB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="nifR+YSj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666094940; x=1697630940;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ArHjPKsStJ4AOVVcwp/oxUuuGp3xbtf/jkYHrVdHMZU=;
+ b=nifR+YSjjaQYtFiwcv2FD5hhyB9L2EY1SmC+86q/qYtcKJDxQlx7UvpG
+ ViWnH/+N92uLJaL+iXFf/y0TLxQvsHiOc8MN9/P55Oa+ZFgcIS25q3BNa
+ y7rUDCxSoy2OddgJecl71EnN8yiv2QPParwIBQkeSY+7MCSKmJnDvxLYc
+ f0p5dOcojxWD0zNxfPqEUuITh7PeU+xywp/V/qzgaFYS6TezibxxK6WnN
+ uIpqtTZgdDi+Pv4byuEwUAW51lrVjkYK2/hB3xmP2HHffmxmbRYjwRsXG
+ Y6NL14VG+9Fvsq0b3L9IRXhn8zn3911VY+Xg8qiPC37ME1q3LBDZYYNw1 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="303697437"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="303697437"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 05:08:55 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579757755"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579757755"
+Received: from mariaca1-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 05:08:52 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH 00/19] ASoC: SOF: Intel/IPC4: Support for external firmware
+ libraries
+Date: Tue, 18 Oct 2022 15:08:57 +0300
+Message-Id: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
+Cc: chao.song@intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,53 +90,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 16 Oct 2022 16:26:41 +0300, Siarhei Volkau wrote:
-> The patchset fixes:
->  - Line In path stays powered off during capturing or
->    bypass to mixer.
->  - incorrectly represented dB values in alsamixer, et al.
->  - incorrect represented Capture input selector in alsamixer
->    in Playback tab.
->  - wrong control selected as Capture Master
-> 
-> [...]
+Hi,
 
-Applied to
+In IPC4 all DSP loadable executable is a 'library' containing modules. The main
+or basefw is also a library which contains multiple modules.
+IPC4 allows to use loadable libraries to extend the functionality of the booted
+basefw.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This series adds support for loading external libraries in case they are needed
+by the loaded topology file.
 
-Thanks!
+The libraries must be placed to a specific firmware directory (fw_lib_prefix),
+which is:
+intel/avs-lib|sof-ipc4-lib/ followed by the platform name and in case of
+community key use a 'community' directory.
 
-[1/7] ASoC: codecs: jz4725b: add missed Line In power control bit
-      commit: 1013999b431b4bcdc1f5ae47dd3338122751db31
-[2/7] ASoC: codecs: jz4725b: fix reported volume for Master ctl
-      commit: 088777bf65b98cfa4b5378119d0a7d49a58ece44
-[3/7] ASoC: codecs: jz4725b: use right control for Capture Volume
-      commit: 1538e2c8c9b7e7a656effcc6e4e7cfe8c1b405fd
-[4/7] ASoC: codecs: jz4725b: fix capture selector naming
-      commit: 80852f8268769715db335a22305e81a0c4a38a84
-[5/7] ASoC: codecs: jz4725b: use right control for Master Playback
-      commit: e6233ee25059de0eeac6ed3d9d49737afdbd5087
-[6/7] ASoC: codecs: jz4725b: add missed Mixer inputs
-      commit: 616c291820d155cbad258ecae5c7dbca2c01f07f
-[7/7] ASoC: codecs: jz4725b: add missed microphone widgets
-      commit: 4b192aa09b3c3615c79f8c60704a2efd15e500d0
+For example for upx-i11 (community key): intel/avs-lib/tgl/community is the
+default path.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+The name of the library should be the UUID of the module it contains since the
+library loading is going to look for the file as <module_UUID>.bin
+In case there is a need to bundle multiple modules into single library, symlinks
+can be used to point to the file:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+module_boundle.bin
+<UUID1>.bin -> module_boundle.bin
+<UUID2>.bin -> module_boundle.bin
+<UUID3>.bin -> module_boundle.bin
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+But note that in this case all modules will be loaded to the DSP since only the
+whole library can be loaded, not individual modules.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Regards,
+Peter
+---
+Peter Ujfalusi (18):
+  ASoC: SOF: Introduce container struct for SOF firmware
+  ASoC: SOF: amd: Use the basefw firmware container directly
+  ASoC: SOF: Intel: hda-loader: Use the basefw firmware container
+    directly
+  ASoC: SOF: Intel: hda-loader-skl: Use the basefw firmware container
+    directly
+  ASoC: SOF: Drop the firmware and fw_offset from snd_sof_pdata
+  ASoC: SOF: ipc: ops: Add support for optional init and exit callbacks
+  ASoC: SOF: ipc4-loader: Save the maximum number of libraries supported
+  ASoC: SOF: ipc4: Convert the firmware handling (loader) to library
+    convention
+  ASoC: SOF: IPC4: Add helper for looking up module by UUID
+  ASoC: SOF: Add path definition for external firmware libraries
+  ASoC: SOF: Intel: Set the default firmware library path for IPC4
+  ASoC: SOF: ipc4: Define platform dependent library loading callback
+  ASoC: SOF: Intel: hda: Add flag to indicate that the firmware is IMR
+    booted
+  ASoC: SOF: Intel: Add ipc4 library loading implementation
+  ASoC: SOF: loader: Add support for IPC dependent post firmware boot
+    ops
+  ASoC: SOF: ipc4: Stop using the query_fw_configuration fw_loader ops
+  ASoC: SOF: loader: Remove the query_fw_configuration ops
+  ASoC: SOF: ipc4-loader: Support for loading external libraries
 
-Thanks,
-Mark
+Ranjani Sridharan (1):
+  ASoC: SOF: loader: Set complete state before post_fw_run op
+
+ include/sound/sof.h                  |  10 +-
+ include/sound/sof/ipc4/header.h      |   4 +
+ sound/soc/sof/amd/acp-loader.c       |   6 +-
+ sound/soc/sof/intel/apl.c            |   3 +
+ sound/soc/sof/intel/cnl.c            |   3 +
+ sound/soc/sof/intel/hda-loader-skl.c |   7 +-
+ sound/soc/sof/intel/hda-loader.c     |  83 +++++++++-
+ sound/soc/sof/intel/hda.h            |   4 +
+ sound/soc/sof/intel/icl.c            |   3 +
+ sound/soc/sof/intel/mtl.c            |   3 +
+ sound/soc/sof/intel/pci-apl.c        |   6 +
+ sound/soc/sof/intel/pci-cnl.c        |   9 ++
+ sound/soc/sof/intel/pci-icl.c        |   6 +
+ sound/soc/sof/intel/pci-mtl.c        |   3 +
+ sound/soc/sof/intel/pci-tgl.c        |  21 +++
+ sound/soc/sof/intel/tgl.c            |   3 +
+ sound/soc/sof/ipc.c                  |   6 +
+ sound/soc/sof/ipc3-loader.c          |  26 ++-
+ sound/soc/sof/ipc4-loader.c          | 233 ++++++++++++++++++++++++---
+ sound/soc/sof/ipc4-priv.h            |  65 ++++++--
+ sound/soc/sof/ipc4-topology.c        |  17 +-
+ sound/soc/sof/ipc4.c                 |  41 +++++
+ sound/soc/sof/loader.c               |  25 ++-
+ sound/soc/sof/sof-pci-dev.c          |  26 +++
+ sound/soc/sof/sof-priv.h             |  27 +++-
+ 25 files changed, 540 insertions(+), 100 deletions(-)
+
+-- 
+2.38.0
+

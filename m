@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C522602B71
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:14:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C51602B75
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:14:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D180A3F24;
-	Tue, 18 Oct 2022 14:13:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D180A3F24
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13C3B6ED6;
+	Tue, 18 Oct 2022 14:14:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13C3B6ED6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666095266;
-	bh=izMBF4Qdr6hgAc2auZG1gPmSSnSh2f7dAFVwyWieQe0=;
+	s=default; t=1666095299;
+	bh=fz0oR4/tW5BeVt6QI/888tYY5BTA4o5fmjEITnmPnUw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rFjftmXTX3TspuChbId1bS15ezi01dJYz9aiQJeGi/E8UGf0fbobrnbkYpYNv1i2q
-	 WEQCJ4N0Ee1e+JlMIu8HzDWzIFZw6FJQiBE4+CRzFyDPsuSAyvB++NPbE0u2fM2VS8
-	 meed4zNu/gvh+LOiC+jts8G/55+Waux7OpyddaTs=
+	b=ZpF0PoMTIO5OhzH77/+BleG1FZlRUvfPWM9RxJ4C1o/e4rOWe+pdTsHRJP9pu4hPU
+	 zN6JBbYgb5u5WOnrJ9+gZyc/7ZIwG+b4/3rzj8dT/nyJQ6uVGvvgeKL71KdvTpGjPj
+	 bub5ZOYvzHjuCt/MBdLkbSSoKIqGJJEvPTZtq5lk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DE5DF805D5;
-	Tue, 18 Oct 2022 14:09:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2902F805E2;
+	Tue, 18 Oct 2022 14:09:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D7B9F805C2; Tue, 18 Oct 2022 14:09:42 +0200 (CEST)
+ id 45849F805D9; Tue, 18 Oct 2022 14:09:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C846F805AB
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:09:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C846F805AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54E27F805AC
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:09:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E27F805AC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="isCg4vhO"
+ header.b="P7pSY/nO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666094979; x=1697630979;
+ t=1666094980; x=1697630980;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=izMBF4Qdr6hgAc2auZG1gPmSSnSh2f7dAFVwyWieQe0=;
- b=isCg4vhOYNutyGvaDRAGXC1MUPGEjifFC61eCE/DUFHl488zMTiF/ytX
- bdwim8y5jRh2w7OtZpc+SvIO0BiUr2ACtXFrBAsSasC4JZqMloFiRn85s
- iu+6BBZ4GdCtvI6xAlcisC3vBqAm2E613VAy898rjod7/TTfIg5zKURTd
- mHGy2Jmk0LR8TvE0Gf7aZTG+qSfR9XnZvM1tAHYbgHieAcktf0YWP+hlP
- GLwcnJdJ7Uk+0ciNpJdOrIQPWU9PfWJ9wIj3uW/STsoxD6fhBujAHuYry
- G7OanfkHXzBhurPJWKG7qWT5wdId8mhP/fbVgk/LaOlygBjp/2WNcAxJ+ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293453018"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293453018"
+ bh=fz0oR4/tW5BeVt6QI/888tYY5BTA4o5fmjEITnmPnUw=;
+ b=P7pSY/nOydYlYj/drWrk15jJqUgUqXpqW8nNKnfoFkQ41v7uQIzysmhe
+ UfJ0GueGj6PT7/Crr4f/E8ahU6IuaeCoKzkfS+xmS89Q1NNFdAKGcACsU
+ 0YFtuM0qyNq76HkA9FiAQ6LOKhKmmrPohcNRs7va2l0AgNxDNOdxP0Z4J
+ 2Ex7lD7r7mqU3w9auYZjrtk2qoPgVFBwGzn+ZSCpIdN3ysqf8ZDhnRY1n
+ duelDxRonJzIEsO8hRf1GLMs1EJGFLlUOmh3SBEBWgnfS+dcxOZwy0hwj
+ Vdy4gZ8U52utpBxDwj8UL3wkEA5pQguh68oSrHgSToRx3iA7W4ge6Cd9L w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293453031"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293453031"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579758042"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579758042"
+ 18 Oct 2022 05:09:38 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579758053"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579758053"
 Received: from mariaca1-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:34 -0700
+ 18 Oct 2022 05:09:36 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 16/19] ASoC: SOF: loader: Add support for IPC dependent post
- firmware boot ops
-Date: Tue, 18 Oct 2022 15:09:13 +0300
-Message-Id: <20221018120916.19820-17-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 17/19] ASoC: SOF: ipc4: Stop using the query_fw_configuration
+ fw_loader ops
+Date: Tue, 18 Oct 2022 15:09:14 +0300
+Message-Id: <20221018120916.19820-18-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
 References: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
@@ -93,11 +93,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for executing IPC dependent tasks after a successful firmware
-boot.
-
-The new post_fw_boot ops can make the fw_loader query_fw_configuration
-callback redundant as IPC code can handle the first boot internally.
+Execute the configuration query from the generic post_fw_boot callback and
+do not set the query_fw_configuration ops to allow it's removal.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
@@ -105,48 +102,65 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Chao Song <chao.song@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/loader.c   | 6 ++++++
- sound/soc/sof/sof-priv.h | 3 +++
- 2 files changed, 9 insertions(+)
+ sound/soc/sof/ipc4-loader.c | 3 +--
+ sound/soc/sof/ipc4-priv.h   | 1 +
+ sound/soc/sof/ipc4.c        | 9 +++++++++
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 723bd8267a3d..a1c4a51636c9 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -174,6 +174,12 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 		return ret;
- 	}
+diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
+index b7e8b3f3d4f0..dbe3ee4ef08c 100644
+--- a/sound/soc/sof/ipc4-loader.c
++++ b/sound/soc/sof/ipc4-loader.c
+@@ -202,7 +202,7 @@ static int sof_ipc4_validate_firmware(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
  
-+	if (sdev->ipc->ops->post_fw_boot) {
-+		ret = sdev->ipc->ops->post_fw_boot(sdev);
-+		if (ret)
-+			return ret;
-+	}
+-static int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev)
++int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+ 	const struct sof_ipc_ops *iops = sdev->ipc->ops;
+@@ -273,5 +273,4 @@ static int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev)
+ const struct sof_ipc_fw_loader_ops ipc4_loader_ops = {
+ 	.validate = sof_ipc4_validate_firmware,
+ 	.parse_ext_manifest = sof_ipc4_fw_parse_basefw_ext_man,
+-	.query_fw_configuration = sof_ipc4_query_fw_configuration,
+ };
+diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
+index 7e7115ada2a2..e4bd6d93fb0f 100644
+--- a/sound/soc/sof/ipc4-priv.h
++++ b/sound/soc/sof/ipc4-priv.h
+@@ -90,6 +90,7 @@ extern const struct sof_ipc_fw_tracing_ops ipc4_mtrace_ops;
+ int sof_ipc4_set_pipeline_state(struct snd_sof_dev *sdev, u32 id, u32 state);
+ int sof_ipc4_mtrace_update_pos(struct snd_sof_dev *sdev, int core);
+ 
++int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev);
+ struct sof_ipc4_fw_module *sof_ipc4_find_module_by_uuid(struct snd_sof_dev *sdev,
+ 							const guid_t *uuid);
+ #endif
+diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
+index abbeb832027b..f1e5875675db 100644
+--- a/sound/soc/sof/ipc4.c
++++ b/sound/soc/sof/ipc4.c
+@@ -687,9 +687,18 @@ static void sof_ipc4_exit(struct snd_sof_dev *sdev)
+ 	xa_destroy(&ipc4_data->fw_lib_xa);
+ }
+ 
++static int sof_ipc4_post_boot(struct snd_sof_dev *sdev)
++{
++	if (sdev->first_boot)
++		return sof_ipc4_query_fw_configuration(sdev);
 +
- 	if (sdev->first_boot && sdev->ipc->ops->fw_loader->query_fw_configuration)
- 		return sdev->ipc->ops->fw_loader->query_fw_configuration(sdev);
- 
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index ea6013ab1d4a..c7ab78b042aa 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -445,6 +445,8 @@ struct sof_ipc_pcm_ops;
-  *
-  * @init:	Optional pointer for IPC related initialization
-  * @exit:	Optional pointer for IPC related cleanup
-+ * @post_fw_boot: Optional pointer to execute IPC related tasks after firmware
-+ *		boot.
-  *
-  * @tx_msg:	Function pointer for sending a 'short' IPC message
-  * @set_get_data: Function pointer for set/get data ('large' IPC message). This
-@@ -469,6 +471,7 @@ struct sof_ipc_ops {
- 
- 	int (*init)(struct snd_sof_dev *sdev);
- 	void (*exit)(struct snd_sof_dev *sdev);
-+	int (*post_fw_boot)(struct snd_sof_dev *sdev);
- 
- 	int (*tx_msg)(struct snd_sof_dev *sdev, void *msg_data, size_t msg_bytes,
- 		      void *reply_data, size_t reply_bytes, bool no_pm);
++	return 0;
++}
++
+ const struct sof_ipc_ops ipc4_ops = {
+ 	.init = sof_ipc4_init,
+ 	.exit = sof_ipc4_exit,
++	.post_fw_boot = sof_ipc4_post_boot,
+ 	.tx_msg = sof_ipc4_tx_msg,
+ 	.rx_msg = sof_ipc4_rx_msg,
+ 	.set_get_data = sof_ipc4_set_get_data,
 -- 
 2.38.0
 

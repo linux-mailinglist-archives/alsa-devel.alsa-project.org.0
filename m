@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B88602B65
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:12:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FFA602B60
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 14:12:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C8C49CD6;
-	Tue, 18 Oct 2022 14:12:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C8C49CD6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 602FD9CCF;
+	Tue, 18 Oct 2022 14:11:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 602FD9CCF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666095171;
-	bh=cIfPwd6KcUAgITrYV7LBA6hnFXIOA6UGS6RaevgUzu4=;
+	s=default; t=1666095151;
+	bh=2xuMYsXyVmMBdsaMO//uDSCpQL/VZPCattQaQD7iJQM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=odPQ5BDNa84zUdK7mdUiFSEP2U8z0Th9UOLi+X3vve4/aIj189DGAaBIoZ+migTOm
-	 3cRDVf7P+SVQchMytcyMJfNQY/5auTmeDn8frTIfyxgB6ft4JpaqVG5gVf+wV4h9pd
-	 LsgWNZ6ArDhfPVFCAnPGlVp2HhJwa0ZjQ+mLmsQQ=
+	b=pfEsvlqgSGlHmJOyi0WWbe4vUXz5ouwWY1BGnIfHdMOrgZpPxb/yfcSq3vbRv19pl
+	 Xx8ssLYzcokI1w22VAYB/FgodQSJxtdsC3Z1WYqr40DoGcKCS5CUeBr95ahEKBz0kz
+	 HDlGX+p428dA15JNLl/1cUOuw01qI0yUkmHQCbI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85CDAF805AF;
-	Tue, 18 Oct 2022 14:09:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78AF9F80589;
+	Tue, 18 Oct 2022 14:09:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01ACAF80571; Tue, 18 Oct 2022 14:09:35 +0200 (CEST)
+ id BA731F80589; Tue, 18 Oct 2022 14:09:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1E4AF80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id 205F7F80579
  for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 14:09:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E4AF80571
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 205F7F80579
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="lmIXV/Q/"
+ header.b="iKlSn7Vl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666094968; x=1697630968;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cIfPwd6KcUAgITrYV7LBA6hnFXIOA6UGS6RaevgUzu4=;
- b=lmIXV/Q/9XJ2RxZBNp4Rj7egPrVSCR+ZHK9f7wp6JGWMv68L5lNHePAw
- 9B8eFjqa69/6Xy0mCQ+MBWeuld218rbBx6MT/qY6Nnw6GBlDO09W3po1z
- 40/YO/BiqOZJGCf909M4vjWmc63ejqHkO0ACvr9KV+1m4xhgZjiG2xPAi
- MgPPMrxJsge0WgoyASqzv78wcqu4oEYPyyfW2v5cRGtlyfgTkwHWd02Dq
- XIhsFMgPu4fgcSkcR4Nb/x0FBVDS/jj4ORrA3GyuiPFTdF2wsYPpZ7vnv
- yPxmKi6hEX36k5ALK4pB+kiZ/W/KO4xg2WbAobKjqxmxAQbZuzKvUZx02 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293452960"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293452960"
+ bh=2xuMYsXyVmMBdsaMO//uDSCpQL/VZPCattQaQD7iJQM=;
+ b=iKlSn7Vl9GXnAsmSW6NtVhzCQ2OyMqqYNG73bekWnHtJK6BJ32rNkT7C
+ oaY06Llbl0QYASHX28HlA0CLVTNohyaeVLT9H/SG12dJgeUBLS4rSprbA
+ 6a03FYYAPLLeYJCZRPtWVoqk/+2W+MlwOEwTKTyrGPRSFXKFX6Ook+59J
+ ERz6rmXYFgxdtZJeDysFIZ4gq3mosTMblBGucbSHjjPjsHw0duZMDRCD4
+ phWY9/bN+zCQZKD31ePgq+tujgKXOWaY0YKA73qCYr4RNYrdmQ2Fdodfh
+ mA4E4fDfN/bWleeIRcvXu/3tc+d5zBNqNyOYWH1K3k323BsiJ1CBv7v6G g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="293452973"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="293452973"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:22 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579757936"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579757936"
+ 18 Oct 2022 05:09:24 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="579757957"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="579757957"
 Received: from mariaca1-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.27.127])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 05:09:20 -0700
+ 18 Oct 2022 05:09:22 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 10/19] ASoC: SOF: IPC4: Add helper for looking up module by
- UUID
-Date: Tue, 18 Oct 2022 15:09:07 +0300
-Message-Id: <20221018120916.19820-11-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 11/19] ASoC: SOF: Add path definition for external firmware
+ libraries
+Date: Tue, 18 Oct 2022 15:09:08 +0300
+Message-Id: <20221018120916.19820-12-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
 References: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
@@ -93,9 +93,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a simple helper to walk the loaded libraries and their modules to make
-the ipc4-topology not aware of the underlying infrastructure and simplify
-the code.
+IPC4 based firmware supports dynamically loaded external libraries.
+The libraries will be not stored alongside of the firmware or tplg files.
+
+For intel platforms the default path will be:
+intel/avs-lib|sof-ipc4-lib/<platform>/ if a community key is used on the
+given machine then the libraries will be under 'community' directory, like
+it is done for the firmware itself.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
@@ -103,85 +107,79 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Chao Song <chao.song@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/ipc4-loader.c   | 21 +++++++++++++++++++++
- sound/soc/sof/ipc4-priv.h     |  3 +++
- sound/soc/sof/ipc4-topology.c | 17 +++--------------
- 3 files changed, 27 insertions(+), 14 deletions(-)
+ include/sound/sof.h         |  6 +++++-
+ sound/soc/sof/sof-pci-dev.c | 26 ++++++++++++++++++++++++++
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
-index 5506ec997328..b7e8b3f3d4f0 100644
---- a/sound/soc/sof/ipc4-loader.c
-+++ b/sound/soc/sof/ipc4-loader.c
-@@ -160,6 +160,27 @@ static size_t sof_ipc4_fw_parse_basefw_ext_man(struct snd_sof_dev *sdev)
- 	return payload_offset;
- }
+diff --git a/include/sound/sof.h b/include/sound/sof.h
+index e1f2f02666a7..266e66318f9c 100644
+--- a/include/sound/sof.h
++++ b/include/sound/sof.h
+@@ -82,6 +82,9 @@ struct snd_sof_pdata {
+ 	const char *tplg_filename_prefix;
+ 	const char *tplg_filename;
  
-+struct sof_ipc4_fw_module *sof_ipc4_find_module_by_uuid(struct snd_sof_dev *sdev,
-+							const guid_t *uuid)
-+{
-+	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
-+	struct sof_ipc4_fw_library *fw_lib;
-+	unsigned long lib_id;
-+	int i;
++	/* loadable external libraries available under this directory */
++	const char *fw_lib_prefix;
 +
-+	if (guid_is_null(uuid))
-+		return NULL;
+ 	/* machine */
+ 	struct platform_device *pdev_mach;
+ 	const struct snd_soc_acpi_mach *machine;
+@@ -127,8 +130,9 @@ struct sof_dev_desc {
+ 	unsigned int ipc_supported_mask;
+ 	enum sof_ipc_type ipc_default;
+ 
+-	/* defaults paths for firmware and topology files */
++	/* defaults paths for firmware, library and topology files */
+ 	const char *default_fw_path[SOF_IPC_TYPE_COUNT];
++	const char *default_lib_path[SOF_IPC_TYPE_COUNT];
+ 	const char *default_tplg_path[SOF_IPC_TYPE_COUNT];
+ 
+ 	/* default firmware name */
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 643fd1036d60..f5ece43d0ec2 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -28,6 +28,10 @@ static char *fw_filename;
+ module_param(fw_filename, charp, 0444);
+ MODULE_PARM_DESC(fw_filename, "alternate filename for SOF firmware.");
+ 
++static char *lib_path;
++module_param(lib_path, charp, 0444);
++MODULE_PARM_DESC(lib_path, "alternate path for SOF firmware libraries.");
 +
-+	xa_for_each(&ipc4_data->fw_lib_xa, lib_id, fw_lib) {
-+		for (i = 0; i < fw_lib->num_modules; i++) {
-+			if (guid_equal(uuid, &fw_lib->modules[i].man4_module_entry.uuid))
-+				return &fw_lib->modules[i];
+ static char *tplg_path;
+ module_param(tplg_path, charp, 0444);
+ MODULE_PARM_DESC(tplg_path, "alternate path for SOF topology.");
+@@ -272,6 +276,28 @@ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 			sof_pdata->desc->default_fw_path[sof_pdata->ipc_type];
+ 	}
+ 
++	if (lib_path) {
++		sof_pdata->fw_lib_prefix = lib_path;
++
++		dev_dbg(dev, "Module parameter used, changed fw_lib path to %s\n",
++			sof_pdata->fw_lib_prefix);
++
++	} else if (sof_pdata->desc->default_lib_path[sof_pdata->ipc_type]) {
++		if (dmi_check_system(community_key_platforms) && sof_dmi_use_community_key) {
++			sof_pdata->fw_lib_prefix =
++				devm_kasprintf(dev, GFP_KERNEL, "%s/%s",
++					sof_pdata->desc->default_lib_path[sof_pdata->ipc_type],
++					"community");
++
++			dev_dbg(dev,
++				"Platform uses community key, changed fw_lib path to %s\n",
++				sof_pdata->fw_lib_prefix);
++		} else {
++			sof_pdata->fw_lib_prefix =
++				sof_pdata->desc->default_lib_path[sof_pdata->ipc_type];
 +		}
 +	}
 +
-+	return NULL;
-+}
-+
- static int sof_ipc4_validate_firmware(struct snd_sof_dev *sdev)
- {
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index bce168083f09..ecfa9f701ef1 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -84,4 +84,7 @@ extern const struct sof_ipc_fw_tracing_ops ipc4_mtrace_ops;
- 
- int sof_ipc4_set_pipeline_state(struct snd_sof_dev *sdev, u32 id, u32 state);
- int sof_ipc4_mtrace_update_pos(struct snd_sof_dev *sdev, int core);
-+
-+struct sof_ipc4_fw_module *sof_ipc4_find_module_by_uuid(struct snd_sof_dev *sdev,
-+							const guid_t *uuid);
- #endif
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 98f7f5421ba5..ab85dde4303b 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -289,22 +289,11 @@ static int sof_ipc4_widget_set_module_info(struct snd_sof_widget *swidget)
- {
- 	struct snd_soc_component *scomp = swidget->scomp;
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
--	struct sof_ipc4_fw_library *fw_lib;
--	unsigned long lib_id;
--	int i;
- 
--	xa_for_each(&ipc4_data->fw_lib_xa, lib_id, fw_lib) {
--		/* set module info */
--		for (i = 0; i < fw_lib->num_modules; i++) {
--			struct sof_ipc4_fw_module *module = &fw_lib->modules[i];
-+	swidget->module_info = sof_ipc4_find_module_by_uuid(sdev, &swidget->uuid);
- 
--			if (guid_equal(&swidget->uuid, &module->man4_module_entry.uuid)) {
--				swidget->module_info = module;
--				return 0;
--			}
--		}
--	}
-+	if (swidget->module_info)
-+		return 0;
- 
- 	dev_err(sdev->dev, "failed to find module info for widget %s with UUID %pUL\n",
- 		swidget->widget->name, &swidget->uuid);
+ 	if (tplg_path)
+ 		sof_pdata->tplg_filename_prefix = tplg_path;
+ 	else
 -- 
 2.38.0
 

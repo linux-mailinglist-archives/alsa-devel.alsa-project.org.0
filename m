@@ -2,85 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5641360354F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 23:57:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCF36035DD
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 00:26:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86A35A5BC;
-	Tue, 18 Oct 2022 23:56:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86A35A5BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF1AFA64A;
+	Wed, 19 Oct 2022 00:26:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF1AFA64A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666130231;
-	bh=2qRX7DaYPJjgxgFESQftIBhDVL0Fn63RtuEmHiWGNbw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666132017;
+	bh=EQCtPBXw0glWLRcHuKYZ/j8ZTCZDVL6sa5smoZiBx0k=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uKpq2J6SmsTBwh70/imcG4+OjSU3W99vsZB6sZxru5ny3qizPX0e23H88zCXQEdz/
-	 qqthoxbxKXSWDrEFvX8ylRhS9darU+OFbT9mJebP/GG3IzOxtw+p8MEum000rX/LEi
-	 uKSLz5asaXWjznRo19O4rwAmxfediqOcMDpH+mrY=
+	b=ICKPWbFix5LLdLn6uCylVfDhajHPNEEB/x71I5sIIdIi4SCfF7HBTplFfBaKp9fyL
+	 2YnPCWoSvTQhdwwY2CawQIstcgfled2LPMaHZFZb0kJUMi2HmsbJKj4ZIVCkGRhKrD
+	 wjM/T5nov8XyUoGqk4WmgjVvi4jbdcrqjiVh3WjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10B2DF800AB;
-	Tue, 18 Oct 2022 23:56:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B4F5F804C1;
+	Wed, 19 Oct 2022 00:26:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2336EF800AB; Tue, 18 Oct 2022 23:56:16 +0200 (CEST)
+ id 40EA9F804C1; Wed, 19 Oct 2022 00:26:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A1F4F800AB
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 23:56:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A1F4F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C524F80166
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 00:25:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C524F80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QARby8kE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666130174; x=1697666174;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=2qRX7DaYPJjgxgFESQftIBhDVL0Fn63RtuEmHiWGNbw=;
- b=QARby8kEZqdFqJdxZ8hbWMwirguD7y6/gx6I/zcI2vbikyhh+YVSZFxq
- ZtQ26qWLhM6thuKJFULD2+9Xvsx80zEs1fHVANV06VgzdGE2FPKb3Fp2J
- 8JSoPON3GwOXM37a+rwre4H2ZuOegmWDUWwLa5XeYflbm7YoREcq21lp2
- PGv1cHYug+ObhPHv9nKlF45J2IRpBIJl7C8C0cI60yECVt3E0HWq+Z8vi
- 5V0fhEl3uTGTdVNDsM/t4vN6AfgI1gelxi7mQyFPBvrOwR96SZ8IVqVEJ
- ZCvFJXj2Q7QuASWoOo5yAYY+/4Dz+q1+730vARdXtq9OS3H2nCXNMvQ/+ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="306230001"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="306230001"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 14:56:08 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="660015766"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="660015766"
-Received: from amdesimo-mobl1.amr.corp.intel.com (HELO [10.213.176.48])
- ([10.213.176.48])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 14:56:08 -0700
-Message-ID: <981dd161-6a4c-c12b-cb1a-826575998457@linux.intel.com>
-Date: Tue, 18 Oct 2022 16:56:06 -0500
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="DrVV6lyV"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29IMB80N027614;
+ Tue, 18 Oct 2022 22:25:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=qcppdkim1;
+ bh=GimUMowsUDQcd21CbHiHFTXpkUwHHdoKaYJbXuA/hPY=;
+ b=DrVV6lyV8rYGTjy7Sew10jmMzxymKbJQK040aIawMMafK5QtbAFTmTzyJ3ZzmfUi4eoS
+ cbWiQ2KdSMgelqC0pAL8lHitj0KQr95D+JlMdXyZbjFH2melA/FeRmc6kfJOIqfQI3f1
+ H0RKSUlByJ9l2aUFmGVB8awVFmJImjXbRTElvVMuxZC8eyBiwX/ZIrwo8PsTUW685kb7
+ uPDv/sSKXLLfP9qfZalyZyeAm/q3KfauS9tAwxuL1ot4KIWg9MlayqI6LaX4MmokN5S2
+ AbJqBycrHrrZJEf20FE4bA3z3QNYS2aJQ0W3Jxm16k9/+gkQ+v+VHcpzqhR9bcqhka2S Ew== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k9qwp1w94-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Oct 2022 22:25:56 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29IMPtoh020270
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Oct 2022 22:25:55 GMT
+Received: from quicinc.com (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 18 Oct
+ 2022 15:25:54 -0700
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>
+Subject: [RESEND PATCH] slimbus: qcom-ngd-ctrl: Make QMI message rules const
+Date: Tue, 18 Oct 2022 15:25:47 -0700
+Message-ID: <20221018222547.17529-1-quic_jjohnson@quicinc.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220914234705.28405-4-quic_jjohnson@quicinc.com>
+References: <20220914234705.28405-4-quic_jjohnson@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
- <Y08JoNisQUMadkIf@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <Y08JoNisQUMadkIf@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Chao Song <chao.song@intel.com>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 3V_V3YbXRN96TImgFfKOdziloUXefTQR
+X-Proofpoint-ORIG-GUID: 3V_V3YbXRN96TImgFfKOdziloUXefTQR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-18_07,2022-10-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0
+ phishscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 adultscore=0
+ priorityscore=1501 mlxscore=0 suspectscore=0 spamscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210180125
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sibi Sankar <quic_sibis@quicinc.com>,
+ Alex Elder <elder@linaro.org>, Jeff Johnson <quic_jjohnson@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,20 +116,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Commit ff6d365898d4 ("soc: qcom: qmi: use const for struct
+qmi_elem_info") allows QMI message encoding/decoding rules to be
+const, so do that for qcom-ngd-ctrl.
 
+Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+Reviewed-by: Alex Elder <elder@linaro.org>
+Reviewed-by: Sibi Sankar <quic_sibis@quicinc.com>
+---
+This patch was last sent as part of the series:
+[PATCH v2 0/4] Make QMI message rules const
+https://lore.kernel.org/linux-arm-msm/20220914234705.28405-1-quic_jjohnson@quicinc.com/
 
-On 10/18/22 15:16, Mark Brown wrote:
-> On Mon, Oct 17, 2022 at 03:41:31PM -0500, Pierre-Louis Bossart wrote:
->> ADL-N uses a different signing key, which means we can't reuse the
->> regular ADL descriptor used for ADL-P/M/S.
-> 
-> This breaks an x86 allmodconfig build:
-> 
-> /build/stage/linux/sound/soc/sof/intel/pci-tgl.c:177:10: error: ‘const struct sof_dev_desc’ has no member named ‘default_lib_path’; did you mean ‘default_fw_path’?
->   177 |         .default_lib_path = {
->       |          ^~~~~~~~~~~~~~~~
->       |          default_fw_path
+As
 
-My bad, this version depends on Peter's series, but it should be
-simplified to be applied on stable.
+[PATCH v2 3/4] slimbus: qcom-ngd-ctrl: Make QMI message rules const
+https://lore.kernel.org/linux-arm-msm/20220914234705.28405-4-quic_jjohnson@quicinc.com/
+
+Since the individual patches in the series will land in separate
+trees, and since there are no dependencies between them, they are
+being resent separately when the following dependent change has landed
+in the destination tree
+ff6d365898d4 ("soc: qcom: qmi: use const for struct qmi_elem_info")
+
+That dependent change has landed in the for-next branch of
+tiwai/sound.git (which I hope is the right tree for this patch) so I
+believe this patch is now ready to be consumed.
+
+drivers/slimbus/qcom-ngd-ctrl.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index 76c5e446d243..f5da340bee94 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -220,7 +220,7 @@ struct slimbus_power_resp_msg_v01 {
+ 	struct qmi_response_type_v01 resp;
+ };
+ 
+-static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
++static const struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
+ 	{
+ 		.data_type  = QMI_UNSIGNED_4_BYTE,
+ 		.elem_len   = 1,
+@@ -262,7 +262,7 @@ static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
+ 	},
+ };
+ 
+-static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
++static const struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
+ 	{
+ 		.data_type  = QMI_STRUCT,
+ 		.elem_len   = 1,
+@@ -284,7 +284,7 @@ static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
+ 	},
+ };
+ 
+-static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
++static const struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
+ 	{
+ 		.data_type  = QMI_UNSIGNED_4_BYTE,
+ 		.elem_len   = 1,
+@@ -324,7 +324,7 @@ static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
+ 	},
+ };
+ 
+-static struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
++static const struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
+ 	{
+ 		.data_type  = QMI_STRUCT,
+ 		.elem_len   = 1,
+-- 
+2.37.3
 

@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73DCB602A2D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED27602A2C
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 099568E46;
-	Tue, 18 Oct 2022 13:30:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 099568E46
+	by alsa0.perex.cz (Postfix) with ESMTPS id B70559C3A;
+	Tue, 18 Oct 2022 13:30:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70559C3A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666092681;
-	bh=MMbIi4XiIRLL68KRwXTv6wyCk9bH5P5UWxHFp1vLzmI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666092659;
+	bh=aMk40YL2NOee5eZ/vBDbr31W8TTEy1EI+updjIv2MPw=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G2PmcZehE1/7iaRMN27aKr2hkaY3DUw8cZNLW1Nd8xO9oR58+eSk5yzEGqDD2KiYI
-	 qQdl90xm8hSybd1T7E2i9LLdo34GUQ6JGtv2r2VAQqwkqmZbkQzSiHqRzf/f6vJdS4
-	 aaJywtxvHCydQz9B6BnQ594Iiom53STqlN5rs0yg=
+	b=pkjHMizMA+BzCz64eeLFjIcKCXZGeOILEM5p8IoN0JHknM3mvfjaxKq/8Nu8oYegt
+	 ulUQzDvwpIsHBylVbvpApb4khWKevrTNbLauqSiHdwWbhlvpTMA3fLB1IVdHJ1PZVT
+	 DIStCVk9zwA9KGhKuR13zUpBjETlykIrcveNgzxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52408F8057D;
-	Tue, 18 Oct 2022 13:28:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63363F8057A;
+	Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC5E4F8057C; Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
+ id C990CF80578; Tue, 18 Oct 2022 13:28:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E4E9F80567
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E4E9F80567
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84388F80566
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84388F80566
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="W+lxVJiZ"
+ header.b="Kh82c687"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 97EDEB81EA5;
- Tue, 18 Oct 2022 11:28:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D3DC433C1;
- Tue, 18 Oct 2022 11:28:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6392C61530;
+ Tue, 18 Oct 2022 11:28:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E326FC433D6;
+ Tue, 18 Oct 2022 11:28:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666092508;
- bh=MMbIi4XiIRLL68KRwXTv6wyCk9bH5P5UWxHFp1vLzmI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=W+lxVJiZoef5Mjowb1GBEF3Oiv6xO5r8CzRLIt1LNBbOko7az261SEta+okkT+fYC
- PqgEEUz1VPd0OR6b+FrraTgvl43bo1DQaGLTmCNdtqWHQzXTfGPcZ6APvtjBEm34AC
- V9AwLzfVgWURQhq54vGXb/kcIO+jRnh8MNxeHI8+vJE5sRd69A7XuyCisqXv/Wycqm
- TEWxZpoyd4PTUSyttHyASH/+UN9hI0gzhwYuLc99fnGR3sA1WWbg93Cecuuo1oYywh
- 1IUBvpKHHXWQaeYqDHmr087RuPHYVskhgAWPV6UWWuaHgUcBxEDhB8OfDIuNNalgOG
- mZi6HqIP1Bfsw==
+ s=k20201202; t=1666092511;
+ bh=aMk40YL2NOee5eZ/vBDbr31W8TTEy1EI+updjIv2MPw=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=Kh82c6878xY2PUD74wX29c+T0kyWrRD4EKrnE631tDOUXD/9tOJ1gC9Hu9lKL66BG
+ awfJv2tkW0AKPb+0tuyvNkqkqxt0JM3Iu1KSEBOTFwKG6bxjvFO1At1fBH1ePR3cYv
+ aa4dFCArx6N7wC7WZiuqgkDMaVKkfmE/Ln2YOijmg0wCIEeMkt5iDM3XzkcxdRFwqC
+ l6OFutkgLhHdCGIhlKDdO+s8eVAeaNQeGdIp/XvY0TSWZBcJslvg0ryP20wirBWrQE
+ mYsbV+DWh0ZT7m8HIFcDvY9eN7fQ4QSDHjFvMGovqV1410slE899SP+OHYfogWNC01
+ 6KedUcebMbjTg==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Andrew Lunn <andrew@lunn.ch>, Pali Rohár <pali@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Marcin Wojtas <mw@semihalf.com>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20220926110533.13475-1-pali@kernel.org>
-References: <20220920132648.2008-2-pali@kernel.org>
- <20220926110533.13475-1-pali@kernel.org>
-Subject: Re: [PATCH v2] ASoC: kirkwood: enable Kirkwood driver for Armada 38x
- platforms
-Message-Id: <166609250652.155136.11660451667799721440.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 12:28:26 +0100
+To: Shang XiaoJing <shangxiaojing@huawei.com>, rf@opensource.cirrus.com,
+ tiwai@suse.com, christophe.jaillet@wanadoo.fr, 
+ james.schulman@cirrus.com, david.rhodes@cirrus.com, peter.ujfalusi@gmail.com,
+ alsa-devel@alsa-project.org, 
+ lgirdwood@gmail.com, patches@opensource.cirrus.com,
+ tanureal@opensource.cirrus.com, perex@perex.cz
+In-Reply-To: <20220927140948.17696-1-shangxiaojing@huawei.com>
+References: <20220927140948.17696-1-shangxiaojing@huawei.com>
+Subject: Re: [PATCH -next 0/4] ASoC: Use DIV_ROUND_UP() instead of open-coding
+ it
+Message-Id: <166609250864.155136.11996964656320484311.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 12:28:28 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,13 +89,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Sep 2022 13:05:33 +0200, Pali Rohár wrote:
-> From: Marcin Wojtas <mw@semihalf.com>
+On Tue, 27 Sep 2022 22:09:44 +0800, Shang XiaoJing wrote:
+> Use DIV_ROUND_UP() instead of open-coding it, which intents and makes
+> it more clear what is going on for the casual reviewer.
 > 
-> The audio unit of Marvell Armada38x SoC is similar to the ones comprised by
-> other Marvell SoCs (Kirkwood, Dove and Armada 370). Therefore KW audio
-> driver can be used to support it and this commit adds new compatible string
-> to identify Armada 38x variant.
+> Shang XiaoJing (4):
+>   ASoC: cs35l36: Use DIV_ROUND_UP() instead of open-coding it
+>   ASoC: wm8978: Use DIV_ROUND_UP() instead of open-coding it
+>   ASoC: rsnd: Use DIV_ROUND_UP() instead of open-coding it
+>   ASoC: ti: davinci-mcasp: Use DIV_ROUND_UP() instead of open-coding it
 > 
 > [...]
 
@@ -104,8 +107,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: kirkwood: enable Kirkwood driver for Armada 38x platforms
-      commit: 2adfc688777e58f22f691d08728dd74d76177fd9
+[1/4] ASoC: cs35l36: Use DIV_ROUND_UP() instead of open-coding it
+      commit: ff091dd23b423e19c8191928daedf62eab6ce523
+[2/4] ASoC: wm8978: Use DIV_ROUND_UP() instead of open-coding it
+      commit: c54402609820427ff6f725f9182216e7cfe7cfa7
+[3/4] ASoC: rsnd: Use DIV_ROUND_UP() instead of open-coding it
+      commit: 4aa2b05a24a83cc618fab4c4d343f2179962e5ed
+[4/4] ASoC: ti: davinci-mcasp: Use DIV_ROUND_UP() instead of open-coding it
+      commit: 98059ddfd1ada95fc9f535ea9c08618aa44ad5d3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

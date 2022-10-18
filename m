@@ -2,105 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CCF36035DD
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 00:26:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8183E60364A
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 01:04:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF1AFA64A;
-	Wed, 19 Oct 2022 00:26:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF1AFA64A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 223CBA6BD;
+	Wed, 19 Oct 2022 01:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 223CBA6BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666132017;
-	bh=EQCtPBXw0glWLRcHuKYZ/j8ZTCZDVL6sa5smoZiBx0k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ICKPWbFix5LLdLn6uCylVfDhajHPNEEB/x71I5sIIdIi4SCfF7HBTplFfBaKp9fyL
-	 2YnPCWoSvTQhdwwY2CawQIstcgfled2LPMaHZFZb0kJUMi2HmsbJKj4ZIVCkGRhKrD
-	 wjM/T5nov8XyUoGqk4WmgjVvi4jbdcrqjiVh3WjA=
+	s=default; t=1666134242;
+	bh=pGg8hI8bcUF4qiTCVNMBlk1xUpKRktwZ+Puinaid6U4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VteEh1c87GgyiSK4w7HdJ/0YiWpilZ7+widr5iA6+5cTpiahCI6UoSodjeyOsIpJK
+	 VTA0tqGh4qzSwypCXPwNSp6uZ11VlyzbLqHiFjxsfAi5WX6z1DZYfsqzlSvtiKzSND
+	 pmDscs5GxwFRdY+hnnx9KV3R5zC8aXt9Rg+5ksSM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B4F5F804C1;
-	Wed, 19 Oct 2022 00:26:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EAD9F800E5;
+	Wed, 19 Oct 2022 01:03:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40EA9F804C1; Wed, 19 Oct 2022 00:26:05 +0200 (CEST)
+ id 08B19F800E5; Wed, 19 Oct 2022 01:03:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C524F80166
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 00:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C524F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58A4AF800AB
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 01:03:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58A4AF800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="DrVV6lyV"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29IMB80N027614;
- Tue, 18 Oct 2022 22:25:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=GimUMowsUDQcd21CbHiHFTXpkUwHHdoKaYJbXuA/hPY=;
- b=DrVV6lyV8rYGTjy7Sew10jmMzxymKbJQK040aIawMMafK5QtbAFTmTzyJ3ZzmfUi4eoS
- cbWiQ2KdSMgelqC0pAL8lHitj0KQr95D+JlMdXyZbjFH2melA/FeRmc6kfJOIqfQI3f1
- H0RKSUlByJ9l2aUFmGVB8awVFmJImjXbRTElvVMuxZC8eyBiwX/ZIrwo8PsTUW685kb7
- uPDv/sSKXLLfP9qfZalyZyeAm/q3KfauS9tAwxuL1ot4KIWg9MlayqI6LaX4MmokN5S2
- AbJqBycrHrrZJEf20FE4bA3z3QNYS2aJQ0W3Jxm16k9/+gkQ+v+VHcpzqhR9bcqhka2S Ew== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k9qwp1w94-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Oct 2022 22:25:56 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29IMPtoh020270
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Oct 2022 22:25:55 GMT
-Received: from quicinc.com (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 18 Oct
- 2022 15:25:54 -0700
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>
-Subject: [RESEND PATCH] slimbus: qcom-ngd-ctrl: Make QMI message rules const
-Date: Tue, 18 Oct 2022 15:25:47 -0700
-Message-ID: <20221018222547.17529-1-quic_jjohnson@quicinc.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220914234705.28405-4-quic_jjohnson@quicinc.com>
-References: <20220914234705.28405-4-quic_jjohnson@quicinc.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="C/U2QxOq"
+Received: by mail-ed1-x534.google.com with SMTP id m15so22678426edb.13
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 16:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5PU7hPEIqMrr7mHQR+by2rxkaknzANGyzbduzUJ57MQ=;
+ b=C/U2QxOqKuFQw6hfJdYnYcqQvR/y2e6tiQAND7kPLzGadV4LgukBu6YEvAOMpIl9s7
+ 8Xq8tWyKVz2nFeU2nlamoBkmq/bWbvl2taaogoiHTB7fq25IZ1F8xVDUA+hcYmlO4T9I
+ eouOChWSDcNbMfKJo8N/SJLX6DOzycmRofhkKM26QpqZPgMGHEUcv/cyL40AXYh87Bhi
+ F/PJpG1jP4dCVQaq0p6Dp2eqGxoFLINcIKDFmkGSONYGZauiyE/zabK9nUViZ8/mamTs
+ NirhB6899kjetW3Pz2k1S51/c+qDIh3j0EryVbrMt46zNxJ8OYZjfzgSCpiLPOL7uIAk
+ 0YYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5PU7hPEIqMrr7mHQR+by2rxkaknzANGyzbduzUJ57MQ=;
+ b=pPTm3dhin4EC5NJ2h5VYJZ5HXnIhVwsYo5xb1btLTTLFyhkCErgsDrjelfyE9phGdS
+ lXKIBwzBm48ib7/6/4vfG6StZxD4/985y/cAMo9j+pilXaomR5Y7b/hqZxmypR3nHX1t
+ zYgiKfnLk+n377hvKnbUhrYdggWEV6VIIxSpYeMa1DBb839+wcTUn170tqlAZKnFiaWq
+ 0Bgc4qs3VllOTuJgfquH3GmTc3uUsXQKkpRNP68oxkyEXyL4duNZb7wkR7xI9Hhc8h7W
+ 0R52LaHe6wl9r+ZdUJvu13/tL9HSzkPC3wyVVL3WOdBbILq+0Bgef0krz2hCozql29XA
+ OO/g==
+X-Gm-Message-State: ACrzQf2x/mj782+1EbIjoJLEpnud/c+1Z1t1SBGMgdQMlcMqZhmRmvrc
+ wXhmz8iUOFHUhVycTeDQ6Rw=
+X-Google-Smtp-Source: AMsMyM5tKkRA+5+GaUxKMmnE5vtiiKScjjT/cObwVa/r9Sq8PoVpcyibBB4YUY9g3ZK6TCfLzMv4Iw==
+X-Received: by 2002:a05:6402:400d:b0:45c:9a5c:444a with SMTP id
+ d13-20020a056402400d00b0045c9a5c444amr4609636eda.283.1666134181473; 
+ Tue, 18 Oct 2022 16:03:01 -0700 (PDT)
+Received: from localhost (188.28.2.110.threembb.co.uk. [188.28.2.110])
+ by smtp.gmail.com with ESMTPSA id
+ gc37-20020a1709072b2500b0077d6f628e14sm8119188ejc.83.2022.10.18.16.02.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Oct 2022 16:03:00 -0700 (PDT)
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH v1] ASoC: simple-card: Fix up checks for HW param fixups
+Date: Wed, 19 Oct 2022 00:04:09 +0100
+Message-Id: <20221018230409.610538-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 3V_V3YbXRN96TImgFfKOdziloUXefTQR
-X-Proofpoint-ORIG-GUID: 3V_V3YbXRN96TImgFfKOdziloUXefTQR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-18_07,2022-10-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0
- phishscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 adultscore=0
- priorityscore=1501 mlxscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210180125
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sibi Sankar <quic_sibis@quicinc.com>,
- Alex Elder <elder@linaro.org>, Jeff Johnson <quic_jjohnson@quicinc.com>
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ spujar@nvidia.com, linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,76 +101,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit ff6d365898d4 ("soc: qcom: qmi: use const for struct
-qmi_elem_info") allows QMI message encoding/decoding rules to be
-const, so do that for qcom-ngd-ctrl.
+The "convert-xxx" properties only have an effect for DPCM DAI links.
+A DAI link is only created as DPCM if the device tree requires it;
+part of this involves checking for the use of "convert-xxx" properties.
 
-Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
-Reviewed-by: Alex Elder <elder@linaro.org>
-Reviewed-by: Sibi Sankar <quic_sibis@quicinc.com>
+When the convert-sample-format property was added, the checks got out
+of sync. A DAI link that specified only convert-sample-format but did
+not pass any of the other DPCM checks would not go into DPCM mode and
+the convert-sample-format property would be silently ignored.
+
+Fix this by adding a function to do the "convert-xxx" property checks,
+instead of open-coding it in simple-card and audio-graph-card. And add
+"convert-sample-format" to the check function so that DAI links using
+it will be initialized correctly.
+
+Fixes: 047a05366f4b ("ASoC: simple-card-utils: Fixup DAI sample format")
+Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
-This patch was last sent as part of the series:
-[PATCH v2 0/4] Make QMI message rules const
-https://lore.kernel.org/linux-arm-msm/20220914234705.28405-1-quic_jjohnson@quicinc.com/
+ include/sound/simple_card_utils.h     |  1 +
+ sound/soc/generic/audio-graph-card.c  |  2 +-
+ sound/soc/generic/simple-card-utils.c | 15 +++++++++++++++
+ sound/soc/generic/simple-card.c       |  3 +--
+ 4 files changed, 18 insertions(+), 3 deletions(-)
 
-As
-
-[PATCH v2 3/4] slimbus: qcom-ngd-ctrl: Make QMI message rules const
-https://lore.kernel.org/linux-arm-msm/20220914234705.28405-4-quic_jjohnson@quicinc.com/
-
-Since the individual patches in the series will land in separate
-trees, and since there are no dependencies between them, they are
-being resent separately when the following dependent change has landed
-in the destination tree
-ff6d365898d4 ("soc: qcom: qmi: use const for struct qmi_elem_info")
-
-That dependent change has landed in the for-next branch of
-tiwai/sound.git (which I hope is the right tree for this patch) so I
-believe this patch is now ready to be consumed.
-
-drivers/slimbus/qcom-ngd-ctrl.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 76c5e446d243..f5da340bee94 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -220,7 +220,7 @@ struct slimbus_power_resp_msg_v01 {
- 	struct qmi_response_type_v01 resp;
- };
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index a0b827f0c2f6..cfed741e0181 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -177,6 +177,7 @@ void asoc_simple_convert_fixup(struct asoc_simple_data *data,
+ 				      struct snd_pcm_hw_params *params);
+ void asoc_simple_parse_convert(struct device_node *np, char *prefix,
+ 			       struct asoc_simple_data *data);
++bool asoc_simple_convert_is_required(const struct asoc_simple_data *data);
  
--static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
-+static const struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
- 	{
- 		.data_type  = QMI_UNSIGNED_4_BYTE,
- 		.elem_len   = 1,
-@@ -262,7 +262,7 @@ static struct qmi_elem_info slimbus_select_inst_req_msg_v01_ei[] = {
- 	},
- };
+ int asoc_simple_parse_routing(struct snd_soc_card *card,
+ 				      char *prefix);
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index b327372f2e4a..7804625b131e 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -417,7 +417,7 @@ static inline bool parse_as_dpcm_link(struct asoc_simple_priv *priv,
+ 	 * or has convert-xxx property
+ 	 */
+ 	if ((of_get_child_count(codec_port) > 1) ||
+-	    (adata->convert_rate || adata->convert_channels))
++	    asoc_simple_convert_is_required(adata))
+ 		return true;
  
--static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
-+static const struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
- 	{
- 		.data_type  = QMI_STRUCT,
- 		.elem_len   = 1,
-@@ -284,7 +284,7 @@ static struct qmi_elem_info slimbus_select_inst_resp_msg_v01_ei[] = {
- 	},
- };
+ 	return false;
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index bef16833c487..7a708be24656 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -85,6 +85,21 @@ void asoc_simple_parse_convert(struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_parse_convert);
  
--static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
-+static const struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
- 	{
- 		.data_type  = QMI_UNSIGNED_4_BYTE,
- 		.elem_len   = 1,
-@@ -324,7 +324,7 @@ static struct qmi_elem_info slimbus_power_req_msg_v01_ei[] = {
- 	},
- };
- 
--static struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
-+static const struct qmi_elem_info slimbus_power_resp_msg_v01_ei[] = {
- 	{
- 		.data_type  = QMI_STRUCT,
- 		.elem_len   = 1,
++/**
++ * asoc_simple_convert_is_required() - Query if HW param conversion was requested
++ * @data: Link data.
++ *
++ * Returns true if any HW param conversion was requested for this DAI link with
++ * any "convert-xxx" properties.
++ */
++bool asoc_simple_convert_is_required(const struct asoc_simple_data *data)
++{
++	return data->convert_rate ||
++	       data->convert_channels ||
++	       data->convert_sample_format;
++}
++EXPORT_SYMBOL_GPL(asoc_simple_convert_is_required);
++
+ int asoc_simple_parse_daifmt(struct device *dev,
+ 			     struct device_node *node,
+ 			     struct device_node *codec,
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 78419e18717d..675991cdee87 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -393,8 +393,7 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
+ 			 * or has convert-xxx property
+ 			 */
+ 			if (dpcm_selectable &&
+-			    (num > 2 ||
+-			     adata.convert_rate || adata.convert_channels)) {
++			    (num > 2 || asoc_simple_convert_is_required(&adata))) {
+ 				/*
+ 				 * np
+ 				 *	 |1(CPU)|0(Codec)  li->cpu
 -- 
-2.37.3
+2.38.0
 

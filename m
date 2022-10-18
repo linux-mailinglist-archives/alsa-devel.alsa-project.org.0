@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1C3E602A25
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:29:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C06602A26
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:29:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ECEB8E1A;
-	Tue, 18 Oct 2022 13:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ECEB8E1A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D62509184;
+	Tue, 18 Oct 2022 13:28:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62509184
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666092556;
-	bh=lA4c61bWI/+sO8LDTMmKrestbI06OjaSkU8aIZelk10=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666092581;
+	bh=BUVIpGsmdTCdBA7+xoYUq7u8Hy6f/qPMi/vD85vO8qY=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KhK9Kkn0XsUsMFQe7lhIQYevIkG9xf5dC1mi9A2QT3p7KmViGZCDi7ExPz69EkOFY
-	 3YOZDnCvAsnbp+tNP/9EZ2t5k/VX+nZI9UCiIzrP+t2D4ulD2CQijLfECJpI/bUtI4
-	 Nbxn72m+jnpEgPl1ntgM3XohG89K2Zx1SH/5QOZs=
+	b=dDfZ4KmfikDjuxI9VRvjbOC3OaChv505OyHRm5sOFBNMCLD0BFtdQVtjW4A/B4DG3
+	 p+c0CA9lEr009oCxxIJKl7cORaDSVeQPY5OHTjZciUkfheMyHMhxsMT0r1yX+QTqpL
+	 e/Xu1U1nPQoM0N1JAUKcr8ESxZHNhnf7LuyAVdaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DC04F804BD;
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EEACF80535;
 	Tue, 18 Oct 2022 13:28:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CAF0F804BD; Tue, 18 Oct 2022 13:28:20 +0200 (CEST)
+ id 09716F8024C; Tue, 18 Oct 2022 13:28:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91B1DF800E5
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91B1DF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97982F800AA
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97982F800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A/C4bUwq"
+ header.b="Bp+e3TWB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 15D6C61522;
- Tue, 18 Oct 2022 11:28:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E31C433D7;
- Tue, 18 Oct 2022 11:28:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4C90B61480;
+ Tue, 18 Oct 2022 11:28:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC62C433D6;
+ Tue, 18 Oct 2022 11:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666092493;
- bh=lA4c61bWI/+sO8LDTMmKrestbI06OjaSkU8aIZelk10=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=A/C4bUwqwUrs5ibD9+YRYbEW0JFNnvz/3TvhFmCEj+J2qiAKF0WC7aBb97lyMiJHT
- +DNsE5ASL72vszqMOkrfZm9iORcI6WWN0LkWIPsbi/WbLgkPnCDj/GklNjqIoD5doT
- HCOrJHm0FtbKAJAJNHnh78e7C6fpvUzr0pF0S1V661/ths1VVxHonlHVlSeLyE0AIt
- o76uvNpURDJYL5A0iryldXvBsu/WZTVkIcq8OZfGiLTFPGaZA+IogNzvxqgXB2pONR
- /BhmWO4N1UajbU4Vpyz3Ni41VT9hUD48Np0mbFcmFqvFMGirWLHkpp2kHMN1twlhoN
- k95mtM8sJMTtQ==
+ s=k20201202; t=1666092496;
+ bh=BUVIpGsmdTCdBA7+xoYUq7u8Hy6f/qPMi/vD85vO8qY=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=Bp+e3TWBZpcnp8j8oKCQlYshMQgFVn3sXqxmMAG43ZjFwS4dNTRjk1BtXTQJ445GH
+ p/M3luP+EC0cwNFU8KCiTc6ua4qJ7y10sZfDLnWx8BFI3fWx5jHOSi18Jnw5ArvL1q
+ NFq5iIGwqmCSTHetSMf6pITjCiWxY6ATqY3qtXWuxQQS8R/OBQiqLqWcnSj2HDtm7a
+ 6lTaJPaQDikS1gPE4puAt7jwAzavsm8Eg4nHNhBtT8RzLiI9zZt8x5asH55we0qb8F
+ 2SVevsbHCp7EDx79HJW2B5o38YED5rN5mH20B4O3nBFMR57gblqeA2G7zbnHpZLvHN
+ FrsyuSB4axOew==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-In-Reply-To: <20221010093941.2354783-1-Vijendar.Mukunda@amd.com>
-References: <20221010093941.2354783-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH] ASoC: amd: Update Pink Sardine platform ACP register
- header
-Message-Id: <166609249165.155136.11484948754047304400.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 12:28:11 +0100
+To: linuxppc-dev@lists.ozlabs.org, robh+dt@kernel.org,
+ devicetree@vger.kernel.org, Xiubo.Lee@gmail.com, tiwai@suse.com, 
+ linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, nicoleotsuka@gmail.com, 
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Chancel Liu <chancel.liu@nxp.com>, festevam@gmail.com, perex@perex.cz
+In-Reply-To: <20220930064441.2548505-1-chancel.liu@nxp.com>
+References: <20220930064441.2548505-1-chancel.liu@nxp.com>
+Subject: Re: [PATCH v3 0/7] Create a new sound card to access MICFIL based on
+ rpmsg channel
+Message-Id: <166609249377.155136.8150989631074960130.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 12:28:13 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Sunil-kumar.Dommati@amd.com, Basavaraj.Hiregoudar@amd.com,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +89,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 10 Oct 2022 15:09:40 +0530, Vijendar Mukunda wrote:
-> Update Pink Sardine platform ACP register header with Soundwire
-> Controller specific registers and other ACP registers.
+On Fri, 30 Sep 2022 14:44:34 +0800, Chancel Liu wrote:
+> At a previous time, we have successfully created a virtual sound card
+> based on rpmsg. The sound card works under this mechanism Cortex-A core
+> tells the Cortex-M core the format, rate, channel, .etc configuration
+> of the PCM parameters and Cortex-M controls real hardware devices such
+> as SAI and DMA. From the view of Linux side, the sound card is bound to
+> a rpmsg channel through which it can access SAI.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -100,8 +105,20 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Update Pink Sardine platform ACP register header
-      commit: 9f879fb1a7b6c964dcde96c4cca8eb4444318560
+[1/7] ASoC: dt-bindings: fsl_rpmsg: Add a property to assign the rpmsg channel
+      commit: 3570e6873b1a506bca4b5788d71141944c55132c
+[2/7] ASoC: imx-audio-rpmsg: Create rpmsg channel for MICFIL
+      commit: f04189e0b85f6bbd10679e71061bf6d1ced5c539
+[3/7] ASoC: imx-pcm-rpmsg: Register different platform drivers
+      commit: b2c2a947b3412f6edb9a86f5b12d6420958e67ba
+[4/7] ASoC: imx-pcm-rpmsg: Multi-channel support for sound card based on rpmsg
+      commit: bdc0f6ca1c079ba790e0e227cff6164feae90460
+[5/7] ASoC: fsl_rpmsg: Register different ASoC machine devices
+      commit: 76a874caeab596972f529968aa0d19d4ba1d2197
+[6/7] ASoC: fsl_rpmsg: Multi-channel support in CPU DAI driver
+      commit: f26c1bb8a8ebe72748a3bb6f5d75079b642a33e8
+[7/7] ASoC: imx-rpmsg: Assign platform driver used by machine driver to link with
+      commit: 4b48440ea390bada41928920446928beb3652a76
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

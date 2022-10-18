@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1006C602A2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BAA1602A2F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Oct 2022 13:31:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8A3E8DA1;
-	Tue, 18 Oct 2022 13:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8A3E8DA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E02999C3C;
+	Tue, 18 Oct 2022 13:31:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02999C3C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666092700;
-	bh=E4EW/MQguhuWyRl3E5UwUZjot3sh0EapM2CZWbOuS8c=;
+	s=default; t=1666092714;
+	bh=EO5hPshGGBHiFaHBKiOjtX+wVrq1cMA7Ob1kzX2IeQA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a5DGlMgSn/IqvEtGB6k8ObixW59vf1VsrPuvTipSU59yIyoTCTlrdo+tBXuokrAY3
-	 hVzCRptn5VE+RdXyklGwUEa/fJbkn2nELlohbR3Tlzcibo8TfQ3bLl67reRcjwOrRQ
-	 K22VSOEBh+7hiHVXTW79zpNFpjLfZsoFFSI8wz7A=
+	b=bz4H8TwTP0svXWseQPreWjcE5Kg9s+M34x8avdFNPVVXmTmLLNIHTc5iCymAb3RMr
+	 Wzcjb+WI5lcrO/+qg0V91vlSsDM50QyTsfqYNlBNwqYTgmZXvMTCIPi5SDOqFR/KTd
+	 WpZxtB6kGAcpA1wPzo86jZHxacX+UKaNXgKqJT+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18E5CF8057E;
-	Tue, 18 Oct 2022 13:28:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02734F805A9;
+	Tue, 18 Oct 2022 13:28:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3082F8057B; Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
+ id 6B776F8059F; Tue, 18 Oct 2022 13:28:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A940F80566
- for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A940F80566
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82DA9F80566
+ for <alsa-devel@alsa-project.org>; Tue, 18 Oct 2022 13:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82DA9F80566
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TDrlLcHq"
+ header.b="BOt7ASQD"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 73DC061529;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2D0C6B81EA8;
+ Tue, 18 Oct 2022 11:28:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B9FC433D6;
  Tue, 18 Oct 2022 11:28:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA191C433C1;
- Tue, 18 Oct 2022 11:28:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666092512;
- bh=E4EW/MQguhuWyRl3E5UwUZjot3sh0EapM2CZWbOuS8c=;
+ s=k20201202; t=1666092514;
+ bh=EO5hPshGGBHiFaHBKiOjtX+wVrq1cMA7Ob1kzX2IeQA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=TDrlLcHqZwJ8iX/zRFMByB2R7YpU5JRFjC9D8DA/KnV3s2qJr6g1eVAOfVOJ+Uxka
- ieLYoQALxJtA6ifeEvLbr74ZBbdAQntPp70xpDaDspXA2cTx5oJgWzxyLjldL42P/8
- k7P9KVrLYDip7aoqFpyZd93SwvCo+1NwqNpkj7j/XugaoSuDTHqICJvZ9f3+G9YLuA
- fBqs5KXawCFVTofuzgIb2MKFdEh37lyTs5plc4nmhn+rA1qNbOh5V/j8Q1v0xRaj5C
- Gzl3Ij+HGtiowbN0G+LRJyUXPy7Kt1958ilvHaZRoSK5NT74ok7uHsVkPJ32aKcJEc
- 7ikRFs3Oh4z6w==
+ b=BOt7ASQDe6Ct4Bes/agdN3BKa3Qy5i86UMyBwcOi86h+GSsoz7hrLS/liFkDU9u+f
+ QenJBDEemTLX/EiWu0IFyIO41lH6cD/6xH5Ib89cLirW7ys/gZRE/B6Kd0Zu1BjVhW
+ 5hUbDFl1nujWYcNCGlwjkBq40PlNi/TA1hS3EVBXxUhx+JULWYykIGPOIqEdYM5lMk
+ ckL0MhhjpdRaapbJtszjHB6zS2TnsuhAxscVV1NW9N/CvVt3o0OVC1tyrn/Q74wRi6
+ EsdW3wdy3nTvwH19rBPnuBO83h8yhww8PQMNBY0vHHsNvah7qmuglvwwnfnm0RHNT+
+ M5/347LKwoKQg==
 From: Mark Brown <broonie@kernel.org>
-To: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20220930124538.354992-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220930124538.354992-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: Intel: avs: Add support for max98927 codec
-Message-Id: <166609251141.155136.8908728674966003398.b4-ty@kernel.org>
-Date: Tue, 18 Oct 2022 12:28:31 +0100
+To: Siarhei Volkau <lis8215@gmail.com>
+In-Reply-To: <20221016132648.3011729-1-lis8215@gmail.com>
+References: <20221016132648.3011729-1-lis8215@gmail.com>
+Subject: Re: [PATCH v3 0/7] ASoC: codecs: jz4725b: Various improvements and
+ fixes
+Message-Id: <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
+Date: Tue, 18 Oct 2022 12:28:33 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +87,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Sep 2022 14:45:36 +0200, Amadeusz Sławiński wrote:
-> This series adds machine board for max98927 codec present on some
-> Chromebook devices.
-> 
-> Amadeusz Sławiński (2):
->   ASoC: Intel: avs: Add max98927 machine board
->   ASoC: Intel: avs: Load max98927 on target platform
+On Sun, 16 Oct 2022 16:26:41 +0300, Siarhei Volkau wrote:
+> The patchset fixes:
+>  - Line In path stays powered off during capturing or
+>    bypass to mixer.
+>  - incorrectly represented dB values in alsamixer, et al.
+>  - incorrect represented Capture input selector in alsamixer
+>    in Playback tab.
+>  - wrong control selected as Capture Master
 > 
 > [...]
 
@@ -102,10 +104,20 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: Intel: avs: Add max98927 machine board
-      commit: 1c993300ab1cec9a0a6a3c417614a1d9f35b175b
-[2/2] ASoC: Intel: avs: Load max98927 on target platform
-      commit: 999ce9967a2f5a64c4bd04ae1edf0a979cf68833
+[1/7] ASoC: codecs: jz4725b: add missed Line In power control bit
+      commit: 1013999b431b4bcdc1f5ae47dd3338122751db31
+[2/7] ASoC: codecs: jz4725b: fix reported volume for Master ctl
+      commit: 088777bf65b98cfa4b5378119d0a7d49a58ece44
+[3/7] ASoC: codecs: jz4725b: use right control for Capture Volume
+      commit: 1538e2c8c9b7e7a656effcc6e4e7cfe8c1b405fd
+[4/7] ASoC: codecs: jz4725b: fix capture selector naming
+      commit: 80852f8268769715db335a22305e81a0c4a38a84
+[5/7] ASoC: codecs: jz4725b: use right control for Master Playback
+      commit: e6233ee25059de0eeac6ed3d9d49737afdbd5087
+[6/7] ASoC: codecs: jz4725b: add missed Mixer inputs
+      commit: 616c291820d155cbad258ecae5c7dbca2c01f07f
+[7/7] ASoC: codecs: jz4725b: add missed microphone widgets
+      commit: 4b192aa09b3c3615c79f8c60704a2efd15e500d0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

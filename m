@@ -2,84 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A61E4604080
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 11:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 012AC604305
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 13:17:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 847568359;
-	Wed, 19 Oct 2022 11:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 847568359
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70E2691E8;
+	Wed, 19 Oct 2022 13:16:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E2691E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666173582;
-	bh=JLF+HHVZmsrCrKk3A+N19/nh2Gj6qgA0Vfxh+uJI7eI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=N7N1fO5PWtIJW2tVqwPyz2rrrIRaxl7EPZfN5hfMQfoBbC4ER1kpL5Ld36t7BBwNJ
-	 HXNT54C2/Ss0JfEolz4nEFQLCkOrciN4k/uCeUsUdNmwvnOULLhC0ep1EE2JDh89fj
-	 15TWFibHX4iQW1pdOnOQFSmePZrTh7ag5wxnhCmI=
+	s=default; t=1666178242;
+	bh=JHDDwHyU0y4RXgoPYLu1BylMdiRg9vlTKCvCWveMhts=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vau8gWfcTWY0r6/ABsHK8dQZ4TEOz47YOsSKAR+/8/BKMD7RMDjDx12uIOgyWh7aa
+	 0jZZBfxAB6Mlqj90uPsJGd2vICsvPLNgNo7GtZ4jfEDkP9Gq09qFtN1HsZJwqTEHtt
+	 eZqvYYPvyOUrIeqtoyRmq+86lTFOwJurciJzA8YY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2619CF804F1;
-	Wed, 19 Oct 2022 11:58:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFBF7F804E0;
+	Wed, 19 Oct 2022 13:16:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92C6EF804F1; Wed, 19 Oct 2022 11:58:50 +0200 (CEST)
+ id E22F2F80087; Wed, 19 Oct 2022 13:16:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- by alsa1.perex.cz (Postfix) with ESMTP id 805D7F804CC
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 11:57:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 805D7F804CC
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 29J9v3Ti9007027,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (smtpsrv.realtek.com[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 29J9v3Ti9007027
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
- Wed, 19 Oct 2022 17:57:04 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Wed, 19 Oct 2022 17:57:35 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 19 Oct 2022 17:57:35 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: rt1308-sdw: update the preset settings
-Date: Wed, 19 Oct 2022 17:57:31 +0800
-Message-ID: <20221019095731.31101-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.37.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6ECDF80087
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 13:16:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6ECDF80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="cx45t66q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666178183; x=1697714183;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=JHDDwHyU0y4RXgoPYLu1BylMdiRg9vlTKCvCWveMhts=;
+ b=cx45t66qZ8xUJX+Sm7hn4j5w0aPfKMbOJnSd7J3oD66ioq11TSNvOC0D
+ hbe9LgAyAwC/HgRrhgvEwUz1I5aPllPQ6hUjsTQt1LdiiGHZiJr/dY9kN
+ rWgQR9kVXVXC64fut8KbS8b974GExTrsOuUthcwii0eCAPHUB/CLl0Dwe
+ hA4e9LIG6c+5XjAt44Tlgpjn4VGMwvcEYMmlLUKJzs9pBkWY/rjZYzbRa
+ na2ghVb6bHqouLKCzGSw6o9VoHJSLZevqt2nQ+pyrDM8ow8vD4d/te6oK
+ lZnJLzV/XKvZ3sRAMXsiQ/B4KxWY7N6IXh9+/Wd7rWuWJKClhiWayiVuo Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="286096879"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286096879"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 04:16:18 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="662413280"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="662413280"
+Received: from akirui-mobl.ger.corp.intel.com (HELO [10.252.27.10])
+ ([10.252.27.10])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 04:16:15 -0700
+Message-ID: <52b62b01-420a-75b8-4355-784f5eb7d62b@linux.intel.com>
+Date: Wed, 19 Oct 2022 14:16:39 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.3.3
+Subject: Re: [PATCH 12/19] ASoC: SOF: Intel: Set the default firmware library
+ path for IPC4
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, lgirdwood@gmail.com,
+ broonie@kernel.org
+References: <20221018120916.19820-1-peter.ujfalusi@linux.intel.com>
+ <20221018120916.19820-13-peter.ujfalusi@linux.intel.com>
+ <4e501a9d-45bb-0ef0-6900-a61af5d4bae0@linux.intel.com>
+ <b9e10ec7-1c4f-a2bf-7471-26b92616ce14@linux.intel.com>
+ <06f141c4-cf3b-f227-2f94-625ffcda79f6@intel.com>
+ <522cf594-a56a-6649-9bce-b616bf8f47ca@linux.intel.com>
+ <28d040a5-52dd-a8ac-2217-7f71cbf8e905@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <28d040a5-52dd-a8ac-2217-7f71cbf8e905@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 10/19/2022 09:31:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzEwLzE5IKRXpMggMDc6Mjg6MDA=?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
- Shuming Fan <shumingf@realtek.com>, flove@realtek.com,
- pierre-louis.bossart@intel.com
+Cc: chao.song@intel.com, alsa-devel@alsa-project.org,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,100 +104,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+On 19/10/2022 12:51, Cezary Rojewski wrote:
+>> That's not necessarily a valid assumption, it's perfectly possible that
+>> a specific OEM decides to allocate more budget for a specific feature
+>> and less for others, resulting in libraries that are recompiled,
+>> optimized or configured differently. The UUID is a weak notion here, as
+>> measured by the same UUID being used for different DSP generations.
+>> Nothing prevents someone from generating a slightly different library
+>> exposed with the same UUID.
+>>
+>> We didn't want to restrict our partners and gave them with the ability
+>> to put both the base firmware and the libraries in different directories
+>> and overload the default path should they wish to do so. They could
+>> decide to point to the same directory if they wanted to. That's not our
+>> decision.
+>>
+>> If you look at all recent evolutions, we initially introduced different
+>> paths for firmware, then topology, then firmware and topology names. The
+>> logic of adding more flexibility for library path follow the pattern of
+>> trying to avoid making assumptions we have to undo at a later point.
+> 
+> Thanks for the elaborate input. The evolution sound good, and is
+> perfectly reasonable. My only feedback is - should we put everything
+> under /intel directory? If all the paths can be customized, then the
+> parent directory needs not to be the same for every firmware package
+> regardless of its origin. It's counterintuitive, is it not?
 
-This patch updates the pad control and checks the
-hardware version to set the different preset settings.
+at the moment:
+# ls -al /lib/firmware/intel/ | wc -l
+108
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt1308-sdw.c | 17 ++++++++++++++---
- sound/soc/codecs/rt1308-sdw.h |  1 +
- sound/soc/codecs/rt1308.h     |  5 +++++
- 3 files changed, 20 insertions(+), 3 deletions(-)
+We might have 2 sets of binaries per platform, one using product key,
+other using community key.
 
-diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
-index 5c29416aa781..f99aed353f10 100644
---- a/sound/soc/codecs/rt1308-sdw.c
-+++ b/sound/soc/codecs/rt1308-sdw.c
-@@ -50,6 +50,7 @@ static bool rt1308_volatile_register(struct device *dev, unsigned int reg)
- 	case 0x3008:
- 	case 0x300a:
- 	case 0xc000:
-+	case 0xc710:
- 	case 0xc860 ... 0xc863:
- 	case 0xc870 ... 0xc873:
- 		return true;
-@@ -200,6 +201,7 @@ static int rt1308_io_init(struct device *dev, struct sdw_slave *slave)
- {
- 	struct rt1308_sdw_priv *rt1308 = dev_get_drvdata(dev);
- 	int ret = 0;
-+	unsigned int tmp;
- 
- 	if (rt1308->hw_init)
- 		return 0;
-@@ -231,6 +233,10 @@ static int rt1308_io_init(struct device *dev, struct sdw_slave *slave)
- 	/* sw reset */
- 	regmap_write(rt1308->regmap, RT1308_SDW_RESET, 0);
- 
-+	regmap_read(rt1308->regmap, 0xc710, &tmp);
-+	rt1308->hw_ver = tmp;
-+	dev_dbg(dev, "%s, hw_ver=0x%x\n", __func__, rt1308->hw_ver);
-+
- 	/* initial settings */
- 	regmap_write(rt1308->regmap, 0xc103, 0xc0);
- 	regmap_write(rt1308->regmap, 0xc030, 0x17);
-@@ -246,8 +252,14 @@ static int rt1308_io_init(struct device *dev, struct sdw_slave *slave)
- 	regmap_write(rt1308->regmap, 0xc062, 0x05);
- 	regmap_write(rt1308->regmap, 0xc171, 0x07);
- 	regmap_write(rt1308->regmap, 0xc173, 0x0d);
--	regmap_write(rt1308->regmap, 0xc311, 0x7f);
--	regmap_write(rt1308->regmap, 0xc900, 0x90);
-+	if (rt1308->hw_ver == RT1308_VER_C) {
-+		regmap_write(rt1308->regmap, 0xc311, 0x7f);
-+		regmap_write(rt1308->regmap, 0xc300, 0x09);
-+	} else {
-+		regmap_write(rt1308->regmap, 0xc311, 0x4f);
-+		regmap_write(rt1308->regmap, 0xc300, 0x0b);
-+	}
-+	regmap_write(rt1308->regmap, 0xc900, 0x5a);
- 	regmap_write(rt1308->regmap, 0xc1a0, 0x84);
- 	regmap_write(rt1308->regmap, 0xc1a1, 0x01);
- 	regmap_write(rt1308->regmap, 0xc360, 0x78);
-@@ -257,7 +269,6 @@ static int rt1308_io_init(struct device *dev, struct sdw_slave *slave)
- 	regmap_write(rt1308->regmap, 0xc070, 0x00);
- 	regmap_write(rt1308->regmap, 0xc100, 0xd7);
- 	regmap_write(rt1308->regmap, 0xc101, 0xd7);
--	regmap_write(rt1308->regmap, 0xc300, 0x09);
- 
- 	if (rt1308->first_hw_init) {
- 		regcache_cache_bypass(rt1308->regmap, false);
-diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
-index b5f231f708cb..62ce27799307 100644
---- a/sound/soc/codecs/rt1308-sdw.h
-+++ b/sound/soc/codecs/rt1308-sdw.h
-@@ -165,6 +165,7 @@ struct rt1308_sdw_priv {
- 	bool first_hw_init;
- 	int rx_mask;
- 	int slots;
-+	int hw_ver;
- };
- 
- struct sdw_stream_data {
-diff --git a/sound/soc/codecs/rt1308.h b/sound/soc/codecs/rt1308.h
-index ff7c423e879e..d3a0f91630ca 100644
---- a/sound/soc/codecs/rt1308.h
-+++ b/sound/soc/codecs/rt1308.h
-@@ -286,4 +286,9 @@ enum {
- 	RT1308_AIFS
- };
- 
-+enum rt1308_hw_ver {
-+	RT1308_VER_C = 2,
-+	RT1308_VER_D
-+};
-+
- #endif		/* end of _RT1308_H_ */
+If we dump everything in one directory (/lib/firmware/intel/), things
+will go out of hand pretty easily which can be somehow handled with
+complex file naming. This is only for the basefw, then we have the
+libraries (however they are sourced) with again two sets of keys, platforms.
+
+Surely it can be done, but historically SOF prefers to use directories
+instead of pre/mid/post-fixing patterns of file names.
+
+Also note that SOF is looking for a module UUID when trying to load a
+library we don't track arbitrary file names (see cover letter).
+
+Does this make sense to you?
+
 -- 
-2.37.0
-
+Péter

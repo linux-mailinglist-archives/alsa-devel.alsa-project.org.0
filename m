@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4860B60505F
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 21:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A47605064
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 21:29:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD8413E24;
-	Wed, 19 Oct 2022 21:28:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8413E24
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9322A94FD;
+	Wed, 19 Oct 2022 21:28:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9322A94FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666207732;
-	bh=BaWgxo5Jv0aX8oR628WzmwLZ2Zn7wKzjR8mCo9t1esc=;
+	s=default; t=1666207760;
+	bh=syB2i6cH+0+QkWFn3wVdBPZxzg/GbjAmxDeXWkUQIkg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SjSLTo6WKWvmqZkE3a681aHA28rUFsFMG1w7XUbeBvGlAHPQafYAfXC6WflYnpkVN
-	 Xj0PI7mOeWObNC5VuAdOP0jWrHQs1abcSUpxPmpWwSKrhPyAa5gqPIFfMQbzs6LYaF
-	 3tjsqL3iNe9mC9qhE4z9rNm4SeOEkdeRJpk77OUw=
+	b=vL3jtQh7vrS3tzEl19DzaXTo//UzzXrjWToEble9LqW/Tl9Ua186s4YlGuNEwLwgX
+	 bwLrQ3AhapPPv+B9now81bW/ogAomloI0JiiDnNLx4p4sJ83OBNsGQUT78r/CAvjU3
+	 sG5oktSadt0wesRmmErSErUrvYa+8ATYFnksH4Tg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10344F804CB;
+	by alsa1.perex.cz (Postfix) with ESMTP id 91213F80517;
 	Wed, 19 Oct 2022 21:27:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67101F804E0; Wed, 19 Oct 2022 21:27:55 +0200 (CEST)
+ id C0D61F804CC; Wed, 19 Oct 2022 21:27:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C398F80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 21:27:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C398F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B3D1F80166
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 21:27:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B3D1F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BsaBbQ0t"
+ header.b="GFQQLKos"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 473BD619AC;
- Wed, 19 Oct 2022 19:27:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781A1C433D6;
- Wed, 19 Oct 2022 19:27:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 915BBB82551;
+ Wed, 19 Oct 2022 19:27:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2491BC433C1;
+ Wed, 19 Oct 2022 19:27:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666207669;
- bh=BaWgxo5Jv0aX8oR628WzmwLZ2Zn7wKzjR8mCo9t1esc=;
+ s=k20201202; t=1666207671;
+ bh=syB2i6cH+0+QkWFn3wVdBPZxzg/GbjAmxDeXWkUQIkg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=BsaBbQ0tioH/1Bt0H77a/ulizMaOrbyN5P4+ct83l94V+nklQJFYN4NZi90S4sHBZ
- AlnhdpZOSlxf8UUS8bK8PxqQh5SOXbY7ylNU/41e4GFZ5FeOwX87Scoa3T1G5rPeK8
- ZyxFoRRZkyETKmS8Kgm+EFNRmTf65gCCGK9Yzvr9tshbbSwzv4Wn5mWG+6X/GVIZrs
- EWwdqHECN/Gjziw9rIUawHH60ZhrjNp2QJtcXRPxw0K7dCM3kYCTwlfebyrdoArcQE
- 4eMXEh7SBskalgeqlv6Krc3W2ZtpGkADlS5MoqY344TvhX/6Arl2yZSKQTdPHvHnFe
- JOQGF5S9+pRjQ==
+ b=GFQQLKoshWwfMrOt0gyroqkmUDILDn44Wtx0eAoA2umICklYKWX4mAL2ErjT6PXgw
+ gJiKPCYCU+HvdqoF8C183W8Er9PkbPaB/OPBedNFCaJ634SRKfsPCyLnmvIyAfFyRz
+ CFVjoZW7F+Mp0rx3yVHEzKxQusNYZaVI0vlK8NbrRAm4DQqAzVZlEROAoZJRFShuPT
+ RgcfLoxd9Tz5Mx2Y5jOEpPQdjzDnQ1w/ohlSVVZpfOknC90OUej2ZfsFN1ssgDsNmv
+ QYck284LaoAi5MNCjEV8fl8HA51XNbvHvoh+RZZJtiIRuT8vPzsvkxlPfvzjzitpXX
+ XgaUrgcgm2qhQ==
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
-In-Reply-To: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
-References: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
-Message-Id: <166620766821.1753821.14813429512518319734.b4-ty@kernel.org>
-Date: Wed, 19 Oct 2022 20:27:48 +0100
+In-Reply-To: <20221019154926.163539-1-pierre-louis.bossart@linux.intel.com>
+References: <20221019154926.163539-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
+Message-Id: <166620766987.1753821.16296563857149944013.b4-ty@kernel.org>
+Date: Wed, 19 Oct 2022 20:27:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Chao Song <chao.song@intel.com>, tiwai@suse.de,
+Cc: tiwai@suse.de, Chao Song <chao.song@intel.com>,
  Bard Liao <yung-chuan.liao@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -87,7 +88,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 17 Oct 2022 15:41:31 -0500, Pierre-Louis Bossart wrote:
+On Wed, 19 Oct 2022 10:49:26 -0500, Pierre-Louis Bossart wrote:
 > ADL-N uses a different signing key, which means we can't reuse the
 > regular ADL descriptor used for ADL-P/M/S.
 > 

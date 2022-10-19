@@ -2,97 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9808605D86
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:39:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7AB0605D8D
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 12:40:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 353CF9579;
-	Thu, 20 Oct 2022 12:38:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 353CF9579
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5025A3FC7;
+	Thu, 20 Oct 2022 12:39:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5025A3FC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666262387;
-	bh=eqTrY4H4gnTgNtOLkl/PKGnR0u/ijjGY8yZ03RnlQ/k=;
+	s=default; t=1666262406;
+	bh=IIsqfO0M1kEnWIHVM8ozETERi3deaPrfSAjSYM22NSE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fsApLwOt0jkEd6YvMIBuj96qxD4hv/aFWzTzIpTNphb8PXG/toxw0M8a4NUjDjaxB
-	 0kF/GDz2BgDbNgMQ3LRyrV/zT12MI+FWVd5iT69FX78h0N0zsnIO4rbdwZX82N03EX
-	 T2euMhd2cjTWv66v1MnluZ3gv9FWnIeVx0AiiQrY=
+	b=I6nPOuEgnB3ZWQ6/2V1t8Y3RJDX1ppGxfgT1QCe6qhRbfSbu9QNcaLkoPcmJWATtY
+	 HScb/jxcT1ZKi6f+BiL3xTgZHfGoECoLslznmwaS1bVMFtwNkGnXXal4vaEF1yX6c0
+	 WXiIve0KRBdC390nIdfjEpnK+YV4qShWXvOcIl40=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 418CAF805D8;
+	by alsa1.perex.cz (Postfix) with ESMTP id A5894F805D9;
 	Thu, 20 Oct 2022 12:33:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70080F804CC; Wed, 19 Oct 2022 17:51:55 +0200 (CEST)
+ id 17FD7F80137; Wed, 19 Oct 2022 18:18:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F6CCF80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 17:51:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F6CCF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7473F80137
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 18:18:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7473F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lrbgq4B9"
+ header.b="gHTRrtKO"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2E5B0B824F3;
- Wed, 19 Oct 2022 15:51:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA7AC433D6;
- Wed, 19 Oct 2022 15:51:37 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7D9F6B824FC;
+ Wed, 19 Oct 2022 16:18:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37834C433C1;
+ Wed, 19 Oct 2022 16:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666194707;
- bh=eqTrY4H4gnTgNtOLkl/PKGnR0u/ijjGY8yZ03RnlQ/k=;
+ s=k20201202; t=1666196329;
+ bh=IIsqfO0M1kEnWIHVM8ozETERi3deaPrfSAjSYM22NSE=;
  h=From:To:Cc:Subject:Date:From;
- b=lrbgq4B9Ai4N3HqsC2E5OGoxHcz7GQSv408l8Am1Jx9QFrrnCymzf3UgVaisbQkeM
- ZP6H03N/ADs7smh308X0lIhD5MuRzQ2ugTMxeomOUAHtEa4u+O11MDmg0qd0/04lY0
- pelYTiK+Db7iK2WBLnvZQWopigbxcPo5Fl/ppXQwWNhhLlL8h5V1MBdg+MkINWHmDk
- BaU3fs3Tw7W2ehkiO6cU370AQDzOkVXRmmx7Hir7ZgNtfPC7rOzGwsOUJJeABjvp9/
- 1/eaokm0a5Ghroc/48TeMwRNgGXLDQB9FHPmPioGCbdfWwjNDgw1Nao5KRZVaMXCR7
- ubrK39+7sg2VA==
+ b=gHTRrtKOriArLJ+AJTVbRb9LchPA2YgOshSftBY4laB1vAfaMfC074LJG+khl2Of1
+ wHABlcTTqrH9HNijBs98UJepm+is0zQPf8l2F3uSCOO9OoNyC3Om25kIu/KKXSI+LZ
+ qi6sd86kreGvaUrKmmOBIeMAN4NslIIMW/Kd4Cmy5e7A9gwaT7DLgMQoF9eCLl78Bg
+ f59mLUSOGna+Owm6A7lfJOXU9KTrnED0hx+0WdVGwL5MOmSlkiOkvh9Miq9DNQckDf
+ snUDj5O1pvNfW8AXANm9gKOxROzTCw0pEvttQaRwWxSrOzqG3axV6+35AhE4SkTH7d
+ UPqd4l47bVSEQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-arm-kernel@lists.infradead.org, Daniel Mack <daniel@zonque.org>,
  Haojian Zhuang <haojian.zhuang@gmail.com>,
  Robert Jarzmik <robert.jarzmik@free.fr>
 Subject: [PATCH 00/30] ARM: pxa: remove all unused boards&drivers
-Date: Wed, 19 Oct 2022 17:50:54 +0200
-Message-Id: <20221019155129.3861230-1-arnd@kernel.org>
+Date: Wed, 19 Oct 2022 18:17:53 +0200
+Message-Id: <20221019161831.3864786-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Oct 2022 12:33:17 +0200
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-usb@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Dominik Brodowski <linux@dominikbrodowski.net>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, patches@opensource.cirrus.com,
- linux-mtd@lists.infradead.org, Philipp Zabel <philipp.zabel@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Lennert Buytenhek <kernel@wantstofly.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-rtc@vger.kernel.org, Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Lee Jones <lee@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Marek Vasut <marek.vasut@gmail.com>, Alan Stern <stern@rowland.harvard.edu>,
- linux-leds@vger.kernel.org, Paul Parsons <lost.distance@yahoo.com>,
- Sergey Lapin <slapin@ossfans.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Sebastian Reichel <sre@kernel.org>, linux-fbdev@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Felipe Balbi <balbi@kernel.org>,
- Michael Petchkovsky <mkpetch@internode.on.net>,
- Sergey Shtylyov <s.shtylyov@omp.ru>, linux-ide@vger.kernel.org,
- Jingoo Han <jingoohan1@gmail.com>, dri-devel@lists.freedesktop.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
- linux-renesas-soc@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org,
- Helge Deller <deller@gmx.de>
+Cc: alexandre.belloni@bootlin.com, linux-usb@vger.kernel.org, vigneshr@ti.com,
+ lgirdwood@gmail.com, viresh.kumar@linaro.org, linus.walleij@linaro.org,
+ ulf.hansson@linaro.org, linux@dominikbrodowski.net,
+ wsa+renesas@sang-engineering.com, patches@opensource.cirrus.com,
+ linux-mtd@lists.infradead.org, philipp.zabel@gmail.com,
+ miquel.raynal@bootlin.com, kernel@wantstofly.org, brgl@bgdev.pl,
+ linux-rtc@vger.kernel.org, damien.lemoal@opensource.wdc.com, lee@kernel.org,
+ linux@armlinux.org.uk, marek.vasut@gmail.com, stern@rowland.harvard.edu,
+ linux-leds@vger.kernel.org, lost.distance@yahoo.com, slapin@ossfans.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, broonie@kernel.org,
+ sre@kernel.org, linux-fbdev@vger.kernel.org, tiwai@suse.com, balbi@kernel.org,
+ mkpetch@internode.on.net, s.shtylyov@omp.ru, linux-ide@vger.kernel.org,
+ jingoohan1@gmail.com, dri-devel@lists.freedesktop.org,
+ dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sudipm.mukherjee@gmail.com,
+ linux-renesas-soc@vger.kernel.org, gregkh@linuxfoundation.org,
+ alsa-devel@alsa-project.org, deller@gmx.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,40 +159,40 @@ Arnd Bergmann (30):
   w1: remove ds1wm driver
   mfd: remove htc-pasic3 driver
 
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Cc: Daniel Mack <daniel@zonque.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: Felipe Balbi <balbi@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Haojian Zhuang <haojian.zhuang@gmail.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Jingoo Han <jingoohan1@gmail.com>
-Cc: Lee Jones <lee@kernel.org>
-Cc: Lennert Buytenhek <kernel@wantstofly.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Marek Vasut <marek.vasut@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Michael Petchkovsky <mkpetch@internode.on.net>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Paul Parsons <lost.distance@yahoo.com>
-Cc: Philipp Zabel <philipp.zabel@gmail.com>
-Cc: Robert Jarzmik <robert.jarzmik@free.fr>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Sebastian Reichel <sre@kernel.org>
-Cc: Sergey Lapin <slapin@ossfans.org>
-Cc: Sergey Shtylyov <s.shtylyov@omp.ru>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: stern@rowland.harvard.edu
+Cc: alexandre.belloni@bootlin.com
+Cc: brgl@bgdev.pl
+Cc: damien.lemoal@opensource.wdc.com
+Cc: daniel@zonque.org
+Cc: dmitry.torokhov@gmail.com
+Cc: linux@dominikbrodowski.net
+Cc: balbi@kernel.org
+Cc: gregkh@linuxfoundation.org
+Cc: haojian.zhuang@gmail.com
+Cc: deller@gmx.de
+Cc: perex@perex.cz
+Cc: jingoohan1@gmail.com
+Cc: lee@kernel.org
+Cc: kernel@wantstofly.org
+Cc: lgirdwood@gmail.com
+Cc: linus.walleij@linaro.org
+Cc: marek.vasut@gmail.com
+Cc: broonie@kernel.org
+Cc: mkpetch@internode.on.net
+Cc: miquel.raynal@bootlin.com
+Cc: lost.distance@yahoo.com
+Cc: philipp.zabel@gmail.com
+Cc: robert.jarzmik@free.fr
+Cc: linux@armlinux.org.uk
+Cc: sre@kernel.org
+Cc: slapin@ossfans.org
+Cc: s.shtylyov@omp.ru
+Cc: sudipm.mukherjee@gmail.com
+Cc: tiwai@suse.com
+Cc: ulf.hansson@linaro.org
+Cc: vigneshr@ti.com
+Cc: viresh.kumar@linaro.org
+Cc: wsa+renesas@sang-engineering.com
 Cc: linux-pm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org

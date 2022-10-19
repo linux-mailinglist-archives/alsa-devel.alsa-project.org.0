@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3D560455E
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 14:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA5760455D
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 14:33:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9F4B81C4;
-	Wed, 19 Oct 2022 14:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F4B81C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id C38DA429D;
+	Wed, 19 Oct 2022 14:32:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38DA429D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666182849;
-	bh=Lo8tvxGIOYo47DnL+wzBI8+oasH0jlAOV1i9YkarM04=;
+	s=default; t=1666182827;
+	bh=cY8wZfU94pF+CbYRDBS/AtJZE7KBiyDCZcUKpEcrAaU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oOmfvyof9bA3h7G5W+cvXxqX3hpuFhZtD2JRefhYIoh0Ch2x9LOefQK8UiqG1KMl2
-	 5coUX9liuwjh557w2KbEv+Bkf9NxsqNPTNwYkqORXQvJctkxU7GGD3aOwMuE58kBWh
-	 JIyk8smKZc6IgsqACdKdWvLM79uqtPY9SI9X/+dM=
+	b=IC/Tj0r7vrsaPwlNm4+CuyG/Ag9QyzLeso374JOotPDWF1UPDlyJeLrOH3cl3PLy0
+	 wHpqmLO/3yW+MD+QKY49RU24sRyaCz+DHgtFJPfe2V81l+R8FU8PrpCQYPFuDSgZbh
+	 Dis7ESSM9W5ZLokGckJZwkeFjaDJrbDdY8q+PmSk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33979F80535;
-	Wed, 19 Oct 2022 14:32:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDA71F80528;
+	Wed, 19 Oct 2022 14:32:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E88E8F80528; Wed, 19 Oct 2022 14:32:27 +0200 (CEST)
+ id 79671F804FA; Wed, 19 Oct 2022 14:32:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB49FF804CC
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 14:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB49FF804CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73707F804E0
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 14:32:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73707F804E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HcEnWO5c"
+ header.b="WB2H5lnj"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C958561753;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 19C2BB822B9;
+ Wed, 19 Oct 2022 12:32:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9599C433C1;
  Wed, 19 Oct 2022 12:32:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3354CC433D6;
- Wed, 19 Oct 2022 12:32:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666182741;
- bh=Lo8tvxGIOYo47DnL+wzBI8+oasH0jlAOV1i9YkarM04=;
+ s=k20201202; t=1666182742;
+ bh=cY8wZfU94pF+CbYRDBS/AtJZE7KBiyDCZcUKpEcrAaU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HcEnWO5cJfDdoi0h94TeHGJtxzV/9fp8Tb2FDgVaospRYjNhF8cvUC3B49+cvLsQ3
- pLS3Ygqzg4zoW941xlcWQTnK6uo0epJRPFBG+XuM6foBK1OYpcYOk15IwmPAu3OS8f
- 24dpZMe0gnf6ATMZe2WfN2d9QmLz2uJHCThWqJCQbiLYzirCJu3Afgi7fKxpDQRhs/
- /hdys4pkOb07QMxWiKoTeB4bZL/15Ow9ffAF0+xcFgUPuKf0iB2Ivmg6P/h/G3yqLZ
- 9H173NGb42K3X+gevrbGBohn5/gaubqIIJ0KeIkExfORlzdeWUsZ0BgidVEf+eDkAx
- Cmj87oYNo4yvg==
+ b=WB2H5lnjf/NLOwXcgZsNEEbP10TRgFPndtMDrKQM9HciDpwKNlfrTpVmMlOEqSVWi
+ ys0vWTXUqGpem5rxjHUtkp9xEDbWHHncwwrvxo4O/BRFN0LgRSXQ4hHAKV/q59VTbO
+ hizjy28ZThMth0KtUmA4/+WvzzZJDDKrf2WP7ebPk6pkcEfDCVQTSZYjEJMWhEuy99
+ pqtUfDdhPS6N0h5eUYc+nPTO6gM1r0IZIKwpoLfn1UVXDmV1r1RJFaDhX5gLOIe9Am
+ HYP8Vz753BuQk1298duBuUX9UDZ6A4WdZ6x4yRvz4IE3ZBKGFZyiXaDyEW66V7w1ou
+ LfQPLu3CPCQFw==
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
-In-Reply-To: <20221017204054.207512-1-pierre-louis.bossart@linux.intel.com>
-References: <20221017204054.207512-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: add quirk variant for LAPBC710 NUC15
-Message-Id: <166618273994.118898.13332719077942259973.b4-ty@kernel.org>
-Date: Wed, 19 Oct 2022 13:32:19 +0100
+In-Reply-To: <20221017204207.207608-1-pierre-louis.bossart@linux.intel.com>
+References: <20221017204207.207608-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: Add quirk for Rex board
+Message-Id: <166618274141.118898.18011052269054807686.b4-ty@kernel.org>
+Date: Wed, 19 Oct 2022 13:32:21 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: tiwai@suse.de, Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,9 +86,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 17 Oct 2022 15:40:54 -0500, Pierre-Louis Bossart wrote:
-> Some NUC15 LAPBC710 devices don't expose the same DMI information as
-> the Intel reference, add additional entry in the match table.
+On Mon, 17 Oct 2022 15:42:07 -0500, Pierre-Louis Bossart wrote:
+> From: Yong Zhi <yong.zhi@intel.com>
+> 
+> Add mtl_mx98357_rt5682 driver data for Chrome Rex board support.
 > 
 > 
 
@@ -98,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_sdw: add quirk variant for LAPBC710 NUC15
-      commit: 41deb2db64997d01110faaf763bd911d490dfde7
+[1/1] ASoC: Intel: sof_rt5682: Add quirk for Rex board
+      commit: b4dd2e3758709aa8a2abd1ac34c56bd09b980039
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,84 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C69D604F46
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 20:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4860B60505F
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 21:28:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D95A04C58;
-	Wed, 19 Oct 2022 20:02:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D95A04C58
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD8413E24;
+	Wed, 19 Oct 2022 21:28:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8413E24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666202606;
-	bh=sWEjTKvHj9huJlwbKvKAxQYLwvkpWMLQJwn8Gn4jsLE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666207732;
+	bh=BaWgxo5Jv0aX8oR628WzmwLZ2Zn7wKzjR8mCo9t1esc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fMBXx3UUHypR2dgd8BvNynCy/xcWziGaqutL6WeqDru8BYhl52BIhRyHY6lZtQGyW
-	 Pa0iVmsiOw0YKBXDfadBmIJu6B+uq/mSD7pr+rWz40OUEtHVbbzmGMocgch0R68eZF
-	 M3hY+P1YKHsdUUZlylhqK34vUEQ5gsQkOgVzaBIo=
+	b=SjSLTo6WKWvmqZkE3a681aHA28rUFsFMG1w7XUbeBvGlAHPQafYAfXC6WflYnpkVN
+	 Xj0PI7mOeWObNC5VuAdOP0jWrHQs1abcSUpxPmpWwSKrhPyAa5gqPIFfMQbzs6LYaF
+	 3tjsqL3iNe9mC9qhE4z9rNm4SeOEkdeRJpk77OUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68A22F804CC;
-	Wed, 19 Oct 2022 20:02:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10344F804CB;
+	Wed, 19 Oct 2022 21:27:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6E66F804CB; Wed, 19 Oct 2022 20:02:30 +0200 (CEST)
+ id 67101F804E0; Wed, 19 Oct 2022 21:27:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C398F80137
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 21:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C398F80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BsaBbQ0t"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E829F80087
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 20:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E829F80087
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="bWBmtWtn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666202548; x=1697738548;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=sWEjTKvHj9huJlwbKvKAxQYLwvkpWMLQJwn8Gn4jsLE=;
- b=bWBmtWtnQwagOitms1Bw97pCoSIKAZRmkoz8ZoRiBMipdbFz/jJmEgaZ
- 8Mtuk/06Mj/c9DGy7qEZlFcHYCL7Zos4BbdfeU/V9ND05N0xO8mFmSWu+
- fFT24h8dbS7owvnUng1EHTmVk4u99n4Odq+YpRIhlPmvThkHZ7dy7OS51
- 4DbqcVRseb89XshGdT1Peh4EufEI2kAt6u5YiSkGDqq42g3ekRFM60CLD
- JDpjknkLFa8xjs9I1BneYez93pu8D1gyM6JVlbzctodrN1JeLX07Ac8V+
- fGNHhmtS1Awp6Gd8inZ54fiVIISUv+0Iv9Akd/5/P5gqc+Qz8SaePo32k Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="293885172"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="293885172"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 11:02:14 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607215158"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607215158"
-Received: from afsinurr-mobl.amr.corp.intel.com (HELO [10.212.16.185])
- ([10.212.16.185])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 11:02:13 -0700
-Message-ID: <2f391106-a73f-fb11-075d-5621bf592633@linux.intel.com>
-Date: Wed, 19 Oct 2022 13:02:12 -0500
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 473BD619AC;
+ Wed, 19 Oct 2022 19:27:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781A1C433D6;
+ Wed, 19 Oct 2022 19:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666207669;
+ bh=BaWgxo5Jv0aX8oR628WzmwLZ2Zn7wKzjR8mCo9t1esc=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=BsaBbQ0tioH/1Bt0H77a/ulizMaOrbyN5P4+ct83l94V+nklQJFYN4NZi90S4sHBZ
+ AlnhdpZOSlxf8UUS8bK8PxqQh5SOXbY7ylNU/41e4GFZ5FeOwX87Scoa3T1G5rPeK8
+ ZyxFoRRZkyETKmS8Kgm+EFNRmTf65gCCGK9Yzvr9tshbbSwzv4Wn5mWG+6X/GVIZrs
+ EWwdqHECN/Gjziw9rIUawHH60ZhrjNp2QJtcXRPxw0K7dCM3kYCTwlfebyrdoArcQE
+ 4eMXEh7SBskalgeqlv6Krc3W2ZtpGkADlS5MoqY344TvhX/6Arl2yZSKQTdPHvHnFe
+ JOQGF5S9+pRjQ==
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
+References: <20221017204131.207564-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
+Message-Id: <166620766821.1753821.14813429512518319734.b4-ty@kernel.org>
+Date: Wed, 19 Oct 2022 20:27:48 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH 2/8] ASoC: Intel: avs: Introduce PCM power management
- routines
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20221019175317.1540919-1-cezary.rojewski@intel.com>
- <20221019175317.1540919-3-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221019175317.1540919-3-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: Chao Song <chao.song@intel.com>, tiwai@suse.de,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,56 +87,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 17 Oct 2022 15:41:31 -0500, Pierre-Louis Bossart wrote:
+> ADL-N uses a different signing key, which means we can't reuse the
+> regular ADL descriptor used for ADL-P/M/S.
+> 
+> 
 
+Applied to
 
-On 10/19/22 12:53, Cezary Rojewski wrote:
-> Implement suspend/resume() operations for component drivers. For most
-> scenarios, the PM flow is similar to standard streaming one, except for
-> the part where the position register are being saved and the lack of PCM
-> pages freeing. To reduce code duplication, all avs_dai_suspend_XXX() and
-> avs_dai_resume_XXX() functions reuse their non-PM equivalents.
-> 
-> Given that path binding/unbinding happens only in FE part of the stream,
-> the order of suspend() goes:
-> 
-> 1. hw_free() all FE DAIs, paths are unbound here
-> 2. hw_free() all BE DAIs
-> 
-> Consequently, for resume() its:
-> 
-> 1. hw_params() all BE DAIs
-> 2. hw_params() all FE DAIs, paths are bound here
-> 3. prepare() all BE DAIs
-> 4. prepare() all FE DAIs
-> 
-> As component->suspend/resume() do not provide substream pointer, store
-> it ourselves so that the PM flow has all the necessary information to
-> proceed.
-> 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->  include/sound/hdaudio_ext.h |   5 +
->  sound/soc/intel/avs/pcm.c   | 227 +++++++++++++++++++++++++++++++++++-
->  2 files changed, 228 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-> index 83aed26ab143..6598e238b9c5 100644
-> --- a/include/sound/hdaudio_ext.h
-> +++ b/include/sound/hdaudio_ext.h
-> @@ -66,6 +66,11 @@ struct hdac_ext_stream {
->  
->  	u32 dpib;
->  	u32 lpib;
-> +	u32 pphcllpl;
-> +	u32 pphcllpu;
-> +	u32 pphcldpl;
-> +	u32 pphcldpu;
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This is clearly going to conflict with my own rename/move changes in
-"ALSA/ASoC: hda: move SPIB/DRMS functionality from ext layer"
+Thanks!
 
-The SPIB and DRMS handling are not DSP-specific and should be handled in
-the 'generic' sound/hda layer. In theory the HDaudio legacy driver
-should have used those capabilities.
+[1/1] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
+      commit: 05de5cf6fb7d73d2bf0a0c882433f31db5c93f63
 
-It should be a simple rebase though for this patch.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

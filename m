@@ -2,76 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF5A60455F
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 14:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AD9D60458B
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 14:41:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C5988AB3;
-	Wed, 19 Oct 2022 14:33:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C5988AB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id A91C28575;
+	Wed, 19 Oct 2022 14:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A91C28575
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666182856;
-	bh=oOnhVUIHiH0yGL9fC3+A+0Ub20Zf3b/FKt4v93Wr/rc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666183266;
+	bh=8d6CdrccoT97cECfxO7g6a1f4262AbKj4LgQxlbZkwU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PUFBadZoNV610H/G8NDq5olHIgr1QjFC4UGH7jhgvI1t7AzPpuVbrEG28jGssHymi
-	 ynqgSUDtO3kfReSyqaXca+qaA12Z7ZluTn5eau+rpQ8e6f2/3PZA51Skfoe3LdB4rF
-	 77nUFztpxdCqrgqRBJCmFGNpr4b9S+IgO0v2oS0U=
+	b=mJ8ingfTy2mPasPTF5NEuBa9J1UfAEEBAr01u+U+JUdyLHZB8A7XUOAmtftThbsq7
+	 57yntnO4HYftk7ANc67qxCDnD+0KpUjjVXO5hcQT/tZy2sronrkjcuBwq8yEqbGVlA
+	 FK6azC+lRomliMvVTP52chMm5Knzv0dJpXLB0TSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D7ACF80557;
-	Wed, 19 Oct 2022 14:32:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14659F804E0;
+	Wed, 19 Oct 2022 14:40:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66BCAF80517; Wed, 19 Oct 2022 14:32:30 +0200 (CEST)
+ id A1340F804CC; Wed, 19 Oct 2022 14:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24292F80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 14:32:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24292F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32359F80137
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 14:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32359F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bn9zlEos"
+ header.b="SK8O4ky0"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6E70CB822C8;
- Wed, 19 Oct 2022 12:32:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12C0C433D6;
- Wed, 19 Oct 2022 12:32:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6EC11B82221;
+ Wed, 19 Oct 2022 12:40:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247A9C433D6;
+ Wed, 19 Oct 2022 12:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666182746;
- bh=oOnhVUIHiH0yGL9fC3+A+0Ub20Zf3b/FKt4v93Wr/rc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bn9zlEosaPgLlPqzyuLR9XmkCfO495g8zzJrlgVqpJFiEhsDWASolHyY1ypN/c4+R
- L8sakCrWTyJHLKHTKawjwbE1wdtF80D63b+1kkAeSUEscVFytGy3HTejlvJMdYtsYA
- ATRt/mUuZs+1KlAYSvgTHXWmYlwB33FjMWWLOmn8DMf6aU5kdt3C78QoMvHmauKK+N
- IUkslxVqMZm3/nCMBNt/1JZGvUMh3S8aLDWU13ZBktSgxLtWdi3IESgmxPSf7QIWaz
- fe738yS2rzUgLkTWAkJYnISYd1GbRLSaGJHZgAypzFCBpsshzP7gcJNT+ievtSiXgL
- 2kLWf5qk6n1ow==
+ s=k20201202; t=1666183206;
+ bh=8d6CdrccoT97cECfxO7g6a1f4262AbKj4LgQxlbZkwU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SK8O4ky0fQMSolFb3X8ZM7WVIicmqRC7UhjbaecIOdbxO+xNDylUl3MU1PJ/Di9K+
+ kcE5wyJk1zQlNK9EV98lwe9t+ZYnJCxPo5ff8moOPMCaIjhiDE+Na+XeYLfMbyvGK+
+ Gqi9JoEV1JBL7hjIMIQsTjX532US5gfOGtf4EIMfIrQj00cBxsLuAHY1D0/524sg2i
+ 0xEWu1eyNZjxkU21pnwACWTN9jk+5dii9c/af14bIjb3YO2hnsDTU9Q06M0Q/I1etB
+ 2d3svVuKFbybaONqrM/zas28bHssLFMgP2+kKkV3JLPeJe6LuhG1Q5s0QnVFLbRwst
+ E/MhU1I/LumDQ==
+Date: Wed, 19 Oct 2022 13:40:00 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com
-In-Reply-To: <20221018121332.20802-1-peter.ujfalusi@linux.intel.com>
-References: <20221018121332.20802-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-mtrace: protect per-core nodes against
- multiple open
-Message-Id: <166618274472.118898.3768056072670907786.b4-ty@kernel.org>
-Date: Wed, 19 Oct 2022 13:32:24 +0100
+To: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH][next][V2] ASoC: codecs: jz4725b: Fix spelling mistake
+ "Sourc" -> "Source", "Routee" -> "Route"
+Message-ID: <Y0/wIPFAWH3cLQzx@sirena.org.uk>
+References: <20221019071639.1003730-1-colin.i.king@gmail.com>
+ <Y0/pSVbueZYXBsmA@sirena.org.uk>
+ <S820KR.GPNPWZ8QG3PG3@crapouillou.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BarSh9pR8ITjJrt2"
+Content-Disposition: inline
+In-Reply-To: <S820KR.GPNPWZ8QG3PG3@crapouillou.net>
+X-Cookie: I like your SNOOPY POSTER!!
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-mips@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Colin Ian King <colin.i.king@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 Oct 2022 15:13:32 +0300, Peter Ujfalusi wrote:
-> From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> 
-> Add protection against multiple open of the mtrace/coreN debugfs
-> nodes. This is not supported in the implementation, and this will
-> show up as unexpected behaviour of the interface, and potential
-> use of already freed memory.
-> 
-> [...]
 
-Applied to
+--BarSh9pR8ITjJrt2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Oct 19, 2022 at 01:19:40PM +0100, Paul Cercueil wrote:
+> Le mer., oct. 19 2022 at 13:10:49 +0100, Mark Brown <broonie@kernel.org> a
+> > On Wed, Oct 19, 2022 at 08:16:39AM +0100, Colin Ian King wrote:
 
-Thanks!
+> > >  There are two spelling mistakes in codec routing description. Fix
+> > > it.
 
-[1/1] ASoC: SOF: ipc4-mtrace: protect per-core nodes against multiple open
-      commit: af6514f2f3828dc39c96cd4686ef5c9d8368626f
+> > Bit disappionting that people didn't notice the errors during boot
+> > there...
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Well that's on you. You merged the patchset before anybody could review.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+That includes whoever wrote the code in the first place, and I do note
+that I applied version 3 of the series.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+--BarSh9pR8ITjJrt2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Mark
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNP8CAACgkQJNaLcl1U
+h9Dvzgf/UwmdmQxOamn+37JPevW80uGyuE3ITBXUK9gT2Rb2ow1M8Bdm1QmlUjTx
+OImxIOYNNXJ+DZ4Tec4ybjtwlB0EaUvXRiw8TWePLZKwRDDrYoVSSyBfagTYSchD
+OUOIGJgifR/ECR15TApRJX2CyGCeoe0V31Vz0IkQD12a7xbVvdg8+3AbTp8+yQvD
+IJJTM0S/HUn07KktLl2xDFNvtSdPOekZE1Ju6sBd6i8ByNUcvOqGCp0pXUZnbTXy
+2LuOq+9qdh5PngUcDjlQ90B2sh5fIYJEu2hM+xRuLPbW0ENzS7pm9DNuvuIvTGYL
+BiboNnUF477UdJpVstIMKfqk6YIT5g==
+=fKUT
+-----END PGP SIGNATURE-----
+
+--BarSh9pR8ITjJrt2--

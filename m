@@ -2,110 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBF06048B8
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 16:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7531F604903
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 16:19:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2802A9A35;
-	Wed, 19 Oct 2022 16:06:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2802A9A35
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1FA394BA;
+	Wed, 19 Oct 2022 16:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1FA394BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666188422;
-	bh=853G42Z2pIvrRnv6JOQ60i581V5KE9T9pMfkrabtVOo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666189160;
+	bh=tXQLFHlSeAsiNDD79FNLFbLupTj/kQwkiS+c6CLDdxc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=irVqihA4sRu3WpqBdiYFDAgpBxs3zCNE+LcbzIBkuKx5klmbJIaGq1QPvfzzeBU+9
-	 rAXzYZj5e1iB1u+NQ4k8v+MH7FNFL6X58ifQ+xfRTWGPixGIbiK78XiXzj4QmDHet9
-	 xEB7kKAlQzm0X0b1Yh63gv5o5eXcZZ23o54x6rng=
+	b=YsMxbf/+F+9LDBatzi2p/hzH1Ciqllm84HQgTnfY7D7AP1U05ON1uBzZCT+HUwvV+
+	 MC7ATMwIk6J9jWe4n4ttS+si3ct5K/Op0BZegTaCw2gFULVfKObnp9Ea10jOJczxT/
+	 s6Nqbnoew8b6arcQgLKtRjR8FgqP61jY0vn15yos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94FAEF80137;
-	Wed, 19 Oct 2022 16:06:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BB67F80087;
+	Wed, 19 Oct 2022 16:18:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77F85F804CC; Wed, 19 Oct 2022 16:06:06 +0200 (CEST)
+ id 43980F80137; Wed, 19 Oct 2022 16:18:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 042BFF80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 16:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 042BFF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06B08F80137
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 16:18:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06B08F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="LCqDgwja"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="ndbGKJi2"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 1A87B3200992;
- Wed, 19 Oct 2022 10:05:54 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 19 Oct 2022 10:05:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1666188353; x=1666274753; bh=xZOIV2vhVJ
- NQwMyW32F59sE4pTitmYd9yVTgdJzzhLQ=; b=LCqDgwjanJ4n5igDqWE5fdAl1s
- 6E+aH0vVyHlGVJBn1rNpAPX7fHNKUJRRejtPrfdyG4tiU91uP7EHns/fbPoBcAAj
- sNk7YHAHPsM/27MKUS/eQBqv2mZvJZR7jD8mEaF3PksM2gYmPsPEbIcHZKJc77q9
- Lg/UTPD/HJVRM7RprC03+/YLH2fssNI5Gv/n4xL793zyxehduFULqr5NTRvrHefC
- GVbi1iUjpQsdfx3B8ip7mmSw4XeZiYFnIhPP04ylivnxmoFUy4IvnYzdbVtOv/qJ
- mKBkNNjA1pmN1G0xVMqMvlCI2JGIuJJXwlJiKEnLVbpQh3SbWa73cwROiXBA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1666188353; x=1666274753; bh=xZOIV2vhVJNQwMyW32F59sE4pTit
- mYd9yVTgdJzzhLQ=; b=ndbGKJi2DdaJdxbGcsebWH/6CPwudzUjanwFhjrj3Sfx
- O7wKkOo/h4cBgHggME4B1hqHsyJCQsPdmBY2Yoge07gBJMbKiUFgGQaoxCt2Qx7V
- Q92jcAcvCWX10Ox0hW8PgoErmwPyq8UeTMBVHlOFZdpnpaVoKDdWCS5L4CLozlwt
- vD9BPIlDpheykCDFoIQ+EBlw8iqXO/uzBJLLo06jACJ6ov2hfs3kYFyJ99aIj6hn
- zuzxpJAWH0C9PgtkmmDYJt45h9Nc/QPJzcx0XoJQmXYViYATAM/6/7hzSYDl2bF0
- CZ5Xn/+5jmu3njq3oJp4nuaqTKl65MjOADE2epn+wA==
-X-ME-Sender: <xms:QQRQYxDMRDYvrn05Q89OqLvRnFdi-kQWHoyU7JCSzEG0StUGtPkeMA>
- <xme:QQRQY_heVzEgMX8XTma5p8tRBArQd5AnKa9HGPlustkDHMPmWmou6iS084w2VYXpE
- M1z4SZwRYwZiTFVjKE>
-X-ME-Received: <xmr:QQRQY8mXhhXUK4ichnsvKaTaTN0h20d-vKupBPGMornY1FiNVtuhULPMcIy1hnKP_oZCc3VCTc0X8gpTuetnzS-YwJxYpy0c1xtz>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeelgedgjedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:QQRQY7yi3JZliL8sPrAPm4VnuCB0-ydyNvHjr-mAuMlzQro_oItfBQ>
- <xmx:QQRQY2T2ub9KRf7vIQODeJ2QDFndItMVClWVD8OKroKqIbuEr9vSIg>
- <xmx:QQRQY-ZcohKRYzY-Q09JGoyrVj-cwLCySsnLCx-YyXhZ5GtUusnhNQ>
- <xmx:QQRQY9KIcduMeoWAFtAhbComA6RQ1IwZaJFPiL4SLIorZaoDYopgzA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 19 Oct 2022 10:05:52 -0400 (EDT)
-Date: Wed, 19 Oct 2022 16:05:50 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH -next] ASoC: soc-component: using
- pm_runtime_resume_and_get instead of pm_runtime_get_sync
-Message-ID: <20221019140550.qycscl5j6pgnvqyi@houat>
-References: <20220922145846.114312-1-zhangqilong3@huawei.com>
- <20221019135610.ini2kkqltwasjpvu@houat>
- <364a7284-5a5e-a283-d68d-17a108587950@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="X8D6Yji0"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6542AB81EDB;
+ Wed, 19 Oct 2022 14:18:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD0EC433B5;
+ Wed, 19 Oct 2022 14:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666189098;
+ bh=tXQLFHlSeAsiNDD79FNLFbLupTj/kQwkiS+c6CLDdxc=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=X8D6Yji0xKi0uN2/fiY2gyJXgxUWjRP9zukq1aZv6mquyJHy76r4IRk+RkzA1Zi6h
+ aLQaKoxtoXZ0wOEX1NmvYEj3j50lE7F86UApVzcRFg4XH8fOdYX3Hs9Sgk66WY8yeO
+ WTIpry2dZmkstskBCF1TpawbWkiDbsbPCUOnnFtC0g90L95cRZ20FKANGdwPw8SAa3
+ 10VYhed1qK/Zaou6iVLhDQAu2dcnhvpJ8Jn0aN9c2n+tvtfV1ldnaOTN9CcDDCe6dR
+ HdTG6wSzmoAHPwqtM09020H8wqkilizlZJYtwHDH/eHLWrn0JsAmVd2OtibkuHYLNo
+ s8z4d7O8XiQlA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
+References: <20221018124008.6846-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: SOF: Intel: Harden the IPC4 low level sequencing
+Message-Id: <166618909642.493922.1501988258287823466.b4-ty@kernel.org>
+Date: Wed, 19 Oct 2022 15:18:16 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3ra7yirwcpjqzoul"
-Content-Disposition: inline
-In-Reply-To: <364a7284-5a5e-a283-d68d-17a108587950@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, Zhang Qilong <zhangqilong3@huawei.com>,
- lgirdwood@gmail.com, tiwai@suse.com, broonie@kernel.org,
- =?utf-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,78 +86,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 18 Oct 2022 15:40:04 +0300, Peter Ujfalusi wrote:
+> The IPC4 use of doorbell registers leaves some corner cases not well defined
+> and the 'correct sequences' are subjective in a sense.
+> The DSP doorbell registers are used as separate and independent channels and
+> the sequences for host -> DSP -> host (reply) can be racy.
+> 
+> For example:
+> The ACKing of a received message can happen before the firmware sends the reply
+> or it can as well happen after the reply has been sent and received by the host.
+> Both can be considered 'correct sequences' but they need different handling.
+> 
+> [...]
 
---3ra7yirwcpjqzoul
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Wed, Oct 19, 2022 at 08:59:58AM -0500, Pierre-Louis Bossart wrote:
-> On 10/19/22 08:56, Maxime Ripard wrote:
-> > On Thu, Sep 22, 2022 at 10:58:46PM +0800, Zhang Qilong wrote:
-> >> Using the newest pm_runtime_resume_and_get is more appropriate
-> >> for simplifing code here.
-> >>
-> >> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
-> >> ---
-> >>  sound/soc/soc-component.c | 6 ++----
-> >>  1 file changed, 2 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-> >> index e12f8244242b..659b9ade4158 100644
-> >> --- a/sound/soc/soc-component.c
-> >> +++ b/sound/soc/soc-component.c
-> >> @@ -1213,11 +1213,9 @@ int snd_soc_pcm_component_pm_runtime_get(struct=
- snd_soc_pcm_runtime *rtd,
-> >>  	int i;
-> >> =20
-> >>  	for_each_rtd_components(rtd, i, component) {
-> >> -		int ret =3D pm_runtime_get_sync(component->dev);
-> >> -		if (ret < 0 && ret !=3D -EACCES) {
-> >> -			pm_runtime_put_noidle(component->dev);
-> >> +		int ret =3D pm_runtime_resume_and_get(component->dev);
-> >> +		if (ret < 0 && ret !=3D -EACCES)
-> >>  			return soc_component_ret(component, ret);
-> >> -		}
-> >>  		/* mark stream if succeeded */
-> >>  		soc_component_mark_push(component, stream, pm);
-> >=20
-> > This creates an issue on the RaspberryPi4 on 6.1-rc1.
-> >=20
-> > At boot time, we now have a bunch of:
-> > [   35.536496] hdmi-audio-codec hdmi-audio-codec.1.auto: Runtime PM usa=
-ge count underflow!
-> >=20
-> > They were bisected back to that commit, and reverting it makes it go
-> > away.
-> >=20
-> > I think this is due to the fact that the function here used to call
-> > pm_runtime_put_noidle() only if there was an error, and that error
-> > wasn't EACCES. However, pm_runtime_resume_and_get() will call
-> > pm_runtime_put_noidle() for any error.
-> >=20
-> > Thus, if our __pm_runtime_resume() call return EACCES, we used to keep
-> > the our reference but we will now drop it. So I guess we should just
-> > revert it, possibly with a comment?
->=20
-> This is already reverted, see patch from Peter:
->=20
-> [PATCH] Revert "ASoC: soc-component: using pm_runtime_resume_and_get
-> instead of pm_runtime_get_sync"
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I missed it, thanks for the pointer
+Thanks!
 
-Maxime
+[1/4] ASoC: SOF: ipc4: Log the tx message before sending it
+      commit: 2d91d5715f5f3b24456ede20dbbe967a1d2a0a3e
+[2/4] ASoC: SOF: Intel: ipc4: Read the interrupt reason registers at the same time
+      commit: c8ed7ce242db83ca2c4e9eab557a88adbae5ef6a
+[3/4] ASoC: SOF: Intel: ipc4: Wait for channel to be free before sending a message
+      commit: 483e4cdfb502e6bea6b0a226a3ff7c22e60153de
+[4/4] ASoC: SOF: Intel: ipc4: Ack a received reply or notification separately
+      commit: 010c050fe9ea263e3fc17493822117610a23f662
 
---3ra7yirwcpjqzoul
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY1AEPgAKCRDj7w1vZxhR
-xa8HAP4pH7rS9zkbwdHWaaKIjtMFcLP1xGyuOpiG1AZqcRMvRwEAjCrg9rAIyePL
-DhQ4ElDtt1P1zyddCNyFb92Rf7hgHgk=
-=OlzY
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---3ra7yirwcpjqzoul--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

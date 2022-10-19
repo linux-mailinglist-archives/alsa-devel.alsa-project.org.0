@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F59604AA9
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 17:09:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81327604BB4
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 17:38:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BA2E9E56;
-	Wed, 19 Oct 2022 17:08:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BA2E9E56
+	by alsa0.perex.cz (Postfix) with ESMTPS id F15B6ADDD;
+	Wed, 19 Oct 2022 17:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F15B6ADDD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666192180;
-	bh=rM4ihlMZEz7jlcwFH6NvhSrb6DAtLdGVREDYqsgOkLk=;
+	s=default; t=1666193882;
+	bh=4n+mBsiEKIemfJ5i92KNqo8iXr+fx/HO1cNz4Vy443U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e5E5aNSHq7Tj5uTxNNdfb9qbsP+fWuUx6BMwQ+k+pYDc5kqiYiV5aGUnzpPgwU3xS
-	 ++NNmO5OnFdh+y+8KAiqsh3ys625jVUJubDmbhkY8CEfE+FTuEsycOK+hrMcV99Vvu
-	 qjkfLAa3EEZ6ahl1WRaTodh3Pa+swdOgA2cOjqus=
+	b=ELayOCOk85rZBJ2QcvCI4zl+ihkDPz6I2Y9PbMsMiXNE2XzVt6M0nafvszZY6W+U2
+	 UaA1BfVew8/x802Fay1ghdphL05OimAoqRXZJ419eGqkvZxbctxR1m9xM2u9f3l6f0
+	 KlTF1V6Nl7ToTFRMQ7rtAbVT2d99zh5DlHHziW6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A59B6F80087;
-	Wed, 19 Oct 2022 17:08:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F345F804CC;
+	Wed, 19 Oct 2022 17:37:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FDB4F804CC; Wed, 19 Oct 2022 17:08:44 +0200 (CEST)
+ id B180EF80087; Wed, 19 Oct 2022 17:37:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_1,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DC7CF80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 17:08:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DC7CF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FDDAF80087
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 17:37:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FDDAF80087
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vCT0t7tv"
+ header.b="BF2W+MFV"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D91606190F;
- Wed, 19 Oct 2022 15:08:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30C8C433C1;
- Wed, 19 Oct 2022 15:08:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D6BD66184B;
+ Wed, 19 Oct 2022 15:36:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1A5C433C1;
+ Wed, 19 Oct 2022 15:36:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666192114;
- bh=rM4ihlMZEz7jlcwFH6NvhSrb6DAtLdGVREDYqsgOkLk=;
+ s=k20201202; t=1666193818;
+ bh=4n+mBsiEKIemfJ5i92KNqo8iXr+fx/HO1cNz4Vy443U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vCT0t7tvprdK7zo6svNHgNTnSX1/KyaKyT+me2OTatE/jtZ8ikR12LnKP+1QhJczQ
- ito+QZQ0OrFGnrfdb+itbPTFS+w9r0q0lGSEs4yw183c1GnRKJ2rvPob3JNCZxYaZz
- yE/ldLK4QdB+OkY0XB8o4cKY+PnwqOjnvaDY1d0ZkN0qucJOLkIGgTG+WDzed/suHK
- E4z2QzIKUnzGC9fy4mOs7sOGG8OW+np7F/ffFFJSvskFc9+RwImxkmLkSG5BuZ5v+c
- Iv8TU8zZrOGJXnSIWK6MXPIv79rL6BYowrVAVPEKgAuhiwMg3kerIkwTweEJTuQDQ3
- EdqSfuBc3KJUA==
+ b=BF2W+MFV9nfPeIOVwUfakMNwNpLRNe5jIaHXvd6TeHrLR84pMRSisC2gcsFG5KFov
+ f1VA+6FgoE/JpmkOFQJrM+W51HpthfpyK0WpXBP9/08SlEH424q6Gfe/J4Y4cZUCWm
+ C/ZmXDnjIoikUo0sbtrVYAQB6iAc+95Pew87RZN9nPKcAi+k55OpFOsJ6aopo4qZuL
+ NMCETGKlQjkAVpSfN1a3wmnCD3K2GEix/+VTgc9/u7EIXgKt9afpE81FNhpR28kROK
+ QLGNgLC4Xu1q2RFra5pLlDWomAOuLEOsp1FCssBhn39qVlB1Gv7CfCGqo9+MiEtoVA
+ K8wnm+LQjRhhw==
 From: Arnd Bergmann <arnd@kernel.org>
-To: linux-arm-kernel@lists.infradead.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 05/17] ASoC: remove unused ep93xx files
-Date: Wed, 19 Oct 2022 17:03:27 +0200
-Message-Id: <20221019150410.3851944-5-arnd@kernel.org>
+To: Sekhar Nori <nsekhar@ti.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-arm-kernel@lists.infradead.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 09/14] ASoC: remove unused davinci support
+Date: Wed, 19 Oct 2022 17:29:35 +0200
+Message-Id: <20221019152947.3857217-10-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20221019150410.3851944-1-arnd@kernel.org>
-References: <20221019144119.3848027-1-arnd@kernel.org>
- <20221019150410.3851944-1-arnd@kernel.org>
+In-Reply-To: <20221019152947.3857217-1-arnd@kernel.org>
+References: <20221019152947.3857217-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Ryan Mallon <rmallon@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Mika Westerberg <mika.westerberg@iki.fi>, linux-kernel@vger.kernel.org
+Cc: Kevin Hilman <khilman@baylibre.com>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,763 +91,650 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-A couple of ep93xx board files were unused and got removed, so
-the corresponding ASoC support can also be removed.
+The dm644x and dm3xx SoCs have been removed, as have the
+da850_evm/da830_evm machines, the remaining machines all use the
+DT based probing and do not use the vcif driver.
 
-Cc: Mika Westerberg <mika.westerberg@iki.fi>
-Cc: Ryan Mallon <rmallon@gmail.com>
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- sound/soc/cirrus/Kconfig       |  23 --
- sound/soc/cirrus/Makefile      |   6 -
- sound/soc/cirrus/ep93xx-ac97.c | 446 ---------------------------------
- sound/soc/cirrus/simone.c      |  86 -------
- sound/soc/cirrus/snappercl15.c | 134 ----------
- 5 files changed, 695 deletions(-)
- delete mode 100644 sound/soc/cirrus/ep93xx-ac97.c
- delete mode 100644 sound/soc/cirrus/simone.c
- delete mode 100644 sound/soc/cirrus/snappercl15.c
+ sound/soc/ti/Kconfig        |  40 ------
+ sound/soc/ti/Makefile       |   2 -
+ sound/soc/ti/davinci-evm.c  | 267 +-----------------------------------
+ sound/soc/ti/davinci-vcif.c | 247 ---------------------------------
+ 4 files changed, 3 insertions(+), 553 deletions(-)
+ delete mode 100644 sound/soc/ti/davinci-vcif.c
 
-diff --git a/sound/soc/cirrus/Kconfig b/sound/soc/cirrus/Kconfig
-index 8039a8febefa..34870c2d0cba 100644
---- a/sound/soc/cirrus/Kconfig
-+++ b/sound/soc/cirrus/Kconfig
-@@ -27,29 +27,6 @@ config SND_EP93XX_SOC_I2S_WATCHDOG
+diff --git a/sound/soc/ti/Kconfig b/sound/soc/ti/Kconfig
+index 40110e9a9e8a..593be22503b5 100644
+--- a/sound/soc/ti/Kconfig
++++ b/sound/soc/ti/Kconfig
+@@ -40,13 +40,6 @@ config SND_SOC_DAVINCI_MCASP
+ 	  - Keystone devices
+ 	  - K3 devices (am654, j721e)
  
- endif # if SND_EP93XX_SOC_I2S
- 
--config SND_EP93XX_SOC_AC97
--	tristate
--	select AC97_BUS
--	select SND_SOC_AC97_BUS
--
--config SND_EP93XX_SOC_SNAPPERCL15
--	tristate "SoC Audio support for Bluewater Systems Snapper CL15 module"
--	depends on SND_EP93XX_SOC && MACH_SNAPPER_CL15 && I2C
--	select SND_EP93XX_SOC_I2S
--	select SND_SOC_TLV320AIC23_I2C
+-config SND_SOC_DAVINCI_VCIF
+-	tristate "daVinci Voice Interface (VCIF) support"
+-	depends on ARCH_DAVINCI || COMPILE_TEST
+-	select SND_SOC_TI_EDMA_PCM
 -	help
--	  Say Y or M here if you want to add support for I2S audio on the
--	  Bluewater Systems Snapper CL15 module.
+-	  Say Y or M here if you want audio support via daVinci VCIF.
 -
--config SND_EP93XX_SOC_SIMONE
--	tristate "SoC Audio support for Simplemachines Sim.One board"
--	depends on SND_EP93XX_SOC && MACH_SIM_ONE
--	select SND_EP93XX_SOC_AC97
--	select SND_SOC_AC97_CODEC
+ config SND_SOC_OMAP_DMIC
+ 	tristate "Digital Microphone Module (DMIC) support"
+ 	depends on ARCH_OMAP4 || SOC_OMAP5 || COMPILE_TEST && COMMON_CLK
+@@ -177,14 +170,6 @@ config SND_SOC_OMAP_OSK5912
+ config SND_SOC_DAVINCI_EVM
+ 	tristate "SoC Audio support for DaVinci EVMs"
+ 	depends on ARCH_DAVINCI && I2C
+-	select SND_SOC_DAVINCI_ASP if MACH_DAVINCI_DM355_EVM
+-	select SND_SOC_DAVINCI_ASP if SND_SOC_DM365_AIC3X_CODEC
+-	select SND_SOC_DAVINCI_VCIF if SND_SOC_DM365_VOICE_CODEC
+-	select SND_SOC_DAVINCI_ASP if MACH_DAVINCI_EVM # DM6446
+-	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DM6467_EVM
+-	select SND_SOC_SPDIF if MACH_DAVINCI_DM6467_EVM
+-	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DA830_EVM
+-	select SND_SOC_DAVINCI_MCASP if MACH_DAVINCI_DA850_EVM
+ 	select SND_SOC_TLV320AIC3X
+ 	help
+ 	  Say Y if you want to add support for SoC audio on the following TI
+@@ -196,31 +181,6 @@ config SND_SOC_DAVINCI_EVM
+ 	  - DM830
+ 	  - DM850
+ 
+-choice
+-	prompt "DM365 codec select"
+-	depends on SND_SOC_DAVINCI_EVM
+-	depends on MACH_DAVINCI_DM365_EVM
+-
+-config SND_SOC_DM365_AIC3X_CODEC
+-	bool "Audio Codec - AIC3101"
 -	help
--	  Say Y or M here if you want to add support for AC97 audio on the
--	  Simplemachines Sim.One board.
+-	  Say Y if you want to add support for AIC3101 audio codec
 -
- config SND_EP93XX_SOC_EDB93XX
- 	tristate "SoC Audio support for Cirrus Logic EDB93xx boards"
- 	depends on SND_EP93XX_SOC && (MACH_EDB9301 || MACH_EDB9302 || MACH_EDB9302A || MACH_EDB9307A || MACH_EDB9315A)
-diff --git a/sound/soc/cirrus/Makefile b/sound/soc/cirrus/Makefile
-index bfb8dc409f53..19a86daad660 100644
---- a/sound/soc/cirrus/Makefile
-+++ b/sound/soc/cirrus/Makefile
-@@ -2,17 +2,11 @@
- # EP93xx Platform Support
- snd-soc-ep93xx-objs				:= ep93xx-pcm.o
- snd-soc-ep93xx-i2s-objs	 			:= ep93xx-i2s.o
--snd-soc-ep93xx-ac97-objs 			:= ep93xx-ac97.o
+-config SND_SOC_DM365_VOICE_CODEC
+-	bool "Voice Codec - CQ93VC"
+-	help
+-	  Say Y if you want to add support for SoC On-chip voice codec
+-endchoice
+-
+-config SND_SOC_DM365_SELECT_VOICE_CODECS
+-	def_tristate y
+-	depends on SND_SOC_DM365_VOICE_CODEC && SND_SOC
+-	select MFD_DAVINCI_VOICECODEC
+-	select SND_SOC_CQ0093VC
+-	help
+-	  The is an internal symbol needed to ensure that the codec
+-	  and MFD driver can be built as loadable modules if necessary.
+-
+ config SND_SOC_J721E_EVM
+ 	tristate "SoC Audio support for j721e EVM"
+ 	depends on ARCH_K3 || COMPILE_TEST && COMMON_CLK
+diff --git a/sound/soc/ti/Makefile b/sound/soc/ti/Makefile
+index a21e5b0061de..41cdcaec770d 100644
+--- a/sound/soc/ti/Makefile
++++ b/sound/soc/ti/Makefile
+@@ -12,14 +12,12 @@ obj-$(CONFIG_SND_SOC_TI_UDMA_PCM) += snd-soc-ti-udma.o
+ # CPU DAI drivers
+ snd-soc-davinci-asp-objs := davinci-i2s.o
+ snd-soc-davinci-mcasp-objs := davinci-mcasp.o
+-snd-soc-davinci-vcif-objs := davinci-vcif.o
+ snd-soc-omap-dmic-objs := omap-dmic.o
+ snd-soc-omap-mcbsp-objs := omap-mcbsp.o omap-mcbsp-st.o
+ snd-soc-omap-mcpdm-objs := omap-mcpdm.o
  
- obj-$(CONFIG_SND_EP93XX_SOC)			+= snd-soc-ep93xx.o
- obj-$(CONFIG_SND_EP93XX_SOC_I2S)		+= snd-soc-ep93xx-i2s.o
--obj-$(CONFIG_SND_EP93XX_SOC_AC97)		+= snd-soc-ep93xx-ac97.o
+ obj-$(CONFIG_SND_SOC_DAVINCI_ASP) += snd-soc-davinci-asp.o
+ obj-$(CONFIG_SND_SOC_DAVINCI_MCASP) += snd-soc-davinci-mcasp.o
+-obj-$(CONFIG_SND_SOC_DAVINCI_VCIF) += snd-soc-davinci-vcif.o
+ obj-$(CONFIG_SND_SOC_OMAP_DMIC) += snd-soc-omap-dmic.o
+ obj-$(CONFIG_SND_SOC_OMAP_MCBSP) += snd-soc-omap-mcbsp.o
+ obj-$(CONFIG_SND_SOC_OMAP_MCPDM) += snd-soc-omap-mcpdm.o
+diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
+index 68d69e32681a..983d69b951b0 100644
+--- a/sound/soc/ti/davinci-evm.c
++++ b/sound/soc/ti/davinci-evm.c
+@@ -138,214 +138,6 @@ static int evm_aic3x_init(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
  
- # EP93XX Machine Support
--snd-soc-snappercl15-objs			:= snappercl15.o
--snd-soc-simone-objs				:= simone.o
- snd-soc-edb93xx-objs				:= edb93xx.o
- 
--obj-$(CONFIG_SND_EP93XX_SOC_SNAPPERCL15)	+= snd-soc-snappercl15.o
--obj-$(CONFIG_SND_EP93XX_SOC_SIMONE)		+= snd-soc-simone.o
- obj-$(CONFIG_SND_EP93XX_SOC_EDB93XX)		+= snd-soc-edb93xx.o
-diff --git a/sound/soc/cirrus/ep93xx-ac97.c b/sound/soc/cirrus/ep93xx-ac97.c
-deleted file mode 100644
-index 37593abe6053..000000000000
---- a/sound/soc/cirrus/ep93xx-ac97.c
-+++ /dev/null
-@@ -1,446 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
+-/* davinci-evm digital audio interface glue - connects codec <--> CPU */
+-SND_SOC_DAILINK_DEFS(dm6446,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcbsp")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.1-001b",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcbsp")));
+-
+-static struct snd_soc_dai_link dm6446_evm_dai = {
+-	.name = "TLV320AIC3X",
+-	.stream_name = "AIC3X",
+-	.init = evm_aic3x_init,
+-	.ops = &evm_ops,
+-	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-		   SND_SOC_DAIFMT_IB_NF,
+-	SND_SOC_DAILINK_REG(dm6446),
+-};
+-
+-SND_SOC_DAILINK_DEFS(dm355,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcbsp.1")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.1-001b",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcbsp.1")));
+-
+-static struct snd_soc_dai_link dm355_evm_dai = {
+-	.name = "TLV320AIC3X",
+-	.stream_name = "AIC3X",
+-	.init = evm_aic3x_init,
+-	.ops = &evm_ops,
+-	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-		   SND_SOC_DAIFMT_IB_NF,
+-	SND_SOC_DAILINK_REG(dm355),
+-};
+-
+-#ifdef CONFIG_SND_SOC_DM365_AIC3X_CODEC
+-SND_SOC_DAILINK_DEFS(dm365,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcbsp")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.1-0018",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcbsp")));
+-#elif defined(CONFIG_SND_SOC_DM365_VOICE_CODEC)
+-SND_SOC_DAILINK_DEFS(dm365,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-vcif")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("cq93vc-codec", "cq93vc-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-vcif")));
+-#endif
+-
+-static struct snd_soc_dai_link dm365_evm_dai = {
+-#ifdef CONFIG_SND_SOC_DM365_AIC3X_CODEC
+-	.name = "TLV320AIC3X",
+-	.stream_name = "AIC3X",
+-	.init = evm_aic3x_init,
+-	.ops = &evm_ops,
+-	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-		   SND_SOC_DAIFMT_IB_NF,
+-	SND_SOC_DAILINK_REG(dm365),
+-#elif defined(CONFIG_SND_SOC_DM365_VOICE_CODEC)
+-	.name = "Voice Codec - CQ93VC",
+-	.stream_name = "CQ93",
+-	SND_SOC_DAILINK_REG(dm365),
+-#endif
+-};
+-
+-SND_SOC_DAILINK_DEFS(dm6467_aic3x,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcasp.0")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.0-001a",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcasp.0")));
+-
+-SND_SOC_DAILINK_DEFS(dm6467_spdif,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcasp.1")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("spdif_dit", "dit-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcasp.1")));
+-
+-static struct snd_soc_dai_link dm6467_evm_dai[] = {
+-	{
+-		.name = "TLV320AIC3X",
+-		.stream_name = "AIC3X",
+-		.init = evm_aic3x_init,
+-		.ops = &evm_ops,
+-		.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-			   SND_SOC_DAIFMT_IB_NF,
+-		SND_SOC_DAILINK_REG(dm6467_aic3x),
+-	},
+-	{
+-		.name = "McASP",
+-		.stream_name = "spdif",
+-		.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-			   SND_SOC_DAIFMT_IB_NF,
+-		SND_SOC_DAILINK_REG(dm6467_spdif),
+-	},
+-};
+-
+-SND_SOC_DAILINK_DEFS(da830,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcasp.1")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.1-0018",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcasp.1")));
+-
+-static struct snd_soc_dai_link da830_evm_dai = {
+-	.name = "TLV320AIC3X",
+-	.stream_name = "AIC3X",
+-	.init = evm_aic3x_init,
+-	.ops = &evm_ops,
+-	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-		   SND_SOC_DAIFMT_IB_NF,
+-	SND_SOC_DAILINK_REG(da830),
+-};
+-
+-SND_SOC_DAILINK_DEFS(da850,
+-	DAILINK_COMP_ARRAY(COMP_CPU("davinci-mcasp.0")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.1-0018",
+-				      "tlv320aic3x-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("davinci-mcasp.0")));
+-
+-static struct snd_soc_dai_link da850_evm_dai = {
+-	.name = "TLV320AIC3X",
+-	.stream_name = "AIC3X",
+-	.init = evm_aic3x_init,
+-	.ops = &evm_ops,
+-	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_CBM_CFM |
+-		   SND_SOC_DAIFMT_IB_NF,
+-	SND_SOC_DAILINK_REG(da850),
+-};
+-
+-/* davinci dm6446 evm audio machine driver */
 -/*
-- * ASoC driver for Cirrus Logic EP93xx AC97 controller.
+- * ASP0 in DM6446 EVM is clocked by U55, as configured by
+- * board-dm644x-evm.c using GPIOs from U18.  There are six
+- * options; here we "know" we use a 48 KHz sample rate.
+- */
+-static struct snd_soc_card_drvdata_davinci dm6446_snd_soc_card_drvdata = {
+-	.sysclk = 12288000,
+-};
+-
+-static struct snd_soc_card dm6446_snd_soc_card_evm = {
+-	.name = "DaVinci DM6446 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = &dm6446_evm_dai,
+-	.num_links = 1,
+-	.drvdata = &dm6446_snd_soc_card_drvdata,
+-};
+-
+-/* davinci dm355 evm audio machine driver */
+-/* ASP1 on DM355 EVM is clocked by an external oscillator */
+-static struct snd_soc_card_drvdata_davinci dm355_snd_soc_card_drvdata = {
+-	.sysclk = 27000000,
+-};
+-
+-static struct snd_soc_card dm355_snd_soc_card_evm = {
+-	.name = "DaVinci DM355 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = &dm355_evm_dai,
+-	.num_links = 1,
+-	.drvdata = &dm355_snd_soc_card_drvdata,
+-};
+-
+-/* davinci dm365 evm audio machine driver */
+-static struct snd_soc_card_drvdata_davinci dm365_snd_soc_card_drvdata = {
+-	.sysclk = 27000000,
+-};
+-
+-static struct snd_soc_card dm365_snd_soc_card_evm = {
+-	.name = "DaVinci DM365 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = &dm365_evm_dai,
+-	.num_links = 1,
+-	.drvdata = &dm365_snd_soc_card_drvdata,
+-};
+-
+-/* davinci dm6467 evm audio machine driver */
+-static struct snd_soc_card_drvdata_davinci dm6467_snd_soc_card_drvdata = {
+-	.sysclk = 27000000,
+-};
+-
+-static struct snd_soc_card dm6467_snd_soc_card_evm = {
+-	.name = "DaVinci DM6467 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = dm6467_evm_dai,
+-	.num_links = ARRAY_SIZE(dm6467_evm_dai),
+-	.drvdata = &dm6467_snd_soc_card_drvdata,
+-};
+-
+-static struct snd_soc_card_drvdata_davinci da830_snd_soc_card_drvdata = {
+-	.sysclk = 24576000,
+-};
+-
+-static struct snd_soc_card da830_snd_soc_card = {
+-	.name = "DA830/OMAP-L137 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = &da830_evm_dai,
+-	.num_links = 1,
+-	.drvdata = &da830_snd_soc_card_drvdata,
+-};
+-
+-static struct snd_soc_card_drvdata_davinci da850_snd_soc_card_drvdata = {
+-	.sysclk = 24576000,
+-};
+-
+-static struct snd_soc_card da850_snd_soc_card = {
+-	.name = "DA850/OMAP-L138 EVM",
+-	.owner = THIS_MODULE,
+-	.dai_link = &da850_evm_dai,
+-	.num_links = 1,
+-	.drvdata = &da850_snd_soc_card_drvdata,
+-};
+-
+-#if defined(CONFIG_OF)
+-
+ /*
+  * The struct is used as place holder. It will be completely
+  * filled with data from dt node.
+@@ -461,71 +253,18 @@ static struct platform_driver davinci_evm_driver = {
+ 	.driver		= {
+ 		.name	= "davinci_evm",
+ 		.pm	= &snd_soc_pm_ops,
+-		.of_match_table = of_match_ptr(davinci_evm_dt_ids),
++		.of_match_table = davinci_evm_dt_ids,
+ 	},
+ };
+-#endif
+-
+-static struct platform_device *evm_snd_device;
+ 
+ static int __init evm_init(void)
+ {
+-	struct snd_soc_card *evm_snd_dev_data;
+-	int index;
+-	int ret;
+-
+-	/*
+-	 * If dtb is there, the devices will be created dynamically.
+-	 * Only register platfrom driver structure.
+-	 */
+-#if defined(CONFIG_OF)
+-	if (of_have_populated_dt())
+-		return platform_driver_register(&davinci_evm_driver);
+-#endif
+-
+-	if (machine_is_davinci_evm()) {
+-		evm_snd_dev_data = &dm6446_snd_soc_card_evm;
+-		index = 0;
+-	} else if (machine_is_davinci_dm355_evm()) {
+-		evm_snd_dev_data = &dm355_snd_soc_card_evm;
+-		index = 1;
+-	} else if (machine_is_davinci_dm365_evm()) {
+-		evm_snd_dev_data = &dm365_snd_soc_card_evm;
+-		index = 0;
+-	} else if (machine_is_davinci_dm6467_evm()) {
+-		evm_snd_dev_data = &dm6467_snd_soc_card_evm;
+-		index = 0;
+-	} else if (machine_is_davinci_da830_evm()) {
+-		evm_snd_dev_data = &da830_snd_soc_card;
+-		index = 1;
+-	} else if (machine_is_davinci_da850_evm()) {
+-		evm_snd_dev_data = &da850_snd_soc_card;
+-		index = 0;
+-	} else
+-		return -EINVAL;
+-
+-	evm_snd_device = platform_device_alloc("soc-audio", index);
+-	if (!evm_snd_device)
+-		return -ENOMEM;
+-
+-	platform_set_drvdata(evm_snd_device, evm_snd_dev_data);
+-	ret = platform_device_add(evm_snd_device);
+-	if (ret)
+-		platform_device_put(evm_snd_device);
+-
+-	return ret;
++	return platform_driver_register(&davinci_evm_driver);
+ }
+ 
+ static void __exit evm_exit(void)
+ {
+-#if defined(CONFIG_OF)
+-	if (of_have_populated_dt()) {
+-		platform_driver_unregister(&davinci_evm_driver);
+-		return;
+-	}
+-#endif
+-
+-	platform_device_unregister(evm_snd_device);
++	platform_driver_unregister(&davinci_evm_driver);
+ }
+ 
+ module_init(evm_init);
+diff --git a/sound/soc/ti/davinci-vcif.c b/sound/soc/ti/davinci-vcif.c
+deleted file mode 100644
+index 36fa97e2b9e2..000000000000
+--- a/sound/soc/ti/davinci-vcif.c
++++ /dev/null
+@@ -1,247 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * ALSA SoC Voice Codec Interface for TI DAVINCI processor
 - *
-- * Copyright (c) 2010 Mika Westerberg
+- * Copyright (C) 2010 Texas Instruments.
 - *
-- * Based on s3c-ac97 ASoC driver by Jaswinder Singh.
+- * Author: Miguel Aguilar <miguel.aguilar@ridgerun.com>
 - */
 -
--#include <linux/delay.h>
--#include <linux/err.h>
--#include <linux/io.h>
 -#include <linux/init.h>
 -#include <linux/module.h>
--#include <linux/platform_device.h>
+-#include <linux/device.h>
+-#include <linux/delay.h>
 -#include <linux/slab.h>
+-#include <linux/io.h>
+-#include <linux/mfd/davinci_voicecodec.h>
 -
 -#include <sound/core.h>
--#include <sound/dmaengine_pcm.h>
--#include <sound/ac97_codec.h>
+-#include <sound/pcm.h>
+-#include <sound/pcm_params.h>
+-#include <sound/initval.h>
 -#include <sound/soc.h>
+-#include <sound/dmaengine_pcm.h>
 -
--#include <linux/platform_data/dma-ep93xx.h>
--#include <linux/soc/cirrus/ep93xx.h>
+-#include "edma-pcm.h"
+-#include "davinci-i2s.h"
 -
--#include "ep93xx-pcm.h"
+-#define MOD_REG_BIT(val, mask, set) do { \
+-	if (set) { \
+-		val |= mask; \
+-	} else { \
+-		val &= ~mask; \
+-	} \
+-} while (0)
 -
--/*
-- * Per channel (1-4) registers.
-- */
--#define AC97CH(n)		(((n) - 1) * 0x20)
--
--#define AC97DR(n)		(AC97CH(n) + 0x0000)
--
--#define AC97RXCR(n)		(AC97CH(n) + 0x0004)
--#define AC97RXCR_REN		BIT(0)
--#define AC97RXCR_RX3		BIT(3)
--#define AC97RXCR_RX4		BIT(4)
--#define AC97RXCR_CM		BIT(15)
--
--#define AC97TXCR(n)		(AC97CH(n) + 0x0008)
--#define AC97TXCR_TEN		BIT(0)
--#define AC97TXCR_TX3		BIT(3)
--#define AC97TXCR_TX4		BIT(4)
--#define AC97TXCR_CM		BIT(15)
--
--#define AC97SR(n)		(AC97CH(n) + 0x000c)
--#define AC97SR_TXFE		BIT(1)
--#define AC97SR_TXUE		BIT(6)
--
--#define AC97RISR(n)		(AC97CH(n) + 0x0010)
--#define AC97ISR(n)		(AC97CH(n) + 0x0014)
--#define AC97IE(n)		(AC97CH(n) + 0x0018)
--
--/*
-- * Global AC97 controller registers.
-- */
--#define AC97S1DATA		0x0080
--#define AC97S2DATA		0x0084
--#define AC97S12DATA		0x0088
--
--#define AC97RGIS		0x008c
--#define AC97GIS			0x0090
--#define AC97IM			0x0094
--/*
-- * Common bits for RGIS, GIS and IM registers.
-- */
--#define AC97_SLOT2RXVALID	BIT(1)
--#define AC97_CODECREADY		BIT(5)
--#define AC97_SLOT2TXCOMPLETE	BIT(6)
--
--#define AC97EOI			0x0098
--#define AC97EOI_WINT		BIT(0)
--#define AC97EOI_CODECREADY	BIT(1)
--
--#define AC97GCR			0x009c
--#define AC97GCR_AC97IFE		BIT(0)
--
--#define AC97RESET		0x00a0
--#define AC97RESET_TIMEDRESET	BIT(0)
--
--#define AC97SYNC		0x00a4
--#define AC97SYNC_TIMEDSYNC	BIT(0)
--
--#define AC97_TIMEOUT		msecs_to_jiffies(5)
--
--/**
-- * struct ep93xx_ac97_info - EP93xx AC97 controller info structure
-- * @lock: mutex serializing access to the bus (slot 1 & 2 ops)
-- * @dev: pointer to the platform device dev structure
-- * @regs: mapped AC97 controller registers
-- * @done: bus ops wait here for an interrupt
-- */
--struct ep93xx_ac97_info {
--	struct mutex		lock;
--	struct device		*dev;
--	void __iomem		*regs;
--	struct completion	done;
--	struct snd_dmaengine_dai_dma_data dma_params_rx;
--	struct snd_dmaengine_dai_dma_data dma_params_tx;
+-struct davinci_vcif_dev {
+-	struct davinci_vc *davinci_vc;
+-	struct snd_dmaengine_dai_dma_data dma_data[2];
+-	int dma_request[2];
 -};
 -
--/* currently ALSA only supports a single AC97 device */
--static struct ep93xx_ac97_info *ep93xx_ac97_info;
--
--static struct ep93xx_dma_data ep93xx_ac97_pcm_out = {
--	.name		= "ac97-pcm-out",
--	.port		= EP93XX_DMA_AAC1,
--	.direction	= DMA_MEM_TO_DEV,
--};
--
--static struct ep93xx_dma_data ep93xx_ac97_pcm_in = {
--	.name		= "ac97-pcm-in",
--	.port		= EP93XX_DMA_AAC1,
--	.direction	= DMA_DEV_TO_MEM,
--};
--
--static inline unsigned ep93xx_ac97_read_reg(struct ep93xx_ac97_info *info,
--					    unsigned reg)
+-static void davinci_vcif_start(struct snd_pcm_substream *substream)
 -{
--	return __raw_readl(info->regs + reg);
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct davinci_vcif_dev *davinci_vcif_dev =
+-			snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+-	struct davinci_vc *davinci_vc = davinci_vcif_dev->davinci_vc;
+-	u32 w;
+-
+-	/* Start the sample generator and enable transmitter/receiver */
+-	w = readl(davinci_vc->base + DAVINCI_VC_CTRL);
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RSTDAC, 0);
+-	else
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RSTADC, 0);
+-
+-	writel(w, davinci_vc->base + DAVINCI_VC_CTRL);
 -}
 -
--static inline void ep93xx_ac97_write_reg(struct ep93xx_ac97_info *info,
--					 unsigned reg, unsigned val)
+-static void davinci_vcif_stop(struct snd_pcm_substream *substream)
 -{
--	__raw_writel(val, info->regs + reg);
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct davinci_vcif_dev *davinci_vcif_dev =
+-			snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
+-	struct davinci_vc *davinci_vc = davinci_vcif_dev->davinci_vc;
+-	u32 w;
+-
+-	/* Reset transmitter/receiver and sample rate/frame sync generators */
+-	w = readl(davinci_vc->base + DAVINCI_VC_CTRL);
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RSTDAC, 1);
+-	else
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RSTADC, 1);
+-
+-	writel(w, davinci_vc->base + DAVINCI_VC_CTRL);
 -}
 -
--static unsigned short ep93xx_ac97_read(struct snd_ac97 *ac97,
--				       unsigned short reg)
+-static int davinci_vcif_hw_params(struct snd_pcm_substream *substream,
+-				  struct snd_pcm_hw_params *params,
+-				  struct snd_soc_dai *dai)
 -{
--	struct ep93xx_ac97_info *info = ep93xx_ac97_info;
--	unsigned short val;
+-	struct davinci_vcif_dev *davinci_vcif_dev = snd_soc_dai_get_drvdata(dai);
+-	struct davinci_vc *davinci_vc = davinci_vcif_dev->davinci_vc;
+-	u32 w;
 -
--	mutex_lock(&info->lock);
+-	/* Restart the codec before setup */
+-	davinci_vcif_stop(substream);
+-	davinci_vcif_start(substream);
 -
--	ep93xx_ac97_write_reg(info, AC97S1DATA, reg);
--	ep93xx_ac97_write_reg(info, AC97IM, AC97_SLOT2RXVALID);
--	if (!wait_for_completion_timeout(&info->done, AC97_TIMEOUT)) {
--		dev_warn(info->dev, "timeout reading register %x\n", reg);
--		mutex_unlock(&info->lock);
--		return -ETIMEDOUT;
+-	/* General line settings */
+-	writel(DAVINCI_VC_CTRL_MASK, davinci_vc->base + DAVINCI_VC_CTRL);
+-
+-	writel(DAVINCI_VC_INT_MASK, davinci_vc->base + DAVINCI_VC_INTCLR);
+-
+-	writel(DAVINCI_VC_INT_MASK, davinci_vc->base + DAVINCI_VC_INTEN);
+-
+-	w = readl(davinci_vc->base + DAVINCI_VC_CTRL);
+-
+-	/* Determine xfer data type */
+-	switch (params_format(params)) {
+-	case SNDRV_PCM_FORMAT_U8:
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RD_BITS_8 |
+-			    DAVINCI_VC_CTRL_RD_UNSIGNED |
+-			    DAVINCI_VC_CTRL_WD_BITS_8 |
+-			    DAVINCI_VC_CTRL_WD_UNSIGNED, 1);
+-		break;
+-	case SNDRV_PCM_FORMAT_S8:
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RD_BITS_8 |
+-			    DAVINCI_VC_CTRL_WD_BITS_8, 1);
+-
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RD_UNSIGNED |
+-			    DAVINCI_VC_CTRL_WD_UNSIGNED, 0);
+-		break;
+-	case SNDRV_PCM_FORMAT_S16_LE:
+-		MOD_REG_BIT(w, DAVINCI_VC_CTRL_RD_BITS_8 |
+-			    DAVINCI_VC_CTRL_RD_UNSIGNED |
+-			    DAVINCI_VC_CTRL_WD_BITS_8 |
+-			    DAVINCI_VC_CTRL_WD_UNSIGNED, 0);
+-		break;
+-	default:
+-		printk(KERN_WARNING "davinci-vcif: unsupported PCM format");
+-		return -EINVAL;
 -	}
--	val = (unsigned short)ep93xx_ac97_read_reg(info, AC97S2DATA);
 -
--	mutex_unlock(&info->lock);
--	return val;
+-	writel(w, davinci_vc->base + DAVINCI_VC_CTRL);
+-
+-	return 0;
 -}
 -
--static void ep93xx_ac97_write(struct snd_ac97 *ac97,
--			      unsigned short reg,
--			      unsigned short val)
+-static int davinci_vcif_trigger(struct snd_pcm_substream *substream, int cmd,
+-				struct snd_soc_dai *dai)
 -{
--	struct ep93xx_ac97_info *info = ep93xx_ac97_info;
--
--	mutex_lock(&info->lock);
--
--	/*
--	 * Writes to the codec need to be done so that slot 2 is filled in
--	 * before slot 1.
--	 */
--	ep93xx_ac97_write_reg(info, AC97S2DATA, val);
--	ep93xx_ac97_write_reg(info, AC97S1DATA, reg);
--
--	ep93xx_ac97_write_reg(info, AC97IM, AC97_SLOT2TXCOMPLETE);
--	if (!wait_for_completion_timeout(&info->done, AC97_TIMEOUT))
--		dev_warn(info->dev, "timeout writing register %x\n", reg);
--
--	mutex_unlock(&info->lock);
--}
--
--static void ep93xx_ac97_warm_reset(struct snd_ac97 *ac97)
--{
--	struct ep93xx_ac97_info *info = ep93xx_ac97_info;
--
--	mutex_lock(&info->lock);
--
--	/*
--	 * We are assuming that before this functions gets called, the codec
--	 * BIT_CLK is stopped by forcing the codec into powerdown mode. We can
--	 * control the SYNC signal directly via AC97SYNC register. Using
--	 * TIMEDSYNC the controller will keep the SYNC high > 1us.
--	 */
--	ep93xx_ac97_write_reg(info, AC97SYNC, AC97SYNC_TIMEDSYNC);
--	ep93xx_ac97_write_reg(info, AC97IM, AC97_CODECREADY);
--	if (!wait_for_completion_timeout(&info->done, AC97_TIMEOUT))
--		dev_warn(info->dev, "codec warm reset timeout\n");
--
--	mutex_unlock(&info->lock);
--}
--
--static void ep93xx_ac97_cold_reset(struct snd_ac97 *ac97)
--{
--	struct ep93xx_ac97_info *info = ep93xx_ac97_info;
--
--	mutex_lock(&info->lock);
--
--	/*
--	 * For doing cold reset, we disable the AC97 controller interface, clear
--	 * WINT and CODECREADY bits, and finally enable the interface again.
--	 */
--	ep93xx_ac97_write_reg(info, AC97GCR, 0);
--	ep93xx_ac97_write_reg(info, AC97EOI, AC97EOI_CODECREADY | AC97EOI_WINT);
--	ep93xx_ac97_write_reg(info, AC97GCR, AC97GCR_AC97IFE);
--
--	/*
--	 * Now, assert the reset and wait for the codec to become ready.
--	 */
--	ep93xx_ac97_write_reg(info, AC97RESET, AC97RESET_TIMEDRESET);
--	ep93xx_ac97_write_reg(info, AC97IM, AC97_CODECREADY);
--	if (!wait_for_completion_timeout(&info->done, AC97_TIMEOUT))
--		dev_warn(info->dev, "codec cold reset timeout\n");
--
--	/*
--	 * Give the codec some time to come fully out from the reset. This way
--	 * we ensure that the subsequent reads/writes will work.
--	 */
--	usleep_range(15000, 20000);
--
--	mutex_unlock(&info->lock);
--}
--
--static irqreturn_t ep93xx_ac97_interrupt(int irq, void *dev_id)
--{
--	struct ep93xx_ac97_info *info = dev_id;
--	unsigned status, mask;
--
--	/*
--	 * Just mask out the interrupt and wake up the waiting thread.
--	 * Interrupts are cleared via reading/writing to slot 1 & 2 registers by
--	 * the waiting thread.
--	 */
--	status = ep93xx_ac97_read_reg(info, AC97GIS);
--	mask = ep93xx_ac97_read_reg(info, AC97IM);
--	mask &= ~status;
--	ep93xx_ac97_write_reg(info, AC97IM, mask);
--
--	complete(&info->done);
--	return IRQ_HANDLED;
--}
--
--static struct snd_ac97_bus_ops ep93xx_ac97_ops = {
--	.read		= ep93xx_ac97_read,
--	.write		= ep93xx_ac97_write,
--	.reset		= ep93xx_ac97_cold_reset,
--	.warm_reset	= ep93xx_ac97_warm_reset,
--};
--
--static int ep93xx_ac97_trigger(struct snd_pcm_substream *substream,
--			       int cmd, struct snd_soc_dai *dai)
--{
--	struct ep93xx_ac97_info *info = snd_soc_dai_get_drvdata(dai);
--	unsigned v = 0;
+-	int ret = 0;
 -
 -	switch (cmd) {
 -	case SNDRV_PCM_TRIGGER_START:
 -	case SNDRV_PCM_TRIGGER_RESUME:
 -	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--			/*
--			 * Enable compact mode, TX slots 3 & 4, and the TX FIFO
--			 * itself.
--			 */
--			v |= AC97TXCR_CM;
--			v |= AC97TXCR_TX3 | AC97TXCR_TX4;
--			v |= AC97TXCR_TEN;
--			ep93xx_ac97_write_reg(info, AC97TXCR(1), v);
--		} else {
--			/*
--			 * Enable compact mode, RX slots 3 & 4, and the RX FIFO
--			 * itself.
--			 */
--			v |= AC97RXCR_CM;
--			v |= AC97RXCR_RX3 | AC97RXCR_RX4;
--			v |= AC97RXCR_REN;
--			ep93xx_ac97_write_reg(info, AC97RXCR(1), v);
--		}
+-		davinci_vcif_start(substream);
 -		break;
--
 -	case SNDRV_PCM_TRIGGER_STOP:
 -	case SNDRV_PCM_TRIGGER_SUSPEND:
 -	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--			/*
--			 * As per Cirrus EP93xx errata described below:
--			 *
--			 * https://www.cirrus.com/en/pubs/errata/ER667E2B.pdf
--			 *
--			 * we will wait for the TX FIFO to be empty before
--			 * clearing the TEN bit.
--			 */
--			unsigned long timeout = jiffies + AC97_TIMEOUT;
--
--			do {
--				v = ep93xx_ac97_read_reg(info, AC97SR(1));
--				if (time_after(jiffies, timeout)) {
--					dev_warn(info->dev, "TX timeout\n");
--					break;
--				}
--			} while (!(v & (AC97SR_TXFE | AC97SR_TXUE)));
--
--			/* disable the TX FIFO */
--			ep93xx_ac97_write_reg(info, AC97TXCR(1), 0);
--		} else {
--			/* disable the RX FIFO */
--			ep93xx_ac97_write_reg(info, AC97RXCR(1), 0);
--		}
+-		davinci_vcif_stop(substream);
 -		break;
--
 -	default:
--		dev_warn(info->dev, "unknown command %d\n", cmd);
--		return -EINVAL;
+-		ret = -EINVAL;
 -	}
 -
--	return 0;
+-	return ret;
 -}
 -
--static int ep93xx_ac97_dai_probe(struct snd_soc_dai *dai)
+-#define DAVINCI_VCIF_RATES	SNDRV_PCM_RATE_8000_48000
+-
+-static const struct snd_soc_dai_ops davinci_vcif_dai_ops = {
+-	.trigger	= davinci_vcif_trigger,
+-	.hw_params	= davinci_vcif_hw_params,
+-};
+-
+-static int davinci_vcif_dai_probe(struct snd_soc_dai *dai)
 -{
--	struct ep93xx_ac97_info *info = snd_soc_dai_get_drvdata(dai);
+-	struct davinci_vcif_dev *dev = snd_soc_dai_get_drvdata(dai);
 -
--	info->dma_params_tx.filter_data = &ep93xx_ac97_pcm_out;
--	info->dma_params_rx.filter_data = &ep93xx_ac97_pcm_in;
--
--	dai->playback_dma_data = &info->dma_params_tx;
--	dai->capture_dma_data = &info->dma_params_rx;
+-	dai->playback_dma_data = &dev->dma_data[SNDRV_PCM_STREAM_PLAYBACK];
+-	dai->capture_dma_data = &dev->dma_data[SNDRV_PCM_STREAM_CAPTURE];
 -
 -	return 0;
 -}
 -
--static const struct snd_soc_dai_ops ep93xx_ac97_dai_ops = {
--	.trigger	= ep93xx_ac97_trigger,
+-static struct snd_soc_dai_driver davinci_vcif_dai = {
+-	.probe = davinci_vcif_dai_probe,
+-	.playback = {
+-		.channels_min = 1,
+-		.channels_max = 2,
+-		.rates = DAVINCI_VCIF_RATES,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
+-	.capture = {
+-		.channels_min = 1,
+-		.channels_max = 2,
+-		.rates = DAVINCI_VCIF_RATES,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
+-	.ops = &davinci_vcif_dai_ops,
+-
 -};
 -
--static struct snd_soc_dai_driver ep93xx_ac97_dai = {
--	.name		= "ep93xx-ac97",
--	.id		= 0,
--	.probe		= ep93xx_ac97_dai_probe,
--	.playback	= {
--		.stream_name	= "AC97 Playback",
--		.channels_min	= 2,
--		.channels_max	= 2,
--		.rates		= SNDRV_PCM_RATE_8000_48000,
--		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
--	},
--	.capture	= {
--		.stream_name	= "AC97 Capture",
--		.channels_min	= 2,
--		.channels_max	= 2,
--		.rates		= SNDRV_PCM_RATE_8000_48000,
--		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
--	},
--	.ops			= &ep93xx_ac97_dai_ops,
--};
--
--static const struct snd_soc_component_driver ep93xx_ac97_component = {
--	.name			= "ep93xx-ac97",
+-static const struct snd_soc_component_driver davinci_vcif_component = {
+-	.name			= "davinci-vcif",
 -	.legacy_dai_naming	= 1,
 -};
 -
--static int ep93xx_ac97_probe(struct platform_device *pdev)
+-static int davinci_vcif_probe(struct platform_device *pdev)
 -{
--	struct ep93xx_ac97_info *info;
--	int irq;
+-	struct davinci_vc *davinci_vc = pdev->dev.platform_data;
+-	struct davinci_vcif_dev *davinci_vcif_dev;
 -	int ret;
 -
--	info = devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
--	if (!info)
+-	davinci_vcif_dev = devm_kzalloc(&pdev->dev,
+-					sizeof(struct davinci_vcif_dev),
+-					GFP_KERNEL);
+-	if (!davinci_vcif_dev)
 -		return -ENOMEM;
 -
--	info->regs = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(info->regs))
--		return PTR_ERR(info->regs);
+-	/* DMA tx params */
+-	davinci_vcif_dev->davinci_vc = davinci_vc;
+-	davinci_vcif_dev->dma_data[SNDRV_PCM_STREAM_PLAYBACK].filter_data =
+-				&davinci_vc->davinci_vcif.dma_tx_channel;
+-	davinci_vcif_dev->dma_data[SNDRV_PCM_STREAM_PLAYBACK].addr =
+-				davinci_vc->davinci_vcif.dma_tx_addr;
 -
--	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0)
--		return irq < 0 ? irq : -ENODEV;
+-	/* DMA rx params */
+-	davinci_vcif_dev->dma_data[SNDRV_PCM_STREAM_CAPTURE].filter_data =
+-				&davinci_vc->davinci_vcif.dma_rx_channel;
+-	davinci_vcif_dev->dma_data[SNDRV_PCM_STREAM_CAPTURE].addr =
+-				davinci_vc->davinci_vcif.dma_rx_addr;
 -
--	ret = devm_request_irq(&pdev->dev, irq, ep93xx_ac97_interrupt,
--			       IRQF_TRIGGER_HIGH, pdev->name, info);
--	if (ret)
--		goto fail;
+-	dev_set_drvdata(&pdev->dev, davinci_vcif_dev);
 -
--	dev_set_drvdata(&pdev->dev, info);
--
--	mutex_init(&info->lock);
--	init_completion(&info->done);
--	info->dev = &pdev->dev;
--
--	ep93xx_ac97_info = info;
--	platform_set_drvdata(pdev, info);
--
--	ret = snd_soc_set_ac97_ops(&ep93xx_ac97_ops);
--	if (ret)
--		goto fail;
--
--	ret = snd_soc_register_component(&pdev->dev, &ep93xx_ac97_component,
--					 &ep93xx_ac97_dai, 1);
--	if (ret)
--		goto fail;
--
--	ret = devm_ep93xx_pcm_platform_register(&pdev->dev);
--	if (ret)
--		goto fail_unregister;
--
--	return 0;
--
--fail_unregister:
--	snd_soc_unregister_component(&pdev->dev);
--fail:
--	ep93xx_ac97_info = NULL;
--	snd_soc_set_ac97_ops(NULL);
--	return ret;
--}
--
--static int ep93xx_ac97_remove(struct platform_device *pdev)
--{
--	struct ep93xx_ac97_info	*info = platform_get_drvdata(pdev);
--
--	snd_soc_unregister_component(&pdev->dev);
--
--	/* disable the AC97 controller */
--	ep93xx_ac97_write_reg(info, AC97GCR, 0);
--
--	ep93xx_ac97_info = NULL;
--
--	snd_soc_set_ac97_ops(NULL);
--
--	return 0;
--}
--
--static struct platform_driver ep93xx_ac97_driver = {
--	.probe	= ep93xx_ac97_probe,
--	.remove	= ep93xx_ac97_remove,
--	.driver = {
--		.name = "ep93xx-ac97",
--	},
--};
--
--module_platform_driver(ep93xx_ac97_driver);
--
--MODULE_DESCRIPTION("EP93xx AC97 ASoC Driver");
--MODULE_AUTHOR("Mika Westerberg <mika.westerberg@iki.fi>");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:ep93xx-ac97");
-diff --git a/sound/soc/cirrus/simone.c b/sound/soc/cirrus/simone.c
-deleted file mode 100644
-index 801c90877d77..000000000000
---- a/sound/soc/cirrus/simone.c
-+++ /dev/null
-@@ -1,86 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * simone.c -- ASoC audio for Simplemachines Sim.One board
-- *
-- * Copyright (c) 2010 Mika Westerberg
-- *
-- * Based on snappercl15 machine driver by Ryan Mallon.
-- */
--
--#include <linux/init.h>
--#include <linux/module.h>
--#include <linux/platform_device.h>
--#include <linux/soc/cirrus/ep93xx.h>
--
--#include <sound/core.h>
--#include <sound/pcm.h>
--#include <sound/soc.h>
--
--#include <asm/mach-types.h>
--
--SND_SOC_DAILINK_DEFS(hifi,
--	DAILINK_COMP_ARRAY(COMP_CPU("ep93xx-ac97")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("ac97-codec", "ac97-hifi")),
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("ep93xx-ac97")));
--
--static struct snd_soc_dai_link simone_dai = {
--	.name		= "AC97",
--	.stream_name	= "AC97 HiFi",
--	SND_SOC_DAILINK_REG(hifi),
--};
--
--static struct snd_soc_card snd_soc_simone = {
--	.name		= "Sim.One",
--	.owner		= THIS_MODULE,
--	.dai_link	= &simone_dai,
--	.num_links	= 1,
--};
--
--static struct platform_device *simone_snd_ac97_device;
--
--static int simone_probe(struct platform_device *pdev)
--{
--	struct snd_soc_card *card = &snd_soc_simone;
--	int ret;
--
--	simone_snd_ac97_device = platform_device_register_simple("ac97-codec",
--								 -1, NULL, 0);
--	if (IS_ERR(simone_snd_ac97_device))
--		return PTR_ERR(simone_snd_ac97_device);
--
--	card->dev = &pdev->dev;
--
--	ret = snd_soc_register_card(card);
--	if (ret) {
--		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
--			ret);
--		platform_device_unregister(simone_snd_ac97_device);
--	}
--
--	return ret;
--}
--
--static int simone_remove(struct platform_device *pdev)
--{
--	struct snd_soc_card *card = platform_get_drvdata(pdev);
--
--	snd_soc_unregister_card(card);
--	platform_device_unregister(simone_snd_ac97_device);
--
--	return 0;
--}
--
--static struct platform_driver simone_driver = {
--	.driver		= {
--		.name	= "simone-audio",
--	},
--	.probe		= simone_probe,
--	.remove		= simone_remove,
--};
--
--module_platform_driver(simone_driver);
--
--MODULE_DESCRIPTION("ALSA SoC Simplemachines Sim.One");
--MODULE_AUTHOR("Mika Westerberg <mika.westerberg@iki.fi>");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:simone-audio");
-diff --git a/sound/soc/cirrus/snappercl15.c b/sound/soc/cirrus/snappercl15.c
-deleted file mode 100644
-index a286f5beeaeb..000000000000
---- a/sound/soc/cirrus/snappercl15.c
-+++ /dev/null
-@@ -1,134 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * snappercl15.c -- SoC audio for Bluewater Systems Snapper CL15 module
-- *
-- * Copyright (C) 2008 Bluewater Systems Ltd
-- * Author: Ryan Mallon
-- */
--
--#include <linux/platform_device.h>
--#include <linux/module.h>
--#include <linux/soc/cirrus/ep93xx.h>
--#include <sound/core.h>
--#include <sound/pcm.h>
--#include <sound/soc.h>
--
--#include <asm/mach-types.h>
--
--#include "../codecs/tlv320aic23.h"
--
--#define CODEC_CLOCK 5644800
--
--static int snappercl15_hw_params(struct snd_pcm_substream *substream,
--				 struct snd_pcm_hw_params *params)
--{
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
--	int err;
--
--	err = snd_soc_dai_set_sysclk(codec_dai, 0, CODEC_CLOCK, 
--				     SND_SOC_CLOCK_IN);
--	if (err)
--		return err;
--
--	err = snd_soc_dai_set_sysclk(cpu_dai, 0, CODEC_CLOCK, 
--				     SND_SOC_CLOCK_OUT);
--	if (err)
--		return err;
--
--	return 0;
--}
--
--static const struct snd_soc_ops snappercl15_ops = {
--	.hw_params	= snappercl15_hw_params,
--};
--
--static const struct snd_soc_dapm_widget tlv320aic23_dapm_widgets[] = {
--	SND_SOC_DAPM_HP("Headphone Jack", NULL),
--	SND_SOC_DAPM_LINE("Line In", NULL),
--	SND_SOC_DAPM_MIC("Mic Jack", NULL),
--};
--
--static const struct snd_soc_dapm_route audio_map[] = {
--	{"Headphone Jack", NULL, "LHPOUT"},
--	{"Headphone Jack", NULL, "RHPOUT"},
--
--	{"LLINEIN", NULL, "Line In"},
--	{"RLINEIN", NULL, "Line In"},
--
--	{"MICIN", NULL, "Mic Jack"},
--};
--
--SND_SOC_DAILINK_DEFS(aic23,
--	DAILINK_COMP_ARRAY(COMP_CPU("ep93xx-i2s")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic23-codec.0-001a",
--				      "tlv320aic23-hifi")),
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("ep93xx-i2s")));
--
--static struct snd_soc_dai_link snappercl15_dai = {
--	.name		= "tlv320aic23",
--	.stream_name	= "AIC23",
--	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--			  SND_SOC_DAIFMT_CBC_CFC,
--	.ops		= &snappercl15_ops,
--	SND_SOC_DAILINK_REG(aic23),
--};
--
--static struct snd_soc_card snd_soc_snappercl15 = {
--	.name		= "Snapper CL15",
--	.owner		= THIS_MODULE,
--	.dai_link	= &snappercl15_dai,
--	.num_links	= 1,
--
--	.dapm_widgets		= tlv320aic23_dapm_widgets,
--	.num_dapm_widgets	= ARRAY_SIZE(tlv320aic23_dapm_widgets),
--	.dapm_routes		= audio_map,
--	.num_dapm_routes	= ARRAY_SIZE(audio_map),
--};
--
--static int snappercl15_probe(struct platform_device *pdev)
--{
--	struct snd_soc_card *card = &snd_soc_snappercl15;
--	int ret;
--
--	ret = ep93xx_i2s_acquire();
--	if (ret)
+-	ret = devm_snd_soc_register_component(&pdev->dev,
+-					      &davinci_vcif_component,
+-					      &davinci_vcif_dai, 1);
+-	if (ret != 0) {
+-		dev_err(&pdev->dev, "could not register dai\n");
 -		return ret;
--
--	card->dev = &pdev->dev;
--
--	ret = snd_soc_register_card(card);
--	if (ret) {
--		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
--			ret);
--		ep93xx_i2s_release();
 -	}
 -
--	return ret;
--}
--
--static int snappercl15_remove(struct platform_device *pdev)
--{
--	struct snd_soc_card *card = platform_get_drvdata(pdev);
--
--	snd_soc_unregister_card(card);
--	ep93xx_i2s_release();
+-	ret = edma_pcm_platform_register(&pdev->dev);
+-	if (ret) {
+-		dev_err(&pdev->dev, "register PCM failed: %d\n", ret);
+-		return ret;
+-	}
 -
 -	return 0;
 -}
 -
--static struct platform_driver snappercl15_driver = {
+-static struct platform_driver davinci_vcif_driver = {
+-	.probe		= davinci_vcif_probe,
 -	.driver		= {
--		.name	= "snappercl15-audio",
+-		.name	= "davinci-vcif",
 -	},
--	.probe		= snappercl15_probe,
--	.remove		= snappercl15_remove,
 -};
 -
--module_platform_driver(snappercl15_driver);
+-module_platform_driver(davinci_vcif_driver);
 -
--MODULE_AUTHOR("Ryan Mallon");
--MODULE_DESCRIPTION("ALSA SoC Snapper CL15");
+-MODULE_AUTHOR("Miguel Aguilar");
+-MODULE_DESCRIPTION("Texas Instruments DaVinci ASoC Voice Codec Interface");
 -MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:snappercl15-audio");
 -- 
 2.29.2
 

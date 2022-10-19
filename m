@@ -2,93 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EC3E603A6B
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 09:16:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0C0603A75
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 09:17:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA135AB64;
-	Wed, 19 Oct 2022 09:15:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA135AB64
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9A12AB80;
+	Wed, 19 Oct 2022 09:16:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9A12AB80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666163769;
-	bh=d3/Z0ftXUDI7slnkA6KlZUazip4w40n+UE4CsR4w5Rw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=T3jzWBPho5fZcuhO5cQ2gHP8KGPuzabiOM42QldTc7TPFK+cxeOfM/clkrw1r/IiK
-	 9TMKAAYjxWa+oZNOhnU6AkwFFhFiz3DH1hhf4HAYMbrVRbsGg13MsEceMpKJk0YUz7
-	 0Ab5SkY4rnQIR4vFb/K62GFXB0F2foNiLx0UbclM=
+	s=default; t=1666163852;
+	bh=PNz7uS1aj4ZKrQKIThk6c8Nr7eXMO0Gj7OJFtPYa1bU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=u2U4aarisih7ZdCImdImG92uA1uSUAVKkMfPpT3oQR2uPTq/5lQT2p9CA7BrnDphk
+	 dKG5NoBVS2e7EaFJSHpUy5h0bVBAkGRKsW54AaCmynxF42I8t8ejaUFNJDTD021ndF
+	 rSNqG/YGbbUmegMiTciVtd9AG3qfvmqohPIp0e50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EBEEF80137;
-	Wed, 19 Oct 2022 09:15:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30E72F804CC;
+	Wed, 19 Oct 2022 09:16:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20953F804CC; Wed, 19 Oct 2022 09:15:15 +0200 (CEST)
+ id 0370AF80166; Wed, 19 Oct 2022 09:16:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65B2BF80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 09:15:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65B2BF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id BACB9F804CC
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 09:16:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BACB9F804CC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Hd1D8RDB"
-Received: by mail-wm1-x333.google.com with SMTP id
- o20-20020a05600c4fd400b003b4a516c479so13930515wmq.1
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 00:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qzG7rF/hL8AaILutgmFHP6Nzj7X2cB1iupzaPr0EybQ=;
- b=Hd1D8RDBZUiOgSklpaiMmMXGgKPJP7htFBWoSGkCxqDPip1mFLver9vAhpI/BudG4Y
- E6Tqf6+dOpiJwF708AlDuej6WaU/X33lqFanuH4Ic1057FwVfLFDLU/Axp5fR1g2iTZq
- 1R4nYVewDuXIqd94yGenrt33+gW8w3+sjg8UJR2KDSf+MQae9vQFhwd2cItsUHpDV+Ri
- WXoIhFLy0ozob6V/FAmLdrX/3OqxPdrlYgUq2Zrl+z4ODNTzEMjPD+KQ1n/HueSVpg++
- 2jYi7EWi2R/y3b33RGUfhAeztps642ZGufHet6lfjUf3yRts1l1n/OC2myMtPQ8xFKyU
- YsmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qzG7rF/hL8AaILutgmFHP6Nzj7X2cB1iupzaPr0EybQ=;
- b=agpR6jYG0wEJpf/1QsCiqFK2GPUQ3BcPHoyz70ukrpvKY4IqTkCJttcP4mIWhBAIFJ
- nSPRyt1hhRLaer/PKdHOGSga1xQ/OzWVS28Yvcpd1NWxQwq3x6L4m9LegusUXOO95njQ
- mSg1Gi0Wg+KA8TmeJmNMarIvBOI5a2N7ue5cx8QT3aEmu4JpMTF8+SgzBYsk2Vu4SWt8
- +F1vkK6RaB5+VmFd3xL6c09T0WFLYXgNTK+it+lw+vRXXwH5w9y5l6haUC94+OCK+ERE
- j2Eb2GmP7saLGhZaz74oe1CQAbKgJ2sqE4i4NcZ1aQxCZ0VSQE7dmqXn9GT0wfvKLcKF
- z9+A==
-X-Gm-Message-State: ACrzQf13EowH0CoquM5hscmu8+t9nRegc6p8VB/+p+t5pwkI/8TMERLJ
- 0was2DWh7SraxL/OEsRtwns=
-X-Google-Smtp-Source: AMsMyM77uAhaOzr8WSUOTle4NC05TESdssMRf6wmJL4tpYpF7Ha9ugCvBiXdebOzOSl4APveHHHK2A==
-X-Received: by 2002:a7b:c34a:0:b0:3c6:e069:d41c with SMTP id
- l10-20020a7bc34a000000b003c6e069d41cmr20834649wmj.180.1666163710295; 
- Wed, 19 Oct 2022 00:15:10 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- h12-20020a05600c314c00b003c6ee9e254dsm13468311wmo.32.2022.10.19.00.15.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Oct 2022 00:15:09 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Paul Cercueil <paul@crapouillou.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="CVe1tmmx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=5UtqZavdKpTg1FruydvA10Sn7lC8SdZCH7ZT7Um1HY0=; b=CVe1tmmxyiuv2se9MJNcky/8sZ
+ aMQilixXg7sg+p8wxP8AFDAcgQjMs1RHlUCzHCH1/fguhTEngFJXBmcjHcPhpiYVAqhfnBga92abV
+ khjwxXZpM9/V0JZK3YTFqpmCJhETlF14QYECPq4+BVEsMVkf9Ny3tv/gV40YZirmKYHD6sb1f7wz8
+ XGQFAsvcKsTOjG1jIGQ5x3V88LE2+V3cLuByzSnC4hdmbyeOxN+/CQojMjTGXjLav6299SO1pPxXh
+ /VZfQvZwkFVxaS/Lp2+OPkJoW6M5CKs21YfphE3lQlB/1cgvqqGOhf5yLKpbyshC7duTU+XUQ3XgN
+ EWCQgYVQ==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+ by www381.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <lars@metafoo.de>)
+ id 1ol3JZ-000Fv7-RH; Wed, 19 Oct 2022 09:16:33 +0200
+Received: from [2001:a61:2a91:5601:9e5c:8eff:fe01:8578]
+ by sslproxy01.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1ol3JZ-0009TQ-Fo; Wed, 19 Oct 2022 09:16:33 +0200
+Message-ID: <fbdd3785-af5b-66de-f882-a008c87642dd@metafoo.de>
+Date: Wed, 19 Oct 2022 09:16:32 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH][next] ASoC: codecs: jz4725b: Fix spelling mistake "Sourc"
+ -> "Source"
+Content-Language: en-US
+To: Colin Ian King <colin.i.king@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, linux-mips@vger.kernel.org,
  alsa-devel@alsa-project.org
-Subject: [PATCH][next] ASoC: codecs: jz4725b: Fix spelling mistake "Sourc" ->
- "Source"
-Date: Wed, 19 Oct 2022 08:15:08 +0100
-Message-Id: <20221019071508.1003680-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.37.3
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20221019071508.1003680-1-colin.i.king@gmail.com>
+From: Lars-Peter Clausen <lars@metafoo.de>
+In-Reply-To: <20221019071508.1003680-1-colin.i.king@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.103.7/26693/Tue Oct 18 10:02:42 2022)
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -105,26 +96,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a spelling mistake in codec routing description. Fix it.
+On 10/19/22 09:15, Colin Ian King wrote:
+> There is a spelling mistake in codec routing description. Fix it.
+There is also "Routee" in the same string
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>   sound/soc/codecs/jz4725b.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
+> index 685ba1d3a644..64b14b1c74b9 100644
+> --- a/sound/soc/codecs/jz4725b.c
+> +++ b/sound/soc/codecs/jz4725b.c
+> @@ -359,7 +359,7 @@ static const struct snd_soc_dapm_route jz4725b_codec_dapm_routes[] = {
+>   
+>   	{"Mixer to ADC", NULL, "Mixer"},
+>   	{"ADC Source Capture Route", "Mixer", "Mixer to ADC"},
+> -	{"ADC Sourc Capture Routee", "Line In", "Line In"},
+> +	{"ADC Source Capture Routee", "Line In", "Line In"},
+>   	{"ADC Source Capture Route", "Mic 1", "Mic 1"},
+>   	{"ADC Source Capture Route", "Mic 2", "Mic 2"},
+>   	{"ADC", NULL, "ADC Source Capture Route"},
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/soc/codecs/jz4725b.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index 685ba1d3a644..64b14b1c74b9 100644
---- a/sound/soc/codecs/jz4725b.c
-+++ b/sound/soc/codecs/jz4725b.c
-@@ -359,7 +359,7 @@ static const struct snd_soc_dapm_route jz4725b_codec_dapm_routes[] = {
- 
- 	{"Mixer to ADC", NULL, "Mixer"},
- 	{"ADC Source Capture Route", "Mixer", "Mixer to ADC"},
--	{"ADC Sourc Capture Routee", "Line In", "Line In"},
-+	{"ADC Source Capture Routee", "Line In", "Line In"},
- 	{"ADC Source Capture Route", "Mic 1", "Mic 1"},
- 	{"ADC Source Capture Route", "Mic 2", "Mic 2"},
- 	{"ADC", NULL, "ADC Source Capture Route"},
--- 
-2.37.3
 

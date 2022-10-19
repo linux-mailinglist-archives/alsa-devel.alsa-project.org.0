@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A47605064
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 21:29:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF49605101
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 22:07:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9322A94FD;
-	Wed, 19 Oct 2022 21:28:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9322A94FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id F23FEB12F;
+	Wed, 19 Oct 2022 22:06:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F23FEB12F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666207760;
-	bh=syB2i6cH+0+QkWFn3wVdBPZxzg/GbjAmxDeXWkUQIkg=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666210065;
+	bh=y1+VYj3WcpmFqxc8mjctJlZ58JDh9xyPU+J6w3H/nxU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vL3jtQh7vrS3tzEl19DzaXTo//UzzXrjWToEble9LqW/Tl9Ua186s4YlGuNEwLwgX
-	 bwLrQ3AhapPPv+B9now81bW/ogAomloI0JiiDnNLx4p4sJ83OBNsGQUT78r/CAvjU3
-	 sG5oktSadt0wesRmmErSErUrvYa+8ATYFnksH4Tg=
+	b=ITY9NMUG9aYvZEzq5g6DBYUvg7unwWhzu9YXCM9VU0hHgv5tTY/wM1VpIFMfXF6W+
+	 L/jdrpPRZ7DT9DdnYJRHp3TDDUX57mJokTBFVsmNuNxdPLF0tNeAvuaBONnhk1uLYV
+	 hgfHAT0hCKqrbhO6azTvdAme5aBnOs7rNLnEhUyI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91213F80517;
-	Wed, 19 Oct 2022 21:27:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78739F804E0;
+	Wed, 19 Oct 2022 22:06:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0D61F804CC; Wed, 19 Oct 2022 21:27:55 +0200 (CEST)
+ id 52E15F804CC; Wed, 19 Oct 2022 22:06:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B3D1F80166
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 21:27:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B3D1F80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GFQQLKos"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 915BBB82551;
- Wed, 19 Oct 2022 19:27:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2491BC433C1;
- Wed, 19 Oct 2022 19:27:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666207671;
- bh=syB2i6cH+0+QkWFn3wVdBPZxzg/GbjAmxDeXWkUQIkg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GFQQLKoshWwfMrOt0gyroqkmUDILDn44Wtx0eAoA2umICklYKWX4mAL2ErjT6PXgw
- gJiKPCYCU+HvdqoF8C183W8Er9PkbPaB/OPBedNFCaJ634SRKfsPCyLnmvIyAfFyRz
- CFVjoZW7F+Mp0rx3yVHEzKxQusNYZaVI0vlK8NbrRAm4DQqAzVZlEROAoZJRFShuPT
- RgcfLoxd9Tz5Mx2Y5jOEpPQdjzDnQ1w/ohlSVVZpfOknC90OUej2ZfsFN1ssgDsNmv
- QYck284LaoAi5MNCjEV8fl8HA51XNbvHvoh+RZZJtiIRuT8vPzsvkxlPfvzjzitpXX
- XgaUrgcgm2qhQ==
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20221019154926.163539-1-pierre-louis.bossart@linux.intel.com>
-References: <20221019154926.163539-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
-Message-Id: <166620766987.1753821.16296563857149944013.b4-ty@kernel.org>
-Date: Wed, 19 Oct 2022 20:27:49 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A3E4F80166
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 22:06:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A3E4F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TobfTDnz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666210007; x=1697746007;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=y1+VYj3WcpmFqxc8mjctJlZ58JDh9xyPU+J6w3H/nxU=;
+ b=TobfTDnzQZLy153rLx+ngD5iPJlrhs9kJy4K+LPfVIp6cn0jdk3YYd96
+ 8MzavYUHCduay/vVpySA8/zL8rrr6/bI7YcsVw63EGOUTHH7xEBcff1aG
+ 7m/kXnqVSpI5Te9VkihfwLi6cvfJMPFrWAveaCgyL+H0SFWl6Ys8UXJak
+ T7Zq13XLDZ69/ugmGz5C8/wxzofe4dm61g0kf80ufPqNJhY6bcEWyuZRt
+ Hw5/unPGTQaWogTeO/cGcdpng/NysQtfXxRQpGsvfpkFbh4ligUyX90fl
+ wMpaFdEI7vkI7Hn3UzZdM/hJuzFkzsXrs8uh+9E8axkRqNHSSt39GMITr A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="306508701"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="306508701"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 13:06:30 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607261706"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607261706"
+Received: from afsinurr-mobl.amr.corp.intel.com (HELO [10.212.16.185])
+ ([10.212.16.185])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 13:06:30 -0700
+Message-ID: <eb7971c2-f5fe-afb5-9333-4b941b958355@linux.intel.com>
+Date: Wed, 19 Oct 2022 15:06:29 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: tiwai@suse.de, Chao Song <chao.song@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.2.2
+Subject: Re: [PATCH v2] ASoC: core: clarify the driver name initialization
+Content-Language: en-US
+To: Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20220929143754.345144-1-perex@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220929143754.345144-1-perex@perex.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +93,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 19 Oct 2022 10:49:26 -0500, Pierre-Louis Bossart wrote:
-> ADL-N uses a different signing key, which means we can't reuse the
-> regular ADL descriptor used for ADL-P/M/S.
+Hi Jaroslav,
+
+On 9/29/22 09:37, Jaroslav Kysela wrote:
+> The driver field in the struct snd_ctl_card_info is a valid
+> user space identifier. Actually, many ASoC drivers do not care
+> and let to initialize this field using a standard wrapping method.
+> Unfortunately, in this way, this field becomes unusable and
+> unreadable for the drivers with longer card names. Also,
+> there is a possibility to have clashes (driver field has
+> only limit of 15 characters).
 > 
-> 
+> This change will print an error when the wrapping is used.
+> The developers of the affected drivers should fix the problem.
 
-Applied to
+How should we fix this problem?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I see all kinds of errors thrown in our first CI results based on 6.1-rc1:
 
-Thanks!
+[   12.684893] kernel: cml_rt1011_rt5682 cml_rt1011_rt5682: ASoC: driver
+name too long 'sof-cml_rt1011_rt5682' -> 'sof-cml_rt1011_'
 
-[1/1] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor
-      commit: 05de5cf6fb7d73d2bf0a0c882433f31db5c93f63
+[   12.219660] kernel: bxt_da7219_max98357a glk_da7219_mx98357a: ASoC:
+driver name too long 'sof-glkda7219max' -> 'sof-glkda7219ma'
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I have no idea what is expected here in terms of naming. It's far from
+obvious to respect the 15-character limit AND have something
+readable/sensible given the proliferation of hardware skews.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Any suggestions?
 
 Thanks,
-Mark
+-Pierre
+

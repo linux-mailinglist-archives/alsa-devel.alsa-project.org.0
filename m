@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB2F1604C25
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 17:51:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA21604C38
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 17:52:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06F5BADFB;
-	Wed, 19 Oct 2022 17:50:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06F5BADFB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CCE6AE00;
+	Wed, 19 Oct 2022 17:51:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CCE6AE00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666194679;
-	bh=wScyHxczwHL75RmoXOfql5d13NwOHcmOL0uKxW2svyU=;
+	s=default; t=1666194728;
+	bh=dL9TR0vXaZI+UJpDpWwIt7YRbkDuvjL73+92DMaLhGc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RTc8T3YYypWEda80kv+lSWY/dZEshEPOqAaMC5ohXLolRGRew7jvVRC5UidvEalL4
-	 +lto/HSYf+Ty2J/g/qv5LH5LOeLfBmfJ3oZNw5JvvbKa4Qo81AhkrQwITjALL3OSIt
-	 nvMBTOGbBDgyfvts2ARwaw3uhWq99KlKbYzgMe8Y=
+	b=o6DWGzO2RNKWXNo6vARc0GtYpDHxBySXuqHK6vBByfFVCZesLX1NNRN8SsohjDRGu
+	 yTROco6z8+puxCFQbNoE4l8mV/EszQ/7tMpwwW78lGAA7Zk3zcEoN7xaspDLBmoGV0
+	 G/WbGyFzrDAGEoD5MsTymXxqIYb+N5Od+6hysHng=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 914A2F804CB;
-	Wed, 19 Oct 2022 17:50:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52117F8055B;
+	Wed, 19 Oct 2022 17:50:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A84B5F804FA; Wed, 19 Oct 2022 17:50:26 +0200 (CEST)
+ id 44FE5F8053C; Wed, 19 Oct 2022 17:50:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCC8CF80137
- for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 17:50:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCC8CF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8CF5F80137
+ for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 17:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8CF5F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D/ZLocZF"
+ header.b="CGQsdB5O"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id D3869CE227D;
- Wed, 19 Oct 2022 15:50:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EB3C433D7;
- Wed, 19 Oct 2022 15:50:13 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 4DF92CE22C8;
+ Wed, 19 Oct 2022 15:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C44C433C1;
+ Wed, 19 Oct 2022 15:50:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666194615;
- bh=wScyHxczwHL75RmoXOfql5d13NwOHcmOL0uKxW2svyU=;
+ s=k20201202; t=1666194617;
+ bh=dL9TR0vXaZI+UJpDpWwIt7YRbkDuvjL73+92DMaLhGc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=D/ZLocZFqh2oVDNt4qIJijuw6psZZCGYbZq/vMqTpVdAHmJab5OKwDkNJa9FZhS+R
- 6U9yEV97Zoz/IEcwhoeRgpoyVELIlzUiofWUpEDoeO/xfuI2W+6opBwCt/2eiA8TLG
- J1a9DdqVaTC1bmqmtJ0hkDgvAe6LBA79wEeuPfrl0em6jFFkI/z+cmjhPouDLSSs/R
- htcs8QqrN7D7r8PspZR8YmDpa+M/VWwrBoaqVICPdvAOs1sLzRPmLKOBMWkTlCZKex
- C+kvGspb0YsLZxErffHZPmGRcPApRb7YMk7FD6zo8S59GfxMd6L9lo8sWLVpu0kL37
- uJEHAzB105RvQ==
+ b=CGQsdB5OMOEksPOLaub87hQ2GaswWn+qu+jv6P7DM4/cQvxkZX1WxrEEpSeGruw8S
+ 7Q6wwyGjrgdG8AZpftDjjRhO3SrF/Xk/AAmMY5hrbGKRJhU+G2HriEg4EZRi6tXr/P
+ zWaoFMaO2HoCidynt5BjbJRs7MSeJbZiwm6LFFk/x2HmXLdE/eZg24wsv317Q/6y0H
+ qp5je7qkVSHSpmZuABfPKM3lBjBPir1Te2KgrMiySHKD3+/ED0Xind0BRs4Bk7fOjn
+ l/Wy+Cd7JY6oFCm165cwfMXW3siTGJBvjtP3/dICa7Zq4akJWo1bfmsNZKs+EMCJph
+ IsKCcZLgcz8Mw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Paul Cercueil <paul@crapouillou.net>,
- Jaroslav Kysela <perex@perex.cz>, 
- Colin Ian King <colin.i.king@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-mips@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20221019071639.1003730-1-colin.i.king@gmail.com>
-References: <20221019071639.1003730-1-colin.i.king@gmail.com>
-Subject: Re: [PATCH][next][V2] ASoC: codecs: jz4725b: Fix spelling mistake
- "Sourc" -> "Source", "Routee" -> "Route"
-Message-Id: <166619461311.884966.9257209469691313865.b4-ty@kernel.org>
-Date: Wed, 19 Oct 2022 16:50:13 +0100
+To: shumingf@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20221019095715.31082-1-shumingf@realtek.com>
+References: <20221019095715.31082-1-shumingf@realtek.com>
+Subject: Re: [PATCH 1/2] ASoC: rt1308-sdw: add the default value of some
+ registers
+Message-Id: <166619461541.884966.2105886090446844759.b4-ty@kernel.org>
+Date: Wed, 19 Oct 2022 16:50:15 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
+ flove@realtek.com, pierre-louis.bossart@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,10 +88,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 19 Oct 2022 08:16:39 +0100, Colin Ian King wrote:
-> There are two spelling mistakes in codec routing description. Fix it.
+On Wed, 19 Oct 2022 17:57:15 +0800, shumingf@realtek.com wrote:
+> From: Shuming Fan <shumingf@realtek.com>
 > 
+> The driver missed the default value of register 0xc070/0xc360.
+> This patch adds that default value to avoid invalid register access
+> when the device doesn't be enumerated yet.
+> BugLink: https://github.com/thesofproject/linux/issues/3924
 > 
+> [...]
 
 Applied to
 
@@ -100,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: jz4725b: Fix spelling mistake "Sourc" -> "Source", "Routee" -> "Route"
-      commit: df496157a5afa1b6d1f4c46ad6549c2c346d1e59
+[1/2] ASoC: rt1308-sdw: add the default value of some registers
+      commit: 75d8b1662ca5c20cf8365575222abaef18ff1f50
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

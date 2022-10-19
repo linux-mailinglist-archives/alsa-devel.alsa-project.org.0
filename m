@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62C1604D59
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 18:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A5D604D5B
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Oct 2022 18:27:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 906FDAE7D;
-	Wed, 19 Oct 2022 18:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 906FDAE7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28B61AEBA;
+	Wed, 19 Oct 2022 18:26:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28B61AEBA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666196822;
-	bh=+rUq1YVNCJ9rQIC/+32AHdlkU7UOww2HYWFDWhCL9qQ=;
+	s=default; t=1666196835;
+	bh=51b85KHKhYR8032WQSK5frj93IKq1fKubTQc0S6jM+U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IOlOFZOB7N0LsOHHKIAWAVgqHUoqskS7SJ0TEncgo9GU7laJKvAXwL8ULL7ckUtRw
-	 Rx5ahRceNJHnmsjRt9285EJ64wJBZkMBT4Ap/rrgLsJuGqPHzRdEzmPjIDmQJmjMBv
-	 EAOb89z+RUKMCmLyGaSQYBdbTIvcUy8Mc2oAy4aE=
+	b=EqUNpcy24d8jFuuE86SWfZo8lbTXh6NvwYog6dxCqlmqzhxg4ZaM+H3ZTGAo08eQZ
+	 9yn25W0rx8PD70z5yW70KQfQvvcaA2lvksndv8zXfAVg2993Vdg9I4eTJrOWErL2gM
+	 WszEy8TqbytIdjByn1Jv0RIVUK6stuKj9hEAr6dM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 508E2F8053D;
+	by alsa1.perex.cz (Postfix) with ESMTP id C93BFF80587;
 	Wed, 19 Oct 2022 18:24:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B30FF80579; Wed, 19 Oct 2022 18:24:01 +0200 (CEST)
+ id 25B9EF80571; Wed, 19 Oct 2022 18:24:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B88FF80558
+ by alsa1.perex.cz (Postfix) with ESMTPS id F39BCF804CB
  for <alsa-devel@alsa-project.org>; Wed, 19 Oct 2022 18:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B88FF80558
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F39BCF804CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="f0ouIy+1"
+ header.b="aGTveiuX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666196636; x=1697732636;
+ t=1666196637; x=1697732637;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+rUq1YVNCJ9rQIC/+32AHdlkU7UOww2HYWFDWhCL9qQ=;
- b=f0ouIy+1VkyQo9LfjBGsOHRImDDP9CFgzSwumZ+5V0QiH2r1dDKX5x9d
- 0bg12g+SmDpS1UcNOlPGixke890nylB8NVf5CEUNrBMVeiXVaPYTWEWLa
- 7BBqtn7lNct3j3bI/Q/ztJrLqtNNekumL9zAII4vvekVg4q3hiyXlAPeG
- 8zjq5V8nTZJzhJ7HNnVLAbpMZ1YnhFeeN0D1IjYLajSNYn1GTZeVjhfkR
- 48wwt0azatu1Of+sa/s9wnM6HxfoCNmzSTHyCQ2qbIIWOjnQuxzqaQc01
- ZazBhuN/Jspz9seeE+TCSE7XXeu3vblAhTcEK4KdZFe7yTGTpB1H8Fwr6 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286856258"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286856258"
+ bh=51b85KHKhYR8032WQSK5frj93IKq1fKubTQc0S6jM+U=;
+ b=aGTveiuXhBMcoJSit8bD+Bg1O8Bn+709IhDhgSB1oDOpWPpAnlOe0IG5
+ aKv2fa4hJIhXPYD8K32mwmRvS5pG2tMTJyygARUYna8s/+NnPklVci6yI
+ LgZj3Nf9bSi1CsBVhUz5mIWnVXiTqMLFXHOWtfi5weNhZOoSy4SQTOwm0
+ ONZTVBRMc0d7CQYpzqxcpRQc8pzSl476HFPL071ml9yNakH5pxqzp25KH
+ n6Kyb/pJUK8n+S/wXhV0cRxI2odHeQX0VeWMqbaytxYvY7/0v+s1k8gYv
+ XjtYoj+a07QCZusNA2q1pzFSiAyOPBM6Wzqn8rAMTniBTMwXx1VHS4zAk w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286856264"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286856264"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 09:21:29 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="698153861"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="698153861"
+ 19 Oct 2022 09:21:30 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="698153867"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="698153867"
 Received: from afsinurr-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.16.185])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Oct 2022 09:21:29 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/10] ALSA: hda: hdac_ext_controller: remove useless loop
-Date: Wed, 19 Oct 2022 11:21:14 -0500
-Message-Id: <20221019162115.185917-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 10/10] ALSA/ASoC: hda: move SPIB/DRMS functionality from ext
+ layer
+Date: Wed, 19 Oct 2022 11:21:15 -0500
+Message-Id: <20221019162115.185917-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221019162115.185917-1-pierre-louis.bossart@linux.intel.com>
 References: <20221019162115.185917-1-pierre-louis.bossart@linux.intel.com>
@@ -92,40 +93,666 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-commit 0b00a5615dc40 ("ALSA: hdac_ext: add hdac extended controller")
-introduced a for() loop on the number of HDaudio codecs that seems
-completely useless.
+The SPIB and DRMS capabilities are orthogonal to the DSP enablement
+and can be used whether the stream is coupled or not.
 
-a) the body of the loop does not make use of the loop index, and
-b) the LSDIID register is related to the SDI line, so there can only
-be one codec per multi-link descriptor.
+The existing code partitioning makes limited sense, the capabilities
+are parsed at the sound/hda level but helpers are located in
+sound/hda/ext.
+
+This patch moves all the SPIB/DRMS functionality to the sound/hda
+layer. This reduces the complexity of the sound/hda/ext layer which is
+now limited to handling the multi-link extensions and stream
+coupling/decoupling helpers.
+
+Note that this is an iso-functionality code move and rename, the
+HDaudio legacy driver would need additional changes to make use of
+these capabilities.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/hda/ext/hdac_ext_controller.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ include/sound/hdaudio.h                |  26 +++++
+ include/sound/hdaudio_ext.h            |  34 ------
+ sound/hda/ext/hdac_ext_stream.c        | 139 -------------------------
+ sound/hda/hdac_stream.c                | 136 ++++++++++++++++++++++++
+ sound/soc/intel/avs/loader.c           |  16 +--
+ sound/soc/intel/skylake/skl-messages.c |   6 +-
+ sound/soc/intel/skylake/skl-pcm.c      |  17 ++-
+ sound/soc/sof/intel/hda-pcm.c          |   3 +-
+ sound/soc/sof/intel/hda-stream.c       |  16 +--
+ 9 files changed, 190 insertions(+), 203 deletions(-)
 
-diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
-index 08d3313f2df7e..6199bb60ccf00 100644
---- a/sound/hda/ext/hdac_ext_controller.c
-+++ b/sound/hda/ext/hdac_ext_controller.c
-@@ -135,12 +135,10 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_link_free_all);
- struct hdac_ext_link *snd_hdac_ext_bus_get_hlink_by_addr(struct hdac_bus *bus, int addr)
- {
- 	struct hdac_ext_link *hlink;
--	int i;
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index ddff03e546e9f..6be0fd37cd35c 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -495,6 +495,13 @@ static inline u16 snd_hdac_reg_readw(struct hdac_bus *bus, void __iomem *addr)
+ 	snd_hdac_chip_writeb(chip, reg, \
+ 			     (snd_hdac_chip_readb(chip, reg) & ~(mask)) | (val))
  
- 	list_for_each_entry(hlink, &bus->hlink_list, list)
--		for (i = 0; i < HDA_MAX_CODECS; i++)
--			if (hlink->lsdiid & (0x1 << addr))
--				return hlink;
-+		if (hlink->lsdiid & (0x1 << addr))
-+			return hlink;
- 	return NULL;
++/* update register macro */
++#define snd_hdac_updatel(addr, reg, mask, val)		\
++	writel(((readl(addr + reg) & ~(mask)) | (val)), addr + reg)
++
++#define snd_hdac_updatew(addr, reg, mask, val)		\
++	writew(((readw(addr + reg) & ~(mask)) | (val)), addr + reg)
++
+ /*
+  * HD-audio stream
+  */
+@@ -511,6 +518,13 @@ struct hdac_stream {
+ 
+ 	void __iomem *sd_addr;	/* stream descriptor pointer */
+ 
++	void __iomem *spib_addr; /* software position in buffers stream pointer */
++	void __iomem *fifo_addr; /* software position Max fifos stream pointer */
++
++	void __iomem *dpibr_addr; /* DMA position in buffer resume pointer */
++	u32 dpib;		/* DMA position in buffer */
++	u32 lpib;		/* Linear position in buffer */
++
+ 	u32 sd_int_sta_mask;	/* stream int status mask */
+ 
+ 	/* pcm support */
+@@ -575,6 +589,18 @@ void snd_hdac_stream_timecounter_init(struct hdac_stream *azx_dev,
+ int snd_hdac_get_stream_stripe_ctl(struct hdac_bus *bus,
+ 				struct snd_pcm_substream *substream);
+ 
++void snd_hdac_stream_spbcap_enable(struct hdac_bus *chip,
++				   bool enable, int index);
++int snd_hdac_stream_set_spib(struct hdac_bus *bus,
++			     struct hdac_stream *azx_dev, u32 value);
++int snd_hdac_stream_get_spbmaxfifo(struct hdac_bus *bus,
++				   struct hdac_stream *azx_dev);
++void snd_hdac_stream_drsm_enable(struct hdac_bus *bus,
++				 bool enable, int index);
++int snd_hdac_stream_set_dpibr(struct hdac_bus *bus,
++			      struct hdac_stream *azx_dev, u32 value);
++int snd_hdac_stream_set_lpib(struct hdac_stream *azx_dev, u32 value);
++
+ /*
+  * macros for easy use
+  */
+diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+index 79aea619adda4..90fd47e053703 100644
+--- a/include/sound/hdaudio_ext.h
++++ b/include/sound/hdaudio_ext.h
+@@ -23,9 +23,6 @@ void snd_hdac_ext_bus_device_remove(struct hdac_bus *bus);
+ void snd_hdac_ext_bus_ppcap_enable(struct hdac_bus *chip, bool enable);
+ void snd_hdac_ext_bus_ppcap_int_enable(struct hdac_bus *chip, bool enable);
+ 
+-void snd_hdac_ext_stream_spbcap_enable(struct hdac_bus *chip,
+-				 bool enable, int index);
+-
+ int snd_hdac_ext_bus_get_ml_capabilities(struct hdac_bus *bus);
+ struct hdac_ext_link *snd_hdac_ext_bus_get_hlink_by_addr(struct hdac_bus *bus, int addr);
+ struct hdac_ext_link *snd_hdac_ext_bus_get_hlink_by_name(struct hdac_bus *bus,
+@@ -43,11 +40,6 @@ enum hdac_ext_stream_type {
+  * @hstream: hdac_stream
+  * @pphc_addr: processing pipe host stream pointer
+  * @pplc_addr: processing pipe link stream pointer
+- * @spib_addr: software position in buffers stream pointer
+- * @fifo_addr: software position Max fifos stream pointer
+- * @dpibr_addr: DMA position in buffer resume pointer
+- * @dpib: DMA position in buffer
+- * @lpib: Linear position in buffer
+  * @decoupled: stream host and link is decoupled
+  * @link_locked: link is locked
+  * @link_prepared: link is prepared
+@@ -59,13 +51,6 @@ struct hdac_ext_stream {
+ 	void __iomem *pphc_addr;
+ 	void __iomem *pplc_addr;
+ 
+-	void __iomem *spib_addr;
+-	void __iomem *fifo_addr;
+-
+-	void __iomem *dpibr_addr;
+-
+-	u32 dpib;
+-	u32 lpib;
+ 	bool decoupled:1;
+ 	bool link_locked:1;
+ 	bool link_prepared;
+@@ -90,16 +75,6 @@ void snd_hdac_ext_stream_decouple_locked(struct hdac_bus *bus,
+ void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
+ 				struct hdac_ext_stream *azx_dev, bool decouple);
+ 
+-int snd_hdac_ext_stream_set_spib(struct hdac_bus *bus,
+-				 struct hdac_ext_stream *hext_stream, u32 value);
+-int snd_hdac_ext_stream_get_spbmaxfifo(struct hdac_bus *bus,
+-				       struct hdac_ext_stream *hext_stream);
+-void snd_hdac_ext_stream_drsm_enable(struct hdac_bus *bus,
+-				bool enable, int index);
+-int snd_hdac_ext_stream_set_dpibr(struct hdac_bus *bus,
+-				struct hdac_ext_stream *hext_stream, u32 value);
+-int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *hext_stream, u32 value);
+-
+ void snd_hdac_ext_stream_start(struct hdac_ext_stream *hext_stream);
+ void snd_hdac_ext_stream_clear(struct hdac_ext_stream *hext_stream);
+ void snd_hdac_ext_stream_reset(struct hdac_ext_stream *hext_stream);
+@@ -131,15 +106,6 @@ int snd_hdac_ext_bus_link_put(struct hdac_bus *bus, struct hdac_ext_link *hlink)
+ 
+ void snd_hdac_ext_bus_link_power(struct hdac_device *codec, bool enable);
+ 
+-/* update register macro */
+-#define snd_hdac_updatel(addr, reg, mask, val)		\
+-	writel(((readl(addr + reg) & ~(mask)) | (val)), \
+-		addr + reg)
+-
+-#define snd_hdac_updatew(addr, reg, mask, val)		\
+-	writew(((readw(addr + reg) & ~(mask)) | (val)), \
+-		addr + reg)
+-
+ #define snd_hdac_adsp_writeb(chip, reg, value) \
+ 	snd_hdac_reg_writeb(chip, (chip)->dsp_ba + (reg), value)
+ #define snd_hdac_adsp_readb(chip, reg) \
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index b36378bf6da6c..2a071a09224de 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -39,20 +39,6 @@ static void snd_hdac_ext_stream_init(struct hdac_bus *bus,
+ 				AZX_PPLC_INTERVAL * idx;
+ 	}
+ 
+-	if (bus->spbcap) {
+-		hext_stream->spib_addr = bus->spbcap + AZX_SPB_BASE +
+-					AZX_SPB_INTERVAL * idx +
+-					AZX_SPB_SPIB;
+-
+-		hext_stream->fifo_addr = bus->spbcap + AZX_SPB_BASE +
+-					AZX_SPB_INTERVAL * idx +
+-					AZX_SPB_MAXFIFO;
+-	}
+-
+-	if (bus->drsmcap)
+-		hext_stream->dpibr_addr = bus->drsmcap + AZX_DRSM_BASE +
+-					AZX_DRSM_INTERVAL * idx;
+-
+ 	hext_stream->decoupled = false;
+ 	snd_hdac_stream_init(bus, &hext_stream->hstream, idx, direction, tag);
  }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_get_hlink_by_addr);
+@@ -381,128 +367,3 @@ void snd_hdac_ext_stream_release(struct hdac_ext_stream *hext_stream, int type)
+ 
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_release);
+-
+-/**
+- * snd_hdac_ext_stream_spbcap_enable - enable SPIB for a stream
+- * @bus: HD-audio core bus
+- * @enable: flag to enable/disable SPIB
+- * @index: stream index for which SPIB need to be enabled
+- */
+-void snd_hdac_ext_stream_spbcap_enable(struct hdac_bus *bus,
+-				 bool enable, int index)
+-{
+-	u32 mask = 0;
+-
+-	if (!bus->spbcap) {
+-		dev_err(bus->dev, "Address of SPB capability is NULL\n");
+-		return;
+-	}
+-
+-	mask |= (1 << index);
+-
+-	if (enable)
+-		snd_hdac_updatel(bus->spbcap, AZX_REG_SPB_SPBFCCTL, mask, mask);
+-	else
+-		snd_hdac_updatel(bus->spbcap, AZX_REG_SPB_SPBFCCTL, mask, 0);
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_spbcap_enable);
+-
+-/**
+- * snd_hdac_ext_stream_set_spib - sets the spib value of a stream
+- * @bus: HD-audio core bus
+- * @hext_stream: hdac_ext_stream
+- * @value: spib value to set
+- */
+-int snd_hdac_ext_stream_set_spib(struct hdac_bus *bus,
+-				 struct hdac_ext_stream *hext_stream, u32 value)
+-{
+-
+-	if (!bus->spbcap) {
+-		dev_err(bus->dev, "Address of SPB capability is NULL\n");
+-		return -EINVAL;
+-	}
+-
+-	writel(value, hext_stream->spib_addr);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_set_spib);
+-
+-/**
+- * snd_hdac_ext_stream_get_spbmaxfifo - gets the spib value of a stream
+- * @bus: HD-audio core bus
+- * @hext_stream: hdac_ext_stream
+- *
+- * Return maxfifo for the stream
+- */
+-int snd_hdac_ext_stream_get_spbmaxfifo(struct hdac_bus *bus,
+-				 struct hdac_ext_stream *hext_stream)
+-{
+-
+-	if (!bus->spbcap) {
+-		dev_err(bus->dev, "Address of SPB capability is NULL\n");
+-		return -EINVAL;
+-	}
+-
+-	return readl(hext_stream->fifo_addr);
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_get_spbmaxfifo);
+-
+-/**
+- * snd_hdac_ext_stream_drsm_enable - enable DMA resume for a stream
+- * @bus: HD-audio core bus
+- * @enable: flag to enable/disable DRSM
+- * @index: stream index for which DRSM need to be enabled
+- */
+-void snd_hdac_ext_stream_drsm_enable(struct hdac_bus *bus,
+-				bool enable, int index)
+-{
+-	u32 mask = 0;
+-
+-	if (!bus->drsmcap) {
+-		dev_err(bus->dev, "Address of DRSM capability is NULL\n");
+-		return;
+-	}
+-
+-	mask |= (1 << index);
+-
+-	if (enable)
+-		snd_hdac_updatel(bus->drsmcap, AZX_REG_DRSM_CTL, mask, mask);
+-	else
+-		snd_hdac_updatel(bus->drsmcap, AZX_REG_DRSM_CTL, mask, 0);
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_drsm_enable);
+-
+-/**
+- * snd_hdac_ext_stream_set_dpibr - sets the dpibr value of a stream
+- * @bus: HD-audio core bus
+- * @hext_stream: hdac_ext_stream
+- * @value: dpib value to set
+- */
+-int snd_hdac_ext_stream_set_dpibr(struct hdac_bus *bus,
+-				  struct hdac_ext_stream *hext_stream, u32 value)
+-{
+-
+-	if (!bus->drsmcap) {
+-		dev_err(bus->dev, "Address of DRSM capability is NULL\n");
+-		return -EINVAL;
+-	}
+-
+-	writel(value, hext_stream->dpibr_addr);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_set_dpibr);
+-
+-/**
+- * snd_hdac_ext_stream_set_lpib - sets the lpib value of a stream
+- * @hext_stream: hdac_ext_stream
+- * @value: lpib value to set
+- */
+-int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *hext_stream, u32 value)
+-{
+-	snd_hdac_stream_writel(&hext_stream->hstream, SD_LPIB, value);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_set_lpib);
+diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
+index 1b8be39c38a96..35fe2bd582aca 100644
+--- a/sound/hda/hdac_stream.c
++++ b/sound/hda/hdac_stream.c
+@@ -103,6 +103,20 @@ void snd_hdac_stream_init(struct hdac_bus *bus, struct hdac_stream *azx_dev,
+ 	azx_dev->stream_tag = tag;
+ 	snd_hdac_dsp_lock_init(azx_dev);
+ 	list_add_tail(&azx_dev->list, &bus->stream_list);
++
++	if (bus->spbcap) {
++		azx_dev->spib_addr = bus->spbcap + AZX_SPB_BASE +
++					AZX_SPB_INTERVAL * idx +
++					AZX_SPB_SPIB;
++
++		azx_dev->fifo_addr = bus->spbcap + AZX_SPB_BASE +
++					AZX_SPB_INTERVAL * idx +
++					AZX_SPB_MAXFIFO;
++	}
++
++	if (bus->drsmcap)
++		azx_dev->dpibr_addr = bus->drsmcap + AZX_DRSM_BASE +
++					AZX_DRSM_INTERVAL * idx;
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_stream_init);
+ 
+@@ -718,6 +732,128 @@ void snd_hdac_stream_sync(struct hdac_stream *azx_dev, bool start,
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_stream_sync);
+ 
++/**
++ * snd_hdac_stream_spbcap_enable - enable SPIB for a stream
++ * @bus: HD-audio core bus
++ * @enable: flag to enable/disable SPIB
++ * @index: stream index for which SPIB need to be enabled
++ */
++void snd_hdac_stream_spbcap_enable(struct hdac_bus *bus,
++				   bool enable, int index)
++{
++	u32 mask = 0;
++
++	if (!bus->spbcap) {
++		dev_err(bus->dev, "Address of SPB capability is NULL\n");
++		return;
++	}
++
++	mask |= (1 << index);
++
++	if (enable)
++		snd_hdac_updatel(bus->spbcap, AZX_REG_SPB_SPBFCCTL, mask, mask);
++	else
++		snd_hdac_updatel(bus->spbcap, AZX_REG_SPB_SPBFCCTL, mask, 0);
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_spbcap_enable);
++
++/**
++ * snd_hdac_stream_set_spib - sets the spib value of a stream
++ * @bus: HD-audio core bus
++ * @azx_dev: hdac_stream
++ * @value: spib value to set
++ */
++int snd_hdac_stream_set_spib(struct hdac_bus *bus,
++			     struct hdac_stream *azx_dev, u32 value)
++{
++	if (!bus->spbcap) {
++		dev_err(bus->dev, "Address of SPB capability is NULL\n");
++		return -EINVAL;
++	}
++
++	writel(value, azx_dev->spib_addr);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_set_spib);
++
++/**
++ * snd_hdac_stream_get_spbmaxfifo - gets the spib value of a stream
++ * @bus: HD-audio core bus
++ * @azx_dev: hdac_stream
++ *
++ * Return maxfifo for the stream
++ */
++int snd_hdac_stream_get_spbmaxfifo(struct hdac_bus *bus,
++				   struct hdac_stream *azx_dev)
++{
++	if (!bus->spbcap) {
++		dev_err(bus->dev, "Address of SPB capability is NULL\n");
++		return -EINVAL;
++	}
++
++	return readl(azx_dev->fifo_addr);
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_get_spbmaxfifo);
++
++/**
++ * snd_hdac_stream_drsm_enable - enable DMA resume for a stream
++ * @bus: HD-audio core bus
++ * @enable: flag to enable/disable DRSM
++ * @index: stream index for which DRSM need to be enabled
++ */
++void snd_hdac_stream_drsm_enable(struct hdac_bus *bus,
++				 bool enable, int index)
++{
++	u32 mask = 0;
++
++	if (!bus->drsmcap) {
++		dev_err(bus->dev, "Address of DRSM capability is NULL\n");
++		return;
++	}
++
++	mask |= (1 << index);
++
++	if (enable)
++		snd_hdac_updatel(bus->drsmcap, AZX_REG_DRSM_CTL, mask, mask);
++	else
++		snd_hdac_updatel(bus->drsmcap, AZX_REG_DRSM_CTL, mask, 0);
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_drsm_enable);
++
++/**
++ * snd_hdac_stream_set_dpibr - sets the dpibr value of a stream
++ * @bus: HD-audio core bus
++ * @azx_dev: hdac_stream
++ * @value: dpib value to set
++ */
++int snd_hdac_stream_set_dpibr(struct hdac_bus *bus,
++			      struct hdac_stream *azx_dev, u32 value)
++{
++	if (!bus->drsmcap) {
++		dev_err(bus->dev, "Address of DRSM capability is NULL\n");
++		return -EINVAL;
++	}
++
++	writel(value, azx_dev->dpibr_addr);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_set_dpibr);
++
++/**
++ * snd_hdac_stream_set_lpib - sets the lpib value of a stream
++ * @azx_dev: hdac_stream
++ * @value: lpib value to set
++ */
++int snd_hdac_stream_set_lpib(struct hdac_stream *azx_dev, u32 value)
++{
++	snd_hdac_stream_writel(azx_dev, SD_LPIB, value);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_hdac_stream_set_lpib);
++
+ #ifdef CONFIG_SND_HDA_DSP_LOADER
+ /**
+  * snd_hdac_dsp_prepare - prepare for DSP loading
+diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
+index 9e3f8ff33a87a..34923558dfa57 100644
+--- a/sound/soc/intel/avs/loader.c
++++ b/sound/soc/intel/avs/loader.c
+@@ -369,8 +369,8 @@ int avs_hda_load_basefw(struct avs_dev *adev, struct firmware *fw)
+ 		goto release_stream;
+ 
+ 	/* enable SPIB for hda stream */
+-	snd_hdac_ext_stream_spbcap_enable(bus, true, hstream->index);
+-	ret = snd_hdac_ext_stream_set_spib(bus, estream, fw->size);
++	snd_hdac_stream_spbcap_enable(bus, true, hstream->index);
++	ret = snd_hdac_stream_set_spib(bus, hstream, fw->size);
+ 	if (ret)
+ 		goto cleanup_resources;
+ 
+@@ -400,8 +400,8 @@ int avs_hda_load_basefw(struct avs_dev *adev, struct firmware *fw)
+ 
+ cleanup_resources:
+ 	/* disable SPIB for hda stream */
+-	snd_hdac_ext_stream_spbcap_enable(bus, false, hstream->index);
+-	snd_hdac_ext_stream_set_spib(bus, estream, 0);
++	snd_hdac_stream_spbcap_enable(bus, false, hstream->index);
++	snd_hdac_stream_set_spib(bus, hstream, 0);
+ 
+ 	snd_hdac_dsp_cleanup(hstream, &dmab);
+ release_stream:
+@@ -436,8 +436,8 @@ int avs_hda_load_library(struct avs_dev *adev, struct firmware *lib, u32 id)
+ 		goto release_stream;
+ 
+ 	/* enable SPIB for hda stream */
+-	snd_hdac_ext_stream_spbcap_enable(bus, true, stream->index);
+-	snd_hdac_ext_stream_set_spib(bus, estream, lib->size);
++	snd_hdac_stream_spbcap_enable(bus, true, stream->index);
++	snd_hdac_stream_set_spib(bus, stream, lib->size);
+ 
+ 	memcpy(dmab.area, lib->data, lib->size);
+ 
+@@ -451,8 +451,8 @@ int avs_hda_load_library(struct avs_dev *adev, struct firmware *lib, u32 id)
+ 	}
+ 
+ 	/* disable SPIB for hda stream */
+-	snd_hdac_ext_stream_spbcap_enable(bus, false, stream->index);
+-	snd_hdac_ext_stream_set_spib(bus, estream, 0);
++	snd_hdac_stream_spbcap_enable(bus, false, stream->index);
++	snd_hdac_stream_set_spib(bus, stream, 0);
+ 
+ 	snd_hdac_dsp_cleanup(stream, &dmab);
+ release_stream:
+diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
+index eaad180af42ed..5ab0917a2b3de 100644
+--- a/sound/soc/intel/skylake/skl-messages.c
++++ b/sound/soc/intel/skylake/skl-messages.c
+@@ -53,17 +53,15 @@ static int skl_dsp_setup_spib(struct device *dev, unsigned int size,
+ 	struct hdac_bus *bus = dev_get_drvdata(dev);
+ 	struct hdac_stream *stream = snd_hdac_get_stream(bus,
+ 			SNDRV_PCM_STREAM_PLAYBACK, stream_tag);
+-	struct hdac_ext_stream *estream;
+ 
+ 	if (!stream)
+ 		return -EINVAL;
+ 
+-	estream = stream_to_hdac_ext_stream(stream);
+ 	/* enable/disable SPIB for this hdac stream */
+-	snd_hdac_ext_stream_spbcap_enable(bus, enable, stream->index);
++	snd_hdac_stream_spbcap_enable(bus, enable, stream->index);
+ 
+ 	/* set the spib value */
+-	snd_hdac_ext_stream_set_spib(bus, estream, size);
++	snd_hdac_stream_set_spib(bus, stream, size);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index 27b03c34abd09..dc627d18518d8 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -467,6 +467,7 @@ static int skl_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	struct skl_module_cfg *mconfig;
+ 	struct hdac_bus *bus = get_bus_ctx(substream);
+ 	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
++	struct hdac_stream *hstream = hdac_stream(stream);
+ 	struct snd_soc_dapm_widget *w;
+ 	int ret;
+ 
+@@ -484,11 +485,9 @@ static int skl_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
+ 			 * dpib & lpib position to resume before starting the
+ 			 * DMA
+ 			 */
+-			snd_hdac_ext_stream_drsm_enable(bus, true,
+-						hdac_stream(stream)->index);
+-			snd_hdac_ext_stream_set_dpibr(bus, stream,
+-							stream->lpib);
+-			snd_hdac_ext_stream_set_lpib(stream, stream->lpib);
++			snd_hdac_stream_drsm_enable(bus, true, hstream->index);
++			snd_hdac_stream_set_dpibr(bus, hstream, hstream->lpib);
++			snd_hdac_stream_set_lpib(hstream, hstream->lpib);
+ 		}
+ 		fallthrough;
+ 
+@@ -520,13 +519,13 @@ static int skl_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
+ 		ret = skl_decoupled_trigger(substream, cmd);
+ 		if ((cmd == SNDRV_PCM_TRIGGER_SUSPEND) && !w->ignore_suspend) {
+ 			/* save the dpib and lpib positions */
+-			stream->dpib = readl(bus->remap_addr +
++			hstream->dpib = readl(bus->remap_addr +
+ 					AZX_REG_VS_SDXDPIB_XBASE +
+ 					(AZX_REG_VS_SDXDPIB_XINTERVAL *
+-					hdac_stream(stream)->index));
++					hstream->index));
++
++			hstream->lpib = snd_hdac_stream_get_pos_lpib(hstream);
+ 
+-			stream->lpib = snd_hdac_stream_get_pos_lpib(
+-							hdac_stream(stream));
+ 			snd_hdac_ext_stream_decouple(bus, stream, false);
+ 		}
+ 		break;
+diff --git a/sound/soc/sof/intel/hda-pcm.c b/sound/soc/sof/intel/hda-pcm.c
+index 0a9c80216a8c2..dc0b359ed9b6c 100644
+--- a/sound/soc/sof/intel/hda-pcm.c
++++ b/sound/soc/sof/intel/hda-pcm.c
+@@ -142,7 +142,6 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
+ int hda_dsp_pcm_ack(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream)
+ {
+ 	struct hdac_stream *hstream = substream->runtime->private_data;
+-	struct hdac_ext_stream *hext_stream = stream_to_hdac_ext_stream(hstream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	ssize_t appl_pos, buf_size;
+ 	u32 spib;
+@@ -156,7 +155,7 @@ int hda_dsp_pcm_ack(struct snd_sof_dev *sdev, struct snd_pcm_substream *substrea
+ 	if (!spib)
+ 		spib = buf_size;
+ 
+-	sof_io_write(sdev, hext_stream->spib_addr, spib);
++	sof_io_write(sdev, hstream->spib_addr, spib);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index be60e7785da94..8cb91788912cb 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -173,7 +173,7 @@ int hda_dsp_stream_spib_config(struct snd_sof_dev *sdev,
+ 				enable << hstream->index);
+ 
+ 	/* set the SPIB value */
+-	sof_io_write(sdev, hext_stream->spib_addr, size);
++	sof_io_write(sdev, hstream->spib_addr, size);
+ 
+ 	return 0;
+ }
+@@ -883,18 +883,19 @@ int hda_dsp_stream_init(struct snd_sof_dev *sdev)
+ 			SOF_HDA_PPLC_BASE + SOF_HDA_PPLC_MULTI * num_total +
+ 			SOF_HDA_PPLC_INTERVAL * i;
+ 
++		hstream = &hext_stream->hstream;
++
+ 		/* do we support SPIB */
+ 		if (sdev->bar[HDA_DSP_SPIB_BAR]) {
+-			hext_stream->spib_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
++			hstream->spib_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
+ 				SOF_HDA_SPIB_BASE + SOF_HDA_SPIB_INTERVAL * i +
+ 				SOF_HDA_SPIB_SPIB;
+ 
+-			hext_stream->fifo_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
++			hstream->fifo_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
+ 				SOF_HDA_SPIB_BASE + SOF_HDA_SPIB_INTERVAL * i +
+ 				SOF_HDA_SPIB_MAXFIFO;
+ 		}
+ 
+-		hstream = &hext_stream->hstream;
+ 		hstream->bus = bus;
+ 		hstream->sd_int_sta_mask = 1 << i;
+ 		hstream->index = i;
+@@ -939,18 +940,19 @@ int hda_dsp_stream_init(struct snd_sof_dev *sdev)
+ 			SOF_HDA_PPLC_BASE + SOF_HDA_PPLC_MULTI * num_total +
+ 			SOF_HDA_PPLC_INTERVAL * i;
+ 
++		hstream = &hext_stream->hstream;
++
+ 		/* do we support SPIB */
+ 		if (sdev->bar[HDA_DSP_SPIB_BAR]) {
+-			hext_stream->spib_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
++			hstream->spib_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
+ 				SOF_HDA_SPIB_BASE + SOF_HDA_SPIB_INTERVAL * i +
+ 				SOF_HDA_SPIB_SPIB;
+ 
+-			hext_stream->fifo_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
++			hstream->fifo_addr = sdev->bar[HDA_DSP_SPIB_BAR] +
+ 				SOF_HDA_SPIB_BASE + SOF_HDA_SPIB_INTERVAL * i +
+ 				SOF_HDA_SPIB_MAXFIFO;
+ 		}
+ 
+-		hstream = &hext_stream->hstream;
+ 		hstream->bus = bus;
+ 		hstream->sd_int_sta_mask = 1 << i;
+ 		hstream->index = i;
 -- 
 2.34.1
 

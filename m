@@ -2,67 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C03605E67
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 13:03:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B10605F8D
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 14:00:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35F4C9C7B;
-	Thu, 20 Oct 2022 13:03:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35F4C9C7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91EA29C38;
+	Thu, 20 Oct 2022 13:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91EA29C38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666263839;
-	bh=iXbzKJa7syL/3ob1BwrUiJFmBar0YftLLHRM01FFL+M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HuyutWoPBcFpGfvXQeKNGyUSJVV+pI7XsUsSNQNizvuvAvVmQYHE2KCGJH6buWVmJ
-	 HTfzo5NY5+hhof7oNr3cMKue2iC842sydwEt0+5GqVVPyHe76488qLDitSgKoO63wY
-	 dlLJ8gzHgHpG4+XcKCXQ3Y9klPrTn1YdPVY3Ji9Q=
+	s=default; t=1666267216;
+	bh=S1W+kOyi0wHGOiNZjX3Cm+bOIWF3zpfb/u/bT1UW4O4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=r9WH36ZEeV8KcHxLXx+pCKg3Svye2sY9Q9xSY6o4wQUriHhnaOHU6Qq0xO8SimUSD
+	 9wbp844dFRxCV3EeRnnTK1zOGUXRcrCbl8WK4e3dXpWKeHUdRDyQfWWF6QSl9pMi9p
+	 1foRZOwrZXctJlJfP68swA8CVlEiX7/8wB/uZVpM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD0D7F8032B;
-	Thu, 20 Oct 2022 13:03:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19BEDF804FA;
+	Thu, 20 Oct 2022 13:59:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06E83F800EC; Thu, 20 Oct 2022 13:03:06 +0200 (CEST)
+ id CA7B4F8032B; Thu, 20 Oct 2022 13:59:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2589CF800EC
- for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 13:03:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2589CF800EC
-Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MtPp243p3zHvBF;
- Thu, 20 Oct 2022 19:02:50 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 20 Oct 2022 19:02:43 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 20 Oct
- 2022 19:02:43 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <alsa-devel@alsa-project.org>
-Subject: [PATCH v2] ASOC: SOF: Intel: hda-codec: fix possible memory leak in
- hda_codec_device_init()
-Date: Thu, 20 Oct 2022 19:01:57 +0800
-Message-ID: <20221020110157.1450191-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77DA2F800B5
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 13:59:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77DA2F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="M70nAw73"
+Received: by mail-qk1-x730.google.com with SMTP id a5so12568710qkl.6
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 04:59:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TyMFpOElofDJZNk00pkycBZ1li0ZG0mlfPkJtReDgXg=;
+ b=M70nAw73IR0CoIQ1ALAjyz+N3PNZkFAK4loZ76XpYp1+Dt/qsWYX4pYeErmz8EBQjU
+ Gj+p/bw1TxgnwU3/VlMs6R54YCeWqYdSAw283lANOTVZZLL7gifAPfELCnmDOhzH0/gQ
+ omMd4iVLWmilF+W8Z8pN7HT0uYg/WzMGqoB+v1vQdLS6VIVcJGN9JrmKYwBdeXYi1V2T
+ OdGTAxprj9dSnJ0pjXuM8Y7Ow84kWwuQ8BBzxMFnS9izGqJtfJ2JVACpMep9KowEY52R
+ F06h9LTKVseezN6xk215VHTpfkQQJBdWUmxV7gz+Ng2naph1TMNQjwYO6OkRVATnl9kN
+ yzBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TyMFpOElofDJZNk00pkycBZ1li0ZG0mlfPkJtReDgXg=;
+ b=Eumk1dWZDl9dnkZBB8NlfOzvRzcloAVSmCvY+cBBnfdZBpT1i47C3xzDTUejNBeXNp
+ Nn4dlkhcUt93WTO33yC7fdtDH8BQGkTA4CVQhkgx/1biTXt8eTv5icbrZuUNOaNBetQi
+ u5wcb4ogsK0B0H6Xi+cPBlf5lBJtNDHdjYe10a9LD58AjkA7F8l7DPt37e117TzBA/n4
+ efZiFs61tLT5CEWglq4BfycLPVtXZgO4lZ4wVUROjH9RiY8XMs+2y3TuTfbTkJ57WVqQ
+ HOclomkhxCwhZEcNUiV6D+FWGWtmFAXAatrWgw69yepIWD6BE9HbjWVeobx4W8dpgtkv
+ g2IQ==
+X-Gm-Message-State: ACrzQf2MT4MqJk5cMtYVSHuO+zvw0bFgsPe0JM6UFkPJX3gz24B0blDy
+ FRbyeJgKUuPxcjhF3TQ8W/GblXE8/kyM7ClG5Aw/b4D4ejtCNUtS
+X-Google-Smtp-Source: AMsMyM48UrLUGogQxyXHnQZ/YxaD4IPpxciQFU4nObHIDhoME9mQfyCSu++KX6/H9lb/F3oLZXexRKCOapJJelT0MN8=
+X-Received: by 2002:a05:6638:3c45:b0:363:afb2:3269 with SMTP id
+ bg5-20020a0566383c4500b00363afb23269mr9854117jab.215.1666267143179; Thu, 20
+ Oct 2022 04:59:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com, tiwai@suse.de,
- pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
- yangyingliang@huawei.com
+References: <20221016132648.3011729-1-lis8215@gmail.com>
+ <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
+In-Reply-To: <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
+From: Siarhei Volkau <lis8215@gmail.com>
+Date: Thu, 20 Oct 2022 14:58:51 +0300
+Message-ID: <CAKNVLfbfRRE3O2uFH6MQxoa_cdqTUcvpGzmcxFm3oCLKFfHv6w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/7] ASoC: codecs: jz4725b: Various improvements and
+ fixes
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,51 +102,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If snd_hdac_device_register() fails, 'codec' and name allocated in
-dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
-by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
-and kobject_cleanup().
+=D0=B2=D1=82, 18 =D0=BE=D0=BA=D1=82. 2022 =D0=B3. =D0=B2 14:28, Mark Brown =
+<broonie@kernel.org>:
+> Applied to
+>
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-=
+next
+>
+> Thanks!
 
-Fixes: 829c67319806 ("ASoC: SOF: Intel: Introduce HDA codec init and exit routines")
-Fixes: dfe66a18780d ("ALSA: hdac_ext: add extended HDA bus")
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
-v1 -> v2:
-  remove hda_codec_device_exit() and use snd_hda_codec_dev_release() to fix leak
----
- sound/soc/sof/intel/hda-codec.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+Great! Thank you!
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 1e9afc48394c..f2ec2a6c2e0f 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -109,11 +109,6 @@ EXPORT_SYMBOL_NS(hda_codec_jack_check, SND_SOC_SOF_HDA_AUDIO_CODEC);
- #define is_generic_config(x)	0
- #endif
- 
--static void hda_codec_device_exit(struct device *dev)
--{
--	snd_hdac_device_exit(dev_to_hdac_dev(dev));
--}
--
- static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, int type)
- {
- 	struct hda_codec *codec;
-@@ -126,12 +121,11 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
- 	}
- 
- 	codec->core.type = type;
--	codec->core.dev.release = hda_codec_device_exit;
- 
- 	ret = snd_hdac_device_register(&codec->core);
- 	if (ret) {
- 		dev_err(bus->dev, "failed to register hdac device\n");
--		snd_hdac_device_exit(&codec->core);
-+		put_device(&codec->core.dev);
- 		return ERR_PTR(ret);
- 	}
- 
--- 
-2.25.1
+Unfortunately I found a critical bug in my patchset, yet easy to fix.
+So I need some help to make and send the fix.
 
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+
+What are mailing lists it needs to be sent to?
+Any additional tags needed? I know about Fixes tag.
+Do I need to keep a link on this patchset somehow?
+Do I need to mail a patch with the fix to this thread or
+create a new one?
+
+PS: the patch will look like:
+ - {"ADC Sourc Capture Routee", "Line In", "Line In"},
+ + {"ADC Source Capture Route", "Line In", "Line In"},
+
+Thanks in advance,
+Siarhei

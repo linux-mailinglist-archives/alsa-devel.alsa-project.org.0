@@ -2,86 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2030D6062A2
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 16:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7526F60630A
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 16:30:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4971D8D31;
-	Thu, 20 Oct 2022 16:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4971D8D31
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12CA68924;
+	Thu, 20 Oct 2022 16:29:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12CA68924
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666275332;
-	bh=4ffJQ1RXD/KkyXLHtdh10zhEBWT6RZnVyWCbuA2ZDXk=;
+	s=default; t=1666276212;
+	bh=YRfNYsaoqipH/JAZOGvxGYUzytun+eCvBvpDtycNUJw=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TyIlTNaYtDUNPlJ+cIur2vyo/Y1cs/UIiuwXXm5k4oXEy0syDKn0OGILpNCL9teTn
-	 RzvoiyV95An/SADlpGG+hIojVWfdmsQZkdSE/CF9oAWBpMbm8X/y8yR8ceT+wQ135G
-	 4gX+/TwPhz+IqXuo7CEXqQ6OLZOSW5kDj1zpFT20=
+	b=GC3Z3YcviWHr2WSq944ert6vayk0R6vlFh1wWbru/kYGZaY9tYKNZUwOhNJ35POhn
+	 6riaRHudqd5veCvw69Ttp0yNcb8QEUyyFLpcT7qynEloHQqmeSEUPXwEO46bVXlivG
+	 9Tpu7nvEf50iWc3UuZROs2XIKevJo/E7cuMIehC0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4E4FF80137;
-	Thu, 20 Oct 2022 16:14:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92446F804E5;
+	Thu, 20 Oct 2022 16:29:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 480A0F804D8; Thu, 20 Oct 2022 16:14:39 +0200 (CEST)
+ id 5105DF804D8; Thu, 20 Oct 2022 16:29:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B1D4F800B5
- for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 16:14:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B1D4F800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="k/8bJMEg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666275277; x=1697811277;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=4ffJQ1RXD/KkyXLHtdh10zhEBWT6RZnVyWCbuA2ZDXk=;
- b=k/8bJMEg2TgpZG8jRCRTbeEBg13SYUp5ARqIwHTVYPa0PCS7MDOpI3uv
- rcCIAm+rQleoZyL3EnfmbHZ7MojKPwC8Lgn2gg9DQ5g0IEWvkeH0hgVnJ
- jdd8DUkC81frELAHJZVAcZ1S5iISdQUWJN5+8W4Gl0FiLHKpJjZI2Juqr
- xy1rx141uZBKwpkW7V8qmUNPvrPBTvt7f4e6/iTeEM3XJzJRPxZY7SfWs
- KSs9O/CGDAy8RBRJMvxyvIS0HU50AgRS0iS+sMNPAGpv6ZqWbScr7GOi+
- 4eAJYEFPWQfEuqWBwxZ0WOTxRkv2r0yfDLe4Tn9oTn8b1+10VMB9YVj5N A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="393019875"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="393019875"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2022 07:14:31 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="958956740"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="958956740"
-Received: from awmoore-mobl1.amr.corp.intel.com (HELO [10.212.11.204])
- ([10.212.11.204])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2022 07:14:31 -0700
-Message-ID: <390775f4-5eca-b9a1-0474-69a182e66c11@linux.intel.com>
-Date: Thu, 20 Oct 2022 09:14:30 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1853F800B5
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 16:29:09 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 487FCA0042;
+ Thu, 20 Oct 2022 16:29:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 487FCA0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1666276149; bh=mgFNio+BuYR68UhSChavn7Cy0kxcP7MgNOePn9i1zaQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=o+EaAv3pINlDRPaU/YtDNgrgKVMILQ9I/ZvOsp3z0ruUva8cOmI83XStaKhPBIdw3
+ As3YdzOhA9fOLS1xhfzif1QYvnmEL5Ad0/Latu3rnSZx+JwYhE1720yc4qfuKPEyU2
+ pVq3jiUE/bczTIxr5nt2qdjAgaS991dQb1yLjUJo=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 20 Oct 2022 16:29:06 +0200 (CEST)
+Message-ID: <8d461c81-5d70-cfbb-4653-979764a6b5a6@perex.cz>
+Date: Thu, 20 Oct 2022 16:29:05 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH 2/8] ASoC: Intel: avs: Introduce PCM power management
- routines
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20221019175317.1540919-1-cezary.rojewski@intel.com>
- <20221019175317.1540919-3-cezary.rojewski@intel.com>
- <2f391106-a73f-fb11-075d-5621bf592633@linux.intel.com>
- <247013af-31a2-2013-aae5-ea55eb4eb482@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] ASoC: core: clarify the driver name initialization
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <247013af-31a2-2013-aae5-ea55eb4eb482@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, tiwai@suse.com, amadeuszx.slawinski@linux.intel.com
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20220929143754.345144-1-perex@perex.cz>
+ <eb7971c2-f5fe-afb5-9333-4b941b958355@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <eb7971c2-f5fe-afb5-9333-4b941b958355@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,51 +82,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 10/20/22 02:56, Cezary Rojewski wrote:
-> On 2022-10-19 8:02 PM, Pierre-Louis Bossart wrote:
+On 19. 10. 22 22:06, Pierre-Louis Bossart wrote:
+> Hi Jaroslav,
 > 
-> ...
-> 
->> This is clearly going to conflict with my own rename/move changes in
->> "ALSA/ASoC: hda: move SPIB/DRMS functionality from ext layer"
+> On 9/29/22 09:37, Jaroslav Kysela wrote:
+>> The driver field in the struct snd_ctl_card_info is a valid
+>> user space identifier. Actually, many ASoC drivers do not care
+>> and let to initialize this field using a standard wrapping method.
+>> Unfortunately, in this way, this field becomes unusable and
+>> unreadable for the drivers with longer card names. Also,
+>> there is a possibility to have clashes (driver field has
+>> only limit of 15 characters).
 >>
->> The SPIB and DRMS handling are not DSP-specific and should be handled in
->> the 'generic' sound/hda layer. In theory the HDaudio legacy driver
->> should have used those capabilities.
->>
->> It should be a simple rebase though for this patch.
+>> This change will print an error when the wrapping is used.
+>> The developers of the affected drivers should fix the problem.
 > 
-> No problem with waiting for the series you mention to be merged first.
-> Will rebase once it's done.
+> How should we fix this problem?
 > 
-> Also, that's a good point in regard to DRSM. This could indeed be added
-> into common sound/hda lib. Something like below perhaps?
+> I see all kinds of errors thrown in our first CI results based on 6.1-rc1:
+> 
+> [   12.684893] kernel: cml_rt1011_rt5682 cml_rt1011_rt5682: ASoC: driver
+> name too long 'sof-cml_rt1011_rt5682' -> 'sof-cml_rt1011_'
+> 
+> [   12.219660] kernel: bxt_da7219_max98357a glk_da7219_mx98357a: ASoC:
+> driver name too long 'sof-glkda7219max' -> 'sof-glkda7219ma'
+> 
+> I have no idea what is expected here in terms of naming. It's far from
+> obvious to respect the 15-character limit AND have something
+> readable/sensible given the proliferation of hardware skews.
+> 
+> Any suggestions?
 
-Between SPIB and DRSM, I would pick SPIB as the most interesting for the
-legacy HDaudio driver. This prevents the DMA hardware from playing stale
-data and would allow for xruns to be detected in cleaner ways. The
-programming sequences are relatively straightforward when the .ack is used.
+The question is, how deep the driver name should describe the hardware 
+details. The two drivers covering the majority hardware use "HDA-Intel" and 
+"USB-Audio" strings here and there are a lot of variants of the codec / user 
+space devices / mixer controls. The codec chain and eventually the audio 
+bridge can be described in other identification strings like card components 
+or the card name (note that most end users are not able to identify the 
+references to hardware - it's a GUI string).
 
-I must admit my ignorance of how DRSM works exactly. We haven't used it
-in the SOF driver where INFO_RESUME is disabled, and with a DSP I am not
-too sure how to restart precisely from the same location with all the
-intermediate buffering and processing that may happen.
+I would use "SOF-Intel-CML" and "SOF-Intel-GLK" strings or just "SOF-Intel" or 
+any other variant as you like (lower case etc.). My opinion is that it's not 
+necessary to have an unique string per driver here (the drivers should have 
+just something common like the SOF core code).
 
-> int snd_hdac_stream_resume(struct hdac_stream *azx_dev)
-> {
->         struct hdac_bus *bus = azx_dev->bus;
->         u32 mask, reg;
->         int ret;
-> 
->         mask = 1 << azx_dev->index;
-> 
->         ret = readb_poll_timeout(bus->drsmcap + AZX_REG_DRSM_CTL, reg,
-> !(reg & mask), 250, 2000);
->         if (ret)
->                 dev_dbg(bus->dev, "polling RSM 0x%08x failed: %d\n",
-> mask, ret);
->         return ret;
-> }
-> EXPORT_SYMBOL_GPL(snd_hdac_stream_resume);
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

@@ -2,73 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B6A6061CE
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 15:38:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AC726061E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 15:39:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 767C26E23;
-	Thu, 20 Oct 2022 15:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 767C26E23
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6CEA01B;
+	Thu, 20 Oct 2022 15:38:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6CEA01B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666273127;
-	bh=n9lfn8lMLmsQd2PNybIZJEzCPptTW0HDMazFlz+R+Tg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1666273176;
+	bh=grnLHE+YE1HGZ/CUEnAERWySqLU/TIJDRyK1GH4fHTA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AO8BbL8r8BDfONW5vEuu8fHjXlnvnBtlB8m1jntgqjVt9+9qlDnxP9wYC7bxdcCkM
-	 ogR2b9QpRGY6MP7jWZT7Gb5HqB/TQFK9+N8VVr7NFPTopWU22Cur192TiktmzLewqy
-	 SQCldPiKGKQhrg21ZIhIl3M8XaRXLB5KDfzDF+HA=
+	b=G4B2ih/P5Ck0P3khTcg0u8FItsEHzYyw8/h7tJbVyLnHP7KlFU4gYbhi6wxX+x1Xt
+	 V3ZWH0dHNTwWY3FAQPKiZci1mNp33tNXy3as9XwnDDFVvfYWCw32tkfCHNPKdryAkM
+	 N22nzZiOiS1TXVs8nN1znQEZB/BcPJwGSzVNUeVY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBC4DF804E5;
-	Thu, 20 Oct 2022 15:37:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9B25F800B5;
+	Thu, 20 Oct 2022 15:38:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F21BF804D8; Thu, 20 Oct 2022 15:37:51 +0200 (CEST)
+ id B5D63F80137; Thu, 20 Oct 2022 15:38:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6842F800B5
- for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 15:37:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6842F800B5
-Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.56])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MtT7G53Hgz1P6lt;
- Thu, 20 Oct 2022 21:32:58 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 20 Oct 2022 21:37:43 +0800
-Received: from [10.174.178.174] (10.174.178.174) by
- dggpemm500007.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 20 Oct 2022 21:37:43 +0800
-Subject: Re: [PATCH v2] ASoC: Intel: Skylake: fix possible memory leak in
- skl_codec_device_init()
-To: Cezary Rojewski <cezary.rojewski@intel.com>, <alsa-devel@alsa-project.org>
-References: <20221020105937.1448951-1-yangyingliang@huawei.com>
- <61e23a97-93bc-a9e9-3677-e1490a886bcf@intel.com>
-From: Yang Yingliang <yangyingliang@huawei.com>
-Message-ID: <19dbe3cb-e7a8-629d-e2e5-d5805b0000fc@huawei.com>
-Date: Thu, 20 Oct 2022 21:37:42 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <61e23a97-93bc-a9e9-3677-e1490a886bcf@intel.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Originating-IP: [10.174.178.174]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, yangyingliang@huawei.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74EF1F8032B
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 15:38:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74EF1F8032B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="RleB8S0c"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="C3QrWzxf"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3351A1FEFA;
+ Thu, 20 Oct 2022 13:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666273121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NL5GWO/Xja3xXX1RHSxJNricAQKMMFA3rarMPaUlxk8=;
+ b=RleB8S0cLK73Cezb5+q+VpxgYG/uSsOnS82L+tWeDtTUZzQ4PC7gk4A27S/R7ShBTjj7Yb
+ lc73Huty45b4L5D12oi3j7W+LWQFPsKrPOunmKt87M0yLTUEwfle2DahJYYQ48XsGCTMIS
+ P7upx2P5FH9QiR2hp6BhKhR78Q3TD1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666273121;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NL5GWO/Xja3xXX1RHSxJNricAQKMMFA3rarMPaUlxk8=;
+ b=C3QrWzxf+MZ+qygu+1RWFdXrRQCz1tPSyTgS7AOLDi0Xu2Gnhu2aM3BOuaBh9nz79YxbwK
+ riHlWE3Nz+p2qrAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1964013494;
+ Thu, 20 Oct 2022 13:38:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kAdxBWFPUWOESgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 20 Oct 2022 13:38:41 +0000
+Date: Thu, 20 Oct 2022 15:38:40 +0200
+Message-ID: <87tu3y8vj3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 00/10] ALSA/ASoC: hda: cleanup sound/hda/ext code
+In-Reply-To: <20221019162115.185917-1-pierre-louis.bossart@linux.intel.com>
+References: <20221019162115.185917-1-pierre-louis.bossart@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,87 +100,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 19 Oct 2022 18:21:05 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> The code in sound/hda/ext can be cleaned-up. This patchset suggests a
+> more consistent use of prefixes and variable names. It also removes
+> useless code, uses helpers when possible, and clarifies an incorrect
+> assumption that SPIB/DRMS capabilities are tied to Intel multi-link
+> and DSP extensions (they are not).
+> 
+> This is a rather invasive set of changes touching sound/hda,
+> sound/soc/intel/skylake, sound/soc/intel/avs and sound/soc/sof/intel,
+> but there should be no change in terms of functionality.
+> 
+> I would recommend merging these changes through the ASoC tree.
+> 
+> Pierre-Louis Bossart (10):
+>   ALSA: hda: ext: hdac_ext_controller: use helpers in loop
+>   ALSA: hda: ext: hda_ext_controller: use hlink variable/parameter
+>   ASoC: SOF: Intel: hda-dai: use hlink variable/parameter
+>   ALSA/ASoC: hda: clarify bus_get_link() and bus_link_get() helpers
+>   ALSA/ASoC: hda: ext: add 'ext' prefix to snd_hdac_link_free_all
+>   ALSA/ASoC: hda: ext: remove 'link' prefix for stream-related
+>     operations
+>   ALSA/ASoC: hda: ext: add 'bus' prefix for multi-link stream setting
+>   ALSA: hda: ext: reduce ambiguity between 'multi-link' and 'link' DMA
+>   ALSA: hda: hdac_ext_controller: remove useless loop
+>   ALSA/ASoC: hda: move SPIB/DRMS functionality from ext layer
 
-On 2022/10/20 20:10, Cezary Rojewski wrote:
-> On 2022-10-20 12:59 PM, Yang Yingliang wrote:
->> If snd_hdac_device_register() fails, 'codec' and name allocated in
->> dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
->> by calling put_device(), so they can be freed in 
->> snd_hda_codec_dev_release()
->> and kobject_cleanup().
->>
->> Fixes: e4746d94d00c ("ASoC: Intel: Skylake: Introduce HDA codec init 
->> and exit routines")
->> Fixes: dfe66a18780d ("ALSA: hdac_ext: add extended HDA bus")
->
-> I do not believe the second Fixes-tag is required as it's not 
-> connected directly with the fix you're providing.
-When the reference of device is leaked, it leads to two memory leak: 
-'codec' and 'dev->kobj.name' which
-is allocated in dev_set_name(). The name leak is introduce by the second 
-fix tag. This patch calling put_device()
-to free both of them.
->
-> Tag:
-> Suggested-by: Cezary Rojewski <cezary.rojewski@intel.com>
->
-> would be most welcome though.
->
-> Also, if there would happen to be v3, please bundle Skylake and SOF 
-> patches together into a single patchset (still not a single patch!).
-OK, It's my pleasure.
->
->> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
->
-> ...
->
->>   sound/soc/intel/skylake/skl.c | 8 +-------
->>   1 file changed, 1 insertion(+), 7 deletions(-)
->>
->> diff --git a/sound/soc/intel/skylake/skl.c 
->> b/sound/soc/intel/skylake/skl.c
->> index bbba2df33aaf..3312b57e3c0c 100644
->> --- a/sound/soc/intel/skylake/skl.c
->> +++ b/sound/soc/intel/skylake/skl.c
->> @@ -689,11 +689,6 @@ static void load_codec_module(struct hda_codec 
->> *codec)
->>     #endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
->>   -static void skl_codec_device_exit(struct device *dev)
->> -{
->> -    snd_hdac_device_exit(dev_to_hdac_dev(dev));
->> -}
->> -
->>   static struct hda_codec *skl_codec_device_init(struct hdac_bus 
->> *bus, int addr)
->>   {
->>       struct hda_codec *codec;
->> @@ -706,12 +701,11 @@ static struct hda_codec 
->> *skl_codec_device_init(struct hdac_bus *bus, int addr)
->>       }
->>         codec->core.type = HDA_DEV_ASOC;
->> -    codec->core.dev.release = skl_codec_device_exit;
->>         ret = snd_hdac_device_register(&codec->core);
->>       if (ret) {
->>           dev_err(bus->dev, "failed to register hdac device\n");
->> -        snd_hdac_device_exit(&codec->core);
->> +        put_device(&codec->core.dev);
->>           return ERR_PTR(ret);
->>       }
->
-> Shy question: why my suggestion seems reasonable, I did not test it 
-> yet, proposed it based on static analysis of the code. Did you test it?
-I did it by static detailed analysis, there is a common driver core 
-mechanism to make sure snd_hda_codec_dev_release() is called in
-device_release() when refcount hit 0, and it's ok to call 
-snd_hda_codec_dev_release(), because the member of codec that need be
-freed is still null, it won't cause any problem. Could you test this 
-patch if you wish ?
+Applied now to for-next branch.
 
-Thanks,
-Yang
->
->
-> Regards,
-> Czarek
->
-> .
+Mark, if you need those changes in your tree, feel free to pull from
+topic/hda-ext-cleanup branch of my tree.  I can add the tag if
+needed, too.
+
+
+thanks,
+
+Takashi

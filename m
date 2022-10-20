@@ -2,90 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F25D606007
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 14:21:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807AB606033
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 14:30:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25593B98B;
-	Thu, 20 Oct 2022 14:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25593B98B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CBB8B950;
+	Thu, 20 Oct 2022 14:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CBB8B950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666268470;
-	bh=UbUXk+nkxh53Xfnq/gSDEGr5+VDVokN/qAi+qfB5hDE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666269029;
+	bh=GbdJ4Peu/E38/32Na4oJOo5P/t/pYNcwFTsRn1CFdQY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ew/Bh6OD31jsQ4bTZx/BFBaWNMvB0F9c7jC7PSMSOt3t3EJe3K4pnlQvT7XYl0/qU
-	 etQQlXOT2/laEbe9DOODaQ8ddN1YoJIdmMxOYB9ysgb8ABoKnj8iWuuqMn7gu0EZUZ
-	 Vzzn+M9u68FytIhONF3Tin82KKmnuj7V8OE4A0sM=
+	b=RTE4tLqL2WmFJQ0BaWs8aIzm0bAYU64MrVGeS4yh0XRSXJqtOmUlAjAyKUkphwEZh
+	 9r5FljjH+a74mrcqvg/OCOfWwwCAYRBz8H4o7AuybQh4PC+tw7ubUBfY7g6baqrc5S
+	 B2e1pcDKebY5zQ17KHkb4WUy9u42Nq2h+VVajasQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664BEF800B5;
-	Thu, 20 Oct 2022 14:20:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9850AF800EC;
+	Thu, 20 Oct 2022 14:29:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8370AF804D8; Thu, 20 Oct 2022 14:20:13 +0200 (CEST)
+ id 6B83AF804D8; Thu, 20 Oct 2022 14:29:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46A4FF800B5
- for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 14:20:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46A4FF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C06BF800EC
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 14:29:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C06BF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eG8K9DEA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Y8woB+mU"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 555DC1FB8B;
- Thu, 20 Oct 2022 12:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666268410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=neGkqgrNDi3nFdQPFtgcfGwfoQjgMggDOVo1IeWFaPk=;
- b=eG8K9DEAlVtbvsLvKhtQmx+E792yW79D8EY7zmhMxEupGJgosn7nbEs6ryDwHQo2arqNan
- vk5F6gg2ypUefzpW/wz8BSb3X1Utx8t6ZBAvqp2ZkAZYfAbnfNPI0M7BMpXArHPzlIcMsJ
- 5IlYW5ZudS16SQ5i5Q7wW9vnMHtaY3w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666268410;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=neGkqgrNDi3nFdQPFtgcfGwfoQjgMggDOVo1IeWFaPk=;
- b=Y8woB+mUGNvEGzB0qAW40QxaZUgBp0A10jq0jpHtJD9CStCAQ/p6GQucaOdxoQjiPmd4V1
- MYKozgocO+bkK2CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D2A713AF5;
- Thu, 20 Oct 2022 12:20:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id b1dbCvo8UWO+HwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 20 Oct 2022 12:20:10 +0000
-Date: Thu, 20 Oct 2022 14:20:09 +0200
-Message-ID: <8735biadqe.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH] ALSA: ac97: fix possible memory leak in
- snd_ac97_dev_register()
-In-Reply-To: <20221019093025.1179475-1-yangyingliang@huawei.com>
-References: <20221019093025.1179475-1-yangyingliang@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: liam.girdwood@wolfsonmicro.com, alsa-devel@alsa-project.org, nico@cam.org,
- tiwai@suse.com
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TyhPJkyG"
+Received: by mail-io1-xd2f.google.com with SMTP id p16so17006641iod.6
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 05:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GbdJ4Peu/E38/32Na4oJOo5P/t/pYNcwFTsRn1CFdQY=;
+ b=TyhPJkyGmsgHkM6VTj5ZF6j/yBnW3wKzbb0eo7yGqS0KzjHLVm2YIfK5GMHosvmg+S
+ pHcCwADi6/GMWThazL155mg1YKNl9SfWT6vLAk/AGe6GOheDvUKo8rWFyHUtGEd3OJoV
+ rw1K7JPKE0ru5dqMI7ogq8TCp/Vm4m5GySiZpe/sWDWBCW15VDfs2e6X9s+SK2c+EfP4
+ JcmCJNGuK8ZkcHum3yhlyJvzy8GHjNoS6YBj1rA6ecDI7hkix3dM3QB+k5ni72UNLfxl
+ Ex6DUmn9Y8SJzZYHCxPD74tvHHdepIHEB3OmJ7AilbLhtvlFiKeCBn+BDXSH7t3iahC5
+ cq7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GbdJ4Peu/E38/32Na4oJOo5P/t/pYNcwFTsRn1CFdQY=;
+ b=rmPvpk++prRyuYBUtDzIvdxHVrGF1HF9TLwHzQZ54UFqj0x+MGAF5jnU2gCOstNoO5
+ o9DhGhPj8KhbM+UZgJJ4faBOAyeAKqzZCZwMvVhobWfewJv6dGEty0BA/HB6WOPeuXgr
+ KWA+tFNjMssubYjw72uq7vaJSBZAweHgEtHMswysrbYctCvEaev8xIeodV8AAyQeo1n5
+ +lhCfmBuVKzJ9qFyDglTyBATnBRNrgblGgwFTpFIzMiaRvfdLQioEWem2Sj9457gz6fV
+ ED0TIy1283JNecldoLIS7/XmTU+dJyfEclNkaDqLCMzMDGQNJlV9/yd8vHK0e6J9jDK2
+ KMDQ==
+X-Gm-Message-State: ACrzQf0u1kQBHKrzP+5jBRrynOgiHDt8jUHFSabOpgTWCLbOAh0hgzgE
+ JfRa4qaivFRUcytVNaCCyGy53udlWW7z5GFf6rI=
+X-Google-Smtp-Source: AMsMyM44PndMIt9F+Oo2TK6GgTPokgUODgaLemVzy82ml3MDdlkJTgd+6KE13KqICkXNxlX84EXS3TEoamZZnZbjabI=
+X-Received: by 2002:a6b:ba41:0:b0:6bd:1970:16ac with SMTP id
+ k62-20020a6bba41000000b006bd197016acmr1886486iof.15.1666268966631; Thu, 20
+ Oct 2022 05:29:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <20221016132648.3011729-1-lis8215@gmail.com>
+ <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
+ <CAKNVLfbfRRE3O2uFH6MQxoa_cdqTUcvpGzmcxFm3oCLKFfHv6w@mail.gmail.com>
+ <Y1E7nFC9DcdqegKX@sirena.org.uk>
+In-Reply-To: <Y1E7nFC9DcdqegKX@sirena.org.uk>
+From: Siarhei Volkau <lis8215@gmail.com>
+Date: Thu, 20 Oct 2022 15:29:15 +0300
+Message-ID: <CAKNVLfYc8FP6g1+nFAwEVizFg1dDtU-Qj79ZX3-_P1=y0XSKQA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/7] ASoC: codecs: jz4725b: Various improvements and
+ fixes
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,17 +105,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 19 Oct 2022 11:30:25 +0200,
-Yang Yingliang wrote:
-> 
-> If device_register() fails in snd_ac97_dev_register(), it should
-> call put_device() to give up reference, or the name allocated in
-> dev_set_name() is leaked.
-> 
-> Fixes: 0ca06a00e206 ("[ALSA] AC97 bus interface for ad-hoc drivers")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+=D1=87=D1=82, 20 =D0=BE=D0=BA=D1=82. 2022 =D0=B3. =D0=B2 15:14, Mark Brown =
+<broonie@kernel.org>:
+> This was already fixed by Colin...
 
-Thanks, applied.
-
-
-Takashi
+Wow! Thank you all, guys!

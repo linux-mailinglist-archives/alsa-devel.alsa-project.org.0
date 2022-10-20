@@ -2,79 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459A0606005
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 14:18:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F25D606007
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Oct 2022 14:21:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9557A815;
-	Thu, 20 Oct 2022 14:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9557A815
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25593B98B;
+	Thu, 20 Oct 2022 14:20:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25593B98B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666268333;
-	bh=wVmcHlw2nMWp1f7t5TKKyu1OLkzG6V28/hn1UezvJGs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666268470;
+	bh=UbUXk+nkxh53Xfnq/gSDEGr5+VDVokN/qAi+qfB5hDE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hePeoZ8CRV1k1LJbowYEqAoMALYIIuNdUspmo0t+c3nBuqfH+zS2VY+fVnOA4Dcm/
-	 hVe7Idd5sEa+LrXfilXFnM0xH9axjiptLOmUjMhg9MOpBNzPNYJk0o59X2agzd7PEj
-	 +xKRjJdo4CC+A8VVMFyartBXpcldvMNRqy5dY8u8=
+	b=Ew/Bh6OD31jsQ4bTZx/BFBaWNMvB0F9c7jC7PSMSOt3t3EJe3K4pnlQvT7XYl0/qU
+	 etQQlXOT2/laEbe9DOODaQ8ddN1YoJIdmMxOYB9ysgb8ABoKnj8iWuuqMn7gu0EZUZ
+	 Vzzn+M9u68FytIhONF3Tin82KKmnuj7V8OE4A0sM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D256F80543;
-	Thu, 20 Oct 2022 14:14:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 664BEF800B5;
+	Thu, 20 Oct 2022 14:20:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80E15F80549; Thu, 20 Oct 2022 14:14:30 +0200 (CEST)
+ id 8370AF804D8; Thu, 20 Oct 2022 14:20:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41D42F800B5
- for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 14:14:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41D42F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46A4FF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 20 Oct 2022 14:20:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46A4FF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J/TIeT+b"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="eG8K9DEA"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Y8woB+mU"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 085B2B82708;
- Thu, 20 Oct 2022 12:14:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CC3C433D6;
- Thu, 20 Oct 2022 12:14:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666268065;
- bh=wVmcHlw2nMWp1f7t5TKKyu1OLkzG6V28/hn1UezvJGs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=J/TIeT+b0yIYlY447mZpkCn1+wp8Rqn+KzsH9bO9Hbb4OjbO1KlQMW2E8dICUbYNq
- hNrLBOPa2rJ+uNHFUJnW+Uq/LcX/XLtE9XU+YoP+IOh+Bx3M6/kLdjPZscGzd2cWLH
- H21WQsFiPWTVH2IIH0WjD2TDHvmnopG8Z3PlRSYqqVhdkXdHKPzy7ZqSBT8o4TI//k
- 1NIk7XEo+gXTZ9ZNK6ILdUnZA5qqxNRsTRsk6noPaFwTH2uiwV61YH9KqFYQIbAoGq
- EGSJBLiviN3HuS7CZIAYnrUbbYT3EsnVblgqvpJsxC2WQIVQdWTCTNgifN8gMAI+Hq
- /5HIQj6785M+w==
-Date: Thu, 20 Oct 2022 13:14:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Siarhei Volkau <lis8215@gmail.com>
-Subject: Re: [PATCH v3 0/7] ASoC: codecs: jz4725b: Various improvements and
- fixes
-Message-ID: <Y1E7nFC9DcdqegKX@sirena.org.uk>
-References: <20221016132648.3011729-1-lis8215@gmail.com>
- <166609251307.155136.11548088283059583394.b4-ty@kernel.org>
- <CAKNVLfbfRRE3O2uFH6MQxoa_cdqTUcvpGzmcxFm3oCLKFfHv6w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="20Qlq5zpxv26BWqP"
-Content-Disposition: inline
-In-Reply-To: <CAKNVLfbfRRE3O2uFH6MQxoa_cdqTUcvpGzmcxFm3oCLKFfHv6w@mail.gmail.com>
-X-Cookie: Today is what happened to yesterday.
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 555DC1FB8B;
+ Thu, 20 Oct 2022 12:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666268410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=neGkqgrNDi3nFdQPFtgcfGwfoQjgMggDOVo1IeWFaPk=;
+ b=eG8K9DEAlVtbvsLvKhtQmx+E792yW79D8EY7zmhMxEupGJgosn7nbEs6ryDwHQo2arqNan
+ vk5F6gg2ypUefzpW/wz8BSb3X1Utx8t6ZBAvqp2ZkAZYfAbnfNPI0M7BMpXArHPzlIcMsJ
+ 5IlYW5ZudS16SQ5i5Q7wW9vnMHtaY3w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666268410;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=neGkqgrNDi3nFdQPFtgcfGwfoQjgMggDOVo1IeWFaPk=;
+ b=Y8woB+mUGNvEGzB0qAW40QxaZUgBp0A10jq0jpHtJD9CStCAQ/p6GQucaOdxoQjiPmd4V1
+ MYKozgocO+bkK2CQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D2A713AF5;
+ Thu, 20 Oct 2022 12:20:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id b1dbCvo8UWO+HwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 20 Oct 2022 12:20:10 +0000
+Date: Thu, 20 Oct 2022 14:20:09 +0200
+Message-ID: <8735biadqe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Subject: Re: [PATCH] ALSA: ac97: fix possible memory leak in
+ snd_ac97_dev_register()
+In-Reply-To: <20221019093025.1179475-1-yangyingliang@huawei.com>
+References: <20221019093025.1179475-1-yangyingliang@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: liam.girdwood@wolfsonmicro.com, alsa-devel@alsa-project.org, nico@cam.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,57 +101,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 19 Oct 2022 11:30:25 +0200,
+Yang Yingliang wrote:
+> 
+> If device_register() fails in snd_ac97_dev_register(), it should
+> call put_device() to give up reference, or the name allocated in
+> dev_set_name() is leaked.
+> 
+> Fixes: 0ca06a00e206 ("[ALSA] AC97 bus interface for ad-hoc drivers")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 
---20Qlq5zpxv26BWqP
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks, applied.
 
-On Thu, Oct 20, 2022 at 02:58:51PM +0300, Siarhei Volkau wrote:
-> =D0=B2=D1=82, 18 =D0=BE=D0=BA=D1=82. 2022 =D0=B3. =D0=B2 14:28, Mark Brow=
-n <broonie@kernel.org>:
 
-> > If any updates are required or you are submitting further changes they
-> > should be sent as incremental updates against current git, existing
-> > patches will not be replaced.
-
-> What are mailing lists it needs to be sent to?
-
-The same ones as for any other patch submission - alsa-devel in this
-case.
-
-> Any additional tags needed? I know about Fixes tag.
-
-No.
-
-> Do I need to keep a link on this patchset somehow?
-
-The fixes tag should be enough.
-
-> Do I need to mail a patch with the fix to this thread or
-> create a new one?
-
-Please create a new thread.
-
-> PS: the patch will look like:
->  - {"ADC Sourc Capture Routee", "Line In", "Line In"},
->  + {"ADC Source Capture Route", "Line In", "Line In"},
-
-This was already fixed by Colin...
-
---20Qlq5zpxv26BWqP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNRO5sACgkQJNaLcl1U
-h9C01Af/UywbN7ofuJYAnuTxfZYjGiVc3HZXaAVqY5cjTm2P8mBTY84rQshG4OHA
-x7WYG1lpu51e4oHyci+cAEIlJ8c2ptRm2v7NMk9DCZpU8VeSkSG1EmWQnKj0Q7qH
-tumNm/ecmEFRehPkVliFfJ/AQyb3T1Hv3Q5JYPWUTJbIY5L09msI9QNOBHfmYi70
-cCew1lfF8VT6EwuElrM/YIFBW4w2attkFLkpMSqPFsBgd6rPkjFnZf1+w/SUJU1l
-eEbJdI2S+l0hPQEVA+YaPmFhwCHq1N72C239kMLX5lICmAN/yQPpOivmuKYV79i3
-PWRyQloaqv8bzeknu6z2hIyAgpqvFw==
-=P7gj
------END PGP SIGNATURE-----
-
---20Qlq5zpxv26BWqP--
+Takashi

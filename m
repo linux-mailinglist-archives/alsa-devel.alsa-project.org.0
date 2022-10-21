@@ -2,80 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D35A6072AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 10:43:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FDF7607303
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 10:55:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89F86327C;
-	Fri, 21 Oct 2022 10:42:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89F86327C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0DEEA694;
+	Fri, 21 Oct 2022 10:54:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0DEEA694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666341791;
-	bh=ixtnbYZsDUAjtbOO7dcijDfW674zD9cWoD0xTEe/SQM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666342503;
+	bh=/SRIE4GixdyFKHVx6230fb/63Wc92w0GCP8/P+nsBks=;
+	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K3mcUXdItbqxterGi8FSaeTH550GBTRynRfDlrhSUMvwrEgwLA73YBeluOFaIC0dx
-	 dd8sv+sWWYnInzxJTnR7QLh0FTF9WsJo5JyPkoI9+HZc3CAdXGZXf+XztgD9O2YIj4
-	 lZoX573J3owZaielRRhY7r7gqr7MaJXfRo1r3rtg=
+	b=mghtrk09Va/LYz4u8uNo6P2Ss/w+gMaTtvUAaUpV/hTP7R9S2pALRaaas9MYFxyvl
+	 XCKIv6QWLG1kImttYI/owioGCWeZ7jWx+nB+JvP22T2rj5Tu2ZQq5LbIWyDrKUHFBZ
+	 78598WYdGKvKTD6oVDBetf7NlrfK4Dumz4xp7VXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91723F8053C;
-	Fri, 21 Oct 2022 10:41:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59CE7F80118;
+	Fri, 21 Oct 2022 10:54:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E32F9F80256; Fri, 21 Oct 2022 10:41:32 +0200 (CEST)
+ id 5009FF80134; Fri, 21 Oct 2022 10:54:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75B2DF80256
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75B2DF80256
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3E35F80134
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:54:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3E35F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="kc/Lz34l"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0650C6602532;
- Fri, 21 Oct 2022 09:41:22 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666341684;
- bh=ixtnbYZsDUAjtbOO7dcijDfW674zD9cWoD0xTEe/SQM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kc/Lz34lDvuXmaLXjA3lWGJ1XXjh4KahLHgw6Qg/eLQirT6/VFA4+qENEKQ7CzHy+
- DmXe8REyjQXW/J/shRxV7ntpiMvf40yTWmDvhOGP49l07EVv1V9xVbD5CtvC4Fr+8+
- j+SY7b+/ASlzPr5OeyBZQnj8sPNUS9MSJi01jQ9e/w16v8iwmh7qPFcxuuBmmW6rH6
- Dez4lLPN8acWboG/QPuQEWT6bdT7nf+CLJqeMTR3bXacgU/Ce6+GVT5g82xjebCRwM
- Ko7r8wwIxC82TrWt2nu1N+IdE5ecKXmGIrF9h8gWae4RRf5v2w0VmUsW+3DqQtGvFH
- eiCJl0ACY4RFw==
-Message-ID: <de66f0e3-7694-7315-c896-9211259a1a17@collabora.com>
-Date: Fri, 21 Oct 2022 10:41:20 +0200
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="FjzHwUPA"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20221021085355epoutp027631c78a20ef80c0c4f2dd6f9275a45d~gCZ3YstC71135511355epoutp02B
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 08:53:55 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20221021085355epoutp027631c78a20ef80c0c4f2dd6f9275a45d~gCZ3YstC71135511355epoutp02B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1666342435;
+ bh=x/phL+eYSXCfTdP7uP/ETDDranDm7apG6KyU9u6rj8c=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=FjzHwUPA5TBwL+190EZJU2jsXNu+5oEnvNaw8N/BdDqGTRFTK0u65H/pTPydAJxrQ
+ RdkFI32sPWxv+8JbIKmmUroVFL5yp74bUDqXPhSaXMGMMPzKXel4t77SVALHlJ5dnc
+ JoKKeabgYGL7M+YVJ+DYpyfhHjrH9lY+47WE4rgs=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20221021085355epcas5p492dd30305a59e074ce31dbe43c38bed6~gCZ2-rNI_0217502175epcas5p4t;
+ Fri, 21 Oct 2022 08:53:55 +0000 (GMT)
+Received: from epsmges5p1new.samsung.com (unknown [182.195.38.178]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4Mtytm59Ypz4x9Q5; Fri, 21 Oct
+ 2022 08:53:52 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 3D.6F.10166.F1E52536; Fri, 21 Oct 2022 17:53:51 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20221021084433epcas5p4ebf6fff47284dbbbf27f134c3c7f58d3~gCRrlPW7f2748327483epcas5p4T;
+ Fri, 21 Oct 2022 08:44:33 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20221021084433epsmtrp2ba05f3dabac65ccb5de4e700eb4a32f9~gCRrkL4De1220012200epsmtrp2M;
+ Fri, 21 Oct 2022 08:44:33 +0000 (GMT)
+X-AuditID: b6c32a49-d73ff700000227b6-90-63525e1fdf65
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 5B.5A.14392.1FB52536; Fri, 21 Oct 2022 17:44:33 +0900 (KST)
+Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20221021084430epsmtip1ccdd688f23bbb31b9bd2deddaa8412b7~gCRo6lYw13019030190epsmtip1P;
+ Fri, 21 Oct 2022 08:44:30 +0000 (GMT)
+From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
+To: "'Rob Herring'" <robh@kernel.org>
+In-Reply-To: <20221014151325.GA1940481-robh@kernel.org>
+Subject: RE: [PATCH 3/6] dt-bindings: sound: Add sound card bindings for
+ Tesla FSD
+Date: Fri, 21 Oct 2022 14:14:29 +0530
+Message-ID: <04b901d8e529$573b17e0$05b147a0$@samsung.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH v2 03/12] ASoC: mediatek: mt8188: support audsys clock
-Content-Language: en-US
-To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, matthias.bgg@gmail.com, p.zabel@pengutronix.de
-References: <20221021082719.18325-1-trevor.wu@mediatek.com>
- <20221021082719.18325-4-trevor.wu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20221021082719.18325-4-trevor.wu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwIZxyFGAJxV9qUBrWX0b6yc6o/A
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrIJsWRmVeSWpSXmKPExsWy7bCmhq58XFCywbv/BhYP5m1js7hy8RCT
+ xaHNW9ktpj58wmYx/8g5Vou+Fw+ZLb5d6WCyuLxrDpvFjPP7mCwWbf3CbtG5q5/VYtaFHawW
+ //fsYLc4/Kad1WLD97WMDvweGz43sXnsnHWX3WPTqk42jzvX9rB57Hu7jM2jb8sqRo/1W66y
+ eHzeJBfAEZVtk5GamJJapJCal5yfkpmXbqvkHRzvHG9qZmCoa2hpYa6kkJeYm2qr5OIToOuW
+ mQN0vZJCWWJOKVAoILG4WEnfzqYov7QkVSEjv7jEVim1ICWnwKRArzgxt7g0L10vL7XEytDA
+ wMgUqDAhO+Njx3O2gktuFUvOzGRsYJxu3MXIwSEhYCLRcpSvi5GTQ0hgN6PE0TsGXYxcQPYn
+ Romzy78zQTjfGCW+3T3KClIF0nD55U1miMReRonvi26zQTgvGCUerzrICFLFJmAusWjvUjBb
+ REBVomnWAxaQImaBLmaJyY+ngI3iBCpas/ExE4gtLBAicWbLYTaQm1iAGqbsFwMJ8wpYSrza
+ 0MgMYQtKnJz5hAXEZhaQl9j+dg4zxEUKEj+fLmOF2OUmsX15NytEjbjE0Z89YJdKCLzgkJjz
+ bw4LRIOLRMfDjUwQtrDEq+Nb2CFsKYnP7/ayQdj5EtM+NkPZFRJtHzdA1dtLHLgCMocDaIGm
+ xPpd+hBhWYmpp9YxQezlk+j9/QSqnFdixzwYW1Vi/fJNjBC2tMS+63sZJzAqzULy2iwkr81C
+ 8sIshG0LGFlWMUqmFhTnpqcWmxYY5qWWw+M7OT93EyM4bWt57mC8++CD3iFGJg7GQ4wSHMxK
+ IrwF7wKShXhTEiurUovy44tKc1KLDzGaAoN7IrOUaHI+MHPklcQbmlgamJiZmZlYGpsZKonz
+ Lp6hlSwkkJ5YkpqdmlqQWgTTx8TBKdXAxG7ge/ux1bQHpYe+zO1h+9canSTU4Livp2P1uXPW
+ yU9TO5M2X8z3WGjjc+r4kvZ/2r3paX9fBtzYdC07M/n7hvPrF7VdlD2nvbTl2+/sH97bPzq6
+ fhQvnXbdWPf86xvbnt7+rX32WJ+39fI1M4/93/akIeRpwsX0Saf1Pu3uuMP1a4lF1uHt0TvM
+ zr/8Kql0IcOgtXp3VL1c2HNlix1+fodb3UzL3gReTXyffuGG5VT96A6lD2sXlaXcdW6IyE9j
+ 4rQ4qerme2Ixx/8fLYc8p16wD5uwtUVM/On5Tt7F19/5cjRdnFj24VJXsuxn8VTnYiextxmb
+ jaU5leqtbwVaRMdZB8jYXmxVv5+29pqIphJLcUaioRZzUXEiAOUfVqJkBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrJIsWRmVeSWpSXmKPExsWy7bCSnO7H6KBkgyWfOSwezNvGZnHl4iEm
+ i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW3y70sFkcXnXHDaLGef3MVks2vqF3aJzVz+rxawLO1gt
+ /u/ZwW5x+E07q8WG72sZHfg9NnxuYvPYOesuu8emVZ1sHneu7WHz2Pd2GZtH35ZVjB7rt1xl
+ 8fi8SS6AI4rLJiU1J7MstUjfLoEr42PHc7aCS24VS87MZGxgnG7cxcjJISFgInH55U3mLkYu
+ DiGB3YwSpz6eZoZISEtM79/DBmELS6z895wdougZo8SF21/BEmwC5hKL9i5lBLFFBFQlmmY9
+ YAEpYhaYwSyxumMPI0THG0aJvZ9vsYBUcQJ1rNn4mAnEFhYIklgyZSpQnIODBah7yn4xkDCv
+ gKXEqw2NzBC2oMTJmU/ASpgF9CTaNoLtYhaQl9j+dg7UoQoSP58uY4W4wU1i+/JuVogacYmj
+ P3uYJzAKz0IyaRbCpFlIJs1C0rGAkWUVo2RqQXFuem6xYYFhXmq5XnFibnFpXrpecn7uJkZw
+ 7Gpp7mDcvuqD3iFGJg7GQ4wSHMxKIrwF7wKShXhTEiurUovy44tKc1KLDzFKc7AoifNe6DoZ
+ LySQnliSmp2aWpBaBJNl4uCUamDaa3RRO/7kbbHg5Y90XzwW8hTbaNESsFW7lVem8luxrM5R
+ k/k6BfV7351Jj+/O7X8ZHb9awf3n/hQW1m/3Nx909RDdt/v0m3MFjd4xEfVMHyzOJ4ULh6nP
+ ndSo+VQ8Z6pl3oLtf79an2V34tj9hpdf9JrLTQZN+chwhfbZi4u7J8X6nBVItXvwcVJ6af/E
+ xw8tQis6ztfk9NmfZN0wa1aGenrQlTeK+yZ9fsvxbG9yULB8898pO4+sDtjisvL+ftklhzl2
+ z32R4Pb43i7PJ4lHYo/VCioLvO6VZGxUOSZQFxXyK191UsKGvvOO6l37U+Zf2C0X8Wu+yJIZ
+ iS47Y/e/59bKajB0uJQzV4u564ASS3FGoqEWc1FxIgAbyyiATAMAAA==
+X-CMS-MailID: 20221021084433epcas5p4ebf6fff47284dbbbf27f134c3c7f58d3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d@epcas5p1.samsung.com>
+ <20221014102151.108539-4-p.rajanbabu@samsung.com>
+ <20221014151325.GA1940481-robh@kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,70 +157,285 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 21/10/22 10:27, Trevor Wu ha scritto:
-> Add mt8188 audio cg clock control. Audio clock gates are registered to CCF
-> for reference count and clock parent management.
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
->   sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 206 ++++++++++++++++++
->   sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  15 ++
->   .../soc/mediatek/mt8188/mt8188-audsys-clkid.h |  83 +++++++
->   3 files changed, 304 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->   create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-clk.h
->   create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-clkid.h
-> 
-> diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
-> new file mode 100644
-> index 000000000000..1f294231d4c2
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
-> @@ -0,0 +1,206 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * mt8188-audsys-clk.c  --  MediaTek 8188 audsys clock control
-> + *
-> + * Copyright (c) 2022 MediaTek Inc.
-> + * Author: Chun-Chia Chiu <chun-chia.chiu@mediatek.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/clkdev.h>
-> +#include "mt8188-afe-common.h"
-> +#include "mt8188-audsys-clk.h"
-> +#include "mt8188-audsys-clkid.h"
-> +#include "mt8188-reg.h"
-> +
-> +struct afe_gate {
-> +	int id;
-> +	const char *name;
-> +	const char *parent_name;
-> +	int reg;
-> +	u8 bit;
-> +	const struct clk_ops *ops;
-> +	unsigned long flags;
-> +	u8 cg_flags;
-> +};
-> +
-> +#define GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit, _flags, _cgflags) {\
-> +		.id = _id,					\
-> +		.name = _name,					\
-> +		.parent_name = _parent,				\
-> +		.reg = _reg,					\
-> +		.bit = _bit,					\
-> +		.flags = _flags,				\
-> +		.cg_flags = _cgflags,				\
-> +	}
-> +
-> +#define GATE_AFE(_id, _name, _parent, _reg, _bit)		\
-> +	GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,		\
-> +		       CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, CLK_GATE_SET_TO_DISABLE)
 
-Can you please explain what's the reason for CLK_IGNORE_UNUSED here?
-Maybe we can solve some issue that you're facing in a cleaner way.
 
-Regards,
-Angelo
+> -----Original Message-----
+> From: Rob Herring [mailto:robh@kernel.org]
+> Sent: 14 October 2022 08:43 PM
+> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> Cc: lgirdwood@gmail.com; broonie@kernel.org;
+> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
+> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
+> alim.akhtar@samsung.com; rcsekar@samsung.com;
+> aswani.reddy@samsung.com; alsa-devel@alsa-project.org;
+> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-samsung-
+> soc@vger.kernel.org
+> Subject: Re: [PATCH 3/6] dt-bindings: sound: Add sound card bindings for
+> Tesla FSD
+> 
+> On Fri, Oct 14, 2022 at 03:51:48PM +0530, Padmanabhan Rajanbabu wrote:
+> > Add dt-binding reference document to configure the DAI link for Tesla
+> > FSD sound card driver.
+> 
+> The simple-card or graph-card bindings don't work for you?
+Thank you for reviewing the patch.
+
+The actual reason for having a custom sound card driver lies in the fact
+that the Samsung i2s cpu dai requires configuration of some Samsung
+specific properties like rfs, bfs, codec clock direction and root clock
+source. We do not have flexibility of configuring the same in simple card
+driver (sound/soc/generic/simple-card.c) or audio graph card driver 
+(sound/soc/generic/audio-graph-card.c). The binding has been added to
+support the custom sound card driver.
+
+I understand from your query that the newly added card has device tree
+nodes and properties which are used in simple card as well, but having a
+different or new prefixes. I believe to address that, we can restructure
+the string names to generic ones. But I would like to understand, to reuse
+the simple card or audio graph card bindings, can we add secondary
+compatible strings in the simple card dt-binding for the custom sound card
+to probe ?
+> 
+> >
+> > Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> > ---
+> >  .../bindings/sound/tesla,fsd-card.yaml        | 158 ++++++++++++++++++
+> >  1 file changed, 158 insertions(+)
+> >  create mode 100644
+> > Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> > b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> > new file mode 100644
+> > index 000000000000..4bd590f4ee27
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+> > @@ -0,0 +1,158 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) # Copyright
+> > +2022 Samsung Electronics Co. Ltd.
+> > +%YAML 1.2
+> > +---
+> > +$id:
+> > +https://protect2.fireeye.com/v1/url?k=4ae54403-157e7d1c-4ae4cf4c-
+> 000b
+> > +abdfecba-9eb398ea304f8ae8&q=1&e=4935bed0-ce62-47dd-8faf-
+> 4750b01e22d3&
+> >
+> +u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fsound%2Ftesla%2Cfsd-
+> card.ya
+> > +ml%23
+> > +$schema:
+> > +https://protect2.fireeye.com/v1/url?k=8c72226e-d3e91b71-8c73a921-
+> 000b
+> > +abdfecba-3ce999f6c052255b&q=1&e=4935bed0-ce62-47dd-8faf-
+> 4750b01e22d3&
+> > +u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
+> > +
+> > +title: Tesla FSD ASoC sound card driver
+> > +
+> > +maintainers:
+> > +  - Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> > +
+> > +description: |
+> > +  This binding describes the node properties and essential DT entries
+> > +of FSD
+> > +  SoC sound card node
+> > +
+> > +select: false
+> 
+> Never apply this schema. Why?
+Sorry about it, let me change the select property to true in the next
+patchset
+> 
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - tesla,fsd-sndcard
+> > +
+> > +  model:
+> > +    description: Describes the Name of the sound card
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +
+> > +  widgets:
+> > +    description: A list of DAPM widgets in the sound card. Each entry
+is a pair
+> > +      of strings, the first being the widget name and the second being
+the
+> > +      widget alias
+> > +    $ref: /schemas/types.yaml#/definitions/string-array
+> > +
+> > +  audio-routing:
+> > +    description: A list of the connections between audio components.
+Each entry
+> > +      is a pair of strings, the first being the connection's sink, the
+second
+> > +      being the connection's source
+> > +    $ref: /schemas/types.yaml#/definitions/string-array
+> > +
+> > +  dai-tdm-slot-num:
+> > +    description: Enables TDM mode and specifies the number of TDM slots
+to be
+> > +      enabled
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+> 
+> maximum: 8
+Okay
+> 
+> > +    default: 2
+> > +
+> > +  dai-tdm-slot-width:
+> > +    description: Specifies the slot width of each TDm slot enabled
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [8, 16, 24]
+> > +    default: 16
+> 
+> All the above have types defined. You should not be redefining the types.
+Okay
+> 
+> > +
+> > +  dai-link:
+> > +    description: Holds the DAI link data between CPU, Codec and
+Platform
+> > +    type: object
+> 
+>        additionalProperties: false
+okay
+> 
+> > +    properties:
+> > +      link-name:
+> > +        description: Specifies the name of the DAI link
+> > +        $ref: /schemas/types.yaml#/definitions/string
+> > +
+> > +      dai-format:
+> > +        description: Specifies the serial data format of CPU DAI
+> > +        $ref: /schemas/types.yaml#/definitions/string
+> > +
+> > +      tesla,bitclock-master:
+> > +        description: Specifies the phandle of bitclock master DAI
+> > +        $ref: /schemas/types.yaml#/definitions/phandle
+> > +
+> > +      tesla,frame-master:
+> > +        description: Specifies the phandle of frameclock master DAI
+> > +        $ref: /schemas/types.yaml#/definitions/phandle
+> 
+> These are common properties. Drop 'tesla'.
+Okay
+> 
+> > +
+> > +      cpu:
+> > +        description: Holds the CPU DAI node and instance
+> > +        type: object
+> 
+>            additionalProperties: false
+Okay
+> 
+> > +        properties:
+> > +          sound-dai:
+> > +            description: Specifies the phandle of CPU DAI node
+> > +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +
+> > +        required:
+> > +          - sound-dai
+> > +
+> > +      codec:
+> > +        description: Holds the Codec DAI node and instance
+> > +        type: object
+> 
+>            additionalProperties: false
+Okay
+> 
+> > +        properties:
+> > +          sound-dai:
+> > +            description: Specifies the phandle of Codec DAI node
+> > +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> 
+> Already has a type. Need to define how many entries (maxItems: 1 ?).
+Okay. I'll update in the upcoming patch set
+> 
+> > +
+> > +        required:
+> > +          - sound-dai
+> > +
+> > +    required:
+> > +      - link-name
+> > +      - dai-format
+> > +      - tesla,bitclock-master
+> > +      - tesla,frame-master
+> > +      - cpu
+> > +
+> > +dependencies:
+> > +  dai-tdm-slot-width: [ 'dai-tdm-slot-num' ]
+> 
+> This should be captured with tdm-slot.txt converted to schema.
+Okay
+> 
+> > +
+> > +required:
+> > +  - compatible
+> > +  - model
+> > +  - dai-link
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    sound {
+> > +        compatible = "tesla,fsd-sndcard";
+> > +        status = "disabled";
+> 
+> Why have a disabled example? Other than your example won't pass your
+> schema.
+Thanks for noticing, I'll double check and change the example keeping the
+status 
+as enabled
+> 
+> > +        model = "fsd-i2s";
+> > +
+> > +        primary-dai-link-0 {
+> > +            link-name = "fsd-primary-0";
+> > +            dai-format = "i2s";
+> > +            tesla,bitclock-master = <&tdm_0>;
+> > +            tesla,frame-master = <&tdm_0>;
+> > +            cpu {
+> > +                sound-dai = <&tdm_0 0>;
+> > +            };
+> > +        };
+> > +
+> > +        secondary-dai-link-0 {
+> > +            link-name = "fsd-secondary-0";
+> > +            dai-format = "i2s";
+> > +            tesla,bitclock-master = <&tdm_0>;
+> > +            tesla,frame-master = <&tdm_0>;
+> > +            cpu {
+> > +                sound-dai = <&tdm_0 1>;
+> > +            };
+> > +        };
+> > +
+> > +        primary-dai-link-1 {
+> > +            link-name = "fsd-primary-1";
+> > +            dai-format = "i2s";
+> > +            tesla,bitclock-master = <&tdm_1>;
+> > +            tesla,frame-master = <&tdm_1>;
+> > +            cpu {
+> > +                sound-dai = <&tdm_1 0>;
+> > +            };
+> > +        };
+> > +
+> > +        secondary-dai-link-1 {
+> > +            link-name = "fsd-secondary-1";
+> > +            dai-format = "i2s";
+> > +            tesla,bitclock-master = <&tdm_1>;
+> > +            tesla,frame-master = <&tdm_1>;
+> > +            cpu {
+> > +                sound-dai = <&tdm_1 1>;
+> > +            };
+> > +        };
+> > +    };
+> > --
+> > 2.17.1
+> >
+> >
 

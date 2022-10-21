@@ -2,181 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21E960776A
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 14:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71A91607778
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 15:02:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73D63506E;
-	Fri, 21 Oct 2022 14:57:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73D63506E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E526196B6;
+	Fri, 21 Oct 2022 15:01:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E526196B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666357107;
-	bh=psBAY9xdL1yW2br31WKYeu0cNqVyYbNo0ThB9eX638A=;
+	s=default; t=1666357361;
+	bh=g6rQ5iIhgc2k1DKIy6bnWuLTvSA9zniFIZFyeYQwAEw=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ls9gZjIswvNOVz5R3K2RfRndLt+wXYjNIfaI8H3PFM7Z/4iF/a2W/pscZyQKfnLiP
-	 K6bC8p7BqFzhzNzc7pAY8pv7exG4D0LZRXtWLIG2b+isWWXX5zJtugtZHSlH4PNF5z
-	 rG8oiyF0CJaU83vZeOj8GwqQT52EY3HLN0YbHiiQ=
+	b=EFkiKHt9xyJugTkxYMYkq9Fb6MTLcD52OKneG/SGIdFTuDhVQG9pYeytSaxWSTnMg
+	 yxHeRKzQWSVcPfzJnh/7lSKnIeCLMBpym9N3gAVdeSgOQiYMCaJ6J6y6bVHQv6/+2H
+	 2BQBHdqoaVm7FRVURup5K2bL+LZpMcnj4g2huxSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE45CF80118;
-	Fri, 21 Oct 2022 14:57:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 801E3F8021D;
+	Fri, 21 Oct 2022 15:01:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09FE2F8021D; Fri, 21 Oct 2022 14:57:31 +0200 (CEST)
+ id EB2EEF8021D; Fri, 21 Oct 2022 15:01:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E192FF800B5
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 14:57:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E192FF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3519F80118
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 15:01:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3519F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WintRhJw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666357049; x=1697893049;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=psBAY9xdL1yW2br31WKYeu0cNqVyYbNo0ThB9eX638A=;
- b=WintRhJwtuwdlACFQYx1nmy4OAuOUfFqVrBsCMfvKy6ClLcaQWrcmHGC
- bM5DeJdlDY/eV1v7aF8WHqgbxCDMJqG82wu9M3VeD8VYnTJi4mBt0AMvX
- TX4ganCfvVLMho/HmD1Q6dsEc69q2D5cjpli50zWQMVbtq3KK+RbHhGUx
- pERoCcXmWWxOBy1DkzZ/koG8GLNITWOU5xz+0HAlrD4KZmU5c89lcKuk6
- Ikvfxek3GtD6Rh9bSyM56mbs2fAGfhaE6Fo2EkmhllkMAQNGT0RjY54Rk
- W7+bldyrAmv0eEm+SI7Doh27ASGRBDg/qlQa21BnR1p6OdUaUOutEahdG A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="333571293"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="333571293"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 05:57:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="719706250"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="719706250"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by FMSMGA003.fm.intel.com with ESMTP; 21 Oct 2022 05:57:24 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 21 Oct 2022 05:57:24 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 21 Oct 2022 05:57:24 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Fri, 21 Oct 2022 05:57:24 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.109)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Fri, 21 Oct 2022 05:57:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bK45FH25Xnk/SXeQXvmwtpfKe9AcuYpifb8g+ddxxkbo0UUfrpzvgcXPywOJHIzrXi5xWXB4ZqM+qYcn+SB1MbhZ3Xjhzc423gliv1BlAsveul0Fv5LRWptR4D1mmiClqX4OP0ELkJ8DcdR82xMxC4GN2m7OMhiwDzh3xZSfCys6BtwoGP/EzvzR6hfkVmjgyLDvBD55mZ+d9Y1bS+YFHDnsJMAmKEZqvHbuOKJ6krZKYt/stML8LJspZ/mCVJfj4t7ta1rif/24BDakeVfFwnVZeGwG0++pObjWonO5jTv103Bd7gXcT0BKT5DGFjih/RF+FoSFb//ELtFT8+YV3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OzBRkV/kEAw0GAJyO/i99gcx7fb2rHOkwpsShDXCPzU=;
- b=VacDTcV7uSCfSYdAkNUWyz1Zy1OF3mlg4yQcNQhCoZSygviJhKchPW+khiwBidYuqA3+c7ugOOP5mGp1heYErTLAAzg6BMC3jaA7nxGdjTCtzGeGhTWlxutNmcG2iVhuYMfpnsJs8Ahz5QV+WpHbf2BTH3cYKGwYpPEJXcrbYMxHgtFec1PbMb5mzd+PdkLSb+sFsh4qyohnSDIRGlt900h/NADqUqK6nHQhojFy1DZuxNUXJSPm2NLduFn9EJ7jzxcb8rUwLIj7+mSw7AjnmxA0aaKwqihM2xJbXj0YXcnYkRpme0XmeWhFA06eosyoNjco5YJ3FvBRwGS/jhOHyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- SJ0PR11MB5813.namprd11.prod.outlook.com (2603:10b6:a03:422::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Fri, 21 Oct
- 2022 12:57:21 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8ec8:c973:6423:2087]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::8ec8:c973:6423:2087%7]) with mapi id 15.20.5723.032; Fri, 21 Oct 2022
- 12:57:21 +0000
-Message-ID: <3d49694a-883e-2535-8c96-413dcfbe5245@intel.com>
-Date: Fri, 21 Oct 2022 14:57:14 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.1
-Subject: Re: [PATCH v3 1/2] ASoC: Intel: Skylake: fix possible memory leak in
- skl_codec_device_init()
-To: Yang Yingliang <yangyingliang@huawei.com>, <alsa-devel@alsa-project.org>
-References: <20221021123849.456857-1-yangyingliang@huawei.com>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20221021123849.456857-1-yangyingliang@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0426.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a0::30) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="kmyxDPyd"
+Received: by mail-qt1-x833.google.com with SMTP id cr19so1591096qtb.0
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 06:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Ay0BwQVxXYd11MLMY4UmBn6pitnaH3n5lE3Hb7RD3Hc=;
+ b=kmyxDPydcBx0CVsCnA7v6iqB+TCp+iMAk6qhEq1KREqtDNZ28OOWJQihXev3bxeW8Y
+ 2yotgIYRQuc+QP/0NaYCC8B15hcer8ZcP0J3NGbT6PYQzDkfnigMvvaipRmztVNKPozk
+ Xb3UA+oXk/le5Z4fyOYG+8CJYXO4l8068PqoBxRX0MnD9F7IrV+LrRBjWa160abz/tC5
+ 78dkXrDrV8dtg7Dqhn+nXleHpmbReRjIR7OUR5grnSCGVv8HGnF63z42A5SBZqeSA00+
+ wduP3hs/5ZbTk9bW1ex5JwRFaeqy9v6Nw7iabbM4ldpHdwFMxeyX1aKYYx0hs74aSxQK
+ NcgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ay0BwQVxXYd11MLMY4UmBn6pitnaH3n5lE3Hb7RD3Hc=;
+ b=kFvivMk0/3GR80dTt7Iy1KBNUqqoZ748f7GlAN3t8N7JDKsHfWntOD7uRNquM2tLbm
+ QMTxhWPFKHENPUyb2dvU2gEeJ4kUZa/zrUKnHjRXEIukxQT8cMIsrLv17wOlmuB9M3zD
+ 132g2OgEWPQcvS7upA10ecDJl5EFIE31VHX2ucyhg5E6MnhXI6w8CTdZwI350wI1gXFb
+ xloIWqVHNyCJ7NeMkaJD7VDnX6SxU5hM6s5Sko5vl7qxnKYU45ZJbWloWcQiQ9XLGOaG
+ dirHdWBic96auU+YmEU3iiY1UcsI8FQmNUXAUiDiuWWsPGak7F7z/bhYWFxcSWDMYzyv
+ FzaQ==
+X-Gm-Message-State: ACrzQf3aCBGhukFPMZELIaWKqUBriZ0pSrqYRP9WlNxN6hCLGTPdtZI1
+ 3vKkMMS2Ru7djCARLBudT37K3Q==
+X-Google-Smtp-Source: AMsMyM57YKDsmpxT2R9I96Bphr46QmYThVVpP/MkJngBFFJ9P7c3jcxqhDYYorS13cmc31e9sdMoWQ==
+X-Received: by 2002:ac8:59c2:0:b0:39c:e3b4:1265 with SMTP id
+ f2-20020ac859c2000000b0039ce3b41265mr15515785qtf.55.1666357300726; 
+ Fri, 21 Oct 2022 06:01:40 -0700 (PDT)
+Received: from [192.168.10.124] (pool-72-83-177-149.washdc.east.verizon.net.
+ [72.83.177.149]) by smtp.gmail.com with ESMTPSA id
+ bm34-20020a05620a19a200b006ce1bfbd603sm9362091qkb.124.2022.10.21.06.01.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Oct 2022 06:01:39 -0700 (PDT)
+Message-ID: <22272f56-ba55-5725-2dc9-8012e5903eeb@linaro.org>
+Date: Fri, 21 Oct 2022 09:01:39 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|SJ0PR11MB5813:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79f42933-e691-4ac9-dffe-08dab363cae7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zDx3A82Ug/Ti+ZGH5aqF97b3YLDhv/KiJW9zGYVmcTMqeRKhqO53maKwdE9lU20otVcrxMzjX68y50dtpnDRWpsDnPG9cXK/pso0yFkD9YLnOvpbDvsaQ/H8s7XjDeh4ejtLXZIH9WpMg6wzfRIZtU7Z7l8A+qL+fE3Yh0rYGHhY6JUh5nPn5XF4pPZBRIztEuokFb7LvOpXppg6joj+OSE2oEjnce/rGmkxJfPHAoSfamTimwbjURkNSWA39A7wBuJKuV5FgtApn1gK1rnlqd4IXF/i7pCC+1vyu3k+i1J7rTNEeUrZkgRwooRkCooESf2O4A3O3+Uvx7xtdFdwSU26tGb+uKZ5/KoOmvc/hNYDs/ZzNMZWkUhcTCKaG088XW063Dhz4eBDy+qNnW9fFOdxP4AdZh5ltrT3da39f3Xxog0mEurJSpDrj5EzJQoqpLYXRWujaI3ckFLTzxiMPfdefWLez4VL71jnTOIJpeG6UcFsRBcBCDVVFwvYsbjOjaPi31rLD8stMrRhCN/s8ba9cFdxAwsSR8Ki6AITFrrQ59Byp++5NgoT5cVwr3v1lywAT8CsdFIwbn3/5qUlohAW55dOOp8gy/9SgNYj5ojRsoQknOZsQT1fRdSHvvXV58s4+S6YNqgnc2uF16dzHU47Cp0/XSbf5GfxMtUDlVmORAJfLr1k2VvefwDhmAahTreZJX2u76gu3hD16SRtxlwVQQjshAk3I01P426ehMveUc6VOLN749bCxq177g7ikKL7IqjkfjCKrZtE6FYogvgPdiP+rqF1qFJNUBS/6EA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(39860400002)(346002)(136003)(396003)(366004)(376002)(451199015)(26005)(31686004)(86362001)(478600001)(6486002)(6512007)(31696002)(66556008)(53546011)(6666004)(316002)(6506007)(41300700001)(44832011)(8936002)(4326008)(36756003)(4744005)(2616005)(186003)(8676002)(2906002)(66476007)(4001150100001)(5660300002)(66946007)(82960400001)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zk51bXRwUC8yMGUxWXlTYTBzSUdKbjNneXRPdlE1ZWdLQkZ5MVNkempJWHpG?=
- =?utf-8?B?MmhkNjEzcEtwSUl6YjVoKzNhRXpxNGc3YUs2K1RmeDVTbUpGbnVjT2JVK0N1?=
- =?utf-8?B?MGt4cXNzQW83T0ZGWWhSMTlzVlpYSDg2L3B5MTQ3WGtGTFViTGtaUHV6MGJz?=
- =?utf-8?B?RklUY3h5Wmk0L1VlMFVrSUo1YWpBY0IybFNwK3N0T1NEbGtMYzQ0UXpKaUdG?=
- =?utf-8?B?Y3gwNnE2OE93N2RNTHd4VnlOTW4ranJtb0FnUjdtQmRJMVpZUTQwVGRqR3pN?=
- =?utf-8?B?NUpqVlp3QlBjdXdRMHQ4TWplUXBYVlBwcWN0eXZSZ3M1MTgwK2QrK2RCbjd1?=
- =?utf-8?B?NTJlRXpCaFBsTEkraVlocjJHQUtDRmhzY0syYzJGaVBKSVRjcmt4WkhrSVRi?=
- =?utf-8?B?cy8yMWk4M3BIclc4SzVpbzA0ZXNpME1YajZtNVZJbGZHcGdDTFhVaWxURjJs?=
- =?utf-8?B?MjFhM1hnWU92QS9uUlZrc2c5Q29saXBJTlBKUnRlQTVSZFRGZnp6WFEwb052?=
- =?utf-8?B?M0xGM2o1dzlHdGVqUXpsY2U4QjQyUUcwdHJKV3QxVm1GQ0orRmp1TFFqZXlj?=
- =?utf-8?B?RlAwbEJMOCtFMlV0Z3ExK0JWUThBQlhuOTV5UFk4V3dzUXl4R09ubStZQkVD?=
- =?utf-8?B?amRsSVI2QmF2b2VxQ0lmRk1saTNaWDhiMllxSmJ1OHBvbGNERXhFNStkdlRN?=
- =?utf-8?B?cjZXaENJYVlqQmpVLzZsRVppQWpVbTNYSTJqT1pZanZheU1TeFowSzlyN3Y0?=
- =?utf-8?B?R3hOcGt0OHp2VEd2dVZucThFeVB2Zjl1MloxZENXZ2tNTHN3bWlRVk83Z3F5?=
- =?utf-8?B?RlhxS2RWVHhaZXExRkx4VWZlaWFQWVcwU1BiYTZuVUcvMUdDUENSSXBPWThO?=
- =?utf-8?B?V3NUMnh4RDh3Mk9qZkh0L0NNOHpLVkZtdzUrZzNvYnhaV2I0aTRnS29tK1F2?=
- =?utf-8?B?TU1NUzFkL2Y1UjNuWUMrT3hYczBqaE4yaDFqaWxZcnRPb2tBMmpodCttUUZL?=
- =?utf-8?B?SW43RFpIOXpYZ3Y1R3FnU2ZXaVRSRmxsRktZY0RQV1RkeEROZTgzZkJGWmxj?=
- =?utf-8?B?YUZPVUZvSXB4a2Nsb0ZiVTBMUWw3c1QxZjVvVU9oQU83UFJaTlp3M29zc2tw?=
- =?utf-8?B?V1RQVnJnV2pNOEY3dWRHSmw1d2M2Rno5OFJ6cUdjTklEbTJES3h3d2hTRERo?=
- =?utf-8?B?QWdTUm1velRnaThqNVh4Tk1SdUs2R0tEN3VEeTBCNlVucHRzMkVDUWVDVFc4?=
- =?utf-8?B?c3dib0hFeTd6YnFCTkhwQjlDNEh3U0RDZGVDRHBNc0p2Yk4ydEh6bzNRTjdO?=
- =?utf-8?B?VXZOQk1oWWsyelhFT3d1RU1GU1E0MTREZ29DdHVwUGR6Nms0UlNGUTQ4Smxr?=
- =?utf-8?B?UC9kR1hYTGIwSmRXTlY5UU96eEMyOSt0RVkyYk5hOE9pdTNDQ05DUERhdkpt?=
- =?utf-8?B?bFBtSWMzcmpwNDVhVzNvL2N5OGxUNzYveGZyVUs1RkJaRzhseUZEcUVmMmtO?=
- =?utf-8?B?aTN2bUhiU2o2WWJFRmpaQW85NWV1dUpKMndrd2ZqRkQvUndyZnFpNTdRTTQw?=
- =?utf-8?B?Uk55c29ueEF6SkhrUnlmT2J5OFAxVjYxOU9DZ2pwY0FHTWVZN1hkaEZQYW4v?=
- =?utf-8?B?aGthZks5djBBbWlMYUdnVHhmT0k4SG9sSklKTUU0KzNwVTlNbGRJRVlyOGpp?=
- =?utf-8?B?c1ExbzJWTlY1VklUU05NVnM3Y250Y25IaExMczhKTTVtUzQ3YjRiSHhiSUxM?=
- =?utf-8?B?Vy92NTh5b0dIWVc1NVlIMmRrTUxvamFVTmlKSS83bWVzWm5JdjIrSU9UZEdj?=
- =?utf-8?B?bDRJZUdYRGpsN0RoR2ptWEpGM3lqNnhnWmQvSVpQbjlSMFNsUlQ5cDQrczBr?=
- =?utf-8?B?NzRPTjFrbHBvdFgvSlRQREMyVmtsbXBYNE54V3J1TWdjY3ZRMjF6Y2dlcnNj?=
- =?utf-8?B?NjNVejVFTGtXem50eVIxSlNOVjdUSGIwYW5BR1VQbEprVEJKaWRhNzAxNnNw?=
- =?utf-8?B?SWFXRU9zTkNXajVxZkxhZS96aFBTV2FOY0lGZWtNMHRCZzRLb0pKc2ZSSUxt?=
- =?utf-8?B?dnlXNngzekVVcnkvb3o5NS9ITHVhZG05Zk93RmJiYVBHa2JIQmJRdndwVXcw?=
- =?utf-8?B?Wk5rM0g1RXJPSHdKTDhkS3JNd2NiQ3dXMzhabFNQNEJHUTVqQWxBdlpaV21r?=
- =?utf-8?B?L1E9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79f42933-e691-4ac9-dffe-08dab363cae7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 12:57:21.4768 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dDwqvTDoPZIQd6aPVRhz+N0OYHMUdHWEiToiwTE5o6IZ7pWU33QA9gsZHo0SKMrISD9FaWNKpaDHYHZ4tf9dnNHlQssOB8AuXuOkPhJO0lo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5813
-X-OriginatorOrg: intel.com
-Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH 5/6] arm64: dts: fsd: Add I2S DAI node for Tesla FSD
+Content-Language: en-US
+To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ s.nawrocki@samsung.com, perex@perex.cz, tiwai@suse.com,
+ pankaj.dubey@samsung.com, alim.akhtar@samsung.com, rcsekar@samsung.com,
+ aswani.reddy@samsung.com
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104911epcas5p394100ff6ed53be32c4d64c7e23e48833@epcas5p3.samsung.com>
+ <20221014102151.108539-6-p.rajanbabu@samsung.com>
+ <c11f92be-1d86-17e4-e3bb-05e7b17d5fc8@linaro.org>
+ <04ba01d8e52a$0d55bee0$28013ca0$@samsung.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <04ba01d8e52a$0d55bee0$28013ca0$@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -192,17 +115,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-10-21 2:38 PM, Yang Yingliang wrote:
-> If snd_hdac_device_register() fails, 'codec' and name allocated in
-> dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
-> by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
-> and kobject_cleanup().
+On 21/10/2022 04:49, Padmanabhan Rajanbabu wrote:
+>>>
+>>>  	cpus {
+>>> @@ -809,6 +811,42 @@
+>>>  			status = "disabled";
+>>>  		};
+>>>
+>>> +		tdm_0: tdm@140e0000 {
+>>
+>> Node names should be generic, so this looks like i2s.
+>> https://protect2.fireeye.com/v1/url?k=2cfaa5af-4d874de8-2cfb2ee0-
+>> 74fe485fff30-cb16acc0c0c574e9&q=1&e=fc8e3b54-a0ef-475e-a4f2-
+>> 83626a86ac8a&u=https%3A%2F%2Fdevicetree-
+>> specification.readthedocs.io%2Fen%2Flatest%2Fchapter2-devicetree-
+>> basics.html%23generic-names-recommendation
 > 
-> Fixes: e4746d94d00c ("ASoC: Intel: Skylake: Introduce HDA codec init and exit routines")
-> Fixes: dfe66a18780d ("ALSA: hdac_ext: add extended HDA bus")
-> Suggested-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> Thank you for the link. I could only find audio-controller in the list and
+> not i2s. so I believe I can use audio-controller node name. Please correct
+> me otherwise.
 
-Thanks for your report and the fix. For the series:
+All I2S controllers use node name "i2s", so if this is I2S, then use "i2s".
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+
+Best regards,
+Krzysztof
+

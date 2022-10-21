@@ -2,82 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55400607DFE
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 19:58:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08610607EA2
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 21:06:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC2B35931;
-	Fri, 21 Oct 2022 19:57:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC2B35931
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED43A31B;
+	Fri, 21 Oct 2022 21:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED43A31B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666375109;
-	bh=GtOwiXHJtXYIaTqg9eeOvXlRJChliQa7s+KM5+93GpM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=S0LWTY8lS76j6+BHqI2WmIoBR1wkdMkNITeWCbill844O4ivKBy7bfCa/boTzHR2V
-	 +sQoziUaHU/B9ojwZLyqWkbXGIgkZ3PBzp5MxPQrUab1nmUDyX8EZOEiUErUwW5wfJ
-	 2ulMPoreppCyweE/wNOux2qaWAuyQ/h7ydSjA7Tc=
+	s=default; t=1666379172;
+	bh=USa+AcADYHgcB0MzVsNhSR94NS0ue3Dm9tQqmW1OkuA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=U8XvDt5RhMDyeG8UrsBMMyCnRxwDPjLJfwEWVH8qMqrNb+83rk7AM463MfBjI/bLn
+	 sbuYWh2PANC9i76cto9VFdWu+mNP07ThbEXsHAPb4fFvFVolq30DbYTbO51h/D8bnD
+	 zNLu9cafWxBKZCiBJFafI8x5odDAE967WdyCJj+g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69275F80256;
-	Fri, 21 Oct 2022 19:57:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3292F80256;
+	Fri, 21 Oct 2022 21:05:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C93AF8021D; Fri, 21 Oct 2022 19:57:33 +0200 (CEST)
+ id 5EEBFF8021D; Fri, 21 Oct 2022 21:05:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 509A2F800B5
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 19:57:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 509A2F800B5
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-1324e7a1284so4453914fac.10
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:57:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/jQjxq+e47XxVcvPy1+t9R+5G4XPCZM0x41PBT8twbU=;
- b=Un/vhsg6faUqj7wKD4MPn6Z2ND613PfjwXvbN9eige0X513JKKQV7gE7tvKr4f2MfQ
- I4EPsgAY06iErxk+DNUB4kUEl+oQM2PJWDnbqFKlXo1s+bn0es0iIM4AZ8qZyFlBMKmW
- RYUokHjz9a05LiouD5YmNKFRFcR2BYTBAtFdB7tgqJWkKFwbh2WJigTxJbvqINYjFHXS
- QeK4zVzX6NLpXxvNeZgbUzewkEhC2z8SjmqHaRKaaRmnaQue8+BfaprneLu0VEXzxXbv
- zbMWMiQxCU8dfR+qZPP3cp9QXfa/8RqcnDR8mcUCWbp0tHeqXxMLwoRwZX8fOBNucsCX
- 8cKw==
-X-Gm-Message-State: ACrzQf0nuSBI2mTqK2Xy1jwK4T6qHYRawcrcuUu8R35ZdK2fKjMsUuZc
- I6MbJV+zbuS72IH0RQ/HaQ==
-X-Google-Smtp-Source: AMsMyM4tpdOAMkz2XAcwJ5Q0Ti7mViOL5yxCCERanNJ1hDzAAJGgf89B2S7bNswtDxj5skjtOigv5A==
-X-Received: by 2002:a05:6870:9a1f:b0:133:599:9555 with SMTP id
- fo31-20020a0568709a1f00b0013305999555mr30129688oab.201.1666375045361; 
- Fri, 21 Oct 2022 10:57:25 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- db10-20020a0568306b0a00b00661a80d555fsm1389748otb.40.2022.10.21.10.57.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Oct 2022 10:57:24 -0700 (PDT)
-Received: (nullmailer pid 4005712 invoked by uid 1000);
- Fri, 21 Oct 2022 17:57:26 -0000
-From: Rob Herring <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Subject: [PATCH] ASoC: dt-bindings: Convert dmic-codec to DT schema
-Date: Fri, 21 Oct 2022 12:57:21 -0500
-Message-Id: <20221021175721.4005601-1-robh@kernel.org>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99917F800B5
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 21:05:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99917F800B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Cmj97NFV"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id A34D0CE2BA6;
+ Fri, 21 Oct 2022 19:05:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3964BC433C1;
+ Fri, 21 Oct 2022 19:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666379107;
+ bh=USa+AcADYHgcB0MzVsNhSR94NS0ue3Dm9tQqmW1OkuA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Cmj97NFVs6wm1pgyJg4Y+BbY4Kp1HdpNwvI8K3aQiBsyFT0MTc1Mqa2Qmj+7V+/5j
+ QpXxdSXIvYH+9xhN8x/zWA6U+jUNBZx8iqGmIIhcyrKUvaDpLTE3nGJjP3Hf/RM6G4
+ ARj4mczzv8tOrlevOzdMWEDzXkde0ykBsvumwRpFc3MHObVhgL/hqfaYRSeThCBrfD
+ TX4xmEWCK74K2E3hFYZiRA2pilkVMiWRdUHkyGeaCsScdnRWxJv3MeMCQarENnFdCL
+ tt1CrupZMoqh6RI7sUQo3+Z7TnX6T0oft9i8//jA7QI8t6XyZTvwaei4G8+FEho3kW
+ uVoElbN662KAg==
+From: Mark Brown <broonie@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com
+In-Reply-To: <20221020121238.18339-1-peter.ujfalusi@linux.intel.com>
+References: <20221020121238.18339-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2 00/19] ASoC: SOF: Intel/IPC4: Support for external
+ firmware libraries
+Message-Id: <166637910493.907134.2661103346046398656.b4-ty@kernel.org>
+Date: Fri, 21 Oct 2022 20:05:04 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ chao.song@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,113 +88,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the dmic-codec binding to DT schema format.
+On Thu, 20 Oct 2022 15:12:19 +0300, Peter Ujfalusi wrote:
+> Changes since v1:
+> - rebased on "[PATCH v2] ASoC: SOF: Intel: pci-tgl: fix ADL-N descriptor"
+> 
+> Cover letter:
+> 
+> In IPC4 all DSP loadable executable is a 'library' containing modules. The main
+> or basefw is also a library which contains multiple modules.
+> IPC4 allows to use loadable libraries to extend the functionality of the booted
+> basefw.
+> 
+> [...]
 
-The '#sound-dai-cells' and 'sound-name-prefix' properties were not
-documented, but are in use, so add them.
+Applied to
 
-Reviewed-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Signed-off-by: Rob Herring <robh@kernel.org>
----
-v2:
- - Fix example include and syntax errors
- - Update Arnaud's email
----
- .../devicetree/bindings/sound/dmic-codec.yaml | 55 +++++++++++++++++++
- .../devicetree/bindings/sound/dmic.txt        | 22 --------
- 2 files changed, 55 insertions(+), 22 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/dmic-codec.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/dmic.txt
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/Documentation/devicetree/bindings/sound/dmic-codec.yaml b/Documentation/devicetree/bindings/sound/dmic-codec.yaml
-new file mode 100644
-index 000000000000..bba27c985996
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/dmic-codec.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/dmic-codec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Generic PDM Digital microphone (DMIC) codec
-+
-+maintainers:
-+  - Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-+
-+allOf:
-+  - $ref: name-prefix.yaml#
-+
-+properties:
-+  compatible:
-+    const: dmic-codec
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  dmicen-gpios:
-+    description: GPIO specifier for DMIC to control start and stop
-+    maxItems: 1
-+
-+  num-channels:
-+    description: Number of microphones on this DAI
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 1
-+    maximum: 8
-+    default: 8
-+
-+  modeswitch-delay-ms:
-+    description: Delay (in ms) to complete DMIC mode switch
-+
-+  wakeup-delay-ms:
-+    description: Delay (in ms) after enabling the DMIC
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dmic {
-+        compatible = "dmic-codec";
-+        dmicen-gpios = <&gpio4 3 GPIO_ACTIVE_HIGH>;
-+        num-channels = <1>;
-+        wakeup-delay-ms = <50>;
-+        modeswitch-delay-ms = <35>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/sound/dmic.txt b/Documentation/devicetree/bindings/sound/dmic.txt
-deleted file mode 100644
-index 32e871037269..000000000000
---- a/Documentation/devicetree/bindings/sound/dmic.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--Device-Tree bindings for Digital microphone (DMIC) codec
--
--This device support generic PDM digital microphone.
--
--Required properties:
--	- compatible: should be "dmic-codec".
--
--Optional properties:
--	- dmicen-gpios: GPIO specifier for dmic to control start and stop
--	- num-channels: Number of microphones on this DAI
--	- wakeup-delay-ms: Delay (in ms) after enabling the DMIC
--	- modeswitch-delay-ms: Delay (in ms) to complete DMIC mode switch
--
--Example node:
--
--	dmic_codec: dmic@0 {
--		compatible = "dmic-codec";
--		dmicen-gpios = <&gpio4 3 GPIO_ACTIVE_HIGH>;
--		num-channels = <1>;
--		wakeup-delay-ms <50>;
--		modeswitch-delay-ms <35>;
--	};
--- 
-2.35.1
+Thanks!
 
+[01/19] ASoC: SOF: loader: Set complete state before post_fw_run op
+        commit: 9b9db0d69bc16072a1d549ed4f343fd55ddfc48c
+[02/19] ASoC: SOF: Introduce container struct for SOF firmware
+        commit: 4f373ccf226e37a20fdc15a3df8034517a6045fd
+[03/19] ASoC: SOF: amd: Use the basefw firmware container directly
+        commit: b9bed09aa97f90a40695eb472b1baba81242e3ed
+[04/19] ASoC: SOF: Intel: hda-loader: Use the basefw firmware container directly
+        commit: 410a321c9721bb3e839f64ffe60b45492d0f1f65
+[05/19] ASoC: SOF: Intel: hda-loader-skl: Use the basefw firmware container directly
+        commit: 4fd0f664bdcdd63ce95542227f65459447426aa4
+[06/19] ASoC: SOF: Drop the firmware and fw_offset from snd_sof_pdata
+        commit: e3775fda57d49984eaa2cfd86665a152806bfd81
+[07/19] ASoC: SOF: ipc: ops: Add support for optional init and exit callbacks
+        commit: aa23b375363f6aba208761ff9985231cc69d00b8
+[08/19] ASoC: SOF: ipc4-loader: Save the maximum number of libraries supported
+        commit: b0a12fa905fad870bd941df2726953edafb489f3
+[09/19] ASoC: SOF: ipc4: Convert the firmware handling (loader) to library convention
+        commit: 5a932cfce4401491c942ddcb7fd3ca669e507b4d
+[10/19] ASoC: SOF: IPC4: Add helper for looking up module by UUID
+        commit: c73f8b470855d3123ab4b443aa9c255412dc1a13
+[11/19] ASoC: SOF: Add path definition for external firmware libraries
+        commit: 25bbc0c59ee15cfc37acaaa831de447f2c2fbcb9
+[12/19] ASoC: SOF: Intel: Set the default firmware library path for IPC4
+        commit: cd6f2a2e6346ea0955c9bed0c60add8c13b3d5f7
+[13/19] ASoC: SOF: ipc4: Define platform dependent library loading callback
+        commit: a5ab431e18d48e618166e8507a3555568d570cd8
+[14/19] ASoC: SOF: Intel: hda: Add flag to indicate that the firmware is IMR booted
+        commit: 5d5d915bcde228cd78f5d42062fb65babe651363
+[15/19] ASoC: SOF: Intel: Add ipc4 library loading implementation
+        commit: 3ab2c21e65188cac151de1fbe6adf841f2ecb082
+[16/19] ASoC: SOF: loader: Add support for IPC dependent post firmware boot ops
+        commit: cbb984b68b8d03aa423a3a0bf2946175b9e25345
+[17/19] ASoC: SOF: ipc4: Stop using the query_fw_configuration fw_loader ops
+        commit: e68513106eec04eba9da30d761ba0d22a4cf9e93
+[18/19] ASoC: SOF: loader: Remove the query_fw_configuration ops
+        commit: ba42b8bac3fd10b90eefbe42d8d0839d71bf7638
+[19/19] ASoC: SOF: ipc4-loader: Support for loading external libraries
+        commit: 73c091a2fe96fac2b893ba166fa7cd11eff45947
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

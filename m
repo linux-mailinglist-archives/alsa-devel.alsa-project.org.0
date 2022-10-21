@@ -2,146 +2,191 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53993607307
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 10:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A024607308
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 10:55:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E5E1BADE;
-	Fri, 21 Oct 2022 10:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E5E1BADE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4E3EC026;
+	Fri, 21 Oct 2022 10:54:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E3EC026
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666342530;
-	bh=1ysldIFTXcVA2ZKWQVgKDPYi16Qh13iskg0H+FnBZNE=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
+	s=default; t=1666342535;
+	bh=jlKiy33C4tj5c5tD/Or+tfkcZWel3i7n9hrVhkq8etc=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=senZPdzwzbZLuTir7O7WN4HSrH1590kmJTaknZs3/XCrbYNKHaCDDQwUb9wqYWHx8
-	 +2+y6ihG2ZIfREq2+fgiKDd5z5GXuA3uf1M4M5V1lJk7ctsgNbZjiTQefBnyYJguWu
-	 IMNd3ANJ+WS/2+VMfudO7Xmx/MlQxq+Qr4f9mEwI=
+	b=DfkJZ3DZqmQdD4wntXg/GUsJjI5TykCU/hFUxWGF6pKd+7bOEGEWmz/4RBuJ2XiLu
+	 6SAbFf5ZowcqnJ3RWx4ELO/uXGT9r0kHJ677uLHNmhhUgCdBBtVA/wweFz8nVw0FeI
+	 GtxaG81W6shJA3t+4hlqt6VYSJ103uEqo5G2JwVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A1C0F8053C;
-	Fri, 21 Oct 2022 10:54:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 351F2F80256;
+	Fri, 21 Oct 2022 10:54:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CE5FF80543; Fri, 21 Oct 2022 10:54:21 +0200 (CEST)
+ id E5B74F80549; Fri, 21 Oct 2022 10:54:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00454F8053D
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:54:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00454F8053D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 356A3F8054A
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:54:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 356A3F8054A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="s4vuaj6J"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20221021085412epoutp01a39ac2b8b15e5f52d8c02a1279f452ed~gCaHHSTZi2100421004epoutp01z
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 08:54:12 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20221021085412epoutp01a39ac2b8b15e5f52d8c02a1279f452ed~gCaHHSTZi2100421004epoutp01z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1666342452;
- bh=5U6kbdEwtstzuJzqj8njNs2aevGge2h2etECD8bzp58=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=s4vuaj6JdcOh5bVH2FC8GRmX4JsNeZT2ZI7nF3EpKdjqNmFQyXXYs7XCtBNY3umj2
- oQJHKV915VnDCSNlqEhYKTtfH+GXXI5lSv55RG/DNVTOhRZqkJq34xkqeXFWHfY0oh
- Bzy1Rb2362ba32p+F2kxFA75lHv5C/tETI1M8iYQ=
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTP id
- 20221021085412epcas5p4301f28acc7e3dd811f5421029590f5ff~gCaGoVoYr2099120991epcas5p4w;
- Fri, 21 Oct 2022 08:54:12 +0000 (GMT)
-Received: from epsmges5p3new.samsung.com (unknown [182.195.38.178]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 4Mtyv52Vrhz4x9Q8; Fri, 21 Oct
- 2022 08:54:09 +0000 (GMT)
-Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
- epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 25.81.56352.13E52536; Fri, 21 Oct 2022 17:54:09 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
- 20221021084938epcas5p402b6c1dc47137914fabcbb655ffa85ef~gCWIEbas72051320513epcas5p4y;
- Fri, 21 Oct 2022 08:49:38 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20221021084938epsmtrp126e775ab3dc74f229417bf94211c6ea7~gCWIDk6752558625586epsmtrp1n;
- Fri, 21 Oct 2022 08:49:38 +0000 (GMT)
-X-AuditID: b6c32a4b-5f7fe7000001dc20-31-63525e31eb57
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 4B.D4.18644.22D52536; Fri, 21 Oct 2022 17:49:38 +0900 (KST)
-Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20221021084935epsmtip1426827a59937fb73ac13f5c1894f1a5d~gCWFXFPSF0067100671epsmtip1V;
- Fri, 21 Oct 2022 08:49:35 +0000 (GMT)
-From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>,
- <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <s.nawrocki@samsung.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <pankaj.dubey@samsung.com>,
- <alim.akhtar@samsung.com>, <rcsekar@samsung.com>, <aswani.reddy@samsung.com>
-In-Reply-To: <c11f92be-1d86-17e4-e3bb-05e7b17d5fc8@linaro.org>
-Subject: RE: [PATCH 5/6] arm64: dts: fsd: Add I2S DAI node for Tesla FSD
-Date: Fri, 21 Oct 2022 14:19:34 +0530
-Message-ID: <04ba01d8e52a$0d55bee0$28013ca0$@samsung.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwIMhU34AXuYdz8DFSTEIKyLIU2w
-Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA01TfUwTdxjO73q9HhrIWVj4rWasuUgWyIBWS7kaYGYiqdMY4jLiSDa8tTfK
- KNdbWyoff4hsK0JAIKZIG4QBggajdIisFluxfCx+BPzAunTiZMOMTVkEFmanc2s52PjveZ/3
- efK+z+8DF4j9mAQvZM2MkaX1JLYBHRxJSEiSf7xfI6v9Pop61DaIUVO3fQjlu3BRRNlmZjGq
- fXRCSB2bmxFQnichbnnqKELddbdiVMukF6E6L/4homrcDULKccslpL7yjIqokafVQsr55zmw
- g1A7l6ow9SXHtEjd31uDqR/4L2Nq73wPpj420AvUfQP3UPVSf1wOnleUrmNoLWOUMqzGoC1k
- CzLIPe/n78xPVcrkSXIVlUZKWbqYySCz9uYkZRfqQxFIqYXWl4SoHNpkIlMy042GEjMj1RlM
- 5gyS4bR6TsElm+hiUwlbkMwy5u1ymWxrakh4sEh3xTaIcPXxpT+edIBK0BRXCyJwSCjgX/fm
- hbVgAy4mhgD8taEH4YtFABcDQ6KwSkwsARjsqlhzjL28gPK8G8DLfjlvmAOwq9a3YsCINNjp
- 6QbhRgwxhcDg2Wo0XAgIK4Ce2+dCHRyPIDLhq9HysCGaUMOqlx5hmEaJeOjo3hKmIwkV9DgC
- CI83wWv22ZXBAuJN+O18q4BfSAqDj3uEYRxDZMOxvmUhr4mFY8E6QXgsJJ7hsK2jGeUNWdDV
- YUd4HA1/+25AxGNJKL51FRtg88IXGI9LoXXBuap/Bw5PtaLhPQVEAuxzp/D0G9B2/TzCz42C
- 9S9mV+WR0NW2huNh3+l+wOPN0HvfAxoB6VgXzbEummNdBMf/074GaC94neFMxQWMKZXbxjKH
- /rtvjaG4H6w88MQ9LvDTo2fJPoDgwAcgLiBjIrnfczTiSC1dVs4YDfnGEj1j8oHU0HE3CSSv
- aQyhH8Ka8+UKlUyhVCoVqm1KORkb2dWSqBETBbSZKWIYjjGu+RA8QlKJfGIuV6HXD+ceP/Kp
- 152Te23kxMIl68mlaLvkrdI8K3sTWDsHkvM2gnencwvpU8VyZtN+f82VuLoX4yqJsF7fVUW2
- vX228bPOMtvzWHLyYKM9vyhjbGLi0N0HfR3OmPM/R7xn3Oz1tle7drWNFZWlL99sGo9qf1W5
- eLTixtNdRFrSL9rtHFvB3Y9qEP8zPRjYG0tZdtjOHB66c9yyM5iylHW1XnjAR27dnWY8NbNv
- Xuqs+xtxtFhuxWU2eys5/+KTwh+sc1+OfGjr/kCZVb9c8HyL0z589bRu4iPLiY0SLmgt//yO
- Gx1OzDtCG3brHurGv8medAckD2u10d3cY+ONAImadLQ8UWA00f8CSEuguGkEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrAIsWRmVeSWpSXmKPExsWy7bCSnK5SbFCywZcuZYsH87axWVy5eIjJ
- 4tDmrewWUx8+YbOYf+Qcq0Xfi4fMFntfA8W+Xelgsri8aw6bxYzz+5gsFm39wm7Ruauf1WLW
- hR2sFq17j7BbHH7Tzmqx4ftaRgcBjw2fm9g8ds66y+6xaVUnm8eda3vYPPa9Xcbm0bdlFaPH
- +i1XWTw+b5IL4IjisklJzcksSy3St0vgytg/dRtTQa9qxf25sxgbGCfKdTFyckgImEgc/bOZ
- pYuRi0NIYAejxJ/D25khEtIS0/v3sEHYwhIr/z1nhyh6xijxo/UzO0iCTcBcYtHepYwgCRGB
- R0wSc+c/YgNxmAW6GCWO/13JDNHymVHi5/ofQBkODk4BO4l/R6pAuoUFPCSa/uxlBQmzCKhK
- zFqqAhLmFbCU2DvrFhOELShxcuYTFhCbWUBbovdhKyOELS+x/e0cqEsVJH4+XcYKYosIuEkc
- Xf+NFaJGXOLozx7mCYzCs5CMmoVk1Cwko2YhaVnAyLKKUTK1oDg3PbfYsMAoL7Vcrzgxt7g0
- L10vOT93EyM4krW0djDuWfVB7xAjEwfjIUYJDmYlEd6CdwHJQrwpiZVVqUX58UWlOanFhxil
- OViUxHkvdJ2MFxJITyxJzU5NLUgtgskycXBKNTDl8XDaLtukIPcu/3HZunfbGzo4Lhy5M7ur
- cU343wtbFB9039nZynFDYV9ZDIf4G9bqFq6jN6XefFBT7v+9/M6v7VciE8/cM7n1KSd5i7mm
- C+fe019Ep/irLndnuxyWJR/xbCrjg80K03OUA7lZ1++y+Lg5183WQDDgRJGzvvjta+lzCjNq
- Ttq6vm1/aOhiUm29dV6Ga0zZDJ3KCe7mvOzb9RLjnjgIHpLYZqpS4/chRWZxZJZE52eD5e62
- tv1MDAej+fhYLU22r27tOsWZ0nXki8bHX9MUL2wxu/RiX1t34kqdAmv7OYXnKpJtug+qPXa/
- YeFc9mHeq6O7WNXOyvIElL6/IRNcvZczxMnxlBJLcUaioRZzUXEiALmcMvpTAwAA
-X-CMS-MailID: 20221021084938epcas5p402b6c1dc47137914fabcbb655ffa85ef
-X-Msg-Generator: CA
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="VCQcz8uc"; 
+ dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com
+ header.i=@mediateko365.onmicrosoft.com header.b="G2HqUcPA"
+X-UUID: d5b5cfee04f845ffb85c84871d57acb8-20221021
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=jlKiy33C4tj5c5tD/Or+tfkcZWel3i7n9hrVhkq8etc=; 
+ b=VCQcz8ucrcfcgY2l1yDg54DgtB4Eu3xXtrkQT6G5bDTSvooaG6o8g2mTHT0pF4RxXj/s8y8oAK00mmq24A3ultTdsDG4wVrf74Y2NLvMNOlpvmFbc92YLA1C5ViSHjFFz4wEkmVpmnpBcqsZj8pAbLyh/t/CC5GBFobkO/h6N18=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.12, REQID:659c9366-2fc6-4f4c-82d4-33064750b4de, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:62cd327, CLOUDID:fa74ad6c-89d3-4bfa-baad-dc632a24bca3,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: d5b5cfee04f845ffb85c84871d57acb8-20221021
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
+ mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 76478563; Fri, 21 Oct 2022 16:54:11 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Fri, 21 Oct 2022 16:54:10 +0800
+Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.239)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP
+ Server id
+ 15.2.792.3 via Frontend Transport; Fri, 21 Oct 2022 16:54:10 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PPz7hKCpSZJjo/JuyMgmwt0cey5QSDUHTJ0WUmENTSn/kwwdZfrUOnRsq8AYyfTwHmtJrvGuCVYB0nlZC++yELGfQSMthYLiT9urAA+ChFAjUDfgbv/rrzv/g3+DCRqJsAVVq/00/dzEwg0zqakpSPdOiyorP0ANeUaNpVjXHTzxplKx3aK974sM/Uptv/NUxfkBdP1Uqk7Eu8Sv8Ff9nqTnlQjW4xrNLTpIq0n2zTivfCkaHep9yVgz3t+6JMEgKqR+3W9NGS279xvs7Cok6NDxUrLZjVjkW1t22pXYncbGY+44y/hhIoEoe/C9b48jDtRa5j6qE1myIeqhuW0aTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jlKiy33C4tj5c5tD/Or+tfkcZWel3i7n9hrVhkq8etc=;
+ b=U9k4x92zi04ZTI6iZSQmG7T7Ca2M9THXBy8XYr11rfOzJeKbMdpWlgCaI9P2xWHmDtrbHrbFYiAv50ZtaOCxFuJSeGF2GWrD1QgP7+GH/GVGd29u2jPPFxJro3XOX0QAF7JMdZ4W98awpU7QnAgcgDpgd4bs72+wR35qLQG0WDNWPwlV1ebcX4Gk0W3z51TTHCtCmK2b/o11X/Vbqhe+wWNobXtNMab23p84zO7UiOTfLo5Mfz/pZe3H0pCKkAFcRLY88ywPsQSZ4HnhcbtI5UewYkwFwx5cEfPG5kUSim/lMFbZlO1kKRAAJNObdLQ+fVmc0OD1v29CBFvuqpeDOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jlKiy33C4tj5c5tD/Or+tfkcZWel3i7n9hrVhkq8etc=;
+ b=G2HqUcPATDP+WLRqgLPBcwY1cQLPCpLrSnGPz9tmk4UxNkaWVhtP4agxCK3Ai7b1DpMj51iVDCGu/hXfjRHRE8EvusTFsL6gpl+QsOTfBLvMWv/ynbfR2asmOl7x4Up6bRwzV/qqKokzgvNCxOzGarY9LXiNOT05nV7/bkNOTN0=
+Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
+ by TYZPR03MB5695.apcprd03.prod.outlook.com (2603:1096:400:8a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.18; Fri, 21 Oct
+ 2022 08:54:09 +0000
+Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
+ ([fe80::6c50:1e0c:f9dd:d45]) by SI2PR03MB6686.apcprd03.prod.outlook.com
+ ([fe80::6c50:1e0c:f9dd:d45%5]) with mapi id 15.20.5746.017; Fri, 21 Oct 2022
+ 08:54:08 +0000
+From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
+To: "robh@kernel.org" <robh@kernel.org>
+Subject: Re: [PATCH 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
+ document
+Thread-Topic: [PATCH 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
+ document
+Thread-Index: AQHY1Nz5OA9S/sIRuESL8yXlzp3JUa3844KAgAPMLoCAF/vyAA==
+Date: Fri, 21 Oct 2022 08:54:08 +0000
+Message-ID: <cf5195154f44fba92f829fc68fbb7c5a6daf6d7a.camel@mediatek.com>
+References: <20220930145701.18790-1-trevor.wu@mediatek.com>
+ <20220930145701.18790-13-trevor.wu@mediatek.com>
+ <20221003163851.GA2414624-robh@kernel.org>
+ <e96ef77f007f66f883f8dca86d1206cd1b5a767a.camel@mediatek.com>
+In-Reply-To: <e96ef77f007f66f883f8dca86d1206cd1b5a767a.camel@mediatek.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|TYZPR03MB5695:EE_
+x-ms-office365-filtering-correlation-id: a85fb963-d3bb-447a-de8c-08dab341d10d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ycFUzfeSFuuKKUtPXnPBeYx5GfRyg7hAe5GiA3y2D0ZP9CFQatrdbXtUXLmNmbTr+nI+kxg1HtPRx8EQ6agnPAF6LRSn/2gsjnb2Qi7o9LTxgXpa5FGh87F2HJCIxupSQzVSLFYvmwEHBZtKD2ultgdSeJJS2dhgOHC3v/iLZgYyrDQFx1JaMwx+F7GuPsfdQwhfsuHxsW5kVw8w2dhzrP0lp1zAT3s771KkSlnlOl1NMO8us0G16HpcEifJDyjrDFnE0OKHlZKj71xxult0n4ZgxsdB0xpmC1VdQUAOGCYhGtZ8SnFNrzZZLeNOdzZ3uTdw9nmBwC2UYKm0pl6J6vONt2HgYEX7NyJRZZw1EXFTv3vc8FDF2YiP+jAe+9GFtzLSkfGG8uveyq/tm39GIMWGfGx5W6mqJKm2/lKh5HaE3BUKGNhnPmhL/Z+kWJTRdxuOF8ukzqZauSym4EOqjbOGxRGbPS4bD7uo8jStVMRVdrKPGvUMVh30Lxxx3zpYJ7Q1CeSFpQiOjWdhUS4lB/qEJ9p02gLd+LVcjO/u106t2114yT0BrdTGBE3j1WFJvrkAc9bxxM9F/lLFj8QEM8f0ELUJY+FPBjp02IJbXtG0f+TKsGdM3C/NSzeRt71tAlr+t8y3/lRgYGRK1wBRd0zVZR/pA2o+4nL91ZU6QieN69fLOm6UezvVhY/l/XW4hRtPsGlOngVQgBkBKp3r4cVEWJe0pyoSVuocrbykkFv371PxwrfTv7sSS8n1Xm+Eq+MnEAfbbkslB6HekG6CmXLb/vUfEBci3T9ay1xulmG86zyO8BHgpHj5MlC7oti96EO/2Iqgjy8Kbd8df6jNe3dMVjQXFsMkY5LH9IyebFmvIOShDmhYwTR8Jkf+v/yRtbaAmlLSBi3Yp0pcWGo1Xg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SI2PR03MB6686.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(39860400002)(366004)(376002)(346002)(451199015)(316002)(54906003)(6916009)(8936002)(76116006)(26005)(64756008)(2616005)(186003)(2906002)(66946007)(5660300002)(7416002)(66476007)(66556008)(6512007)(4326008)(8676002)(66446008)(86362001)(85182001)(91956017)(41300700001)(6506007)(478600001)(36756003)(966005)(71200400001)(6486002)(122000001)(38070700005)(38100700002)(99106002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Vk4rVjMvN1U5RngrRVI1VGZ5cUErMFAxUlZwS2tJS2d1anBnVFJmaVg2YXJC?=
+ =?utf-8?B?VjJNbjNiNjBIREVDT0ZZNm9XTHJ2MWx1cnBuU1EyL3JNQTg3Qk8zSVk5MnpR?=
+ =?utf-8?B?S0pPY2xQOWtRZjg1eUlydWFSN0docGZKUGpQdDR3TmsrV09BaDFTMGlqWmNh?=
+ =?utf-8?B?Yk1INC9qY3l2UHdNRkhPYnlndkprSDNobjNtTE1UY0FIeVVzQ0NLNm9Vczdt?=
+ =?utf-8?B?dlV3b2krSXkzSXlpVFFlU0dUS0V1MS9DYlZkUVF0Q2ZyeWpaQzJsUC9RV0Fz?=
+ =?utf-8?B?NGlHbFNiUjR4aG1jdUt0b2hwWit3L1RjRlc5UWt2NitEODlQVytvbmR2VmtW?=
+ =?utf-8?B?VFVTUm5MSmVGb3ROUENVZ3lvS3FmOE9YdGhlaXpFVkJYcVRGbmRlZk9acUVh?=
+ =?utf-8?B?a1U5am9TcFJEZFFEN1l6aTNKOE4rSmcrN0xoZmxhSkx6dHQwSHhMUElhQ251?=
+ =?utf-8?B?a0YwaC9IVDh0QTRIbEZWcjNyWGl3aDdYLy9wOWY1T2ZvVzdqUkhzRnRHQlVT?=
+ =?utf-8?B?UDJNTzRiemcxOWNDVC9XRDNicWtsa2hLeHk5TEUraU1zQitBK01ia2NqRGRx?=
+ =?utf-8?B?Qmxkd3U0eU9kRjRzRWNDRlpaMVVzNksxK0s3RXUvWVNvVld0WkJ6VmlhTGJw?=
+ =?utf-8?B?eEJJYWU2STVuem9EV3ZQdkJ0cWdzL2k1aGdFdGdHNThuZ09Zc1Y5WTFzQS9p?=
+ =?utf-8?B?dEZ4ek1VZTViWFNJd1JMbWcrbmtJdkZVK1JHWWI4NWFRZ1YyZ2txeDV4MTFH?=
+ =?utf-8?B?N05YQkJjaTRORjZ6THU2aFNTVSthN3BQMXZRZDhiY3RMQzF6YnJsaXd4RzdV?=
+ =?utf-8?B?NzBacTJTK2pqdDRiSysrSVM2eXo5eUlGM0FTRlIxSkY3WHE1RGZkM2o4WFRK?=
+ =?utf-8?B?UGVWS28zbTh3SFpLRWxOdTRPbHdPQXRzME5hUk1kcHQ0ZHB2Si9Kby8wVjJS?=
+ =?utf-8?B?dUtGOGJkR0c5Qnl5UkVNZGt3cDEyeGtCNjBsdGdQVXJoRllOZEI5SlRIVk1I?=
+ =?utf-8?B?UER3OHRwaUVzaFhZZ25nZktWY0dacC9HemxES2tJcFVUeVpsRFVUTlpHZ2ZD?=
+ =?utf-8?B?blZUdVJwdUNpQ1pZMTlDNmVrV0tQeE5tTEZ3MnJCMUptUnYvRG9FWUFZbnlH?=
+ =?utf-8?B?ako3Q1krSDhOOVZYM2c2ckU4Rk5YSWVYOWU0dHJWRWFhcThJakR3L1Q5MU5I?=
+ =?utf-8?B?S3owM0JXNGpSTTdJVzErMzFYTUZpajM0RlNCb0xva0JNaVNQd0QyM1FaUmEr?=
+ =?utf-8?B?QUpxajM0dUFHN3ZKZWtsWkhDeUllM0VNazlQV1R0T09zWGt2aDF4QjFwcjRZ?=
+ =?utf-8?B?M1RwR0FxK25acklTSjdrdkFlc0JXajlzZVZkUEtwdUNTR0FYV0IrYTNQQnBC?=
+ =?utf-8?B?MGJWNFg2VHBnTEN0d0tsL0l2d1BFSDlOd1V3UWVSK0drbTl1VHNhblYzT3Ns?=
+ =?utf-8?B?WWk0eHo4SWxldkpjbnRtZWFnSXM5K3hFUE1BUlNWNENIbDA2eUlnVVYxM3NL?=
+ =?utf-8?B?QnNvbDNqWVNNb3ZHeVRORWhqcWRPU0gyVmtXTng3aXc0bjlYanFTbEpRV1pY?=
+ =?utf-8?B?MnpJUlBvN09WSjhPMGhFSWxZb0JEdDRkTXNkTkRZbzd3N1YvbkZSRUFxQTQy?=
+ =?utf-8?B?L1hlN0lWRmRHZEpJczZmQVJjTlVHRDR4ZGVNenJNajVWL2hkdEZFNVdNWnA3?=
+ =?utf-8?B?RzNEZlNydlZieElVbWNwWDNKamtjQUc5dDZnKzdicUxJR2p2NGZUQWhuci92?=
+ =?utf-8?B?YmFkdWsvaEIyaUh5UlZQaVBQelMvaVIzTkg0ZGkyclhqaXh6NStnM2hHOGIr?=
+ =?utf-8?B?eTZBdkw1T3o5eE5Od0tMZlE2UFJFSGgyUlJGWmkzelB5RkNxRkZqekpWYkMz?=
+ =?utf-8?B?RGpRUTFnUEhwWUZpOUtjQ0RLL3B6UmpReHNUUDVyTXY0WnMvQW1ETW02MjFx?=
+ =?utf-8?B?OTV5aklvdXl1TmVvNGJlOWtoQ3JsdG1KSDQrNFc5ZFYxMU9zWmlJWlZyZnlC?=
+ =?utf-8?B?dmdvREVvQm5Ma2RtL3R0VG5jKzl4UUVtMHNYVlZKS0NjNEpUbkpBYUI1TENq?=
+ =?utf-8?B?NktTZkxMRXVvSVh2bFhjNUl0L21CeENVZFcvQkZ0bmwxS0N4cHAvZG0vT0U5?=
+ =?utf-8?B?V0FsZWQ3TDNJQWpQU09jdXc4QURLMlFtd0RGOFoxa2p6V3ZHaWN6VlgvT0Uw?=
+ =?utf-8?B?d0E9PQ==?=
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20221014104911epcas5p394100ff6ed53be32c4d64c7e23e48833
-References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
- <CGME20221014104911epcas5p394100ff6ed53be32c4d64c7e23e48833@epcas5p3.samsung.com>
- <20221014102151.108539-6-p.rajanbabu@samsung.com>
- <c11f92be-1d86-17e4-e3bb-05e7b17d5fc8@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-ID: <D63F977699A097488180E0560C004CCA@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a85fb963-d3bb-447a-de8c-08dab341d10d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2022 08:54:08.7783 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hcRR/0VDhd2Xp/RsW/gNoLnjWkIOIEwGvmzssLFSQX5qoFMgKVQsbAXhkW2DSlala464MKQTdZfRTbhDZ4gECw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB5695
+X-MTK: N
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,142 +202,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-> -----Original Message-----
-> From: Krzysztof Kozlowski [mailto:krzysztof.kozlowski@linaro.org]
-> Sent: 16 October 2022 08:44 PM
-> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>;
-> lgirdwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org;
-> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
-> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
-> alim.akhtar@samsung.com; rcsekar@samsung.com;
-> aswani.reddy@samsung.com
-> Cc: alsa-devel@alsa-project.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org; linux-samsung-soc@vger.kernel.org
-> Subject: Re: [PATCH 5/6] arm64: dts: fsd: Add I2S DAI node for Tesla FSD
-> 
-> On 14/10/2022 06:21, Padmanabhan Rajanbabu wrote:
-> > Add device tree node for I2S0 and I2S1 CPU DAI instances for Tesla FSD
-> > board
-> >
-> > Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-> > ---
-> >  arch/arm64/boot/dts/tesla/fsd-evb.dts      |  8 +++++
-> >  arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi | 14 ++++++++
-> >  arch/arm64/boot/dts/tesla/fsd.dtsi         | 38 ++++++++++++++++++++++
-> >  3 files changed, 60 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > index 1db6ddf03f01..c0a4509499ab 100644
-> > --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > @@ -41,3 +41,11 @@
-> >  &ufs {
-> >  	status = "okay";
-> >  };
-> > +
-> > +&tdm_0 {
-> 
-> Alphabetical order against other label-overrides.
-Okay
-> 
-> > +	status = "okay";
-> > +};
-> > +
-> > +&tdm_1 {
-> > +	status = "okay";
-> > +};
-> > diff --git a/arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi
-> > b/arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi
-> > index e3852c946352..ff6f5d4b16dd 100644
-> > --- a/arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi
-> > +++ b/arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi
-> > @@ -339,6 +339,20 @@
-> >  		samsung,pin-pud = <FSD_PIN_PULL_UP>;
-> >  		samsung,pin-drv = <FSD_PIN_DRV_LV4>;
-> >  	};
-> > +
-> > +	i2s0_bus: i2s0-bus {
-> 
-> Does not look like you tested the DTS against bindings. Please run `make
-> dtbs_check` (see Documentation/devicetree/bindings/writing-schema.rst
-> for instructions).
-I'll double check and run dtbs_check to see if I'm hitting any errors.
-> 
-> > +		samsung,pins = "gpd1-0", "gpd1-1", "gpd1-2", "gpd1-3",
-> "gpd1-4";
-> > +		samsung,pin-function = <FSD_PIN_FUNC_2>;
-> > +		samsung,pin-pud = <FSD_PIN_PULL_DOWN>;
-> > +		samsung,pin-drv = <FSD_PIN_DRV_LV4>;
-> > +	};
-> > +
-> > +	i2s1_bus: i2s1-bus {
-> > +		samsung,pins = "gpd2-0", "gpd2-1", "gpd2-2", "gpd2-3",
-> "gpd2-4";
-> > +		samsung,pin-function = <FSD_PIN_FUNC_2>;
-> > +		samsung,pin-pud = <FSD_PIN_PULL_DOWN>;
-> > +		samsung,pin-drv = <FSD_PIN_DRV_LV4>;
-> > +	};
-> >  };
-> >
-> >  &pinctrl_pmu {
-> > diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi
-> > b/arch/arm64/boot/dts/tesla/fsd.dtsi
-> > index f35bc5a288c2..5decad45a1b6 100644
-> > --- a/arch/arm64/boot/dts/tesla/fsd.dtsi
-> > +++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
-> > @@ -32,6 +32,8 @@
-> >  		spi0 = &spi_0;
-> >  		spi1 = &spi_1;
-> >  		spi2 = &spi_2;
-> > +		tdm0 = &tdm_0;
-> > +		tdm1 = &tdm_1;
-> 
-> Why?
-Sorry, these aliases are not used right now. I'll remove it.
-
-> 
-> >  	};
-> >
-> >  	cpus {
-> > @@ -809,6 +811,42 @@
-> >  			status = "disabled";
-> >  		};
-> >
-> > +		tdm_0: tdm@140e0000 {
-> 
-> Node names should be generic, so this looks like i2s.
-> https://protect2.fireeye.com/v1/url?k=2cfaa5af-4d874de8-2cfb2ee0-
-> 74fe485fff30-cb16acc0c0c574e9&q=1&e=fc8e3b54-a0ef-475e-a4f2-
-> 83626a86ac8a&u=https%3A%2F%2Fdevicetree-
-> specification.readthedocs.io%2Fen%2Flatest%2Fchapter2-devicetree-
-> basics.html%23generic-names-recommendation
-
-Thank you for the link. I could only find audio-controller in the list and
-not i2s. so I believe I can use audio-controller node name. Please correct
-me otherwise.
-> 
-> > +			compatible = "samsung,exynos7-i2s";
-> > +			reg = <0x0 0x140E0000 0x0 0x100>;
-> > +			interrupts = <GIC_SPI 206 IRQ_TYPE_LEVEL_HIGH>;
-> > +			dmas = <&pdma1 14>, <&pdma1 13>, <&pdma1 12>;
-> > +			dma-names = "tx", "rx", "tx-sec";
-> > +			#clock-cells = <1>;
-> > +			#sound-dai-cells = <1>;
-> > +			clocks = <&clock_peric PERIC_HCLK_TDM0>,
-> > +				 <&clock_peric PERIC_HCLK_TDM0>,
-> > +				 <&clock_peric PERIC_PCLK_TDM0>;
-> > +			clock-names = "i2s_opclk0", "i2s_opclk1", "iis";
-> 
-> Does not look like you tested the DTS against bindings. Please run `make
-> dtbs_check` (see Documentation/devicetree/bindings/writing-schema.rst
-> for instructions).
-I'll double check and run dtbs_check to see if I'm hitting any errors.
-> 
-> Best regards,
-> Krzysztof
-Thank you for reviewing the patch
-
-
+T24gVGh1LCAyMDIyLTEwLTA2IGF0IDEwOjM4ICswODAwLCBUcmV2b3IgV3Ugd3JvdGU6DQo+IE9u
+IE1vbiwgMjAyMi0xMC0wMyBhdCAxMTozOCAtMDUwMCwgUm9iIEhlcnJpbmcgd3JvdGU6DQo+ID4g
+T24gRnJpLCBTZXAgMzAsIDIwMjIgYXQgMTA6NTc6MDFQTSArMDgwMCwgVHJldm9yIFd1IHdyb3Rl
+Og0KPiA+ID4gQWRkIGRvY3VtZW50IGZvciBtdDgxODggYm9hcmQgd2l0aCBtdDYzNTkuDQo+ID4g
+PiANCj4gPiA+IFNpZ25lZC1vZmYtYnk6IFRyZXZvciBXdSA8dHJldm9yLnd1QG1lZGlhdGVrLmNv
+bT4NCj4gPiA+IC0tLQ0KPiA+ID4gIC4uLi9iaW5kaW5ncy9zb3VuZC9tdDgxODgtbXQ2MzU5Lnlh
+bWwgICAgICAgICB8IDcwDQo+ID4gPiArKysrKysrKysrKysrKysrKysrDQo+ID4gPiAgMSBmaWxl
+IGNoYW5nZWQsIDcwIGluc2VydGlvbnMoKykNCj4gPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQNCj4g
+PiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxODgtDQo+ID4g
+PiBtdDYzNTkueWFtbA0KPiA+ID4gDQo+ID4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210ODE4OC0NCj4gPiA+IG10NjM1OS55YW1sIGIvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210ODE4OC0NCj4gPiA+IG10NjM1
+OS55YW1sDQo+ID4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+ID4gaW5kZXggMDAwMDAwMDAw
+MDAwLi41N2M3YzVjZWVmOGENCj4gPiA+IC0tLSAvZGV2L251bGwNCj4gPiA+ICsrKyBiL0RvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxODgtbXQ2MzU5LnlhbWwNCj4g
+PiA+IEBAIC0wLDAgKzEsNzAgQEANCj4gPiA+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAo
+R1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNsYXVzZSkNCj4gPiA+ICslWUFNTCAxLjINCj4gPiA+ICst
+LS0NCj4gPiA+ICskaWQ6IA0KPiA+ID4gDQpodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0
+cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvc291bmQvbXQ4MTg4LW10NjM1OS55YW1sKl9fO0l3
+ISFDVFJOS0E5d01nMEFSYnchd01jNkkyYVhSekk0NVVQUVRFQXpVNFp1alY2VmFpRkdraUtCeTE4
+QV81RGxRZWhUeFUwMHUxUVNwaU96Z0FnS3RBJA0KPiA+ID4gIA0KPiA+ID4gKyRzY2hlbWE6IA0K
+PiA+ID4gDQpodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cDovL2RldmljZXRyZWUub3Jn
+L21ldGEtc2NoZW1hcy9jb3JlLnlhbWwqX187SXchIUNUUk5LQTl3TWcwQVJidyF3TWM2STJhWFJ6
+STQ1VVBRVEVBelU0WnVqVjZWYWlGR2tpS0J5MThBXzVEbFFlaFR4VTAwdTFRU3BpTVNLUFdidFEk
+DQo+ID4gPiAgDQo+ID4gPiArDQo+ID4gPiArdGl0bGU6IE1lZGlhVGVrIE1UODE4OCBBU29DIHNv
+dW5kIGNhcmQgZHJpdmVyDQo+ID4gPiArDQo+ID4gPiArbWFpbnRhaW5lcnM6DQo+ID4gPiArICAt
+IFRyZXZvciBXdSA8dHJldm9yLnd1QG1lZGlhdGVrLmNvbT4NCj4gPiA+ICsNCj4gPiA+ICtkZXNj
+cmlwdGlvbjoNCj4gPiA+ICsgIFRoaXMgYmluZGluZyBkZXNjcmliZXMgdGhlIE1UODE4OCBzb3Vu
+ZCBjYXJkLg0KPiA+ID4gKw0KPiA+ID4gK3Byb3BlcnRpZXM6DQo+ID4gPiArICBjb21wYXRpYmxl
+Og0KPiA+ID4gKyAgICBlbnVtOg0KPiA+ID4gKyAgICAgIC0gbWVkaWF0ZWssbXQ4MTg4LXNvdW5k
+DQo+ID4gPiArDQo+ID4gPiArICBtb2RlbDoNCj4gPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlw
+ZXMueWFtbCMvZGVmaW5pdGlvbnMvc3RyaW5nDQo+ID4gPiArICAgIGRlc2NyaXB0aW9uOiBVc2Vy
+IHNwZWNpZmllZCBhdWRpbyBzb3VuZCBjYXJkIG5hbWUNCj4gPiA+ICsNCj4gPiA+ICsgIGF1ZGlv
+LXJvdXRpbmc6DQo+ID4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRp
+b25zL25vbi11bmlxdWUtc3RyaW5nLQ0KPiA+ID4gYXJyYXkNCj4gPiA+ICsgICAgZGVzY3JpcHRp
+b246DQo+ID4gPiArICAgICAgQSBsaXN0IG9mIHRoZSBjb25uZWN0aW9ucyBiZXR3ZWVuIGF1ZGlv
+IGNvbXBvbmVudHMuIEVhY2gNCj4gPiA+IGVudHJ5IGlzIGENCj4gPiA+ICsgICAgICBzaW5rL3Nv
+dXJjZSBwYWlyIG9mIHN0cmluZ3MuIFZhbGlkIG5hbWVzIGNvdWxkIGJlIHRoZQ0KPiA+ID4gaW5w
+dXQNCj4gPiA+IG9yIG91dHB1dA0KPiA+ID4gKyAgICAgIHdpZGdldHMgb2YgYXVkaW8gY29tcG9u
+ZW50cywgcG93ZXIgc3VwcGxpZXMsIE1pY0JpYXMgb2YNCj4gPiA+IGNvZGVjIGFuZCB0aGUNCj4g
+PiA+ICsgICAgICBzb2Z0d2FyZSBzd2l0Y2guDQo+ID4gPiArDQo+ID4gPiArICBtZWRpYXRlayxw
+bGF0Zm9ybToNCj4gPiA+ICsgICAgJHJlZjogIi9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRp
+b25zL3BoYW5kbGUiDQo+ID4gDQo+ID4gRG9uJ3QgbmVlZCBxdW90ZXMuDQo+IA0KPiBIaSBSb2Is
+DQo+IA0KPiBXaGljaCBvbmUgYXJlIHlvdSBleHBlY3RlZD8NCj4gMS4gcmVtb3ZlIHRoZSBsaW5l
+DQo+IDIuICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3BoYW5kbGUNCj4g
+DQo+ID4gDQo+ID4gPiArICAgIGRlc2NyaXB0aW9uOiBUaGUgcGhhbmRsZSBvZiBNVDgxODggQVNv
+QyBwbGF0Zm9ybS4NCj4gPiA+ICsNCj4gPiA+ICsgIG1lZGlhdGVrLGRwdHgtY29kZWM6DQo+ID4g
+PiArICAgICRyZWY6ICIvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlIg0K
+PiA+ID4gKyAgICBkZXNjcmlwdGlvbjogVGhlIHBoYW5kbGUgb2YgTVQ4MTg4IERpc3BsYXkgUG9y
+dCBUeCBjb2RlYw0KPiA+ID4gbm9kZS4NCj4gPiA+ICsNCj4gPiA+ICsgIG1lZGlhdGVrLGhkbWkt
+Y29kZWM6DQo+ID4gPiArICAgICRyZWY6ICIvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9u
+cy9waGFuZGxlIg0KPiA+ID4gKyAgICBkZXNjcmlwdGlvbjogVGhlIHBoYW5kbGUgb2YgTVQ4MTg4
+IEhETUkgY29kZWMgbm9kZS4NCj4gPiA+ICsNCj4gPiA+ICsgIG1lZGlhdGVrLGRhaS1saW5rOg0K
+PiA+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9zdHJpbmct
+YXJyYXkNCj4gPiA+ICsgICAgZGVzY3JpcHRpb246DQo+ID4gPiArICAgICAgQSBsaXN0IG9mIHRo
+ZSBkZXNpcmVkIGRhaS1saW5rcyBpbiB0aGUgc291bmQgY2FyZC4gRWFjaA0KPiA+ID4gZW50cnkg
+aXMgYQ0KPiA+ID4gKyAgICAgIG5hbWUgZGVmaW5lZCBpbiB0aGUgbWFjaGluZSBkcml2ZXIuDQo+
+ID4gDQo+ID4gTmFtZXMgaGF2ZSB0byBiZSBkZWZpbmVkIGhlcmUuDQo+ID4gDQo+IA0KPiBPSywg
+SSB3aWxsIGFkZCBlbnVtIGhlcmUgZm9yIGxpc3RpbmcgYWxsIGF2YWlsYWJsZSBkYWktbGlua3Mu
+DQo+IA0KPiBUaGFua3MsDQo+IFRyZXZvcg0KPiANCj4gPiA+ICsNCj4gPiA+ICthZGRpdGlvbmFs
+UHJvcGVydGllczogZmFsc2UNCj4gPiA+ICsNCj4gPiA+ICtyZXF1aXJlZDoNCj4gPiA+ICsgIC0g
+Y29tcGF0aWJsZQ0KPiA+ID4gKyAgLSBtZWRpYXRlayxwbGF0Zm9ybQ0KPiA+ID4gKw0KPiA+ID4g
+K2V4YW1wbGVzOg0KPiA+ID4gKyAgLSB8DQo+ID4gPiArDQo+ID4gPiArICAgIHNvdW5kOiBtdDgx
+ODgtc291bmQgew0KPiA+ID4gKyAgICAgICAgY29tcGF0aWJsZSA9ICJtZWRpYXRlayxtdDgxODgt
+c291bmQiOw0KPiA+ID4gKyAgICAgICAgbWVkaWF0ZWsscGxhdGZvcm0gPSA8JmFmZT46DQo+ID4g
+PiArICAgICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0KPiA+ID4gKyAgICAgICAgcGlu
+Y3RybC0wID0gPCZhdWRfcGluc19kZWZhdWx0PjsNCj4gPiA+ICsgICAgICAgIGF1ZGlvLXJvdXRp
+bmcgPQ0KPiA+ID4gKyAgICAgICAgICAgICJIZWFkcGhvbmUiLCAiSGVhZHBob25lIEwiLA0KPiA+
+ID4gKyAgICAgICAgICAgICJIZWFkcGhvbmUiLCAiSGVhZHBob25lIFIiLA0KPiA+ID4gKyAgICAg
+ICAgICAgICJBSU4xIiwgIkhlYWRzZXQgTWljIjsNCj4gPiA+ICsgICAgfTsNCj4gPiA+ICsNCj4g
+PiA+ICsuLi4NCj4gPiA+IC0tIA0KPiA+ID4gMi4xOC4wDQo+ID4gPiANCj4gPiA+IA0K

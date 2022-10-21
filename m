@@ -2,75 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF433607A03
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 16:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1FE4607B91
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 17:54:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 176BDB355;
-	Fri, 21 Oct 2022 16:56:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176BDB355
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DFB890AB;
+	Fri, 21 Oct 2022 17:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DFB890AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666364264;
-	bh=JFAGvAwbASiexAN6WBOLG711KgJt9FjZpTBjSsKXbm0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666367682;
+	bh=Iua4MWv/I7FjEjxxcLwibfXrlpvZCHWx4u2bLaB1zHI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BOce7JDSijQVSh7k5KtZUYblHLfp7DF/WpTwDMycwiTSFMKCMaIw7B0TxqikptyOS
-	 +yGVSXpsLi3XFZy3oPGVieiR1y3CnMnoX42UdD9Mou7PUdpsMGBBiRAnPrWDBNKOYf
-	 RQuf1sNaHeEmW1gxYVRonA9k0HGrniWDTgZnqY8M=
+	b=DyWiCV06Zc2p/Uke8GjSPnPx6varihrTyic2tyU7UcBq56xv9SwBR9PoPrWY4arMw
+	 2mb35TXUUX4J/Lrpfz7MrMNiG7ZRrtvt9JPQJsazAWKiesywI1dC+89tD6+XSHF7Dz
+	 lrDhkTQT760nUW3L1YJyLBYy9f+51Qr2A86P40VY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE235F8054A;
-	Fri, 21 Oct 2022 16:56:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 994DDF800B5;
+	Fri, 21 Oct 2022 17:53:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C287F80549; Fri, 21 Oct 2022 16:56:04 +0200 (CEST)
+ id 478AAF8021D; Fri, 21 Oct 2022 17:53:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12E2CF800B8
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 16:55:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12E2CF800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LmNEIDRW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EF0A561ED7;
- Fri, 21 Oct 2022 14:55:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290DFC433C1;
- Fri, 21 Oct 2022 14:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666364156;
- bh=JFAGvAwbASiexAN6WBOLG711KgJt9FjZpTBjSsKXbm0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LmNEIDRWCywfl1+mANkwHwfrsVQlT99Nr4DHVAoEUmF3Tn1efFOamGKd2NoSZTQg0
- nfJO9m9l1A6MSZWQnjxoxOgZESZQbP+szUrcHLghBBTqBPW32dUvDt3uNaVN85okUx
- morqL30TPNAPv9NTCoarR8YXpmTbLSMRwALXq/0H+TBPECRa7XLv6hF1IuATf+5fH0
- j0BYVNmri8LEa2uYCXpCQZsWC/yFmxF0uB4+bqHJuh521ME1ehRXJ7+58oQDhPh5C+
- MBHgl0G2EdgNNdOO92DvLChAik0trE2hYsUYuSGcwKHFvqSNrkvlPwgeyxwoixMCHR
- puLFMQgXfIuQg==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Yang Yingliang <yangyingliang@huawei.com>
-In-Reply-To: <20221020105937.1448951-1-yangyingliang@huawei.com>
-References: <20221020105937.1448951-1-yangyingliang@huawei.com>
-Subject: Re: [PATCH v2] ASoC: Intel: Skylake: fix possible memory leak in
- skl_codec_device_init()
-Message-Id: <166636415489.251337.13339679712616375654.b4-ty@kernel.org>
-Date: Fri, 21 Oct 2022 15:55:54 +0100
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id F3C71F80134
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 17:53:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3C71F80134
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: tiwai@suse.de, cezary.rojewski@intel.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1666367623135313034-webhooks-bot@alsa-project.org>
+References: <1666367623135313034-webhooks-bot@alsa-project.org>
+Subject: ucm2: Add initial support for AMD Vangogh (acp5x) on Steam Deck
+Message-Id: <20221021155346.478AAF8021D@alsa1.perex.cz>
+Date: Fri, 21 Oct 2022 17:53:46 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,38 +60,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 Oct 2022 18:59:37 +0800, Yang Yingliang wrote:
-> If snd_hdac_device_register() fails, 'codec' and name allocated in
-> dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
-> by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
-> and kobject_cleanup().
-> 
-> 
+alsa-project/alsa-ucm-conf pull request #233 was opened from cristicc:
 
-Applied to
+This has been tested on a Valve Steam Deck EV2 unit, using kernel v6.1-rc1.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: Intel: Skylake: fix possible memory leak in skl_codec_device_init()
-      commit: 0e213813df02da048ffd22a2c4fac041768ca327
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/233
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/233.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

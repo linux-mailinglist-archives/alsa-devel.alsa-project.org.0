@@ -2,96 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87AB760AE16
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 16:48:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38CC460AE17
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 16:48:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 096F374D7;
-	Mon, 24 Oct 2022 16:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 096F374D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C52ED50CC;
+	Mon, 24 Oct 2022 16:47:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C52ED50CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666622897;
-	bh=AIUX0+O64nykYk3SsLF5dIKIudlMpR5Eb4vKr7571lo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Uj+k3obhlfwf00rktsnPKrSkCqBbmbEBap2GGvtKO2USUh4ESiFnT/aK0tp5r+6Rd
-	 DCpNHGXCQyXPAivMRaY+aHJiy2zN18txevOzUcglZji9g7WHFIae5DB7KRGkwLadm/
-	 t+Zy2oQAPsGo+YS00NBOEDX1sfwMMyt7GJwOjHVo=
+	s=default; t=1666622916;
+	bh=g7A2VpgVEu9eNaRIdcG9Vj9IMR86Ju3eo5pz21hUM5Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZkowRaMu+gf3uHzASSprARgDMl2vRC2amjrN6kVb1NDQxn+5GYFWUVw94evUJ0kqw
+	 JISCUKJYESyjOiR9qZZQ1uMbpG27ny+m5759CjZ9Tgcl6QWUBJ2ce0x72132vBXtAy
+	 5q2IpPFiS7YKe+n2egVT/it7ybYQgPvelZqQJLls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94A9FF8058C;
-	Mon, 24 Oct 2022 16:44:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40643F805A8;
+	Mon, 24 Oct 2022 16:44:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC6DCF800B5; Fri, 21 Oct 2022 21:17:59 +0200 (CEST)
+ id 8A9F5F8021D; Fri, 21 Oct 2022 22:23:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B09CF80118
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 22:23:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B09CF80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="vPIc8HmO"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFB19F800B5
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 21:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFB19F800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="k6SoNyV6"
-Received: from [10.0.0.163] (ip-89-177-23-149.bb.vodafone.cz [89.177.23.149])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: david.heidelberg)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id C58B066025FA;
- Fri, 21 Oct 2022 20:17:51 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666379872;
- bh=5JoqpvIeIVnbkgZEA0L2xNRd9xGh1NYvaRQdmk73hpA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=k6SoNyV6QY1zZ+StUQYv2+IHEtSM6JxTuxNVwMPL2eBg7iLnw2Fm83DK4aRiB/A6g
- 047caoIrXZ/mW8tWLa7Dp3RLXan5KvZBNeLA3hyrQTIEEd19zcsdHZSHSwey9BN0Q3
- /EelXBGFXlVSSap8IUWMVMHOE0Nv845OLUIm67z8OA7Xhl3Wz754v0c8Xtd0uYT5kW
- QW5PpV6JMjsfTjjMXPS2Wr0Gq95Ve9fIbCFhksbCSI61XHiENTcirBfvlolyyupDHZ
- iulkNMJeM01jnRSE8JevDftfrg6hObczJVWvn66hWl9ClV8FBg3bZ662dTei56OnSq
- UPrSsXSOVNz5Q==
-Message-ID: <aedd2f30-3f27-757f-6d2b-d34067b9e6d6@collabora.com>
-Date: Fri, 21 Oct 2022 21:17:48 +0200
+ by ams.source.kernel.org (Postfix) with ESMTPS id F2EB8B82CB6;
+ Fri, 21 Oct 2022 20:23:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5A6C433C1;
+ Fri, 21 Oct 2022 20:23:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666383794;
+ bh=g7A2VpgVEu9eNaRIdcG9Vj9IMR86Ju3eo5pz21hUM5Q=;
+ h=From:To:Cc:Subject:Date:From;
+ b=vPIc8HmOB3nx3BuAxPiTQsbGmA0strzuRTCtYL8tHK9+eCm0Pi7KrxGmQ9EzU6jzj
+ KA+QQDEa/qw1Md0nvIW2IfkYdxeHPuNT5if5eZZa9ZYoV+Y0O4UgqOx3rGlzMrrDe0
+ VuqL1VxSL5A5EvQZO+DblzRfqACvwh2KOe0bu44M4OHV3QeUArcvdTza7t2wyYjD8c
+ 8VI7KpPx5fmefpcUuqkHUhqiBX6YZ173dnyyXvJVO2g3kkINEKlONH8ZdZW8MtQyAw
+ VS007jMGGZcXas6GJNA8aypbPv6RJ/7hGZ8OQ7+04hoUfsW7TUbpqbgjxnVsQtDgN+
+ 0JzvjAggCY+5w==
+From: Arnd Bergmann <arnd@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 00/21] ARM: s3c: clean out obsolete platforms
+Date: Fri, 21 Oct 2022 22:22:28 +0200
+Message-Id: <20221021202254.4142411-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:104.0) Gecko/20100101
- Thunderbird/104.0
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and
- MICVDD supplies
-Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>
-References: <20221021190908.1502026-1-nfraprado@collabora.com>
- <20221021190908.1502026-3-nfraprado@collabora.com>
-From: David Heidelberg <david.heidelberg@collabora.com>
-Autocrypt: addr=david.heidelberg@collabora.com; keydata=
- xjMEYlvLOxYJKwYBBAHaRw8BAQdA5CoWEzz4igpwK4h6lK6ZformRk84+ymcfkGNPwqEeILN
- MURhdmlkIEhlaWRlbGJlcmcgPGRhdmlkLmhlaWRlbGJlcmdAY29sbGFib3JhLmNvbT7ClgQT
- FggAPhYhBEo7kSl22BK0F1Np/mn1Z4YcHsAUBQJiW8s7AhsDBQkFo5qABQsJCAcCBhUKCQgL
- AgQWAgMBAh4BAheAAAoJEGn1Z4YcHsAU84kBAK5YqSWAOuIumAqgWvke6BEsaIGWGQzXSuKj
- er/TXuFuAQCwc9ITSVXWWTSpdFt2+4z7Wch8tIGlbIFcS9dCFddwCc44BGJbyzsSCisGAQQB
- l1UBBQEBB0AEk7jXEwDApGOwMH/X0UAPBH8Y3isjxhNMjpyRcnl2CwMBCAfCfgQYFggAJhYh
- BEo7kSl22BK0F1Np/mn1Z4YcHsAUBQJiW8s7AhsMBQkFo5qAAAoJEGn1Z4YcHsAU0PEA/j0Y
- uAOKJCnnwrkf3ozPP0sutA5bojoARwcIaZKO/zvIAP9PwTC9DGLg+8LJm7m2Lyf0LxLA8FXD
- wueLHBdwHg6zAQ==
-In-Reply-To: <20221021190908.1502026-3-nfraprado@collabora.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7IDW3YrPnWNDMBG09VTeo65l"
-X-Mailman-Approved-At: Mon, 24 Oct 2022 16:44:48 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 24 Oct 2022 16:44:49 +0200
+Cc: linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-ide@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Ben Dooks <ben-linux@fluff.org>, Simtec Linux Team <linux@simtec.co.uk>,
+ linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,80 +99,610 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7IDW3YrPnWNDMBG09VTeo65l
-From: David Heidelberg <david.heidelberg@collabora.com>
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- kernel@collabora.com, Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Message-ID: <aedd2f30-3f27-757f-6d2b-d34067b9e6d6@collabora.com>
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and
- MICVDD supplies
-References: <20221021190908.1502026-1-nfraprado@collabora.com>
- <20221021190908.1502026-3-nfraprado@collabora.com>
-In-Reply-To: <20221021190908.1502026-3-nfraprado@collabora.com>
-Content-Type: multipart/mixed; boundary="------------J2fwV7r1wXG0m4q6aeHfxIlj"
+From: Arnd Bergmann <arnd@arndb.de>
 
---------------J2fwV7r1wXG0m4q6aeHfxIlj
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+The s3c24xx platform was marked as deprecated a while ago,
+and for the s3c64xx platform, we marked all except one legacy
+board file as unused.
 
-UmV2aWV3ZWQtYnk6IERhdmlkIEhlaWRlbGJlcmcgPGRhdmlkLmhlaWRlbGJlcmdAY29sbGFi
-b3JhLmNvbT4NCg0KT24gMjEvMTAvMjAyMiAyMTowOSwgTsOtY29sYXMgRi4gUi4gQS4gUHJh
-ZG8gd3JvdGU6DQo+IFRoZSBydDU2ODJzIGNvZGVjIGNhbiBoYXZlIHR3byBzdXBwbGllczog
-QVZERCBhbmQgTUlDVkRELiBBZGQgcHJvcGVydGllcw0KPiBmb3IgdGhlbS4NCj4NCj4gU2ln
-bmVkLW9mZi1ieTogTsOtY29sYXMgRi4gUi4gQS4gUHJhZG8gPG5mcmFwcmFkb0Bjb2xsYWJv
-cmEuY29tPg0KPiAtLS0NCj4NCj4gICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3Mvc291bmQvcmVhbHRlayxydDU2ODJzLnlhbWwgfCA0ICsrKysNCj4gICAxIGZpbGUgY2hh
-bmdlZCwgNCBpbnNlcnRpb25zKCspDQo+DQo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvcmVhbHRlayxydDU2ODJzLnlhbWwgYi9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvcmVhbHRlayxydDU2ODJzLnlh
-bWwNCj4gaW5kZXggZWE1M2E1NTAxNWM0Li5jYTEwMzdlNzZmOTYgMTAwNjQ0DQo+IC0tLSBh
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9yZWFsdGVrLHJ0NTY4
-MnMueWFtbA0KPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291
-bmQvcmVhbHRlayxydDU2ODJzLnlhbWwNCj4gQEAgLTkwLDYgKzkwLDEwIEBAIHByb3BlcnRp
-ZXM6DQo+ICAgICAiI3NvdW5kLWRhaS1jZWxscyI6DQo+ICAgICAgIGNvbnN0OiAwDQo+ICAg
-DQo+ICsgIEFWREQtc3VwcGx5OiB0cnVlDQo+ICsNCj4gKyAgTUlDVkRELXN1cHBseTogdHJ1
-ZQ0KPiArDQo+ICAgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQo+ICAgDQo+ICAgcmVx
-dWlyZWQ6DQo=
---------------J2fwV7r1wXG0m4q6aeHfxIlj
-Content-Type: application/pgp-keys; name="OpenPGP_0x69F567861C1EC014.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x69F567861C1EC014.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+This series removes all of those, leaving only s3c64xx support
+for DT based boots as well as the cragg6410 board file.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+About half of the s3c specific drivers were only used on
+the now removed machines, so these drivers can be retired
+as well. I can either merge the driver removal patches through
+the soc tree along with the board file patches, or subsystem
+maintainers can pick them up into their own trees, whichever
+they prefer.
 
-xjMEYlvLOxYJKwYBBAHaRw8BAQdA5CoWEzz4igpwK4h6lK6ZformRk84+ymcfkGN
-PwqEeILNMURhdmlkIEhlaWRlbGJlcmcgPGRhdmlkLmhlaWRlbGJlcmdAY29sbGFi
-b3JhLmNvbT7ClgQTFggAPhYhBEo7kSl22BK0F1Np/mn1Z4YcHsAUBQJiW8s7AhsD
-BQkFo5qABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEGn1Z4YcHsAU84kBAK5Y
-qSWAOuIumAqgWvke6BEsaIGWGQzXSuKjer/TXuFuAQCwc9ITSVXWWTSpdFt2+4z7
-Wch8tIGlbIFcS9dCFddwCc44BGJbyzsSCisGAQQBl1UBBQEBB0AEk7jXEwDApGOw
-MH/X0UAPBH8Y3isjxhNMjpyRcnl2CwMBCAfCfgQYFggAJhYhBEo7kSl22BK0F1Np
-/mn1Z4YcHsAUBQJiW8s7AhsMBQkFo5qAAAoJEGn1Z4YcHsAU0PEA/j0YuAOKJCnn
-wrkf3ozPP0sutA5bojoARwcIaZKO/zvIAP9PwTC9DGLg+8LJm7m2Lyf0LxLA8FXD
-wueLHBdwHg6zAQ=3D=3D
-=3DOQS+
------END PGP PUBLIC KEY BLOCK-----
+Arnd Bergmann (21):
+  ARM: s3c: remove all s3c24xx support
+  ARM: s3c: remove s3c24xx specific hacks
+  ARM: s3c: remove most s3c64xx board support
+  ARM: s3c: remove adc.c
+  ARM: s3c: simplify platform code
+  ARM: s3c: remove s3c6400 support
+  power: remove s3c adc battery driver
+  hwmon: remove s3c driver
+  pata: remove samsung_cf driver
+  mmc: remove s3cmci driver
+  clk: remove s3c24xx driver
+  leds: remove s3c24xx driver
+  usb: gadget: remove s3c24xx drivers
+  dmaengine: remove s3c24xx driver
+  cpufreq: remove s3c24xx drivers
+  fbdev: remove s3c2410 framebuffer
+  input: remove s3c24xx touchscreen driver
+  pinctrl: remove s3c24xx driver
+  spi: remove s3c24xx driver
+  soc: s3c: remove pm-debug hack
+  ASoC: samsung: remove unused drivers
 
---------------J2fwV7r1wXG0m4q6aeHfxIlj--
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Ben Dooks <ben-linux@fluff.org>
+Cc: Simtec Linux Team <linux@simtec.co.uk>
+Bcc: Alim Akhtar <alim.akhtar@samsung.com>
+Bcc: Rob Herring <robh+dt@kernel.org>
+Bcc: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Bcc: Sergey Shtylyov <s.shtylyov@omp.ru>
+Bcc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Bcc: Tomasz Figa <tomasz.figa@gmail.com>
+Bcc: Chanwoo Choi <cw00.choi@samsung.com>
+Bcc: Michael Turquette <mturquette@baylibre.com>
+Bcc: Stephen Boyd <sboyd@kernel.org>
+Bcc: Daniel Lezcano <daniel.lezcano@linaro.org>
+Bcc: Thomas Gleixner <tglx@linutronix.de>
+Bcc: "Rafael J. Wysocki" <rafael@kernel.org>
+Bcc: Viresh Kumar <viresh.kumar@linaro.org>
+Bcc: Vinod Koul <vkoul@kernel.org>
+Bcc: Jean Delvare <jdelvare@suse.com>
+Bcc: Guenter Roeck <linux@roeck-us.net>
+Bcc: Jonathan Cameron <jic23@kernel.org>
+Bcc: Lars-Peter Clausen <lars@metafoo.de>
+Bcc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Bcc: Pavel Machek <pavel@ucw.cz>
+Bcc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Bcc: Ulf Hansson <ulf.hansson@linaro.org>
+Bcc: Miquel Raynal <miquel.raynal@bootlin.com>
+Bcc: Richard Weinberger <richard@nod.at>
+Bcc: Vignesh Raghavendra <vigneshr@ti.com>
+Bcc: Linus Walleij <linus.walleij@linaro.org>
+Bcc: Sebastian Reichel <sre@kernel.org>
+Bcc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Bcc: Mark Brown <broonie@kernel.org>
+Bcc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Bcc: Jiri Slaby <jirislaby@kernel.org>
+Bcc: Felipe Balbi <balbi@kernel.org>
+Bcc: Helge Deller <deller@gmx.de>
+Bcc: Wim Van Sebroeck <wim@linux-watchdog.org>
+Bcc: Liam Girdwood <lgirdwood@gmail.com>
+Bcc: Thierry Reding <thierry.reding@gmail.com>
+Bcc: "Uwe Kleine-König" <u.kleine-koenig@pengutronix.de>
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-ide@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: dmaengine@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-iio@vger.kernel.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-leds@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-mmc@vger.kernel.org
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-rtc@vger.kernel.org
+Cc: linux-spi@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-watchdog@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-pwm@vger.kernel.org
 
---------------7IDW3YrPnWNDMBG09VTeo65l
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+ Documentation/arm/index.rst                   |    1 -
+ Documentation/arm/samsung-s3c24xx/cpufreq.rst |   77 -
+ .../arm/samsung-s3c24xx/eb2410itx.rst         |   59 -
+ Documentation/arm/samsung-s3c24xx/gpio.rst    |  172 --
+ Documentation/arm/samsung-s3c24xx/h1940.rst   |   41 -
+ Documentation/arm/samsung-s3c24xx/index.rst   |   20 -
+ Documentation/arm/samsung-s3c24xx/nand.rst    |   30 -
+ .../arm/samsung-s3c24xx/overview.rst          |  311 ---
+ Documentation/arm/samsung-s3c24xx/s3c2412.rst |  121 -
+ Documentation/arm/samsung-s3c24xx/s3c2413.rst |   22 -
+ .../arm/samsung-s3c24xx/smdk2440.rst          |   57 -
+ Documentation/arm/samsung-s3c24xx/suspend.rst |  137 --
+ .../arm/samsung-s3c24xx/usb-host.rst          |   91 -
+ Documentation/arm/samsung/overview.rst        |   13 -
+ MAINTAINERS                                   |   31 -
+ arch/arm/Kconfig                              |    3 +-
+ arch/arm/Kconfig.debug                        |   58 +-
+ arch/arm/Makefile                             |    2 -
+ arch/arm/boot/dts/Makefile                    |    2 -
+ arch/arm/boot/dts/s3c2410-pinctrl.h           |   19 -
+ arch/arm/boot/dts/s3c2416-pinctrl.dtsi        |  172 --
+ arch/arm/boot/dts/s3c2416-smdk2416.dts        |   77 -
+ arch/arm/boot/dts/s3c2416.dtsi                |  124 --
+ arch/arm/boot/dts/s3c24xx.dtsi                |   92 -
+ arch/arm/configs/mini2440_defconfig           |  338 ---
+ arch/arm/configs/s3c2410_defconfig            |  437 ----
+ arch/arm/configs/tct_hammer_defconfig         |   58 -
+ arch/arm/include/debug/s3c24xx.S              |   10 -
+ arch/arm/mach-s3c/Kconfig                     |   92 +-
+ arch/arm/mach-s3c/Kconfig.s3c24xx             |  604 -----
+ arch/arm/mach-s3c/Kconfig.s3c64xx             |  212 --
+ arch/arm/mach-s3c/Makefile                    |   12 -
+ arch/arm/mach-s3c/Makefile.s3c24xx            |  102 -
+ arch/arm/mach-s3c/Makefile.s3c64xx            |   15 -
+ arch/arm/mach-s3c/adc-core.h                  |   24 -
+ arch/arm/mach-s3c/adc.c                       |  510 -----
+ arch/arm/mach-s3c/anubis.h                    |   50 -
+ arch/arm/mach-s3c/ata-core-s3c64xx.h          |   24 -
+ arch/arm/mach-s3c/backlight-s3c64xx.h         |   22 -
+ arch/arm/mach-s3c/bast-ide.c                  |   82 -
+ arch/arm/mach-s3c/bast-irq.c                  |  137 --
+ arch/arm/mach-s3c/bast.h                      |  194 --
+ arch/arm/mach-s3c/common-smdk-s3c24xx.c       |  228 --
+ arch/arm/mach-s3c/common-smdk-s3c24xx.h       |   11 -
+ arch/arm/mach-s3c/cpu.h                       |   47 -
+ arch/arm/mach-s3c/cpufreq-utils-s3c24xx.c     |   94 -
+ arch/arm/mach-s3c/dev-audio-s3c64xx.c         |  127 --
+ arch/arm/mach-s3c/dev-backlight-s3c64xx.c     |  137 --
+ arch/arm/mach-s3c/devs.c                      |  726 ------
+ arch/arm/mach-s3c/devs.h                      |   37 -
+ arch/arm/mach-s3c/dma-s3c24xx.h               |   51 -
+ arch/arm/mach-s3c/dma-s3c64xx.h               |   57 -
+ arch/arm/mach-s3c/dma.h                       |    9 -
+ arch/arm/mach-s3c/fb-core-s3c24xx.h           |   24 -
+ arch/arm/mach-s3c/gpio-cfg-helpers.h          |  124 --
+ arch/arm/mach-s3c/gpio-cfg.h                  |   19 -
+ arch/arm/mach-s3c/gpio-core.h                 |    3 -
+ arch/arm/mach-s3c/gpio-samsung-s3c24xx.h      |  103 -
+ arch/arm/mach-s3c/gpio-samsung.c              |  443 +---
+ arch/arm/mach-s3c/gpio-samsung.h              |    7 -
+ arch/arm/mach-s3c/gta02.h                     |   20 -
+ arch/arm/mach-s3c/h1940-bluetooth.c           |  140 --
+ arch/arm/mach-s3c/h1940.h                     |   52 -
+ arch/arm/mach-s3c/hardware-s3c24xx.h          |   14 -
+ arch/arm/mach-s3c/iic-core.h                  |    7 -
+ arch/arm/mach-s3c/init.c                      |   26 +-
+ arch/arm/mach-s3c/iotiming-s3c2410.c          |  472 ----
+ arch/arm/mach-s3c/iotiming-s3c2412.c          |  278 ---
+ arch/arm/mach-s3c/irq-pm-s3c24xx.c            |  115 -
+ arch/arm/mach-s3c/irq-s3c24xx-fiq-exports.c   |    9 -
+ arch/arm/mach-s3c/irq-s3c24xx-fiq.S           |  112 -
+ arch/arm/mach-s3c/irq-s3c24xx.c               | 1352 -----------
+ arch/arm/mach-s3c/irqs-s3c24xx.h              |  219 --
+ arch/arm/mach-s3c/irqs.h                      |    7 -
+ arch/arm/mach-s3c/mach-amlm5900.c             |  248 ---
+ arch/arm/mach-s3c/mach-anubis.c               |  422 ----
+ arch/arm/mach-s3c/mach-anw6410.c              |  230 --
+ arch/arm/mach-s3c/mach-at2440evb.c            |  233 --
+ arch/arm/mach-s3c/mach-bast.c                 |  583 -----
+ arch/arm/mach-s3c/mach-crag6410.c             |    1 -
+ arch/arm/mach-s3c/mach-gta02.c                |  588 -----
+ arch/arm/mach-s3c/mach-h1940.c                |  809 -------
+ arch/arm/mach-s3c/mach-hmt.c                  |  282 ---
+ arch/arm/mach-s3c/mach-jive.c                 |  693 ------
+ arch/arm/mach-s3c/mach-mini2440.c             |  804 -------
+ arch/arm/mach-s3c/mach-mini6410.c             |  365 ---
+ arch/arm/mach-s3c/mach-n30.c                  |  682 ------
+ arch/arm/mach-s3c/mach-ncp.c                  |  100 -
+ arch/arm/mach-s3c/mach-nexcoder.c             |  162 --
+ arch/arm/mach-s3c/mach-osiris-dvs.c           |  178 --
+ arch/arm/mach-s3c/mach-osiris.c               |  405 ----
+ arch/arm/mach-s3c/mach-otom.c                 |  124 --
+ arch/arm/mach-s3c/mach-qt2410.c               |  375 ----
+ arch/arm/mach-s3c/mach-real6410.c             |  333 ---
+ arch/arm/mach-s3c/mach-rx1950.c               |  884 --------
+ arch/arm/mach-s3c/mach-rx3715.c               |  213 --
+ arch/arm/mach-s3c/mach-s3c2416-dt.c           |   48 -
+ arch/arm/mach-s3c/mach-smartq.c               |  424 ----
+ arch/arm/mach-s3c/mach-smartq.h               |   16 -
+ arch/arm/mach-s3c/mach-smartq5.c              |  154 --
+ arch/arm/mach-s3c/mach-smartq7.c              |  170 --
+ arch/arm/mach-s3c/mach-smdk2410.c             |  112 -
+ arch/arm/mach-s3c/mach-smdk2413.c             |  169 --
+ arch/arm/mach-s3c/mach-smdk2416.c             |  248 ---
+ arch/arm/mach-s3c/mach-smdk2440.c             |  180 --
+ arch/arm/mach-s3c/mach-smdk2443.c             |  126 --
+ arch/arm/mach-s3c/mach-smdk6400.c             |   90 -
+ arch/arm/mach-s3c/mach-smdk6410.c             |  706 ------
+ arch/arm/mach-s3c/mach-tct_hammer.c           |  157 --
+ arch/arm/mach-s3c/mach-vr1000.c               |  364 ---
+ arch/arm/mach-s3c/mach-vstms.c                |  166 --
+ arch/arm/mach-s3c/map-s3c.h                   |   37 -
+ arch/arm/mach-s3c/map-s3c24xx.h               |  159 --
+ arch/arm/mach-s3c/map.h                       |    7 -
+ arch/arm/mach-s3c/nand-core-s3c24xx.h         |   24 -
+ arch/arm/mach-s3c/onenand-core-s3c64xx.h      |   32 -
+ arch/arm/mach-s3c/osiris.h                    |   50 -
+ arch/arm/mach-s3c/otom.h                      |   25 -
+ arch/arm/mach-s3c/pll-s3c2410.c               |   83 -
+ arch/arm/mach-s3c/pll-s3c2440-12000000.c      |   95 -
+ arch/arm/mach-s3c/pll-s3c2440-16934400.c      |  122 -
+ arch/arm/mach-s3c/pm-core-s3c24xx.h           |   96 -
+ arch/arm/mach-s3c/pm-core-s3c64xx.h           |   17 -
+ arch/arm/mach-s3c/pm-core.h                   |    7 -
+ arch/arm/mach-s3c/pm-h1940.S                  |   19 -
+ arch/arm/mach-s3c/pm-s3c2410.c                |  170 --
+ arch/arm/mach-s3c/pm-s3c2412.c                |  126 --
+ arch/arm/mach-s3c/pm-s3c2416.c                |   81 -
+ arch/arm/mach-s3c/pm-s3c24xx.c                |  121 -
+ arch/arm/mach-s3c/pm-s3c64xx.c                |   83 -
+ arch/arm/mach-s3c/pm.c                        |    7 +-
+ arch/arm/mach-s3c/pm.h                        |   12 -
+ arch/arm/mach-s3c/regs-adc.h                  |   64 -
+ arch/arm/mach-s3c/regs-clock-s3c24xx.h        |  146 --
+ arch/arm/mach-s3c/regs-clock.h                |    7 -
+ arch/arm/mach-s3c/regs-dsc-s3c24xx.h          |   22 -
+ arch/arm/mach-s3c/regs-gpio-s3c24xx.h         |  608 -----
+ arch/arm/mach-s3c/regs-gpio.h                 |    7 -
+ arch/arm/mach-s3c/regs-irq-s3c24xx.h          |   51 -
+ arch/arm/mach-s3c/regs-irq.h                  |    7 -
+ arch/arm/mach-s3c/regs-mem-s3c24xx.h          |   53 -
+ arch/arm/mach-s3c/regs-s3c2443-clock.h        |  238 --
+ arch/arm/mach-s3c/regs-srom-s3c64xx.h         |   55 -
+ arch/arm/mach-s3c/rtc-core-s3c24xx.h          |   23 -
+ arch/arm/mach-s3c/s3c2410.c                   |  130 --
+ arch/arm/mach-s3c/s3c2412-power.h             |   34 -
+ arch/arm/mach-s3c/s3c2412.c                   |  175 --
+ arch/arm/mach-s3c/s3c2412.h                   |   25 -
+ arch/arm/mach-s3c/s3c2416.c                   |  132 --
+ arch/arm/mach-s3c/s3c2440.c                   |   71 -
+ arch/arm/mach-s3c/s3c2442.c                   |   62 -
+ arch/arm/mach-s3c/s3c2443.c                   |  112 -
+ arch/arm/mach-s3c/s3c244x.c                   |  128 --
+ arch/arm/mach-s3c/s3c24xx.c                   |  687 ------
+ arch/arm/mach-s3c/s3c24xx.h                   |  124 --
+ arch/arm/mach-s3c/s3c6400.c                   |   90 -
+ arch/arm/mach-s3c/s3c6410.c                   |    9 -
+ arch/arm/mach-s3c/s3c64xx.c                   |    8 -
+ arch/arm/mach-s3c/sdhci.h                     |   25 -
+ arch/arm/mach-s3c/setup-i2c-s3c24xx.c         |   23 -
+ arch/arm/mach-s3c/setup-ide-s3c64xx.c         |   40 -
+ arch/arm/mach-s3c/setup-sdhci-gpio-s3c24xx.c  |   31 -
+ arch/arm/mach-s3c/setup-spi-s3c24xx.c         |   27 -
+ arch/arm/mach-s3c/setup-ts-s3c24xx.c          |   29 -
+ arch/arm/mach-s3c/simtec-audio.c              |   76 -
+ arch/arm/mach-s3c/simtec-nor.c                |   74 -
+ arch/arm/mach-s3c/simtec-pm.c                 |   60 -
+ arch/arm/mach-s3c/simtec-usb.c                |  125 --
+ arch/arm/mach-s3c/simtec.h                    |   17 -
+ arch/arm/mach-s3c/sleep-s3c2410.S             |   54 -
+ arch/arm/mach-s3c/sleep-s3c2412.S             |   53 -
+ arch/arm/mach-s3c/sleep-s3c24xx.S             |   69 -
+ arch/arm/mach-s3c/sleep-s3c64xx.S             |   27 -
+ arch/arm/mach-s3c/spi-core-s3c24xx.h          |   21 -
+ arch/arm/mach-s3c/vr1000.h                    |  113 -
+ drivers/ata/Kconfig                           |   10 -
+ drivers/ata/Makefile                          |    1 -
+ drivers/ata/pata_samsung_cf.c                 |  662 ------
+ drivers/clk/samsung/Kconfig                   |   32 -
+ drivers/clk/samsung/Makefile                  |    4 -
+ drivers/clk/samsung/clk-s3c2410-dclk.c        |  440 ----
+ drivers/clk/samsung/clk-s3c2410.c             |  446 ----
+ drivers/clk/samsung/clk-s3c2412.c             |  254 ---
+ drivers/clk/samsung/clk-s3c2443.c             |  438 ----
+ drivers/clocksource/Kconfig                   |    2 +-
+ drivers/cpufreq/Kconfig.arm                   |   78 -
+ drivers/cpufreq/Makefile                      |    6 -
+ drivers/cpufreq/s3c2410-cpufreq.c             |  155 --
+ drivers/cpufreq/s3c2412-cpufreq.c             |  240 --
+ drivers/cpufreq/s3c2416-cpufreq.c             |  492 ----
+ drivers/cpufreq/s3c2440-cpufreq.c             |  321 ---
+ drivers/cpufreq/s3c24xx-cpufreq-debugfs.c     |  163 --
+ drivers/cpufreq/s3c24xx-cpufreq.c             |  648 ------
+ drivers/dma/Kconfig                           |   12 -
+ drivers/dma/Makefile                          |    1 -
+ drivers/dma/s3c24xx-dma.c                     | 1428 ------------
+ drivers/hwmon/Kconfig                         |   17 -
+ drivers/hwmon/Makefile                        |    1 -
+ drivers/hwmon/s3c-hwmon.c                     |  379 ----
+ drivers/i2c/busses/Kconfig                    |    3 +-
+ drivers/i2c/busses/i2c-s3c2410.c              |   72 -
+ drivers/iio/adc/Kconfig                       |    6 +-
+ drivers/input/touchscreen/Kconfig             |   12 -
+ drivers/input/touchscreen/Makefile            |    1 -
+ drivers/input/touchscreen/s3c2410_ts.c        |  464 ----
+ drivers/leds/Kconfig                          |    8 -
+ drivers/leds/Makefile                         |    1 -
+ drivers/leds/leds-s3c24xx.c                   |   83 -
+ .../media/platform/samsung/s3c-camif/Kconfig  |    8 +-
+ drivers/mmc/host/Kconfig                      |   48 +-
+ drivers/mmc/host/Makefile                     |    1 -
+ drivers/mmc/host/s3cmci.c                     | 1777 ---------------
+ drivers/mmc/host/s3cmci.h                     |   75 -
+ drivers/mtd/nand/raw/Kconfig                  |    2 +-
+ drivers/mtd/nand/raw/s3c2410.c                |   60 -
+ drivers/pinctrl/samsung/Kconfig               |    5 -
+ drivers/pinctrl/samsung/Makefile              |    1 -
+ drivers/pinctrl/samsung/pinctrl-s3c24xx.c     |  653 ------
+ drivers/pinctrl/samsung/pinctrl-samsung.c     |   10 -
+ drivers/power/supply/Kconfig                  |    6 -
+ drivers/power/supply/Makefile                 |    1 -
+ drivers/power/supply/s3c_adc_battery.c        |  453 ----
+ drivers/rtc/Kconfig                           |    8 +-
+ drivers/soc/samsung/Kconfig                   |   26 +-
+ drivers/soc/samsung/Makefile                  |    1 -
+ drivers/soc/samsung/s3c-pm-debug.c            |   79 -
+ drivers/spi/Kconfig                           |   18 -
+ drivers/spi/Makefile                          |    2 -
+ drivers/spi/spi-s3c24xx-regs.h                |   41 -
+ drivers/spi/spi-s3c24xx.c                     |  596 -----
+ drivers/tty/serial/Kconfig                    |    8 +-
+ drivers/tty/serial/samsung_tty.c              |  199 --
+ drivers/usb/gadget/udc/Kconfig                |   25 -
+ drivers/usb/gadget/udc/Makefile               |    2 -
+ drivers/usb/gadget/udc/s3c-hsudc.c            | 1319 -----------
+ drivers/usb/gadget/udc/s3c2410_udc.c          | 1980 -----------------
+ drivers/usb/gadget/udc/s3c2410_udc.h          |   99 -
+ drivers/usb/gadget/udc/s3c2410_udc_regs.h     |  146 --
+ drivers/usb/host/Kconfig                      |    8 +-
+ drivers/video/fbdev/Kconfig                   |   33 +-
+ drivers/video/fbdev/Makefile                  |    1 -
+ drivers/video/fbdev/s3c2410fb-regs-lcd.h      |  143 --
+ drivers/video/fbdev/s3c2410fb.c               | 1142 ----------
+ drivers/video/fbdev/s3c2410fb.h               |   48 -
+ drivers/watchdog/Kconfig                      |    9 +-
+ drivers/watchdog/s3c2410_wdt.c                |   84 +-
+ include/dt-bindings/clock/s3c2410.h           |   59 -
+ include/dt-bindings/clock/s3c2412.h           |   70 -
+ include/dt-bindings/clock/s3c2443.h           |   91 -
+ include/linux/amba/pl093.h                    |   77 -
+ include/linux/clk/samsung.h                   |   32 -
+ .../linux/platform_data/asoc-s3c24xx_simtec.h |   30 -
+ include/linux/platform_data/ata-samsung_cf.h  |   31 -
+ include/linux/platform_data/clk-s3c2410.h     |   19 -
+ include/linux/platform_data/dma-s3c24xx.h     |   48 -
+ include/linux/platform_data/fb-s3c2410.h      |   99 -
+ include/linux/platform_data/leds-s3c24xx.h    |   18 -
+ include/linux/platform_data/media/s5p_hdmi.h  |   32 -
+ include/linux/platform_data/mmc-s3cmci.h      |   51 -
+ include/linux/platform_data/s3c-hsudc.h       |   33 -
+ include/linux/platform_data/usb-s3c2410_udc.h |   33 -
+ include/linux/s3c_adc_battery.h               |   39 -
+ include/linux/soc/samsung/s3c-adc.h           |   32 -
+ include/linux/soc/samsung/s3c-cpufreq-core.h  |  299 ---
+ include/linux/soc/samsung/s3c-pm.h            |   58 -
+ include/linux/spi/s3c24xx-fiq.h               |   33 -
+ include/linux/spi/s3c24xx.h                   |   20 -
+ include/sound/s3c24xx_uda134x.h               |   14 -
+ sound/soc/samsung/Kconfig                     |   93 -
+ sound/soc/samsung/Makefile                    |   26 -
+ sound/soc/samsung/h1940_uda1380.c             |  224 --
+ sound/soc/samsung/jive_wm8750.c               |  143 --
+ sound/soc/samsung/neo1973_wm8753.c            |  360 ---
+ sound/soc/samsung/regs-i2s-v2.h               |  111 -
+ sound/soc/samsung/regs-iis.h                  |   66 -
+ sound/soc/samsung/rx1950_uda1380.c            |  245 --
+ sound/soc/samsung/s3c-i2s-v2.c                |  670 ------
+ sound/soc/samsung/s3c-i2s-v2.h                |  108 -
+ sound/soc/samsung/s3c2412-i2s.c               |  251 ---
+ sound/soc/samsung/s3c2412-i2s.h               |   22 -
+ sound/soc/samsung/s3c24xx-i2s.c               |  463 ----
+ sound/soc/samsung/s3c24xx-i2s.h               |   31 -
+ sound/soc/samsung/s3c24xx_simtec.c            |  372 ----
+ sound/soc/samsung/s3c24xx_simtec.h            |   18 -
+ sound/soc/samsung/s3c24xx_simtec_hermes.c     |  112 -
+ .../soc/samsung/s3c24xx_simtec_tlv320aic23.c  |  100 -
+ sound/soc/samsung/s3c24xx_uda134x.c           |  257 ---
+ sound/soc/samsung/smartq_wm8987.c             |  224 --
+ sound/soc/samsung/smdk_wm8580.c               |  211 --
+ 289 files changed, 48 insertions(+), 48148 deletions(-)
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/cpufreq.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/eb2410itx.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/gpio.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/h1940.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/index.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/nand.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/overview.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/s3c2412.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/s3c2413.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/smdk2440.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/suspend.rst
+ delete mode 100644 Documentation/arm/samsung-s3c24xx/usb-host.rst
+ delete mode 100644 arch/arm/boot/dts/s3c2410-pinctrl.h
+ delete mode 100644 arch/arm/boot/dts/s3c2416-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/s3c2416-smdk2416.dts
+ delete mode 100644 arch/arm/boot/dts/s3c2416.dtsi
+ delete mode 100644 arch/arm/boot/dts/s3c24xx.dtsi
+ delete mode 100644 arch/arm/configs/mini2440_defconfig
+ delete mode 100644 arch/arm/configs/s3c2410_defconfig
+ delete mode 100644 arch/arm/configs/tct_hammer_defconfig
+ delete mode 100644 arch/arm/mach-s3c/Kconfig.s3c24xx
+ delete mode 100644 arch/arm/mach-s3c/Makefile.s3c24xx
+ delete mode 100644 arch/arm/mach-s3c/adc-core.h
+ delete mode 100644 arch/arm/mach-s3c/adc.c
+ delete mode 100644 arch/arm/mach-s3c/anubis.h
+ delete mode 100644 arch/arm/mach-s3c/ata-core-s3c64xx.h
+ delete mode 100644 arch/arm/mach-s3c/backlight-s3c64xx.h
+ delete mode 100644 arch/arm/mach-s3c/bast-ide.c
+ delete mode 100644 arch/arm/mach-s3c/bast-irq.c
+ delete mode 100644 arch/arm/mach-s3c/bast.h
+ delete mode 100644 arch/arm/mach-s3c/common-smdk-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/common-smdk-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/cpufreq-utils-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/dev-backlight-s3c64xx.c
+ delete mode 100644 arch/arm/mach-s3c/dma-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/dma-s3c64xx.h
+ delete mode 100644 arch/arm/mach-s3c/dma.h
+ delete mode 100644 arch/arm/mach-s3c/fb-core-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/gpio-samsung-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/gta02.h
+ delete mode 100644 arch/arm/mach-s3c/h1940-bluetooth.c
+ delete mode 100644 arch/arm/mach-s3c/h1940.h
+ delete mode 100644 arch/arm/mach-s3c/hardware-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/iotiming-s3c2410.c
+ delete mode 100644 arch/arm/mach-s3c/iotiming-s3c2412.c
+ delete mode 100644 arch/arm/mach-s3c/irq-pm-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx-fiq-exports.c
+ delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx-fiq.S
+ delete mode 100644 arch/arm/mach-s3c/irq-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/irqs-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/mach-amlm5900.c
+ delete mode 100644 arch/arm/mach-s3c/mach-anubis.c
+ delete mode 100644 arch/arm/mach-s3c/mach-anw6410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-at2440evb.c
+ delete mode 100644 arch/arm/mach-s3c/mach-bast.c
+ delete mode 100644 arch/arm/mach-s3c/mach-gta02.c
+ delete mode 100644 arch/arm/mach-s3c/mach-h1940.c
+ delete mode 100644 arch/arm/mach-s3c/mach-hmt.c
+ delete mode 100644 arch/arm/mach-s3c/mach-jive.c
+ delete mode 100644 arch/arm/mach-s3c/mach-mini2440.c
+ delete mode 100644 arch/arm/mach-s3c/mach-mini6410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-n30.c
+ delete mode 100644 arch/arm/mach-s3c/mach-ncp.c
+ delete mode 100644 arch/arm/mach-s3c/mach-nexcoder.c
+ delete mode 100644 arch/arm/mach-s3c/mach-osiris-dvs.c
+ delete mode 100644 arch/arm/mach-s3c/mach-osiris.c
+ delete mode 100644 arch/arm/mach-s3c/mach-otom.c
+ delete mode 100644 arch/arm/mach-s3c/mach-qt2410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-real6410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-rx1950.c
+ delete mode 100644 arch/arm/mach-s3c/mach-rx3715.c
+ delete mode 100644 arch/arm/mach-s3c/mach-s3c2416-dt.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smartq.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smartq.h
+ delete mode 100644 arch/arm/mach-s3c/mach-smartq5.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smartq7.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk2410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk2413.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk2416.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk2440.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk2443.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk6400.c
+ delete mode 100644 arch/arm/mach-s3c/mach-smdk6410.c
+ delete mode 100644 arch/arm/mach-s3c/mach-tct_hammer.c
+ delete mode 100644 arch/arm/mach-s3c/mach-vr1000.c
+ delete mode 100644 arch/arm/mach-s3c/mach-vstms.c
+ delete mode 100644 arch/arm/mach-s3c/map-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/nand-core-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/onenand-core-s3c64xx.h
+ delete mode 100644 arch/arm/mach-s3c/osiris.h
+ delete mode 100644 arch/arm/mach-s3c/otom.h
+ delete mode 100644 arch/arm/mach-s3c/pll-s3c2410.c
+ delete mode 100644 arch/arm/mach-s3c/pll-s3c2440-12000000.c
+ delete mode 100644 arch/arm/mach-s3c/pll-s3c2440-16934400.c
+ delete mode 100644 arch/arm/mach-s3c/pm-core-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/pm-h1940.S
+ delete mode 100644 arch/arm/mach-s3c/pm-s3c2410.c
+ delete mode 100644 arch/arm/mach-s3c/pm-s3c2412.c
+ delete mode 100644 arch/arm/mach-s3c/pm-s3c2416.c
+ delete mode 100644 arch/arm/mach-s3c/pm-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/regs-adc.h
+ delete mode 100644 arch/arm/mach-s3c/regs-clock-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/regs-dsc-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/regs-gpio-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/regs-irq-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/regs-mem-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/regs-s3c2443-clock.h
+ delete mode 100644 arch/arm/mach-s3c/regs-srom-s3c64xx.h
+ delete mode 100644 arch/arm/mach-s3c/rtc-core-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/s3c2410.c
+ delete mode 100644 arch/arm/mach-s3c/s3c2412-power.h
+ delete mode 100644 arch/arm/mach-s3c/s3c2412.c
+ delete mode 100644 arch/arm/mach-s3c/s3c2412.h
+ delete mode 100644 arch/arm/mach-s3c/s3c2416.c
+ delete mode 100644 arch/arm/mach-s3c/s3c2440.c
+ delete mode 100644 arch/arm/mach-s3c/s3c2442.c
+ delete mode 100644 arch/arm/mach-s3c/s3c2443.c
+ delete mode 100644 arch/arm/mach-s3c/s3c244x.c
+ delete mode 100644 arch/arm/mach-s3c/s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/s3c6400.c
+ delete mode 100644 arch/arm/mach-s3c/setup-i2c-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/setup-ide-s3c64xx.c
+ delete mode 100644 arch/arm/mach-s3c/setup-sdhci-gpio-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/setup-spi-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/setup-ts-s3c24xx.c
+ delete mode 100644 arch/arm/mach-s3c/simtec-audio.c
+ delete mode 100644 arch/arm/mach-s3c/simtec-nor.c
+ delete mode 100644 arch/arm/mach-s3c/simtec-pm.c
+ delete mode 100644 arch/arm/mach-s3c/simtec-usb.c
+ delete mode 100644 arch/arm/mach-s3c/simtec.h
+ delete mode 100644 arch/arm/mach-s3c/sleep-s3c2410.S
+ delete mode 100644 arch/arm/mach-s3c/sleep-s3c2412.S
+ delete mode 100644 arch/arm/mach-s3c/sleep-s3c24xx.S
+ delete mode 100644 arch/arm/mach-s3c/spi-core-s3c24xx.h
+ delete mode 100644 arch/arm/mach-s3c/vr1000.h
+ delete mode 100644 drivers/ata/pata_samsung_cf.c
+ delete mode 100644 drivers/clk/samsung/clk-s3c2410-dclk.c
+ delete mode 100644 drivers/clk/samsung/clk-s3c2410.c
+ delete mode 100644 drivers/clk/samsung/clk-s3c2412.c
+ delete mode 100644 drivers/clk/samsung/clk-s3c2443.c
+ delete mode 100644 drivers/cpufreq/s3c2410-cpufreq.c
+ delete mode 100644 drivers/cpufreq/s3c2412-cpufreq.c
+ delete mode 100644 drivers/cpufreq/s3c2416-cpufreq.c
+ delete mode 100644 drivers/cpufreq/s3c2440-cpufreq.c
+ delete mode 100644 drivers/cpufreq/s3c24xx-cpufreq-debugfs.c
+ delete mode 100644 drivers/cpufreq/s3c24xx-cpufreq.c
+ delete mode 100644 drivers/dma/s3c24xx-dma.c
+ delete mode 100644 drivers/hwmon/s3c-hwmon.c
+ delete mode 100644 drivers/input/touchscreen/s3c2410_ts.c
+ delete mode 100644 drivers/leds/leds-s3c24xx.c
+ delete mode 100644 drivers/mmc/host/s3cmci.c
+ delete mode 100644 drivers/mmc/host/s3cmci.h
+ delete mode 100644 drivers/pinctrl/samsung/pinctrl-s3c24xx.c
+ delete mode 100644 drivers/power/supply/s3c_adc_battery.c
+ delete mode 100644 drivers/soc/samsung/s3c-pm-debug.c
+ delete mode 100644 drivers/spi/spi-s3c24xx-regs.h
+ delete mode 100644 drivers/spi/spi-s3c24xx.c
+ delete mode 100644 drivers/usb/gadget/udc/s3c-hsudc.c
+ delete mode 100644 drivers/usb/gadget/udc/s3c2410_udc.c
+ delete mode 100644 drivers/usb/gadget/udc/s3c2410_udc.h
+ delete mode 100644 drivers/usb/gadget/udc/s3c2410_udc_regs.h
+ delete mode 100644 drivers/video/fbdev/s3c2410fb-regs-lcd.h
+ delete mode 100644 drivers/video/fbdev/s3c2410fb.c
+ delete mode 100644 drivers/video/fbdev/s3c2410fb.h
+ delete mode 100644 include/dt-bindings/clock/s3c2410.h
+ delete mode 100644 include/dt-bindings/clock/s3c2412.h
+ delete mode 100644 include/dt-bindings/clock/s3c2443.h
+ delete mode 100644 include/linux/amba/pl093.h
+ delete mode 100644 include/linux/platform_data/asoc-s3c24xx_simtec.h
+ delete mode 100644 include/linux/platform_data/ata-samsung_cf.h
+ delete mode 100644 include/linux/platform_data/clk-s3c2410.h
+ delete mode 100644 include/linux/platform_data/dma-s3c24xx.h
+ delete mode 100644 include/linux/platform_data/fb-s3c2410.h
+ delete mode 100644 include/linux/platform_data/leds-s3c24xx.h
+ delete mode 100644 include/linux/platform_data/media/s5p_hdmi.h
+ delete mode 100644 include/linux/platform_data/mmc-s3cmci.h
+ delete mode 100644 include/linux/platform_data/s3c-hsudc.h
+ delete mode 100644 include/linux/platform_data/usb-s3c2410_udc.h
+ delete mode 100644 include/linux/s3c_adc_battery.h
+ delete mode 100644 include/linux/soc/samsung/s3c-adc.h
+ delete mode 100644 include/linux/soc/samsung/s3c-cpufreq-core.h
+ delete mode 100644 include/linux/spi/s3c24xx-fiq.h
+ delete mode 100644 include/linux/spi/s3c24xx.h
+ delete mode 100644 include/sound/s3c24xx_uda134x.h
+ delete mode 100644 sound/soc/samsung/h1940_uda1380.c
+ delete mode 100644 sound/soc/samsung/jive_wm8750.c
+ delete mode 100644 sound/soc/samsung/neo1973_wm8753.c
+ delete mode 100644 sound/soc/samsung/regs-i2s-v2.h
+ delete mode 100644 sound/soc/samsung/regs-iis.h
+ delete mode 100644 sound/soc/samsung/rx1950_uda1380.c
+ delete mode 100644 sound/soc/samsung/s3c-i2s-v2.c
+ delete mode 100644 sound/soc/samsung/s3c-i2s-v2.h
+ delete mode 100644 sound/soc/samsung/s3c2412-i2s.c
+ delete mode 100644 sound/soc/samsung/s3c2412-i2s.h
+ delete mode 100644 sound/soc/samsung/s3c24xx-i2s.c
+ delete mode 100644 sound/soc/samsung/s3c24xx-i2s.h
+ delete mode 100644 sound/soc/samsung/s3c24xx_simtec.c
+ delete mode 100644 sound/soc/samsung/s3c24xx_simtec.h
+ delete mode 100644 sound/soc/samsung/s3c24xx_simtec_hermes.c
+ delete mode 100644 sound/soc/samsung/s3c24xx_simtec_tlv320aic23.c
+ delete mode 100644 sound/soc/samsung/s3c24xx_uda134x.c
+ delete mode 100644 sound/soc/samsung/smartq_wm8987.c
+ delete mode 100644 sound/soc/samsung/smdk_wm8580.c
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.29.2
 
-iHUEARYIAB0WIQRKO5EpdtgStBdTaf5p9WeGHB7AFAUCY1LwXQAKCRBp9WeGHB7A
-FO9pAP9zwthSYYt9lC+meBeHS4DNmDJlPdVDLfrzj7KcwatqwgEA02fTCaJRzCSS
-fzPRIZBbpaXBnfP5RvDu4QZoTynFBAQ=
-=Yczf
------END PGP SIGNATURE-----
-
---------------7IDW3YrPnWNDMBG09VTeo65l--

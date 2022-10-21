@@ -2,82 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C46A6076E0
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 14:28:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9629060771C
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 14:41:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 158DC43B3;
-	Fri, 21 Oct 2022 14:27:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158DC43B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 373228BD4;
+	Fri, 21 Oct 2022 14:40:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 373228BD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666355304;
-	bh=k0o3aNPWUD/SvjxWabbi8GUsNJRA/AKF8W3UBXyId2U=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1666356069;
+	bh=mPBLyPQJ5yYfcbCnFI0Kh40ilIY6OQ6ISl+slnB6lVY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cSbzmJrM51C+MEidt322S9p1kMsn3xI+7dPia4/12/hHoUf0/jtM4E3l5P48KWhA7
-	 y634+AcTfuUM8YZwqKF9/00r5P3q697IPMSdYSPHL5BHUzrLWDvzvtIov1nr4kAp8f
-	 UohMhEyMjEp7kzEt+9jz1XFeSToM4R2HEtEMm37w=
+	b=bobOLE532iNeNtHajynxzWi2cqp6SRGOoPub7o2U1YfPJi3ub5vHltGDjQI30cdeY
+	 WKw58eeu1GHylEz1ML8DngWlbKfyzlif+oNx9CiD4tUZM+y1dYvRIaYVACWsT4HdAA
+	 KEjwqGbxBPY4eQrG160iK6UJMmjqXW9zfUYmNFEg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7853FF802E8;
-	Fri, 21 Oct 2022 14:27:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9569F804FF;
+	Fri, 21 Oct 2022 14:39:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80CF0F80256; Fri, 21 Oct 2022 14:27:27 +0200 (CEST)
+ id 31C6BF80134; Fri, 21 Oct 2022 14:39:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BF25F80118
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 14:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BF25F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ul5ZjBDl"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ut38rL/X"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7A79121FC1;
- Fri, 21 Oct 2022 12:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666355244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fBKaCbBXPiqSwbJDmELMQOoQpdiFv+BTi03wxlxvGPY=;
- b=ul5ZjBDl6F/yCyXUKuq+da6OvxKNXyj7q5Pm3JatmTWZrfs/dXjwTNKL5rr0dolvedZWx8
- mmyJK3SWQ7UiUnDwklcmHM1hndNOZMdcb/7M+IJGcv/89Tcq05IuypjMf1djnwYn33Ca9q
- JPByJ6Rh7ovG6S1ZpXmp53LdKusx5WE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666355244;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fBKaCbBXPiqSwbJDmELMQOoQpdiFv+BTi03wxlxvGPY=;
- b=ut38rL/XNyCDGq6Rc1YwJZ9S5vND09pjyCieDsthmqcLtGcfON6B8y997pER11INdNifx4
- 15WBbCIN+Cl2FNDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5D1B513A0E;
- Fri, 21 Oct 2022 12:27:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id b5LrFSyQUmM/XwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 21 Oct 2022 12:27:24 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add quirks for M-Audio Fast Track C400/600
-Date: Fri, 21 Oct 2022 14:27:22 +0200
-Message-Id: <20221021122722.24784-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB47FF80134
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 14:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB47FF80134
+Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Mv3v636VLzHv6Y;
+ Fri, 21 Oct 2022 20:39:30 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 21 Oct 2022 20:39:39 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
+ 2022 20:39:35 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH v3 1/2] ASoC: Intel: Skylake: fix possible memory leak in
+ skl_codec_device_init()
+Date: Fri, 21 Oct 2022 20:38:48 +0800
+Message-ID: <20221021123849.456857-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+Cc: cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com, tiwai@suse.de,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
+ yangyingliang@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,30 +79,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-M-Audio Fast Track C400 and C600 devices (0763:2030 and 0763:2031,
-respectively) seem requiring the explicit setup for the implicit
-feedback mode.  This patch adds the quirk entries for those.
+If snd_hdac_device_register() fails, 'codec' and name allocated in
+dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
+by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
+and kobject_cleanup().
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=214817
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: e4746d94d00c ("ASoC: Intel: Skylake: Introduce HDA codec init and exit routines")
+Fixes: dfe66a18780d ("ALSA: hdac_ext: add extended HDA bus")
+Suggested-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 ---
- sound/usb/implicit.c | 2 ++
- 1 file changed, 2 insertions(+)
+v2 -> v3:
+  add suggest tag
 
-diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
-index e1bf1b5da423..f3e8484b3d9c 100644
---- a/sound/usb/implicit.c
-+++ b/sound/usb/implicit.c
-@@ -47,6 +47,8 @@ struct snd_usb_implicit_fb_match {
- static const struct snd_usb_implicit_fb_match playback_implicit_fb_quirks[] = {
- 	/* Fixed EP */
- 	/* FIXME: check the availability of generic matching */
-+	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2030, 0x81, 3), /* M-Audio Fast Track C400 */
-+	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2031, 0x81, 3), /* M-Audio Fast Track C600 */
- 	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2080, 0x81, 2), /* M-Audio FastTrack Ultra */
- 	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2081, 0x81, 2), /* M-Audio FastTrack Ultra */
- 	IMPLICIT_FB_FIXED_DEV(0x2466, 0x8010, 0x81, 2), /* Fractal Audio Axe-Fx III */
+v1 -> v2:
+  remove skl_codec_device_exit() and use snd_hda_codec_dev_release() to fix leak
+---
+ sound/soc/intel/skylake/skl.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index bbba2df33aaf..3312b57e3c0c 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -689,11 +689,6 @@ static void load_codec_module(struct hda_codec *codec)
+ 
+ #endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
+ 
+-static void skl_codec_device_exit(struct device *dev)
+-{
+-	snd_hdac_device_exit(dev_to_hdac_dev(dev));
+-}
+-
+ static struct hda_codec *skl_codec_device_init(struct hdac_bus *bus, int addr)
+ {
+ 	struct hda_codec *codec;
+@@ -706,12 +701,11 @@ static struct hda_codec *skl_codec_device_init(struct hdac_bus *bus, int addr)
+ 	}
+ 
+ 	codec->core.type = HDA_DEV_ASOC;
+-	codec->core.dev.release = skl_codec_device_exit;
+ 
+ 	ret = snd_hdac_device_register(&codec->core);
+ 	if (ret) {
+ 		dev_err(bus->dev, "failed to register hdac device\n");
+-		snd_hdac_device_exit(&codec->core);
++		put_device(&codec->core.dev);
+ 		return ERR_PTR(ret);
+ 	}
+ 
 -- 
-2.35.3
+2.25.1
 

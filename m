@@ -2,190 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DDB607320
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 10:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E22607480
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 11:54:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCA299AF4;
-	Fri, 21 Oct 2022 10:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCA299AF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 129F3AEE5;
+	Fri, 21 Oct 2022 11:53:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 129F3AEE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666342772;
-	bh=BnZMhXehLVKnkF4Paf/KIXdm7YgTA0VztoLYgr4xJtI=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666346080;
+	bh=xr87/aXXM/2r8PLkGx81fSzxwL1AThD0y1upbWJHbZ0=;
+	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vXEyE0nhDyainwURy3/mT7y+n5oGRCyVvXjRP91Ei4bEAoGP0O02us6iVSKnpL+wQ
-	 4NUvfZ39pI+8VU0V479x6tRu6FqXkF/BU9D55iJkh1uf0sG6K9xyOXp6w1ARmWgARM
-	 f7mVaKudUzN7jgiNgPQj0+aCvUc7BtjOi+HaARYY=
+	b=kWm7W8RJKiZiVLbKF6lHfVZB4X19dkcA/rsS+LLPZkYJ3cQdBCb3BimEfAnUIbYcI
+	 MFRCEp9Lt9vJQWokRQnANvtsdUaBW7PL/QBtS2BudULya34NPQLVZ9uPyRbGLfKhQZ
+	 eubcFoEX6qffFIBB/tHS3t3925clnHngsJ3ckRt0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31E5BF80256;
-	Fri, 21 Oct 2022 10:58:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80018F800B8;
+	Fri, 21 Oct 2022 11:53:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C010FF8021D; Fri, 21 Oct 2022 10:58:36 +0200 (CEST)
+ id DDBB3F80134; Fri, 21 Oct 2022 11:53:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6D88F800B5
- for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 10:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6D88F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18BC5F80118
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 11:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18BC5F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="Uj2lwalW"; 
- dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com
- header.i=@mediateko365.onmicrosoft.com header.b="no5kjYZc"
-X-UUID: 974f8a5ff7b841969fa66e49a629dc4f-20221021
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=BnZMhXehLVKnkF4Paf/KIXdm7YgTA0VztoLYgr4xJtI=; 
- b=Uj2lwalWnz6IvX0TJ42ue9b3ewJysKLh2OL/bi+c6ekjepYSCLXhFdv/lCXJRvuGS8VPDooummQVbtP8KKf8/GYNu9nN5Y1V3rv26AwqAZdjAgsj47uS7UQYPErb8TTuPp8gFLyFXxAVL3TXMSaHn6lXvaFoDh0bOxQ09v2KveI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.12, REQID:3a16cd35-4a31-4ab2-91ec-d23b9288d03b, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:62cd327, CLOUDID:db0e40e4-e572-4957-be22-d8f73f3158f9,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:4,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 974f8a5ff7b841969fa66e49a629dc4f-20221021
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1028758035; Fri, 21 Oct 2022 16:58:24 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Fri, 21 Oct 2022 16:58:22 +0800
-Received: from APC01-PSA-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n1.mediatek.com (172.21.101.34) with Microsoft SMTP
- Server id
- 15.2.792.15 via Frontend Transport; Fri, 21 Oct 2022 16:58:22 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g+CUJZSm9hNW49x/8TC3XtJVT6JPAAdBv9Tu3S+itt+6K2wdH4z5kroog6H6L37Ds18lXNWb3P8L/zVrGUZhrHsj71bBm5iCDpT5G+Vi+0w0mezjBMP9aHkbDeWOi9okth9epHm3hdY8K2y+mcYEj/XGoJVEDOMTHz0el4XJqVfXhfkeKIC+Dh9x3htFIabIVpiNn7RZ0IP4yClS6BH7UOdj4wsTPsf82dqcj5l/Yiwu513MteQ3+XlLoC6xFLcc8a0aJJtxIMvj82d+RfZm8oTGbnfre6l1V9+xlm/MDr0BhPgYw+gHVFKq+8LJqXPziz/1TwDkB4a23hxk1MKdrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BnZMhXehLVKnkF4Paf/KIXdm7YgTA0VztoLYgr4xJtI=;
- b=W0nRqbykmqPnLnvn6FChJ+tfsHJ26t3UfJOBBQeY7nhGESUh3lxY0HGd9U8AfNq0TqrIicX8QnAT+R/02WxKIXP+oUhH6ZY/AbsLi8N4J7roPUEJyaeYlquH0FkK+86AdAYL9CVW9dXjw9V/iYRfUKZONBiLxiph2rT9g/DBs9KM0iW+OIDjNv6nY5c5hqtG/f1+q4kXWYEHjhRKG1I2X/0bM30EjkPjpl4YonQwZr2xWCHj9VdcPtQc4M7UnLrxqxj0DV6RUusKxjkc3WMMuKK7orxMHlCQnRMaRXw+HOTuo2kYIns0C+KlmtacKQ8XaKEmdMvpXTLetvaC6ilafw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BnZMhXehLVKnkF4Paf/KIXdm7YgTA0VztoLYgr4xJtI=;
- b=no5kjYZcE3R+TllmcfsX0k/UKMmc36N6Z2LjkoWc5HqNsn6IXJyX6nLiOIrFnrSubPJZEPIq5pYP8UrcaBn9Tq/cjohDSPpRz5oGINwNW2b8TcdJu4GWwJnjDaacFngsy2HoewdfnLG1zR7x3BZZCIXngaSKlEmTSkKDBq3zzhs=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by TYZPR03MB6646.apcprd03.prod.outlook.com (2603:1096:400:1f5::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.18; Fri, 21 Oct
- 2022 08:58:20 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::6c50:1e0c:f9dd:d45]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::6c50:1e0c:f9dd:d45%5]) with mapi id 15.20.5746.017; Fri, 21 Oct 2022
- 08:58:20 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "robh@kernel.org" <robh@kernel.org>
-Subject: Re: [PATCH 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
- document
-Thread-Topic: [PATCH 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
- document
-Thread-Index: AQHY1Nz5OA9S/sIRuESL8yXlzp3JUa3844KAgAPMLoCAF/0eAA==
-Date: Fri, 21 Oct 2022 08:58:20 +0000
-Message-ID: <ed703b2b32e81edb36dfe07f6d5703918ef4bbb2.camel@mediatek.com>
-References: <20220930145701.18790-1-trevor.wu@mediatek.com>
- <20220930145701.18790-13-trevor.wu@mediatek.com>
- <20221003163851.GA2414624-robh@kernel.org>
- <e96ef77f007f66f883f8dca86d1206cd1b5a767a.camel@mediatek.com>
-In-Reply-To: <e96ef77f007f66f883f8dca86d1206cd1b5a767a.camel@mediatek.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|TYZPR03MB6646:EE_
-x-ms-office365-filtering-correlation-id: 257bacb4-0ca0-466a-3c39-08dab3426742
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SA6LdDvXChnVhuyTVsN3DjL7K/g1f7ozJGnFxGx3+w98SEinxOSLnJoHm4UJmB+EZCGR1wQ37UAKdqfwmV0vOprxklmVHsAurcdvP5zGC5zaOOG/evZfMkJ2Cm9i98cojt18Hsfk2uVQJuqSFWccp+rRq3uy4dWxOQ90Zh4LT2Zh0asVDOfqPNIL5MrQRjS5+GtYH/3KvLzISPWVqx+wCEiPMBQ9oR/S+qfoSmEWVjRzwYon5FbfV0cpd3/MIBTpoCEBtVrNXSfjHMcWE9q1M+Iy+5/YMUCwQyeJvQBztg1FEFgmwV+VJjD1CozHwhDM1OQxUnrTY6szkJ6g9lm+f+OCx11z+gU98hUKTMPTdsC1yq5OmlQdLh3ItuDdtsRuc+HH8+iIyjyJMRf3CyielOtU6FG/vTRaOd8wC0fNOpeef0myGVETfnrQxMOr5xpTD7ROIIQ2aDLjqQRBRQfuncWf20tcVRxi5dxzjFbc8/JnjfLXxO2L8hhK5aCybwgpdrdMnY/TYga5z80F2+yB5WMAAixGGkJ/3jWrYcf7/o4qzK8I4D4SfAyOXGKQnKrhOBIcBncjz2j4JJ8ZVI84WjbK4rousuvdKOOasuiCiHbFf31JfGrFAVcr7hzuIY1LGyqEo6iK8JEZflymkpLt6lPhFD1Zft3wmQ0ow7cTLvKUE4WYOElWPB5wX5cW5xXNgwWhpabkNmHTvaEU0CMzyuq7zWzE0JljuZ50QHSglP+cacvGZd0DzVUvplWhIXHWbOSnR+/y+c+4FaSJ5o1UUhGMU9U7xNLJsH6rcm1bSYE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR03MB6686.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(451199015)(6486002)(8936002)(71200400001)(5660300002)(7416002)(478600001)(36756003)(316002)(85182001)(122000001)(6916009)(54906003)(66556008)(76116006)(66946007)(8676002)(186003)(2616005)(4326008)(64756008)(91956017)(66476007)(66446008)(6512007)(6506007)(26005)(86362001)(38070700005)(41300700001)(38100700002)(2906002)(99106002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZytzeitmMlpxUnpjRVJodGxYU0FNZ3VkN0J3dTBoU3BWUXFlNkcyQjNoQ3o4?=
- =?utf-8?B?OW9PV3RSUnZHOHhlQVB6ZnU5c2d2S0w1cDVXeGlHQ04rV0hEZ05VQXVoNXFh?=
- =?utf-8?B?aFIxSlIzYkZUTHRqMW5oVnp2clp0enVVSzFyR1J3QlFtMmJQSDlZLytaeGQ3?=
- =?utf-8?B?ZklzQVk2WFN2Y2R2K0UxdkhoYWRIVS9TVXFmbkhPWVFEVzEzVnZVOGpMWTUz?=
- =?utf-8?B?Q1dYMzJtSHFwaGZ0NlhVN3RWekxQZWlINjRLdWZmM0x0anZXYW5nUzlWNEY0?=
- =?utf-8?B?M0hyUjA1SDdHTUNNK0s3SWVFaXRtTjFtWWRnY090VlhsTS9DTWtUVlc5RjhD?=
- =?utf-8?B?dlh0cStnR0V2c2pFSXJqa21meHhZR0VDZk9xZWh4cGxidDZ1aWRYNUJvSG10?=
- =?utf-8?B?Y3RkanFBNUhaMEExdnRRVTljZ1ovMmt5Tk01di93SHhjYnoreENrUjNOSVFQ?=
- =?utf-8?B?eVNCbjdiN3R3ZVdYN1JlTGFvRTUvS3JiOHozYWRHVjN6NHVSN1hDV2NjSTlL?=
- =?utf-8?B?azU0K21hWnFxU0p6MzNPTktZN2pNMWdXY2w1S0ZWa2IwWDRxYmc3WlYwZit0?=
- =?utf-8?B?YXVpM0JQQXNXMFJwRjh3MFlaVy9aOG9STERibk5rakVxcEJTbjc4NEh0SWdU?=
- =?utf-8?B?RHQzdUxHUkVuWkIrNzRhT1FSM0JxR0NCUWFlSUo4VGovOEtDd3dreGpNR25p?=
- =?utf-8?B?djFKTGJ5RzV5SzRaY2xKdTlKZytaK3FwSEJMZUtCY1FoVjZJYVY1dklmdVYy?=
- =?utf-8?B?RlBOQnlmQXB6T0E2ak9TTVUwVGVMczJMOEhjM0h2YjhLZkJEWmhsV0YzcVZ4?=
- =?utf-8?B?VW5VZmxKbHZNcDJXWklOT1FUM2VtUUIwbng4YUJ6REF0aXNTOHQwbVdQSHVX?=
- =?utf-8?B?cEhNSTNEa1daSFRzOHQyenRhdS9ndzMvMFBjK2dEdTd1U3BncGIvUjd2Z2tV?=
- =?utf-8?B?ak9QWitxU0U0UGNXallpZ1lYZ3ZTY1dwTk9qc2MvbjFUY2ZRSkF2VzdwU0ps?=
- =?utf-8?B?dXJETE1OcHJOWm02TVdnOXpYZXNSQTd3VnpBYnFFWUd3OUpTOFNITitrK2tj?=
- =?utf-8?B?cENtMW1wVzVPMHZObWEzVExsS2ZmQitCRGRsOFhEWndsbnRXdDBoQlEyMlVz?=
- =?utf-8?B?UGtoZnd4em9uT1JsdHJ0SnRid2ZNazM0Mk94NXV5MnM3eGs3TFlYY0hIZmFL?=
- =?utf-8?B?Z1ZiN3FWUS90d2JNb1A0Z0VrckZibURlYWl0aldwSzBTd0FWWWp6bHJyYXNr?=
- =?utf-8?B?c29QbTViL25YdGpvdDdSeTMzdGF5TzM2eTVSTjN6UWFlU3djeHJBQWRvTndC?=
- =?utf-8?B?RlRDVER1WEhlNkxaUVRUOENmQWlrVEJMVTVRMmdoWWJZajVaMFZqZ01vNzFM?=
- =?utf-8?B?NlVwUnAzMm1mMFNKcDVKcXVGQWJmeXlhZGxZY0JOUGVPdUVTdkszazVaWTFk?=
- =?utf-8?B?SlhtaitHNlM4Q055aUNWWCtyRWwrcC9iWlYzSVNHdTAzTU1OOUZYMGpTMUpB?=
- =?utf-8?B?ZUpIMlBxeGhoS2RhWXZWeVZoVHJkbkVsU1lKeVhGdjdTWFJTL0wrN0NsK1BY?=
- =?utf-8?B?Y2twQVg4TzhvbHVlenBMNUlYRmdaR21oMjZLYmN4R0NnRStsaXQxTUY1NlMr?=
- =?utf-8?B?UWFBd0hXTmVzZ1BxNWNhaWE1QUM3SmRXQWYwVFFUK0l0ODlEaVJjQ1ZyanF2?=
- =?utf-8?B?bW9JQ25NaWJwcytaOFV2dkd6cmk0eU5yRUo4M1I2eEhqWDNHaSt4cjk3TDJD?=
- =?utf-8?B?ditRWW93Rkk2NU5CWGdxMi9ndjhoYXlCeHFRdXhFU1ZUbmVTbTArenJEZnZn?=
- =?utf-8?B?Kyt1cGh0Q1FlU05WQ094UjVmeW1QTnJ6NHBJanlrL2FJRW1hZ1lzOFBXb2ZY?=
- =?utf-8?B?VlIwc2NHSWVINE5Va3U4VU8wcnF4QS9WNlVpdThVbFpOQzIrYldEZWs5b2Ni?=
- =?utf-8?B?NGNyMk5zbVR5R1lXTW9wZjBjNnAxS2hEZjRHck9HaExpSlBHWE1nRm9CRzdk?=
- =?utf-8?B?bHFCTm1JVVErOC9FNjF3ajgzekpLd2FOc0JWekJrZlQ4aVVVYTZJd2g0YW1x?=
- =?utf-8?B?TS9jU1RyUTFPM0RobHIrQzUzQy9sb3FudVNCQnlBZHJkR3hXbW91amRHdGxH?=
- =?utf-8?B?Y2cweE1sTkU5NUNYbUZPT3RIeG01ZWx1dUtGaW9xZ1VrNGtkSEozY3RLdHRO?=
- =?utf-8?B?OGc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2DA7E7C356D17740BEB5D522D1D7560C@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="aiBx2Mly"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20221021095336epoutp031823efa811a5157f9f37fd0d7baaed53~gDN99cjaY0321803218epoutp03s
+ for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 09:53:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20221021095336epoutp031823efa811a5157f9f37fd0d7baaed53~gDN99cjaY0321803218epoutp03s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1666346016;
+ bh=9aPB06MF+/YHgJus+BbRjRYNXreCQbXjjMGXk/zIOa8=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=aiBx2MlyJ1WEvTpC9dygCFDADRX8BMBSlJlkLuOF8vQEH/WkviYnokQgpoa5ULsAC
+ p0lTKpY47UTOxqwVTDz2BwiF4cZLGL5z93XieSMkOVN4QKwBVJ7eFwxY4yWFdYHXg0
+ VPeq6V6CIySlBOjbsylu2vWardjioR3f3v5lR710=
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTP id
+ 20221021095335epcas5p1369d6d802bfd2e61234602b697fb4dc1~gDN9LVy5N2499724997epcas5p1R;
+ Fri, 21 Oct 2022 09:53:35 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.176]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4Mv0Cd1hzfz4x9Pv; Fri, 21 Oct
+ 2022 09:53:33 +0000 (GMT)
+Received: from epcas5p4.samsung.com ( [182.195.41.42]) by
+ epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ F9.54.56352.C1C62536; Fri, 21 Oct 2022 18:53:32 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20221021090406epcas5p269f531aa7b70c59670111c041a1f9cf3~gCiwCw05r1863018630epcas5p2J;
+ Fri, 21 Oct 2022 09:04:06 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20221021090406epsmtrp1c9f0e2fc305937d55c4bb01f19a50daf~gCiwBphlh0168401684epsmtrp1C;
+ Fri, 21 Oct 2022 09:04:06 +0000 (GMT)
+X-AuditID: b6c32a4b-5f7fe7000001dc20-ab-63526c1cf702
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 90.26.18644.68062536; Fri, 21 Oct 2022 18:04:06 +0900 (KST)
+Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20221021090403epsmtip2308674d4050632b8728e0e22b455eed6~gCitgPmAa2229022290epsmtip2T;
+ Fri, 21 Oct 2022 09:04:03 +0000 (GMT)
+From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>,
+ <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <s.nawrocki@samsung.com>,
+ <perex@perex.cz>, <tiwai@suse.com>, <pankaj.dubey@samsung.com>,
+ <alim.akhtar@samsung.com>, <rcsekar@samsung.com>, <aswani.reddy@samsung.com>
+In-Reply-To: <60620ca9-80cd-9b13-800b-130a3f75442a@linaro.org>
+Subject: RE: [PATCH 4/6] ASoC: samsung: fsd: Add FSD soundcard driver
+Date: Fri, 21 Oct 2022 14:34:01 +0530
+Message-ID: <04bf01d8e52c$125d0f40$37172dc0$@samsung.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 257bacb4-0ca0-466a-3c39-08dab3426742
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2022 08:58:20.7485 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: diVD7MZJS5sR3dN15kMWg95FbsrYsTk3oguTvRomnqXGIaMEZhw0qxmbn9/KL+tJ+J0Kdk6ZlzCf1w/l13YyWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB6646
-X-MTK: N
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwG1dkA8AWCzSJ4C+Pd42KyPk1+A
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrJJsWRmVeSWpSXmKPExsWy7bCmlq5MTlCywdSvJhYP5m1js7hy8RCT
+ xaHNW9ktpj58wmYx/8g5Vou+Fw+ZLfa+Bop9u9LBZHF51xw2ixnn9zFZLNr6hd2ic1c/q8Ws
+ CztYLVr3HmG3OPymndViw/e1jA4CHhs+N7F57Jx1l91j06pONo871/aweex7u4zNo2/LKkaP
+ 9Vuusnh83iQXwBGVbZORmpiSWqSQmpecn5KZl26r5B0c7xxvamZgqGtoaWGupJCXmJtqq+Ti
+ E6DrlpkD9IKSQlliTilQKCCxuFhJ386mKL+0JFUhI7+4xFYptSAlp8CkQK84Mbe4NC9dLy+1
+ xMrQwMDIFKgwITvjy/KXzAUTgytufJzP3MD4yr6LkZNDQsBE4uXnbexdjFwcQgK7GSX+777P
+ BOF8YpT48ngOC4TzmVHi4KzTLDAtKy+egErsYpTY/aoTqv8Fo8T1+4+ZQarYBMwlFu1dygiS
+ EBG4wiTxc3U7WAuzQBujxN6LaxlBqjgF7CTa974E6xAWcJWY9e0zK4jNIqAqseTAdLAaXgFL
+ iSOT7rFC2IISJ2c+AbuDWUBeYvvbOcwQNylI/Hy6DKxGRMBN4sfNecwQNeISR3/2QNV84ZD4
+ vwjqBxeJbV0roWxhiVfHt7BD2FISL/vboOx8iWkfm9kg7AqJto8bmCBse4kDV0ABwwE0X1Ni
+ /S59iLCsxNRT65gg1vJJ9P5+AlXOK7FjHoytKrF++SZGCFtaYt/1vYwTGJVmIflsFpLPZiH5
+ YBbCtgWMLKsYJVMLinPTU4tNC4zzUsvhUZ6cn7uJEZzGtbx3MD568EHvECMTB+MhRgkOZiUR
+ 3oJ3AclCvCmJlVWpRfnxRaU5qcWHGE2BwT2RWUo0OR+YSfJK4g1NLA1MzMzMTCyNzQyVxHkX
+ z9BKFhJITyxJzU5NLUgtgulj4uCUamBaJr3kyan++HNr3COyS/aLBhRs6f27UTP+gu6zS0IN
+ NiYee77YqfC2Ttsj88ho/4/9G7g368XJXb/04urSolbFQxPW52t66X/Yd9MoXVL9gEB41J6k
+ rkshX9g8Ay/fPnN200kpW/Ymm7jplQf+R9+dHJT2ulOhQHYKy+PcRCkxy9yvth/7931ZkDP3
+ rfbEry7mDrP+iQXdD+uvPH37nWdfm2b4K3/H7ispKgWpgrffbap/fXHS88cLo7LSZwm93xd0
+ o6zCdMebB9+LH3J4OsXdjtrzbEebs985Melc+ceBjo+/+rzYl7VPcc6W1aKNc1IWVSiZ6oSs
+ rJf9amhwbeYMlQMf9JQ2WHQdOnR8aqqvEktxRqKhFnNRcSIAwubwXWwEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEIsWRmVeSWpSXmKPExsWy7bCSvG5bQlCywc9WdosH87axWVy5eIjJ
+ 4tDmrewWUx8+YbOYf+Qcq0Xfi4fMFntfA8W+Xelgsri8aw6bxYzz+5gsFm39wm7Ruauf1WLW
+ hR2sFq17j7BbHH7Tzmqx4ftaRgcBjw2fm9g8ds66y+6xaVUnm8eda3vYPPa9Xcbm0bdlFaPH
+ +i1XWTw+b5IL4IjisklJzcksSy3St0vgyviy/CVzwcTgihsf5zM3ML6y72Lk5JAQMJFYefEE
+ SxcjF4eQwA5GidlX2lkgEtIS0/v3sEHYwhIr/z1nhyh6xijx//RHRpAEm4C5xKK9SxlBEiIC
+ j5gk5s5/xAbiMAt0MUoc/7uSGaLlM6PEmj8vmUBaOAXsJNr3vmQGsYUFXCVmffvMCmKzCKhK
+ LDkwHWwsr4ClxJFJ91ghbEGJkzOfgN3ELKAt0fuwlRHClpfY/nYOM8R9ChI/ny4DqxcRcJP4
+ cXMeM0SNuMTRnz3MExiFZyEZNQvJqFlIRs1C0rKAkWUVo2RqQXFuem6xYYFRXmq5XnFibnFp
+ Xrpecn7uJkZwNGtp7WDcs+qD3iFGJg7GQ4wSHMxKIrwF7wKShXhTEiurUovy44tKc1KLDzFK
+ c7AoifNe6DoZLySQnliSmp2aWpBaBJNl4uCUamDKefPx9u8Ljp8rFvbO3WnSGC398z6rhVi/
+ sF5QZ4TRl/ApBl9S318sTPw4mb/4Q6XK/rnrin7fnJWve8LKTk33gX3duYAjsyx9xR5f+Lp9
+ 9pznU458nrfn0Kw9N3MXnL6idMWF5+mWyTn9tTfF1xzQ+WT7QzpbbYKaSP51u951VlsqVvZt
+ m/HZ4OiB6unm0lKaASWJr792fRPQ0+CMXjpJdZX6W+3w2ffyDUSXisy/Y1klLm2sprZn99+E
+ /FnLY5dflbZueRbid3LBpHed3nt2vfxs6yzqyLfa10J0wzP3O396b/T33Dk1beMO0+3/dZxb
+ 24T7nvBdrG389lpbbeez+FeebzNbz5hcY9u7S/qMmRJLcUaioRZzUXEiACXapWdVAwAA
+X-CMS-MailID: 20221021090406epcas5p269f531aa7b70c59670111c041a1f9cf3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20221014104904epcas5p4f458182cc9ac9c223d9a25566f3dd300
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104904epcas5p4f458182cc9ac9c223d9a25566f3dd300@epcas5p4.samsung.com>
+ <20221014102151.108539-5-p.rajanbabu@samsung.com>
+ <60620ca9-80cd-9b13-800b-130a3f75442a@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -201,33 +157,368 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiA+IA0KDQouLnNuaXANCg0KPiA+ID4gKyAgICBkZXNjcmlwdGlvbjogVGhlIHBoYW5kbGUgb2Yg
-TVQ4MTg4IEFTb0MgcGxhdGZvcm0uDQo+ID4gPiArDQo+ID4gPiArICBtZWRpYXRlayxkcHR4LWNv
-ZGVjOg0KPiA+ID4gKyAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMv
-cGhhbmRsZSINCj4gPiA+ICsgICAgZGVzY3JpcHRpb246IFRoZSBwaGFuZGxlIG9mIE1UODE4OCBE
-aXNwbGF5IFBvcnQgVHggY29kZWMNCj4gPiA+IG5vZGUuDQo+ID4gPiArDQo+ID4gPiArICBtZWRp
-YXRlayxoZG1pLWNvZGVjOg0KPiA+ID4gKyAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMv
-ZGVmaW5pdGlvbnMvcGhhbmRsZSINCj4gPiA+ICsgICAgZGVzY3JpcHRpb246IFRoZSBwaGFuZGxl
-IG9mIE1UODE4OCBIRE1JIGNvZGVjIG5vZGUuDQo+ID4gPiArDQo+ID4gPiArICBtZWRpYXRlayxk
-YWktbGluazoNCj4gPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlv
-bnMvc3RyaW5nLWFycmF5DQo+ID4gPiArICAgIGRlc2NyaXB0aW9uOg0KPiA+ID4gKyAgICAgIEEg
-bGlzdCBvZiB0aGUgZGVzaXJlZCBkYWktbGlua3MgaW4gdGhlIHNvdW5kIGNhcmQuIEVhY2gNCj4g
-PiA+IGVudHJ5IGlzIGENCj4gPiA+ICsgICAgICBuYW1lIGRlZmluZWQgaW4gdGhlIG1hY2hpbmUg
-ZHJpdmVyLg0KPiA+IA0KPiA+IE5hbWVzIGhhdmUgdG8gYmUgZGVmaW5lZCBoZXJlLg0KPiA+IA0K
-PiANCj4gT0ssIEkgd2lsbCBhZGQgZW51bSBoZXJlIGZvciBsaXN0aW5nIGFsbCBhdmFpbGFibGUg
-ZGFpLWxpbmtzLg0KPiANCj4gVGhhbmtzLA0KPiBUcmV2b3INCj4gDQpIaSBSb2IsDQoNCkkgZm91
-bmQgdGhlIGltcGxlbWVudGF0aW9uIG9mICJtZWRpYXRlayxkYWktbGluayIgaXMgbm90IGluY2x1
-ZGVkIGluDQp0aGUgc2VyaWVzLCBzbyBJIHJlbW92ZSB0aGUgaXRlbSBpbiBWMi4NCkkgd2lsbCBh
-ZGQgZW51bSB3aGVuIEkgYWRkIHRoZSBpdGVtIGluIHRoZSBmdXR1cmUuDQoNClRoYW5zaywNClRy
-ZXZvcg0KDQo+ID4gPiArDQo+ID4gPiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQo+ID4g
-PiArDQo+ID4gPiArcmVxdWlyZWQ6DQo+ID4gPiArICAtIGNvbXBhdGlibGUNCj4gPiA+ICsgIC0g
-bWVkaWF0ZWsscGxhdGZvcm0NCj4gPiA+ICsNCj4gPiA+ICtleGFtcGxlczoNCj4gPiA+ICsgIC0g
-fA0KPiA+ID4gKw0KPiA+ID4gKyAgICBzb3VuZDogbXQ4MTg4LXNvdW5kIHsNCj4gPiA+ICsgICAg
-ICAgIGNvbXBhdGlibGUgPSAibWVkaWF0ZWssbXQ4MTg4LXNvdW5kIjsNCj4gPiA+ICsgICAgICAg
-IG1lZGlhdGVrLHBsYXRmb3JtID0gPCZhZmU+Og0KPiA+ID4gKyAgICAgICAgcGluY3RybC1uYW1l
-cyA9ICJkZWZhdWx0IjsNCj4gPiA+ICsgICAgICAgIHBpbmN0cmwtMCA9IDwmYXVkX3BpbnNfZGVm
-YXVsdD47DQo+ID4gPiArICAgICAgICBhdWRpby1yb3V0aW5nID0NCj4gPiA+ICsgICAgICAgICAg
-ICAiSGVhZHBob25lIiwgIkhlYWRwaG9uZSBMIiwNCj4gPiA+ICsgICAgICAgICAgICAiSGVhZHBo
-b25lIiwgIkhlYWRwaG9uZSBSIiwNCj4gPiA+ICsgICAgICAgICAgICAiQUlOMSIsICJIZWFkc2V0
-IE1pYyI7DQo+ID4gPiArICAgIH07DQo+ID4gPiArDQo+ID4gPiArLi4uDQo+ID4gPiAtLSANCj4g
-PiA+IDIuMTguMA0KPiA+ID4gDQo+ID4gPiANCg==
+
+
+> -----Original Message-----
+> From: Krzysztof Kozlowski [mailto:krzysztof.kozlowski@linaro.org]
+> Sent: 16 October 2022 08:48 PM
+> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>;
+> lgirdwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org;
+> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
+> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
+> alim.akhtar@samsung.com; rcsekar@samsung.com;
+> aswani.reddy@samsung.com
+> Cc: alsa-devel@alsa-project.org; devicetree@vger.kernel.org; linux-
+> kernel@vger.kernel.org; linux-samsung-soc@vger.kernel.org
+> Subject: Re: [PATCH 4/6] ASoC: samsung: fsd: Add FSD soundcard driver
+> 
+> On 14/10/2022 06:21, Padmanabhan Rajanbabu wrote:
+> > Add a soundcard driver for FSD audio interface to bridge the CPU DAI
+> > of samsung I2S with the codec and platform driver.
+> >
+> 
+> Thank you for your patch. There is something to discuss/improve.
+> 
+> > +
+> > +#define FSD_PREFIX		"tesla,"
+> > +#define FSD_DAI_SRC_PCLK	3
+> > +#define FSD_DAI_RFS_192		192
+> > +#define FSD_DAI_BFS_48		48
+> > +#define FSD_DAI_BFS_96		96
+> > +#define FSD_DAI_BFS_192		192
+> > +
+> > +struct fsd_card_priv {
+> > +	struct snd_soc_card card;
+> > +	struct snd_soc_dai_link *dai_link;
+> > +	u32 tdm_slots;
+> > +	u32 tdm_slot_width;
+> > +};
+> > +
+> > +static unsigned int fsd_card_get_rfs(unsigned int rate) {
+> > +	return FSD_DAI_RFS_192;
+> 
+> This wrapper is a bit silly...
+okay, will remove the wrapper and assign the macro value directly
+> 
+> > +}
+> > +
+> > +static unsigned int fsd_card_get_bfs(unsigned int channels) {
+> > +	switch (channels) {
+> > +	case 1:
+> > +	case 2:
+> > +		return FSD_DAI_BFS_48;
+> > +	case 3:
+> > +	case 4:
+> > +		return FSD_DAI_BFS_96;
+> > +	case 5:
+> > +	case 6:
+> > +	case 7:
+> > +	case 8:
+> > +		return FSD_DAI_BFS_192;
+> > +	default:
+> > +		return FSD_DAI_BFS_48;
+> > +	}
+> > +}
+> > +
+> > +static unsigned int fsd_card_get_psr(unsigned int rate) {
+> > +	switch (rate) {
+> > +	case 8000:	return 43;
+> > +	case 11025:	return 31;
+> > +	case 16000:	return 21;
+> > +	case 22050:	return 16;
+> > +	case 32000:	return 11;
+> > +	case 44100:	return 8;
+> > +	case 48000:	return 7;
+> > +	case 64000:	return 5;
+> > +	case 88200:	return 4;
+> > +	case 96000:	return 4;
+> > +	case 192000:	return 2;
+> > +	default:	return 1;
+> > +	}
+> > +}
+> > +
+> > +static int fsd_card_hw_params(struct snd_pcm_substream *substream,
+> > +					struct snd_pcm_hw_params
+> *params) {
+> > +	struct snd_soc_pcm_runtime *rtd	= substream->private_data;
+> > +	struct snd_soc_card *card	= rtd->card;
+> > +	struct snd_soc_dai *cpu_dai	= asoc_rtd_to_cpu(rtd, 0);
+> > +	struct snd_soc_dai_link *link	= rtd->dai_link;
+> > +	struct fsd_card_priv *priv	= snd_soc_card_get_drvdata(card);
+> > +	unsigned int rfs, bfs, psr;
+> > +	int ret = 0, cdclk_dir;
+> > +
+> > +	rfs = fsd_card_get_rfs(params_rate(params));
+> > +	bfs = fsd_card_get_bfs(params_channels(params));
+> > +	psr = fsd_card_get_psr(params_rate(params));
+> > +
+> > +	/* Configure the Root Clock Source */
+> > +	ret = snd_soc_dai_set_sysclk(cpu_dai, SAMSUNG_I2S_OPCLK,
+> > +					false, FSD_DAI_SRC_PCLK);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set OPCLK: %d\n", ret);
+> > +		goto err;
+> > +	}
+> > +
+> > +	ret = snd_soc_dai_set_sysclk(cpu_dai, SAMSUNG_I2S_RCLKSRC_0,
+> > +					false, false);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set RCLKSRC: %d\n", ret);
+> 
+> Don't you need to cleanup on error paths?
+we might not be needing, since the sound card neither configures any
+clock sources directly nor involves in any memory allocation during
+hw_params.
+> 
+> > +		goto err;
+> > +	}
+> > +
+> > +	/* Set CPU DAI configuration */
+> > +	ret = snd_soc_dai_set_fmt(cpu_dai, link->dai_fmt);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set DAIFMT: %d\n", ret);
+> > +		goto err;
+> > +	}
+> > +
+> > +	if (link->dai_fmt & SND_SOC_DAIFMT_CBC_CFC) {
+> > +		cdclk_dir = SND_SOC_CLOCK_OUT;
+> > +	} else if (link->dai_fmt & SND_SOC_DAIFMT_CBP_CFP) {
+> > +		cdclk_dir = SND_SOC_CLOCK_IN;
+> > +	} else {
+> > +		dev_err(card->dev, "Missing Clock Master information\n");
+> > +		goto err;
+> > +	}
+> > +
+> > +	/* Set Clock Source for CDCLK */
+> > +	ret = snd_soc_dai_set_sysclk(cpu_dai, SAMSUNG_I2S_CDCLK,
+> > +					rfs, cdclk_dir);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set CDCLK: %d\n", ret);
+> > +		goto err;
+> > +	}
+> > +
+> > +	ret = snd_soc_dai_set_clkdiv(cpu_dai, SAMSUNG_I2S_DIV_RCLK, psr);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set PSR: %d\n", ret);
+> > +		goto err;
+> > +	}
+> > +
+> > +	ret = snd_soc_dai_set_clkdiv(cpu_dai, SAMSUNG_I2S_DIV_BCLK, bfs);
+> > +	if (ret < 0) {
+> > +		dev_err(card->dev, "Failed to set BCLK: %d\n", ret);
+> > +		goto err;
+> > +	}
+> > +
+> > +	if (priv->tdm_slots) {
+> > +		ret = snd_soc_dai_set_tdm_slot(cpu_dai, false, false,
+> > +				priv->tdm_slots, priv->tdm_slot_width);
+> > +		if (ret < 0) {
+> > +			dev_err(card->dev,
+> > +				"Failed to configure in TDM mode:%d\n", ret);
+> > +			goto err;
+> > +		}
+> > +	}
+> > +
+> > +err:
+> > +	return ret;
+> > +}
+> > +
+> > +static const struct snd_soc_ops fsd_card_ops = {
+> > +	.hw_params	= fsd_card_hw_params,
+> > +};
+> > +
+> > +static struct fsd_card_priv *fsd_card_parse_of(struct snd_soc_card
+> > +*card) {
+> > +	struct fsd_card_priv *priv;
+> > +	struct snd_soc_dai_link *link;
+> > +	struct device *dev = card->dev;
+> > +	struct device_node *node = dev->of_node;
+> > +	struct device_node *np, *cpu_node, *codec_node;
+> > +	struct snd_soc_dai_link_component *dlc;
+> > +	int ret, id = 0, num_links;
+> > +
+> > +	ret = snd_soc_of_parse_card_name(card, "model");
+> > +	if (ret) {
+> > +		dev_err(dev, "Error parsing card name: %d\n", ret);
+> > +		return ERR_PTR(ret);
+> 
+> return dev_err_probe
+Okay
+> 
+> > +	}
+> > +
+> > +	if (of_property_read_bool(dev->of_node, "widgets")) {
+> > +		ret = snd_soc_of_parse_audio_simple_widgets(card, "widgets");
+> > +		if (ret)
+> > +			return ERR_PTR(ret);
+> > +	}
+> > +
+> > +	/* Add DAPM routes to the card */
+> > +	if (of_property_read_bool(node, "audio-routing")) {
+> > +		ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
+> > +		if (ret)
+> > +			return ERR_PTR(ret);
+> > +	}
+> > +
+> > +	num_links = of_get_child_count(node);
+> > +
+> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > +	if (!priv)
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	priv->dai_link = devm_kzalloc(dev, num_links * sizeof(*priv-
+> >dai_link),
+> > + 	GFP_KERNEL);
+> > +	if (!priv->dai_link)
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	priv->tdm_slots = 0;
+> > +	priv->tdm_slot_width = 0;
+> > +
+> > +	snd_soc_of_parse_tdm_slot(node, NULL, NULL, &priv->tdm_slots,
+> > +			&priv->tdm_slot_width);
+> > +
+> > +	link = priv->dai_link;
+> > +
+> > +	for_each_child_of_node(node, np) {
+> > +		dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
+> > +		if (!dlc)
+> > +			return ERR_PTR(-ENOMEM);
+> > +
+> > +		link->id		= id;
+> > +		link->cpus		= &dlc[0];
+> > +		link->platforms		= &dlc[1];
+> > +		link->num_cpus		= 1;
+> > +		link->num_codecs	= 1;
+> > +		link->num_platforms	= 1;
+> > +
+> > +		cpu_node = of_get_child_by_name(np, "cpu");
+> > +		if (!cpu_node) {
+> > +			dev_err(dev, "Missing CPU/Codec node\n");
+> > +			ret = -EINVAL;
+> > +			goto err_cpu_node;
+> > +		}
+> > +
+> > +		ret = snd_soc_of_get_dai_link_cpus(dev, cpu_node, link);
+> > +		if (ret < 0) {
+> > +			dev_err(dev, "Error Parsing CPU DAI name\n");
+> > +			goto err_cpu_name;
+> > +		}
+> > +
+> > +		link->platforms->of_node = link->cpus->of_node;
+> > +
+> > +		codec_node = of_get_child_by_name(np, "codec");
+> > +		if (codec_node) {
+> > +			ret = snd_soc_of_get_dai_link_codecs(dev, codec_node,
+> > +					link);
+> > +			if (ret < 0) {
+> > +				dev_err(dev, "Error Parsing Codec DAI name\n");
+> > +				goto err_codec_name;
+> > +			}
+> > +		} else {
+> > +			dlc = devm_kzalloc(dev, sizeof(*dlc), GFP_KERNEL);
+> > +			if (!dlc) {
+> > +				ret = -ENOMEM;
+> > +				goto err_cpu_name;
+> > +			}
+> > +
+> > +			link->codecs = dlc;
+> > +
+> > +			link->codecs->dai_name = "snd-soc-dummy-dai";
+> > +			link->codecs->name = "snd-soc-dummy";
+> > +			link->dynamic = 1;
+> > +
+> > +			snd_soc_dai_link_set_capabilities(link);
+> > +			link->ignore_suspend = 1;
+> > +			link->nonatomic = 1;
+> > +		}
+> > +
+> > +		ret = asoc_simple_parse_daifmt(dev, np, codec_node,
+> > +					FSD_PREFIX, &link->dai_fmt);
+> > +		if (ret)
+> > +			link->dai_fmt = SND_SOC_DAIFMT_NB_NF |
+> > +					SND_SOC_DAIFMT_CBC_CFC |
+> > +					SND_SOC_DAIFMT_I2S;
+> > +
+> > +		ret = of_property_read_string(np, "link-name", &link-
+> >name);
+> > +		if (ret) {
+> > +			dev_err(card->dev, "Error Parsing link name\n");
+> > +			goto err_codec_name;
+> > +		}
+> > +
+> > +		link->stream_name = link->name;
+> > +		link->ops = &fsd_card_ops;
+> > +
+> > +		link++;
+> > +		id++;
+> > +
+> > +		of_node_put(cpu_node);
+> > +		of_node_put(codec_node);
+> > +	}
+> > +
+> > +	card->dai_link = priv->dai_link;
+> > +	card->num_links = num_links;
+> > +
+> > +	return priv;
+> > +
+> > +err_codec_name:
+> > +	of_node_put(codec_node);
+> > +err_cpu_name:
+> > +	of_node_put(cpu_node);
+> > +err_cpu_node:
+> > +	of_node_put(np);
+> > +	return ERR_PTR(ret);
+> > +}
+> > +
+> > +static int fsd_platform_probe(struct platform_device *pdev) {
+> > +	struct device *dev = &pdev->dev;
+> > +	struct snd_soc_card *card;
+> > +	struct fsd_card_priv *fsd_priv;
+> > +
+> > +	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
+> > +	if (!card)
+> > +		return -ENOMEM;
+> > +
+> > +	card->dev	= dev;
+> > +	fsd_priv	= fsd_card_parse_of(card);
+> 
+> Drop the indentation before =
+Okay
+> 
+> > +
+> > +	if (IS_ERR(fsd_priv)) {
+> > +		dev_err(&pdev->dev, "Error Parsing DAI Link: %ld\n",
+> > +				PTR_ERR(fsd_priv));
+> > +		return PTR_ERR(fsd_priv);
+> 
+> return dev_err_probe
+Okay
+> 
+> > +	}
+> > +
+> > +	snd_soc_card_set_drvdata(card, fsd_priv);
+> > +
+> > +	return devm_snd_soc_register_card(&pdev->dev, card); }
+> > +
+> > +static const struct of_device_id fsd_device_id[] = {
+> > +	{ .compatible = "tesla,fsd-card" },
+> > +	{},
+> > +};
+> > +MODULE_DEVICE_TABLE(of, fsd_device_id);
+> > +
+> > +static struct platform_driver fsd_platform_driver = {
+> > +	.driver = {
+> > +		.name = "fsd-card",
+> > +		.of_match_table = of_match_ptr(fsd_device_id),
+> 
+> of_match_ptr comes with maybe_unused. Or drop it.
+Okay
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
+Thank you for reviewing the patch.
+
+

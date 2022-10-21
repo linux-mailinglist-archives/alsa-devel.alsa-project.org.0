@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 776396079FF
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 16:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5A0607A01
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Oct 2022 16:57:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05227B230;
-	Fri, 21 Oct 2022 16:56:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05227B230
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77435B276;
+	Fri, 21 Oct 2022 16:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77435B276
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666364215;
-	bh=ezvjYc+rhZy26pQ0cAF1QNG1TcfOw/mpocoE4BSrq2s=;
+	s=default; t=1666364241;
+	bh=PfCE7F4gIaJKXk+RHMSHpvuvVrLqrVsWDRkE3Np70P0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q3UeNoFl2lfcsjdSxcBEE+HYiykZ6PmMuXo+iK+BJYhQTGpNudwFE6y0WQOU7/hU7
-	 EDpQ6yp5Xx/WmFVFZRpnjLM8HK31XOSrq84TCi5yw+v0A23Aj+2wlFdzhvrVLkTxQx
-	 z4TFc5xu4I1wV+imMNQxIwBe6+DUvdz8wNKOgQf0=
+	b=MOzT//5a9/K2dbiO/Whao2UwmCl1V2Zn23Zjnl1BxZXXoZrWPSJx9nB24Uw5aJNk1
+	 7/gFxfOvVGNt8f3QqZVAVJ3WvC5skFg0uqQqEGAATEQ1SzQtXNQ5izeAavHzNKnnaT
+	 voPnbVsuBwtYixAZOWATIbqUR9B4f4bT+ImWovb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B9E0F80134;
-	Fri, 21 Oct 2022 16:56:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC107F800B5;
+	Fri, 21 Oct 2022 16:56:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E13BEF80256; Fri, 21 Oct 2022 16:55:58 +0200 (CEST)
+ id 23B71F8021D; Fri, 21 Oct 2022 16:55:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5644DF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB3CFF800B5
  for <alsa-devel@alsa-project.org>; Fri, 21 Oct 2022 16:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5644DF800B8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB3CFF800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UjguJfdw"
+ header.b="HfP19iLV"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8E3DD61EE5;
+ by ams.source.kernel.org (Postfix) with ESMTPS id F17BFB82C38;
+ Fri, 21 Oct 2022 14:55:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA7BC433D7;
  Fri, 21 Oct 2022 14:55:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE27C433C1;
- Fri, 21 Oct 2022 14:55:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666364153;
- bh=ezvjYc+rhZy26pQ0cAF1QNG1TcfOw/mpocoE4BSrq2s=;
+ s=k20201202; t=1666364154;
+ bh=PfCE7F4gIaJKXk+RHMSHpvuvVrLqrVsWDRkE3Np70P0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UjguJfdw1jBgJ0iv8x+X6JQdKK/eQt8zS1JnqRQ5eST14Hz+A5oQJtq8+s5KVU+dZ
- R3Tp21qD0hS3SUoHTE9K2EJKGHjoOYfJ+aiB19VsTjrjVrMC7oPhDolj6MmHCWibqt
- DtCa/+eDT4AU7yPdKcjXIAKn/XwJsB9FgsQsDOhKttxIUFZ6ojo1s+Wkb5yfeIIclr
- +NrYV2LLOAy01PI39xoZWJWqj7jg7N77ekJw2BdGUQv3UlEEzCrMN2ibF+2oQQ/09x
- KURMXtEAhd7ZKjI0epDDp8qoVDzSaZ4BOurE8mMAfVb4UYiVG/7jsQ3YyLp5lxJ/GG
- xgBswygW4VVrw==
+ b=HfP19iLVSNVoj8Xm9y3C+QcARpCzI2k0v8ly+malkx3+U/AwtznnBphSIjdtt3r+/
+ 1D61ZBneMSlrYhZdi7ESE7/9AcSAkZpDKcyj5Kn/5V0vfmYn1w2tV/GGY06jfxpnw2
+ br+yJOkQcvowj8CozTERybWQX1lq/WTgnjvxkgKcoyZkZQJwaj43Eysbcp22bYMp8v
+ +RMC6DWspGXLMCOguzkqI7KNNwnAIixRTZ9KlUQzCGwIkSCkTCt756CaTaIQHSKmR9
+ Q4uVrjXR+6BRy7IU41/uA8VvHihgU0mg4JWaF2jKWNkJx8uwUVk66uUru+nH7lauIx
+ /CFi6mfostH/A==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Leohearts <leohearts@leohearts.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <26B141B486BEF706+313d1732-e00c-ea41-3123-0d048d40ebb6@leohearts.com>
-References: <26B141B486BEF706+313d1732-e00c-ea41-3123-0d048d40ebb6@leohearts.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Add Lenovo Thinkbook 14+ 2022 21D0 to
- quirks table
-Message-Id: <166636415149.251337.3450241153034990472.b4-ty@kernel.org>
-Date: Fri, 21 Oct 2022 15:55:51 +0100
+To: alsa-devel@alsa-project.org, Yang Yingliang <yangyingliang@huawei.com>
+In-Reply-To: <20221020110157.1450191-1-yangyingliang@huawei.com>
+References: <20221020110157.1450191-1-yangyingliang@huawei.com>
+Subject: Re: [PATCH v2] ASOC: SOF: Intel: hda-codec: fix possible memory leak
+ in hda_codec_device_init()
+Message-Id: <166636415322.251337.7463705190984318156.b4-ty@kernel.org>
+Date: Fri, 21 Oct 2022 15:55:53 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: tiwai@suse.de, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,16 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 Oct 2022 14:34:32 +0800, Leohearts wrote:
-> Lenovo Thinkbook 14+ 2022 (ThinkBook 14 G4+ ARA) uses Ryzen
-> 6000 processor, and has the same microphone problem as other
-> ThinkPads with AMD Ryzen 6000 series CPUs, which has been
-> listed in https://bugzilla.kernel.org/show_bug.cgi?id=216267.
+On Thu, 20 Oct 2022 19:01:57 +0800, Yang Yingliang wrote:
+> If snd_hdac_device_register() fails, 'codec' and name allocated in
+> dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
+> by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
+> and kobject_cleanup().
 > 
-> Adding 21D0 to quirks table solves this microphone problem
-> for ThinkBook 14 G4+ ARA.
 > 
-> [...]
 
 Applied to
 
@@ -104,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: yc: Add Lenovo Thinkbook 14+ 2022 21D0 to quirks table
-      commit: a75481fa00cc06a8763e1795b93140407948c03a
+[1/1] ASOC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init()
+      commit: e9441675edc1bb8dbfadacf68aafacca60d65a25
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

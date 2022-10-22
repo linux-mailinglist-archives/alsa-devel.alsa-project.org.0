@@ -2,106 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925C0608EAB
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 18:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C77D608EC5
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 19:16:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23095A3BB;
-	Sat, 22 Oct 2022 18:49:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23095A3BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5339BDE9;
+	Sat, 22 Oct 2022 19:15:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5339BDE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666457404;
-	bh=1GvOBQ04+043A7Texu4lpwQiotLsdrqcNwnkpK3x0Iw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666458971;
+	bh=OEdRsgVqCkcKz4eZ7jkOylFepk0zkXtGkfANql0O2yY=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nLQHaZM8ppTXX+S8bXFh1mgdecgLvZ7mCVpFd04uRRF7BpGuxFuGD3Kg4dw1J32rq
-	 +5BAwXDIju/4nm90FPcprVl/3+oxLKVU1MbzCCgnkkx3keDR8fh1ZAyu5c+ID3BMYx
-	 wQPEr77xYQ933jfVeUDaiqu0ki8ijS7WG0bOT9bk=
+	b=Kx/BCafbyPIfUF3w06B9zrTt5xPArm4oNf0+oOXVZbU+i9nveVSl4vwnAC3/nPi2s
+	 S2Er6JUWnzsEb+cRcPysa83C0lXX/Bj2Zrk0GKSDD0MsLmSqQ+J367wLnnccPKRg8/
+	 zocrCbsdwZ6yS5JMytNAWQKWNzmJPtbzwqBM0sEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9477CF8013D;
-	Sat, 22 Oct 2022 18:49:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49981F80130;
+	Sat, 22 Oct 2022 19:15:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A402F80246; Sat, 22 Oct 2022 18:49:08 +0200 (CEST)
+ id 801B2F80290; Sat, 22 Oct 2022 19:15:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_ZEN_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBFFAF80134
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 18:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBFFAF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id A39FCF80134
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 19:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A39FCF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ogCxataz"
-Received: by mail-qt1-x832.google.com with SMTP id a24so3443397qto.10
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 09:49:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MWHwWqM3BXKlqAbT6QrzFF/UUpibvbLYi2O5amk60U4=;
- b=ogCxatazZKWZRhhAUwP+5F6AJ8YlAWU+ohtbMidz6OXm1yNePCRATsxZp5oRVpW+A0
- p9NYEDjH83TE8PMVPOfIkhT6CS6HDkxOGBdeUU/Sl4GpxX/p+bOp+TQ2TviTAGPYfEN7
- Fg5gOOGp+oH8bXUlwYJ6688yOFmDGYpQbO3wjVusgiWYagHvCkKeywXEojgiHQ3WH0k4
- mEi9Y0KzuyjiANtaGM2LmBWL4021SGDvEyZdzGZS/3PWXsSDtZFm0KM8apP73oACp0Nf
- QN1tePmnF5nWKZJUcm8X0JoAeAJOKcdwwdlMY7prETHOllDQoTyKZ9YmXZRR0F2eQm+3
- f6DA==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eDHT+PdT"
+Received: by mail-wr1-x42d.google.com with SMTP id a10so8920311wrm.12
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 10:15:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:from:to:cc:subject:date:message-id
+ :reply-to; bh=OEdRsgVqCkcKz4eZ7jkOylFepk0zkXtGkfANql0O2yY=;
+ b=eDHT+PdTkIpoA25cMakJH7LwzPhBP3+NLqYVcxGoKNV/kY/iRn4XvItq9CASOMKBhz
+ 8V/Q5Wqq6WzKuKE8ScZ+DAXjp+EBhgNKy7dKLvxM1kQG9BlY8NWyjzcvy0+cLXZgtnVb
+ z7WxJ8m58IsjgXN3ijExpHHd2iUYYxS3AVmCfnLA2qPNV/Ybn9TlyKZ25+if9XxIaDKH
+ UuFFNYliJYaaporq2xKqMbW8/5hRTL+LNUAkt2YxETG7l8Y1jVepQDxsJPVx7aRQ9WPq
+ U613c1blBAGUs7IDXWZlxY9p+TMh3I3tFTTwNStYXmpiQmyY8tK8QmZg47xBDocB2COn
+ RVsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MWHwWqM3BXKlqAbT6QrzFF/UUpibvbLYi2O5amk60U4=;
- b=gSbpHHZep5oXsaVLQM098QjdGVm2nTi4nnLOWfzjPLQ5GdD7wwv3Hlk0SQdJm5QQgD
- kPELcfh6Zl+hxPDJKKfIW+iX2Gp/w4+YToeZ0PA5YMjbS9rZjQ9W5EqEUicu5z+QwZ0A
- RULLQj1XahfhpYrRCRsnn65ZKXvcz1jgiNnmcqfMUoePwIl+HnXl3cks9bzHrjGdy0wl
- 9BoSu/LEc3D4J8LMPUZ0/UVycpQXmXVgNr5Y6JoPwGRMeaFAp2latnlguPPNpIxjwec0
- VqXUJokOYc8yKW5ZyOB8jzJY/zPzFgnKysQEDsjhOXC8YJUP3pQfgxHN9/ZGI2me6eV4
- 4rnw==
-X-Gm-Message-State: ACrzQf3DzSF8KAocYNHUVxXxp3cKnpIRHDOj2l5p+2k/10GZzJ5X6jMk
- WHCLq6bQs4lItpHazQMxqO30zQ==
-X-Google-Smtp-Source: AMsMyM7MX1BEUs2JSI2Qn3PmiNnVDugW3rD+1D64oX5nMvP/6Fj64lJHcVW1yUkBKT8ar+TIesapXw==
-X-Received: by 2002:ac8:5b10:0:b0:39c:d63a:d88 with SMTP id
- m16-20020ac85b10000000b0039cd63a0d88mr20932702qtw.682.1666457339565; 
- Sat, 22 Oct 2022 09:48:59 -0700 (PDT)
-Received: from [10.203.8.70] ([205.153.95.177])
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=OEdRsgVqCkcKz4eZ7jkOylFepk0zkXtGkfANql0O2yY=;
+ b=OaY7P9zbNDImx7VBvYNRjZ3bGWb2HTLorxjZrHxGBDYNI9ibIx6t/I3k62MkFqb7Fs
+ hx01kCPVfOuutZqgXvaBsz9VFSjmHHNCanV4U/57LxmpZvHk5MDN8geztzCt506u/V+E
+ gBRh8Fjpc/3Mhs3gIaeraxaq2CqSlvh18GmgBV8902EFnFJmTRCQ0KYmIS6Vv6nxpVS+
+ BWUvTBzSPkhv9FqPnTSUcsPof/ciGSsTmRgo6X+Czje3znaqwbQnqvfdbwzQ1a74Q/WO
+ 8vRGHQuXsgwaliLofZBhX0TigKfzAT6j+HXdC+7lMoh9828eoGbVrPQqONQwwjr0Ahxy
+ 3XVg==
+X-Gm-Message-State: ACrzQf1T2yIZH2LbBKT6cf8LlzB5LDlpu+wvYZBXRPD4SYk9ssD+ZH8a
+ KEl88X3aAr5LRX/MVWuqK2LbGezt35c=
+X-Google-Smtp-Source: AMsMyM5GACKMhemPzQfhXeK8J8ZeCfuB8vay27pyTEULvy/cKHgyGpAjBE0I36JUTkg7zlSZEqPa1w==
+X-Received: by 2002:a5d:5142:0:b0:236:5d8d:6254 with SMTP id
+ u2-20020a5d5142000000b002365d8d6254mr2649278wrt.514.1666458906363; 
+ Sat, 22 Oct 2022 10:15:06 -0700 (PDT)
+Received: from localhost (188.29.215.65.threembb.co.uk. [188.29.215.65])
  by smtp.gmail.com with ESMTPSA id
- c25-20020ac81119000000b003996aa171b9sm9752605qtj.97.2022.10.22.09.48.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Oct 2022 09:48:58 -0700 (PDT)
-Message-ID: <253fc459-c3dc-7710-6f34-0466d5301482@linaro.org>
-Date: Sat, 22 Oct 2022 12:48:56 -0400
+ f15-20020a05600c154f00b003b4a68645e9sm3341141wmg.34.2022.10.22.10.15.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 22 Oct 2022 10:15:05 -0700 (PDT)
+References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+ <0269b850-f33a-7aa9-a3eb-83655bd4e19a@wanyeetech.com>
+ <ROSYER.QTJF8J14H2YX1@crapouillou.net>
+ <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Zhou Yanjie <zhouyu@wanyeetech.com>
+Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
+ SoC-specific
+In-reply-to: <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
+Date: Sat, 22 Oct 2022 18:15:05 +0100
+Message-ID: <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH 3/6] dt-bindings: sound: Add sound card bindings for Tesla
- FSD
-Content-Language: en-US
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>,
- 'Rob Herring' <robh@kernel.org>
-References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
- <CGME20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d@epcas5p1.samsung.com>
- <20221014102151.108539-4-p.rajanbabu@samsung.com>
- <20221014151325.GA1940481-robh@kernel.org>
- <04b901d8e529$573b17e0$05b147a0$@samsung.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <04b901d8e529$573b17e0$05b147a0$@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
- tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
- alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, tiwai@suse.com,
+ Paul Cercueil <paul@crapouillou.net>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,239 +111,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21/10/2022 04:44, Padmanabhan Rajanbabu wrote:
->> On Fri, Oct 14, 2022 at 03:51:48PM +0530, Padmanabhan Rajanbabu wrote:
->>> Add dt-binding reference document to configure the DAI link for Tesla
->>> FSD sound card driver.
+
+Zhou Yanjie <zhouyu@wanyeetech.com> writes:
+
+> Hi Paul,
+>
+> On 2022/7/13 =E4=B8=8B=E5=8D=8811:07, Paul Cercueil wrote:
+>> Hi Zhou,
 >>
->> The simple-card or graph-card bindings don't work for you?
-> Thank you for reviewing the patch.
-> 
-> The actual reason for having a custom sound card driver lies in the fact
-> that the Samsung i2s cpu dai requires configuration of some Samsung
-> specific properties like rfs, bfs, codec clock direction and root clock
-> source. We do not have flexibility of configuring the same in simple card
-> driver (sound/soc/generic/simple-card.c) or audio graph card driver 
-> (sound/soc/generic/audio-graph-card.c). The binding has been added to
-> support the custom sound card driver.
-> 
-> I understand from your query that the newly added card has device tree
-> nodes and properties which are used in simple card as well, but having a
-> different or new prefixes. I believe to address that, we can restructure
-> the string names to generic ones. 
-
-You must use generic, existing properties where applicable.
-
-> But I would like to understand, to reuse
-> the simple card or audio graph card bindings, can we add secondary
-> compatible strings in the simple card dt-binding for the custom sound card
-> to probe ?
-
-If you see other vendor compatibles there, then yes... But there aren't
-any, right?
-
->>
+>> Le mer., juil. 13 2022 at 22:33:44 +0800, Zhou Yanjie <zhouyu@wanyeetech=
+.com>
+>> a =C3=A9crit :
+>>> Hi Aidan,
 >>>
->>> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
->>> ---
->>>  .../bindings/sound/tesla,fsd-card.yaml        | 158 ++++++++++++++++++
->>>  1 file changed, 158 insertions(+)
->>>  create mode 100644
->>> Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
+>>> On 2022/7/9 =E4=B8=8A=E5=8D=8812:02, Aidan MacDonald wrote:
+>>>> @@ -400,6 +402,7 @@ static const struct i2s_soc_info jz4740_i2s_soc_in=
+fo =3D
+>>>> {
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .field_tx_fifo_thresh=C2=A0=C2=A0=C2=A0=
+ =3D REG_FIELD(JZ_REG_AIC_CONF, 8, 11),
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .field_i2sdiv_capture=C2=A0=C2=A0=C2=A0=
+ =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .field_i2sdiv_playback=C2=A0=C2=A0=C2=
+=A0 =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>>>> +=C2=A0=C2=A0=C2=A0 .pll_clk_name=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 =3D "pll half",
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .shared_fifo_flush=C2=A0=C2=A0=C2=A0 =
+=3D true,
+>>>> =C2=A0 };
 >>>
->>> diff --git
->>> a/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
->>> b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
->>> new file mode 100644
->>> index 000000000000..4bd590f4ee27
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
->>> @@ -0,0 +1,158 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) # Copyright
->>> +2022 Samsung Electronics Co. Ltd.
->>> +%YAML 1.2
->>> +---
->>> +$id:
->>> +https://protect2.fireeye.com/v1/url?k=4ae54403-157e7d1c-4ae4cf4c-
->> 000b
->>> +abdfecba-9eb398ea304f8ae8&q=1&e=4935bed0-ce62-47dd-8faf-
->> 4750b01e22d3&
 >>>
->> +u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fsound%2Ftesla%2Cfsd-
->> card.ya
->>> +ml%23
->>> +$schema:
->>> +https://protect2.fireeye.com/v1/url?k=8c72226e-d3e91b71-8c73a921-
->> 000b
->>> +abdfecba-3ce999f6c052255b&q=1&e=4935bed0-ce62-47dd-8faf-
->> 4750b01e22d3&
->>> +u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
->>> +
->>> +title: Tesla FSD ASoC sound card driver
->>> +
->>> +maintainers:
->>> +  - Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
->>> +
->>> +description: |
->>> +  This binding describes the node properties and essential DT entries
->>> +of FSD
->>> +  SoC sound card node
->>> +
->>> +select: false
+>>> Since JZ4760, according to the description of the I2SCDR register,
+>>> Ingenic SoCs no longer use PLL/2 clock, but directly use PLL clock,
+>>> so it seems also inappropriate to use "pll half" for these SoCs.
 >>
->> Never apply this schema. Why?
-> Sorry about it, let me change the select property to true in the next
-> patchset
+>> The device tree passes the clock as "pll half". So the driver should use=
+ this
+>> name as well...
+>
+>
+> I see...
+>
+> It seems that the device tree of JZ4770 has used "pll half" already,
+> but there is no "pll half" used anywhere in the device tree of JZ4780,
+> maybe we can keep the pll_clk_name of JZ4770 as "pll half", and change
+> the pll_clk_name of JZ4780 to a more reasonable name.
+>
+>
+> Thanks and best regards!
 
-No, just drop it. Look at other bindings or at example-schema
+Actually, the clock names in the DT are meaningless. The clk_get() call
+matches only the clock's name in the CGU driver. So in fact the driver
+is "broken" for jz4780. It seems jz4770 doesn't work correctly either,
+it has no "pll half", and three possible parents for its "i2s" clock.
 
->>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - tesla,fsd-sndcard
->>> +
->>> +  model:
->>> +    description: Describes the Name of the sound card
->>> +    $ref: /schemas/types.yaml#/definitions/string
->>> +
->>> +  widgets:
->>> +    description: A list of DAPM widgets in the sound card. Each entry
-> is a pair
->>> +      of strings, the first being the widget name and the second being
-> the
->>> +      widget alias
->>> +    $ref: /schemas/types.yaml#/definitions/string-array
->>> +
->>> +  audio-routing:
->>> +    description: A list of the connections between audio components.
-> Each entry
->>> +      is a pair of strings, the first being the connection's sink, the
-> second
->>> +      being the connection's source
->>> +    $ref: /schemas/types.yaml#/definitions/string-array
->>> +
->>> +  dai-tdm-slot-num:
->>> +    description: Enables TDM mode and specifies the number of TDM slots
-> to be
->>> +      enabled
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    enum: [0, 1, 2, 3, 4, 5, 6, 7, 8]
->>
->> maximum: 8
-> Okay
->>
->>> +    default: 2
->>> +
->>> +  dai-tdm-slot-width:
->>> +    description: Specifies the slot width of each TDm slot enabled
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    enum: [8, 16, 24]
->>> +    default: 16
->>
->> All the above have types defined. You should not be redefining the types.
-> Okay
->>
->>> +
->>> +  dai-link:
->>> +    description: Holds the DAI link data between CPU, Codec and
-> Platform
->>> +    type: object
->>
->>        additionalProperties: false
-> okay
->>
->>> +    properties:
->>> +      link-name:
->>> +        description: Specifies the name of the DAI link
->>> +        $ref: /schemas/types.yaml#/definitions/string
->>> +
->>> +      dai-format:
->>> +        description: Specifies the serial data format of CPU DAI
->>> +        $ref: /schemas/types.yaml#/definitions/string
->>> +
->>> +      tesla,bitclock-master:
->>> +        description: Specifies the phandle of bitclock master DAI
->>> +        $ref: /schemas/types.yaml#/definitions/phandle
->>> +
->>> +      tesla,frame-master:
->>> +        description: Specifies the phandle of frameclock master DAI
->>> +        $ref: /schemas/types.yaml#/definitions/phandle
->>
->> These are common properties. Drop 'tesla'.
-> Okay
->>
->>> +
->>> +      cpu:
->>> +        description: Holds the CPU DAI node and instance
->>> +        type: object
->>
->>            additionalProperties: false
-> Okay
->>
->>> +        properties:
->>> +          sound-dai:
->>> +            description: Specifies the phandle of CPU DAI node
->>> +            $ref: /schemas/types.yaml#/definitions/phandle-array
->>> +
->>> +        required:
->>> +          - sound-dai
->>> +
->>> +      codec:
->>> +        description: Holds the Codec DAI node and instance
->>> +        type: object
->>
->>            additionalProperties: false
-> Okay
->>
->>> +        properties:
->>> +          sound-dai:
->>> +            description: Specifies the phandle of Codec DAI node
->>> +            $ref: /schemas/types.yaml#/definitions/phandle-array
->>
->> Already has a type. Need to define how many entries (maxItems: 1 ?).
-> Okay. I'll update in the upcoming patch set
->>
->>> +
->>> +        required:
->>> +          - sound-dai
->>> +
->>> +    required:
->>> +      - link-name
->>> +      - dai-format
->>> +      - tesla,bitclock-master
->>> +      - tesla,frame-master
->>> +      - cpu
->>> +
->>> +dependencies:
->>> +  dai-tdm-slot-width: [ 'dai-tdm-slot-num' ]
->>
->> This should be captured with tdm-slot.txt converted to schema.
-> Okay
->>
->>> +
->>> +required:
->>> +  - compatible
->>> +  - model
->>> +  - dai-link
->>> +
->>> +additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    sound {
->>> +        compatible = "tesla,fsd-sndcard";
->>> +        status = "disabled";
->>
->> Why have a disabled example? Other than your example won't pass your
->> schema.
-> Thanks for noticing, I'll double check and change the example keeping the
-> status 
-> as enabled
+Since the driver only supports the internal codec, which requires the
+"ext" clock, there isn't a problem in practice.
 
-No, just drop. Start with example-schema instead.
+I'm just going to drop this patch and leave .set_sysclk() alone for now.
+I think a better approach is to have the DT define an array of parent
+clocks for .set_sysclk()'s use, instead of hardcoding parents in the
+driver. If the parent array is missing the driver can default to using
+"ext" so existing DTs will work.
 
-Best regards,
-Krzysztof
-
+Regards,
+Aidan

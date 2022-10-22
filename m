@@ -2,72 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9548D60852D
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 08:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37241608567
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 09:22:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 289CC95C5;
-	Sat, 22 Oct 2022 08:36:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 289CC95C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDDEBA8DC;
+	Sat, 22 Oct 2022 09:21:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDDEBA8DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666420612;
-	bh=6us6qdgHY2DoiUApOrTyFZIyOLiKqdm4RCK3wGpTE+Y=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1666423333;
+	bh=H2OxNl9TsOZoOPxJzDdOFKpWYo6L8n8h6mCJZsD8qCg=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=TypmfE30EU0l1ncH96MRqfIupKjqxikPRWcvrzoIodDmDYldCiIaGRh1K8M62ZbX6
-	 LN7vwnL3wZHfMomGgHdlGlDblTx7lg7boSbntJXBXNRcKtO99pMAeI4UXPaj5HsGLW
-	 bFhHryt+s+iQYae3aqoQR4Pg6m5QDOkLHcLs3b5Y=
+	b=r+jWkTA7RXaCQ3uMKsFQY6Gy1jaKK0QMd+rtmQSwHKvupuazdgvyZpQaSqemy5DdP
+	 aIzF7FL0hz4lc6GxciXJClVAmcGyeshHTCwWDD6xa0Q/37vil2G+dWoNN1+J2cvfAT
+	 PrVDYowi+hoiMhePWoVTuKvr28Zpsb5CHIhTf7Y4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA5CBF8012A;
-	Sat, 22 Oct 2022 08:35:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E4D5F80290;
+	Sat, 22 Oct 2022 09:21:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86AADF80246; Sat, 22 Oct 2022 08:35:55 +0200 (CEST)
+ id 4EDFDF80246; Sat, 22 Oct 2022 09:21:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F2D0F80130
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 08:35:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F2D0F80130
-Received: from [77.247.85.102] (helo=[192.168.44.12]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1om86p-0006gD-1E; Sat, 22 Oct 2022 08:35:51 +0200
-Message-ID: <2c028797-b313-be93-7b1e-8d838e694948@leemhuis.info>
-Date: Sat, 22 Oct 2022 08:35:47 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34070F80134
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 09:21:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34070F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="W474dkaF"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="h1n4KSYi"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 76B751F8D2;
+ Sat, 22 Oct 2022 07:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666423270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Q183wgWYVsdsjukSy33S6Rn5N8laJ+useUht3wJ0hSY=;
+ b=W474dkaFGaAyl4bZg7L3QwbBLQRuFwi8R8DjOioYGVX1BgKWFuoIn70IvY7e4Y+WXyX4XC
+ Yviwy83bC1+s5/Rclg8KZH6hBqjKSadkc7cGn0BbHtcF7T7U2YTFKnEDwPOd0yFFwi7NCn
+ i99SqGoorb7Q/uNM4DCnH2W1dOr2czo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666423270;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Q183wgWYVsdsjukSy33S6Rn5N8laJ+useUht3wJ0hSY=;
+ b=h1n4KSYiLYl/JURvzzFx4ZexrZuQTTwSMb4mENRvPNVzSVcctWukVNcxu6iq39tFDoTwvb
+ aoVYSB5T8jswacDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C101133A9;
+ Sat, 22 Oct 2022 07:21:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2KW0FeaZU2NGTgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 22 Oct 2022 07:21:10 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add another HP ZBook G9 model quirks
+Date: Sat, 22 Oct 2022 09:21:07 +0200
+Message-Id: <20221022072107.3401-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Content-Language: en-US, de-DE
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: [Regression] Bug 216613 - Sound stopped working with v6.0.3 on Lenovo
- T14 Gen2i: ASoC: error at snd_soc_component_probe
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1666420554;
- 89646574; 
-X-HE-SMSGID: 1om86p-0006gD-1E
-Cc: alsa-devel@alsa-project.org,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- =?UTF-8?Q?Grzegorz_Alibo=c5=bcek?= <grzegorz.alibozek@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +93,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, this is your Linux kernel regression tracker speaking.
+HP ZBook Firefly 16 G9 (103c:896d) and HP ZBook Power 15.6 G9
+(103c:89c0) require the same quirk for enabling CS35L41 speaker amps.
 
-I noticed a regression report in bugzilla.kernel.org. As many (most?)
-kernel developer don't keep an eye on it, I decided to forward it by
-mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216613 :
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_realtek.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  Grzegorz Alibożek 2022-10-21 19:26:43 UTC
-> 
-> After upgrade kernel from 6.0.2 to 6.0.3 on Lenovo T14 Gen2i, sound stopped working.
-> dmesg:
-> 
-> paź 21 21:11:45 kernel: snd_hda_codec_hdmi ehdaudio0D2: failed to create hda codec -12
-> paź 21 21:11:45 kernel: snd_hda_codec_hdmi ehdaudio0D2: ASoC: error at snd_soc_component_probe on ehdaudio0D2: -12
-> paź 21 21:11:45 kernel: skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: failed to instantiate card -12
-> 
-> [reply] [−] Comment 1 Grzegorz Alibożek 2022-10-21 19:56:43 UTC
-> 
-> Created attachment 303070 [details]
-> trace
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 9945861f02ef..701a72ec5629 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9323,6 +9323,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x103c, 0x88d0, "HP Pavilion 15-eh1xxx (mainboard 88D0)", ALC287_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8902, "HP OMEN 16", ALC285_FIXUP_HP_MUTE_LED),
++	SND_PCI_QUIRK(0x103c, 0x896d, "HP ZBook Firefly 16 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x896e, "HP EliteBook x360 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8971, "HP EliteBook 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8972, "HP EliteBook 840 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+@@ -9341,6 +9342,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x89aa, "HP EliteBook 630 G9", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ac, "HP EliteBook 640 G9", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ae, "HP EliteBook 650 G9", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x89c0, "HP ZBook Power 15.6 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+-- 
+2.35.3
 
-See the ticket for more details.
-
-BTW, let me use this mail to also add the report to the list of tracked
-regressions to ensure it's doesn't fall through the cracks:
-
-#regzbot introduced: v6.0.2..v6.0.3
-https://bugzilla.kernel.org/show_bug.cgi?id=216613
-#regzbot ignore-activity
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I deal with a lot of
-reports and sometimes miss something important when writing mails like
-this. If that's the case here, don't hesitate to tell me in a public
-reply, it's in everyone's interest to set the public record straight.

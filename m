@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB1B608F2C
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 21:14:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EB0F608F2D
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 21:15:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78C549C24;
-	Sat, 22 Oct 2022 21:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78C549C24
+	by alsa0.perex.cz (Postfix) with ESMTPS id 861739D52;
+	Sat, 22 Oct 2022 21:14:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 861739D52
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666466086;
-	bh=dvwuyUFkiQun37zX8fgNoKoNSPRE/IML0/j6dTQ/z7o=;
+	s=default; t=1666466108;
+	bh=c3llun+bOnhxTN/lXYhTg8EjzlaFo0FK8PgXbRGKNMk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B1UOHlW351jYOrdGaGxupGrlylERvdDk43nCxIJ1nqoqsz/3DS3JISjIET+u7riGU
-	 pQPfEindt4LXhP7D7csZZ8k8SYZKSBj+0JMlBf7fuj/urYGWhkqWvbERBwhn1Sulq4
-	 A0eDJfgef+UhJhHijkaNDpclNU3ycJATFtg0P+4w=
+	b=AgsFWCsswAQJjx7ZqIXEjgz6Q7svjtsvLH5+0VD4ZFbIlEw/WbSoEWJGFguSStuo3
+	 KN8PZqYZTWdpSPbfjvUl6Fr4Ar1Od64O5ELkGYnXa80MhyuAzbeU01kZsj+WipUtKQ
+	 XpVz+ZOdW3J/oppcWw0CWw7gvjufrN88clCTQzao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03B4DF80535;
-	Sat, 22 Oct 2022 21:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7999FF8053B;
+	Sat, 22 Oct 2022 21:13:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C58DF804B0; Sat, 22 Oct 2022 21:13:26 +0200 (CEST)
+ id 19261F8053C; Sat, 22 Oct 2022 21:13:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
  RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0D28F8012A
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 21:13:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0D28F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0E22F80134
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 21:13:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E22F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mNh58tgR"
-Received: by mail-wm1-x335.google.com with SMTP id n14so8394wmq.3
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 12:13:23 -0700 (PDT)
+ header.b="TcEFIEw1"
+Received: by mail-wm1-x32c.google.com with SMTP id
+ v130-20020a1cac88000000b003bcde03bd44so7342824wme.5
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 12:13:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MY6IyPLb8byubV16BAqKYfhJcNAg3mb02MFq86iJwT8=;
- b=mNh58tgRVR2/wTmW2aZ5EAeKLmKiiVaQktRA5/Ib6PWHVeJHCQ6G+4qDhGm8YgxXTL
- KbVYcinF6CCMgVdFX6oKLyRv7LZsoOY/CSE/Wt9yfUpQmHbVUyWMHIebKvERSBFv1o10
- gSo2S+fizOcZCR9he73pDwJ8uT3QNyfvTKn0Wga0O1gDUpsKczTlaPeTBfmufI79YSjy
- 3DjG8njxZZHi9s2QH20GzWo4sck3fM11hgS1A05UadnhX6yi6pKpnOamRiux7km0zlsJ
- sbitFNzlj0WKco3d4UfOYCt6JCQHkGuURKfbJ0NRb+Z29UpyriRKLrzgjQCEx5bFYa5m
- 9kZA==
+ bh=0sPt5LhdSPbmHbCI/F5fllfjWNuHx3h7BJXRdhgq+ww=;
+ b=TcEFIEw1IcZkvaWUlSnkl690ojgTj1hiRXGPsjPaVVc6zw184pMmmHbj07Tp5pvLTA
+ 67khVzyRZEhPzQAgNd0t7KkAcX0A1Nm2F9ofSr1g483aROoSOVbpudPy/da9lUK5VMFh
+ d25YAOGi6N13tUBNnaImRLm5zaM7iv6VyO43G1ya3XwyTY+pvMUZtNCOSF79lhaukOWZ
+ QBef+zHsmzeFyIV793PLQqD6/c2/MFjTQOYGjmpPDqgvYKbURRHaPa3tE1G6hhucuqLj
+ byy6089lrreBJ8xq7Xfq7GCZzNhIBiCOcSUtkR/JzQuS2v1lolh5vAoCC+LJ4AR/eW3s
+ yJjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MY6IyPLb8byubV16BAqKYfhJcNAg3mb02MFq86iJwT8=;
- b=xhbi6ybYtc3Uc8H0/N5EChHRcir6zqwq6bN38V4Jh0RItEDk6ZI1gGDlXUJLkXr6NJ
- 0AxVXPIWOjMIGgsDpSpdh60/WUTbZJa9IRboaQg63kgZTjTcbHz+6/Fn0+uZ45ArTqQv
- ZL3PtY3fN1jHtmbLZ+eIGqTOaPkO8LjXBkZmctjZ/MO4k1DgbfTkohawor1weucJizpH
- evlnJ4mUCJCcibxmNopiZFkASQ3G4v6qlXEmq4ArjMO0NFTWth8WAHf8LVqfg/pOilr4
- FAyKIQW3b+bjfFutypmFkYfHl6reKqfm77rZGP+WLnjhwy+JQPlyjMzPuih80cJsdA/8
- kjQw==
-X-Gm-Message-State: ACrzQf3cVJCzZO76bGJjzmZ8OgKtzmZEtmJPlF61LjGj2KmGrxJayQtg
- 7z0SOYgiytUOhZ8LJMEKWT4=
-X-Google-Smtp-Source: AMsMyM6tF+5LtuvM3+RsDlAUWhbd1mh1KVjDyH7Gm+2nB/7k8vK5nCGzbQZr8S/RotHecfcfziCx2Q==
-X-Received: by 2002:a05:600c:6008:b0:3c6:c3fa:c173 with SMTP id
- az8-20020a05600c600800b003c6c3fac173mr18190298wmb.190.1666466001627; 
- Sat, 22 Oct 2022 12:13:21 -0700 (PDT)
+ bh=0sPt5LhdSPbmHbCI/F5fllfjWNuHx3h7BJXRdhgq+ww=;
+ b=R7cEHjr6zJJrpdtXZp+gN14d4kdjla4MslUiHGG1iwkIgG+hz8PzMuH0QR9fXIJu+t
+ 0EbNu73Kq+vw6rKFHnWuRY38idvKYW1Fzx+BhzqHtFnHpfI3LoEjen3GaQdVxD37WfOJ
+ i9kZCkfA7eeSBtQJP5Vpx+JL34vNTjIUw/E8+1kdLSs2UhKYHmYhn95GEG8MuTo5D4QI
+ KNiHNKrJp11FI9g2IzfUPqkrld935XpaD+t4jKX6kqoZdsG/3CLOQuLxtqS+IUcv5oi9
+ fPcVk3z4jASpVK+c9+a1lzQUm6mnpeIBwIdjg5NKZfALdzIP2haZFiuQdShX3BbmwHFS
+ wwhQ==
+X-Gm-Message-State: ACrzQf3WddBRwFO3AalL3PFPPf38UWxMP0hw/ToHPRjR+Zlqr/zdmFV/
+ fjnN/zdcO6EqAU0Bo4bA793FulBZ2L+mcA==
+X-Google-Smtp-Source: AMsMyM4I3isW/aW/LqZVhBuPMvrNWlUEe//S3cV8ZJaOePvl4Ijegx2Rq3iohpP80+71uynroC3IhQ==
+X-Received: by 2002:a05:600c:54f2:b0:3c6:bd60:5390 with SMTP id
+ jb18-20020a05600c54f200b003c6bd605390mr37811960wmb.206.1666466003147; 
+ Sat, 22 Oct 2022 12:13:23 -0700 (PDT)
 Received: from localhost (94.197.1.68.threembb.co.uk. [94.197.1.68])
  by smtp.gmail.com with ESMTPSA id
- i9-20020a5d6309000000b0022afcc11f65sm21846952wru.47.2022.10.22.12.13.20
+ a10-20020a056000188a00b0022e344a63c7sm22684240wri.92.2022.10.22.12.13.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Oct 2022 12:13:21 -0700 (PDT)
+ Sat, 22 Oct 2022 12:13:22 -0700 (PDT)
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 To: paul@crapouillou.net, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com
-Subject: [PATCH v5 1/9] ASoC: jz4740-i2s: Handle independent FIFO flush bits
-Date: Sat, 22 Oct 2022 20:13:00 +0100
-Message-Id: <20221022191308.82348-2-aidanmacdonald.0x0@gmail.com>
+Subject: [PATCH v5 2/9] ASoC: jz4740-i2s: Convert to regmap API
+Date: Sat, 22 Oct 2022 20:13:01 +0100
+Message-Id: <20221022191308.82348-3-aidanmacdonald.0x0@gmail.com>
 In-Reply-To: <20221022191308.82348-1-aidanmacdonald.0x0@gmail.com>
 References: <20221022191308.82348-1-aidanmacdonald.0x0@gmail.com>
 MIME-Version: 1.0
@@ -105,106 +106,305 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On the JZ4740, there is a single bit that flushes (empties) both
-the transmit and receive FIFO. Later SoCs have independent flush
-bits for each FIFO.
+Using regmap for accessing the AIC registers makes the driver a
+little easier to read, and later refactors can take advantage of
+regmap APIs to further simplify the driver.
 
-Independent FIFOs can be flushed before the snd_soc_dai_active()
-check because it won't disturb other active streams. This ensures
-that the FIFO we're about to use is always flushed before starting
-up. With shared FIFOs we can't do that because if another substream
-is active, flushing its FIFO would cause underrun errors.
-
-This also fixes a bug: since we were only setting the JZ4740's
-flush bit, which corresponds to the TX FIFO flush bit on other
-SoCs, other SoCs were not having their RX FIFO flushed at all.
-
-Fixes: 967beb2e8777 ("ASoC: jz4740: Add jz4780 support")
 Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
 ---
- sound/soc/jz4740/jz4740-i2s.c | 39 ++++++++++++++++++++++++++++++-----
- 1 file changed, 34 insertions(+), 5 deletions(-)
+ sound/soc/jz4740/Kconfig      |   1 +
+ sound/soc/jz4740/jz4740-i2s.c | 106 ++++++++++++----------------------
+ 2 files changed, 39 insertions(+), 68 deletions(-)
 
+diff --git a/sound/soc/jz4740/Kconfig b/sound/soc/jz4740/Kconfig
+index e72f826062e9..dd3b4507fbe6 100644
+--- a/sound/soc/jz4740/Kconfig
++++ b/sound/soc/jz4740/Kconfig
+@@ -3,6 +3,7 @@ config SND_JZ4740_SOC_I2S
+ 	tristate "SoC Audio (I2S protocol) for Ingenic JZ4740 SoC"
+ 	depends on MIPS || COMPILE_TEST
+ 	depends on HAS_IOMEM
++	select REGMAP_MMIO
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+ 	help
+ 	  Say Y if you want to use I2S protocol and I2S codec on Ingenic JZ4740
 diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
-index c4c1e89b47c1..83cb81999c6f 100644
+index 83cb81999c6f..f3c0d7c0415e 100644
 --- a/sound/soc/jz4740/jz4740-i2s.c
 +++ b/sound/soc/jz4740/jz4740-i2s.c
-@@ -55,7 +55,8 @@
- #define JZ_AIC_CTRL_MONO_TO_STEREO BIT(11)
- #define JZ_AIC_CTRL_SWITCH_ENDIANNESS BIT(10)
- #define JZ_AIC_CTRL_SIGNED_TO_UNSIGNED BIT(9)
--#define JZ_AIC_CTRL_FLUSH		BIT(8)
-+#define JZ_AIC_CTRL_TFLUSH		BIT(8)
-+#define JZ_AIC_CTRL_RFLUSH		BIT(7)
- #define JZ_AIC_CTRL_ENABLE_ROR_INT BIT(6)
- #define JZ_AIC_CTRL_ENABLE_TUR_INT BIT(5)
- #define JZ_AIC_CTRL_ENABLE_RFS_INT BIT(4)
-@@ -90,6 +91,8 @@ enum jz47xx_i2s_version {
- struct i2s_soc_info {
- 	enum jz47xx_i2s_version version;
- 	struct snd_soc_dai_driver *dai;
-+
-+	bool shared_fifo_flush;
+@@ -9,6 +9,7 @@
+ #include <linux/module.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+ #include <linux/clk.h>
+@@ -96,7 +97,7 @@ struct i2s_soc_info {
  };
  
  struct jz4740_i2s {
-@@ -116,19 +119,44 @@ static inline void jz4740_i2s_write(const struct jz4740_i2s *i2s,
- 	writel(value, i2s->base + reg);
- }
+-	void __iomem *base;
++	struct regmap *regmap;
  
-+static inline void jz4740_i2s_set_bits(const struct jz4740_i2s *i2s,
-+	unsigned int reg, uint32_t bits)
-+{
-+	uint32_t value = jz4740_i2s_read(i2s, reg);
-+	value |= bits;
-+	jz4740_i2s_write(i2s, reg, value);
-+}
-+
+ 	struct clk *clk_aic;
+ 	struct clk *clk_i2s;
+@@ -107,31 +108,10 @@ struct jz4740_i2s {
+ 	const struct i2s_soc_info *soc_info;
+ };
+ 
+-static inline uint32_t jz4740_i2s_read(const struct jz4740_i2s *i2s,
+-	unsigned int reg)
+-{
+-	return readl(i2s->base + reg);
+-}
+-
+-static inline void jz4740_i2s_write(const struct jz4740_i2s *i2s,
+-	unsigned int reg, uint32_t value)
+-{
+-	writel(value, i2s->base + reg);
+-}
+-
+-static inline void jz4740_i2s_set_bits(const struct jz4740_i2s *i2s,
+-	unsigned int reg, uint32_t bits)
+-{
+-	uint32_t value = jz4740_i2s_read(i2s, reg);
+-	value |= bits;
+-	jz4740_i2s_write(i2s, reg, value);
+-}
+-
  static int jz4740_i2s_startup(struct snd_pcm_substream *substream,
  	struct snd_soc_dai *dai)
  {
  	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
--	uint32_t conf, ctrl;
-+	uint32_t conf;
+-	uint32_t conf;
  	int ret;
  
-+	/*
-+	 * When we can flush FIFOs independently, only flush the FIFO
-+	 * that is starting up. We can do this when the DAI is active
-+	 * because it does not disturb other active substreams.
-+	 */
-+	if (!i2s->soc_info->shared_fifo_flush) {
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
-+		else
-+			jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_RFLUSH);
-+	}
-+
- 	if (snd_soc_dai_active(dai))
- 		return 0;
+ 	/*
+@@ -141,9 +121,9 @@ static int jz4740_i2s_startup(struct snd_pcm_substream *substream,
+ 	 */
+ 	if (!i2s->soc_info->shared_fifo_flush) {
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-			jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
++			regmap_set_bits(i2s->regmap, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
+ 		else
+-			jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_RFLUSH);
++			regmap_set_bits(i2s->regmap, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_RFLUSH);
+ 	}
  
--	ctrl = jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
--	ctrl |= JZ_AIC_CTRL_FLUSH;
--	jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
-+	/*
-+	 * When there is a shared flush bit for both FIFOs, the TFLUSH
-+	 * bit flushes both FIFOs. Flushing while the DAI is active would
-+	 * cause FIFO underruns in other active substreams so we have to
-+	 * guard this behind the snd_soc_dai_active() check.
-+	 */
-+	if (i2s->soc_info->shared_fifo_flush)
-+		jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
+ 	if (snd_soc_dai_active(dai))
+@@ -156,16 +136,13 @@ static int jz4740_i2s_startup(struct snd_pcm_substream *substream,
+ 	 * guard this behind the snd_soc_dai_active() check.
+ 	 */
+ 	if (i2s->soc_info->shared_fifo_flush)
+-		jz4740_i2s_set_bits(i2s, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
++		regmap_set_bits(i2s->regmap, JZ_REG_AIC_CTRL, JZ_AIC_CTRL_TFLUSH);
  
  	ret = clk_prepare_enable(i2s->clk_i2s);
  	if (ret)
-@@ -443,6 +471,7 @@ static struct snd_soc_dai_driver jz4740_i2s_dai = {
- static const struct i2s_soc_info jz4740_i2s_soc_info = {
- 	.version = JZ_I2S_JZ4740,
- 	.dai = &jz4740_i2s_dai,
-+	.shared_fifo_flush = true,
- };
+ 		return ret;
  
- static const struct i2s_soc_info jz4760_i2s_soc_info = {
+-	conf = jz4740_i2s_read(i2s, JZ_REG_AIC_CONF);
+-	conf |= JZ_AIC_CONF_ENABLE;
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
+-
++	regmap_set_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
+ 	return 0;
+ }
+ 
+@@ -173,14 +150,11 @@ static void jz4740_i2s_shutdown(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dai *dai)
+ {
+ 	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+-	uint32_t conf;
+ 
+ 	if (snd_soc_dai_active(dai))
+ 		return;
+ 
+-	conf = jz4740_i2s_read(i2s, JZ_REG_AIC_CONF);
+-	conf &= ~JZ_AIC_CONF_ENABLE;
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
++	regmap_clear_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
+ 
+ 	clk_disable_unprepare(i2s->clk_i2s);
+ }
+@@ -189,8 +163,6 @@ static int jz4740_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	struct snd_soc_dai *dai)
+ {
+ 	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+-
+-	uint32_t ctrl;
+ 	uint32_t mask;
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+@@ -198,38 +170,30 @@ static int jz4740_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	else
+ 		mask = JZ_AIC_CTRL_ENABLE_CAPTURE | JZ_AIC_CTRL_ENABLE_RX_DMA;
+ 
+-	ctrl = jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
+-
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		ctrl |= mask;
++		regmap_set_bits(i2s->regmap, JZ_REG_AIC_CTRL, mask);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		ctrl &= ~mask;
++		regmap_clear_bits(i2s->regmap, JZ_REG_AIC_CTRL, mask);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+ 
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+-
+ 	return 0;
+ }
+ 
+ static int jz4740_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ {
+ 	struct jz4740_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+-
+-	uint32_t format = 0;
+-	uint32_t conf;
+-
+-	conf = jz4740_i2s_read(i2s, JZ_REG_AIC_CONF);
+-
+-	conf &= ~(JZ_AIC_CONF_BIT_CLK_MASTER | JZ_AIC_CONF_SYNC_CLK_MASTER);
++	const unsigned int conf_mask = JZ_AIC_CONF_BIT_CLK_MASTER |
++				       JZ_AIC_CONF_SYNC_CLK_MASTER;
++	unsigned int conf = 0, format = 0;
+ 
+ 	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+ 	case SND_SOC_DAIFMT_BP_FP:
+@@ -265,8 +229,8 @@ static int jz4740_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 		return -EINVAL;
+ 	}
+ 
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_I2S_FMT, format);
++	regmap_update_bits(i2s->regmap, JZ_REG_AIC_CONF, conf_mask, conf);
++	regmap_write(i2s->regmap, JZ_REG_AIC_I2S_FMT, format);
+ 
+ 	return 0;
+ }
+@@ -279,9 +243,9 @@ static int jz4740_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	uint32_t ctrl, div_reg;
+ 	int div;
+ 
+-	ctrl = jz4740_i2s_read(i2s, JZ_REG_AIC_CTRL);
++	regmap_read(i2s->regmap, JZ_REG_AIC_CTRL, &ctrl);
++	regmap_read(i2s->regmap, JZ_REG_AIC_CLK_DIV, &div_reg);
+ 
+-	div_reg = jz4740_i2s_read(i2s, JZ_REG_AIC_CLK_DIV);
+ 	div = clk_get_rate(i2s->clk_i2s) / (64 * params_rate(params));
+ 
+ 	switch (params_format(params)) {
+@@ -318,8 +282,8 @@ static int jz4740_i2s_hw_params(struct snd_pcm_substream *substream,
+ 		}
+ 	}
+ 
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CTRL, ctrl);
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CLK_DIV, div_reg);
++	regmap_write(i2s->regmap, JZ_REG_AIC_CTRL, ctrl);
++	regmap_write(i2s->regmap, JZ_REG_AIC_CLK_DIV, div_reg);
+ 
+ 	return 0;
+ }
+@@ -356,13 +320,9 @@ static int jz4740_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
+ static int jz4740_i2s_suspend(struct snd_soc_component *component)
+ {
+ 	struct jz4740_i2s *i2s = snd_soc_component_get_drvdata(component);
+-	uint32_t conf;
+ 
+ 	if (snd_soc_component_active(component)) {
+-		conf = jz4740_i2s_read(i2s, JZ_REG_AIC_CONF);
+-		conf &= ~JZ_AIC_CONF_ENABLE;
+-		jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
+-
++		regmap_clear_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
+ 		clk_disable_unprepare(i2s->clk_i2s);
+ 	}
+ 
+@@ -374,7 +334,6 @@ static int jz4740_i2s_suspend(struct snd_soc_component *component)
+ static int jz4740_i2s_resume(struct snd_soc_component *component)
+ {
+ 	struct jz4740_i2s *i2s = snd_soc_component_get_drvdata(component);
+-	uint32_t conf;
+ 	int ret;
+ 
+ 	ret = clk_prepare_enable(i2s->clk_aic);
+@@ -388,9 +347,7 @@ static int jz4740_i2s_resume(struct snd_soc_component *component)
+ 			return ret;
+ 		}
+ 
+-		conf = jz4740_i2s_read(i2s, JZ_REG_AIC_CONF);
+-		conf |= JZ_AIC_CONF_ENABLE;
+-		jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
++		regmap_set_bits(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_ENABLE);
+ 	}
+ 
+ 	return 0;
+@@ -423,8 +380,8 @@ static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
+ 			JZ_AIC_CONF_INTERNAL_CODEC;
+ 	}
+ 
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
+-	jz4740_i2s_write(i2s, JZ_REG_AIC_CONF, conf);
++	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, JZ_AIC_CONF_RESET);
++	regmap_write(i2s->regmap, JZ_REG_AIC_CONF, conf);
+ 
+ 	return 0;
+ }
+@@ -523,11 +480,19 @@ static const struct of_device_id jz4740_of_matches[] = {
+ };
+ MODULE_DEVICE_TABLE(of, jz4740_of_matches);
+ 
++static const struct regmap_config jz4740_i2s_regmap_config = {
++	.reg_bits	= 32,
++	.reg_stride	= 4,
++	.val_bits	= 32,
++	.max_register	= JZ_REG_AIC_FIFO,
++};
++
+ static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct jz4740_i2s *i2s;
+ 	struct resource *mem;
++	void __iomem *regs;
+ 	int ret;
+ 
+ 	i2s = devm_kzalloc(dev, sizeof(*i2s), GFP_KERNEL);
+@@ -536,9 +501,9 @@ static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+ 
+ 	i2s->soc_info = device_get_match_data(dev);
+ 
+-	i2s->base = devm_platform_get_and_ioremap_resource(pdev, 0, &mem);
+-	if (IS_ERR(i2s->base))
+-		return PTR_ERR(i2s->base);
++	regs = devm_platform_get_and_ioremap_resource(pdev, 0, &mem);
++	if (IS_ERR(regs))
++		return PTR_ERR(regs);
+ 
+ 	i2s->playback_dma_data.maxburst = 16;
+ 	i2s->playback_dma_data.addr = mem->start + JZ_REG_AIC_FIFO;
+@@ -554,6 +519,11 @@ static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2s->clk_i2s))
+ 		return PTR_ERR(i2s->clk_i2s);
+ 
++	i2s->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
++					    &jz4740_i2s_regmap_config);
++	if (IS_ERR(i2s->regmap))
++		return PTR_ERR(i2s->regmap);
++
+ 	platform_set_drvdata(pdev, i2s);
+ 
+ 	ret = devm_snd_soc_register_component(dev, &jz4740_i2s_component,
 -- 
 2.38.1
 

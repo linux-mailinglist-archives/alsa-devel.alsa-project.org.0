@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0ACD608E97
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 18:39:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8EC9608E9C
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 18:41:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FB629FD0;
-	Sat, 22 Oct 2022 18:38:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FB629FD0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A0E8B3EA;
+	Sat, 22 Oct 2022 18:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A0E8B3EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666456782;
-	bh=09dbn703reA4FCdhJjPzfu9sNeDX/0oS18Pqv+rPa0w=;
+	s=default; t=1666456866;
+	bh=e1f5948dAMP7s/vppgGMXxsckSX49SKXx56P1Bb8fUQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YLAY+AHt+L9rx7nd/r3ndLy5LAON7WjJ/WnxNNVDoTdFGnJah49ZzBY4JHJuPccNv
-	 3GcsJbehExBE8RYb/fAKb7u36M0Om/hyEBbwN9ExcKJTJpnFuEV60Vl3m3R9NSVUSx
-	 MJ74VkEtGHUvO4xdcEKG3pT91x+AOjyp04zFczVA=
+	b=WR/wRVU0ad14MtLWpSBGKvR5uexywCgx5O+4O6UquXI063S87kKg8hn1TD8Yy2EzQ
+	 6m7CaxF+s15TLOO5qHk9ptWm71nH4C5bMxSmUjQIZSSgNd5J9R6sy2mrC3EUkIqaNK
+	 aQ6GSH5AAQcKt3k1u5xhyq+P/HZZhlJnIQlhArxo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB3DEF80130;
-	Sat, 22 Oct 2022 18:38:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD5C8F80134;
+	Sat, 22 Oct 2022 18:40:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91EF6F80246; Sat, 22 Oct 2022 18:38:45 +0200 (CEST)
+ id 60C58F80246; Sat, 22 Oct 2022 18:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DD5F80134
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 18:38:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DD5F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 167A5F80134
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 18:40:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 167A5F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="upLrr8Mt"
-Received: by mail-oo1-xc31.google.com with SMTP id
- s1-20020a4a81c1000000b0047d5e28cdc0so857992oog.12
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 09:38:39 -0700 (PDT)
+ header.b="p+u1HMt1"
+Received: by mail-oo1-xc33.google.com with SMTP id
+ g10-20020a4ab4ca000000b00481082808cbso618058ooo.10
+ for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 09:40:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=09dbn703reA4FCdhJjPzfu9sNeDX/0oS18Pqv+rPa0w=;
- b=upLrr8MtWn1K4A18M2nSQc6qJHAz97rbXyAxel0+KJetCPPyqMUZ5qEKqddgdFhDtJ
- UmBuISjXjVWoybefbtD82JqmgaTi9dROiKXIwg5bkyqBDlyosUvK2eeiAxeVwIHePGlD
- 1IVzlUcoINGe8vRdRkaG7v27NgFgM8BD7g0QK3SZ03PUtZBSKb9l2VbUdSeHyrxvxnPQ
- 01tcUQC0yS1wR98MX9kt/KRm1tw99PEkKE4QuH0OTdOK4+LmgCGv0IOZGlzyTwsmo0Da
- BNQ7S5TsNOyg8oEyrXzEVQ8cAx7YAfGyavZ/yahyG54wzfEhrpbeGmKaYjLmSsqjEzp/
- Nzag==
+ bh=545rw8ScXkRjDM5w17g+rHUKHirulTTV6OR0mlcZkMs=;
+ b=p+u1HMt1MNKQryUWQThPkAqfoWTsH6KmsVL86mKRXhiNbd4KYLYPNB0hITHRvsRwHd
+ IzyR+zs/k4J1jE3/73NH7BNwkqjMeqBkbUwUWNeX3r0x9AhIYFWRT18rQ8egR+JYtQlm
+ CYZtZNpi2/fY0NRcNBaXILQT++KyzeZOC1hSAZJbEOILAN05eCqvX8VPU7VJwqow+RNF
+ n6C7bRH8NrUgu18S0Co7xxLWzfbLaDKYbfIZlIxs/fxHa+SBYh2Alj0L3CE0TjZ5IQ1a
+ c+7CuO8asdutbJ/33v8k6WhBNNYbe2ZEF42iqdFl7tUVH2f/Nv8NhWT0RSgBsMAdjX2c
+ Fa3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=09dbn703reA4FCdhJjPzfu9sNeDX/0oS18Pqv+rPa0w=;
- b=Jy6ciX/3Nb6rMUGy4V4xBFRx8+wZDqLsoC+tD8akulSn0O6X4AQHLbpkJ1fw5MvB4J
- Sdzws+FYclPPX4lJODysFX3rAdTWcyWZbLPUpjBboBQ6WMUJGr+gUOYA5eixvUjEsP4Z
- gJwb9eG7xzO/GJMUyRILfbvuzOSErYYqb5KMyLwAZWhT9fKo8DGylIBex2FTUrdh3g/Y
- C8Nsja1vMPj16XoD6DG/OSb5x6hwiCs/4doNlUkfB8ONxzP/9x4Q1wQrI22w7xzo45Iy
- qR14J2XnGbczzGhnXvvtQSB58j5NU4yl5M04zkzCpGUk1G5WDtSldizMy3lFd7Ovilpv
- e1Hw==
-X-Gm-Message-State: ACrzQf2XvgSoJg3PllCGt4ZMPbZCVmHYKEY2oAeC4FaPjjgslGfeAPL6
- qBq47/rln1k0oHy7IcAXU6WcLQ==
-X-Google-Smtp-Source: AMsMyM4CrlinlMC3BiAcQkMfneJkSC/EWBL2SxP1mHGHVTR0/oyQ/QmNi7CVRjlifL1HcHg+JqbKvQ==
-X-Received: by 2002:a4a:4847:0:b0:443:347d:6617 with SMTP id
- p68-20020a4a4847000000b00443347d6617mr11403064ooa.94.1666456717312; 
- Sat, 22 Oct 2022 09:38:37 -0700 (PDT)
+ bh=545rw8ScXkRjDM5w17g+rHUKHirulTTV6OR0mlcZkMs=;
+ b=K71FMhQ22WcrWEalln2gjvAkeFipyVWhydesnCljIRIMb56LOs3pu9RODnf+45L98T
+ kDP+aLe+1+ENHDDP2SPtRRWUwTFeMGrdGAXUDQYGxqkYfx5pvd3ZB6MFCT+nca+gt/AV
+ 5BSDWP1S/qlmM//Qh/Ps+j/awUfVQjTHsUINt4k34qt/kDWle1q3ztJrDvtnFryocyuM
+ JiRTUgvPkpTZGHxugmRzHpV55nz21EU6qD+8ockjLiewCYn/lEOtTwZURCcHTMovJhi/
+ sQIZk6VYGBCnmYyIwN3zw7uh26sQX1zLlqm1Zm7raSdAbf54DO3Gf/22Jw+p796osgf4
+ 0lrQ==
+X-Gm-Message-State: ACrzQf3b7TZM6vpB+54Pe4PLim6hklWJcp0y6V+90YvtwryRgz3nnJ2f
+ fE/u0/kg1L+4RF3bS9sebmCX7g==
+X-Google-Smtp-Source: AMsMyM6eeoBGEQ7JBoltsek43vEM0SoXcCAlJEyNNtk9IE/VktMJh0yypxZafDKXkKPpq5EWdnbosQ==
+X-Received: by 2002:a05:6820:1608:b0:480:fa39:568b with SMTP id
+ bb8-20020a056820160800b00480fa39568bmr5753643oob.43.1666456802183; 
+ Sat, 22 Oct 2022 09:40:02 -0700 (PDT)
 Received: from [10.203.8.70] ([205.153.95.177])
  by smtp.gmail.com with ESMTPSA id
- o206-20020acabed7000000b00344a22e71a9sm2287712oif.9.2022.10.22.09.38.35
+ d6-20020aca3606000000b0034d14c6ce3dsm2306957oia.16.2022.10.22.09.39.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Oct 2022 09:38:36 -0700 (PDT)
-Message-ID: <de1a7fd5-e701-8741-b327-ad47d6b00f26@linaro.org>
-Date: Sat, 22 Oct 2022 12:38:34 -0400
+ Sat, 22 Oct 2022 09:40:00 -0700 (PDT)
+Message-ID: <ae460461-5c20-9180-456c-8c01a4b1a7f1@linaro.org>
+Date: Sat, 22 Oct 2022 12:39:56 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.0
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: realtek,rt5682s: Add
- #sound-dai-cells
+Subject: Re: [PATCH 2/3] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and
+ MICVDD supplies
 Content-Language: en-US
 To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
  Mark Brown <broonie@kernel.org>
 References: <20221021190908.1502026-1-nfraprado@collabora.com>
- <20221021190908.1502026-2-nfraprado@collabora.com>
+ <20221021190908.1502026-3-nfraprado@collabora.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221021190908.1502026-2-nfraprado@collabora.com>
+In-Reply-To: <20221021190908.1502026-3-nfraprado@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -115,18 +115,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 21/10/2022 15:09, Nícolas F. R. A. Prado wrote:
-> The rt5682s codec can be pointed to through a sound-dai property to be
-> used as part of a machine sound driver. dtc expects #sound-dai-cells to
-> be defined in the codec's node in those cases, so add it in the
-> dt-binding and set it to 0.
+> The rt5682s codec can have two supplies: AVDD and MICVDD. Add properties
+> for them.
+> 
+> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+> ---
+> 
+>  Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
+> index ea53a55015c4..ca1037e76f96 100644
+> --- a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
+> @@ -90,6 +90,10 @@ properties:
+>    "#sound-dai-cells":
+>      const: 0
+>  
+> +  AVDD-supply: true
+> +
+> +  MICVDD-supply: true
+> +
 
-Drop the entire last sentence, it's not really relevant to the problem.
-What if we name compiler not dtc, but ctd? It's redundant and actually
-forces reader to read unrelated stuff, instead of focusing on the root
-problem - this is a DAI provider.
+How about keeping some order in the list of properties?
+
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
 
 Best regards,
 Krzysztof

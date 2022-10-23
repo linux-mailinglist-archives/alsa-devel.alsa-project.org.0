@@ -2,103 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68065609369
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Oct 2022 15:13:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92CDC6093A4
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Oct 2022 15:30:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 093706CA9;
-	Sun, 23 Oct 2022 15:12:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093706CA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAC7193D6;
+	Sun, 23 Oct 2022 15:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAC7193D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666530820;
-	bh=4i3CgOH20/YBYZUZ0ddl48LAvg5SZuzDtkRPL96UqTk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666531832;
+	bh=2HbRSoSoqM35heQd12TiP6yEcp4ByKbVylQf/04pa3w=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hco+RvmAQTU6yOnpPY7VSABoTM6hX+BGZ/WQH47JYjLtNhWt7Gjw9C4xeSG4HARf/
-	 b3xBvNIerrIv9AsyfrleeX3zOZvau/gbctC+NTWMNXFgdydmsvjuRudiQ2VxI5Feik
-	 hndKGSNXrkcV/6m3GmZrS6b+1layNccVdAo4zd5s=
+	b=EpNqN6jRAAY6/JhxdfC63G//etLMQrUGyPmLJNXdEHp6glpJtZYJSJdkz5RFrGIJh
+	 E4s5T9ZVC+d+pLV1Yn6Kc94vnX76ROfNh9etcLmgWhQ6DsYcg0tiPa+rXEM+Xco9tg
+	 CKdrVpvLi6j2486MUywfQHfjeWwp4KBoYPy9tovs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61E36F8011C;
-	Sun, 23 Oct 2022 15:12:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BBEAF80430;
+	Sun, 23 Oct 2022 15:29:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03248F8026D; Sun, 23 Oct 2022 15:12:44 +0200 (CEST)
+ id C9649F8011C; Sun, 23 Oct 2022 15:29:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58E22F8011C
- for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 15:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58E22F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDE06F8011C
+ for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 15:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDE06F8011C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="V8u/hQ+w"
-Received: by mail-qk1-x734.google.com with SMTP id l9so2226249qkk.11
- for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 06:12:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uZZVZxGYHwnE1PIam0i2Ywe02Lmqk/XzV+z7/E9fIPY=;
- b=V8u/hQ+wAFe2HLlBScSXqDxNPKgepGTKIfTPzyCu51pVOETTB0gLPomcBItqz6HPbl
- G9zPgraSprrqeRJevz7fn1GKZ9on1AhbhTGPMPze68F3IxToHI91fn7h4Qv8ZcDidMyd
- lqDthJ1FhWqM/pkkhCthaqS53jnJCvZiWp5rMx3dD53eZSpKQjOOplBLfkjltjOohpVK
- m8XJWE7H3boEsVlB2nGceZjelBO2Zl3TvFhRvy0G7dm+bzqqg6zk8wIAUpmX15w2ej1b
- SBDcI2eVMs7URG/xV6UyyP/MeAL2Lwn0uhhJMz9SeP9zAKwoyLp1aXeMSKHqwUvxt00P
- FCkw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PJQ9kC8u"
+Received: by mail-wm1-x329.google.com with SMTP id
+ e20-20020a05600c449400b003cce0107a6fso789992wmo.0
+ for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 06:29:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:from:to:cc:subject:date:message-id
+ :reply-to; bh=Wjk9paJAodEfA6iF8JDXnM1/XG2uiqXrj86E+2FXF3Y=;
+ b=PJQ9kC8uzMgvDNlpU0K2N+loBlb5Iwhwn4CyuY6wxv2iv/6RYLSzv907YDl9tNFKvN
+ 31Kdi5HH81/iv+mhl7v1VgGXbssWdVyBHvOynqEviUnM+Una4EnbPis/7tgm/M0NR/+l
+ 6UikMDNWPa38qhuX+YVdBDDTZGMc0ltRYvedc5Npnhb46ZRnmmGi252e3bg1etTsiUvZ
+ DwgQqV6dw9SrlLkAtKuZgSxonKwgs7/+tHaP86t3n8Za+g5zarABEEOM4k2Ik24zivYe
+ v4mNY1zJsEuZo3K0Nf1Rkmorsd0ULJWNP2ohlCa1Zb8yOILqMeyQ2fAVYy1Hd8XC479J
+ /8vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uZZVZxGYHwnE1PIam0i2Ywe02Lmqk/XzV+z7/E9fIPY=;
- b=MSeIMm9BBpoNjgSk2yvHKjRRgkjPZrwyug225iYXFaffSzLcfxq92BkEbyE7OoG5b4
- QOnbXAGW1AUBMeBK1ea7pwCUyfOHCY7105IUtlz/l0qh7rjeHnN+1J2KDGfLTT8Mjobo
- JGUAjYJpNGuNjBhzW3ySMf+R7VGQFGPxXV6SSWgV8aQNW+gce7GJTAkmVfESfQfIC6lY
- 0alETBtX7BoxB7KpNK6zhxZ0ghNGh84H38VP2MLx3IDOyynoseXGngo8SYw96LPV9b2e
- RA5n/yV038T200rIq4KHaAlC+I5wuWTerrQbnWAwCayrJtDdH2IGr1+jATvHAeR4J2bP
- lrEA==
-X-Gm-Message-State: ACrzQf2ceND2D6hz1s3qbyLGJ5xlpkugPKfd2WhnucdqldujE5v/HoBM
- ylEwmusYvksw68QAtgVECIDu4w==
-X-Google-Smtp-Source: AMsMyM7nxzKp2ffgUCDO/X5GoslLPIunxildH8dLc0Nz0E5MubAlrLfOCbLO21902pFFqNdlkh7PSw==
-X-Received: by 2002:a05:620a:2406:b0:6ec:c5f5:6304 with SMTP id
- d6-20020a05620a240600b006ecc5f56304mr19801640qkn.95.1666530756908; 
- Sun, 23 Oct 2022 06:12:36 -0700 (PDT)
-Received: from [192.168.1.8] ([64.57.193.93]) by smtp.gmail.com with ESMTPSA id
- p7-20020a05620a132700b006b61b2cb1d2sm12994401qkj.46.2022.10.23.06.12.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 23 Oct 2022 06:12:35 -0700 (PDT)
-Message-ID: <909abf31-91d9-159b-baef-6ffcfc3e07b2@linaro.org>
-Date: Sun, 23 Oct 2022 09:12:33 -0400
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Wjk9paJAodEfA6iF8JDXnM1/XG2uiqXrj86E+2FXF3Y=;
+ b=K2r2+9fEHZOQQ63KOvVbGZShXoIgO7/+K2akrsNRFSkNvXgsyxerliYONaaSscxCb5
+ Y1w4USsSKn4petM20S2+KN0pXTpKAUTfYumocLTq/8E9BaMxC90n3TQLP7nHjWbe+WzJ
+ Px+/++WtW1FPwwgXaq0iECP/eQysKUiae2URCz4IWfoJVFH9xKWKhbvTNKS7zY8lmV8h
+ EBFD7pUu74fFR0DskKeYQaLUkYJkf7b/NBwS+S5OHFQB+l/QngKtXasenOe8j/BR+I8y
+ rcF0dX0bEbHnc7PApZM27U4DACp51cb2ICvyp2mFomRQXinl2QAlHw93iW7gyZf+1CRs
+ rpYA==
+X-Gm-Message-State: ACrzQf00v68ClAMvdrB45zVbnL6jFKbSogaMTr1/gt93Wz6ANFDPp6Xw
+ y9UMhzE8nN1PNenar5xqYU0=
+X-Google-Smtp-Source: AMsMyM5Ld024gMXy41+tu+CPVYdHFXcJT+fli3pyPzL3OfSNwiQYWZvvR5LkPehlDHNae1KUQ0fXPQ==
+X-Received: by 2002:a05:600c:3b97:b0:3cc:c287:46fe with SMTP id
+ n23-20020a05600c3b9700b003ccc28746femr3434001wms.148.1666531765384; 
+ Sun, 23 Oct 2022 06:29:25 -0700 (PDT)
+Received: from localhost (94.197.10.75.threembb.co.uk. [94.197.10.75])
+ by smtp.gmail.com with ESMTPSA id
+ f15-20020a05600c154f00b003b4a68645e9sm5558141wmg.34.2022.10.23.06.29.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Oct 2022 06:29:24 -0700 (PDT)
+References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+ <0269b850-f33a-7aa9-a3eb-83655bd4e19a@wanyeetech.com>
+ <ROSYER.QTJF8J14H2YX1@crapouillou.net>
+ <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
+ <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
+ <HQ76KR.B1PM87E2GIYZ1@crapouillou.net>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
+ SoC-specific
+In-reply-to: <HQ76KR.B1PM87E2GIYZ1@crapouillou.net>
+Date: Sun, 23 Oct 2022 14:29:24 +0100
+Message-ID: <JRrsX7Q4m5FUeeBs2yKTRMe5Ihaso8gi@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
-Content-Language: en-US
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>,
- 'Mark Brown' <broonie@kernel.org>
-References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
- <CGME20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120@epcas5p2.samsung.com>
- <20221014102151.108539-3-p.rajanbabu@samsung.com>
- <Y0lPz91gbovAub9D@sirena.org.uk>
- <04a101d8e523$30804b80$9180e280$@samsung.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <04a101d8e523$30804b80$9180e280$@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Zhou Yanjie <zhouyu@wanyeetech.com>,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ linux-mips@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,78 +114,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21/10/2022 04:00, Padmanabhan Rajanbabu wrote:
->> It's not clear to me why the solution here is to move the configuration to
-> the
->> sound card rather than to improve the I2S driver to be able to cope with
->> whatever the restrictions are on the PSR in these systems - it seems more
->> cumbersome for system integrators, especially since you've not documented
->> the issues or how to configure it.  Could you expand on what the
-> constraints
->> are here and why it's not possible for the driver to figure things out
-> (given
->> some quirk information)?
-> 
-> Thank you for reviewing the patch.
-> 
-> In Samsung I2S CPU controller, to derive the frame clock, we are supposed to
-> configure the PSR and RFS internal dividers. i.e.
-> 
-> OPCLK -> PSR -> RCLK -> RFS -> Frame clock
-> 
-> Where:
-> OPCLK - Operational clock
-> PSR - Operational clock prescaler
-> RCLK - Root Clock (derived from OPCLK based on PSR)
-> RFS - Root frequency selection (divider)
-> Frame clock - Sample frequency (derived from RCLK based on RFS)
-> 
-> Ultimately,
-> 
-> PSR = OPCLK / Frame clock / RFS
-> 
-> Unlike other platforms utilizing Samsung CPU DAI, FSD SoC has a limitation
-> on
-> operational clock, where the clock frequency is fixed (66 MHz) and cannot be
-> modified. 
-> 
-> Assuming that an userspace application wants perform playback @44100 Hz
-> and assuming that RFS divider value is configured as 256, the PSR value will
-> yield to
-> 
-> 66 MHz / 44.1 KHz / 256 = 5
-> 
-> However if HW uses PSR = 5 to derive the frame clock from operational clock,
-> then
-> 
-> RCLK = OPCLK / PSR = 66 MHz / 5 = 13.2 MHz
-> Frame clock = RCLK / RFS = 13.2 MHz / 256 = 51562 Hz
-> 
-> The actual frame clock derived based on PSR is now different from what user
-> application has intended. The situation did not improve even if the RFS is
-> swept throughout the entire valid range.
-> 
-> We can overcome this scenario to an extent if we can get a flexibility to
-> Configure both PSR as well as RFS.
-> 
-> i.e. to achieve frame clock of 44100 Hz, if PSR  = 23 and RFS = 64
-> then frame clock = 66 MHz / 23 / 64 = 44836 Hz 
-> 
-> Although the sample frequency is not precise, it is very much closer to the
-> Intended frequency, when compared to that of the existing solution. Since
-> this
-> scenario is specific to FSD SoC and has no changes in the Samsung I2S CPU
-> DAI,
-> the configuration is being done from the sound card of FSD SoC during
-> hw_params.
-> 
-> Please let me know if you think this scenario can be approached in any other
-> way possible, rather than configuring from sound card.
 
-Entire new driver for this, instead of improving existing Samsung
-drivers... no, it is no the way. If you followed this approach you would
-send 20 drivers for each "specific" quirk difference.
+Paul Cercueil <paul@crapouillou.net> writes:
 
-Best regards,
-Krzysztof
+> Hi Aidan,
+>
+> Le sam. 22 oct. 2022 =C3=A0 18:15:05 +0100, Aidan MacDonald
+> <aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
+>> Zhou Yanjie <zhouyu@wanyeetech.com> writes:
+>>
+>>>  Hi Paul,
+>>>  On 2022/7/13 =E4=B8=8B=E5=8D=8811:07, Paul Cercueil wrote:
+>>>>  Hi Zhou,
+>>>>  Le mer., juil. 13 2022 at 22:33:44 +0800, Zhou Yanjie
+>>>> <zhouyu@wanyeetech.com>
+>>>>  a =C3=A9crit :
+>>>>>  Hi Aidan,
+>>>>>  On 2022/7/9 =E4=B8=8A=E5=8D=8812:02, Aidan MacDonald wrote:
+>>>>>>  @@ -400,6 +402,7 @@ static const struct i2s_soc_info jz4740_i2s_soc=
+_info
+>>>>>> =3D
+>>>>>>  {
+>>>>>>        .field_tx_fifo_thresh    =3D REG_FIELD(JZ_REG_AIC_CONF, 8, 11=
+),
+>>>>>>        .field_i2sdiv_capture    =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0,=
+ 3),
+>>>>>>        .field_i2sdiv_playback    =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0=
+, 3),
+>>>>>>  +    .pll_clk_name        =3D "pll half",
+>>>>>>        .shared_fifo_flush    =3D true,
+>>>>>>    };
+>>>>>  Since JZ4760, according to the description of the I2SCDR register,
+>>>>>  Ingenic SoCs no longer use PLL/2 clock, but directly use PLL clock,
+>>>>>  so it seems also inappropriate to use "pll half" for these SoCs.
+>>>>  The device tree passes the clock as "pll half". So the driver should =
+use
+>>>> this
+>>>>  name as well...
+>>>  I see...
+>>>  It seems that the device tree of JZ4770 has used "pll half" already,
+>>>  but there is no "pll half" used anywhere in the device tree of JZ4780,
+>>>  maybe we can keep the pll_clk_name of JZ4770 as "pll half", and change
+>>>  the pll_clk_name of JZ4780 to a more reasonable name.
+>>>  Thanks and best regards!
+>> Actually, the clock names in the DT are meaningless. The clk_get() call
+>> matches only the clock's name in the CGU driver. So in fact the driver
+>> is "broken" for jz4780. It seems jz4770 doesn't work correctly either,
+>> it has no "pll half", and three possible parents for its "i2s" clock.
+>
+> That's not true. The clock names are matched via DT.
+>
+> Only in the case where a corresponding clock cannot be found via DT will =
+it
+> search for the clock name among the clock providers. I believe this is a =
+legacy
+> mechanism and you absolutely shouldn't rely on it.
+>
+> -Paul
+>
 
+What you say is only true for clk_get() with a device argument. When the
+device argument is NULL -- which is the case in .set_sysclk() -- then
+the DT name is not matched. Check drivers/clk/clkdev.c, in clk_find().
+When the dev_id is NULL, it will not match any lookup entries with a
+non-null dev_id, and I believe dev_id is the mechanism that implements
+DT clock lookup. Only the wildcard entries from the CGU driver will be
+matched if dev_id is NULL, so the DT is being ignored.
+
+If you don't believe me, try changing "pll half" in the device tree and
+the I2S driver to something else. I have done this, and it doesn't work.
+That proves the name in the device tree is not being used.
+
+I agree we shouldn't rely on this, it's a legacy behavior, but the fact
+is that's how the driver already works. I'm dropping this patch because
+the driver is wrong and needs a different fix...
+
+>> I think a better approach is to have the DT define an array of parent
+>> clocks for .set_sysclk()'s use, instead of hardcoding parents in the
+>> driver. If the parent array is missing the driver can default to using
+>> "ext" so existing DTs will work.
+
+As much as I like this idea there doesn't seem to be a mechanism for
+handling a free-floating array of clocks in the DT. Everything has
+to be put in the main "clocks" array. That makes it pretty hard to
+figure out which ones are meant to be the parent clocks.
+
+Do you know of any way to do this generically from the DT? If there's
+no way to get away from a hardcoded array of names in the driver, I can
+at least add a device argument to clk_get() so it'll use the DT names.
+
+Regards,
+Aidan

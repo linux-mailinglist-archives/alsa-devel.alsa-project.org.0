@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A13608F80
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Oct 2022 22:05:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8A66091B4
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Oct 2022 09:47:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 537D2A6B2;
-	Sat, 22 Oct 2022 22:04:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 537D2A6B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D734A63C;
+	Sun, 23 Oct 2022 09:46:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D734A63C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666469111;
-	bh=nQc2tDpFCbaLmZWJBZc5XQ1LBclQxEh3buyX5WAYeUI=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qXij5cHyvLL1bMEnyXngmKzkz6ug1jo1mccryNM+VmPJW8QXcr56stJliw4DPyYHd
-	 +RmBnXQXvpKmPk77fXzh+JCfXjsDCgmUhowTsnRTISvc9MvOx4FCLwPZdU+KO5DlU6
-	 sZ4Yhm9lWdJGn6vFpmgoDTBCPAyn+bjdnQ4hd9OI=
+	s=default; t=1666511232;
+	bh=CsE49BkPVr3jhFK9Ntf9VWfJcZmMZVTCbR2H4Z7byLQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OonwgAS0Ke4YrB/QZlnrDlh8kp5aQs9c5JfKZ3K/TwbNA7xjnwrGYHcS+x9DAuFCS
+	 ehPt5x2PH6fgRjmXGKmRS/yy3S3pKCSnK22ny4zAe2JEYkzqKPeNt+e8bwec1QEIq+
+	 +0n0nx24TGEoA5cpx215rSs29oqDX7PQE89vZpDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C635BF80290;
-	Sat, 22 Oct 2022 22:04:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4140F803DB;
+	Sun, 23 Oct 2022 09:46:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB65CF80246; Sat, 22 Oct 2022 22:04:15 +0200 (CEST)
+ id 38BF6F801D5; Sun, 23 Oct 2022 09:46:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEC45F8013D
- for <alsa-devel@alsa-project.org>; Sat, 22 Oct 2022 22:04:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEC45F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2390F801D5
+ for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 09:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2390F801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="oDeXW44I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1666469043; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3ukvabM0JPo9IzHCTJ8vCAUmN8porn4JU/9khjkkZ7s=;
- b=oDeXW44Ideo1j1JauRc5lpNfKboKV3kgSCbG2dm8u4ZQ7QcIjZDnFuK/nwXJPzkNiPWPtC
- 4MrBNnXzTLFabC494eWkJ4Qvk9s+o1vpu+qhDN8xljYRcUspLCyZ4vnC3NmJEbsq0FDcjp
- 5UY6Aa1ZEilhhMGXte5P97eKbDys+mo=
-Date: Sat, 22 Oct 2022 21:03:53 +0100
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
- SoC-specific
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <HQ76KR.B1PM87E2GIYZ1@crapouillou.net>
-In-Reply-To: <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
-References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
- <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
- <0269b850-f33a-7aa9-a3eb-83655bd4e19a@wanyeetech.com>
- <ROSYER.QTJF8J14H2YX1@crapouillou.net>
- <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
- <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org, Zhou Yanjie <zhouyu@wanyeetech.com>,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- linux-mips@vger.kernel.org, broonie@kernel.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HNX7B3LX"
+Received: by mail-pf1-x42a.google.com with SMTP id f140so6543142pfa.1
+ for <alsa-devel@alsa-project.org>; Sun, 23 Oct 2022 00:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q+3XI07NIU0r0BcSpY4o4wAED1j8IMzL6p8JlqJ+P7M=;
+ b=HNX7B3LX5uGls5yoQ/5rcdO3NyrtZTcsWkpJx9uEferAxFEMGahSk77KWsyjQqM081
+ SmHGfTKBcsKNRcnCMtbYzC8/QpkdGVvCB+DcTyYY5nzGGJMYLyY63doCjtrtagYKSqbQ
+ 72KKKHZQvFXE3hErYtcA+0HNZoqNXtZfwFCWW3mzNxmOInHiyLd2jX9gK2eYWnHL56dY
+ 6wUHiYGv02nGQ49T5B5Y4MEdC1rshkasUy6h29VDsZOXdecYgPtscpg17YkBPeLmj77x
+ qV/SwnwvnB8CgsNWcl7X6G2uhmBG0gSJF8EqEQmVyrv389h15pcTgy83XkMOCb0cnIB8
+ DA+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Q+3XI07NIU0r0BcSpY4o4wAED1j8IMzL6p8JlqJ+P7M=;
+ b=JbtP5rgFHOEsWLeQkr/LUf/OWmoiYMOSLbaLzfk8rahRwotf9qPXdvnkENhR02+znW
+ PK9fTOYmgDCsHZ5PX8D87AxgzKAv8wsTbCQ9KVHPRkwRnv8O0Ar16iJ6wuffivSIuN56
+ ohyzX5SIgcrEKVfyi7pgNLcM6l3BNIYC2QtFJIDcH4gcfBbtPugPHuTT+VpGbnpAPSv1
+ KjJqPZ6r4cOWOmHxcTaooYvK1B0O6QjSE4ySKImBQUJul2i3eTOrngL/v/V9tfSU+L6z
+ BL2wiH5R06XZl9HchEwa/QjbWu1m2N7RXvIuex8INU+nQGowoYUgw29r8WpKCGXBZnSc
+ d+FQ==
+X-Gm-Message-State: ACrzQf1IAqtJwPqR+fe5hQGJfBq260azpq8umVG3c1uSh+E12c2CkMwe
+ 91mt8hbMLuVx7LlCj7xgfw==
+X-Google-Smtp-Source: AMsMyM7hnbn4FtvSizf8k1Mr/Ab9tVqFbA04W4ZUETz4RdenA5XTA4G0THtH48QpRTXAq92reGBQTA==
+X-Received: by 2002:a63:6505:0:b0:46e:d30b:8f9 with SMTP id
+ z5-20020a636505000000b0046ed30b08f9mr6658694pgb.366.1666511164097; 
+ Sun, 23 Oct 2022 00:46:04 -0700 (PDT)
+Received: from localhost.localdomain ([121.34.154.42])
+ by smtp.gmail.com with ESMTPSA id
+ ge12-20020a17090b0e0c00b0020aa1bd91e4sm4101976pjb.4.2022.10.23.00.46.00
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 23 Oct 2022 00:46:03 -0700 (PDT)
+From: Ban Tao <fengzheng923@gmail.com>
+To: fengzheng923@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, wens@csie.org, jernej.skrabec@gmail.com,
+ samuel@sholland.org
+Subject: [PATCH v2] ASoC: sun50i-dmic: avoid unused variable warning for
+ sun50i_dmic_of_match
+Date: Sun, 23 Oct 2022 00:44:45 -0700
+Message-Id: <1666511085-2748-1-git-send-email-fengzheng923@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: alsa-devel@alsa-project.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,85 +102,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Aidan,
+In configurations with CONFIG_OF=n, we get a harmless build warning:
 
-Le sam. 22 oct. 2022 =C3=A0 18:15:05 +0100, Aidan MacDonald=20
-<aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
->=20
-> Zhou Yanjie <zhouyu@wanyeetech.com> writes:
->=20
->>  Hi Paul,
->>=20
->>  On 2022/7/13 =E4=B8=8B=E5=8D=8811:07, Paul Cercueil wrote:
->>>  Hi Zhou,
->>>=20
->>>  Le mer., juil. 13 2022 at 22:33:44 +0800, Zhou Yanjie=20
->>> <zhouyu@wanyeetech.com>
->>>  a =C3=A9crit :
->>>>  Hi Aidan,
->>>>=20
->>>>  On 2022/7/9 =E4=B8=8A=E5=8D=8812:02, Aidan MacDonald wrote:
->>>>>  @@ -400,6 +402,7 @@ static const struct i2s_soc_info=20
->>>>> jz4740_i2s_soc_info =3D
->>>>>  {
->>>>>        .field_tx_fifo_thresh    =3D REG_FIELD(JZ_REG_AIC_CONF, 8,=20
->>>>> 11),
->>>>>        .field_i2sdiv_capture    =3D REG_FIELD(JZ_REG_AIC_CLK_DIV,=20
->>>>> 0, 3),
->>>>>        .field_i2sdiv_playback    =3D REG_FIELD(JZ_REG_AIC_CLK_DIV,=20
->>>>> 0, 3),
->>>>>  +    .pll_clk_name        =3D "pll half",
->>>>>        .shared_fifo_flush    =3D true,
->>>>>    };
->>>>=20
->>>>=20
->>>>  Since JZ4760, according to the description of the I2SCDR register,
->>>>  Ingenic SoCs no longer use PLL/2 clock, but directly use PLL=20
->>>> clock,
->>>>  so it seems also inappropriate to use "pll half" for these SoCs.
->>>=20
->>>  The device tree passes the clock as "pll half". So the driver=20
->>> should use this
->>>  name as well...
->>=20
->>=20
->>  I see...
->>=20
->>  It seems that the device tree of JZ4770 has used "pll half" already,
->>  but there is no "pll half" used anywhere in the device tree of=20
->> JZ4780,
->>  maybe we can keep the pll_clk_name of JZ4770 as "pll half", and=20
->> change
->>  the pll_clk_name of JZ4780 to a more reasonable name.
->>=20
->>=20
->>  Thanks and best regards!
->=20
-> Actually, the clock names in the DT are meaningless. The clk_get()=20
-> call
-> matches only the clock's name in the CGU driver. So in fact the driver
-> is "broken" for jz4780. It seems jz4770 doesn't work correctly either,
-> it has no "pll half", and three possible parents for its "i2s" clock.
+sound/soc/sunxi/sun50i-dmic.c:268:34: warning: unused variable
+'sun50i_dmic_of_match' [-Wunused-const-variable]
 
-That's not true. The clock names are matched via DT.
+Signed-off-by: Ban Tao <fengzheng923@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+---
+v1->v2:Add "Acked-by" tag.
+---
+ sound/soc/sunxi/sun50i-dmic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Only in the case where a corresponding clock cannot be found via DT=20
-will it search for the clock name among the clock providers. I believe=20
-this is a legacy mechanism and you absolutely shouldn't rely on it.
-
--Paul
-
-> Since the driver only supports the internal codec, which requires the
-> "ext" clock, there isn't a problem in practice.
->=20
-> I'm just going to drop this patch and leave .set_sysclk() alone for=20
-> now.
-> I think a better approach is to have the DT define an array of parent
-> clocks for .set_sysclk()'s use, instead of hardcoding parents in the
-> driver. If the parent array is missing the driver can default to using
-> "ext" so existing DTs will work.
->=20
-> Regards,
-> Aidan
-
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+index 86cff5a..62509cb 100644
+--- a/sound/soc/sunxi/sun50i-dmic.c
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -391,7 +391,7 @@ static const struct dev_pm_ops sun50i_dmic_pm = {
+ static struct platform_driver sun50i_dmic_driver = {
+ 	.driver         = {
+ 		.name   = "sun50i-dmic",
+-		.of_match_table = of_match_ptr(sun50i_dmic_of_match),
++		.of_match_table = sun50i_dmic_of_match,
+ 		.pm     = &sun50i_dmic_pm,
+ 	},
+ 	.probe          = sun50i_dmic_probe,
+-- 
+2.7.4
 

@@ -2,69 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10AA260BBCC
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 23:13:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA6F60BCEF
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 00:01:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A98FA6808;
-	Mon, 24 Oct 2022 23:12:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A98FA6808
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88D2644CE;
+	Tue, 25 Oct 2022 00:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88D2644CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666646004;
-	bh=4DX7jNy+U+zToxaJBrx/yhiY7wZ2i58SEzBgOiv8KoU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HnRdEDsmR6/I9F7BAEf+nhMm21VAgnjSCHo11nd6R59H9nVFqfUbHIdqmNifm27QT
-	 AeN+5Bk+9oZdmOdTcczgn0DYmgSnCws3A5el9Bbo6FjL2XhMsdMElLbnp59tRKzj5h
-	 VMEoICH11r3zBGTbd3LDu5GiISxGyFkOK/535MvM=
+	s=default; t=1666648882;
+	bh=NtMGJEqZV/bhhhU6Mak10T8YkbJeZuq93Ltw2LeDx/0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XjCW3iZc+Y60+1uBgbXHzAfH+m2uPJWOpmrbq+vKVQVTi5yQLTddAzimZIKppC+og
+	 euek9eFcj9BeDxJQZI2mzRXZgPs4YXus8WC08+mjDJYcmwvJNHPNzfPwHM25t7+2GK
+	 1yQOPN74KZCLjB7ykAt7QX5RD0CnY6KFcFdNNRKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22C19F80240;
-	Mon, 24 Oct 2022 23:12:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E76D8F80542;
+	Tue, 25 Oct 2022 00:00:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FB08F80533; Mon, 24 Oct 2022 23:12:29 +0200 (CEST)
+ id 8DAECF8053D; Tue, 25 Oct 2022 00:00:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk
- [IPv6:2a03:a000:7:0:5054:ff:fe1c:15ff])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC6F3F80240
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 23:12:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC6F3F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B850F80431
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 00:00:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B850F80431
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk
- header.b="ju4fAjHQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=1ZSbC1IVWiIAbIJCUCGttQ9weksvxLPKZ/m64zctsts=; b=ju4fAjHQPvtRj0VSkVMoxApNoB
- 1wijSIHHMCXnuPu+LDpyBemfdp+fekCYc4yQ9VtUZMkhpP7uvfzl9UBXIByKtz71RAqUC2rZhGeGh
- 4c0dX+ZxvbLL1wOW3rySXt7YfjkNKXoh4VngVdC4bnF7dvSCViFzuV8/1CQsWdn5xTT9aaikWgryQ
- d3quMb82+Oa6f6iMum8dmR7E5sC6lUYK6Iq4rOlrdaOzfi7VaQoqW71NlW2jy/TeMu6B3VrDCKqv5
- Zk3d4YUE7pHyw8C+5W5w2KHAvYBZbM45jsxy3c2zLf8HQRcLR6GrT8Zv0kMDBva2txm89spfFQ8EU
- /Vh9PocA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1on4jQ-00DaDF-0m; Mon, 24 Oct 2022 21:11:36 +0000
-Date: Mon, 24 Oct 2022 22:11:36 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Subject: Re: [PATCH] ALSA: au88x0: use explicitly signed char
-Message-ID: <Y1b/iNMncyKI/W5c@ZenIV>
-References: <20221024162929.536004-1-Jason@zx2c4.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="iysEC5LQ"
+Received: from notapiano.myfiosgateway.com (unknown [194.36.25.51])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: nfraprado)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 91BE2660239F;
+ Mon, 24 Oct 2022 23:00:20 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1666648822;
+ bh=NtMGJEqZV/bhhhU6Mak10T8YkbJeZuq93Ltw2LeDx/0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=iysEC5LQF8tCDhWXCo+bBRGap4iZPdrPXgR5kbGSjQcHMcU2DeBzM7ose8sOIEJZ5
+ ozgEif9d3HN1bC7hwh+Vd797EollcuX2qxUp06A9/aOFQqrbUSdBBoJsJ3oJFXw2xs
+ Rgm+wkfdbDhkvB1cgOC/76RsAhVLiOGZ0OTUCUo1bzMpTApgPdjql0jN9/055D0Df3
+ T6vRdgGteqBwF5E0CRlqNJFIsziHSjo6uBf4Ak+wKPNktpdCzK6CJtCo1jnnaFn6RC
+ 9KK6z6RBP1o+dR5sqdMWyFee64OU8fV51bqdBceghtYxjisY8ccImdB2dVAMeXA+mG
+ tdaHMk1O5naoA==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v2 0/4] Add missing dt-binding properties to rt5682(s)
+Date: Mon, 24 Oct 2022 18:00:11 -0400
+Message-Id: <20221024220015.1759428-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221024162929.536004-1-Jason@zx2c4.com>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Derek Fang <derek.fang@realtek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,13 +88,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 24, 2022 at 06:29:29PM +0200, Jason A. Donenfeld wrote:
-> With char becoming unsigned by default, and with `char` alone being
-> ambiguous and based on architecture, signed chars need to be marked
-> explicitly as such. This fixes warnings like:
 
-It might make sparse to STFU, but it does *not* resolve the underlying
-issue:
+This series adds the missing sound-dai-cells to rt5682s and supplies for
+both rt5682s and rt5682.
 
-vortex_adb_checkinout() returns a number in range of 0..31 on success
-and -ENOMEM on failure.  Quite a few callers don't bother to check...
+These properties are already used by sc7180-trogdor.dtsi (and derived
+DTs like sc7180-trogdor-kingoftown.dtsi), so the commits in this series
+are really just documenting their usage.
+
+v1: https://lore.kernel.org/all/20221021190908.1502026-1-nfraprado@collabora.com/
+
+Changes in v2:
+- Changed sound-dai-cells to 1 on rt5682s
+- Added commit fixing sound-dai-cells on rt5682
+- Added mention to commit messages that properties are already being
+  used by DTs
+
+Nícolas F. R. A. Prado (4):
+  ASoC: dt-bindings: realtek,rt5682s: Add #sound-dai-cells
+  ASoC: dt-bindings: realtek,rt5682s: Add AVDD and MICVDD supplies
+  ASoC: dt-bindings: rt5682: Set sound-dai-cells to 1
+  ASoC: dt-bindings: rt5682: Add AVDD, MICVDD and VBAT supplies
+
+ .../devicetree/bindings/sound/realtek,rt5682s.yaml        | 7 +++++++
+ Documentation/devicetree/bindings/sound/rt5682.txt        | 8 +++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+-- 
+2.38.1
+

@@ -2,78 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB57460A312
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 13:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E60609FC9
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 13:09:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6738978CE;
-	Mon, 24 Oct 2022 13:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6738978CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE7627B28;
+	Mon, 24 Oct 2022 13:08:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE7627B28
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666612263;
-	bh=l/XI3CiJsKnOLgsVQc6BqIisIYNhZPrUZPh4AYIN9KY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nRn2duXks1QnASDB9XnKox5b3wwGiC2AjDPnoPMLwBc3fj4SsXZDD9XFUBZhpK6En
-	 374GvLL/bB+az7fMurKR67TGstACzwSeq5OiKTDlM5A37tDITMZuwhMQgLLg4n+egV
-	 jDT41+6fQEiqJk3E5USTyu0QobrDYVF4U08CiquQ=
+	s=default; t=1666609748;
+	bh=s7TKH+xxYf4u0gTGeWEzIo70SyH0kaUFMatps0oseJI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DJBqGGtwjvmMwUuscZJKAOsZs4oJ30KjBK0SmTEbar0uGESO74aJu2bAkC/N9CDXl
+	 WC3cYROjrFuGJlBK9fdoOgf0N8Q3voA5P96Oau1TuFaPazK7ETFbYnLIi0EEvWdctj
+	 MSR/sTtPvaWE+Gtyr+k2dGosL6hyyKZNxvBVIvhE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D64CDF8053D;
-	Mon, 24 Oct 2022 13:50:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FED6F80543;
+	Mon, 24 Oct 2022 13:08:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DF7BF8052F; Mon, 24 Oct 2022 13:50:07 +0200 (CEST)
+ id 68812F80542; Mon, 24 Oct 2022 13:08:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6900F80506
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 13:50:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6900F80506
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="thh7k93c"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 37BCF61290;
- Mon, 24 Oct 2022 11:50:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4375C433C1;
- Mon, 24 Oct 2022 11:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666612201;
- bh=l/XI3CiJsKnOLgsVQc6BqIisIYNhZPrUZPh4AYIN9KY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=thh7k93cgCNwV2UH4mQx9y5s/g6abLBR4vV0jfk+XRMc8utp9EIhdJC4lIOGf2jNV
- yxBhIdZCw8PqPJOvwK/Lf1YE2tm2NHXAU1oGnSDVLqZ1/uUVUL0wZfu0DKEAU4gMLq
- 5xeujSbo3slyB6EdEcqvcZ0Z0aFfyUypCRVEeFcNeRuzvE235Bl6WIKRRFA7Ixw/5G
- Un5JsjwAZwwgiFeNFVcy/ObJ3ePvZOVI50AECxC0TGKjxRCP1xPX7JLP1zI/vvjlsn
- I7xda0Gmk0T/M9/JmvV/lZS/jwsCbYvNMq8dJIxl4+/CGvINcHOj/ssVCRmcsrRXxt
- VBkkEQvriRE2Q==
-Date: Mon, 24 Oct 2022 12:49:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH v1 1/2] ASoC: simple-card: Support custom DAI system
- clock IDs
-Message-ID: <Y1Z74/vKHbnaCLrX@sirena.org.uk>
-References: <20221022162742.21671-1-aidanmacdonald.0x0@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CABAF80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 13:08:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CABAF80506
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="j8WRlQol"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666609690; x=1698145690;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=s7TKH+xxYf4u0gTGeWEzIo70SyH0kaUFMatps0oseJI=;
+ b=j8WRlQolhmXQE7MfVpWUvgRKBqzR5UR1CIKYDo2nmn0+1tzL/yBxUIJ6
+ v0lUrcaGVnCkVo2mJ+a0YC5OAJu2pr/lf3ay+yXt7uWit/YILtapy2mYf
+ OBCOgDjwEH7lEZiBOjtyZYgH3a3i+7k/i/JbvIvBpWUB0rFArLNZQODPw
+ mQoZ4RAKpyaQs+oCYpcAFqDJ2L4hwVj6amsaEES9nHTGnZ2SbNSm1eafK
+ +nR/jmHch+VV0EXG6CAMJtn30Ur6xHKBLM73iWKuk8hrPsX3Zv7aURQfv
+ 4yFrA3rmwZPMYSM/0je0K7g6bi1Sx3iELZII7ybVvMGS2YdKvjfGZsNaG A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="369457555"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="369457555"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 04:08:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="633673415"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="633673415"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+ by fmsmga007.fm.intel.com with ESMTP; 24 Oct 2022 04:08:01 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] ASoC: Intel: Fix typo in comments
+Date: Mon, 24 Oct 2022 21:08:39 +0200
+Message-Id: <20221024190841.31572-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="fXtczi/kKlNHcG53"
-Content-Disposition: inline
-In-Reply-To: <20221022162742.21671-1-aidanmacdonald.0x0@gmail.com>
-X-Cookie: You will forget that you ever knew me.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,34 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+There is a typo which keeps propagating through existing Intel machine
+boards fix it with hope that fix stops it from appearing in new boards.
 
---fXtczi/kKlNHcG53
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Amadeusz Sławiński (2):
+  ASoC: Intel: boards: Fix typo in comments
+  ASoC: Intel: avs: boards: Fix typo in comments
 
-On Sat, Oct 22, 2022 at 05:27:41PM +0100, Aidan MacDonald wrote:
+ sound/soc/intel/avs/boards/max98373.c           | 2 +-
+ sound/soc/intel/avs/boards/max98927.c           | 2 +-
+ sound/soc/intel/avs/boards/ssm4567.c            | 2 +-
+ sound/soc/intel/boards/bdw-rt5650.c             | 2 +-
+ sound/soc/intel/boards/bdw-rt5677.c             | 2 +-
+ sound/soc/intel/boards/bxt_rt298.c              | 2 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c         | 2 +-
+ sound/soc/intel/boards/bytcht_es8316.c          | 2 +-
+ sound/soc/intel/boards/bytcr_rt5640.c           | 2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c           | 2 +-
+ sound/soc/intel/boards/bytcr_wm5102.c           | 2 +-
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c    | 2 +-
+ sound/soc/intel/boards/cht_bsw_nau8824.c        | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c         | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c         | 2 +-
+ sound/soc/intel/boards/skl_nau88l25_max98357a.c | 2 +-
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c   | 2 +-
+ 17 files changed, 17 insertions(+), 17 deletions(-)
 
-> Some DAIs have multiple system clock sources, which can be chosen
-> using the "clk_id" argument to snd_soc_dai_set_sysclk(). Currently
-> this is hardcoded to 0 when using simple cards, but that choice is
-> not always suitable.
+-- 
+2.25.1
 
-We already have clock bindings, if we need to configure clocks we should
-be using those to configure there.
-
---fXtczi/kKlNHcG53
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNWe+IACgkQJNaLcl1U
-h9By4wf+MO0f2rw7A/XLJQONuNVrcWtI0Cz17wuuWDvSlDxNWS3cq0OafQbjXYD2
-MIN1j9goUvD9Y++mcr65EhFvRtaD5+BEWVIq2/gNTpWOBSTTN06REGvOkyjOrYMU
-AxIAuperEJcYDJxlk0Wi8uVD63kmPi3omezXXRZW2xF5wku655JWWowPDtvl+Yqn
-WVNsDLlwBG7RpgoI/v5TupZky6kY4YwLUDGYqx0RQazQ1TVSbLPYnXScckY3yn14
-PcKloZwkgnraB1dVYim6FJF5xUXakwk02tTdZBK9//oIucjWmhjUoMihjdXU1TCV
-ajFepx+RlJ967a/P5vLR9O3qmNhT7w==
-=5Xyf
------END PGP SIGNATURE-----
-
---fXtczi/kKlNHcG53--

@@ -2,71 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4C2060AF17
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 17:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF7B60B012
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 18:01:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 287C16297;
-	Mon, 24 Oct 2022 17:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 287C16297
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAFED6223;
+	Mon, 24 Oct 2022 18:00:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAFED6223
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666625500;
-	bh=2Uce2G1fm2oe+IKvFNyNgVWd0XnvGmJMj3pqkaPXNN4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1666627301;
+	bh=73mRAt4slxg3WQnhUlKVuGJufrCR8Hql2e3IIojI/es=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PN72aOLDCXB/Old7CkrLU5Q1+KstPrORGIP5r3cCcEo8xM64cGGs589LBZhm6d30F
-	 EpcBHqdb8D6GtfkU3jzGd5mw0tViTrxsvQDGTIRSiZWgrHpkobP+M1oIqAL2YCassv
-	 MikJSuVyn150PN/NPAoLdnl9rffTKSsoDftyDpCM=
+	b=O+Dm2NhG2jK2kwmSHom7GhxoG1t3sWWRivOHgd34sU92tPnumF6bajfbynwGBrPYV
+	 skK1V8ePG4XYuIk+rueySkzXn2mzLe23l2QjfeR/JdmrcbG4SJC5UiEq2dAP9OYm3c
+	 cdei1Z+pWNBTOfs+Cowhg7tmcwHk6zRuS0KebyNw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47B09F80548;
-	Mon, 24 Oct 2022 17:30:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4016FF8053D;
+	Mon, 24 Oct 2022 18:00:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C8CFF80240; Mon, 24 Oct 2022 17:30:48 +0200 (CEST)
+ id ED129F80506; Mon, 24 Oct 2022 18:00:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A06CAF80240
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 17:30:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A06CAF80240
-Received: from dggpemm500021.china.huawei.com (unknown [172.30.72.54])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MwzRc56jBz15M0V;
- Mon, 24 Oct 2022 23:25:48 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500021.china.huawei.com (7.185.36.109) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 24 Oct 2022 23:30:39 +0800
-Received: from [10.174.178.174] (10.174.178.174) by
- dggpemm500007.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 24 Oct 2022 23:30:38 +0800
-Subject: Re: [PATCH] ALSA: hda: fix possible memory leak in
- azx_codec_configure()
-To: Takashi Iwai <tiwai@suse.de>
-References: <20221024122646.1175390-1-yangyingliang@huawei.com>
- <87edux8gik.wl-tiwai@suse.de>
-From: Yang Yingliang <yangyingliang@huawei.com>
-Message-ID: <5265559f-a873-b94c-7f5c-7566e8d99d88@huawei.com>
-Date: Mon, 24 Oct 2022 23:30:37 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C386EF80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 18:00:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C386EF80506
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="f1hgZPCI"
+Received: from notapiano (unknown [194.36.25.51])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: nfraprado)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 67746660036C;
+ Mon, 24 Oct 2022 17:00:34 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1666627236;
+ bh=73mRAt4slxg3WQnhUlKVuGJufrCR8Hql2e3IIojI/es=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=f1hgZPCIEOicahFOn1Bq+bo596EyWAUOwjbcMmFgffNFIHWoRoXgvAYkpl+6TtpCL
+ f/I85L1Canirg8SShskHM9QFuQZPVOyiZTqkqH2s0xnS4xCTHvs60WY2JfRwBBmYdH
+ BTwsHu/T6WIdGR5XaJKFf+/lWDDkc3IXtXKI3NIIZFr7RKr9JeaZUu9yhPo7tYqd3Y
+ lHQaFPey+AMIOUZvwhZW6pECAFSfI6p8KjwhjXfwz+UZ+FEj4+X1y3NAKFKJInmtTs
+ 7m7l/Jh3YhZoi/leAySkQZtWSGmOhzwPOzlb5XTXdz9ZGqOzo3QZzehtG9kl2DPtkT
+ Gwfhl9jc065vw==
+Date: Mon, 24 Oct 2022 12:00:29 -0400
+From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 3/3] ASoC: dt-bindings: rt5682: Add AVDD, MICVDD and VBAT
+ supplies
+Message-ID: <20221024160029.cfpyp2cptwig27jd@notapiano>
+References: <20221021190908.1502026-1-nfraprado@collabora.com>
+ <20221021190908.1502026-4-nfraprado@collabora.com>
+ <f7007c75-9c99-902d-170f-383b7347922c@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <87edux8gik.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.174.178.174]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, yangyingliang@huawei.com, tiwai@suse.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f7007c75-9c99-902d-170f-383b7347922c@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,59 +91,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Sat, Oct 22, 2022 at 12:41:01PM -0400, Krzysztof Kozlowski wrote:
+> On 21/10/2022 15:09, Nícolas F. R. A. Prado wrote:
+> > The rt5682 codec can have three supplies: AVDD, MICVDD and VBAT. Add
+> > properties for them.
+> > 
+> > Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+> > ---
+> > 
+> >  Documentation/devicetree/bindings/sound/rt5682.txt | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/sound/rt5682.txt b/Documentation/devicetree/bindings/sound/rt5682.txt
+> > index c5f2b8febcee..5ccf4eaf12a9 100644
+> > --- a/Documentation/devicetree/bindings/sound/rt5682.txt
+> > +++ b/Documentation/devicetree/bindings/sound/rt5682.txt
+> > @@ -48,6 +48,12 @@ Optional properties:
+> >  
+> >  - #sound-dai-cells: Should be set to '<0>'.
+> >  
+> > +- AVDD-supply: phandle to the regulator supplying AVDD
+> > +
+> > +- MICVDD-supply: phandle to the regulator supplying MICVDD
+> > +
+> > +- VBAT-supply: phandle to the regulator supplying VBAT
+> 
+> Lowercase.
 
-On 2022/10/24 22:04, Takashi Iwai wrote:
-> On Mon, 24 Oct 2022 14:26:46 +0200,
-> Yang Yingliang wrote:
->> If the codec device is registered, after calling snd_hdac_device_unregister(),
->> codec has already been removed from chip bus, it should call put_device() to
->> give up reference to free codec and device name.
->>
->> Fixes: c0f1886de7e1 ("ALSA: hda: intel: Allow repeatedly probing on codec configuration errors")
->> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> Hrm, are you sure that this will result in a memory leak?
-> put_device() is called at snd_hda_codec_unregister() that is invoked
-> via dev_free callback of the snd_hda_codec object -- which is called
-> when the top-level driver is removed.  I'm afraid that your patch will
-> lead to a double-free.
-Thanks for point out.
-I look deeper, the snd device is add to device list of card, but 
-snd_hdac_device_unregister()
-is just remove the codec from chip bus, and the snd device still in 
-device list of card,
-at last each of snd device is freed in snd_device_free_all() with 
-calling snd_hda_codec_dev_free().
+Actually looks like there's already a DT using these properties before the
+binding was added:
+
+arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+
+In this case should we keep them uppercase for compatibility or carry on with
+the name changes and also update the DT? (the driver also uses uppercase names)
+
+
+Also noticed that dai-cells should actually be 1. Will fix in next version.
 
 Thanks,
-Yang
->
->
-> thanks,
->
-> Takashi
->
->> ---
->>   sound/pci/hda/hda_controller.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
->> index 0ff286b7b66b..f6a73ce300a4 100644
->> --- a/sound/pci/hda/hda_controller.c
->> +++ b/sound/pci/hda/hda_controller.c
->> @@ -1257,8 +1257,11 @@ int azx_codec_configure(struct azx *chip)
->>   		/* unregister failed codecs if any codec has been probed */
->>   		list_for_each_codec_safe(codec, next, &chip->bus) {
->>   			if (!codec->configured) {
->> +				bool is_registered = device_is_registered(&codec->core.dev);
->>   				codec_err(codec, "Unable to configure, disabling\n");
->>   				snd_hdac_device_unregister(&codec->core);
->> +				if (is_registered)
->> +					put_device(&codec->core.dev);
->>   			}
->>   		}
->>   	}
->> -- 
->> 2.25.1
->>
-> .
+Nícolas

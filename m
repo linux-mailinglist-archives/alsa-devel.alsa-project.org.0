@@ -2,90 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F0860A849
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 15:05:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A8C760A88D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 15:07:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2126C76A7;
-	Mon, 24 Oct 2022 15:04:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2126C76A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C120976B8;
+	Mon, 24 Oct 2022 15:06:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C120976B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666616718;
-	bh=eRSweSNYBVnFL4RXqNIHxHqL02Bf3gPIN5mHCC3vKfA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hwZolgtTocL6+WSHSUQFyeo7zUYOsF+3geMKZIVQwvG3SlrrbFddLu6qjr01IiJQc
-	 6JJ1h7B8Nad9M02ePJPUhzERAq5DbZF3HQT1FOBuGj5+Noxi3EM51JEZuE8qjoWmSl
-	 CwtbxVZxxJU01UvrqnsvRz2N+HMKIiUJy3Eg1H7c=
+	s=default; t=1666616846;
+	bh=hgRZXXpwZV22Qd3gIQs3MG81YIS2AwGG0Ao45bzL17c=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YhIcHJ2AM1WMSZMPJkw36H8zhBy7On4MprwLCbNtVb2dfNxdJFCgbsqs8jPGOes+E
+	 045QOFVm23yetNdncY7Pz7+sd5pO0DUqlokQFdYqdL0C2Qt6rqo/s8BG6iqmVcDrV2
+	 QNPE+bc7JVO6Rr7jN2N13PBneDTInFlVp0jziKh0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87843F8053D;
-	Mon, 24 Oct 2022 15:04:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30432F8053D;
+	Mon, 24 Oct 2022 15:06:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4A4BF80533; Mon, 24 Oct 2022 15:04:21 +0200 (CEST)
+ id 4CC66F80506; Mon, 24 Oct 2022 15:06:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47192F80431
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 15:04:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47192F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69F15F80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 15:06:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69F15F80506
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RD2hU3Ko"
-Received: by mail-wr1-x435.google.com with SMTP id bk15so16058454wrb.13
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 06:04:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ZcT81dsOX50qiaKz4vINoGth0qfnpFewSvnJVe0v6GM=;
- b=RD2hU3KoduxI2YfWHayb28ysUwpHbeEzDpkWXSRe1hQVBB7vI5HJkjAEOIp9GG2e7S
- Wb8q5wX5u3AoTjSl5a5sbj/7i5czN8IYwPyD7tCuhNgz9d6u4YJtwfNSYMSbwf3gEEaf
- /407NCLoWXbwhgNM/ZT9cIH+9qgVRjxEGcw0sNpl6mcjbTO7mnAA3pOMxDjLLRGjymV/
- DxX+D/Qf16djnAO0Cr5LUZLE3sUzs8Y4Tq8Xm44cc3n2Ws8abt1d2qWmvUey02whjXzQ
- Ct1pgHdNW6H2JeMtgJ8VSygtxcbi+fwPiy80AP5If1uw5PDmCDn76/gs4jErczN/c86b
- BOpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZcT81dsOX50qiaKz4vINoGth0qfnpFewSvnJVe0v6GM=;
- b=bPaMAN0afaFCt9jWhDQW/osR9tpFqBDvi7WR/TVeaXsCQ95xkyi5bC6ByR+A0HXI3x
- adtN1kB7a+6d1/IzhSrOcOJ7Eqyd0p5yRDnjbEYTZZgplc1Kza8N1c1zUwqS9aOqYpn6
- skrj6BHn6XqKLBnfxVVAwmcL5N3uD1ZYBZyVDzRv+NDOpXq1YtXq7iLHX00cQsaysPHv
- y5bRDP1t9VJ5BTOQLjreDSxAFRUOvVxGgtB7vMKiOvYmLECts8k2u7Ad1XK1FqAMKCzk
- Ni0vUojU9RaiFx5rUMdJSefruv4jb6YTpI8M75EbuBSR6sg2ROvzDiZoRB7tCV7PjYrQ
- jBXg==
-X-Gm-Message-State: ACrzQf2LSACeoVy7B3irRyExyDsk4qkIkkQKolV2RbTkTjZRFaMxac/6
- N3P/UJmXmsHJejge2QcQCqc=
-X-Google-Smtp-Source: AMsMyM5PWCQoY1oCIj0f9q6/UiAGZDAiFpyTTtXsShfeswh89X4+ely/gnqcv+fClVfORRlZZaNl6w==
-X-Received: by 2002:a05:6000:1882:b0:230:9046:122 with SMTP id
- a2-20020a056000188200b0023090460122mr20371363wri.49.1666616657310; 
- Mon, 24 Oct 2022 06:04:17 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- f8-20020a0560001b0800b0023677fd2657sm1378422wrz.52.2022.10.24.06.04.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 06:04:16 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: rawmidi: remove variable dest_frames
-Date: Mon, 24 Oct 2022 14:04:15 +0100
-Message-Id: <20221024130415.2155860-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.37.3
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="IjAnjv6T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1666616783; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=P9DWmVXnBB0alokK0Ux9UPjubSOauF60G+854IF0GBY=;
+ b=IjAnjv6TPydu6+wMG8G3TtjNZOK2tnhXk2sAqS4Ja+Ztp3nEbHuzx05AWva//Tb6t69E78
+ EXZCF9f8OtTT/oUA8K9DLsAzBaHF3Uq8GMMeY+cOjKp0PliA/a92lYjucSlVQ7QTG7BQe9
+ OCA0RX4DUeCKgAkhXplgVeMj8Z8xQL4=
+Date: Mon, 24 Oct 2022 14:06:13 +0100
+From: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
+ SoC-specific
+To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+Message-Id: <DQD9KR.BW8U6333OSCP3@crapouillou.net>
+In-Reply-To: <JRrsX7Q4m5FUeeBs2yKTRMe5Ihaso8gi@localhost>
+References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+ <0269b850-f33a-7aa9-a3eb-83655bd4e19a@wanyeetech.com>
+ <ROSYER.QTJF8J14H2YX1@crapouillou.net>
+ <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
+ <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
+ <HQ76KR.B1PM87E2GIYZ1@crapouillou.net>
+ <JRrsX7Q4m5FUeeBs2yKTRMe5Ihaso8gi@localhost>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Zhou Yanjie <zhouyu@wanyeetech.com>,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ linux-mips@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,35 +86,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Variable dest_frames is just being incremented and it's never used
-anywhere else. The variable and the increment are redundant so
-remove it.
+Hi Aidan,
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/core/rawmidi.c | 2 --
- 1 file changed, 2 deletions(-)
+Le dim. 23 oct. 2022 =C3=A0 14:29:24 +0100, Aidan MacDonald=20
+<aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
+>=20
+> Paul Cercueil <paul@crapouillou.net> writes:
+>=20
+>>  Hi Aidan,
+>>=20
+>>  Le sam. 22 oct. 2022 =C3=A0 18:15:05 +0100, Aidan MacDonald
+>>  <aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
+>>>  Zhou Yanjie <zhouyu@wanyeetech.com> writes:
+>>>=20
+>>>>   Hi Paul,
+>>>>   On 2022/7/13 =E4=B8=8B=E5=8D=8811:07, Paul Cercueil wrote:
+>>>>>   Hi Zhou,
+>>>>>   Le mer., juil. 13 2022 at 22:33:44 +0800, Zhou Yanjie
+>>>>>  <zhouyu@wanyeetech.com>
+>>>>>   a =C3=A9crit :
+>>>>>>   Hi Aidan,
+>>>>>>   On 2022/7/9 =E4=B8=8A=E5=8D=8812:02, Aidan MacDonald wrote:
+>>>>>>>   @@ -400,6 +402,7 @@ static const struct i2s_soc_info=20
+>>>>>>> jz4740_i2s_soc_info
+>>>>>>>  =3D
+>>>>>>>   {
+>>>>>>>         .field_tx_fifo_thresh    =3D REG_FIELD(JZ_REG_AIC_CONF,=20
+>>>>>>> 8, 11),
+>>>>>>>         .field_i2sdiv_capture    =3D=20
+>>>>>>> REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>>>>>>>         .field_i2sdiv_playback    =3D=20
+>>>>>>> REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 3),
+>>>>>>>   +    .pll_clk_name        =3D "pll half",
+>>>>>>>         .shared_fifo_flush    =3D true,
+>>>>>>>     };
+>>>>>>   Since JZ4760, according to the description of the I2SCDR=20
+>>>>>> register,
+>>>>>>   Ingenic SoCs no longer use PLL/2 clock, but directly use PLL=20
+>>>>>> clock,
+>>>>>>   so it seems also inappropriate to use "pll half" for these=20
+>>>>>> SoCs.
+>>>>>   The device tree passes the clock as "pll half". So the driver=20
+>>>>> should use
+>>>>>  this
+>>>>>   name as well...
+>>>>   I see...
+>>>>   It seems that the device tree of JZ4770 has used "pll half"=20
+>>>> already,
+>>>>   but there is no "pll half" used anywhere in the device tree of=20
+>>>> JZ4780,
+>>>>   maybe we can keep the pll_clk_name of JZ4770 as "pll half", and=20
+>>>> change
+>>>>   the pll_clk_name of JZ4780 to a more reasonable name.
+>>>>   Thanks and best regards!
+>>>  Actually, the clock names in the DT are meaningless. The clk_get()=20
+>>> call
+>>>  matches only the clock's name in the CGU driver. So in fact the=20
+>>> driver
+>>>  is "broken" for jz4780. It seems jz4770 doesn't work correctly=20
+>>> either,
+>>>  it has no "pll half", and three possible parents for its "i2s"=20
+>>> clock.
+>>=20
+>>  That's not true. The clock names are matched via DT.
+>>=20
+>>  Only in the case where a corresponding clock cannot be found via DT=20
+>> will it
+>>  search for the clock name among the clock providers. I believe this=20
+>> is a legacy
+>>  mechanism and you absolutely shouldn't rely on it.
+>>=20
+>>  -Paul
+>>=20
+>=20
+> What you say is only true for clk_get() with a device argument. When=20
+> the
+> device argument is NULL -- which is the case in .set_sysclk() -- then
+> the DT name is not matched. Check drivers/clk/clkdev.c, in clk_find().
+> When the dev_id is NULL, it will not match any lookup entries with a
+> non-null dev_id, and I believe dev_id is the mechanism that implements
+> DT clock lookup. Only the wildcard entries from the CGU driver will be
+> matched if dev_id is NULL, so the DT is being ignored.
+>=20
+> If you don't believe me, try changing "pll half" in the device tree=20
+> and
+> the I2S driver to something else. I have done this, and it doesn't=20
+> work.
+> That proves the name in the device tree is not being used.
 
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index d8edb6055072..7147fda66d93 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -1050,7 +1050,6 @@ static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
- 	struct snd_rawmidi_runtime *runtime = substream->runtime;
- 	struct snd_rawmidi_framing_tstamp *dest_ptr;
- 	struct snd_rawmidi_framing_tstamp frame = { .tv_sec = tstamp->tv_sec, .tv_nsec = tstamp->tv_nsec };
--	int dest_frames = 0;
- 	int orig_count = src_count;
- 	int frame_size = sizeof(struct snd_rawmidi_framing_tstamp);
- 
-@@ -1077,7 +1076,6 @@ static int receive_with_tstamp_framing(struct snd_rawmidi_substream *substream,
- 		runtime->avail += frame_size;
- 		runtime->hw_ptr += frame_size;
- 		runtime->hw_ptr %= runtime->buffer_size;
--		dest_frames++;
- 	}
- 	return orig_count - src_count;
- }
--- 
-2.37.3
+Well, let's pass them a device pointer then.
+
+> I agree we shouldn't rely on this, it's a legacy behavior, but the=20
+> fact
+> is that's how the driver already works. I'm dropping this patch=20
+> because
+> the driver is wrong and needs a different fix...
+
+"How the driver already works" is a bit misleading, I never saw this=20
+.set_sysclk() callback being called, so I can't really say that it=20
+works.
+
+>>>  I think a better approach is to have the DT define an array of=20
+>>> parent
+>>>  clocks for .set_sysclk()'s use, instead of hardcoding parents in=20
+>>> the
+>>>  driver. If the parent array is missing the driver can default to=20
+>>> using
+>>>  "ext" so existing DTs will work.
+>=20
+> As much as I like this idea there doesn't seem to be a mechanism for
+> handling a free-floating array of clocks in the DT. Everything has
+> to be put in the main "clocks" array. That makes it pretty hard to
+> figure out which ones are meant to be the parent clocks.
+>=20
+> Do you know of any way to do this generically from the DT? If there's
+> no way to get away from a hardcoded array of names in the driver, I=20
+> can
+> at least add a device argument to clk_get() so it'll use the DT names.
+
+In jz4740_i2s_set_sysclk():
+
+#define JZ4740_I2S_FIRST_PARENT_CLK 2
+parent =3D of_clk_get(dev->of_node, JZ4740_I2S_FIRST_PARENT_CLK + clk_id);
+
+is how I'd do it.
+
+The DTs all have "aic", "i2s" as the first two clocks. It is even=20
+enforced in the DT schemas.
+
+Cheers,
+-Paul
+
 

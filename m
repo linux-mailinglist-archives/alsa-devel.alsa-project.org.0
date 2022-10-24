@@ -2,91 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16A260A8A1
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 15:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB2E60A917
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 15:15:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5369B76C8;
-	Mon, 24 Oct 2022 15:08:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5369B76C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1127F775C;
+	Mon, 24 Oct 2022 15:14:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1127F775C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666616955;
-	bh=jeaQ+X3gmziuIixOGwDqUKXdvo29eBuGHkpVjOzerG8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aS0TiPWg3ssZ1AKUcdYg2/JSeIHzSNqrU9MRqm48icCa7TcOn5fH3yzcYCrtPTCWh
-	 NNt7mejtSM1yDtAdxkeEY/Ot5/VSYv1+7hxlNloWrhEO8SnV/JpAJ/EvSnmsLePdiY
-	 WxCW0ci1hAWuliihMITk5LMwzFHNxTFTRXYvQpjU=
+	s=default; t=1666617321;
+	bh=YnU6QG+ivTX0wZI/ByiRBZ7ueRBu9rZAUuYVXI6qj90=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DvUH+E7BKs1WS3hkuuTiPPXqHMLD/9A91+Xw4jf17NoWI+qIqbcb5R+kvR89qT4RV
+	 ddEICokMdWigh9j3r/oTwEl0U2LDHEWwRpdfPrEeZ7Lnbmr7cNT3FqUphcYTU2g06r
+	 lPG1D+WJWzmAnvlyn/kjlyPEELLnWJa+rDTm9kcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9354F8053D;
-	Mon, 24 Oct 2022 15:08:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E254F80431;
+	Mon, 24 Oct 2022 15:14:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D3AAF80533; Mon, 24 Oct 2022 15:08:19 +0200 (CEST)
+ id C7AD6F80533; Mon, 24 Oct 2022 15:14:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4ADAAF80431
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 15:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ADAAF80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id C20D1F80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 15:14:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C20D1F80506
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="inKQ1QRQ"
-Received: by mail-wm1-x32e.google.com with SMTP id
- c3-20020a1c3503000000b003bd21e3dd7aso9933118wma.1
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 06:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4ckwP6SZrttFwr6q/sGcNYSFGy/msNDVyZpAOWEeZ8w=;
- b=inKQ1QRQBd2kH0yamrljN5I7Tavh58rIwYt8BjFrJvvpqQnI87e5BM8m11dqOvATDX
- O0dN7xO2ogwyzHdwfIIF/9S+5JTqPihCSDcaLTTRNaMh+rsvRYK3pxMESywxnoDdd9O3
- Gbgvat5iOIZihcIdE5K7hGTgd9XXTmmb1P4Gq4FpQoG4Hdkx7MPWgBX+7/hacySY/7rk
- DGJwIKStLujvhDDabIJd/RC3d6DwMrDVuu0ne2UI49WcRHy8ghSWPydJedtmkpc6ToCe
- dujR1Bz3i65aZPdHRL27ttEwdIey8yWxuVKvKlbLE0kA8frWmyqkURU9Wzm8atEMgB6P
- rSRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4ckwP6SZrttFwr6q/sGcNYSFGy/msNDVyZpAOWEeZ8w=;
- b=BXXTK95Vc8PGhFfh+zu1pjC/JQ7Ru2yxlYmN9ivg4iAUankargyG6Vn4ubD3uHkiDG
- aiE1yE9/4lNm2q0Vnnv2iLjSbU4WG7lkEcbxlTCnoKPVU0f8A2p6Xrhc4Z1kpvD26T6/
- EVitwNS+y1LjXSUaHW+ybFTBOGxhf1EsEEYGA2r3L3lxal8XO9IVnnjNhbsfKO5cJI80
- 2691oikXjEF579QINdr8eFoBTJcnuZLWUUjXqQqlThCri6K+jXulF9nsdYyHB6rSiJdV
- Dko6e279Q1knN6EO41of2IZS2F7aOlr71n0n61mFiG9e1qHHuSSY8Il0lqcoMIm5Q54o
- XbdQ==
-X-Gm-Message-State: ACrzQf12zJMXwroODAqaI9NUaMdBsajS4XsCOWpGvP6bh0mjLxKbmeHQ
- /a/ZQXdrExfwz4a+xO/wih4=
-X-Google-Smtp-Source: AMsMyM4Eux5p6QGnnjdVJQNbuM9tL3KSnsNRcKXNy+skLIDyzqy4y86gJPUNpqIBsvvckFcimdUQGg==
-X-Received: by 2002:a05:600c:4618:b0:3c6:bf28:ae64 with SMTP id
- m24-20020a05600c461800b003c6bf28ae64mr44399479wmo.51.1666616884152; 
- Mon, 24 Oct 2022 06:08:04 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- d1-20020adff2c1000000b0022ac1be009esm27228344wrp.16.2022.10.24.06.08.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 06:08:03 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: asihpi: remove variable loops
-Date: Mon, 24 Oct 2022 14:08:03 +0100
-Message-Id: <20221024130803.2156295-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.37.3
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YgL2XJRk"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2BFF7608D4;
+ Mon, 24 Oct 2022 13:14:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93287C433C1;
+ Mon, 24 Oct 2022 13:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666617255;
+ bh=YnU6QG+ivTX0wZI/ByiRBZ7ueRBu9rZAUuYVXI6qj90=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YgL2XJRkEqukp4iEv1le/ow8ozDLXJf5BYPwb3hu6epALjGJvWJTCuI48zx2H45/P
+ o4fI1bY6w9kQFOIntLHoncBICv5vjfOTi73AZ0E3KppE4r1ND1hyHJUXPyt2bCrjMr
+ Jwf91AOzlpyhTPwfBRyxAjB946TikZR8GIvV3EUBLAQ0D16tLT5DKIQoG65a1hJvDo
+ rEXaKf+lPwNKKDwgWjnxiezlxPTnJX5tGD4saCNYwJac6y9CuC6VcRTC8Tn27nYytG
+ 61TL/X7UElraRrs+x9gVLtK7USwX82wI1grrErl9RwQNHmM2jTTj0fLewWpwCD9CUC
+ ATjRmBnd5ajHg==
+Date: Mon, 24 Oct 2022 14:14:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: wangweidong.a@awinic.com
+Subject: Re: Discuss to review question [PATCH V2 1/2] ASoc:codes:Add Awinic
+ AW883XX audio amplifier driver
+Message-ID: <Y1aPoUO4AcpGXRgP@sirena.org.uk>
+References: <000701d8e752$11f78bc0$35e6a340$@awinic.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3IoNOV9ooxGBrTYD"
+Content-Disposition: inline
+In-Reply-To: <000701d8e752$11f78bc0$35e6a340$@awinic.com>
+X-Cookie: You will forget that you ever knew me.
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+ duanyibo@awinic.com, liweilei@awinic.com, tiwai@suse.com, zhaolei@awinic.com,
+ cy_huang@richtek.com, yijiangtao@awinic.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, quic_potturu@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,35 +91,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Variable loops is just being incremented and it's never used
-anywhere else. The variable and the increment are redundant so
-remove it.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/pci/asihpi/asihpi.c | 2 --
- 1 file changed, 2 deletions(-)
+--3IoNOV9ooxGBrTYD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
-index 8de43aaa10aa..001786e2aba1 100644
---- a/sound/pci/asihpi/asihpi.c
-+++ b/sound/pci/asihpi/asihpi.c
-@@ -725,7 +725,6 @@ static void snd_card_asihpi_timer_function(struct timer_list *t)
- 	unsigned int pcm_buf_dma_ofs, min_buf_pos = 0;
- 	unsigned int remdata, xfercount, next_jiffies;
- 	int first = 1;
--	int loops = 0;
- 	u16 state;
- 	u32 buffer_size, bytes_avail, samples_played, on_card_bytes;
- 	char name[16];
-@@ -806,7 +805,6 @@ static void snd_card_asihpi_timer_function(struct timer_list *t)
- 			(unsigned long)frames_to_bytes(runtime,
- 						runtime->control->appl_ptr)
- 		);
--		loops++;
- 	}
- 	pcm_buf_dma_ofs = min_buf_pos;
- 
--- 
-2.37.3
+On Mon, Oct 24, 2022 at 10:41:03AM +0800, wangweidong.a@awinic.com wrote:
+> On Mon, Oct 17, 2022 at 04:09:12PM +0800, wangweidong.a@awinic.com wrote:
 
+> > Then it's not a mute function, the goal of the mute function is to run
+> before all the power management code to minimise glitches during power
+> management.  Just implement the power management via the standard ASoC po=
+wer
+>=20
+> > management APIs.
+
+> The essence of calling mute is not switch dsp, but switch PA. We think th=
+at
+> PA has only two states. When no audio stream enters, turn off the PA and
+> turn off the PA's dsp. When the audio stream enters, the PA is turned on,
+> and the dsp is turned on at the same time
+
+That's not what the mute function is for, the interface is specifically
+for muting the stream while power management changes are going on.  What
+you're describing is power management so should be controlled via DAPM.
+If your device doesn't have any support for a separate mute function
+then it should just not implement anything for that in the driver.
+
+--3IoNOV9ooxGBrTYD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNWj6AACgkQJNaLcl1U
+h9B0pwf/VjmLHFwSmcBlAlqhTrWNmKYYK2ACZICC4p42E4QqKR7nhZrgX+xNaD2G
+08bgLQ7SyGB5k8UU5bdXkwWwATay+/zXSvVhVm7lnqEETW4gKjRo/rsHUqP2yv3q
+Ij5MylusPY38uzuxN20UjXFCL7ffwFn6RiMdyp3jNRtyZWu91sLaZkdktP5DyzFK
+TKEPijVM5eyZfFaSQWG5LDkW1l3y0+CMOjKJjBBOh1Rtq2tXIDvg8a+/wBjVEb3E
+Ivkj7WCZwZy3lrk12+6b1WZ9sKXP1SZYOC38DzCPpiJgs/nFAQGr3XIrdkXL9gCM
+GJg/TJDKmlb4GgUfXWkVPRXk7ajV5g==
+=UBV0
+-----END PGP SIGNATURE-----
+
+--3IoNOV9ooxGBrTYD--

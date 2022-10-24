@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E2860A7AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 14:55:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C59560A7B4
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 14:55:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30B0B7682;
-	Mon, 24 Oct 2022 14:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30B0B7682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FA0B768C;
+	Mon, 24 Oct 2022 14:55:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FA0B768C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666616133;
-	bh=eeZYPvtwVp+JRNB1Md+vcFGippA6sW+UcxlVr7+SUcg=;
+	s=default; t=1666616158;
+	bh=R1hLjeE/13RmZT9ufBz7rWLCq9H/tdDCnbvNc5MNSl8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cnNzdfu8IZ4AK9HnQoTmy3ZgimuUmwUEDwyOUMHzHSmAwwDHqWkLv5LV9VMJFYdCP
-	 Ln6GCYgHRhztwtTkUpL3a4mm2gepdyKgZazwBdIB4zhUhadcruVJnzlWzF1KRHGN1G
-	 +L5LXbxyBRI8lxHAtQvlbQsmR1BUcwpCHvnu6GJI=
+	b=NbJwOugn6XbgkVIhW0m84FOkV6m7omysJMHwHnEXNa5hugJoa0FHr3BVbw1iOB7/1
+	 L0LCg0z+u/xE0FvC82LpWcmfqH7x0CGU2vNl5uM7Y9RMJvQDLTfH7+TeBs2drJkBBe
+	 pYjWyPXDnBbmONS37bBcSxhVa6tj36yuYlnjFwFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DC4AF80542;
-	Mon, 24 Oct 2022 14:54:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23C78F80548;
+	Mon, 24 Oct 2022 14:54:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3439F8053D; Mon, 24 Oct 2022 14:54:36 +0200 (CEST)
+ id 109D2F8053D; Mon, 24 Oct 2022 14:54:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99B08F80431
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 14:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99B08F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91B28F80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 14:54:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91B28F80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UsGupU67"
+ header.b="S7KytBzr"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F3950612D5;
- Mon, 24 Oct 2022 12:54:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6396CC43470;
- Mon, 24 Oct 2022 12:54:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0BC016133B;
+ Mon, 24 Oct 2022 12:54:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FAAC433C1;
+ Mon, 24 Oct 2022 12:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666616071;
- bh=eeZYPvtwVp+JRNB1Md+vcFGippA6sW+UcxlVr7+SUcg=;
+ s=k20201202; t=1666616073;
+ bh=R1hLjeE/13RmZT9ufBz7rWLCq9H/tdDCnbvNc5MNSl8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UsGupU67EwMHVV33LZE0Cb9ylxlWiUq+US0bTzDouaG8frWvO20c04zCV0kSSS+U/
- Dr+HAuy7ZHVb/FGusmioz/O916c7sOD5HHg/4zKq4Z4rg4Zls298Vyy5HRG/LZFrEd
- 5/sCgtMAzAM1Ptj7oGpQ6i+jX2LDU23aeZK/DdRGHrvMAdsE2tU8weJgm35da93pEL
- U509qPro7h5ranOlTxt5j7RbEC6zi9nTUxFyjPiU2ZtrzFhgnZfUI9zXXjzTI9MqeN
- ogvZ2Ft5AppnUCscNG/tGECXKnVNvCGJ4kZxGcTzAHxelwKV5BM6D77S0YSwVywjxJ
- IOEQIwKAs37mQ==
+ b=S7KytBzrEgUtUvhGpSBPw7Ci7Dxyb9OFPQEbkKVNQlekdg+ZQ4mJD3y8aEOzncjew
+ raradZC55KujNvnu2t3Wkr/opFo1x5/QrOcSlOD8p5SmKKiBZKiEK8ainnHCkV7Vam
+ cc//z2BK+Sj83zqcBD74KQGINKt9CztkjbKXhm0OSmmu1z9avL875s4v8UTegY4LDu
+ VzG8SFuGv3N55n3iVRXsQgxIv6sHe5cPPLv/Zr1LlnDau04jbbR483flnOBHVK47hD
+ OUTWxy+IJwIobFo/Qk3bZuy21AXjptm2Z5gCKLHj5/h5AvSUUkzVsFXkmls4YqSosP
+ DhWPGoEo8Zmgw==
 From: Mark Brown <broonie@kernel.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>
-In-Reply-To: <20221011184119.3754096-1-robh@kernel.org>
-References: <20221011184119.3754096-1-robh@kernel.org>
+In-Reply-To: <20221021175721.4005601-1-robh@kernel.org>
+References: <20221021175721.4005601-1-robh@kernel.org>
 Subject: Re: [PATCH] ASoC: dt-bindings: Convert dmic-codec to DT schema
-Message-Id: <166661607011.206380.11913993879232819414.b4-ty@kernel.org>
-Date: Mon, 24 Oct 2022 13:54:30 +0100
+Message-Id: <166661607199.206380.14009012211378211408.b4-ty@kernel.org>
+Date: Mon, 24 Oct 2022 13:54:31 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -88,7 +87,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 11 Oct 2022 13:41:19 -0500, Rob Herring wrote:
+On Fri, 21 Oct 2022 12:57:21 -0500, Rob Herring wrote:
 > Convert the dmic-codec binding to DT schema format.
 > 
 > The '#sound-dai-cells' and 'sound-name-prefix' properties were not

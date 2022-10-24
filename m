@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D8260AE8F
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 17:08:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6124260AF14
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Oct 2022 17:30:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D342A4666;
-	Mon, 24 Oct 2022 17:07:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D342A4666
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE9097270;
+	Mon, 24 Oct 2022 17:30:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE9097270
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666624080;
-	bh=a+0l+LUieWCZmrTxkABAo7G3RJjD6TBzF2qMpoeot0g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666625454;
+	bh=495TwSnjgMfnGSNRf5N7yyUOvjrDfZs3B8fnnTueuAQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IpjRKog8RS5HLD2lFFFLw96f/bFN+chZ7iAWwcdIZ/z2kvz49dAeTOb6zJZU6auKd
-	 6hC/QUX38/UVPLKQRqs6fd6CSmlSsXHa9KJ7cxq/Y1LY72Bt5i5hqWMbUO/9TZFkpf
-	 IoIFQ+bvWj78n8+iLrg2/Ul9DkZKrB4k9eB0MH0g=
+	b=N2+2z6oZkgKbCNjDaHbrdhl4I1pCqKlfwMpI7ci2g7uRA70M5ykNgsDw/qmz4cBWL
+	 SGoz3vSpsHYCIc+DXqdUfOhQ9vH1A7kAUaHecOIiZox2Ja4ZKoeNGoJe7phjVwwcWM
+	 tf3xYkAXpc/pOkAdn8uQC8jMp8GI/bf5RP4HgiMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B32FF80431;
-	Mon, 24 Oct 2022 17:07:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DBDAF8053D;
+	Mon, 24 Oct 2022 17:29:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E070F80506; Mon, 24 Oct 2022 17:07:04 +0200 (CEST)
+ id 012CCF80533; Mon, 24 Oct 2022 17:29:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04F54F80506
- for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 17:06:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04F54F80506
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="dkAHqwl+"
-Received: from notapiano (unknown [194.36.25.51])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 73C7F6602261;
- Mon, 24 Oct 2022 16:06:54 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666624016;
- bh=a+0l+LUieWCZmrTxkABAo7G3RJjD6TBzF2qMpoeot0g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dkAHqwl+gmnr1C2LmiLEiW4FWHa5ABtkJd1/j9NX4JV9VKV/5nr1wN5uUH52ZVsbg
- SxS0oNtxTGkUoshk/1bOzBcmbKmG0q8JfP/NQ0UWW14Stz4O5HaLx85nHo5QvJktJP
- JoHX1GUOcT3ukiANEgW45A4pEBGib3CHQHn8U7f/8kj4JP8WiIxgMHqMJ7srbGQHDF
- wh4aQlcgtsjPn3PkAbTJGk40uOP28OriL58RQTcFyrN/6NKIqA5PIjD7rr7DJsZE0e
- cQxQ7uIztL+uY/32qfYDOQg9ID2Ic6Xby/AHaKmOB9Ye6D2yNReQhCiR+J2ahVdSiF
- OPoTmjxte6Ddg==
-Date: Mon, 24 Oct 2022 11:06:49 -0400
-From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and
- MICVDD supplies
-Message-ID: <20221024150649.wbd54lcvgrj4kxgu@notapiano>
-References: <20221021190908.1502026-1-nfraprado@collabora.com>
- <20221021190908.1502026-3-nfraprado@collabora.com>
- <ae460461-5c20-9180-456c-8c01a4b1a7f1@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 787C1F80506
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 17:29:49 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 41FFCA003F;
+ Mon, 24 Oct 2022 17:29:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 41FFCA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1666625388; bh=PcvcoM20a+y5p6Jd0ZBuAWhlXSCzS+BEhyNfcGxj88U=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=gBmrZ3Bnv1ZtEMPZGsgbBoIBLC6W21rjdF0zN50yWcwY8d/hvSPo2AZvDYQOEbQVD
+ MCQHKEQCSVMl4MKIQNgabqDx8lM3/VGFJeCi3p5CHhCMNCWv3ITQoquwOeWw1fAqjB
+ Xgp615nbjHjnZNix5VpjhqAqkAVpghnCYahJgddA=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 24 Oct 2022 17:29:45 +0200 (CEST)
+Message-ID: <24cbabfc-42e8-72f4-1e84-c5023c20d28a@perex.cz>
+Date: Mon, 24 Oct 2022 17:29:44 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ae460461-5c20-9180-456c-8c01a4b1a7f1@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] ASoC: core: clarify the driver name initialization
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20220929143754.345144-1-perex@perex.cz>
+ <eb7971c2-f5fe-afb5-9333-4b941b958355@linux.intel.com>
+ <8d461c81-5d70-cfbb-4653-979764a6b5a6@perex.cz>
+ <3770c782-d01c-37b6-73a5-2c45c869d541@linux.intel.com>
+ <2285503b-b2cd-bca4-d491-cf4e8eaac92a@perex.cz>
+ <5b94c9ef-a37b-9d71-ad05-5ce9ba103af0@linux.intel.com>
+ <708583ba-ea20-cc46-7ca1-ee213586441a@perex.cz>
+ <df4f3b77-887f-8894-3bd7-3dd386af58f1@linux.intel.com>
+ <8d0ccf4a-a6d9-f914-70a9-c2ad55af3a04@perex.cz>
+ <e2da2a30-c3fa-acc1-8c9c-78476e6f2461@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <e2da2a30-c3fa-acc1-8c9c-78476e6f2461@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,34 +90,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Oct 22, 2022 at 12:39:56PM -0400, Krzysztof Kozlowski wrote:
-> On 21/10/2022 15:09, Nícolas F. R. A. Prado wrote:
-> > The rt5682s codec can have two supplies: AVDD and MICVDD. Add properties
-> > for them.
-> > 
-> > Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> > ---
-> > 
-> >  Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
-> > index ea53a55015c4..ca1037e76f96 100644
-> > --- a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
-> > @@ -90,6 +90,10 @@ properties:
-> >    "#sound-dai-cells":
-> >      const: 0
-> >  
-> > +  AVDD-supply: true
-> > +
-> > +  MICVDD-supply: true
-> > +
+On 24. 10. 22 16:08, Pierre-Louis Bossart wrote:
+
+>>> If we can report a less confusing driver name to the users, that's fine
+>>> with me, but I don't get the idea of using the driver name as the first
+>>> criterion to identify a setup, you'll also need the card name so why not
+>>> use the card name as primary criterion?
+>>
+>> It is not usable for the USB driver where every model has own name set
+>> from USB descriptors for example.
 > 
-> How about keeping some order in the list of properties?
+> How would you use UCM in that context, the use of a driver name would
+> lead to a lot of abstraction potentially, isn't there a risk of not
+> being able to detect specific skews that need variants?
 
-The current properties don't seem to follow any particular order and keeping the
-supplies grouped together seemed reasonable. What ordering do you suggest?
+The fine USB device ID matching is used. This USB device ID is in the 
+components string. But yes, it's the next level after the basic lookup.
 
-Thanks,
-Nícolas
+>> We can use a similar mechanism as we did with
+>> CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES . The distributions can
+>> enable this when packages when UCM configs are updated. Also, new
+>> drivers should use new driver name scheme, it's only for the current
+>> drivers.
+> 
+> That would be good indeed. FWIW, I reverted this patch in our
+> development tree to remove confusing error messages that make tests fail.
+> 
+> That would not be an Intel only option though, right? There are tons of
+> other ASoC machine drivers who don't set the driver name at all, so it
+> could take time to make that transition.
+
+Yes, but we need to start somewhere. It seems that a most of ASoC drivers do 
+not use card names bigger than 15 characters (I noted this recently in UCM).
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

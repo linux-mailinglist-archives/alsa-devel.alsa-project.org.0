@@ -2,80 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 039BF60BF32
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 02:04:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8FA60C180
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 04:06:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 917DC5A7D;
-	Tue, 25 Oct 2022 02:03:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 917DC5A7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD432C38;
+	Tue, 25 Oct 2022 04:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD432C38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666656277;
-	bh=P9k5xIXKLQ8Trp6mQ/pDRXP5lGGpbVsnTK022tX+07E=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aYQX0oe2Wl/HGMUuvtlvSr5mILDLf6bmJg3yKPzMmhO4antIvAxJYXJKg92ASOik/
-	 bbvRh8lovR0HEdr6uyqzMHAFlklddTambo4aZrKXpbt+rzatnFpSu6RmB37Vu8eDa5
-	 a7ztwPdCr5dowAm9Z1j1Pzb0zdcf6a6EEeTo2dYU=
+	s=default; t=1666663572;
+	bh=jgATh42Z1P6tQf6L2xACDKgfBlOCg0weBvz2WYq67NM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mrDIL3skYCKwVrYBOATQ4Of8hkq4cOlgUqcWnvcGB7ZqhjV5r2h4+HzyH4MPJodtP
+	 S59rdzI9GGNLu9DH/+BbxNfALtKhXyDMK1wMM45m7TlmeD4420MEja7Y9znthkcIBW
+	 7kC7cyZphBMk7lANydjx5B0LlqH4fHSJyZB2nN7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFD09F8052F;
-	Tue, 25 Oct 2022 02:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8724F80448;
+	Tue, 25 Oct 2022 04:05:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AACCBF80533; Tue, 25 Oct 2022 02:03:41 +0200 (CEST)
+ id 461F0F80431; Tue, 25 Oct 2022 04:05:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56D84F80240
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 02:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56D84F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0AA1F80115
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 04:05:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0AA1F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="WD+MrOqf"
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EBKNB1LS"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4F3C461656;
- Tue, 25 Oct 2022 00:03:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5C2C433D7;
- Tue, 25 Oct 2022 00:03:32 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="WD+MrOqf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
- t=1666656209;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mM/8UIZQ6LYQtk+8TLtw6u3mXtNCLZf8tJ3WoqaQvII=;
- b=WD+MrOqf7XKVcr3T+DQ1LWtnfaYDnq4liAnsPnLb/StyoFw+C2DjcpJ+lRslpib/E/4s80
- QwEkUwshOR8odApb8B77H2aLMouBdQ9fvx56v6ZdqwmdcKAxblryaNQeYMSJQ7vQDjRC+x
- 4v0YY7f+YRZ90ul7oM1dDbx6GJy+qoo=
-Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 7d2b3757
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Tue, 25 Oct 2022 00:03:29 +0000 (UTC)
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: rme9652: use explicitly signed char
-Date: Tue, 25 Oct 2022 02:03:13 +0200
-Message-Id: <20221025000313.546261-1-Jason@zx2c4.com>
-In-Reply-To: <202210250456.vKv5zoLb-lkp@intel.com>
-References: <202210250456.vKv5zoLb-lkp@intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E4CC8616EE
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 02:05:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E552C433C1;
+ Tue, 25 Oct 2022 02:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666663500;
+ bh=jgATh42Z1P6tQf6L2xACDKgfBlOCg0weBvz2WYq67NM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=EBKNB1LSEaJQ1dcT+Es+tsmtVmzOfbgaUmIf4H/HtPyHJ9AzMxfS+2URXKjh+ctN/
+ RC4tGiwan7qOVfLLoqLZBcVOIX1UI68rf8welKL9uBt0mMiU9STBxDpBa/4+pFP6wi
+ 38bc+fmCprIReuHXNf9GDC49kqXuA1hhscKjdbfVDZ7HgEwf8qBfVqRgeqxXy4Z2nE
+ hsmjOVYkMnytabXZJSgc7cJrDvQ3nWW21bcivhIE3bWuCdaSU+uLxQ95IYQjD/7TNl
+ LjXCMeEzYrkqLwFhw5vkNP0MSi9RYDQA+FmMTHJ3DlvPOtjv/xgUjJH6ZOPlgZRqUu
+ +dP2FA6oMxrRQ==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: broonie@kernel.org
+Subject: [PATCH] MAINTAINERS: update Tzung-Bi's email address
+Date: Tue, 25 Oct 2022 10:04:44 +0800
+Message-Id: <20221025020444.2618586-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.38.0.135.g90850a2211-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, tzungbi@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,244 +81,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With char becoming unsigned by default, and with `char` alone being
-ambiguous and based on architecture, signed chars need to be marked
-explicitly as such. This fixes warnings like:
+Use kernel.org account instead.
 
-sound/pci/rme9652/hdsp.c:3953 hdsp_channel_buffer_location() warn: 'hdsp->channel_map[channel]' is unsigned
-sound/pci/rme9652/hdsp.c:4153 snd_hdsp_channel_info() warn: impossible condition '(hdsp->channel_map[channel] < 0) => (0-255 < 0)'
-sound/pci/rme9652/rme9652.c:1833 rme9652_channel_buffer_location() warn: 'rme9652->channel_map[channel]' is unsigned
-
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- sound/pci/rme9652/hdsp.c    | 26 +++++++++++++-------------
- sound/pci/rme9652/rme9652.c | 22 +++++++++++-----------
- 2 files changed, 24 insertions(+), 24 deletions(-)
+ .../devicetree/bindings/sound/google,cros-ec-codec.yaml         | 2 +-
+ Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml    | 2 +-
+ MAINTAINERS                                                     | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
-index dcc43a81ae0e..65add92c88aa 100644
---- a/sound/pci/rme9652/hdsp.c
-+++ b/sound/pci/rme9652/hdsp.c
-@@ -433,7 +433,7 @@ struct hdsp_midi {
-     struct snd_rawmidi           *rmidi;
-     struct snd_rawmidi_substream *input;
-     struct snd_rawmidi_substream *output;
--    char                     istimer; /* timer in use */
-+    signed char		     istimer; /* timer in use */
-     struct timer_list	     timer;
-     spinlock_t               lock;
-     int			     pending;
-@@ -480,7 +480,7 @@ struct hdsp {
- 	pid_t                 playback_pid;
- 	int                   running;
- 	int                   system_sample_rate;
--	const char           *channel_map;
-+	const signed char    *channel_map;
- 	int                   dev;
- 	int                   irq;
- 	unsigned long         port;
-@@ -502,7 +502,7 @@ struct hdsp {
-    where the data for that channel can be read/written from/to.
- */
+diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+index c3e9f3485449..dea293f403d9 100644
+--- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+@@ -8,7 +8,7 @@ title: Audio codec controlled by ChromeOS EC
  
--static const char channel_map_df_ss[HDSP_MAX_CHANNELS] = {
-+static const signed char channel_map_df_ss[HDSP_MAX_CHANNELS] = {
- 	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
- 	18, 19, 20, 21, 22, 23, 24, 25
- };
-@@ -517,7 +517,7 @@ static const char channel_map_mf_ss[HDSP_MAX_CHANNELS] = { /* Multiface */
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
+ maintainers:
+   - Cheng-Yi Chiang <cychiang@chromium.org>
+-  - Tzung-Bi Shih <tzungbi@google.com>
++  - Tzung-Bi Shih <tzungbi@kernel.org>
  
--static const char channel_map_ds[HDSP_MAX_CHANNELS] = {
-+static const signed char channel_map_ds[HDSP_MAX_CHANNELS] = {
- 	/* ADAT channels are remapped */
- 	1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23,
- 	/* channels 12 and 13 are S/PDIF */
-@@ -526,7 +526,7 @@ static const char channel_map_ds[HDSP_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
- };
+ description: |
+   Google's ChromeOS EC codec is a digital mic codec provided by the
+diff --git a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
+index 1d73204451b1..ea7d4900ee4a 100644
+--- a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
++++ b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Realtek rt1015p codec devicetree bindings
  
--static const char channel_map_H9632_ss[HDSP_MAX_CHANNELS] = {
-+static const signed char channel_map_H9632_ss[HDSP_MAX_CHANNELS] = {
- 	/* ADAT channels */
- 	0, 1, 2, 3, 4, 5, 6, 7,
- 	/* SPDIF */
-@@ -540,7 +540,7 @@ static const char channel_map_H9632_ss[HDSP_MAX_CHANNELS] = {
- 	-1, -1
- };
+ maintainers:
+-  - Tzung-Bi Shih <tzungbi@google.com>
++  - Tzung-Bi Shih <tzungbi@kernel.org>
  
--static const char channel_map_H9632_ds[HDSP_MAX_CHANNELS] = {
-+static const signed char channel_map_H9632_ds[HDSP_MAX_CHANNELS] = {
- 	/* ADAT */
- 	1, 3, 5, 7,
- 	/* SPDIF */
-@@ -554,7 +554,7 @@ static const char channel_map_H9632_ds[HDSP_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1
- };
+ description: |
+   Rt1015p is a rt1015 variant which does not support I2C and
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cf0f18502372..f9749afc0b9d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4906,7 +4906,7 @@ F:	drivers/platform/chrome/
  
--static const char channel_map_H9632_qs[HDSP_MAX_CHANNELS] = {
-+static const signed char channel_map_H9632_qs[HDSP_MAX_CHANNELS] = {
- 	/* ADAT is disabled in this mode */
- 	/* SPDIF */
- 	8, 9,
-@@ -3939,7 +3939,7 @@ static snd_pcm_uframes_t snd_hdsp_hw_pointer(struct snd_pcm_substream *substream
- 	return hdsp_hw_pointer(hdsp);
- }
- 
--static char *hdsp_channel_buffer_location(struct hdsp *hdsp,
-+static signed char *hdsp_channel_buffer_location(struct hdsp *hdsp,
- 					     int stream,
- 					     int channel)
- 
-@@ -3964,7 +3964,7 @@ static int snd_hdsp_playback_copy(struct snd_pcm_substream *substream,
- 				  void __user *src, unsigned long count)
- {
- 	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	if (snd_BUG_ON(pos + count > HDSP_CHANNEL_BUFFER_BYTES))
- 		return -EINVAL;
-@@ -3982,7 +3982,7 @@ static int snd_hdsp_playback_copy_kernel(struct snd_pcm_substream *substream,
- 					 void *src, unsigned long count)
- {
- 	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = hdsp_channel_buffer_location(hdsp, substream->pstr->stream, channel);
- 	if (snd_BUG_ON(!channel_buf))
-@@ -3996,7 +3996,7 @@ static int snd_hdsp_capture_copy(struct snd_pcm_substream *substream,
- 				 void __user *dst, unsigned long count)
- {
- 	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	if (snd_BUG_ON(pos + count > HDSP_CHANNEL_BUFFER_BYTES))
- 		return -EINVAL;
-@@ -4014,7 +4014,7 @@ static int snd_hdsp_capture_copy_kernel(struct snd_pcm_substream *substream,
- 					void *dst, unsigned long count)
- {
- 	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = hdsp_channel_buffer_location(hdsp, substream->pstr->stream, channel);
- 	if (snd_BUG_ON(!channel_buf))
-@@ -4028,7 +4028,7 @@ static int snd_hdsp_hw_silence(struct snd_pcm_substream *substream,
- 			       unsigned long count)
- {
- 	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = hdsp_channel_buffer_location (hdsp, substream->pstr->stream, channel);
- 	if (snd_BUG_ON(!channel_buf))
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index 1d614fe89a6a..e7c320afefe8 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -230,7 +230,7 @@ struct snd_rme9652 {
- 	int last_spdif_sample_rate;	/* so that we can catch externally ... */
- 	int last_adat_sample_rate;	/* ... induced rate changes            */
- 
--	const char *channel_map;
-+	const signed char *channel_map;
- 
- 	struct snd_card *card;
- 	struct snd_pcm *pcm;
-@@ -247,12 +247,12 @@ struct snd_rme9652 {
-    where the data for that channel can be read/written from/to.
- */
- 
--static const char channel_map_9652_ss[26] = {
-+static const signed char channel_map_9652_ss[26] = {
- 	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
- 	18, 19, 20, 21, 22, 23, 24, 25
- };
- 
--static const char channel_map_9636_ss[26] = {
-+static const signed char channel_map_9636_ss[26] = {
- 	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
- 	/* channels 16 and 17 are S/PDIF */
- 	24, 25,
-@@ -260,7 +260,7 @@ static const char channel_map_9636_ss[26] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static const char channel_map_9652_ds[26] = {
-+static const signed char channel_map_9652_ds[26] = {
- 	/* ADAT channels are remapped */
- 	1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23,
- 	/* channels 12 and 13 are S/PDIF */
-@@ -269,7 +269,7 @@ static const char channel_map_9652_ds[26] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static const char channel_map_9636_ds[26] = {
-+static const signed char channel_map_9636_ds[26] = {
- 	/* ADAT channels are remapped */
- 	1, 3, 5, 7, 9, 11, 13, 15,
- 	/* channels 8 and 9 are S/PDIF */
-@@ -1819,7 +1819,7 @@ static snd_pcm_uframes_t snd_rme9652_hw_pointer(struct snd_pcm_substream *substr
- 	return rme9652_hw_pointer(rme9652);
- }
- 
--static char *rme9652_channel_buffer_location(struct snd_rme9652 *rme9652,
-+static signed char *rme9652_channel_buffer_location(struct snd_rme9652 *rme9652,
- 					     int stream,
- 					     int channel)
- 
-@@ -1847,7 +1847,7 @@ static int snd_rme9652_playback_copy(struct snd_pcm_substream *substream,
- 				     void __user *src, unsigned long count)
- {
- 	struct snd_rme9652 *rme9652 = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	if (snd_BUG_ON(pos + count > RME9652_CHANNEL_BUFFER_BYTES))
- 		return -EINVAL;
-@@ -1867,7 +1867,7 @@ static int snd_rme9652_playback_copy_kernel(struct snd_pcm_substream *substream,
- 					    void *src, unsigned long count)
- {
- 	struct snd_rme9652 *rme9652 = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = rme9652_channel_buffer_location(rme9652,
- 						      substream->pstr->stream,
-@@ -1883,7 +1883,7 @@ static int snd_rme9652_capture_copy(struct snd_pcm_substream *substream,
- 				    void __user *dst, unsigned long count)
- {
- 	struct snd_rme9652 *rme9652 = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	if (snd_BUG_ON(pos + count > RME9652_CHANNEL_BUFFER_BYTES))
- 		return -EINVAL;
-@@ -1903,7 +1903,7 @@ static int snd_rme9652_capture_copy_kernel(struct snd_pcm_substream *substream,
- 					   void *dst, unsigned long count)
- {
- 	struct snd_rme9652 *rme9652 = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = rme9652_channel_buffer_location(rme9652,
- 						      substream->pstr->stream,
-@@ -1919,7 +1919,7 @@ static int snd_rme9652_hw_silence(struct snd_pcm_substream *substream,
- 				  unsigned long count)
- {
- 	struct snd_rme9652 *rme9652 = snd_pcm_substream_chip(substream);
--	char *channel_buf;
-+	signed char *channel_buf;
- 
- 	channel_buf = rme9652_channel_buffer_location (rme9652,
- 						       substream->pstr->stream,
+ CHROMEOS EC CODEC DRIVER
+ M:	Cheng-Yi Chiang <cychiang@chromium.org>
+-M:	Tzung-Bi Shih <tzungbi@google.com>
++M:	Tzung-Bi Shih <tzungbi@kernel.org>
+ R:	Guenter Roeck <groeck@chromium.org>
+ L:	chrome-platform@lists.linux.dev
+ S:	Maintained
 -- 
-2.38.1
+2.38.0.135.g90850a2211-goog
 

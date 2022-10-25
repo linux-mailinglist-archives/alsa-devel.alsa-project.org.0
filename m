@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0E7F60C3C5
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 08:22:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8965360C3C8
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 08:23:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55B3259C3;
-	Tue, 25 Oct 2022 08:21:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B3259C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2342159F3;
+	Tue, 25 Oct 2022 08:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2342159F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666678935;
-	bh=YiKWvah4iOrmizoqowGJlpBdjdvxofKgww6F5Vr71AQ=;
+	s=default; t=1666678980;
+	bh=HDCk5cWwejnvLrj0Zr8QaVcB4A3eWY5mVdGWAbzaXrQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CdCMTEU5OeoYJI7G57RnzriCSYjYT5ZBx0GAz+jFSQo++AnaDhcy521SCsajiJcZU
-	 GMgDNy8mA1JMQbYfKCers2Ut4caii7VF5ONvaZ5pyGnSQILg8ZQJ/NhAO7I7AO1dAF
-	 n4Tn2gf2+HK6QZbHs/cYkmrO7AAX4cdhhcg6cUl0=
+	b=TiMqCyiEEKl3OYGHuvE1Y3PQJ/Hx2Ix1buB6crnV55N1dN48mqRSngZxWFd8kk1MO
+	 wzCS2ST8RdPA14gXUObc5FJZZRTctHI3LFVcy5cfrsOFoXtWHgPY5KC7BZGU5uv8HH
+	 NcYdAdL0j+ot19mD9mVGuiAZQ8EgIY0FIcZvJUlc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A186DF80448;
-	Tue, 25 Oct 2022 08:21:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DC9AF80431;
+	Tue, 25 Oct 2022 08:22:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E4EEF80431; Tue, 25 Oct 2022 08:21:19 +0200 (CEST)
+ id D151CF8049E; Tue, 25 Oct 2022 08:22:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FB88F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 08:21:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FB88F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71621F80431
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 08:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71621F80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="nlVRVJUy"; 
+ header.b="tu28yF99"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+mNlM+Wv"
+ header.b="UnjQnMkK"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 990EB22092;
- Tue, 25 Oct 2022 06:21:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2E38D22091;
+ Tue, 25 Oct 2022 06:21:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666678871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666678916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0KODU7N4U0VmRJ1kzbKr5/bp6nSUrehDMXfrT6cssK8=;
- b=nlVRVJUybDiViDUpxvLDvKrM+wVDnDZ1bL5dNdrqI2rjRyhTn91HZSflJ7kHehM8aAqMlY
- JAltsfcxvbIKISy7qVKe9wJkif0nHdTzM7GEYz2AVP9l1AivjQz0sJaj2p+UoFWuxbg+Mt
- +iK8lsnrMcZc8chIZHQM5SX84VOpXRI=
+ bh=SMUD0HGiK3OL9m7c9OiUC44lg0O00LzZHQLiH4opMMs=;
+ b=tu28yF99nXVTYnHshig2l1k/1Xf355D4Mv7wt9q2bU1lTzInj4U8eLvSj/NUZ3XyxqXmty
+ NXv1mDiC4ziLG2glh0i3fUO1S0I1OTm+oLsyDap8RrmaU+XzddzHFJvivSSUFE2tFzpHmw
+ qg4pEhW5bYDQ3LZeKh/1/9d+483qqnc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666678871;
+ s=susede2_ed25519; t=1666678916;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0KODU7N4U0VmRJ1kzbKr5/bp6nSUrehDMXfrT6cssK8=;
- b=+mNlM+WvE1nlJpiBvxfj7PTka3/d3TVNBEZ6l89SvhFt1EbchlPPoL+tAdCZB4lgSHfhhi
- 6u6+VENWzrOQgIAw==
+ bh=SMUD0HGiK3OL9m7c9OiUC44lg0O00LzZHQLiH4opMMs=;
+ b=UnjQnMkK3Q3mTrAjUhjpD8740VS04C/61Q/mxe4n/hDKm5BvM3iY1vDaRrezebeyJsjIzN
+ N50x6FIZ0MDwMHCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 70FF3134CA;
- Tue, 25 Oct 2022 06:21:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 103B3134CA;
+ Tue, 25 Oct 2022 06:21:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id p1HDGleAV2OjXgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 25 Oct 2022 06:21:11 +0000
-Date: Tue, 25 Oct 2022 08:21:10 +0200
-Message-ID: <87czags9t5.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id qTkwA4SAV2PqXgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 25 Oct 2022 06:21:56 +0000
+Date: Tue, 25 Oct 2022 08:21:55 +0200
+Message-ID: <87bkq0s9rw.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Subject: Re: [PATCH] ALSA: au88x0: use explicitly signed char
-In-Reply-To: <CAHmME9q2JOGMKNrXqK7q=xfZdciy89P+GT0eGHVmVqOvKDYA8g@mail.gmail.com>
-References: <20221024162929.536004-1-Jason@zx2c4.com> <Y1b/iNMncyKI/W5c@ZenIV>
- <CAHmME9q2JOGMKNrXqK7q=xfZdciy89P+GT0eGHVmVqOvKDYA8g@mail.gmail.com>
+Subject: Re: [PATCH v2] ALSA: rme9652: use explicitly signed char
+In-Reply-To: <20221025000313.546261-1-Jason@zx2c4.com>
+References: <202210250456.vKv5zoLb-lkp@intel.com>
+ <20221025000313.546261-1-Jason@zx2c4.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Takashi Iwai <tiwai@suse.com>, Al Viro <viro@zeniv.linux.org.uk>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,36 +101,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 Oct 2022 01:59:50 +0200,
+On Tue, 25 Oct 2022 02:03:13 +0200,
 Jason A. Donenfeld wrote:
 > 
-> Hi Al,
+> With char becoming unsigned by default, and with `char` alone being
+> ambiguous and based on architecture, signed chars need to be marked
+> explicitly as such. This fixes warnings like:
 > 
-> On Mon, Oct 24, 2022 at 11:11 PM Al Viro <viro@zeniv.linux.org.uk> wrote:
-> >
-> > On Mon, Oct 24, 2022 at 06:29:29PM +0200, Jason A. Donenfeld wrote:
-> > > With char becoming unsigned by default, and with `char` alone being
-> > > ambiguous and based on architecture, signed chars need to be marked
-> > > explicitly as such. This fixes warnings like:
-> >
-> > It might make sparse to STFU, but it does *not* resolve the underlying
-> > issue:
-> >
-> > vortex_adb_checkinout() returns a number in range of 0..31 on success
-> > and -ENOMEM on failure.  Quite a few callers don't bother to check...
+> sound/pci/rme9652/hdsp.c:3953 hdsp_channel_buffer_location() warn: 'hdsp->channel_map[channel]' is unsigned
+> sound/pci/rme9652/hdsp.c:4153 snd_hdsp_channel_info() warn: impossible condition '(hdsp->channel_map[channel] < 0) => (0-255 < 0)'
+> sound/pci/rme9652/rme9652.c:1833 rme9652_channel_buffer_location() warn: 'rme9652->channel_map[channel]' is unsigned
 > 
-> Yea, I saw that. I assume that the places that don't check don't
-> *need* to check. But maybe this driver is junk and other bugs lurk.
-> I'm not sure. Either way, I think this change is certainly an
-> improvement on the status quo. I don't intend to develop further on
-> it, but feel free to send patches atop once this lands.
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
 
-Yes, the driver is likely broken in some other way, too.
-Such a corner case doesn't hit usually, and it's unlikely worth to
-spend too much time on it.
+Applied now.  Thanks!
 
-In anyway, I applied the patch now to for-next branch.
-
-Thanks!
 
 Takashi

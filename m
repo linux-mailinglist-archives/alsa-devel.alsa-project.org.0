@@ -2,92 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9502E60CD30
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 15:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E113760CD3F
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 15:18:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 209752CC4;
-	Tue, 25 Oct 2022 15:15:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 209752CC4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED371F11;
+	Tue, 25 Oct 2022 15:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED371F11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666703774;
-	bh=V/IkpUh0jPKNDyB6AfR4ssCUpL/vE8Kyn8SVh8rS+LY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1666703909;
+	bh=uMpd/TqEGMzMNYi40SklosIJQaH6ALWlYO+N+mzuwqo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uhUkAhWHswJJk3Xb+zWM+jQpJ5YEToEEJ6EDQexaM7Ao6BsZkKUJZ+TUTYlAoEKq3
-	 legZHMtsxzIGNdy0wVlhtNSgd51GPZjm+j6EzWOGCotIBLg/R+58fTZ2h1aJHnO1zE
-	 ObQUP6QTFUJ5W1RsrywrB76SS9YIPQzeJH8x2Stg=
+	b=ogFF5istkKEQbaYZvQfwK9UXMKHJ0NcCjbLt+JqqBppcXYatb1m3TI9l9ntPqiyI6
+	 +eqwe9zdvncFdrSsnXYhVZT35NK6wu1N7TIqbHCJz/7PEcjkVf4rEO4sOlj2YbIR1U
+	 cjk8c559mHmejR+IIlifa+E3SxpzddFyvFpfxN1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADD2AF8042F;
-	Tue, 25 Oct 2022 15:15:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC0B0F80240;
+	Tue, 25 Oct 2022 15:17:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3086DF8042F; Tue, 25 Oct 2022 15:15:18 +0200 (CEST)
+ id 45577F80431; Tue, 25 Oct 2022 15:17:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D1D6F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 15:15:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D1D6F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0BABF80100
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 15:17:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0BABF80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="biBLY8HO"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vR/ERnDC"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="2SkjBjps"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6FF00B81A9C
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 13:15:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB157C433C1
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 13:15:09 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="biBLY8HO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
- t=1666703707;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E25671F38C;
+ Tue, 25 Oct 2022 13:17:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666703845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0rdpS3dNPx9OYXlMl8vdq5XWE5nK4qCREZdaGMX8p+0=;
- b=biBLY8HOkTUaS1M/w9SDvxKFNoCnoMCg9PszxA+Ti3gDEu8aZqydUfFFXivQgA06Tr2+Zo
- UEtEYG8Xf5nH3A3G72Ql0sqonaPX7MBHizY3nDthCLQVELUzFWzwYByXnSyIoodheG5E/q
- m7u7kmpjBUNZD+XISUmg4htyVl7Eiq4=
-Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 23d9529e
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
- for <alsa-devel@alsa-project.org>;
- Tue, 25 Oct 2022 13:15:07 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id q127so6010053vsa.7
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 06:15:06 -0700 (PDT)
-X-Gm-Message-State: ACrzQf2TMFUUOpMAd9fVAUYAcOZudz+dRAnknhoo4nNmjZ3JNhQ3eeRE
- 3XgZg12ncp4yab34Vk+zjuOESdir3rc2bqIZxws=
-X-Google-Smtp-Source: AMsMyM6h76s4MNoqzcQsufGE4Hbj+I7BTXREeXof+uK6o5SyZwksmudrOXDpiRmBCp/U5oq4neA3WgWIAJymNd9erdA=
-X-Received: by 2002:a67:df18:0:b0:3a9:f07f:876c with SMTP id
- s24-20020a67df18000000b003a9f07f876cmr16720373vsk.21.1666703705805; Tue, 25
- Oct 2022 06:15:05 -0700 (PDT)
-MIME-Version: 1.0
+ bh=J+arnLUOjo5ZmX86eZOgv0maNE0nmXyovqICunRlfp0=;
+ b=vR/ERnDCix69JHYBVMcsqXuQoqbeG8DBXWHAIiYprRHh6q/jHk5UmcEKgUZ8psLpV7VFZm
+ nP5sM4GJ5A3n6rZ9cs8i8Xqq+tYiGCKqsaABYQZ2QouX+CHJqF6QBz+gZImla5AfZ/wNFZ
+ Vd7HbHwbeOP9rZ7AawWq2Toh1/IVz7k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666703845;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=J+arnLUOjo5ZmX86eZOgv0maNE0nmXyovqICunRlfp0=;
+ b=2SkjBjps9LLNefZj3ve25lU3lGaDkoLJeEFYLDvr5ld2IYT2eWYPDj0pv77DE3FWWlPqQa
+ Rg5Vb30SRu7yyLBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9B881134CA;
+ Tue, 25 Oct 2022 13:17:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id BTTmJOXhV2PoNgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 25 Oct 2022 13:17:25 +0000
+Date: Tue, 25 Oct 2022 15:17:25 +0200
+Message-ID: <877d0oqbyy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Subject: Re: [PATCH v2] ALSA: rme9652: use explicitly signed char
+In-Reply-To: <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
 References: <202210250456.vKv5zoLb-lkp@intel.com>
  <20221025000313.546261-1-Jason@zx2c4.com>
  <87bkq0s9rw.wl-tiwai@suse.de> <Y1fRvWfcU4NT1HTU@zx2c4.com>
  <87fsfcqdbx.wl-tiwai@suse.de>
  <CAHmME9qkJk0vH2n7gz1XFyo-W5EMffGA6Hd4Fd8twKSRWz12nA@mail.gmail.com>
  <87czagqc8k.wl-tiwai@suse.de> <87a65kqc4e.wl-tiwai@suse.de>
-In-Reply-To: <87a65kqc4e.wl-tiwai@suse.de>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Tue, 25 Oct 2022 15:14:54 +0200
-X-Gmail-Original-Message-ID: <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
-Message-ID: <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: rme9652: use explicitly signed char
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+ <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -105,51 +106,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 25, 2022 at 3:14 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Tue, 25 Oct 2022 15:11:39 +0200,
-> Takashi Iwai wrote:
+On Tue, 25 Oct 2022 15:14:54 +0200,
+Jason A. Donenfeld wrote:
+> 
+> On Tue, Oct 25, 2022 at 3:14 PM Takashi Iwai <tiwai@suse.de> wrote:
 > >
-> > On Tue, 25 Oct 2022 14:54:54 +0200,
-> > Jason A. Donenfeld wrote:
+> > On Tue, 25 Oct 2022 15:11:39 +0200,
+> > Takashi Iwai wrote:
 > > >
-> > > On Tue, Oct 25, 2022 at 2:48 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > On Tue, 25 Oct 2022 14:54:54 +0200,
+> > > Jason A. Donenfeld wrote:
 > > > >
-> > > > On Tue, 25 Oct 2022 14:08:29 +0200,
-> > > > Jason A. Donenfeld wrote:
+> > > > On Tue, Oct 25, 2022 at 2:48 PM Takashi Iwai <tiwai@suse.de> wrote:
 > > > > >
-> > > > > On Tue, Oct 25, 2022 at 08:21:55AM +0200, Takashi Iwai wrote:
-> > > > > > On Tue, 25 Oct 2022 02:03:13 +0200,
-> > > > > > Jason A. Donenfeld wrote:
-> > > > > > >
-> > > > > > > With char becoming unsigned by default, and with `char` alone being
-> > > > > > > ambiguous and based on architecture, signed chars need to be marked
-> > > > > > > explicitly as such. This fixes warnings like:
-> > > > > > >
-> > > > > > > sound/pci/rme9652/hdsp.c:3953 hdsp_channel_buffer_location() warn: 'hdsp->channel_map[channel]' is unsigned
-> > > > > > > sound/pci/rme9652/hdsp.c:4153 snd_hdsp_channel_info() warn: impossible condition '(hdsp->channel_map[channel] < 0) => (0-255 < 0)'
-> > > > > > > sound/pci/rme9652/rme9652.c:1833 rme9652_channel_buffer_location() warn: 'rme9652->channel_map[channel]' is unsigned
-> > > > > > >
-> > > > > > > Cc: Jaroslav Kysela <perex@perex.cz>
-> > > > > > > Cc: Takashi Iwai <tiwai@suse.com>
-> > > > > > > Cc: alsa-devel@alsa-project.org
-> > > > > > > Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+> > > > > On Tue, 25 Oct 2022 14:08:29 +0200,
+> > > > > Jason A. Donenfeld wrote:
 > > > > > >
-> > > > > > Applied now.  Thanks!
+> > > > > > On Tue, Oct 25, 2022 at 08:21:55AM +0200, Takashi Iwai wrote:
+> > > > > > > On Tue, 25 Oct 2022 02:03:13 +0200,
+> > > > > > > Jason A. Donenfeld wrote:
+> > > > > > > >
+> > > > > > > > With char becoming unsigned by default, and with `char` alone being
+> > > > > > > > ambiguous and based on architecture, signed chars need to be marked
+> > > > > > > > explicitly as such. This fixes warnings like:
+> > > > > > > >
+> > > > > > > > sound/pci/rme9652/hdsp.c:3953 hdsp_channel_buffer_location() warn: 'hdsp->channel_map[channel]' is unsigned
+> > > > > > > > sound/pci/rme9652/hdsp.c:4153 snd_hdsp_channel_info() warn: impossible condition '(hdsp->channel_map[channel] < 0) => (0-255 < 0)'
+> > > > > > > > sound/pci/rme9652/rme9652.c:1833 rme9652_channel_buffer_location() warn: 'rme9652->channel_map[channel]' is unsigned
+> > > > > > > >
+> > > > > > > > Cc: Jaroslav Kysela <perex@perex.cz>
+> > > > > > > > Cc: Takashi Iwai <tiwai@suse.com>
+> > > > > > > > Cc: alsa-devel@alsa-project.org
+> > > > > > > > Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+> > > > > > >
+> > > > > > > Applied now.  Thanks!
+> > > > > >
+> > > > > > Thanks. For this and the other patch, applied for 6.1 or 6.2?
 > > > > >
-> > > > > Thanks. For this and the other patch, applied for 6.1 or 6.2?
+> > > > > I applied for 6.2.  Was it an action that has to be fixed for 6.1?
+> > > > > If so, I still can shuffle.
 > > > >
-> > > > I applied for 6.2.  Was it an action that has to be fixed for 6.1?
-> > > > If so, I still can shuffle.
+> > > > Well, this is code that's broken currently on ARM platforms, for
+> > > > example, where char is already unsigned. So it's arguably a fix for
+> > > > 6.1.
 > > >
-> > > Well, this is code that's broken currently on ARM platforms, for
-> > > example, where char is already unsigned. So it's arguably a fix for
-> > > 6.1.
+> > > Fair enough, I'll apply for 6.1, then.
 > >
-> > Fair enough, I'll apply for 6.1, then.
->
-> ... and in that case, it deserves for Cc-to-stable, IMO, as it's a fix
-> to be done for older kernels, too.  Then it'd be clearly a 6.1
-> material.
+> > ... and in that case, it deserves for Cc-to-stable, IMO, as it's a fix
+> > to be done for older kernels, too.  Then it'd be clearly a 6.1
+> > material.
+> 
+> Fine by me if you want to add that (for this and the other patch).
 
-Fine by me if you want to add that (for this and the other patch).
+OK, done.
+
+
+Takashi

@@ -2,113 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D11DA60D06A
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 17:23:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD01560D1D6
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 18:46:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44C6E5087;
-	Tue, 25 Oct 2022 17:22:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C6E5087
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A7824E0A;
+	Tue, 25 Oct 2022 18:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A7824E0A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666711389;
-	bh=/0t6tZKCK3KoiONU7d+bd5mbdYsOOKTTaoh0BVS8pvk=;
+	s=default; t=1666716416;
+	bh=7GFgHD8VpMSSYSQYldtRzowtwwtMBpNwmVTSdlESscM=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vnv7wcokjX2UYPFbAo9t8HHCUIjJfxH3+db/0Qq3JAFUrplK+X8CT8l5rEcIeYd7m
-	 UBa5brE4MQ8f9egw/2w4bfGn7S0gWdkaF6hsQa1SdCshIK68+Vni7W08ydd1+ruwTZ
-	 hpPfczm1zXXiM8a+cP3Orcolhfm8I27ryhK4JEug=
+	b=UFuR9oUFTLrWMLlbtDcRDbjFMvFfNDCUm0+TpkfR0o4EjCpFxJgsiaR8sri76VwA+
+	 zIlzkblj5vGOLm8fDIf9s08CncuCCN5IGyxgdZQ3yy40/VHm/VTyCa97Z0Qgwu7plO
+	 bbna4m2kfbarfRjmTLsNnYgnzA5thKQuCMAkrpGA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC57AF80100;
-	Tue, 25 Oct 2022 17:22:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDFB7F80448;
+	Tue, 25 Oct 2022 18:46:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC556F80431; Tue, 25 Oct 2022 17:22:12 +0200 (CEST)
+ id D652EF80431; Tue, 25 Oct 2022 18:45:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CD8DF80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 17:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CD8DF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EF95F80100
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 18:45:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EF95F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="WlDNcDMd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1666711328;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dIx8sP/bB9PeDGsAfmAGW4XbpRMjuK1GotztlJjC/NQ=;
- b=WlDNcDMd8Kq5qs94yUQ4bv64/wSpviT9E8Pp4b1GkiAFdsDyhDVXORB3QKIgkSFOEesCEe
- ourNK4tKY+2vYTLcp0r01CcWFR9b8WiixOvLfMvaKrYDl5ytebDiiy8cEmOg30qRfUWkcR
- bt8UV0NV8QjkaSUURSfzEo0fub1cXtE=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-466-eMK6XuAiMzSjOfG4XsY2UQ-1; Tue, 25 Oct 2022 11:22:06 -0400
-X-MC-Unique: eMK6XuAiMzSjOfG4XsY2UQ-1
-Received: by mail-ej1-f70.google.com with SMTP id
- qw17-20020a1709066a1100b0078e25b6a52fso2956464ejc.3
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 08:22:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dIx8sP/bB9PeDGsAfmAGW4XbpRMjuK1GotztlJjC/NQ=;
- b=T/755gCsXqznT/yLKVGb+RBtCx2YCqtXHE+Gv8HYGTBK1L1E+URMXvkAm0M35ljF3R
- cu3VHxV1+ApBOp9WZ32CmXFhExgoXSxcbbSUaZiMfA+pHYr9INFvsVgD2gYJr5vp7LCi
- aLpbxbHC74xTsZKxjd5adOMKblTqfGhkU5SFpo/sWF0/vjPWRZ6v3mnOLn/NUNSy93+9
- mf+0wWRXWF+UtYw/ZA3rbNSkd6DUuu0wztXe3Fz6HJH60dezBDiI5jEoplwtSX/Yp2dM
- mGfhO97s1Iwa+yzSpY+YHKnfKYF6LEaKGn0Uy3nduF4ariQyu0xgSMkM0KCoh9kFxsEs
- +OEQ==
-X-Gm-Message-State: ACrzQf22ccyefd04fCMfFcOAyj4wfg5uEqNm2YgKJj8FHfcCYiLTmX/g
- U7X+ytNWS25smInC/7ZuwcDnhLe3c2bOF6MLOQvJFCTKTuAdxFBi+mbRWJU3H5zp/bDdFB6LBd6
- si/ztny//SSoB/8f/mimAim0=
-X-Received: by 2002:a05:6402:11ce:b0:45c:a364:2c3d with SMTP id
- j14-20020a05640211ce00b0045ca3642c3dmr36825950edw.204.1666711325162; 
- Tue, 25 Oct 2022 08:22:05 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7Bn39OENO+HIZh3ff/KKRQZcy69S+6ukEY21ggkFqnYPhOiDTqv0czWlhol/41W36S3OU9lQ==
-X-Received: by 2002:a05:6402:11ce:b0:45c:a364:2c3d with SMTP id
- j14-20020a05640211ce00b0045ca3642c3dmr36825937edw.204.1666711324942; 
- Tue, 25 Oct 2022 08:22:04 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- ky21-20020a170907779500b00788c622fa2csm1542862ejc.135.2022.10.25.08.22.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Oct 2022 08:22:03 -0700 (PDT)
-Message-ID: <c2c3c635-c262-f931-0cfa-4b967f75a861@redhat.com>
-Date: Tue, 25 Oct 2022 17:22:02 +0200
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TK36o+EG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666716354; x=1698252354;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=7GFgHD8VpMSSYSQYldtRzowtwwtMBpNwmVTSdlESscM=;
+ b=TK36o+EGqlXqUKs0PbLX3gPH/lKhC7zJ6W3pODXDmR2AsGbNg3rXbrub
+ QObur4qKOJcyhOqna4xo/yNlqCMLjG0Ey6ZLQpi1bDw0ixmRH9aIlpNbY
+ SJsxnQC5EDCGU/MKOa3assTdyxo/ejmBpiUxX4/qwL+/UGGsWz79rXvef
+ rGLODlQ1I8gUo7OxtyS0Fm53ftU8gx2iyZxDpB7l2DZwzFpC/YoUiyYfa
+ YeSn3q0fjMdqgNjZbfS5Y6/MBA3cR8bTu/Dq32TlMWCrCLUQ+KYQpb04q
+ SiqcPurkVmiTjXtscHZqC78Y/4Ovh1Ews6QVy7plNgvHg8/DTnRYk7aP0 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369797260"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="369797260"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 09:45:39 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="664977540"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="664977540"
+Received: from pperezji-mobl.amr.corp.intel.com (HELO [10.212.98.192])
+ ([10.212.98.192])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 09:45:38 -0700
+Message-ID: <0aafc75f-942a-531d-5e78-a8fb211f43bc@linux.intel.com>
+Date: Tue, 25 Oct 2022 11:45:37 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH] ASoC: Intel: bytcht_es8316: Add quirk for the Nanote
- UMPC-01
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20221025140942.509066-1-hdegoede@redhat.com>
- <91287204-9a3b-af63-463f-99d579db8fe3@linux.intel.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <91287204-9a3b-af63-463f-99d579db8fe3@linux.intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
+ Firefox/102.0 Thunderbird/102.2.2
+Subject: Re: [PATCH AUTOSEL 6.0 07/44] ALSA: hda: Fix page fault in
+ snd_hda_codec_shutdown()
+Content-Language: en-US
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20221009234932.1230196-1-sashal@kernel.org>
+ <20221009234932.1230196-7-sashal@kernel.org>
+ <24d084e1-700d-da77-d93e-2d330aac2f63@linux.intel.com>
+ <Y1f3opiid6pvKINq@kroah.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <Y1f3opiid6pvKINq@kroah.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
+ alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
+ mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,62 +101,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On 10/25/22 16:29, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 10/25/22 09:09, Hans de Goede wrote:
->> The Nanote UMPC-01 mini laptop has stereo speakers, while the default
->> bytcht_es8316 settings assume a mono speaker setup. Add a quirk for this.
+
+On 10/25/22 09:50, Greg KH wrote:
+> On Tue, Oct 25, 2022 at 09:27:32AM -0500, Pierre-Louis Bossart wrote:
 >>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  sound/soc/intel/boards/bytcht_es8316.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
 >>
->> diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
->> index 6432b83f616f..a935c5fd9edb 100644
->> --- a/sound/soc/intel/boards/bytcht_es8316.c
->> +++ b/sound/soc/intel/boards/bytcht_es8316.c
->> @@ -443,6 +443,13 @@ static const struct dmi_system_id byt_cht_es8316_quirk_table[] = {
->>  					| BYT_CHT_ES8316_INTMIC_IN2_MAP
->>  					| BYT_CHT_ES8316_JD_INVERTED),
->>  	},
->> +	{	/* Nanote UMPC-01 */
->> +		.matches = {
->> +			DMI_MATCH(DMI_SYS_VENDOR, "RWC CO.,LTD"),
->> +			DMI_MATCH(DMI_PRODUCT_NAME, "UMPC-01"),
->> +		},
->> +		.driver_data = (void *)BYT_CHT_ES8316_INTMIC_IN1_MAP,
+>> On 10/9/22 18:48, Sasha Levin wrote:
+>>> From: Cezary Rojewski <cezary.rojewski@intel.com>
+>>>
+>>> [ Upstream commit f2bd1c5ae2cb0cf9525c9bffc0038c12dd7e1338 ]
+>>
+>> This commit on linux-stable seems to have broken a number of platforms.
+>>
+>> 6.0.2 worked fine.
+>> 6.0.3 does not
+>>
+>> reverting this commit solves the problem, see
+>> https://github.com/thesofproject/linux/issues/3960 for details.
+>>
+>> Are we missing a prerequisite patch for this commit?
 > 
-> the commit massage talks about a mono speaker, this quirk changes the
-> microphone setup. Is the quirk correct?
-
-The default quirk for a CHT es8316 codec using device is:
-
-        } else {
-                /* Others default to internal-mic-in1-map, mono-speaker */
-                quirk = BYT_CHT_ES8316_INTMIC_IN1_MAP |
-                        BYT_CHT_ES8316_MONO_SPEAKER;
-        }
-
-So this just drops the BYT_CHT_ES8316_MONO_SPEAKER from the default quirks.
-
-Yes defaulting to mono is a bit weird, but the es8316 is mostly
-used in very low budget devices which often have only 1 speaker.
-
-Regards,
-
-Hans
-
-
-
-
+> Please see https://lore.kernel.org/r/20221024143931.15722-1-tiwai@suse.de
 > 
->> +	},
->>  	{	/* Teclast X98 Plus II */
->>  		.matches = {
->>  			DMI_MATCH(DMI_SYS_VENDOR, "TECLAST"),
-> 
+> Does that solve it for you?
 
+Yep, that's the revert I tested.

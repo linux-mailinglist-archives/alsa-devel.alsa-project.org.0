@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B5D60C7B9
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 11:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3225660C7DA
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 11:21:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB62D57B7;
-	Tue, 25 Oct 2022 11:15:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB62D57B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA06B3117;
+	Tue, 25 Oct 2022 11:20:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA06B3117
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666689364;
-	bh=kDmwKjkZJFWDWKKDMV3ltamayHJewCZgKU+ny4c4/bA=;
+	s=default; t=1666689674;
+	bh=H/GhNzoieQTjdj4Gg9xsujuli53Jq6KnptI+gOM8r9w=;
 	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ueCz+xEpbJukNXLszI5Q0T0WsPyaFpuoMootjEOvw1VWE3ZeUE7eFtWN+lngFYunz
-	 WUg70fuqeQV+0XIvNmOIBefnyCOOc6ehSqw1YNP1XFhm/jNBxviALuOeN4ujpkGd5x
-	 08KBeJIa5ndLohLwa/yghjXo9vTXxGOnp5KDa1gU=
+	b=e6gLFWf39NTwYoFgdzL5+dkf17s1cjHQ83sL6gImpnDkJ8I3OUX3Cg6BbpU8+nLiS
+	 F1/0refY6yFDo9VDFNDbPq2hXi1IuBMMIO0WynwGOlSVxaz4/7992lmsKbFzACmPp0
+	 l/9DNUF/HEcjT19lTLSmdyR+WwOSAZQJ4nJMYqXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3391EF80448;
-	Tue, 25 Oct 2022 11:15:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29D8AF80100;
+	Tue, 25 Oct 2022 11:20:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 950E0F80100; Tue, 25 Oct 2022 11:15:08 +0200 (CEST)
+ id 414AFF80100; Tue, 25 Oct 2022 11:20:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,72 +33,74 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_NONE, 
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AB93F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 11:15:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AB93F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A4C6F80115
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 11:20:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A4C6F80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ApoeYpc3"
-Received: by mail-wm1-x332.google.com with SMTP id
- az22-20020a05600c601600b003c6b72797fdso8004191wmb.5
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 02:15:01 -0700 (PDT)
+ header.b="mQXWym3R"
+Received: by mail-wm1-x333.google.com with SMTP id
+ l14-20020a05600c1d0e00b003c6ecc94285so482743wms.1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 02:20:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:message-id:date:in-reply-to:subject:cc:to:from
- :references:from:to:cc:subject:date:message-id:reply-to;
- bh=L3cL9hwVxxgYxbdvufURLKd+4fQ6tHsN/7T//5flfK4=;
- b=ApoeYpc3MysTAdWPnaqpsoMjEaLM61adiuDH3vZ7v42DONj59KZ6P8takrH2S98ccp
- Fcjzz4saLkRk/3y6KpSWVmyL4HnQreYHj6M8mSn8lfo59EQMhFxBiRyShW21mYb/dbDL
- ZoLQhsvqbnkekkmsug6El//bmytnJlnE53ltFWurA2ftntoYNVLlHufKeYoq4SZ+2nCv
- BpuCXswqUAcOB4CO5r6GPRoG26+r/O/MhhzM5UMx437Z9YNYXVzf175s/4TEkaLUCk6b
- l/GdsD+VZGhT8wGuHoRn/qKdv9cnWyaAjr5r9II3boaXzXNGq4tA9YGCQ6DnafuIpeAQ
- r9ng==
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:from:to:cc:subject:date:message-id
+ :reply-to; bh=cEUmIwCaCeFQJYLB9XXcHphXCrocOr1on/UtIhygxzc=;
+ b=mQXWym3RJyi+Tij4sSu/GS27r0Cneg2tW5uOlDbb3WFc9GVVbrnFPZbGJPlf3y14QB
+ uU9wSVbYvot2JIGy3cG+spIxzkOR09KAw+hCk8Vcn8KpZmsclQhCqclbJvl1bqnzwDVj
+ KFTkQ2JLcNw0SgQ8oi4cOBfT+d3Mq0C8KfNRsye5V/7R8ZU+e0TkHDhIp2m+S8trEgsP
+ P8WnqFhxKmYs/a1iIca4oTUIjsRVLgqZtCpCTb77kAKjpFM0It9/7ELOQyYKO6xNoPzW
+ T6vf7HEl/9N7OvEMEKUeRyzOGbnwl7mEE8K9PRzFSHXEyqilxIbvOhVLlb0bzI7skPF8
+ 3Kaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:message-id:date:in-reply-to:subject:cc:to:from
- :references:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=L3cL9hwVxxgYxbdvufURLKd+4fQ6tHsN/7T//5flfK4=;
- b=gTIcpLXxhMyl322iiR0ywW/6QjqCAVFhyG6LtTNi62Dk1tnQzqKDpld8KKjSIn9VJQ
- fGi/ol7MPc37iK1kYqnVC/sO9kdKeETbN84xDAKsSpZKOtOgx5Q8CSFLyIvEkL3KKprU
- 3aGercrKr7Y95wp1ZQTaqvtPNCApUgQGfAL4sjLxVvmoxn13ISCLWQW6FGh5MmK+qraj
- q5eyTFKePkwH0OSGUOR3SmwX0aOTdg3HuLzzJJDo8cXOWLsXS231Ql0DIv1d9MyJyWMr
- +0VBykUPcrAYuv1TKJef8Wj+KX68XpNM/KLgqhXF6dCadBoIOuS8y4Pj4hGUrk/B8arg
- CMGQ==
-X-Gm-Message-State: ACrzQf2Y4rGugIv4yc3xFJ4bLt0Wikvh+GrhQNomrqn0Yv4C7vW4SXpE
- dsWWmCPlT8cyx2efdhr0p9k=
-X-Google-Smtp-Source: AMsMyM6+HxgSs8qN0tuLYvmcnvB8cVpip/9nCa1nA2ZJc3CfAuicjU8aMKdwWBbMyPQeFCRdA7Ob/Q==
-X-Received: by 2002:a05:600c:4e45:b0:3cd:f141:b7d8 with SMTP id
- e5-20020a05600c4e4500b003cdf141b7d8mr7755802wmq.196.1666689300075; 
- Tue, 25 Oct 2022 02:15:00 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=cEUmIwCaCeFQJYLB9XXcHphXCrocOr1on/UtIhygxzc=;
+ b=Y/DGG9Tfu8XYZzAmgFbQEzCSteWKHOaKvV+jzwJgaRt2+jjEuFiI2NIR9RNVgXM0AP
+ UeuQlFkkrZBoUHLbzQxhDMtvf8w/wDZaz6SRmc5kMZFfZ5ixMYIOTqEypzJZOwTMPQ9c
+ Zoyj1nVbsnX0wzuASiISCVDoV5yYopZJQNZF3D8d//cXGycfQEjaqL9hilMb3VBQ8g6Y
+ 05UnVXuYIHOjqzHMNovhy58mUTYHF9O6QkkBbXqRTc4G4WV5DkaZlgS64iBoYsmdLssg
+ gsub9kwb8NiD0RlaeOYgG6C6G2ODILYxRaHaAaWbxvBafhfofAYhw7hGq15U2PgiS5ib
+ gjSg==
+X-Gm-Message-State: ACrzQf1rFruV7Fy4gr6w+bAkPMGb72FLCCvwvqj0WIh7qzOzo7gfzcaj
+ p7/yS/7UIinxg7WpDrBming=
+X-Google-Smtp-Source: AMsMyM47fuuFRCblEyHXGL0NpNVuqqL7TkQX3Otqp+SL2+fsl4H6B2S+4I6GpUV4dEoCZ22tiNfbNA==
+X-Received: by 2002:a05:600c:35c8:b0:3c8:33dc:c262 with SMTP id
+ r8-20020a05600c35c800b003c833dcc262mr13013520wmq.206.1666689610718; 
+ Tue, 25 Oct 2022 02:20:10 -0700 (PDT)
 Received: from localhost (188.29.212.253.threembb.co.uk. [188.29.212.253])
  by smtp.gmail.com with ESMTPSA id
- h8-20020a05600c314800b003c6cd82596esm10907736wmo.43.2022.10.25.02.14.59
+ v26-20020a5d591a000000b0022cd96b3ba6sm2424205wrd.90.2022.10.25.02.20.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Oct 2022 02:14:59 -0700 (PDT)
-References: <20221022162742.21671-1-aidanmacdonald.0x0@gmail.com>
- <20221022162742.21671-2-aidanmacdonald.0x0@gmail.com>
- <ef6a326b-5c61-988b-2ec2-cd8e233e5d28@linaro.org>
- <GMvEU8xVTkjIoQ518XWAaLkhldSZHlk7@localhost>
- <4ef59d94-d045-55fc-d531-c84e7edb8333@linaro.org>
- <hXRpArckbrXUelDdaJ3Y2SErmKiuycXt@localhost>
- <66c1a100-922e-4a33-e80c-fc80866acf03@linaro.org>
+ Tue, 25 Oct 2022 02:20:10 -0700 (PDT)
+References: <20220708160244.21933-1-aidanmacdonald.0x0@gmail.com>
+ <20220708160244.21933-8-aidanmacdonald.0x0@gmail.com>
+ <0269b850-f33a-7aa9-a3eb-83655bd4e19a@wanyeetech.com>
+ <ROSYER.QTJF8J14H2YX1@crapouillou.net>
+ <6f2c7a0b-b68b-fc42-1a82-2b69c114823f@wanyeetech.com>
+ <UQ597w4FmzOT8p76tdRPhzECStUpFmYe@localhost>
+ <HQ76KR.B1PM87E2GIYZ1@crapouillou.net>
+ <JRrsX7Q4m5FUeeBs2yKTRMe5Ihaso8gi@localhost>
+ <DQD9KR.BW8U6333OSCP3@crapouillou.net>
 From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v1 2/2] dt-bindings: ASoC: simple-card: Add
- system-clock-id property
-In-reply-to: <66c1a100-922e-4a33-e80c-fc80866acf03@linaro.org>
-Date: Tue, 25 Oct 2022 10:14:59 +0100
-Message-ID: <jZCUALhj8PoqVkuWdtLf8LnPAj1wDakF@localhost>
+To: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v4 07/11] ASoC: jz4740-i2s: Make the PLL clock name
+ SoC-specific
+In-reply-to: <DQD9KR.BW8U6333OSCP3@crapouillou.net>
+Date: Tue, 25 Oct 2022 10:20:10 +0100
+Message-ID: <ebyFOPJskfdtIoKsYnqp2IcYTMYA1ESE@localhost>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Zhou Yanjie <zhouyu@wanyeetech.com>,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ linux-mips@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,126 +117,85 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
+Paul Cercueil <paul@crapouillou.net> writes:
 
-> On 24/10/2022 19:38, Aidan MacDonald wrote:
->>
->> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
->>
->>> On 23/10/2022 09:47, Aidan MacDonald wrote:
->>>>
->>>> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
->>>>
->>>>> On 22/10/2022 12:27, Aidan MacDonald wrote:
->>>>>> This is a new per-DAI property used to specify the clock ID argument
->>>>>> to snd_soc_dai_set_sysclk().
->>>>>
->>>>> You did no show the use of this property and here you refer to some
->>>>> specific Linux driver implementation, so in total this does no look like
->>>>>  a hardware property.
->>>>>
->>>>> You also did not explain why do you need it (the most important piece of
->>>>> commit msg).
->>>>>
->>>>>>
->>>>>> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
->>>>>> ---
->>>>>>  Documentation/devicetree/bindings/sound/simple-card.yaml | 8 ++++++++
->>>>>>  1 file changed, 8 insertions(+)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
->>>>>> index ed19899bc94b..cb7774e235d0 100644
->>>>>> --- a/Documentation/devicetree/bindings/sound/simple-card.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
->>>>>> @@ -57,6 +57,12 @@ definitions:
->>>>>>        single fixed sampling rate.
->>>>>>      $ref: /schemas/types.yaml#/definitions/flag
->>>>>>
->>>>>> +  system-clock-id:
->>>>>> +    description: |
->>>>>> +      Specify the clock ID used for setting the DAI system clock.
->>>>>
->>>>>
->>>>> With lack of explanation above, I would say - use common clock framework
->>>>> to choose a clock...
->>>>>
->>>>>
->>>>> Best regards,
->>>>> Krzysztof
->>>>
->>>> Sorry, I didn't explain things very well. The system clock ID is indeed
->>>> a property of the DAI hardware. The ID is not specific to Linux in any
->>>> way, and really it's an enumeration that requires a dt-binding.
->>>>
->>>> A DAI may support multiple system clock inputs or outputs identified by
->>>> the clock ID. In the case of outputs, these could be distinct clocks
->>>> that have their own I/O pins, or the clock ID could select the internal
->>>> source clock used for a clock generator. For inputs, the system clock ID
->>>> may inform the DAI how or where the system clock is being provided so
->>>> hardware registers can be configured appropriately.
->>>>
->>>> Really the details do not matter, except that in a particular DAI link
->>>> configuration a specific clock ID must be used. This is determined by
->>>> the actual hardware connection between the DAIs; if the wrong clock is
->>>> used, the DAI may not function correctly.
->>>>
->>>> Currently the device tree is ambiguous as to which system clock should
->>>> be used when the DAI supports more than one, because there is no way to
->>>> specify which clock was intended. Linux just treats the ID as zero, but
->>>> that's currently a Linux-specific numbering so there's guarantee that
->>>> another OS would choose the same clock as Linux.
->>>>
->>>> The system-clock-id property is therefore necessary to fully describe
->>>> the hardware connection between DAIs in a DAI link when a DAI offers
->>>> more than one choice of system clock.
->>>>
->>>> I will resend the patch with the above in the commit message.
->>>
->>> For example if you want to define which input pin to use (so you have
->>> internal mux), it's quite unspecific to give them some indexes. What is
->>> 0? What is 1? Number of pin? Number of pin counting from where?
->>>
->>> Since this is unanswered, the IDs are also driver and implementation
->>> dependent, thus you still have the same problem - another OS can choose
->>> different clock. That's not then a hardware description, but software
->>> configuration.
->>>
->>> Best regards,
->>> Krzysztof
->>
->> I answered this already. The enumeration is arbitrary. Create some
->> dt-bindings and voila, it becomes standardized and OS-independent.
+> Hi Aidan,
 >
-> Hm, then I missed something. Can you point me to DTS and bindings
-> (patches or in-tree) which show this standardized indices of clock inputs?
+> Le dim. 23 oct. 2022 =C3=A0 14:29:24 +0100, Aidan MacDonald
+> <aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
+>> Paul Cercueil <paul@crapouillou.net> writes:
+>>
+>>>  Hi Aidan,
+>>>  Le sam. 22 oct. 2022 =C3=A0 18:15:05 +0100, Aidan MacDonald
+>>>  <aidanmacdonald.0x0@gmail.com> a =C3=A9crit :
+>>>>  Actually, the clock names in the DT are meaningless. The clk_get() ca=
+ll
+>>>>  matches only the clock's name in the CGU driver. So in fact the driver
+>>>>  is "broken" for jz4780. It seems jz4770 doesn't work correctly either,
+>>>>  it has no "pll half", and three possible parents for its "i2s" clock.
+>>>  That's not true. The clock names are matched via DT.
+>>>  Only in the case where a corresponding clock cannot be found via DT wi=
+ll it
+>>>  search for the clock name among the clock providers. I believe this is=
+ a
+>>> legacy
+>>>  mechanism and you absolutely shouldn't rely on it.
+>>>  -Paul
+>>>
+>> What you say is only true for clk_get() with a device argument. When the
+>> device argument is NULL -- which is the case in .set_sysclk() -- then
+>> the DT name is not matched. Check drivers/clk/clkdev.c, in clk_find().
+>> When the dev_id is NULL, it will not match any lookup entries with a
+>> non-null dev_id, and I believe dev_id is the mechanism that implements
+>> DT clock lookup. Only the wildcard entries from the CGU driver will be
+>> matched if dev_id is NULL, so the DT is being ignored.
+>> If you don't believe me, try changing "pll half" in the device tree and
+>> the I2S driver to something else. I have done this, and it doesn't work.
+>> That proves the name in the device tree is not being used.
 >
-> Best regards,
-> Krzysztof
+> Well, let's pass them a device pointer then.
+>
 
-Device trees already use standardized enumerations in other areas so it
-isn't a new idea. Look under include/dt-bindings/clock. Every header
-there contains an arbitrary enumeration of a device's clocks. In fact
-most of include/dt-bindings is exactly for this purpose, to define
-standard values that are not "just numbers" but an enum, a flag, etc,
-with a special meaning. It is not specific to clocks.
+Yes, I'll do that when I revise the patch.
 
-There is no dt-binding for system clock ID, because prior to this patch
-they were not exposed to DT in any way. But the enumerations themselves
-already exist, eg. the IDs for nau8821 codec:
+>> I agree we shouldn't rely on this, it's a legacy behavior, but the fact
+>> is that's how the driver already works. I'm dropping this patch because
+>> the driver is wrong and needs a different fix...
+>
+> "How the driver already works" is a bit misleading, I never saw this
+> .set_sysclk() callback being called, so I can't really say that it works.
+>
+>>>>  I think a better approach is to have the DT define an array of parent
+>>>>  clocks for .set_sysclk()'s use, instead of hardcoding parents in the
+>>>>  driver. If the parent array is missing the driver can default to using
+>>>>  "ext" so existing DTs will work.
+>> As much as I like this idea there doesn't seem to be a mechanism for
+>> handling a free-floating array of clocks in the DT. Everything has
+>> to be put in the main "clocks" array. That makes it pretty hard to
+>> figure out which ones are meant to be the parent clocks.
+>> Do you know of any way to do this generically from the DT? If there's
+>> no way to get away from a hardcoded array of names in the driver, I can
+>> at least add a device argument to clk_get() so it'll use the DT names.
+>
+> In jz4740_i2s_set_sysclk():
+>
+> #define JZ4740_I2S_FIRST_PARENT_CLK 2
+> parent =3D of_clk_get(dev->of_node, JZ4740_I2S_FIRST_PARENT_CLK + clk_id);
+>
+> is how I'd do it.
+>
+> The DTs all have "aic", "i2s" as the first two clocks. It is even enforce=
+d in
+> the DT schemas.
+>
+> Cheers,
+> -Paul
 
-    /* System Clock Source */
-    enum {
-        NAU8821_CLK_DIS,
-        NAU8821_CLK_MCLK,
-        NAU8821_CLK_INTERNAL,
-        NAU8821_CLK_FLL_MCLK,
-        NAU8821_CLK_FLL_BLK,
-        NAU8821_CLK_FLL_FS,
-    };
+Sounds like a plan. I was hoping to avoid adding CONFIG_OF back
+considering I removed it in an earlier patch since it was unused. :)
 
-We would just be moving these into dt-bindings if somebody wants to
-use a codec with simple-card. Future drivers would add the enum into
-dt-bindings from the start because that's where it belongs.
+Guess it doesn't really matter for this driver since the Ingenic
+SoCs need CONFIG_OF anyway.
 
 Regards,
 Aidan

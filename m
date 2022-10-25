@@ -2,87 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724D260D3A5
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 20:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF5660D517
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 21:58:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03C2F4D5C;
-	Tue, 25 Oct 2022 20:34:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03C2F4D5C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51A084CB4;
+	Tue, 25 Oct 2022 21:58:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A084CB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666722925;
-	bh=RCkhSfweTsGsXXy7IbSmwyfhuGCOBl9hOVmo4BrUQyU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666727932;
+	bh=DIZ7E5sm0oVhsFi7Syn1ZuCebIsgM//+qsvyda8C3ww=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=unJ8Utm4FB5GhiU+vHvyMzsjOMHDXpcg1Q3pp4p1vh4fb3W3ThihGpSVDOsE0LdVD
-	 qAHe9kBjmCBkm8zaHXcU9YP7heAWltUAlJZVJWVC1LddAmGjTHoiDoyic5pbI7X7sF
-	 Eq63xSPQSM9TFMUQ2svFhQHK9xe9a4EUaofUMOqU=
+	b=DViXcrHbcrnBSqj84QOPTPVc3V0ME5XQGu1NWRXp8uBCWcsSf1iuvxYO+CcZUO+gl
+	 LNnWPhpJrLHLu4Lr6gyuoHXBbbixVMru3KgOF133PBqHu1DIn+CRO8PG6TldxaZ2LU
+	 YBc1/xS0w2fVukqhDdzdq2npPPsZpDoqEA5ISNOg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69C36F80100;
-	Tue, 25 Oct 2022 20:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99E96F80448;
+	Tue, 25 Oct 2022 21:57:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88F75F80100; Tue, 25 Oct 2022 20:34:28 +0200 (CEST)
+ id 8E4E8F80431; Tue, 25 Oct 2022 21:57:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
+ [IPv6:2607:f8b0:4864:20::e36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC507F80115
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 20:34:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC507F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 430D8F80100
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 21:57:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 430D8F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="lx3pjmnV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666722863; x=1698258863;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=RCkhSfweTsGsXXy7IbSmwyfhuGCOBl9hOVmo4BrUQyU=;
- b=lx3pjmnVkWCNKvavDWZBOWbcdl522KWPo9eegWhOh8rc60Om0bZMd9n2
- tuFhgP5W5oz78JzBxfVIuz/iyxgWAeruIFJDa0jX5i6uqWQh8dgGKyScR
- 5U62aonSydWm63LfOK2h7UvIuQpNZc3wX4ktBycses0d3nZrBA4oH7yy8
- qLzXF8KPBz3Q4Rz2K0yNHvhBH9F+sOtRdaxgH3vSE5+BbmB62firz59N7
- AOIsKB69t7V5R+ZdejM6QEDReveae3Yfs8TMKH8Qar2miK+ydHF9WSU8R
- KA+0XsGjGWxlatpQS7LxWKZS3pCg+NSRcuOtezAy+eInVdquy/SX0L0wC g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="295165377"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="295165377"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 11:33:55 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="634207296"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="634207296"
-Received: from pperezji-mobl.amr.corp.intel.com (HELO [10.212.98.192])
- ([10.212.98.192])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 11:33:30 -0700
-Message-ID: <66f708c9-2528-1905-0bc3-f2538b799743@linux.intel.com>
-Date: Tue, 25 Oct 2022 11:48:36 -0500
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="e+qZj/QT"
+Received: by mail-vs1-xe36.google.com with SMTP id 128so12216444vsz.12
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 12:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DIZ7E5sm0oVhsFi7Syn1ZuCebIsgM//+qsvyda8C3ww=;
+ b=e+qZj/QT7BhnoLzJRhfbZB8ytdCtnQT+EOebSeFOrEpqlQvGI9ku8p0ouxhXeQC90R
+ cRR65HJVboQ0DaJOdu5FN826Twnr/HDNbCNgIR/fazK5GRVLx5K2Caup9By3OEvRc6VL
+ XBzcF3L7iVveJmBZAFmITG2HQ4cJGeDC9ZuW8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DIZ7E5sm0oVhsFi7Syn1ZuCebIsgM//+qsvyda8C3ww=;
+ b=nYziqLnA08JHqARi0OEraxV4LOsIsTV3JT+v9T0jQF6eM8+dp94G5EazgCgX7YfelX
+ UlUHZrmhhIhHCywVmM8/HfXKYBaLzTeuz7hmNgb3ZrlH1AefUMEvhAt/2+fGUOQ9rxWt
+ fV9FCUxximHBiZyFSREl6DC9yqO6Nmx36MgLZFYOwy65xXwcEsKMyRm6A45VqrnVE+hk
+ xNyN6wkN3UTC4JrM1RM2r0U7tLgIsm2wXW7afd2ckotAlVwgfFd56cUbcRPndy2Njdeh
+ RU1HrljuNAiLzH7P4Haqe5jX5wnSj4WxOIwozLg3JyRJEF/zFebFJWBpUmrOyrVkgOJv
+ k54w==
+X-Gm-Message-State: ACrzQf1YnO1RJ3CMp8rJoR0Rykk77bI6Z1De6SCTUqJm36WKGXosCG+D
+ TGgc+OHjMPomcIs+rIoJTt/GDBahG71YfA7bb3I2/A==
+X-Google-Smtp-Source: AMsMyM68yxjtygGzCNmwCEf3ID4HFVpQ7xTLBDVwuunh8zLtsSitwC+a8tjP/31TtJUhFd+flFlgXTV/pYKdu1XQ+UY=
+X-Received: by 2002:a67:f684:0:b0:392:ac17:f9b0 with SMTP id
+ n4-20020a67f684000000b00392ac17f9b0mr23400930vso.85.1666727866859; Tue, 25
+ Oct 2022 12:57:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH] ASoC: Intel: bytcht_es8316: Add quirk for the Nanote
- UMPC-01
-Content-Language: en-US
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20221025140942.509066-1-hdegoede@redhat.com>
- <91287204-9a3b-af63-463f-99d579db8fe3@linux.intel.com>
- <c2c3c635-c262-f931-0cfa-4b967f75a861@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <c2c3c635-c262-f931-0cfa-4b967f75a861@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+References: <20221024220015.1759428-1-nfraprado@collabora.com>
+ <20221024220015.1759428-2-nfraprado@collabora.com>
+ <b1863393-0b73-ca44-12ae-567982b07f68@collabora.com>
+In-Reply-To: <b1863393-0b73-ca44-12ae-567982b07f68@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 25 Oct 2022 12:57:35 -0700
+Message-ID: <CAGXv+5HJQYjkQ7Vrggn5oYRYQu6YH8NS4QmfcP16Zk9kbEJNeA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] ASoC: dt-bindings: realtek,
+ rt5682s: Add #sound-dai-cells
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Derek Fang <derek.fang@realtek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,56 +103,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Oct 25, 2022 at 3:07 AM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> Il 25/10/22 00:00, N=C3=ADcolas F. R. A. Prado ha scritto:
+> > The rt5682s codec is a DAI provider with two interfaces - AIF1 and AIF2
+> > - and therefore should have a #sound-dai-cells property that is equal t=
+o
+> > 1. Add it.
+> >
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: N=C3=ADcolas F. R. A. Prado <nfraprado@collabora.com>
+> >
+>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
 
-
-On 10/25/22 10:22, Hans de Goede wrote:
-> Hi,
-> 
-> On 10/25/22 16:29, Pierre-Louis Bossart wrote:
->>
->>
->> On 10/25/22 09:09, Hans de Goede wrote:
->>> The Nanote UMPC-01 mini laptop has stereo speakers, while the default
->>> bytcht_es8316 settings assume a mono speaker setup. Add a quirk for this.
->>>
->>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->>> ---
->>>  sound/soc/intel/boards/bytcht_es8316.c | 7 +++++++
->>>  1 file changed, 7 insertions(+)
->>>
->>> diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
->>> index 6432b83f616f..a935c5fd9edb 100644
->>> --- a/sound/soc/intel/boards/bytcht_es8316.c
->>> +++ b/sound/soc/intel/boards/bytcht_es8316.c
->>> @@ -443,6 +443,13 @@ static const struct dmi_system_id byt_cht_es8316_quirk_table[] = {
->>>  					| BYT_CHT_ES8316_INTMIC_IN2_MAP
->>>  					| BYT_CHT_ES8316_JD_INVERTED),
->>>  	},
->>> +	{	/* Nanote UMPC-01 */
->>> +		.matches = {
->>> +			DMI_MATCH(DMI_SYS_VENDOR, "RWC CO.,LTD"),
->>> +			DMI_MATCH(DMI_PRODUCT_NAME, "UMPC-01"),
->>> +		},
->>> +		.driver_data = (void *)BYT_CHT_ES8316_INTMIC_IN1_MAP,
->>
->> the commit massage talks about a mono speaker, this quirk changes the
->> microphone setup. Is the quirk correct?
-> 
-> The default quirk for a CHT es8316 codec using device is:
-> 
->         } else {
->                 /* Others default to internal-mic-in1-map, mono-speaker */
->                 quirk = BYT_CHT_ES8316_INTMIC_IN1_MAP |
->                         BYT_CHT_ES8316_MONO_SPEAKER;
->         }
-> 
-> So this just drops the BYT_CHT_ES8316_MONO_SPEAKER from the default quirks.
-> 
-> Yes defaulting to mono is a bit weird, but the es8316 is mostly
-> used in very low budget devices which often have only 1 speaker.
-
-Yes, I read this sideways - need more coffee.
-Thanks Hans!
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>

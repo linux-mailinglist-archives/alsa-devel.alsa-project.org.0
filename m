@@ -2,70 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8FA60C180
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 04:06:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1B160C1BA
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 04:32:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD432C38;
-	Tue, 25 Oct 2022 04:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD432C38
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0852361D1;
+	Tue, 25 Oct 2022 04:31:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0852361D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666663572;
-	bh=jgATh42Z1P6tQf6L2xACDKgfBlOCg0weBvz2WYq67NM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mrDIL3skYCKwVrYBOATQ4Of8hkq4cOlgUqcWnvcGB7ZqhjV5r2h4+HzyH4MPJodtP
-	 S59rdzI9GGNLu9DH/+BbxNfALtKhXyDMK1wMM45m7TlmeD4420MEja7Y9znthkcIBW
-	 7kC7cyZphBMk7lANydjx5B0LlqH4fHSJyZB2nN7E=
+	s=default; t=1666665120;
+	bh=y9Yc+laQ9+DxE5zL5BFHjRdIE1TTwOC7PZJho01015o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FPPeoxv1JQH/E8XE9B6yskniLrNlUDS4Y2Kn7Kfs/6znViX9POeJaeR+Irtxw9cWE
+	 9ifOQO5uBuzcW9ntnnv8BCMPkkktaqIyqq3x5DP9npF+WPx0eVrECR75mpxyCTzj8x
+	 39EMKZkSLegxhN80UVotVWhtH6IeeNN2t2beVIrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8724F80448;
-	Tue, 25 Oct 2022 04:05:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77451F80448;
+	Tue, 25 Oct 2022 04:31:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 461F0F80431; Tue, 25 Oct 2022 04:05:15 +0200 (CEST)
+ id DB011F80240; Tue, 25 Oct 2022 04:31:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
+ [IPv6:2607:f8b0:4864:20::936])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0AA1F80115
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 04:05:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0AA1F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74797F80240
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 04:31:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74797F80240
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EBKNB1LS"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E4CC8616EE
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 02:05:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E552C433C1;
- Tue, 25 Oct 2022 02:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666663500;
- bh=jgATh42Z1P6tQf6L2xACDKgfBlOCg0weBvz2WYq67NM=;
- h=From:To:Cc:Subject:Date:From;
- b=EBKNB1LSEaJQ1dcT+Es+tsmtVmzOfbgaUmIf4H/HtPyHJ9AzMxfS+2URXKjh+ctN/
- RC4tGiwan7qOVfLLoqLZBcVOIX1UI68rf8welKL9uBt0mMiU9STBxDpBa/4+pFP6wi
- 38bc+fmCprIReuHXNf9GDC49kqXuA1hhscKjdbfVDZ7HgEwf8qBfVqRgeqxXy4Z2nE
- hsmjOVYkMnytabXZJSgc7cJrDvQ3nWW21bcivhIE3bWuCdaSU+uLxQ95IYQjD/7TNl
- LjXCMeEzYrkqLwFhw5vkNP0MSi9RYDQA+FmMTHJ3DlvPOtjv/xgUjJH6ZOPlgZRqUu
- +dP2FA6oMxrRQ==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: broonie@kernel.org
-Subject: [PATCH] MAINTAINERS: update Tzung-Bi's email address
-Date: Tue, 25 Oct 2022 10:04:44 +0800
-Message-Id: <20221025020444.2618586-1-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.38.0.135.g90850a2211-goog
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="NKGfkW7g"
+Received: by mail-ua1-x936.google.com with SMTP id f12so5406548uae.3
+ for <alsa-devel@alsa-project.org>; Mon, 24 Oct 2022 19:31:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=y9Yc+laQ9+DxE5zL5BFHjRdIE1TTwOC7PZJho01015o=;
+ b=NKGfkW7girzG1YR7hd+foPmKX3P2WOjRX+a7HQ04F5f83cg+WrR2ufvNZehHBelsu1
+ TgtfPGs9siU9vqt3KsugwgGtRik+7uTLGp02r5VXpuHOfQpISF9ilzRPTr+AdJlLlR5u
+ WgsJwEtsu3ReHTjO6VTCjhLsmaueMO7tqYuzo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=y9Yc+laQ9+DxE5zL5BFHjRdIE1TTwOC7PZJho01015o=;
+ b=XkX1DvpeVJODVgMg9GGEI0LSBewYL+BjUV6J+HBz+TZybsZynO3Bpk9xtB3AZPWscj
+ 1rnbAC/OuV4D5pK5stuE380c+iZlCDnZaZnUsIpm1O85z2V/3+IVYP4FiNdvFQrDW5NL
+ GwlFNPOcxAc5icypeLYu+soI5nFImrjcz9u4tb3LEA3WyZlgZJJrtbgXnFMTziSZRw+q
+ xbyTA1M8QT6oNNnoy8QnWej7G/eRGUIvsy9wajRWC/YMWolWE4BALGRoG7K3IQdWfpYx
+ oY7wFTdTINExtzDzaxhY5e64eDw1GRWGgrqoYBW8713ZgOF1vEpIn2bNblWx/7vIzuhB
+ cpeg==
+X-Gm-Message-State: ACrzQf08Gx64ZVqkAq2JNtKLqrArTx552w9u3jWqixj7LitimYL9SN21
+ f2SxRwEepfo0IsdVAtS9OI+OA4ZnP1RYW5qMyujoDw==
+X-Google-Smtp-Source: AMsMyM5UckArDa8dEk7rn4Om1hvtOru9HZGn1ILjR/MjOGwWc9WYR20BToCUho5YwIwOTfrVH+3HhZk5Crv0wsAkqv0=
+X-Received: by 2002:ab0:1d82:0:b0:40e:9f5:91bc with SMTP id
+ l2-20020ab01d82000000b0040e09f591bcmr2381411uak.78.1666665059214; Mon, 24 Oct
+ 2022 19:30:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tzungbi@kernel.org
+References: <20221025020444.2618586-1-tzungbi@kernel.org>
+In-Reply-To: <20221025020444.2618586-1-tzungbi@kernel.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 24 Oct 2022 19:30:48 -0700
+Message-ID: <CAGXv+5FZxFUfqvMKmT41VgubaiDN7=qZQQ2tYbT-899AOt+w7A@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: update Tzung-Bi's email address
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,54 +93,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use kernel.org account instead.
+On Mon, Oct 24, 2022 at 7:06 PM Tzung-Bi Shih <tzungbi@kernel.org> wrote:
+>
+> Use kernel.org account instead.
+>
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- .../devicetree/bindings/sound/google,cros-ec-codec.yaml         | 2 +-
- Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml    | 2 +-
- MAINTAINERS                                                     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
-index c3e9f3485449..dea293f403d9 100644
---- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
-+++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
-@@ -8,7 +8,7 @@ title: Audio codec controlled by ChromeOS EC
- 
- maintainers:
-   - Cheng-Yi Chiang <cychiang@chromium.org>
--  - Tzung-Bi Shih <tzungbi@google.com>
-+  - Tzung-Bi Shih <tzungbi@kernel.org>
- 
- description: |
-   Google's ChromeOS EC codec is a digital mic codec provided by the
-diff --git a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
-index 1d73204451b1..ea7d4900ee4a 100644
---- a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
-+++ b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Realtek rt1015p codec devicetree bindings
- 
- maintainers:
--  - Tzung-Bi Shih <tzungbi@google.com>
-+  - Tzung-Bi Shih <tzungbi@kernel.org>
- 
- description: |
-   Rt1015p is a rt1015 variant which does not support I2C and
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cf0f18502372..f9749afc0b9d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4906,7 +4906,7 @@ F:	drivers/platform/chrome/
- 
- CHROMEOS EC CODEC DRIVER
- M:	Cheng-Yi Chiang <cychiang@chromium.org>
--M:	Tzung-Bi Shih <tzungbi@google.com>
-+M:	Tzung-Bi Shih <tzungbi@kernel.org>
- R:	Guenter Roeck <groeck@chromium.org>
- L:	chrome-platform@lists.linux.dev
- S:	Maintained
--- 
-2.38.0.135.g90850a2211-goog
-
+You could also update .mailmap?

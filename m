@@ -2,95 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E113760CD3F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 15:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C18C60CD67
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 15:27:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED371F11;
-	Tue, 25 Oct 2022 15:17:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED371F11
+	by alsa0.perex.cz (Postfix) with ESMTPS id D21D01935;
+	Tue, 25 Oct 2022 15:26:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D21D01935
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666703909;
-	bh=uMpd/TqEGMzMNYi40SklosIJQaH6ALWlYO+N+mzuwqo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ogFF5istkKEQbaYZvQfwK9UXMKHJ0NcCjbLt+JqqBppcXYatb1m3TI9l9ntPqiyI6
-	 +eqwe9zdvncFdrSsnXYhVZT35NK6wu1N7TIqbHCJz/7PEcjkVf4rEO4sOlj2YbIR1U
-	 cjk8c559mHmejR+IIlifa+E3SxpzddFyvFpfxN1o=
+	s=default; t=1666704468;
+	bh=QWKvt3x49Rqq6M1WbUJTvLylKUkzZ8XS+Q4v8IoxB0A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UjWEZn1KWwG75m58d5TiHKmWEQ1HzwSMvd/5Z/lYMxXbcdVn0GgaaOp99/guZ1Naq
+	 RxkIAqo059HIGEbefT/O+yYywaQ/n4k74o1/XFGB4SzG4LqPAebpl0aQPxmKvSRt8P
+	 mhKWRYFVh2xmbh+KBHoS6E+dgfKxmnvwy0NL2jVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC0B0F80240;
-	Tue, 25 Oct 2022 15:17:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DBECF80448;
+	Tue, 25 Oct 2022 15:26:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45577F80431; Tue, 25 Oct 2022 15:17:32 +0200 (CEST)
+ id 60932F80431; Tue, 25 Oct 2022 15:26:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0BABF80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 15:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0BABF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4F28F80100
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 15:26:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4F28F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="vR/ERnDC"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2SkjBjps"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E25671F38C;
- Tue, 25 Oct 2022 13:17:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666703845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=J+arnLUOjo5ZmX86eZOgv0maNE0nmXyovqICunRlfp0=;
- b=vR/ERnDCix69JHYBVMcsqXuQoqbeG8DBXWHAIiYprRHh6q/jHk5UmcEKgUZ8psLpV7VFZm
- nP5sM4GJ5A3n6rZ9cs8i8Xqq+tYiGCKqsaABYQZ2QouX+CHJqF6QBz+gZImla5AfZ/wNFZ
- Vd7HbHwbeOP9rZ7AawWq2Toh1/IVz7k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666703845;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=J+arnLUOjo5ZmX86eZOgv0maNE0nmXyovqICunRlfp0=;
- b=2SkjBjps9LLNefZj3ve25lU3lGaDkoLJeEFYLDvr5ld2IYT2eWYPDj0pv77DE3FWWlPqQa
- Rg5Vb30SRu7yyLBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9B881134CA;
- Tue, 25 Oct 2022 13:17:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BTTmJOXhV2PoNgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 25 Oct 2022 13:17:25 +0000
-Date: Tue, 25 Oct 2022 15:17:25 +0200
-Message-ID: <877d0oqbyy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Subject: Re: [PATCH v2] ALSA: rme9652: use explicitly signed char
-In-Reply-To: <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
-References: <202210250456.vKv5zoLb-lkp@intel.com>
- <20221025000313.546261-1-Jason@zx2c4.com>
- <87bkq0s9rw.wl-tiwai@suse.de> <Y1fRvWfcU4NT1HTU@zx2c4.com>
- <87fsfcqdbx.wl-tiwai@suse.de>
- <CAHmME9qkJk0vH2n7gz1XFyo-W5EMffGA6Hd4Fd8twKSRWz12nA@mail.gmail.com>
- <87czagqc8k.wl-tiwai@suse.de> <87a65kqc4e.wl-tiwai@suse.de>
- <CAHmME9p0jDLoma084T30VOiLO2ct-yh1uX5Ru=+BFD9it6CmTA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Qdv3TmBX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666704407; x=1698240407;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QWKvt3x49Rqq6M1WbUJTvLylKUkzZ8XS+Q4v8IoxB0A=;
+ b=Qdv3TmBX/zX6zrsfirPVvgJHRHW7LOr9so5lGfSYh8AgzX80SXgF9UOR
+ zJVL7PhT5IQmhvH2CI34dS5giyB3xI61LrZ0kDq0v3790mWWMljEiZDk+
+ mkv/H/437+QfnZNJmc4zQ4Orm0fBdInwbQnF6kwQqyPTmzC7YFgmv+qZ3
+ qR5/f8eHxycX5f2ZydpF+5b3Nt7vclRbOXFj4Sl8tWu0qHSWo+3fpdCkg
+ AsDWRCjpZ6xcHa6ts+T3a6Dek0lgo5yCUekG15kel74p0+yzCexrVuYfE
+ qIbzuOHO2gJoV9+LLdV/a3RCkHvsnWK/amimASZm4gY5dPa02YCOpFShf A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="288068288"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="288068288"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 06:26:43 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="662803266"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="662803266"
+Received: from agsteede-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.12.174])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 06:26:41 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	dan.carpenter@oracle.com
+Subject: [PATCH] ASoC: SOF: ipc4-loader: Return ssize_t from
+ sof_ipc4_fw_parse_ext_man()
+Date: Tue, 25 Oct 2022 16:27:06 +0300
+Message-Id: <20221025132706.30356-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.38.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,59 +89,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 Oct 2022 15:14:54 +0200,
-Jason A. Donenfeld wrote:
-> 
-> On Tue, Oct 25, 2022 at 3:14 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Tue, 25 Oct 2022 15:11:39 +0200,
-> > Takashi Iwai wrote:
-> > >
-> > > On Tue, 25 Oct 2022 14:54:54 +0200,
-> > > Jason A. Donenfeld wrote:
-> > > >
-> > > > On Tue, Oct 25, 2022 at 2:48 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > >
-> > > > > On Tue, 25 Oct 2022 14:08:29 +0200,
-> > > > > Jason A. Donenfeld wrote:
-> > > > > >
-> > > > > > On Tue, Oct 25, 2022 at 08:21:55AM +0200, Takashi Iwai wrote:
-> > > > > > > On Tue, 25 Oct 2022 02:03:13 +0200,
-> > > > > > > Jason A. Donenfeld wrote:
-> > > > > > > >
-> > > > > > > > With char becoming unsigned by default, and with `char` alone being
-> > > > > > > > ambiguous and based on architecture, signed chars need to be marked
-> > > > > > > > explicitly as such. This fixes warnings like:
-> > > > > > > >
-> > > > > > > > sound/pci/rme9652/hdsp.c:3953 hdsp_channel_buffer_location() warn: 'hdsp->channel_map[channel]' is unsigned
-> > > > > > > > sound/pci/rme9652/hdsp.c:4153 snd_hdsp_channel_info() warn: impossible condition '(hdsp->channel_map[channel] < 0) => (0-255 < 0)'
-> > > > > > > > sound/pci/rme9652/rme9652.c:1833 rme9652_channel_buffer_location() warn: 'rme9652->channel_map[channel]' is unsigned
-> > > > > > > >
-> > > > > > > > Cc: Jaroslav Kysela <perex@perex.cz>
-> > > > > > > > Cc: Takashi Iwai <tiwai@suse.com>
-> > > > > > > > Cc: alsa-devel@alsa-project.org
-> > > > > > > > Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
-> > > > > > >
-> > > > > > > Applied now.  Thanks!
-> > > > > >
-> > > > > > Thanks. For this and the other patch, applied for 6.1 or 6.2?
-> > > > >
-> > > > > I applied for 6.2.  Was it an action that has to be fixed for 6.1?
-> > > > > If so, I still can shuffle.
-> > > >
-> > > > Well, this is code that's broken currently on ARM platforms, for
-> > > > example, where char is already unsigned. So it's arguably a fix for
-> > > > 6.1.
-> > >
-> > > Fair enough, I'll apply for 6.1, then.
-> >
-> > ... and in that case, it deserves for Cc-to-stable, IMO, as it's a fix
-> > to be done for older kernels, too.  Then it'd be clearly a 6.1
-> > material.
-> 
-> Fine by me if you want to add that (for this and the other patch).
+sof_ipc4_fw_parse_ext_man() can return negative error numbers which is not
+correct for the used size_t type.
 
-OK, done.
+Change the return value to ssize_t and use the same type where the function
+is called.
 
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Fixes: 73c091a2fe96 ("ASoC: SOF: ipc4-loader: Support for loading external libraries")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/ipc4-loader.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Takashi
+diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
+index af0018b38cf0..702196774c50 100644
+--- a/sound/soc/sof/ipc4-loader.c
++++ b/sound/soc/sof/ipc4-loader.c
+@@ -17,8 +17,8 @@
+ /* The module ID includes the id of the library it is part of at offset 12 */
+ #define SOF_IPC4_MOD_LIB_ID_SHIFT	12
+ 
+-static size_t sof_ipc4_fw_parse_ext_man(struct snd_sof_dev *sdev,
+-					struct sof_ipc4_fw_library *fw_lib)
++static ssize_t sof_ipc4_fw_parse_ext_man(struct snd_sof_dev *sdev,
++					 struct sof_ipc4_fw_library *fw_lib)
+ {
+ 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+ 	const struct firmware *fw = fw_lib->sof_fw.fw;
+@@ -141,7 +141,7 @@ static size_t sof_ipc4_fw_parse_basefw_ext_man(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+ 	struct sof_ipc4_fw_library *fw_lib;
+-	size_t payload_offset;
++	ssize_t payload_offset;
+ 	int ret;
+ 
+ 	fw_lib = devm_kzalloc(sdev->dev, sizeof(*fw_lib), GFP_KERNEL);
+@@ -170,7 +170,7 @@ static int sof_ipc4_load_library_by_uuid(struct snd_sof_dev *sdev,
+ 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+ 	struct sof_ipc4_fw_library *fw_lib;
+ 	const char *fw_filename;
+-	size_t payload_offset;
++	ssize_t payload_offset;
+ 	int ret, i, err;
+ 
+ 	if (!sdev->pdata->fw_lib_prefix) {
+-- 
+2.38.1
+

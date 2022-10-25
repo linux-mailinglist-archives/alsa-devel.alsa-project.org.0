@@ -2,90 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD01560D1D6
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 18:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D204760D232
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 19:02:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A7824E0A;
-	Tue, 25 Oct 2022 18:46:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A7824E0A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65F234CFF;
+	Tue, 25 Oct 2022 19:01:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F234CFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666716416;
-	bh=7GFgHD8VpMSSYSQYldtRzowtwwtMBpNwmVTSdlESscM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666717363;
+	bh=ZuJKcAQMkujH9+0prLxGhTP9jvrCsGmBnKWefprVjGI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UFuR9oUFTLrWMLlbtDcRDbjFMvFfNDCUm0+TpkfR0o4EjCpFxJgsiaR8sri76VwA+
-	 zIlzkblj5vGOLm8fDIf9s08CncuCCN5IGyxgdZQ3yy40/VHm/VTyCa97Z0Qgwu7plO
-	 bbna4m2kfbarfRjmTLsNnYgnzA5thKQuCMAkrpGA=
+	b=bXZUTsHfhU+vl+WYnLm8v2V8ItYTY10TczPe8FC9KFoYh+fmR58pD1jRPzONudP0j
+	 PEiusjeJYV70NxYlmIFDrWoc8d2F+VxBWwwqzrVqLasR5r7w/KAEiwQHNxuALdY4py
+	 XtVWRmZpnowkLeqQWkKQajm6WxrkObo1aT+lFJF8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDFB7F80448;
-	Tue, 25 Oct 2022 18:46:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9593F80100;
+	Tue, 25 Oct 2022 19:01:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D652EF80431; Tue, 25 Oct 2022 18:45:59 +0200 (CEST)
+ id 9604AF80431; Tue, 25 Oct 2022 19:01:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C2F1F80100
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 19:01:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C2F1F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="NpA0LzHr"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EF95F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 18:45:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EF95F80100
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TK36o+EG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666716354; x=1698252354;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7GFgHD8VpMSSYSQYldtRzowtwwtMBpNwmVTSdlESscM=;
- b=TK36o+EGqlXqUKs0PbLX3gPH/lKhC7zJ6W3pODXDmR2AsGbNg3rXbrub
- QObur4qKOJcyhOqna4xo/yNlqCMLjG0Ey6ZLQpi1bDw0ixmRH9aIlpNbY
- SJsxnQC5EDCGU/MKOa3assTdyxo/ejmBpiUxX4/qwL+/UGGsWz79rXvef
- rGLODlQ1I8gUo7OxtyS0Fm53ftU8gx2iyZxDpB7l2DZwzFpC/YoUiyYfa
- YeSn3q0fjMdqgNjZbfS5Y6/MBA3cR8bTu/Dq32TlMWCrCLUQ+KYQpb04q
- SiqcPurkVmiTjXtscHZqC78Y/4Ovh1Ews6QVy7plNgvHg8/DTnRYk7aP0 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369797260"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="369797260"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 09:45:39 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="664977540"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="664977540"
-Received: from pperezji-mobl.amr.corp.intel.com (HELO [10.212.98.192])
- ([10.212.98.192])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 09:45:38 -0700
-Message-ID: <0aafc75f-942a-531d-5e78-a8fb211f43bc@linux.intel.com>
-Date: Tue, 25 Oct 2022 11:45:37 -0500
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4E7FFB81DA9;
+ Tue, 25 Oct 2022 17:01:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8019BC433D6;
+ Tue, 25 Oct 2022 17:01:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666717299;
+ bh=ZuJKcAQMkujH9+0prLxGhTP9jvrCsGmBnKWefprVjGI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NpA0LzHrgSz02sllow3ZDsWOk+g4yHqg+faYVEftNuUDM9MtAy8fPx9azP4XDlovm
+ Rxx2fsTW9RUnmnrglNfbaAcpIeSEmeWX67yDyo5Mx7Wc8UtOQAiMzS79d7KEHN9QF6
+ y3HkELMs2eZ5LaSNP/FR+1mp+ye5+EdXQ7zZjr96cVFIMQwd/xZnLWOIETUeHojeCy
+ iyzOk+iv6xPCgPqITLTmLRd4bO4kHJ6hrMDy3aBP/HQdVLOFC2Vpzz69pqEZyW+n7P
+ mc97cZ9+5/pR3WMEupCZfxgE5uqgCfoe7i4O24SvmSQLHrgsSSL4eC1XOvxC4NOwH+
+ UwUnUBOhhJkRA==
+Date: Tue, 25 Oct 2022 18:01:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: wangkailong@jari.cn
+Subject: Re: [PATCH] ALSA/ASoC: replace ternary operator with min()
+Message-ID: <Y1gWbN2/Tbf1jeL6@sirena.org.uk>
+References: <3d74bcaf.5.1840fa4d439.Coremail.wangkailong@jari.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH AUTOSEL 6.0 07/44] ALSA: hda: Fix page fault in
- snd_hda_codec_shutdown()
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20221009234932.1230196-1-sashal@kernel.org>
- <20221009234932.1230196-7-sashal@kernel.org>
- <24d084e1-700d-da77-d93e-2d330aac2f63@linux.intel.com>
- <Y1f3opiid6pvKINq@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <Y1f3opiid6pvKINq@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
- alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- mkumard@nvidia.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="52xkT7tmDJB4XLjc"
+Content-Disposition: inline
+In-Reply-To: <3d74bcaf.5.1840fa4d439.Coremail.wangkailong@jari.cn>
+X-Cookie: Your step will soil many countries.
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ motolav@gmail.com, kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org,
+ cezary.rojewski@intel.com, lgirdwood@gmail.com, tiwai@suse.com,
+ peter.ujfalusi@linux.intel.com, mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,28 +90,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--52xkT7tmDJB4XLjc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 10/25/22 09:50, Greg KH wrote:
-> On Tue, Oct 25, 2022 at 09:27:32AM -0500, Pierre-Louis Bossart wrote:
->>
->>
->> On 10/9/22 18:48, Sasha Levin wrote:
->>> From: Cezary Rojewski <cezary.rojewski@intel.com>
->>>
->>> [ Upstream commit f2bd1c5ae2cb0cf9525c9bffc0038c12dd7e1338 ]
->>
->> This commit on linux-stable seems to have broken a number of platforms.
->>
->> 6.0.2 worked fine.
->> 6.0.3 does not
->>
->> reverting this commit solves the problem, see
->> https://github.com/thesofproject/linux/issues/3960 for details.
->>
->> Are we missing a prerequisite patch for this commit?
-> 
-> Please see https://lore.kernel.org/r/20221024143931.15722-1-tiwai@suse.de
-> 
-> Does that solve it for you?
+On Tue, Oct 25, 2022 at 10:56:11PM +0800, wangkailong@jari.cn wrote:
+> Fix the following coccicheck warning:
+>=20
+> sound/soc/soc-ops.c:817: WARNING opportunity for min()
 
-Yep, that's the revert I tested.
+>  	kfree(uctl);
+> -	return err < 0 ? err : 0;
+> +	return min(err, 0);
+
+I don't think this is a good warning, while I'm no big fan of the
+ternery operator the new code is less clear about the intent than the
+old code.
+
+--52xkT7tmDJB4XLjc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNYFmwACgkQJNaLcl1U
+h9DnnQf46hTo5WrWkISGqW6jNIBXt5mGN0OPMV3MELnvzFgLtMs0v3kRYtPCzt8A
+i2D6cV6vpswxDsakPONljDX8tHDl2BnjIU5iAlC0y6SKvkNKYTFY11+YwlmIpXzZ
+G+rZO89kV4Lp2Kg9otPu7GIx0YRL5JwpatiDsObBoqUoBobAzrqnltXKAnZtYjaK
+/GqYM4rOZzQaMMxVOT560lpvEBlu2H39qlYkCbt9jyobJamikptAC2i2QzncZP+0
+go01VG5NcPB+1WrijzNxsNolfX0qy00KjpOsSnkbGX/AghEzwls9YGyZt5YcMmX6
+b/8y5yIPxykoK3jnZ0L7/x8cY56X
+=nvwK
+-----END PGP SIGNATURE-----
+
+--52xkT7tmDJB4XLjc--

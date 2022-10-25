@@ -2,78 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C18C60CD67
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 15:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393E760CE7B
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 16:10:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D21D01935;
-	Tue, 25 Oct 2022 15:26:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D21D01935
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1414526E;
+	Tue, 25 Oct 2022 16:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1414526E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666704468;
-	bh=QWKvt3x49Rqq6M1WbUJTvLylKUkzZ8XS+Q4v8IoxB0A=;
+	s=default; t=1666707054;
+	bh=E7LtvhuB6t9AblRuIZn3tDRobuDsAUxH9APskeQAolQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=UjWEZn1KWwG75m58d5TiHKmWEQ1HzwSMvd/5Z/lYMxXbcdVn0GgaaOp99/guZ1Naq
-	 RxkIAqo059HIGEbefT/O+yYywaQ/n4k74o1/XFGB4SzG4LqPAebpl0aQPxmKvSRt8P
-	 mhKWRYFVh2xmbh+KBHoS6E+dgfKxmnvwy0NL2jVk=
+	b=QLgsuUmHso6oIl9bDbybTl709yt1bEROiwObsi1ezufSCjgEcyHw84jlqdLAoZnMY
+	 SJnNxEKHezlTJuDh/87prRJ/KyHTS/Emx7bcl5yPIGfsTxsvkNZypvSVRg4d/4OV/D
+	 UZAPmxuLAdTpmqTHP2SqWnZgvbvjFSYO7oMrKWvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DBECF80448;
-	Tue, 25 Oct 2022 15:26:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EC22F80448;
+	Tue, 25 Oct 2022 16:10:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60932F80431; Tue, 25 Oct 2022 15:26:52 +0200 (CEST)
+ id 2DFE1F80431; Tue, 25 Oct 2022 16:09:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4F28F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 15:26:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4F28F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id C63E5F80115
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 16:09:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C63E5F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Qdv3TmBX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666704407; x=1698240407;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=QWKvt3x49Rqq6M1WbUJTvLylKUkzZ8XS+Q4v8IoxB0A=;
- b=Qdv3TmBX/zX6zrsfirPVvgJHRHW7LOr9so5lGfSYh8AgzX80SXgF9UOR
- zJVL7PhT5IQmhvH2CI34dS5giyB3xI61LrZ0kDq0v3790mWWMljEiZDk+
- mkv/H/437+QfnZNJmc4zQ4Orm0fBdInwbQnF6kwQqyPTmzC7YFgmv+qZ3
- qR5/f8eHxycX5f2ZydpF+5b3Nt7vclRbOXFj4Sl8tWu0qHSWo+3fpdCkg
- AsDWRCjpZ6xcHa6ts+T3a6Dek0lgo5yCUekG15kel74p0+yzCexrVuYfE
- qIbzuOHO2gJoV9+LLdV/a3RCkHvsnWK/amimASZm4gY5dPa02YCOpFShf A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="288068288"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="288068288"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 06:26:43 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="662803266"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="662803266"
-Received: from agsteede-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.12.174])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 06:26:41 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	dan.carpenter@oracle.com
-Subject: [PATCH] ASoC: SOF: ipc4-loader: Return ssize_t from
- sof_ipc4_fw_parse_ext_man()
-Date: Tue, 25 Oct 2022 16:27:06 +0300
-Message-Id: <20221025132706.30356-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.38.1
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Q25+kPV6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666706994;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=uCWU84K2OkW37ynQfbQOTPWj3Yaj/3eCjNmSyUljAXA=;
+ b=Q25+kPV65uLckHc+REXJ/AKuzkniFDcOzgMaXtIeWrQD8pzM9AyJ8l/grS0Z/55RTS4uJi
+ suXEJaDZ+xEjOOEhYGn4L8REr8zpUGQIWfROvma/CgqKrcx1ZohHu+DiNW4/BSXvnGhN81
+ YvFYdkVNeqfE1Cml0AACeXzKfVm60x4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-61-JsK2nu3xMSaYxq2VOqIaZg-1; Tue, 25 Oct 2022 10:09:50 -0400
+X-MC-Unique: JsK2nu3xMSaYxq2VOqIaZg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83AF7858F13;
+ Tue, 25 Oct 2022 14:09:45 +0000 (UTC)
+Received: from shalem.redhat.com (unknown [10.39.195.71])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4C03247505E;
+ Tue, 25 Oct 2022 14:09:43 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: Intel: bytcht_es8316: Add quirk for the Nanote UMPC-01
+Date: Tue, 25 Oct 2022 16:09:42 +0200
+Message-Id: <20221025140942.509066-1-hdegoede@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,52 +93,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sof_ipc4_fw_parse_ext_man() can return negative error numbers which is not
-correct for the used size_t type.
+The Nanote UMPC-01 mini laptop has stereo speakers, while the default
+bytcht_es8316 settings assume a mono speaker setup. Add a quirk for this.
 
-Change the return value to ssize_t and use the same type where the function
-is called.
-
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Fixes: 73c091a2fe96 ("ASoC: SOF: ipc4-loader: Support for loading external libraries")
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/sof/ipc4-loader.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/bytcht_es8316.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
-index af0018b38cf0..702196774c50 100644
---- a/sound/soc/sof/ipc4-loader.c
-+++ b/sound/soc/sof/ipc4-loader.c
-@@ -17,8 +17,8 @@
- /* The module ID includes the id of the library it is part of at offset 12 */
- #define SOF_IPC4_MOD_LIB_ID_SHIFT	12
- 
--static size_t sof_ipc4_fw_parse_ext_man(struct snd_sof_dev *sdev,
--					struct sof_ipc4_fw_library *fw_lib)
-+static ssize_t sof_ipc4_fw_parse_ext_man(struct snd_sof_dev *sdev,
-+					 struct sof_ipc4_fw_library *fw_lib)
- {
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	const struct firmware *fw = fw_lib->sof_fw.fw;
-@@ -141,7 +141,7 @@ static size_t sof_ipc4_fw_parse_basefw_ext_man(struct snd_sof_dev *sdev)
- {
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct sof_ipc4_fw_library *fw_lib;
--	size_t payload_offset;
-+	ssize_t payload_offset;
- 	int ret;
- 
- 	fw_lib = devm_kzalloc(sdev->dev, sizeof(*fw_lib), GFP_KERNEL);
-@@ -170,7 +170,7 @@ static int sof_ipc4_load_library_by_uuid(struct snd_sof_dev *sdev,
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct sof_ipc4_fw_library *fw_lib;
- 	const char *fw_filename;
--	size_t payload_offset;
-+	ssize_t payload_offset;
- 	int ret, i, err;
- 
- 	if (!sdev->pdata->fw_lib_prefix) {
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 6432b83f616f..a935c5fd9edb 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -443,6 +443,13 @@ static const struct dmi_system_id byt_cht_es8316_quirk_table[] = {
+ 					| BYT_CHT_ES8316_INTMIC_IN2_MAP
+ 					| BYT_CHT_ES8316_JD_INVERTED),
+ 	},
++	{	/* Nanote UMPC-01 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "RWC CO.,LTD"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "UMPC-01"),
++		},
++		.driver_data = (void *)BYT_CHT_ES8316_INTMIC_IN1_MAP,
++	},
+ 	{	/* Teclast X98 Plus II */
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "TECLAST"),
 -- 
-2.38.1
+2.37.3
 

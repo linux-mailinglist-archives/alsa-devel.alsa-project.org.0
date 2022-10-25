@@ -2,77 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E641E60CF8D
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 16:51:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D880C60CFD7
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Oct 2022 17:02:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66FA63311;
-	Tue, 25 Oct 2022 16:50:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66FA63311
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A97A50AE;
+	Tue, 25 Oct 2022 17:02:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A97A50AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666709478;
-	bh=VCltjqERKRXqiEIpoMVQ9binZrINHP3djXjLUsnrY/Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pIaINy+r5iDq9jXzHm+JCvW64EJzZ9KpFr5Mcsjv3nqshan0EZIOBPdP23bcNpUea
-	 QCPyuu69aGsuOs2ohpIWW8aMphBCkusuHtoWq43WCappGOLQPaFXeu6PScPhILyxSw
-	 RJrScQo3UqT+8YTUpOvTV9+jrAu7oJTct7Cp0EkM=
+	s=default; t=1666710179;
+	bh=cmimi/f2Ov8ciwP3TqeneC+3HhVdIsver/X74PlGva4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OyYJYKLrxk4GmBrI0fkf0v6a9S5ab4fpsGYT7YUB7siOx9JqZPwN80nBNs4qfSb/V
+	 e8SJntMzaHgDdZtx7uiFkZFlYFw0HCJR5Yl3boBIaC9bMgY1ni2hfOOAKCxXyFQIe4
+	 tlVa39b8a16qt2zIVLNHA58vY9haq0ltcaBAv/uQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C3ACF80448;
-	Tue, 25 Oct 2022 16:50:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE716F80448;
+	Tue, 25 Oct 2022 17:02:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C130F80431; Tue, 25 Oct 2022 16:50:21 +0200 (CEST)
+ id 933B3F80431; Tue, 25 Oct 2022 17:02:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from aposti.net (aposti.net [89.234.176.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91DF0F80100
- for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 16:50:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91DF0F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77B8CF80240
+ for <alsa-devel@alsa-project.org>; Tue, 25 Oct 2022 17:01:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77B8CF80240
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="sPChzJNV"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5DFEEB81D7B;
- Tue, 25 Oct 2022 14:50:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92EC4C433D6;
- Tue, 25 Oct 2022 14:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1666709413;
- bh=VCltjqERKRXqiEIpoMVQ9binZrINHP3djXjLUsnrY/Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sPChzJNVdFp0eS17oqBoQV6rW+/XvI85cf5PLyQwbF0TnsSuv/BhDtqoqshmAjMxN
- SGfaZTjo+kAKd38XCblRNqbxEX3Z9mYImDfNHMXnvt3tUKjHbs+tkK04RKoqRvh4Ss
- J1xfZiUhXXqbMlsIH4r+nyyCOKf0SvajwNt9dyso=
-Date: Tue, 25 Oct 2022 16:50:10 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH AUTOSEL 6.0 07/44] ALSA: hda: Fix page fault in
- snd_hda_codec_shutdown()
-Message-ID: <Y1f3opiid6pvKINq@kroah.com>
-References: <20221009234932.1230196-1-sashal@kernel.org>
- <20221009234932.1230196-7-sashal@kernel.org>
- <24d084e1-700d-da77-d93e-2d330aac2f63@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="WoGntmFi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1666710116; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:references; bh=xRxva5kPtIk4AgmMh5Ah5qs16fLVraMoyg8JYmMcBno=;
+ b=WoGntmFizqSg7uziAiWpH5vkz4ugrgLIaFQgV7uO5zGOHCikQwdp6kdWtXJudWr29Kg2fv
+ 0FOO4EOdIkiNYAuyYFzYnRntmv9oZDxReSLf5ZOI3t97XCm5YVt2MsrcJeEzu6GDYf+1u9
+ +LKdo1Xbe7TwcFSdhU/0VIPsxSh6EhY=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH] ASoC: dapm: Don't use prefix for regulator name
+Date: Tue, 25 Oct 2022 16:01:49 +0100
+Message-Id: <20221025150149.113129-1-paul@crapouillou.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24d084e1-700d-da77-d93e-2d330aac2f63@linux.intel.com>
-Cc: Sasha Levin <sashal@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
- alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- mkumard@nvidia.com
+Content-Transfer-Encoding: 8bit
+Cc: Paul Cercueil <paul@crapouillou.net>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,28 +73,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 25, 2022 at 09:27:32AM -0500, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 10/9/22 18:48, Sasha Levin wrote:
-> > From: Cezary Rojewski <cezary.rojewski@intel.com>
-> > 
-> > [ Upstream commit f2bd1c5ae2cb0cf9525c9bffc0038c12dd7e1338 ]
-> 
-> This commit on linux-stable seems to have broken a number of platforms.
-> 
-> 6.0.2 worked fine.
-> 6.0.3 does not
-> 
-> reverting this commit solves the problem, see
-> https://github.com/thesofproject/linux/issues/3960 for details.
-> 
-> Are we missing a prerequisite patch for this commit?
+When a component has a prefix, and uses a SND_SOC_DAPM_REGULATOR_SUPPLY,
+the name of the regulator should not use the prefix, otherwise it won't
+be properly matched in the DT/ACPI.
 
-Please see https://lore.kernel.org/r/20221024143931.15722-1-tiwai@suse.de
+Fixes: 3caac759681e ("ASoC: soc-dapm.c: fixup snd_soc_dapm_new_control_unlocked() error handling")
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
+ sound/soc/soc-dapm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Does that solve it for you?
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index d515e7a78ea8..879cf1be67a9 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3645,7 +3645,7 @@ snd_soc_dapm_new_control_unlocked(struct snd_soc_dapm_context *dapm,
+ 
+ 	switch (w->id) {
+ 	case snd_soc_dapm_regulator_supply:
+-		w->regulator = devm_regulator_get(dapm->dev, w->name);
++		w->regulator = devm_regulator_get(dapm->dev, widget->name);
+ 		if (IS_ERR(w->regulator)) {
+ 			ret = PTR_ERR(w->regulator);
+ 			goto request_failed;
+-- 
+2.35.1
 
-thanks,
-
-greg k-h

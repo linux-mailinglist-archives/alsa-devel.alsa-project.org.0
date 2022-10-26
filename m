@@ -2,101 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837D260E581
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 18:32:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CD0F60E59D
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 18:44:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F3F21FF3;
-	Wed, 26 Oct 2022 18:31:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F3F21FF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 239CF3AE0;
+	Wed, 26 Oct 2022 18:43:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 239CF3AE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666801966;
-	bh=yqcoqkaDgNCIB6nqsHgUvksNWRWJ+5V/ncqNqLCew4Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SBo8xcI7cRNg4x0DoUYXFtHvGsfrTExEArDVUUjK71w102Uk7ob7FxVLK8LvQva5s
-	 Ymw/pyff1MtBEtqJXaUGZl+HbH7fSXS3r0r2HtYjfj5qDXWC7BbCXzhUFy4h3ozQJn
-	 P3fvOIrDe7tsHYXwWn0YsWNcQrNdHGGreS4KH9r0=
+	s=default; t=1666802659;
+	bh=M3LvEQIP7b2qt7lMFYMr6HIIlkS6fKalgL8DHP52nqE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=viR8FsEkjZaHFn7UQp3t5CxvYTXilvZ24Fj6nCXXbwloKDXuN27V+pF/y+S+c8icL
+	 vglEfGXtZbsvpETftaxUJ2wIIYxeYeNf/bPJmyKreryNPp24Rlt7RTtiztJBxJjOlt
+	 EKt4ic64WODHeY/M6xVyWhvzv0cq4zY8cAenE+fA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EFC1F8027C;
-	Wed, 26 Oct 2022 18:31:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89E7DF8027C;
+	Wed, 26 Oct 2022 18:43:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20AD3F8027C; Wed, 26 Oct 2022 18:31:49 +0200 (CEST)
+ id E254CF80271; Wed, 26 Oct 2022 18:43:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CEE6BF800BB
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 18:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEE6BF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 695C2F8016C
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 18:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 695C2F8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="gCRfbxTz"
-Received: by mail-qk1-x729.google.com with SMTP id l9so8418224qkk.11
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 09:31:42 -0700 (PDT)
+ header.b="KOkEfP2x"
+Received: by mail-qv1-xf2b.google.com with SMTP id u7so11968253qvn.13
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 09:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:cc:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vZroYCfLP4kV6yI2SRRkLF4nBxcg+8GdvFiXm2KAN+0=;
- b=gCRfbxTztxyAglTagJ90CBhqnus+JgUzmKoYY9/0MsEP0wUYumGlms0kroMz2tdy+0
- dQ7pwGFr2FC+Lh9NYSXPBYWx4UU8Mc0j7g7zmepKBf/T6NaMqH5pF2xFsOJdfBydH0w5
- EPgU1WDnWu0/PTDgoPCBiO3R6FyU0a1LdvwLJMddT6qZtWWPn3KHjF1NZ6skR0mcjZSN
- LsIe9HA9Z7bTvXz3Oi+qV6PKu1fNrohSeUrtCEPTEXxCILDGbe0U81rP2Xapzv3OVKpD
- pftWQCvFA+6xejk6uMiNDVHpwXWQk6JJOa34wdV6Y3MkiWsomuo5PZpq/2u4/6z2X/8F
- m+5A==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mzWvOz4xlS7L3D9T4rYd7JcZn+pzJHU2kPLw2mhBPuM=;
+ b=KOkEfP2xpRurEbYg+xQTVNwiZfGj3RiNZiEcehd4CgcqnnG4IFx3UKtOjlGSemDbPQ
+ 0OnIs/LTiX2qwceK4CMeaxVEwrzkEfSRa8S7l5FS1SdMXA5GTBkMXY/24hwIPJXP2eQb
+ s3bYfXUbUpb65zOyBbZC0B7YfrgaMcFn6rz01Wc1k82pcL3/hBFEyLa01MUXlcQLmNZB
+ i1oIVykGn16gBLLLlq4lAx2i1M8SqQykQ2EfLg6o7i0OQOewgwOpuwUERwW74CSMc1X0
+ eO6iX0gjFeuplDPso9WHI8nrpFIr0kjWVwS1ldABtBxDnwKiGyR3MWaUN1UvUdbXdKFq
+ 2EdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:cc:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vZroYCfLP4kV6yI2SRRkLF4nBxcg+8GdvFiXm2KAN+0=;
- b=hkomhrlu+w3S1m7iLWOoaFaumjLPyqnADuwz6yDLICAKRb+NKqPRDKiIR55qh5xgeI
- L3qtnZJdrl4zbE/PRudok5DbbAs+yzCoHhkAjmivmlOZdGXYdebr7WrxKMHDG9Mt3qoi
- Z+YzgqDq6YPvI2KJSR9QNZG97Ts9Zw9orvZqHdvrZS8jZUTUdY7us/8XbX7ohJwp9CcP
- UYRZA3obqnAgXxn8lnshnKMJbEf8Lk/fupmlcXm79cYvbygUqCPCNvQyBywhQiQYsYup
- FGtfMZXHJbKwkmA6Gd1tNQcsNVKxyjFrW3GPF57+8gU0mrjLfnVegeoPINxo7L9jlZVz
- +Urw==
-X-Gm-Message-State: ACrzQf3T4AGSdX5HRWzFVniGvdghht41pQQ1wmm3M5ENog08Kx2StcDW
- pV2PkTQNbj7Ji2A0HCbE+GdLLYgqvsjrOA==
-X-Google-Smtp-Source: AMsMyM7zb0Ad8R3XGxlHoD3MmtUEhan1tNmdrsbjDd8I1m15K/nuONOXPqL7vgs0BM6lGAVY1R/VKg==
-X-Received: by 2002:a05:622a:4cc:b0:39c:bfb1:8a45 with SMTP id
- q12-20020a05622a04cc00b0039cbfb18a45mr36998426qtx.647.1666801889584; 
- Wed, 26 Oct 2022 09:31:29 -0700 (PDT)
-Received: from [192.168.1.11] ([64.57.193.93])
- by smtp.gmail.com with ESMTPSA id
- n12-20020a05620a294c00b006b8e63dfffbsm4239476qkp.58.2022.10.26.09.31.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Oct 2022 09:31:28 -0700 (PDT)
-Message-ID: <f3148a5a-2424-8589-684e-7d759bb08bb1@linaro.org>
-Date: Wed, 26 Oct 2022 12:31:26 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH 1/5] slimbus: stream: add checks for invalid
- unprepare/disable usage
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20220923155740.422411-1-krzysztof.kozlowski@linaro.org>
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mzWvOz4xlS7L3D9T4rYd7JcZn+pzJHU2kPLw2mhBPuM=;
+ b=BEM0O5ZvKlqPy9ify9ASb7gbM7R6ucVJXjZbko+cGQJtMnStFfbf06MV8Qfn6iLCGc
+ zj+VWGn4ZP/GbMU5LM1J2nmwlvDJUgPO9qlrWowtw0kpWtFZbcM/yJaw0ou56+H3Nebh
+ VSaH6Mz5bVNMBxCmLjD3Wtebn6kx4AL09RKpV6h9js4tUR+tP9C4791RaCK2mVtfeY1/
+ Zz93KC7DbH5it2bFefxDan74mI27QqxDncgWrAkBnC2vPDrMPgt9Ragd6Y2Exqm5MaEl
+ tZmb5rTUwV2zQ8ws5Gxhkfj8bnMBF31WC3++zGSJCLbUZFOGSkGAWM45Ol+KLKV5QhUZ
+ fR+A==
+X-Gm-Message-State: ACrzQf1K0XsPXql0O8z3En5Ahg1Sdy/WskyQ8zB++B3iFFJPfZfMoqH8
+ wTomuSQWvbmr8xmo8hhlIhg/Pg==
+X-Google-Smtp-Source: AMsMyM4iAG3FrGgLa5u3fVo4ArWXqF/ECAWI08B9jzMkRd9NbPYsZvn6nwCH0MlU4TpX4OF79c3ACQ==
+X-Received: by 2002:a05:6214:d42:b0:4bb:75aa:7d7 with SMTP id
+ 2-20020a0562140d4200b004bb75aa07d7mr13016281qvr.22.1666802599432; 
+ Wed, 26 Oct 2022 09:43:19 -0700 (PDT)
+Received: from krzk-bin.. ([64.57.193.93]) by smtp.gmail.com with ESMTPSA id
+ j6-20020a37c246000000b006eed47a1a1esm3989938qkm.134.2022.10.26.09.43.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Oct 2022 09:43:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220923155740.422411-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: [PATCH v3 0/3] arm64/slimbus/dt-bindings: convert to DT Schema,
+ minor cleanups
+Date: Wed, 26 Oct 2022 12:43:12 -0400
+Message-Id: <20221026164315.39038-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,17 +105,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/09/2022 11:57, Krzysztof Kozlowski wrote:
-> slim_disable_stream() and slim_stream_unprepare() are exported, so add
-> sanity checks preventing unmatched/invalid calls.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
+Hi,
 
-Hi Srini,
+Changes since v2
+================
+1. None, rebased and dropped applied patches.
 
-This patchset is also waiting for a month without comments.
+Changes since v1
+================
+1. Fix commit title typo (Steev).
+2. Add Rb/Tb tags.
+
+Dependencies
+============
+No dependencies. Binding patches are independent from DTS.
 
 Best regards,
 Krzysztof
+
+Krzysztof Kozlowski (3):
+  dt-bindings: slimbus: convert bus description to DT schema
+  dt-bindings: slimbus: qcom,slim: convert to DT schema
+  dt-bindings: slimbus: qcom,slim-ngd: convert to DT schema
+
+ .../devicetree/bindings/slimbus/bus.txt       |  60 ---------
+ .../bindings/slimbus/qcom,slim-ngd.yaml       | 120 ++++++++++++++++++
+ .../bindings/slimbus/qcom,slim.yaml           |  86 +++++++++++++
+ .../bindings/slimbus/slim-ngd-qcom-ctrl.txt   |  84 ------------
+ .../bindings/slimbus/slim-qcom-ctrl.txt       |  39 ------
+ .../devicetree/bindings/slimbus/slimbus.yaml  |  95 ++++++++++++++
+ 6 files changed, 301 insertions(+), 183 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/slimbus/bus.txt
+ create mode 100644 Documentation/devicetree/bindings/slimbus/qcom,slim-ngd.yaml
+ create mode 100644 Documentation/devicetree/bindings/slimbus/qcom,slim.yaml
+ delete mode 100644 Documentation/devicetree/bindings/slimbus/slim-ngd-qcom-ctrl.txt
+ delete mode 100644 Documentation/devicetree/bindings/slimbus/slim-qcom-ctrl.txt
+ create mode 100644 Documentation/devicetree/bindings/slimbus/slimbus.yaml
+
+-- 
+2.34.1
 

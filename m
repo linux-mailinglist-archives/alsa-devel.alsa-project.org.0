@@ -2,82 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3841060E441
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 17:12:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EB8A60E57D
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 18:31:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE5B53AC3;
-	Wed, 26 Oct 2022 17:12:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE5B53AC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 810863A23;
+	Wed, 26 Oct 2022 18:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 810863A23
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666797171;
-	bh=4Z5zLso9XNCBCHEEuJMM/rcAgVuqzF4fw0BCdufFO5Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666801901;
+	bh=pibIx4rslMV8+9bmARvw8NUGgdQsWAYSvJSYqkEuwB0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nE0IWa/UEM287wFUbwGZ7l5mEh185qbw+eYgy9mb6DsqjupLmid3lJUEbrLxjZXzH
-	 Mt1RhWYtZVwOfPmBGjSD6kDQG/n60RlQL88I/LwCvMLb6Z33Me+v0MiQL/S7GalRKF
-	 ACR6tOSM7YKWTRL1zH4RqkQdLKXi+mYHbuj4If4A=
+	b=se76g/++J67C/XUB/54KAo/mHu+8Cory1uJ3jauoRFSpbYkfJAAjSKRHcm2He/e/O
+	 B/TZGSmm2QV1nbzwo1BAx+RpaoDZ7cLhDyNrgMaswp5riwI52lFPY9G0HE16RSo9+8
+	 rKGwCjdWEHB75A4mZqNpcz4GbTKocGNH+4bTeNRY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31047F8027C;
-	Wed, 26 Oct 2022 17:11:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF05FF8027C;
+	Wed, 26 Oct 2022 18:30:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0A98F80271; Wed, 26 Oct 2022 17:11:54 +0200 (CEST)
+ id CFB86F80271; Wed, 26 Oct 2022 18:30:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75D4CF80100
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 17:11:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D4CF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7B07F8016C
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 18:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7B07F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XbUqWf/U"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 94F7361F62;
- Wed, 26 Oct 2022 15:11:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C25C433C1;
- Wed, 26 Oct 2022 15:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666797108;
- bh=4Z5zLso9XNCBCHEEuJMM/rcAgVuqzF4fw0BCdufFO5Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XbUqWf/UNHlwTkNxQkTZ1K6W0GJk+JvCByByAYT51qdtLQpqEpX602AOL0P95C/sD
- CY73cmiO8ktDHurGqpaMAY5PlkDfrAfpHNGU5INpNLac6CNVx10EBPknWx0UYEMKhw
- uTuz+pKi+5Pkj3xjY4oIl/+Yrfy7yZchBQmf12bB4vvhC6AEgEprC/MI7ZUuTrNPpv
- 25KGRiiF/D0PVka6WdMYU/fU1vdOwqwLLY3fsvUnMwSRnJa9MhIdlEYn3FO3EoNQX2
- 3RpPu6fTs/ziU8Tz4+xVLlkQxF7eBviR8ZilkIUhv3F5R+SdneQMGdULvZc3gn0k5i
- zWRfnsWMWBuFA==
-Date: Wed, 26 Oct 2022 16:11:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH v1 1/2] ASoC: simple-card: Support custom DAI system
- clock IDs
-Message-ID: <Y1lOLgLNDgsmvfe5@sirena.org.uk>
-References: <20221022162742.21671-1-aidanmacdonald.0x0@gmail.com>
- <Y1Z74/vKHbnaCLrX@sirena.org.uk>
- <XaoRSEMyUlabAR8wEJITmm2lGCjwfPZg@localhost>
- <Y1fCfej+/WH8TI39@sirena.org.uk>
- <FgO8Xz5MtaEBdBidpT8So4X5posjL95Y@localhost>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="yqzLVshf"
+Received: by mail-qt1-x831.google.com with SMTP id x3so3323062qtj.12
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 09:30:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:cc:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MEWQjBfFk/Zdt39bZHeZ/2md1LrkK3njfqHpxKjRhAc=;
+ b=yqzLVshfBATMpUgpsZffV9q/DTVkozyc3MVPu0gQrxYNwaQoIlOBMP3undJwlntfQV
+ iIUShn7/vowA/imGuvjeNBaZCF2nCVMXMmWTtWyz1HJvJQfhUJWhVluO63kXZA0fh0Z5
+ zx9EWrtX07jf8kileGgS3lA/8HoUGRTUB6uSQilStct9QNe2YMn5rK0uX04qME2WX2wN
+ 0wAk9XMrfehHvMiT28xCEdrLelhIwsFc+e3VEKDsR5ygYdoZi0pA9YrSEaO+0S4goza/
+ gWDz19FJ6OAvQTfc9CEP0M4YymLpPq3FOpPGjKOjluGq30VM7hx2UTUwmQ0YIQlOAbHm
+ lgzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:cc:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MEWQjBfFk/Zdt39bZHeZ/2md1LrkK3njfqHpxKjRhAc=;
+ b=6jpUXicdG6bjxxH1NAb79rdgRT1wltdyKFJ5zLvNuYPddiH/bCH1ciKU7sAZ3ibXmw
+ B8DCmB42B/LzwfAtiDnMHAj0RCPi1rHygIjSfvEyIrnQAGWQL3aFDnBZwCljlnbhFkJM
+ kMDI2KI+t72sK2KRmm67ixE8CyalIsqkukyWZrn++PakvFYwbKpaK3NLsCUvwRGp4stn
+ zLJW1lQW8j9U0/IIVPVMbKKN9cRcQQ5NygwGS4Q0vev2q+gUtAcD5b1O63rQu2gNm/VO
+ fdUej08sIgl7+4b0ekoYOurhKmNPwTDYNGfDE+dnC/ptYBa7e9ofsOI++2Jx5QE1oFYA
+ 3Y7A==
+X-Gm-Message-State: ACrzQf3Yovll4gAacyOm3IAmePhqq9Iid2aIOdpLqPK9nRyFjv8IFb4A
+ FERcdPLMg9IfB5k0fcwCAsHR9g==
+X-Google-Smtp-Source: AMsMyM4X5+5ss5R8dZPK0IxY6Megf9eWUoPQKvis6PymkL1smThD/yQ3JgibJaReN/eJFwt8FGLSwQ==
+X-Received: by 2002:ac8:5a42:0:b0:39d:136e:8a43 with SMTP id
+ o2-20020ac85a42000000b0039d136e8a43mr27254584qta.372.1666801837499; 
+ Wed, 26 Oct 2022 09:30:37 -0700 (PDT)
+Received: from [192.168.1.11] ([64.57.193.93])
+ by smtp.gmail.com with ESMTPSA id
+ e10-20020a05622a110a00b0039cb9ef50b5sm3444073qty.26.2022.10.26.09.30.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Oct 2022 09:30:36 -0700 (PDT)
+Message-ID: <3169d47b-35e4-7e49-875c-631a66350613@linaro.org>
+Date: Wed, 26 Oct 2022 12:30:35 -0400
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="STgcsZayb3dhE5DX"
-Content-Disposition: inline
-In-Reply-To: <FgO8Xz5MtaEBdBidpT8So4X5posjL95Y@localhost>
-X-Cookie: Prunes give you a run for your money.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH 1/5] slimbus: stream: add checks for invalid
+ unprepare/disable usage
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20220923155740.422411-1-krzysztof.kozlowski@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220923155740.422411-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,54 +110,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 23/09/2022 11:57, Krzysztof Kozlowski wrote:
+> slim_disable_stream() and slim_stream_unprepare() are exported, so add
+> sanity checks preventing unmatched/invalid calls.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  drivers/slimbus/stream.c | 6 ++++++
 
---STgcsZayb3dhE5DX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Oct 26, 2022 at 03:42:31PM +0100, Aidan MacDonald wrote:
-> Mark Brown <broonie@kernel.org> writes:
+Hi Srini,
 
-> > There is a strong case for saying that all the clocking in CODECs might
-> > fit into the clock API, especially given the whole DT thing.
+Any comments on these patches? Can they be picked up?
 
-> The ASoC APIs don't speak "struct clk", which seems (to me) like a
-> prerequisite before we can think about doing anything with clocks.
+Best regards,
+Krzysztof
 
-Right, they probably should.
-
-> Even if ASoC began to use the clock API for codec clocking, it's not
-> clear how you maintain backward compatibility with the existing
-> simple-card bindings. You'd have to go over all DAIs and mimic the
-> effects of "snd_soc_dai_set_sysclk(dai, 0, freq, dir)" because there
-> could be a device tree relying on it somewhere.
-
-Of course, you'd need to define bindings for devices with multiple
-clocks such that things continue to work out compatibly.
-
-> So... given you're already stuck maintaining .set_sysclk() behavior
-> forever, is there much harm in exposing the sysclock ID to the DT?
-
-Yes, it's ABI and the more baked in this stuff gets the more issues we
-have when trying to integrate with the wider clock tree in the system -
-for example when devices are able to output their system clock to be
-used as a master clock for a device which can use the clock API as an
-input.  It's fine in kernel but we should be trying to keep it out of
-ABI.
-
---STgcsZayb3dhE5DX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNZTi0ACgkQJNaLcl1U
-h9D/qgf/YOsJbQ4nQ75FNpRwHXAqvJR2rYBAW8fcMr3YrbLRTFOb03bpLFqa26nB
-tfJdkMrYr61OwPJY57vjlxoEJjSgdMHNuk7wB/Jo+n1PoPiHTg2SiLVbbG/pOqfw
-iENggEi02xvC4zGMmdEqzewObfbACRu0ZdIeKl4cXmFarL4/INkruO9WgABAFjtF
-ER7DoDv7Klfk28I6fP49gzEGIV8Omn6qHViJkz4fcrPbGpQcJzJtLU45amKZi/Eu
-NAy0T5bI48u/fcOZYup5lQYK/QyOb7XiI5CjLnd/MOjsBUjzUlukyeKnD/RLT6o2
-Sd7w6TFggE4pjNnE6GfxQ15P+Iw1Rg==
-=hC+q
------END PGP SIGNATURE-----
-
---STgcsZayb3dhE5DX--

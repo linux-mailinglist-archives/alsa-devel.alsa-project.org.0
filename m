@@ -2,90 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D4960DCF2
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 10:19:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB0060DDE7
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 11:20:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3CC33F4B;
-	Wed, 26 Oct 2022 10:18:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3CC33F4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 016601FC5;
+	Wed, 26 Oct 2022 11:19:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016601FC5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666772389;
-	bh=NYCXP6RyBtf3ScHpt1tBvUYys3xwjCxOteKAWeBtIPg=;
+	s=default; t=1666776047;
+	bh=9Ae4L/WwlykF22KreQk3Mq9ViPbKVnw52osNbV6IaL0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jv+DEmXXfJtFyLLbeXjI/kuEUo0HJRqxdCkaEeg6CWOxxLoT3VEofortWvyAUKuG9
-	 lqbOik+9XHZ6uAolvtSXJ2fWiVGDywq0MTdgGs1Cm0xjgjgULQRxZLHwdjMuKEoUeK
-	 2KCNjH0drb8LABdunUap1YnepPrpjY17u4jKH3+Q=
+	b=dZ5HbtMGYHQsH0cVVs4BaSTcr6llAsDpjANcFIwAAHQlhrgOCCaaa7/Hm7RjG89/4
+	 PdI+fqFv5powUTGW6IOVL0wb5BPx/j9z4XYwbs8ojOst2pZHoToAcwSE6PbN/HLPaT
+	 LawGDd4PbAQAzWnroyYTHv6QvKWqErLOKt5h4W/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4ED4CF8027C;
-	Wed, 26 Oct 2022 10:18:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6008BF8027C;
+	Wed, 26 Oct 2022 11:19:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2941F800BB; Wed, 26 Oct 2022 10:18:52 +0200 (CEST)
+ id CF3E5F80271; Wed, 26 Oct 2022 11:19:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8514F800BB
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 10:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8514F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 444D4F800BB
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 11:19:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 444D4F800BB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="Ou91Zpf3"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BB742660283B;
- Wed, 26 Oct 2022 09:18:44 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666772325;
- bh=NYCXP6RyBtf3ScHpt1tBvUYys3xwjCxOteKAWeBtIPg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Ou91Zpf3cGsseLbii8xWViLSeSsjqLIStMuD4Hcro5p0gSbeAFBPLfIhd7qr0YCgM
- og6rB/s8syWWTz40ihoOKkG/XRNlh0Hj3GgScRIVz+zW3XWDuJsp7VeCwnN7fY9jor
- KclpR6TWiNKvRydsdMIgI1HI9nX94vtqgzpE1nOJlCsYwJ5MgYXmr0oFS2nlMkp9+N
- yHX5Lxmgf6LD+t4adseWCQjJOUHG89I4sBQ5vkqHP5gqLq6MdmMHbC6FwUDlDQ4KdP
- OBaoCQB4evzQEkuCKDOmmIqA+EN93RWMIVuyFAxYjKQazybq4Hg5frHeMPK1GkA71O
- 4C2PQBUTIYBzw==
-Message-ID: <360a5f27-8abc-938c-04c7-13ea65b5a89f@collabora.com>
-Date: Wed, 26 Oct 2022 10:18:41 +0200
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Os3CANdZ"
+Received: by mail-wr1-x434.google.com with SMTP id bs21so9392043wrb.4
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 02:19:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+vvLMd9vnkZI8EzpD9XjigLCKktXXyr3j+Ca9tW6zSc=;
+ b=Os3CANdZlXG2loOTmbB8GVV0kux7vtMLUrM6BXvveJ1XmAGULocAcl04MTbfQtgKHZ
+ ZogXwPfXcyuUoE8fhJosJMlabM5JN1sDQftzcdN06ukbYROVYK+DVBU47D+YyGx5ocK5
+ wuhRtq0iSQQxLpllqZAJP0F3NBycKOZe7yhJxhyHBPgzUjzRv6n1wmf7iyoVnJQ1mEOw
+ QP6JjocO5+YT1ZcUzHp2thVVWx7q/4ul2IFZHMoN5zRrDi6UuutfO9AtMMyzbmDGiNRH
+ py2swijRZbkDaqrS28X33rCiTGpEj6KHQpgD8WfnnZ7sVEvR1xQbwtiPpf+XNfliKqF8
+ D1SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+vvLMd9vnkZI8EzpD9XjigLCKktXXyr3j+Ca9tW6zSc=;
+ b=fIJ96p9NRuqysRN4x/BwXSBPAqQA73E9zd82PVSeWotwVLkBAG8nwMZK2aXMPwQRNA
+ 7kLQxn4cWN4jOv3DobXymp2ghAV+GHWSqOWMk2zgW7ca0cpaCjveWqlMCLOa4/WDkGAC
+ RoPDtmrzaDjPhT8QhfxNVHgCDgQYIlt/DIsi1q+H8Wf1rN4MB9poO5yEg5Uy1nb/D0fO
+ NF3qGtSmS9aivAVX0oIfB0CR01mmOk7NaW04Yz6J7X2mZenk2nT0xx/wCWXYapaWtkav
+ FmhFOQ1CCrfT6KnYBwI31jcRy7v2+xm//Ujn5X+c4N73gNZfBZwRkI7jXztibKJTn8IK
+ rHIg==
+X-Gm-Message-State: ACrzQf373ilRxFqOS2m6HLds3sdYKbdpl0s75pYdnGoOVN/d62Z2JUp9
+ 8/1a9KIb3jirqnHOiQjsN5PGQQ==
+X-Google-Smtp-Source: AMsMyM4ERMKN8mXF1n7JYQJq8K3dGg1HUzsKsTY9L1ZoG3ILEkjuCGg4X927odxJLccu51fROJeatw==
+X-Received: by 2002:a5d:6d0d:0:b0:230:1b65:a378 with SMTP id
+ e13-20020a5d6d0d000000b002301b65a378mr28987089wrq.406.1666775986311; 
+ Wed, 26 Oct 2022 02:19:46 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+ by smtp.googlemail.com with ESMTPSA id
+ j31-20020a05600c1c1f00b003c701c12a17sm1378685wms.12.2022.10.26.02.19.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Oct 2022 02:19:45 -0700 (PDT)
+Message-ID: <4d2fcabe-291a-9f8d-ca48-eaf52e00695e@linaro.org>
+Date: Wed, 26 Oct 2022 10:19:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH v2 03/12] ASoC: mediatek: mt8188: support audsys clock
-To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>, "tiwai@suse.com"
- <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
-References: <20221021082719.18325-1-trevor.wu@mediatek.com>
- <20221021082719.18325-4-trevor.wu@mediatek.com>
- <de66f0e3-7694-7315-c896-9211259a1a17@collabora.com>
- <776557c0fda5a538549ee0d4f4b7f482b0d69934.camel@mediatek.com>
- <473d67ed-198f-82c6-9f32-5827c1f8c852@collabora.com>
- <500f80b1ac84101af482bdfcb46671d523d51068.camel@mediatek.com>
+ Thunderbird/102.2.2
+Subject: Re: [PATCH v2 1/9] ASoC: qdsp6: audioreach: topology use idr_alloc_u32
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org
+References: <20221021165207.13220-1-srinivas.kandagatla@linaro.org>
+ <20221021165207.13220-2-srinivas.kandagatla@linaro.org>
+ <35f55696-c4c5-1f00-dc7e-b5c7dcf0a091@linux.intel.com>
 Content-Language: en-US
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <500f80b1ac84101af482bdfcb46671d523d51068.camel@mediatek.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <35f55696-c4c5-1f00-dc7e-b5c7dcf0a091@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ bgoswami@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,156 +111,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 26/10/22 06:10, Trevor Wu (吳文良) ha scritto:
-> On Tue, 2022-10-25 at 12:18 +0200, AngeloGioacchino Del Regno wrote:
->> Il 21/10/22 11:58, Trevor Wu (吳文良) ha scritto:
->>> On Fri, 2022-10-21 at 10:41 +0200, AngeloGioacchino Del Regno
->>> wrote:
->>>> Il 21/10/22 10:27, Trevor Wu ha scritto:
->>>>> Add mt8188 audio cg clock control. Audio clock gates are
->>>>> registered
->>>>> to CCF
->>>>> for reference count and clock parent management.
->>>>>
->>>>> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
->>>>> ---
->>>>>     sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 206
->>>>> ++++++++++++++++++
->>>>>     sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  15 ++
->>>>>     .../soc/mediatek/mt8188/mt8188-audsys-clkid.h |  83 +++++++
->>>>>     3 files changed, 304 insertions(+)
->>>>>     create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-
->>>>> clk.c
->>>>>     create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-
->>>>> clk.h
->>>>>     create mode 100644 sound/soc/mediatek/mt8188/mt8188-audsys-
->>>>> clkid.h
->>>>>
->>>>> diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>> b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>> new file mode 100644
->>>>> index 000000000000..1f294231d4c2
->>>>> --- /dev/null
->>>>> +++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>> @@ -0,0 +1,206 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0
->>>>> +/*
->>>>> + * mt8188-audsys-clk.c  --  MediaTek 8188 audsys clock control
->>>>> + *
->>>>> + * Copyright (c) 2022 MediaTek Inc.
->>>>> + * Author: Chun-Chia Chiu <chun-chia.chiu@mediatek.com>
->>>>> + */
->>>>> +
->>>>> +#include <linux/clk.h>
->>>>> +#include <linux/clk-provider.h>
->>>>> +#include <linux/clkdev.h>
->>>>> +#include "mt8188-afe-common.h"
->>>>> +#include "mt8188-audsys-clk.h"
->>>>> +#include "mt8188-audsys-clkid.h"
->>>>> +#include "mt8188-reg.h"
->>>>> +
->>>>> +struct afe_gate {
->>>>> +	int id;
->>>>> +	const char *name;
->>>>> +	const char *parent_name;
->>>>> +	int reg;
->>>>> +	u8 bit;
->>>>> +	const struct clk_ops *ops;
->>>>> +	unsigned long flags;
->>>>> +	u8 cg_flags;
->>>>> +};
->>>>> +
->>>>> +#define GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,
->>>>> _flags,
->>>>> _cgflags) {\
->>>>> +		.id = _id,					
->>>>> \
->>>>> +		.name = _name,					
->>>>> \
->>>>> +		.parent_name = _parent,				
->>>>> \
->>>>> +		.reg = _reg,					
->>>>> \
->>>>> +		.bit = _bit,					
->>>>> \
->>>>> +		.flags = _flags,				
->>>>> \
->>>>> +		.cg_flags = _cgflags,				
->>>>> \
->>>>> +	}
->>>>> +
->>>>> +#define GATE_AFE(_id, _name, _parent, _reg, _bit)		
->>>>> \
->>>>> +	GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,		
->>>>> \
->>>>> +		       CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
->>>>> CLK_GATE_SET_TO_DISABLE)
->>>>
->>>> Can you please explain what's the reason for CLK_IGNORE_UNUSED
->>>> here?
->>>> Maybe we can solve some issue that you're facing in a cleaner
->>>> way.
->>>>
->>>> Regards,
->>>> Angelo
->>>
->>> Hi Angelo,
->>>
->>> Because clk_disable_unused() calls clk_core_is_enabled(), register
->>> access happens in is_enabled() ops.
->>> At the moment, the power for register access is not enabled, so the
->>> register read results in CPU hang.
->>>
->>> That's why I added CLK_IGNORE_UNUSED here, but it can't resolve all
->>> issues. Actually, we met same problem when "cat
->>> /sys/kernel/debug/clk/clk_summary" is used. We are still suffering
->>> the
->>> problem.
->>>
->>> I'm not sure if I can implement clk ops by myself, and exclude the
->>> registration of is_enabled() ops.
->>>
->>
->> Is the power for register access enabled with a power domain?
->>
->> Check drivers/clk/clk.c, grep for core->rpm_enabled.
->>
->> If you enable runtime PM before registering the clocks, and you
->> register them
->> with the right struct device, the clock API will enable power for you
->> before
->> trying to read the clock enable status.
->>
->> Regards,
->> Angelo
->>
-> 
-> Hi Angelo,
-> 
-> I tried the way in MT8195, but it caused circular lock problem.
-> 
-> Because mtcmos depends on some clocks, clk_bulk_prepare_enable is also
-> used in scpsys_power_on()[1].
-> If the clock also depends on the power domain, this results in the
-> circular lock problem.
-> That's why I don't bind the power domain with these clocks.
-> 
+Thanks Pierre,
 
-This is not supposed to happen... can you please give me a (MT8195) patch to
-reproduce the issue that you're seeing?
-
-I would like to investigate that to check if I can come up with a good solution.
-
-Thanks,
-Angelo
-
-> [1]
-> https://elixir.bootlin.com/linux/v6.1-rc2/source/drivers/soc/mediatek/mtk-pm-domains.c
-> 
-> Thanks,
-> Trevor
+On 21/10/2022 18:09, Pierre-Louis Bossart wrote:
 > 
 > 
+> On 10/21/22 11:51, Srinivas Kandagatla wrote:
+>> SubGraph and Module Instance ids take 32 bits, so use idr_alloc_u32
+>> instead of idr_alloc to able to accomdate valid ranges.
+> 
+> typo: accommodate.
+>
+will fix it in next version
 
+> Also worth checking https://www.kernel.org/doc/html/latest/core-api/idr.html
+> "The IDR interface is deprecated; please use the XArray instead."
+Thanks for this hit, this looks really good and specially lookups 
+without Locking, this could cleanup the code a bit.
 
+Having said that I would still like this patch go as it is with idr for 
+now, and I can plan to rework on converting idr to xa later, as there 
+are few more Qcom Audio drivers that have usage of idr.
 
+thanks,
+srini
+
+> 
+> 

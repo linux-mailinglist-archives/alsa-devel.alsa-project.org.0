@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C0760DF41
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 13:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4981060DF43
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 13:04:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C60193F29;
-	Wed, 26 Oct 2022 13:03:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C60193F29
+	by alsa0.perex.cz (Postfix) with ESMTPS id C93013F26;
+	Wed, 26 Oct 2022 13:03:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C93013F26
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666782255;
-	bh=WZ/mv9/cul011FPdYmLV3dexjutNJSe3ci8aBdF0vD8=;
+	s=default; t=1666782277;
+	bh=eWbmVg5+W1edCypNRGrNsdMwNPOC7NYNRxz2Xm0ICWU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KKKnl0vzTwtk3LxAF0GAAcX9nQXPeW6KgZes3shL5naKrYqVCtaxMFYaX6HH/5nBY
-	 AnQtZjZ44Fa+FPFvhqaYw+yTV4Tjrh8NkE+Mbom14kjWgEDyW5SpcmgGMLKaWsCP95
-	 tpvITDp7UovVyrH6CEjZRFmKo7donhHJUigB3Iyo=
+	b=PM+ol9+poZ1IPmeQJbdwSrj6YINr2UNED3yU9xeFeFPYOTHkj+KpuqW3+z7EZLGQT
+	 I/sfyIk6qAuaNBg63Y3MJGykW9JQ+ehsTYUYdIzrvoOf7n70BYyfLVnF9q3ttdTe3r
+	 6y9aoG+HNRKbjbPkcp4utExWLRuFnww9rnKaXMJ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DE12F80559;
+	by alsa1.perex.cz (Postfix) with ESMTP id C4B2AF80563;
 	Wed, 26 Oct 2022 13:02:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03358F80557; Wed, 26 Oct 2022 13:02:34 +0200 (CEST)
+ id 14097F80271; Wed, 26 Oct 2022 13:02:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55D64F80271
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 13:02:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55D64F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16223F80508
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 13:02:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16223F80508
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="RWGT62z0"
-Received: by mail-wm1-x329.google.com with SMTP id
- c3-20020a1c3503000000b003bd21e3dd7aso1205083wma.1
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 04:02:28 -0700 (PDT)
+ header.b="O0WFoE7v"
+Received: by mail-wr1-x431.google.com with SMTP id a14so22897751wru.5
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 04:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9qO/JbNRzACWJ+/BPqzyo1ybZ7r6Vd9pEOf9FoOyjmc=;
- b=RWGT62z0OrUByMt9GrSpD27EAROj86fo8TCkjjtRrXYNZ6HPIPQ5r5t5vpxfZQi0hd
- QoBX2qHvro7m4+uOucRRcVawjJZD8M+NXwqHESqMKuVmPmFN0EEJpFUOxhi1Tv0NCQvq
- 5oSkrVszv1SKhJb5bc/UmpozOVeaCe01pKmr0hMCFKF5at8bs0Knx/L0vEg055RsahMi
- 5wgwPKOvh22s18cE2oZvGjSg0h3z1hhDKNPe22z3CxTt/ntFrf2/3Q0Ltzl2YLpErooj
- 3tdAEwQyKaSdYqfroQEnF+6gxG0O9YEFrAL35sjVpftNC6WinLATzAZHFZ5sNgad9J+r
- /Dcw==
+ bh=M5yIrMJGpCUVHY5GfvEg2i8ek5laLkQGA9zDhfgH9W8=;
+ b=O0WFoE7vynG5KsDSLBTFaIikesyRanRpjq1Fbxh8BuIkEZPvwoh44dIJul80ph+gwD
+ rZwgeujH8Jrqy5sdsHIof+RuuAV1KqKL3KvfAiG9wLOC8xAfKuEGIHPtn06ySffpqZeN
+ aumbCJgl4ls0yXf6bpilHRmPTXLhy5a6pUOkhhqlLa+tzfaJYuttbymXSDmZojdGgdlt
+ oloWKlyka5phBa9RRrNKMY1mQ2Uf65iVjz7uBeQzrvMXrP+GScvYRgOY+e9rSC36yBBz
+ ed77qagUS1Rob8EEX/CWe50WoKf67T7rcO0R7hgkdOJFEpDEWF0MT5e7ysaxAynioCu8
+ 9Sqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9qO/JbNRzACWJ+/BPqzyo1ybZ7r6Vd9pEOf9FoOyjmc=;
- b=MPTyqUUM0Nh6hIpN2dwTpYPZZKSqMYZJ0StRYPv87ztWgQw99B2MwqL2c8APLz1J1F
- btGPfv5JZ2xabRP2DcAFOivG+DTxZYUVUhWwM5aT3KtqoNG3jqrQbm3tN+qBIgcaJ2YS
- Stps4+duzvw4pRztg9Eoi2k6wQ58eP09sbXYnkl9cD2GAhM203KjBE74LfiNVfD/0232
- H2SiA2W91Rl1AKU2Euw8pT+gaXsZHm1gUFlIHLsJlpS1d+tTVDvx0+xx4/FWwp6+d6M5
- LXckJsC2knpDueeHqOU8Gw7G/0jt3HPrQyqKpQ0v8ofJfOolJUoIU5azgzUeURdB79/p
- VTYQ==
-X-Gm-Message-State: ACrzQf0/RAzNxlXIG0i95YyaRNwqjbXGf6HD0NfZEfT7aFec1EXD6g6G
- wmBnFVOkgADua9JV+rSCdMsHsQ==
-X-Google-Smtp-Source: AMsMyM7mBIWMKyJj6QToByEpy/WDyizCwqeWxSIBwY9ABO0T5YGw9F9xu21lVTuRnTh2c2ivzL82Bg==
-X-Received: by 2002:a7b:cc15:0:b0:3b4:ca90:970d with SMTP id
- f21-20020a7bcc15000000b003b4ca90970dmr2043088wmh.198.1666782147100; 
- Wed, 26 Oct 2022 04:02:27 -0700 (PDT)
+ bh=M5yIrMJGpCUVHY5GfvEg2i8ek5laLkQGA9zDhfgH9W8=;
+ b=uEjEWjaXpH4VFqgiNDgaIrdIpQqPfuk/59RbYHhFnaFd0FdA+nmfsZ1dObyGSDlDso
+ cbNF5oWzGay3bNUvYc+/d+FpFaprfVZwuslGCbhfkh+S9iodXxgjdD9jMsu8TDcKe5Eg
+ FhwDjlidARtHti38e+uu4KYZGGFRZSnJ6ykSNuVQSqNi7HO+7jwcynfOxh7k5purRznX
+ GTl5cNjovOTSNzk/lfEMxP+YIsetMUQ0OMR6lT4jl4IViycPdLjn7zedI1cw1G1iXPng
+ T42/eoUA4+aQu/gy/ZaLWjuvRk6HmIoBXEehGSIuseZLZDHKw8nL4Yb0+JorXAN7J75r
+ 6hpA==
+X-Gm-Message-State: ACrzQf3vuxj61/8/TfnAL/PPcuzEmnNdYDqbtpZ8uPGjjSgGXZ4Nrqfe
+ jueYjvGfLMQg64Wo2RlrBunszA==
+X-Google-Smtp-Source: AMsMyM5yubBRK+wTdLXV82WHsx/yLGwYXhc+1W6ivTLWBc2NSpO2f9tW06JksBg6fsNSAz3QPdSJTQ==
+X-Received: by 2002:a05:6000:1f87:b0:236:7683:e5c0 with SMTP id
+ bw7-20020a0560001f8700b002367683e5c0mr9178434wrb.193.1666782148331; 
+ Wed, 26 Oct 2022 04:02:28 -0700 (PDT)
 Received: from localhost.localdomain ([5.133.47.210])
  by smtp.gmail.com with ESMTPSA id
- z7-20020a5d44c7000000b0023672104c24sm5237415wrr.74.2022.10.26.04.02.25
+ z7-20020a5d44c7000000b0023672104c24sm5237415wrr.74.2022.10.26.04.02.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Oct 2022 04:02:26 -0700 (PDT)
+ Wed, 26 Oct 2022 04:02:27 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org,
 	yung-chuan.liao@linux.intel.com
-Subject: [PATCH 4/6] soundwire: qcom: make reset optional for v1.6 controller
-Date: Wed, 26 Oct 2022 12:02:08 +0100
-Message-Id: <20221026110210.6575-5-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 5/6] dt-bindings: soundwire: qcom: add v1.7.0 support
+Date: Wed, 26 Oct 2022 12:02:09 +0100
+Message-Id: <20221026110210.6575-6-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20221026110210.6575-1-srinivas.kandagatla@linaro.org>
 References: <20221026110210.6575-1-srinivas.kandagatla@linaro.org>
@@ -109,29 +108,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Some Qualcomm SOCs like sc8280xp which uses v1.6 soundwire controller
-reset is not mandatory, so make this an optional one.
-
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/soundwire/qcom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 7bc8cd0e906b..54d370f4b291 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -1330,8 +1330,8 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	}
- 
- 	if (data->sw_clk_gate_required) {
--		ctrl->audio_cgcr = devm_reset_control_get_exclusive(dev, "swr_audio_cgcr");
--		if (IS_ERR_OR_NULL(ctrl->audio_cgcr)) {
-+		ctrl->audio_cgcr = devm_reset_control_get_optional_exclusive(dev, "swr_audio_cgcr");
-+		if (IS_ERR(ctrl->audio_cgcr)) {
- 			dev_err(dev, "Failed to get cgcr reset ctrl required for SW gating\n");
- 			ret = PTR_ERR(ctrl->audio_cgcr);
- 			goto err_init;
+diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+index c85c25779e3f..e0faed8dceac 100644
+--- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
++++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+@@ -13,6 +13,7 @@ board specific bus parameters.
+ 			"qcom,soundwire-v1.5.0"
+ 			"qcom,soundwire-v1.5.1"
+ 			"qcom,soundwire-v1.6.0"
++			"qcom,soundwire-v1.7.0"
+ - reg:
+ 	Usage: required
+ 	Value type: <prop-encoded-array>
 -- 
 2.21.0
 

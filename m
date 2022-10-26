@@ -2,80 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1CC60E23E
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 15:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8706A60E351
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 16:30:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C51543C4C;
-	Wed, 26 Oct 2022 15:36:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C51543C4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 097972031;
+	Wed, 26 Oct 2022 16:29:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 097972031
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666791418;
-	bh=9SM82RmA6g6b0AsueaqfUAPG3jifFxpk/FBTsVNy+Ps=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666794611;
+	bh=JhICXDYHl8r7W3smxwnbkCN+Q3r8+01MVO8dtA2iU4A=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Whvjotjt+UWw/w3wIusM4LBrorJJzZfrBusk3eisC1UO4BeS/iYa1EhMjUNeI99OH
-	 V1tZQVL0iywyY69dgVaU6RAGdxCwYpAm2H5jwESGgirFUSme7/4ePA4mukBLLp8TTt
-	 BfhkkviTv/pTe1kvAcPuW51VTjhXWxHbdAEtPUO8=
+	b=QYwlJtqyTGqML0PzlVSjAGkcGlVTQ1mBZpYGhRBxvU8W5sBXOnYbOPhi+guqxUorf
+	 5DU6N/vma6+V1TA0/a+GXpZODXObpBX4kBWAISTIUiBM/qt0cbCdCVpupuxvFwmpC/
+	 8QwCUoaQHL22m7rV7acZdhQSuSz0NdFV9j4nthKY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDD5FF805A0;
-	Wed, 26 Oct 2022 15:34:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67842F80100;
+	Wed, 26 Oct 2022 16:29:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DDDCF8059F; Wed, 26 Oct 2022 15:34:10 +0200 (CEST)
+ id EFA8EF80271; Wed, 26 Oct 2022 16:29:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [IPv6:2607:f8b0:4864:20::72e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C194DF80571
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 15:34:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C194DF80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id 618B6F80100
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 16:29:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 618B6F80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FM6XDA4R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666791244; x=1698327244;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9SM82RmA6g6b0AsueaqfUAPG3jifFxpk/FBTsVNy+Ps=;
- b=FM6XDA4RZjefma7LYGkFTe+ifuX8BpGoLsFaFqCT6ert9P8X1dJNUr4S
- V/L/cPxPW0NyplwgEYCWlze2sbjPfKENvRwkKH6SElo93caHXTKVynB3d
- pY4KWz5xrIZyZd7245BZSVPj0YejYtrdaqupv9lFsU0EKkZVau127eAZW
- GU+RtBrLr3+jW7SVJp8b1OgwuMbVK6fPWXz+qDfQrTkGaRNbaQGQbX/Zd
- l3KLu3CWYAi2/TRu4bcza2D04zobPYt49z8YEtlsmrVwmjcEg81RCc0U0
- 4yLnLJzkClZDOR1fNDabFnfidtTlNBlRltaS2MCfzy94c6YVYwaHOf2jD w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="288340774"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="288340774"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 06:33:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="609952745"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="609952745"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 26 Oct 2022 06:33:51 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH v2 9/9] ASoC: Intel: avs: Enact power gating policy
-Date: Wed, 26 Oct 2022 15:50:14 +0200
-Message-Id: <20221026135014.1403705-10-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221026135014.1403705-1-cezary.rojewski@intel.com>
-References: <20221026135014.1403705-1-cezary.rojewski@intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="xmhb1LPv"
+Received: by mail-qk1-x72e.google.com with SMTP id l9so8080007qkk.11
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 07:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HepF+4A2/3ZWV1tTO7JvfOk/wi0W7kiAoRviokUEQWk=;
+ b=xmhb1LPv6lF+utwsSzmBJo6aHeftPiH2Kyv4Bvr4KAlYL2U4tSNzSstC39opm1m5Rs
+ Aszx1vnXqIpzkkRmAtd22JdQo95UE/RT1/6x0tAhvHJ4YwrJj38vaAv/uGIvh9sESCX6
+ LIaVQCQHFwjJNL6ZhbLZfFEyHVG+XE47c0AoymmQS5/pkgVunpLDSldYJHlsbUivK3n+
+ OPsEEcb5gI0GbyofsB8lEcGs5BcpWZJDpHwkM6DUicGJ6YJHxnAg7gQ8HtvxqurK917c
+ 8lXs2vckc72kTJN2aHETO3eVnL+u5khewCIpyjaqZmDTxILwvBAkGxklGQRLTfLUD7KC
+ VIAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HepF+4A2/3ZWV1tTO7JvfOk/wi0W7kiAoRviokUEQWk=;
+ b=CKDvaDZvKVCEYwec8sKn1F0Y3rMyS/s1yAr2CEuOAJpR0Ks65V9AFUhJ9qqefatxTw
+ XftnnaCNZZZW4t06eieb+8k+9ZEczVLhxx6u8K+OdZZvdljyocUuFcSQX30sWTtYsuB2
+ 5XCZFVR4Vg/P8Rd4uJs1W8SDA04So9YJnzUwH77imCPCMIKdb+6C6tqcRZnYzMSSvWaZ
+ kdnXW9E9PWv8t9ZGr3+jfMcOvFx1A5JNNIJEfypBy+U9d1c17ZfK0uyi8LwZn3Bdv3Ff
+ 93oyYT1nm19pJyZuh73fD76/jjLCg8Xbslxu1WZkA9kgnBRPY+3FvZt/9ESopoBjreKZ
+ 1jYw==
+X-Gm-Message-State: ACrzQf3aFU697SJJWJqFdIqCADZ+uMwxKsewGAGj6KUNeXs5sLJ/ln6y
+ 9wHFCyklWyUZCyzaAfJQED9KsA==
+X-Google-Smtp-Source: AMsMyM6lpu83qpTJZs3g3pyaL3a9mQY9MGnGVNyB0/eSs1gGWO65GWGZ6/h84n2kWseHL1Vvyk1gdQ==
+X-Received: by 2002:a05:620a:370c:b0:6ee:cece:c779 with SMTP id
+ de12-20020a05620a370c00b006eececec779mr29445511qkb.727.1666794541727; 
+ Wed, 26 Oct 2022 07:29:01 -0700 (PDT)
+Received: from [192.168.1.11] ([64.57.193.93])
+ by smtp.gmail.com with ESMTPSA id
+ s16-20020a05620a255000b006cbe3be300esm4011966qko.12.2022.10.26.07.29.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Oct 2022 07:29:01 -0700 (PDT)
+Message-ID: <5264f9e1-b67e-479d-843c-c92230cfd0c3@linaro.org>
+Date: Wed, 26 Oct 2022 10:28:59 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH 5/6] dt-bindings: soundwire: qcom: add v1.7.0 support
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com
+References: <20221026110210.6575-1-srinivas.kandagatla@linaro.org>
+ <20221026110210.6575-6-srinivas.kandagatla@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221026110210.6575-6-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, sanyog.r.kale@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,76 +111,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update all firmware loading functions to also account for the power
-gating policy. As module loading routine is missing the chicken bits
-manipulation entirely, add the entire set there.
+On 26/10/2022 07:02, Srinivas Kandagatla wrote:
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 1 +
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/loader.c | 10 ++++++++++
- sound/soc/intel/avs/pcm.c    |  2 ++
- 2 files changed, 12 insertions(+)
 
-diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
-index eb10e45790e7..56bb0a59249d 100644
---- a/sound/soc/intel/avs/loader.c
-+++ b/sound/soc/intel/avs/loader.c
-@@ -224,11 +224,19 @@ static int avs_cldma_load_module(struct avs_dev *adev, struct avs_module_entry *
- 	if (ret < 0)
- 		return ret;
- 
-+	avs_hda_power_gating_enable(adev, false);
-+	avs_hda_clock_gating_enable(adev, false);
-+	avs_hda_l1sen_enable(adev, false);
-+
- 	hda_cldma_set_data(cl, (void *)mod->data, mod->size);
- 	hda_cldma_transfer(cl, msecs_to_jiffies(AVS_CLDMA_START_DELAY_MS));
- 	ret = avs_ipc_load_modules(adev, &mentry->module_id, 1);
- 	hda_cldma_stop(cl);
- 
-+	avs_hda_l1sen_enable(adev, true);
-+	avs_hda_clock_gating_enable(adev, true);
-+	avs_hda_power_gating_enable(adev, true);
-+
- 	if (ret) {
- 		dev_err(adev->dev, "load module %d failed: %d\n", mentry->module_id, ret);
- 		avs_release_last_firmware(adev);
-@@ -605,6 +613,7 @@ int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge)
- 	for (i = 1; i < adev->fw_cfg.max_libs_count; i++)
- 		memset(adev->lib_names[i], 0, AVS_LIB_NAME_SIZE);
- 
-+	avs_hda_power_gating_enable(adev, false);
- 	avs_hda_clock_gating_enable(adev, false);
- 	avs_hda_l1sen_enable(adev, false);
- 
-@@ -625,6 +634,7 @@ int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge)
- reenable_gating:
- 	avs_hda_l1sen_enable(adev, true);
- 	avs_hda_clock_gating_enable(adev, true);
-+	avs_hda_power_gating_enable(adev, true);
- 
- 	if (ret < 0)
- 		return ret;
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 2fd53d597cd9..7832e76ee5ae 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -737,6 +737,7 @@ static int avs_component_load_libraries(struct avs_soc_component *acomp)
- 	if (ret < 0)
- 		return ret;
- 
-+	avs_hda_power_gating_enable(adev, false);
- 	avs_hda_clock_gating_enable(adev, false);
- 	avs_hda_l1sen_enable(adev, false);
- 
-@@ -744,6 +745,7 @@ static int avs_component_load_libraries(struct avs_soc_component *acomp)
- 
- 	avs_hda_l1sen_enable(adev, true);
- 	avs_hda_clock_gating_enable(adev, true);
-+	avs_hda_power_gating_enable(adev, true);
- 
- 	if (!ret)
- 		ret = avs_module_info_init(adev, false);
--- 
-2.25.1
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 

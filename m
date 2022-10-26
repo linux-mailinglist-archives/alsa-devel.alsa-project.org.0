@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B0B60E133
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 14:50:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C9160E231
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 15:34:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF09D219C;
-	Wed, 26 Oct 2022 14:50:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF09D219C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78DA03B8F;
+	Wed, 26 Oct 2022 15:33:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78DA03B8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666788657;
-	bh=wwcloTob6ie8tz5qopW+PLurg6OWyL6eKN6MA1+Xs6s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Thm8MeNNMiNqU1o3gos0MHLgryNdyOCwfT6PNP5HZH9rmi6XlNUtPIBxsYl+p/bmb
-	 0Cq2sGhdu3Qx/tzxMli/YLaG9zpVkEydT0staPEQLiizajY86M/8kL+CERcjb4iZPj
-	 ABenT16+cYAGOn+CkgzpWhPghuQ1IFYFuMsJG8g4=
+	s=default; t=1666791271;
+	bh=D2r6+JPslQDN78fPXJ2sv//aSH7qefTnKlabZdVL/7A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rApEx45Wlt+D7URv4kaNKdmibxMXCVRxtynhu816WFXGYaKn/yPaRPZh8pvG2HRFl
+	 WJuRghi2+2eh3dUXKObcAREt4NukTrPhUAp/LjtqoHPWbTnMu2EsS/EMPeorF1wiSa
+	 bglza2LTheJUrrvhjBudjU9AWQJX3gT/0ZXjkKGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3985AF8016C;
-	Wed, 26 Oct 2022 14:50:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1A62F8027C;
+	Wed, 26 Oct 2022 15:33:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EBE6F80271; Wed, 26 Oct 2022 14:50:01 +0200 (CEST)
+ id 79E5CF8027C; Wed, 26 Oct 2022 15:33:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34772F800BB
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 14:49:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34772F800BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ju/p43pK"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BB6DF61E67;
- Wed, 26 Oct 2022 12:49:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0473C433D6;
- Wed, 26 Oct 2022 12:49:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666788592;
- bh=wwcloTob6ie8tz5qopW+PLurg6OWyL6eKN6MA1+Xs6s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ju/p43pK7hPQJaIF7nJ1R2GsqT3DIHUa5vG3D7i5tSDDRrrG4bqAWT3Za50If1kxJ
- cvsNrSzuTmwd4sTOb6bpH74w70yTkQ3MhzXa2NdXd40HJz3Lt03FVkXPU0VKnZ8Ken
- Tp6TRHIIkb2rwnrnUqxKW+ln4wSzfPVGIM1f0M5w9UeRZx2RXXbWRWmglFLxSeJFb1
- OxGFryVcLpeG//Q7d7FHWbJXtIzkY9qQsPUAySTq0hATpDfL0LLCNLktUefh/JAxJX
- tsM3pr/sB+9sU2MxPYZgjTgpWHtdfAfBLS3rWOhViRfueOGD+ZWorJ4BxeQlMNINWE
- OReMoTgPh7qHg==
-Date: Wed, 26 Oct 2022 13:49:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Subject: Re: [PATCH v2 2/4] ASoC: dt-bindings: realtek, rt5682s: Add AVDD and
- MICVDD supplies
-Message-ID: <Y1ks6n7wCfhArza/@sirena.org.uk>
-References: <20221024220015.1759428-1-nfraprado@collabora.com>
- <20221024220015.1759428-3-nfraprado@collabora.com>
- <CAGXv+5HJo5x2ieOegmv5vkfh+rTevdR_fri-7PeK+Gd+GXVjNw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68384F800BB
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 15:33:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68384F800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ZwZqga3H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666791212; x=1698327212;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=D2r6+JPslQDN78fPXJ2sv//aSH7qefTnKlabZdVL/7A=;
+ b=ZwZqga3HJ9ucxmr5N7X0jcYBeGVXqzocFaJz+063qtTGzWE9OzB5o6gG
+ ND1/VG4LHpI2Rbm6L5IWEWHNWzXs7zfeDyPGjnF+KBc/UsP9e0bYJvlFf
+ 9Tpjn0Ta/VF0VNrlmDzH61VIgI7XUuJQ6sajZky4pJ+acKSraelbJLlYq
+ HGwfurAf3MSrGA1yROqXuvdKUaN4dDDIzJF4NkjIQxA/P8/pu6f1FlSpt
+ eSPt9sHu5yxJF06U7mz9e3YrXbLr5jsgbyg2OoVhLoRToaV6I3+u+c7xU
+ iR7ZSqxB6L/8mEVNgBC71LKp6pEmhCgix0AO/Srak3++f36Bvp3pa9Z18 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="372155576"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="372155576"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2022 06:33:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="609952624"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="609952624"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga006.jf.intel.com with ESMTP; 26 Oct 2022 06:33:23 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v2 0/9] ASoC: Intel: avs: PCM power management
+Date: Wed, 26 Oct 2022 15:50:05 +0200
+Message-Id: <20221026135014.1403705-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6ws0GFWnXGiIRAF8"
-Content-Disposition: inline
-In-Reply-To: <CAGXv+5HJo5x2ieOegmv5vkfh+rTevdR_fri-7PeK+Gd+GXVjNw@mail.gmail.com>
-X-Cookie: Prunes give you a run for your money.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,38 +89,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Goal of the series is implementation of suspend/resume operations for a
+PCM stream along with all the collaterals connected to the subject.
 
---6ws0GFWnXGiIRAF8
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Start with splitting avs_dai_fe_hw_free() as ideally we would like to
+reuse as much of existing code as possible but snd_pcm_lib_free_pages()
+is not desired part of the function when speaking of suspend operation.
 
-On Tue, Oct 25, 2022 at 01:12:49PM -0700, Chen-Yu Tsai wrote:
-> On Mon, Oct 24, 2022 at 3:01 PM N=EDcolas F. R. A. Prado
+The actual implementation of suspend/resume() for component drivers
+follows. For most scenarios, the PM flow is similar to standard
+streaming one, except for the part where the position register are being
+saved and the lack of PCM pages freeing. To reduce code duplication, all
+avs_dai_suspend_XXX() and avs_dai_resume_XXX() functions reuse their
+non-PM equivalents.
+Order of operations is affected by the fact that path binding/unbinding
+happens only in FE part of the stream.
 
-> > The rt5682s codec can have two supplies: AVDD and MICVDD. They are
+Above essentially unlocks SX+streaming scenarios i.e.: power transitions
+with an ongoing stream.
 
-> Neither does the datasheet specify the ordering of AVDD, DBVDD, and
-> LDO1_IN for power sequencing, just that three should be toggled together.
+As some streams are allowed to run in low power state, support is
+provided for S0iX state. The handlers check ACPI capabilities and the
+number of active low-power paths before deciding between SX and S0iX
+flows.
 
-> Should we model these? Or wait until some design actually splits these?
+The last portion of the patchset is addition of power/clock gating
+overrides. There is no single set of registers that ensures AudioDSP
+firmware loads 100% of time on every single configuration. By having
+them exposed, user can have the loading procedure behavior adjusted for
+their configuration without having to recompile the kernel.
 
-Yes, the driver for a chip should be a driver for the chip not for some
-specific board.
 
---6ws0GFWnXGiIRAF8
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes in v2:
+- moved DRSM reg polling to separate function,
+  snd_hdac_stream_wait_drsm() as suggested by Pierre
+- moved the acpi_gbl_FADT under AVS_S0IX_SUPPORTED macro and relocated
+  the checks from pcm.c to topology.c so that the low-power streams are
+  filtered as early as possible
+- fixed compilation when CONFIG_ACPI is disabled as reported by the test
+  robot
+- simplified all the avs_dai_resume/suspend_xxx() by moving
+  ->ignore_suspend check one level up, to avs_component_pm_op()
+  (patch 0002)
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNZLOkACgkQJNaLcl1U
-h9B/zgf9EephDS7CV9faIUtycitCDpOJIbYZYIhjrW6esmg6J2Kt5y00+V7/DQta
-zIHGZ9GXpX1DDlleJSrm3AgC03rKRub8VV75SwGvRGwuiSA5oaslFPiRPcYbBSEX
-B1TrN9NfwUYvJnaFVlXPoCxoVhrB0t2Mp4bltVVqfKFzkEoBRD+PeuCpIIM7OzSL
-d4kdyDLF/5L9hW5WQVCMH33zkmf02p1z8SWT/4KHFzqtuHc4f8Md9qzCLlbl0AY7
-WMv+pah7enDvFw/Uvr9adIYrWIwLEfMP4DiTZO4a8JjT03wAwgdC+A2aTeMyle9P
-fPnVMh6XtsDxs0KKcKD2p5ihwKlF4w==
-=Rizo
------END PGP SIGNATURE-----
+Amadeusz Sławiński (1):
+  ASoC: Intel: avs: Handle SUSPEND and RESUME triggers
 
---6ws0GFWnXGiIRAF8--
+Cezary Rojewski (7):
+  ASoC: Intel: avs: Split pcm pages freeing operation from hw_free()
+  ASoC: Intel: avs: Introduce PCM power management routines
+  ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
+  ASoC: Intel: avs: Restart instead of resuming HDA capture streams
+  ASoC: Intel: avs: Count low power streams
+  ASoC: Intel: avs: Power and clock gating policy overriding
+  ASoC: Intel: avs: Enact power gating policy
+
+Piotr Maziarz (1):
+  ASoC: Intel: avs: Standby power-state support
+
+ include/sound/hdaudio.h        |   1 +
+ include/sound/hdaudio_ext.h    |   5 +
+ sound/hda/hdac_stream.c        |  21 ++
+ sound/soc/intel/avs/avs.h      |   8 +
+ sound/soc/intel/avs/core.c     |  97 +++++++--
+ sound/soc/intel/avs/loader.c   |  10 +
+ sound/soc/intel/avs/pcm.c      | 373 +++++++++++++++++++++++++++++----
+ sound/soc/intel/avs/topology.c |  10 +
+ 8 files changed, 465 insertions(+), 60 deletions(-)
+
+-- 
+2.25.1
+

@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9084060DA92
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 07:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0F7A60DBF8
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 09:18:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0076D3499;
-	Wed, 26 Oct 2022 07:28:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0076D3499
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AB14411D;
+	Wed, 26 Oct 2022 09:17:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AB14411D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666762172;
-	bh=IElUSqlRtVWyo2TsO62PV6V7ZPilxBuauFrI1P8jdK8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VYZWJU5A8zmX72U6DczY1Xy++owQVWyBJZ+9slYBolwEwXY+sjZ7ORxZQHKvaN3ig
-	 XpXpKWqhRs5fsE3sJIJ4JUih7tfRZOlEggSktZ31/ifUCP27nv7l99MRq50PrqHPRC
-	 BFbJetbESCOnEp9WWXU3rFGCmId7fhf+iE0AqABk=
+	s=default; t=1666768697;
+	bh=vVzu7eTnrwZ2NcZHoP8HWV3sYW9l/QA0ML8mjfjBHiI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jFgZIcAwIS/efGiqbwINc/YXo9PK5T6vVlRy5t0Hi1Fz84mR0ZiO7x29ByXdGppes
+	 WlBfK3bntzQFS/SOCEzs9ijs3lQNk/rc8IMVGRBPw6WlMHC9AFl3Q5Xq5RGoA/FDZZ
+	 YZEnMgHE9oUEbE5Mhru6UIG43ImdV5eQ1pfAbRO4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CE4EF8027C;
-	Wed, 26 Oct 2022 07:28:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A63F6F80494;
+	Wed, 26 Oct 2022 09:17:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB7C7F80271; Wed, 26 Oct 2022 07:28:33 +0200 (CEST)
+ id 97F6EF80100; Wed, 26 Oct 2022 09:17:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14CEFF80100
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 07:28:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14CEFF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3261DF80100
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 09:17:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3261DF80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="pxGz0nmB"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="/lseX0IS"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5168D1FA95;
- Wed, 26 Oct 2022 05:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666762105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+7AfhfBH1W/lDI87QrEInzFsz78KYHY+XmnT7RfHHwc=;
- b=pxGz0nmBf24gIGVkb1+CAFcQw5DRiN2MDkZt7Vs56Nfdu53ValiIsrx3vtrwX/WPNsUEwl
- M4suuvFHIFiioMwKVUt60kpHd9gkGO26phIUM/IPezouHhpcelThV5aGG68BpLOTOKL7UN
- nNmnBlsdXh0LXUCM42jgmiTBAMpyR2A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666762105;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+7AfhfBH1W/lDI87QrEInzFsz78KYHY+XmnT7RfHHwc=;
- b=/lseX0IScTek2Fcw5dpMmtZK4ZvBpO5kkrvCBXCT4l9mDDgwyv1ZKt8bmAgdDeiMvKXImc
- gmrbZNGUiewIIcCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1147613A3B;
- Wed, 26 Oct 2022 05:28:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TXViA3nFWGNGZgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 26 Oct 2022 05:28:25 +0000
-Date: Wed, 26 Oct 2022 07:28:26 +0200
-Message-ID: <87pmefp30l.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ALSA/ASoC: replace ternary operator with min()
-In-Reply-To: <Y1gWbN2/Tbf1jeL6@sirena.org.uk>
-References: <3d74bcaf.5.1840fa4d439.Coremail.wangkailong@jari.cn>
- <Y1gWbN2/Tbf1jeL6@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- motolav@gmail.com, kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org,
- cezary.rojewski@intel.com, lgirdwood@gmail.com, tiwai@suse.com,
- wangkailong@jari.cn, peter.ujfalusi@linux.intel.com, mkumard@nvidia.com
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="jk9CI3Jy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666768638; x=1698304638;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vVzu7eTnrwZ2NcZHoP8HWV3sYW9l/QA0ML8mjfjBHiI=;
+ b=jk9CI3Jy2rYG/GLpP+0zk1uWYiqu6nvKIWDiFOE6jBYRGKyIKJoKjF9a
+ WLAU0+mqsqz9QQnfm6jxXWT/0y2qZ2XZ6GQZrljqJP09e8cNfGBHepBK/
+ hiFN5ZCXTavXqUeiVu9ciL0SoEU0prKdMRSB9GO0MvIdDutH7M/fRDBsp
+ JLgDYsN61Z/DoGsJ44W7MS0bmKr148daFDimLpoIwntIfnKvBquIPjgGh
+ Bxe7GfasZnZjTKzWQHpZA9slGcoKHTGRFaGlnTJlMoIum+e7iZultf1A4
+ k2EId/+oW4dvI1PcWBUFSzt4b64QYnpNgCPQorSWMLucBAu/5nCTTuP8b A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="287596187"
+X-IronPort-AV: E=Sophos;i="5.95,213,1661842800"; d="scan'208";a="287596187"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2022 00:16:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="663096896"
+X-IronPort-AV: E=Sophos;i="5.95,213,1661842800"; d="scan'208";a="663096896"
+Received: from brentlu-brix.itwn.intel.com ([10.5.253.25])
+ by orsmga008.jf.intel.com with ESMTP; 26 Oct 2022 00:16:52 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] ASoC: Intel: sof_rt5682: quirk auto detection
+Date: Wed, 26 Oct 2022 15:14:07 +0800
+Message-Id: <20221026071409.3235144-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: "balamurugan . c" <balamurugan.c@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Chao Song <chao.song@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Gongjun Song <gongjun.song@intel.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Muralidhar Reddy <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Ajye Huang <ajye.huang@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Vamshi Krishna <vamshi.krishna.gopal@intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,28 +99,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 Oct 2022 19:01:32 +0200,
-Mark Brown wrote:
-> 
-> On Tue, Oct 25, 2022 at 10:56:11PM +0800, wangkailong@jari.cn wrote:
-> > Fix the following coccicheck warning:
-> > 
-> > sound/soc/soc-ops.c:817: WARNING opportunity for min()
-> 
-> >  	kfree(uctl);
-> > -	return err < 0 ? err : 0;
-> > +	return min(err, 0);
-> 
-> I don't think this is a good warning, while I'm no big fan of the
-> ternery operator the new code is less clear about the intent than the
-> old code.
+A new feature to compose quirk value according to the result of
+amplifier and SoC type detection at runtime.
 
-Agreed.  That use of ternery is a standard idiom.
+Brent Lu (2):
+  ASoC: Intel: add helpers to detect SoCs
+  ASoC: Intel: sof_rt5682: quirk auto detection
 
-If we have to eliminate the use of ternery inevitably, it'd be better
-to introduce a new macro for clarity instead.
+ include/linux/platform_data/x86/soc.h         |  24 +++
+ sound/soc/intel/boards/sof_rt5682.c           | 173 +++++++-----------
+ .../intel/common/soc-acpi-intel-adl-match.c   |  12 +-
+ .../intel/common/soc-acpi-intel-jsl-match.c   |   6 +-
+ .../intel/common/soc-acpi-intel-tgl-match.c   |   6 +-
+ 5 files changed, 101 insertions(+), 120 deletions(-)
 
+-- 
+2.25.1
 
-thanks,
-
-Takashi

@@ -2,104 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A52C60E3B9
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 16:49:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 255D560E3C3
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Oct 2022 16:53:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC8922456;
-	Wed, 26 Oct 2022 16:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC8922456
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8C713BD6;
+	Wed, 26 Oct 2022 16:52:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8C713BD6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666795766;
-	bh=+0mLvxSPXOxhgnQzcFMi44GsxzESgWZ7ht0/PY/f89Q=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	s=default; t=1666795990;
+	bh=sTObLZF+xOdVtgFTD8+jcaHbExSLfuiRLVQZwjreGBc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MR1PsWweX247kKU8En6Qc+pCQMkrVTbFvBgvLN3ATQDE2MpJbKCeSnKFjpAxttUC9
-	 NPCv2zPvAhuxBU9iORwI8DZBXL8wzQj5W3I/xMxhGZYj8QOcysv0WGMEWniXIvlDAS
-	 rJJn+TFEllqVCxu2BYH4qTYlIz0W4MLzIXPR2q94=
+	b=AUOstKygqjXOqNMk/ArAIBmyb5gloNW2PZhjX9YEhmxYauoSvLIk52gE90BKnIxoh
+	 MEAnx96hQc4JOmKrpG0LFGAJrlQsdVlRJKkiwfUs8XHeb8qCeVHRLEUGn9FG+rQGYo
+	 +SAdEjZJYOnRIwXa9KlFQe7B8ZP+iM6TXuLAY37E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61768F80100;
-	Wed, 26 Oct 2022 16:48:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23F55F803DC;
+	Wed, 26 Oct 2022 16:52:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 048E7F80271; Wed, 26 Oct 2022 16:48:30 +0200 (CEST)
+ id 7E93FF8027C; Wed, 26 Oct 2022 16:52:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [IPv6:2607:f8b0:4864:20::732])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13E06F80100
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 16:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13E06F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 608D6F8016C
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 16:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 608D6F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EizPam+f"
-Received: by mail-wm1-x32e.google.com with SMTP id
- b20-20020a05600c4e1400b003cc28585e2fso1765679wmq.1
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 07:48:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:message-id:date:in-reply-to:subject:cc:to:from
- :references:from:to:cc:subject:date:message-id:reply-to;
- bh=+0mLvxSPXOxhgnQzcFMi44GsxzESgWZ7ht0/PY/f89Q=;
- b=EizPam+fpHG85pFQytUCkvubWoOhztt1iDv7VIlV0p3BBuAKUvT9hosMERDmg/DVSX
- rGgPIUdwttDbqz65VTg+selFcbgULI2Ugxc4PXlZRe19qetJZFv0GbuGVRjxj6YB8Wkt
- olkVowxyzveNPp5DDAnfgIZXT1+1GTWoNsW6J6pLq8787yhJ4/tGI/syWZ3M95EUWw/I
- t3LwED8PUSp9hmsR30iIzkeLkgwgBWWJXqKq1TmYj/U2sui2cmX614eukMR8mLViyKe8
- mefhw2zImZlMn06SPxWgCKWJUWFbvaJQbJHChdLqJF+KWeQKyqFTg/bDxRZdukQVfduJ
- TsGw==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="AjSJc8sb"
+Received: by mail-qk1-x732.google.com with SMTP id a5so10683218qkl.6
+ for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 07:52:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BRAVl/jwTcV9oATKPy/gFpDCwVtUOLelijvTTaSWnGg=;
+ b=AjSJc8sbeB9AS4fvGTqF5hOSH88uRNxiEUF5cwc8f9rtlcA+g5xOJ96dOFLewJ8sg8
+ zUIKdFb7J90tDQ+DtAV5ExRVljW7NOqNlKX0FFoy031GHB5Psunydm1h6jpp60PvuyNm
+ /8I7o1Ql7yZHIPSp/KaWj65QQO6FB5WTgS2ZMng0KSNHlltE5wkrAbp76Y1p4GP9hPsH
+ FklH1IiwWTSdfWTYPrs2XxLPnt/KMENpJ63JsNLayK2m27hW5iCwQcMdsnTsRzRa/swM
+ an/gCOX2pr04x8U4hSLxWwQwzNOfT0yu+DM8WFb+ddYZT3N4D3coduusPPA5dmgzgrWC
+ N5Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:message-id:date:in-reply-to:subject:cc:to:from
- :references:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+0mLvxSPXOxhgnQzcFMi44GsxzESgWZ7ht0/PY/f89Q=;
- b=1BH40WYakHiRzPsdrmqX+BzIQN1qjL8wfJ6y3UCytqQW/iPBn9kpkoXh3R5mVqVex9
- nkJPtpZvE7o1rc9oVEnJmOchn+f1FcKCNS1gov8L+MviVkDRc65VMN9yzpqQmSvEsVEI
- I8dej9yaqdUpwtDW5B39DewEtitgxL/bdPFiwLZlXsiV//pFuNO5RUVt34h8mn8r7kFw
- F7z3ykHJ7KzrM+J9Bv0bnVtsMYsjE5SYMEmVEq/Ljy6vD1MCh8ewToPWw5pd/28R8kDp
- PRG2CfFCquRDy5Bf5P4BqxzMxwZrABCOLDfQagDHVDRwTJKAki/+gokheeiHvFSAScQs
- Youw==
-X-Gm-Message-State: ACrzQf1gk6UVNNwhLTL+aNCRh1po+KZvemsbJzDgBa3nqqK4wHSEUZb/
- WAyjGMVcleOWcisT0lntmmo=
-X-Google-Smtp-Source: AMsMyM7/vD0TkY3/qBDwvfDXp6IepRYUm5MsPEZ2Jot0Pj+rXJATGYpR57v7l1I9iMk6NOBsUPoGMg==
-X-Received: by 2002:a05:600c:35cf:b0:3c6:e957:b403 with SMTP id
- r15-20020a05600c35cf00b003c6e957b403mr2893717wmq.162.1666795702227; 
- Wed, 26 Oct 2022 07:48:22 -0700 (PDT)
-Received: from localhost (94.197.44.200.threembb.co.uk. [94.197.44.200])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BRAVl/jwTcV9oATKPy/gFpDCwVtUOLelijvTTaSWnGg=;
+ b=6hjnr2oEHZJf+DixlgxTQk1x/jEI1+zB2EPDAK/4wN3c5MJaqAqdP3H6QMi6vNKBlO
+ 1+bP1v/jdbumJyiPJi8K/E+M9wwM82vUVpTUNcncyRV3VSIMNqlW4k/PdOin6iK3Uv5e
+ SUwzCmWzte9ibN5aMi+mu3EhSIuhPTEceEKrtP5Z01d+HyPdhUXJ+qRGe9G2015lcTk0
+ FiXldyuu0cZoOEnDikrixjgUsQDWfJCzy+kzwI92BlY/sVsDObwTHx7T4z94NX9f7VTF
+ boflsfIXuWN/xmrM/N+kJxFbgc0RXbwFufsfVUC6dzWlKsordiaA1bus56Q3c9D3mVlw
+ 9RLQ==
+X-Gm-Message-State: ACrzQf1QPXbGfRZYqRDrJNWJ8ouQstLaGPmjdmQRAyC/D5xAV3nYMEgc
+ Tw987gXtVYlhRgAb97QNodaAcA==
+X-Google-Smtp-Source: AMsMyM5iwidwgAruSNa03zv/AGhLCmH/0fY2+r/Jj+TasH9LX4SwHYqK8c3EVcZjjuFFc5SdGMeeaw==
+X-Received: by 2002:a05:620a:4385:b0:6ee:7b48:202e with SMTP id
+ a5-20020a05620a438500b006ee7b48202emr31725350qkp.306.1666795926065; 
+ Wed, 26 Oct 2022 07:52:06 -0700 (PDT)
+Received: from [192.168.1.11] ([64.57.193.93])
  by smtp.gmail.com with ESMTPSA id
- l3-20020adfa383000000b002366eb01e07sm5455698wrb.114.2022.10.26.07.48.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Oct 2022 07:48:21 -0700 (PDT)
-References: <20221022162742.21671-1-aidanmacdonald.0x0@gmail.com>
- <20221022162742.21671-2-aidanmacdonald.0x0@gmail.com>
- <ef6a326b-5c61-988b-2ec2-cd8e233e5d28@linaro.org>
- <GMvEU8xVTkjIoQ518XWAaLkhldSZHlk7@localhost>
- <4ef59d94-d045-55fc-d531-c84e7edb8333@linaro.org>
- <hXRpArckbrXUelDdaJ3Y2SErmKiuycXt@localhost>
- <66c1a100-922e-4a33-e80c-fc80866acf03@linaro.org>
- <jZCUALhj8PoqVkuWdtLf8LnPAj1wDakF@localhost>
- <38205667-d36f-e7a9-21b0-2e8597a662ff@linaro.org>
-From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v1 2/2] dt-bindings: ASoC: simple-card: Add
- system-clock-id property
-In-reply-to: <38205667-d36f-e7a9-21b0-2e8597a662ff@linaro.org>
-Date: Wed, 26 Oct 2022 15:48:21 +0100
-Message-ID: <qNdQQJRLFWJ6gNfwM73oJ8EH56Y5nWgd@localhost>
+ u6-20020a37ab06000000b006bb2cd2f6d1sm3885523qke.127.2022.10.26.07.52.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Oct 2022 07:52:05 -0700 (PDT)
+Message-ID: <895ab493-dcf2-c9e9-7850-3a6aea9a97ee@linaro.org>
+Date: Wed, 26 Oct 2022 10:52:03 -0400
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: rockchip: i2s-tdm: Make grf
+ property optional
+Content-Language: en-US
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>
+References: <20221025124132.399729-1-frattaroli.nicolas@gmail.com>
+ <20221025124132.399729-2-frattaroli.nicolas@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221025124132.399729-2-frattaroli.nicolas@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,27 +114,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 25/10/2022 08:41, Nicolas Frattaroli wrote:
+> Turns out most things don't require the GRF, so making the property
+> optional is the obvious move.
+> 
+> Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+> ---
 
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
 
-> And the remaining piece I don't get is that these are not bindings for
-> codec, but for sound audio card. You want to set "system-clock-id"
-> property for audio card, while putting clock from codec, which will be
-> used to pass back to the codec... so it is a property of the codec, not
-> of the audio card. IOW, NAU8821_CLK_* does not configure here the clock
-> of the system, but only, only clock of the codec.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-The system clock is controlled at the DAI level, it's specific to one
-DAI on one component. The simple-card device node has sub-nodes for the
-DAI links, and each DAI link node has sub-nodes for the DAIs within the
-link. "system-clock-id" is a property on the DAI nodes, so it's not a
-card-level property, just one part of the overall card definition.
+Best regards,
+Krzysztof
 
-Since the clock ID is something defined by the codec it would naturally
-be a value defined by the codec, but the *configuration* of the codec is
-part of the sound card because it depends on how everything is connected
-together. If you used the same codec in a different machine it would
-have a different configuration.
-
-Regards,
-Aidan

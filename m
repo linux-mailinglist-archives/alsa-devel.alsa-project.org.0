@@ -2,140 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A857760EFDB
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9C260F068
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:38:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BBB633DB;
-	Thu, 27 Oct 2022 08:04:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BBB633DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1362F32B7;
+	Thu, 27 Oct 2022 08:37:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1362F32B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666850746;
-	bh=dSi1lBymnkYchxveQO3JPzgwH8BRyxyXVo9qxKdtxoo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666852711;
+	bh=WmYfnhorKCWVEN1JREqLL2Gon8rMEW8cKJiycOqlN90=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GN8jCD9vWIERkj1LC7sOC3+NFcZu8rXlqq8s8OBjCa8D5X5O0C1tc9Jjh65flkzGa
-	 7s7GBb4KFyf2jcmYrVE9mKdZ6l7+YTOaBHF6AMUzVtB4TPQJ7CiSRNIZpLxMm7LP9g
-	 dVXwkhBWtq5M1hKvZEaFBd2aFclwE7dAgXrPA+5M=
+	b=ACQE3bQ1bRh/iQiMlcvm0n4Atlig8F7xfXFWipSe3gBhVnPiuM2N7WzuShYY3Lh2j
+	 xNI7nuVrFVStbFPaB/gE4WC0dlntBpi9VZ1fjZUZbP6TqPlKa05RGgEu5gKbwZchGW
+	 6n7SskvEaNmt3nKAKx/vqRtzSuyl/rkEfOfbK10E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD6DCF8054A;
-	Thu, 27 Oct 2022 08:04:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F03BF80496;
+	Thu, 27 Oct 2022 08:37:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA205F80551; Thu, 27 Oct 2022 08:04:14 +0200 (CEST)
+ id 9751BF8025E; Thu, 27 Oct 2022 08:37:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60082.outbound.protection.outlook.com [40.107.6.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFD2FF804D9
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFD2FF804D9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57488F8016C
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:37:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57488F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="NfXED5gu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VrNXFFIYmNQXdbj7QK1y28tf+hci8zQcc0EkgiNga7X3Vi9R00ItxFD7HweudxwYdEfi9vr6rG1OF/14ALfaWWbWp52NQ2k4nhCZQJFIfo5dFel3H6Cv4SI/sokt1qMhDsvq86Ot1UMc80uT6vC8fR+tovwkAPCcxv9/LGwJBR064ZjL3pxeNflY3HMDpqTlxDQR/VABLSdmotCqmpFOHhASJJ64WAOILFzEYJlNIABQ8m3Dmj3wCJbRehQQB7WNvU8BWLwfuL7cQfMieWodeUw4C5TQQJ2+Z/O0eAKHecDVXnvqvvhZOiXwdx9Dg8yJy1A2LAk8ni6TQxQRcKqjLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2iNoHOP/7uOmpQk/Qaj7iIIAKCu9xX4YVFkeJ3MlVzU=;
- b=c1VqvoWjNeBW8T37e7OipXVQsha0oI6BKYDBYdDwznrIkLWLiA/ivC5okritI129RoXVBBVd5FVU5VStW6pqp59bB8nxplIMMqQs75g+VwUe9399t2Le1616y2bITn4ulTcbUEgvhpsbWlExJgfctSEip91sKVLPMbJW8ikLGYdEVd914in+bK53+LXoJMTJrvthE/U5VDRp/yEpAyv5cgXGwdfvw6stoj09DBdrFs5bVpVa/GWEDvBhOIkeSjRk1j4Ez/Z5vZcETy2gvWlCm2DM7E7gYCSegui/X1d8LoNQtnggUrD5mQFwKVkQ609vebkYxwqLwxOs6oU6HRpsRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2iNoHOP/7uOmpQk/Qaj7iIIAKCu9xX4YVFkeJ3MlVzU=;
- b=NfXED5guisZ/2oiv1+Y79LbUIlLkGGMAJgYXzVf4XFYhysvpUpjYubQEA9rFXezFNcqTk7CX8095ZjvYslgqnmIfG31LX+nRoc/YhxLN+Ndnxu/B6dPJ3qOhfRi5Lh0AyQBtUWdJmVawB0ODQ9Rx5h9X+3C5tcntBk/GDgehPB0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
- by DBBPR04MB7593.eurprd04.prod.outlook.com (2603:10a6:10:20c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Thu, 27 Oct
- 2022 06:04:09 +0000
-Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::33ab:7f2:7263:ee79]) by VI1PR04MB4222.eurprd04.prod.outlook.com
- ([fe80::33ab:7f2:7263:ee79%6]) with mapi id 15.20.5746.028; Thu, 27 Oct 2022
- 06:04:09 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH 3/3] ASoC: fsl_sai: Specify the maxburst to 8 on i.MX93
- platform
-Date: Thu, 27 Oct 2022 14:03:11 +0800
-Message-Id: <20221027060311.2549711-4-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221027060311.2549711-1-chancel.liu@nxp.com>
-References: <20221027060311.2549711-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR06CA0017.apcprd06.prod.outlook.com
- (2603:1096:4:186::15) To VI1PR04MB4222.eurprd04.prod.outlook.com
- (2603:10a6:803:46::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4222:EE_|DBBPR04MB7593:EE_
-X-MS-Office365-Filtering-Correlation-Id: f07e1b64-bee2-4e40-e658-08dab7e10fd8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UO/yCH2rsvzGUpXrwGBq/OrlYQuwsll2a22IcCixnJc+WWFQp+EBzXuzvQDo73N5r+2wPEFouFugeCRBkhM05yRnP+F6nXQRHsCHOUNOixCTakkowES77pDzqZaVmaE/VGV1aPkr0QAR9lAGKo3Yl/NuBUo9fij8w+DJcb8inClfXf+YeeyvxodSDQIlXTuHs1f6rETrdfvwzWa/z+cj4YfVFus6YbEH8rlHZDOLZtYSwCF9RWhDRSqsMDilIawl1ruralaAk55ZPev8aRP9VwHksMcCwf8fYxn11SvaPvS74a2EqTI6ak/X6hVorpCQsonZ9mwIyEgHvE9d1LMF+oslIdF2z/r2HbnfdbEaQ8hWQCHPyJKLP8kVt0wwmXHRxpZA9uW8xutDWTEowYCatgdTL9saq82Hl+fYEbzXWHgHmnC9rROYKyNmxyCswGHVvsgQvEr+Fdq8PVROsSwhz5I2W4MZIGPQHYE/c0AB3z6vKWCpGGBfiYSB5giGAFaf4bFHkEr3o6Ad5Kj9ptUDStlNtkvIZtoneqE4t6qcqrQ8KSD2anWM6MaCGqfNRLTkBZ9b+T+IwaoXYn/4f8sSI4SkrhrCjTe/a2McckqExR3AsVYX9DmY1F2GEUxy0pcp7QVe2ZAi7BCiGkjtFuipqNGPZV4yTQr4oHw/RCT7KzH6p/NJg1EExbIpby33oS0UaHgIhl7KuPPza8jcIIXdQ/pvACE2T9El0qHPxuKQwLmAuCuUQYMDzQkGq/WXD1TyOnLYZoHsyxRrIDhRAjgmtK2s9vOxYeRVjj1eCTVyCBg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(136003)(366004)(346002)(376002)(451199015)(2616005)(26005)(6506007)(186003)(6512007)(1076003)(52116002)(2906002)(83380400001)(6666004)(478600001)(8936002)(7416002)(8676002)(44832011)(6486002)(66556008)(41300700001)(5660300002)(66476007)(316002)(66946007)(4326008)(86362001)(36756003)(38350700002)(38100700002)(921005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?D6AdaQdT6bkgIqrp9AzhDYutaVnkzsvi+peQh168yVKKHKXyjxgkwWIsLl/d?=
- =?us-ascii?Q?5wD9BGCoOLm0pgzh7KYgaE9KFg1aILxk/u9A2HYogeyvPCZgmVnNGbuH7FaY?=
- =?us-ascii?Q?uZKKwEcbHI7uaJI3jesStcz1+N856/YvksClxM3kAeFLBFuVrpgQ8OfkD+KC?=
- =?us-ascii?Q?koSSGmif3cIPXHEE6PxpDQ5JPKb5lvGcmFo60q/knHF7/iZmHIOyQtTTsEyB?=
- =?us-ascii?Q?OngV75tpbhBUDUh1iKhiTOOzWYPWhZ4HRNpMe/L68onFelv8xWxmrLmfuUDA?=
- =?us-ascii?Q?+7tRa3/Sj/qnenv52ywxoQytmSAIp9r0mlnrpGAn9WXFNW+i6c+oSfqU39/o?=
- =?us-ascii?Q?fMYCI+XTGDksWr0QHqJR8e/vz7sjy+OciQmptvNW4CRSYgEl8VwayVOmpY6I?=
- =?us-ascii?Q?htYh5JHv/PXTQ6glYjlSLjyjng6YXSBImVPhIvO+AIoyfG6R8G+FexS6WgEI?=
- =?us-ascii?Q?LCipHcJ3mV4LHHFpWig6ljCal/UTuB4yckED7PTTjhvte/T4GMUwI/DzVHfL?=
- =?us-ascii?Q?JruYsf+NNoa2H5O35w3vOMNdBGHiWSuYkrlPd7S65zceNxgkinXLnBjKkCYi?=
- =?us-ascii?Q?2rUTcxL+8AFAWx6tlaVbQTcvtGMknfnnRslnbXwiAJ+8zkH+gWI5z0HvuaNt?=
- =?us-ascii?Q?EIAPU4wa6BOlV5ffxPUiOhrtetehJnQeoGhysCsGrSD1gvASF/nUE74Iq/Cc?=
- =?us-ascii?Q?I+t1tUH7w33k/0PqM3XC5XIYmJHaLbg6wndkIyFZnAW7pHz/ksAX/JxXS6D7?=
- =?us-ascii?Q?mgzMhScUrcwL123xfeOpzn8kj7eoa0rTt2WEh+L7PiqFJRwB8G0/MD3MRBDd?=
- =?us-ascii?Q?D4Da8jz1yW71JigVezQNe9tr7/D7A/MDQqMCkofKPfzjx0MUNqx7Jg70jw+N?=
- =?us-ascii?Q?lA/tNlcU9jpVmcrk/ASB20L7t8xRVP2eZqPjQWN2j5F+h/vkPd62Qop5+TxX?=
- =?us-ascii?Q?pgke90rNDT4lyW2XiGlcy7vQjJkPCQpPfdO+NjoEzow4jP8ctY0UYB4K7YAZ?=
- =?us-ascii?Q?D6S+n2AnXohmJqhpTszFkBeCjhVYfkhsmsv/rVdvwIlclTQ65tUDHdUkx8MQ?=
- =?us-ascii?Q?zzKaFAMYMd7rA0WGrIC+MYr5uSJKspHMGBrdiof5vKc/DNqqxyHJexlXxImj?=
- =?us-ascii?Q?5IxiN7Pi/LV/cSpS4xkZyaYMbhuQak/Ya44bF9TRB5O5gqfmFK8GaEjgNbwE?=
- =?us-ascii?Q?7w23rKh3pnkHLt8zUigIZg1zhQG4jklT+nfJetroFFy1tiVz7RBshu+2vbDr?=
- =?us-ascii?Q?tAIDAazc2baUQYlpO5TU1wSqQI858bq2PLjSlTQMYZ5vFaCsxCBEq49cKBOC?=
- =?us-ascii?Q?Cay2a5YwkfY1P+pWEZzTYMIChY6hjY2cblDFvOFqFtH4SYdetbYtf18jB7dn?=
- =?us-ascii?Q?jXv0i+KP+F0qO/FVWDxkxxqNjSaijr5vlyDWqLwgmKVjzHdAmHMvQOa+pn2I?=
- =?us-ascii?Q?3eN7rOa4y008cXHxPgyX9O6gPpsBH6sGViTbsuC7mQEz1piZEydh68vF4CWy?=
- =?us-ascii?Q?zJrYJrbs3urAC+bGpCwyCKpKe04HfsrGrXwsV0oxpzGLNfmbgpbfA0jyvfk9?=
- =?us-ascii?Q?xA0LHDd7ogUeft7XCPn2xI0ck24lmRQXankb41fE?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f07e1b64-bee2-4e40-e658-08dab7e10fd8
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 06:04:08.9775 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5t8nk18vpx2jo2CzCmblUxT0mpLJaJms6QSmN+1R/nW6Uco/awhEyQBqZhyAmcTo+1lMBDrZYB6y+ROWNbg/5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7593
-Cc: Chancel Liu <chancel.liu@nxp.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="0M7G4T6N"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cOu36XTL"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9C8981FDAE;
+ Thu, 27 Oct 2022 06:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666852650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V4ZIHSQ5ddTR7PG2obLinq6bmzugfZ/QrSOgzqdtKmg=;
+ b=0M7G4T6NyJY/TNBreegiqFZ5pQabEetkdVfKk2XbmYXs6y11f7Ene5DQS/6aRjgJ9FbJAI
+ VtJ9+9n3EjpUUWHjFuINkYbfqpnvU8pue8xVSc4ettqqShzGKGqING4hOgJOqvJbgtQMZv
+ vB95dczKtY+7SS5lLGfRl8Y0KEc5WAo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666852650;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=V4ZIHSQ5ddTR7PG2obLinq6bmzugfZ/QrSOgzqdtKmg=;
+ b=cOu36XTLc8D/pYTBa7XyXWdX4+9wVD7vLOeseDx+N4UMo7isuDHosVk29J/3kUPPmAI+tr
+ lVp9ECoTTW5W56Aw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F07B134CA;
+ Thu, 27 Oct 2022 06:37:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vKrxHSonWmP3DwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 06:37:30 +0000
+Date: Thu, 27 Oct 2022 08:37:29 +0200
+Message-ID: <87sfj9ojpy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v6.1-rc2
+In-Reply-To: <20221026200355.6FE50C433C1@smtp.kernel.org>
+References: <20221026200355.6FE50C433C1@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,67 +99,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a limit to eDMA AXI on i.MX93. Only TCD that has NBYTES in a
-multiple of 8bytes can enable scatter-gather. NBYTES is calculated by
-bus width times maxburst. On i.MX93 platform the value of maxburst is
-specified to 8. It makes sure that NBYTES is a multiple of 8bytes.
+On Wed, 26 Oct 2022 22:03:49 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit 9abf2313adc1ca1b6180c508c25f22f9395cc780:
+> 
+>   Linux 6.1-rc1 (2022-10-16 15:36:24 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.1-rc2
+> 
+> for you to fetch changes up to e9441675edc1bb8dbfadacf68aafacca60d65a25:
+> 
+>   ASoC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init() (2022-10-21 13:04:14 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.1
+> 
+> Quite a few fixes here, a lot driver specific, plus some new quirks.
+> There was a bit of a mess with the runtime PM handling due to some
+> confusion in the API there which resulted in a number of commits and
+> reverts but that should all be stable now.
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 11 +++++++----
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 8 insertions(+), 4 deletions(-)
+Thanks, pulled now.
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 68e1cc4c369a..a0ea27f06997 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -872,10 +872,10 @@ static int fsl_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- 
- 	regmap_update_bits(sai->regmap, FSL_SAI_TCR1(ofs),
- 			   FSL_SAI_CR1_RFW_MASK(sai->soc_data->fifo_depth),
--			   sai->soc_data->fifo_depth - FSL_SAI_MAXBURST_TX);
-+			   sai->soc_data->fifo_depth - sai->dma_params_tx.maxburst);
- 	regmap_update_bits(sai->regmap, FSL_SAI_RCR1(ofs),
- 			   FSL_SAI_CR1_RFW_MASK(sai->soc_data->fifo_depth),
--			   FSL_SAI_MAXBURST_RX - 1);
-+			   sai->dma_params_rx.maxburst - 1);
- 
- 	snd_soc_dai_init_dma_data(cpu_dai, &sai->dma_params_tx,
- 				&sai->dma_params_rx);
-@@ -1416,8 +1416,10 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 
- 	sai->dma_params_rx.addr = sai->res->start + FSL_SAI_RDR0;
- 	sai->dma_params_tx.addr = sai->res->start + FSL_SAI_TDR0;
--	sai->dma_params_rx.maxburst = FSL_SAI_MAXBURST_RX;
--	sai->dma_params_tx.maxburst = FSL_SAI_MAXBURST_TX;
-+	sai->dma_params_rx.maxburst =
-+		sai->soc_data->max_burst[RX] ? sai->soc_data->max_burst[RX] : FSL_SAI_MAXBURST_RX;
-+	sai->dma_params_tx.maxburst =
-+		sai->soc_data->max_burst[TX] ? sai->soc_data->max_burst[TX] : FSL_SAI_MAXBURST_TX;
- 
- 	sai->pinctrl = devm_pinctrl_get(&pdev->dev);
- 
-@@ -1588,6 +1590,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx93_data = {
- 	.pins = 4,
- 	.flags = 0,
- 	.max_register = FSL_SAI_MCTL,
-+	.max_burst = {8, 8},
- };
- 
- static const struct of_device_id fsl_sai_ids[] = {
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 697f6690068c..197748a888d5 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -235,6 +235,7 @@ struct fsl_sai_soc_data {
- 	unsigned int reg_offset;
- 	unsigned int flags;
- 	unsigned int max_register;
-+	unsigned int max_burst[2];
- };
- 
- /**
--- 
-2.25.1
 
+Takashi

@@ -2,92 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B601560F088
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A23A60F09F
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:53:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50A7732DA;
-	Thu, 27 Oct 2022 08:43:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A7732DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8BAD333F;
+	Thu, 27 Oct 2022 08:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8BAD333F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666853079;
-	bh=tiSLKNxVi19a+hvvnna0WV/8Pw//SyMIgkiIxjBEpeQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lK9f5gyfgYAT1md5yDSwQ/OrrH4tRJg0BbCS6Sw7BSsju9bszDO4dGAc6hdKnsNmB
-	 Q0eJPdiY/PPhJrfz2Bze/TZvEdPK7+kROWlFSQg/RwAN/CqIZFC5Qv7jDjWaQ+2X9/
-	 ab0DGRImPoaZvCUbLephd3E+QUPxN5Ldr6O5z7eg=
+	s=default; t=1666853618;
+	bh=WCytTUMYh8sPshs0cTHHO7bSpPb5gioSC8JaU1Pc250=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Zv0a7nBLwJJI4WO39NTNTzzCUMxvoFfdBZyftp/wEFZ8g/z6SpjCkwa/fmv13/Fl9
+	 xxWA2FMcBCU67CeglZNPmBVERgoIEzaKPTMjR2dfzN6m98Dkm/YA1A06adoAKeEFdA
+	 I2BNSGM2frKjX/Htc51NmGA9p7KRvMyV0TYLj9qk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B41BFF80496;
-	Thu, 27 Oct 2022 08:43:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B256F80496;
+	Thu, 27 Oct 2022 08:52:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB21CF8025E; Thu, 27 Oct 2022 08:43:43 +0200 (CEST)
+ id 253A5F8025E; Thu, 27 Oct 2022 08:52:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ECBAF80095
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:43:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ECBAF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id E14CCF80095
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E14CCF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="V22QXrPa"; 
+ header.b="JomVOopf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9JToWTO/"
+ header.b="SkPK/GWG"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 54EA2229C1;
- Thu, 27 Oct 2022 06:43:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 454FB1FDBE;
+ Thu, 27 Oct 2022 06:52:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666853013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UdAlLEOS4lwU8nCule+zhA14g2SedT9Jb5Y5FwjbRf0=;
- b=V22QXrPauFPFU9bfRuERi3WHBV57t2L8/DpcXhH3X75FCJDRXwVnAdt3cJwhedsOykZOmN
- D8n78B0EeIMJDsunVLEkeXsMgaFD+m5xCZAeOZH6qwHr8GgXGs+rPyodjCq7OR2FUZB8/p
- vzTZBg/YHaLbpUUw5z+hsAu+jI6a/Fc=
+ t=1666853555; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iXyrx90tFZ7d+KjOtnsnozQ8/Z4O2KsI6cVb8DxYCDA=;
+ b=JomVOopf9hLXHxXsFI+xkP/oLfYRjRtkSJZlCJLmRnk2k7b2UOtBSXADNt82AItgG27H7w
+ HQ/Z09tBx3KDzmusgzKxU6WGITZ1ZfXdeo8fwo/lBGm2UoNcb8RmbDjQrhX/gnyUfnF89H
+ 1gsqsN+GEQfYlOVKLljpShLSmBEel7c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666853013;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UdAlLEOS4lwU8nCule+zhA14g2SedT9Jb5Y5FwjbRf0=;
- b=9JToWTO/qhNG46d5QkMe4d7rd7Uc+RM7060qt7lMf/SI/DFlFSf5p37XRegzfLSm85n0Nt
- quvHGFRxSNCKv6DA==
+ s=susede2_ed25519; t=1666853555;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=iXyrx90tFZ7d+KjOtnsnozQ8/Z4O2KsI6cVb8DxYCDA=;
+ b=SkPK/GWGARnNsoqFC/2j4yK4joxDvpljPCW7BeQf8UmNjYSK8RP1cnxr52j2cLJwuSK3/m
+ dtE7aF6YeJZzhNAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2386313357;
- Thu, 27 Oct 2022 06:43:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D61013357;
+ Thu, 27 Oct 2022 06:52:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dQfXB5UoWmNKEgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 06:43:33 +0000
-Date: Thu, 27 Oct 2022 08:43:32 +0200
-Message-ID: <87pmedojfv.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id llRhCrMqWmMDFgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 06:52:35 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH] ALSA: Use del_timer_sync() before freeing timer
-In-Reply-To: <20221026231236.6834b551@gandalf.local.home>
-References: <20221026231236.6834b551@gandalf.local.home>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: aoa: Fix I2S device accounting
+Date: Thu, 27 Oct 2022 08:52:33 +0200
+Message-Id: <20221027065233.13292-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,66 +93,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 05:12:36 +0200,
-Steven Rostedt wrote:
-> 
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> The current code for freeing the emux timer is extremely dangerous:
-> 
->   CPU0				CPU1
->   ----				----
-> snd_emux_timer_callback()
-> 			    snd_emux_free()
-> 			      spin_lock(&emu->voice_lock)
-> 			      del_timer(&emu->tlist); <-- returns immediately
-> 			      spin_unlock(&emu->voice_lock);
-> 			      [..]
-> 			      kfree(emu);
-> 
->   spin_lock(&emu->voice_lock);
-> 
->  [BOOM!]
-> 
-> Instead just use del_timer_sync() which will wait for the timer to finish
-> before continuing. No need to check if the timer is active or not when
-> doing so.
-> 
-> This doesn't fix the race of a possible re-arming of the timer, but at
-> least it won't use the data that has just been freed.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+i2sbus_add_dev() is supposed to return the number of probed devices,
+i.e. either 1 or 0.  However, i2sbus_add_dev() has one error handling
+that returns -ENODEV; this will screw up the accumulation number
+counted in the caller, i2sbus_probe().
 
-Applied now with the fix of unused variable warning.
+Fix the return value to 0 and add the comment for better understanding
+for readers.
 
+Fixes: f3d9478b2ce4 ("[ALSA] snd-aoa: add snd-aoa")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/aoa/soundbus/i2sbus/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks!
+diff --git a/sound/aoa/soundbus/i2sbus/core.c b/sound/aoa/soundbus/i2sbus/core.c
+index f6841daf9e3b..51ed2f34b276 100644
+--- a/sound/aoa/soundbus/i2sbus/core.c
++++ b/sound/aoa/soundbus/i2sbus/core.c
+@@ -147,6 +147,7 @@ static int i2sbus_get_and_fixup_rsrc(struct device_node *np, int index,
+ 	return rc;
+ }
+ 
++/* Returns 1 if added, 0 for otherwise; don't return a negative value! */
+ /* FIXME: look at device node refcounting */
+ static int i2sbus_add_dev(struct macio_dev *macio,
+ 			  struct i2sbus_control *control,
+@@ -213,7 +214,7 @@ static int i2sbus_add_dev(struct macio_dev *macio,
+ 	 * either as the second one in that case is just a modem. */
+ 	if (!ok) {
+ 		kfree(dev);
+-		return -ENODEV;
++		return 0;
+ 	}
+ 
+ 	mutex_init(&dev->lock);
+-- 
+2.35.3
 
-Takashi
-
-
-> ---
->  sound/synth/emux/emux.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
-> index 5ed8e36d2e04..a2ee78809cfb 100644
-> --- a/sound/synth/emux/emux.c
-> +++ b/sound/synth/emux/emux.c
-> @@ -131,10 +131,7 @@ int snd_emux_free(struct snd_emux *emu)
->  	if (! emu)
->  		return -EINVAL;
->  
-> -	spin_lock_irqsave(&emu->voice_lock, flags);
-> -	if (emu->timer_active)
-> -		del_timer(&emu->tlist);
-> -	spin_unlock_irqrestore(&emu->voice_lock, flags);
-> +	del_timer_sync(&emu->tlist);
->  
->  	snd_emux_proc_free(emu);
->  	snd_emux_delete_virmidi(emu);
-> -- 
-> 2.35.1
-> 

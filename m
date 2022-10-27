@@ -2,103 +2,199 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6268260EEE3
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 06:05:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16ADD60EF11
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 06:35:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09F231F53;
-	Thu, 27 Oct 2022 06:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09F231F53
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB55348B;
+	Thu, 27 Oct 2022 06:34:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB55348B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666843530;
-	bh=Kk7jGmpYh7BuEQG+CjHJqGjl/1akiO61v00WaoUY8Fk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1666845303;
+	bh=V+5k0ErFyln+lenn4PRw0dVxTg8PzJnnCbThGJY4wu0=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o0rQIsnquU5+dlB2Kdt3pVslgQm82SKM7cfy7JVApW8fihRFquBFM9JsHeRA4qJEH
-	 NCR5GHGwaodFTwrvzMoweUwVDvwQwAnrNdvoXzJxOLycT50WNX/qlZ0LO4V2fe9ceA
-	 2A3mDo47TnYGvt543VOOU/mppzjXIdyUGlqLgiGU=
+	b=Nugthp0es0XP3r7SK/hmBzOzXjSmc6vb82Kfv1cgzb6SoYAZC45g5rDKeXPU6QOwg
+	 7n1EI4JtAZ7bkJkCLeRmGM8o0aZlnIdzD9yslrVeQ5knjnNjCvXIxR5lIxoRpH5KZb
+	 RLpLTqjDcP1Wz9akK2N3CTC4v49yEg48kSuGdDBc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9343BF80496;
-	Thu, 27 Oct 2022 06:04:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 023D4F80095;
+	Thu, 27 Oct 2022 06:34:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E38EF8025E; Thu, 27 Oct 2022 06:04:33 +0200 (CEST)
+ id 51AF7F8025E; Thu, 27 Oct 2022 06:34:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS, NICE_REPLY_A, PRX_BODY_30, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C7EBF80100
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 06:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C7EBF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10863F8016C
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 06:34:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10863F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="djdp3vBO"
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-12c8312131fso466811fac.4
- for <alsa-devel@alsa-project.org>; Wed, 26 Oct 2022 21:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :sender:from:to:cc:subject:date:message-id:reply-to;
- bh=O4zxOHr5pL/tZbv/Lney9NNoy+V8TXoApZzVW+UpE9c=;
- b=djdp3vBObrtKXk5iR2I5mQ+gUxa3qFdrLVOfoGTRZRKq0CjbUBqUL47z3HYzO5ZEvS
- xUP1b7enKhRqRrp9dPgJSFx0sBgq1QzRSBLZ/PvFJrNtaaWNkd4MxBHUHpf/FBxYBHEn
- tvO6HWb7/j3VZ2LClPg+V9COXkNFTcAi0L3LHy96UTepRVVwmc+NpZuuEIRdbqNbPdTF
- rSgGpzGBj0vrOz9t85G5yvbSfrPMejBFPNCX3i34fArLuTe8xDissBOe4KZm/0he5yB4
- y44Dvn/DvwnXa5zEKJgnNjqMf+50N4Zj+pQIVq3klkWlzE+pO/ZyNQO2hXSeVoww78s4
- FjMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :sender:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=O4zxOHr5pL/tZbv/Lney9NNoy+V8TXoApZzVW+UpE9c=;
- b=COB2XmhFf2q5Kz/GvjPYEdEPxUr0KLr+kvcFGh/7pJKHTdGyrvs3eCVWmiXSDmocQt
- jhuZe3X1QoFVkp5DSkL9n8vAP/Ap6A6KBCx0DnQCH4ah29Cjpok9/aGi0cPFXRDVvQK2
- KTI9WDPnGcprf5KRZJjsMza8Ob85VE0GHq2y8K+Pck/W/o4wcKq6qOa4z0Ma4RGIjZQb
- +Fi2cdcNH+gbq3QjBBk9f3+qwZzqpA6achGteZmWymiTiSXvWjPgDMZCM7h24ShNLTpy
- wK5IAF52U2xLCwi3F0/As8gd4V4wnaV8idzg0/Upf45ysS+YHRBVkXK7ZMhWAKEqPdZK
- GJZw==
-X-Gm-Message-State: ACrzQf2bA1mtvjo41jWlmDuA2NHAiLoF6bDOia3vt9u91a8eCemd5Y2K
- +RXULlRp4w2iZ/YASiknmu8=
-X-Google-Smtp-Source: AMsMyM7jk2gdeNDOiu2o8p6WCnnUCNOLAYix7ph4jJIVEGB/+VOj7vRGrGyD1yt/IGRHpLJ+hzO0FA==
-X-Received: by 2002:a05:6870:2052:b0:132:7b2:2fe6 with SMTP id
- l18-20020a056870205200b0013207b22fe6mr4473033oad.98.1666843464841; 
- Wed, 26 Oct 2022 21:04:24 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- r5-20020aca5d05000000b0035956747d07sm44594oib.17.2022.10.26.21.04.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Oct 2022 21:04:24 -0700 (PDT)
-Message-ID: <9330bab0-1fbf-95a7-8d97-af522762f470@roeck-us.net>
-Date: Wed, 26 Oct 2022 21:04:22 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] ALSA: Use del_timer_sync() before freeing timer
-To: Steven Rostedt <rostedt@goodmis.org>, LKML <linux-kernel@vger.kernel.org>
-References: <20221026231236.6834b551@gandalf.local.home>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="bFKG+2z6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666845245; x=1698381245;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=V+5k0ErFyln+lenn4PRw0dVxTg8PzJnnCbThGJY4wu0=;
+ b=bFKG+2z6upfxbQKkuW8q4ldXTqcsscYskK+3q/cX+J2v81Bjn0qLdCzm
+ x0walDgBv/0cXwbkb1X2YYiQ218ohztYWvc59/L6QoZEB3enY9EaTurEo
+ /lbwULIHW0s8DeYujku14+Xb61fFdXX0Mba52YDsnuo9nmYL30e1IO9+I
+ y6kDNXgTWO/xP+C9kNaKBCcF5TgFtFo+sSHi3MkLecU7TY5cu/Dj23yAw
+ 9U1VX/68e8sED3y9dcZQ7Coi/TrXr21XuLYcUN11veVoHZFqbAc/OsCjd
+ BJZnh5jCqUBsG0FtseRnG76LtwVVLwMl2CbDMeKxkTyJCht8HYpf2Zi5X g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="287843325"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="287843325"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2022 21:33:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="663473899"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="663473899"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga008.jf.intel.com with ESMTP; 26 Oct 2022 21:33:43 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Wed, 26 Oct 2022 21:33:43 -0700
+Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Wed, 26 Oct 2022 21:33:42 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Wed, 26 Oct 2022 21:33:42 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.41) by
+ edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Wed, 26 Oct 2022 21:33:42 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M9fk4/Tg4Nksr0lcTWkgchhxOnp3lIliDQZfWAUAhec/Jt2t151OIUfJUT89YBKul3NA4jXEibExrD1KQTkQXu401DhRsNXNFWBQT0pYFKergXOCjQQNoAButqj+WxwZWyfpgUJQHBog80tvpXejxd9C1Zn/fDC/ciFM/zholUJmpIWzcepD2K8PDINh5iobdxT0r+oShOGYp+9NBEg1w1A2etqsBTILfKeAHjPMw72Wk6AmgkYzYEMCa8yOuYwuMyNbqoJKoOUgAUZCSYyaDuanpX72JNP9jodO/zFVOWXTVvnJcGlvPamc4GrwpaOx9XmDGvB4jd5pKNRB/1ZB5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V+5k0ErFyln+lenn4PRw0dVxTg8PzJnnCbThGJY4wu0=;
+ b=NfluA+oO7SnEUwkNWusH6Fe5i3VWeC+k7CNM/tHMRndvF1upLloDOiNJVpeiDw9a3WvrjbxjhQQyAGM5dFca6G7z8QmevK07gV5kPHRl6Vp8BrivjmwM0iWJVu3WeAxOb34Afoyfa8IwF9UrQKH4uKFV9zks90/3I31FG/+MOBCXZAgr47gZsLHSxUCiekYI8iADrg0I5CrPxZWadEuTaodTkA6q8Nvb8M+dm4FPw9CJguzUtxYkEwqUQSquFryRfeWb+/k1TVAlvFdSnNlxGdMHQkvcN955JMOukbtsvI7FxeQ68x+oKHXWiCIGJRN3C+y1XF8E4TFya6UmeMMTtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com (2603:10b6:930:26::22)
+ by PH8PR11MB6707.namprd11.prod.outlook.com (2603:10b6:510:1c6::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Thu, 27 Oct
+ 2022 04:33:41 +0000
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::a351:42c7:fffd:fe88]) by CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::a351:42c7:fffd:fe88%7]) with mapi id 15.20.5746.027; Thu, 27 Oct 2022
+ 04:33:40 +0000
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: RE: [PATCH 2/2] ASoC: Intel: sof_rt5682: quirk auto detection
+Thread-Topic: [PATCH 2/2] ASoC: Intel: sof_rt5682: quirk auto detection
+Thread-Index: AQHY6Qr4dnRepLZ3yUme7FfMkNEtiK4hIrQAgAAxQoCAACE2AIAAL5xw
+Date: Thu, 27 Oct 2022 04:33:40 +0000
+Message-ID: <CY5PR11MB6257D662815EF9D3C141B50597339@CY5PR11MB6257.namprd11.prod.outlook.com>
+References: <20221026071409.3235144-1-brent.lu@intel.com>
+ <20221026071409.3235144-3-brent.lu@intel.com>
+ <6916c126-c710-330a-ffcd-50dd3cdc47d3@linux.intel.com>
+ <CY5PR11MB6257D168A60B712088BC7CF797339@CY5PR11MB6257.namprd11.prod.outlook.com>
+ <bba5dc19-c0c4-2409-6cd2-c8fa91950444@linux.intel.com>
+In-Reply-To: <bba5dc19-c0c4-2409-6cd2-c8fa91950444@linux.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <20221026231236.6834b551@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
- Linus Torvalds <torvalds@linux-foundation.org>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.6.500.17
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6257:EE_|PH8PR11MB6707:EE_
+x-ms-office365-filtering-correlation-id: d2610053-1f31-4a80-bf85-08dab7d46c8e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rUIEaB5fm4VxMUSDtzExnmwysiiQ1wuAFkQNZgGi596ahCO25/2/i5HfUJl7/sG9bG/zORWpniAdz5bh+PQmwstMgKAB+ZrUcktdEwFAU7AjDGsYgO89+USANj50OZiTHN6fEALB+RAaCiFKPYB3ARw6AxLqHCkTNRum6B3rM+eX70b02DSO+/qbIhz6DmIMEOq3BIxMdRBxroY7lp462+vxBBOswOTrcDIuiHDyOSjY7TON4SNV/AXympelk8JOZ8azjm07ds1PhMnMWMmtODJ201g5+Vm0WxJM/crAY3aAGale/Q+XzDN+xTFuHOtOAXpt7iOVFw+Acc+cu1L9hjCOyZWB5SxKA2/VuEEkHNGKaRUjZr+ueFHIXkkzYeDyzCrysZBp1HrLNEbS7kpmY/mf0kQAZwDbVjNFSHjFZSiPKhrPUy3izUaqGmjwP9cxtgKI6ClIdr2YG18nUolebMtqddOvBZSDX9++ushWrGXjyRNG/K5jbJo+A8QcePEwJQtWHKL3lwAE0nlO+oG3kkQqyKGOb0pdwXQSJQv5uzhwWjYegeIrGPuy7qSrPL0Kaic+ulpmJEXmSvKAi0iwPEwOp8qe4ij35GMXaO+cHIfHILIlGGmpyzZHaXmqYmbUyIpXf1XPOqUWIc1UrRQMOR0YbpzFzXTpQ3BhcYt83dnMeZ+8TA7N2u60s8ji9SdrlNsFzXwUoWorl7GcuSUJRSbLDAF7l8I4sFFWajm5beZRt9LG28Zd7zsz9nFMvZPaHzYAlBgePomDAcuTgXC2tE6+f74T247h0guY8qJx6is=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6257.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(396003)(136003)(346002)(39860400002)(366004)(376002)(451199015)(54906003)(110136005)(2906002)(186003)(66946007)(64756008)(66556008)(4326008)(8676002)(33656002)(76116006)(66446008)(66476007)(6506007)(7696005)(52536014)(8936002)(41300700001)(9686003)(7416002)(26005)(4744005)(5660300002)(316002)(86362001)(83380400001)(82960400001)(478600001)(38070700005)(122000001)(38100700002)(55016003)(71200400001)(11716005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?djIwSlBINDhuTUo0NXZLMnppZitNYldiQ0U5SFpRMDdCY3I3S3lwc2xkZW5t?=
+ =?utf-8?B?SmlpWExyOFNmeDN4TkVJU2pCSHFKYUEzUE84TWc2MWsxUTc1VnNPK1laNFZl?=
+ =?utf-8?B?eERISU5ZaWNhLzdCVm1DSGVDMEdPbnNObkFWRTZ3cVBVNHZQSUpCdlJwaENp?=
+ =?utf-8?B?aDdHcTRzMWU1R0xiekZRbW5EU1lzdWtSWUNvRHphZGNZVXdaRjJDQWgvZGxn?=
+ =?utf-8?B?RHB4VHRlMjU3N1FJTFhmMFdJTFZuRURUcnA3OEJucmhUdk10UXRtcVBIdjd0?=
+ =?utf-8?B?c1RNVXl2YW9rQ1k2VHUzVm16QU11bkkvd0czQ2lmMEhpYTRBUUdaNEhNRmEy?=
+ =?utf-8?B?WVBsNy9GOC85dDlpT01VcllyY21xY0VGRllyTEhKeHRKRlRLSXIydGhBNXVL?=
+ =?utf-8?B?RTB2d1BEWmdZSHZxU0xVcUxQem5oZE5KNENGcDhRU2hCZUNWNGsvWDhGSzR6?=
+ =?utf-8?B?VXJaNDRTNVdXRURNR2tnYlF2Um9XMG9ETHNhNTFibjNqa2lLV3hSeVBSMSty?=
+ =?utf-8?B?T2Y0VG94dHk1K29sN3MyVmtLZGhKaDBuSXRETy9UNVgyYm9XcmdQLzJDR3BI?=
+ =?utf-8?B?Ty9yYzhlSkU4MS8yeC9TWHlUeE44TFZCWWZ5blV0WCtYRTNzOGVvbW1MUytQ?=
+ =?utf-8?B?UVBXVDJZc1FIZFZrQWFHbzdYM3NXOHFzZmZoL0ZRK2JQQWF6NXZnWFpUeXJB?=
+ =?utf-8?B?R2J0cW9INllVeHdJVTFua29JZmhYYkxLWGI2THRDbDZIVXBKb0hoN2lJUnIy?=
+ =?utf-8?B?bTc4NmdoQlI2Um9sR3VvdEM5b2NIUHVOampDOHBtYnRCcklsc0twZWV0TTRE?=
+ =?utf-8?B?UThGTHFYQU03Z0d3MFB5cnhvdkNTRWU4ZUIxSkdNQjFhWHFGYzBkNHRnS1do?=
+ =?utf-8?B?dzN0NjMrNWFmL1ZUOHd3UjJGOUVPNk96Um9LQzhWN1VxZnpvWG5oMGNvYUlS?=
+ =?utf-8?B?bDhMYWdXalVUY2hKVk1oVEdlVWhHTTh0TXgwcXRWMDgvZnFMb2s1aEpZdVZS?=
+ =?utf-8?B?MEpiMUozbTkvOUVTYXNpZ3VkL1pyNHNiYzhTQ29ya3NXOWd0d3Q3RnhnbDZJ?=
+ =?utf-8?B?aVh3a1BybXJoTEdjZGJFYjJDWVllc2pXSGprdGZlTStEeFY4WU5tWmdHQ3Nq?=
+ =?utf-8?B?c3F4UE1pOVpOQmVEWTVWUjNEODFYU0F1cUhvcFpidlRpeEV4NCtYWHRZTm9Z?=
+ =?utf-8?B?L3ArbGUzc0VranR4L1JEL2p3aEZGdGRnV0YzUFNYMFJVR0tVY2txL2VRRHpj?=
+ =?utf-8?B?QXBnd2xhSDNTVU9GV1RmZGhjUGZwRFNWSEY1QXluSWs1TUFTeGN4Um5iM1Ni?=
+ =?utf-8?B?bFRtZFlrSlR2TVpRRUxQQUlqMklZdHZKK051NnM0OGJrZWljN1VnN2xjSWlL?=
+ =?utf-8?B?NzIyL2pHSGx5cDhhMTBEbWlwL0N2SytMTW1DTmdIYnZLTTRoUVU4RExzdXBt?=
+ =?utf-8?B?c1hSa1VsNFB5SzVsNDMrMFpnVHNLdytpb1lrcEY0dGllRlhKeUxJYkNnWVE4?=
+ =?utf-8?B?UWhXWGYwdktiSVlWUzFqcWZMdzdZUUMwT2RtT2xRaThXMmtkcU1KcU1TSUxm?=
+ =?utf-8?B?VHpyYjBHMzhHUjBNZHI2YjJBOGNNOHIxcldaNFdRUUIreVFEazVDaTVIZTd2?=
+ =?utf-8?B?TjdxWmNSa0kyTlAreU1XMHFoZW5pWG9PazRWek5vZnBMS01oL3UyaWxRZGVs?=
+ =?utf-8?B?U0lGMXBsOXEvZFFYT3NlVCtmTjNqYThaa211QXFiSTVuRlBoK2VoUUJlSFgz?=
+ =?utf-8?B?Qjk4dFAzcWRHZXlxSGJkU2hFWkRoT1VpcmxYajZPMGI1RGEraEdSQlZqNmFK?=
+ =?utf-8?B?U0l2RjNObVhsSDhNWXJyMDZZb3lJMis5dmJOTWVKSXJraDVGbUlheXk2Nmxa?=
+ =?utf-8?B?a1VGcG9UeHJCUVRFSWxqcDViU1VldXY2elcwWDVNTG5qWmFIdUNpSW1ndUJS?=
+ =?utf-8?B?UmpLeHFiRHkyZFlaVEt6ZVJHSjJyb2RzRHc0b09BbnQvNStnTVI1VTlhSHZ2?=
+ =?utf-8?B?N0JndFE2N2d5aDMwYVBHby9wMmNRRzRaaTJ5RVdHMlYyR0lZZVA5bDhKZ3hy?=
+ =?utf-8?B?aUVEQ25jRmYxTExqMEljVlhXRFA3bDBJbzJxQ0hWeWFzb0pOMDBSOHVNQ2o1?=
+ =?utf-8?Q?ZdDhoKZoP1mIHF7OKwf8hSiQm?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6257.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2610053-1f31-4a80-bf85-08dab7d46c8e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2022 04:33:40.8435 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8ao7bNh0/cScsPRrNHu4Y+6nqS+G5KCQglQttRs3q1MNYQ4fFTB4cMkJX4n2IhuW1qaf8DFdrvjmWcTJx02kXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6707
+X-OriginatorOrg: intel.com
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>, "Song,
+ Gongjun" <gongjun.song@intel.com>, "Gopal,
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ "Chiang, Mac" <mac.chiang@intel.com>, "Wang, Rander" <rander.wang@intel.com>,
+ "C, Balamurugan" <balamurugan.c@intel.com>,
+ Chao Song <chao.song@linux.intel.com>, Mark Brown <broonie@kernel.org>, "Reddy,
+ Muralidhar" <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Ajye Huang <ajye.huang@gmail.com>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhi,
+ Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,56 +210,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/26/22 20:12, Steven Rostedt wrote:
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> The current code for freeing the emux timer is extremely dangerous:
-> 
->    CPU0				CPU1
->    ----				----
-> snd_emux_timer_callback()
-> 			    snd_emux_free()
-> 			      spin_lock(&emu->voice_lock)
-> 			      del_timer(&emu->tlist); <-- returns immediately
-> 			      spin_unlock(&emu->voice_lock);
-> 			      [..]
-> 			      kfree(emu);
-> 
->    spin_lock(&emu->voice_lock);
-> 
->   [BOOM!]
-> 
-> Instead just use del_timer_sync() which will wait for the timer to finish
-> before continuing. No need to check if the timer is active or not when
-> doing so.
-> 
-> This doesn't fix the race of a possible re-arming of the timer, but at
-> least it won't use the data that has just been freed.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-
-> ---
->   sound/synth/emux/emux.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
-> index 5ed8e36d2e04..a2ee78809cfb 100644
-> --- a/sound/synth/emux/emux.c
-> +++ b/sound/synth/emux/emux.c
-> @@ -131,10 +131,7 @@ int snd_emux_free(struct snd_emux *emu)
->   	if (! emu)
->   		return -EINVAL;
->   
-> -	spin_lock_irqsave(&emu->voice_lock, flags);
-> -	if (emu->timer_active)
-> -		del_timer(&emu->tlist);
-> -	spin_unlock_irqrestore(&emu->voice_lock, flags);
-> +	del_timer_sync(&emu->tlist);
->   
->   	snd_emux_proc_free(emu);
->   	snd_emux_delete_virmidi(emu);
-
+PiANCj4gSSBhcHByZWNpYXRlIHdoYXQgeW91IGFyZSB0cnlpbmcgdG8gc3VnZ2VzdCwgYW5kIEkg
+YW0gYWxsIGZvciB0cnlpbmcgdG8gcHV0IHRoaXMNCj4gcHJvbGlmZXJhdGlvbiBvZiBxdWlya3Mg
+dW5kZXIgY29udHJvbCwgYnV0IHRoZSBhdXRvZGV0ZWN0aW9uIGJhc2VkIG9uIHJ1bGVzDQo+IHNl
+ZW1zIG91dC1vZi1yZWFjaCBpZiB3ZSBkb24ndCBmaXJzdCBjbGVhbnVwIHRoZSBleGlzdGluZyBx
+dWlya3MuDQo+IA0KPiBJZiAidm9sdGVlciIgYW5kICJicnlhIiBtZWFuIGRpZmZlcmVudCB0aGlu
+Z3MgdG8gZGlmZmVyZW50IHBlb3BsZSwgYW5kIHJlZmVyZW5jZQ0KPiBhbmQgZGVyaXZhdGl2ZXMg
+YXJlIG5vdCB3ZWxsIGlkZW50aWZpZWQsIHRoZSBvZGRzIG9mIHJlZ3Jlc3Npb25zIHNlZW0gdmVy
+eSBoaWdoIHRvDQo+IG1lLg0KPiANCg0KVGhlIHJlYXNvbiB0aGF0IHdlIG5lZWQgc28gbWFueSBE
+TUkgcXVpcmtzIGlzIHRoYXQgd2UgYXJlIG5vdCBhYmxlIHRvIGtub3cNCndoaWNoIFNTUCBwb3J0
+IGlzIHVzZWQgYnkgaGVhZHBob25lIGFuZCBhbXBsaWZpZXIuIEhvd2V2ZXIsIGl0IHNlZW1zIHRv
+IG1lDQp0aGF0IHBsYXRmb3JtIGFuZCBtYWNoaW5lIGRyaXZlciBkb2VzIG5vdCBjYXJlIGFib3V0
+IHRoZSBEQUkgbmFtZS4NCg0KSSd2ZSB0ZXN0ZWQgdG8gcmVuYW1lIHRoZSBiYWNrZW5kIERBSXMg
+YXMgc29tZXRoaW5nIGxpa2UgJ1NTUC1IUCcsICdTU1AtU1BLJywNCmFuZCAnU1NQLUJUJyBzbyB3
+ZSBkb24ndCBuZWVkIHRvIGNyZWF0ZSBuZXcgYm9hcmQgaW5mbyBqdXN0IGJlY2F1c2UgdGhlIFNT
+UA0KcG9ydCBpcyBkaWZmZXJlbnQuIEhvd2V2ZXIsIHdlIG5lZWQgdG8gbW9kaWZ5IHRvcG9sb2d5
+IHNpbmNlIERBSSBuYW1lIGlzDQpjaGFuZ2VkLg0KDQpSZWdhcmRzLA0KQnJlbnQNCg0K

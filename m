@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1503D60F1E3
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 10:09:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79B860F1E7
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 10:10:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF2B832BF;
-	Thu, 27 Oct 2022 10:09:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF2B832BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5691632D8;
+	Thu, 27 Oct 2022 10:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5691632D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666858193;
-	bh=3f4kH9guzDKd0tZe3rePE0YTUNF++plqK87nxUjOZs4=;
+	s=default; t=1666858234;
+	bh=jmujsjyGLm6r9HxgKoELq8kIQcO3Vafz5I0Pw/IAAlc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ae4hE9TIC/UwRuLSyhGZc/hfq+OsDNm91eQ2e2oYssXIZS5UHuZqn90BKu+ZbAy6A
-	 FvU0iKX48VYk0DFv28Wvd2n1BXfUEQXrBimYOl1EgdCA2AUSe7HFfnSzC7UgHi1eim
-	 OB7DW62BDTHaf5yW2qjHO/nLZu3fJW0rqRzn3cCA=
+	b=eGJGybbYigvncizFQVSDo8hDrcokEMMWTrE1f+2p0B7zmDdQlM1Zjb0g6U65fMG3/
+	 fkBfRM2NhfjqUiZ2gW0fiBb7SphaNZHjWEZvIX64Bjb0m7KSC9ZWrf3gxohhgGQG96
+	 tGo3RPDQeRrXYAylazWj5GoRVwFbO3/NPKrdze30=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6AF5F8057D;
-	Thu, 27 Oct 2022 10:07:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 974F7F805A9;
+	Thu, 27 Oct 2022 10:07:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2908F8057A; Thu, 27 Oct 2022 10:07:31 +0200 (CEST)
+ id 12B5AF8054A; Thu, 27 Oct 2022 10:07:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2379FF8054A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3188DF80551
  for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 10:07:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2379FF8054A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3188DF80551
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FExw6/I+"
+ header.b="FdNqoBb8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666858044; x=1698394044;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3f4kH9guzDKd0tZe3rePE0YTUNF++plqK87nxUjOZs4=;
- b=FExw6/I+dKX+T/P3v2LDwoZeBHMVLXTTAiKaanWoUVcBahy6nx7AgOzL
- +LC3Z2W6bw530/U1NcQjeqQkPXCECEkS9sHyKFOUhR6Qjk2g4ckCiMnlu
- jBnwvfrMgYh1l9czy/RuhiFVJ2Dn5xllrVB+KFL212y20aU7TB0VreNdG
- 0fO0RFv8STc7rsmNOVEDwC9Clj7eso5PEEYrTkdUWX5RrUij2WdE8cY/c
- 0MDrLglJp6dbzmaqq7oivMCk2uD97o42k6oWhjY3dv7PUMd4ah7ZR6luG
- pY7rb3C7lmmXzBaoH3FduXhmLAjrEyNToP4Nfj0v3jBRd+hxktitmRUDB w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="291462713"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="291462713"
+ bh=jmujsjyGLm6r9HxgKoELq8kIQcO3Vafz5I0Pw/IAAlc=;
+ b=FdNqoBb81F9Syga2amqHepIxJFrL/ajkM32OwRixRsQ+p+fi+JCST0OC
+ v3XwscML34VbqB2p28wy4VZOISFq3esvgjdm68qXDX1GWYwxoU61A4tty
+ C3n2j4+/Scx0OBaRKsFd25unCfa1UVs8BG5SEACt8hO7Esfa9iiFKaaYZ
+ 9sCxi13P524EqsJUah835h/m4Nvgrm+4apIsboJrGGhG73lAALXuJEQm0
+ EEvVAvCnuNxW7FgQfpcnX8R+mGiYg4VyZ+2IIVzNXQN0KUR0CDs2HaZlw
+ gFp+mHGQopolUHz0yKclW+xcwRllabeyWHv9XV6uSjWwk/XQkw3m44Npm A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="291462725"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="291462725"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 01:07:07 -0700
+ 27 Oct 2022 01:07:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="961534857"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="961534857"
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="961534873"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="961534873"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga005.fm.intel.com with ESMTP; 27 Oct 2022 01:07:05 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 27 Oct 2022 01:07:07 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v3 5/9] ASoC: Intel: avs: Restart instead of resuming HDA
- capture streams
-Date: Thu, 27 Oct 2022 10:23:27 +0200
-Message-Id: <20221027082331.1561740-6-cezary.rojewski@intel.com>
+Subject: [PATCH v3 6/9] ASoC: Intel: avs: Count low power streams
+Date: Thu, 27 Oct 2022 10:23:28 +0200
+Message-Id: <20221027082331.1561740-7-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221027082331.1561740-1-cezary.rojewski@intel.com>
 References: <20221027082331.1561740-1-cezary.rojewski@intel.com>
@@ -92,92 +91,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Resuming of capture streams for HD-Audio is unsupported so remove the
-relevant flag from the hardware params when assigning them during
-avs_component_hda_open().
+Streaming in S0iX differs from SX scenarios. Store the number of
+so-called low-power streams to be able to differentiate between the two.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/pcm.c | 50 ++++++++++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 22 deletions(-)
+ sound/soc/intel/avs/avs.h |  1 +
+ sound/soc/intel/avs/pcm.c | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+)
 
+diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
+index 91f78eb11bc1..fb73d207697f 100644
+--- a/sound/soc/intel/avs/avs.h
++++ b/sound/soc/intel/avs/avs.h
+@@ -127,6 +127,7 @@ struct avs_dev {
+ 	struct list_head fw_list;
+ 	int *core_refs;		/* reference count per core */
+ 	char **lib_names;
++	int num_lp_paths;
+ 
+ 	struct completion fw_ready;
+ 	struct work_struct probe_work;
 diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index db29496e16ab..660129508c08 100644
+index 660129508c08..157d25e32e16 100644
 --- a/sound/soc/intel/avs/pcm.c
 +++ b/sound/soc/intel/avs/pcm.c
-@@ -1004,34 +1004,34 @@ static int avs_component_resume(struct snd_soc_component *component)
- 	return avs_component_resume_prepare(component, false);
- }
- 
-+static const struct snd_pcm_hardware avs_pcm_hardware = {
-+	.info			= SNDRV_PCM_INFO_MMAP |
-+				  SNDRV_PCM_INFO_MMAP_VALID |
-+				  SNDRV_PCM_INFO_INTERLEAVED |
-+				  SNDRV_PCM_INFO_PAUSE |
-+				  SNDRV_PCM_INFO_RESUME |
-+				  SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
-+	.formats		= SNDRV_PCM_FMTBIT_S16_LE |
-+				  SNDRV_PCM_FMTBIT_S24_LE |
-+				  SNDRV_PCM_FMTBIT_S32_LE,
-+	.buffer_bytes_max	= AZX_MAX_BUF_SIZE,
-+	.period_bytes_min	= 128,
-+	.period_bytes_max	= AZX_MAX_BUF_SIZE / 2,
-+	.periods_min		= 2,
-+	.periods_max		= AZX_MAX_FRAG,
-+	.fifo_size		= 0,
-+};
-+
- static int avs_component_open(struct snd_soc_component *component,
- 			      struct snd_pcm_substream *substream)
+@@ -60,6 +60,8 @@ avs_dai_find_path_template(struct snd_soc_dai *dai, bool is_fe, int direction)
+ static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai, bool is_fe,
+ 			   const struct snd_soc_dai_ops *ops)
  {
- 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
--	struct snd_pcm_hardware hwparams;
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_tplg_path_template *template;
+ 	struct avs_dma_data *data;
  
- 	/* only FE DAI links are handled here */
- 	if (rtd->dai_link->no_pcm)
- 		return 0;
+@@ -78,6 +80,9 @@ static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_d
+ 	data->template = template;
+ 	snd_soc_dai_set_dma_data(dai, substream, data);
  
--	hwparams.info = SNDRV_PCM_INFO_MMAP |
--			SNDRV_PCM_INFO_MMAP_VALID |
--			SNDRV_PCM_INFO_INTERLEAVED |
--			SNDRV_PCM_INFO_PAUSE |
--			SNDRV_PCM_INFO_RESUME |
--			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP;
--
--	hwparams.formats = SNDRV_PCM_FMTBIT_S16_LE |
--			   SNDRV_PCM_FMTBIT_S24_LE |
--			   SNDRV_PCM_FMTBIT_S32_LE;
--	hwparams.period_bytes_min = 128;
--	hwparams.period_bytes_max = AZX_MAX_BUF_SIZE / 2;
--	hwparams.periods_min = 2;
--	hwparams.periods_max = AZX_MAX_FRAG;
--	hwparams.buffer_bytes_max = AZX_MAX_BUF_SIZE;
--	hwparams.fifo_size = 0;
--
--	return snd_soc_set_runtime_hwparams(substream, &hwparams);
-+	return snd_soc_set_runtime_hwparams(substream, &avs_pcm_hardware);
++	if (rtd->dai_link->ignore_suspend)
++		adev->num_lp_paths++;
++
+ 	return 0;
  }
  
- static unsigned int avs_hda_stream_dpib_read(struct hdac_ext_stream *stream)
-@@ -1375,9 +1375,15 @@ static int avs_component_hda_open(struct snd_soc_component *component,
- 	struct hdac_ext_stream *link_stream;
- 	struct hda_codec *codec;
+@@ -164,8 +169,13 @@ static int avs_dai_nonhda_be_startup(struct snd_pcm_substream *substream, struct
  
--	/* only BE DAI links are handled here */
--	if (!rtd->dai_link->no_pcm)
--		return avs_component_open(component, substream);
-+	if (!rtd->dai_link->no_pcm) {
-+		struct snd_pcm_hardware hwparams = avs_pcm_hardware;
-+
-+		/* RESUME unsupported for de-coupled HD-Audio capture. */
-+		if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-+			hwparams.info &= ~SNDRV_PCM_INFO_RESUME;
-+
-+		return snd_soc_set_runtime_hwparams(substream, &hwparams);
-+	}
+ static void avs_dai_nonhda_be_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_dma_data *data;
  
- 	codec = dev_to_hda_codec(asoc_rtd_to_codec(rtd, 0)->dev);
- 	link_stream = snd_hdac_ext_stream_assign(&codec->bus->core, substream,
++	if (rtd->dai_link->ignore_suspend)
++		adev->num_lp_paths--;
++
+ 	data = snd_soc_dai_get_dma_data(dai, substream);
+ 
+ 	snd_soc_dai_set_dma_data(dai, substream, NULL);
+@@ -479,8 +489,13 @@ static int avs_dai_fe_startup(struct snd_pcm_substream *substream, struct snd_so
+ 
+ static void avs_dai_fe_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
++	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_dma_data *data;
+ 
++	if (rtd->dai_link->ignore_suspend)
++		adev->num_lp_paths--;
++
+ 	data = snd_soc_dai_get_dma_data(dai, substream);
+ 
+ 	snd_soc_dai_set_dma_data(dai, substream, NULL);
 -- 
 2.25.1
 

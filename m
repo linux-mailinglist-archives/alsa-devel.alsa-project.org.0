@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3296B60F531
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 12:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBFF60F52F
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 12:31:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9C9B1FAB;
-	Thu, 27 Oct 2022 12:30:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9C9B1FAB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 620A831BB;
+	Thu, 27 Oct 2022 12:30:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 620A831BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666866672;
-	bh=IIiPbBzLfiQBx8QGGB1f+nXXsVz81oGRwU/3j+iifdo=;
+	s=default; t=1666866665;
+	bh=PmaGK3f/BmH5hVl10p4/Us+9t3kBDKf8BOkZx5JFGmc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c7zohFerMWLAOlu7Pi3ZGtU8EBdRJN1OLJE7UDML/MBrOJkAPCAqmGMsQR7xKhUBZ
-	 6mqjusXjbiSBwI1TeUMUaImC/uhzPNRrD9x2JZpm/rvcBqwNjXAzgAippaGezHrMBg
-	 LZ5tcs9nbbj70h5ydE7N4597blUkehfpW+wHM8VI=
+	b=pva1oYcJK1pdWBophqReCv0DLYo/VqbbKZYpqJWTrjql/bizmCRRjj571QkNLY/16
+	 wK1DPOdIeqU2UV6b8B/AfheX8GDIijk2ZmbX2muYz50slDNSN5fDjZ0rA1tYQ8oNSX
+	 p++Xy1OjCj+X53SMIXPGRhO5ZP/ZfRLbZdlhmzog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EF72F805A9;
-	Thu, 27 Oct 2022 12:28:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F658F80588;
+	Thu, 27 Oct 2022 12:28:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E92ADF8057C; Thu, 27 Oct 2022 12:27:58 +0200 (CEST)
+ id 036EEF80567; Thu, 27 Oct 2022 12:27:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CADBF80552
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 12:27:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CADBF80552
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43DAAF80553
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 12:27:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43DAAF80553
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="kmV7eRAw"
-Received: by mail-wr1-x430.google.com with SMTP id bs21so1400141wrb.4
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 03:27:47 -0700 (PDT)
+ header.b="tSQnRemX"
+Received: by mail-wm1-x32c.google.com with SMTP id
+ bg9-20020a05600c3c8900b003bf249616b0so809084wmb.3
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 03:27:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8PzGOU3cHi3C/xmeEh0jzvedpAW9sTnCtCJCz/dvKXw=;
- b=kmV7eRAwmX8oQYf73+tBJXu8eVBs3MEay0gi6/jZolwjNmntD04cdJrbfmVKBYB+CV
- r9lpGwwm2qZhvgMLWHLMc2LbSjONA7zBfHof42h3Ri4DgnMaRT06/ORl+SYOupi+jfdP
- 4m+yh8AiGtfzvWMiqzIGXu1hDGRWKy/qPaNZ2a9CYqZjyAFczd+78pW0rX+32BrYBmf3
- ql+5TjspKrIkVn79k35TiRprdY9j5r22rErgkm0pksOT7htanoBuY+mnodh+ZgAutGrL
- zYj4tjKGrjebdTjxzsvzUNrAo/7IXblaM3iPc8u3iq6SuS2wChxQDx9Lvi87SLE7HZEp
- f+qQ==
+ bh=Gp+qeqYpAUBfqq9AAv/QE5uuGw4jREIuhh6ZeuCDwSI=;
+ b=tSQnRemXI46oIS3dmvkmIn+nigjaHOop9TSov+MmCb7R90FnPGXOkLEpw9/MztZTtx
+ xpMx/Iq6hRePD0RorCoUaMULt3rAett4vJYNH7TA4cALOzoSNcXdTjoT1KDZhO2J/Mpx
+ xY3h+BEZL81Ge+/FOGR7FmvjCa9RkMoDVMcZqn6meytpeWSAWYVUbGk78lQtJr8Vr9EN
+ JCMkhWxhah/R/jx/sm0BDLFNUnD5FvvYQ5bK1U3/vAd0d0Qe4UUgjNz5S8YGuEMurn86
+ Y+M7exXXP8KFHN4pTM1nQ0PKUfp9o+8r5WbICc+da9NiuZPcHZ9lubZ6+hlCdu8CEAp9
+ nBPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8PzGOU3cHi3C/xmeEh0jzvedpAW9sTnCtCJCz/dvKXw=;
- b=8NBuomaRD6LsiFo0sSAxD/8PVdz4v5VTa+vtzbER8BA8POQsSauqNEjpLlzYhy1JUm
- cAQBSzq1IYtHsoga+K7JKRXGU0xR9M/xbnrd3uAkXhRJczcx0VpQXUQVFpk/XlfMNu82
- /faBIX3qjtciAsV99GpN8sk5+FuUMXObE7k5Aq6zvRPagKxvyTCstHLZSttuuM63j63e
- +bvnSW/pDAdL07b43d3ohOl9HPJsvauCyzZMPfCk4KRjfBOZ+lY280+T3YeiFhFBGWIi
- yuVgrKu6DSOagLK70UInTmN9oE2Sq95NflRYsX+DqtEfAyggV8PU6E7zQ72c4ya42drM
- 5fxg==
-X-Gm-Message-State: ACrzQf1feMTuqI7wZBzXecBBLqXIK159uueRPOCSWEdMiWaCo1XGj57T
- XRDOnkfQS253I7pfzza/YkZKzA==
-X-Google-Smtp-Source: AMsMyM4oW1eAyDqgv6Txm8fwAyZp2AlhsWI2Ho4+c1Tv2pcgZRqCElLkiMSTBdHOgDUCMidAwPNocQ==
-X-Received: by 2002:a5d:5988:0:b0:236:6e28:a493 with SMTP id
- n8-20020a5d5988000000b002366e28a493mr14754569wri.66.1666866465783; 
- Thu, 27 Oct 2022 03:27:45 -0700 (PDT)
+ bh=Gp+qeqYpAUBfqq9AAv/QE5uuGw4jREIuhh6ZeuCDwSI=;
+ b=bH4Elt5/aXwSRhHLkNDWMswBQjT7p+1aCn7MlUMY9I4W2JrF1NCmA8pDulxTQkJOeT
+ gQeyJAmZG/g6kLQAQjSYMewjcfitofB8+TNG6E1croQgpKuyvUOx3VbKh8j2HUJhTS6p
+ SRU7J8TtvMPbqqsfDWuEblQOssfT02guKsC5ttPoLPras1JM9L9yQTvE5iSHGSNz3pZZ
+ 0NscqML22+zz505F2VrjkCoC15K853W5HkzxbthgovNg1L6XQFVHjot6x4a6fIyaMmLd
+ deooEPh/Z48kCfJRQRKyU95q/zUNClfsLvZfA1vEs0n2sip/0NT26rJiGuoe0bD3wfTG
+ JSnQ==
+X-Gm-Message-State: ACrzQf3X9T/5VAieTVELX4MuPuysOxoAJrEpeuhW63fBhXpLqhq5Kwno
+ g/iRgeEnX4ZXfx5CgPs7jwsMfg==
+X-Google-Smtp-Source: AMsMyM76b4UYlbmwHv93DCg1ovuumC8jcVXRQkoBmqjfzDLtj3SvT35/NFdoAlEIoq2iaolvJotUBQ==
+X-Received: by 2002:a05:600c:310b:b0:3cf:33c4:bc7 with SMTP id
+ g11-20020a05600c310b00b003cf33c40bc7mr5402758wmo.25.1666866467001; 
+ Thu, 27 Oct 2022 03:27:47 -0700 (PDT)
 Received: from localhost.localdomain ([5.133.47.210])
  by smtp.gmail.com with ESMTPSA id
- fc7-20020a05600c524700b003b505d26776sm5088674wmb.5.2022.10.27.03.27.44
+ fc7-20020a05600c524700b003b505d26776sm5088674wmb.5.2022.10.27.03.27.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Oct 2022 03:27:44 -0700 (PDT)
+ Thu, 27 Oct 2022 03:27:46 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v3 5/9] ASoC: qdsp6: audioreach: simplify module_list sz
- calculation
-Date: Thu, 27 Oct 2022 11:27:06 +0100
-Message-Id: <20221027102710.21407-6-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v3 6/9] ASoC: qdsp6: audioreach: add support for more port
+ connections
+Date: Thu, 27 Oct 2022 11:27:07 +0100
+Message-Id: <20221027102710.21407-7-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20221027102710.21407-1-srinivas.kandagatla@linaro.org>
 References: <20221027102710.21407-1-srinivas.kandagatla@linaro.org>
@@ -106,50 +107,318 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Simplify module_list size calculation by doing inside modules loop.
+AudioReach Modules can connect to other modules using source and
+destination port, and each module in theory can support up to 255 port
+connections. But in practice this limit is at max 8 ports at a time.
+So add support for allowing multiple port connections.
+
+This support is needed for more detailed graphs like ECNS, speaker
+protection and so.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/qdsp6/audioreach.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ include/uapi/sound/snd_ar_tokens.h |  27 ++++++++
+ sound/soc/qcom/qdsp6/audioreach.c  |  44 ++++++------
+ sound/soc/qcom/qdsp6/audioreach.h  |   9 ++-
+ sound/soc/qcom/qdsp6/topology.c    | 103 +++++++++++++++++++++++++----
+ 4 files changed, 144 insertions(+), 39 deletions(-)
 
+diff --git a/include/uapi/sound/snd_ar_tokens.h b/include/uapi/sound/snd_ar_tokens.h
+index 440c0725660b..b9b9093b4396 100644
+--- a/include/uapi/sound/snd_ar_tokens.h
++++ b/include/uapi/sound/snd_ar_tokens.h
+@@ -191,6 +191,33 @@ enum ar_event_types {
+ #define AR_TKN_U32_MODULE_SRC_INSTANCE_ID	208
+ #define AR_TKN_U32_MODULE_DST_INSTANCE_ID	209
+ 
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID1	210
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID1	211
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID1	212
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID2	213
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID2	214
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID2	215
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID3	216
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID3	217
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID3	218
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID4	219
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID4	220
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID4	221
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID5	222
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID5	223
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID5	224
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID6	225
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID6	226
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID6	227
++
++#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID7	228
++#define AR_TKN_U32_MODULE_DST_IN_PORT_ID7	229
++#define AR_TKN_U32_MODULE_DST_INSTANCE_ID7	230
+ 
+ #define AR_TKN_U32_MODULE_HW_IF_IDX		250
+ #define AR_TKN_U32_MODULE_HW_IF_TYPE		251
 diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-index 0015ec89d90b..87a3fd1f8107 100644
+index 87a3fd1f8107..99cade6d8a48 100644
 --- a/sound/soc/qcom/qdsp6/audioreach.c
 +++ b/sound/soc/qcom/qdsp6/audioreach.c
-@@ -430,7 +430,6 @@ void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct audioreach_graph_info
- 	struct audioreach_sub_graph *sgs;
- 	struct apm_mod_list_obj *mlobj;
- 	struct list_head *sg_list;
--	int num_modules_per_list;
- 	int num_connections = 0;
- 	int num_containers = 0;
- 	int num_sub_graphs = 0;
-@@ -451,6 +450,9 @@ void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct audioreach_graph_info
- 		list_for_each_entry(container, &sgs->container_list, node) {
- 			num_containers++;
- 			num_modules += container->num_modules;
-+			ml_sz = ml_sz + sizeof(struct apm_module_list_params) +
-+				APM_MOD_LIST_OBJ_PSIZE(mlobj, container->num_modules);
-+
+@@ -311,15 +311,6 @@ static void apm_populate_sub_graph_config(struct apm_sub_graph_data *cfg,
+ 	cfg->sid.scenario_id = sg->scenario_id;
+ }
+ 
+-static void apm_populate_connection_obj(struct apm_module_conn_obj *obj,
+-					struct audioreach_module *module)
+-{
+-	obj->src_mod_inst_id = module->src_mod_inst_id;
+-	obj->src_mod_op_port_id = module->src_mod_op_port_id;
+-	obj->dst_mod_inst_id = module->instance_id;
+-	obj->dst_mod_ip_port_id = module->in_port;
+-}
+-
+ static void apm_populate_module_prop_obj(struct apm_mod_prop_obj *obj,
+ 					 struct audioreach_module *module)
+ {
+@@ -394,22 +385,30 @@ static void audioreach_populate_graph(struct q6apm *apm, struct audioreach_graph
+ 			apm_populate_module_list_obj(mlobj, container, sg->sub_graph_id);
+ 
  			list_for_each_entry(module, &container->modules_list, node) {
- 				if (module->src_mod_inst_id)
- 					num_connections++;
-@@ -459,11 +461,11 @@ void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct audioreach_graph_info
+-				uint32_t src_mod_inst_id;
++				int pn;
+ 
+-				src_mod_inst_id = module->src_mod_inst_id;
+-
+-				module_prop_obj = &mp_data->mod_prop_obj[nmodule];
++				module_prop_obj = &mp_data->mod_prop_obj[nmodule++];
+ 				apm_populate_module_prop_obj(module_prop_obj, module);
+ 
+-				if (src_mod_inst_id) {
+-					conn_obj = &mc_data->conn_obj[nconn];
+-					apm_populate_connection_obj(conn_obj, module);
+-					nconn++;
++				if (!module->max_op_port)
++					continue;
++
++				for (pn = 0; pn < module->max_op_port; pn++) {
++					if (module->dst_mod_inst_id[pn]) {
++						conn_obj = &mc_data->conn_obj[nconn];
++						conn_obj->src_mod_inst_id = module->instance_id;
++						conn_obj->src_mod_op_port_id =
++								module->src_mod_op_port_id[pn];
++						conn_obj->dst_mod_inst_id =
++								module->dst_mod_inst_id[pn];
++						conn_obj->dst_mod_ip_port_id =
++								module->dst_mod_ip_port_id[pn];
++						nconn++;
++					}
+ 				}
+-
+-				nmodule++;
+ 			}
+-			mlobj = (void *) mlobj + APM_MOD_LIST_OBJ_PSIZE(mlobj, container->num_modules);
++			mlobj = (void *) mlobj + APM_MOD_LIST_OBJ_PSIZE(mlobj,
++									container->num_modules);
+ 
+ 			ncontainer++;
+ 		}
+@@ -454,8 +453,7 @@ void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct audioreach_graph_info
+ 				APM_MOD_LIST_OBJ_PSIZE(mlobj, container->num_modules);
+ 
+ 			list_for_each_entry(module, &container->modules_list, node) {
+-				if (module->src_mod_inst_id)
+-					num_connections++;
++				num_connections += module->num_connections;
+ 			}
+ 		}
+ 	}
+@@ -500,7 +498,7 @@ void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct audioreach_graph_info
+ 	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
+ 	param_data->param_id = APM_PARAM_ID_MODULE_LIST;
+ 	param_data->param_size = ml_sz - APM_MODULE_PARAM_DATA_SIZE;
+-	params.mod_list_data->num_modules_list = num_sub_graphs;
++	params.mod_list_data->num_modules_list = num_modules_list;
+ 	p += ml_sz;
+ 
+ 	/* Module Properties */
+diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
+index 1dc6ffcb3362..df5026b646c1 100644
+--- a/sound/soc/qcom/qdsp6/audioreach.h
++++ b/sound/soc/qcom/qdsp6/audioreach.h
+@@ -627,6 +627,8 @@ struct audioreach_container {
+ 	struct audioreach_sub_graph *sub_graph;
+ };
+ 
++#define AR_MAX_MOD_LINKS	8
++
+ struct audioreach_module {
+ 	uint32_t module_id;
+ 	uint32_t instance_id;
+@@ -637,11 +639,12 @@ struct audioreach_module {
+ 	uint32_t in_port;
+ 	uint32_t out_port;
+ 
++	uint32_t num_connections;
+ 	/* Connections */
+ 	uint32_t src_mod_inst_id;
+-	uint32_t src_mod_op_port_id;
+-	uint32_t dst_mod_inst_id;
+-	uint32_t dst_mod_ip_port_id;
++	uint32_t src_mod_op_port_id[AR_MAX_MOD_LINKS];
++	uint32_t dst_mod_inst_id[AR_MAX_MOD_LINKS];
++	uint32_t dst_mod_ip_port_id[AR_MAX_MOD_LINKS];
+ 
+ 	/* Format specifics */
+ 	uint32_t ch_fmt;
+diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+index f66d7054177c..cccc59b570b9 100644
+--- a/sound/soc/qcom/qdsp6/topology.c
++++ b/sound/soc/qcom/qdsp6/topology.c
+@@ -412,19 +412,25 @@ static struct audioreach_module *audioreach_parse_common_tokens(struct q6apm *ap
+ 							struct snd_soc_dapm_widget *w)
+ {
+ 	uint32_t max_ip_port = 0, max_op_port = 0, in_port = 0, out_port = 0;
+-	uint32_t src_mod_inst_id = 0, src_mod_op_port_id = 0;
+-	uint32_t dst_mod_inst_id = 0, dst_mod_ip_port_id = 0;
++	uint32_t src_mod_op_port_id[AR_MAX_MOD_LINKS] = { 0, };
++	uint32_t dst_mod_inst_id[AR_MAX_MOD_LINKS] = { 0, };
++	uint32_t dst_mod_ip_port_id[AR_MAX_MOD_LINKS] = { 0, };
++	uint32_t src_mod_inst_id = 0;
++
+ 	int module_id = 0, instance_id = 0, tkn_count = 0;
+ 	struct snd_soc_tplg_vendor_value_elem *mod_elem;
+ 	struct snd_soc_tplg_vendor_array *mod_array;
+ 	struct audioreach_module *mod = NULL;
++	uint32_t token;
+ 	bool found;
++	int max_tokens;
+ 
+ 	mod_array = audioreach_get_module_array(private);
+ 	mod_elem = mod_array->value;
+-
+-	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
+-		switch (le32_to_cpu(mod_elem->token)) {
++	max_tokens = le32_to_cpu(mod_array->num_elems);
++	while (tkn_count <= (max_tokens - 1)) {
++		token = le32_to_cpu(mod_elem->token);
++		switch (token) {
+ 		/* common module info */
+ 		case AR_TKN_U32_MODULE_ID:
+ 			module_id = le32_to_cpu(mod_elem->value);
+@@ -454,17 +460,80 @@ static struct audioreach_module *audioreach_parse_common_tokens(struct q6apm *ap
+ 		case AR_TKN_U32_MODULE_OUT_PORTS:
+ 			out_port = le32_to_cpu(mod_elem->value);
+ 			break;
+-		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID:
+-			src_mod_op_port_id = le32_to_cpu(mod_elem->value);
+-			break;
+ 		case AR_TKN_U32_MODULE_SRC_INSTANCE_ID:
+ 			src_mod_inst_id = le32_to_cpu(mod_elem->value);
+ 			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID:
++			src_mod_op_port_id[0] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID1:
++			src_mod_op_port_id[1] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID2:
++			src_mod_op_port_id[2] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID3:
++			src_mod_op_port_id[3] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID4:
++			src_mod_op_port_id[4] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID5:
++			src_mod_op_port_id[5] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID6:
++			src_mod_op_port_id[6] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID7:
++			src_mod_op_port_id[7] = le32_to_cpu(mod_elem->value);
++			break;
+ 		case AR_TKN_U32_MODULE_DST_INSTANCE_ID:
+-			dst_mod_inst_id = le32_to_cpu(mod_elem->value);
++			dst_mod_inst_id[0] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID1:
++			dst_mod_inst_id[1] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID2:
++			dst_mod_inst_id[2] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID3:
++			dst_mod_inst_id[3] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID4:
++			dst_mod_inst_id[4] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID5:
++			dst_mod_inst_id[5] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID6:
++			dst_mod_inst_id[6] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_INSTANCE_ID7:
++			dst_mod_inst_id[7] = le32_to_cpu(mod_elem->value);
+ 			break;
+ 		case AR_TKN_U32_MODULE_DST_IN_PORT_ID:
+-			dst_mod_ip_port_id = le32_to_cpu(mod_elem->value);
++			dst_mod_ip_port_id[0] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID1:
++			dst_mod_ip_port_id[1] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID2:
++			dst_mod_ip_port_id[2] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID3:
++			dst_mod_ip_port_id[3] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID4:
++			dst_mod_ip_port_id[4] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID5:
++			dst_mod_ip_port_id[5] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID6:
++			dst_mod_ip_port_id[6] = le32_to_cpu(mod_elem->value);
++			break;
++		case AR_TKN_U32_MODULE_DST_IN_PORT_ID7:
++			dst_mod_ip_port_id[7] = le32_to_cpu(mod_elem->value);
+ 			break;
+ 		default:
+ 			break;
+@@ -475,15 +544,23 @@ static struct audioreach_module *audioreach_parse_common_tokens(struct q6apm *ap
  	}
  
- 	num_modules_list = num_containers;
--	num_modules_per_list = num_modules/num_containers;
- 	sg_sz = APM_SUB_GRAPH_PSIZE(sg_params, num_sub_graphs);
- 	cont_sz = APM_CONTAINER_PSIZE(cont_params, num_containers);
--	ml_sz =	ALIGN(sizeof(struct apm_module_list_params) +
--		num_modules_list * APM_MOD_LIST_OBJ_PSIZE(mlobj,  num_modules_per_list), 8);
-+
-+	ml_sz = ALIGN(ml_sz, 8);
-+
- 	mp_sz = APM_MOD_PROP_PSIZE(mprop, num_modules);
- 	mc_sz =	APM_MOD_CONN_PSIZE(mcon, num_connections);
+ 	if (mod) {
++		int pn, id = 0;
+ 		mod->module_id = module_id;
+ 		mod->max_ip_port = max_ip_port;
+ 		mod->max_op_port = max_op_port;
+ 		mod->in_port = in_port;
+ 		mod->out_port = out_port;
+ 		mod->src_mod_inst_id = src_mod_inst_id;
+-		mod->src_mod_op_port_id = src_mod_op_port_id;
+-		mod->dst_mod_inst_id = dst_mod_inst_id;
+-		mod->dst_mod_ip_port_id = dst_mod_ip_port_id;
++		for (pn = 0; pn < mod->max_op_port; pn++) {
++			if (src_mod_op_port_id[pn] && dst_mod_inst_id[pn] &&
++			    dst_mod_ip_port_id[pn]) {
++				mod->src_mod_op_port_id[id] = src_mod_op_port_id[pn];
++				mod->dst_mod_inst_id[id] = dst_mod_inst_id[pn];
++				mod->dst_mod_ip_port_id[id] = dst_mod_ip_port_id[pn];
++				id++;
++				mod->num_connections = id;
++			}
++		}
+ 	}
  
+ 	return mod;
 -- 
 2.21.0
 

@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66FD16101E9
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 21:43:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78BE3610234
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 21:59:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFA52164F;
-	Thu, 27 Oct 2022 21:42:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFA52164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11471299D;
+	Thu, 27 Oct 2022 21:58:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11471299D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666899781;
-	bh=CkXgfb2uB0rKr6BruYmDWfLIaYApT/LAJHKPGB+rjzM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666900756;
+	bh=ro3n7HKvmvm/84Q+8n461KOMKj2+qybdODsBIjKJvjY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mk7Xi2Y0czd1pRiBktDnqZpoNwS6c3PUTVkX3gfQLTgx4dOimdvUQwfdkFVDRCrDQ
-	 vaSmu+YYgoh0tCYUhxynA5O73CeIEvZ+AD76I0pl0luh16pDRw7H59i3JiimOZbK6z
-	 GxOB8K1M6YUaFE3I6CMN9Rnqht2W5rmHS+tQ3x/E=
+	b=goh9XUJ/ZUbxviudxH7g+5Rc2wzd02kQlwV99SQsnza17bBsH55ebmODP7kAI6rLY
+	 xo1gH+Gw1WuyNO+oSEnJlm9gRrEXlqmY1Gf9ERG9cgOkxOhzcl2SSWqB/GD2GIGt2G
+	 66dlTdSUWHnW/S0+ZFIUqgHiHMfsGeztq6tOHcKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77BDAF805FC;
-	Thu, 27 Oct 2022 21:36:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A5F9F80496;
+	Thu, 27 Oct 2022 21:58:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA71CF805C5; Thu, 27 Oct 2022 21:36:41 +0200 (CEST)
+ id D9105F80100; Thu, 27 Oct 2022 21:58:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F549F805AE
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 21:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F549F805AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31F36F80100
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 21:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F36F80100
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="PnwFiRmN"
+ header.b="SxfNj10f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666899391; x=1698435391;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CkXgfb2uB0rKr6BruYmDWfLIaYApT/LAJHKPGB+rjzM=;
- b=PnwFiRmNXlkGKxCn9GRAXKtKjhT3EYgYqQkfI0m/4cBhqIZ/h+1+aXbm
- TCC5zH1KHgQ1DcpcPyOx+ABsFlZNKLdy0jUZzLJrTjSCHm+8Ed+1HW5l4
- juWV0RTut3Q3EgixOYDY40RWnap6ressR7mS+lUItvNINIBIBLInD5Wpy
- sbMo5q78HhS4zEqX4k9+nkTMja1gdrMMih7LLTxYDpzG1xdGiGcvobdks
- ci4kRJJe7mqQxHKWWXuErBgtojNXFBqUrY/71ye+OecPuCzOEQu6fhDGO
- gR7LQoOTz91wQYq7mOAq6J8V0vpwg7u2dImU76wmNkLIP2dzMZos5Rxu8 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="334957891"
-X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="334957891"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 12:36:28 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="632527091"
-X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="632527091"
-Received: from vmehta-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.212.6.254])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 12:36:27 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 21/21] ASoC: SOF: introduce new DEBUG_NOCODEC mode
-Date: Thu, 27 Oct 2022 15:35:40 -0400
-Message-Id: <20221027193540.259520-22-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221027193540.259520-1-pierre-louis.bossart@linux.intel.com>
-References: <20221027193540.259520-1-pierre-louis.bossart@linux.intel.com>
+ t=1666900694; x=1698436694;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to;
+ bh=ro3n7HKvmvm/84Q+8n461KOMKj2+qybdODsBIjKJvjY=;
+ b=SxfNj10fHjBZcj10e7TCyNHiJcZIMBkTN4tQ4UTzdrYpGAinKMKMkosq
+ ZigROEoFv+iluyF08htW/IVjKMUvV0Wuy3WbfrauMMd66m3oi01bnDiUF
+ FAGpRZeb/Vjc3FJmB3zD52gOP52WPK4+/S3NTRrwnvwRQhSrlqKAsMIev
+ 5ZYuNq06x1YrLp016LRbQGQKzHrQKLwDPOBw7WWG7T9nsZOkE1pKemPSy
+ XaYZ67VoqDaKhYgIyjScEaOJ8XpFbVYbMgCI0HSFIiBTrdbC/O3dI2OiC
+ 6/+oDgOGv6YC/6FTDKpeXhEBLKrdKXABO5E8dyXqFhpgu6htkPI+XFxAT A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="372539084"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; 
+ d="diff'?scan'208";a="372539084"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 12:58:10 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="701477335"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; 
+ d="diff'?scan'208";a="701477335"
+Received: from unknown (HELO [10.212.12.162]) ([10.212.12.162])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 12:58:09 -0700
+Content-Type: multipart/mixed; boundary="------------00y1iE8sMDyBdJ8uYcjX0kN8"
+Message-ID: <e3c4866f-54ab-bdd1-4ecf-504e947f8028@linux.intel.com>
+Date: Thu, 27 Oct 2022 15:58:08 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, broonie@kernel.org,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.2.2
+Subject: Re: [PATCH 03/16] ASoC: SOF: ops: add readb/writeb helpers
+Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20221024165310.246183-1-pierre-louis.bossart@linux.intel.com>
+ <20221024165310.246183-4-pierre-louis.bossart@linux.intel.com>
+ <Y1rTFrohLqaiZAy/@dev-arch.thelio-3990X>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <Y1rTFrohLqaiZAy/@dev-arch.thelio-3990X>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Rander Wang <rander.wang@intel.com>, broonie@kernel.org,
+ =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,320 +97,152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The existing NOCODEC mode enforces a build-time mutual exclusion with
-the HDaudio link support, mostly to avoid any dependency on the
-snd_hdac library and references to HDAudio codec/i915 stuff.
+This is a multi-part message in MIME format.
+--------------00y1iE8sMDyBdJ8uYcjX0kN8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is very useful to track dependencies and test a minimal
-configuration, but very painful for developers and CI: a recompilation
-and reinstall of the kernel modules is required.
 
-This patch suggests an alternate middle ground where the selection of
-the machine driver and all codec-related actions are bypassed at
-run-time, contingent on a kernel module parameter being set.
 
-For example setting BIT(10) with
-'options snd_sof sof_debug=0x401'
-is enough to switch from an HDaudio card to a nocodec one.
+On 10/27/22 14:51, Nathan Chancellor wrote:
+> Hi Pierre-Louis,
+> 
+> On Mon, Oct 24, 2022 at 11:52:57AM -0500, Pierre-Louis Bossart wrote:
+>> These will be used to add more consistency in the SOF core and
+>> drivers.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>> Reviewed-by: Rander Wang <rander.wang@intel.com>
+>> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> 
+> This change is now in -next as commit 74fe0c4dcb41 ("ASoC: SOF: ops: add
+> readb/writeb helpers"), where it breaks the build badly on at least
+> ARCH=arm:
+> 
+> $ kmake ARCH=arm CROSS_COMPILE=arm-linux-gnu- allmodconfig sound/soc/sof/
+> ...
+> In file included from sound/soc/sof/sof-client.c:16:
+> sound/soc/sof/ops.h: In function ‘snd_sof_dsp_writeb’:
+> sound/soc/sof/ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+>   309 |                 sof_ops(sdev)->writeb(sdev, sdev->bar[bar] + offset, value);
+>       |                                                                           ^
+> In file included from ./include/linux/io.h:13,
+>                  from ./include/linux/irq.h:20,
+>                  from ./include/asm-generic/hardirq.h:17,
+>                  from ./arch/arm/include/asm/hardirq.h:10,
+>                  from ./include/linux/hardirq.h:11,
+>                  from ./include/linux/interrupt.h:11,
+>                  from sound/soc/sof/ops.h:15:
+> ./arch/arm/include/asm/io.h:288: note: macro "writeb" defined here
+>   288 | #define writeb(v,c)             ({ __iowmb(); writeb_relaxed(v,c); })
+>       |
+> sound/soc/sof/ops.h:309:30: error: statement with no effect [-Werror=unused-value]
+>   309 |                 sof_ops(sdev)->writeb(sdev, sdev->bar[bar] + offset, value);
+>       |                              ^
+> sound/soc/sof/ops.h: In function ‘snd_sof_dsp_readb’:
+> sound/soc/sof/ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+>   336 |                 return sof_ops(sdev)->readb(sdev, sdev->bar[bar] + offset);
+>       |                                                                          ^
+> ./arch/arm/include/asm/io.h:284: note: macro "readb" defined here
+>   284 | #define readb(c)                ({ u8  __v = readb_relaxed(c); __iormb(); __v; })
+>       |
+> sound/soc/sof/ops.h:336:37: error: returning ‘u8 (*)(struct snd_sof_dev *, void *)’ {aka ‘unsigned char (*)(struct snd_sof_dev *, void *)’} from a function with return type ‘u8’ {aka ‘unsigned char’} makes integer from pointer without a cast [-Werror=int-conversion]
+>   336 |                 return sof_ops(sdev)->readb(sdev, sdev->bar[bar] + offset);
+>       |                                     ^
+> cc1: all warnings being treated as errors
+> ...
+> 
+> I guess the preprocessor gets to these calls first and everything
+> explodes from there. Perhaps these should be namespaced somehow?
 
-This new DEBUG_NOCODEC mode is not suitable for distributions and
-end-users. It's not even recommended on all platforms, i.e. the
-NOCODEC mode is known not to work on specific devices where the BIOS
-did not configure support for I2S/DMIC interfaces. The usual
-development devices such as Chromebooks, Up boards and Intel RVP are
-the only recommended platforms where this mode can be supported.
+Thanks for the report. We've had these patches for a while and always
+compile for ARM, and didn't see any issues raised. Meh.
 
-Note that the dynamic switch between HDaudio and nocodec may not
-always possible depending on hardware layout, pin-mux options, and
-BIOS settings. The audio subsustems on Intel platforms has to support
-4 types of interfaces and pin-mux can be complicated.
+I don't have a strong appetite for changes in common parts, maybe it's
+just simpler to use read8/write8 as callback names to avoid the
+conflict, something like the patch attached (compile-tested only). In
+hindsight it'd also be more consistent with the use of read64/write64
+that was added earlier in SOF helpers.
 
-Reviewers might ask: why didn't we do this earlier? The main reason is
-that all the codec-related configurations were not cleanly separated
-out in the sof/intel directory. With all the cleanups done recently,
-adding this opt-in behavior is relatively straightforward.
 
-Tested on UpExtreme (WHL) and UpExtreme i11 (TGL).
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/Kconfig           | 18 ++++++++--
- sound/soc/sof/intel/Kconfig     |  2 +-
- sound/soc/sof/intel/hda-codec.c | 59 +++++++++++++++++++++++++++++++++
- sound/soc/sof/sof-audio.c       |  5 +++
- sound/soc/sof/sof-priv.h        |  3 ++
- 5 files changed, 84 insertions(+), 3 deletions(-)
+--------------00y1iE8sMDyBdJ8uYcjX0kN8
+Content-Type: text/x-patch; charset=UTF-8; name="readwrite8.diff"
+Content-Disposition: attachment; filename="readwrite8.diff"
+Content-Transfer-Encoding: base64
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index 37f7df5fde17..0b9beb74b0f6 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -97,13 +97,13 @@ config SND_SOC_SOF_NOCODEC
- 	tristate
- 
- config SND_SOC_SOF_NOCODEC_SUPPORT
--	bool "SOF nocodec mode support"
-+	bool "SOF nocodec static mode support"
- 	help
- 	  This adds support for a dummy/nocodec machine driver fallback
- 	  option if no known codec is detected. This is typically only
- 	  enabled for developers or devices where the sound card is
- 	  controlled externally.
--	  This option is mutually exclusive with the Intel HDAudio support.
-+	  This option is mutually exclusive at build time with the Intel HDAudio support.
- 	  Selecting it may have negative impacts and prevent e.g. microphone
- 	  functionality from being enabled on Intel CoffeeLake and later
- 	  platforms.
-@@ -136,6 +136,19 @@ config SND_SOC_SOF_DEBUG
- 
- if SND_SOC_SOF_DEBUG
- 
-+config SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT
-+	bool "SOF nocodec debug mode support"
-+	depends on !SND_SOC_SOF_NOCODEC_SUPPORT
-+	help
-+	  This adds support for a dummy/nocodec machine driver fallback
-+	  option.
-+	  Unlike the SND_SOC_SOF_NOCODEC_SUPPORT, this option is NOT
-+	  mutually exclusive at build with the Intel HDAudio support. The
-+	  selection will be done depending on command line or modprobe.d settings
-+	  Distributions should not select this option!
-+	  Say Y if you need this nocodec debug fallback option.
-+	  If unsure select "N".
-+
- config SND_SOC_SOF_FORCE_NOCODEC_MODE
- 	bool "SOF force nocodec Mode"
- 	depends on SND_SOC_SOF_NOCODEC_SUPPORT
-@@ -239,6 +252,7 @@ config SND_SOC_SOF
- 	tristate
- 	select SND_SOC_TOPOLOGY
- 	select SND_SOC_SOF_NOCODEC if SND_SOC_SOF_NOCODEC_SUPPORT
-+	select SND_SOC_SOF_NOCODEC if SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level.
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 7af495fb6125..36a0e2bf30ff 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -277,7 +277,7 @@ if SND_SOC_SOF_HDA_COMMON
- 
- config SND_SOC_SOF_HDA_LINK
- 	bool "SOF support for HDA Links(HDA/HDMI)"
--	depends on SND_SOC_SOF_NOCODEC=n
-+	depends on SND_SOC_SOF_NOCODEC_SUPPORT=n
- 	select SND_SOC_SOF_PROBE_WORK_QUEUE
- 	help
- 	  This adds support for HDA links(HDA/HDMI) with Sound Open Firmware
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 50a7e3f08285..8a5e99a898ec 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -72,6 +72,10 @@ void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable)
- 	struct hda_codec *codec;
- 	unsigned int mask = 0;
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	if (enable) {
- 		list_for_each_codec(codec, hbus)
- 			if (codec->jacktbl.used)
-@@ -88,6 +92,10 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev)
- 	struct hda_bus *hbus = sof_to_hbus(sdev);
- 	struct hda_codec *codec;
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	list_for_each_codec(codec, hbus)
- 		/*
- 		 * Wake up all jack-detecting codecs regardless whether an event
-@@ -201,6 +209,10 @@ void hda_codec_probe_bus(struct snd_sof_dev *sdev)
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	int i, ret;
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* probe codecs in avail slots */
- 	for (i = 0; i < HDA_MAX_CODECS; i++) {
- 
-@@ -234,6 +246,10 @@ void hda_codec_detect_mask(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* Accept unsolicited responses */
- 	snd_hdac_chip_updatel(bus, GCTL, AZX_GCTL_UNSOL, AZX_GCTL_UNSOL);
- 
-@@ -255,6 +271,10 @@ void hda_codec_init_cmd_io(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* initialize the codec command I/O */
- 	snd_hdac_bus_init_cmd_io(bus);
- }
-@@ -264,6 +284,10 @@ void hda_codec_resume_cmd_io(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* set up CORB/RIRB buffers if was on before suspend */
- 	if (bus->cmd_dma_state)
- 		snd_hdac_bus_init_cmd_io(bus);
-@@ -274,6 +298,10 @@ void hda_codec_stop_cmd_io(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* initialize the codec command I/O */
- 	snd_hdac_bus_stop_cmd_io(bus);
- }
-@@ -283,6 +311,10 @@ void hda_codec_suspend_cmd_io(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* stop the CORB/RIRB DMA if it is On */
- 	if (bus->cmd_dma_state)
- 		snd_hdac_bus_stop_cmd_io(bus);
-@@ -294,6 +326,10 @@ void hda_codec_rirb_status_clear(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* clear rirb status */
- 	snd_hdac_chip_writeb(bus, RIRBSTS, RIRB_INT_MASK);
- }
-@@ -303,6 +339,9 @@ void hda_codec_set_codec_wakeup(struct snd_sof_dev *sdev, bool status)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	snd_hdac_set_codec_wakeup(bus, status);
- }
- EXPORT_SYMBOL_NS_GPL(hda_codec_set_codec_wakeup, SND_SOC_SOF_HDA_AUDIO_CODEC);
-@@ -313,6 +352,10 @@ bool hda_codec_check_rirb_status(struct snd_sof_dev *sdev)
- 	bool active = false;
- 	u32 rirb_status;
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return false;
-+
- 	rirb_status = snd_hdac_chip_readb(bus, RIRBSTS);
- 	if (rirb_status & RIRB_INT_MASK) {
- 		/*
-@@ -334,6 +377,10 @@ void hda_codec_device_remove(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	/* codec removal, invoke bus_device_remove */
- 	snd_hdac_ext_bus_device_remove(bus);
- }
-@@ -347,6 +394,10 @@ void hda_codec_i915_display_power(struct snd_sof_dev *sdev, bool enable)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return;
-+
- 	if (HDA_IDISP_CODEC(bus->codec_mask)) {
- 		dev_dbg(bus->dev, "Turning i915 HDAC power %d\n", enable);
- 		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, enable);
-@@ -359,6 +410,10 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	int ret;
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return 0;
-+
- 	/* i915 exposes a HDA codec for HDMI audio */
- 	ret = snd_hdac_i915_init(bus);
- 	if (ret < 0)
-@@ -375,6 +430,10 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
-+	if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+	    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+		return 0;
-+
- 	if (!bus->audio_component)
- 		return 0;
- 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 62092e2d609c..7306a2649857 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -826,6 +826,10 @@ int sof_machine_check(struct snd_sof_dev *sdev)
- 	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)) {
- 		const struct snd_sof_of_mach *of_mach;
- 
-+		if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
-+		    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
-+			goto nocodec;
-+
- 		/* find machine */
- 		mach = snd_sof_machine_select(sdev);
- 		if (mach) {
-@@ -848,6 +852,7 @@ int sof_machine_check(struct snd_sof_dev *sdev)
- 		dev_warn(sdev->dev, "Force to use nocodec mode\n");
- 	}
- 
-+nocodec:
- 	/* select nocodec mode */
- 	dev_warn(sdev->dev, "Using nocodec machine driver\n");
- 	mach = devm_kzalloc(sdev->dev, sizeof(*mach), GFP_KERNEL);
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index d3ede97b6759..876e6fdbef4f 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -43,6 +43,9 @@
- #define SOF_DBG_PRINT_IPC_SUCCESS_LOGS		BIT(9) /* print IPC success
- 							* in dmesg logs
- 							*/
-+#define SOF_DBG_FORCE_NOCODEC			BIT(10) /* ignore all codec-related
-+							 * configurations
-+							 */
- 
- /* Flag definitions used for controlling the DSP dump behavior */
- #define SOF_DBG_DUMP_REGS		BIT(0)
--- 
-2.34.1
+ZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLWRzcC5jIGIvc291bmQvc29j
+L3NvZi9pbnRlbC9oZGEtZHNwLmMKaW5kZXggNmQ4OTZlYTMxNjgwLi5mZDcyZTc4ZDJkYTcg
+MTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLWRzcC5jCisrKyBiL3NvdW5k
+L3NvYy9zb2YvaW50ZWwvaGRhLWRzcC5jCkBAIC0zNDksNyArMzQ5LDcgQEAgc3RhdGljIGlu
+dCBoZGFfZHNwX3dhaXRfZDBpM2NfZG9uZShzdHJ1Y3Qgc25kX3NvZl9kZXYgKnNkZXYpCiB7
+CiAJaW50IHJldHJ5ID0gSERBX0RTUF9SRUdfUE9MTF9SRVRSWV9DT1VOVDsKIAotCXdoaWxl
+IChzbmRfc29mX2RzcF9yZWFkYihzZGV2LCBIREFfRFNQX0hEQV9CQVIsIFNPRl9IREFfVlNf
+RDBJM0MpICYgU09GX0hEQV9WU19EMEkzQ19DSVApIHsKKwl3aGlsZSAoc25kX3NvZl9kc3Bf
+cmVhZDgoc2RldiwgSERBX0RTUF9IREFfQkFSLCBTT0ZfSERBX1ZTX0QwSTNDKSAmIFNPRl9I
+REFfVlNfRDBJM0NfQ0lQKSB7CiAJCWlmICghcmV0cnktLSkKIAkJCXJldHVybiAtRVRJTUVE
+T1VUOwogCQl1c2xlZXBfcmFuZ2UoMTAsIDE1KTsKQEAgLTM5OSw3ICszOTksNyBAQCBzdGF0
+aWMgaW50IGhkYV9kc3BfdXBkYXRlX2QwaTNjX3JlZ2lzdGVyKHN0cnVjdCBzbmRfc29mX2Rl
+diAqc2RldiwgdTggdmFsdWUpCiAJCXJldHVybiByZXQ7CiAJfQogCi0JcmVnID0gc25kX3Nv
+Zl9kc3BfcmVhZGIoc2RldiwgSERBX0RTUF9IREFfQkFSLCBTT0ZfSERBX1ZTX0QwSTNDKTsK
+KwlyZWcgPSBzbmRfc29mX2RzcF9yZWFkOChzZGV2LCBIREFfRFNQX0hEQV9CQVIsIFNPRl9I
+REFfVlNfRDBJM0MpOwogCXRyYWNlX3NvZl9pbnRlbF9EMEkzQ191cGRhdGVkKHNkZXYsIHJl
+Zyk7CiAKIAlyZXR1cm4gMDsKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zb2YvaW50ZWwvaGRh
+LmMgYi9zb3VuZC9zb2Mvc29mL2ludGVsL2hkYS5jCmluZGV4IDc5YzMyZDk0OGIyZC4uNTgz
+MTAyOWIzMTI4IDEwMDY0NAotLS0gYS9zb3VuZC9zb2Mvc29mL2ludGVsL2hkYS5jCisrKyBi
+L3NvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLmMKQEAgLTYzNiw3ICs2MzYsNyBAQCB2b2lkIGhk
+YV9pcGNfaXJxX2R1bXAoc3RydWN0IHNuZF9zb2ZfZGV2ICpzZGV2KQogCWludHN0cyA9IHNu
+ZF9zb2ZfZHNwX3JlYWQoc2RldiwgSERBX0RTUF9IREFfQkFSLCBTT0ZfSERBX0lOVFNUUyk7
+CiAJaW50Y3RsID0gc25kX3NvZl9kc3BfcmVhZChzZGV2LCBIREFfRFNQX0hEQV9CQVIsIFNP
+Rl9IREFfSU5UQ1RMKTsKIAlwcHN0cyA9IHNuZF9zb2ZfZHNwX3JlYWQoc2RldiwgSERBX0RT
+UF9QUF9CQVIsIFNPRl9IREFfUkVHX1BQX1BQU1RTKTsKLQlyaXJic3RzID0gc25kX3NvZl9k
+c3BfcmVhZGIoc2RldiwgSERBX0RTUF9IREFfQkFSLCBBWlhfUkVHX1JJUkJTVFMpOworCXJp
+cmJzdHMgPSBzbmRfc29mX2RzcF9yZWFkOChzZGV2LCBIREFfRFNQX0hEQV9CQVIsIEFaWF9S
+RUdfUklSQlNUUyk7CiAKIAlkZXZfZXJyKHNkZXYtPmRldiwgImhkYSBpcnEgaW50c3RzIDB4
+JTguOHggaW50bGN0bCAweCU4Ljh4IHJpcmIgJTIuMnhcbiIsCiAJCWludHN0cywgaW50Y3Rs
+LCByaXJic3RzKTsKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zb2Yvb3BzLmggYi9zb3VuZC9z
+b2Mvc29mL29wcy5oCmluZGV4IDhjYjkzZTdjMGM2Ny4uYWFjNTU4ZmM0M2FlIDEwMDY0NAot
+LS0gYS9zb3VuZC9zb2Mvc29mL29wcy5oCisrKyBiL3NvdW5kL3NvYy9zb2Yvb3BzLmgKQEAg
+LTMwMiwxMSArMzAyLDExIEBAIHN0YXRpYyBpbmxpbmUgaW50IHNuZF9zb2ZfZGVidWdmc19h
+ZGRfcmVnaW9uX2l0ZW0oc3RydWN0IHNuZF9zb2ZfZGV2ICpzZGV2LAogfQogCiAvKiByZWdp
+c3RlciBJTyAqLwotc3RhdGljIGlubGluZSB2b2lkIHNuZF9zb2ZfZHNwX3dyaXRlYihzdHJ1
+Y3Qgc25kX3NvZl9kZXYgKnNkZXYsIHUzMiBiYXIsCitzdGF0aWMgaW5saW5lIHZvaWQgc25k
+X3NvZl9kc3Bfd3JpdGU4KHN0cnVjdCBzbmRfc29mX2RldiAqc2RldiwgdTMyIGJhciwKIAkJ
+CQkgICAgICB1MzIgb2Zmc2V0LCB1OCB2YWx1ZSkKIHsKLQlpZiAoc29mX29wcyhzZGV2KS0+
+d3JpdGViKQotCQlzb2Zfb3BzKHNkZXYpLT53cml0ZWIoc2Rldiwgc2Rldi0+YmFyW2Jhcl0g
+KyBvZmZzZXQsIHZhbHVlKTsKKwlpZiAoc29mX29wcyhzZGV2KS0+d3JpdGU4KQorCQlzb2Zf
+b3BzKHNkZXYpLT53cml0ZTgoc2Rldiwgc2Rldi0+YmFyW2Jhcl0gKyBvZmZzZXQsIHZhbHVl
+KTsKIAllbHNlCiAJCXdyaXRlYih2YWx1ZSwgIHNkZXYtPmJhcltiYXJdICsgb2Zmc2V0KTsK
+IH0KQEAgLTMyOSwxMSArMzI5LDExIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBzbmRfc29mX2Rz
+cF93cml0ZTY0KHN0cnVjdCBzbmRfc29mX2RldiAqc2RldiwgdTMyIGJhciwKIAkJd3JpdGVx
+KHZhbHVlLCBzZGV2LT5iYXJbYmFyXSArIG9mZnNldCk7CiB9CiAKLXN0YXRpYyBpbmxpbmUg
+dTggc25kX3NvZl9kc3BfcmVhZGIoc3RydWN0IHNuZF9zb2ZfZGV2ICpzZGV2LCB1MzIgYmFy
+LAorc3RhdGljIGlubGluZSB1OCBzbmRfc29mX2RzcF9yZWFkOChzdHJ1Y3Qgc25kX3NvZl9k
+ZXYgKnNkZXYsIHUzMiBiYXIsCiAJCQkJICAgdTMyIG9mZnNldCkKIHsKLQlpZiAoc29mX29w
+cyhzZGV2KS0+cmVhZGIpCi0JCXJldHVybiBzb2Zfb3BzKHNkZXYpLT5yZWFkYihzZGV2LCBz
+ZGV2LT5iYXJbYmFyXSArIG9mZnNldCk7CisJaWYgKHNvZl9vcHMoc2RldiktPnJlYWQ4KQor
+CQlyZXR1cm4gc29mX29wcyhzZGV2KS0+cmVhZDgoc2Rldiwgc2Rldi0+YmFyW2Jhcl0gKyBv
+ZmZzZXQpOwogCWVsc2UKIAkJcmV0dXJuIHJlYWRiKHNkZXYtPmJhcltiYXJdICsgb2Zmc2V0
+KTsKIH0KQEAgLTM2MSwxMCArMzYxLDEwIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBzbmRfc29m
+X2RzcF91cGRhdGViKHN0cnVjdCBzbmRfc29mX2RldiAqc2RldiwgdTMyIGJhciwKIHsKIAl1
+OCByZWc7CiAKLQlyZWcgPSBzbmRfc29mX2RzcF9yZWFkYihzZGV2LCBiYXIsIG9mZnNldCk7
+CisJcmVnID0gc25kX3NvZl9kc3BfcmVhZDgoc2RldiwgYmFyLCBvZmZzZXQpOwogCXJlZyAm
+PSB+bWFzazsKIAlyZWcgfD0gdmFsdWU7Ci0Jc25kX3NvZl9kc3Bfd3JpdGViKHNkZXYsIGJh
+ciwgb2Zmc2V0LCByZWcpOworCXNuZF9zb2ZfZHNwX3dyaXRlOChzZGV2LCBiYXIsIG9mZnNl
+dCwgcmVnKTsKIH0KIAogLyogYmxvY2sgSU8gKi8KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9z
+b2Yvc29mLXByaXYuaCBiL3NvdW5kL3NvYy9zb2Yvc29mLXByaXYuaAppbmRleCBkM2VkZTk3
+YjY3NTkuLmM2N2VjOWExMzk0YiAxMDA2NDQKLS0tIGEvc291bmQvc29jL3NvZi9zb2YtcHJp
+di5oCisrKyBiL3NvdW5kL3NvYy9zb2Yvc29mLXByaXYuaApAQCAtMTcxLDkgKzE3MSw5IEBA
+IHN0cnVjdCBzbmRfc29mX2RzcF9vcHMgewogCSAqIFRPRE86IGNvbnNpZGVyIHJlbW92aW5n
+IHRoZXNlIG9wZXJhdGlvbnMgYW5kIGNhbGxpbmcgcmVzcGVjdGl2ZQogCSAqIGltcGxlbWVu
+dGF0aW9ucyBkaXJlY3RseQogCSAqLwotCXZvaWQgKCp3cml0ZWIpKHN0cnVjdCBzbmRfc29m
+X2RldiAqc29mX2Rldiwgdm9pZCBfX2lvbWVtICphZGRyLAorCXZvaWQgKCp3cml0ZTgpKHN0
+cnVjdCBzbmRfc29mX2RldiAqc29mX2Rldiwgdm9pZCBfX2lvbWVtICphZGRyLAogCQkgICAg
+ICAgdTggdmFsdWUpOyAvKiBvcHRpb25hbCAqLwotCXU4ICgqcmVhZGIpKHN0cnVjdCBzbmRf
+c29mX2RldiAqc29mX2RldiwKKwl1OCAoKnJlYWQ4KShzdHJ1Y3Qgc25kX3NvZl9kZXYgKnNv
+Zl9kZXYsCiAJCSAgICB2b2lkIF9faW9tZW0gKmFkZHIpOyAvKiBvcHRpb25hbCAqLwogCXZv
+aWQgKCp3cml0ZSkoc3RydWN0IHNuZF9zb2ZfZGV2ICpzb2ZfZGV2LCB2b2lkIF9faW9tZW0g
+KmFkZHIsCiAJCSAgICAgIHUzMiB2YWx1ZSk7IC8qIG9wdGlvbmFsICovCg==
 
+--------------00y1iE8sMDyBdJ8uYcjX0kN8--

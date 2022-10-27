@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E807D60F89A
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 15:10:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C30160F74A
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 14:31:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 510F42F8D;
-	Thu, 27 Oct 2022 15:09:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 510F42F8D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCC5E2C38;
+	Thu, 27 Oct 2022 14:30:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCC5E2C38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666876242;
-	bh=MCLBFO3GdgdeuhUJUcNaR1oNkl/w8+FZPyXKz03sSkk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BXOYfygZuloRNGPmaHtYOg5sQbtq55Wx2fXfwgDngklndbTE6G3RMAwSQJtllIuRG
-	 87UF5yJHHYU5zQeIv8oSoVoFoNiqmy3efoM9DCFQ0XUaqHKNWa4tXgAKISmeCyIYb3
-	 sdUuhzy/SxuxXp662+yt5DbXHeGguGaDUdb4CEjg=
+	s=default; t=1666873881;
+	bh=6DI1POJhiqU6U4Pzcge3kqPT/f+3U6YacVd6stkwqAo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oBbziy9oMHqkHRiGuWKzA3nWt/bNMyELdgZvhw07PO45ADXKd0Hp3iI7QgvWBeOWL
+	 EA+OR+qPFUbgBR41w7RQsDGSpVdKRue8esdixIs1klhytWiRAKg1A6hR4w5Aa+3WVl
+	 fDr9PZ9wmO1kiEZSTBlj6sEZPj5anLJf/MsxyxNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89E80F80496;
-	Thu, 27 Oct 2022 15:09:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C1F5F804F3;
+	Thu, 27 Oct 2022 14:30:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A679AF8025E; Thu, 27 Oct 2022 15:09:45 +0200 (CEST)
+ id 92734F80095; Thu, 27 Oct 2022 14:30:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90D4EF80095
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 15:09:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90D4EF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21E03F80095
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 14:30:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21E03F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="hd9Dis9q"
+ header.b="lvzLB23T"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666876183; x=1698412183;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=MCLBFO3GdgdeuhUJUcNaR1oNkl/w8+FZPyXKz03sSkk=;
- b=hd9Dis9qN94nuHH3j8JninC6QCD5w7acol/NyihbjuZlzNcGxkAJJpXg
- fdv/dS6P1CnMzJLC5Sza8mHngvNSbd+GdtpO3v1o9vkPr3VMnM5fTuIy+
- 8vhaUlfrSAcp1RA1NAyO9SnpTWHHDVbzEEer8xf3JWPjEKV6faCKF0bGW
- vojbpRw7vv0Il608V9vhqzSZkw/rdsXHhVjQA2Ub+QqlcFhTH9R6CFPn9
- 8QzkvVVZbcg/eT/dKiIZmb7KlPO75bReVADNIvlUR8khv2DaPqrR7KrQs
- D+LOPISzExrePA5ZyS4YyF3yekqnzSWFXGthJWgiBloIpPxwP3S9OdxGj A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="295625498"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="295625498"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 06:09:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="757692314"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="757692314"
-Received: from djohn1-mobl1.amr.corp.intel.com (HELO [10.212.54.86])
- ([10.212.54.86])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 06:09:35 -0700
-Message-ID: <86b64496-71e0-7e2d-0911-f67e1684db20@linux.intel.com>
-Date: Thu, 27 Oct 2022 08:45:21 -0400
+ t=1666873822; x=1698409822;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6DI1POJhiqU6U4Pzcge3kqPT/f+3U6YacVd6stkwqAo=;
+ b=lvzLB23TsZ/aBWnihoa+GE8oXy1sbv+KTusL1HNKsP7Bdu/SKDRcaQyy
+ 5RDeZ+8kvR7xy7FxxaDKbujrXAp1sk9yeboGl3geQqAdSmc/hfJT4+REB
+ AhE8dTH6OGglqIEKhitsENZG3SdrxGUIo+YG8d5IeYPSkm9mtzvH8VulL
+ vrVspcK+UWREUG0o/VyQ5L7WEPwAdtV24Kg4Efi/qv/MjlTCI7yerakV3
+ 11E6O2ol9h2Fc75eURNouqdITiXU4HiMnMPR3eM042xk8g1wQPNzP852O
+ /yGZjkSiVo2O0x7SMjO+vz6znhcEPzFtxrZUBAUrTl6XyvPK6Yc5hX4Vj w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="334839870"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="334839870"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 05:30:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="807435619"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="807435619"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga005.jf.intel.com with ESMTP; 27 Oct 2022 05:30:05 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v4 0/9] ASoC: Intel: avs: PCM power management
+Date: Thu, 27 Oct 2022 14:46:53 +0200
+Message-Id: <20221027124702.1761002-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH 6/6] soundwire: qcom: add support for v1.7 Soundwire
- Controller
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com
-References: <20221026110210.6575-1-srinivas.kandagatla@linaro.org>
- <20221026110210.6575-7-srinivas.kandagatla@linaro.org>
- <e3ebba30-65ec-183a-eb91-c5147c28441d@linux.intel.com>
- <619a829e-d902-eba9-537e-176a8acb149c@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <619a829e-d902-eba9-537e-176a8acb149c@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, sanyog.r.kale@intel.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,23 +89,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Goal of the series is implementation of suspend/resume operations for a
+PCM stream along with all the collaterals connected to the subject.
 
->>> @@ -1582,6 +1597,7 @@ static const struct of_device_id
->>> qcom_swrm_of_match[] = {
->>>       { .compatible = "qcom,soundwire-v1.3.0", .data =
->>> &swrm_v1_3_data },
->>>       { .compatible = "qcom,soundwire-v1.5.1", .data =
->>> &swrm_v1_5_data },
->>>       { .compatible = "qcom,soundwire-v1.6.0", .data =
->>> &swrm_v1_6_data },
->>> +    { .compatible = "qcom,soundwire-v1.7.0", .data = &swrm_v1_5_data },
->>
->> is this line intentional, it looks odd that 1.7 is compatible with 1.5,
->> but 1.6 isn't?
-> This is more around the data rather than compatible, 1.6 data is marked
-> with sw_clk_gate_required = true which is not the case with 1.7.
-> 
-> from 1.5 we use same frame shape info for 1.6, 1.7, except that 1.6 had
-> this sw_clk_gate_required flag set.
+Start with splitting avs_dai_fe_hw_free() as ideally we would like to
+reuse as much of existing code as possible but snd_pcm_lib_free_pages()
+is not desired part of the function when speaking of suspend operation.
 
-probably worthy of a comment to show intent and explain the differences?
+The actual implementation of suspend/resume() for component drivers
+follows. For most scenarios, the PM flow is similar to standard
+streaming one, except for the part where the position register are being
+saved and the lack of PCM pages freeing. To reduce code duplication, all
+avs_dai_suspend_XXX() and avs_dai_resume_XXX() functions reuse their
+non-PM equivalents.
+Order of operations is affected by the fact that path binding/unbinding
+happens only in FE part of the stream.
+
+Above essentially unlocks SX+streaming scenarios i.e.: power transitions
+with an ongoing stream.
+
+As some streams are allowed to run in low power state, support is
+provided for S0iX state. The handlers check ACPI capabilities and the
+number of active low-power paths before deciding between SX and S0iX
+flows.
+
+The last portion of the patchset is addition of power/clock gating
+overrides. There is no single set of registers that ensures AudioDSP
+firmware loads 100% of time on every single configuration. By having
+them exposed, user can have the loading procedure behavior adjusted for
+their configuration without having to recompile the kernel.
+
+
+Changes in v4:
+- replaced readb_poll_timeout() with read_poll_timeout() for the DRSM
+  polling function as the register is u32 wide, not u8
+
+Changes in v3:
+- fixed unused-but-set-variable warnings reported by the test robot
+
+Changes in v2:
+- moved DRSM reg polling to separate function,
+  snd_hdac_stream_wait_drsm() as suggested by Pierre
+- moved the acpi_gbl_FADT under AVS_S0IX_SUPPORTED macro and relocated
+  the checks from pcm.c to topology.c so that the low-power streams are
+  filtered as early as possible
+- fixed compilation when CONFIG_ACPI is disabled as reported by the test
+  robot
+- simplified all the avs_dai_resume/suspend_xxx() by moving
+  ->ignore_suspend check one level up, to avs_component_pm_op()
+  (patch 0002)
+
+
+Amadeusz Sławiński (1):
+  ASoC: Intel: avs: Handle SUSPEND and RESUME triggers
+
+Cezary Rojewski (7):
+  ASoC: Intel: avs: Split pcm pages freeing operation from hw_free()
+  ASoC: Intel: avs: Introduce PCM power management routines
+  ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
+  ASoC: Intel: avs: Restart instead of resuming HDA capture streams
+  ASoC: Intel: avs: Count low power streams
+  ASoC: Intel: avs: Power and clock gating policy overriding
+  ASoC: Intel: avs: Enact power gating policy
+
+Piotr Maziarz (1):
+  ASoC: Intel: avs: Standby power-state support
+
+ include/sound/hdaudio.h        |   1 +
+ include/sound/hdaudio_ext.h    |   5 +
+ sound/hda/hdac_stream.c        |  22 ++
+ sound/soc/intel/avs/avs.h      |   8 +
+ sound/soc/intel/avs/core.c     |  97 +++++++--
+ sound/soc/intel/avs/loader.c   |  10 +
+ sound/soc/intel/avs/pcm.c      | 368 +++++++++++++++++++++++++++++----
+ sound/soc/intel/avs/topology.c |  10 +
+ 8 files changed, 461 insertions(+), 60 deletions(-)
+
+-- 
+2.25.1
+

@@ -2,95 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FC0C60F1DA
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 10:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E15F660F1DC
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 10:08:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 427C932C3;
-	Thu, 27 Oct 2022 10:06:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 427C932C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FE2B32C9;
+	Thu, 27 Oct 2022 10:07:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FE2B32C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666858058;
-	bh=HyxcGuolgwzu3ItAus7OgJHtNbLCL6rQ15m8cAlAtEg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RWaBzFHvybH0rMPd29nDfqyGdEoI6FRE9YQ7PElQWmXeu8XfrQzzN510mB8ZJTjOf
-	 wQs2gCImO1aio5kSdOqKs7Pae3Ms1fOeWXq0oXpUa+d9S28QzM+q51Y2SHfmG6rqSt
-	 BeHbfwEG+tiJFookEpM/20S+sxh/9wIuR+OgEPPI=
+	s=default; t=1666858099;
+	bh=tkbY5LFL7r18EeJ2qCAp4GcL72RB6WncSgRl12YgbM8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f3QlM4FyMbfMttVqwOsIexUtqHr76y7dE+AK7qMmUkMlb3JYFQWjag0paTMZCaS6b
+	 SVvpmy/I4BNylAqMU8a/LIQYlUYHeFXvxrfjKlqdDgrYluW0mS4rIYhUs6aOngpJYb
+	 eHi4nrBDsxi8yIviXP3Rhh3FkkUmPAjxfmNSQdwE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 904D5F80496;
-	Thu, 27 Oct 2022 10:06:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8396F80095;
+	Thu, 27 Oct 2022 10:07:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D2B8F8025E; Thu, 27 Oct 2022 10:06:42 +0200 (CEST)
+ id D6BDDF804F3; Thu, 27 Oct 2022 10:07:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FC04F80100
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 10:06:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FC04F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1664AF80095
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 10:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1664AF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eTErvCVD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="VIdR26Fr"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 59641228C4;
- Thu, 27 Oct 2022 08:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666857991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l1hbvmIy+b7DQo66904Q6hmWtuZVS72VPYew8vdZ4UI=;
- b=eTErvCVD04XpVXI/Zzh7sU77er5zH+vUE21pir5ZCLSq6iLpfnfgMxxX9EgbnR2iV34+A3
- 4tubqB2prp3cHB5YQ4JGbU4diAXpAsRsXvT5V4fK7zjT1so07fz/CsqgWQ9qC2PrKMK6+Q
- z9INplGrSmc4xHnZ0P+cI3f5KtenU3o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666857991;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l1hbvmIy+b7DQo66904Q6hmWtuZVS72VPYew8vdZ4UI=;
- b=VIdR26Fro+ksgTFo3s8v4oINDnt95Nm/xdL2MtChlbWsuJkoZ4iZLNuLYCGMAbdvUICOAi
- tnZB9r5hArfvaXDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36FE1134CA;
- Thu, 27 Oct 2022 08:06:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CQeYDAc8WmOuNgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 08:06:31 +0000
-Date: Thu, 27 Oct 2022 10:06:30 +0200
-Message-ID: <87ilk5ofll.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH] ALSA: aoa: i2sbus: fix possible memory leak in
- i2sbus_add_dev()
-In-Reply-To: <91e667bb-b6dd-4966-eba6-31de4f2b56a7@huawei.com>
-References: <20221027013438.991920-1-yangyingliang@huawei.com>
- <87r0ytojos.wl-tiwai@suse.de>
- <91e667bb-b6dd-4966-eba6-31de4f2b56a7@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="heck8Xnv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666858038; x=1698394038;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tkbY5LFL7r18EeJ2qCAp4GcL72RB6WncSgRl12YgbM8=;
+ b=heck8Xnv9KVpN9CzEU5sswXc2Se+bxj/yXveDXM70PoAhOacHuair7A3
+ /pcZxdQLlyZLEmcxFnRfaA7qbuPwsWLA+V2QMLhHF/X2uGxuvsEgsHgK8
+ PWAHoeI0K69ycrEDDYKUoT5niOANYOrxmH7xMlbCzR6mU4aVOPhiMByJy
+ 9WPotxn3/GAGxeMlJS8d6d3NzUEJ6rlQF37cbffYE+ItCVP4Cy+itEM8v
+ beR/RMxbWfXvt8TD0MGKz5YYrijl3GgMWINGhmK1XnnzwVfX0U1TcXHEJ
+ 76mf9i1wRqekcghDBIV30L9ZaLwmhjZZ/azzavK3FdE0jsBmg02bULagl A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="291462688"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="291462688"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 01:06:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="961534787"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="961534787"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga005.fm.intel.com with ESMTP; 27 Oct 2022 01:06:55 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v3 0/9] ASoC: Intel: avs: PCM power management
+Date: Thu, 27 Oct 2022 10:23:22 +0200
+Message-Id: <20221027082331.1561740-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
- johannes@sipsolutions.net
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,54 +89,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 09:41:03 +0200,
-Yang Yingliang wrote:
-> 
-> 
-> On 2022/10/27 14:38, Takashi Iwai wrote:
-> > On Thu, 27 Oct 2022 03:34:38 +0200,
-> > Yang Yingliang wrote:
-> >> dev_set_name() in soundbus_add_one() allocates memory for name, it need be
-> >> freed when of_device_register() fails, call soundbus_dev_put() to give up
-> >> the reference that hold in device_initialize(), so that it can be freed in
-> >> kobject_cleanup() when the refcount hit to 0. And other resources are also
-> >> freed in i2sbus_release_dev(), so it can return 0 directly.
-> >> 
-> >> Fixes: f3d9478b2ce4 ("[ALSA] snd-aoa: add snd-aoa")
-> >> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> > The check of kobj state is awkward, but it seems to be the simplest
-> > way...  Applied now.  Thanks!
-> 
-> Indeed, it's awkward, shall we introduce a helper like this:
-> 
-> diff --git a/sound/aoa/soundbus/i2sbus/core.c
-> b/sound/aoa/soundbus/i2sbus/core.c
-> index f6841daf9e3b..950c37e0297e 100644
-> --- a/sound/aoa/soundbus/i2sbus/core.c
-> +++ b/sound/aoa/soundbus/i2sbus/core.c
-> @@ -302,7 +302,7 @@ static int i2sbus_add_dev(struct macio_dev *macio,
-> 
-> ††††††† if (soundbus_add_one(&dev->sound)) {
-> ††††††††††††††† printk(KERN_DEBUG "i2sbus: device registration error!\n");
-> -†††††††††††††† if (dev->sound.ofdev.dev.kobj.state_initialized) {
-> +†††††††††††††† if (soundbus_dev_initialized(&dev->sound)) {
-> ††††††††††††††††††††††† soundbus_dev_put(&dev->sound);
-> ††††††††††††††††††††††† return 0;
-> ††††††††††††††† }
-> diff --git a/sound/aoa/soundbus/soundbus.h b/sound/aoa/soundbus/soundbus.h
-> index 3a99c1f1a3ca..2c9c95cf156a 100644
-> --- a/sound/aoa/soundbus/soundbus.h
-> +++ b/sound/aoa/soundbus/soundbus.h
-> @@ -174,6 +174,10 @@ struct soundbus_dev {
-> 
-> †extern int soundbus_add_one(struct soundbus_dev *dev);
-> †extern void soundbus_remove_one(struct soundbus_dev *dev);
-> +static inline bool soundbus_dev_initialized(struct soundbus_dev *dev)
-> +{
-> +†††††† return dev->ofdev.dev.kobj.state_initialized;
-> +}
+Goal of the series is implementation of suspend/resume operations for a
+PCM stream along with all the collaterals connected to the subject.
 
-I think it's not worth much as it's used only at a single place.
+Start with splitting avs_dai_fe_hw_free() as ideally we would like to
+reuse as much of existing code as possible but snd_pcm_lib_free_pages()
+is not desired part of the function when speaking of suspend operation.
+
+The actual implementation of suspend/resume() for component drivers
+follows. For most scenarios, the PM flow is similar to standard
+streaming one, except for the part where the position register are being
+saved and the lack of PCM pages freeing. To reduce code duplication, all
+avs_dai_suspend_XXX() and avs_dai_resume_XXX() functions reuse their
+non-PM equivalents.
+Order of operations is affected by the fact that path binding/unbinding
+happens only in FE part of the stream.
+
+Above essentially unlocks SX+streaming scenarios i.e.: power transitions
+with an ongoing stream.
+
+As some streams are allowed to run in low power state, support is
+provided for S0iX state. The handlers check ACPI capabilities and the
+number of active low-power paths before deciding between SX and S0iX
+flows.
+
+The last portion of the patchset is addition of power/clock gating
+overrides. There is no single set of registers that ensures AudioDSP
+firmware loads 100% of time on every single configuration. By having
+them exposed, user can have the loading procedure behavior adjusted for
+their configuration without having to recompile the kernel.
 
 
-Takashi
+Changes in v3:
+- fixed unused-but-set-variable warnings reported by the test robot
+
+Changes in v2:
+- moved DRSM reg polling to separate function,
+  snd_hdac_stream_wait_drsm() as suggested by Pierre
+- moved the acpi_gbl_FADT under AVS_S0IX_SUPPORTED macro and relocated
+  the checks from pcm.c to topology.c so that the low-power streams are
+  filtered as early as possible
+- fixed compilation when CONFIG_ACPI is disabled as reported by the test
+  robot
+- simplified all the avs_dai_resume/suspend_xxx() by moving
+  ->ignore_suspend check one level up, to avs_component_pm_op()
+  (patch 0002)
+
+
+Amadeusz S≈Çawi≈Ñski (1):
+  ASoC: Intel: avs: Handle SUSPEND and RESUME triggers
+
+Cezary Rojewski (7):
+  ASoC: Intel: avs: Split pcm pages freeing operation from hw_free()
+  ASoC: Intel: avs: Introduce PCM power management routines
+  ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
+  ASoC: Intel: avs: Restart instead of resuming HDA capture streams
+  ASoC: Intel: avs: Count low power streams
+  ASoC: Intel: avs: Power and clock gating policy overriding
+  ASoC: Intel: avs: Enact power gating policy
+
+Piotr Maziarz (1):
+  ASoC: Intel: avs: Standby power-state support
+
+ include/sound/hdaudio.h        |   1 +
+ include/sound/hdaudio_ext.h    |   5 +
+ sound/hda/hdac_stream.c        |  21 ++
+ sound/soc/intel/avs/avs.h      |   8 +
+ sound/soc/intel/avs/core.c     |  97 +++++++--
+ sound/soc/intel/avs/loader.c   |  10 +
+ sound/soc/intel/avs/pcm.c      | 368 +++++++++++++++++++++++++++++----
+ sound/soc/intel/avs/topology.c |  10 +
+ 8 files changed, 460 insertions(+), 60 deletions(-)
+
+-- 
+2.25.1
+

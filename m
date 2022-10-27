@@ -2,83 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E89B60FA9F
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 16:42:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E7FB60FB69
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 17:10:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E42A72EA1;
-	Thu, 27 Oct 2022 16:41:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E42A72EA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBB9E2FBF;
+	Thu, 27 Oct 2022 17:09:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBB9E2FBF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666881740;
-	bh=GDDsAQTkoe5z81yiS6K3qoBlbDSRdrFNOqNExR/hsAE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CgDiNlWcDLm8wvix7AUNNTQooagFCpnKLHsGG5K7+r2sLyb9BTfT2cJB2iKmneBAZ
-	 Op1W7qhPX75jq+P7QdSeXbjUfSfzNL8tVq7KEhbKYCtRmXeI12jDjTvFKAMgYSqctO
-	 xJ3wJcSgxXXj2CN2e00wRWSuCgZIAvTMiW6VeVLw=
+	s=default; t=1666883420;
+	bh=9OhRiUCkD0dEfvVlkwWG20B6/jErcKAbr+bW0OxHlyk=;
+	h=Date:From:To:Subject:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Gxpiis0X48IWYHo8h46OwiEKxlVtRRqPUgJnR+3RapsSTaGwljfipXPnslxh8eWGD
+	 lJrWJip3S8FQGePgiwMeLfASU4TlCixeQsMMMjM71chv1o5E5EofI1zhGkrGORv6wW
+	 Ew9bwFZVPpGiO0/PO4GFlMbraVRQ88hbp5FMZf0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A85EF80095;
-	Thu, 27 Oct 2022 16:41:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BE3CF80496;
+	Thu, 27 Oct 2022 17:09:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3AD97F8016C; Thu, 27 Oct 2022 16:41:23 +0200 (CEST)
+ id B242AF8025A; Thu, 27 Oct 2022 17:09:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, T_SCC_BODY_TEXT_LINE, URIBL_BLOCKED,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E15E0F80095
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 16:41:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E15E0F80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JcDeorEX"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0728EF80100
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 17:09:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0728EF80100
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2757F62364;
- Thu, 27 Oct 2022 14:41:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459A1C433C1;
- Thu, 27 Oct 2022 14:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666881677;
- bh=GDDsAQTkoe5z81yiS6K3qoBlbDSRdrFNOqNExR/hsAE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JcDeorEXLNLlVNkvU4Oj9yVGa2fACOMy+h9tF4pqHK1RJg6Hn3OBhejjcZD0ABekc
- A9pkZWfRHB0Tor72qigihy7/lQvlchvHx/hjwi9IDh3I2+FHytRcKi0EpykAVJN3sC
- J85EVyMJdzd8l8LE8BNxieSZCSiYhah9XuKoCOJofXcRT8egqwXhZAUWdVFnrCew2y
- 4Cey4thsmq8x0tjDBXvNpYC5u63fZi12cqXX9p9iqxmkNmdeEpRL/+bx8qnPqJN5dL
- FeCp07JsuVsuexv7iUVJUNR8KxASpmAtBh26tffwtK2MV3e6hK0liMKnZvUSDpaHS6
- ziPyqYnM84bqg==
-Date: Thu, 27 Oct 2022 15:41:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
-Subject: Re: [PATCH v2 2/4] ASoC: dt-bindings: realtek, rt5682s: Add AVDD and
- MICVDD supplies
-Message-ID: <Y1qYiMEEohapaG0F@sirena.org.uk>
-References: <20221024220015.1759428-1-nfraprado@collabora.com>
- <20221024220015.1759428-3-nfraprado@collabora.com>
- <CAGXv+5HJo5x2ieOegmv5vkfh+rTevdR_fri-7PeK+Gd+GXVjNw@mail.gmail.com>
- <20221027143627.nbbketezqunkclxh@notapiano>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C1A1E623BC;
+ Thu, 27 Oct 2022 15:09:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E617C433D7;
+ Thu, 27 Oct 2022 15:09:15 +0000 (UTC)
+Received: from rostedt by gandalf.local.home with local (Exim 4.96)
+ (envelope-from <rostedt@goodmis.org>) id 1oo4Ve-00Bvhr-2p;
+ Thu, 27 Oct 2022 11:09:30 -0400
+Message-ID: <20221027150930.702028779@goodmis.org>
+User-Agent: quilt/0.66
+Date: Thu, 27 Oct 2022 11:05:54 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: linux-kernel@vger.kernel.org
+Subject: [RFC][PATCH v2 29/31] timers: ALSA: Use del_timer_shutdown() before
+ freeing timer
+References: <20221027150525.753064657@goodmis.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="1nCwZ8a5XeZnWgHr"
-Content-Disposition: inline
-In-Reply-To: <20221027143627.nbbketezqunkclxh@notapiano>
-X-Cookie: Forgive and forget.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Austin Kim <austin.kim@lge.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Guenter Roeck <linux@roeck-us.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,36 +76,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
 
---1nCwZ8a5XeZnWgHr
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Before a timer is freed, del_timer_shutdown() must be called.
 
-On Thu, Oct 27, 2022 at 10:36:27AM -0400, N=EDcolas F. R. A. Prado wrote:
+Link: https://lore.kernel.org/all/20220407161745.7d6754b3@gandalf.local.home/
 
-> Also, since you already gave the purpose of these other supplies, could y=
-ou also
-> tell the purpose of AVDD, MICVDD and (for rt5682) VBAT? That way I could =
-add
-> some description for them in the binding.
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Austin Kim <austin.kim@lge.com>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+---
+ sound/i2c/other/ak4117.c | 2 +-
+ sound/synth/emux/emux.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Those are all very conventional names - analog, microphone and battery
-supplies.
-
---1nCwZ8a5XeZnWgHr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNamIcACgkQJNaLcl1U
-h9BiXwf/a2LwV5EhWm7OrM48Kr5XuiVoUVNm9a4Eca+1o24Li+qLa1PHX7iFIMqR
-Cr8x3LhtXDeYmwmp4IKl+OOyxdG/qMiefCB6ItiZ399ojNEdp+7zd7qCrsbnPg74
-ZmPoFfjH6LLMy6j+rFWXWihU/3uFry6vaMT5g9XT/L2+7Dj49MEPQgbcIe4HlTz1
-Amzamoi142yiUTNlLxKRpTtalUd30b98O3tznX+km8XbWtcvAKgy6zU0MpIXU8FZ
-q2bw4F678dU8F4EdKLhDaoqwvAsosUgRow+thU8lqNJAZkjBRhyQn0gljtfvULcs
-Nw2JBnoqx6U54ZT7cE6nQU2fqIVB+w==
-=5WYh
------END PGP SIGNATURE-----
-
---1nCwZ8a5XeZnWgHr--
+diff --git a/sound/i2c/other/ak4117.c b/sound/i2c/other/ak4117.c
+index 1bc43e927d82..5269ab7321a4 100644
+--- a/sound/i2c/other/ak4117.c
++++ b/sound/i2c/other/ak4117.c
+@@ -47,7 +47,7 @@ static void reg_dump(struct ak4117 *ak4117)
+ 
+ static void snd_ak4117_free(struct ak4117 *chip)
+ {
+-	del_timer_sync(&chip->timer);
++	del_timer_shutdown(&chip->timer);
+ 	kfree(chip);
+ }
+ 
+diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+index a870759d179e..a43025f466bb 100644
+--- a/sound/synth/emux/emux.c
++++ b/sound/synth/emux/emux.c
+@@ -129,7 +129,7 @@ int snd_emux_free(struct snd_emux *emu)
+ 	if (! emu)
+ 		return -EINVAL;
+ 
+-	del_timer_sync(&emu->tlist);
++	del_timer_shutdown(&emu->tlist);
+ 
+ 	snd_emux_proc_free(emu);
+ 	snd_emux_delete_virmidi(emu);
+-- 
+2.35.1

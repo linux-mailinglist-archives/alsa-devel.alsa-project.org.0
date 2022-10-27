@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13B896101E5
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 21:41:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1574B6101E6
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 21:42:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A68AC2DEB;
-	Thu, 27 Oct 2022 21:40:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68AC2DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABC7D2DCC;
+	Thu, 27 Oct 2022 21:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABC7D2DCC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666899704;
-	bh=4O0OGnzo81lXS7ivbiKF0RLSA8nl4dwOAphMuq6u228=;
+	s=default; t=1666899719;
+	bh=5S7qA+u4YIZObxipMP1lfwIipfQRKU0YnoESJVcoEMY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fje4kET9mT1UUPBNn/BQRBbkL+3+tzBpz+3Ne5L4WjjISFplzzH/wDpiGigpb9xw5
-	 uayqjE+f+t3K0HU1hbpmdwVkrNySNbHeZ6h7s4tMgHvs41UY9yBr1s8TBCK6b7jneb
-	 8iyc3OoQ4SDe6d/GnoRK1HE583CwpUd2ZLm4Y0pg=
+	b=TB2mAORIHnnzqJ6uaFa/z+Sim76xV9Z+MHVe3QQ+4ijemgfllQZofS6bAy8qUHz3S
+	 5VzaIzsi/A5PuGBPFGhc59oP0UhQqwcTkyUBdebr0atmZAJIAzY/b76jxBMZ0KwRJD
+	 ymT37UgZsiZo/LKhdSY5/b7EpJ171LgpzzyzaPFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF040F805CB;
-	Thu, 27 Oct 2022 21:36:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A321F805D8;
+	Thu, 27 Oct 2022 21:36:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01019F805C4; Thu, 27 Oct 2022 21:36:36 +0200 (CEST)
+ id 1A9F6F80580; Thu, 27 Oct 2022 21:36:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE, 
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AE85F80580
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 21:36:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AE85F80580
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63553F80589
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 21:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63553F80589
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="j/l3b3hO"
+ header.b="mG+2gaa7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666899385; x=1698435385;
+ t=1666899387; x=1698435387;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4O0OGnzo81lXS7ivbiKF0RLSA8nl4dwOAphMuq6u228=;
- b=j/l3b3hORCa1C7H1UJjhZSoJWXuFrm+nS0pmH3OPgGNhi9zswYd3tC3L
- pbrCYlxorTkpbRcVid0KKV3UhCrlOWltcUoONdrRJPR5gsWSojvj/yovU
- DUK9IRdbRpn716rFZFaW9mIu8mKbZgYpDn3MsC1kRD+O6RznuB7pOlIyv
- pM+Wl2d589NLzC2sPhe6hIvoYKwYx554lylleCq0msQB1hLtAnSQApuko
- 3cBJXSZC8/BYS7CI8sMmKMBx6zcEFa7WbYiMl5bTlFUD1a7nUJlUKFyqb
- 7fqikHyJbroGU5pDYATXbKKHZuG8xTFp3G04xGy1Ew/JFJIyXVPLGVbqX A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="334957868"
-X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="334957868"
+ bh=5S7qA+u4YIZObxipMP1lfwIipfQRKU0YnoESJVcoEMY=;
+ b=mG+2gaa7vaMxZXWCWb4jNYrEfiOifs+Dujnetzj51DiTVBKVTTxsbr4G
+ 2RPKqAFwDo/3pcawHpi9snVcy8haQALk6+3nXQHb5+4C6dN9NJYxVug1h
+ yHSiPO85VNaGwj75tV2P3EANp+vtY3P+aEzb4Kts6H917Jz6/SFpoYvtd
+ IypImVIK6FadGyzdPvmbqlyCDRSjYRyULvHgxdYUMtXzhqMGXUzJuSi7h
+ sPYtI098ctkJu1RdA1/E4H+QnxQ9Vqql0erAoVZ0/GxzNVtJ5M1HX+2Uh
+ YygEtCclFBcYfo7cDIDkdPRh/++jLGti0+4QpiGQzvtbMTrG5r9VN8pT1 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="334957872"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="334957872"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 12:36:23 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="632527066"
-X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="632527066"
+ 27 Oct 2022 12:36:25 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="632527072"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="632527072"
 Received: from vmehta-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.6.254])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 12:36:22 -0700
+ 27 Oct 2022 12:36:23 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 17/21] ASoC: SOF: Intel: hda-mlink: add helpers to
- suspend/resume links
-Date: Thu, 27 Oct 2022 15:35:36 -0400
-Message-Id: <20221027193540.259520-18-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 18/21] ASoC: SOF: Intel: add hda_bus_ml_free helper
+Date: Thu, 27 Oct 2022 15:35:37 -0400
+Message-Id: <20221027193540.259520-19-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221027193540.259520-1-pierre-louis.bossart@linux.intel.com>
 References: <20221027193540.259520-1-pierre-louis.bossart@linux.intel.com>
@@ -97,7 +95,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-No functionality change, just move the code in hda-mlink.
+Add helper matching allocation done in hda_bus_ml_get_capabilities().
+
+No functionality change, just clearer code partitioning.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -105,148 +105,72 @@ Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dsp.c   | 36 +++++++++------------------------
- sound/soc/sof/intel/hda-mlink.c | 21 +++++++++++++++++++
- sound/soc/sof/intel/hda.h       |  4 ++++
- 3 files changed, 35 insertions(+), 26 deletions(-)
+ sound/soc/sof/intel/hda-mlink.c | 14 ++++++++++++++
+ sound/soc/sof/intel/hda.c       |  5 ++---
+ sound/soc/sof/intel/hda.h       |  2 ++
+ 3 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 2596de5e24d6..c61bab1a5719 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -614,9 +614,7 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
- {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	const struct sof_intel_dsp_desc *chip = hda->desc;
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	struct hdac_bus *bus = sof_to_bus(sdev);
--#endif
- 	int ret, j;
- 
- 	/*
-@@ -637,10 +635,8 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
- 
- 	hda_codec_jack_wake_enable(sdev, runtime_suspend);
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--	/* power down all hda link */
--	snd_hdac_ext_bus_link_power_down_all(bus);
--#endif
-+	/* power down all hda links */
-+	hda_bus_ml_suspend(bus);
- 
- 	ret = chip->power_down_dsp(sdev);
- 	if (ret < 0) {
-@@ -719,33 +715,23 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
- int hda_dsp_resume(struct snd_sof_dev *sdev)
- {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
-+	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct pci_dev *pci = to_pci_dev(sdev->dev);
- 	const struct sof_dsp_power_state target_state = {
- 		.state = SOF_DSP_PM_D0,
- 		.substate = SOF_HDA_DSP_PM_D0I0,
- 	};
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--	struct hdac_bus *bus = sof_to_bus(sdev);
--	struct hdac_ext_link *hlink = NULL;
--#endif
- 	int ret;
- 
- 	/* resume from D0I3 */
- 	if (sdev->dsp_power_state.state == SOF_DSP_PM_D0) {
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--		/* power up links that were active before suspend */
--		list_for_each_entry(hlink, &bus->hlink_list, list) {
--			if (hlink->ref_count) {
--				ret = snd_hdac_ext_bus_link_power_up(hlink);
--				if (ret < 0) {
--					dev_err(sdev->dev,
--						"error %d in %s: failed to power up links",
--						ret, __func__);
--					return ret;
--				}
--			}
-+		ret = hda_bus_ml_resume(bus);
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error %d in %s: failed to power up links",
-+				ret, __func__);
-+			return ret;
- 		}
--#endif
- 
- 		/* set up CORB/RIRB buffers if was on before suspend */
- 		hda_codec_resume_cmd_io(sdev);
-@@ -860,16 +846,14 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, u32 target_state)
- 		/* stop the CORB/RIRB DMA if it is On */
- 		hda_codec_suspend_cmd_io(sdev);
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 		/* no link can be powered in s0ix state */
--		ret = snd_hdac_ext_bus_link_power_down_all(bus);
-+		ret = hda_bus_ml_suspend(bus);
- 		if (ret < 0) {
- 			dev_err(sdev->dev,
- 				"error %d in %s: failed to power down links",
- 				ret, __func__);
- 			return ret;
- 		}
--#endif
- 
- 		/* enable the system waking up via IPC IRQ */
- 		enable_irq_wake(pci->irq);
 diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
-index b5f922603187..2cdee03e4a47 100644
+index 2cdee03e4a47..76ab9a2e7bb3 100644
 --- a/sound/soc/sof/intel/hda-mlink.c
 +++ b/sound/soc/sof/intel/hda-mlink.c
-@@ -51,4 +51,25 @@ void hda_bus_ml_reset_losidv(struct hdac_bus *bus)
- 		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
+@@ -34,6 +34,20 @@ void hda_bus_ml_get_capabilities(struct hdac_bus *bus)
+ 		snd_hdac_ext_bus_get_ml_capabilities(bus);
  }
  
-+int hda_bus_ml_resume(struct hdac_bus *bus)
++void hda_bus_ml_free(struct hdac_bus *bus)
 +{
 +	struct hdac_ext_link *hlink;
-+	int ret;
 +
-+	/* power up links that were active before suspend */
-+	list_for_each_entry(hlink, &bus->hlink_list, list) {
-+		if (hlink->ref_count) {
-+			ret = snd_hdac_ext_bus_link_power_up(hlink);
-+			if (ret < 0)
-+				return ret;
-+		}
++	if (!bus->mlcap)
++		return;
++
++	while (!list_empty(&bus->hlink_list)) {
++		hlink = list_first_entry(&bus->hlink_list, struct hdac_ext_link, list);
++		list_del(&hlink->list);
++		kfree(hlink);
 +	}
-+	return 0;
 +}
 +
-+int hda_bus_ml_suspend(struct hdac_bus *bus)
-+{
-+	return snd_hdac_ext_bus_link_power_down_all(bus);
-+}
+ void hda_bus_ml_put_all(struct hdac_bus *bus)
+ {
+ 	struct hdac_ext_link *hlink;
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index aa56f2967edc..619179e7f15c 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1201,9 +1201,8 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 		pci_free_irq_vectors(pci);
+ 
+ 	hda_dsp_stream_free(sdev);
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-	snd_hdac_ext_link_free_all(bus);
+-#endif
 +
- #endif
++	hda_bus_ml_free(sof_to_bus(sdev));
+ 
+ 	iounmap(sdev->bar[HDA_DSP_BAR]);
+ 	iounmap(bus->remap_addr);
 diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 0214097389d3..f0c9bb6d567d 100644
+index f0c9bb6d567d..ea73fd17ae28 100644
 --- a/sound/soc/sof/intel/hda.h
 +++ b/sound/soc/sof/intel/hda.h
-@@ -766,12 +766,16 @@ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
+@@ -764,6 +764,7 @@ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 
  void hda_bus_ml_get_capabilities(struct hdac_bus *bus);
++void hda_bus_ml_free(struct hdac_bus *bus);
  void hda_bus_ml_put_all(struct hdac_bus *bus);
  void hda_bus_ml_reset_losidv(struct hdac_bus *bus);
-+int hda_bus_ml_resume(struct hdac_bus *bus);
-+int hda_bus_ml_suspend(struct hdac_bus *bus);
- 
+ int hda_bus_ml_resume(struct hdac_bus *bus);
+@@ -772,6 +773,7 @@ int hda_bus_ml_suspend(struct hdac_bus *bus);
  #else
  
  static inline void hda_bus_ml_get_capabilities(struct hdac_bus *bus) { }
++static inline void hda_bus_ml_free(struct hdac_bus *bus) { }
  static inline void hda_bus_ml_put_all(struct hdac_bus *bus) { }
  static inline void hda_bus_ml_reset_losidv(struct hdac_bus *bus) { }
-+static inline int hda_bus_ml_resume(struct hdac_bus *bus) { return 0; }
-+static inline int hda_bus_ml_suspend(struct hdac_bus *bus) { return 0; }
- 
- #endif /* CONFIG_SND_SOC_SOF_HDA */
- 
+ static inline int hda_bus_ml_resume(struct hdac_bus *bus) { return 0; }
 -- 
 2.34.1
 

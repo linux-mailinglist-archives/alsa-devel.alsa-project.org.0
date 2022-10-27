@@ -2,104 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF17068AAFE
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 16:43:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151B568AC6D
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 22:04:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D596A4A;
-	Sat,  4 Feb 2023 16:42:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D596A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A7F586E;
+	Sat,  4 Feb 2023 22:03:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A7F586E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675525422;
-	bh=ejWQaXS+prjy1yHiV2fLKwqaTIvoz8298+g/OYNjYnc=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675544663;
+	bh=0x+qp7TDI5lFBFebKsplJjfV6X8LXHj+MtvfJjST3s8=;
+	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=CPIorsL2BPd+d2Q/QdFBfxgByRJbGzvfPXmVxP2KhjQ25XdOl6ew20zfIEovmqqLw
-	 V6dy58BThoTtkRGkdQHQgGripq8AtzOMywqYsZzRVY1JNl+f1JUQbQgNnO3ggw3hJ8
-	 o/j0MGo1+qki5Va1UBWMQYzh+MW8dKTB+BofUkZ0=
+	b=BIR3G1RWqy8Dw8mQffOvIGYOG6/mzSyBXhaw8Rv/ZAop7QS77bwk/sI9Pe6yoXBlg
+	 c6+NVszYtq5UVZfs/N51Kc/hJ+BRwDiTRUMTgYklvCdUWvSIuvB8t+qEbaFLoGde8k
+	 PhGsr2HYJhHFhyeQF6RiBPAlTIVFa6vmQUT4hRSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CC8CF8001D;
-	Sat,  4 Feb 2023 16:42:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DA38F80551;
+	Sat,  4 Feb 2023 22:02:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A03EF804C2; Sat,  4 Feb 2023 16:42:40 +0100 (CET)
+ id 197C9F80549; Sat,  4 Feb 2023 22:02:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
+X-Spam-Status: No, score=-2.9 required=5.0 tests=DATE_IN_PAST_96_XX,
+ DKIM_SIGNED,DKIM_VALID,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37ED5F800E3
- for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 16:42:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37ED5F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27601F80271
+ for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 22:02:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27601F80271
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=DKJGJs0/
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-16a27344a17so803841fac.4
- for <alsa-devel@alsa-project.org>; Sat, 04 Feb 2023 07:42:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
- :reply-to; bh=n4T2gR4inBhn5Zg0PEfb8tXM9CckMPfSDtx2cMHr3k8=;
- b=DKJGJs0/Xb1yBT2NqMQ6UTgGYyWRIxnrVxdBYMJeow6zJSLfc314iMCzRSIzFod0yS
- xQMkkk/qOYbUJSEGTMJi52yDAwgaNzYHuMpoqO9O+/Efn5HD0OCavj2DRY1gUJ9+Rs+U
- DSRmgrXu2R9XsKyK2q3MfLGcO/FTU2b/kWZTnQ3HG+vB5OMVWanPgukWY21lZATO0LVm
- YDRXBpwDFto24yPcQGku892WrX+xdsjFyxIBs+ObfLFzshtcJExbJwibOXsJmurDAO06
- YoBXf684uiaNKpwdEdwitHoNze35gGPS5VzG/kvkKqwPx2MwSSyLpJvWMRmkdhIHujLR
- uR4g==
+ unprotected) header.d=igorinstitute-com.20210112.gappssmtp.com
+ header.i=@igorinstitute-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=TdZgv/XT
+Received: by mail-pl1-x631.google.com with SMTP id g13so3774891ple.10
+ for <alsa-devel@alsa-project.org>; Sat, 04 Feb 2023 13:02:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=igorinstitute-com.20210112.gappssmtp.com; s=20210112;
+ h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=38D6J740N3833rshUE9U2HYtUisuJRur7dCUFd2NB3Q=;
+ b=TdZgv/XTCjn5Ew2w8CRX1nwLXdxhnkY8cW+9DDdckH0UZOlxm20bwQaaDKw0vwBqGD
+ +47Ab11AHGGLu0/G7uQTJmGSbUhD8HktM7W+aWbH2vTz1LFi8KRQKmHA+EX7LMWGK/XH
+ cd/6bp7xiSllIPMU43PFbxta6sx0LJ9t6gUNyDyqqSVdGujFG1GpGUHma6+rjTTf5KiS
+ 7xYsDEu0QFZgJ+RjKUjFBlJVAa1wqHXKXxF34hEIPK8ARFGoH+08bdRTrE71lfpW89Kk
+ cm7sE57ZFzpr2Xu/8DoYbm09Q+lVDIHaQttzTtxIbW+hSu0SQH8sJ4AWQLbr5By+JGoa
+ W2FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n4T2gR4inBhn5Zg0PEfb8tXM9CckMPfSDtx2cMHr3k8=;
- b=pVRnZDdQBDChkmSfsULTEho6Rbq1mjxoE3yFCvsn0g25pbSQie4mY0LxSWDQ7aleTV
- y3Gdbfa/u5Lp3WWHeJzjE47jFuG1JoYjUlunnyyvcKgxFoXZbHd1FF4llD2tKC6ifReQ
- QCQEvTodn3R1Z5k+gk63WEWk36IW18rjR4AOwof7mcNZ6eoE/RTr5ee2M+8tXitFFBn9
- ia5Cp8xacZ3LtkACQ16GXuolzAZF6UoQZo/UGgZnirto7XZgBQswJOoGl6x1lPmARHNf
- YWtkEbtFWfOEHdWSkoKUK0otmGCRAT5LeHrnAxE8HwQ0/BETloIgNUfQ4zZcs5yuBQ5H
- T2pA==
-X-Gm-Message-State: AO0yUKWeIsO/FPPYPFYH6tJJ65dN+WntVOh0yH8cWOGrJNnAneuV2kQ6
- Kl+gyenc+EzIQ3uI/gbnrR4=
-X-Google-Smtp-Source: AK7set8KIoyG6jWnMNQeX0frA8g+nNoRl/c9P57JjQtqX9fHJhpEioWx+Ywr7ngCAAfr6DGY835OYw==
-X-Received: by 2002:a05:6871:58c:b0:163:2779:d81f with SMTP id
- u12-20020a056871058c00b001632779d81fmr10098593oan.34.1675525345686; 
- Sat, 04 Feb 2023 07:42:25 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- bq4-20020a0568201a0400b0051a6cb524b6sm520312oob.2.2023.02.04.07.42.24
+ h=cc:to:subject:date:from:references:in-reply-to:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=38D6J740N3833rshUE9U2HYtUisuJRur7dCUFd2NB3Q=;
+ b=BnYM4yYOp17X/kckXa1zFWFg4VokTmn31MXeHUNMeiUiYEneDS9j4LQYqTttn3mfs5
+ FFZDCDWCkmA2xnufzcPKGd+LrJRvGI6Wv7AzeVlWSo6L2hRy9xwUiCQwZJZq6tS8wFmp
+ stQvLGjFXxyxav8zAioITV4RI5onQKv4LFz1Egz64WLTJZblKaK4usrnSf+cLau82fuj
+ 9qe0r/oA+riRDYzx6DmQJ8aSLHOjtGK+wOjHrj4I1rv/KYBCi4zX4KvEXlpp59kvGK1+
+ BRoXsD19zeedtDTduP8MQvDiiRbN63nq8WnZPgBcKr7s7y77ajnkVcpaM744fxrDx2x2
+ Qj2w==
+X-Gm-Message-State: AO0yUKXM1muNwqhFg+QJPR/hUVZwaz3fzc+t9KjXTi6EkjOrtLA0/SxZ
+ SuTCwMM2m054hjk9gFSe/SI2oUvbXt43CWnU
+X-Google-Smtp-Source: AK7set/qojJ+xgELZjMGFAfgEw2fG9MMcOPNCpht2AALraSNHtNUcG4xMT0qEvXDwqO2bWtVloWmZg==
+X-Received: by 2002:a17:902:ce91:b0:194:7efa:702f with SMTP id
+ f17-20020a170902ce9100b001947efa702fmr18052435plg.53.1675544526143; 
+ Sat, 04 Feb 2023 13:02:06 -0800 (PST)
+Received: from localhost ([121.99.145.49]) by smtp.gmail.com with ESMTPSA id
+ jj20-20020a170903049400b00194ab9a4febsm3867973plb.74.2023.02.04.13.02.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Feb 2023 07:42:24 -0800 (PST)
-Date: Sat, 4 Feb 2023 07:42:22 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Message-ID: <20230204154222.GA877819@roeck-us.net>
-References: <20230117195645.GA83401@roeck-us.net>
- <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <20230119161221.GA981953@roeck-us.net>
- <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
- <Y9kE1cSUg2CQM5vq@sirena.org.uk>
- <20230202155101.GB1373010@roeck-us.net>
- <Y9vtIISfmpICi+9u@sirena.org.uk>
- <8f89eeac-b3ef-4137-80df-6cf044873b05@roeck-us.net>
- <Y9wQygzbFyOWl54r@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y9wQygzbFyOWl54r@sirena.org.uk>
+ Sat, 04 Feb 2023 13:02:05 -0800 (PST)
+Message-Id: <85d8ba405cb009a7a3249b556dc8f3bdb1754fdf.1675497326.git.daniel.beer@igorinstitute.com>
+In-Reply-To: <cover.1675497326.git.daniel.beer@igorinstitute.com>
+References: <cover.1675497326.git.daniel.beer@igorinstitute.com>
+From: Daniel Beer <daniel.beer@igorinstitute.com>
+Date: Thu, 27 Oct 2022 21:28:31 +1300
+Subject: [PATCH v3 1/2] ASoC: tas5805m: rework to avoid scheduling while
+ atomic.
+To: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,360 +97,276 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- David Rau <david.rau.zg@renesas.com>
+Cc: Andy Liu <andy-liu@ti.com>, Mark Brown <broonie@kernel.org>,
+ Daniel Beer <daniel.beer@igorinstitute.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Feb 02, 2023 at 07:36:42PM +0000, Mark Brown wrote:
-> 
-> > > they have the potential to actually lock up are the cancel_work_sync()
-> > > calls but they were unchanged and the backtrace you showed was showing
-> > > the thread in the msleep().  My guess would be that you've got systems
-> > > where there are very frequent jack detection events (potentiallly with
-> > > broken accessories, or possibly due to the ground switch putting things
-> > > into the wrong priority) and that the interrupt is firing again as soon
-> > > as the thread unmasks the primary interrupt which means it never
-> > > actually stops running.
-> 
-> > That is what I strongly suspect is happening. I don't know why exactly
-> > the interrupt is firing continuously, but the hang is always in msleep().
-> > One possibility might be that the event is actually a disconnect event,
-> > and that enabling and immediately disabling the ground switch causes
-> > another interrupt, which is then handled immediately, causing the hang.
-> 
-> Could be.  I'd be willing to guess that it's not just one event but
-> rather a stream of events of some kind.  Possibly if it's due to the
-> ground switch it's spuriously detecting a constant stream of button
-> presses for the affected systems, which don't produce any UI visible
-> result which would cause users to pull the accessory for whatever
-> reason?  Whatever's going on I bet it's broken accessories triggering it.
-> 
+There's some setup we need to do in order to get the DSP initialized,
+and this can't be done until a bit-clock is ready. In an earlier version
+of this driver, this work was done in a DAPM callback.
 
-That seems to be unlikely. The average number of crashes per affected
-system is 1.92, which points to something the users are doing and less
-to a broken accessory. We do observe crashes due to broken accessories,
-but in those cases the number of crashes per system tends to be much
-higher.
+The DAPM callback doesn't guarantee that the bit-clock is running, so
+the work was moved instead to the trigger callback. Unfortunately this
+callback runs in atomic context, and the setup code needs to do I2C
+transactions.
 
-Anyway, below is a patch with a possible fix. Of course, I still don't
-know what the patch originally tried to fix, so it might not do much if
-anything good. For example, it keeps button detection in the interrupt
-handler to avoid dropping button events, so if spurious button detection
-as you suspected is indeed (part of) the problem we might still see
-a large number of interrupts.
+Here we use a work_struct to kick off the setup in a thread instead.
 
-Guenter
-
+Fixes: ec45268467f4 ("ASoC: add support for TAS5805M digital amplifier")
+Signed-off-by: Daniel Beer <daniel.beer@igorinstitute.com>
 ---
-From 81dbe47c94d8d97ce7919a5ec4d4269c55b56ae6 Mon Sep 17 00:00:00 2001
-From: Guenter Roeck <linux@roeck-us.net>
-Date: Thu, 2 Feb 2023 16:09:14 -0800
-Subject: [RFC] ASoC: da7219: Prevent hung task errors in interrupt handler
+ sound/soc/codecs/tas5805m.c | 128 ++++++++++++++++++++++++------------
+ 1 file changed, 87 insertions(+), 41 deletions(-)
 
-Commit 969357ec94e6 ("ASoC: da7219: Fix pole orientation detection on
-OMTP headsets when playing music") tried to improve pole orientation
-on certain headsets. Part of the change was to add a long sleep in
-the beginning of the interrupt handler, followed by enabling the
-ground switch
-
-Unfortunately, this results in hung tasks in the threaded interrupt
-handler.
-
-INFO: task irq/105-da7219-:2556 blocked for more than 122 seconds.
-Not tainted 5.10.159-20945-g4390861bfc33 #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:irq/105-da7219- state:D stack: 0 pid: 2556 ppid: 2 flags:0x00004080
-Call Trace:
- __schedule+0x3b0/0xddb
- schedule+0x44/0xa8
- schedule_timeout+0xae/0x241
- ? run_local_timers+0x4e/0x4e
- msleep+0x2c/0x38
- da7219_aad_irq_thread+0x66/0x2b0
- irq_thread_fn+0x22/0x4d
- irq_thread+0x131/0x1cb
- ? irq_forced_thread_fn+0x5f/0x5f
- ? irq_thread_fn+0x4d/0x4d
- kthread+0x142/0x153
- ? synchronize_irq+0xe0/0xe0
- ? kthread_blkcg+0x31/0x31
- ret_from_fork+0x1f/0x30
-
-Solve the problem by enabling the ground switch immediately and only
-after an insertion has been detected. Delay pole orientation detection
-until after the chip reports that detection is complete plus an
-additional time depending on the chip configuration. Do this by
-implementing ground switch detection in a delayed worker.
-
-Fixes: 969357ec94e6 ("ASoC: da7219: Fix pole orientation detection on OMTP headsets when playing music")
-Cc: David Rau <david.rau.zg@renesas.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- sound/soc/codecs/da7219-aad.c | 156 ++++++++++++++++++++++------------
- sound/soc/codecs/da7219-aad.h |   3 +
- 2 files changed, 105 insertions(+), 54 deletions(-)
-
-diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.c
-index c55b033d89da..47685c996bda 100644
---- a/sound/soc/codecs/da7219-aad.c
-+++ b/sound/soc/codecs/da7219-aad.c
-@@ -8,6 +8,7 @@
-  */
+diff --git a/sound/soc/codecs/tas5805m.c b/sound/soc/codecs/tas5805m.c
+index beb4ec629a03..6e2edf045446 100644
+--- a/sound/soc/codecs/tas5805m.c
++++ b/sound/soc/codecs/tas5805m.c
+@@ -154,6 +154,7 @@ static const uint32_t tas5805m_volume[] = {
+ #define TAS5805M_VOLUME_MIN	0
  
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/clk.h>
- #include <linux/i2c.h>
-@@ -339,6 +340,82 @@ static void da7219_aad_hptest_work(struct work_struct *work)
- 				    SND_JACK_HEADSET | SND_JACK_LINEOUT);
+ struct tas5805m_priv {
++	struct i2c_client		*i2c;
+ 	struct regulator		*pvdd;
+ 	struct gpio_desc		*gpio_pdn_n;
+ 
+@@ -165,6 +166,9 @@ struct tas5805m_priv {
+ 	int				vol[2];
+ 	bool				is_powered;
+ 	bool				is_muted;
++
++	struct work_struct		work;
++	struct mutex			lock;
+ };
+ 
+ static void set_dsp_scale(struct regmap *rm, int offset, int vol)
+@@ -181,13 +185,11 @@ static void set_dsp_scale(struct regmap *rm, int offset, int vol)
+ 	regmap_bulk_write(rm, offset, v, ARRAY_SIZE(v));
  }
  
-+static void da7219_aad_handle_removal(struct da7219_aad_priv *da7219_aad)
-+{
-+	struct snd_soc_component *component = da7219_aad->component;
-+	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
-+	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
-+
-+	da7219_aad->jack_inserted = false;
-+
-+	/* Cancel any pending work */
-+	cancel_work_sync(&da7219_aad->btn_det_work);
-+	cancel_work_sync(&da7219_aad->hptest_work);
-+
-+	/* Un-drive headphones/lineout */
-+	snd_soc_component_update_bits(component, DA7219_HP_R_CTRL,
-+				      DA7219_HP_R_AMP_OE_MASK, 0);
-+	snd_soc_component_update_bits(component, DA7219_HP_L_CTRL,
-+				      DA7219_HP_L_AMP_OE_MASK, 0);
-+
-+	/* Ensure button detection disabled */
-+	snd_soc_component_update_bits(component, DA7219_ACCDET_CONFIG_1,
-+				      DA7219_BUTTON_CONFIG_MASK, 0);
-+
-+	da7219->micbias_on_event = false;
-+
-+	/* Disable mic bias */
-+	snd_soc_dapm_disable_pin(dapm, "Mic Bias");
-+	snd_soc_dapm_sync(dapm);
-+
-+	/* Disable ground switch */
-+	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x00);
-+
-+	snd_soc_jack_report(da7219_aad->jack, 0, DA7219_AAD_REPORT_ALL_MASK);
-+}
-+
-+static void da7219_aad_insertion_work(struct work_struct *work)
-+{
-+	struct da7219_aad_priv *da7219_aad =
-+		container_of(work, struct da7219_aad_priv, hptest_work);
-+	struct snd_soc_component *component = da7219_aad->component;
-+	u8 statusa;
-+
-+	mutex_lock(&da7219_aad->insertion_mutex);
-+
-+	if (!da7219_aad->jack_inserted)
-+		goto unlock;
-+
-+	/* Read status register for jack insertion & type status */
-+	statusa = snd_soc_component_read(component, DA7219_ACCDET_STATUS_A);
-+	if (!(statusa & DA7219_JACK_INSERTION_STS_MASK)) {
-+		da7219_aad_handle_removal(da7219_aad);
-+		goto unlock;
-+	}
-+
-+	/*
-+	 * If 4-pole, then enable button detection, else perform
-+	 * HP impedance test to determine output type to report.
-+	 *
-+	 * We schedule work here as the tasks themselves can
-+	 * take time to complete, and in particular for hptest
-+	 * we want to be able to check if the jack was removed
-+	 * during the procedure as this will invalidate the
-+	 * result. By doing this as work, the IRQ thread can
-+	 * handle a removal, and we can check at the end of
-+	 * hptest if we have a valid result or not.
-+	 */
-+	if (statusa & DA7219_JACK_TYPE_STS_MASK) {
-+		schedule_work(&da7219_aad->btn_det_work);
-+		snd_soc_jack_report(da7219_aad->jack, SND_JACK_HEADSET,
-+				    SND_JACK_HEADSET | SND_JACK_LINEOUT);
-+	} else {
-+		schedule_work(&da7219_aad->hptest_work);
-+	}
-+
-+unlock:
-+	mutex_unlock(&da7219_aad->insertion_mutex);
-+}
- 
- /*
-  * IRQ
-@@ -348,23 +425,21 @@ static irqreturn_t da7219_aad_irq_thread(int irq, void *data)
+-static void tas5805m_refresh(struct snd_soc_component *component)
++static void tas5805m_refresh(struct tas5805m_priv *tas5805m)
  {
- 	struct da7219_aad_priv *da7219_aad = data;
- 	struct snd_soc_component *component = da7219_aad->component;
--	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
- 	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
- 	u8 events[DA7219_AAD_IRQ_REG_MAX];
--	u8 statusa, srm_st;
-+	u8 statusa;
- 	int i, report = 0, mask = 0;
+-	struct tas5805m_priv *tas5805m =
+-		snd_soc_component_get_drvdata(component);
+ 	struct regmap *rm = tas5805m->regmap;
  
--	srm_st = snd_soc_component_read(component, DA7219_PLL_SRM_STS) & DA7219_PLL_SRM_STS_MCLK;
--	msleep(da7219_aad->gnd_switch_delay * ((srm_st == 0x0) ? 2 : 1) - 4);
--	/* Enable ground switch */
--	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-+	mutex_lock(&da7219_aad->insertion_mutex);
+-	dev_dbg(component->dev, "refresh: is_muted=%d, vol=%d/%d\n",
++	dev_dbg(&tas5805m->i2c->dev, "refresh: is_muted=%d, vol=%d/%d\n",
+ 		tas5805m->is_muted, tas5805m->vol[0], tas5805m->vol[1]);
  
- 	/* Read current IRQ events */
- 	regmap_bulk_read(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
- 			 events, DA7219_AAD_IRQ_REG_MAX);
+ 	regmap_write(rm, REG_PAGE, 0x00);
+@@ -226,8 +228,11 @@ static int tas5805m_vol_get(struct snd_kcontrol *kcontrol,
+ 	struct tas5805m_priv *tas5805m =
+ 		snd_soc_component_get_drvdata(component);
  
--	if (!events[DA7219_AAD_IRQ_REG_A] && !events[DA7219_AAD_IRQ_REG_B])
-+	if (!events[DA7219_AAD_IRQ_REG_A] && !events[DA7219_AAD_IRQ_REG_B]) {
-+		mutex_unlock(&da7219_aad->insertion_mutex);
- 		return IRQ_NONE;
++	mutex_lock(&tas5805m->lock);
+ 	ucontrol->value.integer.value[0] = tas5805m->vol[0];
+ 	ucontrol->value.integer.value[1] = tas5805m->vol[1];
++	mutex_unlock(&tas5805m->lock);
++
+ 	return 0;
+ }
+ 
+@@ -243,11 +248,13 @@ static int tas5805m_vol_put(struct snd_kcontrol *kcontrol,
+ 		snd_soc_kcontrol_component(kcontrol);
+ 	struct tas5805m_priv *tas5805m =
+ 		snd_soc_component_get_drvdata(component);
++	int ret = 0;
+ 
+ 	if (!(volume_is_valid(ucontrol->value.integer.value[0]) &&
+ 	      volume_is_valid(ucontrol->value.integer.value[1])))
+ 		return -EINVAL;
+ 
++	mutex_lock(&tas5805m->lock);
+ 	if (tas5805m->vol[0] != ucontrol->value.integer.value[0] ||
+ 	    tas5805m->vol[1] != ucontrol->value.integer.value[1]) {
+ 		tas5805m->vol[0] = ucontrol->value.integer.value[0];
+@@ -256,11 +263,12 @@ static int tas5805m_vol_put(struct snd_kcontrol *kcontrol,
+ 			tas5805m->vol[0], tas5805m->vol[1],
+ 			tas5805m->is_powered);
+ 		if (tas5805m->is_powered)
+-			tas5805m_refresh(component);
+-		return 1;
++			tas5805m_refresh(tas5805m);
++		ret = 1;
+ 	}
++	mutex_unlock(&tas5805m->lock);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static const struct snd_kcontrol_new tas5805m_snd_controls[] = {
+@@ -294,54 +302,83 @@ static int tas5805m_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct tas5805m_priv *tas5805m =
+ 		snd_soc_component_get_drvdata(component);
+-	struct regmap *rm = tas5805m->regmap;
+-	unsigned int chan, global1, global2;
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		dev_dbg(component->dev, "DSP startup\n");
+-
+-		/* We mustn't issue any I2C transactions until the I2S
+-		 * clock is stable. Furthermore, we must allow a 5ms
+-		 * delay after the first set of register writes to
+-		 * allow the DSP to boot before configuring it.
+-		 */
+-		usleep_range(5000, 10000);
+-		send_cfg(rm, dsp_cfg_preboot,
+-			ARRAY_SIZE(dsp_cfg_preboot));
+-		usleep_range(5000, 15000);
+-		send_cfg(rm, tas5805m->dsp_cfg_data,
+-			tas5805m->dsp_cfg_len);
+-
+-		tas5805m->is_powered = true;
+-		tas5805m_refresh(component);
++		dev_dbg(component->dev, "clock start\n");
++		schedule_work(&tas5805m->work);
+ 		break;
+ 
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		dev_dbg(component->dev, "DSP shutdown\n");
++		break;
+ 
+-		tas5805m->is_powered = false;
++	default:
++		return -EINVAL;
 +	}
  
- 	/* Read status register for jack insertion & type status */
- 	statusa = snd_soc_component_read(component, DA7219_ACCDET_STATUS_A);
-@@ -378,36 +453,29 @@ static irqreturn_t da7219_aad_irq_thread(int irq, void *data)
- 		statusa);
+-		regmap_write(rm, REG_PAGE, 0x00);
+-		regmap_write(rm, REG_BOOK, 0x00);
++	return 0;
++}
  
- 	if (statusa & DA7219_JACK_INSERTION_STS_MASK) {
-+		u8 srm_st;
-+
-+		srm_st = snd_soc_component_read(component, DA7219_PLL_SRM_STS) &
-+							DA7219_PLL_SRM_STS_MCLK;
-+
- 		/* Jack Insertion */
- 		if (events[DA7219_AAD_IRQ_REG_A] &
- 		    DA7219_E_JACK_INSERTED_MASK) {
- 			report |= SND_JACK_MECHANICAL;
- 			mask |= SND_JACK_MECHANICAL;
- 			da7219_aad->jack_inserted = true;
-+
-+			/* Enable ground switch */
-+			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
- 		}
+-		regmap_read(rm, REG_CHAN_FAULT, &chan);
+-		regmap_read(rm, REG_GLOBAL_FAULT1, &global1);
+-		regmap_read(rm, REG_GLOBAL_FAULT2, &global2);
++static void do_work(struct work_struct *work)
++{
++	struct tas5805m_priv *tas5805m =
++	       container_of(work, struct tas5805m_priv, work);
++	struct regmap *rm = tas5805m->regmap;
  
- 		/* Jack type detection */
- 		if (events[DA7219_AAD_IRQ_REG_A] &
- 		    DA7219_E_JACK_DETECT_COMPLETE_MASK) {
--			/*
--			 * If 4-pole, then enable button detection, else perform
--			 * HP impedance test to determine output type to report.
--			 *
--			 * We schedule work here as the tasks themselves can
--			 * take time to complete, and in particular for hptest
--			 * we want to be able to check if the jack was removed
--			 * during the procedure as this will invalidate the
--			 * result. By doing this as work, the IRQ thread can
--			 * handle a removal, and we can check at the end of
--			 * hptest if we have a valid result or not.
--			 */
--			if (statusa & DA7219_JACK_TYPE_STS_MASK) {
--				report |= SND_JACK_HEADSET;
--				mask |=	SND_JACK_HEADSET | SND_JACK_LINEOUT;
--				schedule_work(&da7219_aad->btn_det_work);
--			} else {
--				schedule_work(&da7219_aad->hptest_work);
--			}
-+			int delay = da7219_aad->gnd_switch_delay *
-+						((srm_st == 0x0) ? 2 : 1) - 4;
-+
-+			schedule_delayed_work(&da7219_aad->insertion_work, delay);
- 		}
+-		dev_dbg(component->dev,
+-			"fault regs: CHAN=%02x, GLOBAL1=%02x, GLOBAL2=%02x\n",
+-			chan, global1, global2);
++	dev_dbg(&tas5805m->i2c->dev, "DSP startup\n");
  
- 		/* Button support for 4-pole jack */
-@@ -431,40 +499,16 @@ static irqreturn_t da7219_aad_irq_thread(int irq, void *data)
- 				}
- 			}
- 		}
-+		snd_soc_jack_report(da7219_aad->jack, report, mask);
- 	} else {
- 		/* Jack removal */
- 		if (events[DA7219_AAD_IRQ_REG_A] & DA7219_E_JACK_REMOVED_MASK) {
--			report = 0;
--			mask |= DA7219_AAD_REPORT_ALL_MASK;
--			da7219_aad->jack_inserted = false;
--
--			/* Cancel any pending work */
--			cancel_work_sync(&da7219_aad->btn_det_work);
--			cancel_work_sync(&da7219_aad->hptest_work);
--
--			/* Un-drive headphones/lineout */
--			snd_soc_component_update_bits(component, DA7219_HP_R_CTRL,
--					    DA7219_HP_R_AMP_OE_MASK, 0);
--			snd_soc_component_update_bits(component, DA7219_HP_L_CTRL,
--					    DA7219_HP_L_AMP_OE_MASK, 0);
--
--			/* Ensure button detection disabled */
--			snd_soc_component_update_bits(component, DA7219_ACCDET_CONFIG_1,
--					    DA7219_BUTTON_CONFIG_MASK, 0);
--
--			da7219->micbias_on_event = false;
--
--			/* Disable mic bias */
--			snd_soc_dapm_disable_pin(dapm, "Mic Bias");
--			snd_soc_dapm_sync(dapm);
--
--			/* Disable ground switch */
--			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x00);
-+			cancel_delayed_work(&da7219_aad->insertion_work);
-+			da7219_aad_handle_removal(da7219_aad);
- 		}
+-		regmap_write(rm, REG_DEVICE_CTRL_2, DCTRL2_MODE_HIZ);
+-		break;
++	mutex_lock(&tas5805m->lock);
++	/* We mustn't issue any I2C transactions until the I2S
++	 * clock is stable. Furthermore, we must allow a 5ms
++	 * delay after the first set of register writes to
++	 * allow the DSP to boot before configuring it.
++	 */
++	usleep_range(5000, 10000);
++	send_cfg(rm, dsp_cfg_preboot, ARRAY_SIZE(dsp_cfg_preboot));
++	usleep_range(5000, 15000);
++	send_cfg(rm, tas5805m->dsp_cfg_data, tas5805m->dsp_cfg_len);
++
++	tas5805m->is_powered = true;
++	tas5805m_refresh(tas5805m);
++	mutex_unlock(&tas5805m->lock);
++}
+ 
+-	default:
+-		return -EINVAL;
++static int tas5805m_dac_event(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct tas5805m_priv *tas5805m =
++		snd_soc_component_get_drvdata(component);
++	struct regmap *rm = tas5805m->regmap;
++
++	if (event & SND_SOC_DAPM_PRE_PMD) {
++		unsigned int chan, global1, global2;
++
++		dev_dbg(component->dev, "DSP shutdown\n");
++		cancel_work_sync(&tas5805m->work);
++
++		mutex_lock(&tas5805m->lock);
++		if (tas5805m->is_powered) {
++			tas5805m->is_powered = false;
++
++			regmap_write(rm, REG_PAGE, 0x00);
++			regmap_write(rm, REG_BOOK, 0x00);
++
++			regmap_read(rm, REG_CHAN_FAULT, &chan);
++			regmap_read(rm, REG_GLOBAL_FAULT1, &global1);
++			regmap_read(rm, REG_GLOBAL_FAULT2, &global2);
++
++			dev_dbg(component->dev, "fault regs: CHAN=%02x, "
++				"GLOBAL1=%02x, GLOBAL2=%02x\n",
++				chan, global1, global2);
++
++			regmap_write(rm, REG_DEVICE_CTRL_2, DCTRL2_MODE_HIZ);
++		}
++		mutex_unlock(&tas5805m->lock);
  	}
  
--	snd_soc_jack_report(da7219_aad->jack, report, mask);
--
-+	mutex_unlock(&da7219_aad->insertion_mutex);
- 	return IRQ_HANDLED;
- }
+ 	return 0;
+@@ -354,7 +391,8 @@ static const struct snd_soc_dapm_route tas5805m_audio_map[] = {
  
-@@ -938,6 +982,9 @@ int da7219_aad_init(struct snd_soc_component *component)
- 	snd_soc_component_update_bits(component, DA7219_ACCDET_CONFIG_1,
- 			    DA7219_BUTTON_CONFIG_MASK, 0);
+ static const struct snd_soc_dapm_widget tas5805m_dapm_widgets[] = {
+ 	SND_SOC_DAPM_AIF_IN("DAC IN", "Playback", 0, SND_SOC_NOPM, 0, 0),
+-	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC_E("DAC", NULL, SND_SOC_NOPM, 0, 0,
++		tas5805m_dac_event, SND_SOC_DAPM_PRE_PMD),
+ 	SND_SOC_DAPM_OUTPUT("OUT")
+ };
  
-+	mutex_init(&da7219_aad->insertion_mutex);
+@@ -375,11 +413,14 @@ static int tas5805m_mute(struct snd_soc_dai *dai, int mute, int direction)
+ 	struct tas5805m_priv *tas5805m =
+ 		snd_soc_component_get_drvdata(component);
+ 
++	mutex_lock(&tas5805m->lock);
+ 	dev_dbg(component->dev, "set mute=%d (is_powered=%d)\n",
+ 		mute, tas5805m->is_powered);
 +
-+	INIT_DELAYED_WORK(&da7219_aad->insertion_work, da7219_aad_insertion_work);
- 	INIT_WORK(&da7219_aad->btn_det_work, da7219_aad_btn_det_work);
- 	INIT_WORK(&da7219_aad->hptest_work, da7219_aad_hptest_work);
+ 	tas5805m->is_muted = mute;
+ 	if (tas5805m->is_powered)
+-		tas5805m_refresh(component);
++		tas5805m_refresh(tas5805m);
++	mutex_unlock(&tas5805m->lock);
  
-@@ -973,6 +1020,7 @@ void da7219_aad_exit(struct snd_soc_component *component)
- 
- 	free_irq(da7219_aad->irq, da7219_aad);
- 
-+	cancel_delayed_work_sync(&da7219_aad->insertion_work);
- 	cancel_work_sync(&da7219_aad->btn_det_work);
- 	cancel_work_sync(&da7219_aad->hptest_work);
+ 	return 0;
  }
-diff --git a/sound/soc/codecs/da7219-aad.h b/sound/soc/codecs/da7219-aad.h
-index 21fdf53095cc..b1b7f8ba45bd 100644
---- a/sound/soc/codecs/da7219-aad.h
-+++ b/sound/soc/codecs/da7219-aad.h
-@@ -10,6 +10,7 @@
- #ifndef __DA7219_AAD_H
- #define __DA7219_AAD_H
+@@ -434,6 +475,7 @@ static int tas5805m_i2c_probe(struct i2c_client *i2c)
+ 	if (!tas5805m)
+ 		return -ENOMEM;
  
-+#include <linux/mutex.h>
- #include <linux/timer.h>
- #include <sound/soc.h>
- #include <sound/jack.h>
-@@ -194,6 +195,8 @@ struct da7219_aad_priv {
++	tas5805m->i2c = i2c;
+ 	tas5805m->pvdd = devm_regulator_get(dev, "pvdd");
+ 	if (IS_ERR(tas5805m->pvdd)) {
+ 		dev_err(dev, "failed to get pvdd supply: %ld\n",
+@@ -507,6 +549,9 @@ static int tas5805m_i2c_probe(struct i2c_client *i2c)
+ 	gpiod_set_value(tas5805m->gpio_pdn_n, 1);
+ 	usleep_range(10000, 15000);
  
- 	u8 btn_cfg;
++	INIT_WORK(&tas5805m->work, do_work);
++	mutex_init(&tas5805m->lock);
++
+ 	/* Don't register through devm. We need to be able to unregister
+ 	 * the component prior to deasserting PDN#
+ 	 */
+@@ -527,6 +572,7 @@ static void tas5805m_i2c_remove(struct i2c_client *i2c)
+ 	struct device *dev = &i2c->dev;
+ 	struct tas5805m_priv *tas5805m = dev_get_drvdata(dev);
  
-+	struct mutex insertion_mutex;
-+	struct delayed_work insertion_work;
- 	struct work_struct btn_det_work;
- 	struct work_struct hptest_work;
- 
++	cancel_work_sync(&tas5805m->work);
+ 	snd_soc_unregister_component(dev);
+ 	gpiod_set_value(tas5805m->gpio_pdn_n, 0);
+ 	usleep_range(10000, 15000);
 -- 
-2.39.1
+2.38.1
 

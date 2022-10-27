@@ -2,96 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A305D60F5E6
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 13:06:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F9C60F5F0
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 13:09:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A56D305D;
-	Thu, 27 Oct 2022 13:06:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A56D305D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E876F307D;
+	Thu, 27 Oct 2022 13:08:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E876F307D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666868810;
-	bh=YgHnWGtqOnyfkHuDwSPFyxeMUO6uhAX66aQx5koO/Qk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666868974;
+	bh=VfVKyp1Dxs5WMcZ0NytyalV/nlR49XyBEGLjnKFSn78=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kpEAtDvM9jSyc9NX9bUfVuAeh9larP1foJRHRSmgWVzagsD2Diva3ZW+1odiKknpP
-	 1hduIcPvM1wJJvE8dtf/4t57hvcxSVwgaWq1v98XOcmygfeIncWCG0bSvwB6ey9mwp
-	 3FTKeMJjooQ+KJ5jfTMmIut4G/DgiCTapsmuWUhQ=
+	b=TT3/3LCPBGyKZz9Ap6S6WvQ7LAsNbx2fJzYlYQonhHpbKkpi6DFiHfCTYhl6oMi0O
+	 4Po8OfINGq3y/yFkLRVlwWm5P0MbbE0cqFBDBBcu6r6p6X5BrsY12l5beGAJw8tmrK
+	 BGqNXG2g0EVxcTzODvK9jDEcAQKQ/5xLwcZoifRc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 994D0F80496;
-	Thu, 27 Oct 2022 13:05:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 683F7F80100;
+	Thu, 27 Oct 2022 13:08:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FF16F8025E; Thu, 27 Oct 2022 13:05:54 +0200 (CEST)
+ id 370D2F8025E; Thu, 27 Oct 2022 13:08:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9867F8016C
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 13:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9867F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0CB5F8016C
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 13:08:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0CB5F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="CW3QqoKY"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="36oIg7CO"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4C0161FD9E;
- Thu, 27 Oct 2022 11:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666868750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FseWLW0DY4ssJAGYvG19IPaHzcWC2y95WA6xRfJdRNs=;
- b=CW3QqoKYUxP6eOYpi3bo90FwNUzlN+WPgxi71M5FedkJPajGyedtwOzzO8LUoqEtc2zO6J
- gp4SkZ+9AdiuanOZXe31Q8gpOVHxQ/N9yOu6NkSHY2YWvQmnw50TJgnKBoQFDF+OOxEgxi
- RyGqCvlX6J6lhgjLLGP2cC48VXBP5rw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666868750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FseWLW0DY4ssJAGYvG19IPaHzcWC2y95WA6xRfJdRNs=;
- b=36oIg7COhdEB0/rLI+1XnS4E1u04/USvHo1iAWwJiPey2uSCUfnuSBjEhlkGd6eDBHfTxE
- WeSPEfii8cUJtECQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23066134CA;
- Thu, 27 Oct 2022 11:05:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lbesBQ5mWmO4FwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 11:05:50 +0000
-Date: Thu, 27 Oct 2022 13:05:49 +0200
-Message-ID: <87zgdhmsqa.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
- <amadeuszx.slawinski@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Q0Y6yvzc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666868914; x=1698404914;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=VfVKyp1Dxs5WMcZ0NytyalV/nlR49XyBEGLjnKFSn78=;
+ b=Q0Y6yvzcrBMyHMcEaMTzxmFz5S1EIoBwyRSq/8GgFnhKeiiPok/d/tNf
+ kJgKwO5lmx8a/4o4gE0w/HhZn21+hQPqBFOMw8uQcLkNzI3A25gumlprB
+ OtqJPmfjtXdZVhiQGHTBx/4ig4ksI2IqJVlzbelGeiuXgGFRyj9F5FRcb
+ TML+8P+ln+jPBCNTL/X+lYnzTa+h4i8Ow1aJV/9ZpxHKm9sE/W/9bIBNG
+ C0PgezY8oVhhnsxaaR20MNlvltbDLIeaqmzLc+cZVswK1kZxxAcZDvGg9
+ 0508eFstui2eFoOxbr72gucH2X+OboT/oLt/FwFzlN5vMlnH/6PPP/rzG Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="291497109"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="291497109"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 04:08:30 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="665642358"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="665642358"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.241.18])
+ ([10.99.241.18])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 04:08:28 -0700
+Message-ID: <5b7879f6-a15b-919a-842b-42617934aea3@linux.intel.com>
+Date: Thu, 27 Oct 2022 13:08:26 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
 Subject: Re: [PATCH v3 3/9] ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
-In-Reply-To: <3977c2b3-ead3-3904-820a-d602aa04c51b@linux.intel.com>
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
 References: <20221027082331.1561740-1-cezary.rojewski@intel.com>
  <20221027082331.1561740-4-cezary.rojewski@intel.com>
  <874jvpo9by.wl-tiwai@suse.de>
  <3977c2b3-ead3-3904-820a-d602aa04c51b@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
+ <87zgdhmsqa.wl-tiwai@suse.de>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87zgdhmsqa.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
  broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -108,42 +99,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 12:29:35 +0200,
-Amadeusz S³awiñski wrote:
+On 10/27/2022 1:05 PM, Takashi Iwai wrote:
+> On Thu, 27 Oct 2022 12:29:35 +0200,
+> Amadeusz SÅ‚awiÅ„ski wrote:
+>>
+>> On 10/27/2022 12:21 PM, Takashi Iwai wrote:
+>>> On Thu, 27 Oct 2022 10:23:25 +0200,
+>>> Cezary Rojewski wrote:
+>>>> --- a/sound/hda/hdac_stream.c
+>>>> +++ b/sound/hda/hdac_stream.c
+>>>> @@ -821,6 +821,27 @@ void snd_hdac_stream_drsm_enable(struct hdac_bus *bus,
+>>>>    }
+>>>>    EXPORT_SYMBOL_GPL(snd_hdac_stream_drsm_enable);
+>>>>    +/*
+>>>> + * snd_hdac_stream_wait_drsm - wait for HW to clear RSM for a stream
+>>>> + * @azx_dev: HD-audio core stream to await RSM for
+>>>> + *
+>>>> + * Returns 0 on success and -ETIMEDOUT upon a timeout.
+>>>> + */
+>>>> +int snd_hdac_stream_wait_drsm(struct hdac_stream *azx_dev)
+>>>> +{
+>>>> +	struct hdac_bus *bus = azx_dev->bus;
+>>>> +	u32 mask, reg;
+>>>> +	int ret;
+>>>> +
+>>>> +	mask = 1 << azx_dev->index;
+>>>> +
+>>>> +	ret = readb_poll_timeout(bus->drsmcap + AZX_REG_DRSM_CTL, reg, !(reg & mask), 250, 2000);
+>>>
+>>> Remember that HD-audio bus doesn't always allow readb().  Tegra
+>>> requires the aligned access, for example.
+>>>
+>>
+>> The readb_poll_timeout macro was updated to take care of that,
+>> https://lore.kernel.org/all/20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com/
+>> so it should be fine?
 > 
-> On 10/27/2022 12:21 PM, Takashi Iwai wrote:
-> > On Thu, 27 Oct 2022 10:23:25 +0200,
-> > Cezary Rojewski wrote:
-> >> --- a/sound/hda/hdac_stream.c
-> >> +++ b/sound/hda/hdac_stream.c
-> >> @@ -821,6 +821,27 @@ void snd_hdac_stream_drsm_enable(struct hdac_bus *bus,
-> >>   }
-> >>   EXPORT_SYMBOL_GPL(snd_hdac_stream_drsm_enable);
-> >>   +/*
-> >> + * snd_hdac_stream_wait_drsm - wait for HW to clear RSM for a stream
-> >> + * @azx_dev: HD-audio core stream to await RSM for
-> >> + *
-> >> + * Returns 0 on success and -ETIMEDOUT upon a timeout.
-> >> + */
-> >> +int snd_hdac_stream_wait_drsm(struct hdac_stream *azx_dev)
-> >> +{
-> >> +	struct hdac_bus *bus = azx_dev->bus;
-> >> +	u32 mask, reg;
-> >> +	int ret;
-> >> +
-> >> +	mask = 1 << azx_dev->index;
-> >> +
-> >> +	ret = readb_poll_timeout(bus->drsmcap + AZX_REG_DRSM_CTL, reg, !(reg & mask), 250, 2000);
-> > 
-> > Remember that HD-audio bus doesn't always allow readb().  Tegra
-> > requires the aligned access, for example.
-> > 
+> This patch doesn't use that macro...
 > 
-> The readb_poll_timeout macro was updated to take care of that,
-> https://lore.kernel.org/all/20221007084856.1638302-1-amadeuszx.slawinski@linux.intel.com/
-> so it should be fine?
 
-This patch doesn't use that macro...
-
-
-Takashi
+Ah... right, sorry for confusion, I looked at diff part instead of macro 
+name.

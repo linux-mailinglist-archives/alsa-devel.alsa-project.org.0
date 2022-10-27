@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9C260F068
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2368760F06C
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:39:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1362F32B7;
-	Thu, 27 Oct 2022 08:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1362F32B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8A0832C8;
+	Thu, 27 Oct 2022 08:38:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8A0832C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666852711;
-	bh=WmYfnhorKCWVEN1JREqLL2Gon8rMEW8cKJiycOqlN90=;
+	s=default; t=1666852754;
+	bh=lmA99sO6UQ0J7s7LAbAZZsnLHe6Eg7lDjVqUi7AbYac=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ACQE3bQ1bRh/iQiMlcvm0n4Atlig8F7xfXFWipSe3gBhVnPiuM2N7WzuShYY3Lh2j
-	 xNI7nuVrFVStbFPaB/gE4WC0dlntBpi9VZ1fjZUZbP6TqPlKa05RGgEu5gKbwZchGW
-	 6n7SskvEaNmt3nKAKx/vqRtzSuyl/rkEfOfbK10E=
+	b=O6p9gBr49mXCiT0omHe7EQ5IkGOykzscrvWAPED/8762gdaEkhAyciO7pRX6+H5TQ
+	 bqS7UPpF+Jtc9aewCRoiHyZYIdLdHVFyqAkavdocLO8aSV52UyNibgMPNJTp3EPgnC
+	 uVwMHkX0vtSazs0N99glXhM/9NMDX42DIIbM0zQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F03BF80496;
-	Thu, 27 Oct 2022 08:37:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22EE6F8025E;
+	Thu, 27 Oct 2022 08:38:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9751BF8025E; Thu, 27 Oct 2022 08:37:34 +0200 (CEST)
+ id E7CD4F804D9; Thu, 27 Oct 2022 08:38:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57488F8016C
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:37:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57488F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E78DEF80095
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:38:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E78DEF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0M7G4T6N"; 
+ header.b="LzHkFzDw"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cOu36XTL"
+ header.b="KD4RglaC"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9C8981FDAE;
- Thu, 27 Oct 2022 06:37:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 09366229AD;
+ Thu, 27 Oct 2022 06:38:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666852650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666852692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=V4ZIHSQ5ddTR7PG2obLinq6bmzugfZ/QrSOgzqdtKmg=;
- b=0M7G4T6NyJY/TNBreegiqFZ5pQabEetkdVfKk2XbmYXs6y11f7Ene5DQS/6aRjgJ9FbJAI
- VtJ9+9n3EjpUUWHjFuINkYbfqpnvU8pue8xVSc4ettqqShzGKGqING4hOgJOqvJbgtQMZv
- vB95dczKtY+7SS5lLGfRl8Y0KEc5WAo=
+ bh=HAfG3fxO5nB+zy7DQ0VrMelHumsdPtpgcNkAR3o65r8=;
+ b=LzHkFzDwVTwUrl9FtPI+xSP5wcd2kRNmIXOpJsdcR82Mb5UjzIkBYUGeoLuhPhKEnKZEGq
+ lhzN6Fpx8BTnYj7mAnrjCZ82weDRIbTKrnp9+zM1xETwP7rDpdHH9U65waepala6ktSm8e
+ NjFso6fM+dvKKnkp+MAhJaY7Xd7gOuM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666852650;
+ s=susede2_ed25519; t=1666852692;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=V4ZIHSQ5ddTR7PG2obLinq6bmzugfZ/QrSOgzqdtKmg=;
- b=cOu36XTLc8D/pYTBa7XyXWdX4+9wVD7vLOeseDx+N4UMo7isuDHosVk29J/3kUPPmAI+tr
- lVp9ECoTTW5W56Aw==
+ bh=HAfG3fxO5nB+zy7DQ0VrMelHumsdPtpgcNkAR3o65r8=;
+ b=KD4RglaCNmhEIG8W5X8Gdl9J7rH5TgzeD/dlaCBNR5//iBOUWXRCxn45l7yfq3mIRLm+qU
+ uV0PA56KIIjCUcCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F07B134CA;
- Thu, 27 Oct 2022 06:37:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DCA3D134CA;
+ Thu, 27 Oct 2022 06:38:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vKrxHSonWmP3DwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 06:37:30 +0000
-Date: Thu, 27 Oct 2022 08:37:29 +0200
-Message-ID: <87sfj9ojpy.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +SpONVMnWmM8EAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 06:38:11 +0000
+Date: Thu, 27 Oct 2022 08:38:11 +0200
+Message-ID: <87r0ytojos.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.1-rc2
-In-Reply-To: <20221026200355.6FE50C433C1@smtp.kernel.org>
-References: <20221026200355.6FE50C433C1@smtp.kernel.org>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Subject: Re: [PATCH] ALSA: aoa: i2sbus: fix possible memory leak in
+ i2sbus_add_dev()
+In-Reply-To: <20221027013438.991920-1-yangyingliang@huawei.com>
+References: <20221027013438.991920-1-yangyingliang@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
+ johannes@sipsolutions.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,30 +101,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 26 Oct 2022 22:03:49 +0200,
-Mark Brown wrote:
+On Thu, 27 Oct 2022 03:34:38 +0200,
+Yang Yingliang wrote:
 > 
-> The following changes since commit 9abf2313adc1ca1b6180c508c25f22f9395cc780:
+> dev_set_name() in soundbus_add_one() allocates memory for name, it need be
+> freed when of_device_register() fails, call soundbus_dev_put() to give up
+> the reference that hold in device_initialize(), so that it can be freed in
+> kobject_cleanup() when the refcount hit to 0. And other resources are also
+> freed in i2sbus_release_dev(), so it can return 0 directly.
 > 
->   Linux 6.1-rc1 (2022-10-16 15:36:24 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.1-rc2
-> 
-> for you to fetch changes up to e9441675edc1bb8dbfadacf68aafacca60d65a25:
-> 
->   ASoC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init() (2022-10-21 13:04:14 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.1
-> 
-> Quite a few fixes here, a lot driver specific, plus some new quirks.
-> There was a bit of a mess with the runtime PM handling due to some
-> confusion in the API there which resulted in a number of commits and
-> reverts but that should all be stable now.
+> Fixes: f3d9478b2ce4 ("[ALSA] snd-aoa: add snd-aoa")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 
-Thanks, pulled now.
+The check of kobj state is awkward, but it seems to be the simplest
+way...  Applied now.  Thanks!
 
 
 Takashi
+
+
+> ---
+>  sound/aoa/soundbus/i2sbus/core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/sound/aoa/soundbus/i2sbus/core.c b/sound/aoa/soundbus/i2sbus/core.c
+> index faf6b03131ee..f6841daf9e3b 100644
+> --- a/sound/aoa/soundbus/i2sbus/core.c
+> +++ b/sound/aoa/soundbus/i2sbus/core.c
+> @@ -302,6 +302,10 @@ static int i2sbus_add_dev(struct macio_dev *macio,
+>  
+>  	if (soundbus_add_one(&dev->sound)) {
+>  		printk(KERN_DEBUG "i2sbus: device registration error!\n");
+> +		if (dev->sound.ofdev.dev.kobj.state_initialized) {
+> +			soundbus_dev_put(&dev->sound);
+> +			return 0;
+> +		}
+>  		goto err;
+>  	}
+>  
+> -- 
+> 2.25.1
+> 

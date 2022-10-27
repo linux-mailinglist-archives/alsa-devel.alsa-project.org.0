@@ -2,69 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 786F960EF8C
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 07:38:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FF760EFD7
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 08:04:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00A8C245A;
-	Thu, 27 Oct 2022 07:37:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00A8C245A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CA98316C;
+	Thu, 27 Oct 2022 08:04:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CA98316C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666849119;
-	bh=lIpg4avxHN4cTChsxmYDn5HAw3Y4WpZp8vEOiJ0dHco=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uvN84JlXCTHRh4qrQ75pktGEn9T6UffMf/XsXHuU9vFhcBgkf2BegBDoo2l3ogXZR
-	 SplR5nKuEq3eSo/b6FuzgH/cD7MUcjd6IzLAmEb/iCtqjz40WC42rgurZcSc3SN2c3
-	 bqhUes+Jf4kmdq/jpUDIztKZF0rzMQMRIQQAUOG0=
+	s=default; t=1666850698;
+	bh=+tf/wjViCk7zU2EDct5uyIWZI5j3DTvABsjsWQ2J4to=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fzTPb14Q7fwhC5/tuzxHaZI+ol1dCHDwUDEBki02gSQrWEkWZqX9E41gAi58WpGJc
+	 4WJ66EWdZfodymkJEHk8uLjbZvJQSJx80cfVG4WX3hy0UOMIVpWx8RRHuHgx+O7Y7d
+	 f79VEVKRjjB3XteHZHFU0rmDd586/RoxwCVKgh3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A84DF80496;
-	Thu, 27 Oct 2022 07:37:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9A00F8025A;
+	Thu, 27 Oct 2022 08:04:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D66F9F80100; Thu, 27 Oct 2022 07:37:41 +0200 (CEST)
+ id B42D9F8025E; Thu, 27 Oct 2022 08:04:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70040.outbound.protection.outlook.com [40.107.7.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAD12F80100
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 07:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAD12F80100
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1onvaA-00010u-Qi; Thu, 27 Oct 2022 07:37:34 +0200
-Message-ID: <fdca8918-730c-c36d-a3ca-4c95f16d1e8e@leemhuis.info>
-Date: Thu, 27 Oct 2022 07:37:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [Regression] Bug 216613 - Sound stopped working with v6.0.3 on
- Lenovo T14 Gen2i: ASoC: error at snd_soc_component_probe
-Content-Language: en-US, de-DE
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
-References: <2c028797-b313-be93-7b1e-8d838e694948@leemhuis.info>
- <f34cafd4-f224-ad10-6962-e8f6c709cb39@leemhuis.info>
- <3f207f82-e177-c833-b2b0-ca9e64a6e9a7@linux.intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <3f207f82-e177-c833-b2b0-ca9e64a6e9a7@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9A30F80095
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 08:03:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9A30F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="nR+cnfjm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Iyna4aT2sZpW6wa9DWYd1yc4X2qXhRIaepM6wAIXeqgSFqsEZTIZWaFO3ZMEgRtueiQ97FmsfbiM5xMsRq+zh8FZBMG0jlFRtP+6NwOPivmIJGk4NqlP6JmF/H4Spbfln+nDWpD62mt5zgBl56LK+93yNY27f97uxd/sSZsV4gLYKPue19Sjz4h8WyfmmoFwVuag69l0uE5AhxILGXrpt4GdV5MrKq6hUA1SmYh17jqzPEsRJR003IJTMqOmJ56vXlmmlb/pxYGZgAMbrLmtN2A9ZBZcBv9lyHr4QZYRGxKTAHRFs9bqcjusregb8csSlDLOK+OWPJWjyOMpUowJFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T7z/IMKA3y7ygoa63mjPB10gedAbJxpsIG8WsjUK6hY=;
+ b=jcu/+nlQrg5pWDVzD3CYnZX/D+Hx7mL9PPb3GSlQuUO4qI0QyFZ83fEZXXYglQuDyUy5KbrO0kfRfeQf39iJ3XCFfPTpZovUkL+hca5oUoS0RZr/PzJsCJZoAalgLemIcHGZs2flrq3K+fja60Ps8XOcU6hTxF0tAUJ1DnTwrcxV5A4+shvrclWMIk15QjfES/kTM2IyeUsSq5sKYYTrJvcMienPMSINaey1cr3zGH+6A6dfuq+DreasBw/wyTonQEoV9eyt05S3f6LaJ4HkvRZBoBh35Ab9zBfDeYtiTFTwE+nqKHpa3XLj7AK440xWtLw/zNdQBXQN+W9t6ocHzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T7z/IMKA3y7ygoa63mjPB10gedAbJxpsIG8WsjUK6hY=;
+ b=nR+cnfjmUruo9Nl44GUjuhpxk1urkuOqYwkn2rwlKDbYIj7sGiNQ/So/qMoQLItpHwe370Z4mjBh4t6xQQZWicGLa8Uvn5S9zpnXhQfnkCI4SvHZ4pL6W/hnh0+xuxyTP2fy3U4lHMo2py3vTVRjNt4E/0vwbcjtAu/A2JZoaZw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
+ by DU2PR04MB8805.eurprd04.prod.outlook.com (2603:10a6:10:2e0::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Thu, 27 Oct
+ 2022 06:03:55 +0000
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::33ab:7f2:7263:ee79]) by VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::33ab:7f2:7263:ee79%6]) with mapi id 15.20.5746.028; Thu, 27 Oct 2022
+ 06:03:55 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 0/3] Add support for SAI on i.MX93 platform
+Date: Thu, 27 Oct 2022 14:03:08 +0800
+Message-Id: <20221027060311.2549711-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1666849056;
- c4e95a0a; 
-X-HE-SMSGID: 1onvaA-00010u-Qi
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- LKML <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR06CA0017.apcprd06.prod.outlook.com
+ (2603:1096:4:186::15) To VI1PR04MB4222.eurprd04.prod.outlook.com
+ (2603:10a6:803:46::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4222:EE_|DU2PR04MB8805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d6b5aa9-c28a-41fe-20bf-08dab7e1078f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wchpHO3UoyD7wyrilw8wBKLutg/NsXerkm7b0d8eAfp6yOie5HtIj3BpExX6HEZPTUC2Q4A3RZFPb3Uo/iXga8mGgAOniuOJbvLmCj+e1hNBVxf7h0YdIQgt6JE7eV9wKirnUTA1jMqp1c18GYCtDGBb9LLyMThZ/yORwnj0LlBwVT1LJZpTuBbsO3WABSfYlAuaqJGVFpAvbGN0+g/lApGX/rHNIPxVeeaLLeVQV5yZ387n6DhuWVb5x+qKhMUwQwfHKzF9CXdhpFkZsQbGsm0nh77d3w3hPQADOXibdMrNJWXmVZS2JkFi3OjD8GbyOLyFsXPxPI+3dzlnQX63/oo4bLv3TZiZToYvHaqGlViJ2ndMTUoRAyROOLnqI7kBAj4MWsQZfqE8S1WzvyHsCn2q2eMHwfJ7EyN3XmWf0gmuB0zt3keI1f0j1wApT0qdMut7SIUUHs1V2dpLgPCWwF7iyCbhfGZLZ8+1Hn4mOEp2kX4jWldQZeNZ1kboLukKgo5NbPcXKlDdWjYOM0Gfe6nNHmAtjZxvxH6jAShLFPO7/H6E546HIiwEWBmE4pL3R8YyGX6AKVw3/WNm8/ERC++CqruJplONRNkd2dINiqeoi52SBAAvjWKzoXiw/XfvLk6AbmqpWJTbeFFWcKg0P7FjoUCvWIqKK2pDE3TZpZ7SIq6u3hnx/6/Gx1UVfDNiqipU8fEAY6OPn/i1mfo60MkYQTGmymdpyhwJNULSD65aTddPPlo0E4ss6yEt+drpgpdFy56QjxHlolWSh/PmClkncd974UdbKjDDWcwjmeE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4222.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(366004)(346002)(376002)(136003)(396003)(451199015)(38350700002)(7416002)(4744005)(38100700002)(2906002)(5660300002)(83380400001)(36756003)(86362001)(921005)(186003)(1076003)(26005)(6512007)(52116002)(6666004)(2616005)(6486002)(478600001)(316002)(41300700001)(44832011)(66476007)(8676002)(66556008)(66946007)(4326008)(6506007)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Bhd33wyHRcBQV6oL3mfCMY2kKdJi/udjiuBZnizzI8VbLVGvZG2dkmSIH2Qa?=
+ =?us-ascii?Q?vDdNAOjlpbg/48jtA7cTS2WD9eaVuPMdLpzrNHMPOIDF01Noowng5rPRlVYU?=
+ =?us-ascii?Q?d6j3wV7HHOEgPnGt3ToJChu2Yz3B6rWkNyZa4AyGDTrbG17PwWTBncBcNGNN?=
+ =?us-ascii?Q?NrFvEtK23nYFEetPNezzXyPWQbf6SpBuSwucQyn6yj+vXbRv8K5vWPSO+gQV?=
+ =?us-ascii?Q?tfisAJwd8G4nUnUGLmYDXgWLWErBG/vgQKx8yxR+2VYNztr/DMOgYIjPyCJQ?=
+ =?us-ascii?Q?TMZsRkYLAQ46aM82WWDaX1QYVOqdCIFTRV/RbUlsrZ9RxTsT3/t/0pvy6s9Y?=
+ =?us-ascii?Q?hnsw451uD0YXdqnEkmoAP1KTqDL1sMuTPGJHlm4Q+qHf5d7lyzZK2fVD1/2E?=
+ =?us-ascii?Q?yOuxncvKiE4/C8I1yQciZVaJfjuF5N2pt5WJdaVcTdIlYC0sjDp6D4rBckV6?=
+ =?us-ascii?Q?Z0/LlVSinvlO+Rm+WyvZK0avStYpjFh0JhyEEZaX/XHrJmA9mIi71s0gtjzE?=
+ =?us-ascii?Q?nxXq6UARuOqChO6/na5sUX8NzJzjFZLvkaQIgSxZzz6yeKbBOPP6Z8t86x8f?=
+ =?us-ascii?Q?XuDxKzaW1Io6dKEZvfakkIl57TzqE8Uazp2qK8vFFs60vGuWVKGexFYvUrda?=
+ =?us-ascii?Q?Yydppo+JTAU8f1VB943cCbmXNgkEZ6JVk0ZVOhUKWk+dqZ97vEbzqZa/jIJv?=
+ =?us-ascii?Q?VJ4WmyMBENwd2OYpFjHsCd+69YHSgHmpmmwYizVtzmnl7E9wG8NSGbzFrxzm?=
+ =?us-ascii?Q?lLEMtpOp6EDcAJNlMmH6BhVGvdVJUN7pYf2BUKL0zAhl2au9PvtOL8kN4FcD?=
+ =?us-ascii?Q?G5sSsurONud8rRQzyZjkuiZkW9LKzPiecHxpPmUt8URbNarJ1kuVxSKtFsEF?=
+ =?us-ascii?Q?rgG8yurIEfKTfbzLPf1Rjrt1j2x8M42xhafzJsvzpgrzVc/E0uxZDOWI2fuR?=
+ =?us-ascii?Q?uu44mk5OY74GqOq/fxKcta9mPTqDx4Nq1GEoY2qtWy+D+bPwpKelgPt55wws?=
+ =?us-ascii?Q?ZvXablh7zw4a1ySnspbaJn/BjfGQeU18fNTZ3+H5175+92b10cwdvL89oWol?=
+ =?us-ascii?Q?snhbZLdWm6P3AJu37pUZ9tsETFh4zXN5STMZeoWBjF2L/A3aEZIaSrLg6bz3?=
+ =?us-ascii?Q?t9eovNZ4TuSAN92JgHWVJkyPpgvOeEvuMqL1p/3nyK1DsPHNo9hE0uUdO/jU?=
+ =?us-ascii?Q?tHAr6UcsFU3VdhChOVAB6t467scgedMSKlQ5NK8zuLJ0D4Puy+0SuO5Xu2wn?=
+ =?us-ascii?Q?PZMQputijmnt2zqwfrwwz/T022tt3ajNVpCsAe+D2+nuRXtW3JwIUEkuQvkU?=
+ =?us-ascii?Q?NA7xuKAZedkjcOWT8GmKxTyzIR5VtELpBuh352ny+SukijRQFRWjxzQ5CFvZ?=
+ =?us-ascii?Q?gwbBrUQF8x1nYrm90WdhfS7F6VV78bgFxvdSl1zXJ3zP2AFVjFd3KYw4KeL2?=
+ =?us-ascii?Q?VpHp9F/aMmp4w1PPxZrgSW6uer+QjlFg5rm1P3ri3NXK5A/TujPIX4vhQ8/A?=
+ =?us-ascii?Q?4MJXrkNG1XCQYk+OA0QksKf8rvRExgwWfzooJnsbO6UQavj5wm+9evivAp6I?=
+ =?us-ascii?Q?oXFQ9gQYzxDq32yafpRqG6S8fzzHggsbogARhMqh?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d6b5aa9-c28a-41fe-20bf-08dab7e1078f
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 06:03:55.1816 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TcGzFdiOTDhTlJi6l23fN6TFCQDhySjr6ySsndl+7tTHG9V2ecnayFMinxM5b7roZNP1wB++7cXhIQM/M0KKWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8805
+Cc: Chancel Liu <chancel.liu@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,47 +147,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[CCing Takashi in case he is interested in this and/or wants to make my
-life as regression tracker a little easier in the future]
+This patchset supports SAI on i.MX93 platform.
 
-On 26.10.22 22:41, Pierre-Louis Bossart wrote:
-> On 10/26/22 07:08, Thorsten Leemhuis wrote:
->> On 22.10.22 08:35, Thorsten Leemhuis wrote:
->>>
->>> I noticed a regression report in bugzilla.kernel.org. As many (most?)
->>> kernel developer don't keep an eye on it, I decided to forward it by
->>> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216613 :
->>>
->>>> After upgrade kernel from 6.0.2 to 6.0.3 on Lenovo T14 Gen2i, sound stopped working.
->>>> dmesg:
->>>>
->>>> paź 21 21:11:45 kernel: snd_hda_codec_hdmi ehdaudio0D2: failed to create hda codec -12
->>>> paź 21 21:11:45 kernel: snd_hda_codec_hdmi ehdaudio0D2: ASoC: error at snd_soc_component_probe on ehdaudio0D2: -12
->>>> paź 21 21:11:45 kernel: skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: failed to instantiate card -12
->>>>
->>
->> #regzbot introduced: 7494e2e6c55ed19
->> #regzbot fixed-by: 02356311982b
-> 
-> Revert on its way:
-> https://lore.kernel.org/r/20221024143931.15722-1-tiwai@suse.de
+Chancel Liu (3):
+  ASoC: dt-bindings: fsl,sai: Add compatible string for i.MX93 platform
+  ASoC: fsl_sai: Add support for i.MX93 platform
+  ASoC: fsl_sai: Specify the maxburst to 8 on i.MX93 platform
 
-Thx, in fact it was already merged:
+ .../devicetree/bindings/sound/fsl,sai.yaml    |  1 +
+ sound/soc/fsl/fsl_sai.c                       | 23 +++++++++++++++----
+ sound/soc/fsl/fsl_sai.h                       |  1 +
+ 3 files changed, 21 insertions(+), 4 deletions(-)
 
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.0.y&id=02356311982bbb117310a27985fa8938e82c0b6e
+--
+2.25.1
 
-That "#regzbot fixed-by: 02356311982b" above told my regression tracking
-bot about the commit. I sadly had to do that manually, as Takashi used
-the non-standard "BugLink" tag to link to the report, which Linus
-doesn't want:
-
-https://lore.kernel.org/all/CAHk-=wgs38ZrfPvy=nOwVkVzjpM3VFU1zobP37Fwd_h9iAD5JQ@mail.gmail.com/
-
-To quote: ```please stop making up random tags that make no sense. Just
-use "Link:"```
-
-Maybe regzbot nevertheless should resolve a tracked regression as
-resolved, if it sees BugLink to a tracked regression. But I think the
-real solution is: checkpatch.pl should complain.
-
-Ciao, Thorsten

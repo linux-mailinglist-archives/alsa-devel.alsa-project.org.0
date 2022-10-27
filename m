@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9484060F91A
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 15:32:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9469260F93A
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Oct 2022 15:37:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E6512F6A;
-	Thu, 27 Oct 2022 15:31:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E6512F6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 366412F88;
+	Thu, 27 Oct 2022 15:36:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 366412F88
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666877562;
-	bh=FpHfTeNGvyS4+Fei3Pvf0NDMN/6zJzLRJSx1xuGG81o=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666877852;
+	bh=fcD3i38tih/t450LyEv0RqQmZcGH/IRBhD3dzjW7Ntc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FnggYwfmrjcQqD2TEEjQY4CKYQ0wpWT0jXsW/ClYl14z7w5sFuYSvT6K4D6CTbu2J
-	 fvY4xaJ1XtSzon4RuMNAefFI05fjymm1xUdqv7Oq3Xk9KiHFXCjx4cdcI1H3RFj6QB
-	 iTrwzOMamXKj9v9Xvl6DqLm0Kc7AOWyXTz5PdZeU=
+	b=b4+ypWoMIQw4GRuDKjzCrrSP5bvhKi2tIt8hGaF7F4BVZ2vW/tSfHeNCLzwyFfTzp
+	 7twzKsIyuzKswd4YUOrONXgm8ODCTQtS5pTHwhxXCW8kVUnc4Si+fXqntMeVBcM8Jk
+	 Ko7tFPlur+qE1gGAa+LxznrYTvZ69qZAjGhCcBVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 643B8F80095;
-	Thu, 27 Oct 2022 15:31:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A573BF80095;
+	Thu, 27 Oct 2022 15:36:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6AF6F8025E; Thu, 27 Oct 2022 15:31:45 +0200 (CEST)
+ id 07B59F8025E; Thu, 27 Oct 2022 15:36:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A5F9F8016C
- for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 15:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A5F9F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3B08F8016C
+ for <alsa-devel@alsa-project.org>; Thu, 27 Oct 2022 15:36:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3B08F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TAn9Idc7"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="E+dpR0jw"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="p2dD10/n"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6FD8721ADC;
- Thu, 27 Oct 2022 13:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666877502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y0JP32zW/xK5/aQDeuJEoW5zFv2LMSLGpnPl8rg8GHY=;
- b=TAn9Idc7BigZ6txfZVlxQqKGK24rj3IcaGpcijjDU3Voi0UiAJ6Eopys6ZNe14+7fg3tKZ
- tAjtFcWqo3Rvnz/HMQ/uqpVgsRFyjqM+SrtuzeCi1bM8GmFFCBU4zfbBkGaDSDiYx/8MT3
- PcxRV8yUFgpaWVg0WDxxZuJcM1wtq6o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666877502;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y0JP32zW/xK5/aQDeuJEoW5zFv2LMSLGpnPl8rg8GHY=;
- b=E+dpR0jw1F0nZgijLN3W6LorKzJFN77uWdNbyXZ5n6Z76uY18Vi3POIvTs8e6XMhVXwriA
- pcqBGEl1UKbME2Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3854E134CA;
- Thu, 27 Oct 2022 13:31:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /oC8DD6IWmOGbgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 27 Oct 2022 13:31:42 +0000
-Date: Thu, 27 Oct 2022 15:31:41 +0200
-Message-ID: <87sfj9mlz6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v4 3/9] ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
-In-Reply-To: <20221027124702.1761002-4-cezary.rojewski@intel.com>
-References: <20221027124702.1761002-1-cezary.rojewski@intel.com>
- <20221027124702.1761002-4-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+ by ams.source.kernel.org (Postfix) with ESMTPS id D12B6B82562;
+ Thu, 27 Oct 2022 13:36:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5E3C433D7;
+ Thu, 27 Oct 2022 13:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666877791;
+ bh=fcD3i38tih/t450LyEv0RqQmZcGH/IRBhD3dzjW7Ntc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=p2dD10/n12DRMFyjak+v7jZXOk9zlkcHhT5zkKeAvSDmH4ZNifqdEJowSy4MfCt0R
+ +R+qYpZtqVX/LIswpRVepyUp3RNVGFAFuQhHljbBupOFwyludIvqvi6lJ0xnJ225r9
+ /zxrKcUw0JG/BX86NeaQ8R5yWoJnWQeHqvJZOQh274ijer8NDA6JIQuCw9qjb45v6p
+ LwUZ4zKsKZYf/F/YetfAkco8c+deTpKiXAkkxAwbw62CnTsTB0wy4LHfitNlaEluG/
+ GNa0oVV2sc16a/PKbNS0p7TyIPdmAYz1x39DPinXHpqX+pN2l9Sht/I00ngRReQySz
+ 0S7sXqIps/fEQ==
+Date: Thu, 27 Oct 2022 14:36:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/2] ASoC: Intel: sof_rt5682: quirk auto detection
+Message-ID: <Y1qJWDXishQ0pWkM@sirena.org.uk>
+References: <20221026071409.3235144-1-brent.lu@intel.com>
+ <20221026071409.3235144-3-brent.lu@intel.com>
+ <6916c126-c710-330a-ffcd-50dd3cdc47d3@linux.intel.com>
+ <CY5PR11MB6257D168A60B712088BC7CF797339@CY5PR11MB6257.namprd11.prod.outlook.com>
+ <bba5dc19-c0c4-2409-6cd2-c8fa91950444@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aSBYaSpkfMbKyRhv"
+Content-Disposition: inline
+In-Reply-To: <bba5dc19-c0c4-2409-6cd2-c8fa91950444@linux.intel.com>
+X-Cookie: Forgive and forget.
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, "Song,
+ Gongjun" <gongjun.song@intel.com>, "Gopal,
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Chiang,
+ Mac" <mac.chiang@intel.com>, "Wang, Rander" <rander.wang@intel.com>, "C,
+ Balamurugan" <balamurugan.c@intel.com>, Chao Song <chao.song@linux.intel.com>,
+ "Reddy, Muralidhar" <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Ajye Huang <ajye.huang@gmail.com>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "Lu, Brent" <brent.lu@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhi,
+ Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,24 +103,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 14:46:56 +0200,
-Cezary Rojewski wrote:
-> 
-> Allow for waiting for DRSM bit for specified stream to be cleared from
-> HDAudio library level. Drivers may utilize this optional step during the
-> stream resume procedure.
-> 
-> Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
-> 
-> Changes in v4:
-> - replaced readb_poll_timeout() with read_poll_timeout() for the DRSM
->   polling function as the register is u32 wide, not u8
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+--aSBYaSpkfMbKyRhv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Oct 26, 2022 at 08:30:00PM -0500, Pierre-Louis Bossart wrote:
+> On 10/26/22 19:13, Lu, Brent wrote:
 
-thanks,
+> > I'm thinking about using kernel module parameters for those boards which do not
+> > use default SSP port allocation. Not sure it's doable for machine driver module.
 
-Takashi
+> That's not a working solution IMHO, the kernel parameters should be used
+> by expert developers only for specific and short-term debug. It's not
+> possible to add a dependency on kernel parameters, that would prevent a
+> kernel update.
+
+Right, and it really doesn't work for distributions.
+
+--aSBYaSpkfMbKyRhv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNaiVcACgkQJNaLcl1U
+h9CpWAf9EuU66Nkj3rIR3UHKpodUXBtYkdKdRpjY+l4zDJeggtk6ReDLj3r8Ea/+
+JpKpstTYUlLNorsKoXY6E7N396S8hk+JVGJus+V4Xmea5OFBVQfTu41ueUTkDNBT
+r0d/QSs9l/UGm++YNyWOIgVoftSLfbFwsqqFPw0opUM3ImbB4CDft52x0Mm6StHQ
+riUAV2y+uXmzMK+oE+w8QyegxHttJXkjHcFcM0ok5iAoA7g7bezVVFEE1ndw/T1M
+1HxIMVnKbI4xGcaI6w33rguriufF4mATS0lao/vejizB7OUybHtW9gaQfA73xKDA
+IQMq7EDowX6yJuFM6BLon8N+QfLQaw==
+=spCX
+-----END PGP SIGNATURE-----
+
+--aSBYaSpkfMbKyRhv--

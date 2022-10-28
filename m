@@ -2,80 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BBD7611A4F
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 20:41:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 213D1611A65
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 20:45:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3723857;
-	Fri, 28 Oct 2022 20:41:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3723857
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0118857;
+	Fri, 28 Oct 2022 20:44:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0118857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666982518;
-	bh=J63xDN385WkYcttUjIeqnREI32txKyEasspmaUYdsLE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666982717;
+	bh=B3JwPgDF3f7ACG62Nwjw0J32bbbGD43RnJnEc3pRdBw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B+lQvlJmWFtyuNuTndXcIj7PKLcKz3ekAbMfx+soCbwXoC0ld/mYBVkXBXni0b7aT
-	 Zrrik4p6axePGTdPRKlX7X4cNvnRr1gKKNL07suQ2TWEHZ3bbkIBDA83o998GGpoDy
-	 oPoyV7ZsgQT7WsEgo0TumXUoUNXYpCHsAh7S3P24=
+	b=Hv9h2eAKWhg57Y6EcVbL1LrP949araTu33Ah7QhirwjNWuDZ4eEsa5wHZUx5usTQ1
+	 Nhw+HKcisfPxnvMthK2x7SGCZkA9Fc8QzJ7DWaNI2ggSqWhm4S6deqkQX/3ILmBZk9
+	 w5DtGHM2rOLT7tTuyvlixE17oTtF0x+tpbZmIQsk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A18AF800E1;
-	Fri, 28 Oct 2022 20:41:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0BAA8F804BD;
+	Fri, 28 Oct 2022 20:44:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7639F8025A; Fri, 28 Oct 2022 20:41:02 +0200 (CEST)
+ id 5E1B9F8025A; Fri, 28 Oct 2022 20:44:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D655F8016A
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 20:41:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D655F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 226E2F8016A
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 20:44:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 226E2F8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p3SAEcPx"
+ header.b="H7TzOea8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 576D3B82C75;
- Fri, 28 Oct 2022 18:40:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12E0C433B5;
- Fri, 28 Oct 2022 18:40:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1BCA7B82BAD;
+ Fri, 28 Oct 2022 18:44:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA66C433C1;
+ Fri, 28 Oct 2022 18:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666982458;
- bh=J63xDN385WkYcttUjIeqnREI32txKyEasspmaUYdsLE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=p3SAEcPxoYii2PMtDoxWHkXSmxMSQ42EndrIJ+V1qS7V3g+XgalhhtkRA8t+YUzN+
- zVp+7s8aX5Gm7Umru3MbNqmKEpwlPCJzumgA/KCVBuATMMoUoYk357IelsbXZm5ejc
- yhWAulR6D21cFOYk4sIPJJ2bXhbZXabilQeNsrCY3tGHzrLUB37ydCuoVl/2gtYHFo
- Ka0WSNpoQx2pK/EmlutLS2eu2jjhCPER0dl7VPuznOefX5h+DipU57BJ2JX7mNMxev
- ChrsfLJWz9W6xGe4XWBi/BLhxpRAsSyiHaUZh4/i1Z6R4rx+gXvwZ1DqpEqjxTp3Ft
- 2pfA2DUDXUNxQ==
+ s=k20201202; t=1666982656;
+ bh=B3JwPgDF3f7ACG62Nwjw0J32bbbGD43RnJnEc3pRdBw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=H7TzOea8j+chWb+NPhAXFXMuJIUbfoQGA5xIXvtR9de/3ZjdyeuVcSWkS6tDwYYY3
+ qRupdmLzuYflNbmmJPaOI21mmOkrem0z3Bw03MwWu+ZAFoYs0wluwuziFAfxw1m0pd
+ HD4ZanIHx5uA6xKdRrs3S2FKADSBE9aPvYVW3XGJ/qQJfNVraEZ0ODTClQkLxwkvQW
+ uszkcj86aDAjZgZdiqQY+MtT9GFSG26nl7eu/w6+0dc+sphAOsA05Z666nkZNzVLNd
+ xCP/5Moti05BLYAjVnaG5JYKbRQpc4Gsu5GRFZkMEFwHLfHx/+AGfS9eoc/r3KqnpL
+ ZdANUAnkZiTpQ==
+Date: Fri, 28 Oct 2022 19:44:10 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Fabio Estevam <festevam@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, 
- Maarten Zanders <maarten.zanders@mind.be>,
- Shengjiu Wang <shengjiu.wang@gmail.com>
-In-Reply-To: <20221028141129.100702-1-maarten.zanders@mind.be>
-References: <20221028141129.100702-1-maarten.zanders@mind.be>
-Subject: Re: [PATCH] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
-Message-Id: <166698245564.1295082.1282154196218067970.b4-ty@kernel.org>
-Date: Fri, 28 Oct 2022 19:40:55 +0100
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Subject: Re: [PATCH v2 1/2] ASoC: mediatek: dt-bindings: modify machine
+ bindings for two MICs case
+Message-ID: <Y1wi+g9yVR+++iIg@sirena.org.uk>
+References: <20221028172215.1471235-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028172215.1471235-2-ajye_huang@compal.corp-partner.google.com>
+ <628ac98c-0755-e6f6-e010-f1e772c4b71a@linaro.org>
+ <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="I1UEIiYQUOnwfuPx"
+Content-Disposition: inline
+In-Reply-To: <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
+X-Cookie: The time is right to make new friends.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?iso-8859-1?Q?N=EDcolas_F_=2E_R_=2E_A_=2E?= Prado <nfraprado@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,40 +99,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 28 Oct 2022 16:11:28 +0200, Maarten Zanders wrote:
-> When CONFIG_PM=N, pm_runtime_put_sync() returns -ENOSYS
-> which breaks the probe function of these drivers.
-> 
-> Other users of pm_runtime_put_sync() typically don't check
-> the return value. In order to keep the program flow as
-> intended, check for -ENOSYS.
-> 
-> [...]
 
-Applied to
+--I1UEIiYQUOnwfuPx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Sat, Oct 29, 2022 at 02:26:30AM +0800, Ajye Huang wrote:
+> On Sat, Oct 29, 2022 at 1:58 AM Krzysztof Kozlowski
 
-Thanks!
+> > Switching how? Enabling? What is the meaning of each GPIO pin value?
 
-[1/1] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
-      commit: 6a564338a23cefcfc29c4a535b98402d13efdda6
+> I think I should add more like an example,
+>   description: dmic-gpios optional prop for switching between two DMICs.
+>                     Ex, the GPIO can control a MUX HW component to
+>                     select dmic clk and data form a Front or Rear dmic.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Do you agree with that or have other suggestions? If do, I will send
+> the v3 patch for you to check, thanks
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+There was my thing about putting the names in DT too.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+--I1UEIiYQUOnwfuPx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Mark
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNcIvkACgkQJNaLcl1U
+h9Cpkgf/fVls3aPRMwD1mG2Hu2WQAUaJSm7fMJ++/Hu2yFAAiM+ywsOOetAk/VoZ
+A5aHmyM3TF/3vuWQ+WPMUsbB/EHGCpM6hAyc277lPmd16RIza/jFt9jah3yg0Zfq
+i5iEny8ZHHp0ADd0i9JCmKd9I2AFxcALnq8xKWWCZkJ9YNm/BkkXegfxx8mBa4DM
+f+cGJEHyVaoHCmB1qb4okE4ZK/JUEcrJmTaC7YmggqSwS5T7bzxjy2WmCUMKakst
+4cqXghPz6QglCvL4VEuFDJ4AMCKXhzDQJEJer17YeYZYnGE7Aw0w0ovTyTueQdKQ
+rOPijK+3ijD8mH2K/+WvelcMadIzmQ==
+=fA2V
+-----END PGP SIGNATURE-----
+
+--I1UEIiYQUOnwfuPx--

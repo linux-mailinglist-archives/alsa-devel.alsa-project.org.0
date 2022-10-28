@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7889611C44
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 23:13:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B88611E47
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 01:48:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61BCA86E;
-	Fri, 28 Oct 2022 23:12:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61BCA86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D3FB84B;
+	Sat, 29 Oct 2022 01:47:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D3FB84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666991613;
-	bh=jWH2LrnqWW5APGbbB92HHtgOVN1H5O4Iz1A6yQQbztQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667000881;
+	bh=hB5fE6S2HQ2dHPl7HVJSxxHZcSmMmavYRsA3XNFzfwM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QcxaF9y5FQIFOqan/B5voPRvqwEdduE6/1yr1iRRVdk9/wSQSie6hHH51w+q3DvsW
-	 kmk0LWL3A3cNOrK5KJSOX/bGgImnrvr4FZa1BzIFzVONenpyY52wCVZGnQNVmCbjq1
-	 Q0R95OjfvT9pZpKKA182dL6rgbJf9Ijpb33Hwls4=
+	b=KvozKaJV/JswALtX2eFuMy2n2tKN2bnqK/6GvxGteUlI1HhN7Da6g2jcslmnS82Ca
+	 xOy35uOdU3VfPOf+/izYLNuDoGGOxUxdvJ+Y8uYsVY+mYjANpROLE7Vf3QSE2rtv/i
+	 barsACpZrC56L3HS49idlf1EIRndl3YyvmeoX3GI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C26A0F804BD;
-	Fri, 28 Oct 2022 23:12:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 890DFF804BD;
+	Sat, 29 Oct 2022 01:47:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0278F8025A; Fri, 28 Oct 2022 23:12:37 +0200 (CEST)
+ id DE03FF8025A; Sat, 29 Oct 2022 01:47:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F41CF8016A
+ for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 01:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F41CF8016A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="c+IMnUh0"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B86A7F800E1
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 23:12:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B86A7F800E1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="AbnKzSlM"
-Received: from notapiano (zone.collabora.co.uk [167.235.23.81])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0A1AE660293A;
- Fri, 28 Oct 2022 22:12:28 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666991550;
- bh=jWH2LrnqWW5APGbbB92HHtgOVN1H5O4Iz1A6yQQbztQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AbnKzSlM5MhWsrz6HZMY8Of9YqK3wQcRMyA638IBdoUP3HWFgP9yCIZhlid6vpqBA
- p+h8CbHTHlhMVes6h6Dx1AIX74TPARgb33JHEShviB5Q8c9fqINOfLXtSjxPq5Lv4F
- h4fYIy2yAyuh/L+biqA//QjZ5XZLnIqLDSAEcnoK9N/piV7XkpOUDHqTL+efGF1/Re
- NaxIWugspY9CgiSeHYUtXEgKX0iygcpyHXtJjqYXgCx2qy84OpJ+2LjUfTr/2yR9Tt
- 6W6JvTWYME/id7nqtpHyZjqjunk4A9PrvXEp1l9SjcHMXNGTQfm//K4TwSY9uFwXqa
- q3LMVGZ0fE8qw==
-Date: Fri, 28 Oct 2022 17:12:24 -0400
-From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH v2 2/4] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and
- MICVDD supplies
-Message-ID: <20221028211224.iiphmwrpqqs27jr4@notapiano>
-References: <20221024220015.1759428-1-nfraprado@collabora.com>
- <20221024220015.1759428-3-nfraprado@collabora.com>
- <dcf284c6-dee5-d726-7f8f-c4ff1be99ddb@collabora.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 33E9962AE5;
+ Fri, 28 Oct 2022 23:47:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16871C433D6;
+ Fri, 28 Oct 2022 23:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667000819;
+ bh=hB5fE6S2HQ2dHPl7HVJSxxHZcSmMmavYRsA3XNFzfwM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=c+IMnUh0cw/5I9OwpiVH/87RYGhRzQcEY3LqtjiL4TOTD/mWeymZWRyBuQhoFftq4
+ SjAHCsDgyk0WIlHpVUZ4nvg44DzjbYR7iRq/t+1oNpSyDbD104TZ3O1HLnEJ2fAGC1
+ +Sj3j/EbDe/kJLer2o+/9kfm9BvS9V8yuCScICsdAWBac9MgrfzjHbXqnvuLs9sbVJ
+ OdZhjO0oMDHvnOhqrS+HFTFD+yONBWYSSSkYRRhOHPr/xY0hXLmOAG7kznEuNmWj6k
+ O0jDOMiNfIreJW3/wo7WTSlRliOUEGYknlJvHW5xZx9yezMPuyNoY5jYk0BFCRfn4o
+ w7szPXFkQdumg==
+Message-ID: <d5bb33db-5c26-fbfa-0d12-46ca41d80785@kernel.org>
+Date: Fri, 28 Oct 2022 19:46:56 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 10/12] dt-bindings: mediatek: mt8188: add audio afe
+ document
+Content-Language: en-US
+To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
+ "robh@kernel.org" <robh@kernel.org>
+References: <20220930145701.18790-1-trevor.wu@mediatek.com>
+ <20220930145701.18790-11-trevor.wu@mediatek.com>
+ <166457526101.1112313.13428811477972046652.robh@kernel.org>
+ <ac5d872ac8dfa40bd5238589f85d78ad6ba6d706.camel@mediatek.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <ac5d872ac8dfa40bd5238589f85d78ad6ba6d706.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <dcf284c6-dee5-d726-7f8f-c4ff1be99ddb@collabora.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Derek Fang <derek.fang@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,160 +99,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 25, 2022 at 12:06:23PM +0200, AngeloGioacchino Del Regno wrote:
-> Il 25/10/22 00:00, Nícolas F. R. A. Prado ha scritto:
-> > The rt5682s codec can have two supplies: AVDD and MICVDD. They are
-> > already used by sc7180-trogdor-kingoftown.dtsi, so document them in the
-> > binding.
-> > 
-> > Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> > 
+On 04/10/2022 23:57, Trevor Wu (å³æ–‡è‰¯) wrote:
+>> date:
+>>
+>> pip3 install dtschema --upgrade
+>>
+>> Please check and re-submit.
+>>
 > 
-> I also don't like these uppercase supply names... I wonder if it's worth changing
-> the driver to get "avdd" *or* "AVDD" (so, if "avdd" fails -> backwards compat)...
-> 
-> ...this way, we can change the devicetree to use the lowercase names without
-> breaking abi.
-> 
-> Of course, this commit would need to be changed to document only the lowercase
-> supply names.
-> 
-> Driver-wise, we have a rt5682s_supply_names array... we could do something like:
-> 
-> static const char *rt5682s_supply_names_legacy[RT5682S_NUM_SUPPLIES] = {
-> 	[RT5682S_SUPPLY_AVDD] = "AVDD",
-> 	[RT5682S_SUPPLY_MICVDD] = "MICVDD",
-> };
-> 
-> static const char *rt5682s_supply_names[RT5682S_NUM_SUPPLIES] = {
-> 	[RT5682S_SUPPLY_AVDD] = "avdd",
-> 	[RT5682S_SUPPLY_MICVDD] = "micvdd",
-> };
-> 
-> for (...) assign_supply_names;
-> ret = devm_regulator_bulk_get(...);
-> 
-> if (ret) {
-> 	for (...) assign_legacy_supply_names;
-> 	ret = devm_regulator_bulk_get(...)
-> 	if (ret)
-> 		return ret;
-> }
-> 
-> What do you think?
+> After upgrading dtschema, I can see the problem.
+> I will correct it in V2.
 
-Hi,
-
-I took a stab at this, but the resulting code wasn't as elegant. The default
-behavior of the regulator core when a regulator is missing is to just print
-a warning and give a dummy regulator in its place. A way around this is the
-"optional" variant, but it doesn't have a bulk version (in fact seems like it
-was added and then removed a few years back, but I haven't dug out the reason).
-
-So the result was a code block that wasn't nearly as neat as your draft above
-and it didn't seem worth it to add this complexity just to gain the usage of
-lowercase properties, which is why in the end I decided to not include this in
-the series I just sent [1]. 
-
-I've included the patch below. If you do think there's a more reasonable
-approach or if having the lowercase supplies is worth it, let me know.
-
-Thanks,
-Nícolas
-
-[1] https://lore.kernel.org/all/20221028205540.3197304-1-nfraprado@collabora.com
+Correct also cc list.
 
 
-From 8de4a86f10ba2e13458afe63fe658df685b21b45 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-Date: Thu, 27 Oct 2022 16:10:22 -0400
-Subject: [PATCH] ASoC: rt5682s: Handle lowercase supply name and fallback if
- needed
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Best regards,
+Krzysztof
 
-Supply names provided by devicetree are conventionally lowercase. In
-order to be able to use lowercase names without breaking existing
-setups, detect if any of the older names are used and if so fallback to
-them.
-
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
----
- sound/soc/codecs/rt5682s.c | 40 ++++++++++++++++++++++++++++++--------
- 1 file changed, 32 insertions(+), 8 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
-index 466a37f3500c..3cefa016be77 100644
---- a/sound/soc/codecs/rt5682s.c
-+++ b/sound/soc/codecs/rt5682s.c
-@@ -41,11 +41,16 @@ static const struct rt5682s_platform_data i2s_default_platform_data = {
- 	.dai_clk_names[RT5682S_DAI_BCLK_IDX] = "rt5682-dai-bclk",
- };
-
--static const char *rt5682s_supply_names[RT5682S_NUM_SUPPLIES] = {
-+static const char *rt5682s_legacy_supply_names[RT5682S_NUM_SUPPLIES] = {
- 	[RT5682S_SUPPLY_AVDD] = "AVDD",
- 	[RT5682S_SUPPLY_MICVDD] = "MICVDD",
- };
-
-+static const char *rt5682s_supply_names[RT5682S_NUM_SUPPLIES] = {
-+	[RT5682S_SUPPLY_AVDD] = "avdd",
-+	[RT5682S_SUPPLY_MICVDD] = "micvdd",
-+};
-+
- static const struct reg_sequence patch_list[] = {
- 	{RT5682S_I2C_CTRL,			0x0007},
- 	{RT5682S_DIG_IN_CTRL_1,			0x0000},
-@@ -3090,7 +3095,9 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c)
- 	struct rt5682s_platform_data *pdata = dev_get_platdata(&i2c->dev);
- 	struct rt5682s_priv *rt5682s;
- 	int i, ret;
-+	struct regulator *reg;
- 	unsigned int val;
-+	bool using_legacy_supply_names = false;
-
- 	rt5682s = devm_kzalloc(&i2c->dev, sizeof(struct rt5682s_priv), GFP_KERNEL);
- 	if (!rt5682s)
-@@ -3112,14 +3119,31 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c)
- 		return ret;
- 	}
-
--	for (i = 0; i < ARRAY_SIZE(rt5682s->supplies); i++)
--		rt5682s->supplies[i].supply = rt5682s_supply_names[i];
-+	for (i = 0; i < ARRAY_SIZE(rt5682s_supply_names); i++) {
-+		reg = devm_regulator_get_optional(&i2c->dev, rt5682s_supply_names[i]);
-+		if (IS_ERR(reg)) {
-+			if (PTR_ERR(reg) == -ENODEV) {
-+				using_legacy_supply_names = true;
-+				break;
-+			} else {
-+				dev_err(&i2c->dev, "Failed to request supplies: %d\n", ret);
-+				return PTR_ERR(reg);
-+			}
-+		}
-
--	ret = devm_regulator_bulk_get(&i2c->dev,
--			ARRAY_SIZE(rt5682s->supplies), rt5682s->supplies);
--	if (ret) {
--		dev_err(&i2c->dev, "Failed to request supplies: %d\n", ret);
--		return ret;
-+		rt5682s->supplies[i].consumer = reg;
-+	}
-+
-+	if (using_legacy_supply_names) {
-+		for (i = 0; i < ARRAY_SIZE(rt5682s->supplies); i++)
-+			rt5682s->supplies[i].supply = rt5682s_legacy_supply_names[i];
-+
-+		ret = devm_regulator_bulk_get(&i2c->dev, ARRAY_SIZE(rt5682s->supplies),
-+					      rt5682s->supplies);
-+		if (ret) {
-+			dev_err(&i2c->dev, "Failed to request supplies: %d\n", ret);
-+			return ret;
-+		}
- 	}
-
- 	ret = devm_add_action_or_reset(&i2c->dev, rt5682s_i2c_disable_regulators, rt5682s);
---
-2.38.1

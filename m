@@ -2,99 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8EDF6130B2
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:49:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806596130B5
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:49:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43D761672;
-	Mon, 31 Oct 2022 07:48:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43D761672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16F6B1657;
+	Mon, 31 Oct 2022 07:48:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16F6B1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667198944;
-	bh=g/ixEMSnORQnWkGRAB1uubyQ1s+GPqojKJiBg1X1pPw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WNwckMKC8CZR4INcLy7KDA3iwaGhFR0Bma1jvd6LNhxtF69lVk6otwz1vWDms8c0T
-	 A9Q6u1iw6+hhyyvE7aPQ4Ynf4SidHHukHPL631avYNHcURiJRAui+xGnrMdBuZIyfe
-	 8ENsPUFrOVmcIG1FRF2nOS+F/3AvsysCgNIWZyRo=
+	s=default; t=1667198963;
+	bh=OWqViSeibQeV8JEHBSuff0mFq/DQl6vlpe42WZ31Ke8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qD5zblPnwcgwdKPSzYkiJjGhVAYTxXeqw3EyjY3uYjbW5CEwlow+fTqzat7Ii8bMD
+	 jwjGZosFQljzMPcjxH2SQyRi0AysMnwr+UZFaQdbUf4+HNky98GOYlLJLTW7zi8KDC
+	 iUleT1jLFubo05wUnc9T3BhfxKCE8qCkIxAIsBqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 578C1F80587;
+	by alsa1.perex.cz (Postfix) with ESMTP id EF44CF805A8;
 	Mon, 31 Oct 2022 07:45:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E566BF8025A; Fri, 28 Oct 2022 19:34:28 +0200 (CEST)
+ id 976EEF8025A; Fri, 28 Oct 2022 21:14:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99076F80095
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 19:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99076F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75E0BF8016A
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 21:13:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75E0BF8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be
- header.b="Scyhmj02"
-Received: by mail-ej1-x62a.google.com with SMTP id t25so14589035ejb.8
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 10:34:22 -0700 (PDT)
+ header.b="iB/0wWsj"
+Received: by mail-ej1-x635.google.com with SMTP id fy4so15175433ejc.5
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 12:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mind.be; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HXgFQ2AiirDn7ylvDdK02G7QYybBypCEVhzqiAXGlxg=;
- b=Scyhmj02CKM5yxBdbaYtrAYm1fwrxtc4tLIwSA/sRtHag12CtQy2AjaU2237oxsWZZ
- lop/DZe74+wPugi3WBwjHcSgWRIREq0aoa4BTgpCdh3eHEuFzCY4/zGdiV6W8Z5AbIRM
- QEAqkNt2Xj5VweRGQyCNodWQ2cr69+tVh7giqmXV+LKeahpntt6CD8KkTPWShlb1sbP3
- XpDdj7ZUkpc8KQggPzg9gv0H8NBq3KnP6z6toMt5HXEPZNtVK1fw1qTPWBE2X5srE+Bs
- vmJMbhn5+FgUDKrMLXZASwoAkXQGud+D3HMBxb0SUqHgIPpo2kG8HOUSGpdrOzXVjxxK
- h0cQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pbLU8G2nPUHM4Aab1zDWh7+8gBmTVjh77cKTi8zqoN8=;
+ b=iB/0wWsjCnaggGgC/IT/FEvhnyhXnoD47LxIjJOB1HtLYBtTNgbRYrnvcSTVG659yR
+ 40c7ER61HF7eRuVIKqMstbMzUP1iSh6aCvp8Zx5ZfU0yyyF/98c0SncHaxIicILYnrk7
+ gvkB4yXgIU9D7CD1UXfOMGShMGPIVvYTqkU+DcBYvHNsmrtoF3ez4Y23JDYiM13TE6t2
+ +vAqNaUITbL9z+EnwnMt7D0c0Ve5r1rz/s1xwOYgC8zYcWK28vJ1mS/5FA4tZEMMG7O3
+ 6HwR512UXMTC0Af8L1CCXU2KyeAYDXds3FazhwL/Q4ZdSbWCnU7jhm01GuN42O0RYCL1
+ 2GPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HXgFQ2AiirDn7ylvDdK02G7QYybBypCEVhzqiAXGlxg=;
- b=W1nlxFVOamKVTUrzBfCldB8nu6fi6vmcfLIdHOhvFumkOAMTxg+RzU6pAnlVWwvrhN
- d7i0lzLjuUR7iIwLtO4B751CnmcJwHJvzKj67lpNgZmVr2x4r5KaURftjoezH36GV7Hj
- B4hUq1FqzUWiexrJXzSLifEB+bCMM0V2b/GDFhVpQOHGefjnvaaPWFw4VoU0BkRon9vS
- 36lnx6TVxxfwotCuLyiwsw3NwFf+EWC8L8REpFPPmEuEiYwOveuKzAXkCx/kZVqCzBP2
- QZiNy1f1FFk7Qt9PXQRDPZTulKqm3u1s12prAVX8Nz4vXpMNwwEfaP5xntDJHSUg37s4
- vhkA==
-X-Gm-Message-State: ACrzQf1mGF5WFU/BhyxyUWkHUOwtbd6/6ukT7U4MLnVXERwHzj4VRgtS
- KvJJ2Lj0A8PvablV2rdkCunPlQ==
-X-Google-Smtp-Source: AMsMyM43tumq4AVpXyo00mGeFeYdaSFpUgltayHAirnrZ1oFPURcmdLfFC4Anm4hdUD30bsqCUmHfQ==
-X-Received: by 2002:a17:907:3da2:b0:78d:3b45:11d9 with SMTP id
- he34-20020a1709073da200b0078d3b4511d9mr407191ejc.87.1666978460491; 
- Fri, 28 Oct 2022 10:34:20 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pbLU8G2nPUHM4Aab1zDWh7+8gBmTVjh77cKTi8zqoN8=;
+ b=OQsIs9PfNhQMVhv11pLDduwazXiy6V8T/+UxZUShsb0MQqfuaN/02Yys6XvVQSv8oR
+ /nrt6yGLnJdleHfSKEQ35MHuKhnMpA6sL6P4nCibv7mtNni/Qfw7K+qpIYkv/Jp4vo28
+ 47+4hLy2TGPrVDGrN7xaLg9chjSFMzIu7ix9gFKcYyQFjEtux1yk+mdZUc/5Rw82GhkT
+ vWvVUjseD1IggKIpLOfVjbh6P/5sccMRyIYij6EcOViqTLibM38yEVrWpaYR1BqI/zKK
+ p2gUQQl12aYIrlOk5kd/1FnnFHR5cOZc1D2SvnxJLACplWm/c+jbWRd0Ky9z2DdxeH1v
+ RCeQ==
+X-Gm-Message-State: ACrzQf1qiAHFAAJoW3xtYdYriqbu1h1v4Hr0LRxDJB4NG2MEHKmxHOto
+ 1VBWxPJI1f6LhzHBK9q37Y8weg==
+X-Google-Smtp-Source: AMsMyM5uCxbSrhg0tSnHUKHalAicTtK/sVJNhz5Eofzc65Oicx6YsX2ct3ebblLWKywVW+0w+4Vufg==
+X-Received: by 2002:a17:906:d550:b0:7ad:a0df:d4c1 with SMTP id
+ cr16-20020a170906d55000b007ada0dfd4c1mr780615ejc.210.1666984434295; 
+ Fri, 28 Oct 2022 12:13:54 -0700 (PDT)
 Received: from dtpc.zanders.be (78-22-137-109.access.telenet.be.
  [78.22.137.109]) by smtp.gmail.com with ESMTPSA id
- v8-20020a170906b00800b0078dce9984afsm2388868ejy.220.2022.10.28.10.34.19
+ hr25-20020a1709073f9900b007aacfce2a91sm2568922ejc.27.2022.10.28.12.13.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 10:34:20 -0700 (PDT)
+ Fri, 28 Oct 2022 12:13:53 -0700 (PDT)
 From: Maarten Zanders <maarten.zanders@mind.be>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
-Date: Fri, 28 Oct 2022 19:34:04 +0200
-Message-Id: <20221028173405.155264-1-maarten.zanders@mind.be>
+Subject: [PATCH] ASoC: simple-mux: add read function
+Date: Fri, 28 Oct 2022 21:13:01 +0200
+Message-Id: <20221028191303.166115-1-maarten.zanders@mind.be>
 X-Mailer: git-send-email 2.37.3
-In-Reply-To: <Y1v68WuDck1oaVmk@sirena.org.uk>
-References: <Y1v68WuDck1oaVmk@sirena.org.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Oct 2022 07:45:34 +0100
-Cc: linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
- Maarten Zanders <maarten.zanders@mind.be>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org
+Cc: alexandre.belloni@bootlin.com, Maarten Zanders <maarten.zanders@mind.be>,
+ alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,68 +105,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When CONFIG_PM=N, pm_runtime_put_sync() returns -ENOSYS
-which breaks the probe function of these drivers.
+During initialisation DAPM tries to read the state of the MUX
+being connected, resulting in this error log:
+input-mux: ASoC: error at soc_component_read_no_lock on input-mux: -5
 
-Other users of pm_runtime_put_sync() typically don't check
-the return value. In order to keep the program flow as
-intended, check for -ENOSYS.
-
-This commit is similar to
-commit 0434d3f4525a ("mailbox/omap: Handle if CONFIG_PM is disabled")
-
-This commit fixes
-commit cab04ab5900f ("ASoC: fsl_asrc: Don't use devm_regmap_init_mmio_clk")
-commit 203773e39347 ("ASoC: fsl_esai: Don't use devm_regmap_init_mmio_clk")
-commit 2277e7e36b4b ("ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk")
+Provide a read function which allows DAPM to read the state of the
+MUX.
 
 Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 2 +-
- sound/soc/fsl/fsl_esai.c | 2 +-
- sound/soc/fsl/fsl_sai.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/codecs/simple-mux.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 936aef5d2767..e16e7b3fa96c 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -1232,7 +1232,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/codecs/simple-mux.c b/sound/soc/codecs/simple-mux.c
+index d30c0d24d90a..bf67de12d20b 100644
+--- a/sound/soc/codecs/simple-mux.c
++++ b/sound/soc/codecs/simple-mux.c
+@@ -55,6 +55,14 @@ static int simple_mux_control_put(struct snd_kcontrol *kcontrol,
+ 					     e, NULL);
+ }
  
- 	ret = pm_runtime_put_sync(&pdev->dev);
--	if (ret < 0)
-+	if (ret < 0 && ret != -ENOSYS)
- 		goto err_pm_get_sync;
++static unsigned int simple_mux_read(struct snd_soc_component *component,
++				    unsigned int reg)
++{
++	struct simple_mux *priv = snd_soc_component_get_drvdata(component);
++
++	return priv->mux;
++}
++
+ static const struct snd_kcontrol_new simple_mux_mux =
+ 	SOC_DAPM_ENUM_EXT("Muxer", simple_mux_enum, simple_mux_control_get, simple_mux_control_put);
  
- 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 5c21fc490fce..17fefd27ec90 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -1069,7 +1069,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 	regmap_write(esai_priv->regmap, REG_ESAI_RSMB, 0);
+@@ -76,6 +84,7 @@ static const struct snd_soc_component_driver simple_mux_component_driver = {
+ 	.num_dapm_widgets	= ARRAY_SIZE(simple_mux_dapm_widgets),
+ 	.dapm_routes		= simple_mux_dapm_routes,
+ 	.num_dapm_routes	= ARRAY_SIZE(simple_mux_dapm_routes),
++	.read			= simple_mux_read,
+ };
  
- 	ret = pm_runtime_put_sync(&pdev->dev);
--	if (ret < 0)
-+	if (ret < 0 && ret != -ENOSYS)
- 		goto err_pm_get_sync;
- 
- 	/*
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 81f89f6767a2..e60c7b344562 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -1446,7 +1446,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = pm_runtime_put_sync(dev);
--	if (ret < 0)
-+	if (ret < 0 && ret != -ENOSYS)
- 		goto err_pm_get_sync;
- 
- 	/*
+ static int simple_mux_probe(struct platform_device *pdev)
 -- 
 2.37.3
 

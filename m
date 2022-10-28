@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C3D6130AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:48:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8EDF6130B2
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:49:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0197163E;
-	Mon, 31 Oct 2022 07:47:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0197163E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43D761672;
+	Mon, 31 Oct 2022 07:48:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43D761672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667198926;
-	bh=eDfnVQbGCSxNEvV83PSX2uPG9JaJdFyA/NO1U0dAUnc=;
+	s=default; t=1667198944;
+	bh=g/ixEMSnORQnWkGRAB1uubyQ1s+GPqojKJiBg1X1pPw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lIFBK/yJ4VaOpaJ+PNq+4Hum2rGuwN681DJWLLtXUV4+PmNi3Rmxbho/ik9LGI+SJ
-	 ZuM1MU1JgFPYlseJ8SjTOu1xp9xg+OH8/+WXhwFfsOfDVLHVY8PFim4LZMoikhHHjB
-	 NciBSaNHGN8CNbN6m77R7hoMe39tcPVuk8rBjsRE=
+	b=WNwckMKC8CZR4INcLy7KDA3iwaGhFR0Bma1jvd6LNhxtF69lVk6otwz1vWDms8c0T
+	 A9Q6u1iw6+hhyyvE7aPQ4Ynf4SidHHukHPL631avYNHcURiJRAui+xGnrMdBuZIyfe
+	 8ENsPUFrOVmcIG1FRF2nOS+F/3AvsysCgNIWZyRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1E86F80580;
-	Mon, 31 Oct 2022 07:45:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 578C1F80587;
+	Mon, 31 Oct 2022 07:45:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81541F8024C; Fri, 28 Oct 2022 17:46:12 +0200 (CEST)
+ id E566BF8025A; Fri, 28 Oct 2022 19:34:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 575AFF80095
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 17:46:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 575AFF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99076F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 19:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99076F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be
- header.b="b7KpZsfq"
-Received: by mail-ed1-x52a.google.com with SMTP id f7so2774799edc.6
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 08:46:06 -0700 (PDT)
+ header.b="Scyhmj02"
+Received: by mail-ej1-x62a.google.com with SMTP id t25so14589035ejb.8
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 10:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mind.be; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K9dtDrkTtJDWiY55QD7A/AEXd7H01h6LFKl1oWBL6fQ=;
- b=b7KpZsfqzkutWlZGik4MAB1Tx6dfC3eHgxL5t+NdtcgaRf3bRJlJmpysb/wWaxN3uV
- O4fiJWluRqxiZGZkVAeZN95K960I3FdolJKeE6hrTrREE/C1FWpCylkLwjAnL5eUy+Rm
- cu51JQj0wsZSQz5IhNg22FlJln2wsMmaUqJKXyZgyiT7jIAh3EIEaNMUYx/fm5yK+XhH
- qD/NUodEX9yxxkKKY+s/cVr6feGYrVfzuhvT0g/lDAEJHkiXqqcIgeoa64GshzeL6c+O
- V4FxWupBqrgnm9yejdqyzW6K9Cv139uVN5D5WJNQUFm+9eWR162wnk8PPJ7a6LMlE8B6
- gDkg==
+ bh=HXgFQ2AiirDn7ylvDdK02G7QYybBypCEVhzqiAXGlxg=;
+ b=Scyhmj02CKM5yxBdbaYtrAYm1fwrxtc4tLIwSA/sRtHag12CtQy2AjaU2237oxsWZZ
+ lop/DZe74+wPugi3WBwjHcSgWRIREq0aoa4BTgpCdh3eHEuFzCY4/zGdiV6W8Z5AbIRM
+ QEAqkNt2Xj5VweRGQyCNodWQ2cr69+tVh7giqmXV+LKeahpntt6CD8KkTPWShlb1sbP3
+ XpDdj7ZUkpc8KQggPzg9gv0H8NBq3KnP6z6toMt5HXEPZNtVK1fw1qTPWBE2X5srE+Bs
+ vmJMbhn5+FgUDKrMLXZASwoAkXQGud+D3HMBxb0SUqHgIPpo2kG8HOUSGpdrOzXVjxxK
+ h0cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=K9dtDrkTtJDWiY55QD7A/AEXd7H01h6LFKl1oWBL6fQ=;
- b=ssfS5Z1VfthVWuzkjkqJbnkX+umlUUrT6q1Ciw0JQmdABeJZf1zNwFG5xRE995reil
- zWRptYOnvIiM7IX7zIjK0O6L7LmoQO50F8lSVF39RrhgXCVzXc7eFkANz8xYnUX59hvw
- 81jn3MxlIvpf7aLFjYvuz5NghNizAEi86IUuMt7Y0uzvqG1PPGBq9roJFn3906/G0iJy
- Gt9CQLiChj5blClyUJ7NedqrcNan/9IrvAJy1W3cZDazm3WbZkR77WPgTC/Vv2Cuwd0h
- +/s5hDX966TqXJgCR/FH1GwGQw9/lVb7XMADPsXyVIffMTF+bF1Vr1aBpYVOW3wg/2Po
- ia0w==
-X-Gm-Message-State: ACrzQf2OJwLozE1f12XZcQlgtTlVegMkCbhmbAs2JVZ+7QLxmSjArTgP
- mwOGMxM14P8DkDqx4msllxj2Yd0WUJkQRScgznQ=
-X-Google-Smtp-Source: AMsMyM5dyCd1eEohQv62c02F5R5xcIrjosFu9rz+3oYRdB87GVstKjFzAVec4TcpCWzH0Wqqpc7mRg==
-X-Received: by 2002:a50:eb05:0:b0:457:c6f5:5f65 with SMTP id
- y5-20020a50eb05000000b00457c6f55f65mr26705edp.311.1666971964506; 
- Fri, 28 Oct 2022 08:46:04 -0700 (PDT)
+ bh=HXgFQ2AiirDn7ylvDdK02G7QYybBypCEVhzqiAXGlxg=;
+ b=W1nlxFVOamKVTUrzBfCldB8nu6fi6vmcfLIdHOhvFumkOAMTxg+RzU6pAnlVWwvrhN
+ d7i0lzLjuUR7iIwLtO4B751CnmcJwHJvzKj67lpNgZmVr2x4r5KaURftjoezH36GV7Hj
+ B4hUq1FqzUWiexrJXzSLifEB+bCMM0V2b/GDFhVpQOHGefjnvaaPWFw4VoU0BkRon9vS
+ 36lnx6TVxxfwotCuLyiwsw3NwFf+EWC8L8REpFPPmEuEiYwOveuKzAXkCx/kZVqCzBP2
+ QZiNy1f1FFk7Qt9PXQRDPZTulKqm3u1s12prAVX8Nz4vXpMNwwEfaP5xntDJHSUg37s4
+ vhkA==
+X-Gm-Message-State: ACrzQf1mGF5WFU/BhyxyUWkHUOwtbd6/6ukT7U4MLnVXERwHzj4VRgtS
+ KvJJ2Lj0A8PvablV2rdkCunPlQ==
+X-Google-Smtp-Source: AMsMyM43tumq4AVpXyo00mGeFeYdaSFpUgltayHAirnrZ1oFPURcmdLfFC4Anm4hdUD30bsqCUmHfQ==
+X-Received: by 2002:a17:907:3da2:b0:78d:3b45:11d9 with SMTP id
+ he34-20020a1709073da200b0078d3b4511d9mr407191ejc.87.1666978460491; 
+ Fri, 28 Oct 2022 10:34:20 -0700 (PDT)
 Received: from dtpc.zanders.be (78-22-137-109.access.telenet.be.
  [78.22.137.109]) by smtp.gmail.com with ESMTPSA id
- 18-20020a170906309200b007a23fe14442sm2329092ejv.195.2022.10.28.08.46.03
+ v8-20020a170906b00800b0078dce9984afsm2388868ejy.220.2022.10.28.10.34.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 08:46:04 -0700 (PDT)
+ Fri, 28 Oct 2022 10:34:20 -0700 (PDT)
 From: Maarten Zanders <maarten.zanders@mind.be>
 To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
  Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
-Date: Fri, 28 Oct 2022 17:45:34 +0200
-Message-Id: <20221028154534.112175-1-maarten.zanders@mind.be>
+Subject: [PATCH v3] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
+Date: Fri, 28 Oct 2022 19:34:04 +0200
+Message-Id: <20221028173405.155264-1-maarten.zanders@mind.be>
 X-Mailer: git-send-email 2.37.3
-In-Reply-To: <Y1vyMQ8Jj7/smeC6@sirena.org.uk>
-References: <Y1vyMQ8Jj7/smeC6@sirena.org.uk>
+In-Reply-To: <Y1v68WuDck1oaVmk@sirena.org.uk>
+References: <Y1v68WuDck1oaVmk@sirena.org.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Oct 2022 07:45:34 +0100
-Cc: alsa-devel@alsa-project.org, Maarten Zanders <maarten.zanders@mind.be>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
+ Maarten Zanders <maarten.zanders@mind.be>,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,6 +126,7 @@ commit 203773e39347 ("ASoC: fsl_esai: Don't use devm_regmap_init_mmio_clk")
 commit 2277e7e36b4b ("ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk")
 
 Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
  sound/soc/fsl/fsl_asrc.c | 2 +-
  sound/soc/fsl/fsl_esai.c | 2 +-

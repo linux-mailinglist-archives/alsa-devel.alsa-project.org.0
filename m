@@ -2,61 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CDFA610B3F
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 09:25:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B9E8610BA1
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 09:52:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E0A8294C;
-	Fri, 28 Oct 2022 09:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E0A8294C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 336AF1DF8;
+	Fri, 28 Oct 2022 09:51:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 336AF1DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666941924;
-	bh=s40/VRZf1sqTKCy0bCV/OILY0tFv8UO63e6HVVrChQE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NFs8Nau14Ye16vLVzj+uVOlTIv6NKlClKJ1IrGbnh3KBdKxv1wxxBkSo36HC1r7e4
-	 X6HbgzOfi8fHyLoph/P98khfEc72PHrjD4UfqRCzQozWKakgG1nBP8RzzSjnXQl7Z3
-	 iG8gGsi/TkH5TDscCZeBlVZz12RaF7a+0Pv87+qw=
+	s=default; t=1666943544;
+	bh=g2HOXlcq27dS+5p/kOiiT1CUlxfHDFPpGhG01ABLbaY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nZAPH1Pi9ehckib7qwpwKBQuckVY//wUN64q5aps4NLBu0ee9/2NpmdOzR6f09dsI
+	 9VBtboiI/l7Hjh9daY9PXv3eeJ9eerm7iNrZ3rTfCyIhMwQ6m6YXnSXYEhJcvB1t/q
+	 QexBa4ebCmCtc79orMEWUjKqAbKvnKJxpVS0vhFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF999F804BD;
-	Fri, 28 Oct 2022 09:24:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90AEEF80095;
+	Fri, 28 Oct 2022 09:51:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94DE8F8025A; Fri, 28 Oct 2022 09:24:27 +0200 (CEST)
+ id AFFF6F80095; Fri, 28 Oct 2022 09:51:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from mailrelay1-1.pub.mailoutpod1-cph3.one.com
+ (mailrelay1-1.pub.mailoutpod1-cph3.one.com [46.30.210.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F97BF80095
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 09:24:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F97BF80095
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D39791A0CE8;
- Fri, 28 Oct 2022 09:24:20 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 6B4841A0CDE;
- Fri, 28 Oct 2022 09:24:20 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E1F83183486A;
- Fri, 28 Oct 2022 15:24:18 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: fsl_xcvr: Add Counter registers
-Date: Fri, 28 Oct 2022 15:03:47 +0800
-Message-Id: <1666940627-7611-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB7B2F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 09:51:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB7B2F80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=berginkonsult.se header.i=@berginkonsult.se
+ header.b="b1rslmFI"; 
+ dkim=permerror (0-bit key) header.d=berginkonsult.se
+ header.i=@berginkonsult.se header.b="bxjeMmv9"
+Received: from mailrelay2.pub.mailoutpod2-cph3.one.com
+ (mailrelay2.pub.mailoutpod2-cph3.one.com [104.37.34.7])
+ by mailrelay1.pub.mailoutpod1-cph3.one.com (Halon) with ESMTPS
+ id 5007214d-5695-11ed-a6d5-d0431ea8a283;
+ Fri, 28 Oct 2022 07:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=rsa1;
+ h=content-transfer-encoding:mime-version:references:in-reply-to:message-id:date:
+ subject:cc:to:from:from;
+ bh=JJ6RTURksiY/7wtii2ETOjZWEd74cAxGjOUvplYXsgw=;
+ b=b1rslmFILNBtyqhDkzhUEO+JWuEHukVMm77cTKP+J2a1QvaOlMr6jGM0pRvWdkXEAgI/aBoHOb3vC
+ 1Ej5SaTMREFCRZAzeaH0VpBGfnblnsc//N29ZFN4Y6R0WW0YNf1M6PFLLWnbZ5RXJojtcX+KBckOtT
+ BiTQ7tbb5yWXUNIsNIfS8TRH0qRVVZVopCZjZFNP9LV2t9DWkKMEEU8x5fbAQ/nliwxGxWZUQG1s75
+ q0azxWCcyzDtzhaTr/SORgjAyK6WYCCS6FuTvhxu4p5HlP2uunl/6rQZaXEFUE7W5mENhyKRNjt9xd
+ DsaqGSjQbi9/OVYZyamxGkya4FJIg/g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=berginkonsult.se; s=ed1;
+ h=content-transfer-encoding:mime-version:references:in-reply-to:message-id:date:
+ subject:cc:to:from:from;
+ bh=JJ6RTURksiY/7wtii2ETOjZWEd74cAxGjOUvplYXsgw=;
+ b=bxjeMmv9KkfHQ+q8/VzHWFSOT11QI2qNpyIzg1nR4ajqy0gqGLdcpZKn3DXAX2WeOvdplje1ciSDY
+ Pi4Q/i4Dw==
+X-HalOne-ID: 4d01e38b-5695-11ed-aa1c-335755252108
+Received: from pbergin-7420.. (ua-213-113-159-147.bbcust.telenor.se
+ [213.113.159.147]) by mailrelay2 (Halon) with ESMTPSA
+ id 4d01e38b-5695-11ed-aa1c-335755252108;
+ Fri, 28 Oct 2022 07:51:20 +0000 (UTC)
+From: Peter Bergin <peter@berginkonsult.se>
+To: james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
+ broonie@kernel.org
+Subject: [PATCH v2] ASoC: cs42xx8-i2c.c: add module device table for of
+Date: Fri, 28 Oct 2022 09:50:44 +0200
+Message-Id: <20221028075045.493191-1-peter@berginkonsult.se>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221027115057.442925-1-peter@berginkonsult.se>
+References: <20221027115057.442925-1-peter@berginkonsult.se>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Peter Bergin <peter@berginkonsult.se>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,146 +101,174 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-These counter registers are part of register list,
-add them to complete the register map
+When trying to connect the device with the driver through
+device-tree it is not working. The of_device_id is defined in
+cs42xx8.c but is not correctly included in cs42xx8-i2c.c.
 
-- DMAC counter control registers
-- Data path Timestamp counter register
-- Data path bit counter register
-- Data path bit count timestamp register
-- Data path bit read timestamp register
+Move of_device_id table to cs42xx8-i2c.c. Get cs42xx8_driver_data
+in cs42xx8_i2c_probe() and pass as argument to cs42xx8_probe(). Move
+error check if no driver data found to cs42xx8_i2c_probe().
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Matching of device in cs42xx8_i2c_probe() is coded with inspiration
+from tlv320aic32x4-i2c.c.
+
+Signed-off-by: Peter Bergin <peter@berginkonsult.se>
 ---
- sound/soc/fsl/fsl_xcvr.c | 40 ++++++++++++++++++++++++++++++++++++++++
- sound/soc/fsl/fsl_xcvr.h | 21 +++++++++++++++++++++
- 2 files changed, 61 insertions(+)
+v2: reworked and removed duplication of cs42xx8_of_match
 
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index c043efe4548d..2a6802fb2a8b 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -934,6 +934,14 @@ static const struct reg_default fsl_xcvr_reg_defaults[] = {
- 	{ FSL_XCVR_RX_DPTH_CTRL_SET,	0x00002C89 },
- 	{ FSL_XCVR_RX_DPTH_CTRL_CLR,	0x00002C89 },
- 	{ FSL_XCVR_RX_DPTH_CTRL_TOG,	0x00002C89 },
-+	{ FSL_XCVR_RX_DPTH_CNTR_CTRL,	0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_SET, 0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR, 0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG, 0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_TSCR, 0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_BCR,  0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_BCTR, 0x00000000 },
-+	{ FSL_XCVR_RX_DPTH_BCRR, 0x00000000 },
- 	{ FSL_XCVR_TX_DPTH_CTRL,	0x00000000 },
- 	{ FSL_XCVR_TX_DPTH_CTRL_SET,	0x00000000 },
- 	{ FSL_XCVR_TX_DPTH_CTRL_CLR,	0x00000000 },
-@@ -944,6 +952,14 @@ static const struct reg_default fsl_xcvr_reg_defaults[] = {
- 	{ FSL_XCVR_TX_CS_DATA_3,	0x00000000 },
- 	{ FSL_XCVR_TX_CS_DATA_4,	0x00000000 },
- 	{ FSL_XCVR_TX_CS_DATA_5,	0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_CNTR_CTRL,	0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_SET, 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR, 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG, 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_TSCR, 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_BCR,	 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_BCTR, 0x00000000 },
-+	{ FSL_XCVR_TX_DPTH_BCRR, 0x00000000 },
- 	{ FSL_XCVR_DEBUG_REG_0,		0x00000000 },
- 	{ FSL_XCVR_DEBUG_REG_1,		0x00000000 },
+ sound/soc/codecs/cs42xx8-i2c.c | 49 +++++++++++++++++++++++++++++++---
+ sound/soc/codecs/cs42xx8.c     | 33 +++--------------------
+ sound/soc/codecs/cs42xx8.h     |  5 +---
+ 3 files changed, 50 insertions(+), 37 deletions(-)
+
+diff --git a/sound/soc/codecs/cs42xx8-i2c.c b/sound/soc/codecs/cs42xx8-i2c.c
+index bd80e9fc907f..9f9e57398272 100644
+--- a/sound/soc/codecs/cs42xx8-i2c.c
++++ b/sound/soc/codecs/cs42xx8-i2c.c
+@@ -17,10 +17,32 @@
+ 
+ #include "cs42xx8.h"
+ 
++static const struct i2c_device_id cs42xx8_i2c_id[];
++static const struct of_device_id cs42xx8_of_match[];
++
+ static int cs42xx8_i2c_probe(struct i2c_client *i2c)
+ {
+-	int ret = cs42xx8_probe(&i2c->dev,
+-			devm_regmap_init_i2c(i2c, &cs42xx8_regmap_config));
++	int ret;
++	struct cs42xx8_driver_data *drvdata;
++
++	if (i2c->dev.of_node) {
++		const struct of_device_id *oid;
++
++		oid = of_match_node(cs42xx8_of_match, i2c->dev.of_node);
++		if (!oid)
++			goto err_not_found;
++		drvdata = (struct cs42xx8_driver_data *)oid->data;
++	} else {
++		const struct i2c_device_id *id;
++
++		id = i2c_match_id(cs42xx8_i2c_id, i2c);
++		if (!id)
++			goto err_not_found;
++		drvdata = (struct cs42xx8_driver_data *)id->driver_data;
++	}
++
++	ret = cs42xx8_probe(&i2c->dev,
++		devm_regmap_init_i2c(i2c, &cs42xx8_regmap_config), drvdata);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -28,6 +50,10 @@ static int cs42xx8_i2c_probe(struct i2c_client *i2c)
+ 	pm_request_idle(&i2c->dev);
+ 
+ 	return 0;
++
++err_not_found:
++	dev_err(&i2c->dev, "failed to find driver data\n");
++	return -EINVAL;
+ }
+ 
+ static void cs42xx8_i2c_remove(struct i2c_client *i2c)
+@@ -35,7 +61,24 @@ static void cs42xx8_i2c_remove(struct i2c_client *i2c)
+ 	pm_runtime_disable(&i2c->dev);
+ }
+ 
+-static struct i2c_device_id cs42xx8_i2c_id[] = {
++static const struct cs42xx8_driver_data cs42448_data = {
++	.name = "cs42448",
++	.num_adcs = 3,
++};
++
++static const struct cs42xx8_driver_data cs42888_data = {
++	.name = "cs42888",
++	.num_adcs = 2,
++};
++
++static const struct of_device_id cs42xx8_of_match[] = {
++	{ .compatible = "cirrus,cs42448", .data = &cs42448_data, },
++	{ .compatible = "cirrus,cs42888", .data = &cs42888_data, },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, cs42xx8_of_match);
++
++static const struct i2c_device_id cs42xx8_i2c_id[] = {
+ 	{"cs42448", (kernel_ulong_t)&cs42448_data},
+ 	{"cs42888", (kernel_ulong_t)&cs42888_data},
+ 	{}
+diff --git a/sound/soc/codecs/cs42xx8.c b/sound/soc/codecs/cs42xx8.c
+index d14eb2f6e1dd..957ae08bcf7c 100644
+--- a/sound/soc/codecs/cs42xx8.c
++++ b/sound/soc/codecs/cs42xx8.c
+@@ -499,29 +499,8 @@ static const struct snd_soc_component_driver cs42xx8_driver = {
+ 	.endianness		= 1,
  };
-@@ -975,6 +991,14 @@ static bool fsl_xcvr_readable_reg(struct device *dev, unsigned int reg)
- 	case FSL_XCVR_RX_DPTH_CTRL_SET:
- 	case FSL_XCVR_RX_DPTH_CTRL_CLR:
- 	case FSL_XCVR_RX_DPTH_CTRL_TOG:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_SET:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG:
-+	case FSL_XCVR_RX_DPTH_TSCR:
-+	case FSL_XCVR_RX_DPTH_BCR:
-+	case FSL_XCVR_RX_DPTH_BCTR:
-+	case FSL_XCVR_RX_DPTH_BCRR:
- 	case FSL_XCVR_TX_DPTH_CTRL:
- 	case FSL_XCVR_TX_DPTH_CTRL_SET:
- 	case FSL_XCVR_TX_DPTH_CTRL_CLR:
-@@ -985,6 +1009,14 @@ static bool fsl_xcvr_readable_reg(struct device *dev, unsigned int reg)
- 	case FSL_XCVR_TX_CS_DATA_3:
- 	case FSL_XCVR_TX_CS_DATA_4:
- 	case FSL_XCVR_TX_CS_DATA_5:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_SET:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG:
-+	case FSL_XCVR_TX_DPTH_TSCR:
-+	case FSL_XCVR_TX_DPTH_BCR:
-+	case FSL_XCVR_TX_DPTH_BCTR:
-+	case FSL_XCVR_TX_DPTH_BCRR:
- 	case FSL_XCVR_DEBUG_REG_0:
- 	case FSL_XCVR_DEBUG_REG_1:
- 		return true;
-@@ -1017,6 +1049,10 @@ static bool fsl_xcvr_writeable_reg(struct device *dev, unsigned int reg)
- 	case FSL_XCVR_RX_DPTH_CTRL_SET:
- 	case FSL_XCVR_RX_DPTH_CTRL_CLR:
- 	case FSL_XCVR_RX_DPTH_CTRL_TOG:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_SET:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR:
-+	case FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG:
- 	case FSL_XCVR_TX_DPTH_CTRL_SET:
- 	case FSL_XCVR_TX_DPTH_CTRL_CLR:
- 	case FSL_XCVR_TX_DPTH_CTRL_TOG:
-@@ -1026,6 +1062,10 @@ static bool fsl_xcvr_writeable_reg(struct device *dev, unsigned int reg)
- 	case FSL_XCVR_TX_CS_DATA_3:
- 	case FSL_XCVR_TX_CS_DATA_4:
- 	case FSL_XCVR_TX_CS_DATA_5:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_SET:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR:
-+	case FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG:
- 		return true;
- 	default:
- 		return false;
-diff --git a/sound/soc/fsl/fsl_xcvr.h b/sound/soc/fsl/fsl_xcvr.h
-index 7f2853c60085..4769b0fca21d 100644
---- a/sound/soc/fsl/fsl_xcvr.h
-+++ b/sound/soc/fsl/fsl_xcvr.h
-@@ -49,6 +49,16 @@
- #define FSL_XCVR_RX_DPTH_CTRL_CLR	0x188
- #define FSL_XCVR_RX_DPTH_CTRL_TOG	0x18c
  
-+#define FSL_XCVR_RX_DPTH_CNTR_CTRL	0x1C0
-+#define FSL_XCVR_RX_DPTH_CNTR_CTRL_SET	0x1C4
-+#define FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR	0x1C8
-+#define FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG	0x1CC
-+
-+#define FSL_XCVR_RX_DPTH_TSCR		0x1D0
-+#define FSL_XCVR_RX_DPTH_BCR		0x1D4
-+#define FSL_XCVR_RX_DPTH_BCTR		0x1D8
-+#define FSL_XCVR_RX_DPTH_BCRR		0x1DC
-+
- #define FSL_XCVR_TX_DPTH_CTRL		0x220 /* TX datapath ctrl reg */
- #define FSL_XCVR_TX_DPTH_CTRL_SET	0x224
- #define FSL_XCVR_TX_DPTH_CTRL_CLR	0x228
-@@ -59,6 +69,17 @@
- #define FSL_XCVR_TX_CS_DATA_3		0x23C
- #define FSL_XCVR_TX_CS_DATA_4		0x240
- #define FSL_XCVR_TX_CS_DATA_5		0x244
-+
-+#define FSL_XCVR_TX_DPTH_CNTR_CTRL	0x260
-+#define FSL_XCVR_TX_DPTH_CNTR_CTRL_SET	0x264
-+#define FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR	0x268
-+#define FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG	0x26C
-+
-+#define FSL_XCVR_TX_DPTH_TSCR		0x270
-+#define FSL_XCVR_TX_DPTH_BCR		0x274
-+#define FSL_XCVR_TX_DPTH_BCTR		0x278
-+#define FSL_XCVR_TX_DPTH_BCRR		0x27C
-+
- #define FSL_XCVR_DEBUG_REG_0		0x2E0
- #define FSL_XCVR_DEBUG_REG_1		0x2F0
+-const struct cs42xx8_driver_data cs42448_data = {
+-	.name = "cs42448",
+-	.num_adcs = 3,
+-};
+-EXPORT_SYMBOL_GPL(cs42448_data);
+-
+-const struct cs42xx8_driver_data cs42888_data = {
+-	.name = "cs42888",
+-	.num_adcs = 2,
+-};
+-EXPORT_SYMBOL_GPL(cs42888_data);
+-
+-const struct of_device_id cs42xx8_of_match[] = {
+-	{ .compatible = "cirrus,cs42448", .data = &cs42448_data, },
+-	{ .compatible = "cirrus,cs42888", .data = &cs42888_data, },
+-	{ /* sentinel */ }
+-};
+-MODULE_DEVICE_TABLE(of, cs42xx8_of_match);
+-EXPORT_SYMBOL_GPL(cs42xx8_of_match);
+-
+-int cs42xx8_probe(struct device *dev, struct regmap *regmap)
++int cs42xx8_probe(struct device *dev, struct regmap *regmap, struct cs42xx8_driver_data *drvdata)
+ {
+-	const struct of_device_id *of_id;
+ 	struct cs42xx8_priv *cs42xx8;
+ 	int ret, val, i;
  
+@@ -535,17 +514,11 @@ int cs42xx8_probe(struct device *dev, struct regmap *regmap)
+ 	if (cs42xx8 == NULL)
+ 		return -ENOMEM;
+ 
+-	cs42xx8->regmap = regmap;
+ 	dev_set_drvdata(dev, cs42xx8);
+ 
+-	of_id = of_match_device(cs42xx8_of_match, dev);
+-	if (of_id)
+-		cs42xx8->drvdata = of_id->data;
++	cs42xx8->regmap = regmap;
+ 
+-	if (!cs42xx8->drvdata) {
+-		dev_err(dev, "failed to find driver data\n");
+-		return -EINVAL;
+-	}
++	cs42xx8->drvdata = drvdata;
+ 
+ 	cs42xx8->gpiod_reset = devm_gpiod_get_optional(dev, "reset",
+ 							GPIOD_OUT_HIGH);
+diff --git a/sound/soc/codecs/cs42xx8.h b/sound/soc/codecs/cs42xx8.h
+index d36c61b6df74..938e21d92ac2 100644
+--- a/sound/soc/codecs/cs42xx8.h
++++ b/sound/soc/codecs/cs42xx8.h
+@@ -19,11 +19,8 @@ struct cs42xx8_driver_data {
+ };
+ 
+ extern const struct dev_pm_ops cs42xx8_pm;
+-extern const struct cs42xx8_driver_data cs42448_data;
+-extern const struct cs42xx8_driver_data cs42888_data;
+ extern const struct regmap_config cs42xx8_regmap_config;
+-extern const struct of_device_id cs42xx8_of_match[];
+-int cs42xx8_probe(struct device *dev, struct regmap *regmap);
++int cs42xx8_probe(struct device *dev, struct regmap *regmap, struct cs42xx8_driver_data *drvdata);
+ 
+ /* CS42888 register map */
+ #define CS42XX8_CHIPID				0x01	/* Chip ID */
 -- 
 2.34.1
 

@@ -2,106 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6961B61171C
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A5D611746
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:15:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 725191F90;
-	Fri, 28 Oct 2022 18:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725191F90
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E3BE1749;
+	Fri, 28 Oct 2022 18:14:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E3BE1749
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666973373;
-	bh=fstVe2TdxmE3/+QEGFjSOhat19MpmFag3wseeqyZGiY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666973744;
+	bh=hPulKsWfwmPS12vC8SipmsqMezI1Fy/nKCO0cEWbjbw=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=agafy5swacIJ9WzE/flqh3Vw4UqO02S5RwuXuPAmCekdd4940EZs/Bxa4Qqboyp+S
-	 KBOzKp7VTQPzhuryvado2iUUmT6GIHuTj6DBlLoMMVgiOGj3btXBBYHz6WmISigzGg
-	 lCcLtfKhIs1qDJR5qTJ8t1BUUgrWjyvS4id/Y0o0=
+	b=k0gCaF9TQyha6O9k+jfrdP91X0oKVQD5VpmpTKdGhUi5znqr9EwfbskmRSoG7E8nW
+	 M3izrxFX6Q4WyCV1nTv7Q6v5mopIMUvqrkbmfvuLJ0bYFdyb+yx/Mo0c5pfDirZJ3L
+	 rt6kYotrZ7U1w91z1AFRQ8MugQ0zo3KNhVygZFjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96CA1F80559;
-	Fri, 28 Oct 2022 18:08:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF01BF80095;
+	Fri, 28 Oct 2022 18:14:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A05AF80558; Fri, 28 Oct 2022 18:08:17 +0200 (CEST)
+ id A9F71F800E1; Fri, 28 Oct 2022 18:14:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35B0FF8051D
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:08:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35B0FF8051D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
- header.b="gip4VKIW"
-Received: by mail-pl1-x62b.google.com with SMTP id c2so5210151plz.11
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 09:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p8Nn45kFgt+1/zl+VyWWfD/CuQIYBmtC4EPy4fuEkAU=;
- b=gip4VKIWXDPUdGVhQB4daJvfaDsL1h/PftU4FOaEYO8E5ovKZQ+xvcEyUwgVeiXxV6
- ZeB3LBQs0nzir13iWlS879M7qVzHFU2zq9lnMS3EkSs9AY2O+LKJmT1zc8wOiav6HZOA
- lr/CTNsY+xOjoaCWgNV9cGOeg3XR9/UVwnQUdiUv01vHn5lcrK5nZyBkr1tjOs0MImET
- c+UxidVXdI6UGj0ltXIiTg+KzAS/mMFu+T/tWvFoMfuOglr1sojXgyJvHHvUsj7dpZa7
- ZHIFyyyZcw9qmznAIIYrqz8jW/AJ0pK/OGkr9zRfPd4Ko0gbamT7D3QxxHydmac5ZKIG
- 9eRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p8Nn45kFgt+1/zl+VyWWfD/CuQIYBmtC4EPy4fuEkAU=;
- b=fzCLAtTJjfL16BVAtSZKyh5pim5HCTy0hmDeWekwkUzkkaf14zXdb4qBQjjVIdNO7U
- +1BiWwcIqDVU9m20iVlv9blGfDoab8KgyO83M3fmd1g3zRxywLn9KFogWND1vfVPRgbb
- wV2RDafvUjfb3vBH0HCQKZWowJcQd/AhkTAIsEpmeQ3QikVI8LYFVcfg5YkdL7reNwD4
- j4OGkFY6mYbMMb0CvvAr1IHfonsFh+ynUNI/qaeU4alKKPeKdXyzqjLK+kz/OeVnZsM4
- M2RceV5WH49WwGfjCeXrnqFrVxcf7X8KcWfBZNf2QvPEGNuEiflW54HBSkWwd9YK5PHm
- lafg==
-X-Gm-Message-State: ACrzQf0SHJCSurpJ1j9Ph4q3EerjoeQbgzMMwMe0wL/8ve0YV1LRLPPr
- m9KDcOC2zTqBKiRFHm7hH71IrA==
-X-Google-Smtp-Source: AMsMyM6Ff9ha1gXGmB+slqYXn5um88qhDxWogLqwNuNaAS20732cykx+jATZzSm8t7qnxpNUd7BuHA==
-X-Received: by 2002:a17:902:e902:b0:186:9c03:5f27 with SMTP id
- k2-20020a170902e90200b001869c035f27mr97854pld.16.1666973288800; 
- Fri, 28 Oct 2022 09:08:08 -0700 (PDT)
-Received: from localhost.localdomain (118-167-210-30.dynamic-ip.hinet.net.
- [118.167.210.30]) by smtp.gmail.com with ESMTPSA id
- b70-20020a621b49000000b0056abfa74eddsm3112071pfb.147.2022.10.28.09.08.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 09:08:08 -0700 (PDT)
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] ASoC: mediatek: mt8186-rt5682: Modify machine driver
- for two DMICs case
-Date: Sat, 29 Oct 2022 00:07:33 +0800
-Message-Id: <20221028160733.1390230-3-ajye_huang@compal.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221028160733.1390230-1-ajye_huang@compal.corp-partner.google.com>
-References: <20221028160733.1390230-1-ajye_huang@compal.corp-partner.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37C32F800E1
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:14:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37C32F800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AwfmZaL4"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E5EA62971;
+ Fri, 28 Oct 2022 16:14:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AC9C4314D;
+ Fri, 28 Oct 2022 16:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666973680;
+ bh=hPulKsWfwmPS12vC8SipmsqMezI1Fy/nKCO0cEWbjbw=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=AwfmZaL49GbbKADMrHKMnSR4f8L6gDd7gYK+muQWnFx+nq5hB7Zetnlq90s9jvqtH
+ h+Rt5C3MlVeEzz57EVBxSJqR9z5i9yVcl5uP7yXsZ+O/NeB8EmO1uv/5tDx8UEd5OP
+ DnxHq9BSpn8H7VYxYVHc3Sc2oAz2yYWdQ+ONpyytV03wqPzez1ohg5cuD56Qk3+ria
+ fIvghKVyII0Eo5+vNL+YvKysbUxfKr/knS+P1PoS/xxSSEGJV2idWG8u5jeDy5RctS
+ XraqgYTvFh8X0uT1WepaBkMk2HxHymcrahRwNPCV+CANILBOUK1iGFjJX9Bk11hDgN
+ SOeNIE23zAJ4A==
+From: Mark Brown <broonie@kernel.org>
+To: linux-kernel@vger.kernel.org, Chen Zhongjin <chenzhongjin@huawei.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20221028031603.59416-1-chenzhongjin@huawei.com>
+References: <20221028031603.59416-1-chenzhongjin@huawei.com>
+Subject: Re: [PATCH] ASoC: core: Fix use-after-free in snd_soc_exit()
+Message-Id: <166697367874.746166.7503879951900455151.b4-ty@kernel.org>
+Date: Fri, 28 Oct 2022 17:14:38 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- "chunxu . li" <chunxu.li@mediatek.com>,
- =?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
- <nfraprado@collabora.com>, Mark Brown <broonie@kernel.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: lgirdwood@gmail.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,163 +85,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Having two DMICs, a front DMIC and a Rear DMIC,
-but only host audio input AUX port0 is used for these two Dmics.
-A "dmic-gpios" property is used for a mixer control to switch
-the dmic signal source between the Front and Rear Dmic.
+On Fri, 28 Oct 2022 11:16:03 +0800, Chen Zhongjin wrote:
+> KASAN reports a use-after-free:
+> 
+> BUG: KASAN: use-after-free in device_del+0xb5b/0xc60
+> Read of size 8 at addr ffff888008655050 by task rmmod/387
+> CPU: 2 PID: 387 Comm: rmmod
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
+> Call Trace:
+> <TASK>
+> dump_stack_lvl+0x79/0x9a
+> print_report+0x17f/0x47b
+> kasan_report+0xbb/0xf0
+> device_del+0xb5b/0xc60
+> platform_device_del.part.0+0x24/0x200
+> platform_device_unregister+0x2e/0x40
+> snd_soc_exit+0xa/0x22 [snd_soc_core]
+> __do_sys_delete_module.constprop.0+0x34f/0x5b0
+> do_syscall_64+0x3a/0x90
+> entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> ...
+> </TASK>
+> 
+> [...]
 
-Refer to this one as an example,
-commit 3cfbf07c6d27
-("ASoC: qcom: sc7180: Modify machine driver for 2mic")
+Applied to
 
-Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
----
- .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 104 +++++++++++++++++-
- 1 file changed, 103 insertions(+), 1 deletion(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-index 2414c5b77233..7190a60300a1 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-@@ -7,6 +7,8 @@
- // Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
- //
- 
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/input.h>
- #include <linux/module.h>
- #include <linux/of_device.h>
-@@ -39,6 +41,8 @@
- 
- struct mt8186_mt6366_rt1019_rt5682s_priv {
- 	struct snd_soc_jack headset_jack, hdmi_jack;
-+	struct gpio_desc *dmic_sel;
-+	int dmic_switch;
- };
- 
- /* Headset jack detection DAPM pins */
-@@ -68,6 +72,94 @@ static struct snd_soc_codec_conf mt8186_mt6366_rt1019_rt5682s_codec_conf[] = {
- 	},
- };
- 
-+static int dmic_get(struct snd_kcontrol *kcontrol,
-+		    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct mtk_soc_card_data *soc_card_data =
-+		snd_soc_card_get_drvdata(dapm->card);
-+	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
-+
-+	ucontrol->value.integer.value[0] = priv->dmic_switch;
-+	return 0;
-+}
-+
-+static int dmic_set(struct snd_kcontrol *kcontrol,
-+		    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct mtk_soc_card_data *soc_card_data =
-+		snd_soc_card_get_drvdata(dapm->card);
-+	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
-+
-+	priv->dmic_switch = ucontrol->value.integer.value[0];
-+	if (priv->dmic_sel) {
-+		gpiod_set_value(priv->dmic_sel, priv->dmic_switch);
-+		dev_info(dapm->card->dev, "dmic_set_value %d\n",
-+		priv->dmic_switch);
-+	}
-+	return 0;
-+}
-+
-+static const char * const dmic_mux_text[] = {
-+	"FrontMic",
-+	"RearMic",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(mt8186_dmic_enum,
-+			    SND_SOC_NOPM, 0, dmic_mux_text);
-+
-+static const struct snd_kcontrol_new mt8186_dmic_mux_control =
-+	SOC_DAPM_ENUM_EXT("DMIC Select Mux", mt8186_dmic_enum,
-+			  dmic_get, dmic_set);
-+
-+static const struct snd_soc_dapm_widget dmic_widgets[] = {
-+	SND_SOC_DAPM_MIC("DMIC", NULL),
-+	SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0, &mt8186_dmic_mux_control),
-+};
-+
-+static const struct snd_soc_dapm_route dmic_map[] = {
-+	/* digital mics */
-+	{"Dmic Mux", "FrontMic", "DMIC"},
-+	{"Dmic Mux", "RearMic", "DMIC"},
-+};
-+
-+static int primary_codec_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
-+	int ret;
-+
-+	ret = mt8186_mt6366_init(rtd);
-+
-+	if (ret) {
-+		dev_err(card->dev, "mt8186_mt6366_init failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (!priv->dmic_sel) {
-+		dev_info(card->dev, "dmic_sel is null\n");
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dapm_new_controls(&card->dapm, dmic_widgets,
-+					ARRAY_SIZE(dmic_widgets));
-+	if (ret) {
-+		dev_err(card->dev, "DMic widget addition failed: %d\n", ret);
-+		/* Don't need to add routes if widget addition failed */
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dapm_add_routes(&card->dapm, dmic_map,
-+				      ARRAY_SIZE(dmic_map));
-+
-+	if (ret)
-+		dev_err(card->dev, "DMic map addition failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
- static int mt8186_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *cmpnt_afe =
-@@ -775,7 +867,7 @@ static struct snd_soc_dai_link mt8186_mt6366_rt1019_rt5682s_dai_links[] = {
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
- 		.ignore_suspend = 1,
--		.init = mt8186_mt6366_init,
-+		.init = primary_codec_init,
- 		SND_SOC_DAILINK_REG(adda),
- 	},
- 	{
-@@ -1015,6 +1107,16 @@ static int mt8186_mt6366_rt1019_rt5682s_dev_probe(struct platform_device *pdev)
- 
- 	soc_card_data->mach_priv = mach_priv;
- 
-+	if (of_property_read_bool(pdev->dev.of_node, "dmic-gpios")) {
-+		mach_priv->dmic_sel = devm_gpiod_get_optional(&pdev->dev,
-+							"dmic", GPIOD_OUT_LOW);
-+		if (IS_ERR(mach_priv->dmic_sel)) {
-+			dev_err(&pdev->dev, "DMIC gpio failed err=%ld\n",
-+				PTR_ERR(mach_priv->dmic_sel));
-+			return PTR_ERR(mach_priv->dmic_sel);
-+		}
-+	}
-+
- 	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
- 	if (adsp_node) {
- 		struct mtk_sof_priv *sof_priv;
--- 
-2.25.1
+Thanks!
 
+[1/1] ASoC: core: Fix use-after-free in snd_soc_exit()
+      commit: 6ec27c53886c8963729885bcf2dd996eba2767a7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

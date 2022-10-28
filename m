@@ -2,75 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCF2611ADD
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 21:25:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C16E8611B1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 21:46:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 929A7E11;
-	Fri, 28 Oct 2022 21:24:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 929A7E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 582D5AEA;
+	Fri, 28 Oct 2022 21:46:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 582D5AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666985139;
-	bh=8//h+tyapzLVTU5tcVVz+UK6ke4W6O7sJMkE3L3lUk8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666986410;
+	bh=kP+1I//RTjvASPlBioXjy8us9fuvJxov/TP/Ffn2VLY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=krnNdytdZG9nzEXTMkCEH/DkbmM7KeGO1GryYNu8K4zmbGoJbZCSBxxUQc3pse2RV
-	 cEDLUvajLzUhaLWvtevFW58xUsfgz/62kES2FXX3IveYQ2O1/vSMcG5WMCaT3LDlNC
-	 IMD3p/XobfyL6RMzRNqUdbCkr6nBK+plaUtJ0hY8=
+	b=d8wS3oXPfiylczjKeZucO139OWZJKO6zAeGlGpM6F+VUA2RiDwai+lSmoOLe97i7Q
+	 CwqE3MGydP136biw1SF5xW8Aq/0GRjgvXFR+2yJhbepmNRMSCnXM935v0FYSwl5oQR
+	 lQ97/w2JHpeFjbHOBTJ7WsSxXXC5heiis5wcORnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA80FF804DF;
-	Fri, 28 Oct 2022 21:24:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFA0AF804BD;
+	Fri, 28 Oct 2022 21:45:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84934F804BD; Fri, 28 Oct 2022 21:24:19 +0200 (CEST)
+ id 8C1B9F8025A; Fri, 28 Oct 2022 21:45:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8C41F80095
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 21:24:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8C41F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4323F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 21:45:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4323F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qGYXPELW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 82C6162A26;
- Fri, 28 Oct 2022 19:24:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10082C433D6;
- Fri, 28 Oct 2022 19:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666985053;
- bh=8//h+tyapzLVTU5tcVVz+UK6ke4W6O7sJMkE3L3lUk8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qGYXPELWt1WeG5WS5xiF4ANqv504+Qmpmexgb5MJ0+Tbw96ZjDDin0TDTx5WVS9HH
- PbtDss+cIJqBCI8nxoLqg6KAAAEXNLikkmpPa5ILBEmp7ivYs/16L/mdKWxwJ5ofwr
- P9tuk+pc/xMdQwpEkZ2x94DsDEo0ziBHmRsdzb/ep0t58Y6i1d81YuXItIRBTSDcmb
- 4wzNtylYIF3HZYEJVBaPc6D5IADdnIKd9xSJQbEwjJ4526gbzkhlFRrJyKFvgC2vnv
- tybvYLcKOXhAKH0u79/ftl+uHpDyHwl9noRxiNK0pvwt9hIP8UMIhCk3sN/ldsDIyG
- rd501z5oOs8Cw==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221027102710.21407-1-srinivas.kandagatla@linaro.org>
-References: <20221027102710.21407-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v3 0/9] ASoC: qdsp6: audioreach: add multi-port,
- SAL and MFC support
-Message-Id: <166698505174.1386510.10315804075480658283.b4-ty@kernel.org>
-Date: Fri, 28 Oct 2022 20:24:11 +0100
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="GMbLCwoE"
+Received: by mail-qk1-x731.google.com with SMTP id i9so1362314qki.10
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 12:45:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=K7ksD5OAGesupj2q/XJlihyrsrRV0FXKxDbYSlmixcY=;
+ b=GMbLCwoELVulpoDUfdY2c5Oidtr0Q2mDZYzsKsi0Mb50lPciaEKXt/dwa0PMQcaP6V
+ /uf7Ih55/qvFVQLLUHEboG0EcbvwJa3erb+DHdmqr42gMdUhmZRiDkF45RiCcYXdkBNN
+ vyGHwkNLBcqovgezhsQvBTd6qggJVBiRCis96q5uGvUkXfuYiVj+zcyIB+upe6luzoUV
+ 2VPZuXMHwICL2dyurHHVuvpzeEYWc/Hkhk6GJNVYf7O+p1xfxth6eSMOFbo80062bd2n
+ TkEFCcpFEkGKCGF50gPn9TOrAwdfe0ZEk7ymN8CP8sD3Ds83pgttoTjfKlmkgVmS+N9L
+ nPYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=K7ksD5OAGesupj2q/XJlihyrsrRV0FXKxDbYSlmixcY=;
+ b=OYKXUCNm8SWjX50hOJkosd7V5bHcggsLH3u/0bZafw8ITLnujNwvuXs/iiinqh5SUD
+ qESUJAWMDNGJ8bM2CZmZ6J0T+M4rqqFN42p+h90PT134CSJMWxKw5KWh+BunbcKD16mj
+ g9rEu/IjZjbE0ub++vp13zH0xmHUyQPAPahO25N6pA0uu+8OP42eY4O89wlBkEQJgQh7
+ e/mIshL9WKngH2tBMJs62Vai/NlJOb5X5Llj8UxsEBr/UUKj5e5XzrzAZa4XuW9jxcyk
+ 4iBYJUTJbyrciNUDJzpAAFoAmgFKk2p/5zZcpMqFi9LetO6yYhRQ8b02sXzTyQzk9T+I
+ 5bJQ==
+X-Gm-Message-State: ACrzQf3IEbIjKXPjt2z80c9QkrdKFZ6J7wTJ/nWYcceK5CObxAqdjrxK
+ D4sW5vvbDfSb9tQLUV16VF9iMA==
+X-Google-Smtp-Source: AMsMyM55GEMVMF1srCOUQORSp0UYryYV3Ubolr2dJzAddzVtL+bSj3gMTzd1NTTw+XMQunZCATLOdQ==
+X-Received: by 2002:a05:620a:6ca:b0:6ec:553a:cf33 with SMTP id
+ 10-20020a05620a06ca00b006ec553acf33mr756670qky.132.1666986349347; 
+ Fri, 28 Oct 2022 12:45:49 -0700 (PDT)
+Received: from [192.168.1.11] ([64.57.193.93])
+ by smtp.gmail.com with ESMTPSA id
+ u6-20020a05622a010600b0039cc64bcb53sm2802673qtw.27.2022.10.28.12.45.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Oct 2022 12:45:48 -0700 (PDT)
+Message-ID: <89a32ecf-2d9e-c50d-4da1-eb24e8f26d2f@linaro.org>
+Date: Fri, 28 Oct 2022 15:45:47 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, bgoswami@quicinc.com, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH v2 1/2] ASoC: mediatek: dt-bindings: modify machine
+ bindings for two MICs case
+Content-Language: en-US
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+References: <20221028172215.1471235-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028172215.1471235-2-ajye_huang@compal.corp-partner.google.com>
+ <628ac98c-0755-e6f6-e010-f1e772c4b71a@linaro.org>
+ <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?Q?N=c3=adcolas_F_=2e_R_=2e_A_=2e_Prado?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,56 +120,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 11:27:01 +0100, Srinivas Kandagatla wrote:
-> This patchset adds support to multi-port connections between AudioReach Modules
-> which is required for sophisticated graphs like ECNS or Speaker Protection.
-> Also as part of ECNS testing new module support for SAL and MFC are added.
+On 28/10/2022 14:26, Ajye Huang wrote:
+> On Sat, Oct 29, 2022 at 1:58 AM Krzysztof Kozlowski
+> <krzysztof.kozlowski@linaro.org> wrote:
 > 
 > 
-> Tested on SM8450 with ECNS.
+>>>
+>>> +  dmic-gpios:
+>>> +    maxItems: 1
+>>> +    description: GPIO for switching between DMICs
+>>
+>> Switching how? Enabling? What is the meaning of each GPIO pin value?
+>>
+> I think I should add more like an example,
+>   description: dmic-gpios optional prop for switching between two DMICs.
+>                     Ex, the GPIO can control a MUX HW component to
+>                     select dmic clk and data form a Front or Rear dmic.
 > 
-> [...]
+> Do you agree with that or have other suggestions? If do, I will send
+> the v3 patch for you to check, thanks
 
-Applied to
+Sounds better.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Best regards,
+Krzysztof
 
-Thanks!
-
-[1/9] ASoC: qdsp6: audioreach: topology use idr_alloc_u32
-      commit: af7ed7eb70e8964514c706f8498623a2a3696657
-[2/9] ASoC: qdsp6: audioreach: remove unused connection_list
-      commit: 5b488e80078f09bbc197d766babf014dd52c30bf
-[3/9] ASoC: qdsp6: audioreach: update dapm kcontrol private data
-      commit: 1c87d3817b74b895933e9940b9de09b17c674b9b
-[4/9] ASoC: qdsp6: audioreach: Simplify handing FE and BE graph connections
-      commit: e4977b91cff8b00cdeb310735ef34fa4dee9485c
-[5/9] ASoC: qdsp6: audioreach: simplify module_list sz calculation
-      commit: 4efb98e9635b9919f2cb72cddae97b7231cf96ef
-[6/9] ASoC: qdsp6: audioreach: add support for more port connections
-      commit: 03365d6a58c47b3a3f2f964d0777493e293d7da4
-[7/9] ASoC: qdsp6: audioreach: add support to enable SAL Module
-      commit: a934afdbb022d5a7b1d20251875ecefcaf48536a
-[8/9] ASoC: qdsp6: audioreach: add support for MFC Module
-      commit: cf0de67d954db21002fd7521364f2ac89aabae35
-[9/9] ASoC: qdsp6: audioreach: add support to enable module command
-      commit: 6648a6dcfe40ae8c5e7cb5c1d7b9e59f010e285d
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

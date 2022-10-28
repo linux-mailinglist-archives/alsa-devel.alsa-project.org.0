@@ -2,94 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A9F610CE9
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 11:18:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE10610DF0
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 11:56:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43C831F0F;
-	Fri, 28 Oct 2022 11:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C831F0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE4B288B;
+	Fri, 28 Oct 2022 11:56:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE4B288B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666948687;
-	bh=i7oF5tSzRh2rxPPHCpYTcHCxhaKEQpJYEeKnlBRnNFE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666951018;
+	bh=Omhzpive90q/07PBpah3AFImepRCaZx1iNdUHUEipJ8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CR8OxUoxfrQTbX5gUtdw9RnB1Hf2pNBMZcuKwCBLqyrkuc8faOSI2g9s8V95oh7I3
-	 SbshPuPq3x5ffUsJBZBtmwdbrcdWYc7NthwLCPfr5+P+DVs+NRNBc6poO7RvR5odws
-	 duCFCq/ZtlG2aejgBWaabulV63FjzVhr9NyNqpD4=
+	b=cAFVmZe0EOrENzl2cjvWX/6MbmtadpyotYaw25j4CjhABlAEmrciLQYzHqqIiRCm+
+	 HYemRroFuTMFv0alZx0IuiJD//9mnw9WB0NaTiHpkSf+iNno0jasFROPWNS/bq2zGP
+	 e9KRLoDlEB3GVESGxgDhZMHF01s/+ezuWtxSiZOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3C33F800E1;
-	Fri, 28 Oct 2022 11:17:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96412F804BD;
+	Fri, 28 Oct 2022 11:56:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97BAFF8025A; Fri, 28 Oct 2022 11:17:11 +0200 (CEST)
+ id 84014F8025A; Fri, 28 Oct 2022 11:56:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B1D6F800E1
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 11:17:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B1D6F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEB81F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 11:55:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEB81F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="G2AwcJg8"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3IBGb1Lq"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C23E51F897;
- Fri, 28 Oct 2022 09:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666948624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FGwUHQUQ/OF1EgdhxPURRulnf0czT/1UBQSXD9N1iSY=;
- b=G2AwcJg8CT9dy0Y+MskRX8fgWMMLAWs0rWmMfu+7ViDk+J/JAQajFkdy0fygnD1mFPlqjl
- W5vwPoRojlQ+9Vpf9QGaOKERNsgVPPa8oB7go5ov6KVaemyrfJaWplRLcfPekN95ac7Qxk
- vnmSo3nA+mAjwxf7aLxkPe60CiWzGQU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666948624;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FGwUHQUQ/OF1EgdhxPURRulnf0czT/1UBQSXD9N1iSY=;
- b=3IBGb1Lq1jW+9fzwIqGfcXNmYiMQSPHb/zX/zHXfgThcBACuALPVbg25TEVOrUwI3ZwiO/
- t7K3e84NY3Rht6DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 895DE1377D;
- Fri, 28 Oct 2022 09:17:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id amfGIBCeW2N+FQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 28 Oct 2022 09:17:04 +0000
-Date: Fri, 28 Oct 2022 11:17:04 +0200
-Message-ID: <87fsf8mhnz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [RFC][PATCH v2 29/31] timers: ALSA: Use del_timer_shutdown()
- before freeing timer
-In-Reply-To: <20221027150930.702028779@goodmis.org>
-References: <20221027150525.753064657@goodmis.org>
- <20221027150930.702028779@goodmis.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Austin Kim <austin.kim@lge.com>, Thomas Gleixner <tglx@linutronix.de>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="OdwJ6B/x"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 29S81dOv008832; Fri, 28 Oct 2022 04:55:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=mLLlKGaSg8bfJMwpwLDRI2y+lZnMRSiCP58wvZJft5w=;
+ b=OdwJ6B/x5AElXSUaPjRCW3vGA8sNpMltLoCxHHXamjHlgD7t0EnO80PEc5RRI9RVjIxP
+ RoVOo9dx3VXsEsQBRxQj5KwWmjEBj1smHvtKWAj4YT7PwjT4foz5PvPWaIG0TX9Ob9H/
+ INcImWicjStgg6he6OTSkEWsjyXSvMF1PEtWhOBSvtxIlvYqlcmpk89upj7+Bodq6DKZ
+ sBwKBSNnMb8XnfzTdsosNgSc6dh2TUBO2UNoWdpt0cUd07R/+amIR4MpId32jqtL8PSb
+ fFIMcZQIixTBfuigmcXAR/8UMXybm0LXuSXciyMfD68Ih+a/BIWvthhpSHAsh8Vi2FT0 fw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kfajn270j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Oct 2022 04:55:56 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 28 Oct
+ 2022 04:55:54 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.12 via Frontend Transport; Fri, 28 Oct 2022 04:55:54 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9E00C478;
+ Fri, 28 Oct 2022 09:55:54 +0000 (UTC)
+Date: Fri, 28 Oct 2022 09:55:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Peter Bergin <peter@berginkonsult.se>
+Subject: Re: [PATCH v2] ASoC: cs42xx8-i2c.c: add module device table for of
+Message-ID: <20221028095554.GG92394@ediswmail.ad.cirrus.com>
+References: <20221027115057.442925-1-peter@berginkonsult.se>
+ <20221028075045.493191-1-peter@berginkonsult.se>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221028075045.493191-1-peter@berginkonsult.se>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: gw3o-ik66YAcJDoBPu-y-Idi4u5gg213
+X-Proofpoint-ORIG-GUID: gw3o-ik66YAcJDoBPu-y-Idi4u5gg213
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, tanureal@opensource.cirrus.com,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, david.rhodes@cirrus.com,
+ rf@opensource.cirrus.com, broonie@kernel.org, james.schulman@cirrus.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,63 +102,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 17:05:54 +0200,
-Steven Rostedt wrote:
-> 
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> Before a timer is freed, del_timer_shutdown() must be called.
-> 
-> Link: https://lore.kernel.org/all/20220407161745.7d6754b3@gandalf.local.home/
-> 
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Austin Kim <austin.kim@lge.com>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-
-I think there are a few other codes in sound/* that should use
-del_timer_shutdown() (although it works practically as is for now).
-I'll convert them once when the API is included.
-
-
-thanks,
-
-Takashi
-
+On Fri, Oct 28, 2022 at 09:50:44AM +0200, Peter Bergin wrote:
+> Matching of device in cs42xx8_i2c_probe() is coded with inspiration
+> from tlv320aic32x4-i2c.c.
 > ---
->  sound/i2c/other/ak4117.c | 2 +-
->  sound/synth/emux/emux.c  | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/i2c/other/ak4117.c b/sound/i2c/other/ak4117.c
-> index 1bc43e927d82..5269ab7321a4 100644
-> --- a/sound/i2c/other/ak4117.c
-> +++ b/sound/i2c/other/ak4117.c
-> @@ -47,7 +47,7 @@ static void reg_dump(struct ak4117 *ak4117)
->  
->  static void snd_ak4117_free(struct ak4117 *chip)
->  {
-> -	del_timer_sync(&chip->timer);
-> +	del_timer_shutdown(&chip->timer);
->  	kfree(chip);
->  }
->  
-> diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
-> index a870759d179e..a43025f466bb 100644
-> --- a/sound/synth/emux/emux.c
-> +++ b/sound/synth/emux/emux.c
-> @@ -129,7 +129,7 @@ int snd_emux_free(struct snd_emux *emu)
->  	if (! emu)
->  		return -EINVAL;
->  
-> -	del_timer_sync(&emu->tlist);
-> +	del_timer_shutdown(&emu->tlist);
->  
->  	snd_emux_proc_free(emu);
->  	snd_emux_delete_virmidi(emu);
-> -- 
-> 2.35.1
-> 
+> +	if (i2c->dev.of_node) {
+> +		const struct of_device_id *oid;
+> +
+> +		oid = of_match_node(cs42xx8_of_match, i2c->dev.of_node);
+> +		if (!oid)
+> +			goto err_not_found;
+> +		drvdata = (struct cs42xx8_driver_data *)oid->data;
+> +	} else {
+> +		const struct i2c_device_id *id;
+> +
+> +		id = i2c_match_id(cs42xx8_i2c_id, i2c);
+> +		if (!id)
+> +			goto err_not_found;
+> +		drvdata = (struct cs42xx8_driver_data *)id->driver_data;
+> +	}
+
+Be worth noting a little more explicitly in the commit message
+you updated this logic as part of the move. I would even be
+tempted to put it as a separate patch personally.
+
+> +static const struct cs42xx8_driver_data cs42448_data = {
+> +	.name = "cs42448",
+> +	.num_adcs = 3,
+> +};
+> +
+> +static const struct cs42xx8_driver_data cs42888_data = {
+> +	.name = "cs42888",
+> +	.num_adcs = 2,
+> +};
+
+It is probably better to leave these two structures exported from
+the primary module. These devices could technically have SPI
+support added in the future and it might as well reuse these same
+data structures.
+
+Thanks,
+Charles

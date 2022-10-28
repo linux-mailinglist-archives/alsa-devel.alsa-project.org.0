@@ -2,139 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40577610C37
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 10:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A9F610CE9
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 11:18:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D179F28EC;
-	Fri, 28 Oct 2022 10:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D179F28EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43C831F0F;
+	Fri, 28 Oct 2022 11:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C831F0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666945815;
-	bh=ObgZO9H35r7uQrILJBZI7lNhiOERk9BaAXtdQ84dfzk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666948687;
+	bh=i7oF5tSzRh2rxPPHCpYTcHCxhaKEQpJYEeKnlBRnNFE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E4n/tdaAim7WSP0ZDI6+9LbR2GiHwLS5LVob1+AwA3TsFekdJtT9+Ei1U4UIXDnD1
-	 F2I5HuPLmL47V6w/Fgjwfcj7ZvqlJrlllBXRIsvP97MIT1zFPhszvY84UhZfEnaCic
-	 uulIf7ICMMJ6r1JGm/9X0Q/R5YgseI+ZdyiEbLFc=
+	b=CR8OxUoxfrQTbX5gUtdw9RnB1Hf2pNBMZcuKwCBLqyrkuc8faOSI2g9s8V95oh7I3
+	 SbshPuPq3x5ffUsJBZBtmwdbrcdWYc7NthwLCPfr5+P+DVs+NRNBc6poO7RvR5odws
+	 duCFCq/ZtlG2aejgBWaabulV63FjzVhr9NyNqpD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB28EF80564;
-	Fri, 28 Oct 2022 10:28:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3C33F800E1;
+	Fri, 28 Oct 2022 11:17:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F1BCF8055B; Fri, 28 Oct 2022 10:28:44 +0200 (CEST)
+ id 97BAFF8025A; Fri, 28 Oct 2022 11:17:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr140070.outbound.protection.outlook.com [40.107.14.70])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E94E1F80557
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 10:28:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E94E1F80557
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B1D6F800E1
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 11:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B1D6F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="gtaj0VMo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GCr377OGilpmaJia824H4Y+mzXtFngxQ3nN0nV/IQOmBSEZ2K0u5TA4V5TWjkqUlwft2x4Uz8RH3hkJSL0TGbpIHbqEkwYLHsD2ej4y52M+bOc2MjBjCrJaq/k6J5BiN+OPajSPQmUsx/6aqoYaksAIqG8Wa9Gzw0GeH0FSIWD2EzNuQkcBm4mfBM2zEwXwxRy8qRWbKm2hWqtfgr36v4IZiiwx0y2Flx57aZ56N8txu94Vdg+WwsGlxCJ0HxlSI0ptudV2z7PlSpZ1cwxkfLoGYdutBx77sxua7E0I/duUa9xQGYg2bTsv2qpefzFIEaY5BBJTd4+lw+H87kZh4zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bG25X3TBSZ6y14VSB3Ru83bnz6KcYCxEkoykgD8sPuc=;
- b=JthegQQmRC6LxNInhR2xWcFX4z1waEYNwEwV2vVb6R2G2nFvd38wukkEBbOzByWGOjbKgCIIPMGv6Wn0f9R2qyKyUPtMjg+Ib82v8c0hqx18K9N7hnUz2jgkRy/wmGLwZ2x70gQHcYZPBMscud4N2wxHSL+gssv2smt7Hkzf3vr2CF03Ri1TCNtqf4n5njT7ppudPYr/GpBeBYBdJxOjPyobH6o5x2c8BVTe/n/VNxRhArWd8jcTL6TyfBFCQxatEhGzWUG0aGDckYbv6e6EAOkfH7UIHBU7Bq1DVlBTfTSfak0IQvIR4FUHo5bUKDq3EPrXL00hlDiG2saifIvjHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bG25X3TBSZ6y14VSB3Ru83bnz6KcYCxEkoykgD8sPuc=;
- b=gtaj0VMofBoSvgY2tXz/h78wyJOZzKzzPxjiAJ91H4yBKMyI6rNE88s3WJzzEhddKWmYCx9jQHKLmoyLX3nawMtJgUDQ52Fzshb5qVqkCc4BnKWwcwFEFoA1SMoT/dhBL/6h2M4hmHqDlcXiDMPqYZT7ua3k1RAjSmcJzQ4PE5o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM6PR04MB4213.eurprd04.prod.outlook.com (2603:10a6:209:4a::21)
- by DBBPR04MB7755.eurprd04.prod.outlook.com (2603:10a6:10:1e7::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Fri, 28 Oct
- 2022 08:28:40 +0000
-Received: from AM6PR04MB4213.eurprd04.prod.outlook.com
- ([fe80::1991:3060:d022:a541]) by AM6PR04MB4213.eurprd04.prod.outlook.com
- ([fe80::1991:3060:d022:a541%4]) with mapi id 15.20.5746.021; Fri, 28 Oct 2022
- 08:28:40 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH 3/3] ASoC: fsl_micfil: Add support when using eDMA
-Date: Fri, 28 Oct 2022 16:27:50 +0800
-Message-Id: <20221028082750.991822-4-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221028082750.991822-1-chancel.liu@nxp.com>
-References: <20221028082750.991822-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR04CA0210.apcprd04.prod.outlook.com
- (2603:1096:4:187::7) To AM6PR04MB4213.eurprd04.prod.outlook.com
- (2603:10a6:209:4a::21)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4213:EE_|DBBPR04MB7755:EE_
-X-MS-Office365-Filtering-Correlation-Id: b05104df-1d8f-4593-73c3-08dab8be6ab1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1edV7p4dFbHom1YSQ+awu/9on4pEpH6VyROJzx20c26CYb8IT2R7okH9RFt31ICcDAqxR82uaKwmqn1WMTikiWwBDgrZKiyvMckJxFxoYDJriBXSLN+qQYIobxD/ZoEsdUnrskvgcxvL1hPRxO6DIPnj8ZIfig8PHtk1fmVOAUByEbq/mumfm4PuOgD8LGKBqVJrMH0fLmHMjZjwSu4XDjmPV2Ln5qYOUsjtNZfYSYD6LjRta4uQilK8+tOZCytdsarmNzclO8tlUx5KivaCDEgCKrmmeVJzxUXnadjL9lPbswPVQXEmYJ0gefo9yfR9CXwyMjcQ/A5sdy4BjOQ5L1hrOnz9eP6l+CDNbVIb45AvUFxQV/N6qwTh3VbSwb21a+CDm5YG4SR49fZ+dec6nuwUVtiBWYaS225P2h3PiJuhzm1hhCyM+qBrUI8RuwlaV6FiS5+D7S7i32xIu8iUbFidZjoTDZOBek66Y469gVm/QM+LW0tyroJHQtzQvOvRemMTcDXVTrM+9qe6SWuEb0yYfO2oBwdwj0/LMJ4y7iI8BxDxPTMqlnFu/cp6I4K6f553w9CN/hlVfVQUSiQ9AGuK+r7u+UDsCN49V8boFxsePCq0e+G3ib8ed/Ud29OaglH5PCPaq2KonS26owf+RshNKNID+eyfogpGCQJqHSj9mECBi2FAk0vqFv401Pj8BgIjLVzwclOnKfwPk/fTOeQc+RbuWGGN6QnZt/cHdNDP6cvO+aQzVhOoNut+By3M85bjhzGa8NTR6QX97gDmb609dyzf1AwbHtAdoWsUcOo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM6PR04MB4213.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(451199015)(44832011)(66946007)(7416002)(38100700002)(4326008)(2906002)(66556008)(316002)(8936002)(41300700001)(66476007)(5660300002)(478600001)(8676002)(921005)(36756003)(38350700002)(6506007)(6486002)(2616005)(26005)(52116002)(6666004)(1076003)(186003)(6512007)(86362001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3XKWK6PWRAEQoXhimgT7lxRJhvwiG70wuISezaw+qLrfiuBNNcxbJF63G49J?=
- =?us-ascii?Q?Kh4kaQ9A39jlOJUMPA7Jb97ltIDe1yTp3w+Pxlns+BIEzyFKTfrzNB6uLbWM?=
- =?us-ascii?Q?WQz+EHPWnKm7Z1G6DabGWePQg9HQoh+CU3P4IZtjylApXx7/eYgL+DqxlOil?=
- =?us-ascii?Q?qzvadnM4rIYcgnTsqj+LT2vPxPxerwTik3dcyGXFmF9huJee7mR8kIudoUSJ?=
- =?us-ascii?Q?Th27nNnLCKkE/CYcEghPLKHynHjfqxlVq3K3VUh7h52SjB8ZM5PLDZ2l6alA?=
- =?us-ascii?Q?Fu9OpZp0wRMIqbJT97ZGR8VeEvsApdL9aEYxpf0wXMUQsl+YV1jhJXOHs/gE?=
- =?us-ascii?Q?Z2oAxup7LtVPbgeEIzVqrwUfjn43gDMCHARypclN0nQI/WI7jNnDVlyl71G0?=
- =?us-ascii?Q?fefsjq4Xge8SpEDb+PkZfLrb1ly+9gy37VcJG+xVRVPeImiO1fx1a4yZvLcT?=
- =?us-ascii?Q?GPNDyW1sYS+FkfFwwzGVtHLbTY9XUp2shnALMD31AM2a/cGKc2jTU+PfAp8Q?=
- =?us-ascii?Q?5yMe5OUD67skxetG9ewMP4tVn2zhSjp/UkxDqNFBhcuEuXPjPjTVOVNb7Syh?=
- =?us-ascii?Q?Tl9nx2Dg97VmtqsWBCk4wLf8aTWTVxJ4VVkMlCGEgHs13V32xhIs9DVQ5Fid?=
- =?us-ascii?Q?uZSaz+E3f0JX9UGHiicRAxR/bSF6tSOe6w01D+hYTbMVOgL3+bhFG4dYQhHM?=
- =?us-ascii?Q?su2UQE1f99COYWwAFYqVPVHBER4e8HWyN2197cYiVhzOMiO3MI9xcTnqPNgh?=
- =?us-ascii?Q?CFaZr8yumqTIv1zOEh3PuahPotwLQJuqj/TZHpnNOuciMiql4/DfBR33/pC5?=
- =?us-ascii?Q?vBFGTY3beNJEMvvXlf3Tzotm2YzB8fALISyJ5/LSScNkQtehJt0515slJw25?=
- =?us-ascii?Q?yFkR5IRakdiUtCno06Wz9UjKguBMznzSI41IgqPjgoETLqNI3ShXTofKDM8s?=
- =?us-ascii?Q?gulyQ5jmSG7V9Yt+WD3ZZUnMugDy/0tFs/C/oV9vguSBpp+QAyoBsBdSJ64G?=
- =?us-ascii?Q?FrOSL1i4R+OCwdWIhyuJ3ywiRue1zr8VNzGNKamduz1r9QSVZY1CXIB3bTF4?=
- =?us-ascii?Q?88SQ2sWDElrHH1n9aCSHjBP8ft/QYAUeE2O/GJ35sM8D86rI631NDgLzCi2V?=
- =?us-ascii?Q?asMCAfbCt9FJR5rIrK3orp5VomEzEV8MXB+EOnKqKeOrrFaYP77n6Dcvx71a?=
- =?us-ascii?Q?UZTzgfHJJh5pClNvk7lrzsEsjpHKMxnqUjEfq3RK26Sh+FMi1uvwyouc3+59?=
- =?us-ascii?Q?2oocudyEe+4l5J5TOwcR5DqJvXtnlcrP4P16MUALv8ux0bhXdB0KJidZ9i6f?=
- =?us-ascii?Q?UQxill3Ea8cMsdwuteSBrCoh0vjdoK9CEOjUs9kU7zXr00k03FAAhVndWy4M?=
- =?us-ascii?Q?+bmZyhd7Ma6TIq4E6iP78f7T8jE8Y/LrVxkLboFLgIySWTnKSJMRKcqpIC/U?=
- =?us-ascii?Q?jA9dtIO8OFL+e3FFcu6eIC3JCO8MPdovsDxws4yigkFy4esTZs8Q2ZBtRSix?=
- =?us-ascii?Q?krecogWCENX4kJG/7SzxH5X4BJJIpoEe+BBeXwI6/wAUjYyKpnQvUsMn3KlF?=
- =?us-ascii?Q?3cpD1DvLTw9vR0SnrQ0xQwBpybQ61NnvGacGoY+g?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b05104df-1d8f-4593-73c3-08dab8be6ab1
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4213.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 08:28:40.4345 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4iUvFlCxbxgB6SGSV3z5DumEOsJ9JVWj63MVCt/gCYdduMuYEgULPeqFO4ybPZBw8cAgeJ8eIAwyrZjsIoFTew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7755
-Cc: Chancel Liu <chancel.liu@nxp.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="G2AwcJg8"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="3IBGb1Lq"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C23E51F897;
+ Fri, 28 Oct 2022 09:17:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666948624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FGwUHQUQ/OF1EgdhxPURRulnf0czT/1UBQSXD9N1iSY=;
+ b=G2AwcJg8CT9dy0Y+MskRX8fgWMMLAWs0rWmMfu+7ViDk+J/JAQajFkdy0fygnD1mFPlqjl
+ W5vwPoRojlQ+9Vpf9QGaOKERNsgVPPa8oB7go5ov6KVaemyrfJaWplRLcfPekN95ac7Qxk
+ vnmSo3nA+mAjwxf7aLxkPe60CiWzGQU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666948624;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FGwUHQUQ/OF1EgdhxPURRulnf0czT/1UBQSXD9N1iSY=;
+ b=3IBGb1Lq1jW+9fzwIqGfcXNmYiMQSPHb/zX/zHXfgThcBACuALPVbg25TEVOrUwI3ZwiO/
+ t7K3e84NY3Rht6DQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 895DE1377D;
+ Fri, 28 Oct 2022 09:17:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id amfGIBCeW2N+FQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 28 Oct 2022 09:17:04 +0000
+Date: Fri, 28 Oct 2022 11:17:04 +0200
+Message-ID: <87fsf8mhnz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [RFC][PATCH v2 29/31] timers: ALSA: Use del_timer_shutdown()
+ before freeing timer
+In-Reply-To: <20221027150930.702028779@goodmis.org>
+References: <20221027150525.753064657@goodmis.org>
+ <20221027150930.702028779@goodmis.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Austin Kim <austin.kim@lge.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Guenter Roeck <linux@roeck-us.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -150,43 +105,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On i.MX93 platform MICFIL uses eDMA. The maxburst should be set to the
-number of channels in eDMA multiple FIFO mode.
+On Thu, 27 Oct 2022 17:05:54 +0200,
+Steven Rostedt wrote:
+> 
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> 
+> Before a timer is freed, del_timer_shutdown() must be called.
+> 
+> Link: https://lore.kernel.org/all/20220407161745.7d6754b3@gandalf.local.home/
+> 
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Austin Kim <austin.kim@lge.com>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/fsl/fsl_micfil.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index b8a9504441df..22e75c14cac4 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -63,6 +63,7 @@ struct fsl_micfil_soc_data {
- 	unsigned int fifo_depth;
- 	unsigned int dataline;
- 	bool imx;
-+	bool use_edma;
- 	u64  formats;
- };
- 
-@@ -88,6 +89,7 @@ static struct fsl_micfil_soc_data fsl_micfil_imx93 = {
- 	.fifo_depth = 32,
- 	.dataline =  0xf,
- 	.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+	.use_edma = true,
- };
- 
- static const struct of_device_id fsl_micfil_dt_ids[] = {
-@@ -690,6 +692,8 @@ static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
- 	micfil->sdmacfg.n_fifos_src = channels;
- 	micfil->sdmacfg.sw_done = true;
- 	micfil->dma_params_rx.maxburst = channels * MICFIL_DMA_MAXBURST_RX;
-+	if (micfil->soc->use_edma)
-+		micfil->dma_params_rx.maxburst = channels;
- 
- 	return 0;
- }
--- 
-2.25.1
+I think there are a few other codes in sound/* that should use
+del_timer_shutdown() (although it works practically as is for now).
+I'll convert them once when the API is included.
 
+
+thanks,
+
+Takashi
+
+> ---
+>  sound/i2c/other/ak4117.c | 2 +-
+>  sound/synth/emux/emux.c  | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/i2c/other/ak4117.c b/sound/i2c/other/ak4117.c
+> index 1bc43e927d82..5269ab7321a4 100644
+> --- a/sound/i2c/other/ak4117.c
+> +++ b/sound/i2c/other/ak4117.c
+> @@ -47,7 +47,7 @@ static void reg_dump(struct ak4117 *ak4117)
+>  
+>  static void snd_ak4117_free(struct ak4117 *chip)
+>  {
+> -	del_timer_sync(&chip->timer);
+> +	del_timer_shutdown(&chip->timer);
+>  	kfree(chip);
+>  }
+>  
+> diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+> index a870759d179e..a43025f466bb 100644
+> --- a/sound/synth/emux/emux.c
+> +++ b/sound/synth/emux/emux.c
+> @@ -129,7 +129,7 @@ int snd_emux_free(struct snd_emux *emu)
+>  	if (! emu)
+>  		return -EINVAL;
+>  
+> -	del_timer_sync(&emu->tlist);
+> +	del_timer_shutdown(&emu->tlist);
+>  
+>  	snd_emux_proc_free(emu);
+>  	snd_emux_delete_virmidi(emu);
+> -- 
+> 2.35.1
+> 

@@ -2,91 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BE10610DF0
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 11:56:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3401F610E6C
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 12:26:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE4B288B;
-	Fri, 28 Oct 2022 11:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE4B288B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C26BE222A;
+	Fri, 28 Oct 2022 12:25:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C26BE222A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666951018;
-	bh=Omhzpive90q/07PBpah3AFImepRCaZx1iNdUHUEipJ8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cAFVmZe0EOrENzl2cjvWX/6MbmtadpyotYaw25j4CjhABlAEmrciLQYzHqqIiRCm+
-	 HYemRroFuTMFv0alZx0IuiJD//9mnw9WB0NaTiHpkSf+iNno0jasFROPWNS/bq2zGP
-	 e9KRLoDlEB3GVESGxgDhZMHF01s/+ezuWtxSiZOE=
+	s=default; t=1666952766;
+	bh=+bXe5mhRxhrurQy+nEuid+uIM7Iu5zjcIt1VevakoCc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oarp8q7dONgK/L6XsO5Y7ZXrLBcS/eaim0epuCEgKOX7mue++Z+FetfB3ENLgEOXX
+	 t4jRGahB9qNBnW8NCbFrwcvSZqMgD7L+mTILjpvgErcb0aEE4KmgzrLgtt1gw/W6qe
+	 sxuaAuF0MeQ3FLdigZVP3S/ljntP3/0B2JU9v4+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96412F804BD;
-	Fri, 28 Oct 2022 11:56:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B8BBF804BD;
+	Fri, 28 Oct 2022 12:25:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84014F8025A; Fri, 28 Oct 2022 11:56:02 +0200 (CEST)
+ id 3F26CF80095; Fri, 28 Oct 2022 12:25:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEB81F80095
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 11:55:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEB81F80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="OdwJ6B/x"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 29S81dOv008832; Fri, 28 Oct 2022 04:55:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=mLLlKGaSg8bfJMwpwLDRI2y+lZnMRSiCP58wvZJft5w=;
- b=OdwJ6B/x5AElXSUaPjRCW3vGA8sNpMltLoCxHHXamjHlgD7t0EnO80PEc5RRI9RVjIxP
- RoVOo9dx3VXsEsQBRxQj5KwWmjEBj1smHvtKWAj4YT7PwjT4foz5PvPWaIG0TX9Ob9H/
- INcImWicjStgg6he6OTSkEWsjyXSvMF1PEtWhOBSvtxIlvYqlcmpk89upj7+Bodq6DKZ
- sBwKBSNnMb8XnfzTdsosNgSc6dh2TUBO2UNoWdpt0cUd07R/+amIR4MpId32jqtL8PSb
- fFIMcZQIixTBfuigmcXAR/8UMXybm0LXuSXciyMfD68Ih+a/BIWvthhpSHAsh8Vi2FT0 fw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kfajn270j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Oct 2022 04:55:56 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.12; Fri, 28 Oct
- 2022 04:55:54 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.12 via Frontend Transport; Fri, 28 Oct 2022 04:55:54 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9E00C478;
- Fri, 28 Oct 2022 09:55:54 +0000 (UTC)
-Date: Fri, 28 Oct 2022 09:55:54 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Peter Bergin <peter@berginkonsult.se>
-Subject: Re: [PATCH v2] ASoC: cs42xx8-i2c.c: add module device table for of
-Message-ID: <20221028095554.GG92394@ediswmail.ad.cirrus.com>
-References: <20221027115057.442925-1-peter@berginkonsult.se>
- <20221028075045.493191-1-peter@berginkonsult.se>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C097F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 12:25:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C097F80095
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
+ header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.b="sSlppe4N"
+Received: by mail-pl1-x62f.google.com with SMTP id p3so4475233pld.10
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 03:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=AZC8394g/oSHb1w89qyTVGSgqWEPdgXV2NM/y2pTr74=;
+ b=sSlppe4NJWWXV5yBu1kykNWWxehe88U/8q1q7SnG4d8/WcqVJemFszw5xqDtTOAz8w
+ xq4RciBvf4yPH5XG1rgJCpKsvZ2Uiz1dtWq9mKevLqAJKl+Sljr76rdWM8+QcOCBk5py
+ b5+hl4NYdGHrmKSDTF6/9PBnzHqy5D3xz0UF3jM82vPT1Ex7P7ehHekVkwh0uL4EYeau
+ VWE389takqz8EWZQEyn1nGd6Kavmbt6bANsZxcLtnvGr+EtXt4C7zjXBtsxEQ5hk8u25
+ yOoYwTQPUdzLk3NgegKrU8ijW81H73g6p/U95lOfhCh6CvqqnOLmK3AbAlLFOuOanXwM
+ 1Yqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AZC8394g/oSHb1w89qyTVGSgqWEPdgXV2NM/y2pTr74=;
+ b=DEdA+uW6FjNNbGOSUqa0t7SjgwamK5Z6rkuE7xLLn75u7KvDptwNBYC5bMJrP5xE5V
+ zfsCMD0s0oPNR2ZPzdUSZrn7M6+b/hSmgebVQrrkEHV/qt49oBz3Vrk3rTAc64IeBMlN
+ 0U2H1V2UTBppuOwSH/wbTBVnzqLD8+uCYIH4aP4u1a664mYc5gUlHp5GFlc8+r+v0x3e
+ NWAmVkbJ0aiUuR0NItXS3bEjPIIHFdySq7M55wmvF9eMeo7LkfyRtTqU6Z5tugLjnwah
+ JIQb7OSp+vwG8xlWtwVn+wQsTV2GFgB5v2ZvAtSvaWMUbCI9ZyekZdvH4HmRQCMcL9zf
+ ZOgA==
+X-Gm-Message-State: ACrzQf1G6B4kcVkSNzZ8jSRKInGNjgdjtqL799ElK817SfLGDZtRAOSw
+ 0JYocGJtub8hhJy/+HtGclFwIA==
+X-Google-Smtp-Source: AMsMyM7iANNZTI00sQBDnQzS9j9Z/a/chwN4BciHmlrMm0hBj6pNIK7fSz1HfepBKyrCF4zBiPYruw==
+X-Received: by 2002:a17:90b:384e:b0:213:7c41:1018 with SMTP id
+ nl14-20020a17090b384e00b002137c411018mr7282132pjb.63.1666952704646; 
+ Fri, 28 Oct 2022 03:25:04 -0700 (PDT)
+Received: from localhost.localdomain (118-167-210-30.dynamic-ip.hinet.net.
+ [118.167.210.30]) by smtp.gmail.com with ESMTPSA id
+ o1-20020aa79781000000b0056b6a22d6c9sm2565236pfp.212.2022.10.28.03.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Oct 2022 03:25:04 -0700 (PDT)
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] Add optional dmic selection for two DMICs
+Date: Fri, 28 Oct 2022 18:24:48 +0800
+Message-Id: <20221028102450.1161382-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221028075045.493191-1-peter@berginkonsult.se>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: gw3o-ik66YAcJDoBPu-y-Idi4u5gg213
-X-Proofpoint-ORIG-GUID: gw3o-ik66YAcJDoBPu-y-Idi4u5gg213
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, tanureal@opensource.cirrus.com,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, david.rhodes@cirrus.com,
- rf@opensource.cirrus.com, broonie@kernel.org, james.schulman@cirrus.com,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, devicetree@vger.kernel.org,
+ angelogioacchino.delregno@collabora.corp-partner.google.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,44 +109,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 28, 2022 at 09:50:44AM +0200, Peter Bergin wrote:
-> Matching of device in cs42xx8_i2c_probe() is coded with inspiration
-> from tlv320aic32x4-i2c.c.
-> ---
-> +	if (i2c->dev.of_node) {
-> +		const struct of_device_id *oid;
-> +
-> +		oid = of_match_node(cs42xx8_of_match, i2c->dev.of_node);
-> +		if (!oid)
-> +			goto err_not_found;
-> +		drvdata = (struct cs42xx8_driver_data *)oid->data;
-> +	} else {
-> +		const struct i2c_device_id *id;
-> +
-> +		id = i2c_match_id(cs42xx8_i2c_id, i2c);
-> +		if (!id)
-> +			goto err_not_found;
-> +		drvdata = (struct cs42xx8_driver_data *)id->driver_data;
-> +	}
+v2:
+- Documentation: Add dmic_sel-gpios optional prop for two DMICs.
+- dmic codec driver: 
+  - "dmic_sel-gpios" property is used for a mixer control to switch
+     the dmic signal source between the Front and Rear Dmic.
 
-Be worth noting a little more explicitly in the commit message
-you updated this logic as part of the move. I would even be
-tempted to put it as a separate patch personally.
+Thanks for the review!
 
-> +static const struct cs42xx8_driver_data cs42448_data = {
-> +	.name = "cs42448",
-> +	.num_adcs = 3,
-> +};
-> +
-> +static const struct cs42xx8_driver_data cs42888_data = {
-> +	.name = "cs42888",
-> +	.num_adcs = 2,
-> +};
+Ajye Huang (2):
+  ASoC: dt-bindings: Document dmic_sel-gpios optional prop for two DMICs
+    case
+  ASoC: dmic: Add optional dmic selection
 
-It is probably better to leave these two structures exported from
-the primary module. These devices could technically have SPI
-support added in the future and it might as well reuse these same
-data structures.
+ .../devicetree/bindings/sound/dmic-codec.yaml |  5 ++
+ sound/soc/codecs/dmic.c                       | 52 +++++++++++++++++++
+ 2 files changed, 57 insertions(+)
 
-Thanks,
-Charles
+-- 
+2.25.1
+

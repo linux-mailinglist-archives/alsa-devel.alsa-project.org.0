@@ -2,74 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A5D611746
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:15:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0408161175F
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:18:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E3BE1749;
-	Fri, 28 Oct 2022 18:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E3BE1749
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8850D1DF4;
+	Fri, 28 Oct 2022 18:17:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8850D1DF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666973744;
-	bh=hPulKsWfwmPS12vC8SipmsqMezI1Fy/nKCO0cEWbjbw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666973928;
+	bh=MPN/lPTpCXpy+0PRxdY8GXPpytF3KfULUfkRjnBwUpE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k0gCaF9TQyha6O9k+jfrdP91X0oKVQD5VpmpTKdGhUi5znqr9EwfbskmRSoG7E8nW
-	 M3izrxFX6Q4WyCV1nTv7Q6v5mopIMUvqrkbmfvuLJ0bYFdyb+yx/Mo0c5pfDirZJ3L
-	 rt6kYotrZ7U1w91z1AFRQ8MugQ0zo3KNhVygZFjU=
+	b=m9LaYiyaegnhBIQFvEBqoi/QcpUS7K90SpkfcH34tRIj5TF/g/lSmsmeaW+tHwqw2
+	 GzaUMEzHKNI7NcdEFx3qohBQ5Ewfb1+aTLNJdddABmbV1mzjpPGqB3R/FSh3GIrko4
+	 lougxpOD9j7wsr9bHOxYO7mLuN0n3hHeIcf/OSAE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF01BF80095;
-	Fri, 28 Oct 2022 18:14:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1662F80095;
+	Fri, 28 Oct 2022 18:17:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9F71F800E1; Fri, 28 Oct 2022 18:14:48 +0200 (CEST)
+ id 9C3A8F80095; Fri, 28 Oct 2022 18:17:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37C32F800E1
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37C32F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 789DDF80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 789DDF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AwfmZaL4"
+ header.b="U4jN1aqr"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1E5EA62971;
- Fri, 28 Oct 2022 16:14:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AC9C4314D;
- Fri, 28 Oct 2022 16:14:38 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B0FB6B82AF5;
+ Fri, 28 Oct 2022 16:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5BBC433C1;
+ Fri, 28 Oct 2022 16:17:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666973680;
- bh=hPulKsWfwmPS12vC8SipmsqMezI1Fy/nKCO0cEWbjbw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AwfmZaL49GbbKADMrHKMnSR4f8L6gDd7gYK+muQWnFx+nq5hB7Zetnlq90s9jvqtH
- h+Rt5C3MlVeEzz57EVBxSJqR9z5i9yVcl5uP7yXsZ+O/NeB8EmO1uv/5tDx8UEd5OP
- DnxHq9BSpn8H7VYxYVHc3Sc2oAz2yYWdQ+ONpyytV03wqPzez1ohg5cuD56Qk3+ria
- fIvghKVyII0Eo5+vNL+YvKysbUxfKr/knS+P1PoS/xxSSEGJV2idWG8u5jeDy5RctS
- XraqgYTvFh8X0uT1WepaBkMk2HxHymcrahRwNPCV+CANILBOUK1iGFjJX9Bk11hDgN
- SOeNIE23zAJ4A==
+ s=k20201202; t=1666973867;
+ bh=MPN/lPTpCXpy+0PRxdY8GXPpytF3KfULUfkRjnBwUpE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U4jN1aqrPtVpL4VSh4NG5IKIR0V5D/7XGlmxImplMYfIF2nvv4TCI3FNBmihmGZEx
+ V9fP0Zer515uPmI0ZDdCMLln/GOWnTRqQLKZua/VEzttslPumufiygnfvpQkIRwWcN
+ TFV8I7d6Xb1VlRUUJUGFLovN1ITdLhP++IPi3/9/Kzb4u/eEdSZhq4pEuihKYZtYWY
+ oSwO3C8T7BU3xoCKInl61SsWHX7yvHNbaSMiProzM44CvwTnhalM6/ts6sIf7QvvPU
+ nFmLKoj7eJeHyGNZJqrQcw5BQOiUVpp/hiTtP1rzYhOLWD7zppUH9YgIc8Xpo08WMx
+ HBiUwucVzAr2A==
+Date: Fri, 28 Oct 2022 17:17:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Chen Zhongjin <chenzhongjin@huawei.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20221028031603.59416-1-chenzhongjin@huawei.com>
-References: <20221028031603.59416-1-chenzhongjin@huawei.com>
-Subject: Re: [PATCH] ASoC: core: Fix use-after-free in snd_soc_exit()
-Message-Id: <166697367874.746166.7503879951900455151.b4-ty@kernel.org>
-Date: Fri, 28 Oct 2022 17:14:38 +0100
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Subject: Re: [PATCH v1 2/2] ASoC: mediatek: mt8186-rt5682: Modify machine
+ driver for two DMICs case
+Message-ID: <Y1wApOeV7OoQzkt5@sirena.org.uk>
+References: <20221028160733.1390230-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028160733.1390230-3-ajye_huang@compal.corp-partner.google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: lgirdwood@gmail.com, tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Cw3lWstGeVw1b8Ns"
+Content-Disposition: inline
+In-Reply-To: <20221028160733.1390230-3-ajye_huang@compal.corp-partner.google.com>
+X-Cookie: Life -- Love It or Leave It.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?iso-8859-1?Q?N=EDcolas_F_=2E_R_=2E_A_=2E?= Prado <nfraprado@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,54 +96,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 28 Oct 2022 11:16:03 +0800, Chen Zhongjin wrote:
-> KASAN reports a use-after-free:
-> 
-> BUG: KASAN: use-after-free in device_del+0xb5b/0xc60
-> Read of size 8 at addr ffff888008655050 by task rmmod/387
-> CPU: 2 PID: 387 Comm: rmmod
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
-> Call Trace:
-> <TASK>
-> dump_stack_lvl+0x79/0x9a
-> print_report+0x17f/0x47b
-> kasan_report+0xbb/0xf0
-> device_del+0xb5b/0xc60
-> platform_device_del.part.0+0x24/0x200
-> platform_device_unregister+0x2e/0x40
-> snd_soc_exit+0xa/0x22 [snd_soc_core]
-> __do_sys_delete_module.constprop.0+0x34f/0x5b0
-> do_syscall_64+0x3a/0x90
-> entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> ...
-> </TASK>
-> 
-> [...]
 
-Applied to
+--Cw3lWstGeVw1b8Ns
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Sat, Oct 29, 2022 at 12:07:33AM +0800, Ajye Huang wrote:
 
-Thanks!
+> +static const char * const dmic_mux_text[] = {
+> +	"FrontMic",
+> +	"RearMic",
+> +};
 
-[1/1] ASoC: core: Fix use-after-free in snd_soc_exit()
-      commit: 6ec27c53886c8963729885bcf2dd996eba2767a7
+> +	ret = snd_soc_dapm_new_controls(&card->dapm, dmic_widgets,
+> +					ARRAY_SIZE(dmic_widgets));
+> +	if (ret) {
+> +		dev_err(card->dev, "DMic widget addition failed: %d\n", ret);
+> +		/* Don't need to add routes if widget addition failed */
+> +		return ret;
+> +	}
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> +       if (of_property_read_bool(pdev->dev.of_node, "dmic-gpios")) {
+> +               mach_priv->dmic_sel = devm_gpiod_get_optional(&pdev->dev,
+> +                                                       "dmic", GPIOD_OUT_LOW);
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+My prior comments about it being nicer to make the addition of the
+control depend on the property being there and the description of the
+options configurable do stand (I appreciate that the other driver might
+not have done this which was probably an oversight).
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Also do we really need the of_property_read_bool() there?  I'd have
+expected that devm_gpiod_get_optional() would be handling that for us.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--Cw3lWstGeVw1b8Ns
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNcAKQACgkQJNaLcl1U
+h9Dszgf/VXVqdAt6y4Tux5PXD9zW+9i23ZFaCs1y/E0zse4AyVDDvo+BtL+IrkcL
+z9i6r9EqrQuX6SBUCup87nUu3s4aIwtlCvH3Li2znhZWKfY1PEN7xWA7IB6eZDrp
+nWBO4wPITY3ftUoLGTEpv2ZgQ3QIFm4B/rQpNEkfxbwF91kv/JPK2VzAL2Q0zbck
+ahvvraHhPGI+2MkDjcufrlzqUke/MteuKH+zKgZjDLYDicXFaj0gHhS/0n7s46Nw
+Uq2pcLsOFtU8yBm9LVBeC2CDk134qJH4h81Pen/yF/v2+7Pyz5uJD1X2PqXqVRDF
+Et13wKZD5oDLUdFdlZhs82B5gcdQ4g==
+=Qv/e
+-----END PGP SIGNATURE-----
+
+--Cw3lWstGeVw1b8Ns--

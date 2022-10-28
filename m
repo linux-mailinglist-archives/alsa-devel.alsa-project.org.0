@@ -2,135 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412C46130A9
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:47:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F52D6130AA
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 07:47:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B8111655;
-	Mon, 31 Oct 2022 07:46:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B8111655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0196A165E;
+	Mon, 31 Oct 2022 07:46:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0196A165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667198839;
-	bh=9Owny9m6411oB1RjH+PneKiwm+RBOa00OaIX5H0DcH0=;
+	s=default; t=1667198847;
+	bh=iPGyt+84wCb1NFI5iNvvlUF9KHEY0odzw+g+6aRargU=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=r8s7ErEhzhuu8IGb81AwuzTjy1+KrUwEQB9UhieCfo+p+90p5psMEZzglPukpw81e
-	 3f2/wMlLMv0xfp6t3bP1qmIQZ34rMZWeDv/QTi1/D922ikVb08EruVC1830aoJtTMx
-	 gbHntRT1ZMvls70xrjEBgQlbAGygNN4J7d2WV7Ko=
+	b=dy0QoqUVShwgDhyE4qSO3wdK1ki9fh0iDHjNr9thok+r2YbuEXgyjR0ZV9xx6fmBN
+	 K2O0v/vwURRvvEBHRxFlFtLWmIgdGEq/wMlJ1a6gHjnIj29SlfiZIFMfZrfttLqEn8
+	 usxY+/TW5vDEkD5A60yMMqOzB5Egwd7VJwjAUwfY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2CD9F80553;
-	Mon, 31 Oct 2022 07:45:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57D11F8055A;
+	Mon, 31 Oct 2022 07:45:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B8A1F8025A; Fri, 28 Oct 2022 12:31:04 +0200 (CEST)
+ id 26BA4F80095; Fri, 28 Oct 2022 16:12:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2053.outbound.protection.outlook.com [40.107.101.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49617F8016A
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 12:30:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49617F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA82DF80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 16:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA82DF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="nWDfJMPT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H6YMWafJPkwVjm3sHbbRAzCP5ZcxImfoufzS75n9NfImUZTf0bGSgwMUJbFJ3bibblUEE6iXEPdCQ0fyBNMqrsEThK5HRKNmu1du1mjHpaLBny5UxquPIsOO8JkZFzfZFuVDlaYroVPg1w4MyUA7yQ+sau8NdI+gaw5Lh7KBKsx0McqjreajQT/RPOYVf+hbLh/S+srEYZ3YRWsNT28bN/gA9s+vO4/e9uiDP+BTN0+lbPfo+jwTusJg/WSBjU6JqFo5O6UwZHkEfZEnZpAHik3kkeq4TBgVKhuHIyisI0LGyeTfamDn+iuQNBcuv4DCpAEpSNORqRjBcsVKlvAsmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IsdpESYOBGXQmW0XFQPmUlEw6QeP3A9k4OpEFnX4vPM=;
- b=mtDqN8/kkQl1zOjqK23dZKAxlRgI/NCMVWBIlo2VoryXBAk2wM1i15rIpNEJtyS+3DwNvDJdgCqsQFItWb6wyxqLwlHSRGw0paZ3g5u8OgvGkMmc4dCjeqSD3elmRvLJnXPteOTMqJnRxLVZTszQaxrtYUC0MbvdtiMibheQx/XYafVoTfrWsGo3OomesAO1PaxnBUxcqTFmRYZt1/dPcyQww46DJC/TKvR1urw5+P/Njx5zsUKlLqO7Tsj3JJQ0SOchw1AvR3+iotgE1OFQn7lRpK9qYN0u5q4H5q5Df4oW9EHeZDnJskGaG7mg8FcMugqSd98V5oquQDLmd+SIkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org
- smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
- pct=100) action=oreject header.from=amd.corp-partner.google.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IsdpESYOBGXQmW0XFQPmUlEw6QeP3A9k4OpEFnX4vPM=;
- b=nWDfJMPTsiEcoILIP6d3dcWg0xtmFa7kPEnlhqxFmDAj+3RTFy3eI8Ho4Ow6IWz1a2ADKj5JbW+GC6CuHFew+fmRUTOnYmAC9xv2Uyq3Vz+dwUhOcyuW3M+iRFrAowqRrtnbeiDCB8yeAhW+nl9s+W8aTS0KY+PxQYvu4w4aN/5RxqNVZGqg85bUbx0sYnjb5EwwBzfkKQAzJyihTT9O91qkEBhFPe4YM2NAN4G/aSXRcsnuK+cKuMI6QZKS6pl/sTtgRHt4fkUPWH8pHYMb7i/XxoT5VTN5m83p/nwz6cTTxPMKbcVZpxHvLWFFkMfw2+NTrVIUFAgqxV7TcTk3TA==
-Received: from BN8PR07CA0028.namprd07.prod.outlook.com (2603:10b6:408:ac::41)
- by MN0PR12MB6102.namprd12.prod.outlook.com (2603:10b6:208:3ca::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
- 2022 10:30:52 +0000
-Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ac:cafe::81) by BN8PR07CA0028.outlook.office365.com
- (2603:10b6:408:ac::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15 via Frontend
- Transport; Fri, 28 Oct 2022 10:30:52 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=amd.corp-partner.google.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
- sender)
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Fri, 28 Oct 2022 10:30:52 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 05:30:52 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 05:30:52 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Fri, 28 Oct 2022 05:30:42 -0500
-From: Venkata Prasad Potturu
- <venkataprasad.potturu@amd.corp-partner.google.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] CHROMIUM: ASoC: amd: acp: Add tdm support for codecs in
- machine driver
-Date: Fri, 28 Oct 2022 16:04:41 +0530
-Message-ID: <20221028103443.30375-1-venkataprasad.potturu@amd.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be
+ header.b="aSCxH4V0"
+Received: by mail-lj1-x22f.google.com with SMTP id u2so8540455ljl.3
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 07:12:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mind.be; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Sj8HqllYMhfqKSvoQNCAihSbEuI4FzdlLzmNIw46HS4=;
+ b=aSCxH4V0xWhwnLfV9pMe0XfN4ID4YAlJ0P8AuJMDr8MQsLUgliJ7DKMek2AnNfLxEF
+ +2ppRP9SBmJR4ZgjRhHXuoDFBvPUp+ysV89R+Y67dKWSM4Y0v5Dt/t0MTlKsPimJ/QvN
+ rXO98VseuYdpDVBiRSEIcdFxJF1u7xzWzXAjUN0lmnIbuL/tgscSTCSS/fDCfT5ZkBlz
+ cIHso4eLUO6aunBIclS8lDu4VwjxEFxQbjzuY0lRT54CvhK80AwArFkgGf+m6Qjw992p
+ 68Nt/z1nNqEd0x9wDZYv1iSokRqTappf3lsaBaidhhkB1lvrK03uLtBMfMTGvgo4iHFF
+ Vkbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Sj8HqllYMhfqKSvoQNCAihSbEuI4FzdlLzmNIw46HS4=;
+ b=YxqLSpgA9gkMzWh49bdb1p7W7tNsBC4ezb/VtHOtyWDJvwBfu4WomDfPmICkFBCU70
+ c9EeuVg2o13RilFcLY/OuBWMQN3EarppCDhZj+jB5nKV4zOTtGjK7FO0PP4A88BdZzJU
+ mNrZIkIKUo1aT3rmtFOUZa4qTeqK6X8bA+XikpAk4ogjGJaZc8UMgCAj5JP4Tj9AR8Aw
+ yPHwKhwkB6E+bpyEEYG0ZNRGy6AbQ4SPuxilAtLQOyEacFsBQHrTBrbWAHrquJsL/0tI
+ HmgBooXXh/P7AcQaEOPB5M/a3x4+PwVfXGccZ3K0E2tpnN6g6LJDExg3eKQW5BjyaduA
+ xfyQ==
+X-Gm-Message-State: ACrzQf0pATDqHNe4ArtbTivKT0t40CeKVhgEL+E5ZaiYGk2KFiCwhogr
+ r6gO3XC+0t3CaGNyc76ZGuZKRMradwlJu7vlt3U=
+X-Google-Smtp-Source: AMsMyM6mA6aj5cK7n1IOR21s4CGJnScN3SYaB+eu81S/8fo6cgpjaWtiWo/dcNJNNXbaJgS8HtwxcQ==
+X-Received: by 2002:a17:907:16a6:b0:78e:f140:a9b9 with SMTP id
+ hc38-20020a17090716a600b0078ef140a9b9mr47339126ejc.502.1666966314346; 
+ Fri, 28 Oct 2022 07:11:54 -0700 (PDT)
+Received: from dtpc.zanders.be (78-22-137-109.access.telenet.be.
+ [78.22.137.109]) by smtp.gmail.com with ESMTPSA id
+ 9-20020a170906300900b0073d753759fasm2241902ejz.172.2022.10.28.07.11.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Oct 2022 07:11:53 -0700 (PDT)
+From: Maarten Zanders <maarten.zanders@mind.be>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
+Date: Fri, 28 Oct 2022 16:11:28 +0200
+Message-Id: <20221028141129.100702-1-maarten.zanders@mind.be>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT015:EE_|MN0PR12MB6102:EE_
-X-MS-Office365-Filtering-Correlation-Id: a984a1ac-7f54-45aa-c710-08dab8cf7d6d
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kEbhoJe1BPn/zWNG+bcSkNvr1BzzlhqYhmaQGeSEIl1nbzzCPnh3NhNTPWgmtvdD6rhhhtho+CrAzJ8H3lyszDHKb/OQrFSNq7jV3vDJu7SyvEVXvTIe7GSwmgDrdWM80PI2QuuVCAvHcyq+LLJZ9lT3sdmZ5NR87FLA5UEc4vITFFkM6L+BvVILmLYSZ6xQLzCMsz5FNqW0/H77RGFgnZKGzFh0bcPbk+CAlUj8TwEYoL3R5u+XtANg2J6/4C1pIW3XXscQARFtdz4JZemkAGg1phfsv9aLltlMYeD5Vs4KLEIv6nGrWto0vVDGn1ZLH5qRKTRep+WYN6wn0fM4vPkTo8ZyPYN6quMr2jxvL8IPVWXvUA7JWdbLWOxIvqwOCx9RoFmouNAXraQ/Jxo7xNBHc7/f/VJlPnZDJnYb5Ctn0Dtq4UKOl1aApQlJXRcuXypHcLduCudWogMjnL1jLRL13g17QNc9XY2p0HPqfFVkWyzGSnUh9kd01E7v/s88pMEOoAlu3OCmRzXwRXvt/HXJDrZQcX9HMh240Ol6P6+2MJ+f6rZst+jyyphGBBWcYDHLXeiv0EqVWbVVW/GmwVlPILu+pt8rXLVf815VFwcwQahy1gzH8PGdIVrfGBAisnHDSmr8SdNxOLfTjWsw1JB6zqMOM91TOhzPhU5BGDVIokX3HnZPLEbjhf7kQ7RX1wP7n+CvaCPqOxB8T6LF/1p0A4OYY0u4krk2n4lpBr8aSEvIwltwpHbgXAlif5bjn/FXu+f52lu6U5CM/hYeFA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(136003)(396003)(451199015)(40470700004)(46966006)(26005)(4326008)(41300700001)(8676002)(356005)(81166007)(40460700003)(47076005)(83380400001)(2616005)(30864003)(35950700001)(5660300002)(8936002)(336012)(2906002)(1076003)(82740400003)(498600001)(110136005)(86362001)(54906003)(316002)(82310400005)(70206006)(40480700001)(70586007)(76482006);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 10:30:52.7965 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a984a1ac-7f54-45aa-c710-08dab8cf7d6d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6102
 X-Mailman-Approved-At: Mon, 31 Oct 2022 07:45:34 +0100
-Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- ye xingchen <ye.xingchen@zte.com.cn>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Akihiko Odaki <akihiko.odaki@gmail.com>, Vijendar.Mukunda@amd.com,
- V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, Maarten Zanders <maarten.zanders@mind.be>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,405 +104,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+When CONFIG_PM=N, pm_runtime_put_sync() returns -ENOSYS
+which breaks the probe function of these drivers.
 
-Add tdm support for rt5682, rt5682s, rt1019 and nau8825 codec in
-machine driver.
+Other users of pm_runtime_put_sync() typically don't check
+the return value. In order to keep the program flow as
+intended, check for -ENOSYS.
 
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+This commit is similar to commit 0434d3f (omap-mailbox.c).
+
+This commit fixes:
+cab04ab (ASoC: fsl_asrc: Don't use devm_regmap_init_mmio_clk)
+203773e (ASoC: fsl_esai: Don't use devm_regmap_init_mmio_clk)
+2277e7e (ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk)
+
+Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
 ---
- sound/soc/amd/acp/acp-mach-common.c | 255 ++++++++++++++++++++++++++--
- 1 file changed, 243 insertions(+), 12 deletions(-)
+ sound/soc/fsl/fsl_asrc.c | 2 +-
+ sound/soc/fsl/fsl_esai.c | 2 +-
+ sound/soc/fsl/fsl_sai.c  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index a78cf29387a7..bce3d8ed48ec 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -27,6 +27,21 @@
- #include "../../codecs/nau8825.h"
- #include "acp-mach.h"
- 
-+static int tdm_mode = 0;
-+module_param_named(tdm_mode, tdm_mode, int, 0444);
-+MODULE_PARM_DESC(tdm_mode, "Set 1 for tdm mode, set 0 for i2s mode");
-+
-+#define TDM_CHANNELS	8
-+#define BIT_WIDTH	16
-+#define SLOT0	BIT(0)
-+#define SLOT1	BIT(1)
-+#define SLOT2	BIT(2)
-+#define SLOT3	BIT(3)
-+#define SLOT4	BIT(4)
-+#define SLOT5	BIT(5)
-+#define SLOT6	BIT(6)
-+#define SLOT7	BIT(7)
-+
- #define PCO_PLAT_CLK 48000000
- #define RT5682_PLL_FREQ (48000 * 512)
- #define DUAL_CHANNEL	2
-@@ -80,13 +95,19 @@ static int acp_card_rt5682_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_component *component = codec_dai->component;
- 	int ret;
-+	unsigned int fmt;
- 
- 	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
- 
- 	if (drvdata->hs_codec_id != RT5682)
- 		return -EINVAL;
- 
--	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
-+	ret =  snd_soc_dai_set_fmt(codec_dai, fmt | SND_SOC_DAIFMT_NB_NF
- 				   | SND_SOC_DAIFMT_CBP_CFP);
- 	if (ret < 0) {
- 		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
-@@ -151,10 +172,15 @@ static int acp_card_hs_startup(struct snd_pcm_substream *substream)
- 	int ret;
- 	unsigned int fmt;
- 
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
- 	if (drvdata->soc_mclk)
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
- 	else
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
- 
- 	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
- 	if (ret < 0) {
-@@ -191,9 +217,65 @@ static void acp_card_shutdown(struct snd_pcm_substream *substream)
- 		clk_disable_unprepare(drvdata->wclk);
- }
- 
-+static int acp_card_rt5682x_hw_params(struct snd_pcm_substream *substream,
-+				      struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+		struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	int ret;
-+	unsigned int fmt;
-+
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
-+	ret = snd_soc_dai_set_fmt(cpu_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(rtd->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 0 and slot 1 for playback and capture.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai, SLOT0 | SLOT1, SLOT0 | SLOT1,
-+					       TDM_CHANNELS, BIT_WIDTH);
-+		if (ret && ret != -ENOTSUPP) {
-+			dev_err(rtd->dev, "set TDM slot err: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	ret =  snd_soc_dai_set_fmt(codec_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBC_CFC);
-+	if (ret < 0) {
-+		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 0 and slot 1 for playback and capture.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(codec_dai, SLOT0 | SLOT1, SLOT0 | SLOT1,
-+					       TDM_CHANNELS, BIT_WIDTH);
-+		if (ret < 0) {
-+			dev_warn(rtd->dev, "set TDM slot err:%d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_ops acp_card_rt5682_ops = {
- 	.startup = acp_card_hs_startup,
- 	.shutdown = acp_card_shutdown,
-+	.hw_params = acp_card_rt5682x_hw_params,
- };
- 
- /* Define RT5682S CODEC component*/
-@@ -220,10 +302,15 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 	if (drvdata->hs_codec_id != RT5682S)
- 		return -EINVAL;
- 
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
- 	if (drvdata->soc_mclk)
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
- 	else
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
- 
- 	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
- 	if (ret < 0) {
-@@ -283,6 +370,7 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
- 
- static const struct snd_soc_ops acp_card_rt5682s_ops = {
- 	.startup = acp_card_hs_startup,
-+	.hw_params = acp_card_rt5682x_hw_params,
- };
- 
- static const unsigned int dmic_channels[] = {
-@@ -351,19 +439,48 @@ static int acp_card_rt1019_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_card *card = rtd->card;
- 	struct acp_card_drvdata *drvdata = card->drvdata;
- 	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int srate, i, ret = 0;
-+	unsigned int fmt;
- 
- 	srate = params_rate(params);
- 
- 	if (drvdata->amp_codec_id != RT1019)
- 		return -EINVAL;
- 
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
-+	ret = snd_soc_dai_set_fmt(cpu_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(rtd->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 2 and slot 3 for playback.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai, SLOT2 | SLOT3, 0, TDM_CHANNELS, BIT_WIDTH);
-+		if (ret && ret != -ENOTSUPP) {
-+			dev_err(rtd->dev, "set TDM slot err: %d\n", ret);
-+			return ret;
-+		}
-+	}
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (strcmp(codec_dai->name, "rt1019-aif"))
- 			continue;
- 
--		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1019_PLL_S_BCLK,
--					  64 * srate, 256 * srate);
-+		if (tdm_mode)
-+			ret = snd_soc_dai_set_pll(codec_dai, 0, RT1019_PLL_S_BCLK,
-+						  128 * srate, 256 * srate);
-+		else
-+			ret = snd_soc_dai_set_pll(codec_dai, 0, RT1019_PLL_S_BCLK,
-+						  64 * srate, 256 * srate);
-+
- 		if (ret < 0)
- 			return ret;
- 
-@@ -371,8 +488,36 @@ static int acp_card_rt1019_hw_params(struct snd_pcm_substream *substream,
- 					     256 * srate, SND_SOC_CLOCK_IN);
- 		if (ret < 0)
- 			return ret;
--	}
- 
-+		if (tdm_mode) {
-+			ret = snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_DSP_A
-+							| SND_SOC_DAIFMT_NB_NF);
-+			if (ret < 0) {
-+				dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
-+				return ret;
-+			}
-+
-+			/**
-+			 * As codec supports slot 2 for left channel playback.
-+			 */
-+			if (!strcmp(codec_dai->component->name, "i2c-10EC1019:00")) {
-+				ret = snd_soc_dai_set_tdm_slot(codec_dai, SLOT2, SLOT2,
-+							       TDM_CHANNELS, BIT_WIDTH);
-+				if (ret < 0)
-+					break;
-+			}
-+
-+			/**
-+			 * As codec supports slot 3 for right channel playback.
-+			 */
-+			if (!strcmp(codec_dai->component->name, "i2c-10EC1019:01")) {
-+				ret = snd_soc_dai_set_tdm_slot(codec_dai, SLOT3, SLOT3,
-+							       TDM_CHANNELS, BIT_WIDTH);
-+				if (ret < 0)
-+					break;
-+			}
-+		}
-+	}
- 	return 0;
- }
- 
-@@ -426,9 +571,43 @@ static int acp_card_maxim_init(struct snd_soc_pcm_runtime *rtd)
- 				       ARRAY_SIZE(max98360a_map));
- }
- 
-+static int acp_card_maxim_hw_params(struct snd_pcm_substream *substream,
-+				    struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	unsigned int fmt;
-+	int ret;
-+
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
-+	ret = snd_soc_dai_set_fmt(cpu_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(rtd->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 2 and slot 3 for playback.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai, SLOT2 | SLOT3, 0, TDM_CHANNELS, BIT_WIDTH);
-+		if (ret && ret != -ENOTSUPP) {
-+			dev_err(rtd->dev, "set TDM slot err: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+	return 0;
-+}
-+
- static const struct snd_soc_ops acp_card_maxim_ops = {
- 	.startup = acp_card_amp_startup,
- 	.shutdown = acp_card_shutdown,
-+	.hw_params = acp_card_maxim_hw_params,
- };
- 
- /* Declare nau8825 codec components */
-@@ -454,10 +633,15 @@ static int acp_card_nau8825_init(struct snd_soc_pcm_runtime *rtd)
- 	if (drvdata->hs_codec_id != NAU8825)
- 		return -EINVAL;
- 
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
- 	if (drvdata->soc_mclk)
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
- 	else
--		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
-+		fmt = fmt | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
- 
- 	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
- 	if (ret < 0) {
-@@ -493,8 +677,34 @@ static int acp_nau8825_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int ret;
-+	unsigned int fmt;
- 
-+	if (tdm_mode)
-+		fmt = SND_SOC_DAIFMT_DSP_A;
-+	else
-+		fmt = SND_SOC_DAIFMT_I2S;
-+
-+	ret = snd_soc_dai_set_fmt(cpu_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(rtd->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 4 and slot 5 for playback
-+		 * and slot 6 and slot 7 for capture.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai, SLOT4 | SLOT5, SLOT6 | SLOT7,
-+					       TDM_CHANNELS, BIT_WIDTH);
-+		if (ret && ret != -ENOTSUPP) {
-+			dev_err(rtd->dev, "set TDM slot err: %d\n", ret);
-+			return ret;
-+		}
-+	}
- 	ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS,
- 				     (48000 * 256), SND_SOC_CLOCK_IN);
- 	if (ret < 0)
-@@ -507,6 +717,25 @@ static int acp_nau8825_hw_params(struct snd_pcm_substream *substream,
- 		return ret;
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index 44dcbf49456c..08ca410ef551 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -1226,7 +1226,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
  	}
  
-+	ret =  snd_soc_dai_set_fmt(codec_dai, fmt | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBC_CFC);
-+	if (ret < 0) {
-+		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (tdm_mode) {
-+		/**
-+		 * As codec supports slot 4 and slot 5 for playback and slot 6 for capture.
-+		 */
-+		ret = snd_soc_dai_set_tdm_slot(codec_dai, SLOT6, SLOT4 | SLOT5,
-+					       TDM_CHANNELS, BIT_WIDTH);
-+		if (ret < 0) {
-+			dev_warn(rtd->dev, "set TDM slot err:%d\n", ret);
-+			return ret;
-+		}
-+	}
-+
- 	return ret;
- }
+ 	ret = pm_runtime_put_sync(&pdev->dev);
+-	if (ret < 0)
++	if (ret < 0 && ret != -ENOSYS)
+ 		goto err_pm_get_sync;
  
-@@ -567,6 +796,8 @@ SND_SOC_DAILINK_DEF(sof_sp,
- 	DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-sp")));
- SND_SOC_DAILINK_DEF(sof_hs,
- 		    DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-hs")));
-+SND_SOC_DAILINK_DEF(sof_hs_virtual,
-+		    DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-hs-virtual")));
- SND_SOC_DAILINK_DEF(sof_dmic,
- 	DAILINK_COMP_ARRAY(COMP_CPU("acp-sof-dmic")));
- SND_SOC_DAILINK_DEF(pdm_dmic,
-@@ -733,8 +964,8 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
- 	if (drv_data->amp_cpu_id == I2S_HS) {
- 		links[i].name = "acp-amp-codec";
- 		links[i].id = AMP_BE_ID;
--		links[i].cpus = sof_hs;
--		links[i].num_cpus = ARRAY_SIZE(sof_hs);
-+		links[i].cpus = sof_hs_virtual;
-+		links[i].num_cpus = ARRAY_SIZE(sof_hs_virtual);
- 		links[i].platforms = sof_component;
- 		links[i].num_platforms = ARRAY_SIZE(sof_component);
- 		links[i].dpcm_playback = 1;
--- 
-2.25.1
-
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index bda66b30e063..763f5f0592af 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -1070,7 +1070,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 	regmap_write(esai_priv->regmap, REG_ESAI_RSMB, 0);
+ 
+ 	ret = pm_runtime_put_sync(&pdev->dev);
+-	if (ret < 0)
++	if (ret < 0 && ret != -ENOSYS)
+ 		goto err_pm_get_sync;
+ 
+ 	/*
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 38f6362099d5..01f3463c0e47 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1149,7 +1149,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = pm_runtime_put_sync(dev);
+-	if (ret < 0)
++	if (ret < 0 && ret != -ENOSYS)
+ 		goto err_pm_get_sync;
+ 
+ 	/*

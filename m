@@ -2,75 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A9266117BA
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:42:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE67611831
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 18:53:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6BB41A8F;
-	Fri, 28 Oct 2022 18:41:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6BB41A8F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56B481F13;
+	Fri, 28 Oct 2022 18:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56B481F13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666975320;
-	bh=vpeLcNOegA7q+zFAD+0G+RlqeZZc6DUxMzrzwKKyQvo=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1666975995;
+	bh=wp7I65cC4L0O7OYe9O4RTG18t8J/z+sW9P1rKwUJXco=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YNCqNzw0G/fYdNpixIpjRJmeGTUzev5ENvPyQw13SyAnKlIhWxmbSjAarokM6qfWA
-	 NIfmr5N8Bip7hiIYJYR22iOsMOLmbikVYSgYbIjSrSie7pigrVnxO9NrW7tO+x98r1
-	 Y+Zb2axEOLLIOCVXPpUTpR+F2HgCV42iG0wnveAg=
+	b=B0obMTynLuQnTJ/OwqN47dz9ByS66R57s1L88GJsN1DlAWl1XDgEEyOLxGIpRxSGY
+	 powk6yGzWmrE29EBLT4pvp/i1A9YXzLtXNHm4asTWYsQNFKnf8/zQCYSuZgfvKJq2t
+	 on0mG6jM0Xuql4NrbQVj2/5md9kpiq4gyJfxIzIY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55404F804BD;
-	Fri, 28 Oct 2022 18:41:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6A83F80095;
+	Fri, 28 Oct 2022 18:52:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85F3DF8016A; Fri, 28 Oct 2022 18:41:04 +0200 (CEST)
+ id A72B7F80095; Fri, 28 Oct 2022 18:52:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FF3DF8016A
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:41:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FF3DF8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34B37F80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 18:52:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34B37F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ADqVjxb9"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 32EC6B82B85;
- Fri, 28 Oct 2022 16:41:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E4EC433D6;
- Fri, 28 Oct 2022 16:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666975259;
- bh=vpeLcNOegA7q+zFAD+0G+RlqeZZc6DUxMzrzwKKyQvo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ADqVjxb9mfnGVoqCFld5K9WB9hRHE51enZIq47xjJzyaA0N173vy51P9RGn3dCN3e
- 3F6TnFhHIC4e9pdV4HRGoEVxQFZt4EFsYy5sAncQWkCzTcu/n/cpHeKK8j44paHkZP
- 0A5pP/ZFX3ai1fnN5mLSvfr1SWfbnp83qffjKhv2MmzS6qqHDo52NnXT2xRxMimJoE
- hGW5C5AzMoPGVjQPdo2PN4To8o2dGJ+9kWSRbVQzoji50SfMW90RkILQETihDEIKaP
- 5Ws6v78KkhqqRtiRcuLwvkIXT5tgYY5hK0mn+vRWuF9f+R+DTNIgMr3pnBEy0YsQWn
- 9CHbuYA9tmTgg==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20221027124702.1761002-1-cezary.rojewski@intel.com>
-References: <20221027124702.1761002-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v4 0/9] ASoC: Intel: avs: PCM power management
-Message-Id: <166697525840.804779.8588300450322893398.b4-ty@kernel.org>
-Date: Fri, 28 Oct 2022 17:40:58 +0100
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="fqPTWnUu"
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-35befab86a4so52344557b3.8
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 09:52:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=JFuZCHp6RPG0OZ+ZcxxiWhSMU9E34XF2yS0NNOUPKoM=;
+ b=fqPTWnUuuck0bAxRjaW+t2+TNbmZRCzTB/mgIBtEByZSJ5rEB0x+gt6p8YULIDMmIo
+ QJd/YrVYMoP7ZmrNzykTvlYWJUjGde5jgd0lm+NgNhmAwMUNAjRhhWb0JCULKjglLPfI
+ wSGtrvHKTq7jeAxq42+CL6FCbx0fKEugliZOo5bRuV1bL5tVHZkgBVdVH6E3A9TidzSc
+ hcpyvVGDtcA7tJYS2ah5C5rRuFFhvszme2WH8clxRaplmpfCF3VL+fdfZ2s2HLRWl+HA
+ eL0/fWb6+IjvzUNetxTZuxNR0qANnOSnlAMm0ogoBoTpJZgN7DGrCjlPJ1gI0B2moZLk
+ 7clg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JFuZCHp6RPG0OZ+ZcxxiWhSMU9E34XF2yS0NNOUPKoM=;
+ b=RuETYzwgA1Jljs1xJw3ZoQTtK3TRyRxtc7iGrX6VId5rB7ihctIvm63o5ZHh//Y7ie
+ Bes8ThZgWWYJ8ASUp7OiIj8rFls3Ng/mXDjQm5Z9JISIC60IMRL/Qcm0NJtokMnhdex+
+ 4jJEZGtYDDCBY5QVKK40hQZsn3LXPYsHji7wM31u2zzK/sJW4lwl+TKstfMd6BnDpqRB
+ gbN+oQrmAgIMfsjqVOQd9d2rIO9rz6UI4CFgWsbcCejEokMr7NLOeDyd4XCs2wI+AKFp
+ yDbOme9k1ls8Su0ZgQ2S/xrfVpXuI03EnJ6lEaZ61ua7Aj0h36275wALYLYFcFztS6fx
+ wrfQ==
+X-Gm-Message-State: ACrzQf0/h9RzMbJxqoVTT8R9jGiJFFfz92Kxy+vmpMFYRdGBZxsfgoAv
+ wkvYGBpSxQD6+YxvMuDv7prC5l/Y6nhhpOjhrugQQw==
+X-Google-Smtp-Source: AMsMyM6vjerUWgxxTrEsm3O1K4kgea+m/v98N6LpjqhoWL/YTXSYhqV+cegvXn3NJBWoYQcPrP65gYAr7BtftOd8w7I=
+X-Received: by 2002:a81:4f89:0:b0:36a:f09f:73fc with SMTP id
+ d131-20020a814f89000000b0036af09f73fcmr312625ywb.487.1666975935785; Fri, 28
+ Oct 2022 09:52:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: hdegoede@redhat.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
- amadeuszx.slawinski@linux.intel.com
+References: <20221028160733.1390230-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028160733.1390230-3-ajye_huang@compal.corp-partner.google.com>
+ <Y1wApOeV7OoQzkt5@sirena.org.uk>
+In-Reply-To: <Y1wApOeV7OoQzkt5@sirena.org.uk>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Sat, 29 Oct 2022 00:52:09 +0800
+Message-ID: <CALprXBYf-V=gidvNpoRraPdJgdrYaCoCcJPhgAmx6UX5wUXzxw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] ASoC: mediatek: mt8186-rt5682: Modify machine
+ driver for two DMICs case
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,56 +108,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 14:46:53 +0200, Cezary Rojewski wrote:
-> Goal of the series is implementation of suspend/resume operations for a
-> PCM stream along with all the collaterals connected to the subject.
-> 
-> Start with splitting avs_dai_fe_hw_free() as ideally we would like to
-> reuse as much of existing code as possible but snd_pcm_lib_free_pages()
-> is not desired part of the function when speaking of suspend operation.
-> 
-> [...]
+Hi Mark Brown,
 
-Applied to
+On Sat, Oct 29, 2022 at 12:17 AM Mark Brown <broonie@kernel.org> wrote:
+> Also do we really need the of_property_read_bool() there?  I'd have
+> expected that devm_gpiod_get_optional() would be handling that for us.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/9] ASoC: Intel: avs: Split pcm pages freeing operation from hw_free()
-      commit: 0abfc84ba22aca05a5268128f719386648351020
-[2/9] ASoC: Intel: avs: Introduce PCM power management routines
-      commit: 2b9a50ea845ebe95473f5b85dfcc9b806c252fac
-[3/9] ALSA: hda: Introduce snd_hdac_stream_wait_drsm()
-      commit: efffb014478e76c35b1a9e279d7010f70ff517e2
-[4/9] ASoC: Intel: avs: Handle SUSPEND and RESUME triggers
-      commit: 8e097f9a5529f0e6af30e1fac0d4e2a97c241392
-[5/9] ASoC: Intel: avs: Restart instead of resuming HDA capture streams
-      commit: eb0699c4cd6e32d5e2bfc9356ab9e19a6164c94e
-[6/9] ASoC: Intel: avs: Count low power streams
-      commit: 730cb320ec2973fb2aea72ea27f7edc6a847a664
-[7/9] ASoC: Intel: avs: Standby power-state support
-      commit: d56829e9c1cb90044c07337fe90a9828fdb165c0
-[8/9] ASoC: Intel: avs: Power and clock gating policy overriding
-      commit: 2a87f17775c1cbcfb99225312e8cc7a06aa109b9
-[9/9] ASoC: Intel: avs: Enact power gating policy
-      commit: 758ba92f3a2f86493a9147abd31a5bdc0befc273
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+You are right, it is unnecessary to use of_property_read_bool() there
+, I will remove and send the v2 version, thank you.

@@ -2,76 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F6161120F
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 15:00:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD41A611219
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 15:01:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E16AE1FCD;
-	Fri, 28 Oct 2022 14:59:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E16AE1FCD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CE8D1FE1;
+	Fri, 28 Oct 2022 15:00:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CE8D1FE1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666962002;
-	bh=0OuRNaJ78R/mLvCq80DBKbhmiV+fSFGKAstd5WM5vug=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1666962064;
+	bh=Ao9hO7r3VhpSn+p6rupTjMFGHnukQuwp09Y8dtYrSZM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AswUK6/BSfQac/iP+p6Wjc8EUk5c7optWcqg236TWeVCcuJ7rnYpXqV7+l35II9/e
-	 uZz184krgHqujtaGXATtHS7uY6bWdS/KoGTIEVwI+7ErOG6mbAJn23RyB995cn9RRV
-	 JBS4gg7mLazvpgpPChFaNTaeev0gEQ0lF8dAY82U=
+	b=Vf2pAi95tY+P20eGUm/PGZD4LBWhGYQHF1i3kKYRlwCITbWAODOMhhGQgJxSpHVUw
+	 WKFS7CieidWE7ZUQ7eASQgLG5aqxScHCcHYyvGDFqIv/iqXyR9BCyXM3PZMB5JIiwS
+	 tdN+UQAH6pkW8nJW0g0FjlTJ+IKYFod5WOKGEWIk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F8AFF804BD;
-	Fri, 28 Oct 2022 14:59:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6285F804BD;
+	Fri, 28 Oct 2022 15:00:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB753F8025A; Fri, 28 Oct 2022 14:59:06 +0200 (CEST)
+ id 2BEC9F8025A; Fri, 28 Oct 2022 15:00:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C175F8016A
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 14:59:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C175F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2ADBF80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 15:00:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2ADBF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qKQNetHJ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE7F16283C;
- Fri, 28 Oct 2022 12:59:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F43C433D6;
- Fri, 28 Oct 2022 12:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666961941;
- bh=0OuRNaJ78R/mLvCq80DBKbhmiV+fSFGKAstd5WM5vug=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qKQNetHJydStVEqBe9ZNgpMuy9y/d0TgcvmXrEmO892sy0/lkzS3WSuFqE6XnL7mU
- lILcEyYWTOhRLn7aAwI+UjLN1UBYcoSflxfY9NJOWRH3GaYAlcD5szjoAz1ZfM4Obw
- CygTTp3g3aByqlK1wbJQ1zzYSQvoFWnESbuclLeJoxy6m/hT5MSD5QbBWTCqgKpLSE
- XJXl9NnbOGaGMJR2fPs5U/Fky679BJdxiIepuIhkMBg6hermIsXJVTgmAo/7PpSMwN
- M7e8ACMgamfmlUyH2bVLiI5tZ9wshOuF2iwzbwtyffRTYrPAtK4i9dmvDbKTMBzeWR
- rcl90ExEBwWGw==
-Date: Fri, 28 Oct 2022 13:58:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Subject: Re: [PATCH v1 2/2] ASoC: dmic: Add optional dmic selection
-Message-ID: <Y1vSDyZlZBaGyJyb@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="suju3c6R"
+Received: by mail-yb1-xb2a.google.com with SMTP id t186so6002225yba.12
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 06:00:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=e0j5a5iZpNQG2DdryJGScbsirrQGx4kQi1zIOe47cxY=;
+ b=suju3c6Rt3GNQfsmDz9TEYyaxosQcCrMgZlU+pCUZkhi9SwG4iwP+SSe+45yLvOQ8U
+ RyDc0NI0O0DKLdtrP4SJuISxk0qmOtx0LDwHMQVJJa5X32FTRxZBwxgBAjD6BZ+a+33H
+ DkZanVr5g7acshGVfjCCUlEdJQbkEUNTSxJuenN2a4RDfDlQFiNt91ITGe/4cvng/VgR
+ ZT1OFBiWaowmlDfJqy9b+Us6JeiG4uZ9sSkiBEYHHlrIG2jKGgOZZLz7ZbS0wBP5kWfk
+ Z10gGAKySzTtx8qKpA+zReQbdTfRGivnmdcBc7hHU/MzeHL0//wrUql+0DjaW/H3HRQA
+ RkjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=e0j5a5iZpNQG2DdryJGScbsirrQGx4kQi1zIOe47cxY=;
+ b=VjqGAhomXGz+tkSdO8Ff//WbJxnVAxhmDYvo3ljN1WifcMeuNyS3e7bcPOtoe7+dTD
+ r+72cczErMbasJ9d+qjLvC9CUcnJUNXiczDIg1YZnxSq3EA0jlF1P7MThAZpsZpi61L2
+ yc5nDwZXvVnqduD2HXmizixGjXbhWkZr2Y2bgfk2SI40NbEo4Q2+c1Mzxohwe5bBdAUu
+ OIlCCFIozqoCm4xnUYTpYXEXiDtznG3lJLNroA3enKfARPOrU9JOD8Z/q5wgEFrTGy1j
+ kO3R6N8gsoNsm2r7HQMnnhuw7Tv0U7R/oIGDwooiRUfrnPlazXSW1eF9EtzRZwa3zQod
+ 1S4A==
+X-Gm-Message-State: ACrzQf2DYAfOpIo8nPfFHg/EilrG1dvVDnVZvYRVpB9opC47tm/0V5Jy
+ 1hS+JHWoOzE5COamCBUx0xf9Smbxrd1q57A5uOj3vQ==
+X-Google-Smtp-Source: AMsMyM5yjFHMIfBdC0dH8EX4MhS+aaPemWVhJjUiNK2UCVeMOmyfOGcs/y8XSPc4MzOkCpK8GttTuXPSmeSaypSU1l0=
+X-Received: by 2002:a25:bc3:0:b0:6ca:6427:f00d with SMTP id
+ 186-20020a250bc3000000b006ca6427f00dmr33872090ybl.62.1666962000888; Fri, 28
+ Oct 2022 06:00:00 -0700 (PDT)
+MIME-Version: 1.0
 References: <20221028102450.1161382-1-ajye_huang@compal.corp-partner.google.com>
  <20221028102450.1161382-3-ajye_huang@compal.corp-partner.google.com>
- <a7275ee4-c6ec-c0e8-c49d-dec9ca367d9f@linux.intel.com>
- <CALprXBavrYqWxKUgEJMWNXGCuBnKNjKk1n_4eFOeo+=6=juHYQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n8nKVFG6JPSjBYcl"
-Content-Disposition: inline
-In-Reply-To: <CALprXBavrYqWxKUgEJMWNXGCuBnKNjKk1n_4eFOeo+=6=juHYQ@mail.gmail.com>
-X-Cookie: Life -- Love It or Leave It.
+ <Y1vDxtdNGURAT850@sirena.org.uk>
+In-Reply-To: <Y1vDxtdNGURAT850@sirena.org.uk>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Fri, 28 Oct 2022 20:59:54 +0800
+Message-ID: <CALprXBbTkj0Q_-3AL81Q1okRD5ZyDf_c=daPrkQstkM4_CNgGQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] ASoC: dmic: Add optional dmic selection
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Cc: robh@kernel.org, alsa-devel@alsa-project.org,
  Charles Keepax <ckeepax@opensource.cirrus.com>, devicetree@vger.kernel.org,
  angelogioacchino.delregno@collabora.corp-partner.google.com,
@@ -79,7 +89,6 @@ Cc: robh@kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -96,40 +105,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark Brown,
 
---n8nKVFG6JPSjBYcl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for review,
+I think it is appropriate to implement on audio machine side, like
+this I did before,
+commit 3cfbf07c6d27
+("ASoC: qcom: sc7180: Modify machine driver for 2mic")
 
-On Fri, Oct 28, 2022 at 08:54:31PM +0800, Ajye Huang wrote:
+What is your suggestion?  Thank you.
 
-> Yes, the original version I tried the implementation on audio machine
-> driver, but one person gave me an idea for this dmic.c
-> Do you think it is appropriate on dmic.c?
->  If it isn't, I will add kcontrol into audio machine driver.  thanks
-
-It's definitely a better fit somewhere else - like I said in reply to
-the DT binding it's really a mux that sits between the DMICs and the DAI
-so that's probably where a generic version should be implemented.
-
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
-
---n8nKVFG6JPSjBYcl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNb0g4ACgkQJNaLcl1U
-h9CD0gf/VGTxWpUIDsoJ4AUiYKI4vSNrXJ0zpMUqTQlqcYkQzsq+SdksyZCL4pOW
-RQFIU00TL4GhmrO8To/dUu1hSCA3RbjPu/otwIk/xc6jPtp5G9Ui3jVBUkpcdySH
-CIgURtbgD07Yb9KUA6Vvh1E6UoHS6K8WzJUmKslYaRFuWGTgdix7BNN1qKxvUuF6
-37vfN1YFz69sxPCaKLbai0OztLxt5J7LV3OCDObnA2MRifSpcPum/iVoB59YndOj
-fZOPU8mPBnqP/dKAPALq1eonmXcJ1ckVZafYKOKShECXIhhcrMN8EqVzRho9HIpw
-dwNl6exiTpQC28EYMk0EdA2y/ULU6w==
-=wipj
------END PGP SIGNATURE-----
-
---n8nKVFG6JPSjBYcl--
+On Fri, Oct 28, 2022 at 7:58 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Fri, Oct 28, 2022 at 06:24:50PM +0800, Ajye Huang wrote:
+>
+> > +     dmic->dmic_sel = devm_gpiod_get_optional(component->dev,
+> > +                                             "dmic_sel", GPIOD_OUT_LOW);
+> > +     if (IS_ERR(dmic->dmic_sel))
+> > +             return PTR_ERR(dmic->dmic_sel);
+> > +
+> >       snd_soc_component_set_drvdata(component, dmic);
+> >
+> >       return 0;
+> > @@ -125,10 +172,15 @@ static const struct snd_soc_dapm_widget dmic_dapm_widgets[] = {
+> >                              SND_SOC_NOPM, 0, 0, dmic_aif_event,
+> >                              SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
+> >       SND_SOC_DAPM_INPUT("DMic"),
+> > +     SND_SOC_DAPM_MIC("DMIC", NULL),
+> > +     SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0, &dmic_mux_control),
+>
+> If we are doing this then adding the mux needs to be conditional on
+> having the GPIO, without the GPIO the control is at best confusing to
+> users.

@@ -2,65 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A01526108A9
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 05:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDFA610B3F
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 09:25:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FC9F2AA8;
-	Fri, 28 Oct 2022 05:19:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FC9F2AA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E0A8294C;
+	Fri, 28 Oct 2022 09:24:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E0A8294C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666927231;
-	bh=0M7f/cGm+wnsNVlyEyeZFDBijnRLHVnqZyUUY2V4RPM=;
+	s=default; t=1666941924;
+	bh=s40/VRZf1sqTKCy0bCV/OILY0tFv8UO63e6HVVrChQE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fO1nFVDdh9k73BDuG/mMKwPdXUKS9LM9+0aL5om0XYimmlcZTL6G+Hs15Ob1i+dHz
-	 TnZfM71iLnYM1hhbVKM8rpfwqEpdaA8/0PJdoMBg22aJkx8HXbjvUicW9UuYUtS4OJ
-	 Q7IjY/le5HI0F1fNbTKebpt1rurb8eJnKCaRznrM=
+	b=NFs8Nau14Ye16vLVzj+uVOlTIv6NKlClKJ1IrGbnh3KBdKxv1wxxBkSo36HC1r7e4
+	 X6HbgzOfi8fHyLoph/P98khfEc72PHrjD4UfqRCzQozWKakgG1nBP8RzzSjnXQl7Z3
+	 iG8gGsi/TkH5TDscCZeBlVZz12RaF7a+0Pv87+qw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FC99F804BD;
-	Fri, 28 Oct 2022 05:19:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF999F804BD;
+	Fri, 28 Oct 2022 09:24:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B77BF8025A; Fri, 28 Oct 2022 05:19:34 +0200 (CEST)
+ id 94DE8F8025A; Fri, 28 Oct 2022 09:24:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=0.8 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34F44F8016A
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 05:19:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34F44F8016A
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Mz73f0TLhzpW7P;
- Fri, 28 Oct 2022 11:15:58 +0800 (CST)
-Received: from dggpemm500013.china.huawei.com (7.185.36.172) by
- dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 28 Oct 2022 11:19:25 +0800
-Received: from ubuntu1804.huawei.com (10.67.175.36) by
- dggpemm500013.china.huawei.com (7.185.36.172) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 28 Oct 2022 11:19:25 +0800
-From: Chen Zhongjin <chenzhongjin@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: core: Fix use-after-free in snd_soc_exit()
-Date: Fri, 28 Oct 2022 11:16:03 +0800
-Message-ID: <20221028031603.59416-1-chenzhongjin@huawei.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.67.175.36]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500013.china.huawei.com (7.185.36.172)
-X-CFilter-Loop: Reflected
-Cc: tiwai@suse.com, broonie@kernel.org, chenzhongjin@huawei.com,
- lgirdwood@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F97BF80095
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 09:24:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F97BF80095
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D39791A0CE8;
+ Fri, 28 Oct 2022 09:24:20 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 6B4841A0CDE;
+ Fri, 28 Oct 2022 09:24:20 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E1F83183486A;
+ Fri, 28 Oct 2022 15:24:18 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_xcvr: Add Counter registers
+Date: Fri, 28 Oct 2022 15:03:47 +0800
+Message-Id: <1666940627-7611-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,80 +72,146 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-KASAN reports a use-after-free:
+These counter registers are part of register list,
+add them to complete the register map
 
-BUG: KASAN: use-after-free in device_del+0xb5b/0xc60
-Read of size 8 at addr ffff888008655050 by task rmmod/387
-CPU: 2 PID: 387 Comm: rmmod
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
-Call Trace:
-<TASK>
-dump_stack_lvl+0x79/0x9a
-print_report+0x17f/0x47b
-kasan_report+0xbb/0xf0
-device_del+0xb5b/0xc60
-platform_device_del.part.0+0x24/0x200
-platform_device_unregister+0x2e/0x40
-snd_soc_exit+0xa/0x22 [snd_soc_core]
-__do_sys_delete_module.constprop.0+0x34f/0x5b0
-do_syscall_64+0x3a/0x90
-entry_SYSCALL_64_after_hwframe+0x63/0xcd
-...
-</TASK>
+- DMAC counter control registers
+- Data path Timestamp counter register
+- Data path bit counter register
+- Data path bit count timestamp register
+- Data path bit read timestamp register
 
-It's bacause in snd_soc_init(), snd_soc_util_init() is possble to fail,
-but its ret is ignored, which makes soc_dummy_dev unregistered twice.
-
-snd_soc_init()
-    snd_soc_util_init()
-        platform_device_register_simple(soc_dummy_dev)
-        platform_driver_register() # fail
-    	platform_device_unregister(soc_dummy_dev)
-    platform_driver_register() # success
-...
-snd_soc_exit()
-    snd_soc_util_exit()
-    # soc_dummy_dev will be unregistered for second time
-
-To fix it, handle error and stop snd_soc_init() when util_init() fail.
-Also clean debugfs when util_init() or driver_register() fail.
-
-Fixes: fb257897bf20 ("ASoC: Work around allmodconfig failure")
-Signed-off-by: Chen Zhongjin <chenzhongjin@huawei.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/soc-core.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl_xcvr.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ sound/soc/fsl/fsl_xcvr.h | 21 +++++++++++++++++++++
+ 2 files changed, 61 insertions(+)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 12a82f5a3ff6..a409fbed8f34 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -3477,10 +3477,23 @@ EXPORT_SYMBOL_GPL(snd_soc_of_get_dai_link_cpus);
+diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+index c043efe4548d..2a6802fb2a8b 100644
+--- a/sound/soc/fsl/fsl_xcvr.c
++++ b/sound/soc/fsl/fsl_xcvr.c
+@@ -934,6 +934,14 @@ static const struct reg_default fsl_xcvr_reg_defaults[] = {
+ 	{ FSL_XCVR_RX_DPTH_CTRL_SET,	0x00002C89 },
+ 	{ FSL_XCVR_RX_DPTH_CTRL_CLR,	0x00002C89 },
+ 	{ FSL_XCVR_RX_DPTH_CTRL_TOG,	0x00002C89 },
++	{ FSL_XCVR_RX_DPTH_CNTR_CTRL,	0x00000000 },
++	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_SET, 0x00000000 },
++	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR, 0x00000000 },
++	{ FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG, 0x00000000 },
++	{ FSL_XCVR_RX_DPTH_TSCR, 0x00000000 },
++	{ FSL_XCVR_RX_DPTH_BCR,  0x00000000 },
++	{ FSL_XCVR_RX_DPTH_BCTR, 0x00000000 },
++	{ FSL_XCVR_RX_DPTH_BCRR, 0x00000000 },
+ 	{ FSL_XCVR_TX_DPTH_CTRL,	0x00000000 },
+ 	{ FSL_XCVR_TX_DPTH_CTRL_SET,	0x00000000 },
+ 	{ FSL_XCVR_TX_DPTH_CTRL_CLR,	0x00000000 },
+@@ -944,6 +952,14 @@ static const struct reg_default fsl_xcvr_reg_defaults[] = {
+ 	{ FSL_XCVR_TX_CS_DATA_3,	0x00000000 },
+ 	{ FSL_XCVR_TX_CS_DATA_4,	0x00000000 },
+ 	{ FSL_XCVR_TX_CS_DATA_5,	0x00000000 },
++	{ FSL_XCVR_TX_DPTH_CNTR_CTRL,	0x00000000 },
++	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_SET, 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR, 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG, 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_TSCR, 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_BCR,	 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_BCTR, 0x00000000 },
++	{ FSL_XCVR_TX_DPTH_BCRR, 0x00000000 },
+ 	{ FSL_XCVR_DEBUG_REG_0,		0x00000000 },
+ 	{ FSL_XCVR_DEBUG_REG_1,		0x00000000 },
+ };
+@@ -975,6 +991,14 @@ static bool fsl_xcvr_readable_reg(struct device *dev, unsigned int reg)
+ 	case FSL_XCVR_RX_DPTH_CTRL_SET:
+ 	case FSL_XCVR_RX_DPTH_CTRL_CLR:
+ 	case FSL_XCVR_RX_DPTH_CTRL_TOG:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_SET:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG:
++	case FSL_XCVR_RX_DPTH_TSCR:
++	case FSL_XCVR_RX_DPTH_BCR:
++	case FSL_XCVR_RX_DPTH_BCTR:
++	case FSL_XCVR_RX_DPTH_BCRR:
+ 	case FSL_XCVR_TX_DPTH_CTRL:
+ 	case FSL_XCVR_TX_DPTH_CTRL_SET:
+ 	case FSL_XCVR_TX_DPTH_CTRL_CLR:
+@@ -985,6 +1009,14 @@ static bool fsl_xcvr_readable_reg(struct device *dev, unsigned int reg)
+ 	case FSL_XCVR_TX_CS_DATA_3:
+ 	case FSL_XCVR_TX_CS_DATA_4:
+ 	case FSL_XCVR_TX_CS_DATA_5:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_SET:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG:
++	case FSL_XCVR_TX_DPTH_TSCR:
++	case FSL_XCVR_TX_DPTH_BCR:
++	case FSL_XCVR_TX_DPTH_BCTR:
++	case FSL_XCVR_TX_DPTH_BCRR:
+ 	case FSL_XCVR_DEBUG_REG_0:
+ 	case FSL_XCVR_DEBUG_REG_1:
+ 		return true;
+@@ -1017,6 +1049,10 @@ static bool fsl_xcvr_writeable_reg(struct device *dev, unsigned int reg)
+ 	case FSL_XCVR_RX_DPTH_CTRL_SET:
+ 	case FSL_XCVR_RX_DPTH_CTRL_CLR:
+ 	case FSL_XCVR_RX_DPTH_CTRL_TOG:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_SET:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR:
++	case FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG:
+ 	case FSL_XCVR_TX_DPTH_CTRL_SET:
+ 	case FSL_XCVR_TX_DPTH_CTRL_CLR:
+ 	case FSL_XCVR_TX_DPTH_CTRL_TOG:
+@@ -1026,6 +1062,10 @@ static bool fsl_xcvr_writeable_reg(struct device *dev, unsigned int reg)
+ 	case FSL_XCVR_TX_CS_DATA_3:
+ 	case FSL_XCVR_TX_CS_DATA_4:
+ 	case FSL_XCVR_TX_CS_DATA_5:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_SET:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR:
++	case FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG:
+ 		return true;
+ 	default:
+ 		return false;
+diff --git a/sound/soc/fsl/fsl_xcvr.h b/sound/soc/fsl/fsl_xcvr.h
+index 7f2853c60085..4769b0fca21d 100644
+--- a/sound/soc/fsl/fsl_xcvr.h
++++ b/sound/soc/fsl/fsl_xcvr.h
+@@ -49,6 +49,16 @@
+ #define FSL_XCVR_RX_DPTH_CTRL_CLR	0x188
+ #define FSL_XCVR_RX_DPTH_CTRL_TOG	0x18c
  
- static int __init snd_soc_init(void)
- {
-+	int ret;
++#define FSL_XCVR_RX_DPTH_CNTR_CTRL	0x1C0
++#define FSL_XCVR_RX_DPTH_CNTR_CTRL_SET	0x1C4
++#define FSL_XCVR_RX_DPTH_CNTR_CTRL_CLR	0x1C8
++#define FSL_XCVR_RX_DPTH_CNTR_CTRL_TOG	0x1CC
 +
- 	snd_soc_debugfs_init();
--	snd_soc_util_init();
-+	ret = snd_soc_util_init();
-+	if (ret)
-+		goto err_util_init;
- 
--	return platform_driver_register(&soc_driver);
-+	ret = platform_driver_register(&soc_driver);
-+	if (ret)
-+		goto err_register;
-+	return 0;
++#define FSL_XCVR_RX_DPTH_TSCR		0x1D0
++#define FSL_XCVR_RX_DPTH_BCR		0x1D4
++#define FSL_XCVR_RX_DPTH_BCTR		0x1D8
++#define FSL_XCVR_RX_DPTH_BCRR		0x1DC
 +
-+err_register:
-+	snd_soc_util_exit();
-+err_util_init:
-+	snd_soc_debugfs_exit();
-+	return ret;
- }
- module_init(snd_soc_init);
+ #define FSL_XCVR_TX_DPTH_CTRL		0x220 /* TX datapath ctrl reg */
+ #define FSL_XCVR_TX_DPTH_CTRL_SET	0x224
+ #define FSL_XCVR_TX_DPTH_CTRL_CLR	0x228
+@@ -59,6 +69,17 @@
+ #define FSL_XCVR_TX_CS_DATA_3		0x23C
+ #define FSL_XCVR_TX_CS_DATA_4		0x240
+ #define FSL_XCVR_TX_CS_DATA_5		0x244
++
++#define FSL_XCVR_TX_DPTH_CNTR_CTRL	0x260
++#define FSL_XCVR_TX_DPTH_CNTR_CTRL_SET	0x264
++#define FSL_XCVR_TX_DPTH_CNTR_CTRL_CLR	0x268
++#define FSL_XCVR_TX_DPTH_CNTR_CTRL_TOG	0x26C
++
++#define FSL_XCVR_TX_DPTH_TSCR		0x270
++#define FSL_XCVR_TX_DPTH_BCR		0x274
++#define FSL_XCVR_TX_DPTH_BCTR		0x278
++#define FSL_XCVR_TX_DPTH_BCRR		0x27C
++
+ #define FSL_XCVR_DEBUG_REG_0		0x2E0
+ #define FSL_XCVR_DEBUG_REG_1		0x2F0
  
 -- 
-2.17.1
+2.34.1
 

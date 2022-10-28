@@ -2,98 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38771611322
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 15:39:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1489F611540
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Oct 2022 16:57:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92BEB1F23;
-	Fri, 28 Oct 2022 15:39:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92BEB1F23
+	by alsa0.perex.cz (Postfix) with ESMTPS id A262C1A43;
+	Fri, 28 Oct 2022 16:56:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A262C1A43
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1666964390;
-	bh=5g7Y1vloFdbR4H0vylehNDdpmLLq9gt8bbc5NEp3YoY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1666969057;
+	bh=LQqF7mgoMpdPDEfiMU46JdqFEc964tvWxw1HB/RMwiE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U+LsXRoUO0PJXCM6jRM/dw2bNswB4C3TQ5oNHdfdpq3ypPvW1vwCE20vA8Syr4Spx
-	 8gdGXaK2VRnVpGfmXPpxqDgDSEXaQvQpdzhXd0ahYzM9vumrMgJ7x4XlXy9InaN81Y
-	 q058mSK0BuOyr87K5DP2F//mTnb3/WgugY5+vKbY=
+	b=UXrncIp6U6vez6p+uGmMJt2Hf4ytOVeLN5E4CoDWgk2FtQsLbncQqc/O8bRcmJIKJ
+	 ZIl9AxXbnb3gSQ3u9DzYVUu4BEAxe4y7i4Gd1G3a+AD753b4PlfZai0fmv29t+zeNI
+	 LFdoIcbGdFwE+ro4t0TyO4iAQdnE1hk/mU4uksYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDBB7F804BD;
-	Fri, 28 Oct 2022 15:38:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04118F804BD;
+	Fri, 28 Oct 2022 16:56:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FFD6F800E1; Fri, 28 Oct 2022 15:38:55 +0200 (CEST)
+ id DA45AF8025A; Fri, 28 Oct 2022 16:56:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, PRX_BODY_30, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACA45F800E1
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 15:38:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA45F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D269EF8016A
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 16:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D269EF8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="d+6xTq/A"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Cn+Fp7UI"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A1D8721B12;
- Fri, 28 Oct 2022 13:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666964331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=11q4SPOv3VT37mlDw9oR7280ba9yWG4aeNChi6T5srI=;
- b=d+6xTq/Ah+lTOmR6lqwLduyg6Wkv7ovc9nb0swq9xLC9klcGv1BHVFYWYAgSrq3r2U3kqE
- Ird7CBvyhPLZlXpGyRFZWCaYhNOe+T5AvIYdrtzcImPptugVJrb7I/2vbYz2t1v1TRZ4Fo
- TD060SEMzYzQGQhkYHCWOMaS3AG800c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666964331;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=11q4SPOv3VT37mlDw9oR7280ba9yWG4aeNChi6T5srI=;
- b=Cn+Fp7UIKc8+QJUVo/WSwLwQxozq54GKcauW8QgPGhIJLkqyfEONFgRdlKruHl6LORU2Bb
- ZOwo/pjiYzFznrDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5F7B61377D;
- Fri, 28 Oct 2022 13:38:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kOmXFmvbW2OyGQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 28 Oct 2022 13:38:51 +0000
-Date: Fri, 28 Oct 2022 15:38:50 +0200
-Message-ID: <874jvom5jp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: Question regarding delayed trigger in dpcm_set_fe_update_state()
-In-Reply-To: <73e6425f-8e51-e26f-ad83-ccc5df517a43@intel.com>
-References: <73e6425f-8e51-e26f-ad83-ccc5df517a43@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Amadeusz =?ISO-8859-2?Q?S=B3awi?= =?ISO-8859-2?Q?=F1ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- =?ISO-8859-1?Q?P?= =?ISO-8859-1?Q?=E9ter?= Ujfalusi
- <peter.ujfalusi@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="arTa8Hp9"
+Received: by mail-ej1-x631.google.com with SMTP id sc25so13475265ejc.12
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 07:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LQqF7mgoMpdPDEfiMU46JdqFEc964tvWxw1HB/RMwiE=;
+ b=arTa8Hp9eU8CHAAKuZxCuCp9TFtlwbZW3v87Df9EtS2SMm22Eduv2F12bZhmi3qg20
+ 8HJmCjY+CdC+8I75dYuUqmXe2VE3oJRS1Ab7QBBuK7Ac/Ucs7NcYDqHBIzhvEcOuwBJc
+ ZWvP3FVXgJzFksiq7wweonN1/pPCb7+/yCC5SAHOH+OzqHpY6JAMJMI6kG/uWEGSUQvS
+ C7eqz3grRob4bZfW+oH6rwPz54fq0r8j8OQoAuLFzgYj7ghCn5PKe2DQUj7NA6U5P9N3
+ bur7cp6c9yjVC9Erdf8lbNNpRTVZ1+xuAt9YjDuioE9AU6LsasEf/2ttDERdZTUyoiBv
+ T8Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LQqF7mgoMpdPDEfiMU46JdqFEc964tvWxw1HB/RMwiE=;
+ b=2yC9fiG+djcU12tQ83m+6/HLu6BUVCrzXL0GnKuN5Xhk7PHt6AFcf8qbmv1hvxg7AY
+ ZZymCdY35dYeTZpRrdtUHBgs1RgFyDdSjyOl8gc4iVbYsC/5WN5oOzhQ2d6bjKbLg4eA
+ bjJjni1T4WP+09u0rGgCJco/oMOFJuDwqPUoqdp+ppoSmvTBx0vY5MXKExuGnnEAweYg
+ MbIAMc+rIC4ROF+6UCYNaaJp45+eKKJu8c2QbUdbWe0X3iYIpfDslbLapu0xBTaTsLnL
+ sFFvb/f6cB4PtDFEHCUpE7n8YYRxURyCYUxXDO1kdgYQ/GeiJECo+ySVVCnvoUmXMynY
+ RQqw==
+X-Gm-Message-State: ACrzQf3jwOGSPrNsQIJrkAn1U9UFLBgklscn81czJ0cN2soguem3KDKB
+ Qez+hgk8p5tOoy/ve2vNdpr2b2e02lImsJ512V0=
+X-Google-Smtp-Source: AMsMyM5YEMqyGVRZ22xaHEfcgjC/wjYt3YHikBMrSXZTvnr//2VkFszSR6BbgM3ElAHwJxzJNTa8V2q3veDVgCO00eQ=
+X-Received: by 2002:a17:906:9750:b0:798:9ccc:845d with SMTP id
+ o16-20020a170906975000b007989ccc845dmr38539663ejy.760.1666968993915; Fri, 28
+ Oct 2022 07:56:33 -0700 (PDT)
+MIME-Version: 1.0
+References: <20221028141129.100702-1-maarten.zanders@mind.be>
+In-Reply-To: <20221028141129.100702-1-maarten.zanders@mind.be>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Fri, 28 Oct 2022 17:56:22 +0300
+Message-ID: <CAEnQRZDyEdJtcMd0et5=3+Q8+oX5b8zOf6o_2yfRNVxmDuxDXg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc fsl_esai fsl_sai: allow CONFIG_PM=N
+To: Maarten Zanders <maarten.zanders@mind.be>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,61 +100,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Oct 2022 16:07:49 +0200,
-Cezary Rojewski wrote:
-> 
-> Hello,
-> 
-> Writing with question regarding dpcm_set_fe_update_state() function
-> which is part of sound/soc/soc-pcm.c file and has been introduced with
-> commit "ASoC: dpcm: Fix race between FE/BE updates and trigger" [1].
-> 
-> The part that concerns me is the invocation of
-> dpcm_fe_dai_do_trigger() regardless of the actual state given DPCM is
-> in (actual state, not the DPCM_UPDATE_XX). The conditional invocation
-> of said _trigger() and addition of .trigger_pending field are here to
-> address a race where PCM state is being modified from multiple
-> locations simultaneously, at least judging by the commit's
-> description.
-> 
-> Note that the dpcm_set_fe_update_state() is called from all the
-> dai-ops i.e.: startup, shutdown, hw_params, prepare and hw_free.
-> Now, given that knowledge, we could end up in scenario where
-> dpcm_fe_dai_do_trigger() is invoked as a part of
-> dpcm_fe_dai_hw_free(). dpcm_set_fe_update_state() is called there
-> twice, once with DPCM_UPDATE_FE and once with DPCM_UPDATE_NO. The
-> second case is the more interesting one since it's called **after**
-> ->hw_free() callback is invoked for all the DAIs.
-> 
-> dpcm_fe_dai_hw_free()
-> 	dpcm_set_fe_update_state(DPCM_UPDATE_FE) // fine
-> 	(...)
-> 	dpcm_be_dai_hw_free()	// data allocated in hw_params
-> 				// is freed here
-> 	(...)
-> 	dpcm_set_fe_update_state(DPCM_UPDATE_NO) // not fine
-> 
-> 
-> The last is *not fine* if the .trigger_pending is not a zero, and can
-> lead to panic as code used during ->trigger() is often manipulating
-> data allocated during ->hw_params() but that data has just been freed
-> with ->hw_free().
-> 
-> Is what I'm looking at a bug? Or, perhaps there's something I'm
-> missing in the picture. From my study, it seems that only
-> dpcm_fe_dai_prepare() is a safe place for calling
-> dpcm_fe_dai_do_trigger() - once .trigger_pending is taken into
-> account. Any input is much appreciated.
+On Fri, Oct 28, 2022 at 5:37 PM Maarten Zanders <maarten.zanders@mind.be> wrote:
+>
+> When CONFIG_PM=N, pm_runtime_put_sync() returns -ENOSYS
+> which breaks the probe function of these drivers.
+>
+> Other users of pm_runtime_put_sync() typically don't check
+> the return value. In order to keep the program flow as
+> intended, check for -ENOSYS.
+>
+> This commit is similar to commit 0434d3f (omap-mailbox.c).
+>
+> This commit fixes:
+> cab04ab (ASoC: fsl_asrc: Don't use devm_regmap_init_mmio_clk)
+> 203773e (ASoC: fsl_esai: Don't use devm_regmap_init_mmio_clk)
+> 2277e7e (ASoC: fsl_sai: Don't use devm_regmap_init_mmio_clk)
+>
+> Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
 
-First off, each prepare, hw_params, hw_free, etc call is protected by
-a mutex, so they can't be run simultaneously.  And the commit was only
-about the (atomic) trigger call during those operations (which may be
-delayed if happening during other operations).  So, the case you
-suggested in the above can't happen in reality; PCM core won't fire
-such trigger.
-
-Of course, if you observe a race by fuzzing or such, then it'd be
-worth for investigating further, though.
-
-
-Takashi
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>

@@ -2,94 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE03611F64
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 04:46:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5881611FDC
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 05:45:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC49991;
-	Sat, 29 Oct 2022 04:45:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC49991
+	by alsa0.perex.cz (Postfix) with ESMTPS id 595461632;
+	Sat, 29 Oct 2022 05:44:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 595461632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667011567;
-	bh=+wnWQcbxgvmLtlRTiZ9RFXhhRhF75uw6RRP4a/6dy+A=;
+	s=default; t=1667015148;
+	bh=45C1jboMe+05gbSn1GCpQ6eEwkqwMDh5afPsLEkvmX0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XibQqcJuo96AUpvjl5I6+yOGCS7ZS+mmrzqEcoG+JKmxj3nOA4tYWTXgPIU+sVQtB
-	 A0hDlhCpJf3GHalh+7PmgDE3qzeqs00wuIFn5a06QUDN7FuKgOaoIucuHGxQbuFbVc
-	 M5s9s2nRpyWcrUnF5Q9vgEq4mOZ9bJ69nUBQxcoM=
+	b=kLZC8OgoIMMWeOrCvycjeDBciljT6h801afuAwxb5CG3GR6uQc81j1NvSPMK2wUpe
+	 TGOWWnyk8j03YJAWuzM7fof66b1g8HnTeMWZsdbzG6XGwBwD8FuhMFKXxgaUgobm4c
+	 FwO7Zjb9+6Y1tk91LxTTNp5qhyauul8Xt0perzcM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D33CDF804E0;
-	Sat, 29 Oct 2022 04:45:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1422F804E0;
+	Sat, 29 Oct 2022 05:44:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 714EFF804CC; Sat, 29 Oct 2022 04:45:09 +0200 (CEST)
+ id 0827AF804CC; Sat, 29 Oct 2022 05:44:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4C47F80162
- for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 04:44:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4C47F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 442BEF80162
+ for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 05:44:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442BEF80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="iivIreLT"
-Received: by mail-wm1-x336.google.com with SMTP id
- f16-20020a05600c491000b003cf66a2e7c0so274703wmp.5
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 19:44:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="g6MMhZCm"
+Received: by mail-yb1-xb2c.google.com with SMTP id n130so8121435yba.10
+ for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 20:44:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YZXo/xYgWHdeXsm3TKun82+YgflY0gzZ71VBRkYirJ4=;
- b=iivIreLTe3H6gc5x/7AyxZ69o0BoikXYGyoLAUDbRrlkMzlKUxh+YHPl3MCTXvdzKD
- pdtyCvMx+thh9mR9tRANfBPLtOLLOoH2GyfHqT3f+YMgECAjiwE++w1VpmRuWjsYmvam
- QDJaoPV/KUjDhCYPgD2+aedemS8mq4RZ0I3OuSd4f3j2W9RmT4g1KTXNOCqSyFD6MasG
- mh3dzmLHZ4dgcTk5rbq+MiKjmOnEkNDNd3vyXWF2cOK1h4ADJ3BxwwQiUTl9LcKK8feb
- tBoOkT5r7Xsb1+t1gTUTQH/GZY5R5RVo2ri7CHmLUFn9zfpR6p8jcg+TnEkLiGaa29jF
- qZEw==
+ bh=gz8chRT8BgwvM1bBz/hqcVOXEH6efHhKugP2b6d/KNA=;
+ b=g6MMhZCmMEfh5a1DNSkgtctHLoc0Zxx78dPchuD8LfuYJuM5a1iKBrVY3MzEJpWdSU
+ St2AbaMMDtRXzuN7Q9fGU5SuwvRBV8GtPCtMKFew5Jgeo3SqAp3VI2Uff9lQ4/h7Xgjv
+ e87BsOqWIITvxqZrgqybtQZCsPPTDd+GZ/aDgY1yOHLKqOuhxyFLlNxRFYJbUVplgX/b
+ Nr1A7IKy/E9utSKzdSQGIo8zwRASo1XvlR14JZTP3iaAwE60u+5pauhotsJQew5rfIhz
+ o07M4q7QLt1ZdhZ2j+qK4jcCgzprDxNjmdyBOeBCztLzR3zFNw+3a/w8RQH3ndmDNtaW
+ h3rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=YZXo/xYgWHdeXsm3TKun82+YgflY0gzZ71VBRkYirJ4=;
- b=P0sRaOcOHNtkWhDO2VhXFqj3LgTumQJ/iqe9qNexx/hwwTLB08dPhKrxW7s7nELWYE
- KPsomOuhdjXpBH316V/7WCJKlC5l1IIyQxSoq4/9PFmqsFSkwBL01Gbv2OJk3BWaOZHz
- Few1LDZpxUuqsRpue6UGgrg34/zEEpIVqbu43CR41zqnFZYtxsSDgwvHJj6VrvaNt+71
- Q+x7wxGKxVRmwgYKVAQ7Rbk7u4/D4vluH04A6JN4HQIlJD4+nMyFyOI1CRXMNwcGwQhE
- ch+zBm04s9+n3UET4qc2zsnyNqS6Gpm+xUJqnhs9W8BluCUDdQS40wl4K7+yalhR8aBr
- IfaA==
-X-Gm-Message-State: ACrzQf3eTcVH9YWrMYMWT7SCaUarcXolAjl/UF5JTzbp9RXe909yATm1
- HxYF7Q4eIQSSI/IfBAEHOXydisNuODpt3n2PnA==
-X-Google-Smtp-Source: AMsMyM7+FgJoPDXg+5fV0hccD3lp80BzLyX1FCwvdbGfrAqIdV74loEBdAetWHugsYkGJc4jMGZqDzlBPpyKrLLTdS4=
-X-Received: by 2002:a1c:770f:0:b0:3c8:33ba:150f with SMTP id
- t15-20020a1c770f000000b003c833ba150fmr11412919wmi.194.1667011497604; Fri, 28
- Oct 2022 19:44:57 -0700 (PDT)
+ bh=gz8chRT8BgwvM1bBz/hqcVOXEH6efHhKugP2b6d/KNA=;
+ b=eaCTHspRwdwGNokm69ZbWrt2wYYdrP57rWqyHQBQW1c+AfK++BRjrEAQ8d0vGAaFGj
+ UWSmllhRCx09DKYiVma+9B9xsyXz20TfHBbt82LoVriKlv3QcTDcw5X1VV2ePSEU0yfo
+ ybFLqZYWvf2YqhK9RR9NqZfcBG4kS/f2Gp4jpK7WB/twzPfnQFk1EdlIC77wJa+WfHGK
+ jqAIJb1+ISdyd89yjNqUgIi2NjejJ3bgZ0DrbIs8S7WsckSKnPhDtZaV0WNjuK33UEVb
+ A6rNb+0y1Na/jrQ2kZDX+VOq0VLMXtHwAMVxUYElpeBtsSQTLV2Kwx+GlCPOy+gR47ZT
+ YI3g==
+X-Gm-Message-State: ACrzQf3XvoB7574QRLtmN8mndwyzbuD2d8VyAutBWVWAmLc02IhnfO/5
+ xSxR4IuEFRWyo4MfgqTagU8wqYgrgKFUDVrtzyd2Bg==
+X-Google-Smtp-Source: AMsMyM66Ody47i2fsJ1hG0H/GOy1qXYYvmBtbpesojjIICAXjadL3JpiUK2chgxERuVe2gXSvIE968uC4fCiiR0bu24=
+X-Received: by 2002:a25:420e:0:b0:6ca:2d9b:bdcb with SMTP id
+ p14-20020a25420e000000b006ca2d9bbdcbmr2339348yba.453.1667015086809; Fri, 28
+ Oct 2022 20:44:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <1666511085-2748-1-git-send-email-fengzheng923@gmail.com>
- <69fa20ca-da52-b85f-ffcc-66a533471568@linux.intel.com>
-In-Reply-To: <69fa20ca-da52-b85f-ffcc-66a533471568@linux.intel.com>
-From: =?UTF-8?B?54+t5rab?= <fengzheng923@gmail.com>
-Date: Sat, 29 Oct 2022 10:44:43 +0800
-Message-ID: <CAE=m61-=WafE6iwnpboa0F7bi-LR2gFMo6raw5g=JdkNTx_Trg@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: sun50i-dmic: avoid unused variable warning for
- sun50i_dmic_of_match
-To: Chao Song <chao.song@linux.intel.com>
+References: <20221028172215.1471235-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028172215.1471235-2-ajye_huang@compal.corp-partner.google.com>
+ <628ac98c-0755-e6f6-e010-f1e772c4b71a@linaro.org>
+ <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
+ <Y1wi+g9yVR+++iIg@sirena.org.uk>
+In-Reply-To: <Y1wi+g9yVR+++iIg@sirena.org.uk>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Sat, 29 Oct 2022 11:44:41 +0800
+Message-ID: <CALprXBZ0qTkd1UoJ-TNEA8Epp5nBJW1KYsBQz_Wtm4YnxewmrA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ASoC: mediatek: dt-bindings: modify machine
+ bindings for two MICs case
+To: Mark Brown <broonie@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, samuel@sholland.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, jernej.skrabec@gmail.com,
- lgirdwood@gmail.com, wens@csie.org, broonie@kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,57 +110,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, Song Chao:
+Hi Mark Brown,
 
-Chao Song <chao.song@linux.intel.com> =E4=BA=8E2022=E5=B9=B410=E6=9C=8826=
-=E6=97=A5=E5=91=A8=E4=B8=89 22:31=E5=86=99=E9=81=93=EF=BC=9A
+On Sat, Oct 29, 2022 at 2:44 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> There was my thing about putting the names in DT too.
 
+> @@ -72,6 +76,8 @@ examples:
+>          pinctrl-0 = <&aud_clk_mosi_off>;
+>          pinctrl-1 = <&aud_clk_mosi_on>;
 >
-> On 10/23/2022 3:44 PM, Ban Tao wrote:
-> > In configurations with CONFIG_OF=3Dn, we get a harmless build warning:
-> >
-> > sound/soc/sunxi/sun50i-dmic.c:268:34: warning: unused variable
-> > 'sun50i_dmic_of_match' [-Wunused-const-variable]
-> >
-> > Signed-off-by: Ban Tao <fengzheng923@gmail.com>
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > ---
-> > v1->v2:Add "Acked-by" tag.
-> > ---
-> >   sound/soc/sunxi/sun50i-dmic.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/sound/soc/sunxi/sun50i-dmic.c
-> b/sound/soc/sunxi/sun50i-dmic.c
-> > index 86cff5a..62509cb 100644
-> > --- a/sound/soc/sunxi/sun50i-dmic.c
-> > +++ b/sound/soc/sunxi/sun50i-dmic.c
-> > @@ -391,7 +391,7 @@ static const struct dev_pm_ops sun50i_dmic_pm =3D {
-> >   static struct platform_driver sun50i_dmic_driver =3D {
-> >       .driver         =3D {
-> >               .name   =3D "sun50i-dmic",
-> > -             .of_match_table =3D of_match_ptr(sun50i_dmic_of_match),
-> > +             .of_match_table =3D sun50i_dmic_of_match,
-> I don't think this is the right direction (remove the of_match_ptr) to
-> fix the issue.
->
-> of_match_ptr(of_table) returns of_table if CONFIG_OF=3Dy, and returns NUL=
-L
-> if CONFIG_OF=3Dn.
->
-> So guard  the definition of sun50i_dmic_of_match with `#ifdef CONFIG_OF`
-> should be better.
->
-> Many other drivers do it this way.
->
+> +        dmic-gpios = <&pio 23 0>;
 
-But I think there is no difference between the two modifications. I refer
-to other driver files of sunxi (sound/soc/sunxi), all of which are in the
-same format.
+I think I added the pinctrl-name and pinctrl id in its example, to
+make it easier for the user to understand , like below, what do you
+think? thanks
+examples:
+  - |
 
->
-> >               .pm     =3D &sun50i_dmic_pm,
-> >       },
-> >       .probe          =3D sun50i_dmic_probe,
->
+    sound: mt8186-sound {
+        compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
+        mediatek,platform = <&afe>;
+        pinctrl-names = "aud_clk_mosi_off",
+                        "aud_clk_mosi_on";
++                       "aud_gpio_dmic_sec";
+        pinctrl-0 = <&aud_clk_mosi_off>;
+        pinctrl-1 = <&aud_clk_mosi_on>;
++       pinctrl-2 = <&aud_gpio_dmic_sec>;
+
++       dmic-gpios = <&pio 23 GPIO_ACTIVE_HIGH>;
+
+        headset-codec {
+            sound-dai = <&rt5682s>;
+        };
+
+        playback-codecs {
+             sound-dai = <&it6505dptx>,
+                         <&rt1019p>;
+        };
+    };

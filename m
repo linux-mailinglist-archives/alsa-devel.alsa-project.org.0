@@ -2,90 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1065E612193
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 10:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F52612274
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 13:37:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9625C1630;
-	Sat, 29 Oct 2022 10:47:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9625C1630
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFCE01630;
+	Sat, 29 Oct 2022 13:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFCE01630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667033275;
-	bh=6Mev48Og9TGpxW4V5u4fQk13oXiERDYPKps56bBujUI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667043467;
+	bh=OOLnL/nFHcH+QaTbHVtCqkJWuPEJ8VXNPUa1qNR1tIA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FatsKEdHu7jxVf+kx4HchhTfjqfnvM1zZpJwVfndQdYDUMlYhmJpAxUx1LnHipZeg
-	 xROsFG+Ent6l8ATsYZU1TsCNw7HW80WKIGmJSh82AIDXx2DVXYaClt7dPGF5W2dcVz
-	 +r4lsfke3m+IPV6LHT6uSQLCQoFqlqThY25mdGPQ=
+	b=q7k47swzDrGLeZTTLZSfcZOLMawY3ZJ77HAVtlyl3NQCHFypyogF/u4TUyuPfZ1yo
+	 YGHDgurSquHYH+TsAjZqRE1cAm2XjY5zXh4y4d4/YHHLSEmZF8ONsQLFGVN/RGsdMw
+	 aKz1yPOKigs8Apt18YI2ic9zAM6Iwzc9cFMWCyT8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E55CAF804E0;
-	Sat, 29 Oct 2022 10:47:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B058F804E0;
+	Sat, 29 Oct 2022 13:36:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94075F804CC; Sat, 29 Oct 2022 10:47:00 +0200 (CEST)
+ id A2623F804CC; Sat, 29 Oct 2022 13:36:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94666F80162
- for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 10:46:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94666F80162
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NRYTQvEj"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5ba3kF2z"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EECA11F7AB;
- Sat, 29 Oct 2022 08:46:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667033213; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9qUd35GE4Da5QzE9l7LHt19M9EcQDOkfVTci4k3rcZo=;
- b=NRYTQvEjtCb6oHTHwJWhpjThUnAqxzMEv9z1Ctlco2FCOq5TPbFOtJiw9U347aZOzeEfYC
- HFpJ1tTmXMXIfzk2OkXGSQaAMnE+nvC5jknK7E5PNXBzWHPdCM9DUqm+2Kgo3Dx18ECWJb
- 9C+Wneq0AQ1sIUYsD+FZ5TFv6/8i8n8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667033213;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9qUd35GE4Da5QzE9l7LHt19M9EcQDOkfVTci4k3rcZo=;
- b=5ba3kF2zwF9oomaTnhtLRg9Ai3SVHeGxR4QO5CpGCkOCYgbVBGiijBWVgxinjD9eeRbpYR
- /6PqAiDGg149B3Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 512F113451;
- Sat, 29 Oct 2022 08:46:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ls/LEn3oXGNzcAAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 29 Oct 2022 08:46:53 +0000
-Date: Sat, 29 Oct 2022 10:46:51 +0200
-Message-ID: <87wn8jkoec.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH RESEND] ARM: pxa: pxa2xx-ac97-lib: fix return value check
- of platform_get_irq()
-In-Reply-To: <20221029082001.3207380-1-yangyingliang@huawei.com>
-References: <20221029082001.3207380-1-yangyingliang@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, arnd@arndb.de, tiwai@suse.com,
- haojian.zhuang@gmail.com, robert.jarzmik@free.fr, daniel@zonque.org
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 94A07F80095
+ for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 13:36:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94A07F80095
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1667043405011606932-webhooks-bot@alsa-project.org>
+References: <1667043405011606932-webhooks-bot@alsa-project.org>
+Subject: wave: add <time.h> missing header inclusion
+Message-Id: <20221029113651.A2623F804CC@alsa1.perex.cz>
+Date: Sat, 29 Oct 2022 13:36:51 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,17 +60,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 29 Oct 2022 10:20:01 +0200,
-Yang Yingliang wrote:
-> 
-> platform_get_irq() returns negative error number on failure, fix the
-> return value check in pxa2xx_ac97_hw_probe() and assign the error code
-> to 'ret'.
-> 
-> Fixes: 2548e6c76ebf ("ARM: pxa: pxa2xx-ac97-lib: use IRQ resource")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+alsa-project/tinycompress pull request #19 was opened from jolivain:
 
-Thanks, applied.
+When compiling tinycompress with some libc other than glibc (e.g. musl libc), compilation fails with the following error:
+    
+    In file included from wave.c:11:0:
+    /path/to/gcc/sysroot/usr/include/sound/asound.h:404:18: error: field 'trigger_tstamp' has incomplete type
+      struct timespec trigger_tstamp; /* time when stream was started/stopped/paused */
+    [...]
+    
+According to POSIX, `struct timespec` is defined in `<time.h>`. See: https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html
+    
+This patch fixes this build failure by including `<time.h>` prior `<sound/asound.h>`.
 
+Note: the github master branch is currently not including the tag 1.2.8, which is why my pull-request is also showing commit 750ebbe.
 
-Takashi
+Request URL   : https://github.com/alsa-project/tinycompress/pull/19
+Patch URL     : https://github.com/alsa-project/tinycompress/pull/19.patch
+Repository URL: https://github.com/alsa-project/tinycompress

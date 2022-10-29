@@ -2,99 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5881611FDC
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 05:45:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87E45612015
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Oct 2022 06:35:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 595461632;
-	Sat, 29 Oct 2022 05:44:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 595461632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 102D21621;
+	Sat, 29 Oct 2022 06:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 102D21621
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667015148;
-	bh=45C1jboMe+05gbSn1GCpQ6eEwkqwMDh5afPsLEkvmX0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1667018124;
+	bh=qiy/Y8MHqJUEAJwE3wDdfBX5aabnn7uTZLhRxYDnsO8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kLZC8OgoIMMWeOrCvycjeDBciljT6h801afuAwxb5CG3GR6uQc81j1NvSPMK2wUpe
-	 TGOWWnyk8j03YJAWuzM7fof66b1g8HnTeMWZsdbzG6XGwBwD8FuhMFKXxgaUgobm4c
-	 FwO7Zjb9+6Y1tk91LxTTNp5qhyauul8Xt0perzcM=
+	b=Cg/bIVQUPMY9XjVX5ixVr6c+pLzFHtKXFpcetr9kM7LodkzsGOI5V/7Njlbzka4W9
+	 Au5xmoJ6rYMLbnZriVwd9WMqSQVf/4mlO22saiMfYEjZ4u1fuG2XcSPUTX0CwoYanS
+	 mSxH0OB7NtueRaxBYwKaOI9nuzSidjroJhmhETc4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1422F804E0;
-	Sat, 29 Oct 2022 05:44:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C201F804E0;
+	Sat, 29 Oct 2022 06:34:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0827AF804CC; Sat, 29 Oct 2022 05:44:53 +0200 (CEST)
+ id E78D3F80095; Sat, 29 Oct 2022 06:34:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 442BEF80162
- for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 05:44:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442BEF80162
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="g6MMhZCm"
-Received: by mail-yb1-xb2c.google.com with SMTP id n130so8121435yba.10
- for <alsa-devel@alsa-project.org>; Fri, 28 Oct 2022 20:44:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gz8chRT8BgwvM1bBz/hqcVOXEH6efHhKugP2b6d/KNA=;
- b=g6MMhZCmMEfh5a1DNSkgtctHLoc0Zxx78dPchuD8LfuYJuM5a1iKBrVY3MzEJpWdSU
- St2AbaMMDtRXzuN7Q9fGU5SuwvRBV8GtPCtMKFew5Jgeo3SqAp3VI2Uff9lQ4/h7Xgjv
- e87BsOqWIITvxqZrgqybtQZCsPPTDd+GZ/aDgY1yOHLKqOuhxyFLlNxRFYJbUVplgX/b
- Nr1A7IKy/E9utSKzdSQGIo8zwRASo1XvlR14JZTP3iaAwE60u+5pauhotsJQew5rfIhz
- o07M4q7QLt1ZdhZ2j+qK4jcCgzprDxNjmdyBOeBCztLzR3zFNw+3a/w8RQH3ndmDNtaW
- h3rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gz8chRT8BgwvM1bBz/hqcVOXEH6efHhKugP2b6d/KNA=;
- b=eaCTHspRwdwGNokm69ZbWrt2wYYdrP57rWqyHQBQW1c+AfK++BRjrEAQ8d0vGAaFGj
- UWSmllhRCx09DKYiVma+9B9xsyXz20TfHBbt82LoVriKlv3QcTDcw5X1VV2ePSEU0yfo
- ybFLqZYWvf2YqhK9RR9NqZfcBG4kS/f2Gp4jpK7WB/twzPfnQFk1EdlIC77wJa+WfHGK
- jqAIJb1+ISdyd89yjNqUgIi2NjejJ3bgZ0DrbIs8S7WsckSKnPhDtZaV0WNjuK33UEVb
- A6rNb+0y1Na/jrQ2kZDX+VOq0VLMXtHwAMVxUYElpeBtsSQTLV2Kwx+GlCPOy+gR47ZT
- YI3g==
-X-Gm-Message-State: ACrzQf3XvoB7574QRLtmN8mndwyzbuD2d8VyAutBWVWAmLc02IhnfO/5
- xSxR4IuEFRWyo4MfgqTagU8wqYgrgKFUDVrtzyd2Bg==
-X-Google-Smtp-Source: AMsMyM66Ody47i2fsJ1hG0H/GOy1qXYYvmBtbpesojjIICAXjadL3JpiUK2chgxERuVe2gXSvIE968uC4fCiiR0bu24=
-X-Received: by 2002:a25:420e:0:b0:6ca:2d9b:bdcb with SMTP id
- p14-20020a25420e000000b006ca2d9bbdcbmr2339348yba.453.1667015086809; Fri, 28
- Oct 2022 20:44:46 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BD0DF804E0
+ for <alsa-devel@alsa-project.org>; Sat, 29 Oct 2022 06:34:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BD0DF804E0
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.56])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MzmlL0mfGzHvL3;
+ Sat, 29 Oct 2022 12:34:06 +0800 (CST)
+Received: from dggpemm500013.china.huawei.com (7.185.36.172) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sat, 29 Oct 2022 12:34:21 +0800
+Received: from [10.67.108.67] (10.67.108.67) by dggpemm500013.china.huawei.com
+ (7.185.36.172) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Sat, 29 Oct
+ 2022 12:34:21 +0800
+Message-ID: <b30fa009-9174-da95-5799-149837e199e6@huawei.com>
+Date: Sat, 29 Oct 2022 12:34:19 +0800
 MIME-Version: 1.0
-References: <20221028172215.1471235-1-ajye_huang@compal.corp-partner.google.com>
- <20221028172215.1471235-2-ajye_huang@compal.corp-partner.google.com>
- <628ac98c-0755-e6f6-e010-f1e772c4b71a@linaro.org>
- <CALprXBY8FUc_w=JO3bp9m1e=1d5Fcvrou_En1JG8Hx0BYuETKw@mail.gmail.com>
- <Y1wi+g9yVR+++iIg@sirena.org.uk>
-In-Reply-To: <Y1wi+g9yVR+++iIg@sirena.org.uk>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Sat, 29 Oct 2022 11:44:41 +0800
-Message-ID: <CALprXBZ0qTkd1UoJ-TNEA8Epp5nBJW1KYsBQz_Wtm4YnxewmrA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: mediatek: dt-bindings: modify machine
- bindings for two MICs case
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- "chunxu . li" <chunxu.li@mediatek.com>,
- =?UTF-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4gUHJhZG8=?= <nfraprado@collabora.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.0
+Subject: Re: [PATCH] ASoC: core: Fix use-after-free in snd_soc_exit()
+To: Mark Brown <broonie@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <alsa-devel@alsa-project.org>
+References: <20221028031603.59416-1-chenzhongjin@huawei.com>
+ <166697367874.746166.7503879951900455151.b4-ty@kernel.org>
+Content-Language: en-US
+From: Chen Zhongjin <chenzhongjin@huawei.com>
+In-Reply-To: <166697367874.746166.7503879951900455151.b4-ty@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.67.108.67]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpemm500013.china.huawei.com (7.185.36.172)
+X-CFilter-Loop: Reflected
+Cc: lgirdwood@gmail.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,42 +83,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark Brown,
+Hi,
 
-On Sat, Oct 29, 2022 at 2:44 AM Mark Brown <broonie@kernel.org> wrote:
+On 2022/10/29 0:14, Mark Brown wrote:
+> On Fri, 28 Oct 2022 11:16:03 +0800, Chen Zhongjin wrote:
+>> KASAN reports a use-after-free:
+>>
+>> BUG: KASAN: use-after-free in device_del+0xb5b/0xc60
+>> Read of size 8 at addr ffff888008655050 by task rmmod/387
+>> CPU: 2 PID: 387 Comm: rmmod
+>> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
+>> Call Trace:
+>> <TASK>
+>> dump_stack_lvl+0x79/0x9a
+>> print_report+0x17f/0x47b
+>> kasan_report+0xbb/0xf0
+>> device_del+0xb5b/0xc60
+>> platform_device_del.part.0+0x24/0x200
+>> platform_device_unregister+0x2e/0x40
+>> snd_soc_exit+0xa/0x22 [snd_soc_core]
+>> __do_sys_delete_module.constprop.0+0x34f/0x5b0
+>> do_syscall_64+0x3a/0x90
+>> entry_SYSCALL_64_after_hwframe+0x63/0xcd
+>> ...
+>> </TASK>
+>>
+>> [...]
+> Applied to
 >
-> There was my thing about putting the names in DT too.
-
-> @@ -72,6 +76,8 @@ examples:
->          pinctrl-0 = <&aud_clk_mosi_off>;
->          pinctrl-1 = <&aud_clk_mosi_on>;
+>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 >
-> +        dmic-gpios = <&pio 23 0>;
+> Thanks!
+>
+> [1/1] ASoC: core: Fix use-after-free in snd_soc_exit()
+>        commit: 6ec27c53886c8963729885bcf2dd996eba2767a7
 
-I think I added the pinctrl-name and pinctrl id in its example, to
-make it easier for the user to understand , like below, what do you
-think? thanks
-examples:
-  - |
+I noticed that there is a build warning introduced by this patch:
 
-    sound: mt8186-sound {
-        compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
-        mediatek,platform = <&afe>;
-        pinctrl-names = "aud_clk_mosi_off",
-                        "aud_clk_mosi_on";
-+                       "aud_gpio_dmic_sec";
-        pinctrl-0 = <&aud_clk_mosi_off>;
-        pinctrl-1 = <&aud_clk_mosi_on>;
-+       pinctrl-2 = <&aud_gpio_dmic_sec>;
+WARNING: modpost: sound/soc/snd-soc-core.o: section mismatch in 
+reference: init_module (section: .init.text) -> snd_soc_util_exit 
+(section: .exit.text)
 
-+       dmic-gpios = <&pio 23 GPIO_ACTIVE_HIGH>;
+It's because it calls _exit snd_soc_util_exit() inside _init snd_soc_init().
 
-        headset-codec {
-            sound-dai = <&rt5682s>;
-        };
+Since snd_soc_util_exit is only used in snd_soc_init() and 
+snd_soc_exit(), could you please add this fix to the patch and delete 
+_exit for snd_soc_util_exit()?
 
-        playback-codecs {
-             sound-dai = <&it6505dptx>,
-                         <&rt1019p>;
-        };
-    };
+Or should I send a v2 version to replace current one?
+
+
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index a3b6df2378b4..a4dba0b751e7 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -264,7 +264,7 @@ int __init snd_soc_util_init(void)
+         return ret;
+  }
+
+-void __exit snd_soc_util_exit(void)
++void snd_soc_util_exit(void)
+  {
+         platform_driver_unregister(&soc_dummy_driver);
+         platform_device_unregister(soc_dummy_dev);
+
+
+Thanks!
+
+Best,
+
+Chen
+
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+>
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+>
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+>
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+>
+> Thanks,
+> Mark

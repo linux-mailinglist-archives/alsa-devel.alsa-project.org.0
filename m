@@ -2,69 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC7D612A7C
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Oct 2022 12:59:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3869612AD1
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Oct 2022 14:51:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F3661633;
-	Sun, 30 Oct 2022 12:58:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F3661633
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B71815C1;
+	Sun, 30 Oct 2022 14:50:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B71815C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667131161;
-	bh=Wi54MemALQ5pCHhLSG/BR8G24BWbYwjJZ85joP/QsdU=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667137891;
+	bh=KjiSe/9azakk4CqhWfNdRj4wpTv8adnllq1HMP8IDz0=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kNGGR/LcqI4zos5rifZlRCrPMYhQCqg4XK3VzUrUT0NnUnI25YIOe/HGzndkZp7ZO
-	 9w0WpcUezxgtsWUAEPjyIxGoC4r5XuGOvvXuyZ+p4g2y0uqJWWCJcOErQa+gxKFmdU
-	 S+Fz/DZ4ZnU6nKq/W0Gma4w8jsaNDAM4M8FSk37Q=
+	b=iVMX8DQJCTP/QIyDJSNxdHSzguxFPmqtDYHVW8mIbLwDpessNwZ2EwUMdfooldKTg
+	 yqAxC4ErDjI8AWdS4RIwUXAU+1/71aFwP/kq4LbYTAMCmN/Wm2xAoWKDhFKO1CuNqZ
+	 aNNO6A0CKv0W/7/FGxsmt7RLZ514nDQXREBAdyrM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3600F800CC;
-	Sun, 30 Oct 2022 12:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0CE3F8023B;
+	Sun, 30 Oct 2022 14:50:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EF84F800CC; Sun, 30 Oct 2022 12:58:26 +0100 (CET)
+ id 82167F80217; Sun, 30 Oct 2022 14:50:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48453F800CC
- for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 12:58:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48453F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="foe3rY0M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1667131099; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PoqpCs7UkUcDQ/eJ5UxDl3G9RkcflCO27aydlA+p8YI=;
- b=foe3rY0Mws/a0FLz2UPceasWglq7atRdpbjqdbxeEoMxDWdNJUDZy6QdqSF9LsxtSjTxMZ
- s3Xm19Ghw12/FIynrutoMOKF1YG6fAbxvQyUzewNLl6eFBrZi5uNt5ZYpqBBprXetCL0BT
- fFBf+Msg//55/1l7VaXslgoc0Oxw+sM=
-Date: Sun, 30 Oct 2022 11:58:09 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v1 3/3] ASoC: jz4740-i2s: Remove .set_sysclk()
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Message-Id: <XKEKKR.KWZ8D69P0CYL3@crapouillou.net>
-In-Reply-To: <20221028103418.17578-4-aidanmacdonald.0x0@gmail.com>
-References: <20221028103418.17578-1-aidanmacdonald.0x0@gmail.com>
- <20221028103418.17578-4-aidanmacdonald.0x0@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51BB9F800CC
+ for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 14:50:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51BB9F800CC
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-13c569e5ff5so10774077fac.6
+ for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 06:50:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=mNqQtPZFw1ZRUiXn/bpdnJoMGSfAm72IDjxJO9YExkw=;
+ b=qZICR4CfbqZDBdZ24N5JnWi/utzaiNqsDiFAiPFb67ssbXpN9nMXcl1QyMPy40S5+R
+ eWuFlfWPmNxneHzl51bHdArAMCC3kQeXWj9pOM2DMfaTT5rjlwbyMktF7WrS9Zd5MNTL
+ iNUANtXkgaCUqaAcSrXyh4KNEzkyux89rgZ9wqMj4TQIiYPwnKNIfMzY2JPAoi5h0GlI
+ QzTLDTwJra8xBt6nR/9+8BzIniTGouxFK/uCOdxqqms8Cay9MztvZm/MvpbyNL+f1Zw8
+ hRbdBQJ9MxZrOiKMbV8t+SCuGGG5pZ5uTTVMGOCcV2chM60TptdsAfvzSSug6mbIgnE3
+ A3ew==
+X-Gm-Message-State: ACrzQf3/kxqfGcMFa6KwRgGmQ7mn3g989hOZVUOHtWob3rSEdZT3nMo+
+ pOIarbi1fstR06aQvmSV/Q==
+X-Google-Smtp-Source: AMsMyM7SrfS+jRFoPnPWEbktrG/CDV4pS8dOM5/QuFFdmGAKqtq17e4SrJOdAQGLFcw5yG4ZvqRQYw==
+X-Received: by 2002:a05:6870:e889:b0:13c:c80:7188 with SMTP id
+ q9-20020a056870e88900b0013c0c807188mr13919904oan.93.1667137827142; 
+ Sun, 30 Oct 2022 06:50:27 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ q16-20020a4a88d0000000b00476995b5f0fsm1460946ooh.9.2022.10.30.06.50.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Oct 2022 06:50:26 -0700 (PDT)
+Received: (nullmailer pid 992224 invoked by uid 1000);
+ Sun, 30 Oct 2022 13:50:23 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
+From: Rob Herring <robh@kernel.org>
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+In-Reply-To: <20221030085358.1619285-2-ajye_huang@compal.corp-partner.google.com>
+References: <20221030085358.1619285-1-ajye_huang@compal.corp-partner.google.com>
+ <20221030085358.1619285-2-ajye_huang@compal.corp-partner.google.com>
+Message-Id: <166713668618.965877.11108951663566363754.robh@kernel.org>
+Subject: Re: [PATCH v3 1/2] ASoC: mediatek: dt-bindings: modify machine
+ bindings for two MICs case
+Date: Sun, 30 Oct 2022 08:50:23 -0500
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- tsbogend@alpha.franken.de, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-mips@vger.kernel.org
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ "=?utf-8?q?N=C3=ADcolas?= F . R . A . Prado" <nfraprado@collabora.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,121 +105,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Aidan,
 
-Le ven. 28 oct. 2022 =E0 11:34:18 +0100, Aidan MacDonald=20
-<aidanmacdonald.0x0@gmail.com> a =E9crit :
-> .set_sysclk() is effectively unused here. No machine drivers use
-> jz4740-i2s; and JZ4740_I2S_CLKSRC_EXT is the only selectable clock
-> source with simple-card, but that is also the default source and
-> has a fixed frequency, so configuring it would be redundant.
->=20
-> simple-card ignores -ENOTSUPP error codes when setting the sysclock,
-> so any device trees that do set the sysclock for some reason should
-> still work.
->=20
-> It's still possible to configure the clock parent manually in the
-> device tree and control frequency using other simple-card options,
-> so at the end of the day there's no real loss in functionality.
->=20
-> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
-
-Cheers,
--Paul
-
+On Sun, 30 Oct 2022 16:53:57 +0800, Ajye Huang wrote:
+> Add a property "dmic-gpios" for switching between two MICs.
+> 
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 > ---
-> Meant to be applied on top of jz4740-i2s cleanups series already
-> in linux-next.
-> Link:=20
-> https://lore.kernel.org/alsa-devel/20221023143328.160866-1-aidanmacdonald=
-.0x0@gmail.com/
->=20
->  sound/soc/jz4740/jz4740-i2s.c | 32 --------------------------------
->  sound/soc/jz4740/jz4740-i2s.h | 10 ----------
->  2 files changed, 42 deletions(-)
->  delete mode 100644 sound/soc/jz4740/jz4740-i2s.h
->=20
-> diff --git a/sound/soc/jz4740/jz4740-i2s.c=20
-> b/sound/soc/jz4740/jz4740-i2s.c
-> index b620d4462d90..6d9cfe0a5041 100644
-> --- a/sound/soc/jz4740/jz4740-i2s.c
-> +++ b/sound/soc/jz4740/jz4740-i2s.c
-> @@ -23,8 +23,6 @@
->  #include <sound/initval.h>
->  #include <sound/dmaengine_pcm.h>
->=20
-> -#include "jz4740-i2s.h"
-> -
->  #define JZ_REG_AIC_CONF		0x00
->  #define JZ_REG_AIC_CTRL		0x04
->  #define JZ_REG_AIC_I2S_FMT	0x10
-> @@ -273,35 +271,6 @@ static int jz4740_i2s_hw_params(struct=20
-> snd_pcm_substream *substream,
->  	return 0;
->  }
->=20
-> -static int jz4740_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
-> -	unsigned int freq, int dir)
-> -{
-> -	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
-> -	struct clk *parent;
-> -	int ret =3D 0;
-> -
-> -	switch (clk_id) {
-> -	case JZ4740_I2S_CLKSRC_EXT:
-> -		parent =3D clk_get(NULL, "ext");
-> -		if (IS_ERR(parent))
-> -			return PTR_ERR(parent);
-> -		clk_set_parent(i2s->clk_i2s, parent);
-> -		break;
-> -	case JZ4740_I2S_CLKSRC_PLL:
-> -		parent =3D clk_get(NULL, "pll half");
-> -		if (IS_ERR(parent))
-> -			return PTR_ERR(parent);
-> -		clk_set_parent(i2s->clk_i2s, parent);
-> -		ret =3D clk_set_rate(i2s->clk_i2s, freq);
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -	clk_put(parent);
-> -
-> -	return ret;
-> -}
-> -
->  static int jz4740_i2s_dai_probe(struct snd_soc_dai *dai)
->  {
->  	struct jz4740_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
-> @@ -318,7 +287,6 @@ static const struct snd_soc_dai_ops=20
-> jz4740_i2s_dai_ops =3D {
->  	.trigger =3D jz4740_i2s_trigger,
->  	.hw_params =3D jz4740_i2s_hw_params,
->  	.set_fmt =3D jz4740_i2s_set_fmt,
-> -	.set_sysclk =3D jz4740_i2s_set_sysclk,
->  };
->=20
->  #define JZ4740_I2S_FMTS (SNDRV_PCM_FMTBIT_S8 | \
-> diff --git a/sound/soc/jz4740/jz4740-i2s.h=20
-> b/sound/soc/jz4740/jz4740-i2s.h
-> deleted file mode 100644
-> index 4da14eac1145..000000000000
-> --- a/sound/soc/jz4740/jz4740-i2s.h
-> +++ /dev/null
-> @@ -1,10 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-only */
-> -
-> -#ifndef _JZ4740_I2S_H
-> -#define _JZ4740_I2S_H
-> -
-> -/* I2S clock source */
-> -#define JZ4740_I2S_CLKSRC_EXT 0
-> -#define JZ4740_I2S_CLKSRC_PLL 1
-> -
-> -#endif
-> --
-> 2.38.1
->=20
+>  .../sound/mt8186-mt6366-rt1019-rt5682s.yaml         | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
 
+
+
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Error: Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.example.dts:29.35-36 syntax error
+FATAL ERROR: Unable to parse input tree
+make[1]: *** [scripts/Makefile.lib:406: Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.example.dtb] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1492: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

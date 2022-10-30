@@ -2,87 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA73161293A
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Oct 2022 09:55:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A2C61293B
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Oct 2022 09:55:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DD0C86F;
-	Sun, 30 Oct 2022 09:54:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DD0C86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92BAAE0F;
+	Sun, 30 Oct 2022 09:54:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92BAAE0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667120107;
-	bh=kx//Io7Z9l9N9wg1akn5O1Ow3b/dDgoBcnWt6RSmm5c=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sRDxL5fwHGvrLnQ5RR18ULOwaOpPU4Sf8znK/v81xzMfmjTGqqGN/bf3AMj4rkniV
-	 3Lau3h6jQKNAeHM7li4TmY6RS+SxL/DisZwgS4vbG0+23AGDsohhLBVQ6IRI5RNpWR
-	 pVWz9IlECan3dC+cs3SCeyCA/rdNCCUr1M08hbdk=
+	s=default; t=1667120133;
+	bh=/XDFwllDx6L45a20vTLzsbo6Ji0HvXHkRFHaKE/ww1w=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Wmef1bM0w903eDgpYWWdR4cRwmwVxKy53K7/oqvYo4aHj8AjbYgg/OymuAPvSBDve
+	 dHN5/H3iEu9It0BOdeod5OHpaKpnsqhX4CWKcgGVI83YAnRw8LXPpbaHVrQ9CGL+WE
+	 KMj1jAEgRXfkZEZMB/Kw7lKcmKGigIgo4bXKHISA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76D4DF8023B;
-	Sun, 30 Oct 2022 09:54:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4954F800A7;
+	Sun, 30 Oct 2022 09:54:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 989C7F80217; Sun, 30 Oct 2022 09:54:11 +0100 (CET)
+ id 44C63F804FB; Sun, 30 Oct 2022 09:54:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8018F800A7
- for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 09:54:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8018F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82483F80217
+ for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 09:54:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82483F80217
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
  header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
  header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
- header.b="bbXRih8T"
-Received: by mail-pl1-x62c.google.com with SMTP id j12so8366064plj.5
- for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 01:54:08 -0700 (PDT)
+ header.b="TMAYw7yi"
+Received: by mail-pl1-x62b.google.com with SMTP id y4so8379904plb.2
+ for <alsa-devel@alsa-project.org>; Sun, 30 Oct 2022 01:54:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rDkvQjMnPy2Fy0mBItWeOo1V6hYUJ0mhKJvHwDCVi2w=;
- b=bbXRih8TjXzbqHh25uHOxJWFLQw+e1DlCLIq7nhMGQtwji80VAHDq+N4U3++UXV2V3
- Gtv/VtUzMHdL1OkWJNAu+KJGnQpPD+DN8VV/Sl7ulgdHwvTeko0Dg3vy6HVhMHSa6tZ5
- UAy9hUSx6ob+N6sVx+UO9Du0G68SC2Nb6oumIyxC2v1mmD3pg3i/IC8KgCqNrmtewVQK
- TOPm5NQ4hegcpcMOJc9+++rjfnYFlzgowdkhPpjZJfX9fggNcHy7U/kqs8kFOmvffqEL
- Qj7lV+QsXIBwqztGBmQ4uEAJutXxdXn6nZv+VtvVvd3Yq0qHpKioH+X+s3/FYgZH8c+c
- mcKg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mv+BLBNqBpWOA3vNeD4kjDL2MA9szaMxuhuDzPkq1ks=;
+ b=TMAYw7yigmzOnPFudyA0NvbqzI6+opZd+SUpXDi5eDzotTQJ0WK2rDpLf5ccdeVE8g
+ 3PqS7MQpWLfHuwgGbYKmJZ2ysQsAW1YmjPIcozhsoG9zMMJZpaOr+M9Pul9ru6h0VY4S
+ BGS9GSTc7OXtM8PWGJJW6xY4PeB5KTn5r/+Qw5zirqfqnBqIQO+x4EZD1RBvKsebU5Yp
+ ZbBBx/6D3kgyYQQnbdOIvxb90fDUTc28u/3Nn7yVrKmk1TRLw5gOQqggutvvSCKoRof1
+ s9C69TJ6maRenZJG0/QV+XYqrl4hWPrdxOdA1gSC3UVBdl5NGNTTpSEoaE0IvmFl03h9
+ uBTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rDkvQjMnPy2Fy0mBItWeOo1V6hYUJ0mhKJvHwDCVi2w=;
- b=Gv8krq/+Tnc9phgdba/PuKMbh6Y2zkWbCO1nQaOELx+3RhGNTEU/7bAQ10XBB2Vm/d
- gl6rKobCjf6EFMRlguZex6Y4tA7kfnyr/qEpkXvd3/fomJO52J6av7r+ubt6Kx7OZ/sQ
- sYbHA+/NdswYVSDuRJS3AB4uJqofjOBp+krFNWrRsuPEKkp2/qK9D7BxwlxbHLcAYryH
- CcscQoa4+xItfXtTkz8IhIbSAed9u8d2DiRZjY4daDuRxFclTbWzvmZeiOfm2r3mC6zR
- gvBgvukYWP0eEZyc4no7Py3Xe5SEx2X6eNcwJeum765Il48l479/TpmAWujh03X8DarE
- wnqw==
-X-Gm-Message-State: ACrzQf3ep/hsASWRKO3NurmHH38iOXXOA5D+0/XnLAeycWhG+8GXggm3
- LCIBB7WXWxVbzyVIruGNdkYKlw==
-X-Google-Smtp-Source: AMsMyM5f9T1Rh9DrdO2JxLDorJoTNDYAWA/e2ujdB/uQxvpcNDMnY2R2vO3fkNs5lc6OSJVNq7YJ5Q==
-X-Received: by 2002:a17:903:110f:b0:178:ae31:ab2 with SMTP id
- n15-20020a170903110f00b00178ae310ab2mr8322365plh.89.1667120046351; 
- Sun, 30 Oct 2022 01:54:06 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mv+BLBNqBpWOA3vNeD4kjDL2MA9szaMxuhuDzPkq1ks=;
+ b=6o8si6AGENA9aY1km2fazoBqH0cCy7Py5MvP5jbrB6aPdVvj4Lgsfwp9WLlvzrVhx9
+ vpsaxeaK36HDD4SscNjEVHKuxHmGBvI0MzlIiIKZh+ksvRSN8dHigybzM5XtdmX3nnXV
+ 7TJUM+NZftukH8vjMJvNz8VAl3gF2vTXkwJI9BHKdV/7Cz2oxA7U7tWCuT+P0OedoLk9
+ N+wpXIdWt2wh8RdevjFSIkkL+fX28/Gv0nwirBpqbD+5/qQSEdYp4XJ3RuvJyozAucdV
+ QNcBIyvhKe8dQh53rF2HXUyQPCn7DnPFpDJbDc3SvIJ0CbZmuHjQF2s0cRTLJPUuh5TU
+ SVow==
+X-Gm-Message-State: ACrzQf3gNs0hsXeaG4ZBZ8pcqqAaW6+rVu/6dmhoca/sErwrLLiimlQR
+ m7IW3kfMq9CrcNRe8VuBS1NhmA==
+X-Google-Smtp-Source: AMsMyM74Wq7d2lV8Ds8HII8GqBYH4mUQ5vxzN4bfvVHLfopJFxA14Df2ZPsSepJWrLU8Zi+ASuBHUg==
+X-Received: by 2002:a17:902:7897:b0:178:9292:57b9 with SMTP id
+ q23-20020a170902789700b00178929257b9mr8369620pll.102.1667120051195; 
+ Sun, 30 Oct 2022 01:54:11 -0700 (PDT)
 Received: from localhost.localdomain (118-167-185-125.dynamic-ip.hinet.net.
  [118.167.185.125]) by smtp.gmail.com with ESMTPSA id
- n9-20020a63f809000000b0041ae78c3493sm2054627pgh.52.2022.10.30.01.54.03
+ n9-20020a63f809000000b0041ae78c3493sm2054627pgh.52.2022.10.30.01.54.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Oct 2022 01:54:06 -0700 (PDT)
+ Sun, 30 Oct 2022 01:54:10 -0700 (PDT)
 From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] Modify documentation and machine driver for
- mt8186_rt1019_rt5682s sound card
-Date: Sun, 30 Oct 2022 16:53:56 +0800
-Message-Id: <20221030085358.1619285-1-ajye_huang@compal.corp-partner.google.com>
+Subject: [PATCH v3 1/2] ASoC: mediatek: dt-bindings: modify machine bindings
+ for two MICs case
+Date: Sun, 30 Oct 2022 16:53:57 +0800
+Message-Id: <20221030085358.1619285-2-ajye_huang@compal.corp-partner.google.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221030085358.1619285-1-ajye_huang@compal.corp-partner.google.com>
+References: <20221030085358.1619285-1-ajye_huang@compal.corp-partner.google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -112,32 +116,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-v3:
-- Documentation: 
-  - Add an explain example in description.
-  - Add the pinctrl-name and pinctrl id in its example.
+Add a property "dmic-gpios" for switching between two MICs.
 
-v2:
-- dmic codec driver: 
-  - Remove the unnecessary use of_property_read_bool()
+Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+---
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml         | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-v1:
-- Documentation: Add dmic-gpios optional prop for two DMICs case.
-- dmic codec driver: 
-  - "dmic-gpios" property is used for amixer control to switch
-     the dmic signal source between the Front and Rear Dmic.
-
-Thanks for the review!
-
-Ajye Huang (2):
-  ASoC: mediatek: dt-bindings: modify machine bindings for two MICs case
-  ASoC: mediatek: mt8186-rt5682: Modify machine driver for two DMICs
-    case
-
- .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |  13 ++-
- .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 102 +++++++++++++++++-
- 2 files changed, 113 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+index 4fc5b045d3cf..46ad2cf4365e 100644
+--- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
++++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+@@ -21,6 +21,13 @@ properties:
+     $ref: "/schemas/types.yaml#/definitions/phandle"
+     description: The phandle of MT8186 ASoC platform.
+ 
++  dmic-gpios:
++    maxItems: 1
++    description:
++      dmic-gpios optional prop for switching between two DMICs.
++      Ex, the GPIO can control a MUX HW component to select
++      dmic clk and data form a Front or Rear dmic.
++
+   headset-codec:
+     type: object
+     additionalProperties: false
+@@ -68,9 +75,13 @@ examples:
+         compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
+         mediatek,platform = <&afe>;
+         pinctrl-names = "aud_clk_mosi_off",
+-                        "aud_clk_mosi_on";
++                        "aud_clk_mosi_on" ,
++                        "aud_gpio_dmic_sec";
+         pinctrl-0 = <&aud_clk_mosi_off>;
+         pinctrl-1 = <&aud_clk_mosi_on>;
++        pinctrl-2 = <&aud_gpio_dmic_sec>;
++
++        dmic-gpios = <&pio 23 GPIO_ACTIVE_HIGH>;
+ 
+         headset-codec {
+             sound-dai = <&rt5682s>;
 -- 
 2.25.1
 

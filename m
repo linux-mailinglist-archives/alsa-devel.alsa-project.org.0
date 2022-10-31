@@ -2,83 +2,186 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C859613416
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 11:57:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D6A3613468
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 12:21:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEFF81640;
-	Mon, 31 Oct 2022 11:56:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEFF81640
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C1621652;
+	Mon, 31 Oct 2022 12:20:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C1621652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667213822;
-	bh=limiPvqzQXX/7Brs0BUo+Sup2ix2IbuzOK3aJ9tSvuc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667215308;
+	bh=uXjb5rb4RVn2iHyx7i8P8n9E2pA7tlVYDOPR+cKIYgA=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DEDm1j0/szHrYN4qULPSaaV2FEMubW3ppYv3MhQNK6GXrLop85SGjgeX+lAZ4A3na
-	 lLlSjBhzB/TeQdcdr/bTCpaoGiRKh4tW5vIMbBwYfaJPwf6v8FclbctSJXzzPhI4EZ
-	 1UieetktrETgks52X/GA0IhU2QZQQ9mCZuI5zIZs=
+	b=rySWXLpf0jYuHJDwdSdMJIIU7PwuUR6F/U8xE6OuoNRgEyEPg/35KzzcZMLSIokyo
+	 1OL0USLhrFiiMDa+hbE11N22+YdvhAXkrHws/OUPN04wielTrYoxq0U9QpIp9KrKnB
+	 7Hdg3pyJPyvcX89xS2QsoA94RUm8vcQbnCgs1iFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C562EF80579;
-	Mon, 31 Oct 2022 11:54:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4842F8021D;
+	Mon, 31 Oct 2022 12:20:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3C9EF804FF; Mon, 31 Oct 2022 11:54:42 +0100 (CET)
+ id 5B2B4F800F3; Mon, 31 Oct 2022 12:20:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
+ [148.163.135.77])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8F7FF804FF
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 11:54:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8F7FF804FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80467F800F3
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 12:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80467F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QxdBiV7L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667213673; x=1698749673;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=limiPvqzQXX/7Brs0BUo+Sup2ix2IbuzOK3aJ9tSvuc=;
- b=QxdBiV7LFCmNu9ONXPzBoPYfOnioqw1HfvtHAdJe2ezNL27zs6rxT8J2
- SVRgJ1gNDEm4ZRH2Wrjqs9t6N6CwoLTlcT3C80riiocVJYJal2MyStC6F
- m7kdJrx6oSVsyYFEkyeEcGKDBjiqd1eY8BxCNw843PyNBveP2tIlv5HdE
- QHTuLeDEh3f06Ng7Ez7Bn8RFOk9KfHKeRasLFGuOj90nC2VUKSuEoxh4O
- K36+xBlh7vhpI2JaYSDEoWH+9ftmvJqcG8yWePi5u1C11AuDhOh55O2Gn
- JWIu+odl5emCT96AZIuIPt8o1AgF62XDq3R2CUhxSe0B9MGM694f2e10Y g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10516"; a="308868505"
-X-IronPort-AV: E=Sophos;i="5.95,227,1661842800"; d="scan'208";a="308868505"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2022 03:51:30 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10516"; a="633488104"
-X-IronPort-AV: E=Sophos;i="5.95,227,1661842800"; d="scan'208";a="633488104"
-Received: from vbhutani-mobl2.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.13.109])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2022 03:51:28 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	jyri.sarha@intel.com
-Subject: [PATCH 5/5] ASoC: SOF: IPC4: probes: Implement IPC4 ops for probes
- client device
-Date: Mon, 31 Oct 2022 12:51:41 +0200
-Message-Id: <20221031105141.19037-6-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221031105141.19037-1-peter.ujfalusi@linux.intel.com>
-References: <20221031105141.19037-1-peter.ujfalusi@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
+ header.i=@analog.onmicrosoft.com header.b="bz1sohtR"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+ by mx0a-00128a01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 29VBAP2i026674; Mon, 31 Oct 2022 07:20:44 -0400
+Received: from nam02-sn1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02lp2044.outbound.protection.outlook.com [104.47.57.44])
+ by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3kj68w21c6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 31 Oct 2022 07:20:43 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Dfp84nBT6gEUdpOXj343A8QO6c2BVtfmofGnzKJp7O497UdOCUeEs+8PNBKpnzCiah3Xjj+NGOVunTsTHkXlG1fx0ldvErcBEaacVww8nEEk4qHvk3ygaoU7urQKooSoE57j8WHpcuB+0JveTmTCJh03TVclBp9FoUqiC6FIrlhnWNLXJpkL+hEs2cCxN3w/Wt/wi1bmcZsAXi/HAtz+AJ+jVGBrhWJZ/u6QgA7b5Lo2xFNi4sFIaywfmAqvCGBrbysN/IwlwcDW6v6fdeYwiPjzq2en6f5xXTmtibdTxyEbjPRDF0Tz5jkwAFW5C9/zdbmVQTVkhwMged8/p9SG0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uXjb5rb4RVn2iHyx7i8P8n9E2pA7tlVYDOPR+cKIYgA=;
+ b=nkqAjnEHelwn+MrOvp/5P2aZxfJZX/OgGoga1+vBrodK3DMz12j906PiFJHax8jsoy+Z3riJeUNjZuxOuQUnazMRHubUb8mgRxePylIz564oofQamlugzCbKY2qbTW0WwXCfWR2D0co/zVzRIYCfMKojE3coSlZzrQ6eJlV8kVWrD+UaVXVRdVJVS5vP+fpFdf6ZMcUp3zsqYN30wq0Kiyfbngfo4Ipj+1t/1lhRDB2IhvZq+H9UGfucOqVkE4x+uxXYKUSFyfuAevJfLJDPSeq5UOcml/yp2/de1p+xjnwyMGDrIAKrptoG2QeGwx07VGtzv36fexim25MAAOv1XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uXjb5rb4RVn2iHyx7i8P8n9E2pA7tlVYDOPR+cKIYgA=;
+ b=bz1sohtRifENHfksp/uq6v7Hbuo12DytLLYKX4hXeoU77MzMuOP8OYZxAIRSlN4yyE1qqQnD78ysACS4jVpsz4+M9IPmMSx8a7smjX7Z0XCUtWZWOylGwHNCw4HK5QtM0SdJqQe4JqKe+kzActFt4Da/Q0vMaaLBhHvHT8TH2bA=
+Received: from SJ0PR03MB6778.namprd03.prod.outlook.com (2603:10b6:a03:40d::22)
+ by MW4PR03MB6635.namprd03.prod.outlook.com (2603:10b6:303:12a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
+ 2022 11:20:42 +0000
+Received: from SJ0PR03MB6778.namprd03.prod.outlook.com
+ ([fe80::bdbe:d510:d09e:8abd]) by SJ0PR03MB6778.namprd03.prod.outlook.com
+ ([fe80::bdbe:d510:d09e:8abd%6]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
+ 11:20:42 +0000
+From: "Sa, Nuno" <Nuno.Sa@analog.com>
+To: Maarten Zanders <maarten.zanders@mind.be>, Lars-Peter Clausen
+ <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>
+Subject: RE: [PATCH 1/3] ASoC: adau1372: fix mclk
+Thread-Topic: [PATCH 1/3] ASoC: adau1372: fix mclk
+Thread-Index: AQHY6uG2O57QBw25i0+j33gkklPZ4a4oX71w
+Date: Mon, 31 Oct 2022 11:20:41 +0000
+Message-ID: <SJ0PR03MB6778A0EB0CD15A3A917BFE4A99379@SJ0PR03MB6778.namprd03.prod.outlook.com>
+References: <20221028152626.109603-1-maarten.zanders@mind.be>
+ <20221028152626.109603-2-maarten.zanders@mind.be>
+In-Reply-To: <20221028152626.109603-2-maarten.zanders@mind.be>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-dg-ref: =?iso-8859-1?Q?PG1ldGE+PGF0IG5tPSJib2R5LnR4dCIgcD0iYzpcdXNlcnNcbnNhXGFwcG?=
+ =?iso-8859-1?Q?RhdGFccm9hbWluZ1wwOWQ4NDliNi0zMmQzLTRhNDAtODVlZS02Yjg0YmEy?=
+ =?iso-8859-1?Q?OWUzNWJcbXNnc1xtc2ctMGM5OGM3ZTMtNTkwZS0xMWVkLWI2YjktYmNmMT?=
+ =?iso-8859-1?Q?cxYzQ1ODgyXGFtZS10ZXN0XDBjOThjN2U1LTU5MGUtMTFlZC1iNmI5LWJj?=
+ =?iso-8859-1?Q?ZjE3MWM0NTg4MmJvZHkudHh0IiBzej0iMTA4OCIgdD0iMTMzMTE2ODg4ND?=
+ =?iso-8859-1?Q?A0MjYyOTc0IiBoPSJaNThzN2c2ZkpYOHdoam03Q05xU01Rd3hucWM9IiBp?=
+ =?iso-8859-1?Q?ZD0iIiBibD0iMCIgYm89IjEiIGNpPSJjQUFBQUVSSFUxUlNSVUZOQ2dVQU?=
+ =?iso-8859-1?Q?FFb0NBQUErQVBIT0d1M1lBUUE0Z3NGdC9zenpBRGlDd1czK3pQTURBQUFB?=
+ =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBSEFBQUFEYUFRQUFBQUFBQUFBQUFBQU?=
+ =?iso-8859-1?Q?FBQUFBQUFBQUFBRUFBUUFCQUFBQVg1bDJLd0FBQUFBQUFBQUFBQUFBQUo0?=
+ =?iso-8859-1?Q?QUFBQmhBR1FBYVFCZkFITUFaUUJqQUhVQWNnQmxBRjhBY0FCeUFHOEFhZ0?=
+ =?iso-8859-1?Q?JsQUdNQWRBQnpBRjhBWmdCaEFHd0Fjd0JsQUY4QVpnQnZBSE1BYVFCMEFH?=
+ =?iso-8859-1?Q?a0FkZ0JsQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
+ =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
+ =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQWdBQUFBQUFuZ0FBQUdFQV?=
+ =?iso-8859-1?Q?pBQnBBRjhBY3dCbEFHTUFkUUJ5QUdVQVh3QndBSElBYndCcUFHVUFZd0Iw?=
+ =?iso-8859-1?Q?QUhNQVh3QjBBR2tBWlFCeUFERUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
+ =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
+ =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
+ =?iso-8859-1?Q?FBQUFBQUFBQUFBUUFBQUFBQUFBQUNBQUFBQUFDZUFBQUFZUUJrQUdrQVh3?=
+ =?iso-8859-1?Q?QnpBR1VBWXdCMUFISUFaUUJmQUhBQWNnQnZBR29BWlFCakFIUUFjd0JmQU?=
+ =?iso-8859-1?Q?hRQWFRQmxBSElBTWdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
+ =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
+ =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
+ =?iso-8859-1?Q?QUFBQkFBQUFBQUFBQUFJQUFBQUFBQT09Ii8+PC9tZXRhPg=3D=3D?=
+x-dg-rorf: true
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR03MB6778:EE_|MW4PR03MB6635:EE_
+x-ms-office365-filtering-correlation-id: b14b09c0-3835-4679-405d-08dabb31f253
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: r0Qk8TwVae1Ti3LoBRZNQWltugf5dyo3sP2nolMzATyBwBGWKvdLZA7BDUbqRHMTZlhlZp/bnZBsLi4FYOWjcAg0aT0h29hEa17F/57D5ORkjUbRbUVZD8mTT9PChXJ+lF1VIMZM6XfSVs/nLUtxJ3SW1zjlaTN0Eu+OVOmFjDM/+G3roT5cUCfHpGtQZgxq0jPFGThOi8ycVFxKQV3iDwMkEBILCCOPV6H+uk2QxHXeNzAA1MftLoYScPE6xvAs8dGcFsuSY8Bzv2O/YbeGEebLS3Hi3GnoMCWueMptiH/rYLc/3VCPMc4M0xcFrZg7o6QpMxCZXYSb28Ea93kbD+I5ekLrvjKgJBojVcseJSCxD7IF9bko1GrGB08329KFqN/KN/eJ/8hviPjP1SFEmISbdbLxyOdDWwYujPvu/Y0klEmQfe+RD/I2oQB8euxrpuXl7rURVozBSjgNHMLoal1LtVG/yG8o2rnGW10K3lNyblk6n+f8u9LHbA07ugPZKX6Ej/uhAC2FRCa05cBEhKqQenpJ33epHzz8Dn3qzQtJAggMkJybYc7Ks71adm0a9WbFctvwcIvGEXJyFKb6XS43wq58rWy2x+X8JE71bSEulN5Wud65rxrixCP0vqP1v/88sW41AT00xc1/G8eze/z/GNB2S5JUmFzNVgWdoGJRLevjL1mvh/WZlDl9frtUZNrlAamVItWNtFS5GrHGZhnhPA34vBPbFjVT5/otvP15Cfcwau70Ydduts4+E88bX6GOtuBAfjeJLXfX56SC4Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR03MB6778.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(346002)(376002)(366004)(396003)(451199015)(38070700005)(55016003)(33656002)(86362001)(38100700002)(122000001)(110136005)(54906003)(8676002)(316002)(53546011)(478600001)(7696005)(6506007)(71200400001)(9686003)(26005)(76116006)(41300700001)(8936002)(5660300002)(4744005)(52536014)(64756008)(66476007)(83380400001)(66946007)(186003)(66446008)(66556008)(2906002)(4326008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gEHxsWvAHwETe3l6vyFV5qGtcpzdsORFx900NcKCY071NSQwyGczjIC2V+?=
+ =?iso-8859-1?Q?xP7jyqb1fv37ZBIPnLisO1JikopQ7UDtvcLMhohc8a0Ck5Cc+NNUJ5/ctB?=
+ =?iso-8859-1?Q?hQnkMM9zKYs6f13fgmWSIuqPtQcLjIbEULuBF73QIoN8HFNaD7KSz2dk+C?=
+ =?iso-8859-1?Q?fCmHoxJ204XHf7VtLld0T4lCfWxpDT37PxlGvzCYdo8a/WZt/yqqa25ftA?=
+ =?iso-8859-1?Q?uJD3OBk2b6bCRoyouTx5qfoWR0EQ2KLo7NlUsiw9PtgHsz+PI1JuYKzqrO?=
+ =?iso-8859-1?Q?Jd8YuWgRxfXuO66iS6M+zNxx+mxP0Dch+6pZBpkHbABJvKM8goJkj622gI?=
+ =?iso-8859-1?Q?o3H6B/Z2wDAYPpAse7vIen7A7dGjU0Bweza1JM2djh9H7g/9quEGd7JEvs?=
+ =?iso-8859-1?Q?eu9j5SU75aieA4FFnbVkcpJ8/ADbfA21F7fSA4OaFeKGCOfKlF8veSqt+K?=
+ =?iso-8859-1?Q?qc/kJ/5STEFx232KWRISCJwVBUtceKC//VAx9g6cNNcTJUp9iacBI5Ds9z?=
+ =?iso-8859-1?Q?Vx2EGVUbWRGdcla8NsfkQZkjfmShyOfGZZbPrOmXLHnAGQT5t8XFMdE8kD?=
+ =?iso-8859-1?Q?61Br9E51pX0DPUzsww5vRAlFsBF93FYYgkcSzO7ULnTrX7YxElDH6Q5GAV?=
+ =?iso-8859-1?Q?LEXvR2pR5JCQNaLRJSOXnzKJ3mUhILObkEyE1lDIoMewnRS42QqCeQAcI1?=
+ =?iso-8859-1?Q?Nj+kRpDPY/y8uVrNnCdeNwbcxqOUj26WI0/tcIrnt4+rGG3p2+QInr+VnP?=
+ =?iso-8859-1?Q?aO94LzEE8cdMcfuDfGIGLdtuyCCpXWtRGea6L1huDl8PGK3bZ05faqhfUL?=
+ =?iso-8859-1?Q?GNzJH+1QkFZniS6OVzavvnEqi+NmzEz2/V5x2qyWYLC60tRQaRLPGFEQ59?=
+ =?iso-8859-1?Q?VuVzUHY+c7mVD5kcfR5JZ4w07lEMptiv5efqTt70iIBUjW/nmlncggw4kl?=
+ =?iso-8859-1?Q?VGBvSXamapGwQWf4f1y2uy4cUPRftaYfMPF8SZrMgn1pj7vH0Osjh0tBdw?=
+ =?iso-8859-1?Q?1OIUc9UxKgIq7/Rc82lYy1jR58+FOe1C3ZN+cicEPWRYhbiiST+dzo9Lob?=
+ =?iso-8859-1?Q?CoYuFrgYMd0ZlnFL0BX06f8oI9rL/lCA3tpCaBJd3L2QFWpxwe5oeTi04f?=
+ =?iso-8859-1?Q?D4EH0Wqy+LNbYiEODPzdwJDEkOr+s08vHQLKi0xj0dLojb06bi6bd7iF2N?=
+ =?iso-8859-1?Q?f1agmVYyDNettHfcrApCfcsGcupQDwttmUZrTGFAFCCkfe4zvAXUhVamnW?=
+ =?iso-8859-1?Q?Nabl/WIte4wbXbxjUk1ByiH07M+WsTE44rGX/q7Gl9FL8EQR5p3pS7UOS7?=
+ =?iso-8859-1?Q?naDmNcFIiRiLj1HKXxrrqPqiQIzZcw9meH0c3PVYMXwfKlA1s/tY1rlbJ2?=
+ =?iso-8859-1?Q?ImxBlH05dz7G6e0iHz9i/oQwiaWZR6/s/dgvjKp6BNKZ/WlEAFE3zIDflQ?=
+ =?iso-8859-1?Q?mTlkbGEawVYch8yKhdBlCYKgKM70yHnozDzpAn/tIuaeAWNrdPq3fi0bnG?=
+ =?iso-8859-1?Q?LuL1M+ixuRTZ91GSK1UBXT8biL3pxZNuaB4bVwLBK7sS6UEi0w/nDrhBti?=
+ =?iso-8859-1?Q?9w3yLC2Jmq6CRfeCS4LXDuBmW7aC9RIbjcHSn8NlCLXFjChpRewuy/zyzk?=
+ =?iso-8859-1?Q?RSZ7/tRGNd735XY3K+0EGmhgF0gui/q6cD?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6778.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b14b09c0-3835-4679-405d-08dabb31f253
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2022 11:20:41.9055 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iFR7VJgqsdjrnxgwTBKn8DEIobJMzVw81PHiXT+T/BgccHb6EZUr0vTfpcjBZwlxgmfRAOox1938jr+CJMtfdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6635
+X-Proofpoint-GUID: nQOfb4wHRDQhJnQd0HFgjSlSXrzh87bV
+X-Proofpoint-ORIG-GUID: nQOfb4wHRDQhJnQd0HFgjSlSXrzh87bV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-31_06,2022-10-31_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0
+ suspectscore=0 clxscore=1011 impostorscore=0 malwarescore=0 mlxscore=0
+ bulkscore=0 priorityscore=1501 mlxlogscore=672 spamscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2210310071
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,410 +197,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jyri Sarha <jyri.sarha@intel.com>
 
-Implement IPC operations for IPC4 messaging and add doxygen
-documentation for the functions.
 
-Signed-off-by: Jyri Sarha <jyri.sarha@intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/Makefile                 |   8 +-
- sound/soc/sof/sof-client-probes-ipc4.c | 281 +++++++++++++++++++++++++
- sound/soc/sof/sof-client-probes.c      |  32 +--
- sound/soc/sof/sof-client-probes.h      |  13 ++
- 4 files changed, 318 insertions(+), 16 deletions(-)
- create mode 100644 sound/soc/sof/sof-client-probes-ipc4.c
+> -----Original Message-----
+> From: Maarten Zanders <maarten.zanders@mind.be>
+> Sent: Friday, October 28, 2022 5:26 PM
+> To: Lars-Peter Clausen <lars@metafoo.de>; Sa, Nuno
+> <Nuno.Sa@analog.com>; Liam Girdwood <lgirdwood@gmail.com>; Mark
+> Brown <broonie@kernel.org>; Jaroslav Kysela <perex@perex.cz>; Takashi
+> Iwai <tiwai@suse.com>
+> Cc: Maarten Zanders <maarten.zanders@mind.be>; alsa-devel@alsa-
+> project.org; linux-kernel@vger.kernel.org
+> Subject: [PATCH 1/3] ASoC: adau1372: fix mclk
+>=20
+> [External]
+>=20
+> "mclk" is retrieved from the configuration and assigned to adau1372->clk.
+> However adau1372->mclk (=3D=3DNULL) is used for clk_prepare_enable() and
+> clk_disable_unprepare() which don't have any effect.
+>=20
+> Remove .clk from struct adau1372 and use .mclk throughout.
+> This change ensures that the input clock is switched on/off when the
+> bias level is changed.
+>=20
+> Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
+> ---
 
-diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
-index 6991a58474b9..308d87639916 100644
---- a/sound/soc/sof/Makefile
-+++ b/sound/soc/sof/Makefile
-@@ -26,7 +26,13 @@ snd-sof-of-objs := sof-of-dev.o
- 
- snd-sof-ipc-flood-test-objs := sof-client-ipc-flood-test.o
- snd-sof-ipc-msg-injector-objs := sof-client-ipc-msg-injector.o
--snd-sof-probes-objs := sof-client-probes.o sof-client-probes-ipc3.o
-+snd-sof-probes-objs := sof-client-probes.o
-+ifneq ($(CONFIG_SND_SOC_SOF_IPC3),)
-+snd-sof-probes-objs += sof-client-probes-ipc3.o
-+endif
-+ifneq ($(CONFIG_SND_SOC_SOF_INTEL_IPC4),)
-+snd-sof-probes-objs += sof-client-probes-ipc4.o
-+endif
- 
- snd-sof-nocodec-objs := nocodec.o
- 
-diff --git a/sound/soc/sof/sof-client-probes-ipc4.c b/sound/soc/sof/sof-client-probes-ipc4.c
-new file mode 100644
-index 000000000000..66fa7c2f390a
---- /dev/null
-+++ b/sound/soc/sof/sof-client-probes-ipc4.c
-@@ -0,0 +1,281 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2019-2022 Intel Corporation. All rights reserved.
-+//
-+// Author: Jyri Sarha <jyri.sarha@intel.com>
-+//
-+
-+#include <sound/soc.h>
-+#include <sound/sof/ipc4/header.h>
-+#include <uapi/sound/sof/header.h>
-+#include "sof-priv.h"
-+#include "ipc4-priv.h"
-+#include "sof-client.h"
-+#include "sof-client-probes.h"
-+
-+enum sof_ipc4_dma_type {
-+	SOF_IPC4_DMA_HDA_HOST_OUTPUT = 0,
-+	SOF_IPC4_DMA_HDA_HOST_INPUT = 1,
-+	SOF_IPC4_DMA_HDA_LINK_OUTPUT = 8,
-+	SOF_IPC4_DMA_HDA_LINK_INPUT = 9,
-+	SOF_IPC4_DMA_DMIC_LINK_INPUT = 11,
-+	SOF_IPC4_DMA_I2S_LINK_OUTPUT = 12,
-+	SOF_IPC4_DMA_I2S_LINK_INPUT = 13,
-+};
-+
-+enum sof_ipc4_probe_runtime_param {
-+	SOF_IPC4_PROBE_INJECTION_DMA = 1,
-+	SOF_IPC4_PROBE_INJECTION_DMA_DETACH,
-+	SOF_IPC4_PROBE_POINTS,
-+	SOF_IPC4_PROBE_POINTS_DISCONNECT,
-+};
-+
-+struct sof_ipc4_probe_gtw_cfg {
-+	u32 node_id;
-+	u32 dma_buffer_size;
-+} __packed __aligned(4);
-+
-+#define SOF_IPC4_PROBE_NODE_ID_INDEX(x)		((x) & GENMASK(7, 0))
-+#define SOF_IPC4_PROBE_NODE_ID_TYPE(x)		(((x) << 8) & GENMASK(12, 8))
-+
-+struct sof_ipc4_probe_cfg {
-+	struct sof_ipc4_base_module_cfg base;
-+	struct sof_ipc4_probe_gtw_cfg gtw_cfg;
-+} __packed __aligned(4);
-+
-+enum sof_ipc4_probe_type {
-+	SOF_IPC4_PROBE_TYPE_INPUT = 0,
-+	SOF_IPC4_PROBE_TYPE_OUTPUT,
-+	SOF_IPC4_PROBE_TYPE_INTERNAL
-+};
-+
-+struct sof_ipc4_probe_point {
-+	u32 point_id;
-+	u32 purpose;
-+	u32 stream_tag;
-+} __packed __aligned(4);
-+
-+#define INVALID_PIPELINE_ID      0xFF
-+
-+/**
-+ * sof_ipc4_probe_get_module_info - Get IPC4 module info for probe module
-+ * @cdev:		SOF client device
-+ * @return:		Pointer to IPC4 probe module info
-+ *
-+ * Look up the IPC4 probe module info based on the hard coded uuid and
-+ * store the value for the future calls.
-+ */
-+static struct sof_man4_module *sof_ipc4_probe_get_module_info(struct sof_client_dev *cdev)
-+{
-+	struct sof_probes_priv *priv = cdev->data;
-+	struct device *dev = &cdev->auxdev.dev;
-+	static const guid_t probe_uuid =
-+		GUID_INIT(0x7CAD0808, 0xAB10, 0xCD23,
-+			  0xEF, 0x45, 0x12, 0xAB, 0x34, 0xCD, 0x56, 0xEF);
-+
-+	if (!priv->ipc_priv) {
-+		struct sof_ipc4_fw_module *fw_module =
-+			sof_client_ipc4_find_module(cdev, &probe_uuid);
-+
-+		if (!fw_module) {
-+			dev_err(dev, "%s: no matching uuid found", __func__);
-+			return NULL;
-+		}
-+
-+		priv->ipc_priv = &fw_module->man4_module_entry;
-+	}
-+
-+	return (struct sof_man4_module *)priv->ipc_priv;
-+}
-+
-+/**
-+ * ipc4_probes_init - initialize data probing
-+ * @cdev:		SOF client device
-+ * @stream_tag:		Extractor stream tag
-+ * @buffer_size:	DMA buffer size to set for extractor
-+ * @return:		0 on success, negative error code on error
-+ *
-+ * Host chooses whether extraction is supported or not by providing
-+ * valid stream tag to DSP. Once specified, stream described by that
-+ * tag will be tied to DSP for extraction for the entire lifetime of
-+ * probe.
-+ *
-+ * Probing is initialized only once and each INIT request must be
-+ * matched by DEINIT call.
-+ */
-+static int ipc4_probes_init(struct sof_client_dev *cdev, u32 stream_tag,
-+			    size_t buffer_size)
-+{
-+	struct sof_man4_module *mentry = sof_ipc4_probe_get_module_info(cdev);
-+	struct sof_ipc4_msg msg;
-+	struct sof_ipc4_probe_cfg cfg;
-+
-+	if (!mentry)
-+		return -ENODEV;
-+
-+	memset(&cfg, '\0', sizeof(cfg));
-+	cfg.gtw_cfg.node_id = SOF_IPC4_PROBE_NODE_ID_INDEX(stream_tag - 1) |
-+		SOF_IPC4_PROBE_NODE_ID_TYPE(SOF_IPC4_DMA_HDA_HOST_INPUT);
-+
-+	cfg.gtw_cfg.dma_buffer_size = buffer_size;
-+
-+	msg.primary = mentry->id;
-+	msg.primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_INIT_INSTANCE);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+	msg.extension = SOF_IPC4_MOD_EXT_DST_MOD_INSTANCE(INVALID_PIPELINE_ID);
-+	msg.extension |= SOF_IPC4_MOD_EXT_CORE_ID(0);
-+
-+	msg.data_size = sizeof(cfg);
-+	msg.data_ptr = &cfg;
-+
-+	return sof_client_ipc_tx_message(cdev, &msg, NULL, 0);
-+}
-+
-+/**
-+ * ipc4_probes_deinit - cleanup after data probing
-+ * @cdev:		SOF client device
-+ * @return:		0 on success, negative error code on error
-+ *
-+ * Host sends DEINIT request to free previously initialized probe
-+ * on DSP side once it is no longer needed. DEINIT only when there
-+ * are no probes connected and with all injectors detached.
-+ */
-+static int ipc4_probes_deinit(struct sof_client_dev *cdev)
-+{
-+	struct sof_man4_module *mentry = sof_ipc4_probe_get_module_info(cdev);
-+	struct sof_ipc4_msg msg;
-+
-+	msg.primary = mentry->id;
-+	msg.primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_DELETE_INSTANCE);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+	msg.extension = SOF_IPC4_MOD_EXT_DST_MOD_INSTANCE(INVALID_PIPELINE_ID);
-+	msg.extension |= SOF_IPC4_MOD_EXT_CORE_ID(0);
-+
-+	msg.data_size = 0;
-+	msg.data_ptr = NULL;
-+
-+	return sof_client_ipc_tx_message(cdev, &msg, NULL, 0);
-+}
-+
-+/**
-+ * ipc4_probes_points_info - retrieve list of active probe points
-+ * @cdev:	SOF client device
-+ * @desc:	Returned list of active probes
-+ * @num_desc:	Returned count of active probes
-+ * @return:	0 on success, negative error code on error
-+ *
-+ * Dummy implementation returning empty list of probes.
-+ */
-+static int ipc4_probes_points_info(struct sof_client_dev *cdev,
-+				   struct sof_probe_point_desc **desc,
-+				   size_t *num_desc)
-+{
-+	/* TODO: Firmware side implementation needed first */
-+	*desc = NULL;
-+	*num_desc = 0;
-+	return 0;
-+}
-+
-+/**
-+ * ipc4_probes_points_add - connect specified probes
-+ * @cdev:	SOF client device
-+ * @desc:	List of probe points to connect
-+ * @num_desc:	Number of elements in @desc
-+ * @return:	0 on success, negative error code on error
-+ *
-+ * Translates the generic probe point presentation to an IPC4
-+ * message to dynamically connect the provided set of endpoints.
-+ */
-+static int ipc4_probes_points_add(struct sof_client_dev *cdev,
-+				  struct sof_probe_point_desc *desc,
-+				  size_t num_desc)
-+{
-+	struct sof_man4_module *mentry = sof_ipc4_probe_get_module_info(cdev);
-+	struct sof_ipc4_probe_point *points;
-+	struct sof_ipc4_msg msg;
-+	int i, ret;
-+
-+	/* The sof_probe_point_desc and sof_ipc4_probe_point structs
-+	 * are of same size and even the integers are the same in the
-+	 * same order, and similar meaning, but since there is no
-+	 * performance issue I wrote the conversion explicitly open for
-+	 * future development.
-+	 */
-+	points = kcalloc(num_desc, sizeof(*points), GFP_KERNEL);
-+	if (!points)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < num_desc; i++) {
-+		points[i].point_id = desc[i].buffer_id;
-+		points[i].purpose = desc[i].purpose;
-+		points[i].stream_tag = desc[i].stream_tag;
-+	}
-+
-+	msg.primary = mentry->id;
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+
-+	msg.extension = SOF_IPC4_MOD_EXT_MSG_PARAM_ID(SOF_IPC4_PROBE_POINTS);
-+
-+	msg.data_size = sizeof(*points) * num_desc;
-+	msg.data_ptr = points;
-+
-+	ret = sof_client_ipc_set_get_data(cdev, &msg, true);
-+
-+	kfree(points);
-+
-+	return ret;
-+}
-+
-+/**
-+ * ipc4_probes_points_remove - disconnect specified probes
-+ * @cdev:		SOF client device
-+ * @buffer_id:		List of probe points to disconnect
-+ * @num_buffer_id:	Number of elements in @desc
-+ * @return:		0 on success, negative error code on error
-+ *
-+ * Converts the generic buffer_id to IPC4 probe_point_id and remove
-+ * the probe points with an IPC4 for message.
-+ */
-+static int ipc4_probes_points_remove(struct sof_client_dev *cdev,
-+				     unsigned int *buffer_id, size_t num_buffer_id)
-+{
-+	struct sof_man4_module *mentry = sof_ipc4_probe_get_module_info(cdev);
-+	struct sof_ipc4_msg msg;
-+	u32 *probe_point_ids;
-+	int i, ret;
-+
-+	probe_point_ids = kcalloc(num_buffer_id, sizeof(*probe_point_ids),
-+				  GFP_KERNEL);
-+	if (!probe_point_ids)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < num_buffer_id; i++)
-+		probe_point_ids[i] = buffer_id[i];
-+
-+	msg.primary = mentry->id;
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+
-+	msg.extension =
-+		SOF_IPC4_MOD_EXT_MSG_PARAM_ID(SOF_IPC4_PROBE_POINTS_DISCONNECT);
-+
-+	msg.data_size = num_buffer_id * sizeof(*probe_point_ids);
-+	msg.data_ptr = probe_point_ids;
-+
-+	ret = sof_client_ipc_set_get_data(cdev, &msg, true);
-+
-+	kfree(probe_point_ids);
-+
-+	return ret;
-+}
-+
-+const struct sof_probes_ipc_ops ipc4_probe_ops =  {
-+	.init = ipc4_probes_init,
-+	.deinit = ipc4_probes_deinit,
-+	.points_info = ipc4_probes_points_info,
-+	.points_add = ipc4_probes_points_add,
-+	.points_remove = ipc4_probes_points_remove,
-+};
-diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
-index af655366b758..d08395182b1a 100644
---- a/sound/soc/sof/sof-client-probes.c
-+++ b/sound/soc/sof/sof-client-probes.c
-@@ -30,16 +30,6 @@ static bool __read_mostly sof_probes_enabled;
- module_param_named(enable, sof_probes_enabled, bool, 0444);
- MODULE_PARM_DESC(enable, "Enable SOF probes support");
- 
--struct sof_probes_priv {
--	struct dentry *dfs_points;
--	struct dentry *dfs_points_remove;
--	u32 extractor_stream_tag;
--	struct snd_soc_card card;
--
--	const struct sof_probes_host_ops *host_ops;
--	const struct sof_probes_ipc_ops *ipc_ops;
--};
--
- static int sof_probes_compr_startup(struct snd_compr_stream *cstream,
- 				    struct snd_soc_dai *dai)
- {
-@@ -409,10 +399,6 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
- 	if (!sof_probes_enabled)
- 		return -ENXIO;
- 
--	/* only ipc3 is supported */
--	if (sof_client_get_ipc_type(cdev) != SOF_IPC)
--		return -ENXIO;
--
- 	if (!dev->platform_data) {
- 		dev_err(dev, "missing platform data\n");
- 		return -ENODEV;
-@@ -431,7 +417,23 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
- 	}
- 
- 	priv->host_ops = ops;
--	priv->ipc_ops = &ipc3_probe_ops;
-+
-+	switch (sof_client_get_ipc_type(cdev)) {
-+#ifdef CONFIG_SND_SOC_SOF_INTEL_IPC4
-+	case SOF_INTEL_IPC4:
-+		priv->ipc_ops = &ipc4_probe_ops;
-+		break;
-+#endif
-+#ifdef CONFIG_SND_SOC_SOF_IPC3
-+	case SOF_IPC:
-+		priv->ipc_ops = &ipc3_probe_ops;
-+		break;
-+#endif
-+	default:
-+		dev_err(dev, "Matching IPC ops not found.");
-+		return -ENODEV;
-+	}
-+
- 	cdev->data = priv;
- 
- 	/* register probes component driver and dai */
-diff --git a/sound/soc/sof/sof-client-probes.h b/sound/soc/sof/sof-client-probes.h
-index 14bf468fbfb2..da04d65b8d99 100644
---- a/sound/soc/sof/sof-client-probes.h
-+++ b/sound/soc/sof/sof-client-probes.h
-@@ -49,4 +49,17 @@ struct sof_probes_ipc_ops {
- };
- 
- extern const struct sof_probes_ipc_ops ipc3_probe_ops;
-+extern const struct sof_probes_ipc_ops ipc4_probe_ops;
-+
-+struct sof_probes_priv {
-+	struct dentry *dfs_points;
-+	struct dentry *dfs_points_remove;
-+	u32 extractor_stream_tag;
-+	struct snd_soc_card card;
-+	void *ipc_priv;
-+
-+	const struct sof_probes_host_ops *host_ops;
-+	const struct sof_probes_ipc_ops *ipc_ops;
-+};
-+
- #endif
--- 
-2.38.1
+I guess this needs a Fixes: tag?
 
+- Nuno S=E1

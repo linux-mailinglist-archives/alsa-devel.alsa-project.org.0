@@ -2,186 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B14261347A
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 12:23:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F61F613562
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 13:09:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC6DE1660;
-	Mon, 31 Oct 2022 12:23:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC6DE1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB9521655;
+	Mon, 31 Oct 2022 13:08:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB9521655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667215431;
-	bh=1zgSXKIWpuORmDNIkZRw6UwARtfTCOBPhBT/p04bP8s=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667218144;
+	bh=JZuDLl81Agad0D6GmhdJqwWuWdjqG+YP9kD4EgFKlNM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J0s7yZjaSAzcBkWhCUwjM/b2yeZDTXAXJj+uneVe1zEIJW3c7Ogv603UntWDe2+GL
-	 S+WvxyMsa0EudoHMUSLzBwB+Mf9x7FUzifuud+xufytP2k2iFWULEve69jNC3A8cru
-	 XXRUuoQxxr21HA4FOc7sAzTrbLj62rowtdz1K24M=
+	b=fnaesRg77kgIWMgLTh0yQ3gjKyPN31T7aimltdR4Z6ZyCumLtaJ6D5q4mRF7tWGNq
+	 y45p2kmAX6QFhVPRGHmWJawtDXR4sC1s9bYJ6g7Zzc1FrTikjCq5mbaLZJksYMvK8G
+	 +G7fGSqBhEOJGoLpc+HcYmQqcb1Y0FKy29XuM0Gs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A8DDF800CC;
-	Mon, 31 Oct 2022 12:22:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FA07F800F3;
+	Mon, 31 Oct 2022 13:08:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B70A1F80163; Mon, 31 Oct 2022 12:22:54 +0100 (CET)
+ id 52FEAF8015B; Mon, 31 Oct 2022 13:08:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
- [148.163.139.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DC0BF800F3
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 12:22:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DC0BF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C349F800E1
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 13:08:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C349F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
- header.i=@analog.onmicrosoft.com header.b="FVoBnmkA"
-Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
- by mx0b-00128a01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 29V8RAox022925; Mon, 31 Oct 2022 07:22:47 -0400
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2101.outbound.protection.outlook.com [104.47.70.101])
- by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 3kj640hnwe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 31 Oct 2022 07:22:46 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EWYscbgRC1ZwynnpmBSe4t8xkCQqIUanHFIw6CRCQ2IriNqYoCerm5xIrNvyV7TwOzckRQBnGw04rCfzcMnAEZ6obV1cfvbEvL00nOaSuxd0Jp7ZwnJb+CoQ49+teeBgo3J++DxnaeVDDIyBHe04uIutZ/a8tj+NkBLjm8a6oJQIbi9p6KxjX6psVvVK9GQBhArIYCaeyvM7JmaEqjVpz9LdOVFkow17hiZn30rBE0oQnoVcZs0xdeRAXJ2RsAjYSsz31iof7Uz1VPkPFnNhW8ZSE7CSCU/nO8EMddHwfjpZQNdLSll3Kai4XH3ROj4WBt0ovBH4EMjp2tshJB1N2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1zgSXKIWpuORmDNIkZRw6UwARtfTCOBPhBT/p04bP8s=;
- b=mfaR3jJSt7ysx3KnWgW4FOtQ29uhwzdTwptpKNEz5/A4tu+vpW6URKmRHDX8NP4lj20J9rgaZvi+3zOUNZHzSUM06tKes7ps00OO0rqKToOw/M7F6a87PmXk93B1OkJgMoumVwY8LH6/YvFvw1mWiF8G68jncqpOKKxwL9nNJtFBJ+Z9zLN907LxdhvR/xI/NbgvjRrJazk6wq5pEl+hQ5KXoxQwPTB/6hOKhodyWD3W1e6QpUn5nAzCooGOWp9F4Yy++R4Hh5ghHe1o5ctFC+QV/zeRYW/6WyqDoQCmmYFLoiAfQJ8gBqeol38Ea5X1eASysgF6y5XHppKqsXmWYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1zgSXKIWpuORmDNIkZRw6UwARtfTCOBPhBT/p04bP8s=;
- b=FVoBnmkAxXKIzhr7kheOAYMJX4cehzsidO4lTHmdbbAxpC6kqHJEm4bGX80xbvF6odYt2JHP77VrPMjFW3QXnHgwI9ynmWLOljN78AdOXjD1AKZPawqxzZRBl2gzymQzNwFlA4Oek0PzcefDG1LBp2ZUxxNozcCZOFqaTSZ3i90=
-Received: from SJ0PR03MB6778.namprd03.prod.outlook.com (2603:10b6:a03:40d::22)
- by CH2PR03MB5222.namprd03.prod.outlook.com (2603:10b6:610:9b::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
- 2022 11:22:44 +0000
-Received: from SJ0PR03MB6778.namprd03.prod.outlook.com
- ([fe80::bdbe:d510:d09e:8abd]) by SJ0PR03MB6778.namprd03.prod.outlook.com
- ([fe80::bdbe:d510:d09e:8abd%6]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
- 11:22:44 +0000
-From: "Sa, Nuno" <Nuno.Sa@analog.com>
-To: Maarten Zanders <maarten.zanders@mind.be>, Lars-Peter Clausen
- <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>
-Subject: RE: [PATCH 3/3] ASoC: adau1372: correct PGA enable & mute bit
-Thread-Topic: [PATCH 3/3] ASoC: adau1372: correct PGA enable & mute bit
-Thread-Index: AQHY6uG48hUkX/xYHkCZTBFUr3RvVa4oX+Xg
-Date: Mon, 31 Oct 2022 11:22:44 +0000
-Message-ID: <SJ0PR03MB6778F2F397C62329B3B4D67E99379@SJ0PR03MB6778.namprd03.prod.outlook.com>
-References: <20221028152626.109603-1-maarten.zanders@mind.be>
- <20221028152626.109603-4-maarten.zanders@mind.be>
-In-Reply-To: <20221028152626.109603-4-maarten.zanders@mind.be>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-dg-ref: =?iso-8859-1?Q?PG1ldGE+PGF0IG5tPSJib2R5LnR4dCIgcD0iYzpcdXNlcnNcbnNhXGFwcG?=
- =?iso-8859-1?Q?RhdGFccm9hbWluZ1wwOWQ4NDliNi0zMmQzLTRhNDAtODVlZS02Yjg0YmEy?=
- =?iso-8859-1?Q?OWUzNWJcbXNnc1xtc2ctNTVlNmE0ZTgtNTkwZS0xMWVkLWI2YjktYmNmMT?=
- =?iso-8859-1?Q?cxYzQ1ODgyXGFtZS10ZXN0XDU1ZTZhNGVhLTU5MGUtMTFlZC1iNmI5LWJj?=
- =?iso-8859-1?Q?ZjE3MWM0NTg4MmJvZHkudHh0IiBzej0iMTIzMyIgdD0iMTMzMTE2ODg5Nj?=
- =?iso-8859-1?Q?M0MTAzMzAxIiBoPSJheXI3UzljcWcyN3FVMTZBOFZDNm1TUGY4Wms9IiBp?=
- =?iso-8859-1?Q?ZD0iIiBibD0iMCIgYm89IjEiIGNpPSJjQUFBQUVSSFUxUlNSVUZOQ2dVQU?=
- =?iso-8859-1?Q?FFb0NBQUFGNEQ0WUcrM1lBWnYrU3d1L29iZGltLzVMQzcraHQySURBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBSEFBQUFEYUFRQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBRUFBUUFCQUFBQVg1bDJLd0FBQUFBQUFBQUFBQUFBQUo0?=
- =?iso-8859-1?Q?QUFBQmhBR1FBYVFCZkFITUFaUUJqQUhVQWNnQmxBRjhBY0FCeUFHOEFhZ0?=
- =?iso-8859-1?Q?JsQUdNQWRBQnpBRjhBWmdCaEFHd0Fjd0JsQUY4QVpnQnZBSE1BYVFCMEFH?=
- =?iso-8859-1?Q?a0FkZ0JsQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQWdBQUFBQUFuZ0FBQUdFQV?=
- =?iso-8859-1?Q?pBQnBBRjhBY3dCbEFHTUFkUUJ5QUdVQVh3QndBSElBYndCcUFHVUFZd0Iw?=
- =?iso-8859-1?Q?QUhNQVh3QjBBR2tBWlFCeUFERUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBUUFBQUFBQUFBQUNBQUFBQUFDZUFBQUFZUUJrQUdrQVh3?=
- =?iso-8859-1?Q?QnpBR1VBWXdCMUFISUFaUUJmQUhBQWNnQnZBR29BWlFCakFIUUFjd0JmQU?=
- =?iso-8859-1?Q?hRQWFRQmxBSElBTWdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU?=
- =?iso-8859-1?Q?FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB?=
- =?iso-8859-1?Q?QUFBQkFBQUFBQUFBQUFJQUFBQUFBQT09Ii8+PC9tZXRhPg=3D=3D?=
-x-dg-rorf: true
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR03MB6778:EE_|CH2PR03MB5222:EE_
-x-ms-office365-filtering-correlation-id: df1ae13b-4892-4e99-eff8-08dabb323b93
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3y5NoCyk6sr6Hza/itWkOaNj/EqXtWftWVMg5BLVmuKtuJe/yepvMukdHLUx0jgVixQzgmH1iD7fC9zP3b/pEghV5kNFnWDYE8hLyoAiT5GAijE+tMz3IHmR73veDz2R1XOHNPaOhQohfL7BC1/ko/lVxTBCWChF556NbuCe6s9/l5XcY6hOGaI8mMlB/ZXOOowGE3ylhGuLQ4JRsv5E1m/Ntta8So2/c521Jz9c6BKzIDYehssV0jtzBLqMO+7HiGU1V2ndUTY1hjn/Yss2KuSF0cMUxE816YKFFEuSgAy23UWWf8TYfqm4qh/e8jbuN15s6nN4zkPz0hMj/BN4qhQpNa8qMpZ2ZjiNj2djm65NeMDMAPi/fHKrbh2Quo7fLt85J9w6oIXGyUFgGR8sbYDy2bDjSkUaYdhMkiCVEyyG7QUFqI/xBizUZzv1WY30JbkCHqwMMQXYeW8XZ/P9S8pHYk9BQpuvQs51Ou6lfJC7CYDVaVmuAN3voM4grhphOBJjCCGehbiQNTHlY3yf/oezlQOjbHJauTfxFwor2Y/IaKffWOXktFm+KSQuBurEQFKOyrFm1r1DT9QvP08m3adkmENs715Id6t8SAG2ImbZPPnc5kmJ5jxZbqh0qmigr9PDiSlEdDi0HywZXPPGqZx3ehiZzjAy0Sx8XHwodDcmTcflo3F9rqa+DFLGE6OUtOdxjcL7x5TV2neYAfiKOvS3kxe6wXbHT+cNQvLiiWfk5sJJFlWZeGMkxExtXeQ9YYJS++HpwnEYSUdsxXMPkw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR03MB6778.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(366004)(136003)(376002)(346002)(396003)(451199015)(8936002)(26005)(9686003)(478600001)(7696005)(52536014)(6506007)(5660300002)(53546011)(38100700002)(55016003)(38070700005)(122000001)(2906002)(33656002)(4744005)(86362001)(186003)(83380400001)(316002)(71200400001)(110136005)(54906003)(66556008)(66946007)(66476007)(76116006)(66446008)(4326008)(64756008)(8676002)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?89KqZU0HdUChJzNy62YzQuyW1qw0+yI6juyJR4eYGYiAQMsyW4AFF5Jyu4?=
- =?iso-8859-1?Q?STrl4sgdw86rroXyMszzqk+VrKfkrBcBT09XVJANngAAFoAdzNPlGEnpSs?=
- =?iso-8859-1?Q?B/Phz3SjC/+ieSjEFrccbUJCXdUSpW/RtUdBlBEV56hXd3qHnqe45PAFGz?=
- =?iso-8859-1?Q?n1FsQntwYY0HN71kULxkv+XmHSwOY2YiVvLpgRW068A1F5/8BfuNhGWNM/?=
- =?iso-8859-1?Q?dPVrid0aXUPs1LZBbSwfUFtYbxPrRCg7G3qXGapW+oCTqD5nSbJE4IUmRC?=
- =?iso-8859-1?Q?C9sm3uIbref7nHFhH0ai25twHev+vB2lYYfIyNdCC5htj3q0j2NCu/PNAa?=
- =?iso-8859-1?Q?LAlRU1iB5ATfeeqYwyfknEUPSjkfKZbb38kDS17GGpTg/kHPixTovCknk7?=
- =?iso-8859-1?Q?y15VT3InGSlIOYSjIH2lA5ZzKHCo26ixWkQScdTNeRSngWxh4EzbqgZ10E?=
- =?iso-8859-1?Q?FjmOm/j76HrwlAF6KyD8pXNLoOr9TN33gLGJrDcQhX+r+kaI11aqb7kVtO?=
- =?iso-8859-1?Q?C2eytRiD2SUKBMXLjssZQQfjY3tPT2T/000o2YsE6rKora93D8ZVpzHB6V?=
- =?iso-8859-1?Q?g13aZQdkQCA97ZSmvSWsmB2J6IBenSJyUIT52I2vqTfyw310DHZGux21Ld?=
- =?iso-8859-1?Q?o7MOzUP0EAxUaW9WRx6TlIN81CMJMGPewnSOy5OmDGbixPgwXUAtgu04sg?=
- =?iso-8859-1?Q?vWmTPJDgljyKVsVwtNVpKXCkrqiuFwP1IAFmpq16z/tUyMObnB9++jVs19?=
- =?iso-8859-1?Q?Q/yTiSlvYGLQalpzBscR/K9aKQ3AAO3sk4z9sVCKhBQystlgjhaAR/kGUx?=
- =?iso-8859-1?Q?WLlEuSm8se36Sy1XMxOd19tywAs8USsLt0lO3bkgnNZIdg78aGfHQ0yLvJ?=
- =?iso-8859-1?Q?HiiFtQ5hOfM4p2GNcgA9+1jrykMKlroESGX05I91ZW9UakalIOYBBrWXOl?=
- =?iso-8859-1?Q?c1YHJ7j2rUDhp+qrJIxuvUS7GuanMm3usXFBLdvmsCx9O70Rgvdiqoecl1?=
- =?iso-8859-1?Q?BCym7uNM0JquNxJLOL1E8GGHetfCu/BETfXva1E4lP1bDoDJ+oxgIsUedX?=
- =?iso-8859-1?Q?6aFtW9QE68hPDoQz++wGQyzvi4Q1VAjhCgKRBjPCQEIeB3R98Vg2HfeiwL?=
- =?iso-8859-1?Q?8an919C2vO0zfS6d7q1oWgqyVhQBVrVHnUqhuPIkuyoFvK2tMOW0iJlPYq?=
- =?iso-8859-1?Q?Tc3kRL5NH5Nymqrbc82E9z+RZC1qStsNY8o86MXdIDMds3gb+u5//tG95M?=
- =?iso-8859-1?Q?qt4bUumCuB9PGatUioL3baMyhfjaq2PNmLo+D6nNE47MKNkuwof1tHxCeL?=
- =?iso-8859-1?Q?ejXZuAlVpS05oGMCfpq8eFgAwUxBopuNacbEZXAqTE3GnsTbEXM2AMOt13?=
- =?iso-8859-1?Q?BIOw1/Q6Am91ciGM0/vETRwvA/n0/u4eKP7bL93UNPjIOUY4UvKDNpmdBq?=
- =?iso-8859-1?Q?FUj6FzBskRDU/IX9Sb/CE9hxBl4hSUnC+9D3BW9OcWhCGqV5tKZ5M/kAzY?=
- =?iso-8859-1?Q?MoGN5Jmz/M9XbAsx4N8P7c3TT/DCK6CVaHz9IWL/TKt801DYMaWexxalyQ?=
- =?iso-8859-1?Q?KeN2nI+NIw1iUnlKnmyv7tDX45C7ESCAfZZZ8tdsUCLP+lkzUeOrb9WJKG?=
- =?iso-8859-1?Q?m0Q+jkcoVvpFA2lxFpqvIBqA7+KB9eF/83?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="pBJsJOAm"
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-3701a0681daso71011967b3.4
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 05:08:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=uIgEds2lsUEazFDcLqiFcBouG6saS9AagLSYOnXJFgM=;
+ b=pBJsJOAmF+05N3+3hZfjF1ZtP+2ryz6assxcuDYfI5liFd25pwJmh3ip1CYl0NQ5b7
+ Q/R1ZzvhOAmZwRIKXL0/Rd3vJlSMqBQhKbXmeRKtrHVvCXgJCl68xaX2G9UwK4VfPkcr
+ DbST64ziRaWJXYFPDvxm+67zOVzWRldT5mqtqIjB0pQbk0KOFdLZlVOkbQIgegc/M26f
+ HCwZRlL2uhDTlN69oODCR8mTGCI+bqk6NyYip7jNywRSyby2dLOxUeqKKCeTF+bQdwb8
+ uIj5xO9FWyVJFdKEt7rZYqlLXCtjHoHoxBURZ+9i2kIIC/npgwSi00nnFKPe6hjb2lW6
+ BjVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uIgEds2lsUEazFDcLqiFcBouG6saS9AagLSYOnXJFgM=;
+ b=tPuIIEyLCX8fyZ56Vx+AU0cFfJZT6aqNRiNyyLbiAMm0x021PV8JAekP50gk/HL24t
+ hlvuc9kvgDX6KXMG4bnPeuQAYGprZqcEX+PkvkJP+FxZmo7xudfoEYtxMv+glGuL+jIT
+ z2WRL7HBb3JmL2AYXdfBRWvxwQTscJGSDn9+Nk5DAAOrhRTNzJGRGGMajQVNuxiI/CZl
+ KvuDNMHRYfg7Dv2yvomUhMqKP4mZTatAn0ipJycpIu5jSQGnxWTgnFO23ntpIAm4RsUu
+ WqUikDS6WNOfKViLs3jXpZmmOGauqISDkPivw6Jh1W/CcePo3Njq3TcyzBi38nNqXPVX
+ G7iA==
+X-Gm-Message-State: ACrzQf0gjKBfb5216SY2QwlbJsEWRxKuuIOtE+sttMqyYqWnlJ9/zwWq
+ i9fs+ajixbd12UO3tFwJUdzc0nGFjE7wY2wWM44T+Q==
+X-Google-Smtp-Source: AMsMyM6Rk+z9XSkM0gx0kUZjmUPDqfeBWgYp5+03gj8tpxxxciSK6Ab/X9mTjfczx5v4JFxVOh/jbjlcTd0zGQEaMuA=
+X-Received: by 2002:a81:4f89:0:b0:36a:f09f:73fc with SMTP id
+ d131-20020a814f89000000b0036af09f73fcmr12513606ywb.487.1667218078610; Mon, 31
+ Oct 2022 05:07:58 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6778.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df1ae13b-4892-4e99-eff8-08dabb323b93
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2022 11:22:44.8187 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QVRxoLg/D3YfLde4fYgxFFyKpXTsekYnPFOk5yikcit72/rZEgXTCXSAm3U1gO0SmEr2+EDNiI1H0h2x17icWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5222
-X-Proofpoint-GUID: bcL92x86zV4lTAbZrPctq942U-VtFkzp
-X-Proofpoint-ORIG-GUID: bcL92x86zV4lTAbZrPctq942U-VtFkzp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-31_06,2022-10-31_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0
- priorityscore=1501 bulkscore=0 mlxscore=0 suspectscore=0 mlxlogscore=379
- phishscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2210310072
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20221030172609.1635096-1-ajye_huang@compal.corp-partner.google.com>
+ <20221030172609.1635096-2-ajye_huang@compal.corp-partner.google.com>
+In-Reply-To: <20221030172609.1635096-2-ajye_huang@compal.corp-partner.google.com>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Mon, 31 Oct 2022 20:07:47 +0800
+Message-ID: <CALprXBY3S5N-g6N=q4DgF3ngq-eTxc_+LjGJQp2QjVz+Fi4pRg@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] ASoC: mediatek: dt-bindings: modify machine
+ bindings for two MICs case
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -197,34 +107,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Rob Herring,
 
 
-> -----Original Message-----
-> From: Maarten Zanders <maarten.zanders@mind.be>
-> Sent: Friday, October 28, 2022 5:26 PM
-> To: Lars-Peter Clausen <lars@metafoo.de>; Sa, Nuno
-> <Nuno.Sa@analog.com>; Liam Girdwood <lgirdwood@gmail.com>; Mark
-> Brown <broonie@kernel.org>; Jaroslav Kysela <perex@perex.cz>; Takashi
-> Iwai <tiwai@suse.com>
-> Cc: Maarten Zanders <maarten.zanders@mind.be>; alsa-devel@alsa-
-> project.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH 3/3] ASoC: adau1372: correct PGA enable & mute bit
->=20
-> [External]
->=20
-> The DAPM control for PGAx uses the PGA mute bit for
-> power management. This bit is active high but is set to
-> non-inverted (ie when powering, it will mute).
-> The ALSA control "PGA x Capture Switch" uses the active
-> high PGA_ENx bit, but is set to inverted. So when
-> enabling this switch, the PGA gets disabled.
->=20
-> To correct the behaviour, invert both these bits.
->=20
-> Signed-off-by: Maarten Zanders <maarten.zanders@mind.be>
-> ---
+On Mon, Oct 31, 2022 at 1:26 AM Ajye Huang
+<ajye_huang@compal.corp-partner.google.com> wrote:
+>
+> +
+> +        dmic-gpios = <&pio 23 0>;
+>
+>          headset-codec {
+>              sound-dai = <&rt5682s>;
+> --
+> 2.25.1
+>
 
-Also looks like a fix so a Fixes: tag? If so, the patch should come
-before ("ASoC: adau1372: add support for S24_LE mode")
+I think the modification will be better, I will send v5 again, thanks
+@@ -63,14 +70,19 @@ required:
 
-- Nuno S=E1
+ examples:
+   - |
++    #include <dt-bindings/gpio/gpio.h>
+
+     sound: mt8186-sound {
+         compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
+         mediatek,platform = <&afe>;
+         pinctrl-names = "aud_clk_mosi_off",
+-                        "aud_clk_mosi_on";
++                        "aud_clk_mosi_on",
++                        "aud_gpio_dmic_sec";
+         pinctrl-0 = <&aud_clk_mosi_off>;
+         pinctrl-1 = <&aud_clk_mosi_on>;
++        pinctrl-2 = <&aud_gpio_dmic_sec>;
++
++        dmic-gpios = <&pio 23 GPIO_ACTIVE_HIGH>;
+
+         headset-codec {
+             sound-dai = <&rt5682s>;

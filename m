@@ -2,195 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F2F61311A
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 08:12:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DB76131A1
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 09:21:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58B3F1620;
-	Mon, 31 Oct 2022 08:12:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58B3F1620
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD05D163F;
+	Mon, 31 Oct 2022 09:20:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD05D163F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667200376;
-	bh=0+V8JCf28qCS/2ySdzkt05aKNJYxvdw4k6npZ3MKA84=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667204498;
+	bh=jPpTqEtee9hfHAvwCW0xqQBLDM6oL5ohexSn5Sk29JA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RJhQAr5ZP2BIpH7rGO9VoCMJ5Rd8qp0FPj79B/keEI+CmjLbs4LMrbdUx+TJiJ9/y
-	 Wt/DCakETR8wS7LipVss9mra0DPFKZJifmR4DQIbL6TgaeJkhTm0l+vXtI+d0gedU9
-	 oNTnUVdkWe/VUlX84TaySVrwExxjrl8WoFbPnbCw=
+	 Reply-To:From;
+	b=gGQq3MbUQ8j8iPbg2uJPONU5ssugicn/XxKXQXSgt4hNORbHgvN1Rm/oBCDENvodH
+	 SS7JtE3mC/MtATmwi2+/OycOz0SqN4ZYfCbiTJ/RCSK49JwCgAdVEG1CVILz59CQjy
+	 93czTGjD3Ikd2x01Ps4hS3zKOgQvvo8zfXLizDss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAD1CF8021D;
-	Mon, 31 Oct 2022 08:12:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DA1AF800CC;
+	Mon, 31 Oct 2022 09:20:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D6CBF8015B; Mon, 31 Oct 2022 08:12:00 +0100 (CET)
+ id 60D44F8015B; Mon, 31 Oct 2022 09:20:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27AEAF800CC
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 08:11:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27AEAF800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 865EBF800CC
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 09:20:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 865EBF800CC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="CwUb3Ayg"; 
- dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com
- header.i=@mediateko365.onmicrosoft.com header.b="CHR8dRnu"
-X-UUID: b92b9e6ac45846c68e2df8289e4697dc-20221031
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=0+V8JCf28qCS/2ySdzkt05aKNJYxvdw4k6npZ3MKA84=; 
- b=CwUb3Ayg5jQUIewFgDjMCF2LmkLO8mzRId1RP88x4cxudiM4SNKr33KUQUn0Z2roIJKzM+44Y66kww62xX5BR82mw1a6HCHVmIUOGQYSg0+rlwhVf9+jR/DrqA1u63JGzWHtExewp8/25bzh3x6FeNdQ+goljYIJDzy8h1n14K8=;
-X-CID-CACHE: Type:Local,Time:202210311450+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.12, REQID:fbfc8f73-2e1f-4932-a5be-af9c01e54eaf, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:62cd327, CLOUDID:5e61efea-84ac-4628-a416-bc50d5503da6,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: b92b9e6ac45846c68e2df8289e4697dc-20221031
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 383818932; Mon, 31 Oct 2022 15:11:44 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
- Mon, 31 Oct 2022 15:11:42 +0800
-Received: from APC01-PSA-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n1.mediatek.com (172.21.101.34) with Microsoft SMTP
- Server id
- 15.2.792.15 via Frontend Transport; Mon, 31 Oct 2022 15:11:42 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wql/CDhPOz38hRQ2rDMS6ylZ6N4Eqh6pIzc5WDu+6RgbAa1e8Uz4YLQvcXUNbxgLzN0lkiajsse58qZXoBAGgLXoYeLBa1lxYmckEbWO1gf/UlP8j2I56jUZcTJ2hmo4AOKcnSQMDQUac9d42NCg47WUyO86Q4HGX+G80MoOf5zlULWAY6tDcNqJi3lQt5wjEiuE1z+t97nbtn1T/+s8o+wf6BE9st+u6AoUWnLLsuipewNcKGDhuTmjJD+FsYGC834n+lhjwLCxxYw5HVhWIFg/mCUsLV5xoVJl8t2OvOdlDnUqzQXu+2+ay/kK0KgkppgUmnDzUqW8ixi0KsW4Nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0+V8JCf28qCS/2ySdzkt05aKNJYxvdw4k6npZ3MKA84=;
- b=HcgwUDRZahaYq+hCbIdqtt6n1fqocejWZV1RfP902mAYsEJXz6PvRkUI8g1buIczhT4ip13zOtdijj7DgXaCl2gLWd9ZCVwvkFqAcOR5wHoDFZ7pkgUilry7zKUavaZtJ24Bss/B/v+okn8+Q5fdXSkluyPen+2MOF3KQEK/gLz0kMPUNwkHyOQt3c0N++xMWFd0+2x0mxWCxLg0hTXG6qB8TUvgvSEFEB1zawp3MvdzSJdTg/AwTaFHoJKasoisX3QX09B9Kc1u9jMgy4ugU7rSdm0EhUmsRTABoq3GwOSwlRpAI15NsF70aFVYX05KIQfzVIpN1jiwylmKvnaNQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0+V8JCf28qCS/2ySdzkt05aKNJYxvdw4k6npZ3MKA84=;
- b=CHR8dRnuUERf+vo8GVWqP13cyVPq6DzaSOsz+cvC/F/TVrApFF0Cuwxr2avI6FpwlKFcRbG8W6Xmbe62QwwUWZ3FCNhNjCJryyodrDD8IqiFWYUoTX2B0eAbC2mu0wVbfdA77oK3lDohA6/sAH47vnSzKyEyG+3BGtCwrBSqIeg=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by TYZPR03MB5727.apcprd03.prod.outlook.com (2603:1096:400:8d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.9; Mon, 31 Oct
- 2022 07:11:40 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::3438:1068:ae0:32cd]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::3438:1068:ae0:32cd%2]) with mapi id 15.20.5791.017; Mon, 31 Oct 2022
- 07:11:40 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "robh@kernel.org" <robh@kernel.org>
-Subject: Re: [PATCH v2 10/12] dt-bindings: mediatek: mt8188: add audio afe
- document
-Thread-Topic: [PATCH v2 10/12] dt-bindings: mediatek: mt8188: add audio afe
- document
-Thread-Index: AQHY5ScFWHLYnLzLOUayQJYsxOuXFK4d5AyAgApBrwA=
-Date: Mon, 31 Oct 2022 07:11:40 +0000
-Message-ID: <8e9650f61d22b6f1e4fa551be34e7316e3edf30c.camel@mediatek.com>
-References: <20221021082719.18325-1-trevor.wu@mediatek.com>
- <20221021082719.18325-11-trevor.wu@mediatek.com>
- <20221024183357.GA2012388-robh@kernel.org>
-In-Reply-To: <20221024183357.GA2012388-robh@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|TYZPR03MB5727:EE_
-x-ms-office365-filtering-correlation-id: 51a4c25d-3104-4d82-6a09-08dabb0f2847
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: amFBsEHwqbRTCoN74704aUVQ1U84Hg2p9nhErRqe5JXkcSw41t2EeQaIXps6LPqm5ywW0q3P6dSb7zwK1pEmBgM3iDnu4HKzLPHvgWuaEz4dkN9LHa5vABaVwjElf8cCF4VP+fnkmrKM666Y8XJkOeP4yyjhnq41IyjTbBWUYUwKHF2YplUt5aim7Gt5INLR5VEg9YvZpMBudDc4RsUVacNPBT12HyrHNTl7W4g2AOBbhPqkRW1UcRLtE7GAWOgdPQ/Ysd0U2WYv/S6wkO4wMb8d0jqkecV347tSlR8YQ1LDqThQCv+1Wl76zZJjqPgP+OlHgqCVGd2r6wJAFX+HDTTCcBbW2c+WovgcCr4S6tUIzDiYw5EKgyEbr/jEpGGyAbSIMgQ7mYVJYfWDTDUaoGabUAh9ygxHrgi3k7ZUR1Wkuyea3j31NdfBxz6DzBfNbV14VxvJ6x0jwXUuEbtDDt2bSHRegNuzVCkUxmq5FL9oQuHwsTiEG+ZYwREaULPM8eE/4J3/6mCmgQwYK3pxAqCKCjJvsqVVAB77pC/yVZAxWJwUwtYheTNxuxhn3HWcENYnu9qKRMEo6iUV3rVpE4hhUfI2mUD9iw4pPX/L9BKN0nTrGRO7fCXhDYTyVAQifCYILDNeqWtJtvQRKn+eMtsMdHbrIOZciVsTy2nVvEuPFSz0Cd+ShQgZY46HyB8HzF8MUZd3quQy1Grxy5sbx5R7/19nUN2ViN+iWoWxwSJUHaYi0Qed8Mqqb67F5LRZqYHFlgwPIvCYB7pEkmW1x/wHhkovEDftGCnK/pp1L/g=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR03MB6686.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(136003)(366004)(396003)(451199015)(2906002)(5660300002)(7416002)(64756008)(41300700001)(8936002)(66476007)(66556008)(4326008)(8676002)(76116006)(66946007)(91956017)(66446008)(6512007)(478600001)(38100700002)(38070700005)(186003)(6506007)(26005)(36756003)(6486002)(6916009)(2616005)(54906003)(85182001)(71200400001)(122000001)(316002)(4001150100001)(83380400001)(86362001)(99106002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YUYrSmQ1TTVzd0pZMmNQWkpBUTdEWGFzdzBQZ015WkxsVUV3SWZ5UFhackVv?=
- =?utf-8?B?bWpoY3RSby83S0RSOFBhWExrTFlBdUVSODlKbkZwK294STEyaFNxL1N0b0ky?=
- =?utf-8?B?Q3gvc1pndnAxeGhOY1NoL0l3c21TelIxaTVVWGZhY1dJSWJuNVloV0orMEcy?=
- =?utf-8?B?bitITk9XUDdoY29QWEpBM0o1clBlaTV0Rmc5bnYvQWVPNVMrOUdtaFRpd2I3?=
- =?utf-8?B?ME9xZ1c1a3R2aXJQWG5TbW9SOWhLRkdNZVg4UGE1VStlUnRKa0JuY1c5Zmtx?=
- =?utf-8?B?SDkxNGQ5cERJUmZCNlpiN1FHMER3YjF1NmM2ejFvYlJXWk9RWEVYVXdLbmhB?=
- =?utf-8?B?bUJJWFVZeElHOTdkWlhyVE8zUWJZY0QyVG5EWlNwMTV1MzAxWllWS2ZhL2Zh?=
- =?utf-8?B?dkVJUVdrR000cmFRbEN1VGlzaEt5MEc2NVpLdzJKMHlkN3drRVk1Vmxqa3du?=
- =?utf-8?B?N2J6NGhqakZFYmJ6SC9HWXpIQ3pjNUlzVWVlMjJBZTlLWTJkQTNJSEpXS1ZT?=
- =?utf-8?B?cTkvSVlRWWMrL0V3bzhQd05qUVNHRXZVS0VnSzhYVzRGNVhjNTVJdUZCbk5E?=
- =?utf-8?B?b3d2M0RVSzZpM1pYQXIxTE4rR0dRY0JEbzBVT0w5Z1ZDay9WWU4vOWdTT25t?=
- =?utf-8?B?b0VHM2hhNnY5MDVOOXB1TG9nTW9oM2RrZGVITkV2L1J2M3VIa0hMVFpWWGpw?=
- =?utf-8?B?WFRvV2ZsOUt5RThpVGhGVDdxQW9hcGlZeWU3WHViQ0pWdFZ4WG8xdXIxbDRU?=
- =?utf-8?B?UElDaGJubnNHekVBTzNheitrT3B6eVFySTRncmRFcmxFa0FhWEltcmcrS09Y?=
- =?utf-8?B?aW1nbXhYclg5S0F3Tk9Sai9qcENDNW5PdjBGREJQbThJY1RtSTg1K0RRNFFF?=
- =?utf-8?B?aTNVN1ZNZGFMUkJIR3VwRWk1RUE4TVR2YVJNNy9ZMUdIWWxZUHV3UDduT0tn?=
- =?utf-8?B?WTFQSG9XVjd3ZVMxZnRzTHBmMWdrbDk4LzE0REVFOHhxWDdndUx5Rk1UQWZZ?=
- =?utf-8?B?ODkwb1ZDTkNCYkNZSEJ5MDJPRVJEOHoyeDZzNjBqbGtwUjJhb2l5YjVSelVC?=
- =?utf-8?B?Z1RrWmNlSHNHaXMzNTRBK1ZuRTI4RkNCZEpUaCt1SFplTlJPb2w3Ykt6cStI?=
- =?utf-8?B?SVNIRWZCM0ZRQWEvMlh2cmtxdzlzSHdlVzd4cEhvWDBKbmZaSXpOcEpPS3BP?=
- =?utf-8?B?dklCRkMrSnJ3b0ZIVDlDV3oyUkszVENZNHhLNmJENjB3bmVNd25OSFAwUUdv?=
- =?utf-8?B?SE5XV3A0UWhmZGk5bkNOWEVzY0c3NkF0QWFpd1dYNmRVKzZ3d3BNMUl0UVBC?=
- =?utf-8?B?YXE3dWNlcUhsQWx6Y1lzY2FST0Y2ZWIvZkNUL3RhOEFyUWxGVnptWElKSTdJ?=
- =?utf-8?B?a0xZTTFMa2FWT3U4NHJIbGhFcEZsYlY3M3VKanJJTmkrSUVxSEp3c3M3MnNG?=
- =?utf-8?B?TGdySkFwSkFhSkptek8yYk5GM1d6b0t3OW52ajhxSGRKNWpXSFpSdDJKeWZa?=
- =?utf-8?B?ZjI5WkoyOEtUdXI0SnB6WWxUMWRJVzNQajZ4Q2VTSmJiYjZLVFhoWWRhejND?=
- =?utf-8?B?NktmRFZ2aVR1VU9jVStFNmQyMWRyYm1YQjhPY3BwYmNSQ0FmVmRhZ0JyeUVD?=
- =?utf-8?B?WVVoUXlKTk9hNWZkU2RvbGlWMEpaRFh2WTRCUmJpNmFWMVZHSHhST3JyZElq?=
- =?utf-8?B?Yy9yTFNuYXBvYUJVcVNZNHlod2pTTGRDampSUEtOTkYvbGo4a29rdDJZZHBO?=
- =?utf-8?B?VG52WmlFcUt1OXpCTG9HdE4rUWdETlhJQW5lSUthNEtKL0Vqb2d2VkFUR0Rh?=
- =?utf-8?B?ZmxWeEFIekk4d2JnamFsMU8ra1pBM2NTVDl0bDVSUU55VGFYUUFZRjFDVWdI?=
- =?utf-8?B?d3NUUGRCbElYL3BXYWNQaVFJaTNvL1dxditlVzdmbzRZZ0dLUWZhSjdEYmhY?=
- =?utf-8?B?WUM1aGpTa3M0Y0YyYjc5VEdrMjR3bTdGWSt3eklrOXErNjY4VVZrTWV1UXpa?=
- =?utf-8?B?bUpzSHB3cjdFTWluRitObjNacGJaR3JvWkZxWDRSWENzOXk1S3V3YWdtQXdU?=
- =?utf-8?B?dHg5NHpKT2xzV3pvQVNBemFuOThJdENXTTQ1VmFVamZ3K2o0K1VnRFlVU0ZB?=
- =?utf-8?B?UVBTYkpWR3d4SUFDRjJjSGJxRGNEayt2aHVsb0hKSmRiRittUWJJcUxLY0px?=
- =?utf-8?B?T0E9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <03C2E33A3CC0DB49ABEF3037408266B0@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="PtU52F1X"
+Received: by mail-wr1-x434.google.com with SMTP id cl5so3194986wrb.9
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 01:20:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:reply-to:organization:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZX30x93KVmADFYmGNHBbybIM7Fucv9/vRtD7L3HFB+I=;
+ b=PtU52F1XkGcsIM9bVOHKYCRoiNjdGSaY2gUiiFnB0KpP/15wmLs43E1jzp0pwR125i
+ l+xnxNh0QVchJymgsMeOo9hGBAQVyCR64dmvbnRpniRKYn55QyxyW5s30iA+mOWfEIKL
+ ANXOKi7rj1TEUhTwi/GOT+W2ODfPC1etd4ql3aITGVBfBKV6lPQfM7MT6KzPX0YZ51S7
+ dw1adqvf2Cs3R+PBPnPnqRpbkS6x8a9YcQStQxVY1Z/LZDlS1UqD78i6RwBvpkrITtqZ
+ o7eMIdBrQjCvc1dxL2IBPXi5TT2RD7jxqciCLIDtjwVll5IhFVNN72QVrPQtef5BxLu6
+ 9k+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:reply-to:organization:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZX30x93KVmADFYmGNHBbybIM7Fucv9/vRtD7L3HFB+I=;
+ b=t4MLkcKTYHg8qVzjpMXT+00vdSq457QoAw7plSWRwYCSEMn98vwQ6ww0J/LipdGq+T
+ Qx1BoOhE+efM+9u+robwJBc3+Pd0+Jpnh7iH+TBz3WGUA5L/fP4zFlsZOU40hJrn9BvU
+ /zxvVOD/Q2HPccOhzyIxtCOQHR6ZZGvJ/KraxrULkDbKMz8Tw8hTDC0KmVlOKLnGa7Vi
+ r8AsCn51YvvJb9fwPXkoFfirVKIgtVXH4V/8Z+KBtnTqU+pkXxTS/QPF0wpeC3B+mdJT
+ gZq7HHEz7Q6ENv1RaQ84H3bvYacO2G92JoEYM2zdIghQUbX6adpcW9NbiDKkUQBkM+n/
+ 5jeQ==
+X-Gm-Message-State: ACrzQf3mCMZDzpkqJP3KwXmjVUaj9/IywZJn6CKs1D0CkkETen5IAAKL
+ fIpenfbx97dj4SPZI15rH8HcIw==
+X-Google-Smtp-Source: AMsMyM7sNW8RV0MrIkYCvrvHMRMR5RuXIK7u1nn0Sg0f/TP9IAfGs+8iIMFW/mygjB2hQEwMmNKKBw==
+X-Received: by 2002:adf:d1e5:0:b0:234:2aaf:3b97 with SMTP id
+ g5-20020adfd1e5000000b002342aaf3b97mr7368289wrd.536.1667204437197; 
+ Mon, 31 Oct 2022 01:20:37 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:898:f380:f572:21f0:736:a7ca?
+ ([2a01:e0a:898:f380:f572:21f0:736:a7ca])
+ by smtp.gmail.com with ESMTPSA id
+ bj29-20020a0560001e1d00b002366b241cf3sm6306559wrb.35.2022.10.31.01.20.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Oct 2022 01:20:36 -0700 (PDT)
+Message-ID: <e8b6eb23-4968-af6c-c2d3-8e5fa64d9473@linaro.org>
+Date: Mon, 31 Oct 2022 09:20:36 +0100
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51a4c25d-3104-4d82-6a09-08dabb0f2847
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2022 07:11:40.0480 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: R4At8IkRT1iway9FknQKPwC7MaZKizg7LXNp0Erk9Us+IAVUVSLePUavKGY/YSl3HUxyOotAy76mD/huqhFKgA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB5727
-X-MTK: N
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [RESEND PATCH v2] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if
+ hardware supports it
+To: Geraldo Nascimento <geraldogabriel@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>
+References: <Y01E5MvrnmVhnekO@geday>
+Content-Language: en-US
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <Y01E5MvrnmVhnekO@geday>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: ALSA-devel <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -203,117 +110,127 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCAyMDIyLTEwLTI0IGF0IDEzOjMzIC0wNTAwLCBSb2IgSGVycmluZyB3cm90ZToNCj4g
-T24gRnJpLCBPY3QgMjEsIDIwMjIgYXQgMDQ6Mjc6MTdQTSArMDgwMCwgVHJldm9yIFd1IHdyb3Rl
-Og0KPiA+IEFkZCBtdDgxODggYXVkaW8gYWZlIGRvY3VtZW50Lg0KPiA+IA0KPiA+IFNpZ25lZC1v
-ZmYtYnk6IFRyZXZvciBXdSA8dHJldm9yLnd1QG1lZGlhdGVrLmNvbT4NCj4gPiAtLS0NCj4gPiAg
-Li4uL2JpbmRpbmdzL3NvdW5kL210ODE4OC1hZmUtcGNtLnlhbWwgICAgICAgIHwgMTg3DQo+ID4g
-KysrKysrKysrKysrKysrKysrDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxODcgaW5zZXJ0aW9ucygr
-KQ0KPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3NvdW5kL210ODE4OC0NCj4gPiBhZmUtcGNtLnlhbWwNCj4gPiANCj4gPiBkaWZmIC0tZ2l0
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210ODE4OC1hZmUtDQo+
-ID4gcGNtLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbXQ4
-MTg4LWFmZS0NCj4gPiBwY20ueWFtbA0KPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+ID4gaW5k
-ZXggMDAwMDAwMDAwMDAwLi5iMmM1NDhjMzFlNGQNCj4gPiAtLS0gL2Rldi9udWxsDQo+ID4gKysr
-IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210ODE4OC1hZmUtcGNt
-LnlhbWwNCj4gPiBAQCAtMCwwICsxLDE4NyBAQA0KPiA+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlm
-aWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNsYXVzZSkNCj4gPiArJVlBTUwgMS4yDQo+ID4g
-Ky0tLQ0KPiA+IA0KDQouLnNuaXANCj4gPiANCj4gPiArDQo+ID4gK3BhdHRlcm5Qcm9wZXJ0aWVz
-Og0KPiA+ICsgICJebWVkaWF0ZWssZXRkbS1pblsxLTJdLWNobi1kaXNhYmxlZCQiOg0KPiA+ICsg
-ICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDgtYXJyYXkNCj4g
-PiArICAgIG1heEl0ZW1zOiAxNg0KPiA+ICsgICAgZGVzY3JpcHRpb246IHwNCj4gDQo+IERvbid0
-IG5lZWQgJ3wnDQo+IA0KPiA+ICsgICAgICBTcGVjaWZ5IHdoaWNoIGlucHV0IGNoYW5uZWwgc2hv
-dWxkIGJlIGRpc2FibGVkLCBzbyB0aGUgZGF0YQ0KPiA+IG9mDQo+ID4gKyAgICAgIHNwZWNpZmll
-ZCBjaGFubmVsIHdvbid0IGJlIG91dHB1dHRlZCB0byBtZW1vcnkuDQo+IA0KPiBJJ20gbm90IGNs
-ZWFyIG9uIHdoYXQgZWFjaCBvZiB0aGUgMTYgZW50cmllcyByZXByZXNlbnRzLiBXaGF0J3MgaW5k
-ZXgNCj4gMCwgDQo+IDEsIDIsIGV0Yy4/DQoNCkhpIFJvYiwNCg0KRXh0IENvZGVjIC0+IEVURE1f
-SU4gLT4gTUVNSUYoRE1BKSAtPiBNZW1vcnkNCg0KVGhlIG1heGltdW0gY2hhbm5lbCBudW1iZXIg
-b2YgZXRkbS1pbiBpcyAxNi4NClRoZSBpbmRleCBtYXRjaGVzIHRvIHRoZSBpbnB1dCBjaGFubmVs
-IElELg0KMCA6IENIMA0KMSA6IENIMQ0KLi4uDQoxNTogQ0gxNQ0KDQpVc2VyIGNhbiBjb25maWcg
-dGhlIGNoYW5uZWwgSUQgdGhleSBkb24ndCB3YW50IHRvIGJlIG91dHB1dHRlZCB0bw0KbWVtb3J5
-IGluIHRoZSBwcm9wZXJ0eS4NCg0KRm9yIGV4YW1wbGUsDQpGb3IgNCBjaGFubmVscyBFVERNIGNv
-bm5lY3Rpb24sIGFuZCB0aGUgZm9sbG93aW5nIHByb3BlcnR5IGlzDQpjb25maWd1cmVkLg0KDQoi
-bWVkaWF0ZWssZXRkbS1pbjEtY2huLWRpc2FibGVkID0gPDA+OyINCg0KUmVjZWl2ZWQgZXRkbTEg
-aW5wdXQgZGF0YSBvdXRwdXR0ZWQgdG8gbWVtb3J5IHdpbGwgYmUgW2QwX2NoMSwgZDBfY2gyLA0K
-ZDBfY2gzLCBkMV9jaDEsIGQxX2NoMiwgZDFfY2gzLCAuLi5dLiBDSDAgaXMgZHJvcHBlZC4NCg0K
-PiANCj4gPiArICAgIGl0ZW1zOg0KPiA+ICsgICAgICBlbnVtOiBbMCwgMSwgMiwgMywgNCwgNSwg
-NiwgNywgOCwgOSwgMTAsIDExLCAxMiwgMTMsIDE0LCAxNV0NCj4gDQo+IG1heGltdW06IDE1DQo+
-IA0KPiANCj4gPiArDQo+ID4gKyAgIl5tZWRpYXRlayxldGRtLWluWzEtMl0tbWNsay1hbHdheXMt
-b24tcmF0ZS1oeiQiOg0KPiA+ICsgICAgZGVzY3JpcHRpb246IFNwZWNpZnkgZXRkbSBpbiBtY2xr
-IG91dHB1dCByYXRlIGZvciBhbHdheXMgb24NCj4gPiBjYXNlLg0KPiA+ICsNCj4gPiArICAiXm1l
-ZGlhdGVrLGV0ZG0tb3V0WzEtM10tbWNsay1hbHdheXMtb24tcmF0ZS1oeiQiOg0KPiA+ICsgICAg
-ZGVzY3JpcHRpb246IFNwZWNpZnkgZXRkbSBvdXQgbWNsayBvdXRwdXQgcmF0ZSBmb3IgYWx3YXlz
-IG9uDQo+ID4gY2FzZS4NCj4gPiArDQo+ID4gKyAgIl5tZWRpYXRlayxldGRtLWluWzEtMl0tbXVs
-dGktcGluLW1vZGUkIjoNCj4gPiArICAgIHR5cGU6IGJvb2xlYW4NCj4gPiArICAgIGRlc2NyaXB0
-aW9uOiBpZiBwcmVzZW50LCB0aGUgZXRkbSBkYXRhIG1vZGUgaXMgSTJTLg0KPiA+ICsNCj4gPiAr
-ICAiXm1lZGlhdGVrLGV0ZG0tb3V0WzEtM10tbXVsdGktcGluLW1vZGUkIjoNCj4gPiArICAgIHR5
-cGU6IGJvb2xlYW4NCj4gPiArICAgIGRlc2NyaXB0aW9uOiBpZiBwcmVzZW50LCB0aGUgZXRkbSBk
-YXRhIG1vZGUgaXMgSTJTLg0KPiA+ICsNCj4gPiArICAiXm1lZGlhdGVrLGV0ZG0taW5bMS0yXS1j
-b3dvcmstc291cmNlJCI6DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZp
-bml0aW9ucy91aW50MzINCj4gPiArICAgIGRlc2NyaXB0aW9uOiB8DQo+ID4gKyAgICAgIGV0ZG0g
-bW9kdWxlcyBjYW4gc2hhcmUgdGhlIHNhbWUgZXh0ZXJuYWwgY2xvY2sgcGluLiBTcGVjaWZ5DQo+
-ID4gKyAgICAgIHdoaWNoIGV0ZG0gY2xvY2sgc291cmNlIGlzIHJlcXVpcmVkIGJ5IHRoaXMgZXRk
-bSBpbiBtb3VkdWxlLg0KPiA+ICsgICAgZW51bToNCj4gPiArICAgICAgLSAwICMgZXRkbTFfaW4N
-Cj4gPiArICAgICAgLSAxICMgZXRkbTJfaW4NCj4gPiArICAgICAgLSAyICMgZXRkbTFfb3V0DQo+
-ID4gKyAgICAgIC0gMyAjIGV0ZG0yX291dA0KPiA+ICsNCj4gPiArICAiXm1lZGlhdGVrLGV0ZG0t
-b3V0WzEtMl0tY293b3JrLXNvdXJjZSQiOg0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMu
-eWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogfA0KPiA+ICsg
-ICAgICBldGRtIG1vZHVsZXMgY2FuIHNoYXJlIHRoZSBzYW1lIGV4dGVybmFsIGNsb2NrIHBpbi4g
-U3BlY2lmeQ0KPiA+ICsgICAgICB3aGljaCBldGRtIGNsb2NrIHNvdXJjZSBpcyByZXF1aXJlZCBi
-eSB0aGlzIGV0ZG0gb3V0DQo+ID4gbW91ZHVsZS4NCj4gPiArICAgIGVudW06DQo+ID4gKyAgICAg
-IC0gMCAjIGV0ZG0xX2luDQo+ID4gKyAgICAgIC0gMSAjIGV0ZG0yX2luDQo+ID4gKyAgICAgIC0g
-MiAjIGV0ZG0xX291dA0KPiA+ICsgICAgICAtIDMgIyBldGRtMl9vdXQNCj4gPiArDQo+ID4gK3Jl
-cXVpcmVkOg0KPiA+ICsgIC0gY29tcGF0aWJsZQ0KPiA+ICsgIC0gcmVnDQo+ID4gKyAgLSBpbnRl
-cnJ1cHRzDQo+ID4gKyAgLSByZXNldHMNCj4gPiArICAtIHJlc2V0LW5hbWVzDQo+ID4gKyAgLSBt
-ZWRpYXRlayx0b3Bja2dlbg0KPiA+ICsgIC0gcG93ZXItZG9tYWlucw0KPiA+ICsgIC0gY2xvY2tz
-DQo+ID4gKyAgLSBjbG9jay1uYW1lcw0KPiA+ICsNCj4gPiArYWRkaXRpb25hbFByb3BlcnRpZXM6
-IGZhbHNlDQo+ID4gKw0KPiA+ICtleGFtcGxlczoNCj4gPiArICAtIHwNCj4gPiArICAgICNpbmNs
-dWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2ljLmg+DQo+ID4gKyAg
-ICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIvaXJxLmg+DQo+ID4g
-Kw0KPiA+ICsgICAgYWZlOiBhZmVAMTBiMTAwMDAgew0KPiA+ICsgICAgICAgIGNvbXBhdGlibGUg
-PSAibWVkaWF0ZWssbXQ4MTg4LWFmZSI7DQo+ID4gKyAgICAgICAgcmVnID0gPDB4MTBiMTAwMDAg
-MHgxMDAwMD47DQo+ID4gKyAgICAgICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDgyMiBJUlFfVFlQ
-RV9MRVZFTF9ISUdIIDA+Ow0KPiA+ICsgICAgICAgIHJlc2V0cyA9IDwmd2F0Y2hkb2cgMTQ+Ow0K
-PiA+ICsgICAgICAgIHJlc2V0LW5hbWVzID0gImF1ZGlvc3lzIjsNCj4gPiArICAgICAgICBtZWRp
-YXRlayx0b3Bja2dlbiA9IDwmdG9wY2tnZW4+Ow0KPiA+ICsgICAgICAgIHBvd2VyLWRvbWFpbnMg
-PSA8JnNwbSAxMz47IC8vTVQ4MTg4X1BPV0VSX0RPTUFJTl9BVURJTw0KPiA+ICsgICAgICAgIGNs
-b2NrcyA9IDwmY2xrMjZtPiwNCj4gPiArICAgICAgICAgICAgICAgICA8JnRvcGNrZ2VuIDcyPiwg
-Ly9DTEtfVE9QX0FQTEwxDQo+ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiA3Mz4sIC8v
-Q0xLX1RPUF9BUExMMg0KPiA+ICsgICAgICAgICAgICAgICAgIDwmdG9wY2tnZW4gMTg2PiwgLy9D
-TEtfVE9QX0FQTEwxMl9DS19ESVYwDQo+ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiAx
-ODc+LCAvL0NMS19UT1BfQVBMTDEyX0NLX0RJVjENCj4gPiArICAgICAgICAgICAgICAgICA8JnRv
-cGNrZ2VuIDE4OD4sIC8vQ0xLX1RPUF9BUExMMTJfQ0tfRElWMg0KPiA+ICsgICAgICAgICAgICAg
-ICAgIDwmdG9wY2tnZW4gMTg5PiwgLy9DTEtfVE9QX0FQTEwxMl9DS19ESVYzDQo+ID4gKyAgICAg
-ICAgICAgICAgICAgPCZ0b3Bja2dlbiAxOTE+LCAvL0NMS19UT1BfQVBMTDEyX0NLX0RJVjkNCj4g
-PiArICAgICAgICAgICAgICAgICA8JnRvcGNrZ2VuIDgzPiwgLy9DTEtfVE9QX0ExU1lTX0hQDQo+
-ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiAzMT4sIC8vQ0xLX1RPUF9BVURfSU5UQlVT
-DQo+ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiAzMj4sIC8vQ0xLX1RPUF9BVURJT19I
-DQo+ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiA2OT4sIC8vQ0xLX1RPUF9BVURJT19M
-T0NBTF9CVVMNCj4gPiArICAgICAgICAgICAgICAgICA8JnRvcGNrZ2VuIDgxPiwgLy9DTEtfVE9Q
-X0RQVFgNCj4gPiArICAgICAgICAgICAgICAgICA8JnRvcGNrZ2VuIDc3PiwgLy9DTEtfVE9QX0ky
-U08xDQo+ID4gKyAgICAgICAgICAgICAgICAgPCZ0b3Bja2dlbiA3OD4sIC8vQ0xLX1RPUF9JMlNP
-Mg0KPiA+ICsgICAgICAgICAgICAgICAgIDwmdG9wY2tnZW4gNzk+LCAvL0NMS19UT1BfSTJTSTEN
-Cj4gPiArICAgICAgICAgICAgICAgICA8JnRvcGNrZ2VuIDgwPiwgLy9DTEtfVE9QX0kyU0kyDQo+
-ID4gKyAgICAgICAgICAgICAgICAgPCZhZHNwX2F1ZGlvMjZtIDA+OyAvL0NMS19BVURJT0RTUF9B
-VURJTzI2TQ0KPiA+ICsgICAgICAgIGNsb2NrLW5hbWVzID0gImNsazI2bSIsDQo+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAiYXBsbDFfY2siLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ImFwbGwyX2NrIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICJhcGxsMTJfZGl2MCIsDQo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAiYXBsbDEyX2RpdjEiLA0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgImFwbGwxMl9kaXYyIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICJh
-cGxsMTJfZGl2MyIsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAiYXBsbDEyX2RpdjkiLA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgImExc3lzX2hwX3NlbCIsDQo+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAiYXVkX2ludGJ1c19zZWwiLA0KPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgImF1ZGlvX2hfc2VsIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICJhdWRpb19sb2Nh
-bF9idXNfc2VsIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICJkcHR4X21fc2VsIiwNCj4g
-PiArICAgICAgICAgICAgICAgICAgICAgICJpMnNvMV9tX3NlbCIsDQo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgICAiaTJzbzJfbV9zZWwiLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgImky
-c2kxX21fc2VsIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICJpMnNpMl9tX3NlbCIsDQo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAiYWRzcF9hdWRpb18yNm0iOw0KPiANCj4gSXQncyBn
-b29kIGlmIHRoZSBleGFtcGxlcyBpbmNsdWRlIG9wdGlvbmFsIHByb3BlcnRpZXMgc28gd2UgYXQg
-bGVhc3QgDQo+IGhhdmUgc29tZSB2YWxpZGF0aW9uIHRoZSBzY2hlbWEgbWF0Y2hlcyB0aGUgRFRT
-Lg0KPiANCk9LLCBJIHdpbGwgcHV0IHNvbWUgb3B0aW9uYWwgcHJvcGVydGllcyBpbiBWMy4NCg0K
-VGhhbmtzLA0KVHJldm9yDQoNCj4gPiArICAgIH07DQo+ID4gKw0KPiA+ICsuLi4NCj4gPiAtLSAN
-Cj4gPiAyLjE4LjANCj4gPiANCj4gPiANCj4gDQo+IA0K
+Hi,
+
+
+On 17/10/2022 14:04, Geraldo Nascimento wrote:
+> Hi Mark, resending this as it failed to apply in my last submission. Added
+> Neil Armstrong to Cc: as hopefully he will be able to better review this.
+> 
+> Thanks,
+> Geraldo Nascimento
+> 
+> ---
+> 
+> Starting with version 2.10a of Synopsys DesignWare HDMI controller the
+> insert_pcuv bit was introduced. On RK3399pro SoM (Radxa Rock Pi N10),
+> for example, if we neglect to set this bit and proceed to enable hdmi_sound
+> and i2s2 on the device tree there will be extreme clipping of sound
+> output, to the point that music sounds like white noise. Problem
+> could also manifest as just mild cracking depending of HDMI audio
+> implementation of sink. Setting insert_pcuv bit (bit 2 of
+> aud_conf2 Audio Sample register) fixes this.
+
+
+I did some research and this insert_pcuv is already present in the 1.40a version
+of the dw-hdmi databook, so I wonder why suddenly this is needed.
+
+The insert_pcuv is documented as:
+-------------------------------------------------------
+When set (1'b1), it enables the insertion of the PCUV (Parity, Channel Status, User
+bit and Validity) bits on the incoming audio stream (support limited to Linear PCM
+audio).
+If disabled, the incomming audio stream must contain the PCUV bits, mapped
+acording to 2.6.4.2 Data Mapping Examples
+--------------------------------------------------------
+
+
+What's interesting is this register is only present if thre DW-HDMI IP is configured
+as GPAUD or GDOUBLE, meaning it must have GPAUD enabled. So it has
+something to do with it, so what's value of it when GPAUD isn't present in the IP ?
+
+And HDMI2 spec added this, even PCVU were required before:
+--------------------------------------------------------
+Note that PCUV refers to the parity bit (P), channel status (C), user data (U), and validity bit (V) as defined in IEC
+60958-1.
+--------------------------------------------------------
+
+So it has something to do with IEC60958-1 stream format, do maybe this
+insert_pcuv should only be enforced when the input stream is _not_ IEC60958-1 ?
+
+Neil
+
+> 
+> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+> 
+> ---
+> 
+> v1->v2: SoC->SoM on description, better commenting, minor style changes,
+> 	conditional application of fix for L-PCM only
+> 
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio-20221017.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio-20221017.c
+> @@ -42,6 +42,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>   	struct dw_hdmi *hdmi = audio->hdmi;
+>   	u8 conf0 = 0;
+>   	u8 conf1 = 0;
+> +	u8 conf2 = 0;
+>   	u8 inputclkfs = 0;
+>   
+>   	/* it cares I2S only */
+> @@ -101,6 +102,28 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>   		return -EINVAL;
+>   	}
+>   
+> +	/*
+> +	 * dw-hdmi introduced insert_pcuv bit in
+> +	 * version 2.10a.
+> +	 *
+> +	 * This single bit (bit 2 of HDMI_AUD_CONF2)
+> +	 * when set to 1 will enable the insertion of the PCUV
+> +	 * (Parity, Channel Status, User bit and Validity)
+> +	 * bits on the incoming audio stream.
+> +	 *
+> +	 * Support is limited to Linear PCM audio. If
+> +	 * neglected, the lack of valid PCUV bits
+> +	 * on L-PCM streams will cause anything from
+> +	 * mild cracking to full blown extreme
+> +	 * clipping depending on the HDMI audio
+> +	 * implementation of the sink.
+> +	 *
+> +	 */
+> +
+> +	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21 &&
+> +			!(hparms->iec.status[0] & IEC958_AES0_NONAUDIO))
+> +		conf2 = HDMI_AUD_CONF2_INSERT_PCUV;
+> +
+>   	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
+>   	dw_hdmi_set_channel_status(hdmi, hparms->iec.status);
+>   	dw_hdmi_set_channel_count(hdmi, hparms->channels);
+> @@ -109,6 +120,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>   	hdmi_write(audio, inputclkfs, HDMI_AUD_INPUTCLKFS);
+>   	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
+>   	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
+> +	hdmi_write(audio, conf2, HDMI_AUD_CONF2);
+>   
+>   	return 0;
+>   }
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-20221017.h
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-20221017.h
+> @@ -931,6 +931,11 @@ enum {
+>   	HDMI_AUD_CONF1_WIDTH_16 = 0x10,
+>   	HDMI_AUD_CONF1_WIDTH_24 = 0x18,
+>   
+> +/* AUD_CONF2 field values */
+> +	HDMI_AUD_CONF2_HBR = 0x01,
+> +	HDMI_AUD_CONF2_NLPCM = 0x02,
+> +	HDMI_AUD_CONF2_INSERT_PCUV = 0x04,
+> +
+>   /* AUD_CTS3 field values */
+>   	HDMI_AUD_CTS3_N_SHIFT_OFFSET = 5,
+>   	HDMI_AUD_CTS3_N_SHIFT_MASK = 0xe0,
+

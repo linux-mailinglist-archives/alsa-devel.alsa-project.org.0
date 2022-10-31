@@ -2,77 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 379216139E4
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 16:19:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E25613AAF
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 16:50:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B26E8163B;
-	Mon, 31 Oct 2022 16:18:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B26E8163B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A27E61664;
+	Mon, 31 Oct 2022 16:49:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A27E61664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667229575;
-	bh=5ImeOscq9YaVQO2U0AE/eN73YuOvrFN9YE64Im7ZJHE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=g0r/3ez+yOtWWd6VJ/Iu9N9/p6MxIe3oZ5Rvb62epD6qd0sGZJ2acKYoEXYD2dNgJ
-	 WqMK5MJ6Y44OnnL7GZzCLmbcjhqj+L/kojrXbyP/wQIs7ygnRmYK7a2RvdNGeb4fiC
-	 aoYQbnFY37/F6aHsBLcxAVxnjWvZxTFO1SGrjIe8=
+	s=default; t=1667231446;
+	bh=G0KoPUscGMdCw8ZkNDHuXvBeYtGOoIEmnjk1OnrBALo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZsWXY4mRAgPoKs0WXMGcajmoXLfsOJ1nDDpgHMUPfyaF9qnXo6IWt9WUID2A4aysQ
+	 OtZoAbdHxHrMOaAtzvLspRsMZWjNXqoao3vazJ4IP/aVleGGW82HLh00EvZJKVqRhV
+	 +IpsPDgxxYRktgJY3f2cjgq+JTut4/QeUc7B/5N0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3957CF80256;
-	Mon, 31 Oct 2022 16:18:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B852FF80256;
+	Mon, 31 Oct 2022 16:49:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29ADCF8021D; Mon, 31 Oct 2022 16:18:39 +0100 (CET)
+ id A1368F800F3; Mon, 31 Oct 2022 16:49:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB848F800CC
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 16:18:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB848F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="br+E86Jj"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 84031612AB;
- Mon, 31 Oct 2022 15:18:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF920C433C1;
- Mon, 31 Oct 2022 15:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667229509;
- bh=5ImeOscq9YaVQO2U0AE/eN73YuOvrFN9YE64Im7ZJHE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=br+E86JjMHh2jBZwsZwp/uN/u8/4wKJQ9uqAhqizX04RCJGO7Kg4aRfYVLlJCcTd6
- N0sejut8Oy3ss2MW531oSyPudi1m1i2WzLrn+3UOkedrTk1xtv4gkE8T9M3WukAdCt
- KQoLMRmIgPXhw4AYhZ3dTgIL+YmV9reQvBczkjzXKR66puUiD+a/+t0UBALZigQCIL
- C6LqQ2KBRMYrxunja/fZrbHoVghySp38ZdRYAee40qmBbZzBWqeT4uJjvI1ovif35X
- wm25dzuoK4t+sm0tqSWcsOLnpHbSRip3+mYvUxcTlOR8QXpLEXRlvy2LrJz6liNW+l
- RALDZIbi/tcyg==
-From: Mark Brown <broonie@kernel.org>
-To: Martin Povišer <povik+lin@cutebit.org>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20221027095800.16094-1-povik+lin@cutebit.org>
-References: <20221027095800.16094-1-povik+lin@cutebit.org>
-Subject: Re: [PATCH 1/3] ASoC: tas2770: Fix set_tdm_slot in case of single slot
-Message-Id: <166722950654.326387.4999935001407082845.b4-ty@kernel.org>
-Date: Mon, 31 Oct 2022 15:18:26 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id C18E6F800F3
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 16:49:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C18E6F800F3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="bvOAatfi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667231387; x=1698767387;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=G0KoPUscGMdCw8ZkNDHuXvBeYtGOoIEmnjk1OnrBALo=;
+ b=bvOAatfiN8kxbHlP7sqdBRyCWZRJ2UL+b+pHas6XLH+NlVNIXjtwq4No
+ MjojU6UBsxeMezp84/oL/FCFMBXIaCUmN4MDEMzOKQmR68xdIr9bg0jwM
+ AzyUH+HP9tM0Ln0r6RtWOo1oJ3T2GKWk8KfHZGR9Th36nx9UAFx16nW6L
+ FWp+EiMs3fOz0hRaPv/6Ir1DAT9r/CeJfam7c53usQEe15sV6N+eejASD
+ 8Sjhv/PgNmPSHPnayEtialHkvRkixrsb+u0QVyF5Y0kI87s0HxrntqfIE
+ mw/NYjKx/3u9j9obw7g80W99xwPo4ltz6jQF+kI4+JQXt/VBtZrdJ9HIL A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="308929887"
+X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="308929887"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2022 08:49:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="776178879"
+X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="776178879"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga001.fm.intel.com with ESMTP; 31 Oct 2022 08:49:32 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH 0/7] ASoC: codecs: da7219: Do not export da7219_aad_jack_det()
+Date: Mon, 31 Oct 2022 17:02:20 +0100
+Message-Id: <20221031160227.2352630-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, Stephen Kitt <steve@sk2.org>,
- linux-kernel@vger.kernel.org, shenghao-ding@ti.com, kevin-lu@ti.com,
- Jos Dehaes <jos.dehaes@gmail.com>, Frank Shi <shifu0704@thundersoft.com>,
- Raphael-Xu <13691752556@139.com>, asahi@lists.linux.dev
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Vijendar.Mukunda@amd.com,
+ heiko@sntech.de, AjitKumar.Pandey@amd.com, linux-rockchip@lists.infradead.org,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, jiaxin.yu@mediatek.com,
+ lgirdwood@gmail.com, hdegoede@redhat.com, Syed.SabaKareem@amd.com,
+ amadeuszx.slawinski@linux.intel.com, trevor.wu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,44 +91,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 27 Oct 2022 11:57:58 +0200, Martin Povišer wrote:
-> There's a special branch in the set_tdm_slot op for the case of nslots
-> being 1, but:
-> 
->  (1) That branch can never work (there's a check for tx_mask being
->      non-zero, later there's another check for it *being* zero; one or
->      the other always throws -EINVAL).
-> 
-> [...]
+Goal of the series is to drop any usage of the internal function.
 
-Applied to
+First, update all users to utilize component->set_jack() and then remove
+the relevant EXPORT_SYMBOL_GPL.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Amadeusz Sławiński (2):
+  ASoC: codecs: da7219: Introduce set_jack() callback
+  ASoC: codecs: da7219: Do not export internal symbols
 
-Thanks!
+Cezary Rojewski (5):
+  ASoC: Intel: Drop da7219_aad_jack_det() usage
+  ASoC: mediatek: Drop da7219_aad_jack_det() usage
+  ASoC: rockchip: Drop da7219_aad_jack_det() usage
+  ASoC: amd: Drop da7219_aad_jack_det() usage
+  ASoC: Intel: avs: Drop da7219_aad_jack_det() usage
 
-[1/3] ASoC: tas2770: Fix set_tdm_slot in case of single slot
-      commit: e59bf547a7dd366f93bfebb7487959580ca6c0ec
-[2/3] ASoC: tas2764: Fix set_tdm_slot in case of single slot
-      commit: faac764ea1ea6898d93e46c403271fb105c0906e
-[3/3] ASoC: tas2780: Fix set_tdm_slot in case of single slot
-      commit: 6f934afa6a980bb8d3ce73836b1a9922685e50d7
+ sound/soc/amd/acp-da7219-max98357a.c                     | 3 +--
+ sound/soc/codecs/da7219-aad.c                            | 4 ----
+ sound/soc/codecs/da7219.c                                | 9 +++++++++
+ sound/soc/intel/avs/boards/da7219.c                      | 3 +--
+ sound/soc/intel/boards/bxt_da7219_max98357a.c            | 3 +--
+ sound/soc/intel/boards/kbl_da7219_max98357a.c            | 3 +--
+ sound/soc/intel/boards/kbl_da7219_max98927.c             | 3 +--
+ sound/soc/intel/boards/sof_da7219_max98373.c             | 4 ++--
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c       | 3 +--
+ .../soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c  | 4 ++--
+ sound/soc/rockchip/rk3399_gru_sound.c                    | 3 +--
+ 11 files changed, 20 insertions(+), 22 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+2.25.1
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

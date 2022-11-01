@@ -2,92 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB819614464
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Nov 2022 06:46:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0178861448A
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Nov 2022 07:12:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D0711694;
-	Tue,  1 Nov 2022 06:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D0711694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EFE9167B;
+	Tue,  1 Nov 2022 07:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EFE9167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667281587;
-	bh=VTzzvmyEZlt+XflAXoxuRCwGkkh9WCK4f+3It/1TwFQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XhCBPBwUO+faAVquF5fggULUzioT8fHf8IlkA3rn0DsXpqpS0DOwPCMWnMR78TeTL
-	 gKl/5Hcwws1aeysrq+7uuRDAUTTz2Gq4Y2KbCcVbnkBFWvhdKPYbqyPgpf3aC8rYox
-	 L5lmJAwhcTYAEpF7BGilhwyQtij8RM76J+Hkq1xc=
+	s=default; t=1667283171;
+	bh=U89S32Gf9lJFrrvezYWgE/d1fToQ2YeCJxvrf70zLYA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AFslRq+Kn5FXx4cJy20tQVvfdrCggOm53PEaWAp+VXVNS/Y/LXl7z273ovOY4O/BC
+	 RZdbp979PElyEJTY39lxt04ilO7ElHfQjmAyQgOPDFyUT1y0Ff2jqGwpNzveB0+wSw
+	 MpkHoJ6ewusBuZBxcxFD55Km7vNBjCK7u0mOSgMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6948F80423;
-	Tue,  1 Nov 2022 06:45:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19FE6F8028D;
+	Tue,  1 Nov 2022 07:11:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3AFBAF80519; Tue,  1 Nov 2022 06:45:22 +0100 (CET)
+ id 084A9F804AB; Tue,  1 Nov 2022 07:11:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A956BF80423
- for <alsa-devel@alsa-project.org>; Tue,  1 Nov 2022 06:45:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A956BF80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31724F80249;
+ Tue,  1 Nov 2022 07:11:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31724F80249
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VjShMQy9"
-Received: by mail-lj1-x233.google.com with SMTP id b8so19512386ljf.0
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 22:45:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vDaw5eC6bXjv+s/idpalyykG065gVlj405gOBjwpIu4=;
- b=VjShMQy9lLbK7YjAdRlBqWLKO4yzFON/f/7s5WTT79x9T4+YF8PNElIHZJz4M7VOZ7
- YwtiB7PCbtZeWuD1LPa78e6HmsBiVwdX322qZCpoFbVAq606bmnwSwnD8wkyAZxDgLRA
- yRqdllCCSadVlbMpDmen1UJfkr+7AO5QQLHbL06XY0kA100Mnk2GVc8DmVVsAybqUbWs
- jcRhcEfL61Xs8TjElpJCp16ZmmDc+06GTH+0fME+SEG2Gpv2tG4Wi1M6rZ/TmcoN/MSy
- cp+Gm/Prbwv16nYsG0s98MaTdR2x34n3hCwNENZDGzX1jc997QZvDnAixtfdk0PtLl49
- GmBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vDaw5eC6bXjv+s/idpalyykG065gVlj405gOBjwpIu4=;
- b=e/mUOblia88ZktaJd8goC1EEiEudnWey01bS314QKirwldE2j83XMG5ToInOLE8I2M
- oXAFOOalYVdP4drPLEY4th8T+ugSpVUwh7HeyZrNwnYkPnANWQgCK9cWcGpubuDxfpoK
- sejitorkmtFmQpYuLE6V7O1CB+6ftHsA0jrfOamcUaMit1udirh/1T4bbu+rTrD3FMhd
- b9ehgJLU6fH9KYNgBnVr9niH8HfqbNOx5EzXsBuidDYQmvLGEvg+yzk/bqCQep3L9c7Y
- MJaWP/+tThjC62b6dUb9Iadqa0hcpa+ySHbaH0GYDxQ5mHfNmHVyLiiVguIt7VOwMpHo
- 10hQ==
-X-Gm-Message-State: ACrzQf11t31v7uHe5bLoGzhsjPaC/lZx0jUw5FjaVdDuQR2X1tWHSfiT
- FGJSgzszdGGpnVhYUg9pVV7HoZM2tx3AsIE0kM0=
-X-Google-Smtp-Source: AMsMyM5nU6UMXntrVs7Da/6zFSVFD9MdqLgtBjE0PNrBvN3GMBJ4Bv8R0iH/1rd+GXKPjMZAd0J2toxSyaYKuml3t0E=
-X-Received: by 2002:a2e:a385:0:b0:277:34ff:e56b with SMTP id
- r5-20020a2ea385000000b0027734ffe56bmr7154649lje.297.1667281515220; Mon, 31
- Oct 2022 22:45:15 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="Z00mFAFZ"
+X-UUID: de6589935b0e41e78e0fb48dd639a5b9-20221101
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=GxTScHc95rAlhDh/s52djMefw1krEYgEA7nv6cnnb8A=; 
+ b=Z00mFAFZlNTpt4nb5ZCIDDjaCCJjJA8W5pv2/hCkaCNAaWgbeqREZrj6FZEt7TfexhnWPZ4Km7fLco83l5i2zbmrd2bCXi5hDnmRb+sCgyBKdoIsy2rPX7l9QGdBZu/t3OHBsFuXpysiVVcYx9/m7SxPaXJqNgpweq9EKK0xGLM=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.12, REQID:c16064ff-58d2-491b-861b-a9c5d5323c00, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:-5
+X-CID-META: VersionHash:62cd327, CLOUDID:896f3e81-3116-4fbc-b86b-83475c3df513,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: de6589935b0e41e78e0fb48dd639a5b9-20221101
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
+ mailgw01.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 133397477; Tue, 01 Nov 2022 14:11:40 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Tue, 1 Nov 2022 14:11:39 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.792.15 via Frontend Transport; Tue, 1 Nov 2022 14:11:39 +0800
+From: Tinghan Shen <tinghan.shen@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
+ <yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Mark
+ Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Tinghan Shen <tinghan.shen@mediatek.com>, Yaochun Hung
+ <yc.hung@mediatek.com>
+Subject: [PATCH v1 0/2] Revise mt8186 ADSP clock driver
+Date: Tue, 1 Nov 2022 14:11:35 +0800
+Message-ID: <20221101061137.25731-1-tinghan.shen@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-References: <20221028082750.991822-1-chancel.liu@nxp.com>
- <20221028082750.991822-4-chancel.liu@nxp.com>
-In-Reply-To: <20221028082750.991822-4-chancel.liu@nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 1 Nov 2022 13:45:03 +0800
-Message-ID: <CAA+D8ANKPOEgr6F4_7hq=b5dKOkSHrGjDAE14=Je3K1gbdDY6Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: fsl_micfil: Add support when using eDMA
-To: Chancel Liu <chancel.liu@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Type: text/plain
+X-MTK: N
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, tiwai@suse.com,
- nicoleotsuka@gmail.com, broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- festevam@gmail.com
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,54 +105,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 28, 2022 at 4:28 PM Chancel Liu <chancel.liu@nxp.com> wrote:
+Initialize the dependent clock sources for mt8186 ADSP and
+fix the enable/disable order of ADSP clocks. 
 
-> On i.MX93 platform MICFIL uses eDMA. The maxburst should be set to the
-> number of channels in eDMA multiple FIFO mode.
->
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
->
+---
+Tinghan Shen (2):
+  dt-bindings: dsp: mediatek: Add default clock sources for mt8186 dsp
+  ASoC: SOF: mediatek: Revise mt8186 ADSP clock driver
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+ .../bindings/dsp/mediatek,mt8186-dsp.yaml     | 12 +++++--
+ sound/soc/sof/mediatek/mt8186/mt8186-clk.c    | 35 +++++++++++++++----
+ sound/soc/sof/mediatek/mt8186/mt8186-clk.h    |  2 ++
+ 3 files changed, 39 insertions(+), 10 deletions(-)
 
-best regards
-wang shengjiu
+-- 
+2.18.0
 
-> ---
->  sound/soc/fsl/fsl_micfil.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-> index b8a9504441df..22e75c14cac4 100644
-> --- a/sound/soc/fsl/fsl_micfil.c
-> +++ b/sound/soc/fsl/fsl_micfil.c
-> @@ -63,6 +63,7 @@ struct fsl_micfil_soc_data {
->         unsigned int fifo_depth;
->         unsigned int dataline;
->         bool imx;
-> +       bool use_edma;
->         u64  formats;
->  };
->
-> @@ -88,6 +89,7 @@ static struct fsl_micfil_soc_data fsl_micfil_imx93 = {
->         .fifo_depth = 32,
->         .dataline =  0xf,
->         .formats = SNDRV_PCM_FMTBIT_S32_LE,
-> +       .use_edma = true,
->  };
->
->  static const struct of_device_id fsl_micfil_dt_ids[] = {
-> @@ -690,6 +692,8 @@ static int fsl_micfil_hw_params(struct
-> snd_pcm_substream *substream,
->         micfil->sdmacfg.n_fifos_src = channels;
->         micfil->sdmacfg.sw_done = true;
->         micfil->dma_params_rx.maxburst = channels * MICFIL_DMA_MAXBURST_RX;
-> +       if (micfil->soc->use_edma)
-> +               micfil->dma_params_rx.maxburst = channels;
->
->         return 0;
->  }
-> --
-> 2.25.1
->
->

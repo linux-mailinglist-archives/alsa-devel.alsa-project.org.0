@@ -2,84 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D50A9614035
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Oct 2022 22:55:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B694614296
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Nov 2022 02:05:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62691166C;
-	Mon, 31 Oct 2022 22:55:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62691166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0DFB1640;
+	Tue,  1 Nov 2022 02:04:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0DFB1640
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667253354;
-	bh=FFGfPDLkVcZktYz3pbO3mrkBD87ZdMPNLu3yTzjFccQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667264748;
+	bh=Co31BusoGSY0MXuFeKA0QlCszA6tiMpIiw8hHEzMy28=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U6F6Xn7J/zcHsYVzq/g1t4teARd1ALyZm56Xsz87CJsYRTXBZzAEWiYhTDU3lgEDE
-	 gGGsu3zBkP/PZmX/aoUtfR0mlZBqTsySigyXWGOd1XjKcwyfSEmEw7UUf8S6xsx2JP
-	 BUH51Jn6w74HDt09cw5uoIUDGUIOA+JMBsx8HqhQ=
+	b=JK3RlW+GoP9UYsCxAnAgsPhS81QbpHzKxPoRAS4tC/qzKsbiE0v36Wes8orwiFxIQ
+	 kET3U33U6I/HiJwXTcglLkdbEcLRNPWTLuqdAUdFd8Raw60lHTEGA+y5oSiZJsUdSM
+	 ZNWzLpAlfLSAC4TxicPy6RiIQm9ZawRl1RpUcJGA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA027F8021D;
-	Mon, 31 Oct 2022 22:54:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B583F800F3;
+	Tue,  1 Nov 2022 02:04:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 393CCF80163; Mon, 31 Oct 2022 22:54:58 +0100 (CET)
+ id 0D92BF80163; Tue,  1 Nov 2022 02:04:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3174F800F3
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 22:54:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3174F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A8B7F800F3
+ for <alsa-devel@alsa-project.org>; Tue,  1 Nov 2022 02:04:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A8B7F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eC9YoqyK"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0D33861495;
- Mon, 31 Oct 2022 21:54:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFD4C433C1;
- Mon, 31 Oct 2022 21:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667253288;
- bh=FFGfPDLkVcZktYz3pbO3mrkBD87ZdMPNLu3yTzjFccQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eC9YoqyK9Z2EZNl8+LOIP2tPNeif2YkEHO582v1NBPTulTQ39gL4j+++ChjpL5+fd
- 7A634MKLAiNtOFyZ1M11DPfpG12e2srIabQjIeDwSs7+BryxISsYKxzd9Oa6GVLo9R
- nMn3Er8nIIaLKLoqSTd4vsgkq1o0p4OcbfzYr+VIMz+dw+RUSdCkvV6cZT3L+WygqC
- Dpoq6UlhPal/EHREY0tPPxIODSQ0GVg80JNuQDG4dMAABNh9dVZyrgi050JrnzuZKs
- 7faXojMJZQsTjeSU5bBy5jWRfHIm4oDQkQOLlGqA3SkLdqykNRkVo5QE/D/O32VfCQ
- vezhYyhZiIngA==
-Date: Mon, 31 Oct 2022 21:54:42 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
-Subject: Re: [PATCH 6/8] ASoC: rt5682: Support dbvdd and ldo1-in supplies
-Message-ID: <Y2BEIpTIQKuvMPJ9@sirena.org.uk>
-References: <20221028205540.3197304-1-nfraprado@collabora.com>
- <20221028205540.3197304-7-nfraprado@collabora.com>
- <Y1/JCN+mtlT0r/rw@sirena.org.uk>
- <20221031163140.h63kjpivwg7xpvs3@notapiano>
- <20221031190938.GA3264845-robh@kernel.org>
- <20221031193810.vdsdndr4ltvhrfel@notapiano>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="fFKYIUFX"
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-36cbcda2157so123389007b3.11
+ for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 18:04:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Co31BusoGSY0MXuFeKA0QlCszA6tiMpIiw8hHEzMy28=;
+ b=fFKYIUFXKtITwrPLqasMLB1EHzFCV1ahYkQ3s3TQmt2L/uccTfNAITexpynI2emGWQ
+ L0efnOz06fdQ8AYkBw3yutXLfnrZD9pX+EAy71QXcnxzg7zwGB+ot793T+iJLK35xwJx
+ 3W+An4ChtjB6RS4TU/6nHfnIFyL+gUS3fqyy2Zzk/i4gUr40thWNi6GOryi4XGk0Rf7b
+ 29bnWmE+gT7Juq6qz4fkfjRrKCp/vVqxloUhoUJP73sHMYVQzYtCBWfS2hcW5sx+Qu+m
+ 55rOvBGn27AKXrhd7SPCjeIbnYet7rzcBRdHPq0gknY9a6e2XiYOx3jqaiZMLzJcQq3W
+ 0VfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Co31BusoGSY0MXuFeKA0QlCszA6tiMpIiw8hHEzMy28=;
+ b=kQ263TeYk3upUrT6S2SrN6SL8WF9MnLCEBOGn+CdoSkMyo5/3j+GDGQ3v9+M8JduRo
+ nV+AXpoFBu8HFdrIwQfngS+xvY70DMLNlMH+cernlrQQ/7EMULYwlhlTlkW+3qSyIbL4
+ QSA4sLulIw+x2PTkzuGt4tJ6AWU5+Hoy/glsbRtxbnDx7NAy93rSztbKo6PC908cFV7K
+ 7DivlivuhEZjSXbXNz7rbtkqz6VxVozMhe+YA3avKfYphOJhWKs6ezc7XWnElVmCjtbY
+ wf0/T1rNZCIxpSNDCKLOsmdnFzpoQRkfYFrVbTZsvcy/FI4IiOBbmIwGsDn5KTZf9Mge
+ gNZw==
+X-Gm-Message-State: ACrzQf1wsMKX4IgHa4bb3mc3xs2QL756rucvORCIdSQlD1FtCMqQA9BI
+ Y2BDXuQoxGAbfGvpWz2l5Tw9gJf5lhozJFT/i06BwA==
+X-Google-Smtp-Source: AMsMyM5AqSG/s/7RS5sYTrot30XqWHEK/nyNuZSJdwa4sk5v4Ezc4sUV0G3a3sCElW41Ozxyxt5F67HvM8x9vV+w5A8=
+X-Received: by 2002:a81:ab4f:0:b0:36f:d141:f9af with SMTP id
+ d15-20020a81ab4f000000b0036fd141f9afmr15526798ywk.311.1667264687461; Mon, 31
+ Oct 2022 18:04:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pxMlgxtl57zbllW0"
-Content-Disposition: inline
-In-Reply-To: <20221031193810.vdsdndr4ltvhrfel@notapiano>
-X-Cookie: Are you still an ALCOHOLIC?
-Cc: Oder Chiou <oder_chiou@realtek.com>, Rob Herring <robh@kernel.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+References: <20221028102450.1161382-1-ajye_huang@compal.corp-partner.google.com>
+ <20221028102450.1161382-2-ajye_huang@compal.corp-partner.google.com>
+ <Y1vDYNOwZNOco1hq@sirena.org.uk> <20221031184343.GA3235956-robh@kernel.org>
+ <Y2A0fdwnHTqw/NDw@sirena.org.uk>
+In-Reply-To: <Y2A0fdwnHTqw/NDw@sirena.org.uk>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Tue, 1 Nov 2022 09:04:37 +0800
+Message-ID: <CALprXBYEsB5z-iioBeyeBAwPFkOnkQn8CBbj9Di9CpdqvFFnOg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] ASoC: dt-bindings: Document dmic_sel-gpios
+ optional prop for two DMICs case
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, devicetree@vger.kernel.org,
+ angelogioacchino.delregno@collabora.corp-partner.google.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,41 +107,6 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark, Rob
 
---pxMlgxtl57zbllW0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Oct 31, 2022 at 03:38:10PM -0400, N=EDcolas F. R. A. Prado wrote:
-
-> We could have both if we converted the existing ones to lowercase first, =
-but as
-> I mentioned in [1] this requires using devm_regulator_get_optional() befo=
-re
-> falling back, which seemed like an abuse of that API and to unnecessarily
-> complicate the code.
-
-Yeah, it's definitely not what the ABI is for and probably more trouble
-than it's worth.  We *could* probably write some helpers that handle
-legacy supply names to the regulator core code if someone really wanted
-to retire old names, that way the complication would be shared between
-users which seems more managable but someone would still need the time
-and enthusiasm to write the code.
-
---pxMlgxtl57zbllW0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNgRCEACgkQJNaLcl1U
-h9ClYQf9FsCx0G+N6VTpjGeY5nkPr29CUIIugDCl4wTHz+wFi7U/VdaIbjstqF9y
-2laVvOENRoq28dcIG1adZWcTZtDflCRfS72W1e7x/p/6eg5Syl1S96YZqYAmh+H+
-DuZ6it8zFCiTO3emtcLI8ZxK89TFdBebgo5R3g63lvmcfIhvk3A6u/vYxCJCvRVo
-oDk5tB/cWSTC3qX+dU9a4aFpqjsecHmhnmE0nqLLYpyMxDQtTvmsyvWh2dcqbQi6
-kJkRByMxqmsbgYCjUec0FDkuIvbeb0Up1apSK4Ui+lb+wtYqExcfcEcuA7LgbtpG
-gTSTYSGcZLpFBepWyyoyqYODwJssDA==
-=DG1t
------END PGP SIGNATURE-----
-
---pxMlgxtl57zbllW0--
+To avoid confusion, I had submitted another one for process

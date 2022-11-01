@@ -2,96 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 231956142A4
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Nov 2022 02:08:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AE1614342
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Nov 2022 03:31:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1F551663;
-	Tue,  1 Nov 2022 02:07:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1F551663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77408167B;
+	Tue,  1 Nov 2022 03:30:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77408167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667264918;
-	bh=fiRfNbUxfFmfiLWtn9XSp5uwnw9vjNKsAb8ju8gDweY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JtQ6XAkhxf54lMi24C57odmkRC/4ug5agXK0GNlfjAe4QkCFWynJ8Sz0DOt12PPRp
-	 697J/G8YEn8+uk9OS/bBnpZfMtvDqAuelLruTwxqtjDT0GWGwz+3xU/ZOJsHsGQeZ9
-	 Vw0E8zL49jEDjwauD2+EmT/M200cKf8U9hCeEtKE=
+	s=default; t=1667269903;
+	bh=+VAcDu8nCS7WGVWXp6e7tdbtl+zUVq+Vu+cNVOMl7/0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WeWzV2Ye6SPlnedhfVPdxaififfOi0P02mh69DG0Xp4pbPMdCYHmQ6lzVTnc+mRhU
+	 4483idYrd/Of4p/RftjCOcfLwaohSNob9kF8ZTP654j5OqGxw9pQNiCO9YAb7EqeJQ
+	 UCtT3driBzSt4QbEkhmXnijz6C5XH6y66BLS0Jro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17093F8021D;
-	Tue,  1 Nov 2022 02:07:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D802DF80155;
+	Tue,  1 Nov 2022 03:30:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C20FF80163; Tue,  1 Nov 2022 02:07:42 +0100 (CET)
+ id D54D7F804B1; Tue,  1 Nov 2022 03:30:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E47F2F800F3
- for <alsa-devel@alsa-project.org>; Tue,  1 Nov 2022 02:07:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E47F2F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9C46F80249
+ for <alsa-devel@alsa-project.org>; Tue,  1 Nov 2022 03:30:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9C46F80249
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="KV7kD2/v"
-Received: by mail-yb1-xb34.google.com with SMTP id j130so15664932ybj.9
- for <alsa-devel@alsa-project.org>; Mon, 31 Oct 2022 18:07:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XmMaXP90CaIMiPtYW47n6m2G5ZMtSO1W1wgU+NyJUlI=;
- b=KV7kD2/vrb7m62VzqzYzSnWH+Ru13le5MwXLe2PxHkpYIB7UYu262mGqcarWS6abdD
- 0dn/55y/MOGSm2sQV75SA1wSv0YWmvzxR9tHvFNO0eYd/p+XMjfj9QQLaHTV+LDuwnBa
- BPYazU9flaQYyJM5cVJFmzqaMfMTDnKJRRKLPjdfFZvWpny7+W8rXzheWnWWNUTD9bOK
- TSxsmi1kbswby1PBNFOEN080yKyITA6s4Pfiss8/g/nvbAUkmgenBIo/2AcTEEsTwfKc
- 1i/wVL7p7lpD6Z99zf+2MtG/NrYASJpB8AdHCoT/HeVY3lxITW0aXRkgbCax4e7Pmvw6
- CjFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XmMaXP90CaIMiPtYW47n6m2G5ZMtSO1W1wgU+NyJUlI=;
- b=XtMPn6lyIsF5wicM5F3TPv+BUN9TzIXSEwfF/2tjfL00oHGQ3GIdZTzP7uH3QHTkSt
- 3X49wlmpidbPyX2Onp0zTc6ppZi4szoyUWQvPpIRLlKdNnupzjT9G5Y0KjWnuGjgUSkh
- ys+zBroY2oJySbmJ83SO+w34+LZD84nOv9EGzUBO7TXOjzesn6Z0PoXvjMl1LuZpu+gl
- kMzYotCuxwvFT/BxzUSeWKN1LHs7U+uAc1Ibg/hffGhBJHmwqUIXn/rO9OTjWauAKYA5
- OybTT9b3wSuNITvUj6RB1/asM6vdv8kc3HYeMYkF/B8S8gMDU3TjZGThS5uHoq+ifPF+
- jmEQ==
-X-Gm-Message-State: ACrzQf3MP4GYc9gaLCWQRJWSGtrfmZy2Xd+l4eLO7m8VDv2EduIo2OrY
- iYnbvq2sPnZHNbUxdSw7dWaxXjciBqW1lcEtO/mFcw==
-X-Google-Smtp-Source: AMsMyM6rZlIQZ1PYaWj2k4quC4D/+5G6Kbx8Z29PHK8evYzmyRI+sEH2P3krYmjXNk4yI5MLVy44GaA90GQxOjbPmBU=
-X-Received: by 2002:a25:7055:0:b0:6cb:7973:a3a2 with SMTP id
- l82-20020a257055000000b006cb7973a3a2mr15384128ybc.595.1667264857444; Mon, 31
- Oct 2022 18:07:37 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="DfaXiOZF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667269841; x=1698805841;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=+VAcDu8nCS7WGVWXp6e7tdbtl+zUVq+Vu+cNVOMl7/0=;
+ b=DfaXiOZFBbNOiFYsBgfGDdSm/Xr5e283S1ZIRzBu87I2p3y3SerZYafB
+ Ne1uM8PCCIlMfnNR1Oknzrr48WGaeR6RoEz4+Iept06jJBVEoGSzOf5yY
+ b5z3RiY8T7PjMWQgzJquzG+dgv3kro1u2Yar6k/+HQArSeaRMNctENZWm
+ DuEirFgVYFWLOCPtOJ0tY8L37ZiQZWXStSYPto9mEzvKtLiLRP226cz0N
+ 0mo2GJqrtnSECSpxO96DRiW1uZfhrytaMnPWK5a3Hpn5G5cVq9E4PM1JL
+ xvrad9E0tBVA8lsWl3KGMYqLeYvB3sDxdkzmQiVP5WrbeCgYYPIC60pB5 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="371129611"
+X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="371129611"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2022 19:30:34 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="611709363"
+X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="611709363"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2022 19:30:32 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH 0/2] soundwire: cadence: remove dma_data
+Date: Tue,  1 Nov 2022 10:35:19 +0800
+Message-Id: <20221101023521.2384586-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221028102450.1161382-1-ajye_huang@compal.corp-partner.google.com>
- <20221028102450.1161382-2-ajye_huang@compal.corp-partner.google.com>
- <Y1vDYNOwZNOco1hq@sirena.org.uk> <20221031184343.GA3235956-robh@kernel.org>
- <Y2A0fdwnHTqw/NDw@sirena.org.uk>
- <CALprXBYEsB5z-iioBeyeBAwPFkOnkQn8CBbj9Di9CpdqvFFnOg@mail.gmail.com>
-In-Reply-To: <CALprXBYEsB5z-iioBeyeBAwPFkOnkQn8CBbj9Di9CpdqvFFnOg@mail.gmail.com>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Tue, 1 Nov 2022 09:07:27 +0800
-Message-ID: <CALprXBYrKMSx=JRft7eB+YGQc2eDY6VXSrNfuoB3aH8DApi=NQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] ASoC: dt-bindings: Document dmic_sel-gpios
- optional prop for two DMICs case
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, devicetree@vger.kernel.org,
- angelogioacchino.delregno@collabora.corp-partner.google.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
+ bard.liao@intel.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,16 +87,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark, Rob
+The use of dma_data is problematic for two reasons for the Cadence IP.
+a) the dai runtime data has nothing to do with DMAs in existing solutions
+b) we will use the dma_data for DMA-management in the future. We cannot
+share two separate pieces of information with the same dma_data pointer.
 
-I submitted another one to process the kcontrol in the audio machine
-driver instead,  sorry about that previous non-completed mail.
- https://patchwork.kernel.org/project/alsa-devel/patch/20221031122224.1846221-2-ajye_huang@compal.corp-partner.google.com/
-thanks
+Pierre-Louis Bossart (2):
+  soundwire: cadence: rename sdw_cdns_dai_dma_data as
+    sdw_cdns_dai_runtime
+  soundwire: cadence: use dai_runtime_array instead of dma_data
 
-On Tue, Nov 1, 2022 at 9:04 AM Ajye Huang
-<ajye_huang@compal.corp-partner.google.com> wrote:
->
-> Hi Mark, Rob
->
-> To avoid confusion, I had submitted another one for process
+ drivers/soundwire/cadence_master.c |  50 +++++++------
+ drivers/soundwire/cadence_master.h |   9 ++-
+ drivers/soundwire/intel.c          | 111 ++++++++++++++---------------
+ 3 files changed, 86 insertions(+), 84 deletions(-)
+
+-- 
+2.25.1
+

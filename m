@@ -2,91 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE34615C5B
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 07:37:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0E3615D5B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 09:08:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 227D2164D;
-	Wed,  2 Nov 2022 07:36:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 227D2164D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D95781683;
+	Wed,  2 Nov 2022 09:07:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D95781683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667371055;
-	bh=BVd0Kurk15J7uD0aFoX4i0SqCgXAa7JLP342me8FzwE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667376516;
+	bh=UZWWOAYmzMX416LIYkufW8EF7vXYm/UKqfvrVtaQy6Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IoPXIP33quw/z2RPOIitAcF0RxMYLMzS28/avO/2jJb13FAQKTLmJkmMY8xRrY8ow
-	 f56dGRplcSNzOKnYfmNAzFaRoGnxymbc+/qrw24MHXY+y+T74mfO4CDHwwxKbg7LIT
-	 CBlpPtXyx8bk51Aafd4YVFDj7Mpe6InZOaMLm3SE=
+	b=S+rs0RAarVEZYJ+7nhm9uVKzfXY/+QRJNt2kmbNJW3/8xsi3ENHs5CvJu+DzPc/nt
+	 KLJ0vTC3elLtt8fgf2lYRYdIsMurHvv0YCQzkL3kSkU9BrvYS5yj+wtVxc2nDoypAp
+	 Z58Uc41SjIUqodlTIynbNtK7lPXrn6YXmHMxV3O0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C72E4F80423;
-	Wed,  2 Nov 2022 07:36:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B95EF80423;
+	Wed,  2 Nov 2022 09:07:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A12DF8026D; Wed,  2 Nov 2022 07:36:37 +0100 (CET)
+ id 47CECF8026D; Wed,  2 Nov 2022 09:07:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66357F80085
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 07:36:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66357F80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id E88EBF80085
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 09:07:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E88EBF80085
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RyJ2iFjQ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5FQ41kgw"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3F5191F855;
- Wed,  2 Nov 2022 06:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667370990; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CuOQv/5AsFtVYVSdwwMse394DBq94K0CQqQuNCaJjJM=;
- b=RyJ2iFjQqPTfrbufxSjFwwKyERUUvLFULYFkSzzNcR0rxyWWKKNOiu4tsQy24TWMzPSK2G
- TV+bGM4t/clXGbEoyPEpueCFMHQaMF1DmDwG6l17XH+xLZPF7HSaWmb2RdoC7s9X76embQ
- kT0FGElhcVkh2Hq1Wj6za865RAgAOwU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667370990;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CuOQv/5AsFtVYVSdwwMse394DBq94K0CQqQuNCaJjJM=;
- b=5FQ41kgwUO6v9YciawVaRnTjpHC5G4I7mNy1ieEFr4+X7n3PSeCRpWsYG6y6zO82UsPXPz
- m3EnIeX7YQw35xBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1DF50139D3;
- Wed,  2 Nov 2022 06:36:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XnvbBe4PYmMXUwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 02 Nov 2022 06:36:30 +0000
-Date: Wed, 02 Nov 2022 07:36:29 +0100
-Message-ID: <87k04d7thu.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: fix possible memory leak in
- probe_codec()
-In-Reply-To: <9c364bc3-582d-c4ff-9aaf-deeddc30e57b@huawei.com>
-References: <20221022025804.1221953-1-yangyingliang@huawei.com>
- <9c364bc3-582d-c4ff-9aaf-deeddc30e57b@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, cezary.rojewski@intel.com,
- amadeuszx.slawinski@linux.intel.com
+ dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be
+ header.b="JbNeyS5h"
+Received: by mail-wr1-x42e.google.com with SMTP id bk15so23263379wrb.13
+ for <alsa-devel@alsa-project.org>; Wed, 02 Nov 2022 01:07:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mind.be; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vnAnmSt8vCtHb/nQVL50lsBnUPTXAejosvygs/MYwlM=;
+ b=JbNeyS5h0hTdXHTEb7GtydATNNK2dp6NYIPpTKEhsGCCGqDJ1VOzVi5bYnDXhOsnnE
+ RkMCzgXtWadxivKomBKNZQDLjkhlBr+EV2PXAgM4i8Ttp9ELulBYULOd7WgcR2EKFJ3q
+ lwFUelgcOyPgEK2xLpMLSJcM8c1UnOczpntr8cvDPJokixQlcD9liP/aZlOjLmuL31k5
+ I/CfKMMeDqIBXcZCcNVsB6TsIIIz5DTmmKzj7FPb77twt99BDrO32X2x0aH73iHXGjmn
+ BWQ+GvhBtrfKGI3W08tV9vFh06TIapQFk0XYV0uK0Yu0OBo4v+zaCv+fnpmfonY6T9cI
+ ZG3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vnAnmSt8vCtHb/nQVL50lsBnUPTXAejosvygs/MYwlM=;
+ b=dYpFCafwPcyyg1oigZpy/aHNW9fMYav/3tPYac+Mp8PA+SlvCOkHfNILsRZYg/90eA
+ OZXPne1RyRrGAmCpu7MRDw4KBdxA9kfQIkPX3ao6nRQDw0Zm6wvC/i6LZfTKGYD9EzIn
+ 28RB3K+v6dtvYLCj49bsR2J+M58Egr0nVZ/7xCopXaEwneicZBVcd1OyhZeXJ5Bw/vJJ
+ fDeqxzOXdo0h9t/KHiHQ9gA8/B3Y4/fEhKYUYzmi6NQHApcNgN9lwxFOlRW3mjl0sAbI
+ v41wPgfDuOXWZp0zjTErc0DbcYp9H0OVWHs3v8WgeTpmd1Pk2yQRJlCidHv5n55UX99T
+ nxTQ==
+X-Gm-Message-State: ACrzQf00mO1rec8FYRiOEUwnVTOgI0HEAhizoIriq92UpgNU/DGRExi8
+ EWjtjWxy4cXdJAcZ2pKUY4DbIA==
+X-Google-Smtp-Source: AMsMyM4RNUVUAgKayw8H0HZe2yKGYqCfHwE8ipd798ULPS5HZa8qDEqlCcUfle9Oa157pW1r5tZTGA==
+X-Received: by 2002:a05:6000:1849:b0:22e:6d62:cc9e with SMTP id
+ c9-20020a056000184900b0022e6d62cc9emr14532034wri.323.1667376453768; 
+ Wed, 02 Nov 2022 01:07:33 -0700 (PDT)
+Received: from [192.168.2.9] (78-22-137-109.access.telenet.be. [78.22.137.109])
+ by smtp.gmail.com with ESMTPSA id
+ bo29-20020a056000069d00b0022eafed36ebsm12384603wrb.73.2022.11.02.01.07.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Nov 2022 01:07:33 -0700 (PDT)
+Message-ID: <5e62ea97-9a2e-b07d-375b-d029d941d520@mind.be>
+Date: Wed, 2 Nov 2022 09:07:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: [PATCH 1/3] ASoC: adau1372: fix mclk
+To: "Sa, Nuno" <Nuno.Sa@analog.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20221028152626.109603-1-maarten.zanders@mind.be>
+ <20221028152626.109603-2-maarten.zanders@mind.be>
+ <SJ0PR03MB6778A0EB0CD15A3A917BFE4A99379@SJ0PR03MB6778.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: Maarten Zanders <maarten.zanders@mind.be>
+In-Reply-To: <SJ0PR03MB6778A0EB0CD15A3A917BFE4A99379@SJ0PR03MB6778.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,44 +111,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Nov 2022 02:48:30 +0100,
-Yang Yingliang wrote:
-> 
-> +Cc: Takashi Iwai <tiwai@suse.de>
-> 
-> Hi, is this patch good?
+Hi,
 
-Not really.  The codec instances are freed later at avs_pci_remove().
+On 10/31/22 12:20, Sa, Nuno wrote:
+>
+> I guess this needs a Fixes: tag?
 
+Yes, you're right. I figured it'd be less relevant since we're fixing 
+the initial commit, but that was wrong.
 
-Takashi
+Did you get a chance to look at the fix itself?
 
-> 
-> Thanks,
-> Yang
-> On 2022/10/22 10:58, Yang Yingliang wrote:
-> > If snd_hda_codec_configure() fails, 'codec' and name allocated in
-> > dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
-> > by calling snd_hdac_device_unregister() and put_device(), so they
-> > can be freed in snd_hda_codec_dev_release() and kobject_cleanup().
-> > 
-> > Fixes: 1affc44ea5dd ("ASoC: Intel: avs: PCI driver implementation")
-> > Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> > ---
-> >   sound/soc/intel/avs/core.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
-> > index bb0719c58ca4..2fde2b3f8790 100644
-> > --- a/sound/soc/intel/avs/core.c
-> > +++ b/sound/soc/intel/avs/core.c
-> > @@ -140,6 +140,8 @@ static int probe_codec(struct hdac_bus *bus, int addr)
-> >   	ret = snd_hda_codec_configure(codec);
-> >   	if (ret < 0) {
-> >   		dev_err(bus->dev, "failed to config codec %d\n", ret);
-> > +		snd_hdac_device_unregister(&codec->core);
-> > +		put_device(&codec->core.dev);
-> >   		return ret;
-> >   	}
-> >   
-> 
+Thanks!
+

@@ -2,93 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFD7615F3F
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 10:14:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 715A661611B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 11:45:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47454168B;
-	Wed,  2 Nov 2022 10:13:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47454168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0877163F;
+	Wed,  2 Nov 2022 11:44:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0877163F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667380464;
-	bh=yddB8YzbDqd9GZ4u8pL6Zol8d3iPlUtOe1y4r884crs=;
+	s=default; t=1667385922;
+	bh=7I+QHBWjXxivPsU0CF0EiLAC03a7MhfEqs5o1FOXxLg=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LvMwrBPXzZ+53vpfHarE9fc7KoED5RMbiCo9djLdk3O6mcyUHA1yXBH4H2Wli9dsd
-	 Paw4ZCs7PRkigenJ7fOelv3RM0VelVnqTBzsM6PJeqTdCViD+FVYT9exSuF2IRv3Qa
-	 gPRZREjk6KtGXN3Y+0szAP7sXGi6Y9F/d5Hi6eo0=
+	b=VjDkGVmxmHOXLWRPInlCyESMGNokFQ6AtgqumxNj6CjyXQB2Bw38viJg27GsixEYr
+	 xHQMLTiuAJbOwTbO2pXstvMUyQOtoJywOdra2yJQzT0AeoZoJ+jyANxiIGxHe9nnlW
+	 1pMIsgFGGjHXCyjQaMu7Z6f5XgqY4IlIX+VGYIag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDFBEF801D5;
-	Wed,  2 Nov 2022 10:13:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EB91F80423;
+	Wed,  2 Nov 2022 11:44:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95CF4F8026D; Wed,  2 Nov 2022 10:13:26 +0100 (CET)
+ id 15D1BF8026D; Wed,  2 Nov 2022 11:44:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67676F80085;
- Wed,  2 Nov 2022 10:13:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67676F80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id F21B4F80155
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 11:44:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F21B4F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="jhctdhIk"
+ header.b="Oo6F5aYw"
 Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
  [2.237.20.237])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 53B9766015E4;
- Wed,  2 Nov 2022 09:13:17 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 4017D660293F;
+ Wed,  2 Nov 2022 10:44:16 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1667380398;
- bh=yddB8YzbDqd9GZ4u8pL6Zol8d3iPlUtOe1y4r884crs=;
+ s=mail; t=1667385857;
+ bh=7I+QHBWjXxivPsU0CF0EiLAC03a7MhfEqs5o1FOXxLg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jhctdhIkhVmddWdje6jcB76l5ca/7YUVPZs61kGwkJO/cVz37YWfDHEQSuK9YFGzC
- 7+IT0gHZC3aBoS2M+/NwNHePwRSV5dGRhhUU90yrfC4KS4w9fDSQQ50dmgTCkMl3lX
- 98yLtzUOTA8yZebHdWo2Q9qd72HMjMGAxkCA0Eg3wOEqB/RndIpxJsZJnlYMoCSAX8
- 8/nShXz+TBvnTZ7/Niu8zrTcL60yviUi9+uCKQUTjHa5khNmLElHyy9Aw/fdZ2C4OL
- l8RY33ATCTYDNCf5XV5OnYtGNAxzxI+Db+Z1bgGSqoFosXFTR4jaHrd21u1C0hwgNv
- +yNPSVRrSEghg==
-Message-ID: <1f0bb630-20b0-160e-a530-05fae7572b10@collabora.com>
-Date: Wed, 2 Nov 2022 10:13:14 +0100
+ b=Oo6F5aYwAxPLUDE6xKJsRgiC+PQFAQuTrDNMda3YvUKBGll07jsH1+EM/kTbSf22U
+ j10DtNLnmGUlhUvWDrSZkorI/NpOfHVO0vWtqrm7NSsL5mbzKhps6V4qECh9JY9e/9
+ a6RpeAK9jnl67NtEolIn/+gnsG1ELYQwZxLKOrTIHoyAXxrTjZBUWtj11NYEfOC6Pn
+ v8fZ7Vd7cN3jdAx7iRX5uq+mRASp/ScSkiKsT3jup1KOF5z1jCaQDEZYHTHQCFAyAB
+ 7d+ZM0UKJZZrisQIeC9CCTb4EVzUWIyF7b6EJQLm8axoBLKoYUzoI9BqctX6SJUmrM
+ SSAkREHo5cTow==
+Message-ID: <549e1ff6-821a-1c26-0a4f-021bed27b093@collabora.com>
+Date: Wed, 2 Nov 2022 11:44:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.3
-Subject: Re: [PATCH v1 1/2] dt-bindings: dsp: mediatek: Add default clock
- sources for mt8186 dsp
+Subject: Re: [PATCH v5 2/2] ASoC: mediatek: mt8186-rt5682: Modify machine
+ driver for two DMICs case
 Content-Language: en-US
-To: Tinghan Shen <tinghan.shen@mediatek.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Yaochun Hung <yc.hung@mediatek.com>
-References: <20221101061137.25731-1-tinghan.shen@mediatek.com>
- <20221101061137.25731-2-tinghan.shen@mediatek.com>
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ linux-kernel@vger.kernel.org
+References: <20221031122224.1846221-1-ajye_huang@compal.corp-partner.google.com>
+ <20221031122224.1846221-3-ajye_huang@compal.corp-partner.google.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20221101061137.25731-2-tinghan.shen@mediatek.com>
+In-Reply-To: <20221031122224.1846221-3-ajye_huang@compal.corp-partner.google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?Q?N=c3=adcolas_F_=2e_R_=2e_A_=2e_Prado?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,64 +97,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 01/11/22 07:11, Tinghan Shen ha scritto:
-> Add the default clock sources used by mt8186 dsp.
+Il 31/10/22 13:22, Ajye Huang ha scritto:
+> Having two DMICs, a front DMIC and a Rear DMIC,
+> but only host audio input AUX port0 is used for these two Dmics.
+> A "dmic-gpios" property is used for a mixer control to switch
+> the dmic signal source between the Front and Rear Dmic.
 > 
-> Signed-off-by: Tinghan Shen <tinghan.shen@mediatek.com>
+> Refer to this one as an example,
+> commit 3cfbf07c6d27
+> ("ASoC: qcom: sc7180: Modify machine driver for 2mic")
+> 
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 > ---
->   .../devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
+>   .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 102 +++++++++++++++++-
+>   1 file changed, 101 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml b/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
-> index 3e63f79890b4..4cc0634c876b 100644
-> --- a/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
-> +++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
-> @@ -35,11 +35,15 @@ properties:
->       items:
->         - description: mux for audio dsp clock
->         - description: mux for audio dsp local bus
-> +      - description: default clock source for dsp local bus
-> +      - description: default clock source for dsp core
+> diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+> index 2414c5b77233..75351734464c 100644
+> --- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+> +++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+> @@ -7,6 +7,8 @@
+>   // Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+>   //
 >   
->     clock-names:
->       items:
->         - const: audiodsp
->         - const: adsp_bus
-> +      - const: mainpll_d2_d2
-> +      - const: clk26m
+> +#include <linux/gpio.h>
+> +#include <linux/gpio/consumer.h>
+>   #include <linux/input.h>
+>   #include <linux/module.h>
+>   #include <linux/of_device.h>
+> @@ -39,6 +41,8 @@
 >   
->     power-domains:
->       maxItems: 1
-> @@ -82,9 +86,11 @@ examples:
->                 <0x1068f000 0x1000>;
->           reg-names = "cfg", "sram", "sec", "bus";
->           clocks = <&topckgen CLK_TOP_AUDIODSP>,
-> -                 <&topckgen CLK_TOP_ADSP_BUS>;
-> -        clock-names = "audiodsp",
-> -                      "adsp_bus";
-> +                 <&topckgen CLK_TOP_ADSP_BUS>,
-> +                 <&topckgen CLK_TOP_MAINPLL_D2_D2>,
-> +                 <&clk26m>;
-> +        clock-names = "audiodsp", "adsp_bus",
-> +                      "mainpll_d2_d2", "clk26m";
+>   struct mt8186_mt6366_rt1019_rt5682s_priv {
+>   	struct snd_soc_jack headset_jack, hdmi_jack;
+> +	struct gpio_desc *dmic_sel;
+> +	int dmic_switch;
+>   };
+>   
+>   /* Headset jack detection DAPM pins */
+> @@ -68,6 +72,94 @@ static struct snd_soc_codec_conf mt8186_mt6366_rt1019_rt5682s_codec_conf[] = {
+>   	},
+>   };
+>   
+> +static int dmic_get(struct snd_kcontrol *kcontrol,
+> +		    struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
+> +	struct mtk_soc_card_data *soc_card_data =
+> +		snd_soc_card_get_drvdata(dapm->card);
+> +	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
+> +
+> +	ucontrol->value.integer.value[0] = priv->dmic_switch;
+> +	return 0;
+> +}
+> +
+> +static int dmic_set(struct snd_kcontrol *kcontrol,
+> +		    struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
+> +	struct mtk_soc_card_data *soc_card_data =
+> +		snd_soc_card_get_drvdata(dapm->card);
+> +	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
+> +
+> +	priv->dmic_switch = ucontrol->value.integer.value[0];
+> +	if (priv->dmic_sel) {
+> +		gpiod_set_value(priv->dmic_sel, priv->dmic_switch);
+> +		dev_info(dapm->card->dev, "dmic_set_value %d\n",
+> +			 priv->dmic_switch);
+> +	}
+> +	return 0;
+> +}
+> +
+> +static const char * const dmic_mux_text[] = {
+> +	"FrontMic",
+> +	"RearMic",
 
-You are assigning those clocks just to be able to call clk_set_parent() in
-the DSP mt8186-clk driver... and that's not necessary, nor it is the best
-way of doing what you're trying to.
+Why are the two words joined?
+s/FrontMic/Front Mic/g
+s/RearMic/Rear Mic/g
 
-In reality, you don't need to add new clocks and you don't need to manage
-that into the driver, as you can simply assign clock parents in devicetree
-... like:
-
-assigned-clocks = <&topckgen CLK_TOP_AUDIODSP>, <&topckgen CLK_TOP_ADSP_BUS>;
-assigned-clock-parents = <&clk26m>, <&topckgen CLK_TOP_MAINPLL_D2_D2>;
-
-without any clk_set_parent() call in the driver.
-
-When the driver will call clk_prepare_enable() for top_audiodsp and/or for
-top_adsp_bus, the assigned parents' refcount will also be increased (and
-if the parent clock is not enabled, the clk framework will enable it).
+Like that, we keep it consistent with the naming that was given in the commit
+that you mentioned in the commit description.
 
 Regards,
 Angelo
-

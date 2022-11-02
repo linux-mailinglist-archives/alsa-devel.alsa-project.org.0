@@ -2,80 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 893EF616BFF
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 19:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDE2617016
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 22:53:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 242D4168D;
-	Wed,  2 Nov 2022 19:21:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 242D4168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D640C163B;
+	Wed,  2 Nov 2022 22:52:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D640C163B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667413367;
-	bh=XepAn8pB00cuXojd4bCKRy311k713d3dutRJPgty0oM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667426024;
+	bh=CAXmNDqw3R9TEdENrUnA6H8Sfz9kM+6hXtsSbJ20eio=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dfOxwWLO6xPFDY83orZH7hSRCGdHPF1H2QcP1npZtsToYhmJhr/HMabo4T4tpK9do
-	 hsrXJtcU1l8+PyQYDdOEGiKrxC1HEjA4i3/CX4wRUHZAyqHMhjv8Wqv+qyhmcSqvOR
-	 sbcNq7ESP76zYEiFs+6DA5AWGwrLPUdNZSBI6Jws=
+	b=VHT8YCjnzduaHt1zcpihzHegLgGhkUIrou+MsYe1Wdg4E/X64gJpjH7gcBbquq3Jf
+	 ZMeN0sgNDOA0pz+y7cJykj/UlaYhf4IcUxLUuFHd/Kya8MDosCubQCPx5Qb+mQKs3a
+	 WXpKtc4HBBIUahAqTNJZppzAbeQOiVefHHFUOvew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3DE0F8057A;
-	Wed,  2 Nov 2022 19:20:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 277B8F80155;
+	Wed,  2 Nov 2022 22:52:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28ABCF80564; Wed,  2 Nov 2022 19:20:21 +0100 (CET)
+ id A196BF8026D; Wed,  2 Nov 2022 22:52:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=HTML_MESSAGE,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+Received: from 7.mo548.mail-out.ovh.net (7.mo548.mail-out.ovh.net
+ [46.105.33.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 958CDF801D5
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 19:20:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 958CDF801D5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="FXJbnowp"
-Received: from notapiano.myfiosgateway.com (unknown
- [IPv6:2600:4041:5b1a:cd00:524d:e95d:1a9c:492a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 8E717660294A;
- Wed,  2 Nov 2022 18:20:16 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1667413217;
- bh=XepAn8pB00cuXojd4bCKRy311k713d3dutRJPgty0oM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FXJbnowpj5fivK9/7RYMlEUHYX3i70/CGppSC/K753X5zCcVnZIVSNe5eQzrbpUGK
- o6MQKi59CXaw7joeYP7u9foYRYffcqjpO076/MIWUY3U3TLJDxB4knOsD2/WnjUqLn
- 703LFdCLHYCGp+Lg4yfaFjoKytN3Lk4kYeAqgpvcD9AxjviRW68Q3mn324xqCmX2vS
- nObwWqX4yLwAQtlcgK0GJ5UFUgjVDQ6V8cOz0Bz9AaGR0Jx5VpN74vO70aZUgfyLV4
- tXqyONUQ66Po4vvYuVZFWZZVcKmBOc1R3eEA+MVAwGDHsDdLxaFDKFNUw2tYCG4PYB
- zg9xSGElm4ILg==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH v2 6/8] ASoC: rt5682: Support DBVDD and LDO1-IN supplies
-Date: Wed,  2 Nov 2022 14:20:00 -0400
-Message-Id: <20221102182002.255282-7-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221102182002.255282-1-nfraprado@collabora.com>
-References: <20221102182002.255282-1-nfraprado@collabora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78B99F801D5
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 22:52:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78B99F801D5
+Received: from mxplan2.mail.ovh.net (unknown [10.108.20.195])
+ by mo548.mail-out.ovh.net (Postfix) with ESMTPS id 6C6C220A26
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 21:52:39 +0000 (UTC)
+Received: from gnuinos.org (37.59.142.108) by DAG5EX1.mxp2.local (172.16.2.9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12; Wed, 2 Nov
+ 2022 22:52:38 +0100
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-108S0029d384dd9-7574-4b76-878b-4f0506cebac0,
+ 1DFBCCADF7BBE204CC0E3BBD30E5C178FDFA6A19) smtp.auth=aitor_czr@gnuinos.org
+X-OVh-ClientIp: 88.10.253.183
+Message-ID: <b5a0798d-68ad-bbb1-97af-8ea11aed9e31@gnuinos.org>
+Date: Wed, 2 Nov 2022 22:52:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: building aplay / arecord
+Content-Language: en-US
+To: <alsa-devel@alsa-project.org>
+References: <CAG74igXPJjnQF6-nbXn2bXywWA0cKpR3cDhYPwg=fKN6J_yZZA@mail.gmail.com>
+ <Y2KJntHXy19DEBck@shelf.conquest>
+From: aitor <aitor_czr@gnuinos.org>
+In-Reply-To: <Y2KJntHXy19DEBck@shelf.conquest>
+X-Originating-IP: [37.59.142.108]
+X-ClientProxiedBy: DAG7EX1.mxp2.local (172.16.2.13) To DAG5EX1.mxp2.local
+ (172.16.2.9)
+X-Ovh-Tracer-GUID: 9ac2a255-229e-4e6c-9df9-4f478cdb8ab9
+X-Ovh-Tracer-Id: 16620252951775864343
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvgedrudejgdduheegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpegtkfffgggfuffvfhfhjghisegrtderredtfeejnecuhfhrohhmpegrihhtohhruceorghithhorhgptgiirhesghhnuhhinhhoshdrohhrgheqnecuggftrfgrthhtvghrnhepudelveetveekjefhvddvkefgkeffhefghfeuhfevleekvddtueethedvhfevtdefnecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrddutdeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeorghithhorhgptgiirhesghhnuhhinhhoshdrohhrgheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheegkedpmhhouggvpehsmhhtphhouhht
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,46 +87,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for the DBVDD and LDO1-IN supplies.
+Hi David,
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+On 2/11/22 16:15, ael wrote:
 
----
+> On Mon, Oct 31, 2022 at 06:04:26PM -0700, David Jaffe wrote:
+>> Newbie question...
+>>
+>> I downloaded the alsa-utils source and it says to run ./configure.  But no
+>> such file exists.  And if I go to aplay and type “make aplay” it can’t find
+>> a file called “aconfig.h”, which is presumably written by
+>> ./configure.  What am I missing?
+> I think that you need to run autoconf on the configure.ac file which
+> you should have: it is there in the git directory.
+>
+> Perhaps read
+>   man autoconf ?
+>
+> The INSTALL file does indeed say run ./configure without explaining that
+> you need autoconf if ./configure is not present.
 
-Changes in v2:
-- Made names uppercase
+Projects making use of the autotools often provide a script named `autogen.sh`
+to do the job concerning to autoconf. Try with this:
 
- sound/soc/codecs/rt5682.c | 2 ++
- sound/soc/codecs/rt5682.h | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+$ autoreconf -f -i -s
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 2df95e792900..7e3eb65afe16 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -35,6 +35,8 @@ const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] = {
- 	"AVDD",
- 	"MICVDD",
- 	"VBAT",
-+	"DBVDD",
-+	"LDO1-IN",
- };
- EXPORT_SYMBOL_GPL(rt5682_supply_names);
- 
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index 52ff0d9c36c5..d568c6993c33 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -1424,7 +1424,7 @@ enum {
- 	RT5682_CLK_SEL_I2S2_ASRC,
- };
- 
--#define RT5682_NUM_SUPPLIES 3
-+#define RT5682_NUM_SUPPLIES 5
- 
- struct rt5682_priv {
- 	struct snd_soc_component *component;
--- 
-2.38.1
+This will generate the configure script.
+
+On the other hand, as suggested by ael, the manpages will give you the meaning
+of the arguments passed to the command:
+
+$ man autoreconf
+
+Hope this helps,
+
+Aitor.
 

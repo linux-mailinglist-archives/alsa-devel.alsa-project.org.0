@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1E5616BF8
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 19:21:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95D3616BFB
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 19:21:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF3511663;
-	Wed,  2 Nov 2022 19:20:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF3511663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CC1F1655;
+	Wed,  2 Nov 2022 19:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CC1F1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667413270;
-	bh=73yq3hSmCgnnBnC9+ZUyzTnv19Mj0CWcIsrmUiNrmxI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kfgZUeh0g1aZUmmhOMmLnNQrx8bYXGUM/brNsi9fd5pb/ZwGjS4qe8j+ALkuR3mwC
-	 BqYjzFJLdRYapbqLsmY4ujysmQTewRi3/RW0/MC+6n4f+g6Z0cMv4B7/4Y5IIHAvrX
-	 ruaHHusD7U92pyGZPbXN2AClw85ikva0Ob5WJAbI=
+	s=default; t=1667413296;
+	bh=iEfgs5/IYGmZLK5vLu7xq05AP6DxnckLW0sEoea0frY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QPD8ABHObreyJ/rAyC9hTCFtQjE8J+2lrVp+W+1OrmI/MWQVSCpvnpzXn5j8WsY8h
+	 Qv6Uq7SCokNtCTsX8OUQ05zuP38Ek4IFQJLKjLKpWJidCBoN7J28r7WOYK0pt1NCkG
+	 /WynBGz74Rf27QpoP9oHzs8HljT9bDnp4jOsexBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE676F80085;
-	Wed,  2 Nov 2022 19:20:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6724F8026D;
+	Wed,  2 Nov 2022 19:20:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72722F80085; Wed,  2 Nov 2022 19:20:13 +0100 (CET)
+ id EB663F80552; Wed,  2 Nov 2022 19:20:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04E2DF801D5
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 19:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04E2DF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B0E8F80254
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 19:20:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B0E8F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="omK34qDx"
+ header.b="JtRxA8W7"
 Received: from notapiano.myfiosgateway.com (unknown
  [IPv6:2600:4041:5b1a:cd00:524d:e95d:1a9c:492a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: nfraprado)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EC23566028BD;
- Wed,  2 Nov 2022 18:20:05 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 3C37566028E7;
+ Wed,  2 Nov 2022 18:20:08 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1667413207;
- bh=73yq3hSmCgnnBnC9+ZUyzTnv19Mj0CWcIsrmUiNrmxI=;
- h=From:To:Cc:Subject:Date:From;
- b=omK34qDxLzEuDlGtMXDGhcAOcY4mxHxqYYS4VJQp20qGEOIofJX3PmEhQrJXS6RHt
- 39fe/AbQJxKAqXZ5KKlg0k2gP/D8pbZGTl18E4kHjW8sgEB7KyxV5F/NifoYyI38q7
- gooAraSdx3SvF0rz3tpLFwGOLuMPcERWAJwZTI8C3m7cDuFfa0uBSwupvNbd6+etB8
- /fuf9ZEXDZJDRknvb7egxXCZ+R56vncD21qZh1ad1nHwQEGPICo018iLqy/CUMuvSF
- 6j1KQfr2dKLFmOarx6lC4Hs+V5HFf0VDMCPQxmM0+/G9KxGg7Wo27Hy1iumSxnEUlk
- 0WSHSrkT3SLig==
+ s=mail; t=1667413209;
+ bh=iEfgs5/IYGmZLK5vLu7xq05AP6DxnckLW0sEoea0frY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=JtRxA8W7bF4/NcHMNMq2PIygyK9OwqM6gojFJZtfrdzUWgCwWIJ1+icj6wGwudqt5
+ PzNGvMHcirjs4x71srNeg+LokD8kJ4nvjbmjdOivqdkqInWpfUs/GM8VqsNmlOHzbp
+ JwS/5eEcJr9cxAOuuexzZdLbtJPFJpykDI24zVXWa5xn7N+VQLCLXU8rRrtO+maI5P
+ exexpzKigGQt9GvuLvJqvVuVpI1EnaxFRg4GxpYR3kkAgwNjaOkLR+xLywCidA0C6D
+ jFQOHCp5jR2W32OxAgZVMbOGTKBkd+diQMDc3qGY+5yQzbIR00tXUIY8rPaJR0eJcs
+ Vu4KhtT3aze1g==
 From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
  <nfraprado@collabora.com>
 To: Mark Brown <broonie@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH v2 0/8] Adjust usage of rt5682(s) power supply properties
-Date: Wed,  2 Nov 2022 14:19:54 -0400
-Message-Id: <20221102182002.255282-1-nfraprado@collabora.com>
+Subject: [PATCH v2 1/8] ASoC: dt-bindings: realtek,
+ rt5682s: Add AVDD and MICVDD supplies
+Date: Wed,  2 Nov 2022 14:19:55 -0400
+Message-Id: <20221102182002.255282-2-nfraprado@collabora.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221102182002.255282-1-nfraprado@collabora.com>
+References: <20221102182002.255282-1-nfraprado@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org,
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>, linux-arm-msm@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Andy Gross <agross@kernel.org>, Derek Fang <derek.fang@realtek.com>,
+ <nfraprado@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Derek Fang <derek.fang@realtek.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
- linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -93,50 +95,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The rt5682s codec has two supplies - AVDD and MICVDD - which are already
+used by sc7180-trogdor-kingoftown.dtsi. Document them in the binding.
 
-This series sets straight the usage of power supply properties for the
-rt5682 and rt5682s audio codecs.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-These properties were already being used by sc7180-trogdor.dtsi (and
-derived DTs like sc7180-trogdor-kingoftown.dtsi).
+---
 
-We start by documenting the power supplies that are already in use and
-then add few others that were missing to the bindings.
+(no changes since v1)
 
-Then we update the drivers to also support the new supplies.
+ .../devicetree/bindings/sound/realtek,rt5682s.yaml   | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Finally we update the trogdor DTs so they have the newly added but
-required supplies and remove a superfluous one that was causing
-warnings.
-
-v1: https://lore.kernel.org/all/20221028205540.3197304-1-nfraprado@collabora.com
-
-Changes in v2:
-- Made new supply names uppercase to be consistent with the existing
-  ones
-
-Nícolas F. R. A. Prado (8):
-  ASoC: dt-bindings: realtek,rt5682s: Add AVDD and MICVDD supplies
-  ASoC: dt-bindings: realtek,rt5682s: Add DBVDD and LDO1-IN supplies
-  ASoC: dt-bindings: rt5682: Add AVDD, MICVDD and VBAT supplies
-  ASoC: dt-bindings: rt5682: Add DBVDD and LDO1-IN supplies
-  ASoC: rt5682s: Support DBVDD and LDO1-IN supplies
-  ASoC: rt5682: Support DBVDD and LDO1-IN supplies
-  arm64: dts: qcom: sc7180-trogdor: Add missing supplies for rt5682
-  arm64: dts: qcom: sc7180-trogdor: Remove VBAT supply from rt5682s
-
- .../bindings/sound/realtek,rt5682s.yaml       | 23 +++++++++++++++++++
- .../devicetree/bindings/sound/rt5682.txt      | 20 ++++++++++++++++
- .../dts/qcom/sc7180-trogdor-kingoftown.dtsi   |  1 +
- ...0-trogdor-wormdingler-rev1-boe-rt5682s.dts |  1 +
- ...0-trogdor-wormdingler-rev1-inx-rt5682s.dts |  1 +
- arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |  2 ++
- sound/soc/codecs/rt5682.c                     |  2 ++
- sound/soc/codecs/rt5682.h                     |  2 +-
- sound/soc/codecs/rt5682s.c                    | 22 ++++++++++++++++++
- sound/soc/codecs/rt5682s.h                    |  2 ++
- 10 files changed, 75 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
+index 1c0b06d82369..b7338bfc0f5a 100644
+--- a/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
++++ b/Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
+@@ -90,11 +90,20 @@ properties:
+   "#sound-dai-cells":
+     const: 1
+ 
++  AVDD-supply:
++    description: Regulator supplying analog power through the AVDD pin.
++
++  MICVDD-supply:
++    description: Regulator supplying power for the microphone bias through the
++      MICVDD pin.
++
+ additionalProperties: false
+ 
+ required:
+   - compatible
+   - reg
++  - AVDD-supply
++  - MICVDD-supply
+ 
+ examples:
+   - |
+@@ -120,5 +129,8 @@ examples:
+ 
+             clocks = <&osc>;
+             clock-names = "mclk";
++
++            AVDD-supply = <&avdd_reg>;
++            MICVDD-supply = <&micvdd_reg>;
+         };
+     };
 -- 
 2.38.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223D161625C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 13:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139CA616267
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 13:07:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF129168B;
-	Wed,  2 Nov 2022 12:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF129168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B160167C;
+	Wed,  2 Nov 2022 13:06:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B160167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667390449;
-	bh=WKvGfL69rOy6KXKNG8xSW3V/n2gls/who/ez/iS0WJk=;
+	s=default; t=1667390821;
+	bh=JbTvEd4Qf4AT3F87ow055ku25Tt29YsSUga2w4MjhCE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mqYJCQ2ZG0+SasVP3KJ2GHIRtAP/eyBBuiXhcs9s4OjQytTGeOe9MgSCQXkULSAce
-	 tuNB8J5iQs7ggUy/Xqi4bWZ66JtBhsIioNmuheA7JY2bjpvnVef1hGaZcDrmSIHgz0
-	 nk4oWn42IxZx1v83IlvdrRpGRS4VUjxmc2Q9a3KU=
+	b=Dq2odTtfe/qqwiV0I2MfWrcY7I2ApTujEPmyazvFozQR+3WZ7ZrtzyE1ey1LIXrTq
+	 4Z1xp1ewg22gkVKQEriWBLviOFZlMvB7XnuODrGwIE6ibb4i9i+wbHUy9ojyrKu81I
+	 yxaSKpRGePGTOxEroYCd8avY3FkwUX81cfMDppSM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 110D1F80423;
-	Wed,  2 Nov 2022 12:59:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EE0CF80423;
+	Wed,  2 Nov 2022 13:06:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A427F8026D; Wed,  2 Nov 2022 12:59:53 +0100 (CET)
+ id 76A71F8026D; Wed,  2 Nov 2022 13:06:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,54 +34,55 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9316F80155
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 12:59:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9316F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66A00F80155
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 13:06:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66A00F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fl/Zmwpq"; 
+ header.b="Jnt2itQd"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9jNRbGyg"
+ header.b="B3UuMDe5"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B04961F8BE;
- Wed,  2 Nov 2022 11:59:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BD8101F8D5;
+ Wed,  2 Nov 2022 12:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667390389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667390759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=f0PFgiF0xvXPwx6dkzs7Ix4/erN5LNBcjdIUg2uMQSQ=;
- b=fl/Zmwpqn90PuTlbFllHMuPlizC3agS+OUvarFZ7fPa4fLgVIDEGEsw1Nuy47S8nLkwOKs
- UMbE9gvn1szxddyn51hvFfC5/P23cCb2D8j8htqqdXwun5kvkvJw4xpHm8n4oTan5JDLSG
- eHfpjWR7c6UmGyXB3FkjTJXB6bjc+y0=
+ bh=/b+ZBeK/gsa3jyNR700XOHPFPhDWprdJXuaCptkji98=;
+ b=Jnt2itQdIwwYd2mOTyOdcxZu7WZILR9AwpMhtKEav+6DDX9OrFSpyga42owF4hnvzGr+aT
+ CZlYna3TbajMI/X+7SSCK/KyWynw2Cu88L0rive+gC4OGaCSkcRkS8HyslEg19rzYxdVUt
+ rktDfH8JHnb6h78k/GD6SXVw02bAlik=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667390389;
+ s=susede2_ed25519; t=1667390759;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=f0PFgiF0xvXPwx6dkzs7Ix4/erN5LNBcjdIUg2uMQSQ=;
- b=9jNRbGygEHfaLytjpWcWDTmNf2sJAeXXoYXMeMaGvmj7bo7GtmBSUMpt1K0uAc2aw1OVpU
- ZQPHpRANWPjIG7BA==
+ bh=/b+ZBeK/gsa3jyNR700XOHPFPhDWprdJXuaCptkji98=;
+ b=B3UuMDe5FSVzTwPmge/nHGdJ0J7MCfxrDsr87Ve9kZIL8prSVHHpyDk2pr/mhWYeK3wMPV
+ AHjW+FC2qQYkZuDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C31513AE0;
- Wed,  2 Nov 2022 11:59:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B0C8F13AE0;
+ Wed,  2 Nov 2022 12:05:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NTMoJbVbYmNmBgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 02 Nov 2022 11:59:49 +0000
-Date: Wed, 02 Nov 2022 12:59:49 +0100
-Message-ID: <877d0dtvm2.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id hAa/KiddYmMQCgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 02 Nov 2022 12:05:59 +0000
+Date: Wed, 02 Nov 2022 13:05:59 +0100
+Message-ID: <8735b1tvbs.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH] ALSA: usb-audio: Fix regression with Dell Dock jack
  detection
-In-Reply-To: <9b0c4f2d-1856-a80d-ad9d-9b34436fdc1c@perex.cz>
+In-Reply-To: <877d0dtvm2.wl-tiwai@suse.de>
 References: <20221102113404.11291-1-tiwai@suse.de>
  <9b0c4f2d-1856-a80d-ad9d-9b34436fdc1c@perex.cz>
+ <877d0dtvm2.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -101,34 +102,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Nov 2022 12:53:48 +0100,
-Jaroslav Kysela wrote:
+On Wed, 02 Nov 2022 12:59:49 +0100,
+Takashi Iwai wrote:
 > 
-> On 02. 11. 22 12:34, Takashi Iwai wrote:
-> > The recent commit added Jack controls to Dell Dock, but it added with
-> > iface = SNDRV_CTL_ELEM_IFACE_CARD.  Unfortunately this doesn't match
-> > with the changes in user-space UCM profile, which expects iface =
-> > SNDRV_CTL_ELEM_IFACE_MIXER as default.  This mismatch resulted in the
-> > non-working profile, and the Dell Dock is gone on pipewire /
-> > PulseAudio after the kernel update.
+> On Wed, 02 Nov 2022 12:53:48 +0100,
+> Jaroslav Kysela wrote:
 > > 
-> > Fix the regression by adjusting the iface of the new ctl elements to
-> > *_MIXER.
+> > On 02. 11. 22 12:34, Takashi Iwai wrote:
+> > > The recent commit added Jack controls to Dell Dock, but it added with
+> > > iface = SNDRV_CTL_ELEM_IFACE_CARD.  Unfortunately this doesn't match
+> > > with the changes in user-space UCM profile, which expects iface =
+> > > SNDRV_CTL_ELEM_IFACE_MIXER as default.  This mismatch resulted in the
+> > > non-working profile, and the Dell Dock is gone on pipewire /
+> > > PulseAudio after the kernel update.
+> > > 
+> > > Fix the regression by adjusting the iface of the new ctl elements to
+> > > *_MIXER.
+> > 
+> > Hi Takashi,
+> > 
+> > UCM expects SNDRV_CTL_ELEM_IFACE_CARD for jacks by default. Which
+> > change do you refer? I would drop this patch.
 > 
-> Hi Takashi,
-> 
-> UCM expects SNDRV_CTL_ELEM_IFACE_CARD for jacks by default. Which
-> change do you refer? I would drop this patch.
+> It's about ucm2/USB-Audio/Dell/WD15-Dock-HiFi.conf, the JackControl
+> entries.  For example,
+> 		JackControl "Headphone Jack"
+> expects the mixer element.  The bad thing is that the complete card
+> entry disappears because of inconsistency.
+> If you modify the entry as
+> 		JackControl "name='Headphone Jack',iface=CARD"
+> it would work.  But the fact that other JackControl stuff works, it's
+> better to align the USB-audio with IFACE_MIXER, I guess.
 
-It's about ucm2/USB-Audio/Dell/WD15-Dock-HiFi.conf, the JackControl
-entries.  For example,
-		JackControl "Headphone Jack"
-expects the mixer element.  The bad thing is that the complete card
-entry disappears because of inconsistency.
-If you modify the entry as
-		JackControl "name='Headphone Jack',iface=CARD"
-it would work.  But the fact that other JackControl stuff works, it's
-better to align the USB-audio with IFACE_MIXER, I guess.
+Hm, looking at the UCM code, UCM should treat IFACE_CARD as default,
+indeed.  Something went south.  Will take a deeper look.
 
 
 Takashi

@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA06961644C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 15:01:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B65561646F
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 15:06:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 354F91685;
-	Wed,  2 Nov 2022 15:01:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 354F91685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320E5167F;
+	Wed,  2 Nov 2022 15:06:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320E5167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667397719;
-	bh=Spa3gPaTmB3aNC2He4rWPi2auycIIMZVVH3113FcR60=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1667398019;
+	bh=UkVwzErMvpsvbDA6B1v7Br2CwAYGnrS4Z4sFGRcnJ48=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ghY79WxuAg/EEX0DhZhl7msRJdjpiH/go+vH6qe5JqkWCeTFsaSxegiB23+IpshHA
-	 9lEZbJwO+nwmOB3yLtgYxvg6RKbJd/OiAoLEfsa24bXoS0e7oZCh3aB5kwAU0qQIBc
-	 TKW+Umr71UJ10CazlMIAOzxKYH/KVKaxRzRHmUU4=
+	b=g7aJLByq+G8YpTg5MEtArypji9gZ3LCGYiq0IMUb0llYnHg+d/JK36PI09q5gwfBf
+	 IOwNUecEPY/L7GHGSlfqJCKKv32gTTuNP7XKqhSNrkcIhqoaatd9ELAENol1KjM577
+	 9damy18fDir0hsGEf+naxRy7+95BH6HvnyUxN+uE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C627F801D5;
-	Wed,  2 Nov 2022 15:01:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87876F80423;
+	Wed,  2 Nov 2022 15:06:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FFE5F8026D; Wed,  2 Nov 2022 15:01:02 +0100 (CET)
+ id 94BBCF8026D; Wed,  2 Nov 2022 15:06:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A81CF80155
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 15:00:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A81CF80155
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K66ZmBsQ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9D9F861985;
- Wed,  2 Nov 2022 14:00:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41C4C433D6;
- Wed,  2 Nov 2022 14:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667397653;
- bh=Spa3gPaTmB3aNC2He4rWPi2auycIIMZVVH3113FcR60=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=K66ZmBsQQSgFBG67uso/hrT5+EeR7fSA70UVKnpDzTmaFEYfholgpjRN+Z3k4TJ23
- +QkO+/P8pioAaeiTztrzKY0Wo2QFvqagfOihHoXwKhp3nJz0WaySkTNLtTvDFuT1gu
- f8CpdeB1kz8sGU/fS+IwPGTdvQ4/O52y0zTqqUSvJv0HQIwQglMVwNMYuaArz67sxj
- VrmnrgghvVtypyhz2HzvmiGMtWYdS9giOfY7OMUJT8LnUgyGhxlJkWxa092h3wcVWQ
- FxVw2JyATQPAxkhGTfbAqMka7b/gPg7uNasga1BVmxSXgmCCAiPv7AtCl1vNfbRhSM
- toYnjE7MWR4SQ==
-From: Mark Brown <broonie@kernel.org>
-To: Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20221021123849.456857-1-yangyingliang@huawei.com>
-References: <20221021123849.456857-1-yangyingliang@huawei.com>
-Subject: Re: [PATCH v3 1/2] ASoC: Intel: Skylake: fix possible memory leak in
- skl_codec_device_init()
-Message-Id: <166739765157.96602.11670077664480638231.b4-ty@kernel.org>
-Date: Wed, 02 Nov 2022 14:00:51 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70985F80155
+ for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 15:05:43 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 00843A003F;
+ Wed,  2 Nov 2022 15:05:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 00843A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1667397943; bh=VUl0RXQyalJYDZDvUWd3ekU4t7uDakyPlOZaQS/GAzw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JLqZCsGeiipGaHAf05J6vEK5W8uGM7/HOB2OowNKy2dm0UYq+UlLFaoJjPvm2gB81
+ F8V+6g1zcJRCek4KWbdb9NR8fi+p3mplsyju74nd6iHlhGFAO9GlyPKXrcMUZf2VDT
+ 3M9Q3mOOb+nlH2/CpYS9e+iemqGLZ2y6JBTRH6MI=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  2 Nov 2022 15:05:40 +0100 (CET)
+Message-ID: <3de26c91-9645-7e0a-a18d-8dfa10eecbbb@perex.cz>
+Date: Wed, 2 Nov 2022 15:05:40 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: tiwai@suse.de, cezary.rojewski@intel.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ALSA: usb-audio: Fix regression with Dell Dock jack
+ detection
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+References: <20221102113404.11291-1-tiwai@suse.de>
+ <9b0c4f2d-1856-a80d-ad9d-9b34436fdc1c@perex.cz> <877d0dtvm2.wl-tiwai@suse.de>
+ <8735b1tvbs.wl-tiwai@suse.de> <8166d07d-804b-f81e-7b2b-c848da851527@perex.cz>
+ <87r0ylsexn.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <87r0ylsexn.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +84,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 Oct 2022 20:38:48 +0800, Yang Yingliang wrote:
-> If snd_hdac_device_register() fails, 'codec' and name allocated in
-> dev_set_name() called in snd_hdac_device_init() are leaked. Fix this
-> by calling put_device(), so they can be freed in snd_hda_codec_dev_release()
-> and kobject_cleanup().
+On 02. 11. 22 13:45, Takashi Iwai wrote:
+
+> BTW, while looking at this bug, I noticed another bug in alsa-lib
+> src/ucm/main.c.  The check in snd_use_case_parse_ctl_elem_id() should
+> be rather to the value, not the identifier:
 > 
-> 
+> --- a/src/ucm/main.c
+> +++ b/src/ucm/main.c
+> @@ -2793,7 +2793,7 @@ int snd_use_case_parse_ctl_elem_id(snd_ctl_elem_id_t *dst,
+>   	    strcmp(ucm_id, "CaptureSwitch"))
+>   		return -EINVAL;
+>   	snd_ctl_elem_id_clear(dst);
+> -	if (strcasestr(ucm_id, "name="))
+> +	if (strcasestr(value, "name="))
+>   		return __snd_ctl_ascii_elem_id_parse(dst, value, NULL);
+>   	iface = SND_CTL_ELEM_IFACE_MIXER;
+>   	if (jack_control)
 
-Applied to
+Oops. Thanks, it looks like an obvious thinko. Fixed right now.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+					Jaroslav
 
-Thanks!
-
-[1/2] ASoC: Intel: Skylake: fix possible memory leak in skl_codec_device_init()
-      commit: 0aa60ddc219e7bac967605ecbe46f2f6cd24ee9c
-[2/2] ASoC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init()
-      commit: 0d183c27ed30a3b21a8fbd6db4d1d7779faf1503
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

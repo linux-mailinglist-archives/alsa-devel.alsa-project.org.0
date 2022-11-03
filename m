@@ -2,84 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17024618798
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 19:33:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92308618913
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 20:54:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981961657;
-	Thu,  3 Nov 2022 19:33:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981961657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF381650;
+	Thu,  3 Nov 2022 20:54:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF381650
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667500434;
-	bh=Hck8cjJ+4R3//xB7Q8qTKGJ9aassQ5/yidi0JVA2cWo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FblzLUsX+N9CaRrh2cg/SIpSYmFavJBDxNKFg24MT7sPIv5i4ql3T/2yiplUMQ6+z
-	 5B9nPtWkjUNQr4eMLK8A8VdSZZ+wlThSXQIzSvfw7UhpqkOK6dcspeAZ4svCEEZdpx
-	 Wkwcj3kFTFUi3w6/6Y5LU6cNN+TRSXZKEk5/z8L4=
+	s=default; t=1667505291;
+	bh=Ke2OWyKkmvb5OzrWisgdeg4GQ+hmPCta2i7J2MP3QS0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iaFpveSvRnX687N+f0bOBGhdq7anhCSTvBlpCmUpi2gXlDMLOxEhoUT+4x18kTVwi
+	 ZR8IU/hXV2E2XWMaSJkqfTUtRDIjgmUwTuQ8dqNRE/OUHduv7bPAxiPUbaQa/shQI4
+	 3yg2yHXJ2MWvc4iYePa8Fq3yL0OXcTtd5fo6V5bo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE4BF8051F;
-	Thu,  3 Nov 2022 19:32:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BD4DF80525;
+	Thu,  3 Nov 2022 20:53:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08C9DF8051E; Thu,  3 Nov 2022 19:32:57 +0100 (CET)
+ id 43490F80525; Thu,  3 Nov 2022 20:53:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [IPv6:2607:f8b0:4864:20::72e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FDF5F800BF
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 19:32:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FDF5F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01298F801D5
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 20:53:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01298F801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ejOx1hr6"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9C37E61FBF;
- Thu,  3 Nov 2022 18:32:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7F0C433C1;
- Thu,  3 Nov 2022 18:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667500371;
- bh=Hck8cjJ+4R3//xB7Q8qTKGJ9aassQ5/yidi0JVA2cWo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ejOx1hr62Urb3MPgwsvwVgy8/5u4h4hzChkyJEo5u06oUX+ssYAcJqI6cInVX1LhP
- hOpUu/zXdK9PWCBk+zBXwdNLgiA1YuPzZDawmP11vMRnXpbNoaTCdPoVmeRIn5cNEm
- TFxYWFocut+w26Wm6BgeI8uWEG0Pbin78DGlZU2cNKWl6MdEbuIOxkNHn3TRvraDeF
- HTDIGeYUPnSikE4nctDrqWgR89VPqaMOENOFCyzY7ZGnY6qgXXhXWqgDTrFDdxLB9Z
- zDjBOyxgEBIO/UY5LOuaP1JF7s44fL2UW7JNOJBbbGKR9XUY29oi/ss+9HvRJ7kOmm
- MuTW6+RXC/ECw==
-Date: Thu, 3 Nov 2022 18:32:43 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Sean Anderson <sean.anderson@seco.com>
-Subject: Re: [PATCH 1/2] component: Add helper for device nodes
-Message-ID: <Y2QJS+M1xX2RaK1v@sirena.org.uk>
-References: <20221103182222.2247724-1-sean.anderson@seco.com>
- <20221103182222.2247724-2-sean.anderson@seco.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="NiOjngkr"
+Received: by mail-qk1-x72e.google.com with SMTP id z1so1869660qkl.9
+ for <alsa-devel@alsa-project.org>; Thu, 03 Nov 2022 12:53:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B8OPD5SdDugxqBTcH6K5BwRgjhIONxvnoSDJQa8wlKs=;
+ b=NiOjngkra0YgcxX92AvSFHaEiKJ2RLuDxh5KHGSXBUij3nxztpOaWtHGt2cVeSi6QD
+ c3hajrwQnWk40SBqrwYqQ39whdrLxYZKDapLoBI3w7fFsdXMCr7XPK+4Z7j613yhCPnx
+ HGuUgn7IqXQioBmJ7tHHp+zewdzqM0NZbH5vCeI4p7cxz+0IgNWXvCSUQGYUzI7Zlzwz
+ 1U4GtWjm/5VJSaeLFfmBCqftDUgx+vrRk4zkPcgELzwF3gZtRGLav/eCwBe0a2Sef7Iw
+ iGz/1HVFmJsIw3FbtPSR6udzyfz0/lyNFImtdgnyWFA8ke6Jybj1s8JUKF+IDdCyAxB/
+ 1rVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B8OPD5SdDugxqBTcH6K5BwRgjhIONxvnoSDJQa8wlKs=;
+ b=i4Me1Hd2bHlwP3RuChoh6jO71ZA7CDnY0B/TE9sGYpw5bNQn2zxLgzkE+9H4yeKXMG
+ X3y0zHGzet/zXTQ2gCVbjDc16DiAqXh5kp5zZjaxTRBk1Lw+iU6pO9HdE9HjcPxLyVQP
+ wMiQPG3qFhMk25B1q+2P9+2wTeOePQypHLfMno9X6rjm+Z5TopebUSSuazcOOTq3ap/l
+ daKTH8M2e7rD0Yb1MOHrZs/p47JBwpk77pe3CzxhEk0HJGXLQmYofaOsS+KM4JpEBNxx
+ rFroTFjE6nz5tG+ozzViIthtlOTpXR6VEAhfC+NjPA50G2kg40I6/eD3bQ09QbdDruYD
+ g2VQ==
+X-Gm-Message-State: ACrzQf1qRHKPOM9PqrYPKRRPr8PENIl76Vun7gRAuDfxz4SO6J/uBeUU
+ xUFC2d13v+5/PgYSsIbWK1xIdg==
+X-Google-Smtp-Source: AMsMyM7FFoacjbKWGh/95PpW8gyE0h/dzOYTRGJt9GOcoOtoKRUw00mgda8sl/n++3DtKfBSsR91EA==
+X-Received: by 2002:a05:620a:13ee:b0:6fa:1ef7:a3b7 with SMTP id
+ h14-20020a05620a13ee00b006fa1ef7a3b7mr20957047qkl.265.1667505224868; 
+ Thu, 03 Nov 2022 12:53:44 -0700 (PDT)
+Received: from krzk-bin.. ([2601:586:5000:570:a35d:9f85:e3f7:d9fb])
+ by smtp.gmail.com with ESMTPSA id
+ de41-20020a05620a372900b006b615cd8c13sm1328892qkb.106.2022.11.03.12.53.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Nov 2022 12:53:44 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: dt-bindings: qcom,
+ lpass: do not hard-code clock-output-names
+Date: Thu,  3 Nov 2022 15:53:39 -0400
+Message-Id: <20221103195341.174972-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZW7Ag/fXdrbtoky8"
-Content-Disposition: inline
-In-Reply-To: <20221103182222.2247724-2-sean.anderson@seco.com>
-X-Cookie: Dead?	No excuse for laying off work.
-Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Will Deacon <will@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, linux-mediatek@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>, David Airlie <airlied@gmail.com>,
- Yong Wu <yong.wu@mediatek.com>
+Content-Transfer-Encoding: 8bit
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,35 +109,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The purpose of clock-output-names is to customize desired clock name,
+not use one, same name.
 
---ZW7Ag/fXdrbtoky8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ .../devicetree/bindings/sound/qcom,lpass-rx-macro.yaml         | 3 +--
+ .../devicetree/bindings/sound/qcom,lpass-tx-macro.yaml         | 3 +--
+ .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml         | 3 +--
+ .../devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml        | 3 +--
+ 4 files changed, 4 insertions(+), 8 deletions(-)
 
-On Thu, Nov 03, 2022 at 02:22:21PM -0400, Sean Anderson wrote:
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+index 1de11e7f33bb..14016671f32b 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+@@ -43,8 +43,7 @@ properties:
+           - const: fsgen
+ 
+   clock-output-names:
+-    items:
+-      - const: mclk
++    maxItems: 1
+ 
+   power-domains:
+     maxItems: 2
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
+index de8297b358e8..e647ba392a0f 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
+@@ -43,8 +43,7 @@ properties:
+           - const: fsgen
+ 
+   clock-output-names:
+-    items:
+-      - const: mclk
++    maxItems: 1
+ 
+   power-domains:
+     maxItems: 2
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+index 9f473c08cb2e..c36caf90b837 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+@@ -39,8 +39,7 @@ properties:
+           - const: mclk
+ 
+   clock-output-names:
+-    items:
+-      - const: fsgen
++    maxItems: 1
+ 
+   power-domains:
+     maxItems: 2
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+index 4959ad658eac..155c7344412a 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+@@ -38,8 +38,7 @@ properties:
+       - const: fsgen
+ 
+   clock-output-names:
+-    items:
+-      - const: mclk
++    maxItems: 1
+ 
+   qcom,dmic-sample-rate:
+     description: dmic sample rate
+-- 
+2.34.1
 
-> There is a common case where component_patch_add_release is called with
-> component_release_of/component_compare_of and a device node. Add a
-> helper and convert existing users.
-
-The usual pattern here would be to split adding the helper from updating
-to use the helper - it makes things easier to merge.
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---ZW7Ag/fXdrbtoky8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNkCUoACgkQJNaLcl1U
-h9DfiAf/fccSbdTPcf/MR3+HytglBkaO/HlwepPSW582YcQ2/3q5mNX8QDYVAtq5
-4LQR5pjemiBDY+lWTqufmKlDBjw8h9NY0L6v/NApr7x+PK1ZUEW2Ecqc6zcZ8LRT
-FzBdTQMO00sV3mkJywGQBQGuqyvZrHYNL1RWP0ZDYoRU+27RZn7zOmnNuiA1g8IQ
-AoMLzEGkIxhXEF1cmblJ7JuiB1p694k+nltDrbjqc0FsuGMVbfwOG2sTbHYYZJF2
-EcaVTqEpCkwmxU2XAY8lgt4SXVO9m26QvgAFqyHSXOvag/H3HaSPNmNPWpUamabu
-UWfwTYDmTIOxKFZxy+b7VIfdb/ZWrg==
-=igBE
------END PGP SIGNATURE-----
-
---ZW7Ag/fXdrbtoky8--

@@ -2,83 +2,203 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC1C961703B
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Nov 2022 23:06:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE130617434
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 03:29:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64392162F;
-	Wed,  2 Nov 2022 23:05:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64392162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46109E0F;
+	Thu,  3 Nov 2022 03:28:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46109E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667426780;
-	bh=FS4e9nhVtW6hkotHWpM6LTMoaYsDhDQveLHvBrHl6HM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1667442552;
+	bh=liJUv2bq88RpNHhvMhWLeFBJSZ5RMJRlq5WNlJMZb4g=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fEj2NNCWnaaC1XL4opTiF1+7BLOcmsISxNZAoJtWTu1FtJk7H33/kJ6l0s/OBsMg/
-	 WBXy/O3pGarRz0WGzi3qmwqdGTVr19AW+4NPQJ2iuilTV+faaxp5vqCG34/xpz6aXe
-	 P77BQm8+K6gIDDV0pCOkbn/0TMcQSPvJ0xnrL7fw=
+	b=smIAwPT297tCJ4jbGwaPF4USYHZKi+tQUTDqcIZP/omirvy/EuSU5XvUWiXqqD7h6
+	 hicstj95dSviFHm8G8o7OXM7OtyOnzkMPfzV15WzLr63EZcxcmUidv19bTmPLE78+a
+	 pyguU3RsYas9QtPc6GLW2+WhcogFxeHsHRykxQvo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C49C8F80155;
-	Wed,  2 Nov 2022 23:05:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9FDFF800BF;
+	Thu,  3 Nov 2022 03:28:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12008F8026D; Wed,  2 Nov 2022 23:05:23 +0100 (CET)
+ id AA902F8051E; Thu,  3 Nov 2022 03:28:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE9E1F80155
- for <alsa-devel@alsa-project.org>; Wed,  2 Nov 2022 23:05:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE9E1F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 998B6F801D5;
+ Thu,  3 Nov 2022 03:28:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 998B6F801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AQ4DdkJ1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667426721; x=1698962721;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=FS4e9nhVtW6hkotHWpM6LTMoaYsDhDQveLHvBrHl6HM=;
- b=AQ4DdkJ1lUItMKHb4qNuhyu13m2vH+yUSWlfnYgjRHpAzH70VRqceGVp
- lr3SUx7Vc+b2AoibBMT5DnLKDmMSY58YuLJr1f88DetlJ5Uwf9qwql1fX
- h7GE5rSfLU6DodjKNmOaxOxuxw0BZRf7gK6i4eJBdNtx/W7Fbjft1gzGD
- E4Yhrs0f9wL0yiMv9tVkMfkjnEi/reYXKAHJ6DmL19JOYCHzgMPNJX74I
- VY0OByRyImL+4fHX6RwxF/l0l7oFgD5CKgbVk3YI9wsvyC5zztyHhQKkF
- gko0vF0nw2RU2C5vRuH/lQxpYmdgEQh/TUNbR4N1bTX/zcvkxDA5Gv3Ar Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="371625931"
-X-IronPort-AV: E=Sophos;i="5.95,235,1661842800"; d="scan'208";a="371625931"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2022 15:05:16 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="585556710"
-X-IronPort-AV: E=Sophos;i="5.95,235,1661842800"; d="scan'208";a="585556710"
-Received: from xuehongy-mobl1.amr.corp.intel.com (HELO [10.212.18.5])
- ([10.212.18.5])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2022 15:05:16 -0700
-Message-ID: <2bbe7bed-21d4-018a-8957-10d9dbe0c661@linux.intel.com>
-Date: Wed, 2 Nov 2022 18:05:14 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH] Fix kbl_rt5663_rt5514_max98927 regression
-To: Jason Montleon <jmontleo@redhat.com>, regressions@lists.linux.dev,
- oder_chiou@realtek.com, cezary.rojewski@intel.com,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Charles Keepax <ckeepax@opensource.cirrus.com>
-References: <20221102200527.4174076-1-jmontleo@redhat.com>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="eOoq3LvE"; 
+ dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
+ header.b="Y4sGkzJ+"
+X-UUID: 6ddb3a9cb6544ad5a42d32ce71a49eae-20221103
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:MIME-Version:Content-Transfer-Encoding:Content-ID:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=eOym5Rzu5WYM+ZuJjRI66dAN9ddZr5keCuO32koWoKU=; 
+ b=eOoq3LvEImPz6fhY4Uw7YqDHTX2rPO00YUtgWWkLkDLVsEvvOKmQVyFN2L5RDOp/LEnCPypXZ76y92Fg3dSq2+Y2AYAbXKBGF6TMZUbs+sf0HWPkA5gnnqAMh8mpy0Q9t0W2763GlW7ixrEy0zz/zPVrLU2OCfuRe3g+eyR/v/g=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.12, REQID:24ef00f2-a6d6-4b6f-97c2-60b22a57fbda, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:62cd327, CLOUDID:5d007581-3116-4fbc-b86b-83475c3df513,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 6ddb3a9cb6544ad5a42d32ce71a49eae-20221103
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
+ mailgw01.mediatek.com (envelope-from <tinghan.shen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 957521402; Thu, 03 Nov 2022 10:27:50 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Thu, 3 Nov 2022 10:27:48 +0800
+Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.239)
+ by mtkmbs10n1.mediatek.com (172.21.101.34) with Microsoft SMTP
+ Server id
+ 15.2.792.15 via Frontend Transport; Thu, 3 Nov 2022 10:27:48 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dSacm9ln+oMhfqYSG7/KornBIWLUWtWh/nQDchTXMAeHIIzNVPI8cRPZKH7G/9EHeUnzwf7RnAXQMxAzS3YCkEV6kFdFrpnFzz02eFuswEYpUsZqn95jFmc8i4NKS88IJ5ykWSJkifld9sv7kymvdbhKqiHFEU5J4ZbbcrIf557u1nZPrdx3YchvbEn9QCtBlbMcrH57BodynL2bGD1bS5bVLkuYe51esUewUx/HSHYleRkZHDT01SY8GYj1jlZS00OW0Ocsw+O6TyxcgtO8Jdc8qB/8lVsjEMAcxLInNvODAefawwWBlQs+Xz1WoQEYVyRUAEIfVri+cY21kx3YMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ytLASIsPp4N9pDnQauXv9eR9yks12LJEXATVpzaW3dY=;
+ b=i0ru3QoNZHemvIQ7QbjgQbYidkBBLR7LeHZn7YIx5cJh0qeSA5R2JwFmUFxnnH5ziZC31X45Jya2NhCAUMoXA37MhLowMhEMOrWWRgLcKHirVdiTCDBx6QM7VsQJnTS6owNnkw4F7KMsWOduLkPsjlq8ScmUcqmMqPDEXHvAmjRclcb8C5vFWm/vQOWUMJAC3jM78chLHZXv+EmjJMS0xbmaFXTi8NQaQsAdykmq3H0QwROldkHdT6Zg7qwJgKlFM6X3Pj2OfMfgfzwsYRVHBFLOGJy9v94iMDrEA8Caf2zc7xNljj53/xo5HiLR09yp+hu1zbIEJRIc9IaMzE3+XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ytLASIsPp4N9pDnQauXv9eR9yks12LJEXATVpzaW3dY=;
+ b=Y4sGkzJ+PnNDEL0+M5lnxmP/V0/WQ3RjmV/S19huYF44G8FKljrE3+zeTKtQI/uVq+/R97w2B8JI5+r++zh5h5wq2afXsqcpAXLyuUIhGqPhfEIlzjRcyk7lfLsBcp/4pJlUZVtbohSrwHlFR7CNjz84TUYM/CiPMY4YVWQh2bQ=
+Received: from SL2PR03MB4204.apcprd03.prod.outlook.com (2603:1096:100:53::15)
+ by TYZPR03MB6163.apcprd03.prod.outlook.com (2603:1096:400:12e::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.9; Thu, 3 Nov
+ 2022 02:27:46 +0000
+Received: from SL2PR03MB4204.apcprd03.prod.outlook.com
+ ([fe80::a302:d5da:f54f:a75d]) by SL2PR03MB4204.apcprd03.prod.outlook.com
+ ([fe80::a302:d5da:f54f:a75d%4]) with mapi id 15.20.5791.009; Thu, 3 Nov 2022
+ 02:27:46 +0000
+From: =?utf-8?B?VGluZ0hhbiBTaGVuICjmsojlu7fnv7Ap?= <TingHan.Shen@mediatek.com>
+To: "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ =?utf-8?B?WUMgSHVuZyAo5rSq5aCv5L+KKQ==?= <yc.hung@mediatek.com>,
+ "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
+ "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
+ "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
+ "perex@perex.cz" <perex@perex.cz>, "daniel.baluta@nxp.com"
+ <daniel.baluta@nxp.com>, "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: dsp: mediatek: Add default clock
+ sources for mt8186 dsp
+Thread-Topic: [PATCH v1 1/2] dt-bindings: dsp: mediatek: Add default clock
+ sources for mt8186 dsp
+Thread-Index: AQHY7bji8bQiCaOD/EuwnZrzM5Rdka4rWzoAgAEhCoA=
+Date: Thu, 3 Nov 2022 02:27:45 +0000
+Message-ID: <29345c6f3497b3470d627fc9f09bc99216971def.camel@mediatek.com>
+References: <20221101061137.25731-1-tinghan.shen@mediatek.com>
+ <20221101061137.25731-2-tinghan.shen@mediatek.com>
+ <1f0bb630-20b0-160e-a530-05fae7572b10@collabora.com>
+In-Reply-To: <1f0bb630-20b0-160e-a530-05fae7572b10@collabora.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221102200527.4174076-1-jmontleo@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SL2PR03MB4204:EE_|TYZPR03MB6163:EE_
+x-ms-office365-filtering-correlation-id: 0793bfef-58b8-4141-05ab-08dabd42fe61
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dZi7u37VAl5iVzG7bIb7DiEFEzrLLMY5o+xjHkwO42PoYFmpgIqwrnnaohndRWREN+giHSkZyDWjkB+EFa0Og+trkEXkiBkxFv4joc2Qzid7uGxFU/6/5Wco/wDhVSR7hW68ECMrzM/iOyylluWeno7YUOMp+fgF09Sa3mEPaeRIqyBq3h2HY7jjQcYBoftN2MgQJjYVimmg4t+NTPNIwpjw+Ob5qjn1kV+rFvpQ1TOocv4ELG7JVApwITrES2F/HDziSGA1vG1mh2fPWlfFsDfEt+CfLqcj6a/u7uo3tnM5OaB0pfbGSYBtb+47EWzo3r9dUDXY0tLz9aRPyqtWuxKkIqVoeehyjrd9e5ghc4Mx01Wtrm04pM9/mVvMtHJvfXOlvqVaVRTxz/rBvwQujf6+gePuOQQUEmfx8cKq/oQY6puuRCdo9WgLw8QjgQp7gmRL/mRJjAI0D/24IpV8BKEEOhRASYVV137FgkWrll3XKYQTsYxc0JeVeI6yv4BmmlX6bSUdp4B1ygyQBkuYd1E6ZVmHpN9pKWPRj0+/bvM54hXS1giLBpdQSAAkX7RCd9qK+gSnAkL8V18Z+vXFe+CjWlExZTdev5SNiX9Mukv8ABLdGRNJIWuPDl+DKcvXCA3P+p/pCEzNXcCEp82URY/HaZwHXQsH+CKUO+dPZMC3OdaVivX5whI3aQAmgSmvEUihuS+OMscrb/poZgZqn+rcxbFPJyBRkLVU0G7dOr0vOyeQNX7WoeOQS0pc7UglZBw3gCdLzJF2WIGQYxqMa3pda2q1kW/1bhcpuWroQ6IE3CV2Nq9IWx9wbVn3rt5upwGBuShBuSBlzXIxl4hkcw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR03MB4204.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(451199015)(38100700002)(85182001)(36756003)(64756008)(4326008)(38070700005)(122000001)(8676002)(921005)(66476007)(66446008)(2616005)(83380400001)(66556008)(91956017)(26005)(86362001)(107886003)(478600001)(6506007)(110136005)(54906003)(186003)(71200400001)(5660300002)(316002)(6486002)(7416002)(76116006)(66946007)(2906002)(8936002)(6512007)(41300700001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RnZjYXh6V3N2bzNTV1hOeEpaMWt2cFpiZVRFeEM1SUFBTkl2SHZyYklsdzZV?=
+ =?utf-8?B?NXFoa3lCYUxOR2tBcDBINVorWGpHRHdWdlY0bHh5VDJEYXR4NDRZMDFPUTRY?=
+ =?utf-8?B?c3hvUFd5MGxya0FLOU9rWGI2M25WMVdRa2w2MkF2Ym8zR05LWG5KQkhGblg4?=
+ =?utf-8?B?Qy94UEthbzFoSXozcHdvQ0dHM1RpVkROUmtjR3FtQnhIeUpRaTVsQ3Jqa0Rr?=
+ =?utf-8?B?WXk3MFlJSGFtSmppVTBaT1lDQmxldEtiRktCQ3N6d1N0RHF3TDBNTHdhd2VC?=
+ =?utf-8?B?ajM2WWVUaDNPWnZGSCt0RFd4VUVVazVPYWhsY1IzZWFlTGg1RmdUem9hRXJ4?=
+ =?utf-8?B?ZlNsWFUwS0QrUStaSkZJVlhMbXJ5UXZmclUveGwyYSt0UW90MndwRFFxK0FW?=
+ =?utf-8?B?WXhTMThtSnUzZFhVV0dPYnBPaHhKU0trQ1k1VTJJMERaNXJoVDc1eHpiY01h?=
+ =?utf-8?B?eHgxTWlIU3ZFMGQ2RXYzK2NiMWdGVHVXWXAyeHBGZytVTFQ5NHkxbk1xQmlW?=
+ =?utf-8?B?SExOcXZzS3A0SUVKckp1RmNTL0NTUXpjR3JWcDlsd0h2Mk9RU1RFdGVwNzAz?=
+ =?utf-8?B?RU0xL1p1bExhME4wMFc3SnI0RXFqdThaZDhhRFQyNzdrOFRmMklmL2NKd25R?=
+ =?utf-8?B?cTBndHFwaWQ4R2xMUzA4Q2VCWElBZjhKdWNpMFNiZkpGU0U3ZVI2NnJEZGo0?=
+ =?utf-8?B?OFN4NDR1K2FKT0FmR1JrMEtUcW9obWE0SnlQZlJnaXltMjdUQTFmeThKSXRW?=
+ =?utf-8?B?VXU2WE1Vdjl2c3doSGlrWDdGQU1kQVVWQjdFemNPdVIzdTB1MHVLTmtpL1p0?=
+ =?utf-8?B?aXF6TjF6KzEwVHBsSTBxN3FCTHNXaWtnVTladE9XWmR2Rk5Cam52a0Q0N0lk?=
+ =?utf-8?B?ejZsUEtvb1gyK1BCMExHRjFpYTliWFhzLy9TKzZKcjJKcURQUnBmM0RzNFN6?=
+ =?utf-8?B?clplNHJhdVVnbWwrRGVPVjU5NE1LQU5Wem9ISk9lUi9lMVVyUFlGbXJxWW1C?=
+ =?utf-8?B?dUtyd0VJZjdUeW1lTXJwcExramc4YnZDZTE4ZkhlSGhkRmJKSWxLcGtWai9m?=
+ =?utf-8?B?MmpVcGcwQnF6dW13WHVlYWNLRmJhZTNQNjZBWUtwUko2S0p5VDd3RDRLSWht?=
+ =?utf-8?B?UkI3SEF4QTZ5NlN0aXZlWG5ZUU1oTHdaN2J4TUs4Q056ZmdFWGhvcmtLdUZj?=
+ =?utf-8?B?WDlZTmtrTzU5bkpXR0V0OERzQTh6c3drY0F0ZjJQYm9QTVhSUzk3WENnUXMz?=
+ =?utf-8?B?TzFKa3VEVkptcnpMeU03R0hNZk5aNW9kbnFrcisxZWdlWmRoVnVuSkVFbmo4?=
+ =?utf-8?B?b2pZaVMzbjA4b2VlVWdvUFVaWlJ0WEVwSVNBK0RNN2JkSDZBL1BIS0JzT1Ja?=
+ =?utf-8?B?amY4ZXVZbmJjbXIzeXd5cDJFWmhhN1lZQkhxWEh5bUZPOGhtSWRlZ2s5Rjc5?=
+ =?utf-8?B?bm11Q3ZCalM0cGZQaUtCd0RCSlJ4NzlEc1RtdlRwQVhTSWNsRksrQUlUbXdx?=
+ =?utf-8?B?dmNrdU8wdGxvRWhjYzBQQ09lZ2JZcHJyYVFJUHFKVk5Sd1pwNkdDM3J6a2Zl?=
+ =?utf-8?B?NVdQVlZXZEFiUkdPUkhHQkVndVZpSFBHZTJBREJDV1FBbkF1anRtM1dYYVJG?=
+ =?utf-8?B?TWtWQ24zMGpxRzFsaHFvK1BiMksvRTlzZDFCOVFnM0xkVzliU3hJbVBlNUZq?=
+ =?utf-8?B?UnBVZ0QyZklVdWVHUDBhbEZ4aVErakZzMlZNa0dadHFCcFB4TkxYdVg0UC9n?=
+ =?utf-8?B?bkx4a3pnN09SNTdSdFlJRDMzcDRWcHJsT2lOWU1zTmp2d1A4R0xlR0cyOTBl?=
+ =?utf-8?B?K1V5Q0hKV3pvQW1UVFVUQmlMMUdSOVd0WloyWCt4QnpOS21IQW04QzltSGtV?=
+ =?utf-8?B?WHQ4VkFLWFRGVEYrWVVUTTNBOUZUb0xGNDUzcGhQdVc4c1NxVnRkTnBZajd3?=
+ =?utf-8?B?ZTh6cUxkLzYrbndMeDMrdTBsK3N2SDlodVBmdTVadEl5Yjd0NUk1b1Vib09t?=
+ =?utf-8?B?RDNsdDdHbEhXYmtESmpseHRiMkd1VjBDSFI3YXAvK1dVMnpPc0JxQjQ2cTR4?=
+ =?utf-8?B?WjhTcDdUOWhMZWpqSXdmYlNDRnFXUnRnODhialFMZVFIL3pIbmNUK05RcVFi?=
+ =?utf-8?B?ZTdRN3huZElRd0xjTU1OQ0FneE5DVmJSREVFS0JnNnJ0RUVGTkhQSWcveWpv?=
+ =?utf-8?B?V3c9PQ==?=
+Content-ID: <EF93005714D4454D99354515357ED984@apcprd03.prod.outlook.com>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR03MB4204.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0793bfef-58b8-4141-05ab-08dabd42fe61
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2022 02:27:45.9452 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YGex/kv5uGgixyZpZWO8NCCZESptOi+N/WS6whgsbp2H4cOoxMCvcozLi5bnaVzcogL0OAf6ditC8dfQ0GRvZq9SzoFEeZ6yNkH5+4GdfzE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB6163
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "sound-open-firmware@alsa-project.org" <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,52 +214,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/2/22 16:05, Jason Montleon wrote:
-> Starting with 6.0-rc1 these messages are logged and the sound card
-> is unavailable. Adding legacy_dai_naming to the rt5514-spi causes
-> it to function properly again.
-> 
-> [   16.928454] kbl_r5514_5663_max kbl_r5514_5663_max: ASoC: CPU DAI
-> spi-PRP0001:00 not registered
-> [   16.928561] platform kbl_r5514_5663_max: deferred probe pending
+On Wed, 2022-11-02 at 10:13 +0100, AngeloGioacchino Del Regno wrote:
+> Il 01/11/22 07:11, Tinghan Shen ha scritto:
+> > Add the default clock sources used by mt8186 dsp.
+> >
+> > Signed-off-by: Tinghan Shen <tinghan.shen@mediatek.com>
+> > ---
+> >   .../devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml | 12 +++++++++---
+> >   1 file changed, 9 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
+b/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
+> > index 3e63f79890b4..4cc0634c876b 100644
+> > --- a/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
+> > +++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8186-dsp.yaml
+> > @@ -35,11 +35,15 @@ properties:
+> >       items:
+> >         - description: mux for audio dsp clock
+> >         - description: mux for audio dsp local bus
+> > +      - description: default clock source for dsp local bus
+> > +      - description: default clock source for dsp core
+> >
+> >     clock-names:
+> >       items:
+> >         - const: audiodsp
+> >         - const: adsp_bus
+> > +      - const: mainpll_d2_d2
+> > +      - const: clk26m
+> >
+> >     power-domains:
+> >       maxItems: 1
+> > @@ -82,9 +86,11 @@ examples:
+> >                 <0x1068f000 0x1000>;
+> >           reg-names = "cfg", "sram", "sec", "bus";
+> >           clocks = <&topckgen CLK_TOP_AUDIODSP>,
+> > -                 <&topckgen CLK_TOP_ADSP_BUS>;
+> > -        clock-names = "audiodsp",
+> > -                      "adsp_bus";
+> > +                 <&topckgen CLK_TOP_ADSP_BUS>,
+> > +                 <&topckgen CLK_TOP_MAINPLL_D2_D2>,
+> > +                 <&clk26m>;
+> > +        clock-names = "audiodsp", "adsp_bus",
+> > +                      "mainpll_d2_d2", "clk26m";
+>
+> You are assigning those clocks just to be able to call clk_set_parent() in
+> the DSP mt8186-clk driver... and that's not necessary, nor it is the best
+> way of doing what you're trying to.
+>
+> In reality, you don't need to add new clocks and you don't need to manage
+> that into the driver, as you can simply assign clock parents in devicetree
+> ... like:
+>
+> assigned-clocks = <&topckgen CLK_TOP_AUDIODSP>, <&topckgen CLK_TOP_ADSP_BUS>;
+> assigned-clock-parents = <&clk26m>, <&topckgen CLK_TOP_MAINPLL_D2_D2>;
+>
+> without any clk_set_parent() call in the driver.
+>
+> When the driver will call clk_prepare_enable() for top_audiodsp and/or for
+> top_adsp_bus, the assigned parents' refcount will also be increased (and
+> if the parent clock is not enabled, the clk framework will enable it).
+>
+> Regards,
+> Angelo
+>
+Hi Angelo,
 
-Thanks for reporting this regression, much appreciated.
+Thank you very much!
 
-a) you need to CC: maintainers Mark Brown and Takashi Iwai
-b) the commit title should be something like "ASoC: rt5514: fix legacy
-dai naming".
-c) it's not clear if this is actually enough. there's no
-legacy_dai_naming for e.g. rt5663 and the .endianness member is not set.
+I will abandon this series.
+Thank you!
 
-Adding Charles Keepax for comments.
 
-> ---
->  sound/soc/codecs/rt5514-spi.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/rt5514-spi.c b/sound/soc/codecs/rt5514-spi.c
-> index 1a25a3787935..362663abcb89 100644
-> --- a/sound/soc/codecs/rt5514-spi.c
-> +++ b/sound/soc/codecs/rt5514-spi.c
-> @@ -298,13 +298,14 @@ static int rt5514_spi_pcm_new(struct snd_soc_component *component,
->  }
->  
->  static const struct snd_soc_component_driver rt5514_spi_component = {
-> -	.name		= DRV_NAME,
-> -	.probe		= rt5514_spi_pcm_probe,
-> -	.open		= rt5514_spi_pcm_open,
-> -	.hw_params	= rt5514_spi_hw_params,
-> -	.hw_free	= rt5514_spi_hw_free,
-> -	.pointer	= rt5514_spi_pcm_pointer,
-> -	.pcm_construct	= rt5514_spi_pcm_new,
-> +	.name			= DRV_NAME,
-> +	.probe			= rt5514_spi_pcm_probe,
-> +	.open			= rt5514_spi_pcm_open,
-> +	.hw_params		= rt5514_spi_hw_params,
-> +	.hw_free		= rt5514_spi_hw_free,
-> +	.pointer		= rt5514_spi_pcm_pointer,
-> +	.pcm_construct		= rt5514_spi_pcm_new,
-> +	.legacy_dai_naming	= 1,
->  };
->  
->  /**
+--
+Best regards,
+TingHan
+
+
+************* MEDIATEK Confidentiality Notice ********************
+The information contained in this e-mail message (including any
+attachments) may be confidential, proprietary, privileged, or otherwise
+exempt from disclosure under applicable laws. It is intended to be
+conveyed only to the designated recipient(s). Any use, dissemination,
+distribution, printing, retaining or copying of this e-mail (including its
+attachments) by unintended recipient(s) is strictly prohibited and may
+be unlawful. If you are not an intended recipient of this e-mail, or believe
+that you have received this e-mail in error, please notify the sender
+immediately (by replying to this e-mail), delete any and all copies of
+this e-mail (including any attachments) from your system, and do not
+disclose the content of this e-mail to any other person. Thank you!

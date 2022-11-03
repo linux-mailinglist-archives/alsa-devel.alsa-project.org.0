@@ -2,101 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D774618915
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 20:55:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C43618971
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 21:12:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA841167E;
-	Thu,  3 Nov 2022 20:54:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA841167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 349901655;
+	Thu,  3 Nov 2022 21:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 349901655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667505337;
-	bh=hQ80LLZtCNH9LUuFinlwN0uczraFCRu+X4ZAG02gtFs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667506369;
+	bh=klUOIi6FzxgUJVdSJhJOJsWQYuGDoEwWriNyvUgxWmc=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OmjumuSHgFJZia8H/QdWhBf5B8I08Tnkwp65Nt9ljJXtsvNEJaq+jTSIA2GW4wGNF
-	 h0+QhG3qLojKr5H9Q+zZZ0b4QKJDfqMtl/lbT2o531rt5IDb6L0h4aCCUqljqB47Vn
-	 ASErvbQcCQqHOqxVNKE5mXscODntC0UJE93bWOSU=
+	b=di55ZsS4rOIkV+vvuhXiiePA4cndJgl/L+2qV5TCo5sFd3EfmgHiunDP+Rk1Ps4Ns
+	 r3BygKtEopeHSz2t4cKRbrNobLr6p3QE3GIP7y4knbL8DLBnB983CX0nDioNhjxrxL
+	 RzvHJd03Hjxd9+ddU+XxD11EbGaE3AilLuWOHdtI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A973EF8051C;
-	Thu,  3 Nov 2022 20:53:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F759F800BF;
+	Thu,  3 Nov 2022 21:11:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D41B8F80553; Thu,  3 Nov 2022 20:53:57 +0100 (CET)
+ id CB639F8051E; Thu,  3 Nov 2022 21:11:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7A37F8051C
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 20:53:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7A37F8051C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AD7AF80155
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 21:11:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AD7AF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="cBKnf4Y1"
-Received: by mail-qk1-x730.google.com with SMTP id x21so1908417qkj.0
- for <alsa-devel@alsa-project.org>; Thu, 03 Nov 2022 12:53:49 -0700 (PDT)
+ header.b="N8Cx5l1o"
+Received: by mail-qv1-xf35.google.com with SMTP id lf15so1471417qvb.9
+ for <alsa-devel@alsa-project.org>; Thu, 03 Nov 2022 13:11:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Qi/QHriO9WLQrr+WCirZAkAs6AyTOYgHq/qkN2NOeAY=;
- b=cBKnf4Y1p3+pN9MdezNdYjZKCwgXSR88lGmahi0XjLm9TisFhJ7LKE8GC4wJvyUshH
- B0XrcUJEhnrQ7tDMJ3sDi0VpA7PRZSxVQgH52RiiC9hmvSnLsqnAhHtZP/6p/rGqpH7k
- F4fpsTPXvFw9iTIRgx9h1W3tXABfb4iC1zEye4Y/80iYt5D9u12gqAxREHJoFy4SqKqJ
- ZUrUOMP/okpkL7R9b4QIS/cDSm8zQiQDaDRcSzF5yIoYZWlU4blkusbC6amjtKViFBta
- 1SRvnix4Ba5TqRcyeHyY1C/5QFcTiQTj0FipNndPvKgXRaIe1RQk11PgEXU0s5a89rrB
- IwhA==
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=PrimzIzPPp8bVBxanaG5ga3MP/bHph4X0kRJkSrYGJc=;
+ b=N8Cx5l1oJCmtXUgDvJzA+5DBhwJX0WYyN6pyDK2XT3XLafugSjYynbiiRZ/oDk+THK
+ Or4XEAnDoEu/AwbpYuyuARki9pJA9EJRZ3AmPbMG6tQVA/lIGsJz6Q1L54lgx21q0nBi
+ RqP8nnSVvxLrCChM+ARWz0XrqiBJAtFHafg/IyhMaEo7+AtjgEe171bHPWIanZNXxIcC
+ peUFkLK/NbskjEMfbPjcP3Mad4FvMQN8P+AJarl7gVL1xuPq1ul8olN8ccYkCmG30DbZ
+ vOD81Qtwe6XcMlAvo/3cpZrOgrj1+7Lz99HL0wGzVYt8Hqz99fgKnzAN1wJd5yuGlNgP
+ 863Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Qi/QHriO9WLQrr+WCirZAkAs6AyTOYgHq/qkN2NOeAY=;
- b=q6a/akgHv08QURFanzH0oaHpZOgxzOu339PbVQmNeMp9uNuz4/HnJy52kT9QEiTu3w
- u+NbNNAIUlGu3oDRkOPTFfb6RIdfGMisyGpDJWGf5XOIYSuf99TPuL9MMijs1mxPWMAn
- hTTUYDSWeuzWThrxH+UwjyaQKfCuhEP0dos3H8upy5JBj9PXDKL5Rhk4Am9ZlEBAXU/C
- kVMhK74bONsWEzlpdsA1E5DNf15lGfpWXU+lD4gjGod5Okiwuy6hPabsRbYAbQ1M+woL
- X3nm9g77mZX37/T/uZ1+bIfGC6lwPs99sM5s3GKc2DJQVgvjvi5dNZkdGYqD/lbATLBg
- b6MQ==
-X-Gm-Message-State: ACrzQf1BLe2TZeOfnekfLx/gNvJvvo9HyO41TktOW3QYq1alRmg9re4q
- zKF8U1lECPzGtKIGnbVkE7sbFQ==
-X-Google-Smtp-Source: AMsMyM4yhWaJCxNpHi/v3VKOjOMfzR/+GK0OT1VhHzDrako56nPe7wmtV4XL2pkQu6H1U4JIPBpB0Q==
-X-Received: by 2002:a05:620a:29cf:b0:6d3:2762:57e5 with SMTP id
- s15-20020a05620a29cf00b006d3276257e5mr23610520qkp.389.1667505227505; 
- Thu, 03 Nov 2022 12:53:47 -0700 (PDT)
-Received: from krzk-bin.. ([2601:586:5000:570:a35d:9f85:e3f7:d9fb])
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=PrimzIzPPp8bVBxanaG5ga3MP/bHph4X0kRJkSrYGJc=;
+ b=i18X9nhFDz923fzt4Bvk6VpDXrtgAMum6uCYWbM6A3So83wv7ccDtcxAFkuL0WJ6rL
+ /wx61AEf91z8CMLmS9dqGFW1Iq+P1s6WpwxF6s5pRDq5MUp5SBdBeP4Yh6y6N9MprxjP
+ s2ZcSTb8CorMmzOO1D9pmdOv1cB9vsUeYIPGsmxtUVz6B7uYMEQ2sMlVof0ImE4SufNT
+ tovhkRl8bKAfkI1DiybGWI+0JYCqDzV/OyqCg5QKZpf+L4gD50RBWG8j2u/u8Mx2lHPl
+ BYPyE/50M1YxXEIAqs+pMzygIE/0vhQ+WJPGUtkhefNoOr8n8vH/c8iJMk5F4N0E9U5H
+ 3k9A==
+X-Gm-Message-State: ACrzQf1qRwaqEyYpRfhvgtshUUPHsXjh2x0pqOQiArNfzadzaBdpUDkA
+ Wt/5z6xwnsNvm36qprNZ5CVLQw==
+X-Google-Smtp-Source: AMsMyM5H62kxeV7yp7AnAcnsjXUa4XSGNBIeAuiCZPj9D8LmIKBTqDX2L0UvDLi+oSYenytveGQZEA==
+X-Received: by 2002:a0c:cb01:0:b0:4be:e9f3:6d0 with SMTP id
+ o1-20020a0ccb01000000b004bee9f306d0mr3714969qvk.3.1667506304876; 
+ Thu, 03 Nov 2022 13:11:44 -0700 (PDT)
+Received: from ?IPV6:2601:586:5000:570:a35d:9f85:e3f7:d9fb?
+ ([2601:586:5000:570:a35d:9f85:e3f7:d9fb])
  by smtp.gmail.com with ESMTPSA id
- de41-20020a05620a372900b006b615cd8c13sm1328892qkb.106.2022.11.03.12.53.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Nov 2022 12:53:47 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ e2-20020ac84902000000b0039cb5c9dbacsm1087850qtq.22.2022.11.03.13.10.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Nov 2022 13:10:58 -0700 (PDT)
+Message-ID: <530b1295-1b8f-fcc7-924c-6f20e0b604e1@linaro.org>
+Date: Thu, 3 Nov 2022 16:10:23 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 2/2] ASoC: codecs: wsa-macro: parse clock-output-names
+Content-Language: en-US
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: codecs: wsa-macro: parse clock-output-names
-Date: Thu,  3 Nov 2022 15:53:41 -0400
-Message-Id: <20221103195341.174972-3-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221103195341.174972-1-krzysztof.kozlowski@linaro.org>
 References: <20221103195341.174972-1-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <20221103195341.174972-3-krzysztof.kozlowski@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221103195341.174972-3-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,44 +115,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we have several instances of WSA macro, each one of them should
-register clock with unique name, so parse clock-output-names for this.
+On 03/11/2022 15:53, Krzysztof Kozlowski wrote:
+> If we have several instances of WSA macro, each one of them should
+> register clock with unique name, so parse clock-output-names for this.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/codecs/lpass-wsa-macro.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+This one patch is a duplicate, please skip. Apologies for the mess.
 
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 5e0abefe7cce..5cfe96f6e430 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -4,6 +4,7 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/io.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/clk.h>
- #include <linux/of_clk.h>
-@@ -2350,14 +2351,15 @@ static int wsa_macro_register_mclk_output(struct wsa_macro *wsa)
- {
- 	struct device *dev = wsa->dev;
- 	const char *parent_clk_name;
--	const char *clk_name = "mclk";
- 	struct clk_hw *hw;
- 	struct clk_init_data init;
- 	int ret;
- 
- 	parent_clk_name = __clk_get_name(wsa->npl);
- 
--	init.name = clk_name;
-+	init.name = "mclk";
-+	of_property_read_string(dev_of_node(dev), "clock-output-names",
-+				&init.name);
- 	init.ops = &swclk_gate_ops;
- 	init.flags = 0;
- 	init.parent_names = &parent_clk_name;
--- 
-2.34.1
+Best regards,
+Krzysztof
 

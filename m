@@ -2,91 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4DD161809A
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 16:08:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9FE6184C9
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 17:35:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 353211663;
-	Thu,  3 Nov 2022 16:07:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 353211663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22DE31622;
+	Thu,  3 Nov 2022 17:35:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22DE31622
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667488105;
-	bh=wZufn07VUU8yh2ssVtF4A7EwVO7U9Y4tT++3pYG0rnc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667493359;
+	bh=/ccW2ZLYtie//iuE3Z0X9cbimEJCwup/DH2xpMNHLnI=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G0Be6NOUNNgX86LFOW1H9YrluuY8FL5q+LUOze55chUOZF32zA0xxNIJxa+WeccML
-	 800WTKVv5qYiaVk6fzJTxGdgmQkIWlJtnk7EZpGQmDhMvhSG2PLdtWPxX2CuI84zwr
-	 gUcUp+ZytVnM6YXcM4fXbMR1xuTPqz+8Vz7yh+bc=
+	b=Bw7FYpZp8a+IuLFKsxfOQYTsKhbC8PEvpSpvEodKx+4i9+7EFp6YBhBrPL6U0AVy+
+	 FdLwbf/W7+lr89pKShW2n/p4cAA9NjlqFG3R/A+QJhzAOZWPg2dJ7s6PU7Tg9ZKUZp
+	 gV/XaODg8Tq67Puo0/GCIraMekvH3uvyloK4/bPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A8F3F8052F;
-	Thu,  3 Nov 2022 16:07:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67003F80155;
+	Thu,  3 Nov 2022 17:35:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BE3DF80155; Thu,  3 Nov 2022 16:07:12 +0100 (CET)
+ id 977E8F8051E; Thu,  3 Nov 2022 17:35:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5032F80155
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 17:34:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5032F80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="UWukCzRG"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0413F80155
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 16:07:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0413F80155
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="d1y74jJU"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2A36QhvN003553; Thu, 3 Nov 2022 10:07:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=TcxZDwlXKPQCCqdzTr2pfzo7RdcE3/NIsDb8Wx6Kb+8=;
- b=d1y74jJUjQQw/YuT32crpeodLqJpRMGjOXz1xMsBW0IoU4hUXEPeT3LDs2GlUa+q8yDU
- BVGdqz94acG4Ls3fqdh185v1w1k4iOIhb6tvEMXaINpex4A+IBob9LUsBR5XG+qKmGVc
- 3wThKKUIrRnCT4pGwDDMvGJVDm4n9noyFkpu2FA89MH+3lv2ryM2Z4JEoGRF9/NnK6Oj
- JPd5zEDovAoKygbWPbNzfHvav81v0BTrvSj+IFwkDgd95Ib/W9YYZFd1V/glesVgSJqO
- h5IBmwSSJJxc5rA29nXxbpTNfgOZB3pZ1lPPVugosVx6vLmcwZzKwlCBmLb4LNe3imO1 wg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kh1k1efuk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Nov 2022 10:07:02 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Thu, 3 Nov
- 2022 10:07:00 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.15 via Frontend Transport; Thu, 3 Nov 2022 10:07:00 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 20F332AA;
- Thu,  3 Nov 2022 15:07:00 +0000 (UTC)
-Date: Thu, 3 Nov 2022 15:07:00 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Jason Montleon <jmontleo@redhat.com>
-Subject: Re: [PATCH v4 2/2] ASoC: rt5677: fix legacy dai naming
-Message-ID: <20221103150700.GC10437@ediswmail.ad.cirrus.com>
-References: <20221103144612.4431-1-jmontleo@redhat.com>
- <20221103144612.4431-2-jmontleo@redhat.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5D60761F65;
+ Thu,  3 Nov 2022 16:34:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8E7C433D6;
+ Thu,  3 Nov 2022 16:34:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667493294;
+ bh=/ccW2ZLYtie//iuE3Z0X9cbimEJCwup/DH2xpMNHLnI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=UWukCzRGudBv919/sH+I74MEzypxqLqYpIvPo+K0bDcfXWiWyDMyD6iMuQPIhOtL0
+ j4uh5dfTRvuifo39nRCKLeELXdhbUdvDqp21GVSiXdyeYPTq93n+WF0rgsyWbgCfXD
+ SBXLEtYj4br6ie5vVw7sXYuK7VX9ER1WKdtTmoHv4fjpuDQft3x17gxRFgbtk+xi0b
+ Im+Y5+cO63sgDPY0pjSa3QvILW1IVRqPFAI4hfcCI4+l3d9bGe8h6OEh4OomJuuWoJ
+ JRp0TswL+av9oAc+vtrBb0x1OV0OrmhaqdYrH7EPDTDMHp8DMNF8tXUaLv/Ia2g7IF
+ sH9N9pR0bXD3A==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Colin Ian King <colin.i.king@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20221103120624.72583-1-colin.i.king@gmail.com>
+References: <20221103120624.72583-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: cirrus-common: Make const array uid_strings
+ static
+Message-Id: <166749329166.480833.13410330883416925257.b4-ty@kernel.org>
+Date: Thu, 03 Nov 2022 16:34:51 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221103144612.4431-2-jmontleo@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: 3JXg8iWZ1IgOwI4Dv6wWBf9mpFDxm1A9
-X-Proofpoint-GUID: 3JXg8iWZ1IgOwI4Dv6wWBf9mpFDxm1A9
-X-Proofpoint-Spam-Reason: safe
-Cc: oder_chiou@realtek.com, cezary.rojewski@intel.com,
- regressions@lists.linux.dev, tiwai@suse.com, alsa-devel@alsa-project.org,
- stable@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- broonie@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,16 +94,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 03, 2022 at 10:46:12AM -0400, Jason Montleon wrote:
-> Starting with 6.0-rc1 the CPU DAI is not registered and the sound
-> card is unavailable. Adding legacy_dai_naming causes it to function
-> properly again.
+On Thu, 3 Nov 2022 12:06:24 +0000, Colin Ian King wrote:
+> Don't populate the read-only const array uid_strings on the stack but
+> instead make it static. Also makes the object code a little smaller.
 > 
-> Fixes: fc34ece41f71 ("ASoC: Refactor non_legacy_dai_naming flag")
-> Signed-off-by: Jason Montleon <jmontleo@redhat.com>
-> ---
+> 
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: Intel: cirrus-common: Make const array uid_strings static
+      commit: b43d0c0a42b2c44da824b3de0364d73be722a8c7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

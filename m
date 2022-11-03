@@ -2,88 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76B91618B5D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 23:25:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D90A618B66
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 23:27:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3D1D3E8;
-	Thu,  3 Nov 2022 23:24:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3D1D3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 198891669;
+	Thu,  3 Nov 2022 23:26:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 198891669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667514315;
-	bh=IaaXAbdC/V4WQUzKK70c0i3Y4VsE+5NYPi65YLHPMNw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1667514451;
+	bh=SAwZTPw14w6e6XyWuPAwfN+oiSDELY2sNwcrEZNad/0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rJHAWQyx2h74x9NbsQyt4SxF2JSSx6jU3vp+hicpyiX8/Uwq5QTpi8ZYscsKvPkn/
-	 YaaM9+BQ/sk5OTZ/NIToxHvEbc8KzseGHA6rdz0BCTNIyH1WFJQLI1vGnm/VUUVF5H
-	 Qt1TIf3fnMgommvyzJ1IUnrnUktWqxTW1QH/Q0kU=
+	b=mYJ+jr+8ody3ZuM0Ak2HaTdm7aRPIBj6ZyNSbk5zoGT37glLbNhhP+jNOvY43/8iq
+	 VQbIh9UyiUrYOAl1Adj+CdxEkaRfeav0PDM7eUR1QFg80VSOhwWCUlZR9icK9mJWHs
+	 lKaIdu7HiCkDnUqQYvjJhyOLi2mRA+FtDtgil+Ys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B2C4F8051F;
-	Thu,  3 Nov 2022 23:24:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A010F800BF;
+	Thu,  3 Nov 2022 23:26:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26572F8051E; Thu,  3 Nov 2022 23:24:18 +0100 (CET)
+ id E3BDBF8051E; Thu,  3 Nov 2022 23:26:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FD80F800BF
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 23:24:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FD80F800BF
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-13b6c1c89bdso3776896fac.13
- for <alsa-devel@alsa-project.org>; Thu, 03 Nov 2022 15:24:11 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE2B7F800BF
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 23:26:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE2B7F800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="GL8m1Czu"
+Received: by mail-qv1-xf2b.google.com with SMTP id ml12so2151682qvb.0
+ for <alsa-devel@alsa-project.org>; Thu, 03 Nov 2022 15:26:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pm4RXMLMyayJrb7lXI9IxGRtGOHJZv7BC9yPVfB+mM8=;
+ b=GL8m1CzuwZwzNpYIUHbow5Fvi19Ye6qn7FHPSJkUDGa7SGHl1NmnmwTIE2RPPSwVZC
+ +Av/sCDTctqtN8YgL186XiH7W6YP6hsYEpbhZdHJuowuM4OzherwAPIIudwEzTghx8J3
+ pg0HumM2LiB77w2KM6FvRoalcwXjQntGVF7Htyqr0NQyRAbJw7lXeUmcqpONMu1T+ZkS
+ +/F5TMgZipWfMcHQlmvX6gxruNsOnQ3ck5ELgEkEU/QxhxPc5Prud9xndNiAqSKUQobQ
+ 1JsXNU8GtkuCt7tM1DwiWXLALlBmN5XU60R9tjo3umqEnXW0R+MoC5xnC+IFt9saIjX/
+ PrOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=AOI36shM2qFISu/+jzA+JcOl1pqRzE1Kzqrcj41MDwY=;
- b=v+hhd8woMnJVOPeAEI7Xc/lCmODRaPChPTzZC076R0gRZvZDVOxNE3sbTXb3+5Qo1o
- oGMfuIh5t3UeL8/HPSUsAEXIfQknuMw6cTWx90D46W5wRqhwV+41BFFOlyDBN6L4tYCi
- T1lCs1oQcZkGD8Crz/59liHC7JRU9xpXcb1ma/1I0If1KkyknU9Rzz2lO1gYNZx3fy+e
- yxlGffw+m4SgYXrRibmcvr4isg6ANRYQZhhiFvXn9+soDGod4GxmIqY/4e1pmdOnYI7n
- HMcy8MQMGpprObV0CDxlf8g9idShjk6ZouD5kriHbMH6/6Pg5v2uFnrhepcAIBfOnSbJ
- MfVw==
-X-Gm-Message-State: ACrzQf051ma1pVyItbYjgfb5s8t2/i2KvxRh2NwtEIZLMSwrLl4vtXfr
- jftFiNWhfHNLOD2NxsXUzg==
-X-Google-Smtp-Source: AMsMyM66EA91nNfrRDIcdTNA2Nh0/OFN70NnT5GE9OiATuFxTVxk0FfQ6krQyiINAjezkSYrXtXX+A==
-X-Received: by 2002:a05:6870:41ca:b0:12b:9637:1cda with SMTP id
- z10-20020a05687041ca00b0012b96371cdamr19055660oac.114.1667514249741; 
- Thu, 03 Nov 2022 15:24:09 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- 4-20020aca0504000000b00353fe4fb4casm861322oif.48.2022.11.03.15.24.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Nov 2022 15:24:09 -0700 (PDT)
-Received: (nullmailer pid 159590 invoked by uid 1000);
- Thu, 03 Nov 2022 22:24:10 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pm4RXMLMyayJrb7lXI9IxGRtGOHJZv7BC9yPVfB+mM8=;
+ b=boFpM1WWTrHyGtcWK7J5vBrqr/iVJA+DtftoFL715OnHTBTwYEBREwEtzT7BV0V9mC
+ W8Ep+Wxa8pRlUOcz8wSTS8Eit0QytZoEzkbCzMQ4JWvR0VWxVY56FKTeWE0ydvxexdLF
+ sb8MptRmwZe5DWqEZj6JeJAZ9zTkFSvMthYeWaAunUG9CEVOkzkQvpWG9lZnhGNQsY7h
+ sq4xVuLhZCDclFwduor2C6z3SRAXVeI/9aqKh6UAwoQzUm2rZmPw4NPTuuQ0Q0JYP7EP
+ QktDSx+Okm6dGmezhJx3JhF+MUPBByAzsjNM7fayrR7Ra12qHWRttFgAyZXe6qFknstc
+ 66vA==
+X-Gm-Message-State: ACrzQf1oI8dei8M1wXx9DO4OxxynuIV6SBs3Tm9ikAGzqdiqAKTSld/1
+ noxTbHb0M11ev5A0FMa6/EjJlDKQfEwL1A==
+X-Google-Smtp-Source: AMsMyM7hZ5+D9gSJ6uhU8oVvFrzmk6OCUfAr9KAFklUH9XwGX9WRYuM+AJbJfAXlFjMU2GCStm9RBQ==
+X-Received: by 2002:a05:6214:d0a:b0:4bb:e1a9:4c84 with SMTP id
+ 10-20020a0562140d0a00b004bbe1a94c84mr24798897qvh.27.1667514385906; 
+ Thu, 03 Nov 2022 15:26:25 -0700 (PDT)
+Received: from ?IPV6:2601:586:5000:570:a35d:9f85:e3f7:d9fb?
+ ([2601:586:5000:570:a35d:9f85:e3f7:d9fb])
+ by smtp.gmail.com with ESMTPSA id
+ b18-20020a05620a127200b006eeb51bb33dsm1532153qkl.78.2022.11.03.15.26.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Nov 2022 15:26:25 -0700 (PDT)
+Message-ID: <1b1aba4b-e260-8bee-a8f6-761946361b11@linaro.org>
+Date: Thu, 3 Nov 2022 18:26:24 -0400
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Marek Vasut <marex@denx.de>
-In-Reply-To: <20221103182016.95808-1-marex@denx.de>
-References: <20221103182016.95808-1-marex@denx.de>
-Message-Id: <166751410849.156062.3606952852541846345.robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: fsl-sai: Convert to YAML DT schema
-Date: Thu, 03 Nov 2022 17:24:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 2/8] ASoC: dt-bindings: realtek,rt5682s: Add dbvdd and
+ ldo1-in supplies
+Content-Language: en-US
+To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+References: <20221028205540.3197304-1-nfraprado@collabora.com>
+ <20221028205540.3197304-3-nfraprado@collabora.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221028205540.3197304-3-nfraprado@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Fabio Estevam <festevam@gmail.com>
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Derek Fang <derek.fang@realtek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kernel@collabora.com,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,87 +114,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On Thu, 03 Nov 2022 19:20:16 +0100, Marek Vasut wrote:
-> Convert the SAI bindings to YAML DT schema to permit validation.
-> Add Shengjiu as maintainer, derived from sound/soc/fsl/fsl_sai.c
-> get_maintainer result.
+On 28/10/2022 16:55, Nícolas F. R. A. Prado wrote:
+> The rt5682s codec has two additional power supply pins, DBVDD and
+> LDO1_IN, that aren't currently described in the binding. Add them.
 > 
-> Describe existing used combinations of compatible strings, add the
-> missing imx7d-sai compatible string which is used on i.MX7 .
-> 
-> Properties lsb-first, fsl,sai-synchronous-rx, fsl,sai-asynchronous,
-> fsl,dataline are no longer listed as required, since those are clearly
-> optional, even the description says so, so does their usage.
-> 
-> Fix the undefined edma channel macro per arch/arm/boot/dts/vfxxx.dtsi ,
-> use the value itself just like in the vfxxx.dtsi .
-> 
-> Document interrupts property, which was previously undocumented, but
-> it is required property of this IP.
-> 
-> Document #sound-sai-cells, which should be zero for this IP.
-> 
-> Document fsl,imx6ul-iomuxc-gpr and its dependency on MX6UL and
-> fsl,sai-mclk-direction-output .
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 > ---
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Nicolin Chen <nicoleotsuka@gmail.com>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Xiubo Li <Xiubo.Lee@gmail.com>
-> Cc: alsa-devel@alsa-project.org
-> To: devicetree@vger.kernel.org
-> ---
->  .../devicetree/bindings/sound/fsl-sai.yaml    | 188 ++++++++++++++++++
->  1 file changed, 188 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl-sai.yaml
-> 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-yamllint warnings/errors:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: fsl,dataline:0: [1, 255, 255, 2, 255, 17] is too long
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: clock-names:1: 'mclk1' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: clock-names:2: 'mclk2' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: clock-names:3: 'mclk3' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: clock-names:4: 'pll8k' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: dma-names:0: 'tx' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: dma-names:1: 'rx' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: fsl,dataline: size is 32, expected 8
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl,sai.example.dtb: sai@30010000: Unevaluated properties are not allowed ('clock-names', 'dma-names', 'fsl,dataline' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/fsl-sai.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+Best regards,
+Krzysztof
 

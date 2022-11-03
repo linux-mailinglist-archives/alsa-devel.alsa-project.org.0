@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D8B617836
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 09:00:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7DF0617946
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 10:00:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C247E1634;
-	Thu,  3 Nov 2022 08:59:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C247E1634
+	by alsa0.perex.cz (Postfix) with ESMTPS id 553B315E0;
+	Thu,  3 Nov 2022 09:59:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 553B315E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667462409;
-	bh=ltIjS5u5NQ+OCpMo4Pd6HIDRZmYUD6536/5hzQTRyrw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667466044;
+	bh=yyA4nshyOejFruW2qTCDX0nI9Crc4tmHokItn82rW+k=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DZLhDhRKwBSl6Thrlmqw9nhP4TWD8oKZuj2kurFGjjE9/d9xnnoTuvRSCCfLlYIxV
-	 aaGhyqaAvQEKtbhzDivLVTw3KfIPLOuX738YQHwBHW43QpOVQ5rzNjyYVA4K3kEfDP
-	 0ERHOfkKwPatq73LYjDX25OxZesHVZ8zL+pqeJMk=
+	b=fbQdCIUlu3SN4+4SoMS/r29XZkXKsK7BepAFbnKOAOvCAQJys9BpGhFWW5efaPGjs
+	 Eg6ZTIRno4zHP4ofHXHNFxhe5QGuxo+E9Dpm5sFAnlUDJJLpUhhfTDdXom2CyFfWPS
+	 Qruu038XMTTEw4FZMic9WzbVgvRPrTUzUQp3Na70=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 219ADF800BF;
-	Thu,  3 Nov 2022 08:59:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9B51F8051F;
+	Thu,  3 Nov 2022 09:59:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1996BF8051F; Thu,  3 Nov 2022 08:59:12 +0100 (CET)
+ id 869AFF80155; Thu,  3 Nov 2022 09:59:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2887BF800BF
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 08:59:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2887BF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D720F80155
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 09:59:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D720F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="FHY1mHpX"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="emFsONiO"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 734611F9E5;
- Thu,  3 Nov 2022 07:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667462344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4H1fD4BTdPL3Y/bKoYtG9Wt8bt1+57sjE9PmOeD3ZMA=;
- b=FHY1mHpXOb0bwTvA4gRMa4e6kePExIGVbFE9Gr3gt1GsnhrENy4WU2mLbcAzUwttWBGtBI
- T1XgRguekNsB1WR200M2yqNcmzNdZIHNlg58Hw4jmdykkAlY5IsYTrH9TUt5rbLh3DhqB3
- Cgszva6f4u97e4U5OHn+pk9aupTwm/o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667462344;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4H1fD4BTdPL3Y/bKoYtG9Wt8bt1+57sjE9PmOeD3ZMA=;
- b=emFsONiOWem4PhqiCeT08Z97fLyU+icvC+EFrBybN+lGjoVACtg0fp0ImuZqvjqzkOhjLx
- nHIqVef6/keVd1Dg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DF5F13AAF;
- Thu,  3 Nov 2022 07:59:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uZw2Dsh0Y2O2KwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 03 Nov 2022 07:59:04 +0000
-Date: Thu, 03 Nov 2022 08:59:03 +0100
-Message-ID: <87a658o4e0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] Fix kbl_rt5663_rt5514_max98927 regression
-In-Reply-To: <2bbe7bed-21d4-018a-8957-10d9dbe0c661@linux.intel.com>
-References: <20221102200527.4174076-1-jmontleo@redhat.com>
- <2bbe7bed-21d4-018a-8957-10d9dbe0c661@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: oder_chiou@realtek.com, cezary.rojewski@intel.com,
- Charles Keepax <ckeepax@opensource.cirrus.com>, regressions@lists.linux.dev,
- Jason Montleon <jmontleo@redhat.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="PSxgdhGa"
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id E11BC6600366;
+ Thu,  3 Nov 2022 08:59:37 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1667465979;
+ bh=yyA4nshyOejFruW2qTCDX0nI9Crc4tmHokItn82rW+k=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PSxgdhGag8XE9XK1B8mnVZNqTZgJqYvHfsY6M/w7vbYXSfwg5wEBe2fcxRHdEnAtw
+ eH2tk7CntQM2Sq2k/5WGSqqdihck3cW3gTa+HyapP8VbDiGGhedTgj8crQAfBt3JZD
+ DSlP0Vna11jsKz2p5ZWY+0RPOXRSWpkP9VEUWg4z+BUgeoQOIt/8L5n4MzRlN2AxYG
+ Zx75XWGTnh7eFoTtz3mFSPwAxJjbI8RuizPdnv3uZpUePnrnp/7HS3NtC7sWD5YXnw
+ Fm8gAYD2gcPWfPqq8fYgERwbcfCRvm7gKhsON8Ddz7T41ju1DUz5KLF5MDPvGyv+ld
+ z9Cyi8mG96KWQ==
+Message-ID: <128d8f47-1e60-bb64-e457-d61ceb17c176@collabora.com>
+Date: Thu, 3 Nov 2022 09:59:35 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH v6 2/2] ASoC: mediatek: mt8186-rt5682: Modify machine
+ driver for two DMICs case
+To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ linux-kernel@vger.kernel.org
+References: <20221102125936.2176748-1-ajye_huang@compal.corp-partner.google.com>
+ <20221102125936.2176748-3-ajye_huang@compal.corp-partner.google.com>
+Content-Language: en-US
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20221102125936.2176748-3-ajye_huang@compal.corp-partner.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ "chunxu . li" <chunxu.li@mediatek.com>,
+ =?UTF-8?Q?N=c3=adcolas_F_=2e_R_=2e_A_=2e_Prado?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,67 +98,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Nov 2022 23:05:14 +0100,
-Pierre-Louis Bossart wrote:
+Il 02/11/22 13:59, Ajye Huang ha scritto:
+> Having two DMICs, a front DMIC and a Rear DMIC,
+> but only host audio input AUX port0 is used for these two Dmics.
+> A "dmic-gpios" property is used for a mixer control to switch
+> the dmic signal source between the Front and Rear Dmic.
 > 
-> On 11/2/22 16:05, Jason Montleon wrote:
-> > Starting with 6.0-rc1 these messages are logged and the sound card
-> > is unavailable. Adding legacy_dai_naming to the rt5514-spi causes
-> > it to function properly again.
-> > 
-> > [   16.928454] kbl_r5514_5663_max kbl_r5514_5663_max: ASoC: CPU DAI
-> > spi-PRP0001:00 not registered
-> > [   16.928561] platform kbl_r5514_5663_max: deferred probe pending
+> Refer to this one as an example,
+> commit 3cfbf07c6d27
+> ("ASoC: qcom: sc7180: Modify machine driver for 2mic")
 > 
-> Thanks for reporting this regression, much appreciated.
-> 
-> a) you need to CC: maintainers Mark Brown and Takashi Iwai
-> b) the commit title should be something like "ASoC: rt5514: fix legacy
-> dai naming".
-> c) it's not clear if this is actually enough. there's no
-> legacy_dai_naming for e.g. rt5663 and the .endianness member is not set.
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 
-IIUC, rt5663.c should be fine; it used to have non_legacy_dai_naming
-flag and it was dropped after the switch.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-But, through a quick glance, rt5677-spi.c seems to be the same pattern
-as rt5514-spi.c.  The rt5677.c was covered properly but the *-spi.c
-wan't.
-
-
-Takashi
-
-> 
-> Adding Charles Keepax for comments.
-> 
-> > ---
-> >  sound/soc/codecs/rt5514-spi.c | 15 ++++++++-------
-> >  1 file changed, 8 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/sound/soc/codecs/rt5514-spi.c b/sound/soc/codecs/rt5514-spi.c
-> > index 1a25a3787935..362663abcb89 100644
-> > --- a/sound/soc/codecs/rt5514-spi.c
-> > +++ b/sound/soc/codecs/rt5514-spi.c
-> > @@ -298,13 +298,14 @@ static int rt5514_spi_pcm_new(struct snd_soc_component *component,
-> >  }
-> >  
-> >  static const struct snd_soc_component_driver rt5514_spi_component = {
-> > -	.name		= DRV_NAME,
-> > -	.probe		= rt5514_spi_pcm_probe,
-> > -	.open		= rt5514_spi_pcm_open,
-> > -	.hw_params	= rt5514_spi_hw_params,
-> > -	.hw_free	= rt5514_spi_hw_free,
-> > -	.pointer	= rt5514_spi_pcm_pointer,
-> > -	.pcm_construct	= rt5514_spi_pcm_new,
-> > +	.name			= DRV_NAME,
-> > +	.probe			= rt5514_spi_pcm_probe,
-> > +	.open			= rt5514_spi_pcm_open,
-> > +	.hw_params		= rt5514_spi_hw_params,
-> > +	.hw_free		= rt5514_spi_hw_free,
-> > +	.pointer		= rt5514_spi_pcm_pointer,
-> > +	.pcm_construct		= rt5514_spi_pcm_new,
-> > +	.legacy_dai_naming	= 1,
-> >  };
-> >  
-> >  /**
-> 

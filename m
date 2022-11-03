@@ -2,95 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ECB9617B64
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 12:15:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A0B6617C0B
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Nov 2022 12:58:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A06FC163E;
-	Thu,  3 Nov 2022 12:14:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A06FC163E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AA7D85D;
+	Thu,  3 Nov 2022 12:57:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AA7D85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667474099;
-	bh=VGLtHGrvEsad4XKblHJGYxOiQNhK7ce9vOf/mTQLsxo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667476709;
+	bh=g7RfX/riC9FAkjVsWo3Hrd9Wlg/TQD2n3FXZ3CPz1eU=;
+	h=Date:To:References:From:Subject:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RbQZ/gKTB5SOn1IIT0zAQy423nN+84FjyH+3ly/Iyn5Ri9RPV1/8eWytQzx2woGjN
-	 8MLHgbFEFLaq/JvVLF+yBCprbQtGtPoPB/L+SnKg1a2ngyO2KqCNPp9omvV4RmEJK4
-	 4HbphTw/EUWWEzrM63Aqfekog4HbgvJ9zc95mQW0=
+	b=cG2yvOmYOR/t8A1F0cJQtlt6r5puTX6wt6DDDyjC964Z32+gSxJYPEQXf8eaMeBFa
+	 oaaYHxSCLbiNHl3xFw3i+NITEeaILC9g4p9V3hd8zqCCWB0fCwQ2pj7At9ehUpeeZ8
+	 6PhWF60JEavxVa/EKQFc6lDD7QZaTGIlW/UebC9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01768F800BF;
-	Thu,  3 Nov 2022 12:14:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65A53F8051F;
+	Thu,  3 Nov 2022 12:57:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C882AF8051E; Thu,  3 Nov 2022 12:14:02 +0100 (CET)
+ id DBDB9F8051E; Thu,  3 Nov 2022 12:57:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58C6BF800BF
- for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 12:14:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58C6BF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xQ0huWb/"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="c7ufcLJu"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BB2E51F88C;
- Thu,  3 Nov 2022 11:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667474039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MODjW31YlOgmHgpDP0hKULKTPUFwC+bqLYqm/fhALSw=;
- b=xQ0huWb/A88QzDT9ZLB4QgMcO7EL35HCL14hxsRR5XTwuQ2SbLQHa4xw3KkWA/RF+VIiiF
- W2+dqRNcd+FeDQbBCgxlKmXNYnoez2b/4Jznu1SK+8YwummkCz7cdAxzTAcHgEJHSsDsnp
- +tliYUT8hT1pqHNBqu/f4TZZnrRoek0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667474039;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MODjW31YlOgmHgpDP0hKULKTPUFwC+bqLYqm/fhALSw=;
- b=c7ufcLJuzoDoyuZUjHrfB20K95L3iGRskw8vMvflzMOieywbGacN6SVMgQ3qq4c5H+pmVf
- wNlmqs9bfc3xubCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89B9013480;
- Thu,  3 Nov 2022 11:13:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mq/SIHeiY2OIEgAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 03 Nov 2022 11:13:59 +0000
-Date: Thu, 03 Nov 2022 12:13:59 +0100
-Message-ID: <87v8nwmgso.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH] Fix kbl_rt5663_rt5514_max98927 regression
-In-Reply-To: <20221103095404.GI92394@ediswmail.ad.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D8C8F80155
+ for <alsa-devel@alsa-project.org>; Thu,  3 Nov 2022 12:57:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D8C8F80155
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1oqYqf-0005Xv-0B; Thu, 03 Nov 2022 12:57:29 +0100
+Message-ID: <302e95d4-2a0d-7d2a-177c-82923c14c654@leemhuis.info>
+Date: Thu, 3 Nov 2022 12:57:28 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Content-Language: en-US, de-DE
+To: regressions@lists.linux.dev, alsa-devel@alsa-project.org
 References: <20221102200527.4174076-1-jmontleo@redhat.com>
- <2bbe7bed-21d4-018a-8957-10d9dbe0c661@linux.intel.com>
- <87a658o4e0.wl-tiwai@suse.de>
- <20221103095404.GI92394@ediswmail.ad.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: oder_chiou@realtek.com, cezary.rojewski@intel.com,
- regressions@lists.linux.dev, Jason Montleon <jmontleo@redhat.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Subject: Re: [PATCH] Fix kbl_rt5663_rt5514_max98927 regression #forregzbot
+In-Reply-To: <20221102200527.4174076-1-jmontleo@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de;linux@leemhuis.info;1667476650;16f613e3;
+X-HE-SMSGID: 1oqYqf-0005Xv-0B
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,74 +71,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 03 Nov 2022 10:54:04 +0100,
-Charles Keepax wrote:
+[Note: this mail is primarily send for documentation purposes and/or for
+regzbot, my Linux kernel regression tracking bot. That's why I removed
+most or all folks from the list of recipients, but left any that looked
+like a mailing lists. These mails usually contain '#forregzbot' in the
+subject, to make them easy to spot and filter out.]
+
+On 02.11.22 21:05, Jason Montleon wrote:
+> Starting with 6.0-rc1 these messages are logged and the sound card
+> is unavailable. Adding legacy_dai_naming to the rt5514-spi causes
+> it to function properly again.
 > 
-> On Thu, Nov 03, 2022 at 08:59:03AM +0100, Takashi Iwai wrote:
-> > On Wed, 02 Nov 2022 23:05:14 +0100,
-> > Pierre-Louis Bossart wrote:
-> > > 
-> > > On 11/2/22 16:05, Jason Montleon wrote:
-> > > > Starting with 6.0-rc1 these messages are logged and the sound card
-> > > > is unavailable. Adding legacy_dai_naming to the rt5514-spi causes
-> > > > it to function properly again.
-> > > > 
-> > > > [   16.928454] kbl_r5514_5663_max kbl_r5514_5663_max: ASoC: CPU DAI
-> > > > spi-PRP0001:00 not registered
-> > > > [   16.928561] platform kbl_r5514_5663_max: deferred probe pending
-> > > 
-> > > Thanks for reporting this regression, much appreciated.
-> > > 
-> > > a) you need to CC: maintainers Mark Brown and Takashi Iwai
-> > > b) the commit title should be something like "ASoC: rt5514: fix legacy
-> > > dai naming".
-> > > c) it's not clear if this is actually enough. there's no
-> > > legacy_dai_naming for e.g. rt5663 and the .endianness member is not set.
-> > 
-> > IIUC, rt5663.c should be fine; it used to have non_legacy_dai_naming
-> > flag and it was dropped after the switch.
-> > 
-> > But, through a quick glance, rt5677-spi.c seems to be the same pattern
-> > as rt5514-spi.c.  The rt5677.c was covered properly but the *-spi.c
-> > wan't.
-> > 
-> 
-> Yeah I think these got missed as they are effectively CPU side
-> devices but living in the CODEC space. Looks like it would be
-> reasonable to add legacy_dai_naming to both of them to me.
+> [   16.928454] kbl_r5514_5663_max kbl_r5514_5663_max: ASoC: CPU DAI
+> spi-PRP0001:00 not registered
+> [   16.928561] platform kbl_r5514_5663_max: deferred probe pending
 
-BTW, the bug was reported on bugzilla:
-  https://bugzilla.kernel.org/show_bug.cgi?id=216641
+Thanks for the report. To be sure below issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, my Linux kernel regression
+tracking bot:
 
-Please respond on there and add the link to the fix patch, too.
+#regzbot introduced v5.19..v6.0 ^
+https://bugzilla.kernel.org/show_bug.cgi?id=216641
+#regzbot title sound: asoc: kbl_r5514_5663_max: sound broken
+#regzbot ignore-activity
 
-
-thanks,
-
-Takashi
-
-> 
-> Thanks,
-> Charles
-> 
-> > > >  static const struct snd_soc_component_driver rt5514_spi_component = {
-> > > > -	.name		= DRV_NAME,
-> > > > -	.probe		= rt5514_spi_pcm_probe,
-> > > > -	.open		= rt5514_spi_pcm_open,
-> > > > -	.hw_params	= rt5514_spi_hw_params,
-> > > > -	.hw_free	= rt5514_spi_hw_free,
-> > > > -	.pointer	= rt5514_spi_pcm_pointer,
-> > > > -	.pcm_construct	= rt5514_spi_pcm_new,
-> > > > +	.name			= DRV_NAME,
-> > > > +	.probe			= rt5514_spi_pcm_probe,
-> > > > +	.open			= rt5514_spi_pcm_open,
-> > > > +	.hw_params		= rt5514_spi_hw_params,
-> > > > +	.hw_free		= rt5514_spi_hw_free,
-> > > > +	.pointer		= rt5514_spi_pcm_pointer,
-> > > > +	.pcm_construct		= rt5514_spi_pcm_new,
-> > > > +	.legacy_dai_naming	= 1,
-> > > >  };
-> > > >  
-> > > >  /**
-> > > 
-> 
+Ciao, Thorsten

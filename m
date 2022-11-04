@@ -2,82 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E912E619C19
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 16:50:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE7C619C2D
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 16:53:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D24A1EB;
-	Fri,  4 Nov 2022 16:49:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D24A1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 699BF164D;
+	Fri,  4 Nov 2022 16:52:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 699BF164D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667577039;
-	bh=Lf8JCJgjgUQ53WHCpkUyzYaK8iGnPpryq97fFhrWBQw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1667577211;
+	bh=raqHf3XdP67HxZIv3dTfbFzqLY47MqMB58fN6kr/eug=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bGkB8rLlQT0/IYu2SFpff5WaidJ40U084EJitfdkuud+7dD00i/vyPgG29sipvR4M
-	 J+82AJfwsUhaYcrvtXDrReWJ+oP4AMsjXRr2kvG8w3VGPkh9pgSmBvYJuJrUX+VQi/
-	 3v1j4NAl5GVYL0Qwg5cozoflWZcGQcZZDmFC6kYI=
+	b=vkMJeO32mjtAkovqy2eztMnUyfLdZjAMWmqgobohlnjJM7qMl/uTOJi4tvKxfNxu+
+	 L6BXH1U06bn4If5CwPPwguRHX+1oK/rPvzYo8f/JpXW+vIb82fOSj+aA/73FQFOee7
+	 54VheF1KaRb8Fp+cJHPOoFuIfVza2MwMBETU1dJs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6E3CF8047D;
-	Fri,  4 Nov 2022 16:49:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D68F7F8047D;
+	Fri,  4 Nov 2022 16:52:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AE33F80155; Fri,  4 Nov 2022 16:49:42 +0100 (CET)
+ id 77704F80448; Fri,  4 Nov 2022 16:52:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73B5BF80155
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 16:49:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73B5BF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08F16F80155
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 16:52:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08F16F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IWqcHhUC"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="IVnRQRBI"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="+Zc2T687"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1A768B82EBF;
- Fri,  4 Nov 2022 15:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09C1C433C1;
- Fri,  4 Nov 2022 15:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667576973;
- bh=Lf8JCJgjgUQ53WHCpkUyzYaK8iGnPpryq97fFhrWBQw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=IWqcHhUCaJST3EpTW+B9ZO+VXxkf4XUFtPwQ9+1lSLJIUehn7JeDn4emOPcRtMkM7
- GnM6BrtBvYIscE4zZUYPBxWhgkgNHEsXC/pg3POWotODXnJwMf0Sp+L6BadS/8ndNm
- r6rvLsAHiJ07f+WFPtclFlFspOO4x54XrozeF3/EGZafFsUgSVbatE8T2PQv/A2sJC
- m8Ddqcg2+Qvt0UfNyVqUJklyye28agBYqDfMt72wCGzPmwsJ3QXBSTpg8jxMc1CWjM
- gMDa0aeSbx8meh6e9Eq0dwks5hNCfduipctu7XHalgIxVDCgE7f9iS38QxLEJCRBLs
- nOjOqYvcJPR+Q==
-From: Mark Brown <broonie@kernel.org>
-To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
-References: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: fix ACP version typo mistake
-Message-Id: <166757697041.399796.7667715854379542495.b4-ty@kernel.org>
-Date: Fri, 04 Nov 2022 15:49:30 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: Sunil-kumar.Dommati@amd.com, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Randy Dunlap <rdunlap@infradead.org>,
- mario.limonciello@amd.com, Vijendar.Mukunda@amd.com,
- Daniel Baluta <daniel.baluta@nxp.com>,
- syed saba kareem <syed.sabakareem@amd.com>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 738961F8BE;
+ Fri,  4 Nov 2022 15:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667577151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2xEQdjIHF2xShTJ3vLtY/1nOIDFiNQi8ZlPvghPptiQ=;
+ b=IVnRQRBInJ2rAGcMhKMo20szlRrpW2w6ZDnv3Uyt/tx+RtYDYxWFqmg6NjFFDX0AU0eowR
+ vmT16h/nFvXTaP3q9q/v9HG2UFhyN+uPMSs9m3T9d2s0qyKtN08p0Qaljqk3X4qh8Z2sPW
+ kTV4ulxBEh7QQUJNO5kl9EDDsnMygAQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667577151;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2xEQdjIHF2xShTJ3vLtY/1nOIDFiNQi8ZlPvghPptiQ=;
+ b=+Zc2T68786lj66674eAqIqfUXdSeEV9vGItORA4oJtcFcWTQFLdhGFXzDB/jcsroAU1d8b
+ pXAB9CfQBM27zcCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56E3B13216;
+ Fri,  4 Nov 2022 15:52:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id JxF0FD81ZWNTYAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 04 Nov 2022 15:52:31 +0000
+Date: Fri, 04 Nov 2022 16:52:30 +0100
+Message-ID: <87k04aiuo1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: regression with SG DMA buf allocations and IOMMU in low-mem
+In-Reply-To: <alpine.DEB.2.22.394.2211041741520.3532114@eliteleevi.tm.intel.com>
+References: <alpine.DEB.2.22.394.2211041541090.3532114@eliteleevi.tm.intel.com>
+ <87r0yiiw6s.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2211041741520.3532114@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Alsa-devel <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,38 +101,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 4 Nov 2022 17:39:07 +0530, Syed Saba Kareem wrote:
-> From: syed saba kareem <syed.sabakareem@amd.com>
+On Fri, 04 Nov 2022 16:42:29 +0100,
+Kai Vehmanen wrote:
 > 
-> Pink Sardine is based on ACP6.3 architecture.
-> This patch fixes the typo mistake acp6.2 -> acp6.3
+> Hi,
 > 
+> [ and sorry, I had the bounces address in cc originally, routing
+>   reply to list as well ]
 > 
+> On Fri, 4 Nov 2022, Takashi Iwai wrote:
+> 
+> > On Fri, 04 Nov 2022 15:56:50 +0100, Kai Vehmanen wrote:
+> > > I've been debugging a SOF DSP load fail on VT-D/IOMMU systems [1] and 
+> > > that brought me to these two commits from you:
+> > > .. but in rare low-memory cases, the dma_alloc_noncontiguous()
+> > > call will fail in core/memalloc.c and we go to the fallback path.
+> > > 
+> > > So we go to snd_dma_sg_fallback_alloc(), but here it seems something is 
+> > > missing. The pages are not allocated with DMA mapping API anymore, so 
+> > > IOMMU won't know about the memory and in our case the DSP load will fail 
+> > > to a IOMMU fault. 
+> [...]
+> > 
+> > Hrm, that's a tough issue.  Basically if dma_alloc_noncontiguous()
+> > fails, it's really out of memory -- at least under the situation where
+> > IOMMU is enabled.  The fallback path was introduced for the case where
+> > there is no IOMMU and noncontiguous allocation fails from the
+> > beginning.
+> 
+> ack. This matches with the bug reports. These happen rarely and on systems 
+> with a lot of memory pressure. We have recently submitted a few 
+> features&fixes that will further reduce these allocs, so it probably is 
+> better outcome to have a plain out of memory error.
+> 
+> > And, what makes things more complicated is that snd_dma_dev_alloc()
+> > cannot be used for SG pages when IOMMU is involved.  We can't get the
+> > proper pages for mapping SG from the DMA address in that case; some
+> > systems may work with virt_to_page() but it's not guranteed to work.
+> 
+> Aa, ok, so we need to use dma_alloc_noncontiguous() to do this properly 
+> and if it returns ENOMEM, that's what it is then, right.
+> 
+> > So, I believe there are two issues:
+> > 1. The firmware allocation fails with dma_alloc_noncontiguous() with
+> >   IOMMU enabled
+> > 
+> > 2. The helper goes to the fallback path and occasionally it worked,
+> >   although the pages can't be used with IOMMU.
+> > 
+> > Basically when 1 happens, we should just return an error without going
+> > to fallback path.  But it won't "fix" your case?
+> 
+> I think an explicit error would be best. The problem now is that the 
+> driver will think the allocation (and mapping to device) is fine and 
+> proceeds to program the hardware to use the address. This will then create 
+> an IOMMU fault down the line that is not so straighforward to recover from 
+> (worst case is that a full device level reset needs to be done). And given 
+> driver doesn't know it got a faulty mapping, it's hard to make the 
+> decision why the fault happened.
 
-Applied to
+OK, then what I posted in another mail (it went to nirvana) might
+work.  Attached below again.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+Takashi
 
-[1/1] ASoC: amd: fix ACP version typo mistake
-      commit: 4b19211435950a78af032c26ad64a5268e6012be
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 8< --
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -9,6 +9,7 @@
+ #include <linux/slab.h>
+ #include <linux/mm.h>
+ #include <linux/dma-mapping.h>
++#include <linux/dma-map-ops.h>
+ #include <linux/genalloc.h>
+ #include <linux/highmem.h>
+ #include <linux/vmalloc.h>
+@@ -541,19 +542,20 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
+ 	struct sg_table *sgt;
+ 	void *p;
+ 
+-	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
+-				      DEFAULT_GFP, 0);
+-	if (!sgt) {
+ #ifdef CONFIG_SND_DMA_SGBUF
++	if (!get_dma_ops(dmab->dev.dev)) {
+ 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
+ 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
+ 		else
+ 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_SG_FALLBACK;
+ 		return snd_dma_sg_fallback_alloc(dmab, size);
+-#else
+-		return NULL;
+-#endif
+ 	}
++#endif
++
++	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
++				      DEFAULT_GFP, 0);
++	if (!sgt)
++		return NULL;
+ 
+ 	dmab->dev.need_sync = dma_need_sync(dmab->dev.dev,
+ 					    sg_dma_address(sgt->sgl));
+@@ -857,7 +859,7 @@ static const struct snd_malloc_ops snd_dma_noncoherent_ops = {
+ /*
+  * Entry points
+  */
+-static const struct snd_malloc_ops *dma_ops[] = {
++static const struct snd_malloc_ops *snd_dma_ops[] = {
+ 	[SNDRV_DMA_TYPE_CONTINUOUS] = &snd_dma_continuous_ops,
+ 	[SNDRV_DMA_TYPE_VMALLOC] = &snd_dma_vmalloc_ops,
+ #ifdef CONFIG_HAS_DMA
+@@ -883,7 +885,7 @@ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
+ 	if (WARN_ON_ONCE(!dmab))
+ 		return NULL;
+ 	if (WARN_ON_ONCE(dmab->dev.type <= SNDRV_DMA_TYPE_UNKNOWN ||
+-			 dmab->dev.type >= ARRAY_SIZE(dma_ops)))
++			 dmab->dev.type >= ARRAY_SIZE(snd_dma_ops)))
+ 		return NULL;
+-	return dma_ops[dmab->dev.type];
++	return snd_dma_ops[dmab->dev.type];
+ }

@@ -2,95 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA747619281
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 09:13:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E856192AC
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 09:21:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41F8C1664;
-	Fri,  4 Nov 2022 09:12:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41F8C1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1ABC164D;
+	Fri,  4 Nov 2022 09:20:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1ABC164D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667549580;
-	bh=hHutvwl4lnfiX2x2+3gHH7m4RiNA3Ee6KrOIJwVP7UQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667550075;
+	bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RA8Vge6UJKwTVajHze8W+b+rF4xKRD9UDhnI5wN3cyUtghyA2ULZ+N87fTeUg4OgT
-	 +haMIbaqhcWoHrKTIEOT+iAXnw0n2F2sMJ+0CjTmdF0BNi0ch2JhuEv2fqzaqn6o3B
-	 q2jRv56XhU81YgNBBv3znwkUjOEFMzYnr0dwFlnA=
+	b=j/5yvoorAkfBGzKiUvLVVitwlBwsTi0vwojjMCuXFUuQt5WO2v4R75gf/arxCQclX
+	 I35tlk5CpBdEG4gmnjc/VDQjq0XXfIdqTGxu7FWEtf9aDtQ/k3d2FjQLF6QBpH1mWL
+	 VSZCPGj+dr81hFy4NXkfg+7//V4gQgjiHXGbsxMc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80231F80149;
-	Fri,  4 Nov 2022 09:12:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DBA6F805D9;
+	Fri,  4 Nov 2022 09:16:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43AA6F80155; Fri,  4 Nov 2022 09:12:02 +0100 (CET)
+ id 82A63F805E0; Fri,  4 Nov 2022 09:16:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_93,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D29FF80155
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 09:11:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D29FF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BD37F805DF
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 09:16:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BD37F805DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DwQoZ21P"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="GL9LsRbV"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 01B3E1F8D3;
- Fri,  4 Nov 2022 08:11:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667549513; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CfkzgBgYU6H64HIDvqy65jOVZfsZhtUfYs3vAtppVY=;
- b=DwQoZ21PtPrPzqujBPconBBWADj1oZNmWq8370xTrnW7MJMhqPfhrv66CVjht6yMm3TDxN
- qsCum1v50/Yk6kdGdC/c6fUVGmsdVjgBb0ux+aSTZXhxpI9KowWL3puz2MybpqMpceC0ou
- eHsbBPDxCYRQAVpqC0BovuJV5NG/AS8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667549513;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0CfkzgBgYU6H64HIDvqy65jOVZfsZhtUfYs3vAtppVY=;
- b=GL9LsRbVUNwl6/poNlgpMP1vKsZJd6cQ0YGPzpIEFjn3BDTgY4qv40pFrsI7ep3f+zs72X
- O2HlglmEziC8kJCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F98513216;
- Fri,  4 Nov 2022 08:11:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id tNo/IEjJZGOAVQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 04 Nov 2022 08:11:52 +0000
-Date: Fri, 04 Nov 2022 09:11:51 +0100
-Message-ID: <87zgd7jfzs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [RFC][PATCH v3 29/33] timers: ALSA: Use timer_shutdown_sync()
- before freeing timer
-In-Reply-To: <20221104054917.188768105@goodmis.org>
-References: <20221104054053.431922658@goodmis.org>
- <20221104054917.188768105@goodmis.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Austin Kim <austin.kim@lge.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Anna-Maria Gleixner <anna-maria@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck <linux@roeck-us.net>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ol95pFIR"
+Received: by mail-pj1-x1030.google.com with SMTP id
+ m14-20020a17090a3f8e00b00212dab39bcdso7579370pjc.0
+ for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 01:16:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
+ b=ol95pFIRx0tYNNaY+NNILw/xN4ySwCeTdxC68wx492BaHbgyLSqUrsvf3NpH38iQUg
+ Zx7iD+35Px8hdlSrlQucqnbWLcMNaUx+50xOb2Ie20JDo1WtjkXEiv1zahOJGQ7T8/jg
+ cpyc1YqSqGsbSJOhcMEUHVans4zad6F/TH7eUoVqJRBIhPslv/m9gbDzndYR9wOZq6Ch
+ ENMJ3Bfmi9xvUEun7CA9/3uYf/elXBBIHIBt993RXprs91Vp67cqg5haroMY4G01L+0h
+ Erg22nRGNOCkODO8ARp6bNOM697JFyFy7djPWCtGJQmsE6kkeMaJZBHn0SCA0LUM70fI
+ /0dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
+ b=TLCD+quNa92jYo6fhZSfnR2+L7DIarMKwKgU7LrLL3xi6wgtkv2iVVYwHcA0uuwhXy
+ tQ5mVH9Mjo/KSr/kJcy0Z+/DyyDGdq77mM/PpfIXHNPQ3MtoGf3KQokF6ar+AJdr9XOs
+ AyMShoTXtVTu98PKIkonwnxxcpN9Y32RuQ3Yq6Eyxv44NHKrVF86Q3N4SZ/hc3eKTarG
+ NsEPqeCZSbi/ygwmPaWKr34PE41MfnYonFRpmtZIasefHtx+r3G9ts/H6OWsZv1VYkkf
+ qDYScBcBtRh/91uE/Y5CAR28ZaKGZPumQUrMGdcflvga2ASD9BEIm9211zmQAQN3t346
+ WJfQ==
+X-Gm-Message-State: ACrzQf3tec71xytchJnXk9xvCaQze3FMBPO3vLed2OpPI+4gM6MzxNy4
+ 8AC37rZvgPGnuLF/YCuJkMfqKkZxQQOQwA==
+X-Google-Smtp-Source: AMsMyM6VXD1w4yOU5o5rPc+Zy5uksryVOKxaPPSdQXbe5FLZuI1n8TxOgBi3w6BmwflaHME5uqdHHw==
+X-Received: by 2002:a17:903:2285:b0:187:3679:b3b0 with SMTP id
+ b5-20020a170903228500b001873679b3b0mr19339855plh.121.1667549782836; 
+ Fri, 04 Nov 2022 01:16:22 -0700 (PDT)
+Received: from debian.me (subs02-180-214-232-15.three.co.id. [180.214.232.15])
+ by smtp.gmail.com with ESMTPSA id
+ z15-20020a62d10f000000b0056bee23a80bsm2052626pfg.137.2022.11.04.01.16.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Nov 2022 01:16:22 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id D62EC103D98; Fri,  4 Nov 2022 15:16:19 +0700 (WIB)
+Date: Fri, 4 Nov 2022 15:16:19 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH] ASoC: amd: fix ACP version typo mistake
+Message-ID: <Y2TKUxKENsaAB3V8@debian.me>
+References: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="ZTMYTwyazIsoR/Ma"
+Content-Disposition: inline
+In-Reply-To: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Randy Dunlap <rdunlap@infradead.org>,
+ Takashi Iwai <tiwai@suse.com>, broonie@kernel.org, mario.limonciello@amd.com,
+ Vijendar.Mukunda@amd.com, Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,59 +113,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 04 Nov 2022 06:41:22 +0100,
-Steven Rostedt wrote:
-> 
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> Before a timer is freed, timer_shutdown_sync() must be called.
-> 
-> Link: https://lore.kernel.org/all/20220407161745.7d6754b3@gandalf.local.home/
-> 
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Austin Kim <austin.kim@lge.com>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+--ZTMYTwyazIsoR/Ma
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 04, 2022 at 05:39:07PM +0530, Syed Saba Kareem wrote:
+> From: syed saba kareem <syed.sabakareem@amd.com>
 
-thanks,
+Is your name capitalization correct? I assume from From: mail header
+(Title Case).
 
-Takashi
+>=20
+> Pink Sardine is based on ACP6.3 architecture.
+> This patch fixes the typo mistake acp6.2 -> acp6.3
 
-> ---
->  sound/i2c/other/ak4117.c | 2 +-
->  sound/synth/emux/emux.c  | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/i2c/other/ak4117.c b/sound/i2c/other/ak4117.c
-> index 1bc43e927d82..640501bb3ca6 100644
-> --- a/sound/i2c/other/ak4117.c
-> +++ b/sound/i2c/other/ak4117.c
-> @@ -47,7 +47,7 @@ static void reg_dump(struct ak4117 *ak4117)
->  
->  static void snd_ak4117_free(struct ak4117 *chip)
->  {
-> -	del_timer_sync(&chip->timer);
-> +	timer_shutdown_sync(&chip->timer);
->  	kfree(chip);
->  }
->  
-> diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
-> index a870759d179e..0006c3ddb51d 100644
-> --- a/sound/synth/emux/emux.c
-> +++ b/sound/synth/emux/emux.c
-> @@ -129,7 +129,7 @@ int snd_emux_free(struct snd_emux *emu)
->  	if (! emu)
->  		return -EINVAL;
->  
-> -	del_timer_sync(&emu->tlist);
-> +	timer_shutdown_sync(&emu->tlist);
->  
->  	snd_emux_proc_free(emu);
->  	snd_emux_delete_virmidi(emu);
-> -- 
-> 2.35.1
-> 
+Please write the description in imperative mood instead (e.g. "make foo
+do bar"). "This patch" phrase is redundant.
+
+Thanks.
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--ZTMYTwyazIsoR/Ma
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCY2TKUAAKCRD2uYlJVVFO
+o/fAAQD3rmfSByMHUHkKVpOJ6Ah3M+M3DKsLXB6nUzB3lzPbewEAilx/goxqiaWO
+hj9+2GDGqIQF5yWcjgxfnKYZ0LFlAg4=
+=IoKO
+-----END PGP SIGNATURE-----
+
+--ZTMYTwyazIsoR/Ma--

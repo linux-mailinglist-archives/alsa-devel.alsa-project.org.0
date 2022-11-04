@@ -2,121 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F8C61D878
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:25:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61F161D879
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:25:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 005C01743;
-	Sat,  5 Nov 2022 08:24:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 005C01743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 768111732;
+	Sat,  5 Nov 2022 08:24:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 768111732
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667633135;
-	bh=BGtDedj/6AASE60kIzynQODj24drxmj4xbmkwNe6h8o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q7wQfxZeYOvwVzfY8+VPQxbbkBqOYmIImvEWv+7m7k399ezwgTSaMGdJGZikxTcWf
-	 QXWGLw1D7WqupskMnr29JZnRDb6ZPZkTePn+a1cWw8b4ImSV4VZoiENTl/XePcuLVd
-	 OBYSSxRd7WNSS/yyBIp7MKjqnFLqj4/h1JsIhlBI=
+	s=default; t=1667633149;
+	bh=heA8aIGKnJusGG5KyheWks0zVN/Rvw9O0VN6zhPfBuo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ULOt6tWLrjMea4ZnrHUU8g9/imyM+QfdApTYcbOQc6vLshq47WxmY2sB7Ct+lNwgz
+	 t7wUKdg6p4+esrL/mZUe+GeWxLZeOnSLo1a/ldZz/B92uC2An9IcBgxA4g2IbJJLaO
+	 AAaEwqr79nCC8n9XrB5UWHm2oEKxgb5TriF8Q/v8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47E42F8087A;
+	by alsa1.perex.cz (Postfix) with ESMTP id B1BA4F8087B;
 	Sat,  5 Nov 2022 08:04:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FE8FF80448; Fri,  4 Nov 2022 20:51:25 +0100 (CET)
+ id A24AEF80448; Fri,  4 Nov 2022 21:29:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C266F801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 20:51:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C266F801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 867DDF801D5
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 21:29:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867DDF801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linux-foundation.org
- header.i=@linux-foundation.org header.b="bIdKEWgR"
-Received: by mail-qk1-x731.google.com with SMTP id x21so3755312qkj.0
- for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 12:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=x16jINQR4q6R4H/0ehn+NSarZW0ZiXtTfCfHHiaRLp4=;
- b=bIdKEWgR5UZIy0TJaruQujMahMwynr4PVMnDcU4kBitHBNo7q073JbrYzG65FbHP7Y
- mbM9hFjlLlwQAouSAl9oSuR5cXI0K/JQyyZwmKs1co0JGtwjHN72PIS9n6MKeTRWxT7Z
- cCPuFkDzNQGR2KqOHNVW0/FBQA0CMharaPptg=
+ dkim=pass (2048-bit key) header.d=xianwang.io header.i=@xianwang.io
+ header.b="Wz6o3Ssb"
+Received: by mail-pf1-x434.google.com with SMTP id m6so5506918pfb.0
+ for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 13:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xianwang.io; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=dNuOKOg5TSGR3sEFnpto1NusoWdDGSQBWKpGFE9UhI8=;
+ b=Wz6o3Ssb6qoQQb4wDttx51bVElUbeXinkynJ9AE/ddy1Aob9geCC7eWuA/BbexLl2C
+ VozOESQYheDe8Uqx97e8NHSVy07RRsHPoJ25VBi0cRLnFTbH9UcknIws3N0klm+FmXCM
+ olD8RIzsAkJS6SdEWbtbnvrD91GzJSwG5Z2LHI1+wtF2uyLoc7i03a254R/zMbj0+jsc
+ pYaKo2awRcVHZOzaikb7OH0p/3jqnyQbeux6oIV2JQUPzLQlt8R67R3bNTAOr744CVLS
+ ZZX+dypVpy4bKOEKwwKqJk6k9ank0qZKedIOM9QkET0C40aonV9ap4s9I5AdnY84DftN
+ mmHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=x16jINQR4q6R4H/0ehn+NSarZW0ZiXtTfCfHHiaRLp4=;
- b=LnK8SnOkHEnrVQNKjCyxlJeBl+1Svli93oQmx/WbiXun1YppD3q7sA0Mw88OFhHyYX
- yQx0f2WQ0PwLTY9OhOay09rdvmXbXG/UrEhb5ezdnHqLcmxQJHRNrIx6Ut/2H4QLXi9k
- 8XRM+WOFF7sKE4oLrdwRwv6uZXWjlivMUPYSKrR9jtg2i+G72ZJuedr7Il0fBKddNRXu
- 0rDl8BsIRnX3iY5VZ8lVx0TdHWD87ShxnSBBZGbu0u3rrOz9vAO8K+Fi1yPPePTVBmd+
- b/T5nEFmqnDFtilZZJaibB9YV3DlIoPxfBlhZzVd2SZ/S7jlTKmG0pD8uQ4yXAh9C8Aj
- Az1A==
-X-Gm-Message-State: ACrzQf3zFSKI9ux9z0vG5FhALNarFtoDW0kioYxmENzZJ/PeYn8dyAkr
- d3mvc9amnrY5M1kKsevlSw3UfhmqEvxSSA==
-X-Google-Smtp-Source: AMsMyM6XjLLcJZv63fHx2wkC4HSaXy+M3OOh8x/MTDhTxWAv1FremwHHh7ePAvmQkfqp9fvgeLiynA==
-X-Received: by 2002:a05:620a:448e:b0:6ce:8dd2:bc46 with SMTP id
- x14-20020a05620a448e00b006ce8dd2bc46mr28324509qkp.705.1667591471141; 
- Fri, 04 Nov 2022 12:51:11 -0700 (PDT)
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com.
- [209.85.128.171]) by smtp.gmail.com with ESMTPSA id
- l5-20020ac848c5000000b003a5689134afsm142198qtr.36.2022.11.04.12.51.09
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Nov 2022 12:51:10 -0700 (PDT)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-333a4a5d495so52886237b3.10
- for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 12:51:09 -0700 (PDT)
-X-Received: by 2002:a0d:ef07:0:b0:373:5257:f897 with SMTP id
- y7-20020a0def07000000b003735257f897mr16823922ywe.401.1667591459021; Fri, 04
- Nov 2022 12:50:59 -0700 (PDT)
+ bh=dNuOKOg5TSGR3sEFnpto1NusoWdDGSQBWKpGFE9UhI8=;
+ b=Nu+ee3nuUavZ5DgPWlB8ryBXwkLtsT9mW3outRfdN6ieshP1gAMj1IYH3ff+A7L5Wq
+ tHqX9BUCmrW7kogcsmB3duWkdZmFRorYxXFqpo9cy/2JieTAwMW9rEjZvy6xNcSUGBPQ
+ BgAoePMZuWzMrKEVrDHSQu8M5I1LdJxBvINECUTpsQuEgoHX67YkWkQ5WVgXIK12X6yV
+ rPJQcgNZKbJ7D7HcYpLX/CKXJ6nKv2PlMMs0AXLkISEUrnCqTVpfov6uijGKPy4R09Zm
+ J7iVDKwjwc1yqboHXt407rZXbZuuz+ccfEbhIPcQCMhbpX+dUA6feAqqpeinXd7pJtzo
+ NLXw==
+X-Gm-Message-State: ACrzQf3SYkVEYJCYFoOYveraCGvkg/nCllqNc+oXHiXHtHilBjISd73u
+ cCxF6g+N43jGlRiAa8gwyobyiw==
+X-Google-Smtp-Source: AMsMyM6pF1IEuLJpCOWhcd/9mFu2k77dwgeQT5Ij3OZfPSun43ThrToOxj/+2bNwCeSyh1diar3UNA==
+X-Received: by 2002:a63:5123:0:b0:46f:f329:c013 with SMTP id
+ f35-20020a635123000000b0046ff329c013mr16440935pgb.428.1667593769432; 
+ Fri, 04 Nov 2022 13:29:29 -0700 (PDT)
+Received: from aurora.xw.lan (75-172-80-208.tukw.qwest.net. [75.172.80.208])
+ by smtp.gmail.com with ESMTPSA id
+ u8-20020a1709026e0800b0017bb38e4588sm161464plk.135.2022.11.04.13.29.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Nov 2022 13:29:28 -0700 (PDT)
+From: Xian Wang <dev@xianwang.io>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] patch_ca0132: add quirk for EVGA Z390 DARK
+Date: Fri,  4 Nov 2022 13:29:13 -0700
+Message-Id: <20221104202913.13904-1-dev@xianwang.io>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221104054053.431922658@goodmis.org>
- <20221104192232.GA2520396@roeck-us.net>
- <20221104154209.21b26782@rorschach.local.home>
-In-Reply-To: <20221104154209.21b26782@rorschach.local.home>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 4 Nov 2022 12:50:42 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wge9uWV2i9PR6x7va4ZbPdX5+rg7Ep1UNH_nYdd9rD-uw@mail.gmail.com>
-Message-ID: <CAHk-=wge9uWV2i9PR6x7va4ZbPdX5+rg7Ep1UNH_nYdd9rD-uw@mail.gmail.com>
-Subject: Re: [RFC][PATCH v3 00/33] timers: Use timer_shutdown*() before
- freeing timers
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:32 +0100
-Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
- linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Thomas Gleixner <tglx@linutronix.de>, linux-leds@vger.kernel.org,
- drbd-dev@lists.linbit.com, linux-s390@vger.kernel.org,
- linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-afs@lists.infradead.org, lvs-devel@vger.kernel.org,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-ext4@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- bridge@lists.linux-foundation.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, rcu@vger.kernel.org, cgroups@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
- Anna-Maria Gleixner <anna-maria@linutronix.de>, linux-edac@vger.kernel.org,
- linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-parisc@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linaro-mm-sig@lists.linaro.org
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:30 +0100
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Xian Wang <dev@xianwang.io>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,12 +103,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 4, 2022 at 12:42 PM Steven Rostedt <rostedt@goodmis.org> wrote:
->
-> Linus, should I also add any patches that has already been acked by the
-> respective maintainer?
+The Z390 DARK mainboard uses a CA0132 audio controller. The quirk is
+needed to enable surround sound and 3.5mm headphone jack handling in
+the front audio connector as well as in the rear of the board when in
+stereo mode.
 
-No, I'd prefer to keep only the ones that are 100% unambiguously not
-changing any semantics.
+Page 97 of the linked manual contains instructions to setup the
+controller.
 
-              Linus
+Link: https://www.evga.com/support/manuals/files/131-CS-E399.pdf
+
+Cc: stable@vger.kernel.org
+
+Signed-off-by: Xian Wang <dev@xianwang.io>
+---
+ sound/pci/hda/patch_ca0132.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 9580fe00cbd9..0a292bf271f2 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -1306,6 +1306,7 @@ static const struct snd_pci_quirk ca0132_quirks[] = {
+ 	SND_PCI_QUIRK(0x1458, 0xA026, "Gigabyte G1.Sniper Z97", QUIRK_R3DI),
+ 	SND_PCI_QUIRK(0x1458, 0xA036, "Gigabyte GA-Z170X-Gaming 7", QUIRK_R3DI),
+ 	SND_PCI_QUIRK(0x3842, 0x1038, "EVGA X99 Classified", QUIRK_R3DI),
++	SND_PCI_QUIRK(0x3842, 0x1055, "EVGA Z390 DARK", QUIRK_R3DI),
+ 	SND_PCI_QUIRK(0x1102, 0x0013, "Recon3D", QUIRK_R3D),
+ 	SND_PCI_QUIRK(0x1102, 0x0018, "Recon3D", QUIRK_R3D),
+ 	SND_PCI_QUIRK(0x1102, 0x0051, "Sound Blaster AE-5", QUIRK_AE5),
+-- 
+2.38.1
+

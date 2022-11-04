@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A77B261D86B
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:23:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A030961D870
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:24:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DC8B1728;
-	Sat,  5 Nov 2022 08:22:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DC8B1728
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88C721727;
+	Sat,  5 Nov 2022 08:23:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88C721727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667633023;
-	bh=YCA5LmXNVTbGR68VFj9olPWOu457uRUzU0O7I5/O/6A=;
+	s=default; t=1667633039;
+	bh=zPY0vKDgKF1VzNHMQ6HkK5NfoNqu3EYtIAmhKsR7/aA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DHA6liy+LthWgf/Au3cETUKn3mGt+dPL/IhMU1tp5vh3L8tsENQjMokPzyA6tgHBO
-	 ryyKMaXv+qxEcUsWxqDLni5er1IrpQ6aA3fmj0yEnubxqFxaB9UDgp8FzWA4Pbp3Ar
-	 J34c+eTJNq4KundHRQ0uThor9Fax5CcnCaF4YHU0=
+	b=eavR533WYuL5pNSbCSbu5SQl+Cpsey8Vsc36sxrZwAnEMVf2dSW8n74To/B2CzMas
+	 aUsgNMi9AK+qhmS8i/7FsNvHt6uTf/O0tbh4Zm4gNG/jeP1gfUq/1VDa7X2ZjmGPpZ
+	 xYejTJXNFnHE/TFNbva4KFlKqfi2G9zg3hp54a3w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6D6CF80817;
-	Sat,  5 Nov 2022 08:04:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61C36F80845;
+	Sat,  5 Nov 2022 08:04:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33B5BF80155; Fri,  4 Nov 2022 17:45:47 +0100 (CET)
+ id 65F2EF80448; Fri,  4 Nov 2022 17:46:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3802F801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:45:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3802F801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6534EF80155
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:46:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6534EF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=lechnology.com header.i=@lechnology.com
- header.b="WdhahLUm"
+ header.b="WDBX+cAn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4AvnEeQeniDWkQBvG292xKcyqRcJZJN4ObwNBkkj5tk=; b=WdhahLUmGJpQ95hVL+3u1VjMxb
- tUf7myaQndCk0qHzeKh1A+E2O/JcVf+aJ+IiQD/qFkAbTU535DJ2WAUD6UP1/EvQ/y4beijc5YALa
- Q3fcMmim22RAxWP0Rh4RhjXR+GqdPYPNBO9KnnRYGmufKc5r2oNWcdiYm05562NzkHszBUsTfAWO7
- JgFdZNqyyoguqSiEpMW173KJx1qkCjb5qv/86gVYx+OCVFDAJzuXuMvEgrqYPPENnQENv9FFS7mH/
- qsMwcba1c5ad5x6Y1xKSIlEvINxjtsa56wEJ+F6ehiPRzOvf9PnvY6QcDHcSY53EeaOn9zO5Boa6z
- wQg4vJPQ==;
-Received: from ip98-183-112-30.ok.ok.cox.net ([98.183.112.30]:58206
+ bh=zI7RcZiPaTDKMltPgs4ZCXXOEkuyhKs5pu9RAgGaQCM=; b=WDBX+cAnoxNFA2qROraJWPqwl6
+ sawOBGcwqy0cJOAIrVpjLZZ+Gx2IKKPpzlq32XA8dIyrUdyxFM7DDARo5oPRviL3HJfndmG8Y/6DX
+ JszwjA1qIBE963R9b+AbWyWXzot3CnWQfj8Q3yBrd7GtzWZM+7HpOT38Y0pygwUoqjt9E5drTi3PA
+ iwRZOCwQqQ0SXdmD9XyBdaTbR1R3prwAqmXw5Hw/1of8Akd3I0gnrXsFcDHUGIRQzdA3pfYYEcbWP
+ RGvTglAlnqK66tcDfALPc+yDGWDJk2SuAVwnrNdyQUQOE9Eu+PrDksdtVsbsh6ynJyaP/aeQMp/TT
+ YGTHedGw==;
+Received: from ip98-183-112-30.ok.ok.cox.net ([98.183.112.30]:45370
  helo=[192.168.0.134]) by vern.gendns.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
- (envelope-from <david@lechnology.com>) id 1oqzog-00Chgx-Is;
- Fri, 04 Nov 2022 12:45:28 -0400
-Message-ID: <187e61cd-7d02-2453-acf1-30180559d42f@lechnology.com>
-Date: Fri, 4 Nov 2022 11:45:17 -0500
+ (envelope-from <david@lechnology.com>) id 1oqzpN-00ChtK-Ip;
+ Fri, 04 Nov 2022 12:46:11 -0400
+Message-ID: <4a91a4cf-acac-387f-19a5-e2ce144f3496@lechnology.com>
+Date: Fri, 4 Nov 2022 11:46:02 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-Subject: Re: [PATCH v2 21/65] clk: davinci: da8xx-cfgchip: Add a
+Subject: Re: [PATCH v2 22/65] clk: davinci: da8xx-cfgchip: Add a
  determine_rate hook
 Content-Language: en-US
 To: Maxime Ripard <maxime@cerno.tech>, Stephen Boyd <sboyd@kernel.org>,
@@ -98,9 +98,9 @@ To: Maxime Ripard <maxime@cerno.tech>, Stephen Boyd <sboyd@kernel.org>,
  Max Filippov <jcmvbkbc@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-21-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-22-f6736dec138e@cerno.tech>
 From: David Lechner <david@lechnology.com>
-In-Reply-To: <20221018-clk-range-checks-fixes-v2-21-f6736dec138e@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v2-22-f6736dec138e@cerno.tech>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse,
@@ -141,8 +141,8 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 11/4/22 8:17 AM, Maxime Ripard wrote:
-> The Davinci DA8xxx cfgchip mux clock implements a mux with a set_parent
-> hook, but doesn't provide a determine_rate implementation.
+> The Davinci DA8xxx cfgchip "clk48" clock implements a mux with a
+> set_parent hook, but doesn't provide a determine_rate implementation.
 > 
 > This is a bit odd, since set_parent() is there to, as its name implies,
 > change the parent of a clock. However, the most likely candidate to
@@ -157,12 +157,6 @@ On 11/4/22 8:17 AM, Maxime Ripard wrote:
 > oversight. However, it could also be an explicit decision by the
 > original author to avoid any reparenting but through an explicit call to
 > clk_set_parent().
-
-
-The parent is defined in the device tree and is not expected to change
-at runtime, so if I am understanding the patch correctly, setting the
-CLK_SET_RATE_NO_REPARENT flag seems correct.
-
 > 
 > The latter case would be equivalent to setting the flag
 > CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
@@ -175,32 +169,36 @@ CLK_SET_RATE_NO_REPARENT flag seems correct.
 > 
 > And if it was an oversight, then we are at least explicit about our
 > behavior now and it can be further refined down the line.
+
+The parent is defined in the device tree and is not expected to change
+at runtime, so if I am understanding the patch correctly, setting the
+CLK_SET_RATE_NO_REPARENT flag seems correct.
+
 > 
 > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 > ---
->   drivers/clk/davinci/da8xx-cfgchip.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/clk/davinci/da8xx-cfgchip.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
 > diff --git a/drivers/clk/davinci/da8xx-cfgchip.c b/drivers/clk/davinci/da8xx-cfgchip.c
-> index 4103d605e804..c04276bc4051 100644
+> index c04276bc4051..4c1cc59bba53 100644
 > --- a/drivers/clk/davinci/da8xx-cfgchip.c
 > +++ b/drivers/clk/davinci/da8xx-cfgchip.c
-> @@ -229,6 +229,7 @@ static u8 da8xx_cfgchip_mux_clk_get_parent(struct clk_hw *hw)
+> @@ -565,6 +565,7 @@ static u8 da8xx_usb1_clk48_get_parent(struct clk_hw *hw)
 >   }
 >   
->   static const struct clk_ops da8xx_cfgchip_mux_clk_ops = {
+>   static const struct clk_ops da8xx_usb1_clk48_ops = {
 > +	.determine_rate	= __clk_mux_determine_rate,
->   	.set_parent	= da8xx_cfgchip_mux_clk_set_parent,
->   	.get_parent	= da8xx_cfgchip_mux_clk_get_parent,
+>   	.set_parent	= da8xx_usb1_clk48_set_parent,
+>   	.get_parent	= da8xx_usb1_clk48_get_parent,
 >   };
-> @@ -251,7 +252,7 @@ da8xx_cfgchip_mux_clk_register(struct device *dev,
->   	init.ops = &da8xx_cfgchip_mux_clk_ops;
+> @@ -589,6 +590,7 @@ da8xx_cfgchip_register_usb1_clk48(struct device *dev,
+>   
+>   	init.name = "usb1_clk48";
+>   	init.ops = &da8xx_usb1_clk48_ops;
+> +	init.flags = CLK_SET_RATE_NO_REPARENT;
 >   	init.parent_names = parent_names;
 >   	init.num_parents = 2;
-> -	init.flags = 0;
-> +	init.flags = CLK_SET_RATE_NO_REPARENT;
 >   
->   	mux->hw.init = &init;
->   	mux->regmap = regmap;
 > 
 

@@ -2,84 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7549761D877
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F8C61D878
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:25:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 132C6172A;
-	Sat,  5 Nov 2022 08:24:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 132C6172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 005C01743;
+	Sat,  5 Nov 2022 08:24:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 005C01743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667633118;
-	bh=CH03+LtiaLzntLINYBwnH9CWU4bugJpzMoA7QUpzTrQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667633135;
+	bh=BGtDedj/6AASE60kIzynQODj24drxmj4xbmkwNe6h8o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YwC4XE92eZ4eT9i3cccAoGBbPDPWTkVR5zCY3lctLC0h7gEHLXjnKsa6SnE8FDWWY
-	 z+cZfMLp0uJV/DoxmQwaiIpQbKKBO86419YwqP9HeEj3ziM5mlgI4oB4ahizf8C8ci
-	 QFffEUg4WcWEItumRHWSkIZEWE0wf+bpUs3cdGHs=
+	b=q7wQfxZeYOvwVzfY8+VPQxbbkBqOYmIImvEWv+7m7k399ezwgTSaMGdJGZikxTcWf
+	 QXWGLw1D7WqupskMnr29JZnRDb6ZPZkTePn+a1cWw8b4ImSV4VZoiENTl/XePcuLVd
+	 OBYSSxRd7WNSS/yyBIp7MKjqnFLqj4/h1JsIhlBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8733F80862;
-	Sat,  5 Nov 2022 08:04:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47E42F8087A;
+	Sat,  5 Nov 2022 08:04:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1C17F80448; Fri,  4 Nov 2022 20:42:21 +0100 (CET)
+ id 1FE8FF80448; Fri,  4 Nov 2022 20:51:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BD08F801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 20:42:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BD08F801D5
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 02FAFB82DCA;
- Fri,  4 Nov 2022 19:42:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A74C433D6;
- Fri,  4 Nov 2022 19:42:11 +0000 (UTC)
-Date: Fri, 4 Nov 2022 15:42:09 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [RFC][PATCH v3 00/33] timers: Use timer_shutdown*() before
- freeing timers
-Message-ID: <20221104154209.21b26782@rorschach.local.home>
-In-Reply-To: <20221104192232.GA2520396@roeck-us.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C266F801D5
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 20:51:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C266F801D5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linux-foundation.org
+ header.i=@linux-foundation.org header.b="bIdKEWgR"
+Received: by mail-qk1-x731.google.com with SMTP id x21so3755312qkj.0
+ for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 12:51:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=x16jINQR4q6R4H/0ehn+NSarZW0ZiXtTfCfHHiaRLp4=;
+ b=bIdKEWgR5UZIy0TJaruQujMahMwynr4PVMnDcU4kBitHBNo7q073JbrYzG65FbHP7Y
+ mbM9hFjlLlwQAouSAl9oSuR5cXI0K/JQyyZwmKs1co0JGtwjHN72PIS9n6MKeTRWxT7Z
+ cCPuFkDzNQGR2KqOHNVW0/FBQA0CMharaPptg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=x16jINQR4q6R4H/0ehn+NSarZW0ZiXtTfCfHHiaRLp4=;
+ b=LnK8SnOkHEnrVQNKjCyxlJeBl+1Svli93oQmx/WbiXun1YppD3q7sA0Mw88OFhHyYX
+ yQx0f2WQ0PwLTY9OhOay09rdvmXbXG/UrEhb5ezdnHqLcmxQJHRNrIx6Ut/2H4QLXi9k
+ 8XRM+WOFF7sKE4oLrdwRwv6uZXWjlivMUPYSKrR9jtg2i+G72ZJuedr7Il0fBKddNRXu
+ 0rDl8BsIRnX3iY5VZ8lVx0TdHWD87ShxnSBBZGbu0u3rrOz9vAO8K+Fi1yPPePTVBmd+
+ b/T5nEFmqnDFtilZZJaibB9YV3DlIoPxfBlhZzVd2SZ/S7jlTKmG0pD8uQ4yXAh9C8Aj
+ Az1A==
+X-Gm-Message-State: ACrzQf3zFSKI9ux9z0vG5FhALNarFtoDW0kioYxmENzZJ/PeYn8dyAkr
+ d3mvc9amnrY5M1kKsevlSw3UfhmqEvxSSA==
+X-Google-Smtp-Source: AMsMyM6XjLLcJZv63fHx2wkC4HSaXy+M3OOh8x/MTDhTxWAv1FremwHHh7ePAvmQkfqp9fvgeLiynA==
+X-Received: by 2002:a05:620a:448e:b0:6ce:8dd2:bc46 with SMTP id
+ x14-20020a05620a448e00b006ce8dd2bc46mr28324509qkp.705.1667591471141; 
+ Fri, 04 Nov 2022 12:51:11 -0700 (PDT)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com.
+ [209.85.128.171]) by smtp.gmail.com with ESMTPSA id
+ l5-20020ac848c5000000b003a5689134afsm142198qtr.36.2022.11.04.12.51.09
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Nov 2022 12:51:10 -0700 (PDT)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-333a4a5d495so52886237b3.10
+ for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 12:51:09 -0700 (PDT)
+X-Received: by 2002:a0d:ef07:0:b0:373:5257:f897 with SMTP id
+ y7-20020a0def07000000b003735257f897mr16823922ywe.401.1667591459021; Fri, 04
+ Nov 2022 12:50:59 -0700 (PDT)
+MIME-Version: 1.0
 References: <20221104054053.431922658@goodmis.org>
  <20221104192232.GA2520396@roeck-us.net>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:30 +0100
+ <20221104154209.21b26782@rorschach.local.home>
+In-Reply-To: <20221104154209.21b26782@rorschach.local.home>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 4 Nov 2022 12:50:42 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wge9uWV2i9PR6x7va4ZbPdX5+rg7Ep1UNH_nYdd9rD-uw@mail.gmail.com>
+Message-ID: <CAHk-=wge9uWV2i9PR6x7va4ZbPdX5+rg7Ep1UNH_nYdd9rD-uw@mail.gmail.com>
+Subject: Re: [RFC][PATCH v3 00/33] timers: Use timer_shutdown*() before
+ freeing timers
+To: Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:32 +0100
 Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
  linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Thomas Gleixner <tglx@linutronix.de>,
- linux-leds@vger.kernel.org, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, linux-afs@lists.infradead.org,
- lvs-devel@vger.kernel.org, linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ Thomas Gleixner <tglx@linutronix.de>, linux-leds@vger.kernel.org,
+ drbd-dev@lists.linbit.com, linux-s390@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-afs@lists.infradead.org, lvs-devel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, coreteam@netfilter.org,
  intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
  tipc-discussion@lists.sourceforge.net, linux-ext4@vger.kernel.org,
- linux-media@vger.kernel.org, bridge@lists.linux-foundation.org,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org, rcu@vger.kernel.org,
- cgroups@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
+ bridge@lists.linux-foundation.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, rcu@vger.kernel.org, cgroups@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net,
  Anna-Maria Gleixner <anna-maria@linutronix.de>, linux-edac@vger.kernel.org,
  linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
  linux-parisc@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
  netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
+ Andrew Morton <akpm@linux-foundation.org>, linaro-mm-sig@lists.linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,50 +132,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 4 Nov 2022 12:22:32 -0700
-Guenter Roeck <linux@roeck-us.net> wrote:
+On Fri, Nov 4, 2022 at 12:42 PM Steven Rostedt <rostedt@goodmis.org> wrote:
+>
+> Linus, should I also add any patches that has already been acked by the
+> respective maintainer?
 
-> Unfortunately the renaming caused some symbol conflicts.
-> 
-> Global definition: timer_shutdown
-> 
->   File             Line
-> 0 time.c            93 static inline void timer_shutdown(struct clock_event_device *evt)
-> 1 arm_arch_timer.c 690 static __always_inline int timer_shutdown(const int access,
-> 2 timer-fttmr010.c 105 int (*timer_shutdown)(struct clock_event_device *evt);
-> 3 timer-sp804.c    158 static inline void timer_shutdown(struct clock_event_device *evt)
-> 4 timer.h          239 static inline int timer_shutdown(struct timer_list *timer)
+No, I'd prefer to keep only the ones that are 100% unambiguously not
+changing any semantics.
 
-$ git grep '\btimer_shutdown'
-arch/arm/mach-spear/time.c:static inline void timer_shutdown(struct clock_event_device *evt)
-arch/arm/mach-spear/time.c:     timer_shutdown(evt);
-arch/arm/mach-spear/time.c:     timer_shutdown(evt);
-arch/arm/mach-spear/time.c:     timer_shutdown(evt);
-drivers/clocksource/arm_arch_timer.c:static __always_inline int timer_shutdown(const int access,
-drivers/clocksource/arm_arch_timer.c:   return timer_shutdown(ARCH_TIMER_VIRT_ACCESS, clk);
-drivers/clocksource/arm_arch_timer.c:   return timer_shutdown(ARCH_TIMER_PHYS_ACCESS, clk);
-drivers/clocksource/arm_arch_timer.c:   return timer_shutdown(ARCH_TIMER_MEM_VIRT_ACCESS, clk);
-drivers/clocksource/arm_arch_timer.c:   return timer_shutdown(ARCH_TIMER_MEM_PHYS_ACCESS, clk);
-drivers/clocksource/timer-fttmr010.c:   int (*timer_shutdown)(struct clock_event_device *evt);
-drivers/clocksource/timer-fttmr010.c:   fttmr010->timer_shutdown(evt);
-drivers/clocksource/timer-fttmr010.c:   fttmr010->timer_shutdown(evt);
-drivers/clocksource/timer-fttmr010.c:   fttmr010->timer_shutdown(evt);
-drivers/clocksource/timer-fttmr010.c:           fttmr010->timer_shutdown = ast2600_timer_shutdown;
-drivers/clocksource/timer-fttmr010.c:           fttmr010->timer_shutdown = fttmr010_timer_shutdown;
-drivers/clocksource/timer-fttmr010.c:   fttmr010->clkevt.set_state_shutdown = fttmr010->timer_shutdown;
-drivers/clocksource/timer-fttmr010.c:   fttmr010->clkevt.tick_resume = fttmr010->timer_shutdown;
-drivers/clocksource/timer-sp804.c:static inline void timer_shutdown(struct clock_event_device *evt)
-drivers/clocksource/timer-sp804.c:      timer_shutdown(evt);
-drivers/clocksource/timer-sp804.c:      timer_shutdown(evt);
-
-Honestly, I think these need to be renamed, as "timer_shutdown()"
-should be specific to the timer code, and not individual timers.
-
-I'll start making a patch set that starts by renaming these timers,
-then adds the timer_shutdown() API, and finished with the trivial
-updates, and that will be a real "PATCH" (non RFC).
-
-Linus, should I also add any patches that has already been acked by the
-respective maintainer?
-
--- Steve
+              Linus

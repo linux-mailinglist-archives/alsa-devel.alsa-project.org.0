@@ -2,102 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E856192AC
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 09:21:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFFD5619329
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 10:10:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1ABC164D;
-	Fri,  4 Nov 2022 09:20:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1ABC164D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54467164D;
+	Fri,  4 Nov 2022 10:09:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54467164D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667550075;
-	bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=j/5yvoorAkfBGzKiUvLVVitwlBwsTi0vwojjMCuXFUuQt5WO2v4R75gf/arxCQclX
-	 I35tlk5CpBdEG4gmnjc/VDQjq0XXfIdqTGxu7FWEtf9aDtQ/k3d2FjQLF6QBpH1mWL
-	 VSZCPGj+dr81hFy4NXkfg+7//V4gQgjiHXGbsxMc=
+	s=default; t=1667553025;
+	bh=BE05OUcqQbzjlg0khQbFRfJ9m2QCp4bm3uGWFM1YB24=;
+	h=From:Subject:To:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=C562m9ih8+OdCNzibo/pFUQhy/wnnspnL49Bp+XxnN3n4LEKIP8+muHZSDNMIrMgD
+	 Bw7nPJgxtnN4A4H6vt7ZineIP2oqeE495RjbaqPVABzHYrvnkkjONj4MfYhwmqwUVk
+	 25/H09LzZKgUwjIFlAw8N9rlm2r+1mV2//NGrtYY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DBA6F805D9;
-	Fri,  4 Nov 2022 09:16:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3D33F8047D;
+	Fri,  4 Nov 2022 10:09:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82A63F805E0; Fri,  4 Nov 2022 09:16:32 +0100 (CET)
+ id 4B85BF80448; Fri,  4 Nov 2022 10:09:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_93,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.5 required=5.0 tests=HTML_MESSAGE,
+ HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,MSGID_RANDY,PRX_BODY_94,RDNS_NONE,
+ SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BD37F805DF
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 09:16:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BD37F805DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ol95pFIR"
-Received: by mail-pj1-x1030.google.com with SMTP id
- m14-20020a17090a3f8e00b00212dab39bcdso7579370pjc.0
- for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 01:16:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
- b=ol95pFIRx0tYNNaY+NNILw/xN4ySwCeTdxC68wx492BaHbgyLSqUrsvf3NpH38iQUg
- Zx7iD+35Px8hdlSrlQucqnbWLcMNaUx+50xOb2Ie20JDo1WtjkXEiv1zahOJGQ7T8/jg
- cpyc1YqSqGsbSJOhcMEUHVans4zad6F/TH7eUoVqJRBIhPslv/m9gbDzndYR9wOZq6Ch
- ENMJ3Bfmi9xvUEun7CA9/3uYf/elXBBIHIBt993RXprs91Vp67cqg5haroMY4G01L+0h
- Erg22nRGNOCkODO8ARp6bNOM697JFyFy7djPWCtGJQmsE6kkeMaJZBHn0SCA0LUM70fI
- /0dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E10l8dXv+0yVdFm4e++fGKowhChM1uVgz1Vw83/Y2cg=;
- b=TLCD+quNa92jYo6fhZSfnR2+L7DIarMKwKgU7LrLL3xi6wgtkv2iVVYwHcA0uuwhXy
- tQ5mVH9Mjo/KSr/kJcy0Z+/DyyDGdq77mM/PpfIXHNPQ3MtoGf3KQokF6ar+AJdr9XOs
- AyMShoTXtVTu98PKIkonwnxxcpN9Y32RuQ3Yq6Eyxv44NHKrVF86Q3N4SZ/hc3eKTarG
- NsEPqeCZSbi/ygwmPaWKr34PE41MfnYonFRpmtZIasefHtx+r3G9ts/H6OWsZv1VYkkf
- qDYScBcBtRh/91uE/Y5CAR28ZaKGZPumQUrMGdcflvga2ASD9BEIm9211zmQAQN3t346
- WJfQ==
-X-Gm-Message-State: ACrzQf3tec71xytchJnXk9xvCaQze3FMBPO3vLed2OpPI+4gM6MzxNy4
- 8AC37rZvgPGnuLF/YCuJkMfqKkZxQQOQwA==
-X-Google-Smtp-Source: AMsMyM6VXD1w4yOU5o5rPc+Zy5uksryVOKxaPPSdQXbe5FLZuI1n8TxOgBi3w6BmwflaHME5uqdHHw==
-X-Received: by 2002:a17:903:2285:b0:187:3679:b3b0 with SMTP id
- b5-20020a170903228500b001873679b3b0mr19339855plh.121.1667549782836; 
- Fri, 04 Nov 2022 01:16:22 -0700 (PDT)
-Received: from debian.me (subs02-180-214-232-15.three.co.id. [180.214.232.15])
- by smtp.gmail.com with ESMTPSA id
- z15-20020a62d10f000000b0056bee23a80bsm2052626pfg.137.2022.11.04.01.16.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Nov 2022 01:16:22 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id D62EC103D98; Fri,  4 Nov 2022 15:16:19 +0700 (WIB)
-Date: Fri, 4 Nov 2022 15:16:19 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: fix ACP version typo mistake
-Message-ID: <Y2TKUxKENsaAB3V8@debian.me>
-References: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A75F80149
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 10:09:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A75F80149
+X-UUID: 6b03bae908d04a5daa15a9b53a9df1b8-20221104
+X-UUID: 6b03bae908d04a5daa15a9b53a9df1b8-20221104
+Received: from cs2c.com.cn [(192.168.0.8)] by mailgw
+ (envelope-from <aichao@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1945938849; Fri, 04 Nov 2022 17:09:11 +0800
+Received: by cs2c.com.cn (NSMail, from userid 0)
+ id A5E91181BBF3D; Fri,  4 Nov 2022 17:09:02 +0800 (CST)
+From: =?UTF-8?B?6Im+6LaF?= <aichao@kylinos.cn>
+Subject: =?UTF-8?B?5Zue5aSNOiBSZTogW1BBVENIXSBBTFNBOiB1c2ItYXVkaW86IGZpeCBIYW1lZGFsIEMyMCB1c2IgY2FtZXJvIGRpc2Nvbm5lY3QgaXNzdWU=?=
+To: <tiwai@suse.de>,
+Date: Fri, 04 Nov 2022 17:09:02 +0800
+X-Mailer: NSMAIL 6.0
+Message-ID: <1s92f1bcedp-1s92f1bcedq@nsmail6.0>
+References: 871qqjkutb.wl-tiwai@suse.de
+X-Delaysendtime: Fri, 04 Nov 2022 17:09:02 +0800
+X-ns-mid: webmail-6364d6ae-1s93oz4r
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ZTMYTwyazIsoR/Ma"
-Content-Disposition: inline
-In-Reply-To: <20221104121001.207992-1-Syed.SabaKareem@amd.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Randy Dunlap <rdunlap@infradead.org>,
- Takashi Iwai <tiwai@suse.com>, broonie@kernel.org, mario.limonciello@amd.com,
- Vijendar.Mukunda@amd.com, Daniel Baluta <daniel.baluta@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,39 +72,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+   I'm so sorry
 
---ZTMYTwyazIsoR/Ma
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+    My full name is Ai  Chao.
 
-On Fri, Nov 04, 2022 at 05:39:07PM +0530, Syed Saba Kareem wrote:
-> From: syed saba kareem <syed.sabakareem@amd.com>
 
-Is your name capitalization correct? I assume from From: mail header
-(Title Case).
+   ----
 
->=20
-> Pink Sardine is based on ACP6.3 architecture.
-> This patch fixes the typo mistake acp6.2 -> acp6.3
 
-Please write the description in imperative mood instead (e.g. "make foo
-do bar"). "This patch" phrase is redundant.
+   ä¸»ãé¢ï¼Re: [PATCH] ALSA: usb-audio: fix Hamedal C20 usb camero
+   disconnect issue
+   æ¥ãæï¼2022-11-04 16:06
+   åä»¶äººï¼tiwai@suse.de
+   æ¶ä»¶äººï¼è¾è¶
 
-Thanks.
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---ZTMYTwyazIsoR/Ma
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCY2TKUAAKCRD2uYlJVVFO
-o/fAAQD3rmfSByMHUHkKVpOJ6Ah3M+M3DKsLXB6nUzB3lzPbewEAilx/goxqiaWO
-hj9+2GDGqIQF5yWcjgxfnKYZ0LFlAg4=
-=IoKO
------END PGP SIGNATURE-----
-
---ZTMYTwyazIsoR/Ma--
+   On Fri, 04 Nov 2022 08:35:18 +0100,
+   aichao wrote:
+   >
+   > For Hamedal C20, the current rate is different from the runtime rate,
+   > snd_usb_endpoint stop and close endpoint to resetting rate.
+   > if snd_usb_endpoint close the endpoint, sometimes usb will
+   >  disconnect the device.
+   >
+   > Signed-off-by: aichao <aichao@kylinos.cn>
+   OK, this is more understandable than the previous one.
+   But it doesn't look like a proper workaround, and we need to figure
+   out the culprit more deeply.  The interface is anyway reset once when
+   the parameter is changed / re-setup.  Doesn't it hit the same problem?
+   Or it's about clearing the interface and keep it for long time?
+   In anyway, please give lsusb -v output of the device.
+   BTW, is aichao your full name?  The sign-off must be with the real
+   full name, and it's a legal requirement.
+   thanks,
+   Takashi
+   > ---
+   >  sound/usb/endpoint.c | 4 +++-
+   >  1 file changed, 3 insertions(+), 1 deletion(-)
+   >
+   > diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+   > index 533919a28856..c19e420b1780 100644
+   > --- a/sound/usb/endpoint.c
+   > +++ b/sound/usb/endpoint.c
+   > @@ -825,7 +825,9 @@ void snd_usb_endpoint_close(struct snd_usb_audio
+   *chip,
+   >   usb_audio_dbg(chip, "Closing EP 0x%x (count %d)\n",
+   >        ep->ep_num, ep->opened);
+   >
+   > - if (!--ep->iface_ref->opened)
+   > + if (!--ep->iface_ref->opened
+   > + && (le16_to_cpu(chip->dev->descriptor.idVendor) != 0x0525)
+   > + && (le16_to_cpu(chip->dev->descriptor.idProduct) != 0xa4ad))
+   >   endpoint_set_interface(chip, ep, false);
+   >
+   >   if (!--ep->opened) {
+   > --
+   > 2.25.1
+   >

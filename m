@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A030961D870
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:24:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DAE461D873
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:24:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88C721727;
-	Sat,  5 Nov 2022 08:23:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88C721727
+	by alsa0.perex.cz (Postfix) with ESMTPS id C88EA1719;
+	Sat,  5 Nov 2022 08:23:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C88EA1719
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667633039;
-	bh=zPY0vKDgKF1VzNHMQ6HkK5NfoNqu3EYtIAmhKsR7/aA=;
+	s=default; t=1667633055;
+	bh=BcqqpXv7sRnS1/q1WgrqP+7uoktG/AmXTJLve/HBtlY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eavR533WYuL5pNSbCSbu5SQl+Cpsey8Vsc36sxrZwAnEMVf2dSW8n74To/B2CzMas
-	 aUsgNMi9AK+qhmS8i/7FsNvHt6uTf/O0tbh4Zm4gNG/jeP1gfUq/1VDa7X2ZjmGPpZ
-	 xYejTJXNFnHE/TFNbva4KFlKqfi2G9zg3hp54a3w=
+	b=lTTzX9hG/gRsTNVNJLDYlQpr8VXO2gYKLCKrG9wkmDRS15rGO6fmsi1cEmHLcWC7J
+	 739xQXdfye3TEY25vsNqwOeR39e/E881Guib30JeTTk4vwD46FR7eVme3imtygxIDX
+	 S9otqGunGSO8cNwSGEC80pcjWsivoCLXv1OiSgAo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61C36F80845;
-	Sat,  5 Nov 2022 08:04:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B6DEF80559;
+	Sat,  5 Nov 2022 08:04:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65F2EF80448; Fri,  4 Nov 2022 17:46:26 +0100 (CET)
+ id 79943F80448; Fri,  4 Nov 2022 17:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6534EF80155
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:46:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6534EF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D31EF80155
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:49:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D31EF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=lechnology.com header.i=@lechnology.com
- header.b="WDBX+cAn"
+ header.b="S05yN9/O"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zI7RcZiPaTDKMltPgs4ZCXXOEkuyhKs5pu9RAgGaQCM=; b=WDBX+cAnoxNFA2qROraJWPqwl6
- sawOBGcwqy0cJOAIrVpjLZZ+Gx2IKKPpzlq32XA8dIyrUdyxFM7DDARo5oPRviL3HJfndmG8Y/6DX
- JszwjA1qIBE963R9b+AbWyWXzot3CnWQfj8Q3yBrd7GtzWZM+7HpOT38Y0pygwUoqjt9E5drTi3PA
- iwRZOCwQqQ0SXdmD9XyBdaTbR1R3prwAqmXw5Hw/1of8Akd3I0gnrXsFcDHUGIRQzdA3pfYYEcbWP
- RGvTglAlnqK66tcDfALPc+yDGWDJk2SuAVwnrNdyQUQOE9Eu+PrDksdtVsbsh6ynJyaP/aeQMp/TT
- YGTHedGw==;
-Received: from ip98-183-112-30.ok.ok.cox.net ([98.183.112.30]:45370
+ bh=/fSoTUtqLSMP2KfCqxLZIKji3GOepn9Xc93RPyjSVkg=; b=S05yN9/OkId9ymzRJ4dCjcPWLQ
+ 7kS+7hwLHIGVXlHp7W14BxEpjdI4ntV02EjHSD7RVjfxzjyZZY+kvQZZx58NMhQA3G5XgkIRxucIi
+ 1OotghPODhkcufNUd5I3CGkJL57YrmUvR1N06/jUXH2swC2CkuimIhdic8beAfGSReYdk0zY/yiuZ
+ yCoOy4drXYmkZQ1P6bLMxXp+heS5TEP3UnHMbT+naZWwnajVpJ4cAXNOiBZHJHsv1ZCK1dTFhnhcE
+ kQfJJLIU0/MUGSPFRmI/cJ4R007YPo4eHbdvB68luhk9bsDRd+9PwexE0o4g4q5uI6q1mQphZaEQ8
+ PyW6kaVA==;
+Received: from ip98-183-112-30.ok.ok.cox.net ([98.183.112.30]:33812
  helo=[192.168.0.134]) by vern.gendns.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
- (envelope-from <david@lechnology.com>) id 1oqzpN-00ChtK-Ip;
- Fri, 04 Nov 2022 12:46:11 -0400
-Message-ID: <4a91a4cf-acac-387f-19a5-e2ce144f3496@lechnology.com>
-Date: Fri, 4 Nov 2022 11:46:02 -0500
+ (envelope-from <david@lechnology.com>) id 1oqzsl-00Ciq9-V8;
+ Fri, 04 Nov 2022 12:49:41 -0400
+Message-ID: <6296d944-e03d-6f2b-48b1-3dad78e3c89d@lechnology.com>
+Date: Fri, 4 Nov 2022 11:49:34 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-Subject: Re: [PATCH v2 22/65] clk: davinci: da8xx-cfgchip: Add a
- determine_rate hook
+Subject: Re: [PATCH v2 54/65] clk: da8xx: clk48: Switch to determine_rate
 Content-Language: en-US
 To: Maxime Ripard <maxime@cerno.tech>, Stephen Boyd <sboyd@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
@@ -98,9 +97,9 @@ To: Maxime Ripard <maxime@cerno.tech>, Stephen Boyd <sboyd@kernel.org>,
  Max Filippov <jcmvbkbc@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-22-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-54-f6736dec138e@cerno.tech>
 From: David Lechner <david@lechnology.com>
-In-Reply-To: <20221018-clk-range-checks-fixes-v2-22-f6736dec138e@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v2-54-f6736dec138e@cerno.tech>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse,
@@ -140,9 +139,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/4/22 8:17 AM, Maxime Ripard wrote:
-> The Davinci DA8xxx cfgchip "clk48" clock implements a mux with a
-> set_parent hook, but doesn't provide a determine_rate implementation.
+On 11/4/22 8:18 AM, Maxime Ripard wrote:
+> The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
+> hook, but doesn't provide a determine_rate implementation.
 > 
 > This is a bit odd, since set_parent() is there to, as its name implies,
 > change the parent of a clock. However, the most likely candidate to
@@ -158,47 +157,55 @@ On 11/4/22 8:17 AM, Maxime Ripard wrote:
 > original author to avoid any reparenting but through an explicit call to
 > clk_set_parent().
 > 
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
+> The driver does implement round_rate() though, which means that we can
+> change the rate of the clock, but we will never get to change the
+> parent.
 > 
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
+> However, It's hard to tell whether it's been done on purpose or not.
+> 
+> Since we'll start mandating a determine_rate() implementation, let's
+> convert the round_rate() implementation to a determine_rate(), which
+> will also make the current behavior explicit. And if it was an
+> oversight, the clock behaviour can be adjusted later on.
 
-The parent is defined in the device tree and is not expected to change
-at runtime, so if I am understanding the patch correctly, setting the
-CLK_SET_RATE_NO_REPARENT flag seems correct.
+I think this one should be the same as the clk:davinci changes and
+not allow re-parenting. Since this is a USB 48MHz PHY clock, a rate
+change will never be requested.
 
 > 
 > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 > ---
->   drivers/clk/davinci/da8xx-cfgchip.c | 2 ++
->   1 file changed, 2 insertions(+)
+>   drivers/clk/davinci/da8xx-cfgchip.c | 10 ++++++----
+>   1 file changed, 6 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/clk/davinci/da8xx-cfgchip.c b/drivers/clk/davinci/da8xx-cfgchip.c
-> index c04276bc4051..4c1cc59bba53 100644
+> index 4c1cc59bba53..f60c97091818 100644
 > --- a/drivers/clk/davinci/da8xx-cfgchip.c
 > +++ b/drivers/clk/davinci/da8xx-cfgchip.c
-> @@ -565,6 +565,7 @@ static u8 da8xx_usb1_clk48_get_parent(struct clk_hw *hw)
+> @@ -462,10 +462,12 @@ static unsigned long da8xx_usb0_clk48_recalc_rate(struct clk_hw *hw,
+>   	return 48000000;
 >   }
 >   
->   static const struct clk_ops da8xx_usb1_clk48_ops = {
-> +	.determine_rate	= __clk_mux_determine_rate,
->   	.set_parent	= da8xx_usb1_clk48_set_parent,
->   	.get_parent	= da8xx_usb1_clk48_get_parent,
+> -static long da8xx_usb0_clk48_round_rate(struct clk_hw *hw, unsigned long rate,
+> -					unsigned long *parent_rate)
+> +static int da8xx_usb0_clk48_determine_rate(struct clk_hw *hw,
+> +					   struct clk_rate_request *req)
+>   {
+> -	return 48000000;
+> +	req->rate = 48000000;
+> +
+> +	return 0;
+>   }
+>   
+>   static int da8xx_usb0_clk48_set_parent(struct clk_hw *hw, u8 index)
+> @@ -494,7 +496,7 @@ static const struct clk_ops da8xx_usb0_clk48_ops = {
+>   	.disable	= da8xx_usb0_clk48_disable,
+>   	.is_enabled	= da8xx_usb0_clk48_is_enabled,
+>   	.recalc_rate	= da8xx_usb0_clk48_recalc_rate,
+> -	.round_rate	= da8xx_usb0_clk48_round_rate,
+> +	.determine_rate	= da8xx_usb0_clk48_determine_rate,
+>   	.set_parent	= da8xx_usb0_clk48_set_parent,
+>   	.get_parent	= da8xx_usb0_clk48_get_parent,
 >   };
-> @@ -589,6 +590,7 @@ da8xx_cfgchip_register_usb1_clk48(struct device *dev,
->   
->   	init.name = "usb1_clk48";
->   	init.ops = &da8xx_usb1_clk48_ops;
-> +	init.flags = CLK_SET_RATE_NO_REPARENT;
->   	init.parent_names = parent_names;
->   	init.num_parents = 2;
->   
 > 
 

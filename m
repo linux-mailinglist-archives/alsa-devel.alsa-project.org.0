@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F14F561D84F
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:18:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C361D61D854
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:19:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AA4B1707;
-	Sat,  5 Nov 2022 08:17:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AA4B1707
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62D84170B;
+	Sat,  5 Nov 2022 08:18:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62D84170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667632713;
-	bh=Qbffwobc2f4qG6KNVK9kakvzDTd3L35C5TOO/CHBHR4=;
+	s=default; t=1667632746;
+	bh=5ogQpKqiR/Y99yWhmkgF+w2Os3xi0Hh0gjEz2wUXMoE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mv4O8SH5hHSgW3Ro+FwbiNbglYmZznVffMthtFOrH3rlxe8v6kZj2VBo4WtyNXjhx
-	 gYuKshpyu0Mos4wagwij8KUHgFMVvFEaiDmCGP6aqmQCquIJOgRRXJanRX9S5LXXK7
-	 D3N9wGufGDjMaPlbTGyXSrIpRH5VOIOmRVkUcXGk=
+	b=ZoyLw3jiim/1SgF5Z0yU3hn7npDJdtDcNB5R3Dhjuw+5ufGEUShWKquFsBTXvVNyR
+	 vYicQhEyqS8lphngiv8kORsetr2bsWw4So35xPpswgujcCAhOb0xV/8mrdX7bzN2mw
+	 j0Ony7Vl2xSaKrJypJbZCG0sR43IYwBeVye3U15s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D64EF80730;
-	Sat,  5 Nov 2022 08:04:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DF32F8073C;
+	Sat,  5 Nov 2022 08:04:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3898FF8047D; Fri,  4 Nov 2022 14:33:40 +0100 (CET)
+ id B1AB1F8047D; Fri,  4 Nov 2022 14:33:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E06DF801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 14:33:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E06DF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C64DF801D5
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 14:33:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C64DF801D5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="QMKZH4rO"; 
+ header.b="B0geBDBk"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="um35+KlR"
+ header.i=@messagingengine.com header.b="HDWcS+z3"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 95A5E580260;
- Fri,  4 Nov 2022 09:33:36 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Fri, 04 Nov 2022 09:33:36 -0400
+ by mailnew.nyi.internal (Postfix) with ESMTP id C3CD358026B;
+ Fri,  4 Nov 2022 09:33:38 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 04 Nov 2022 09:33:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1667568816; x=
- 1667576016; bh=+AiYlQRmsw0uLRfb7MwzL/XTfZ5Fxn4mSWP4u38OBc0=; b=Q
- MKZH4rOQfBAUFPl2kU8N+az8xxxzqHwnfoagnSqHE4Z4x/I66CzikPa9khpog+TK
- mX5CiOHHyetOrtj5B5H3oIai0cVqAz7dsmhKFDWMDsTaflteAVnw5lplRRRmLh2M
- AwISHUMsvI6qMf3oyCHUzrW2nWnzxDhB+dLoQUwjMTZyQSS+7khRSHzVzcEcVxM2
- YKRWdcWPqrs4G1C5tx7f1ZP8ishZc1U0mjkL6kw6P/cKmGfBySebzcoWlL4YC0hD
- qBonwLy3SAxv6/yCeqViGDywUyfo88TjitYF+NT3aBFKZT/+J2+h9egozrqnvV+C
- 0ketKOn02usfgtAXomy+A==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1667568818; x=
+ 1667576018; bh=TfSsPz+MZn+lbcea/YJJoyg5y0xdpCmmfuBpFmSlgEw=; b=B
+ 0geBDBkA3tn1Q2efyciGYColZLp6fIWPADf5flf/2kFvggjNddH5Wb9g4FZ4Sqht
+ CjtLGnWHVjPpfwRkEDGwdSmWrrl69JlHoViMOXi+lGSsSz1KmmqwmxcDm/omnSXG
+ noepxP9BiRgRifCArtHRcLR+0Dp4e9HZ+ltUktlvWVXZbUS6DypPEheNSUwYUyMu
+ ekmW9wOg3a6XV59goybMYI2X7Mu/3sF54SaBI2ZQA329AKeLmcvk90TV24mwMKZO
+ 5GijmiTTQ8sWmYzBXuNIC1EyoDuNRCT8ejeOhsx2/uIJCgpJ6u3VxJh4M1s7VVPa
+ 7QI1ZUSOtQhrUA6jZIBGw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1667568816; x=
- 1667576016; bh=+AiYlQRmsw0uLRfb7MwzL/XTfZ5Fxn4mSWP4u38OBc0=; b=u
- m35+KlRBkM503Uuc8W388SCArOUQTpzxXyG0lJs2th/3sKr+hh5s1H795WNFZ2E4
- RzXoCzo3P804NnZRfL4cqR+NuGicK8/MPhJQ6B47tqh4tBFEREUyQal/H2Qna6pW
- PvW7w9AY6XTnG9PIma4faNayN9B8YAjDkKdryWnWPx/qtCTKAo3hzCGEh1+UXPiI
- 6WICivcddpyfdPgqG8rMzRFrY7vqHpG7G3tD6paTJ/iFjGpRGJrQDCpaLEizkpk1
- vbEgKqSaOEczPSmpqPpZs9Jp/goRDfBD41UfLRtPXxrVMHtgZcjPVT+9+cGYzLcU
- Egtp1AK7+MLlRuhE5n/Mg==
-X-ME-Sender: <xms:sBRlYzUNaaVfnV5EqHlsqaA-REKqn87XUxokvt7NfHsJetCr5B0MZg>
- <xme:sBRlY7lZajrvzxWHx51z4NQ95DAKK4o-7LBVHAt2dT2ff_WxwgYSxj-w2VcRTXCMj
- 3l0O4mJ3v4cSQsdUDY>
-X-ME-Received: <xmr:sBRlY_bB0IfPftiSMLWVeLyDjTxnJMfllOoCtH3MAwUM24qC-_ICI5ZSbOxae4DwfO0OBWvQYFr-815zzyPslk5Bk3WHetS2VLjLEWKiHdoFvQ>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1667568818; x=
+ 1667576018; bh=TfSsPz+MZn+lbcea/YJJoyg5y0xdpCmmfuBpFmSlgEw=; b=H
+ DWcS+z3HqcXSaW5dzAvn/Yx23G/9kcwBJPfBwb0tE/LKCkRRehJDNbW3GzEpZUsK
+ O1Rv0MFy0kDrj457Wae8j/muKIHpq2ZLzdt2BcZ5V5zTwAbny5lPAlqji1r66s96
+ HRa/g/PxVi0i7V5o2lyF8DNFwFiHZ+997fs0HiwEVf5TIjf0IATxvCBNoYqCj2wb
+ 2pmtYogCgLLFoHSr44YtUTly154Qu+mmhR+o4FpxVU7Uq1VEbl8C0u4gZNu+4dmd
+ Q80AXUI8vBxGrQSdgj7KvJmvboQMrT7mg8sKSwuJEA0ZNuWm8C6taUijrAcTD84Z
+ wnjqnY44D9uhV6VgWeuHQ==
+X-ME-Sender: <xms:shRlY4Gs67r-jSDUXh4uAASx-KauMIrY-B_CiO4yAH03p8N11_EBfQ>
+ <xme:shRlYxV1NoAKJx6vBln3inGWzj331pQUAXC4AF4ZM5__bryF_D6GtevbhMSvc4SXy
+ SXXnjJ1lhhWIJ-Kv44>
+X-ME-Received: <xmr:shRlYyIQHaHMFS0uR9O41c6LvP8EoCQLswC6uX9oPSl7KdS8IZR9tmWQ5HhwpuTazgdvU_HCgiHM1ghTG7c_WqRFRO412MApblbNTPTBKiY53Q>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvddugdehudcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -84,20 +84,20 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvddugdehudcutefuodetggdote
  htthgvrhhnpeduudduhfevjeetfeegvdffvdevvdejudegudekjeehtdelhfffveethfej
  ledtveenucevlhhushhtvghrufhiiigvpeefnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:sBRlY-UF0clLTXB1V_cuzi0jHeTkodj5tMRMndVQ3AxyjmNx4I1YGg>
- <xmx:sBRlY9kEq_o4o4BuRnyLDdQWYo5PpZHDzy5mJlhUipwojKLCD3JPvA>
- <xmx:sBRlY7eiHogjfIxd2WooB3GVmLokVfQLukJdOdHhzNu5nTROFN3O_Q>
- <xmx:sBRlY7nbW_KUPxY3wnOzYGlaqWUplPl9IR4JO_7Wy-IvNAW2PGFo_w>
+X-ME-Proxy: <xmx:shRlY6HWGVbRBOSeKozaky1Xs-zzMnly5CyChLCmP2HCHko8B5Spug>
+ <xmx:shRlY-XMhJYRtmtprn9tKgeofcLTxXFuuJpHfnPXKpTWK64yurAEPQ>
+ <xmx:shRlY9OXo2B7Y9zfNpncK_7MhqXCAATn3UxAjlqIxBY26U5HqmHRnw>
+ <xmx:shRlYzVY0i6xad-oUJ18aZQZLInt-JmMzpmQknb7pt9HziVeFmu2Fg>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 4 Nov 2022 09:33:35 -0400 (EDT)
+ 4 Nov 2022 09:33:37 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Fri, 04 Nov 2022 14:18:08 +0100
-Subject: [PATCH v2 51/65] clk: si5351: pll: Switch to determine_rate
+Date: Fri, 04 Nov 2022 14:18:09 +0100
+Subject: [PATCH v2 52/65] clk: si5351: msynth: Switch to determine_rate
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20221018-clk-range-checks-fixes-v2-51-f6736dec138e@cerno.tech>
+Message-Id: <20221018-clk-range-checks-fixes-v2-52-f6736dec138e@cerno.tech>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
 In-Reply-To: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
 To: Stephen Boyd <sboyd@kernel.org>,
@@ -138,11 +138,11 @@ To: Stephen Boyd <sboyd@kernel.org>,
  Max Filippov <jcmvbkbc@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4022; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=Qbffwobc2f4qG6KNVK9kakvzDTd3L35C5TOO/CHBHR4=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMmpAl/rPYvbg/V0k9JrtXWTEhtePJyVwTpD7du9IEn5uUcO
- /uruKGVhEONikBVTZIkRNl8Sd2rW6042vnkwc1iZQIYwcHEKwERaDjEyzLps/b5q/Y0muQOrVQwX/6
- s5ydSl9tDnhXDV0qWrE1MrLzP8039RZxmyy+q9ZeHk3GVbpaT3esd/K34Sf9dHnHXSve53/AA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4451; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=5ogQpKqiR/Y99yWhmkgF+w2Os3xi0Hh0gjEz2wUXMoE=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMmpAl8f/tDn2VDyKGuvB+s6Tr4Me/lUuz3VG3/fqNjzS2bF
+ tRkdHaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZjIyn8M/wynCl60qVkUViNhc/fw7S
+ 9BqeqRf6uslgd3HK66ZJqXmsDIMFnv+Omc8nf8zirCilf0eHX75I8+W7tMbI+h28H6sMoAbgA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:32 +0100
@@ -170,7 +170,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The SI5351 PLL clocks implements a mux with a set_parent hook, but
+The SI5351 msynth clocks implements a mux with a set_parent hook, but
 doesn't provide a determine_rate implementation.
 
 This is a bit odd, since set_parent() is there to, as its name implies,
@@ -200,84 +200,89 @@ oversight, the clock behaviour can be adjusted later on.
 
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/clk/clk-si5351.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+ drivers/clk/clk-si5351.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/clk/clk-si5351.c b/drivers/clk/clk-si5351.c
-index 9e939c98a455..fcf5785ba4ce 100644
+index fcf5785ba4ce..bfab05f4fe28 100644
 --- a/drivers/clk/clk-si5351.c
 +++ b/drivers/clk/clk-si5351.c
-@@ -442,11 +442,12 @@ static unsigned long si5351_pll_recalc_rate(struct clk_hw *hw,
+@@ -642,11 +642,12 @@ static unsigned long si5351_msynth_recalc_rate(struct clk_hw *hw,
  	return (unsigned long)rate;
  }
  
--static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--				  unsigned long *parent_rate)
-+static int si5351_pll_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
+-static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+-				     unsigned long *parent_rate)
++static int si5351_msynth_determine_rate(struct clk_hw *hw,
++					struct clk_rate_request *req)
  {
  	struct si5351_hw_data *hwdata =
  		container_of(hw, struct si5351_hw_data, hw);
 +	unsigned long rate = req->rate;
- 	unsigned long rfrac, denom, a, b, c;
  	unsigned long long lltmp;
+ 	unsigned long a, b, c;
+ 	int divby4;
+@@ -681,10 +682,10 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		b = 0;
+ 		c = 1;
  
-@@ -456,18 +457,18 @@ static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 		rate = SI5351_PLL_VCO_MAX;
+-		*parent_rate = a * rate;
++		req->best_parent_rate = a * rate;
+ 	} else if (hwdata->num >= 6) {
+ 		/* determine the closest integer divider */
+-		a = DIV_ROUND_CLOSEST(*parent_rate, rate);
++		a = DIV_ROUND_CLOSEST(req->best_parent_rate, rate);
+ 		if (a < SI5351_MULTISYNTH_A_MIN)
+ 			a = SI5351_MULTISYNTH_A_MIN;
+ 		if (a > SI5351_MULTISYNTH67_A_MAX)
+@@ -702,7 +703,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		}
  
- 	/* determine integer part of feedback equation */
--	a = rate / *parent_rate;
-+	a = rate / req->best_parent_rate;
+ 		/* determine integer part of divider equation */
+-		a = *parent_rate / rate;
++		a = req->best_parent_rate / rate;
+ 		if (a < SI5351_MULTISYNTH_A_MIN)
+ 			a = SI5351_MULTISYNTH_A_MIN;
+ 		if (a > SI5351_MULTISYNTH_A_MAX)
+@@ -710,7 +711,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
  
- 	if (a < SI5351_PLL_A_MIN)
--		rate = *parent_rate * SI5351_PLL_A_MIN;
-+		rate = req->best_parent_rate * SI5351_PLL_A_MIN;
- 	if (a > SI5351_PLL_A_MAX)
--		rate = *parent_rate * SI5351_PLL_A_MAX;
-+		rate = req->best_parent_rate * SI5351_PLL_A_MAX;
+ 		/* find best approximation for b/c = fVCO mod fOUT */
+ 		denom = 1000 * 1000;
+-		lltmp = (*parent_rate) % rate;
++		lltmp = req->best_parent_rate % rate;
+ 		lltmp *= denom;
+ 		do_div(lltmp, rate);
+ 		rfrac = (unsigned long)lltmp;
+@@ -724,7 +725,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 	}
  
- 	/* find best approximation for b/c = fVCO mod fIN */
- 	denom = 1000 * 1000;
--	lltmp = rate % (*parent_rate);
-+	lltmp = rate % (req->best_parent_rate);
- 	lltmp *= denom;
--	do_div(lltmp, *parent_rate);
-+	do_div(lltmp, req->best_parent_rate);
- 	rfrac = (unsigned long)lltmp;
- 
- 	b = 0;
-@@ -484,19 +485,20 @@ static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	hwdata->params.p1 -= 512;
- 
- 	/* recalculate rate by fIN * (a + b/c) */
+ 	/* recalculate rate by fOUT = fIN / (a + b/c) */
 -	lltmp  = *parent_rate;
 +	lltmp  = req->best_parent_rate;
- 	lltmp *= b;
- 	do_div(lltmp, c);
- 
+ 	lltmp *= c;
+ 	do_div(lltmp, a * c + b);
  	rate  = (unsigned long)lltmp;
--	rate += *parent_rate * a;
-+	rate += req->best_parent_rate * a;
- 
+@@ -749,9 +750,11 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
  	dev_dbg(&hwdata->drvdata->client->dev,
- 		"%s - %s: a = %lu, b = %lu, c = %lu, parent_rate = %lu, rate = %lu\n",
- 		__func__, clk_hw_get_name(hw), a, b, c,
+ 		"%s - %s: a = %lu, b = %lu, c = %lu, divby4 = %d, parent_rate = %lu, rate = %lu\n",
+ 		__func__, clk_hw_get_name(hw), a, b, c, divby4,
 -		*parent_rate, rate);
 +		req->best_parent_rate, rate);
  
 -	return rate;
 +	req->rate = rate;
++
 +	return 0;
  }
  
- static int si5351_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -533,7 +535,7 @@ static const struct clk_ops si5351_pll_ops = {
- 	.set_parent = si5351_pll_set_parent,
- 	.get_parent = si5351_pll_get_parent,
- 	.recalc_rate = si5351_pll_recalc_rate,
--	.round_rate = si5351_pll_round_rate,
-+	.determine_rate = si5351_pll_determine_rate,
- 	.set_rate = si5351_pll_set_rate,
+ static int si5351_msynth_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -791,7 +794,7 @@ static const struct clk_ops si5351_msynth_ops = {
+ 	.set_parent = si5351_msynth_set_parent,
+ 	.get_parent = si5351_msynth_get_parent,
+ 	.recalc_rate = si5351_msynth_recalc_rate,
+-	.round_rate = si5351_msynth_round_rate,
++	.determine_rate = si5351_msynth_determine_rate,
+ 	.set_rate = si5351_msynth_set_rate,
  };
  
 

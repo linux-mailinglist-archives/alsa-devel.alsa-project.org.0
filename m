@@ -2,74 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5768E6192AA
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 09:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FD8E619268
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 09:07:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0F6E16A6;
-	Fri,  4 Nov 2022 09:19:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0F6E16A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D52C81669;
+	Fri,  4 Nov 2022 09:06:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D52C81669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667550046;
-	bh=2Dgfm1r+t2ipdpy3BhF7pkkY+aU4FpWYQ4cE7/tE5h8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sqgNyKVVmyatxYLYE7JiOi9MJWA9e8piFZXEEtz8MVY+KjZCuehkkJyBQ18l21uyN
-	 aqa1hwvSwRB+g9GXR/R5PnDHVbiOPrZ9qO2O5ChtdEOwzlBpkm2zPx/ZNT2BDl4LuA
-	 3ti2VeRdBdRGA8wqBXQTDRFlx40dZc8JfeKwqQoo=
+	s=default; t=1667549250;
+	bh=Sg5hn9I3KovFJDrScV2tQt3kZejNYFqVdIrQNvvBgIw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KxRgrCPH619RqHpC6hk+KvWZlPBAtxdm5HsoR7EMZbZaIDDTzZU9mD8/wtUhOWCGo
+	 +rPXhIx2mOrlYrcN+c5MzGI9+3XKnVvtCud4AT1QNnrWBHHwDaNrpSo2YI5PfIjFFt
+	 r4Wl98m/Xh198KHApq2onOdlbGQlpef9/c1q0orM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94D90F805C0;
-	Fri,  4 Nov 2022 09:16:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2290FF8047D;
+	Fri,  4 Nov 2022 09:06:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04298F80448; Fri,  4 Nov 2022 08:35:42 +0100 (CET)
+ id DA37BF80448; Fri,  4 Nov 2022 09:06:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_94,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C30EF80155
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 08:35:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C30EF80155
-X-UUID: 1f4c790098d84c258246e053a3af6d50-20221104
-X-CPASD-INFO: ae1fd406ff49445a8bea0bddb1cba13d@qrVrhpFmXmaShnaFg3eAm1iTlZFgjoS
- zpGuDko9hX4SVhH5xTV5uYFV9fWtVYV9dYVR6eGxQYmBgZFJ4i3-XblBgXoZgUZB3sKdrhpRiYA==
-X-CLOUD-ID: ae1fd406ff49445a8bea0bddb1cba13d
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:161.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:99.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5.
- 0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-5
- , AUF:1, DUF:7502, ACD:131, DCD:131, SL:0, EISP:0, AG:0, CFC:0.278, CFSR:0.087,
- UAT:0, R
- AF:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM:0, EAF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: 1f4c790098d84c258246e053a3af6d50-20221104
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: 1f4c790098d84c258246e053a3af6d50-20221104
-X-User: aichao@kylinos.cn
-Received: from localhost.localdomain [(112.64.161.44)] by mailgw
- (envelope-from <aichao@kylinos.cn>) (Generic MTA)
- with ESMTP id 1062749013; Fri, 04 Nov 2022 15:35:29 +0800
-From: aichao <aichao@kylinos.cn>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: fix Hamedal C20 usb camero disconnect issue
-Date: Fri,  4 Nov 2022 15:35:18 +0800
-Message-Id: <20221104073518.120807-1-aichao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 04 Nov 2022 09:16:02 +0100
-Cc: aichao <aichao@kylinos.cn>, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id E339DF80155
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 09:06:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E339DF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jobQ07YB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="U9PwoIxR"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27D2E1F74A;
+ Fri,  4 Nov 2022 08:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667549185; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NAHPqz+JQ+byLy9st95AQKWD4OGH/5xZSKGvNLc2mPQ=;
+ b=jobQ07YBlp8o1TuEKPf0S/jnKshiutGuIibFhTMYImlw9g4mrXsw3x7MLxfDrfygUP0PkQ
+ Xv6Krg9wcP3UaolJ/fz6pVcKzFPIKPCJIH6LqFumTZY4XuAderPv7MQVDOXjt+/VIJbDYH
+ dWrG7ZDjfNTUe9zRB/8Ck7PzFlqHyiA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667549185;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NAHPqz+JQ+byLy9st95AQKWD4OGH/5xZSKGvNLc2mPQ=;
+ b=U9PwoIxRiXolSQKXnwESJ2Sfsd9AwoTZhVWrIz9de56NkH1d+2204n2LFQcn1lz+rwutFH
+ 43o0KkYa8jtNBIAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 045DB13216;
+ Fri,  4 Nov 2022 08:06:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ERJFAAHIZGMYUwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 04 Nov 2022 08:06:25 +0000
+Date: Fri, 04 Nov 2022 09:06:24 +0100
+Message-ID: <871qqjkutb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: aichao <aichao@kylinos.cn>
+Subject: Re: [PATCH] ALSA: usb-audio: fix Hamedal C20 usb camero disconnect
+ issue
+In-Reply-To: <20221104073518.120807-1-aichao@kylinos.cn>
+References: <20221104073518.120807-1-aichao@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,31 +100,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For Hamedal C20, the current rate is different from the runtime rate,
-snd_usb_endpoint stop and close endpoint to resetting rate.
-if snd_usb_endpoint close the endpoint, sometimes usb will
- disconnect the device.
+On Fri, 04 Nov 2022 08:35:18 +0100,
+aichao wrote:
+> 
+> For Hamedal C20, the current rate is different from the runtime rate,
+> snd_usb_endpoint stop and close endpoint to resetting rate.
+> if snd_usb_endpoint close the endpoint, sometimes usb will
+>  disconnect the device.
+> 
+> Signed-off-by: aichao <aichao@kylinos.cn>
 
-Signed-off-by: aichao <aichao@kylinos.cn>
----
- sound/usb/endpoint.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+OK, this is more understandable than the previous one.
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 533919a28856..c19e420b1780 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -825,7 +825,9 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
- 	usb_audio_dbg(chip, "Closing EP 0x%x (count %d)\n",
- 		      ep->ep_num, ep->opened);
- 
--	if (!--ep->iface_ref->opened)
-+	if (!--ep->iface_ref->opened
-+		&& (le16_to_cpu(chip->dev->descriptor.idVendor) != 0x0525)
-+		&& (le16_to_cpu(chip->dev->descriptor.idProduct) != 0xa4ad))
- 		endpoint_set_interface(chip, ep, false);
- 
- 	if (!--ep->opened) {
--- 
-2.25.1
+But it doesn't look like a proper workaround, and we need to figure
+out the culprit more deeply.  The interface is anyway reset once when
+the parameter is changed / re-setup.  Doesn't it hit the same problem?
+Or it's about clearing the interface and keep it for long time?
 
+In anyway, please give lsusb -v output of the device.
+
+BTW, is aichao your full name?  The sign-off must be with the real
+full name, and it's a legal requirement.
+
+
+thanks,
+
+Takashi
+
+
+> ---
+>  sound/usb/endpoint.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+> index 533919a28856..c19e420b1780 100644
+> --- a/sound/usb/endpoint.c
+> +++ b/sound/usb/endpoint.c
+> @@ -825,7 +825,9 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+>  	usb_audio_dbg(chip, "Closing EP 0x%x (count %d)\n",
+>  		      ep->ep_num, ep->opened);
+>  
+> -	if (!--ep->iface_ref->opened)
+> +	if (!--ep->iface_ref->opened
+> +		&& (le16_to_cpu(chip->dev->descriptor.idVendor) != 0x0525)
+> +		&& (le16_to_cpu(chip->dev->descriptor.idProduct) != 0xa4ad))
+>  		endpoint_set_interface(chip, ep, false);
+>  
+>  	if (!--ep->opened) {
+> -- 
+> 2.25.1
+> 

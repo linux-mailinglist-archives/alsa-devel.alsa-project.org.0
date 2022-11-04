@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D8D619ED0
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 18:34:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D48B61A347
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 22:25:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A37921664;
-	Fri,  4 Nov 2022 18:33:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A37921664
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEFFB15C2;
+	Fri,  4 Nov 2022 22:24:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEFFB15C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667583286;
-	bh=5EVt633C6FjYMJCoDyyLdZcnFXxZLw/+AxJGFjKIWPE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mZfJA4NgPNgKWo4QN3KffCmwcvPeUFvZFUAlHfcVP4r+COkbIuJSshSwcbiumeB/N
-	 d4meDQPyZiWuzFrDPow8jFLVz0iuDX+Qrsn/J7WD/0NkZBlMOqW4xzrkkDKgUsHMXx
-	 rRZvXpfIOqzB6zo3flUcoibtuD3dNWviAGoceXsY=
+	s=default; t=1667597120;
+	bh=uuFnxcWfl5++HD7bZPixLE+GB/VdJsnKSziUJa+HwpM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XzxR5XXDZvEQRfh0nwx3oZJ0SD8eMgH/WRS8oayoDgXr8IFPQNhEqdl50ueehEE/D
+	 Zs1JCKkDI/LDcIP7Fnsr+Scl7KCqp7+Pem6r2MBu/HWLTzCS8uvN6FnEvCa34Jf7BP
+	 xHR7f4XU4swggIx7ueGsgP2PrDH81LjT3jKySSSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E91DF8047D;
-	Fri,  4 Nov 2022 18:33:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A28BF8049E;
+	Fri,  4 Nov 2022 22:24:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5356CF80448; Fri,  4 Nov 2022 18:33:49 +0100 (CET)
+ id 26DA7F8047D; Fri,  4 Nov 2022 22:24:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97E33F801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 18:33:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97E33F801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FB93F80149
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 22:24:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FB93F80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mglurZ92"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667583226; x=1699119226;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=5EVt633C6FjYMJCoDyyLdZcnFXxZLw/+AxJGFjKIWPE=;
- b=mglurZ92R0Ifw1/MOsiPd/h5sYFbDDrFXDR0VmQZ782HyYMEGM7cr9S1
- esaEuG9a6MFC0i+6av+ZPuf6BUJ5Fj2jYsy8bQ4x6XhNYxsWxTviplVmn
- 7MY9uOYxRl2jfWNcODXCmNzMH22SsAJaWX/SFLH9BMdKk9yu9HaOeRdSP
- MO9X1RbmD/7+gVq3/1jPLiWq4OiuWuIR2pXGGzUyAnQ5b3yQYxa1hXRwL
- lBsBOmO1NzLmy6xQkZ8sNTQG7px0FQ4uGBaMT3Zu0q+ICn9Q/7OqUAxoX
- 5VQ9pTti05eR/KvVOCCC51uvHfiYcCdueNAbaJIIFEC0BEibmldMYw6Vm w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="396324242"
-X-IronPort-AV: E=Sophos;i="5.96,138,1665471600"; d="scan'208";a="396324242"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 10:33:43 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="740704599"
-X-IronPort-AV: E=Sophos;i="5.96,138,1665471600"; d="scan'208";a="740704599"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 10:33:42 -0700
-Date: Fri, 4 Nov 2022 19:33:47 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: regression with SG DMA buf allocations and IOMMU in low-mem
-In-Reply-To: <87k04aiuo1.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2211041930270.3532114@eliteleevi.tm.intel.com>
-References: <alpine.DEB.2.22.394.2211041541090.3532114@eliteleevi.tm.intel.com>
- <87r0yiiw6s.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2211041741520.3532114@eliteleevi.tm.intel.com>
- <87k04aiuo1.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="AsC3JSUi"
+Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
+ [167.235.23.81])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: nfraprado)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 26FFB660298A;
+ Fri,  4 Nov 2022 21:24:13 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1667597055;
+ bh=uuFnxcWfl5++HD7bZPixLE+GB/VdJsnKSziUJa+HwpM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=AsC3JSUiy8ATScgoKbobipTzEIeVkpxY7awI94quhKG+i4VkQevrmJCg0ey1kG/IN
+ QTs735SZ3cltlzwM/HEzsg/9w3ZdTHdTN61DXBO979AxB2d3i1+vsVzhTZTCxnHu8d
+ ipqJXY4mOx+wj5VEo/wJhMlRQcEmE3kbXR7wf1Mmu8KGsediEn6OEPv7tZYXBwwuuQ
+ s3g12ZKk6E/nFdG4bfdH+Wn4i+t6gA7P0BzSliCwDxys5vhmYN6Jb5muyTGIZA1wZb
+ 5qmi/tb066woqT/IN8Rde7vKYYYARokJu4jJBKt1LGtY2SHzkwU0kyRe9trcKWXVzw
+ jcwbOsIOvNttA==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/2] ASoC: mediatek: mt8183-da7219: Register to module device
+ table
+Date: Fri,  4 Nov 2022 17:24:07 -0400
+Message-Id: <20221104212409.603970-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Miaoqian Lin <linmq006@gmail.com>,
+ Tzung-Bi Shih <tzungbi@kernel.org>,
+ =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-mediatek@lists.infradead.org,
+ Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,24 +93,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Register the compatibles for this module on the module device table so
+it can be automatically loaded when a matching device is found on the
+system.
 
-On Fri, 4 Nov 2022, Takashi Iwai wrote:
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-> On Fri, 04 Nov 2022 16:42:29 +0100, Kai Vehmanen wrote:
-> > I think an explicit error would be best. The problem now is that the 
-> > driver will think the allocation (and mapping to device) is fine and 
-> > proceeds to program the hardware to use the address. This will then create 
-> > an IOMMU fault down the line that is not so straighforward to recover from 
-> > (worst case is that a full device level reset needs to be done). And given 
-> > driver doesn't know it got a faulty mapping, it's hard to make the 
-> > decision why the fault happened.
-> 
-> OK, then what I posted in another mail (it went to nirvana) might
-> work.  Attached below again.
+---
 
-thanks! Let me put this through testing and get back to you next 
-week. We'll also debug a bit more what exactly goes on that leads to 
-dma_alloc_noncontiguous failing.
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Br, Kai
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 9f22d3939818..0e572fe28c58 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -842,6 +842,7 @@ static const struct of_device_id mt8183_da7219_max98357_dt_match[] = {
+ 	},
+ 	{}
+ };
++MODULE_DEVICE_TABLE(of, mt8183_da7219_max98357_dt_match);
+ #endif
+ 
+ static struct platform_driver mt8183_da7219_max98357_driver = {
+-- 
+2.38.1
+

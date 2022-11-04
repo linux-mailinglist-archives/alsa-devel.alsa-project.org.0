@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208656198AF
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 15:02:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1AB6198B1
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 15:02:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1004163B;
-	Fri,  4 Nov 2022 15:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1004163B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C72D1670;
+	Fri,  4 Nov 2022 15:02:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C72D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667570544;
-	bh=MqZG52CRdQRt7ko+Jjzpuk3nUxqLdLJR/gvmOqBpTbs=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1667570570;
+	bh=efmcWroeuQyRtmDkFtVeu8ScT8EbrzgbnEizz5PylEI=;
+	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gRrXC07073ErAGDZxUwRVxIXtntoGHqElbfd1Q/NkDPXFCZHOx/t2DSUyPdhQnwTL
-	 5nSiH8qkd1Q3CHogPqXeTbb1DJs/sByvVyPX0aMA3uuG2sTlOxZ6DigpfSJckanyTE
-	 +ZTENfiQq8AKh3TJkh8cuH/ZmMMOir7yddwOC7mg=
+	b=ek36HVaAZfN9J3xC3Q6ybNDM37Uet5EOf3MiI/ItZxzNkY1LyQyRVKpHzrsR0nVwk
+	 OzE9itbt/AOCFlM+bMtfWPQbcCUV4bEhP0gKaXMplp02iEFXs/cb9IXmkYFFVnVRsk
+	 Aa9OJuqk9pTWIn0hz2hG91TKqpTZTPuPDXkgKwoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CA44F8049E;
-	Fri,  4 Nov 2022 15:01:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB547F80149;
+	Fri,  4 Nov 2022 15:01:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B744EF8047D; Fri,  4 Nov 2022 15:01:27 +0100 (CET)
+ id 774DEF804AC; Fri,  4 Nov 2022 15:01:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,49 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 246CAF801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 15:01:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 246CAF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E09BF80431
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 15:01:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E09BF80431
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="HPDKraMT"
+ header.b="YilKUkcO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667570482; x=1699106482;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=MqZG52CRdQRt7ko+Jjzpuk3nUxqLdLJR/gvmOqBpTbs=;
- b=HPDKraMTqomzbKvwGBJQNB8BpwmrYLuNhyNTH7S+vkUhmW/Cy9pe5fSj
- JKAy6Ysunu3xCg5B+zoOP1O4MIakqqzeykIl8NLYCslhsZOAEaHBjgXyb
- p61zjbpA1vOEZEV246DLgpC64lXBzJq1Gqcyi4Y2vfb/EdI8cpHM+3xzK
- snn6BluR5ytk48kDD1FHrIvcjpGfPo4Dr/InyrsEnWWHv+n/Fv8j6pCCr
- gBiXd6i6sTFd6p353ddLx0/XKnPvBtnOyWjPGtMlOAu9U4fvtuBcEjjIL
- Ij3MKGD3hoheF2NgA6Us1ZbOti67OgT9HUkgpJfEnW+lzMVZ6VdWURxqZ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="293298000"
-X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="293298000"
+ t=1667570484; x=1699106484;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=efmcWroeuQyRtmDkFtVeu8ScT8EbrzgbnEizz5PylEI=;
+ b=YilKUkcOD52bdj+/Qj2+Pswhk7T/GEbbp3cyO8lRVc/7dba7HneEvZAV
+ ELudP+SfMonFvaPLMYK0Vb/o4f+iwEN6vgGmWXuJRDlIs8Z1tKoC1Du7C
+ XlZrOwh47RyjQA7LvbVfjeqJtpOwKoTJ0ltxf5jR74gJx55R9mTg/7hdQ
+ gKkg5M3C4D+By/FQZFqHLRCKGsZXKcVbrTZiDuKtboecFgIdOsRG8ypL+
+ t9oG4205NLC78dFQg6XvOUJU4cphLlk3hsfAeK+7YF8EJw53co34+Rb/J
+ jJ3br6tgIgruFonOwSgrxzW9v5CvwY1nN0hDXOIwMl5/E+77yZUKckXE4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="293298011"
+X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="293298011"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 07:01:16 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="668363695"
-X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="668363695"
+ 04 Nov 2022 07:01:18 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="668363707"
+X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="668363707"
 Received: from cavargas-mobl.amr.corp.intel.com (HELO [10.212.85.188])
  ([10.212.85.188])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 07:01:15 -0700
-Message-ID: <925c6405-f651-f68d-73f3-46cf85cb2fa5@linux.intel.com>
-Date: Fri, 4 Nov 2022 09:58:46 -0400
+ 04 Nov 2022 07:01:17 -0700
+Message-ID: <b8bd9830-c933-092b-42db-75dd39bcb0c0@linux.intel.com>
+Date: Fri, 4 Nov 2022 10:00:23 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.2.2
-Subject: Re: [PATCH 2/3] ASoC: core: Inline resume work back to resume function
-Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/3] ASoC: component: Propagate result of suspend and
+ resume callbacks
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
  broonie@kernel.org
 References: <20221104131244.3920179-1-cezary.rojewski@intel.com>
- <20221104131244.3920179-3-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221104131244.3920179-3-cezary.rojewski@intel.com>
+ <20221104131244.3920179-2-cezary.rojewski@intel.com>
+Content-Language: en-US
+In-Reply-To: <20221104131244.3920179-2-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com
@@ -99,124 +100,82 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 On 11/4/22 09:12, Cezary Rojewski wrote:
 > From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 > 
-> Commit 6ed2597883b1 ("ALSA: ASoC: Don't block system resume") introduced
-> deferred_resume_work for ASoC subsystem. While this allows for potential
-> speed up during boot on some slow devices, it doesn't allow to properly
-> propagate return values in case something failed during system resume.
+> Both component->driver->suspend and ->resume() do return an int value
+> but it isn't propagated to the core later on. Update
+> snd_soc_component_suspend() and snd_soc_component_resume() so that the
+> possible errors are not squelched.
 
-Are you suggesting to remove this workqueue that's been there since
-2008, which would impact negatively slow devices?
+This looks alright on paper but could break existing solutions.
+There are a number of cases where an error during suspend is not fatal
+and you don't want to prevent a system suspend if this is recoverable on
+resume.
 
-If I follow your logic, we should also remove the workqueue used for
-probes for HDaudio devices, on the grounds that probe errors are not
-propagated either.
+See for example the errors on clock-stop for SoundWire, which are
+squelched on purpose. See also Andy Ross' PR to precisely stop
+propagating errors in SOF https://github.com/thesofproject/linux/pull/3863
 
-Any time we have deferred processing to avoid blocking the rest of the
-system, we incur the risk of not having errors propagated. It's a
-compromise between having a system that's usable and a system that's
-consistent.
+Maybe a less intrusive change would be to add a WARN_ON or something
+visible to make sure solutions are fixed, and only critical issues can
+prevent suspend? And in a second step the errors are propagated.
+
 > Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
->  include/sound/soc.h  |  3 ---
->  sound/soc/soc-core.c | 48 +++++++++++---------------------------------
->  2 files changed, 12 insertions(+), 39 deletions(-)
+>  include/sound/soc-component.h |  4 ++--
+>  sound/soc/soc-component.c     | 22 ++++++++++++++++------
+>  2 files changed, 18 insertions(+), 8 deletions(-)
 > 
-> diff --git a/include/sound/soc.h b/include/sound/soc.h
-> index 37bbfc8b45cb..3465aa075afe 100644
-> --- a/include/sound/soc.h
-> +++ b/include/sound/soc.h
-> @@ -1005,9 +1005,6 @@ struct snd_soc_card {
->  
->  #ifdef CONFIG_DEBUG_FS
->  	struct dentry *debugfs_card_root;
-> -#endif
-> -#ifdef CONFIG_PM_SLEEP
-> -	struct work_struct deferred_resume_work;
->  #endif
->  	u32 pop_time;
->  
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index a409fbed8f34..5f7e0735f0c1 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -643,17 +643,21 @@ int snd_soc_suspend(struct device *dev)
+> diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+> index c26ffb033777..421f0fc4df3e 100644
+> --- a/include/sound/soc-component.h
+> +++ b/include/sound/soc-component.h
+> @@ -456,8 +456,8 @@ int snd_soc_component_open(struct snd_soc_component *component,
+>  int snd_soc_component_close(struct snd_soc_component *component,
+>  			    struct snd_pcm_substream *substream,
+>  			    int rollback);
+> -void snd_soc_component_suspend(struct snd_soc_component *component);
+> -void snd_soc_component_resume(struct snd_soc_component *component);
+> +int snd_soc_component_suspend(struct snd_soc_component *component);
+> +int snd_soc_component_resume(struct snd_soc_component *component);
+>  int snd_soc_component_is_suspended(struct snd_soc_component *component);
+>  int snd_soc_component_probe(struct snd_soc_component *component);
+>  void snd_soc_component_remove(struct snd_soc_component *component);
+> diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+> index e12f8244242b..27b862ded846 100644
+> --- a/sound/soc/soc-component.c
+> +++ b/sound/soc/soc-component.c
+> @@ -318,18 +318,28 @@ int snd_soc_component_close(struct snd_soc_component *component,
+>  	return soc_component_ret(component, ret);
 >  }
->  EXPORT_SYMBOL_GPL(snd_soc_suspend);
 >  
-> -/*
-> - * deferred resume work, so resume can complete before we finished
-> - * setting our codec back up, which can be very slow on I2C
-> - */
-> -static void soc_resume_deferred(struct work_struct *work)
-> +/* powers up audio subsystem after a suspend */
-> +int snd_soc_resume(struct device *dev)
+> -void snd_soc_component_suspend(struct snd_soc_component *component)
+> +int snd_soc_component_suspend(struct snd_soc_component *component)
 >  {
-> -	struct snd_soc_card *card =
-> -			container_of(work, struct snd_soc_card,
-> -				     deferred_resume_work);
-> +	struct snd_soc_card *card = dev_get_drvdata(dev);
->  	struct snd_soc_component *component;
->  
-> +	/* If the card is not initialized yet there is nothing to do */
-> +	if (!card->instantiated)
-> +		return 0;
+> +	int ret = 0;
 > +
-> +	/* activate pins from sleep state */
-> +	for_each_card_components(card, component)
-> +		if (snd_soc_component_active(component))
-> +			pinctrl_pm_select_default_state(component->dev);
+>  	if (component->driver->suspend)
+> -		component->driver->suspend(component);
+> -	component->suspended = 1;
+> +		ret = component->driver->suspend(component);
+> +	if (!ret)
+> +		component->suspended = 1;
 > +
->  	/*
->  	 * our power state is still SNDRV_CTL_POWER_D3hot from suspend time,
->  	 * so userspace apps are blocked from touching us
-> @@ -686,40 +690,14 @@ static void soc_resume_deferred(struct work_struct *work)
->  
->  	/* userspace can access us now we are back as we were before */
->  	snd_power_change_state(card->snd_card, SNDRV_CTL_POWER_D0);
-> -}
-> -
-> -/* powers up audio subsystem after a suspend */
-> -int snd_soc_resume(struct device *dev)
-> -{
-> -	struct snd_soc_card *card = dev_get_drvdata(dev);
-> -	struct snd_soc_component *component;
-> -
-> -	/* If the card is not initialized yet there is nothing to do */
-> -	if (!card->instantiated)
-> -		return 0;
-> -
-> -	/* activate pins from sleep state */
-> -	for_each_card_components(card, component)
-> -		if (snd_soc_component_active(component))
-> -			pinctrl_pm_select_default_state(component->dev);
-> -
-> -	dev_dbg(dev, "ASoC: Scheduling resume work\n");
-> -	if (!schedule_work(&card->deferred_resume_work))
-> -		dev_err(dev, "ASoC: resume work item may be lost\n");
->  
->  	return 0;
+> +	return soc_component_ret(component, ret);
 >  }
->  EXPORT_SYMBOL_GPL(snd_soc_resume);
 >  
-> -static void soc_resume_init(struct snd_soc_card *card)
-> -{
-> -	/* deferred resume work */
-> -	INIT_WORK(&card->deferred_resume_work, soc_resume_deferred);
-> -}
->  #else
->  #define snd_soc_suspend NULL
->  #define snd_soc_resume NULL
-> -static inline void soc_resume_init(struct snd_soc_card *card) { }
->  #endif
+> -void snd_soc_component_resume(struct snd_soc_component *component)
+> +int snd_soc_component_resume(struct snd_soc_component *component)
+>  {
+> +	int ret = 0;
+> +
+>  	if (component->driver->resume)
+> -		component->driver->resume(component);
+> -	component->suspended = 0;
+> +		ret = component->driver->resume(component);
+> +	if (!ret)
+> +		component->suspended = 0;
+> +
+> +	return soc_component_ret(component, ret);
+>  }
 >  
->  static struct device_node
-> @@ -1968,8 +1946,6 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
->  
->  	soc_init_card_debugfs(card);
->  
-> -	soc_resume_init(card);
-> -
->  	ret = snd_soc_dapm_new_controls(&card->dapm, card->dapm_widgets,
->  					card->num_dapm_widgets);
->  	if (ret < 0)
+>  int snd_soc_component_is_suspended(struct snd_soc_component *component)

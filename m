@@ -2,86 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C10619C78
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 17:04:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9A2619C7A
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 17:04:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 326A0164D;
-	Fri,  4 Nov 2022 17:03:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326A0164D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A01F31673;
+	Fri,  4 Nov 2022 17:03:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A01F31673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667577849;
-	bh=SdfLi1Zy/xc+vNQNp8d0Cd2YfEOM2RZ9zY9H1CiVj60=;
+	s=default; t=1667577874;
+	bh=4wqiqhylKn4XJA8+PSXtRpQlTD9kexzvL4ZPUDwF0x0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=XSXWpQlCY+BITcDr+PT3FlQl5PXzFbvrLQwjfEO7AytNj4V7M8bHJBdtiCM/NJffn
-	 Q2IYSpLCJ4u/0fBTHmBPGo5MCbjVVsuoQRVGzNrPL9TpELwRXLa2q4JkfkHjajjb5f
-	 ES33zRQsQmB9dDzVv9DJm1T4wuHSJqPcb8fmU+yM=
+	b=SaKURaB1goedZypH7CTycR7xu6uq6/XkdhSNEA2WZYOJEdIFEwarPSXtk7rfeXk12
+	 pDc0SQS+m8YqoWpMrmpMToC9Rq5TF3fnMFr3Y33Q+bZHdMjnqzcqC4kI6+UpzdCPPn
+	 IDW/mpK1PSk8bHeFqXcz+360EXpFolf4fLS/wqYQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C00CEF80155;
-	Fri,  4 Nov 2022 17:03:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D4E5F8049E;
+	Fri,  4 Nov 2022 17:03:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86976F80155; Fri,  4 Nov 2022 17:03:11 +0100 (CET)
+ id E07CDF804E7; Fri,  4 Nov 2022 17:03:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B2DFF80155
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2DFF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF1EBF80149
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 17:03:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF1EBF80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="O5hkYCJy"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2A47dElG022482; Fri, 4 Nov 2022 11:03:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=be1LUm+gxdaWFn7qcs+lBl2UTAJEdYF5CnIBGFt+dPM=;
- b=O5hkYCJylYSqADUmVWk1mQ6Rgru0jBwSMaDq1rdx6mTnGhoGHUvos5hCMu1RzigG4qqZ
- IN+l+OvBR1VrGYZxKnzKDZE9jslLORLF1tgWkwQV2pZjS7G1VCap73HsrhRbxmatqp73
- YX7jPSDjCzJb5qaCS4vsQ9ochaIKHNpe2bOO4BpzElZGRcpNKVQmabq5whS04QXBl/1W
- VqdPgbpsNKEFLRMdkfSSSyE5seX9TNDYpZz4t4N9ok+cPSm6S4JDDA/qW5AvdKRiouBQ
- ltlI86UUof9kHOnr7qC79Xo2d07MjxkHQYNRFzwz0Qe+xkXVL+vmoQoJQyglacif5ALD dQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kmpgch0nn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Nov 2022 11:03:02 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Fri, 4 Nov
- 2022 11:03:00 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.15 via Frontend Transport; Fri, 4 Nov 2022 11:03:00 -0500
-Received: from debianA11184.ad.cirrus.com (unknown [198.61.65.97])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6481346C;
- Fri,  4 Nov 2022 16:03:00 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: soc-dai: Do not call snd_soc_link_be_hw_params_fixup()
- twice
-Date: Fri, 4 Nov 2022 16:02:52 +0000
-Message-ID: <20221104160252.166114-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="lRP9Nhis"
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id BDCAD8523A;
+ Fri,  4 Nov 2022 17:03:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1667577808;
+ bh=xLYlXk7h+LkLezJ2VuK6I4kDNLPrw8cSeJgG970U+Ps=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lRP9Nhis4zPZro68wItkVrIfoeqXSl2KQY21mBWCoK6KFweJdROw/R95nYvHsrDQS
+ kjrgjQ56HtL8DrXojNjsWlMHqyTLfIJKXq3fkbFl8j28ijDQIdp31Z5y/9zh5Xx70d
+ PD9eAyz/fu+u4vt83kPtzfWMkGQ3OHdaNXMdWRNher2xhNtX9lLIvMv6c42N2GqCQw
+ Kj5Oftx0jDD+mJI17Wb4wT8YCbZF1A2o1zeBQlM7wxqYxlWffqWxVUsN2uCfZuD7Pu
+ GnBB/H1llvdRccmOxlN/2gdp9dObceiOs1uaviIL9cRTpXXLqeDHyFPYhyi79D8Wvc
+ H67Bx/DVzxElg==
+From: Marek Vasut <marex@denx.de>
+To: devicetree@vger.kernel.org
+Subject: [PATCH 1/3] ASoC: dt-bindings: fsl-sai: Fix mx6ul and mx7d compatible
+ strings
+Date: Fri,  4 Nov 2022 17:03:13 +0100
+Message-Id: <20221104160315.213836-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: bM1Ef0lehXFyZpWQL2rxoAvWte-3i2qA
-X-Proofpoint-GUID: bM1Ef0lehXFyZpWQL2rxoAvWte-3i2qA
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,84 +88,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For a BE link snd_soc_link_be_hw_params_fixup() is called by
-dpcm_be_dai_hw_params() to initialize the params before it passes them
-to __soc_pcm_hw_params(). Then __soc_pcm_hw_params() refines params to
-match the BE codec and passes that to snd_soc_dai_hw_params().
+Describe existing used combinations of compatible strings on MX6UL
+and MX7D, which are backward compatible with MX6SX. Add the missing
+imx7d-sai compatible string which is used on i.MX7 .
 
-The second call of snd_soc_link_be_hw_params_fixup() within
-snd_soc_dai_hw_params() was overwriting the refined params with the
-original BE CPU DAI params. This would then lead to various problems,
-for example passing an invalid number of channels to the codec driver
-hw_params(), or enabling more AIF widgets on the codec than are actually
-mapped by TDM slots.
-
-These errors may not be noticed on a simple 1:1 link between one CPU DAI
-and one codec DAI, because most likely they have the same DAI config
-(though this is not necessarily true, for example if the CPU end has dummy
-TDM slots to achieve a desirable BCLK).
-
-For 1:N mappings there are likely to be multiple codecs using different
-subsets of the TDM slots and this overwriting of the refined params
-can cause incorrect configuration of each codec on the link.
-
-The erroneous extra call to the BE fixup function() was introduced
-by:
-commit a655de808cbd ("ASoC: core: Allow topology to override machine
-driver FE DAI link config.")
-
-at that time, the call to the BE fixup was already done by
-dpcm_be_dai_hw_params(), which was introduced several years earlier
-by:
-commit 01d7584cd2e5 ("ASoC: dpcm: Add Dynamic PCM core operations.")
-
-The erroneous code has changed and moved to a different source file
-since the patch that introduced it, so this fix patch won't directly
-apply as a fix on top of code older than:
-commit 8b4ba1d31771 ("ASoC: soc-dai: fix up hw params only if it is
-needed")
-
-though it can be applied with some minor adjustment to code before
-that patch but after:
-commit aa6166c2ac28 ("ASoC: soc-dai: mv soc_dai_hw_params() to soc-dai")
-
-On any tree older than that the code is in soc-pcm.c.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Marek Vasut <marex@denx.de>
 ---
- sound/soc/soc-dai.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>
+Cc: alsa-devel@alsa-project.org
+To: devicetree@vger.kernel.org
+---
+ .../devicetree/bindings/sound/fsl,sai.yaml    | 24 ++++++++++++-------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 49752af0e205..29a75fdf90e0 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -386,23 +386,16 @@ int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
- 			  struct snd_pcm_substream *substream,
- 			  struct snd_pcm_hw_params *params)
- {
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	int ret = 0;
- 
- 	if (dai->driver->ops &&
--	    dai->driver->ops->hw_params) {
--		/* perform any topology hw_params fixups before DAI  */
--		ret = snd_soc_link_be_hw_params_fixup(rtd, params);
--		if (ret < 0)
--			goto end;
--
-+	    dai->driver->ops->hw_params)
- 		ret = dai->driver->ops->hw_params(substream, params, dai);
--	}
- 
- 	/* mark substream if succeeded */
- 	if (ret == 0)
- 		soc_dai_mark_push(dai, substream, hw_params);
--end:
+diff --git a/Documentation/devicetree/bindings/sound/fsl,sai.yaml b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+index 11aab891288d2..05bad828cc353 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,sai.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+@@ -18,15 +18,12 @@ description: |
+ properties:
+   compatible:
+     oneOf:
+-      - enum:
+-          - fsl,vf610-sai
+-          - fsl,imx6sx-sai
+-          - fsl,imx6ul-sai
+-          - fsl,imx7ulp-sai
+-          - fsl,imx8mq-sai
+-          - fsl,imx8qm-sai
+-          - fsl,imx8ulp-sai
+-          - fsl,imx93-sai
++      - items:
++          - enum:
++              - fsl,imx6ul-sai
++              - fsl,imx7d-sai
++          - const: fsl,imx6sx-sai
 +
- 	return soc_dai_ret(dai, ret);
- }
+       - items:
+           - enum:
+               - fsl,imx8mm-sai
+@@ -34,6 +31,15 @@ properties:
+               - fsl,imx8mp-sai
+           - const: fsl,imx8mq-sai
+ 
++      - items:
++          - enum:
++              - fsl,imx6sx-sai
++              - fsl,imx7ulp-sai
++              - fsl,imx8mq-sai
++              - fsl,imx8qm-sai
++              - fsl,imx8ulp-sai
++              - fsl,vf610-sai
++
+   reg:
+     maxItems: 1
  
 -- 
-2.30.2
+2.35.1
 

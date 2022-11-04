@@ -2,84 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C1AB6198B1
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 15:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10127619AA3
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Nov 2022 15:57:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C72D1670;
-	Fri,  4 Nov 2022 15:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C72D1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB331655;
+	Fri,  4 Nov 2022 15:56:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB331655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667570570;
-	bh=efmcWroeuQyRtmDkFtVeu8ScT8EbrzgbnEizz5PylEI=;
-	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667573826;
+	bh=aFT+OYWwtWWikyYe2ydT4JOUjF+vaIMzzwvgJK0u6u0=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ek36HVaAZfN9J3xC3Q6ybNDM37Uet5EOf3MiI/ItZxzNkY1LyQyRVKpHzrsR0nVwk
-	 OzE9itbt/AOCFlM+bMtfWPQbcCUV4bEhP0gKaXMplp02iEFXs/cb9IXmkYFFVnVRsk
-	 Aa9OJuqk9pTWIn0hz2hG91TKqpTZTPuPDXkgKwoI=
+	b=EU/PF4Jd4y2X3LUb+3hZ2liDWSAyTE5Q4/3WgZ74Xkyvitc3G8HDp+WkIuu6tJkVz
+	 UpjyT4ahOSjC7k/2QreVmtA3pJt8kWam2mY2u3Uw9ULi7xyF/ZVeplwQgqq78mRIeT
+	 /UuF2zhyeILZRDIDyNjxlfjfBjOmEvCtrJTi0PgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB547F80149;
-	Fri,  4 Nov 2022 15:01:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04693F8047D;
+	Fri,  4 Nov 2022 15:56:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 774DEF804AC; Fri,  4 Nov 2022 15:01:30 +0100 (CET)
+ id 2CDA1F80448; Fri,  4 Nov 2022 15:56:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A06F5F801D5
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 15:56:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A06F5F801D5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sCTs4qMp"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E09BF80431
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 15:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E09BF80431
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="YilKUkcO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667570484; x=1699106484;
- h=message-id:date:mime-version:from:subject:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=efmcWroeuQyRtmDkFtVeu8ScT8EbrzgbnEizz5PylEI=;
- b=YilKUkcOD52bdj+/Qj2+Pswhk7T/GEbbp3cyO8lRVc/7dba7HneEvZAV
- ELudP+SfMonFvaPLMYK0Vb/o4f+iwEN6vgGmWXuJRDlIs8Z1tKoC1Du7C
- XlZrOwh47RyjQA7LvbVfjeqJtpOwKoTJ0ltxf5jR74gJx55R9mTg/7hdQ
- gKkg5M3C4D+By/FQZFqHLRCKGsZXKcVbrTZiDuKtboecFgIdOsRG8ypL+
- t9oG4205NLC78dFQg6XvOUJU4cphLlk3hsfAeK+7YF8EJw53co34+Rb/J
- jJ3br6tgIgruFonOwSgrxzW9v5CvwY1nN0hDXOIwMl5/E+77yZUKckXE4 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="293298011"
-X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="293298011"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 07:01:18 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="668363707"
-X-IronPort-AV: E=Sophos;i="5.96,137,1665471600"; d="scan'208";a="668363707"
-Received: from cavargas-mobl.amr.corp.intel.com (HELO [10.212.85.188])
- ([10.212.85.188])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2022 07:01:17 -0700
-Message-ID: <b8bd9830-c933-092b-42db-75dd39bcb0c0@linux.intel.com>
-Date: Fri, 4 Nov 2022 10:00:23 -0400
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CA91F62236;
+ Fri,  4 Nov 2022 14:56:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E7FC433D6;
+ Fri,  4 Nov 2022 14:56:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667573763;
+ bh=aFT+OYWwtWWikyYe2ydT4JOUjF+vaIMzzwvgJK0u6u0=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=sCTs4qMpQHoWjZwWKZylJU5GOrjmgd5bBsy0I3pfZ9THAWllObwZzZ8Me2QOMcrqb
+ ORhc4xj9oT/Z0IigtSXNdzcXcxZ5a1c7ZaK4X9u6tEX46lKvrkdT/xYGcKAzjdQiBO
+ VHYfz1Bml0McMBViOUrLN+OewKqxu6ZkPeOkzr9VhpMNcV5s6NbP3HvYVK9xn/M32b
+ ONVa8FQZ8vsRf9yb4Z0lTS9KxC9zNCPs6/5lskvWEKJACF46wsoxVgJ/D2uvqI+6KS
+ cpdKNPnfBrVlVUUbO0f9GGzFqbkrPrAmihh4icXjFzx/dKohjXFZ/Idy0KT6G/HNdr
+ ndnz/sfYo1oNQ==
+From: Mark Brown <broonie@kernel.org>
+To: Jason Montleon <jmontleo@redhat.com>, pierre-louis.bossart@linux.intel.com
+In-Reply-To: <20221103144612.4431-1-jmontleo@redhat.com>
+References: <20221103144612.4431-1-jmontleo@redhat.com>
+Subject: Re: [PATCH v4 1/2] ASoC: rt5514: fix legacy dai naming
+Message-Id: <166757376119.346347.7384763439814980163.b4-ty@kernel.org>
+Date: Fri, 04 Nov 2022 14:56:01 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.2.2
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/3] ASoC: component: Propagate result of suspend and
- resume callbacks
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20221104131244.3920179-1-cezary.rojewski@intel.com>
- <20221104131244.3920179-2-cezary.rojewski@intel.com>
-Content-Language: en-US
-In-Reply-To: <20221104131244.3920179-2-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com, tiwai@suse.com
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: oder_chiou@realtek.com, cezary.rojewski@intel.com,
+ ckeepax@opensource.cirrus.com, regressions@lists.linux.dev,
+ alsa-devel@alsa-project.org, tiwai@suse.com, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,87 +86,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 11/4/22 09:12, Cezary Rojewski wrote:
-> From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+On Thu, 3 Nov 2022 10:46:11 -0400, Jason Montleon wrote:
+> Starting with 6.0-rc1 these messages are logged and the sound card
+> is unavailable. Adding legacy_dai_naming to the rt5514-spi causes
+> it to function properly again.
 > 
-> Both component->driver->suspend and ->resume() do return an int value
-> but it isn't propagated to the core later on. Update
-> snd_soc_component_suspend() and snd_soc_component_resume() so that the
-> possible errors are not squelched.
-
-This looks alright on paper but could break existing solutions.
-There are a number of cases where an error during suspend is not fatal
-and you don't want to prevent a system suspend if this is recoverable on
-resume.
-
-See for example the errors on clock-stop for SoundWire, which are
-squelched on purpose. See also Andy Ross' PR to precisely stop
-propagating errors in SOF https://github.com/thesofproject/linux/pull/3863
-
-Maybe a less intrusive change would be to add a WARN_ON or something
-visible to make sure solutions are fixed, and only critical issues can
-prevent suspend? And in a second step the errors are propagated.
-
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->  include/sound/soc-component.h |  4 ++--
->  sound/soc/soc-component.c     | 22 ++++++++++++++++------
->  2 files changed, 18 insertions(+), 8 deletions(-)
+> [   16.928454] kbl_r5514_5663_max kbl_r5514_5663_max: ASoC: CPU DAI
+> spi-PRP0001:00 not registered
+> [   16.928561] platform kbl_r5514_5663_max: deferred probe pending
 > 
-> diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-> index c26ffb033777..421f0fc4df3e 100644
-> --- a/include/sound/soc-component.h
-> +++ b/include/sound/soc-component.h
-> @@ -456,8 +456,8 @@ int snd_soc_component_open(struct snd_soc_component *component,
->  int snd_soc_component_close(struct snd_soc_component *component,
->  			    struct snd_pcm_substream *substream,
->  			    int rollback);
-> -void snd_soc_component_suspend(struct snd_soc_component *component);
-> -void snd_soc_component_resume(struct snd_soc_component *component);
-> +int snd_soc_component_suspend(struct snd_soc_component *component);
-> +int snd_soc_component_resume(struct snd_soc_component *component);
->  int snd_soc_component_is_suspended(struct snd_soc_component *component);
->  int snd_soc_component_probe(struct snd_soc_component *component);
->  void snd_soc_component_remove(struct snd_soc_component *component);
-> diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-> index e12f8244242b..27b862ded846 100644
-> --- a/sound/soc/soc-component.c
-> +++ b/sound/soc/soc-component.c
-> @@ -318,18 +318,28 @@ int snd_soc_component_close(struct snd_soc_component *component,
->  	return soc_component_ret(component, ret);
->  }
->  
-> -void snd_soc_component_suspend(struct snd_soc_component *component)
-> +int snd_soc_component_suspend(struct snd_soc_component *component)
->  {
-> +	int ret = 0;
-> +
->  	if (component->driver->suspend)
-> -		component->driver->suspend(component);
-> -	component->suspended = 1;
-> +		ret = component->driver->suspend(component);
-> +	if (!ret)
-> +		component->suspended = 1;
-> +
-> +	return soc_component_ret(component, ret);
->  }
->  
-> -void snd_soc_component_resume(struct snd_soc_component *component)
-> +int snd_soc_component_resume(struct snd_soc_component *component)
->  {
-> +	int ret = 0;
-> +
->  	if (component->driver->resume)
-> -		component->driver->resume(component);
-> -	component->suspended = 0;
-> +		ret = component->driver->resume(component);
-> +	if (!ret)
-> +		component->suspended = 0;
-> +
-> +	return soc_component_ret(component, ret);
->  }
->  
->  int snd_soc_component_is_suspended(struct snd_soc_component *component)
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/2] ASoC: rt5514: fix legacy dai naming
+      commit: 392cc13c5ec72ccd6bbfb1bc2339502cc59dd285
+[2/2] ASoC: rt5677: fix legacy dai naming
+      commit: a1dca8774faf3f77eb34fa0ac6f3e2b82290b1e4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

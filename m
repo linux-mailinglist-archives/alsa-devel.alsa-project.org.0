@@ -2,137 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F7461D800
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6508261D801
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 08:04:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D8671635;
-	Sat,  5 Nov 2022 08:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D8671635
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6C40163F;
+	Sat,  5 Nov 2022 08:04:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C40163F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667631870;
-	bh=skKPfu9HBTDHwMcRNx+yUNW/zlvQaQspnZ1kGUvF63U=;
-	h=In-Reply-To:References:Date:From:To:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fVHLCMkVd6Py7IA5Fx1BRZjy9oOD8q4bLYTNyIOopyFby+bMGux6mM9J98DQ29x/S
-	 OEp/1U1TnC+8x5aRW6Nq6Yz5tJ1wWHhyBoxqIJ9D/1ovGitoVZeRWCMRaV6GMRBSjc
-	 a+Mz37ddwBwaXx8LQwDqnUABdqWHu4KRwMbLGUfQ=
+	s=default; t=1667631895;
+	bh=uVPwoAhcCeA1k6hOPHNYL6DLP/vXoIhUhGuZL9xnTuc=;
+	h=Subject:From:Date:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZsTqEcPtitjfbX5vViwDszkj/TsC05UCVBE3uJIP8L1x8P1DQ6JC6F+T2Kt+c/lWJ
+	 eYYKjJ5R0SU0NQQhaHnZAwAJQQylQEcuA7pm3r+NoOIoW6XcAS6o0GwmT2+/IoFR6U
+	 X3bh+8fWQTho4iDOowsNoX8gKDTMbh/wmZhfMQoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C238DF803DC;
-	Sat,  5 Nov 2022 08:03:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98B2EF80552;
+	Sat,  5 Nov 2022 08:03:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78DE2F80448; Fri,  4 Nov 2022 10:20:50 +0100 (CET)
+ id 4B97BF801D5; Fri,  4 Nov 2022 14:17:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF7FFF801D5
- for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 10:20:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF7FFF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B13AF801D5
+ for <alsa-devel@alsa-project.org>; Fri,  4 Nov 2022 14:17:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B13AF801D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de
- header.b="jOAioEcq"; 
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="b2aF5Lr0"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="BmHXv8dW"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 8B17F580511;
- Fri,  4 Nov 2022 05:20:41 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute3.internal (MEProxy); Fri, 04 Nov 2022 05:20:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1667553641; x=1667560841; bh=SJoBz4HEVE
- RiFUnQzb3ZIub9dT0AONhBbUZgzTI8xuQ=; b=jOAioEcqTCQaB6i99azVot5cAk
- gre11Ve+vBmc+Fs/vkDIrNjCSzfHPOUS4wzGCXwfIKJy9biOGQnW4iqxv75LAqbt
- RdYq92O8WI8weSFAZzxtnrW2XuUukmSBN8KcaYYLkhR8/jLD6oh6MJQ9cwWd7yl8
- mH21fZUTzBP3gaoYiV4qH0o52fq8RuYFTCOdHa7Soal92hUHyLnB5uIHP9R7ZXTY
- yrk8ucJVboxa6GlUfb8qItPWrs5N4B3xbNfDaXknJzA5ZsbLT0XMXiOZj0LDZKk8
- 6WHRFTqWjdbWEHnXA5Wxg4OS34kfyJ+czE32JS893SSJ8vebcjylW97lvLOw==
+ header.i=@messagingengine.com header.b="eercXXVi"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id D56B458015C;
+ Fri,  4 Nov 2022 09:17:47 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 04 Nov 2022 09:17:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to; s=fm3; t=1667567867; x=1667575067; bh=KPwqkl2vpD
+ BtwBLoB8eq6xZ2Di1LH++AWXPTJ/wIA9c=; b=b2aF5Lr0bJbq+06c5UzpQ5vWar
+ 5YdgzGGfADrKDv3YknXn9XWwOsrdcju0YHhQ2YwpZQ1dwVG7kYK1wSIuFThCSNFN
+ sbrWxxaaZ80AH99x+f7TDdm2zvtOtwqY7pZnJU1vm44MU+7bvKw3O0GhLoNwKrKW
+ cFj+06/QAOFs6rCTbOzgOL53nEPuBQySdxiK5xnDfJQZV211lb14mew1qhhNQkoV
+ wYdTX93TIcqT0nfCuEr1mNqebN3OSjV/XPjG576h92A9iyHPwEWJNzb7TBuhjFF5
+ QW6/ZIe7ueGRb/hj+4FW7eaL/UF5CRnvfi9ppaBEhYSr4Y1nC+dNoXQVU0tw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1667553641; x=1667560841; bh=SJoBz4HEVERiFUnQzb3ZIub9dT0A
- ONhBbUZgzTI8xuQ=; b=BmHXv8dWgMDB3A30MW7r0ER+x2KPnCs67D5Tm4znOHms
- KOvE21G5Qhp1IrhrNpstSMDDbjbRSKKI+wikCsrQUA1D/bc3nhsP6Pfph0Q2sq/L
- w5xrS9CVegwYB6hNxnfcyAYSDOlMngVd/4QaY9exxV3aeJMS+7bUlXh8ZFR6fpSK
- gPa2Xr8LydLZo5vJzfOV1L/TUvE6+ISJhz2GoZweOm3SeuEKaa51K7Ium5W5K020
- eA1TNoxWdJRVK08gDXfqjSbR39bjBE0aJEu+l1hoD12ykpSVSlQ8ZDa9eXuaf1Sv
- VIUPNFOv24w/xRDpe00prXWHte2pkStlJDT70gy7rw==
-X-ME-Sender: <xms:Z9lkYzSrjU71xNBk6_zqZw7_YH6JI0yUseZ9KPinXiiMwa2ms5wZNA>
- <xme:Z9lkY0y5CO55EwHV9Y6MI53sDiK8VD6-UVJ3Kx8hhf4HE2ApNz1-y8IkyXw6-f9C2
- r627sGDwec4-VUhbl4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvddugddtudcutefuodetggdotefrodftvf
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; t=1667567867; x=1667575067; bh=KPwqkl2vpDBtw
+ BLoB8eq6xZ2Di1LH++AWXPTJ/wIA9c=; b=eercXXVi+IB6LvsaHFsKYwHVKZvgs
+ kciHa25A7rBSHM5hE6HWNqy/U8TwTx9k+B+d4SmV8wR1B8x5SJoUQCV8Jkyk8Pmd
+ GAIu5c650ufD6Yg1rfRp8B/jcEg1bQdZa/y822OA2n61aXC38x5+aDbr553ds7Bh
+ BWE4a1+Egl0DulqX35vyRvxYNhsnjZuSU6w0z2or3COeCzTkf0G1h+lTS4XXOHnu
+ 2mgbG8ZjaP3X/uV50N6dOBd/8q6tXT8lvPwERTYNLQP6+G557ptKDIhghNnDznor
+ s3zaHr5JK94KcRawZXd9xRsKdzlMpLQUOw3gjX2P0SYgwrEn6qlL5+k0w==
+X-ME-Sender: <xms:-RBlY_EJgYVGp_NfDItKSfXt9X3yzShbcSBvk_GYWp2a0WkGkSvXGQ>
+ <xme:-RBlY8XdATe3U-Fyu2bc8WiN6AnGeUbBIyXXKmebIk6TL_kKO54L2A4rR3fclkjhD
+ hZB6r4iFZ38HKBHO6o>
+X-ME-Received: <xmr:-RBlYxLDBljuBoReDFzd1Pz9akpBx5YEStVR3u9xtFtEXAoWqmcK5kt5XuD29pf3wGhlt4TxWzsC7QtmQ15CBni6u42TrZPCsjJfeS7MTYsDFw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvddugdegkecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdetrhhn
- ugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtth
- gvrhhnpeevhfffledtgeehfeffhfdtgedvheejtdfgkeeuvefgudffteettdekkeeufeeh
+ fjughrpefugggtgffhfffkvfevofesthekredtredtjeenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeelueevteetffdvveelgfffleegudeufeelveefvddugeehkeefkeehjeeikeeg
  udenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptd
- enucfrrghrrghmpehmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:Z9lkY42FoeE9AWZWaTBjKK0WgCtTsBwtE9dvMmUqE911tjOLuc_EpQ>
- <xmx:Z9lkYzD3odg97j_NLZJAinYScUOubW4GrxI_Sg6mxaH40a00usXu3A>
- <xmx:Z9lkY8gjj31U7LlNshlCvQUZGUTi1_xePFBMFsKDj6YaX8-3AvZpfA>
- <xmx:adlkYxI9rlur3V1K3bRsxhvV5OL9Go-r-JYQNksdhAr5r8wa1PdT3g>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 17FD1B603ED; Fri,  4 Nov 2022 05:20:38 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-1087-g968661d8e1-fm-20221021.001-g968661d8
-Mime-Version: 1.0
-Message-Id: <6b35d496-2313-4fd9-851b-2ba469bc9261@app.fastmail.com>
-In-Reply-To: <803778517.2279639.1667493436959.JavaMail.open-xchange@opme11oxm02aub.pom.fr.intraorange>
-References: <20221019161831.3864786-1-arnd@kernel.org>
- <m2r0z3h5yr.fsf@sopl295.home>
- <7d9eebc8-39b6-4dc1-9ffc-f17ec584bee2@app.fastmail.com>
- <803778517.2279639.1667493436959.JavaMail.open-xchange@opme11oxm02aub.pom.fr.intraorange>
-Date: Fri, 04 Nov 2022 10:20:20 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Robert Jarzmik" <jarzmik.robert@orange.fr>,
- "Arnd Bergmann" <arnd@kernel.org>, "Robert Jarzmik" <robert.jarzmik@free.fr>
-Subject: Re: [PATCH 00/30] ARM: pxa: remove all unused boards&drivers
-Content-Type: text/plain
-X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:30 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Vignesh Raghavendra <vigneshr@ti.com>,
+ enucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:-RBlY9GmnkNLuIyl1KYxn5VFBpf9jZ8JTevo37LZEpV4RD8ZXVpaZA>
+ <xmx:-RBlY1WRXJcfIMUn2TePq-Dwv-AB9Efom47uXHmg9ifSsMRNJRIGpQ>
+ <xmx:-RBlY4PbPs5SF_bhBAYze0-2gkCeUT1MsVILLSLjvhkKqy9KjfYv1g>
+ <xmx:-xBlY2WrtDUYcxhtd5pbuoWdKreVLLygj6ptGyJQC0hDgj8YROxNag>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Nov 2022 09:17:44 -0400 (EDT)
+Subject: [PATCH v2 00/65] clk: Make determine_rate mandatory for muxes
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-b4-tracking: H4sIAN0QZWMC/4VNSwrCMBC9SsnakcmkherKe4iLNk5MaEkhU4tScneHXsDV4/13I1wSi7k2uym8JU
+ lLVkKnxvg45BdDeio3hEQWbQ9+nqAcho/sJ4GQPixA6C7BdeSoRaPlcRCGUYM+aj2/51nFmGRdyvc4
+ 26zC/e/uZgEhOA49dra3Ld48l7ycV9bhR631Bw8tb5bCAAAA
+From: Maxime Ripard <maxime@cerno.tech>
+Date: Fri, 04 Nov 2022 14:17:17 +0100
+Message-Id: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+To: Stephen Boyd <sboyd@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dinh Nguyen <dinguyen@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Andreas Färber <afaerber@suse.de>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, sre@kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-mtd@lists.infradead.org,
- philipp.zabel@gmail.com, Miquel Raynal <miquel.raynal@bootlin.com>,
- kernel@wantstofly.org, linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- Bartosz Golaszewski <brgl@bgdev.pl>, Lee Jones <lee@kernel.org>,
- Russell King <linux@armlinux.org.uk>, marek.vasut@gmail.com,
- Alan Stern <stern@rowland.harvard.edu>, linux-input@vger.kernel.org,
- slapin@ossfans.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- lost.distance@yahoo.com, Haojian Zhuang <haojian.zhuang@gmail.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Dominik Brodowski <linux@dominikbrodowski.net>, linux-fbdev@vger.kernel.org,
- tiwai@suse.com, linux-arm-kernel@lists.infradead.org,
- Felipe Balbi <balbi@kernel.org>, mkpetch@internode.on.net,
- Sergey Shtylyov <s.shtylyov@omp.ru>, linux-ide@vger.kernel.org,
- jingoohan1@gmail.com, linux-usb@vger.kernel.org,
- "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
- lgirdwood@gmail.com, Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Helge Deller <deller@gmx.de>, patches@opensource.cirrus.com,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Daniel Mack <daniel@zonque.org>
+ Samuel Holland <samuel@sholland.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Vinod Koul <vkoul@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Sekhar Nori <nsekhar@ti.com>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ David Airlie <airlied@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Lechner <david@lechnology.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+X-Mailer: b4 0.11.0-dev-99e3a
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9861; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=uVPwoAhcCeA1k6hOPHNYL6DLP/vXoIhUhGuZL9xnTuc=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMmpAp8C17tqxB6LudC3tPGVUOQlvWfOBXV2953rNRkK/ick
+ XS/sKGVhEONikBVTZIkRNl8Sd2rW6042vnkwc1iZQIYwcHEKwEQsZzH8s8n50zxjwV6W3F3vvl2yDD
+ sQZCy4fo212edfB1++/9w+T4vhD7ftS651O3c6scfGctyLy9Bcq372vLdUa/ixvPzgdecZGAE=
+X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-Mailman-Approved-At: Sat, 05 Nov 2022 08:03:31 +0100
+Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-actions@lists.infradead.org, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Maxime Ripard <maxime@cerno.tech>,
+ linux-phy@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,81 +168,214 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 3, 2022, at 17:37, Jarzmik Robert wrote:
-> I'm sorry Arnd, my mailer messed up again, and instead of using my 
-> normal robert.jarzmik@free.fr, it used my ISP mail ...
->>
->
-> The reason you're not seeing the AC97_BUS_NEW used is because this 
-> becomes visible only in device-tree files, which were posted (for 
-> mioa701 for example) but never properly reviewed nor merged.
->
-> As from memory, at least mioa701, zylonite, em_x270 are DT ported, ie. 
-> there is a DT file which makes them boot. For the mioa701, the DT file 
-> offers the same functionnality, ie. all drivers in mioa701.c legacy 
-> file are working as well in a DT variant (not using mioa701.c 
-> obviously).
+Hi,
 
-Ok, I see. I need a little clarification here, so I can adapt
-my patch series to keep the necessary files in place:
+This is a follow-up to a previous series that was printing a warning
+when a mux has a set_parent implementation but is missing
+determine_rate().
 
-- Zylonite has both PXA300 and PXA320 variants. I removed the PXA320
-  code because nothing selected it any more and it is not hooked
-  up to the MACH_PXA3XX_DT Kconfig symbol. Should I undo this and
-  keep all three PXA3xx variant, removing only PXA930 but selecting
-  CPU_PXA310/320 from MACH_PXA3XX_DT?
+The rationale is that set_parent() is very likely to be useful when
+changing the rate, but it's determine_rate() that takes the parenting
+decision. If we're missing it, then the current parent is always going
+to be used, and thus set_parent() will not be used. The only exception
+being a direct call to clk_set_parent(), but those are fairly rare
+compared to clk_set_rate().
 
-- The em_x270 board file was already removed as part of 9d3239147d6d
-  ("ARM: pxa: remove Compulab pxa2xx boards"), which already removed
-  the associated drivers. Is it correct to assume that the DT support
-  for it has also become unusable at that point, or would you expect
-  it to still have some use? I now remove the related CM-X300 machine
-  as well, but it sounds like you did not have DT support for that,
-  right?
+Stephen then asked to promote the warning to an error, and to fix up all
+the muxes that are in that situation first. So here it is :)
 
-- I'm not sure how the probing of the ASoC drivers works in the
-  DT case. Do I only need to make SND_PXA2XX_SOC_AC97 user-visible
-  to let everything get probed automatically from DT, or do we
-  need to also keep SND_PXA2XX_SOC_MIOA701 and SND_SOC_ZYLONITE?
+Let me know what you think,
+Maxime
 
->> Any idea where I went wrong here? Did I make a mistake in following the Kconfig dependencies, or are some parts of this
-> incorrectly annotated?
->
-> I don't think you did a mistake, I think I did. When I saw the patch of 
-> "deprecation" of mioa701 and all the other pxa files, I took it that 
-> the platform-device was deprecated, and was to be removed. This is the 
-> right thing to do in my opinion. I wouldn't mind if all board file go 
-> actually (expect the QEMU one), as this would leave only the boards 
-> with proper DT support, and would remove some clutter from the kernel.
+To: Michael Turquette <mturquette@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Andreas Färber <afaerber@suse.de>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: Max Filippov <jcmvbkbc@gmail.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: David Lechner <david@lechnology.com>
+To: Sekhar Nori <nsekhar@ti.com>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Shawn Guo <shawnguo@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+To: NXP Linux Team <linux-imx@nxp.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Dinh Nguyen <dinguyen@kernel.org>
+To: Peter De Schrijver <pdeschrijver@nvidia.com>
+To: Prashant Gaikwad <pgaikwad@nvidia.com>
+To: Thierry Reding <thierry.reding@gmail.com>
+To: Jonathan Hunter <jonathanh@nvidia.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>
+To: Linus Walleij <linus.walleij@linaro.org>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+To: Vinod Koul <vkoul@kernel.org>
+To: Kishon Vijay Abraham I <kishon@kernel.org>
+To: Alessandro Zummo <a.zummo@towertech.it>
+To: Chen-Yu Tsai <wens@csie.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Paul Cercueil <paul@crapouillou.net>
+To: Orson Zhai <orsonzhai@gmail.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Chunyan Zhang <zhang.lyra@gmail.com>
+Cc: linux-clk@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-actions@lists.infradead.org
+Cc: patches@opensource.cirrus.com
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-mediatek@lists.infradead.org
+Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-phy@lists.infradead.org
+Cc: linux-rtc@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: alsa-devel@alsa-project.org
+Cc: linux-mips@vger.kernel.org
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+---
+Changes in v2:
+- Drop all the patches already applied
+- Promote the clk registration warning to an error
+- Make all muxes use determine_rate
+- Link to v1: https://lore.kernel.org/r/20221018-clk-range-checks-fixes-v1-0-f3ef80518140@cerno.tech
 
-Right, this is the plan: the only board files I left in place are
-'gumstix' family that is supported by qemu and has the largest amount
-of RAM in there, and the 'spitz' family that is also supported by
-qemu and apparently had at least one user that was interested in
-working on DT (I can't find a record of who that was now). 
+---
+Maxime Ripard (65):
+      clk: Export clk_hw_forward_rate_request()
+      clk: lan966x: Remove unused round_rate hook
+      clk: nodrv: Add a determine_rate hook
+      clk: test: Add a determine_rate hook
+      clk: actions: composite: Add a determine_rate hook for pass clk
+      clk: at91: main: Add a determine_rate hook
+      clk: at91: sckc: Add a determine_rate hook
+      clk: berlin: div: Add a determine_rate hook
+      clk: cdce706: Add a determine_rate hook
+      clk: k210: pll: Add a determine_rate hook
+      clk: k210: aclk: Add a determine_rate hook
+      clk: k210: mux: Add a determine_rate hook
+      clk: lmk04832: clkout: Add a determine_rate hook
+      clk: lochnagar: Add a determine_rate hook
+      clk: qoriq: Add a determine_rate hook
+      clk: si5341: Add a determine_rate hook
+      clk: stm32f4: mux: Add a determine_rate hook
+      clk: vc5: mux: Add a determine_rate hook
+      clk: vc5: clkout: Add a determine_rate hook
+      clk: wm831x: clkout: Add a determine_rate hook
+      clk: davinci: da8xx-cfgchip: Add a determine_rate hook
+      clk: davinci: da8xx-cfgchip: Add a determine_rate hook
+      clk: imx: busy: Add a determine_rate hook
+      clk: imx: fixup-mux: Add a determine_rate hook
+      clk: imx: scu: Add a determine_rate hook
+      clk: mediatek: cpumux: Add a determine_rate hook
+      clk: pxa: Add a determine_rate hook
+      clk: renesas: r9a06g032: Add a determine_rate hook
+      clk: socfpga: gate: Add a determine_rate hook
+      clk: stm32: core: Add a determine_rate hook
+      clk: tegra: bpmp: Add a determine_rate hook
+      clk: tegra: super: Add a determine_rate hook
+      clk: tegra: periph: Add a determine_rate hook
+      clk: ux500: prcmu: Add a determine_rate hook
+      clk: ux500: sysctrl: Add a determine_rate hook
+      clk: versatile: sp810: Add a determine_rate hook
+      drm/tegra: sor: Add a determine_rate hook
+      phy: cadence: sierra: Add a determine_rate hook
+      phy: cadence: torrent: Add a determine_rate hook
+      phy: ti: am654-serdes: Add a determine_rate hook
+      phy: ti: j721e-wiz: Add a determine_rate hook
+      rtc: sun6i: Add a determine_rate hook
+      ASoC: tlv320aic32x4: Add a determine_rate hook
+      clk: actions: composite: div: Switch to determine_rate
+      clk: actions: composite: fact: Switch to determine_rate
+      clk: at91: smd: Switch to determine_rate
+      clk: axi-clkgen: Switch to determine_rate
+      clk: cdce706: divider: Switch to determine_rate
+      clk: cdce706: clkout: Switch to determine_rate
+      clk: si5341: Switch to determine_rate
+      clk: si5351: pll: Switch to determine_rate
+      clk: si5351: msynth: Switch to determine_rate
+      clk: si5351: clkout: Switch to determine_rate
+      clk: da8xx: clk48: Switch to determine_rate
+      clk: imx: scu: Switch to determine_rate
+      clk: ingenic: cgu: Switch to determine_rate
+      clk: ingenic: tcu: Switch to determine_rate
+      clk: sprd: composite: Switch to determine_rate
+      clk: st: flexgen: Switch to determine_rate
+      clk: stm32: composite: Switch to determine_rate
+      clk: tegra: periph: Switch to determine_rate
+      clk: tegra: super: Switch to determine_rate
+      ASoC: tlv320aic32x4: pll: Switch to determine_rate
+      ASoC: tlv320aic32x4: div: Switch to determine_rate
+      clk: Warn if we register a mux without determine_rate
 
-> I also thought the drivers won't get touched by the purge, exception 
-> made of "platform similar ones", such as in the sound tree 
-> (sound/soc/pxa) where we have some of them, and maybe mfd tree.
+ drivers/clk/actions/owl-composite.c       | 35 +++++++++++-----
+ drivers/clk/actions/owl-composite.h       |  2 +-
+ drivers/clk/at91/clk-main.c               |  3 +-
+ drivers/clk/at91/clk-smd.c                | 29 +++++++------
+ drivers/clk/at91/sckc.c                   |  3 +-
+ drivers/clk/berlin/berlin2-div.c          |  3 +-
+ drivers/clk/clk-axi-clkgen.c              | 14 ++++---
+ drivers/clk/clk-cdce706.c                 | 31 ++++++++------
+ drivers/clk/clk-k210.c                    | 17 +++++---
+ drivers/clk/clk-lan966x.c                 | 17 --------
+ drivers/clk/clk-lmk04832.c                |  1 +
+ drivers/clk/clk-lochnagar.c               |  2 +
+ drivers/clk/clk-qoriq.c                   | 10 +++--
+ drivers/clk/clk-si5341.c                  | 21 +++++-----
+ drivers/clk/clk-si5351.c                  | 67 +++++++++++++++++--------------
+ drivers/clk/clk-stm32f4.c                 |  3 +-
+ drivers/clk/clk-versaclock5.c             |  8 ++--
+ drivers/clk/clk-wm831x.c                  |  3 +-
+ drivers/clk/clk.c                         | 15 +++++++
+ drivers/clk/clk_test.c                    |  1 +
+ drivers/clk/davinci/da8xx-cfgchip.c       | 15 ++++---
+ drivers/clk/imx/clk-busy.c                |  3 +-
+ drivers/clk/imx/clk-fixup-mux.c           |  3 +-
+ drivers/clk/imx/clk-scu.c                 | 27 +++++++++++--
+ drivers/clk/ingenic/cgu.c                 | 15 +++----
+ drivers/clk/ingenic/tcu.c                 | 19 +++++----
+ drivers/clk/mediatek/clk-cpumux.c         |  3 +-
+ drivers/clk/pxa/clk-pxa.c                 |  3 +-
+ drivers/clk/renesas/r9a06g032-clocks.c    |  3 +-
+ drivers/clk/socfpga/clk-gate.c            |  3 +-
+ drivers/clk/sprd/composite.c              | 16 +++++---
+ drivers/clk/st/clk-flexgen.c              | 15 +++----
+ drivers/clk/stm32/clk-stm32-core.c        | 32 ++++++++++-----
+ drivers/clk/tegra/clk-bpmp.c              |  7 +++-
+ drivers/clk/tegra/clk-periph.c            | 19 ++++++---
+ drivers/clk/tegra/clk-super.c             | 18 ++++++---
+ drivers/clk/ux500/clk-prcmu.c             |  3 +-
+ drivers/clk/ux500/clk-sysctrl.c           |  4 +-
+ drivers/clk/versatile/clk-sp810.c         |  3 +-
+ drivers/gpu/drm/tegra/sor.c               |  3 +-
+ drivers/phy/cadence/phy-cadence-sierra.c  |  1 +
+ drivers/phy/cadence/phy-cadence-torrent.c |  1 +
+ drivers/phy/ti/phy-am654-serdes.c         |  1 +
+ drivers/phy/ti/phy-j721e-wiz.c            |  1 +
+ drivers/rtc/rtc-sun6i.c                   |  2 +
+ sound/soc/codecs/tlv320aic32x4-clk.c      | 37 ++++++++++-------
+ 46 files changed, 343 insertions(+), 199 deletions(-)
+---
+base-commit: 61c3426aca2c71052ddcd06c32e29d92304990fd
+change-id: 20221018-clk-range-checks-fixes-2039f3523240
 
-I made two lists of drivers here: the first list is for those that
-become invisible in Kconfig and can no longer even be compile tested.
-My reasoning here was that these are likely already dead and will
-only get worse without compile testing. If anyone ends up doing
-a new DT conversion of a removed board later on, these can obviously
-get resurrected. The current state of the patches is in [1],
-I'll go through them again based on your feedback, but let me know
-if you see anything else that I'm removing that you think should be
-kept.
-
-The second list of drivers is for those that have no DT support and
-are impossible to get used without anyone declaring a (platform, spi,
-i2c, ...) device in source code somewhere. The list is still
-incomplete because this is hard to check automatically. I have
-included a few patches to remove drivers that have been obviously
-unused for a long time, or never had an in-tree user at all, but
-I left the majority of these drivers for a later series.
-
-       Arnd
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=boardfile-remove&id=73c4b7cfbc2b2ef0
+Best regards,
+-- 
+Maxime Ripard <maxime@cerno.tech>

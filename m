@@ -2,98 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93BA61A732
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 04:07:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBFBE61D7B4
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 07:02:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4512A1616;
-	Sat,  5 Nov 2022 04:06:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4512A1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7B231634;
+	Sat,  5 Nov 2022 07:01:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7B231634
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667617641;
-	bh=xNSaBFpCPCSy5V9ezP5/XPw/Y/8OJ3YvViK2wKs5eOw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BkecXqVcQyPty6SZQ3pHPVx/OLp2JvJ63/3Nf1dJmG95/yzpcEKTQJyxgz0X/8+tD
-	 kMguqq0NQC163he2ZT2BFhOZpXbHY03icBvo415OEoHPagIyWa1rOtrYpH6h0ia4Ld
-	 B2q5ATX62jOCCGBZ9CAHEfH7pEKS+vFWdhXhw0B8=
+	s=default; t=1667628153;
+	bh=R21yatxMhCZCEtV6KTp1Sci+NG8CUo+hIRYOdjt32Rg=;
+	h=Date:From:To:Subject:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=odD9NCFV5Zvpsh88XOXcJgswx7BGOiBT/s62QeftXmQKui++PQKsXbsjcilXsbseI
+	 yB29PzIhliuQb7bpVeZWotZNaFKL73SulwzWzLD57XWIm4GsTfMFwNlOAOueSipRvz
+	 mXfW4PyvEE/Z4/VEtoowjrQp/JW0nK1Un3/zTECQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4E1BF8042F;
-	Sat,  5 Nov 2022 04:06:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CCEFF801D5;
+	Sat,  5 Nov 2022 07:01:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4960F803DC; Sat,  5 Nov 2022 04:06:21 +0100 (CET)
+ id 2F0ABF80494; Sat,  5 Nov 2022 07:01:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26050F801D5
- for <alsa-devel@alsa-project.org>; Sat,  5 Nov 2022 04:06:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26050F801D5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="CPY+9w/N"
-Received: by mail-yb1-xb2a.google.com with SMTP id y186so3167262yby.10
- for <alsa-devel@alsa-project.org>; Fri, 04 Nov 2022 20:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nGToQRK0DXw7c1IROX4VhPmgoLvBloa1KH2z+OM+UGg=;
- b=CPY+9w/NotyoR2K8mPiZ618PyK22YxCp0SaqY76wYG7svkV22RWzh39pDuI6fnl3FJ
- lFRykuJZDpWiXOOBqTppN7aoJJbtQ0+rE/DWuw+XX0c/dSRay1rp1Ey05/E+WCvZ/Bjg
- igMiRkow60smusWFCyrq66Y2D4f5KUT3uuNRQh+Aw2jKJq1PHnxOyspGtuCpec4Q5C/c
- gx4CNCDSi+NFSNArebSYNtz3DJ7NtHf1Gs46UJtqtk9hgYD0LTl6PCAgyN5xli1snCgU
- op2YDQQyZ7vxi33xnLvxzgSVd/Xb/ncJY0CKciD/67fDX5RceabOytbAHDRo1ymjHMuW
- qmDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nGToQRK0DXw7c1IROX4VhPmgoLvBloa1KH2z+OM+UGg=;
- b=kuW+dc8oNnaDVamCedKCTuMbYMyIkWSUoWK89AX2mu8xdVQG4otMjuh2NqalE1RV0m
- A4g2tbK1q4YPqCXP39LpIk+rnu0cMvDrUAeE/V07utSqzUJuwnTyRaCyafv3pChIezsc
- S/eTwMAzh1eNEZDt5MSsXTkkQdq/ZzBHgw+aoGIppSNTWjD9JHwByIDkl2idyIpQWF4N
- mC+4VNNYz1v8pHeMyJHuJvP5s+UaZDVZuHH4tVeWz2LKvcEzJaNqKddiBqphaiP6gJ+q
- RDepBmhvy11kXk0toPvYhdgt+T1t7NwWzOmF07Jk8/5dYfsahfO9bmPXxLqhLKg5LFpH
- xVgA==
-X-Gm-Message-State: ACrzQf2YW+C6Bi93XRPf0czV57HbY5zhGe+0z3V9ElS6Y01vSVF2tzPd
- ewO8za3oYWKHQihgljnUeftFGJRrXLXlFJG2I+eDBw==
-X-Google-Smtp-Source: AMsMyM5mjEha55s4t7TntUfGRbOeZ7n0QwDmEGTRga0tyK+7SOuQhQiic2xIjVB8WFzL1IEvui/sDKGlN11imSJp0FY=
-X-Received: by 2002:a25:bc3:0:b0:6ca:6427:f00d with SMTP id
- 186-20020a250bc3000000b006ca6427f00dmr34962639ybl.62.1667617575953; Fri, 04
- Nov 2022 20:06:15 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57C2DF8027C
+ for <alsa-devel@alsa-project.org>; Sat,  5 Nov 2022 07:01:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57C2DF8027C
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0843D60A53;
+ Sat,  5 Nov 2022 06:01:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D65C43470;
+ Sat,  5 Nov 2022 06:01:31 +0000 (UTC)
+Received: from rostedt by gandalf.local.home with local (Exim 4.96)
+ (envelope-from <rostedt@goodmis.org>) id 1orCFj-007Osw-1v;
+ Sat, 05 Nov 2022 02:01:59 -0400
+Message-ID: <20221105060159.433729602@goodmis.org>
+User-Agent: quilt/0.66
+Date: Sat, 05 Nov 2022 02:00:49 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v4a 25/38] timers: ALSA: Use timer_shutdown_sync() before
+ freeing timer
+References: <20221105060024.598488967@goodmis.org>
 MIME-Version: 1.0
-References: <20221102125936.2176748-1-ajye_huang@compal.corp-partner.google.com>
- <20221102125936.2176748-2-ajye_huang@compal.corp-partner.google.com>
- <166759787920.2873722.6503685794432759025.robh@kernel.org>
-In-Reply-To: <166759787920.2873722.6503685794432759025.robh@kernel.org>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Sat, 5 Nov 2022 11:06:04 +0800
-Message-ID: <CALprXBbu1EFNMG2VwHd+k6kVkQXFLjKx1ojNPyKWJA-QPpyPaw@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] ASoC: mediatek: dt-bindings: modify machine
- bindings for two MICs case
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- "chunxu . li" <chunxu.li@mediatek.com>,
- =?UTF-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4gUHJhZG8=?= <nfraprado@collabora.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: alsa-devel@alsa-project.org, Stephen Boyd <sboyd@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, Takashi Iwai <tiwai@suse.de>,
+ Austin Kim <austin.kim@lge.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Anna-Maria Gleixner <anna-maria@linutronix.de>,
+ Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck <linux@roeck-us.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,16 +77,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
 
-On Sat, Nov 5, 2022 at 5:39 AM Rob Herring <robh@kernel.org> wrote:
->
+Before a timer is freed, timer_shutdown_sync() must be called.
 
-> Please add Acked-by/Reviewed-by tags when posting new versions. However,
-> there's no need to repost patches *only* to add the tags. The upstream
-> maintainer will do that for acks received on the version they apply.
->
-> If a tag was not added on purpose, please state why and what changed.
->
+Link: https://lore.kernel.org/all/20221104054053.431922658@goodmis.org/
 
-I Got it.  Thanks.
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Austin Kim <austin.kim@lge.com>
+Cc: alsa-devel@alsa-project.org
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+---
+ sound/i2c/other/ak4117.c | 2 +-
+ sound/synth/emux/emux.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/i2c/other/ak4117.c b/sound/i2c/other/ak4117.c
+index 1bc43e927d82..640501bb3ca6 100644
+--- a/sound/i2c/other/ak4117.c
++++ b/sound/i2c/other/ak4117.c
+@@ -47,7 +47,7 @@ static void reg_dump(struct ak4117 *ak4117)
+ 
+ static void snd_ak4117_free(struct ak4117 *chip)
+ {
+-	del_timer_sync(&chip->timer);
++	timer_shutdown_sync(&chip->timer);
+ 	kfree(chip);
+ }
+ 
+diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+index a870759d179e..0006c3ddb51d 100644
+--- a/sound/synth/emux/emux.c
++++ b/sound/synth/emux/emux.c
+@@ -129,7 +129,7 @@ int snd_emux_free(struct snd_emux *emu)
+ 	if (! emu)
+ 		return -EINVAL;
+ 
+-	del_timer_sync(&emu->tlist);
++	timer_shutdown_sync(&emu->tlist);
+ 
+ 	snd_emux_proc_free(emu);
+ 	snd_emux_delete_virmidi(emu);
+-- 
+2.35.1

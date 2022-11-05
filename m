@@ -2,78 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F14E61A624
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 00:55:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 053A861A667
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Nov 2022 01:28:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6502E0E;
-	Sat,  5 Nov 2022 00:55:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6502E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 920D1E12;
+	Sat,  5 Nov 2022 01:27:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 920D1E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667606153;
-	bh=XIUH8jqh/FEs77eB9QDfyuNqtGlC5q1MaH9F6m9Nchk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667608127;
+	bh=vGqjIK6e1XNZqgDypgg3FDCLt+6IvjIPcz6aQI3KkCM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wxc07365ZkVL3frjSe9Xlu2Qp8R7eBX0nxgz6oj5eDA+5Ju7Rs0AhMWQnanhoqUZt
-	 9p2DZTgfsAjwy9gkLpvPGuxiKyLKAcqJjisSTeNUW9MzihSj2JWM8EGuOEg5KmX2V1
-	 si5RDtC8wUJhyFEbgxXlGgNIoNvkInO53Euh+ESM=
+	b=adM+0k6jusm/edD8Z4tDmq0EnTpMMoqUgWbADbAcxgljmgQraYcYrQTPt+ZbwsZlU
+	 7Iy3X4LN+29xcULrX9pm174XR5Rp54ShGD2R6NRZ90izaYMdH6PYQ7tvXvRO0t3QCL
+	 2HG+RGlW33eEE0rlfCHywt1YyQ5NiWIib2QZ79/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F3B7F8047D;
-	Sat,  5 Nov 2022 00:54:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BB44F8047D;
+	Sat,  5 Nov 2022 01:27:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6050F80448; Sat,  5 Nov 2022 00:54:56 +0100 (CET)
+ id 9A524F80431; Sat,  5 Nov 2022 01:27:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_72,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14AA3F80149
- for <alsa-devel@alsa-project.org>; Sat,  5 Nov 2022 00:54:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14AA3F80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X/dS/zdB"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2B2D761B77;
- Fri,  4 Nov 2022 23:54:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBAF0C433D7;
- Fri,  4 Nov 2022 23:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667606090;
- bh=XIUH8jqh/FEs77eB9QDfyuNqtGlC5q1MaH9F6m9Nchk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X/dS/zdBfv6XAxlDZoXIkxUDlhbysQoY0oDQN2dCW3Yx3vNcZJhY53XtsSFP/pa8t
- Bi+LNaAw8lyCQ4FumxT8cPJXJavwp2Fufihbzq3IAOmJNkuTsqLgrCTuYNs64bF6XJ
- nFvysD5LjSGPUzJIyf8UXOw38L+G1B4S6bxxkhRhLciRQqcbCZ/IG76dSc5x1YgkxY
- ShZyOw8C0tTJdev+B6hhyyQ+bnk8zBR8SRfZ8SVz7Y96x0gnR5m7NClR7otCUQ9ERx
- oiiBK8nBXVJ7CGr/u2jfbQ1a7kU7fqT2BzG6LnTFzMZaApUeFooCvfCnSe4Fys/fIw
- 67OCMHXS7tErA==
-Date: Fri, 4 Nov 2022 23:54:45 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/3] ASoC: core: Inline resume work back to resume function
-Message-ID: <Y2WmRUBJ+7K5zBm7@sirena.org.uk>
-References: <20221104131244.3920179-1-cezary.rojewski@intel.com>
- <20221104131244.3920179-3-cezary.rojewski@intel.com>
- <925c6405-f651-f68d-73f3-46cf85cb2fa5@linux.intel.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7D8A1F801D5
+ for <alsa-devel@alsa-project.org>; Sat,  5 Nov 2022 01:27:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D8A1F801D5
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3BQNrsYgtztE0YRV"
-Content-Disposition: inline
-In-Reply-To: <925c6405-f651-f68d-73f3-46cf85cb2fa5@linux.intel.com>
-X-Cookie: Quack!
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
- alsa-devel@alsa-project.org, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1667608056806138992-webhooks-bot@alsa-project.org>
+References: <1667608056806138992-webhooks-bot@alsa-project.org>
+Subject: [snd-dice] latency 13 times higher compared to FFADO (Saffire 14 PRO)
+ with jack2
+Message-Id: <20221105002748.9A524F80431@alsa1.perex.cz>
+Date: Sat,  5 Nov 2022 01:27:48 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,65 +61,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-lib issue #280 was opened from grinness:
 
---3BQNrsYgtztE0YRV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi,
 
-On Fri, Nov 04, 2022 at 09:58:46AM -0400, Pierre-Louis Bossart wrote:
-> On 11/4/22 09:12, Cezary Rojewski wrote:
+I hope this is the right place to report this (please let me know if it is not)
+On a 5900x, 32 GB RAM, Archlinux (kernel 6.0.2), I have been investigating crazy high latency using a pipewire-jack, see:
 
-> > Commit 6ed2597883b1 ("ALSA: ASoC: Don't block system resume") introduced
-> > deferred_resume_work for ASoC subsystem. While this allows for potential
-> > speed up during boot on some slow devices, it doesn't allow to properly
-> > propagate return values in case something failed during system resume.
+https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2790
 
-> Are you suggesting to remove this workqueue that's been there since
-> 2008, which would impact negatively slow devices?
+I ended up testing jack_iodelay with jack2, comparing snd-dice and FFADO
 
-Indeed, and the definition of fast and slow is a bit of a moving target
-- the faster the rest of the system can resume the less desirable it is
-to block on for example an I2C register map resync even if the hundreds
-of miliseconds of ramp time that were an issue originally.
+Running qjackctl jack2, ALSA backed (snd-dice) 48000Hz, 1024 samples, 2 periods:
 
-> If I follow your logic, we should also remove the workqueue used for
-> probes for HDaudio devices, on the grounds that probe errors are not
-> propagated either.
+```
+> jack_iodelay                                                                                                                                                                                                                                                                                                                           
+new capture latency: [0, 0]
+new playback latency: [0, 0]
+Signal below threshold...
+Signal below threshold...
+new capture latency: [1024, 1024]
+Signal below threshold...
+Signal below threshold...
+new playback latency: [2048, 2048]
+  5198.818 frames    108.309 ms total roundtrip latency
+        extra loopback latency: 2126 frames
+        use 1063 for the backend arguments -I and -O Inv
+  5198.818 frames    108.309 ms total roundtrip latency
+        extra loopback latency: 2126 frames
+        use 1063 for the backend arguments -I and -O ?? Inv
+```
+Running qjackctl jack2, firewire backend (FFADO) 4800, 512 samples, 2 periods:
+```
+> jack_iodelay                                                                                                                                                                                                                                                                                                                                    
+new capture latency: [0, 0]
+new playback latency: [0, 0]
+Signal below threshold...
+new capture latency: [1024, 1024]
+Signal below threshold...
+new playback latency: [3072, 3072]
+  4258.811 frames     88.725 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+  4258.812 frames     88.725 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+```
+Note that qjackctl seems to not set the number of periods correctly with firewire backend, the above playback latency suggests 3 periods instead of 2.
+It seems that Cadence fixes the issue, but the extra loopback latency stays at 162 frames with FFADO:
+```
+> jack_iodelay                                                                                                                                                                                                                                                                                                                                        
+new capture latency: [0, 0]
+new playback latency: [0, 0]
+Signal below threshold...
+Signal below threshold...
+Signal below threshold...
+Signal below threshold...
+Signal below threshold...
+Signal below threshold...
+new capture latency: [512, 512]
+  8354.799 frames    174.058 ms total roundtrip latency
+        extra loopback latency: 7842 frames
+        use 3921 for the backend arguments -I and -O ?? Inv
+  8354.779 frames    174.058 ms total roundtrip latency
+        extra loopback latency: 7842 frames
+        use 3921 for the backend arguments -I and -O Inv
+Signal below threshold...
+Signal below threshold...
+new playback latency: [1024, 1024]
+Signal below threshold...
+  1698.777 frames     35.391 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+  1698.777 frames     35.391 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+  1698.777 frames     35.391 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+  1698.777 frames     35.391 ms total roundtrip latency
+        extra loopback latency: 162 frames
+        use 81 for the backend arguments -I and -O Inv
+  1698.777 frames     35.391 ms total roundtrip latency
+        extra loopback latency: 162 frames
 
-> Any time we have deferred processing to avoid blocking the rest of the
-> system, we incur the risk of not having errors propagated. It's a
-> compromise between having a system that's usable and a system that's
-> consistent.
+```
 
-The other question is what we'd constructively do about a resume failure
-that we can't defer.  It feels like we should at least retain the
-ability to defer for devices where this is an issue (older components
-tend to be cheap and packaged in easier to assemble packaging and hence
-get used with lower end applications even well after they're no longer
-competitive at the high end), and if we are going to return some errors
-in line it'd be good to understand the benefits and tradeoffs.  I do see
-that it is a lot less useful for modern devices where we don't have to
-have any delays in startup, though like I say register I/O on slower
-buses like I2C could still be a concern.
+Please note that the pipewire developer pointed out that:
 
-I'm not keen on moving the support out of the core since there were
-originally a bunch of devices trying to open code and it wasn't good,
-both from a duplication/complexity point of view and from the point of
-view of integrating well with userspace APIs.
+"My problem is that the period size in the driver is set to 1024. For batch devices and a quantum of 256 this should be set to 128 to get decent latency.
+So, either the driver does not report itself as batch, or something else started the nodes with a higher quantum. I'm betting it's the batch thing."
 
---3BQNrsYgtztE0YRV
-Content-Type: application/pgp-signature; name="signature.asc"
+I also reported this in the following:
+https://github.com/takaswie/snd-firewire-improve/issues/47
 
------BEGIN PGP SIGNATURE-----
+thanks
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNlpkQACgkQJNaLcl1U
-h9Ahjgf/fR9BpoPFE4+glZ9zuF1OoGxoEZAZ+cfW7D0jMc01ffybLTirV3IP86Jl
-IptbFzMKLO4OGv95k9JoDSHpASN4EbfZYH23JYp4zXdrwUgZKAmb7sd4whkIhLKu
-rVlFW6+l4tJVxrj9utyXZwX3+w2xMN9WdllE+c782WgKxSvI+6s9v1I99OlpfqaD
-v/s5NPHywrxaxWhB/hUYJ1GcnHqyGX3Ms6HaLIKCsiJNgJHOq3xyXwPwPOdW74Mq
-r1t9yhP5UrTUN/ZpTgqOhZ3SSQ1fAe1TXC6DXdr6ZJ4MSY68xw7KqWxigBCFJ/69
-6b/d1HmBD5U9RI/CQShGtDadSSoDZQ==
-=e6B+
------END PGP SIGNATURE-----
-
---3BQNrsYgtztE0YRV--
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/280
+Repository URL: https://github.com/alsa-project/alsa-lib

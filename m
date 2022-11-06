@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C593961E41F
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:07:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ABA461E42B
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:08:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 616151F1;
-	Sun,  6 Nov 2022 18:07:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 616151F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 283B1162F;
+	Sun,  6 Nov 2022 18:07:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283B1162F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667754479;
-	bh=9lowszxj6rXA/LOixd1q/TZywfUUYZTjyWLJrCLRuWE=;
+	s=default; t=1667754501;
+	bh=GnFHhqJgy5Blx6aSCEt1Q21ZwsxFFTu/xTF3zjzbjCI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A70E1/2PqXlmpX/p10XlJyb3Vlm5qkYczljJCV57Smpw/1n7k1ExT/hm9TN7NTtLD
-	 NzNb6p0lZxyCHd+8wqtCLVXHo+Ms5bziF0uKAWYQd4PhVsiwR+3dYPr+ODGWd6LHJQ
-	 hhYn4IaqxLmwsD2UMrODDOMg9JL9l6AeQ9jGkkNg=
+	b=K+RHMxHhJuzxuGK92uvZWX3yK2wrnS8E3v9b05Ki/ECtVs5xbAkJmTK5LEZZ8kmPG
+	 2GOUJPZOp4ax9yC7PMYTCjaN3Mp3VHXJrorF1zbNdNOCTvptYbOJcMWa4hSmGZWiVj
+	 76QzDJgNlfgfkpyDlHC1rFZ0mIV3jISyH14l7i5I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1F51F805B4;
-	Sun,  6 Nov 2022 18:04:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C640F805C4;
+	Sun,  6 Nov 2022 18:04:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12313F805B5; Sun,  6 Nov 2022 18:04:39 +0100 (CET)
+ id 8F4B2F805C2; Sun,  6 Nov 2022 18:04:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 281DBF805AF
- for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:04:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 281DBF805AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51D01F805B2
+ for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:04:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51D01F805B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uiEdlqlj"
+ header.b="XkgyBtMx"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C0B36B802BD;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3FE3C60CD4;
+ Sun,  6 Nov 2022 17:04:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0981AC433D6;
  Sun,  6 Nov 2022 17:04:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF73C433D6;
- Sun,  6 Nov 2022 17:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667754271;
- bh=9lowszxj6rXA/LOixd1q/TZywfUUYZTjyWLJrCLRuWE=;
+ s=k20201202; t=1667754274;
+ bh=GnFHhqJgy5Blx6aSCEt1Q21ZwsxFFTu/xTF3zjzbjCI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uiEdlqljGXafN6OeIqjZP1adCjnLE4EY/rZ3Dhe45CRq5VCm+06RE4o/lQUsgP8iU
- j/pPAyvTEe44scJF35PYDJ5cY1GE0ufS2jnbNSGuHbqu02lef50bOFPksSuS7hnOkm
- yCx1Kz63yPj6HXI3ybNSwETKAnxDQrumtYIVbEJUHur5Fyuu+V2ilL2bBPHF/5muxP
- 6V1rzM+oMeFW7QUB9lM3ib3n7nlGK9W4Tv33AGN/VQ6MuFB1UP8uBjzhNoah8oq65K
- 7uFPKtoyFpT04Lf8dVc+VdCaUUquFqpRhO1N7NpjZy4Hu5ElsBee9fTMXb74x3df1H
- bZPnwHMh3SndA==
+ b=XkgyBtMxiwv/+kSy7jsOlyPH767+rBIFZJZDtiMEqHJZ2lTNLKTiUztDEIZjL6TBZ
+ b/kKYiszCyxOhhmvuZwhCCMZXi9G3dcYDksBhL0Y+4e2IkknYeiVW/bNNABUBXHtYR
+ F942518bwsK+jJHlssrriWDHAP0nCHzkhkBIOPd/gWHBM09Bd6esKrVKlUtOjhAjKk
+ x55GCpUysMoL4WPuoFqlxVGRUyesuNHWTZTANu4QdUf/2vGKZpfEiqeJKJ/lKgun7o
+ K59C/15sucR//aE2neEi6J89ijMbZnj52MS9WNZ4uWvKn/z/F5boN2uEcNvBFhdTi4
+ +ShPLPw+Cq0Lg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 19/30] ASoC: Intel: sof_rt5682: Add quirk for Rex
- board
-Date: Sun,  6 Nov 2022 12:03:31 -0500
-Message-Id: <20221106170345.1579893-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 21/30] ASoC: rt1308-sdw: add the default value of
+ some registers
+Date: Sun,  6 Nov 2022 12:03:33 -0500
+Message-Id: <20221106170345.1579893-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221106170345.1579893-1-sashal@kernel.org>
 References: <20221106170345.1579893-1-sashal@kernel.org>
@@ -71,15 +72,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com, tiwai@suse.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
- alsa-devel@alsa-project.org, mac.chiang@intel.com,
- Mark Brown <broonie@kernel.org>, akihiko.odaki@gmail.com, ajye.huang@gmail.com,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, brent.lu@intel.com,
- vamshi.krishna.gopal@intel.com, Yong Zhi <yong.zhi@intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
+ alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, Shuming Fan <shumingf@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,46 +90,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yong Zhi <yong.zhi@intel.com>
+From: Shuming Fan <shumingf@realtek.com>
 
-[ Upstream commit b4dd2e3758709aa8a2abd1ac34c56bd09b980039 ]
+[ Upstream commit 75d8b1662ca5c20cf8365575222abaef18ff1f50 ]
 
-Add mtl_mx98357_rt5682 driver data for Chrome Rex board support.
+The driver missed the default value of register 0xc070/0xc360.
+This patch adds that default value to avoid invalid register access
+when the device doesn't be enumerated yet.
+BugLink: https://github.com/thesofproject/linux/issues/3924
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20221017205728.210813-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Link: https://lore.kernel.org/r/20221019095715.31082-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/codecs/rt1308-sdw.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 045965312245..30c53dca342e 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -225,6 +225,18 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 					SOF_RT5682_SSP_AMP(2) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Rex"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(2) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(0) |
-+					SOF_RT5682_NUM_HDMIDEV(4)
-+					),
-+	},
- 	{}
+diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
+index 6668e19d85d4..b5f231f708cb 100644
+--- a/sound/soc/codecs/rt1308-sdw.h
++++ b/sound/soc/codecs/rt1308-sdw.h
+@@ -139,10 +139,12 @@ static const struct reg_default rt1308_reg_defaults[] = {
+ 	{ 0x3005, 0x23 },
+ 	{ 0x3008, 0x02 },
+ 	{ 0x300a, 0x00 },
++	{ 0xc000 | (RT1308_DATA_PATH << 4), 0x00 },
+ 	{ 0xc003 | (RT1308_DAC_SET << 4), 0x00 },
+ 	{ 0xc000 | (RT1308_POWER << 4), 0x00 },
+ 	{ 0xc001 | (RT1308_POWER << 4), 0x00 },
+ 	{ 0xc002 | (RT1308_POWER << 4), 0x00 },
++	{ 0xc000 | (RT1308_POWER_STATUS << 4), 0x00 },
  };
  
+ #define RT1308_SDW_OFFSET 0xc000
 -- 
 2.35.1
 

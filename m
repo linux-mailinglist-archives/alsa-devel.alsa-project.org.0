@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE62061E483
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:12:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B935B61E496
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:12:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 693151F1;
-	Sun,  6 Nov 2022 18:11:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 693151F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 560501620;
+	Sun,  6 Nov 2022 18:11:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 560501620
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667754748;
-	bh=6KG5m9XApVpdHLC3NcSvYAiVS7AmZYt5nk9nikO4EuM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MpyJcreRMggJ70ciqjcHUPWtpAMJ9keWN0GojinVM3vtHE0K1xKcdTtCch3bV3xS2
-	 wxR/aC8/YDjKik4iz1pEBatad0QcTQQ1so2FqhdgWC/w+wJjMpx5yl8mtV9JeSn0iy
-	 LlC1pLL4oOopkqOah3VIkY+/ScxRfE63f3ZhUUo0=
+	s=default; t=1667754768;
+	bh=iMy/QLiHHSo7jzMYqfg+bf+qnnQpWfC8mPYt3PFZgt4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uw7CcBNYuAbZ0qER695Q28dPNY3ZhIpwmSZNCMyVI2UCYxZ1+35tMg0K2fSSRO+eJ
+	 XneraijdklOx1KYBW68TSroNodEcGkB1qEMm20ACujonHpIS/Ii6/Mmz60kW5ZnBRr
+	 VPe05ZEopgImocS7PcGyUsUj/9Du7OwN3Vt23uu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDE26F80600;
-	Sun,  6 Nov 2022 18:06:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1C9FF80606;
+	Sun,  6 Nov 2022 18:06:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBB5EF805FF; Sun,  6 Nov 2022 18:06:01 +0100 (CET)
+ id 9EE68F80603; Sun,  6 Nov 2022 18:06:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EC31F8057D
- for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:05:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EC31F8057D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95223F805FF
+ for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:06:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95223F805FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hSiIf2ra"
+ header.b="trGLwzuf"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3DE3560C8F;
- Sun,  6 Nov 2022 17:05:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F42C433C1;
- Sun,  6 Nov 2022 17:05:56 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 35491B802BD;
+ Sun,  6 Nov 2022 17:06:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF90BC433D6;
+ Sun,  6 Nov 2022 17:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667754358;
- bh=6KG5m9XApVpdHLC3NcSvYAiVS7AmZYt5nk9nikO4EuM=;
- h=From:To:Cc:Subject:Date:From;
- b=hSiIf2raEPbtw07+OzUccOmdpmlOyImKRk5mPAca8lfI0L4CKQd6n7JDxfADOJKBQ
- 8JMG9Ew/Ycgzc+OpLpPj3PLr+Bi9nknBMnyJGI6zjy+ZBpyVnPHasQw5xB4/5J6jK7
- H9zCt9vEFenPChP9ltkxktVTegjuNyisO9hgKyDUrp74aWTnAVbiz2H9H0VJ/U9Ow8
- xQL6p3pX+KDA8iv47/ZHewsKPmm9hXJ5Ia7Ebzuf25n3sS4fqTA/z+sTuDpRbiS2wP
- 2HRKtUS2HZSMLalIVtbwEh0LI6D5CRGS2ar0JgjyyzNDUWUxJk6T8z1KGv9tcVauxJ
- 3LI3lhB09UMtw==
+ s=k20201202; t=1667754360;
+ bh=iMy/QLiHHSo7jzMYqfg+bf+qnnQpWfC8mPYt3PFZgt4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=trGLwzufadKTjBjjVd1fSk45/CdBXS8qJ1fcRYXCsh6pwboEaUdlS0AvSH4KVIdco
+ yu8AwzOXjk6hVOvLQ4eGfO7w7xNF9+iCJvz9iQ65EuNdUQPMC4VCVBSK8MZNIP3S/t
+ B98Az4kc2ZLaTUUva+wZe5x3fCgSbpimnWvtPtPAPY1abvvW77HVAQELKeLxhbxN2k
+ NXJk8PXVeY5mITrPI0tNJpqFbbl3GmICwr8BAVG6XxdG9DIWZhnBdUgJ9SoPk/Fi48
+ Po/X7Bk0na5pnWIRKGnMiKNZ4YCofURwK48Ta/z7aOqNnf7cVp3Gowb9TWOPIuHo7r
+ uFsdCiB79m82g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 01/16] ASoC: wm5102: Revert "ASoC: wm5102: Fix PM
- disable depth imbalance in wm5102_probe"
-Date: Sun,  6 Nov 2022 12:05:38 -0500
-Message-Id: <20221106170555.1580584-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 02/16] ASoC: wm5110: Revert "ASoC: wm5110: Fix PM
+ disable depth imbalance in wm5110_probe"
+Date: Sun,  6 Nov 2022 12:05:39 -0500
+Message-Id: <20221106170555.1580584-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221106170555.1580584-1-sashal@kernel.org>
+References: <20221106170555.1580584-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -90,37 +93,37 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Zhang Qilong <zhangqilong3@huawei.com>
 
-[ Upstream commit de71d7567e358effd06dfc3e2a154b25f1331c10 ]
+[ Upstream commit 7d4e966f4cd73ff69bf06934e8e14a33fb7ef447 ]
 
-This reverts commit fcbb60820cd3008bb44334a0395e5e57ccb77329.
+This reverts commit 86b46bf1feb83898d89a2b4a8d08d21e9ea277a7.
 
 The pm_runtime_disable is redundant when error returns in
-wm5102_probe, we just revert the old patch to fix it.
+wm5110_probe, we just revert the old patch to fix it.
 
 Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20221010114852.88127-2-zhangqilong3@huawei.com
+Link: https://lore.kernel.org/r/20221010114852.88127-3-zhangqilong3@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wm5102.c | 6 +++---
+ sound/soc/codecs/wm5110.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
-index b7f5e5391fdb..2ed3fa67027d 100644
---- a/sound/soc/codecs/wm5102.c
-+++ b/sound/soc/codecs/wm5102.c
-@@ -2083,6 +2083,9 @@ static int wm5102_probe(struct platform_device *pdev)
- 		regmap_update_bits(arizona->regmap, wm5102_digital_vu[i],
- 				   WM5102_DIG_VU, WM5102_DIG_VU);
+diff --git a/sound/soc/codecs/wm5110.c b/sound/soc/codecs/wm5110.c
+index c158f8b1e8e4..d0cef982215d 100644
+--- a/sound/soc/codecs/wm5110.c
++++ b/sound/soc/codecs/wm5110.c
+@@ -2452,6 +2452,9 @@ static int wm5110_probe(struct platform_device *pdev)
+ 		regmap_update_bits(arizona->regmap, wm5110_digital_vu[i],
+ 				   WM5110_DIG_VU, WM5110_DIG_VU);
  
 +	pm_runtime_enable(&pdev->dev);
 +	pm_runtime_idle(&pdev->dev);
 +
  	ret = arizona_request_irq(arizona, ARIZONA_IRQ_DSP_IRQ1,
- 				  "ADSP2 Compressed IRQ", wm5102_adsp2_irq,
- 				  wm5102);
-@@ -2115,9 +2118,6 @@ static int wm5102_probe(struct platform_device *pdev)
+ 				  "ADSP2 Compressed IRQ", wm5110_adsp2_irq,
+ 				  wm5110);
+@@ -2484,9 +2487,6 @@ static int wm5110_probe(struct platform_device *pdev)
  		goto err_spk_irqs;
  	}
  

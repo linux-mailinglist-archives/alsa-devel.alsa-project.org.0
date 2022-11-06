@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ABA461E42B
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:08:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81AB661E430
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:08:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 283B1162F;
-	Sun,  6 Nov 2022 18:07:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283B1162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25D6B822;
+	Sun,  6 Nov 2022 18:07:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D6B822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667754501;
-	bh=GnFHhqJgy5Blx6aSCEt1Q21ZwsxFFTu/xTF3zjzbjCI=;
+	s=default; t=1667754514;
+	bh=Xr2JnALXiCEHV6yOKw+uqHFWEolwa49PFgHJkuLuG2o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K+RHMxHhJuzxuGK92uvZWX3yK2wrnS8E3v9b05Ki/ECtVs5xbAkJmTK5LEZZ8kmPG
-	 2GOUJPZOp4ax9yC7PMYTCjaN3Mp3VHXJrorF1zbNdNOCTvptYbOJcMWa4hSmGZWiVj
-	 76QzDJgNlfgfkpyDlHC1rFZ0mIV3jISyH14l7i5I=
+	b=VDh0FDgbhhhPFIj+mwyDZZ3zMMXxtktIZ5xsO/eFuka6pDVjdG+NEJNe6q05CY9+s
+	 bb4d22/8XG/XEQpCQmavKoKSE8I8LaFAM6y8oQMsFREgJ9iNo5y1yAGMQSSgmGfNt2
+	 AWEHo1x0KzNfqi6COmNFtjZS9P+AtqyExfiTr0/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C640F805C4;
-	Sun,  6 Nov 2022 18:04:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09B89F805C7;
+	Sun,  6 Nov 2022 18:04:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F4B2F805C2; Sun,  6 Nov 2022 18:04:41 +0100 (CET)
+ id C4AFEF805C6; Sun,  6 Nov 2022 18:04:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51D01F805B2
- for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:04:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51D01F805B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9B49F805B3
+ for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:04:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B49F805B3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XkgyBtMx"
+ header.b="BWI8eJQQ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3FE3C60CD4;
- Sun,  6 Nov 2022 17:04:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0981AC433D6;
- Sun,  6 Nov 2022 17:04:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9761160BFF;
+ Sun,  6 Nov 2022 17:04:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1BE0C433C1;
+ Sun,  6 Nov 2022 17:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667754274;
- bh=GnFHhqJgy5Blx6aSCEt1Q21ZwsxFFTu/xTF3zjzbjCI=;
+ s=k20201202; t=1667754276;
+ bh=Xr2JnALXiCEHV6yOKw+uqHFWEolwa49PFgHJkuLuG2o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XkgyBtMxiwv/+kSy7jsOlyPH767+rBIFZJZDtiMEqHJZ2lTNLKTiUztDEIZjL6TBZ
- b/kKYiszCyxOhhmvuZwhCCMZXi9G3dcYDksBhL0Y+4e2IkknYeiVW/bNNABUBXHtYR
- F942518bwsK+jJHlssrriWDHAP0nCHzkhkBIOPd/gWHBM09Bd6esKrVKlUtOjhAjKk
- x55GCpUysMoL4WPuoFqlxVGRUyesuNHWTZTANu4QdUf/2vGKZpfEiqeJKJ/lKgun7o
- K59C/15sucR//aE2neEi6J89ijMbZnj52MS9WNZ4uWvKn/z/F5boN2uEcNvBFhdTi4
- +ShPLPw+Cq0Lg==
+ b=BWI8eJQQeGwJYHLP1B+eFcC+b390JI55HpfagH8/5w395HWj7Oj0smCdJrFnIYii6
+ LN6+0AQ3FqMfiKK4v28/dshUu0Js4q5vLzBbMVZRUX9wUZedTClE/hTZ6uZo9zpeLc
+ ZuCiu3zV3Svp1blFTNposFR0sQycnTep6c3NZHtjSjW7t28Yd7Hf/8whwtZppw/zha
+ rcgoweOxFZYEO1bioKQG+xrO8+/+F3kx+mv4b0a41Xtu3Yznl+tqnJQEdFHYlk3ubR
+ vGX2FdtinvtdHXbFTz1gNQoeLQOTQVQYJ5bE33nv+1+gdOvZQiODUWGWqfL3jats93
+ KRyrVbc3ifHFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 21/30] ASoC: rt1308-sdw: add the default value of
- some registers
-Date: Sun,  6 Nov 2022 12:03:33 -0500
-Message-Id: <20221106170345.1579893-21-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 22/30] ASoC: amd: yc: Adding Lenovo ThinkBook 14
+ Gen 4+ ARA and Lenovo ThinkBook 16 Gen 4+ ARA to the Quirks List
+Date: Sun,  6 Nov 2022 12:03:34 -0500
+Message-Id: <20221106170345.1579893-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221106170345.1579893-1-sashal@kernel.org>
 References: <20221106170345.1579893-1-sashal@kernel.org>
@@ -72,9 +71,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
- alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, Shuming Fan <shumingf@realtek.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, linkt <xazrael@hotmail.com>,
+ Syed.SabaKareem@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +90,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+From: linkt <xazrael@hotmail.com>
 
-[ Upstream commit 75d8b1662ca5c20cf8365575222abaef18ff1f50 ]
+[ Upstream commit a450b5c8739248069e11f72129fca61a56125577 ]
 
-The driver missed the default value of register 0xc070/0xc360.
-This patch adds that default value to avoid invalid register access
-when the device doesn't be enumerated yet.
-BugLink: https://github.com/thesofproject/linux/issues/3924
+Lenovo ThinkBook 14 Gen 4+ ARA and ThinkBook 16 Gen 4+ ARA
+need to be added to the list of quirks for the microphone to work properly.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Link: https://lore.kernel.org/r/20221019095715.31082-1-shumingf@realtek.com
+Signed-off-by: linkt <xazrael@hotmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://lore.kernel.org/r/MEYPR01MB8397A3C27DE6206FA3EF834DB6239@MEYPR01MB8397.ausprd01.prod.outlook.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt1308-sdw.h | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
-index 6668e19d85d4..b5f231f708cb 100644
---- a/sound/soc/codecs/rt1308-sdw.h
-+++ b/sound/soc/codecs/rt1308-sdw.h
-@@ -139,10 +139,12 @@ static const struct reg_default rt1308_reg_defaults[] = {
- 	{ 0x3005, 0x23 },
- 	{ 0x3008, 0x02 },
- 	{ 0x300a, 0x00 },
-+	{ 0xc000 | (RT1308_DATA_PATH << 4), 0x00 },
- 	{ 0xc003 | (RT1308_DAC_SET << 4), 0x00 },
- 	{ 0xc000 | (RT1308_POWER << 4), 0x00 },
- 	{ 0xc001 | (RT1308_POWER << 4), 0x00 },
- 	{ 0xc002 | (RT1308_POWER << 4), 0x00 },
-+	{ 0xc000 | (RT1308_POWER_STATUS << 4), 0x00 },
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 2cb50d5cf1a9..09a8aceff22f 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -45,6 +45,20 @@ static struct snd_soc_card acp6x_card = {
  };
  
- #define RT1308_SDW_OFFSET 0xc000
+ static const struct dmi_system_id yc_acp_quirk_table[] = {
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21D0"),
++		}
++	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21D1"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.35.1
 

@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D27D061E4C2
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:17:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC1461E4C3
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Nov 2022 18:17:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EE24169E;
-	Sun,  6 Nov 2022 18:16:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EE24169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44507168F;
+	Sun,  6 Nov 2022 18:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44507168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667755036;
-	bh=vD0fS3vUM2Fo4/pNP8nVoqZGF21/4+JFozgreajiXVs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BrPxEoHHrcAxVxdqJEM8yia8o83IoNoeBv3ywIJQOQqm+BATOku0z2NvbchaDiFBK
-	 nfWrd4Lcmf/xh68LAd1zqKC8yMatbuUVnamUW3YlHLszQL3tRGbIELUwqgSaPlM7sm
-	 Q6ZvJsL1Fti+B8v01TtcA51xPqQ5bEvun+6Dz15I=
+	s=default; t=1667755047;
+	bh=NHKdBSp6RRhLLzcR4NyitTnOaDg7TBxCveMh4CfU8ZA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=K9VTSa5xPHbjJUTaeoW2YPQ4qJIby7T7aNZ3dBAgSB5KPS4HJP7ySUSd9QUTvbD3x
+	 oGi8ggmvIlhhNz2N96Jl08f8E2o1rDCAdDmDsqPSli8GdEYXtTEKCymxw4WIjTxYdp
+	 9QsO/F7dsQJehIYLCUclYrnZxcrSwlmPeD6H1668=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BA13F80634;
-	Sun,  6 Nov 2022 18:07:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA117F80677;
+	Sun,  6 Nov 2022 18:07:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75781F80674; Sun,  6 Nov 2022 18:07:05 +0100 (CET)
+ id 6C818F80675; Sun,  6 Nov 2022 18:07:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48B78F8063E
- for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:06:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48B78F8063E
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3ED0F8063C
+ for <alsa-devel@alsa-project.org>; Sun,  6 Nov 2022 18:07:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3ED0F8063C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Eh+RSruF"
+ header.b="aroZzXFZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2C02360CF2;
- Sun,  6 Nov 2022 17:06:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3051C4347C;
- Sun,  6 Nov 2022 17:06:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EA5AE60CF6;
+ Sun,  6 Nov 2022 17:07:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A28FC433D7;
+ Sun,  6 Nov 2022 17:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667754417;
- bh=vD0fS3vUM2Fo4/pNP8nVoqZGF21/4+JFozgreajiXVs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Eh+RSruFh2NXkJ33KMHpl67lxp7r8no9bFBrh3MILPdiYDsIBh/Mb12cDrNS5nUTw
- GkAnQX8kU2ju5d1GGJz8sdh/GK16s56jtGyS7gn/hmOnE65ufDRACpHQbsDGnSpBTb
- KyrjhIeqfxrZKANS6HHvRqMHFh5A2QTddT9wPw7Lm8Jg2lS0RFwNTjgrCtLsDjcyJZ
- 7fw7t8Kk1LWPxEZCfTu7Qlgoha7e1fl2cgeKbD2JHmMUeyRmOEwT2fMS/BaGfmZt+4
- 9Ndbei2V7DKnshOB/eIscLlGO8v4nm9q5+G+C3YkDDj4QpHwA5tme6QY3vVMMDEOTC
- LS1mRHQJu9Jaw==
+ s=k20201202; t=1667754428;
+ bh=NHKdBSp6RRhLLzcR4NyitTnOaDg7TBxCveMh4CfU8ZA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=aroZzXFZX+lHo5WMSgYNxfcaJoz4Xkh/xRp6YB7X+mITtFtoZiO5gTtUVdBppyfQK
+ 4BQJHyDffdSHUsnI6NUVqAZksZvUSU1ZbOuXD+VXsNfhUDASqcyGpeI7KlGXkq59lg
+ Nc9uTXAJtzECgXDVby3Zt6HiHiEGgYSzz42P0kCS/H87859ASuIjjQlZY4k9i0R7Su
+ rfb/b1NmwM5pqtr9RPQcv/DgmQZz2FadMe3n+C/Rqcv6HSuXcrwwF+x+/WQ71KeELO
+ PimoL52VpVJI0y1ACUyIu0XLGu7c5ZI6UOtH/pPIF2XtmxMp/s9JHSFM22DJNJERPM
+ lsiw0dH7ndyHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 09/12] ASoC: codecs: jz4725b: fix capture selector
- naming
-Date: Sun,  6 Nov 2022 12:06:33 -0500
-Message-Id: <20221106170637.1580802-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 1/7] ASoC: wm5102: Revert "ASoC: wm5102: Fix PM
+ disable depth imbalance in wm5102_probe"
+Date: Sun,  6 Nov 2022 12:06:58 -0500
+Message-Id: <20221106170705.1580963-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221106170637.1580802-1-sashal@kernel.org>
-References: <20221106170637.1580802-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- tiwai@suse.com, lgirdwood@gmail.com, paul@crapouillou.net,
- Siarhei Volkau <lis8215@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-mips@vger.kernel.org
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Zhang Qilong <zhangqilong3@huawei.com>, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,62 +87,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Siarhei Volkau <lis8215@gmail.com>
+From: Zhang Qilong <zhangqilong3@huawei.com>
 
-[ Upstream commit 80852f8268769715db335a22305e81a0c4a38a84 ]
+[ Upstream commit de71d7567e358effd06dfc3e2a154b25f1331c10 ]
 
-At the moment Capture source selector appears on Playback
-tab in the alsamixer and has a senseless name.
+This reverts commit fcbb60820cd3008bb44334a0395e5e57ccb77329.
 
-Let's fix that.
+The pm_runtime_disable is redundant when error returns in
+wm5102_probe, we just revert the old patch to fix it.
 
-Signed-off-by: Siarhei Volkau <lis8215@gmail.com>
-Link: https://lore.kernel.org/r/20221016132648.3011729-5-lis8215@gmail.com
+Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20221010114852.88127-2-zhangqilong3@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/jz4725b.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/codecs/wm5102.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index 1960516ac65e..ebe643e4aa2f 100644
---- a/sound/soc/codecs/jz4725b.c
-+++ b/sound/soc/codecs/jz4725b.c
-@@ -183,7 +183,7 @@ static SOC_VALUE_ENUM_SINGLE_DECL(jz4725b_codec_adc_src_enum,
- 				  jz4725b_codec_adc_src_texts,
- 				  jz4725b_codec_adc_src_values);
- static const struct snd_kcontrol_new jz4725b_codec_adc_src_ctrl =
--			SOC_DAPM_ENUM("Route", jz4725b_codec_adc_src_enum);
-+	SOC_DAPM_ENUM("ADC Source Capture Route", jz4725b_codec_adc_src_enum);
+diff --git a/sound/soc/codecs/wm5102.c b/sound/soc/codecs/wm5102.c
+index 9b33c87c2fe4..7e817e1877c2 100644
+--- a/sound/soc/codecs/wm5102.c
++++ b/sound/soc/codecs/wm5102.c
+@@ -2085,6 +2085,9 @@ static int wm5102_probe(struct platform_device *pdev)
+ 		regmap_update_bits(arizona->regmap, wm5102_digital_vu[i],
+ 				   WM5102_DIG_VU, WM5102_DIG_VU);
  
- static const struct snd_kcontrol_new jz4725b_codec_mixer_controls[] = {
- 	SOC_DAPM_SINGLE("Line In Bypass", JZ4725B_CODEC_REG_CR1,
-@@ -228,7 +228,7 @@ static const struct snd_soc_dapm_widget jz4725b_codec_dapm_widgets[] = {
- 	SND_SOC_DAPM_ADC("ADC", "Capture",
- 			 JZ4725B_CODEC_REG_PMR1, REG_PMR1_SB_ADC_OFFSET, 1),
++	pm_runtime_enable(&pdev->dev);
++	pm_runtime_idle(&pdev->dev);
++
+ 	ret = arizona_request_irq(arizona, ARIZONA_IRQ_DSP_IRQ1,
+ 				  "ADSP2 Compressed IRQ", wm5102_adsp2_irq,
+ 				  wm5102);
+@@ -2117,9 +2120,6 @@ static int wm5102_probe(struct platform_device *pdev)
+ 		goto err_spk_irqs;
+ 	}
  
--	SND_SOC_DAPM_MUX("ADC Source", SND_SOC_NOPM, 0, 0,
-+	SND_SOC_DAPM_MUX("ADC Source Capture Route", SND_SOC_NOPM, 0, 0,
- 			 &jz4725b_codec_adc_src_ctrl),
+-	pm_runtime_enable(&pdev->dev);
+-	pm_runtime_idle(&pdev->dev);
+-
+ 	return ret;
  
- 	/* Mixer */
-@@ -287,11 +287,11 @@ static const struct snd_soc_dapm_route jz4725b_codec_dapm_routes[] = {
- 	{"Mixer", NULL, "DAC to Mixer"},
- 
- 	{"Mixer to ADC", NULL, "Mixer"},
--	{"ADC Source", "Mixer", "Mixer to ADC"},
--	{"ADC Source", "Line In", "Line In"},
--	{"ADC Source", "Mic 1", "Mic 1"},
--	{"ADC Source", "Mic 2", "Mic 2"},
--	{"ADC", NULL, "ADC Source"},
-+	{"ADC Source Capture Route", "Mixer", "Mixer to ADC"},
-+	{"ADC Sourc Capture Routee", "Line In", "Line In"},
-+	{"ADC Source Capture Route", "Mic 1", "Mic 1"},
-+	{"ADC Source Capture Route", "Mic 2", "Mic 2"},
-+	{"ADC", NULL, "ADC Source Capture Route"},
- 
- 	{"Out Stage", NULL, "Mixer"},
- 	{"HP Out", NULL, "Out Stage"},
+ err_spk_irqs:
 -- 
 2.35.1
 

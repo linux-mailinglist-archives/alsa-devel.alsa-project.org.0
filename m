@@ -2,61 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D1861EFE1
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 11:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2462B61EE29
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 10:05:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C559082C;
-	Mon,  7 Nov 2022 11:02:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C559082C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A79F2822;
+	Mon,  7 Nov 2022 10:04:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A79F2822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667815385;
-	bh=CrmaftAiUg4UEhNgTb2hqXoDu05GtzedDnh0woigkQs=;
-	h=From:Subject:To:Date:References:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=TM0IJeZVckMAHkEGRCIWmzeos1uO/dBtLzLM1m5lWjO9z5HrU0jDngwlcDtlWyeMA
-	 4TVNahe791Phqu3Nx06ju41r49Qzs/dghzBk2zLuoYznXzJuJst0B4MRW98PyekW0x
-	 mY8q5M+b2GV6qdcugsO1RBFvwe3psf4pEOvgpuAk=
+	s=default; t=1667811912;
+	bh=wzcadR9LYAZH8hRy9PL/sijlwCn6gSnkuD0BoN2O3IY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Dnrh/BMPzQCQEgJPAUbvEhs/WlY8yOLs4RROjrMAP8iZOtd2GogoK3z7tQrrcN29g
+	 bQy7Y2nPDKJ2L7ziQznL7et2NXI0KWa4rRGbPIphsaFhEofF7Zup21YbENiMhuzErR
+	 gnSCiIXIrmskRdEqlSIZp+lhxUJstuihP3rYeAa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42669F804BD;
-	Mon,  7 Nov 2022 11:02:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CDF7F804BD;
+	Mon,  7 Nov 2022 10:04:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2138DF8025A; Mon,  7 Nov 2022 11:02:08 +0100 (CET)
+ id A05ADF8025A; Mon,  7 Nov 2022 10:04:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.3 required=5.0 tests=HTML_MESSAGE,
- HTML_MIME_NO_HTML_TAG, MIME_HTML_ONLY, MSGID_RANDY, RCVD_IN_ZEN_BLOCKED_OPENDNS,
- RDNS_NONE,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D8A7F800EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 11:01:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D8A7F800EC
-X-UUID: 197602d15da44015b8148b3ce29ec060-20221107
-X-UUID: 197602d15da44015b8148b3ce29ec060-20221107
-Received: from cs2c.com.cn [(192.168.0.8)] by mailgw
- (envelope-from <aichao@kylinos.cn>) (Generic MTA)
- with ESMTP id 1613306883; Mon, 07 Nov 2022 17:01:19 +0800
-Received: by cs2c.com.cn (NSMail, from userid 0)
- id 1065C181BCECB; Mon,  7 Nov 2022 17:01:08 +0800 (CST)
-From: =?UTF-8?B?6Im+6LaF?= <aichao@kylinos.cn>
-Subject: =?UTF-8?B?5Zue5aSNOiBSZTog5Zue5aSNOiBSZTog5Zue5aSNOiBSZTogW1BBVENIXSBBTFNBOiB1c2ItYXVkaW86IGZpeCBIYW1lZGFsIEMyMCB1c2IgY2FtZXJvIGRpc2Nvbm5lY3QgaXNzdWU=?=
-To: =?UTF-8?B?VGFrYXNoaSBJd2Fp?= <tiwai@suse.de>,
-Date: Mon, 07 Nov 2022 17:01:08 +0800
-X-Mailer: NSMAIL 6.0
-Message-ID: <41c727u0jt-41c727u0ju@nsmail6.0>
-References: 87pmdztc1x.wl-tiwai@suse.de
-X-Delaysendtime: Mon, 07 Nov 2022 17:01:08 +0800
-X-ns-mid: webmail-6368c954-41dh0192
+ by alsa1.perex.cz (Postfix) with ESMTPS id 308A0F800EC
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 10:04:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 308A0F800EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="C9mekZUN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667811850; x=1699347850;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wzcadR9LYAZH8hRy9PL/sijlwCn6gSnkuD0BoN2O3IY=;
+ b=C9mekZUNM6o8D2fggGf0xhQeCrmJnBBuFF3wOKhRDOy3Knln6yREACDM
+ VONN3cL7Tr2qpronx61cFxJPsLyhJVUltjDDAOaisivTBXi8JRWKxYUkh
+ 9MS2AAheT7YkF3dCP5A/eV78vEkP/lDQrqmwYUyJyKTbUZnALm4rBfoN9
+ y0HbO1Ds5zLfjYzZeJaFRkgwiSI6oz1zE1g3Ddgk2GB9Hu/4IqmH1iSTT
+ 7LuEbrqULoO+6JGgkHiBLcBJ5Ca1tZ2+Khb4aLA8omNz7SYMzeutf1oMl
+ yO/3u3wYmFRimOa062j6SRiUJ/nZ5IJdFiF7XAMDFI7JGCwJT8jtnFCDe w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="311498691"
+X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="311498691"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 01:04:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="741412431"
+X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="741412431"
+Received: from akharade-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.14.37])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 01:04:04 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: topology: No need to assign core ID if token
+ parsing failed
+Date: Mon,  7 Nov 2022 11:04:33 +0200
+Message-Id: <20221107090433.5146-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,63 +89,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-       I tested the hotplug ãrecord and catch the picture,  this interface
-   reset doesn't cause any problem.
+Move the return value check before attempting to assign the core ID to the
+swidget since we are going to fail the sof_widget_ready() and free up
+swidget anyways.
 
-   In snd_usb_endpoint_configure,  It set false to interface to deselect
-   altsetting at first.
+Fixes: 909dadf21aae ("ASoC: SOF: topology: Make DAI widget parsing IPC agnostic")
 
-   But , if skip the interface clear (ex.  ep->cur_rate = 0;), there is no
-   sound output.
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+ sound/soc/sof/topology.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 38855dd60617..6a0e7f3b5023 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1344,16 +1344,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		break;
+ 	}
+ 
+-	if (sof_debug_check_flag(SOF_DBG_DISABLE_MULTICORE)) {
+-		swidget->core = SOF_DSP_PRIMARY_CORE;
+-	} else {
+-		int core = sof_get_token_value(SOF_TKN_COMP_CORE_ID, swidget->tuples,
+-					       swidget->num_tuples);
+-
+-		if (core >= 0)
+-			swidget->core = core;
+-	}
+-
+ 	/* check token parsing reply */
+ 	if (ret < 0) {
+ 		dev_err(scomp->dev,
+@@ -1365,6 +1355,16 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		return ret;
+ 	}
+ 
++	if (sof_debug_check_flag(SOF_DBG_DISABLE_MULTICORE)) {
++		swidget->core = SOF_DSP_PRIMARY_CORE;
++	} else {
++		int core = sof_get_token_value(SOF_TKN_COMP_CORE_ID, swidget->tuples,
++					       swidget->num_tuples);
++
++		if (core >= 0)
++			swidget->core = core;
++	}
++
+ 	/* bind widget to external event */
+ 	if (tw->event_type) {
+ 		if (widget_ops[w->id].bind_event) {
+-- 
+2.38.1
 
-   ----
-
-
-   ä¸»ãé¢ï¼Re: åå¤: Re: åå¤: Re: [PATCH] ALSA: usb-audio: fix Hamedal C20
-   usb camero disconnect issue
-   æ¥ãæï¼2022-11-07 16:15
-   åä»¶äººï¼Takashi Iwai
-   æ¶ä»¶äººï¼è¾è¶
-
-   On Mon, 07 Nov 2022 02:33:57 +0100,
-   è¾è¶ wrote:
-   >
-   >     Yes, the audio device is a UAC1 device, and it used
-   set_sample_rate_v1 to
-   > set sample.
-   >
-   >     So, I add a quirk to keep up the USB interface up even if the
-   audio stream
-   > is closed.
-   Well, my question is also about the parameter changes.  This interface
-   reset doesn't cause any problem?  Or we should skip the interface
-   clear there, too?
-   Takashi
-   >
-   > ----
-   >
-   > ä¸»ãé¢ï¼Re: åå¤: Re: [PATCH] ALSA: usb-audio: fix Hamedal C20 usb
-   camero
-   > disconnect issue
-   > æ¥ãæï¼2022-11-04 17:59
-   > åä»¶äººï¼Takashi Iwai
-   > æ¶ä»¶äººï¼è¾è¶
-   >
-   > On Fri, 04 Nov 2022 10:50:48 +0100,
-   > è¾è¶ wrote:
-   > >
-   > > I 'm sorry, I don't know whether you receiver my mail for 'lsusb
-   -v' to
-   > > Hamedal C20
-   >
-   > I received your previous mails including lsusb -v output.  But the
-   > post was filtered out by some reason?
-   >
-   > So the audio device looks like a UAC1 device.  And this one requires
-   > to keep up the USB interface up even if the audio stream is closed
-   > (not about the parameter changes)?
-   >
-   > Takashi
-   >
-   >

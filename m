@@ -2,80 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91591623169
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:25:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51AC662316A
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:25:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CB1316B6;
-	Wed,  9 Nov 2022 18:24:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CB1316B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD1F316C7;
+	Wed,  9 Nov 2022 18:24:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD1F316C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014722;
-	bh=Q/9M3qSa1bFKeX3VjOKXXNeZQ8B6sH7ewCOsQSJl+z0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1668014736;
+	bh=xNuIDh9+z0CfhmCPEaKB/O13kWB7hEyf2+U7jlAoSUM=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UYqz+VzmXytPoR7g9PwO2ETwl2JKjJNmuZy46SDVb1HOBUijB1XvQrsmVaCQaRIa4
-	 XCr3lXls3uA6H+AnBjuwFHukxn962RC0mgFfwE5R6tccdPht2XxvyDXQgiIhZzE0Xk
-	 VJ+T4IknGB3+IDo4Y7UFE6yiLVtqFjOc96NlqK1c=
+	b=mlWUidlo/JPnQNpskBIvD5+1tkeCFYIkSVnG2szICAI+h5zSUuPdE1TfpnH2hLrRg
+	 evQ8EXYb+B4iJJPlG8wh0l8PXGEEOONjLgJUtnISxlRrGrr9lVV4j5cC6sA+EPDQi5
+	 okuRMGKmBh1yHVXeERbThN3lpve3Hvm65oZBU7E8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CBE3F80612;
+	by alsa1.perex.cz (Postfix) with ESMTP id BD090F80619;
 	Wed,  9 Nov 2022 18:16:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CC27F8025A; Mon,  7 Nov 2022 17:02:59 +0100 (CET)
+ id 5E98FF800EC; Mon,  7 Nov 2022 21:57:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBC98F800AE
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 17:02:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBC98F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EC1EF80116
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 21:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EC1EF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XOmgvny4"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 17F89CE1712;
- Mon,  7 Nov 2022 16:02:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F88C433D6;
- Mon,  7 Nov 2022 16:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667836963;
- bh=Q/9M3qSa1bFKeX3VjOKXXNeZQ8B6sH7ewCOsQSJl+z0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XOmgvny4UUp7BZnQahaV6KsWUNhmwIhMxpmcOq3tw9+9teYm6GP3wrPKa3hZGoLnw
- E8JjujtcqktG/KkrpbyyurTKPktTQdPK912YFUTtXWMPkM5Mc8ahGVOnmMw4Uhs9uI
- cTBlpsSY6QMvq4ve9Z36ouACRIQs64gqbTRuCpXHF7tFc/7x4f8H/Qv0fo1LJXDNr9
- JzeHD9nkKpifY1CmMZpd4sb8KMqk3fuEl3XqfTd7Ru1lKOsEk7X40/JP1ugM9/6yCX
- WursSOfQ18hBTkSv25XwIi5vVUTkBzpxlLxQrxg8iYZ3853WT5wCALjP37Nihp0/J3
- NEZKY1McJ+eyw==
-Date: Mon, 7 Nov 2022 16:02:28 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [PATCH v2 43/65] ASoC: tlv320aic32x4: Add a determine_rate hook
-Message-ID: <Y2ksFHGNIEVm1ldF@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PMUoELhE"
+Received: by mail-wr1-x42b.google.com with SMTP id a14so18037090wru.5
+ for <alsa-devel@alsa-project.org>; Mon, 07 Nov 2022 12:57:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:from:to:cc:subject:date:message-id
+ :reply-to; bh=xNuIDh9+z0CfhmCPEaKB/O13kWB7hEyf2+U7jlAoSUM=;
+ b=PMUoELhE6AnXK+iNbgb6rPTOJPEKsFgBujXqxbWpgwA5fYf4gBdL2QEZ7s38On6Pdv
+ tEvNrpWkJH7345NtNVL6P6neZYoOwCet4Y628+aQE5juJnavU3qBi7KlO1rk5DAUAUOq
+ 438HwMs8JiemVJnEaCYxBD3fJBcnKF+Ec4ElTT2rACGgYIzmW6zjKAQjhVEt1OoUDQVI
+ vKeu2GP4yAVneediojKblkMb81j+Ywo5HajTIEQtgDumphUC4m8/Zrw4Q3MU5M1r0ziT
+ 8aiG4DnxTEwp4bvltkVyz/XtyJfkf0wefxRxSHxi02sFECEhyFppC6IqlBS76u0z4eLR
+ 9SRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:in-reply-to
+ :subject:cc:to:from:references:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=xNuIDh9+z0CfhmCPEaKB/O13kWB7hEyf2+U7jlAoSUM=;
+ b=F/bzACKrwks1GM9lA7Y2wWYTnrj09joainBJaoW8FHrLwniojRcgmkCXeO7EXtM3Hn
+ csPgbCkDywBgKHMXFAtF2OUM+RUQxM3Xz2ctW7dE3ZYKE4ejiCw/4yfm2cCSgpb/D8w3
+ U7Kfjm8Gn8Ab9I/J7uX4OwLchKQLep1xElyvdgFnpjJ0dQefeNJtW+sHLh5k3omV2EVA
+ D2jKtbTYlUgoohF2Wli/zLQtdi76CqqM3oO6pk5bX571eVypB7tCeHdnufUPUMUHLBql
+ YR5jKDjVPtdXJTRthCxBZLS/IctvOdS3L6Zthu5sUya2ko7IXR5Yq/YV1DtVWJ0gHaO9
+ 5vRw==
+X-Gm-Message-State: ACrzQf0SV989a6uKTssBsWAsAfNlGYHdufOprtIhRq5U0+d3J4P4zh4M
+ 8P454fHNR5FayB6ZznJ/crs=
+X-Google-Smtp-Source: AMsMyM68KhRfPQSDi8CFA78pakjxRAM3L6JCB7fc1yr/DnXKn9yQG4njsjQsXjAXYrNXUB9CMb72nw==
+X-Received: by 2002:a5d:4ec1:0:b0:22e:435c:1e0f with SMTP id
+ s1-20020a5d4ec1000000b0022e435c1e0fmr633954wrv.200.1667854640408; 
+ Mon, 07 Nov 2022 12:57:20 -0800 (PST)
+Received: from localhost (188.28.3.103.threembb.co.uk. [188.28.3.103])
+ by smtp.gmail.com with ESMTPSA id
+ m1-20020a7bca41000000b003c6c3fb3cf6sm9173176wml.18.2022.11.07.12.57.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Nov 2022 12:57:19 -0800 (PST)
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-43-f6736dec138e@cerno.tech>
- <Y2UzdYyjgahJsbHg@sirena.org.uk>
- <20221104155123.qomguvthehnogkdd@houat>
- <Y2U2+ePwRieYkNjv@sirena.org.uk>
- <20221107084322.gk4j75r52zo5k7xk@houat>
- <Y2j0r0wX1XtQBvqO@sirena.org.uk>
- <20221107152603.57qimyzkinhifx5p@houat>
+ <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
+ <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
+ <20221107085417.xrsh6xy3ouwdkp4z@houat>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
+In-reply-to: <20221107085417.xrsh6xy3ouwdkp4z@houat>
+Date: Mon, 07 Nov 2022 20:57:22 +0000
+Message-ID: <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hTyRvcr/YAY3aApU"
-Content-Disposition: inline
-In-Reply-To: <20221107152603.57qimyzkinhifx5p@houat>
-X-Cookie: Minimum charge for booths.
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:50 +0100
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
@@ -100,7 +116,7 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
  Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
  linux-mediatek@lists.infradead.org,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
@@ -111,7 +127,7 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
@@ -132,46 +148,130 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---hTyRvcr/YAY3aApU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Maxime Ripard <maxime@cerno.tech> writes:
 
-On Mon, Nov 07, 2022 at 04:26:03PM +0100, Maxime Ripard wrote:
-> On Mon, Nov 07, 2022 at 12:06:07PM +0000, Mark Brown wrote:
-> > On Mon, Nov 07, 2022 at 09:43:22AM +0100, Maxime Ripard wrote:
+> Hi,
+>
+> On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
+>>
+>> Maxime Ripard <maxime@cerno.tech> writes:
+>>
+>> > Hi Paul,
+>> >
+>> > On Fri, Nov 04, 2022 at 02:31:20PM +0000, Paul Cercueil wrote:
+>> >> Le ven. 4 nov. 2022 =C3=A0 14:18:13 +0100, Maxime Ripard <maxime@cern=
+o.tech> a
+>> >> =C3=A9crit :
+>> >> > The Ingenic CGU clocks implements a mux with a set_parent hook, but
+>> >> > doesn't provide a determine_rate implementation.
+>> >> >
+>> >> > This is a bit odd, since set_parent() is there to, as its name impl=
+ies,
+>> >> > change the parent of a clock. However, the most likely candidate to
+>> >> > trigger that parent change is a call to clk_set_rate(), with
+>> >> > determine_rate() figuring out which parent is the best suited for a
+>> >> > given rate.
+>> >> >
+>> >> > The other trigger would be a call to clk_set_parent(), but it's far=
+ less
+>> >> > used, and it doesn't look like there's any obvious user for that cl=
+ock.
+>> >> >
+>> >> > So, the set_parent hook is effectively unused, possibly because of =
+an
+>> >> > oversight. However, it could also be an explicit decision by the
+>> >> > original author to avoid any reparenting but through an explicit ca=
+ll to
+>> >> > clk_set_parent().
+>> >> >
+>> >> > The driver does implement round_rate() though, which means that we =
+can
+>> >> > change the rate of the clock, but we will never get to change the
+>> >> > parent.
+>> >> >
+>> >> > However, It's hard to tell whether it's been done on purpose or not.
+>> >> >
+>> >> > Since we'll start mandating a determine_rate() implementation, let's
+>> >> > convert the round_rate() implementation to a determine_rate(), which
+>> >> > will also make the current behavior explicit. And if it was an
+>> >> > oversight, the clock behaviour can be adjusted later on.
+>> >>
+>> >> So it's partly on purpose, partly because I didn't know about
+>> >> .determine_rate.
+>> >>
+>> >> There's nothing odd about having a lonely .set_parent callback; in my=
+ case
+>> >> the clocks are parented from the device tree.
+>> >>
+>> >> Having the clocks driver trigger a parent change when requesting a ra=
+te
+>> >> change sounds very dangerous, IMHO. My MMC controller can be parented=
+ to the
+>> >> external 48 MHz oscillator, and if the card requests 50 MHz, it could=
+ switch
+>> >> to one of the PLLs. That works as long as the PLLs don't change rate,=
+ but if
+>> >> one is configured as driving the CPU clock, it becomes messy.
+>> >> The thing is, the clocks driver has no way to know whether or not it =
+is
+>> >> "safe" to use a designated parent.
+>> >>
+>> >> For that reason, in practice, I never actually want to have a clock
+>> >> re-parented - it's almost always a bad idea vs. sticking to the paren=
+t clock
+>> >> configured in the DTS.
+>> >
+>> > Yeah, and this is totally fine. But we need to be explicit about it. T=
+he
+>> > determine_rate implementation I did in all the patches is an exact
+>> > equivalent to the round_rate one if there was one. We will never ask to
+>> > change the parent.
+>> >
+>> > Given what you just said, I would suggest to set the
+>> > CLK_SET_RATE_NO_REPARENT flag as well.
+>>
+>> Ideally there should be a way for drivers and the device tree to
+>> say, "clock X must be driven by clock Y", but the clock framework
+>> would be allowed to re-parent clocks freely as long as it doesn't
+>> violate any DT or driver constraints.
+>
+> I'm not really sure what you mean there, sorry. Isn't it what
+> assigned-clock-parents/clk_set_parent() at probe, plus a determine_rate
+> implementation that would affect best_parent_hw would already provide?
 
-> > The series does fill in __clk_mux_determine_rate for everything though -
-> > if it was just assumed by default the only thing that'd be needed would
-> > be adding the flag.
+Assigning the parent clock in the DT works once, at boot, but going off
+what you wrote in the commit message, if the clock driver has a
+.determine_rate() implementation that *can* reparent clocks then it
+probably *will* reparent them, and the DT assignment will be lost.
 
-> The behavior assumed by default was equivalent to
-> __clk_mux_determine_rate + CLK_SET_RATE_NO_REPARENT. We could indeed set
-> both if determine_rate is missing in the core, but that's unprecedented
-> in the clock framework so I think we'll want Stephen to comment here :)
+What I'm suggesting is a runtime constraint that the clock subsystem
+would enforce, and actively prevent drivers from changing the parent.
+Either explicitly with clk_set_parent() or due to .determine_rate().
 
-> It's also replacing one implicit behavior by another. The point of this
-> series was to raise awareness on that particular point, so I'm not sure
-> it actually fixes things. We'll see what Stephen thinks about it.
+That way you could write a .determine_rate() implementation that *can*
+select a better parent, but if the DT applies a constraint to fix the
+clock to a particular parent, the clock subsystem will force that parent
+to be used so you can be sure the clock is never reparented by accident.
 
-We could also just set the operation and still require the flag to be
-specified.  I'm a little surprised to learn that it's something you
-might want to override, never mind that the API didn't have a default -
-it feels like a bit of a landmine that this is the case and is probably
-why there's so many cases to fix up.
+>> That way allowing reparenting doesn't need to be an all-or-nothing
+>> thing, and it doesn't need to be decided at the clock driver level
+>> with special flags.
+>
+> Like I said, the default implementation is already working to what you
+> suggested if I understood properly. However, this has never been tested
+> for any of the drivers in that series so I don't want to introduce (and
+> debug ;)) regressions in all those drivers that were not setting any
+> constraint but never actually tested their reparenting code.
+>
+> So that series is strictly equivalent to what you had before, it's just
+> explicit now.
+>
+> If you find that some other decision make sense for your driver in
+> particular cases, feel free to change it. I barely know most of these
+> platforms, so I won't be able to make that decision (and test it)
+> unfortunately.
+>
+> Maxime
 
---hTyRvcr/YAY3aApU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNpLBMACgkQJNaLcl1U
-h9BS0gf/chIMp6chtu1p8LwUn+lniQOfOjVm2GoGAQ06qSr9+3KsWgvPO3J4pFNa
-l036gwiNNFPM5gXlEj19YU0NgiAQIt2hoh9q92PY1kN8vmSQutr8U6QVxq27pphZ
-5T2AVdZG2/L1Za5fy+qtwzx6ji1EENFmdLOF/NRrtc1zJPm/bT9E14uqwH7vmK0f
-Jh1uBONY+x2wM44EMNgt3p4HTS/37ARwT9njBao9UUdt1uFWnUx05o0lerkyk4Xg
-QlkvyC2hU+mXML3s6FVEbx0TQImsJItRx7Fk4E0Pij30qxWDtd0uybSJOzuWo16R
-emQv+2HsLgl0L3qkctPVJREpPwCQuQ==
-=mfv5
------END PGP SIGNATURE-----
-
---hTyRvcr/YAY3aApU--
+That's OK, I didn't review the patch, I'm just making a general
+suggestion. :)

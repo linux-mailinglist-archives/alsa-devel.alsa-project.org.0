@@ -2,150 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 014D7623167
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:24:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B89A623168
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:25:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78FEB16B8;
-	Wed,  9 Nov 2022 18:24:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78FEB16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 371C516B2;
+	Wed,  9 Nov 2022 18:24:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 371C516B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014691;
-	bh=jTKbAfSVEW6LBkSgIWrp6uLXxiu9JP422nJFGPXjTu0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1668014708;
+	bh=fgnwXGO1Bb4aCnKewzIuYRvhEkYVBD+qJB8W/774hk0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=arjmfrWWaFelKf5oDp3EppWS3us6Xge0LTe0sVUVpuFSQtU/jxe/HOkDJghVcLKtV
-	 viz9wTr0KcvSRjAvh9GUGOcxrwnKaabTb9rKF899v6tmK87a05YbzdjodJOGFRvRfo
-	 ywh4AEIwsWv6mtDQjQDj1kD/L8vzoz+8BW8hvwqs=
+	b=ghr6xYkgWpikHkiJ9ghjsGmMvObZ1phKREIo5p/kLOWHtcTWbFUV1g7qcXo7kV5MQ
+	 dCH6niwBaaKj3K8AKd/bxESB4t16gKYTb5bodS/Y4Fs8F1X9do4MsFlNRJOTjJYFk1
+	 zfjDgJZmHouQUrDArKEJVlcvuoLtgkUvIQV6bocw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9073DF8060D;
-	Wed,  9 Nov 2022 18:16:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71DBBF80611;
+	Wed,  9 Nov 2022 18:16:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36499F800EC; Mon,  7 Nov 2022 16:26:23 +0100 (CET)
+ id 84F2AF8025A; Mon,  7 Nov 2022 16:48:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCF52F800EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 16:26:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCF52F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58BA0F800EC
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 16:48:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58BA0F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="Yz8C45fu"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="we3Y+H0V"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id DEA372B05E77;
- Mon,  7 Nov 2022 10:26:08 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 07 Nov 2022 10:26:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1667834768; x=1667841968; bh=IIy8QXUDWn
- lcncLyNQJNbxMRRWumgUmyAMyd+aDiO3o=; b=Yz8C45furNQhVL2oz7HXZgGnHH
- TvCIbx3oIXxLgbEPnABUHdZn1FjTlBXO/L1HUin7nlSwmgzBZEAHQXtqUueLWNNB
- OwfmyOlg36y4QZvHUbl/IFeKRrua5v3nbs+lI8yzO8mXx4IT19hD5T6x7SIXqH7E
- cc2GzTsHAmmLjTDm7nLKE9rJj7tzh9QXh/pmM/gmbKHm8u4yCEDXIt2H8iqZARt9
- QsECam1RG4/cnzrlWYrmdX95jbKBthE1SCw52xWcjKgvNrC/w9eFBvNcqPdoP0VC
- kgyueznhPVmNlxZMotlGuMS8QDMwTbcA/aTq9dkJ4NLHTQ8GcN7cr6b1QC9Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1667834768; x=1667841968; bh=IIy8QXUDWnlcncLyNQJNbxMRRWum
- gUmyAMyd+aDiO3o=; b=we3Y+H0VECymbGK0VaXTFHbsW346wsLVjErpCLgJ45+g
- scHpf9eiainU1JBqntlua0SrTwXrGABBVlunf276/GfhfNOd/1vGEf1lUcHwrvm5
- zbWxzN3W7Zenf9Aa8Y0lcDOZ0gM54P8lT8lwFBUPN/ByfauorTjW7d7RXbvSlkJT
- k7v9evp6jVencFixQzMQhtO2nt3yGpBePuWO6Pu5QWJ2wKtmD8tFnyhZw/c9eN/k
- XmLHoh4bXi0sW22vHo0bm88oijG5yx4MWoMqBaBgxLapeXxyjGYt3QLy+aQKy4Ug
- w/V1K5ZGWlq/bSa4sSDWF1/AjvqtR9hsVVTIILV+1w==
-X-ME-Sender: <xms:jiNpY8OMxnFFt5PbqqvqZSEoKfqq7taLlfkj3szUIQCjdWFIeQL24w>
- <xme:jiNpYy89u_mQTLvZGrbcNIjZbLYu9wV4EYfNRlktfKZUm38GG6xC_Qlt2hrpbO_df
- BSGxlyk5s8vknO0ZFg>
-X-ME-Received: <xmr:jiNpYzSfZa6atc_eqwJFct1WjeHK-hLh2fplSb5wr1nE_LAD9arud3e8hqAHxwKU5wiR6hkEVdXqGN4RgoEjwLXSB8uMLCObkZqNF9IY6V2NlA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvdekgdejhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheehfffh
- vedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:jiNpY0vtIK-PZdgej79mMr_MApM6wLdfXscqntkFAEOkhGYrOU0MCQ>
- <xmx:jiNpY0cvni03g0uv0yl-yo399Y_hbctd4rNagD2H1NT2_Xs_g9EWBQ>
- <xmx:jiNpY42HLjMSaphod3lQyPY5KzbEAeoKRXRXEDPctlkn3XY9SKEjVg>
- <xmx:kCNpY4m1DCnGwZRgh_rsYFaEzCSCv9LG7n_fC4ovY1-GZspzYu6x7s6Mw5U>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Nov 2022 10:26:05 -0500 (EST)
-Date: Mon, 7 Nov 2022 16:26:03 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 43/65] ASoC: tlv320aic32x4: Add a determine_rate hook
-Message-ID: <20221107152603.57qimyzkinhifx5p@houat>
-References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-43-f6736dec138e@cerno.tech>
- <Y2UzdYyjgahJsbHg@sirena.org.uk>
- <20221104155123.qomguvthehnogkdd@houat>
- <Y2U2+ePwRieYkNjv@sirena.org.uk>
- <20221107084322.gk4j75r52zo5k7xk@houat>
- <Y2j0r0wX1XtQBvqO@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="CZ8TGNRl"
+Received: by mail-ed1-x52c.google.com with SMTP id r14so18247109edc.7
+ for <alsa-devel@alsa-project.org>; Mon, 07 Nov 2022 07:48:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PFZbCwEAf5xvmFibQbTSCqyngiA1gCMbpOH+dBVu8iE=;
+ b=CZ8TGNRlE5jmJffm9Yx0cmQI4SfkpxDCjF0CUs2Eo78TqWT6+m/jyXCqqzr0l482Nf
+ bZ5N559p66DFquV0L7YT6toyJmIMaAzdHaSVJhA3fsSLwj2u6dSuId1C7haefteeYblH
+ g28tShiu7o6XNcbT9DIRO0DOF9TsaAMDwQgfDek1ekvzeXEQ1SPswpUVBHKwaCt11pNz
+ Lylxs6d2TprhGOql/pyKa0d6d3jO5AK2uqREQdAykb0/oUef2BIpJJUQ0PO3ST/QQNZW
+ mGLU4TzPtjlpsFOS5ZHtyW73YEYhFtFEjxNPj6eRhlZ7Q5VPgi5irG7Y9qWs69ffQ+7t
+ 5sQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=PFZbCwEAf5xvmFibQbTSCqyngiA1gCMbpOH+dBVu8iE=;
+ b=mRVONBDWji6g9HZiEjL04jT0ZgKNp6WAvBGEDEimvveSvy310TBJITV6Y5ZU7tMrOi
+ rSvzrAlKEOn7OJDJ42g2A9kdeWmvfVAObDvT3qLkQZETwW6DgPRfnP68QBaCpF0aEg5l
+ uvEd+qpelIpmHpUY/KxVcTJqkhfLEkEPbnV3K5lS9PPq4LgNhrUg6mApaLqKjFRMVVwP
+ x9zQ++hviz1jqSm/9SFUZuRrCcvVTPySqVQTtm66BeShRfSVT3pnY+8EbVEIo/UtiYvt
+ kDZBNMAIugz1J7OccRucJ/qKc+xfpqbMJOBh61ifr6F7tbqYrGwtnQCYGrZ3wRhEHaTk
+ KGCg==
+X-Gm-Message-State: ACrzQf0llsdyoFTkx07ghXBZPz93EwCww+rZRSg7jFDGL3eq2xsasvAF
+ jXCHx/NVQnmDSz0lUfRV+k2ASQ==
+X-Google-Smtp-Source: AMsMyM4C4BS78FBPn0mzYLjEHkzToQ5EH3PogrfSySzn/OQCGvYBG56Zr7WlIdFu1ic0QJe9/FVAzg==
+X-Received: by 2002:a50:cd07:0:b0:464:63b:1017 with SMTP id
+ z7-20020a50cd07000000b00464063b1017mr28653410edi.364.1667836098543; 
+ Mon, 07 Nov 2022 07:48:18 -0800 (PST)
+Received: from [192.168.31.208] ([194.29.137.22])
+ by smtp.gmail.com with ESMTPSA id
+ k18-20020a05640212d200b0044ef2ac2650sm4337439edx.90.2022.11.07.07.48.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Nov 2022 07:48:17 -0800 (PST)
+Message-ID: <49407328-de28-9018-321b-c649c5bc7435@linaro.org>
+Date: Mon, 7 Nov 2022 16:48:14 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6jvzxow5645ldbud"
-Content-Disposition: inline
-In-Reply-To: <Y2j0r0wX1XtQBvqO@sirena.org.uk>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [PATCH v4 2/3] arm64: dts: qcom: Remove redundant soundwire
+ property
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, vkoul@kernel.org,
+ agross@kernel.org, andersson@kernel.org, robh+dt@kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
+ srinivas.kandagatla@linaro.org, dianders@chromium.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, alsa-devel@alsa-project.org,
+ quic_rjendra@quicinc.com, mka@chromium.org
+References: <1667830844-31566-1-git-send-email-quic_srivasam@quicinc.com>
+ <1667830844-31566-3-git-send-email-quic_srivasam@quicinc.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <1667830844-31566-3-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:50 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Paul Cercueil <paul@crapouillou.net>,
- Max Filippov <jcmvbkbc@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Abel Vesa <abelvesa@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,62 +116,48 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---6jvzxow5645ldbud
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 07, 2022 at 12:06:07PM +0000, Mark Brown wrote:
-> On Mon, Nov 07, 2022 at 09:43:22AM +0100, Maxime Ripard wrote:
-> > On Fri, Nov 04, 2022 at 03:59:53PM +0000, Mark Brown wrote:
->=20
-> > > Well, hopefully everyone for whom it's an issue currently will be
-> > > objecting to this version of the change anyway so we'll either know
-> > > where to set the flag or we'll get the whack-a-mole with the series
-> > > being merged?
->=20
-> > I'm sorry, I'm not sure what you mean here. The only issue to fix at the
-> > moment is that determine_rate and set_parent aren't coupled, and it led
-> > to issues due to oversight.
->=20
-> > I initially added a warning but Stephen wanted to fix all users in that
-> > case and make that an error instead.
->=20
-> My suggestion is that instead of doing either of these things it'd be
-> quicker and less error prone to just fix the core to provide the default
-> implementation if nothing more specific is provided.  Any issues that
-> causes would already be present with your current series.
->=20
-> > If I filled __clk_mux_determine_rate into clocks that weren't using it
-> > before, I would change their behavior. With that flag set, on all users
-> > I add __clk_mux_determine_rate to, the behavior is the same than what we
-> > previously had, so the risk of regressions is minimal, and everything
-> > should keep going like it was?
->=20
-> The series does fill in __clk_mux_determine_rate for everything though -
-> if it was just assumed by default the only thing that'd be needed would
-> be adding the flag.
+On 07/11/2022 15:20, Srinivasa Rao Mandadapu wrote:
+> Remove redundant property qcom,port-offset in soundwire
+> controller nodes.
+> This patch is required to avoid dtbs_check errors with
+> qcom,soundwie.yaml
+> 
+> Fixes: 12ef689f09ab ("arm64: dts: qcom: sc7280: Add nodes for soundwire and va tx rx digital macro codecs")
+> Fixes: 24f52ef0c4bf ("arm64: dts: qcom: sm8250: Add nodes for tx and rx macros with soundwire masters")
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Co-developed-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
+> Signed-off-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-The behavior assumed by default was equivalent to
-__clk_mux_determine_rate + CLK_SET_RATE_NO_REPARENT. We could indeed set
-both if determine_rate is missing in the core, but that's unprecedented
-in the clock framework so I think we'll want Stephen to comment here :)
-
-It's also replacing one implicit behavior by another. The point of this
-series was to raise awareness on that particular point, so I'm not sure
-it actually fixes things. We'll see what Stephen thinks about it.
-
-Maxime
-
---6jvzxow5645ldbud
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY2kjiwAKCRDj7w1vZxhR
-xbC4AQCzinBg5fORSxUmh/ryaaQ1U50ULCO44lpcoTcfgR8NCQEArCtBTBrB8cDz
-ZaXsPn80Mh//XhAP83gNXiHtZW4aJwQ=
-=1n6i
------END PGP SIGNATURE-----
-
---6jvzxow5645ldbud--
+Konrad
+>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 1 -
+>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 1 -
+>   2 files changed, 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 748eef6..71be873 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2317,7 +2317,6 @@
+>   			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0xff 0xff>;
+>   			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff>;
+>   			qcom,ports-lane-control =	/bits/ 8 <0x00 0x01 0x00>;
+> -			qcom,port-offset = <1>;
+>   
+>   			#sound-dai-cells = <1>;
+>   			#address-cells = <2>;
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index eb5a10c..0f430ca 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -2360,7 +2360,6 @@
+>   			qcom,ports-word-length =	/bits/ 8 <0xFF 0xFF 0xFF 0xFF 0xFF>;
+>   			qcom,ports-block-group-count =	/bits/ 8 <0xFF 0xFF 0xFF 0xFF 0xFF>;
+>   			qcom,ports-lane-control =	/bits/ 8 <0xFF 0x00 0x01 0x00 0x01>;
+> -			qcom,port-offset = <1>;
+>   			#sound-dai-cells = <1>;
+>   			#address-cells = <2>;
+>   			#size-cells = <0>;

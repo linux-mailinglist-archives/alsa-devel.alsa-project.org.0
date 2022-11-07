@@ -2,61 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFECD61EA32
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 05:27:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FFA61EB0F
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 07:37:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 649B482E;
-	Mon,  7 Nov 2022 05:26:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 649B482E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4984582C;
+	Mon,  7 Nov 2022 07:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4984582C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667795247;
-	bh=EQigBQMD8jvxcc49a5ARtMpdgsT6ZOxToLvVMLTZwGs=;
+	s=default; t=1667803041;
+	bh=8wksGgRGECuPE7sGPMjcEJqwB7ajoV4ChCbWxiYcI9o=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=TgfdVcJPTll3A0cnc0h6EXWHmCCuKnsgmUa5Kef4pL4AOTWZVmUQa1fIwr8gdMwhc
-	 9pJJNjFFpvF7MzIn2t7vhvJYb8LkhDWaJbk/2RAyMHJ1j5GmFV7Up6uq08nNo9ubB+
-	 6iRKondWkMzq/H91/YCok1fV8PXVnz4Fud0r2v3A=
+	b=N7YUGnM+VtJqojOTvrg3f/Aab7GM9+I5jHMGuU38lDP7xzETJARF496jI2Wu1mh4d
+	 /DiO10MgRTFy1bdskXcUpVvBmhQZ/t+JCLxWbFPD+ITIlUw9XlLUnIIz2wl03p+4My
+	 /m/Y+YkIsBV5quqghDZcNpHVivwvGygYq4W6fVC0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A01FF804BD;
-	Mon,  7 Nov 2022 05:26:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC08FF804BD;
+	Mon,  7 Nov 2022 07:36:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DBB4F8025A; Mon,  7 Nov 2022 05:26:30 +0100 (CET)
+ id 7F52FF80116; Mon,  7 Nov 2022 07:36:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out30-44.freemail.mail.aliyun.com
+ (out30-44.freemail.mail.aliyun.com [115.124.30.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5631F800EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 05:26:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5631F800EC
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D6A781A0AD2;
- Mon,  7 Nov 2022 05:26:22 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 9DA551A0ADB;
- Mon,  7 Nov 2022 05:26:22 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5B9AD180222D;
- Mon,  7 Nov 2022 12:26:19 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH] pcm: rate - check rate type for using
- snd_pcm_rate_slave_frames
-Date: Mon,  7 Nov 2022 12:05:12 +0800
-Message-Id: <1667793912-18957-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: shengjiu.wang@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id E77CCF80116
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 07:36:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E77CCF80116
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R961e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
+ TI=SMTPD_---0VU7DbWG_1667802962; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VU7DbWG_1667802962) by smtp.aliyun-inc.com;
+ Mon, 07 Nov 2022 14:36:11 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: jayakumar.alsa@gmail.com
+Subject: [PATCH] ALSA: cs5535audio: Remove the redundant assignment
+Date: Mon,  7 Nov 2022 14:35:54 +0800
+Message-Id: <20221107063554.17933-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ alsa-devel@alsa-project.org, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +70,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With plughw device and mmap case, the plug pcm fast_ops pointer is same
-as slave pcm fast_ops, but ops pointer is different, which cause
-the "bus error" in snd_pcm_rate_slave_frames.
+Variable 'desc_addr' set but not used.
 
-The test command is
-arecord -Dplughw:x -r12000 -c2 -fS16_LE -M temp.wav
+sound/pci/cs5535audio/cs5535audio_pcm.c:113:12: warning: variable 'desc_addr' set but not used.
 
-This patch is to add pcm type check as commit:
-d21e0e01 pcm: plugin - fix avail_min calculation on rate plugin
-
-Fixes: d9dbb57b ("pcm: rate - rewrite the may_wait_for_avail_min callback for the rate plugin")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2739
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- src/pcm/pcm_rate.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ sound/pci/cs5535audio/cs5535audio_pcm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/src/pcm/pcm_rate.c b/src/pcm/pcm_rate.c
-index e8815e8b..dc502202 100644
---- a/src/pcm/pcm_rate.c
-+++ b/src/pcm/pcm_rate.c
-@@ -1304,8 +1304,11 @@ static snd_pcm_uframes_t snd_pcm_rate_slave_frames(snd_pcm_t *pcm, snd_pcm_ufram
- static int snd_pcm_rate_may_wait_for_avail_min(snd_pcm_t *pcm,
- 					       snd_pcm_uframes_t avail)
+diff --git a/sound/pci/cs5535audio/cs5535audio_pcm.c b/sound/pci/cs5535audio/cs5535audio_pcm.c
+index 0db24cc4d916..9c88e99e3750 100644
+--- a/sound/pci/cs5535audio/cs5535audio_pcm.c
++++ b/sound/pci/cs5535audio/cs5535audio_pcm.c
+@@ -110,7 +110,7 @@ static int cs5535audio_build_dma_packets(struct cs5535audio *cs5535au,
+ 					 unsigned int period_bytes)
  {
--	return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail,
--							  snd_pcm_rate_slave_frames);
-+	if (snd_pcm_type(pcm) == SND_PCM_TYPE_RATE)
-+		return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail,
-+								  snd_pcm_rate_slave_frames);
-+	else
-+		return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail, NULL);
- }
+ 	unsigned int i;
+-	u32 addr, desc_addr, jmpprd_addr;
++	u32 addr, jmpprd_addr;
+ 	struct cs5535audio_dma_desc *lastdesc;
  
- static const snd_pcm_fast_ops_t snd_pcm_rate_fast_ops = {
+ 	if (periods > CS5535AUDIO_MAX_DESCRIPTORS)
+@@ -131,14 +131,12 @@ static int cs5535audio_build_dma_packets(struct cs5535audio *cs5535au,
+ 	/* the u32 cast is okay because in snd*create we successfully told
+ 	   pci alloc that we're only 32 bit capable so the upper will be 0 */
+ 	addr = (u32) substream->runtime->dma_addr;
+-	desc_addr = (u32) dma->desc_buf.addr;
+ 	for (i = 0; i < periods; i++) {
+ 		struct cs5535audio_dma_desc *desc =
+ 			&((struct cs5535audio_dma_desc *) dma->desc_buf.area)[i];
+ 		desc->addr = cpu_to_le32(addr);
+ 		desc->size = cpu_to_le16(period_bytes);
+ 		desc->ctlreserved = cpu_to_le16(PRD_EOP);
+-		desc_addr += sizeof(struct cs5535audio_dma_desc);
+ 		addr += period_bytes;
+ 	}
+ 	/* we reserved one dummy descriptor at the end to do the PRD jump */
 -- 
-2.34.1
+2.20.1.7.g153144c
 

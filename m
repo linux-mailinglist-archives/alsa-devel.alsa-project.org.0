@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D065623163
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:24:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF8D8623166
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:24:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45FFF16B6;
-	Wed,  9 Nov 2022 18:23:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45FFF16B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AFC216A1;
+	Wed,  9 Nov 2022 18:23:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AFC216A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014662;
-	bh=B05aDEGhPxOz9qxjqo1oM6WpXvxfjmgCQJwzLTnqx7o=;
+	s=default; t=1668014677;
+	bh=pH9EnTs5L3AE9yRrf/TOfLTE3vMWtMQ5hIBy7+jkfxo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sBJG753yQViq36wyfR91Inhyr9XGO69yy3BWMbvQfenjciC701Gr2HNBTsmw3PMlx
-	 CE/li7TDJCXDKAsIbQiW2qmmN4V/jtaMw6LAXK3BG8BPAgpcAGJwNEjIIlqpD4ZTUl
-	 RdPTaBuE2Gd6XsjQ8n9JgjdVS2o2U3QtJ1zdE1+M=
+	b=PbCdw76uDmSlfs7ouhfQtHl6m5UbNo0n1Bakr/oj3uYqRlhf6sXmFmo/GN9rO81q1
+	 i/AkETbpnNLI4xewE15cUvyR27LArCC+zgdHPdqRNPCX8+yPmjMh1cQxYms046f4XA
+	 yLY3+EVLdvCRX7oxoNdtzzRCBbHZNNl3ca1IqWdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1031F80605;
-	Wed,  9 Nov 2022 18:16:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 744D6F80609;
+	Wed,  9 Nov 2022 18:16:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 853BDF8024C; Mon,  7 Nov 2022 13:06:40 +0100 (CET)
+ id 5DD62F8025A; Mon,  7 Nov 2022 15:52:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66FE7F8025A
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 13:06:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66FE7F8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B713EF800AE
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 15:52:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B713EF800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="c4zx5wLH"; 
+ header.b="F7wDDyPb"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="uf/zn+bV"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 1008B2B066C1;
- Mon,  7 Nov 2022 07:06:16 -0500 (EST)
+ header.i=@messagingengine.com header.b="tm2CjukN"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id 10FC32B05D99;
+ Mon,  7 Nov 2022 09:52:06 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 07 Nov 2022 07:06:27 -0500
+ by compute2.internal (MEProxy); Mon, 07 Nov 2022 09:52:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1667822776; x=1667829976; bh=B05aDEGhPx
- Oz9qxjqo1oM6WpXvxfjmgCQJwzLTnqx7o=; b=c4zx5wLHNyF7xm2AkdGG3OUdCb
- RO+l5I2vtO9DaajfBbNfka/dBUIMlboYQcCfJquVMcsj2o9/zEXEI+l2hSRokeuQ
- aqNSYIxr3Y0epBEAgaNnOXQEU50pT5NaDa4fjXvmfNBKbpt4a25wAzOIuLNEMx/j
- a0NvDSHSwrN80f0eXo5zTMav2ja+eJjpbZgEWPnOAm5hx3UlDuHHMYVNOnwUKcFK
- JhVZU1uK1lCqT7Xt4pPHgtY46Pm/9MWSSmC1SBPYRRzq2x1wtOtWfJwfe6msiD2s
- 4ftE1AIcyhD+AKlWVDWP4DZo5gxXIpFxRJOhKEGEM1+6Kwb5JLctiyuKQ9Yg==
+ :subject:to:to; s=fm2; t=1667832726; x=1667839926; bh=pH9EnTs5L3
+ AE9yRrf/TOfLTE3vMWtMQ5hIBy7+jkfxo=; b=F7wDDyPbg4B6cj4BQiM8vMTPkt
+ tkEJFLYEYVOXIksN+jqz4ftMcxZZXnzOddYWfqs9q6bd1iOFwyhB5pE4Fvz/05uZ
+ RF10RSC0RzcIedJ1G2E1LSQq4Zg42bEfK0TSyO7m7id0Yy1xeUuD5zWJX3us817V
+ rjIfPInA1Vwm/QlX4DnPJzUv40Z0ii9fRJxzgHqkydlEG9GHtOtzfSoBBYVuklOY
+ znHltzYI/nV8aA3pqWRO9oD9yS5dvx0Tnbouc9wI5DeGckOnRznPX94uGeI63tXw
+ 4a6YpykXCScaYQzL11169W/UCCuCj+CqGjGcj2LOgIC8IwvROeIK920PT8Og==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
  :feedback-id:from:from:in-reply-to:in-reply-to:message-id
  :mime-version:references:reply-to:sender:subject:subject:to:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1667822776; x=1667829976; bh=B05aDEGhPxOz9qxjqo1oM6WpXvxf
- jmgCQJwzLTnqx7o=; b=uf/zn+bV9iXr/LMxeg8+E1bMrkdm7AISotuw6SbdRTQ/
- bmzu2ZkuuQ5Jzt9xaNZorZoCwetVElpGMEulW+HJm7DFbhBqjRt+oBvI0saqW6ha
- tgMnQ7xcD7FkrucW5A6s2F1c65udztNZ8ZiWPc7xzXIrky/pP6cidenYwLXJ/N/a
- tM/RVYNM/OYKZDXwL9GL4OfR1g5xTlYcDOpTl2Vwv69y82DJ0f0qvqbgBPSIigA4
- pqPSSpx1zgZLtTapbWIl0Ddl7gEq0y+oCYBzSYLsR+EeoYvAAknIs3WM8s/Nx/5b
- jpyc8SaYuZkTPLAbmrS6XMc+jTmbPIH0iOmo3sv8bg==
-X-ME-Sender: <xms:tvRoY3PFGlEb7RJaNxEM6Ugu14yWdBktiA3qTs6-BrcOTKxv9PtG0w>
- <xme:tvRoYx-AxZ1WQ5KPyQzG4GSF9nOnWeHRYhvJyXfy3N24GhiD2xu75K_OjpfjagZWV
- y90fJJ-e5lUpDTgDzY>
-X-ME-Received: <xmr:tvRoY2S_J5RFPZf-4wkcmwOCc_x7XeD76M1-byAnNeAtf22t62skzxbyLnsciOlkPyG3wB15U761HZLZq9yhVcKMElIgfcsK48JM6SyhT4FcOw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvdekgdefhecutefuodetggdotefrodftvf
+ fm1; t=1667832726; x=1667839926; bh=pH9EnTs5L3AE9yRrf/TOfLTE3vMW
+ tMQ5hIBy7+jkfxo=; b=tm2CjukNyGky7m61cEbNeNPEwlXow6RPoGg2KjXghbKg
+ ra/lLyp2zKjbGDhKlZm+A1NYUYItu9u5SMkA9pJHis1as3Cuaw086EXYoGiWAwEc
+ kwmgNzmeS59QVCIvcfLkrQ+Ebrrzyvxm0bLZzUJt64WJNOdWIwV+A1Lm0sxt1PlG
+ pqQrTshYGPUOlH25VHE+1Lo/JkFnLumTSx7pnL0tNbn51t3OP92FWPXw0EfQztVG
+ wtJ4RnEpesPcGbqI0l7+PnoJguGMz6X3T6Oc+iWlaBg8/BNZZbD/jeW+bRR9Y7Mm
+ aeVy4dRLsyWLoksEM3gODq0m5OD2atrQxRTwoulo5w==
+X-ME-Sender: <xms:lBtpY-40Eo4JzBjQaFjHtoUz7QeBdEwcwbk96GIlHmmJELkNOdiNuw>
+ <xme:lBtpY355rFDdDU_5_Zhsu6BuYYJ8FsknqxkvYPdHiPLl5stDZ4ymxPAwZCGrhq1q0
+ rYmNowEFVM52RrtcrQ>
+X-ME-Received: <xmr:lBtpY9dGH4qlk66IJxrnFOeAg7gL0Dzov_oSAqI9d3jUn16Bj4wfUEZhAxYh6xwVb1pD_70A4Fj78DNZ9hmuXeqDZ6FtyKnnZ6v_m9fVoJ9KEg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvdekgdeijecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
@@ -82,27 +82,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrvdekgdefhecutefuodetggdote
  htvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheehfffh
  vedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
  grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:tvRoY7vB8zdfJRUWlKeCfXorc4DFpIxrb30X2e71xu4KD0Npw-oSFw>
- <xmx:tvRoY_dCf9FHlSc7kwHzI7umAVLs1tZN4BwIBGyAX4-0zxT4lWdE_w>
- <xmx:tvRoY30J9PfIrSDM30MzXkeEfxvgGhpJ0dFzuHYby7zDzSEEdQesmg>
- <xmx:uPRoYzkpBG9adcnPxB-xonp3ewdKFqQr6dIQjDA-sX9kYmvTYh0sZ_NCjqM>
+X-ME-Proxy: <xmx:lBtpY7K_De75Z1Qb3KnMLSjsRajiL-H-Ua3gdzprEa6elskIEslNHg>
+ <xmx:lBtpYyJPcAZLuZCZ9YrgeNVP2SDE0zyvQMv9GMV_qnwg12P9XLOYhg>
+ <xmx:lBtpY8zZKJW8BWrb3kvSxaP7pHRcbh-yGdZ8oBvUaVqZHP2VBvAXdw>
+ <xmx:lhtpY2R7H97-NMegP3mWI1QxFbMYDvDajfqDlJ0guaZiDLR4Zxs1FRw326M>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Nov 2022 07:06:13 -0500 (EST)
-Date: Mon, 7 Nov 2022 13:06:11 +0100
+ 7 Nov 2022 09:52:03 -0500 (EST)
+Date: Mon, 7 Nov 2022 15:52:02 +0100
 From: Maxime Ripard <maxime@cerno.tech>
 To: David Lechner <david@lechnology.com>
-Subject: Re: [PATCH v2 21/65] clk: davinci: da8xx-cfgchip: Add a
- determine_rate hook
-Message-ID: <20221107120611.vutsgpgpcorsgzwp@houat>
+Subject: Re: [PATCH v2 54/65] clk: da8xx: clk48: Switch to determine_rate
+Message-ID: <20221107145202.2mne5p2sa4l2dm6g@houat>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-21-f6736dec138e@cerno.tech>
- <187e61cd-7d02-2453-acf1-30180559d42f@lechnology.com>
+ <20221018-clk-range-checks-fixes-v2-54-f6736dec138e@cerno.tech>
+ <6296d944-e03d-6f2b-48b1-3dad78e3c89d@lechnology.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nc45elwfwbnglqoe"
+ protocol="application/pgp-signature"; boundary="kwjqag62r4ghubsj"
 Content-Disposition: inline
-In-Reply-To: <187e61cd-7d02-2453-acf1-30180559d42f@lechnology.com>
+In-Reply-To: <6296d944-e03d-6f2b-48b1-3dad78e3c89d@lechnology.com>
 X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:50 +0100
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
@@ -158,16 +157,16 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---nc45elwfwbnglqoe
+--kwjqag62r4ghubsj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi David,
 
-On Fri, Nov 04, 2022 at 11:45:17AM -0500, David Lechner wrote:
-> On 11/4/22 8:17 AM, Maxime Ripard wrote:
-> > The Davinci DA8xxx cfgchip mux clock implements a mux with a set_parent
+On Fri, Nov 04, 2022 at 11:49:34AM -0500, David Lechner wrote:
+> On 11/4/22 8:18 AM, Maxime Ripard wrote:
+> > The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
 > > hook, but doesn't provide a determine_rate implementation.
 > >=20
 > > This is a bit odd, since set_parent() is there to, as its name implies,
@@ -183,26 +182,38 @@ On Fri, Nov 04, 2022 at 11:45:17AM -0500, David Lechner wrote:
 > > oversight. However, it could also be an explicit decision by the
 > > original author to avoid any reparenting but through an explicit call to
 > > clk_set_parent().
+> >=20
+> > The driver does implement round_rate() though, which means that we can
+> > change the rate of the clock, but we will never get to change the
+> > parent.
+> >=20
+> > However, It's hard to tell whether it's been done on purpose or not.
+> >=20
+> > Since we'll start mandating a determine_rate() implementation, let's
+> > convert the round_rate() implementation to a determine_rate(), which
+> > will also make the current behavior explicit. And if it was an
+> > oversight, the clock behaviour can be adjusted later on.
 >=20
->=20
-> The parent is defined in the device tree and is not expected to change
-> at runtime, so if I am understanding the patch correctly, setting the
-> CLK_SET_RATE_NO_REPARENT flag seems correct.
+> I think this one should be the same as the clk:davinci changes and
+> not allow re-parenting. Since this is a USB 48MHz PHY clock, a rate
+> change will never be requested.
 
-Is that an acked-by/reviewed-by?
+I'm not sure, it doesn't seem to be the same clock, it's not doing the
+same thing (this one will always force the same rate, the others let the
+rate change), and we're not doing the same refactoring (this one had a
+round_rate implementation, the other one doesn't)
 
-Thanks!
 Maxime
 
---nc45elwfwbnglqoe
+--kwjqag62r4ghubsj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY2j0swAKCRDj7w1vZxhR
-xQMwAQCrPeeZ2S11jlGiajn8sRupqFc/kS+IENFSoo8u57CVDQEA8P8p1AEYl25u
-k96e3hU7z8K+yJbTwZo5iph4D4IHFww=
-=Sagk
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY2kbkgAKCRDj7w1vZxhR
+xdnyAPoDUCObUrCr2C1a0eiJzKGIcW+Cl1z7L7QadhXWYBxPJAD+K5Cnal04FAYQ
+nw7UCY5eZErrD6YvLzwUrAeczrFXVQw=
+=GExv
 -----END PGP SIGNATURE-----
 
---nc45elwfwbnglqoe--
+--kwjqag62r4ghubsj--

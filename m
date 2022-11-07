@@ -2,75 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4442361F3D1
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 13:58:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA81861F3E3
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 14:02:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA02183B;
-	Mon,  7 Nov 2022 13:57:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA02183B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B74482A;
+	Mon,  7 Nov 2022 14:01:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B74482A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667825893;
-	bh=oP+JPXoslvHNR0TTVU1Dte4Ism/jYEesbm6/BE1mmT8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667826155;
+	bh=8+c6psCy/ONoLcYN2dYmcBN/EJD5IUKyayz1VRePUcI=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UYC+qfIv+xxRyvh5VndM6ZPduWQ06BE6ToqNqGGTsrQNclkCQ4KnPQg6r0wRcjsqK
-	 TjaIts5TNAIs63tfzZdio2ZXfV5tFV0XyNEfPy+QdYjQ8WOsqLoB+o/4IMQWkF2qXV
-	 v34dkmt6zfhMoB2nPkZTWMefCQu/k+TIi2O8depQ=
+	b=eQSry2jheLCTn4TYXEnm9LjoBO7pgajzYcB60n7sldND/tzL7IGBaXTLjqGmVLDlX
+	 0a8+Q4L1Nkmqvh0Rp5vz1zTnLbx+hWPl8Cl81QDB1yuxqZLt6/Dfy1FcCKI4gSmznE
+	 hOr5W2vCWPyp4bEhqZHRIPUcKfs0XUx2XWpRaIfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4783F804BD;
-	Mon,  7 Nov 2022 13:57:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C7ADF804BD;
+	Mon,  7 Nov 2022 14:01:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 631A6F8025A; Mon,  7 Nov 2022 13:57:19 +0100 (CET)
+ id 9D3CDF8025A; Mon,  7 Nov 2022 14:01:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from aposti.net (aposti.net [89.234.176.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12001F80116
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 13:57:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12001F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D64AF800EC
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 14:01:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D64AF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gewiH/8+"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BF25860FC9;
- Mon,  7 Nov 2022 12:57:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2421EC433C1;
- Mon,  7 Nov 2022 12:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667825832;
- bh=oP+JPXoslvHNR0TTVU1Dte4Ism/jYEesbm6/BE1mmT8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gewiH/8+x2rGTKI0lQrYNA2/19tuJyxggTIJ/tNzPW9Nhn2JcZJhXrLyWM4aBoRsC
- zHWrDffZwmhuIZV5VukfJUNSgf4RYlPlof9tCdoHn0uFZWQlaO2bCmbQBe7mB6xcah
- u1gCXcMeO6fgYnMOv1zVIWaQMkvrvztBH0iC1r7IjjBKni/KZ0Z8/OnkyOiZFlWu5T
- aoo1Ri/DrycnHMKljlNBbX+oK0Qd1PHuSk6sYl63FMdk/n6RcKgnAI1WMudNJW43Io
- //crGdIgpQRdbJbt3QIb79zT6qZmPt3xzdjcP8JnVaOxuziPgpSSBkzP4wRlYpQwIm
- hP108ZCUT/isQ==
-Date: Mon, 7 Nov 2022 12:57:05 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Paul Cercueil <paul@crapouillou.net>
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="iOPNyAbZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1667826094; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jg77whTZveEoQ4sEVKCo7IpSsBmp7pePPNkjnV6eYEg=;
+ b=iOPNyAbZkJoMiPOsLg/c6jtp5DOovGsw0OK1QlusFqCJaikvF+7HoqshP/uAVBPlS6jsEC
+ 6W7tjsyTGC8MvWDJNXqq7zqdxUcd9rYNWbWdouEUQIL/1TE3OGMAeq9x224hILegRFdApk
+ M6HBKtP3l9TPbqVK3CUeD2aNMlXvrVw=
+Date: Mon, 07 Nov 2022 13:01:24 +0000
+From: Paul Cercueil <paul@crapouillou.net>
 Subject: Re: [PATCH] ASoC: dapm: Don't use prefix for regulator name
-Message-ID: <Y2kAoV8gCEZZgHhk@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Message-Id: <CUAZKR.FFCM32N7ZV5C@crapouillou.net>
+In-Reply-To: <Y2kAoV8gCEZZgHhk@sirena.org.uk>
 References: <20221025150149.113129-1-paul@crapouillou.net>
  <166680764848.867857.6473365992161385316.b4-ty@kernel.org>
- <C32ZKR.QZWY19EUAOMQ3@crapouillou.net>
+ <C32ZKR.QZWY19EUAOMQ3@crapouillou.net> <Y2kAoV8gCEZZgHhk@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9pqHOd81BkRAIKBK"
-Content-Disposition: inline
-In-Reply-To: <C32ZKR.QZWY19EUAOMQ3@crapouillou.net>
-X-Cookie: Minimum charge for booths.
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Transfer-Encoding: quoted-printable
 Cc: alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -91,38 +82,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---9pqHOd81BkRAIKBK
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 07, 2022 at 09:52:24AM +0000, Paul Cercueil wrote:
-> Le mer. 26 oct. 2022 =E0 19:07:28 +0100, Mark Brown <broonie@kernel.org> a
+Le lun. 7 nov. 2022 =E0 12:57:05 +0000, Mark Brown <broonie@kernel.org>=20
+a =E9crit :
+> On Mon, Nov 07, 2022 at 09:52:24AM +0000, Paul Cercueil wrote:
+>>  Le mer. 26 oct. 2022 =E0 19:07:28 +0100, Mark Brown=20
+>> <broonie@kernel.org> a
+>=20
+>>  > Applied to
+>>  >
+>>  >   =20
+>> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+>>  > for-next
+>=20
+>>  Small reminder that this is a fix for a bug introduced in -rc1, so=20
+>> it should
+>>  be queued for the next RC.
+>=20
+> This is already queued as a fix.
 
-> > Applied to
-> >=20
-> >    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
-> > for-next
+Ok, thanks. I didn't see it in -rc4 and thought that it was queued for=20
+6.2 instead.
 
-> Small reminder that this is a fix for a bug introduced in -rc1, so it sho=
-uld
-> be queued for the next RC.
+Cheers,
+-Paul
 
-This is already queued as a fix.
 
---9pqHOd81BkRAIKBK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNpAKAACgkQJNaLcl1U
-h9Cv3wf+KPQHMGjS4/PjmYrHL2ocPHd0llgWsbyhCly7rMc+yx9BF5rOn6gSD/kS
-+0JVk2FBoXw3GS3dEyW1hlMTwCp5Xp9W24oa641HM6lZK1xApYx5Kyg1xGleHUze
-Tz0H8FcMOaWZeOlQH7t0iDQ5krvkXkRv0syiKCvvJbsGfNMJQaowXmqK64zP6/Dv
-a+tqPspU0uNFGnNeA3G3rr8o2uzluFzMWSUuVG27qOEEzM3o+JsomgsdCQyNAL7R
-uT6mB70x/rlazWllX2+NtZkVPi88TH21TLiB1zUW0vrxJiNTFFAGZVdQCuWzzgBk
-ApO+L4p5lvjLPngfYitQah6sH/C/0Q==
-=UOGo
------END PGP SIGNATURE-----
-
---9pqHOd81BkRAIKBK--

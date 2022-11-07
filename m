@@ -2,69 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A6861EFA3
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 10:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 727F061F000
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 11:11:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FCEF82E;
-	Mon,  7 Nov 2022 10:52:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FCEF82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAAAB1E0;
+	Mon,  7 Nov 2022 11:10:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAAAB1E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667814817;
-	bh=IZ2hA+QzqHMxmdUCX2CDNivFpViGLnhcjuNlzpl1VgE=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667815880;
+	bh=EVsUDrhylFai08uDMeK0lu+wEAYcOOxk9y34A0yc6t0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rma0lVbhfhxgr5spD1gUAkNFDtrIj9LbO0eZePJiUq9zZMKSrIAopv3yHRURAg4U4
-	 wXD+yh3VnXiDuzsao0v27C8/2qOK0SdWKAAwblMsyZUqPuNKyJ6HrpatbbFEsqQvWd
-	 3gGKguYyaAgZNMV3UwUjhnX+/+pd7QcXioKXvDkg=
+	b=LDfXMHQgOaE+hU5ENN8sRjg9ppP1hKJQodTfpV8AmcsAPlkowsJ7kK4B4OGTbi00F
+	 0B+zfRLJNkWSJ0Et6rBYwfU3EfFy5QVmug3xmQ+xdfpxWWq7oFGdqVEcnktCSZmjTr
+	 4vVvXVR/UNKOTRLN6PALdf0taZmn6e2DsHqFlCjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1344F800AE;
-	Mon,  7 Nov 2022 10:52:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EFEFF800AE;
+	Mon,  7 Nov 2022 11:10:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F175F8025A; Mon,  7 Nov 2022 10:52:39 +0100 (CET)
+ id C0D17F8025A; Mon,  7 Nov 2022 11:10:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D45A5F800EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 10:52:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D45A5F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D264F800AE
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 11:10:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D264F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="Gzdw9P+3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1667814754; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NizqJD8Q016qLqC4Ks9C9UDul8yMaAw6Z3zOtKOWClE=;
- b=Gzdw9P+3UW7itQ/BwCwX4xeIRqQcDWBZHmZag2uZrSuaL+UHXqZPCupe6cIVRQsno4JoFB
- r//slxRQEfrkwFMol9aaskeYzFWa9L2iSBKs2u0BaU3o+kmwvX9x1R286KHIdHP5DXDgO6
- w1nx9bGrSKSTm3umNGthAZoYlywOcss=
-Date: Mon, 07 Nov 2022 09:52:24 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH] ASoC: dapm: Don't use prefix for regulator name
-To: Mark Brown <broonie@kernel.org>
-Message-Id: <C32ZKR.QZWY19EUAOMQ3@crapouillou.net>
-In-Reply-To: <166680764848.867857.6473365992161385316.b4-ty@kernel.org>
-References: <20221025150149.113129-1-paul@crapouillou.net>
- <166680764848.867857.6473365992161385316.b4-ty@kernel.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="IFHKftRT"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A75cAPq015477; Mon, 7 Nov 2022 04:10:13 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=W+CLnYPyUu0FQxpvhbNOyp8OvpfWBZPtCzOY3DXt5S0=;
+ b=IFHKftRT5f4U5aIzBHn7DWcUpZ1U5L1skecCIwns7A9Fq3Y7y4dXxRV2xhuI9wy9dzQY
+ 4ecqkg4qxOq3tqbuPrEVG1LSc2s0YMD9IrX/wCh1MgJ/koTm5IEm/s/jTzq0h3DVnREl
+ F+sZRLA/3Mn+zfvRv3rLEn2OfDXOeIx4h3W+j5F4M5zDdhRamMnWmT+WuUGnIazi4wN3
+ xe7kh2/+w452X95wDabk5EYqfmCGJ2FNHNQ5Pj6688vvpi2Az6ccKrSHO+mF8LWabJTp
+ YAzMuAzwa5D/pkueqcBOwgZT9KAcNXCIsRuvA9gw/9xNKh90U583FRzTUBJioeuS4mwu qQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3knn81j2mt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Nov 2022 04:10:13 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Mon, 7 Nov
+ 2022 04:10:11 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.15 via
+ Frontend Transport; Mon, 7 Nov 2022 04:10:11 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F0A55468;
+ Mon,  7 Nov 2022 10:10:10 +0000 (UTC)
+Date: Mon, 7 Nov 2022 10:10:10 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Chancel Liu <chancel.liu@nxp.com>
+Subject: Re: [PATCH] ASoC: wm8962: Wait for updated value of WM8962_CLOCKING1
+ register
+Message-ID: <20221107101010.GD10437@ediswmail.ad.cirrus.com>
+References: <20221107063818.2468193-1-chancel.liu@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221107063818.2468193-1-chancel.liu@nxp.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: pBotZGE4lalnutjQ3nXDuy48PLdn9Riu
+X-Proofpoint-GUID: pBotZGE4lalnutjQ3nXDuy48PLdn9Riu
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, xiaolei.wang@windriver.com, cmo@melexis.com,
+ patches@opensource.cirrus.com, shengjiu.wang@nxp.com, tiwai@suse.com,
+ chi.minghao@zte.com.cn, lgirdwood@gmail.com, broonie@kernel.org,
+ u.kleine-koenig@pengutronix.de, ojeda@kernel.org, steve@sk2.org,
+ luca.ceresoli@bootlin.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,55 +103,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+On Mon, Nov 07, 2022 at 02:38:18PM +0800, Chancel Liu wrote:
+> DSPCLK_DIV field in WM8962_CLOCKING1 register is used to generate
+> correct frequency of LRCLK and BCLK. Sometimes the read-only value
+> can't be updated timely after enabling SYSCLK. This results in wrong
+> calculation values. Delay is introduced here to wait for newest value
+> from register. The time of the delay should be at least 500~1000us
+> according to test.
+> 
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> ---
+>  sound/soc/codecs/wm8962.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+> index b4b4355c6728..563843565f68 100644
+> --- a/sound/soc/codecs/wm8962.c
+> +++ b/sound/soc/codecs/wm8962.c
+> @@ -2503,6 +2503,14 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+>  		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+>  				WM8962_SYSCLK_ENA_MASK, WM8962_SYSCLK_ENA);
+>  
+> +	/* DSPCLK_DIV field in WM8962_CLOCKING1 register is used to generate
+> +	 * correct frequency of LRCLK and BCLK. Sometimes the read-only value
+> +	 * can't be updated timely after enabling SYSCLK. This results in wrong
+> +	 * calculation values. Delay is introduced here to wait for newest
+> +	 * value from register. The time of the delay should be at least
+> +	 * 500~1000us according to test.
+> +	 */
+> +	msleep(1);
 
-Le mer. 26 oct. 2022 =E0 19:07:28 +0100, Mark Brown <broonie@kernel.org>=20
-a =E9crit :
-> On Tue, 25 Oct 2022 16:01:49 +0100, Paul Cercueil wrote:
->>  When a component has a prefix, and uses a=20
->> SND_SOC_DAPM_REGULATOR_SUPPLY,
->>  the name of the regulator should not use the prefix, otherwise it=20
->> won't
->>  be properly matched in the DT/ACPI.
->>=20
->>=20
->=20
-> Applied to
->=20
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git=20
-> for-next
+This looks reasonable but for a 1ms delay we should really be
+using usleep_range rather than msleep.
 
-Small reminder that this is a fix for a bug introduced in -rc1, so it=20
-should be queued for the next RC.
-
-Cheers,
--Paul
-
-> Thanks!
->=20
-> [1/1] ASoC: dapm: Don't use prefix for regulator name
->       commit: 1683d3282f240336a2b4b6b541d435facfe8bbb6
->=20
-> All being well this means that it will be integrated into the=20
-> linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
->=20
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems=20
-> and
-> send followup patches addressing any issues that are reported if=20
-> needed.
->=20
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
->=20
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
->=20
-> Thanks,
-> Mark
-
-
+Thanks,
+Charles

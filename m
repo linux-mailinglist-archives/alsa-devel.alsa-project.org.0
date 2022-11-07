@@ -2,76 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D2561F8A3
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 17:13:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF0C61FA27
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 17:42:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D6C983B;
-	Mon,  7 Nov 2022 17:13:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D6C983B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB2D1DD;
+	Mon,  7 Nov 2022 17:41:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB2D1DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667837635;
-	bh=Db683hampCuZTP16Yrgc889NP7L7eCCVMISCrOD8GKE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1667839328;
+	bh=rV0FEWDWEX3pw5xk/P6Od1hD9YTelKAB+AEHNXGucGw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tNpCZv/iOERRAsBaynPkHwJtf47GIDcI5ekz/mzTCJh83g/AQwAOhQ4gIRcXnk3f5
-	 FTuDyZ+WHluluMi6Un21rq+IKdP0Rv79btDeer2wIwmOjS4wEU8QgjCFaaY4o3HRXF
-	 pOxWSTgUItG5Vc3K/VXc7GsY6xyu/QyZnW7KnyRQ=
+	b=a/gMLzooAChpntVtTljnJXuv3dtnfY0CNd5k5UIQJh5o2kQa5PjxB/zksn7solLSM
+	 e9xs9mXUY3XME9DuWRh1kqDzkS8QPetgML9zjw8YqXsa/I+mKhOeMTfKGIQDXfloe5
+	 nh9R3dvLTS23UImKOpJT/Tq2uRiG46wL1C6rzTMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 184A9F804DF;
-	Mon,  7 Nov 2022 17:12:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7E8DF804BD;
+	Mon,  7 Nov 2022 17:41:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B39F1F804DF; Mon,  7 Nov 2022 17:12:37 +0100 (CET)
+ id AAB2CF8025A; Mon,  7 Nov 2022 17:41:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 154D9F80116
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 17:12:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 154D9F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id 294B9F800AE
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 17:41:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 294B9F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e1pjMXY3"
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="1kLSFg96"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D355E61191;
- Mon,  7 Nov 2022 16:12:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75176C43470;
- Mon,  7 Nov 2022 16:12:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667837551;
- bh=Db683hampCuZTP16Yrgc889NP7L7eCCVMISCrOD8GKE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=e1pjMXY3bNKWx8NEoDBjxFLFl7m0jj7uVVfBqRYXuNyFRXBUWFduAMDnJX9HEQzgs
- mTFUxqL5lp0Qxzn11YaZE3JFYfIJksKjQNj1730UleKqBUjWA4F1axEknja7Uu9rgC
- ZuKgkqHbbQB0fUcccpw9NxoNxA+ZzsZgUyzjwdsItMtYuE/OodD4ocyGgaojLXxZZW
- 4UaGIjvYc+V1HnDgrJIMA91K3sI5ed4ZqnxY/2gzVnXedtJtWJ9688kx0NAPWNpGqy
- oewpGT06W0XEJ2JOeGGS26EuiTmIoTyJ+piTi+6DjvxH/mmo/HYr4A3mGaFDcJyTgf
- SWS4YYwUET/XQ==
-From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com
-In-Reply-To: <20221107090433.5146-1-peter.ujfalusi@linux.intel.com>
-References: <20221107090433.5146-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: topology: No need to assign core ID if token
- parsing failed
-Message-Id: <166783755020.206087.17291687088093107144.b4-ty@kernel.org>
-Date: Mon, 07 Nov 2022 16:12:30 +0000
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2C650611C2;
+ Mon,  7 Nov 2022 16:41:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A72FC433C1;
+ Mon,  7 Nov 2022 16:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1667839261;
+ bh=rV0FEWDWEX3pw5xk/P6Od1hD9YTelKAB+AEHNXGucGw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=1kLSFg96R6WxIT17jCcSOuD/8/wkolVtUWEQLk7do6PfaB0tcc8Z/ROW20FqiK0sw
+ f2obEh4jVYXdqaw0uJVhOCpE622woq5+3NfNZgYoKNEwrsGTwQgMiZrVeTrceqhG2h
+ uiuxY1uV/hm6jjzPPcaE4Mykre3OyPJ5gJspyUqA=
+Date: Mon, 7 Nov 2022 17:40:58 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: John Veness <john-linux@pelago.org.uk>
+Subject: Re: [PATCH] ALSA: usb-audio: Add quirks for MacroSilicon
+ MS2100/MS2106 devices (4.9-5.4)
+Message-ID: <Y2k1GvrY8WrX/g4+@kroah.com>
+References: <20221107160536.27565-1-john-linux@pelago.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221107160536.27565-1-john-linux@pelago.org.uk>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +82,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 7 Nov 2022 11:04:33 +0200, Peter Ujfalusi wrote:
-> Move the return value check before attempting to assign the core ID to the
-> swidget since we are going to fail the sof_widget_ready() and free up
-> swidget anyways.
+On Mon, Nov 07, 2022 at 04:05:36PM +0000, John Veness wrote:
+> commit 6e2c9105e0b743c92a157389d40f00b81bdd09fe upstream.
 > 
-> Fixes: 909dadf21aae ("ASoC: SOF: topology: Make DAI widget parsing IPC agnostic")
+> Treat the claimed 96kHz 1ch in the descriptors as 48kHz 2ch, so that
+> the audio stream doesn't sound mono. Also fix initial stream
+> alignment, so that left and right channels are in the correct order.
 > 
+> Signed-off-by: John Veness <john-linux@pelago.org.uk>
+> Link: https://lore.kernel.org/r/20220624140757.28758-1-john-linux@pelago.org.uk
+> Cc: <stable@vger.kernel.org> # 5.4
+> Cc: <stable@vger.kernel.org> # 4.19
+> Cc: <stable@vger.kernel.org> # 4.14
+> Cc: <stable@vger.kernel.org> # 4.9
 > 
-> [...]
+> ---
+> Backported to 4.9-5.4.
 
-Applied to
+Now queued up, thanks.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: SOF: topology: No need to assign core ID if token parsing failed
-      commit: 3d59eaef49ca2db581156a7b77c9afc0546eefc0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+greg k-h

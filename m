@@ -2,78 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2462B61EE29
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 10:05:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FAB561EE39
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Nov 2022 10:08:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A79F2822;
-	Mon,  7 Nov 2022 10:04:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A79F2822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BBA614E;
+	Mon,  7 Nov 2022 10:07:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BBA614E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667811912;
-	bh=wzcadR9LYAZH8hRy9PL/sijlwCn6gSnkuD0BoN2O3IY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Dnrh/BMPzQCQEgJPAUbvEhs/WlY8yOLs4RROjrMAP8iZOtd2GogoK3z7tQrrcN29g
-	 bQy7Y2nPDKJ2L7ziQznL7et2NXI0KWa4rRGbPIphsaFhEofF7Zup21YbENiMhuzErR
-	 gnSCiIXIrmskRdEqlSIZp+lhxUJstuihP3rYeAa4=
+	s=default; t=1667812079;
+	bh=LII2H+Y0rK9SUnBNSYFRD9K7i5ZCtRMMy7uIrtE0TUg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XEhnK2jYnEsKj6qipL5WORpxKTQYkrxiCCvYkqIOakLE699XwnMbifbsV5COao0W2
+	 VX32hwqPKNTt3FG/ycdoYmRqr9rAbuGwtMTkxOSwtmJukp8fY9qBe3pklY9Gz1SGpd
+	 UEI/731qxTxMOTWXvP4CCP4XIEWZU/JfbF9brmFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CDF7F804BD;
-	Mon,  7 Nov 2022 10:04:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AD5EF800EC;
+	Mon,  7 Nov 2022 10:07:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A05ADF8025A; Mon,  7 Nov 2022 10:04:15 +0100 (CET)
+ id 2165AF8025A; Mon,  7 Nov 2022 10:07:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 308A0F800EC
- for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 10:04:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 308A0F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEFA6F800EC
+ for <alsa-devel@alsa-project.org>; Mon,  7 Nov 2022 10:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEFA6F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="C9mekZUN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667811850; x=1699347850;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=wzcadR9LYAZH8hRy9PL/sijlwCn6gSnkuD0BoN2O3IY=;
- b=C9mekZUNM6o8D2fggGf0xhQeCrmJnBBuFF3wOKhRDOy3Knln6yREACDM
- VONN3cL7Tr2qpronx61cFxJPsLyhJVUltjDDAOaisivTBXi8JRWKxYUkh
- 9MS2AAheT7YkF3dCP5A/eV78vEkP/lDQrqmwYUyJyKTbUZnALm4rBfoN9
- y0HbO1Ds5zLfjYzZeJaFRkgwiSI6oz1zE1g3Ddgk2GB9Hu/4IqmH1iSTT
- 7LuEbrqULoO+6JGgkHiBLcBJ5Ca1tZ2+Khb4aLA8omNz7SYMzeutf1oMl
- yO/3u3wYmFRimOa062j6SRiUJ/nZ5IJdFiF7XAMDFI7JGCwJT8jtnFCDe w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="311498691"
-X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="311498691"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 01:04:06 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="741412431"
-X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="741412431"
-Received: from akharade-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.14.37])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 01:04:04 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: topology: No need to assign core ID if token
- parsing failed
-Date: Mon,  7 Nov 2022 11:04:33 +0200
-Message-Id: <20221107090433.5146-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.38.1
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="PUJmhsIq"
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9AF786602253;
+ Mon,  7 Nov 2022 09:06:53 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1667812014;
+ bh=LII2H+Y0rK9SUnBNSYFRD9K7i5ZCtRMMy7uIrtE0TUg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PUJmhsIqx5ppfwm/FnTucgZCGPenhimrZ76lVA9gAFeOYQ5GFqNrxQVIRQaEQoRHP
+ 9Gw3CzJErSqcLH5nD/PF+lHE0owVpX0hTsyMPrXxlvK0BZ2NASiKGuyx4IzpTJd55X
+ arfVJ43WIQFa7QwK9gHG93kk7+CZQx2+zuR1YtEl7ae03TgE5VhUM8mOkBliJufBbJ
+ 0hj7f8PXq27VIooNONnMEGSebVhNThWeKTfg4gRnggSPFQkexuK+5d/B3FY563nY2Q
+ Vo/EYkePlVh5CL9Sl/dbDhTDp+xIPsnriS9UxHXDUTcYn66szeE8QcyJaEq+NgdsWh
+ iWJ4z+JUtYQxw==
+Message-ID: <63325548-63c6-8405-6481-3b019e7dd656@collabora.com>
+Date: Mon, 7 Nov 2022 10:06:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH 1/2] ASoC: mediatek: mt8183-da7219: Register to module
+ device table
+To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20221104212409.603970-1-nfraprado@collabora.com>
+Content-Language: en-US
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20221104212409.603970-1-nfraprado@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+Cc: Miaoqian Lin <linmq006@gmail.com>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-mediatek@lists.infradead.org,
+ Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,57 +97,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move the return value check before attempting to assign the core ID to the
-swidget since we are going to fail the sof_widget_ready() and free up
-swidget anyways.
+Il 04/11/22 22:24, Nícolas F. R. A. Prado ha scritto:
+> Register the compatibles for this module on the module device table so
+> it can be automatically loaded when a matching device is found on the
+> system.
+> 
+> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+> 
 
-Fixes: 909dadf21aae ("ASoC: SOF: topology: Make DAI widget parsing IPC agnostic")
+Hello Nícolas,
+I agree but.... can you please do the same for 8192, 8195, 8186?
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/topology.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+Getting them all in one series would make absolute sense... :-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 38855dd60617..6a0e7f3b5023 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1344,16 +1344,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 		break;
- 	}
- 
--	if (sof_debug_check_flag(SOF_DBG_DISABLE_MULTICORE)) {
--		swidget->core = SOF_DSP_PRIMARY_CORE;
--	} else {
--		int core = sof_get_token_value(SOF_TKN_COMP_CORE_ID, swidget->tuples,
--					       swidget->num_tuples);
--
--		if (core >= 0)
--			swidget->core = core;
--	}
--
- 	/* check token parsing reply */
- 	if (ret < 0) {
- 		dev_err(scomp->dev,
-@@ -1365,6 +1355,16 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 		return ret;
- 	}
- 
-+	if (sof_debug_check_flag(SOF_DBG_DISABLE_MULTICORE)) {
-+		swidget->core = SOF_DSP_PRIMARY_CORE;
-+	} else {
-+		int core = sof_get_token_value(SOF_TKN_COMP_CORE_ID, swidget->tuples,
-+					       swidget->num_tuples);
-+
-+		if (core >= 0)
-+			swidget->core = core;
-+	}
-+
- 	/* bind widget to external event */
- 	if (tw->event_type) {
- 		if (widget_ops[w->id].bind_event) {
--- 
-2.38.1
+in the meanwhile, for this one:
+
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+> ---
+> 
+>   sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+> index 9f22d3939818..0e572fe28c58 100644
+> --- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+> +++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+> @@ -842,6 +842,7 @@ static const struct of_device_id mt8183_da7219_max98357_dt_match[] = {
+>   	},
+>   	{}
+>   };
+> +MODULE_DEVICE_TABLE(of, mt8183_da7219_max98357_dt_match);
+>   #endif
+>   
+>   static struct platform_driver mt8183_da7219_max98357_driver = {
+
 

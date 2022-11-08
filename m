@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D41620E4A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 12:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EF3E620E5C
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 12:14:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05089868;
-	Tue,  8 Nov 2022 12:09:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05089868
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA158836;
+	Tue,  8 Nov 2022 12:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA158836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667905845;
-	bh=xcl801rNi7Jh6Jo/hu/Jbz9lZkngLXNu9cMkPtXUrh8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UbYesUDVp2eWJgc6haeyL9QJteeSsm3jv0h3miRShjYxnPMqKBk2E9kgnr9+V33E2
-	 H9zrB8KgcfyQdFeprzbp0+KvijYGYjacgpwgQ9II3YpUsHrDJNiQJAob0qREub2EX4
-	 x4WHmXJw7akfj8LDQCKoTB8Zm+Ys3M+Im90CRE3E=
+	s=default; t=1667906083;
+	bh=SG2KOW8IpHQ/cgSwFxFS74e9sORdsT1d4PhikDg76iA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vAwGYEuL797StxjlvsEFhIFA/4WLiNKoa4aIH0qnC2B2qEX+Zw3L/GRuni0QLQQbC
+	 63qJ4WfvjrAlpSBAjrjTJ0cm+7/upy8coTi3kLqLYEIjGGFwkpgb4qy4YQqhsKPk8h
+	 8QEjHjO6e0cg76MgVuVlnGnMfpIwRsZzCHXHgDQQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D29EF8016A;
-	Tue,  8 Nov 2022 12:09:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67EC2F8020D;
+	Tue,  8 Nov 2022 12:13:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0317AF801D8; Tue,  8 Nov 2022 12:09:48 +0100 (CET)
+ id 8CB79F801D8; Tue,  8 Nov 2022 12:13:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
- [IPv6:2607:f8b0:4864:20::933])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5475F800EC
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 12:09:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5475F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 138EDF800EC
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 12:13:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 138EDF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ZHUwRUHM"
-Received: by mail-ua1-x933.google.com with SMTP id i16so4691499uak.1
- for <alsa-devel@alsa-project.org>; Tue, 08 Nov 2022 03:09:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xcl801rNi7Jh6Jo/hu/Jbz9lZkngLXNu9cMkPtXUrh8=;
- b=ZHUwRUHMlsd+uune7sAXQUqlyoGj17Cph+iZZ0v3cRtb0ZZfwNsfvleGyTzasdKFXI
- QQ5BmiwQJoxP5/GrJF2+TxE0RkhKKX1mgOBOPP/3neMswl6d8ENmV8rZJebfekhajTuV
- xhwoyHRDFghPMry1bA8wATRGJyA8JkSuwUaNU=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="FcEGwYjC"
+Received: by mail-wr1-x433.google.com with SMTP id bk15so20365480wrb.13
+ for <alsa-devel@alsa-project.org>; Tue, 08 Nov 2022 03:13:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ji1uJ+VLtBXdsvcmViF94zHW4mvj6ILjubVPOBa2RGk=;
+ b=FcEGwYjCjOAWlZBOIMa7ZQ4a0r7fjKHCjXGwv6eEgRptjbks2AcaLEjE4LXrZ6/cwR
+ 6fVi8OZK2w3hjePpvuZYFdSpywBj2bBLzGVnQYaqioLDYdLPmqY3peQsKsycb03l15Z8
+ ZA4yGIGnf8jjE/EK6x+qdno7S0q67sTqlm63dD4vNUYtoJTvtCB0DaylSu9tLarF2hZ0
+ Ff/DF28CFfw2W0nHpQBZyWA6x80H0IzIkILhxuH7GttHNZWRnfaRIZTXiyzwXmKjd7uw
+ n7o73pWfkqcOudywpPZwp1fiJ3Dn7HkFMpDIoqwSatAioYA2JmzgoijK9zxDvEgvSzcJ
+ n7GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xcl801rNi7Jh6Jo/hu/Jbz9lZkngLXNu9cMkPtXUrh8=;
- b=NvCgAy1Hb5S7UHHcO14ahSTtOfBm/bBh1L+tLUbTTNZneiluDnJOzUmjy9TcmyxxqR
- YFXizFUe75PhVo0Ft8RxLuKVABcC4gdkB60ToCYLpQIOtQl9p1DZ1c1n6o7SoYe2jqAq
- 4OPI8tVHu/Ytp0+ihx6iZjPATdImOEHaDMGLxhFqu069+voHWZOrwWGb9wnNIj028I6+
- ML4Z/q71WEE4jkrZSFgKA6xGrfMk1ySJs6AcX4arCh3N2v7JCrMOzd36vtDbHL6ENHAD
- 0ddegOGcqY5sWeaLZnxuFVHvZ3HYYDylXVaUP6IHEMm5llel4bw9EPbSOmhKWe7rZlLH
- DZUw==
-X-Gm-Message-State: ACrzQf0mrfuG7/ZNJJSCa2SxCdGOn+vtBhabjypLux4EB2vk1t7/6iEf
- Wb3vVKltHpDB73+bNyCAWottCf9kfF6eS8bCO7sP5A==
-X-Google-Smtp-Source: AMsMyM6sjG+3Ik/dtstkJiPnbQ2Nxhh/biLDiEKU7uJHUe6uWGF9l33bHbxbqAeo3fH4zVwtXXQY39IBCfY5SWIe9D0=
-X-Received: by 2002:ab0:a95:0:b0:3ad:bbe7:e134 with SMTP id
- d21-20020ab00a95000000b003adbbe7e134mr16528144uak.43.1667905779999; Tue, 08
- Nov 2022 03:09:39 -0800 (PST)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ji1uJ+VLtBXdsvcmViF94zHW4mvj6ILjubVPOBa2RGk=;
+ b=ncKt8cexvetsHnWqG7hdxQYb7tC46akV6YtCkd+DkcAtVlGG8pczHocAW9BPdktJU7
+ Xw54C4vjZpPFdHdVnSgUr6rN7QOyJdCXq8JKMAThjMOUx/a5JePuVEE2lD7+ex1ydL2F
+ b8Fn7jFbn4sgQiyeHASi/a74FknG+pL+9l2D0ceXDx6tPiysQbmLqRzqtrkPeD5Bisy7
+ sJnNePknrTyx5QfSS+q5QJc7iLtwGMK/JrtCOpSHBdOv3dAM5Y08J1FMGBHu5sUxht21
+ IVkCK6eNhOzSyukFHVDIAXkcHUZlYXOfNnqkwnMieQkJS6o2h9fIui5PZVLW9ZJYsUYp
+ K39g==
+X-Gm-Message-State: ACrzQf1kEQDnuMxwS7Hy2j72prtBKEcwv4IcK0vM0vF3lsRSsC1eQ4MM
+ Rmm3O9sw2oQWTxgGrH5Xx60=
+X-Google-Smtp-Source: AMsMyM4l7Rfl+oM7BrNdp0vHXFkwDB6KbmzTO/A7TvXqqrdeNjv10bttLp2lz1DOqxrjbIbx1pUiEw==
+X-Received: by 2002:adf:a45a:0:b0:236:9aa8:e675 with SMTP id
+ e26-20020adfa45a000000b002369aa8e675mr35498723wra.407.1667906022008; 
+ Tue, 08 Nov 2022 03:13:42 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ n10-20020a5d420a000000b0023682011c1dsm9840843wrq.104.2022.11.08.03.13.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Nov 2022 03:13:41 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
+ alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org
+Subject: [PATCH] ASoC: tegra: Fix spelling mistake "fliter" -> "filter"
+Date: Tue,  8 Nov 2022 11:13:40 +0000
+Message-Id: <20221108111340.115387-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221107160437.740353-1-nfraprado@collabora.com>
- <20221107160437.740353-10-nfraprado@collabora.com>
- <2f2bdebf-8566-7740-733a-79c6e1938c84@collabora.com>
-In-Reply-To: <2f2bdebf-8566-7740-733a-79c6e1938c84@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 8 Nov 2022 19:09:29 +0800
-Message-ID: <CAGXv+5EE6OjKcki+40nKLs6wz6iRybpoxD1X4gJ+Z1CDHomtvg@mail.gmail.com>
-Subject: Re: [PATCH 9/9] ASoC: mediatek: mt8195-mt6359: Register to module
- device table
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel@alsa-project.org,
- =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- kernel@collabora.com, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,19 +104,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 8, 2022 at 4:43 PM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Il 07/11/22 17:04, N=C3=ADcolas F. R. A. Prado ha scritto:
-> > Register the compatibles for this module on the module device table so
-> > it can be automatically loaded when a matching device is found on the
-> > system.
-> >
-> > Signed-off-by: N=C3=ADcolas F. R. A. Prado <nfraprado@collabora.com>
->
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
+There is a spelling mistake in struct member fliter_structure.
+Fix it.
 
-Tested-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ sound/soc/tegra/tegra210_mbdrc.c | 4 ++--
+ sound/soc/tegra/tegra210_mbdrc.h | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-The module was automatically loaded.
+diff --git a/sound/soc/tegra/tegra210_mbdrc.c b/sound/soc/tegra/tegra210_mbdrc.c
+index d786daa6aba6..eeacb1220268 100644
+--- a/sound/soc/tegra/tegra210_mbdrc.c
++++ b/sound/soc/tegra/tegra210_mbdrc.c
+@@ -54,7 +54,7 @@ static const struct tegra210_mbdrc_config mbdrc_init_config = {
+ 	.mode			= 0, /* Bypass */
+ 	.rms_off		= 48,
+ 	.peak_rms_mode		= 1, /* PEAK */
+-	.fliter_structure	= 0, /* All-pass tree */
++	.filter_structure	= 0, /* All-pass tree */
+ 	.shift_ctrl		= 30,
+ 	.frame_size		= 32,
+ 	.channel_mask		= 0x3,
+@@ -819,7 +819,7 @@ int tegra210_mbdrc_component_init(struct snd_soc_component *cmpnt)
+ 
+ 	regmap_update_bits(ope->mbdrc_regmap, TEGRA210_MBDRC_CFG,
+ 		TEGRA210_MBDRC_CFG_FILTER_STRUCTURE_MASK,
+-		conf->fliter_structure <<
++		conf->filter_structure <<
+ 		TEGRA210_MBDRC_CFG_FILTER_STRUCTURE_SHIFT);
+ 
+ 	regmap_update_bits(ope->mbdrc_regmap, TEGRA210_MBDRC_CFG,
+diff --git a/sound/soc/tegra/tegra210_mbdrc.h b/sound/soc/tegra/tegra210_mbdrc.h
+index 4c48da0e1dea..76e443a7934e 100644
+--- a/sound/soc/tegra/tegra210_mbdrc.h
++++ b/sound/soc/tegra/tegra210_mbdrc.h
+@@ -199,7 +199,7 @@ struct tegra210_mbdrc_config {
+ 	unsigned int mode;
+ 	unsigned int rms_off;
+ 	unsigned int peak_rms_mode;
+-	unsigned int fliter_structure;
++	unsigned int filter_structure;
+ 	unsigned int shift_ctrl;
+ 	unsigned int frame_size;
+ 	unsigned int channel_mask;
+-- 
+2.38.1
+

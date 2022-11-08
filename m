@@ -2,99 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5380621630
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 15:24:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE234621734
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 15:47:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6345483D;
-	Tue,  8 Nov 2022 15:23:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6345483D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96F4786E;
+	Tue,  8 Nov 2022 15:47:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96F4786E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667917445;
-	bh=y5waDTucr8M9senmenVxhrnzP+/dHQm62hUanvGi+9U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=luskA1hP44rzLITPeTXITWAqGoCPYBzsgcRZW65BDlzN5345aie7aKkK36qLzGhXs
-	 3ErfSB8mfY20dw9BA1TE7mdMnVcXSP2FP4+6f4pxMZo8DBwFl9AHayIqjgXn8lSolA
-	 Bc/ghKA14Shn6W0AfdlGSRa3ErIT8JSiSharXldg=
+	s=default; t=1667918872;
+	bh=RMyu/TDNhMiSLZgPEfg4PPfz0KV8hBP6tnFr8sWoXS0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=I1ltUT/UOy/HFq/D9l3L8cUQ4XaoMOYFggxnMrRhUsQsr2SfiPcYGVpF2XDCyF7wf
+	 gDkFyhsfjaC++dt63Hc8EC9IMFa/vh+pGwtSvcPURAQr4VZ/jzhm66ZlKi7VbmhEAn
+	 gghgVp3DiHPyIG7eZBDndmg1bWAXaM2+XShvKvQ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDB50F800EC;
-	Tue,  8 Nov 2022 15:23:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7E6DF800EC;
+	Tue,  8 Nov 2022 15:46:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C33E7F801D8; Tue,  8 Nov 2022 15:23:08 +0100 (CET)
+ id EC403F8025D; Tue,  8 Nov 2022 15:46:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81EFBF800EC
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 15:23:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81EFBF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22F05F800EC
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 15:46:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F05F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="agAlO/bM"
-Received: by mail-ej1-x633.google.com with SMTP id ud5so39050635ejc.4
- for <alsa-devel@alsa-project.org>; Tue, 08 Nov 2022 06:23:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GZnCIJm+9B9Ff3S7OWyd9EMrH+oJEijKOQtTrhJPK+s=;
- b=agAlO/bMjNZS419ehoNlmwo2Y3uNQo3ftrHa5OJ/v85dpmTW2ZHHGQiC/d2IInAH6Q
- bXsfqUjpx6U4PYhKzxvNAGWYqVfyxrpZmgeCp4vXJXchbebK4Z8r9eRU2Lbyh7zP+9zB
- OPgKlTmoMsW0FhFtUQX9eFr+L8Wutp/3Z6x4bOXxO41O/02ThSKw04jJZ9HxbXDgiiaw
- f9LCjvKZ+1HEX5fU9JcsPdqZ1ue6P3KqOfqU4UEb9hhiXtw98Z5puryOztK7QlP/ievA
- NQY3vq9hsbYWxf1oNyy4TwscGpGG4mOTgSH5IJnZxRGOHdRKEkValcr9dgsbQBJoH7SC
- 3dZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GZnCIJm+9B9Ff3S7OWyd9EMrH+oJEijKOQtTrhJPK+s=;
- b=B/KRdvVjkiWYQRAa4bcsgnoZPzR8VpPplaLI5a53CbWRqTAgw8jHsIiSZBNdNCpPWF
- weOHqKV5I9CY6tUProfcIsG9TMYGraR468EAzOSk24hsQPR7zYf39wSy/C9kzCt91lAE
- fUX19f7TOTwdmt1SpnE/7vBR28XPK/ZMZQvYUXehbRmk0OrQGLqmBwq1NXJFTzzUIGd5
- FLlaCblI67Dq8bWmogbsVBAXyP9RaLVE6gxiokg75B9gyTH3cVHJrm75kuXLb4umfuqL
- RPQ/OUvLxVxCbS4VTfgGK0qHV9lKYSzWxH470uEPjSKGDLDPWE+hcgXMoDtD0mWmVpIU
- FTdw==
-X-Gm-Message-State: ACrzQf0+9NuGzXgIucW+zX7wr62A63Vws5iNZ79PVHQWDHDHadzK0bKm
- eigmAggzPTHAf5EQwxREAFo=
-X-Google-Smtp-Source: AMsMyM7a+rXh6egmJgCV4yYsRFUfXuNmozOuHYPfp6VM6AmrwLU5W5iyiq4aYfT7oDW/qdMpn2to/A==
-X-Received: by 2002:a17:907:a46:b0:782:1c1c:8141 with SMTP id
- be6-20020a1709070a4600b007821c1c8141mr54460080ejc.549.1667917380673; 
- Tue, 08 Nov 2022 06:23:00 -0800 (PST)
-Received: from orome (p200300e41f201d00f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f20:1d00:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- q15-20020a17090676cf00b007ad94422cf6sm4635674ejn.198.2022.11.08.06.22.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Nov 2022 06:22:59 -0800 (PST)
-Date: Tue, 8 Nov 2022 15:22:57 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Colin Ian King <colin.i.king@gmail.com>
-Subject: Re: [PATCH] ASoC: tegra: Fix spelling mistake "fliter" -> "filter"
-Message-ID: <Y2pmQdxMIHl+vgIj@orome>
-References: <20221108111340.115387-1-colin.i.king@gmail.com>
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="DQThg95g"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A8E8Cwi021563; Tue, 8 Nov 2022 14:46:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=xY2h5+UrR73hVYHlPLptrNsNGUN3y4EyCh+wOIi6Oy8=;
+ b=DQThg95gIPWRmtEtuwy2yBifaEah0HTt4sORa7P5qMZMQ/oJcBXSLPiUhJyQ9TTqSG8I
+ vCHCAWbQ1Q3nHwvVqwqRZCXYKp0mN/y0eMeGGWzCtho+VYnlRW80OMZhgR5AI6mfrwZV
+ On/ma0u90ctyKPeYj1s9sO3S59/aEL3c6qwiFrC9vrUAOJdQ+/XByp5rCb+rTySMvXHK
+ IxAGkYaxEjH4U9fjSFSEuyDuyREFYi/yTxjoreSpAvJrCq1z9XDruBIg2lG3taINCOYd
+ axmRwnnEy1LxLrhpkgaSRveZg/zJBOcs1/nEAeLILnFPW07DmY7GQM8e/Rvm+QeZQpPz mA== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kqht896fs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Nov 2022 14:46:46 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2A8EkjKR008059
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 8 Nov 2022 14:46:45 GMT
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Tue, 8 Nov 2022 06:46:39 -0800
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <vkoul@kernel.org>, <agross@kernel.org>, <andersson@kernel.org>,
+ <robh+dt@kernel.org>, <broonie@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <quic_rohkumar@quicinc.com>, <srinivas.kandagatla@linaro.org>,
+ <dianders@chromium.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <alsa-devel@alsa-project.org>,
+ <quic_rjendra@quicinc.com>, <konrad.dybcio@somainline.org>,
+ <mka@chromium.org>
+Subject: [PATCH v6 0/4]  Convert soundwire bindings to DT schema
+Date: Tue, 8 Nov 2022 20:15:59 +0530
+Message-ID: <1667918763-32445-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="pDY6F3p4Kn966Zak"
-Content-Disposition: inline
-In-Reply-To: <20221108111340.115387-1-colin.i.king@gmail.com>
-User-Agent: Mutt/2.2.7 (2022-08-07)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- linux-tegra@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: PMRg16jl0ynzdb_SRsKG26fR5zqlTGyq
+X-Proofpoint-GUID: PMRg16jl0ynzdb_SRsKG26fR5zqlTGyq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-07_11,2022-11-08_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=863
+ impostorscore=0 suspectscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ adultscore=0 mlxscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211080089
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,46 +115,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Convert soundwire bindings text file to DT schema and update
+device tree entries to follow strict dt-bindings.
+Changes since V5:
+  -- Update indentation of few properties description.
+  -- Update minimum and maximum limit for few properties.
+  -- Fix Typo errors in commit message.
+  -- Update commit message with differences from text file.
+Changes Since V4:
+  -- Update interrupt names in example.
+  -- Fix blank lines.
+  -- Remove dependecy patch info.
+  -- Split dtsi patches as per SoC.
+Changes Since V3:
+  -- Remove subnode description and add appropriate pattern properties.
+  -- Add interrput names in example.
+  -- update some properties description.
+  -- Revert minIteams change in previous version.
+  -- Rebase to latest code base.
+  -- Update dtsi node names,
+  -- Remove redundant property in soundwire node.
 
---pDY6F3p4Kn966Zak
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Srinivasa Rao Mandadapu (4):
+  arm64: dts: qcom: Update soundwire secondary node names
+  arm64: dts: qcom: sm8250: Remove redundant soundwire property
+  arm64: dts: qcom: sc7280: Remove redundant soundwire property
+  dt-bindings: soundwire: Convert text bindings to DT Schema
 
-On Tue, Nov 08, 2022 at 11:13:40AM +0000, Colin Ian King wrote:
-> There is a spelling mistake in struct member fliter_structure.
-> Fix it.
->=20
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  sound/soc/tegra/tegra210_mbdrc.c | 4 ++--
->  sound/soc/tegra/tegra210_mbdrc.h | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/soundwire/qcom,sdw.txt     | 215 ----------------
+ .../bindings/soundwire/qcom,soundwire.yaml         | 270 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qrb5165-rb5.dts           |   4 +-
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               |   1 -
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts         |   4 +-
+ .../boot/dts/qcom/sdm850-lenovo-yoga-c630.dts      |   4 +-
+ arch/arm64/boot/dts/qcom/sdm850-samsung-w737.dts   |   4 +-
+ arch/arm64/boot/dts/qcom/sm8250-mtp.dts            |   4 +-
+ arch/arm64/boot/dts/qcom/sm8250.dtsi               |   1 -
+ 9 files changed, 280 insertions(+), 227 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+ create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
 
-I sometimes wonder how these come to be since it's an obvious typo yet
-people manage to make them at least twice. Auto-completion I suspect
-might play a role. Anyway, good catch:
+-- 
+2.7.4
 
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---pDY6F3p4Kn966Zak
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmNqZj8ACgkQ3SOs138+
-s6FbTw/+L/QE+HdaK/OuuLEzlBM6VWk+gYNy4BeBG5uOqysNd6MzrfjIEG9WS5lE
-SKcmYwhnYhBHcXtfvuDM31AwDkfEFSr+p35hzIRnGbUa/MZLxj3ufZad17adgfng
-xgjH0L7b3zYsX3+z29syehbF524PKApyURWbnQZNnKfLTmC1vagfOvcEvu5Zq7kz
-B4rFKeDjiSkJGcf5JtDh0D1/oFCTkzOgoC03N59AFWt42lHpGHNenZMQghMnvlrw
-t4mF03BhREWdSzB2LWpywH237eqtaG1+Ro2gEik9UR32bEO8V4Yb1occYpwilAxm
-wKO1uVryVoSgh5DLmzcifM5sWh1IS4QrORdGBXXnC4p5CDuS85Or0NQaou+t/TEa
-2Iqyovc8k7+S2CkQXjX7rGROqaG64El59mGDP38IhOuNp3nMcxXLkftOEXxJaxkl
-VSdzPmXysgm4hbPvXd6pdmAI6DOmAVYjy7ZgEt6xjVaHwGbjf96vAqPwA/tZtk2h
-SFTpCQfgqPt6CRQh/aEC4pdJun9RUUkAWw8GSAz+dX5OBkEG2tRKFTOBDVTxoKM9
-0zdxlQfn960VhHeF7Uus6PIgE9rliiN9uPWIHc95UlMkfC8Kqzj2ymAGxbfA90sJ
-BheR4Zp0zo0CNTY3baq03zxEYC5/I1hufNFmUy3HhARuRKF/IIs=
-=bwz6
------END PGP SIGNATURE-----
-
---pDY6F3p4Kn966Zak--

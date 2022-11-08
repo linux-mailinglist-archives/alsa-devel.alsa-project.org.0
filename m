@@ -2,81 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F02462316B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:25:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C60A762316C
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:26:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 283F716B8;
-	Wed,  9 Nov 2022 18:25:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283F716B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CFC616BF;
+	Wed,  9 Nov 2022 18:25:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CFC616BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014753;
-	bh=9OL7z7Op39Gfeajq6bsx/Xmg2Mi/R8dJ/+nahVAcrCA=;
+	s=default; t=1668014767;
+	bh=7Q14+BCto8tV2ZMBIypC33bgELhtNI5IFCFp2fEA2vc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=XS/KwIz6Q1uVgTbi7nJD4sKlkAUjylyVv7eIitXkDKeuYb8wmgls90beh/FbXgJXH
-	 YU3Yu1W23KZNcLKbuJdjo4YxF8EDZXSuy+ani9uuPfbuNowTSCma6rI50xZr3pUTPr
-	 TC815SkCaQ35FaIDlZ8dgTTZ/Xelrr/RjWqzcebk=
+	b=HmLJZNmhz0xRUKGeU4rhsE6QqQemR5yay1gkClB24BX+ftAKlF3mIvnuNuxGB5SlK
+	 qIjZGdO7G63HQaii64SOgk3j+REe6dwjlZzQuCn7ishZJyRa/VtF98vQ6db7GB1qwc
+	 u4nHv62YMaNAKCDKGa+k+UloO3/4Uu8926SQzDj8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79A41F8061A;
-	Wed,  9 Nov 2022 18:16:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9A1BF80621;
+	Wed,  9 Nov 2022 18:16:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD8CAF8020D; Tue,  8 Nov 2022 05:25:58 +0100 (CET)
+ id 309DBF801D8; Tue,  8 Nov 2022 09:49:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,RDNS_DYNAMIC,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com
- [203.205.221.205])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB811F8016A
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 05:25:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB811F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B199F800EC
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 09:48:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B199F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="OHL9hT3x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1667881541; bh=MX+wr/Y2czJnOXuMbk1ClRRWdWuP38+jsoOu17Qathg=;
- h=From:To:Cc:Subject:Date;
- b=OHL9hT3xWtrotxTu1/p/uSr/ougt08+eiFc9c4swqVOTN+oxTHmRa7zZegIpFzS2x
- TNeqKMIrl3lY/LFiNAAhG3L0uyG8YMaZdCuICqKlHUtExSjc9M8koF77vyZ4V0/oW4
- XHWptxiX0zEgx26aIynAptVClSGuHzI5NNiRf8Lo=
-Received: from localhost.localdomain
- ([2409:891f:a923:8f9d:b48b:b960:e2ae:5996])
- by newxmesmtplogicsvrszc5-0.qq.com (NewEsmtp) with SMTP
- id 66626489; Tue, 08 Nov 2022 12:25:38 +0800
-X-QQ-mid: xmsmtpt1667881538tysdr77po
-Message-ID: <tencent_59850BB028662B6F2D49D7F3624AB84CCF05@qq.com>
-X-QQ-XMAILINFO: OakVxA/3u/8RbaUwNC+HBQqjwSTSL4oPpEJLpLHRRf2r7Z5uiIiD0fjC9vyld5
- H8g0XIYDFJ4rth/EMnv2hlhTaiUP0mNRGDxzVVjn5Vdsn/D7EJN06ggzeuxCPHNjEKrsq75gNBXh
- +ci/KjZmnt9keRisuVWsBKth2bd80O6dXF90ZeMECgVW0v/HePQBfHCBH18R36/d5abjvGxdvxBy
- n3OSh8RB/+ks1RTUsSvuNfdxr1JuMLEDzWb/C6+4rBYgwT65rMXVopRn4vTbNIouXKy37CW5okKG
- /2P++MVPc9DwARPx9/W4A99+1Nf4H6iP+z0JB5Clxyo1lcXW1Vshrhht+d6+s6fd7IOgC0bPHBJt
- YF27l9ae8azpQqpMs4nTVCBMeoKAd2YsRb2LZ40+Q1VwsCsZWUw8RGN6S8wzuiUT8FOjpsxBEGHx
- 3AcDCdAVoIJtitlmXQLO2LcTaAqA+DTaDLSzO2cVYSOMybE8+nFM7ZlIWnoKXEkLBb10gfzEe0NN
- rgScB0Dd/8mDxK7ULH9A9hZgwUYNoWEXSRdS8xGa1Jr4/KwaesSi3e3PaEqwtR4vrBm67uOwCUzt
- HygkkixdMGs9ThO+0vOCaNVx09SMQ17/Ynr2IhvF3Jy+JA9jKCES89LdAllyId1eILlnB8nxmB7N
- zy9kRA5W1KXFnU3D2liVYRPVI9cnkRL29lYskDGF8Kft90B4vZUSyYDEC0rIcltgDS0ijnDC5Mpq
- p/qL9xbMyy0wVuHodHr3d9Bwxk7WonPOpzzQ2HG9mX5D/2hwQdd26ygTwKEY84kG1kw4Q3FER9c0
- tm/crzvzFGMD5PWQAAxqqo5pSAaqajRKAgcKWw1ZlVTfBI316JjtZEIbR2/WWGtlqz94LMtal7T6
- KhYzGtXANH2taab9+PbwWLHoZrPF9CNIhN8g63OvdwyU7i5yxVtj0rVgL0o8974KmdeRZCsBRYCn
- engFc1KS3HlrWxV18DwfnMT6pbYt45JQPCdItcULW9OfZ2HfwbyQ==
-From: lishqchn <lishqchn@qq.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] Asoc: core: fix wrong size kzalloc for rtd's components member
-Date: Tue,  8 Nov 2022 12:24:56 +0800
-X-OQ-MSGID: <20221108042456.198176-1-lishqchn@qq.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="viSwTWvZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZNPcQjNjKDpQ6wnYTs7KXRswn2vS2R1r9Wr+QBkJsbXXc/XVJ53SgODh8jhurC0NDiTkiN+GRpY13e7zlyQSF4x2KUy9SkpJ8OAy6KiWLE4bcf08XlmzEAVwIJjLhtxspXzGIDOqSxj325t/B27RYrHfeVvPBBPi1stu/aFdQjYBF+mUgtZCpsZiNfeVbCyH71XNgS/hWm/O55aDUC1Hz9gig75Lwj8z1DvImbwHYf4ItQoANdt6JAQmH7s3+6FnId1LtmPPhDurpDDZTXD2lCCrZevtyTL6H8uumpmVnt8dOgi/wHr/V5f9BWBSkZDrS4qgHiTR251x5f8LtMQaLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Iz5eH5HNjy0kglVuxEI5svNoEeZXGQWh8iWr8Rb5naE=;
+ b=BMg8khsh1lfLeYRCxGqu4mlrRq6yPhhWU3IJcwsz+1pFVGR+sPFmpjAEj4i/Wz/TkCanDq8z6wSDeE3aHZD/nYBTSMrHZ5fhIVYvbVtNo8bft0+cHa7L6XfnirRVoB7u6T89+J4R0mzHZvuDFdfT9v+tDjykBSH4TRTurXFSv+8eEvbOItcTw7PqfEnUV8zNfzYC9Oe6cKAGCvTMtFM+r+mKgmphkIQJ16sXPj+iP4Jxql64g7OvlbfYE2Ru7BhlhlzwdMb0f6Uv94m3cuRRbytCaGY5UuoUaKXjy/rNttV+ZXvLJkX/sHUYltSjR8kj/vBSNvZKxS+j5+OKEOiBFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iz5eH5HNjy0kglVuxEI5svNoEeZXGQWh8iWr8Rb5naE=;
+ b=viSwTWvZLob2lKz3oqJAn/RwgNWZuEoA/zQdJUtscxOzco9sf5egnk+c0zgapQ6nFVIqPiV9dpKpux4fG1G/3svFaPMi3OpH5LTk1JVNOn88S5/TLYh9vKJApKkRHqnhE3Sh34/v38RPJlZB6yFu8KTxepUoe0cPPQn+8G6tQes=
+Received: from MW4PR04CA0275.namprd04.prod.outlook.com (2603:10b6:303:89::10)
+ by SA1PR12MB6947.namprd12.prod.outlook.com (2603:10b6:806:24e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.25; Tue, 8 Nov
+ 2022 08:48:52 +0000
+Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::54) by MW4PR04CA0275.outlook.office365.com
+ (2603:10b6:303:89::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27 via Frontend
+ Transport; Tue, 8 Nov 2022 08:48:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Tue, 8 Nov 2022 08:48:50 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 8 Nov
+ 2022 02:48:48 -0600
+From: Evan Quan <evan.quan@amd.com>
+To: <alsa-devel@alsa-project.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] ALSA: hda/hdmi - enable runtime pm for more AMD display audio
+Date: Tue, 8 Nov 2022 16:47:46 +0800
+Message-ID: <20221108084746.583058-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT036:EE_|SA1PR12MB6947:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf489694-d8f7-4ffc-72e0-08dac1660f05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TnlNzBLb9nPlIYohbZLFELKXXcm8EKPz1miqSYrQXJgQIrEPFNC4Sxq5KFPCQrAnwOP7LaCRWJix3tVSaL0ZUutgs3La8v4miqyNu8cM4SxspbdNc22zY6j+JfFSEdmjmbeIEV+JWsOGs1j1EKcmHqmt8bmx3zDMgjxeCxt64x4+0GhMmgTU18cGCGxoptAlJp2gb5LCMTs5IfmLnMTxA0roao07OvOmTrMnIpL7oR1nfnSOwjqTqxV01tyqwQ1WKeAxBgfPKdMiByyBA39tWu+xGClJrjeXhICtzihx9/opioG9qG3XPM6Gem3fEvk+1leVJZcVxnzd/7wmWPGg7NfJU3Dgs3tmah2eQe47/H5RrLRL+QkdKV1OCchpcQnG0z+I1/MesnSGQaNydV0l8XDadgvrb2+edO+8IaYm9V07WTY9FyqF+xngpte9cihhorBF/5EugkKCJac7pXfxl/YE/Fzf3Id3t7q5WdUvakpu46v967qbvP6mAABxHBy2GpuIX3MtOnc7p6M2lzll/keSKw5uGHMdzQCjapvPHSw49Wov7kgO7hcvu+45shwDppakvunCx4YbhEdV9qoWNVcfrZXqQz5AN5tRfzx8kIj5ceVt+yDEv/tpHtYlehQLAt/f7GUVdI+fFEZy3y7EDba5GNa8m5YZmyEE0g3QfhcMkW24Lk+R37NHvhIZLxqSn4+ZPnTPLRsXAQ2Ne0WBWs1e3F1IC55Tu45h0haa8euN93tmvUIqTEWjjCPsKeATs1+WyMWiCIdsDTxOMlkZzcfZN6lzeTm8YNGpkxaczEenFbCT59J4osYucr8dKua2d2hcnqKJ/pUAjCMqI6Q0+A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199015)(36840700001)(46966006)(40470700004)(1076003)(16526019)(336012)(186003)(44832011)(7696005)(316002)(41300700001)(8936002)(2906002)(82310400005)(36756003)(478600001)(47076005)(26005)(86362001)(40480700001)(4744005)(2616005)(426003)(54906003)(5660300002)(36860700001)(70586007)(356005)(40460700003)(81166007)(8676002)(70206006)(4326008)(82740400003)(110136005)(36900700001)(2101003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2022 08:48:50.7624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf489694-d8f7-4ffc-72e0-08dac1660f05
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6947
 X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:50 +0100
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
- lishqchn <lishqchn@qq.com>, linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,28 +130,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The actual space for struct snd_soc_component has been allocated by
-snd_soc_register_component, here rtd's components are pointers to
-components, I replace the base size from *component to component.
+We are able to power down the GPU and audio via the GPU driver
+so flag these asics as supporting runtime pm.
 
-Signed-off-by: lishqchn <lishqchn@qq.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: Ib7ea9bfe7b62b98afd63f96a2d98795504e7ae04
 ---
- sound/soc/soc-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/hda/hda_intel.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index a6d6d10cd471..d21e0284b2aa 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -459,7 +459,7 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
- 	 */
- 	rtd = devm_kzalloc(dev,
- 			   sizeof(*rtd) +
--			   sizeof(*component) * (dai_link->num_cpus +
-+			   sizeof(component) * (dai_link->num_cpus +
- 						 dai_link->num_codecs +
- 						 dai_link->num_platforms),
- 			   GFP_KERNEL);
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 0a83eb6b88b1..e6a33e34efb9 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2712,6 +2712,9 @@ static const struct pci_device_id azx_ids[] = {
+ 	{ PCI_DEVICE(0x1002, 0xab28),
+ 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
+ 	  AZX_DCAPS_PM_RUNTIME },
++	{ PCI_DEVICE(0x1002, 0xab30),
++	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
++	  AZX_DCAPS_PM_RUNTIME },
+ 	{ PCI_DEVICE(0x1002, 0xab38),
+ 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
+ 	  AZX_DCAPS_PM_RUNTIME },
 -- 
-2.25.1
+2.34.1
 

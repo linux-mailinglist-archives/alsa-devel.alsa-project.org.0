@@ -2,110 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D594262174D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 15:49:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A672362172C
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 15:47:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7762383B;
-	Tue,  8 Nov 2022 15:48:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7762383B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38BD641;
+	Tue,  8 Nov 2022 15:46:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38BD641
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667918944;
-	bh=FWksDeApKTPaGVCqTfNwHzdsLlxuR1kt/oqyXe84nhU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667918847;
+	bh=5gwYFOVGF4mpjIAIeDXcm5vGvJBWzCTEf0IjQbFWZEA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qGAo29nb3/dtSGOpl9WPRCy9gyK9n4dITx11MnqwPssy76Bxg3tnNPr80XiBOhNfy
-	 RPO7Wt0QYgJ/hDz6EGIlN6JMO5DjtBI8h/WdUglQ3bpP1SU2F1nqhr7NWpTj6RYhAt
-	 HZtGPAhyoMdEkDXq3H6S0j35uBoMh8JwG77GKN7I=
+	b=SzyMad5C4gP5Ys/wt0dSbfvzh+lp9iHq6kBmlDDw69yoLzPUev5afOWGTMTY6P/8A
+	 aqg/CUXN2mDmZ9434bHMLNffLfPeQrvGZ4oY/h5FG6iQCojlUmrXlEqJeCj9/fkwm0
+	 wqcccnT19yHG8ooArDHy/wb5zfPznlm3YrRUh9SU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E7B6F80563;
-	Tue,  8 Nov 2022 15:47:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D00EEF8016A;
+	Tue,  8 Nov 2022 15:46:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0755F80579; Tue,  8 Nov 2022 15:47:19 +0100 (CET)
+ id D06EEF801D8; Tue,  8 Nov 2022 15:46:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_30, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF940F800EC
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 15:46:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF940F800EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FzH1qXQn"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1082CF80563
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 15:47:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1082CF80563
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="jiWg/zmo"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2A8E4tvL031976; Tue, 8 Nov 2022 14:47:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=YVbctC/pjdUlTy8D6EjfpdWhtclsXpAUXbZA1mgsnFk=;
- b=jiWg/zmoEZBG648MHE8yTE13QDkICZ8KC8UZ5j7TNTmPBBfaZp4AmyVdiYGkHON9SyLB
- kr942OMGYFlXJaEB+NmEDEAA4fAzY2B5rX9W9fFVa5hplzq90DY8PRkeQciUfnrMQJpy
- XjxF1d4XRXWT/DGDqD5tmDZQjjDzV+n0LMBnUYWyAa52PcuP3qv3zZV9kQwsZJ6UbOWM
- YalFYYZdvSu24KvQ0Id1vyXpz1ybiL9qmmhXrFMOAUSzQy8tZtPKk7VQFD8R/1Btq/g0
- +TqEpfEn/wbo9CCzIPPbAdj+2hXlyMdQ2uCy8dltk1Bfo3Qty0xqGnRF95qgWvmdoOtA bw== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kqhmk96rb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Nov 2022 14:47:11 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2A8ElARn005385
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 8 Nov 2022 14:47:10 GMT
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Tue, 8 Nov 2022 06:47:03 -0800
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <vkoul@kernel.org>, <agross@kernel.org>, <andersson@kernel.org>,
- <robh+dt@kernel.org>, <broonie@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <quic_rohkumar@quicinc.com>, <srinivas.kandagatla@linaro.org>,
- <dianders@chromium.org>, <swboyd@chromium.org>,
- <judyhsiao@chromium.org>, <alsa-devel@alsa-project.org>,
- <quic_rjendra@quicinc.com>, <konrad.dybcio@somainline.org>,
- <mka@chromium.org>
-Subject: [PATCH v6 4/4] dt-bindings: soundwire: Convert text bindings to DT
- Schema
-Date: Tue, 8 Nov 2022 20:16:03 +0530
-Message-ID: <1667918763-32445-5-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1667918763-32445-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1667918763-32445-1-git-send-email-quic_srivasam@quicinc.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0D318B81996;
+ Tue,  8 Nov 2022 14:46:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C24C433D6;
+ Tue,  8 Nov 2022 14:46:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667918784;
+ bh=5gwYFOVGF4mpjIAIeDXcm5vGvJBWzCTEf0IjQbFWZEA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FzH1qXQnkEGUUP7fss8g1QQ5kV4xMlp3hi8uLJAqbGqMVIbGQpfRok1Oa3ZCYHMa5
+ xOqG2T1tnhMVE63yVbz070A2eFC3W4uHMR1nEKHLnL1YRErPi6E6w+Kv8uSBLbTZA6
+ 3IdE4fXPgcQhmtsKtcKCG/ZPJpdlmxKhq3hBGckMOx4zg9W9s6q50bwziyQ3iWlfcm
+ /T0MqTlJXDe+rGBlgDSdMLKYp32N4+wbFOydfEjoJTBcSrAXiH6e1LqfyMQ09LO7+C
+ lc9n37PIKYIUsnmBvViMnQ5W+YG3LRwo9kNM5Hcr1BLLQHxMyq1QXeao/8qTqP2CcB
+ M4zgEgR1jVTDw==
+Date: Tue, 8 Nov 2022 14:46:19 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2] [RFC] selftests: alsa - add PCM test
+Message-ID: <Y2pru8JLAGSjkDiJ@sirena.org.uk>
+References: <20221108115914.3751090-1-perex@perex.cz>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: EaJEpSR1XQt8bq5VtNPq2JZVx6kSYKrJ
-X-Proofpoint-ORIG-GUID: EaJEpSR1XQt8bq5VtNPq2JZVx6kSYKrJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-07_11,2022-11-08_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 mlxlogscore=999
- phishscore=0 suspectscore=0 mlxscore=0 spamscore=0 adultscore=0
- impostorscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2210170000 definitions=main-2211080089
-Cc: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="xRL3iVwIhEqKXGUP"
+Content-Disposition: inline
+In-Reply-To: <20221108115914.3751090-1-perex@perex.cz>
+X-Cookie: Fortune favors the lucky.
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-kselftest@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
+ Curtis Malainey <cujomalainey@google.com>,
+ Liam Girdwood <liam.r.girdwood@intel.com>, Shuah Khan <shuah@kernel.org>,
+ Jesse Barnes <jsbarnes@google.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,547 +92,143 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert soundwire text bindings to DT Schema format.
 
-Update interrupt property items as per device tree, as it is not
-appropriately described in text file.
-Update some of the properties description with minimum and maximum range.
-Update secondary node info which is used to describe slave devices.
+--xRL3iVwIhEqKXGUP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
-Signed-off-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
----
-Changes since V5:
-  -- Update indentation of few properties description.
-  -- Update minimum and maximum limit for few properties.
-  -- Fix Typo errors in commit message.
-  -- Update commit message with differences from text file.
-Changes since V4:
-  -- Update interrupt names in example.
-  -- Fix blank lines.
-  -- Remove dependecy patch info.
-Changes since V3:
-  -- Remove subnode description and add appropriate pattern properties.
-  -- Add interrput names in example.
-  -- update some properties description.
-  -- Revert minIteams change in previous version.
-  -- Rebase to latest code base.
-Changes since V2:
-  -- Update commit message.
-  -- Add child node property.
-  -- Change file name.
-  -- Remove minIteams for few properties.
-  -- Remove redundant required properties.
-  -- Remove redundant description for wakeup-source property.
-  -- Update interrupt property items.
-Changes since V1:
-  -- Remove the status field in example.
-  -- Remove interrupt-names property in the required list.
-  -- Add the wakeup-source property.	
- .../devicetree/bindings/soundwire/qcom,sdw.txt     | 215 ----------------
- .../bindings/soundwire/qcom,soundwire.yaml         | 270 +++++++++++++++++++++
- 2 files changed, 270 insertions(+), 215 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
- create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+On Tue, Nov 08, 2022 at 12:59:14PM +0100, Jaroslav Kysela wrote:
+> This initial code does a simple sample transfer tests. By default,
+> all PCM devices are detected and tested with short and long
+> buffering parameters for 4 seconds. If the sample transfer timing
+> is not in a +-100ms boundary, the test fails. Only the interleaved
+> buffering scheme is supported in this version.
 
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-deleted file mode 100644
-index e0faed8..0000000
---- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-+++ /dev/null
-@@ -1,215 +0,0 @@
--Qualcomm SoundWire Controller Bindings
--
--
--This binding describes the Qualcomm SoundWire Controller along with its
--board specific bus parameters.
--
--- compatible:
--	Usage: required
--	Value type: <stringlist>
--	Definition: must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
--		    Example:
--			"qcom,soundwire-v1.3.0"
--			"qcom,soundwire-v1.5.0"
--			"qcom,soundwire-v1.5.1"
--			"qcom,soundwire-v1.6.0"
--			"qcom,soundwire-v1.7.0"
--- reg:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: the base address and size of SoundWire controller
--		    address space.
--
--- interrupts:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: should specify the SoundWire Controller core and optional
--		    wake IRQ
--
--- interrupt-names:
--	Usage: Optional
--	Value type: boolean
--	Value type: <stringlist>
--	Definition: should be "core" for core and "wakeup" for wake interrupt.
--
--- wakeup-source:
--	Usage: Optional
--	Value type: boolean
--	Definition: should specify if SoundWire Controller is wake up capable.
--
--- clock-names:
--	Usage: required
--	Value type: <stringlist>
--	Definition: should be "iface" for SoundWire Controller interface clock
--
--- clocks:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: should specify the SoundWire Controller interface clock
--
--- #sound-dai-cells:
--	Usage: required
--	Value type: <u32>
--	Definition: must be 1 for digital audio interfaces on the controller.
--
--- qcom,dout-ports:
--	Usage: required
--	Value type: <u32>
--	Definition: must be count of data out ports
--
--- qcom,din-ports:
--	Usage: required
--	Value type: <u32>
--	Definition: must be count of data in ports
--
--- qcom,ports-offset1:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: should specify payload transport window offset1 of each
--		    data port. Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-offset2:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: should specify payload transport window offset2 of each
--		    data port. Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-sinterval-low:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: should be sample interval low of each data port.
--		    Out ports followed by In ports. Used for Sample Interval
--		    calculation.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-word-length:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be size of payload channel sample.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-block-pack-mode:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be 0 or 1 to indicate the block packing mode.
--		    0 to indicate Blocks are per Channel
--		    1 to indicate Blocks are per Port.
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-block-group-count:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be in range 1 to 4 to indicate how many sample
--		    intervals are combined into a payload.
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-lane-control:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be in range 0 to 7 to identify which	data lane
--		    the data port uses.
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-hstart:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be number identifying lowerst numbered coloum in
--		    SoundWire Frame, i.e. left edge of the Transport sub-frame
--		    for each port. Values between 0 and 15 are valid.
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,ports-hstop:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be number identifying highest numbered coloum in
--		    SoundWire Frame, i.e. the right edge of the Transport
--		    sub-frame for each port. Values between 0 and 15 are valid.
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- qcom,dports-type:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: should be one of the following types
--		    0 for reduced port
--		    1 for simple ports
--		    2 for full port
--		    Out ports followed by In ports.
--		    Value of 0xFF indicates that this option is not implemented
--		    or applicable for the respective data port.
--		    More info in MIPI Alliance SoundWire 1.0 Specifications.
--
--- reset:
--	Usage: optional
--	Value type: <prop-encoded-array>
--	Definition: Should specify the SoundWire audio CSR reset controller interface,
--		    which is required for SoundWire version 1.6.0 and above.
--
--- reset-names:
--	Usage: optional
--	Value type: <stringlist>
--	Definition: should be "swr_audio_cgcr" for SoundWire audio CSR reset
--		    controller interface.
--
--Note:
--	More Information on detail of encoding of these fields can be
--found in MIPI Alliance SoundWire 1.0 Specifications.
--
--= SoundWire devices
--Each subnode of the bus represents SoundWire device attached to it.
--The properties of these nodes are defined by the individual bindings.
--
--= EXAMPLE
--The following example represents a SoundWire controller on DB845c board
--which has controller integrated inside WCD934x codec on SDM845 SoC.
--
--soundwire: soundwire@c85 {
--	compatible = "qcom,soundwire-v1.3.0";
--	reg = <0xc85 0x20>;
--	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
--	clocks = <&wcc>;
--	clock-names = "iface";
--	resets = <&lpass_audiocc LPASS_AUDIO_SWR_TX_CGCR>;
--	reset-names = "swr_audio_cgcr";
--	#sound-dai-cells = <1>;
--	qcom,dports-type = <0>;
--	qcom,dout-ports	= <6>;
--	qcom,din-ports	= <2>;
--	qcom,ports-sinterval-low = /bits/ 8  <0x07 0x1F 0x3F 0x7 0x1F 0x3F 0x0F 0x0F>;
--	qcom,ports-offset1 = /bits/ 8 <0x01 0x02 0x0C 0x6 0x12 0x0D 0x07 0x0A >;
--	qcom,ports-offset2 = /bits/ 8 <0x00 0x00 0x1F 0x00 0x00 0x1F 0x00 0x00>;
--
--	/* Left Speaker */
--	left{
--		....
--	};
--
--	/* Right Speaker */
--	right{
--		....
--	};
--};
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-new file mode 100644
-index 0000000..bcbfa71
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-@@ -0,0 +1,270 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soundwire/qcom,soundwire.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm SoundWire Controller
-+
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-+  - Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-+
-+description:
-+  The Qualcomm SoundWire controller along with its board specific bus parameters.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,soundwire-v1.3.0
-+      - qcom,soundwire-v1.5.0
-+      - qcom,soundwire-v1.5.1
-+      - qcom,soundwire-v1.6.0
-+      - qcom,soundwire-v1.7.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    minItems: 1
-+    items:
-+      - description: specify the SoundWire controller core.
-+      - description: specify the Soundwire controller wake IRQ.
-+
-+  interrupt-names:
-+    minItems: 1
-+    items:
-+      - const: core
-+      - const: wakeup
-+
-+  clocks:
-+    items:
-+      - description: iface clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+
-+  resets:
-+    items:
-+      - description: SWR_AUDIO_CGCR RESET
-+
-+  reset-names:
-+    items:
-+      - const: swr_audio_cgcr
-+
-+  '#sound-dai-cells':
-+    const: 1
-+
-+  '#address-cells':
-+    const: 2
-+
-+  '#size-cells':
-+    const: 0
-+
-+  wakeup-source: true
-+
-+  qcom,din-ports:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: count of data in ports
-+
-+  qcom,dout-ports:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: count of data out ports
-+
-+  qcom,ports-word-length:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Size of payload channel sample.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 5
-+
-+  qcom,ports-sinterval-low:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Sample interval low of each data port.
-+      Out ports followed by In ports. Used for Sample Interval calculation.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 8
-+
-+  qcom,ports-offset1:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Payload transport window offset1 of each data port.
-+      Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 8
-+
-+  qcom,ports-offset2:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Payload transport window offset2 of each data port.
-+      Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 8
-+
-+  qcom,ports-lane-control:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Identify which data lane the data port uses.
-+      Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 5
-+
-+  qcom,ports-block-pack-mode:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Indicate the block packing mode.
-+      0 to indicate Blocks are per Channel
-+      1 to indicate Blocks are per Port.
-+      Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 8
-+    items:
-+      oneOf:
-+        - minimum: 0
-+          maximum: 1
-+        - const: 0xff
-+
-+  qcom,ports-hstart:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Identifying lowerst numbered coloum in SoundWire Frame,
-+      i.e. left edge of the Transport sub-frame for each port.
-+      Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 5
-+    items:
-+      oneOf:
-+        - minimum: 0
-+          maximum: 15
-+        - const: 0xff
-+
-+  qcom,ports-hstop:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Identifying highest numbered coloum in SoundWire Frame,
-+      i.e. the right edge of the Transport
-+      sub-frame for each port. Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 5
-+    items:
-+      oneOf:
-+        - minimum: 0
-+          maximum: 15
-+        - const: 0xff
-+
-+  qcom,ports-block-group-count:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      In range 1 to 4 to indicate how many sample intervals are combined
-+      into a payload. Out ports followed by In ports.
-+      Value of 0xff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 5
-+    items:
-+      oneOf:
-+        - minimum: 0
-+          maximum: 4
-+        - const: 0xff
-+
-+  label:
-+    maxItems: 1
-+
-+patternProperties:
-+  "^.*@[0-9a-f],[0-9a-f]$":
-+    type: object
-+    description:
-+      Child nodes for a standalone audio codec or speaker amplifier IC.
-+      It has RX and TX Soundwire secondary devices.
-+    properties:
-+      compatible:
-+        pattern: "^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$"
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - '#sound-dai-cells'
-+  - '#address-cells'
-+  - '#size-cells'
-+  - qcom,dout-ports
-+  - qcom,din-ports
-+  - qcom,ports-sinterval-low
-+  - qcom,ports-offset1
-+  - qcom,ports-offset2
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/clock/qcom,lpassaudiocc-sc7280.h>
-+
-+    soundwire@3210000 {
-+        compatible = "qcom,soundwire-v1.6.0";
-+        reg = <0x03210000 0x2000>;
-+
-+        interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-+                     <&pdc 130 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        interrupt-names = "core", "wakeup";
-+
-+        clocks = <&lpass_rx_macro>;
-+        clock-names = "iface";
-+
-+        qcom,din-ports = <0>;
-+        qcom,dout-ports = <5>;
-+
-+        resets = <&lpass_audiocc LPASS_AUDIO_SWR_RX_CGCR>;
-+        reset-names = "swr_audio_cgcr";
-+
-+        qcom,ports-word-length =        /bits/ 8 <0x01 0x07 0x04 0xff 0xff>;
-+        qcom,ports-sinterval-low =      /bits/ 8 <0x03 0x3f 0x1f 0x03 0x03>;
-+        qcom,ports-offset1 =            /bits/ 8 <0x00 0x00 0x0b 0x01 0x01>;
-+        qcom,ports-offset2 =            /bits/ 8 <0x00 0x00 0x0b 0x00 0x00>;
-+        qcom,ports-lane-control =       /bits/ 8 <0x01 0x00 0x00 0x00 0x00>;
-+        qcom,ports-block-pack-mode =    /bits/ 8 <0xff 0x00 0x01 0xff 0xff>;
-+        qcom,ports-hstart =             /bits/ 8 <0xff 0x03 0xff 0xff 0xff>;
-+        qcom,ports-hstop =              /bits/ 8 <0xff 0x06 0xff 0xff 0xff>;
-+        qcom,ports-block-group-count =  /bits/ 8 <0xff 0xff 0xff 0xff 0x00>;
-+
-+        #sound-dai-cells = <1>;
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+
-+        codec@0,4 {
-+            compatible = "sdw20217010d00";
-+            reg = <0 4>;
-+            qcom,rx-port-mapping = <1 2 3 4 5>;
-+        };
-+    };
--- 
-2.7.4
+Oh, thanks for picking this up - something like this has been on my mind
+for ages!  This should probably be copied to Shuah and the kselftest
+list as well, I've added them.  This looks basically good to me, I've
+got a bunch of comments below but I'm not sure any of them except
+possibly the one about not putting values in the configuration file by
+default should block getting this merged so:
 
+Reviewed-by: Mark Brown <broonie@kernel.org>
+
+> The configuration may be modified with the configuration files.
+> A specific hardware configuration is detected and activated
+> using the sysfs regex matching. This allows to use the DMI string
+> (/sys/class/dmi/id/* tree) or any other system parameters
+> exposed in sysfs for the matching for the CI automation.
+
+> The configuration file may also specify the PCM device list to detect
+> the missing PCM devices.
+
+>  create mode 100644 tools/testing/selftests/alsa/alsa-local.h
+>  create mode 100644 tools/testing/selftests/alsa/conf.c
+>  create mode 100644 tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+>  create mode 100644 tools/testing/selftests/alsa/pcm-test.c
+
+This is a bit unusual for kselftest and might create a bit of churn but
+does seem sensible and reasonable to me, it's on the edge of what
+kselftest usually covers but seems close enough in scope.  I worry
+a bit about ending up needing to add a config fragment as a result but
+perhaps we can get away without.
+
+> index 000000000000..0a83f35d43eb
+> --- /dev/null
+> +++ b/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+
+> +       pcm.0.0 {
+> +               PLAYBACK {
+> +                       test.time1 {
+> +                               access RW_INTERLEAVED   # can be omitted - default
+> +                               format S16_LE           # can be omitted - default
+> +                               rate 48000              # can be omitted - default
+> +                               channels 2              # can be omitted - default
+> +                               period_size 512
+> +                               buffer_size 4096
+
+I think it'd be better to leave these commented by default, especially
+if/once we improve the enumeration.  That way the coverage will default
+to whatever the tool does by default on the system (including any
+checking of constraints for example).  I guess we might want to add a
+way of saying "here's what I expect the constraints to be" but that's
+very much future work.
+
+> +#ifdef SND_LIB_VER
+> +#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
+> +#define LIB_HAS_LOAD_STRING
+> +#endif
+> +#endif
+> +
+> +#ifndef LIB_HAS_LOAD_STRING
+> +static int snd_config_load_string(snd_config_t **config, const char *s,
+> +				  size_t size)
+> +{
+
+This is also in mixer-test, we should pull it into a helper library too.
+Something that could be done separately/incrementally.
+
+> +	for (i = 0; i < 4; i++) {
+
+> +
+> +	snd_pcm_drain(handle);
+> +	ms = timestamp_diff_ms(&tstamp);
+> +	if (ms < 3900 || ms > 4100) {
+
+It feels like the runtime might be usefully parameterised here - there's
+a tradeoff with detecting inaccurate clocks and runtime that people
+might want to make.
+
+> +	ksft_set_plan(num_missing + num_pcms * TESTS_PER_PCM);
+
+> +	for (pcm = pcm_missing; pcm != NULL; pcm = pcm->next) {
+> +		ksft_test_result(false, "test.missing.%d.%d.%d.%s\n",
+> +				 pcm->card, pcm->device, pcm->subdevice,
+> +				 snd_pcm_stream_name(pcm->stream));
+> +	}
+
+We don't seem to report a successful test.missing anywhere like
+find_pcms() so if we ever hit a test.missing then it'll look like a new
+test, old test runs won't have logged the failure.  That can change how
+people look at any failures that crop up, "it's new and never worked" is
+different to "this used to work" and people are likely to just be
+running kselftest rather than specifically know this test.  It'd be
+better if we counted the cards in the config and used that for our
+expected number of test.missings, logging cards that we find here as
+well.
+
+> +	for (pcm = pcm_list; pcm != NULL; pcm = pcm->next) {
+> +		test_pcm_time1(pcm, "test.time1", "S16_LE", 48000, 2, 512, 4096);
+> +		test_pcm_time1(pcm, "test.time2", "S16_LE", 48000, 2, 24000, 192000);
+> +	}
+
+It does feel like especially in the case where no configuration is
+specified we should be eumerating what the card can do and both
+potentially doing more tests (though there's obviously an execution time
+tradeoff with going overboard there) and skipping configurations that
+the card never claimed to support in the first place.  In particular I'm
+expecting we'll see some cards that only do either 44.1kHz or 48kHz and
+will get spurious fails by default, and I'd like to see coverage of mono
+playback on cards that claim to support it because I suspect there's a
+bunch of them that don't actually do the right thing.
+
+Like I say most of this could be done incrementally if we decide it
+needs to get done at all though, we shouldn't let perfect be the enemy
+of good.
+
+--xRL3iVwIhEqKXGUP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNqa7oACgkQJNaLcl1U
+h9BTLgf+OYAlhB9FKMmF6Sa4xThE/JjnVMVg+DPOCzb4ZocUXPCrIEys+nY4RHis
+mOSfiWmqB2jtrg5LBaDpfKCnsIs8zyVgiLlKFh8GU5dAgmipgptX/0DMr0BuhqaT
+6SrF19S8Dm4GJbnIlfBfHYuLJ/H6y7S3lvT4qmD8bN8CTeImvIKBYeiwk2Ge3wSC
+06/QbS3IPs2zTObC3NhHhGl31xQ2RgtPBEncD/CFLvyoUr9BUbu9rxsyAiM0ZwBz
+A8sEmdXBwpO6o32tgmemlN6MBaeEv0ikZFoEEmTLImNCV9ljXwUBp7cooIXahdyy
+NOidsMw6Za1+QSPeS/UKZ3mmRPuLBw==
+=o4V8
+-----END PGP SIGNATURE-----
+
+--xRL3iVwIhEqKXGUP--

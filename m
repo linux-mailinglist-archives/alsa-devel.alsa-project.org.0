@@ -2,150 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C5C0620984
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 07:20:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 779B76209AC
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 07:43:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD50185D;
-	Tue,  8 Nov 2022 07:19:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD50185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A08C839;
+	Tue,  8 Nov 2022 07:42:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A08C839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667888440;
-	bh=2ymqXmFotSfxdyqK4nkHv2Jiogc7aQ7cU6ZAjhWFD6o=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
+	s=default; t=1667889817;
+	bh=gct3TbI16FmdVdwXymcw7dA3/g4sGzJ6JwBISEI60yU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ceY5wrbDa3fLaVEsdsl0T9pFEhd/OI7DFvi7BoXUkjNL8cp7h7WpA18ZrzQT54YoX
-	 h2+AmwvTZI7tBeQZmAuY6UUbL919q5q50irQwJUONb0pdTugka6e4dgk8mFE1nCP2n
-	 gX/yBNQLsb1Pkmcg+5Q6i64kFsRidCOMkRL3jfKw=
+	b=GP8k2QtVmO7ApCq8zt/z3fiIxINZAolLesI8A4GSWVdTeW5Gp9TslAR7AcSwuyTMI
+	 DS1/S5Tn5SNgB2qzHpUX2HVfXDUwEEl/ZDsTOkIzYh8A4WHnNN6KZwteM4rMOVoZsF
+	 4e+9sV9SeWSLw7BE4Xi7rGLd9dqbap1zyyxYy3Zo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BEBAF800F4;
-	Tue,  8 Nov 2022 07:19:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92575F800F4;
+	Tue,  8 Nov 2022 07:42:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A005F8028B; Tue,  8 Nov 2022 07:19:24 +0100 (CET)
+ id A0D4AF8016A; Tue,  8 Nov 2022 07:42:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40BF0F800F4
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 07:19:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40BF0F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id A09A3F8016A
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 07:42:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A09A3F8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="DaPd1WHQ"
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20221108061911epoutp0351efa28fe4000eba06c643d00c454c92~lh55eKuyY3091230912epoutp03u
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 06:19:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20221108061911epoutp0351efa28fe4000eba06c643d00c454c92~lh55eKuyY3091230912epoutp03u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1667888351;
- bh=JgKzig38qBrtQAtx+eWII8EH9dq8ZbtAlbZW5GDHrdQ=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=DaPd1WHQh7SnTdfMNpzp6+OrwcOJhF70UUjVWoGrgVLcRB2ZMToKSF+ub0FS+Jjnw
- az4k0RAmk7TT/jEuef8862eR4JHQUrnzdiT763gsnHDnzx+3JjE97bttDOri2PcU3r
- FzD9dxDZG2+OBeCnD8W7bYpVTZr8eZIhESNjNRHI=
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTP id
- 20221108061910epcas5p351671cdad900c5cac6ef90d951c8ce9c~lh541L3_q0649206492epcas5p3G;
- Tue,  8 Nov 2022 06:19:10 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.180]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 4N5ybw18ysz4x9Q0; Tue,  8 Nov
- 2022 06:19:08 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
- epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 5E.7C.01710.CD4F9636; Tue,  8 Nov 2022 15:19:08 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
- 20221108053359epcas5p2f95f5a32b2193759f39dbb51759850e6~lhScEu_E31214812148epcas5p2P;
- Tue,  8 Nov 2022 05:33:59 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20221108053359epsmtrp12d52f4cb42e57124ebe3e475910a5c1f~lhScDGR8S2724627246epsmtrp1-;
- Tue,  8 Nov 2022 05:33:59 +0000 (GMT)
-X-AuditID: b6c32a49-c9ffa700000006ae-49-6369f4dcabfb
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- DB.80.18644.74AE9636; Tue,  8 Nov 2022 14:33:59 +0900 (KST)
-Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20221108053357epsmtip26a0da1b742fb5ff7930d771862370397~lhSZ6NTmr2616526165epsmtip2R;
- Tue,  8 Nov 2022 05:33:57 +0000 (GMT)
-From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>, "'Rob
- Herring'" <robh@kernel.org>
-In-Reply-To: <253fc459-c3dc-7710-6f34-0466d5301482@linaro.org>
-Subject: RE: [PATCH 3/6] dt-bindings: sound: Add sound card bindings for
- Tesla FSD
-Date: Tue, 8 Nov 2022 11:03:55 +0530
-Message-ID: <01c101d8f333$b3bc8db0$1b35a910$@samsung.com>
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="f2BT2lPS"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A86NqHS030677; Tue, 8 Nov 2022 06:42:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=rccwM7Sp0HsNq0oa9pJgw0v9wFdRXRpWq59zQyF0x3A=;
+ b=f2BT2lPSvAWTcAs7cNESlZ0lZ/e51ivXnBvwDxh1wbS9nMPAoZNrMLYSi5HViPD9JdoP
+ zmKjhZt7BjFBRMsqsHGHrvYe0aZDaAUNFiH229AlGoKb3hyTQQTsqytJRrq2LkvjzRLR
+ 8c8jsIA7zV2GEd+r7CW9Y+jEMMwOO0qUllRfPRVO0RhSDV+OXmygJI6AIVOlBxm7cDvm
+ 2xTsS1/amO2FOk6NhUL8zo3/uHYaukICS3iNNm0XZJGuOafGSSv8LgRmSu3mBOQN2l5C
+ D0XESJljpN8US5L4sTME0biYqnFQGzi6gCDRAV9HBD1MN2i3/LRuw1rLeFp6xB1dams1 Lg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kqht881sw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Nov 2022 06:42:31 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2A86gUwe016866
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 8 Nov 2022 06:42:30 GMT
+Received: from [10.216.10.186] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Mon, 7 Nov 2022
+ 22:42:24 -0800
+Message-ID: <2a6b68df-54e0-28b4-2eb2-fd8c1ad7ed60@quicinc.com>
+Date: Tue, 8 Nov 2022 12:12:20 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwIZxyFGAJxV9qUBrWX0bwKccdsCAkaHXJeskenVEA==
-Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrBJsWRmVeSWpSXmKPExsWy7bCmuu6dL5nJBt92sVk8mLeNzeLKxUNM
- Foc2b2W3mPrwCZvF/CPnWC36Xjxkttj7Gij27UoHk8XlXXPYLGac38dksWjrF3aLzl39rBaz
- Luxgtfi/Zwe7xeE37awWG76vZXQQ8NjwuYnNY+esu+wem1Z1snncubaHzWPf22VsHn1bVjF6
- rN9ylcXj8ya5AI6obJuM1MSU1CKF1Lzk/JTMvHRbJe/geOd4UzMDQ11DSwtzJYW8xNxUWyUX
- nwBdt8wcoBeUFMoSc0qBQgGJxcVK+nY2RfmlJakKGfnFJbZKqQUpOQUmBXrFibnFpXnpenmp
- JVaGBgZGpkCFCdkZE7q2Mxb0uld0fWpha2B8ZNbFyMkhIWAicejzCfYuRi4OIYHdjBI9z1pY
- IJxPjBKr3r1lhHA+M0rcvTSLFabl2vHfUIldjBJnPs1ghXBeMEp8uzAPrIpNwFxi0d6ljCC2
- iECixOnd+8CKmAW6mCUmP54C5HBwcArYSWx+KQNSIywQInFmy2E2EJtFQEWiZc4EZhCbV8BS
- 4viG82wQtqDEyZlPWEBsZgFtiWULXzNDXKQg8fPpMlaIXWES+ycfYYWoEZc4+rOHGWSvhMAb
- Donrzx4xQjS4SCz8uQHqHWGJV8e3sEPYUhIv+9ug7HyJaR+b2SDsCom2jxuYIGx7iQNX5rCA
- 3M8soCmxfpc+RFhWYuqpdUwQe/kken8/gSrnldgxD8ZWlVi/fBPUCdIS+67vZZzAqDQLyWuz
- kLw2C8kLsxC2LWBkWcUomVpQnJueWmxaYJiXWg6P8eT83E2M4CSu5bmD8e6DD3qHGJk4GA8x
- SnAwK4nwitRkJgvxpiRWVqUW5ccXleakFh9iNAWG90RmKdHkfGAeySuJNzSxNDAxMzMzsTQ2
- M1QS5108QytZSCA9sSQ1OzW1ILUIpo+Jg1OqgcnEf9O+jDguprlKWldKKi0OSt1Yu0A9Wjyk
- Ja5jxV529nfNTTU596acupuU9bJC/6pstJGxYv9ev/UNYm2n5ZYn112/bHCxOmEz906m/09r
- DgSbePiHSP06ndmp/jv6RcqkTzsXvXPJef/ucerS/AvWnny5fBde6/mHbb1UsmV2at4C3wz9
- 4OVxbJNN2oVuXv0+O7HwbPzR6oeCyu837jtsxOtg/muh0Sa/VZ8LcmV/zXWLEfxtsf7IDK7C
- 8xOeij/YqZRae/LjORVVy4TMTZ76nmv6jq9KNrfmueXouvKTe2XfQZf+iqCLD26mfe0UvDqN
- W+nepv8eLdqXNl+oecLg9qvmqumm42/e7JNqvqjEUpyRaKjFXFScCACD7FG2awQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrPIsWRmVeSWpSXmKPExsWy7bCSvK77q8xkg0kLFSwezNvGZnHl4iEm
- i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW+x9DRT7dqWDyeLyrjlsFjPO72OyWLT1C7tF565+VotZ
- F3awWvzfs4Pd4vCbdlaLDd/XMjoIeGz43MTmsXPWXXaPTas62TzuXNvD5rHv7TI2j74tqxg9
- 1m+5yuLxeZNcAEcUl01Kak5mWWqRvl0CV8bvzqmMBbvcKlY+38LawPjWtIuRk0NCwETi2vHf
- jF2MXBxCAjsYJRYvfskMkZCWmN6/hw3CFpZY+e85O0TRM0aJQwd2MoEk2ATMJRbtXQrUzcEh
- IpAo8eypOUgNs8AMZonVHXugpp5hkpgx9zgzSBGngJ3E5pcyIL3CAkESS6ZMZQGxWQRUJFrm
- TABbzCtgKXF8w3k2CFtQ4uTMJ2A1zALaEr0PWxlh7GULX0MdqiDx8+kyVhBbRCBMYv/kI6wQ
- NeISR3/2ME9gFJ6FZNQsJKNmIRk1C0nLAkaWVYySqQXFuem5xYYFRnmp5XrFibnFpXnpesn5
- uZsYwXGspbWDcc+qD3qHGJk4GA8xSnAwK4nwitRkJgvxpiRWVqUW5ccXleakFh9ilOZgURLn
- vdB1Ml5IID2xJDU7NbUgtQgmy8TBKdXAlMQ9r7EhymLR47cLBD8UO5Vae3HmyF9QjY0TUFU5
- fOZ+4tp/lcn5G2dtz1rw/2did45GnKKV4aElPqJtXEzMN39HcYo67w5ecm+FW5elhnPX4p7c
- pCrnVN/pcpLzH1q67Hx10ubZFUfhU84m4tZMrQkX4+TPbAzWPqVoufWCZCqjPV/Oy1/zLuuc
- qdi3Z63A2k6m803fTj7tKfxktEFZ9eAa7lsqkX2TUy94PeKc1JJVcaRkw8kjdtFWxp7LmMTv
- 9ynmXD2wSX/VaddLLyuXFV5+UGTHn3dS+dsM7aKlZdH9HNu/dwVoHln8NKq3/VlqZb/XdI9N
- d05wny6deuDMIRH5p2oqNv1TX2vmi79UYinOSDTUYi4qTgQAzW3/6FIDAAA=
-X-CMS-MailID: 20221108053359epcas5p2f95f5a32b2193759f39dbb51759850e6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d
-References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
- <CGME20221014104901epcas5p1a61ea81c3b1640bd8a064633c0b1e40d@epcas5p1.samsung.com>
- <20221014102151.108539-4-p.rajanbabu@samsung.com>
- <20221014151325.GA1940481-robh@kernel.org>
- <04b901d8e529$573b17e0$05b147a0$@samsung.com>
- <253fc459-c3dc-7710-6f34-0466d5301482@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
- tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
- alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 3/3] dt-bindings: soundwire: Convert text bindings to
+ DT Schema
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <vkoul@kernel.org>, 
+ <agross@kernel.org>, <andersson@kernel.org>, <robh+dt@kernel.org>,
+ <broonie@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
+ <srinivas.kandagatla@linaro.org>, <dianders@chromium.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>,
+ <alsa-devel@alsa-project.org>, <quic_rjendra@quicinc.com>,
+ <konrad.dybcio@somainline.org>, <mka@chromium.org>
+References: <1667830844-31566-1-git-send-email-quic_srivasam@quicinc.com>
+ <1667830844-31566-4-git-send-email-quic_srivasam@quicinc.com>
+ <7abbac13-3a2b-2ea7-98d2-8bcace52c3de@linaro.org>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <7abbac13-3a2b-2ea7-98d2-8bcace52c3de@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: cCuta8TT4h_rpDUqdzDHuN8bWLTYiAQB
+X-Proofpoint-GUID: cCuta8TT4h_rpDUqdzDHuN8bWLTYiAQB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-07_11,2022-11-07_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ impostorscore=0 suspectscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ adultscore=0 mlxscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211080034
+Cc: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,275 +127,512 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On 11/7/2022 8:41 PM, Krzysztof Kozlowski wrote:
+Thanks for Your time Krzysztof!!!
+> On 07/11/2022 15:20, Srinivasa Rao Mandadapu wrote:
+>> Convert soundwire text bindings to DT Schema format.
+>>
+>> Update interrupt property items as per device tree,
+>> as it is not appropriately described in text file.
+>>
+>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>> Co-developed-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
+>> Signed-off-by: Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>
+>> ---
+>> This patch depends on:
+>>      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=42801e6185290d63691bd39cf8a3bba6cd5fe520
+> Hi,
+>
+> This is a bit surprising. You pointed to Linus' repo, so what does this
+> dependency mean? The Linus' repo is the mainline, there is nothing else,
+> so all its commits are already in every tree... unless this is an RC
+> fix? If so, you should rather say which RC is needed.
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski =5Bmailto:krzysztof.kozlowski=40linaro.org=5D
-> Sent: 22 October 2022 10:19 PM
-> To: Padmanabhan Rajanbabu <p.rajanbabu=40samsung.com>; 'Rob Herring'
-> <robh=40kernel.org>
-> Cc: lgirdwood=40gmail.com; broonie=40kernel.org;
-> krzysztof.kozlowski+dt=40linaro.org; s.nawrocki=40samsung.com;
-> perex=40perex.cz; tiwai=40suse.com; pankaj.dubey=40samsung.com;
-> alim.akhtar=40samsung.com; rcsekar=40samsung.com;
-> aswani.reddy=40samsung.com; alsa-devel=40alsa-project.org;
-> devicetree=40vger.kernel.org; linux-kernel=40vger.kernel.org; linux-samsu=
-ng-
-> soc=40vger.kernel.org
-> Subject: Re: =5BPATCH 3/6=5D dt-bindings: sound: Add sound card bindings =
-for
-> Tesla FSD
->=20
-> On 21/10/2022 04:44, Padmanabhan Rajanbabu wrote:
-> >> On Fri, Oct 14, 2022 at 03:51:48PM +0530, Padmanabhan Rajanbabu wrote:
-> >>> Add dt-binding reference document to configure the DAI link for
-> >>> Tesla FSD sound card driver.
-> >>
-> >> The simple-card or graph-card bindings don't work for you?
-> > Thank you for reviewing the patch.
-> >
-> > The actual reason for having a custom sound card driver lies in the
-> > fact that the Samsung i2s cpu dai requires configuration of some
-> > Samsung specific properties like rfs, bfs, codec clock direction and
-> > root clock source. We do not have flexibility of configuring the same
-> > in simple card driver (sound/soc/generic/simple-card.c) or audio graph
-> > card driver (sound/soc/generic/audio-graph-card.c). The binding has
-> > been added to support the custom sound card driver.
-> >
-> > I understand from your query that the newly added card has device tree
-> > nodes and properties which are used in simple card as well, but having
-> > a different or new prefixes. I believe to address that, we can
-> > restructure the string names to generic ones.
->=20
-> You must use generic, existing properties where applicable.
+Yeah. Will remove it. Actually in initial version, when used different 
+repo, got bot errors.
 
-Okay
+So to fix that, mentioned this dependency and continued the same in next 
+versions.
 
->=20
-> > But I would like to understand, to reuse the simple card or audio
-> > graph card bindings, can we add secondary compatible strings in the
-> > simple card dt-binding for the custom sound card to probe ?
->=20
-> If you see other vendor compatibles there, then yes... But there aren't a=
-ny,
-> right?
+>
+>> Changes since V3:
+>>    -- Remove subnode description and add appropriate pattern properties.
+>>    -- Add interrput names in example.
+>>    -- update some properties description.
+>>    -- Revert minIteams change in previous version.
+>>    -- Rebase to latest code base.
+>> Changes since V2:
+>>    -- Update commit message.
+>>    -- Add child node property.
+>>    -- Change file name.
+>>    -- Remove minIteams for few properties.
+>>    -- Remove redundant required properties.
+>>    -- Remove redundant description for wakeup-source property.
+>>    -- Update interrupt property items.
+>> Changes since V1:
+>>    -- Remove the status field in example.
+>>    -- Remove interrupt-names property in the required list.
+>>    -- Add the wakeup-source property.	
+>>   
+>>   .../devicetree/bindings/soundwire/qcom,sdw.txt     | 215 ------------------
+>>   .../bindings/soundwire/qcom,soundwire.yaml         | 241 +++++++++++++++++++++
+>>   2 files changed, 241 insertions(+), 215 deletions(-)
+>>   delete mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>>   create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> deleted file mode 100644
+>> index e0faed8..0000000
+>> --- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> +++ /dev/null
+>> @@ -1,215 +0,0 @@
+>> -Qualcomm SoundWire Controller Bindings
+>> -
+>> -
+>> -This binding describes the Qualcomm SoundWire Controller along with its
+>> -board specific bus parameters.
+>> -
+>> -- compatible:
+>> -	Usage: required
+>> -	Value type: <stringlist>
+>> -	Definition: must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
+>> -		    Example:
+>> -			"qcom,soundwire-v1.3.0"
+>> -			"qcom,soundwire-v1.5.0"
+>> -			"qcom,soundwire-v1.5.1"
+>> -			"qcom,soundwire-v1.6.0"
+>> -			"qcom,soundwire-v1.7.0"
+>> -- reg:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: the base address and size of SoundWire controller
+>> -		    address space.
+>> -
+>> -- interrupts:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should specify the SoundWire Controller core and optional
+>> -		    wake IRQ
+>> -
+>> -- interrupt-names:
+>> -	Usage: Optional
+>> -	Value type: boolean
+>> -	Value type: <stringlist>
+>> -	Definition: should be "core" for core and "wakeup" for wake interrupt.
+>> -
+>> -- wakeup-source:
+>> -	Usage: Optional
+>> -	Value type: boolean
+>> -	Definition: should specify if SoundWire Controller is wake up capable.
+>> -
+>> -- clock-names:
+>> -	Usage: required
+>> -	Value type: <stringlist>
+>> -	Definition: should be "iface" for SoundWire Controller interface clock
+>> -
+>> -- clocks:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should specify the SoundWire Controller interface clock
+>> -
+>> -- #sound-dai-cells:
+>> -	Usage: required
+>> -	Value type: <u32>
+>> -	Definition: must be 1 for digital audio interfaces on the controller.
+>> -
+>> -- qcom,dout-ports:
+>> -	Usage: required
+>> -	Value type: <u32>
+>> -	Definition: must be count of data out ports
+>> -
+>> -- qcom,din-ports:
+>> -	Usage: required
+>> -	Value type: <u32>
+>> -	Definition: must be count of data in ports
+>> -
+>> -- qcom,ports-offset1:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should specify payload transport window offset1 of each
+>> -		    data port. Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-offset2:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should specify payload transport window offset2 of each
+>> -		    data port. Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-sinterval-low:
+>> -	Usage: required
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be sample interval low of each data port.
+>> -		    Out ports followed by In ports. Used for Sample Interval
+>> -		    calculation.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-word-length:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be size of payload channel sample.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-block-pack-mode:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be 0 or 1 to indicate the block packing mode.
+>> -		    0 to indicate Blocks are per Channel
+>> -		    1 to indicate Blocks are per Port.
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-block-group-count:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be in range 1 to 4 to indicate how many sample
+>> -		    intervals are combined into a payload.
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-lane-control:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be in range 0 to 7 to identify which	data lane
+>> -		    the data port uses.
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-hstart:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be number identifying lowerst numbered coloum in
+>> -		    SoundWire Frame, i.e. left edge of the Transport sub-frame
+>> -		    for each port. Values between 0 and 15 are valid.
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,ports-hstop:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be number identifying highest numbered coloum in
+>> -		    SoundWire Frame, i.e. the right edge of the Transport
+>> -		    sub-frame for each port. Values between 0 and 15 are valid.
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- qcom,dports-type:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: should be one of the following types
+>> -		    0 for reduced port
+>> -		    1 for simple ports
+>> -		    2 for full port
+>> -		    Out ports followed by In ports.
+>> -		    Value of 0xFF indicates that this option is not implemented
+>> -		    or applicable for the respective data port.
+>> -		    More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -- reset:
+>> -	Usage: optional
+>> -	Value type: <prop-encoded-array>
+>> -	Definition: Should specify the SoundWire audio CSR reset controller interface,
+>> -		    which is required for SoundWire version 1.6.0 and above.
+>> -
+>> -- reset-names:
+>> -	Usage: optional
+>> -	Value type: <stringlist>
+>> -	Definition: should be "swr_audio_cgcr" for SoundWire audio CSR reset
+>> -		    controller interface.
+>> -
+>> -Note:
+>> -	More Information on detail of encoding of these fields can be
+>> -found in MIPI Alliance SoundWire 1.0 Specifications.
+>> -
+>> -= SoundWire devices
+>> -Each subnode of the bus represents SoundWire device attached to it.
+>> -The properties of these nodes are defined by the individual bindings.
+>> -
+>> -= EXAMPLE
+>> -The following example represents a SoundWire controller on DB845c board
+>> -which has controller integrated inside WCD934x codec on SDM845 SoC.
+>> -
+>> -soundwire: soundwire@c85 {
+>> -	compatible = "qcom,soundwire-v1.3.0";
+>> -	reg = <0xc85 0x20>;
+>> -	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
+>> -	clocks = <&wcc>;
+>> -	clock-names = "iface";
+>> -	resets = <&lpass_audiocc LPASS_AUDIO_SWR_TX_CGCR>;
+>> -	reset-names = "swr_audio_cgcr";
+>> -	#sound-dai-cells = <1>;
+>> -	qcom,dports-type = <0>;
+>> -	qcom,dout-ports	= <6>;
+>> -	qcom,din-ports	= <2>;
+>> -	qcom,ports-sinterval-low = /bits/ 8  <0x07 0x1F 0x3F 0x7 0x1F 0x3F 0x0F 0x0F>;
+>> -	qcom,ports-offset1 = /bits/ 8 <0x01 0x02 0x0C 0x6 0x12 0x0D 0x07 0x0A >;
+>> -	qcom,ports-offset2 = /bits/ 8 <0x00 0x00 0x1F 0x00 0x00 0x1F 0x00 0x00>;
+>> -
+>> -	/* Left Speaker */
+>> -	left{
+>> -		....
+>> -	};
+>> -
+>> -	/* Right Speaker */
+>> -	right{
+>> -		....
+>> -	};
+>> -};
+>> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+>> new file mode 100644
+>> index 0000000..b0590cb
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
+>> @@ -0,0 +1,241 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/soundwire/qcom,soundwire.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm SoundWire Controller
+>> +
+>> +maintainers:
+>> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> +  - Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>> +
+>> +description:
+>> +  The Qualcomm SoundWire controller along with its board specific bus parameters.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - qcom,soundwire-v1.3.0
+>> +      - qcom,soundwire-v1.5.0
+>> +      - qcom,soundwire-v1.5.1
+>> +      - qcom,soundwire-v1.6.0
+>> +      - qcom,soundwire-v1.7.0
+> Missing blank line.
+Okay. will add it.
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    minItems: 1
+>> +    items:
+>> +      - description: specify the SoundWire controller core.
+>> +      - description: specify the Soundwire controller wake IRQ.
+>> +
+>> +  interrupt-names:
+>> +    minItems: 1
+>> +    items:
+>> +      - const: core
+>> +      - const: wakeup
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: iface clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: iface
+>> +
+>> +  resets:
+>> +    items:
+>> +      - description: SWR_AUDIO_CGCR RESET
+>> +
+>> +  reset-names:
+>> +    items:
+>> +      - const: swr_audio_cgcr
+>> +
+>> +  '#sound-dai-cells':
+>> +    const: 1
+>> +
+>> +  '#address-cells':
+>> +    const: 2
+>> +
+>> +  '#size-cells':
+>> +    const: 0
+>> +
+>> +  wakeup-source: true
+>> +
+>> +  qcom,din-ports:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description: count of data in ports
+>> +
+>> +  qcom,dout-ports:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description: count of data out ports
+>> +
+>> +  qcom,ports-word-length:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Size of payload channel sample.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 5
+>> +
+>> +  qcom,ports-sinterval-low:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Sample interval low of each data port.
+>> +                 Out ports followed by In ports. Used for Sample Interval
+>> +                 calculation.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 8
+>> +
+>> +  qcom,ports-offset1:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Payload transport window offset1 of each
+>> +                 data port. Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 8
+>> +
+>> +  qcom,ports-offset2:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Payload transport window offset2 of each
+>> +                 data port. Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 8
+>> +
+>> +  qcom,ports-lane-control:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Identify which data lane the data port uses.
+>> +                 Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 5
+>> +
+>> +  qcom,ports-block-pack-mode:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Indicate the block packing mode.
+>> +                 0 to indicate Blocks are per Channel
+>> +                 1 to indicate Blocks are per Port.
+>> +                 Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 8
+>> +
+>> +  qcom,ports-hstart:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Identifying lowerst numbered coloum in
+>> +                 SoundWire Frame, i.e. left edge of the Transport sub-frame
+>> +                 for each port. Values between 0 and 15 are valid.
+>> +                 Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 5
+>> +
+>> +  qcom,ports-hstop:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: Identifying highest numbered coloum in
+>> +                 SoundWire Frame, i.e. the right edge of the Transport
+>> +                 sub-frame for each port. Values between 0 and 15 are valid.
+>> +                 Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 5
+>> +
+>> +  qcom,ports-block-group-count:
+>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+>> +    description: In range 1 to 4 to indicate how many sample
+>> +                 intervals are combined into a payload.
+>> +                 Out ports followed by In ports.
+>> +                 Value of 0xFF indicates that this option is not implemented
+>> +                 or applicable for the respective data port.
+>> +                 More info in MIPI Alliance SoundWire 1.0 Specifications.
+>> +    minItems: 3
+>> +    maxItems: 5
+>> +
+>> +  label:
+>> +    maxItems: 1
+>> +
+>> +patternProperties:
+>> +  "^.*@[0-9a-f],[0-9a-f]$":
+>> +    type: object
+> You should have here a description.
 
-Yes you are right, we don't see other vendor compatibles. But, am I allowed
-to add such secondary compatibles so that we can extend the simple card
-and its utilities to a large extent?
+Bit confusion Here. In any of examples there is no description for 
+patternProperties.
 
-If no, then I believe we will need a separate binding to extend the generic
-properties.
->=20
-> >>
-> >>>
-> >>> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu=40samsung.com>
-> >>> ---
-> >>>  .../bindings/sound/tesla,fsd-card.yaml        =7C 158 ++++++++++++++=
-++++
-> >>>  1 file changed, 158 insertions(+)
-> >>>  create mode 100644
-> >>> Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
-> >>>
-> >>> diff --git
-> >>> a/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
-> >>> b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
-> >>> new file mode 100644
-> >>> index 000000000000..4bd590f4ee27
-> >>> --- /dev/null
-> >>> +++ b/Documentation/devicetree/bindings/sound/tesla,fsd-card.yaml
-> >>> =40=40 -0,0 +1,158 =40=40
-> >>> +=23 SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) =23
-> >>> +Copyright
-> >>> +2022 Samsung Electronics Co. Ltd.
-> >>> +%YAML 1.2
-> >>> +---
-> >>> +=24id:
-> >>> +https://protect2.fireeye.com/v1/url?k=3D4ae54403-157e7d1c-4ae4cf4c-
-> >> 000b
-> >>> +abdfecba-9eb398ea304f8ae8&q=3D1&e=3D4935bed0-ce62-47dd-8faf-
-> >> 4750b01e22d3&
-> >>>
-> >>
-> +u=3Dhttp%3A%2F%2Fdevicetree.org%2Fschemas%2Fsound%2Ftesla%2Cfsd-
-> >> card.ya
-> >>> +ml%23
-> >>> +=24schema:
-> >>> +https://protect2.fireeye.com/v1/url?k=3D8c72226e-d3e91b71-8c73a921-
-> >> 000b
-> >>> +abdfecba-3ce999f6c052255b&q=3D1&e=3D4935bed0-ce62-47dd-8faf-
-> >> 4750b01e22d3&
-> >>> +u=3Dhttp%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
-> >>> +
-> >>> +title: Tesla FSD ASoC sound card driver
-> >>> +
-> >>> +maintainers:
-> >>> +  - Padmanabhan Rajanbabu <p.rajanbabu=40samsung.com>
-> >>> +
-> >>> +description: =7C
-> >>> +  This binding describes the node properties and essential DT
-> >>> +entries of FSD
-> >>> +  SoC sound card node
-> >>> +
-> >>> +select: false
-> >>
-> >> Never apply this schema. Why?
-> > Sorry about it, let me change the select property to true in the next
-> > patchset
->=20
-> No, just drop it. Look at other bindings or at example-schema
->=20
-> >>
-> >>> +
-> >>> +properties:
-> >>> +  compatible:
-> >>> +    enum:
-> >>> +      - tesla,fsd-sndcard
-> >>> +
-> >>> +  model:
-> >>> +    description: Describes the Name of the sound card
-> >>> +    =24ref: /schemas/types.yaml=23/definitions/string
-> >>> +
-> >>> +  widgets:
-> >>> +    description: A list of DAPM widgets in the sound card. Each
-> >>> + entry
-> > is a pair
-> >>> +      of strings, the first being the widget name and the second
-> >>> + being
-> > the
-> >>> +      widget alias
-> >>> +    =24ref: /schemas/types.yaml=23/definitions/string-array
-> >>> +
-> >>> +  audio-routing:
-> >>> +    description: A list of the connections between audio components.
-> > Each entry
-> >>> +      is a pair of strings, the first being the connection's sink,
-> >>> + the
-> > second
-> >>> +      being the connection's source
-> >>> +    =24ref: /schemas/types.yaml=23/definitions/string-array
-> >>> +
-> >>> +  dai-tdm-slot-num:
-> >>> +    description: Enables TDM mode and specifies the number of TDM
-> >>> + slots
-> > to be
-> >>> +      enabled
-> >>> +    =24ref: /schemas/types.yaml=23/definitions/uint32
-> >>> +    enum: =5B0, 1, 2, 3, 4, 5, 6, 7, 8=5D
-> >>
-> >> maximum: 8
-> > Okay
-> >>
-> >>> +    default: 2
-> >>> +
-> >>> +  dai-tdm-slot-width:
-> >>> +    description: Specifies the slot width of each TDm slot enabled
-> >>> +    =24ref: /schemas/types.yaml=23/definitions/uint32
-> >>> +    enum: =5B8, 16, 24=5D
-> >>> +    default: 16
-> >>
-> >> All the above have types defined. You should not be redefining the typ=
-es.
-> > Okay
-> >>
-> >>> +
-> >>> +  dai-link:
-> >>> +    description: Holds the DAI link data between CPU, Codec and
-> > Platform
-> >>> +    type: object
-> >>
-> >>        additionalProperties: false
-> > okay
-> >>
-> >>> +    properties:
-> >>> +      link-name:
-> >>> +        description: Specifies the name of the DAI link
-> >>> +        =24ref: /schemas/types.yaml=23/definitions/string
-> >>> +
-> >>> +      dai-format:
-> >>> +        description: Specifies the serial data format of CPU DAI
-> >>> +        =24ref: /schemas/types.yaml=23/definitions/string
-> >>> +
-> >>> +      tesla,bitclock-master:
-> >>> +        description: Specifies the phandle of bitclock master DAI
-> >>> +        =24ref: /schemas/types.yaml=23/definitions/phandle
-> >>> +
-> >>> +      tesla,frame-master:
-> >>> +        description: Specifies the phandle of frameclock master DAI
-> >>> +        =24ref: /schemas/types.yaml=23/definitions/phandle
-> >>
-> >> These are common properties. Drop 'tesla'.
-> > Okay
-> >>
-> >>> +
-> >>> +      cpu:
-> >>> +        description: Holds the CPU DAI node and instance
-> >>> +        type: object
-> >>
-> >>            additionalProperties: false
-> > Okay
-> >>
-> >>> +        properties:
-> >>> +          sound-dai:
-> >>> +            description: Specifies the phandle of CPU DAI node
-> >>> +            =24ref: /schemas/types.yaml=23/definitions/phandle-array
-> >>> +
-> >>> +        required:
-> >>> +          - sound-dai
-> >>> +
-> >>> +      codec:
-> >>> +        description: Holds the Codec DAI node and instance
-> >>> +        type: object
-> >>
-> >>            additionalProperties: false
-> > Okay
-> >>
-> >>> +        properties:
-> >>> +          sound-dai:
-> >>> +            description: Specifies the phandle of Codec DAI node
-> >>> +            =24ref: /schemas/types.yaml=23/definitions/phandle-array
-> >>
-> >> Already has a type. Need to define how many entries (maxItems: 1 ?).
-> > Okay. I'll update in the upcoming patch set
-> >>
-> >>> +
-> >>> +        required:
-> >>> +          - sound-dai
-> >>> +
-> >>> +    required:
-> >>> +      - link-name
-> >>> +      - dai-format
-> >>> +      - tesla,bitclock-master
-> >>> +      - tesla,frame-master
-> >>> +      - cpu
-> >>> +
-> >>> +dependencies:
-> >>> +  dai-tdm-slot-width: =5B 'dai-tdm-slot-num' =5D
-> >>
-> >> This should be captured with tdm-slot.txt converted to schema.
-> > Okay
-> >>
-> >>> +
-> >>> +required:
-> >>> +  - compatible
-> >>> +  - model
-> >>> +  - dai-link
-> >>> +
-> >>> +additionalProperties: false
-> >>> +
-> >>> +examples:
-> >>> +  - =7C
-> >>> +    sound =7B
-> >>> +        compatible =3D =22tesla,fsd-sndcard=22;
-> >>> +        status =3D =22disabled=22;
-> >>
-> >> Why have a disabled example? Other than your example won't pass your
-> >> schema.
-> > Thanks for noticing, I'll double check and change the example keeping
-> > the status as enabled
->=20
-> No, just drop. Start with example-schema instead.
->=20
+You mean, description for below compatible property?
+
+>
+>> +    properties:
+>> +      compatible:
+>> +        pattern: "^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$"
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>> +  - clocks
+>> +  - clock-names
+>> +  - '#sound-dai-cells'
+>> +  - '#address-cells'
+>> +  - '#size-cells'
+>> +  - qcom,dout-ports
+>> +  - qcom,din-ports
+>> +  - qcom,ports-sinterval-low
+>> +  - qcom,ports-offset1
+>> +  - qcom,ports-offset2
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    #include <dt-bindings/clock/qcom,lpassaudiocc-sc7280.h>
+>> +
+>> +    soundwire@3210000 {
+>> +        compatible = "qcom,soundwire-v1.6.0";
+>> +        reg = <0x03210000 0x2000>;
+>> +
+>> +        interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
+>> +                     <&pdc 130 IRQ_TYPE_LEVEL_HIGH>;
+>> +
+>> +        interrupt-names = "core";
+> Does not look like you tested the bindings. Please run `make
+> dt_binding_check` (see
+> Documentation/devicetree/bindings/writing-schema.rst for instructions).
+Tested bindings and didn't see any issues on my setup. will do cross check.
+>
 > Best regards,
 > Krzysztof
-
-
+>

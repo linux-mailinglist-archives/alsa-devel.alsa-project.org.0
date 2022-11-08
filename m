@@ -2,107 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60DB62083F
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 05:29:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DAB2620986
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 07:21:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15426852;
-	Tue,  8 Nov 2022 05:28:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15426852
+	by alsa0.perex.cz (Postfix) with ESMTPS id D50B6AEA;
+	Tue,  8 Nov 2022 07:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50B6AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667881755;
-	bh=UJEGS5ECCs57pGynTcx/Ve7HdqEyHSaJYsCwYSEqWkU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667888463;
+	bh=2vA0Lmgq09VCgMLbVbgPJfwbH9UUil54ZCqmfXSqxCg=;
+	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hQcMbUH1EJfNqOG6onH1kZly9uKEcHE+AyvrwgurAokNym5B2GL5Lq1Xd6Pbq7WQJ
-	 4FcHHZXYcBg8Ojmma2KfUHRkrGvt2yzktV9v7uIFGxD+uHsvBmrC9z7qyGWarOt+bS
-	 Pt7DcJHIX7XZNBsxw+0m8jT5tW6H52XpSRRaRGiE=
+	b=L9gYTPsGQwyLEC6GIuJqRTlkpbD0s1JVjrXqeAO+yi1avOkZsnztinaOr47AHROx+
+	 K0PYrpzbQUj2ILmUuLSNJ7m7yh5he4WBImptteUh7gJq8JdOlounEUWaVx+xF9CMhU
+	 tlN+rGXivujVMYHAkSXBU5WtwA9tWz2gH0i/8wzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14A4AF80557;
-	Tue,  8 Nov 2022 05:27:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58708F80563;
+	Tue,  8 Nov 2022 07:19:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56274F8025D; Tue,  8 Nov 2022 05:27:37 +0100 (CET)
+ id 6506BF80549; Tue,  8 Nov 2022 07:19:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3EAFF8025D
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 05:27:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3EAFF8025D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
- header.b="b8vZnjuK"
-Received: by mail-pj1-x1030.google.com with SMTP id
- m6-20020a17090a5a4600b00212f8dffec9so12344846pji.0
- for <alsa-devel@alsa-project.org>; Mon, 07 Nov 2022 20:27:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RIIGd8oP3sziwMfS5bjNdlZ83g03MLKO/gH68/ERIKg=;
- b=b8vZnjuKOV19audB3sn+ISPXH+awdfhfeJtmIytlnPM8pImaTJVYKLhIcjrVIvzS1Z
- wUGo6Vsv673ZH3Y73EfasjM3agz4k35iV5TnWXgZ7PazN7aSgcxTWtWe76YjKDSVXTUB
- gKnzifFd8Ophnyb2JGwApkeSmk84zZAVYBcrxfCX9IWhpjfOK6RB9VH5pjj/DXtaN5a5
- 82cBYM4KwX5yCXiHpBAK+fUg/yflgOO/EvAty35VlXPH3N05iKf+Lvdb+oR092R+I2oM
- 09mvwNYzNCZYLzGWjrV6W8AoN4R+6Cq2J1Ytr4jENHUjHXfEo4aU6GRSS3T2oYx8XIuG
- CJJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RIIGd8oP3sziwMfS5bjNdlZ83g03MLKO/gH68/ERIKg=;
- b=4Y5tzjrW5h13OqTRNCQzMa2v6N8QcDaYI9+mu59Lqhqr/WNnY4Fh2GFMNYVDdb9/UF
- Z3J4/v+p+3YB5SRfCyYU33NdHmW2WF7kFG02CgGG6+PrkuRrBGOUiRdrpTnhpzE/Kol1
- /zsv2m4ofnJoA59RW1Rm8plXmJzAgOiG2Qr/Xh5qouxxUKDf3BPpiTLsDz98B6vUvtP6
- RxR91j1npJupM7ZQzKwPbX4BPZvxnd4miIE+ewfKE/+mpaQCnLSo4KRxElokxFdXrt2A
- i8Q9WRh7laIRwOpYqotXitXDTr/vyMemYQRSfd+ZlR2Hdn1oFwBIuY/wU36ysLhKUjOQ
- lBwg==
-X-Gm-Message-State: ACrzQf00ZfJ9KjRWzdKDNYnCHBQpcdgOIZPtlguxIuLJ9PMrrjAZ+U3n
- SL+v6ixOThZb8guCHjxvNvLhcA==
-X-Google-Smtp-Source: AMsMyM4Zyf89FLUAoW4CNQByU6fT4GCrJPUd+YcTiXulxLCcqVtH4ZqdfuELixR3ErWYZ9AZnttmYw==
-X-Received: by 2002:a17:90a:fc94:b0:213:f73a:86a7 with SMTP id
- ci20-20020a17090afc9400b00213f73a86a7mr43210065pjb.144.1667881652413; 
- Mon, 07 Nov 2022 20:27:32 -0800 (PST)
-Received: from localhost.localdomain (118-167-183-234.dynamic-ip.hinet.net.
- [118.167.183.234]) by smtp.gmail.com with ESMTPSA id
- j63-20020a625542000000b005627868e27esm5265945pfb.127.2022.11.07.20.27.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Nov 2022 20:27:32 -0800 (PST)
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] ASoC: Intel: sof rt5682: remove the duplicate codes
-Date: Tue,  8 Nov 2022 12:27:16 +0800
-Message-Id: <20221108042716.2930255-3-ajye_huang@compal.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221108042716.2930255-1-ajye_huang@compal.corp-partner.google.com>
-References: <20221108042716.2930255-1-ajye_huang@compal.corp-partner.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D421F8020D
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 07:19:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D421F8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="A1wt6cf8"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20221108061916epoutp03c5d334c7b3160ed7899490a983913aa6~lh5_cAXzJ3181631816epoutp03U
+ for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 06:19:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20221108061916epoutp03c5d334c7b3160ed7899490a983913aa6~lh5_cAXzJ3181631816epoutp03U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1667888356;
+ bh=pCyICg+T2pU44yGLH3yU7sufLwS47i+fgjYOGPfGVZY=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=A1wt6cf8kRFOEN/M+xPVBGqbZtOVRjudZCVw97qLoiZYl83/iAFYbXPRPMJTpoWR8
+ QkaPC8ZpEDXzoYkzQokdvJ/xi4WDNn085peu/oD//1RZG2FFAP5Wi+zhQLG+clvorG
+ E/tDiEizo5T25GLK4UVaMzUV9pK46uqeWothQgxE=
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTP id
+ 20221108061916epcas5p16bfd1d4ba40803e01de667e2f6d37707~lh5_LMn7J1630416304epcas5p1C;
+ Tue,  8 Nov 2022 06:19:16 +0000 (GMT)
+Received: from epsmges5p1new.samsung.com (unknown [182.195.38.177]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 4N5yc25MwCz4x9Q8; Tue,  8 Nov
+ 2022 06:19:14 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 16.8C.01710.2E4F9636; Tue,  8 Nov 2022 15:19:14 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20221108052344epcas5p17cbce08314e6eb1cf045a8e92f1892d3~lhJe_UvsQ0477904779epcas5p1T;
+ Tue,  8 Nov 2022 05:23:44 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20221108052344epsmtrp212d88900e39ee4ae43cb5a4428ee5002~lhJe8FYzG0254502545epsmtrp2I;
+ Tue,  8 Nov 2022 05:23:44 +0000 (GMT)
+X-AuditID: b6c32a49-c9ffa700000006ae-67-6369f4e21b90
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 82.78.14392.0E7E9636; Tue,  8 Nov 2022 14:23:44 +0900 (KST)
+Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20221108052341epsmtip2a11f325717c4ea22e53306b232a80b3b~lhJcoiYhu1722017220epsmtip2i;
+ Tue,  8 Nov 2022 05:23:41 +0000 (GMT)
+From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
+To: "'Mark Brown'" <broonie@kernel.org>
+In-Reply-To: <Y1KIT4nk7C8SQ45x@sirena.org.uk>
+Subject: RE: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
+Date: Tue, 8 Nov 2022 10:53:40 +0530
+Message-ID: <01ba01d8f332$44eb3810$cec1a830$@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Libin Yang <libin.yang@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
- Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
- Muralidhar Reddy <muralidhar.reddy@intel.com>,
- ye xingchen <ye.xingchen@zte.com.cn>, David Lin <CTLIN0@nuvoton.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Vamshi Krishna <vamshi.krishna.gopal@intel.com>, Yong Zhi <yong.zhi@intel.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwJEXTuNARMAzQMCgN8f5gMWNkuwArAClESsfye50A==
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrEJsWRmVeSWpSXmKPExsWy7bCmhu6jL5nJBifeqVo8mLeNzeLKxUNM
+ Foc2b2W3mPrwCZvF/CPnWC36Xjxktvh2pYPJ4vKuOWwWM87vY7JYtPULu0Xnrn5Wi1kXdrBa
+ tO49wm5x+E07q8WG72sZHfg9NnxuYvPYOesuu8emVZ1sHneu7WHz2Pd2GZtH35ZVjB7rt1xl
+ 8fi8SS6AIyrbJiM1MSW1SCE1Lzk/JTMv3VbJOzjeOd7UzMBQ19DSwlxJIS8xN9VWycUnQNct
+ MwfoeiWFssScUqBQQGJxsZK+nU1RfmlJqkJGfnGJrVJqQUpOgUmBXnFibnFpXrpeXmqJlaGB
+ gZEpUGFCdkb/+6tMBeclKza+/cbcwPheqIuRk0NCwESi9eB3ti5GLg4hgd2MEhcvvmCBcD4x
+ Smw+uBkq841R4tiGT2wwLdfezmUCsYUE9jJKHJoVCFH0glHi19kedpAEm4C5xKK9SxlBbBEB
+ dYmjmzayghQxC3QxS2w48g5oBwcHp4CuxOv1sSA1wgJeEmd61jGD2CwCKhI7PsxhAbF5BSwl
+ LvW8ZIOwBSVOznwCFmcWkJfY/nYOM8RBChI/ny5jhdgVJvH0+XOoGnGJoz97mEH2Sgh84JA4
+ /eU2O0SDi8Sk1e+gmoUlXh3fAhWXkvj8bi/Ul/kS0z42Q9kVEm0fNzBB2PYSB67MAbufWUBT
+ Yv0ufYiwrMTUU+uYIPbySfT+fgJVziuxYx6MrSqxfvkmRghbWmLf9b2MExiVZiF5bRaS12Yh
+ eWEWwrYFjCyrGCVTC4pz01OLTQsM81LL4RGenJ+7iRGcuLU8dzDeffBB7xAjEwfjIUYJDmYl
+ EV6RmsxkId6UxMqq1KL8+KLSnNTiQ4ymwPCeyCwlmpwPzB15JfGGJpYGJmZmZiaWxmaGSuK8
+ i2doJQsJpCeWpGanphakFsH0MXFwSjUwaRVlFIqKGi/Zf/61ylxnrfKkfdwC2w/7/l4jLOQS
+ PmH5O1Mh2f17g5MNPzxbuuXOih3ti0Itzwumyfp8P2jGVHg17McPtp1LXs7SMa17wDIhs8B7
+ Tla7A0/mhIs6ikwWUw6xiB8pSXoyqcL7YiOnc1cHA3cQ+4RvMYeupy0K0T2tNKfh3f9+EcaE
+ d0nKbM+KTpez7JwpVf5j2a0VtrpPFRluWB9e6xGZZc3LuvKsarvwUqNJE7d9uHP3t+HJm1sC
+ T1a/OvznbI/ipxcdPwQ2vJulv2f5pv1foqoj3QRF/28rLv/vf01AVKfiXZhD3YeXa/fcNLrn
+ Hrhuac/tpl+8W1hlbml9sf6VUG3R1b8tQomlOCPRUIu5qDgRANEN9dxlBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrBIsWRmVeSWpSXmKPExsWy7bCSvO6D55nJBtc+slo8mLeNzeLKxUNM
+ Foc2b2W3mPrwCZvF/CPnWC36Xjxktvh2pYPJ4vKuOWwWM87vY7JYtPULu0Xnrn5Wi1kXdrBa
+ tO49wm5x+E07q8WG72sZHfg9NnxuYvPYOesuu8emVZ1sHneu7WHz2Pd2GZtH35ZVjB7rt1xl
+ 8fi8SS6AI4rLJiU1J7MstUjfLoEro//9VaaC85IVG99+Y25gfC/UxcjJISFgInHt7VymLkYu
+ DiGB3YwSj5bdY4JISEtM79/DBmELS6z895wdougZo8Tyt48YQRJsAuYSi/YuBbNFBNQljm7a
+ yApSxCwwg1ni0K1LrCAJIYGNTBINK8q6GDk4OAV0JV6vjwUJCwt4SZzpWccMYrMIqEjs+DCH
+ BcTmFbCUuNTzkg3CFpQ4OfMJC0grs4CeRNtGsFXMAvIS29/OYYa4TUHi59NlrBAnhEk8ff6c
+ BaJGXOLozx7mCYzCs5BMmoUwaRaSSbOQdCxgZFnFKJlaUJybnltsWGCYl1quV5yYW1yal66X
+ nJ+7iREcuVqaOxi3r/qgd4iRiYPxEKMEB7OSCK9ITWayEG9KYmVValF+fFFpTmrxIUZpDhYl
+ cd4LXSfjhQTSE0tSs1NTC1KLYLJMHJxSDUzic211tdZpyl3avrJt7cz5naEi71n2JxVwTXT/
+ uHn5utNzlpv7fSt3NovvdbB/E26SLZv7tiiiZla2VaVmlvd/icWZ+6NvfptituRPIsMf3X0a
+ TY1frfSFL2l/nyi+WvbKwfO7pS25o+3bcgve2fuUG/ivPHpmvm2k96tT7kX6KUmFnZ4HPjNf
+ 3lAj7DRDVVkv7svpDa+zd8trTzT6e2nP5uhfZ38oXdPrnVRz6c1TsYWea9YmbvM497Ltn73P
+ 70nf5NM0Zdk+cXz23bT6IJN6X/3Sg6/Dvk47UrRu3/c3LlHdv5Rbzl5r8Ge8YTRbwltn64vt
+ L58+39zUGLB3A2PNwtD8E8k2qrbL2LMc1RSVWIozEg21mIuKEwFlzP+kSwMAAA==
+X-CMS-MailID: 20221108052344epcas5p17cbce08314e6eb1cf045a8e92f1892d3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120@epcas5p2.samsung.com>
+ <20221014102151.108539-3-p.rajanbabu@samsung.com>
+ <Y0lPz91gbovAub9D@sirena.org.uk>
+ <04a101d8e523$30804b80$9180e280$@samsung.com>
+ <Y1KIT4nk7C8SQ45x@sirena.org.uk>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,28 +158,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove the redundant code to prevent user confuse.
 
-Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 4 ----
- 1 file changed, 4 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 0e803c1c2b06..4a2f91249b10 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -867,10 +867,6 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	if (acpi_dev_present("RTL5682", NULL, -1))
- 		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
- 
--	/* Detect the headset codec variant to support machines in DMI quirk */
--	if (acpi_dev_present("RTL5682", NULL, -1))
--		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
--
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
- 		dmic_be_num = 0;
--- 
-2.25.1
+> -----Original Message-----
+> From: Mark Brown [mailto:broonie@kernel.org]
+> Sent: 21 October 2022 05:24 PM
+> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> Cc: lgirdwood@gmail.com; robh+dt@kernel.org;
+> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
+> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
+> alim.akhtar@samsung.com; rcsekar@samsung.com;
+> aswani.reddy@samsung.com; alsa-devel@alsa-project.org;
+> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-samsung-
+> soc@vger.kernel.org
+> Subject: Re: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
+> 
+> On Fri, Oct 21, 2022 at 01:30:25PM +0530, Padmanabhan Rajanbabu wrote:
+> 
+> > We can overcome this scenario to an extent if we can get a flexibility
+> > to Configure both PSR as well as RFS.
+> 
+> Why does it make sense for the machine driver to worry about this rather
+> than having the I2S controller driver configure the clock tree?
+
+
+                       ____________________________________________
+_____           |                  __
+| 
+|         |	        |	             |   \
+|
+|CMU|	        |	             |     \
+|
+|FSD  |-  |---|-|--------->|       \        _________    _________
+|
+|___  |    |    | |op_clk0|         |      |               |     |
+|             |
+	  |    | |	             |MUX|----|  PSR       |----|  RFS
+|--cdclk  |
+	  |    | |              |         |      |_______|     |_______|
+|
+	  |    | |--------->|        /
+|
+	  |    |  op_clk1 |      /
+|
+	  |    | 	             |_ /
+|
+	  |    |___________________________________________|
+	  |
+	  |-----> To other FSD SoC Peripherals
+	 
+In FSD I2S, the clock source is not an independent source but a common clock
+source being shared by many IPs in the same domain.
+
+Changing the clock tree will impact other IPs in the domain as they are
+dependent on the same source for functionality.
+
+We can understand your point to bring the PSR changes under the I2S CPU DAI
+driver by adding a separate compatible and data for the FSD SoC. But If we
+take
+the example of existing sound cards such as sound/soc/samsung/tm2_wm5110.c,
+the op_clk is supplied via external audio pll to the controller and PLL
+configuration
+is taken care by the sound card. Since the configuration of PLL is more
+specific to
+the tm2 platform, it makes use of the flexibility of changing the RFS and
+BFS
+using the sysclk and clkdiv hooks provided by exynos7-i2s CPU DAI along with
+PLL tuning for precise sampling frequency.
+
+Similar to the above example, the choice of clock source under discussion is
+not a
+limitation of exynos7-i2s controller, but instead is a limitation on the FSD
+SoC.
+By using the proposed change, we can ensure that the exynos CPU DAI driver
+is
+giving additional hooks similar to existing hooks for BFS, RFS and CDCLK
+direction
+so that sound cards can use snd_soc_dai_set_sysclk and
+snd_soc_dai_set_clkdiv
+to customize the same.
+
+An alternative approach is to use the cpu dai as bit clock and frame clock
+consumer (i.e. in slave mode) so that codec can supply the MCLK to FSD for
+playback and capture. But this will deviate from the actual usecase for FSD
+SoC, where the CPU DAI is intended to function as master.
 

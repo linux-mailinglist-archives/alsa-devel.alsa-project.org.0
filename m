@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC6A622322
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 05:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76D456223F7
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 07:26:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D9C857;
-	Wed,  9 Nov 2022 05:31:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D9C857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A6B082E;
+	Wed,  9 Nov 2022 07:25:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A6B082E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667968319;
-	bh=4Rz6wgqWZLPyeSPEWet9jm6iMjiOYPopushiLvtLfiM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1667975160;
+	bh=LfN5RUh9FR+0bgs36ELN44Q+LCFtoyO5L9b38eAYIuo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ajJ7gpZf4FAHaL53zOjb1ceO9kBELhOwgPqNOExmcMPYcdOELGAfqN0fA5TjbCtX0
-	 3XEyJNmRLH3XiTLoGO2I8lcZk9ZG5B8oLer1ILVK1WMtSMdoZzNDK48sX6TBZvUc2n
-	 mIIrZ+MhMQQVPv6/+h7P3sNsAix4IT4Lmpot5kv8=
+	b=IWteajozqdNCNdwjVzq5YUds2uzBZft14EoTsMD0/APswNU6GD5SR6GbvjGTBT+La
+	 tmFZSzhB3KkStOGpKybZMIp2geGGnTpGXitbj8WvVvQ8+d6Gl+/tI9m9YFz0Vef4FM
+	 1rTi1xSQZE5BGQ+HxKX9IZSRcLthpPSc9sHd8rBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34242F802A0;
-	Wed,  9 Nov 2022 05:31:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8775DF80121;
+	Wed,  9 Nov 2022 07:25:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8AD4F80217; Wed,  9 Nov 2022 05:31:07 +0100 (CET)
+ id 014CBF80217; Wed,  9 Nov 2022 07:25:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E14F5F804FB
- for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 05:30:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E14F5F804FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 682F1F80114
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 07:24:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682F1F80114
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ro7FisNy"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="llunt21H"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="+Rt7q7Kk"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 66D62CE1D5D;
- Wed,  9 Nov 2022 04:30:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4674C433D6;
- Wed,  9 Nov 2022 04:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667968252;
- bh=4Rz6wgqWZLPyeSPEWet9jm6iMjiOYPopushiLvtLfiM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ro7FisNy+HJzQoC3cw8P4m76mXxr+ZtPfrgFGObsH9hJuesMl2BXn9cPDD2zj3k8b
- bdBKCwCg2dJWejAQqXx+vV+yxTZvyJ7lledzJ/LIobcffcWSloracw/PxKVyC5If5N
- BttiBKDthhKJhOZJp4wW55VFpmtmtVGAwUbVaKTR39k2a8MzjE97xco2PTtsIDgIkA
- pbrX+l8H3++TjMuj3n1vb4ruQkUQm5k3X41PL2ldnGONLP6OEJ54h7Yy5t14tFhDdE
- 2jq9Wu0PoZnQE8ns0YlgG1Bhmaz2L6xLxKsWe6pbvCQzPf+fBu2etP1mS/pITWXNh0
- N2OC2Eap4rwvw==
-Date: Wed, 9 Nov 2022 10:00:48 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v6 4/4] dt-bindings: soundwire: Convert text bindings to
- DT Schema
-Message-ID: <Y2ss+NN3ZHJ4sIbR@matsya>
-References: <1667918763-32445-1-git-send-email-quic_srivasam@quicinc.com>
- <1667918763-32445-5-git-send-email-quic_srivasam@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1667918763-32445-5-git-send-email-quic_srivasam@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- Ratna Deepthi Kudaravalli <quic_rkudarav@quicinc.com>,
- konrad.dybcio@somainline.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- dianders@chromium.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- quic_rjendra@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
- mka@chromium.org
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9115622472;
+ Wed,  9 Nov 2022 06:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667975092; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DyZmr2sevTja3kpAVNQmaUNZ+Y0OO0WpvZLy6SaK7d8=;
+ b=llunt21Hogwgui2r764SRDez/lLxzr8tmCsFr0CmPqNBjrqa2ZSU+qXWIp+FpMz8nqxs/H
+ TFRYxfX0ZkCjiU1PuMxSmBye+kaaj/YDIKew2u7C0m9a8pSEp3yakDaauIon5SQ0UqLH5l
+ zLLiM1USRuL54wf+zfhgfN0OKIICZ5Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667975092;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DyZmr2sevTja3kpAVNQmaUNZ+Y0OO0WpvZLy6SaK7d8=;
+ b=+Rt7q7KkEyz/DnukHNKnZ7WUwEMNIavNjFwYBevGcKJqmCW5/YBOxpKCXXefGDgzBa7VWi
+ TZ/PdoPNVhdfCOAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C0CA1331F;
+ Wed,  9 Nov 2022 06:24:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id coF5GbRHa2NXEwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 09 Nov 2022 06:24:52 +0000
+Date: Wed, 09 Nov 2022 07:24:51 +0100
+Message-ID: <871qqcskzw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jussi Laako <jussi@sonarnerd.net>
+Subject: Re: [PATCH] ALSA: usb-audio: Add DSD support for Accuphase DAC-60
+In-Reply-To: <20221108221241.1220878-1-jussi@sonarnerd.net>
+References: <20221108221241.1220878-1-jussi@sonarnerd.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,15 +99,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 08-11-22, 20:16, Srinivasa Rao Mandadapu wrote:
-> Convert soundwire text bindings to DT Schema format.
+On Tue, 08 Nov 2022 23:12:41 +0100,
+Jussi Laako wrote:
 > 
-> Update interrupt property items as per device tree, as it is not
-> appropriately described in text file.
-> Update some of the properties description with minimum and maximum range.
-> Update secondary node info which is used to describe slave devices.
+> Accuphase DAC-60 option card supports native DSD up to DSD256,
+> but doesn't have support for auto-detection. Explicitly enable
+> DSD support for the correct altsetting.
+> 
+> Signed-off-by: Jussi Laako <jussi@sonarnerd.net>
 
-Applied, thanks
+Thanks, applied.
 
--- 
-~Vinod
+
+Takashi

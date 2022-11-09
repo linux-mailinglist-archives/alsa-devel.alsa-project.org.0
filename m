@@ -2,99 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45071623170
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:26:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09AB5623171
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:26:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB51316CE;
-	Wed,  9 Nov 2022 18:25:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB51316CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97F7216C7;
+	Wed,  9 Nov 2022 18:25:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97F7216C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014783;
-	bh=PW2qF4RuIf0U0a03XcDBEqLOhjbayrLb3qGwpve0zj0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1668014797;
+	bh=jxHEQFi64UBGyjeq1/j8pXeeeJVm7skHUIagauzZBhk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QCP8oP6dZpI18DprKIsZomRiSzFPQx0t8KUKBnwD61aVxoIQykRyrpvox/4UfZvJb
-	 A04b0hsh1vctgz7p4OM9d99PRNsrUQPye1bQ9oZe/PW8qM8VKcJPzgHkQa32E9QwFU
-	 2tv0Ykv/XhYn4J5YEx3x7sFBgNiPlYNO1C7O4a0o=
+	b=XgVuk0zGwWaiQ+SzcR1lsnEBNiKsd1JMU9F8x4xGNwZHxKnHvgH/z7x958PXeqh23
+	 jM8nVvf20iGMDxAoSWVj6qvA0MAG4ynrNcu7Y/bZg/bu/EQJkg3sNCh1Hhcrpnnzpx
+	 P3IxCbr2uRESmbfKK2YnXgdAb7A91VlNWe63DMew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D4D9F8062D;
-	Wed,  9 Nov 2022 18:16:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D47AF80631;
+	Wed,  9 Nov 2022 18:16:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91B6EF80217; Wed,  9 Nov 2022 03:44:09 +0100 (CET)
+ id 7258EF80217; Wed,  9 Nov 2022 11:53:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
+ version=3.4.0
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C96FF80121
- for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 03:44:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C96FF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BB6EF80121
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 11:53:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB6EF80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fm3R7eHw"
-Received: by mail-ed1-x534.google.com with SMTP id v17so25285064edc.8
- for <alsa-devel@alsa-project.org>; Tue, 08 Nov 2022 18:44:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZSs9bG/LbFf1fIR0eapTeL6P50DjYrAFt1f1UPagmkc=;
- b=fm3R7eHwEY7icgp5E36AR1x+G3iJ/B+gTC6qXXcb2VuX8T7PYbpIOMaEAEk+z5gP5C
- C30KcgR4lm806IYQfNeeuFx0cfGof3DpzdH786/cCDzuWrdeUNc7jFOrL5vMwTo9Vbtm
- dVxBVDI57pb7BVYvuH3eLaJ4JjrtQb9xL2MZ41TI7RBi2z65S87p9zWDePR0yCVz6VHw
- JOVSi+JRNqY3PBDz9qa44qLlWzFaPdXGRa4GRcfXuEi5nSYmnCJ6Zyk7dG4zjutSYT5H
- vN2MmXbmOeI+y4HkZpv6Bi0bN99D9Nar9mmN1KGg/88Sfc9R8fV6gzM/jPxbXATFIa/1
- F+hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZSs9bG/LbFf1fIR0eapTeL6P50DjYrAFt1f1UPagmkc=;
- b=SeRe8q+pv3RrehgguUE7zheRyTFhdczfi/2rPq1BruwkNg3LNqIiq+gEuCoRvGg+cs
- 1Md1w7fONoJ+uvc0KmBANEstC/x4WIIGUwA8+rdOF3UEt50ZYpNroDZL2rHjZ1Cbx7zH
- Uh2U7ZxSoLrpDJhIOrVq5B4o2TVg3grRw2Geul/aPPBTpgRzdJVD9rbeKPgR6bHbVguF
- 1YstdBXkl5pvM8o+odvlEG4jFdBe46KZb7Jz9lC0ZLYIe0K6GDydtjNSMto5kZIkvOjd
- WyP6170CUuTEc27pxgZ0TCVdu9TaXDPsAeKFQebMfpJQodt+i6GYAokqWXIBxwcONTqu
- KO0Q==
-X-Gm-Message-State: ACrzQf0FO/5skDeW/AOQ2Z9wt8D0mB58E3EuH1KlU2QsntYJBLzkri3d
- +9OHI0crqfWnIhm0Lm6MEDW/S/wfQaMWlqzzAKg=
-X-Google-Smtp-Source: AMsMyM4o96Fp/fgGe8bWp9qyaCLc1d6jcauj7urZdaiQjIItG7q8RJuK4x04Dncd47Xu2Mogx93A97DsfgYY/BWPass=
-X-Received: by 2002:a05:6402:3806:b0:450:bad8:8cd5 with SMTP id
- es6-20020a056402380600b00450bad88cd5mr59725933edb.305.1667961844484; Tue, 08
- Nov 2022 18:44:04 -0800 (PST)
-MIME-Version: 1.0
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="d9rjnj7H"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="pRvaZdeg"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id DB383580373;
+ Wed,  9 Nov 2022 05:53:07 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 09 Nov 2022 05:53:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1667991187; x=
+ 1667998387; bh=rFpYMyteGOfAqhSkg+1Bq7UwfUr5hnbTR+ptZFTnXBQ=; b=d
+ 9rjnj7HnOCP1X+SeQUgsQ3IucDnvzVGLm2dELGG3KHGc2Jaz/S56DblOlUBpxzB4
+ F8quqM+/7OFrlXJn61DnRvwbQIZE/xZR2lNx7cP/SAXozs7KtEYdwt02SrGKK7o1
+ us2EVYHqbSj7KNt7xi1NhBc9wKAP8MfhUM0qaadptAb+neoi1BJ6o1QmkqU02Yfe
+ 0berZ0jxZQyBFqCfBIp+3sxuin8dyghdLbYvan6AnvyFPiMh0OpKlO0Q873v29v6
+ 40IUtYpj5tqlPVfpABde2xwOgYTe4Z5iqblUUuTOjmN5BKyv6bKPG374pPg/EJaH
+ zFSsQ9oCcIk4mHkKvPhAA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1667991187; x=
+ 1667998387; bh=rFpYMyteGOfAqhSkg+1Bq7UwfUr5hnbTR+ptZFTnXBQ=; b=p
+ RvaZdegoo2TmyzmHQIkCS03rw/7QVrFwy+X8QhAzFw/G6qH9r4J8ABXk7q+j013D
+ ry+b+FzVgm0cS7diKNbZIv8W01PzwZlHlybUaFDwHWe++fB9Op0H6BXbZfkn22Hb
+ HvbxHtoCFEWsveHrV0TtYwlGYDxy/N64quV1biXWdpdhxuqaEoVLtJHi4MSKcD71
+ QIwwAaG97ix6C0FRIJAb1kYZvY5gxrN6RnsFwtHkfpGM26U/bkbi4xxQnTAt3imD
+ yTtVN1SLm0l2gXP7IeFVD2+1W71uoDjiXRfgUjYx78vkchBd4D0CxIUrqYHRYOde
+ vbFo6b6W4+xzk/AGPivkg==
+X-ME-Sender: <xms:kYZrY-tLlhO6ZUAX9-k6sQ88O6bV79mbri2Vu76BsCNU2WtceqQM4g>
+ <xme:kYZrYzeRzW2Xx9j5Vy5SrsKV1Axlb9W7IJm4to7NCoXBCQ2mA7sktDRmLvppOlH7N
+ Ko8eEGURV2x6lC8hQM>
+X-ME-Received: <xmr:kYZrY5yWEvlS3RcwFJ1Q8cnZOAMPeg8WoMGw9hs3jjQWSwoi2Bl17bow8ZYnQgjDaEptl70M9As3mQrrybOu4MsyWITW4LGGQ4fSrvKPerqqkA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfedvgddvtdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtugfgjgesthhqredttddtudenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeelleefieelleetteefvdeikeeffeffvefhtdevgfehveduveehjedvvdei
+ ledtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ hmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:kYZrY5O07SRD6puA3358osiXrtuSMFdGVdRTIqNB_Y1j0e2kCrf3cA>
+ <xmx:kYZrY--4OXcwxilx3M7PefuYPOE7Q-cNXA_rzfVHe3YNDICUyK2Sxw>
+ <xmx:kYZrYxUU9d6D9QOR4wgnmfdDTJak7SCgP6L9mst33jeFoqJvvYx3Lg>
+ <xmx:k4ZrYzEPHAcIp0kQHYqoCO6CcZhqHoAWErXk2GU8pNi2CThqinPAvA>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Nov 2022 05:53:03 -0500 (EST)
+Date: Wed, 9 Nov 2022 11:53:01 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
+Message-ID: <20221109105301.ueus7o3b75j5yeff@houat>
 References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-58-f6736dec138e@cerno.tech>
-In-Reply-To: <20221018-clk-range-checks-fixes-v2-58-f6736dec138e@cerno.tech>
-From: Chunyan Zhang <zhang.lyra@gmail.com>
-Date: Wed, 9 Nov 2022 10:43:26 +0800
-Message-ID: <CAAfSe-t96pttpdLjLYntof5JCNcVHg0fMckk6zC7YHRRceDw+A@mail.gmail.com>
-Subject: Re: [PATCH v2 58/65] clk: sprd: composite: Switch to determine_rate
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:49 +0100
+ <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
+ <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <IOEVKR.TWFKJND2FJ473@crapouillou.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <IOEVKR.TWFKJND2FJ473@crapouillou.net>
+X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:50 +0100
 Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Prashant Gaikwad <pgaikwad@nvidia.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Liam Girdwood <lgirdwood@gmail.com>,
  Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Paul Cercueil <paul@crapouillou.net>,
- Max Filippov <jcmvbkbc@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- linux-phy@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ dri-devel@lists.freedesktop.org, Max Filippov <jcmvbkbc@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Abel Vesa <abelvesa@kernel.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
  Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
@@ -116,11 +142,11 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
  Peter De Schrijver <pdeschrijver@nvidia.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,84 +162,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 4 Nov 2022 at 21:33, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> The Spreadtrum composite clocks implements a mux with a set_parent
-> hook, but doesn't provide a determine_rate implementation.
->
-> This is a bit odd, since set_parent() is there to, as its name implies,
-> change the parent of a clock. However, the most likely candidate to
-> trigger that parent change is a call to clk_set_rate(), with
-> determine_rate() figuring out which parent is the best suited for a
-> given rate.
->
-> The other trigger would be a call to clk_set_parent(), but it's far less
-> used, and it doesn't look like there's any obvious user for that clock.
->
-> So, the set_parent hook is effectively unused, possibly because of an
-> oversight. However, it could also be an explicit decision by the
-> original author to avoid any reparenting but through an explicit call to
-> clk_set_parent().
->
-> The driver does implement round_rate() though, which means that we can
-> change the rate of the clock, but we will never get to change the
-> parent.
->
-> However, It's hard to tell whether it's been done on purpose or not.
->
-> Since we'll start mandating a determine_rate() implementation, let's
-> convert the round_rate() implementation to a determine_rate(), which
-> will also make the current behavior explicit. And if it was an
-> oversight, the clock behaviour can be adjusted later on.
->
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+Hi Paul,
 
-Acked-by: Chunyan Zhang <zhang.lyra@gmail.com>
+On Sat, Nov 05, 2022 at 10:33:54AM +0000, Paul Cercueil wrote:
+> Hi Maxime,
+>=20
+> Le ven. 4 nov. 2022 =E0 15:59:46 +0100, Maxime Ripard <maxime@cerno.tech>=
+ a
+> =E9crit :
+> > Hi Paul,
+> >=20
+> > On Fri, Nov 04, 2022 at 02:31:20PM +0000, Paul Cercueil wrote:
+> > >  Le ven. 4 nov. 2022 =E0 14:18:13 +0100, Maxime Ripard
+> > > <maxime@cerno.tech> a
+> > >  =E9crit :
+> > >  > The Ingenic CGU clocks implements a mux with a set_parent hook,
+> > > but
+> > >  > doesn't provide a determine_rate implementation.
+> > >  >
+> > >  > This is a bit odd, since set_parent() is there to, as its name
+> > > implies,
+> > >  > change the parent of a clock. However, the most likely candidate
+> > > to
+> > >  > trigger that parent change is a call to clk_set_rate(), with
+> > >  > determine_rate() figuring out which parent is the best suited for
+> > > a
+> > >  > given rate.
+> > >  >
+> > >  > The other trigger would be a call to clk_set_parent(), but it's
+> > > far less
+> > >  > used, and it doesn't look like there's any obvious user for that
+> > > clock.
+> > >  >
+> > >  > So, the set_parent hook is effectively unused, possibly because
+> > > of an
+> > >  > oversight. However, it could also be an explicit decision by the
+> > >  > original author to avoid any reparenting but through an explicit
+> > > call to
+> > >  > clk_set_parent().
+> > >  >
+> > >  > The driver does implement round_rate() though, which means that
+> > > we can
+> > >  > change the rate of the clock, but we will never get to change the
+> > >  > parent.
+> > >  >
+> > >  > However, It's hard to tell whether it's been done on purpose or
+> > > not.
+> > >  >
+> > >  > Since we'll start mandating a determine_rate() implementation,
+> > > let's
+> > >  > convert the round_rate() implementation to a determine_rate(),
+> > > which
+> > >  > will also make the current behavior explicit. And if it was an
+> > >  > oversight, the clock behaviour can be adjusted later on.
+> > >=20
+> > >  So it's partly on purpose, partly because I didn't know about
+> > >  .determine_rate.
+> > >=20
+> > >  There's nothing odd about having a lonely .set_parent callback; in
+> > > my case
+> > >  the clocks are parented from the device tree.
+> > >=20
+> > >  Having the clocks driver trigger a parent change when requesting a
+> > > rate
+> > >  change sounds very dangerous, IMHO. My MMC controller can be
+> > > parented to the
+> > >  external 48 MHz oscillator, and if the card requests 50 MHz, it
+> > > could switch
+> > >  to one of the PLLs. That works as long as the PLLs don't change
+> > > rate, but if
+> > >  one is configured as driving the CPU clock, it becomes messy.
+> > >  The thing is, the clocks driver has no way to know whether or not
+> > > it is
+> > >  "safe" to use a designated parent.
+> > >=20
+> > >  For that reason, in practice, I never actually want to have a clock
+> > >  re-parented - it's almost always a bad idea vs. sticking to the
+> > > parent clock
+> > >  configured in the DTS.
+> >=20
+> > Yeah, and this is totally fine. But we need to be explicit about it. The
+> > determine_rate implementation I did in all the patches is an exact
+> > equivalent to the round_rate one if there was one. We will never ask to
+> > change the parent.
+> >=20
+> > Given what you just said, I would suggest to set the
+> > CLK_SET_RATE_NO_REPARENT flag as well.
+>=20
+> But that would introduce policy into the driver...
 
-Thanks,
-Chunyan
+I'm not sure why you're bringing policies into that discussion. There's
+plenty of policy in the driver already, and the current code doesn't do
+something that the old wasn't doing (implicitly).
 
-> ---
->  drivers/clk/sprd/composite.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/clk/sprd/composite.c b/drivers/clk/sprd/composite.c
-> index ebb644820b1e..d3a852720c07 100644
-> --- a/drivers/clk/sprd/composite.c
-> +++ b/drivers/clk/sprd/composite.c
-> @@ -9,13 +9,19 @@
->
->  #include "composite.h"
->
-> -static long sprd_comp_round_rate(struct clk_hw *hw, unsigned long rate,
-> -                               unsigned long *parent_rate)
-> +static int sprd_comp_determine_rate(struct clk_hw *hw,
-> +                                   struct clk_rate_request *req)
->  {
->         struct sprd_comp *cc = hw_to_sprd_comp(hw);
-> +       unsigned long rate;
->
-> -       return sprd_div_helper_round_rate(&cc->common, &cc->div,
-> -                                        rate, parent_rate);
-> +       rate = sprd_div_helper_round_rate(&cc->common, &cc->div,
-> +                                         req->rate, &req->best_parent_rate);
-> +       if (rate < 0)
-> +               return rate;
-> +
-> +       req->rate = rate;
-> +       return 0;
->  }
->
->  static unsigned long sprd_comp_recalc_rate(struct clk_hw *hw,
-> @@ -53,7 +59,7 @@ const struct clk_ops sprd_comp_ops = {
->         .get_parent     = sprd_comp_get_parent,
->         .set_parent     = sprd_comp_set_parent,
->
-> -       .round_rate     = sprd_comp_round_rate,
-> +       .determine_rate = sprd_comp_determine_rate,
->         .recalc_rate    = sprd_comp_recalc_rate,
->         .set_rate       = sprd_comp_set_rate,
->  };
->
-> --
-> b4 0.11.0-dev-99e3a
+And there's plenty of policies in drivers in general. Whether you limit
+the rate or not, whether you allow reparenting or not, even the
+CLK_SET_RATE_NO_REPARENT flag mentioned above is a policy decision set
+by drivers.
+
+> The fact that I don't want the MMC parented to the PLLs, doesn't mean
+> that it's an invalid configuration per se.
+
+Sure, and that's another policy :)
+
+Maxime

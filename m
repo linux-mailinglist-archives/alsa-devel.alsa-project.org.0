@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00A2622C94
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 14:40:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96354622FA2
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 17:07:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F09182C;
-	Wed,  9 Nov 2022 14:39:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F09182C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E579C201;
+	Wed,  9 Nov 2022 17:06:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E579C201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668001208;
-	bh=ig2AAvmJ4d5/ScWgFInIfDGDvmUqTlDzptDrlLKqlNo=;
+	s=default; t=1668010040;
+	bh=DUDgxCo8gHkX29vLar7UjmY10ZyQHpxE5MRL+xpehOw=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eynpvoW1nKE+UhTV7QfjK5tk/49gWWJ2kjw4muXtCeyi+H3/+45KcmRuKBJ30KlnD
-	 38qAcq+FV9qer3WDH4Mzs495dozysfttjkfDD1lUkj+FVRSHn9a37mxfm7Vw9j0ZQj
-	 jynkITzV8jf7/WTrZpCkWk5QSxwNeTBtxv2JjrwU=
+	b=g2jXRDQYuTeAZaJlpB9h2ahTSKI0tlF2lbwlTgbAFICFVJAS/3pkELn4aUlcVduRr
+	 0klcW6HBWnXSquoxL1fk5uI0yBomsVp4r6mCTX1tSVANRaDA1/zy0V+hLfDXq/MDus
+	 NmWqTO8qo8TUtSN46qLh//hmxDVixn4qikNcQL/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F20E5F800EC;
-	Wed,  9 Nov 2022 14:39:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73892F800EC;
+	Wed,  9 Nov 2022 17:06:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45901F80217; Wed,  9 Nov 2022 14:39:11 +0100 (CET)
+ id 882CAF80217; Wed,  9 Nov 2022 17:06:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD610F800EC
- for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 14:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD610F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5E3AF800EC
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 17:06:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5E3AF800EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="L1lOYSDA"
+ header.b="Yu61WIky"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668001147; x=1699537147;
+ t=1668009977; x=1699545977;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=ig2AAvmJ4d5/ScWgFInIfDGDvmUqTlDzptDrlLKqlNo=;
- b=L1lOYSDAYNxt2oCfHjqCkHpvJXM/hwkXFPLxYkGUYxue1PbMXeAm502z
- Pud0q8XY2WUjfHjy78kg0+DZ0Xon18HpI/z6UoKv6rMqvRfBqoDi0hhjv
- dfq1nPam0LpR1bv2DmyQhhgA/eUYtkpCM1HONRt0hRs8jZCP8TT1ioxFe
- UGT+fi2ayeK0u2U2vrxuioqSI6yYMK+AKlb64jSqS6I4ef5q5lf03kCc3
- TBiLqHZqrGBmBwnCYE/1HGNqEeazT+PDuxOOJZm+p/zEC92mx+IYByM/a
- ABxFIw4TFrQGeaCma3Mm9V0oaiWhKkZt15qZvN7L9fR+IOUUKmyTPwJXi Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="309687916"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="309687916"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 05:38:57 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="700358654"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="700358654"
-Received: from bsdoyle-mobl1.amr.corp.intel.com (HELO [10.252.0.23])
- ([10.252.0.23])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 05:38:55 -0800
-Message-ID: <94717ffd-11b0-7242-b145-baff9035092a@linux.intel.com>
-Date: Wed, 9 Nov 2022 15:39:23 +0200
+ bh=DUDgxCo8gHkX29vLar7UjmY10ZyQHpxE5MRL+xpehOw=;
+ b=Yu61WIkywjLV2cBU6uIPHyJn3YHrLUkVj6/YDhnvu2tDNfNA2a0LsGPf
+ J+bMseij1+cmN/kz/Ksewx/xr8vbAQPdbs2EJo9LXnQZL9cNDRhOaOUZt
+ tzrS4ax5m2OjTTs4TWbFYIPcvNWJcAYvTcMlu6QgePkmeORKZYpFzYwOy
+ 91hJCC6OOlrZ8M18bytrh3KTPZqBeaoWhJ6SkyU6UytgHbXjK6gXxt956
+ ABWUtK7eB+3O1d/kkEWDshw7nwjx7TIH+mqksqRq5AQUX7v5Ol2oEn/MV
+ dgR4lBbD1TZaUhR0I7l0iLdpAajG9B9r6fXTQXW7199SuRzPiF0IArQ77 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="337755490"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="337755490"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 08:05:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="669999464"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="669999464"
+Received: from ktan43-mobl2.amr.corp.intel.com (HELO [10.213.170.218])
+ ([10.213.170.218])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 08:05:45 -0800
+Message-ID: <e5acf9e3-20b9-00b3-8d5f-687d47ccd49c@linux.intel.com>
+Date: Wed, 9 Nov 2022 10:05:44 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH linux-next v2] ASoC: SOF: remove duplicated included
- sof-audio.h
-To: yang.yang29@zte.com.cn, pierre-louis.bossart@linux.intel.com
-References: <202211092130548796460@zte.com.cn>
+ Firefox/102.0 Thunderbird/102.2.2
+Subject: Re: [PATCH] soundwire: intel: Initialize clock stop timeout
 Content-Language: en-US
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <202211092130548796460@zte.com.cn>
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20221020015624.1703950-1-yung-chuan.liao@linux.intel.com>
+ <Y1u855YZ/B3Q+FiI@matsya>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <Y1u855YZ/B3Q+FiI@matsya>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- ranjani.sridharan@linux.intel.com, broonie@kernel.org, xu.panda@zte.com.cn,
- yung-chuan.liao@linux.intel.com
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, bard.liao@intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,39 +96,26 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 09/11/2022 15:30, yang.yang29@zte.com.cn wrote:
-> From: Xu Panda <xu.panda@zte.com.cn>
+On 10/28/22 06:28, Vinod Koul wrote:
+> On 20-10-22, 09:56, Bard Liao wrote:
+>> From: Sjoerd Simons <sjoerd@collabora.com>
+>>
+>> The bus->clk_stop_timeout member is only initialized to a non-zero value
+>> during the codec driver probe. This can lead to corner cases where this
+>> value remains pegged at zero when the bus suspends, which results in an
+>> endless loop in sdw_bus_wait_for_clk_prep_deprep().
+>>
+>> Corner cases include configurations with no codecs described in the
+>> firmware, or delays in probing codec drivers.
+>>
+>> Initializing the default timeout to the smallest non-zero value avoid this
+>> problem and allows for the existing logic to be preserved: the
+>> bus->clk_stop_timeout is set as the maximum required by all codecs
+>> connected on the bus.
 > 
-> The sof-audio.h is included more than once.
-> 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Xu Panda <xu.panda@zte.com.cn>
-> Signed-off-by: Yang Yang <yang.yang29@zte.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Applied to fixes, thanks
 
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-
-> 
-> ---
-> change for v2
->  - add maintainers and the alsa-devel mailing list in CC.  
-> ---
-> 
->  sound/soc/sof/amd/acp-common.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
-> index 27b95187356e..348e70dfe2a5 100644
-> --- a/sound/soc/sof/amd/acp-common.c
-> +++ b/sound/soc/sof/amd/acp-common.c
-> @@ -13,7 +13,6 @@
->  #include "../sof-priv.h"
->  #include "../sof-audio.h"
->  #include "../ops.h"
-> -#include "../sof-audio.h"
->  #include "acp.h"
->  #include "acp-dsp-offset.h"
-> 
-
--- 
-Péter
+Thanks Vinod, was this sent to Greg/Linus? the last pull request I see
+was for 6.1-rc1.
+Arch Linux cherry-picked this patch but other distros did not, so quite
+a few users are left with no audio card.

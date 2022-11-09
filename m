@@ -2,109 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FC762313B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:18:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97CA623175
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 18:27:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15DC21670;
-	Wed,  9 Nov 2022 18:17:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15DC21670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67A8016CE;
+	Wed,  9 Nov 2022 18:26:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67A8016CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668014303;
-	bh=smtpmkKjN841tEBNu+R+jZBfyuKEV1zGB2S9xqA0KRg=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WIZe3Db+vTgVW9llpx3Ypm/wQtQeHJTCzPzW3Lg1J1eWccUB+FRXCT9NFPe/HNOkz
-	 tthxO3jp695j3L2A9tVzQn4qxkrAGbYgj+uwbG2ba3lOWj4+PNgZp0+4aq0ItwJVCa
-	 BTUF9osecvLWuu6P/EiA7kxrO95ejp6KleebZ/9c=
+	s=default; t=1668014843;
+	bh=r+jW1cqN8KTUUuKT30JKspGk86KsPKDCKk4p1MNXh2I=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=srWbB+wYHuPdZ9RduLap24qMdgS9MEuUok0tLPRXzhlAPhDcfMX8Kd1M631OfUS+I
+	 96p0y1TD1o/ftihUgaWjivU0XCd3BPT6etP+SII4OCJQ4jyNT0nB9ssm2Umj/XPxaD
+	 BmNy+4QiDsc41d3Q0h99xR8H4Aqpkbz7mck0TPVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AA14F80567;
-	Wed,  9 Nov 2022 18:15:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4512FF8063D;
+	Wed,  9 Nov 2022 18:16:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45371F80121; Wed,  9 Nov 2022 12:37:08 +0100 (CET)
+ id 44FDBF80217; Wed,  9 Nov 2022 14:31:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.216.63.35])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20BBFF80121
- for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 12:37:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20BBFF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="WwCPTNJP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1667993821; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3HeCzuAd5DrGQl3yX0PoEWG+18EHx/4Mkssb32++3BI=;
- b=WwCPTNJPOIDWtdzd5piGmEgZU4J4b1t9NVy+qRbY3+ISBvVQ6apE6t+8jx2p/zEgIxnja5
- 9nWJEIf1duGHYh5JmCtFyh2CbFVaBUveP5Si2RGhwuWsnzKNfsXmdpkN0q+yUABhtgFuRh
- Y+C1HQZU871ihv7USL4Dk3I6J/l65gU=
-Date: Wed, 09 Nov 2022 11:36:35 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
-To: Maxime Ripard <maxime@cerno.tech>
-Message-Id: <Z8W2LR.DTD355V5EAE02@crapouillou.net>
-In-Reply-To: <20221109105301.ueus7o3b75j5yeff@houat>
-References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
- <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
- <20221104145946.orsyrhiqvypisl5j@houat>
- <IOEVKR.TWFKJND2FJ473@crapouillou.net>
- <20221109105301.ueus7o3b75j5yeff@houat>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69F71F800EC
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 14:31:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69F71F800EC
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4N6m7m4qfCz5BNS0;
+ Wed,  9 Nov 2022 21:31:00 +0800 (CST)
+Received: from szxlzmapp03.zte.com.cn ([10.5.231.207])
+ by mse-fl2.zte.com.cn with SMTP id 2A9DUpd7099677;
+ Wed, 9 Nov 2022 21:30:51 +0800 (+08)
+ (envelope-from yang.yang29@zte.com.cn)
+Received: from mapi (szxlzmapp03[null]) by mapi (Zmail) with MAPI id mid14;
+ Wed, 9 Nov 2022 21:30:54 +0800 (CST)
+Date: Wed, 9 Nov 2022 21:30:54 +0800 (CST)
+X-Zmail-TransId: 2b05636bab8effffffffb2f2727a
+X-Mailer: Zmail v1.0
+Message-ID: <202211092130548796460@zte.com.cn>
+Mime-Version: 1.0
+From: <yang.yang29@zte.com.cn>
+To: <pierre-louis.bossart@linux.intel.com>
+Subject: =?UTF-8?B?W1BBVENIIGxpbnV4LW5leHQgdjJdIEFTb0M6IFNPRjogcmVtb3ZlIGR1cGxpY2F0ZWQgaW5jbHVkZWQgc29mLWF1ZGlvLmg=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl2.zte.com.cn 2A9DUpd7099677
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.250.138.novalocal with ID
+ 636BAB94.001 by FangMail milter!
+X-FangMail-Envelope: 1668000660/4N6m7m4qfCz5BNS0/636BAB94.001/10.5.228.133/[10.5.228.133]/mse-fl2.zte.com.cn/<yang.yang29@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 636BAB94.001/4N6m7m4qfCz5BNS0
 X-Mailman-Approved-At: Wed, 09 Nov 2022 18:15:49 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>, Sekhar Nori <nsekhar@ti.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Max Filippov <jcmvbkbc@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-phy@lists.infradead.org,
- David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Abel Vesa <abelvesa@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- linux-mips@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-rtc@vger.kernel.org,
- linux-clk@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Daniel Vetter <daniel@ffwll.ch>, alsa-devel@alsa-project.org,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alessandro Zummo <a.zummo@towertech.it>, linux-sunxi@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Andreas =?iso-8859-1?q?F=E4rber?= <afaerber@suse.de>,
- linux-renesas-soc@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Lechner <david@lechnology.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, yang.yang29@zte.com.cn, broonie@kernel.org,
+ xu.panda@zte.com.cn, yung-chuan.liao@linux.intel.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,161 +85,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maxime,
+From: Xu Panda <xu.panda@zte.com.cn>
 
-Le mer. 9 nov. 2022 =E0 11:53:01 +0100, Maxime Ripard=20
-<maxime@cerno.tech> a =E9crit :
-> Hi Paul,
->=20
-> On Sat, Nov 05, 2022 at 10:33:54AM +0000, Paul Cercueil wrote:
->>  Hi Maxime,
->>=20
->>  Le ven. 4 nov. 2022 =E0 15:59:46 +0100, Maxime Ripard=20
->> <maxime@cerno.tech> a
->>  =E9crit :
->>  > Hi Paul,
->>  >
->>  > On Fri, Nov 04, 2022 at 02:31:20PM +0000, Paul Cercueil wrote:
->>  > >  Le ven. 4 nov. 2022 =E0 14:18:13 +0100, Maxime Ripard
->>  > > <maxime@cerno.tech> a
->>  > >  =E9crit :
->>  > >  > The Ingenic CGU clocks implements a mux with a set_parent=20
->> hook,
->>  > > but
->>  > >  > doesn't provide a determine_rate implementation.
->>  > >  >
->>  > >  > This is a bit odd, since set_parent() is there to, as its=20
->> name
->>  > > implies,
->>  > >  > change the parent of a clock. However, the most likely=20
->> candidate
->>  > > to
->>  > >  > trigger that parent change is a call to clk_set_rate(), with
->>  > >  > determine_rate() figuring out which parent is the best=20
->> suited for
->>  > > a
->>  > >  > given rate.
->>  > >  >
->>  > >  > The other trigger would be a call to clk_set_parent(), but=20
->> it's
->>  > > far less
->>  > >  > used, and it doesn't look like there's any obvious user for=20
->> that
->>  > > clock.
->>  > >  >
->>  > >  > So, the set_parent hook is effectively unused, possibly=20
->> because
->>  > > of an
->>  > >  > oversight. However, it could also be an explicit decision by=20
->> the
->>  > >  > original author to avoid any reparenting but through an=20
->> explicit
->>  > > call to
->>  > >  > clk_set_parent().
->>  > >  >
->>  > >  > The driver does implement round_rate() though, which means=20
->> that
->>  > > we can
->>  > >  > change the rate of the clock, but we will never get to=20
->> change the
->>  > >  > parent.
->>  > >  >
->>  > >  > However, It's hard to tell whether it's been done on purpose=20
->> or
->>  > > not.
->>  > >  >
->>  > >  > Since we'll start mandating a determine_rate()=20
->> implementation,
->>  > > let's
->>  > >  > convert the round_rate() implementation to a=20
->> determine_rate(),
->>  > > which
->>  > >  > will also make the current behavior explicit. And if it was=20
->> an
->>  > >  > oversight, the clock behaviour can be adjusted later on.
->>  > >
->>  > >  So it's partly on purpose, partly because I didn't know about
->>  > >  .determine_rate.
->>  > >
->>  > >  There's nothing odd about having a lonely .set_parent=20
->> callback; in
->>  > > my case
->>  > >  the clocks are parented from the device tree.
->>  > >
->>  > >  Having the clocks driver trigger a parent change when=20
->> requesting a
->>  > > rate
->>  > >  change sounds very dangerous, IMHO. My MMC controller can be
->>  > > parented to the
->>  > >  external 48 MHz oscillator, and if the card requests 50 MHz, it
->>  > > could switch
->>  > >  to one of the PLLs. That works as long as the PLLs don't change
->>  > > rate, but if
->>  > >  one is configured as driving the CPU clock, it becomes messy.
->>  > >  The thing is, the clocks driver has no way to know whether or=20
->> not
->>  > > it is
->>  > >  "safe" to use a designated parent.
->>  > >
->>  > >  For that reason, in practice, I never actually want to have a=20
->> clock
->>  > >  re-parented - it's almost always a bad idea vs. sticking to the
->>  > > parent clock
->>  > >  configured in the DTS.
->>  >
->>  > Yeah, and this is totally fine. But we need to be explicit about=20
->> it. The
->>  > determine_rate implementation I did in all the patches is an exact
->>  > equivalent to the round_rate one if there was one. We will never=20
->> ask to
->>  > change the parent.
->>  >
->>  > Given what you just said, I would suggest to set the
->>  > CLK_SET_RATE_NO_REPARENT flag as well.
->>=20
->>  But that would introduce policy into the driver...
->=20
-> I'm not sure why you're bringing policies into that discussion.=20
-> There's
-> plenty of policy in the driver already, and the current code doesn't=20
-> do
-> something that the old wasn't doing (implicitly).
+The sof-audio.h is included more than once.
 
-Yes, I was just talking about the CLK_SET_RATE_NO_REPARENT flag adding=20
-policy. The fact that there's plenty of policy in the driver already is=20
-not an argument for adding some more.
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Xu Panda <xu.panda@zte.com.cn>
+Signed-off-by: Yang Yang <yang.yang29@zte.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-> And there's plenty of policies in drivers in general. Whether you=20
-> limit
-> the rate or not, whether you allow reparenting or not, even the
-> CLK_SET_RATE_NO_REPARENT flag mentioned above is a policy decision set
-> by drivers.
+---
+change for v2
+ - add maintainers and the alsa-devel mailing list in CC.  
+---
 
-Allowing reparenting and not limiting the rates is not a policy, it's=20
-just following what the hardware allows you to do. The absence of=20
-policy means that the driver allows you to configure the hardware in=20
-any way you might want to.
+ sound/soc/sof/amd/acp-common.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Limiting rates, forbidding reparenting, that's policy, and it doesn't=20
-belong in a driver.
+diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
+index 27b95187356e..348e70dfe2a5 100644
+--- a/sound/soc/sof/amd/acp-common.c
++++ b/sound/soc/sof/amd/acp-common.c
+@@ -13,7 +13,6 @@
+ #include "../sof-priv.h"
+ #include "../sof-audio.h"
+ #include "../ops.h"
+-#include "../sof-audio.h"
+ #include "acp.h"
+ #include "acp-dsp-offset.h"
 
-You can argue that choosing not to reparent on rate change is a policy,=20
-and it is. That's why we need a way to enforce these policies outside=20
-the driver.
-
->>  The fact that I don't want the MMC parented to the PLLs, doesn't=20
->> mean
->>  that it's an invalid configuration per se.
->=20
-> Sure, and that's another policy :)
-
-A policy that is not enforced by the driver.
-
-Going back to the patch itself... I am fine with the change, although=20
-the patch description should probably be updated. We have .set_parent=20
-callbacks to configure clocks from DT, there's nothing more to it.
-
-Cheers,
--Paul
-
-
+-- 
+2.15.2

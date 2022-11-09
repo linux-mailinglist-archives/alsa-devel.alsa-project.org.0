@@ -2,88 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D456223F7
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 07:26:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AC3A6225A1
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 09:40:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A6B082E;
-	Wed,  9 Nov 2022 07:25:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A6B082E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE809836;
+	Wed,  9 Nov 2022 09:39:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE809836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667975160;
-	bh=LfN5RUh9FR+0bgs36ELN44Q+LCFtoyO5L9b38eAYIuo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1667983235;
+	bh=1ssOoBP00ioXANUUquG3SWFiRZeOUvGR/k73PbFsmZI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IWteajozqdNCNdwjVzq5YUds2uzBZft14EoTsMD0/APswNU6GD5SR6GbvjGTBT+La
-	 tmFZSzhB3KkStOGpKybZMIp2geGGnTpGXitbj8WvVvQ8+d6Gl+/tI9m9YFz0Vef4FM
-	 1rTi1xSQZE5BGQ+HxKX9IZSRcLthpPSc9sHd8rBk=
+	b=s4bq7oZJ4p/5f3Melhgcc0DumuhwCy6DqOXdVyjvAwzWTPiMCNgaT+nvGQW9JdAsG
+	 IcFJ5JeGfSp2vPCEqGasIfMy0KTmh+AyXn1ZdC/e4ZXDlECndmmtpfrb08Q2CYeZRC
+	 iBXf0Gqxs0W2KJWoiLX7suDs2rjo5ewRuTIMyYzk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8775DF80121;
-	Wed,  9 Nov 2022 07:25:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65C66F8023B;
+	Wed,  9 Nov 2022 09:39:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 014CBF80217; Wed,  9 Nov 2022 07:25:01 +0100 (CET)
+ id EC18EF80217; Wed,  9 Nov 2022 09:39:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E48DEF800EC
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 09:39:31 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 140D4A003F;
+ Wed,  9 Nov 2022 09:39:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 140D4A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1667983171; bh=imbi9OxRhC0tasxDFFByDWMFKtDknxAnFa2WdZ1HhFA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fAO+1jWnKJ/eUPXepWWv+oxrYByooK5hWVx1JZvn3fQP+gkQuCclYmYlpeoGYqU/q
+ ONh/cXMse+XNxMcpwZNtD3Gps67v8DdxYAcBgczuhocsFlsh4Hlw9GTb8ZxVoG9Mlo
+ AK3sHeCJWnmCcZhUMTMW9c+mKR9K12DfjwQEeHKc=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 682F1F80114
- for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 07:24:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682F1F80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="llunt21H"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+Rt7q7Kk"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9115622472;
- Wed,  9 Nov 2022 06:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667975092; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DyZmr2sevTja3kpAVNQmaUNZ+Y0OO0WpvZLy6SaK7d8=;
- b=llunt21Hogwgui2r764SRDez/lLxzr8tmCsFr0CmPqNBjrqa2ZSU+qXWIp+FpMz8nqxs/H
- TFRYxfX0ZkCjiU1PuMxSmBye+kaaj/YDIKew2u7C0m9a8pSEp3yakDaauIon5SQ0UqLH5l
- zLLiM1USRuL54wf+zfhgfN0OKIICZ5Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667975092;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DyZmr2sevTja3kpAVNQmaUNZ+Y0OO0WpvZLy6SaK7d8=;
- b=+Rt7q7KkEyz/DnukHNKnZ7WUwEMNIavNjFwYBevGcKJqmCW5/YBOxpKCXXefGDgzBa7VWi
- TZ/PdoPNVhdfCOAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C0CA1331F;
- Wed,  9 Nov 2022 06:24:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id coF5GbRHa2NXEwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 09 Nov 2022 06:24:52 +0000
-Date: Wed, 09 Nov 2022 07:24:51 +0100
-Message-ID: <871qqcskzw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jussi Laako <jussi@sonarnerd.net>
-Subject: Re: [PATCH] ALSA: usb-audio: Add DSD support for Accuphase DAC-60
-In-Reply-To: <20221108221241.1220878-1-jussi@sonarnerd.net>
-References: <20221108221241.1220878-1-jussi@sonarnerd.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  9 Nov 2022 09:39:24 +0100 (CET)
+Message-ID: <c15c4464-6f44-26c0-36ba-05232af5362a@perex.cz>
+Date: Wed, 9 Nov 2022 09:39:24 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] pcm: rate - check rate type for using
+ snd_pcm_rate_slave_frames
+Content-Language: en-US
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org
+References: <1667793912-18957-1-git-send-email-shengjiu.wang@nxp.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <1667793912-18957-1-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,16 +82,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 08 Nov 2022 23:12:41 +0100,
-Jussi Laako wrote:
+On 07. 11. 22 5:05, Shengjiu Wang wrote:
+> With plughw device and mmap case, the plug pcm fast_ops pointer is same
+> as slave pcm fast_ops, but ops pointer is different, which cause
+> the "bus error" in snd_pcm_rate_slave_frames.
 > 
-> Accuphase DAC-60 option card supports native DSD up to DSD256,
-> but doesn't have support for auto-detection. Explicitly enable
-> DSD support for the correct altsetting.
+> The test command is
+> arecord -Dplughw:x -r12000 -c2 -fS16_LE -M temp.wav
 > 
-> Signed-off-by: Jussi Laako <jussi@sonarnerd.net>
+> This patch is to add pcm type check as commit:
+> d21e0e01 pcm: plugin - fix avail_min calculation on rate plugin
+> 
+> Fixes: d9dbb57b ("pcm: rate - rewrite the may_wait_for_avail_min callback for the rate plugin")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>   src/pcm/pcm_rate.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/src/pcm/pcm_rate.c b/src/pcm/pcm_rate.c
+> index e8815e8b..dc502202 100644
+> --- a/src/pcm/pcm_rate.c
+> +++ b/src/pcm/pcm_rate.c
+> @@ -1304,8 +1304,11 @@ static snd_pcm_uframes_t snd_pcm_rate_slave_frames(snd_pcm_t *pcm, snd_pcm_ufram
+>   static int snd_pcm_rate_may_wait_for_avail_min(snd_pcm_t *pcm,
+>   					       snd_pcm_uframes_t avail)
+>   {
+> -	return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail,
+> -							  snd_pcm_rate_slave_frames);
+> +	if (snd_pcm_type(pcm) == SND_PCM_TYPE_RATE)
+> +		return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail,
+> +								  snd_pcm_rate_slave_frames);
+> +	else
+> +		return snd_pcm_plugin_may_wait_for_avail_min_conv(pcm, avail, NULL);
+>   }
+>   
+>   static const snd_pcm_fast_ops_t snd_pcm_rate_fast_ops = {
 
-Thanks, applied.
+It's not a correct fix. The snd_pcm_t pointer passed to all fast ops functions should be in sync with the callback implementation.
 
+I tried to fix this issue in commits:
 
-Takashi
+https://github.com/alsa-project/alsa-lib/commit/aa4f56c3c952269c36464cc0da9db5a1381648fa
+https://github.com/alsa-project/alsa-lib/commit/39060852d810461dc8cd1464cfb2ffe84da42d56
+
+Let me know, if this update does work for you. Thank you for your report.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

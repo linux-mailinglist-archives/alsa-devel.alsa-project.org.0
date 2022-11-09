@@ -2,52 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D54C621EE6
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Nov 2022 23:14:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA9C62231F
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Nov 2022 05:31:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E968A836;
-	Tue,  8 Nov 2022 23:13:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E968A836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5271D836;
+	Wed,  9 Nov 2022 05:30:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5271D836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1667945645;
-	bh=yfNhhOKJ2qlg/AWA6EO7O9Vq1GmOAMh1xLpxJBPeUlg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=PtifOxoiu6iapBR2DFJa2kRqrf6yd/fTdLxLj6UuHJ5NFLjCaMnoHwr9zzW5jhqR+
-	 m32HnvR8LQGXwl8S92NRdFEqA1feo6gu26voteqpKZGG5yqU1pCeF7qGkVxIQKCOq/
-	 J+D3SBKjzTeEPcPcPDb710vUozMZXi1NklR8OquE=
+	s=default; t=1667968265;
+	bh=Y+wsi+hfHTwgv/jg3RZnAaB0QuEulD67yzWdyluHBfQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=B84t3VSoKuNvsddjrroERjiLpaYsNZzyIDgWF3U3BJPsAMBbv07r/o1Kg7Hq6nVjn
+	 NOZdHBF7i5JvlmkkbJzV/8EGQtNEC80G/PDXXjQdh+qL3BrcABOrQpWuKfN7rIwQpm
+	 UIfvHcFFj5pSNC9Ii7g+HuPuORpKJNL4ShLwnXME=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D603F8020D;
-	Tue,  8 Nov 2022 23:13:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA91FF80217;
+	Wed,  9 Nov 2022 05:30:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36B05F801D8; Tue,  8 Nov 2022 23:13:07 +0100 (CET)
+ id 80C36F8023B; Wed,  9 Nov 2022 05:30:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from mail.sonarnerd.net (rankki.sonarnerd.net [194.157.85.202])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8214F800F4
- for <alsa-devel@alsa-project.org>; Tue,  8 Nov 2022 23:13:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8214F800F4
-Received: from porkkala.uworld (porkkala.uworld [IPv6:fc00::2])
- by mail.sonarnerd.net (Postfix) with ESMTP id 5F583231091;
- Wed,  9 Nov 2022 00:12:58 +0200 (EET)
-From: Jussi Laako <jussi@sonarnerd.net>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Add DSD support for Accuphase DAC-60
-Date: Wed,  9 Nov 2022 00:12:41 +0200
-Message-Id: <20221108221241.1220878-1-jussi@sonarnerd.net>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3932FF80121
+ for <alsa-devel@alsa-project.org>; Wed,  9 Nov 2022 05:30:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3932FF80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FHp4fncY"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7E427617E1;
+ Wed,  9 Nov 2022 04:29:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E48C433D6;
+ Wed,  9 Nov 2022 04:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667968198;
+ bh=Y+wsi+hfHTwgv/jg3RZnAaB0QuEulD67yzWdyluHBfQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FHp4fncYj/791czgAy7Zhx63V4mczDfCQWyPLPgCNVPnFGyUziNBdraBtGZnqT2jA
+ x1BYpiHDh2hjMVd5HK6hyoq6bYlqc05HK1jlOnR4r+iRQ8XLUjQNPzhVURR4LS16yb
+ Q7YPyvR7urHFnNXDVP8lWGYbEA65Z3MDyXj4DCM0BiG6UPXPtvh4dmZJPP9/tHJcaG
+ euc2L3hSxKtQiO3zYnG9jjybTla2vxYlTLQ/YfKaa90jsRQFqE12ZAwG3HhSUX3D++
+ GBWlUBlV3DywOpR98WKA84TSwhmJC8Z/z7Yeeq5MgYQMe7p4zoMuNpxqSWSXPCNudn
+ Pm/M7F8IYF/qg==
+Date: Wed, 9 Nov 2022 09:59:54 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/2] soundwire: cadence: remove dma_data
+Message-ID: <Y2sswmYa4cBBCuwV@matsya>
+References: <20221101023521.2384586-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Jussi Laako <jussi@sonarnerd.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221101023521.2384586-1-yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ bard.liao@intel.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,27 +84,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Accuphase DAC-60 option card supports native DSD up to DSD256,
-but doesn't have support for auto-detection. Explicitly enable
-DSD support for the correct altsetting.
+On 01-11-22, 10:35, Bard Liao wrote:
+> The use of dma_data is problematic for two reasons for the Cadence IP.
+> a) the dai runtime data has nothing to do with DMAs in existing solutions
+> b) we will use the dma_data for DMA-management in the future. We cannot
+> share two separate pieces of information with the same dma_data pointer.
 
-Signed-off-by: Jussi Laako <jussi@sonarnerd.net>
----
- sound/usb/quirks.c | 1 +
- 1 file changed, 1 insertion(+)
+Applied, thanks
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 2dd19a5c3026..aedc3987a4cf 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1875,6 +1875,7 @@ u64 snd_usb_interface_dsd_format_quirks(struct snd_usb_audio *chip,
- 	/* XMOS based USB DACs */
- 	switch (chip->usb_id) {
- 	case USB_ID(0x1511, 0x0037): /* AURALiC VEGA */
-+	case USB_ID(0x21ed, 0xd75a): /* Accuphase DAC-60 option card */
- 	case USB_ID(0x2522, 0x0012): /* LH Labs VI DAC Infinity */
- 	case USB_ID(0x2772, 0x0230): /* Pro-Ject Pre Box S2 Digital */
- 		if (fp->altsetting == 2)
 -- 
-2.34.1
-
+~Vinod

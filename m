@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C861624A5A
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 20:10:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A04624C04
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 21:37:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 097591651;
-	Thu, 10 Nov 2022 20:09:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 097591651
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CF181660;
+	Thu, 10 Nov 2022 21:36:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CF181660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668107404;
-	bh=G/mBYtyztie+h46PmH/Zk9zR5WE6VE58AciLGHizxbI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1668112647;
+	bh=bCmHFzNSY03F/mNbxzkAkXDoKUIb84vHMVmOs8FgiW4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lzLW7JMCTctmrg0Vyc97O7IL07C4R8uK2eW9N3bDYcFBJ3abjVfwwquADY9kxnZkT
-	 aC/QbirrIu0twkyWslzcAAKNCwZcGd25/S4d1QL67Un5uPXyg1GIdJZ39ZoKX6adic
-	 yP5jTxdsrdvZwdoEXipAGYBtLna1dqUdCL4oehfE=
+	b=D7kEa5S+14vG2yZzJUn1Vt1RVsIoDABL3OaoCGNqZuOcFAv6yfo6hgDM+v1RjjCWI
+	 QIx9uxvZq7YKM+kO+w5V4NY0wuT+3+pRiyYMMj50svyblJoOtLIbBAV6krkJs2Byxm
+	 Ve5B3TNtm7zdEIKPzZ+Ew38nqgKLQRCJR2hxVU5c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF6A9F80104;
-	Thu, 10 Nov 2022 20:09:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BDE2F80104;
+	Thu, 10 Nov 2022 21:36:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57670F80104; Thu, 10 Nov 2022 20:09:07 +0100 (CET)
+ id 69868F8021D; Thu, 10 Nov 2022 21:36:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECEEEF80104
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 20:09:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECEEEF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A9C1F80114
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 21:36:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A9C1F80114
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="SmJlkilE"
-Received: by mail-pj1-x1035.google.com with SMTP id
- e7-20020a17090a77c700b00216928a3917so5663016pjs.4
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 11:09:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=G/mBYtyztie+h46PmH/Zk9zR5WE6VE58AciLGHizxbI=;
- b=SmJlkilE12HGb2sxMtzADB8mWWLr5U39bQBL/7O1hZWQtMgy3TV0d93aXgTIPejC8Y
- TyZffY736lWsDPIQDXaXfm7yx202fM43f7/Qi2RvURxY6USUTVgl5gBDL7l7ahZ/BmBA
- qIs77nlaqzDUKb6k6Mu5ysnXIhzPJAtQDbwmK9BA0xmhubloj1e6lV5uhfuLQnau3sMT
- rZRLbzdjxdx5I5AoBAdgY8UtJ3C0k4CQukGnLzed8ga+Xa7e1QDTDFqAFZ1ohGoEJ7QT
- nxBAo6gE0p+3SsTOrVz2D3i/NqabdqYsIY9UvyBfHmJGGLqywLjWc1n5gdtQVqnHjVtM
- ZFVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=G/mBYtyztie+h46PmH/Zk9zR5WE6VE58AciLGHizxbI=;
- b=KTBppHVBkf7OLITBWaqE/mVyppdyrOrkZ49e3s2shVISfVlPwo0RzVIFitFlmLUXuR
- 2AvMS9HEiv+eXfyCXLEHrPXYlNisODz9LRmYUO+AemqTcePw+BVStmSrDgj7Hwb6M/V4
- WKNzPWb+9bPFx2XR7HUP9u42WTyOWgSSBgW++ODtL63ALr8YySXwOSVuEWcVpGx/iJfD
- fDKALO5x8MSefLe7tyMVN8YUTzpmyJUOfFLHpWYGYLGzZkrR1/KMYrTdYZp+U6HicUfT
- jPHFhx/xnXLvJOPIOZt7PkosZjHObnBW/sbT7cETQm+jhUN3Y4ltuEpqc+Y+wAs3pDzk
- 92rw==
-X-Gm-Message-State: ACrzQf1mtkp+cLAFUPgWGCpanSdJjY6pzfRcpPaOrm7ExKkOc5x8PBma
- UFgYJpYTyPCNdK1MYZOLWuIY7i//dyzuls5khh4=
-X-Google-Smtp-Source: AMsMyM5TElItKyrxA7BJRgm8tw06WTvSGL7ZM1pFeJNuHzXf512lMP/JotH3KDH26F5g+z7aWEKllgFznuY37dYZPv4=
-X-Received: by 2002:a17:902:cccb:b0:185:4880:91cd with SMTP id
- z11-20020a170902cccb00b00185488091cdmr1758619ple.130.1668107337925; Thu, 10
- Nov 2022 11:08:57 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sRGSRDPQ"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D9DC761E06;
+ Thu, 10 Nov 2022 20:36:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD88DC433D6;
+ Thu, 10 Nov 2022 20:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668112582;
+ bh=bCmHFzNSY03F/mNbxzkAkXDoKUIb84vHMVmOs8FgiW4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sRGSRDPQ5WtN3//4aNfHkT0ms1AfziN5jFFdbrt66a9b/6jQjqbaM+SpuWNMsRmXe
+ JrOEMqk5HTdtkJL1eE8aIqXc6aXcdx6XgAOy3ChlncQJU54qH/xKEJTj9p2MW/9c+t
+ Lzg5U90CyCbG1ktMd/XGX9XGnjpaEya8qRdJuUvXjKpFhgMc2aFZU6b7kTKRsF7468
+ kcuG5KUcGg58Tr4f+fYnSnLllXaKAeeAl9e5PCXN2FC0i73vWq/KNxMlvEbvxNhDBI
+ TGKe8ZTRWksTmOfMqaPzQUB8dhl1DuYX0x5jZmRZR2+v3RApGVN7MzDt8v/GEsr/JL
+ PXN4axqNziG6Q==
+Date: Thu, 10 Nov 2022 20:36:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
+ CS48L31/32/33 codecs
+Message-ID: <Y21gwGDb5CFft0kp@sirena.org.uk>
+References: <20221109165331.29332-1-rf@opensource.cirrus.com>
+ <20221109165331.29332-10-rf@opensource.cirrus.com>
+ <87mt8zutib.wl-maz@kernel.org>
+ <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
+ <86pmdvow5y.wl-maz@kernel.org>
+ <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+ <86k042q1uc.wl-maz@kernel.org>
+ <05ae0e20-b472-f812-1afc-ef8c2a97cdeb@opensource.cirrus.com>
+ <87iljmve87.wl-maz@kernel.org>
 MIME-Version: 1.0
-References: <20221110190612.1341469-1-detlev.casanova@collabora.com>
-In-Reply-To: <20221110190612.1341469-1-detlev.casanova@collabora.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 10 Nov 2022 16:08:44 -0300
-Message-ID: <CAOMZO5BiFdVJ5tipBKfo6ZGSeGw4m4raoV_x1y1ffOJgBGg2Xw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: sgtl5000: Reset the CHIP_CLK_CTRL reg on remove
-To: Detlev Casanova <detlev.casanova@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:NXP SGTL5000 DRIVER" <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="cLWr1cCMwWOX3sxh"
+Content-Disposition: inline
+In-Reply-To: <87iljmve87.wl-maz@kernel.org>
+X-Cookie: Torque is cheap.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,24 +98,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 10, 2022 at 4:06 PM Detlev Casanova
-<detlev.casanova@collabora.com> wrote:
->
-> Since commit bf2aebccddef ("ASoC: sgtl5000: Fix noise on shutdown/remove"),
-> the device power control registers are reset when the driver is
-> removed/shutdown.
->
-> This is an issue when the device is configured to use the PLL clock. The
-> device will stop responding if it is still configured to use the PLL
-> clock but the PLL clock is powered down.
->
-> When rebooting linux, the probe function will show:
-> sgtl5000 0-000a: Error reading chip id -11
->
-> Make sure that the CHIP_CLK_CTRL is reset to its default value before
-> powering down the device.
->
-> Fixes: bf2aebccddef ("ASoC: sgtl5000: Fix noise on shutdown/remove")
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
+--cLWr1cCMwWOX3sxh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Nov 10, 2022 at 06:47:20PM +0000, Marc Zyngier wrote:
+
+> Read again what I have written. Having to expose a device-specific API
+> for endpoint drivers to obtain their interrupts, and requiring them to
+> know about some magic values that describe the interrupts source are
+> not a acceptable constructs.
+
+> We have firmware descriptions to expose interrupt linkages, and your
+> HW is not special enough to deserve its own top level API. Yes, we
+> accepted such drivers in the past, but it has to stop.
+
+> Either you describe the internal structure of your device in DT or
+> ACPI, and make all client drivers use the standard API, or you make
+> this a codec library, purely specific to your device and only used by
+> it. But the current shape is not something I'm prepared to accept.
+
+ACPI gets to be a lot of fun here, it's just not idiomatic to describe
+the internals of these devices in firmware there and a lot of the
+systems shipping this stuff are targeted at other OSs and system
+integrators are therefore not in the least worried about Linux
+preferences.  You'd need to look at having the MFD add additional
+description via swnode or something to try to get things going.  MFD
+does have support for that, though it's currently mainly used with
+devices that only have ACPI use (axp20x looks like the only potentially
+DT user, from the git history the swnode bits are apparently for use on
+ACPI systems).  That might get fragile in the DT case since you could
+have multiple sources for description of the same thing unless you do
+something like suppress the swnode stuff on DT systems.
+
+Given that swnode is basically DT written out in C code I'm not actually
+convinced it's that much of a win, unless someone writes some tooling to
+generate swnode data from DT files you're not getting the benefit of any
+of the schema validation work that's being done.  We'd also need to do
+some work for regulators to make sure that if we are parsing DT
+properties on ACPI systems we don't do so from _DSD since ACPI has
+strong ideas about how power works and we don't want to end up with
+systems with firmware providing mixed ACPI/DT models without a clear
+understanding of what we're geting into.
+
+I do also have other concerns in the purely DT case, especially with
+chip functions like the CODEC where there's a very poor mapping between
+physical IPs and how Linux is tending to describe things internally at
+the minute.  In particular these devices often have a clock tree
+portions of which can be visible and useful off chip but which tends to
+get lumped in with the audio IPs in our current code.  Ideally we'd
+describe that as a clock subdevice (or subdevices if that fits the
+hardware) using the clock bindings but then that has a bunch of knock on
+effects the way the code currently is which probably it's probably
+disproportionate to force an individual driver author to work through.
+OTOH the DT bindings should be OS neutral ABI so...
+
+--cLWr1cCMwWOX3sxh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNtYL8ACgkQJNaLcl1U
+h9Bdegf+M0O5xuz080mqCfkEStEVXEa7vgYTaXJ5kSDWE8EVR2JGupMqABM77ylJ
+E4ccbboETZSH5UmTskY7AeAGlD6u/n1jy2P8eluNxXMoQ9IS+qNpJgyKMfeKKRYE
+ZbqkECcs70AOIyOe5ntQS+sxpEDPlKsQvGkV+0rXiX2bMNVSpcst84eYr9bayPrV
+YBFdrEuMwCcCjH3tx+7pcaxaghZHX5r4MtZYjhR8kHZ28RN5eesTg1LsblDM5abo
+mWGOe/hrQocDzuUSl3WmPGoFJIKk5a+xcex4kO1/0CouI+b6Id4M06qMdU6cwoKv
+R9QO9gnPCJjkAFOWmx4hPA6ripXBqQ==
+=FGs4
+-----END PGP SIGNATURE-----
+
+--cLWr1cCMwWOX3sxh--

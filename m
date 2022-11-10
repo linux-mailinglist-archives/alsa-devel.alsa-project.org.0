@@ -2,79 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A8526248D4
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:59:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74BC16249EA
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 19:48:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3507B166C;
-	Thu, 10 Nov 2022 18:58:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3507B166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DD851660;
+	Thu, 10 Nov 2022 19:48:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DD851660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668103162;
-	bh=Kdwf3HBzQKzgKvV7niLjKG3Y6fwZwErSkKiE9iGJJMg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1668106136;
+	bh=Eb8pRz09JxZ+CgnpKwL02Ekng+XHb16ZA97L7PgePj0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XYShj/lfZeSRMj5WSiaY1LqLryPPpxraxkU+SURKCAnF48mgB6gjRay9g8gmDeJN8
-	 3eFSbi29RZFwFXJ6SsObIINEo+1+4CbMPBU/PUaKmq+8K/c0C4sxTclmnkQSUEdH8f
-	 ebQlGgcg5s0GEm9yZDJduw4vI68/2nIJMr9Wjf9Y=
+	b=MBUOInE9rYwZVNUa3/S2lAtgLtEOvAO9GPUasqIwatipZv3l5CnJs6IRDh9dbcA6E
+	 UlLC3jPbeFg5nOV/GwUBSmKNzFqLByIIo1iCcP/iTR1WLzPJ6oWVr7Hr0akyYSnpr1
+	 n0aM+KbXyxc6kU8rGjabwbKgW1whO5saTX38DXr0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AC8EF805B1;
-	Thu, 10 Nov 2022 18:55:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 873B9F80104;
+	Thu, 10 Nov 2022 19:48:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E47E9F805A9; Thu, 10 Nov 2022 18:55:53 +0100 (CET)
+ id 71BF1F8021D; Thu, 10 Nov 2022 19:47:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B7B4F805A9
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B7B4F805A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42C77F80114
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 19:47:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42C77F80114
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BXK0eLGo"
+ header.b="rZrKGXf6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 410E9B822A6;
- Thu, 10 Nov 2022 17:55:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3D6C433D6;
- Thu, 10 Nov 2022 17:55:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 578AF61E07;
+ Thu, 10 Nov 2022 18:47:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E04DC433C1;
+ Thu, 10 Nov 2022 18:47:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668102949;
- bh=Kdwf3HBzQKzgKvV7niLjKG3Y6fwZwErSkKiE9iGJJMg=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=BXK0eLGoEiEvF2mpAttVE6XZHMV5Q6YEb2RE6L2eFLQfc78PK4gbCDlbuHYj/7LMz
- evLU7Yisb/kOYTbl5KwJ8+PQ9SZIeJJ4TUZj8Bo2B7YCSI1bkhDgtn0K1/+eFTnetw
- CHrq1AIATw77Ve/SOc/uzKzM8AqRft8A7StTIC+d8a6UO8nvLVzMXugBWdOdoNLeQX
- 2U9L/EzUDjddMzbTBE/bhZmrTBlTNUd0yTkz8cT2irwRwp1R44Imj8KlXt57nuvaV8
- AGMf6xXHQl6ZZaBni3luxJ6d/V70ERayTUlwpH119RBuax6ppGCzROI1vlHyf3dAo8
- cG1bOG/Sb1lkg==
-From: Mark Brown <broonie@kernel.org>
-To: u.kleine-koenig@pengutronix.de, alsa-devel@alsa-project.org, perex@perex.cz,
- cmo@melexis.com, 
- Chancel Liu <chancel.liu@nxp.com>, ckeepax@opensource.cirrus.com,
- shengjiu.wang@nxp.com, chi.minghao@zte.com.cn, 
- ojeda@kernel.org, lgirdwood@gmail.com, luca.ceresoli@bootlin.com,
- patches@opensource.cirrus.com, tiwai@suse.com, 
- xiaolei.wang@windriver.com, steve@sk2.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20221109121354.123958-1-chancel.liu@nxp.com>
-References: <20221109121354.123958-1-chancel.liu@nxp.com>
-Subject: Re: [PATCH v2] ASoC: wm8962: Wait for updated value of
- WM8962_CLOCKING1 register
-Message-Id: <166810294654.959181.11432270569807765176.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 17:55:46 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
+ s=k20201202; t=1668106069;
+ bh=Eb8pRz09JxZ+CgnpKwL02Ekng+XHb16ZA97L7PgePj0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=rZrKGXf6VQAFdx7pZgdPTpJ7nfnCp6H/aZpbRWLpLqt5XKRMq+2KhxK2jHcyhwKZh
+ cX3rlSHWgKYfJLst6ABHXZdnIrIbDEVdUTA42yMXskWLlw0IOGPYcDOevnJzyP0bKI
+ f2mdMin+Pcf8JlrbhMJDvc7wWS0tEB5mE8cv7KWTfgBXEen1SyEgx4pI20nenZddTr
+ 2BeSAQoZ/60di9DXhB92s2Im1ezzWIUjXSQolYUJP+YwC7pkSWlWafQ6vIQENbqRLk
+ llStIQswB7/fR6NtkKfnerHcV8t6uhRRCagQEqxMBOJYZIQ6dR+S9HP90eU6QtbWAv
+ D14jR138div4w==
+Received: from ip-185-104-136-29.ptr.icomera.net ([185.104.136.29]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1otCaY-005EAY-OI;
+ Thu, 10 Nov 2022 18:47:46 +0000
+Date: Thu, 10 Nov 2022 18:47:20 +0000
+Message-ID: <87iljmve87.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
+ CS48L31/32/33 codecs
+In-Reply-To: <05ae0e20-b472-f812-1afc-ef8c2a97cdeb@opensource.cirrus.com>
+References: <20221109165331.29332-1-rf@opensource.cirrus.com>
+ <20221109165331.29332-10-rf@opensource.cirrus.com>
+ <87mt8zutib.wl-maz@kernel.org>
+ <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
+ <86pmdvow5y.wl-maz@kernel.org>
+ <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+ <86k042q1uc.wl-maz@kernel.org>
+ <05ae0e20-b472-f812-1afc-ef8c2a97cdeb@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.104.136.29
+X-SA-Exim-Rcpt-To: rf@opensource.cirrus.com, lee@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linus.walleij@linaro.org,
+ broonie@kernel.org, tglx@linutronix.de, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-gpio@vger.kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +112,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Nov 2022 20:13:54 +0800, Chancel Liu wrote:
-> DSPCLK_DIV field in WM8962_CLOCKING1 register is used to generate
-> correct frequency of LRCLK and BCLK. Sometimes the read-only value
-> can't be updated timely after enabling SYSCLK. This results in wrong
-> calculation values. Delay is introduced here to wait for newest value
-> from register. The time of the delay should be at least 500~1000us
-> according to test.
+On Thu, 10 Nov 2022 16:31:06 +0000,
+Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
 > 
-> [...]
+> On 10/11/2022 15:13, Marc Zyngier wrote:
+> > On Thu, 10 Nov 2022 13:00:50 +0000,
+> > Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+> >> 
+> >> On 10/11/2022 12:01, Marc Zyngier wrote:
+> >>> On Thu, 10 Nov 2022 11:22:26 +0000,
+> >>> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+> >>>> 
+> >>>> On 10/11/2022 08:02, Marc Zyngier wrote:
+> >>>>> On Wed, 09 Nov 2022 16:53:28 +0000,
+> >>>>> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+> >>>>>> 
+> >>>>>> The Cirrus Logic CS48L31/32/33 audio codecs contain a programmable
+> >>>>>> interrupt controller with a variety of interrupt sources, including
+> >>>>>> GPIOs that can be used as interrupt inputs.
+> >>>>>> 
+> >>>>>> This driver provides the handling for the interrupt controller. As the
+> >>>>>> codec is accessed via regmap, the generic regmap_irq functionality
+> >>>>>> is used to do most of the work.
+> >>>>>> 
+> >>>>> 
+> >>>>> I cannot spot a shred of interrupt controller code in there. This
+> >>>> 
+> >>>> It is providing support for handling an interrupt controller so that
+> >>>> other drivers can bind to those interrupts. It's just that regmap
+> >>>> provides a lot of generic implementation for SPI-connected interrupt
+> >>>> controllers so we don't need to open-code all that in the
+> >>>> irqchip driver.
+> >>> 
+> >>> And thus none of that code needs to live in drivers/irqchip.
+> >>> 
+> >>>> 
+> >>>>> belongs IMO to the MFD code.
+> >>>> 
+> >>>> We did once put interrupt support in MFD for an older product line but
+> >>>> the MFD maintainer doesn't like the MFD being a dumping-ground for
+> >>>> random other functionality that have their own subsystems.
+> >>> 
+> >>> I don't like this stuff either. All this code is a glorified set of
+> >>> interrupt handlers and #defines that only hide the lack of a proper DT
+> >>> binding to express the interrupt routing (it feels like looking at
+> >>> board files from 10 years ago).
+> >>> 
+> >> 
+> >> I didn't understand this. The whole purpose of this is to instantiate
+> >> Linux interrupts for the PIC interrupt sources so that other drivers
+> >> that want to use the interrupts from the CS48L32 PIC can use standard
+> >> kernel APIs or DT to bind against them.
+> > 
+> > There is zero standard APIs in this patch. Does cs48l32_request_irq()
+> > look standard to you? This whole thing makes a mockery of the
+> > interrupt model and of firmware-based interrupt description which we
+> > spent years to build.
+> > 
+> >> 
+> >> The four handlers registered within the driver are done here simply
+> >> because they don't belong to any particular child driver. Since they
+> >> are a fixed feature of the chip that we know we want to handle we may as
+> >> well just register them.
+> > 
+> > Again, they have no purpose in an interrupt controller driver.
+> > 
+> >> If we put them in the MFD with DT definitions it would make a
+> >> circular dependency between MFD and its child, which is not a great
+> >> situation. If it's these handlers that are bothering you, we could move
+> >> them to the audio driver.
+> > 
+> > And what's left? Nothing.
+> 
+> Ah, I see. You've missed that the bulk of the implementation re-uses
+> existing library code from regmap. It does say this in the commit
+> message.
+> 
+>   "the generic regmap_irq functionality is used to do most of the work."
+> 
+> and I've also said this in previous replies.
+> 
+> This is no way driver that does nothing. There's over 1000 lines of code
+> handling the PIC and dispatching its interrupts to other drivers that
+> want to bind to them. It's just that it makes no sense to duplicate 1300
+> lines of interrupt handling code from elsewhere when we can re-use that
+> by calling regmap_add_irq_chip(). That gives us all the interrupt-
+> controller-handling code in drivers/base/regmap/regmap-irq.c
+> 
+> Perhaps you could re-review this taking into account that
+> regmap_add_irq_chip() is significant.
 
-Applied to
+Read again what I have written. Having to expose a device-specific API
+for endpoint drivers to obtain their interrupts, and requiring them to
+know about some magic values that describe the interrupts source are
+not a acceptable constructs.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+We have firmware descriptions to expose interrupt linkages, and your
+HW is not special enough to deserve its own top level API. Yes, we
+accepted such drivers in the past, but it has to stop.
 
-Thanks!
+Either you describe the internal structure of your device in DT or
+ACPI, and make all client drivers use the standard API, or you make
+this a codec library, purely specific to your device and only used by
+it. But the current shape is not something I'm prepared to accept.
 
-[1/1] ASoC: wm8962: Wait for updated value of WM8962_CLOCKING1 register
-      commit: 3ca507bf99611c82dafced73e921c1b10ee12869
+	M.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Without deviation from the norm, progress is not possible.

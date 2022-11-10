@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC9F66248CC
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:57:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 982806248CE
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:58:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C62B1688;
-	Thu, 10 Nov 2022 18:56:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C62B1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24053167E;
+	Thu, 10 Nov 2022 18:57:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24053167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668103040;
-	bh=1ZiOgcZ5dO+xDxvGJQ7qAMOODxVWHhgW3wMMK0igvTg=;
+	s=default; t=1668103084;
+	bh=djLkJnlYM/WpHPHjrcSKIXdUgztKhrT88LtNeoe5VYk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UbkxLD4r1bYLd/30XZG/wzCqI1eNIV3nl+8btJt3TrWlruqsQssfSG4Vr+6NCp2Ix
-	 1V0aeMxruaMxM46bxwY58pF53V5D1FDNFXLKOSa/vFX8d/wzo/NSQPDEXqDcW8AVkP
-	 k3I0Lq4/5vDB38QMnIwRSnHUMDooiwKooRsh4Ync=
+	b=hynbc+BV7uwo8kCbi1J/sTAlkM3+p2DKv0/jCRjMP7gj+6ezK3hm0bw+hxOxuuANt
+	 tPUnkgp4ELGJ60Kb7KazxQHQrRrUjKkI2M6InQe3iHgrXOqR9RnpPmBem95MQZ3Xyf
+	 GSH9fwMHL9xbQ+NdvHP9Qb/FCkc/JgRj3L8QvCFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D3A7F80162;
-	Thu, 10 Nov 2022 18:55:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B398F8057A;
+	Thu, 10 Nov 2022 18:55:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BCB7F8055B; Thu, 10 Nov 2022 18:55:37 +0100 (CET)
+ id AE310F8055C; Thu, 10 Nov 2022 18:55:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C475CF80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C475CF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53351F80162
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53351F80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="piBsAvhr"
+ header.b="MxfQqbnb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 31C1961535;
- Thu, 10 Nov 2022 17:55:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37196C433D6;
- Thu, 10 Nov 2022 17:55:31 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3937DB822B0;
+ Thu, 10 Nov 2022 17:55:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1937EC433C1;
+ Thu, 10 Nov 2022 17:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668102932;
- bh=1ZiOgcZ5dO+xDxvGJQ7qAMOODxVWHhgW3wMMK0igvTg=;
+ s=k20201202; t=1668102934;
+ bh=djLkJnlYM/WpHPHjrcSKIXdUgztKhrT88LtNeoe5VYk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=piBsAvhr7ZPfkUropi5FMew6lu5vd0YqIMi3gNrK1Ca66kH0DUc5GtJTF07ca7V2d
- Gcy+0w/DzEXvxC2F636Jj+T8zn+xf4uXv9wahf5ADPNJ5XKkg9c1nt3J0PDBOdRYJz
- A+1VdWc+fatmMvzLCkXwngfvzJm5JUw3rWffC2NnrY2yv5qyp+r7AIvFrdcL9/ZYw9
- Q2EeQxzwiCjdjkEf8gkGq6x3+er4m28JHqXzeG+NokljmVp5MT1Pir8iX8vrgOpQbU
- mAq7HqNxNDC1Cm21vnDUXVhJKoSYDOhT85cLBqsEwP1zAyYWqTK2HSNglFpaZTjdkf
- 9/UC9uy0Y4dAA==
+ b=MxfQqbnbiSui7pFUDMupg96obb4lO3fznt41zJfVFJKE4h3IwY5hKH4swSfSAOltl
+ uGqHdq5/hfoOh6Mi5o+7pX+1Slv5cqnsE4riGe2PHnDN6ZsKK1tTre/vKPxEUAi1IR
+ Te+0SHnyBjQuU+1aAeReAGd0GrNhpq7/S1X9RGnOzRBE7KQVBaUzX3nTJDWlUI1ZD5
+ 50QZMfCrW+9a5hICdF6sbZja2+jzACeeW8usIMA7xi8bGRV92EcZ+kaYewHqqZlI0x
+ xwOnqqBarty1JCzaqE8Ijih6/P1OviXJYaqSm4rci6YkSJTfccJW5VjvZ/qpeQRMOF
+ 4dcpupE+FNMCA==
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com
-In-Reply-To: <20221107084158.26629-1-peter.ujfalusi@linux.intel.com>
-References: <20221107084158.26629-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Implement
- tear_down_all_pipelines callback
-Message-Id: <166810293094.959181.13707607180841603528.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 17:55:30 +0000
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, chao.song@linux.intel.com,
+ lgirdwood@gmail.com
+In-Reply-To: <20221107085706.2550-1-peter.ujfalusi@linux.intel.com>
+References: <20221107085706.2550-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: ipc4-topology: Add widget queue support
+Message-Id: <166810293281.959181.9316024301484825385.b4-ty@kernel.org>
+Date: Thu, 10 Nov 2022 17:55:32 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,15 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 7 Nov 2022 10:41:58 +0200, Peter Ujfalusi wrote:
-> During system suspend there is a chance that the running stream undergo
-> an xrun and instead of the expected SNDRV_PCM_TRIGGER_SUSPEND trigger
-> we will receive SNDRV_PCM_TRIGGER_STOP.
+On Mon, 7 Nov 2022 10:57:03 +0200, Peter Ujfalusi wrote:
+> with SOF topology2 for IPC4, widgets might have mutliple queues they can be
+> connected.
+> The queues to use between components are descibed in the topology file.
 > 
-> The handling of SUSPEND and STOP triggers differ that case of the later
-> the sof_pcm_stream_free() will be called with free_widget_list = false.
-> But we must make sure that all active widgets and streams are free before
-> entering suspend in order to be able to resume without error.
+> This series adds widget queue support (specify which pin to connect) for
+> ipc4-topology with topology2.
 > 
 > [...]
 
@@ -105,8 +103,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: ipc4-topology: Implement tear_down_all_pipelines callback
-      commit: 18cd1f3227768f4a76c4f7aa95c1256f07ce8647
+[1/3] ASoC: SOF: Add support for parsing the number of sink/source pins
+      commit: 6327c7297fc86d2203ab31882152a9d0b049f7b2
+[2/3] ASoC: SOF: Add support to parse pin binding array from topology
+      commit: 3b3acedbd0f30b822e05e5e51b646a67de0031fc
+[3/3] ASoC: SOF: topology: Add helper to get/put widget queue id
+      commit: c84443db0fddd188838faa9d71ebd6d9aa280068
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

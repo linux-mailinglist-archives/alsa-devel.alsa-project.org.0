@@ -2,83 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE0AE62431D
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 14:23:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E4F624334
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 14:29:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46B4E166C;
-	Thu, 10 Nov 2022 14:22:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46B4E166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAF741651;
+	Thu, 10 Nov 2022 14:28:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAF741651
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668086603;
-	bh=UQwP+2H90+wmgVQjZESZytYIG+PXuM3NXkpiurss1wc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ktOijuUGXbW4CGL6IJZE0N6qo+HFyQNl46kvrLiHEcYn4vMhsBhuS95k9uOs3jZ54
-	 Q+zJihQ+zqrPa2hib7eRPYj8cOXUqMZlRZpOR3PR/b7K0/ng9e7Oj8IeekFeYxDi+N
-	 PTj7R239Rugp4qY9Y0W5gw8hkZOlxsrgMjqWOcNw=
+	s=default; t=1668086946;
+	bh=sGHPYI7ah52WXFpoDvVQ9cTA5rRPEDNR2BqJ93xrLzA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Kv7hCAfsF+y+OM02/f6wbSOWEmC6QdkW6+9Ki+Hy6SqvBUqQ8ecfYDUJhEqqfI3ib
+	 WEv6YbG05S2oeBL76IfkcRCCCYD0w+JTWA5erbAjdehg//CCtP3aptHt7gAXtg/3u7
+	 FYGjzk/UOQFMFHOaRP41kmjj3bTCbqoOlr0gzc38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C61FBF80104;
-	Thu, 10 Nov 2022 14:22:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37DF4F802E8;
+	Thu, 10 Nov 2022 14:28:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2433F8021D; Thu, 10 Nov 2022 14:22:25 +0100 (CET)
+ id AB17AF8021D; Thu, 10 Nov 2022 14:28:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E183FF80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 14:22:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E183FF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8DECF80162
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 14:27:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8DECF80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Hl6zFB0P"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="v9h1d8qA"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EC9FC1FB05;
- Thu, 10 Nov 2022 13:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668086541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x+0ILEFN8rI7O6+z1yfbkhn+aFX4/0N1DazCySGFOxo=;
- b=Hl6zFB0PqD+/Zi+Mq2mjOWWRKntv5jPAhRA6eBTuqDYXOn9ln3KOOl6AqLQs6McBx3n7tW
- gpU1xABVTsRAWrKm49jKehdNKIiDmf0ZeadcLH+9XFzORe4Pq/o4vLI1uz7uHG/oVosnLa
- 26B2OcFv1QuVTtFYPVwnKKuW0LcMOpE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668086541;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=x+0ILEFN8rI7O6+z1yfbkhn+aFX4/0N1DazCySGFOxo=;
- b=v9h1d8qAQYskFRuUSNwWv2fFOoAt5uVPBr9VqujY3qIaBuAvJzLLkIhZ3QgaAml08JAJQ2
- lJgFUkEDzosT1eDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA61913B58;
- Thu, 10 Nov 2022 13:22:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5F7mNA37bGMHdwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 10 Nov 2022 13:22:21 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: memalloc: Don't fall back for SG-buffer with IOMMU
-Date: Thu, 10 Nov 2022 14:22:16 +0100
-Message-Id: <20221110132216.30605-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="b04L+Z+d"
+Received: by mail-lf1-x12b.google.com with SMTP id a29so3194639lfj.9
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 05:27:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=f5DcG84whpNkZMgdPanLq5gCZ/VBXiFyiq+gALEmIjw=;
+ b=b04L+Z+dTjKbIloGzP2Fg1AgBpMzy5kQm0+vPdQfYxFVyATqSkJnlowkLYJNVlQj/k
+ qH6GN/F5zz6EODYFHlF5z7kQBroyoo+4QPwqUlrVXsjjYfVGezs1rBbZVwnvSRP5z869
+ YFjPbAgSzDMyu68mZba7BA1RWa2SGx2IMoyE7a6SBKo1vVry3Pako+kXuWOiHXn6i5gD
+ 1mQ7+UPMDRxwG0KxZa3BRpMFnCyFi/ZIjdETCvodRzQXuxlacDtbvwQMi+PkDyxut3rd
+ p7827C7n+2okHeEmQsRBknnY3DfZWKVDS7mvyX7QyOblZF556bg4f1n4XugqygHPv/OJ
+ dnMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=f5DcG84whpNkZMgdPanLq5gCZ/VBXiFyiq+gALEmIjw=;
+ b=vgkm9JfeVxhYYR/oYz1sxszXZmm59IeVzGYoW8+rkLvMT734ZHVpj/Q50TvjQ59DiU
+ rYLzg/qxfCD8hNfpboqCHHG6DSQfk4SSdJnjxTlBVCVkGTILEUdpUuTTGC2xvxWA0rHa
+ eaiuAxch4gsnMdbYQFnJrzkRcVVrg+d5nqXp6ykIwiatLAqnhoYy6us8x8hgqN2Z0lM1
+ Wgr/QPAeNJdk/L0dxzZqEC2Ip85vSllV7nJlOTe1x2UQCwwsge8oMJvmL0lovHEPsjCr
+ 4mIEp64ztR3ooQj4r4UKGhJpGTUsK9IhVmgjTRIXkVTkjwvKnGu3TXrMVoEJkTVOmxg9
+ cApQ==
+X-Gm-Message-State: ACrzQf3reG0vrzcwYxoGMDzMSe8a0F1q6i7ojfcF01iBOYfc+Gw4dRci
+ 8kLOdghYiY64e06hDZE+ZryINw==
+X-Google-Smtp-Source: AMsMyM5NwYvLDvN5XweF7hs6r6xhzV8Wnbyva8godKXWoixzDuP64x+tEFiHlDzGwPBXbaJBsh9Abw==
+X-Received: by 2002:a05:6512:3411:b0:4a2:3087:cebd with SMTP id
+ i17-20020a056512341100b004a23087cebdmr1347322lfr.66.1668086876977; 
+ Thu, 10 Nov 2022 05:27:56 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142199.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.199])
+ by smtp.gmail.com with ESMTPSA id
+ d36-20020a0565123d2400b004947555dbc2sm2749406lfv.100.2022.11.10.05.27.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Nov 2022 05:27:56 -0800 (PST)
+Message-ID: <c7a4d63e-9a85-93c7-a5a9-435f85740393@linaro.org>
+Date: Thu, 10 Nov 2022 14:27:55 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] ASoC: codecs: wsa883x: Use proper shutdown GPIO values
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20221109163740.1158785-1-krzysztof.kozlowski@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221109163740.1158785-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,88 +112,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the non-contiguous page allocation for SG buffer allocation
-fails, the memalloc helper tries to fall back to the old page
-allocation methods.  This would, however, result in the bogus page
-addresses when IOMMU is enabled.  Usually in such a case, the fallback
-allocation should fail as well, but occasionally it succeeds and
-hitting a bad access.
+On 09/11/2022 17:37, Krzysztof Kozlowski wrote:
+> The shutdown GPIO is active_low (sd_n), but this depends on actual board
+> layout.  Linux drivers should only care about logical state, where high
+> (1) means shutdown and low (0) means do not shutdown.
+> 
+> Invert the GPIO to match logical value.
+> 
+> Fixes: 43b8c7dc85a1 ("ASoC: codecs: add wsa883x amplifier support")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
-The fallback was thought for non-IOMMU case, and as the error from
-dma_alloc_noncontiguous() with IOMMU essentially implies a fatal
-memory allocation error, we should return the error straightforwardly
-without fallback.  This avoids the corner case like the above.
+I will also update the example in bindings. Not a blocker for this
+patch, but better to keep these together, so there will be a v2.
 
-The patch also renames the local variable "dma_ops" with snd_ prefix
-for avoiding the name conflict.
-
-Fixes: a8d302a0b770 ("ALSA: memalloc: Revive x86-specific WC page allocations again")
-Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/alpine.DEB.2.22.394.2211041541090.3532114@eliteleevi.tm.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/memalloc.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 03cffe771366..6a81aaab25ab 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -9,6 +9,7 @@
- #include <linux/slab.h>
- #include <linux/mm.h>
- #include <linux/dma-mapping.h>
-+#include <linux/dma-map-ops.h>
- #include <linux/genalloc.h>
- #include <linux/highmem.h>
- #include <linux/vmalloc.h>
-@@ -541,19 +542,20 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	struct sg_table *sgt;
- 	void *p;
- 
--	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
--				      DEFAULT_GFP, 0);
--	if (!sgt) {
- #ifdef CONFIG_SND_DMA_SGBUF
-+	if (!get_dma_ops(dmab->dev.dev)) {
- 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
- 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 		else
- 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_SG_FALLBACK;
- 		return snd_dma_sg_fallback_alloc(dmab, size);
--#else
--		return NULL;
--#endif
- 	}
-+#endif
-+
-+	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
-+				      DEFAULT_GFP, 0);
-+	if (!sgt)
-+		return NULL;
- 
- 	dmab->dev.need_sync = dma_need_sync(dmab->dev.dev,
- 					    sg_dma_address(sgt->sgl));
-@@ -857,7 +859,7 @@ static const struct snd_malloc_ops snd_dma_noncoherent_ops = {
- /*
-  * Entry points
-  */
--static const struct snd_malloc_ops *dma_ops[] = {
-+static const struct snd_malloc_ops *snd_dma_ops[] = {
- 	[SNDRV_DMA_TYPE_CONTINUOUS] = &snd_dma_continuous_ops,
- 	[SNDRV_DMA_TYPE_VMALLOC] = &snd_dma_vmalloc_ops,
- #ifdef CONFIG_HAS_DMA
-@@ -883,7 +885,7 @@ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
- 	if (WARN_ON_ONCE(!dmab))
- 		return NULL;
- 	if (WARN_ON_ONCE(dmab->dev.type <= SNDRV_DMA_TYPE_UNKNOWN ||
--			 dmab->dev.type >= ARRAY_SIZE(dma_ops)))
-+			 dmab->dev.type >= ARRAY_SIZE(snd_dma_ops)))
- 		return NULL;
--	return dma_ops[dmab->dev.type];
-+	return snd_dma_ops[dmab->dev.type];
- }
--- 
-2.35.3
+Best regards,
+Krzysztof
 

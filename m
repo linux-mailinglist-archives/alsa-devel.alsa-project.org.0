@@ -2,74 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91F766248C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:56:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64E0D6248CB
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:57:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35E92166F;
-	Thu, 10 Nov 2022 18:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35E92166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B46B81673;
+	Thu, 10 Nov 2022 18:56:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B46B81673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668102988;
-	bh=EEoloO2utirGLLQf4HVfbZvQAidHPzJqkD9TODgJHwI=;
+	s=default; t=1668103034;
+	bh=uV0gS8Zym8itzBA6jauOP1PQV82pLKsM1MencwuTk4s=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lkmhpBI0vUSchytuRQjUq5oHVaw4zBNxDOhmA3uQSwa23eW7RAf79hGCKExkhqXBo
-	 KGxzZI/SBNItT4rf2hmGVphqNgBMp7A+KU97Mg/9irXKc3y5B6y9Vo6aNa01iJ6YJq
-	 F6z33coK8Qczk9UipIkxIxYnjP9hZsHXOnzAAdjg=
+	b=X121delelwHnuabFgX2b9yGAuTNCJg4+hzyz2uAMfsO9pZoIyJ8e8/coWEcQiYdmQ
+	 r7FTaPaYij705Jrkl7lhZiQJ/MwJs0+QgRY6cXyaWnklpsse5jSJZSxBlyA0Kk6XVA
+	 iyRmGkzVm1S0pUYVC8Bj0f92tez1sc9sK8YwezVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2EABF8021D;
-	Thu, 10 Nov 2022 18:55:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47A44F80557;
+	Thu, 10 Nov 2022 18:55:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C45FF802E8; Thu, 10 Nov 2022 18:55:31 +0100 (CET)
+ id 54ED6F80163; Thu, 10 Nov 2022 18:55:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3A98F80114
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A98F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7EA1F80114
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7EA1F80114
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mGyuUfkp"
+ header.b="Z7DtR/W6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5F4CE61DCA;
- Thu, 10 Nov 2022 17:55:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D65DC433B5;
- Thu, 10 Nov 2022 17:55:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 54F76B822A4;
+ Thu, 10 Nov 2022 17:55:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD9BC43470;
+ Thu, 10 Nov 2022 17:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668102925;
- bh=EEoloO2utirGLLQf4HVfbZvQAidHPzJqkD9TODgJHwI=;
+ s=k20201202; t=1668102929;
+ bh=uV0gS8Zym8itzBA6jauOP1PQV82pLKsM1MencwuTk4s=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mGyuUfkpfVTOY3Waige6Mv77F2BBRYYtTgvfsTOi9TqYaG3Obi7DA6CyKbCUn9xPJ
- Eky0sdGLlEWVsymxRhv7URqNDomAD/LLIEl0tPlTPj4PJrrZ4fNa5yqxDJxljqoZZG
- AyjS8Kgo1gQCIqLkGK5hl4DBmT1P7hjvYci2hAWWI21Z1ZwANUgw3IeuwiYBnq4POs
- Y/QmxkfbfZdFja7ax6/T/GYZpgK8OSsaz0at2IvBbpgGxhaGY2Kbc70I7w5biS1tUV
- YhIUpxkQE2TGAKVgXJ0qLoEXhLlecsqbtcEe1CENR58X45uXC4VtoER/PnAtHIcDAK
- U7Dn2D7ISDuFw==
+ b=Z7DtR/W642sNyhHLYsGF9t6PWbPia5GkKB4yquzhZFYAvCBEnTcYcisLNDHz9Bm63
+ OTf+hyTDdcTBydtqHGAogg+cRonEAQGpoD4mTzw6wCOXzR0yjB/6ZKcMpZXi42Mbyn
+ rANmyW37gYKhH6RrxflwttID57nm9PwgFtphiXGERDsfT8sxydKAd5r+vP7TTHIy7C
+ Qzo4XmmpN0Ad/ebklnZr0Gng49ivNjEmDGJ0CXENDqgHpgYmnJ8v99neDo7/nihMGZ
+ Soglp8CY1c9ue1w5rdnoosLUs8pL8D++mN2+t8w6PxPD6BzKdOu00cUf0KbyFwR+kn
+ J45ZAFyZv45vA==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875yfz8fuq.wl-kuninori.morimoto.gx@renesas.com>
-References: <875yfz8fuq.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/3] ASoC: simpe-card/audio-graph fixups
-Message-Id: <166810292475.959181.3430536250650328696.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 17:55:24 +0000
+To: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+In-Reply-To: <20221104212409.603970-1-nfraprado@collabora.com>
+References: <20221104212409.603970-1-nfraprado@collabora.com>
+Subject: Re: [PATCH 1/2] ASoC: mediatek: mt8183-da7219: Register to module
+ device table
+Message-Id: <166810292583.959181.9972965736235328683.b4-ty@kernel.org>
+Date: Thu, 10 Nov 2022 17:55:25 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, Akihiko Odaki <akihiko.odaki@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Miaoqian Lin <linmq006@gmail.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-mediatek@lists.infradead.org,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,15 +92,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 1 Nov 2022 04:21:18 +0000, Kuninori Morimoto wrote:
-> These are simpe-card/audio-graph fixup patches.
+On Fri, 4 Nov 2022 17:24:07 -0400, Nícolas F. R. A. Prado wrote:
+> Register the compatibles for this module on the module device table so
+> it can be automatically loaded when a matching device is found on the
+> system.
 > 
-> Kuninori Morimoto (3):
->   ASoC: simple-card-utils: remove asoc_simple_convert_fixup()
->   ASoC: audio-graph-card2-custom-sample.dtsi: add convert-rate for DPCM (MIXer)
->   ASoC: audio-graph-card2: check also dpcm node for convert-xxx
 > 
-> [...]
 
 Applied to
 
@@ -101,12 +105,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: simple-card-utils: remove asoc_simple_convert_fixup()
-      commit: 5c065eaf445d14e70cbdb1da75e12567c7ae9b91
-[2/3] ASoC: audio-graph-card2-custom-sample.dtsi: add convert-rate for DPCM (MIXer)
-      commit: 2dc025aba7fbebd6c6f3a05bc3530af31776a6fa
-[3/3] ASoC: audio-graph-card2: check also dpcm node for convert-xxx
-      commit: 8f5979833b45b318d0971f384de3fb17924042f0
+[1/2] ASoC: mediatek: mt8183-da7219: Register to module device table
+      commit: b5e004b0e5b57d14ac7804875878cdfdb31c9288
+[2/2] ASoC: mediatek: mt8183-mt6358: Register to module device table
+      commit: bc63a806acdcfca201c68c820731d74185118789
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

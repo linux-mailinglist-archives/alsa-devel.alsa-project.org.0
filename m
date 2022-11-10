@@ -2,84 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92EA86248CF
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:58:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4146248D0
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:58:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05AB61695;
-	Thu, 10 Nov 2022 18:57:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05AB61695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C7541688;
+	Thu, 10 Nov 2022 18:57:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C7541688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668103091;
-	bh=OF/rNzW3uy0FY7G78gH3ID0XYeWIhS7THAYoLZheu5w=;
+	s=default; t=1668103111;
+	bh=nT8Rei7szj8IWbgeHq2VZPxMg0sBm/lpJSJSRA5PJtY=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DFbiFuMIW2TLkUawkTX1zx7WSH5xCucNPunOmBDyo2TEgQOdQoCAsejT7mD1sokhr
-	 h5w6dXDJNPHdK+qIVvMHIPp8f1rh2G/5BjMsmDBgNFEQxRS6u6oxolkzOe4PAu9YEB
-	 M9mUWrE4Vp9sinPcip+xikNwCRTBD5mNhxUzKNaY=
+	b=YS/k6enuXRPkko+NNflAPFBCOvrEJuMluDt9vHX0U/C991d8FE21AgfHusy+QkwZ3
+	 T8e1nZuHcZfdeZX4PxV/SD+B2bMAQVygEdDE1AwoAuMWFQgZwNDAi3Kt6OsLtCHikj
+	 eoQe9DqbmPVH0XD9YiYImLbPLD6j4nR2D/Imb2LE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A859EF80580;
-	Thu, 10 Nov 2022 18:55:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 261AAF8058C;
+	Thu, 10 Nov 2022 18:55:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 890B9F8057E; Thu, 10 Nov 2022 18:55:43 +0100 (CET)
+ id 32BB6F80589; Thu, 10 Nov 2022 18:55:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
  SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C10A0F80567
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C10A0F80567
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38650F8057D
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38650F8057D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C2KfC5ND"
+ header.b="ZiKvSEBQ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1207261DDF;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F36A961DC6;
+ Thu, 10 Nov 2022 17:55:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56558C433D6;
  Thu, 10 Nov 2022 17:55:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678B7C433B5;
- Thu, 10 Nov 2022 17:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668102938;
- bh=OF/rNzW3uy0FY7G78gH3ID0XYeWIhS7THAYoLZheu5w=;
+ s=k20201202; t=1668102940;
+ bh=nT8Rei7szj8IWbgeHq2VZPxMg0sBm/lpJSJSRA5PJtY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=C2KfC5NDfWjr0wYnh0nduUHYaTzSNOLpLGK+PiDgN3dMyQr2DAB+ntvI18rKP7bbp
- uMYWwKUl4lipX0I1LK9CnzN0ipuQPvmTBBa2fHGh/xg0WCkgM54LnQyDBvlulInipp
- 78mDEIQoT5Tin0v6VMOgf7NPCnAb6ofeBW1sFfQsLbJQWzK2q+sk9lzIvKktXOKsl0
- dU34/Vdvy+b8FJq0hAEAOhnfrCxkZe/iDPH6M2Z13jQd+nr8ragOqpIyGBXhK10Kz7
- pk6XtoMkxAGwXo8LGSBV+TD/hjeOaZmIwr0oPVtNQpkOoKI4gBbgEMkupXrx+kdoMq
- t+fkEI1ITu/+Q==
+ b=ZiKvSEBQ8Mtc8icLaRod5bwT/MyvAjuwz3760nmImR4z36J09KVVvnCqkD+eI30+V
+ 5sDFhdOPLXwlx+KZuBQCN9BV4yjkMqUn1jvGFEhgvgbx9Sk9YbyJ7NH0MN3RcJ6zfC
+ 9soHNgRs5ogxOJ2TiXHjtwjgk/yGxQhugdWt2mV2U6VNdTD5QEgppXkjnyl9YeEYvJ
+ AkwN1uD4p8Gy9NtlZtkC8SA9vf/ALt5xst/+NjgFym3j7a71U8oGmuJDS/js6jfOd4
+ jBHTWHxax5w2QejB3x+8HT9S9pxh1UaCC9/cUBi7NF9mwMyKg860wfLfVnOrdKamX/
+ Y5rNK4fgJCA1Q==
 From: Mark Brown <broonie@kernel.org>
-To: Nícolas F. R. A. Prado <nfraprado@collabora.com>, Bjorn Andersson <andersson@kernel.org>
-In-Reply-To: <20221102182002.255282-1-nfraprado@collabora.com>
-References: <20221102182002.255282-1-nfraprado@collabora.com>
-Subject: Re: (subset) [PATCH v2 0/8] Adjust usage of rt5682(s) power supply
- properties
-Message-Id: <166810293513.959181.9070976838301733514.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 17:55:35 +0000
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20221107164154.21925-1-pierre-louis.bossart@linux.intel.com>
+References: <20221107164154.21925-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: Intel: update D0i3 registers for MTL
+Message-Id: <166810293907.959181.18240549996831243592.b4-ty@kernel.org>
+Date: Thu, 10 Nov 2022 17:55:39 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: Oder Chiou <oder_chiou@realtek.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Derek Fang <derek.fang@realtek.com>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,15 +86,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Nov 2022 14:19:54 -0400, Nícolas F. R. A. Prado wrote:
-> This series sets straight the usage of power supply properties for the
-> rt5682 and rt5682s audio codecs.
+On Mon, 7 Nov 2022 10:41:51 -0600, Pierre-Louis Bossart wrote:
+> MeteorLake relies on a different register for D0i3 configuration, add
+> a platform-specific callback to abstract the differences.
 > 
-> These properties were already being used by sc7180-trogdor.dtsi (and
-> derived DTs like sc7180-trogdor-kingoftown.dtsi).
-> 
-> We start by documenting the power supplies that are already in use and
-> then add few others that were missing to the bindings.
+> Rander Wang (3):
+>   ASoC: SOF: Intel: add d0i3 definition for MTL
+>   ASoC: SOF: Intel: add d0i3_offset in chip_info
+>   ASoC: SOF: Intel: set d0i3 register with d0i3_offset
 > 
 > [...]
 
@@ -113,18 +103,12 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and MICVDD supplies
-      commit: 163460262782b183a28d07255403fa72151fa20b
-[2/8] ASoC: dt-bindings: realtek,rt5682s: Add DBVDD and LDO1-IN supplies
-      commit: ed20a9bf3f16e413a41cd09db74fc7f8dcb1dcef
-[3/8] ASoC: dt-bindings: rt5682: Add AVDD, MICVDD and VBAT supplies
-      commit: 4d3c884ca7fb8ea25555c9a4b5ab1f9acad22587
-[4/8] ASoC: dt-bindings: rt5682: Add DBVDD and LDO1-IN supplies
-      commit: 9354fa7f6ee4ef721351c29316b59eb8f724ca49
-[5/8] ASoC: rt5682s: Support DBVDD and LDO1-IN supplies
-      commit: 5aab1a56b3dd031603a50ed7fd53e3c607a42a86
-[6/8] ASoC: rt5682: Support DBVDD and LDO1-IN supplies
-      commit: 318ff0693095defc683d00bb3fd7c482d10b03d7
+[1/3] ASoC: SOF: Intel: add d0i3 definition for MTL
+      commit: 09e3c1d398bec1c9684f91563e82a2f455548448
+[2/3] ASoC: SOF: Intel: add d0i3_offset in chip_info
+      commit: f8632adc53e25501c74f25794cddac4dbe3f1c59
+[3/3] ASoC: SOF: Intel: set d0i3 register with d0i3_offset
+      commit: 57f93492410942355b5a6eacbbe977176ffe5110
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

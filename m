@@ -2,98 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90EDC624306
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 14:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE0AE62431D
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 14:23:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5FB1661;
-	Thu, 10 Nov 2022 14:14:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5FB1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46B4E166C;
+	Thu, 10 Nov 2022 14:22:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46B4E166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668086138;
-	bh=LbwfKsHqVmoatV3DqpuQNw5SluBGEENfM/HktWK0sPs=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uJDUnBUoxN/5vQZPZEvi8KtOwHF/q4OK34vmmKbnmggWCb289oB2Ls7gjZE/RyjGP
-	 0ou4CSvPEO5hvibWX6KAso6beUj3JYgWBuaIBt01l1v5yoWcPZW8w+H70HjFJN22cL
-	 OtKWZ/77XrgPKGaojaH8hnGH7pzTy5HA6O85j6LM=
+	s=default; t=1668086603;
+	bh=UQwP+2H90+wmgVQjZESZytYIG+PXuM3NXkpiurss1wc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ktOijuUGXbW4CGL6IJZE0N6qo+HFyQNl46kvrLiHEcYn4vMhsBhuS95k9uOs3jZ54
+	 Q+zJihQ+zqrPa2hib7eRPYj8cOXUqMZlRZpOR3PR/b7K0/ng9e7Oj8IeekFeYxDi+N
+	 PTj7R239Rugp4qY9Y0W5gw8hkZOlxsrgMjqWOcNw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92E6FF80104;
-	Thu, 10 Nov 2022 14:14:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C61FBF80104;
+	Thu, 10 Nov 2022 14:22:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8317DF8021D; Thu, 10 Nov 2022 14:14:41 +0100 (CET)
+ id B2433F8021D; Thu, 10 Nov 2022 14:22:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A43FF80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 14:14:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A43FF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id E183FF80162
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 14:22:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E183FF80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="UPG+Z2qp"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AACjddP028494; Thu, 10 Nov 2022 07:14:32 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=kD1m6VCRlQYW+ijK5eEXwbmuUugkbgmTtw/FTowKXZ8=;
- b=UPG+Z2qpQ4+qji+mMslS35OZfNbBY3sJ85P1nQ4DDx7m1pKLxNmtS6agP9EtVXAhY/dN
- a1eOaipQph2487rbwzIXRV4d0s35eK9yK7me+v9zjTGevOKUdDr6k93bkLYPDTlYc8Fj
- gxBBks0+8F2rKflsIQhluJjUkFzewxIOXMGMA+8TRQ9jbvly+7BfgrcyYnIwXDvqlWGR
- zflM9j0xjhdPEyy+XG++0wnFWvrNcwFNOhM2HJIL9+pzhrKKqCm6Esf3ExtTGe6Aa+8a
- 1S2DVoVKrqlfOUV/nQv1iwiqXNV+dyWkzQW2sS1xiLyiCcJAfM+JQ4yU9BH16/XVavFu Zg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3knn81q224-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Nov 2022 07:14:32 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Thu, 10 Nov
- 2022 07:14:30 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.15 via
- Frontend Transport; Thu, 10 Nov 2022 07:14:30 -0600
-Received: from [198.90.251.111] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.111])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3F55946B;
- Thu, 10 Nov 2022 13:14:30 +0000 (UTC)
-Message-ID: <4d50faae-7eea-bc5a-9def-935c2063a7b3@opensource.cirrus.com>
-Date: Thu, 10 Nov 2022 13:14:30 +0000
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Hl6zFB0P"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="v9h1d8qA"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EC9FC1FB05;
+ Thu, 10 Nov 2022 13:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668086541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=x+0ILEFN8rI7O6+z1yfbkhn+aFX4/0N1DazCySGFOxo=;
+ b=Hl6zFB0PqD+/Zi+Mq2mjOWWRKntv5jPAhRA6eBTuqDYXOn9ln3KOOl6AqLQs6McBx3n7tW
+ gpU1xABVTsRAWrKm49jKehdNKIiDmf0ZeadcLH+9XFzORe4Pq/o4vLI1uz7uHG/oVosnLa
+ 26B2OcFv1QuVTtFYPVwnKKuW0LcMOpE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668086541;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=x+0ILEFN8rI7O6+z1yfbkhn+aFX4/0N1DazCySGFOxo=;
+ b=v9h1d8qAQYskFRuUSNwWv2fFOoAt5uVPBr9VqujY3qIaBuAvJzLLkIhZ3QgaAml08JAJQ2
+ lJgFUkEDzosT1eDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA61913B58;
+ Thu, 10 Nov 2022 13:22:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5F7mNA37bGMHdwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 10 Nov 2022 13:22:21 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: memalloc: Don't fall back for SG-buffer with IOMMU
+Date: Thu, 10 Nov 2022 14:22:16 +0100
+Message-Id: <20221110132216.30605-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
- CS48L31/32/33 codecs
-Content-Language: en-US
-To: Marc Zyngier <maz@kernel.org>
-References: <20221109165331.29332-1-rf@opensource.cirrus.com>
- <20221109165331.29332-10-rf@opensource.cirrus.com>
- <87mt8zutib.wl-maz@kernel.org>
- <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
- <86pmdvow5y.wl-maz@kernel.org>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <86pmdvow5y.wl-maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: aQX-5YRNzgLfR64UzVEJh_O4ywOPGPrg
-X-Proofpoint-GUID: aQX-5YRNzgLfR64UzVEJh_O4ywOPGPrg
-X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-gpio@vger.kernel.org,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
+Content-Transfer-Encoding: 8bit
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,60 +94,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/11/2022 12:01, Marc Zyngier wrote:
-> On Thu, 10 Nov 2022 11:22:26 +0000,
-> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
->>
->> On 10/11/2022 08:02, Marc Zyngier wrote:
->>> On Wed, 09 Nov 2022 16:53:28 +0000,
->>> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
->>>>
->>>> The Cirrus Logic CS48L31/32/33 audio codecs contain a programmable
->>>> interrupt controller with a variety of interrupt sources, including
->>>> GPIOs that can be used as interrupt inputs.
->>>>
->>>> This driver provides the handling for the interrupt controller. As the
->>>> codec is accessed via regmap, the generic regmap_irq functionality
->>>> is used to do most of the work.
->>>>
->>>
->>> I cannot spot a shred of interrupt controller code in there. This
->>
->> It is providing support for handling an interrupt controller so that
->> other drivers can bind to those interrupts. It's just that regmap
->> provides a lot of generic implementation for SPI-connected interrupt
->> controllers so we don't need to open-code all that in the
->> irqchip driver.
-> 
-> And thus none of that code needs to live in drivers/irqchip.
-> 
->>
->>> belongs IMO to the MFD code.
->>
->> We did once put interrupt support in MFD for an older product line but
->> the MFD maintainer doesn't like the MFD being a dumping-ground for
->> random other functionality that have their own subsystems.
-> 
-> I don't like this stuff either. All this code is a glorified set of
-> interrupt handlers and #defines that only hide the lack of a proper DT
-> binding to express the interrupt routing (it feels like looking at
-> board files from 10 years ago).
-> 
-> None of that belongs in the irqchip code.
-> 
->>
->>>   It is also a direct copy of the existing
->>> irq-madera.c code, duplicated for no obvious reason.
->>
->> It's not a duplicate. The register map of this device is different
->> (different addressing, 32-bit registers not 16-bit)
-> 
-> And? How hard is it to implement an indirection containing the
-> register map and the relevant callbacks? /roll-eyes
-> 
+When the non-contiguous page allocation for SG buffer allocation
+fails, the memalloc helper tries to fall back to the old page
+allocation methods.  This would, however, result in the bogus page
+addresses when IOMMU is enabled.  Usually in such a case, the fallback
+allocation should fail as well, but occasionally it succeeds and
+hitting a bad access.
 
-I note your accusation that we were too lazy (or too stupid?)
-to think of this.
+The fallback was thought for non-IOMMU case, and as the error from
+dma_alloc_noncontiguous() with IOMMU essentially implies a fatal
+memory allocation error, we should return the error straightforwardly
+without fallback.  This avoids the corner case like the above.
 
-> 	M.
-> 
+The patch also renames the local variable "dma_ops" with snd_ prefix
+for avoiding the name conflict.
+
+Fixes: a8d302a0b770 ("ALSA: memalloc: Revive x86-specific WC page allocations again")
+Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/alpine.DEB.2.22.394.2211041541090.3532114@eliteleevi.tm.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/memalloc.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 03cffe771366..6a81aaab25ab 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -9,6 +9,7 @@
+ #include <linux/slab.h>
+ #include <linux/mm.h>
+ #include <linux/dma-mapping.h>
++#include <linux/dma-map-ops.h>
+ #include <linux/genalloc.h>
+ #include <linux/highmem.h>
+ #include <linux/vmalloc.h>
+@@ -541,19 +542,20 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
+ 	struct sg_table *sgt;
+ 	void *p;
+ 
+-	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
+-				      DEFAULT_GFP, 0);
+-	if (!sgt) {
+ #ifdef CONFIG_SND_DMA_SGBUF
++	if (!get_dma_ops(dmab->dev.dev)) {
+ 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
+ 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
+ 		else
+ 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_SG_FALLBACK;
+ 		return snd_dma_sg_fallback_alloc(dmab, size);
+-#else
+-		return NULL;
+-#endif
+ 	}
++#endif
++
++	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
++				      DEFAULT_GFP, 0);
++	if (!sgt)
++		return NULL;
+ 
+ 	dmab->dev.need_sync = dma_need_sync(dmab->dev.dev,
+ 					    sg_dma_address(sgt->sgl));
+@@ -857,7 +859,7 @@ static const struct snd_malloc_ops snd_dma_noncoherent_ops = {
+ /*
+  * Entry points
+  */
+-static const struct snd_malloc_ops *dma_ops[] = {
++static const struct snd_malloc_ops *snd_dma_ops[] = {
+ 	[SNDRV_DMA_TYPE_CONTINUOUS] = &snd_dma_continuous_ops,
+ 	[SNDRV_DMA_TYPE_VMALLOC] = &snd_dma_vmalloc_ops,
+ #ifdef CONFIG_HAS_DMA
+@@ -883,7 +885,7 @@ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
+ 	if (WARN_ON_ONCE(!dmab))
+ 		return NULL;
+ 	if (WARN_ON_ONCE(dmab->dev.type <= SNDRV_DMA_TYPE_UNKNOWN ||
+-			 dmab->dev.type >= ARRAY_SIZE(dma_ops)))
++			 dmab->dev.type >= ARRAY_SIZE(snd_dma_ops)))
+ 		return NULL;
+-	return dma_ops[dmab->dev.type];
++	return snd_dma_ops[dmab->dev.type];
+ }
+-- 
+2.35.3
+

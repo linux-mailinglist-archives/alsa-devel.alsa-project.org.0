@@ -2,83 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D15F9624296
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 13:53:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F086242BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 14:02:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AAD1165E;
-	Thu, 10 Nov 2022 13:52:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AAD1165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A86A1AE9;
+	Thu, 10 Nov 2022 14:01:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A86A1AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668084794;
-	bh=8ZOGRqNIFGErlca3w4mZ7l56qKIw/b/3W8txHEpPIhU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1668085319;
+	bh=4GAnNHeN23FfZWVvH5jmMD5CMqsOHc7RQb/zYf/ZK0U=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RJxQNOX306U9WvTVs2CZX4P2Xdeo8MpQycTzpRj8P2ZusIbXsE6lKiLRMtPNE9LbQ
-	 zv+Na3lMQ62qDja5O+SC31FxuPVuUosJykJM/FFQ+H0cpr03h3BqWZjvQOsnIQbmHs
-	 5pDl1yvLSx0TY1R/JyAvvznc8zGvkmTFEmPDwR2k=
+	b=ozOpoJbEiw47k+9RSAiJOlbZsKnhIUmlfSpoUyqRst0jWnLlR+KWMQqhJawjiqELo
+	 KDP4MjliMf5Dfaek962giHBa4SQx/0qlRTcLRdiOUN3yLAw4NujCc3WY4289len61T
+	 P9RIadE7TF/cpjy+1dcpPenBGqA7pRZ3H1yV3254=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7A5EF802E8;
-	Thu, 10 Nov 2022 13:52:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35F46F80104;
+	Thu, 10 Nov 2022 14:01:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 608A9F8021D; Thu, 10 Nov 2022 13:52:16 +0100 (CET)
+ id 5CCF9F8021D; Thu, 10 Nov 2022 14:01:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F671F80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 13:52:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F671F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39FCBF80162
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 14:00:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39FCBF80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WRNqw+0G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668084730; x=1699620730;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=8ZOGRqNIFGErlca3w4mZ7l56qKIw/b/3W8txHEpPIhU=;
- b=WRNqw+0GRwR5FUJWwkZO8bZ/ZMpP+V02GtC+qg6cAka1smB2nA5rj87T
- cD/XvH3PvA134lJRtTf68jmoUxkTVoC972c/7Tgvio8q3Ovh+cdTfS3q3
- ySmC2tgkct139BTgWW50OJtCcv9E3q/GPYAYZmZ3NWT+Toc+TCoCfinXC
- j2h+X7K2MdTT34KNT4s242xOMs06UAboK6OyB2YnYqDhqV0FcOHu7a9Ka
- WsHfRz/DxgGP6LaDN6xoCCSxdti+RXN3ETrYr82ztEVpbOU/1DRJEoLUC
- LW+2730bXTau8wzC0oKETBqSOXiCUvkhJ3KnCkxzQ+W20L9d+gyUx/qrV Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="310013491"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="310013491"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 04:52:04 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="639605599"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="639605599"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 04:52:03 -0800
-Date: Thu, 10 Nov 2022 14:52:08 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: regression with SG DMA buf allocations and IOMMU in low-mem
-In-Reply-To: <alpine.DEB.2.22.394.2211041930270.3532114@eliteleevi.tm.intel.com>
-Message-ID: <alpine.DEB.2.22.394.2211101451580.3532114@eliteleevi.tm.intel.com>
-References: <alpine.DEB.2.22.394.2211041541090.3532114@eliteleevi.tm.intel.com>
- <87r0yiiw6s.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2211041741520.3532114@eliteleevi.tm.intel.com>
- <87k04aiuo1.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2211041930270.3532114@eliteleevi.tm.intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="CJPuuN3q"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AAChY1H025512; Thu, 10 Nov 2022 07:00:53 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=v6Qr73/3Gob56R/jS4RsuHIskYg2Mv344TeyIxlS3LU=;
+ b=CJPuuN3qRareRDiTiDeBwDfT7gYVfa3lY/ZYv6KXvxZ43avksTrzZI0+dB4Rg3OJg0u/
+ /QMA2xmybUFlWJ/yI8YNp1kcBsBTqdO0XyDvOOqNUHTeDgk1+0K8KsZTWp/dHsZ49UMa
+ kVhPNRjkYRW4liaty5Y8UkfZv0iGb30K8eZXdzmxxfve5xh6ePPyJcBKPeBpq7B4zWCP
+ 2cbJ6gy6ZGkkH0xvhg6by4OHV7bkgeF6f15J8svHq5h+ofgqIAEBbRZB0I7GNN0jK9X3
+ 3qXBC7AFrhwTuDnlZX96wiVNXhCaT1nG3OD3OR2zg1ZX02lldhxxMUAR6NTwOedL4+Jb QQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3knn81q12x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Nov 2022 07:00:53 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Thu, 10 Nov
+ 2022 07:00:51 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.15 via
+ Frontend Transport; Thu, 10 Nov 2022 07:00:51 -0600
+Received: from [198.90.251.111] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.111])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0E08F46B;
+ Thu, 10 Nov 2022 13:00:51 +0000 (UTC)
+Message-ID: <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+Date: Thu, 10 Nov 2022 13:00:50 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Takashi Iwai <tiwai@suse.de>, Alsa-devel <alsa-devel@alsa-project.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
+ CS48L31/32/33 codecs
+Content-Language: en-US
+To: Marc Zyngier <maz@kernel.org>
+References: <20221109165331.29332-1-rf@opensource.cirrus.com>
+ <20221109165331.29332-10-rf@opensource.cirrus.com>
+ <87mt8zutib.wl-maz@kernel.org>
+ <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
+ <86pmdvow5y.wl-maz@kernel.org>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <86pmdvow5y.wl-maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: eeHIECmxQhUV52vlwBWKWmClFhPc6NxE
+X-Proofpoint-GUID: eeHIECmxQhUV52vlwBWKWmClFhPc6NxE
+X-Proofpoint-Spam-Reason: safe
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-gpio@vger.kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,41 +109,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Fri, 4 Nov 2022, Kai Vehmanen wrote:
-
-> On Fri, 4 Nov 2022, Takashi Iwai wrote:
+On 10/11/2022 12:01, Marc Zyngier wrote:
+> On Thu, 10 Nov 2022 11:22:26 +0000,
+> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+>>
+>> On 10/11/2022 08:02, Marc Zyngier wrote:
+>>> On Wed, 09 Nov 2022 16:53:28 +0000,
+>>> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+>>>>
+>>>> The Cirrus Logic CS48L31/32/33 audio codecs contain a programmable
+>>>> interrupt controller with a variety of interrupt sources, including
+>>>> GPIOs that can be used as interrupt inputs.
+>>>>
+>>>> This driver provides the handling for the interrupt controller. As the
+>>>> codec is accessed via regmap, the generic regmap_irq functionality
+>>>> is used to do most of the work.
+>>>>
+>>>
+>>> I cannot spot a shred of interrupt controller code in there. This
+>>
+>> It is providing support for handling an interrupt controller so that
+>> other drivers can bind to those interrupts. It's just that regmap
+>> provides a lot of generic implementation for SPI-connected interrupt
+>> controllers so we don't need to open-code all that in the
+>> irqchip driver.
 > 
-> > On Fri, 04 Nov 2022 16:42:29 +0100, Kai Vehmanen wrote:
-> > > I think an explicit error would be best. The problem now is that the 
-> > > driver will think the allocation (and mapping to device) is fine and 
-> > > proceeds to program the hardware to use the address. This will then create 
-> > > an IOMMU fault down the line that is not so straighforward to recover from 
-> > > (worst case is that a full device level reset needs to be done). And given 
-> > > driver doesn't know it got a faulty mapping, it's hard to make the 
-> > > decision why the fault happened.
-> > 
-> > OK, then what I posted in another mail (it went to nirvana) might
-> > work.  Attached below again.
+> And thus none of that code needs to live in drivers/irqchip.
 > 
-> thanks! Let me put this through testing and get back to you next 
-> week. We'll also debug a bit more what exactly goes on that leads to 
-> dma_alloc_noncontiguous failing.
+>>
+>>> belongs IMO to the MFD code.
+>>
+>> We did once put interrupt support in MFD for an older product line but
+>> the MFD maintainer doesn't like the MFD being a dumping-ground for
+>> random other functionality that have their own subsystems.
+> 
+> I don't like this stuff either. All this code is a glorified set of
+> interrupt handlers and #defines that only hide the lack of a proper DT
+> binding to express the interrupt routing (it feels like looking at
+> board files from 10 years ago).
+> 
 
-Takashi, the patch seems good. We've included it in multiple test runs and
-seems to be working as intented, so:
+I didn't understand this. The whole purpose of this is to instantiate
+Linux interrupts for the PIC interrupt sources so that other drivers
+that want to use the interrupts from the CS48L32 PIC can use standard
+kernel APIs or DT to bind against them.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+The four handlers registered within the driver are done here simply
+because they don't belong to any particular child driver. Since they
+are a fixed feature of the chip that we know we want to handle we may as
+well just register them.
+If we put them in the MFD with DT definitions it would make a
+circular dependency between MFD and its child, which is not a great
+situation. If it's these handlers that are bothering you, we could move
+them to the audio driver.
 
-... for the patch. Rootcausing why dma_alloc_noncontiguous() fails is 
-still ongoing (reproduction rate is very, very low). I've been looking at 
-snd_dma_sg_fallback_alloc() and comparing to iommu dma allocator code, 
-and it's curious how can we have a case where former succeeds but latter 
-not. We e.g. now pass __GFP_RETRY_MAYFAIL to dma_alloc_noncontiguous(), 
-but snd_dma_sg_fallback_alloc() does the alloc_pages_exact() call with 
-__GFP_NORETRY. But of course it can fail when doing the mapping and 
-there's more code involved. But alas this is a separate issue for 
-us to track down.
+> None of that belongs in the irqchip code.
+> 
 
-Br, Kai
+I don't really understand here what the criteria is that makes this not
+a irqchip driver but it was ok for madera. We have a PIC and we need to
+handle that and export those interrupts so other drivers can bind
+against them. Is the problem that the PIC is on a SPI bus and irqchip is
+only for memory-mapped PICs? Or is it that we have re-used existing
+library code instead of open-coding it, so you aren't seeing the actual
+handling code?
+
+As Lee has already objected in the past to having the interrupt
+controller implementation in MFD I don't want to move it there without
+Lee's agreement that it's ok to put the PIC IRQ implementation in MFD
+for CS48L32.
+
+>>
+>>>   It is also a direct copy of the existing
+>>> irq-madera.c code, duplicated for no obvious reason.
+>>
+>> It's not a duplicate. The register map of this device is different
+>> (different addressing, 32-bit registers not 16-bit)
+> 
+> And? How hard is it to implement an indirection containing the
+> register map and the relevant callbacks? /roll-eyes
+> 
+> 	M.
+> 

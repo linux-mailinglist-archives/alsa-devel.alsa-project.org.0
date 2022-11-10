@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13E036252D6
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 05:50:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9963D625453
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 08:13:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B3D5167E;
-	Fri, 11 Nov 2022 05:50:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B3D5167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C10291669;
+	Fri, 11 Nov 2022 08:12:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C10291669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668142255;
-	bh=ozIZVppQw1cSA12mA20M7Dlv/zCe1+ntpdBGDqs7Eik=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sFgd67KE7fREkpYoHSRcnLjogKUoczuAE9fmFnjZLuMWOHyllXTSgGRRxc3ydRe8Y
-	 9dWQEn+C5A/qN7DczQgx5f1TYlgQrBJi+SSshyMCu5ncmx5L5miyuZhWg4B2JTvbEf
-	 jnTS8HLzRUlrPq6VgJkwJV89be9bdtdDtMZBRFO0=
+	s=default; t=1668150796;
+	bh=AWn2hMQjAaWJ1yIP6Ub6bVX80rgEocaexixG2fBvbEc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LfF0TSCUB3LgDpcyggL1uVb7ltft6lLrfN77HWPOjWFqC5vzC+veYq4X/iN2i4hSb
+	 p6ZIbXW4y7QMO0b24bnhP5mmPma6ys6eU65hUf0Qkin+C7Vnffelq7SejAx5hNHsXV
+	 A2v9RMlQvtJAsspIL7y6AQmoNOLnzFAsz991R0is=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 564C0F80566;
-	Fri, 11 Nov 2022 05:48:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50CF5F800F8;
+	Fri, 11 Nov 2022 08:12:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E64FF8055A; Fri, 11 Nov 2022 05:48:51 +0100 (CET)
+ id CCEC1F80570; Thu, 10 Nov 2022 20:06:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F5B7F8028D
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 05:48:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F5B7F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61969F8055A
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 20:06:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61969F8055A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FQkqdb3d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668142125; x=1699678125;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ozIZVppQw1cSA12mA20M7Dlv/zCe1+ntpdBGDqs7Eik=;
- b=FQkqdb3dPuYFfZy8tIN05upec2MEGF9HFcZrKYQJvUdrHR9mX9XpBs4b
- RhJW4yZM2caHhGbm6GcbUcbnJWKiWVCgeTB6vdK4r1ZNznrElOICg5c+E
- XXhoN4e6nfxYmZ5ZsZEuRBiNxpCzG1idinnaumDqKVDU+U8iQdC/8BCbr
- 6Qa1KPbpnoUevxlnjWCmXCptfZf3iw62HjVbiO1zL9egSOzSNR6+96EMh
- r+BL3KKm6g1I6WcebeHMYhVKewLNQVkfX+168JGw9WUSG1qKusqOPLzEB
- l7QqbZWUNGf9QuH3bpt6wLtc8OBIRnyw0ykZVrbwAauFb3kYvM1bjUFJo A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="311527629"
-X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="311527629"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 20:48:34 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="706420119"
-X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="706420119"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 20:48:32 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Subject: [PATCH 4/4] ASoC: Intel: soc-acpi: add SKU 0C40 SoundWire
- configuration
-Date: Fri, 11 Nov 2022 12:50:16 +0800
-Message-Id: <20221111045016.46573-5-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221111045016.46573-1-yung-chuan.liao@linux.intel.com>
-References: <20221111045016.46573-1-yung-chuan.liao@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="J7jstCeg"
+Received: from Falcon9.mtl.collabora.ca (mtl.collabora.ca [66.171.169.34])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: detlev)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id C6DDB6602A34;
+ Thu, 10 Nov 2022 19:06:19 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1668107181;
+ bh=AWn2hMQjAaWJ1yIP6Ub6bVX80rgEocaexixG2fBvbEc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=J7jstCegJdnMChsGzYEVIeUtXBat6bnIgQ1Be2G+DXquqZv3j1330qoVfyE485Y2p
+ reDS3oHVjfsqMtFOPaynMp3hqvzGp8zVX2rgJFkW7xq5b+Cr+4vL1YSAYS3se1lCvj
+ b3lUyhIpTDwAs6ujL4jz1P+pzWbUX1qlq792H3OnvrGLyi6SoSQGmoF5r1v5wVz3Yl
+ 5j08klmvrfq+adYP7HNXXeSrIUaB0i/eGsjB034BLvzgehdOO34/7plHOX2gkmWdAA
+ Okk53+12zgevZI5L+y7wXFYPpI8hGWfUTtoGqxnT+fT2pSgWkr4rMa0vg0iIb7QgxU
+ 9F2Xt3KDN2/bw==
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: sgtl5000: Reset the CHIP_CLK_CTRL reg on remove
+Date: Thu, 10 Nov 2022 14:06:12 -0500
+Message-Id: <20221110190612.1341469-1-detlev.casanova@collabora.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
- ranjani.sridharan@linux.intel.com
+X-Mailman-Approved-At: Fri, 11 Nov 2022 08:12:19 +0100
+Cc: Detlev Casanova <detlev.casanova@collabora.com>,
+ "moderated list:NXP SGTL5000 DRIVER" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,125 +84,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Gongjun Song <gongjun.song@intel.com>
+Since commit bf2aebccddef ("ASoC: sgtl5000: Fix noise on shutdown/remove"),
+the device power control registers are reset when the driver is
+removed/shutdown.
 
-Audio hardware configuration of SKU 0C40 product is rt711 on link2,
-two rt1316s on link0 and link1, rt714 on link 3.
+This is an issue when the device is configured to use the PLL clock. The
+device will stop responding if it is still configured to use the PLL
+clock but the PLL clock is powered down.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Gongjun Song <gongjun.song@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+When rebooting linux, the probe function will show:
+sgtl5000 0-000a: Error reading chip id -11
+
+Make sure that the CHIP_CLK_CTRL is reset to its default value before
+powering down the device.
+
+Fixes: bf2aebccddef ("ASoC: sgtl5000: Fix noise on shutdown/remove")
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- .../intel/common/soc-acpi-intel-rpl-match.c   | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
+ sound/soc/codecs/sgtl5000.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-index 371333ed8c16..7c2e94dcf8fc 100644
---- a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-@@ -56,6 +56,15 @@ static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
- 	}
- };
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index 4b2135eba74d..a916f4619ea3 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1794,6 +1794,7 @@ static void sgtl5000_i2c_remove(struct i2c_client *client)
+ {
+ 	struct sgtl5000_priv *sgtl5000 = i2c_get_clientdata(client);
  
-+static const struct snd_soc_acpi_adr_device rt711_sdca_2_adr[] = {
-+	{
-+		.adr = 0x000230025D071101ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt711"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt1316_1_group1_adr[] = {
- 	{
- 		.adr = 0x000131025D131601ull, /* unique ID is set for some reason */
-@@ -83,6 +92,24 @@ static const struct snd_soc_acpi_adr_device rt1316_3_group1_adr[] = {
- 	}
- };
++	regmap_write(sgtl5000->regmap, SGTL5000_CHIP_CLK_CTRL, SGTL5000_CHIP_CLK_CTRL_DEFAULT);
+ 	regmap_write(sgtl5000->regmap, SGTL5000_CHIP_DIG_POWER, SGTL5000_DIG_POWER_DEFAULT);
+ 	regmap_write(sgtl5000->regmap, SGTL5000_CHIP_ANA_POWER, SGTL5000_ANA_POWER_DEFAULT);
  
-+static const struct snd_soc_acpi_adr_device rt1316_0_group2_adr[] = {
-+	{
-+		.adr = 0x000030025D131601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "rt1316-1"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1316_1_group2_adr[] = {
-+	{
-+		.adr = 0x000131025D131601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "rt1316-2"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt714_0_adr[] = {
- 	{
- 		.adr = 0x000030025D071401ull,
-@@ -101,6 +128,15 @@ static const struct snd_soc_acpi_adr_device rt714_2_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt714_3_adr[] = {
-+	{
-+		.adr = 0x000330025D071401ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt714"
-+	}
-+};
-+
- static const struct snd_soc_acpi_link_adr rpl_sdca_3_in_1[] = {
- 	{
- 		.mask = BIT(0),
-@@ -125,6 +161,30 @@ static const struct snd_soc_acpi_link_adr rpl_sdca_3_in_1[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr rpl_sdw_rt711_link2_rt1316_link01_rt714_link3[] = {
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(rt711_sdca_2_adr),
-+		.adr_d = rt711_sdca_2_adr,
-+	},
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt1316_0_group2_adr),
-+		.adr_d = rt1316_0_group2_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1316_1_group2_adr),
-+		.adr_d = rt1316_1_group2_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt714_3_adr),
-+		.adr_d = rt714_3_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_link_adr rpl_sdw_rt1316_link12_rt714_link0[] = {
- 	{
- 		.mask = BIT(1),
-@@ -157,6 +217,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-rpl-rt711-l0-rt1316-l13-rt714-l2.tplg",
- 	},
-+	{
-+		.link_mask = 0xF, /* 4 active links required */
-+		.links = rpl_sdw_rt711_link2_rt1316_link01_rt714_link3,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-rpl-rt711-l2-rt1316-l01-rt714-l3.tplg",
-+	},
- 	{
- 		.link_mask = 0x7, /* rt714 on link0 & two rt1316s on link1 and link2 */
- 		.links = rpl_sdw_rt1316_link12_rt714_link0,
 -- 
-2.25.1
+2.38.1
 

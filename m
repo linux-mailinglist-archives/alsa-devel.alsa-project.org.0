@@ -2,76 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 982806248CE
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:58:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92EA86248CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 18:58:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24053167E;
-	Thu, 10 Nov 2022 18:57:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24053167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05AB61695;
+	Thu, 10 Nov 2022 18:57:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05AB61695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668103084;
-	bh=djLkJnlYM/WpHPHjrcSKIXdUgztKhrT88LtNeoe5VYk=;
+	s=default; t=1668103091;
+	bh=OF/rNzW3uy0FY7G78gH3ID0XYeWIhS7THAYoLZheu5w=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hynbc+BV7uwo8kCbi1J/sTAlkM3+p2DKv0/jCRjMP7gj+6ezK3hm0bw+hxOxuuANt
-	 tPUnkgp4ELGJ60Kb7KazxQHQrRrUjKkI2M6InQe3iHgrXOqR9RnpPmBem95MQZ3Xyf
-	 GSH9fwMHL9xbQ+NdvHP9Qb/FCkc/JgRj3L8QvCFU=
+	b=DFbiFuMIW2TLkUawkTX1zx7WSH5xCucNPunOmBDyo2TEgQOdQoCAsejT7mD1sokhr
+	 h5w6dXDJNPHdK+qIVvMHIPp8f1rh2G/5BjMsmDBgNFEQxRS6u6oxolkzOe4PAu9YEB
+	 M9mUWrE4Vp9sinPcip+xikNwCRTBD5mNhxUzKNaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B398F8057A;
-	Thu, 10 Nov 2022 18:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A859EF80580;
+	Thu, 10 Nov 2022 18:55:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE310F8055C; Thu, 10 Nov 2022 18:55:39 +0100 (CET)
+ id 890B9F8057E; Thu, 10 Nov 2022 18:55:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53351F80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53351F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id C10A0F80567
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 18:55:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C10A0F80567
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MxfQqbnb"
+ header.b="C2KfC5ND"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3937DB822B0;
- Thu, 10 Nov 2022 17:55:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1937EC433C1;
- Thu, 10 Nov 2022 17:55:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1207261DDF;
+ Thu, 10 Nov 2022 17:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678B7C433B5;
+ Thu, 10 Nov 2022 17:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668102934;
- bh=djLkJnlYM/WpHPHjrcSKIXdUgztKhrT88LtNeoe5VYk=;
+ s=k20201202; t=1668102938;
+ bh=OF/rNzW3uy0FY7G78gH3ID0XYeWIhS7THAYoLZheu5w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MxfQqbnbiSui7pFUDMupg96obb4lO3fznt41zJfVFJKE4h3IwY5hKH4swSfSAOltl
- uGqHdq5/hfoOh6Mi5o+7pX+1Slv5cqnsE4riGe2PHnDN6ZsKK1tTre/vKPxEUAi1IR
- Te+0SHnyBjQuU+1aAeReAGd0GrNhpq7/S1X9RGnOzRBE7KQVBaUzX3nTJDWlUI1ZD5
- 50QZMfCrW+9a5hICdF6sbZja2+jzACeeW8usIMA7xi8bGRV92EcZ+kaYewHqqZlI0x
- xwOnqqBarty1JCzaqE8Ijih6/P1OviXJYaqSm4rci6YkSJTfccJW5VjvZ/qpeQRMOF
- 4dcpupE+FNMCA==
+ b=C2KfC5NDfWjr0wYnh0nduUHYaTzSNOLpLGK+PiDgN3dMyQr2DAB+ntvI18rKP7bbp
+ uMYWwKUl4lipX0I1LK9CnzN0ipuQPvmTBBa2fHGh/xg0WCkgM54LnQyDBvlulInipp
+ 78mDEIQoT5Tin0v6VMOgf7NPCnAb6ofeBW1sFfQsLbJQWzK2q+sk9lzIvKktXOKsl0
+ dU34/Vdvy+b8FJq0hAEAOhnfrCxkZe/iDPH6M2Z13jQd+nr8ragOqpIyGBXhK10Kz7
+ pk6XtoMkxAGwXo8LGSBV+TD/hjeOaZmIwr0oPVtNQpkOoKI4gBbgEMkupXrx+kdoMq
+ t+fkEI1ITu/+Q==
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, chao.song@linux.intel.com,
- lgirdwood@gmail.com
-In-Reply-To: <20221107085706.2550-1-peter.ujfalusi@linux.intel.com>
-References: <20221107085706.2550-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: SOF: ipc4-topology: Add widget queue support
-Message-Id: <166810293281.959181.9316024301484825385.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 17:55:32 +0000
+To: Nícolas F. R. A. Prado <nfraprado@collabora.com>, Bjorn Andersson <andersson@kernel.org>
+In-Reply-To: <20221102182002.255282-1-nfraprado@collabora.com>
+References: <20221102182002.255282-1-nfraprado@collabora.com>
+Subject: Re: (subset) [PATCH v2 0/8] Adjust usage of rt5682(s) power supply
+ properties
+Message-Id: <166810293513.959181.9070976838301733514.b4-ty@kernel.org>
+Date: Thu, 10 Nov 2022 17:55:35 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
+Cc: Oder Chiou <oder_chiou@realtek.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Derek Fang <derek.fang@realtek.com>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
+ linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,13 +95,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 7 Nov 2022 10:57:03 +0200, Peter Ujfalusi wrote:
-> with SOF topology2 for IPC4, widgets might have mutliple queues they can be
-> connected.
-> The queues to use between components are descibed in the topology file.
+On Wed, 2 Nov 2022 14:19:54 -0400, Nícolas F. R. A. Prado wrote:
+> This series sets straight the usage of power supply properties for the
+> rt5682 and rt5682s audio codecs.
 > 
-> This series adds widget queue support (specify which pin to connect) for
-> ipc4-topology with topology2.
+> These properties were already being used by sc7180-trogdor.dtsi (and
+> derived DTs like sc7180-trogdor-kingoftown.dtsi).
+> 
+> We start by documenting the power supplies that are already in use and
+> then add few others that were missing to the bindings.
 > 
 > [...]
 
@@ -103,12 +113,18 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: SOF: Add support for parsing the number of sink/source pins
-      commit: 6327c7297fc86d2203ab31882152a9d0b049f7b2
-[2/3] ASoC: SOF: Add support to parse pin binding array from topology
-      commit: 3b3acedbd0f30b822e05e5e51b646a67de0031fc
-[3/3] ASoC: SOF: topology: Add helper to get/put widget queue id
-      commit: c84443db0fddd188838faa9d71ebd6d9aa280068
+[1/8] ASoC: dt-bindings: realtek,rt5682s: Add AVDD and MICVDD supplies
+      commit: 163460262782b183a28d07255403fa72151fa20b
+[2/8] ASoC: dt-bindings: realtek,rt5682s: Add DBVDD and LDO1-IN supplies
+      commit: ed20a9bf3f16e413a41cd09db74fc7f8dcb1dcef
+[3/8] ASoC: dt-bindings: rt5682: Add AVDD, MICVDD and VBAT supplies
+      commit: 4d3c884ca7fb8ea25555c9a4b5ab1f9acad22587
+[4/8] ASoC: dt-bindings: rt5682: Add DBVDD and LDO1-IN supplies
+      commit: 9354fa7f6ee4ef721351c29316b59eb8f724ca49
+[5/8] ASoC: rt5682s: Support DBVDD and LDO1-IN supplies
+      commit: 5aab1a56b3dd031603a50ed7fd53e3c607a42a86
+[6/8] ASoC: rt5682: Support DBVDD and LDO1-IN supplies
+      commit: 318ff0693095defc683d00bb3fd7c482d10b03d7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

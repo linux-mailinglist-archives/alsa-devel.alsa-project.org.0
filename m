@@ -2,76 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D79624C0F
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 21:39:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41501624C37
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 21:54:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EAC11663;
-	Thu, 10 Nov 2022 21:39:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EAC11663
+	by alsa0.perex.cz (Postfix) with ESMTPS id C63FF1664;
+	Thu, 10 Nov 2022 21:53:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C63FF1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668112799;
-	bh=LqQpNnC8EIb8uvwzTz8/j3iKA35fIXtLnObuNjhhYoM=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1668113680;
+	bh=J6mfoht5qBrFBxrC6sH4TYOnxV6LF52emDjer2Ypdwg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CSvxP7P8ciImZe77Agcus9dufcj3UivZORIvU+1Yqj8wmhK0WSavsUj7Zo8TcC7Qh
-	 o+MuvL3+dcDuGWg8gAsGWz7AR8Dsa4WLKoxEiV8k4gOsIxXOiZ63DllV6Pok7QokS0
-	 x9dWNapbsjv0rCyArceJbSFSUiKSZ19EiFXegsdM=
+	b=hbzeBU5YwCqkQ0oafL7/mQjh7/ofcLVk7RBbYJTTpiQGBOYDblAOUl5WQf8VOAJe7
+	 yQ5k25lqToxks05xMp/65BW63c1BXTvFp9I6F+0alGhGG3p17Uc6Dp6sorVqN1bWcI
+	 qj8YRjZNBi7MHWW5DRFy9P15P0GF3kbtEIYlb8FY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EF35F80163;
-	Thu, 10 Nov 2022 21:39:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55A8EF802E8;
+	Thu, 10 Nov 2022 21:53:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A8D4F8021D; Thu, 10 Nov 2022 21:39:02 +0100 (CET)
+ id 586DBF8021D; Thu, 10 Nov 2022 21:53:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A35BF80114
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 21:38:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A35BF80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id E86BAF80104
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 21:53:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E86BAF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mctM7IX5"
+ header.b="WH7TRMx7"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D82ED61E14;
- Thu, 10 Nov 2022 20:38:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EAF5C43470;
- Thu, 10 Nov 2022 20:38:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9CCA061E38;
+ Thu, 10 Nov 2022 20:53:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7196AC433C1;
+ Thu, 10 Nov 2022 20:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668112736;
- bh=LqQpNnC8EIb8uvwzTz8/j3iKA35fIXtLnObuNjhhYoM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mctM7IX5Sbi/HpL+27A/Y6GoN5p0NYZ4hdRPQhCIw/T3UflewcUIy709l30+PgPvm
- QQlTdr2HvicKiJreKHZLiQVu6Y8hEn20oT8EuoG8PHgxk4Txf4Lm92v2WZm4K14/bH
- CRKy8s3W9mlCrNgUsUN8L+HD1axcZnfS7XI2NFsT5FoHOy85RfwhK5yGHMqtNYNBQa
- wiVc7NRNMxMsF8QeM/UzGUAPvhYeZ2mAYvRom4YeixPUbWiodGIyxxYJ69cos5QA+G
- 3RLF1iZsunqZCVxMTCXehGiUZVugND5nlRtUSeDcjCCGeHu1xqQByqNTxdbqKTsUkS
- KGjHw342rorgg==
+ s=k20201202; t=1668113618;
+ bh=J6mfoht5qBrFBxrC6sH4TYOnxV6LF52emDjer2Ypdwg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WH7TRMx7C5cotdLr9EDFhUqhQiizydM+OKkWtChuu54yxZ5+cbJaIDl2Ce3iPuuYL
+ Em5IoexpZDpO95CAG61oVilno/P4KjfrtR8/uHu76MjLwphcqSBVzlvSNLmTlc7kkq
+ qZPjPly3CfH5o5Rfhm7SKTXUJdxXq7uklbniD8dzy6M7W+ef5H2n5UA1+0vRHS+9Ke
+ O6MN4AD0yPgGVSeHg1LjyWiPssBp6xTQ8SukHR6UueTJNjA3HSYJK8AqljQLWtDZU9
+ vlC5DO9lZjAzQd1rxdBJBsYAifKnAxG9LviHCsPEUB4qMJLPVr0jVgGTxdEYB7NLD8
+ OK32ps9JyB2Ww==
+Date: Thu, 10 Nov 2022 20:53:32 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20221110190612.1341469-1-detlev.casanova@collabora.com>
-References: <20221110190612.1341469-1-detlev.casanova@collabora.com>
-Subject: Re: [PATCH] ASoC: sgtl5000: Reset the CHIP_CLK_CTRL reg on remove
-Message-Id: <166811273486.1046320.8327753211481113364.b4-ty@kernel.org>
-Date: Thu, 10 Nov 2022 20:38:54 +0000
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 00/12] Add support for the Cirrus Logic CS48L32 audio
+ codecs
+Message-ID: <Y21kzH4gDd6ZrpVm@sirena.org.uk>
+References: <20221109165331.29332-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: "moderated list:NXP SGTL5000 DRIVER" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>, Fabio Estevam <festevam@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="O8txgz163g9adksm"
+Content-Disposition: inline
+In-Reply-To: <20221109165331.29332-1-rf@opensource.cirrus.com>
+X-Cookie: Torque is cheap.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, maz@kernel.org,
+ linus.walleij@linaro.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, patches@opensource.cirrus.com,
+ tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,41 +91,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Nov 2022 14:06:12 -0500, Detlev Casanova wrote:
-> Since commit bf2aebccddef ("ASoC: sgtl5000: Fix noise on shutdown/remove"),
-> the device power control registers are reset when the driver is
-> removed/shutdown.
-> 
-> This is an issue when the device is configured to use the PLL clock. The
-> device will stop responding if it is still configured to use the PLL
-> clock but the PLL clock is powered down.
-> 
-> [...]
 
-Applied to
+--O8txgz163g9adksm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Nov 09, 2022 at 04:53:19PM +0000, Richard Fitzgerald wrote:
 
-Thanks!
+>   regulator: arizona-micsupp: Don't hardcode use of ARIZONA defines
+>   regulator: arizona-micsupp: Don't use a common regulator name
+>   ASoC: wm_adsp: Allow client to hook into pre_run callback
 
-[1/1] ASoC: sgtl5000: Reset the CHIP_CLK_CTRL reg on remove
-      commit: 0bb8e9b36b5b7f2e77892981ff6c27ee831d8026
+The regulator and ASoC bits look good.  It looks like this is going to
+need another spin for at least the DT and irqchip bits, I think it'd
+make sense to take the above cleanup patches for this release even if
+everything else misses it to cut down on future patch volume.  I'll
+leave it for a bit and do that unless someone has concerns, it's going
+to be easier than applying and sending pull requests.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--O8txgz163g9adksm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNtZMsACgkQJNaLcl1U
+h9D4zAf7BAdmu24FzKu8K/VatxXXCPdtwbu8htaSXj1JNOmeGwQq1PghD43yTI2D
+w09fTstt6knzfqx3NI991TN+bU4EQhXBRpYbRqoDiTMeB6Ov0X9GOiugQNuplkwO
+tAn56mY3y+59XOeqkq8V4dC8DcvRqoZqIgVqFjguhUtCgH1BURUXfa8dbChg3jsI
+HxTcpmlQCeQwGTypJC3B1v78Z9rlwMm2xlm3u4uxzEwWcFSUz1T7T+z90a/GzlL9
+1C/QqTZIllH+HbabJ4Hb1Jt1gdGNqi5ZmMghTSF5XRMkWQNDN9QwuJ2hLDZ8ti0k
+942m5A0H518y12xFzo3EJ0zJmx62Lg==
+=3Mhi
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--O8txgz163g9adksm--

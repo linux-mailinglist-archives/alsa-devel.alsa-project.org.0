@@ -2,89 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C9762444C
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 15:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6899762454C
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Nov 2022 16:14:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DC58166A;
-	Thu, 10 Nov 2022 15:28:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DC58166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04BF5166F;
+	Thu, 10 Nov 2022 16:14:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04BF5166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668090584;
-	bh=PrByYd/+uYV5kHqyGUeO++q9oXB94rbgrpNn+qxvwFk=;
+	s=default; t=1668093297;
+	bh=MbJwL/xbNtWgUF6Zd3do7MReo/iqoBtgzj/J3KIlx90=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OT7J69o3FKasyREvDZ9n+/LWQJWQd4T3usrT+NJ70m7U+w8deln3zHvPF/mmiVzId
-	 oYnarTVs7t15QkgMs5yLndf65PWjyG7kz1H06PKl8cJOqTFoJzIxy5NLhk37qWtCRH
-	 b8uv0LsL4AeaDS2Z/i9oz5bUYdKkzBG7qlvorlM0=
+	b=W+X9Vy2QhPohZ01CziqhTDdjKD0x5LYaK+W1CzQ3s0UhoEyMZWvoaNHI6UGQGyPRr
+	 vcRk5cwI2LrX9WYJqIDKMYhYsF2nxRFsUyvd1akqIO18NUu9qOf2BgGfK+bEIRCWaj
+	 wyqimRi+tQZ2fuqA2WslecDabitwqIgX+uKg4hwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E80B3F80162;
-	Thu, 10 Nov 2022 15:28:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 717A6F802E8;
+	Thu, 10 Nov 2022 16:14:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C546F8021D; Thu, 10 Nov 2022 15:28:45 +0100 (CET)
+ id 2C429F80114; Thu, 10 Nov 2022 16:14:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 038D9F80162
- for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 15:28:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 038D9F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B3C9F80114
+ for <alsa-devel@alsa-project.org>; Thu, 10 Nov 2022 16:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B3C9F80114
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mH71tTaw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Exn7NPMv"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VPmAypvf"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1B6911F9F0;
- Thu, 10 Nov 2022 14:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668090519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XmURArnxcG2DBVBmhfZJ9se8qGoCeEY03n+z1EX2pm0=;
- b=mH71tTawOS56tumMmlyNBL2KHVe+3HDDriY6K/rAK5O3x8F5qIWKCNdO1WVvFsr32JoNc1
- 9SLXQFhOcZZzTuGLnSyA9rwPZVuhu4JFkrHAqWxHV7V4jp92jEXRXVz0EQ9jNSG+TmlTbj
- Mq1PlFzPqHGdlEofKI4OqyTXV1etNHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668090519;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XmURArnxcG2DBVBmhfZJ9se8qGoCeEY03n+z1EX2pm0=;
- b=Exn7NPMvKhJRKCgxzoyo+gVzVDSNAemsTS9Q/b2rtUNGmjW5FnpcePAjoGPRBymVPnCQ43
- Ah1YsQ3Tvmvh9FCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0B7281332F;
- Thu, 10 Nov 2022 14:28:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 88h5ApcKbWP3IwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 10 Nov 2022 14:28:39 +0000
-Date: Thu, 10 Nov 2022 15:28:38 +0100
-Message-ID: <87bkpeq3xl.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ye Bin <yebin@huaweicloud.com>
-Subject: Re: [PATCH] ALSA: hda: fix potential memleak in 'add_widget_node'
-In-Reply-To: <20221110144539.2989354-1-yebin@huaweicloud.com>
-References: <20221110144539.2989354-1-yebin@huaweicloud.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 71A4C6199B;
+ Thu, 10 Nov 2022 15:13:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C584DC433D6;
+ Thu, 10 Nov 2022 15:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668093230;
+ bh=MbJwL/xbNtWgUF6Zd3do7MReo/iqoBtgzj/J3KIlx90=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VPmAypvfdQ/EYxpZBz4FGtjyhZwtFHwHCL4hvvmLLxNjovB5hH2aK2kq/WBds/xW2
+ QFiTiocP3roVTIZj9ni53QY2JaOeviGrLdFuhgue8gGfwoVF1M3sYvSKug/xWEEXzF
+ 9VoGVymQ2G/tSlmCLhn4P+XcPa1LIOpoFEKbNg28NltEXKzhY53GxDnmih5H+9kguF
+ K49ct7+wmEOpd1v3vShnQlvR01FUYyZGJCK3dsFgGyrL2lPnLIzttP8MpuNvsUcYW7
+ gxjR0GcI4I3NH0URtM5xJXD0RI7XwRP1Wm3FxBBoy6aLNVIYAYjTtWtfRlhYTxKDdQ
+ P8LFOj/iYKhbA==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1ot9FT-005BUm-Ds;
+ Thu, 10 Nov 2022 15:13:47 +0000
+Date: Thu, 10 Nov 2022 15:13:47 +0000
+Message-ID: <86k042q1uc.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
+ CS48L31/32/33 codecs
+In-Reply-To: <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+References: <20221109165331.29332-1-rf@opensource.cirrus.com>
+ <20221109165331.29332-10-rf@opensource.cirrus.com>
+ <87mt8zutib.wl-maz@kernel.org>
+ <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
+ <86pmdvow5y.wl-maz@kernel.org>
+ <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- yebin10@huawei.com
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: rf@opensource.cirrus.com, lee@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linus.walleij@linaro.org,
+ broonie@kernel.org, tglx@linutronix.de, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-gpio@vger.kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,18 +110,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Nov 2022 15:45:39 +0100,
-Ye Bin wrote:
+On Thu, 10 Nov 2022 13:00:50 +0000,
+Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
 > 
-> From: Ye Bin <yebin10@huawei.com>
+> On 10/11/2022 12:01, Marc Zyngier wrote:
+> > On Thu, 10 Nov 2022 11:22:26 +0000,
+> > Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+> >> 
+> >> On 10/11/2022 08:02, Marc Zyngier wrote:
+> >>> On Wed, 09 Nov 2022 16:53:28 +0000,
+> >>> Richard Fitzgerald <rf@opensource.cirrus.com> wrote:
+> >>>> 
+> >>>> The Cirrus Logic CS48L31/32/33 audio codecs contain a programmable
+> >>>> interrupt controller with a variety of interrupt sources, including
+> >>>> GPIOs that can be used as interrupt inputs.
+> >>>> 
+> >>>> This driver provides the handling for the interrupt controller. As the
+> >>>> codec is accessed via regmap, the generic regmap_irq functionality
+> >>>> is used to do most of the work.
+> >>>> 
+> >>> 
+> >>> I cannot spot a shred of interrupt controller code in there. This
+> >> 
+> >> It is providing support for handling an interrupt controller so that
+> >> other drivers can bind to those interrupts. It's just that regmap
+> >> provides a lot of generic implementation for SPI-connected interrupt
+> >> controllers so we don't need to open-code all that in the
+> >> irqchip driver.
+> > 
+> > And thus none of that code needs to live in drivers/irqchip.
+> > 
+> >> 
+> >>> belongs IMO to the MFD code.
+> >> 
+> >> We did once put interrupt support in MFD for an older product line but
+> >> the MFD maintainer doesn't like the MFD being a dumping-ground for
+> >> random other functionality that have their own subsystems.
+> > 
+> > I don't like this stuff either. All this code is a glorified set of
+> > interrupt handlers and #defines that only hide the lack of a proper DT
+> > binding to express the interrupt routing (it feels like looking at
+> > board files from 10 years ago).
+> > 
 > 
-> As 'kobject_add' may allocated memory for 'kobject->name' when return error.
-> And in this function, if call 'kobject_add' failed didn't free kobject.
-> So call 'kobject_put' to recycling resources.
+> I didn't understand this. The whole purpose of this is to instantiate
+> Linux interrupts for the PIC interrupt sources so that other drivers
+> that want to use the interrupts from the CS48L32 PIC can use standard
+> kernel APIs or DT to bind against them.
+
+There is zero standard APIs in this patch. Does cs48l32_request_irq()
+look standard to you? This whole thing makes a mockery of the
+interrupt model and of firmware-based interrupt description which we
+spent years to build.
+
 > 
-> Signed-off-by: Ye Bin <yebin10@huawei.com>
+> The four handlers registered within the driver are done here simply
+> because they don't belong to any particular child driver. Since they
+> are a fixed feature of the chip that we know we want to handle we may as
+> well just register them.
 
-Thanks, applied now.
+Again, they have no purpose in an interrupt controller driver.
 
+> If we put them in the MFD with DT definitions it would make a
+> circular dependency between MFD and its child, which is not a great
+> situation. If it's these handlers that are bothering you, we could move
+> them to the audio driver.
 
-Takashi
+And what's left? Nothing.
+
+> 
+> > None of that belongs in the irqchip code.
+> > 
+> 
+> I don't really understand here what the criteria is that makes this not
+> a irqchip driver but it was ok for madera. We have a PIC and we need to
+> handle that and export those interrupts so other drivers can bind
+> against them. Is the problem that the PIC is on a SPI bus and irqchip is
+> only for memory-mapped PICs? Or is it that we have re-used existing
+> library code instead of open-coding it, so you aren't seeing the actual
+> handling code?
+
+An irqchip driver uses the irq_chip structure, uses irq domains to
+abstract the device-specific interrupt numbering from clients, and
+doesn't force the use of an esoteric API on these clients.
+
+What I see here is the exact opposite.
+
+Was it OK for madera? No. A moment of weakness, I presume. Do I want
+to repeat the same mistake? Neither.
+
+> As Lee has already objected in the past to having the interrupt
+> controller implementation in MFD I don't want to move it there without
+> Lee's agreement that it's ok to put the PIC IRQ implementation in MFD
+> for CS48L32.
+
+If you were implementing an actual interrupt controller driver, I'd
+take it without any question. The fact that this code mandates the use
+of its own homegrown API rules it out.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.

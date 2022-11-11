@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87699626041
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 18:16:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CFE626043
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 18:17:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 119821699;
-	Fri, 11 Nov 2022 18:16:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 119821699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 047A316A3;
+	Fri, 11 Nov 2022 18:16:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 047A316A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668187019;
-	bh=ZDvUaUkUACTSqX8y/03oHEIAlZS1OaPuEXsqc1Oc5ts=;
+	s=default; t=1668187040;
+	bh=sRrcqdhjs5tdOOy/Xr2UWVJV5Rz1PelJ/qkJs9nCdDA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KxSa4GTR3Bkk5sgTi7EF41ICoCgAsarFWJgimkpkrc+wngs1u1W0ydnF2/rV90MFy
-	 Dd6T1FXthTJwbi1ZPm3EI0qjSRDGBjRP35UDz8VynTAiDHyVHlSzrDVltzH3V73ImX
-	 4SPKrZHxqAmOpyQSb68sPWXMZl8KoKIdoJ6jkQdQ=
+	b=UezlaTppNaAFDMF/bZBlI9mhBtvugzsh/Z9SjoN8cz07IvA0lnKOs7w3LMfxSy6bY
+	 FobEPwLy2qmdz8EL6LdoAGjXdQfL1YeMsQpv8v6lOP16SPYdHBm4QSPHxHMFHpCH5D
+	 TeZMiPPaf7A7iRz/Wmv/sPGNrg6NnhlKV6Hwjfbw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B0A7F8055C;
-	Fri, 11 Nov 2022 18:15:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A90D0F80571;
+	Fri, 11 Nov 2022 18:15:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49EF9F8055B; Fri, 11 Nov 2022 18:15:14 +0100 (CET)
+ id A796FF80564; Fri, 11 Nov 2022 18:15:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D78EFF804B1
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 18:15:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D78EFF804B1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A117F80557
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 18:15:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A117F80557
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="I4qEfqF3"
+ header.b="egwJvE1a"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6EE7C62068;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 56B9FB82681;
+ Fri, 11 Nov 2022 17:15:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A124AC433D7;
  Fri, 11 Nov 2022 17:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A39FC43470;
- Fri, 11 Nov 2022 17:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668186906;
- bh=ZDvUaUkUACTSqX8y/03oHEIAlZS1OaPuEXsqc1Oc5ts=;
+ s=k20201202; t=1668186908;
+ bh=sRrcqdhjs5tdOOy/Xr2UWVJV5Rz1PelJ/qkJs9nCdDA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=I4qEfqF3e1WT1PqytGqAGMFnqX7jwEQBzvpJ/lXGJQgXbQYXHaf8JSGDT6FG1D2bf
- ActtO7PR7Pr8fNSYjXSSw3ySz8Wh5Lf5eeKWdz+aLVBMuUGea0kyOpHmlW8kzj9KUB
- GQ1ojsT6ZiNEqffHEjB9V1Jj+1+0+XzbivMO3WuiUGqbXWFGPv7MuUCgJFXuHdGl3O
- /dA4RPgSxUqDto3QVrEYsRl8v4LQ64eWw+XYUV+v88QeNNoaPhb4RaO1l3zwTrX6QW
- 8MBpnarhZgzjrHKuuTrjQ7EZBKXnPn6itthcQCIIA0MWIPo9iHa8FCiQyv8H2HBt6i
- sY4nNHp25vlLQ==
+ b=egwJvE1ao56OyeCS9vLRbCQMQIPeqe3PdeRlk5JqGZhCOOhU7yfdKkN2kAPKCgYcR
+ +IhINWqoF6KOwI7wKaGBttKzi/tGKXhrDbNhcQFt8hVjFkqYFXd687LLUV5zZCQ8eA
+ c905apaWAldHEu7OgiVMev0rDjuAi5qQ2SUQaIsCx8r7NwAHJ4l7WGe/if28H3CHTY
+ /qevDGUcIAWWbbPPFkIIMHSoY2Pgsnk5s+nxdHxYP/mqaDcAE60jvdvkpYZzYjNadc
+ SAMaSLwCALeT0Vw8fn8uCI3dDjyQ1YeCEvNsPKmRq0FlDFd6iRvTWxse8puwdBaqGy
+ 2I3ir/RiwBQ9w==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, shumingf@realtek.com
-In-Reply-To: <20221109091317.17240-1-shumingf@realtek.com>
-References: <20221109091317.17240-1-shumingf@realtek.com>
-Subject: Re: [PATCH 4/4] ASoC: Intel: sof_sdw_rt1316: add BQ params for the
- Dell models
-Message-Id: <166818690320.487154.1426963342850542329.b4-ty@kernel.org>
-Date: Fri, 11 Nov 2022 17:15:03 +0000
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20221104132213.121847-1-rf@opensource.cirrus.com>
+References: <20221104132213.121847-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
+Message-Id: <166818690633.487154.17424502068366763517.b4-ty@kernel.org>
+Date: Fri, 11 Nov 2022 17:15:06 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, jauliang@realtek.com, jfmiranda@gmail.com,
- derek.fang@realtek.com, flove@realtek.com, pierre-louis.bossart@intel.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, fparent@baylibre.com, bcousson@baylibre.com,
+ misael.lopez@ti.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,12 +87,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Nov 2022 17:13:17 +0800, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
+On Fri, 4 Nov 2022 13:22:13 +0000, Richard Fitzgerald wrote:
+> The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
+> and used by later code that depends on the TDM settings. So
+> __soc_pcm_open() should not be obliterating those mask values.
 > 
-> The Dell SKU 0B00/0B01/0AFE/0AFF model needs the BQ params for the tweeter/woofer.
+> The code in __soc_pcm_hw_params() uses these masks to calculate the
+> active channels so that only the AIF_IN/AIF_OUT widgets for the
+> active TDM slots are enabled. The zeroing of the masks in
+> __soc_pcm_open() disables this functionality so all AIF widgets
+> were enabled even for channels that are not assigned to a TDM slot.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -100,8 +106,8 @@ Applied to
 
 Thanks!
 
-[4/4] ASoC: Intel: sof_sdw_rt1316: add BQ params for the Dell models
-      commit: cf6946d95005add8437f874e0952ec4f28fe5c02
+[1/1] ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
+      commit: 39bd801d6908900e9ab0cdc2655150f95ddd4f1a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

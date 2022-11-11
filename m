@@ -2,75 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39782626084
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 18:35:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59F76626085
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 18:35:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5B2B168D;
-	Fri, 11 Nov 2022 18:34:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5B2B168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02BDE168E;
+	Fri, 11 Nov 2022 18:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02BDE168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668188126;
-	bh=cxOWI/R96hs4Mt/hIG+MAaS+byYSoes2BiPRYvAxvUA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1668188152;
+	bh=jYqvc4WZF2KKKlUH6NAcF4EXpjN8klTXDKeZlY8Otow=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UJKVg1B5bpdcSK4Lx9mlIxVKS1l7Vkex9Bo0xlCFYFpP86Igw6sKkK80KqytKDumy
-	 x6OvkX2AFdq9r/9hT+syQ5RCfrhdfQRQB692zphFxQo5CVUV0kOUgOTN2e/QU9dQ76
-	 I/dVg2XvyBDxgddysdQ6fI4suz+QMN+zaUppIYsQ=
+	b=Qqjl5l1lX2RpaPGuvC5BcO3HcRiB8RST2P1TkOeSQUKZcd6SCQPqzXM5FX7p0wULh
+	 ujRHr2GDmJ7XYdkjSClWchESezMp/cjjkiWdU+bJ1tS/9N1h5nwmraeyoX6mIh92JN
+	 P4m/TiTGmbZS3HqTq7zYrxenGd5ws9UN4SLb7XSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3070EF800CC;
+	by alsa1.perex.cz (Postfix) with ESMTP id CB0B4F80549;
 	Fri, 11 Nov 2022 18:34:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEA15F804B1; Fri, 11 Nov 2022 18:34:28 +0100 (CET)
+ id F1F0BF8028D; Fri, 11 Nov 2022 18:34:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B80ABF800F8
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 18:34:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B80ABF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CDF6F800CC
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 18:34:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDF6F800CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LlqZChCg"
+ header.b="QZ1UPMX/"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C66356205C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F0AD762059;
+ Fri, 11 Nov 2022 17:34:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47F1C433B5;
  Fri, 11 Nov 2022 17:34:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80961C433C1;
- Fri, 11 Nov 2022 17:34:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668188062;
- bh=cxOWI/R96hs4Mt/hIG+MAaS+byYSoes2BiPRYvAxvUA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LlqZChCgiBVyooD2qTpk1s6PjXYdWrkGza1iJWMAFIsvbbMlz6I8OArJizIcTSN/x
- SQ1yCWtWi3edZ3FiVhCSUPcB69gD0PpL0cdu2F/Svn4SOs0mYeLQE+T3vKY/CDsVP3
- hAmLLlcHqhILR/DvANY/NOjOcF0vJgbnY4sHcMBvyl55q9CtgTY9O+gBd59fctdqWO
- AXY2YSpiHSjLaww90c1nePabmCcP0Ogsm6ML4toQBjNCia8AH3wed3MxfJL949eaTJ
- 9/zLIBDs1esxMhSE3j96ZGDOKP99YUWSFJ+LjkoYSzmGIxpDFjEc81Qn0V4qHtHVrJ
- Fv3UtnqEoOavA==
+ s=k20201202; t=1668188064;
+ bh=jYqvc4WZF2KKKlUH6NAcF4EXpjN8klTXDKeZlY8Otow=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=QZ1UPMX/ria1/J65MPLUQqYQokPOpFzcAo2i8BmnXzhxk8TjPUG0AHxR4EHC4aZmX
+ 8SOFFTyG6AwOVRUoTUQC4N1mnXVoEXrBIBxYXXCPVgVTf+KF7ULMO6nu9aljMrJvcJ
+ rYjM43jC9oEIVph/YkUALeta7WtlICvtsESJxU8Tite+VhoquLHUtouIi5+lCq7IEa
+ mnpol2yMSda6PUgVLWhTF/r6b4w9zuDS4T6ASd54Uq8Ismcc3RjOn5xNysvg7OM27S
+ fVmU6mvQQbYkuMbKWCzaM+EfCwG8SxIQ0lFWiHUw5ueELQwA9eH2crvx4pbGWb9HwR
+ hciy8e2Rjw0qg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221110225432.144184-1-pierre-louis.bossart@linux.intel.com>
-References: <20221110225432.144184-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoC: Intel: add more ACPI tables/quirks for RPL/MTL
-Message-Id: <166818806121.535544.2110875010790932616.b4-ty@kernel.org>
-Date: Fri, 11 Nov 2022 17:34:21 +0000
+To: Banajit Goswami <bgoswami@quicinc.com>, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org, 
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20221111091328.31549-1-krzysztof.kozlowski@linaro.org>
+References: <20221111091328.31549-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: qcom: q6prm: Correct module description
+Message-Id: <166818806245.535544.12168721706069566351.b4-ty@kernel.org>
+Date: Fri, 11 Nov 2022 17:34:22 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
-Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,20 +89,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Nov 2022 16:54:27 -0600, Pierre-Louis Bossart wrote:
-> Add support for two RaptorLake SoundWire SKUs and one test board for
-> MeteorLake.
+On Fri, 11 Nov 2022 10:13:28 +0100, Krzysztof Kozlowski wrote:
+> The description was copied from APM driver.
 > 
-> There will be additional RaptorLake SKUs shared when validation is
-> complete.
 > 
-> Gongjun Song (4):
->   ASoC: Intel: sof_sdw: Add support for SKU 0C10 product
->   ASoC: Intel: soc-acpi: add SKU 0C10 SoundWire configuration
->   ASoC: Intel: sof_sdw: Add support for SKU 0C40 product
->   ASoC: Intel: soc-acpi: add SKU 0C40 SoundWire configuration
-> 
-> [...]
 
 Applied to
 
@@ -107,16 +100,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: Intel: sof_sdw: Add support for SKU 0C10 product
-      commit: d608bc44181c1010eca165e895bbe630077b2e16
-[2/5] ASoC: Intel: soc-acpi: add SKU 0C10 SoundWire configuration
-      commit: 55fc03445e2c4e05169db0390ceb92d7ffea1a96
-[3/5] ASoC: Intel: sof_sdw: Add support for SKU 0C40 product
-      commit: 880bf4b47fc1810616e254738bb40fe108c01cb9
-[4/5] ASoC: Intel: soc-acpi: add SKU 0C40 SoundWire configuration
-      commit: 97b5fbf44c001a1c575550e4b40c4abd9d7db175
-[5/5] ASoC: Intel: soc-acpi: add MTL AIC SoundWire configurations
-      commit: 8dcc205931b0ee729641ae6b37e0866b13aa081b
+[1/1] ASoC: qcom: q6prm: Correct module description
+      commit: e045595be3c1548e1164f3d402cef990425b6195
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

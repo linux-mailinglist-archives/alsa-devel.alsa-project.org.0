@@ -2,64 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E53CA625956
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 12:28:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD3862595C
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 12:28:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CA8A166F;
-	Fri, 11 Nov 2022 12:27:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CA8A166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1F03167E;
+	Fri, 11 Nov 2022 12:27:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1F03167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668166103;
-	bh=ZTojP5ek9xgW/HWmckHAiqzIXrxlZiysQJ3CHg1dszw=;
+	s=default; t=1668166126;
+	bh=MCCD55ssV/+LyB/gBcg4LJzJKVMhJ6KC7PQ9h0Gi9nk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X/yES4o+uILw/leW0MdNI4iBPhvNKHj1AXczk4EZovkohmC0b4st9XSyO1DOGgIeP
-	 X+1ffH8GSwKCsIapqo1UOKxXBqfBPycSpOY4v7DoFp+0Qu0veZAY/YWVv3aHpW6klG
-	 502ghSe9utUCzynhzy4oRPbDcrvT7WsTsb8wql1g=
+	b=Y4qVkF+LRMU0S1e5RXukWHr1bfXMelgpKs6aHd/lu3ZKg0FrJffH4RGne5GVichLh
+	 SbHR+sy9z5l9IS82IAJpXiYJJOirysXbT9YFk5F+PpOMb0uUg7vjHxEYhXVNqXKLjY
+	 CE2WQfOyDa7Mn7YeJahgA7ccmipfCmnnMwUbVVmY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 779FCF80536;
-	Fri, 11 Nov 2022 12:27:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EE48F8055C;
+	Fri, 11 Nov 2022 12:27:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25065F80536; Fri, 11 Nov 2022 12:27:08 +0100 (CET)
+ id E196BF8055B; Fri, 11 Nov 2022 12:27:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from out29-75.mail.aliyun.com (out29-75.mail.aliyun.com
- [115.124.29.75])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_ZEN_BLOCKED_OPENDNS, 
+ SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE, UNPARSEABLE_RELAY,
+ URIBL_BLOCKED, 
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from out29-197.mail.aliyun.com (out29-197.mail.aliyun.com
+ [115.124.29.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECE19F800F8
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 12:27:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECE19F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id AADB1F804AB
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 12:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AADB1F804AB
 X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436282|-1;
- BR=01201311R391S13rulernew998_84748_2000303; CH=blue; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0186439-8.41404e-05-0.981272;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047201; MF=wangweidong.a@awinic.com; NM=1;
- PH=DS; RN=17; RT=17; SR=0; TI=SMTPD_---.Q5.SfCt_1668166010; 
+ BR=01201311R131S08rulernew998_84748_2000303; CH=blue; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.0011861-7.36675e-05-0.99874;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047213; MF=wangweidong.a@awinic.com; NM=1;
+ PH=DS; RN=17; RT=17; SR=0; TI=SMTPD_---.Q5.SfMd_1668166016; 
 Received: from localhost.localdomain(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.Q5.SfCt_1668166010) by smtp.aliyun-inc.com;
- Fri, 11 Nov 2022 19:26:55 +0800
+ fp:SMTPD_---.Q5.SfMd_1668166016) by smtp.aliyun-inc.com;
+ Fri, 11 Nov 2022 19:26:58 +0800
 From: wangweidong.a@awinic.com
 To: broonie@kernel.org, perex@perex.cz, alsa-devel@alsa-project.org,
  tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
  ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
  quic_potturu@quicinc.com, pierre-louis.bossart@linux.intel.com,
  cy_huang@richtek.com
-Subject: [PATCH V3 1/6] ASoC: codecs: Add i2c and codec registration for
-Date: Fri, 11 Nov 2022 19:26:27 +0800
-Message-Id: <1668165992-6493-2-git-send-email-wangweidong.a@awinic.com>
+Subject: [PATCH V3 2/6] ASoC: codecs: Added configuration file parsing for
+ aw883xx
+Date: Fri, 11 Nov 2022 19:26:28 +0800
+Message-Id: <1668165992-6493-3-git-send-email-wangweidong.a@awinic.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1668165992-6493-1-git-send-email-wangweidong.a@awinic.com>
 References: <000701d8e7521f78bc05e6a340awinic.com>
  <1668165992-6493-1-git-send-email-wangweidong.a@awinic.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Cc: duanyibo@awinic.com, Weidong Wang <wangweidong.a@awinic.com>,
  zhaolei@awinic.com, liweilei@awinic.com, yijiangtao@awinic.com,
  zhangjianming@awinic.com
@@ -88,1830 +92,1318 @@ Signed-off-by: Nick Li <liweilei@awinic.com>
 Signed-off-by: Bruce zhao <zhaolei@awinic.com>
 Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
 ---
- sound/soc/codecs/aw883xx/aw883xx.c | 1806 ++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/aw883xx/aw883xx.h |  155 ++++
- 2 files changed, 1961 insertions(+)
- create mode 100644 sound/soc/codecs/aw883xx/aw883xx.c
- create mode 100644 sound/soc/codecs/aw883xx/aw883xx.h
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.c | 1294 ++++++++++++++++++++++++++
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.h |  145 +++
+ 2 files changed, 1439 insertions(+)
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.h
 
-diff --git a/sound/soc/codecs/aw883xx/aw883xx.c b/sound/soc/codecs/aw883xx/aw883xx.c
+diff --git a/sound/soc/codecs/aw883xx/aw883xx_bin_parse.c b/sound/soc/codecs/aw883xx/aw883xx_bin_parse.c
 new file mode 100644
-index 0000000..7435390
+index 0000000..e4ad58f
 --- /dev/null
-+++ b/sound/soc/codecs/aw883xx/aw883xx.c
-@@ -0,0 +1,1806 @@
++++ b/sound/soc/codecs/aw883xx/aw883xx_bin_parse.c
+@@ -0,0 +1,1294 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * aw883xx.c --  ALSA Soc AW883XX codec support
++ * aw_bin_parse.c  -- ALSA Soc AW883XX codec support
 + *
 + * Copyright (c) 2022 AWINIC Technology CO., LTD
-+ *
-+ * Author: Bruce zhao <zhaolei@awinic.com>
 + */
++
++#include <linux/cdev.h>
 +#include <linux/delay.h>
 +#include <linux/device.h>
 +#include <linux/debugfs.h>
 +#include <linux/firmware.h>
 +#include <linux/hrtimer.h>
-+#include <linux/i2c.h>
 +#include <linux/input.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/kernel.h>
++#include <linux/list.h>
 +#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/miscdevice.h>
 +#include <linux/of_gpio.h>
 +#include <linux/regmap.h>
-+#include <linux/syscalls.h>
++#include <linux/slab.h>
++#include <linux/string.h>
 +#include <linux/timer.h>
 +#include <linux/uaccess.h>
 +#include <linux/version.h>
-+#include <linux/vmalloc.h>
 +#include <linux/workqueue.h>
-+#include <sound/core.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+#include "aw883xx_pid_2049_reg.h"
-+#include "aw883xx.h"
 +#include "aw883xx_bin_parse.h"
-+#include "aw883xx_device.h"
 +
-+/*
-+ * Marco
-+ */
-+#define AW883XX_I2C_NAME "aw883xx_smartpa"
++#define printing_data_code
 +
-+#define AW883XX_RATES (SNDRV_PCM_RATE_8000_48000 | \
-+			SNDRV_PCM_RATE_96000)
-+#define AW883XX_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
-+			SNDRV_PCM_FMTBIT_S24_LE | \
-+			SNDRV_PCM_FMTBIT_S32_LE)
-+#define AW883XX_ACF_FILE	"aw883xx_acf.bin"
-+#define AW_REQUEST_FW_RETRIES		5	/* 5 times */
-+#define AW_SYNC_LOAD
-+
-+#define FADE_TIME_MAX 1000000
-+#define FADE_TIME_MIN 0
-+
-+static DEFINE_MUTEX(g_aw883xx_lock);
-+
-+static const struct regmap_config aw883xx_remap_config = {
-+	.val_bits = 16,
-+	.reg_bits = 8,
-+	.max_register = AW_PID_2049_REG_MAX - 1,
++static char *profile_name[AW_PROFILE_MAX] = {
++	"Music", "Voice", "Voip", "Ringtone",
++	"Ringtone_hs", "Lowpower", "Bypass",
++	"Mmi", "Fm", "Notification", "Receiver"
 +};
 +
-+/*
-+ * aw883xx distinguish between codecs and components by version
-+ */
-+static struct aw_componet_codec_ops aw_componet_codec_ops = {
-+	.kcontrol_codec = snd_soc_kcontrol_component,
-+	.codec_get_drvdata = snd_soc_component_get_drvdata,
-+	.add_codec_controls = snd_soc_add_component_controls,
-+	.unregister_codec = snd_soc_unregister_component,
-+	.register_codec = snd_soc_register_component,
-+};
++static int aw_parse_bin_header_1_0_0(struct aw_bin *bin);
 +
 +/*
-+ * aw883xx dsp write/read
++ * Interface function
++ *
++ * return value:
++ *       value = 0 :success;
++ *       value = -1 :check bin header version
++ *       value = -2 :check bin data type
++ *       value = -3 :check sum or check bin data len error
++ *       value = -4 :check data version
++ *       value = -5 :check register num
++ *       value = -6 :check dsp reg num
++ *       value = -7 :check soc app num
++ *       value = -8 :bin is NULL point
++ *
 + */
-+static int aw883xx_dsp_write_16bit(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t dsp_data)
++
++/*
++ * check sum data
++ */
++static int aw_check_sum(struct aw_bin *bin, int bin_num)
 +{
-+	int ret;
-+	struct aw_dsp_mem_desc *desc = &aw883xx->aw_pa->dsp_mem_desc;
++	unsigned int i = 0;
++	unsigned int sum_data = 0;
++	unsigned int check_sum = 0;
++	char *p_check_sum = NULL;
 +
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_madd_reg, dsp_addr);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "%s error, ret=%d", __func__, ret);
-+		return ret;
-+	}
++	p_check_sum = &(bin->info.data[(bin->header_info[bin_num].valid_data_addr -
++						bin->header_info[bin_num].header_len)]);
++	pr_debug("aw_bin_parse p_check_sum = %p\n", p_check_sum);
++	check_sum = GET_32_DATA(*(p_check_sum + 3), *(p_check_sum + 2),
++				*(p_check_sum + 1), *(p_check_sum));
 +
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_mdat_reg, (uint16_t)dsp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "%s error, ret=%d", __func__, ret);
-+		return ret;
++	for (i = 4; i < bin->header_info[bin_num].bin_data_len +
++					bin->header_info[bin_num].header_len; i++) {
++		sum_data += *(p_check_sum + i);
 +	}
++	pr_debug("aw_bin_parse bin_num = %d, check_sum = 0x%x, sum_data = 0x%x\n",
++						bin_num, check_sum, sum_data);
++	if (sum_data != check_sum) {
++		p_check_sum = NULL;
++		pr_err("%s. CheckSum Fail.bin_num=%d, CheckSum:0x%x, SumData:0x%x",
++				__func__, bin_num, check_sum, sum_data);
++		return -BIN_DATA_LEN_ERR;
++	}
++	p_check_sum = NULL;
 +
 +	return 0;
 +}
 +
-+static int aw883xx_dsp_write_32bit(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t dsp_data)
++static int aw_check_data_version(struct aw_bin *bin, int bin_num)
 +{
-+	int ret;
-+	uint16_t temp_data = 0;
-+	struct aw_dsp_mem_desc *desc = &aw883xx->aw_pa->dsp_mem_desc;
++	int i = 0;
 +
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_madd_reg, dsp_addr);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "%s error, ret=%d", __func__, ret);
-+		return ret;
++	for (i = DATA_VERSION_V1; i < DATA_VERSION_MAX; i++) {
++		if (bin->header_info[bin_num].bin_data_ver == i)
++			return 0;
 +	}
++	pr_err("aw_bin_parse Unrecognized this bin data version\n");
++	return -DATA_VER_ERR;
++}
 +
-+	temp_data = dsp_data & AW883XX_DSP_16_DATA_MASK;
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_mdat_reg, temp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "%s error, ret=%d", __func__, ret);
-+		return ret;
++static int aw_check_register_num_v1(struct aw_bin *bin, int bin_num)
++{
++	unsigned int check_register_num = 0;
++	unsigned int parse_register_num = 0;
++	char *p_check_sum = NULL;
++	struct bin_header_info temp_info;
++
++	temp_info = bin->header_info[bin_num];
++	p_check_sum = &(bin->info.data[(temp_info.valid_data_addr)]);
++	pr_debug("aw_bin_parse p_check_sum = %p\n", p_check_sum);
++	parse_register_num = GET_32_DATA(*(p_check_sum + 3), *(p_check_sum + 2),
++					*(p_check_sum + 1), *(p_check_sum));
++	check_register_num = (bin->header_info[bin_num].bin_data_len - 4) /
++				(bin->header_info[bin_num].reg_byte_len +
++				bin->header_info[bin_num].data_byte_len);
++	pr_debug("%s bin_num = %d,parse_register_num = 0x%x,check_register_num = 0x%x\n",
++				__func__, bin_num, parse_register_num, check_register_num);
++	if (parse_register_num != check_register_num) {
++		p_check_sum = NULL;
++		pr_err("%s bin_num = %d,parse_register_num = 0x%x,check_register_num = 0x%x\n",
++				__func__, bin_num, parse_register_num, check_register_num);
++
++		return -REG_NUM_ERR;
 +	}
++	bin->header_info[bin_num].reg_num = parse_register_num;
++	bin->header_info[bin_num].valid_data_len = temp_info.bin_data_len - 4;
++	p_check_sum = NULL;
++	bin->header_info[bin_num].valid_data_addr = temp_info.valid_data_addr + 4;
++	return 0;
++}
 +
-+	temp_data = dsp_data >> 16;
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_mdat_reg, temp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "%s error, ret=%d", __func__, ret);
-+		return ret;
++static int aw_check_dsp_reg_num_v1(struct aw_bin *bin, int bin_num)
++{
++	unsigned int check_dsp_reg_num = 0;
++	unsigned int parse_dsp_reg_num = 0;
++	char *p_check_sum = NULL;
++	struct bin_header_info temp_info;
++
++	temp_info = bin->header_info[bin_num];
++	p_check_sum = &(bin->info.data[(temp_info.valid_data_addr)]);
++	pr_debug("aw_bin_parse p_check_sum = %p\n", p_check_sum);
++	parse_dsp_reg_num = GET_32_DATA(*(p_check_sum + 7), *(p_check_sum + 6),
++					*(p_check_sum + 5), *(p_check_sum + 4));
++	bin->header_info[bin_num].reg_data_byte_len =
++			GET_32_DATA(*(p_check_sum + 11), *(p_check_sum + 10),
++					*(p_check_sum + 9), *(p_check_sum + 8));
++	check_dsp_reg_num = (bin->header_info[bin_num].bin_data_len - 12) /
++				bin->header_info[bin_num].reg_data_byte_len;
++	pr_debug("%s bin_num = %d, parse_dsp_reg_num = 0x%x, check_dsp_reg_num = 0x%x",
++					__func__, bin_num, check_dsp_reg_num, check_dsp_reg_num);
++	if (parse_dsp_reg_num != check_dsp_reg_num) {
++		p_check_sum = NULL;
++		pr_err("aw_bin_parse check dsp reg num error\n");
++		pr_err("%s bin_num = %d, parse_dsp_reg_num = 0x%x, check_dsp_reg_num = 0x%x",
++					__func__, bin_num, check_dsp_reg_num, check_dsp_reg_num);
++		return -DSP_REG_NUM_ERR;
 +	}
++	bin->header_info[bin_num].download_addr =
++			GET_32_DATA(*(p_check_sum + 3), *(p_check_sum + 2),
++					*(p_check_sum + 1), *(p_check_sum));
++	bin->header_info[bin_num].reg_num = parse_dsp_reg_num;
++	bin->header_info[bin_num].valid_data_len = temp_info.bin_data_len - 12;
++	p_check_sum = NULL;
++	bin->header_info[bin_num].valid_data_addr = temp_info.valid_data_addr + 12;
++	return 0;
++}
 +
++static int aw_check_soc_app_num_v1(struct aw_bin *bin, int bin_num)
++{
++	unsigned int check_soc_app_num = 0;
++	unsigned int parse_soc_app_num = 0;
++	char *p_check_sum = NULL;
++	struct bin_header_info temp_info;
++
++	temp_info = bin->header_info[bin_num];
++	p_check_sum = &(bin->info.data[(temp_info.valid_data_addr)]);
++	pr_debug("aw_bin_parse p_check_sum = %p\n", p_check_sum);
++	bin->header_info[bin_num].app_version = GET_32_DATA(*(p_check_sum + 3),
++			*(p_check_sum + 2), *(p_check_sum + 1), *(p_check_sum));
++	parse_soc_app_num = GET_32_DATA(*(p_check_sum + 11),
++		*(p_check_sum + 10), *(p_check_sum + 9), *(p_check_sum + 8));
++	check_soc_app_num = bin->header_info[bin_num].bin_data_len - 12;
++	pr_debug("%s bin_num = %d, parse_soc_app_num=0x%x, check_soc_app_num = 0x%x\n",
++					__func__, bin_num, parse_soc_app_num, check_soc_app_num);
++	if (parse_soc_app_num != check_soc_app_num) {
++		p_check_sum = NULL;
++		pr_err("aw_bin_parse check soc app num error\n");
++		pr_err("%s bin_num = %d, parse_soc_app_num=0x%x, check_soc_app_num = 0x%x\n",
++					__func__, bin_num, parse_soc_app_num, check_soc_app_num);
++
++		return -SOC_APP_NUM_ERR;
++	}
++	bin->header_info[bin_num].reg_num = parse_soc_app_num;
++	bin->header_info[bin_num].download_addr =
++			GET_32_DATA(*(p_check_sum + 7), *(p_check_sum + 6),
++					*(p_check_sum + 5), *(p_check_sum + 4));
++	bin->header_info[bin_num].valid_data_len = temp_info.bin_data_len - 12;
++	p_check_sum = NULL;
++	bin->header_info[bin_num].valid_data_addr = temp_info.valid_data_addr + 12;
 +	return 0;
 +}
 +
 +/*
-+ * aw883xx clear dsp chip select state
++ * bin header 1_0_0
 + */
-+static void aw883xx_clear_dsp_sel_st(struct aw883xx *aw883xx)
++static void aw_get_single_bin_header_1_0_0(struct aw_bin *bin)
 +{
-+	unsigned int reg_value;
-+	uint8_t reg = aw883xx->aw_pa->soft_rst.reg;
-+
-+	regmap_read(aw883xx->regmap, reg, &reg_value);
-+}
-+
-+int aw883xx_dsp_write(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t dsp_data, uint8_t data_type)
-+{
-+	int ret = -1;
-+
-+	mutex_lock(&aw883xx->dsp_lock);
-+	if (data_type == AW_DSP_16_DATA) {
-+		ret = aw883xx_dsp_write_16bit(aw883xx, dsp_addr, dsp_data);
-+		if (ret < 0)
-+			dev_err(aw883xx->dev, "write dsp_addr[0x%04x] 16 bit dsp_data[%04x] failed",
-+					(uint32_t)dsp_addr, dsp_data);
-+
-+	} else if (data_type == AW_DSP_32_DATA) {
-+		ret =  aw883xx_dsp_write_32bit(aw883xx, dsp_addr, dsp_data);
-+		if (ret < 0)
-+			dev_err(aw883xx->dev, "write dsp_addr[0x%04x] 32 bit dsp_data[%08x] failed",
-+					(uint32_t)dsp_addr, dsp_data);
-+	} else {
-+		dev_err(aw883xx->dev, "data type[%d] unsupported", data_type);
-+		ret = -EINVAL;
-+	}
-+
-+	aw883xx_clear_dsp_sel_st(aw883xx);
-+	mutex_unlock(&aw883xx->dsp_lock);
-+	return ret;
-+}
-+
-+static int aw883xx_dsp_read_16bit(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t *dsp_data)
-+{
-+	int ret;
-+	unsigned int temp_data = 0;
-+	struct aw_dsp_mem_desc *desc = &aw883xx->aw_pa->dsp_mem_desc;
-+
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_madd_reg, dsp_addr);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "i2c write error, ret=%d", ret);
-+		return ret;
-+	}
-+
-+	ret = regmap_read(aw883xx->regmap, desc->dsp_mdat_reg, &temp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "i2c write error, ret=%d", ret);
-+		return ret;
-+	}
-+
-+	*dsp_data = temp_data;
-+
-+	return 0;
-+}
-+
-+static int aw883xx_dsp_read_32bit(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t *dsp_data)
-+{
-+	int ret;
-+	unsigned int temp_data = 0;
-+	struct aw_dsp_mem_desc *desc = &aw883xx->aw_pa->dsp_mem_desc;
-+
-+	/*write dsp addr*/
-+	ret = regmap_write(aw883xx->regmap, desc->dsp_madd_reg, dsp_addr);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "i2c write error, ret=%d", ret);
-+		return ret;
-+	}
-+
-+	/*get Low 16 bit data*/
-+	ret = regmap_read(aw883xx->regmap, desc->dsp_mdat_reg, &temp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "i2c read error, ret=%d", ret);
-+		return ret;
-+	}
-+
-+	*dsp_data = temp_data;
-+
-+	/*get high 16 bit data*/
-+	ret = regmap_read(aw883xx->regmap, desc->dsp_mdat_reg, &temp_data);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "i2c read error, ret=%d", ret);
-+		return ret;
-+	}
-+	*dsp_data |= (temp_data << 16);
-+
-+	return 0;
-+}
-+
-+int aw883xx_dsp_read(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t *dsp_data, uint8_t data_type)
-+{
-+	int ret = -1;
-+
-+	mutex_lock(&aw883xx->dsp_lock);
-+	if (data_type == AW_DSP_16_DATA) {
-+		ret = aw883xx_dsp_read_16bit(aw883xx, dsp_addr, dsp_data);
-+		if (ret < 0)
-+			dev_err(aw883xx->dev, "read dsp_addr[0x%04x] 16 bit dsp_data[%04x] failed",
-+					(uint32_t)dsp_addr, *dsp_data);
-+
-+	} else if (data_type == AW_DSP_32_DATA) {
-+		ret = aw883xx_dsp_read_32bit(aw883xx, dsp_addr, dsp_data);
-+		if (ret < 0)
-+			dev_err(aw883xx->dev, "read dsp_addr[0x%04x] 32 bit dsp_data[%08x] failed",
-+					(uint32_t)dsp_addr, *dsp_data);
-+	} else {
-+		dev_err(aw883xx->dev, "data type[%d] unsupported", data_type);
-+		ret = -EINVAL;
-+	}
-+
-+	aw883xx_clear_dsp_sel_st(aw883xx);
-+	mutex_unlock(&aw883xx->dsp_lock);
-+	return ret;
-+}
-+
-+static void aw883xx_start_pa(struct aw883xx *aw883xx)
-+{
-+	int ret, i;
-+
-+	if (!aw883xx->allow_pw) {
-+		dev_info(aw883xx->dev, "%s:dev can not allow power", __func__);
-+		return;
-+	}
-+
-+	if (aw883xx->pstream == AW883XX_STREAM_CLOSE) {
-+		dev_info(aw883xx->dev, "%s:pstream is close", __func__);
-+		return;
-+	}
-+
-+	for (i = 0; i < AW_START_RETRIES; i++) {
-+		ret = aw883xx_device_start(aw883xx->aw_pa);
-+		if (ret) {
-+			dev_err(aw883xx->dev, "aw883xx device start failed. retry = %d", i);
-+			ret = aw883xx_dev_fw_update(aw883xx->aw_pa, AW_DSP_FW_UPDATE_ON, true);
-+			if (ret < 0) {
-+				dev_err(aw883xx->dev, "fw update failed");
-+				continue;
-+			}
-+		} else {
-+			dev_info(aw883xx->dev, "start success\n");
-+			break;
-+		}
-+	}
-+}
-+
-+static void aw883xx_startup_work(struct work_struct *work)
-+{
-+	struct aw883xx *aw883xx =
-+		container_of(work, struct aw883xx, start_work.work);
-+
-+	mutex_lock(&aw883xx->lock);
-+	aw883xx_start_pa(aw883xx);
-+	mutex_unlock(&aw883xx->lock);
-+}
-+
-+static void aw883xx_start(struct aw883xx *aw883xx, bool sync_start)
-+{
-+	int ret;
 +	int i;
 +
-+	if (aw883xx->aw_pa->fw_status == AW_DEV_FW_OK) {
-+		if (!aw883xx->allow_pw) {
-+			dev_info(aw883xx->dev, "%s:dev can not allow power", __func__);
-+			return;
-+		}
-+
-+		if (aw883xx->aw_pa->status == AW_DEV_PW_ON)
-+			return;
-+
-+		for (i = 0; i < AW_START_RETRIES; i++) {
-+			ret = aw883xx_dev_fw_update(aw883xx->aw_pa, AW_DSP_FW_UPDATE_OFF,
-+						aw883xx->phase_sync);
-+			if (ret < 0) {
-+				dev_err(aw883xx->dev, "fw update failed. retry = %d", i);
-+				continue;
-+			} else {
-+				/*firmware update success*/
-+				if (sync_start == AW_SYNC_START)
-+					aw883xx_start_pa(aw883xx);
-+				else
-+					queue_delayed_work(aw883xx->work_queue,
-+						&aw883xx->start_work,
-+						AW883XX_START_WORK_DELAY_MS);
-+
-+				return;
-+			}
-+		}
++	bin->header_info[bin->all_bin_parse_num].header_len = 60;
++	bin->header_info[bin->all_bin_parse_num].check_sum =
++		GET_32_DATA(*(bin->p_addr + 3), *(bin->p_addr + 2),
++				*(bin->p_addr + 1), *(bin->p_addr));
++	bin->header_info[bin->all_bin_parse_num].header_ver =
++		GET_32_DATA(*(bin->p_addr + 7), *(bin->p_addr + 6),
++				*(bin->p_addr + 5), *(bin->p_addr + 4));
++	bin->header_info[bin->all_bin_parse_num].bin_data_type =
++		GET_32_DATA(*(bin->p_addr + 11), *(bin->p_addr + 10),
++				*(bin->p_addr + 9), *(bin->p_addr + 8));
++	bin->header_info[bin->all_bin_parse_num].bin_data_ver =
++		GET_32_DATA(*(bin->p_addr + 15), *(bin->p_addr + 14),
++				*(bin->p_addr + 13), *(bin->p_addr + 12));
++	bin->header_info[bin->all_bin_parse_num].bin_data_len =
++		GET_32_DATA(*(bin->p_addr + 19), *(bin->p_addr + 18),
++				*(bin->p_addr + 17), *(bin->p_addr + 16));
++	bin->header_info[bin->all_bin_parse_num].ui_ver =
++		GET_32_DATA(*(bin->p_addr + 23), *(bin->p_addr + 22),
++				*(bin->p_addr + 21), *(bin->p_addr + 20));
++	bin->header_info[bin->all_bin_parse_num].reg_byte_len =
++		GET_32_DATA(*(bin->p_addr + 35), *(bin->p_addr + 34),
++				*(bin->p_addr + 33), *(bin->p_addr + 32));
++	bin->header_info[bin->all_bin_parse_num].data_byte_len =
++		GET_32_DATA(*(bin->p_addr + 39), *(bin->p_addr + 38),
++				*(bin->p_addr + 37), *(bin->p_addr + 36));
++	bin->header_info[bin->all_bin_parse_num].device_addr =
++		GET_32_DATA(*(bin->p_addr + 43), *(bin->p_addr + 42),
++			*(bin->p_addr + 41), *(bin->p_addr + 40));
++	for (i = 0; i < 8; i++) {
++		bin->header_info[bin->all_bin_parse_num].chip_type[i] =
++						*(bin->p_addr + 24 + i);
 +	}
++	bin->header_info[bin->all_bin_parse_num].reg_num = 0x00000000;
++	bin->header_info[bin->all_bin_parse_num].reg_data_byte_len = 0x00000000;
++	bin->header_info[bin->all_bin_parse_num].download_addr = 0x00000000;
++	bin->header_info[bin->all_bin_parse_num].app_version = 0x00000000;
++	bin->header_info[bin->all_bin_parse_num].valid_data_len = 0x00000000;
++	bin->all_bin_parse_num += 1;
 +}
 +
-+/*
-+ * Digital Audio Interface
-+ */
-+static int aw883xx_startup(struct snd_pcm_substream *substream,
-+			struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *codec = dai->component;
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	aw883xx->pstream = AW883XX_STREAM_OPEN;
-+
-+	mutex_lock(&aw883xx->lock);
-+	aw883xx_start(aw883xx, AW_ASYNC_START);
-+	mutex_unlock(&aw883xx->lock);
-+
-+	return 0;
-+}
-+
-+static void aw883xx_shutdown(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *codec = dai->component;
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	aw883xx->pstream = AW883XX_STREAM_CLOSE;
-+	cancel_delayed_work_sync(&aw883xx->start_work);
-+	mutex_lock(&aw883xx->lock);
-+	aw883xx_device_stop(aw883xx->aw_pa);
-+	mutex_unlock(&aw883xx->lock);
-+
-+}
-+
-+static const struct snd_soc_dai_ops aw883xx_dai_ops = {
-+	.startup = aw883xx_startup,
-+	.shutdown = aw883xx_shutdown,
-+};
-+
-+static struct snd_soc_dai_driver aw883xx_dai[] = {
-+	{
-+	.name = "aw883xx-aif",
-+	.id = 1,
-+	.playback = {
-+		.stream_name = "Speaker_Playback",
-+		.channels_min = 1,
-+		.channels_max = 2,
-+		.rates = AW883XX_RATES,
-+		.formats = AW883XX_FORMATS,
-+		},
-+	.capture = {
-+		.stream_name = "Speaker_Capture",
-+		.channels_min = 1,
-+		.channels_max = 2,
-+		.rates = AW883XX_RATES,
-+		.formats = AW883XX_FORMATS,
-+		},
-+	.ops = &aw883xx_dai_ops,
-+	/*.symmetric_rates = 1,*/
-+	},
-+};
-+
-+static int aw883xx_fade_time_info(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_info *uinfo)
-+{
-+	/* set kcontrol info */
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = 1000000;
-+
-+	return 0;
-+}
-+
-+/*
-+ * codec driver
-+ */
-+static int aw883xx_get_fade_in_time(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	unsigned int time;
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(component);
-+	struct aw_device *aw_dev = aw883xx->aw_pa;
-+
-+	aw883xx_dev_get_fade_time(&time, true, aw_dev);
-+	ucontrol->value.integer.value[0] = time;
-+
-+	pr_debug("step time %ld", ucontrol->value.integer.value[0]);
-+
-+	return 0;
-+
-+}
-+
-+static int aw883xx_set_fade_in_time(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(component);
-+	struct aw_device *aw_dev = aw883xx->aw_pa;
-+
-+	if ((ucontrol->value.integer.value[0] > FADE_TIME_MAX) ||
-+		(ucontrol->value.integer.value[0] < FADE_TIME_MIN)) {
-+		pr_debug("set val %ld overflow %d or  less than :%d",
-+			ucontrol->value.integer.value[0], FADE_TIME_MAX, FADE_TIME_MAX);
-+		return 0;
-+	}
-+
-+	aw883xx_dev_set_fade_time(ucontrol->value.integer.value[0], true, aw_dev);
-+
-+	pr_debug("step time %ld", ucontrol->value.integer.value[0]);
-+	return 1;
-+}
-+
-+static int aw883xx_get_fade_out_time(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	unsigned int time;
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(component);
-+	struct aw_device *aw_dev = aw883xx->aw_pa;
-+
-+	aw883xx_dev_get_fade_time(&time, false, aw_dev);
-+	ucontrol->value.integer.value[0] = time;
-+
-+	pr_debug("step time %ld", ucontrol->value.integer.value[0]);
-+
-+	return 0;
-+}
-+
-+static int aw883xx_set_fade_out_time(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(component);
-+	struct aw_device *aw_dev = aw883xx->aw_pa;
-+
-+	if ((ucontrol->value.integer.value[0] > FADE_TIME_MAX) ||
-+		(ucontrol->value.integer.value[0] < FADE_TIME_MIN)) {
-+		pr_err("set val %ld overflow %d or  less than :%d",
-+			ucontrol->value.integer.value[0], FADE_TIME_MAX, FADE_TIME_MIN);
-+		return 0;
-+	}
-+
-+	aw883xx_dev_set_fade_time(ucontrol->value.integer.value[0], false, aw_dev);
-+
-+	pr_debug("step time %ld", ucontrol->value.integer.value[0]);
-+
-+	return 1;
-+}
-+
-+static int aw883xx_profile_info(struct snd_kcontrol *kcontrol,
-+			 struct snd_ctl_elem_info *uinfo)
-+{
-+	int count;
-+	char *name = NULL;
-+	const char *prof_name = NULL;
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
-+	uinfo->count = 1;
-+
-+	count = aw883xx_dev_get_profile_count(aw883xx->aw_pa);
-+	if (count <= 0) {
-+		uinfo->value.enumerated.items = 0;
-+		dev_err(aw883xx->dev, "get count[%d] failed", count);
-+		return 0;
-+	}
-+
-+	uinfo->value.enumerated.items = count;
-+
-+	if (uinfo->value.enumerated.item >= count)
-+		uinfo->value.enumerated.item = count - 1;
-+
-+	name = uinfo->value.enumerated.name;
-+	count = uinfo->value.enumerated.item;
-+
-+	prof_name = aw_dev_get_prof_name(aw883xx->aw_pa, count);
-+	if (!prof_name) {
-+		strscpy(uinfo->value.enumerated.name, "null",
-+						strlen("null") + 1);
-+		return 0;
-+	}
-+
-+	strscpy(name, prof_name, sizeof(uinfo->value.enumerated.name));
-+
-+	return 0;
-+}
-+
-+static int aw883xx_profile_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	ucontrol->value.integer.value[0] = aw883xx_dev_get_profile_index(aw883xx->aw_pa);
-+	dev_dbg(codec->dev, "profile index [%d]",
-+			aw883xx_dev_get_profile_index(aw883xx->aw_pa));
-+	return 0;
-+
-+}
-+
-+static int aw883xx_profile_set(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+	int ret;
-+	int cur_index;
-+
-+	if (!aw883xx->dbg_en_prof) {
-+		dev_info(codec->dev, "profile close");
-+		return 0;
-+	}
-+
-+	/* check value valid */
-+	ret = aw883xx_dev_check_profile_index(aw883xx->aw_pa, ucontrol->value.integer.value[0]);
-+	if (ret) {
-+		dev_warn(codec->dev, "unsupported index %ld",
-+					ucontrol->value.integer.value[0]);
-+		return 0;
-+	}
-+
-+	/*check cur_index == set value*/
-+	cur_index = aw883xx_dev_get_profile_index(aw883xx->aw_pa);
-+	if (cur_index == ucontrol->value.integer.value[0]) {
-+		dev_info(codec->dev, "index no change");
-+		return 0;
-+	}
-+
-+	/*pa stop or stopping just set profile*/
-+	mutex_lock(&aw883xx->lock);
-+	aw883xx_dev_set_profile_index(aw883xx->aw_pa, ucontrol->value.integer.value[0]);
-+
-+	if (aw883xx->pstream) {
-+		aw883xx_device_stop(aw883xx->aw_pa);
-+		aw883xx_start(aw883xx, AW_SYNC_START);
-+	}
-+
-+	mutex_unlock(&aw883xx->lock);
-+
-+	dev_dbg(codec->dev, "profile id %ld", ucontrol->value.integer.value[0]);
-+	return 1;
-+}
-+
-+static int aw883xx_switch_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	ucontrol->value.integer.value[0] = aw883xx->allow_pw;
-+
-+	return 0;
-+}
-+
-+static int aw883xx_switch_set(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+
-+	dev_dbg(codec->dev, "set value:%ld", ucontrol->value.integer.value[0]);
-+
-+	if (ucontrol->value.integer.value[0] == aw883xx->allow_pw) {
-+		dev_info(aw883xx->dev, "PA switch not change");
-+		return 0;
-+	}
-+
-+	if (aw883xx->pstream) {
-+		if (ucontrol->value.integer.value[0] == 0) {
-+			cancel_delayed_work_sync(&aw883xx->start_work);
-+			mutex_lock(&aw883xx->lock);
-+			aw883xx_device_stop(aw883xx->aw_pa);
-+			aw883xx->allow_pw = false;
-+			mutex_unlock(&aw883xx->lock);
-+		} else {
-+			cancel_delayed_work_sync(&aw883xx->start_work);
-+			mutex_lock(&aw883xx->lock);
-+			aw883xx->allow_pw = true;
-+			aw883xx_start(aw883xx, AW_SYNC_START);
-+			mutex_unlock(&aw883xx->lock);
-+		}
-+	} else {
-+		mutex_lock(&aw883xx->lock);
-+		if (ucontrol->value.integer.value[0] == 0)
-+			aw883xx->allow_pw = false;
-+		else
-+			aw883xx->allow_pw = true;
-+		mutex_unlock(&aw883xx->lock);
-+	}
-+
-+	return 1;
-+}
-+
-+static int aw883xx_volume_info(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_info *uinfo)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+	struct aw_volume_desc *vol_desc = &aw883xx->aw_pa->volume_desc;
-+
-+	/* set kcontrol info */
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = vol_desc->mute_volume;
-+
-+	return 0;
-+}
-+
-+static int aw883xx_volume_get(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+	struct aw_volume_desc *vol_desc = &aw883xx->aw_pa->volume_desc;
-+
-+	ucontrol->value.integer.value[0] = vol_desc->ctl_volume;
-+
-+	dev_dbg(aw883xx->dev, "ucontrol->value.integer.value[0]=%d",
-+		vol_desc->ctl_volume);
-+
-+	return 0;
-+}
-+
-+static int aw883xx_volume_set(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	uint16_t value = 0;
-+	uint16_t compared_vol = 0;
-+	struct snd_soc_component *codec =
-+		aw_componet_codec_ops.kcontrol_codec(kcontrol);
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(codec);
-+	struct aw_volume_desc *vol_desc = &aw883xx->aw_pa->volume_desc;
-+
-+	value = (uint16_t)ucontrol->value.integer.value[0];
-+	if (value > vol_desc->mute_volume) {
-+		dev_err(aw883xx->dev, "value over range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(aw883xx->dev, "ucontrol->value.integer.value[0]=%d", value);
-+
-+	vol_desc->ctl_volume = value;
-+
-+	/*get smaller dB*/
-+	compared_vol = AW_GET_MAX_VALUE(vol_desc->ctl_volume,
-+		vol_desc->monitor_volume);
-+
-+	aw883xx_dev_set_volume(aw883xx->aw_pa, compared_vol);
-+
-+	return 1;
-+}
-+
-+static int aw883xx_dynamic_create_controls(struct aw883xx *aw883xx)
-+{
-+	struct snd_kcontrol_new *aw883xx_dev_control = NULL;
-+	char *kctl_name = NULL;
-+
-+	aw883xx_dev_control = devm_kzalloc(aw883xx->codec->dev,
-+			sizeof(struct snd_kcontrol_new) * AW_KCONTROL_NUM, GFP_KERNEL);
-+	if (!aw883xx_dev_control)
-+		return -ENOMEM;
-+
-+	kctl_name = devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!kctl_name)
-+		return -ENOMEM;
-+
-+	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%u_prof",
-+		aw883xx->aw_pa->channel);
-+
-+	aw883xx_dev_control[0].name = kctl_name;
-+	aw883xx_dev_control[0].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	aw883xx_dev_control[0].info = aw883xx_profile_info;
-+	aw883xx_dev_control[0].get = aw883xx_profile_get;
-+	aw883xx_dev_control[0].put = aw883xx_profile_set;
-+
-+	kctl_name = devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!kctl_name)
-+		return -ENOMEM;
-+
-+	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%u_switch", aw883xx->aw_pa->channel);
-+
-+	aw883xx_dev_control[1].name = kctl_name;
-+	aw883xx_dev_control[1].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	aw883xx_dev_control[1].info = snd_soc_info_bool_ext;
-+	aw883xx_dev_control[1].get = aw883xx_switch_get;
-+	aw883xx_dev_control[1].put = aw883xx_switch_set;
-+
-+	kctl_name = devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!kctl_name)
-+		return -ENOMEM;
-+
-+	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_rx_volume", aw883xx->aw_pa->channel);
-+
-+	aw883xx_dev_control[2].name = kctl_name;
-+	aw883xx_dev_control[2].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	aw883xx_dev_control[2].info = aw883xx_volume_info;
-+	aw883xx_dev_control[2].get = aw883xx_volume_get;
-+	aw883xx_dev_control[2].put = aw883xx_volume_set;
-+
-+	kctl_name = devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!kctl_name)
-+		return -ENOMEM;
-+
-+	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_fadeout_us", aw883xx->aw_pa->channel);
-+
-+	aw883xx_dev_control[3].name = kctl_name;
-+	aw883xx_dev_control[3].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	aw883xx_dev_control[3].info = aw883xx_fade_time_info;
-+	aw883xx_dev_control[3].get = aw883xx_get_fade_out_time;
-+	aw883xx_dev_control[3].put = aw883xx_set_fade_out_time;
-+
-+	kctl_name = devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!kctl_name)
-+		return -ENOMEM;
-+
-+	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_fadein_us", aw883xx->aw_pa->channel);
-+
-+	aw883xx_dev_control[4].name = kctl_name;
-+	aw883xx_dev_control[4].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	aw883xx_dev_control[4].info = aw883xx_fade_time_info;
-+	aw883xx_dev_control[4].get = aw883xx_get_fade_in_time;
-+	aw883xx_dev_control[4].put = aw883xx_set_fade_in_time;
-+
-+	aw_componet_codec_ops.add_codec_controls(aw883xx->codec,
-+						aw883xx_dev_control, AW_KCONTROL_NUM);
-+
-+	return 0;
-+}
-+
-+static int aw883xx_request_firmware_file(struct aw883xx *aw883xx)
-+{
-+	const struct firmware *cont = NULL;
-+	int ret = -1;
-+
-+	aw883xx->aw_pa->fw_status = AW_DEV_FW_FAILED;
-+
-+	ret = request_firmware(&cont, AW883XX_ACF_FILE, aw883xx->dev);
-+	if ((ret < 0) || (!cont)) {
-+		dev_err(aw883xx->dev, "load [%s] failed!", AW883XX_ACF_FILE);
-+		return ret;
-+	}
-+
-+	dev_info(aw883xx->dev, "loaded %s - size: %zu",
-+		AW883XX_ACF_FILE, cont ? cont->size : 0);
-+
-+	aw883xx->aw_cfg = vzalloc(cont->size + sizeof(int));
-+	if (!aw883xx->aw_cfg) {
-+		release_firmware(cont);
-+		return -ENOMEM;
-+	}
-+	aw883xx->aw_cfg->len = (int)cont->size;
-+	memcpy(aw883xx->aw_cfg->data, cont->data, cont->size);
-+	ret = aw883xx_dev_load_acf_check(aw883xx->aw_cfg);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "Load [%s] failed ....!", AW883XX_ACF_FILE);
-+		vfree(aw883xx->aw_cfg);
-+		aw883xx->aw_cfg = NULL;
-+		release_firmware(cont);
-+		return ret;
-+	}
-+	release_firmware(cont);
-+
-+	mutex_lock(&aw883xx->lock);
-+	/*aw device init*/
-+	ret = aw883xx_device_init(aw883xx->aw_pa, aw883xx->aw_cfg);
-+	if (ret < 0) {
-+		dev_info(aw883xx->dev, "dev init failed");
-+		mutex_unlock(&aw883xx->lock);
-+		return ret;
-+	}
-+
-+	aw883xx_dynamic_create_controls(aw883xx);
-+
-+	mutex_unlock(&aw883xx->lock);
-+
-+	return 0;
-+}
-+
-+static void aw883xx_fw_wrok(struct work_struct *work)
-+{
-+	struct aw883xx *aw883xx = container_of(work,
-+				struct aw883xx, acf_work.work);
-+	int ret;
-+
-+	ret = aw883xx_request_firmware_file(aw883xx);
-+	if (ret < 0)
-+		dev_err(aw883xx->dev, "load profile failed");
-+}
-+
-+static void aw883xx_load_fw(struct aw883xx *aw883xx)
-+{
-+#ifdef AW_SYNC_LOAD
-+		/*sync loading*/
-+		aw883xx_request_firmware_file(aw883xx);
-+#else
-+		/*async loading*/
-+		queue_delayed_work(aw883xx->work_queue,
-+				&aw883xx->acf_work,
-+				msecs_to_jiffies(AW883XX_LOAD_FW_DELAY_TIME));
-+
-+#endif
-+}
-+
-+static const struct snd_soc_dapm_widget aw883xx_dapm_widgets[] = {
-+	 /* playback */
-+	SND_SOC_DAPM_AIF_IN("AIF_RX", "Speaker_Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_OUTPUT("audio_out"),
-+	/* capture */
-+	SND_SOC_DAPM_AIF_OUT("AIF_TX", "Speaker_Capture", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_INPUT("iv_in"),
-+};
-+
-+static const struct snd_soc_dapm_route aw883xx_audio_map[] = {
-+	{"audio_out", NULL, "AIF_RX"},
-+	{"AIF_TX", NULL, "iv_in"},
-+};
-+
-+static int aw883xx_add_widgets(struct aw883xx *aw883xx)
-+{
-+	struct snd_soc_dapm_widget *aw_widgets = NULL;
-+	struct snd_soc_dapm_route *aw_route = NULL;
-+	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(aw883xx->codec);
-+
-+	/*add widgets*/
-+	aw_widgets = devm_kzalloc(aw883xx->dev,
-+				sizeof(struct snd_soc_dapm_widget) *
-+				ARRAY_SIZE(aw883xx_dapm_widgets),
-+				GFP_KERNEL);
-+	if (!aw_widgets)
-+		return -ENOMEM;
-+
-+	memcpy(aw_widgets, aw883xx_dapm_widgets,
-+			sizeof(struct snd_soc_dapm_widget) * ARRAY_SIZE(aw883xx_dapm_widgets));
-+
-+	snd_soc_dapm_new_controls(dapm, aw_widgets, ARRAY_SIZE(aw883xx_dapm_widgets));
-+
-+	/*add route*/
-+	aw_route = devm_kzalloc(aw883xx->dev,
-+				sizeof(struct snd_soc_dapm_route) * ARRAY_SIZE(aw883xx_audio_map),
-+				GFP_KERNEL);
-+	if (!aw_route)
-+		return -ENOMEM;
-+
-+	memcpy(aw_route, aw883xx_audio_map,
-+		sizeof(struct snd_soc_dapm_route) * ARRAY_SIZE(aw883xx_audio_map));
-+
-+	snd_soc_dapm_add_routes(dapm, aw_route, ARRAY_SIZE(aw883xx_audio_map));
-+
-+	return 0;
-+}
-+
-+static int aw883xx_codec_probe(struct snd_soc_component *aw_codec)
-+{
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(aw_codec);
-+
-+	/*destroy_workqueue(struct workqueue_struct *wq)*/
-+	aw883xx->work_queue = create_singlethread_workqueue("aw883xx");
-+	if (!aw883xx->work_queue) {
-+		dev_err(aw883xx->dev, "create workqueue failed !");
-+		return -EINVAL;
-+	}
-+
-+	INIT_DELAYED_WORK(&aw883xx->start_work, aw883xx_startup_work);
-+
-+	INIT_DELAYED_WORK(&aw883xx->acf_work, aw883xx_fw_wrok);
-+
-+	aw883xx->codec = aw_codec;
-+
-+	aw883xx_add_widgets(aw883xx);
-+
-+	aw883xx_load_fw(aw883xx);
-+
-+	return 0;
-+}
-+
-+static void aw883xx_codec_remove(struct snd_soc_component *aw_codec)
-+{
-+	struct aw883xx *aw883xx =
-+		aw_componet_codec_ops.codec_get_drvdata(aw_codec);
-+
-+	cancel_delayed_work_sync(&aw883xx->acf_work);
-+	cancel_delayed_work_sync(&aw883xx->start_work);
-+
-+	if (aw883xx->work_queue)
-+		destroy_workqueue(aw883xx->work_queue);
-+
-+	aw883xx_dev_deinit(aw883xx->aw_pa);
-+}
-+
-+static const struct snd_soc_component_driver soc_codec_dev_aw883xx = {
-+	.probe = aw883xx_codec_probe,
-+	.remove = aw883xx_codec_remove,
-+};
-+
-+static int aw883xx_componet_codec_register(struct aw883xx *aw883xx)
-+{
-+	struct snd_soc_dai_driver *dai_drv = NULL;
-+	int ret;
-+
-+	dai_drv = devm_kzalloc(aw883xx->dev, sizeof(aw883xx_dai), GFP_KERNEL);
-+	if (!dai_drv)
-+		return -ENOMEM;
-+
-+	memcpy(dai_drv, aw883xx_dai, sizeof(aw883xx_dai));
-+
-+	ret = aw883xx->codec_ops->register_codec(aw883xx->dev,
-+			&soc_codec_dev_aw883xx,
-+			dai_drv, ARRAY_SIZE(aw883xx_dai));
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "failed to register aw883xx: %d", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static struct aw883xx *aw883xx_malloc_init(struct i2c_client *i2c)
-+{
-+	struct aw883xx *aw883xx = devm_kzalloc(&i2c->dev,
-+			sizeof(struct aw883xx), GFP_KERNEL);
-+	if (!aw883xx)
-+		return NULL;
-+
-+	aw883xx->dev = &i2c->dev;
-+	aw883xx->i2c = i2c;
-+	aw883xx->aw_pa = NULL;
-+	aw883xx->codec = NULL;
-+	aw883xx->codec_ops = &aw_componet_codec_ops;
-+	aw883xx->dbg_en_prof = true;
-+	aw883xx->allow_pw = true;
-+	aw883xx->work_queue = NULL;
-+	mutex_init(&aw883xx->lock);
-+	mutex_init(&aw883xx->dsp_lock);
-+
-+	return aw883xx;
-+}
-+
-+static int aw883xx_gpio_request(struct aw883xx *aw883xx)
++static int aw_parse_each_of_multi_bins_1_0_0(unsigned int bin_num, int bin_serial_num,
++				      struct aw_bin *bin)
 +{
 +	int ret = 0;
++	unsigned int bin_start_addr = 0;
++	unsigned int valid_data_len = 0;
++	struct bin_header_info aw_bin_header_info;
 +
-+	if (gpio_is_valid(aw883xx->reset_gpio)) {
-+		ret = devm_gpio_request_one(aw883xx->dev, aw883xx->reset_gpio,
-+			GPIOF_OUT_INIT_LOW, "aw883xx_rst");
-+		if (ret) {
-+			dev_err(aw883xx->dev, "rst request failed");
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * device tree
-+ */
-+static int aw883xx_parse_gpio_dt(struct aw883xx *aw883xx)
-+{
-+	struct device_node *np = aw883xx->dev->of_node;
-+
-+	aw883xx->reset_gpio = of_get_named_gpio(np, "reset-gpio", 0);
-+	if (aw883xx->reset_gpio < 0)
-+		dev_err(aw883xx->dev, "no reset gpio provided, will not hw reset");
-+	else
-+		dev_dbg(aw883xx->dev, "reset gpio provided ok");
-+
-+	return 0;
-+}
-+
-+static void aw883xx_parse_sync_flag_dt(struct aw883xx *aw883xx)
-+{
-+	int ret;
-+	int32_t sync_enable = 0;
-+	struct device_node *np = aw883xx->dev->of_node;
-+
-+	ret = of_property_read_u32(np, "sync-flag", &sync_enable);
-+	if (ret < 0) {
-+		dev_dbg(aw883xx->dev,
-+			"read sync flag failed,default phase sync off");
-+		sync_enable = false;
++	aw_bin_header_info = bin->header_info[bin->all_bin_parse_num - 1];
++	if (!bin_serial_num) {
++		bin_start_addr = GET_32_DATA(*(bin->p_addr + 67), *(bin->p_addr
++			+ 66), *(bin->p_addr + 65), *(bin->p_addr + 64));
++		bin->p_addr += (60 + bin_start_addr);
++		bin->header_info[bin->all_bin_parse_num].valid_data_addr =
++			aw_bin_header_info.valid_data_addr + 4 + 8 * bin_num + 60;
 +	} else {
-+		dev_dbg(aw883xx->dev,
-+			"sync flag is %d", sync_enable);
++		valid_data_len = aw_bin_header_info.bin_data_len;
++		bin->p_addr += (60 + valid_data_len);
++		bin->header_info[bin->all_bin_parse_num].valid_data_addr =
++		    aw_bin_header_info.valid_data_addr
++		    + aw_bin_header_info.bin_data_len
++		    + 60;
 +	}
 +
-+	aw883xx->phase_sync = sync_enable;
-+}
-+
-+static int aw883xx_parse_dt(struct aw883xx *aw883xx)
-+{
-+	aw883xx_parse_sync_flag_dt(aw883xx);
-+	return aw883xx_parse_gpio_dt(aw883xx);
-+}
-+
-+static int aw883xx_hw_reset(struct aw883xx *aw883xx)
-+{
-+	if (gpio_is_valid(aw883xx->reset_gpio)) {
-+		gpio_set_value_cansleep(aw883xx->reset_gpio, 0);
-+		usleep_range(AW_1000_US, AW_1000_US + 10);
-+		gpio_set_value_cansleep(aw883xx->reset_gpio, 1);
-+		usleep_range(AW_1000_US, AW_1000_US + 10);
-+	} else {
-+		dev_err(aw883xx->dev, "%s failed", __func__);
-+	}
-+	return 0;
-+}
-+
-+static int aw883xx_read_chipid(struct aw883xx *aw883xx)
-+{
-+	int ret = -1;
-+	int reg_val = 0;
-+
-+	ret = regmap_read(aw883xx->regmap, AW883XX_CHIP_ID_REG, &reg_val);
-+	if (ret)
-+		return -EIO;
-+
-+	dev_info(aw883xx->dev, "chip id = %x\n", reg_val);
-+	aw883xx->chip_id = reg_val;
-+
-+	return 0;
-+}
-+
-+/*
-+ * sys group attribute: reg
-+ */
-+static ssize_t reg_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	int reg_num = aw883xx->aw_pa->ops.aw_get_reg_num();
-+	ssize_t len = 0;
-+	uint8_t i = 0;
-+	unsigned int reg_val = 0;
-+
-+	for (i = 0; i < reg_num; i++) {
-+		if (aw883xx->aw_pa->ops.aw_check_rd_access(i)) {
-+			regmap_read(aw883xx->regmap, i, &reg_val);
-+			len += snprintf(buf + len, PAGE_SIZE - len,
-+					"reg:0x%02x=0x%04x\n", i, reg_val);
-+		}
-+	}
-+
-+	return len;
-+}
-+
-+static ssize_t reg_store(struct device *dev,
-+				struct device_attribute *attr, const char *buf,
-+				size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf[2] = { 0 };
-+
-+	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) == 2)
-+		mutex_lock(&aw883xx->dsp_lock);
-+		regmap_write(aw883xx->regmap, databuf[0], databuf[1]);
-+		mutex_unlock(&aw883xx->dsp_lock);
-+
-+	return count;
-+}
-+
-+static ssize_t rw_store(struct device *dev,
-+				struct device_attribute *attr, const char *buf,
-+				size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf[2] = { 0 };
-+
-+	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) == 2) {
-+		aw883xx->reg_addr = (uint8_t)databuf[0];
-+		if (aw883xx->aw_pa->ops.aw_check_rd_access(databuf[0]))
-+			regmap_write(aw883xx->regmap, databuf[0], databuf[1]);
-+	} else if (sscanf(buf, "%x", &databuf[0]) == 1) {
-+		aw883xx->reg_addr = (uint8_t)databuf[0];
-+	}
-+
-+	return count;
-+}
-+
-+static ssize_t rw_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+	unsigned int reg_val = 0;
-+
-+	if (aw883xx->aw_pa->ops.aw_check_rd_access(aw883xx->reg_addr)) {
-+		regmap_read(aw883xx->regmap, aw883xx->reg_addr, &reg_val);
-+		len += snprintf(buf + len, PAGE_SIZE - len,
-+				"reg:0x%02x=0x%04x\n", aw883xx->reg_addr,
-+				reg_val);
-+	}
-+
-+	return len;
-+}
-+
-+static ssize_t dsp_rw_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+	unsigned int reg_val = 0;
-+
-+	mutex_lock(&aw883xx->dsp_lock);
-+	regmap_write(aw883xx->regmap, aw883xx->aw_pa->dsp_mem_desc.dsp_madd_reg, aw883xx->dsp_addr);
-+	regmap_read(aw883xx->regmap, aw883xx->aw_pa->dsp_mem_desc.dsp_mdat_reg, &reg_val);
-+	len += snprintf(buf + len, PAGE_SIZE - len,
-+			"dsp:0x%04x=0x%04x\n", aw883xx->dsp_addr, reg_val);
-+	regmap_read(aw883xx->regmap, aw883xx->aw_pa->dsp_mem_desc.dsp_mdat_reg, &reg_val);
-+	len += snprintf(buf + len, PAGE_SIZE - len,
-+			"dsp:0x%04x=0x%04x\n", aw883xx->dsp_addr + 1, reg_val);
-+	aw883xx_clear_dsp_sel_st(aw883xx);
-+	mutex_unlock(&aw883xx->dsp_lock);
-+
-+	return len;
-+}
-+
-+static ssize_t dsp_rw_store(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf[2] = { 0 };
-+
-+	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) == 2) {
-+		aw883xx->dsp_addr = (unsigned int)databuf[0];
-+		aw883xx_dsp_write(aw883xx, databuf[0], databuf[1], AW_DSP_16_DATA);
-+		dev_dbg(aw883xx->dev, "get param: %x %x",
-+			databuf[0], databuf[1]);
-+	} else if (sscanf(buf, "%x", &databuf[0]) == 1) {
-+		aw883xx->dsp_addr = (unsigned int)databuf[0];
-+		dev_dbg(aw883xx->dev, "get param: %x",
-+			databuf[0]);
-+	}
-+	aw883xx_clear_dsp_sel_st(aw883xx);
-+
-+	return count;
-+}
-+
-+static int aw883xx_awrw_write(struct aw883xx *aw883xx, const char *buf, size_t count)
-+{
-+	int  i, ret;
-+	char *data_buf = NULL;
-+	int str_len, data_len, temp_data;
-+	struct aw883xx_i2c_packet *packet = &aw883xx->i2c_packet;
-+	uint32_t dsp_addr_h = 0, dsp_addr_l = 0;
-+
-+	if (!buf) {
-+		dev_err(aw883xx->dev, "awrw buf is NULL");
-+		return -EINVAL;
-+	}
-+
-+	data_len = AWRW_DATA_BYTES * packet->reg_num;
-+
-+	str_len = count - AWRW_HDR_LEN - 1;
-+	if ((data_len * 5 - 1) > str_len) {
-+		dev_err(aw883xx->dev, "data_str_len [%d], requeset len [%d]",
-+					str_len, (data_len * 5 - 1));
-+		return -EINVAL;
-+	}
-+
-+	if (packet->reg_addr == aw883xx->aw_pa->dsp_mem_desc.dsp_madd_reg) {
-+		if (sscanf(buf + AWRW_HDR_LEN + 1,
-+					"0x%02x 0x%02x", &dsp_addr_h,
-+					&dsp_addr_l) == 2) {
-+			packet->dsp_addr = (dsp_addr_h << 8) | dsp_addr_l;
-+			      packet->dsp_status = AWRW_DSP_READY;
-+			dev_dbg(aw883xx->dev, "write:reg_addr[0x%02x], dsp_base_addr:[0x%02x]",
-+							packet->reg_addr, packet->dsp_addr);
-+		} else {
-+			dev_err(aw883xx->dev, "get reg 0x%x data failed", packet->reg_addr);
-+			return -EINVAL;
-+		}
-+		return 0;
-+	}
-+
-+	mutex_lock(&aw883xx->dsp_lock);
-+	if (packet->reg_addr == aw883xx->aw_pa->dsp_mem_desc.dsp_mdat_reg) {
-+		if (packet->dsp_status != AWRW_DSP_READY) {
-+			dev_err(aw883xx->dev, "please write reg[0x40] first");
-+			ret = -EINVAL;
-+			goto exit;
-+		}
-+		regmap_write(aw883xx->regmap,
-+			aw883xx->aw_pa->dsp_mem_desc.dsp_madd_reg,
-+			packet->dsp_addr);
-+		packet->dsp_status = AWRW_DSP_ST_NONE;
-+	}
-+
-+	dev_info(aw883xx->dev, "write:reg_addr[0x%02x], reg_num[%d]",
-+			packet->reg_addr, packet->reg_num);
-+
-+	data_buf = devm_kzalloc(aw883xx->dev, data_len, GFP_KERNEL);
-+	if (!data_buf) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
-+	for (i = 0; i < data_len; i++) {
-+		if (sscanf(buf + AWRW_HDR_LEN + 1 + i * 5, "0x%02x", &temp_data) == 1)
-+			data_buf[i] = temp_data;
-+	}
-+
-+	ret = regmap_raw_write(aw883xx->regmap, packet->reg_addr, data_buf, data_len);
-+	if (ret < 0) {
-+		dev_err(aw883xx->dev, "write failed");
-+		devm_kfree(aw883xx->dev, data_buf);
-+		data_buf = NULL;
-+		goto exit;
-+	}
-+
-+	devm_kfree(aw883xx->dev, data_buf);
-+	data_buf = NULL;
-+exit:
-+	mutex_unlock(&aw883xx->dsp_lock);
++	ret = aw_parse_bin_header_1_0_0(bin);
 +	return ret;
 +}
 +
-+static int aw883xx_awrw_data_check(struct aw883xx *aw883xx, int *data)
++/* Get the number of bins in multi bins, and set a for loop,
++ * loop processing each bin data
++ */
++static int aw_get_multi_bin_header_1_0_0(struct aw_bin *bin)
 +{
-+	if ((data[AWRW_HDR_ADDR_BYTES] != AWRW_ADDR_BYTES) ||
-+			(data[AWRW_HDR_DATA_BYTES] != AWRW_DATA_BYTES)) {
-+		dev_err(aw883xx->dev, "addr_bytes [%d] or data_bytes [%d] unsupport",
-+				data[AWRW_HDR_ADDR_BYTES], data[AWRW_HDR_DATA_BYTES]);
-+		return -EINVAL;
-+	}
++	int i = 0;
++	int ret = 0;
++	unsigned int bin_num = 0;
 +
-+	return 0;
-+}
++	bin_num = GET_32_DATA(*(bin->p_addr + 63), *(bin->p_addr + 62),
++				*(bin->p_addr + 61), *(bin->p_addr + 60));
++	if (bin->multi_bin_parse_num == 1)
++		bin->header_info[bin->all_bin_parse_num].valid_data_addr = 60;
++	aw_get_single_bin_header_1_0_0(bin);
 +
-+/* flag addr_bytes data_bytes reg_num reg_addr*/
-+static int aw883xx_awrw_parse_buf(struct aw883xx *aw883xx, const char *buf, size_t count)
-+{
-+	int data[AWRW_HDR_MAX] = { 0 };
-+	struct aw883xx_i2c_packet *packet = &aw883xx->i2c_packet;
-+	int ret;
-+
-+	if (sscanf(buf, "0x%02x 0x%02x 0x%02x 0x%02x 0x%02x",
-+		&data[AWRW_HDR_WR_FLAG], &data[AWRW_HDR_ADDR_BYTES], &data[AWRW_HDR_DATA_BYTES],
-+		&data[AWRW_HDR_REG_NUM], &data[AWRW_HDR_REG_ADDR]) == 5) {
-+
-+		ret = aw883xx_awrw_data_check(aw883xx, data);
++	for (i = 0; i < bin_num; i++) {
++		pr_debug("aw_bin_parse enter multi bin for is %d\n", i);
++		ret = aw_parse_each_of_multi_bins_1_0_0(bin_num, i, bin);
 +		if (ret < 0)
 +			return ret;
-+
-+		packet->reg_addr = data[AWRW_HDR_REG_ADDR];
-+		packet->reg_num = data[AWRW_HDR_REG_NUM];
-+
-+		if (data[AWRW_HDR_WR_FLAG] == AWRW_FLAG_WRITE) {
-+			return aw883xx_awrw_write(aw883xx, buf, count);
-+		} else if (data[AWRW_HDR_WR_FLAG] == AWRW_FLAG_READ) {
-+			packet->i2c_status = AWRW_I2C_ST_READ;
-+			dev_info(aw883xx->dev, "read_cmd:reg_addr[0x%02x], reg_num[%d]",
-+					packet->reg_addr, packet->reg_num);
-+
-+		} else {
-+			dev_err(aw883xx->dev,
-+				"please check str format, unsupport flag %d",
-+				data[AWRW_HDR_WR_FLAG]);
-+			return -EINVAL;
-+		}
-+	} else {
-+		dev_err(aw883xx->dev, "can not parse string");
-+		return -EINVAL;
 +	}
-+
 +	return 0;
 +}
 +
-+static ssize_t awrw_store(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
++/*
++ * If the bin framework header version is 1.0.0,
++ * determine the data type of bin, and then perform different processing
++ * according to the data type
++ * If it is a single bin data type, write the data directly
++ * into the structure array
++ * If it is a multi-bin data type, first obtain the number of bins,
++ * and then recursively call the bin frame header processing function
++ * according to the bin number to process the frame header information
++ * of each bin separately
++ */
++static int aw_parse_bin_header_1_0_0(struct aw_bin *bin)
 +{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	int ret;
++	int ret = 0;
++	unsigned int bin_data_type;
 +
-+	if (count < AWRW_HDR_LEN) {
-+		dev_err(dev, "data count too smaller, please check write format");
-+		dev_err(dev, "string %s", buf);
-+		return -EINVAL;
++	bin_data_type = GET_32_DATA(*(bin->p_addr + 11), *(bin->p_addr + 10),
++					*(bin->p_addr + 9), *(bin->p_addr + 8));
++	pr_debug("aw_bin_parse bin_data_type 0x%x\n", bin_data_type);
++	switch (bin_data_type) {
++	case DATA_TYPE_REGISTER:
++	case DATA_TYPE_DSP_REG:
++	case DATA_TYPE_SOC_APP:
++		/* Divided into two processing methods,
++		 * one is single bin processing,
++		 * and the other is single bin processing in multi bin
++		 */
++		pr_debug("aw_bin_parse enter single bin branch\n");
++		bin->single_bin_parse_num += 1;
++		pr_debug("%s bin->single_bin_parse_num is %d\n", __func__,
++						bin->single_bin_parse_num);
++		if (!bin->multi_bin_parse_num)
++			bin->header_info[bin->all_bin_parse_num].valid_data_addr = 60;
++		aw_get_single_bin_header_1_0_0(bin);
++		break;
++	case DATA_TYPE_MULTI_BINS:
++		/* Get the number of times to enter multi bins */
++		pr_debug("aw_bin_parse enter multi bin branch\n");
++		bin->multi_bin_parse_num += 1;
++		pr_debug("%s bin->multi_bin_parse_num is %d\n", __func__,
++						bin->multi_bin_parse_num);
++		ret = aw_get_multi_bin_header_1_0_0(bin);
++		if (ret < 0)
++			return ret;
++		break;
 +	}
-+
-+	ret = aw883xx_awrw_parse_buf(aw883xx, buf, count);
-+	if (ret)
-+		return -EINVAL;
-+
-+
-+	return count;
++	return 0;
 +}
 +
-+static ssize_t awrw_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
++/* get the bin's header version */
++static int aw_check_bin_header_version(struct aw_bin *bin)
 +{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	struct aw883xx_i2c_packet *packet = &aw883xx->i2c_packet;
-+	int data_len, len = 0;
-+	int ret, i;
-+	char *reg_data = NULL;
++	int ret = 0;
++	unsigned int header_version = 0;
 +
-+	if (packet->i2c_status != AWRW_I2C_ST_READ) {
-+		dev_err(aw883xx->dev, "please write read cmd first");
-+		return -EINVAL;
++	header_version = GET_32_DATA(*(bin->p_addr + 7), *(bin->p_addr + 6),
++					*(bin->p_addr + 5), *(bin->p_addr + 4));
++	pr_debug("aw_bin_parse header_version 0x%x\n", header_version);
++	/* Write data to the corresponding structure array
++	 * according to different formats of the bin frame header version
++	 */
++	switch (header_version) {
++	case HEADER_VERSION_1_0_0:
++		ret = aw_parse_bin_header_1_0_0(bin);
++		return ret;
++	default:
++		pr_err("aw_bin_parse Unrecognized this bin header version\n");
++		return -BIN_HEADER_VER_ERR;
 +	}
++}
 +
-+	mutex_lock(&aw883xx->dsp_lock);
-+	if (packet->reg_addr == aw883xx->aw_pa->dsp_mem_desc.dsp_mdat_reg) {
-+		if (packet->dsp_status != AWRW_DSP_READY) {
-+			dev_err(aw883xx->dev, "please write reg[0x40] first");
-+			mutex_unlock(&aw883xx->dsp_lock);
-+			return -EINVAL;
-+		}
-+		ret = regmap_write(aw883xx->regmap,
-+				aw883xx->aw_pa->dsp_mem_desc.dsp_madd_reg,
-+				packet->dsp_addr);
++static int aw_parsing_bin_file(struct aw_bin *bin)
++{
++	int i = 0;
++	int ret = 0;
++
++	if (!bin) {
++		pr_err("aw_bin_parse bin is NULL\n");
++		return -BIN_IS_NULL;
++	}
++	bin->p_addr = bin->info.data;
++	bin->all_bin_parse_num = 0;
++	bin->multi_bin_parse_num = 0;
++	bin->single_bin_parse_num = 0;
++
++	/* filling bins header info */
++	ret = aw_check_bin_header_version(bin);
++	if (ret < 0) {
++		pr_err("aw_bin_parse check bin header version error\n");
++		return ret;
++	}
++	bin->p_addr = NULL;
++
++	/* check bin header info */
++	for (i = 0; i < bin->all_bin_parse_num; i++) {
++		/* check sum */
++		ret = aw_check_sum(bin, i);
 +		if (ret < 0) {
-+			mutex_unlock(&aw883xx->dsp_lock);
++			pr_err("aw_bin_parse check sum data error\n");
 +			return ret;
 +		}
-+		packet->dsp_status = AWRW_DSP_ST_NONE;
-+	}
-+
-+	data_len = AWRW_DATA_BYTES * packet->reg_num;
-+	reg_data = devm_kzalloc(dev, data_len, GFP_KERNEL);
-+	if (!reg_data) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
-+	ret = regmap_raw_read(aw883xx->regmap, packet->reg_addr, (void *)reg_data, data_len);
-+	if (ret < 0) {
-+		ret = -EFAULT;
-+		goto exit;
-+	}
-+
-+	dev_info(aw883xx->dev, "reg_addr 0x%02x, reg_num %d",
-+			packet->reg_addr, packet->reg_num);
-+
-+	for (i = 0; i < data_len; i++) {
-+		len += snprintf(buf + len, PAGE_SIZE - len,
-+			"0x%02x,", reg_data[i]);
-+
-+	}
-+	ret = len;
-+
-+exit:
-+	if (reg_data) {
-+		devm_kfree(dev, reg_data);
-+		reg_data = NULL;
-+	}
-+	mutex_unlock(&aw883xx->dsp_lock);
-+	packet->i2c_status = AWRW_I2C_ST_NONE;
-+	return ret;
-+}
-+
-+static ssize_t fade_step_store(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf = 0;
-+	int ret = 0;
-+
-+	ret = kstrtoint(buf, 0, &databuf);
-+	if (ret == 0) {
-+		if (databuf > (aw883xx->aw_pa->volume_desc.mute_volume)) {
-+			dev_info(aw883xx->dev, "step overflow %d Db", databuf);
-+			return count;
++		/* check bin data version */
++		ret = aw_check_data_version(bin, i);
++		if (ret < 0) {
++			pr_err("aw_bin_parse check data version error\n");
++			return ret;
 +		}
-+		aw883xx_dev_set_fade_vol_step(aw883xx->aw_pa, databuf);
++		/* check valid data */
++		if (bin->header_info[i].bin_data_ver == DATA_VERSION_V1) {
++			/* check register num */
++			if (bin->header_info[i].bin_data_type ==
++							DATA_TYPE_REGISTER) {
++				ret = aw_check_register_num_v1(bin, i);
++				if (ret < 0)
++					return ret;
++				/* check dsp reg num */
++			} else if (bin->header_info[i].bin_data_type ==
++							DATA_TYPE_DSP_REG) {
++				ret = aw_check_dsp_reg_num_v1(bin, i);
++				if (ret < 0)
++					return ret;
++				/* check soc app num */
++			} else if (bin->header_info[i].bin_data_type ==
++							DATA_TYPE_SOC_APP) {
++				ret = aw_check_soc_app_num_v1(bin, i);
++				if (ret < 0)
++					return ret;
++			} else {
++				bin->header_info[i].valid_data_len =
++					bin->header_info[i].bin_data_len;
++			}
++		}
 +	}
 +
-+	dev_info(aw883xx->dev, "set step %d DB Done", databuf);
-+
-+	return count;
++	return 0;
 +}
 +
-+static ssize_t fade_step_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
++int aw883xx_dev_dsp_data_order(struct aw_device *aw_dev,
++				uint8_t *data, uint32_t data_len)
 +{
-+	ssize_t len = 0;
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
++	int i = 0;
++	uint8_t tmp_val = 0;
 +
-+	len += snprintf(buf+len, PAGE_SIZE-len,
-+		"step: %d\n", aw883xx_dev_get_fade_vol_step(aw883xx->aw_pa));
-+
-+	return len;
-+}
-+
-+static ssize_t dbg_prof_store(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf = 0;
-+	int ret = 0;
-+
-+	ret = kstrtoint(buf, 0, &databuf);
-+	if (ret == 0) {
-+		if (databuf)
-+			aw883xx->dbg_en_prof = true;
-+		else
-+			aw883xx->dbg_en_prof = false;
++	if (data_len % 2 != 0) {
++		dev_dbg(aw_dev->dev, "data_len:%d unsupported", data_len);
++		return -EINVAL;
 +	}
-+
-+	dev_info(aw883xx->dev, "en_prof %d  Done", databuf);
-+
-+	return count;
-+}
-+
-+static ssize_t dbg_prof_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+
-+	len += snprintf(buf+len, PAGE_SIZE-len,
-+		" %d\n", aw883xx->dbg_en_prof);
-+
-+	return len;
-+}
-+
-+static ssize_t phase_sync_store(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int flag = 0;
-+	int ret;
-+
-+	ret = kstrtouint(buf, 0, &flag);
-+	if (ret < 0)
-+		return ret;
-+
-+	flag = ((flag == false) ? false : true);
-+
-+	dev_info(aw883xx->dev, "set phase sync flag : [%d]", flag);
-+
-+	aw883xx->phase_sync = flag;
-+
-+	return count;
-+}
-+
-+static ssize_t phase_sync_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+
-+	len += snprintf(buf + len, PAGE_SIZE - len,
-+				"sync flag : %d\n", aw883xx->phase_sync);
-+
-+	return len;
-+}
-+
-+static ssize_t fade_enable_store(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	uint32_t fade_en = 0;
-+	int ret = 0;
-+
-+	ret = kstrtouint(buf, 0, &fade_en);
-+	if (ret == 0)
-+		aw883xx->aw_pa->fade_en = fade_en;
-+
-+	dev_info(aw883xx->dev, "set fade_en %d", aw883xx->aw_pa->fade_en);
-+
-+	return count;
-+}
-+
-+static ssize_t fade_enable_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+
-+	len += snprintf(buf+len, PAGE_SIZE-len,
-+		"fade_en: %d\n", aw883xx->aw_pa->fade_en);
-+
-+	return len;
-+}
-+
-+static int aw883xx_dsp_log_info(struct aw883xx *aw883xx, unsigned int base_addr,
-+				uint32_t data_len, char *format)
-+{
-+	unsigned int reg_val = 0;
-+	char *dsp_reg_info = NULL;
-+	ssize_t dsp_info_len = 0;
-+	int i;
-+
-+	dsp_reg_info = devm_kzalloc(aw883xx->dev, AW_NAME_BUF_MAX, GFP_KERNEL);
-+	if (!dsp_reg_info)
-+		return -ENOMEM;
-+
-+	mutex_lock(&aw883xx->dsp_lock);
-+	regmap_write(aw883xx->regmap, aw883xx->aw_pa->dsp_mem_desc.dsp_madd_reg, base_addr);
 +
 +	for (i = 0; i < data_len; i += 2) {
-+		regmap_read(aw883xx->regmap, aw883xx->aw_pa->dsp_mem_desc.dsp_mdat_reg, &reg_val);
-+		dsp_info_len += snprintf(dsp_reg_info + dsp_info_len,
-+			AW_NAME_BUF_MAX - dsp_info_len,
-+			"%02x,%02x,", (reg_val >> 0) & 0xff,
-+			(reg_val >> 8) & 0xff);
-+		if ((i / 2 + 1) % 8 == 0) {
-+			dev_info(aw883xx->dev, "%s: %s", format, dsp_reg_info);
-+			dsp_info_len = 0;
-+			memset(dsp_reg_info, 0, AW_NAME_BUF_MAX);
-+		}
-+
-+		if (((data_len) % 8 != 0) &&
-+			(i == (data_len - 2))) {
-+			dev_info(aw883xx->dev, "%s: %s", format, dsp_reg_info);
-+			dsp_info_len = 0;
-+			memset(dsp_reg_info, 0, AW_NAME_BUF_MAX);
-+		}
++		tmp_val = data[i];
++		data[i] = data[i + 1];
++		data[i + 1] = tmp_val;
 +	}
-+
-+	dsp_info_len = 0;
-+	memset(dsp_reg_info, 0, AW_NAME_BUF_MAX);
-+	devm_kfree(aw883xx->dev, dsp_reg_info);
-+	dsp_reg_info = NULL;
-+	mutex_unlock(&aw883xx->dsp_lock);
 +
 +	return 0;
 +}
 +
-+static ssize_t dsp_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
++static int aw_dev_parse_raw_reg(struct aw_device *aw_dev,
++		uint8_t *data, uint32_t data_len, struct aw_prof_desc *prof_desc)
 +{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	ssize_t len = 0;
-+	int ret = -1;
-+	uint32_t data_len;
++	prof_desc->sec_desc[AW_DATA_TYPE_REG].data = data;
++	prof_desc->sec_desc[AW_DATA_TYPE_REG].len = data_len;
 +
-+	if (aw883xx->aw_pa->dsp_cfg == AW_DEV_DSP_BYPASS) {
-+		len += snprintf((char *)(buf + len), PAGE_SIZE - len,
-+				"%s: dsp bypass\n", __func__);
-+	} else {
-+		len += snprintf((char *)(buf + len), PAGE_SIZE - len,
-+				"%s: dsp working\n", __func__);
-+		ret = aw883xx_dev_get_iis_status(aw883xx->aw_pa);
-+		if (ret < 0) {
-+			len += snprintf((char *)(buf + len),
-+					PAGE_SIZE - len,
-+					"%s: no iis signal\n",
-+					__func__);
-+			dev_err(aw883xx->dev, "no iis signal, dsp show failed");
-+			return len;
-+		}
++	prof_desc->prof_st = AW_PROFILE_OK;
 +
-+		len += snprintf(buf + len, PAGE_SIZE - len,
-+				"dsp firmware and config info is displayed in the kernel log\n");
-+
-+		dev_dbg(aw883xx->dev, "dsp_firmware_len:%d", aw883xx->aw_pa->dsp_fw_len);
-+		ret = aw883xx_dsp_log_info(aw883xx, aw883xx->aw_pa->dsp_mem_desc.dsp_fw_base_addr,
-+			aw883xx->aw_pa->dsp_fw_len, "dsp_fw");
-+		if (ret < 0) {
-+			dev_err(aw883xx->dev, "dsp_fw display failed");
-+			return len;
-+		}
-+
-+		dev_dbg(aw883xx->dev, "dsp_config_len:%d", aw883xx->aw_pa->dsp_cfg_len);
-+		ret = aw883xx_dsp_log_info(aw883xx, aw883xx->aw_pa->dsp_mem_desc.dsp_cfg_base_addr,
-+			aw883xx->aw_pa->dsp_cfg_len, "dsp_config");
-+		if (ret < 0) {
-+			dev_err(aw883xx->dev, "dsp_config display failed");
-+			return len;
-+		}
-+
-+		dev_dbg(aw883xx->dev, "dsp_config:0x8180-0x83fc");
-+		data_len = 2 * (aw883xx->aw_pa->dsp_st_desc.dsp_reg_e1 -
-+			aw883xx->aw_pa->dsp_st_desc.dsp_reg_s1);
-+		ret = aw883xx_dsp_log_info(aw883xx, aw883xx->aw_pa->dsp_st_desc.dsp_reg_s1,
-+			data_len, "dsp_st");
-+		if (ret < 0) {
-+			dev_err(aw883xx->dev, "dsp_config:0x8180-0x83fc failed");
-+			return len;
-+		}
-+
-+		dev_dbg(aw883xx->dev, "dsp_config:0x9c00-0x9c5c");
-+		data_len = 2 * (aw883xx->aw_pa->dsp_st_desc.dsp_reg_e2 -
-+			aw883xx->aw_pa->dsp_st_desc.dsp_reg_s2);
-+		ret = aw883xx_dsp_log_info(aw883xx, aw883xx->aw_pa->dsp_st_desc.dsp_reg_s2,
-+			data_len, "dsp_st");
-+		if (ret < 0) {
-+			dev_err(aw883xx->dev, "dsp_config:0x9c00-0x9c5c display failed");
-+			return len;
-+		}
-+	}
-+
-+	return len;
++	return 0;
 +}
 +
-+static ssize_t re_store(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
++static int aw_dev_parse_raw_dsp_cfg(struct aw_device *aw_dev,
++		uint8_t *data, uint32_t data_len, struct aw_prof_desc *prof_desc)
 +{
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+	unsigned int databuf = 0;
-+	int ret = 0;
++	int ret;
 +
-+	ret = kstrtoint(buf, 0, &databuf);
-+	if (ret == 0)
-+		aw883xx_dev_set_cali_re(aw883xx->aw_pa, databuf);
-+
-+	dev_info(aw883xx->dev, "set cali_re %d mohm Done", databuf);
-+
-+	return count;
-+}
-+
-+static ssize_t re_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	ssize_t len = 0;
-+	struct aw883xx *aw883xx = dev_get_drvdata(dev);
-+
-+	len += snprintf(buf+len, PAGE_SIZE-len,
-+		"cali_re: %d mohm\n", aw883xx_dev_get_cali_re(aw883xx->aw_pa));
-+
-+	return len;
-+}
-+
-+static DEVICE_ATTR_RW(reg);
-+static DEVICE_ATTR_RW(rw);
-+static DEVICE_ATTR_RW(dsp_rw);
-+static DEVICE_ATTR_RW(awrw);
-+static DEVICE_ATTR_RW(fade_step);
-+static DEVICE_ATTR_RW(dbg_prof);
-+static DEVICE_ATTR_RW(phase_sync);
-+static DEVICE_ATTR_RW(fade_enable);
-+static DEVICE_ATTR_RO(dsp);
-+static DEVICE_ATTR_RW(re);
-+
-+static struct attribute *aw883xx_attributes[] = {
-+	&dev_attr_reg.attr,
-+	&dev_attr_rw.attr,
-+	&dev_attr_dsp_rw.attr,
-+	&dev_attr_awrw.attr,
-+	&dev_attr_fade_step.attr,
-+	&dev_attr_dbg_prof.attr,
-+	&dev_attr_phase_sync.attr,
-+	&dev_attr_fade_enable.attr,
-+	&dev_attr_dsp.attr,
-+	&dev_attr_re.attr,
-+	NULL
-+};
-+
-+static struct attribute_group aw883xx_attribute_group = {
-+	.attrs = aw883xx_attributes
-+};
-+
-+/*
-+ * i2c driver
-+ */
-+static int aw883xx_i2c_probe(struct i2c_client *i2c,
-+				const struct i2c_device_id *id)
-+{
-+	struct aw883xx *aw883xx = NULL;
-+	int ret = -1;
-+
-+	if (!i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C)) {
-+		dev_err(&i2c->dev, "check_functionality failed");
-+		return -EIO;
-+	}
-+
-+	aw883xx = aw883xx_malloc_init(i2c);
-+	if (!aw883xx) {
-+		dev_err(&i2c->dev, "malloc aw883xx failed");
-+		return -ENOMEM;
-+	}
-+	i2c_set_clientdata(i2c, aw883xx);
-+
-+	ret = aw883xx_parse_dt(aw883xx);
-+	if (ret < 0) {
-+		dev_err(&i2c->dev, "parse dts failed");
-+		return ret;
-+	}
-+
-+	/*get gpio resource*/
-+	ret = aw883xx_gpio_request(aw883xx);
-+	if (ret)
-+		return ret;
-+
-+	/* hardware reset */
-+	aw883xx_hw_reset(aw883xx);
-+
-+	aw883xx->regmap = devm_regmap_init_i2c(i2c, &aw883xx_remap_config);
-+	if (IS_ERR(aw883xx->regmap)) {
-+		ret = PTR_ERR(aw883xx->regmap);
-+		dev_err(&i2c->dev, "Failed to init regmap: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* aw883xx chip id */
-+	ret = aw883xx_read_chipid(aw883xx);
-+	if (ret < 0) {
-+		dev_err(&i2c->dev, "aw883xx_read_chipid failed ret=%d", ret);
-+		return ret;
-+	}
-+
-+	/*aw pa init*/
-+	ret = aw883xx_init(aw883xx);
++	ret = aw883xx_dev_dsp_data_order(aw_dev, data, data_len);
 +	if (ret < 0)
 +		return ret;
 +
-+	ret = aw883xx_componet_codec_register(aw883xx);
-+	if (ret) {
-+		dev_err(&i2c->dev, "codec register failed");
-+		return ret;
-+	}
++	prof_desc->sec_desc[AW_DATA_TYPE_DSP_CFG].data = data;
++	prof_desc->sec_desc[AW_DATA_TYPE_DSP_CFG].len = data_len;
 +
-+	ret = sysfs_create_group(&i2c->dev.kobj, &aw883xx_attribute_group);
-+	if (ret < 0) {
-+		dev_err(&i2c->dev, "error creating sysfs attr files");
-+		goto err_sysfs;
-+	}
-+
-+	dev_set_drvdata(&i2c->dev, aw883xx);
++	prof_desc->prof_st = AW_PROFILE_OK;
 +
 +	return 0;
++}
 +
-+err_sysfs:
-+	aw_componet_codec_ops.unregister_codec(&i2c->dev);
++static int aw_dev_parse_raw_dsp_fw(struct aw_device *aw_dev,
++		uint8_t *data, uint32_t data_len, struct aw_prof_desc *prof_desc)
++{
++	int ret;
++
++	ret = aw883xx_dev_dsp_data_order(aw_dev, data, data_len);
++	if (ret < 0)
++		return ret;
++
++	prof_desc->sec_desc[AW_DATA_TYPE_DSP_FW].data = data;
++	prof_desc->sec_desc[AW_DATA_TYPE_DSP_FW].len = data_len;
++
++	prof_desc->prof_st = AW_PROFILE_OK;
++
++	return 0;
++}
++
++static int aw_dev_prof_parse_multi_bin(struct aw_device *aw_dev,
++		uint8_t *data, uint32_t data_len, struct aw_prof_desc *prof_desc)
++{
++	struct aw_bin *aw_bin = NULL;
++	int i;
++	int ret;
++
++	aw_bin = devm_kzalloc(aw_dev->dev, data_len + sizeof(struct aw_bin), GFP_KERNEL);
++	if (!aw_bin)
++		return -ENOMEM;
++
++	aw_bin->info.len = data_len;
++	memcpy(aw_bin->info.data, data, data_len);
++
++	ret = aw_parsing_bin_file(aw_bin);
++	if (ret < 0) {
++		dev_err(aw_dev->dev, "parse bin failed");
++		goto parse_bin_failed;
++	}
++
++	for (i = 0; i < aw_bin->all_bin_parse_num; i++) {
++		if (aw_bin->header_info[i].bin_data_type == DATA_TYPE_REGISTER) {
++			prof_desc->sec_desc[AW_DATA_TYPE_REG].len =
++				aw_bin->header_info[i].valid_data_len;
++			prof_desc->sec_desc[AW_DATA_TYPE_REG].data =
++				data + aw_bin->header_info[i].valid_data_addr;
++		} else if (aw_bin->header_info[i].bin_data_type == DATA_TYPE_DSP_REG) {
++			ret = aw883xx_dev_dsp_data_order(aw_dev,
++					data + aw_bin->header_info[i].valid_data_addr,
++					aw_bin->header_info[i].valid_data_len);
++			if (ret < 0)
++				goto parse_bin_failed;
++
++			prof_desc->sec_desc[AW_DATA_TYPE_DSP_CFG].len =
++					aw_bin->header_info[i].valid_data_len;
++			prof_desc->sec_desc[AW_DATA_TYPE_DSP_CFG].data =
++					data + aw_bin->header_info[i].valid_data_addr;
++		} else if (aw_bin->header_info[i].bin_data_type == DATA_TYPE_DSP_FW) {
++			ret = aw883xx_dev_dsp_data_order(aw_dev,
++					data + aw_bin->header_info[i].valid_data_addr,
++					aw_bin->header_info[i].valid_data_len);
++			if (ret < 0)
++				goto parse_bin_failed;
++
++			prof_desc->fw_ver = aw_bin->header_info[i].app_version;
++			prof_desc->sec_desc[AW_DATA_TYPE_DSP_FW].len =
++					aw_bin->header_info[i].valid_data_len;
++			prof_desc->sec_desc[AW_DATA_TYPE_DSP_FW].data =
++					data + aw_bin->header_info[i].valid_data_addr;
++		}
++	}
++	devm_kfree(aw_dev->dev, aw_bin);
++	aw_bin = NULL;
++	prof_desc->prof_st = AW_PROFILE_OK;
++	return 0;
++
++parse_bin_failed:
++	devm_kfree(aw_dev->dev, aw_bin);
++	aw_bin = NULL;
 +	return ret;
 +}
 +
-+static int aw883xx_i2c_remove(struct i2c_client *i2c)
++static int aw_dev_parse_data_by_sec_type(struct aw_device *aw_dev, struct aw_cfg_hdr *cfg_hdr,
++			struct aw_cfg_dde *cfg_dde, struct aw_prof_desc *scene_prof_desc)
 +{
-+	struct aw883xx *aw883xx = i2c_get_clientdata(i2c);
 +
-+	sysfs_remove_group(&aw883xx->dev->kobj,
-+			&aw883xx_attribute_group);
-+
-+	/*free device resource */
-+	aw883xx_device_remove(aw883xx->aw_pa);
-+
-+	aw_componet_codec_ops.unregister_codec(&i2c->dev);
-+	vfree(aw883xx->aw_cfg);
-+	aw883xx->aw_cfg = NULL;
++	switch (cfg_dde->data_type) {
++	case ACF_SEC_TYPE_REG:
++		return aw_dev_parse_raw_reg(aw_dev,
++				(uint8_t *)cfg_hdr + cfg_dde->data_offset,
++				cfg_dde->data_size, scene_prof_desc);
++	case ACF_SEC_TYPE_DSP_CFG:
++		return aw_dev_parse_raw_dsp_cfg(aw_dev,
++				(uint8_t *)cfg_hdr + cfg_dde->data_offset,
++				cfg_dde->data_size, scene_prof_desc);
++	case ACF_SEC_TYPE_DSP_FW:
++		return aw_dev_parse_raw_dsp_fw(aw_dev,
++				(uint8_t *)cfg_hdr + cfg_dde->data_offset,
++				cfg_dde->data_size, scene_prof_desc);
++	case ACF_SEC_TYPE_MUTLBIN:
++		return aw_dev_prof_parse_multi_bin(aw_dev,
++				(uint8_t *)cfg_hdr + cfg_dde->data_offset,
++				cfg_dde->data_size, scene_prof_desc);
++	}
 +	return 0;
 +}
 +
-+static const struct i2c_device_id aw883xx_i2c_id[] = {
-+	{AW883XX_I2C_NAME, 0},
-+	{}
-+};
++static int aw_dev_parse_dev_type(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *prof_hdr, struct aw_all_prof_info *all_prof_info)
++{
++	int i = 0;
++	int ret;
++	int sec_num = 0;
++	struct aw_cfg_dde *cfg_dde =
++		(struct aw_cfg_dde *)((char *)prof_hdr + prof_hdr->a_hdr_offset);
 +
-+MODULE_DEVICE_TABLE(i2c, aw883xx_i2c_id);
++	for (i = 0; i < prof_hdr->a_ddt_num; i++) {
++		if ((aw_dev->i2c->adapter->nr == cfg_dde[i].dev_bus) &&
++			(aw_dev->i2c->addr == cfg_dde[i].dev_addr) &&
++			(cfg_dde[i].type == AW_DEV_TYPE_ID)) {
++			if (cfg_dde[i].data_type != ACF_SEC_TYPE_MONITOR) {
++				if (cfg_dde[i].dev_profile >= AW_PROFILE_MAX) {
++					dev_err(aw_dev->dev, "dev_profile [%d] overflow",
++						cfg_dde[i].dev_profile);
++					return -EINVAL;
++				}
++				ret = aw_dev_parse_data_by_sec_type(aw_dev, prof_hdr, &cfg_dde[i],
++					&all_prof_info->prof_desc[cfg_dde[i].dev_profile]);
++				if (ret < 0) {
++					dev_err(aw_dev->dev, "parse failed");
++					return ret;
++				}
++				sec_num++;
++			}
++		}
++	}
 +
-+static const struct of_device_id aw883xx_dt_match[] = {
-+	{.compatible = "awinic,aw883xx_smartpa"},
-+	{},
-+};
++	if (sec_num == 0) {
++		dev_info(aw_dev->dev, "get dev type num is %d, please use default",
++					sec_num);
++		return AW_DEV_TYPE_NONE;
++	}
 +
-+static struct i2c_driver aw883xx_i2c_driver = {
-+	.driver = {
-+		.name = AW883XX_I2C_NAME,
-+		.owner = THIS_MODULE,
-+		.of_match_table = of_match_ptr(aw883xx_dt_match),
-+	},
-+	.probe = aw883xx_i2c_probe,
-+	.remove = aw883xx_i2c_remove,
-+	.id_table = aw883xx_i2c_id,
-+};
-+module_i2c_driver(aw883xx_i2c_driver);
++	return AW_DEV_TYPE_OK;
++}
 +
-+MODULE_DESCRIPTION("ASoC AW883XX Smart PA Driver");
-+MODULE_LICENSE("GPL v2");
++static int aw_dev_parse_dev_default_type(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *prof_hdr, struct aw_all_prof_info *all_prof_info)
++{
++	int i = 0;
++	int ret;
++	int sec_num = 0;
++	struct aw_cfg_dde *cfg_dde =
++		(struct aw_cfg_dde *)((char *)prof_hdr + prof_hdr->a_hdr_offset);
 +
-diff --git a/sound/soc/codecs/aw883xx/aw883xx.h b/sound/soc/codecs/aw883xx/aw883xx.h
++	for (i = 0; i < prof_hdr->a_ddt_num; i++) {
++		if ((aw_dev->channel == cfg_dde[i].dev_index) &&
++			(cfg_dde[i].type == AW_DEV_DEFAULT_TYPE_ID)) {
++			if (cfg_dde[i].data_type != ACF_SEC_TYPE_MONITOR) {
++				if (cfg_dde[i].dev_profile >= AW_PROFILE_MAX) {
++					dev_err(aw_dev->dev, "dev_profile [%d] overflow",
++						cfg_dde[i].dev_profile);
++					return -EINVAL;
++				}
++				ret = aw_dev_parse_data_by_sec_type(aw_dev, prof_hdr, &cfg_dde[i],
++					&all_prof_info->prof_desc[cfg_dde[i].dev_profile]);
++				if (ret < 0) {
++					dev_err(aw_dev->dev, "parse failed");
++					return ret;
++				}
++				sec_num++;
++			}
++		}
++	}
++
++	if (sec_num == 0) {
++		dev_err(aw_dev->dev, "get dev default type failed, get num[%d]", sec_num);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int aw_dev_cfg_get_vaild_prof(struct aw_device *aw_dev,
++				struct aw_all_prof_info all_prof_info)
++{
++	int i;
++	int num = 0;
++	struct aw_sec_data_desc *sec_desc = NULL;
++	struct aw_prof_desc *prof_desc = all_prof_info.prof_desc;
++	struct aw_prof_info *prof_info = &aw_dev->prof_info;
++
++	for (i = 0; i < AW_PROFILE_MAX; i++) {
++		if (prof_desc[i].prof_st == AW_PROFILE_OK) {
++			sec_desc = prof_desc[i].sec_desc;
++			if ((sec_desc[AW_DATA_TYPE_REG].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_REG].len != 0) &&
++				(sec_desc[AW_DATA_TYPE_DSP_CFG].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_DSP_CFG].len != 0) &&
++				(sec_desc[AW_DATA_TYPE_DSP_FW].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_DSP_FW].len != 0)) {
++				prof_info->count++;
++			}
++		}
++	}
++
++	dev_dbg(aw_dev->dev, "get valid profile:%d", aw_dev->prof_info.count);
++
++	if (!prof_info->count) {
++		dev_err(aw_dev->dev, "no profile data");
++		return -EPERM;
++	}
++
++	prof_info->prof_desc = devm_kzalloc(aw_dev->dev,
++					prof_info->count * sizeof(struct aw_prof_desc),
++					GFP_KERNEL);
++	if (!prof_info->prof_desc) {
++		dev_err(aw_dev->dev, "prof_desc kzalloc failed");
++		return -ENOMEM;
++	}
++
++	for (i = 0; i < AW_PROFILE_MAX; i++) {
++		if (prof_desc[i].prof_st == AW_PROFILE_OK) {
++			sec_desc = prof_desc[i].sec_desc;
++			if ((sec_desc[AW_DATA_TYPE_REG].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_REG].len != 0) &&
++				(sec_desc[AW_DATA_TYPE_DSP_CFG].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_DSP_CFG].len != 0) &&
++				(sec_desc[AW_DATA_TYPE_DSP_FW].data != NULL) &&
++				(sec_desc[AW_DATA_TYPE_DSP_FW].len != 0)) {
++				if (num >= prof_info->count) {
++					dev_err(aw_dev->dev, "get scene num[%d] overflow count[%d]",
++						num, prof_info->count);
++					return -ENOMEM;
++				}
++				prof_info->prof_desc[num] = prof_desc[i];
++				prof_info->prof_desc[num].id = i;
++				num++;
++			}
++		}
++	}
++
++	return 0;
++}
++
++static int aw_dev_load_cfg_by_hdr(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *prof_hdr)
++{
++	int ret;
++	struct aw_all_prof_info all_prof_info;
++
++	memset(&all_prof_info, 0, sizeof(struct aw_all_prof_info));
++
++	ret = aw_dev_parse_dev_type(aw_dev, prof_hdr, &all_prof_info);
++	if (ret < 0) {
++		return ret;
++	} else if (ret == AW_DEV_TYPE_NONE) {
++		dev_dbg(aw_dev->dev, "get dev type num is 0, parse default dev");
++		ret = aw_dev_parse_dev_default_type(aw_dev, prof_hdr, &all_prof_info);
++		if (ret < 0)
++			return ret;
++	}
++
++	ret = aw_dev_cfg_get_vaild_prof(aw_dev, all_prof_info);
++	if (ret < 0)
++		return ret;
++
++	aw_dev->prof_info.prof_name_list = profile_name;
++
++	return 0;
++}
++
++static int aw_dev_create_prof_name_list_v_1_0_0_0(struct aw_device *aw_dev)
++{
++	struct aw_prof_info *prof_info = &aw_dev->prof_info;
++	struct aw_prof_desc *prof_desc = prof_info->prof_desc;
++	int i;
++
++	if (!prof_desc) {
++		dev_err(aw_dev->dev, "prof_desc is NULL");
++		return -EINVAL;
++	}
++
++	prof_info->prof_name_list = devm_kzalloc(aw_dev->dev,
++					prof_info->count * PROFILE_STR_MAX,
++					GFP_KERNEL);
++	if (!prof_info->prof_name_list) {
++		dev_err(aw_dev->dev, "prof_name_list devm_kzalloc failed");
++		return -ENOMEM;
++	}
++
++	for (i = 0; i < prof_info->count; i++) {
++		prof_desc[i].id = i;
++		prof_info->prof_name_list[i] = prof_desc[i].prf_str;
++		dev_dbg(aw_dev->dev, "prof name is %s", prof_info->prof_name_list[i]);
++	}
++
++	return 0;
++}
++
++static int aw_get_dde_type_info(struct aw_device *aw_dev, struct aw_container *aw_cfg)
++{
++	int i;
++	int dev_num = 0;
++	int default_num = 0;
++	struct aw_cfg_hdr *cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde =
++		(struct aw_cfg_dde_v_1_0_0_0 *)(aw_cfg->data + cfg_hdr->a_hdr_offset);
++
++	for (i = 0; i < cfg_hdr->a_ddt_num; i++) {
++		if (cfg_dde[i].type == AW_DEV_TYPE_ID)
++			dev_num++;
++
++		if (cfg_dde[i].type == AW_DEV_DEFAULT_TYPE_ID)
++			default_num++;
++	}
++
++	if (!(dev_num || default_num)) {
++		dev_err(aw_dev->dev, "can't find scene");
++		return -EINVAL;
++	}
++
++	if (dev_num != 0)
++		aw_dev->prof_info.prof_type = AW_DEV_TYPE_ID;
++	else if (default_num != 0)
++		aw_dev->prof_info.prof_type = AW_DEV_DEFAULT_TYPE_ID;
++
++	return 0;
++}
++
++static int aw_get_dev_scene_count_v_1_0_0_0(struct aw_device *aw_dev, struct aw_container *aw_cfg,
++						uint32_t *scene_num)
++{
++	int i;
++	struct aw_cfg_hdr *cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde =
++		(struct aw_cfg_dde_v_1_0_0_0 *)(aw_cfg->data + cfg_hdr->a_hdr_offset);
++	for (i = 0; i < cfg_hdr->a_ddt_num; ++i) {
++		if ((cfg_dde[i].data_type == ACF_SEC_TYPE_MUTLBIN) &&
++			(aw_dev->chip_id == cfg_dde[i].chip_id) &&
++			((aw_dev->i2c->adapter->nr == cfg_dde[i].dev_bus) &&
++			(aw_dev->i2c->addr == cfg_dde[i].dev_addr))) {
++			(*scene_num)++;
++			}
++	}
++
++	return 0;
++}
++
++static int aw_get_default_scene_count_v_1_0_0_0(struct aw_device *aw_dev,
++						struct aw_container *aw_cfg,
++						uint32_t *scene_num)
++{
++	int i;
++	struct aw_cfg_hdr *cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde =
++		(struct aw_cfg_dde_v_1_0_0_0 *)(aw_cfg->data + cfg_hdr->a_hdr_offset);
++
++	for (i = 0; i < cfg_hdr->a_ddt_num; ++i) {
++		if ((cfg_dde[i].data_type == ACF_SEC_TYPE_MUTLBIN) &&
++			(aw_dev->chip_id == cfg_dde[i].chip_id) &&
++			(aw_dev->channel == cfg_dde[i].dev_index))
++			(*scene_num)++;
++	}
++
++	return 0;
++}
++
++static int aw_dev_parse_scene_count_v_1_0_0_0(struct aw_device *aw_dev,
++							struct aw_container *aw_cfg,
++							uint32_t *count)
++{
++	int ret;
++
++	ret = aw_get_dde_type_info(aw_dev, aw_cfg);
++	if (ret < 0)
++		return ret;
++
++	if (aw_dev->prof_info.prof_type == AW_DEV_TYPE_ID) {
++		aw_get_dev_scene_count_v_1_0_0_0(aw_dev, aw_cfg, count);
++	} else if (aw_dev->prof_info.prof_type == AW_DEV_DEFAULT_TYPE_ID) {
++		aw_get_default_scene_count_v_1_0_0_0(aw_dev, aw_cfg, count);
++	} else {
++		dev_err(aw_dev->dev, "unsupported prof_type[%x]",
++			aw_dev->prof_info.prof_type);
++		return -EINVAL;
++	}
++
++	dev_info(aw_dev->dev, "scene count is %d", (*count));
++	return 0;
++}
++
++static int aw_dev_parse_data_by_sec_type_v_1_0_0_0(struct aw_device *aw_dev,
++							struct aw_cfg_hdr *prof_hdr,
++							struct aw_cfg_dde_v_1_0_0_0 *cfg_dde,
++							int *cur_scene_id)
++{
++	int ret;
++	struct aw_prof_info *prof_info = &aw_dev->prof_info;
++
++	switch (cfg_dde->data_type) {
++	case ACF_SEC_TYPE_MUTLBIN:
++		ret = aw_dev_prof_parse_multi_bin(aw_dev,
++					(uint8_t *)prof_hdr + cfg_dde->data_offset,
++					cfg_dde->data_size, &prof_info->prof_desc[*cur_scene_id]);
++		if (ret < 0) {
++			dev_err(aw_dev->dev, "parse multi bin failed");
++			return ret;
++		}
++		prof_info->prof_desc[*cur_scene_id].prf_str = cfg_dde->dev_profile_str;
++		prof_info->prof_desc[*cur_scene_id].id = cfg_dde->dev_profile;
++		(*cur_scene_id)++;
++		break;
++	default:
++		pr_err("unsupported SEC_TYPE [%d]", cfg_dde->data_type);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int aw_dev_parse_dev_type_v_1_0_0_0(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *prof_hdr)
++{
++	int i = 0;
++	int ret;
++	int cur_scene_id = 0;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde =
++		(struct aw_cfg_dde_v_1_0_0_0 *)((char *)prof_hdr + prof_hdr->a_hdr_offset);
++
++	for (i = 0; i < prof_hdr->a_ddt_num; i++) {
++		if ((aw_dev->i2c->adapter->nr == cfg_dde[i].dev_bus) &&
++			(aw_dev->i2c->addr == cfg_dde[i].dev_addr) &&
++			(aw_dev->chip_id == cfg_dde[i].chip_id)) {
++			ret = aw_dev_parse_data_by_sec_type_v_1_0_0_0(aw_dev, prof_hdr,
++							&cfg_dde[i], &cur_scene_id);
++			if (ret < 0) {
++				dev_err(aw_dev->dev, "parse failed");
++				return ret;
++			}
++		}
++	}
++
++	if (cur_scene_id == 0) {
++		dev_err(aw_dev->dev, "get dev type failed, get num [%d]", cur_scene_id);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int aw_dev_parse_default_type_v_1_0_0_0(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *prof_hdr)
++{
++	int i = 0;
++	int ret;
++	int cur_scene_id = 0;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde =
++		(struct aw_cfg_dde_v_1_0_0_0 *)((char *)prof_hdr + prof_hdr->a_hdr_offset);
++
++	for (i = 0; i < prof_hdr->a_ddt_num; i++) {
++		if ((aw_dev->channel == cfg_dde[i].dev_index) &&
++			(aw_dev->chip_id == cfg_dde[i].chip_id)) {
++			ret = aw_dev_parse_data_by_sec_type_v_1_0_0_0(aw_dev, prof_hdr,
++							&cfg_dde[i], &cur_scene_id);
++			if (ret < 0) {
++				dev_err(aw_dev->dev, "parse failed");
++				return ret;
++			}
++		}
++	}
++
++	if (cur_scene_id == 0) {
++		dev_err(aw_dev->dev, "get dev default type failed, get num[%d]", cur_scene_id);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int aw_dev_parse_by_hdr_v_1_0_0_0(struct aw_device *aw_dev,
++		struct aw_cfg_hdr *cfg_hdr)
++{
++	int ret;
++
++	if (aw_dev->prof_info.prof_type == AW_DEV_TYPE_ID) {
++		ret = aw_dev_parse_dev_type_v_1_0_0_0(aw_dev, cfg_hdr);
++		if (ret < 0)
++			return ret;
++	} else if (aw_dev->prof_info.prof_type == AW_DEV_DEFAULT_TYPE_ID) {
++		ret = aw_dev_parse_default_type_v_1_0_0_0(aw_dev, cfg_hdr);
++		if (ret < 0)
++			return ret;
++	} else {
++		dev_err(aw_dev->dev, "prof type matched failed, get num[%d]",
++			aw_dev->prof_info.prof_type);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int aw_dev_load_cfg_by_hdr_v_1_0_0_0(struct aw_device *aw_dev, struct aw_container *aw_cfg)
++{
++	struct aw_prof_info *prof_info = &aw_dev->prof_info;
++	struct aw_cfg_hdr *cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	int ret;
++
++	ret = aw_dev_parse_scene_count_v_1_0_0_0(aw_dev, aw_cfg, &prof_info->count);
++	if (ret < 0) {
++		dev_err(aw_dev->dev, "get scene count failed");
++		return ret;
++	}
++
++	prof_info->prof_desc = devm_kzalloc(aw_dev->dev,
++					prof_info->count * sizeof(struct aw_prof_desc),
++					GFP_KERNEL);
++	if (!prof_info->prof_desc)
++		return -ENOMEM;
++
++	ret = aw_dev_parse_by_hdr_v_1_0_0_0(aw_dev, cfg_hdr);
++	if (ret < 0) {
++		dev_err(aw_dev->dev, " failed");
++		return ret;
++	}
++
++	ret = aw_dev_create_prof_name_list_v_1_0_0_0(aw_dev);
++	if (ret < 0) {
++		dev_err(aw_dev->dev, "create prof name list failed");
++		return ret;
++	}
++
++	return 0;
++}
++
++int aw883xx_dev_cfg_load(struct aw_device *aw_dev, struct aw_container *aw_cfg)
++{
++	struct aw_cfg_hdr *cfg_hdr = NULL;
++	int ret;
++
++	cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	switch (cfg_hdr->a_hdr_version) {
++	case AW_CFG_HDR_VER_0_0_0_1:
++		ret = aw_dev_load_cfg_by_hdr(aw_dev, cfg_hdr);
++		if (ret < 0) {
++			dev_err(aw_dev->dev, "hdr_cersion[0x%x] parse failed",
++						cfg_hdr->a_hdr_version);
++			return ret;
++		}
++		break;
++	case AW_CFG_HDR_VER_1_0_0_0:
++		ret = aw_dev_load_cfg_by_hdr_v_1_0_0_0(aw_dev, aw_cfg);
++		if (ret < 0) {
++			dev_err(aw_dev->dev, "hdr_cersion[0x%x] parse failed",
++						cfg_hdr->a_hdr_version);
++			return ret;
++		}
++		break;
++	default:
++		pr_err("unsupported hdr_version [0x%x]", cfg_hdr->a_hdr_version);
++		return -EINVAL;
++	}
++
++	aw_dev->fw_status = AW_DEV_FW_OK;
++	return 0;
++}
++
++static uint8_t aw_dev_crc8_check(unsigned char *data, uint32_t data_size)
++{
++	uint8_t crc_value = 0x00;
++	uint8_t pdatabuf = 0;
++	int i;
++
++	while (data_size--) {
++		pdatabuf = *data++;
++		for (i = 0; i < 8; i++) {
++			/*if the lowest bit is 1*/
++			if ((crc_value ^ (pdatabuf)) & 0x01) {
++				/*Xor multinomial*/
++				crc_value ^= 0x18;
++				crc_value >>= 1;
++				crc_value |= 0x80;
++			} else {
++				crc_value >>= 1;
++			}
++			pdatabuf >>= 1;
++		}
++	}
++	return crc_value;
++}
++
++static int aw_dev_check_cfg_by_hdr(struct aw_container *aw_cfg)
++{
++	struct aw_cfg_hdr *cfg_hdr = NULL;
++	struct aw_cfg_dde *cfg_dde = NULL;
++	unsigned int end_data_offset = 0;
++	unsigned int act_data = 0;
++	unsigned int hdr_ddt_len = 0;
++	uint8_t act_crc8 = 0;
++	int i;
++
++	cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++
++	/*check file type id is awinic acf file*/
++	if (cfg_hdr->a_id != ACF_FILE_ID) {
++		pr_err("not acf type file");
++		return -EINVAL;
++	}
++
++	hdr_ddt_len = cfg_hdr->a_hdr_offset + cfg_hdr->a_ddt_size;
++	if (hdr_ddt_len > aw_cfg->len) {
++		pr_err("hdrlen with ddt_len [%d] overflow file size[%d]",
++		cfg_hdr->a_hdr_offset, aw_cfg->len);
++		return -EINVAL;
++	}
++
++	/*check data size*/
++	cfg_dde = (struct aw_cfg_dde *)((char *)aw_cfg->data + cfg_hdr->a_hdr_offset);
++	act_data += hdr_ddt_len;
++	for (i = 0; i < cfg_hdr->a_ddt_num; i++)
++		act_data += cfg_dde[i].data_size;
++
++	if (act_data != aw_cfg->len) {
++		pr_err("act_data[%d] not equal to file size[%d]!",
++			act_data, aw_cfg->len);
++		return -EINVAL;
++	}
++
++	for (i = 0; i < cfg_hdr->a_ddt_num; i++) {
++		/* data check */
++		end_data_offset = cfg_dde[i].data_offset + cfg_dde[i].data_size;
++		if (end_data_offset > aw_cfg->len) {
++			pr_err("a_ddt_num[%d] end_data_offset[%d] overflow file size[%d]",
++				i, end_data_offset, aw_cfg->len);
++			return -EINVAL;
++		}
++
++		/* crc check */
++		act_crc8 = aw_dev_crc8_check(aw_cfg->data + cfg_dde[i].data_offset,
++									cfg_dde[i].data_size);
++		if (act_crc8 != cfg_dde[i].data_crc) {
++			pr_err("a_ddt_num[%d] crc8 check failed, act_crc8:0x%x != data_crc 0x%x",
++				i, (uint32_t)act_crc8, cfg_dde[i].data_crc);
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
++static int aw_dev_check_acf_by_hdr_v_1_0_0_0(struct aw_container *aw_cfg)
++{
++	struct aw_cfg_hdr *cfg_hdr = NULL;
++	struct aw_cfg_dde_v_1_0_0_0 *cfg_dde = NULL;
++	unsigned int end_data_offset = 0;
++	unsigned int act_data = 0;
++	unsigned int hdr_ddt_len = 0;
++	uint8_t act_crc8 = 0;
++	int i;
++
++	cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++
++	/*check file type id is awinic acf file*/
++	if (cfg_hdr->a_id != ACF_FILE_ID) {
++		pr_err("not acf type file");
++		return -EINVAL;
++	}
++
++	hdr_ddt_len = cfg_hdr->a_hdr_offset + cfg_hdr->a_ddt_size;
++	if (hdr_ddt_len > aw_cfg->len) {
++		pr_err("hdrlen with ddt_len [%d] overflow file size[%d]",
++		cfg_hdr->a_hdr_offset, aw_cfg->len);
++		return -EINVAL;
++	}
++
++	/*check data size*/
++	cfg_dde = (struct aw_cfg_dde_v_1_0_0_0 *)((char *)aw_cfg->data + cfg_hdr->a_hdr_offset);
++	act_data += hdr_ddt_len;
++	for (i = 0; i < cfg_hdr->a_ddt_num; i++)
++		act_data += cfg_dde[i].data_size;
++
++	if (act_data != aw_cfg->len) {
++		pr_err("act_data[%d] not equal to file size[%d]!",
++			act_data, aw_cfg->len);
++		return -EINVAL;
++	}
++
++	for (i = 0; i < cfg_hdr->a_ddt_num; i++) {
++		/* data check */
++		end_data_offset = cfg_dde[i].data_offset + cfg_dde[i].data_size;
++		if (end_data_offset > aw_cfg->len) {
++			pr_err("a_ddt_num[%d] end_data_offset[%d] overflow file size[%d]",
++				i, end_data_offset, aw_cfg->len);
++			return -EINVAL;
++		}
++
++		/* crc check */
++		act_crc8 = aw_dev_crc8_check(aw_cfg->data + cfg_dde[i].data_offset,
++							cfg_dde[i].data_size);
++		if (act_crc8 != cfg_dde[i].data_crc) {
++			pr_err("a_ddt_num[%d] crc8 check failed, act_crc8:0x%x != data_crc 0x%x",
++				i, (uint32_t)act_crc8, cfg_dde[i].data_crc);
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++
++}
++
++int aw883xx_dev_load_acf_check(struct aw_container *aw_cfg)
++{
++	struct aw_cfg_hdr *cfg_hdr = NULL;
++
++	if (!aw_cfg) {
++		pr_err("aw_prof is NULL");
++		return -ENOMEM;
++	}
++
++	if (aw_cfg->len < sizeof(struct aw_cfg_hdr)) {
++		pr_err("cfg hdr size[%d] overflow file size[%d]",
++			aw_cfg->len, (int)sizeof(struct aw_cfg_hdr));
++		return -EINVAL;
++	}
++
++	cfg_hdr = (struct aw_cfg_hdr *)aw_cfg->data;
++	switch (cfg_hdr->a_hdr_version) {
++	case AW_CFG_HDR_VER_0_0_0_1:
++		return aw_dev_check_cfg_by_hdr(aw_cfg);
++	case AW_CFG_HDR_VER_1_0_0_0:
++		return aw_dev_check_acf_by_hdr_v_1_0_0_0(aw_cfg);
++	default:
++		pr_err("unsupported hdr_version [0x%x]", cfg_hdr->a_hdr_version);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int aw883xx_dev_get_profile_count(struct aw_device *aw_dev)
++{
++	if (!aw_dev) {
++		pr_err("aw_dev is NULL");
++		return -ENOMEM;
++	}
++
++	return aw_dev->prof_info.count;
++}
++
++int aw883xx_dev_check_profile_index(struct aw_device *aw_dev, int index)
++{
++	if ((index >= aw_dev->prof_info.count) || (index < 0))
++		return -EINVAL;
++	else
++		return 0;
++}
++
++int aw883xx_dev_get_profile_index(struct aw_device *aw_dev)
++{
++	return aw_dev->set_prof;
++}
++
++int aw883xx_dev_set_profile_index(struct aw_device *aw_dev, int index)
++{
++	struct aw_prof_desc *prof_desc = NULL;
++
++	if ((index < aw_dev->prof_info.count) && (index >= 0)) {
++		aw_dev->set_prof = index;
++		prof_desc = &aw_dev->prof_info.prof_desc[index];
++
++		dev_dbg(aw_dev->dev, "set prof[%s]",
++			aw_dev->prof_info.prof_name_list[prof_desc->id]);
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++char *aw_dev_get_prof_name(struct aw_device *aw_dev, int index)
++{
++	struct aw_prof_desc *prof_desc = NULL;
++	struct aw_prof_info *prof_info = &aw_dev->prof_info;
++
++	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
++		dev_err(aw_dev->dev, "index[%d] overflow count[%d]",
++			index, aw_dev->prof_info.count);
++		return NULL;
++	}
++
++	prof_desc = &aw_dev->prof_info.prof_desc[index];
++
++	return prof_info->prof_name_list[prof_desc->id];
++}
++
++int aw883xx_dev_get_prof_data(struct aw_device *aw_dev, int index,
++			struct aw_prof_desc **prof_desc)
++{
++	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
++		dev_err(aw_dev->dev, "%s: index[%d] overflow count[%d]\n",
++			__func__, index, aw_dev->prof_info.count);
++		return -EINVAL;
++	}
++
++	*prof_desc = &aw_dev->prof_info.prof_desc[index];
++
++	return 0;
++}
++
+diff --git a/sound/soc/codecs/aw883xx/aw883xx_bin_parse.h b/sound/soc/codecs/aw883xx/aw883xx_bin_parse.h
 new file mode 100644
-index 0000000..f128296
+index 0000000..126c41a
 --- /dev/null
-+++ b/sound/soc/codecs/aw883xx/aw883xx.h
-@@ -0,0 +1,155 @@
++++ b/sound/soc/codecs/aw883xx/aw883xx_bin_parse.h
+@@ -0,0 +1,145 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * aw883xx.c --  ALSA Soc AW883XX codec support
@@ -1921,150 +1413,140 @@ index 0000000..f128296
 + * Author: Bruce zhao <zhaolei@awinic.com>
 + */
 +
-+#ifndef __AW883XX_H__
-+#define __AW883XX_H__
++#ifndef __AW883XX_BIN_PARSE_H__
++#define __AW883XX_BIN_PARSE_H__
 +
-+#include <linux/version.h>
-+#include <sound/control.h>
-+#include <sound/soc.h>
 +#include "aw883xx_device.h"
 +
-+#define AW883XX_CHIP_ID_REG	(0x00)
-+
++#define NULL				((void *)0)
++#define GET_32_DATA(w, x, y, z) \
++	((unsigned int)((((uint8_t)w) << 24) | \
++	(((uint8_t)x) << 16) | (((uint8_t)y) << 8) | \
++	((uint8_t)z)))
++#define BIN_NUM_MAX			100
++#define HEADER_LEN			60
 +/*
-+ * i2c transaction on Linux limited to 64k
-+ * (See Linux kernel documentation: Documentation/i2c/writing-clients)
++ * header information
 + */
-+#define MAX_I2C_BUFFER_SIZE		(65536)
-+#define AW883XX_READ_MSG_NUM		(2)
-+
-+#define AW_I2C_RETRIES			(5)
-+#define AW_I2C_RETRY_DELAY		(5)/* 5ms */
-+
-+#define AW_READ_CHIPID_RETRY_DELAY	(5)/* 5ms */
-+#define AW_START_RETRIES		(5)
-+
-+#define AW883XX_FLAG_START_ON_MUTE	(1 << 0)
-+#define AW883XX_FLAG_SKIP_INTERRUPTS	(1 << 1)
-+
-+#define AW883XX_I2S_CHECK_MAX		(5)
-+
-+#define AW883XX_SYSST_CHECK_MAX		(10)
-+
-+#define AW883XX_BIN_TYPE_NUM		(3)
-+#define AW883XX_LOAD_FW_DELAY_TIME	(3000)
-+#define AW883XX_START_WORK_DELAY_MS	(0)
-+
-+
-+#define AW883XX_DSP_16_DATA_MASK	(0x0000ffff)
-+
-+#define AW_GET_IV_CNT_MAX		(6)
-+#define AW_KCONTROL_NUM			(5)
-+#define AW_HW_MONITOR_DELAY		(1000)
-+
-+enum {
-+	AWRW_I2C_ST_NONE = 0,
-+	AWRW_I2C_ST_READ,
-+	AWRW_I2C_ST_WRITE,
++enum return_enum {
++	BIN_HEADER_VER_ERR = 1,
++	BIN_DATA_TYPE_ERR = 2,
++	BIN_DATA_LEN_ERR = 3,
++	DATA_VER_ERR = 4,
++	REG_NUM_ERR = 5,
++	DSP_REG_NUM_ERR = 6,
++	SOC_APP_NUM_ERR = 7,
++	BIN_IS_NULL = 8,
 +};
 +
-+enum {
-+	AWRW_DSP_ST_NONE = 0,
-+	AWRW_DSP_READY,
++enum bin_header_version_enum {
++	HEADER_VERSION_1_0_0 = 0x01000000,
 +};
 +
-+enum {
-+	AW_SYNC_START = 0,
-+	AW_ASYNC_START,
++enum data_type_enum {
++	DATA_TYPE_REGISTER = 0x00000000,
++	DATA_TYPE_DSP_REG = 0x00000010,
++	DATA_TYPE_DSP_CFG = 0x00000011,
++	DATA_TYPE_SOC_REG = 0x00000020,
++	DATA_TYPE_SOC_APP = 0x00000021,
++	DATA_TYPE_DSP_FW = DATA_TYPE_SOC_APP,
++	DATA_TYPE_MULTI_BINS = 0x00002000,
 +};
 +
-+
-+#define AWRW_ADDR_BYTES (1)
-+#define AWRW_DATA_BYTES (2)
-+#define AWRW_HDR_LEN (24)
-+
-+enum {
-+	AWRW_FLAG_WRITE = 0,
-+	AWRW_FLAG_READ,
++/**
++ * @DATA_VERSION_V1：default little edian
++ */
++enum data_version_enum {
++	DATA_VERSION_V1 = 0X00000001,
++	DATA_VERSION_MAX,
 +};
 +
-+enum {
-+	AWRW_HDR_WR_FLAG = 0,
-+	AWRW_HDR_ADDR_BYTES,
-+	AWRW_HDR_DATA_BYTES,
-+	AWRW_HDR_REG_NUM,
-+	AWRW_HDR_REG_ADDR,
-+	AWRW_HDR_MAX,
-+};
++/**
++ * @header_len: Frame header length
++ * @check_sum: Frame header information-Checksum
++ * @header_ver: Frame header information-Frame header version
++ * @bin_data_type: Frame header information-Data type
++ * @bin_data_ver: Frame header information-Data version
++ * @bin_data_len: Frame header information-Data length
++ * @ui_ver: Frame header information-ui version
++ * @chip_type[8]: Frame header information-chip type
++ * @reg_byte_len: Frame header information-reg byte len
++ * @data_byte_len: Frame header information-data byte len
++ * @device_addr: Frame header information-device addr
++ * @valid_data_len: Length of valid data obtained after parsing
++ * @valid_data_addr: The offset address of the valid data obtained
++ *                   after parsing relative to info
++ * @reg_num: The number of registers obtained after parsing
++ * @reg_data_byte_len: The byte length of the register obtained after parsing
++ * @download_addr: The starting address or download address obtained
++ *                 after parsing
++ * @app_version: The software version number obtained after parsing
++ */
++struct bin_header_info {
++	unsigned int header_len;
++	unsigned int check_sum;
++	unsigned int header_ver;
++	unsigned int bin_data_type;
++	unsigned int bin_data_ver;
++	unsigned int bin_data_len;
++	unsigned int ui_ver;
++	unsigned char chip_type[8];
++	unsigned int reg_byte_len;
++	unsigned int data_byte_len;
++	unsigned int device_addr;
++	unsigned int valid_data_len;
++	unsigned int valid_data_addr;
 +
-+struct aw883xx_i2c_packet {
-+	unsigned char i2c_status;
-+	unsigned char dsp_status;
 +	unsigned int reg_num;
-+	unsigned int reg_addr;
-+	unsigned int dsp_addr;
-+	char *reg_data;
-+};
-+
-+enum {
-+	AW883XX_STREAM_CLOSE = 0,
-+	AW883XX_STREAM_OPEN,
++	unsigned int reg_data_byte_len;
++	unsigned int download_addr;
++	unsigned int app_version;
 +};
 +
 +/*
-+ * Compatible with codec and component
++ * function define
++ *
 + */
-+
-+struct aw_componet_codec_ops {
-+	struct snd_soc_component *(*kcontrol_codec)(struct snd_kcontrol *kcontrol);
-+	void *(*codec_get_drvdata)(struct snd_soc_component *codec);
-+	int (*add_codec_controls)(struct snd_soc_component *codec,
-+		const struct snd_kcontrol_new *controls, unsigned int num_controls);
-+	void (*unregister_codec)(struct device *dev);
-+	int (*register_codec)(struct device *dev,
-+			const struct snd_soc_component_driver *codec_drv,
-+			struct snd_soc_dai_driver *dai_drv,
-+			int num_dai);
++/*
++ * @len: The size of the bin file obtained from the firmware
++ * @data[]: Store the bin file obtained from the firmware
++ */
++struct bin_container {
++	unsigned int len;
++	unsigned char data[];
 +};
 +
-+struct aw883xx {
-+	struct i2c_client *i2c;
-+	struct device *dev;
-+	struct mutex lock;
-+	struct mutex dsp_lock;
-+	struct snd_soc_component *codec;
-+	struct aw_componet_codec_ops *codec_ops;
-+	struct aw_device *aw_pa;
-+
-+	int sysclk;
-+	int reset_gpio;
-+
-+	unsigned char phase_sync;	/*phase sync*/
-+	uint32_t allow_pw;
-+	uint8_t pstream;
-+	unsigned char fw_retry_cnt;
-+
-+	uint8_t dbg_en_prof;
-+
-+	struct workqueue_struct *work_queue;
-+	struct delayed_work start_work;
-+	struct delayed_work acf_work;
-+
-+	uint8_t reg_addr;
-+	uint16_t dsp_addr;
-+	uint16_t chip_id;
-+	struct aw883xx_i2c_packet i2c_packet;
-+
-+	struct regmap *regmap;
-+	struct aw_container *aw_cfg;
++/**
++ * @p_addr: Offset pointer (backward offset pointer to obtain frame header
++ *          information and important information)
++ * @all_bin_parse_num: The number of all bin files
++ * @multi_bin_parse_num: The number of single bin files
++ * @single_bin_parse_num: The number of multiple bin files
++ * @header_info[BIN_NUM_MAX]: Frame header information and other important data
++ *                            obtained after parsing
++ * @info: Obtained bin file data that needs to be parsed
++ */
++struct aw_bin {
++	unsigned char *p_addr;
++	unsigned int all_bin_parse_num;
++	unsigned int multi_bin_parse_num;
++	unsigned int single_bin_parse_num;
++	struct bin_header_info header_info[BIN_NUM_MAX];
++	struct bin_container info;
 +};
 +
-+int aw883xx_init(struct aw883xx *aw883xx);
-+
-+int aw883xx_dsp_write(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t dsp_data, uint8_t data_type);
-+int aw883xx_dsp_read(struct aw883xx *aw883xx,
-+		uint16_t dsp_addr, uint32_t *dsp_data, uint8_t data_type);
++/*******************awinic audio parse acf***********************/
++int aw883xx_dev_dsp_data_order(struct aw_device *aw_dev,
++				uint8_t *data, uint32_t data_len);
++int aw883xx_dev_get_prof_data(struct aw_device *aw_dev, int index,
++			struct aw_prof_desc **prof_desc);
++char *aw_dev_get_prof_name(struct aw_device *aw_dev, int index);
++int aw883xx_dev_set_profile_index(struct aw_device *aw_dev, int index);
++int aw883xx_dev_get_profile_index(struct aw_device *aw_dev);
++int aw883xx_dev_check_profile_index(struct aw_device *aw_dev, int index);
++int aw883xx_dev_get_profile_count(struct aw_device *aw_dev);
++int aw883xx_dev_cfg_load(struct aw_device *aw_dev, struct aw_container *aw_cfg);
++int aw883xx_dev_load_acf_check(struct aw_container *aw_cfg);
 +
 +#endif
 -- 

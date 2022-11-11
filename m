@@ -2,104 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7520C625F39
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 17:16:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B721C625F90
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 17:33:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0757CAEA;
-	Fri, 11 Nov 2022 17:15:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0757CAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40E221658;
+	Fri, 11 Nov 2022 17:32:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40E221658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668183393;
-	bh=O3Wrip4FDeYZdwVOs3DGRjkSnWhZCrcsPoPcQDXc494=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668184406;
+	bh=p/hgZ3rU0we6hP1xNAjo5J5GgA5dWBa4Ua+wJnrBtcA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fnf+EQ2Op+LaJqLqOenMuRl95etOcbQWFSUOezYgW0rF43je/1LKeXfeOinhMVqe6
-	 ivPe82UmOMYiOjG9nkx32Bs2czeYTTUm4YABVjv2d8KtcwcmyE5fGWRbo5ajBP/4F2
-	 dCZKWBUWTJkUCwRzDdat8+PGV6ghiv2jkfvcP+/0=
+	b=tBhIep0lyMtKciWA1cpPPSlBeGZ+tTyvQsEwbR++Pbc8Rwre5trDfcT2Y+RE2tiKL
+	 6crpHAaqpB6a5armeiGptJKVCYFVrPK5SbkYQDvU715Y0HcL5YhxU9rboA7fQmxSqJ
+	 GJYu1OdL2X0iQGTKXrRA+tLma2YS+QUkW/kmx9xo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1783F80249;
-	Fri, 11 Nov 2022 17:15:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD2F9F804AB;
+	Fri, 11 Nov 2022 17:32:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6C3AF8028D; Fri, 11 Nov 2022 17:15:35 +0100 (CET)
+ id BEBEBF8028D; Fri, 11 Nov 2022 17:32:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBF4EF800F8
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 17:15:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBF4EF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FF17F80162
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 17:32:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FF17F80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="dXV1z/nL"
-Received: by mail-wr1-x430.google.com with SMTP id y16so7046646wrt.12
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 08:15:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+g7U9kSnqY5Btf1Uczn6Yzb9ePFiuOCe7hrx3U2q9eg=;
- b=dXV1z/nLCtHcsGAbmd4/sx14M+hs3Ax/nNV5scN6gizbeIVexySlOyS5zUoS3OPt/p
- o+zw1LKg3h2Q6D5yNE/TV7M1kr/AEnFQwoIl9pu0WrtUbTRqnMs5IAQfkSYZP8cINSSB
- uORi5kmGGzyosszvsx/vS+4dd+HrBMnNxkwCR3yPzStI/daNQ2eWf7IvtB4dCGcWJNBR
- LPyfGjOKIHeBUjFyiC+HdZspFxlmUEcdVi2AVVNwIx2NWWEr9B16FyGLKPiiJUZHBU9e
- 9p7Lb46FAK2V8ddFLF+FXU7BuouHtvHiH2pe/7nA6jS/yjN2c09MZ7lFM5XqOJxIsfwe
- 6Mig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+g7U9kSnqY5Btf1Uczn6Yzb9ePFiuOCe7hrx3U2q9eg=;
- b=NnSN5Zgq8GyoQ35GC8E0At+cFFAbdDPjd0QPi0vKyJFuKcQx72aJ9uK6FWtbHBtrjy
- LWSOoQJS2lzLcDwbdCj6rQL0XoaOzfWdZjKaMB1v297yxp0evgOaD5PgX5GbceM/9mfB
- MwLzmOF+gWc2ttafUvyitFEl9c0biPwayyFlhTsJX1X6bvX75DggPJ0GysZ9+CjFsEyi
- 8whZCxaQ3wdum1R0F+tyEItnk1Ifcj7AkfRHqqvWG64IhrBR+qhpBUolafXlKDHztLzI
- rt9YYqbKqExhhhl8Ig7k8ZcvZyKyVVufvjKBR2jXClk0SVNh1ygrbEtUMoFZgrvg53OF
- HYjg==
-X-Gm-Message-State: ANoB5plTMBUwScB4aUp3yei/By2bsRbVWL+xEpsZZTLq2x3ChrYciPIU
- 1c03m9CEnSaoniG6ZyUvgRjNjw==
-X-Google-Smtp-Source: AA0mqf4GeNbz9JHTSJP5g9TLotxo4pCO0oLfJto+zxfuG6Q4IekcenT2awtAK2VZVBbh8+rY2WluwQ==
-X-Received: by 2002:a5d:5913:0:b0:236:e0d:9ad with SMTP id
- v19-20020a5d5913000000b002360e0d09admr1751304wrd.692.1668183330925; 
- Fri, 11 Nov 2022 08:15:30 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- j5-20020a5d5645000000b0022da3977ec5sm2183279wrw.113.2022.11.11.08.15.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Nov 2022 08:15:30 -0800 (PST)
-Message-ID: <06da072c-8cf0-8181-3c32-4592fe41f9c2@linaro.org>
-Date: Fri, 11 Nov 2022 16:15:28 +0000
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="HWyh+C2s"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 66E4561E9B;
+ Fri, 11 Nov 2022 16:32:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67FFC433D6;
+ Fri, 11 Nov 2022 16:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668184342;
+ bh=p/hgZ3rU0we6hP1xNAjo5J5GgA5dWBa4Ua+wJnrBtcA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HWyh+C2s/UDZ7rwK5cpzxbj/PFRtcNOvk5ZIbNwHEdnSXf6BC/6ZE94yMKNQ9B8DI
+ efcq+ig+PgD6JKmOIK4wHtPWf9b1IISEjjJwXDOOZZIkr4HqpWHiGp/O+fY7OOqGkb
+ a9862wdfMp23Aujy1GqseZlxlPgswqwf9MeMhFY/vSb+Oiwpw2+O0WmOJ2CYqFCxCh
+ 6ny3DRBplnJ9YtP/FUyZlK/4MD7/ox48jkUyIYBXcnj5nMcKjFA0I4bDa7sbAWnUCA
+ 69z4zFjmt0gJA+8uzUgIuXNCUiocIQJ3+Z3YPA9eFLnNz5Q0NxeJjG0C8cC/ej+0iU
+ WOei1QLNDLx6g==
+Date: Fri, 11 Nov 2022 16:32:11 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: qcom,wsa883x: Add sound-name-prefix
+Message-ID: <Y255C+TGNVJ9fs8A@sirena.org.uk>
+References: <20221111091738.34290-1-krzysztof.kozlowski@linaro.org>
+ <Y246wC8zEGJp9SmC@sirena.org.uk>
+ <29620da4-fda7-eb71-d9de-599e3bbd2de7@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 00/10] ASoC: dt-bindings: Rework Qualcomm APR/GPR Sound
- nodes for SM8450
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="yL7dWziKYiIamsqH"
+Content-Disposition: inline
+In-Reply-To: <29620da4-fda7-eb71-d9de-599e3bbd2de7@linaro.org>
+X-Cookie: Should I do my BOBBIE VINTON medley?
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20221111113547.100442-1-krzysztof.kozlowski@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221111113547.100442-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Patrick Lai <plai@qti.qualcomm.com>,
- Srinivasa Rao Mandadapu <srivasam@qti.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,71 +96,44 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--yL7dWziKYiIamsqH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 11/11/2022 11:35, Krzysztof Kozlowski wrote:
-> Adding sound support for Qualcomm SM8450 SoC (and later for SC8280XP) brought
-> some changes to APR/GPR services bindings.  These bindings are part of
-> qcom,apr.yaml:
-> 
->    apr-or-gpr-device-node <- qcom,apr.yaml
->      apr-gpr-service@[0-9] <- qcom,apr.yaml
->        service-specific-components <- /schemas/sound/qcom,q6*.yaml
-> 
-> The schema for services (apr-gpr-service@[0-9]) already grows considerably and
-> is still quite not specific.  It allows several incorrect combinations, like
-> adding a clock-controller to a APM device.  Restricting it would complicate the
-> schema even more.  Bringing new support for sound on Qualcomm SM8450 and
-> SC8280XP SoC would grow it as well.
+On Fri, Nov 11, 2022 at 03:33:10PM +0100, Krzysztof Kozlowski wrote:
+> On 11/11/2022 13:06, Mark Brown wrote:
+> > On Fri, Nov 11, 2022 at 10:17:38AM +0100, Krzysztof Kozlowski wrote:
 
-Why would this grow? All the dsp services are static and they will not 
-change per SoC unless there is a total firmware change in DSP.
+> >> For multiple speakers attached, it's useful to give them some name.
+> >> Sound core already supports this, so reference name-prefix.yaml.
 
-> 
-> Refactor the bindings before extending them for Qualcomm SM8450 SoC.
+> > If we need to manually extend the schema like this it should probably be
+> > done for all the CODEC devices.
 
-I dont understand this bit, what is SoC audio support to do with DSP 
-bindings. DSP bindings should be totally independent of this.
-> 
+> Several files already do it:
 
---srini
+>   git grep name-prefix.yaml
 
-> Best regards,
-> Krzysztof
-> 
-> Krzysztof Kozlowski (10):
->    ASoC: dt-bindings: qcom,apr: Add GLINK channel name for SM8450
->    ASoC: dt-bindings: qcom,apr: Split services to shared schema
->    ASoC: dt-bindings: qcom,q6afe: Split to separate schema
->    ASoC: dt-bindings: qcom,q6apm: Split to separate schema
->    ASoC: dt-bindings: qcom,q6adm: Split to separate schema
->    ASoC: dt-bindings: qcom,q6asm: Split to separate schema
->    ASoC: dt-bindings: qcom,q6prm: Split to separate schema
->    ASoC: dt-bindings: qcom,q6core: Split to separate schema
->    ASoC: dt-bindings: qcom,q6apm-lpass-dais: Split to separate schema
->    ASoC: dt-bindings: qcom,q6apm: Add SM8450 bedais node
-> 
->   .../bindings/soc/qcom/qcom,apr-services.yaml  |  54 ++++++++
->   .../bindings/soc/qcom/qcom,apr.yaml           | 119 ++----------------
->   .../bindings/sound/qcom,q6adm-routing.yaml    |  22 +---
->   .../devicetree/bindings/sound/qcom,q6adm.yaml |  51 ++++++++
->   .../devicetree/bindings/sound/qcom,q6afe.yaml |  69 ++++++++++
->   .../bindings/sound/qcom,q6apm-dai.yaml        |  19 +--
->   .../bindings/sound/qcom,q6apm-lpass-dais.yaml |  32 +++++
->   .../devicetree/bindings/sound/qcom,q6apm.yaml |  67 ++++++++++
->   .../bindings/sound/qcom,q6asm-dais.yaml       |  48 +++----
->   .../devicetree/bindings/sound/qcom,q6asm.yaml |  68 ++++++++++
->   .../bindings/sound/qcom,q6core.yaml           |  39 ++++++
->   .../sound/qcom,q6dsp-lpass-clocks.yaml        |  40 +-----
->   .../sound/qcom,q6dsp-lpass-ports.yaml         |  57 ++-------
->   .../devicetree/bindings/sound/qcom,q6prm.yaml |  50 ++++++++
->   MAINTAINERS                                   |   2 +-
->   15 files changed, 477 insertions(+), 260 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr-services.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6adm.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6afe.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6asm.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6core.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6prm.yaml
-> 
+> The trouble for me would be here to identify which devices qualify from
+> bindings/sound.... everything having #sound-dai-cells?
+
+Pretty much anything could potentially do it, it's a system level thing
+for when the same device gets instantiated multiple times.  It's most
+relevant when something creates user visible controls.
+
+--yL7dWziKYiIamsqH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNueQoACgkQJNaLcl1U
+h9DiTgf9F5Oet7q8wby5hcHu+I8U1kwyboOcEArroSZEaYzKVe2n1mmtTR0UZcUp
+BCLDSI5wI4cGZS1O251ItWJP2OH/YVTob/tqu1Ywt/vupPOTZdHRKkIGsawuqvyn
+PVB4MVmLJfwutlN1kUMAQAY8mU/69DBNRngRR5aa3mUBDWv5guex4fpMhMNCfvnT
+e/0wPAWtWDmGzZcr/p66siZwyYN8jaU7JZH4Ddn/DHRWxu0uXF5xKRqWV2JCYmGC
+M+5rqvZIBovkAnv9MFVDt6cSy7NekJwwkfFcuEsv9FCldXJvPBw6NvRIP2sHbhDa
+PXHLb4fI3VkUqbzKdHPU1we7F09XeQ==
+=hl+y
+-----END PGP SIGNATURE-----
+
+--yL7dWziKYiIamsqH--

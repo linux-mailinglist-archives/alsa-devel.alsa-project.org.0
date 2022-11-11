@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05346625288
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 05:28:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C22C3625284
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 05:27:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26BD41633;
-	Fri, 11 Nov 2022 05:27:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26BD41633
+	by alsa0.perex.cz (Postfix) with ESMTPS id 667BE1652;
+	Fri, 11 Nov 2022 05:27:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667BE1652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668140914;
-	bh=vn9VwOhttQiEitLM6pjgFhOu+byBGsPJxmJqGvKBlLY=;
+	s=default; t=1668140876;
+	bh=fudGHXfFeW/SgWmmWXPOO07+6VgSMIOdTVYH/lYOqHI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rwXBjYTn1Uu2trTTopeQdlpAsaxe/pSCY0s6IzPvGBngZL9yi42ICLHjIsL/DTvA6
-	 z/j2FmDjwfVu3usN4O03H5IZAlrozp1amxvqQ0LH0gFYepdRsWattotT5LbP6Vc5XS
-	 lbmss0A+pYyTtRK4ZiGm6bIvTIXPrTFmyfC+R5wQ=
+	b=E9GAEcz1rG0wA5wLGb34WI6S6xS6pkMFu8fW22xI/uoT4S7xRlj1f+1X6zmza1qhG
+	 AUMZ3QROPGQUo4axg4JuNG5Eof8m0e4DuGi/gSzbB44jfHPne6d+N5sOFlbqGp9pQ8
+	 KUOr1yjClIBcDG+zJUNhYKQp4lvl7XYw6mH9KaMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C36B6F8058C;
-	Fri, 11 Nov 2022 05:25:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5D7AF80587;
+	Fri, 11 Nov 2022 05:25:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB40FF80588; Fri, 11 Nov 2022 05:25:27 +0100 (CET)
+ id 973D0F80580; Fri, 11 Nov 2022 05:25:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE32FF80536
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 05:25:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE32FF80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC230F80568
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 05:25:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC230F80568
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="iqv18lH7"
+ header.b="iyknNSMn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668140722; x=1699676722;
+ t=1668140724; x=1699676724;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vn9VwOhttQiEitLM6pjgFhOu+byBGsPJxmJqGvKBlLY=;
- b=iqv18lH7W+9rbHnFUfzrmQIRPA0SwnOSxRRpba0e8rMYbLuoNUldWXZM
- JvEVvpvqGLlvbCoqHH2pHv9L5d4H77BtNJupJjs94WX1q9p9QZPQoD+4u
- 61L6/rIqInyK5j0fGaiWY5fMwcaQ0Q5pxG6OrhwZLRpr0pLyF3DIOi/7U
- 6OFiK9Ad35z0Y4ZoT/tbx5eI50VhCgUkaa6xrLMeDxcRpJs+zCrV+BkE/
- U4h/aNGw9ptrMAh8sWwAAsX043zP/pzdouWdeLqBf74ZNvj0337G1JxCe
- yHz6iNBfZyyXHu36ZvW9flOFz6F9SSviaAAsXjrfvm7tvZTwlh4pdOw4j w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="291923742"
-X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="291923742"
+ bh=fudGHXfFeW/SgWmmWXPOO07+6VgSMIOdTVYH/lYOqHI=;
+ b=iyknNSMnFzfQf3lrNbfIn2tgXTgNWjDzi0CmvhFm+k5zcsw9MZGLyxd0
+ QsQG/9WOuYnqH4A20AcjhiWjzGvbZ5UuUQSK/L2+gTpO/6aC+MRuNv2Iq
+ o2CPuALrmA8ClVCMhU1tA8cpxx4YlackFcsl2gW5EcJgWjfof+ijM32IE
+ 1SwXLc/JPOKpfPwf93Ci1Izk0YM06eOuxBKx94zkN/5YqDqSHgIK88D/J
+ PTbzfoZ1mB1roXH14S+Bmp6xQHh265VszKMgvfAz8cyq8ReqEhtIbV+uN
+ eEagh9WueA5uh2tRhpLk0OkCLocijg96INM0l4zRkfa4qkqLxA7tBGln1 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="291923768"
+X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="291923768"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 20:25:19 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="588440773"
-X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="588440773"
+ 10 Nov 2022 20:25:21 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="588440792"
+X-IronPort-AV: E=Sophos;i="5.96,155,1665471600"; d="scan'208";a="588440792"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 20:25:16 -0800
+ 10 Nov 2022 20:25:19 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 6/8] soundwire: intel_init: remove sdw_intel_enable_irq()
-Date: Fri, 11 Nov 2022 12:26:51 +0800
-Message-Id: <20221111042653.45520-7-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 7/8] soundwire: intel_init: remove check on number of links
+Date: Fri, 11 Nov 2022 12:26:52 +0800
+Message-Id: <20221111042653.45520-8-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221111042653.45520-1-yung-chuan.liao@linux.intel.com>
 References: <20221111042653.45520-1-yung-chuan.liao@linux.intel.com>
@@ -93,66 +93,49 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The functionality is implemented with per-chip callbacks, there are no
-users of this symbol, remove the code.
+The number of links is checked with a chip-dependent helper in the
+caller, remove the check in drivers/soundwire/intel_init.c
+
+This change makes intel_init.c hardware-agnostic - which is quite
+fitting for a layer that only creates auxiliary devices.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel_init.c      | 24 ------------------------
- include/linux/soundwire/sdw_intel.h |  2 --
- 2 files changed, 26 deletions(-)
+ drivers/soundwire/intel_init.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index 8bd95c9cbcaf..0df3cdd85793 100644
+index 0df3cdd85793..d6842925de61 100644
 --- a/drivers/soundwire/intel_init.c
 +++ b/drivers/soundwire/intel_init.c
-@@ -125,30 +125,6 @@ static int sdw_intel_cleanup(struct sdw_intel_ctx *ctx)
- 	return 0;
- }
- 
--#define HDA_DSP_REG_ADSPIC2             (0x10)
--#define HDA_DSP_REG_ADSPIS2             (0x14)
--#define HDA_DSP_REG_ADSPIC2_SNDW        BIT(5)
--
--/**
-- * sdw_intel_enable_irq() - enable/disable Intel SoundWire IRQ
-- * @mmio_base: The mmio base of the control register
-- * @enable: true if enable
-- */
--void sdw_intel_enable_irq(void __iomem *mmio_base, bool enable)
--{
--	u32 val;
--
--	val = readl(mmio_base + HDA_DSP_REG_ADSPIC2);
--
--	if (enable)
--		val |= HDA_DSP_REG_ADSPIC2_SNDW;
--	else
--		val &= ~HDA_DSP_REG_ADSPIC2_SNDW;
--
--	writel(val, mmio_base + HDA_DSP_REG_ADSPIC2);
--}
--EXPORT_SYMBOL_NS(sdw_intel_enable_irq, SOUNDWIRE_INTEL_INIT);
--
- irqreturn_t sdw_intel_thread(int irq, void *dev_id)
+@@ -272,24 +272,12 @@ sdw_intel_startup_controller(struct sdw_intel_ctx *ctx)
  {
- 	struct sdw_intel_ctx *ctx = dev_id;
-diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
-index 2e9fd91572d4..d2f581feed67 100644
---- a/include/linux/soundwire/sdw_intel.h
-+++ b/include/linux/soundwire/sdw_intel.h
-@@ -286,8 +286,6 @@ int sdw_intel_startup(struct sdw_intel_ctx *ctx);
+ 	struct acpi_device *adev = acpi_fetch_acpi_dev(ctx->handle);
+ 	struct sdw_intel_link_dev *ldev;
+-	u32 caps;
+ 	u32 link_mask;
+ 	int i;
  
- void sdw_intel_exit(struct sdw_intel_ctx *ctx);
+ 	if (!adev)
+ 		return -EINVAL;
  
--void sdw_intel_enable_irq(void __iomem *mmio_base, bool enable);
+-	/* Check SNDWLCAP.LCOUNT */
+-	caps = ioread32(ctx->mmio_base + ctx->shim_base + SDW_SHIM_LCAP);
+-	caps &= SDW_SHIM_LCAP_LCOUNT_MASK;
 -
- irqreturn_t sdw_intel_thread(int irq, void *dev_id);
+-	/* Check HW supported vs property value */
+-	if (caps < ctx->count) {
+-		dev_err(&adev->dev,
+-			"BIOS master count is larger than hardware capabilities\n");
+-		return -EINVAL;
+-	}
+-
+ 	if (!ctx->ldev)
+ 		return -EINVAL;
  
- #define SDW_INTEL_QUIRK_MASK_BUS_DISABLE      BIT(1)
 -- 
 2.25.1
 

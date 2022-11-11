@@ -2,102 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFCB6254D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 09:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA23A625660
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 10:14:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75912166C;
-	Fri, 11 Nov 2022 09:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75912166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F1ED1652;
+	Fri, 11 Nov 2022 10:13:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F1ED1652
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668153703;
-	bh=/JhKtSplEXWQW83/PgxO5BdmEweOLgZbpN75oFE0iQE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vZF34INxF4ydRH+cCtVFwdCGdVhGt5o5/NoRkbHGatkTb4CTmSTAmq2Ov/ZxebB9W
-	 ioGqy3GLWHbUfyNDK1KsPJFZHFhDTETrcT5drHPWIak7XdyHSWduQSDb3MgPOJSQfI
-	 IINkYX8koHWeRPEK5Jvp2zUBfTBhlITupJZxjboc=
+	s=default; t=1668158077;
+	bh=RuINYQZ5Th+7NVFljR2ZSR/G+NE1fJQTUDPQgXymcxY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jJx+t9F1BLPR5DM/5h7JtTjYjroThTCykWR9a0gMwh/T1N/ilDZ8ULSC7LVmM2Dvn
+	 uYsMfmE+/ASxO1nqgoTWibongz76SR2sfIg08h/j/cE4ZB67pDBYx+WNxVLV/SiKzr
+	 7O8F3lv4rT3L52W/Cem+jw0aAYKYkoXsa5Da1M1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C09EF80162;
-	Fri, 11 Nov 2022 09:00:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E443DF804AB;
+	Fri, 11 Nov 2022 10:13:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C4F2F8028D; Fri, 11 Nov 2022 09:00:46 +0100 (CET)
+ id B2714F8028D; Fri, 11 Nov 2022 10:13:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AAD8F800CC
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 09:00:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AAD8F800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A0A4F800F8
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 10:13:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A0A4F800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bXKbxgj2"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 16132B82404;
- Fri, 11 Nov 2022 08:00:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCA15C433C1;
- Fri, 11 Nov 2022 08:00:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668153637;
- bh=/JhKtSplEXWQW83/PgxO5BdmEweOLgZbpN75oFE0iQE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bXKbxgj2UCTHUgeiGA+vW+Pc06m+20eJOo+npKH0T0z6xBvXwNBmy/nWBbAo7HJ2f
- HDxHRP5biJytHOqONg5WlAPFBBWqfCjz5e3YiQH27oEZP2hW5wi5rQfPY2z7DIM6NL
- cKst6mvMt3HKjZZK5fmNA593a2Xi9uIkxppyVXIy3bijpGj+R+aZx526NQQ678BB8o
- YWDAG5KrCQBYMlyJsKUO3ItrixysfwtSnk+EKwWyBPKH7fU+yX1eernRm+A7Hjn//6
- 62ngoqWbRW6nzjTl+Tj2llrao/t4SaOFSa2hh7wR1eMQtrVyq86bnTJyVrFjpcQvtV
- dnrWszvKuSCoA==
-Received: from ip-185-104-136-29.ptr.icomera.net ([185.104.136.29]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <maz@kernel.org>) id 1otOxn-005LMf-A2;
- Fri, 11 Nov 2022 08:00:35 +0000
-Date: Fri, 11 Nov 2022 08:00:10 +0000
-Message-ID: <87h6z5vs39.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
- CS48L31/32/33 codecs
-In-Reply-To: <Y21gwGDb5CFft0kp@sirena.org.uk>
-References: <20221109165331.29332-1-rf@opensource.cirrus.com>
- <20221109165331.29332-10-rf@opensource.cirrus.com>
- <87mt8zutib.wl-maz@kernel.org>
- <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
- <86pmdvow5y.wl-maz@kernel.org>
- <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
- <86k042q1uc.wl-maz@kernel.org>
- <05ae0e20-b472-f812-1afc-ef8c2a97cdeb@opensource.cirrus.com>
- <87iljmve87.wl-maz@kernel.org> <Y21gwGDb5CFft0kp@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.104.136.29
-X-SA-Exim-Rcpt-To: broonie@kernel.org, rf@opensource.cirrus.com, lee@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linus.walleij@linaro.org, tglx@linutronix.de, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="OsGDvA/g"
+Received: by mail-lj1-x231.google.com with SMTP id u2so3859595ljl.3
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 01:13:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CG70r3R3U+ByF6Dm/fb3An6dalcnfgrC/IIfYr0Kegg=;
+ b=OsGDvA/gwAYIEnfwgCEeq3G4Iacv4yJG9WsMbMnmYM3BNIoqI+ZEDGAB5DKR+pTXUE
+ NZkJETBvkiqw1aKOrORv331gFtG2EiJECkF7Uc12L7Q8ZGDUBLiQ3Pxa9buUXCt+jasD
+ XpFZVTCrN4E1jD6P5dXWpNBYMxxIzEnorL9FlUL2LQblzD3/r1rnHIvY6D4wq0r1a7XV
+ Qdbwld4fdDamXBSWfMpx8+3Q1B8DrTO33jNTiLAkg0SKwIi9892i/5xMGWZpNuC7CylI
+ gjg8JpCdJW+icXNmfC6LSeUYO3eVIn8o/t0GRt91VVVlCgcAOQuqxCOlZFiI4vK/VFLC
+ u7lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CG70r3R3U+ByF6Dm/fb3An6dalcnfgrC/IIfYr0Kegg=;
+ b=fvg/A1PLQAeV0cyMJf7Wa+VtGUbgoYtmT+bb9pSHEGJboeDrmNXmijE8bghoo4k6lC
+ mFLLic4PfRr/LtX9/wFF0nbIQgUwyXlG3oShHpiAslLWtm1tw3THOXRjVaGCgbo7fhpE
+ NARjK/3Z+33vb5dzJNcu26fyTF2oFjuicHvZfTI6iL3DjZig0WyJjJerTR5EhrpA/gDR
+ Prx8HyQ5ssf1o9J2RKgzGJOL70CV2fkRJ6qB6zxplS6oJ+Rdihtq0Zlgvhh6PtBTsUvZ
+ wSX3IGcWZ+7G2ZqZuE93SlYWPwYRvil1tBy19mhnzjwWyb+me3QSNCwaROUlg+wHKp96
+ djjQ==
+X-Gm-Message-State: ANoB5pkCca0rpvijaQz2qZcmRbxsnXssBKTVUPftDPumc0xphZOPF8g3
+ oqC+hpFIu77OCfgCI+TG4ycz2w==
+X-Google-Smtp-Source: AA0mqf7jfxUQwV/asX6PTGhypg3OXbuthfIPAebxbxNVePC1vqYuLhevUGqfg7OaxzBtBi8ZjYX+ZA==
+X-Received: by 2002:a2e:a5c8:0:b0:26d:d55f:f1cf with SMTP id
+ n8-20020a2ea5c8000000b0026dd55ff1cfmr325829ljp.175.1668158011429; 
+ Fri, 11 Nov 2022 01:13:31 -0800 (PST)
+Received: from krzk-bin.NAT.warszawa.vectranet.pl
+ (088156142199.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.199])
+ by smtp.gmail.com with ESMTPSA id
+ s7-20020a056512314700b004946b549a19sm229553lfi.45.2022.11.11.01.13.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Nov 2022 01:13:30 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: qcom: q6prm: Correct module description
+Date: Fri, 11 Nov 2022 10:13:28 +0100
+Message-Id: <20221111091328.31549-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,83 +105,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Nov 2022 20:36:16 +0000,
-Mark Brown <broonie@kernel.org> wrote:
-> 
-> On Thu, Nov 10, 2022 at 06:47:20PM +0000, Marc Zyngier wrote:
-> 
-> > Read again what I have written. Having to expose a device-specific API
-> > for endpoint drivers to obtain their interrupts, and requiring them to
-> > know about some magic values that describe the interrupts source are
-> > not a acceptable constructs.
-> 
-> > We have firmware descriptions to expose interrupt linkages, and your
-> > HW is not special enough to deserve its own top level API. Yes, we
-> > accepted such drivers in the past, but it has to stop.
-> 
-> > Either you describe the internal structure of your device in DT or
-> > ACPI, and make all client drivers use the standard API, or you make
-> > this a codec library, purely specific to your device and only used by
-> > it. But the current shape is not something I'm prepared to accept.
-> 
-> ACPI gets to be a lot of fun here, it's just not idiomatic to describe
-> the internals of these devices in firmware there and a lot of the
-> systems shipping this stuff are targeted at other OSs and system
-> integrators are therefore not in the least worried about Linux
-> preferences.
+The description was copied from APM driver.
 
-Let me reassure the vendors that I do not care about them either. By
-this standard, we'd all run Windows on x86.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ sound/soc/qcom/qdsp6/q6prm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> You'd need to look at having the MFD add additional
-> description via swnode or something to try to get things going.  MFD
-> does have support for that, though it's currently mainly used with
-> devices that only have ACPI use (axp20x looks like the only potentially
-> DT user, from the git history the swnode bits are apparently for use on
-> ACPI systems).  That might get fragile in the DT case since you could
-> have multiple sources for description of the same thing unless you do
-> something like suppress the swnode stuff on DT systems.
-> 
-> Given that swnode is basically DT written out in C code I'm not actually
-> convinced it's that much of a win, unless someone writes some tooling to
-> generate swnode data from DT files you're not getting the benefit of any
-> of the schema validation work that's being done.  We'd also need to do
-> some work for regulators to make sure that if we are parsing DT
-> properties on ACPI systems we don't do so from _DSD since ACPI has
-> strong ideas about how power works and we don't want to end up with
-> systems with firmware providing mixed ACPI/DT models without a clear
-> understanding of what we're geting into.
-> 
-> I do also have other concerns in the purely DT case, especially with
-> chip functions like the CODEC where there's a very poor mapping between
-> physical IPs and how Linux is tending to describe things internally at
-> the minute.  In particular these devices often have a clock tree
-> portions of which can be visible and useful off chip but which tends to
-> get lumped in with the audio IPs in our current code.  Ideally we'd
-> describe that as a clock subdevice (or subdevices if that fits the
-> hardware) using the clock bindings but then that has a bunch of knock on
-> effects the way the code currently is which probably it's probably
-> disproportionate to force an individual driver author to work through.
-> OTOH the DT bindings should be OS neutral ABI so...
-
-I don't think this is a reason to continue on the current path that
-pretends to have something generic, but instead is literally a board
-file fragment with baked-in magic numbers.
-
-An irqchip is supposed to offer services to arbitrary clients
-(endpoint drivers) that are oblivious of the irqchip itself, of the
-hwirq mapping, and use the standard APIs to obtain a virtual interrupt
-number. None of that here. This is a monolithic driver, only split
-across multiple subsystem to satisfy a "not in my backyard"
-requirement.
-
-If the vendors/authors want to keep the shape of the code as is, they
-can do it outside of the irqchip code and have some library code with
-an internal API. At least they will stop pretending that this is a
-general purpose driver. And the existing madera code can also go in
-the process.
-
-	M.
-
+diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
+index cda33ded29be..8aa1a213bfb7 100644
+--- a/sound/soc/qcom/qdsp6/q6prm.c
++++ b/sound/soc/qcom/qdsp6/q6prm.c
+@@ -247,5 +247,5 @@ static gpr_driver_t prm_driver = {
+ };
+ 
+ module_gpr_driver(prm_driver);
+-MODULE_DESCRIPTION("Audio Process Manager");
++MODULE_DESCRIPTION("Q6 Proxy Resource Manager");
+ MODULE_LICENSE("GPL");
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+

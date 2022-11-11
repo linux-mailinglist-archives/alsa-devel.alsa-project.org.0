@@ -2,98 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08295625FAB
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 17:39:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B42625FBE
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Nov 2022 17:43:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95B13167C;
-	Fri, 11 Nov 2022 17:38:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B13167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7FC1166F;
+	Fri, 11 Nov 2022 17:42:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7FC1166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668184752;
-	bh=1JFCEKXqpMb8zeKEah1qjuqdfqNiwnPKTZlaiCBRAUA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668184988;
+	bh=E2RUEhNrhmh1jK82aaX1iTdR4D7/KsdkTKhEUimnYis=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cv+d3BYflOOqLwAwA6ObBgimxkiokdsy5oecY8XqxkD0RZrGkEdipjR3fTyomHLAF
-	 uRmwUDQldf77Z/f1tiXXdt1bHCEgSwL2/sUNmtDol9COBB4QcZR8LMXAR64AFAx8nJ
-	 Lk7zXUlLXqPWopdgbbSwtg7LAACbdjtUCqXcJR+c=
+	b=HAwyGVVCW0UZI9UmaZKlMvb9lI9yag9JjzoH6EVaZLqjO7CIvEigtSqhby1lYiMOL
+	 wWpdXJZeOvoPRDct2ykLJnOPaxwxVXPOwukCy3pFSMXFrh1niR4PKTnUMiz1cc5m8h
+	 MibP38y/1dFJuDU53ldDq61I8EtL8Kv1HZC0QlmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42949F804AB;
-	Fri, 11 Nov 2022 17:38:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6143EF80249;
+	Fri, 11 Nov 2022 17:42:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 176F2F804AB; Fri, 11 Nov 2022 17:38:15 +0100 (CET)
+ id 40493F8028D; Fri, 11 Nov 2022 17:42:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C69AAF80162
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 17:38:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C69AAF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15645F800F8
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 17:42:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15645F800F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="oZCyUTC9"
-Received: by mail-wm1-x32f.google.com with SMTP id
- fn7-20020a05600c688700b003b4fb113b86so3482938wmb.0
- for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 08:38:07 -0800 (PST)
+ header.b="CVsNX79H"
+Received: by mail-wr1-x433.google.com with SMTP id w14so7137674wru.8
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 08:42:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=JaZVtFPPaLB1/chqLl5fXGZ9i1oLa0XpBUVRRJxd9cI=;
- b=oZCyUTC9OW+Gao72Y6/Jy0WiGm29zM05RoR72zuCvODktorROYHO90I0wv148pxUJ3
- AK61RQ5U62x4Rnv5wOt/kwbKT5vkWIIPdCRPXskn4CArmJgmYxukx8Hh8N76iuaCMrd7
- MW4BNKE8I6AEM2OdLf7LnD4v5v7FD0+MyVozjtociVgHUjoblN1xGqLciTssf0vn8yCz
- qZZlviM95ZPISMODwyEEmZBjsaEbNadI2eRHZwsGxZK/LPmRtWGtB2Pg6WvIsgmsaEbR
- hMnqAU42OrbaqPR7sqSKj7H1sU3uW9peKaVCDtg0ihVjd3g0A3w17vX2/J5XbztGcgsE
- fnEA==
+ bh=KRDq3YvWP3xlx40agy7LwTpV95X9uRpVaWN3hJZiIrE=;
+ b=CVsNX79HlQ0xGOF1Z1TKcpj8NMOVjQOldIQpoV1xWeKqERQAHxdQfwaVlfzXCpjA/0
+ QFuj9ImG3K0oOKY+xgpIvc06pSuEnvTxfITNulGEfv/Q+VluUGXs6XGbLS7JHWMk8Ncq
+ 62Y5wSWP1JUVMzcXLtKhZ5cpoQgqkj+DhD6oU4rIn/YOvky3+//LewKDXNxVSSFQt2gB
+ rgBq/8DDq74p0bOp0yWsSzJl6ppvhItIllWn3wG8hxANEprfRGg0FryKrHFr9vUVn5Jb
+ RAj0NVLpco40QSCw2A/B+Zftk81f26r3BkkCM3vzoEUTJKZffoczl1c1+ycdSvbxYt/C
+ OGmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JaZVtFPPaLB1/chqLl5fXGZ9i1oLa0XpBUVRRJxd9cI=;
- b=TY5FdH2vinJ99F2gTZwHCdwJVwcCwzkc2IYgFxoV8NGaUoTIb9VeubfeO8iIaI6E48
- v/lZ3T5FMNX0/t/D/mk5Tv6NJd9/0palrqkNer3zKnGHQybM+LMt732QS4Q8wKd+o2fh
- +CLHsl80iUMU/XpDbjVRWabPVTM4AqkenATaoSiexAyk234CUufCmCSHKDWhY7+LxU29
- 5BYhyIjmPU2kOpeAL4UjKrmJxIoUftZSkz+EfzMNAhlpSfKbANFjE5B3wesfWu2UnejF
- ZnAsEPO/Yl7U0loyWQQabazd4KdpWgojdAZh497Ocg4KVwubX606tQt6qPdPygGLCUaN
- ildQ==
-X-Gm-Message-State: ANoB5pmbgR1mE+ISmpL6XmPCFh3pOZvuNIEiVFgJm47gIkvv7DSPwqKQ
- QnD5Surs89TMnF5MMP/cFB9Byg==
-X-Google-Smtp-Source: AA0mqf6HUq6BrzK2oEKsXnAtk4vpxLbFgDJjdJOF9mPjgwAHthV3NwQdmBi7OGwhXnGVxnyF073M6Q==
-X-Received: by 2002:a05:600c:204d:b0:3cf:a3c4:59b3 with SMTP id
- p13-20020a05600c204d00b003cfa3c459b3mr1854849wmg.198.1668184686366; 
- Fri, 11 Nov 2022 08:38:06 -0800 (PST)
+ bh=KRDq3YvWP3xlx40agy7LwTpV95X9uRpVaWN3hJZiIrE=;
+ b=AiZAuWEBSPKSwQjk9RwALmSl/ucWpEB8ghtXxxneNThWhMK/RWy2Ob7Br7E1p031yT
+ c+XjAqcE26lndjcpYO7qmEJpRYfAh0VH+ZbToHm/ziZQX4Y/TGoua8X+apJyjRs04196
+ eZ2plo0Ua1g4A5BIbvJ0uXkfJX4dFIOifq5wcx0dR8XflwkU4PPQDKAaWZ1FmZuyeibW
+ pSapjy7RiZPvRcCfFM+Z0/+IdPzMIf/1skLy/V3bTt4aO5SMlBbwFYrVblw3p33pdk+w
+ E4duVmVzSnOC3uHc+dId2KkNNtEJSVRXM8lVw46RFBBNfzi/6QyS6Str5IQXRHqDgdt9
+ k+8A==
+X-Gm-Message-State: ANoB5pnYYSyZV9RAfDMgc5fImaEVwzZ1GI6SImidALPOPV3rtJHUYsJQ
+ mkyaWJZROSpNa5ilRhHAPPfXAg==
+X-Google-Smtp-Source: AA0mqf4CB8B5ldRLG2ZTP+StIEXMyDGoczXmUgfdXQ4MPh8CPep7VpfwIc0MBXZUi8VEgrQHfbasnQ==
+X-Received: by 2002:adf:f08a:0:b0:22e:37d1:b598 with SMTP id
+ n10-20020adff08a000000b0022e37d1b598mr1796487wro.377.1668184924029; 
+ Fri, 11 Nov 2022 08:42:04 -0800 (PST)
 Received: from [192.168.1.195] ([5.133.47.210])
  by smtp.googlemail.com with ESMTPSA id
- w9-20020adfee49000000b00228cd9f6349sm2265623wro.106.2022.11.11.08.38.05
+ r15-20020a05600c35cf00b003a84375d0d1sm10299100wmq.44.2022.11.11.08.42.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Nov 2022 08:38:05 -0800 (PST)
-Message-ID: <49722205-bd5b-8241-d2ff-7eb956e05ec1@linaro.org>
-Date: Fri, 11 Nov 2022 16:38:04 +0000
+ Fri, 11 Nov 2022 08:42:03 -0800 (PST)
+Message-ID: <7cdb914a-df88-ca11-45d3-d370d5c94bcd@linaro.org>
+Date: Fri, 11 Nov 2022 16:42:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-Subject: Re: [PATCH v2] ASoC: codecs: wsa883x: use correct header file
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: wsa883x: Use proper shutdown GPIO
+ polarity
 Content-Language: en-US
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-References: <20221108001829.5100-1-rdunlap@infradead.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20221110133512.478831-1-krzysztof.kozlowski@linaro.org>
+ <20221110133512.478831-2-krzysztof.kozlowski@linaro.org>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221108001829.5100-1-rdunlap@infradead.org>
+In-Reply-To: <20221110133512.478831-2-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,47 +118,46 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 08/11/2022 00:18, Randy Dunlap wrote:
-> Fix build errors when GPIOLIB is not set/enabled:
+On 10/11/2022 13:35, Krzysztof Kozlowski wrote:
+> The shutdown GPIO is active low (SD_N), but this depends on actual board
+> layout.  Linux drivers should only care about logical state, where high
+> (1) means shutdown and low (0) means do not shutdown.
 > 
-> ../sound/soc/codecs/wsa883x.c: In function 'wsa883x_probe':
-> ../sound/soc/codecs/wsa883x.c:1394:25: error: implicit declaration of function 'devm_gpiod_get_optional'; did you mean 'devm_regulator_get_optional'? [-Werror=implicit-function-declaration]
->           wsa883x->sd_n = devm_gpiod_get_optional(&pdev->dev, "powerdown",
-> ../sound/soc/codecs/wsa883x.c:1395:49: error: 'GPIOD_FLAGS_BIT_NONEXCLUSIVE' undeclared (first use in this function)
->           GPIOD_FLAGS_BIT_NONEXCLUSIVE);
-> ../sound/soc/codecs/wsa883x.c:1414:9: error: implicit declaration of function 'gpiod_direction_output'; did you mean 'gpio_direction_output'? [-Werror=implicit-function-declaration]
->           gpiod_direction_output(wsa883x->sd_n, 1);
+> Invert the GPIO to match logical value.
 > 
 > Fixes: 43b8c7dc85a1 ("ASoC: codecs: add wsa883x amplifier support")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Cc: Banajit Goswami <bgoswami@quicinc.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: alsa-devel@alsa-project.org
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
 > ---
 
 Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-
-
-> v2: add the correct header file instead of messing with GPIOLIB in Kconfig
 > 
->   sound/soc/codecs/wsa883x.c |    2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Changes since v1:
+> 1. None.
+> ---
+>   sound/soc/codecs/wsa883x.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff -- a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+> diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+> index c7b10bbfba7e..77a7dd3cf495 100644
 > --- a/sound/soc/codecs/wsa883x.c
 > +++ b/sound/soc/codecs/wsa883x.c
-> @@ -7,7 +7,7 @@
->   #include <linux/debugfs.h>
->   #include <linux/delay.h>
->   #include <linux/device.h>
-> -#include <linux/gpio.h>
-> +#include <linux/gpio/consumer.h>
->   #include <linux/init.h>
->   #include <linux/kernel.h>
->   #include <linux/module.h>
+> @@ -1392,7 +1392,7 @@ static int wsa883x_probe(struct sdw_slave *pdev,
+>   	}
+>   
+>   	wsa883x->sd_n = devm_gpiod_get_optional(&pdev->dev, "powerdown",
+> -						GPIOD_FLAGS_BIT_NONEXCLUSIVE);
+> +						GPIOD_FLAGS_BIT_NONEXCLUSIVE | GPIOD_OUT_HIGH);
+>   	if (IS_ERR(wsa883x->sd_n)) {
+>   		dev_err(&pdev->dev, "Shutdown Control GPIO not found\n");
+>   		ret = PTR_ERR(wsa883x->sd_n);
+> @@ -1411,7 +1411,7 @@ static int wsa883x_probe(struct sdw_slave *pdev,
+>   	pdev->prop.simple_clk_stop_capable = true;
+>   	pdev->prop.sink_dpn_prop = wsa_sink_dpn_prop;
+>   	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+> -	gpiod_direction_output(wsa883x->sd_n, 1);
+> +	gpiod_direction_output(wsa883x->sd_n, 0);
+>   
+>   	wsa883x->regmap = devm_regmap_init_sdw(pdev, &wsa883x_regmap_config);
+>   	if (IS_ERR(wsa883x->regmap)) {

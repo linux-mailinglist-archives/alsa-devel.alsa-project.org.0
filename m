@@ -2,88 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C254162683C
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 09:59:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8259B6269CB
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 15:12:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6057916A4;
-	Sat, 12 Nov 2022 09:58:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6057916A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E64A166A;
+	Sat, 12 Nov 2022 15:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E64A166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668243540;
-	bh=ayAJjz/ZFfDx7DMn4yH/2JkEFXJtnvWFDmikFbEIRRU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZXptC2qZL4tVj85O8O6GkQGus40AVr4uGpc+j2mKEUtcHnrajA4aOvCK5oE8hoNPe
-	 HcUPBiyqS06cuOPfehWA0UaY3/65aevt5z2Ih+PGxAD8awI6gCmQ/9DWOr8AQnTUH4
-	 Ozj4xwO51Yw9rUHjJCW413QqH5xbIkHRyEFV6870=
+	s=default; t=1668262371;
+	bh=FWw2GF4HLLJXUXc/lqJntsC0Snn3Hne/L/wgUOnMD00=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d0hf/QWdSZGihpDk1mIgmyPSi08C4L/uAzSjzmTS5/e65fry6y7AqmoDGpCUO+Dp4
+	 GFct89fjF52f5G9PFBc4kZQQ0pqsMMuT4BNTIwnMxqa0vSCGk5A5qcGVEoEOaWWCO9
+	 6ncIVZbLZ67rRva6ynldpPPHUNKlNt82suJYpIjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED93EF80423;
-	Sat, 12 Nov 2022 09:58:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF891F80423;
+	Sat, 12 Nov 2022 15:11:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0694F8026D; Sat, 12 Nov 2022 09:58:02 +0100 (CET)
+ id 88D72F80162; Fri, 11 Nov 2022 09:42:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.216.63.35])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68A0BF80162
- for <alsa-devel@alsa-project.org>; Sat, 12 Nov 2022 09:57:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68A0BF80162
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AwJWf3kV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3wpL9Yor"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40F68F80162
+ for <alsa-devel@alsa-project.org>; Fri, 11 Nov 2022 09:42:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40F68F80162
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 875EE1FAF0;
- Sat, 12 Nov 2022 08:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668243479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HVmEQ3U+Dj+OHxtEg0F7eq2WGPjs4lLMVB/VnX69U60=;
- b=AwJWf3kV3LKmR5A/s2n+I3EBkpKCIYjSisKpEDWB0Fk0LPpyP+6ocvNqCX2uJfW1WjeOxE
- gCPNI9SHGXM+oAd1UXD8N3Gwic0ctY7kyK4hOGLCMC3/KwtAtreQH9Kt4lKe1+pb4gNAtG
- Mjn+/O9DheESSYVvopew9y/sWPkw7Ss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668243479;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HVmEQ3U+Dj+OHxtEg0F7eq2WGPjs4lLMVB/VnX69U60=;
- b=3wpL9YornGk00Z4WDRUsrVn06EpXYDpVrfkuMZl6cNhlii2JqqelrdA3Qwl1Zh9F5m5A0V
- +O+QYMiqLHcYd/DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 674F913A08;
- Sat, 12 Nov 2022 08:57:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id tQ55GBdgb2MAJQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 12 Nov 2022 08:57:59 +0000
-Date: Sat, 12 Nov 2022 09:57:58 +0100
-Message-ID: <874jv47dnt.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.2-rc4
-In-Reply-To: <20221111131610.17E02C433C1@smtp.kernel.org>
-References: <20221111131610.17E02C433C1@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4N7sdR1xqfz5PkGl;
+ Fri, 11 Nov 2022 16:42:03 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.40.50])
+ by mse-fl2.zte.com.cn with SMTP id 2AB8fntW013165;
+ Fri, 11 Nov 2022 16:41:49 +0800 (+08)
+ (envelope-from ye.xingchen@zte.com.cn)
+Received: from mapi (xaxapp02[null]) by mapi (Zmail) with MAPI id mid31;
+ Fri, 11 Nov 2022 16:41:51 +0800 (CST)
+Date: Fri, 11 Nov 2022 16:41:51 +0800 (CST)
+X-Zmail-TransId: 2afa636e0acfffffffffc94e740f
+X-Mailer: Zmail v1.0
+Message-ID: <202211111641514826535@zte.com.cn>
+Mime-Version: 1.0
+From: <ye.xingchen@zte.com.cn>
+To: <fengzheng923@gmail.com>
+Subject: =?UTF-8?B?W1BBVENIXSBBU29DOiBzdW54aTogdXNlIGRldm1fcGxhdGZvcm1fZ2V0X2FuZF9pb3JlbWFwX3Jlc291cmNlKCk=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl2.zte.com.cn 2AB8fntW013165
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.250.138.novalocal with ID
+ 636E0ADB.000 by FangMail milter!
+X-FangMail-Envelope: 1668156123/4N7sdR1xqfz5PkGl/636E0ADB.000/10.5.228.133/[10.5.228.133]/mse-fl2.zte.com.cn/<ye.xingchen@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 636E0ADB.000/4N7sdR1xqfz5PkGl
+X-Mailman-Approved-At: Sat, 12 Nov 2022 15:11:54 +0100
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ chi.minghao@zte.com.cn, lgirdwood@gmail.com, broonie@kernel.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,31 +83,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Nov 2022 14:15:53 +0100,
-Mark Brown wrote:
-> 
-> The following changes since commit e9441675edc1bb8dbfadacf68aafacca60d65a25:
-> 
->   ASoC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init() (2022-10-21 13:04:14 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc4
-> 
-> for you to fetch changes up to 7d945b046be3d2605dbb1806e73095aadd7ae129:
-> 
->   ASoC: stm32: dfsdm: manage cb buffers cleanup (2022-11-09 17:56:37 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.1
-> 
-> A relatively large collection of fixes and new platform quirks here,
-> they're all fairly minor though - the widest possible impact is the fix
-> to the use of prefixes on regulator names which would have broken any
-> device that integrates regulators with DAPM and was used in a system
-> where it had a name prefix assigning to it.
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-Thanks, pulled now.
+Convert platform_get_resource(), devm_ioremap_resource() to a single
+call to devm_platform_get_and_ioremap_resource(), as this is exactly
+what this function does.
 
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+---
+ sound/soc/sunxi/sun50i-dmic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Takashi
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+index 62509cb02995..069c993acb31 100644
+--- a/sound/soc/sunxi/sun50i-dmic.c
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -317,8 +317,7 @@ static int sun50i_dmic_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+
+ 	/* Get the addresses */
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(base))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(base),
+ 				     "get resource failed.\n");
+-- 
+2.25.1

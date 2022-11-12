@@ -2,82 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74618626830
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 09:48:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C254162683C
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 09:59:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBD84166A;
-	Sat, 12 Nov 2022 09:47:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBD84166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6057916A4;
+	Sat, 12 Nov 2022 09:58:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6057916A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668242906;
-	bh=9BteHjKsflNykNF8/ySVN1UUU/7VzmcUg7sJPFRIc7w=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JHkL3PqeBNtOXMm9CJHbN4KrZB6IGWIQMu6L2r5HPF1TvcQK4q0556WVTog9hUAtf
-	 YOnzxkzChxrzmGMNx9dJXf5YJ7DzYGV3KceohQ5lcJuDgvpDhWAz2SHfp7Yz4dcXy7
-	 rYgGJWhfEwrJtvv+f8PfsSwYYVF7fStrByL8jsfg=
+	s=default; t=1668243540;
+	bh=ayAJjz/ZFfDx7DMn4yH/2JkEFXJtnvWFDmikFbEIRRU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZXptC2qZL4tVj85O8O6GkQGus40AVr4uGpc+j2mKEUtcHnrajA4aOvCK5oE8hoNPe
+	 HcUPBiyqS06cuOPfehWA0UaY3/65aevt5z2Ih+PGxAD8awI6gCmQ/9DWOr8AQnTUH4
+	 Ozj4xwO51Yw9rUHjJCW413QqH5xbIkHRyEFV6870=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 745C5F800CC;
-	Sat, 12 Nov 2022 09:47:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED93EF80423;
+	Sat, 12 Nov 2022 09:58:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA955F8026D; Sat, 12 Nov 2022 09:47:29 +0100 (CET)
+ id C0694F8026D; Sat, 12 Nov 2022 09:58:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD63EF800CC
- for <alsa-devel@alsa-project.org>; Sat, 12 Nov 2022 09:47:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD63EF800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68A0BF80162
+ for <alsa-devel@alsa-project.org>; Sat, 12 Nov 2022 09:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68A0BF80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="FuOAmvM8"; 
+ header.b="AwJWf3kV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4gs15fnk"
+ header.b="3wpL9Yor"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 265551FB59;
- Sat, 12 Nov 2022 08:47:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 875EE1FAF0;
+ Sat, 12 Nov 2022 08:57:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668242843; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=CLl/qOiimfZ6JLOg5b9zmEq5zcqAuFhaT2ZJekNkxlE=;
- b=FuOAmvM8++5Atx38GXKsxTHxbHTM7782PqyH/y0qzpP97XYotmEhkYGwM4p2xwQI78GivH
- DnBP26XCkg6c2rb36ZXid4PFrNscBptcjIVhlG1Nm1QIKEI1NPmA7dJOrsOVzc9NDyJlxq
- REUP4+Po0XOdaH/yqDrTxaqczYe8yc4=
+ t=1668243479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HVmEQ3U+Dj+OHxtEg0F7eq2WGPjs4lLMVB/VnX69U60=;
+ b=AwJWf3kV3LKmR5A/s2n+I3EBkpKCIYjSisKpEDWB0Fk0LPpyP+6ocvNqCX2uJfW1WjeOxE
+ gCPNI9SHGXM+oAd1UXD8N3Gwic0ctY7kyK4hOGLCMC3/KwtAtreQH9Kt4lKe1+pb4gNAtG
+ Mjn+/O9DheESSYVvopew9y/sWPkw7Ss=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668242843;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=CLl/qOiimfZ6JLOg5b9zmEq5zcqAuFhaT2ZJekNkxlE=;
- b=4gs15fnkoKggu2UEJ/EHyMznPGoy+LJN7EbZiX7E4VDWyusne8+HqIT+uymgwOlmWovQzE
- SIsLukUM6Hk9wcCg==
+ s=susede2_ed25519; t=1668243479;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HVmEQ3U+Dj+OHxtEg0F7eq2WGPjs4lLMVB/VnX69U60=;
+ b=3wpL9YornGk00Z4WDRUsrVn06EpXYDpVrfkuMZl6cNhlii2JqqelrdA3Qwl1Zh9F5m5A0V
+ +O+QYMiqLHcYd/DA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0BFCF13A08;
- Sat, 12 Nov 2022 08:47:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 674F913A08;
+ Sat, 12 Nov 2022 08:57:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id axwQAptdb2OJIAAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 12 Nov 2022 08:47:23 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id tQ55GBdgb2MAJQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 12 Nov 2022 08:57:59 +0000
+Date: Sat, 12 Nov 2022 09:57:58 +0100
+Message-ID: <874jv47dnt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: memalloc: Try dma_alloc_noncontiguous() at first
-Date: Sat, 12 Nov 2022 09:47:18 +0100
-Message-Id: <20221112084718.3305-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v6.2-rc4
+In-Reply-To: <20221111131610.17E02C433C1@smtp.kernel.org>
+References: <20221111131610.17E02C433C1@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,53 +99,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The latest fix for the non-contiguous memalloc helper changed the
-allocation method for a non-IOMMU system to use only the fallback
-allocator.  This should have worked, but it caused a problem sometimes
-when too many non-contiguous pages are allocated that can't be treated
-by HD-audio controller.
+On Fri, 11 Nov 2022 14:15:53 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit e9441675edc1bb8dbfadacf68aafacca60d65a25:
+> 
+>   ASoC: SOF: Intel: hda-codec: fix possible memory leak in hda_codec_device_init() (2022-10-21 13:04:14 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc4
+> 
+> for you to fetch changes up to 7d945b046be3d2605dbb1806e73095aadd7ae129:
+> 
+>   ASoC: stm32: dfsdm: manage cb buffers cleanup (2022-11-09 17:56:37 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.1
+> 
+> A relatively large collection of fixes and new platform quirks here,
+> they're all fairly minor though - the widest possible impact is the fix
+> to the use of prefixes on regulator names which would have broken any
+> device that integrates regulators with DAPM and was used in a system
+> where it had a name prefix assigning to it.
 
-As a quirk workaround, go back to the original strategy: use
-dma_alloc_noncontiguous() at first, and apply the fallback only when
-it fails, but only for non-IOMMU case.
+Thanks, pulled now.
 
-We'll need a better fix in the fallback code as well, but this
-workaround should paper over most cases.
 
-Fixes: 9736a325137b ("ALSA: memalloc: Don't fall back for SG-buffer with IOMMU")
-Reported-by: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://lore.kernel.org/r/CAHk-=wgSH5ubdvt76gNwa004ooZAEJL_1Q-Fyw5M2FDdqL==dg@mail.gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/memalloc.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 6a81aaab25ab..ba095558b6d1 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -542,8 +542,10 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	struct sg_table *sgt;
- 	void *p;
- 
-+	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
-+				      DEFAULT_GFP, 0);
- #ifdef CONFIG_SND_DMA_SGBUF
--	if (!get_dma_ops(dmab->dev.dev)) {
-+	if (!sgt && !get_dma_ops(dmab->dev.dev)) {
- 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
- 			dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 		else
-@@ -551,9 +553,6 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
- 		return snd_dma_sg_fallback_alloc(dmab, size);
- 	}
- #endif
--
--	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
--				      DEFAULT_GFP, 0);
- 	if (!sgt)
- 		return NULL;
- 
--- 
-2.35.3
-
+Takashi

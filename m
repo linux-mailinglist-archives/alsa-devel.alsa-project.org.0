@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A82D6269CF
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 15:13:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF5A626999
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Nov 2022 14:36:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C382166C;
-	Sat, 12 Nov 2022 15:12:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C382166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 359711673;
+	Sat, 12 Nov 2022 14:35:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 359711673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668262426;
-	bh=FUAs0o+GDqFg22g4vIeBAe72r6ZmtQdJPgN3z/hE7zo=;
-	h=Date:In-Reply-To:Subject:From:To:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=kHh+Kx/fkxfYvLdBWf70vFrhmck0hf5qI5IcyvuzTv581QMNB4/OlBxGnHbELkzxv
-	 qGYwIzzKV3FZW308m3Krj1OqC28xZg5evJkefYKs7Tt0b0KyvSSi7d58IHtdr3L1PS
-	 lT/39t2LCbcq7acov+bN4Q2hf/6fjho69lpx8gYM=
+	s=default; t=1668260179;
+	bh=hVeujgpbsR+OV5+KCHpDO/ek0DALY7aOLmsd6J8rfNQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nxiz4A52rtnC/A+Z92Jx/TKCaVm+S8+bz8ICFj2wXA+lOLJdRQN5HjfsL1Zcy6CNj
+	 qG0slGk+RugSrFGcYuSC8fNieenSmZKWm/+Q0ApcqUp0Um9BjE/6kKxSYeu29LAl+j
+	 Tig9zoAyTe88b6RwmUp1VABo0HLwT1TSYo0I1MJo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 643F6F80558;
-	Sat, 12 Nov 2022 15:11:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A33CCF80423;
+	Sat, 12 Nov 2022 14:35:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16603F800E5; Sat, 12 Nov 2022 14:29:30 +0100 (CET)
+ id 55291F800E5; Sat, 12 Nov 2022 14:35:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FD6FF800E5
- for <alsa-devel@alsa-project.org>; Sat, 12 Nov 2022 14:29:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD6FF800E5
-Received: by mail-il1-f199.google.com with SMTP id
- w9-20020a056e021c8900b0030247910269so2053216ill.4
- for <alsa-devel@alsa-project.org>; Sat, 12 Nov 2022 05:29:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SsnUsvhIwzsS7cZXIKYdGycWSuXBo6YozUvSoQomrm8=;
- b=FhSFjV50t1NaiaUTr53MpKzrPTQKKRGFqkADPl/QeYzGFWAsiqrRvpAKA3VCX/8fDY
- 4C23AmmhIQVL514ov8DdmVMxzV2/6C1Tz7d9Ywzoc8P19a82+3tjFwzjmXcE9uDuPJYs
- oA/XCkEonXeR3WbrsPX0fwxkJLpkyW+RXVcUnMnaByBuWXzTBH/+1yv8LZg4AkVKumia
- hM26smc3RaOUlG6WYgZeFm6/WpRVxcDDJDS/LuTSIUiz3FHI2Ify8nSxOfpCfFZY3aQd
- n1y1LPr37iHkhxMVZ6hf6dM6EnBh4SW/GEHpTEIfX577hZf1E5JQuWcZWpqhFq+2v8AF
- 9WpA==
-X-Gm-Message-State: ANoB5pkQJ1G50b5OpJn+o/W1+Xz/xEJra/DnnaA/exFE06Tx0bLp1TFr
- UX6hTHakOfR+o83m6gyBajeD6unEAq6YN06dTZFV7ZNi7iJl
-X-Google-Smtp-Source: AA0mqf6o/tGm0kyVXnxBAdO+ObJQdIvlTOuDuDp+X1w83mjSA0977oriViOeYIj1TU1YddlnHPU5j/Zf9LHYYHz313/xDqbZSGyv
-MIME-Version: 1.0
-X-Received: by 2002:a05:6e02:1303:b0:302:4f58:bcab with SMTP id
- g3-20020a056e02130300b003024f58bcabmr580521ilr.313.1668259761064; Sat, 12 Nov
- 2022 05:29:21 -0800 (PST)
-Date: Sat, 12 Nov 2022 05:29:21 -0800
-In-Reply-To: <000000000000734a7305ed3608ba@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000073937205ed45fe5c@google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E130F800E5;
+ Sat, 12 Nov 2022 14:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E130F800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qh3OumoF"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CB1FA601BD;
+ Sat, 12 Nov 2022 13:35:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FA8C433C1;
+ Sat, 12 Nov 2022 13:35:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668260112;
+ bh=hVeujgpbsR+OV5+KCHpDO/ek0DALY7aOLmsd6J8rfNQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qh3OumoFGbOnAzu35kkwGg5ppRqSBWdZzlwJ3s+z6MB7BsUoV8yCg8PhnkgM59sqy
+ X54DczvP2IAfvmpSnc92o6a+fmA8/Apntn6TbYeDoV8AKt/J/ysM6/wyfyZ773LVNt
+ EA++t0H/RPrttGx/YqdXn/tPlgC915EQckWBBjZk28SDupaCt19pe6pU4NSsqqsakT
+ 6hKKJSvLttMxkIxoKKf7ZSLauOUs95MbrugpyQ0Oyquf9wbxBUMG9tTSX8HXr1QAYX
+ 4j0uyqTb1xP4NcBdcFfO5ful0CM/QUuBp8qoh4FfGuxQ8JB2w9Hw8KnfvvDbK9sq9i
+ TouOJvS704/bA==
+Date: Sat, 12 Nov 2022 13:35:06 +0000
+From: Mark Brown <broonie@kernel.org>
+To: syzbot <syzbot+9abda841d636d86c41da@syzkaller.appspotmail.com>
 Subject: Re: [syzbot] WARNING in snd_usbmidi_output_open
-From: syzbot <syzbot+9abda841d636d86c41da@syzkaller.appspotmail.com>
-To: alsa-devel-owner@alsa-project.org, alsa-devel@alsa-project.org, 
- broonie@kernel.org, clemens@ladisch.de, gregkh@linuxfoundation.org, 
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, peda@axentia.se, 
- perex@perex.cz, rafael@kernel.org, syzkaller-bugs@googlegroups.com, 
- tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Sat, 12 Nov 2022 15:11:54 +0100
+Message-ID: <Y2+hCnVYWHuROAEF@sirena.org.uk>
+References: <000000000000734a7305ed3608ba@google.com>
+ <00000000000073937205ed45fe5c@google.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/RS2WdliLAVa+DOF"
+Content-Disposition: inline
+In-Reply-To: <00000000000073937205ed45fe5c@google.com>
+X-Cookie: Sleep is for the weak and sickly.
+Cc: alsa-devel@alsa-project.org, rafael@kernel.org, gregkh@linuxfoundation.org,
+ tiwai@suse.com, clemens@ladisch.de, lgirdwood@gmail.com,
+ alsa-devel-owner@alsa-project.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, peda@axentia.se
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,25 +89,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-syzbot has bisected this issue to:
 
-commit 4f8ed19593872b710f27bbc3b7a9ce03310efc57
-Author: Mark Brown <broonie@kernel.org>
-Date:   Thu Jun 2 13:10:58 2022 +0000
+--/RS2WdliLAVa+DOF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    ASoC: tfa9879: Use modern ASoC DAI format terminology
+On Sat, Nov 12, 2022 at 05:29:21AM -0800, syzbot wrote:
+> syzbot has bisected this issue to:
+>=20
+> commit 4f8ed19593872b710f27bbc3b7a9ce03310efc57
+> Author: Mark Brown <broonie@kernel.org>
+> Date:   Thu Jun 2 13:10:58 2022 +0000
+>=20
+>     ASoC: tfa9879: Use modern ASoC DAI format terminology
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17433e69880000
-start commit:   f8f60f322f06 Add linux-next specific files for 20221111
-git tree:       linux-next
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=14c33e69880000
-console output: https://syzkaller.appspot.com/x/log.txt?x=10c33e69880000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85ba52c07cd97289
-dashboard link: https://syzkaller.appspot.com/bug?extid=9abda841d636d86c41da
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=160e91fa880000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=161d3e69880000
+This bisection really doesn't seem credible for an issue in a different
+driver...  The tfa9879 is neither a USB nor MIDI device, and the commit
+in question is a stylistic update.
 
-Reported-by: syzbot+9abda841d636d86c41da@syzkaller.appspotmail.com
-Fixes: 4f8ed1959387 ("ASoC: tfa9879: Use modern ASoC DAI format terminology")
+--/RS2WdliLAVa+DOF
+Content-Type: application/pgp-signature; name="signature.asc"
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNvoQkACgkQJNaLcl1U
+h9BMbQf/Tqra5Lp05g+IVNIpqu8jemjvb4459Sw7r0DMv8JsgIgIMOcucoXt0VT0
+pZ9x8JXtgM9t61pG+2I6a3OGDrHHHnZxpuEUTkAuGb0yZlh8s71658kiDAvAgQpm
+iCl5MEYpl0aoia5oy+VoEJQ3//Y7/8xMM0IKst61OKmod/XcjVOB1qmGexW3ZDBq
+e5iy7Hf7M9D6ZzaPmJHOqwUvXEmozUW06G+1wLcqzAQnAxT6Q/HDqMW8HR624KhK
+VuPS2iF8JYCvHPiy9kDYuZyKMb1a71VfRYkgR3sn0Zc2KKbQ7WrfEe9yRFjgo0j+
+E0FuF257SOTFiyVcKnqSFlxn7WTcuQ==
+=7btB
+-----END PGP SIGNATURE-----
+
+--/RS2WdliLAVa+DOF--

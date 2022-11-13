@@ -2,59 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F756270C2
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Nov 2022 17:37:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB376270C5
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Nov 2022 17:38:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87645161E;
-	Sun, 13 Nov 2022 17:36:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87645161E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C8B41679;
+	Sun, 13 Nov 2022 17:37:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C8B41679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668357426;
-	bh=W5QdC0UYWPKvqMtbg1qg/JoTO7vqhC89hIDd6iN5xQM=;
+	s=default; t=1668357481;
+	bh=It3KB89UV6GNxTkVS4rPQ/SG/EiFjUHtiBNrshJgRmg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XAogP/Ct2Q7hPDFnmrmzwcedXxrDjpXIAdNu9xtRAD6uOVkmINYEp4ktnNJz6bp/d
-	 nrK0UIQpOqv7NvHpRkKQI82oO4lXHxEyqXLMWDz3vRzG//EU/9ORv0sloD48C/CeiT
-	 2HDoNIAlzMuNEp732QOwsQFNTKnWJeYvukniOUlg=
+	b=aBdIUzNSn61ddGZo+eOrftk79S5X5gd8nCEzXCjYNDpdNVN6vY2Ij39GVTJgvF4Yp
+	 4Lepmu0M5yi9HGRPaXp8psiRki8FXVvQn6pp997y/ogXsXqb6i52rRwQz6itK7Imqw
+	 j8uqNLQ3e6ztS1MOsgIOEh3LsHhXzEMxjkhCpqbk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20725F8049C;
-	Sun, 13 Nov 2022 17:36:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A857DF80557;
+	Sun, 13 Nov 2022 17:36:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1797EF8049C; Sun, 13 Nov 2022 17:36:09 +0100 (CET)
+ id E9D6DF8055A; Sun, 13 Nov 2022 17:36:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C96F9F80245
- for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 17:36:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C96F9F80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29AF6F80557
+ for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 17:36:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29AF6F80557
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="mi1i5xYt"
+ header.b="uXVEEcm5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=rczvEohbP4Tuhdub3uBqOVXlkIWc5YOmLPmvA8PuHak=; b=mi1i5xYt2RJoyJDrEBDhZI+XcY
- a8Cf8kDgenb+pSjOQ0whpICnRG0uph9i16Ml8EV60aZwINhPhEsroDGa6eSGkNZHDAC+BqFND4LJV
- R/yXCIbc/z5bgxST/jYUBNPmh83FDvn3rEufPr8KXKJQurOVrEqGM7diEbLXQpzM2zRr2fUhCKcVB
- CoBXdX5M2T/A/IBmgcD2ta5i4AjE/zCEqeG6NxQyJb2lQEHrk74bjgutlpwxa2x4fCHYwIMJdG2qg
- 9hN75DQ0rOViioGJqAhzT65rDB1G39BT+G1rOCR83F/K1FZbqGxeWtXhmBrdU5sbV6jY7dCp6iv+U
- lYx9tjxA==;
+ bh=IZIXQnSGcHYeM4XJWAJat9lbPLpIQMPCw7wwtVshmX8=; b=uXVEEcm5gNDlzy32h/Z90s3u66
+ L9AFXb3lYOW33nsHgdUJhj2drBZbUy/yrtfv5+jlSl16oZ2K0eUrstr4/vkAOMDeK0YRcE0vpuXRB
+ T7yNkNTfybeOTC2ZzcNUHoPpb1Rw7oCMKLnkaHwulVzTV1oEu9GTjmIoI467k0/4Tbae96MmpZNwB
+ Mef6tL8fexZfMSjajxytehZa28hwRmsizcTReO6x0yMiaLaSvOdXG4oRf1DXvTmlV20+2llg3MTZ4
+ aZVZsV9nOXU1Xxo7WUU+Y73zq1wo50jxwwpOh4ju6HzoH6lb8zPu54zWSFeJ1poQ8JWYZNDyayNMI
+ 2cTpXJOQ==;
 Received: from 213-225-8-167.nat.highway.a1.net ([213.225.8.167]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ouFxW-00CLT0-00; Sun, 13 Nov 2022 16:35:50 +0000
+ id 1ouFxa-00CLUM-DA; Sun, 13 Nov 2022 16:35:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -63,10 +63,10 @@ To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Russell King <linux@armlinux.org.uk>, Robin Murphy <robin.murphy@arm.com>
-Subject: [PATCH 2/7] RDMA/hfi1: don't pass bogus GFP_ flags to
+Subject: [PATCH 3/7] RDMA/qib: don't pass bogus GFP_ flags to
  dma_alloc_coherent
-Date: Sun, 13 Nov 2022 17:35:30 +0100
-Message-Id: <20221113163535.884299-3-hch@lst.de>
+Date: Sun, 13 Nov 2022 17:35:31 +0100
+Message-Id: <20221113163535.884299-4-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221113163535.884299-1-hch@lst.de>
 References: <20221113163535.884299-1-hch@lst.de>
@@ -99,49 +99,63 @@ for an allocation that can't in any way be converted to a page pointer.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/infiniband/hw/hfi1/init.c | 21 +++------------------
- 1 file changed, 3 insertions(+), 18 deletions(-)
+ drivers/infiniband/hw/qib/qib_iba6120.c |  2 +-
+ drivers/infiniband/hw/qib/qib_init.c    | 21 ++++-----------------
+ 2 files changed, 5 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/init.c b/drivers/infiniband/hw/hfi1/init.c
-index 436372b314312..24c0f0d257fc9 100644
---- a/drivers/infiniband/hw/hfi1/init.c
-+++ b/drivers/infiniband/hw/hfi1/init.c
-@@ -1761,17 +1761,11 @@ int hfi1_create_rcvhdrq(struct hfi1_devdata *dd, struct hfi1_ctxtdata *rcd)
- 	unsigned amt;
+diff --git a/drivers/infiniband/hw/qib/qib_iba6120.c b/drivers/infiniband/hw/qib/qib_iba6120.c
+index aea571943768b..07386117f21ad 100644
+--- a/drivers/infiniband/hw/qib/qib_iba6120.c
++++ b/drivers/infiniband/hw/qib/qib_iba6120.c
+@@ -2075,7 +2075,7 @@ static void alloc_dummy_hdrq(struct qib_devdata *dd)
+ 	dd->cspec->dummy_hdrq = dma_alloc_coherent(&dd->pcidev->dev,
+ 					dd->rcd[0]->rcvhdrq_size,
+ 					&dd->cspec->dummy_hdrq_phys,
+-					GFP_ATOMIC | __GFP_COMP);
++					GFP_ATOMIC);
+ 	if (!dd->cspec->dummy_hdrq) {
+ 		qib_devinfo(dd->pcidev, "Couldn't allocate dummy hdrq\n");
+ 		/* fallback to just 0'ing */
+diff --git a/drivers/infiniband/hw/qib/qib_init.c b/drivers/infiniband/hw/qib/qib_init.c
+index 45211008449fb..33667becd52b0 100644
+--- a/drivers/infiniband/hw/qib/qib_init.c
++++ b/drivers/infiniband/hw/qib/qib_init.c
+@@ -1546,18 +1546,14 @@ int qib_create_rcvhdrq(struct qib_devdata *dd, struct qib_ctxtdata *rcd)
  
  	if (!rcd->rcvhdrq) {
+ 		dma_addr_t phys_hdrqtail;
 -		gfp_t gfp_flags;
--
- 		amt = rcvhdrq_size(rcd);
  
--		if (rcd->ctxt < dd->first_dyn_alloc_ctxt || rcd->is_vnic)
--			gfp_flags = GFP_KERNEL;
--		else
--			gfp_flags = GFP_USER;
- 		rcd->rcvhdrq = dma_alloc_coherent(&dd->pcidev->dev, amt,
- 						  &rcd->rcvhdrq_dma,
--						  gfp_flags | __GFP_COMP);
-+						  GFP_KERNEL);
+ 		amt = ALIGN(dd->rcvhdrcnt * dd->rcvhdrentsize *
+ 			    sizeof(u32), PAGE_SIZE);
+-		gfp_flags = (rcd->ctxt >= dd->first_user_ctxt) ?
+-			GFP_USER : GFP_KERNEL;
+ 
+ 		old_node_id = dev_to_node(&dd->pcidev->dev);
+ 		set_dev_node(&dd->pcidev->dev, rcd->node_id);
+-		rcd->rcvhdrq = dma_alloc_coherent(
+-			&dd->pcidev->dev, amt, &rcd->rcvhdrq_phys,
+-			gfp_flags | __GFP_COMP);
++		rcd->rcvhdrq = dma_alloc_coherent(&dd->pcidev->dev, amt,
++				&rcd->rcvhdrq_phys, GFP_KERNEL);
+ 		set_dev_node(&dd->pcidev->dev, old_node_id);
  
  		if (!rcd->rcvhdrq) {
- 			dd_dev_err(dd,
-@@ -1785,7 +1779,7 @@ int hfi1_create_rcvhdrq(struct hfi1_devdata *dd, struct hfi1_ctxtdata *rcd)
- 			rcd->rcvhdrtail_kvaddr = dma_alloc_coherent(&dd->pcidev->dev,
- 								    PAGE_SIZE,
- 								    &rcd->rcvhdrqtailaddr_dma,
--								    gfp_flags);
-+								    GFP_KERNEL);
+@@ -1577,7 +1573,7 @@ int qib_create_rcvhdrq(struct qib_devdata *dd, struct qib_ctxtdata *rcd)
+ 			set_dev_node(&dd->pcidev->dev, rcd->node_id);
+ 			rcd->rcvhdrtail_kvaddr = dma_alloc_coherent(
+ 				&dd->pcidev->dev, PAGE_SIZE, &phys_hdrqtail,
+-				gfp_flags);
++				GFP_KERNEL);
+ 			set_dev_node(&dd->pcidev->dev, old_node_id);
  			if (!rcd->rcvhdrtail_kvaddr)
  				goto bail_free;
- 		}
-@@ -1821,19 +1815,10 @@ int hfi1_setup_eagerbufs(struct hfi1_ctxtdata *rcd)
- {
- 	struct hfi1_devdata *dd = rcd->dd;
- 	u32 max_entries, egrtop, alloced_bytes = 0;
+@@ -1621,17 +1617,8 @@ int qib_setup_eagerbufs(struct qib_ctxtdata *rcd)
+ 	struct qib_devdata *dd = rcd->dd;
+ 	unsigned e, egrcnt, egrperchunk, chunk, egrsize, egroff;
+ 	size_t size;
 -	gfp_t gfp_flags;
- 	u16 order, idx = 0;
- 	int ret = 0;
- 	u16 round_mtu = roundup_pow_of_two(hfi1_max_mtu);
+ 	int old_node_id;
  
 -	/*
 -	 * GFP_USER, but without GFP_FS, so buffer cache can be
@@ -151,18 +165,18 @@ index 436372b314312..24c0f0d257fc9 100644
 -	 */
 -	gfp_flags = __GFP_RECLAIM | __GFP_IO | __GFP_COMP;
 -
- 	/*
- 	 * The minimum size of the eager buffers is a groups of MTU-sized
- 	 * buffers.
-@@ -1864,7 +1849,7 @@ int hfi1_setup_eagerbufs(struct hfi1_ctxtdata *rcd)
- 			dma_alloc_coherent(&dd->pcidev->dev,
- 					   rcd->egrbufs.rcvtid_size,
- 					   &rcd->egrbufs.buffers[idx].dma,
+ 	egrcnt = rcd->rcvegrcnt;
+ 	egroff = rcd->rcvegr_tid_base;
+ 	egrsize = dd->rcvegrbufsize;
+@@ -1663,7 +1650,7 @@ int qib_setup_eagerbufs(struct qib_ctxtdata *rcd)
+ 		rcd->rcvegrbuf[e] =
+ 			dma_alloc_coherent(&dd->pcidev->dev, size,
+ 					   &rcd->rcvegrbuf_phys[e],
 -					   gfp_flags);
 +					   GFP_KERNEL);
- 		if (rcd->egrbufs.buffers[idx].addr) {
- 			rcd->egrbufs.buffers[idx].len =
- 				rcd->egrbufs.rcvtid_size;
+ 		set_dev_node(&dd->pcidev->dev, old_node_id);
+ 		if (!rcd->rcvegrbuf[e])
+ 			goto bail_rcvegrbuf_phys;
 -- 
 2.30.2
 

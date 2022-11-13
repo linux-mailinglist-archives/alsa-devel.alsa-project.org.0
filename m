@@ -2,59 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3EE6270C8
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Nov 2022 17:38:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AC946270DC
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Nov 2022 17:39:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED15D1692;
-	Sun, 13 Nov 2022 17:38:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED15D1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA51C161F;
+	Sun, 13 Nov 2022 17:38:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA51C161F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668357534;
-	bh=OTezillKlcB8Vkuqw7RZFvHMUUqnzBvpbPLO+38ltrU=;
+	s=default; t=1668357551;
+	bh=sYWUWp0pvVr5VbMTUzVUFKzZJVwNStjyV6NpQd3STHg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tf0zKR3ZnK+SuTJ9nP4URYCOBBlIY0Pg990D33nqOUZuxz8lOXzNQbGBLXuIsdGpU
-	 r9vE9nufsiDaoWouO0Vhleq1SVve/bbtg706shcDwSurdn0iqaoZ4G8IhgaNDepkaf
-	 jQ/g8ZhNw0A4ofaAhxrxJYPtS8A1su4ltOfwwObU=
+	b=k5rs3Vz2W24xKUm9cJoJjTWhxFkv+IbMwBKa1vGZkDYPffknzU/Bvkm29IoMyO9t8
+	 6mw/Cy2SVz+u84mOAnnUqiL1txckuFPcMzn/0ihrHhGTYgmPp8fFUkbGjwK3NQnoE5
+	 rSThQKqSWc0YXHxhNNl4DYqHdhrf12w6iznqe3es=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7335F8056F;
-	Sun, 13 Nov 2022 17:36:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 420A6F80589;
+	Sun, 13 Nov 2022 17:36:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FA10F8057F; Sun, 13 Nov 2022 17:36:30 +0100 (CET)
+ id 997F1F80589; Sun, 13 Nov 2022 17:36:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A9C2F8056F
- for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 17:36:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A9C2F8056F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E052F80580
+ for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 17:36:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E052F80580
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="gBRLp/Wq"
+ header.b="D+OjBUBf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=FrKTW2jC/YO2/WPGYjBN4j0fLdu07wAq+vKIs1aTDt0=; b=gBRLp/Wqhnjj7vSyEDOzq1Ylp/
- 6Tf29mv6KdGs4oNOLvYvc+/P60fwD/5ZTPU1/lbVLUsLtkJHRo+qtCUeCUVDGDwzhgNISfn0/6nLO
- X3FJ9CEAE8Cr1sflf5EKKHZzHKr8gSwKQbSij8Ga6biPZMe9g2nOdftFxwZ4W9Os6Bg/9VkG2urxB
- jHSeUJFjQt3sIRtU+TQN9owu8fgaAS4h7UrV/RvQuyO4+qYsqpKmWMw9vuOP0VcFh6W1TLNlHZ9pa
- N3pPIyId+IGhiNqGFElCB72ffRIGv8YFFQCvUdzCuJhCXItuM/3LKuzCbFOxiD36TC3p36SrAUCVE
- itKktNFA==;
+ bh=bm9iJk+kVC/i+ZASfRIM102pV+AxG+Ji6MRA8D8G/hY=; b=D+OjBUBfCQQK7BJwONwAEfMW1V
+ 8jRN6GgBR+VrL0tS3XZiRQ9Izl/KLvRdOZNqOKO2oIvVjbiEGO1c1mbTInhWzw5wANb8webd1H6p5
+ 4/cHh9i8I5M7GvWwpaoJptq5AjmQRt8Uvmx0I5RXPXAGTwzpOau/gcI90NjYFBjagiMm2ZQ5k22MD
+ 7he1X8jQVE3y/TPsjx6SSpehg1Wx7QAkYIJ9T/fxBFt3LhOvqAFBSPxj82bVviM8XSUfaM+n1JJeB
+ F3Tse+cErMM0s3ZTGzoBDhUF3xq2vcmDdNxALOObw3iQy8FqQtrGg2svEfAxxHzAdX4NFzYvz8ba/
+ OKZme3wA==;
 Received: from 213-225-8-167.nat.highway.a1.net ([213.225.8.167]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ouFxn-00CLab-8i; Sun, 13 Nov 2022 16:36:08 +0000
+ id 1ouFxr-00CLdm-QM; Sun, 13 Nov 2022 16:36:12 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -63,9 +64,9 @@ To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Russell King <linux@armlinux.org.uk>, Robin Murphy <robin.murphy@arm.com>
-Subject: [PATCH 6/7] ALSA: memalloc: don't pass bogus GFP_ flags to dma_alloc_*
-Date: Sun, 13 Nov 2022 17:35:34 +0100
-Message-Id: <20221113163535.884299-7-hch@lst.de>
+Subject: [PATCH 7/7] dma-mapping: reject __GFP_COMP in dma_alloc_attrs
+Date: Sun, 13 Nov 2022 17:35:35 +0100
+Message-Id: <20221113163535.884299-8-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221113163535.884299-1-hch@lst.de>
 References: <20221113163535.884299-1-hch@lst.de>
@@ -91,50 +92,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-dma_alloc_coherent/dma_alloc_wc is an opaque allocator that only uses
-the GFP_ flags for allocation context control.  Don't pass __GFP_COMP
-which makes no sense for an allocation that can't in any way be
-converted to a page pointer.
+DMA allocations can never be turned back into a page pointer, so
+requesting compound pages doesn't make sense and it can't even be
+supported at all by various backends.
 
-Note that for dma_alloc_noncoherent and dma_alloc_noncontigous in
-combination with the DMA mmap helpers __GFP_COMP looks sketchy as well,
-so I would suggest to drop that as well after a careful audit.
+Reject __GFP_COMP with a warning in dma_alloc_attrs, and stop clearing
+the flag in the arm dma ops and dma-iommu.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- sound/core/memalloc.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ arch/arm/mm/dma-mapping.c | 17 -----------------
+ drivers/iommu/dma-iommu.c |  3 ---
+ kernel/dma/mapping.c      |  8 ++++++++
+ 3 files changed, 8 insertions(+), 20 deletions(-)
 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 03cffe7713667..fe03cf796e8bb 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -20,7 +20,6 @@
+diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+index d7909091cf977..c135f6e37a00c 100644
+--- a/arch/arm/mm/dma-mapping.c
++++ b/arch/arm/mm/dma-mapping.c
+@@ -564,14 +564,6 @@ static void *__dma_alloc(struct device *dev, size_t size, dma_addr_t *handle,
+ 	if (mask < 0xffffffffULL)
+ 		gfp |= GFP_DMA;
  
- #define DEFAULT_GFP \
- 	(GFP_KERNEL | \
--	 __GFP_COMP |    /* compound page lets parts be mapped */ \
- 	 __GFP_RETRY_MAYFAIL | /* don't trigger OOM-killer */ \
- 	 __GFP_NOWARN)   /* no stack trace print - this call is non-critical */
+-	/*
+-	 * Following is a work-around (a.k.a. hack) to prevent pages
+-	 * with __GFP_COMP being passed to split_page() which cannot
+-	 * handle them.  The real problem is that this flag probably
+-	 * should be 0 on ARM as it is not supported on this
+-	 * platform; see CONFIG_HUGETLBFS.
+-	 */
+-	gfp &= ~(__GFP_COMP);
+ 	args.gfp = gfp;
  
-@@ -542,7 +541,7 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	void *p;
+ 	*handle = DMA_MAPPING_ERROR;
+@@ -1093,15 +1085,6 @@ static void *arm_iommu_alloc_attrs(struct device *dev, size_t size,
+ 		return __iommu_alloc_simple(dev, size, gfp, handle,
+ 					    coherent_flag, attrs);
  
- 	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
--				      DEFAULT_GFP, 0);
-+				      DEFAULT_GFP | __GFP_COMP, 0);
- 	if (!sgt) {
- #ifdef CONFIG_SND_DMA_SGBUF
- 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
-@@ -810,7 +809,7 @@ static void *snd_dma_noncoherent_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	void *p;
+-	/*
+-	 * Following is a work-around (a.k.a. hack) to prevent pages
+-	 * with __GFP_COMP being passed to split_page() which cannot
+-	 * handle them.  The real problem is that this flag probably
+-	 * should be 0 on ARM as it is not supported on this
+-	 * platform; see CONFIG_HUGETLBFS.
+-	 */
+-	gfp &= ~(__GFP_COMP);
+-
+ 	pages = __iommu_alloc_buffer(dev, size, gfp, attrs, coherent_flag);
+ 	if (!pages)
+ 		return NULL;
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 9297b741f5e80..f798c44e09033 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -744,9 +744,6 @@ static struct page **__iommu_dma_alloc_pages(struct device *dev,
+ 	/* IOMMU can map any pages, so himem can also be used here */
+ 	gfp |= __GFP_NOWARN | __GFP_HIGHMEM;
  
- 	p = dma_alloc_noncoherent(dmab->dev.dev, size, &dmab->addr,
--				  dmab->dev.dir, DEFAULT_GFP);
-+				  dmab->dev.dir, DEFAULT_GFP | __GFP_COMP);
- 	if (p)
- 		dmab->dev.need_sync = dma_need_sync(dmab->dev.dev, dmab->addr);
- 	return p;
+-	/* It makes no sense to muck about with huge pages */
+-	gfp &= ~__GFP_COMP;
+-
+ 	while (count) {
+ 		struct page *page = NULL;
+ 		unsigned int order_size;
+diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+index 33437d6206445..c026a5a5e0466 100644
+--- a/kernel/dma/mapping.c
++++ b/kernel/dma/mapping.c
+@@ -498,6 +498,14 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+ 
+ 	WARN_ON_ONCE(!dev->coherent_dma_mask);
+ 
++	/*
++	 * DMA allocations can never be turned back into a page pointer, so
++	 * requesting compound pages doesn't make sense (and can't even be
++	 * supported at all by various backends).
++	 */
++	if (WARN_ON_ONCE(flag & __GFP_COMP))
++		return NULL;
++
+ 	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr))
+ 		return cpu_addr;
+ 
 -- 
 2.30.2
 

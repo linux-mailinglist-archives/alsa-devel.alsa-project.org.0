@@ -2,187 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70762628480
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 17:00:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49FD26284DC
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 17:17:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5C2B1666;
-	Mon, 14 Nov 2022 16:59:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5C2B1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id D62231674;
+	Mon, 14 Nov 2022 17:16:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62231674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668441621;
-	bh=AhTyH+1CH3sKTBhdIn7cBrBFaXtDBDlw3g9t8yT299c=;
+	s=default; t=1668442665;
+	bh=++d+b9y7C1ZlnSJ0+RBzklvGqhH0Chu/OZ0XeO1oXZ4=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jwqlKPiUORz1dRE2Cuy10Kuxw8+6x1uDVQ2CmRiH0rfWkY6/pPG4BZbTzZmmYARu4
-	 Qulf0R7uTIdRDiWizMykN7zUUudwe0J17KUWp/03Z13mFTG7iUAZrgf/DKIa/VQEee
-	 QGXsFQ5wEL2Hc9BRaFZGq9cZdXDKg4ohifsjyQaU=
+	b=o4bitEoKzMkH7lV5zGTKCu422BXpdNkKgVuU2G+8kNMFIpESiVBVx6IqpCZ3LhqCM
+	 B9GitJcoMCiGxrNeEbnYGHbSvc8/aNzhDRkEE7Y/cfgJ4tGo0BaaKig1eWwXrHNojF
+	 nVBHzxSoKbnIeIeQ8+ZKYSw4nluxURaSZxoEknR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F98FF800B8;
-	Mon, 14 Nov 2022 16:59:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E036F8049E;
+	Mon, 14 Nov 2022 17:16:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2354F80431; Mon, 14 Nov 2022 16:59:23 +0100 (CET)
+ id 03318F8049E; Mon, 14 Nov 2022 17:16:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,RCVD_IN_DNSWL_MED,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95C44F800B8
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 16:59:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95C44F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78E91F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 17:16:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78E91F800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="BTw7xMID"
+ header.b="AGG70NSN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668441561; x=1699977561;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=AhTyH+1CH3sKTBhdIn7cBrBFaXtDBDlw3g9t8yT299c=;
- b=BTw7xMIDyDRFVAUVYPhJA+CeNrekDeSJ+MEC5ljVxW3wntNTA0SNf91d
- pwzFWoI++hLBxd4yaMGwqXtvkB6H66xougR71eOmJyHrVNGnHfuXYDe/y
- sD6oRnKLar02XJbgLRJIxpl64KWSfC8LRwxS6SYKv6R4WdKpgQsU9ea/H
- rDtjMjd+F9UGv8RI/OUNXfyDWG0r9dIaJqMafx41M2CofJ+ulZrGriVyj
- ltmLkBQaPZKEFjTmq2ES3sRbGOHUT0F1ykPXtpj+1hcqfD1OFfbcyK4HE
- RldP/Uj1Ct2VvCVI1BXx+E0jEncsymXUX6qkdrCPIECRPrY51Jv8M3EV9 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="310713298"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="310713298"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:59:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="702055479"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="702055479"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by fmsmga008.fm.intel.com with ESMTP; 14 Nov 2022 07:59:15 -0800
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 14 Nov 2022 07:59:14 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 14 Nov 2022 07:59:14 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Mon, 14 Nov 2022 07:59:14 -0800
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.43) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Mon, 14 Nov 2022 07:59:07 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DcDl20XTbpXdrjTyH1V8bVcapsOzWAvJGdY0SGnLg/AsU80yCv4PwU0zv3e5mnibw7r08X8qEIzeXPhymLxtcMHI4TzL5MGpB1Lja1R1m2nZ6jmHk+avNNbAjjXTW07jwuf32czxqVD7m+5eUrl76PL/gBtHYHJa/8+dPph6KUbpKdV04q1E9Kn5USKzlps4vVQKDNlrp6HLyHKcggB1Fzu+Z+6Qlh/CNaa3dqc8G2d7gKEApW9gO4CPRO6F1nWKVW7CkIaL3qHhoeJEIfdTNX7bZaphWDP06zt5X+9h7ASx2VW2+IqYGXeu2Rs+JipwpCkuOIoHTJ/2+fGFT6blzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rbSkYP2l7p6CaxlV+Jf2zrWilrrnuPZePIicaAgfHc4=;
- b=bxqGxJoN++WY4oY7Ear1CSCcAygU+lBmj/Z+O4jXPAYhLApd6q9HIiMfqOrwG7/JxlOvkyyDORQi+zaxjM3bGcBUH4rvhjMYp/x5mfYfaxSmvsgfkIbR+l6by/9J7wCEU16Qg7AHJiYYdPsYIicQIREU9IUVfUsgmxx699nACWV0RV8SEdT/jyyCalME/HCTQVddqV69Pzmj8p++5CInHWdc6OWYcd0UUdcq/dVHH2trE60aTBToJR1PHwEWMKrLKxQEbZfEXCEtnidZmbL3GC9LyKjbSuj1/ys4yKvt56FodHTgYx4JeS62o1mj/befrVKfJLWcC4EpvMkOIH6rHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- MN2PR11MB4551.namprd11.prod.outlook.com (2603:10b6:208:269::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5813.17; Mon, 14 Nov 2022 15:59:05 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::cea8:a6dd:9b7d:49ba]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::cea8:a6dd:9b7d:49ba%5]) with mapi id 15.20.5813.017; Mon, 14 Nov 2022
- 15:59:05 +0000
-Message-ID: <cd72e6a9-c862-768e-f060-dddd2c3a6bae@intel.com>
-Date: Mon, 14 Nov 2022 16:58:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v2 2/2] ASoC: Intel: avs: Disconnect substream if suspend
- or resume fails
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20221114113729.1022905-1-cezary.rojewski@intel.com>
- <20221114113729.1022905-3-cezary.rojewski@intel.com>
- <877czx4rkj.wl-tiwai@suse.de>
- <f6eb116b-e7a4-c95c-0fdc-01ffaa246bf5@intel.com>
- <87r0y5394v.wl-tiwai@suse.de>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <87r0y5394v.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::13) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+ t=1668442603; x=1699978603;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=++d+b9y7C1ZlnSJ0+RBzklvGqhH0Chu/OZ0XeO1oXZ4=;
+ b=AGG70NSNwCC/EbSOtztHF5DSKO4bI+x45o7YJNxYjC9N5qs4UUzBlbFm
+ F9x3uIhw9kxOhKmWfwmhQ5L4pyEwvVFM8TqBfMdmfJpgKZWLfCKhyzfDL
+ s84Ii3QwFNoIWxP3kt/A+olBSp3ZQqeolBaWE/pLSKjmBUyXps/iTCSmI
+ O+/mP4SeVxbCGfbvw3527MpILmAceef+hAXLcAAs6uZggErNBXmXg7/Cz
+ DfN9wQuaYkayQcMi4r8VLi0HNDEQaxm4HXstEiZkJYXbiusQiu/LY3mBE
+ ksqOuI+BazydSNKj+KuhkPuVa4oVMhQASgFCJVd0vzXF5eu8tHPn2bDDI Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398301395"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398301395"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 08:16:37 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="638542498"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="638542498"
+Received: from scewbso01.amr.corp.intel.com (HELO [10.212.76.77])
+ ([10.212.76.77])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 08:16:35 -0800
+Message-ID: <9d701845-7ad1-046c-b7c2-dd2a131212c8@linux.intel.com>
+Date: Mon, 14 Nov 2022 10:04:55 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|MN2PR11MB4551:EE_
-X-MS-Office365-Filtering-Correlation-Id: 540a95b3-dce4-429d-e299-08dac659282a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fZYKSFuYdQx3NRrf1vSI5fzKduKWBb8ooXlsx5LIs6YcnVFFCJ4qbflUeNVsQpNsrnFrLbU90/XTSQbuk9vclup7bN4t9rnESo98EDhQQ5R+7cDpbxe5vXezZOV65SMVME8q/BLEwOJN0VyVQD3BuVy00TUx/MKwTuGWJ4Dndg2xUG4yFblvl9gBDq7lwAGXgcd+kF3py0CQH7W48aXaQU2SNqnw74XdxP4JcSB6hkCqkiMebHIllqyeXTOZTJ4hkVTnG+8SQNkUMCCaTXPXplgq61UCRrCsIsDDB08T/FS8YHRdKXDiyvNovZ/jHEcB+l+RecV/H31rexjwajw6Ug5Sn8B3LOAOVzUKxCwZC80m9LK9iEnQ3FKh3iQZgO4O0JVhAKH5oEg5xmQRprUXnxDJQk+1zkWdhmmZMi0JkRsB+PKsaxffn5n8mjH7x+NVfl5gSVOG0hOOSj3Yj8oRqTfu1TSQKpMn+IGfiZBuky1/qlbUTstqOSo79a2I+rZ/0a7L/Y9vFYs2xNCNEEYZrLNNfojLROC2OwB20zTwZNE5X4RstXtC7LsLg3s6LrRLIhmomYC20Av4i3ODFgKmt0kW4FvPsAqBBa76pM4o51Ek3duBPdQNUtryNAbUYnt6B4JGmS4rZNTPu9zFYIsAHwOMSc9znnBEEz+QjnhFQ5j+qqySzT3P++0l2w+wc3tMIV9EMJ1u3kwDVRGE6F6NilyxwoThQQNJnWZ0E9EfH7yJJCBLC+MJjutO3qai0ZgukwCUPcit1OpPETFOBx1XG3Do4jJyZ9cV/RWv/dL6FCo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(346002)(39860400002)(376002)(366004)(136003)(396003)(451199015)(66946007)(26005)(4326008)(8676002)(44832011)(66476007)(6512007)(36756003)(66556008)(8936002)(2616005)(186003)(5660300002)(41300700001)(316002)(82960400001)(31696002)(53546011)(86362001)(38100700002)(83380400001)(4001150100001)(2906002)(31686004)(6486002)(6666004)(6506007)(6916009)(478600001)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1BwbE1CKzB2dTgwZlJHeis5b2R6YWVTcUdVNXlhS245Tko4bUFxM2ZDNWdT?=
- =?utf-8?B?amxtR0NtaHhTOFZyRldIRCsxK2FpOW1jZjFCT1MrNE5JS1ZzR1o2dkI2b3J1?=
- =?utf-8?B?amVUTFlQcHV0MzFLaGg2TnF4MmhXc1B3SDZBMmFIenRaTGpyS1FKVGY3ZnE3?=
- =?utf-8?B?Y1F3N0NLdjVNTXAzQW1qdENIdHBVeEw5WmtPbFR3SFJjdHlRK2JLYW5kS3py?=
- =?utf-8?B?VkZjV0prY1R3ajVOZzZydk15dGJkdkd5MGlCbWZlTFFadGgrU3RNelZwYUZa?=
- =?utf-8?B?dFd5WGlVbk5rSEhFRWYxOTRTOXdkSkN1WERPcnpXczZIZzVGb3NTZjFIeHhC?=
- =?utf-8?B?cTZPNS8yL2xJMjJHajNBSUhVRnhnRkRwRmhqZGdUOUxuTkV2cWI3aVFReXFE?=
- =?utf-8?B?amx1UCt5R2JQVE5oanFpYmc0Szdkb1Zndm1oZjQyV1BHR3E0ZFF0Z3NIbmxm?=
- =?utf-8?B?ZmdtTTdlbDF3MVlHVUtmSk9DMDlSMEhpVld4aVlHMHRzZE5qUGpDaUh1ZHM0?=
- =?utf-8?B?SEdKL2xzYy9ZR3hZeWNucnZLYzJJdmZBQU54QlQyRUlJUmhxd0FpeUd3Uy9n?=
- =?utf-8?B?UTlkNnl5d2JoK0FwdzhObmJnVzJuWEpyUVFaYmdaOC9tbXhLYlhFemtwdHNs?=
- =?utf-8?B?bUFIc3NjdGtiUnF4cXFsRGlockdPOUlGRW94ODZmRHE3NHB3dFk4akZqTEJx?=
- =?utf-8?B?Y0xDUVpLRmloSUxBRTZrVW1aWVA5ekdYNDN0eFlTSHRTcFN6cm5LbGxJN1Vs?=
- =?utf-8?B?U0psc1liTE1XeE1rMEFqcWlNQW9tUEYxL2RYWnZ3UTRLTnBtMkVLWUh4RTlM?=
- =?utf-8?B?Ukk5TURES1V0MzlpeS9McS9WWWx4L3J5Q08xMi9JZGd6U0F0ejh2aDA2bXNK?=
- =?utf-8?B?U3gyY0tDZ1RWN0ZIRythRTBmais2S3ozZkY0azVENUlYSWdzajIybVVUaFpG?=
- =?utf-8?B?RzFYYzZLZDl0WVcvS2dYTk9ySUdKTjdiSDNteG42bmNySitLMXZ0dW1JMDND?=
- =?utf-8?B?d1JnS3hlRW5GeEs0eHFPVkFhUjh5bWVNTXV2aEtvaVFLL093aXhxNDVva1NG?=
- =?utf-8?B?b0MzOVQrYytNd2hKS0VsM0xIVjAzZzlVK0l0RUk2RXoxSG9QUmFKMzVXK1Bv?=
- =?utf-8?B?c2VIeHhscGd3RnQ2QThBSmJqQmtTQndwTThvSWc2bWl0Nlh6K1RNZzJqL0Mw?=
- =?utf-8?B?UGh6UUM2WjIyamFzNGhPcUJyY0VKc1JMME9HVmpjL2tYM0M5WnE0VThwMjZX?=
- =?utf-8?B?RGhYd2hGTm1ZOCtkS3pndnBqcFR4cGFTVEtvWnJVUm4wbXY4Y0c1VjFyRTdp?=
- =?utf-8?B?OFRMckhNTDVzZkl3U3I1U1lRSUR2VERzM05VTHhIeVdMVVEzT1gvdng0ZnA2?=
- =?utf-8?B?S05IQ2lVcHhPeit5QktYRmtVL3Vjd1l6bHpzak00dGx2dEl5R25mdCs1N3BZ?=
- =?utf-8?B?clo2ZXpSMExqc1ZRRG5ybFQ4eDQvWUZxMVBaRTM1aU1xZm0raWlsa2w1b053?=
- =?utf-8?B?eFVTS3U4UVhkMVVzZmJhcEpReHQ5cmFqcHhrRFoyMDg4czYyZ291eHRUeU0r?=
- =?utf-8?B?TUliUlZHOHpmM1I5LytkVDNMUFRLQ3NwL1ZUbnNKWWNmYjBZYnUrYUhmTkxO?=
- =?utf-8?B?bE5RMzZYOWZNTHAxZ3g1ckR4OVppU3VHSXNQZmhzVjJoWWpkTU1sWWN0a1N2?=
- =?utf-8?B?VlJFdGYrVjFPZmdlT3ZrSGZYRmFMY0EyaFVwaGVMQndHQ1FhNWt3bDc3K2NK?=
- =?utf-8?B?ejhzZVV1TVZBQ05Fd2ZmRXVxRE05c3dOWC81bSt4Znkrbm01Nzk2Y2tFN1RT?=
- =?utf-8?B?YnRGKy9LUWhtRlZlcTErTkR4U2QwQjBWNzlnK1ZNKzFZRy8vOUUwNDFSSUsx?=
- =?utf-8?B?SlVnOXVxb3ZNQzFmS1YwQVV0Q2FQR3JUaUx6eEcxWGdsWjBiN3V6Q2ZyVDhM?=
- =?utf-8?B?UThobVlCaHMzUjFIK09YSEcwb0Z2QU4zd0NNcGZJZTBYa2w2Zk1ra3BSeUJD?=
- =?utf-8?B?ZHAvNFJ0UHc3ZTZsZFNJZ2VtYm5hRzVjSjFzOFdFTUdSSTM3SUhyR004YmpJ?=
- =?utf-8?B?dnNQcEFoU05FM2hrWnE4SHVHZ0k5N2tHYk56RUFmZXdCR2RDWit6OTNDVWhU?=
- =?utf-8?B?ZTBwTzh2eEN5bGNYRUU2TWtVOUxrZHpwb001a3pDK2orT3VlV25tdFd6SzU2?=
- =?utf-8?B?K0E9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 540a95b3-dce4-429d-e299-08dac659282a
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2022 15:59:05.6665 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ABOLr2V8wli0TSrekrV366pHuAV8A60244SlLVmjUzZ8fGjDcRwsiMiUnMw9/pfkEXvLXrsW+2DAU1E+/1SKyWL54TYpjcaMeQgh1vSfYv0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4551
-X-OriginatorOrg: intel.com
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 4/4] soundwire: stream: Move remaining register accesses
+ over to no_pm
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
+References: <20221114102956.914468-1-ckeepax@opensource.cirrus.com>
+ <20221114102956.914468-5-ckeepax@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20221114102956.914468-5-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -198,69 +96,174 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-11-14 3:26 PM, Takashi Iwai wrote:
-> On Mon, 14 Nov 2022 15:08:17 +0100,
-> Cezary Rojewski wrote:
->> On 2022-11-14 2:02 PM, Takashi Iwai wrote:
->>> Hm, that might work, but note that, once when the stream is set with
->>> the disconnected state, it won't be taken back to the normal state any
->>> longer on most sound backends.  That is, it'll be gone and won't
->>> revive unless you completely unload and reload the whole stuff.  If
->>> that's the intended behavior, that's fine, of course.  So just to make
->>> sure.
->>
->> Good point.
->>
->> Our intention: if we fail e.g.: on resume, we would like the framework
->> to invoke ->hw_free() and close us. Right now, if we pretend that
->> everything is okay, invalid actions can be performed on our
->> streams. This all comes down to userspace calling "just"
->> snd_pcm_resume(). If we had an option to opt-in to a _hw_params() +
->> _prepare() + _resume() path, then things would look differently.
+
+
+On 11/14/22 04:29, Charles Keepax wrote:
+> There is no need to play with the runtime reference everytime a register
+> is accessed. All the remaining "pm" style register accesses trace back
+> to 4 functions:
 > 
-> So you'd rather like to make the stream appearing and working after
-> re-opening the stream again?  Then DISCONNECTED state might be too
-> strong.
+> sdw_prepare_stream
+> sdw_deprepare_stream
+> sdw_enable_stream
+> sdw_disable_stream
 > 
-> If the broken state could be recovered by the PCM PREPARE phase, then
-> we may (ab-)use XRUN state, instead.  Then application shall
-> re-setup via PCM prepare call.  But if hw_free/hw_params is required,
-> it won't work.
-
-To resume properly an AudioDSP stream, operations typically found in 
-hw_params() and prepare() need to be re-executed _before_ actual 
-_TRIGGER_RESUME can be called on a stream.
-
-Since implementations found in userspace apps such as aplay and 
-pulseaudio first invoke snd_pcm_resume() and then snd_pcm_prepare() if 
-the former fails, one could abuse this flow by doing hw_params-related 
-operations in _resume() and returning a specific error code e.g.: 
--ESTRPIPE when they succeed (if they fail, the internal error code would 
-be returned instead of course). Prepare tasks are left to 
-snd_pcm_prepare() just like in standard case.
-
-I believe such code is a good example of _code smell_ though.
-First we abuse the error path, second we basically drop the 
-_TRIGGER_RESUME entirely - after all, in such approach it mimics 
-hw_params() and will always fail, either with an internal error code or 
-hardcoded -ESTRPIPE. _TRIGGER_START/STOP would be reused once 
-snd_pcm_prepare() succeeds causing another problem - no differentiation 
-between start and resume and thus lack of information when to or when 
-not to poll DRSM.
-
-Thus, we ended up with 'state = DISCONNECTED' if we encounter a firmware 
-issue during PCM-pm. Keeps things sane.
-
-> Other than that, there is no such PCM state that forces to close and
-> re-open, I'm afraid.  You can have an internal error state and let the
-> stream returning an error at each operation, instead, too.
+> Any sensible implementation will need to hold a runtime reference
+> across all those functions, it makes no sense to be allowing the
+> device/bus to suspend whilst streams are being prepared/enabled. And
+> certainly in the case of the all existing users, they all call these
+> functions from hw_params/prepare/trigger/hw_free callbacks in ALSA,
+> which will have already runtime resumed all the audio devices
+> associated during the open callback.
 > 
-> And, creating a new PCM state is very difficult.  It would influence
-> way too much, IMO, as each application code has to be modified to
-> handle the new PCM state.
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Agree, this basically screams not to follow that path.
+I tend to agree with this one, and if this ever fails that would point
+to a miss at a higher-level we'd need to address.
 
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Regards,
-Czarek
+> ---
+>  drivers/soundwire/bus.c    |  2 +-
+>  drivers/soundwire/stream.c | 30 +++++++++++++++---------------
+>  2 files changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index ef4878258afad..d87a188fcce1e 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -1214,7 +1214,7 @@ int sdw_configure_dpn_intr(struct sdw_slave *slave,
+>  		val &= ~SDW_DPN_INT_PORT_READY;
+>  	}
+>  
+> -	ret = sdw_update(slave, addr, (mask | SDW_DPN_INT_PORT_READY), val);
+> +	ret = sdw_update_no_pm(slave, addr, (mask | SDW_DPN_INT_PORT_READY), val);
+>  	if (ret < 0)
+>  		dev_err(&slave->dev,
+>  			"SDW_DPN_INTMASK write failed:%d\n", val);
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index bd502368339e5..df3b36670df4c 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -81,14 +81,14 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
+>  	}
+>  
+>  	/* Program DPN_OffsetCtrl2 registers */
+> -	ret = sdw_write(slave, addr1, t_params->offset2);
+> +	ret = sdw_write_no_pm(slave, addr1, t_params->offset2);
+>  	if (ret < 0) {
+>  		dev_err(bus->dev, "DPN_OffsetCtrl2 register write failed\n");
+>  		return ret;
+>  	}
+>  
+>  	/* Program DPN_BlockCtrl3 register */
+> -	ret = sdw_write(slave, addr2, t_params->blk_pkg_mode);
+> +	ret = sdw_write_no_pm(slave, addr2, t_params->blk_pkg_mode);
+>  	if (ret < 0) {
+>  		dev_err(bus->dev, "DPN_BlockCtrl3 register write failed\n");
+>  		return ret;
+> @@ -105,7 +105,7 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
+>  	/* Program DPN_SampleCtrl2 register */
+>  	wbuf = FIELD_GET(SDW_DPN_SAMPLECTRL_HIGH, t_params->sample_interval - 1);
+>  
+> -	ret = sdw_write(slave, addr3, wbuf);
+> +	ret = sdw_write_no_pm(slave, addr3, wbuf);
+>  	if (ret < 0) {
+>  		dev_err(bus->dev, "DPN_SampleCtrl2 register write failed\n");
+>  		return ret;
+> @@ -115,7 +115,7 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
+>  	wbuf = FIELD_PREP(SDW_DPN_HCTRL_HSTART, t_params->hstart);
+>  	wbuf |= FIELD_PREP(SDW_DPN_HCTRL_HSTOP, t_params->hstop);
+>  
+> -	ret = sdw_write(slave, addr4, wbuf);
+> +	ret = sdw_write_no_pm(slave, addr4, wbuf);
+>  	if (ret < 0)
+>  		dev_err(bus->dev, "DPN_HCtrl register write failed\n");
+>  
+> @@ -163,7 +163,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  	wbuf = FIELD_PREP(SDW_DPN_PORTCTRL_DATAMODE, p_params->data_mode);
+>  	wbuf |= FIELD_PREP(SDW_DPN_PORTCTRL_FLOWMODE, p_params->flow_mode);
+>  
+> -	ret = sdw_update(s_rt->slave, addr1, 0xF, wbuf);
+> +	ret = sdw_update_no_pm(s_rt->slave, addr1, 0xF, wbuf);
+>  	if (ret < 0) {
+>  		dev_err(&s_rt->slave->dev,
+>  			"DPN_PortCtrl register write failed for port %d\n",
+> @@ -173,7 +173,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  
+>  	if (!dpn_prop->read_only_wordlength) {
+>  		/* Program DPN_BlockCtrl1 register */
+> -		ret = sdw_write(s_rt->slave, addr2, (p_params->bps - 1));
+> +		ret = sdw_write_no_pm(s_rt->slave, addr2, (p_params->bps - 1));
+>  		if (ret < 0) {
+>  			dev_err(&s_rt->slave->dev,
+>  				"DPN_BlockCtrl1 register write failed for port %d\n",
+> @@ -184,7 +184,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  
+>  	/* Program DPN_SampleCtrl1 register */
+>  	wbuf = (t_params->sample_interval - 1) & SDW_DPN_SAMPLECTRL_LOW;
+> -	ret = sdw_write(s_rt->slave, addr3, wbuf);
+> +	ret = sdw_write_no_pm(s_rt->slave, addr3, wbuf);
+>  	if (ret < 0) {
+>  		dev_err(&s_rt->slave->dev,
+>  			"DPN_SampleCtrl1 register write failed for port %d\n",
+> @@ -193,7 +193,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  	}
+>  
+>  	/* Program DPN_OffsetCtrl1 registers */
+> -	ret = sdw_write(s_rt->slave, addr4, t_params->offset1);
+> +	ret = sdw_write_no_pm(s_rt->slave, addr4, t_params->offset1);
+>  	if (ret < 0) {
+>  		dev_err(&s_rt->slave->dev,
+>  			"DPN_OffsetCtrl1 register write failed for port %d\n",
+> @@ -203,7 +203,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  
+>  	/* Program DPN_BlockCtrl2 register*/
+>  	if (t_params->blk_grp_ctrl_valid) {
+> -		ret = sdw_write(s_rt->slave, addr5, t_params->blk_grp_ctrl);
+> +		ret = sdw_write_no_pm(s_rt->slave, addr5, t_params->blk_grp_ctrl);
+>  		if (ret < 0) {
+>  			dev_err(&s_rt->slave->dev,
+>  				"DPN_BlockCtrl2 reg write failed for port %d\n",
+> @@ -214,7 +214,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+>  
+>  	/* program DPN_LaneCtrl register */
+>  	if (slave_prop->lane_control_support) {
+> -		ret = sdw_write(s_rt->slave, addr6, t_params->lane_ctrl);
+> +		ret = sdw_write_no_pm(s_rt->slave, addr6, t_params->lane_ctrl);
+>  		if (ret < 0) {
+>  			dev_err(&s_rt->slave->dev,
+>  				"DPN_LaneCtrl register write failed for port %d\n",
+> @@ -319,9 +319,9 @@ static int sdw_enable_disable_slave_ports(struct sdw_bus *bus,
+>  	 * it is safe to reset this register
+>  	 */
+>  	if (en)
+> -		ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
+> +		ret = sdw_write_no_pm(s_rt->slave, addr, p_rt->ch_mask);
+>  	else
+> -		ret = sdw_write(s_rt->slave, addr, 0x0);
+> +		ret = sdw_write_no_pm(s_rt->slave, addr, 0x0);
+>  
+>  	if (ret < 0)
+>  		dev_err(&s_rt->slave->dev,
+> @@ -476,9 +476,9 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
+>  		addr = SDW_DPN_PREPARECTRL(p_rt->num);
+>  
+>  		if (prep)
+> -			ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
+> +			ret = sdw_write_no_pm(s_rt->slave, addr, p_rt->ch_mask);
+>  		else
+> -			ret = sdw_write(s_rt->slave, addr, 0x0);
+> +			ret = sdw_write_no_pm(s_rt->slave, addr, 0x0);
+>  
+>  		if (ret < 0) {
+>  			dev_err(&s_rt->slave->dev,
+> @@ -491,7 +491,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
+>  		wait_for_completion_timeout(port_ready,
+>  			msecs_to_jiffies(dpn_prop->ch_prep_timeout));
+>  
+> -		val = sdw_read(s_rt->slave, SDW_DPN_PREPARESTATUS(p_rt->num));
+> +		val = sdw_read_no_pm(s_rt->slave, SDW_DPN_PREPARESTATUS(p_rt->num));
+>  		if ((val < 0) || (val & p_rt->ch_mask)) {
+>  			ret = (val < 0) ? val : -ETIMEDOUT;
+>  			dev_err(&s_rt->slave->dev,

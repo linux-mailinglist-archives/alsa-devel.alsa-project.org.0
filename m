@@ -2,108 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B49F627D69
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 13:10:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CEA6627D80
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 13:17:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8ECD15DC;
-	Mon, 14 Nov 2022 13:10:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8ECD15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 026301666;
+	Mon, 14 Nov 2022 13:16:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 026301666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668427854;
-	bh=KFg8huWjzIM0YJ198bVcAH/+Qvz2Ea2vxxAUaoXJalA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668428239;
+	bh=ORiXEqVTr1AF7ZzV8mpI+ZS96LmdOoCZn6IkQAVnwfM=;
+	h=Date:Subject:To:From:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oefqebUkpF70NU5VE3D5shynuBnlJVg25p/B1nLpFwtz8Z1zjj4v2KWjQQfR6+1Jt
-	 3S2V7osiwkKFNvPreMwGaqzZKehzN16DPjxwfqyDmz9cet99JQoiaUa6fzd5FfRege
-	 3ATy3zMsTe4x6wMtcUGqy4J9SMkxvyE4FCR02A9k=
+	b=WffZM92cGrYyDfB1wpmOG1DdHDN5M7A8YuBzAq3XNqoggJtRmftDjZHeT1FTi3JvU
+	 PDmZyr2HBxvyFV4Ucu5VrpyQMq9024noKD0Jm5t7+srQX1mtRGOJkYhowX9c8v+wTH
+	 x4HzNITnjMWZhtk9hTMpYPPkzt8BZoZ6UOWOHlMc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66CA1F8047D;
-	Mon, 14 Nov 2022 13:09:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D161F80448;
+	Mon, 14 Nov 2022 13:16:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 773D7F800AA; Mon, 14 Nov 2022 13:09:57 +0100 (CET)
+ id E498FF800B6; Mon, 14 Nov 2022 13:16:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B986F800AA
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 13:09:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B986F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA5E3F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 13:16:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5E3F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ucvmXj6N"
-Received: by mail-lf1-x136.google.com with SMTP id p8so18899530lfu.11
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 04:09:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FNxCofBcbIeVXQpJg4d6J4pQ3z4dOkx5gsNXPSK+q14=;
- b=ucvmXj6N6tou5HBUfuCOxKebeYi8+OMPzqC9PPPdYkO0Ok5z9h2wvWqDkMHcTX+poz
- 3cZNMArXG+vL67Ao8IV6Xd/ZtaL6m2Ip0bWv41vfItDRmZw/AwHIqcUaHPdEAzXhoTTm
- BzHlS7Pq4cM2jcPGW5SpRQWvWUy8FIfyEJZTUy7BNBK7rJX9L3Vse2KttoQCM4Yc2NCb
- X3BzOGRe2qWQpzUj0mTOFliat4qlybTkrk8/Qd7WPGMoWuB7OgTItwHKX4w4fC4DcJcV
- HVaiB1obEicfYCUegeVjwRyj+B8OF3nK87v+Ml0CU3P/htUTD/DPBbFCvE0v9Y+hH7Wl
- LIPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FNxCofBcbIeVXQpJg4d6J4pQ3z4dOkx5gsNXPSK+q14=;
- b=UhnewL72Tt1oDefMBDFXavQ/G8ap0GIh5hDYfUVm6kipDjZOE1i4HSWX1wKd+0DmTz
- jrEdCr9f/vAOnI3JNm7/udPLv9BT9Jny04uc3Jg+voivlqOM+eov3WDEOkLACNXqNXkm
- Tu/M+SdFVZhvRhUO69L1HsdJrpDyfx5ensoh1I+s2Na57cil6hNodiZX6rSi5rEdN3yo
- LPh/+umryKSlZEkNsE+cprGoK7x+jHUydWwMRlrO+4CeGw+exc4jgdvQK/F71WI9Dh10
- BAQIPQE6ckQtEy6LoWaomi9LSyM5ASqVmsyJirxWRa+5xMcPloQvhFe5QIdRHwEMhwKl
- C25Q==
-X-Gm-Message-State: ANoB5pk1bQLf8lH0EVUVMxL0/E7N6CaCfqdtl1XVw+VlRmsBwdr/3u2g
- MYAObMaLI6aSNSHQA9doUyyi/A==
-X-Google-Smtp-Source: AA0mqf5g+dqZa5LypIi6W9GnNoqEZM1/7LsEFGd3SxBYWf8DwN7+1IHCwTh9GQWqAFq/oIL8J4UTXw==
-X-Received: by 2002:ac2:4945:0:b0:4a2:5897:2b44 with SMTP id
- o5-20020ac24945000000b004a258972b44mr4446724lfi.431.1668427791293; 
- Mon, 14 Nov 2022 04:09:51 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- bi36-20020a05651c232400b002771057e0e5sm1999559ljb.76.2022.11.14.04.09.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Nov 2022 04:09:50 -0800 (PST)
-Message-ID: <8179b5f5-5292-692b-15c4-5d83dee85789@linaro.org>
-Date: Mon, 14 Nov 2022 13:09:49 +0100
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="Le/LS1iW"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20221114121614euoutp018adab35cb3f4022d7148d867b593071a~ncpXLLScW0624006240euoutp01n
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 12:16:14 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20221114121614euoutp018adab35cb3f4022d7148d867b593071a~ncpXLLScW0624006240euoutp01n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1668428174;
+ bh=rqJtRyc6jhRwV6Yyz8pxVVQ6mvHEOongjyo9iV1Kpw4=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=Le/LS1iWMyMiSFauKtfW+7rkzpn5uDVFaEd0xcYxp+y3uoNiShxbUgxiNyhGjOzpe
+ fOi0gqEOFTh4nBXMuXomVwJSBWzD6+XzOIcBvlTWiWiZE9ct7Nlue5Y6l7v31gnapF
+ DXowXXVCOPI65GuuMiWOigXlMb8PPsA2F26yU/90=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20221114121614eucas1p27a35901372467ed599de7db160f866f3~ncpW-GrqT0036400364eucas1p2O;
+ Mon, 14 Nov 2022 12:16:14 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 53.51.10112.D8132736; Mon, 14
+ Nov 2022 12:16:13 +0000 (GMT)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20221114121613eucas1p2c8b45caec484f7b29222ae7da6e8d6a2~ncpWIFo652211422114eucas1p2t;
+ Mon, 14 Nov 2022 12:16:13 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20221114121613eusmtrp1ba74758cc2c70c1890907353bb7bbb62~ncpWHTGCn0913609136eusmtrp1F;
+ Mon, 14 Nov 2022 12:16:13 +0000 (GMT)
+X-AuditID: cbfec7f4-cf3ff70000002780-9b-6372318d78f1
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id FA.B3.09026.D8132736; Mon, 14
+ Nov 2022 12:16:13 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20221114121612eusmtip2daf9855d5d46686171b62c8a6859ae7a~ncpVSQ_1-1133111331eusmtip2f;
+ Mon, 14 Nov 2022 12:16:12 +0000 (GMT)
+Message-ID: <6d37def0-b109-440f-f3f3-ef65f51c02e0@samsung.com>
+Date: Mon, 14 Nov 2022 13:16:12 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 00/10] ASoC: dt-bindings: Rework Qualcomm APR/GPR Sound
- nodes for SM8450
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+Subject: Re: [PATCH 7/7] dma-mapping: reject __GFP_COMP in dma_alloc_attrs
 Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20221111113547.100442-1-krzysztof.kozlowski@linaro.org>
- <06da072c-8cf0-8181-3c32-4592fe41f9c2@linaro.org>
- <0ee5db9e-d80c-947d-73d6-6214e9299b23@linaro.org>
- <48883bd6-217d-f513-316c-2b5caf486e5e@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <48883bd6-217d-f513-316c-2b5caf486e5e@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Christoph Hellwig <hch@lst.de>, Dennis Dalessandro
+ <dennis.dalessandro@cornelisnetworks.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Alexandra Winter <wintera@linux.ibm.com>, Wenjia Zhang
+ <wenjia@linux.ibm.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Russell King <linux@armlinux.org.uk>, Robin Murphy
+ <robin.murphy@arm.com>
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20221113163535.884299-8-hch@lst.de>
 Content-Transfer-Encoding: 7bit
-Cc: Patrick Lai <plai@qti.qualcomm.com>,
- Srinivasa Rao Mandadapu <srivasam@qti.qualcomm.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrLKsWRmVeSWpSXmKPExsWy7djPc7q9hkXJBp92WVpcuXiIyeL1nvnM
+ FitXH2Wy+PXFwmLT42usFj0btrJaPDvUy2IxYWEzs8WhqXsZLZZt+sNkcWyBmEXnrn5Wi4Mf
+ nrBabPi+ltGi8cw2dos1x16wOAh4bPjcxOaxZt4aRo/L1y4ye2y7toXFY9OqTjaPCYsOMHps
+ XlLv8WLzTEaP3Tcb2Dz2vV3G5rF+y1UWj8+b5AJ4orhsUlJzMstSi/TtErgy9i3cwV5wQari
+ 0MSZ7A2M/0W6GDk5JARMJLa1b2LtYuTiEBJYwSixZ/4XRgjnC6PE3e8/2CGcz4wS67u3McK0
+ fJjQzwaRWM4oce5QB1TLR0aJ5ubFbCBVvAJ2Ek8a7oPZLAKqEhtWNbBCxAUlTs58wgJiiwqk
+ SCzccoMJxBYW8JL4uuwcM4jNLCAucevJfCaQoSICH5kkJs24CnYhs8BZRokry1eBdbAJGEp0
+ ve0C28AJZF/fNJMFolteYvvbOcwQt17jlHixMwjCdpH4tnc6C4QtLPHq+BZ2CFtG4vTkHhaQ
+ BRIC7YwSC37fZ4JwJjBKNDy/BfW1tcSdc7+AtnEAbdCUWL9LHyLsKNH3aRcLSFhCgE/ixltB
+ iBv4JCZtm84MEeaV6GgTgqhWk5h1fB3c2oMXLjFPYFSahRQus5D8PwvJN7MQ9i5gZFnFKJ5a
+ WpybnlpslJdarlecmFtcmpeul5yfu4kRmCJP/zv+ZQfj8lcf9Q4xMnEwHmKU4GBWEuGdJ5Of
+ LMSbklhZlVqUH19UmpNafIhRmoNFSZyXbYZWspBAemJJanZqakFqEUyWiYNTqoFpvnXLj3eL
+ Pnz0LObY/0xi3rzunf8etgixnlF6ntz5J+PElonmh71dz/RtFnJYb1NxXaDlk+OK5DSrTSEO
+ r+6+rSsXM+560nPtgN5FxgtZ1us3vssuL1LZeyzUYYa3vO3ESgX3/nnSWkYiAu27ZP9fc1/w
+ sqtn4ofunTocahzfpuzSvSX8w6/EaVOE6cGX7Kx7DO+eO2m8b5PjX82WRynFhk/Wbf078RnL
+ pcSO8zXp20wT+Sor5/+ul1k8f9XkbOdLDGfYAvyiO38v+vDmTVFDpaLoZDuho3smBX1Na99j
+ dOqhVND+9nbpQz+mLtzEE/TewyPGu17mlvqMBOWy3h97Zy+x++3umy/kzzp5Sd48JZbijERD
+ Leai4kQAlbsJQgAEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrHIsWRmVeSWpSXmKPExsVy+t/xe7q9hkXJBr9/i1lcuXiIyeL1nvnM
+ FitXH2Wy+PXFwmLT42usFj0btrJaPDvUy2IxYWEzs8WhqXsZLZZt+sNkcWyBmEXnrn5Wi4Mf
+ nrBabPi+ltGi8cw2dos1x16wOAh4bPjcxOaxZt4aRo/L1y4ye2y7toXFY9OqTjaPCYsOMHps
+ XlLv8WLzTEaP3Tcb2Dz2vV3G5rF+y1UWj8+b5AJ4ovRsivJLS1IVMvKLS2yVog0tjPQMLS30
+ jEws9QyNzWOtjEyV9O1sUlJzMstSi/TtEvQy9i3cwV5wQari0MSZ7A2M/0W6GDk5JARMJD5M
+ 6GfrYuTiEBJYyijxccFJJoiEjMTJaQ2sELawxJ9rXVBF7xklrh95ywaS4BWwk3jScB/MZhFQ
+ ldiwCqKBV0BQ4uTMJyxdjBwcogIpEuuORIGEhQW8JL4uO8cMYjMLiEvcejIfbJeIwGcmiZcb
+ VUDmMwucZZTofvmZBWLZakaJWX1zGEGq2AQMJbredoEt4wSyr2+ayQIxyUyia2sXI4QtL7H9
+ 7RzmCYxCs5DcMQvJwllIWmYhaVnAyLKKUSS1tDg3PbfYSK84Mbe4NC9dLzk/dxMjMCFsO/Zz
+ yw7Gla8+6h1iZOJgPMQowcGsJMI7TyY/WYg3JbGyKrUoP76oNCe1+BCjKTAwJjJLiSbnA1NS
+ Xkm8oZmBqaGJmaWBqaWZsZI4r2dBR6KQQHpiSWp2ampBahFMHxMHp1QDk0XY5HOnPshM/uHg
+ mlmw58YLvhfJKt7TVBe4z7l0LHaaxarvK35O35so7v7uWPX513sEb9/4pPTbxy6eS+3+U64c
+ k5anwdoL3ZN4l+w5rtq4iF2rymiVeraiQ9dirXSuzkPzRaYd2e+7+n7wy6SIS85vvWTt3R6n
+ fTx/48T5D7/fMMz137DNWqJZrprt15Godd1Tzh2UuO6bl695fYJtWeaaC5fOemt11d+Lvp0t
+ oRZgabhNVOvDoRqf8MRfij2i7Qm7HR/l2Pv85P8UrJW4PTfz8acrs/ZsmzmdM/RxYdM08VWb
+ D0+LN/N5PdVlfeFD1tdRm+y3Xl/CxfF33quZ8R2Xln5VurzK7aboOvP7k24psRRnJBpqMRcV
+ JwIAmN39fJEDAAA=
+X-CMS-MailID: 20221114121613eucas1p2c8b45caec484f7b29222ae7da6e8d6a2
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20221113163620eucas1p27901efb682a6611ee75401a74ff7724e
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20221113163620eucas1p27901efb682a6611ee75401a74ff7724e
+References: <20221113163535.884299-1-hch@lst.de>
+ <CGME20221113163620eucas1p27901efb682a6611ee75401a74ff7724e@eucas1p2.samsung.com>
+ <20221113163535.884299-8-hch@lst.de>
+Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,47 +156,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14/11/2022 12:50, Srinivas Kandagatla wrote:
-> 
-> 
-> On 14/11/2022 07:48, Krzysztof Kozlowski wrote:
->> On 11/11/2022 17:15, Srinivas Kandagatla wrote:
->>>
->>>
->>> On 11/11/2022 11:35, Krzysztof Kozlowski wrote:
->>>> Adding sound support for Qualcomm SM8450 SoC (and later for SC8280XP) brought
->>>> some changes to APR/GPR services bindings.  These bindings are part of
->>>> qcom,apr.yaml:
->>>>
->>>>     apr-or-gpr-device-node <- qcom,apr.yaml
->>>>       apr-gpr-service@[0-9] <- qcom,apr.yaml
->>>>         service-specific-components <- /schemas/sound/qcom,q6*.yaml
->>>>
->>>> The schema for services (apr-gpr-service@[0-9]) already grows considerably and
->>>> is still quite not specific.  It allows several incorrect combinations, like
->>>> adding a clock-controller to a APM device.  Restricting it would complicate the
->>>> schema even more.  Bringing new support for sound on Qualcomm SM8450 and
->>>> SC8280XP SoC would grow it as well.
->>>
->>> Why would this grow? All the dsp services are static and they will not
->>> change per SoC unless there is a total firmware change in DSP.
->>
->> They grow now with SM8450 which requires changes there. Otherwise DTS
->> does not pass with current bindings. The bindings before my fixing in
->> 2022 were really incomplete. Now they are complete, but:
->> 1. Not for SM8450 - this will bring new things,
->> 2. Very unspecific as they allow multiple invalid configurations.
->>
-> Okay, I looked at all the patches, they are fine as it is, the confusion 
-> part is the subject and comments which are misleading and trying to say 
-> that these are specific to SM8450 or SC8280XP. Infact this is not true, 
-> none of these changes are specific to any SoC, they are part of AudioReach.
+On 13.11.2022 17:35, Christoph Hellwig wrote:
+> DMA allocations can never be turned back into a page pointer, so
+> requesting compound pages doesn't make sense and it can't even be
+> supported at all by various backends.
+>
+> Reject __GFP_COMP with a warning in dma_alloc_attrs, and stop clearing
+> the flag in the arm dma ops and dma-iommu.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>   arch/arm/mm/dma-mapping.c | 17 -----------------
+>   drivers/iommu/dma-iommu.c |  3 ---
+>   kernel/dma/mapping.c      |  8 ++++++++
+>   3 files changed, 8 insertions(+), 20 deletions(-)
+>
+> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+> index d7909091cf977..c135f6e37a00c 100644
+> --- a/arch/arm/mm/dma-mapping.c
+> +++ b/arch/arm/mm/dma-mapping.c
+> @@ -564,14 +564,6 @@ static void *__dma_alloc(struct device *dev, size_t size, dma_addr_t *handle,
+>   	if (mask < 0xffffffffULL)
+>   		gfp |= GFP_DMA;
+>   
+> -	/*
+> -	 * Following is a work-around (a.k.a. hack) to prevent pages
+> -	 * with __GFP_COMP being passed to split_page() which cannot
+> -	 * handle them.  The real problem is that this flag probably
+> -	 * should be 0 on ARM as it is not supported on this
+> -	 * platform; see CONFIG_HUGETLBFS.
+> -	 */
+> -	gfp &= ~(__GFP_COMP);
+>   	args.gfp = gfp;
+>   
+>   	*handle = DMA_MAPPING_ERROR;
+> @@ -1093,15 +1085,6 @@ static void *arm_iommu_alloc_attrs(struct device *dev, size_t size,
+>   		return __iommu_alloc_simple(dev, size, gfp, handle,
+>   					    coherent_flag, attrs);
+>   
+> -	/*
+> -	 * Following is a work-around (a.k.a. hack) to prevent pages
+> -	 * with __GFP_COMP being passed to split_page() which cannot
+> -	 * handle them.  The real problem is that this flag probably
+> -	 * should be 0 on ARM as it is not supported on this
+> -	 * platform; see CONFIG_HUGETLBFS.
+> -	 */
+> -	gfp &= ~(__GFP_COMP);
+> -
+>   	pages = __iommu_alloc_buffer(dev, size, gfp, attrs, coherent_flag);
+>   	if (!pages)
+>   		return NULL;
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 9297b741f5e80..f798c44e09033 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -744,9 +744,6 @@ static struct page **__iommu_dma_alloc_pages(struct device *dev,
+>   	/* IOMMU can map any pages, so himem can also be used here */
+>   	gfp |= __GFP_NOWARN | __GFP_HIGHMEM;
+>   
+> -	/* It makes no sense to muck about with huge pages */
+> -	gfp &= ~__GFP_COMP;
+> -
+>   	while (count) {
+>   		struct page *page = NULL;
+>   		unsigned int order_size;
+> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+> index 33437d6206445..c026a5a5e0466 100644
+> --- a/kernel/dma/mapping.c
+> +++ b/kernel/dma/mapping.c
+> @@ -498,6 +498,14 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+>   
+>   	WARN_ON_ONCE(!dev->coherent_dma_mask);
+>   
+> +	/*
+> +	 * DMA allocations can never be turned back into a page pointer, so
+> +	 * requesting compound pages doesn't make sense (and can't even be
+> +	 * supported at all by various backends).
+> +	 */
+> +	if (WARN_ON_ONCE(flag & __GFP_COMP))
+> +		return NULL;
+> +
+>   	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr))
+>   		return cpu_addr;
+>   
 
-They are part of bringing audio on SM8450, at the end we all are SoC
-centric... we do not bring support for AudioReach just for itself,
-right? We bring it because we want to have something working on SM8450
-and further...
-
-Best regards,
-Krzysztof
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 

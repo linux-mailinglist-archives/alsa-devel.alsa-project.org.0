@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1013D627C26
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 12:22:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA287627C25
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 12:22:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E2C21686;
-	Mon, 14 Nov 2022 12:21:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E2C21686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F5551674;
+	Mon, 14 Nov 2022 12:21:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F5551674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668424948;
-	bh=STHsnurNCeZ4coLDpSrI00qVwfgQXzk+lwQOM8qU86g=;
+	s=default; t=1668424927;
+	bh=Yr/0qBmCgbdb7d38WF85pkRxdBnyu9qE35POEXUdPMk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QIiGjiA0HeeJsAqUiY11GonRuEhFVdXkDGszaYhKu+gwCRgJNf3Yu0RhWE/bj/E5T
-	 pnKTZpPm5Sp3RJd4S0qlYjPNOhZA/ZdrWIHJtwlEB4OQWgzwIE/X2bTHM/BMA0CqzX
-	 vMJ1aEkq3CjQa8a5aVNFJqEnBkMNM/rkqIPXkKvo=
+	b=ui2Z3xrDbx2QEVB8YTLJBQuSbmZJBaA+lASNFxsXqle8srHNaJlQvdSolwl5vZwvc
+	 k7lAeMmuYvf+3/KItJArarvX2QL75P21QdFqNBETuyR5DbBjLurzNww3+/i9lXiNMJ
+	 V+mhGFkpwdBv1TmZS2CjjDVOIDaxV5iXjDl3TNMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 980A2F80558;
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DDF2F804E7;
 	Mon, 14 Nov 2022 12:20:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 578E3F80448; Mon, 14 Nov 2022 12:20:51 +0100 (CET)
+ id 4E5DFF804E7; Mon, 14 Nov 2022 12:20:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1201FF80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2AAE9F800B8
  for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 12:20:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1201FF80245
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AAE9F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="X5RtVu/4"
+ header.b="hWjY+WaE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1668424845; x=1699960845;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=STHsnurNCeZ4coLDpSrI00qVwfgQXzk+lwQOM8qU86g=;
- b=X5RtVu/4nCyR9rdjV/RguFIDLIM+YslycJeYfuRwsPr3W/I4BX3186+q
- sGon7LoIxlfZiObTRKqkgGRorrcJYyIVFZ1AW/Vo3nnK1BQX2sYVu/IX5
- 2R3FLNa8dvlIp1Kb2NnZHdR96caQ6UlFKU16BCQoslK7HQXkDHv4PSdNR
- 9DxLxzGFgxRexpLsS/uttMFD44/ysT+tVKT7DR2C7R8cnfc2XYAtfa5Kg
- aIEat7WqQ352U3v/VIKDWsBePPkKMzo20ALES25/seeNZE/FKwl3yyzfG
- ZdH5nwt0JY0BUjTZYldiVEA+rMnO/tFimhU95vq/EseqWeQ1lNCBFie0O w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="313748203"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="313748203"
+ bh=Yr/0qBmCgbdb7d38WF85pkRxdBnyu9qE35POEXUdPMk=;
+ b=hWjY+WaEilWlh5So3Enyrnvr2PGsWMpY+S/xzWJKkf8xFSvLlvNJlRNN
+ hfDInu7wDAeCYgDdk3bwaZkJcTqHY0udu8U41DwMrzirOXnhwXwt8WVHo
+ PHxoOi04yQ7v9Gss/KAYQso8WLl6F4O7A+efvAkTN2M7gqOsbyXKCY8mC
+ cb7BoWra4tJKFhUH0JSH3cO0GDi8I65/djsJE5mxnnS21FdsF9HMsKvfd
+ Kj2S5wweupxk2JBe7hhTGhhNElI5gLo8eghxX8X+HVpRuJqLSjSzBcRw2
+ dYWERbiip44mYUBOaojgpTiaOU77X+rVwElqiGFTP9XzlIOwFtS7UbZUt g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="313748209"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="313748209"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 03:20:40 -0800
+ 14 Nov 2022 03:20:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="744102996"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="744102996"
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="744103006"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="744103006"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga002.fm.intel.com with ESMTP; 14 Nov 2022 03:20:38 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 14 Nov 2022 03:20:40 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 1/2] ASoC: Intel: avs: Lock substream before snd_pcm_stop()
-Date: Mon, 14 Nov 2022 12:37:28 +0100
-Message-Id: <20221114113729.1022905-2-cezary.rojewski@intel.com>
+Subject: [PATCH v2 2/2] ASoC: Intel: avs: Disconnect substream if suspend or
+ resume fails
+Date: Mon, 14 Nov 2022 12:37:29 +0100
+Message-Id: <20221114113729.1022905-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221114113729.1022905-1-cezary.rojewski@intel.com>
 References: <20221114113729.1022905-1-cezary.rojewski@intel.com>
@@ -92,26 +93,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_pcm_stop() shall be called with stream lock held to prevent any
-races between nonatomic streaming operations.
+To improve performance and overall system stability, suspend/resume
+operations for ASoC cards always return success status and defer the
+actual work.
 
-Fixes: 2f1f570cd730 ("ASoC: Intel: avs: Coredump and recovery flow")
+Because of that, if a substream fails to resume, userspace may still
+attempt to invoke commands on it as from their perspective the operation
+completed successfully. Set substream's state to DISCONNECTED to ensure
+no further commands are attempted.
+
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/ipc.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
-index 152f8d0bdf8e..07655298b6c7 100644
---- a/sound/soc/intel/avs/ipc.c
-+++ b/sound/soc/intel/avs/ipc.c
-@@ -123,7 +123,9 @@ static void avs_dsp_recovery(struct avs_dev *adev)
- 				if (!substream || !substream->runtime)
- 					continue;
+Changes in v2:
+- __snd_pcm_set_state() replaced direct assignments of PCM state
+
+ sound/soc/intel/avs/pcm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index ca624fbb5c0d..70442b5212c2 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -934,8 +934,11 @@ static int avs_component_pm_op(struct snd_soc_component *component, bool be,
+ 			rtd = snd_pcm_substream_chip(data->substream);
+ 			if (rtd->dai_link->no_pcm == be && !rtd->dai_link->ignore_suspend) {
+ 				ret = op(dai, data);
+-				if (ret < 0)
++				if (ret < 0) {
++					__snd_pcm_set_state(data->substream->runtime,
++							    SNDRV_PCM_STATE_DISCONNECTED);
+ 					return ret;
++				}
+ 			}
+ 		}
  
-+				snd_pcm_stream_lock(substream);
- 				snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
-+				snd_pcm_stream_unlock(substream);
+@@ -944,8 +947,11 @@ static int avs_component_pm_op(struct snd_soc_component *component, bool be,
+ 			rtd = snd_pcm_substream_chip(data->substream);
+ 			if (rtd->dai_link->no_pcm == be && !rtd->dai_link->ignore_suspend) {
+ 				ret = op(dai, data);
+-				if (ret < 0)
++				if (ret < 0) {
++					__snd_pcm_set_state(data->substream->runtime,
++							    SNDRV_PCM_STATE_DISCONNECTED);
+ 					return ret;
++				}
  			}
  		}
  	}

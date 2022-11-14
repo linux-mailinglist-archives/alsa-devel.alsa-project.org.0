@@ -2,89 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587F4627794
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 09:27:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3B8F62783C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 09:56:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E14091DA;
-	Mon, 14 Nov 2022 09:26:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E14091DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CFA3161F;
+	Mon, 14 Nov 2022 09:56:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CFA3161F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668414448;
-	bh=rqTPbN5SZUYF13Mm7X45FQKmNpIb+6X+Mq0Xr+nFZmg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1668416218;
+	bh=NP14WmdySktpy0hl2GV/AlDCefE33UV4zYy0ThUsLq0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nWqan8QHsiGpQcdm9koZOF7ntChs63k61UnZJauDa4qpVwoAwpqZyvDokfHE9c23y
-	 g/xcrPVzD4xRMRbsIzlcV6Fx0/9qAkP+dZst9lepLFZZ4HeZpihBIi37ckujTtgMG1
-	 d1gJW1EArft2sp7pufCGy+/2Nu+jXLGwDCsv8hDk=
+	b=Gk9G9CS0VZeSF9/Dulyx3cuoEx+F6kdnacrd+Vqi15vS2B+l+YCIDjt6PLZahxwyw
+	 TbS1uyGnKKdYIAZREBmPXcAbz7ttq/nUdzJaRzZXaWNPr94gzsjtNV7gfkFqbIwYIb
+	 +njR8KQj/9zKGDAelvo3jyAd0g9hV4Q8XiYw6G9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CE5BF800B6;
-	Mon, 14 Nov 2022 09:26:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 096E7F800B8;
+	Mon, 14 Nov 2022 09:55:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAF66F80431; Mon, 14 Nov 2022 09:26:31 +0100 (CET)
+ id DBC5FF800B8; Mon, 14 Nov 2022 09:35:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net
+ [178.154.239.136])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5F06F800B8
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 09:26:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5F06F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id D217CF800B8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 09:35:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D217CF800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SzF1dX6F"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="LqczeHUl"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5606E2277D;
- Mon, 14 Nov 2022 08:26:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668414385; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Z2aocgqFLjmTJVHL3ktQa4BmIRZ6GsVn6ZGLHkljFiQ=;
- b=SzF1dX6F3sCU+u8GU0fIU9Yiswaz8EZK6CNJm+yyQyJmtWS5Dg6zIyVaN2MgAVB4vCilAf
- NuJjyQzqga5Mokc8dKh3ttqnMpAEjBPEEh8gYSwP9Hn3hQAYjji6tO+EXMb4cn5G9mT/GB
- 9WXu+2IHcRAvdHwDvLqEeov2x9i8OJs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668414385;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Z2aocgqFLjmTJVHL3ktQa4BmIRZ6GsVn6ZGLHkljFiQ=;
- b=LqczeHUlnsysaB++Tj/gkeAR7Ysi4h2D0md0WJ5EncrlfzMIJfCAQlX5RcI/Ark02Ud+gf
- lGXn79YBGCHBLQBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 14B5D13A8C;
- Mon, 14 Nov 2022 08:26:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rZ0zBLH7cWM1IQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 08:26:25 +0000
-Date: Mon, 14 Nov 2022 09:26:24 +0100
-Message-ID: <87r0y63psf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Daniil Tatianin <d-tatianin@yandex-team.ru>
+ dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru
+ header.b="DGOMXti8"
+Received: from iva4-f06c35e68a0a.qloud-c.yandex.net
+ (iva4-f06c35e68a0a.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0c:152e:0:640:f06c:35e6])
+ by forwardcorp1b.mail.yandex.net (Yandex) with ESMTP id 3C7D05FEF4;
+ Mon, 14 Nov 2022 11:35:13 +0300 (MSK)
+Received: from [IPV6:2a02:6b8:b081:7220::1:21] (unknown
+ [2a02:6b8:b081:7220::1:21])
+ by iva4-f06c35e68a0a.qloud-c.yandex.net (smtpcorp/Yandex) with ESMTPSA id
+ wpjdqnXUTF-ZBOWTaqP; Mon, 14 Nov 2022 11:35:12 +0300
+Precedence: bulk
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; 
+ t=1668414912; bh=PaWl5kxzPZDLe8sZ1fNM9BbgGs/+I2HQx03eZhHAjWY=;
+ h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
+ b=DGOMXti8YRdNbkv9ZzO+MKzXBD3SbRceqjCZhr39RVZx0PtW3hATVGQzkgQWbZkOy
+ I3i9juH1GgoScvK10LtYvxNGt5kBTBTxEmFca6o+8XFBwtntNEr9E9207D1VIJE/gz
+ Cx3eyz/B1ZB936ZA3fihfSZWcby+jrIOmWO3vasM=
+Authentication-Results: iva4-f06c35e68a0a.qloud-c.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+Message-ID: <d3a31735-8f5c-3168-6a0d-2cf1e9005864@yandex-team.ru>
+Date: Mon, 14 Nov 2022 11:35:10 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Subject: Re: [PATCH v1] sound/pci/hda/patch_realtek: don't call
  alc_shutup_pins without a spec
-In-Reply-To: <20221114082048.3477027-1-d-tatianin@yandex-team.ru>
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
 References: <20221114082048.3477027-1-d-tatianin@yandex-team.ru>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ <87r0y63psf.wl-tiwai@suse.de>
+From: Daniil Tatianin <d-tatianin@yandex-team.ru>
+In-Reply-To: <87r0y63psf.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 14 Nov 2022 09:55:46 +0100
 Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
  lvc-project@linuxtesting.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
  Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
@@ -94,7 +86,6 @@ Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
-Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 List-Unsubscribe: <https://mailman.alsa-project.org/mailman/options/alsa-devel>, 
@@ -107,49 +98,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Nov 2022 09:20:48 +0100,
-Daniil Tatianin wrote:
+
+
+On 11/14/22 11:26 AM, Takashi Iwai wrote:
+> On Mon, 14 Nov 2022 09:20:48 +0100,
+> Daniil Tatianin wrote:
+>>
+>> alc_shutup_pins always expects the spec to be present, so make sure
+>> it is before we call it.
+>>
+>> Found by Linux Verification Center (linuxtesting.org) with the SVACE
+>> static analysis tool.
+>>
+>> Signed-off-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
 > 
-> alc_shutup_pins always expects the spec to be present, so make sure
-> it is before we call it.
+> In which path can it be without spec assigned?
+> That's the internal callback that is set only by the codec driver
+> where the allocation of codec->spec is mandatory.
+
+Would you then say that the "if (spec && ...)" that was there before was 
+redundant? Should we remove it perhaps to avoid further confusion about 
+it being optional? The else branch with alc_shutup_pins would crash if 
+it was null anyway.
+
+Thanks
+
 > 
-> Found by Linux Verification Center (linuxtesting.org) with the SVACE
-> static analysis tool.
+> thanks,
 > 
-> Signed-off-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
-
-In which path can it be without spec assigned?
-That's the internal callback that is set only by the codec driver
-where the allocation of codec->spec is mandatory.
-
-
-thanks,
-
-Takashi
-
-
-> ---
->  sound/pci/hda/patch_realtek.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> Takashi
 > 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 60e3bc124836..2cf4b64971d7 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -939,10 +939,12 @@ static inline void alc_shutup(struct hda_codec *codec)
->  {
->  	struct alc_spec *spec = codec->spec;
->  
-> +	if (!spec)
-> +		return;
->  	if (!snd_hda_get_bool_hint(codec, "shutup"))
->  		return; /* disabled explicitly by hints */
->  
-> -	if (spec && spec->shutup)
-> +	if (spec->shutup)
->  		spec->shutup(codec);
->  	else
->  		alc_shutup_pins(codec);
-> -- 
-> 2.25.1
 > 
+>> ---
+>>   sound/pci/hda/patch_realtek.c | 4 +++-
+>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+>> index 60e3bc124836..2cf4b64971d7 100644
+>> --- a/sound/pci/hda/patch_realtek.c
+>> +++ b/sound/pci/hda/patch_realtek.c
+>> @@ -939,10 +939,12 @@ static inline void alc_shutup(struct hda_codec *codec)
+>>   {
+>>   	struct alc_spec *spec = codec->spec;
+>>   
+>> +	if (!spec)
+>> +		return;
+>>   	if (!snd_hda_get_bool_hint(codec, "shutup"))
+>>   		return; /* disabled explicitly by hints */
+>>   
+>> -	if (spec && spec->shutup)
+>> +	if (spec->shutup)
+>>   		spec->shutup(codec);
+>>   	else
+>>   		alc_shutup_pins(codec);
+>> -- 
+>> 2.25.1
+>>

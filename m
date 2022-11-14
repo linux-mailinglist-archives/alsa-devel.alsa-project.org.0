@@ -2,84 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B110B62822F
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 15:18:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E390628277
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 15:27:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38E081677;
-	Mon, 14 Nov 2022 15:17:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38E081677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98B031677;
+	Mon, 14 Nov 2022 15:26:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98B031677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668435484;
-	bh=G0EnHL9y5sZHJdkiq2P42CKzUluCKHaXCWlUvgTP2oM=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=N5ETjk5r+Gyfh7Q1Eo3hpH75cdFfrNcfEBOpicPcnj4IEuWC7o7J/FY863qUb304j
-	 ioocxea66UNeBAUG9EJfzfYtCcvQRVYusgZVGX/6U3Y2Tned4CvBBOkIOx7a+Q7a1k
-	 iEo1px+nWC9SKnm4zvw9OWicwd65euhS5S8VOcB4=
+	s=default; t=1668436028;
+	bh=X1oa+xzcoyNn4knw1lgx9VihRmteQ7Hm+KkSpgRNymI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JPQ9onz14WZiuXfAyRuFN5RmT7I+DtuxiSfoG8p5tYy4PY6zl75fN7KVwXuO6Ty57
+	 2SuQCnvYG6OEixBJv4rPfWgE4JvCXo54KGnjnxJI4uBKeiMaVGg5MHznMO2PuX43fS
+	 U/u7WORY/6oPEcj0EffrQuF4Y7XplihjAjvw/53Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBD9AF800AA;
-	Mon, 14 Nov 2022 15:17:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 209E4F80448;
+	Mon, 14 Nov 2022 15:26:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6BA0F800AA; Mon, 14 Nov 2022 15:17:07 +0100 (CET)
+ id A5E32F80431; Mon, 14 Nov 2022 15:26:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_30, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7FCDF800AA
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 15:17:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7FCDF800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C485F800B8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 15:26:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C485F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yYBqd+u4"; 
+ header.b="T2IUx+tw"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Zn9Bjn0S"
+ header.b="Pev4hS0t"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D838C20052;
- Mon, 14 Nov 2022 14:17:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A2F4B2005C;
+ Mon, 14 Nov 2022 14:26:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668435420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QbLZBgMvET/joyA7ZUgbkREyNuU4E4lztiqfgSeiz+8=;
- b=yYBqd+u4Cfv6AAT9C60Q48KxXVzpugOqj6jHt4uYxNErQSErh9Qh9upUO+X4Krt+WGeeaX
- DjPCyvfLsbBf5NexoyVicxC78RVKKxKbEyapuLhWakbwZ7UGrJPw0G61VCTEIhh5ZYiiDV
- qWbe2HxFVmHUsmE4W6GbJrscb7c8Sck=
+ t=1668435968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7hIDmsSTNdUxe/T4Z6QQMetz3vPTf5iMj5CVTpKdPWU=;
+ b=T2IUx+tw0Qfmq2GkJ8mgl6iOkvg6RunWSxayp3JsOoh9xoBxjpkMDS/jFeQ0W/bGx4OSG1
+ mKaRpuSzAyixTd7Ha6Nm5byjKAGr4FyYzqLK9AWaZf+N95sCHHJk6/SS77W9CeCTo/pxN6
+ AQAabhy308pR+nySk3RCsPWIwQjg4/8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668435420;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QbLZBgMvET/joyA7ZUgbkREyNuU4E4lztiqfgSeiz+8=;
- b=Zn9Bjn0S48GynJOoKRcIfmfwNYyi8tZmjYsQHPuLvKpM39g34sEhuyhFof/cKkWvpG2LwY
- oL26th1i+Y2SJcAw==
+ s=susede2_ed25519; t=1668435968;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7hIDmsSTNdUxe/T4Z6QQMetz3vPTf5iMj5CVTpKdPWU=;
+ b=Pev4hS0t8NRGugLxnxlHh6YU5NJiBlKe1QNh6RHqRCQCW0QIbAyQFioi0q/T3mRFM6dSFd
+ z8NQtoRhBe70O7BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0F1313A92;
- Mon, 14 Nov 2022 14:17:00 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 78F6713A92;
+ Mon, 14 Nov 2022 14:26:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aRo/LtxNcmPTZQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 14:17:00 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id FYnCHABQcmPWawAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 14:26:08 +0000
+Date: Mon, 14 Nov 2022 15:26:08 +0100
+Message-ID: <87r0y5394v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: memalloc: Allocate more contiguous pages for fallback
- case
-Date: Mon, 14 Nov 2022 15:16:58 +0100
-Message-Id: <20221114141658.29620-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 2/2] ASoC: Intel: avs: Disconnect substream if suspend
+ or resume fails
+In-Reply-To: <f6eb116b-e7a4-c95c-0fdc-01ffaa246bf5@intel.com>
+References: <20221114113729.1022905-1-cezary.rojewski@intel.com>
+ <20221114113729.1022905-3-cezary.rojewski@intel.com>
+ <877czx4rkj.wl-tiwai@suse.de>
+ <f6eb116b-e7a4-c95c-0fdc-01ffaa246bf5@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,108 +105,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently the fallback SG allocation tries to allocate each single
-page, and this tends to result in the reverse order of memory
-addresses when large space is available at boot, as the kernel takes a
-free page from the top to the bottom in the zone.  The end result
-looks as if non-contiguous (although it actually is).  What's worth is
-that it leads to an overflow of BDL entries for HD-audio.
+On Mon, 14 Nov 2022 15:08:17 +0100,
+Cezary Rojewski wrote:
+> 
+> 
+> 
+> On 2022-11-14 2:02 PM, Takashi Iwai wrote:
+> > On Mon, 14 Nov 2022 12:37:29 +0100,
+> > Cezary Rojewski wrote:
+> >> 
+> >> To improve performance and overall system stability, suspend/resume
+> >> operations for ASoC cards always return success status and defer the
+> >> actual work.
+> >> 
+> >> Because of that, if a substream fails to resume, userspace may still
+> >> attempt to invoke commands on it as from their perspective the operation
+> >> completed successfully. Set substream's state to DISCONNECTED to ensure
+> >> no further commands are attempted.
+> 
+> ...
+> 
+> > Hm, that might work, but note that, once when the stream is set with
+> > the disconnected state, it won't be taken back to the normal state any
+> > longer on most sound backends.  That is, it'll be gone and won't
+> > revive unless you completely unload and reload the whole stuff.  If
+> > that's the intended behavior, that's fine, of course.  So just to make
+> > sure.
+> 
+> Good point.
+> 
+> Our intention: if we fail e.g.: on resume, we would like the framework
+> to invoke ->hw_free() and close us. Right now, if we pretend that
+> everything is okay, invalid actions can be performed on our
+> streams. This all comes down to userspace calling "just"
+> snd_pcm_resume(). If we had an option to opt-in to a _hw_params() +
+> _prepare() + _resume() path, then things would look differently.
 
-For avoiding such a problem, this patch modifies the allocation code
-slightly; now it tries to allocate the larger contiguous chunks as
-much as possible, then reduces to the smaller chunks only if the
-allocation failed -- a similar strategy as the existing
-snd_dma_alloc_pages_fallback() function.
+So you'd rather like to make the stream appearing and working after
+re-opening the stream again?  Then DISCONNECTED state might be too
+strong.
 
-Along with the trick, drop the unused address array from
-snd_dma_sg_fallback object.  It was needed in the past when
-dma_alloc_coherent() was used, but with the standard page allocator,
-it became superfluous and never referred.
+If the broken state could be recovered by the PCM PREPARE phase, then
+we may (ab-)use XRUN state, instead.  Then application shall
+re-setup via PCM prepare call.  But if hw_free/hw_params is required,
+it won't work.
 
-Fixes: a8d302a0b770 ("ALSA: memalloc: Revive x86-specific WC page allocations again")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/memalloc.c | 44 ++++++++++++++++++++++++++-----------------
- 1 file changed, 27 insertions(+), 17 deletions(-)
+Other than that, there is no such PCM state that forces to close and
+re-open, I'm afraid.  You can have an internal error state and let the
+stream returning an error at each operation, instead, too.
 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index ba095558b6d1..7268304009ad 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -720,7 +720,6 @@ static const struct snd_malloc_ops snd_dma_sg_wc_ops = {
- struct snd_dma_sg_fallback {
- 	size_t count;
- 	struct page **pages;
--	dma_addr_t *addrs;
- };
- 
- static void __snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab,
-@@ -732,38 +731,49 @@ static void __snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab,
- 	for (i = 0; i < sgbuf->count && sgbuf->pages[i]; i++)
- 		do_free_pages(page_address(sgbuf->pages[i]), PAGE_SIZE, wc);
- 	kvfree(sgbuf->pages);
--	kvfree(sgbuf->addrs);
- 	kfree(sgbuf);
- }
- 
- static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- {
- 	struct snd_dma_sg_fallback *sgbuf;
--	struct page **pages;
--	size_t i, count;
-+	struct page **pagep, *curp;
-+	size_t chunk, npages;
-+	dma_addr_t addr;
- 	void *p;
- 	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 
- 	sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
- 	if (!sgbuf)
- 		return NULL;
--	count = PAGE_ALIGN(size) >> PAGE_SHIFT;
--	pages = kvcalloc(count, sizeof(*pages), GFP_KERNEL);
--	if (!pages)
--		goto error;
--	sgbuf->pages = pages;
--	sgbuf->addrs = kvcalloc(count, sizeof(*sgbuf->addrs), GFP_KERNEL);
--	if (!sgbuf->addrs)
-+	size = PAGE_ALIGN(size);
-+	sgbuf->count = size >> PAGE_SHIFT;
-+	sgbuf->pages = kvcalloc(sgbuf->count, sizeof(*sgbuf->pages), GFP_KERNEL);
-+	if (!sgbuf->pages)
- 		goto error;
- 
--	for (i = 0; i < count; sgbuf->count++, i++) {
--		p = do_alloc_pages(dmab->dev.dev, PAGE_SIZE, &sgbuf->addrs[i], wc);
--		if (!p)
--			goto error;
--		sgbuf->pages[i] = virt_to_page(p);
-+	pagep = sgbuf->pages;
-+	chunk = size;
-+	while (size > 0) {
-+		chunk = min(size, chunk);
-+		p = do_alloc_pages(dmab->dev.dev, chunk, &addr, wc);
-+		if (!p) {
-+			if (chunk <= PAGE_SIZE)
-+				goto error;
-+			chunk >>= 1;
-+			chunk = PAGE_SIZE << get_order(chunk);
-+			continue;
-+		}
-+
-+		size -= chunk;
-+		/* fill pages */
-+		npages = chunk >> PAGE_SHIFT;
-+		curp = virt_to_page(p);
-+		while (npages--)
-+			*pagep++ = curp++;
- 	}
- 
--	p = vmap(pages, count, VM_MAP, PAGE_KERNEL);
-+	p = vmap(sgbuf->pages, sgbuf->count, VM_MAP, PAGE_KERNEL);
- 	if (!p)
- 		goto error;
- 	dmab->private_data = sgbuf;
--- 
-2.35.3
+And, creating a new PCM state is very difficult.  It would influence
+way too much, IMO, as each application code has to be modified to
+handle the new PCM state.
 
+
+Takashi

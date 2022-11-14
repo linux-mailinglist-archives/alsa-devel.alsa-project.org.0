@@ -2,65 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7EA62785A
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 10:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4061E62789D
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 10:05:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F88C83D;
-	Mon, 14 Nov 2022 09:59:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F88C83D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 985AC1607;
+	Mon, 14 Nov 2022 10:04:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 985AC1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668416413;
-	bh=6OLld61kCMu0V4QdonYtday9/fM2EXcQuQhh4elUN/w=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XYJn0HVnmMaBy4Qeqqbac8XS6yAvXjWhf8sA8fjAkwHRaiC8BauJ/G2G22qQpyV3G
-	 pKd7BTODPnYWLmsn6sA1js+qlxFBi7mTFH2Kfp8HSzPa/36UJ2PuXtQef//jietONQ
-	 k1fTgMhaMnOX+EtsuvHxWfl+TD8nHF+mCsuB2YW4=
+	s=default; t=1668416738;
+	bh=06mnWo/4HV/wIaSI0daIO8J4kFFZajLRWGmHZEXZwkc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=R693soSnFFwYvwC1nPmD0mrd5gDrvCNTxcefYbYd+QrtaskztLW5F73EnZKFkmNO3
+	 T4eQbyb+52o5Qvrcj9P/8I/FwAa3SbKBxJiQ/+WGcRildsNp6WONz6GYYSFtwvppeP
+	 qM4yc/IzM1N3lIdqMgdD3RsBlyEzMr7ieKuR23Lg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FF02F800B6;
-	Mon, 14 Nov 2022 09:59:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2714FF800B6;
+	Mon, 14 Nov 2022 10:04:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06CDDF80431; Mon, 14 Nov 2022 09:59:17 +0100 (CET)
+ id 1662BF80431; Mon, 14 Nov 2022 10:04:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_ZEN_BLOCKED_OPENDNS, 
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C76B5F800B6
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 09:59:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C76B5F800B6
-Received: from kwepemi500024.china.huawei.com (unknown [172.30.72.54])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4N9jp91d86zJnhw;
- Mon, 14 Nov 2022 16:56:01 +0800 (CST)
-Received: from huawei.com (10.175.103.91) by kwepemi500024.china.huawei.com
- (7.221.188.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 14 Nov
- 2022 16:59:06 +0800
-From: Zeng Heng <zengheng4@huawei.com>
-To: <perex@perex.cz>, <leoy@marvell.com>, <robert.jarzmik@free.fr>,
- <daniel@zonque.org>, <haojian.zhuang@gmail.com>, <broonie@kernel.org>,
- <lgirdwood@gmail.com>, <tiwai@suse.com>, <zhangfei.gao@marvell.com>,
- <zhouqiao@marvell.com>
-Subject: [PATCH] ASoC: pxa: fix null-pointer dereference in filter()
-Date: Mon, 14 Nov 2022 16:56:29 +0800
-Message-ID: <20221114085629.1910435-1-zengheng4@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemi500024.china.huawei.com (7.221.188.100)
-X-CFilter-Loop: Reflected
-Cc: zengheng4@huawei.com, alsa-devel@alsa-project.org, liwei391@huawei.com,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFD86F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 10:04:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFD86F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="YE8YpyZ1"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Llx/kP6o"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 19B291FD67;
+ Mon, 14 Nov 2022 09:04:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668416678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qYeyMGzPpWeJjemOhgQTqv3gXdbN1HV6WuzeSdghX/w=;
+ b=YE8YpyZ139VQeNK68TlYpnZ25AsIpwxeaayX1shw2BLDESgrmTvnKy7KsOLoovwmZBfSwj
+ feMoKYc76x8HYSZ+pvUN+xmQZPf09XVjndfDwC301JINk5rEiybUHATWKeqGyjEEiBHLXG
+ fJHUXRrpHHEd1U3ub5JGJMJKODHR4yM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668416678;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qYeyMGzPpWeJjemOhgQTqv3gXdbN1HV6WuzeSdghX/w=;
+ b=Llx/kP6o5oi7w9LY9pE3+/vMOmMFKljhPvJvgNrLZwx0lxnO0V03LM2WxQjWChbMOB9Zo+
+ 9l/BHoMLUwQN+PBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C727613A8C;
+ Mon, 14 Nov 2022 09:04:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id CAa7L6UEcmPcMwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 09:04:37 +0000
+Date: Mon, 14 Nov 2022 10:04:37 +0100
+Message-ID: <87leod52l6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 6/7] ALSA: memalloc: don't pass bogus GFP_ flags to
+ dma_alloc_*
+In-Reply-To: <20221113163535.884299-7-hch@lst.de>
+References: <20221113163535.884299-1-hch@lst.de>
+ <20221113163535.884299-7-hch@lst.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-media@vger.kernel.org, Alexandra Winter <wintera@linux.ibm.com>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Wenjia Zhang <wenjia@linux.ibm.com>,
+ iommu@lists.linux.dev, Russell King <linux@armlinux.org.uk>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,28 +109,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-kasprintf() would return NULL pointer when kmalloc() fail to allocate.
-Need to check the return pointer before calling strcmp().
+On Sun, 13 Nov 2022 17:35:34 +0100,
+Christoph Hellwig wrote:
+> 
+> dma_alloc_coherent/dma_alloc_wc is an opaque allocator that only uses
+> the GFP_ flags for allocation context control.  Don't pass __GFP_COMP
+> which makes no sense for an allocation that can't in any way be
+> converted to a page pointer.
 
-Fixes: 7a824e214e25 ("ASoC: mmp: add audio dma support")
-Signed-off-by: Zeng Heng <zengheng4@huawei.com>
----
- sound/soc/pxa/mmp-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The addition of __GFP_COMP there was really old, it was Hugh's commit
+f3d48f0373c1 at 2005:
+    [PATCH] unpaged: fix sound Bad page states
 
-diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
-index 5d520e18e512..99b245e3079a 100644
---- a/sound/soc/pxa/mmp-pcm.c
-+++ b/sound/soc/pxa/mmp-pcm.c
-@@ -98,7 +98,7 @@ static bool filter(struct dma_chan *chan, void *param)
- 
- 	devname = kasprintf(GFP_KERNEL, "%s.%d", dma_data->dma_res->name,
- 		dma_data->ssp_id);
--	if ((strcmp(dev_name(chan->device->dev), devname) == 0) &&
-+	if (devname && (strcmp(dev_name(chan->device->dev), devname) == 0) &&
- 		(chan->chan_id == dma_data->dma_res->start)) {
- 		found = true;
- 	}
--- 
-2.25.1
+It mentions something about sparc32/64.  I hope this isn't relevant
+any longer (honestly I have no idea about that).
 
+> Note that for dma_alloc_noncoherent and dma_alloc_noncontigous in
+> combination with the DMA mmap helpers __GFP_COMP looks sketchy as well,
+> so I would suggest to drop that as well after a careful audit.
+
+Yeah, that's a cargo-cult copy&paste from the old idiom.
+Should be killed altogether.
+
+
+Thanks!
+
+Takashi

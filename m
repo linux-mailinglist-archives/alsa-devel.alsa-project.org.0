@@ -2,98 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4061E62789D
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 10:05:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8744627A80
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 11:31:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 985AC1607;
-	Mon, 14 Nov 2022 10:04:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 985AC1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46F961654;
+	Mon, 14 Nov 2022 11:30:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46F961654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668416738;
-	bh=06mnWo/4HV/wIaSI0daIO8J4kFFZajLRWGmHZEXZwkc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=R693soSnFFwYvwC1nPmD0mrd5gDrvCNTxcefYbYd+QrtaskztLW5F73EnZKFkmNO3
-	 T4eQbyb+52o5Qvrcj9P/8I/FwAa3SbKBxJiQ/+WGcRildsNp6WONz6GYYSFtwvppeP
-	 qM4yc/IzM1N3lIdqMgdD3RsBlyEzMr7ieKuR23Lg=
+	s=default; t=1668421889;
+	bh=iQMi9ULc6KyRfTSMDhEUNlBoEv/FdoFA+15DIoXdWnQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=prgUQD0dkpq918f8/X3x6UyVQ2HzWbI83UPbXTRwZc7iwJmfSlLR0a17quwBtzv0l
+	 UZ2f+ZU0B9rEdGWNiQzjauhY/qGp5pJ5FMrpEyPGfbanettZUkWOW/GPvb26uzy4k4
+	 NafhHdelpCJJWVvI127ZTZyt2NbQ0ZtJ+Vq5FVHQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2714FF800B6;
-	Mon, 14 Nov 2022 10:04:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F9B1F80557;
+	Mon, 14 Nov 2022 11:30:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1662BF80431; Mon, 14 Nov 2022 10:04:41 +0100 (CET)
+ id F25A2F8049E; Mon, 14 Nov 2022 11:30:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFD86F800B6
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 10:04:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFD86F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04AD0F80245
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 11:29:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04AD0F80245
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="YE8YpyZ1"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Llx/kP6o"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 19B291FD67;
- Mon, 14 Nov 2022 09:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668416678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qYeyMGzPpWeJjemOhgQTqv3gXdbN1HV6WuzeSdghX/w=;
- b=YE8YpyZ139VQeNK68TlYpnZ25AsIpwxeaayX1shw2BLDESgrmTvnKy7KsOLoovwmZBfSwj
- feMoKYc76x8HYSZ+pvUN+xmQZPf09XVjndfDwC301JINk5rEiybUHATWKeqGyjEEiBHLXG
- fJHUXRrpHHEd1U3ub5JGJMJKODHR4yM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668416678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qYeyMGzPpWeJjemOhgQTqv3gXdbN1HV6WuzeSdghX/w=;
- b=Llx/kP6o5oi7w9LY9pE3+/vMOmMFKljhPvJvgNrLZwx0lxnO0V03LM2WxQjWChbMOB9Zo+
- 9l/BHoMLUwQN+PBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C727613A8C;
- Mon, 14 Nov 2022 09:04:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CAa7L6UEcmPcMwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 09:04:37 +0000
-Date: Mon, 14 Nov 2022 10:04:37 +0100
-Message-ID: <87leod52l6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 6/7] ALSA: memalloc: don't pass bogus GFP_ flags to
- dma_alloc_*
-In-Reply-To: <20221113163535.884299-7-hch@lst.de>
-References: <20221113163535.884299-1-hch@lst.de>
- <20221113163535.884299-7-hch@lst.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-media@vger.kernel.org, Alexandra Winter <wintera@linux.ibm.com>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Wenjia Zhang <wenjia@linux.ibm.com>,
- iommu@lists.linux.dev, Russell King <linux@armlinux.org.uk>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="d24ZgR+y"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AE8Wcic019990; Mon, 14 Nov 2022 04:29:58 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=3I80snV9eYtMbvZMlGgRAxWKxKCE83UuDVvJkzJhaxE=;
+ b=d24ZgR+yWNTnMKR8O2v+Ngyk4mv0JkX47RDx6PMZLEQ0jUdyXSURP0UpgIpi+hCxpbr+
+ q5B/9mtep2zbwZMxu8/pHabaAYP4AUEts3Ev+OGm/ftrt1Nde9ARlzcqD9vmKHNrucgw
+ jQNHakrj0HbRTFYRCVV8fYi1IgSz+6fAsWYItG9fDTkK+IiLl6VVKMrmBxVl7KhymsdT
+ rhgtWoVY7dEoi5kJd9kcKz/SazQa+DzXALYPOAsFegCVb9N3qjCBRfUf65y18u5bbtwd
+ yXPuyC0d/Nn5+gCjr1RK6DQmB6P0ACrDYak2j0lHr+vL8u8v74n+4MW+aT8I5x+GDGhG wA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kt8sst0cm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Nov 2022 04:29:57 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.15; Mon, 14 Nov
+ 2022 04:29:56 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.15 via Frontend Transport; Mon, 14 Nov 2022 04:29:56 -0600
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 367712AA;
+ Mon, 14 Nov 2022 10:29:56 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <vkoul@kernel.org>
+Subject: [PATCH 0/4] Minor SoundWire clean ups
+Date: Mon, 14 Nov 2022 10:29:52 +0000
+Message-ID: <20221114102956.914468-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: sJX6n-hrkfIZbSWi5Uv3eDcnEBeFjmQt
+X-Proofpoint-ORIG-GUID: sJX6n-hrkfIZbSWi5Uv3eDcnEBeFjmQt
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,29 +97,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 13 Nov 2022 17:35:34 +0100,
-Christoph Hellwig wrote:
-> 
-> dma_alloc_coherent/dma_alloc_wc is an opaque allocator that only uses
-> the GFP_ flags for allocation context control.  Don't pass __GFP_COMP
-> which makes no sense for an allocation that can't in any way be
-> converted to a page pointer.
+Just some minor tidy ups and preparation for starting to upstream some
+Cirrus SoundWire devices. The first three patches are pretty trivial,
+the last patch which moves the remaining core over to using the no_pm
+functions could probably use some careful review.
 
-The addition of __GFP_COMP there was really old, it was Hugh's commit
-f3d48f0373c1 at 2005:
-    [PATCH] unpaged: fix sound Bad page states
+Thanks,
+Charles
 
-It mentions something about sparc32/64.  I hope this isn't relevant
-any longer (honestly I have no idea about that).
+Charles Keepax (3):
+  soundwire: Provide build stubs for common functions
+  soundwire: debugfs: Switch to sdw_read_no_pm
+  soundwire: stream: Move remaining register accesses over to no_pm
 
-> Note that for dma_alloc_noncoherent and dma_alloc_noncontigous in
-> combination with the DMA mmap helpers __GFP_COMP looks sketchy as well,
-> so I would suggest to drop that as well after a careful audit.
+Simon Trimmer (1):
+  soundwire: bus: export sdw_nwrite_no_pm and sdw_nread_no_pm functions
 
-Yeah, that's a cargo-cult copy&paste from the old idiom.
-Should be killed altogether.
+ drivers/soundwire/bus.c       | 10 ++--
+ drivers/soundwire/debugfs.c   | 11 +++-
+ drivers/soundwire/stream.c    | 30 +++++------
+ include/linux/soundwire/sdw.h | 94 +++++++++++++++++++++++++++++++----
+ 4 files changed, 114 insertions(+), 31 deletions(-)
 
+-- 
+2.30.2
 
-Thanks!
-
-Takashi

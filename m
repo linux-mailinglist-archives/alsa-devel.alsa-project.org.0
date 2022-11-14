@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89131627FA2
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 14:01:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A3DC62802C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 14:03:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA2331677;
-	Mon, 14 Nov 2022 14:00:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA2331677
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC5A81666;
+	Mon, 14 Nov 2022 14:02:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC5A81666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668430874;
-	bh=o255Oh3xD5qeF+OBbW+SP7SqQXzJHLMt+bzReQzweuc=;
+	s=default; t=1668431017;
+	bh=rsctcFeJa8thxJIgHjHXXsXJU4Gyz0k2L4Hhf3Dwvag=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iO9dYQ+QXqen/5uBAIlULNpns7Vrjg0afFOTVf5aryQLIVQUs7Fy9I4hQWOyURgxb
-	 ANw6ljF9Kr0Ktbhch3Fcnuy3T1/rxS1vjjZ9IroNJ4HTBhl+eiBM6YU/2YMzQve7sj
-	 HewWoi7a3MY0ROOBIcTGbgwtz7GkVdu6m7yWBw6Y=
+	b=ZRtoYKMjgUZAcPTw5UwS8ImyLzTTWJoVv0/ImCIFHRga5aHi9pK42MUbpK4h+YMko
+	 hlANnhvAl3DdTo2fFQZHd2z/HJgOn14xawgQHNDxPHIx0EmXpk0JN8lHXtRqy+H1p0
+	 qy+d9PgA0KrLbKSExvbQsMcntIwHiameBmPdGGO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70F72F800AA;
-	Mon, 14 Nov 2022 14:00:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB3A3F800B8;
+	Mon, 14 Nov 2022 14:02:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99A08F80431; Mon, 14 Nov 2022 14:00:16 +0100 (CET)
+ id 8244AF80431; Mon, 14 Nov 2022 14:02:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E54CF800B6
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 14:00:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E54CF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 237DCF800AA
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 14:02:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 237DCF800AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xuAyTkKy"; 
+ header.b="YNZaMdrF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="wZI9XIrY"
+ header.b="rpTTyqFO"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A5F6B1FF89;
- Mon, 14 Nov 2022 13:00:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 646A522A79;
+ Mon, 14 Nov 2022 13:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668430813; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1668430957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=s/WPbw/AMEorB1CCCi4GiZyellql7WmBw5x7og70YKI=;
- b=xuAyTkKyZxdJgUrUiTMFV0pHbZ+rdMaHKZON8ZUHImhXrXLE/8IAqbCKbpYVEcGeFD+hMX
- MQDut8mSVJg7RmIApcw+b/nn95JAFVacgosMTDd4VIJ1sP0Lnx6OwAF4Hmj+vsS46q63Qk
- WcPWoxOKv2SfwOumeeHLVz3EEFAU04I=
+ bh=WW+4997dcvMQy6HTQsFO/vCfGjKeghRkGaiLa7HIS1s=;
+ b=YNZaMdrFBWAIzE6plb0zmtd0Pnq8YlNrgdxgQX3QkgdRqEYGMfiXn0asokKWC3kyuxTYLb
+ xEraEKmiVx90X1cq87WzVQ7M97KFH2WTTshgfZvY+flG6fqLWy18vIsJhy9fwwJmJZIm5o
+ 1hzZV4NmUTvh2PyJLw+0xcMy4UF/LKc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668430813;
+ s=susede2_ed25519; t=1668430957;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=s/WPbw/AMEorB1CCCi4GiZyellql7WmBw5x7og70YKI=;
- b=wZI9XIrYa5qr4Hm9Nljpx2ha8QIN7zDZykU9bxh1Pq7Lmylf2XloU7FoZ5UauacAc2lZoW
- /jYs6cN0AdDT6nAw==
+ bh=WW+4997dcvMQy6HTQsFO/vCfGjKeghRkGaiLa7HIS1s=;
+ b=rpTTyqFOe04nhmKnCmszvQOqM76Z0iRR+D6K/eVa3m3j6a44BqMkQNWW7VMz0uniO6EHqB
+ 39ko5JdxYN0s2oDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6AF1613A8C;
- Mon, 14 Nov 2022 13:00:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3C2AF13A8C;
+ Mon, 14 Nov 2022 13:02:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 73RFGd07cmO0NwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 13:00:13 +0000
-Date: Mon, 14 Nov 2022 14:00:12 +0100
-Message-ID: <878rkd4roj.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id FzwRDm08cmMyOQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 14 Nov 2022 13:02:37 +0000
+Date: Mon, 14 Nov 2022 14:02:36 +0100
+Message-ID: <877czx4rkj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 1/2] ASoC: Intel: avs: Lock substream before
- snd_pcm_stop()
-In-Reply-To: <20221114113729.1022905-2-cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 2/2] ASoC: Intel: avs: Disconnect substream if suspend
+ or resume fails
+In-Reply-To: <20221114113729.1022905-3-cezary.rojewski@intel.com>
 References: <20221114113729.1022905-1-cezary.rojewski@intel.com>
- <20221114113729.1022905-2-cezary.rojewski@intel.com>
+ <20221114113729.1022905-3-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -104,32 +103,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Nov 2022 12:37:28 +0100,
+On Mon, 14 Nov 2022 12:37:29 +0100,
 Cezary Rojewski wrote:
 > 
-> snd_pcm_stop() shall be called with stream lock held to prevent any
-> races between nonatomic streaming operations.
+> To improve performance and overall system stability, suspend/resume
+> operations for ASoC cards always return success status and defer the
+> actual work.
 > 
-> Fixes: 2f1f570cd730 ("ASoC: Intel: avs: Coredump and recovery flow")
+> Because of that, if a substream fails to resume, userspace may still
+> attempt to invoke commands on it as from their perspective the operation
+> completed successfully. Set substream's state to DISCONNECTED to ensure
+> no further commands are attempted.
+> 
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->  sound/soc/intel/avs/ipc.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
-> index 152f8d0bdf8e..07655298b6c7 100644
-> --- a/sound/soc/intel/avs/ipc.c
-> +++ b/sound/soc/intel/avs/ipc.c
-> @@ -123,7 +123,9 @@ static void avs_dsp_recovery(struct avs_dev *adev)
->  				if (!substream || !substream->runtime)
->  					continue;
->  
-> +				snd_pcm_stream_lock(substream);
->  				snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
-> +				snd_pcm_stream_unlock(substream);
 
-Isn't it in the interruptible context?  If so, you need the _irq()
-variant.
+Hm, that might work, but note that, once when the stream is set with
+the disconnected state, it won't be taken back to the normal state any
+longer on most sound backends.  That is, it'll be gone and won't
+revive unless you completely unload and reload the whole stuff.  If
+that's the intended behavior, that's fine, of course.  So just to make
+sure.
 
+
+thanks,
 
 Takashi

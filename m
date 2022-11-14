@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 296E0627694
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 08:46:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C696276A6
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 08:49:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9FA71620;
-	Mon, 14 Nov 2022 08:45:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9FA71620
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2C31630;
+	Mon, 14 Nov 2022 08:48:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2C31630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668411975;
-	bh=/ty9siJAgNDhydtrLcyc+v365/d0kM858La0JmigJfA=;
+	s=default; t=1668412161;
+	bh=ruOxFGh3LPZoixXrU58A5riFjZ9F4QKBja/IiS33reI=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S2q1oTLxWALrIJsTyC64xNAnLB+qog4CHD8MqK3ZsASfx+4Dv6KntnR6vs05k8DJd
-	 PzzUzzE4w1pFzLBgxnk52ImMaRGr9rguUeLnI9aX56XxP5IlLvff0z0bIAPCO2HBMk
-	 oS8VikoHwuRiN4v2ZnJ/75YPod1t05ZfaEVM5eOE=
+	b=btdQJTV77IY6xEftRDMqKS2fZNlWCPRm1cBxgRYRmKSFBfaQ/8F1u7/sDQw+Sl7M3
+	 K1JtjAnKAEDwAqzCKR+RfAvSH/tbJnmHIRQuw2nQQWn+9pEJ/JDL319/2l6NGAArW2
+	 RCawW9loI0ol1Xs46xz5KGslUZOvriNr43JSuxg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 565CEF800AA;
-	Mon, 14 Nov 2022 08:45:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C54FF800AA;
+	Mon, 14 Nov 2022 08:48:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38EB2F80431; Mon, 14 Nov 2022 08:45:18 +0100 (CET)
+ id E9135F80431; Mon, 14 Nov 2022 08:48:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODYSUB_1,RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80460F800B6
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 08:45:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80460F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 391FEF800B6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 08:48:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 391FEF800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CoOlY/Jy"
-Received: by mail-lj1-x234.google.com with SMTP id d3so12082959ljl.1
- for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 23:45:14 -0800 (PST)
+ header.b="SMH/wDR0"
+Received: by mail-lf1-x133.google.com with SMTP id g7so17958788lfv.5
+ for <alsa-devel@alsa-project.org>; Sun, 13 Nov 2022 23:48:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=RThUDKfaIW0h3m+CPW+odfwhZdY9NoazLhG6pvsOy0A=;
- b=CoOlY/JyiNs3rBh4briKTbLMg62G/yRn3DUkMDJzget5JbFD8S18U9q/bf7kLwdCgA
- H3WNJ8E68XjGyJt6t/VX9NRljtJ/StNuprqE8a+BwtF+G5u+qwj02RRjSu7dyKQA3qPp
- zO6eg8WjvAkD5HHTbYyjnYAL0M+YeYyobzzX6BqqVdCZD5Qkwotvga0tUWQGssdtOaYL
- GHL97W+2ldZtctrLynDhXX4MiYSYtXgORw8klZwSedUBxZzwifo/qk4IkbwZbUxMQCCe
- V3smUKYYzFPsX1I8CJCdOuBMLOdXt0LHAgEhcpvx6YsaXCanmx6EuwYd5xit9wZR+8yN
- Ktew==
+ bh=RtaXBhnGo8MVscIrQnKGheYkcw3Kx7+UsbUghToyCVI=;
+ b=SMH/wDR0ipSJQ9BUzSRMG2RWykZI8v94NQ6rQnIPL3+Oq+ZKPi/veswxkIv+yEMztD
+ 2QmI0HH5GldekYzi2aGpmm2oQ8bYqWvWukggo1oah2jteXry9sKr9hhszaCUNhe7JaZB
+ wtQ2IWfLRze8qnIqqOUGV270budQ2QuruVB/5jdcg93GlDmIcmNOQ93VZ2dwFWHN/cNM
+ JLIE+7LyCVT068CkPRhtyAPK3R1eNs1lvDXpLB6AOz3Qp4VaXNsJRRW7UsnXmx6847Yu
+ TDymNZOPJZcegB76FHBGkSFkdBDkb9j47VZng4bShYGV0+c1jYTr0NOza+VNBooBqfle
+ LnBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RThUDKfaIW0h3m+CPW+odfwhZdY9NoazLhG6pvsOy0A=;
- b=BLmDrilMqtM+r6jQxJk0u9lsgPTWN636ssCj78o4ooRWsk0+pyNjn9zMPr7/2d6TeI
- i59XNrckxcnDn8un90GTiJ2+M1cURGQqfu3+ZPnmE06VcTRgjzEeVHH3KWkH3PumEg1J
- gG6TrDgpY3WIL9gGRXokqBjLGdetnyawsa9eKupIFNsDGMpA2XZHyL63MxsUbK+Wp3up
- LyV+lrEl5Ab8m9mivBj+fxZUskGJ8faG9vrp/t+0E0QoRoteurDQIK82qLMV3kgMvbTQ
- dGnPSqTB0KkdPKLt6EmYlUtrvRDXQF0W1Pphn9VBeZExz+g/deTuTdlMp4h9C0ZccNO1
- zo7g==
-X-Gm-Message-State: ANoB5pm+qS8FPf0O64M71VvgO8F1crdgzv8bBUnVsPOZvtcDyYhRrmwP
- KuWUSA5RpZcD3CIOsahN+j2Fng==
-X-Google-Smtp-Source: AA0mqf6Je7SzJ0/6XL2Blpt4CrFzA9c9QJH8q3G+IlddOO2mBMpg0spYsMrpNNrOy4sFVty13KIf3Q==
-X-Received: by 2002:a05:651c:12c9:b0:26f:c03d:f99b with SMTP id
- 9-20020a05651c12c900b0026fc03df99bmr3814983lje.190.1668411912583; 
- Sun, 13 Nov 2022 23:45:12 -0800 (PST)
+ bh=RtaXBhnGo8MVscIrQnKGheYkcw3Kx7+UsbUghToyCVI=;
+ b=SHoeegCmTAybpxBFIl4FQLMaTc93REYScjseBP+vSftVJ99s7Zu+YSM153XEAjjYGp
+ SfYb+EyMROb1gpY1MkWja5Z0Ds603yiQdo4bKUE20PdDhKnXww0YeFsZH5r7pXspgCx4
+ dePZFAt3XCQaybjLWOXfnaRb3mfIgMnQvTM08tyolFXncUHsaTRmYwarSS5ZMny9sFYQ
+ ER+BSFp4kMwUvNnCohsrYf8D0IVwochZpmy+Gh+dHMNqN4nOttkg8T9iXzH8mYDQWmNA
+ 153VPUISB2DMMjj4yYVVLR/LaSUf8SskyX60jPB9VIZMQsDbd/Z5q+efd8Px+kqeAYCO
+ iIQw==
+X-Gm-Message-State: ANoB5pmCJUsbn4EKABSao4MZTkcqcA7e98gl8kFNtKiUKymS5GboJzDN
+ i3XjHaDupAZPJZGTsJnfauyBCw==
+X-Google-Smtp-Source: AA0mqf4L855tMQ/hmtg1Tuny5MoKVDR9pzpMX2tlC4Cl8NJCd/Q5ZQSx1O0gm5QI6BjibY6zuXXH2w==
+X-Received: by 2002:a05:6512:6d5:b0:4a9:6659:40d5 with SMTP id
+ u21-20020a05651206d500b004a9665940d5mr4232367lff.516.1668412098837; 
+ Sun, 13 Nov 2022 23:48:18 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- cf30-20020a056512281e00b00492ca820e15sm1711964lfb.270.2022.11.13.23.45.11
+ k20-20020a2eb754000000b0026b2094f6fcsm1899097ljo.73.2022.11.13.23.48.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 13 Nov 2022 23:45:12 -0800 (PST)
-Message-ID: <6df681b1-318c-ea0a-8add-e0a18302eaf7@linaro.org>
-Date: Mon, 14 Nov 2022 08:45:10 +0100
+ Sun, 13 Nov 2022 23:48:18 -0800 (PST)
+Message-ID: <0ee5db9e-d80c-947d-73d6-6214e9299b23@linaro.org>
+Date: Mon, 14 Nov 2022 08:48:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 02/10] ASoC: dt-bindings: qcom,apr: Split services to
- shared schema
+Subject: Re: [PATCH 00/10] ASoC: dt-bindings: Rework Qualcomm APR/GPR Sound
+ nodes for SM8450
 Content-Language: en-US
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
@@ -95,10 +95,9 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20221111113547.100442-1-krzysztof.kozlowski@linaro.org>
- <20221111113547.100442-3-krzysztof.kozlowski@linaro.org>
- <5207a28b-9c8c-5014-28c1-15635ad30143@linaro.org>
+ <06da072c-8cf0-8181-3c32-4592fe41f9c2@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <5207a28b-9c8c-5014-28c1-15635ad30143@linaro.org>
+In-Reply-To: <06da072c-8cf0-8181-3c32-4592fe41f9c2@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: Patrick Lai <plai@qti.qualcomm.com>,
@@ -118,51 +117,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/11/2022 17:35, Srinivas Kandagatla wrote:
+On 11/11/2022 17:15, Srinivas Kandagatla wrote:
 > 
 > 
 > On 11/11/2022 11:35, Krzysztof Kozlowski wrote:
->> The APR/GPR nodes are organized like:
+>> Adding sound support for Qualcomm SM8450 SoC (and later for SC8280XP) brought
+>> some changes to APR/GPR services bindings.  These bindings are part of
+>> qcom,apr.yaml:
 >>
 >>    apr-or-gpr-device-node <- qcom,apr.yaml
 >>      apr-gpr-service@[0-9] <- qcom,apr.yaml
 >>        service-specific-components <- /schemas/sound/qcom,q6*.yaml
 >>
->> The schema for services (apr-gpr-service@[0-9]) already grows
+>> The schema for services (apr-gpr-service@[0-9]) already grows considerably and
+>> is still quite not specific.  It allows several incorrect combinations, like
+>> adding a clock-controller to a APM device.  Restricting it would complicate the
+>> schema even more.  Bringing new support for sound on Qualcomm SM8450 and
+>> SC8280XP SoC would grow it as well.
 > 
-> I have not seen these grow or change alteast in the past 9 years.
+> Why would this grow? All the dsp services are static and they will not 
+> change per SoC unless there is a total firmware change in DSP.
 
-You added GPR to services in 2021, so it grew past 9 years. Then it grew
-in 2022 when I started adding missing pieces - missing compatibles and
-properties.
-
-> 
-> Old APR (Elite f/w) and new GPR (AudioReach) interface provides access 
-> to static services on the DSP.
-> 
->> considerably and is still quite not specific.  It allows several
->> incorrect combinations, like adding a clock-controller to a APM device.
-> 
-> This should be fixed for sure for validation.
-
-This cannot be fixed without making schema over-complicated. It includes
-six different compatibles. Except few of them - these compatibles
-represent different devices.
+They grow now with SM8450 which requires changes there. Otherwise DTS
+does not pass with current bindings. The bindings before my fixing in
+2022 were really incomplete. Now they are complete, but:
+1. Not for SM8450 - this will bring new things,
+2. Very unspecific as they allow multiple invalid configurations.
 
 > 
-> We had dedicated bindings per service before.
-
-Where?
-
+>>
+>> Refactor the bindings before extending them for Qualcomm SM8450 SoC.
 > 
-> As the service has changed as part of new AudioReach Firmware, we could 
-> have added new bindings for these services again. But as we are dealing 
-> with the same audio hardware and clock resources a new bindings per 
-> service did not make sense. Since then we moved all the lpass audio 
-> ports and clocks related bindings to qcom,q6dsp-lpass-clocks.yaml and 
-> qcom,q6dsp-lpass-ports.yaml.
+> I dont understand this bit, what is SoC audio support to do with DSP 
+> bindings. DSP bindings should be totally independent of this.
 
-These are not bindings for services but bindings for their devices.
+APR/GPR bindings are for SoC audio, so while adding SoC audio the first
+are affected. If you went through the commits here, you would notice the
+changes.
 
 Best regards,
 Krzysztof

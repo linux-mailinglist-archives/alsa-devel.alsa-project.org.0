@@ -2,105 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90CA627B6F
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 12:04:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E5D627C24
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Nov 2022 12:21:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22B2C1666;
-	Mon, 14 Nov 2022 12:04:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B2C1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 129011672;
+	Mon, 14 Nov 2022 12:20:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 129011672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668423890;
-	bh=/4PwbBZONsSSSZ6T303ZWJ2dURqy3RxRASLfy3/91/A=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=imqNzSEUekf161y/gWjWYA9xULY2dOftgEzFheeuiCS3mz8lZuY07dtai6OuzaZyF
-	 4qZ3OPfDb1jLXPTLgxYoS+gcHL2ZLYiXDR6ohwAdDBjphcldU/s32CQ8Zosy30S2yB
-	 za1tEV6Px2PbrHPoVT++Qa/p4C8W+UFTWusl/wrw=
+	s=default; t=1668424902;
+	bh=68PAqBYnUvu/fqZMf88RLtAc+gRZRR54749rdkZ+Zq4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=t+0BoJXv7uTYT/lXyxlb6thdtUSmTOy4N2MiZZxxuuvyx6U+STC+UnVxNugPqUW88
+	 Wh3NHh4DrxWlKlEg/2BFw9k2iDKXtgLxtF2U9Dv2yuyt9iMY2OKe3/GAi5ED0yqFYR
+	 n3LRAPegKnYJRiMhPaJFmXA9VuyAjdT8swJEBTds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA123F80448;
-	Mon, 14 Nov 2022 12:03:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75332F8049E;
+	Mon, 14 Nov 2022 12:20:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7EB5F80245; Mon, 14 Nov 2022 12:03:53 +0100 (CET)
+ id 268B5F800B6; Mon, 14 Nov 2022 12:20:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_MED,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C142CF800B8
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 12:03:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C142CF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3458CF800B6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 12:20:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3458CF800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="x+H9nqpb"
-Received: by mail-lj1-x231.google.com with SMTP id t10so12689735ljj.0
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 03:03:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WrNB6Xj9+aEQvoTkZNUDKBCvNF5d4Z6XoTEhpJTodog=;
- b=x+H9nqpb/dFL2yTX9FmUIZY4TKf+K85BBWalHgPhAE2f++4PE4DbguLfkbuUpeGzLS
- csDSZU0Zat7b8eN+DnkLR2cCclirECVDLj4qbuen4tfFW2FtOCYZWDMVjRCTaD4eT31e
- 18gh9Ip/SdC/TB8MsHz58UQr2an6CtvXVbwL8AdMu0TmsuCOz/MTKBaS8V0W9AU8Ibq6
- UuDFGgYMRPw87Ghfjr6rST8UYt9LxqzglPqXCiys6zrJPKX8/SuR+KvCzP3JAwb0SMxN
- EbYcGcXNHmX4ipk3umf58LXw/dUoWiDwhkSS7oS2Xi/ugtNNXLkCYlR6WigJhf09UsH5
- XdGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WrNB6Xj9+aEQvoTkZNUDKBCvNF5d4Z6XoTEhpJTodog=;
- b=HH+61ZJf9RNByg28eM8v3HUSiBcLF8FbXDvKLh9q4+c3mxxNuRUFGEn27gjk5W9rlW
- UXTTzjOZBep97MMFa1ERxTFaW5t2cgr8pfcfKPaLo6llfC533mlJRfNpRWhUV6LLao7g
- ob0nuAs4N+xr2xHf9e83Wu4FrhEYLzj9lns0zIY80FMA1WI2WhZg1asMpVvJTNSG/uf3
- kR6s2UtEiFXF1fLC3WOLGNb10aRODe0WDtvaQPAeCWNOQLh7KjOe71ik9zbIpQnSY36z
- FiomDYaA8DvK3pniiq9A2ctDdn8V9UrTZI1dK2D4weX34tRHrYEvWlfajX5LZ6ET43WA
- iwCQ==
-X-Gm-Message-State: ANoB5pl+s2UsHm2KQKyi3RHgIacMKm/Vup15DFjrrIFySH0MeIbVd6gp
- ZRzwjrYF7jqU71Yenro14e3l8w==
-X-Google-Smtp-Source: AA0mqf4vkOIsrcAzzQ/7IUWD24AGi4w3840gw/J6v3r7MSt2tQudjclNxCaplpbjz4FXUNH1CmHi4w==
-X-Received: by 2002:a2e:9048:0:b0:278:a696:2781 with SMTP id
- n8-20020a2e9048000000b00278a6962781mr3788105ljg.401.1668423825163; 
- Mon, 14 Nov 2022 03:03:45 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- l10-20020a056512110a00b00494813c689dsm1777243lfg.219.2022.11.14.03.03.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Nov 2022 03:03:44 -0800 (PST)
-Message-ID: <c7d73b1e-053f-21a7-4f4d-632742b4761c@linaro.org>
-Date: Mon, 14 Nov 2022 12:03:43 +0100
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="jRf93uLr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668424843; x=1699960843;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=68PAqBYnUvu/fqZMf88RLtAc+gRZRR54749rdkZ+Zq4=;
+ b=jRf93uLrw2KeHMZQ4c/7ugeuJZJUMMHfIKosnBGdoqADsCALYgCExTkp
+ CygZtD4iEZIyOZHyR4mRm5MEk9notcgUyVA9/1Fn8RFx/yWQwPhrd3NQV
+ irUz9Rn2MlGQ2CEkBj+N/jVelDLl5Ek/a2ooL4a4/C0MeyxTLRwF37rgx
+ Zf9dbLZTpzwLXyuqyO6scuKvczs9IFZg1n7aesZN655xIT8Oqk5VklHW5
+ UWSC5gKaQqn/fftaEG0EqjwbFsaxWEtqc2Ft95sHSHdxiz599+rYw2wdX
+ HjVRSPpX+AJ8/hFJUO/to38CHgEvMuNc++vkZtX13gv+AuNWpJ4DpA2XL Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="313748201"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="313748201"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 03:20:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="744102987"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="744102987"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga002.fm.intel.com with ESMTP; 14 Nov 2022 03:20:36 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH v2 0/2] ASoC: Intel: avs: DSP recovery and resume fixes
+Date: Mon, 14 Nov 2022 12:37:27 +0100
+Message-Id: <20221114113729.1022905-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 11/12] dt-bindings: sound: Add Cirrus Logic CS48L31/32/33
- codecs
-Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, lee@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linus.walleij@linaro.org, broonie@kernel.org, tglx@linutronix.de,
- maz@kernel.org
-References: <20221109165331.29332-1-rf@opensource.cirrus.com>
- <20221109165331.29332-12-rf@opensource.cirrus.com>
- <5f012334-1815-2ef6-7dc0-08b4d60f754f@linaro.org>
- <8bd6b864-ca58-022d-220d-328121f7e7dd@opensource.cirrus.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <8bd6b864-ca58-022d-220d-328121f7e7dd@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,82 +88,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14/11/2022 12:00, Richard Fitzgerald wrote:
-> On 14/11/2022 08:45, Krzysztof Kozlowski wrote:
->> On 09/11/2022 17:53, Richard Fitzgerald wrote:
->>> Codecs in this family have multiple digital and analog audio I/O that
->>> support a variety of external hardware connections and configurations.
->>>
->>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->>> ---
->>>   .../bindings/sound/cirrus,cs48l32.yaml        | 96 +++++++++++++++++++
->>>   include/dt-bindings/sound/cs48l32.h           | 25 +++++
->>>   2 files changed, 121 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs48l32.yaml
->>>   create mode 100644 include/dt-bindings/sound/cs48l32.h
->>>
->>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs48l32.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs48l32.yaml
->>> new file mode 100644
->>> index 000000000000..70fb294c6dc1
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs48l32.yaml
->>> @@ -0,0 +1,96 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/sound/cirrus,cs48l32.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Cirrus Logic CS48L31/32/33 audio CODECs
->>> +
->>> +maintainers:
->>> +  - patches@opensource.cirrus.com
->>> +
->>> +description: |
->>> +  This describes audio configuration bindings for these codecs.
->>
->> Don't start with "This". Instead describe the hardware.
->>
->>> +
->>> +  See also the core bindings for the parent MFD driver:
->>> +
->>> +    Documentation/devicetree/bindings/mfd/cirrus,cs48l32.yaml
->>
->> Same comment as for pinctrl patch.
->>
->>> +
->>> +  and defines for values used in these bindings:
->>> +
->>> +    include/dt-bindings/sound/cs48l32.h
->>> +
->>> +  The properties are all contained in the parent MFD node.
->>> +
->>> +properties:
->>
->> Missing compatible. What's the point to organize bindings like that? The
->> schema on its own does nothing - does not match anything.
-> 
-> Do you mean child drivers should not share the MFD node? Or do you mean
-> that if they share the MFD node all the child driver bindings should be
-> documented in the MFD schema instead of having a sub-schema for each
-> class of hardware functionality?
+Two fixes that are result of the recent discussions [1][2].
 
-I mean, that regular binding has a compatible which allows the schema to
-be matched.
+First adds missing locking around snd_pcm_stop() while the second fix
+sets substream state to DISCONNECTED if any suspend/resume related
+operation fails so that userspace has means to be aware that something
+went wrong during said operation.
 
-Splitting parts from top-level properties is used only for re-usable
-shared/common schemas, which does not seem the case here.
+Changes in v2:
+- __snd_pcm_set_state() replaced direct assignments of PCM state
 
-> 
-> I'm certainly willing to collapse all the bindings into a single MFD
-> schema yaml. For this driver we followed the same structure that was
-> accepted for madera (and there was some discussion when we upstreamed
-> madera about how the bindings should be organized which resulted in
-> them being changed). We pretty much assumed that the safe bet was to do
-> the same that was accepted by the maintainer last time around.
 
-Just merge it with MFD binding.
+[1]: https://lore.kernel.org/alsa-devel/73e6425f-8e51-e26f-ad83-ccc5df517a43@intel.com/
+[2]: https://lore.kernel.org/alsa-devel/20221104131244.3920179-1-cezary.rojewski@intel.com/
 
-Best regards,
-Krzysztof
+Cezary Rojewski (2):
+  ASoC: Intel: avs: Lock substream before snd_pcm_stop()
+  ASoC: Intel: avs: Disconnect substream if suspend or resume fails
+
+ sound/soc/intel/avs/ipc.c |  2 ++
+ sound/soc/intel/avs/pcm.c | 10 ++++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+-- 
+2.25.1
 

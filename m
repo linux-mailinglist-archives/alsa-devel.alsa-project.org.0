@@ -2,102 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDF79629B48
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 14:58:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF291629BEB
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 15:22:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49B8B167D;
-	Tue, 15 Nov 2022 14:57:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49B8B167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F8E81636;
+	Tue, 15 Nov 2022 15:21:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F8E81636
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668520697;
-	bh=3C4u2MKgG4xYVYUg8f9kjJ2xGjXSaeADlZ1UpGDpmDk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1668522133;
+	bh=rMd9fx8zZHOlLUH5NjAuHekL+pk38HqlW2iJRACwnRQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KZWZ7jr8X8t9sbdiAqhbrwAzg/iSXje9BzWgcLaFeuaranmHvQYBQhyt1hbF/a1rv
-	 vGeBSV7GRVt3aR8AZJSOF/gRbT2L+iHzqJ4CzodkfJF0dz2GppZVfX9xT5PsDqn4J/
-	 3/SsgG0uwku//+IlVgmm2O9M4dy7NSsFlIavrnhw=
+	b=cUW7kYMoBk2JkVCROdXn3UhwH8Tv1kDd/OagOfK/kK58wk3RBor5QUpblf5DU/ALa
+	 dvZY7ac8Ytz5jwmgdxfOw8nrmz+NI+2amlx9BJM4hjj4hCtZfyoZ4FbKpkvQOpZbHe
+	 OoBMVASpDjZ9IxCyjOmL6huNSr/9VkqATdRvTlIg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCF1CF8047C;
-	Tue, 15 Nov 2022 14:57:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4C2FF800B8;
+	Tue, 15 Nov 2022 15:21:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C10F80171; Tue, 15 Nov 2022 14:57:21 +0100 (CET)
+ id 3CCF0F800B8; Tue, 15 Nov 2022 15:21:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
  [IPv6:2a00:1450:4864:20::12b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B858F800B8
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 14:57:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B858F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 040E0F800B8
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 15:21:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 040E0F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ih8E8fkl"
-Received: by mail-lf1-x12b.google.com with SMTP id b3so24538932lfv.2
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 05:57:18 -0800 (PST)
+ header.b="HShR3wKO"
+Received: by mail-lf1-x12b.google.com with SMTP id d6so24617308lfs.10
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 06:21:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=eRDy77pLORMZ/XulovaxWyKY5V8oIS0uLhcTxtOQZjk=;
- b=ih8E8fklramz2fm/5na93sr2QZeV4xQv9SRXu+nQBgU8zxhPDbkNEZfeBguyCyhN6g
- 8hLDWOItg8pG3YGEQM376J/9kGr3vNLtamH0ulRHB3BPlD31iqsYjllV4YMXi9EU3rc3
- 5p3lDezgSk409+a32ar9zhNxMQbYJSk0xs9KoQaQG3vojprSeNUL7CtnJbeJY46Qlq9r
- tI/Ca+VE4UopJjOdJrEJtJG6SWFnwWuDk0Z85Jm83eyc+u6KuYcXjB6wcf8a4HN3BAtd
- AKCnA6I5DOtrS2HVovVaxrvl/HC2eU5ZOfVLKqjIMf3yTXtPTXpdEr6dfArHbUXBwYYT
- J3rA==
+ bh=ACgHMFuGKzy3RGwW6XHrQYZNS+YLjUOXJZAsXWrWtGs=;
+ b=HShR3wKOJcnBxWiCo3jeWX+nqBmY7jdqQxaDhFfMLBjHDv36J+RsIx27T1YWbYLSuI
+ yJuV9RXMTuEFfa1vTJSZ2AkdCmq27eLcBDIla5OWTvnCNQpZPWiPVYMXP89CLL0i5dEp
+ jNtwWCN/2k04uQShe5hSnv4VEecopp7F/GbsLYezvFV43PkSGTxLC0ft0nw8SYgtiewi
+ HNo9RT9JxiYQKJ2j1f7/xCNs8Q/3eP81P5EbIEgCAEEcUhNJZIKcwltLzlSz4fPau3Sz
+ XVBoEsK19cu2OgBxmLCWKmRN0a4DbiUmRFZCPNV4MQ9DGKR06bbSi4jKVjIkqBVhLLQd
+ Z9qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=eRDy77pLORMZ/XulovaxWyKY5V8oIS0uLhcTxtOQZjk=;
- b=XwsiJvx1MsxlHdHxi+XcXLYy56+6wThOUEED4uwOUAGlP9jOu2/xKpqJFktlHJOwOu
- tPJw8xtCNoAZCfqfnwqv+SvHF8Uekt/PQt1NkqIXun5pHir7TczJeVpDH7fa4TraQkxN
- Ld0J6vddlJQwRJ1FDIUTqMQGs95V03p/3GAOslmlUx/WIFgx1QvqSvv87ZUfbMq7Rtc7
- zQUzMl832zHo4HddWOxXB79BsiuEyyBN8WIr/iNcxM7ZsBz2FI0ySiHdfEOPIzGWXh7k
- JAwMVS/BbVAytdPpz9iAUEJjL1L9ivD828im9V7NY2NsbXs0sYTqQdlx1MS4INnG8S8P
- J91w==
-X-Gm-Message-State: ANoB5pkKsNaRaebX3qZRtilZwvktFeuidIHn2UVp40S9OBiO39mZRIXa
- Iq6aPZcUOJy9MZ9ly6KOhlsKGg==
-X-Google-Smtp-Source: AA0mqf7dCyJ6i1FCEJ9EudMl+bRs4RS1CImhCmmrmtULiRsWIYxofVo8G8JZ//VkKlUarOnUPvJhVw==
-X-Received: by 2002:a05:6512:2983:b0:4ae:6bbc:e8af with SMTP id
- du3-20020a056512298300b004ae6bbce8afmr5360869lfb.411.1668520636293; 
- Tue, 15 Nov 2022 05:57:16 -0800 (PST)
+ bh=ACgHMFuGKzy3RGwW6XHrQYZNS+YLjUOXJZAsXWrWtGs=;
+ b=VhRTkDjbfFPhONLdoHXkJrRPYTO2NG/e2Kau2kyfbWc5P0sxJE2r32EImkrpKrXIW3
+ kuk42cZ97nPpIsitHYIh8zLBX9cilz7PZOR9/6P3tAVYCsk486IKP82TPq0kZghxNpGp
+ yW5wFzQNyyvxig5n7fVxXCgTnRLlHwxP2B4Y1BiAMlA0R1tup7PTNPs2OCBnqSaFM4mm
+ J1WZ61zYD+q2SgsTQwCG2+1IR+T0/A2qvkTTO282AOP2r5PHFaR9xAaV/U7BiA7OT44y
+ 2Mb6MJ1CVQZxs7zThJURz4d2vpJqk8V3nNyvH/QGpL8ZmkNquCNghTXwvRmk9/pSePIw
+ QeXA==
+X-Gm-Message-State: ANoB5pmgDhomGgWWCtOoSA06H0G+B4fXTURXTCn6ZbwycTUMh7KuzTnD
+ vwEZKFiXw8sPK2dnqIXJkey1sQ==
+X-Google-Smtp-Source: AA0mqf5KID519SFnnfTcLoNNny5R3BJ970yABv3j0l6ETKypPDYbUDkY+VVoHy6vD3ScOULPBNLKHw==
+X-Received: by 2002:a19:5016:0:b0:4ad:5fbb:a5b0 with SMTP id
+ e22-20020a195016000000b004ad5fbba5b0mr5417040lfb.466.1668522067299; 
+ Tue, 15 Nov 2022 06:21:07 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- d17-20020a2eb051000000b002770e6c620bsm2437751ljl.106.2022.11.15.05.57.15
+ c8-20020a056512324800b004afc1607130sm2226467lfr.8.2022.11.15.06.21.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 05:57:15 -0800 (PST)
-Message-ID: <76d3c821-a5c1-952e-dc9a-6f1c2f927139@linaro.org>
-Date: Tue, 15 Nov 2022 14:57:14 +0100
+ Tue, 15 Nov 2022 06:21:06 -0800 (PST)
+Message-ID: <f3a6a7b1-b196-0abb-0c18-8a13908c6891@linaro.org>
+Date: Tue, 15 Nov 2022 15:21:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] arm64: dts: SC7280: Remove unused sleep pin control nodes
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: lpass-va: add npl clock for new VA
+ macro
 Content-Language: en-US
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, vkoul@kernel.org,
- agross@kernel.org, andersson@kernel.org, robh+dt@kernel.org,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
- srinivas.kandagatla@linaro.org, dianders@chromium.org, swboyd@chromium.org,
- judyhsiao@chromium.org, alsa-devel@alsa-project.org,
- quic_rjendra@quicinc.com, konrad.dybcio@somainline.org, mka@chromium.org
-References: <1668510598-19535-1-git-send-email-quic_srivasam@quicinc.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20221115105541.16322-1-srinivas.kandagatla@linaro.org>
+ <20221115105541.16322-2-srinivas.kandagatla@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <1668510598-19535-1-git-send-email-quic_srivasam@quicinc.com>
+In-Reply-To: <20221115105541.16322-2-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,15 +111,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 15/11/2022 12:09, Srinivasa Rao Mandadapu wrote:
-> Remove Unused and redundant sleep pin control entries
-> in herobrine device tree variants.
+On 15/11/2022 11:55, Srinivas Kandagatla wrote:
+> LPASS VA Macro now has soundwire master to deal with access to
+> analog mic in low power island use cases. This also means that VA macro
+> now needs to get hold of the npl clock too. Add clock bindings required
+> for this.
 > 
+> As part of adding this bindings, also update bindings to be able to
+> specific and associate the clock names specific to the SoC.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../bindings/sound/qcom,lpass-va-macro.yaml   | 72 ++++++++++++++++---
+>  1 file changed, 64 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> index c36caf90b837..848e34111df1 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> @@ -27,16 +27,13 @@ properties:
+>      const: 0
+>  
+>    clocks:
+> -    maxItems: 3
+> +    minItems: 1
+> +    maxItems: 4
+> +
+>  
+>    clock-names:
+> -    oneOf:
+> -      - items:   #for ADSP based platforms
+> -          - const: mclk
+> -          - const: core
+> -          - const: dcodec
+> -      - items:   #for ADSP bypass based platforms
+> -          - const: mclk
+> +    minItems: 1
+> +    maxItems: 4
+>  
+>    clock-output-names:
+>      maxItems: 1
+> @@ -61,6 +58,65 @@ required:
+>    - reg
+>    - "#sound-dai-cells"
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7280-lpass-va-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
 
-And these are redundant because... ? E.g. not referenced anywhere thus
-not used?
+You can skip minItems here.
 
-Use subject prefixes matching the subsystem (git log --oneline -- ...).
+> +          maxItems: 1
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +      required:
+> +        - clock-names
+> +        - clocks
+
+IIUC, all variants require now clocks, so these two lines should be part
+of top level "required:".
+
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm8250-lpass-va-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 3
+> +          maxItems: 3
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +            - const: core
+> +            - const: dcodec
+> +      required:
+> +        - clock-names
+> +        - clocks
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,sc8280xp-lpass-va-macro
+> +              - qcom,sm8450-lpass-va-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 4
+> +          maxItems: 4
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +            - const: npl
+
+How about making it the last clock so the order matches with sm8250?
+
 
 Best regards,
 Krzysztof

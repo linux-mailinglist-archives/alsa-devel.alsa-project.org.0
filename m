@@ -2,82 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D00C628F2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 02:26:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2438B628FE1
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 03:26:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6B8BF7;
-	Tue, 15 Nov 2022 02:25:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6B8BF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 506111607;
+	Tue, 15 Nov 2022 03:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 506111607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668475574;
-	bh=7QdnUeRGOASRNdeaYUO5OQcrLiYPAKCUlj/8c+0Mh4U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668479174;
+	bh=Rz/3MLs8ykPP/aXEzv9HPZCuYy8+PYwdadu8aFLmrzk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Pgx59gCLRy2rtDFI9VTYH1rsrcn/pIMiFDCv2igzdBX9dNvtgyRL+VJozUTX2F0e7
-	 5j6A7ooCuC0OIlc/5cu9QRj64Hq/PzjlFR02Z0aGNnXe3EqaDyPLZgB5Px3DhOls98
-	 caRmm0oj46CMm9oQ4VuWkC34EuckU9m9Zk2CK38c=
+	b=b8QFkU8OQc3bC+LPj5+LqnIgtnDj1odT7W7N3mKq4Dp9nwJR1jgOuSSy5LK52fG6X
+	 JjbBtb0O8+DcvoDuo+SYJh58clBo/LSHpy6rQw/uDyyJRonbRYIvEhsUpqH6qJcG6C
+	 DHxDHKR2OrDVqSi5n8j/gZHS1ZF8pkWHyBHHmfBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 481C8F800B8;
-	Tue, 15 Nov 2022 02:25:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14512F80563;
+	Tue, 15 Nov 2022 03:24:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E001BF80431; Tue, 15 Nov 2022 02:25:17 +0100 (CET)
+ id 6441DF8055C; Tue, 15 Nov 2022 03:24:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
+ version=3.4.0
+Received: from out29-50.mail.aliyun.com (out29-50.mail.aliyun.com
+ [115.124.29.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3FD3F800B8
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 02:25:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3FD3F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
- header.b="TA4vry60"
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 550CD80A46;
- Tue, 15 Nov 2022 02:25:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1668475510;
- bh=dkDwuRRfd41WobejW2l9S+tH/3NfltpOHeTpQrWblws=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TA4vry60KXo7DZ6cfgz3bFJTRoI1d7IzIu8GKSPGvNskhDl4puKlCZkL3iF/vTwOQ
- DM6LC0bOH5fkS2faYcAkSvhBfuXS8fozuljKX2fixmYSULj7T/UFw0ReoouohXPiF0
- FJ8NSQ49HRFh0RvaK1hte+8MRmnN5NYrTMyp2GnqUi6F8S8/UFeLvWcap0TWARry8E
- LcI4OujslrJjgrnBIt5gbv/jEhrBC0+8oqr2E85yO7AgBsDZtMK1ijSIQEAEBl6cGl
- 1WLLM0gUdSWVWEiL620KCTKGIhKURut2lL+zKw0sMUHuvD3ApqJhh7uI6ouXRmHqcH
- DCqkiHHjJQmeA==
-Message-ID: <6ec06e36-3b49-f133-4795-d490612379cc@denx.de>
-Date: Tue, 15 Nov 2022 02:25:09 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 112BAF800AA
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 03:24:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 112BAF800AA
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07788765|-1;
+ BR=01201311R501S03rulernew998_84748_2000303; CH=blue; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00264336-1.88448e-05-0.997338;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047213; MF=wangweidong.a@awinic.com; NM=1;
+ PH=DS; RN=17; RT=17; SR=0; TI=SMTPD_---.Q7RJgaa_1668479065; 
+Received: from localhost.localdomain(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.Q7RJgaa_1668479065) by smtp.aliyun-inc.com;
+ Tue, 15 Nov 2022 10:24:33 +0800
+From: wangweidong.a@awinic.com
+To: broonie@kernel.org, perex@perex.cz, alsa-devel@alsa-project.org,
+ tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+ quic_potturu@quicinc.com, pierre-louis.bossart@linux.intel.com,
+ cy_huang@richtek.com
+Subject: [PATCH V4 0/6] ASoC: codecs: Add Awinic AW883XX audio amplifier driver
+Date: Tue, 15 Nov 2022 10:24:17 +0800
+Message-Id: <20221115022423.6437-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <1668165992-6493-2-git-send-email-wangweidong.a@awinic.com>
+References: <1668165992-6493-2-git-send-email-wangweidong.a@awinic.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [PATCH] ASoC: fsl_sai: Enable transmitter when generating MCLK
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-References: <20221107215201.434212-1-marex@denx.de>
- <CAA+D8AOCqfeVVPwJjLeniWSWeOZjL-64Hktsa===1fs7j96oYw@mail.gmail.com>
- <654da7a3-20fa-e84d-9050-5c6fcb7d6f3b@denx.de>
- <CAA+D8AOSbVgk5Cah0WLVg_QzSeKN+Y5EHDB1-h3EP4kV2vQxQA@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <CAA+D8AOSbVgk5Cah0WLVg_QzSeKN+Y5EHDB1-h3EP4kV2vQxQA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: alsa-devel@alsa-project.org, Xiubo Li <Xiubo.Lee@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- Fabio Estevam <festevam@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: duanyibo@awinic.com, Weidong Wang <wangweidong.a@awinic.com>,
+ zhaolei@awinic.com, liweilei@awinic.com, yijiangtao@awinic.com,
+ zhangjianming@awinic.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,78 +79,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/14/22 08:55, Shengjiu Wang wrote:
-> On Wed, Nov 9, 2022 at 8:55 PM Marek Vasut <marex@denx.de> wrote:
-> 
->> On 11/9/22 10:30, Shengjiu Wang wrote:
->>
->> [...]
->>
->>>> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
->>>> index 1c9be8a5dcb13..98c62027e5799 100644
->>>> --- a/sound/soc/fsl/fsl_sai.c
->>>> +++ b/sound/soc/fsl/fsl_sai.c
->>>> @@ -503,6 +503,10 @@ static int fsl_sai_set_bclk(struct snd_soc_dai
->> *dai,
->>>> bool tx, u32 freq)
->>>>                   /* SAI is in master mode at this point, so enable MCLK
->> */
->>>>                   regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
->>>>                                      FSL_SAI_MCTL_MCLK_EN,
->>>> FSL_SAI_MCTL_MCLK_EN);
->>>> +
->>>> +               /* Transmitter must be enabled to generate MCLK on pad
->> */
->>>> +               regmap_update_bits(sai->regmap, FSL_SAI_xCSR(1, ofs),
->>>> +                                  FSL_SAI_CSR_TERE, FSL_SAI_CSR_TERE);
->>>>
->>>
->>> No need to fix the transmitter,   FSL_SAI_xCSR(tx, ofs) should work also.
->>
->> That's probably not a good idea, since this could also enable the
->> RE(receiver) part . We always need to enable the TE(transmitter) to
->> generate MCLK.
->>
-> 
-> TCSR.TERE and RCSR.TERE all can enable the MCLK.
-> if use the FSL_SAI_xCSR(tx, ofs), both cases can be covered.
-> if the bclk is generated by TX, then enable the TE(transmitter) to
-> generate MCLK.  or if the bclk is generated by RX, then enable
-> the RE(receiver) to generate MCLK.
+From: Weidong Wang <wangweidong.a@awinic.com>
 
-I will need to do a full re-test to validate this claim.
+The Awinic AW883XX is an I2S/TDM input, high efficiency
+digital Smart K audio amplifier with an integrated 10.25V
+smart boost convert
 
->>>> @@ -1445,6 +1449,11 @@ static int fsl_sai_probe(struct platform_device
->>>> *pdev)
->>>>               sai->soc_data->max_register >= FSL_SAI_MCTL) {
->>>>                   regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
->>>>                                      FSL_SAI_MCTL_MCLK_EN,
->>>> FSL_SAI_MCTL_MCLK_EN);
->>>> +
->>>> +               /* Transmitter must be enabled to generate MCLK on pad
->> */
->>>> +               regmap_update_bits(sai->regmap,
->>>> +                                  FSL_SAI_xCSR(1,
->>>> sai->soc_data->reg_offset),
->>>> +                                  FSL_SAI_CSR_TERE, FSL_SAI_CSR_TERE);
->>>>
->>>
->>> After one time playback or recording,  the TERE is disabled, so this
->> changes
->>> in probe() only for the first time.  There is the same issue for the
->> second
->>> time.
->>
->> So what would you suggest to keep the MCLK clock generated always ?
->>
->> I was almost tempted to turn the SAI into a clock provider, so that the
->> codec could become its clock consumer and enable the MCLK on demand, but
->> that seems to be a rather invasive change.
->>
-> 
-> May you can try to enhance the drivers/clk/clk-fsl-sai.c
+Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
+controlled using I2C.
 
-This is not really useful in this case, this lets users use the SAI as a 
-plain clock source. I use the SAI as audio IP, all I need in addition to 
-that is enable the MCLK as codec Master Clock to drive the codec 
-register file and whatever internal state it has.
+v3 -> v4: Specification awinic,aw883xx.yaml pin naming
+          Add a description of the awinic,aw883xx.yaml file properties
+          Change the name of the node in the awinic,aw883xx.yaml file
+          Change the warning: this 'if' clause does not guard 
+                 on line 1095 of aw883xx.c
+          Change the error: initialization of 'void (*)(struct i2c_client *)'
+                 from incompatible pointer type 'int (*)(struct i2c_client *)'
+                 on line 1796 of aw883xx.c
+          Change the warning: 'aw_pid_2049_reg_access' defined but not used 
+                 on line 37 of aw883xx_init.c
+          Change the warning: no previous prototype for 'aw883xx_dev_get_int_status'
+                 on line 634 of aw883xx_device.c
+          Change the warning: no previous prototype for 'aw_dev_get_ra'
+                 on line 1000 of aw883xx_device.c
+          Change the warning: no previous prototype for 'aw_dev_dsp_fw_update'
+                 on line 1062 of aw883xx_device.c
+
+
+Weidong Wang (6):
+  ASoC: codecs: Add i2c and codec registration for aw883xx and their
+    associated operation functions
+  ASoC: codecs: Added configuration file parsing for aw883xx
+  ASoC: codecs: Add aw883xx chip control logic, such as power-on and
+    power-off
+  ASoC: codecs: Realize aw883xx register configuration and register
+    address file
+  ASoC: dt-bindings: Add schema for "awinic,aw883xx"
+  ASoC:codecs:aw883xx corresponds to the modified Makefile and Kconfig
+
+ .../bindings/sound/awinic,aw883xx.yaml        |   62 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    7 +
+ sound/soc/codecs/aw883xx/aw883xx.c            | 1803 +++++++++++++
+ sound/soc/codecs/aw883xx/aw883xx.h            |  155 ++
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.c  | 1294 ++++++++++
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.h  |  145 ++
+ sound/soc/codecs/aw883xx/aw883xx_data_type.h  |  148 ++
+ sound/soc/codecs/aw883xx/aw883xx_device.c     | 1618 ++++++++++++
+ sound/soc/codecs/aw883xx/aw883xx_device.h     |  544 ++++
+ sound/soc/codecs/aw883xx/aw883xx_init.c       |  635 +++++
+ .../soc/codecs/aw883xx/aw883xx_pid_2049_reg.h | 2300 +++++++++++++++++
+ 12 files changed, 8721 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_data_type.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_device.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_device.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_init.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
+
+
+base-commit: 094226ad94f471a9f19e8f8e7140a09c2625abaa
+-- 
+2.38.1
+

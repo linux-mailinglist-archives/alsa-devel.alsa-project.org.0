@@ -2,91 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6E062920B
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 07:55:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0ECE629260
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 08:21:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2AC11621;
-	Tue, 15 Nov 2022 07:54:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2AC11621
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74AC41654;
+	Tue, 15 Nov 2022 08:20:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74AC41654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668495343;
-	bh=TUl8zC0BN2UigzlxtUjQEr99FNSs3k/dZ+fyqpmQerM=;
+	s=default; t=1668496868;
+	bh=CHvukpPaM/vpg/EGzROnCVPpxyVeFssIUbYxue/CkOQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CRX3Rga3dtI1xt9+aQzxZsxw/hZsLbkXNP4Ck+dPZLXeK0gf5LSBQkqeIzRR7ZeZW
-	 zeh0qteSxSORXtSInmHtGhkbueICQzJ9fy89CZ2o5xvkqwmZA8+tLAPf8V1HmSyx9R
-	 R0CU1JuWHLAT+CPU+jL3mlP7OF4mFYL3bqyl7PUo=
+	b=phGKWgHsV9+30PSraeRgzUXhdc8EJde0yh4jpuYy17eaCbaFZa3ACZfNEWyTG5j1g
+	 MVh5W64nUEV2qfkbrDxE2zCCLHTtmNOauY3khtHj/h0m7JE08dw8TCFHgBuRHHWdKA
+	 CdnyPkp9olp007yPYWE7XrZxeZL6c6SpncjfsTgg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E4C6F8047C;
-	Tue, 15 Nov 2022 07:54:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DAA5F8047C;
+	Tue, 15 Nov 2022 08:20:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E44D0F80171; Tue, 15 Nov 2022 07:54:45 +0100 (CET)
+ id 20C4EF80171; Tue, 15 Nov 2022 08:20:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::62e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1E2FF800B5
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 07:54:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1E2FF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id C81B9F800B8;
+ Tue, 15 Nov 2022 08:20:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C81B9F800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="J2vPBmLO"
-Received: by mail-wr1-x432.google.com with SMTP id w14so22568842wru.8
- for <alsa-devel@alsa-project.org>; Mon, 14 Nov 2022 22:54:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pFaM0hloG+JfDFCgGPA/nosgcP0KUi3J9bN6sLMDKRw=;
- b=J2vPBmLOoJw7NIe5hwqyxQAiV2H3Iss+gEdWg8gMITlrjWh8tMllsd/5TmVLC6AiMy
- I8Akf7BgUzMM/xfsE/iG/QuRgJErZMO8oGnvbWOZ7+ATUoS8KH+yVzig6a+mBhztxMT2
- GhhbRTE/d58+z1Bc7x+Alme08EtLSBqu7EBNuwNtyCV3If8mx6Vu0UNAr9yn5tZ/F3wK
- OgemPn8A/huUa0wnxvlDNfdf6XyiPGPF3JDKek/QaVDU7Zh3k8MkMTgq4+slXNp0Wdt6
- Vu+DmAZF9f/1YExChfLHLzbf7DQwIScK0sIWwPOlsx5blqkzxvh+9P//3uXs1I1NpwhV
- Zt7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pFaM0hloG+JfDFCgGPA/nosgcP0KUi3J9bN6sLMDKRw=;
- b=ZsYTZMolQSMhwUdb6lh7SzN5gAFcdl9kGaTUC6KztmCguGFCkGuvY6Gt2G6FM4jW+w
- Am5lq8RRMSmv2pQmImOniI1GzixgpFO+K0G655jkyFUmLEWnOXkBFdoLnMn+rK4Ftyhe
- CJNKFGmc3MT/kSrjJ9IiilGmhdgTFiTlLCbTS8lRzdP+i45QcHEageaMe0LZVPKoa/bB
- lDzW1y4lVpn9L5Arr7BXvuEUvXr0ouLfa1wDmXgUPFF+rNoL9Z1oR/ORiCz71tIFJmmq
- MBtZZpT9z2vdl/ZNHNudJ2hD7PGGiza/VsqYX190tUs6pEpXFd/KqqLOoID3/pHdy+ae
- QBDw==
-X-Gm-Message-State: ANoB5pkIdtXu4mUX/glKOCJ+6Y3VPgNTH1rnyGvIYgTNV43/3PnRNMzJ
- SUBIbgfU5DXG11/Utix80k3uTQ==
-X-Google-Smtp-Source: AA0mqf4D5kpCBvMwW6NTLWocITfU8RvfyH/og1nY5cSJDvqVKqRxs1CS0kmeiKRa3u7rcnQA6byPZg==
-X-Received: by 2002:a5d:420e:0:b0:236:7034:cd48 with SMTP id
- n14-20020a5d420e000000b002367034cd48mr9451209wrq.418.1668495274186; 
- Mon, 14 Nov 2022 22:54:34 -0800 (PST)
-Received: from localhost.localdomain ([5.133.47.210])
- by smtp.gmail.com with ESMTPSA id
- az11-20020a05600c600b00b003b4cba4ef71sm21194175wmb.41.2022.11.14.22.54.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Nov 2022 22:54:33 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: codecs: tx-macro: add dmic support via tx macro
-Date: Tue, 15 Nov 2022 06:54:30 +0000
-Message-Id: <20221115065430.4126-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="Ip+sE7+k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UEdyknLonhkUkDc1Eu+AS+wzmoIJFYccUGjxUW1k82kWy7E2E4So+8QpJ+uMOzllpMTCIJmTkfpNM0FdiFdqRyuFVm5ZxPbINafBtQ2ov3G73FnFt9Rzz8bPz2Sk6p3a3aHVV7tPF8MYeoEgyjJlX8xgS6gKS4hg1piyhcHcODS6C0EKTjN4QNLvL1VZSjRkFw8A5FJG44WhfiWDvPaRkSXvFT99LdLMcwq1XsJFW+zmFGk+G96nT4E2xO1yRm4/M5zBb8DFbViw3Vj16AHzQ/Oa5NTiIEdHGSBtO9Mo8rsIUS+sGNkiO6c29jLMG8KVrHDIs+RXDfZG8m1VWjrWuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3pgG9VSFuO6OG8GM/Y0pcfImjhIJDDUBwo/trrE3kRw=;
+ b=NqWgVSBv5tY0ZHk3b2iYM9cWa95annHlg16MncV+JHmkrfS7EIQT4+1uDOD9Q+H4PV2yTcuWQW19eTHzQRJ42ejmF/iTz8L87d18gLmkm4hcu4wVt3pVMEyhJlsLwDyU83PrfFhS91Ia/mhEETX+6KzsqwIoCUCfduwND0zD0q8Gtw7b9V3Tv+v4ZNx49a51K2yw6fSfgdCxC3wFCPyhx6qbwt2AUNDZpsd7GPxcBk2qQtSs2b3Ucgd2/ITg0xeVHSxelis743lTlqONcAIANUjjfdgLy8XM9boqQd2p6dyPXlPZxnRzCzDFB4PYGtRYAssMXGyJJMthlhiCXNttNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3pgG9VSFuO6OG8GM/Y0pcfImjhIJDDUBwo/trrE3kRw=;
+ b=Ip+sE7+kAVorjS1DhJq110zwJp5u/GiiYk4HYcnH7Ht2CqXkRKwWKSaKzdilgHUcP28peMLn/DMI/5dZ4Wnfz7IZ+d4lG/XPYUshUq3x+FuaYTfS3w+HLvVHcWfX0pGTeuXPSWOE9I+0nMOwOXbBBGMwGbyFswRI8/g0t8iVHAU=
+Received: from BN7PR06CA0063.namprd06.prod.outlook.com (2603:10b6:408:34::40)
+ by SN7PR12MB7249.namprd12.prod.outlook.com (2603:10b6:806:2a9::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Tue, 15 Nov
+ 2022 07:19:58 +0000
+Received: from BL02EPF0000EE3E.namprd05.prod.outlook.com
+ (2603:10b6:408:34:cafe::17) by BN7PR06CA0063.outlook.office365.com
+ (2603:10b6:408:34::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Tue, 15 Nov 2022 07:19:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3E.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5813.11 via Frontend Transport; Tue, 15 Nov 2022 07:19:58 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 15 Nov
+ 2022 01:19:53 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 14 Nov
+ 2022 23:19:49 -0800
+Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 15 Nov 2022 01:19:44 -0600
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 1/4] ASoC: SOF: amd: Fix for reading position updates from
+ stream box.
+Date: Tue, 15 Nov 2022 12:49:53 +0530
+Message-ID: <20221115072001.1931617-1-Vsujithkumar.Reddy@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3E:EE_|SN7PR12MB7249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 507890a3-c8eb-41ed-5356-08dac6d9cd88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BvqL5Z+GirOquKgsGFfIYVWRBNHS/nbjN2L0uFJb5vFo8vcjHVGN9sX/1kw3WExVMGHMJVQv9d1x7dBq/C6cvl/7HDadNZunIFHTJoGw0X9w+KGHB3fS/+ZWvsd4Ms3DRuQ40+xF8zvXaNBDLnxjcNIfiIojM0G+sbnKqTl1F9LE11gKGaym8HGuGKLgwB0KSKJ0pH9ltjEYlBP4+pyUu+nIm2NdaA9B+jwVBuz7DrbNxd+er0YNLbFguhA7N43OX9qaMOng0FPcU8TvsXsJWI+mg4VCgNOoqmWWbyHuU53NZELm/a/T2TNfJhe9rnKDJZ9Kzr4WnLk/wI9HraLkAiaFpWztaRmMZDnb6OFJd83qpfGkH2OOveFSyu0DDgEfWwiAl5awbgWP/NRLkmRy4URAMEUNpYbYJws/KnKb0es7O3qNfsRgmZUcSatfHK6bO4MiuzLPIMTidUtntcJaDfSrulb0NHGeQsE8emMTh6fBbfaSScHfP7zeMWsggczgLPAe5FTAxLBdkPj52HII+hEl8d4DbtqJPgqAttQIYcymh45zuYTct1aS7ZJubWR43griyHno46iPtlca2vmjQUqD6RJ8Jp4tIGrnEGsSu0gXdvyFGJpHIL4ju0JdtyW3bvnK5N1zIt/7b8Bb4bb1zQeze8xUrUEmz2JvAa6OnGpkO4mKr5PFlG4BErFjeipZCKe5VH9/gKKP5+zOjRoKh0frbHXd/a13ZOlKOtIhxEsXetyjfhmZZe9QcrQme/HgD8H24Z471Fc7OwD4VTsDb1CFdZNlH+Eq9NW+yE0/w+3PPEIawVjHz/OefL7ONivm
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199015)(36840700001)(40470700004)(46966006)(81166007)(426003)(15650500001)(478600001)(1076003)(47076005)(356005)(2906002)(336012)(82310400005)(186003)(40460700003)(41300700001)(110136005)(83380400001)(6666004)(54906003)(40480700001)(7416002)(7696005)(36756003)(82740400003)(8936002)(4326008)(26005)(70586007)(86362001)(70206006)(8676002)(5660300002)(36860700001)(316002)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2022 07:19:58.4343 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 507890a3-c8eb-41ed-5356-08dac6d9cd88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7249
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Sunil-kumar.Dommati@amd.com,
+ ssabakar@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ venkataprasad.potturu@amd.com, Bard
+ Liao <yung-chuan.liao@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Ajit Kumar
+ Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ "moderated list:SOUND - SOUND OPEN
+ FIRMWARE \(SOF\) DRIVERS" <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,258 +149,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DMIC Paths into LPASS digital codec can go via tx-macro or va-macro codec, add
-support to tx-macro path as va-macro path is already supported.
+By default the position updates are read from dsp box when streambox
+size is not defined.if the streambox size is defined to some value
+then position updates can be read from the streambox.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 149 +++++++++++++++++++++++++++++-
- 1 file changed, 148 insertions(+), 1 deletion(-)
+ sound/soc/sof/amd/acp-common.c |  1 +
+ sound/soc/sof/amd/acp-ipc.c    | 30 +++++++++++++++++++++++++++++-
+ sound/soc/sof/amd/acp.h        |  4 ++++
+ 3 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index ee15cf6b98bb..2ef62d6edc30 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -46,6 +46,7 @@
- #define CDC_TX_TOP_CSR_SWR_AMIC1_CTL	(0x00D4)
- #define CDC_TX_INP_MUX_ADC_MUXn_CFG0(n)	(0x0100 + 0x8 * n)
- #define CDC_TX_MACRO_SWR_MIC_MUX_SEL_MASK GENMASK(3, 0)
-+#define CDC_TX_MACRO_DMIC_MUX_SEL_MASK GENMASK(7, 4)
- #define CDC_TX_INP_MUX_ADC_MUX0_CFG0	(0x0100)
- #define CDC_TX_INP_MUX_ADC_MUXn_CFG1(n)	(0x0104 + 0x8 * n)
- #define CDC_TX_INP_MUX_ADC_MUX0_CFG1	(0x0104)
-@@ -774,7 +775,10 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	}
+diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
+index 27b95187356e..150e042e4039 100644
+--- a/sound/soc/sof/amd/acp-common.c
++++ b/sound/soc/sof/amd/acp-common.c
+@@ -76,6 +76,7 @@ struct snd_sof_dsp_ops sof_acp_common_ops = {
+ 	/*IPC */
+ 	.send_msg		= acp_sof_ipc_send_msg,
+ 	.ipc_msg_data		= acp_sof_ipc_msg_data,
++	.set_stream_data_offset = acp_set_stream_data_offset,
+ 	.get_mailbox_offset	= acp_sof_ipc_get_mailbox_offset,
+ 	.get_window_offset      = acp_sof_ipc_get_window_offset,
+ 	.irq_thread		= acp_sof_ipc_irq_thread,
+diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
+index dd030566e372..dd6e53c63407 100644
+--- a/sound/soc/sof/amd/acp-ipc.c
++++ b/sound/soc/sof/amd/acp-ipc.c
+@@ -192,13 +192,41 @@ int acp_sof_ipc_msg_data(struct snd_sof_dev *sdev, struct snd_pcm_substream *sub
+ {
+ 	unsigned int offset = sdev->dsp_box.offset;
  
- 	if (val != 0) {
--		if (val < 5) {
-+		if (widget->shift) { /* MSM DMIC */
-+			snd_soc_component_write_field(component, mic_sel_reg,
-+						      CDC_TXn_ADC_DMIC_SEL_MASK, 1);
-+		} else if (val < 5) {
- 			snd_soc_component_write_field(component, mic_sel_reg,
- 						      CDC_TXn_ADC_DMIC_SEL_MASK, 0);
- 		} else {
-@@ -1272,6 +1276,52 @@ static const struct snd_kcontrol_new tx_smic6_mux = SOC_DAPM_ENUM_EXT("tx_smic6"
- static const struct snd_kcontrol_new tx_smic7_mux = SOC_DAPM_ENUM_EXT("tx_smic7", tx_smic7_enum,
- 			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-	if (!substream || !sdev->stream_box.size)
++	if (!substream || !sdev->stream_box.size) {
+ 		acp_mailbox_read(sdev, offset, p, sz);
++	} else {
++		struct acp_dsp_stream *stream = substream->runtime->private_data;
++
++		if (!stream)
++			return -ESTRPIPE;
++
++		acp_mailbox_read(sdev, stream->posn_offset, p, sz);
++	}
  
-+static const char * const dmic_mux_text[] = {
-+	"ZERO", "DMIC0", "DMIC1", "DMIC2", "DMIC3",
-+	"DMIC4", "DMIC5", "DMIC6", "DMIC7"
-+};
+ 	return 0;
+ }
+ EXPORT_SYMBOL_NS(acp_sof_ipc_msg_data, SND_SOC_SOF_AMD_COMMON);
+ 
++int acp_set_stream_data_offset(struct snd_sof_dev *sdev,
++			       struct snd_pcm_substream *substream,
++			       size_t posn_offset)
++{
++	struct acp_dsp_stream *stream = substream->runtime->private_data;
 +
-+static SOC_ENUM_SINGLE_DECL(tx_dmic0_enum, CDC_TX_INP_MUX_ADC_MUX0_CFG0,
-+			4, dmic_mux_text);
++	/* check for unaligned offset or overflow */
++	if (posn_offset > sdev->stream_box.size ||
++	    posn_offset % sizeof(struct sof_ipc_stream_posn) != 0)
++		return -EINVAL;
 +
-+static SOC_ENUM_SINGLE_DECL(tx_dmic1_enum, CDC_TX_INP_MUX_ADC_MUX1_CFG0,
-+			4, dmic_mux_text);
++	stream->posn_offset = sdev->stream_box.offset + posn_offset;
 +
-+static SOC_ENUM_SINGLE_DECL(tx_dmic2_enum, CDC_TX_INP_MUX_ADC_MUX2_CFG0,
-+			4, dmic_mux_text);
++	dev_dbg(sdev->dev, "pcm: stream dir %d, posn mailbox offset is %zu",
++		substream->stream, stream->posn_offset);
 +
-+static SOC_ENUM_SINGLE_DECL(tx_dmic3_enum, CDC_TX_INP_MUX_ADC_MUX3_CFG0,
-+			4, dmic_mux_text);
++	return 0;
++}
++EXPORT_SYMBOL_NS(acp_set_stream_data_offset, SND_SOC_SOF_AMD_COMMON);
 +
-+static SOC_ENUM_SINGLE_DECL(tx_dmic4_enum, CDC_TX_INP_MUX_ADC_MUX4_CFG0,
-+			4, dmic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(tx_dmic5_enum, CDC_TX_INP_MUX_ADC_MUX5_CFG0,
-+			4, dmic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(tx_dmic6_enum, CDC_TX_INP_MUX_ADC_MUX6_CFG0,
-+			4, dmic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(tx_dmic7_enum, CDC_TX_INP_MUX_ADC_MUX7_CFG0,
-+			4, dmic_mux_text);
-+
-+static const struct snd_kcontrol_new tx_dmic0_mux = SOC_DAPM_ENUM_EXT("tx_dmic0", tx_dmic0_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic1_mux = SOC_DAPM_ENUM_EXT("tx_dmic1", tx_dmic1_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic2_mux = SOC_DAPM_ENUM_EXT("tx_dmic2", tx_dmic2_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic3_mux = SOC_DAPM_ENUM_EXT("tx_dmic3", tx_dmic3_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic4_mux = SOC_DAPM_ENUM_EXT("tx_dmic4", tx_dmic4_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic5_mux = SOC_DAPM_ENUM_EXT("tx_dmic5", tx_dmic5_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic6_mux = SOC_DAPM_ENUM_EXT("tx_dmic6", tx_dmic6_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+static const struct snd_kcontrol_new tx_dmic7_mux = SOC_DAPM_ENUM_EXT("tx_dmic7", tx_dmic7_enum,
-+			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
-+
- static const char * const dec_mode_mux_text[] = {
- 	"ADC_DEFAULT", "ADC_LOW_PWR", "ADC_HIGH_PERF",
+ int acp_sof_ipc_get_mailbox_offset(struct snd_sof_dev *sdev)
+ {
+ 	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
+diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
+index dd3c072d0172..1529c6d9bf9b 100644
+--- a/sound/soc/sof/amd/acp.h
++++ b/sound/soc/sof/amd/acp.h
+@@ -138,6 +138,7 @@ struct acp_dsp_stream {
+ 	int stream_tag;
+ 	int active;
+ 	unsigned int reg_offset;
++	size_t posn_offset;
  };
-@@ -1380,6 +1430,15 @@ static const struct snd_soc_dapm_widget tx_macro_dapm_widgets[] = {
- 	SND_SOC_DAPM_MUX("TX SMIC MUX6", SND_SOC_NOPM, 0, 0, &tx_smic6_mux),
- 	SND_SOC_DAPM_MUX("TX SMIC MUX7", SND_SOC_NOPM, 0, 0, &tx_smic7_mux),
  
-+	SND_SOC_DAPM_MUX("TX DMIC MUX0", SND_SOC_NOPM, 4, 0, &tx_dmic0_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX1", SND_SOC_NOPM, 4, 0, &tx_dmic1_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX2", SND_SOC_NOPM, 4, 0, &tx_dmic2_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX3", SND_SOC_NOPM, 4, 0, &tx_dmic3_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX4", SND_SOC_NOPM, 4, 0, &tx_dmic4_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX5", SND_SOC_NOPM, 4, 0, &tx_dmic5_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX6", SND_SOC_NOPM, 4, 0, &tx_dmic6_mux),
-+	SND_SOC_DAPM_MUX("TX DMIC MUX7", SND_SOC_NOPM, 4, 0, &tx_dmic7_mux),
-+
- 	SND_SOC_DAPM_INPUT("TX SWR_ADC0"),
- 	SND_SOC_DAPM_INPUT("TX SWR_ADC1"),
- 	SND_SOC_DAPM_INPUT("TX SWR_ADC2"),
-@@ -1392,6 +1451,14 @@ static const struct snd_soc_dapm_widget tx_macro_dapm_widgets[] = {
- 	SND_SOC_DAPM_INPUT("TX SWR_DMIC5"),
- 	SND_SOC_DAPM_INPUT("TX SWR_DMIC6"),
- 	SND_SOC_DAPM_INPUT("TX SWR_DMIC7"),
-+	SND_SOC_DAPM_INPUT("TX DMIC0"),
-+	SND_SOC_DAPM_INPUT("TX DMIC1"),
-+	SND_SOC_DAPM_INPUT("TX DMIC2"),
-+	SND_SOC_DAPM_INPUT("TX DMIC3"),
-+	SND_SOC_DAPM_INPUT("TX DMIC4"),
-+	SND_SOC_DAPM_INPUT("TX DMIC5"),
-+	SND_SOC_DAPM_INPUT("TX DMIC6"),
-+	SND_SOC_DAPM_INPUT("TX DMIC7"),
- 
- 	SND_SOC_DAPM_MUX_E("TX DEC0 MUX", SND_SOC_NOPM,
- 			   TX_MACRO_DEC0, 0,
-@@ -1495,6 +1562,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX DEC6 MUX", NULL, "TX_MCLK"},
- 	{"TX DEC7 MUX", NULL, "TX_MCLK"},
- 
-+	{"TX DEC0 MUX", "MSM_DMIC", "TX DMIC MUX0"},
-+	{"TX DMIC MUX0", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX0", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX0", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX0", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX0", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX0", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX0", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX0", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC0 MUX", "SWR_MIC", "TX SMIC MUX0"},
- 	{"TX SMIC MUX0", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX0", "ADC0", "TX SWR_ADC0"},
-@@ -1510,6 +1587,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX0", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX0", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC1 MUX", "MSM_DMIC", "TX DMIC MUX1"},
-+	{"TX DMIC MUX1", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX1", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX1", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX1", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX1", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX1", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX1", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX1", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC1 MUX", "SWR_MIC", "TX SMIC MUX1"},
- 	{"TX SMIC MUX1", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX1", "ADC0", "TX SWR_ADC0"},
-@@ -1525,6 +1612,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX1", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX1", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC2 MUX", "MSM_DMIC", "TX DMIC MUX2"},
-+	{"TX DMIC MUX2", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX2", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX2", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX2", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX2", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX2", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX2", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX2", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC2 MUX", "SWR_MIC", "TX SMIC MUX2"},
- 	{"TX SMIC MUX2", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX2", "ADC0", "TX SWR_ADC0"},
-@@ -1540,6 +1637,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX2", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX2", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC3 MUX", "MSM_DMIC", "TX DMIC MUX3"},
-+	{"TX DMIC MUX3", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX3", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX3", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX3", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX3", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX3", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX3", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX3", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC3 MUX", "SWR_MIC", "TX SMIC MUX3"},
- 	{"TX SMIC MUX3", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX3", "ADC0", "TX SWR_ADC0"},
-@@ -1555,6 +1662,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX3", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX3", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC4 MUX", "MSM_DMIC", "TX DMIC MUX4"},
-+	{"TX DMIC MUX4", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX4", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX4", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX4", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX4", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX4", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX4", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX4", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC4 MUX", "SWR_MIC", "TX SMIC MUX4"},
- 	{"TX SMIC MUX4", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX4", "ADC0", "TX SWR_ADC0"},
-@@ -1570,6 +1687,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX4", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX4", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC5 MUX", "MSM_DMIC", "TX DMIC MUX5"},
-+	{"TX DMIC MUX5", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX5", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX5", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX5", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX5", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX5", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX5", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX5", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC5 MUX", "SWR_MIC", "TX SMIC MUX5"},
- 	{"TX SMIC MUX5", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX5", "ADC0", "TX SWR_ADC0"},
-@@ -1585,6 +1712,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX5", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX5", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC6 MUX", "MSM_DMIC", "TX DMIC MUX6"},
-+	{"TX DMIC MUX6", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX6", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX6", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX6", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX6", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX6", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX6", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX6", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC6 MUX", "SWR_MIC", "TX SMIC MUX6"},
- 	{"TX SMIC MUX6", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX6", "ADC0", "TX SWR_ADC0"},
-@@ -1600,6 +1737,16 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
- 	{"TX SMIC MUX6", "SWR_DMIC6", "TX SWR_DMIC6"},
- 	{"TX SMIC MUX6", "SWR_DMIC7", "TX SWR_DMIC7"},
- 
-+	{"TX DEC7 MUX", "MSM_DMIC", "TX DMIC MUX7"},
-+	{"TX DMIC MUX7", "DMIC0", "TX DMIC0"},
-+	{"TX DMIC MUX7", "DMIC1", "TX DMIC1"},
-+	{"TX DMIC MUX7", "DMIC2", "TX DMIC2"},
-+	{"TX DMIC MUX7", "DMIC3", "TX DMIC3"},
-+	{"TX DMIC MUX7", "DMIC4", "TX DMIC4"},
-+	{"TX DMIC MUX7", "DMIC5", "TX DMIC5"},
-+	{"TX DMIC MUX7", "DMIC6", "TX DMIC6"},
-+	{"TX DMIC MUX7", "DMIC7", "TX DMIC7"},
-+
- 	{"TX DEC7 MUX", "SWR_MIC", "TX SMIC MUX7"},
- 	{"TX SMIC MUX7", NULL, "TX_SWR_CLK"},
- 	{"TX SMIC MUX7", "ADC0", "TX SWR_ADC0"},
+ struct sof_amd_acp_desc {
+@@ -199,6 +200,9 @@ int acp_dsp_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_ty
+ irqreturn_t acp_sof_ipc_irq_thread(int irq, void *context);
+ int acp_sof_ipc_msg_data(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
+ 			 void *p, size_t sz);
++int acp_set_stream_data_offset(struct snd_sof_dev *sdev,
++			       struct snd_pcm_substream *substream,
++			       size_t posn_offset);
+ int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev,
+ 			 struct snd_sof_ipc_msg *msg);
+ int acp_sof_ipc_get_mailbox_offset(struct snd_sof_dev *sdev);
 -- 
 2.25.1
 

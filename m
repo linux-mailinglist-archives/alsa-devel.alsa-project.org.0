@@ -2,99 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135ED629703
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 12:16:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0AC6297AB
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 12:42:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A327D1631;
-	Tue, 15 Nov 2022 12:15:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A327D1631
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8541682;
+	Tue, 15 Nov 2022 12:41:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8541682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668510996;
-	bh=SeAf3EN9O1yYJUSQ7g/m9WDXcnQeVxctgGqVSMEEPOg=;
-	h=In-Reply-To:References:From:To:Subject:Date:Cc:List-Id:
+	s=default; t=1668512560;
+	bh=qeyRvQWvbVOqDYbH4+q9n4Fu3nVz/QW1/X4YYXyX9ow=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CNVsA9KtnbfcxI71qo7zqCqCPmzLkt/sToWfqoQoOijS8oy5KLOU92vGFHXDADvxU
-	 vfZpikpwiqOKgsuleZRB5L9H/ajqWwIp4INophQRbD2XC5aBD2UYtGGraXQxF13W9w
-	 nBJph48yjlRl8Q0k+9eLYQlMYJABORSJ6JRQ9Hnk=
+	b=TTU+VgG2TwRYoax4QNSVOrI+3C+XusNkTpuNny47IT5nTUmpae24QNBha12mIi6fd
+	 XyepMSOswC2xI4ImgbOTuxtvQG+KZwnpYoSeL4qvp7hvwm6YS2Y+EcXezdcIi4DxSq
+	 r9vIkJP+V8eYciE4ADofU4cWIvXoVbdt1IstssXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40CEEF8047C;
-	Tue, 15 Nov 2022 12:15:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC301F8047C;
+	Tue, 15 Nov 2022 12:41:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9151F80171; Tue, 15 Nov 2022 12:15:39 +0100 (CET)
+ id 17EF2F80171; Tue, 15 Nov 2022 12:41:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HELO_DYNAMIC_IPADDR,
- HTML_MESSAGE,NO_FM_NAME_IP_HOSTN,RCVD_ILLEGAL_IP,RDNS_DYNAMIC,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com
- [162.62.57.87])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 385CFF800B8
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 12:15:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 385CFF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7121F800B8
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 12:41:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7121F800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="mGxgSj2v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1668510928; bh=PWEPr7nhl2pJIFk7B1bzav9+gHI3mTdMzUY9R+FpJjE=;
- h=In-Reply-To:References:From:To:Cc:Subject:Date;
- b=mGxgSj2vwrwVbVs8ZRZ9jSeaZv4Gshw8HEUf3C6WwDAVaerv5OlmqJNeotxRoHD9S
- gJ//k6KEln4bKv52vuhfn8uttrEJPsBpwwlBv6Gutn1fOCSj4w/Z63YESxrV1W+cmK
- cL/RfwI3E9VxcgblorDVpuqQDEvPSr0gp01dnGIQ=
-X-QQ-FEAT: oHWrrGTW1dC93WHAYZD9jnWc/36R7j5q
-X-QQ-SSF: 00000000000000F0000000000000
-X-QQ-XMAILINFO: OYRFB0RV71Lzn8pBi7BlIdg46OqFqZRgLK/5gfQliX0uVjfIGPCzvMkHBy1shY
- BiD4N5vbJAg6wH79kAF6n0ja1GmNP7tpMUAXUC0QJ0n+RGEv+xsZ7S1s88V6rwDBhxnA84Rl1BMWO
- rIKMXMbhxyfOBXbs7rqW5NwknEiG9h8SupznRlYvfdojpYCh1mWzA7QcCGXUEqj2s/apvsBm5TdxG
- YW4olEZg/EKWBMbBW7BBBb5QXwSJsRMkhdJMzfvldObmatY91a5p9oWvvimSl/sHziteAj0AhQzq9
- WTfwpONc+eULRDttDeJfbncgoXaDbeiS7qmJ9HliVJIPhflYf2OoyvekbTVwLIZzFCg9W8KPVEre7
- v2LXL7Qn32CfCR7fxq/N36j3bADW2nhjEJOIvDEznmgHoCK+prE2TO2yHRJHgvAp7Smbo8wr8x871
- w/ahenzQWP0y9m8f800vdIunjysSVHm/xX0XIRjTtH5pmqkCwT0b3yG6vu0kqTg3jbgvNY9Ejjxl+
- 2QnU5tQ8Rdzc2+loKntpZc+8U7UH12jMz4F4b8XVbNW3tBKzxp/BiipNYM5ykgKt7PHaOv5qea71s
- vt9umbu1jSl8XQYMhzk2DxVcoNGaXZqce6jhFI7bfZ0MsK4AbLb5Wzv6ZFBINGSKED1NUuquRy5DE
- Rp+YGHhsDLRIq53peSoRhL0eqFrUjdriVtJoogxFMYeI2wH9Uw+qm2dbYXWngft5pKCFN2GXu2Pa0
- xtC4g4HSzYr5WFNbdy73luaWecsZimV+zgUJBWNLvzd4kgczmDN7ENu+AE7n7moTMW6pvnBpFRhhr
- HYlEVG1i0boOiSEzi2UXydHfxT8q4htVwzAIaB1RjBSfS9zjSyAmxbCeIIBcemNuPJNKJiISs1Vca
- tjv0X2c22nxJlKRdZgMiEorXFrDFLAXL5qdCuxFZYO6UkdPGmiT3viJBWuXdX96ECM/pHWyFQtgVL
- pqh31wbQ==
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 255.25.247.146
-In-Reply-To: <8039aad2-3d6f-153f-bf23-892c3804b0fa@linux.intel.com>
-References: <tencent_59850BB028662B6F2D49D7F3624AB84CCF05@qq.com>
- <8039aad2-3d6f-153f-bf23-892c3804b0fa@linux.intel.com>
-X-QQ-STYLE: 
-X-QQ-mid: webmail338t1668510928t8690528
-From: "=?gb18030?B?bGlzaHFjaG4=?=" <lishqchn@qq.com>
-To: "=?gb18030?B?QW1hZGV1c3ogU4EwkjBhd2movXNraQ==?="
- <amadeuszx.slawinski@linux.intel.com>,
- "=?gb18030?B?cGVyZXg=?=" <perex@perex.cz>,
- "=?gb18030?B?dGl3YWk=?=" <tiwai@suse.com>
-Subject: =?gb18030?B?u9i4tKO6IFtQQVRDSF0gQXNvYzogY29yZTogZml4?=
- =?gb18030?B?IHdyb25nIHNpemUga3phbGxvYyBmb3IgcnRkJ3Mg?=
- =?gb18030?B?Y29tcG9uZW50cyBtZW1iZXI=?=
-Mime-Version: 1.0
-Date: Tue, 15 Nov 2022 19:15:27 +0800
-X-Priority: 3
-Message-ID: <tencent_88921E02D76051F3D6D31A8A2ED745B7B006@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: =?gb18030?B?YWxzYS1kZXZlbA==?= <alsa-devel@alsa-project.org>,
- =?gb18030?B?YnJvb25pZQ==?= <broonie@kernel.org>,
- =?gb18030?B?bGdpcmR3b29k?= <lgirdwood@gmail.com>,
- =?gb18030?B?bGludXgta2VybmVs?= <linux-kernel@vger.kernel.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="PGN87a+q"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AF8JZWD002582; Tue, 15 Nov 2022 05:41:38 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=9KF0EFIu5GFZmsPwf8xI4U874ouEdeeDRfnS9r8p1MM=;
+ b=PGN87a+qjhcm53UrwVC9jufNnvOnsDtRRNd08d2dl3+rvQqi66GAQBlOPP3CsxMZmx3j
+ 1rIdbBZh1cjDLHYNQmEhR4YKvqJFTOIGbM/QEuhOy0BaVSH9q/Wm5u4+VaTFtObOd9CA
+ E/7uJioXpUa3QiqHzGa1Zmk5Z+XB7kqSP2uas4MWIPGpHIZo0GE64O/lKYxZVilpVeVF
+ 0VN7TTX8dT//V6zaAcdFg/R4lNljWnaOGOX3zr/NLBaq7L+SrUrP0c8Fa/B+X/8K1IPR
+ SUZsYkNLZ1O+VD9+1XvPwr5FFW7P3jA+uGBLO3iDtirdVeDod1mq2pJlN2ecMIHafkRG 6A== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kv73yg5xa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Nov 2022 05:41:38 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Tue, 15 Nov
+ 2022 05:41:36 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.20 via Frontend Transport; Tue, 15 Nov 2022 05:41:36 -0600
+Received: from [198.90.251.111] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.111])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8DD5D46B;
+ Tue, 15 Nov 2022 11:41:36 +0000 (UTC)
+Message-ID: <730128a9-46ce-02b2-f88d-c9982fff2e69@opensource.cirrus.com>
+Date: Tue, 15 Nov 2022 11:41:36 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 2/4] soundwire: Provide build stubs for common functions
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>
+References: <20221114102956.914468-1-ckeepax@opensource.cirrus.com>
+ <20221114102956.914468-3-ckeepax@opensource.cirrus.com>
+ <90b01c76-fc65-a57f-9247-fae78241342c@linux.intel.com>
+ <20221115110345.GM10437@ediswmail.ad.cirrus.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20221115110345.GM10437@ediswmail.ad.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: OsEL-2q4-CHKB36X-TLNp32ZRVT9gneW
+X-Proofpoint-GUID: OsEL-2q4-CHKB36X-TLNp32ZRVT9gneW
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,45 +107,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cnRkJ3MgZmxleGlibGUgYXJyYXlzIGFyZSB0eXBlb2Ygc3RydWN0IHNuZF9zb2NfY29tcG9u
-ZW50ICpjb21wb25lbnRzW10mbmJzcDsgd2hpY2ggbWVhbnMgc3RydWN0X3BvaW50ZXIgZmxl
-eGlibGUgYXJyYXlzDQpzaXplb2YoY29tcG9uZW50KSB3aWxsIGFsbG9jYXRlIHNpemVvZihz
-dHJ1Y3Qgc25kX3NvY19jb21wb25lbnQpLCBidXQgaGVyZSBvbmx5IG5lZWQgc2l6ZW9mKHN0
-cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqKSANCg0KDQoNCg0KDQoNCg0KDQotLS0tLS0tLS0t
-LS0tLS0tLS0mbmJzcDvUrcq808q8/iZuYnNwOy0tLS0tLS0tLS0tLS0tLS0tLQ0Kt6K8/sjL
-OiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICJBbWFkZXVzeiBTgTCSMGF3aai9c2tpIiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIDxhbWFkZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbSZndDs7
-DQq3osvNyrG85DombmJzcDsyMDIyxOoxMdTCMTDI1SjQx8bay8QpIM3tyc83OjAyDQrK1bz+
-yMs6Jm5ic3A7Imxpc2hxY2huIjxsaXNocWNobkBxcS5jb20mZ3Q7OyJwZXJleCI8cGVyZXhA
-cGVyZXguY3omZ3Q7OyJ0aXdhaSI8dGl3YWlAc3VzZS5jb20mZ3Q7Ow0Ks63LzTombmJzcDsi
-YWxzYS1kZXZlbCI8YWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnJmd0OzsiYnJvb25pZSI8
-YnJvb25pZUBrZXJuZWwub3JnJmd0OzsibGdpcmR3b29kIjxsZ2lyZHdvb2RAZ21haWwuY29t
-Jmd0OzsibGludXgta2VybmVsIjxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnJmd0OzsN
-Ctb3zOI6Jm5ic3A7UmU6IFtQQVRDSF0gQXNvYzogY29yZTogZml4IHdyb25nIHNpemUga3ph
-bGxvYyBmb3IgcnRkJ3MgY29tcG9uZW50cyBtZW1iZXINCg0KDQoNCk9uIDExLzgvMjAyMiA1
-OjI0IEFNLCBsaXNocWNobiB3cm90ZToNCiZndDsgVGhlIGFjdHVhbCBzcGFjZSBmb3Igc3Ry
-dWN0IHNuZF9zb2NfY29tcG9uZW50IGhhcyBiZWVuIGFsbG9jYXRlZCBieQ0KJmd0OyBzbmRf
-c29jX3JlZ2lzdGVyX2NvbXBvbmVudCwgaGVyZSBydGQncyBjb21wb25lbnRzIGFyZSBwb2lu
-dGVycyB0bw0KJmd0OyBjb21wb25lbnRzLCBJIHJlcGxhY2UgdGhlIGJhc2Ugc2l6ZSBmcm9t
-ICpjb21wb25lbnQgdG8gY29tcG9uZW50Lg0KJmd0OyANCiZndDsgU2lnbmVkLW9mZi1ieTog
-bGlzaHFjaG4gPGxpc2hxY2huQHFxLmNvbSZndDsNCiZndDsgLS0tDQomZ3Q7Jm5ic3A7Jm5i
-c3A7IHNvdW5kL3NvYy9zb2MtY29yZS5jIHwgMiArLQ0KJmd0OyZuYnNwOyZuYnNwOyAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCiZndDsgDQomZ3Q7
-IGRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29jLWNvcmUuYyBiL3NvdW5kL3NvYy9zb2MtY29y
-ZS5jDQomZ3Q7IGluZGV4IGE2ZDZkMTBjZDQ3MS4uZDIxZTAyODRiMmFhIDEwMDY0NA0KJmd0
-OyAtLS0gYS9zb3VuZC9zb2Mvc29jLWNvcmUuYw0KJmd0OyArKysgYi9zb3VuZC9zb2Mvc29j
-LWNvcmUuYw0KJmd0OyBAQCAtNDU5LDcgKzQ1OSw3IEBAIHN0YXRpYyBzdHJ1Y3Qgc25kX3Nv
-Y19wY21fcnVudGltZSAqc29jX25ld19wY21fcnVudGltZSgNCiZndDsmbmJzcDsmbmJzcDsg
-CSAqLw0KJmd0OyZuYnNwOyZuYnNwOyAJcnRkID0gZGV2bV9remFsbG9jKGRldiwNCiZndDsm
-bmJzcDsmbmJzcDsgCQkJJm5ic3A7Jm5ic3A7IHNpemVvZigqcnRkKSArDQomZ3Q7IC0JCQkm
-bmJzcDsmbmJzcDsgc2l6ZW9mKCpjb21wb25lbnQpICogKGRhaV9saW5rLSZndDtudW1fY3B1
-cyArDQomZ3Q7ICsJCQkmbmJzcDsmbmJzcDsgc2l6ZW9mKGNvbXBvbmVudCkgKiAoZGFpX2xp
-bmstJmd0O251bV9jcHVzICsNCiZndDsmbmJzcDsmbmJzcDsgCQkJCQkJIGRhaV9saW5rLSZn
-dDtudW1fY29kZWNzICsNCiZndDsmbmJzcDsmbmJzcDsgCQkJCQkJIGRhaV9saW5rLSZndDtu
-dW1fcGxhdGZvcm1zKSwNCiZndDsmbmJzcDsmbmJzcDsgCQkJJm5ic3A7Jm5ic3A7IEdGUF9L
-RVJORUwpOw0KDQpDYW4ndCBzdHJ1Y3Rfc2l6ZSBtYWNybyBiZSB1c2VkIGluc3RlYWQsIGl0
-IGlzIG1lYW50IHRvIGJlIHVzZWQgd2hlbiANCmNhbGN1bGF0aW5nIHNpemUgb2Ygc3RydWN0
-cyBjb250YWluaW5nIGZsZXhpYmxlIGFycmF5cyBhdCB0aGUgZW5kPw==
+On 15/11/2022 11:03, Charles Keepax wrote:
+> On Mon, Nov 14, 2022 at 10:13:07AM -0600, Pierre-Louis Bossart wrote:
+>>
+>>
+>> On 11/14/22 04:29, Charles Keepax wrote:
+>>> Provide stub functions when CONFIG_SOUNDWIRE is not set for functions
+>>> that are quite likely to be used from common code on devices supporting
+>>> multiple control buses.
+>>
+>> So far this case has been covered by splitting SoundWire related code
+>> away from, say I2C, and with a clear 'depends on SOUNDWIRE'. This is the
+>> case for rt5682, max98373, etc.
+>>
+>> Is this not good enough?
+>>
+>> I am not against this patch, just wondering if allowing code for
+>> different interfaces to be part of the same file will lead to confusions
+>> with e.g. register offsets or functionality exposed with different
+>> registers.
+>>
+> 
+> I guess this is a bit of a grey area this one. Both work, I guess
+> the reason I was leaning this way is that in order to avoid a
+> circular dependency if I put all the soundwire DAI handling into
+> the soundwire code then I have to duplicate the snd_soc_dai_driver
+> structure into both the sdw and i2c specific code (worth noting
+> the I2S DAIs are still usable when the part is sdw to the host). But
+> there are also downsides to this approach in that it will likely have
+> some small impact on driver size when soundwire is not built in.
+> 
+
+I think we should just add the stubs. Other subsystems use stubs to help
+with code that references stuff that might not be available.
+
+Splitting all the soundwire-specifics out into a separate module works
+for simple chips that are either I2S or soundwire. but can get messy for
+a complex codec. I used the separate file method for CS42L42, but for a
+driver I'm working on I abandoned that and put both DAIs in the core
+code. I didn't notice the missing stubs because my defconfig that was
+intended to omit soundwire apparently has something that is selecting
+it anyway.

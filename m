@@ -2,100 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7451662982B
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 13:08:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F97062982F
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Nov 2022 13:09:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DFC916AD;
-	Tue, 15 Nov 2022 13:07:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DFC916AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC4116C6;
+	Tue, 15 Nov 2022 13:08:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC4116C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668514112;
-	bh=IRkf0Zfmp4i/5DjW8jR+DmclABUASvNBnjtCmrbcHeU=;
+	s=default; t=1668514155;
+	bh=89ZLLA8ymh67/EjYa5Ge2hkIKzBt0OduF6Czam58yew=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ue9E/Y6ydv8dRxrEGYvudnoKyC+N1fkxNuHNCegSgnqt4xsiAKGiAZuHACsBBuIuG
-	 HEhIRkYRm/6WlirZMlb4q5u9yP0CiwAqkZoOaa6mxSvhCZcduOAitk7wAxt1Z79ucB
-	 umSm8gTgHUNosXZTsuwcZcVTqdgYx1KeBGCvRZi4=
+	b=U6Y6HCrCGKWPfL/rjoX2f/RapdserYGMDm0X2qyAFdwmmToPQT5MYAPlDZlCZUo/7
+	 z+661nm2HwLTU/8YUAIjnV0ULugY1xNN5Fj9YLIEdtZ4VxOEiE8poV4uENjWPUJE+H
+	 u9+hTz5lA8f2OKHoRL47iTxKP0Wh04CUETJtlfMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE6AEF8047C;
-	Tue, 15 Nov 2022 13:07:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5516BF80538;
+	Tue, 15 Nov 2022 13:08:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7801F80171; Tue, 15 Nov 2022 13:07:35 +0100 (CET)
+ id EB109F804DA; Tue, 15 Nov 2022 13:08:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A44CFF800B5
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 13:07:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A44CFF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AD63F80171
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 13:08:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AD63F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Vkh6FBln"
-Received: by mail-lj1-x22f.google.com with SMTP id k19so17238558lji.2
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 04:07:29 -0800 (PST)
+ header.b="DsZVqsEJ"
+Received: by mail-lj1-x22b.google.com with SMTP id l8so17196150ljh.13
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 04:08:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=RQSvUHF2mKz08VEEZmsndEu/bBIUnKZLMjnATxqD90U=;
- b=Vkh6FBlnHPSpnSxcHdDQAx7gCDoYV9NNpu2UstlfR6JGOhJKRnmplsfymFshPMWvaL
- zb5srr1PnYNuAGYsXSf/tb5FkuuFPJ9OlCW2WWO+RBI4kW/r/fVLp+mKJhl8rO1o7m4g
- yvOUxvdYZwhXg72CPXUeEcGasxPZ/Bfz+2MlesouXDmYjx5jKcWNxr3n6THVwfjao+bR
- rtvoA4R3XdO8A11neeQUQ9m/+2U9unblBzK4jpzNJimmK8LaF8AU+6bWEWQgbFjBp/sD
- 2nz/nHx47pRhlKnl9zSHlm8/TBedEAuKcgiP4itJINVi3WF/Y/x3UVYnEdVc6SieuTn6
- xXCQ==
+ bh=q8PyRlStPYbAJWRM87qU7tA+FqO3HKkAnH1g3kIJaJk=;
+ b=DsZVqsEJuLaKOnANywBtEw2nKvRSgNstBz8Cl8JaW+p5IHYPd6gRYjb/jsXu5cpHYz
+ 2tUknyItouXSOsSOqvBMbAQ8HZr+kvySJNpxPb0U92C39OluSP9uEf9P2wEKUgAxZZGm
+ fSQW1sQFJGumswMpTh48P2++EsDWA17TOZOWuvBAnenX4122MWoot+bLbsR9+G7OMFaG
+ 9ocaZuYCXcn26OeY+Pa/VR2bEYJI+h+tI99SiA1DMBG7l6jMRpwF0HubpqMtL7SguaqU
+ 6nre2rLNkTfaDY5482HPH09DfXjsNFW8wpXxVSm8pq1DUwK6YyZCDfG8/7TzexD+bh5G
+ bi1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RQSvUHF2mKz08VEEZmsndEu/bBIUnKZLMjnATxqD90U=;
- b=ZqDeveSyUH0LBck+m+WnVqGjEK/h+rqvs50170N3Ocn8fAEPGpsqBDJ9UxdJGTBYsS
- hgMumGKG6XK0b2g2PKukI3gLUh6SwJYpCQglb2Y807YP8CX9xwePr/htN2tXyomeOVJH
- tot5tAulPP6EsJAUk6qSt5fi6jUSaxtqRkGxExmYzYgNAxdx86rtNyO+NT7m1bbo9oKk
- q7dzJbZnWTgjyA54SB9iW2gjzn1r65SdxYFA+N+eQaNx6WMmvoWTZZTphpM4wvVA4weU
- PYTSIMS7/87WosSuzTbllk+to9xKU2uX681wgMpx2TBj72gXC8NrbEAL8IHbKec3geGT
- ztMQ==
-X-Gm-Message-State: ANoB5pkQW6fEDIqkD6q/fzFnX2pYTP93OysyG4zT6vzBkQSlc+z8j1HV
- k3J5aoAlmyZ1+Df7/irC/p6aLw==
-X-Google-Smtp-Source: AA0mqf4U9TM+GlYYuOcq0JeIeMaYDGuMt+O6BkP0FGSAdYbDlajVf6/NMTLnig1EblZQTu7RTpre+g==
-X-Received: by 2002:a2e:a590:0:b0:277:3ca2:dac6 with SMTP id
- m16-20020a2ea590000000b002773ca2dac6mr5359644ljp.143.1668514047452; 
- Tue, 15 Nov 2022 04:07:27 -0800 (PST)
+ bh=q8PyRlStPYbAJWRM87qU7tA+FqO3HKkAnH1g3kIJaJk=;
+ b=S2By6dH5ZY9B878h8WUNKiQHE1FYMA6wv1joc86C6dDOX4R8Dtenb2NCPJMKsNOx8+
+ SdGPa7O0lRbPR3BvedbNjJtEcKrtWRQN7DBXJilWlu5krP17dWoIU/ETsxKpspaqaTJW
+ LFDFczvaht8Ia2l3kxsAq62kVFBtNWUq44Ha4bBueMcG6z0p8h3b7qqdaflUepZCbMJh
+ GaIaHBZxK67q4VPhJV0IsDTK51TKm1AwhInfq6rA3AR/mbgjaJ+1OYs75f8YF726eYlf
+ F+haCGGwhlsHKXxO8RRXeVJVeRdqmN3i3ksJzdPLPcjMGKffuU5Z6IqiRZR1vTBkn6oQ
+ 93/Q==
+X-Gm-Message-State: ANoB5pkjLvaLfu3jp5Pngt+lDa0bwpOGDDu9gdLpWe2wCla0NPleoDVo
+ l9UROApL2trinIT9zkULoK6zRA==
+X-Google-Smtp-Source: AA0mqf6fSvU7PcnZ00D/QL91D6QVoL7V7qXZu/elf2E5OJILUd6PxxnHN7RtexFXSVWtf+mdDHj5GA==
+X-Received: by 2002:a05:651c:1947:b0:26d:e863:2f71 with SMTP id
+ bs7-20020a05651c194700b0026de8632f71mr5534448ljb.170.1668514090408; 
+ Tue, 15 Nov 2022 04:08:10 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- v6-20020ac25606000000b00499b27a329esm2190637lfd.300.2022.11.15.04.07.26
+ q9-20020a2e84c9000000b0026dced9840dsm2413975ljh.61.2022.11.15.04.08.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 04:07:27 -0800 (PST)
-Message-ID: <ea3b8fe5-2283-0386-c63a-e056a879776e@linaro.org>
-Date: Tue, 15 Nov 2022 13:07:25 +0100
+ Tue, 15 Nov 2022 04:08:09 -0800 (PST)
+Message-ID: <a58094da-cbec-2dc2-38ee-52c0cba6b90a@linaro.org>
+Date: Tue, 15 Nov 2022 13:08:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: Discuss [PATCH V4 6/6] ASoC:codecs:aw883xx corresponds to the
- modified Makefile and Kconfig
+Subject: Re: Thanks to [PATCH V4 5/6] ASoC: dt-bindings: Add schema for
+ "awinic,aw883xx"
 Content-Language: en-US
 To: wangweidong.a@awinic.com, broonie@kernel.org, perex@perex.cz,
  alsa-devel@alsa-project.org, tiwai@suse.com, robh+dt@kernel.org,
  krzysztof.kozlowski+dt@linaro.org, ckeepax@opensource.cirrus.com,
  tanureal@opensource.cirrus.com, quic_potturu@quicinc.com,
  pierre-louis.bossart@linux.intel.com, cy_huang@richtek.com
-References: <000801d8f8e8$1c8096c0$5581c440$@awinic.com>
+References: <000701d8f8e7$4e01bc20$ea053460$@awinic.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <000801d8f8e8$1c8096c0$5581c440$@awinic.com>
+In-Reply-To: <000701d8f8e7$4e01bc20$ea053460$@awinic.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: duanyibo@awinic.com, yijiangtao@awinic.com, zhangjianming@awinic.com,
@@ -115,32 +113,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 15/11/2022 12:47, wangweidong.a@awinic.com wrote:
-> Hi Krzysztof Kozlowski
+On 15/11/2022 12:42, wangweidong.a@awinic.com wrote:
+> Hi Krzysztof Kozlowski:
 > 
-> Thank you very much for your advice, but there is still a problem I would like to discuss with you
+> Thank you for your advice, I will change these questions
 
-Please press "Reply" when replying, so your message is properly
-threaded. This does not get under a thread, so makes life of others
-difficult.
+This is not a proper reply. Threading is broken.
+
+(...)
 
 > 
->> From: Weidong Wang <wangweidong.a@awinic.com>
->>
->> Modified the Makefile and Kconfig to compile aw883xx
->>
->> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
->> ---
->>  sound/soc/codecs/Kconfig  | 10 ++++++++++  sound/soc/codecs/Makefile 
->> |  7 +++++++
->>  2 files changed, 17 insertions(+)
+>> +    maxItems: 1
+>> +
+>> +  sound-channel:
+>> +    description:
+>> +      Number of sound channels of the aw883xx chip
 > 
->> 1. Where is patch 5?
+>> Your description does not explain me much. Number of supported sound channels is usually fixed in the hardware, thus coming from compatible.
+>> Therefore this might mean something else... but anyway your driver does not use it really, so just drop it.
 > 
-> What does this mean? Did you not receive patch V4 5/6?
+> 
+> I will delete this description in patch v5
 
-I did not get it.
-
+No. Drop entire property.
 
 Best regards,
 Krzysztof

@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93AAE62C0B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 15:18:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D4F62C0CD
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 15:29:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30DC01696;
-	Wed, 16 Nov 2022 15:17:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30DC01696
+	by alsa0.perex.cz (Postfix) with ESMTPS id D752E169D;
+	Wed, 16 Nov 2022 15:28:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D752E169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668608313;
-	bh=bw9qraiFl0JW+cXyOG+yJVuDURCN0jPi2XHmbs1LrFA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668608983;
+	bh=iNWupuRjdf4WDJwvku/uOIF6BDzusJloIJgME0GpZlU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WpRrN0efYc2hWOmVfXH3NXcae8kp1yhZOi7E8BgwxzYhiYfYpXi5oyQAZqgbiMNQc
-	 u5+YF9wSTjG52gD4rnwMxzWmqjzgy1cWu1wJLTbPwme0QD0NCvTeeP60F9WrUk08+t
-	 ctePdyx0GRw+soSRrCLb8UvJ3p0smqa8lvwnk4+k=
+	b=g7TvjTDoo2r29QoulYoUCY2b5eFkuQRQEPo4LAHhNtCDk2CzU6XuJIzv6zk5QmP//
+	 eeqIB3xyeHDI0jkAttOg6htqgJGKIzrZEm5nlVlsC2ea6odfcVRNjgCdBLPj2srLgC
+	 jGDRFmtGhOK6Dsl60+Sz/AidyElWF+IE4yrZTFHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C58E5F80238;
-	Wed, 16 Nov 2022 15:17:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42DAAF80089;
+	Wed, 16 Nov 2022 15:28:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20D30F80169; Wed, 16 Nov 2022 15:17:38 +0100 (CET)
+ id CEF22F80169; Wed, 16 Nov 2022 15:28:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA46EF80089
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 15:17:30 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7BD04A003F;
- Wed, 16 Nov 2022 15:17:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7BD04A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1668608250; bh=u1k0pJgKfOkbSwJetqs0cxn5niMzUrW1bk82nJvK7Tc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=3Pd4GBnBRj+MkRzT0Xhw+H4PBLiul2FrChagXnvkz9ReNQRpl3ZF8jm+RAA3ySfOg
- xcaH/OJN9KhfRHTaYnvEFqGszk4GOyW16+1rd8c6Iz888UXL47R6re4hl3FJedfSt/
- oMXKTniDwpBB3XBZScd8CMXzgVcnaGIJ1rmXTfPQ=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 16 Nov 2022 15:17:21 +0100 (CET)
-Message-ID: <ab82415a-4378-9999-4a82-d647e7a8215e@perex.cz>
-Date: Wed, 16 Nov 2022 15:17:20 +0100
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 081CBF800B8
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 15:28:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 081CBF800B8
+Received: by mail-oi1-f175.google.com with SMTP id e205so14171735oif.11
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 06:28:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uJm4Khl2AqxNBL7jLr8tofG6XONtUSnDoYtCODWM95I=;
+ b=2QKRm1cWU9Tx8bp5KubyVxICTsQshmhQ6ZSHN10nrYTNWqtEjgXwbjxELKOtQz0z4Q
+ 5lD0ZTEKO4SG9QaYmMoMywB3scAMRNHahVZrnZdA1E2OZS5xEzHBVZ6Y1pw7cRmy+FBT
+ eaffPjdnWr162H7fpCwApwcUkj+D6fblMz1dmWbR10fJv4WJv13Jy2E5PGI6GKqmzvAm
+ rfG2e0yKFgq33rmgEPnCJ0r7Zgv4x6bu6pHnmXKk4AJaFD7D7LchFky3hjZgHAt7O9vo
+ TGVTceRJYWaw26DOErGeqelrFy/eCMx9fNajFUUA7FCtmr7GcOs3ajkU+QdcKOvNH2ML
+ o6zg==
+X-Gm-Message-State: ANoB5pnF4xmoFEJOggxrJfLplrin5PBV/sR+VnyGB4zgbLiBHiC3tBCW
+ hlG8KiGVyplcmPY3F85mDg==
+X-Google-Smtp-Source: AA0mqf4sINa2t2XydjWBN/1d75ne+X4d+3nvk2RXDH/iplrAJ1owmL/DpO9cHAVg+yGj7EE6duQ8+w==
+X-Received: by 2002:a05:6808:2d7:b0:35a:2325:7aff with SMTP id
+ a23-20020a05680802d700b0035a23257affmr1668308oid.41.1668608914171; 
+ Wed, 16 Nov 2022 06:28:34 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ l12-20020a4ae38c000000b0049f3bdd791esm5872269oov.26.2022.11.16.06.28.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Nov 2022 06:28:33 -0800 (PST)
+Received: (nullmailer pid 3804306 invoked by uid 1000);
+ Wed, 16 Nov 2022 14:28:35 -0000
+Date: Wed, 16 Nov 2022 08:28:35 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2 01/11] ASoC: dt-bindings: qcom,apr: Add GLINK channel
+ name for SM8450
+Message-ID: <166860890990.3804146.6416157036563364508.robh@kernel.org>
+References: <20221115120235.167812-1-krzysztof.kozlowski@linaro.org>
+ <20221115120235.167812-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2] [RFC] selftests: alsa - add PCM test
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20221108115914.3751090-1-perex@perex.cz>
- <87pmdn3sj8.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <87pmdn3sj8.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Curtis Malainey <cujomalainey@google.com>,
- Brian Norris <briannorris@chromium.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <liam.r.girdwood@intel.com>, Jesse Barnes <jsbarnes@google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221115120235.167812-2-krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>,
+ quic_plai@quicinc.com, quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,47 +102,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16. 11. 22 15:03, Takashi Iwai wrote:
-> On Tue, 08 Nov 2022 12:59:14 +0100,
-> Jaroslav Kysela wrote:
->>
->> This initial code does a simple sample transfer tests. By default,
->> all PCM devices are detected and tested with short and long
->> buffering parameters for 4 seconds. If the sample transfer timing
->> is not in a +-100ms boundary, the test fails. Only the interleaved
->> buffering scheme is supported in this version.
->>
->> The configuration may be modified with the configuration files.
->> A specific hardware configuration is detected and activated
->> using the sysfs regex matching. This allows to use the DMI string
->> (/sys/class/dmi/id/* tree) or any other system parameters
->> exposed in sysfs for the matching for the CI automation.
->>
->> The configuration file may also specify the PCM device list to detect
->> the missing PCM devices.
->>
->> v1..v2:
->>    - added missing alsa-local.h header file
->>
->> Cc: Mark Brown <broonie@kernel.org>
->> Cc: Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
->> Cc: Liam Girdwood <liam.r.girdwood@intel.com>
->> Cc: Jesse Barnes <jsbarnes@google.com>
->> Cc: Jimmy Cheng-Yi Chiang <cychiang@google.com>
->> Cc: Curtis Malainey <cujomalainey@google.com>
->> Cc: Brian Norris <briannorris@chromium.org>
->> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+
+On Tue, 15 Nov 2022 13:02:25 +0100, Krzysztof Kozlowski wrote:
+> On SM8450 and SC8280XP with Qualcomm GPR, the GLINK channel name
+> (qcom,glink-channels) for ADSP is "adsp_apps".
 > 
-> Sorry for the late reply.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> The patch looks good and works fine on the smoke test, so I applied it
-> now.  There are a few issues Mark already commented on, and we can fix
-> or improve them in incremental manner later.
+> ---
+> 
+> Cc: quic_srivasam@quicinc.com
+> Cc: quic_plai@quicinc.com
+> ---
+>  .../devicetree/bindings/soc/qcom/qcom,apr.yaml        | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
 
-Thanks. I will try to work the Mark's comments when I find a free time.
-
-				Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Reviewed-by: Rob Herring <robh@kernel.org>

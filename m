@@ -2,78 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3103762C003
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 14:49:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEAE562C068
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 15:05:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C316616A6;
-	Wed, 16 Nov 2022 14:48:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C316616A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45DB1E12;
+	Wed, 16 Nov 2022 15:04:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45DB1E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668606558;
-	bh=K2ksH7kgxNtftqOEUOe6f5caubrVcfO05BhBII2jqsc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1668607525;
+	bh=3tcjET53ccOen+SmImjAyU1rdUOOiqESz18ZmEcTy7k=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=olev72mfuQY3rsreFybhpkNTJ4x9tQqIwSLz+HTP5jldhTF8FdBFmQEUK/8vohBSp
-	 WJMHC7ojSsK9cD7D5MM6ByU9XuLICqmDxgTdrSnM4IvK4k8DuubWsqYdO898xYp+4l
-	 ZltR0TdRhCjm6g0q/gSu0Wgiq4g3WEcVZrutL+Jg=
+	b=GEvvj7ZFdDF9rMjhxQUlyEdmQHlpMkyNSq3Irl8KF1rx0sx7l+TVH9uxXmFi6V+XX
+	 MDtrDNGWo1hi+Ufrv8QJiL/Lc+moX+gg59T/W4QOrDJl+8JurEiQTg5ZtrZpVan3c5
+	 wCdrEOsxGUq6qH9c8yX2QhAHpu4LBF5bI35+7yo0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D02BF804A9;
-	Wed, 16 Nov 2022 14:48:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D22B6F80238;
+	Wed, 16 Nov 2022 15:04:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5004DF8032D; Wed, 16 Nov 2022 14:48:03 +0100 (CET)
+ id 18FC5F80169; Wed, 16 Nov 2022 15:04:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24178F80240
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 14:47:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24178F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id E254CF80089
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 15:03:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E254CF80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mIpPGVTc"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="MypaEH4O"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="d02xtedN"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 37320B81D89;
- Wed, 16 Nov 2022 13:47:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE03C433D7;
- Wed, 16 Nov 2022 13:47:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668606474;
- bh=K2ksH7kgxNtftqOEUOe6f5caubrVcfO05BhBII2jqsc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mIpPGVTcEqFR7RSoNwVbU0cjFV79KdkrnFXiRVhc/ko2MYBC2b98jTeKpPhAIWumz
- KzKm+MEAiECjwcJ5irj9Jn9p+0wSBF8vf6T/dMgwjdJ8dsZCVFigDTe0jbxP4L1Dlw
- 4c92yhjUzw3lf3Hbx3mLcOsCQ3/6/VUX1L0RKDIz/eqGXciJ90dCDa0rskuZ5/FVyG
- hp72mL07eESU1d6kL5Wa3hyfXzsOprQRH8xvaLvliUn5A5JANfYSTUw9p6bXsmdc65
- PDhxpPd4iMdi+3pnzR8Nu3WjXWXsRhPDI0xCCHJTRPxHpbzW5WoxUhfeJQGm1pWqPx
- 0zozz7UNdEJJQ==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, shumingf@realtek.com
-In-Reply-To: <20221116090318.5017-1-shumingf@realtek.com>
-References: <20221116090318.5017-1-shumingf@realtek.com>
-Subject: Re: [PATCH] ASoC: rt711-sdca: fix the latency time of clock stop
- prepare state machine transitions
-Message-Id: <166860647256.422565.8017848589707015863.b4-ty@kernel.org>
-Date: Wed, 16 Nov 2022 13:47:52 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-8af31
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, Vijendar.Mukunda@amd.com,
- flove@realtek.com
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 74764336F7;
+ Wed, 16 Nov 2022 14:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668607436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WwzAEC8k7kmJVTViEBMpc5e9CFVnrcRygA0pQ8SwSEs=;
+ b=MypaEH4O6a3p7lTXXepyuOcp2zzH+rAZwl5NDFYX9IX3lxx+zoylKLk6pMyDeYGa7faAAG
+ OaM2ufad+kQPaOTGrTwD8rSPsQ98a9ouxr4ASn+mlriMqkMLAPE5gChnD3/GGXll4Mdi6D
+ uKyYa/MNoZdM+1rW198+yb5Le0nfuaA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668607436;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WwzAEC8k7kmJVTViEBMpc5e9CFVnrcRygA0pQ8SwSEs=;
+ b=d02xtedNfBcpT0+wQiB41OOD8YCzqKK1D3k0HFXddyQCQLs58Zv3TGMKZZQ0TJhadfeOsm
+ 4WaI5QyDPaYWvSDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 569E9134CE;
+ Wed, 16 Nov 2022 14:03:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id AxSiFMztdGMtTQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 16 Nov 2022 14:03:56 +0000
+Date: Wed, 16 Nov 2022 15:03:55 +0100
+Message-ID: <87pmdn3sj8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2] [RFC] selftests: alsa - add PCM test
+In-Reply-To: <20221108115914.3751090-1-perex@perex.cz>
+References: <20221108115914.3751090-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Curtis Malainey <cujomalainey@google.com>,
+ Brian Norris <briannorris@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <liam.r.girdwood@intel.com>, Jesse Barnes <jsbarnes@google.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,40 +104,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Nov 2022 17:03:18 +0800, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
+On Tue, 08 Nov 2022 12:59:14 +0100,
+Jaroslav Kysela wrote:
 > 
-> Due to the hardware behavior, it takes some time for CBJ detection/impedance sensing/de-bounce.
-> The ClockStop_NotFinished flag will be raised until these functions are completed.
-> In ClockStopMode0 mode case, the SdW controller might check this flag from D3 to D0 when the
-> jack detection interrupt happened.
+> This initial code does a simple sample transfer tests. By default,
+> all PCM devices are detected and tested with short and long
+> buffering parameters for 4 seconds. If the sample transfer timing
+> is not in a +-100ms boundary, the test fails. Only the interleaved
+> buffering scheme is supported in this version.
 > 
-> [...]
+> The configuration may be modified with the configuration files.
+> A specific hardware configuration is detected and activated
+> using the sysfs regex matching. This allows to use the DMI string
+> (/sys/class/dmi/id/* tree) or any other system parameters
+> exposed in sysfs for the matching for the CI automation.
+> 
+> The configuration file may also specify the PCM device list to detect
+> the missing PCM devices.
+> 
+> v1..v2:
+>   - added missing alsa-local.h header file
+> 
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
+> Cc: Liam Girdwood <liam.r.girdwood@intel.com>
+> Cc: Jesse Barnes <jsbarnes@google.com>
+> Cc: Jimmy Cheng-Yi Chiang <cychiang@google.com>
+> Cc: Curtis Malainey <cujomalainey@google.com>
+> Cc: Brian Norris <briannorris@chromium.org>
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Applied to
+Sorry for the late reply.
 
-   broonie/sound.git for-next
+The patch looks good and works fine on the smoke test, so I applied it
+now.  There are a few issues Mark already commented on, and we can fix
+or improve them in incremental manner later.
 
-Thanks!
 
-[1/1] ASoC: rt711-sdca: fix the latency time of clock stop prepare state machine transitions
-      commit: c7d7d4e7bb1290cc473610b0bb96d9fa606d00e7
+thanks,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

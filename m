@@ -2,133 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD45C62AFEB
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 01:13:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E0562B19A
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 03:58:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F9CD167B;
-	Wed, 16 Nov 2022 01:13:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F9CD167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 124031681;
+	Wed, 16 Nov 2022 03:57:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 124031681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668557634;
-	bh=wkmW77pnw6WANaWm/cuMe2WhpPPAgGn++K9my+h0fVY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DCMGYdtwdrwBkRuw3kGgCuQRHPzGlnam+l94/+c2Mpzqps9xDXT7bWbtyvIU1UWKu
-	 Xk8DHqvDYQHgW+OqFj2HYa65pf6d5N+fz4zmoQQitSYUst76GPo9NzHvVoh2CZAHfa
-	 YXgk8qELtzfz5qkA0mqy+YDtXd1SgjU3JSZSUQa8=
+	s=default; t=1668567482;
+	bh=/Ew2//99NB9UvkhCPB1N+bY3qId3b/eLWsTimEeJxDA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VLXonS/ed98COU0mPp1xsAyb7TKd55yX/CH+evaBvpXoI0AYByOZIgUSB6NKXg2fd
+	 wSc1md9QyNWRnehNuKo35eWwTunB16r9FlS4814Hai9GeavubVS+IJGcP42+5U9prk
+	 08g/40JJEY4Wn+pVTsOhb2ZfSzo44UYhK6sCd0PY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC1A3F800AA;
-	Wed, 16 Nov 2022 01:12:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6815FF80238;
+	Wed, 16 Nov 2022 03:57:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22A02F80171; Wed, 16 Nov 2022 01:12:58 +0100 (CET)
+ id 7956AF80089; Wed, 16 Nov 2022 03:57:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20708.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::708])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 121A1F8016D
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 01:12:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 121A1F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 331B1F80089
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 03:56:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 331B1F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="aDGoL/VR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gDnzku7FTEXQOypYLUNuN6HczmUCjYANnlkkHZVZP58AFkWfsaW6NbibjGuFmBnq1273uKfHvKnV2Lf7T3q7x8x/TIAZm4CWmv4rGbbWYceyPMb4zCycut6x3+BQ+uFIMN5RSne5gTu9NSR0PVdCPpUXIuxhMQvW82mBA/KtLXdms9gMZQxF4iIy7H7tGMcDOvjA7adETMFPbULj+SZMDVn7vlWcakEiKd9HK6hIUI46rTT7UnyViPeSqQsyFGXNWGmSUjn+juiVTYNx7VPcJTOkt5GyTmTgmIpiJJSrW+8xug4znZBHEgxuYAQlQK6RUUyI33JEdC0dT3YWY2nvYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2KrhyWXFpkI7A+dxvmEJwBKmwfpcKcZRvr+K0jtrSuY=;
- b=mWrZhvVUKsY3VAl522daFdlx3mq5Y8NmB57VCG+w3ylLd0TSktW/tNfjLBoZTFi6CONMoa65kKmq2rHwWnthjN1rwRd7vE5qaPBDeqCy/Ho8mWSCTS9ThwVOhHwDYfE4jyP2IDpbTnoEWLqHe3TryWC/FX26j6ExEk572nk1bHjzoQwsZqpXHCzQ9uOZ6qP4RwH6aGH4ertDEExH49i7uu9sv96gLp/DRWl+Gr/LmcwCADFMduxC97L2vrV6sU2LetMRf6FhmreRlyVmScjOPjLwiuzQfRnpF+sG6n5WymNdyWN4Cx4Zv0k+vK+XA2f9gZyaKqImjYHAwwodPx6O2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2KrhyWXFpkI7A+dxvmEJwBKmwfpcKcZRvr+K0jtrSuY=;
- b=aDGoL/VR27VS/X12Zovw1SqxFffrcKXjCBRjpYGPkdd86I0CX3qYi8g2vHGQmzpgmAI1hMhr1DmM4c8WS09JQ9VqILJsYzZj7Q9r6RCsimsOhjbEP+vri/1I45HlmCSaGm4HGmeMjFlmftN3Q6pM1+8+j0qMk8Cas9R34HfjYcE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by OSYPR01MB5413.jpnprd01.prod.outlook.com (2603:1096:604:90::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Wed, 16 Nov
- 2022 00:12:40 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::a5a6:2344:db9:431]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::a5a6:2344:db9:431%8]) with mapi id 15.20.5813.018; Wed, 16 Nov 2022
- 00:12:40 +0000
-Message-ID: <874juzg3kd.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: pcm: avoid nused-but-set-variable warning
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 16 Nov 2022 00:12:39 +0000
-X-ClientProxiedBy: TYCPR01CA0043.jpnprd01.prod.outlook.com
- (2603:1096:405:1::31) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="JRYrEo6l"
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-3876f88d320so27151587b3.6
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 18:56:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=/Ew2//99NB9UvkhCPB1N+bY3qId3b/eLWsTimEeJxDA=;
+ b=JRYrEo6lXdGs/v03hJixrujqnktmfudPNZmSklp2IkyuPr2udfW0bnqCHA0zH3Vsnh
+ VIsNJaWo1L+eB3OX1LRwhXyL/LUP9N5veYTVjaoG75NyC2eZK5N8c1sHoknneiVo+4y7
+ RgGvTyaV5nsEUEQ5Onjm6C2BMkEPN2DHFfTPAsaHHHl9Wf3CJqHtOlE4S2q9uco0RZem
+ 8CXJI4aC+A0dYjXQ8abPmih0jK5nR1O6aOa0+BGN11Ma+XJOuoy1z6/EatVHlU0iZXFP
+ tBaxCLPANGlYiJRNMCcymEbm/GN+Hyvsm+RoCHa8HZuHInx4De+t6KYy0indqRr7WYSG
+ bA3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/Ew2//99NB9UvkhCPB1N+bY3qId3b/eLWsTimEeJxDA=;
+ b=Y+kmNcZYo3AyhAmYCW/a7oeeFiVF4qpaC83Gwblzru8iCzyRYkk8X5CMsYRTnlIUFE
+ TCv35RIZxaIN71tDYwfX4ZVz9bDi2n5NG9KN2HYgH8I3e6laA/RmNpiefx1f0iOke+fS
+ UzDvHR4L28fCXr+iRUoXHLFsuyLXl4VRz2IvjkOWQXmV1DU2WwskNVxIxtT8d2ECJEaF
+ Y69wrvMSEgwWzqv6CbI+DW7hERJ6FCG0fxy/YNyxIcGSl+XgWoYk0svC+UqgTCKHnT6J
+ 9ksVcJuFdUGpjsWfIHe73C8gGR/07zrI3YojRs7RhFxkWTXsFXTSbPUrxYvRZNrQa46a
+ rw/w==
+X-Gm-Message-State: ANoB5plXgMoZ2m6XHKVp6wIUm2sTzZiYtPeRQVGXpzkKboLbahdpTf6x
+ 8XKaKZbRlJjCvmeysB3b55mR0Z9a3sBjK7cvhhHRZw==
+X-Google-Smtp-Source: AA0mqf7UowKnr3ZpVmpHeJUlD8a+sWF4HxNtgbNICT7qFVic/bvEZqjsVgUi/EbtzlZJOOFQbpTGFuKIjadEpPAPicI=
+X-Received: by 2002:a81:5702:0:b0:368:ba4f:dd9f with SMTP id
+ l2-20020a815702000000b00368ba4fdd9fmr20616166ywb.155.1668567416909; Tue, 15
+ Nov 2022 18:56:56 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OSYPR01MB5413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71b9c83b-9870-4aad-50bf-08dac767463f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TJYowiq7Hklp6Wsn2Tm23H24Sfn16GkdaK4J4COTz5D+XduHHkvvwLJKIW7NErOF8B8v2pKHHPbyzATWZ80iKLQzNYjTMSDMKdLzh5VU5TvWAdTIWeaL3xk8uDrs6KdoiBgn/2NIAzOPzbqv1dnnVZVJmsS3C/lKOCfHqlQP6GMDWczHt+IPk18pbed1CcsT3VzGDKWhe0sN0XAIrsRoZRwZX7P/DxCdmndn4egfO7SNmgIyyRLGoUL/h7vTDshy2NRNwmd/sFVUr6XWdzQxaD1gWzeWDNxcUXjJ2uTCbb4mkxn+yGxkCfmWIDVHlFfLZLcsDKBoPa31UNR8HmCjEOohvVQihTgTadH3n7njSztPtZ19gWEDOXOCNnMuGnBGFvUljq5L0mFutlEt6tvklbBRjnV04dc/zK8QJ6q0/B4Pn+WjongCLx7dpaEUGUTrEqqr8blesvMXGvuGGVqi02ULUAela0oFt3gJGVAmfbrA1vfVGiFZ06Rr5gTcJGW8lg5hXo0DBHwzt8JdEH1ALJOmPr+56Eryr04gk86ETtNo6z5W+Jbld015hFjvVBKOYVkpF6G3DSQNT/kT3Px5z6ALPVCo4wlrR0lAvzk3fOd2t79lO4h5JB76JbYxzQVDZ75qRIkq29KIOvoBzQBd6HHpgZS4DvTk8LrS6/1aNFWjEI0m14t1bc2yWLQgQWiZd9f1qGkPVx+LUye8CThMvrGszN4TGcB/lOb6semVtbCncEZwqyQPJCqB/V9EfkuE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(451199015)(86362001)(8936002)(5660300002)(36756003)(66556008)(66946007)(66476007)(41300700001)(2616005)(8676002)(4326008)(186003)(6512007)(478600001)(316002)(6486002)(26005)(38350700002)(38100700002)(52116002)(6916009)(6506007)(83380400001)(2906002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zharePUKU0K3Z+f/JBXXEthJzDPKpITDT/gHGNgsl5e5U9dDafu5L33rYBFZ?=
- =?us-ascii?Q?ZW34RGjSDo0vePCFu/1N8/7hX8ztwEU7udDrKBuSdcOhbtVeOVzl0wAcKyqV?=
- =?us-ascii?Q?EU6gbq7JXW8GAprx8ryKdTJ2q6R7RP2RuCWQ2+0uTyXEbEsLjnkdo8NqNqZ2?=
- =?us-ascii?Q?/dYQgSDIBRTMvGlMscahzrKErh1/yGxfCBADZmOOrl9XoKz0odlWf0zrOGif?=
- =?us-ascii?Q?BXs2NC8DPCS/8i17ezmYMhgXRhEfsYjsp8u9ODJdhMmQ4c7Ql3JnOD5Kkpfs?=
- =?us-ascii?Q?FkNSTTog7kAGCTTaj8RkOqKOHvDdqNAz2moImID6/a7JwSiDVN1ydGgy17mW?=
- =?us-ascii?Q?vswHyWQtIVnQtH6OnIdwVdhAr2Nr8FcC3d+zxGG/UBS483teIq6Cum6XA7Vl?=
- =?us-ascii?Q?Ftmws7UKmVawKjAndsJt1xiIWdncIawXxW1xoYTvDXwNnzfzo7g+NuZPclvc?=
- =?us-ascii?Q?SXfGc2RKIh3Cjf5RYKzgcGR/MvCfHJ7ZbLcpqqbX2tkuisM9XSmSJ4Bms/YI?=
- =?us-ascii?Q?ENCNYMJoG0nt8vhIalMg3qw1IMUGbf7i2iB1ruO99PHUDo0bATGeEg0Ik05i?=
- =?us-ascii?Q?ZT4Y8wGGq8RBWgKh2VrPMBlagJ5HIPloW3J/fH9ylx7NxFdf4RAB+pS76zn/?=
- =?us-ascii?Q?uFDm1BwuCEwl3PLCpdCMdG2ZhFGrSvtEpoRzFFPhaTU9Gc2OgUjTHUybMAhZ?=
- =?us-ascii?Q?Y7zKjZ2m1ZyMGGPahb8qpMp9AetzhaHbcp+p6Hd/5i3vgrD+Brow+4WCRYew?=
- =?us-ascii?Q?aTBpwLQpkdI5rqs03tgebTTtCZMqQoE6UqRIzl+sulrDHjQ5dtn4cnZkFToE?=
- =?us-ascii?Q?/6DAi8aaiBrq0X3ur+xxRyKeVOo2z63OJu3akbcQNndgpVmYyZo5HKiWDnZN?=
- =?us-ascii?Q?ZFokkNEPfGfXw7vIZlUyzP3aeYA8UvPPm4XmFAnATzvMk8B2/K9MzGmDitcC?=
- =?us-ascii?Q?eL+cCXzp7VDUZG6xgTxvLuucQMzY+z0NsVyoZ09jtSXktiwOzUgg0yeqz1R8?=
- =?us-ascii?Q?av3j3/Jcv6fHkYHRW0UBJUpkAvOxqXQjS+9CrjCA3VPl9J0k/oWT3Eqev/2F?=
- =?us-ascii?Q?YRNd7s3Gg9nLmLRCEH21vlSdUFGOoD888OVqEdd6/1vFzB6TY1chcHIPsuME?=
- =?us-ascii?Q?JiMKSmdUCVtfLdhTFfuj9iErtbwC5BDbhge0tXnLR+veCc9O5vvTyAsjLZFu?=
- =?us-ascii?Q?0Q/JoVfw+ET0XxdyfF7zGvHvr1VCW0RTJ64vHBc/CNtahX6njkLhGNn/hzDc?=
- =?us-ascii?Q?IxwFfITHDhLGbv5VXwAujCIdtIcj6I1GCMIhDWzzr4CBG0iFF0VxNSp5afiA?=
- =?us-ascii?Q?pWswEdKucq1xyVAXKsRlmVkmpZIsO9iWtbm8eUjwo7JZxKDsb1xuklr0QUBA?=
- =?us-ascii?Q?XeqSCSHIj97JAKqkmmgRXeqLeGCj1JmA8giL9qXzivwpaniY+C+81VC3BAYW?=
- =?us-ascii?Q?Xa9LBxCUlezn6vlKQ2Kz45KMvdBFXuQ5TsUAIEwpqp8p+7nbcOhLMcocRUsB?=
- =?us-ascii?Q?GN66YCGcMyO56cu/v9YQg/wudHsEA/4gGtH2ca7fBE9371R4prEs2i+di5wA?=
- =?us-ascii?Q?vUAKYSaLRb5wl84prN/NtWrvCKJjeQi1iZBgB+FrSJ3uhT289Bw4rVD/2wSU?=
- =?us-ascii?Q?SjquE4r62oO5Za7Eer9i104=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71b9c83b-9870-4aad-50bf-08dac767463f
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 00:12:40.1865 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pudtBAZj8pwhgGH/yw0yMCob7KIBN4s0J+iPd+DXTYCZps22KFY9tty3JwPX9UxpX94bjm+pwrxgMvXX2ce3ofAnhiJTVWm7ocuOxGDqGQp+b2erW9ysZs9vOEtCG2Gg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSYPR01MB5413
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+References: <20221108042716.2930255-1-ajye_huang@compal.corp-partner.google.com>
+ <20221108042716.2930255-2-ajye_huang@compal.corp-partner.google.com>
+ <PH0PR11MB58329B470ABC721F95EAC6EA84059@PH0PR11MB5832.namprd11.prod.outlook.com>
+In-Reply-To: <PH0PR11MB58329B470ABC721F95EAC6EA84059@PH0PR11MB5832.namprd11.prod.outlook.com>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Wed, 16 Nov 2022 10:56:45 +0800
+Message-ID: <CALprXBa1NETwy-4v3j8rR0w7Oi-8A28CLH2HF8U-5TAqE4P58g@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] ASoC: Intel: sof_rt5682: add support for
+ ALC5682I-VD with amp rt1019p
+To: "Chiang, Mac" <mac.chiang@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "Yang, Libin" <libin.yang@intel.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, "Reddy,
+ Muralidhar" <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, "Lin, Chien-Ta" <ctlin0@nuvoton.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, "Lu,
+ Brent" <brent.lu@intel.com>, "Gopal,
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>, "Zhi,
+ Yong" <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,86 +115,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dear Mark,
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Mon, Nov 14, 2022 at 3:37 PM Chiang, Mac <mac.chiang@intel.com> wrote:
+>
+> As per discussed with Ajye, the board co-layouts 5682VS and 5682VD and verified.
+> Hi Pierre, could we have your reviews?
+>
 
-It will indicate below warning if W=1 was added and CONFIG_SND_DEBUG
-was not set. This patch adds __maybe_unused and avoid it.
+First of all, I apologize for this letter of inquiry.
 
-	${LINUX}/sound/core/pcm_native.c: In function 'constrain_mask_params':
-	${LINUX}/sound/core/pcm_native.c:291:25: error: variable 'old_mask' set but not used [-Werror=unused-but-set-variable]
-	  291 |         struct snd_mask old_mask;
-	      |                         ^~~~~~~~
-	${LINUX}/sound/core/pcm_native.c: In function 'constrain_interval_params':
-	${LINUX}/sound/core/pcm_native.c:327:29: error: variable 'old_interval' set but not used [-Werror=unused-but-set-variable]
-	  327 |         struct snd_interval old_interval;
-	      |                             ^~~~~~~~~~~~
-	${LINUX}/sound/core/pcm_native.c: In function 'constrain_params_by_rules':
-	${LINUX}/sound/core/pcm_native.c:368:29: error: variable 'old_interval' set but not used [-Werror=unused-but-set-variable]
-	  368 |         struct snd_interval old_interval;
-	      |                             ^~~~~~~~~~~~
-	${LINUX}/sound/core/pcm_native.c:367:25: error: variable 'old_mask' set but not used [-Werror=unused-but-set-variable]
-	  367 |         struct snd_mask old_mask;
-	      |                         ^~~~~~~~
-	${LINUX}/sound/core/pcm_native.c: In function 'snd_pcm_hw_params_choose':
-	${LINUX}/sound/core/pcm_native.c:652:29: error: variable 'old_interval' set but not used [-Werror=unused-but-set-variable]
-	  652 |         struct snd_interval old_interval;
-	      |                             ^~~~~~~~~~~~
-	${LINUX}/sound/core/pcm_native.c:651:25: error: variable 'old_mask' set but not used [-Werror=unused-but-set-variable]
-	  651 |         struct snd_mask old_mask;
-	      |                         ^~~~~~~~
-	cc1: all warnings being treated as errors
-	make[3]: *** [${LINUX}/scripts/Makefile.build:250: sound/core/pcm_native.o] error 1
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/core/pcm_native.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 33769ca78cc8..ba6e44d02faa 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -288,7 +288,7 @@ static int constrain_mask_params(struct snd_pcm_substream *substream,
- 					&substream->runtime->hw_constraints;
- 	struct snd_mask *m;
- 	unsigned int k;
--	struct snd_mask old_mask;
-+	struct snd_mask old_mask __maybe_unused;
- 	int changed;
- 
- 	for (k = SNDRV_PCM_HW_PARAM_FIRST_MASK; k <= SNDRV_PCM_HW_PARAM_LAST_MASK; k++) {
-@@ -324,7 +324,7 @@ static int constrain_interval_params(struct snd_pcm_substream *substream,
- 					&substream->runtime->hw_constraints;
- 	struct snd_interval *i;
- 	unsigned int k;
--	struct snd_interval old_interval;
-+	struct snd_interval old_interval __maybe_unused;
- 	int changed;
- 
- 	for (k = SNDRV_PCM_HW_PARAM_FIRST_INTERVAL; k <= SNDRV_PCM_HW_PARAM_LAST_INTERVAL; k++) {
-@@ -364,8 +364,8 @@ static int constrain_params_by_rules(struct snd_pcm_substream *substream,
- 	unsigned int stamp;
- 	struct snd_pcm_hw_rule *r;
- 	unsigned int d;
--	struct snd_mask old_mask;
--	struct snd_interval old_interval;
-+	struct snd_mask old_mask __maybe_unused;
-+	struct snd_interval old_interval __maybe_unused;
- 	bool again;
- 	int changed, err = 0;
- 
-@@ -648,8 +648,8 @@ static int snd_pcm_hw_params_choose(struct snd_pcm_substream *pcm,
- 		-1
- 	};
- 	const int *v;
--	struct snd_mask old_mask;
--	struct snd_interval old_interval;
-+	struct snd_mask old_mask __maybe_unused;
-+	struct snd_interval old_interval __maybe_unused;
- 	int changed;
- 
- 	for (v = vars; *v != -1; v++) {
--- 
-2.25.1
-
+I got "Acked-by" from Pierre for the series patches, (
+https://patchwork.kernel.org/project/alsa-devel/cover/20221108042716.2930255-1-ajye_huang@compal.corp-partner.google.com/)
+Please you have a look when you are in free, thanks

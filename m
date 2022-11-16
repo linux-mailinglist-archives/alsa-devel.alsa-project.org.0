@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F1362B2DF
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 06:40:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1AC162B2EC
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 06:42:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC5541690;
-	Wed, 16 Nov 2022 06:39:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC5541690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EE3916CF;
+	Wed, 16 Nov 2022 06:41:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EE3916CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668577229;
-	bh=eEZuANnkil/DzBZgGMvkD9taL7U5fptBZwhesV7REi4=;
+	s=default; t=1668577324;
+	bh=kOVeXAGDxXuk8SXxyFL9iBG/LS1QzockFAjJIiioGKk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Daz3TIzQjveXdj+xfOxC6gPHE7ePk5E48r0C6DWfx0PssO/O7NW4XnEauK+q+gwTQ
-	 uoqMRmS0yyb6erWKDwFlG5UWLEEUnfY1FZbB+ptilLfTlNYjtq7mR30ZMW0Hl2z7xO
-	 je5BkeXuphORzsWMgP7YvjNxvNJ+v+xsx1p3pdUE=
+	b=bxXuoHnAH0Q1obIQsIzFheMxDd145Oz7S9qbiyn+OiQ34vi6uh4lIMopbiHLgKs4B
+	 Dw7vyvGV4j/qS2hdJ8TPEoNPvRVOs3Spq1A3bh+vAiVKAkaSK6RgebJNFeWxzfqWGE
+	 dsKsK0RMR78Wvv8UFmBIHx+vMBjahLPcwGC72uqo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD1AAF80578;
-	Wed, 16 Nov 2022 06:38:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 034D8F805B3;
+	Wed, 16 Nov 2022 06:38:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55224F80557; Wed, 16 Nov 2022 06:38:38 +0100 (CET)
+ id 5038AF805B4; Wed, 16 Nov 2022 06:38:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, SPF_HELO_NONE, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED, 
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A469F804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 155C5F80549
  for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 06:38:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A469F804A9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 155C5F80549
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Hdfcb6sJ"
-Received: by mail-pj1-x102f.google.com with SMTP id o7so15579234pjj.1
+ header.b="Rz/H6Ys2"
+Received: by mail-pj1-x1036.google.com with SMTP id
+ v4-20020a17090a088400b00212cb0ed97eso1335086pjc.5
  for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 21:38:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=r01ypcYo+LtD9fhypz7U4KPnsRobXTNuGoo4vyNF/vc=;
- b=Hdfcb6sJtZK0d4iSfc/c+K5+0PYEPfETP19Nve63ggNiKTbV6nRrj4Vb4GfGLphU77
- JL9fPjFGZN+xuLVLnY9F8MtLwtXD10i7AxQh0kdt+xCvJCzv0IxzCLnwB3CiEO0++qQ8
- cvbX71x5YS4YX4MOl3W89daY6QxvCAdYtGF2kIJTH8YFYBTDBvWd+yEE59Z1oqf5Mgsu
- MswmnkG/O1rW5lzeLp9bQUxKADGJ05ftzgyMVFqGQ75+4mK2VU9l4bxqOZ08fz/LaIAO
- rXeBGl4jU92zG9ChdWwmYbEGZZtcxAdlkg4m7CV+U61qWVVU26rLYvH2PbRXwv+fCFMV
- dacQ==
+ bh=xwwwsx9jfrJYamHfIH6HX3vvIu1imMZZ+4VMVekHngI=;
+ b=Rz/H6Ys2b4kWwW4r+rY3Jxp4B3laBIYMyVHy+ATKWcjmUG6PH8ujJdN8Fi/r9jAO6M
+ zXmJUNicma4dyKgKg7LASOVGFUZ5nuYwk3YNKQ3yqEGHLcAVDb5FF8XBSdfWOeqIf+qP
+ MxutMrZhNcpgQLhQNUK4Ds57v2FY6T/uFnq8r0RpFNN35QPG4adlGJo2hlyKRwYVwkd6
+ aFiVWAkUxmHqw//S4QM9JYBRZGwP9/DiToLBd1477MPMIzzW4QhM5CU+Z7djk/4DobR2
+ 9PHSXED1uBKmfG91qTCVmZljBbLQ6NZMdE/Fr8ILkV3lB2ecEmECyatxEo1kbcwvwdrh
+ Q6hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=r01ypcYo+LtD9fhypz7U4KPnsRobXTNuGoo4vyNF/vc=;
- b=eAUPU6yG91IyQHqtvBxNHfUnavimsNSdLh+2fsKNZlW9vIEEtUMVRo2P3qbTZ2rBNL
- 06M4/z0Rss855NytFKEkYpuFjumpDgdCsUHgHtBPu2KYfWKvb8WO0kL2+pDWEouUt/rF
- vNZKJ+r8nt1rLl5033Dg60a1hUsxUp6gV/OdCpahWKGo3RJsg+3egZQsEwqI8B31Tjk9
- Wv8lAKm1ncZPJ1NOBA6UO/4IJI99128MS2kbqb0q/QOk3MZSyLTbpWzfOZ4njpRsREqh
- tSOeNN0tt6LOHz5NnZKvvVAIZdpAGVwkEZQ6IGRXvUL7g+QpJ55UG+zrLOCvDJ/LjCjJ
- PTFA==
-X-Gm-Message-State: ANoB5pmn6gMNAK3v7hT/icF49hFeU8Om4mqprncKdZxn1tof3yndTIcX
- ixBPZzMnntzeb9h+lPDtQN8=
-X-Google-Smtp-Source: AA0mqf6LzBMQD9KXFyMAhXpG5nVIjWO4CGNYGngv2AR+5vF/Q88oiCVvIcdaMKPNZkqy9cGqtNtfAQ==
-X-Received: by 2002:a17:903:2789:b0:186:9b19:1dbb with SMTP id
- jw9-20020a170903278900b001869b191dbbmr7643358plb.59.1668577109573; 
- Tue, 15 Nov 2022 21:38:29 -0800 (PST)
+ bh=xwwwsx9jfrJYamHfIH6HX3vvIu1imMZZ+4VMVekHngI=;
+ b=ZZjpyRRn9LnX3hvXMECQxwUGSO0wZQaYwj6nh69vE/M6ikUBka5UeMqq1G9nU8F/in
+ AB488em4dS2Y4mrhBlALfIQykaPeczuQmfh38qg1NMX9zbCONXgASUbK469O+HobEtNb
+ V+IFdLJsYwdS+x3SbbhEY2v8DegcstJi2Xsq2rYlYtxQ4wLN2SME7CjkrCfXFr65yW6z
+ TbL7Rwr2eH6AzLz5hHiNZ4sgZz96GQ8RRXwggQUtQ+OvNLn7NH6Kyz949TphHQQ3+q/X
+ 4pvQb4mfA3fOsta0ZLJziRCZMx5+Lcnd4HmSe8cZ8/d1TG+vf696oMunmkXgZUo1pat9
+ idKA==
+X-Gm-Message-State: ANoB5pmqnKz980z2jGri735dW8HXViwansQI6vwdZdTKasbK578HjS3B
+ 3lEvkbtM34bB7u36VT4PhnI=
+X-Google-Smtp-Source: AA0mqf5l1i6JvOL677NV16OYZ271oU6KdmQuaLgLz6SgdGOyQljKX6FdQNZvo2/6XxEUOK0zI/8Aqg==
+X-Received: by 2002:a17:902:900b:b0:17f:8544:e0dd with SMTP id
+ a11-20020a170902900b00b0017f8544e0ddmr7619256plp.34.1668577111537; 
+ Tue, 15 Nov 2022 21:38:31 -0800 (PST)
 Received: from dtor-ws.mtv.corp.google.com
  ([2620:15c:9d:2:2d36:e9a0:170b:669f])
  by smtp.gmail.com with ESMTPSA id
- ik13-20020a170902ab0d00b0017834a6966csm10881038plb.176.2022.11.15.21.38.28
+ ik13-20020a170902ab0d00b0017834a6966csm10881038plb.176.2022.11.15.21.38.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 21:38:28 -0800 (PST)
+ Tue, 15 Nov 2022 21:38:30 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 05/11] ASoC: tpa6130a2: switch to using gpiod API
-Date: Tue, 15 Nov 2022 21:38:11 -0800
-Message-Id: <20221116053817.2929810-5-dmitry.torokhov@gmail.com>
+Subject: [PATCH 06/11] ASoC: tlv320aic32x4: remove support for platform data
+Date: Tue, 15 Nov 2022 21:38:12 -0800
+Message-Id: <20221116053817.2929810-6-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.38.1.431.g37b22c650d-goog
 In-Reply-To: <20221116053817.2929810-1-dmitry.torokhov@gmail.com>
 References: <20221116053817.2929810-1-dmitry.torokhov@gmail.com>
@@ -105,124 +107,156 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Switch the driver from legacy gpio API that is deprecated to the newer
-gpiod API that respects line polarities described in ACPI/DT.
+There are no users of aic32x4_pdata in the mainline kernel, remove it.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- sound/soc/codecs/tpa6130a2.c | 42 +++++++++++++++---------------------
- 1 file changed, 17 insertions(+), 25 deletions(-)
+ include/sound/tlv320aic32x4.h    | 52 --------------------------------
+ sound/soc/codecs/tlv320aic32x4.c | 14 +++------
+ sound/soc/codecs/tlv320aic32x4.h | 27 +++++++++++++++++
+ 3 files changed, 32 insertions(+), 61 deletions(-)
+ delete mode 100644 include/sound/tlv320aic32x4.h
 
-diff --git a/sound/soc/codecs/tpa6130a2.c b/sound/soc/codecs/tpa6130a2.c
-index 5f00bfc32917..696a27b472aa 100644
---- a/sound/soc/codecs/tpa6130a2.c
-+++ b/sound/soc/codecs/tpa6130a2.c
-@@ -9,15 +9,15 @@
- 
- #include <linux/module.h>
- #include <linux/errno.h>
-+#include <linux/err.h>
- #include <linux/device.h>
- #include <linux/i2c.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
+diff --git a/include/sound/tlv320aic32x4.h b/include/sound/tlv320aic32x4.h
+deleted file mode 100644
+index 0abf74d7edbd..000000000000
+--- a/include/sound/tlv320aic32x4.h
++++ /dev/null
+@@ -1,52 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * tlv320aic32x4.h  --  TLV320AIC32X4 Soc Audio driver platform data
+- *
+- * Copyright 2011 Vista Silicon S.L.
+- *
+- * Author: Javier Martin <javier.martin@vista-silicon.com>
+- */
+-
+-#ifndef _AIC32X4_PDATA_H
+-#define _AIC32X4_PDATA_H
+-
+-#define AIC32X4_PWR_MICBIAS_2075_LDOIN		0x00000001
+-#define AIC32X4_PWR_AVDD_DVDD_WEAK_DISABLE	0x00000002
+-#define AIC32X4_PWR_AIC32X4_LDO_ENABLE		0x00000004
+-#define AIC32X4_PWR_CMMODE_LDOIN_RANGE_18_36	0x00000008
+-#define AIC32X4_PWR_CMMODE_HP_LDOIN_POWERED	0x00000010
+-
+-#define AIC32X4_MICPGA_ROUTE_LMIC_IN2R_10K	0x00000001
+-#define AIC32X4_MICPGA_ROUTE_RMIC_IN1L_10K	0x00000002
+-
+-/* GPIO API */
+-#define AIC32X4_MFPX_DEFAULT_VALUE	0xff
+-
+-#define AIC32X4_MFP1_DIN_DISABLED	0
+-#define AIC32X4_MFP1_DIN_ENABLED	0x2
+-#define AIC32X4_MFP1_GPIO_IN		0x4
+-
+-#define AIC32X4_MFP2_GPIO_OUT_LOW	0x0
+-#define AIC32X4_MFP2_GPIO_OUT_HIGH	0x1
+-
+-#define AIC32X4_MFP_GPIO_ENABLED	0x4
+-
+-#define AIC32X4_MFP5_GPIO_DISABLED	0x0
+-#define AIC32X4_MFP5_GPIO_INPUT		0x8
+-#define AIC32X4_MFP5_GPIO_OUTPUT	0xc
+-#define AIC32X4_MFP5_GPIO_OUT_LOW	0x0
+-#define AIC32X4_MFP5_GPIO_OUT_HIGH	0x1
+-
+-struct aic32x4_setup_data {
+-	unsigned int gpio_func[5];
+-};
+-
+-struct aic32x4_pdata {
+-	struct aic32x4_setup_data *setup;
+-	u32 power_cfg;
+-	u32 micpga_routing;
+-	bool swapdacs;
+-	int rstn_gpio;
+-};
+-
+-#endif
+diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
+index ffe1828a4b7e..2dd0fe255ee6 100644
+--- a/sound/soc/codecs/tlv320aic32x4.c
++++ b/sound/soc/codecs/tlv320aic32x4.c
+@@ -22,7 +22,6 @@
+ #include <linux/of_clk.h>
  #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- #include <sound/soc.h>
- #include <sound/tlv.h>
- #include <linux/of.h>
--#include <linux/of_gpio.h>
- #include <linux/regmap.h>
  
- #include "tpa6130a2.h"
-@@ -32,7 +32,7 @@ struct tpa6130a2_data {
- 	struct device *dev;
+-#include <sound/tlv320aic32x4.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/pcm_params.h>
+@@ -33,6 +32,10 @@
+ 
+ #include "tlv320aic32x4.h"
+ 
++struct aic32x4_setup_data {
++	unsigned int gpio_func[5];
++};
++
+ struct aic32x4_priv {
  	struct regmap *regmap;
- 	struct regulator *supply;
--	int power_gpio;
-+	struct gpio_desc *power_gpio;
- 	enum tpa_model id;
- };
- 
-@@ -48,8 +48,8 @@ static int tpa6130a2_power(struct tpa6130a2_data *data, bool enable)
- 			return ret;
- 		}
- 		/* Power on */
--		if (data->power_gpio >= 0)
--			gpio_set_value(data->power_gpio, 1);
-+		if (data->power_gpio)
-+			gpiod_set_value(data->power_gpio, 1);
- 
- 		/* Sync registers */
- 		regcache_cache_only(data->regmap, false);
-@@ -58,8 +58,8 @@ static int tpa6130a2_power(struct tpa6130a2_data *data, bool enable)
- 			dev_err(data->dev,
- 				"Failed to sync registers: %d\n", ret);
- 			regcache_cache_only(data->regmap, true);
--			if (data->power_gpio >= 0)
--				gpio_set_value(data->power_gpio, 0);
-+			if (data->power_gpio)
-+				gpiod_set_value(data->power_gpio, 0);
- 			ret2 = regulator_disable(data->supply);
- 			if (ret2 != 0)
- 				dev_err(data->dev,
-@@ -75,8 +75,8 @@ static int tpa6130a2_power(struct tpa6130a2_data *data, bool enable)
- 		regcache_cache_only(data->regmap, true);
- 
- 		/* Power off */
--		if (data->power_gpio >= 0)
--			gpio_set_value(data->power_gpio, 0);
-+		if (data->power_gpio)
-+			gpiod_set_value(data->power_gpio, 0);
- 
- 		ret = regulator_disable(data->supply);
- 		if (ret != 0) {
-@@ -224,37 +224,29 @@ static int tpa6130a2_probe(struct i2c_client *client)
- 	unsigned int version;
+ 	u32 power_cfg;
+@@ -1336,7 +1339,6 @@ static int aic32x4_setup_regulators(struct device *dev,
+ int aic32x4_probe(struct device *dev, struct regmap *regmap)
+ {
+ 	struct aic32x4_priv *aic32x4;
+-	struct aic32x4_pdata *pdata = dev->platform_data;
+ 	struct device_node *np = dev->of_node;
  	int ret;
  
--	if (!dev->of_node)
--		return -ENODEV;
--
- 	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
+@@ -1353,13 +1355,7 @@ int aic32x4_probe(struct device *dev, struct regmap *regmap)
  
-+	i2c_set_clientdata(client, data);
- 	data->dev = dev;
+ 	dev_set_drvdata(dev, aic32x4);
  
- 	data->regmap = devm_regmap_init_i2c(client, &tpa6130a2_regmap_config);
- 	if (IS_ERR(data->regmap))
- 		return PTR_ERR(data->regmap);
+-	if (pdata) {
+-		aic32x4->power_cfg = pdata->power_cfg;
+-		aic32x4->swapdacs = pdata->swapdacs;
+-		aic32x4->micpga_routing = pdata->micpga_routing;
+-		aic32x4->rstn_gpio = pdata->rstn_gpio;
+-		aic32x4->mclk_name = "mclk";
+-	} else if (np) {
++	if (np) {
+ 		ret = aic32x4_parse_dt(aic32x4, np);
+ 		if (ret) {
+ 			dev_err(dev, "Failed to parse DT node\n");
+diff --git a/sound/soc/codecs/tlv320aic32x4.h b/sound/soc/codecs/tlv320aic32x4.h
+index 4de5bd9e8cc5..f0724b6b17ee 100644
+--- a/sound/soc/codecs/tlv320aic32x4.h
++++ b/sound/soc/codecs/tlv320aic32x4.h
+@@ -232,4 +232,31 @@ int aic32x4_register_clocks(struct device *dev, const char *mclk_name);
+ #define AIC32X4_MAX_CODEC_CLKIN_FREQ    110000000
+ #define AIC32X4_MAX_PLL_CLKIN		20000000
  
--	data->power_gpio = of_get_named_gpio(dev->of_node, "power-gpio", 0);
-+	data->power_gpio = devm_gpiod_get_optional(dev, "power", GPIOD_OUT_LOW);
-+	ret = PTR_ERR_OR_ZERO(data->power_gpio);
-+	if (ret) {
-+		dev_err(dev, "Failed to request power GPIO: %d\n", ret);
-+		return ret;
-+	}
- 
--	i2c_set_clientdata(client, data);
-+	gpiod_set_consumer_name(data->power_gpio, "tpa6130a2 enable");
- 
- 	id = i2c_match_id(tpa6130a2_id, client);
- 	data->id = id->driver_data;
- 
--	if (data->power_gpio >= 0) {
--		ret = devm_gpio_request(dev, data->power_gpio,
--					"tpa6130a2 enable");
--		if (ret < 0) {
--			dev_err(dev, "Failed to request power GPIO (%d)\n",
--				data->power_gpio);
--			return ret;
--		}
--		gpio_direction_output(data->power_gpio, 0);
--	}
--
- 	switch (data->id) {
- 	default:
- 		dev_warn(dev, "Unknown TPA model (%d). Assuming 6130A2\n",
++#define AIC32X4_PWR_MICBIAS_2075_LDOIN		0x00000001
++#define AIC32X4_PWR_AVDD_DVDD_WEAK_DISABLE	0x00000002
++#define AIC32X4_PWR_AIC32X4_LDO_ENABLE		0x00000004
++#define AIC32X4_PWR_CMMODE_LDOIN_RANGE_18_36	0x00000008
++#define AIC32X4_PWR_CMMODE_HP_LDOIN_POWERED	0x00000010
++
++#define AIC32X4_MICPGA_ROUTE_LMIC_IN2R_10K	0x00000001
++#define AIC32X4_MICPGA_ROUTE_RMIC_IN1L_10K	0x00000002
++
++/* GPIO API */
++#define AIC32X4_MFPX_DEFAULT_VALUE	0xff
++
++#define AIC32X4_MFP1_DIN_DISABLED	0
++#define AIC32X4_MFP1_DIN_ENABLED	0x2
++#define AIC32X4_MFP1_GPIO_IN		0x4
++
++#define AIC32X4_MFP2_GPIO_OUT_LOW	0x0
++#define AIC32X4_MFP2_GPIO_OUT_HIGH	0x1
++
++#define AIC32X4_MFP_GPIO_ENABLED	0x4
++
++#define AIC32X4_MFP5_GPIO_DISABLED	0x0
++#define AIC32X4_MFP5_GPIO_INPUT		0x8
++#define AIC32X4_MFP5_GPIO_OUTPUT	0xc
++#define AIC32X4_MFP5_GPIO_OUT_LOW	0x0
++#define AIC32X4_MFP5_GPIO_OUT_HIGH	0x1
++
+ #endif				/* _TLV320AIC32X4_H */
 -- 
 2.38.1.431.g37b22c650d-goog
 

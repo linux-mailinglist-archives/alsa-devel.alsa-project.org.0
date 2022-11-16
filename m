@@ -2,105 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2281C62C64A
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 18:23:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F4062C7CA
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 19:38:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C4D51691;
-	Wed, 16 Nov 2022 18:22:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C4D51691
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF4D01692;
+	Wed, 16 Nov 2022 19:37:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF4D01692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668619386;
-	bh=3n6Vrcw8v6mwbVQwP/1994XQ+nW+xiwonXrpYoe3/Bc=;
+	s=default; t=1668623924;
+	bh=T9oedFHA8zy+AZ32OGuDvC0A3TbvPpkvWC5rvEo9fZA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ipyqaXaE+SuVtHHtWmIPzruGpi1pxQKiJWFIi5eW16kof3kfIAYCRaBg55FwWE4Pt
-	 XeSYxJqmC5SFWy2A8dZfioZOf27f2yV7Rqjii4lsEEblU75cyAN16pVfrmRkTAd8wE
-	 p8Mg09YFTE/S2WXMoTCodkiIcgivpAhWj6/dXiHg=
+	b=ui3VhBZAR4BZA2rW0aQa0bca2ORRm6zfAw6/D5HMx8hflrivjMgxRwAIFdety6pgU
+	 K0A1RyqIwn0XsinKkdGbIdr+ZKAieDTJ+Tqtr4YnPNhgMtB47198VOHB4xbQUj7Lym
+	 qKJRQC7jfxywFXfX1ctLzfcgOUwd1KVsaaNshHmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB15F800B5;
-	Wed, 16 Nov 2022 18:22:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7689CF80238;
+	Wed, 16 Nov 2022 19:37:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DE63F80163; Wed, 16 Nov 2022 18:22:09 +0100 (CET)
+ id 40A90F80169; Wed, 16 Nov 2022 19:37:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E75C1F800B8
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 18:22:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E75C1F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="VhC2ELA7"
-Received: by mail-lf1-x12a.google.com with SMTP id j16so30549829lfe.12
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 09:22:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kOMV24mvT6Z+gChaVzQ2FKjnamE1RqSiBkM5c6Q63Ew=;
- b=VhC2ELA7YYwkUZb3bqvYlfuPX+1ULotkPGoE39eo+LnfGVW7aZ8ljsvZE+z0Vpmi7F
- b1KPQ+MrZ46lUHBr0s8t8z4SWSgod9aMHBfYI3VA5/ES2GgKDuWV4nGV4sLoPpQVY4Wc
- kJvjktAmoH2Ot9PNLco7SBm+dJbX+EcejjFR/UTsst0qCIwt6W4XtTDFp9ktv3bOO4FT
- CWhfZNm/DFDTbLH6X4+rT9UfZ39SCBOdq1SWE2VP2x6SI/Rundva8d/OFdeoKXCxTcQg
- QqLIl0ac8Y780hl/qi9f1f5mIXblSuLsUWef1q4XyKpriHxBlKPwhbwxIR25EmwdEiFc
- bWYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kOMV24mvT6Z+gChaVzQ2FKjnamE1RqSiBkM5c6Q63Ew=;
- b=GR9eztATEWbfqkviT3WVenCiS9jgJtIqo0tmOegUASRgqmH7rkpfYxpF5PQqmbswLp
- ailxS10BMPLlLNaiOoFxhyj+kMtDKJSOMuPAquwVCV33qwPxSPa+kNC/0+xpoUKy4WWL
- +10tda6eIos+/8DiyI2QXU2sX3X6pp+Qo++HRunnuz/3ksfgtrywJL8OsIzqXmzf5UYr
- jz7ZC8Zxq50MVv66165LD1MRskcUybnLDG1MhBSomjj+oMLqHVZygl/jrdbKhRVgrWGC
- ZgDQ6sCg6JqivHZfG7n1rJ0NKR20zrBXXRi3L5nLpDWqkXp7LyUhZIvXYfKA/C7ElQsZ
- O93A==
-X-Gm-Message-State: ANoB5pnKNGcEkWofZvqFDbi1xjY75owpMozTR4r2h0P/fy+GCqiE2cDy
- cje8fHNvSNFYhY8emfKsEXebIw==
-X-Google-Smtp-Source: AA0mqf7ZXR3rHAMssv+XBEoFFz7RGw+jMe1K+n1jByylzWyEXI9ntbh5qO3dWE1n3vDXUPNbpNKRfQ==
-X-Received: by 2002:a05:6512:252b:b0:4b4:b20c:4b7 with SMTP id
- be43-20020a056512252b00b004b4b20c04b7mr990804lfb.201.1668619320495; 
- Wed, 16 Nov 2022 09:22:00 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- k16-20020a05651c10b000b0026bf43a4d72sm3085645ljn.115.2022.11.16.09.21.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Nov 2022 09:21:59 -0800 (PST)
-Message-ID: <b0fdd995-85c8-0833-9d94-918812005d3a@linaro.org>
-Date: Wed, 16 Nov 2022 18:21:58 +0100
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id AEB5EF80089
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 19:37:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEB5EF80089
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C141E1477;
+ Wed, 16 Nov 2022 10:37:44 -0800 (PST)
+Received: from [10.57.70.190] (unknown [10.57.70.190])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE3123F587;
+ Wed, 16 Nov 2022 10:37:35 -0800 (PST)
+Message-ID: <29d11541-8c11-4c3e-db76-a982751e61e6@arm.com>
+Date: Wed, 16 Nov 2022 18:37:10 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v2] arm64: dts: qcom: sc7280: Remove unused sleep pin
- control nodes
-Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-References: <1668591184-21099-1-git-send-email-quic_srivasam@quicinc.com>
- <CAD=FV=Uzky4uxs+qwSH9d7MBBWbXe8sMdvB_-Lqkq+6jbTCciQ@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <CAD=FV=Uzky4uxs+qwSH9d7MBBWbXe8sMdvB_-Lqkq+6jbTCciQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 2/7] RDMA/hfi1: don't pass bogus GFP_ flags to
+ dma_alloc_coherent
+Content-Language: en-GB
+To: Dean Luick <dean.luick@cornelisnetworks.com>,
+ Christoph Hellwig <hch@lst.de>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexandra Winter <wintera@linux.ibm.com>, Wenjia Zhang
+ <wenjia@linux.ibm.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Russell King <linux@armlinux.org.uk>
+References: <20221113163535.884299-1-hch@lst.de>
+ <20221113163535.884299-3-hch@lst.de>
+ <c7c6eb30-4b54-01f7-9651-07deac3662bf@cornelisnetworks.com>
+ <be8ca3f9-b7f7-5402-0cfc-47b9985e007b@arm.com>
+ <87b12755-15d6-1064-1559-8951c1252eaa@cornelisnetworks.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <87b12755-15d6-1064-1559-8951c1252eaa@cornelisnetworks.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, broonie@kernel.org,
- konrad.dybcio@somainline.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- swboyd@chromium.org, vkoul@kernel.org, agross@kernel.org,
- srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- quic_rjendra@quicinc.com, mka@chromium.org, judyhsiao@chromium.org,
- andersson@kernel.org
+Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,35 +84,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16/11/2022 17:51, Doug Anderson wrote:
-> Hi,
+On 2022-11-16 16:21, Dean Luick wrote:
+> On 11/16/2022 9:15 AM, Robin Murphy wrote:
+>> On 2022-11-16 14:40, Dean Luick wrote:
+>>> On 11/13/2022 10:35 AM, Christoph Hellwig wrote:
+>>>> dma_alloc_coherent is an opaque allocator that only uses the GFP_ flags
+>>>> for allocation context control.  Don't pass GFP_USER which doesn't make
+>>>> sense for a kernel DMA allocation or __GFP_COMP which makes no sense
+>>>> for an allocation that can't in any way be converted to a page pointer.
+>>>>
+>>>> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>>>> ---
+>>>>    drivers/infiniband/hw/hfi1/init.c | 21 +++------------------
+>>>>    1 file changed, 3 insertions(+), 18 deletions(-)
+>>>>
+>>>> diff --git a/drivers/infiniband/hw/hfi1/init.c b/drivers/infiniband/hw/hfi1/init.c
+>>>> index 436372b314312..24c0f0d257fc9 100644
+>>>> --- a/drivers/infiniband/hw/hfi1/init.c
+>>>> +++ b/drivers/infiniband/hw/hfi1/init.c
+>>>> @@ -1761,17 +1761,11 @@ int hfi1_create_rcvhdrq(struct hfi1_devdata *dd, struct hfi1_ctxtdata *rcd)
+>>>>         unsigned amt;
+>>>>
+>>>>         if (!rcd->rcvhdrq) {
+>>>> -             gfp_t gfp_flags;
+>>>> -
+>>>>                 amt = rcvhdrq_size(rcd);
+>>>>
+>>>> -             if (rcd->ctxt < dd->first_dyn_alloc_ctxt || rcd->is_vnic)
+>>>> -                     gfp_flags = GFP_KERNEL;
+>>>> -             else
+>>>> -                     gfp_flags = GFP_USER;
+>>>>                 rcd->rcvhdrq = dma_alloc_coherent(&dd->pcidev->dev, amt,
+>>>>                                                   &rcd->rcvhdrq_dma,
+>>>> -                                               gfp_flags | __GFP_COMP);
+>>>> +                                               GFP_KERNEL);
+>>>
+>>> A user context receive header queue may be mapped into user space.  Is that not the use case for GFP_USER?  The above conditional is what decides.
+>>>
+>>> Why do you think GFP_USER should be removed here?
+>>
+>> Coherent DMA buffers are allocated by a kernel driver or subsystem for the use of a device managed by that driver or subsystem, and thus they fundamentally belong to the kernel as proxy for the device. Any coherent DMA buffer may be mapped to userspace with the dma_mmap_*() interfaces, but they're never a "userspace allocation" in that sense.
 > 
-> On Wed, Nov 16, 2022 at 1:33 AM Srinivasa Rao Mandadapu
-> <quic_srivasam@quicinc.com> wrote:
->>
->> Remove unused and redundant sleep pin control entries as they are
->> not referenced anywhere in sc7280 based platform's device tree variants.
->>
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> ---
->> Chnges Since v1:
->>     -- Update subject prefixes and commit message.
->>
->>  .../qcom/sc7280-herobrine-audio-rt5682-3mic.dtsi   |  8 -----
->>  .../dts/qcom/sc7280-herobrine-audio-wcd9385.dtsi   | 20 -----------
->>  arch/arm64/boot/dts/qcom/sc7280-idp.dtsi           | 20 -----------
->>  arch/arm64/boot/dts/qcom/sc7280.dtsi               | 40 ----------------------
->>  4 files changed, 88 deletions(-)
-> 
-> Reported-by: Douglas Anderson <dianders@chromium.org>
+> My (seemingly dated) understanding is that GFP_USER is for kernel allocations that may be mapped into user space.  The description of GFP_USER in gfp_types.h enforces my understanding.  Is my uderstanding no longer correct?  If not, then what is the point of GFP_USER?  Is GFP_USER now mostly an artifact?  Should its description be updated?
 
-I guess rather:
-Suggested-by: Douglas Anderson <dianders@chromium.org>
+I think there's a subtle distinction between userspace memory which may 
+be shared with DMA, and DMA memory which may be shared with userspace. 
+My reading is that GFP_USER (vs. GFP_HIGHUSER or GFP_HIGHUSER_MOVABLE) 
+matters for the former case, where you might use alloc_pages(), but 
+intend to come back and do dma_map_single() at some point afterwards. 
+For dma_alloc_coherent(), it's clearly always a DMA allocation from the 
+off, so whether it might also end up mmap()ed into one or more processes 
+later doesn't really have much practical impact.
 
-It's not a bug, no Fixes tag.
+> Presently, the difference between GFP_KERNEL and GFP_USER is __GFP_HARDWALL.  This enforces cpuset allocation policy. If HARDWALL is not set, the allocator will back off to the nearest memory ancestor if needed.  The back off seems like a reasonable general policy.  I do have one concern that may be hypothetical: if GFP_KERNEL is used and a buffer is silently pushed out of the expected cpuset, this can lead to mysterious slowdowns.
 
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Note that NUMA-aware dma_alloc_coherent() implementations do try to 
+place the buffer close to the device (since typically over its lifetime 
+it may be accessed by any CPU, but not any other device), therefore not 
+being bound by process restrictions is arguably right for that. If a 
+process is bound to a different node than a device it's trying to use 
+then *something's* going to have to eat the cross-node latency either 
+way. I suppose one could argue that GFP_USER might make sense when it's 
+known that the device is only ever going to use this buffer for work on 
+behalf of the current process, and thus it could be accounted to the 
+process instead of the kernel, but that seems incredibly niche and 
+likely to be far outweighed by people just using it wrong.
 
-Best regards,
-Krzysztof
-
+Thanks,
+Robin.

@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4450A62B2DE
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 06:40:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A15162B2E0
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 06:40:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE92B1697;
-	Wed, 16 Nov 2022 06:39:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE92B1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id C373F16B2;
+	Wed, 16 Nov 2022 06:39:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C373F16B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668577217;
-	bh=t8sTlUzRwSX06bk+TSm22kOXJg5XYXa0m8zCkNZAW98=;
+	s=default; t=1668577245;
+	bh=S+3QMg1zp6RJ4AzIHlEwYbPMHEDZj/gL2wPHOc7O1d0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y6IFuoW90ZhCpw8HiPWqFJJLdTxZm/slLFebsgSAtt1teWVo4n35jMA37fT3Gd514
-	 aKX9rk7fT6G91/1cIJ8j/jNeR0hyUgjpFa5NhyCuzAVzJ0QDYoykW7lmuoEM+n0wvn
-	 WGxMKEcQWa6nRC6ua+W17VK5wP/Co6VegguT5Lg0=
+	b=S9HVbK8YYiOk1T5SXWr1D5Sx8nsfYj4410f+FNShLo9C/aBtTziiAaB0xfMTgI7AY
+	 SoSlzgq1k2Ke/Jvwxif+vJQJN1sxpfjEpxJshumL0RSp0izRykB+ly469XwLFfoXg1
+	 iUmeVuwm+AfpgyjUiJbmNkCcJOU8VH1pTyw5GhKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 032C5F80559;
-	Wed, 16 Nov 2022 06:38:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8535EF8057B;
+	Wed, 16 Nov 2022 06:38:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 176EAF804BC; Wed, 16 Nov 2022 06:38:35 +0100 (CET)
+ id 86EE9F80571; Wed, 16 Nov 2022 06:38:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0539F80163
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 06:38:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0539F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2164F800B5
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 06:38:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2164F800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="SGFwQZrp"
-Received: by mail-pj1-x102c.google.com with SMTP id
- w3-20020a17090a460300b00218524e8877so1875474pjg.1
- for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 21:38:29 -0800 (PST)
+ header.b="naf7hHO3"
+Received: by mail-pl1-x632.google.com with SMTP id io19so15441697plb.8
+ for <alsa-devel@alsa-project.org>; Tue, 15 Nov 2022 21:38:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2R6sweEIHhhYpgiaCutH/nTdz9vJpXVC7DNsSKyfy1o=;
- b=SGFwQZrpZadseImNE1dV7f7/n+GBWyuP1D3KdEwcSYytRYc/wU6ISg2+8huxQTCYpQ
- +1nw2DD75F461/POGGsS8UpOsQmzz6vdtUGLbgIYDB20G1GEZ7BrqGKq57XtDCoVVvOX
- 9+TBX7/WD4kbRmZUCPbs6BMMr2f/B7CD+eSsTqWWRrBAAspwygWwOw3jfPMSNNvHj6VQ
- 9znQgiT8KPVzcMwy7xoTdvAbQydBM15dwl6UdxGq6udjNangnuPM6xAI/vMJBYZPZTBS
- yj3EnfXjxf4pVRO7HLqlNGkhyjTtHOwiusaCTaqpcbUjSiTLDRNCYImFcBBAAxTLis1D
- SiZg==
+ bh=sFQW6v1diH1VyW+sL8lBdAoomh7zxMpXfwnkxl/32zA=;
+ b=naf7hHO3UWHjpNpfDT7zWp+/pfz24/zpiVMv5vvpOmtsjD71TdXVOQuWTrXQlGW3DT
+ k6OQyzXbC33xTJ4vWRBVu9j4bmDx6F7NtWWOnhPf1MyyzqTcFrH8M3c7v3m1bpJmKh15
+ gL9KA6gm3URmDKumwfAsxlyem/35OjO3zoRfYkjUdt1JcHyccj00Eyx9Bi9uSIWdF7ZT
+ +Wr5OWMJKXnCwh7W+QWb/80dPzmO5u+N6SqhYvU0Q3tpeaFNhACn2zodPNtlWRQxqwEk
+ vdXf+yZqTNcpyU304fRnPyvbpukwqcaJt1vFvtUYIM7XdVNYYbPvJ1oGfq6acSrI+9hU
+ 43MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2R6sweEIHhhYpgiaCutH/nTdz9vJpXVC7DNsSKyfy1o=;
- b=brWJBAkARbr/UxwRD7Jdlctdf0vLt7F46ivoDAzkoG0BYj9krMRyWHbCrsFNRa9jSq
- J7gXyw+nFJLzsHfirXhXMksiRfpRiw5+iVVl5qHzMty5YrJxz4wCSoxcWijCiO9vi53D
- AZMfmJHCwppoVCFHFknVtEJwxa/crnvOqQxxkADbEvZWjhoWZ4HPy+5GAPX0uX8Dazrh
- lTxoZGh0HBFi9YeasUZyqoAQEA9+lW+3tNTeu0At1J1Eu/9BXpgl2y7VotETqbla63xf
- dl1kAKtLBzz5Ltjy4D//7A+2b99FFOqoI5q8BXRDzoXXlHr+KFpO9Zr0gea3jg1xD6b3
- gm5w==
-X-Gm-Message-State: ANoB5pnJ/0wJGpxGCeVj52cYjPZZhUUexGrqZ/S65Jkx7ViD99FtUX5t
- DFTA/4QXQh+iq0reB2rWdVs=
-X-Google-Smtp-Source: AA0mqf69nPVB/e/jNzSi6LyOuxv4aaC/+oypv7ZD7k/OeK9pMQrXeF6o1DIcht7/Hh1QXIGXKcWPEQ==
-X-Received: by 2002:a17:902:b204:b0:186:a2e3:7035 with SMTP id
- t4-20020a170902b20400b00186a2e37035mr7435171plr.74.1668577105864; 
- Tue, 15 Nov 2022 21:38:25 -0800 (PST)
+ bh=sFQW6v1diH1VyW+sL8lBdAoomh7zxMpXfwnkxl/32zA=;
+ b=k8PKe3f8bX5q9ejauv/p3Wae/zXtjV3vdOKKkuhCwHIv0zEzpo1Ymsr5qsU1fnQExF
+ c4Dy0E8o8975RXrhAf4aWFYVi7AMA6Bp3trbf8vV9Z4mn9BrnyzYTLRXoTUIQWnSKgjq
+ qIXGyRMoLL9hfUo/MXnO0T/Jawfug+UoubJGtjSOdjru3XxeOV5GyHJVCSNGkyfH0oGz
+ JfDQ84XsmZ8S+qibxPMXrhTW6ORXW0x1FciDkozcrpif9PtNLzmWY9ZMutP/bvWisffR
+ AXi64ypT2xk1Z3h0gs01UbpGsDPmx73xT51OR2/lsyz/lawbVzcWeYGnaP0n72SuyJq6
+ gWmg==
+X-Gm-Message-State: ANoB5pk34KkmHHzEdz9GnnmabxkOKSNlPnXCuK1bY09CGQvz5O1+QDl5
+ 5rRL90PKOb80FQ6qNSPSHUgEl8bC+Xo=
+X-Google-Smtp-Source: AA0mqf4eBMXcBzdwJ5mtVoL0fxjZ7psKH+U4U0xM8+RXDkiJthcyDXK7qNiV0gPyIWmCuY6dETT4gA==
+X-Received: by 2002:a17:902:e546:b0:188:4ea8:a685 with SMTP id
+ n6-20020a170902e54600b001884ea8a685mr7509296plf.71.1668577107897; 
+ Tue, 15 Nov 2022 21:38:27 -0800 (PST)
 Received: from dtor-ws.mtv.corp.google.com
  ([2620:15c:9d:2:2d36:e9a0:170b:669f])
  by smtp.gmail.com with ESMTPSA id
- ik13-20020a170902ab0d00b0017834a6966csm10881038plb.176.2022.11.15.21.38.24
+ ik13-20020a170902ab0d00b0017834a6966csm10881038plb.176.2022.11.15.21.38.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 21:38:24 -0800 (PST)
+ Tue, 15 Nov 2022 21:38:27 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 03/11] ASoC: tas5086: switch to using gpiod API
-Date: Tue, 15 Nov 2022 21:38:09 -0800
-Message-Id: <20221116053817.2929810-3-dmitry.torokhov@gmail.com>
+Subject: [PATCH 04/11] ASoC: tpa6130a2: remove support for platform data
+Date: Tue, 15 Nov 2022 21:38:10 -0800
+Message-Id: <20221116053817.2929810-4-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.38.1.431.g37b22c650d-goog
 In-Reply-To: <20221116053817.2929810-1-dmitry.torokhov@gmail.com>
 References: <20221116053817.2929810-1-dmitry.torokhov@gmail.com>
@@ -106,102 +105,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Switch the driver from legacy gpio API that is deprecated to the newer
-gpiod API that respects line polarities described in ACPI/DT.
+There are no users of tpa6130a2_platform_data in the mainline kernel,
+remove it.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- sound/soc/codecs/tas5086.c | 32 ++++++++++++++------------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ include/sound/tpa6130a2-plat.h | 17 -----------------
+ sound/soc/codecs/tpa6130a2.c   | 18 ++++--------------
+ 2 files changed, 4 insertions(+), 31 deletions(-)
+ delete mode 100644 include/sound/tpa6130a2-plat.h
 
-diff --git a/sound/soc/codecs/tas5086.c b/sound/soc/codecs/tas5086.c
-index 22143cc5afa7..66b22b800e01 100644
---- a/sound/soc/codecs/tas5086.c
-+++ b/sound/soc/codecs/tas5086.c
-@@ -24,14 +24,14 @@
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
--#include <linux/gpio.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/spi/spi.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
--#include <linux/of_gpio.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -246,7 +246,7 @@ struct tas5086_private {
- 	/* Current sample rate for de-emphasis control */
- 	int		rate;
- 	/* GPIO driving Reset pin, if any */
--	int		gpio_nreset;
-+	struct gpio_desc *reset_gpio;
- 	struct		regulator_bulk_data supplies[ARRAY_SIZE(supply_names)];
- };
- 
-@@ -462,11 +462,11 @@ static int tas5086_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- 
- static void tas5086_reset(struct tas5086_private *priv)
- {
--	if (gpio_is_valid(priv->gpio_nreset)) {
-+	if (priv->reset_gpio) {
- 		/* Reset codec - minimum assertion time is 400ns */
--		gpio_direction_output(priv->gpio_nreset, 0);
-+		gpiod_set_value_cansleep(priv->reset_gpio, 1);
- 		udelay(1);
--		gpio_set_value(priv->gpio_nreset, 1);
-+		gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 
- 		/* Codec needs ~15ms to wake up */
- 		msleep(15);
-@@ -867,9 +867,10 @@ static void tas5086_remove(struct snd_soc_component *component)
- {
- 	struct tas5086_private *priv = snd_soc_component_get_drvdata(component);
- 
--	if (gpio_is_valid(priv->gpio_nreset))
-+	if (priv->reset_gpio) {
- 		/* Set codec to the reset state */
--		gpio_set_value(priv->gpio_nreset, 0);
-+		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+	}
- 
- 	regulator_bulk_disable(ARRAY_SIZE(priv->supplies), priv->supplies);
- };
-@@ -914,7 +915,6 @@ static int tas5086_i2c_probe(struct i2c_client *i2c)
- {
- 	struct tas5086_private *priv;
- 	struct device *dev = &i2c->dev;
--	int gpio_nreset = -EINVAL;
- 	int i, ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -940,16 +940,12 @@ static int tas5086_i2c_probe(struct i2c_client *i2c)
- 
- 	i2c_set_clientdata(i2c, priv);
- 
--	if (of_match_device(of_match_ptr(tas5086_dt_ids), dev)) {
--		struct device_node *of_node = dev->of_node;
--		gpio_nreset = of_get_named_gpio(of_node, "reset-gpio", 0);
--	}
+diff --git a/include/sound/tpa6130a2-plat.h b/include/sound/tpa6130a2-plat.h
+deleted file mode 100644
+index a60930e36e93..000000000000
+--- a/include/sound/tpa6130a2-plat.h
++++ /dev/null
+@@ -1,17 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * TPA6130A2 driver platform header
+- *
+- * Copyright (C) Nokia Corporation
+- *
+- * Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
+- */
 -
--	if (gpio_is_valid(gpio_nreset))
--		if (devm_gpio_request(dev, gpio_nreset, "TAS5086 Reset"))
--			gpio_nreset = -EINVAL;
-+	priv->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	ret = PTR_ERR_OR_ZERO(priv->reset_gpio);
-+	if (ret)
-+		return ret;
+-#ifndef TPA6130A2_PLAT_H
+-#define TPA6130A2_PLAT_H
+-
+-struct tpa6130a2_platform_data {
+-	int power_gpio;
+-};
+-
+-#endif
+diff --git a/sound/soc/codecs/tpa6130a2.c b/sound/soc/codecs/tpa6130a2.c
+index 8c00db32996b..5f00bfc32917 100644
+--- a/sound/soc/codecs/tpa6130a2.c
++++ b/sound/soc/codecs/tpa6130a2.c
+@@ -14,7 +14,6 @@
+ #include <linux/gpio.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+-#include <sound/tpa6130a2-plat.h>
+ #include <sound/soc.h>
+ #include <sound/tlv.h>
+ #include <linux/of.h>
+@@ -218,16 +217,15 @@ MODULE_DEVICE_TABLE(i2c, tpa6130a2_id);
  
--	priv->gpio_nreset = gpio_nreset;
-+	gpiod_set_consumer_name(priv->reset_gpio, "TAS5086 Reset");
+ static int tpa6130a2_probe(struct i2c_client *client)
+ {
+-	struct device *dev;
++	struct device *dev = &client->dev;
+ 	struct tpa6130a2_data *data;
+-	struct tpa6130a2_platform_data *pdata = client->dev.platform_data;
+-	struct device_node *np = client->dev.of_node;
+ 	const struct i2c_device_id *id;
+ 	const char *regulator;
+ 	unsigned int version;
+ 	int ret;
  
- 	ret = regulator_bulk_enable(ARRAY_SIZE(priv->supplies), priv->supplies);
- 	if (ret < 0) {
+-	dev = &client->dev;
++	if (!dev->of_node)
++		return -ENODEV;
+ 
+ 	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -239,15 +237,7 @@ static int tpa6130a2_probe(struct i2c_client *client)
+ 	if (IS_ERR(data->regmap))
+ 		return PTR_ERR(data->regmap);
+ 
+-	if (pdata) {
+-		data->power_gpio = pdata->power_gpio;
+-	} else if (np) {
+-		data->power_gpio = of_get_named_gpio(np, "power-gpio", 0);
+-	} else {
+-		dev_err(dev, "Platform data not set\n");
+-		dump_stack();
+-		return -ENODEV;
+-	}
++	data->power_gpio = of_get_named_gpio(dev->of_node, "power-gpio", 0);
+ 
+ 	i2c_set_clientdata(client, data);
+ 
 -- 
 2.38.1.431.g37b22c650d-goog
 

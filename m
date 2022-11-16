@@ -2,71 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024A662C217
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 16:16:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75BAA62C23D
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 16:18:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E3EE857;
-	Wed, 16 Nov 2022 16:15:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E3EE857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 133DD1692;
+	Wed, 16 Nov 2022 16:17:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 133DD1692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668611802;
-	bh=2nKTTHuBo0yWmtjHrwmSld8aC2u4XN4DUqawQl4HluQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668611889;
+	bh=GxgQqdI9rHqfRyAbWa77Kb+AvDoTyqIXkLzP8ZDJvUc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ReWUjy4zh6nTmApYxMBZs+D0u9bn1b+TwxFhSYYZ3A+uZYciOxZTl+dcsKnB5UGCz
-	 6/eyvrNmPTdIwV7Hq/4X6oxm/AzYNe9T73lnsmb26/HR5A/lqLXeVWiUpG4y5tPJyo
-	 Vo4DRdlv6kj9dRR8dum0BVQfdLujnKP0mgn4qYzU=
+	b=vpBO9sHqVDK5KBYyqzK2ll8rlceCG6VYi18iEr65tqpL2dideBO69tgmPrkZzO3PD
+	 lkjmR9iLLQCKosBr12WSP1JXkwqrNPefEk/jWx7esNZ4Fe0K3fxPjuVqo8nuZkVIuc
+	 7zBTT//mDbly6KFzcLAVuQ2RJ5/LX/8i1v5fRWhM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F1A4F80238;
-	Wed, 16 Nov 2022 16:15:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFFB7F80238;
+	Wed, 16 Nov 2022 16:17:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2961F800B5; Wed, 16 Nov 2022 16:15:45 +0100 (CET)
+ id 00446F800B5; Wed, 16 Nov 2022 16:17:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D6759F800B5
- for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 16:15:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6759F800B5
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDFAE150C;
- Wed, 16 Nov 2022 07:15:36 -0800 (PST)
-Received: from [10.57.70.190] (unknown [10.57.70.190])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A3E913F587;
- Wed, 16 Nov 2022 07:15:26 -0800 (PST)
-Message-ID: <be8ca3f9-b7f7-5402-0cfc-47b9985e007b@arm.com>
-Date: Wed, 16 Nov 2022 15:15:10 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09077F800B8
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 16:17:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09077F800B8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FuqrquaO"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BFBAEB81DC1;
+ Wed, 16 Nov 2022 15:17:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018B9C433D6;
+ Wed, 16 Nov 2022 15:17:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668611824;
+ bh=GxgQqdI9rHqfRyAbWa77Kb+AvDoTyqIXkLzP8ZDJvUc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FuqrquaONTbolhFEEccmurd0tUPv0xO45Izry8lWgeDSINThxRvtnEO1k82ByCK4X
+ XtCOap20zR5zhCxO+fw4yHyb7o+CljZ0YtWQZ2AQyP0/ZCdvPeZvk7HzELNbH1F7D6
+ k4uArGj2+ry2kYPWFPhBfu+u7BE2pEtLEvVNFcuEPPFThf5PWPnlPut6t+jeZEl8z1
+ dDR8sCgfWRFnGv9bEhhIwmSy5BKeLuP1c4FjTekMczGWM2bkPxujIHiJrO367Y0c2i
+ qijMsph6P/yqN031M65bKnCkVI1IlNHuXMzNBNCoEo/3+OUd8T7ehIkM4THbVoebPX
+ FxXD3tauqyHdA==
+Date: Wed, 16 Nov 2022 15:17:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: wangweidong.a@awinic.com
+Subject: Re: [PATCH V4 1/6] ASoC: codecs: Add i2c and codec registration for
+ aw883xx and their associated operation functions
+Message-ID: <Y3T+7JwwfxlXSkte@sirena.org.uk>
+References: <1668165992-6493-2-git-send-email-wangweidong.a@awinic.com>
+ <20221115022423.6437-1-wangweidong.a@awinic.com>
+ <20221115022423.6437-2-wangweidong.a@awinic.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [PATCH 2/7] RDMA/hfi1: don't pass bogus GFP_ flags to
- dma_alloc_coherent
-Content-Language: en-GB
-To: Dean Luick <dean.luick@cornelisnetworks.com>,
- Christoph Hellwig <hch@lst.de>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alexandra Winter <wintera@linux.ibm.com>, Wenjia Zhang
- <wenjia@linux.ibm.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Russell King <linux@armlinux.org.uk>
-References: <20221113163535.884299-1-hch@lst.de>
- <20221113163535.884299-3-hch@lst.de>
- <c7c6eb30-4b54-01f7-9651-07deac3662bf@cornelisnetworks.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <c7c6eb30-4b54-01f7-9651-07deac3662bf@cornelisnetworks.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wqhH9OGoWLqIRYp1"
+Content-Disposition: inline
+In-Reply-To: <20221115022423.6437-2-wangweidong.a@awinic.com>
+X-Cookie: Ego sum ens omnipotens.
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+ duanyibo@awinic.com, liweilei@awinic.com, tiwai@suse.com, zhaolei@awinic.com,
+ cy_huang@richtek.com, yijiangtao@awinic.com, robh+dt@kernel.org,
+ zhangjianming@awinic.com, krzysztof.kozlowski+dt@linaro.org,
+ quic_potturu@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,48 +95,180 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-11-16 14:40, Dean Luick wrote:
-> On 11/13/2022 10:35 AM, Christoph Hellwig wrote:
->> dma_alloc_coherent is an opaque allocator that only uses the GFP_ flags
->> for allocation context control.  Don't pass GFP_USER which doesn't make
->> sense for a kernel DMA allocation or __GFP_COMP which makes no sense
->> for an allocation that can't in any way be converted to a page pointer.
->>
->> Signed-off-by: Christoph Hellwig <hch@lst.de>
->> ---
->>   drivers/infiniband/hw/hfi1/init.c | 21 +++------------------
->>   1 file changed, 3 insertions(+), 18 deletions(-)
->>
->> diff --git a/drivers/infiniband/hw/hfi1/init.c b/drivers/infiniband/hw/hfi1/init.c
->> index 436372b314312..24c0f0d257fc9 100644
->> --- a/drivers/infiniband/hw/hfi1/init.c
->> +++ b/drivers/infiniband/hw/hfi1/init.c
->> @@ -1761,17 +1761,11 @@ int hfi1_create_rcvhdrq(struct hfi1_devdata *dd, struct hfi1_ctxtdata *rcd)
->>        unsigned amt;
->>
->>        if (!rcd->rcvhdrq) {
->> -             gfp_t gfp_flags;
->> -
->>                amt = rcvhdrq_size(rcd);
->>
->> -             if (rcd->ctxt < dd->first_dyn_alloc_ctxt || rcd->is_vnic)
->> -                     gfp_flags = GFP_KERNEL;
->> -             else
->> -                     gfp_flags = GFP_USER;
->>                rcd->rcvhdrq = dma_alloc_coherent(&dd->pcidev->dev, amt,
->>                                                  &rcd->rcvhdrq_dma,
->> -                                               gfp_flags | __GFP_COMP);
->> +                                               GFP_KERNEL);
-> 
-> A user context receive header queue may be mapped into user space.  Is that not the use case for GFP_USER?  The above conditional is what decides.
-> 
-> Why do you think GFP_USER should be removed here?
 
-Coherent DMA buffers are allocated by a kernel driver or subsystem for 
-the use of a device managed by that driver or subsystem, and thus they 
-fundamentally belong to the kernel as proxy for the device. Any coherent 
-DMA buffer may be mapped to userspace with the dma_mmap_*() interfaces, 
-but they're never a "userspace allocation" in that sense.
+--wqhH9OGoWLqIRYp1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Robin.
+On Tue, Nov 15, 2022 at 10:24:18AM +0800, wangweidong.a@awinic.com wrote:
+
+> +/*
+> + * aw883xx distinguish between codecs and components by version
+> + */
+> +static struct aw_componet_codec_ops aw_componet_codec_ops = {
+> +	.kcontrol_codec = snd_soc_kcontrol_component,
+> +	.codec_get_drvdata = snd_soc_component_get_drvdata,
+> +	.add_codec_controls = snd_soc_add_component_controls,
+> +	.unregister_codec = snd_soc_unregister_component,
+> +	.register_codec = snd_soc_register_component,
+> +};
+
+I've started looking at this a few times but keep stopping due to
+this bit.  CODECs and components (note the spelling BTW) are both
+ASoC level concepts but this looks like the driver is trying to
+define it's own abstraction using the same terms.  There's
+nothing in the commit log or anything that explains this so it's
+a bit of work to try to figure out what's going on which makes it
+hard to follow.  It would really help to have some explanation of
+what's going on rather than having to reverse engineer it from
+the patches.
+
+> +	mutex_lock(&aw883xx->dsp_lock);
+> +	if (data_type == AW_DSP_16_DATA) {
+> +	} else if (data_type == AW_DSP_32_DATA) {
+> +	} else {
+> +	}
+
+This looks like it should be written as a switch statement.
+
+> +	if ((ucontrol->value.integer.value[0] > FADE_TIME_MAX) ||
+> +		(ucontrol->value.integer.value[0] < FADE_TIME_MIN)) {
+> +		pr_debug("set val %ld overflow %d or  less than :%d",
+> +			ucontrol->value.integer.value[0], FADE_TIME_MAX, FADE_TIME_MAX);
+> +		return 0;
+> +	}
+
+Invalid values should report an error.
+
+> +	pr_debug("step time %ld", ucontrol->value.integer.value[0]);
+
+Use dev_ prints where possible.
+
+> +	if (!aw883xx->dbg_en_prof) {
+> +		dev_info(codec->dev, "profile close");
+> +		return 0;
+> +	}
+
+This should be a debug print at most.
+
+> +	/* check value valid */
+> +	ret = aw883xx_dev_check_profile_index(aw883xx->aw_pa, ucontrol->value.integer.value[0]);
+> +	if (ret) {
+> +		dev_warn(codec->dev, "unsupported index %ld",
+> +					ucontrol->value.integer.value[0]);
+> +		return 0;
+> +	}
+
+No error messages from control sets, an application could make a
+lot of noise in the logs.
+
+> +static int aw883xx_volume_set(struct snd_kcontrol *kcontrol,
+> +				struct snd_ctl_elem_value *ucontrol)
+> +{
+
+> +	vol_desc->ctl_volume = value;
+> +
+> +	/*get smaller dB*/
+> +	compared_vol = AW_GET_MAX_VALUE(vol_desc->ctl_volume,
+> +		vol_desc->monitor_volume);
+> +
+> +	aw883xx_dev_set_volume(aw883xx->aw_pa, compared_vol);
+
+Why is there this extra soft limit on volume?  This looks
+confusing.
+
+> +static void aw883xx_fw_wrok(struct work_struct *work)
+> +{
+
+wrok?
+
+> +static int aw883xx_gpio_request(struct aw883xx *aw883xx)
+> +{
+> +	int ret = 0;
+> +
+> +	if (gpio_is_valid(aw883xx->reset_gpio)) {
+> +		ret = devm_gpio_request_one(aw883xx->dev, aw883xx->reset_gpio,
+> +			GPIOF_OUT_INIT_LOW, "aw883xx_rst");
+> +		if (ret) {
+> +			dev_err(aw883xx->dev, "rst request failed");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+Use gpiod_ APIs please for new code, the numeric GPIO API is
+being phased out.
+
+> +/*
+> + * sys group attribute: reg
+> + */
+> +static ssize_t reg_show(struct device *dev,
+> +				struct device_attribute *attr, char *buf)
+> +{
+> +	struct aw883xx *aw883xx = dev_get_drvdata(dev);
+> +	int reg_num = aw883xx->aw_pa->ops.aw_get_reg_num();
+> +	ssize_t len = 0;
+> +	uint8_t i = 0;
+> +	unsigned int reg_val = 0;
+> +
+> +	for (i = 0; i < reg_num; i++) {
+> +		if (aw883xx->aw_pa->ops.aw_check_rd_access(i)) {
+> +			regmap_read(aw883xx->regmap, i, &reg_val);
+> +			len += snprintf(buf + len, PAGE_SIZE - len,
+> +					"reg:0x%02x=0x%04x\n", i, reg_val);
+> +		}
+> +	}
+> +
+> +	return len;
+> +}
+
+regmap already provides a debugfs interface for you.
+
+> +static ssize_t reg_store(struct device *dev,
+> +				struct device_attribute *attr, const char *buf,
+> +				size_t count)
+> +{
+> +	struct aw883xx *aw883xx = dev_get_drvdata(dev);
+> +	unsigned int databuf[2] = { 0 };
+> +
+> +	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) == 2)
+> +		regmap_write(aw883xx->regmap, databuf[0], databuf[1]);
+> +
+> +	return count;
+> +}
+
+It's not OK to provide a raw register write interface to
+userspace, this allows userspace to just go around the back of
+the driver and do whatever which makes it impossible to guarantee
+that the state of the hardware matches what the driver thinks is
+going on.  Needed functionality should go via some abstracted
+kernel interface.  For debug use there is a regmap interface
+which can do register writes for debug purposes if the kernel is
+specially built for it.
+
+Just remove all this debugfs code.
+
+> +static ssize_t fade_step_store(struct device *dev,
+> +	struct device_attribute *attr, const char *buf, size_t count)
+> +{
+
+Controls should go through the ALSA APIs, not sysfs.
+
+--wqhH9OGoWLqIRYp1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN0/usACgkQJNaLcl1U
+h9B8Hwf+JTOK3PftMqUnfrSm6bhS9j1h/ki0D7/xug6MeAS8cej//DYDilpXfptt
+Xy+3zaipN/T8Nxzf+0JsviJCHO/hzhHJTKb1s42bWESQtQKBGGC12ovb6nVLYDlz
+o4I3VXC5dnjJ4/6stbmfX5IFJQ1M65M8ITsE4B8S06yBePqFzuRgbzTM04NwHBko
+fZXEAOSfJXy4J6uvLkpul6gPR6McXu1z3lGjBZ7Ue5gl3kyHlvc9TG4lP+Wk0JVe
+97e+4Ool1oH7mwBMbpuybR5bgQas5mARbJuOqkLQUK+8VxwM95ap03gbuA0LHhtm
+fLPmCF/h+Ru7A8JLfmF1mv0fHHhOpQ==
+=P6iw
+-----END PGP SIGNATURE-----
+
+--wqhH9OGoWLqIRYp1--

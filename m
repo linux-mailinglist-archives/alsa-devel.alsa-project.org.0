@@ -2,93 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160FC62C485
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 17:34:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C5B62C532
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Nov 2022 17:45:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B9591683;
-	Wed, 16 Nov 2022 17:33:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B9591683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0951691;
+	Wed, 16 Nov 2022 17:44:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0951691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668616463;
-	bh=biznPrim6v3j67mmokefG4uANW8FWl0pdve+bNyLKHI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1668617114;
+	bh=Nc8GXmqJbp7UfwY7PkJLkx/x8A/bzoUp01OtoRt312I=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FSC+OGwjPxBZYeNs4zYSMieQBDjlHbXn3Hb6oC9ygaaFDsZu9x9XlW9F6qIjz44aK
-	 Okn9ygVsXy2tfaHEUIDjJyypZNSH8edCVnVOEXxvP3CbuImsxNZDloKjc7OXMXXao+
-	 A2K46iTjKNRiLBVUNC9TOsMsSO/NKMQtxRzuU1qo=
+	b=ehH4au0g9HRBAr/JF03DmaToFrYIauDJ0Wkks0M0FpM/HjDE+8BdFWNFlHIN+3viq
+	 zPWWm7+V3uSFYRuOociJzZkAszMDU/w78iIc83rz3eUleGSn/PdwbELvfmkcIm25wg
+	 xzRomfdO8+8UT2BdMibWTDcA43xhXXUn9I8KE3u0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46DABF80238;
-	Wed, 16 Nov 2022 17:33:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C1A4F80238;
+	Wed, 16 Nov 2022 17:44:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FD37F80169; Wed, 16 Nov 2022 17:33:26 +0100 (CET)
+ id 2C8D3F80169; Wed, 16 Nov 2022 17:44:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8373AF80089
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 17:44:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8373AF80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PYVs2Z9i"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 525BDF80089;
- Wed, 16 Nov 2022 17:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 525BDF80089
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="FaYkrewN"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id AB06D660296C;
- Wed, 16 Nov 2022 16:33:18 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1668616399;
- bh=biznPrim6v3j67mmokefG4uANW8FWl0pdve+bNyLKHI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=FaYkrewNwJWpomf67Dxnvy5ojNxDTGFdWBoooXKj0hSmNSokV4Z92Vqcyr2ZTomN2
- d6bGGvo45oZXiTR1c6bvFIOPC42y/e0f4Bb2mVfdYyEE0lNl0EcJctDB30W2oF59j4
- OIdxJfO5tUzQTd69+K5gLN5vQ30BgeHhuBKZLRtwuwsDF0m+rECRIaVhPUbWAM+4tM
- 2ct5aUIDWWMjXQJ1g9DS3anPxDCgRk4uFkoadUIq688GpU3I184H0d8NYWaKsQD9Qd
- w8hLrkP0oAKnkrvUJk0CyqCQocmxeLgdXV/lnuOSgZNGhweKzPZwrcyPLeZY/xC732
- U9Rg+kjVxr+lA==
-Message-ID: <02c2643f-bd32-c3db-51a1-d7773b60c655@collabora.com>
-Date: Wed, 16 Nov 2022 17:33:16 +0100
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 88E88615E6;
+ Wed, 16 Nov 2022 16:44:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1D0C433D6;
+ Wed, 16 Nov 2022 16:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668617052;
+ bh=Nc8GXmqJbp7UfwY7PkJLkx/x8A/bzoUp01OtoRt312I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PYVs2Z9iQvYDW2RRW5c7a/P0Jl8PlczcLUUj19tNQ6f3+8osJ/Mj/89xlqOMNoy9H
+ YIq5BMbvTRWImJ39nj5qdbh2l1pUy6odl6Ct2pG2S/qkqXm1hMR3x/FYjF3vcSlxDQ
+ 1bfC6VPgf2IbBu+7t+YpT2eba8NyVq1iIqs+xbYcxogD0E8EU2ICUS2oA0L/WAxHaR
+ dXyfdsO4JlYRXB8V7KEJI4A0LAbJ0dD5Db8xVMf7XU087LFcwpSh/l0wpFixftW7fL
+ YjRv9/LNj6brw2RJqWSYdJK0xdNT5ONAvk17yPPyqXFitvWWVO2iy3L0MStxXO/XWj
+ +1t79CGlAIKxw==
+Date: Wed, 16 Nov 2022 16:44:05 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 09/12] irqchip: cirrus: Add driver for Cirrus Logic
+ CS48L31/32/33 codecs
+Message-ID: <Y3UTVVHiri1xEdi1@sirena.org.uk>
+References: <20221109165331.29332-10-rf@opensource.cirrus.com>
+ <87mt8zutib.wl-maz@kernel.org>
+ <c0c05799-6424-7edf-01b3-e28a10907b2c@opensource.cirrus.com>
+ <86pmdvow5y.wl-maz@kernel.org>
+ <ef60cbdb-f506-7bd6-a8e1-c92b6963a0f4@opensource.cirrus.com>
+ <86k042q1uc.wl-maz@kernel.org>
+ <05ae0e20-b472-f812-1afc-ef8c2a97cdeb@opensource.cirrus.com>
+ <87iljmve87.wl-maz@kernel.org> <Y21gwGDb5CFft0kp@sirena.org.uk>
+ <87h6z5vs39.wl-maz@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [Sound-open-firmware] [PATCH 3/4] ASoC: SOF: Adding amd HS
- functionality to the sof core
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20220913144319.1055302-1-Vsujithkumar.Reddy@amd.com>
- <20220913144319.1055302-4-Vsujithkumar.Reddy@amd.com>
- <36a45c7a-820a-7675-d740-c0e83ae2c417@collabora.com>
- <a8bc9284-c0c2-79aa-fee6-40101fc34f96@linux.intel.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <a8bc9284-c0c2-79aa-fee6-40101fc34f96@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, Sunil-kumar.Dommati@amd.com,
- ssabakar@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- venkataprasad.potturu@amd.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Basavaraj.Hiregoudar@amd.com, Chen-Yu Tsai <wenst@chromium.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- YC Hung <yc.hung@mediatek.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vijendar.Mukunda@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
- <sound-open-firmware@alsa-project.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="EkEOai4hb/anVZ7n"
+Content-Disposition: inline
+In-Reply-To: <87h6z5vs39.wl-maz@kernel.org>
+X-Cookie: Ego sum ens omnipotens.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linus.walleij@linaro.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, tglx@linutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,50 +98,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 16/11/22 16:04, Pierre-Louis Bossart ha scritto:
-> 
->>> diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
->>> index 21d98f31a9ca..83fd81c82e4c 100644
->>> --- a/include/sound/sof/dai.h
->>> +++ b/include/sound/sof/dai.h
->>> @@ -84,6 +84,7 @@ enum sof_ipc_dai_type {
->>>        SOF_DAI_AMD_BT,            /**< AMD ACP BT*/
->>>        SOF_DAI_AMD_SP,            /**< AMD ACP SP */
->>>        SOF_DAI_AMD_DMIC,        /**< AMD ACP DMIC */
->>> +    SOF_DAI_AMD_HS,            /**< Amd HS */
->>>        SOF_DAI_MEDIATEK_AFE,        /**< Mediatek AFE */
->>
->> Adding SOF_DAI_AMD_HS before SOF_DAI_MEDIATEK_AFE desynced this enumeration
->> so the DAI type is now 11 and not 10 anymore, leading to a failure in
->> firmware
->> at IPC3 helper function `dai_get()`, as when `dai_find_type()` is
->> called, the
->> DAI type that the firmware expects doesn't match with the one that gets
->> sent
->> in the request message from the kernel.
->>
->> As a local test, I tried moving SOF_DAI_AMD_HS after
->> SOF_DAI_MEDIATEK_AFE and
->> this has restored full functionality on my MT8195 platform (Tomato
->> Chromebook).
->>
->> If SOF is supposed to guarantee backwards compatibility (and I believe
->> it is),
->> this commit breaks that.
->>
->> I would be tempted to send a commit that moves SOF_DAI_AMD_HS to the
->> end, but
->> that would break the already compiled firmware for AMD platforms, so I
->> am not
->> sure how to proceed.
-> 
-> D'oh. Yes this breaks backwards-compatibility and this is a clear
-> mistake. I think your suggestion to add the AMD_HS at the end is the
-> only practical solution indeed - this would need to be done for both
-> kernel and SOF version of dai.h.
-> 
 
-Okay, I will send a commit tomorrow :-)
+--EkEOai4hb/anVZ7n
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Angelo
+On Fri, Nov 11, 2022 at 08:00:10AM +0000, Marc Zyngier wrote:
+> Mark Brown <broonie@kernel.org> wrote:
+> > On Thu, Nov 10, 2022 at 06:47:20PM +0000, Marc Zyngier wrote:
+
+> > > Either you describe the internal structure of your device in DT or
+> > > ACPI, and make all client drivers use the standard API, or you make
+> > > this a codec library, purely specific to your device and only used by
+> > > it. But the current shape is not something I'm prepared to accept.
+
+> > ACPI gets to be a lot of fun here, it's just not idiomatic to describe
+> > the internals of these devices in firmware there and a lot of the
+> > systems shipping this stuff are targeted at other OSs and system
+> > integrators are therefore not in the least worried about Linux
+> > preferences.
+
+> Let me reassure the vendors that I do not care about them either. By
+> this standard, we'd all run Windows on x86.
+
+It turns out a bunch of these systems are intended to be used
+with Linux, and even where the vendor does care about Linux we
+also have to consider what's tasteful for ACPI.
+
+> > You'd need to look at having the MFD add additional
+> > description via swnode or something to try to get things going.  MFD
+
+...
+
+> > Given that swnode is basically DT written out in C code I'm not actually
+> > convinced it's that much of a win, unless someone writes some tooling to
+> > generate swnode data from DT files you're not getting the benefit of any
+
+...
+
+> > I do also have other concerns in the purely DT case, especially with
+> > chip functions like the CODEC where there's a very poor mapping between
+> > physical IPs and how Linux is tending to describe things internally at
+> > the minute.  In particular these devices often have a clock tree
+
+> I don't think this is a reason to continue on the current path that
+> pretends to have something generic, but instead is literally a board
+> file fragment with baked-in magic numbers.
+
+> An irqchip is supposed to offer services to arbitrary clients
+> (endpoint drivers) that are oblivious of the irqchip itself, of the
+> hwirq mapping, and use the standard APIs to obtain a virtual interrupt
+> number. None of that here. This is a monolithic driver, only split
+> across multiple subsystem to satisfy a "not in my backyard"
+> requirement.
+
+> If the vendors/authors want to keep the shape of the code as is, they
+> can do it outside of the irqchip code and have some library code with
+> an internal API. At least they will stop pretending that this is a
+> general purpose driver. And the existing madera code can also go in
+> the process.
+
+Yeah, I'm definitely not in the least bit convinced that the
+irqchip code is a good home for this sort of glue (especially the
+interrupt consumers) for the reasons you mention - my concern was
+more that the firmware interface also has issues, and that
+putting things into firmware is also putting them into ABI which
+is much harder to do a good job with later.
+
+--EkEOai4hb/anVZ7n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN1E1QACgkQJNaLcl1U
+h9DPewf8CpoDHHCI0FeSVsd2KhNQL3i/PMHFhg4eDzaVGsgA0IyP1yvktpJ7cS+b
+Y4n2L6pA3jUqkU3VtSsXtayGbhBSKxPnMWYIMlquLTu7Kh+09T9djk/XnLokBbnC
+V3RWe28DpZEgb+PJ9m5tjCBS9TlrqN0nHq4zpypLxMnJBS34BHweexzeT1O45o4v
+7vcHxpbnKjeruo2dXCSXdt1kt3T0DOqsYSkh0l5rsj9mv30mnjUogcwIlTeK/7CF
+BRiM9I5rEdpqO+Q656jBVuBafKBVaUlmbmIxuEFHvOYIQ7u4CjDx8pXyTLI1FMXd
+N5s5licXyOd59BWkTOMo/uWD16eJZw==
+=5F+X
+-----END PGP SIGNATURE-----
+
+--EkEOai4hb/anVZ7n--

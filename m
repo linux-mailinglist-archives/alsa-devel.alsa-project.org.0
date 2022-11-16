@@ -2,81 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30496309A9
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 03:15:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0377C630D51
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:41:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F01216C6;
-	Sat, 19 Nov 2022 03:15:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F01216C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AF95163A;
+	Sat, 19 Nov 2022 09:40:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AF95163A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668824153;
-	bh=OSKBnjS0CLNwFCl54XfBSFAtollL0k1rDe7M1vayXpA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1668847288;
+	bh=xwROaTzGKNxdo+RwPJ+M02tH8KMtSYg1hTOrH/6F3VI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aopjPozsFpcEB/bOxOB4m3YIPFpfwL8xYzHpW2/v1BbYkOq/wHWOvPBok1J+Dxuod
-	 JwzCS1fSZS8FOQmvDJPu+I1Axylv/zZi96htARx5QQp2SWhe5HB6L+gQNPTkbBhFuH
-	 95j+2ALyDF+Ah8qHhqHnEV6AXf5/tjjRT1+pq/BQ=
+	b=bhDLjQJoZamlNg90+aMf/aoybvtGEVtUDTDkwyWqcrb1Fyp3dioK+nhfIy1nQYnDt
+	 sdHhi9esSvN/q3OBnZ7WmM0gL0F9HfSYfZr+biPHi+rgk1uQH6pkoD0nT5mB4fqn2p
+	 p0//AmFkKJxA0x3RGZ7jrgA+ZKTICXhw7CW795ao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 555FEF8020D;
-	Sat, 19 Nov 2022 03:14:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DD1DF8016A;
+	Sat, 19 Nov 2022 09:40:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED78CF801D8; Sat, 19 Nov 2022 03:14:56 +0100 (CET)
+ id EC195F80169; Wed, 16 Nov 2022 13:39:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE3D1F8016E
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 03:14:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE3D1F8016E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bV2R90QR"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4D5D362831;
- Sat, 19 Nov 2022 02:14:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F54FC433D6;
- Sat, 19 Nov 2022 02:14:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668824087;
- bh=OSKBnjS0CLNwFCl54XfBSFAtollL0k1rDe7M1vayXpA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bV2R90QR7lWuiQx88SZ2vVzJxx/m3EkloZJESC5OGkASocjUS8mBqtSPVuB59aiNw
- NrgoFBBrzvBbzeHwfQccxqvSrUmGXo76kqhgZd/6eOaCdeLwl2yBizKBCaz4R74im0
- JlevvOlJ3ZXJfBt0iMdB7YhODWKCHFTiMN1g6JNwHGJtPCsWjNMlqu8XhHFZwkBxqn
- dQt53hjv1BQK/m1q6iIJHq7yITd4/11Yx7IJXULgsDm0dbdXltxfi6jiLCMjQzP3iz
- v/WX+0AUQu9aK4V8wD59F9v/NH2TYfkazjSRAWmaJmjK5ZWt6WL1KwyyNv3ICvhKq5
- lEOPHDtrKPNvA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 25/27] ALSA: usb-audio: add quirk to fix Hamedal
- C20 disconnect issue
-Date: Fri, 18 Nov 2022 21:13:50 -0500
-Message-Id: <20221119021352.1774592-25-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221119021352.1774592-1-sashal@kernel.org>
-References: <20221119021352.1774592-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0939F800B8
+ for <alsa-devel@alsa-project.org>; Wed, 16 Nov 2022 13:39:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0939F800B8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com
+ header.b="L0A9Edju"
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AGBqDqg003782; Wed, 16 Nov 2022 12:39:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=sVd/c0WnzKKlxFndTgFHpEQ6SdR1MS3OqNaMGVWAB3Q=;
+ b=L0A9Edju7qrc1wChvgY30UZwAZL9bQWvwXJDE0a5Ybh/iwfPRECWKFLEYyx3P3EdbR8x
+ T9rj0KAPMELqBihA2v8Z3Mu/SMF9Ct3rzDNS5tOWll3cOT9HHzVSdXDXn6ZyaeGWVmv9
+ NqyBP1GS6CESc5l/n5VcKDT76heBZ4akGofc0bcg3lSnLUBee0VOAFqqwyGUcFVfGKhC
+ YPQ727XpviCrsJTE96IsfQPhm32aFX2L8ewzcHjv59eLbfj+S0/7XHg4L5KLG5njFJ7v
+ lgG2Kd3qHFkvKhWj2LszjwNCDBfzDNwlqq20Q8iIX5+8vrkM/EPApc/GC1C5CZ9/kUXW vg== 
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kvyc9h3p3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Nov 2022 12:39:14 +0000
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 2AGCZPF2023726;
+ Wed, 16 Nov 2022 12:39:13 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma04dal.us.ibm.com with ESMTP id 3kt34a13a9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Nov 2022 12:39:13 +0000
+Received: from smtpav01.wdc07v.mail.ibm.com ([9.208.128.113])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 2AGCdBob21627396
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 16 Nov 2022 12:39:12 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 867EF58067;
+ Wed, 16 Nov 2022 12:39:11 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9863E58055;
+ Wed, 16 Nov 2022 12:39:08 +0000 (GMT)
+Received: from [9.211.85.81] (unknown [9.211.85.81])
+ by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 16 Nov 2022 12:39:08 +0000 (GMT)
+Message-ID: <62786a02-3647-485e-a5c1-92b3008e34b1@linux.ibm.com>
+Date: Wed, 16 Nov 2022 13:39:07 +0100
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, jussi@sonarnerd.net, wanjiabing@vivo.com,
- john-linux@pelago.org.uk, connerknoxpublic@gmail.com,
- Takashi Iwai <tiwai@suse.de>, Ai Chao <aichao@kylinos.cn>, sdoregor@sdore.me,
- ubizjak@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- cyrozap@gmail.com, bp@suse.de
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+Subject: Re: [PATCH 5/7] s390/ism: don't pass bogus GFP_ flags to
+ dma_alloc_coherent
+To: Christoph Hellwig <hch@lst.de>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexandra Winter <wintera@linux.ibm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Russell King <linux@armlinux.org.uk>, Robin Murphy <robin.murphy@arm.com>
+References: <20221113163535.884299-1-hch@lst.de>
+ <20221113163535.884299-6-hch@lst.de>
+From: Wenjia Zhang <wenjia@linux.ibm.com>
+In-Reply-To: <20221113163535.884299-6-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: yfN9kWLbQneuTBIV0jE6gRqijVr8R_IG
+X-Proofpoint-ORIG-GUID: yfN9kWLbQneuTBIV0jE6gRqijVr8R_IG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-16_03,2022-11-16_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0
+ priorityscore=1501 mlxscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ clxscore=1011 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ mlxlogscore=746 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211160087
+X-Mailman-Approved-At: Sat, 19 Nov 2022 09:40:31 +0100
+Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,72 +131,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ai Chao <aichao@kylinos.cn>
 
-[ Upstream commit bf990c10231937c0f51e5da5558e08cf5adc6a78 ]
 
-For Hamedal C20, the current rate is different from the runtime rate,
-snd_usb_endpoint stop and close endpoint to resetting rate.
-if snd_usb_endpoint close the endpoint, sometimes usb will
-disconnect the device.
+On 13.11.22 17:35, Christoph Hellwig wrote:
+> dma_alloc_coherent is an opaque allocator that only uses the GFP_ flags
+> for allocation context control.  Don't pass __GFP_COMP which makes no
+> sense for an allocation that can't in any way be converted to a page
+> pointer.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/s390/net/ism_drv.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+I'm fine with that.
 
-Signed-off-by: Ai Chao <aichao@kylinos.cn>
-Link: https://lore.kernel.org/r/20221110063452.295110-1-aichao@kylinos.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/usb/endpoint.c | 3 ++-
- sound/usb/quirks.c   | 2 ++
- sound/usb/usbaudio.h | 3 +++
- 3 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 3bbc227769d0..092350eb5f4e 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -887,7 +887,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
- 	usb_audio_dbg(chip, "Closing EP 0x%x (count %d)\n",
- 		      ep->ep_num, ep->opened);
- 
--	if (!--ep->iface_ref->opened)
-+	if (!--ep->iface_ref->opened &&
-+		!(chip->quirk_flags & QUIRK_FLAG_IFACE_SKIP_CLOSE))
- 		endpoint_set_interface(chip, ep, false);
- 
- 	if (!--ep->opened) {
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 879d8b1f301c..2ae9ad993ff4 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1884,6 +1884,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
- 	DEVICE_FLG(0x2b53, 0x0031, /* Fiero SC-01 (firmware v1.1.0) */
- 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
-+	DEVICE_FLG(0x0525, 0xa4ad, /* Hamedal C20 usb camero */
-+		   QUIRK_FLAG_IFACE_SKIP_CLOSE),
- 
- 	/* Vendor matches */
- 	VENDOR_FLG(0x045e, /* MS Lifecam */
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 39c3c61a7e49..ec06f441e890 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -169,6 +169,8 @@ extern bool snd_usb_skip_validation;
-  *  Apply the generic implicit feedback sync mode (same as implicit_fb=1 option)
-  * QUIRK_FLAG_SKIP_IMPLICIT_FB
-  *  Don't apply implicit feedback sync mode
-+ * QUIRK_FLAG_IFACE_SKIP_CLOSE
-+ *  Don't closed interface during setting sample rate
-  */
- 
- #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
-@@ -190,5 +192,6 @@ extern bool snd_usb_skip_validation;
- #define QUIRK_FLAG_SET_IFACE_FIRST	(1U << 16)
- #define QUIRK_FLAG_GENERIC_IMPLICIT_FB	(1U << 17)
- #define QUIRK_FLAG_SKIP_IMPLICIT_FB	(1U << 18)
-+#define QUIRK_FLAG_IFACE_SKIP_CLOSE	(1U << 19)
- 
- #endif /* __USBAUDIO_H */
--- 
-2.35.1
-
+Acked-by: Wenjia Zhang <wenjia@linux.ibm.com>

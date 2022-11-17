@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFEF9630D7E
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:48:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89075630D7F
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:48:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B2FD1706;
-	Sat, 19 Nov 2022 09:47:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B2FD1706
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24EC9170D;
+	Sat, 19 Nov 2022 09:47:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24EC9170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668847699;
-	bh=wVcYKV9ryyiDH/YHL+yzTatasapLPFcACLj99oy49LE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1668847716;
+	bh=8izFfmWrGRUU5F0o/tjAjXvO6DE8fG0ih4KjPmhLRAs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UW94sr2Tbe1H35z0mtQNmMwE2A+v+lrjkmVW/0xhMSMfH2LQ1ZyAvMfxxlZqfhUPc
-	 xE10iE51xjKQ3OfX89WOnLn6n4ZuFcXZbCc/0AIDMiWIJ47WS0/KmC1NOa+nPENJkh
-	 nnorHjdoON94sjPWzXH84wlpsRqQ9chKSiQvWQx4=
+	b=fdRQP82LkWHuzYg2Qy94XkKp7rNBLIW44jBV5CW/qWDE3qb06vGqlY4Y2q7f0WSlT
+	 utUBEQ8T+Vh0ODTcArdYnYTfUCK0j5hEFYi7W7RKLGGM0x/WUoC2GSAzyOx54QgXfk
+	 lxz4TshOt/hDG+EjCVciU0Q913gVha53Q9Q5JMA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EB82F805FB;
+	by alsa1.perex.cz (Postfix) with ESMTP id ED3B6F805FF;
 	Sat, 19 Nov 2022 09:40:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72034F8025A; Thu, 17 Nov 2022 18:52:27 +0100 (CET)
+ id 0B4ECF8015B; Thu, 17 Nov 2022 22:08:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFFCDF80087
- for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 18:52:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFFCDF80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB9ACF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 22:08:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB9ACF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="a7sDmIc+"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 075C76219E;
- Thu, 17 Nov 2022 17:52:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4C2C433D7;
- Thu, 17 Nov 2022 17:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668707531;
- bh=wVcYKV9ryyiDH/YHL+yzTatasapLPFcACLj99oy49LE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=a7sDmIc+MIiyHVMXaBusQ6SkTG7PgwM/a0EJ4zKHIvOVy6oKK6b3AT7G6BL7IAhyb
- tQrGOQ8EZryz0g9CPyeova2t7BapHsbt5mf3emi2EuVCeQXhXqwUn+kqAW/vkW3pTf
- Kd3saMsh3WvsIsW95EjyysGP+2g6w6bUubvY77zS2JNX3hodGbWwqnkeOfkUkv44d1
- wVdNvSyfxUXTwGs/CxfcJu1R/YNgmbTF9P0hHUecae9laDee6pIqWGqoCswKxWBQ7e
- 3D8Kmq02sXbN6LrlSaw20+B84srvuF3HVurawDtGLsPyRommshzXNIKHm27diMG12K
- Io+tfOlGUFb/g==
-Date: Thu, 17 Nov 2022 17:52:03 +0000
-From: Conor Dooley <conor@kernel.org>
+ dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com
+ header.b="kQ3WnKEH"
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 4969620007;
+ Thu, 17 Nov 2022 21:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1668719281;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=72JrUM6NacHh18cxNPJTokOPFIy2MlvUmUZu6AVg77s=;
+ b=kQ3WnKEHtW817TTGo/51w1BLV9fElm+d4PRny19l0Xo5WVvRKUWbYa4RLUCeb4hzAu+blU
+ gN78c5WiYd88yo78Tac1K8UgLdjF8sGEUg2eG4K4KIGZ2aSd/NCisT3pEqKgpi8MG9t8wo
+ Mhed7VoKwoPF1Ad6rnk8zscQKUda7EVdabBo89uHsVUfKLNbVRCzBabKqvqOG3TKdkeI5N
+ elXTmNOrt8pOHvUy7n2mYZBmGVFue71mi4Gp0X7blRdSkQQj+FNRIx2l1Hm3E/1dFZjljQ
+ ITXz8XlIez/SUSB6b7UDZFkg18YUByW5VovCJRgF+828mYPwuo2FHFq7f7zwSg==
+Date: Thu, 17 Nov 2022 22:07:56 +0100
+From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Subject: Re: [RFC PATCH 1/9] dt-bindings: drop redundant part of title of
  shared bindings
-Message-ID: <Y3Z0w6JH1f5zgwvW@spud>
+Message-ID: <20221117220756.7a1bf734@xps-13>
+In-Reply-To: <20221117123850.368213-2-krzysztof.kozlowski@linaro.org>
 References: <20221117123850.368213-1-krzysztof.kozlowski@linaro.org>
  <20221117123850.368213-2-krzysztof.kozlowski@linaro.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221117123850.368213-2-krzysztof.kozlowski@linaro.org>
-X-Mailman-Approved-At: Sat, 19 Nov 2022 09:40:31 +0100
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 19 Nov 2022 09:40:30 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
  linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
@@ -102,48 +102,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 17, 2022 at 01:38:42PM +0100, Krzysztof Kozlowski wrote:
+Hi Krzysztof,
+
+krzysztof.kozlowski@linaro.org wrote on Thu, 17 Nov 2022 13:38:42 +0100:
+
 > The Devicetree bindings document does not have to say in the title that
 > it is a "binding", but instead just describe the hardware.  For shared
 > (re-usable) schemas, name them all as "common properties".
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/clock/qcom,gcc.yaml         | 2 +-
+>  Documentation/devicetree/bindings/dma/dma-common.yaml         | 2 +-
+>  Documentation/devicetree/bindings/dma/dma-controller.yaml     | 4 ++--
+>  Documentation/devicetree/bindings/dma/dma-router.yaml         | 4 ++--
+>  Documentation/devicetree/bindings/iio/adc/adc.yaml            | 2 +-
+>  .../devicetree/bindings/media/video-interface-devices.yaml    | 2 +-
+>  Documentation/devicetree/bindings/media/video-interfaces.yaml | 2 +-
+>  Documentation/devicetree/bindings/mmc/mmc-controller.yaml     | 2 +-
+>  Documentation/devicetree/bindings/mtd/nand-chip.yaml          | 2 +-
+>  Documentation/devicetree/bindings/mtd/nand-controller.yaml    | 2 +-
+>  .../bindings/net/bluetooth/bluetooth-controller.yaml          | 2 +-
+>  Documentation/devicetree/bindings/net/can/can-controller.yaml | 2 +-
+>  .../devicetree/bindings/net/ethernet-controller.yaml          | 2 +-
+>  Documentation/devicetree/bindings/net/ethernet-phy.yaml       | 2 +-
+>  Documentation/devicetree/bindings/net/mdio.yaml               | 2 +-
+>  Documentation/devicetree/bindings/opp/opp-v2-base.yaml        | 2 +-
+>  .../devicetree/bindings/power/reset/restart-handler.yaml      | 2 +-
+>  Documentation/devicetree/bindings/rtc/rtc.yaml                | 2 +-
+>  .../devicetree/bindings/soundwire/soundwire-controller.yaml   | 2 +-
+>  Documentation/devicetree/bindings/spi/spi-controller.yaml     | 2 +-
+>  Documentation/devicetree/bindings/watchdog/watchdog.yaml      | 2 +-
+>  21 files changed, 23 insertions(+), 23 deletions(-)
+>=20
 
+[...]
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc.yaml
-> index 1ab416c83c8d..d2de3d128b73 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,gcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc.yaml
+> diff --git a/Documentation/devicetree/bindings/mtd/nand-chip.yaml b/Docum=
+entation/devicetree/bindings/mtd/nand-chip.yaml
+> index 97ac3a3fbb52..20b195ef9b70 100644
+> --- a/Documentation/devicetree/bindings/mtd/nand-chip.yaml
+> +++ b/Documentation/devicetree/bindings/mtd/nand-chip.yaml
 > @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/clock/qcom,gcc.yaml#
+>  $id: http://devicetree.org/schemas/mtd/nand-chip.yaml#
 >  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Qualcomm Global Clock & Reset Controller Common Bindings
-> +title: Qualcomm Global Clock & Reset Controller common parts
->  
+> =20
+> -title: NAND Chip and NAND Controller Generic Binding
+> +title: NAND Chip and NAND Controller common properties
+
+I only see this now but the title should be
+
+	"NAND chip common properties"
+
+> =20
 >  maintainers:
->    - Stephen Boyd <sboyd@kernel.org>
-
-
-> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-base.yaml b/Documentation/devicetree/bindings/opp/opp-v2-base.yaml
-> index cf9c2f7bddc2..20ac432dc683 100644
-> --- a/Documentation/devicetree/bindings/opp/opp-v2-base.yaml
-> +++ b/Documentation/devicetree/bindings/opp/opp-v2-base.yaml
+>    - Miquel Raynal <miquel.raynal@bootlin.com>
+> diff --git a/Documentation/devicetree/bindings/mtd/nand-controller.yaml b=
+/Documentation/devicetree/bindings/mtd/nand-controller.yaml
+> index 359a015d4e5a..a004efc42842 100644
+> --- a/Documentation/devicetree/bindings/mtd/nand-controller.yaml
+> +++ b/Documentation/devicetree/bindings/mtd/nand-controller.yaml
 > @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/opp/opp-v2-base.yaml#
+>  $id: http://devicetree.org/schemas/mtd/nand-controller.yaml#
 >  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Generic OPP (Operating Performance Points) Common Binding
-> +title: Generic OPP (Operating Performance Points) common parts
->  
->  maintainers:
->    - Viresh Kumar <viresh.kumar@linaro.org>
+> =20
+> -title: NAND Chip and NAND Controller Generic Binding
+> +title: NAND Chip and NAND Controller common properties
 
-Hey Krzysztof,
+And here just "NAND controller..."
 
-Hopefully I've not overlooked something obvious, but it wasnt noted in
-the commit message - how come these two are "parts" rather than
-"properties"? The opp one at least don't seem to have much more than
-properties and patterProperties in it.
+Of course the original purpose of your series is more to clean those
+titles rather than fixing them and if you disagree I am fine doing it
+myself aside, but if you could at the same time make the title more
+accurate that would be perfect.
 
-Thanks,
-Conor.
+Either ways:
 
+Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+
+Cheers,
+Miqu=C3=A8l

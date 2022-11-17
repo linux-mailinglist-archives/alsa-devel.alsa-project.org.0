@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDA962D975
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 12:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378E862D9CB
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 12:49:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CCA616BB;
-	Thu, 17 Nov 2022 12:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CCA616BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB971886;
+	Thu, 17 Nov 2022 12:48:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB971886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668684912;
-	bh=yMu6+GoFnl1mrIFFhTT3h7tPE+tEdM553AlyVAInMtU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1668685765;
+	bh=8hqDUOlFccqGwQGl9Wukt97CQepf0GZhn00KESa5/WY=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n1NJ0e/jRpxlyBUiV+hh+D9UXYWfSvfS3s0mGwsMW+iJriANiowMl6AWr0ne3KpKH
-	 CQagrACirRMdj1YacSrv/yYqZQ9l+neug2v5KBtiNUL04CItHdbd4WT2mC9Hc7+TeT
-	 OPDDXx7y2gbS597KYrjTfxz5pD441XWZynzZ21bs=
+	b=uMkW1viOBbCGG/X++SwFWe+VpdUpoXT/aGq5DU7D7c2l/Mm5SkRIUwzVg5oimJX03
+	 vvysx3lSt7DaUCMqZeSPXkYVJOxi+mQ19M6hECp5MQfnp7pLYhQTGmAXyCzSUwLBXb
+	 +yh+5spdP1FsXiG7X+aRVZjq96bKN+KK9iU3d30I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8D72F804BD;
-	Thu, 17 Nov 2022 12:34:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BAEBF804BD;
+	Thu, 17 Nov 2022 12:48:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 091BDF800B8; Thu, 17 Nov 2022 12:34:16 +0100 (CET)
+ id 17581F8025A; Thu, 17 Nov 2022 12:48:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98D1EF800B8
- for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 12:34:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98D1EF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D98FF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 12:48:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D98FF800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HdOniGdl"
+ header.b="iCIiLI9F"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9DCF161251;
- Thu, 17 Nov 2022 11:34:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E73C433D7;
- Thu, 17 Nov 2022 11:34:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1C5E3614E6;
+ Thu, 17 Nov 2022 11:48:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784B4C433D6;
+ Thu, 17 Nov 2022 11:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668684850;
- bh=yMu6+GoFnl1mrIFFhTT3h7tPE+tEdM553AlyVAInMtU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HdOniGdlwP8cyj9N71XQTfTLaJOTTLgOhFdmgU4B+ak6zjuXmZIs3qRCND30cYI5p
- LwUV6gPCiTQeVyEhetyAvPKo6HRrLedjPJdUZgIAj6VGVw1mLZPqTGIu1TIiXu/n15
- Pt2dhgSARtYkngniM6kN5WdFRICtscNIcNoA8Xg7qiYJ2aZxqiw/EpylvUU10nncSU
- 1a9VXdp7zAIdtQpJoYcC6HOGQTUKYY0WihJ7mwYs4b5dYsP1OvoTiwEdu9QUQyxqQw
- QmEWDn1h+Rdam4Y0+fPyop0vK7uYuO4/S2C+pmoHRvKzC0ffcLyngND8Rl6X+E5HJT
- vJE2Kq4p/UaOg==
-Date: Thu, 17 Nov 2022 11:34:06 +0000
+ s=k20201202; t=1668685705;
+ bh=8hqDUOlFccqGwQGl9Wukt97CQepf0GZhn00KESa5/WY=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=iCIiLI9FN2S8qq2r1+isOvr8QXea1XCuGP0VvNuPT+sFemUvWyXlT2XJ7mb67QjxU
+ 8gSh2epstObXVC1HTx/seJkdvTpIMSiD6ZLHzInd8AInAvhmx6CJsnguMT12tvSun/
+ VHyyoXCJK+HTitXbArprmInoyeRCos8QsV38BJRf5AonHky87FpxCahp8CrPanfNdh
+ Z8ZVF0QUDOZ2axzgc0cjxZVLOdwb2x2fP0g2nmYtIb7PpYh1ucWUMWzu+Jkad9JINW
+ KryAaTavrgck0iBJxCHdm9rtXLctJWgJAwHpoeyw/m1sFQ2skdRiB0VHZKF+Bg8+2T
+ N2nwH51U/zeKQ==
 From: Mark Brown <broonie@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH 01/11] ASoC: ak5386: switch to using gpiod API
-Message-ID: <Y3YcLulaebidYYsg@sirena.org.uk>
-References: <20221116053817.2929810-1-dmitry.torokhov@gmail.com>
- <Y3S9KzTE1/UQDmJl@sirena.org.uk> <Y3U1BJAPOJTLw/Zb@google.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, 
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20221109163759.1158837-1-krzysztof.kozlowski@linaro.org>
+References: <20221109163759.1158837-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: Shutdown on error path
+Message-Id: <166868570315.693995.134292755299481172.b4-ty@kernel.org>
+Date: Thu, 17 Nov 2022 11:48:23 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="QM8UBU9P046DRTWO"
-Content-Disposition: inline
-In-Reply-To: <Y3U1BJAPOJTLw/Zb@google.com>
-X-Cookie: Ego sum ens omnipotens.
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.11.0-dev-8af31
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,55 +89,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 9 Nov 2022 17:37:58 +0100, Krzysztof Kozlowski wrote:
+> If probe fails, toggle shutdown via GPIO to save power and reverse
+> probe actions.
+> 
+> 
 
---QM8UBU9P046DRTWO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Nov 16, 2022 at 11:07:48AM -0800, Dmitry Torokhov wrote:
-> On Wed, Nov 16, 2022 at 10:36:27AM +0000, Mark Brown wrote:
+   broonie/sound.git for-next
 
-> > How are we ensuring that people have described signals as active
-> > low/high in existing DTs, and are we positive that the signal is
-> > described as active low for all devices?  In particular if the
-> > signal is described as a reset signal then it's active high even
-> > if we want it low while the device is actually in use.
+Thanks!
 
-> I have been going through in-kernel DTSes and adjusting ones that are
-> incorrect. For external ones I think we should take a pragmatic approach
-> and say that if driver has last non-mechanical update in 2014 and there
-> are no users submitted to mainline since then (as this one), then it is
-> highly unlikely that devices currently using this component/codec will
-> be updated to the 6.2+ kernel even if they are still in service. And if
-> this does happen the breakage will be immediately obvious as we'll keep
-> the codec in reset state.
+[1/2] ASoC: codecs: wsa883x: Shutdown on error path
+      commit: 8e022387444bc5039a271fbf5a778551c4a1926b
+[2/2] ASoC: codecs: wsa883x: Simplify with dev_err_probe
+      commit: 6b6ab406cedaf70f58961d4ea82e88e65e721d06
 
-> But if you really want to I can add quirk(s) to gpiolib forcing this
-> line to be treated as active-low regardless of what specified in DTS.
-> This kind of negates benefit of going to gpiod though.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-That doesn't address the bit about checking that the device
-describes the signal as active low in hardware - it's assuming
-that the signal is described by the device as an active low
-reset and not for example as a shutdown signal.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-TBH I'm not thrilled about just randomly breaking ABI
-compatibility for neatness reasons, it's really not helping
-people take device tree ABI compatibility seriously.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---QM8UBU9P046DRTWO
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN2HC4ACgkQJNaLcl1U
-h9Dxfgf/ftYFUMW/ILTdWcqMEKVkYIa3+9VBKpQL0Aq9xN022wMz+ICsRHsAonCe
-fhG0ZfhhAvP4nkV+Ui6cxFdWM/vM0Or+OF1KnI8BsCoWkMpyDU7WahUXQ8HhjnUv
-RkKKkXG3K0jcYeh1yLB4p1miF1tt060Z09558aUHtnFto6vNOtE1VE56aI8TJvzo
-qAN33CB7jWe++RfqjI0hismVbCjTNxivk48+6qKzdjS4JsgoqGGqxMYqnJzBMbf5
-rUAM8yj6zH74WkWELWsv9ZlxCQ9CAEOWEeP4eWLFgQ1arngjeymdAVy04frQB+Dy
-Q1mfUHb1Sj+c6y7pgbHXtAOaX6CjWg==
-=EGgz
------END PGP SIGNATURE-----
-
---QM8UBU9P046DRTWO--
+Thanks,
+Mark

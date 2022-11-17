@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A0FB62D813
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 11:33:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0241862D936
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 12:17:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 843CE16B9;
-	Thu, 17 Nov 2022 11:32:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 843CE16B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C2771664;
+	Thu, 17 Nov 2022 12:16:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C2771664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668681209;
-	bh=CpdbmDBh5RulsmM2sjgVaOibIHHXUwZtdOLMVaFIP3s=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tMHw4GK/Wbu7w0zB5ru3KBfM73qAkimE0sF6tFR+UiyrovHuekbOmGilT68R6EPOU
-	 E2aEY26sFCzJlA8lw9CpHYW6Z5rxeEvjOmeRTSq0sQ3rnuY+fNdxEoxU1k9cukGp9s
-	 rnRXIx7WBt4jVJzkqEJHaYqhhMhszsgtilwpjeXk=
+	s=default; t=1668683838;
+	bh=UbtlAzJPAbyCBLrCQIuiLM3R7RR+FqwYGLJqDQdHx3g=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f2TjnD/l67JY0rhyuMmmXLJxBHxWTl0jqt2SlE5Gt/7iFVN6sQO8DyW83FzAsb18T
+	 DP/NnF9yf6OVZo0fuzfWscTOuMJE1PITVzxTuvJnaCYpSIkOctIyxyHP45uO6rEDvv
+	 IloVBVpoNqomRj+ZkhVDTqK8OGP5N+P8Df3LcdLQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F72FF804BD;
-	Thu, 17 Nov 2022 11:32:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CD83F8015B;
+	Thu, 17 Nov 2022 12:16:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BD69F8025A; Thu, 17 Nov 2022 11:32:32 +0100 (CET)
+ id A6A9EF8025A; Thu, 17 Nov 2022 12:16:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6025EF80087
+ for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 12:16:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6025EF80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cXmnZkeb"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 187E7F800B8;
- Thu, 17 Nov 2022 11:32:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 187E7F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WIdr9+EW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668681146; x=1700217146;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=CpdbmDBh5RulsmM2sjgVaOibIHHXUwZtdOLMVaFIP3s=;
- b=WIdr9+EWzxjRONM0rCUOR3wfreR4mV21dHkkQ5Gmu3Y1VU5+/i7xJezh
- OiAm/eoz+JV9wMHnTibKnEf4l1BFKROe3k8OYJBe67FpobBgS3iKWsn/B
- Qi4I3hmhl3w9KWwyXirIieYhT3ewV/J8N9D2x9Dfr9wRXtK2dpP05ADB1
- HQGJPVQ2SLXi5Bgapq241sdH/gGcgggQQPjLqtjvHnZ7nWSk+5RRZZzlR
- s3TakklFvcPbIZpoPX9IKgYx+ErqVKj2SInjm7geV1szt4dTndY89OmYj
- XgdS6dBtA+yKDHmdebw9q/MforUX1x0aFUI7ERSJIxfn5hg8jpvAiBDYE g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10533"; a="339642370"
-X-IronPort-AV: E=Sophos;i="5.96,171,1665471600"; d="scan'208";a="339642370"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2022 02:32:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10533"; a="764711982"
-X-IronPort-AV: E=Sophos;i="5.96,171,1665471600"; d="scan'208";a="764711982"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 17 Nov 2022 02:32:01 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id E866810E; Thu, 17 Nov 2022 12:32:25 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jyri Sarha <jyri.sarha@intel.com>, sound-open-firmware@alsa-project.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/1] ASoC: SOF: probes: Check ops before memory allocation
-Date: Thu, 17 Nov 2022 12:32:23 +0200
-Message-Id: <20221117103223.74425-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 47C1361156;
+ Thu, 17 Nov 2022 11:16:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6984C433D6;
+ Thu, 17 Nov 2022 11:16:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668683777;
+ bh=UbtlAzJPAbyCBLrCQIuiLM3R7RR+FqwYGLJqDQdHx3g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cXmnZkebVq2Q5BVvaknrum0j1QucNUcaYYMQzMEgSvf/sFLfK8g9teVPmGo1U1I5D
+ PaoJnYKybztP1/UWXNSwu97vgd2hTPB2YmHHH8tS0JTIA6+w6CwuOwI0msiFTlG8ZP
+ PMu6mNQg0SruT8TZlzg37Chgh0U5Oujtw/Jf/svs+R68CuJAJus43sBEdxGpLAeSHp
+ MDNmxmFB6TGsqDXwdhU6z3CSMi8dshDV/EuvEkej3MVF/zQz+gEFVuYoAZ9BfC3nwP
+ 146Zv+mEn9Rs7uP13a8sOO5UUp4ovzfejHKgP0Qfdlxni+iKlxmRpSKwEH+JBfVXSu
+ AJLB4v8kYlTdg==
+Date: Thu, 17 Nov 2022 11:16:12 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Gaosheng Cui <cuigaosheng1@huawei.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Fix possible UAF in acp_dma_open
+Message-ID: <Y3YX/LsLzSU+jQ7A@sirena.org.uk>
+References: <20221117061248.3018292-1-cuigaosheng1@huawei.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wmfLO9kw4EF5zp/Z"
+Content-Disposition: inline
+In-Reply-To: <20221117061248.3018292-1-cuigaosheng1@huawei.com>
+X-Cookie: Ego sum ens omnipotens.
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ error27@gmail.com, AjitKumar.Pandey@amd.com, venkataprasad.potturu@amd.com,
+ tiwai@suse.com, lgirdwood@gmail.com, nathan@kernel.org,
+ Vijendar.Mukunda@amd.com, Vsujithkumar.Reddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,48 +89,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We may check ops before spending resources on memory allocation.
-While at it, utilize dev_get_platdata() helper.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- sound/soc/sof/sof-client-probes.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+--wmfLO9kw4EF5zp/Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
-index d08395182b1a..fff126808bc0 100644
---- a/sound/soc/sof/sof-client-probes.c
-+++ b/sound/soc/sof/sof-client-probes.c
-@@ -399,23 +399,21 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
- 	if (!sof_probes_enabled)
- 		return -ENXIO;
- 
--	if (!dev->platform_data) {
-+	ops = dev_get_platdata(dev);
-+	if (!ops) {
- 		dev_err(dev, "missing platform data\n");
- 		return -ENODEV;
- 	}
--
--	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return -ENOMEM;
--
--	ops = dev->platform_data;
--
- 	if (!ops->startup || !ops->shutdown || !ops->set_params || !ops->trigger ||
- 	    !ops->pointer) {
- 		dev_err(dev, "missing platform callback(s)\n");
- 		return -ENODEV;
- 	}
- 
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
- 	priv->host_ops = ops;
- 
- 	switch (sof_client_get_ipc_type(cdev)) {
--- 
-2.35.1
+On Thu, Nov 17, 2022 at 02:12:48PM +0800, Gaosheng Cui wrote:
+> Smatch report warning as follows:
+>=20
+> sound/soc/amd/acp/acp-platform.c:199 acp_dma_open() warn:
+>   '&stream->list' not removed from list
+>=20
+> If snd_pcm_hw_constraint_integer() fails in acp_dma_open(),
+> stream will be freed, but stream->list will not be removed from
+> adata->stream_list, then list traversal may cause UAF.
 
+Is it not better to only add the newly allocated stream to the
+list once it's fully initialised?  Otherwise something could be
+using a partially initialised item from the list.
+
+--wmfLO9kw4EF5zp/Z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN2F/wACgkQJNaLcl1U
+h9By+gf+JZcE1iHvO34bBoUdksPwdDquk7sQ3MEu5fmyN99sv4k/PUIHJ4HI4B1z
+G62ZgkCh9pj0imtl0xRroQ8qz50lGuDTaRvRyBbV7TWj8QDKNs6PfwsMk7vXtNnO
+o1CW+JiKmtdpbPKxrUIBdmyW6N13F+7JScEZxmvfP+TSq2Q5Q1ByKeyY0Fntf9fc
+M3+drrHP8m1jKxjje7zCRPCpbgxaK/AP/aFes+7+ASuETXUD3TTn4Bulkh2DHVfo
+CdsWZl2I6lFvlLR9rEmtW9vI4Lu2+7lS3Ap4Uhh6KC+gKZ8ud7b5NST5ANvt9vrX
+mZWYWvxAyzm/WJAl11GJNFTAby6HWw==
+=F+xV
+-----END PGP SIGNATURE-----
+
+--wmfLO9kw4EF5zp/Z--

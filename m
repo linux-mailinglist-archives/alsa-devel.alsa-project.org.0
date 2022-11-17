@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D71630D7A
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:47:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB419630D7B
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:47:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D695166C;
-	Sat, 19 Nov 2022 09:46:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D695166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 496D01689;
+	Sat, 19 Nov 2022 09:46:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 496D01689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668847640;
-	bh=ATw2yNmVsEcluIaPxudzREqhA2YG7cDb/cK3JF6xp3I=;
+	s=default; t=1668847653;
+	bh=Tj7FgrjwNLjFzuEW7XbcsZx/+BVJcx/s+du/ISvkKpg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o5IarzY//QTKHnwqRgc2x7IE9lhtghku8nkIAX5kl/A1PzNgs5EYWa4GMwRcLIBbX
-	 92HDMIOHTTvYxNlKVm3k6ii+xL56FxfICoPG8UEmtdVbwkLIvWupp0bQPnGWABPQxx
-	 VMd+oO5aoIkkgUatU3sp+lZ0RCbvh9b+2SIvyo2g=
+	b=VF5H6ckNnuAi3LyL9GtiV+Q8r98MSYXchw0/neNgcQyzTZoZCIF7lE8vRpoxolfRt
+	 cWCciUagmAl3uF0iE1ixyXlSpDSwNBfQwHZzJjyvGC7odA69+CuDgrOxTQZC06ULAF
+	 Y1BFKYJk64TWzv3qnYb0EgKs9aGYdubOAmHgy0t4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 343D1F805EB;
+	by alsa1.perex.cz (Postfix) with ESMTP id B9B93F805EF;
 	Sat, 19 Nov 2022 09:40:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5065CF800B8; Thu, 17 Nov 2022 16:59:05 +0100 (CET)
+ id 7974CF8025A; Thu, 17 Nov 2022 17:02:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -35,29 +35,29 @@ Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C7CCF800B8
- for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 16:58:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C7CCF800B8
-Received: from frapeml500006.china.huawei.com (unknown [172.18.147.201])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4NCkxL2vgnz67FVn;
- Thu, 17 Nov 2022 23:54:14 +0800 (CST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6FD8F800B8
+ for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 17:01:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6FD8F800B8
+Received: from frapeml100003.china.huawei.com (unknown [172.18.147.201])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4NCl3S1NS9z6H7Rh;
+ Thu, 17 Nov 2022 23:59:32 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (7.191.163.240) by
- frapeml500006.china.huawei.com (7.182.85.219) with Microsoft SMTP Server
+ frapeml100003.china.huawei.com (7.182.85.60) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 17 Nov 2022 16:58:57 +0100
+ 15.1.2375.31; Thu, 17 Nov 2022 17:01:58 +0100
 Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
  (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 17 Nov
- 2022 15:58:56 +0000
-Date: Thu, 17 Nov 2022 15:58:55 +0000
+ 2022 16:01:57 +0000
+Date: Thu, 17 Nov 2022 16:01:56 +0000
 From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [RFC PATCH 5/9] dt-bindings: drop redundant part of title (end,
- part two)
-Message-ID: <20221117155855.000066f7@Huawei.com>
-In-Reply-To: <20221117123850.368213-6-krzysztof.kozlowski@linaro.org>
+Subject: Re: [RFC PATCH 7/9] dt-bindings: drop redundant part of title
+ (beginning)
+Message-ID: <20221117160156.00004e31@Huawei.com>
+In-Reply-To: <20221117123850.368213-8-krzysztof.kozlowski@linaro.org>
 References: <20221117123850.368213-1-krzysztof.kozlowski@linaro.org>
- <20221117123850.368213-6-krzysztof.kozlowski@linaro.org>
+ <20221117123850.368213-8-krzysztof.kozlowski@linaro.org>
 Organization: Huawei Technologies Research and Development (UK) Ltd.
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
@@ -99,39 +99,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Nov 2022 13:38:46 +0100
+On Thu, 17 Nov 2022 13:38:48 +0100
 Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 
 > The Devicetree bindings document does not have to say in the title that
-> it is a "binding", but instead just describe the hardware.
+> it is a "Devicetree binding", but instead just describe the hardware.
 > 
-> Drop trailing "Node|Tree|Generic bindings" in various forms (also with
-> trailling full stop):
-> 
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -not -name 'trivial-devices.yaml' \
->     -exec sed -i -e 's/^title: \(.*\) [nN]ode [bB]indings\?\.\?$/title: \1/' {} \;
+> Drop beginning "Devicetree bindings" in various forms:
 > 
 >   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -not -name 'trivial-devices.yaml' \
->     -exec sed -i -e 's/^title: \(.*\) [tT]ree [bB]indings\?\.\?$/title: \1/' {} \;
+>     -exec sed -i -e 's/^title: [dD]evice[ -]\?[tT]ree [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
 > 
 >   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -not -name 'trivial-devices.yaml' \
->     -exec sed -i -e 's/^title: \(.*\) [gG]eneric [bB]indings\?\.\?$/title: \1/' {} \;
+>     -exec sed -i -e 's/^title: [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
 > 
 >   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -not -name 'trivial-devices.yaml' \
->     -exec sed -i -e 's/^title: \(.*\) [bB]indings\? description\.\?$/title: \1/' {} \;
-> 
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -not -name 'trivial-devices.yaml' \
->     -exec sed -i -e 's/^title: \(.*\) [bB]indings\? document\.\?$/title: \1/' {} \;
+>     -exec sed -i -e 's/^title: [dD][tT] [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-FWIW eyeballed these as well and all look good to me.
+LGTM
 
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+
+Oh for consistent capitalization though ;)
 
 

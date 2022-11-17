@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C5362DCF1
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 14:38:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0281662DDC4
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Nov 2022 15:18:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 892B01654;
-	Thu, 17 Nov 2022 14:37:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892B01654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FB1416C7;
+	Thu, 17 Nov 2022 15:17:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FB1416C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668692302;
-	bh=S2LL1Qvk1qH+6CRpB+yCup1YqVOGXcciNvz60LpQwfM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LzftYJeci38fr1/FbhtpWig91vpDRIW2itq4BSlTEd+3oC+hudbMy0FmrNkp2HDbo
-	 3safVvODbA3C6P4hkRiOy9OUVfXs/xsEcMBVqjQAUTcYCeUlDanEXANjUqS93xJeX3
-	 BSHIHyKLe9i3710WmRmgxgGZyDY1T9SVeQEQGkf4=
+	s=default; t=1668694712;
+	bh=DivBrh1knm07fQhGcg7hgDZo++XNwmFETbJAcY+qXSo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GdFvKH1hv0YD5OGyZL/D63Yegane7QM/85HvAA3JCeFjaMun/v6mSAU/l4LPl+Spl
+	 IVm+YH63nvEmtASHZwjEr2NNew9Q3DevcnaPYXaKIaKAlYv6oSXsCHsThPH/CfrEnZ
+	 NYtll0zk3rYldN0rmt3IyoNoXYjktzWpoan5AoM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F7C2F8051D;
-	Thu, 17 Nov 2022 14:37:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0325EF800B5;
+	Thu, 17 Nov 2022 15:17:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 939EBF8025A; Thu, 17 Nov 2022 14:37:23 +0100 (CET)
+ id 6F36BF8051D; Thu, 17 Nov 2022 15:17:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58BA1F80087;
- Thu, 17 Nov 2022 14:37:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58BA1F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 184CDF800B5
+ for <alsa-devel@alsa-project.org>; Thu, 17 Nov 2022 15:17:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 184CDF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mzvQrd+U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668692237; x=1700228237;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=S2LL1Qvk1qH+6CRpB+yCup1YqVOGXcciNvz60LpQwfM=;
- b=mzvQrd+UXA43OKPuFa+29moyTf9z+OIdVWSzRJFFZnDHL7A0CMKXHPOE
- 4SyWCKTZ24GZxFPM2sfkgUztRyiRUsG48jBgraNpkTXylnBBxVMUcoD3g
- ygTbYdqywOvpxh5yoPb5ALR7blIUrmX8bgH/q4vuPLFr/qYiyEK+PVbNo
- 38/q2fZcZgYrf15FIcp6Ml38FotFqLUtu0AxZApH+l5Aq5B8n08fpheCM
- D3cRrrk+hfR+gylQG+WFzsicKD1lkTV9qcRrXgKA3T4GPFOBPpgePz4nE
- 1yPI1sfJ6r1pB56olj6rZFMeLAnN+1p73rj4/CuLb6J6BvgnOHtnFopEW Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="311554628"
-X-IronPort-AV: E=Sophos;i="5.96,171,1665471600"; d="scan'208";a="311554628"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2022 05:37:13 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="590622508"
-X-IronPort-AV: E=Sophos;i="5.96,171,1665471600"; d="scan'208";a="590622508"
-Received: from crequinx-mobl1.ger.corp.intel.com (HELO [10.252.19.12])
- ([10.252.19.12])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2022 05:37:09 -0800
-Message-ID: <4942f328-8bb6-9880-8901-0cae5ca73873@linux.intel.com>
-Date: Thu, 17 Nov 2022 15:37:41 +0200
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="OLvFHa3m"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AHEHLJX006137; Thu, 17 Nov 2022 08:17:30 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=9yEHp/egchWRfHPnT1xfyvIZ2mplZmfmfcqa1wi4iyI=;
+ b=OLvFHa3mhy1anDktf9WTk24BAR4+pwMUMpySk914z0E4QI9xTislS7qibaipa7fOx/ZS
+ ovPCwnGSmAMK1/N4DR2RKVRR4RIBLnJQh0Tjp4f2VmRPkPWRDA/sV8t0zQWxWNfFBDAU
+ LNg+/vkH0KDlJDXDJrFsdXVSavhFWNzvA91mTvCS/x02c2myIrmsnGpgLocsICtizs3+
+ IjeIVrVFXaG+AzSIqb/0uzmDvpKf5mbx6Ct7Bn8yZGJ/wSxr3xKWc+QYsLcE0qnXmDiq
+ ilOwDxgc0QmxafVGX21ABvIbkL7fhZ1hl7mIgppSXzFjPVg8tlvpjO27cUdvH7n0GjpI WA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kv73yk9j9-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 17 Nov 2022 08:17:30 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Thu, 17 Nov
+ 2022 08:17:27 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
+ Frontend Transport; Thu, 17 Nov 2022 08:17:27 -0600
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA1D3478;
+ Thu, 17 Nov 2022 14:17:27 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <vkoul@kernel.org>
+Subject: [PATCH v2 0/4] Minor SoundWire clean ups
+Date: Thu, 17 Nov 2022 14:17:23 +0000
+Message-ID: <20221117141727.3031503-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v1 1/1] ASoC: SOF: probes: Check ops before memory
- allocation
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jyri Sarha <jyri.sarha@intel.com>, sound-open-firmware@alsa-project.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20221117103223.74425-1-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20221117103223.74425-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: dOSossOFU5T-aHQuMsYooKw9VR_n5awR
+X-Proofpoint-GUID: dOSossOFU5T-aHQuMsYooKw9VR_n5awR
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,56 +97,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Just some minor tidy ups and preparation for starting to upstream some
+Cirrus SoundWire devices. The first three patches are pretty trivial,
+the last patch which moves the remaining core over to using the no_pm
+functions could probably use some careful review.
 
+Changes since v1:
+ - Update commit message on the debugfs to more explicitly mention the
+   PM runtime reference, rather than implying the PM would turn on/off
+   each time.
+ - Added some reviewed by's
 
-On 17/11/2022 12:32, Andy Shevchenko wrote:
-> We may check ops before spending resources on memory allocation.
+Thanks,
+Charles
 
-we might.
+Charles Keepax (3):
+  soundwire: Provide build stubs for common functions
+  soundwire: debugfs: Switch to sdw_read_no_pm
+  soundwire: stream: Move remaining register accesses over to no_pm
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Simon Trimmer (1):
+  soundwire: bus: export sdw_nwrite_no_pm and sdw_nread_no_pm functions
 
-> While at it, utilize dev_get_platdata() helper.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  sound/soc/sof/sof-client-probes.c | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
-> index d08395182b1a..fff126808bc0 100644
-> --- a/sound/soc/sof/sof-client-probes.c
-> +++ b/sound/soc/sof/sof-client-probes.c
-> @@ -399,23 +399,21 @@ static int sof_probes_client_probe(struct auxiliary_device *auxdev,
->  	if (!sof_probes_enabled)
->  		return -ENXIO;
->  
-> -	if (!dev->platform_data) {
-> +	ops = dev_get_platdata(dev);
-> +	if (!ops) {
->  		dev_err(dev, "missing platform data\n");
->  		return -ENODEV;
->  	}
-> -
-> -	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> -	if (!priv)
-> -		return -ENOMEM;
-> -
-> -	ops = dev->platform_data;
-> -
->  	if (!ops->startup || !ops->shutdown || !ops->set_params || !ops->trigger ||
->  	    !ops->pointer) {
->  		dev_err(dev, "missing platform callback(s)\n");
->  		return -ENODEV;
->  	}
->  
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
->  	priv->host_ops = ops;
->  
->  	switch (sof_client_get_ipc_type(cdev)) {
+ drivers/soundwire/bus.c       | 10 ++--
+ drivers/soundwire/debugfs.c   | 11 +++-
+ drivers/soundwire/stream.c    | 30 +++++------
+ include/linux/soundwire/sdw.h | 94 +++++++++++++++++++++++++++++++----
+ 4 files changed, 114 insertions(+), 31 deletions(-)
 
 -- 
-Péter
+2.30.2
+

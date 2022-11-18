@@ -2,101 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F19A630295
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 00:02:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E74F263032D
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 00:24:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB27E16D4;
-	Sat, 19 Nov 2022 00:01:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB27E16D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75AC41680;
+	Sat, 19 Nov 2022 00:24:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75AC41680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668812537;
-	bh=aVnOcZRo/lKq18VoXGyYbZctL9KKp/KChMjlIzFf+v0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GONkvZgtHOaGd+5/5u482Uds2jki0g+Xi1kX7q2We3WchVd8jjFQPr5C04MYfFfRo
-	 MTMMjP5ahTCWpUMESQGidxalVP3ACMncvX1XHrYE36Z3ODsXClA+mfs4nkicu4qT8Z
-	 qtvx90CFQbI/7XifQRww9mr9FH3wkb2xCW40YIy8=
+	s=default; t=1668813899;
+	bh=LT8LvayoodyeGcJJmotl0W7abaTXyRbApRilntoVIaM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ifj4gonAtJsdJxl4V/ex2bx4EqEx6Emx8fPdlilsUuPPdbGvyeSfONVWDAzKLHJV0
+	 h53GHN7aGD3c1rTYy7TTlKEeR9/QwoUiAsFDCDUQ4vt21VQuxhO4SmxtmUDTCk9kOF
+	 l7x6+EaXHpeZ/sivyHN8czkSyAqQBnukzOPyL79E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F10BF800FD;
-	Sat, 19 Nov 2022 00:01:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E87CAF800B8;
+	Sat, 19 Nov 2022 00:24:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5CC9F801D8; Sat, 19 Nov 2022 00:01:20 +0100 (CET)
+ id 60655F801D8; Sat, 19 Nov 2022 00:24:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1EC7F800FD
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 00:01:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1EC7F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id D24F9F800FD
+ for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 00:23:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D24F9F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=flatmax-com.20210112.gappssmtp.com
- header.i=@flatmax-com.20210112.gappssmtp.com header.b="jCNJD4bx"
-Received: by mail-pj1-x102d.google.com with SMTP id o7so5738425pjj.1
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 15:01:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flatmax-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Jeg5OPbcU8Um2n3zzZ8ZeF9Qwca653OFnBoiSDNreoU=;
- b=jCNJD4bxBXoCXfG8DydsvITI5IlXvVpTpnrkGNFZawmCwvS2ZrwWB4Wf6zb+WDzMeX
- xcvnxHhjYt/XM0EvmLuFLhsQ4wJCuEQwA3QkYC4uCLRBWz6Yn0VakY0fSUUEu42Roovz
- FztGlZfDJjISJmGtoaknWeACdznB9bKZeNbo3W0+7eQmxPmSQszj+p9rVR1uuqamXj7x
- L2I6/5A8WKwo4LXOFXskapC6KygVCKGe7jLeANfnLKlTksH6JCmkuan0R3MHH9bJfTUE
- MHwl0hXqnvg0MetsN2GRsff/sQBkup8vsN3dGmx6oszthoWzPqi59uf6vvp1nvb5Rhw1
- tgPg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="NFSHO2ZS"
+Received: by mail-pl1-x632.google.com with SMTP id j12so5857724plj.5
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 15:23:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=iXVai3qFJ8ArPGICNTEIcWXEgGfS3utWJbObwOpoeVU=;
+ b=NFSHO2ZSUb7w5MpWfNQrsU6nV0aGbmYOYqFMaJCHcOg3hTAKqC5IykbTpcmUt3u6Lv
+ 6eDmhrGA8AAvTeKdSzoVKbV8EbdQ6Ut0tRnph4lQ+iKQaHrc3CmGHkcgGJ3FJJP1u4ma
+ r16CmGxHUb+rqEorMytkj4G5ymQJbwaIyVGgw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Jeg5OPbcU8Um2n3zzZ8ZeF9Qwca653OFnBoiSDNreoU=;
- b=AH5LsBsv9gIVEsR+hl2yvwkjwOE56yl0nQTDxsU5/TlzjChgTkjDeVw/tSW89M0Q38
- j+wZpvch5iamZIMG0MWKsLVyam1tQ/KG5Gg9lJjlvhM//wB07YaUMPWPGt+weec+d8pu
- Ku/AqVavqKDy1UYOfWZtKRCgCan2y+9PPJxBoGBGt0mm5OhS2dkW+Jqi/mUnZs0FXsTg
- I0vF4SFzMiIO06O/dJLCqtm6qh8Y1i+mwBgtG4tTdQ7ztWIwPl+8DsdldS2pXDVq0YC5
- br5FYeCTL8MSgParM5p0mDEPNeawYN+dbKa5ayBmakHJYfT7LH/PMEB7vR9tpEQ7TYQr
- DEKw==
-X-Gm-Message-State: ANoB5pmgqaiPbwtPkqAQ0E66PiwuZbuCi6gg4dem6d6yYQvdeJOX3mDr
- FGTgXPfgJOugfaW2VMtBlmOuUA==
-X-Google-Smtp-Source: AA0mqf7ynBarcnD4LPeA+XPoRO3UNn4nstk3Sm2a7p0+99ICAzmWZ1OZ9laAvn2SyrvJ4EOFWN101g==
-X-Received: by 2002:a17:90b:4d0b:b0:214:1329:dec7 with SMTP id
- mw11-20020a17090b4d0b00b002141329dec7mr15978573pjb.91.1668812472181; 
- Fri, 18 Nov 2022 15:01:12 -0800 (PST)
-Received: from ?IPV6:2406:3400:213:70c0:9df6:7e57:88ce:1bea?
- ([2406:3400:213:70c0:9df6:7e57:88ce:1bea])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iXVai3qFJ8ArPGICNTEIcWXEgGfS3utWJbObwOpoeVU=;
+ b=gBIlLBh6qmK9ZgaSZ1sxN8Cwt2UEGSVr94ai/wSgm6obZ3Z8oXvx5HbJuGkiJTnstl
+ gPqNcwGkHyxCnJpAfArw0pBSwl8WdoJ+LO2zFV63Huvp3lYCplTZCmCZ4sj6C/c2LGe2
+ uBQz1QeS1zoFKeXxXFrFHF10PWPQa1M+w0gbVIQZ03XqY/cjGutEFLwYfXsoevidzSrZ
+ ussZJIRGqg/p40pGGl8OvBlqidte7bDoWXoPyIVONrGJEQLid4gMJFygFDHeiulxEIz+
+ c8NwgShvr5QbioYwxgJabYSQM+C8UaC/wyWgtyG8DlxkH+10N5kxm45fz4OfIrmyFWHe
+ AKKA==
+X-Gm-Message-State: ANoB5pnh1GfA3tMpu4kqdJNPa0pU3Vif2blilvQtM+i+FUFUI/2iYPSj
+ ehgt1lnaj1drt9K6+DRzy/pQR+SrHlxP0Q==
+X-Google-Smtp-Source: AA0mqf462QZsPtBpPocdQx/0dVxSHHjjHXfgSRPni9vR4Gor5GuDpiFouzua+89j8xLUx81aVbqNJw==
+X-Received: by 2002:a17:90a:6547:b0:213:d08f:a483 with SMTP id
+ f7-20020a17090a654700b00213d08fa483mr9914547pjs.21.1668813833817; 
+ Fri, 18 Nov 2022 15:23:53 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- u71-20020a62794a000000b00562019b961asm3696850pfc.188.2022.11.18.15.01.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Nov 2022 15:01:11 -0800 (PST)
-Message-ID: <6f431abb-356c-b057-2784-6b5f165a2a2d@flatmax.com>
-Date: Sat, 19 Nov 2022 10:01:07 +1100
+ t8-20020a1709027fc800b00186c37270f6sm4294533plb.24.2022.11.18.15.23.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Nov 2022 15:23:53 -0800 (PST)
+From: Kees Cook <keescook@chromium.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: seq: Fix function prototype mismatch in
+ snd_seq_expand_var_event
+Date: Fri, 18 Nov 2022 15:23:50 -0800
+Message-Id: <20221118232346.never.380-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 603/606] ASoC: codecs: src4xxx-i2c: Convert to i2c's
- .probe_new()
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <uwe@kleine-koenig.org>,
- Mark Brown <broonie@kernel.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
- <20221118224540.619276-604-uwe@kleine-koenig.org>
-Content-Language: en-AU
-From: Matt Flax <flatmax@flatmax.com>
-In-Reply-To: <20221118224540.619276-604-uwe@kleine-koenig.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2388; h=from:subject:message-id;
+ bh=LT8LvayoodyeGcJJmotl0W7abaTXyRbApRilntoVIaM=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBjeBQGxl97XSZ/V131zxWG6VCVlDXD5V6MNXIDGf3M
+ dU2HgY2JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCY3gUBgAKCRCJcvTf3G3AJpNYD/
+ 970LXJu9T/r8J1MdqoqIR+muUaph3v/3r/JnVdIrugZjYUdZroQAGmvpKjF0NaevA5Rz+pYN8ejlBj
+ QCPPFn5ld4zzw7miWLwRD05VvEonWs3fDK6yDqlRABnzMMa9TT0lLFvtxsLxoBMT5s9qf//qz59Q4C
+ kJlTlPyMuRoTP6U3rbnw5ZbjkL1XWiQCUtIds/ZuIZk+lZU8qDtP0jBWfl2GpVsvXReyulyp7AkqbL
+ pv+uGEb/ka/nhxaU7+4bse+EhIbJZ6d4hfuwkwjv6eAgbXjPV0cNc6D9/dKU2W7cvi6bD6bwwY9Z1F
+ kHfxdJvYbQ+B+MTlG3O2mqN22daWBExivwMVg0gqOIyyUle1c4UceAT9IPZXOO5Ytvb3sHAdi3FySz
+ riUxg7OnQoqX4ZuaEAiRtaeIKXp71OaAM2dSFQfZBwB0EkiG+fC5uN3Cs4g0nRt+irHwt1KKCnF/I9
+ owyMxTCpvATaqHdA3h+cfpn9xjWayAWEFTkd1duwlgCx9gT72iAKCzpDSaVEY1pzHHI+Ln3obru+it
+ k9bsAVVu6S6l/VCU9Ul5sP6yxcHNx/SCeproJkeKDuNgk42tk8FP0RNs9P4BNVvqwszpuwfSwHuLqM
+ exJ4TGIXwDqUUOs4vVncpMokhUYJqkBaLE55d9yYRqhWomued0koClDyDE1A==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-i2c@vger.kernel.org,
- kernel@pengutronix.de, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Kees Cook <keescook@chromium.org>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,39 +117,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Reviewed-by: Matt Flax <flatmax@flatmax.com>
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed.
 
-On 19/11/22 09:45, Uwe Kleine-König wrote:
-> From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
->
-> The probe function doesn't make use of the i2c_device_id * parameter so it
-> can be trivially converted.
->
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-> ---
->   sound/soc/codecs/src4xxx-i2c.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/sound/soc/codecs/src4xxx-i2c.c b/sound/soc/codecs/src4xxx-i2c.c
-> index 43daa9dc8ab5..27026030704a 100644
-> --- a/sound/soc/codecs/src4xxx-i2c.c
-> +++ b/sound/soc/codecs/src4xxx-i2c.c
-> @@ -12,8 +12,7 @@
->   
->   #include "src4xxx.h"
->   
-> -static int src4xxx_i2c_probe(struct i2c_client *i2c,
-> -			const struct i2c_device_id *id)
-> +static int src4xxx_i2c_probe(struct i2c_client *i2c)
->   {
->   	return src4xxx_probe(&i2c->dev,
->   		devm_regmap_init_i2c(i2c, &src4xxx_regmap_config), NULL);
-> @@ -37,7 +36,7 @@ static struct i2c_driver src4xxx_i2c_driver = {
->   		.name = "src4xxx",
->   		.of_match_table = of_match_ptr(src4xxx_of_match),
->   	},
-> -	.probe = src4xxx_i2c_probe,
-> +	.probe_new = src4xxx_i2c_probe,
->   	.id_table = src4xxx_i2c_ids,
->   };
->   module_i2c_driver(src4xxx_i2c_driver);
+seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
+matching snd_seq_dump_func_t. Adjust this and remove the casts. There
+are not resulting binary output differences.
+
+This was found as a result of Clang's new -Wcast-function-type-strict
+flag, which is more sensitive than the simpler -Wcast-function-type,
+which only checks for type width mismatches.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ sound/core/seq/seq_memory.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
+index b7aee23fc387..47ef6bc30c0e 100644
+--- a/sound/core/seq/seq_memory.c
++++ b/sound/core/seq/seq_memory.c
+@@ -113,15 +113,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
+  * expand the variable length event to linear buffer space.
+  */
+ 
+-static int seq_copy_in_kernel(char **bufptr, const void *src, int size)
++static int seq_copy_in_kernel(void *ptr, void *src, int size)
+ {
++	char **bufptr = ptr;
++
+ 	memcpy(*bufptr, src, size);
+ 	*bufptr += size;
+ 	return 0;
+ }
+ 
+-static int seq_copy_in_user(char __user **bufptr, const void *src, int size)
++static int seq_copy_in_user(void *ptr, void *src, int size)
+ {
++	char __user **bufptr = ptr;
++
+ 	if (copy_to_user(*bufptr, src, size))
+ 		return -EFAULT;
+ 	*bufptr += size;
+@@ -151,8 +155,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+ 		return newlen;
+ 	}
+ 	err = snd_seq_dump_var_event(event,
+-				     in_kernel ? (snd_seq_dump_func_t)seq_copy_in_kernel :
+-				     (snd_seq_dump_func_t)seq_copy_in_user,
++				     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
+ 				     &buf);
+ 	return err < 0 ? err : newlen;
+ }
+-- 
+2.34.1
+

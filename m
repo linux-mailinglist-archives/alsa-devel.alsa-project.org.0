@@ -2,76 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD9362F93D
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 16:26:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A13A62F974
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 16:40:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A50116AB;
-	Fri, 18 Nov 2022 16:25:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A50116AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30C17167D;
+	Fri, 18 Nov 2022 16:39:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30C17167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668785209;
-	bh=/XzbCsA/7MpvokWg1tz3z62uDOQXn3+sAi9aw/PhfKc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1668786022;
+	bh=iz4McvZM/E2o496nT649orB1f9ZWyItmYXL8nqRS8Ok=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M2owv5U5wR3CnRYkl3Anx5jrFYturH64hdAB6uSbfbjlP8XZw4S3mT7VLgNf5wE7c
-	 plJkHGYwpZmhgNJJpZ3dsJb+EjUs7d0e5XsA4gvXd/qwPGmG7Ot7WqGzqwh4nEzQrC
-	 lOp8nO5/LDFZvzAFZ4YCA+IBi3/XebhKpFrdmbp4=
+	b=gF5JRSucB4XcLTAfHQR9UClxWQxA+8dmE7MidjClhsCrGoksbPCzjqvVVbQSRf6u7
+	 U5cxASBDEQ9qi2wxwLfPjURHt8Zk5J5wrL2AwS0nX8xELTCIsRj12dNmR1Qqew/7kV
+	 20UaGyC9bto0p7oOLustWTMXLyStW/BdC06A/zLs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFE67F804AC;
-	Fri, 18 Nov 2022 16:25:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D82BDF8020D;
+	Fri, 18 Nov 2022 16:39:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03CF6F8020D; Fri, 18 Nov 2022 16:25:28 +0100 (CET)
+ id 0E14AF801D8; Fri, 18 Nov 2022 16:39:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2535F801D8
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 16:25:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2535F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A396F800B5
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 16:39:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A396F800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dbBUKYLv"
+ header.b="s0ioyr4/"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 358B4B82434;
- Fri, 18 Nov 2022 15:25:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C41C433D6;
- Fri, 18 Nov 2022 15:25:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 76291625E4;
+ Fri, 18 Nov 2022 15:39:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A944C433D6;
+ Fri, 18 Nov 2022 15:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668785122;
- bh=/XzbCsA/7MpvokWg1tz3z62uDOQXn3+sAi9aw/PhfKc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=dbBUKYLv4Y4eooasqNx1u0FhrLnsEPKatambdbtxQC+2TDsNQjY+5EZG+4h3vD4BU
- 70URA/sTXSSq912Qc751zv6Uu3WDc0JFqighqK1aUn7k5/EuDe8YjUZ09t0ReqDNgT
- nrw5kVVw5nVa+m1DhpYW6gS+IoQRBAk16HERAts3d6TMEkduWCmcyODAfBhDSQyhGY
- TC6FbyPmoFjxXEKQCkZC3nriPGU8laMWu0uV/qDg2anzpeqGkwIQXJlB6bi10cwH4F
- GMlR7y/L9R3v7Hpg4kxCIXNg/5TyIdzWZo9tKPDL+ZS9NRVoQE9TMTd2llWcWcQqxr
- ZwrQZ9YxYDDdA==
+ s=k20201202; t=1668785954;
+ bh=iz4McvZM/E2o496nT649orB1f9ZWyItmYXL8nqRS8Ok=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=s0ioyr4/BLSd6K9vPXPkioUu+r6OHx2WyltYbPuQuV9D3I5ajp32xVnU0/JBAi4ak
+ SgOgmftikuBKUn2fBPm6Vsx1LnnUBEeU7iy8GkwO1OqFTtt70zO0sm4pQslPloC+jV
+ FZvVTvUbFTvL5zmT6Vcl9fkT99j9gFzzsRvA/ZW5nZANycq1ugvTqv2K5OyuQjbBBS
+ jC5xtElKQuoPoyx9OyO8zCfcqx6zvX4cbZcjS0KKuCvIyUTz/aKp1fhsyMo1PB/OPx
+ lpp9W+KSTY/Ib6q83/EFHlxDvucyftbP8YB01C+Zr2qyzcZ6fX8nWlrZJ72KV4Ku4s
+ 8ywbeBckn8+nA==
+Date: Fri, 18 Nov 2022 15:39:11 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20221118113052.1340593-1-cezary.rojewski@intel.com>
-References: <20221118113052.1340593-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Initialize private data for subsequent
- HDA FEs
-Message-Id: <166878512000.955590.4095144613199197260.b4-ty@kernel.org>
-Date: Fri, 18 Nov 2022 15:25:20 +0000
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2 1/2] ASoC/soundwire: remove is_sdca boolean property
+Message-ID: <Y3enHzY8XY70/nWR@sirena.org.uk>
+References: <20221118025807.534863-1-yung-chuan.liao@linux.intel.com>
+ <20221118025807.534863-2-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-8af31
-Cc: hdegoede@redhat.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pRbbpnwvQFI8Ig1m"
+Content-Disposition: inline
+In-Reply-To: <20221118025807.534863-2-yung-chuan.liao@linux.intel.com>
+X-Cookie: Ego sum ens omnipotens.
+Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, vkoul@kernel.org,
+ peter.ujfalusi@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,44 +91,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022 12:30:52 +0100, Cezary Rojewski wrote:
-> HDAudio implementation found in sound/pci/hda expects a valid stream
-> pointer in substream->runtime->private_data location. For ASoC users,
-> that should point to a valid link stream which is assigned when BE
-> opens.
-> 
-> As BE borrows its runtime from FE, the information may be lost when
-> reparenting comes into picture - see dpcm_be_reparent(). To support the
-> DPCM reparenting functionality for HDAudio scenarios while still
-> fulfilling expectations of HDAudio common code, have all FEs point to
-> the same private data.
-> 
-> [...]
 
-Applied to
+--pRbbpnwvQFI8Ig1m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   broonie/sound.git for-next
+On Fri, Nov 18, 2022 at 10:58:06AM +0800, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>=20
+> The Device_ID registers already tell us if a device supports the SDCA
+> specification or not, in hindsight we never needed a property when the
+> information is reported by both hardware and ACPI.
 
-Thanks!
+Acked-by: Mark Brown <broonie@kernel.org>
 
-[1/1] ASoC: Intel: avs: Initialize private data for subsequent HDA FEs
-      commit: f38d4c72cb2d68e73d3e54feb68febd6b7c4bfd2
+--pRbbpnwvQFI8Ig1m
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN3px4ACgkQJNaLcl1U
+h9DxmAf/QATOeg5EyZ8P2MRRRpwyKOCKZGE0zoOp9QpnYXH+xHm+Fy44UW4Mpfqe
+OEjHDEJQmZkmKRwyGbgnlDLMkqnfuseZAIVCwHQZRzLeQqVEM0DnU8rek2A2wbO/
+8q6uDOpvImNxZuRhcSkKMYO8rPzZv2dZFxEJWjts7I/xi1unEwZkFBPH4itmjySA
+QWndOIgtq01WIyJz2mYWS0velHGrQrGqDqRg7kwzjMekPzJSE4rJU/WBiXOg+F14
+c+sxbz0HptCue1jpogtRcjDpYa/zqZt8ZfJsZHtAtOiF9d1NvhXhIO2SPNREArMF
+/AF7QIIKIwW8Bu0P8kKI+IRjPM+53Q==
+=Laz3
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--pRbbpnwvQFI8Ig1m--

@@ -2,103 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E35962F7F3
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 15:42:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B5C62F93C
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 16:26:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 277E61671;
-	Fri, 18 Nov 2022 15:41:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 277E61671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49F17169F;
+	Fri, 18 Nov 2022 16:25:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49F17169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668782569;
-	bh=rwkKc5uFIMfeTmBdYa/+b7VoNwyafbWlRlOPuyUKAUo=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1668785183;
+	bh=GygClQT09XAwMmXr6yHUgwEriuF+/HCUV6OOmACC2J8=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LduM0TLKlDB6K00tc0lMDzIPf7lq7ZdYqphsgM2dN/e/yhrVv3F0DLlRP0bDlaB8C
-	 JTudqSsR+1sbCN3xjH1CdYa/B7Q9s0Qo0gxLAIuxoBLD1tDN9+p8skwwz2ubFjnEK5
-	 g3F4wvcUKfAqHcP/CKZMkpUgd1/TFjWUuxnuVHYc=
+	b=pH6rKXVgh0DbWvSG/NYFV/Hpbx3E9R+7bSCPGtxuBrDXZKZZ/w6FIYv2qjwhsgAes
+	 ngvuT8YHdRgO8Om8oRj1I5/ACWL5eJWW7Aq+ZPYklAyB5vQa3O8UppTY+RZsWj/MCt
+	 DaPxgPW8BoxvxgLAqfhYxJtrM2FTqLg6Fwh6pbGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC1E9F800B8;
-	Fri, 18 Nov 2022 15:41:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02D95F800B5;
+	Fri, 18 Nov 2022 16:25:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68F2EF801D8; Fri, 18 Nov 2022 15:41:53 +0100 (CET)
+ id B99D2F8024C; Fri, 18 Nov 2022 16:25:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5B08F800B8
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 15:41:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5B08F800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29CDDF800B8
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 16:25:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29CDDF800B8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Wh3kz+U3"
-Received: by mail-lf1-x12f.google.com with SMTP id bp15so8485142lfb.13
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 06:41:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2thmbb28/ZVq6zR0dXPjXeaM3XqjzR2UoNfuu1A+yxY=;
- b=Wh3kz+U3TyES5kVivDFaHBtLFLL/dvPdqDu57smkC6Ph7w7BHKysZMZFhvdXOPuWrW
- Lw8LL84mX38YNKRs3pGwg+Tia/zAFhgcC+1DESyGm5BTi0EnPUnhZ4QHLyyv+0OnhLam
- E3uRYDAR2Os7JpQ0LIhBcgTFaVW5dZNYTp7ZKIyJBX5G4OWwRx1TtogVVoI1kX2CEjrs
- do4Gplx2RwG3okWsGte0NBKp5hVJfTJNt4dRG/5I6q35QXlZIog+hjsX/ykg9GuvhRxD
- 47ZlAGzhacUFb32wS7j+NxIQTok5x1gIPOFsudtg8U/R9BKtPU6lhsd4s1bKjF2cUdHM
- ohQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2thmbb28/ZVq6zR0dXPjXeaM3XqjzR2UoNfuu1A+yxY=;
- b=0IRXkSQPJmeRPg5Wc8jOGLHrVdbiMvEiwUBU88nV6gP8iqHoP41Aa5KtJxd3zTn5q/
- I1Y7HPBnTikhMwVEaeg85iQMmgRjCEJkxupzhKQGBJ/acLI50oKkZtO52E8vRlr3hytR
- axzZSUjzoiiQYCw6M4SCdiem37pw9bJTekcdVpscSJsJYmGSkzBFI9MaTNTkuH+NU2VQ
- 4/io/QHhrXPnE+uR6Of3QYec64dr08tLE6iHbotHOKRPPUBYjk2khfFbKaN25zxoMQmx
- /ytG0CW6dt9AExVHDgxwOZ2UhIXmb/1Pd8Ue7kWQVnErcS5ODhjzanLrxQsydJn5ZQFJ
- Lj1g==
-X-Gm-Message-State: ANoB5pl21alKbN2UAZPrWnGp4jo3VwY6Sx9xN1VIozQpgkvZxBdZd6t9
- 0Q+ahrTT/VlnhyOsyVibZ3iT9A==
-X-Google-Smtp-Source: AA0mqf4LXWW0epb2vwZAvgtK7zqnLsqEffcVxq2B14gkeFCPgUZ7Zh2t6XvOeZxpFU2hG+5fuwFCKg==
-X-Received: by 2002:a19:7706:0:b0:4a4:6991:71c4 with SMTP id
- s6-20020a197706000000b004a4699171c4mr2681393lfc.355.1668782507612; 
- Fri, 18 Nov 2022 06:41:47 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- v10-20020ac258ea000000b004b0b2212315sm686134lfo.121.2022.11.18.06.41.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Nov 2022 06:41:47 -0800 (PST)
-Message-ID: <af7f1b14-6b46-54af-19fd-de8d1de535db@linaro.org>
-Date: Fri, 18 Nov 2022 15:41:46 +0100
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LEukaIck"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 2DE62CE2176;
+ Fri, 18 Nov 2022 15:25:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41F9EC433D6;
+ Fri, 18 Nov 2022 15:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668785117;
+ bh=GygClQT09XAwMmXr6yHUgwEriuF+/HCUV6OOmACC2J8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=LEukaIck+kATcrrmKi4ZBqC9IYH4rsRZTFW5XAW47VaRX5HAgTMTg8qe5coVeLUsA
+ 9bJXgUOZgcmM3NwM2aA0cx1EwmRgnhPvEQlLOwUl3P91bCrgDWyuYCjPffBQUAAxfs
+ UWGq4g5oB/OEreMVn9CCQQjospgM73728iVuMmRdAXnfMrSdO2u079C1wotL1AhJk/
+ OtTM3v/h2Z+uW+fczhFM39GOx5zMndB0mMJz2AOhLgMmqQ4EXWbKFHMZG2MfinJVfH
+ IfcOeOSJpLrp5bIFhDspiKDZ/PJQ5IJ6Jbz4ndyjPKc/9slVVW7L373fFya9l29Ih5
+ cvwZv2Gmi93SA==
+From: Mark Brown <broonie@kernel.org>
+To: nicolas.ferre@microchip.com, tiwai@suse.com, lgirdwood@gmail.com,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, 
+ perex@perex.cz, alexandre.belloni@bootlin.com
+In-Reply-To: <20221117123750.291911-1-claudiu.beznea@microchip.com>
+References: <20221117123750.291911-1-claudiu.beznea@microchip.com>
+Subject: Re: [PATCH 0/3] ASoC: mchp-spdiftx: add power saving features
+Message-Id: <166878511492.955590.9958880472187232412.b4-ty@kernel.org>
+Date: Fri, 18 Nov 2022 15:25:14 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: lpass-va: add npl clock for new
- VA macro
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-References: <20221118071849.25506-1-srinivas.kandagatla@linaro.org>
- <20221118071849.25506-2-srinivas.kandagatla@linaro.org>
- <c3a2316f-2956-6417-f1ea-a6a64df037c6@linaro.org>
-In-Reply-To: <c3a2316f-2956-6417-f1ea-a6a64df037c6@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.11.0-dev-8af31
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,28 +88,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/11/2022 15:38, Krzysztof Kozlowski wrote:
-> On 18/11/2022 08:18, Srinivas Kandagatla wrote:
->> LPASS VA Macro now has soundwire master to deal with access to
->> analog mic in low power island use cases. This also means that VA macro
->> now needs to get hold of the npl clock too. Add clock bindings required
->> for this.
+On Thu, 17 Nov 2022 14:37:47 +0200, Claudiu Beznea wrote:
+> This series adds support for runtime PM and system suspend/resume
+> for Microchip SPDIFTX (patches 2/3, 3/3). Along with it I took the
+> chance and added a minor cleanup (patch 1/3).
 > 
+> Thank you,
+> Claudiu Beznea
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> [...]
 
+Applied to
 
-... and not.
+   broonie/sound.git for-next
 
-+        clock-names:
-+          items:
-+            - const: mclk
-+            - const: core
-+            - const: dcodec
+Thanks!
 
-This neither matches DTS nor driver. Did you test DTS with the bindings
-change?
+[1/3] ASoC: mchp-spdiftx: simplify locking around ctrl->ch_stat
+      commit: 215450eb8b0fac000a42c1cd52c8966fb5159037
+[2/3] ASoC: mchp-spdiftx: add runtime pm support
+      commit: 4bf54ca60f99643cfaa3e5b532f139f6501f318e
+[3/3] ASoC: mchp-spdiftx: add support for system suspend/resume
+      commit: abc7edb0329cd2eabc0b948f5e248c85f6268296
 
-Best regards,
-Krzysztof
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

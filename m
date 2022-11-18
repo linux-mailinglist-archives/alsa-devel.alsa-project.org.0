@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B5BA62EC35
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 03:57:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B7262EC37
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 03:57:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4530B16D7;
-	Fri, 18 Nov 2022 03:56:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4530B16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B4A616E6;
+	Fri, 18 Nov 2022 03:56:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B4A616E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668740237;
-	bh=ZsbjKmI8r3wmxokls6Yj3fJektnJREEilC4V+S5EGkY=;
+	s=default; t=1668740260;
+	bh=sFoTlN5v6r79HUZxzN2vBniRQPFO0vULAV0J7b3pGgI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aYb8opmzzk+c//K+0qBnt3vGvDkH4b2E2c+BJXgMGTg0NtxDjU47ewee7WN742LHj
-	 aGPVWbrUICaBQ4UruDUGJ87NKX6QDdUq2Fb27h06j6SgbajAgMKRvOkkn2sEHo07CR
-	 I/tmUgBAynu4fvVH2sdS3UO0uvJJBXEQ78Ey1krI=
+	b=DPUk5aTnAB2VGtPJ33LfKylRAOOwAuKIrv9y1kN9gH7vpMyxlZ2ZHerHZqtOd7mDR
+	 fdL6Yemi2l71Cs4FqJ6Br9QcBg6Rm39SzLvTa1XuE8EPyVulH/DGS/woiwMM6rxVkh
+	 +Yx60QBvKJ6jGz9wVYOivMywuuFxyT49fSroQfzM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20D84F804D8;
-	Fri, 18 Nov 2022 03:55:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20DD6F80563;
+	Fri, 18 Nov 2022 03:56:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA0B4F800B5; Fri, 18 Nov 2022 03:55:55 +0100 (CET)
+ id E8934F80557; Fri, 18 Nov 2022 03:55:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78A1DF800B5
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 03:55:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78A1DF800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27CC6F8016E
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 03:55:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27CC6F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="amHMwDEO"
+ header.b="GwHFAHYQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668740153; x=1700276153;
+ t=1668740154; x=1700276154;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZsbjKmI8r3wmxokls6Yj3fJektnJREEilC4V+S5EGkY=;
- b=amHMwDEObN52cMx3/mLdhg29DBXC5u/Nhe2Zi9BetFJt4yg7DQc70/Uz
- IeRzjw90Sy1EPW9JJ9p/1LhCVlr5kfzGLE9vKTVqfBgNmixl08Agath+A
- nJ/E1V5cTiGvhyC3DDGnxD+K28DHOhNrZwl6fpbv4AD+XtVeq4ckMyr4+
- F7OZGSqDyiy0qI2KIz0mqxwOqZ5St1fu2Lau1PkDAzaKRNTXCAM62e3Zj
- 1ptaj5O/c4p1IdV2ERGOIa6hCvYGuYlzUCPKuyc6b6FHAiung/ZZvzROQ
- s+AkW8rYJRz17OHj3WhpOS3UvfaAKclGcAhyBL6bGOPYeVVbcsH8G+C7Q Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="399323288"
-X-IronPort-AV: E=Sophos;i="5.96,172,1665471600"; d="scan'208";a="399323288"
+ bh=sFoTlN5v6r79HUZxzN2vBniRQPFO0vULAV0J7b3pGgI=;
+ b=GwHFAHYQq/2+Vj6eLm/HWErJAXBiWArQANTxsdPnqLwpHBKTJZd2HnGl
+ LHKLVEweTmKjPs/jqjUr4NjThufvX0hBKLDbjlQMYzNezHXVx/fP9jcK2
+ NWex2nmH+/CbdwAISmSmJwkJrRP6rTAQgT1vcnRI/CFERMzFlQWHMPUDk
+ gGO7vrdrvE5s64sqrHYTaJNNB+wH1Sil3MiL78N+3govMdNcI/3HTXvhA
+ 93MgPjfPLkzJMs6qyK6NLyR7LwUMrSRMHMbR7b/2BqzwlqJVvj8nc0Ewd
+ HLkCGJ2IDVbqrrlvpb/SC9XUdTKig4KSmj1oAuT/f0H5Xnjxl8N52Lxpp A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="399323297"
+X-IronPort-AV: E=Sophos;i="5.96,172,1665471600"; d="scan'208";a="399323297"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2022 18:55:47 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="642347884"
-X-IronPort-AV: E=Sophos;i="5.96,172,1665471600"; d="scan'208";a="642347884"
+ 17 Nov 2022 18:55:50 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="642347898"
+X-IronPort-AV: E=Sophos;i="5.96,172,1665471600"; d="scan'208";a="642347898"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2022 18:55:45 -0800
+ 17 Nov 2022 18:55:48 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
-Subject: [PATCH v2 1/2] ASoC/soundwire: remove is_sdca boolean property
-Date: Fri, 18 Nov 2022 10:58:06 +0800
-Message-Id: <20221118025807.534863-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 2/2] soundwire: enable optional clock registers for
+ SoundWire 1.2 devices
+Date: Fri, 18 Nov 2022 10:58:07 +0800
+Message-Id: <20221118025807.534863-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221118025807.534863-1-yung-chuan.liao@linux.intel.com>
 References: <20221118025807.534863-1-yung-chuan.liao@linux.intel.com>
@@ -95,100 +96,60 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The Device_ID registers already tell us if a device supports the SDCA
-specification or not, in hindsight we never needed a property when the
-information is reported by both hardware and ACPI.
+The bus supports the mandatory clock registers for SDCA devices, these
+registers can also be optionally supported by SoundWire 1.2 devices
+that don't follow the SDCA class specification.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/bus.c           | 4 ++--
- include/linux/soundwire/sdw.h     | 2 --
- sound/soc/codecs/rt1316-sdw.c     | 1 -
- sound/soc/codecs/rt1318-sdw.c     | 1 -
- sound/soc/codecs/rt711-sdca-sdw.c | 1 -
- 5 files changed, 2 insertions(+), 7 deletions(-)
+ drivers/soundwire/bus.c       | 7 ++++---
+ include/linux/soundwire/sdw.h | 4 ++++
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 76515c33e639..c23275b443ac 100644
+index c23275b443ac..55d393247a0f 100644
 --- a/drivers/soundwire/bus.c
 +++ b/drivers/soundwire/bus.c
-@@ -1587,7 +1587,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		goto io_err;
- 	}
+@@ -1233,10 +1233,11 @@ static int sdw_slave_set_frequency(struct sdw_slave *slave)
  
--	if (slave->prop.is_sdca) {
-+	if (slave->id.class_id) {
- 		ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 		if (ret < 0) {
- 			dev_err(&slave->dev,
-@@ -1724,7 +1724,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 			goto io_err;
- 		}
+ 	/*
+ 	 * frequency base and scale registers are required for SDCA
+-	 * devices. They may also be used for 1.2+/non-SDCA devices,
+-	 * but we will need a DisCo property to cover this case
++	 * devices. They may also be used for 1.2+/non-SDCA devices.
++	 * Driver can set the property, we will need a DisCo property
++	 * to discover this case from platform firmware.
+ 	 */
+-	if (!slave->id.class_id)
++	if (!slave->id.class_id && !slave->prop.clock_reg_supported)
+ 		return 0;
  
--		if (slave->prop.is_sdca) {
-+		if (slave->id.class_id) {
- 			ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 			if (ret < 0) {
- 				dev_err(&slave->dev,
+ 	if (!mclk_freq) {
 diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index 9e4537f409c2..8fb458931772 100644
+index 8fb458931772..9a49263c53cf 100644
 --- a/include/linux/soundwire/sdw.h
 +++ b/include/linux/soundwire/sdw.h
-@@ -365,7 +365,6 @@ struct sdw_dpn_prop {
+@@ -365,6 +365,9 @@ struct sdw_dpn_prop {
   * @sink_dpn_prop: Sink Data Port N properties
   * @scp_int1_mask: SCP_INT1_MASK desired settings
   * @quirks: bitmask identifying deltas from the MIPI specification
-- * @is_sdca: the Slave supports the SDCA specification
++ * @clock_reg_supported: the Peripheral implements the clock base and scale
++ * registers introduced with the SoundWire 1.2 specification. SDCA devices
++ * do not need to set this boolean property as the registers are required.
   */
  struct sdw_slave_prop {
  	u32 mipi_revision;
-@@ -389,7 +388,6 @@ struct sdw_slave_prop {
+@@ -388,6 +391,7 @@ struct sdw_slave_prop {
  	struct sdw_dpn_prop *sink_dpn_prop;
  	u8 scp_int1_mask;
  	u32 quirks;
--	bool is_sdca;
++	bool clock_reg_supported;
  };
  
  #define SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY	BIT(0)
-diff --git a/sound/soc/codecs/rt1316-sdw.c b/sound/soc/codecs/rt1316-sdw.c
-index 2db7ee6c6d33..fbc7e9c0254d 100644
---- a/sound/soc/codecs/rt1316-sdw.c
-+++ b/sound/soc/codecs/rt1316-sdw.c
-@@ -203,7 +203,6 @@ static int rt1316_read_prop(struct sdw_slave *slave)
- 
- 	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
- 	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
--	prop->is_sdca = true;
- 
- 	prop->paging_support = true;
- 
-diff --git a/sound/soc/codecs/rt1318-sdw.c b/sound/soc/codecs/rt1318-sdw.c
-index f85f5ab2c6d0..8bc379215c34 100644
---- a/sound/soc/codecs/rt1318-sdw.c
-+++ b/sound/soc/codecs/rt1318-sdw.c
-@@ -353,7 +353,6 @@ static int rt1318_read_prop(struct sdw_slave *slave)
- 
- 	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
- 	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
--	prop->is_sdca = true;
- 
- 	prop->paging_support = true;
- 
-diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
-index 88a8392a58ed..693e11ed8d08 100644
---- a/sound/soc/codecs/rt711-sdca-sdw.c
-+++ b/sound/soc/codecs/rt711-sdca-sdw.c
-@@ -186,7 +186,6 @@ static int rt711_sdca_read_prop(struct sdw_slave *slave)
- 
- 	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
- 	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
--	prop->is_sdca = true;
- 
- 	prop->paging_support = true;
- 
 -- 
 2.25.1
 

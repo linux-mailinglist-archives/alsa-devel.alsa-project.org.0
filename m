@@ -2,103 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A27F62FB79
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 18:18:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7810D63003B
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 23:38:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAB0816AF;
-	Fri, 18 Nov 2022 18:17:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAB0816AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A00C915E2;
+	Fri, 18 Nov 2022 23:37:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A00C915E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668791927;
-	bh=wJyRo8S1VrlhS0mBHB4hNP4GcZ4/8wConScxD6n3gqc=;
-	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1668811104;
+	bh=5bQdz6uEOXD4yFD5oCTu8+prVxg+CnsNECc5/sPq6Jw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ojUX/xk53C2jZ52cp85Ij090thkNiVU6h0vupzVQTz8VfxDc4jyMSCc/1pxDnrQD4
-	 BvCJl/npyaGAOb216Il7jb1LJHRk5U5LwDsbXDLFI5ozoRI3eLFfLdYvwYcURfZSgy
-	 vjnP7Wfq0/pg36KTFcGUtcuwrl9zO/n0jRFviD6c=
+	b=HnP5f74RDULdGIyYxzT3tcTozR/865n1i7Dife4HDWzMeY4zr+sumMFh4hVTYusly
+	 12u1pfano6WOukvpcsemOlD6bpEA8VuWwvH72xFCIVp0wc8oCc9hEbfWLKqhKnCwZj
+	 BxLwnqrX6EMei0Dxp/nE6NNMH3cDULdVmbPJ66bA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61DD0F8020D;
-	Fri, 18 Nov 2022 18:17:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90612F800B5;
+	Fri, 18 Nov 2022 23:37:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24E52F801D8; Fri, 18 Nov 2022 18:17:51 +0100 (CET)
+ id 7C72EF801D8; Fri, 18 Nov 2022 23:37:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 110C8F800B8
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 18:17:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 110C8F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="c6/wH7bT"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AIGL6be005988; Fri, 18 Nov 2022 17:17:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : to : cc : from : subject : content-type :
- content-transfer-encoding; s=qcppdkim1;
- bh=NiuypNdOqR/rG511Q0zqzPzzkScy2mrvgGpr4qFKyyk=;
- b=c6/wH7bT5xrJgZritoEp0tqi0mPtckNb7NqrJ9r8astKk32UHSuj6KYHNf90WuGQMGEN
- JVURrTNMgT5j+uMsiwFQTT3w/Wp4XYup5g6muFNlDbLXU2HBheuPR7f+5aYtV+0cNOnx
- z4N6hSIbTrzJf0w76uM+Awaz95bB0wssKoqq9jlhJoeD2jwjS0+kjzdwR779wRScewth
- IH8M87nCTnEmXmFttu8bxWTaS1CvenmMSrXNqJnB3Gzio6MG1mHwJT5tEH+Rtjq69oB/
- d71fJd+sTjqBQsBn1QGY0K/WSdFaT2WeB37vVfhOoei6sfr1Sau1tCwms9Wjinu173mY jw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kx0mva9d8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 18 Nov 2022 17:17:44 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AIHHh7C016182
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 18 Nov 2022 17:17:43 GMT
-Received: from [10.110.0.156] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 18 Nov
- 2022 09:17:42 -0800
-Message-ID: <6b152096-608c-1b3c-e1bc-f83149af1198@quicinc.com>
-Date: Fri, 18 Nov 2022 09:17:42 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 530D2F800FD
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 23:37:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 530D2F800FD
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-13c2cfd1126so7586201fac.10
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 14:37:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6Ty2VrocLp2bLlPjZebG8L9XIVrPCqIEByvMG3rAIeo=;
+ b=BdmEjfACkMd8pXzVR+rG8914TqeZhswmyBnzIxi/U+XDeGbZD7w/NewR52nvrti/59
+ GyhwJqc6FTRBx/y+z6X00sL0VZhH1KGNT2AFAFh73gaO7xQ9cfvk2iM7hK4OwfHSrqKI
+ /1mhwNdP8Xn3rR1VgpJC7AT8oGe5irXKzQvXhN8fTnwk411h1INBg522qY0WmmRzQf56
+ cQAUz08RiV1Stda/YXhQ5TFxCUOqV6XEtvYC9dy1P4A9Ge2zLcfjRqDKK2qE4dlvFZuk
+ QFxdYDoOHKddGZwmcPe34rtg/YjJz3w61hQbVFTU0yrbrRmv2n3Qq8M4yrhvWp1RdMRf
+ podw==
+X-Gm-Message-State: ANoB5pkffBtTLCuDp7svfC8VQAXfi1ZE3+8DJwuOSOY0oQvCuQMpsaVJ
+ Lb+3S7LRKReHDThWHSR+Lw==
+X-Google-Smtp-Source: AA0mqf5KA6oRNEPIyQHxPlu0P6RyjLJsjmwGgO5GTTQ8syn9I4hRIeraDisFZa93FVBweGZ8ATxWFQ==
+X-Received: by 2002:a05:6870:7d0e:b0:142:821a:590e with SMTP id
+ os14-20020a0568707d0e00b00142821a590emr3600236oab.55.1668811041798; 
+ Fri, 18 Nov 2022 14:37:21 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ q9-20020a9d7c89000000b0066c495a651dsm2064777otn.38.2022.11.18.14.37.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Nov 2022 14:37:21 -0800 (PST)
+Received: (nullmailer pid 1721500 invoked by uid 1000);
+ Fri, 18 Nov 2022 22:37:23 -0000
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jerome Neanne <jerome.neanne@baylibre.com>,
+ Andrew Davis <afd@ti.com>
+Subject: [PATCH] dt-bindings: Move fixed string node names under 'properties'
+Date: Fri, 18 Nov 2022 16:37:07 -0600
+Message-Id: <20221118223708.1721134-1-robh@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>
-From: Patrick Lai <quic_plai@quicinc.com>
-Subject: Unable to open hostless PCM device after introduction of commit -
- ASoC: Stop dummy from overriding hwparams
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Zj8diAqjKrHwnaSwCkGwm2uEVv3F056A
-X-Proofpoint-GUID: Zj8diAqjKrHwnaSwCkGwm2uEVv3F056A
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-18_04,2022-11-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- impostorscore=0 bulkscore=0 adultscore=0 mlxscore=0 phishscore=0
- clxscore=1011 suspectscore=0 mlxlogscore=999 spamscore=0
- priorityscore=1501 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2210170000 definitions=main-2211180102
-Cc: alsa-devel@alsa-project.org, srinivas.kandagatla@linaro.org,
- vinod.koul@linaro.org, quic_rohkumar@quicinc.com
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,27 +95,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Amadeusz,
+Fixed string node names should be under 'properties' rather than
+'patternProperties'. Additionally, without beginning and end of line
+anchors, any prefix or suffix is allowed on the specified node name.
+These cases don't appear to want a prefix or suffix, so move them under
+'properties'.
 
-On the product I am working on, a hostless PCM device is defined for 
-purpose of activating CODEC driver to setup the path inside CODEC. So, 
-CPU DAI and PCM Platform are defined to use dummy dai & DMA supplied by 
-sound/soc/soc-utils.c.
+In some cases, the diff turns out to look like we're moving some
+patterns rather than the fixed string properties.
 
-After upgrading to newer kernel, hostless PCM device failed to open. 
-After doing a bit of digging, the root cause is that dummy_dma_hardware 
-is not set in dummy_dma_open() due to new conditional check logic 
-introduced in this commit - 6c504663ba2ee2abeaf5622e27082819326c1bd4.
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../arm/tegra/nvidia,tegra20-pmc.yaml         | 54 ++++++++--------
+ .../bindings/regulator/ti,tps65219.yaml       | 14 ++--
+ .../bindings/sound/tlv320adcx140.yaml         | 64 +++++++++----------
+ 3 files changed, 66 insertions(+), 66 deletions(-)
 
-In order to fix problem I am encountering properly without regressing 
-your scenario, I would like to get a better understanding of problem you 
-were addressing. My understanding, from looking through other drivers 
-under sound/soc, is that pcm hardware info is usually set by PCM 
-platform/DMA drivers. For your scenario, do you have other component e.g 
-CPU/CODEC DAI, set PCM hardware definition? I am not sure conditional 
-check logic from 6c504663ba2ee2abeaf5622e27082819326c1bd4 guarantees 
-that other component would be setting pcm hardware info. Appreciate if 
-you can provide more insight to your scenario?
+diff --git a/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml b/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml
+index 7fd8d47b1be4..4a00593b9f7f 100644
+--- a/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml
++++ b/Documentation/devicetree/bindings/arm/tegra/nvidia,tegra20-pmc.yaml
+@@ -123,6 +123,33 @@ properties:
+       some PLLs, clocks and then brings up CPU0 for resuming the
+       system.
+ 
++  core-supply:
++    description:
++      Phandle to voltage regulator connected to the SoC Core power rail.
++
++  core-domain:
++    type: object
++    description: |
++      The vast majority of hardware blocks of Tegra SoC belong to a
++      Core power domain, which has a dedicated voltage rail that powers
++      the blocks.
++
++    properties:
++      operating-points-v2:
++        description:
++          Should contain level, voltages and opp-supported-hw property.
++          The supported-hw is a bitfield indicating SoC speedo or process
++          ID mask.
++
++      "#power-domain-cells":
++        const: 0
++
++    required:
++      - operating-points-v2
++      - "#power-domain-cells"
++
++    additionalProperties: false
++
+   i2c-thermtrip:
+     type: object
+     description:
+@@ -300,33 +327,6 @@ patternProperties:
+ 
+     additionalProperties: false
+ 
+-  core-domain:
+-    type: object
+-    description: |
+-      The vast majority of hardware blocks of Tegra SoC belong to a
+-      Core power domain, which has a dedicated voltage rail that powers
+-      the blocks.
+-
+-    properties:
+-      operating-points-v2:
+-        description:
+-          Should contain level, voltages and opp-supported-hw property.
+-          The supported-hw is a bitfield indicating SoC speedo or process
+-          ID mask.
+-
+-      "#power-domain-cells":
+-        const: 0
+-
+-    required:
+-      - operating-points-v2
+-      - "#power-domain-cells"
+-
+-    additionalProperties: false
+-
+-  core-supply:
+-    description:
+-      Phandle to voltage regulator connected to the SoC Core power rail.
+-
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml b/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
+index 78be79930fda..78e64521d401 100644
+--- a/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
++++ b/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
+@@ -51,13 +51,6 @@ properties:
+       where the board has a button wired to the pin and triggers
+       an interrupt on pressing it.
+ 
+-patternProperties:
+-  "^buck[1-3]-supply$":
+-    description: Input supply phandle of one regulator.
+-
+-  "^ldo[1-4]-supply$":
+-    description: Input supply phandle of one regulator.
+-
+   regulators:
+     type: object
+     description: |
+@@ -82,6 +75,13 @@ patternProperties:
+ 
+     additionalProperties: false
+ 
++patternProperties:
++  "^buck[1-3]-supply$":
++    description: Input supply phandle of one regulator.
++
++  "^ldo[1-4]-supply$":
++    description: Input supply phandle of one regulator.
++
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+index ee698614862e..6b8214071115 100644
+--- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
++++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+@@ -109,38 +109,6 @@ properties:
+       maximum: 7
+     default: [0, 0, 0, 0]
+ 
+-  ti,asi-tx-drive:
+-    type: boolean
+-    description: |
+-      When set the device will set the Tx ASI output to a Hi-Z state for unused
+-      data cycles. Default is to drive the output low on unused ASI cycles.
+-
+-patternProperties:
+-  '^ti,gpo-config-[1-4]$':
+-    $ref: /schemas/types.yaml#/definitions/uint32-array
+-    description: |
+-       Defines the configuration and output driver for the general purpose
+-       output pins (GPO).  These values are pairs, the first value is for the
+-       configuration type and the second value is for the output drive type.
+-       The array is defined as <GPO_CFG GPO_DRV>
+-
+-       GPO output configuration can be one of the following:
+-
+-       0 - (default) disabled
+-       1 - GPOX is configured as a general-purpose output (GPO)
+-       2 - GPOX is configured as a device interrupt output (IRQ)
+-       3 - GPOX is configured as a secondary ASI output (SDOUT2)
+-       4 - GPOX is configured as a PDM clock output (PDMCLK)
+-
+-       GPO output drive configuration for the GPO pins can be one of the following:
+-
+-       0d - (default) Hi-Z output
+-       1d - Drive active low and active high
+-       2d - Drive active low and weak high
+-       3d - Drive active low and Hi-Z
+-       4d - Drive weak low and active high
+-       5d - Drive Hi-Z and active high
+-
+   ti,gpio-config:
+     description: |
+        Defines the configuration and output drive for the General Purpose
+@@ -183,6 +151,38 @@ patternProperties:
+       maximum: 15
+     default: [2, 2]
+ 
++  ti,asi-tx-drive:
++    type: boolean
++    description: |
++      When set the device will set the Tx ASI output to a Hi-Z state for unused
++      data cycles. Default is to drive the output low on unused ASI cycles.
++
++patternProperties:
++  '^ti,gpo-config-[1-4]$':
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description: |
++       Defines the configuration and output driver for the general purpose
++       output pins (GPO).  These values are pairs, the first value is for the
++       configuration type and the second value is for the output drive type.
++       The array is defined as <GPO_CFG GPO_DRV>
++
++       GPO output configuration can be one of the following:
++
++       0 - (default) disabled
++       1 - GPOX is configured as a general-purpose output (GPO)
++       2 - GPOX is configured as a device interrupt output (IRQ)
++       3 - GPOX is configured as a secondary ASI output (SDOUT2)
++       4 - GPOX is configured as a PDM clock output (PDMCLK)
++
++       GPO output drive configuration for the GPO pins can be one of the following:
++
++       0d - (default) Hi-Z output
++       1d - Drive active low and active high
++       2d - Drive active low and weak high
++       3d - Drive active low and Hi-Z
++       4d - Drive weak low and active high
++       5d - Drive Hi-Z and active high
++
+ required:
+   - compatible
+   - reg
+-- 
+2.35.1
 
-Thanks
-Patrick

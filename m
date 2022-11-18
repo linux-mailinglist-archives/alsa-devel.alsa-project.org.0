@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B5C62F93C
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 16:26:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3F862F93F
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Nov 2022 16:27:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49F17169F;
-	Fri, 18 Nov 2022 16:25:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49F17169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD85E16B8;
+	Fri, 18 Nov 2022 16:26:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD85E16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668785183;
-	bh=GygClQT09XAwMmXr6yHUgwEriuF+/HCUV6OOmACC2J8=;
+	s=default; t=1668785230;
+	bh=BSCXlPVmpY0FoDKqa/ajgiBBO/IcH6tYlQ0+lVrw+z8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pH6rKXVgh0DbWvSG/NYFV/Hpbx3E9R+7bSCPGtxuBrDXZKZZ/w6FIYv2qjwhsgAes
-	 ngvuT8YHdRgO8Om8oRj1I5/ACWL5eJWW7Aq+ZPYklAyB5vQa3O8UppTY+RZsWj/MCt
-	 DaPxgPW8BoxvxgLAqfhYxJtrM2FTqLg6Fwh6pbGk=
+	b=LTouqnyR2r7BxuErkPPW5mg2kjGK+JYfIWETckRDYsi8TZbDzwyliiel8elUcu/3+
+	 PYYhzC3J7JyGg6zXEdduJyEas+Urem0alhDvslUDFSjI+H4rMXMpoaYqrRbid001wO
+	 61tiv3HKtkLMI5An1cSIkhDytQOiguVr7U+jJs3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02D95F800B5;
-	Fri, 18 Nov 2022 16:25:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A28EFF80558;
+	Fri, 18 Nov 2022 16:25:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B99D2F8024C; Fri, 18 Nov 2022 16:25:26 +0100 (CET)
+ id 39D75F8016E; Fri, 18 Nov 2022 16:25:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29CDDF800B8
- for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 16:25:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29CDDF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5174FF800B5
+ for <alsa-devel@alsa-project.org>; Fri, 18 Nov 2022 16:25:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5174FF800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LEukaIck"
+ header.b="AKZAuC64"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 2DE62CE2176;
- Fri, 18 Nov 2022 15:25:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41F9EC433D6;
- Fri, 18 Nov 2022 15:25:15 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0072DB8243A;
+ Fri, 18 Nov 2022 15:25:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034C3C433C1;
+ Fri, 18 Nov 2022 15:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668785117;
- bh=GygClQT09XAwMmXr6yHUgwEriuF+/HCUV6OOmACC2J8=;
+ s=k20201202; t=1668785119;
+ bh=BSCXlPVmpY0FoDKqa/ajgiBBO/IcH6tYlQ0+lVrw+z8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LEukaIck+kATcrrmKi4ZBqC9IYH4rsRZTFW5XAW47VaRX5HAgTMTg8qe5coVeLUsA
- 9bJXgUOZgcmM3NwM2aA0cx1EwmRgnhPvEQlLOwUl3P91bCrgDWyuYCjPffBQUAAxfs
- UWGq4g5oB/OEreMVn9CCQQjospgM73728iVuMmRdAXnfMrSdO2u079C1wotL1AhJk/
- OtTM3v/h2Z+uW+fczhFM39GOx5zMndB0mMJz2AOhLgMmqQ4EXWbKFHMZG2MfinJVfH
- IfcOeOSJpLrp5bIFhDspiKDZ/PJQ5IJ6Jbz4ndyjPKc/9slVVW7L373fFya9l29Ih5
- cvwZv2Gmi93SA==
+ b=AKZAuC64uZtYcPtUfXAgtpGOks7Cm49yM9UaJCc2T3cLoNKiGgOlLZAzd7Zb9znKY
+ tXP0/jpS2LCaRAcwxUTuQ99NZhd2UpWCfXVZpciePUx+HkR9UqKKj+YSz4ckFtLqZX
+ I8wF2RR+6wIvwdRIH7+1aCVb95K9l1OaN9YYGp3+8mWZbn8FnozFRbOhjN6AJhhTVX
+ Z87+Cw/yO66lmTPZ58mXfjVBrTEPX+RmCtcXd34b5JoMegXAw5sST3j+Kf2pb2tWMc
+ vW+ZGQOSf1cvOogYvrkSAIH0EkAsrITox/lJrkxWJGr/dmtgP+j+0QYVw2suIfA/q2
+ VIYSwNIeuYpnQ==
 From: Mark Brown <broonie@kernel.org>
-To: nicolas.ferre@microchip.com, tiwai@suse.com, lgirdwood@gmail.com,
- Claudiu Beznea <claudiu.beznea@microchip.com>, 
- perex@perex.cz, alexandre.belloni@bootlin.com
-In-Reply-To: <20221117123750.291911-1-claudiu.beznea@microchip.com>
-References: <20221117123750.291911-1-claudiu.beznea@microchip.com>
-Subject: Re: [PATCH 0/3] ASoC: mchp-spdiftx: add power saving features
-Message-Id: <166878511492.955590.9958880472187232412.b4-ty@kernel.org>
-Date: Fri, 18 Nov 2022 15:25:14 +0000
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20221118015106.532302-1-yung-chuan.liao@linux.intel.com>
+References: <20221118015106.532302-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_sdw_amp: mark coeff tables with
+ __maybe_unused
+Message-Id: <166878511768.955590.200081679629244191.b4-ty@kernel.org>
+Date: Fri, 18 Nov 2022 15:25:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.11.0-dev-8af31
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, peter.ujfalusi@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
+ ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,13 +88,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Nov 2022 14:37:47 +0200, Claudiu Beznea wrote:
-> This series adds support for runtime PM and system suspend/resume
-> for Microchip SPDIFTX (patches 2/3, 3/3). Along with it I took the
-> chance and added a minor cleanup (patch 1/3).
+On Fri, 18 Nov 2022 09:51:06 +0800, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> Thank you,
-> Claudiu Beznea
+> The same file provides two tables used in separate drivers, make them
+> as __maybe_unused to avoid errors:
+> 
+> sound/soc/intel/boards/sof_sdw_amp_coeff_tables.h:163:17: error:
+> ‘dell_0b00_bq_params’ defined but not used
+> [-Werror=unused-const-variable=]
+>   163 | static const u8 dell_0b00_bq_params[] = {
 > 
 > [...]
 
@@ -104,12 +107,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: mchp-spdiftx: simplify locking around ctrl->ch_stat
-      commit: 215450eb8b0fac000a42c1cd52c8966fb5159037
-[2/3] ASoC: mchp-spdiftx: add runtime pm support
-      commit: 4bf54ca60f99643cfaa3e5b532f139f6501f318e
-[3/3] ASoC: mchp-spdiftx: add support for system suspend/resume
-      commit: abc7edb0329cd2eabc0b948f5e248c85f6268296
+[1/1] ASoC: Intel: sof_sdw_amp: mark coeff tables with __maybe_unused
+      commit: 041fe8858475a0337b28404ec5136f4fc583b3aa
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

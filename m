@@ -2,93 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA4A630D44
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:21:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BAB7630D8C
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:50:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 348DD1632;
-	Sat, 19 Nov 2022 09:21:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348DD1632
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14CB5170F;
+	Sat, 19 Nov 2022 09:50:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14CB5170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668846115;
-	bh=NuunGRPqVARWm4sh5Xhp3zUOb8nwAMhXqgpdwj5oIQI=;
+	s=default; t=1668847850;
+	bh=q/45zxSTYEjbTfTnPiPYEfpoaCIJEwfoZXVH5SUI57Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i7pLALCAFY1FV8H9B3qWNlrueNt10nT33sC4IH29CIfTrcgmWSCCVgQHWgQ82R+6c
-	 hIm1k2uwKksNkGM7qC/InJ72OLtlUoqK+LUe9yDiwE6PhDBpCHhWdP0u5zb9DAGEeC
-	 TsqN1yS1WRfFKN+7Oi/Qz+rVSs0OkHvxU7D6h5+M=
+	b=gs/07euUI1ndyIolpHh6WAa7hZuWSGwDRUYj13uoB6tILOq/swOgz0muz410Xm63X
+	 jvC+B79ZSu9ObneuEyIaNrLov9HzHeSZL1pONGXi8U9C13xsTeRcVIq0y3QPb7z5pv
+	 KAQhQrlb89w5r1zLOJtBtMRMZSdtzDydIwq73DWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2C09F800B8;
-	Sat, 19 Nov 2022 09:21:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19F4AF802A0;
+	Sat, 19 Nov 2022 09:45:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3AC3F80217; Sat, 19 Nov 2022 09:20:59 +0100 (CET)
+ id 2884BF8050F; Sat, 19 Nov 2022 09:45:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2240F8016A
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 09:20:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2240F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21C6DF800B5
+ for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 09:44:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21C6DF800B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="H/Ryjm1N"; 
+ header.b="zRCGf8PP"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="CTLCvID1"
+ header.b="szug//Yo"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DDF5B1F383;
- Sat, 19 Nov 2022 08:20:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8A4022280C;
+ Sat, 19 Nov 2022 08:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668846052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1668847493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QEDCwVW6uuuHbiiKcc9DBnvWg+TJfsJ2v3EhFL0XN9o=;
- b=H/Ryjm1NMX2N+WZ3ckhenCooygFEg9Yfn77aE0Hsrl/e2jTVUqUKBgY/4R7swkNah6+M9R
- PmnDKkTTpFAoXi4Bt56ucl0dEidCF+itn9cvEQekhnSbpfBvSOBEEgtJwHUhxfxIGXiI0u
- C515FCgXPmknejVhuntrIlRbBzQ0H2o=
+ bh=cR5+IowdLCueIjDja6+/ZLYtaoh3XXTc+Rcy+jt3efg=;
+ b=zRCGf8PPDXTNJUNeX+9PO2iIrEwWgK4rIlIMiKjyEDRlN1HF0QcOqafTnw3PO6r4sLD0S8
+ z0CqTnc0/HsDhbBi1JKb993V8ru5sPPrPbTdMrXQtqKiIJ5ncj3+SxkhnH4PGCtyvt28mA
+ cHf3NGSJP5TmS778jENH9uZ04G69++A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668846052;
+ s=susede2_ed25519; t=1668847493;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QEDCwVW6uuuHbiiKcc9DBnvWg+TJfsJ2v3EhFL0XN9o=;
- b=CTLCvID1yyQQODN5uIjEn4sdakmHfW057PiOsxEIkb8i+993/7daQouoSNWKhS/GUmqS0G
- saXmX594nhhnsWCA==
+ bh=cR5+IowdLCueIjDja6+/ZLYtaoh3XXTc+Rcy+jt3efg=;
+ b=szug//YopXjKvSkeOJvMxoQrQ6BWDnP0vmPE4UUXlFqKjiXipXhw+vQO/bKoRtQvXKuq2z
+ Ab+FBS8gkCt/cyAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9856D1377F;
- Sat, 19 Nov 2022 08:20:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D8471377F;
+ Sat, 19 Nov 2022 08:44:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6oogJOSReGNafQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 19 Nov 2022 08:20:52 +0000
-Date: Sat, 19 Nov 2022 09:20:53 +0100
-Message-ID: <87a64nxsm2.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id h8wdEoWXeGPGBwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 19 Nov 2022 08:44:53 +0000
+Date: Sat, 19 Nov 2022 09:44:52 +0100
+Message-ID: <877czrxri3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH] ALSA: seq: Fix function prototype mismatch in
- snd_seq_expand_var_event
-In-Reply-To: <20221118232346.never.380-kees@kernel.org>
-References: <20221118232346.never.380-kees@kernel.org>
+To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
+Subject: Re: [PATCH 597/606] ALSA: aoa: onyx: Convert to i2c's .probe_new()
+In-Reply-To: <20221118224540.619276-598-uwe@kleine-koenig.org>
+References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+ <20221118224540.619276-598-uwe@kleine-koenig.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- Nick Desaulniers <ndesaulniers@google.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Nathan Chancellor <nathan@kernel.org>, linux-hardening@vger.kernel.org,
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Cc: Marek =?ISO-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+ alsa-devel@alsa-project.org, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ linuxppc-dev@lists.ozlabs.org, Takashi Iwai <tiwai@suse.com>,
+ Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>,
+ linux-i2c@vger.kernel.org, kernel@pengutronix.de,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Grant Likely <grant.likely@linaro.org>, Jeremy Kerr <jk@codeconstruct.com.au>,
+ Johannes Berg <johannes@sipsolutions.net>, Lee Jones <lee.jones@linaro.org>,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -105,32 +111,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 19 Nov 2022 00:23:50 +0100,
-Kees Cook wrote:
+On Fri, 18 Nov 2022 23:45:31 +0100,
+Uwe Kleine-König wrote:
 > 
-> With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
-> indirect call targets are validated against the expected function
-> pointer prototype to make sure the call target is valid to help mitigate
-> ROP attacks. If they are not identical, there is a failure at run time,
-> which manifests as either a kernel panic or thread getting killed.
+> From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 > 
-> seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
-> matching snd_seq_dump_func_t. Adjust this and remove the casts. There
-> are not resulting binary output differences.
+> The probe function doesn't make use of the i2c_device_id * parameter so it
+> can be trivially converted.
 > 
-> This was found as a result of Clang's new -Wcast-function-type-strict
-> flag, which is more sensitive than the simpler -Wcast-function-type,
-> which only checks for type width mismatches.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Thanks, applied.
+Applied now to for-next branch.
 
+
+thanks,
 
 Takashi

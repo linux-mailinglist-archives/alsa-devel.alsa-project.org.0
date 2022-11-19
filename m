@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12FF630D69
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:45:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E724D630D67
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:45:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86E1616BE;
-	Sat, 19 Nov 2022 09:44:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86E1616BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86E3916BF;
+	Sat, 19 Nov 2022 09:44:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86E3916BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668847516;
-	bh=J6A2zN+GaxubPoA4pynMpJ9aRQjTm1qSEAaKvZV9V00=;
+	s=default; t=1668847500;
+	bh=ak6M5fgrTHQ1MM2vf+n5AubLq+AMYqmK/RRzz3/3gig=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gTiK2PUAhnQ+adeBoFO1BkYcWiDhUR0yLKfjVrOnWqnsjoYYwaBaTnD0xvDlPy5zr
-	 N4xfYMXp7gAFoiC0rzVMq3cGs547zisd/ZgilfmZUMg233PkVxyK7OeaSViAo/TLI3
-	 +Oz2JuOI4/f1oxH+3ZbmKVYPLqHe/CTflLir7HHk=
+	b=YIeJfiV8JBaejC5KjrKs5torIKT8F2ktSxsju7nUrG//78Bs69/1othe6WLEBb29h
+	 jOtb6fGoWkt+1zWuIF1FZJh2dns95eeNBgfFvQcXHoHD/284SQJdw1IbP7qYfOVSkC
+	 wDGDCVYUIPZedvGGjufNMMqDWPk+nfl1aKqFcawI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02DFBF805C1;
-	Sat, 19 Nov 2022 09:40:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AAE6F805BA;
+	Sat, 19 Nov 2022 09:40:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47B49F80217; Sat, 19 Nov 2022 07:50:24 +0100 (CET)
+ id 2E5ECF8023B; Sat, 19 Nov 2022 07:50:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09587F800B5
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 07:50:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09587F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7337F8012A
+ for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 07:50:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7337F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d+WNCYro"
+ header.b="seXipkg9"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3CA6560A36;
+ by ams.source.kernel.org (Postfix) with ESMTPS id B256EB82713;
  Sat, 19 Nov 2022 06:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 86E7AC433B5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5944BC433D6;
  Sat, 19 Nov 2022 06:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1668840616;
- bh=J6A2zN+GaxubPoA4pynMpJ9aRQjTm1qSEAaKvZV9V00=;
+ bh=ak6M5fgrTHQ1MM2vf+n5AubLq+AMYqmK/RRzz3/3gig=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=d+WNCYrodp79kOfNGIXr5PvvIs5GCF6E/TB0CDa2g+OZEp77Ua/U5QlZvwsWMDrK4
- OlLD/U4jjbYyhWaiA4rct4JoYkz9IWVscixQD26JhUaXY3yUQEg8Y11+kSP0F7KpB8
- zMZfwDOJzrlQ9jze8VoIW1mJ3xn1MyS9umDxW8U4aWjYwb6wOYhonyX7dPSQGn//c3
- ES9sycuBVsgfSKQQ6UBEnGpryiRSmirdvQs2tXppPiSbnayeSEWB/Bx525GuMc+yZz
- 4Kon/n6VmXCwbfBd8TB8yHub9wkc/uggzN+T8rGWKeov06QFTXG5sVNeaRlrWw+yQP
- EzUp1tL6honhQ==
+ b=seXipkg9CAyFA9/DRpiD01V8ITXAB4g0Feuk+M72plAUXo40561rs1dMVurztjC0R
+ UGqXlOdf3JC5VrI2IWVezRWqsbHRKhLTyD3mEBicEAh2WBWvOY+SAmQ5aoJgjdz1Vk
+ 5aq4YUvgNncdPRSw5IsP6xY0s8PudX8SdTsR/EyWyOmZxNi+pkZtOu70losD9BrvnB
+ Du21LerJzoVvVs4d9eSLNMvDcUU7T0jOw29zyRduMgSnRBWCRcfu03u6uXJN2UHbLy
+ DMpzJwBt86Z35Odc5hTd6y/3r7eqH4zheZmOWuKtOuYVHcjUBHn5l00sWabdAIfdsG
+ FRNiHf2EtKUDg==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 64E94E524E4; Sat, 19 Nov 2022 06:50:16 +0000 (UTC)
+ 37F78E29F44; Sat, 19 Nov 2022 06:50:16 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: Re: [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
 From: patchwork-bot+chrome-platform@kernel.org
-Message-Id: <166884061640.19423.12726268813615488480.git-patchwork-notify@kernel.org>
+Message-Id: <166884061622.19423.870710096225259467.git-patchwork-notify@kernel.org>
 Date: Sat, 19 Nov 2022 06:50:16 +0000
 References: <20221118224540.619276-1-uwe@kleine-koenig.org>
 In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
@@ -109,7 +108,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hello:
 
-This patch was applied to chrome-platform/linux.git (for-next)
+This patch was applied to chrome-platform/linux.git (for-kernelci)
 by Tzung-Bi Shih <tzungbi@kernel.org>:
 
 On Fri, 18 Nov 2022 23:35:34 +0100 you wrote:

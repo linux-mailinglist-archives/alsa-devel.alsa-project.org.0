@@ -2,95 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E724D630D67
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA4A630D44
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 09:21:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86E3916BF;
-	Sat, 19 Nov 2022 09:44:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86E3916BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348DD1632;
+	Sat, 19 Nov 2022 09:21:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348DD1632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668847500;
-	bh=ak6M5fgrTHQ1MM2vf+n5AubLq+AMYqmK/RRzz3/3gig=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1668846115;
+	bh=NuunGRPqVARWm4sh5Xhp3zUOb8nwAMhXqgpdwj5oIQI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YIeJfiV8JBaejC5KjrKs5torIKT8F2ktSxsju7nUrG//78Bs69/1othe6WLEBb29h
-	 jOtb6fGoWkt+1zWuIF1FZJh2dns95eeNBgfFvQcXHoHD/284SQJdw1IbP7qYfOVSkC
-	 wDGDCVYUIPZedvGGjufNMMqDWPk+nfl1aKqFcawI=
+	b=i7pLALCAFY1FV8H9B3qWNlrueNt10nT33sC4IH29CIfTrcgmWSCCVgQHWgQ82R+6c
+	 hIm1k2uwKksNkGM7qC/InJ72OLtlUoqK+LUe9yDiwE6PhDBpCHhWdP0u5zb9DAGEeC
+	 TsqN1yS1WRfFKN+7Oi/Qz+rVSs0OkHvxU7D6h5+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AAE6F805BA;
-	Sat, 19 Nov 2022 09:40:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2C09F800B8;
+	Sat, 19 Nov 2022 09:21:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E5ECF8023B; Sat, 19 Nov 2022 07:50:23 +0100 (CET)
+ id A3AC3F80217; Sat, 19 Nov 2022 09:20:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7337F8012A
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 07:50:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7337F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2240F8016A
+ for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 09:20:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2240F8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="seXipkg9"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="H/Ryjm1N"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CTLCvID1"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B256EB82713;
- Sat, 19 Nov 2022 06:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5944BC433D6;
- Sat, 19 Nov 2022 06:50:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668840616;
- bh=ak6M5fgrTHQ1MM2vf+n5AubLq+AMYqmK/RRzz3/3gig=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=seXipkg9CAyFA9/DRpiD01V8ITXAB4g0Feuk+M72plAUXo40561rs1dMVurztjC0R
- UGqXlOdf3JC5VrI2IWVezRWqsbHRKhLTyD3mEBicEAh2WBWvOY+SAmQ5aoJgjdz1Vk
- 5aq4YUvgNncdPRSw5IsP6xY0s8PudX8SdTsR/EyWyOmZxNi+pkZtOu70losD9BrvnB
- Du21LerJzoVvVs4d9eSLNMvDcUU7T0jOw29zyRduMgSnRBWCRcfu03u6uXJN2UHbLy
- DMpzJwBt86Z35Odc5hTd6y/3r7eqH4zheZmOWuKtOuYVHcjUBHn5l00sWabdAIfdsG
- FRNiHf2EtKUDg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 37F78E29F44; Sat, 19 Nov 2022 06:50:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-From: patchwork-bot+chrome-platform@kernel.org
-Message-Id: <166884061622.19423.870710096225259467.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Nov 2022 06:50:16 +0000
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=3Cuwe=40kleine-koenig=2Eorg=3E?=@ci.codeaurora.org
-X-Mailman-Approved-At: Sat, 19 Nov 2022 09:40:30 +0100
-Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
- linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org, lee.jones@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, grant.likely@linaro.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- ang.iglesiasg@gmail.com, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@puri.sm, patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, wsa@kernel.org,
- linux-crypto@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DDF5B1F383;
+ Sat, 19 Nov 2022 08:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1668846052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QEDCwVW6uuuHbiiKcc9DBnvWg+TJfsJ2v3EhFL0XN9o=;
+ b=H/Ryjm1NMX2N+WZ3ckhenCooygFEg9Yfn77aE0Hsrl/e2jTVUqUKBgY/4R7swkNah6+M9R
+ PmnDKkTTpFAoXi4Bt56ucl0dEidCF+itn9cvEQekhnSbpfBvSOBEEgtJwHUhxfxIGXiI0u
+ C515FCgXPmknejVhuntrIlRbBzQ0H2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1668846052;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QEDCwVW6uuuHbiiKcc9DBnvWg+TJfsJ2v3EhFL0XN9o=;
+ b=CTLCvID1yyQQODN5uIjEn4sdakmHfW057PiOsxEIkb8i+993/7daQouoSNWKhS/GUmqS0G
+ saXmX594nhhnsWCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9856D1377F;
+ Sat, 19 Nov 2022 08:20:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6oogJOSReGNafQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 19 Nov 2022 08:20:52 +0000
+Date: Sat, 19 Nov 2022 09:20:53 +0100
+Message-ID: <87a64nxsm2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] ALSA: seq: Fix function prototype mismatch in
+ snd_seq_expand_var_event
+In-Reply-To: <20221118232346.never.380-kees@kernel.org>
+References: <20221118232346.never.380-kees@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,33 +105,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello:
-
-This patch was applied to chrome-platform/linux.git (for-kernelci)
-by Tzung-Bi Shih <tzungbi@kernel.org>:
-
-On Fri, 18 Nov 2022 23:35:34 +0100 you wrote:
-> Hello,
+On Sat, 19 Nov 2022 00:23:50 +0100,
+Kees Cook wrote:
 > 
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
+> With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+> indirect call targets are validated against the expected function
+> pointer prototype to make sure the call target is valid to help mitigate
+> ROP attacks. If they are not identical, there is a failure at run time,
+> which manifests as either a kernel panic or thread getting killed.
 > 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
+> seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
+> matching snd_seq_dump_func_t. Adjust this and remove the casts. There
+> are not resulting binary output differences.
 > 
-> [...]
+> This was found as a result of Clang's new -Wcast-function-type-strict
+> flag, which is more sensitive than the simpler -Wcast-function-type,
+> which only checks for type width mismatches.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Kees Cook <keescook@chromium.org>
 
-Here is the summary with links:
-  - [512/606] platform/chrome: cros_ec: Convert to i2c's .probe_new()
-    https://git.kernel.org/chrome-platform/c/f9e510dc92df
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Thanks, applied.
 
 
+Takashi

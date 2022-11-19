@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DF01630996
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 03:14:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D30496309A9
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Nov 2022 03:15:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C276916C2;
-	Sat, 19 Nov 2022 03:13:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C276916C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F01216C6;
+	Sat, 19 Nov 2022 03:15:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F01216C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1668824085;
-	bh=KyXczEDabcTqMLkfqC1Xh0fqivha5/W/FizAj42ixyM=;
+	s=default; t=1668824153;
+	bh=OSKBnjS0CLNwFCl54XfBSFAtollL0k1rDe7M1vayXpA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NovJFw/5YZLkBR0Tcmvh/QWX077BmkX1kci7ImnP4WI0qNU9s4YkIW2o/5v5R4hZD
-	 YoIBmLcmPZ2lyYqH9T+TJNKYH0j/WLiuVdvWDsU/R8dDtiYiDlh9XDB+Ub3eCUdtWd
-	 cRWXCdguDKAY2dRkE4WSoXdThUKsaE4/R/nmFOh0=
+	b=aopjPozsFpcEB/bOxOB4m3YIPFpfwL8xYzHpW2/v1BbYkOq/wHWOvPBok1J+Dxuod
+	 JwzCS1fSZS8FOQmvDJPu+I1Axylv/zZi96htARx5QQp2SWhe5HB6L+gQNPTkbBhFuH
+	 95j+2ALyDF+Ah8qHhqHnEV6AXf5/tjjRT1+pq/BQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600E6F8020D;
-	Sat, 19 Nov 2022 03:13:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 555FEF8020D;
+	Sat, 19 Nov 2022 03:14:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E145F801D8; Sat, 19 Nov 2022 03:13:49 +0100 (CET)
+ id ED78CF801D8; Sat, 19 Nov 2022 03:14:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420C6F800B5
- for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 03:13:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420C6F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE3D1F8016E
+ for <alsa-devel@alsa-project.org>; Sat, 19 Nov 2022 03:14:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE3D1F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i+JeHWwH"
+ header.b="bV2R90QR"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 429E1B82677;
- Sat, 19 Nov 2022 02:13:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D25C433D7;
- Sat, 19 Nov 2022 02:13:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4D5D362831;
+ Sat, 19 Nov 2022 02:14:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F54FC433D6;
+ Sat, 19 Nov 2022 02:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668824021;
- bh=KyXczEDabcTqMLkfqC1Xh0fqivha5/W/FizAj42ixyM=;
+ s=k20201202; t=1668824087;
+ bh=OSKBnjS0CLNwFCl54XfBSFAtollL0k1rDe7M1vayXpA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i+JeHWwHC8AEIjqMZaZDKKhKHjxvUmJFP33cq5O2UfOOWEBxkugpCAiV6OnuGJ6Ie
- GOLpOPibSKuPBsIp0OnnW2EL+4328wzvGTOCXJGDMFzPVBSlXkqksfqS3YAiSaiMnH
- /TDTFj5dhdxxT0VEogsqtJZ4DHAkRzS6FdfxVix1R6slnj+EGNediyi+TFJI9Rite1
- S9XszbBC+i62DSNGXsc0Ns5ahMbNEIktuNLmrxCqIoegaUiXwfEwgzDNxcAjgjTDRD
- BXavcbYM/WgwOAngaAYA5G6lCbV3zHJatbkHtLyDz9iuvocBYz2Kx6WPaHxwV31yoc
- J4WsmQGAnwcOw==
+ b=bV2R90QR7lWuiQx88SZ2vVzJxx/m3EkloZJESC5OGkASocjUS8mBqtSPVuB59aiNw
+ NrgoFBBrzvBbzeHwfQccxqvSrUmGXo76kqhgZd/6eOaCdeLwl2yBizKBCaz4R74im0
+ JlevvOlJ3ZXJfBt0iMdB7YhODWKCHFTiMN1g6JNwHGJtPCsWjNMlqu8XhHFZwkBxqn
+ dQt53hjv1BQK/m1q6iIJHq7yITd4/11Yx7IJXULgsDm0dbdXltxfi6jiLCMjQzP3iz
+ v/WX+0AUQu9aK4V8wD59F9v/NH2TYfkazjSRAWmaJmjK5ZWt6WL1KwyyNv3ICvhKq5
+ lEOPHDtrKPNvA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 41/44] ALSA: usb-audio: add quirk to fix Hamedal
+Subject: [PATCH AUTOSEL 5.15 25/27] ALSA: usb-audio: add quirk to fix Hamedal
  C20 disconnect issue
-Date: Fri, 18 Nov 2022 21:11:21 -0500
-Message-Id: <20221119021124.1773699-41-sashal@kernel.org>
+Date: Fri, 18 Nov 2022 21:13:50 -0500
+Message-Id: <20221119021352.1774592-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221119021124.1773699-1-sashal@kernel.org>
-References: <20221119021124.1773699-1-sashal@kernel.org>
+In-Reply-To: <20221119021352.1774592-1-sashal@kernel.org>
+References: <20221119021352.1774592-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -112,10 +112,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 2420dc994632..4c9ea13f72d4 100644
+index 3bbc227769d0..092350eb5f4e 100644
 --- a/sound/usb/endpoint.c
 +++ b/sound/usb/endpoint.c
-@@ -923,7 +923,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
+@@ -887,7 +887,8 @@ void snd_usb_endpoint_close(struct snd_usb_audio *chip,
  	usb_audio_dbg(chip, "Closing EP 0x%x (count %d)\n",
  		      ep->ep_num, ep->opened);
  
@@ -126,10 +126,10 @@ index 2420dc994632..4c9ea13f72d4 100644
  
  	if (!--ep->opened) {
 diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index eadac586bcc8..a50e15be1229 100644
+index 879d8b1f301c..2ae9ad993ff4 100644
 --- a/sound/usb/quirks.c
 +++ b/sound/usb/quirks.c
-@@ -2185,6 +2185,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+@@ -1884,6 +1884,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
  	DEVICE_FLG(0x2b53, 0x0031, /* Fiero SC-01 (firmware v1.1.0) */
  		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
@@ -139,10 +139,10 @@ index eadac586bcc8..a50e15be1229 100644
  	/* Vendor matches */
  	VENDOR_FLG(0x045e, /* MS Lifecam */
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 2c6575029b1c..e97141ef730a 100644
+index 39c3c61a7e49..ec06f441e890 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
-@@ -170,6 +170,8 @@ extern bool snd_usb_skip_validation;
+@@ -169,6 +169,8 @@ extern bool snd_usb_skip_validation;
   *  Apply the generic implicit feedback sync mode (same as implicit_fb=1 option)
   * QUIRK_FLAG_SKIP_IMPLICIT_FB
   *  Don't apply implicit feedback sync mode
@@ -151,7 +151,7 @@ index 2c6575029b1c..e97141ef730a 100644
   */
  
  #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
-@@ -191,5 +193,6 @@ extern bool snd_usb_skip_validation;
+@@ -190,5 +192,6 @@ extern bool snd_usb_skip_validation;
  #define QUIRK_FLAG_SET_IFACE_FIRST	(1U << 16)
  #define QUIRK_FLAG_GENERIC_IMPLICIT_FB	(1U << 17)
  #define QUIRK_FLAG_SKIP_IMPLICIT_FB	(1U << 18)

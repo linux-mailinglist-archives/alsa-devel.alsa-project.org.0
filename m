@@ -2,111 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6266633893
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 10:34:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47936633884
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 10:32:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E8BE16CE;
-	Tue, 22 Nov 2022 10:33:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E8BE16CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7AE716A0;
+	Tue, 22 Nov 2022 10:31:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7AE716A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669109651;
-	bh=UeT6iM2KUGf961TTStN8VXzwZpxUEsrLAiuHP8tH0ZM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WLRrKPfSukjVZj+a7/bz4AtdsE+av9Tp0kOYuNwgKOOUR/G8UXH+MDHX4sqyw3ksq
-	 SQlWzpumfj2RRdknj8PxvfidKP7ibWTU6BHMLkgOIw6n/tXLTM947WxIIEJ7z8jjhv
-	 1IrKkSjup+GkcJrzWIIlIgZS1Xsv+qjLAKZISFQM=
+	s=default; t=1669109526;
+	bh=Kf1GS3fL5gmsS0p20QnjqKmUNkv40AfXmkFjIvy0hsU=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Bk9rwToKEZmzAfz9FPNjoFrvLbJDr0Xa7FN3fawOzgq8ReUDDRL/mgRR2YY5VyG0i
+	 7hVjHjiR7H78PDN9DHQsvO4nQzOstHUqWSnaP1R8EsH5KWdvVVYuLau9QJEiL+iDDe
+	 bSXKrSdHc0v/QAUSEX9hrfLKPNh4VpkbWl+MuQrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4710FF805EB;
-	Tue, 22 Nov 2022 10:27:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 818AAF805C1;
+	Tue, 22 Nov 2022 10:27:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57E90F8028D; Mon, 21 Nov 2022 14:33:41 +0100 (CET)
+ id 8E791F80149; Tue, 22 Nov 2022 00:20:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42F14F800F3
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 14:33:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F14F800F3
-Received: by mail-qk1-f169.google.com with SMTP id p18so7956358qkg.2
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 05:33:26 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02C08F80115
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 00:20:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02C08F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qHqyHxrZ"
+Received: by mail-wm1-x32f.google.com with SMTP id
+ l39-20020a05600c1d2700b003cf93c8156dso10132037wms.4
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 15:20:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RHygxpssuDUiJzjzp0xH0KskztklwzppGLqlfrRansE=;
+ b=qHqyHxrZxdbu053aP7anuXXTu+O+eBHo8HbT/vfgbsooaqpyMeU1NUPqwCa4buuoCr
+ srEfqQQfgYaM/iRwMMQzW/x8NbT45XTBkOjvPGWOU8So/btX3++AVAtZ7a8aMnlad8g3
+ Z8ZIHUOneZokf9JLVSWO5zNQq7c4sEtjOPu5IvW8/cqqIG0lA9HpPQK9DHV5MQQCvhMB
+ EtAcFnn8WgUNCvJvOSYQ+pqdfjhJPNtKvpyctyaIEt+PBca0HOG780KMwNKhxvMzVIbM
+ 2X3XWQOZlSf22yszQtkSNolVqQv/vyZycuolIJN/nrTBvNiaVHR+qCy6kgowRm6Oe8dl
+ MHvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=W52hjy2XgXbLvoau/TZhYUdh0mFs9ky77EejBWrKJL0=;
- b=kNluTRNJxV6cwlBk2pnrHMi3dxvUbvUjr2WT5LwosDauXvLEdJ2b5PknMJMe5xJnjq
- jHcPRCBrcy2JlH/0cNAZRKcHr3ILrt4xD5D549TJTqJWBnk/Z/ECiuZYiYTiWFJehzFq
- e8jnD35YZIqNkyaEDDw9vVsfOgK34LdIFd/mYtMxfzneSIz+JRgb6FthioJ88QzWM+gD
- /x6gCGe0/ZPVRyg0SqDgCr6dA7e+FQm/dQDpPD5vCl4DPG1TKH8wPIYNONNVdm2bUcvw
- Vq5rSHWDRXZuLILn81Lb59qC47U3lONiu/BcAB5yiTL66BqCbNfsjEVtF0vOpXHmm1CF
- OK0w==
-X-Gm-Message-State: ANoB5pmXDU5ILXiBfnTpM45zYajOUZY/83udL10ULMfqVWGVH2lZ7KUU
- X9rBQulJUUQvfHIP0kvHibSSQtxQH7Y3Rw==
-X-Google-Smtp-Source: AA0mqf5/Ca/vI/x5dUB1wys951xUrTiPqVwp/XQqC4ZaVhqXyNRk80apE+d55x9safxCfxqaQJvppQ==
-X-Received: by 2002:a05:620a:2707:b0:6fa:25d4:8034 with SMTP id
- b7-20020a05620a270700b006fa25d48034mr16203986qkp.197.1669037604408; 
- Mon, 21 Nov 2022 05:33:24 -0800 (PST)
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com.
- [209.85.128.175]) by smtp.gmail.com with ESMTPSA id
- z7-20020ac87107000000b003a57a317c17sm6609092qto.74.2022.11.21.05.33.23
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Nov 2022 05:33:23 -0800 (PST)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-3a3961f8659so21557807b3.2
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 05:33:23 -0800 (PST)
-X-Received: by 2002:a81:4f4c:0:b0:357:66a5:bb25 with SMTP id
- d73-20020a814f4c000000b0035766a5bb25mr17212924ywb.383.1669037603130; Mon, 21
- Nov 2022 05:33:23 -0800 (PST)
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RHygxpssuDUiJzjzp0xH0KskztklwzppGLqlfrRansE=;
+ b=loqzcVT26vs+dqjI08zR5ziuIZvSM4RYc+m/NIyVmkL7Yp2pGag4UNtJ3h3FJk1Z5E
+ OLe1AGK6uTTePXzPf63evQCvwB/+ShPJc5l3kMdMtEhO50Antb+UkJ+DUOsgXZSguu1b
+ N/NqNJug3rp8EENSpkk0g/flM4YIqWUfkie009bsLmhWv2K0y5ZdZjrfFm+1gz95tXFZ
+ fcHsl2R5EKkOvqD/FZp8q6s0SHiXM1DvdHUrUI49tP4qXEuoZQ6DaIukQj/DFHF3EL3K
+ i2FfKTu+ineBU/2bMXuJRE+A4nN4b0eRcScJVP62743E+1UVwUYu7hAO0HmBpuq715Ug
+ wvbQ==
+X-Gm-Message-State: ANoB5pl7p6H5mg3C6fRNkYBhtGEaVdzzOyZN14LkM1d+iavPBFY+k9IW
+ UBI9EaVHxGff5F0JQTpHdVG1KjKBUMWXO4rn
+X-Google-Smtp-Source: AA0mqf6x9wGrYv44LmSXYNRtK3ag+XTC0Bf8MEBAkPZSCGvgfOhuAiC7XSSVUxXK7Gh1gpdnnhpS+w==
+X-Received: by 2002:a05:600c:4f93:b0:3cf:a616:ccc0 with SMTP id
+ n19-20020a05600c4f9300b003cfa616ccc0mr18319130wmq.73.1669072842988; 
+ Mon, 21 Nov 2022 15:20:42 -0800 (PST)
+Received: from tora (80.49.50.209.ipv4.supernova.orange.pl. [80.49.50.209])
+ by smtp.gmail.com with ESMTPSA id
+ l8-20020a5d4bc8000000b002238ea5750csm12583174wrt.72.2022.11.21.15.20.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Nov 2022 15:20:42 -0800 (PST)
+Date: Tue, 22 Nov 2022 00:20:40 +0100
+From: Alicja Michalska <ahplka19@gmail.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: [PATCH] ASoC: Intel: avs: Add missing audio amplifier for KBL
+Message-ID: <Y3wHyJ/EcsLRHGr3@tora>
 MIME-Version: 1.0
-References: <20221121110615.97962-1-krzysztof.kozlowski@linaro.org>
- <20221121110615.97962-8-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221121110615.97962-8-krzysztof.kozlowski@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 21 Nov 2022 14:33:11 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUtT3=F-3XLb604VUvKxNQBWK1y0rMnMn0kASKjQGw=3g@mail.gmail.com>
-Message-ID: <CAMuHMdUtT3=F-3XLb604VUvKxNQBWK1y0rMnMn0kASKjQGw=3g@mail.gmail.com>
-Subject: Re: [PATCH v2 7/9] dt-bindings: drop redundant part of title
- (beginning)
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 22 Nov 2022 10:27:19 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- linux-mtd@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-riscv@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, Viresh Kumar <vireshk@kernel.org>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Sebastian Reichel <sre@kernel.org>, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Tue, 22 Nov 2022 10:27:18 +0100
+Cc: cezary.rojewski@intel.com, upstream@semihalf.com, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,37 +104,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 21, 2022 at 12:09 PM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
-> The Devicetree bindings document does not have to say in the title that
-> it is a "Devicetree binding", but instead just describe the hardware.
->
-> Drop beginning "Devicetree bindings" in various forms:
->
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [dD]evice[ -]\?[tT]ree [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
->
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
->
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [dD][tT] [bB]indings\? for \([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+KBL platform is missing the definition of 'max98357a' audio amplifier.
+This amplifier is used on many KBL Chromebooks, for instance variant
+'nami' of 'Google/poppy' baseboard.
 
->  .../devicetree/bindings/interrupt-controller/renesas,irqc.yaml  | 2 +-
+Reported-by: CoolStar <coolstarorganization@gmail.com>
+Signed-off-by: Alicja Michalska <ahplka19@gmail.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
+index 87f9c18be238..650faebb33ef 100644
+--- a/sound/soc/intel/avs/board_selection.c
++++ b/sound/soc/intel/avs/board_selection.c
+@@ -129,6 +129,14 @@ static struct snd_soc_acpi_mach avs_kbl_i2s_machines[] = {
+ 		},
+ 		.tplg_filename = "max98373-tplg.bin",
+ 	},
++	{
++		.id = "MX98357A",
++		.drv_name = "avs_max98357a",
++		.mach_params = {
++			.i2s_link_mask = AVS_SSP(0),
++		},
++		.tplg_filename = "max98357a-tplg.bin",
++	},
+ 	{
+ 		.id = "DLGS7219",
+ 		.drv_name = "avs_da7219",
+---
+ sound/soc/intel/avs/board_selection.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Gr{oetje,eeting}s,
+diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
+index 87f9c18be238..650faebb33ef 100644
+--- a/sound/soc/intel/avs/board_selection.c
++++ b/sound/soc/intel/avs/board_selection.c
+@@ -129,6 +129,14 @@ static struct snd_soc_acpi_mach avs_kbl_i2s_machines[] = {
+ 		},
+ 		.tplg_filename = "max98373-tplg.bin",
+ 	},
++	{
++		.id = "MX98357A",
++		.drv_name = "avs_max98357a",
++		.mach_params = {
++			.i2s_link_mask = AVS_SSP(0),
++		},
++		.tplg_filename = "max98357a-tplg.bin",
++	},
+ 	{
+ 		.id = "DLGS7219",
+ 		.drv_name = "avs_da7219",
+-- 
+2.38.1
 
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

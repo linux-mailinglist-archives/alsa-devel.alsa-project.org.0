@@ -2,87 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1642632959
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 17:26:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 028B363298B
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 17:32:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C47815C3;
-	Mon, 21 Nov 2022 17:25:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C47815C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE1CE12;
+	Mon, 21 Nov 2022 17:32:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE1CE12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669047960;
-	bh=3nvKr2DQVoLAR9aH5HGq8qe6JijhO+KVSuPzur8gDjo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Rfwg5Q+zHEUw2ot36jISL5pfi7xSATa90Mily5vFBkft7iFVLf7ukaHrZW/uTd/Mx
-	 sR6J2vUgZnp3s+kKbIreX6I+CVNqoXmRAt1DrjD/x+9+oTx9fZBPkcvBLf+7ybEqSd
-	 TW3PmIwxaXxrOAHhaKohrIYFL+vMwMFMocEZcYPY=
+	s=default; t=1669048371;
+	bh=8FGiF1j8BtAQjIKLXKAXyllFLSeCd7WtZVvISunk3Bw=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eYdXe/iK36/dvs8WlGrBV4Ag9WDpGs3/CDxIXgJl5fRGituLtXODVBCjnH9TeREBW
+	 HQiSte/bJhGcbcMogJZYsl7c7VPtv6W9U7d10+fTu91oClr4ha+CRHxh11/KwT/dlq
+	 pQ2PrUz4waZWsOWPRh3eRKK7c4Xk6Ufm15fneZiY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90EA0F804AB;
-	Mon, 21 Nov 2022 17:25:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 033FEF80115;
+	Mon, 21 Nov 2022 17:31:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB5AF8028D; Mon, 21 Nov 2022 17:25:03 +0100 (CET)
+ id DB736F8028D; Mon, 21 Nov 2022 17:31:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A40B0F80115
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 17:24:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A40B0F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 118BDF800F3
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 17:31:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 118BDF800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="UoERFtE3"
+ header.b="fgdIW/6Y"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2ALCRK4S019971; Mon, 21 Nov 2022 10:24:55 -0600
+ 2ALCdRLo008204; Mon, 21 Nov 2022 10:31:45 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=4UMzaT3FllzN9o30ghlwgUoU6Qf25HeCEVnbg8A8Ecc=;
- b=UoERFtE3WImezBAOkahdFI0yZOiLurMH8OXIlr2qhr7IWM+PC4xsTX5xw3ad9HqsDfuC
- orLmJI/VVvuPfL7sd5NuZ9WMpqsAyEQVneimhgXMPlYWzgIi00Fj7zNTPysWbuSsVBIM
- dExSx/RoRhw5ec7eIOzGlulOf8JI7rbw4F1JibvzKjIKxIRlKv9eqmm095YQaes9fZn7
- CuFJa45j4mO9M/Mgb/E/+3TP828EMkly6PmjgntZbS6NPIUlin+TMCmXONIAFADVlCKn
- Nlligg05A4ZDu6waBAlmYMTUV/Gsm8AennGD3aoMkZ0Mdf4mKByKWykMAxzlnQHMkc6a Hg== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=s5BfbzAlz8fZZbAjoyUbrrFgI6ZBMj5mkkHZtxaKUTI=;
+ b=fgdIW/6YlRlkUQz71hxtPuZDCToxPN71C8hvZQNc6O32inetGNIrLI7vlweKDg4yo8+9
+ UudY/tHlE0m3aunq9Wm7/LQeUjieEUrKXOCbheLDb2YlrzhcL/IHCt46fJbC6RjoWwzK
+ p7WTKS0T0Gs16Vb6i31xIFeVKi7Gl6ZdY1464bDPiA6fFlNpvdpVBAKr+afqSrPe7LMf
+ OUajRHa0rJt5koejYhCnqS2A8Fxd4CVvGEXG5GjH4qjLa1pvPRoBm+u/ihIFu/8mrBRx
+ z3AdvLDrNAlikjsZvuziXm+Uxch9yg93p4HK6Ui/0d/ZnQB/hHEkjYp7TaNcH3z2VrgU Lw== 
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6tcmy-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6tcwm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Nov 2022 10:24:55 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ Mon, 21 Nov 2022 10:31:45 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Mon, 21 Nov
- 2022 10:24:53 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
- Frontend Transport; Mon, 21 Nov 2022 10:24:53 -0600
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ 2022 10:31:43 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.20 via Frontend Transport; Mon, 21 Nov 2022 10:31:43 -0600
+Received: from [198.90.251.111] (edi-sw-dsktp-006.ad.cirrus.com
  [198.90.251.111])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 06496468;
- Mon, 21 Nov 2022 16:24:53 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH] soundwire: bus_type: Avoid lockdep assert in sdw_drv_probe()
-Date: Mon, 21 Nov 2022 16:24:52 +0000
-Message-ID: <20221121162453.1834170-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D04F1468;
+ Mon, 21 Nov 2022 16:31:42 +0000 (UTC)
+Message-ID: <22df3cf2-ab22-59c9-106c-d06dc2a6060d@opensource.cirrus.com>
+Date: Mon, 21 Nov 2022 16:31:42 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 9e45ZdA9sZUWEGKY2jXQmLpCGetehFOp
-X-Proofpoint-GUID: 9e45ZdA9sZUWEGKY2jXQmLpCGetehFOp
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH 2/9] ASoC: max98373-sdw: Switch to new
+ snd_sdw_params_to_config helper
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, <tiwai@suse.com>,
+ <broonie@kernel.org>
+References: <20221121134608.3713033-1-ckeepax@opensource.cirrus.com>
+ <20221121134608.3713033-2-ckeepax@opensource.cirrus.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20221121134608.3713033-2-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 22824YeHitfuOJlpYNTNXF9CiVDT2bg_
+X-Proofpoint-GUID: 22824YeHitfuOJlpYNTNXF9CiVDT2bg_
 X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,80 +106,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Don't hold sdw_dev_lock while calling the peripheral driver
-probe() and remove() callbacks.
+On 21/11/2022 13:46, Charles Keepax wrote:
+> The conversation from hw_params to SoundWire config is pretty
+s/conversation/conversion
 
-Holding sdw_dev_lock around the probe() and remove() calls
-causes a theoretical mutex inversion which lockdep will
-assert on. The peripheral driver probe will probably register
-a soundcard, which will take ALSA and ASoC locks. During
-normal operation a runtime resume suspend can be triggered
-while these locks are held and will then take sdw_dev_lock.
+> standard as such most of the conversation can be handled by the new
+> snd_sdw_params_to_config helper function.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+>   sound/soc/codecs/max98373-sdw.c | 31 +++++++++++--------------------
+>   1 file changed, 11 insertions(+), 20 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
+> index 899965b19d12d..3cd1be743d9ee 100644
+> --- a/sound/soc/codecs/max98373-sdw.c
+> +++ b/sound/soc/codecs/max98373-sdw.c
+> @@ -10,6 +10,7 @@
+>   #include <linux/slab.h>
+>   #include <sound/pcm.h>
+>   #include <sound/pcm_params.h>
+> +#include <sound/sdw.h>
+>   #include <sound/soc.h>
+>   #include <sound/tlv.h>
+>   #include <linux/of.h>
+> @@ -533,10 +534,8 @@ static int max98373_sdw_dai_hw_params(struct snd_pcm_substream *substream,
+>   	struct snd_soc_component *component = dai->component;
+>   	struct max98373_priv *max98373 =
+>   		snd_soc_component_get_drvdata(component);
+> -
+> -	struct sdw_stream_config stream_config;
+> -	struct sdw_port_config port_config;
+> -	enum sdw_data_direction direction;
+> +	struct sdw_stream_config stream_config = {0};
+> +	struct sdw_port_config port_config = {0};
+>   	struct sdw_stream_data *stream;
+>   	int ret, chan_sz, sampling_rate;
+>   
+> @@ -548,28 +547,20 @@ static int max98373_sdw_dai_hw_params(struct snd_pcm_substream *substream,
+>   	if (!max98373->slave)
+>   		return -EINVAL;
+>   
+> +	snd_sdw_params_to_config(substream, params, &stream_config, &port_config);
+> +
+>   	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> -		direction = SDW_DATA_DIR_RX;
+>   		port_config.num = 1;
+> +
+> +		if (max98373->slot) {
+> +			stream_config.ch_count = max98373->slot;
+> +			port_config.ch_mask = max98373->rx_mask;
+> +		}
+>   	} else {
+> -		direction = SDW_DATA_DIR_TX;
+>   		port_config.num = 3;
+> -	}
+>   
+> -	stream_config.frame_rate = params_rate(params);
+> -	stream_config.bps = snd_pcm_format_width(params_format(params));
+> -	stream_config.direction = direction;
+> -
+> -	if (max98373->slot && direction == SDW_DATA_DIR_RX) {
+> -		stream_config.ch_count = max98373->slot;
+> -		port_config.ch_mask = max98373->rx_mask;
+> -	} else {
+>   		/* only IV are supported by capture */
+> -		if (direction == SDW_DATA_DIR_TX)
+> -			stream_config.ch_count = 2;
+Has this special case gone missing or is it already guaranteed by the
+DAI config?
 
-It's not necessary to hold sdw_dev_lock when calling the
-probe() and remove(), it is only used to prevent the bus core
-calling the driver callbacks if there isn't a driver or the
-driver is removing.
-
-If sdw_dev_lock is held while setting and clearing the
-'probed' flag this is sufficient to guarantee the safety of
-callback functions.
-
-The potential race of a bus event happening while probe() is
-executing is the same as the existing race of the bus event
-handler taking the mutex first and processing the event
-before probe() can run. In both cases the event has already
-happened before the driver is probed and ready to accept
-callbacks.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/bus_type.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
-index 04b3529f8929..963498db0fd2 100644
---- a/drivers/soundwire/bus_type.c
-+++ b/drivers/soundwire/bus_type.c
-@@ -105,20 +105,19 @@ static int sdw_drv_probe(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(&slave->sdw_dev_lock);
--
- 	ret = drv->probe(slave, id);
- 	if (ret) {
- 		name = drv->name;
- 		if (!name)
- 			name = drv->driver.name;
--		mutex_unlock(&slave->sdw_dev_lock);
- 
- 		dev_err(dev, "Probe of %s failed: %d\n", name, ret);
- 		dev_pm_domain_detach(dev, false);
- 		return ret;
- 	}
- 
-+	mutex_lock(&slave->sdw_dev_lock);
-+
- 	/* device is probed so let's read the properties now */
- 	if (drv->ops && drv->ops->read_prop)
- 		drv->ops->read_prop(slave);
-@@ -167,14 +166,12 @@ static int sdw_drv_remove(struct device *dev)
- 	int ret = 0;
- 
- 	mutex_lock(&slave->sdw_dev_lock);
--
- 	slave->probed = false;
-+	mutex_unlock(&slave->sdw_dev_lock);
- 
- 	if (drv->remove)
- 		ret = drv->remove(slave);
- 
--	mutex_unlock(&slave->sdw_dev_lock);
--
- 	dev_pm_domain_detach(dev, false);
- 
- 	return ret;
--- 
-2.30.2
-
+> -		else
+> -			stream_config.ch_count = params_channels(params);
+> -
+> +		stream_config.ch_count = 2;
+>   		port_config.ch_mask = GENMASK((int)stream_config.ch_count - 1, 0);
+this is already done by snd_sdw_params_to_config()

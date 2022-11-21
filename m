@@ -2,90 +2,180 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705ED632556
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 15:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9F06325DE
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 15:31:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B28F164E;
-	Mon, 21 Nov 2022 15:15:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B28F164E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B9B61654;
+	Mon, 21 Nov 2022 15:30:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B9B61654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669040156;
-	bh=BUozttMdPuKTyzZxQhQnHoH7JqDj7+oQ0XVXs4lexSI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669041109;
+	bh=fgsfp1QjL5Ij2uQspSK/Kx91E8c4lvJ8zhkiN0CY/Pc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fxE5adhR9RzYe1HyW4bNMF7ZW4jFgnaE8Oahoig/pJj1cD1f2vzrmsdOkyKsHK2Im
-	 kizh8lHpcpAR/kZvVyitbl/BfyNRo7p4iDZGqRufNqiyy9M3i75WZbMMiLhAcz0nUv
-	 l22DrD5HLSUzHzVLr1aHUT/u8ycWhGpm6e5tx7WM=
+	b=W89sWRRzsqfOjdubRqJeA7voghFpWI7ojQNYOwhuMw38xekiPdqYkt1V1Lz9tuEoY
+	 nPqrxwa1p2T0WWSv1D4h2dVxYEe/2tp4oWWaKvh20siAZI1VIOhhrkVUcjLfSPEU2O
+	 s/cl6TFfQy5cQcND8D3hBAc1MiRd6pEyay9V2vUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D372F8051B;
-	Mon, 21 Nov 2022 15:14:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAC24F800F3;
+	Mon, 21 Nov 2022 15:30:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1A26F80559; Mon, 21 Nov 2022 15:14:17 +0100 (CET)
+ id AFCE4F8028D; Mon, 21 Nov 2022 15:30:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79399F8028D
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 15:14:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79399F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3EF3F800EC
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 15:30:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3EF3F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="DOxSu/Im"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2ALCr4Bx002700; Mon, 21 Nov 2022 08:14:09 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=1PeK3bms+IaPxcTW0cokINfe1642tn7T3FwGji4GBoA=;
- b=DOxSu/ImhjUT7GBsfIKcw4ZyPmFnObyOJrLWPJx8huTjgT24Dl3yv8+wAInG8YeZ0HDG
- wKXnkBnX13u7MliSf1Ry/yc2kA/aezf9XFM/Es2le4cag+BqZPR4IiemaWCCmFMUf1JV
- QMKPsgMO3/hfzGcZ+vlKttznU/vE0AVkQxFMe0bsPz6veBXal1GCzutLrdfe0xk06Xzy
- HMEKvM51KoJPhRU++S8iL6mmMALBghgu7cdHDVwCBYIiy2XYpjCTXedu0TLgmSIHLiXv
- t4LwgrGdLQVu5pRnDGNoY2NevrAf6Kc+yLgfixwl9EdnLlzkU/e/MCQu1lnGVci7BbsW MA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kxvet283r-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Nov 2022 08:14:09 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Mon, 21 Nov
- 2022 08:14:06 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Mon, 21 Nov 2022 08:14:06 -0600
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9DF85468;
- Mon, 21 Nov 2022 14:14:06 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <vkoul@kernel.org>
-Subject: [PATCH v3 4/4] soundwire: stream: Move remaining register accesses
- over to no_pm
-Date: Mon, 21 Nov 2022 14:14:06 +0000
-Message-ID: <20221121141406.3840561-5-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20221121141406.3840561-1-ckeepax@opensource.cirrus.com>
-References: <20221121141406.3840561-1-ckeepax@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="VzG1KN/M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669041047; x=1700577047;
+ h=message-id:date:subject:to:references:cc:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=fgsfp1QjL5Ij2uQspSK/Kx91E8c4lvJ8zhkiN0CY/Pc=;
+ b=VzG1KN/MTlkyB6cLU+QidE8KidBEdDOrlH6M0Kp9t59eZ62vfPmKoquH
+ S75ZhJN2H/1FU/7Y5Ebib8AIsZyMER2Jbwstvl+9LZCazEEbHZ2ZZW6Mc
+ 6Yy1n9QKm4Htq+boLyRdykE1TjzdLn7apptQUo9NM8F4BWa9PKkyH7yLs
+ kIsKAziLVTrfo2l5yXcn07WdT11/erXwNEXwYg9HEMLVs5a2gu+bcsfnt
+ MbVrJ+iYgvAv5dtlSKnYkeLVpBGS0dQDn+KJgFdgrLgH3nbchYPrAP0ar
+ 2tvxRGjf+lAP7fjnLVD6s7/gfbus6v36H64QQxztlgXL4T1fOC+4HnEw6 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="375713350"
+X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="375713350"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 06:30:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="815730077"
+X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="815730077"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga005.jf.intel.com with ESMTP; 21 Nov 2022 06:30:40 -0800
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 21 Nov 2022 06:30:39 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Mon, 21 Nov 2022 06:30:39 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.177)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Mon, 21 Nov 2022 06:30:39 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FO3orFWlgX4PE8RVCs6uX6sSI+kNkf8VyAciTz53cYqGSFBAhzGXwg6O10DuvKoafyi4aQDl3gjsuAQN0lub5Lhs22U1yxSAYgyyyDrSEe0ga4vtwL1DFgesuSJ55/myJvtTFLHGenPJFdNsIcPrV/Wn1zwKGJKTACw7un2zUQz4l39CVh5V6D+ydNSOMK/yFYTGrf5LWxjutOeLWFtTODrJg5dWjX678LGsH+KgvhehZUScdiwDWnyEuUQPm34Z6OD1am9ldLsneEs2DSd0e1MSCoasAz72oX/7R7XwY+DU+OwSYAko6rEnVoOSq0nilO//OGia4zV6Q2Yowl9Lvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P3oFw6Q0la0jIv0d3g+xne+kiXz9wQItBCX4t9pVAlY=;
+ b=lPVrKZKqsED79AArxWQIiLOi6wjBYn8TNt9g6VZwyUNQyZJzuUEkP3wyZop06+4XzpQJR1cOHYX+iEk3eOx+qFQkbITppoIR3iEDFZkoj+7uDXrLA26ppr8lSmidAoWWeq8ZbK2QKaPFkFj/mLxinGq/cudfeEVmaCGatOv+zC/jXwh8BuHCtznCvo+IeLsBbCpuJ10DHcjVBWHqDkLP5X4mfHMWv8qEZcTSc7xU1zy201K8ux3VHcbAoMDTpi5MXTQIiBh46seMkJuJ7dJ9+IpqK+fO+ojy17D4yDyGkuz1ZA9bJSBqmiQeqGHlVLCB+TUu4ldaxg1592cFczXAGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ SN7PR11MB6828.namprd11.prod.outlook.com (2603:10b6:806:2a3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
+ 2022 14:30:38 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::1821:24fc:fe2f:16d7]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::1821:24fc:fe2f:16d7%4]) with mapi id 15.20.5834.009; Mon, 21 Nov 2022
+ 14:30:38 +0000
+Message-ID: <bbaa53e9-dd83-38f8-6f55-4d87ff76556b@intel.com>
+Date: Mon, 21 Nov 2022 15:30:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH] ASoC: soc-pcm.c: Add NULL check in BE reparenting
+Content-Language: en-US
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+References: <1669035895-12036-1-git-send-email-quic_srivasam@quicinc.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <1669035895-12036-1-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0014.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::24) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: Yj30PiP-VfJoLzeufnmghbBgSdGbfJl4
-X-Proofpoint-GUID: Yj30PiP-VfJoLzeufnmghbBgSdGbfJl4
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|SN7PR11MB6828:EE_
+X-MS-Office365-Filtering-Correlation-Id: 609bc04c-a814-4554-8bf8-08dacbccf580
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AWVILqW9uuJguB+cKFpXmXKUAw8Za8rHl59cD6JPiXkBCLDEZvzqSilrcM+mnhb6InneTWmCZ8LzEp7opj+j0yOmbBWdySG4QQ6/u7yH3eoYLuQOdyVt4r+VmFcAqGr16D8b5lyesC1gtIf/izd9/H3Yf3pdM9i3q9+B50EYxuRygZXuR5OXEnHVGxuf3uzx4W9PnI1SHmJebwWdtUnJAqgIOSGaanLpxK2w6/SBRF2xNHVdovmiTsYSyLo9kS3pyzKMvgd1OoUUcp91boWJf+IGF5+yZ4oyus+4gFv2UjkpbN9976nRJmyGhWz7JtLq8WDdUWKs/NBexotmXaEfbBr9JjjqHflLigZup97KmJrhMUqLF9hgl7C2ODTsbXme0klEsuDRzTg9dMgSEqTvWfaaU87vZCrKwKhtn4tcWqToGCpKUR0Pt9KPBnTgHSdcpRks/1z+XJO+mGu+CYVpW840ekUpOfxy0cAbK7Ku3ZJZUnid8CYmxyDosCPR4Vrn57N7c070jkHiJfytfG4jYJ5LrzRqqMzR6xOoVwxrWLPcxoGW2+ZjZSneCawQCK1YdLKrztFT043wFmXsjvCI3ekKqvkgtjefr4LN2Pz0jj/ddLBB8oLCtHyIKjLWd2tO75JiEE+6ZupdLCc3xumg9L4M0ExOXdsQIZs8e/8mUKB/mrPrCUoQiZReFXwnBfq0CxYUZPaL22Bq0nBoSvTmKTbj5bAT2DN7hjIYKv2WWp4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6375.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(366004)(346002)(39860400002)(376002)(136003)(396003)(451199015)(36756003)(82960400001)(31696002)(86362001)(6486002)(316002)(6916009)(6666004)(478600001)(5660300002)(7416002)(8936002)(2906002)(4001150100001)(66946007)(4744005)(66476007)(44832011)(8676002)(4326008)(66556008)(41300700001)(38100700002)(26005)(6512007)(2616005)(53546011)(6506007)(186003)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGxWRnhDeTlXWVIrRDdZRTkrMzErcEkvb0J3dFNja3QwUnB6OFdUTFU2L3pR?=
+ =?utf-8?B?WmRtU3FhaVRKU2h6dERhLy90Y1dSQVk5eVJGQUVkaFhMMzYvNWh6ZXZRbVBy?=
+ =?utf-8?B?am5xNTgyRzhlaUY4VTVsWXRrR3pDVWFmK21BdERoZytibjhoZk5Fd3RsZW5L?=
+ =?utf-8?B?R004SllwRjVxWlBVRmhGMDBDY0VnWG51MGRJcTZzZHVmdlBTWC9CZ1Z3dGQz?=
+ =?utf-8?B?Q1ZjZlMzVDBjN2V0N1ZVckJQbWNJVytxSS9CZm90bVhUaTJRYnVYaGpuSEh0?=
+ =?utf-8?B?eDdlWjNFaC9nZHBoRFpuVFN0QWU1T0l4cXdGWDZQd1NBSmVyTWc0cjFhM1lY?=
+ =?utf-8?B?TnhRdDlHTUxsQWJEZStjNG9OTHN6SmpZT3hRbm9ZeWVWZUtNdGliZmZBZmFi?=
+ =?utf-8?B?WGkyRTBrUEdJQjU5K2NxS3VoZi81K3AvR012aExhTzdBRzdzeDM4QnRyb1dQ?=
+ =?utf-8?B?Y0tXK3NYM014cXRiV1VON2hsMGRUNHFZUXVKenl2Mml4YlNTMzFTNE41bUY1?=
+ =?utf-8?B?Qk9Ha3dxRjJnaDlvUGZkNFFnVE9zOVNmYW5aTkJrTzBmamVUTTZxV08yZk9t?=
+ =?utf-8?B?bEYxczVFTnVtaUpQTzQveGRnc0RTbEVKSzVoUisvcjJKTUYvV0tXY0cvS0Jl?=
+ =?utf-8?B?MjF4UmRMQ0N3TlJHQjNrS3lWczJXSTV5OVA2clFFQ1hnb2hOSG01c001VEQv?=
+ =?utf-8?B?VGRtWkdtckpraUtQVHV0V3FUWDVXVmUxMzFqWWxJRE1zYmhZeFhqdDR1dDRx?=
+ =?utf-8?B?SkpoaGwrWE5lWGpwNUYxTksvenpnUzFTZUZWQXJES3NMVlpLNndjNUo0S01s?=
+ =?utf-8?B?UFc5dW5uLzJ2eEZvc3NMQm0wNHVuWGhIcStrN0d3SWxsZmpuTG95VDI3UkEw?=
+ =?utf-8?B?aGpRZnAyK1ZDdlNnM2VIVkdxUWxZNkZnY2E3ckt1WVB0R2E3TFFaaHRGVW8v?=
+ =?utf-8?B?REp6RGNlUU41NGhWWCtmNDdsTFFUWEcreHliekRBT216YjdwVldXSFFTcEp6?=
+ =?utf-8?B?dzdEM0VqK0lIRmE3UmdtYnZZd0UxU2V4RVI0UEtNcThkaTB2UHRiZ1N6VmJK?=
+ =?utf-8?B?azFUOWMyMVZrdDJOc2JXYzdBV3JXWTIzUEVaUWw4aWd6Y1Y2RlljdFRBem1y?=
+ =?utf-8?B?WXhwZVhBZzc4YkRlRGlRNHkxWEFqS0ZSUzdubTNhUHNxRnRSOHZHc0EyNE5T?=
+ =?utf-8?B?QWQvTEZnWlE0VE1sYkM0WFNKMndpQVFRUjFNUmJ4SHE3U0FBWVM0M3FDeklS?=
+ =?utf-8?B?TmdBWXBWUmtvQWo2RjZpa291ckZoNkROaWM4dGQ4TnhtbHNnMG5hcGhrSTNj?=
+ =?utf-8?B?QjFPSzZPZ2lTam4yTWJTbHpCMjU2RnArekdsQldnY2hMRGZxMFpKUzlNaTFV?=
+ =?utf-8?B?N1NCZ0dZK1B1cTNBRzVpQllIK2xTanNpT3JYeXJXTHlYTmJkRUxUczZoclo1?=
+ =?utf-8?B?TUZlMlpSWFp6R2ZjOXRUOUFONDVPVllRb1F2bFZ2ckFHT1NwL0V2OVVGeVFr?=
+ =?utf-8?B?R0tnMHdxbTdFRGVHK3N4eThtNUROdlMrR0w4U095RUR1WWEyTVdScFBUK29Q?=
+ =?utf-8?B?QzJlMlBNL3JBWUl2WjZFVTRMMzFJWmJYemxwMXdEMHVuRS9aSjU3RnNnTEhX?=
+ =?utf-8?B?dnJzbFB5bW1Vcm9hUTVCSGltVURyMDhEeWF0ZVM4R1hEQkRWK05DVk11b0Rn?=
+ =?utf-8?B?SFB2a0UvNHFSNnhJQUtLREM1dS9YOUhrY2ZBUUdTbjh0OGxMcUdiNmhVc0lW?=
+ =?utf-8?B?K2M2ZUV1Y09Nb2VxSWRkeURLUTBkUnl3dnRiVEpGSUora1ZKQTFweGNLTUND?=
+ =?utf-8?B?TkJheDEwNk9pSnJEdnVtSm82UzhrRi92bld0dmNYSlRzMGRiWTlVcUxic2U5?=
+ =?utf-8?B?SC9kTkdwS0w0WmNUcldvL2ZaNkFvOHJyaHZwSGFER2h5eWxMamZsa0JpQW9a?=
+ =?utf-8?B?RFRlOHZtdzhoeGtGeEtleXBNV1l4QUZrSm5WVHExNUdOSFZwMG43aXRvdFRq?=
+ =?utf-8?B?MldHL2UxRWFxVUh6b2xtbnlBYm51YVJaeWdDYU51cmNiZE4xNXZDQnlsNkpO?=
+ =?utf-8?B?cDJyWW5UdVgreXJPR3RueVEwWEwwOEZwa0w1ZUliWERXdldNWEQxaE9BY1dI?=
+ =?utf-8?B?NTJNN2xjdGUvcEJWenM3Qm5PM3A5TFcvd1QrWXBXODg1cFdlNmZuUVBvS2xP?=
+ =?utf-8?B?Tnc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 609bc04c-a814-4554-8bf8-08dacbccf580
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 14:30:38.1455 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: up/NuFH4UPdl8sY0QL8qrYqkt2yjzNazYyBKn44ninAYjQ3VHil9NGlJe8rVjNZ69w1v496nNYAM7WUwQaAWNI37+b/7n/pbAr1tNL4Q0zw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6828
+X-OriginatorOrg: intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
+ quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,172 +191,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is no need to play with the runtime reference everytime a register
-is accessed. All the remaining "pm" style register accesses trace back
-to 4 functions:
+On 2022-11-21 2:04 PM, Srinivasa Rao Mandadapu wrote:
+> Add NULL check in dpcm_be_reparent API, to handle
+> kernel NULL pointer dereference error.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> ---
+>   sound/soc/soc-pcm.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 493f003..a7810c7 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -1247,6 +1247,8 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+>   		return;
+>   
+>   	be_substream = snd_soc_dpcm_get_substream(be, stream);
+> +	if (!be_substream)
+> +		return;
+>   
+>   	for_each_dpcm_fe(be, stream, dpcm) {
+>   		if (dpcm->fe == fe)
 
-sdw_prepare_stream
-sdw_deprepare_stream
-sdw_enable_stream
-sdw_disable_stream
 
-Any sensible implementation will need to hold a runtime reference
-across all those functions, it makes no sense to be allowing the
-device/bus to suspend whilst streams are being prepared/enabled. And
-certainly in the case of the all existing users, they all call these
-functions from hw_params/prepare/trigger/hw_free callbacks in ALSA,
-which will have already runtime resumed all the audio devices
-associated during the open callback.
+Hello,
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
+Could you provide reproduction steps that lead to null-ptr-deref popping 
+up? Also, please drop '.c' in commit title.
 
-No changes since v2.
 
- drivers/soundwire/bus.c    |  2 +-
- drivers/soundwire/stream.c | 30 +++++++++++++++---------------
- 2 files changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index ef4878258afad..d87a188fcce1e 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1214,7 +1214,7 @@ int sdw_configure_dpn_intr(struct sdw_slave *slave,
- 		val &= ~SDW_DPN_INT_PORT_READY;
- 	}
- 
--	ret = sdw_update(slave, addr, (mask | SDW_DPN_INT_PORT_READY), val);
-+	ret = sdw_update_no_pm(slave, addr, (mask | SDW_DPN_INT_PORT_READY), val);
- 	if (ret < 0)
- 		dev_err(&slave->dev,
- 			"SDW_DPN_INTMASK write failed:%d\n", val);
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index bd502368339e5..df3b36670df4c 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -81,14 +81,14 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
- 	}
- 
- 	/* Program DPN_OffsetCtrl2 registers */
--	ret = sdw_write(slave, addr1, t_params->offset2);
-+	ret = sdw_write_no_pm(slave, addr1, t_params->offset2);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "DPN_OffsetCtrl2 register write failed\n");
- 		return ret;
- 	}
- 
- 	/* Program DPN_BlockCtrl3 register */
--	ret = sdw_write(slave, addr2, t_params->blk_pkg_mode);
-+	ret = sdw_write_no_pm(slave, addr2, t_params->blk_pkg_mode);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "DPN_BlockCtrl3 register write failed\n");
- 		return ret;
-@@ -105,7 +105,7 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
- 	/* Program DPN_SampleCtrl2 register */
- 	wbuf = FIELD_GET(SDW_DPN_SAMPLECTRL_HIGH, t_params->sample_interval - 1);
- 
--	ret = sdw_write(slave, addr3, wbuf);
-+	ret = sdw_write_no_pm(slave, addr3, wbuf);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "DPN_SampleCtrl2 register write failed\n");
- 		return ret;
-@@ -115,7 +115,7 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
- 	wbuf = FIELD_PREP(SDW_DPN_HCTRL_HSTART, t_params->hstart);
- 	wbuf |= FIELD_PREP(SDW_DPN_HCTRL_HSTOP, t_params->hstop);
- 
--	ret = sdw_write(slave, addr4, wbuf);
-+	ret = sdw_write_no_pm(slave, addr4, wbuf);
- 	if (ret < 0)
- 		dev_err(bus->dev, "DPN_HCtrl register write failed\n");
- 
-@@ -163,7 +163,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 	wbuf = FIELD_PREP(SDW_DPN_PORTCTRL_DATAMODE, p_params->data_mode);
- 	wbuf |= FIELD_PREP(SDW_DPN_PORTCTRL_FLOWMODE, p_params->flow_mode);
- 
--	ret = sdw_update(s_rt->slave, addr1, 0xF, wbuf);
-+	ret = sdw_update_no_pm(s_rt->slave, addr1, 0xF, wbuf);
- 	if (ret < 0) {
- 		dev_err(&s_rt->slave->dev,
- 			"DPN_PortCtrl register write failed for port %d\n",
-@@ -173,7 +173,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 
- 	if (!dpn_prop->read_only_wordlength) {
- 		/* Program DPN_BlockCtrl1 register */
--		ret = sdw_write(s_rt->slave, addr2, (p_params->bps - 1));
-+		ret = sdw_write_no_pm(s_rt->slave, addr2, (p_params->bps - 1));
- 		if (ret < 0) {
- 			dev_err(&s_rt->slave->dev,
- 				"DPN_BlockCtrl1 register write failed for port %d\n",
-@@ -184,7 +184,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 
- 	/* Program DPN_SampleCtrl1 register */
- 	wbuf = (t_params->sample_interval - 1) & SDW_DPN_SAMPLECTRL_LOW;
--	ret = sdw_write(s_rt->slave, addr3, wbuf);
-+	ret = sdw_write_no_pm(s_rt->slave, addr3, wbuf);
- 	if (ret < 0) {
- 		dev_err(&s_rt->slave->dev,
- 			"DPN_SampleCtrl1 register write failed for port %d\n",
-@@ -193,7 +193,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 	}
- 
- 	/* Program DPN_OffsetCtrl1 registers */
--	ret = sdw_write(s_rt->slave, addr4, t_params->offset1);
-+	ret = sdw_write_no_pm(s_rt->slave, addr4, t_params->offset1);
- 	if (ret < 0) {
- 		dev_err(&s_rt->slave->dev,
- 			"DPN_OffsetCtrl1 register write failed for port %d\n",
-@@ -203,7 +203,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 
- 	/* Program DPN_BlockCtrl2 register*/
- 	if (t_params->blk_grp_ctrl_valid) {
--		ret = sdw_write(s_rt->slave, addr5, t_params->blk_grp_ctrl);
-+		ret = sdw_write_no_pm(s_rt->slave, addr5, t_params->blk_grp_ctrl);
- 		if (ret < 0) {
- 			dev_err(&s_rt->slave->dev,
- 				"DPN_BlockCtrl2 reg write failed for port %d\n",
-@@ -214,7 +214,7 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
- 
- 	/* program DPN_LaneCtrl register */
- 	if (slave_prop->lane_control_support) {
--		ret = sdw_write(s_rt->slave, addr6, t_params->lane_ctrl);
-+		ret = sdw_write_no_pm(s_rt->slave, addr6, t_params->lane_ctrl);
- 		if (ret < 0) {
- 			dev_err(&s_rt->slave->dev,
- 				"DPN_LaneCtrl register write failed for port %d\n",
-@@ -319,9 +319,9 @@ static int sdw_enable_disable_slave_ports(struct sdw_bus *bus,
- 	 * it is safe to reset this register
- 	 */
- 	if (en)
--		ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
-+		ret = sdw_write_no_pm(s_rt->slave, addr, p_rt->ch_mask);
- 	else
--		ret = sdw_write(s_rt->slave, addr, 0x0);
-+		ret = sdw_write_no_pm(s_rt->slave, addr, 0x0);
- 
- 	if (ret < 0)
- 		dev_err(&s_rt->slave->dev,
-@@ -476,9 +476,9 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
- 		addr = SDW_DPN_PREPARECTRL(p_rt->num);
- 
- 		if (prep)
--			ret = sdw_write(s_rt->slave, addr, p_rt->ch_mask);
-+			ret = sdw_write_no_pm(s_rt->slave, addr, p_rt->ch_mask);
- 		else
--			ret = sdw_write(s_rt->slave, addr, 0x0);
-+			ret = sdw_write_no_pm(s_rt->slave, addr, 0x0);
- 
- 		if (ret < 0) {
- 			dev_err(&s_rt->slave->dev,
-@@ -491,7 +491,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
- 		wait_for_completion_timeout(port_ready,
- 			msecs_to_jiffies(dpn_prop->ch_prep_timeout));
- 
--		val = sdw_read(s_rt->slave, SDW_DPN_PREPARESTATUS(p_rt->num));
-+		val = sdw_read_no_pm(s_rt->slave, SDW_DPN_PREPARESTATUS(p_rt->num));
- 		if ((val < 0) || (val & p_rt->ch_mask)) {
- 			ret = (val < 0) ? val : -ETIMEDOUT;
- 			dev_err(&s_rt->slave->dev,
--- 
-2.30.2
-
+Regards,
+Czarek

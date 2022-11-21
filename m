@@ -2,91 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7369631E87
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 11:36:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7B88631E8B
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 11:36:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6312A850;
-	Mon, 21 Nov 2022 11:35:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6312A850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF9B868;
+	Mon, 21 Nov 2022 11:35:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF9B868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669026964;
-	bh=5PlLHrpQmQ8lH1OCygWfNb69J1OL/I1U9jSDeIpmTLA=;
+	s=default; t=1669027005;
+	bh=Bxx1T/zA6RqhYiPCuLRzHk+VqnufHL2m6yC24UIOO1w=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LgVFRjdJHrEgmxI3ch8a4AiSQkjZj78y/gxXZBmkm5QXXAIHiXw82N1b99ulnGBa1
-	 RSDGKfSLhNf3wao4yfFzBz3dKs4SZ/3eGqH/8LWwaqLZ6uPGDURVF+6DKIPnsT/fEl
-	 ITgCUpSagbYgCf68EhckRAM/ASLR02ND74UstvLw=
+	b=tURE+pSNBDATqUkwdfFuXz4pFJTA6js3MGRMAjuW3d8njdDogea07VAgYffbDMYN0
+	 ZHVQmVi/EYo/gMp48Les8ykagc+RanrierC+rf/Yx2q3PDvjioXDLPzQBPjXw+XLUQ
+	 pygCNSQE56WB4FWLNvpif1j0ELPEoE5aHUHkBwLI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F187EF80115;
-	Mon, 21 Nov 2022 11:35:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C461AF80519;
+	Mon, 21 Nov 2022 11:35:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9B94F8028D; Mon, 21 Nov 2022 11:35:07 +0100 (CET)
+ id DB22FF804D0; Mon, 21 Nov 2022 11:35:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41DE5F80115
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 11:35:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41DE5F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE1EBF800F3
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 11:35:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE1EBF800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DCiMa5bU"; 
+ header.b="aehWRd7C"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="iZpdmIHE"
+ header.b="2kuXU/hZ"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 554F221AA1;
- Mon, 21 Nov 2022 10:35:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C3506220C8;
+ Mon, 21 Nov 2022 10:35:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669026904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669026941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=po11InVlA78FEY3WlPUwwll4GVuOWXuBABURTMivemg=;
- b=DCiMa5bUOpAohqg34JiBbUR40BOly2yuZc0jTYZ0NbLlDXmeU0JvXnpl6PA7e9Yta2N42a
- LqS8DTzGSlKzNtQY3s2w+DuS6gf93UKOxjOyNH+Yk2T4c57j3QL6HtSD4biPW1SSQEIOds
- 4jM+4MG7OyUhgaFHwaC0Kfn5RE7zgL4=
+ bh=dDc3A34ZNQMnuC56bsGRqp1Nz34SK07+svCjUl5Hs1A=;
+ b=aehWRd7CYYHc/5yWJDyKtF1Ld5quSLNn1h+UBd9ZnqTgL/Wy5342b1D/7S16OmWw98M9yC
+ KZaGwT97j9av4qE80lwutydBD3iB9uR2X/O82tYW+Yrvc/Rth9g7GxyI2zugNYpWu1/xcZ
+ V43oMIJ2o8LqZ71vr14tSwYP0oXsLgw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669026904;
+ s=susede2_ed25519; t=1669026941;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=po11InVlA78FEY3WlPUwwll4GVuOWXuBABURTMivemg=;
- b=iZpdmIHERrm/XkNSiYgwgETqNWc2F5uoNL3+vo+fz2VPS0znkxEWoIMwNI6EXj2rxwUNE3
- zZCXJ5b82JFXezAA==
+ bh=dDc3A34ZNQMnuC56bsGRqp1Nz34SK07+svCjUl5Hs1A=;
+ b=2kuXU/hZf3DDLRB0Dn68AJBWjM2hInKg8VvbMnutBJji9lBrAQ6RPuz/Oh5KaEFN4OBAzk
+ goEP6b3aUbatK2DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B6531376E;
- Mon, 21 Nov 2022 10:35:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A030C1376E;
+ Mon, 21 Nov 2022 10:35:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id JDjZCVhUe2NOEwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 21 Nov 2022 10:35:04 +0000
-Date: Mon, 21 Nov 2022 11:35:03 +0100
-Message-ID: <87h6yswq7c.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6yRTJn1Ue2OoEwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 21 Nov 2022 10:35:41 +0000
+Date: Mon, 21 Nov 2022 11:35:41 +0100
+Message-ID: <87fsecwq6a.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Baisong Zhong <zhongbaisong@huawei.com>
-Subject: Re: [PATCH -next] ALSA: pcm: fix undefined behavior in bit shift for
- SNDRV_PCM_RATE_KNOT
-In-Reply-To: <20221121023329.2423665-1-zhongbaisong@huawei.com>
-References: <20221121023329.2423665-1-zhongbaisong@huawei.com>
+Subject: Re: [PATCH -next] ALSA: seq: fix undefined behavior in bit shift for
+ SNDRV_SEQ_FILTER_USE_EVENT
+In-Reply-To: <20221121043625.2910001-1-zhongbaisong@huawei.com>
+References: <20221121043625.2910001-1-zhongbaisong@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,13 +101,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Nov 2022 03:33:29 +0100,
+On Mon, 21 Nov 2022 05:36:25 +0100,
 Baisong Zhong wrote:
 > 
 > Shifting signed 32-bit value by 31 bits is undefined, so changing
 > significant bit to unsigned. The UBSAN warning calltrace like below:
 > 
-> UBSAN: shift-out-of-bounds in sound/core/pcm_native.c:2676:21
+> UBSAN: shift-out-of-bounds in sound/core/seq/seq_clientmgr.c:509:22
 > left shift of 1 by 31 places cannot be represented in type 'int'
 > ...
 > Call Trace:
@@ -116,37 +115,39 @@ Baisong Zhong wrote:
 >  dump_stack_lvl+0x8d/0xcf
 >  ubsan_epilogue+0xa/0x44
 >  __ubsan_handle_shift_out_of_bounds+0x1e7/0x208
->  snd_pcm_open_substream+0x9f0/0xa90
->  snd_pcm_oss_open.part.26+0x313/0x670
->  snd_pcm_oss_open+0x30/0x40
->  soundcore_open+0x18b/0x2e0
->  chrdev_open+0xe2/0x270
->  do_dentry_open+0x2f7/0x620
->  path_openat+0xd66/0xe70
->  do_filp_open+0xe3/0x170
->  do_sys_openat2+0x357/0x4a0
->  do_sys_open+0x87/0xd0
->  do_syscall_64+0x34/0x80
+>  snd_seq_deliver_single_event.constprop.21+0x191/0x2f0
+>  snd_seq_deliver_event+0x1a2/0x350
+>  snd_seq_kernel_client_dispatch+0x8b/0xb0
+>  snd_seq_client_notify_subscription+0x72/0xa0
+>  snd_seq_ioctl_subscribe_port+0x128/0x160
+>  snd_seq_kernel_client_ctl+0xce/0xf0
+>  snd_seq_oss_create_client+0x109/0x15b
+>  alsa_seq_oss_init+0x11c/0x1aa
+>  do_one_initcall+0x80/0x440
+>  kernel_init_freeable+0x370/0x3c3
+>  kernel_init+0x1b/0x190
+>  ret_from_fork+0x1f/0x30
+>  </TASK>
 > 
 > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Signed-off-by: Baisong Zhong <zhongbaisong@huawei.com>
 > ---
->  include/sound/pcm.h | 2 +-
+>  include/uapi/sound/asequencer.h | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-> index 7b1a022910e8..ec28c2ec89de 100644
-> --- a/include/sound/pcm.h
-> +++ b/include/sound/pcm.h
-> @@ -123,7 +123,7 @@ struct snd_pcm_ops {
->  #define SNDRV_PCM_RATE_384000		(1<<14)		/* 384000Hz */
->  
->  #define SNDRV_PCM_RATE_CONTINUOUS	(1<<30)		/* continuous range */
-> -#define SNDRV_PCM_RATE_KNOT		(1<<31)		/* supports more non-continuos rates */
-> +#define SNDRV_PCM_RATE_KNOT		(1U<<31)	/* supports more non-continuos rates */
+> diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
+> index 6d4a2c60808d..4c5c4dd15d02 100644
+> --- a/include/uapi/sound/asequencer.h
+> +++ b/include/uapi/sound/asequencer.h
+> @@ -331,7 +331,7 @@ typedef int __bitwise snd_seq_client_type_t;
+>  #define SNDRV_SEQ_FILTER_BROADCAST	(1<<0)	/* accept broadcast messages */
+>  #define SNDRV_SEQ_FILTER_MULTICAST	(1<<1)	/* accept multicast messages */
+>  #define SNDRV_SEQ_FILTER_BOUNCE		(1<<2)	/* accept bounce event in error */
+> -#define SNDRV_SEQ_FILTER_USE_EVENT	(1<<31)	/* use event filter */
+> +#define SNDRV_SEQ_FILTER_USE_EVENT	(1U<<31)	/* use event filter */
 
-Could you rather update all SNDRV_PCM_RATE_* to 1U?
-Otherwise it'll look inconsistent.
+Similarly like the previous patch for PCM, could you update all
+SNDRV_SEQ_FILTER_* to 1U for consistency?
 
 
 thanks,

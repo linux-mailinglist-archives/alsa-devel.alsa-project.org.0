@@ -2,62 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B653A63193E
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 05:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FF4631B08
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 09:11:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CAF71ED;
-	Mon, 21 Nov 2022 05:36:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CAF71ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85E771DF;
+	Mon, 21 Nov 2022 09:10:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85E771DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669005453;
-	bh=Sqk7jYs8/U2E0E9P4GtwHoBMGORi4kNHTogIGEGQtl8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bsua+z0UNvO+5Zu3WfsD0bhGDOr7Lk09Vp6BBaOklhKCMWij9EDXtreXt/koo8f8y
-	 RjrVjd55rLJm1CXpSobJnlOKQy3mq6OdyRd8T15385xHpXTm/oaTw/qWXZvLj8mqRH
-	 3Ja2X1I7uv4O8X9XIf1ICMoihoovgibbXsZWFL2E=
+	s=default; t=1669018301;
+	bh=NMUdUsVc9p2hS6RsoNRjcB1nt/ui0XmSTmzHFx0YXho=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AjwOsB+VCvVtST9xJwHSkgqypg6bU337ijpArNa4XRvVY8Flm45mChAcxvlOBVxCm
+	 NmtNixyPJ9YzLSPAkCRsKoFhA2qQm01mLbpRwldy69ZRurwElTzBWtTxvFn0l8A16g
+	 3a4qFRTvrrCb5MqNJLD1h3VBR+RERugRUWVQ9MQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DC27F804AB;
-	Mon, 21 Nov 2022 05:36:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E425EF80149;
+	Mon, 21 Nov 2022 09:10:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4F65F80115; Mon, 21 Nov 2022 05:36:36 +0100 (CET)
+ id 72454F800F3; Mon, 21 Nov 2022 09:10:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96E35F80115
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 05:36:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96E35F80115
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NFvhv1CvbzRpQf;
- Mon, 21 Nov 2022 12:35:59 +0800 (CST)
-Received: from huawei.com (10.175.104.82) by canpemm500005.china.huawei.com
- (7.192.104.229) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 21 Nov
- 2022 12:36:25 +0800
-From: Baisong Zhong <zhongbaisong@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next] ALSA: seq: fix undefined behavior in bit shift for
- SNDRV_SEQ_FILTER_USE_EVENT
-Date: Mon, 21 Nov 2022 12:36:25 +0800
-Message-ID: <20221121043625.2910001-1-zhongbaisong@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5DE9F800F3
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 09:10:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5DE9F800F3
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1ox1t2-0007IA-Cu; Mon, 21 Nov 2022 09:10:40 +0100
+Message-ID: <1d26db65-a102-be75-6213-41152dc39440@leemhuis.info>
+Date: Mon, 21 Nov 2022 09:10:39 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.104.82]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- canpemm500005.china.huawei.com (7.192.104.229)
-X-CFilter-Loop: Reflected
-Cc: zhongbaisong@huawei.com, tiwai@suse.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [Regression] Bug 216675 Since 6.0.3 Roland STUDIO-CAPTURE no
+ longer registers #forregzbot
+Content-Language: en-US, de-DE
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+References: <7d19ba1f-f78b-a629-c1cc-e5b3f84a94df@leemhuis.info>
+In-Reply-To: <7d19ba1f-f78b-a629-c1cc-e5b3f84a94df@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1669018242;
+ 1833691f; 
+X-HE-SMSGID: 1ox1t2-0007IA-Cu
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,50 +76,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Shifting signed 32-bit value by 31 bits is undefined, so changing
-significant bit to unsigned. The UBSAN warning calltrace like below:
+[Note: this mail is primarily send for documentation purposes and/or for
+regzbot, my Linux kernel regression tracking bot. That's why I removed
+most or all folks from the list of recipients, but left any that looked
+like a mailing lists. These mails usually contain '#forregzbot' in the
+subject, to make them easy to spot and filter out.]
 
-UBSAN: shift-out-of-bounds in sound/core/seq/seq_clientmgr.c:509:22
-left shift of 1 by 31 places cannot be represented in type 'int'
-...
-Call Trace:
- <TASK>
- dump_stack_lvl+0x8d/0xcf
- ubsan_epilogue+0xa/0x44
- __ubsan_handle_shift_out_of_bounds+0x1e7/0x208
- snd_seq_deliver_single_event.constprop.21+0x191/0x2f0
- snd_seq_deliver_event+0x1a2/0x350
- snd_seq_kernel_client_dispatch+0x8b/0xb0
- snd_seq_client_notify_subscription+0x72/0xa0
- snd_seq_ioctl_subscribe_port+0x128/0x160
- snd_seq_kernel_client_ctl+0xce/0xf0
- snd_seq_oss_create_client+0x109/0x15b
- alsa_seq_oss_init+0x11c/0x1aa
- do_one_initcall+0x80/0x440
- kernel_init_freeable+0x370/0x3c3
- kernel_init+0x1b/0x190
- ret_from_fork+0x1f/0x30
- </TASK>
+On 10.11.22 09:10, Thorsten Leemhuis wrote:
+> Hi, this is your Linux kernel regression tracker speaking.
+> 
+> I noticed a regression report in bugzilla.kernel.org. As many (most?)
+> kernel developer don't keep an eye on it, I decided to forward it by
+> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216675 :
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Baisong Zhong <zhongbaisong@huawei.com>
----
- include/uapi/sound/asequencer.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+#regzbot fixed-by: 4a9d883d694d3
 
-diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
-index 6d4a2c60808d..4c5c4dd15d02 100644
---- a/include/uapi/sound/asequencer.h
-+++ b/include/uapi/sound/asequencer.h
-@@ -331,7 +331,7 @@ typedef int __bitwise snd_seq_client_type_t;
- #define SNDRV_SEQ_FILTER_BROADCAST	(1<<0)	/* accept broadcast messages */
- #define SNDRV_SEQ_FILTER_MULTICAST	(1<<1)	/* accept multicast messages */
- #define SNDRV_SEQ_FILTER_BOUNCE		(1<<2)	/* accept bounce event in error */
--#define SNDRV_SEQ_FILTER_USE_EVENT	(1<<31)	/* use event filter */
-+#define SNDRV_SEQ_FILTER_USE_EVENT	(1U<<31)	/* use event filter */
- 
- struct snd_seq_client_info {
- 	int client;			/* client number to inquire */
--- 
-2.17.1
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.

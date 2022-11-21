@@ -2,95 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4084E631CF5
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 10:37:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7369631E87
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 11:36:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3F5D83B;
-	Mon, 21 Nov 2022 10:36:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3F5D83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6312A850;
+	Mon, 21 Nov 2022 11:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6312A850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669023460;
-	bh=bLIGByXePKoPtMWF2qoUk2tXIaCGVkpMLOdG3CUfGTc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669026964;
+	bh=5PlLHrpQmQ8lH1OCygWfNb69J1OL/I1U9jSDeIpmTLA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZyoRK6UG70tSHImod7XurqS8NpseeCpPAySv74lzk8mjOT1P5aa/h04ZNA7PTecS6
-	 mcXe3ztfTVKGGM8Bc8ii4Z8s/EZx3+lWAGpIEzFSLJ8K1uwcWxRvAfvmPZYg3+YArK
-	 nkcu6KOgRUHEfK/qtERgNyN0KVc2oECQvm+RD8yU=
+	b=LgVFRjdJHrEgmxI3ch8a4AiSQkjZj78y/gxXZBmkm5QXXAIHiXw82N1b99ulnGBa1
+	 RSDGKfSLhNf3wao4yfFzBz3dKs4SZ/3eGqH/8LWwaqLZ6uPGDURVF+6DKIPnsT/fEl
+	 ITgCUpSagbYgCf68EhckRAM/ASLR02ND74UstvLw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6401EF804AB;
-	Mon, 21 Nov 2022 10:36:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F187EF80115;
+	Mon, 21 Nov 2022 11:35:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0479F8028D; Mon, 21 Nov 2022 10:36:43 +0100 (CET)
+ id A9B94F8028D; Mon, 21 Nov 2022 11:35:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEA0EF80115
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 10:36:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEA0EF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41DE5F80115
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 11:35:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41DE5F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="oeZVoSkI"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AL6EGQP024298; Mon, 21 Nov 2022 03:36:34 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=vJtrEG1tZuP8PfCKCkZyOu+TqHYtGdDJLaES+hazCrM=;
- b=oeZVoSkI4z4PdW2BCSL17gikaTAfwzlOzfl2eaw6irCAJzAxxvSodcqEBF/oh2Ivp9z+
- 24CT6Aedng6eb5VcGJ+Fo0OSzhxNPLRhVBADPBryFqo7b3Ddn01TY4QrVKLWUETgaRii
- 738giS8BrwRpM1OqPHZ1AeM+IPPyOZN4wwqfFUxJh9Xm5hpKc4b6NgUIvSrjCqwo8ifw
- SClIJISPlmnaQBmfkChQhLDhzVvQbJ/TTe03nML5wCQFmTg+t6MpH9YcD6UrHKyQXOwe
- X4hNIuyuD+TtVdpz5HafnUQ7y2byJcKwF9Tfn1xafBxJG/or4cR7yi6LPA2RufnsUrfy aw== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6sy24-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Nov 2022 03:36:34 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Mon, 21 Nov
- 2022 03:36:32 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Mon, 21 Nov 2022 03:36:32 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0D1C0468;
- Mon, 21 Nov 2022 09:36:32 +0000 (UTC)
-Date: Mon, 21 Nov 2022 09:36:32 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
-Subject: Re: [PATCH 437/606] mfd: madera-i2c: Convert to i2c's .probe_new()
-Message-ID: <20221121093632.GP10437@ediswmail.ad.cirrus.com>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
- <20221118224540.619276-438-uwe@kleine-koenig.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221118224540.619276-438-uwe@kleine-koenig.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: m-N3Pl3_ce8S7612jcAzYa7QHZk8qmjP
-X-Proofpoint-GUID: m-N3Pl3_ce8S7612jcAzYa7QHZk8qmjP
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Lee Jones <lee@kernel.org>, Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-kernel@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
- Angel Iglesias <ang.iglesiasg@gmail.com>, linux-i2c@vger.kernel.org,
- kernel@pengutronix.de,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Grant Likely <grant.likely@linaro.org>, Lee Jones <lee.jones@linaro.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="DCiMa5bU"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="iZpdmIHE"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 554F221AA1;
+ Mon, 21 Nov 2022 10:35:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669026904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=po11InVlA78FEY3WlPUwwll4GVuOWXuBABURTMivemg=;
+ b=DCiMa5bUOpAohqg34JiBbUR40BOly2yuZc0jTYZ0NbLlDXmeU0JvXnpl6PA7e9Yta2N42a
+ LqS8DTzGSlKzNtQY3s2w+DuS6gf93UKOxjOyNH+Yk2T4c57j3QL6HtSD4biPW1SSQEIOds
+ 4jM+4MG7OyUhgaFHwaC0Kfn5RE7zgL4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669026904;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=po11InVlA78FEY3WlPUwwll4GVuOWXuBABURTMivemg=;
+ b=iZpdmIHERrm/XkNSiYgwgETqNWc2F5uoNL3+vo+fz2VPS0znkxEWoIMwNI6EXj2rxwUNE3
+ zZCXJ5b82JFXezAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B6531376E;
+ Mon, 21 Nov 2022 10:35:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id JDjZCVhUe2NOEwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 21 Nov 2022 10:35:04 +0000
+Date: Mon, 21 Nov 2022 11:35:03 +0100
+Message-ID: <87h6yswq7c.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Baisong Zhong <zhongbaisong@huawei.com>
+Subject: Re: [PATCH -next] ALSA: pcm: fix undefined behavior in bit shift for
+ SNDRV_PCM_RATE_KNOT
+In-Reply-To: <20221121023329.2423665-1-zhongbaisong@huawei.com>
+References: <20221121023329.2423665-1-zhongbaisong@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,16 +102,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 18, 2022 at 11:42:51PM +0100, Uwe Kleine-König wrote:
-> From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+On Mon, 21 Nov 2022 03:33:29 +0100,
+Baisong Zhong wrote:
 > 
-> .probe_new() doesn't get the i2c_device_id * parameter, so determine
-> that explicitly in the probe function.
+> Shifting signed 32-bit value by 31 bits is undefined, so changing
+> significant bit to unsigned. The UBSAN warning calltrace like below:
 > 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+> UBSAN: shift-out-of-bounds in sound/core/pcm_native.c:2676:21
+> left shift of 1 by 31 places cannot be represented in type 'int'
+> ...
+> Call Trace:
+>  <TASK>
+>  dump_stack_lvl+0x8d/0xcf
+>  ubsan_epilogue+0xa/0x44
+>  __ubsan_handle_shift_out_of_bounds+0x1e7/0x208
+>  snd_pcm_open_substream+0x9f0/0xa90
+>  snd_pcm_oss_open.part.26+0x313/0x670
+>  snd_pcm_oss_open+0x30/0x40
+>  soundcore_open+0x18b/0x2e0
+>  chrdev_open+0xe2/0x270
+>  do_dentry_open+0x2f7/0x620
+>  path_openat+0xd66/0xe70
+>  do_filp_open+0xe3/0x170
+>  do_sys_openat2+0x357/0x4a0
+>  do_sys_open+0x87/0xd0
+>  do_syscall_64+0x34/0x80
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Baisong Zhong <zhongbaisong@huawei.com>
 > ---
+>  include/sound/pcm.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 7b1a022910e8..ec28c2ec89de 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -123,7 +123,7 @@ struct snd_pcm_ops {
+>  #define SNDRV_PCM_RATE_384000		(1<<14)		/* 384000Hz */
+>  
+>  #define SNDRV_PCM_RATE_CONTINUOUS	(1<<30)		/* continuous range */
+> -#define SNDRV_PCM_RATE_KNOT		(1<<31)		/* supports more non-continuos rates */
+> +#define SNDRV_PCM_RATE_KNOT		(1U<<31)	/* supports more non-continuos rates */
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Could you rather update all SNDRV_PCM_RATE_* to 1U?
+Otherwise it'll look inconsistent.
 
-Thanks,
-Charles
+
+thanks,
+
+Takashi

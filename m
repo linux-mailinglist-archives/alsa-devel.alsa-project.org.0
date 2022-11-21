@@ -2,95 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE62633876
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 10:30:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C601C633878
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 10:30:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB49D1640;
-	Tue, 22 Nov 2022 10:29:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB49D1640
+	by alsa0.perex.cz (Postfix) with ESMTPS id 270451676;
+	Tue, 22 Nov 2022 10:30:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 270451676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669109430;
-	bh=m9yZHwnTEqGasYZNomMe1mRJHVzf8B7M3LDSNHYcXeA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669109451;
+	bh=seSQC6SqlEqebN8nlAvurHoHM/q4v6iR/e2pC83lUxE=;
+	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=psJmfO6WC0ydG/+vNhV3hjMH1Bw0bZcFYfrUuoIIeIZjwH/ouEPx3eoEZd1RaLlAb
-	 lQSHXFKlyUvDU9lPUGVqG8SS+gs4hHZDjXjqc2udvYnxg7bURK+ENdMGb7ocpq/qr4
-	 vqhEFtxxMXABe5KXCzJOBXeRkhIdKEOD0vP7SlMY=
+	b=jsHpNs6oA+iXMPMcoCq4My6zIvSY/2UdOLUNKKSTS7KLh1LlAsXMK3bpHQrnWfKU0
+	 TF7QiMo8B19Cxbzg4OGWtD3hYXrjeMcMEjVSTZBK8/CQKCkV+MlZQA2tP8qurb1Zeh
+	 cs52hcqLgj0+7FuacrUtzcsoJ9rJqrDhMUSQuxZU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A758EF80589;
-	Tue, 22 Nov 2022 10:27:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47DF5F805A1;
+	Tue, 22 Nov 2022 10:27:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA4C8F8028D; Mon, 21 Nov 2022 10:53:23 +0100 (CET)
+ id AD095F8028D; Mon, 21 Nov 2022 11:16:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_ZEN_BLOCKED_OPENDNS,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48943F80115
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 10:53:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48943F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 246D6F80115
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 11:16:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 246D6F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Opj/itLb"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D8EB560F97;
- Mon, 21 Nov 2022 09:53:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F83C433C1;
- Mon, 21 Nov 2022 09:53:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669024397;
- bh=m9yZHwnTEqGasYZNomMe1mRJHVzf8B7M3LDSNHYcXeA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Opj/itLbJtFE0syJxd+qkemdvm+GfbfZ1pccF1SGR++3DJnkeyD3YQtGhN+blIjub
- US8fX8iushvScwunkPr7LKirCchaNKKAU/twl0oVnqHEwdHsHxi0M0d/wgtlpEZqG7
- k4ovt/Znm0DICj47Y+N6I+Yw47E1MyyiN0e/92S2h9qHrb149jszKe3FalK/2rVJQ+
- ZppAyMp4v8rjq+XBX9JSBl1ysXWpcIvX0EVYeK13kfbg9IEzo070nVbf9UiCPP9DpS
- bXABnzNPLB0lPKqHS3KQR0EQyUsQW7BynY23b8Z2+QTbLFxJQgHRN0fjhkCpVJB9+z
- k93zjyweI0uEQ==
-Date: Mon, 21 Nov 2022 09:53:05 +0000
-From: Lee Jones <lee@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
-Subject: Re: [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-ID: <Y3tKgXPJP7S48i3j@google.com>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HMQtLNQC"
+Received: by mail-lf1-x129.google.com with SMTP id j4so18160573lfk.0
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 02:16:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=phJFVLoc9/POc6nbD0liFwrgYsKAiaNUs+VrsQZny0U=;
+ b=HMQtLNQC6JHUcpQnXKaMPeLJYNEXESjWqW9Jm9fxHdDsyxq3fD2y+gUbum8cazGLlS
+ 0Nzot0o7wlI3aHmX0JtEp59ASN04zoUP5cBLwhJUS8UWXS1vrDPK5s0nm6MtNyPRkAXr
+ i9HRjhzMXJwfcX+oinAm/OP6xU5bC2NyVL00djub62igijCsqVS/+Gs3g8Ob67GV62e5
+ lbpACEGBVz+P7gegvEedJPLtYc/UAuXuZCP3D6YMe70yXUQfK1oo2OuCbl17wDJsWOWJ
+ juioZPmih2Q2tDZ+3ZlWsJUEwqpG6mEfuUGwVkFA5iKPxQNEPbzHK7gtA/8R8W2wDMdd
+ a+Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=phJFVLoc9/POc6nbD0liFwrgYsKAiaNUs+VrsQZny0U=;
+ b=gNni4+prrerE8fdp8MR7+G6h4tEP2ZaupOgzJWATzp1or5iccimBa8aVC0LtsRG/ld
+ Xs4/1u0zlPF8xAQPcaMsPz8lV7hnBqzxmxuIhx7mIycTHlEwWcX9JFrVm/xt+jO3TuMR
+ rK9eqQHkbaAwNxpf2s9mjLUduP1U5xrhaG32BbGoj0qZHVGrK/+XmcOY85VdWJOSilkW
+ rhj2DYTwf3ImzoUDdx75eeddr+oH/uQU9X5M7ZFkWIlYHDiTJt7F6m2QEw7Q1LdccuBa
+ J+aB2lD0I8p2ZTFSHCYpGXnn2HBHBtIsb9W8G19fZlXYw9B3s30FHOWq4gwZUKBR3qG0
+ 4mTw==
+X-Gm-Message-State: ANoB5pn0tw9tZM5hzqHjbHxWuCrjkUScttbs5vq/fMZDD+u7emjuPibc
+ 2tm+AJ5GHI1DzGmedM3VpWE=
+X-Google-Smtp-Source: AA0mqf4ot1dRfz4XcQJOzbIEVDNmvoy9FxZf/F3Gx+j1WTmSwhOpMtvOjIltFzq0/t2LrM51x6qHTA==
+X-Received: by 2002:a05:6512:2521:b0:4a4:5e83:e07d with SMTP id
+ be33-20020a056512252100b004a45e83e07dmr1937785lfb.409.1669025797870; 
+ Mon, 21 Nov 2022 02:16:37 -0800 (PST)
+Received: from [172.16.196.95] ([213.255.186.46])
+ by smtp.gmail.com with ESMTPSA id
+ e8-20020a05651236c800b004a03d5c2140sm1957388lfs.136.2022.11.21.02.16.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Nov 2022 02:16:36 -0800 (PST)
+Message-ID: <20825b50-c2ef-7efb-efbf-ac00cc4ab9f4@gmail.com>
+Date: Mon, 21 Nov 2022 12:16:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-X-Mailman-Approved-At: Tue, 22 Nov 2022 10:27:18 +0100
-Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
- linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-pm@vger.kernel.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Grant Likely <grant.likely@linaro.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-actions@lists.infradead.org,
- linux-gpio@vger.kernel.org, Angel Iglesias <ang.iglesiasg@gmail.com>,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Wolfram Sang <wsa@kernel.org>, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+Subject: Re: [PATCH] dt-bindings: Add missing start and/or end of line regex
+ anchors
+To: Rob Herring <robh@kernel.org>, Ilia Lin <ilia.lin@kernel.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Yangtao Li <tiny.windzz@gmail.com>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Ryder Lee <ryder.lee@mediatek.com>, Jianjun Wang
+ <jianjun.wang@mediatek.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Javier Martinez Canillas <javier@dowhile0.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Mack <zonque@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20221118223728.1721589-1-robh@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20221118223728.1721589-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 22 Nov 2022 10:27:19 +0100
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-spi@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,129 +136,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022, Uwe Kleine-König wrote:
-
-> Hello,
+On 11/19/22 00:37, Rob Herring wrote:
+> json-schema patterns by default will match anywhere in a string, so
+> typically we want at least the start or end anchored. Fix the obvious
+> cases where the anchors were forgotten.
 > 
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
 
-Oh yeah, this!  Thanks for picking this up Uwe, I guess I've been
-distracted for the past 6 years or so. :)
+>   .../devicetree/bindings/regulator/rohm,bd9576-regulator.yaml  | 2 +-
 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
-> 
-> 	https://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/client_device_id_helper-immutable
-> 
-> I don't think it's feasable to apply this series in one go, so I ask the
-> maintainers of the changed files to apply via their tree. I guess it
-> will take a few kernel release iterations until all patch are in, but I
-> think a single tree creates too much conflicts.
-> 
-> The last patch changes i2c_driver::probe, all non-converted drivers will
-> fail to compile then. So I hope the build bots will tell me about any
-> driver I missed to convert. This patch is obviously not for application
-> now.
-> 
-> I dropped most individuals from the recipents of this mail to not
-> challenge the mail servers and mailing list filters too much. Sorry if
-> you had extra efforts to find this mail.
+Acked-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-[...]
-
->  drivers/mfd/88pm800.c                            |  5 ++---
->  drivers/mfd/88pm805.c                            |  5 ++---
->  drivers/mfd/aat2870-core.c                       |  5 ++---
->  drivers/mfd/act8945a.c                           |  5 ++---
->  drivers/mfd/adp5520.c                            |  6 +++---
->  drivers/mfd/arizona-i2c.c                        |  6 +++---
->  drivers/mfd/as3711.c                             |  5 ++---
->  drivers/mfd/as3722.c                             |  5 ++---
->  drivers/mfd/atc260x-i2c.c                        |  5 ++---
->  drivers/mfd/axp20x-i2c.c                         |  5 ++---
->  drivers/mfd/bcm590xx.c                           |  5 ++---
->  drivers/mfd/bd9571mwv.c                          |  5 ++---
->  drivers/mfd/da903x.c                             |  6 +++---
->  drivers/mfd/da9052-i2c.c                         |  6 +++---
->  drivers/mfd/da9055-i2c.c                         |  5 ++---
->  drivers/mfd/da9062-core.c                        |  6 +++---
->  drivers/mfd/da9063-i2c.c                         |  6 +++---
->  drivers/mfd/da9150-core.c                        |  5 ++---
->  drivers/mfd/khadas-mcu.c                         |  5 ++---
->  drivers/mfd/lm3533-core.c                        |  5 ++---
->  drivers/mfd/lp3943.c                             |  4 ++--
->  drivers/mfd/lp873x.c                             |  5 ++---
->  drivers/mfd/lp87565.c                            |  5 ++---
->  drivers/mfd/lp8788.c                             |  4 ++--
->  drivers/mfd/madera-i2c.c                         |  6 +++---
->  drivers/mfd/max14577.c                           |  6 +++---
->  drivers/mfd/max77620.c                           |  6 +++---
->  drivers/mfd/max77693.c                           |  6 +++---
->  drivers/mfd/max77843.c                           |  6 +++---
->  drivers/mfd/max8907.c                            |  5 ++---
->  drivers/mfd/max8925-i2c.c                        |  5 ++---
->  drivers/mfd/max8997.c                            |  6 +++---
->  drivers/mfd/max8998.c                            |  6 +++---
->  drivers/mfd/mc13xxx-i2c.c                        |  6 +++---
->  drivers/mfd/menelaus.c                           |  5 ++---
->  drivers/mfd/menf21bmc.c                          |  4 ++--
->  drivers/mfd/palmas.c                             |  5 ++---
->  drivers/mfd/pcf50633-core.c                      |  5 ++---
->  drivers/mfd/rc5t583.c                            |  5 ++---
->  drivers/mfd/retu-mfd.c                           |  4 ++--
->  drivers/mfd/rk808.c                              |  5 ++---
->  drivers/mfd/rohm-bd718x7.c                       |  5 ++---
->  drivers/mfd/rsmu_i2c.c                           |  6 +++---
->  drivers/mfd/rt5033.c                             |  5 ++---
->  drivers/mfd/sec-core.c                           |  5 ++---
->  drivers/mfd/si476x-i2c.c                         |  6 +++---
->  drivers/mfd/sky81452.c                           |  5 ++---
->  drivers/mfd/stmfx.c                              |  5 ++---
->  drivers/mfd/stmpe-i2c.c                          |  5 +++--
->  drivers/mfd/stpmic1.c                            |  5 ++---
->  drivers/mfd/stw481x.c                            |  5 ++---
->  drivers/mfd/tc3589x.c                            |  6 +++---
->  drivers/mfd/ti-lmu.c                             |  5 +++--
->  drivers/mfd/tps6105x.c                           |  5 ++---
->  drivers/mfd/tps65010.c                           |  6 +++---
->  drivers/mfd/tps6507x.c                           |  5 ++---
->  drivers/mfd/tps65086.c                           |  5 ++---
->  drivers/mfd/tps65090.c                           |  5 ++---
->  drivers/mfd/tps65218.c                           |  5 ++---
->  drivers/mfd/tps6586x.c                           |  5 ++---
->  drivers/mfd/tps65910.c                           |  6 +++---
->  drivers/mfd/tps65912-i2c.c                       |  5 ++---
->  drivers/mfd/twl-core.c                           |  5 +++--
->  drivers/mfd/twl6040.c                            |  5 ++---
->  drivers/mfd/wl1273-core.c                        |  5 ++---
->  drivers/mfd/wm831x-i2c.c                         |  6 +++---
->  drivers/mfd/wm8350-i2c.c                         |  5 ++---
->  drivers/mfd/wm8400-core.c                        |  5 ++---
->  drivers/mfd/wm8994-core.c                        |  6 +++---
-
-For my own reference (apply this as-is to your sign-off block):
-
-  Acked-for-MFD-by: Lee Jones <lee@kernel.org>
-
->  drivers/video/backlight/adp8860_bl.c             |  6 +++---
->  drivers/video/backlight/adp8870_bl.c             |  6 +++---
->  drivers/video/backlight/arcxcnn_bl.c             |  4 ++--
->  drivers/video/backlight/bd6107.c                 |  5 ++---
->  drivers/video/backlight/lm3630a_bl.c             |  5 ++---
->  drivers/video/backlight/lm3639_bl.c              |  5 ++---
->  drivers/video/backlight/lp855x_bl.c              |  5 +++--
->  drivers/video/backlight/lv5207lp.c               |  5 ++---
->  drivers/video/backlight/tosa_bl.c                |  5 ++---
->  drivers/video/fbdev/matrox/matroxfb_maven.c      |  5 ++---
-
-For my own reference (apply this as-is to your sign-off block):
-
-  Acked-for-Backlight-by: Lee Jones <lee@kernel.org>
 
 -- 
-Lee Jones [李琼斯]
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
+
+

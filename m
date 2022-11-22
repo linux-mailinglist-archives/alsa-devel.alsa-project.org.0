@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D396335C7
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 08:18:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C173A6335D5
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 08:26:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2CE2166F;
-	Tue, 22 Nov 2022 08:17:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2CE2166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5175A1662;
+	Tue, 22 Nov 2022 08:25:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5175A1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669101484;
-	bh=nRvXcbnAAelOIt7W/5rY4QQnU8my/2kjGFvOcYKFKLI=;
+	s=default; t=1669101991;
+	bh=xIMec4A63W0wMjfwbORTjnXG3VOKVKj8a2qOs093c8Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EClERKIP8LtBFGjSPx/MoEiVRV7bTt8vDHn9ZcqNwBbDshAigcixNyEa1K0ixDvoy
-	 LUuyDZKstrkyGG7rN+hUBS6DmVFsbX3lNOnxYGNGkYNrCvtK8gc+F9y23WNNiGlFKX
-	 TxlXSI1w0Z2O400xpS73giaIuUwx2pEdi6GUu97g=
+	b=HF0n+sMLkVX48Oi03K+bua96BvdUhHs+r0Nmr1Goi4Es7pWLqIG/tJ2egIi8SmNCF
+	 noYjWN2VbfQ98eUPLg8Eom9CK1F3/xX+PP/XSP/dIrs+njb5ylYvlcOJ4J0txxi+mx
+	 vEZnm98GHQGs6Hfn5Smh06vhIExmRGqWEF2NKXWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E5A4F80149;
-	Tue, 22 Nov 2022 08:17:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD6D1F80310;
+	Tue, 22 Nov 2022 08:25:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86050F80272; Tue, 22 Nov 2022 08:17:07 +0100 (CET)
+ id 87DFFF80272; Tue, 22 Nov 2022 08:25:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E1D5F80149
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 08:17:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E1D5F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88755F80149
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 08:25:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88755F80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ysqr2B5Z"; 
+ header.b="r9tSLbjD"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3WUYspX1"
+ header.b="IczhkRtx"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5310621EF3;
- Tue, 22 Nov 2022 07:17:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C1A3E22012;
+ Tue, 22 Nov 2022 07:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669101422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669101929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+UhD1ad2veeikmHqCQC9DmPwNtUNk0xYfG3WvlpNyfw=;
- b=Ysqr2B5ZbGK4ZdKXEGWWnLIvDw0eql019Dm7VjT0fBV2vyFM6LaChw7UOX8BXXd3PAX0aF
- 43vHOF5uhT7lTbhnEMNPD+1i749XRJZBeqogH3BGOEXC+kTYefz1BNQoNxXzNpjiblaZOd
- jqOwYk5Wmalzgo/MVysGt4gW6OHJ60E=
+ bh=MXqm2Xm0gAmGAFR/ZYj/oTSRfEYvmWngcDHpTR8lf3A=;
+ b=r9tSLbjDb6EJ7ozWqkYeSgmzeOV5dIvBIadrmxLZIOMRDHLQSZifxlLS0gab7/OaACN+ei
+ a+csOd+8RE40QyqM26mT6jBjO7zUkNddFIiRl8rBJjnl8robhETMuN6TRYp7SzUo1OE9U3
+ wvABtYIWHRHiaIz7RrQiPjVZDoEkDmg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669101422;
+ s=susede2_ed25519; t=1669101929;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+UhD1ad2veeikmHqCQC9DmPwNtUNk0xYfG3WvlpNyfw=;
- b=3WUYspX1R79gkd3+bofJqVzvdo/b26GV24pytG25R5jhm3oRL2SH6GCpb/Ls+4/9vvGuvl
- gFWy4faH4uJEvRCA==
+ bh=MXqm2Xm0gAmGAFR/ZYj/oTSRfEYvmWngcDHpTR8lf3A=;
+ b=IczhkRtxiVKssyk8jnSz1fx8hEhK6ID6z8OPd+0X0Y7d2+5anItDQMkt4RRhJWnuUXeGap
+ rx9TvpJFjUfUFICg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 379E113AA1;
- Tue, 22 Nov 2022 07:17:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A928813AA1;
+ Tue, 22 Nov 2022 07:25:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fbK4DG53fGM1dAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 07:17:02 +0000
-Date: Tue, 22 Nov 2022 08:17:01 +0100
-Message-ID: <87zgcjv4pe.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id pZ2ZKGl5fGMIeAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 07:25:29 +0000
+Date: Tue, 22 Nov 2022 08:25:29 +0100
+Message-ID: <87y1s3v4ba.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jiao Zhou <jiaozhou@google.com>
-Subject: Re: [PATCH] kernel: Add HP Device 0x8711 to force connect list
-In-Reply-To: <20221116194550.705566-1-jiaozhou@google.com>
-References: <20221116194550.705566-1-jiaozhou@google.com>
+To: Carl Hetherington <lists@carlh.net>
+Subject: Re: Query about xrun on usb/pcm
+In-Reply-To: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
+References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,51 +99,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Nov 2022 20:45:50 +0100,
-Jiao Zhou wrote:
+On Mon, 21 Nov 2022 22:14:39 +0100,
+Carl Hetherington wrote:
 > 
-> Signed-off-by: Jiao Zhou <jiaozhou@google.com>
-> ---
-> HDMI audio is not working on the HP EliteDesk 800 G6 because the pin is
-> unconnected. This issue can be resolved by using the 'hdajackretask'
-> tool to override the unconnected pin to force it to connect.
+> Hi all,
 > 
-> Change-Id: If7ffc0691466078e59240f9eab89de562b3f119d
+> I wonder if anybody has any clues/suggestions about problem I'm seeing
+> with an XMOS-based USB sound card.
+> 
+> As far as I can see, the card has endpoint 0x82 set up for capture data,
+> 0x2 for playback data, and 0x82 is also used as the sync endpoint for
+> playback.  I'm assuming that's a fairly common arrangement?
 
-Please reformat your patch and resubmit.  As of this submission, the
-comment about "HDMI audio is not working..." won't be taken as the
-patch description since you've put after the line "---".  The comment
-there will be discarded.
+Yes, that's an oft-seen implicit feedback mode.
+You seem hitting a corner case of dealing with that mode...
 
-Also please drop the useless Change-Id tag.
+> I am testing it using simultaneous playback and capture, and simulating
+> a high-CPU-load case by sleeping for long enough to cause a lot of
+> xruns.  After some random time, I see a failure case that I'm struggling
+> to explain.  It goes like this:
+> 
+> There's an XRUN on the playback PCM, so __snd_pcm_xrun happens, then
+>   stop_endpoints() happens, and:
+>       it decides not to stop 0x82 because its running is > 1
+>       it stops 0x2, so its state goes to EP_STATE_STOPPING
+> 
+> Then the ALSA userspace code calls prepare on the playback PCM to get it
+> going again.
+> 
+> This ends up in wait_clear_urbs(), which does nothing with 0x82 as it is
+> still running.
 
-And, align the patch subject line with others.  In this case, use
-"ALSA:" prefix, at best, "ALSA: hda/hdmi:" instead of "kernel:".
+So far, so good.
 
-Last but not least, put the subsystem maintainers (me in this case) to
-Cc at submission.
+> At this point, the prepare thread is interrupted by an XRUN on
+> the capture PCM. With this PCM, there is no sync endpoint, and 0x82 is the data
+> endpoint.
+> In the xrun handler:
+>   stop_urbs() sets 0x82 to EP_STATE_STOPPING.
+>   ... and the xrun handler finishes.
+> 
+> Then we end up back in the prepare for the playback PCM.
+> wait_clear_urbs() then sets 0x2 to STOPPED, and the prepare is finished.
+> 
+> Now, snd_usb_endpoint_start() is called on 0x2 and that is fine.  Next,
+> snd_usb_endpoint_start() is called on 0x82 and that fails because its
+> state is still STOPPING.
+> 
+> At this point things seem broken.
+>
+> Does anyone have a hint about where in this sequence things are going
+> wrong, and maybe even why?
+
+The problem is that it's treating XRUNs on the both streams
+individually.  It's correct to recover only the PCM stream when an
+XRUN is reported to the PCM stream.  However, for an XRUN on the
+capture stream that serves as a sync source, it should stop and
+recover not only the capture PCM stream but also the playback stream
+as a sync sink as well.
+
+Below is a possible test fix (totally untested!).
+This may give XRUNs twice eventually, which is a bit confusing, but it
+aligns with the actual hardware behavior, at least.
 
 
 thanks,
 
 Takashi
 
-> ---
->  sound/pci/hda/patch_hdmi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-> index 21edf7a619f0..7a40ddfd695a 100644
-> --- a/sound/pci/hda/patch_hdmi.c
-> +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -1975,6 +1975,7 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
->  static const struct snd_pci_quirk force_connect_list[] = {
->  	SND_PCI_QUIRK(0x103c, 0x870f, "HP", 1),
->  	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
-> +	SND_PCI_QUIRK(0x103c, 0x8711, "HP", 1),
->  	SND_PCI_QUIRK(0x1462, 0xec94, "MS-7C94", 1),
->  	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", 1),
->  	{}
-> -- 
-> 2.38.1.431.g37b22c650d-goog
-> 
+-- 8< --
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -403,10 +403,15 @@ static int prepare_inbound_urb(struct snd_usb_endpoint *ep,
+ static void notify_xrun(struct snd_usb_endpoint *ep)
+ {
+ 	struct snd_usb_substream *data_subs;
++	struct snd_usb_endpoint *ep_sink;
+ 
+ 	data_subs = READ_ONCE(ep->data_subs);
+-	if (data_subs && data_subs->pcm_substream)
++	if (data_subs && data_subs->pcm_substream) {
+ 		snd_pcm_stop_xrun(data_subs->pcm_substream);
++		ep_sink = READ_ONCE(ep->sync_sink);
++		if (ep_sink)
++			notify_xrun(ep_sink);
++	}
+ }
+ 
+ static struct snd_usb_packet_info *

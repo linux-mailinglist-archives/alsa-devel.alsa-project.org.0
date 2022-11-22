@@ -2,49 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD286633BA5
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 12:43:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19028633C2A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 13:13:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D4DE1616;
-	Tue, 22 Nov 2022 12:42:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D4DE1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4C291658;
+	Tue, 22 Nov 2022 13:12:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4C291658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669117417;
-	bh=kSOikPgTSgHOSIFikamKbkAMyGpM3Ots9YHLMKgPbHs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1669119180;
+	bh=/z2qc1uI3NebpB+3mdpORi9OgnUkruCxcihYdbzhGfo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Pxxp/UwNL/R0Q5cOFHuJBwPdlDiD0GkSENs5l+4Hf2WEIml8tPVPOqC3NV5fzmomV
-	 9nVebAtcEAmMuz0how4iTJ8NOISFao40fZtslOz0Hfogzvkr02a4ndkF3apttzv7YU
-	 jY38NnPsKoB26eGV9XaYhVo6B2qtpq9hOJMscx40=
+	b=URBVfRJLxU8UxkG93MsLBIvc+sqGqncT76gsg8ZG3pUbOrMLg53DEmFlKSKn2qAi0
+	 P4OgEsQQNPHrclHYqgtf/mfY61Sbpex1hh//vNdqrt73hjQCLD+SA1qmypShovUrA0
+	 m2Ri3PN8jW33qAj4XI5mcMp6Ru5fbOFGSAQC+UDU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7E74F80310;
-	Tue, 22 Nov 2022 12:42:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DAFEF80310;
+	Tue, 22 Nov 2022 13:12:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09CF0F80272; Tue, 22 Nov 2022 12:42:40 +0100 (CET)
+ id E91BCF80272; Tue, 22 Nov 2022 13:12:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 677CBF80154
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 12:42:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 677CBF80154
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1051F80115
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 13:11:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1051F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LCSLPsPV"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E352261698;
+ Tue, 22 Nov 2022 12:11:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0CAC433D6;
+ Tue, 22 Nov 2022 12:11:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669119115;
+ bh=/z2qc1uI3NebpB+3mdpORi9OgnUkruCxcihYdbzhGfo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LCSLPsPV1TsmwjswLnlBTU41wJkwd41DU8kdtiaYBnVJv634uH9MOk0NoA76eC+oi
+ U+46gP8aiYGvbh662QqZpD3JKN5vslPYicfa2JdHCc/Xe8+8i1xExPBi4+D5PL+Qgg
+ r/aatccaQB9XqeQ7zIcWRIifspD1wk2xkDbdia71FlCG5GB2F6tAQwnvATm/Wqp6Ix
+ Uju7+L5Ei4rvBK0k4elikJeTwLpDrPNV96uxJnkKYuDLgh6f+UDLNLivieY6GYG+7W
+ +MmQylF8N2Rhbhm8KAeOcBCyqtzNcKtvF4XX56z0p7ktYsk67LO1Y3uyJZG7Z8uAFI
+ PCCM3MfhUGTjQ==
+Date: Tue, 22 Nov 2022 12:11:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Move fixed string node names under
+ 'properties'
+Message-ID: <Y3y8hTosK8UNTL7K@sirena.org.uk>
+References: <20221118223708.1721134-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1669117356971123934-webhooks-bot@alsa-project.org>
-References: <1669117356971123934-webhooks-bot@alsa-project.org>
-Subject: (E)AC3, DTS, MPEG-H support in tinycompress and the kernel uapi?
-Message-Id: <20221122114240.09CF0F80272@alsa1.perex.cz>
-Date: Tue, 22 Nov 2022 12:42:40 +0100 (CET)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lDjTxj1SUPsxEEKH"
+Content-Disposition: inline
+In-Reply-To: <20221118223708.1721134-1-robh@kernel.org>
+X-Cookie: That's what she said.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jerome Neanne <jerome.neanne@baylibre.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Andrew Davis <afd@ti.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +91,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/tinycompress issue #20 was opened from dv1:
 
-Have there been discussions about adding support for (E)AC3, DTS, and MPEG-H? These days, 3D Audio is a use case where the Compress-Offload API is useful. It therefore would make sense to add support for these formats. I'm talking about direct support, not through IEC958 / IEC61937 payloading. I know that some HW vendors add their own custom changes to tinycompress to support these formats, so why not add these to upstream?
+--lDjTxj1SUPsxEEKH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Issue URL     : https://github.com/alsa-project/tinycompress/issues/20
-Repository URL: https://github.com/alsa-project/tinycompress
+On Fri, Nov 18, 2022 at 04:37:07PM -0600, Rob Herring wrote:
+> Fixed string node names should be under 'properties' rather than
+> 'patternProperties'. Additionally, without beginning and end of line
+> anchors, any prefix or suffix is allowed on the specified node name.
+> These cases don't appear to want a prefix or suffix, so move them under
+> 'properties'.
+
+Acked-by: Mark Brown <broonie@kernel.org>
+
+--lDjTxj1SUPsxEEKH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN8vIQACgkQJNaLcl1U
+h9Ae0Qf/emE9/oA+dPnGHlis/IeySfRJD4RM1Am+LSJBAqwrpx85Z6Q2H2bURwJQ
+ZWw+Q234RANSgC5arbh8/luVB0Z0UYs21FfnyBefSZvA5FlW1JHt+jpHcM6f9fdS
+vB8r+afbJpNRpfQG3OUg9uIcugKdi3uie/TGzzILDNa9OvJ+FHZG6m5RrPO31xMQ
+S4CYuu/MJFRq92V7Ra2SOxHjAn+p3kjXzCizHBdcia0DQRdRGORVZPzBqVpSGxhb
+QEaiE7P+yYW9oQy8sVIb/ChjUMjY4w3SJr/+IAIhrpxV4DtueO7Gc+rP47PsHDoA
+I13D2nJht2ZuzW11fCfbkTnuYTY0HA==
+=4gKN
+-----END PGP SIGNATURE-----
+
+--lDjTxj1SUPsxEEKH--

@@ -2,91 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C053363453D
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 21:09:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FF06348B7
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 21:50:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5873A1620;
-	Tue, 22 Nov 2022 21:09:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5873A1620
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EBE2163B;
+	Tue, 22 Nov 2022 21:49:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EBE2163B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669147798;
-	bh=B09zuvJyHafn/HUu2zNVb/nEhooqB58FmlcG9lyxNug=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s0PxB96EyuU8xUpy+EByKn1/i8KZ13bn6vElNcrssIPOS6rA1Ah2kk+JuLuqvTw1q
-	 wpSn/ohYcKxTQEpnzAGIO8nUqU5QEtLlVVFgha+a6P9RNT1YViemq8/V9dT+B+uudS
-	 hcmGLd+UKgUcDEZ5+reJxCUCQHNtNyAbP77GvBc0=
+	s=default; t=1669150208;
+	bh=WoqdMSrDh1aSCwbEOBB5q9ekxo7PYzlQpg5zweyNflE=;
+	h=Date:To:References:Subject:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LUHjbELAbnNF9o4KAacfNNIPgqtkudFAUIcqx/QyGiP18I8zjT459vPLXwp7grHp1
+	 Xnu3KamAZSt3/DzP/SLuKyCxekyV/tUrl++S06BpgN9PwOh7VcF6TNonO2tXo3n9ty
+	 j6Eq3lBx5yWUoqnjO+7eTTgFeL74jPde5P2jPhiY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3F07F80149;
-	Tue, 22 Nov 2022 21:09:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32BE9F80310;
+	Tue, 22 Nov 2022 21:49:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E32EF80149; Tue, 22 Nov 2022 21:09:01 +0100 (CET)
+ id 1EE73F80272; Tue, 22 Nov 2022 21:49:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17C57F80149
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 21:08:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17C57F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26486F80149
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 21:49:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26486F80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="cl6HAHsy"
-Received: by mail-lj1-x236.google.com with SMTP id z24so19181503ljn.4
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 12:08:56 -0800 (PST)
+ header.b="e50+0O8E"
+Received: by mail-wm1-x335.google.com with SMTP id
+ l39-20020a05600c1d2700b003cf93c8156dso12262565wms.4
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 12:49:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sXUW0a6Ff8psj/R6aZYguKr5STKCT04i6o2Czkyr1nI=;
- b=cl6HAHsy3tjvvd4e4yK9SmzUE3tr+Gk6oNXpZw1qroE9OvLHrPAkJ7i2yJ+gyYrynr
- 3nX7GZat+e7v8Oj4Vj5/OxigiF2xNhYpwoB+U5NNn6egDKIc+cDavlJAOsqJirmlSJEa
- nVIVPLrOE00b08L3kFOA5w2X1R8VJ1YNfdJlvEzThE9ofWGO8evDtb9tN7+pK5o/qBYu
- Kj+VbqfXpOdWcrsoELjgX75ZRqLsxHvx/bcIjL7YNio+fE6TubHnAZa4g41q3X66KGO1
- QM7EW+XeC2wdPzk5axmFu5e1KNzER+wDJcPqEz9RNjVlMDLBChG0M8HeYiugMbbUqklA
- CAWg==
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8xzKzCRrQ0kD01ErE8/DSm8QGUxYgutvYGN37un2fEs=;
+ b=e50+0O8ETpq4Otf+oxktx8UlVwPlghSMuG3s/gznq5eMw3JFpyHlvGHOsuwgSS1vBw
+ KxmDQoXQWWczTxhtTMl47jcH6FXEQYfwevU6NrtUm0UbLlt/W/lLomgHws9P7U9+RoWU
+ /WgpdOjrtJ5NQm7/1LSt1lj5RhYS9txXlel9Q+tcLMY7/r+c36jwlWiFYT5Azxnl5WSj
+ JTF7bYvrpBJXhA9T6NvBUmO/EGp+EmEQB4GrXtQ47xh9Bhu56ZAbWuxTdvbhEQBomjvA
+ DmsjykKsMPUVdO2Z7HqT+u8ynkCTzC1gCAFl5xElujyQQWOMky4gcFrDkwe8lXpvb2zy
+ TwuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sXUW0a6Ff8psj/R6aZYguKr5STKCT04i6o2Czkyr1nI=;
- b=3q4YbC8jF7BPdw5b0s1t0UOUbf3i6hH+hNtlvxtL1SV+oz5MDC5RXLfWVIQdEzp7nV
- LIX0EK7O8Ad0SGfAzuS4oxJI0M7NYSZJOE7ymRcbh8AtdEEqMQkdPH2qMDYoe7fDKKwY
- gCF11CF08AsWdFK9lntxGRqMqHOsDmJi9nNi0V+GfrHz6IPBvPjA9ig9brxBcNWvTVYw
- vp5byivwtvippxCF5QucvMsqcFYm+2BG80N/y/5i2/shRT8wjoQ3Lkqdz1luHMLwray5
- DJ8UHjTXcPZGIeqWvYkGhqeWIlr6s6gZfzBDCtRL0L/MzmbumFWVx7obP7blNPJhVa6n
- 9gxQ==
-X-Gm-Message-State: ANoB5pmGsmEMbVlSt5QY4o4Glu0GN0J0mF7s3jIbzd/t3/r1jKZxm2NY
- c/ywdlZ0qPNCdgPqhmu4X38=
-X-Google-Smtp-Source: AA0mqf7+Auws5Fe5VM1larsYdpz+GpM8nruuKW0Ba5lB/mRlJZvW4hmmdtILhMBj0v/rBA9j/qikLQ==
-X-Received: by 2002:a2e:be04:0:b0:267:9d30:5ba with SMTP id
- z4-20020a2ebe04000000b002679d3005bamr7874525ljq.284.1669147734075; 
- Tue, 22 Nov 2022 12:08:54 -0800 (PST)
-Received: from localhost.localdomain ([2.56.241.21])
- by smtp.gmail.com with ESMTPSA id
- z19-20020a056512371300b004b4e6dab30esm59977lfr.222.2022.11.22.12.08.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Nov 2022 12:08:53 -0800 (PST)
-From: Xiaolong Huang <butterflyhuangxx@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: rawmidi: fix infoleak in
- snd_rawmidi_ioctl_status_compat64
-Date: Wed, 23 Nov 2022 04:08:41 +0800
-Message-Id: <20221122200841.1026335-1-butterflyhuangxx@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8xzKzCRrQ0kD01ErE8/DSm8QGUxYgutvYGN37un2fEs=;
+ b=Fg0DJC5sT6cNagIiNmyWrrlk0XiAWVUfYaPvbHzFSc7k1E5zxzBULHOs70heqDAsIt
+ rQ5pObx6UOdh92FL9byexhS3vBbq3FEbZkZn0CfHNDUbXjVBqsyKBEFVG6TY0DWuo623
+ Tr0S+AsihNLmCPgrcP8jEkmXg+I2q6w4OQAoh9aOv5q9Dsw5JpIFNFEr/QAToAxCYefH
+ YA40W/albv4TcylxZhGOgluWPj3t6bida4I7ea3c/SSIfATftM6ZUsYYPxhadTBFvItj
+ w3d0daF0G1FVB5+6j+HszQ0JnU7ufmL4aI3womcoYqkPTn/BwGgbF9jkKJiCCNv1+xAB
+ 105w==
+X-Gm-Message-State: ANoB5pmv4xJo/8/LdzifI7OuyVvINRS1o2KCRbVqHjjDeW6bxWiUwJDU
+ WCbpeuTK5215b6AqT2C9E7M=
+X-Google-Smtp-Source: AA0mqf5luX8xyap/ZIY48+LE5qXXkRRDwsYMk2Qz5GlrYjdqO0IivztM2rUASWdPg1F4GAspr2u2kA==
+X-Received: by 2002:a05:600c:2241:b0:3cf:9ced:dce4 with SMTP id
+ a1-20020a05600c224100b003cf9ceddce4mr17457810wmm.120.1669150146130; 
+ Tue, 22 Nov 2022 12:49:06 -0800 (PST)
+Received: from [10.10.20.10] (80.49.50.209.ipv4.supernova.orange.pl.
+ [80.49.50.209]) by smtp.gmail.com with ESMTPSA id
+ u10-20020a7bc04a000000b003c6bd12ac27sm17745612wmc.37.2022.11.22.12.49.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Nov 2022 12:49:05 -0800 (PST)
+Message-ID: <77f06a82-6765-4e7e-d30e-554acb8309b2@gmail.com>
+Date: Tue, 22 Nov 2022 21:49:03 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+To: cezary.rojewski@intel.com
+References: <ee8fb5be-e31b-2000-84de-85db5989ee92@intel.com>
+Subject: Re: [PATCH] ASoC: Intel: avs: Add missing audio amplifier for KBL
+Content-Language: en-GB
+From: Alicja Michalska <ahplka19@gmail.com>
+In-Reply-To: <ee8fb5be-e31b-2000-84de-85db5989ee92@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: Xiaolong Huang <butterflyhuangxx@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com, ahplka19@gmail.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,29 +111,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The compat_status is declared off of the stack, so it needs to
-be zeroed out before copied back to userspace to prevent any
-unintentional data leakage.
+Hello Czarek, trying to re-send that mail from my workstation since 
+email client on my phone didn't cc properly.
 
-Signed-off-by: Xiaolong Huang <butterflyhuangxx@gmail.com>
----
- sound/core/rawmidi_compat.c | 1 +
- 1 file changed, 1 insertion(+)
+No, I've got no idea why it's been duplicated. It's my first time 
+contributing to mainline, so sorry about that. Will double-check my 
+patches in the future.
 
-diff --git a/sound/core/rawmidi_compat.c b/sound/core/rawmidi_compat.c
-index 68a93443583c..6afa68165b17 100644
---- a/sound/core/rawmidi_compat.c
-+++ b/sound/core/rawmidi_compat.c
-@@ -80,6 +80,7 @@ static int snd_rawmidi_ioctl_status_compat64(struct snd_rawmidi_file *rfile,
- 	if (err < 0)
- 		return err;
- 
-+	memset(&compat_status, 0, sizeof(compat_status));
- 	compat_status = (struct compat_snd_rawmidi_status64) {
- 		.stream = status.stream,
- 		.tstamp_sec = status.tstamp_sec,
-
-base-commit: eb7081409f94a9a8608593d0fb63a1aa3d6f95d8
--- 
-2.25.1
+On 22/11/2022 19:10, Cezary Rojewski wrote:
+ > On 2022-11-22 12:20 AM, Alicja Michalska wrote:
+ >> KBL platform is missing the definition of 'max98357a' audio amplifier.
+ >> This amplifier is used on many KBL Chromebooks, for instance variant
+ >> 'nami' of 'Google/poppy' baseboard.
+ >>
+ >> Reported-by: CoolStar <coolstarorganization@gmail.com>
+ >> Signed-off-by: Alicja Michalska <ahplka19@gmail.com>
+ >>
+ >> diff --git a/sound/soc/intel/avs/board_selection.c 
+b/sound/soc/intel/avs/board_selection.c
+ >> index 87f9c18be238..650faebb33ef 100644
+ >> --- a/sound/soc/intel/avs/board_selection.c
+ >> +++ b/sound/soc/intel/avs/board_selection.c
+ >> @@ -129,6 +129,14 @@ static struct snd_soc_acpi_mach 
+avs_kbl_i2s_machines[] = {
+ >>           },
+ >>           .tplg_filename = "max98373-tplg.bin",
+ >>       },
+ >> +    {
+ >> +        .id = "MX98357A",
+ >> +        .drv_name = "avs_max98357a",
+ >> +        .mach_params = {
+ >> +            .i2s_link_mask = AVS_SSP(0),
+ >> +        },
+ >> +        .tplg_filename = "max98357a-tplg.bin",
+ >> +    },
+ >>       {
+ >>           .id = "DLGS7219",
+ >>           .drv_name = "avs_da7219",
+ >> ---
+ >>   sound/soc/intel/avs/board_selection.c | 8 ++++++++
+ >>   1 file changed, 8 insertions(+)
+ >>
+ >> diff --git a/sound/soc/intel/avs/board_selection.c 
+b/sound/soc/intel/avs/board_selection.c
+ >> index 87f9c18be238..650faebb33ef 100644
+ >> --- a/sound/soc/intel/avs/board_selection.c
+ >> +++ b/sound/soc/intel/avs/board_selection.c
+ >> @@ -129,6 +129,14 @@ static struct snd_soc_acpi_mach 
+avs_kbl_i2s_machines[] = {
+ >>           },
+ >>           .tplg_filename = "max98373-tplg.bin",
+ >>       },
+ >> +    {
+ >> +        .id = "MX98357A",
+ >> +        .drv_name = "avs_max98357a",
+ >> +        .mach_params = {
+ >> +            .i2s_link_mask = AVS_SSP(0),
+ >> +        },
+ >> +        .tplg_filename = "max98357a-tplg.bin",
+ >> +    },
+ >>       {
+ >>           .id = "DLGS7219",
+ >>           .drv_name = "avs_da7219",
+ >
+ >
+ > Any reason why diff is repeated twice? It seems that the first copy 
+of diff is part of the commit message.
 

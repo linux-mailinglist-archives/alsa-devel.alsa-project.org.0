@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373C2633EAF
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:20:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163F0633ED2
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:23:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3E7A163E;
-	Tue, 22 Nov 2022 15:19:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3E7A163E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9121636;
+	Tue, 22 Nov 2022 15:23:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9121636
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669126815;
-	bh=gGLtxqxgdmp2fiu5/S2HGh27UKNCeagZB0EfiOzJ674=;
+	s=default; t=1669127030;
+	bh=3GHMzo9Kwxp+tAmGKx+hg0Fh30kDQ/Ay1GPO2mDOlhY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gEQWeKyg9amEuUaK3jyWgMd2ZbE9pMcbk2aHGiJlVRvFcYDV2QcluiGQYL5Vloomc
-	 B+u3X2t6NQpWiJvvRHMSO8VnYNRA9wzwQyERn7Igz1rwQaK302SYi5p4/3y9gIpKbx
-	 82VFYiqlJrTa3u3f/CVAQloFD3KwgR4bheVDim4o=
+	b=h79z8fviuRiO2kUqJqyB571HHWcfmj7lVFKnRSVmoEz5S+EdQJn2b/5BUR+pfu+Es
+	 EkIpLZHf5yANj/zcWFbdRI1t1ySCw9jcZbR0l9NTQCPbyrSG5+cVKqaGtZ/Htc9FqZ
+	 akKSkdb0wjHxmi9K9FvNNoRyuAhuo8wkNwNDMSJc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 453EFF80149;
-	Tue, 22 Nov 2022 15:19:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28E23F80154;
+	Tue, 22 Nov 2022 15:22:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A122F80272; Tue, 22 Nov 2022 15:19:18 +0100 (CET)
+ id B9796F80272; Tue, 22 Nov 2022 15:22:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64ACDF80154
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:19:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64ACDF80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D78EF80154
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:22:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D78EF80154
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="wW4ikBwf"; 
+ header.b="X0k1Hxj5"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="mnY1uBxT"
+ header.b="pVc8f6uI"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 614B71F85D;
- Tue, 22 Nov 2022 14:19:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A06911F8AB;
+ Tue, 22 Nov 2022 14:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669126754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669126970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=sozG0BEMAlaClN3fBIU6s27JtHUQ8B3q9v0peIhMtls=;
- b=wW4ikBwfiDZ0KD81wb+BjfGIlT3GfwDr6KccCB7PrijUdv4NUKXH3gemSCoSBg056n8aBb
- +82VXASMUc1bKnN7AlJ3GWPdkRoeuoF16VIea7FlAYJaGa/FBsjNxQ1YCUwisMvyLkeEJN
- 9BgYSZbMtzM4GiFz4sV+uh4onKdEpPo=
+ bh=OqwC4qCf+MDVySDLbLGnlO+Dj7CVgo11u4ylP6+E3no=;
+ b=X0k1Hxj5lopSud0Qmb9jiHnJismAF7WxFqVHNOWHDjsxUKvUDn18U8AZmQpevitDDzXROY
+ stxTJZ8TWVWRtqnaV7IkAsykh7a8AhoQM2tuEcB6opcVTXVShYZ+CjixsBZIwy/N7JQrM2
+ 7W5LxdyycRzSJL82rUMRs4FVaHQpQa0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669126754;
+ s=susede2_ed25519; t=1669126970;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=sozG0BEMAlaClN3fBIU6s27JtHUQ8B3q9v0peIhMtls=;
- b=mnY1uBxT3h6In6TSwqtreWdPLfbIX+jZ1ZnP/OC59xZA4DJljFTtmH/qq6n/AlWN0pCdql
- l6T5iS2aKoi3xrDA==
+ bh=OqwC4qCf+MDVySDLbLGnlO+Dj7CVgo11u4ylP6+E3no=;
+ b=pVc8f6uIp0BRxfEY2s48eEtZdjgMykn4Rh1LM0d/lx787k3VzDVoSnVoAZPrYCnlwF1EWc
+ Ez3mcvhFrYw+WICg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 45C4A13AA1;
- Tue, 22 Nov 2022 14:19:14 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 87AD013AA1;
+ Tue, 22 Nov 2022 14:22:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2z9NEGLafGMvbQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 14:19:14 +0000
-Date: Tue, 22 Nov 2022 15:19:13 +0100
-Message-ID: <87edtv6pi6.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZxpwIDrbfGN6bwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 14:22:50 +0000
+Date: Tue, 22 Nov 2022 15:22:50 +0100
+Message-ID: <87bkoz6pc5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Carl Hetherington <lists@carlh.net>
 Subject: Re: Query about xrun on usb/pcm
-In-Reply-To: <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
+In-Reply-To: <87edtv6pi6.wl-tiwai@suse.de>
 References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
  <87y1s3v4ba.wl-tiwai@suse.de>
  <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
+ <87edtv6pi6.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -101,87 +102,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Nov 2022 12:16:47 +0100,
-Carl Hetherington wrote:
+On Tue, 22 Nov 2022 15:19:13 +0100,
+Takashi Iwai wrote:
 > 
-> Hi Takashi,
-> 
-> Thank you for getting back to me!
-> 
-> On Tue, 22 Nov 2022, Takashi Iwai wrote:
-> 
-> [snip]
-> 
-> > > Now, snd_usb_endpoint_start() is called on 0x2 and that is fine.  Next,
-> > > snd_usb_endpoint_start() is called on 0x82 and that fails because its
-> > > state is still STOPPING.
+> On Tue, 22 Nov 2022 12:16:47 +0100,
+> Carl Hetherington wrote:
+> > 
+> > Hi Takashi,
+> > 
+> > Thank you for getting back to me!
+> > 
+> > On Tue, 22 Nov 2022, Takashi Iwai wrote:
+> > 
+> > [snip]
+> > 
+> > > > Now, snd_usb_endpoint_start() is called on 0x2 and that is fine.  Next,
+> > > > snd_usb_endpoint_start() is called on 0x82 and that fails because its
+> > > > state is still STOPPING.
+> > > >
+> > > > At this point things seem broken.
+> > > >
+> > > > Does anyone have a hint about where in this sequence things are going
+> > > > wrong, and maybe even why?
 > > >
-> > > At this point things seem broken.
+> > > The problem is that it's treating XRUNs on the both streams
+> > > individually.  It's correct to recover only the PCM stream when an
+> > > XRUN is reported to the PCM stream.  However, for an XRUN on the
+> > > capture stream that serves as a sync source, it should stop and
+> > > recover not only the capture PCM stream but also the playback stream
+> > > as a sync sink as well.
 > > >
-> > > Does anyone have a hint about where in this sequence things are going
-> > > wrong, and maybe even why?
-> >
-> > The problem is that it's treating XRUNs on the both streams
-> > individually.  It's correct to recover only the PCM stream when an
-> > XRUN is reported to the PCM stream.  However, for an XRUN on the
-> > capture stream that serves as a sync source, it should stop and
-> > recover not only the capture PCM stream but also the playback stream
-> > as a sync sink as well.
-> >
-> > Below is a possible test fix (totally untested!).
-> > This may give XRUNs twice eventually, which is a bit confusing, but it
-> > aligns with the actual hardware behavior, at least.
+> > > Below is a possible test fix (totally untested!).
+> > > This may give XRUNs twice eventually, which is a bit confusing, but it
+> > > aligns with the actual hardware behavior, at least.
+> > 
+> > [snip fix]
+> > 
+> > Makes sense, thank you!  Sadly, the fix doesn't seem to work because (I
+> > think) the xruns I'm seeing come via a different path (not though
+> > notify_xrun()).  Mine arrive via this trace:
+> > 
+> > __snd_pcm_xrun
+> > snd_pcm_update_state
+> > snd_pcm_update_hw_ptr
+> > usb_hcd_giveback_urb
+> > snd_pcm_period_elapsed_under_stream_lock
+> > snd_pcm_period_elapsed
+> > retire_capture_urb
+> > snd_complete_urb
+> > 
+> > I'll see if can apply a similar fix to this case, though to my naive
+> > eyes it looks a little trickier as the xrun is found in the snd_pcm
+> > code rather than the USB code.  Any suggestions most welcome!
 > 
-> [snip fix]
+> OK, then it's a bit different problem, and not so trivial to fix in
+> the kernel side alone, I'm afraid.  Basically it's a race between
+> start and stop of two streams.  The key point is that, for stopping a
+> (USB) stream, a sync-stop operation is needed, and this can't be
+> performed at the PCM trigger itself (which is an atomic operation).
+> So, the kernel trigger may at most return an error there.
 > 
-> Makes sense, thank you!  Sadly, the fix doesn't seem to work because (I
-> think) the xruns I'm seeing come via a different path (not though
-> notify_xrun()).  Mine arrive via this trace:
-> 
-> __snd_pcm_xrun
-> snd_pcm_update_state
-> snd_pcm_update_hw_ptr
-> usb_hcd_giveback_urb
-> snd_pcm_period_elapsed_under_stream_lock
-> snd_pcm_period_elapsed
-> retire_capture_urb
-> snd_complete_urb
-> 
-> I'll see if can apply a similar fix to this case, though to my naive
-> eyes it looks a little trickier as the xrun is found in the snd_pcm
-> code rather than the USB code.  Any suggestions most welcome!
+> I assume that it's from snd_usb_endpoint_start() and it returning
+> -EPIPE error.  If so, we may change the PCM core code to set the PCM
+> state again XRUN in such an error case, so that application may repeat
+> the standard recovery process.  Something like below.
 
-OK, then it's a bit different problem, and not so trivial to fix in
-the kernel side alone, I'm afraid.  Basically it's a race between
-start and stop of two streams.  The key point is that, for stopping a
-(USB) stream, a sync-stop operation is needed, and this can't be
-performed at the PCM trigger itself (which is an atomic operation).
-So, the kernel trigger may at most return an error there.
-
-I assume that it's from snd_usb_endpoint_start() and it returning
--EPIPE error.  If so, we may change the PCM core code to set the PCM
-state again XRUN in such an error case, so that application may repeat
-the standard recovery process.  Something like below.
+Also, it might be slightly better if we swap the starting order of two
+streams: sync at first, then data.  A race can still happen, though.
 
 
 Takashi
 
 -- 8< --
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1424,9 +1424,14 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,
- static int snd_pcm_do_start(struct snd_pcm_substream *substream,
- 			    snd_pcm_state_t state)
- {
-+	int err;
-+
- 	if (substream->runtime->trigger_master != substream)
- 		return 0;
--	return substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
-+	err = substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
-+	if (err == -EPIPE)
-+		__snd_pcm_set_state(runtime, SNDRV_PCM_STATE_XRUN);
-+	return err;
- }
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -241,19 +241,19 @@ static int start_endpoints(struct snd_usb_substream *subs)
+ 	if (!subs->data_endpoint)
+ 		return -EINVAL;
  
- static void snd_pcm_undo_start(struct snd_pcm_substream *substream,
+-	if (!test_and_set_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags)) {
+-		err = snd_usb_endpoint_start(subs->data_endpoint);
++	if (subs->sync_endpoint &&
++	    !test_and_set_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
++		err = snd_usb_endpoint_start(subs->sync_endpoint);
+ 		if (err < 0) {
+-			clear_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags);
++			clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags);
+ 			goto error;
+ 		}
+ 	}
+ 
+-	if (subs->sync_endpoint &&
+-	    !test_and_set_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
+-		err = snd_usb_endpoint_start(subs->sync_endpoint);
++	if (!test_and_set_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags)) {
++		err = snd_usb_endpoint_start(subs->data_endpoint);
+ 		if (err < 0) {
+-			clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags);
++			clear_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags);
+ 			goto error;
+ 		}
+ 	}

@@ -2,68 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC886335F7
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 08:40:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4862C633765
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 09:47:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF61E166D;
-	Tue, 22 Nov 2022 08:39:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF61E166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D00471F0;
+	Tue, 22 Nov 2022 09:46:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D00471F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669102812;
-	bh=12cHoO/t9P5INurBtayTInChCuiGAlrVhfaEspZcnaw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669106844;
+	bh=4m5iGelGiyO17ITA9wzWjgZpqArhb3vr2tARRLjkmKw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bWFejdijdnplH1SS5mr6l5haJ6JD78T+PHHv6VyheWnLfzGyIap9klBS33D/dwOUX
-	 65nDG3ALSDNw4qY3er2kiuRS83plS/M4Wgb4S2z6ix2mKF3nDuj7d/k9HKpXnwow66
-	 SSRfoYbBPJRH5bE3WEngZV0dH0NpPCotQo7V3j8Q=
+	b=QZqQl0ebijcpYAuL+oOiPDMo9INeYVmFm74nyJ5rOt0phJORoeAqnaTEqq8NBMFSB
+	 z62dhLl3Fc9Sdf5ii0KyN+ouU9P0qrERAglorbecjzr5k1DxaPlwObz6nmMDj0Izkr
+	 0cPj5t3Ll4i1nC8MWo5F+JUg54weiQGliwVtLvkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CD06F80149;
-	Tue, 22 Nov 2022 08:39:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 633ACF80310;
+	Tue, 22 Nov 2022 09:46:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 264AAF80154; Tue, 22 Nov 2022 08:39:15 +0100 (CET)
+ id 06A3DF80272; Tue, 22 Nov 2022 09:46:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 74634F80154
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 08:39:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74634F80154
-Received: from NTHCCAS01.nuvoton.com (NTHCCAS01.nuvoton.com [10.1.8.28])
- by maillog.nuvoton.com (Postfix) with ESMTP id 4A7A01C812D5;
- Tue, 22 Nov 2022 15:39:05 +0800 (CST)
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Tue, 22 Nov
- 2022 15:39:05 +0800
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 22 Nov
- 2022 15:39:04 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Tue, 22 Nov 2022 15:39:04 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: nau8825: Add a manually mechanism for detection
- failure
-Date: Tue, 22 Nov 2022 15:38:56 +0800
-Message-ID: <20221122073855.43024-2-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221122073855.43024-1-CTLIN0@nuvoton.com>
-References: <20221122073855.43024-1-CTLIN0@nuvoton.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, ctlin0.linux@gmail.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA3FFF80115
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 09:46:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA3FFF80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XeVfiBP9"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hB/jCjDJ"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BF2331F86C;
+ Tue, 22 Nov 2022 08:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669106780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dXel8N1xdWLbkJWBa3cPHmwpPDZdmAoVd+uJGgsXh4A=;
+ b=XeVfiBP9oK2YcOJON2fbP20TLQCkdS1CpOlcmLSDbN+w8OK3PvZSauF9KZTVYqxemH2xI+
+ n/Tl0WUAN1Sq1ifXz6rQjj2uWlhEEjiJo2H9v+QnEfUVafoV5EgosHU5GbC1LeJPjSyfEX
+ aOomPsUzHypUqpuj0hpb2ucRAdFXF6k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669106780;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dXel8N1xdWLbkJWBa3cPHmwpPDZdmAoVd+uJGgsXh4A=;
+ b=hB/jCjDJEXLoJ1JadX6vM2lN/Kb+ltO0/n2a70XTNU1meIXRXp/n/LU7X6S5jAdebFtwUp
+ IXr9wLlR/JN7yODw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9929113B01;
+ Tue, 22 Nov 2022 08:46:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id iefMJFyMfGNHJAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 08:46:20 +0000
+Date: Tue, 22 Nov 2022 09:46:20 +0100
+Message-ID: <87tu2rv0kj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Michael Wu <michael@allwinnertech.com>
+Subject: Re: [PATCH] ALSA: usb-audio: fix urb timeout with URB_ISO_ASAP flag
+In-Reply-To: <20221122082040.48591-1-michael@allwinnertech.com>
+References: <20221122082040.48591-1-michael@allwinnertech.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, wanjiabing@vivo.com, aichao@kylinos.cn,
+ ubizjak@gmail.com, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,216 +100,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch is to use saradc to check the jack type when auto
-detection is still failure.
+On Tue, 22 Nov 2022 09:20:40 +0100,
+Michael Wu wrote:
+> 
+> When the loglevel is greater than 4, with a long messages printed on the
+> console while playing or recording audios, the usb controller may become
+> abnormal.
+> `usb 1-2: timeout: still 1 active urbs on EP #1`
+> 
+> Fix it by configuring the transfer_flags URB_ISO_ASAP flag.
+> 
+> Signed-off-by: Michael Wu <michael@allwinnertech.com>
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- sound/soc/codecs/nau8825.c | 128 ++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/nau8825.h |  23 +++++++
- 2 files changed, 148 insertions(+), 3 deletions(-)
+Hrm, that's somewhat backward action to the change we've done years
+ago, commit c75c5ab575af7db707689cdbb5a5c458e9a034bb:
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index ba7f5ec28609..4bffa9c20f2b 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -1736,6 +1736,121 @@ static int nau8825_button_decode(int value)
- 	return buttons;
- }
- 
-+static int nau8825_high_imped_detection(struct nau8825 *nau8825)
-+{
-+	struct regmap *regmap = nau8825->regmap;
-+	struct snd_soc_dapm_context *dapm = nau8825->dapm;
-+	unsigned int adc_mg1, adc_mg2;
-+
-+	/* Initial phase */
-+	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+			   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 | NAU8825_SPKR_DWN1R |
-+			   NAU8825_SPKR_DWN1L, NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2);
-+	regmap_update_bits(regmap, NAU8825_REG_ANALOG_CONTROL_1,
-+			   NAU8825_TESTDACIN_MASK, NAU8825_TESTDACIN_GND);
-+	regmap_write(regmap, NAU8825_REG_TRIM_SETTINGS, 0x6);
-+	regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+			   NAU8825_MICBIAS_LOWNOISE_MASK | NAU8825_MICBIAS_VOLTAGE_MASK,
-+			   NAU8825_MICBIAS_LOWNOISE_EN);
-+	regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+			   NAU8825_SAR_INPUT_MASK | NAU8825_SAR_TRACKING_GAIN_MASK |
-+			   NAU8825_SAR_HV_SEL_MASK | NAU8825_SAR_RES_SEL_MASK |
-+			   NAU8825_SAR_COMPARE_TIME_MASK | NAU8825_SAR_SAMPLING_TIME_MASK,
-+			   NAU8825_SAR_HV_SEL_VDDMIC | NAU8825_SAR_RES_SEL_70K);
-+
-+	snd_soc_dapm_force_enable_pin(dapm, "MICBIAS");
-+	snd_soc_dapm_force_enable_pin(dapm, "SAR");
-+	snd_soc_dapm_sync(dapm);
-+
-+	/* Configure settings for first reading of SARADC */
-+	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+			   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 | NAU8825_SPKR_DWN1R |
-+			   NAU8825_SPKR_DWN1L, NAU8825_SPKR_ENGND2);
-+	regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+			   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_JKR2,
-+			   NAU8825_MICBIAS_JKR2);
-+	regmap_read(regmap, NAU8825_REG_SARDOUT_RAM_STATUS, &adc_mg1);
-+
-+	/* Configure settings for second reading of SARADC */
-+	regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+			   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_JKR2, 0);
-+	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+			   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 | NAU8825_SPKR_DWN1R |
-+			   NAU8825_SPKR_DWN1L, NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 |
-+			   NAU8825_SPKR_DWN1R | NAU8825_SPKR_DWN1L);
-+	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+			   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 | NAU8825_SPKR_DWN1R |
-+			   NAU8825_SPKR_DWN1L, NAU8825_SPKR_ENGND1);
-+	regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+			   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_JKR2,
-+			   NAU8825_MICBIAS_JKSLV);
-+	regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+			   NAU8825_SAR_INPUT_MASK, NAU8825_SAR_INPUT_JKSLV);
-+	regmap_read(regmap, NAU8825_REG_SARDOUT_RAM_STATUS, &adc_mg2);
-+
-+	/* Disable phase */
-+	snd_soc_dapm_disable_pin(dapm, "SAR");
-+	snd_soc_dapm_disable_pin(dapm, "MICBIAS");
-+	snd_soc_dapm_sync(dapm);
-+
-+	regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+			   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_LOWNOISE_MASK |
-+			   NAU8825_MICBIAS_VOLTAGE_MASK, nau8825->micbias_voltage);
-+	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+			   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 | NAU8825_SPKR_DWN1R |
-+			   NAU8825_SPKR_DWN1L, NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2 |
-+			   NAU8825_SPKR_DWN1R | NAU8825_SPKR_DWN1L);
-+	regmap_update_bits(regmap, NAU8825_REG_ANALOG_CONTROL_1,
-+			   NAU8825_TESTDACIN_MASK, NAU8825_TESTDACIN_GND);
-+	regmap_write(regmap, NAU8825_REG_TRIM_SETTINGS, 0);
-+	regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+			   NAU8825_SAR_TRACKING_GAIN_MASK | NAU8825_SAR_HV_SEL_MASK,
-+			   nau8825->sar_voltage << NAU8825_SAR_TRACKING_GAIN_SFT);
-+	regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+			   NAU8825_SAR_COMPARE_TIME_MASK | NAU8825_SAR_SAMPLING_TIME_MASK,
-+			   (nau8825->sar_compare_time << NAU8825_SAR_COMPARE_TIME_SFT) |
-+			   (nau8825->sar_sampling_time << NAU8825_SAR_SAMPLING_TIME_SFT));
-+	dev_dbg(nau8825->dev, "adc_mg1:%x, adc_mg2:%x\n", adc_mg1, adc_mg2);
-+
-+	/* Confirmation phase */
-+	if (adc_mg1 > adc_mg2) {
-+		dev_dbg(nau8825->dev, "OMTP (micgnd1) mic connected\n");
-+
-+		/* Unground MICGND1 */
-+		regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+				   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2,
-+				   NAU8825_SPKR_ENGND2);
-+		/* Attach 2kOhm Resistor from MICBIAS to MICGND1 */
-+		regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+				   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_JKR2,
-+				   NAU8825_MICBIAS_JKR2);
-+		/* Attach SARADC to MICGND1 */
-+		regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+				   NAU8825_SAR_INPUT_MASK,
-+				   NAU8825_SAR_INPUT_JKR2);
-+	} else if (adc_mg1 < adc_mg2) {
-+		dev_dbg(nau8825->dev, "CTIA (micgnd2) mic connected\n");
-+
-+		/* Unground MICGND2 */
-+		regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
-+				   NAU8825_SPKR_ENGND1 | NAU8825_SPKR_ENGND2,
-+				   NAU8825_SPKR_ENGND1);
-+		/* Attach 2kOhm Resistor from MICBIAS to MICGND2 */
-+		regmap_update_bits(regmap, NAU8825_REG_MIC_BIAS,
-+				   NAU8825_MICBIAS_JKSLV | NAU8825_MICBIAS_JKR2,
-+				   NAU8825_MICBIAS_JKSLV);
-+		/* Attach SARADC to MICGND2 */
-+		regmap_update_bits(regmap, NAU8825_REG_SAR_CTRL,
-+				   NAU8825_SAR_INPUT_MASK,
-+				   NAU8825_SAR_INPUT_JKSLV);
-+	} else {
-+		dev_err(nau8825->dev, "Jack broken.\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int nau8825_jack_insert(struct nau8825 *nau8825)
- {
- 	struct regmap *regmap = nau8825->regmap;
-@@ -1797,9 +1912,16 @@ static int nau8825_jack_insert(struct nau8825 *nau8825)
- 		snd_soc_dapm_sync(dapm);
- 		break;
- 	case 3:
--		/* detect error case */
--		dev_err(nau8825->dev, "detection error; disable mic function\n");
--		type = SND_JACK_HEADPHONE;
-+		/* Detection failure case */
-+		dev_warn(nau8825->dev,
-+			 "Detection failure. Try the manually mechanism for jack type checking.\n");
-+		if (!nau8825_high_imped_detection(nau8825)) {
-+			type = SND_JACK_HEADSET;
-+			snd_soc_dapm_force_enable_pin(dapm, "MICBIAS");
-+			snd_soc_dapm_force_enable_pin(dapm, "SAR");
-+			snd_soc_dapm_sync(dapm);
-+		} else
-+			type = SND_JACK_HEADPHONE;
- 		break;
- 	}
- 
-diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
-index d84191a7beb2..0c3a446e0e1a 100644
---- a/sound/soc/codecs/nau8825.h
-+++ b/sound/soc/codecs/nau8825.h
-@@ -155,6 +155,8 @@
- /* HSD_CTRL (0xc) */
- #define NAU8825_HSD_AUTO_MODE	(1 << 6)
- /* 0 - open, 1 - short to GND */
-+#define NAU8825_SPKR_ENGND1	(1 << 3)
-+#define NAU8825_SPKR_ENGND2	(1 << 2)
- #define NAU8825_SPKR_DWN1R	(1 << 1)
- #define NAU8825_SPKR_DWN1L	(1 << 0)
- 
-@@ -207,6 +209,17 @@
- #define NAU8825_SAR_INPUT_JKR2	(0 << 11)
- #define NAU8825_SAR_TRACKING_GAIN_SFT	8
- #define NAU8825_SAR_TRACKING_GAIN_MASK	(0x7 << NAU8825_SAR_TRACKING_GAIN_SFT)
-+#define NAU8825_SAR_HV_SEL_SFT		7
-+#define NAU8825_SAR_HV_SEL_MASK		(1 << NAU8825_SAR_HV_SEL_SFT)
-+#define NAU8825_SAR_HV_SEL_MICBIAS	(0 << NAU8825_SAR_HV_SEL_SFT)
-+#define NAU8825_SAR_HV_SEL_VDDMIC	(1 << NAU8825_SAR_HV_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_SFT		4
-+#define NAU8825_SAR_RES_SEL_MASK	(0x7 << NAU8825_SAR_RES_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_35K		(0 << NAU8825_SAR_RES_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_70K		(1 << NAU8825_SAR_RES_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_170K	(2 << NAU8825_SAR_RES_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_360K	(3 << NAU8825_SAR_RES_SEL_SFT)
-+#define NAU8825_SAR_RES_SEL_SHORTED	(4 << NAU8825_SAR_RES_SEL_SFT)
- #define NAU8825_SAR_COMPARE_TIME_SFT	2
- #define NAU8825_SAR_COMPARE_TIME_MASK	(3 << 2)
- #define NAU8825_SAR_SAMPLING_TIME_SFT	0
-@@ -385,6 +398,13 @@
- #define NAU8825_BIAS_VMID_SEL_SFT	4
- #define NAU8825_BIAS_VMID_SEL_MASK	(3 << NAU8825_BIAS_VMID_SEL_SFT)
- 
-+/* ANALOG_CONTROL_1 (0x69) */
-+#define NAU8825_TESTDACIN_SFT		14
-+#define NAU8825_TESTDACIN_MASK		(0x3 << NAU8825_TESTDACIN_SFT)
-+#define NAU8825_TESTDACIN_HIGH		(1 << NAU8825_TESTDACIN_SFT)
-+#define NAU8825_TESTDACIN_LOW		(2 << NAU8825_TESTDACIN_SFT)
-+#define NAU8825_TESTDACIN_GND		(3 << NAU8825_TESTDACIN_SFT)
-+
- /* ANALOG_CONTROL_2 (0x6a) */
- #define NAU8825_HP_NON_CLASSG_CURRENT_2xADJ (1 << 12)
- #define NAU8825_DAC_CAPACITOR_MSB (1 << 1)
-@@ -412,6 +432,9 @@
- /* MIC_BIAS (0x74) */
- #define NAU8825_MICBIAS_JKSLV	(1 << 14)
- #define NAU8825_MICBIAS_JKR2	(1 << 12)
-+#define NAU8825_MICBIAS_LOWNOISE_SFT	10
-+#define NAU8825_MICBIAS_LOWNOISE_MASK	(0x1 << NAU8825_MICBIAS_LOWNOISE_SFT)
-+#define NAU8825_MICBIAS_LOWNOISE_EN	(0x1 << NAU8825_MICBIAS_LOWNOISE_SFT)
- #define NAU8825_MICBIAS_POWERUP_SFT	8
- #define NAU8825_MICBIAS_VOLTAGE_SFT	0
- #define NAU8825_MICBIAS_VOLTAGE_MASK	0x7
--- 
-2.25.1
+    ALSA: USB: adjust for changed 3.8 USB API
+    
+    The recent changes in the USB API ("implement new semantics for
+    URB_ISO_ASAP") made the former meaning of the URB_ISO_ASAP flag the
+    default, and changed this flag to mean that URBs can be delayed.
+    This is not the behaviour wanted by any of the audio drivers because
+    it leads to discontinuous playback with very small period sizes.
+    Therefore, our URBs need to be submitted without this flag.
 
+I rather suspect that your problem is in the USB controller side.
+
+
+thanks,
+
+Takashi
+
+> ---
+>  sound/usb/endpoint.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+> index 310cd6fb0038..df9a91c2fc7d 100644
+> --- a/sound/usb/endpoint.c
+> +++ b/sound/usb/endpoint.c
+> @@ -1245,7 +1245,7 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+>  		if (!u->urb->transfer_buffer)
+>  			goto out_of_memory;
+>  		u->urb->pipe = ep->pipe;
+> -		u->urb->transfer_flags = URB_NO_TRANSFER_DMA_MAP;
+> +		u->urb->transfer_flags = URB_ISO_ASAP | URB_NO_TRANSFER_DMA_MAP;
+>  		u->urb->interval = 1 << ep->datainterval;
+>  		u->urb->context = u;
+>  		u->urb->complete = snd_complete_urb;
+> @@ -1288,7 +1288,7 @@ static int sync_ep_set_params(struct snd_usb_endpoint *ep)
+>  		u->urb->transfer_dma = ep->sync_dma + i * 4;
+>  		u->urb->transfer_buffer_length = 4;
+>  		u->urb->pipe = ep->pipe;
+> -		u->urb->transfer_flags = URB_NO_TRANSFER_DMA_MAP;
+> +		u->urb->transfer_flags = URB_ISO_ASAP | URB_NO_TRANSFER_DMA_MAP;
+>  		u->urb->number_of_packets = 1;
+>  		u->urb->interval = 1 << ep->syncinterval;
+>  		u->urb->context = u;
+> -- 
+> 2.29.0
+> 

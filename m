@@ -2,85 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AFF2632F71
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Nov 2022 22:59:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7BA263316C
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 01:37:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A57B71671;
-	Mon, 21 Nov 2022 22:59:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A57B71671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5864D1670;
+	Tue, 22 Nov 2022 01:36:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5864D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669067990;
-	bh=YGG+x4h+hQ07FnMjwq53sHtrTnzTFjfIqyustOHRNCo=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EJzDEB+CeLoeAb2D7gMcCTxSU2GoKb8n5crfSwKrVtfiyoegmqP3p8ohjsNSB4APt
-	 xy7Wn9ua6qyRcoXEckJc0Owe6Zdz2YjZ/IyqL+FkgFFgsKBM6FOggyJHD6HKm2k9pl
-	 8kR9gEvPJ/u6kpNbwVSAlhoujKqZwCgnB1pT7sJk=
+	s=default; t=1669077467;
+	bh=sCuzCUDk3A3XpHAh7z9U2H/eRESzuZ4kg6tX5GKvsoU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ubtm9HMcLFvsZRQ0hzy3HM11AACS1KsTGYznnw+c1XsijpC6zJWRrJ+pccO8BsrBP
+	 SZOzp2ypqU72EJWYTOWHW4OKWC3bCSvolejO1q8s/rkJY5dAHyhm+cOE1ciSq5klNB
+	 g5brVd2T/hd2L/4vdGZyutzn9bPvIQHGNZqRBPTU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B80DF804AB;
-	Mon, 21 Nov 2022 22:58:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9B25F80149;
+	Tue, 22 Nov 2022 01:36:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5BE3F8028D; Mon, 21 Nov 2022 22:58:52 +0100 (CET)
+ id 4463EF8028D; Tue, 22 Nov 2022 01:36:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_125,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_NONE,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com
+ [IPv6:2607:f8b0:4864:20::a2d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4318F800EC
- for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 22:58:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4318F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F7C6F800F3
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 01:36:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F7C6F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="FdBCi16N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669067927; x=1700603927;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=YGG+x4h+hQ07FnMjwq53sHtrTnzTFjfIqyustOHRNCo=;
- b=FdBCi16NlqnF6Lmu7KDQeGRkB0i/0uG4vvoG57dShbh/5ozrL0VpD/Wm
- 0+F0SNFMv4tTCubOGUopMPmSkn+AZSB/ajTU7GvlBB4Q2JRrFHP9PwvMS
- Pu8XiMQANXZdKUEJniGdcgeHJ1j6UXfoMYP8ce/2/AEFUclOyTobUS438
- S87wRgis4rFQEbficSiKvD3dzltSYeDa2NkhG80jp7orksGxjQGrnJVfL
- hfQAI5NjW5+iOfPX5duZuJ3HG8ir7EntE1YX89vqx2Imt4k1rBHk5388A
- JdVpWOGf7wpAiAvqyQR/JLUvIznyCe8Rq0fx4oSsCZxhzXPcuE72MCSN5 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="293379470"
-X-IronPort-AV: E=Sophos;i="5.96,182,1665471600"; d="scan'208";a="293379470"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2022 13:58:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="747080834"
-X-IronPort-AV: E=Sophos;i="5.96,182,1665471600"; d="scan'208";a="747080834"
-Received: from lkp-server01.sh.intel.com (HELO 64a2d449c951) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 21 Nov 2022 13:58:38 -0800
-Received: from kbuild by 64a2d449c951 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oxEoH-0000mh-1q;
- Mon, 21 Nov 2022 21:58:37 +0000
-Date: Tue, 22 Nov 2022 05:58:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- e4cd8d3ff7f9efeb97330e5e9b99eeb2a68f5cf9
-Message-ID: <637bf477.ORnAaf8quqxr/cRo%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="tmMqxdVA"
+Received: by mail-vk1-xa2d.google.com with SMTP id g16so6470685vkl.11
+ for <alsa-devel@alsa-project.org>; Mon, 21 Nov 2022 16:36:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=jrGE74t7BLz0d/dcRthOBl5c8Ohq1A9oGT2x8kxkMNs=;
+ b=tmMqxdVA24Y+ikPAZty6jiRzzqNDFC/gEEQw7i/WFFCEg1W0vVLoHz1nhfuDjxFNiB
+ NIMmHcuy20gLA2b+qogNOL/rIjO9cZriF486yjpbkCGRFPd8L7AcU4lMgJKR83Gazu51
+ P4SvAF86h414bqZatYMWoNgqRA/WuCdc1AnAYkA/Q6jw5vy3vYv3A8Gxn73JswvXMX5/
+ 4a+58CGlevLpAZ+kZkIQMY8taFt5/RwIlxKJ467MDItg4mZSqWfCPLrCxzomGV9yoZJc
+ kiez7L2lug3STPuJ/fb97nJDPUp0UojB5Glj2pPhPKLSHQ/8jz4tV7huQhgcAlwKilcz
+ LgFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jrGE74t7BLz0d/dcRthOBl5c8Ohq1A9oGT2x8kxkMNs=;
+ b=5MUKaJLvIellbyXMgz5IzgKEgaha5eqcISv3JkzGw8fJL1P16uiJKWD4i9T2AqWNXC
+ BmWrvnnbBZM5iq1PqeqP4weUlQt/DhBZXLlVQCttr1wVnQhJucsRo0cOBPVxMUEGudni
+ UMz8IWxSnHVdN+6LATc8SJRimPvnNoXcxho5naMKDIOWsCaRlLOPJShb8MM7VaBhS81M
+ pVPPrQ/+DrBKBVGt7KFso/+SMgHj63y6P22bSi5nbNyOp0f6wMpNldxa0o5oAVodn1Jg
+ NthjPnq6X9BOdkZfDjJlItIO/37+w5m+J3n16hNgKBuawpQMqh8oL1UakLJ6Pp6IXeIu
+ LaHA==
+X-Gm-Message-State: ANoB5pnIfbYaStPrP07xapLZ3uzzKUEO47Cgsk1Oc/u0SDHUhuCJDMKG
+ g0odoxjXhSHQHbyg/+v/EFZ9Ozmr6pTqwjgAR9/u/Q==
+X-Google-Smtp-Source: AA0mqf5ibT190KAJ3JtwB1cWSFMYCGXV0zyortiH+VMaXt2UAlOzerbZFfz/g8AzgqB8Bj0Y0XK5PWt/QufOpOn1O7s=
+X-Received: by 2002:a1f:5086:0:b0:3b7:5ff7:cfb8 with SMTP id
+ e128-20020a1f5086000000b003b75ff7cfb8mr1996498vkb.11.1669077404634; Mon, 21
+ Nov 2022 16:36:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org,
- linux-mmc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+References: <Y3wHyJ/EcsLRHGr3@tora>
+In-Reply-To: <Y3wHyJ/EcsLRHGr3@tora>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Mon, 21 Nov 2022 16:36:33 -0800
+Message-ID: <CAOReqxj+PLCxDpMByfL2A3j-exhHjd5_pKPApnBGo_WKg7o-KA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: avs: Add missing audio amplifier for KBL
+To: Alicja Michalska <ahplka19@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
+ cezary.rojewski@intel.com, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,219 +101,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: e4cd8d3ff7f9efeb97330e5e9b99eeb2a68f5cf9  Add linux-next specific files for 20221121
+On Mon, Nov 21, 2022 at 3:20 PM Alicja Michalska <ahplka19@gmail.com> wrote:
+>
+> KBL platform is missing the definition of 'max98357a' audio amplifier.
+> This amplifier is used on many KBL Chromebooks, for instance variant
+> 'nami' of 'Google/poppy' baseboard.
 
-Error/Warning reports:
+Nami isn't a production device, it was a design, I think you mean "Nautilus"
 
-https://lore.kernel.org/oe-kbuild-all/202211130053.Np70VIdn-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211191949.jqnWetUW-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211200417.23aUOpyC-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211211917.yLICUnMb-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211212249.livTPi3Y-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211220547.7Jd7QBi7-lkp@intel.com
+>         },
+> +       {
+> +               .id = "MX98357A",
+> +               .drv_name = "avs_max98357a",
+> +               .mach_params = {
+> +                       .i2s_link_mask = AVS_SSP(0),
+> +               },
+> +               .tplg_filename = "max98357a-tplg.bin",
+> +       },
 
-Error/Warning: (recently discovered and may have been fixed)
-
-arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
-drivers/clk/clk.c:1022:5: error: redefinition of 'clk_prepare'
-drivers/clk/clk.c:1268:6: error: redefinition of 'clk_is_enabled_when_prepared'
-drivers/clk/clk.c:941:6: error: redefinition of 'clk_unprepare'
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4939: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5075:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:139:43: warning: unused variable 'dmub_outbox_irq_info_funcs' [-Wunused-const-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for function 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for function 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for function 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for 'tu102_gr_load' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for function 'tu102_gr_load' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for 'wpr_generic_header_dump' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for function 'wpr_generic_header_dump' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:221:21: warning: variable 'loc' set but not used [-Wunused-but-set-variable]
-include/linux/ftrace.h:126:16: error: implicit declaration of function 'arch_ftrace_get_regs'; did you mean 'ftrace_get_regs'? [-Werror=implicit-function-declaration]
-include/linux/ftrace.h:126:16: warning: returning 'int' from a function with return type 'struct pt_regs *' makes pointer from integer without a cast [-Wint-conversion]
-microblaze-linux-ld: (.text+0x158): undefined reference to `drm_bridge_add'
-microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3b4): undefined reference to `drm_atomic_helper_bridge_duplicate_state'
-microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3b8): undefined reference to `drm_atomic_helper_bridge_destroy_state'
-microblaze-linux-ld: drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.o:(.rodata+0x3c8): undefined reference to `drm_atomic_helper_bridge_reset'
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/gpu/drm/nouveau/nouveau_dp.c:237 nouveau_dp_irq() warn: variable dereferenced before check 'outp' (see line 232)
-drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c:116 nvkm_uoutp_mthd_infoframe() error: we previously assumed 'ior->func->hdmi' could be null (see line 114)
-drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c:250 nvkm_uoutp_mthd_acquire() error: we previously assumed 'outp->ior' could be null (see line 217)
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c:133 nvkm_chan_cctx_get() warn: inconsistent returns '&cgrp->mutex'.
-drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c:480 gf100_gr_chan_new() warn: inconsistent returns '&gr->fecs.mutex'.
-drivers/gpu/drm/nouveau/nvkm/engine/gr/gv100.c:232:13: warning: use of uninitialized value '<unknown>' [CWE-457] [-Wanalyzer-use-of-uninitialized-value]
-drivers/gpu/drm/nouveau/nvkm/engine/gr/gv100.c:263 gv100_gr_oneinit_sm_id() warn: potentially one past the end of array 'gpc_tpc_mask[gpc_table[gtpc]]'
-drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:350 nvkm_acr_lsfw_load_bl_sig_net() warn: passing zero to 'PTR_ERR'
-drivers/mmc/host/renesas_sdhi_internal_dmac.c:327 renesas_sdhi_internal_dmac_dma_irq() warn: set_bit() takes a bit number
-drivers/mmc/host/renesas_sdhi_internal_dmac.c:341 renesas_sdhi_internal_dmac_dataend_dma() warn: set_bit() takes a bit number
-drivers/mmc/host/renesas_sdhi_internal_dmac.c:444 renesas_sdhi_internal_dmac_issue_tasklet_fn() warn: set_bit() takes a bit number
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-mm/hugetlb.c:2073 alloc_pool_huge_page() error: uninitialized symbol 'folio'.
-sound/hda/ext/hdac_ext_controller.c:140:28: warning: Shifting signed 32-bit value by 31 bits is implementation-defined behaviour. See condition at line 160. [shiftTooManyBitsSigned]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arc-randconfig-r022-20221120
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|-- arc-randconfig-r033-20221120
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-defconfig
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-randconfig-c002-20221115
-|   `-- drivers-gpu-drm-nouveau-nvkm-engine-gr-gv100.c:warning:use-of-uninitialized-value-unknown-CWE
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-clang_recent_errors
-|-- powerpc-randconfig-r004-20221121
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-function-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:unused-variable-dmub_outbox_irq_info_funcs
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
-|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
-|-- riscv-randconfig-r042-20221120
-|   `-- ld.lld:error:too-many-errors-emitted-stopping-now-(use-error-limit-to-see-all-errors)
-`-- s390-randconfig-r044-20221120
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-function-to_dal_irq_source_dcn201
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:unused-variable-dmub_outbox_irq_info_funcs
-    |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
-    |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
-    |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
-    `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
-
-elapsed time: 730m
-
-configs tested: 73
-configs skipped: 4
-
-gcc tested configs:
-um                           x86_64_defconfig
-arc                                 defconfig
-alpha                               defconfig
-um                             i386_defconfig
-i386                                defconfig
-s390                                defconfig
-s390                             allmodconfig
-s390                             allyesconfig
-ia64                             allmodconfig
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-i386                             allyesconfig
-x86_64               randconfig-a011-20221121
-x86_64                               rhel-8.3
-arc                  randconfig-r043-20221120
-x86_64               randconfig-a013-20221121
-i386                 randconfig-a011-20221121
-riscv                randconfig-r042-20221121
-i386                 randconfig-a013-20221121
-x86_64                           allyesconfig
-arm                                 defconfig
-x86_64               randconfig-a012-20221121
-i386                 randconfig-a012-20221121
-x86_64               randconfig-a015-20221121
-i386                 randconfig-a014-20221121
-x86_64               randconfig-a014-20221121
-x86_64               randconfig-a016-20221121
-i386                 randconfig-a016-20221121
-i386                 randconfig-a015-20221121
-x86_64                            allnoconfig
-arc                  randconfig-r043-20221121
-arm                        oxnas_v6_defconfig
-s390                 randconfig-r044-20221121
-arm                           imxrt_defconfig
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-arm                         axm55xx_defconfig
-powerpc                      cm5200_defconfig
-mips                           ip32_defconfig
-arm                             pxa_defconfig
-powerpc                    adder875_defconfig
-mips                        bcm47xx_defconfig
-xtensa                       common_defconfig
-x86_64                           rhel-8.3-kvm
-arm                              allyesconfig
-arm64                            allyesconfig
-alpha                            allyesconfig
-m68k                             allmodconfig
-arc                              allyesconfig
-m68k                             allyesconfig
-powerpc                           allnoconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-sh                               allmodconfig
-
-clang tested configs:
-x86_64               randconfig-a004-20221121
-x86_64               randconfig-a001-20221121
-i386                 randconfig-a001-20221121
-hexagon              randconfig-r041-20221120
-i386                 randconfig-a003-20221121
-hexagon              randconfig-r041-20221121
-i386                 randconfig-a005-20221121
-i386                 randconfig-a002-20221121
-hexagon              randconfig-r045-20221120
-x86_64               randconfig-a003-20221121
-i386                 randconfig-a004-20221121
-hexagon              randconfig-r045-20221121
-i386                 randconfig-a006-20221121
-x86_64               randconfig-a002-20221121
-x86_64               randconfig-a005-20221121
-x86_64               randconfig-a006-20221121
-riscv                randconfig-r042-20221120
-s390                 randconfig-r044-20221120
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Cezary/Lukasz did we check nautilus? From what I can see in coreboot
+it should need this.

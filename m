@@ -2,91 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163F0633ED2
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:23:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04C85633F0C
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:36:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9121636;
-	Tue, 22 Nov 2022 15:23:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9121636
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79D09163B;
+	Tue, 22 Nov 2022 15:35:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D09163B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669127030;
-	bh=3GHMzo9Kwxp+tAmGKx+hg0Fh30kDQ/Ay1GPO2mDOlhY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669127801;
+	bh=idT7Duah9n5dfy7C5Y9Z/wnjPjKyXBy9xQUKoFfCt/I=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h79z8fviuRiO2kUqJqyB571HHWcfmj7lVFKnRSVmoEz5S+EdQJn2b/5BUR+pfu+Es
-	 EkIpLZHf5yANj/zcWFbdRI1t1ySCw9jcZbR0l9NTQCPbyrSG5+cVKqaGtZ/Htc9FqZ
-	 akKSkdb0wjHxmi9K9FvNNoRyuAhuo8wkNwNDMSJc=
+	b=jyqQAYHfy3NNlYRP8QDmfFswwutBQw4FX0ETqT8y308ajBHKHS0u/rHO3zd8EVR0w
+	 I0HEet0UGb/q+06Doky9Sf3NpspSgQJWMdVEtYQT3C2SUZ2XHrdqYfNIB1EGcND+A4
+	 R1SucxVs1mY1dyLtDKHQvFpAt1UM1EUn85ueK0fM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28E23F80154;
-	Tue, 22 Nov 2022 15:22:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A79EF80310;
+	Tue, 22 Nov 2022 15:35:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9796F80272; Tue, 22 Nov 2022 15:22:53 +0100 (CET)
+ id E6EC5F80154; Tue, 22 Nov 2022 15:35:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D78EF80154
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:22:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D78EF80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 726EDF80154
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:35:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726EDF80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="X0k1Hxj5"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pVc8f6uI"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Hh3YTjsE"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A06911F8AB;
- Tue, 22 Nov 2022 14:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669126970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OqwC4qCf+MDVySDLbLGnlO+Dj7CVgo11u4ylP6+E3no=;
- b=X0k1Hxj5lopSud0Qmb9jiHnJismAF7WxFqVHNOWHDjsxUKvUDn18U8AZmQpevitDDzXROY
- stxTJZ8TWVWRtqnaV7IkAsykh7a8AhoQM2tuEcB6opcVTXVShYZ+CjixsBZIwy/N7JQrM2
- 7W5LxdyycRzSJL82rUMRs4FVaHQpQa0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669126970;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OqwC4qCf+MDVySDLbLGnlO+Dj7CVgo11u4ylP6+E3no=;
- b=pVc8f6uIp0BRxfEY2s48eEtZdjgMykn4Rh1LM0d/lx787k3VzDVoSnVoAZPrYCnlwF1EWc
- Ez3mcvhFrYw+WICg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 87AD013AA1;
- Tue, 22 Nov 2022 14:22:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZxpwIDrbfGN6bwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 22 Nov 2022 14:22:50 +0000
-Date: Tue, 22 Nov 2022 15:22:50 +0100
-Message-ID: <87bkoz6pc5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Carl Hetherington <lists@carlh.net>
-Subject: Re: Query about xrun on usb/pcm
-In-Reply-To: <87edtv6pi6.wl-tiwai@suse.de>
-References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
- <87y1s3v4ba.wl-tiwai@suse.de>
- <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
- <87edtv6pi6.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DB02861732;
+ Tue, 22 Nov 2022 14:35:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B25FC433D6;
+ Tue, 22 Nov 2022 14:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669127736;
+ bh=idT7Duah9n5dfy7C5Y9Z/wnjPjKyXBy9xQUKoFfCt/I=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=Hh3YTjsEnwXdIj8hP7rBW82DTNH21cI/tpTUBwydrbEgts5SLs/pSwkoEMuuJYJlS
+ cjDgH3YV3vPV6sn+8zTI1by/qan6LILG/k4c7uFIUjlpFTuvQTecHv2dCOFHKm2TGd
+ Lp6E97js0jd8ElUs4J93HYKDLfswC5kXyycnfPzqeYeTTbZFJhNv4RRQ8SweTmgZ4O
+ 6JUVfpDjLJ/DWjXZRJYriMIgA9cUmadjeuIT4IUug5Wu/K/46xLnDgH9BJShuw+L7s
+ pwlvGuVt+bz0TpttVV9Y0DM6mQFXCV4ZY9XGlOrzDOg37s+1U/GscxU91jbPgI3jr5
+ 451oSxA8GU1zQ==
+From: Mark Brown <broonie@kernel.org>
+To: srinivas.kandagatla@linaro.org, alsa-devel@alsa-project.org, perex@perex.cz,
+ lgirdwood@gmail.co, 
+ andersson@kernel.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
+ quic_rohkumar@quicinc.com, swboyd@chromium.org, 
+ lgirdwood@gmail.com, devicetree@vger.kernel.org, tiwai@suse.com,
+ judyhsiao@chromium.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org, 
+ linux-arm-msm@vger.kernel.org
+In-Reply-To: <1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v2] ASoC: soc-pcm: Add NULL check in BE reparenting
+Message-Id: <166912773193.193495.10138627098068902263.b4-ty@kernel.org>
+Date: Tue, 22 Nov 2022 14:35:31 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,104 +90,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Nov 2022 15:19:13 +0100,
-Takashi Iwai wrote:
+On Tue, 22 Nov 2022 12:01:13 +0530, Srinivasa Rao Mandadapu wrote:
+> Add NULL check in dpcm_be_reparent API, to handle
+> kernel NULL pointer dereference error.
+> The issue occurred in fuzzing test.
 > 
-> On Tue, 22 Nov 2022 12:16:47 +0100,
-> Carl Hetherington wrote:
-> > 
-> > Hi Takashi,
-> > 
-> > Thank you for getting back to me!
-> > 
-> > On Tue, 22 Nov 2022, Takashi Iwai wrote:
-> > 
-> > [snip]
-> > 
-> > > > Now, snd_usb_endpoint_start() is called on 0x2 and that is fine.  Next,
-> > > > snd_usb_endpoint_start() is called on 0x82 and that fails because its
-> > > > state is still STOPPING.
-> > > >
-> > > > At this point things seem broken.
-> > > >
-> > > > Does anyone have a hint about where in this sequence things are going
-> > > > wrong, and maybe even why?
-> > >
-> > > The problem is that it's treating XRUNs on the both streams
-> > > individually.  It's correct to recover only the PCM stream when an
-> > > XRUN is reported to the PCM stream.  However, for an XRUN on the
-> > > capture stream that serves as a sync source, it should stop and
-> > > recover not only the capture PCM stream but also the playback stream
-> > > as a sync sink as well.
-> > >
-> > > Below is a possible test fix (totally untested!).
-> > > This may give XRUNs twice eventually, which is a bit confusing, but it
-> > > aligns with the actual hardware behavior, at least.
-> > 
-> > [snip fix]
-> > 
-> > Makes sense, thank you!  Sadly, the fix doesn't seem to work because (I
-> > think) the xruns I'm seeing come via a different path (not though
-> > notify_xrun()).  Mine arrive via this trace:
-> > 
-> > __snd_pcm_xrun
-> > snd_pcm_update_state
-> > snd_pcm_update_hw_ptr
-> > usb_hcd_giveback_urb
-> > snd_pcm_period_elapsed_under_stream_lock
-> > snd_pcm_period_elapsed
-> > retire_capture_urb
-> > snd_complete_urb
-> > 
-> > I'll see if can apply a similar fix to this case, though to my naive
-> > eyes it looks a little trickier as the xrun is found in the snd_pcm
-> > code rather than the USB code.  Any suggestions most welcome!
 > 
-> OK, then it's a bit different problem, and not so trivial to fix in
-> the kernel side alone, I'm afraid.  Basically it's a race between
-> start and stop of two streams.  The key point is that, for stopping a
-> (USB) stream, a sync-stop operation is needed, and this can't be
-> performed at the PCM trigger itself (which is an atomic operation).
-> So, the kernel trigger may at most return an error there.
-> 
-> I assume that it's from snd_usb_endpoint_start() and it returning
-> -EPIPE error.  If so, we may change the PCM core code to set the PCM
-> state again XRUN in such an error case, so that application may repeat
-> the standard recovery process.  Something like below.
 
-Also, it might be slightly better if we swap the starting order of two
-streams: sync at first, then data.  A race can still happen, though.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
 
--- 8< --
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -241,19 +241,19 @@ static int start_endpoints(struct snd_usb_substream *subs)
- 	if (!subs->data_endpoint)
- 		return -EINVAL;
- 
--	if (!test_and_set_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags)) {
--		err = snd_usb_endpoint_start(subs->data_endpoint);
-+	if (subs->sync_endpoint &&
-+	    !test_and_set_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
-+		err = snd_usb_endpoint_start(subs->sync_endpoint);
- 		if (err < 0) {
--			clear_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags);
-+			clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags);
- 			goto error;
- 		}
- 	}
- 
--	if (subs->sync_endpoint &&
--	    !test_and_set_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
--		err = snd_usb_endpoint_start(subs->sync_endpoint);
-+	if (!test_and_set_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags)) {
-+		err = snd_usb_endpoint_start(subs->data_endpoint);
- 		if (err < 0) {
--			clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags);
-+			clear_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags);
- 			goto error;
- 		}
- 	}
+[1/1] ASoC: soc-pcm: Add NULL check in BE reparenting
+      commit: db8f91d424fe0ea6db337aca8bc05908bbce1498
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

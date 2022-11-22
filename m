@@ -2,75 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C85633F0C
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:36:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9FC3633F4E
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Nov 2022 15:50:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D09163B;
-	Tue, 22 Nov 2022 15:35:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D09163B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6972715DC;
+	Tue, 22 Nov 2022 15:49:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6972715DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669127801;
-	bh=idT7Duah9n5dfy7C5Y9Z/wnjPjKyXBy9xQUKoFfCt/I=;
+	s=default; t=1669128621;
+	bh=bKeRPVjJrncT4C0fmvTZ2poFrpNaAGtHQW4ySLc8gUU=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jyqQAYHfy3NNlYRP8QDmfFswwutBQw4FX0ETqT8y308ajBHKHS0u/rHO3zd8EVR0w
-	 I0HEet0UGb/q+06Doky9Sf3NpspSgQJWMdVEtYQT3C2SUZ2XHrdqYfNIB1EGcND+A4
-	 R1SucxVs1mY1dyLtDKHQvFpAt1UM1EUn85ueK0fM=
+	b=Ek8aEUWnFO8raQGDf4F7Kt7+hjvh7xXvTNnFEp6OGqFEQeyeX0nV4NIR73s8hOV0Y
+	 U0Xas3gpOjp6N+5X/L3DHMgzqi/FL9x2aYO5eCVassXUH2ZP4n4Z//zHcG2aohMMlV
+	 yb4JhmgN/E8uqcdbi+2+Da4Pb3zlOajpCZVTg7Vs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A79EF80310;
-	Tue, 22 Nov 2022 15:35:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A565AF804B3;
+	Tue, 22 Nov 2022 15:49:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6EC5F80154; Tue, 22 Nov 2022 15:35:43 +0100 (CET)
+ id A2547F804B3; Tue, 22 Nov 2022 15:49:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 726EDF80154
- for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:35:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726EDF80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7359F80149
+ for <alsa-devel@alsa-project.org>; Tue, 22 Nov 2022 15:49:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7359F80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Hh3YTjsE"
+ header.b="qkp7G5LC"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DB02861732;
- Tue, 22 Nov 2022 14:35:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B25FC433D6;
- Tue, 22 Nov 2022 14:35:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DE74FB81B99;
+ Tue, 22 Nov 2022 14:49:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E94FC433C1;
+ Tue, 22 Nov 2022 14:49:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669127736;
- bh=idT7Duah9n5dfy7C5Y9Z/wnjPjKyXBy9xQUKoFfCt/I=;
+ s=k20201202; t=1669128554;
+ bh=bKeRPVjJrncT4C0fmvTZ2poFrpNaAGtHQW4ySLc8gUU=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=Hh3YTjsEnwXdIj8hP7rBW82DTNH21cI/tpTUBwydrbEgts5SLs/pSwkoEMuuJYJlS
- cjDgH3YV3vPV6sn+8zTI1by/qan6LILG/k4c7uFIUjlpFTuvQTecHv2dCOFHKm2TGd
- Lp6E97js0jd8ElUs4J93HYKDLfswC5kXyycnfPzqeYeTTbZFJhNv4RRQ8SweTmgZ4O
- 6JUVfpDjLJ/DWjXZRJYriMIgA9cUmadjeuIT4IUug5Wu/K/46xLnDgH9BJShuw+L7s
- pwlvGuVt+bz0TpttVV9Y0DM6mQFXCV4ZY9XGlOrzDOg37s+1U/GscxU91jbPgI3jr5
- 451oSxA8GU1zQ==
+ b=qkp7G5LChqlxCNxZPCZ1TRGAmlU997CYbuhQJ6cK0YdwjVtpogmfc5eQQJynKzW0i
+ oMS2Z2U60Iq//AlYuXhDULaSNjOex0oguGYP0o/FUDoXcW39hLcUNCASOyIA1aaznT
+ 0sjpZ3trjAeurfgYg9oyNZedjBW58vHXuQIjQ2dGwOSNvEBm+WGZSbe0GqNqgeZYRa
+ qkXTPX0vCkcHrALdAVqVgzz44ot0AEIYWNqmjWNkKS4FsET3+LjFBb1kIGBjLHx9hS
+ Ka8E20/E3cO+E4Gh3tU7WCW16CH2eterIC3nY2jha90K8DO+XteuDwIK/ySSCEXaYK
+ iDYM+a+o9CPgg==
 From: Mark Brown <broonie@kernel.org>
-To: srinivas.kandagatla@linaro.org, alsa-devel@alsa-project.org, perex@perex.cz,
- lgirdwood@gmail.co, 
- andersson@kernel.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
- quic_rohkumar@quicinc.com, swboyd@chromium.org, 
- lgirdwood@gmail.com, devicetree@vger.kernel.org, tiwai@suse.com,
- judyhsiao@chromium.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org, 
- linux-arm-msm@vger.kernel.org
-In-Reply-To: <1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v2] ASoC: soc-pcm: Add NULL check in BE reparenting
-Message-Id: <166912773193.193495.10138627098068902263.b4-ty@kernel.org>
-Date: Tue, 22 Nov 2022 14:35:31 +0000
+To: cezary.rojewski@intel.com, linux-kernel@vger.kernel.org, perex@perex.cz,
+ kai.vehmanen@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, lili.li@intel.com
+In-Reply-To: <20221121104742.1007486-1-lili.li@intel.com>
+References: <20221121104742.1007486-1-lili.li@intel.com>
+Subject: Re: [PATCH] ASoC: Intel: Skylake: Fix Kconfig dependency
+Message-Id: <166912855277.213382.2191182990253588501.b4-ty@kernel.org>
+Date: Tue, 22 Nov 2022 14:49:12 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -90,12 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Nov 2022 12:01:13 +0530, Srinivasa Rao Mandadapu wrote:
-> Add NULL check in dpcm_be_reparent API, to handle
-> kernel NULL pointer dereference error.
-> The issue occurred in fuzzing test.
+On Mon, 21 Nov 2022 18:47:42 +0800, lili.li@intel.com wrote:
+> From: Lili Li <lili.li@intel.com>
 > 
+> Commit e4746d94d00c ("ASoC: Intel: Skylake: Introduce HDA codec init and
+> exit routines") introduced HDA codec init routine which depends on SND_HDA.
+> Select SND_SOC_HDAC_HDA unconditionally to fix following compile error:
+> ERROR: modpost: "snd_hda_codec_device_init" [sound/soc/intel/skylake/snd-soc-skl.ko] undefined!
 > 
+> [...]
 
 Applied to
 
@@ -103,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm: Add NULL check in BE reparenting
-      commit: db8f91d424fe0ea6db337aca8bc05908bbce1498
+[1/1] ASoC: Intel: Skylake: Fix Kconfig dependency
+      commit: e5d4d2b23aed20a7815d1b500dbcd50af1da0023
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

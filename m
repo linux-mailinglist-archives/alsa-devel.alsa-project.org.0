@@ -2,141 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49D0E639459
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:06:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC51263945E
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:07:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6585184C;
-	Sat, 26 Nov 2022 09:06:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6585184C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48FA81798;
+	Sat, 26 Nov 2022 09:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48FA81798
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450018;
-	bh=QLy2Pk0jwt5qt7eCH8Jae8/YRqAsEdj1l2KDPB6dzOs=;
+	s=default; t=1669450065;
+	bh=vX90mk67saZPcle6Cg4swhPypgBu1ruT4d+AsZhYWVQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QE8gADEHAZi87gmevCtboxHCFFVsz+l4bjsEMLVVyyg5Yut5q3/CL+ibPO06k2x19
-	 +Q4NCP6fXZxZb/LAxW/o1mn3UYzg4E1Jm04dzlv6IWcgPLpQSYosac5+edLso+27cC
-	 Y2lMmjK/NJAPoBrBLDgZ59EBg3+KnJfDtgwLcKbo=
+	b=mAR3jZip+mQqMDEdaQyWk2x+s2Sr51wwP7nOTBNM1C3M9wL6RjULsY/aC9st3318w
+	 2xcaY3DEE7k5iCzf1pCfJMfAqN9aW8+h/tfJXIHGDR114rs8+T9fmAguA0wWAcA7yH
+	 p5Ihu25u16jIR/M9v1mR9erv+6FtmqEM1Rco0+HU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEA44F805FF;
-	Sat, 26 Nov 2022 08:59:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E11B6F8060B;
+	Sat, 26 Nov 2022 08:59:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5FB2F8025D; Wed, 23 Nov 2022 13:19:49 +0100 (CET)
+ id 3F1ACF8025D; Wed, 23 Nov 2022 13:25:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9966AF800BB
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:25:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9966AF800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="YzHwrAzp"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3126F80149;
- Wed, 23 Nov 2022 13:19:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3126F80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="Z40G6vK0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l281Q+asI3DfT+azDATRfWHghNo+2+oSVe2dP4+wN9WLPG2kGEpFv5Qf4qGLD1zHPCuSvsmDCxCKXb3tetWOVnzpbc+njjyyihWhFf+t85OxshCvp2/uVPt87iloOLQc9Aw/dizkL3VN/IGxbDvnVx1Oa6lOVaHnOKdoYhwUUAHcgPtBSei4fA451ONO34SR1i9VYU1tGDD7Y0yJiMLt0jfdYCN6R6TtgiJ5RHOJB6Tw2MaJWaB1S+pjf27b4WN4btLO2tadwJDrW+DJOTY4mnONge9XS88/8vJUAn/naU2kPR0wjDyEzCfva0HgAd/NNXqC1eJr8sSrj4kU7HpBuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=crKYZqsur+4gEYhSzBzo+HEuxihufxYk2GKO/860hgY=;
- b=IdJmy6xPueZKzR/ZyA1Kme2kCWtoiIlnnss0eYBiiq7GZvS1I1mkH4r2HPq4rRYfEtulQGdZ/hjO86T1GaGzp3eOKVkHgl6MTttfx9QB0UVtQVm/2WcN/vL6/IjW14Q/Q0tR/LHEgS0EflAnO/z+61FvoMit+PpJ7I3es7Eu0MTnT40CtnlF47hRxlwUm50LMCSdJ8mTjpiZG/VTa3ZN0A/v3Q6AR4gytHQMgfmSR1WmS9SLA0+84VAgfuaGEMSB9OF5y7mxegWarJQDt8iyQRoesc64KmWrsXltKtnFpmU1pIBe93xzQA1KGp7fzWf91yixReV53o7NwWLk6kHegg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org
- smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
- pct=100) action=oreject header.from=amd.corp-partner.google.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=crKYZqsur+4gEYhSzBzo+HEuxihufxYk2GKO/860hgY=;
- b=Z40G6vK0/SB02WijZ95i3j9qpQwN2CuXPxYxQIkyEFo4c6PzHxcqg+oJMguCiPpMinKoclMgjWOI2VcC2w7RAJTw4+wH9b+DrqINyQ9bp0fcPVdx0+N022FvwzQK14qcMkmUReWcZ1OYK73pEmBMC+6RjEFw8ZtFs7s2huvoAJGwHvviN3F18jxQF9piLk8YvolIs/LnMZpEeyezrgCkHt4NheqMmnLAj/DXV6RcAnXCv67b6CbHoqnzlf2lfSEdjE17PVK/9Ssv//oss/1xlN+iQD7DuVYlzs8gY4l81eDcfQ8jH3aAcJ48bV8d4S35fbZn/liAiZgGHym0kdrlwQ==
-Received: from MW4PR03CA0104.namprd03.prod.outlook.com (2603:10b6:303:b7::19)
- by BL3PR12MB6593.namprd12.prod.outlook.com (2603:10b6:208:38c::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
- 2022 12:19:38 +0000
-Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::1e) by MW4PR03CA0104.outlook.office365.com
- (2603:10b6:303:b7::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
- Transport; Wed, 23 Nov 2022 12:19:37 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=amd.corp-partner.google.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
- sender)
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Wed, 23 Nov 2022 12:19:37 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 23 Nov
- 2022 06:19:36 -0600
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 23 Nov 2022 06:19:31 -0600
-From: V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v1 4/4] ASoC: SOF: Add DAI configuration support for AMD
- platforms.
-Date: Wed, 23 Nov 2022 17:49:11 +0530
-Message-ID: <20221123121911.3446224-5-vsujithkumar.reddy@amd.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221123121911.3446224-1-vsujithkumar.reddy@amd.corp-partner.google.com>
-References: <20221123121911.3446224-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id B9A28B81F2E;
+ Wed, 23 Nov 2022 12:25:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B355C433C1;
+ Wed, 23 Nov 2022 12:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1669206337;
+ bh=vX90mk67saZPcle6Cg4swhPypgBu1ruT4d+AsZhYWVQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YzHwrAzpi6Mlm7VSFwQeObtZ5GHNyY5UPoQ9uhqzgPlyuN3h9LzFIfshxqlrXtQkM
+ U2DseqZzrspOwrhOpW4ehWC6KIYswzEnQzR5df/NzP+AbNLVIjVDqAg180cudrfkFx
+ Z4QP2k96A5niygkQRC6hsDh5lOKrvGLenvl7FLDc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 2/5] driver core: make struct class.devnode() take a const *
+Date: Wed, 23 Nov 2022 13:25:20 +0100
+Message-Id: <20221123122523.1332370-2-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221123122523.1332370-1-gregkh@linuxfoundation.org>
+References: <20221123122523.1332370-1-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16514;
+ i=gregkh@linuxfoundation.org; h=from:subject;
+ bh=vX90mk67saZPcle6Cg4swhPypgBu1ruT4d+AsZhYWVQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDMl1gsaX2G1fi0ze8WsKL89+jYOhm3aZpRevE/LnVXhnaz3T
+ KDikI5aFQZCJQVZMkeXLNp6j+ysOKXoZ2p6GmcPKBDKEgYtTACZSb8cwV6CLr1I+lS+A/eitsHff+y
+ dXttrNY5inpGNxYvN5CVYLXRdj5sZrzH0reX0A
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT046:EE_|BL3PR12MB6593:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5ac891a-9ace-4523-867c-08dacd4cfd57
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VkQqM6UVC6gWAsi8SVLcKVOJ5PiFB/leXFWorHmboWilL2zd9ocRadfqH8tYwhWk8Y2LubeQBq3+YP8KMY5hd8mJxFCTZwketp0R9WNu7yiUEUbQVJFiREy/hGjqyZwzJU9ajufNGkiEoNYyPF2WSCe3eciIQ0xdC3yU/eDRNGVabKbLf7EmfAz5GEryNa1WsapjkhxrG4wrlCFvDzD3zIoFle0ErYDcpLnCeWoW+u7T8+fnkrSWj/bz5whaCyAmyxI9a9AMPJad/m1xLGwAl1l8QNbxC1YXLtHfk8NmFLXt/H7QwsmBjzXa9SZ7vVCBXK20L/kKEJWgYmE56FA/jQgM+74L9o8GkxAZOcbikWHWv+uC31b4EkDmPWuPc7cUsLMndSaALPDY5zOY1gmyZyxSBohqJp1P+cYyxHhqtv9J0JLXlvJ9Mz6LaMhKQGgWOQsZHyUDSmD5FKD5i9t2qzbSoLngwMdDabpHGMrbfUYfWKnprsy8XMUHkSE2J4Fx6FRcuNM0q2IGXYpG6Rf1YC4l10Jwcmyx8nZ/vM+00QbNuoRbnRuUjhxv6QDqYn5TdtI4sDoeQVH5gqyqRwmyGan2irR+AF6w1ZRp4DP8Am0D9HehIu5bNUOda1JI83VyQ0LoUvl3wOosAZLZLSmL7w7KUpMR1Taj9e1NSAodsN9hIjRVTqmIhi7kDHEDMhC8gPPv0oaOeoeJIqqDMuQfmA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199015)(46966006)(40470700004)(8676002)(41300700001)(40480700001)(8936002)(7416002)(54906003)(316002)(76482006)(5660300002)(4326008)(70586007)(70206006)(86362001)(82740400003)(83380400001)(6666004)(498600001)(26005)(356005)(81166007)(110136005)(2906002)(2616005)(336012)(82310400005)(47076005)(1076003)(40460700003)(35950700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 12:19:37.6364 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5ac891a-9ace-4523-867c-08dacd4cfd57
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6593
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, venkataprasad.potturu@amd.com, Bard
- Liao <yung-chuan.liao@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Chao Song <chao.song@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
- Rander Wang <rander.wang@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Ajit
- Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE
- \(SOF\) DRIVERS" <sound-open-firmware@alsa-project.org>
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:53 +0100
+Cc: alsa-devel@alsa-project.org, Justin Sanders <justin@coraid.com>,
+ Anton Vorontsov <anton@enomsg.org>, Sean Young <sean@mess.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ John Stultz <jstultz@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Eli Cohen <elic@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kees Cook <keescook@chromium.org>,
+ Parav Pandit <parav@nvidia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, kvm@vger.kernel.org,
+ Leon Romanovsky <leon@kernel.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ linux-rdma@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>, x86@kernel.org,
+ Frank Haverkamp <haver@linux.ibm.com>, Dan Carpenter <error27@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
+ linux-input@vger.kernel.org, Laura Abbott <labbott@redhat.com>,
+ virtualization@lists.linux-foundation.org, linux-media@vger.kernel.org,
+ Fenghua Yu <fenghua.yu@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, Colin Cross <ccross@android.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Gautam Dawar <gautam.dawar@xilinx.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Reinette Chatre <reinette.chatre@intel.com>, Jens Axboe <axboe@kernel.dk>,
+ linux-block@vger.kernel.org, Tony Luck <tony.luck@intel.com>,
+ linux-scsi@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Mark <lmark@codeaurora.org>, Brian Starkey <Brian.Starkey@arm.com>,
+ FUJITA Tomonori <fujita.tomonori@lab.ntt.co.jp>,
+ Xie Yongji <xieyongji@bytedance.com>,
+ Maxime Coquelin <maxime.coquelin@redhat.com>, linux-usb@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,216 +125,434 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+The devnode() in struct class should not be modifying the device that is
+passed into it, so mark it as a const * and propagate the function
+signature changes out into all relevant subsystems that use this
+callback.
 
-Add support for configuring sp and hs DAI from topology.
-
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: FUJITA Tomonori <fujita.tomonori@lab.ntt.co.jp>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Justin Sanders <justin@coraid.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: Liam Mark <lmark@codeaurora.org>
+Cc: Laura Abbott <labbott@redhat.com>
+Cc: Brian Starkey <Brian.Starkey@arm.com>
+Cc: John Stultz <jstultz@google.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sean Young <sean@mess.org>
+Cc: Frank Haverkamp <haver@linux.ibm.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>
+Cc: Alex Williamson <alex.williamson@redhat.com>
+Cc: Cornelia Huck <cohuck@redhat.com>
+Cc: Kees Cook <keescook@chromium.org>
+Cc: Anton Vorontsov <anton@enomsg.org>
+Cc: Colin Cross <ccross@android.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Xie Yongji <xieyongji@bytedance.com>
+Cc: Gautam Dawar <gautam.dawar@xilinx.com>
+Cc: Dan Carpenter <error27@gmail.com>
+Cc: Eli Cohen <elic@nvidia.com>
+Cc: Parav Pandit <parav@nvidia.com>
+Cc: Maxime Coquelin <maxime.coquelin@redhat.com>
+Cc: alsa-devel@alsa-project.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: kvm@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-block@vger.kernel.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: virtualization@lists.linux-foundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/sound/sof/dai-amd.h     |  1 +
- include/sound/sof/dai.h         |  2 ++
- include/uapi/sound/sof/tokens.h |  5 +++++
- sound/soc/sof/ipc3-pcm.c        |  2 ++
- sound/soc/sof/ipc3-topology.c   | 36 +++++++++++++++++++++++++--------
- sound/soc/sof/sof-audio.h       |  1 +
- sound/soc/sof/topology.c        | 10 +++++++++
- 7 files changed, 49 insertions(+), 8 deletions(-)
+ arch/x86/kernel/cpu/resctrl/pseudo_lock.c  | 4 ++--
+ arch/x86/kernel/cpuid.c                    | 2 +-
+ arch/x86/kernel/msr.c                      | 2 +-
+ block/bsg.c                                | 2 +-
+ drivers/block/aoe/aoechr.c                 | 2 +-
+ drivers/char/mem.c                         | 2 +-
+ drivers/char/misc.c                        | 4 ++--
+ drivers/dma-buf/dma-heap.c                 | 2 +-
+ drivers/gpu/drm/drm_sysfs.c                | 2 +-
+ drivers/infiniband/core/user_mad.c         | 2 +-
+ drivers/infiniband/core/uverbs_main.c      | 2 +-
+ drivers/infiniband/hw/hfi1/device.c        | 4 ++--
+ drivers/input/input.c                      | 2 +-
+ drivers/media/dvb-core/dvbdev.c            | 4 ++--
+ drivers/media/pci/ddbridge/ddbridge-core.c | 4 ++--
+ drivers/media/rc/rc-main.c                 | 2 +-
+ drivers/misc/genwqe/card_base.c            | 2 +-
+ drivers/tty/tty_io.c                       | 2 +-
+ drivers/usb/core/file.c                    | 2 +-
+ drivers/vdpa/vdpa_user/vduse_dev.c         | 2 +-
+ drivers/vfio/vfio_main.c                   | 2 +-
+ fs/pstore/pmsg.c                           | 2 +-
+ include/linux/device/class.h               | 2 +-
+ sound/sound_core.c                         | 2 +-
+ 24 files changed, 29 insertions(+), 29 deletions(-)
 
-diff --git a/include/sound/sof/dai-amd.h b/include/sound/sof/dai-amd.h
-index 92f45c180b7c..9df7ac824efe 100644
---- a/include/sound/sof/dai-amd.h
-+++ b/include/sound/sof/dai-amd.h
-@@ -17,6 +17,7 @@ struct sof_ipc_dai_acp_params {
- 
- 	uint32_t fsync_rate;    /* FSYNC frequency in Hz */
- 	uint32_t tdm_slots;
-+	uint32_t tdm_mode;
- } __packed;
- 
- /* ACPDMIC Configuration Request - SOF_IPC_DAI_AMD_CONFIG */
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index 9fbd3832bcdc..3041f5805b7b 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -86,6 +86,8 @@ enum sof_ipc_dai_type {
- 	SOF_DAI_AMD_DMIC,		/**< AMD ACP DMIC */
- 	SOF_DAI_MEDIATEK_AFE,		/**< Mediatek AFE */
- 	SOF_DAI_AMD_HS,			/**< Amd HS */
-+	SOF_DAI_AMD_SP_VIRTUAL,		/**< AMD ACP SP VIRTUAL */
-+	SOF_DAI_AMD_HS_VIRTUAL,		/**< AMD ACP HS VIRTUAL */
+diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+index d961ae3ed96e..4e4231a58f38 100644
+--- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
++++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+@@ -1560,9 +1560,9 @@ static const struct file_operations pseudo_lock_dev_fops = {
+ 	.mmap =		pseudo_lock_dev_mmap,
  };
  
- /* general purpose DAI configuration */
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index f187dfbd9325..bacaf8a6317e 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -198,4 +198,9 @@
- /* COPIER */
- #define SOF_TKN_INTEL_COPIER_NODE_TYPE		1980
+-static char *pseudo_lock_devnode(struct device *dev, umode_t *mode)
++static char *pseudo_lock_devnode(const struct device *dev, umode_t *mode)
+ {
+-	struct rdtgroup *rdtgrp;
++	const struct rdtgroup *rdtgrp;
  
-+/* ACP I2S */
-+#define SOF_TKN_AMD_ACPI2S_RATE			1700
-+#define SOF_TKN_AMD_ACPI2S_CH			1701
-+#define SOF_TKN_AMD_ACPI2S_TDM_MODE		1702
-+
+ 	rdtgrp = dev_get_drvdata(dev);
+ 	if (mode)
+diff --git a/arch/x86/kernel/cpuid.c b/arch/x86/kernel/cpuid.c
+index 6f7b8cc1bc9f..621ba9c0f17a 100644
+--- a/arch/x86/kernel/cpuid.c
++++ b/arch/x86/kernel/cpuid.c
+@@ -139,7 +139,7 @@ static int cpuid_device_destroy(unsigned int cpu)
+ 	return 0;
+ }
+ 
+-static char *cpuid_devnode(struct device *dev, umode_t *mode)
++static char *cpuid_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "cpu/%u/cpuid", MINOR(dev->devt));
+ }
+diff --git a/arch/x86/kernel/msr.c b/arch/x86/kernel/msr.c
+index ed8ac6bcbafb..708751311786 100644
+--- a/arch/x86/kernel/msr.c
++++ b/arch/x86/kernel/msr.c
+@@ -250,7 +250,7 @@ static int msr_device_destroy(unsigned int cpu)
+ 	return 0;
+ }
+ 
+-static char *msr_devnode(struct device *dev, umode_t *mode)
++static char *msr_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "cpu/%u/msr", MINOR(dev->devt));
+ }
+diff --git a/block/bsg.c b/block/bsg.c
+index 2ab1351eb082..08046bd9207d 100644
+--- a/block/bsg.c
++++ b/block/bsg.c
+@@ -232,7 +232,7 @@ struct bsg_device *bsg_register_queue(struct request_queue *q,
+ }
+ EXPORT_SYMBOL_GPL(bsg_register_queue);
+ 
+-static char *bsg_devnode(struct device *dev, umode_t *mode)
++static char *bsg_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "bsg/%s", dev_name(dev));
+ }
+diff --git a/drivers/block/aoe/aoechr.c b/drivers/block/aoe/aoechr.c
+index 8eea2529da20..7a368c90467d 100644
+--- a/drivers/block/aoe/aoechr.c
++++ b/drivers/block/aoe/aoechr.c
+@@ -273,7 +273,7 @@ static const struct file_operations aoe_fops = {
+ 	.llseek = noop_llseek,
+ };
+ 
+-static char *aoe_devnode(struct device *dev, umode_t *mode)
++static char *aoe_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "etherd/%s", dev_name(dev));
+ }
+diff --git a/drivers/char/mem.c b/drivers/char/mem.c
+index 5611d127363e..83bf2a4dcb57 100644
+--- a/drivers/char/mem.c
++++ b/drivers/char/mem.c
+@@ -746,7 +746,7 @@ static const struct file_operations memory_fops = {
+ 	.llseek = noop_llseek,
+ };
+ 
+-static char *mem_devnode(struct device *dev, umode_t *mode)
++static char *mem_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode && devlist[MINOR(dev->devt)].mode)
+ 		*mode = devlist[MINOR(dev->devt)].mode;
+diff --git a/drivers/char/misc.c b/drivers/char/misc.c
+index cba19bfdc44d..88c6995b9a3d 100644
+--- a/drivers/char/misc.c
++++ b/drivers/char/misc.c
+@@ -254,9 +254,9 @@ void misc_deregister(struct miscdevice *misc)
+ }
+ EXPORT_SYMBOL(misc_deregister);
+ 
+-static char *misc_devnode(struct device *dev, umode_t *mode)
++static char *misc_devnode(const struct device *dev, umode_t *mode)
+ {
+-	struct miscdevice *c = dev_get_drvdata(dev);
++	const struct miscdevice *c = dev_get_drvdata(dev);
+ 
+ 	if (mode && c->mode)
+ 		*mode = c->mode;
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 8f5848aa144f..4d7150791315 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -299,7 +299,7 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+ 	return err_ret;
+ }
+ 
+-static char *dma_heap_devnode(struct device *dev, umode_t *mode)
++static char *dma_heap_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "dma_heap/%s", dev_name(dev));
+ }
+diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+index 430e00b16eec..14bf156b3f1b 100644
+--- a/drivers/gpu/drm/drm_sysfs.c
++++ b/drivers/gpu/drm/drm_sysfs.c
+@@ -90,7 +90,7 @@ static void drm_sysfs_acpi_register(void) { }
+ static void drm_sysfs_acpi_unregister(void) { }
  #endif
-diff --git a/sound/soc/sof/ipc3-pcm.c b/sound/soc/sof/ipc3-pcm.c
-index dad57bef38f6..f10bfc9bd5cb 100644
---- a/sound/soc/sof/ipc3-pcm.c
-+++ b/sound/soc/sof/ipc3-pcm.c
-@@ -336,6 +336,7 @@ static int sof_ipc3_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 			channels->min, channels->max);
- 		break;
- 	case SOF_DAI_AMD_SP:
-+	case SOF_DAI_AMD_SP_VIRTUAL:
- 		rate->min = private->dai_config->acpsp.fsync_rate;
- 		rate->max = private->dai_config->acpsp.fsync_rate;
- 		channels->min = private->dai_config->acpsp.tdm_slots;
-@@ -347,6 +348,7 @@ static int sof_ipc3_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 			channels->min, channels->max);
- 		break;
- 	case SOF_DAI_AMD_HS:
-+	case SOF_DAI_AMD_HS_VIRTUAL:
- 		rate->min = private->dai_config->acphs.fsync_rate;
- 		rate->max = private->dai_config->acphs.fsync_rate;
- 		channels->min = private->dai_config->acphs.tdm_slots;
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 0720e1eae084..b94cc40485ed 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -276,6 +276,16 @@ static const struct sof_topology_token acpdmic_tokens[] = {
- 		offsetof(struct sof_ipc_dai_acpdmic_params, pdm_ch)},
+ 
+-static char *drm_devnode(struct device *dev, umode_t *mode)
++static char *drm_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "dri/%s", dev_name(dev));
+ }
+diff --git a/drivers/infiniband/core/user_mad.c b/drivers/infiniband/core/user_mad.c
+index 98cb594cd9a6..f83954180a33 100644
+--- a/drivers/infiniband/core/user_mad.c
++++ b/drivers/infiniband/core/user_mad.c
+@@ -1224,7 +1224,7 @@ static struct attribute *umad_class_dev_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(umad_class_dev);
+ 
+-static char *umad_devnode(struct device *dev, umode_t *mode)
++static char *umad_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "infiniband/%s", dev_name(dev));
+ }
+diff --git a/drivers/infiniband/core/uverbs_main.c b/drivers/infiniband/core/uverbs_main.c
+index d54434088727..bdb179a09d77 100644
+--- a/drivers/infiniband/core/uverbs_main.c
++++ b/drivers/infiniband/core/uverbs_main.c
+@@ -1237,7 +1237,7 @@ static void ib_uverbs_remove_one(struct ib_device *device, void *client_data)
+ 	put_device(&uverbs_dev->dev);
+ }
+ 
+-static char *uverbs_devnode(struct device *dev, umode_t *mode)
++static char *uverbs_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode)
+ 		*mode = 0666;
+diff --git a/drivers/infiniband/hw/hfi1/device.c b/drivers/infiniband/hw/hfi1/device.c
+index 8ceff7141baf..1f4496032170 100644
+--- a/drivers/infiniband/hw/hfi1/device.c
++++ b/drivers/infiniband/hw/hfi1/device.c
+@@ -72,7 +72,7 @@ const char *class_name(void)
+ 	return hfi1_class_name;
+ }
+ 
+-static char *hfi1_devnode(struct device *dev, umode_t *mode)
++static char *hfi1_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode)
+ 		*mode = 0600;
+@@ -85,7 +85,7 @@ static const char *class_name_user(void)
+ 	return hfi1_class_name_user;
+ }
+ 
+-static char *hfi1_user_devnode(struct device *dev, umode_t *mode)
++static char *hfi1_user_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode)
+ 		*mode = 0666;
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index ebb2b7f0f8ff..50597165dc54 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -1913,7 +1913,7 @@ static const struct device_type input_dev_type = {
+ #endif
  };
  
-+/* ACPI2S */
-+static const struct sof_topology_token acpi2s_tokens[] = {
-+	{SOF_TKN_AMD_ACPI2S_RATE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, fsync_rate)},
-+	{SOF_TKN_AMD_ACPI2S_CH, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, tdm_slots)},
-+	{SOF_TKN_AMD_ACPI2S_TDM_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, tdm_mode)},
-+};
-+
- /* Core tokens */
- static const struct sof_topology_token core_tokens[] = {
- 	{SOF_TKN_COMP_CORE_ID, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-@@ -311,6 +321,7 @@ static const struct sof_token_info ipc3_token_list[SOF_TOKEN_COUNT] = {
- 	[SOF_SAI_TOKENS] = {"SAI tokens", sai_tokens, ARRAY_SIZE(sai_tokens)},
- 	[SOF_AFE_TOKENS] = {"AFE tokens", afe_tokens, ARRAY_SIZE(afe_tokens)},
- 	[SOF_ACPDMIC_TOKENS] = {"ACPDMIC tokens", acpdmic_tokens, ARRAY_SIZE(acpdmic_tokens)},
-+	[SOF_ACPI2S_TOKENS]   = {"ACPI2S tokens", acpi2s_tokens, ARRAY_SIZE(acpi2s_tokens)},
+-static char *input_devnode(struct device *dev, umode_t *mode)
++static char *input_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "input/%s", dev_name(dev));
+ }
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index 6ef18bab9648..e73f5240cc2c 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -1018,9 +1018,9 @@ static int dvb_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ 	return 0;
+ }
+ 
+-static char *dvb_devnode(struct device *dev, umode_t *mode)
++static char *dvb_devnode(const struct device *dev, umode_t *mode)
+ {
+-	struct dvb_device *dvbdev = dev_get_drvdata(dev);
++	const struct dvb_device *dvbdev = dev_get_drvdata(dev);
+ 
+ 	return kasprintf(GFP_KERNEL, "dvb/adapter%d/%s%d",
+ 		dvbdev->adapter->num, dnames[dvbdev->type], dvbdev->id);
+diff --git a/drivers/media/pci/ddbridge/ddbridge-core.c b/drivers/media/pci/ddbridge/ddbridge-core.c
+index fe833f39698a..ee8087f29b2c 100644
+--- a/drivers/media/pci/ddbridge/ddbridge-core.c
++++ b/drivers/media/pci/ddbridge/ddbridge-core.c
+@@ -2716,9 +2716,9 @@ static const struct file_operations ddb_fops = {
+ 	.release        = ddb_release,
  };
  
- /**
-@@ -1193,6 +1204,7 @@ static int sof_link_acp_sp_load(struct snd_soc_component *scomp, struct snd_sof_
- 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
- 	struct sof_dai_private_data *private = dai->private;
- 	u32 size = sizeof(*config);
-+	int ret;
+-static char *ddb_devnode(struct device *device, umode_t *mode)
++static char *ddb_devnode(const struct device *device, umode_t *mode)
+ {
+-	struct ddb *dev = dev_get_drvdata(device);
++	const struct ddb *dev = dev_get_drvdata(device);
  
- 	/* handle master/slave and inverted clocks */
- 	sof_dai_set_format(hw_config, config);
-@@ -1201,12 +1213,15 @@ static int sof_link_acp_sp_load(struct snd_soc_component *scomp, struct snd_sof_
- 	memset(&config->acpsp, 0, sizeof(config->acpsp));
- 	config->hdr.size = size;
+ 	return kasprintf(GFP_KERNEL, "ddbridge/card%d", dev->nr);
+ }
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index eba0cd30e314..527d9324742b 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1017,7 +1017,7 @@ static void ir_close(struct input_dev *idev)
+ }
  
--	config->acpsp.fsync_rate = le32_to_cpu(hw_config->fsync_rate);
--	config->acpsp.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
-+	ret = sof_update_ipc_object(scomp, &config->acpsp, SOF_ACPI2S_TOKENS, slink->tuples,
-+				    slink->num_tuples, size, slink->num_hw_configs);
-+	if (ret < 0)
-+		return ret;
+ /* class for /sys/class/rc */
+-static char *rc_devnode(struct device *dev, umode_t *mode)
++static char *rc_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "rc/%s", dev_name(dev));
+ }
+diff --git a/drivers/misc/genwqe/card_base.c b/drivers/misc/genwqe/card_base.c
+index 693981891870..0f00687f72d4 100644
+--- a/drivers/misc/genwqe/card_base.c
++++ b/drivers/misc/genwqe/card_base.c
+@@ -1349,7 +1349,7 @@ static struct pci_driver genwqe_driver = {
+  * Default mode should be rw for everybody. Do not change default
+  * device name.
+  */
+-static char *genwqe_devnode(struct device *dev, umode_t *mode)
++static char *genwqe_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode)
+ 		*mode = 0666;
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index de06c3c2ff70..aad8171f6c21 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3494,7 +3494,7 @@ void tty_default_fops(struct file_operations *fops)
+ 	*fops = tty_fops;
+ }
  
--	dev_info(scomp->dev, "ACP_SP config ACP%d channel %d rate %d\n",
-+
-+	dev_info(scomp->dev, "ACP_SP config ACP%d channel %d rate %d tdm_mode %d\n",
- 		 config->dai_index, config->acpsp.tdm_slots,
--		 config->acpsp.fsync_rate);
-+		 config->acpsp.fsync_rate, config->acpsp.tdm_mode);
+-static char *tty_devnode(struct device *dev, umode_t *mode)
++static char *tty_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (!mode)
+ 		return NULL;
+diff --git a/drivers/usb/core/file.c b/drivers/usb/core/file.c
+index 558890ada0e5..da7d88e069e6 100644
+--- a/drivers/usb/core/file.c
++++ b/drivers/usb/core/file.c
+@@ -62,7 +62,7 @@ static struct usb_class {
+ 	struct class *class;
+ } *usb_class;
  
- 	dai->number_configs = 1;
- 	dai->current_config = 0;
-@@ -1223,6 +1238,7 @@ static int sof_link_acp_hs_load(struct snd_soc_component *scomp, struct snd_sof_
- 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
- 	struct sof_dai_private_data *private = dai->private;
- 	u32 size = sizeof(*config);
-+	int ret;
+-static char *usb_devnode(struct device *dev, umode_t *mode)
++static char *usb_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	struct usb_class_driver *drv;
  
- 	/* Configures the DAI hardware format and inverted clocks */
- 	sof_dai_set_format(hw_config, config);
-@@ -1231,12 +1247,14 @@ static int sof_link_acp_hs_load(struct snd_soc_component *scomp, struct snd_sof_
- 	memset(&config->acphs, 0, sizeof(config->acphs));
- 	config->hdr.size = size;
- 
--	config->acphs.fsync_rate = le32_to_cpu(hw_config->fsync_rate);
--	config->acphs.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
-+	ret = sof_update_ipc_object(scomp, &config->acphs, SOF_ACPI2S_TOKENS, slink->tuples,
-+				    slink->num_tuples, size, slink->num_hw_configs);
-+	if (ret < 0)
-+		return ret;
- 
--	dev_info(scomp->dev, "ACP_HS config ACP%d channel %d rate %d\n",
-+	dev_info(scomp->dev, "ACP_HS config ACP%d channel %d rate %d tdm_mode %d\n",
- 		 config->dai_index, config->acphs.tdm_slots,
--		 config->acphs.fsync_rate);
-+		 config->acphs.fsync_rate, config->acphs.tdm_mode);
- 
- 	dai->number_configs = 1;
- 	dai->current_config = 0;
-@@ -1545,9 +1563,11 @@ static int sof_ipc3_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 			ret = sof_link_acp_bt_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_SP:
-+		case SOF_DAI_AMD_SP_VIRTUAL:
- 			ret = sof_link_acp_sp_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_HS:
-+		case SOF_DAI_AMD_HS_VIRTUAL:
- 			ret = sof_link_acp_hs_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_DMIC:
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 1b5b3ea53a6e..29cf951e3526 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -248,6 +248,7 @@ enum sof_tokens {
- 	SOF_COPIER_FORMAT_TOKENS,
- 	SOF_GAIN_TOKENS,
- 	SOF_ACPDMIC_TOKENS,
-+	SOF_ACPI2S_TOKENS,
- 
- 	/* this should be the last */
- 	SOF_TOKEN_COUNT,
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 9d9fcaa2a948..c668bd9d21ec 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -289,6 +289,9 @@ static const struct sof_dai_types sof_dais[] = {
- 	{"ACPDMIC", SOF_DAI_AMD_DMIC},
- 	{"ACPHS", SOF_DAI_AMD_HS},
- 	{"AFE", SOF_DAI_MEDIATEK_AFE},
-+	{"ACPSP_VIRTUAL", SOF_DAI_AMD_SP_VIRTUAL},
-+	{"ACPHS_VIRTUAL", SOF_DAI_AMD_HS_VIRTUAL},
-+
+diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+index 35dceee3ed56..0dd3c1f291da 100644
+--- a/drivers/vdpa/vdpa_user/vduse_dev.c
++++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+@@ -1656,7 +1656,7 @@ static const struct file_operations vduse_ctrl_fops = {
+ 	.llseek		= noop_llseek,
  };
  
- static enum sof_ipc_dai_type find_dai(const char *name)
-@@ -1895,6 +1898,13 @@ static int sof_link_load(struct snd_soc_component *scomp, int index, struct snd_
- 		token_id = SOF_ACPDMIC_TOKENS;
- 		num_tuples += token_list[SOF_ACPDMIC_TOKENS].count;
- 		break;
-+	case SOF_DAI_AMD_SP:
-+	case SOF_DAI_AMD_HS:
-+	case SOF_DAI_AMD_SP_VIRTUAL:
-+	case SOF_DAI_AMD_HS_VIRTUAL:
-+		token_id = SOF_ACPI2S_TOKENS;
-+		num_tuples += token_list[SOF_ACPI2S_TOKENS].count;
-+		break;
- 	default:
- 		break;
- 	}
+-static char *vduse_devnode(struct device *dev, umode_t *mode)
++static char *vduse_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "vduse/%s", dev_name(dev));
+ }
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 6e8804fe0095..5bf4b3454918 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -1812,7 +1812,7 @@ EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+ /*
+  * Module/class support
+  */
+-static char *vfio_devnode(struct device *dev, umode_t *mode)
++static char *vfio_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	return kasprintf(GFP_KERNEL, "vfio/%s", dev_name(dev));
+ }
+diff --git a/fs/pstore/pmsg.c b/fs/pstore/pmsg.c
+index d8542ec2f38c..b31c9c72d90b 100644
+--- a/fs/pstore/pmsg.c
++++ b/fs/pstore/pmsg.c
+@@ -46,7 +46,7 @@ static int pmsg_major;
+ #undef pr_fmt
+ #define pr_fmt(fmt) PMSG_NAME ": " fmt
+ 
+-static char *pmsg_devnode(struct device *dev, umode_t *mode)
++static char *pmsg_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (mode)
+ 		*mode = 0220;
+diff --git a/include/linux/device/class.h b/include/linux/device/class.h
+index 94b1107258e5..42cc3fb44a84 100644
+--- a/include/linux/device/class.h
++++ b/include/linux/device/class.h
+@@ -60,7 +60,7 @@ struct class {
+ 	struct kobject			*dev_kobj;
+ 
+ 	int (*dev_uevent)(const struct device *dev, struct kobj_uevent_env *env);
+-	char *(*devnode)(struct device *dev, umode_t *mode);
++	char *(*devnode)(const struct device *dev, umode_t *mode);
+ 
+ 	void (*class_release)(struct class *class);
+ 	void (*dev_release)(struct device *dev);
+diff --git a/sound/sound_core.c b/sound/sound_core.c
+index 3332fe321737..3e7dd6fcb7cf 100644
+--- a/sound/sound_core.c
++++ b/sound/sound_core.c
+@@ -30,7 +30,7 @@ MODULE_DESCRIPTION("Core sound module");
+ MODULE_AUTHOR("Alan Cox");
+ MODULE_LICENSE("GPL");
+ 
+-static char *sound_devnode(struct device *dev, umode_t *mode)
++static char *sound_devnode(const struct device *dev, umode_t *mode)
+ {
+ 	if (MAJOR(dev->devt) == SOUND_MAJOR)
+ 		return NULL;
 -- 
-2.25.1
+2.38.1
 

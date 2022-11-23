@@ -2,75 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D8EC639484
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:13:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FB563943C
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:01:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF61318BB;
-	Sat, 26 Nov 2022 09:13:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF61318BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4975B17F5;
+	Sat, 26 Nov 2022 09:00:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4975B17F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450431;
-	bh=6dLCPjw2lnU1xHWrj+O+ys8c07lCxZyAadm3Tpe1dhI=;
+	s=default; t=1669449666;
+	bh=EfiX2/IiNE/Gp7XY++Xx28h8Fsj9GFlNLbGeLo5T8/k=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HmOh47w+YqGA6KCPN7U2h3ww9ggL34xKSUlFZRm37MZ2lqLfIlobNqkZo/2Cq4qV9
-	 /ZGiiAGDF7cqxuL0v/bxDgTwADT7si9fKFyjVmsYV3Bi9qsb9qZdj1wU4u/kGv9vWl
-	 yaLz/iAS97h8K7QFBmm52WqGaCBd3zWAmvjjNuAI=
+	b=WUOQwbxGck2xSa2lXbFQb8Yon97SOjs0sbGkV8L/UbaFL8N0Ppcm6T85aJLMjhgKp
+	 a6eRtKpzJU4DjvjPjVLolw1X+/MsnZ18T8pfRP2Df6JY9iuHCBAqwUjfavyjyM1fOI
+	 zpVtd3Ek25pvdhlmLxVq/kG+ELolnw80vgeAJNuU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600D9F806FA;
-	Sat, 26 Nov 2022 08:59:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20004F80563;
+	Sat, 26 Nov 2022 08:58:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36BC0F8025D; Wed, 23 Nov 2022 18:50:21 +0100 (CET)
+ id 8D8B6F8025D; Wed, 23 Nov 2022 18:55:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [IPv6:2607:f8b0:4864:20::f34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF6D1F800BB
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 18:50:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF6D1F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E0F7F80149
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 18:55:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E0F7F80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="PsGxbrOA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=3fTJtAhCYVf4T6+HaU0lUlvFevgLRUqxFHqxF0+M6mQ=; b=PsGxbrOAWhmOQwY2+t8gUj0lt8
- YgJWe0wCbRmKhkaNMxQrEv6bl/KfCT3fTToiLGDu7OHzaxHKam06wEd44l0yMXWihhru3JN5dbOz+
- z7yp7UE/E/I/YneKKLNgOcj5+nccs/cC3guuN8LzGUby6Doiinv0fCWvvxMlXivAGj6u6PF+riLi2
- LeA79P9G/yt6pxvybg6aQ4YZkhos9sIpY/uuOe1/sV+1gr3feJnCNyFNIxwprdY1Hq9cLd3Ygp5jJ
- f9FYMdZAoZHQ1ovdLLTBLm/NC7Jcs4zIddL8Sm83AguCkSkYweKgbyn70U1T/J5pD3EC9oSGcxcc2
- L9pWqQRQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1oxtsO-007sVm-GW; Wed, 23 Nov 2022 17:49:36 +0000
-Date: Wed, 23 Nov 2022 17:49:36 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
+ dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca
+ header.b="My/je7B5"
+Received: by mail-qv1-xf34.google.com with SMTP id cz18so6313206qvb.13
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 09:55:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mZGGAbQVRBkDZyExP7ffjlyLb6N0sV9F4cgg4l8gSxE=;
+ b=My/je7B5AkyQl5fsdxgrcU4MlCIO0r7BQ5Ticu0quoimRFyd1QFWg1CIRYo2hSlhCk
+ gVjIJJSUMGBCSbu4UDXzbQPaiJloUApBWvaqFNa76nYHQxGNxzJWcDLEm0qltzXuuN/Z
+ gO+uDnAR3m7NYXWzCuDuYM8LFnvN0Xu6vLCMlAClrlBYpN6lXcqxJLcrsGyjBmH/Sv12
+ +4Tfy+Id6dykaHW4e8It4+0URa6BTBpgvGETfgKsz3tVQND5afP3nmgNdrdjI227ASXm
+ vr1NQmNHtxvof8mhDMYhIaXb4hON7jWdw6w75cCEJBe1LxtxXk3bYjl3v+s4zDC4Zj8c
+ gKuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mZGGAbQVRBkDZyExP7ffjlyLb6N0sV9F4cgg4l8gSxE=;
+ b=iPiqziisv70XTVoJqhMRowLvXIt4fLqvkRhrQqmP/eZrU7IeZKJAPpB5FTepK4AgBZ
+ wN+Rcj9FwLWluUFdq0tpghJ//XiphSmdk746Gb379hPwqLp+jHQoCQV2J3Z2aVpNauZp
+ iz+Uns1j1Ns6MbQoA3QMsHXSBdlFjSPa+kdfvnkstKV3yV7IT8hPxosCQV/mpzh30Lts
+ Cmbzfi31oNbh8KRKfdu1hrUnE0Fho++pmjOzOn7EckkwcbF42HAh5y9HL5582eNUiMvp
+ fBFy83AWOWepLt9VlgU03ItB2ZsSD93wZ+SzO96HdojL+kq9Zy3KJY+G34sBLmUVDvgJ
+ dCNA==
+X-Gm-Message-State: ANoB5pmNf495MHFV10GeQDpxHQi3SUuuGXHRMeRIVawv43s2dUjzpDZq
+ 6NSPUfBZQuU5yT1YjuFAnEamdw==
+X-Google-Smtp-Source: AA0mqf6wKiTjKYxvtjsF4TJ4YPeSr0mdEUQ+pw8A+HZdflt1p0dm9sIfWC/e+svu0siqN7xcA8Vb/g==
+X-Received: by 2002:a05:6214:209:b0:4bb:6bbd:8c1b with SMTP id
+ i9-20020a056214020900b004bb6bbd8c1bmr9012796qvt.111.1669226143925; 
+ Wed, 23 Nov 2022 09:55:43 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-47-55-122-23.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [47.55.122.23]) by smtp.gmail.com with ESMTPSA id
+ o18-20020a05620a111200b006faaf6dc55asm11988986qkk.22.2022.11.23.09.55.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Nov 2022 09:55:43 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.95)
+ (envelope-from <jgg@ziepe.ca>) id 1oxtyI-00Afdu-Dk;
+ Wed, 23 Nov 2022 13:55:42 -0400
+Date: Wed, 23 Nov 2022 13:55:42 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Matthew Wilcox <willy@infradead.org>
 Subject: Re: [PATCH 3/5] driver core: make struct device_type.uevent() take a
  const *
-Message-ID: <Y35dMIaNYSE0Cykd@casper.infradead.org>
-References: <20221123122523.1332370-1-gregkh@linuxfoundation.org>
- <20221123122523.1332370-3-gregkh@linuxfoundation.org>
+Message-ID: <Y35enjI+dhhqiG3B@ziepe.ca>
+References: <20221123122523.1332370-3-gregkh@linuxfoundation.org>
  <711d5275-7e80-c00d-0cdc-0f3d52175361@gmail.com>
  <Y34hgIW8p1RlQTBB@smile.fi.intel.com>
  <97be39ed-3cea-d55a-caa6-c2652baef399@gmail.com>
  <Y34zyzdbRUdyOSkA@casper.infradead.org>
  <Y34+V2bCDdqujBDk@kroah.com> <Y35JfNJDppRp5bLX@ziepe.ca>
  <Y35R+/eQJYI7VaDS@kroah.com> <Y35YlI93UBuTfgYy@ziepe.ca>
+ <Y35dMIaNYSE0Cykd@casper.infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Y35YlI93UBuTfgYy@ziepe.ca>
+In-Reply-To: <Y35dMIaNYSE0Cykd@casper.infradead.org>
 X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sean Young <sean@mess.org>,
@@ -119,24 +146,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 23, 2022 at 01:29:56PM -0400, Jason Gunthorpe wrote:
-> #define generic_container_of(in_type, in, out_type, out_member) \
-> 	_Generic(in,                                        \
->                   const in_type *: ((const out_type *)container_of(in, out_type, out_member)),   \
->                   in_type *: ((out_type *)container_of(in, out_type, out_member)) \
-> 		  )
-
-There's a neat trick I found in seqlock.h:
-
-#define generic_container_of(in_t, in, out_t, m)			\
-	_Generic(*(in),							\
-		const in_t: ((const out_t *)container_of(in, out_t, m)), \
-		in_t: ((out_t *)container_of(in, out_type, m))	\
-	)
-
-and now it fits in 80 columns ;-)
-
-> #define kobj_to_dev(__kobj) \
-> 	generic_container_of(struct kobject, __kobj, struct device, kobj)
+On Wed, Nov 23, 2022 at 05:49:36PM +0000, Matthew Wilcox wrote:
+> On Wed, Nov 23, 2022 at 01:29:56PM -0400, Jason Gunthorpe wrote:
+> > #define generic_container_of(in_type, in, out_type, out_member) \
+> > 	_Generic(in,                                        \
+> >                   const in_type *: ((const out_type *)container_of(in, out_type, out_member)),   \
+> >                   in_type *: ((out_type *)container_of(in, out_type, out_member)) \
+> > 		  )
 > 
-> Jason
+> There's a neat trick I found in seqlock.h:
+> 
+> #define generic_container_of(in_t, in, out_t, m)			\
+> 	_Generic(*(in),							\
+> 		const in_t: ((const out_t *)container_of(in, out_t, m)), \
+> 		in_t: ((out_t *)container_of(in, out_type, m))	\
+> 	)
+>
+> and now it fits in 80 columns ;-)
+
+Aside from less letters, is their another benifit to using *(in) ?
+
+Jason

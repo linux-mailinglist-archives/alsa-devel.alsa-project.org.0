@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22C9635D52
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 13:44:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A995C635D57
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 13:44:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F7BF167D;
-	Wed, 23 Nov 2022 13:43:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F7BF167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57192168C;
+	Wed, 23 Nov 2022 13:43:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57192168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669207455;
-	bh=BRBt2o9DrYJstjhh/7mpbXXBWvSI6VS9AIrcb9ecNZs=;
+	s=default; t=1669207482;
+	bh=O8zwh85ohZxN4Q7/f/IMqeHdHzDByjDvVgEw5fDhrLY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fd4HSX5ZcKSjhnutrAHBg/UGBTFijOoOIdoF0+66YWeJN+jKPjRfE/T4wQ/QqtIee
-	 Bb+yjJ3rOHN9Fc8Hv1Gm+a/QRO7dQIGfZBBvrhimD+7Lz6+qgexYgfWsmSHz1s7dlN
-	 iZvhyqlcOuysOxjK9PRrSdMlWntQ+fPqBCm9SWcg=
+	b=meRkVG5lCYvPUKRrZU16EcFLw/dGDIIKmki3uxGot1mIWnGSZ24PKZAj2dYULj1p3
+	 w7C3wtzjgKn4llJwYWGELJXv+epJsPtIEirkxiB76k4axbnQ61NqqZ48ps0U02CA8Q
+	 87tOXNfYHauUiLeJaY06ATBxiIF6JQNFv933uvYs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C74DF8030F;
-	Wed, 23 Nov 2022 13:42:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0977BF80559;
+	Wed, 23 Nov 2022 13:42:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0617DF80425; Wed, 23 Nov 2022 13:42:50 +0100 (CET)
+ id 23B5BF80558; Wed, 23 Nov 2022 13:42:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4ADBF80149
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:42:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4ADBF80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3433FF804D2
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:42:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3433FF804D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MmCQEBoJ"
+ header.b="q5VJMTUE"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5572261C67;
- Wed, 23 Nov 2022 12:42:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B562BC433C1;
- Wed, 23 Nov 2022 12:42:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2307061C64;
+ Wed, 23 Nov 2022 12:42:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35BFAC433D6;
+ Wed, 23 Nov 2022 12:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669207366;
- bh=BRBt2o9DrYJstjhh/7mpbXXBWvSI6VS9AIrcb9ecNZs=;
+ s=k20201202; t=1669207370;
+ bh=O8zwh85ohZxN4Q7/f/IMqeHdHzDByjDvVgEw5fDhrLY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MmCQEBoJoIYz9jLh1uTqLcyGTS5g4a2U3FfGnCIZAJmubMZXvEnc9dbU7w958CRW2
- bG6SuYFlPhCt3q2dHtMrioBp2UMylKb0uZ8ruMurUU3Fx6dDjw5UO9IiB3wP/azkw9
- XBfGwn+o2qRGinwfqv6E1h3h5nAB4nKzICP9SBqLRT/TvJ1lc8GILidIrLUTJghN7r
- ctH4n86DSAF1B3/f9WFAe41tLXfr0TVjgN6lGxtWhfOmEuqgAMQwRmEXp8OkIynyEG
- N1AXXd/JrC9Dhk6TCIvyJns5LMoK16Y4vsYhKyW28iE+E/B+xvRHDSK4NlVqrmQAZf
- y7QQZC6sAT9gw==
+ b=q5VJMTUEP9Cgx8rjatgAJ4nchwKHnLiLtfj4Jd+wi19cI3rEs54H59H15OrHHyeFL
+ HFpWjSl/iiVVkU2Jbso8TwRgvb/U7KwsPTn/KM+mFD0oaLNzEsD/tRhmaSW1Jpm0sD
+ SuewlgeaJoerQGSV9+oKauLYTqVkbO+u+N7LBEGX+I0Dp+qpD5uZJnz9p7u6cn3sVE
+ wpzbiFWzShORVzdOsJmXHoXmz7oaQomDT/7L1TIoy+jbzszoJ6yGdjNVi2yvRbAhmM
+ MMt9FtZ2s40HdQ9dF3PMWlfJCMfXhskVXfbDw1Pk5OuyWejtewGxNrhubqZUfikeOB
+ 7WKVqNpG8vpbA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 04/31] ASoC: Intel: soc-acpi: add ES83x6 support
- to IceLake
-Date: Wed, 23 Nov 2022 07:42:05 -0500
-Message-Id: <20221123124234.265396-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/31] ASoC: hda: intel-dsp-config: add ES83x6
+ quirk for IceLake
+Date: Wed, 23 Nov 2022 07:42:07 -0500
+Message-Id: <20221123124234.265396-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221123124234.265396-1-sashal@kernel.org>
 References: <20221123124234.265396-1-sashal@kernel.org>
@@ -72,13 +71,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com,
- peter.ujfalusi@linux.intel.com, tiwai@suse.com,
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, Takashi Iwai <tiwai@suse.de>,
+ gongjun.song@intel.com, tiwai@suse.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Mark Brown <broonie@kernel.org>, muralidhar.reddy@intel.com,
+ amadeuszx.slawinski@linux.intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, brent.lu@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,51 +95,37 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 9a1d248bb4beaf1b43d17ba12481ee0629fa29b9 ]
+[ Upstream commit 5d73263f9e7c54ccb20814dc50809b9deb9e2bc7 ]
 
-Missing entry to find a machine driver for ES83x6-based platforms.
+Yet another hardware variant we need to handle.
 
 Link: https://github.com/thesofproject/linux/issues/3873
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20221031195836.250193-1-pierre-louis.bossart@linux.intel.com
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20221031195639.250062-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-icl-match.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ sound/hda/intel-dsp-config.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 768ed538c4ea..bc49295bcfe2 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -10,6 +10,11 @@
- #include <sound/soc-acpi-intel-match.h>
- #include "../skylake/skl.h"
- 
-+static const struct snd_soc_acpi_codecs essx_83x6 = {
-+	.num_codecs = 3,
-+	.codecs = { "ESSX8316", "ESSX8326", "ESSX8336"},
-+};
-+
- static struct skl_machine_pdata icl_pdata = {
- 	.use_tplg_pcm = true,
- };
-@@ -29,6 +34,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = {
- 		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt5682.tplg",
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index 4208fa8a4db5..05af409f1a83 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -303,6 +303,11 @@ static const struct config_entry config_table[] = {
+ 			{}
+ 		}
  	},
 +	{
-+		.comp_ids = &essx_83x6,
-+		.drv_name = "sof-essx8336",
-+		.sof_tplg_filename = "sof-icl-es8336", /* the tplg suffix is added at run time */
-+		.tplg_quirk_mask = SND_SOC_ACPI_TPLG_INTEL_SSP_NUMBER |
-+					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
-+					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
++		.flags = FLAG_SOF,
++		.device = 0x34c8,
++		.codec_hid =  &essx_83x6,
 +	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_machines);
+ 	{
+ 		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
+ 		.device = 0x34c8,
 -- 
 2.35.1
 

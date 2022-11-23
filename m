@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0566635D47
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 13:43:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4998B635D50
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 13:43:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E95641687;
-	Wed, 23 Nov 2022 13:42:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95641687
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6A211655;
+	Wed, 23 Nov 2022 13:42:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6A211655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669207383;
-	bh=cQLk4V11on8FnoiHKTYdZUObu8yqBcscey+wbTRzR78=;
+	s=default; t=1669207430;
+	bh=NP08Bu41lnXELqkflD2hs9IQL0DrhHcjsLCdz4Yc2as=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AzS9Wta904lqc+0IMhNcBMgY0St+K6fHF2T2DZdSYnaP+MI7PpkaXjsdvrHgTm/4o
-	 umqmuWs23pr/1tQ6aj+HY5VQpeNtZJDKfvKgAmT5uKPzCGPbetkpT7PFpOrUWxnzmV
-	 5eUzj4pqbdTCXGGBLZpiXeLE4Q2MD7KBScqOkDzE=
+	b=LZcDTl6/yt+aCCTjSjJMcvZpNxIyf6xjHByeVhsS5WEb6ZQUnMEqFwwQtFsRHPDPG
+	 hoOQsmR9/txxOvKR9NCjBVjxGepZ6YBo/dLzCKykdLJOxW3187FtywZJpSR9i5IXUP
+	 EsDJQy6e2ZuzG0rKSBylwDNWN8qc5I9zWjNtw31Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 404EAF8055A;
-	Wed, 23 Nov 2022 13:41:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 659BEF80579;
+	Wed, 23 Nov 2022 13:41:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EA04F80557; Wed, 23 Nov 2022 13:41:25 +0100 (CET)
+ id 00EBDF8057C; Wed, 23 Nov 2022 13:41:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DDEF80557;
- Wed, 23 Nov 2022 13:41:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DDEF80557
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3149F8057C
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:41:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3149F8057C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RAu4GXfO"
+ header.b="TCVFyfqY"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 465A961C50;
- Wed, 23 Nov 2022 12:41:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8240EC433D6;
- Wed, 23 Nov 2022 12:41:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A36C961C65;
+ Wed, 23 Nov 2022 12:41:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35516C433D6;
+ Wed, 23 Nov 2022 12:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669207280;
- bh=cQLk4V11on8FnoiHKTYdZUObu8yqBcscey+wbTRzR78=;
+ s=k20201202; t=1669207293;
+ bh=NP08Bu41lnXELqkflD2hs9IQL0DrhHcjsLCdz4Yc2as=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RAu4GXfOI4yNa8Y/eAXE4SJcNusCYGWUC7/BBhQs9H0SvaCCKzt/sGIK088wd0G5F
- mwYgzYBid8DWPj4Y3REIVOD1J04cNU7qynOp/Jp4FQS2uP+aSI57ztDYgC19Eo62/Z
- p5c+jgpn0eZsq6h0XcdmmikT+q2ptfNgMWiEtYBGzq8k9Wd8wU8qY+bM6NXLIsnd5o
- 2/YsY1KbO0Q4MN5FlJxfYD+NJtHev3fCxYtme3ljlTK7ASLLYbegcLuxx7kro2U0XP
- Uso5+/C5PDUIg+m5xS5aqOnioqO2rs10zI/kznHBrQEMLjuGwYn0GNKyjnUgnU6gTX
- Yam5EVGKl8cUQ==
+ b=TCVFyfqYC3cQZGgsnSlTrH9cKkkWgGW3fXkww52cyI+E5DODOR6UJ3X+oDUmlyGdW
+ 71QTEVPaC0o9855ZefGk3RZE7oowdLEpAChsGl0kWto8d5RfpPqzJlZ1WEeJAMfZkm
+ KUtwWAQDgCDmpO2ItQXniygpUDmktszK0awy2yaZUn1jYVMNqDOlmRCvrDfqmI7/jn
+ VvJWuIzXkUGYPfsE7aD3iWQV96JKMM/uGKqjKpWNX8tpt9X+EMQGMLVIc+f9QnocIE
+ +DKxKJCU+mdX7HTPvYu/4GOolSsaglZ96xkhwszuKZMeL+ESIEdji+0j/j4ZQsa1KN
+ x/GTH3xla3Hfw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 08/44] ASoC: SOF: ipc3-topology: use old pipeline
- teardown flow with SOF2.1 and older
-Date: Wed, 23 Nov 2022 07:40:17 -0500
-Message-Id: <20221123124057.264822-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 14/44] ASoC: sof_es8336: reduce pop noise on
+ speaker
+Date: Wed, 23 Nov 2022 07:40:23 -0500
+Message-Id: <20221123124057.264822-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221123124057.264822-1-sashal@kernel.org>
 References: <20221123124057.264822-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, lgirdwood@gmail.com,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com, yang.jie@linux.intel.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- daniel.baluta@nxp.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
+ mchehab@kernel.org, andrey.turkin@gmail.com, Zhu Ning <zhuning0077@gmail.com>,
+ kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, muralidhar.reddy@intel.com,
+ Zhu Ning <zhuning@everest-semi.com>, peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,109 +94,136 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Zhu Ning <zhuning0077@gmail.com>
 
-[ Upstream commit 003b786b678919e072c2b12ffa73901ef840963e ]
+[ Upstream commit 89cdb224f2abe37ec4ac21ba0d9ddeb5a6a9cf68 ]
 
-Originally in commit b2ebcf42a48f ("ASoC: SOF: free widgets in
-sof_tear_down_pipelines() for static pipelines"), freeing of pipeline
-components at suspend was only done with recent FW as there were known
-limitations in older firmware versions.
+The Speaker GPIO needs to be turned on slightly behind the codec turned on.
+It also need to be turned off slightly before the codec turned down.
+Current code uses delay in DAPM_EVENT to do it but the mdelay delays the
+DAPM itself and thus has no effect. A delayed_work is added to turn on the
+speaker.
+The Speaker is turned off in .trigger since trigger is called slightly
+before the DAPM events.
 
-Tests show that if static pipelines are used, i.e. all pipelines are
-setup whenever firmware is powered up, the reverse action of freeing all
-components at power down, leads to firmware failures with also SOF2.0
-and SOF2.1 based firmware.
+Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
 
-The problems can be specific to certain topologies with e.g. components
-not prepared to be freed at suspend (as this did not happen with older
-SOF kernels).
+------------
 
-To avoid hitting these problems when kernel is upgraded and used with an
-older firmware, bump the firmware requirement to SOF2.2 or newer. If an
-older firmware is used, and pipeline is a static one, do not free the
-components at suspend. This ensures the suspend flow remains backwards
-compatible with older firmware versions. This limitation does not apply
-if the product configuration is updated to dynamic pipelines.
-
-The limitation is not linked to firmware ABI, as the interface to free
-pipeline components has been available already before ABI3.19. The
-problem is in the implementation, so firmware version should be used to
-decide whether it is safe to use the newer flow or not. This patch adds
-a new SOF_FW_VER() macro to compare SOF firmware release versions.
-
-Link: https://github.com/thesofproject/sof/issues/6475
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://lore.kernel.org/r/20221101114913.1292671-1-kai.vehmanen@linux.intel.com
+v1: cancel delayed work while disabling speaker.
+Link: https://lore.kernel.org/r/20221028020456.90286-1-zhuning0077@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/sof/info.h      |  4 ++++
- sound/soc/sof/ipc3-topology.c | 15 ++++++++++-----
- 2 files changed, 14 insertions(+), 5 deletions(-)
+ sound/soc/intel/boards/sof_es8336.c | 60 ++++++++++++++++++++++-------
+ 1 file changed, 46 insertions(+), 14 deletions(-)
 
-diff --git a/include/sound/sof/info.h b/include/sound/sof/info.h
-index 65e86e4e9fd8..75193850ead0 100644
---- a/include/sound/sof/info.h
-+++ b/include/sound/sof/info.h
-@@ -36,6 +36,10 @@ enum sof_ipc_ext_data {
- 	SOF_IPC_EXT_USER_ABI_INFO	= 4,
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index 606cc3242a60..5c218a39ca20 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -63,6 +63,7 @@ struct sof_es8336_private {
+ 	struct snd_soc_jack jack;
+ 	struct list_head hdmi_pcm_list;
+ 	bool speaker_en;
++	struct delayed_work pcm_pop_work;
  };
  
-+/* Build u32 number in format MMmmmppp */
-+#define SOF_FW_VER(MAJOR, MINOR, PATCH) ((uint32_t)( \
-+	((MAJOR) << 24) | ((MINOR) << 12) | (PATCH)))
+ struct sof_hdmi_pcm {
+@@ -111,6 +112,46 @@ static void log_quirks(struct device *dev)
+ 		dev_info(dev, "quirk headset at mic1 port enabled\n");
+ }
+ 
++static void pcm_pop_work_events(struct work_struct *work)
++{
++	struct sof_es8336_private *priv =
++		container_of(work, struct sof_es8336_private, pcm_pop_work.work);
 +
- /* FW version - SOF_IPC_GLB_VERSION */
- struct sof_ipc_fw_version {
- 	struct sof_ipc_hdr hdr;
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index a39b43850f0e..bf8a46463cec 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -2242,6 +2242,7 @@ static int sof_ipc3_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
- 	struct snd_sof_widget *swidget;
- 	struct snd_sof_route *sroute;
-+	bool dyn_widgets = false;
- 	int ret;
++	gpiod_set_value_cansleep(priv->gpio_speakers, priv->speaker_en);
++
++	if (quirk & SOF_ES8336_HEADPHONE_GPIO)
++		gpiod_set_value_cansleep(priv->gpio_headphone, priv->speaker_en);
++
++}
++
++static int sof_8336_trigger(struct snd_pcm_substream *substream, int cmd)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_card *card = rtd->card;
++	struct sof_es8336_private *priv = snd_soc_card_get_drvdata(card);
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++	case SNDRV_PCM_TRIGGER_RESUME:
++		break;
++
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_STOP:
++		if (priv->speaker_en == false)
++			if (substream->stream == 0) {
++				cancel_delayed_work(&priv->pcm_pop_work);
++				gpiod_set_value_cansleep(priv->gpio_speakers, true);
++			}
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static int sof_es8316_speaker_power_event(struct snd_soc_dapm_widget *w,
+ 					  struct snd_kcontrol *kcontrol, int event)
+ {
+@@ -122,19 +163,7 @@ static int sof_es8316_speaker_power_event(struct snd_soc_dapm_widget *w,
  
- 	/*
-@@ -2251,12 +2252,14 @@ static int sof_ipc3_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 	 * topology loading the sound card unavailable to open PCMs.
- 	 */
- 	list_for_each_entry(swidget, &sdev->widget_list, list) {
--		if (swidget->dynamic_pipeline_widget)
-+		if (swidget->dynamic_pipeline_widget) {
-+			dyn_widgets = true;
- 			continue;
-+		}
+ 	priv->speaker_en = !SND_SOC_DAPM_EVENT_ON(event);
  
--		/* Do not free widgets for static pipelines with FW ABI older than 3.19 */
-+		/* Do not free widgets for static pipelines with FW older than SOF2.2 */
- 		if (!verify && !swidget->dynamic_pipeline_widget &&
--		    v->abi_version < SOF_ABI_VER(3, 19, 0)) {
-+		    SOF_FW_VER(v->major, v->minor, v->micro) < SOF_FW_VER(2, 2, 0)) {
- 			swidget->use_count = 0;
- 			swidget->complete = 0;
- 			continue;
-@@ -2270,9 +2273,11 @@ static int sof_ipc3_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 	/*
- 	 * Tear down all pipelines associated with PCMs that did not get suspended
- 	 * and unset the prepare flag so that they can be set up again during resume.
--	 * Skip this step for older firmware.
-+	 * Skip this step for older firmware unless topology has any
-+	 * dynamic pipeline (in which case the step is mandatory).
- 	 */
--	if (!verify && v->abi_version >= SOF_ABI_VER(3, 19, 0)) {
-+	if (!verify && (dyn_widgets || SOF_FW_VER(v->major, v->minor, v->micro) >=
-+	    SOF_FW_VER(2, 2, 0))) {
- 		ret = sof_tear_down_left_over_pipelines(sdev);
- 		if (ret < 0) {
- 			dev_err(sdev->dev, "failed to tear down paused pipelines\n");
+-	if (SND_SOC_DAPM_EVENT_ON(event))
+-		msleep(70);
+-
+-	gpiod_set_value_cansleep(priv->gpio_speakers, priv->speaker_en);
+-
+-	if (!(quirk & SOF_ES8336_HEADPHONE_GPIO))
+-		return 0;
+-
+-	if (SND_SOC_DAPM_EVENT_ON(event))
+-		msleep(70);
+-
+-	gpiod_set_value_cansleep(priv->gpio_headphone, priv->speaker_en);
+-
++	queue_delayed_work(system_wq, &priv->pcm_pop_work, msecs_to_jiffies(70));
+ 	return 0;
+ }
+ 
+@@ -344,6 +373,7 @@ static int sof_es8336_hw_params(struct snd_pcm_substream *substream,
+ /* machine stream operations */
+ static struct snd_soc_ops sof_es8336_ops = {
+ 	.hw_params = sof_es8336_hw_params,
++	.trigger = sof_8336_trigger,
+ };
+ 
+ static struct snd_soc_dai_link_component platform_component[] = {
+@@ -722,7 +752,8 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	INIT_LIST_HEAD(&priv->hdmi_pcm_list);
+-
++	INIT_DELAYED_WORK(&priv->pcm_pop_work,
++				pcm_pop_work_events);
+ 	snd_soc_card_set_drvdata(card, priv);
+ 
+ 	if (mach->mach_params.dmic_num > 0) {
+@@ -751,6 +782,7 @@ static int sof_es8336_remove(struct platform_device *pdev)
+ 	struct snd_soc_card *card = platform_get_drvdata(pdev);
+ 	struct sof_es8336_private *priv = snd_soc_card_get_drvdata(card);
+ 
++	cancel_delayed_work(&priv->pcm_pop_work);
+ 	gpiod_put(priv->gpio_speakers);
+ 	device_remove_software_node(priv->codec_dev);
+ 	put_device(priv->codec_dev);
 -- 
 2.35.1
 

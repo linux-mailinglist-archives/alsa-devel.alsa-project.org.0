@@ -2,90 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1546356D5
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 10:37:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80541635B4E
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 12:11:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C88BE167D;
-	Wed, 23 Nov 2022 10:36:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C88BE167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04582166D;
+	Wed, 23 Nov 2022 12:10:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04582166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669196220;
-	bh=nzc00OMtZa6Jve1odhFgI0K35IZPAmoM1rXBfC6J74w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669201903;
+	bh=rrNxR5ISeIq3KhbFFVYi0iH63rB1BwTTTqojMGQk8PM=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A2sFiYmu9FgyzEFFY6189CwdRhpJfQvW3QBGzeob9SHyjiOV+QABM7EVIi4iaKxuF
-	 CIeaKVfA5zIfZNYt5YdgBF5UcxLZOC3iv3b787r7MNaElAOqM0jF3Ux6I3llxU2brH
-	 3gBdSFIom3BQjbsNShlYj6Ra1jrZnrfyN5C9UEf8=
+	b=stJ61ovaHrImu1UONSTImq0Uio1EtTZQ1MdgVbup5D4upwu19szkUWovmzWz4YLso
+	 jkUicKLlQLAKHCVMbzzqjAKM7GsPnHItXv+Paowsw6f/9KiB8pjouREXKtX7yrHQZm
+	 LhqbGCn/eNsf/j7J4DsSePwtNjhcC4zJlsQovpHQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 852FAF800BB;
-	Wed, 23 Nov 2022 10:36:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 817CCF8030F;
+	Wed, 23 Nov 2022 12:10:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8337DF8025D; Wed, 23 Nov 2022 10:36:03 +0100 (CET)
+ id 20A4DF8025D; Wed, 23 Nov 2022 12:10:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AD82F80115
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 12:10:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AD82F80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qFpMkvQ5"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FC5FF800BB
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 10:35:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FC5FF800BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="lMrWZLPD"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AN7bePZ029400; Wed, 23 Nov 2022 03:35:55 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=wHed+5qsoNRfgm5HzbV5rq5eqU2Eoij756sk0MFjYTc=;
- b=lMrWZLPDNBeOKrD9JKdE87iemvauRqrpbUbZsVfxThc2+2bdU2sVMDkmYSQ1Di9tYQ4i
- EPFHKea5tGRK9e3yJdv/Q9Z3lgIaR/GTmwFAYjrAimhB5QRbKf5da+UpJzvWswEEFcj7
- E+ynamyYDaRkR4ja5p4WofhRsY7q1JjTjaYh36nqNdmOdOF0K/Gv3KTHiOuBhXxp2qRG
- U8l1XCwOD8GQx7AiSHSHW13J/jDjlzALLaByAycm7glZvugxSmeHXo1bdsq/jZoY02Dr
- demBpFz0dZ8dJXCtGAfaGb5Kj99RjwdROrDiUFxU36WTL91SRqp9dELO0DkVsqsvEQGo jQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6vpa5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Nov 2022 03:35:55 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Wed, 23 Nov
- 2022 03:35:47 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Wed, 23 Nov 2022 03:35:47 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6EE11477;
- Wed, 23 Nov 2022 09:35:47 +0000 (UTC)
-Date: Wed, 23 Nov 2022 09:35:47 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH] soundwire: bus_type: Avoid lockdep assert in
- sdw_drv_probe()
-Message-ID: <20221123093547.GC105268@ediswmail.ad.cirrus.com>
-References: <20221121162453.1834170-1-rf@opensource.cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 69B62B81ED5;
+ Wed, 23 Nov 2022 11:10:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09057C433D6;
+ Wed, 23 Nov 2022 11:10:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669201838;
+ bh=rrNxR5ISeIq3KhbFFVYi0iH63rB1BwTTTqojMGQk8PM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=qFpMkvQ56AKM/1Px34GDWKYWVpbXRslWiPgdBX6SOE69yUc4strz8UZ7V/Tiq6+P/
+ ZQ3cCzFR2QvqC9mbV2RGuXYv6JjCe19RHSmvx7wzbeQ8Fy7+rjLOkCDN7lGVOU3+Nr
+ CzVGXWf9uas/nfZZ9S75saWcEn1AkPO3TLo5PixReOs6mxtWdXzEP6c24EQS1Flo58
+ n+PhaHxiQwr/HE+SJl6RxoWxuy1avHnwZALaCnvBQRnRGFBjQfnCZ7OijM9AzaY4yC
+ aM3cD7N2OuNuRPHGOgnMuxe6NdURwA9VxpCWXEUdOdoOIHjYK67Imh3jZjjbqXv8JK
+ P6H5PBxftJV0Q==
+From: Mark Brown <broonie@kernel.org>
+To: Alicja Michalska <ahplka19@gmail.com>, alsa-devel@alsa-project.org
+In-Reply-To: <Y3wHyJ/EcsLRHGr3@tora>
+References: <Y3wHyJ/EcsLRHGr3@tora>
+Subject: Re: [PATCH] ASoC: Intel: avs: Add missing audio amplifier for KBL
+Message-Id: <166920183573.41208.573078873604313006.b4-ty@kernel.org>
+Date: Wed, 23 Nov 2022 11:10:35 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221121162453.1834170-1-rf@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: iGXtesuZiytKFN4IDNvRloRAlC8H0Xi2
-X-Proofpoint-GUID: iGXtesuZiytKFN4IDNvRloRAlC8H0Xi2
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: cezary.rojewski@intel.com, upstream@semihalf.com, rad@semihalf.com,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,37 +87,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 21, 2022 at 04:24:52PM +0000, Richard Fitzgerald wrote:
-> Don't hold sdw_dev_lock while calling the peripheral driver
-> probe() and remove() callbacks.
+On Tue, 22 Nov 2022 00:20:40 +0100, Alicja Michalska wrote:
+> KBL platform is missing the definition of 'max98357a' audio amplifier.
+> This amplifier is used on many KBL Chromebooks, for instance variant
+> 'nami' of 'Google/poppy' baseboard.
 > 
-> Holding sdw_dev_lock around the probe() and remove() calls
-> causes a theoretical mutex inversion which lockdep will
-> assert on. The peripheral driver probe will probably register
-> a soundcard, which will take ALSA and ASoC locks. During
-> normal operation a runtime resume suspend can be triggered
-> while these locks are held and will then take sdw_dev_lock.
+> Reported-by: CoolStar <coolstarorganization@gmail.com>
+> Signed-off-by: Alicja Michalska <ahplka19@gmail.com>
 > 
-> It's not necessary to hold sdw_dev_lock when calling the
-> probe() and remove(), it is only used to prevent the bus core
-> calling the driver callbacks if there isn't a driver or the
-> driver is removing.
-> 
-> If sdw_dev_lock is held while setting and clearing the
-> 'probed' flag this is sufficient to guarantee the safety of
-> callback functions.
-> 
-> The potential race of a bus event happening while probe() is
-> executing is the same as the existing race of the bus event
-> handler taking the mutex first and processing the event
-> before probe() can run. In both cases the event has already
-> happened before the driver is probed and ready to accept
-> callbacks.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> ---
+> [...]
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: Intel: avs: Add missing audio amplifier for KBL
+      commit: 0848e94c3954051e1a52bb088240ed63758b309b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE5F6350BB
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 07:58:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212266350C1
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 07:59:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A2111662;
-	Wed, 23 Nov 2022 07:58:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A2111662
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1BC31679;
+	Wed, 23 Nov 2022 07:58:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1BC31679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669186739;
-	bh=oVt0zVaMpinVmWLtadCJaE5H4+47j5cfapu7aALpa9U=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GhBSib5y2XdUIzx2/cSMfrMQMjUbQTa4L4QXjSe6UxjKl74GP6RXgMpUqDYjCT0zU
-	 X67Bv16M3z89fMYqeld62j+w3LRvuF6cxj7J1rd0SLt2Fn1nKkmn4SsNqKMnYNRDyK
-	 DI3gB+J6jbTu7HHw/vVC1PbpC4VkYeua0qR71vVg=
+	s=default; t=1669186761;
+	bh=r/ZWaOzkICaOWA29IUcPYBvrYh6zYjqjR1AyqjfZyVo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qSRZEF+t543zkyz+/nxdvqbxo9tN1lP6xKKzaOCDHqDSCd600pprPIXOtMLWZE/Ad
+	 F2W0S9+drRTeJdsxw5XDN6IAbtc+4BvVFCG5MVH0Jrsn2slLBSW8ylj3tYTZspJJg5
+	 LnuVPFsezfDIZsN79ffiCrwxErN0itaRuifYR+Rk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC4B2F8030F;
-	Wed, 23 Nov 2022 07:58:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71D17F80149;
+	Wed, 23 Nov 2022 07:58:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAC3BF8049C; Wed, 23 Nov 2022 07:58:01 +0100 (CET)
+ id E5F0EF80249; Wed, 23 Nov 2022 07:58:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from forward107p.mail.yandex.net (forward107p.mail.yandex.net
+ [77.88.28.115])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C96AF800BB
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 07:57:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C96AF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25710F8025D
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 07:58:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25710F8025D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hQ36XFy5"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="EkvfiYHX"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 20D3D220D5;
- Wed, 23 Nov 2022 06:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669186679; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=M5TLWBIzeeRozCRS5KSeBivJwg8owil5kHnaFTAnff8=;
- b=hQ36XFy5IE9xHo4kTzePAIe+EXR8nZnOrTiz67qaXVdcf14LdTJWvoLXT8bObQrwOu11gJ
- HyOvZQVEbDDwV3KCU74VD7W7hHrnzyJw50KtEAbF7E4kjGgdV7pvkHexzemBGGa+HLsr5B
- Pm+UgygUr8iEGgt8/NKNPw9khA1qjJw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669186679;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=M5TLWBIzeeRozCRS5KSeBivJwg8owil5kHnaFTAnff8=;
- b=EkvfiYHXC3gsq345qPjrl/iVmibUMkL5Qqm0AmKjTlKXmK0isGYkOLKCxjI9gqu3IPJ0dH
- MB+17yy0pQ8ciWDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EE8E413A37;
- Wed, 23 Nov 2022 06:57:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CuZvOXbEfWOERgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 23 Nov 2022 06:57:58 +0000
-Date: Wed, 23 Nov 2022 07:57:59 +0100
-Message-ID: <87k03m5f9k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Baisong Zhong <zhongbaisong@huawei.com>
-Subject: Re: [PATCH -next v2] ALSA: seq: fix undefined behavior in bit shift
- for SNDRV_SEQ_FILTER_USE_EVENT
-In-Reply-To: <20221121111630.3119259-1-zhongbaisong@huawei.com>
-References: <20221121111630.3119259-1-zhongbaisong@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b="r1jDHg13"
+Received: from iva7-38cb93e4c9b7.qloud-c.yandex.net
+ (iva7-38cb93e4c9b7.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0c:2f93:0:640:38cb:93e4])
+ by forward107p.mail.yandex.net (Yandex) with ESMTP id F2F035571B4A;
+ Wed, 23 Nov 2022 09:58:20 +0300 (MSK)
+Received: by iva7-38cb93e4c9b7.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id KwgoYe0Wc0U1-TuFqgunw; Wed, 23 Nov 2022 09:58:20 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ya.ru; s=mail;
+ t=1669186700; bh=jh3z3hjczYMaRA8RaOr60ciXZMX2vwU6+ry0WMXajcA=;
+ h=Message-Id:Date:Cc:Subject:To:From;
+ b=r1jDHg13ixu6+0PZtAdLLqD2JsvRg7n2bfFeV1OZgb//j+X9Z33jGbd7NJcP4tICM
+ ZbczO9+UQ+gtXNdV80kFIcjhHfw5GDHBFkVSImcFF4BgWlknsbgNF4klUGJj7ZlB5L
+ 76Bj/8e19PHj/I3I/3ViYhaapkmFa+g9ej/weHK8=
+Authentication-Results: iva7-38cb93e4c9b7.qloud-c.yandex.net;
+ dkim=pass header.i=@ya.ru
+From: Artem Lukyanov <dukzcry@ya.ru>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: amd: yc: Add Xiaomi Redmi Book Pro 14 2022 into DMI
+ table
+Date: Wed, 23 Nov 2022 09:58:20 +0300
+Message-Id: <20221123065820.55159-1-dukzcry@ya.ru>
+X-Mailer: git-send-email 2.36.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,40 +80,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Nov 2022 12:16:30 +0100,
-Baisong Zhong wrote:
-> 
-> Shifting signed 32-bit value by 31 bits is undefined, so changing
-> significant bit to unsigned. The UBSAN warning calltrace like below:
-> 
-> UBSAN: shift-out-of-bounds in sound/core/seq/seq_clientmgr.c:509:22
-> left shift of 1 by 31 places cannot be represented in type 'int'
-> ...
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x8d/0xcf
->  ubsan_epilogue+0xa/0x44
->  __ubsan_handle_shift_out_of_bounds+0x1e7/0x208
->  snd_seq_deliver_single_event.constprop.21+0x191/0x2f0
->  snd_seq_deliver_event+0x1a2/0x350
->  snd_seq_kernel_client_dispatch+0x8b/0xb0
->  snd_seq_client_notify_subscription+0x72/0xa0
->  snd_seq_ioctl_subscribe_port+0x128/0x160
->  snd_seq_kernel_client_ctl+0xce/0xf0
->  snd_seq_oss_create_client+0x109/0x15b
->  alsa_seq_oss_init+0x11c/0x1aa
->  do_one_initcall+0x80/0x440
->  kernel_init_freeable+0x370/0x3c3
->  kernel_init+0x1b/0x190
->  ret_from_fork+0x1f/0x30
->  </TASK>
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Baisong Zhong <zhongbaisong@huawei.com>
-> ---
-> v2: update all SNDRV_SEQ_FILTER_* to 1U to keep consistent
+This model requires an additional detection quirk to enable the
+internal microphone - BIOS doesn't seem to support AcpDmicConnected
+(nothing in acpidump output).
 
-Thanks, applied now.
+Signed-off-by: Artem Lukyanov <dukzcry@ya.ru>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index d9715bea9..1f0b5527c 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -213,6 +213,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Alienware m17 R5 AMD"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "TIMI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
++		}
++	},
+ 	{}
+ };
+ 
+-- 
+2.36.2
 
-Takashi

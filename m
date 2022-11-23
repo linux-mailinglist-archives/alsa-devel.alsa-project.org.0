@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 728436356D2
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 10:34:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B1546356D5
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 10:37:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A15D1679;
-	Wed, 23 Nov 2022 10:34:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A15D1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id C88BE167D;
+	Wed, 23 Nov 2022 10:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C88BE167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669196092;
-	bh=hGYhrHx5wdEy0AuLqg53tdUJkdZmaI049AmKdJ+M0nA=;
+	s=default; t=1669196220;
+	bh=nzc00OMtZa6Jve1odhFgI0K35IZPAmoM1rXBfC6J74w=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NabgLG+yW7zVrkrWcvTMfqKtx0BaVSDz4hNEAOaO0eDoqGg/h//Ik1St9bqgIuZyP
-	 mDx2YCfD73vFv2SYcb8s08uAjI0CdHZrfIn0i4f7k4Q0Vy5KAL8eEdzkOQ+JLqL0QH
-	 9qHcHjjzbxopqqko+BoeeXpSwenCmFiwAyJwf2wk=
+	b=A2sFiYmu9FgyzEFFY6189CwdRhpJfQvW3QBGzeob9SHyjiOV+QABM7EVIi4iaKxuF
+	 CIeaKVfA5zIfZNYt5YdgBF5UcxLZOC3iv3b787r7MNaElAOqM0jF3Ux6I3llxU2brH
+	 3gBdSFIom3BQjbsNShlYj6Ra1jrZnrfyN5C9UEf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94978F804D2;
-	Wed, 23 Nov 2022 10:33:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 852FAF800BB;
+	Wed, 23 Nov 2022 10:36:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E78F8F8049C; Wed, 23 Nov 2022 10:33:52 +0100 (CET)
+ id 8337DF8025D; Wed, 23 Nov 2022 10:36:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,60 +35,57 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53141F8030F
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 10:33:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53141F8030F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FC5FF800BB
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 10:35:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FC5FF800BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="B5MFmusV"
+ header.b="lMrWZLPD"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AN6wMto030293; Wed, 23 Nov 2022 03:33:47 -0600
+ 2AN7bePZ029400; Wed, 23 Nov 2022 03:35:55 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=date : from : to : cc
  : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=m6sZqZu8DE0JOM+DEU5I47tkDmeAPj54tBuAsnifHLI=;
- b=B5MFmusVOSPUOipkGpbkzKYiDHNiX+J9kJGRbLEnHcuOSm005ElGIhlhKNVbDB4Sc0/V
- Nh1mBDjhB8VxK/Ga6hPPhZnOaDQ+CatBkCfCNKsDHH1fslge1fvrIax4d4c5sTvQ5cb/
- /L1Azm4IQUkLLAKFoxlgVopDxK0KAH0znpag/aO+fgPBCcpTsrUC5TezBl+9oudJTJ3d
- QSJS/JBxYCV7d90vzI03TcRty3C6GV88Hbh0mzIRPmukV+QBj3boUReVBVt3FXRViugz
- 3o4wy47hsakqgvojHNWGe/UzX92iSQ/9OIFwtdJTnm+5Fgh353of3Vt4Ki1HuLTmim7D vQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6vp7h-1
+ in-reply-to; s=PODMain02222019;
+ bh=wHed+5qsoNRfgm5HzbV5rq5eqU2Eoij756sk0MFjYTc=;
+ b=lMrWZLPDNBeOKrD9JKdE87iemvauRqrpbUbZsVfxThc2+2bdU2sVMDkmYSQ1Di9tYQ4i
+ EPFHKea5tGRK9e3yJdv/Q9Z3lgIaR/GTmwFAYjrAimhB5QRbKf5da+UpJzvWswEEFcj7
+ E+ynamyYDaRkR4ja5p4WofhRsY7q1JjTjaYh36nqNdmOdOF0K/Gv3KTHiOuBhXxp2qRG
+ U8l1XCwOD8GQx7AiSHSHW13J/jDjlzALLaByAycm7glZvugxSmeHXo1bdsq/jZoY02Dr
+ demBpFz0dZ8dJXCtGAfaGb5Kj99RjwdROrDiUFxU36WTL91SRqp9dELO0DkVsqsvEQGo jQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6vpa5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Nov 2022 03:33:47 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Wed, 23 Nov 2022 03:35:55 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Wed, 23 Nov
- 2022 03:33:45 -0600
+ 2022 03:35:47 -0600
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
  anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Wed, 23 Nov 2022 03:33:45 -0600
+ 15.2.1118.20 via Frontend Transport; Wed, 23 Nov 2022 03:35:47 -0600
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1A46F2BA;
- Wed, 23 Nov 2022 09:33:45 +0000 (UTC)
-Date: Wed, 23 Nov 2022 09:33:45 +0000
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6EE11477;
+ Wed, 23 Nov 2022 09:35:47 +0000 (UTC)
+Date: Wed, 23 Nov 2022 09:35:47 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2 2/2] soundwire: enable optional clock registers for
- SoundWire 1.2 devices
-Message-ID: <20221123093345.GB105268@ediswmail.ad.cirrus.com>
-References: <20221118025807.534863-1-yung-chuan.liao@linux.intel.com>
- <20221118025807.534863-3-yung-chuan.liao@linux.intel.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH] soundwire: bus_type: Avoid lockdep assert in
+ sdw_drv_probe()
+Message-ID: <20221123093547.GC105268@ediswmail.ad.cirrus.com>
+References: <20221121162453.1834170-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221118025807.534863-3-yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20221121162453.1834170-1-rf@opensource.cirrus.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: pfEt5VDAONvi441qWvEOxEi_eMzeJgPv
-X-Proofpoint-GUID: pfEt5VDAONvi441qWvEOxEi_eMzeJgPv
+X-Proofpoint-ORIG-GUID: iGXtesuZiytKFN4IDNvRloRAlC8H0Xi2
+X-Proofpoint-GUID: iGXtesuZiytKFN4IDNvRloRAlC8H0Xi2
 X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, broonie@kernel.org, ranjani.sridharan@linux.intel.com,
- peter.ujfalusi@linux.intel.com, bard.liao@intel.com
+ vkoul@kernel.org, sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,17 +101,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 18, 2022 at 10:58:07AM +0800, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Mon, Nov 21, 2022 at 04:24:52PM +0000, Richard Fitzgerald wrote:
+> Don't hold sdw_dev_lock while calling the peripheral driver
+> probe() and remove() callbacks.
 > 
-> The bus supports the mandatory clock registers for SDCA devices, these
-> registers can also be optionally supported by SoundWire 1.2 devices
-> that don't follow the SDCA class specification.
+> Holding sdw_dev_lock around the probe() and remove() calls
+> causes a theoretical mutex inversion which lockdep will
+> assert on. The peripheral driver probe will probably register
+> a soundcard, which will take ALSA and ASoC locks. During
+> normal operation a runtime resume suspend can be triggered
+> while these locks are held and will then take sdw_dev_lock.
 > 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Rander Wang <rander.wang@intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> It's not necessary to hold sdw_dev_lock when calling the
+> probe() and remove(), it is only used to prevent the bus core
+> calling the driver callbacks if there isn't a driver or the
+> driver is removing.
+> 
+> If sdw_dev_lock is held while setting and clearing the
+> 'probed' flag this is sufficient to guarantee the safety of
+> callback functions.
+> 
+> The potential race of a bus event happening while probe() is
+> executing is the same as the existing race of the bus event
+> handler taking the mutex first and processing the event
+> before probe() can run. In both cases the event has already
+> happened before the driver is probed and ready to accept
+> callbacks.
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 > ---
 
 Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>

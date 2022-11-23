@@ -2,95 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518F9639452
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:06:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9594F639453
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:06:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E32FF1838;
-	Sat, 26 Nov 2022 09:05:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E32FF1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3569217E9;
+	Sat, 26 Nov 2022 09:05:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3569217E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669449974;
-	bh=LVCS/9pspNUOtJim3pqK4CvI0blKDQrkaBc4pcfzuoI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JykGu/xlckjp/fKMaQTMxyGO4MaMZXjCDK2CuuhEIpW+i5FakQexkOW7i0BurVo7z
-	 F0Gky4c62tpDD6i1QbIzbqW21Om5wJZarm3Z6fm/SeLJW5xjUj1ITI2DgTRGMINpM8
-	 bYL4wLxJtnf5ZHYv0fkMoOLA9FsWEQTvbHixNs+0=
+	s=default; t=1669449988;
+	bh=N0ulBJ5SUX/IojvkIeCTNczA4CYrQrDhO8Ju2ESwOKU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mnqt6xby5Ceu+GHPhH/7BPMsOQwtiBx+JVfxwM8rYqYQxBG5Mvo2pYgbcH7I7nrLM
+	 BR2ilCL62GW8lQHQOVXn+5JYHPJAHCu/lfashbmhuEG4EposD4tWJnfuAwMr+o1yrU
+	 JaWw1VlQXaZjn9BkVdFObeAMuYZ2hO10iXx8njpE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B17AFF805F3;
-	Sat, 26 Nov 2022 08:59:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6359CF805F7;
+	Sat, 26 Nov 2022 08:59:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 433A5F8025D; Wed, 23 Nov 2022 13:11:55 +0100 (CET)
+ id A45ACF8025D; Wed, 23 Nov 2022 13:19:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_ZEN_BLOCKED_OPENDNS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 460DBF80149
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:11:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 460DBF80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rj3QTsNV"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::626])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2882CB81F1B;
- Wed, 23 Nov 2022 12:11:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC45C433B5;
- Wed, 23 Nov 2022 12:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669205501;
- bh=LVCS/9pspNUOtJim3pqK4CvI0blKDQrkaBc4pcfzuoI=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=rj3QTsNVa7ZgOuhLfBy9tx18KCIlTIJMB4cSkte+RplU+eSl/lFO/EDez7bdjVFd9
- 9fX+DaKr8ANAhizoOsbjkLgSttlC83xklILjmy49JcJ/UwvKoN7SQ7eR139VwePc6M
- Gfek6syflcEVKoSML/mJta2HjhsXv47WgeUfGOK/KJQ1oGPhZEsEp+xISfzHjYqXec
- stw+LHBzRC2ZFa54Xibl4uXodosL+xXoxv0Z1tmFct2dTM8wNNExw5hthuZ2IBYSZU
- Y6pqeJovtUL6HrNGLMCQs4x2+LJFh8jEtzGnS7s5OAFYw+0Z3KNg7FLhXUarYVeKWK
- Qwq1WYu1OFoqA==
-From: Mark Brown <broonie@kernel.org>
-To: Grant Likely <grant.likely@linaro.org>, Lee Jones <lee.jones@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>,
- Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166920549294.105268.4063772555451021149.b4-ty@kernel.org>
-Date: Wed, 23 Nov 2022 12:11:32 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81834F800BB
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 13:19:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81834F800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="zTiFekqg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SbmWGB55uLtrHLWPGVMEGJJRe02Mn5+bKaGNQx5nX3T4mAFtdIyJag1X5vQjEkdSDjOnIMrmDq4LB03AR13DcqSF3cV0TFHUl1oOLHVbu0utUrNJAzV2wTwLwG0C0Yc96s30C8U8wPlGOzqc9FvHv5ruRhWfsQWFpvphT99PM5OpcVU2U57jyn4HTvarU91AWoLeMXpSjf9MXgMB2UBWcPb/oEbCh1/8smo+OPuymn2Ore4j4XyS2dijrGNSmyL6s7VGmVEUZp4tbxoxL+nRCw7Vxy5KV9qlhpX4z1riUSJyDllXvLsGV3drLh5Fc9kh+Yc2XTlTs2x4chhzOQjXBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d3kaNhR19UL8Wu7QTcumuCSDt0gZt+M0az6UTSFnrdQ=;
+ b=Ep0vrNAKAXvYuH+x5a6oLtCx8Y3kI4+PZAfFcPMF6LmvyLeLD9Pojz2puXNuhMFdT/fXs0dumBhuPijNLMCEHNYfHU9dtGY9KSatjUQLiFiOw1Xn5zpcVaWQc45wgHCj+S6eXgVqP6dUVtq6YLMdXiAiRNXeU8g7mLh1ScEaQ5Kh4cPif6JL5Sp/k2naqx1KZup/TavSffE6UhXV11mrAizpMb+yoLVLV/wkw0EjsHnvxYROdrBhzeX0qJyHMsmscxt3BuR0ZnUhlCRBCfnLJ4B5NmoXqPljtI7tiwWfZT+n85p6tQKSwcB35O4WAuJbKo3pAx1zdGfTuvYFWM102w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=kernel.org
+ smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
+ pct=100) action=oreject header.from=amd.corp-partner.google.com; dkim=none
+ (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d3kaNhR19UL8Wu7QTcumuCSDt0gZt+M0az6UTSFnrdQ=;
+ b=zTiFekqg02MQx1eJL2a5wq9TD2/JmrgpxRzjqZLLpCPLAREEfAwodJy1k0s8btQC9NyrtTJ2Th24PqPu6aVGRSyfGBCe5ibZ2LNLR8afUQesFAI69ceVbGrP/nC1Y9QxZGtKiLuDc4xtrnjxKl+38Ns4/FrqAfc81BQtCpM2t8U24tz7WJwE5Ab6u/gOJzh4jMaA7Pkj84J2Cd9qf4TvB3t57LYWvBAhBoyCgtm8DkpKsZSTsfmod7IzsB3yXtQFA6QgKHb04EW6iFgSJw8Xk4SGXgZgQb1humZe0y3LcxEYIKACiyBomXwnTvHRFT021fSLzehu5VQbILc6z2Zs8w==
+Received: from MW4PR03CA0077.namprd03.prod.outlook.com (2603:10b6:303:b6::22)
+ by SA1PR12MB7411.namprd12.prod.outlook.com (2603:10b6:806:2b1::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
+ 2022 12:18:59 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b6:cafe::4f) by MW4PR03CA0077.outlook.office365.com
+ (2603:10b6:303:b6::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
+ Transport; Wed, 23 Nov 2022 12:18:59 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=amd.corp-partner.google.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
+ sender)
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.17 via Frontend Transport; Wed, 23 Nov 2022 12:18:59 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 23 Nov
+ 2022 06:18:58 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 23 Nov
+ 2022 04:18:58 -0800
+Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 23 Nov 2022 06:18:55 -0600
+From: V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH v1 0/4] ADD support for reading position updates from
+Date: Wed, 23 Nov 2022 17:49:07 +0530
+Message-ID: <20221123121911.3446224-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT055:EE_|SA1PR12MB7411:EE_
+X-MS-Office365-Filtering-Correlation-Id: f09b3777-4b34-4d5a-9919-08dacd4ce67c
+X-MS-Exchange-SenderADCheck: 2
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fvAQ8KsGHW53Eu1gstqew9Vke12kaHURX+z/+WbdqUlbsJeojTvPKQSBvpLqk40ySORkHgTshiAOIVpUCVWZZ5qF6KrJNHPK+D25lkg35MofDno7QgOM3ivXhhnqenZQM++lHZGEhWtnIM3GrOobqPKwtukBB/fiuVVFgYYIfCku46Eu36GNHfA/mLMVmtAOfaTJTo+uVsxquy9m2mWcuCEaj7sUfm0XkAGg80GQA5XqEnCq0FsPxc0Vhw90V5lPr1cst34zPoXh1i96q9XRrzu+sdVd7I5dF/PnM8BjXKQ+HaOnzb20xxSpKH7dfdKwU4HT4220M6jLC/NdQrNR0621480+jlLWHsFZDf96tcHxqf1mNfo6ngRd1T/WqayJYiHgOF2qz6u9XPx+DO0rxtf/dwkDI8LpNUANzaNrbd8PQ1mErGneeMUpjxfdqhR1DtDkkOKWBYF+uxeE81fUB2zV0BwfjyVHs5NsE0Rc52e/IIA+62StoEQ5LQhx6tPdEt5yIf70iYQgJDRK8OO7icen1SVqEkeS8FTgN3FCA414TKYtB2UKX5c1e+BEIt+/cWLmyO3iNwmlzfT6zQjk9pMEgJzz3yLeBFDxpWEUn7Gd2rVwe7C/sBk76MoIlp2SyvHasYVoWNKGhLq+Nd1nZJ7arKDKKlbJT8LPS9JVhMynP7rWGpw6TPZw9A9tmQ+ezTSz1oHikglARbiBLVnptw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199015)(46966006)(40470700004)(2906002)(83380400001)(15650500001)(47076005)(4326008)(8936002)(5660300002)(1076003)(336012)(35950700001)(41300700001)(2616005)(86362001)(40480700001)(356005)(82310400005)(82740400003)(40460700003)(81166007)(8676002)(110136005)(76482006)(316002)(26005)(54906003)(6666004)(498600001)(70586007)(70206006);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amdcloud.onmicrosoft.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 12:18:59.2918 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f09b3777-4b34-4d5a-9919-08dacd4ce67c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7411
 X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
+ venkataprasad.potturu@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Vijendar.Mukunda@amd.com,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,85 +141,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022 23:35:34 +0100, Uwe Kleine-König wrote:
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
-> 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
-> 
-> [...]
+This series consists of 
+1.Reading postion update from stream box
+2.selecting clock source as external ACLK clock
+3.ADD virtual HS and SP DAI
+4.Add AMD virtual DAI configuration support in sof core.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+V sujith kumar Reddy (4):
+  ASoC: SOF: amd: Fix for reading position updates from stream box.
+  ASoC: SOF: amd: Fix for selecting clock source as external clock.
+  ASoC: SOF: amd: ADD HS and SP virtual DAI.
+  ASoC: SOF: Add DAI configuration support for AMD platforms.
 
-Thanks!
+ include/sound/sof/dai-amd.h     |  1 +
+ include/sound/sof/dai.h         |  2 ++
+ include/uapi/sound/sof/tokens.h |  5 +++++
+ sound/soc/sof/amd/acp-common.c  |  1 +
+ sound/soc/sof/amd/acp-ipc.c     | 30 ++++++++++++++++++++++++++-
+ sound/soc/sof/amd/acp.c         |  4 +++-
+ sound/soc/sof/amd/acp.h         | 12 +++++++++++
+ sound/soc/sof/amd/rembrandt.c   | 16 +++++++++++++++
+ sound/soc/sof/amd/renoir.c      | 16 +++++++++++++++
+ sound/soc/sof/ipc3-pcm.c        |  2 ++
+ sound/soc/sof/ipc3-topology.c   | 36 +++++++++++++++++++++++++--------
+ sound/soc/sof/sof-audio.h       |  1 +
+ sound/soc/sof/topology.c        | 10 +++++++++
+ 13 files changed, 126 insertions(+), 10 deletions(-)
 
-[538/606] regulator: act8865-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[539/606] regulator: ad5398: Convert to i2c's .probe_new()
-          (no commit info)
-[540/606] regulator: da9121-regulator: Convert to i2c's .probe_new()
-          commit: 020cf73b47414a84b666d3e6736a6ae957e27840
-[541/606] regulator: fan53555: Convert to i2c's .probe_new()
-          (no commit info)
-[542/606] regulator: isl6271a-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[543/606] regulator: lp3972: Convert to i2c's .probe_new()
-          commit: 2532d5f8d5c20d5a0a8a0d57a311bc5df00dea04
-[544/606] regulator: lp872x: Convert to i2c's .probe_new()
-          (no commit info)
-[545/606] regulator: lp8755: Convert to i2c's .probe_new()
-          commit: cb28f74b4809a00b40fdf0c44ccf51ab950581d3
-[546/606] regulator: ltc3589: Convert to i2c's .probe_new()
-          (no commit info)
-[547/606] regulator: max1586: Convert to i2c's .probe_new()
-          commit: 3d54f7ba248b0ad1791bc356e9ad3d9020a1c472
-[548/606] regulator: max8649: Convert to i2c's .probe_new()
-          commit: 3cf4417385d0ac8f02f22888e12a6d21d97d89fc
-[549/606] regulator: max8660: Convert to i2c's .probe_new()
-          (no commit info)
-[550/606] regulator: max8952: Convert to i2c's .probe_new()
-          commit: c20c36735949b3b7984692fbab3d92b0e8a845ec
-[551/606] regulator: max8973-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[552/606] regulator: pca9450-regulator: Convert to i2c's .probe_new()
-          commit: ed56fa6e804cb13bbe29e9214792308817f6e553
-[553/606] regulator: pfuze100-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[554/606] regulator: pv88080-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[555/606] regulator: rpi-panel-attiny-regulator: Convert to i2c's .probe_new()
-          commit: d85d02d17a608b558d44510e9824668c5d4fe5d8
-[556/606] regulator: tps51632-regulator: Convert to i2c's .probe_new()
-          commit: d4885f306304ff29eec06b9ad5f526a1099e0418
-[557/606] regulator: tps62360-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[558/606] regulator: tps6286x-regulator: Convert to i2c's .probe_new()
-          commit: e34782316281c78c5911f86d4699d4f35a607c9d
-[559/606] regulator: tps65023-regulator: Convert to i2c's .probe_new()
-          (no commit info)
+-- 
+2.25.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

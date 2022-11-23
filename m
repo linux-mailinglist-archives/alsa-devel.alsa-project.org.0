@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF755635F13
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 14:13:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C76716360EA
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 15:02:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE7F1680;
-	Wed, 23 Nov 2022 14:12:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE7F1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D5A51664;
+	Wed, 23 Nov 2022 15:01:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D5A51664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669209181;
-	bh=LaoTGqkB+GKUadn1ZJ7EQs/qD6N97BQiJaYuwdx3noQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1669212125;
+	bh=yhzurhIFjkG8YiOqot0aJrg2GxSUywFjMnU60abrfdw=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oO9CIrNpJmswpHQ4k39xrDLfEtkWU+/bJ4yFSi05n016ISsarqyqQDrL8YjWcZj6/
-	 IBPZqDKWmDiGx5yJCIXdJAYZkbRpx3vmgMWmVtij1BP6OGC5hQckVck7auZcCo1Kb2
-	 DNMJdRkOyqhHNmgqFWwz6Lb2+dBrPs5rCNU8DZYQ=
+	b=A5kiiKAu7tGauZ0WxEhx/lHoAx2YxNeZlA3AGsfaq1NdAyFDkgJYMe2dVj0xgWczy
+	 IdYTubvwIha4QAO/hy72JyMEyv0G219pDnPxnGvZrTst8Pqxldguao0I93I4THaDng
+	 ldKl1JeXY+Yzvs8Sg2jzb7FxVGF73YoOeExKWwLg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA12DF80542;
-	Wed, 23 Nov 2022 14:11:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF6BAF8030F;
+	Wed, 23 Nov 2022 15:01:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 332E1F8025D; Wed, 23 Nov 2022 14:11:40 +0100 (CET)
+ id 2E986F80115; Wed, 23 Nov 2022 15:01:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from forward503p.mail.yandex.net (forward503p.mail.yandex.net
+ [77.88.28.113])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97F27F80115
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 14:11:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F27F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1585F80115
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 15:01:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1585F80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U78glnAK"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 88EFE61CA4;
- Wed, 23 Nov 2022 13:11:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AD5C433D6;
- Wed, 23 Nov 2022 13:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669209094;
- bh=LaoTGqkB+GKUadn1ZJ7EQs/qD6N97BQiJaYuwdx3noQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=U78glnAKUSnq02eamUEqD0Ota38Vyrd/63Co3Zo3JosB3/mukrBFdKXisOJyQWIur
- cyD9xQzcPTN6ug7XTNBqmgpQBdfDOAOJ+HCDHpHp4ia0WEDK+xqeAM9SqxGLr+GrsN
- bqt1Q63sP1+h0kW0YE/3w0ee1RZvl07DqQdxFLvwtNjZ9LPVIwfcY/b8L+dpooLUQ5
- jSdytx7pEcV0pyCHqFv1UxwFW/Us7rPqioNepDShU0C1WgWfYCGlMKy+EWsQheeMYe
- gzbh2w3FbI8DKpD2RGtAWCEF14758h616Gzt7LsPPOY87/TH9Ho+z1jOS4LM4BNI47
- 13VRPOVjjqCHA==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20221116115550.1100398-1-cezary.rojewski@intel.com>
-References: <20221116115550.1100398-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v3 0/2] ASoC: Intel: avs: DSP recovery and resume fixes
-Message-Id: <166920909245.125457.6662894344380421615.b4-ty@kernel.org>
-Date: Wed, 23 Nov 2022 13:11:32 +0000
+ dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b="C3FdkEds"
+Received: from sas8-e2d6e97d76c7.qloud-c.yandex.net
+ (sas8-e2d6e97d76c7.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c1b:2904:0:640:e2d6:e97d])
+ by forward503p.mail.yandex.net (Yandex) with ESMTP id A741F11018C3;
+ Wed, 23 Nov 2022 17:01:03 +0300 (MSK)
+Received: by sas8-e2d6e97d76c7.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id 21oel74dH0U1-jF7Dlbct; Wed, 23 Nov 2022 17:01:02 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ya.ru; s=mail;
+ t=1669212062; bh=yhzurhIFjkG8YiOqot0aJrg2GxSUywFjMnU60abrfdw=;
+ h=References:Date:In-Reply-To:Cc:To:From:Subject:Message-ID;
+ b=C3FdkEdsbtLJW13vDiHU6Nn6JU2QxYWjbZ8exXo92itOFNX1RDjtfgW8QmpBy07LK
+ 58LQA7c2api+ZnqAx5RaMhQTBStZdwZlKQp+Rvd8f/nNBvZPnesH5LYFX6OXtrhJ8M
+ E7yT7GaPjVoNR0KR8nsVLlttrrc+atanFyAZaJ9U=
+Authentication-Results: sas8-e2d6e97d76c7.qloud-c.yandex.net;
+ dkim=pass header.i=@ya.ru
+Message-ID: <a1ce30ac35705ec6e674b4a146ee5dc3b3087388.camel@ya.ru>
+Subject: Re: [PATCH] ASoC: amd: yc: Add Xiaomi Redmi Book Pro 14 2022 into
+ DMI table
+From: dukzcry@ya.ru
+To: Mark Brown <broonie@kernel.org>
+Date: Wed, 23 Nov 2022 17:01:02 +0300
+In-Reply-To: <Y34UBNoHZ+W2IJHn@sirena.org.uk>
+References: <20221123065820.55159-1-dukzcry@ya.ru>
+ <Y34UBNoHZ+W2IJHn@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,42 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Nov 2022 12:55:48 +0100, Cezary Rojewski wrote:
-> Two fixes that are result of the recent discussions [1][2].
-> 
-> First adds missing locking around snd_pcm_stop() while the second fix
-> sets substream state to DISCONNECTED if any suspend/resume related
-> operation fails so that userspace has means to be aware that something
-> went wrong during said operation.
-> 
-> [...]
+=D0=92 =D0=A1=D1=80, 23/11/2022 =D0=B2 12:37 +0000, Mark Brown =D0=BF=D0=B8=
+=D1=88=D0=B5=D1=82:
+> On Wed, Nov 23, 2022 at 09:58:20AM +0300, Artem Lukyanov wrote:
+> > This model requires an additional detection quirk to enable the
+> > internal microphone - BIOS doesn't seem to support AcpDmicConnected
+> > (nothing in acpidump output).
+>=20
+> This doesn't apply against current code, please check and resend.
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: Intel: avs: Lock substream before snd_pcm_stop()
-      commit: c30c8f9d51ec24b36e2c65a6307a5c8cbc5a0ebc
-[2/2] ASoC: Intel: avs: Disconnect substream if suspend or resume fails
-      commit: f3fbb553f98563f692e356aca87d656baba910a0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Strange, applies locally against
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-
+next

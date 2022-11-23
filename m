@@ -2,79 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA068636376
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 16:27:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A61B636420
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Nov 2022 16:40:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A2AF167F;
-	Wed, 23 Nov 2022 16:26:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A2AF167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C402D1683;
+	Wed, 23 Nov 2022 16:39:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C402D1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669217223;
-	bh=zL0CCT56Xgsxd4SQl/Dl26mTBGpIJpFPMV7Sf5vSiW8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=g9cCw0P7b7YMbvEcPLRM9GRtD7rVKAbHNHoC8YPuKnbLU3koIzsz1veWZ9Egbg/5H
-	 y1pdj491JXiRG4rZ0lLlykQ/bx+pxyhIUmfkyvqRCMb03k7VkCLSEH7z+XCAkldZXP
-	 Bk1pv93YaKqwLYDd4FuJwgBZeQokbJ17uuaP5rlg=
+	s=default; t=1669218004;
+	bh=bfI8ZPep+XyaB2YgdIgbr9A8t005+5vXk/cPOTL24JM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KNReBWIv5NZHyB3EZV6XczrwZpjCHFGZM75jSPVdcfpjuC4mtt9uGG50nn1d0qfer
+	 AHQ0FqB2PeE54IzVbKIya+hAN4JzyWHz+fZ40VDOonbDyNEdqJAHHKySwaQoqo5sjA
+	 xtq1KYmOTrxdSCEwVi7MROGimF5SbSLg2YaePzkM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9F01F80115;
-	Wed, 23 Nov 2022 16:26:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69286F80115;
+	Wed, 23 Nov 2022 16:39:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E020F8025D; Wed, 23 Nov 2022 16:26:05 +0100 (CET)
+ id 52CC5F80149; Wed, 23 Nov 2022 16:39:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D7D7F80149
- for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 16:25:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D7D7F80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IbHoBq+m"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E33DF61D97;
- Wed, 23 Nov 2022 15:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC14C433D7;
- Wed, 23 Nov 2022 15:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669217156;
- bh=zL0CCT56Xgsxd4SQl/Dl26mTBGpIJpFPMV7Sf5vSiW8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IbHoBq+mDlW1CD4ianlE4we3e4rnN+mAAJLuJRgJHdz5xBDqDyV8NeR+CbkZVpqc3
- ZbgLNTd2St/C0fASeCDww26vjNpwB0JYFlL1gBiaFC0wYlS4eh6+FaRmFwTrbRK9PB
- w0qWlEzU2+Wfi1Cl5sHG7ZBy6tugvtBwQ3pEw9f5yYHWafQTrStoaVgsOkW45uCQhQ
- ishK2l5NuvFEUnBx4pkiZoY8EwjasbuwSShlq+0jrB+NNFe9CJsn6AhwYDgIy8ryOU
- DeIOLs1khsFqfETj2rnUa/67bcSA18kPTgFMxtFG0nlcqhjROQPnPfvYJkhewhQRd1
- MB0Bm9ojkUSxA==
-Date: Wed, 23 Nov 2022 15:25:51 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH v2 1/2] ASoC/soundwire: remove is_sdca boolean property
-Message-ID: <Y347f24Tx5yZtjLw@sirena.org.uk>
-References: <20221118025807.534863-1-yung-chuan.liao@linux.intel.com>
- <20221118025807.534863-2-yung-chuan.liao@linux.intel.com>
- <Y3enHzY8XY70/nWR@sirena.org.uk> <Y34znr8o9+RceRif@matsya>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C5DAF80149
+ for <alsa-devel@alsa-project.org>; Wed, 23 Nov 2022 16:39:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C5DAF80149
+From: Pavel Dobias <dobias@2n.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: max9867: Implement exact integer mode
+Date: Wed, 23 Nov 2022 16:38:18 +0100
+Message-ID: <20221123153818.24650-1-dobias@2n.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mO0JegAO4sWomPS/"
-Content-Disposition: inline
-In-Reply-To: <Y34znr8o9+RceRif@matsya>
-X-Cookie: I'm rated PG-34!!
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.de,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- peter.ujfalusi@linux.intel.com, bard.liao@intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail03w.axis.com (10.20.40.9) To se-mail01w.axis.com
+ (10.20.40.7)
+Cc: dobias@2n.com, alsa-devel@alsa-project.org, kernel@axis.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,41 +64,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+For 8kHz and 16kHz sample rates and certain PCLK values
+the codec can be programmed to operate in exact integer
+mode. If available, use it to achieve the exact sample rate.
 
---mO0JegAO4sWomPS/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Pavel Dobias <dobias@2n.com>
+---
+ sound/soc/codecs/max9867.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-On Wed, Nov 23, 2022 at 08:22:14PM +0530, Vinod Koul wrote:
-> On 18-11-22, 15:39, Mark Brown wrote:
-> > On Fri, Nov 18, 2022 at 10:58:06AM +0800, Bard Liao wrote:
-> > > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index 6d2941a9dbd6..e161ab037bf7 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -323,7 +323,7 @@ static int max9867_startup(struct snd_pcm_substream *substream,
+ static int max9867_dai_hw_params(struct snd_pcm_substream *substream,
+ 		struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
+ {
+-	int value;
++	int value, freq = 0;
+ 	unsigned long int rate, ratio;
+ 	struct snd_soc_component *component = dai->component;
+ 	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
+@@ -373,6 +373,35 @@ static int max9867_dai_hw_params(struct snd_pcm_substream *substream,
+ 		}
+ 		regmap_update_bits(max9867->regmap, MAX9867_IFC1B,
+ 			MAX9867_IFC1B_BCLK_MASK, value);
++
++		/* Exact integer mode available for 8kHz and 16kHz sample rates
++		 * and certain PCLK (prescaled MCLK) values.
++		 */
++		if (params_rate(params) == 8000 ||
++		    params_rate(params) == 16000) {
++			switch (max9867->pclk) {
++			case 12000000:
++				freq = 0x08;
++				break;
++			case 13000000:
++				freq = 0x0A;
++				break;
++			case 16000000:
++				freq = 0x0C;
++				break;
++			case 19200000:
++				freq = 0x0E;
++				break;
++			}
++		}
++		if (freq && params_rate(params) == 16000)
++			freq++;
++
++		/* If exact integer mode not available, the freq value
++		 * remains zero, i.e. normal mode is used.
++		 */
++		regmap_update_bits(max9867->regmap, MAX9867_SYSCLK,
++				   MAX9867_FREQ_MASK, freq);
+ 	} else {
+ 		/*
+ 		 * digital pll locks on to any externally supplied LRCLK signal
+@@ -428,8 +457,6 @@ static int max9867_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ 			 freq);
+ 	max9867->sysclk = freq;
+ 	value = value << MAX9867_PSCLK_SHIFT;
+-	/* exact integer mode is not supported */
+-	value &= ~MAX9867_FREQ_MASK;
+ 	regmap_update_bits(max9867->regmap, MAX9867_SYSCLK,
+ 			MAX9867_PSCLK_MASK, value);
+ 	return 0;
+-- 
+2.20.1
 
-> > > The Device_ID registers already tell us if a device supports the SDCA
-> > > specification or not, in hindsight we never needed a property when the
-> > > information is reported by both hardware and ACPI.
-
-> > Acked-by: Mark Brown <broonie@kernel.org>
-
-> sound/soc/codecs/rt1318-sdw.c does not exist for me in sdw/next. Can I
-> get a tag for the changes merged into ASoC for this
-
-Not reasonably, that's basically the entire tree since Linus doesn't
-like branches.
-
---mO0JegAO4sWomPS/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmN+O34ACgkQJNaLcl1U
-h9BeTQf/arDxellNcCzUN/glW39lE/e9xse49cq5bOioF02H5Njfsyq3WgvqsGAw
-XDC7uiQlMXsyhAlAVTRf4A8ENym66Xa9a7tVl8e3zsrG1RIFIAsrAzsRCw2YfqO5
-xoTr4f1qAN6v/l+IMM6mvgFDFf5IlEp68lt04RcUvoBP67hGeiC/H3UcN9BeFhKf
-gilZ0E/AqGusU0gYyrzoFHoFOkex1kpLSe7O1XBQBd+sBaD9Jvg/1/bgudMvGVN6
-Bp5wWZSjEXdEEf+sab9JVfHBEiUHMtLcFh7e9GUhERuRg9z0EHSM8qUmXuSnFZCq
-prAlH54N3Voiz+eg0BkQ42+ZumH3wQ==
-=b6cd
------END PGP SIGNATURE-----
-
---mO0JegAO4sWomPS/--

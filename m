@@ -2,63 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A17B637B16
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 15:08:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1AB637B22
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 15:11:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 318A616EC;
-	Thu, 24 Nov 2022 15:07:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318A616EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4537B16F8;
+	Thu, 24 Nov 2022 15:11:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4537B16F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669298902;
-	bh=CeNH+9Qg2xDuH+dN/h4c0EPz/luFqRSZty09ok/I9qg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nNSAgnaEbyFDipRJUM2ZpW8yCRwygReDTejxrSdAOdNKFQHfjUSxiKI27Qzu2zXOg
-	 g89Wm+vhJh53R1O39J2RTrXxP7gAT9d0THq3CLtJkLDNE82O7zkpoCIvsqeDKc7e70
-	 b5hy4a9zQg0eD7bDSvd+1l/TJguT3/Sdj+L6tRjE=
+	s=default; t=1669299116;
+	bh=JHDkPOypecPT8gUO0VEkZ9FdA8xG2FSpSAm3OzsOs2Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=O8rolcI385cGIPBCuTJKMiYAV+VnX0TN4d0Tdd3xY89scapp+DfmLQnWfrtsmTIDC
+	 l6U4+/1spmUSeOWGhBHIw5EvsTtOssaOoOy6esp5FA+5yCnaQeJHLHQIilxhVZfzZj
+	 qQodJnDBTq0HCsTrR7ii2LOwOPYBZfGt6rfks3hQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3D5AF80448;
-	Thu, 24 Nov 2022 15:07:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5583F80115;
+	Thu, 24 Nov 2022 15:11:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 165CCF80431; Thu, 24 Nov 2022 15:07:25 +0100 (CET)
+ id 13490F8014E; Thu, 24 Nov 2022 15:10:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED, 
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8824EF8014E
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:07:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8824EF8014E
-Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.55])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4NJ0D02Gj0z15Mp6;
- Thu, 24 Nov 2022 22:06:40 +0800 (CST)
-Received: from huawei.com (10.175.112.208) by dggpeml500024.china.huawei.com
- (7.185.36.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 24 Nov
- 2022 22:07:12 +0800
-From: Yuan Can <yuancan@huawei.com>
-To: <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
- <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <rohitkr@codeaurora.org>, <ajitp@codeaurora.org>,
- <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: qcom: Add checks for devm_kcalloc
-Date: Thu, 24 Nov 2022 14:05:10 +0000
-Message-ID: <20221124140510.63468-1-yuancan@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3643BF8014E
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:10:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3643BF8014E
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 095276214B;
+ Thu, 24 Nov 2022 14:10:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6C0C433C1;
+ Thu, 24 Nov 2022 14:10:44 +0000 (UTC)
+Message-ID: <95cf026d-b37c-0b89-881a-325756645dae@xs4all.nl>
+Date: Thu, 24 Nov 2022 15:10:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.175.112.208]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpeml500024.china.huawei.com (7.185.36.10)
-X-CFilter-Loop: Reflected
-Cc: yuancan@huawei.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 1/7] media: videobuf-dma-contig: use dma_mmap_coherent
+Content-Language: en-US
+To: Christoph Hellwig <hch@lst.de>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexandra Winter <wintera@linux.ibm.com>, Wenjia Zhang
+ <wenjia@linux.ibm.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Russell King <linux@armlinux.org.uk>, Robin Murphy <robin.murphy@arm.com>
+References: <20221113163535.884299-1-hch@lst.de>
+ <20221113163535.884299-2-hch@lst.de>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+In-Reply-To: <20221113163535.884299-2-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,29 +84,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As the devm_kcalloc may return NULL, the return value needs to be checked
-to avoid NULL poineter dereference.
+Hi Christoph,
 
-Fixes: 24caf8d9eb10 ("ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio")
-Signed-off-by: Yuan Can <yuancan@huawei.com>
----
- sound/soc/qcom/lpass-sc7180.c | 3 +++
- 1 file changed, 3 insertions(+)
+On 13/11/2022 17:35, Christoph Hellwig wrote:
+> dma_alloc_coherent does not return a physical address, but a DMA address,
+> which might be remapped or have an offset.  Passing the DMA address to
+> vm_iomap_memory is thus broken.
+> 
+> Use the proper dma_mmap_coherent helper instead, and stop passing
+> __GFP_COMP to dma_alloc_coherent, as the memory management inside the
+> DMA allocator is hidden from the callers and does not require it.
+> 
+> With this the gfp_t argument to __videobuf_dc_alloc can be removed and
+> hard coded to GFP_KERNEL.
+> 
+> Fixes: a8f3c203e19b ("[media] videobuf-dma-contig: add cache support")
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/media/v4l2-core/videobuf-dma-contig.c | 22 +++++++------------
 
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index 77a556b27cf0..24a1c121cb2e 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -131,6 +131,9 @@ static int sc7180_lpass_init(struct platform_device *pdev)
- 
- 	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
- 				     sizeof(*drvdata->clks), GFP_KERNEL);
-+	if (!drvdata->clks)
-+		return -ENOMEM;
-+
- 	drvdata->num_clks = variant->num_clks;
- 
- 	for (i = 0; i < drvdata->num_clks; i++)
--- 
-2.17.1
+Very, very old code :-) Hopefully in the not-too-distant future we can kill off
+the old videobuf framework. But for now:
+
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+
+I assume you take this? If not, then let me know and I will pick it up for the media
+subsystem.
+
+Regards,
+
+	Hans
+
+>  1 file changed, 8 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/videobuf-dma-contig.c b/drivers/media/v4l2-core/videobuf-dma-contig.c
+> index 52312ce2ba056..f2c4393595574 100644
+> --- a/drivers/media/v4l2-core/videobuf-dma-contig.c
+> +++ b/drivers/media/v4l2-core/videobuf-dma-contig.c
+> @@ -36,12 +36,11 @@ struct videobuf_dma_contig_memory {
+>  
+>  static int __videobuf_dc_alloc(struct device *dev,
+>  			       struct videobuf_dma_contig_memory *mem,
+> -			       unsigned long size, gfp_t flags)
+> +			       unsigned long size)
+>  {
+>  	mem->size = size;
+> -	mem->vaddr = dma_alloc_coherent(dev, mem->size,
+> -					&mem->dma_handle, flags);
+> -
+> +	mem->vaddr = dma_alloc_coherent(dev, mem->size, &mem->dma_handle,
+> +					GFP_KERNEL);
+>  	if (!mem->vaddr) {
+>  		dev_err(dev, "memory alloc size %ld failed\n", mem->size);
+>  		return -ENOMEM;
+> @@ -258,8 +257,7 @@ static int __videobuf_iolock(struct videobuf_queue *q,
+>  			return videobuf_dma_contig_user_get(mem, vb);
+>  
+>  		/* allocate memory for the read() method */
+> -		if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(vb->size),
+> -					GFP_KERNEL))
+> +		if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(vb->size)))
+>  			return -ENOMEM;
+>  		break;
+>  	case V4L2_MEMORY_OVERLAY:
+> @@ -295,22 +293,18 @@ static int __videobuf_mmap_mapper(struct videobuf_queue *q,
+>  	BUG_ON(!mem);
+>  	MAGIC_CHECK(mem->magic, MAGIC_DC_MEM);
+>  
+> -	if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(buf->bsize),
+> -				GFP_KERNEL | __GFP_COMP))
+> +	if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(buf->bsize)))
+>  		goto error;
+>  
+> -	/* Try to remap memory */
+> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+> -
+>  	/* the "vm_pgoff" is just used in v4l2 to find the
+>  	 * corresponding buffer data structure which is allocated
+>  	 * earlier and it does not mean the offset from the physical
+>  	 * buffer start address as usual. So set it to 0 to pass
+> -	 * the sanity check in vm_iomap_memory().
+> +	 * the sanity check in dma_mmap_coherent().
+>  	 */
+>  	vma->vm_pgoff = 0;
+> -
+> -	retval = vm_iomap_memory(vma, mem->dma_handle, mem->size);
+> +	retval = dma_mmap_coherent(q->dev, vma, mem->vaddr, mem->dma_handle,
+> +				   mem->size);
+>  	if (retval) {
+>  		dev_err(q->dev, "mmap: remap failed with error %d. ",
+>  			retval);
 

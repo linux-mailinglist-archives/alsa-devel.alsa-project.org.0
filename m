@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02ACC637073
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 03:32:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17B9F63719C
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 05:52:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9250316DA;
-	Thu, 24 Nov 2022 03:31:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9250316DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6160F16D3;
+	Thu, 24 Nov 2022 05:51:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6160F16D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669257132;
-	bh=q1LLHNpZL/lF03lxvYlHMbWK5qBO4GI6l7aWhirc6YQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VL0yMu6q3qyUSL3Vcf16+OLOGFEedgYS5ZmxPBJyBIlvFHuq9MWhpwMYcqpCSyIcJ
-	 Wdy/j2hhtFS3Ed5AI//vpbTLekHAwa0Rx/bulxtkFoJcHiqu5HlR3Jx5x3tx9Q4wWW
-	 XzaabryXHwvBuw1Ptd9cxiQ4iHKopDrXJzaNewTw=
+	s=default; t=1669265564;
+	bh=yJ2mQRZPfqeST/3rdNB7vR82fMPOErOCCRL2chwCXTU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fE47Y4hLYReT9w0+Ha7jjyOK/f2//e/p/9ItiFZCg2x7RFTRRH4iMPjcX+up/NenR
+	 umrqo57uIa8dm2FkmEmaHtQdXqaTnXVeba+SKrc1+sX0Gu2CLCbTUW6qpNY6J1ZqGb
+	 /P7s473amxST7m7/Wl5YhU2AZg0KUIza74vPjkUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3923FF80149;
-	Thu, 24 Nov 2022 03:31:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0729BF80448;
+	Thu, 24 Nov 2022 05:51:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7589F8025D; Thu, 24 Nov 2022 03:31:14 +0100 (CET)
+ id 06CC2F80431; Thu, 24 Nov 2022 05:51:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4AD1F8014E
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 05:51:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4AD1F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CJu1qtyj"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10AEBF80149
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 03:31:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10AEBF80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="nGjAb4g8"
-X-UUID: 26a3c0fb0a9c48a48847613d1d10f148-20221124
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
- bh=V62CK7vIlndfUw1CoKmHyZxgPytNIVD7jU/ImKsOJCU=; 
- b=nGjAb4g8RsuAKlHtObnIYRVBs6gEdgMcd0vbS7Ve4ih9MN0WSIlS9FqEnnCIKENzaxKUevM7NBMXP8HVlachk0LRPza9e2QMjEz6sDVC1rI6rscANSlOrfzvJ9J5xgGt/P8Nw6EX/w8yZRmVh65zyWGP1VeRAGbcql0Bp7h3oT8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.12, REQID:9fe4b923-43a9-419f-993d-70cf3f4e17f3, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:62cd327, CLOUDID:8601aa2f-2938-482e-aafd-98d66723b8a9,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 26a3c0fb0a9c48a48847613d1d10f148-20221124
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1157067141; Thu, 24 Nov 2022 10:30:57 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 24 Nov 2022 10:30:55 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Thu, 24 Nov 2022 10:30:54 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <angelogioacchino.delregno@collabora.com>,
- <nfraprado@collabora.com>
-Subject: [PATCH v2] ASoC: mediatek: mt8186: Correct I2S shared clocks
-Date: Thu, 24 Nov 2022 10:30:50 +0800
-Message-ID: <20221124023050.4470-1-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8EC3A61F66;
+ Thu, 24 Nov 2022 04:51:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D82BC433D6;
+ Thu, 24 Nov 2022 04:51:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669265497;
+ bh=yJ2mQRZPfqeST/3rdNB7vR82fMPOErOCCRL2chwCXTU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CJu1qtyjkD5bcpDzTgnxUpmLDMTlQL2EjMsFjsX+UQ5huLkpETXcAVY0AiLXlibJt
+ 9pqxnqdKW02EQPWanY6JusAfBJN9i4kltd3sx/FmRTz7Jhp4U7ygdesBofK1RtB2NB
+ hiuT0wyaVLg/EB/qbK5EdDg7q4aoewxjura0ylO+Uc0sdu0EbGOHA8ealwlPY71Rpr
+ VKg6HY5HO6l+BB2clHpmDJPXTqQsOJP9/nf9DkGb4g5z+4A5X6TkqALXSq0U4H6v/G
+ O7I9MnV3qJkLwDtcsITNc9Wxro7w0klLXdGBR642BBwrLXCuYKWyrStRowBHS/rLIl
+ qD5+d8R4eDp8w==
+Date: Thu, 24 Nov 2022 10:21:32 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v3 2/4] soundwire: Provide build stubs for common functions
+Message-ID: <Y374VPAQcX6MkG22@matsya>
+References: <20221121141406.3840561-1-ckeepax@opensource.cirrus.com>
+ <20221121141406.3840561-3-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, chunxu.li@mediatek.com,
- linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, ajye_huang@compal.corp-partner.google.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221121141406.3840561-3-ckeepax@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +86,146 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In mt8186 platform, I2S2 should be the main I2S port that provide
-the clock, on the contrary I2S3 should be the second I2S port that
-use this clock.
+On 21-11-22, 14:14, Charles Keepax wrote:
+> Provide stub functions when CONFIG_SOUNDWIRE is not set for functions
+> that are quite likely to be used from common code on devices supporting
+> multiple control buses.
+> 
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+> 
+> No changes since v2.
+> 
+>  include/linux/soundwire/sdw.h | 92 +++++++++++++++++++++++++++++++----
+>  1 file changed, 82 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index 902ed46f76c80..4f80cba898f11 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -1021,15 +1021,8 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+>  		struct sdw_port_config *port_config,
+>  		unsigned int num_ports,
+>  		struct sdw_stream_runtime *stream);
+> -int sdw_stream_add_slave(struct sdw_slave *slave,
+> -		struct sdw_stream_config *stream_config,
+> -		struct sdw_port_config *port_config,
+> -		unsigned int num_ports,
+> -		struct sdw_stream_runtime *stream);
+>  int sdw_stream_remove_master(struct sdw_bus *bus,
+>  		struct sdw_stream_runtime *stream);
+> -int sdw_stream_remove_slave(struct sdw_slave *slave,
+> -		struct sdw_stream_runtime *stream);
+>  int sdw_startup_stream(void *sdw_substream);
+>  int sdw_prepare_stream(struct sdw_stream_runtime *stream);
+>  int sdw_enable_stream(struct sdw_stream_runtime *stream);
+> @@ -1040,8 +1033,20 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus);
+>  int sdw_bus_clk_stop(struct sdw_bus *bus);
+>  int sdw_bus_exit_clk_stop(struct sdw_bus *bus);
+>  
+> -/* messaging and data APIs */
+> +int sdw_compare_devid(struct sdw_slave *slave, struct sdw_slave_id id);
+> +void sdw_extract_slave_id(struct sdw_bus *bus, u64 addr, struct sdw_slave_id *id);
+> +
+> +#if IS_ENABLED(CONFIG_SOUNDWIRE)
+>  
+> +int sdw_stream_add_slave(struct sdw_slave *slave,
+> +			 struct sdw_stream_config *stream_config,
+> +			 struct sdw_port_config *port_config,
+> +			 unsigned int num_ports,
+> +			 struct sdw_stream_runtime *stream);
+> +int sdw_stream_remove_slave(struct sdw_slave *slave,
+> +			    struct sdw_stream_runtime *stream);
+> +
+> +/* messaging and data APIs */
+>  int sdw_read(struct sdw_slave *slave, u32 addr);
+>  int sdw_write(struct sdw_slave *slave, u32 addr, u8 value);
+>  int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value);
+> @@ -1053,7 +1058,74 @@ int sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *
+>  int sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val);
+>  int sdw_update_no_pm(struct sdw_slave *slave, u32 addr, u8 mask, u8 val);
+>  
+> -int sdw_compare_devid(struct sdw_slave *slave, struct sdw_slave_id id);
+> -void sdw_extract_slave_id(struct sdw_bus *bus, u64 addr, struct sdw_slave_id *id);
+> +#else
+> +
+> +static inline int sdw_stream_add_slave(struct sdw_slave *slave,
+> +				       struct sdw_stream_config *stream_config,
+> +				       struct sdw_port_config *port_config,
+> +				       unsigned int num_ports,
+> +				       struct sdw_stream_runtime *stream)
+> +{
+> +	return 0;
 
-Fixes: 9986bdaee477 ("ASoC: mediatek: mt8186: Configure shared clocks")
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
-Change since v1: Add Fixes tag.
----
- sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c | 2 +-
- sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Should this and other here not return error...? Indicating sdw is not
+available..? Silently ignoring may not be very helpful in debugging
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-index d8c93d66b4e6..970b980a81e6 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-@@ -192,7 +192,7 @@ static int mt8186_mt6366_da7219_max98357_hdmi_init(struct snd_soc_pcm_runtime *r
- 	struct mt8186_mt6366_da7219_max98357_priv *priv = soc_card_data->mach_priv;
- 	int ret;
- 
--	ret = mt8186_dai_i2s_set_share(afe, "I2S3", "I2S2");
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S2", "I2S3");
- 	if (ret) {
- 		dev_err(rtd->dev, "Failed to set up shared clocks\n");
- 		return ret;
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-index e59d92e2afa3..8f77a0bc1dc8 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-@@ -260,7 +260,7 @@ static int mt8186_mt6366_rt1019_rt5682s_hdmi_init(struct snd_soc_pcm_runtime *rt
- 	struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
- 	int ret;
- 
--	ret = mt8186_dai_i2s_set_share(afe, "I2S3", "I2S2");
-+	ret = mt8186_dai_i2s_set_share(afe, "I2S2", "I2S3");
- 	if (ret) {
- 		dev_err(rtd->dev, "Failed to set up shared clocks\n");
- 		return ret;
+
+> +}
+> +
+> +static inline int sdw_stream_remove_slave(struct sdw_slave *slave,
+> +					  struct sdw_stream_runtime *stream)
+> +{
+> +	return 0;
+> +}
+> +
+> +/* messaging and data APIs */
+> +static inline int sdw_read(struct sdw_slave *slave, u32 addr)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_write(struct sdw_slave *slave, u32 addr, u8 value)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_nread(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int sdw_update_no_pm(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
+> +{
+> +	return 0;
+> +}
+> +
+> +#endif /* CONFIG_SOUNDWIRE */
+>  
+>  #endif /* __SOUNDWIRE_H */
+> -- 
+> 2.30.2
+
 -- 
-2.25.1
-
+~Vinod

@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D5C639493
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:16:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D2A063949C
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:19:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C88518D7;
-	Sat, 26 Nov 2022 09:15:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C88518D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2001718C0;
+	Sat, 26 Nov 2022 09:18:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2001718C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450609;
+	s=default; t=1669450750;
 	bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FHcWsqVjJicGPtJiag15jz0o3E8mKzisKiRMGx9Kw7fQfETBjWrne0EACGS1y+V88
-	 9TWwIL4gMRG4aUjP6WVbs0n0ObSkHSv9RkTpbFJjxTq0lqq4pIWneV62yhb0HcNUKG
-	 /u6oL4NIocmaStvHUZGTF7xkGJU8Y4jMdj4X9eoQ=
+	b=nmzou2q+zsL0VfC4KfdYl6LQdvticP1YUU8yBU3shwU0ryhnmpVLSgj+cG03KZEVn
+	 3S6LBALHCQJ+nN8qt++cK8Qv4sO72qkzbmcE4fHwgLGWuHYKKGsz3xZVvgmiB/41ZB
+	 hDR4xKEcrsmtW9zMqELGzMF+2MOsdQeLlB7QoGxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24979F807D0;
-	Sat, 26 Nov 2022 09:00:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60AA8F80858;
+	Sat, 26 Nov 2022 09:00:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E987AF80431; Thu, 24 Nov 2022 15:03:53 +0100 (CET)
+ id 90539F80431; Thu, 24 Nov 2022 15:28:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10C9BF8014E
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:03:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10C9BF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31576F80149
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:28:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31576F80149
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nZuDMnz0"
+ header.b="KTze8bCU"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E874262135;
- Thu, 24 Nov 2022 14:03:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF70C433C1;
- Thu, 24 Nov 2022 14:03:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92F026216D;
+ Thu, 24 Nov 2022 14:28:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2079CC433D6;
+ Thu, 24 Nov 2022 14:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669298622;
+ s=k20201202; t=1669300124;
  bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nZuDMnz0Bnw0wngsvKcCuMi37WyCwRFu1zlLtpyZ8kJ/SUgdR9ueemAGg2ifSRbsS
- ngE1M/2YBgLMfw1T7s965pyL0rkVPKFx3Xz9+MvCqP9yK41e0OWXVEx5CahX5bpBSX
- bNSJWq2tkaMnULfxNWsOA9s2gY3f+Y+uputYw5Tuq8d9FDtvZBMoUpfr08tDyv6O0M
- eMgC//vwInbEPQqZVo/1kvfmh1Za+HNyhoZ6h9vzZD44w2kZMSGHZ4LDLm3mp+PwWW
- oMryJr+4yq62Q1Zeb0i+ysKQik51u1ingPfNffuYc890dwWCkfHz0wmRSwvJdzbO9V
- 7lA4LZSoAmcIg==
+ b=KTze8bCUgXVbYusj8LQGIka1dvsWB2I+DkxRW3Bbcfc8fJfFo5dmxKpg3PKgAjpOn
+ 9avnZIur+o74XnCh3gVsMyELrZAQdXd6HCNoIUgHIirXltRyICOLVj51DmDrx0f04w
+ 1AGD2KJyVMrzfgVJIQqdI4TdGPyqtrMb3yZ5g1UXHX19YLP72lEiTCyPJzQ9GIumj3
+ G3fEEXxlkAwuCO4fSjFARpiJpt2qdApa9WD0+DjEZ9l7DrBoB8kOlNXSTVKeBIgAoU
+ YJdQi+vG0JQnptu7goXssC91yOy/6Nbeg2WpJcQ9bEaBSQmawOISfd+9Ye4sBXr523
+ UQ93Sgymq7UOw==
 From: Mark Brown <broonie@kernel.org>
-To: Grant Likely <grant.likely@linaro.org>, Angel Iglesias <ang.iglesiasg@gmail.com>,
- Uwe Kleine-König <uwe@kleine-koenig.org>, Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>
+To: Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>, Angel Iglesias <ang.iglesiasg@gmail.com>,
+ Grant Likely <grant.likely@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>
 In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
 References: <20221118224540.619276-1-uwe@kleine-koenig.org>
 Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166929861409.291680.9255716235309801017.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 14:03:34 +0000
+Message-Id: <166930011683.316126.16580193554056109830.b4-ty@kernel.org>
+Date: Thu, 24 Nov 2022 14:28:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
 X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
  platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
@@ -79,17 +80,17 @@ Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
  linux-staging@lists.linux.dev,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

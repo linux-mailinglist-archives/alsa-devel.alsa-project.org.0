@@ -2,101 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA0F6394A0
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:20:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392BE6394A1
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:20:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD3FF17C1;
-	Sat, 26 Nov 2022 09:19:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD3FF17C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C941418B0;
+	Sat, 26 Nov 2022 09:19:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C941418B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450821;
-	bh=nSBbA0yT0iOMP+Chy8tXuZKeJthAWp2datFpACAVtvk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669450843;
+	bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dVbwKStVvVnTZPsI5yUe/QdFMq+ke/FzY9LTQg1sQw+uikuvhA8VXcV14ONreLu3n
-	 C826bTCIiRThWRnj/A7RsMCsH0VZpirMNDy+MHl5t/K59SraN3aHTduDxdF+ejd64U
-	 U/0Yq3TScmHW6AauR2NtvcRCo30XWomQSld0f8Jg=
+	b=fGdlYPk606CdGJuhv7d9nrnN6B//c3WLbw9kM1BJoyCQQiFwX40DoKD2Z8PX6rLhR
+	 z9QZ84Gd/lHZK6cVI6GJJoFyhavJJQuZVdrPqit+ZqVySTlODARKKW2o0cRw9Ch87T
+	 lRBKq5btXbrORFGCIwd7csyCIaGBkekehTlXc4nA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9854AF80C32;
-	Sat, 26 Nov 2022 09:01:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B91EF80C41;
+	Sat, 26 Nov 2022 09:01:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF235F80431; Thu, 24 Nov 2022 15:59:16 +0100 (CET)
+ id 537B2F80431; Thu, 24 Nov 2022 16:15:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94D40F80149
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:59:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D40F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id E08AEF8014E
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 16:15:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E08AEF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="g/Z3XTip"
+ header.b="Hj/R3teu"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3745E621A0;
- Thu, 24 Nov 2022 14:59:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CCAC433D6;
- Thu, 24 Nov 2022 14:59:08 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 168F2B827FF;
+ Thu, 24 Nov 2022 15:15:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7997C433B5;
+ Thu, 24 Nov 2022 15:15:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669301948;
- bh=nSBbA0yT0iOMP+Chy8tXuZKeJthAWp2datFpACAVtvk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=g/Z3XTip6g2FFmhrf9q8UschEx45weHmYzYe79H8we9sEIqYNBGMcUwUSPidJztHO
- EoJzTvZD3z+NDD9JMtHvEj2fc7JtF0W7dcaODw8FbII7IMM9Wm0vJeRsVixP0jK3xU
- BaWqLTeZ0AN5DXC/qD9A3fPsNK7Mq0dBos/Fo3mo7kS2QA5fAuCocrjcrPfIQckCkg
- W/c4cENdBvarlEWR9kDnN5cacS4gkkB0A7sTN7erTqL5hGvL5fCZZff48TWtCX4WW9
- bAFx68QM6jUNzLf5rE3FYsARfEuiv6CaM29wT1sOR6D5KoY1RAkp0bSbhwEHs//8tP
- kR7J0rMgtQcug==
-Received: by mercury (Postfix, from userid 1000)
- id 43C24106092A; Thu, 24 Nov 2022 15:59:06 +0100 (CET)
-Date: Thu, 24 Nov 2022 15:59:06 +0100
-From: Sebastian Reichel <sre@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 7/9] dt-bindings: drop redundant part of title
- (beginning)
-Message-ID: <20221124145906.i3xjt4cqwhbqpcop@mercury.elektranox.org>
-References: <20221121110615.97962-1-krzysztof.kozlowski@linaro.org>
- <20221121110615.97962-8-krzysztof.kozlowski@linaro.org>
+ s=k20201202; t=1669302948;
+ bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Hj/R3teuOXbJhLjEIKPLLmxWhHXMEkNOCI4I9RXPi/XTt4vMZrFGydSQJM0ezsZF9
+ Nxj+vqwZHpMqzpD2iag7xptGV4JRAHMc3ZH46iKcSjFd7EfWld1E2A9XinKZQkAjiB
+ QqfvAJ8suINRFJhVSqMgvd01DMQV66gS+F12NkyYtQlVkYidZWz6L6Y9MLHeRoBnXC
+ 0f9bBJyncxgdLEszUPwu0zrPWZKDQgHePX69owXUuSUyznysSXXCezmfLBD7isQVS8
+ B0cy0JQcjKfLTsmclzYm/qT8INcIwd++GHyXkr6Jq9Z0HNE7iwTaoPmYUN3CJBx0mw
+ eW6ADSX0FfZ2w==
+From: Mark Brown <broonie@kernel.org>
+To: Angel Iglesias <ang.iglesiasg@gmail.com>, Grant Likely <grant.likely@linaro.org>, Lee Jones <lee.jones@linaro.org>,
+ Uwe Kleine-König <uwe@kleine-koenig.org>, Wolfram Sang <wsa@kernel.org>
+In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
+References: <20221118224540.619276-1-uwe@kleine-koenig.org>
+Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
+Message-Id: <166930294048.380009.2445779534079023591.b4-ty@kernel.org>
+Date: Thu, 24 Nov 2022 15:15:40 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="at2ocn3dkmbrzexs"
-Content-Disposition: inline
-In-Reply-To: <20221121110615.97962-8-krzysztof.kozlowski@linaro.org>
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:53 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-mips@vger.kernel.org,
- linux-mtd@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-riscv@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, Viresh Kumar <vireshk@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-staging@lists.linux.dev,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>
+ linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
+ kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,201 +105,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 18 Nov 2022 23:35:34 +0100, Uwe Kleine-König wrote:
+> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
+> call-back type") from 2016 there is a "temporary" alternative probe
+> callback for i2c drivers.
+> 
+> This series completes all drivers to this new callback (unless I missed
+> something). It's based on current next/master.
+> A part of the patches depend on commit 662233731d66 ("i2c: core:
+> Introduce i2c_client_get_device_id helper function"), there is a branch that
+> you can pull into your tree to get it:
+> 
+> [...]
 
---at2ocn3dkmbrzexs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-Hi,
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
 
-On Mon, Nov 21, 2022 at 12:06:13PM +0100, Krzysztof Kozlowski wrote:
-> The Devicetree bindings document does not have to say in the title that
-> it is a "Devicetree binding", but instead just describe the hardware.
->=20
-> Drop beginning "Devicetree bindings" in various forms:
->=20
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [dD]evice[ -]\?[tT]ree [bB]indings\? for \=
-([tT]he \)\?\(.*\)$/title: \u\2/' {} \;
->=20
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [bB]indings\? for \([tT]he \)\?\(.*\)$/tit=
-le: \u\2/' {} \;
->=20
->   find Documentation/devicetree/bindings/ -type f -name '*.yaml' \
->     -exec sed -i -e 's/^title: [dD][tT] [bB]indings\? for \([tT]he \)\?\(=
-=2E*\)$/title: \u\2/' {} \;
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-> ---
+Thanks!
 
-=2E..
+[538/606] regulator: act8865-regulator: Convert to i2c's .probe_new()
+          (no commit info)
+[539/606] regulator: ad5398: Convert to i2c's .probe_new()
+          commit: 7f69edba960bbdcbc829d8d0995b1117ce29e8b1
+[540/606] regulator: da9121-regulator: Convert to i2c's .probe_new()
+          commit: 020cf73b47414a84b666d3e6736a6ae957e27840
+[541/606] regulator: fan53555: Convert to i2c's .probe_new()
+          (no commit info)
+[542/606] regulator: isl6271a-regulator: Convert to i2c's .probe_new()
+          (no commit info)
+[543/606] regulator: lp3972: Convert to i2c's .probe_new()
+          commit: 2532d5f8d5c20d5a0a8a0d57a311bc5df00dea04
+[544/606] regulator: lp872x: Convert to i2c's .probe_new()
+          commit: 87feccb347b25f5dc6ff451123b832c9ad5dddfe
+[545/606] regulator: lp8755: Convert to i2c's .probe_new()
+          commit: cb28f74b4809a00b40fdf0c44ccf51ab950581d3
+[546/606] regulator: ltc3589: Convert to i2c's .probe_new()
+          commit: 78c8f6cdb51d471928d481ed3b2c82dbc110a1ed
+[547/606] regulator: max1586: Convert to i2c's .probe_new()
+          commit: 3d54f7ba248b0ad1791bc356e9ad3d9020a1c472
+[548/606] regulator: max8649: Convert to i2c's .probe_new()
+          commit: 3cf4417385d0ac8f02f22888e12a6d21d97d89fc
+[549/606] regulator: max8660: Convert to i2c's .probe_new()
+          commit: dbf31dac703009174226bb87b3914bd092040327
+[550/606] regulator: max8952: Convert to i2c's .probe_new()
+          commit: c20c36735949b3b7984692fbab3d92b0e8a845ec
+[551/606] regulator: max8973-regulator: Convert to i2c's .probe_new()
+          commit: 4e85e5d64f66ac5e4b0286ee4b6f8e8ce1044d42
+[552/606] regulator: pca9450-regulator: Convert to i2c's .probe_new()
+          commit: ed56fa6e804cb13bbe29e9214792308817f6e553
+[553/606] regulator: pfuze100-regulator: Convert to i2c's .probe_new()
+          (no commit info)
+[554/606] regulator: pv88080-regulator: Convert to i2c's .probe_new()
+          (no commit info)
+[555/606] regulator: rpi-panel-attiny-regulator: Convert to i2c's .probe_new()
+          commit: d85d02d17a608b558d44510e9824668c5d4fe5d8
+[556/606] regulator: tps51632-regulator: Convert to i2c's .probe_new()
+          commit: d4885f306304ff29eec06b9ad5f526a1099e0418
+[557/606] regulator: tps62360-regulator: Convert to i2c's .probe_new()
+          commit: 18804160277ec2ab992373385f86c6af2322b28b
+[558/606] regulator: tps6286x-regulator: Convert to i2c's .probe_new()
+          commit: e34782316281c78c5911f86d4699d4f35a607c9d
+[559/606] regulator: tps65023-regulator: Convert to i2c's .probe_new()
+          commit: 3b5b07dde998f6ade7433a8db019cf816c7e35af
 
->  Documentation/devicetree/bindings/power/supply/bq2415x.yaml     | 2 +-
->  Documentation/devicetree/bindings/power/supply/bq24190.yaml     | 2 +-
->  Documentation/devicetree/bindings/power/supply/bq24257.yaml     | 2 +-
->  Documentation/devicetree/bindings/power/supply/bq24735.yaml     | 2 +-
->  Documentation/devicetree/bindings/power/supply/bq25890.yaml     | 2 +-
->  Documentation/devicetree/bindings/power/supply/isp1704.yaml     | 2 +-
->  .../devicetree/bindings/power/supply/lltc,ltc294x.yaml          | 2 +-
->  .../devicetree/bindings/power/supply/richtek,rt9455.yaml        | 2 +-
->  Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml   | 2 +-
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-=2E..
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq2415x.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
-> index a3c00e078918..f7287ffd4b12 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq2415x.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/bq2415x.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for TI bq2415x Li-Ion Charger
-> +title: TI bq2415x Li-Ion Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq24190.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq24190.yaml
-> index 4884ec90e2b8..001c0ffb408d 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq24190.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq24190.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/bq24190.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for TI BQ2419x Li-Ion Battery Charger
-> +title: TI BQ2419x Li-Ion Battery Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq24257.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq24257.yaml
-> index c7406bef0fa8..cc45939d385b 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq24257.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq24257.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/bq24257.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for bq24250, bq24251 and bq24257 Li-Ion Charger
-> +title: Bq24250, bq24251 and bq24257 Li-Ion Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq24735.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq24735.yaml
-> index dd9176ce71b3..388ee16f8a1e 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq24735.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq24735.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/bq24735.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for TI BQ24735 Li-Ion Battery Charger
-> +title: TI BQ24735 Li-Ion Battery Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq25890.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq25890.yaml
-> index ee51b6335e72..dae27e93af09 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq25890.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq25890.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/bq25890.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for bq25890, bq25892, bq25895 and bq25896 Li-Ion Charger
-> +title: Bq25890, bq25892, bq25895 and bq25896 Li-Ion Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/isp1704.yaml =
-b/Documentation/devicetree/bindings/power/supply/isp1704.yaml
-> index 7e3449ed70d4..fb3a812aa5a9 100644
-> --- a/Documentation/devicetree/bindings/power/supply/isp1704.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/isp1704.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/power/supply/isp1704.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for NXP ISP1704 USB Charger Detection
-> +title: NXP ISP1704 USB Charger Detection
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/lltc,ltc294x.=
-yaml b/Documentation/devicetree/bindings/power/supply/lltc,ltc294x.yaml
-> index 109b41a0d56c..774582cd3a2c 100644
-> --- a/Documentation/devicetree/bindings/power/supply/lltc,ltc294x.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/lltc,ltc294x.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/power/supply/lltc,ltc294x.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for LTC2941, LTC2942, LTC2943 and LTC2944 battery fuel ga=
-uges
-> +title: LTC2941, LTC2942, LTC2943 and LTC2944 battery fuel gauges
-> =20
->  description: |
->    All chips measure battery capacity.
-> diff --git a/Documentation/devicetree/bindings/power/supply/richtek,rt945=
-5.yaml b/Documentation/devicetree/bindings/power/supply/richtek,rt9455.yaml
-> index bce15101318e..27bebc1757ba 100644
-> --- a/Documentation/devicetree/bindings/power/supply/richtek,rt9455.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/richtek,rt9455.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/power/supply/richtek,rt9455.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for Richtek rt9455 battery charger
-> +title: Richtek rt9455 battery charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
-> diff --git a/Documentation/devicetree/bindings/power/supply/ti,lp8727.yam=
-l b/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
-> index 93654e732cda..ce6fbdba8f6b 100644
-> --- a/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/power/supply/ti,lp8727.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Binding for TI/National Semiconductor LP8727 Charger
-> +title: TI/National Semiconductor LP8727 Charger
-> =20
->  maintainers:
->    - Sebastian Reichel <sre@kernel.org>
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Acked-by: Sebastian Reichel <sre@kernel.org>
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
--- Sebastian
-
---at2ocn3dkmbrzexs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmN/hrkACgkQ2O7X88g7
-+poXLxAAo+A6KhvLNIyc9xLROpqlxyJWMCG/yc5TCq1ZV1KgtGo9x3TZ3o9jSbKp
-oekN2QIztickZoLQSKjVm2iIp8twlpC2BQeOiMoqZGAsVzkC3Fht+HBjyK5PfyWL
-BGctUAmwRbv16bKPVxPD9R3/Il3D4eTShapIzQ826hitd6/0nF5F1B+DDfs2LCIe
-Nl+peFHpzF5xrOyXaY61rRnWzRoXpw9oXcVGWqzw8xqfXZUQ2Oi714/ftE3MXkZk
-sKAPq+X6fo3+5lDQeP1TZCW7YeTnXImWP11UJEoJuIsrzoQxHAbrr/aamurwe7vS
-CvH8FWs7Gb5FYu+kxis4aQxtKfGcMMS1KgJ50YVHeJdjKuKFP1L4QHOWwRhhOosR
-X4TvrxYD0uFWa/utXiWoCT5OslqtqU17wys+S4zf8CLNwhOW1PLceLPH6Q/X3VkM
-XPBzM+6B5ltN+WXIQ2QDD5pFRZmh+kv3H5Ueoid7S/u7PxYOV1byRJeLsA9cMfyB
-th8k4KLJJQRuBgiOA6WwH9S0lac850zd5J9fkf+/J580liH9B/v+ukcIC8LpONts
-oFwtQsBwgqGWUOmHPmBOdsouumwrbYddnzolFrf20kvZK36bUQBQekmGJt+NgJKo
-wzC+XHhNGQc1pbe7IMj3hyGY1i5d8gB9KgBz4sCmiGwLr0Tvfww=
-=l6tX
------END PGP SIGNATURE-----
-
---at2ocn3dkmbrzexs--
+Thanks,
+Mark

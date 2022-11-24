@@ -2,94 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8691B639492
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:16:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B40B639470
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:10:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E93201911;
-	Sat, 26 Nov 2022 09:15:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E93201911
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B00E1862;
+	Sat, 26 Nov 2022 09:09:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B00E1862
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450588;
-	bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1669450217;
+	bh=juyso/HpoYSWkLmKLmGTH4pUybPN5U49mx40hL898E4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tTdx+lLotDTYje9uT7cNaAUo5Xve2sv4M3e82fQXNCZEuSdgHNZPYqx0qaNqoBJJV
-	 OrOb4a7USveb6JadPk3HtQE3jDpF3zjTBpiLkZcaGnIyaZ0nmIfuC8oOtmI6qWvGyn
-	 RtADWsiKk/w7EnDvurFFDf9hjcEJp6LaCuaLjsNY=
+	b=vaoDeCJaPCC9ZFIyLqYNNvJZVarMRI3dVxaD5MkcVGlZMk0X9hfJzF7Xi6rp+wbX5
+	 RqYgwoNUeqHYQhrOSB1MYosdety1gAf7snnTQqqGGbN4Gaflbm3tmUHz5/h5anFxw7
+	 3oTkj8ovPbYGssz3DFj/ZhCGOLFXKUKkHepufBJw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 915D3F804BC;
-	Sat, 26 Nov 2022 09:00:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D71CF8063B;
+	Sat, 26 Nov 2022 08:59:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1B41F80431; Thu, 24 Nov 2022 14:50:51 +0100 (CET)
+ id 240D9F80431; Thu, 24 Nov 2022 14:54:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, SPF_HELO_NONE, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED, 
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC4B5F8014E
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 14:50:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC4B5F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0FACF80115
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 14:54:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0FACF80115
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Hi20oGxz"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 028D6620F4;
- Thu, 24 Nov 2022 13:50:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6776AC4347C;
- Thu, 24 Nov 2022 13:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669297846;
- bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Hi20oGxzkmEg74j6qRD7Lfpoa1kcTrQCKK089dVyyzd4Ms62GyYEcriKLOdYnSnIB
- BaTy90c7xln7bVVdzp+tZfTor2YCDJ4PfhCFqr+4U1blkF+BSGk+wqWNbDs1GjRxEP
- 5zngiMi62+XsaI5cdT+5MW5QXkwvuvZTdh1mYSgYk++n5bXwjsiaFEUQhZ7smrgwyJ
- TLSH8t2DGrVJraC9jirkwbs0YSutluzSGLevyrPQzPM1RecM+sjiSCNDXdUbmWoX0j
- UbEkRvn5n0p6b+FOMJ6yy/o81uO1xyfZHDSqUS0YA3une+k6GKCtZ+YH0Sav4kxmgU
- 3opwvJAPSvwcQ==
-From: Mark Brown <broonie@kernel.org>
-To: Wolfram Sang <wsa@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Grant Likely <grant.likely@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166929783812.276133.16916757100694771073.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 13:50:38 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="iHQdDPV0"
+Received: by mail-yb1-xb2c.google.com with SMTP id 1so1880151ybl.7
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 05:54:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=d19VZe73RsPQWbRMrRH216S4FHkhXapc6P3i52jmtAc=;
+ b=iHQdDPV0ac4BN0lr3UIcdo0l9o8IvC/T2aKWTM3N//are1c4pniWRMI9Wq7uw6zp35
+ irIz6Dzc+GGvWaUfq63UjjORdGQMOPbPvKsIBzQXhokJiz7rA9TLFYovwQh2ZvYN6cFz
+ 7wYilt3BDqwAQn0wfaBdOGxLeI1vYWC/g8awjJgO1jaHNVtaZ9iiUNL8GHloaCxl7EMO
+ zAu9uDM0LZfTkBSoKPOiI+tzfrH77UwF0n8b2JYeupK3X/ULL7TkvPtylxXSuaj8Zq5S
+ bLlFJaQoXVctBwxN5UcG1t/Pnjtyj5GUv7fj8Z11a2xiM1qhukgu2smV3qeOQEWbw5QS
+ ltLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=d19VZe73RsPQWbRMrRH216S4FHkhXapc6P3i52jmtAc=;
+ b=M88pQ0FUkwtBFCKcjgRazpAJ7Dd3c5L6A7/pK0PRaMIyPmS8H8DOOlZLQEStA/8Xk5
+ 1NXv8DiJjNRPDSVDMzqV7lQzEcktHznZh0FhAGV5/uP6ssY5sz0E+X56nK0l9ZCNWlvi
+ GGossmhSah+30EmYLGoV9NFDx/gbiu0Gv8KrL259cHHJ3YyOiV5mzxptmX5DyKiNwbXJ
+ GMUo50WWm4XFlF/K4hhJYQSSSVR0xxaKqsxheo9cZ7L2rHP5daptUMOG6Dfvt8WOqB7P
+ /dlZ9tZpJ8Wc/OWDQF6vWZhw4tpZ1iCJ+SvIjAHTmR2oai6TNeaX0ZXpWMXfyYdctTcV
+ hFbw==
+X-Gm-Message-State: ANoB5pneiwtpGy681hS4AFIYRvxmXoloieiJgN73T6EVPwtvHoED0GWT
+ 7FepaitbF5oNA5GrwGkZKdcldykbiD4acttnizY=
+X-Google-Smtp-Source: AA0mqf5IrmZnahNNIPS3/hpEG3PMIsp17Y7diXsqE373VqHNhMRguSHtQK56lGixA59/Fp9Gj76W5OPPLgNBPQ+WnpI=
+X-Received: by 2002:a05:6902:192:b0:6ef:3e1d:9054 with SMTP id
+ t18-20020a056902019200b006ef3e1d9054mr9549191ybh.48.1669298066226; Thu, 24
+ Nov 2022 05:54:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+References: <CABDcavYdsk-O4x3oPX4i4+T5wsoZV26_kpEq6JvpD8A_cAGHxg@mail.gmail.com>
+ <20221124111336.GE105268@ediswmail.ad.cirrus.com>
+In-Reply-To: <20221124111336.GE105268@ediswmail.ad.cirrus.com>
+From: Guillermo Rodriguez Garcia <guille.rodriguez@gmail.com>
+Date: Thu, 24 Nov 2022 14:54:15 +0100
+Message-ID: <CABDcavbRryENG58LO7+gbJeKbBBPP1uG1Xc00yXUBNzspWpWoA@mail.gmail.com>
+Subject: Re: SOC_DOUBLE_R_SX_TLV controls broken in cs24l51 driver
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:51 +0100
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ James Schulman <james.schulman@cirrus.com>,
+ =?UTF-8?Q?Tan_Nay=C4=B1r?= <tannayir@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,85 +107,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022 23:35:34 +0100, Uwe Kleine-König wrote:
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
-> 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
-> 
-> [...]
+El jue, 24 nov 2022 a las 12:13, Charles Keepax
+(<ckeepax@opensource.cirrus.com>) escribi=C3=B3:
+>
+> On Thu, Nov 24, 2022 at 10:57:34AM +0100, Guillermo Rodriguez Garcia wrot=
+e:
+> > Hi all,
+> >
+> > I am using a dev board with a Cirrus Logic cs24l51 codec.
+> >
+> > This used to work fine prior to kernel version 5.x, however after 5.x
+> > it is not possible to set certain values for ALSA controls from
+> > userspace.
+> >
+> > I believe this is related to the input validation that is mentioned in
+> > this thread: https://lore.kernel.org/all/Yph8C3bRxcr6ogW7@sirena.org.uk=
+/T/,
+> > and possibly in this commit: 4f1e50d6a9cf9c1b8c859d449b5031cacfa8404e
+> > ("ASoC: ops: Reject out of bounds values in snd_soc_put_volsw_sx()")
+> >
+> > For the cs24l51, all the controls that fail are using the
+> > SOC_DOUBLE_R_SX_TLV macro.
+> >
+> > I have traced this to the checks in snd_soc_put_volsw_sx, specifically
+> > the (val > max - min) check:
+> >
+>
+> Can you try these two patches:
+>
+> https://lore.kernel.org/all/165236477046.1016627.15470197691244479154.b4-=
+ty@kernel.org/
 
-Applied to
+Thanks.
+In my tests, these patches seem to fix the problem for some values,
+but not for all of them:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+$ amixer cset name=3D'Analog Playback Volume' '208','208'
+numid=3D3,iface=3DMIXER,name=3D'Analog Playback Volume'
+  ; type=3DINTEGER,access=3Drw---R--,values=3D2,min=3D0,max=3D228,step=3D0
+  : values=3D208,208
+  | dBscale-min=3D-102.00dB,step=3D0.50dB,mute=3D0
 
-Thanks!
+$ amixer cset name=3D'Analog Playback Volume' '180','180'
+amixer: Control default element write error: Invalid argument
 
-[538/606] regulator: act8865-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[539/606] regulator: ad5398: Convert to i2c's .probe_new()
-          commit: 7f69edba960bbdcbc829d8d0995b1117ce29e8b1
-[540/606] regulator: da9121-regulator: Convert to i2c's .probe_new()
-          commit: 020cf73b47414a84b666d3e6736a6ae957e27840
-[541/606] regulator: fan53555: Convert to i2c's .probe_new()
-          (no commit info)
-[542/606] regulator: isl6271a-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[543/606] regulator: lp3972: Convert to i2c's .probe_new()
-          commit: 2532d5f8d5c20d5a0a8a0d57a311bc5df00dea04
-[544/606] regulator: lp872x: Convert to i2c's .probe_new()
-          commit: 87feccb347b25f5dc6ff451123b832c9ad5dddfe
-[545/606] regulator: lp8755: Convert to i2c's .probe_new()
-          commit: cb28f74b4809a00b40fdf0c44ccf51ab950581d3
-[546/606] regulator: ltc3589: Convert to i2c's .probe_new()
-          commit: 78c8f6cdb51d471928d481ed3b2c82dbc110a1ed
-[547/606] regulator: max1586: Convert to i2c's .probe_new()
-          commit: 3d54f7ba248b0ad1791bc356e9ad3d9020a1c472
-[548/606] regulator: max8649: Convert to i2c's .probe_new()
-          commit: 3cf4417385d0ac8f02f22888e12a6d21d97d89fc
-[549/606] regulator: max8660: Convert to i2c's .probe_new()
-          commit: dbf31dac703009174226bb87b3914bd092040327
-[550/606] regulator: max8952: Convert to i2c's .probe_new()
-          commit: c20c36735949b3b7984692fbab3d92b0e8a845ec
-[551/606] regulator: max8973-regulator: Convert to i2c's .probe_new()
-          commit: 4e85e5d64f66ac5e4b0286ee4b6f8e8ce1044d42
-[552/606] regulator: pca9450-regulator: Convert to i2c's .probe_new()
-          commit: ed56fa6e804cb13bbe29e9214792308817f6e553
-[553/606] regulator: pfuze100-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[554/606] regulator: pv88080-regulator: Convert to i2c's .probe_new()
-          (no commit info)
-[555/606] regulator: rpi-panel-attiny-regulator: Convert to i2c's .probe_new()
-          commit: d85d02d17a608b558d44510e9824668c5d4fe5d8
-[556/606] regulator: tps51632-regulator: Convert to i2c's .probe_new()
-          commit: d4885f306304ff29eec06b9ad5f526a1099e0418
-[557/606] regulator: tps62360-regulator: Convert to i2c's .probe_new()
-          commit: 18804160277ec2ab992373385f86c6af2322b28b
-[558/606] regulator: tps6286x-regulator: Convert to i2c's .probe_new()
-          commit: e34782316281c78c5911f86d4699d4f35a607c9d
-[559/606] regulator: tps65023-regulator: Convert to i2c's .probe_new()
-          commit: 3b5b07dde998f6ade7433a8db019cf816c7e35af
+Looking at the code I'd say that patch 1/2 is correct however I have
+doubts about patch 2/2:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+        val_mask =3D mask << rshift;
+        val2 =3D (ucontrol->value.integer.value[1] + min) & mask;
++
++       if (mc->platform_max && val2 > mc->platform_max)
++           return -EINVAL;
++       if (val2 > max)
++           return -EINVAL;
++
+        val2 =3D val2 << rshift;
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+        err =3D snd_soc_component_update_bits(component, reg2, val_mask,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The checks for max and platform_max are done on val2, but val2 is
+already the result of adding the minimum value ('min') and applying
+the mask.
+Shouldn't the checks be done on ucontrol->value.integer.value[1] instead?
 
 Thanks,
-Mark
+
+Guillermo Rodriguez Garcia
+guille.rodriguez@gmail.com

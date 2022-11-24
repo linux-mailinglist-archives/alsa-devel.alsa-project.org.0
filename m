@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA2F637A38
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 14:47:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89729637B0A
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 15:05:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D5CD1709;
-	Thu, 24 Nov 2022 14:46:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D5CD1709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A6CE16B1;
+	Thu, 24 Nov 2022 15:04:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A6CE16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669297669;
-	bh=FDPapZemOTOMfExIiN1Cvcszd35qBD7tDpEL0kXifWg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cv6itz38KKxR/dnWqLkZd05Dmc3rjqgcS57nSoJ6YdwHeARCk8de2vk4U+f4QWhrh
-	 Mlvm1mOxOlGGTJhHByIuc/nD9RjwrzP4zDdZCsbc+iakstmyZaZXKhyKDzMg8WDPAR
-	 UK1pdF8es/qVedNFN1/rT21C3ETT3mLr8KS1ObdU=
+	s=default; t=1669298705;
+	bh=y4j0MpPL26pUHPec2CqMvpAGne5rRw1OQusu7QCuZc4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XghtW9/bvBImc/bq0WwH+fy03xhkjtWzUq/veXL1fYj4dnqcBQUc/xFh+0xhd9d3u
+	 iCGjaVhLIo27JLL5UnQQ8weA9l/YAKS8sCnCy3er5CoKKkzYWuaVVfZDkHC9oWYEI7
+	 h978QSyAU8Dv7lhE0SGFBy221D6OtS9q4u5/ZEVg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D77CF80558;
-	Thu, 24 Nov 2022 14:46:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E74EF80115;
+	Thu, 24 Nov 2022 15:04:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01694F80431; Thu, 24 Nov 2022 14:46:10 +0100 (CET)
+ id 2E35FF80431; Thu, 24 Nov 2022 15:04:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1E30F80431
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 14:46:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1E30F80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25CFEF8014E
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:04:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25CFEF8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="rCzcXACZ"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AO7V2Aj007527; Thu, 24 Nov 2022 07:45:58 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=FYUAbQ6G5Y5j98iLtUCCLLhHUJK7mXE/nnmydN6ls9s=;
- b=rCzcXACZYvQjdya93wl4fSJN2AgFaIgOxf/HA5GsnGVS35KaKr9tPxTJM79i5CeqUoOn
- 8gcLpLcnqmsGXvFHwL73H3TkZ1iEcv31Bn6gPw8BNjuD5Nq3kqWkjem/mWguiQZJia+S
- FzbEwflpJs7yq9/xCgaQkVqtnkfZqHfx9ogy/UO323YhQY+aO/dLmIlS2EDCOdTNJZzx
- fcIznQzkg4zXmZCJyZNEoXG9kklArqcb7eoWHP7aWQNASK0SEYP32FE/GAsAIKJf/1Si
- VqhJDIxAASnc11Cn5noSgaQRiIjzAjTTMy4YwHE6viuknPw8zaYWKJVbiTuykVZ0Dk6r SA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3kxvet664u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Nov 2022 07:45:58 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Thu, 24 Nov
- 2022 07:45:56 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
- Frontend Transport; Thu, 24 Nov 2022 07:45:56 -0600
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.111])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8A7EF477;
- Thu, 24 Nov 2022 13:45:56 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>
-Subject: [PATCH 2/2] firmware: cs_dsp: Make the exports namespaced
-Date: Thu, 24 Nov 2022 13:45:56 +0000
-Message-ID: <20221124134556.3343784-3-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20221124134556.3343784-1-rf@opensource.cirrus.com>
-References: <20221124134556.3343784-1-rf@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="FPmS9nYj"
+Received: by mail-wr1-x430.google.com with SMTP id i12so2685794wrb.0
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 06:04:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=UPLDM1X+4+BmpiYXGN4fQwA4bV0V/bRkxj3ZJr22X8k=;
+ b=FPmS9nYjtoWgaoEzjnzqpYOb3E6RaXUxbohz6HY6hDlqg2cTb0jwsKgyfR45NAx/RS
+ u6YN9AXh8zo5Z4Cu60tyc5SSpSVXw2HxVEOSkEmVMg6qPyPtY5wy/OWxjsE2Pv+T0ODY
+ f1xMqg5Ty+fjT59BdtwRgwo/UtCpO+3Nj30oRh1gfkkxRh/q0eGCrDwgrATm3AZgiNvT
+ /VBPw3OU2l2DcKloq7OpLbTdjgEd28EevM7x/QeMWMIKeZocB87dM6grxXiGIsFLtP4P
+ A+/9yaNFyxNhRsDEPKZJAYzZsBJBTizqwV5JKskLRvDhVd2nQvuwGtD/4Nn4VqzotHRY
+ qXiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UPLDM1X+4+BmpiYXGN4fQwA4bV0V/bRkxj3ZJr22X8k=;
+ b=3Sw2AFk5M3OvCVkc5MmVHFpqxzMtdW+ctC14KlZw1pEl9v8qvfp0tURkRgaM3N1c1b
+ 5zsLulElxffxhOXwtomdqjbJX1V9U6nFlrTDWUSYaD8/gba8gx5EbKVaj2vjFMKia8Bs
+ CYfBMAAkuNMJ+tEs52NP6raTX4py45b9ForWxFFb+BgUeDqSrZdQIO1dWF1LWmMASToS
+ vbIxMos9wC1BFNoKlrxRMUqyLfHdU+FrP92fB3Z0epKBgqC9mwD8oyMJ5w2J01zbjLzg
+ uPgfN76gbti9BuvA+1eb+AF2WtdlDBAGBZKNl3r9Lbr/0c8spo8w/9vRdoKjujaoDdAN
+ tj6w==
+X-Gm-Message-State: ANoB5pmNGq4bxsFOThRfdOyuDrM0FRtes2VBpqKU5jzlA2Buu0hUV7Zf
+ TjqWW1lIw5Ej6nFVLfLRZaHpOUVivf4cvw==
+X-Google-Smtp-Source: AA0mqf6Ez3aJB3hwGRDNPb4zZPBCNg0+cXL7s32xoUdXbrKzgxBfhDVeW0r6N0XwN8b9v7lV2AyWRA==
+X-Received: by 2002:adf:ea82:0:b0:241:e749:f75c with SMTP id
+ s2-20020adfea82000000b00241e749f75cmr6978278wrm.609.1669298640229; 
+ Thu, 24 Nov 2022 06:04:00 -0800 (PST)
+Received: from localhost.localdomain ([5.133.47.210])
+ by smtp.gmail.com with ESMTPSA id
+ m29-20020a05600c3b1d00b003c6b7f5567csm11770720wms.0.2022.11.24.06.03.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Nov 2022 06:03:59 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: qcom: cleanup and fix dependency of QCOM_COMMON
+Date: Thu, 24 Nov 2022 14:03:51 +0000
+Message-Id: <20221124140351.407506-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: I-jldAkpslsykUZkwCz9pGemzvEXEsdk
-X-Proofpoint-GUID: I-jldAkpslsykUZkwCz9pGemzvEXEsdk
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,322 +101,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move all the exports into a namespace.
-This also adds the MODULE_IMPORT_NS to the 3 drivers that use the
-exported functions.
+SND_SOC_QCOM_COMMON depends on SOUNDWIRE for some symbols but this
+is not explicitly specified using Kconfig depends. On the other hand
+SND_SOC_QCOM_COMMON is also directly selected by the sound card
+Kconfigs, this could result in various combinations and some symbols
+ending up in modules and soundcard that uses those symbols as in-build
+driver.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fix these issues by explicitly specifying the dependencies of
+SND_SOC_QCOM_COMMON and also use imply a to select SND_SOC_QCOM_COMMON
+so that the symbol is selected based on its dependencies.
+
+Also remove dummy stubs in common.c around CONFIG_SOUNDWIRE
+
+Fixes: 3bd975f3ae0a ("ASoC: qcom: sm8250: move some code to common")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/firmware/cirrus/cs_dsp.c | 62 ++++++++++++++++----------------
- sound/pci/hda/cs35l41_hda.c      |  1 +
- sound/pci/hda/hda_cs_dsp_ctl.c   |  1 +
- sound/soc/codecs/wm_adsp.c       |  1 +
- 4 files changed, 34 insertions(+), 31 deletions(-)
+ sound/soc/qcom/Kconfig  | 16 +++++++++-------
+ sound/soc/qcom/common.c |  2 --
+ sound/soc/qcom/common.h | 23 -----------------------
+ 3 files changed, 9 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-index 81cc3d0f6eec..f8b56f8f6e84 100644
---- a/drivers/firmware/cirrus/cs_dsp.c
-+++ b/drivers/firmware/cirrus/cs_dsp.c
-@@ -369,7 +369,7 @@ const char *cs_dsp_mem_region_name(unsigned int type)
- 		return NULL;
- 	}
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 8c7398bc1ca8..96a6d4731e6f 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -2,6 +2,7 @@
+ menuconfig SND_SOC_QCOM
+ 	tristate "ASoC support for QCOM platforms"
+ 	depends on ARCH_QCOM || COMPILE_TEST
++	imply SND_SOC_QCOM_COMMON
+ 	help
+ 	  Say Y or M if you want to add support to use audio devices
+ 	  in Qualcomm Technologies SOC-based platforms.
+@@ -59,13 +60,14 @@ config SND_SOC_STORM
+ config SND_SOC_APQ8016_SBC
+ 	tristate "SoC Audio support for APQ8016 SBC platforms"
+ 	select SND_SOC_LPASS_APQ8016
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	help
+ 	  Support for Qualcomm Technologies LPASS audio block in
+ 	  APQ8016 SOC-based systems.
+ 	  Say Y if you want to use audio devices on MI2S.
+ 
+ config SND_SOC_QCOM_COMMON
++	depends on SOUNDWIRE
+ 	tristate
+ 
+ config SND_SOC_QDSP6_COMMON
+@@ -142,7 +144,7 @@ config SND_SOC_MSM8996
+ 	depends on QCOM_APR
+ 	depends on COMMON_CLK
+ 	select SND_SOC_QDSP6
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	help
+ 	  Support for Qualcomm Technologies LPASS audio block in
+ 	  APQ8096 SoC-based systems.
+@@ -153,7 +155,7 @@ config SND_SOC_SDM845
+ 	depends on QCOM_APR && I2C && SOUNDWIRE
+ 	depends on COMMON_CLK
+ 	select SND_SOC_QDSP6
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	select SND_SOC_RT5663
+ 	select SND_SOC_MAX98927
+ 	imply SND_SOC_CROS_EC_CODEC
+@@ -167,7 +169,7 @@ config SND_SOC_SM8250
+ 	depends on QCOM_APR && SOUNDWIRE
+ 	depends on COMMON_CLK
+ 	select SND_SOC_QDSP6
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	help
+ 	  To add support for audio on Qualcomm Technologies Inc.
+ 	  SM8250 SoC-based systems.
+@@ -178,7 +180,7 @@ config SND_SOC_SC8280XP
+ 	depends on QCOM_APR && SOUNDWIRE
+ 	depends on COMMON_CLK
+ 	select SND_SOC_QDSP6
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	help
+ 	  To add support for audio on Qualcomm Technologies Inc.
+ 	  SC8280XP SoC-based systems.
+@@ -188,7 +190,7 @@ config SND_SOC_SC7180
+ 	tristate "SoC Machine driver for SC7180 boards"
+ 	depends on I2C && GPIOLIB
+ 	depends on SOUNDWIRE || SOUNDWIRE=n
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	select SND_SOC_LPASS_SC7180
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_RT5682_I2C
+@@ -202,7 +204,7 @@ config SND_SOC_SC7180
+ config SND_SOC_SC7280
+ 	tristate "SoC Machine driver for SC7280 boards"
+ 	depends on I2C && SOUNDWIRE
+-	select SND_SOC_QCOM_COMMON
++	depends on SND_SOC_QCOM_COMMON
+ 	select SND_SOC_LPASS_SC7280
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_WCD938X_SDW
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 69dd3b504e20..49c74c1662a3 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -180,7 +180,6 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
  }
--EXPORT_SYMBOL_GPL(cs_dsp_mem_region_name);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_mem_region_name, FW_CS_DSP);
+ EXPORT_SYMBOL_GPL(qcom_snd_parse_of);
  
- #ifdef CONFIG_DEBUG_FS
- static void cs_dsp_debugfs_save_wmfwname(struct cs_dsp *dsp, const char *s)
-@@ -480,7 +480,7 @@ void cs_dsp_init_debugfs(struct cs_dsp *dsp, struct dentry *debugfs_root)
- 
- 	dsp->debugfs_root = root;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_init_debugfs);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_init_debugfs, FW_CS_DSP);
- 
- /**
-  * cs_dsp_cleanup_debugfs() - Removes DSP representation from debugfs
-@@ -492,17 +492,17 @@ void cs_dsp_cleanup_debugfs(struct cs_dsp *dsp)
- 	debugfs_remove_recursive(dsp->debugfs_root);
- 	dsp->debugfs_root = NULL;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_cleanup_debugfs);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_cleanup_debugfs, FW_CS_DSP);
- #else
- void cs_dsp_init_debugfs(struct cs_dsp *dsp, struct dentry *debugfs_root)
- {
- }
--EXPORT_SYMBOL_GPL(cs_dsp_init_debugfs);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_init_debugfs, FW_CS_DSP);
- 
- void cs_dsp_cleanup_debugfs(struct cs_dsp *dsp)
- {
- }
--EXPORT_SYMBOL_GPL(cs_dsp_cleanup_debugfs);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_cleanup_debugfs, FW_CS_DSP);
- 
- static inline void cs_dsp_debugfs_save_wmfwname(struct cs_dsp *dsp,
- 						const char *s)
-@@ -710,7 +710,7 @@ int cs_dsp_coeff_write_acked_control(struct cs_dsp_coeff_ctl *ctl, unsigned int
- 
- 	return -ETIMEDOUT;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_coeff_write_acked_control);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_coeff_write_acked_control, FW_CS_DSP);
- 
- static int cs_dsp_coeff_write_ctrl_raw(struct cs_dsp_coeff_ctl *ctl,
- 				       unsigned int off, const void *buf, size_t len)
-@@ -778,7 +778,7 @@ int cs_dsp_coeff_write_ctrl(struct cs_dsp_coeff_ctl *ctl,
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_coeff_write_ctrl);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_coeff_write_ctrl, FW_CS_DSP);
- 
- static int cs_dsp_coeff_read_ctrl_raw(struct cs_dsp_coeff_ctl *ctl,
- 				      unsigned int off, void *buf, size_t len)
-@@ -850,7 +850,7 @@ int cs_dsp_coeff_read_ctrl(struct cs_dsp_coeff_ctl *ctl,
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_coeff_read_ctrl);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_coeff_read_ctrl, FW_CS_DSP);
- 
- static int cs_dsp_coeff_init_control_caches(struct cs_dsp *dsp)
- {
-@@ -1493,7 +1493,7 @@ struct cs_dsp_coeff_ctl *cs_dsp_get_ctl(struct cs_dsp *dsp, const char *name, in
- 
- 	return rslt;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_get_ctl);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_get_ctl, FW_CS_DSP);
- 
- static void cs_dsp_ctl_fixup_base(struct cs_dsp *dsp,
- 				  const struct cs_dsp_alg_region *alg_region)
-@@ -1583,7 +1583,7 @@ struct cs_dsp_alg_region *cs_dsp_find_alg_region(struct cs_dsp *dsp,
- 
- 	return NULL;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_find_alg_region);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_find_alg_region, FW_CS_DSP);
- 
- static struct cs_dsp_alg_region *cs_dsp_create_region(struct cs_dsp *dsp,
- 						      int type, __be32 id,
-@@ -2217,7 +2217,7 @@ int cs_dsp_adsp1_init(struct cs_dsp *dsp)
- 
- 	return cs_dsp_common_init(dsp);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_adsp1_init);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_adsp1_init, FW_CS_DSP);
- 
- /**
-  * cs_dsp_adsp1_power_up() - Load and start the named firmware
-@@ -2309,7 +2309,7 @@ int cs_dsp_adsp1_power_up(struct cs_dsp *dsp,
- 	mutex_unlock(&dsp->pwr_lock);
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_adsp1_power_up);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_adsp1_power_up, FW_CS_DSP);
- 
- /**
-  * cs_dsp_adsp1_power_down() - Halts the DSP
-@@ -2341,7 +2341,7 @@ void cs_dsp_adsp1_power_down(struct cs_dsp *dsp)
- 
- 	mutex_unlock(&dsp->pwr_lock);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_adsp1_power_down);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_adsp1_power_down, FW_CS_DSP);
- 
- static int cs_dsp_adsp2v2_enable_core(struct cs_dsp *dsp)
- {
-@@ -2493,7 +2493,7 @@ int cs_dsp_set_dspclk(struct cs_dsp *dsp, unsigned int freq)
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_set_dspclk);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_set_dspclk, FW_CS_DSP);
- 
- static void cs_dsp_stop_watchdog(struct cs_dsp *dsp)
- {
-@@ -2583,7 +2583,7 @@ int cs_dsp_power_up(struct cs_dsp *dsp,
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_power_up);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_power_up, FW_CS_DSP);
- 
- /**
-  * cs_dsp_power_down() - Powers-down the DSP
-@@ -2617,7 +2617,7 @@ void cs_dsp_power_down(struct cs_dsp *dsp)
- 
- 	cs_dsp_dbg(dsp, "Shutdown complete\n");
- }
--EXPORT_SYMBOL_GPL(cs_dsp_power_down);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_power_down, FW_CS_DSP);
- 
- static int cs_dsp_adsp2_start_core(struct cs_dsp *dsp)
- {
-@@ -2703,7 +2703,7 @@ int cs_dsp_run(struct cs_dsp *dsp)
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_run);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_run, FW_CS_DSP);
- 
- /**
-  * cs_dsp_stop() - Stops the firmware
-@@ -2742,7 +2742,7 @@ void cs_dsp_stop(struct cs_dsp *dsp)
- 
- 	cs_dsp_dbg(dsp, "Execution stopped\n");
- }
--EXPORT_SYMBOL_GPL(cs_dsp_stop);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_stop, FW_CS_DSP);
- 
- static int cs_dsp_halo_start_core(struct cs_dsp *dsp)
- {
-@@ -2804,7 +2804,7 @@ int cs_dsp_adsp2_init(struct cs_dsp *dsp)
- 
- 	return cs_dsp_common_init(dsp);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_adsp2_init);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_adsp2_init, FW_CS_DSP);
- 
- /**
-  * cs_dsp_halo_init() - Initialise a cs_dsp structure representing a HALO Core DSP
-@@ -2818,7 +2818,7 @@ int cs_dsp_halo_init(struct cs_dsp *dsp)
- 
- 	return cs_dsp_common_init(dsp);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_halo_init);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_halo_init, FW_CS_DSP);
- 
- /**
-  * cs_dsp_remove() - Clean a cs_dsp before deletion
-@@ -2838,7 +2838,7 @@ void cs_dsp_remove(struct cs_dsp *dsp)
- 		cs_dsp_free_ctl_blk(ctl);
- 	}
- }
--EXPORT_SYMBOL_GPL(cs_dsp_remove);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_remove, FW_CS_DSP);
- 
- /**
-  * cs_dsp_read_raw_data_block() - Reads a block of data from DSP memory
-@@ -2875,7 +2875,7 @@ int cs_dsp_read_raw_data_block(struct cs_dsp *dsp, int mem_type, unsigned int me
- 
+-#if IS_ENABLED(CONFIG_SOUNDWIRE)
+ int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
+ 			 struct sdw_stream_runtime *sruntime,
+ 			 bool *stream_prepared)
+@@ -294,7 +293,6 @@ int qcom_snd_sdw_hw_free(struct snd_pcm_substream *substream,
  	return 0;
  }
--EXPORT_SYMBOL_GPL(cs_dsp_read_raw_data_block);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_read_raw_data_block, FW_CS_DSP);
+ EXPORT_SYMBOL_GPL(qcom_snd_sdw_hw_free);
+-#endif
  
- /**
-  * cs_dsp_read_data_word() - Reads a word from DSP memory
-@@ -2899,7 +2899,7 @@ int cs_dsp_read_data_word(struct cs_dsp *dsp, int mem_type, unsigned int mem_add
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup)
+diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
+index c5472a642de0..3ef5bb6d12df 100644
+--- a/sound/soc/qcom/common.h
++++ b/sound/soc/qcom/common.h
+@@ -11,7 +11,6 @@ int qcom_snd_parse_of(struct snd_soc_card *card);
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup);
  
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_read_data_word);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_read_data_word, FW_CS_DSP);
- 
- /**
-  * cs_dsp_write_data_word() - Writes a word to DSP memory
-@@ -2925,7 +2925,7 @@ int cs_dsp_write_data_word(struct cs_dsp *dsp, int mem_type, unsigned int mem_ad
- 
- 	return regmap_raw_write(dsp->regmap, reg, &val, sizeof(val));
- }
--EXPORT_SYMBOL_GPL(cs_dsp_write_data_word);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_write_data_word, FW_CS_DSP);
- 
- /**
-  * cs_dsp_remove_padding() - Convert unpacked words to packed bytes
-@@ -2949,7 +2949,7 @@ void cs_dsp_remove_padding(u32 *buf, int nwords)
- 		*pack_out++ = (u8)(word >> 16);
- 	}
- }
--EXPORT_SYMBOL_GPL(cs_dsp_remove_padding);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_remove_padding, FW_CS_DSP);
- 
- /**
-  * cs_dsp_adsp2_bus_error() - Handle a DSP bus error interrupt
-@@ -3019,7 +3019,7 @@ void cs_dsp_adsp2_bus_error(struct cs_dsp *dsp)
- error:
- 	mutex_unlock(&dsp->pwr_lock);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_adsp2_bus_error);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_adsp2_bus_error, FW_CS_DSP);
- 
- /**
-  * cs_dsp_halo_bus_error() - Handle a DSP bus error interrupt
-@@ -3079,7 +3079,7 @@ void cs_dsp_halo_bus_error(struct cs_dsp *dsp)
- exit_unlock:
- 	mutex_unlock(&dsp->pwr_lock);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_halo_bus_error);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_halo_bus_error, FW_CS_DSP);
- 
- /**
-  * cs_dsp_halo_wdt_expire() - Handle DSP watchdog expiry
-@@ -3099,7 +3099,7 @@ void cs_dsp_halo_wdt_expire(struct cs_dsp *dsp)
- 
- 	mutex_unlock(&dsp->pwr_lock);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_halo_wdt_expire);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_halo_wdt_expire, FW_CS_DSP);
- 
- static const struct cs_dsp_ops cs_dsp_adsp1_ops = {
- 	.validate_version = cs_dsp_validate_version,
-@@ -3221,7 +3221,7 @@ int cs_dsp_chunk_write(struct cs_dsp_chunk *ch, int nbits, u32 val)
- 
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_chunk_write);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_write, FW_CS_DSP);
- 
- /**
-  * cs_dsp_chunk_flush() - Pad remaining data with zero and commit to chunk
-@@ -3240,7 +3240,7 @@ int cs_dsp_chunk_flush(struct cs_dsp_chunk *ch)
- 
- 	return cs_dsp_chunk_write(ch, CS_DSP_DATA_WORD_BITS - ch->cachebits, 0);
- }
--EXPORT_SYMBOL_GPL(cs_dsp_chunk_flush);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_flush, FW_CS_DSP);
- 
- /**
-  * cs_dsp_chunk_read() - Parse data from a DSP memory chunk
-@@ -3282,7 +3282,7 @@ int cs_dsp_chunk_read(struct cs_dsp_chunk *ch, int nbits)
- 
- 	return result;
- }
--EXPORT_SYMBOL_GPL(cs_dsp_chunk_read);
-+EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_read, FW_CS_DSP);
- 
- MODULE_DESCRIPTION("Cirrus Logic DSP Support");
- MODULE_AUTHOR("Simon Trimmer <simont@opensource.cirrus.com>");
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index e5f0549bf06d..91842c0c8c74 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1545,3 +1545,4 @@ MODULE_DESCRIPTION("CS35L41 HDA Driver");
- MODULE_IMPORT_NS(SND_HDA_CS_DSP_CONTROLS);
- MODULE_AUTHOR("Lucas Tanure, Cirrus Logic Inc, <tanureal@opensource.cirrus.com>");
- MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS(FW_CS_DSP);
-diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
-index 1622a22f96f6..5433f6227ac9 100644
---- a/sound/pci/hda/hda_cs_dsp_ctl.c
-+++ b/sound/pci/hda/hda_cs_dsp_ctl.c
-@@ -249,3 +249,4 @@ EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_read_ctl, SND_HDA_CS_DSP_CONTROLS);
- MODULE_DESCRIPTION("CS_DSP ALSA Control HDA Library");
- MODULE_AUTHOR("Stefan Binding, <sbinding@opensource.cirrus.com>");
- MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS(FW_CS_DSP);
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 34a94b011518..91f93c08afd7 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -2060,3 +2060,4 @@ static const struct cs_dsp_client_ops wm_adsp2_client_ops = {
- };
- 
- MODULE_LICENSE("GPL v2");
-+MODULE_IMPORT_NS(FW_CS_DSP);
+-#if IS_ENABLED(CONFIG_SOUNDWIRE)
+ int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
+ 			 struct sdw_stream_runtime *runtime,
+ 			 bool *stream_prepared);
+@@ -21,26 +20,4 @@ int qcom_snd_sdw_hw_params(struct snd_pcm_substream *substream,
+ int qcom_snd_sdw_hw_free(struct snd_pcm_substream *substream,
+ 			 struct sdw_stream_runtime *sruntime,
+ 			 bool *stream_prepared);
+-#else
+-static inline int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
+-				       struct sdw_stream_runtime *runtime,
+-				       bool *stream_prepared)
+-{
+-	return -ENOTSUPP;
+-}
+-
+-static inline int qcom_snd_sdw_hw_params(struct snd_pcm_substream *substream,
+-					 struct snd_pcm_hw_params *params,
+-					 struct sdw_stream_runtime **psruntime)
+-{
+-	return -ENOTSUPP;
+-}
+-
+-static inline int qcom_snd_sdw_hw_free(struct snd_pcm_substream *substream,
+-				       struct sdw_stream_runtime *sruntime,
+-				       bool *stream_prepared)
+-{
+-	return -ENOTSUPP;
+-}
+-#endif
+ #endif
 -- 
-2.30.2
+2.25.1
 

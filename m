@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FDC6639497
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:17:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03722639498
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:17:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD6D917B5;
-	Sat, 26 Nov 2022 09:16:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD6D917B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9461117C1;
+	Sat, 26 Nov 2022 09:17:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9461117C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450651;
-	bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
+	s=default; t=1669450670;
+	bh=IvHYWDLn1DgR8LH4t7rSubz36Ju+jzSqmPmYrOhNPlo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qDCvArxYEIF4Q3r/yoqWTobL80EFvzOVXsJeYXm6Wmh2XPaxhq5cPFimGpheyMEGJ
-	 1lZGE0vj0T5g5SmjZMo08dhWb1LLmn7BbYssIvBqfG7xKlIswbDc+jVyyTkHgt+VW8
-	 t2KUSl7orL4Jy+NpQcr586mGblTD3kF/2emSmBYg=
+	b=IU7IXl10XRlfyAatxAyB5iEfU4hBSJG9dFQr1c6OKeIv/RGWLAmM5Na9hnM9S5yxe
+	 uSd0nvJiIZ08dukP+CjiKXrzNxCF9NkRztMr/x7kQ2QDyWyjh9uj7TTu6RHaJW5zI5
+	 uFhuO1Q9nPXxu0sTVsCGwb616UqxPgi5wqpHiZY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AD76F8055A;
-	Sat, 26 Nov 2022 09:00:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F4A5F80809;
+	Sat, 26 Nov 2022 09:00:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0434AF80431; Thu, 24 Nov 2022 16:49:49 +0100 (CET)
+ id 85A76F80431; Thu, 24 Nov 2022 17:04:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70C73F80149
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 16:49:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C73F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FE6EF80115
+ for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 17:04:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE6EF80115
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UfXMNr+K"
+ header.b="WlxvzM22"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BD49AB826FF;
- Thu, 24 Nov 2022 15:49:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00BDC433D6;
- Thu, 24 Nov 2022 15:49:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 382A7B82874;
+ Thu, 24 Nov 2022 16:04:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4356C433D6;
+ Thu, 24 Nov 2022 16:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669304983;
- bh=vSDY92xmrOtkiq1FJrC4dGUzlqSkjlYU9twgxHBDx1E=;
+ s=k20201202; t=1669305852;
+ bh=IvHYWDLn1DgR8LH4t7rSubz36Ju+jzSqmPmYrOhNPlo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UfXMNr+KaRMNoeQ6a8sc3aYcszYSY2W6DA1IFf7VfJpOIbPJfXoDFp0OdeGFCvfMx
- rlfCqayivLAp7sMIMatEq39znHf8c81NP9ZNcMFsbxq+Jl6XjsVjrbCrsF0MbkP5us
- V1wBkzpp0dqsmVi1dwapqZ24qJBCaW+TI7k7Mqe0j9CadWogJiOMSzo1j0q2ZG55IU
- EZWkJgRxpuIuAwvTXAzOTzg/6xtzoLbkDSa4J26yrjo2BfzthBkgdoIiFp6Jrb0Ifx
- TfqJOZR6EucdPVbZEC+rTgyEE4l2xHfhJp+9xGbmmAcIBKu5d2TuNkLOgcki9AgXE9
- 3KAcnrHGbxVMw==
+ b=WlxvzM22NwMDCoQChrQhXcrqFDVCZNvtWkzovYYg2PyBCYEXL4YaJuKbp1dQByKcF
+ FmlwRuCiw0oQRKp2ZSDzDV/aqXNW4V8kWhrIBPIdh+/S7edLrqRPFuSS4MdSBm7BLH
+ IDnPtjktIvP1hka5/d8VaQhqX7Yn6GZ5Hx+IOBEDhJbY4qMOFPtHIuaB8I1wIuGdL6
+ g1de0tQjk0TcZc+A64jFItQC3XsxmvpZZRqGF7esQ3Lb9AgP1rdwW/lFgi93zL+mqf
+ sGYMjME4SGIBJuwf4qC9yYSwep3N56gpSQJ5vy76O58xNPbhd+xJcjeFicKz9acOhD
+ lG4G9UHzWi0mA==
 From: Mark Brown <broonie@kernel.org>
-To: Uwe Kleine-König <uwe@kleine-koenig.org>, Grant Likely <grant.likely@linaro.org>,
- Angel Iglesias <ang.iglesiasg@gmail.com>, Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>
+To: Uwe Kleine-König <uwe@kleine-koenig.org>, Lee Jones <lee.jones@linaro.org>, Wolfram Sang <wsa@kernel.org>,
+ Angel Iglesias <ang.iglesiasg@gmail.com>, Grant Likely <grant.likely@linaro.org>
 In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
 References: <20221118224540.619276-1-uwe@kleine-koenig.org>
 Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166930497533.415834.14723483175595911825.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 15:49:35 +0000
+Message-Id: <166930584463.436148.7438729312416805991.b4-ty@kernel.org>
+Date: Thu, 24 Nov 2022 16:04:04 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
 X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
  platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
@@ -80,17 +79,17 @@ Cc: alsa-devel@alsa-project.org, linux-pwm@vger.kernel.org,
  linux-staging@lists.linux.dev,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+ kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,15 +125,15 @@ Applied to
 Thanks!
 
 [538/606] regulator: act8865-regulator: Convert to i2c's .probe_new()
-          (no commit info)
+          commit: 3d2a78ae5df5d7f48c002e5f73d18d8c7628d266
 [539/606] regulator: ad5398: Convert to i2c's .probe_new()
           commit: 7f69edba960bbdcbc829d8d0995b1117ce29e8b1
 [540/606] regulator: da9121-regulator: Convert to i2c's .probe_new()
           commit: 020cf73b47414a84b666d3e6736a6ae957e27840
 [541/606] regulator: fan53555: Convert to i2c's .probe_new()
-          (no commit info)
+          commit: 655425650f5e361224a86aa11bf3c044bf04df2a
 [542/606] regulator: isl6271a-regulator: Convert to i2c's .probe_new()
-          (no commit info)
+          commit: 69518d21deaa448be65b7c0be67aab230e88eaa7
 [543/606] regulator: lp3972: Convert to i2c's .probe_new()
           commit: 2532d5f8d5c20d5a0a8a0d57a311bc5df00dea04
 [544/606] regulator: lp872x: Convert to i2c's .probe_new()
@@ -156,9 +155,9 @@ Thanks!
 [552/606] regulator: pca9450-regulator: Convert to i2c's .probe_new()
           commit: ed56fa6e804cb13bbe29e9214792308817f6e553
 [553/606] regulator: pfuze100-regulator: Convert to i2c's .probe_new()
-          (no commit info)
+          commit: 8348c710b51bac713a6fd2e07d64eb71d5680e2e
 [554/606] regulator: pv88080-regulator: Convert to i2c's .probe_new()
-          (no commit info)
+          commit: c9f9ef15b84222f4cc686b1013ee3fd192b0bab8
 [555/606] regulator: rpi-panel-attiny-regulator: Convert to i2c's .probe_new()
           commit: d85d02d17a608b558d44510e9824668c5d4fe5d8
 [556/606] regulator: tps51632-regulator: Convert to i2c's .probe_new()

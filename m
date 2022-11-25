@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1CB3638E5A
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 17:40:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71696638EF2
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 18:23:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53CE51760;
-	Fri, 25 Nov 2022 17:39:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53CE51760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07AAC1754;
+	Fri, 25 Nov 2022 18:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07AAC1754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669394419;
-	bh=zVQuLd3xpn1r3J0Croeg/y3AKxR/ZMXPyRpOSGkGOTo=;
+	s=default; t=1669397006;
+	bh=d0urDLI5NxzyVTnv8OatpL68VU2mJ/46Kljqj9ZcblU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PhUVBG1jlUTwAt4CCJfEKR6x/Zj+//kj5yJaj/TliOOPqCF4hURw5IUBAKqFl0/uw
-	 BW6i0LK9+0IKaIKkHMsNTsKgxz8raTn+11fgdmwbgrt6C4bz241agiMq25bhLXttkq
-	 7806OmZn/PfvwpNj+JIyKwj9Xc2vbsR/qM3krp08=
+	b=ioZwT4Gj+8xrpbpkrY/h37Izu2E03pFKWH98zCwdupa4HjoEuJ/6+i63IRyY/sBIx
+	 mlCt4c/c6yqyfERL926QLPABe6VqrXTuwHv5DwKDMRWbzF9d8YEKwjF/DAfXqZ1lZ9
+	 uvaM8SwH8uVsaWBrLgrloMGzGNBHc3ijAWkWx2XY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 078D0F80171;
-	Fri, 25 Nov 2022 17:39:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABF8EF8047C;
+	Fri, 25 Nov 2022 18:22:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 945A4F80236; Fri, 25 Nov 2022 17:39:21 +0100 (CET)
+ id 30AACF80236; Fri, 25 Nov 2022 18:22:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DAFCF800F4
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 17:39:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DAFCF800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91D1DF800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 18:22:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91D1DF800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pCEhc/Q8"
+ header.b="rL2pH4Cv"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7D098B82B4F;
- Fri, 25 Nov 2022 16:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1C3C433C1;
- Fri, 25 Nov 2022 16:39:14 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id D7FFECE2EED;
+ Fri, 25 Nov 2022 17:22:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90CE3C433D6;
+ Fri, 25 Nov 2022 17:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669394357;
- bh=zVQuLd3xpn1r3J0Croeg/y3AKxR/ZMXPyRpOSGkGOTo=;
+ s=k20201202; t=1669396941;
+ bh=d0urDLI5NxzyVTnv8OatpL68VU2mJ/46Kljqj9ZcblU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pCEhc/Q83yg9znwZ6PfqpjIDkFfm3GqyOFbXQ+UqU97vwz/1b19A78xU4sARMLHgn
- 9T2nSTvNIIPbSqpFRTVaBX1azQUGcPtt2hSLRqxIbfi5o/M7NVWED5q2QDIE6J57Ib
- qHZAy6o4uVdH6zUyNAKlneKb8k1NwZ/4si6HLJuRlKMB3z7fRX/NYt7Nfep5G/1/d/
- v7KrG2hvFfFWJn5VDOT7doX8FMLk1cT1Ud2VqxDhS7FUsU33lQLmFTnKE0b+rENBR+
- Dx9f3opt1iKNwW3+JVfX/DXbuBtkG7pclp8Kp31tCZ54699MoPi56L/nYxsgH+Ipid
- +u3eg44cRCLzw==
-Date: Fri, 25 Nov 2022 16:39:10 +0000
+ b=rL2pH4Cvby5RGJJx3K0u/2kbiYb28b/2Dnod9tBsqCx2oC+Mj1NhIWuNM5CaWik1E
+ +5NkDBq/PbzG8iBXA1NMS4KJCLBLXad3v/3xQKm9SZkmX68SJk88XF3VXp4sLb3A36
+ hJSyOcHhbgU989J62wgp3XrlE2l16ajTrB95VPnZBd6kMH0R2zsLRMG/8DAm9RUu/4
+ s+OjjqRjx6F4PSdkxzskRGtimHrsTZzGb6otIwnwWg39vORf6xi5XM8NvUOHwI35mI
+ 7W1H5j7NnsYy6u1NB2lUlpvJj56kZyMyInWB1IduD24J8sZyb3yo3dlGvUnRp5Adss
+ Uvjy1HQxldANg==
+Date: Fri, 25 Nov 2022 17:22:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 1/2] ASoC: ops: Correct bounds check for second channel
- on SX controls
-Message-ID: <Y4DvrsMyTZjPmvdA@sirena.org.uk>
-References: <20221125162348.1288005-1-ckeepax@opensource.cirrus.com>
- <Y4DthUIxViHZnh/Q@sirena.org.uk>
- <20221125163509.GG105268@ediswmail.ad.cirrus.com>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: Unable to open hostless PCM device after introduction of commit
+ - ASoC: Stop dummy from overriding hwparams
+Message-ID: <Y4D5yGfvZbgAZqqm@sirena.org.uk>
+References: <6b152096-608c-1b3c-e1bc-f83149af1198@quicinc.com>
+ <7b383dde-e391-b4c8-1087-fd6105bfb852@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZaLhVnTV656g8HC5"
+ protocol="application/pgp-signature"; boundary="HUl3QIjGhIGNJsM5"
 Content-Disposition: inline
-In-Reply-To: <20221125163509.GG105268@ediswmail.ad.cirrus.com>
+In-Reply-To: <7b383dde-e391-b4c8-1087-fd6105bfb852@linux.intel.com>
 X-Cookie: Time and tide wait for no man.
-Cc: alsa-devel@alsa-project.org, guille.rodriguez@gmail.com,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, david.rhodes@cirrus.com,
- james.schulman@cirrus.com
+Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>, srinivas.kandagatla@linaro.org,
+ quic_rohkumar@quicinc.com, Patrick Lai <quic_plai@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,32 +91,57 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ZaLhVnTV656g8HC5
-Content-Type: text/plain; charset=us-ascii
+--HUl3QIjGhIGNJsM5
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 25, 2022 at 04:35:09PM +0000, Charles Keepax wrote:
-> On Fri, Nov 25, 2022 at 04:29:57PM +0000, Mark Brown wrote:
+On Mon, Nov 21, 2022 at 04:29:19PM +0100, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
 
-> > You probably mean 97eea946b93961fffd29448dcda7398d0d51c4b2.
+> And finally "snd-soc-dummy" which as mentioned above calls dummy_dma_open
+> which originally overridden hwparams set in avs_component_open() with its
+> own limited ones.
 
-> Sigh, sorry about that will send a new version.
+=2E..
 
-No, it's fine.
+> However, looking at it again, I would consider the existence of
+> dummy_dma_open() to be scope creep. If component is really a dummy one it
+> should not affect any other components in any way. And if any drivers
+> depends on dummy setting parameters for it, I would consider it partially
+> broken. And would say that issue should rather be fixed on driver side by
+> making a dedicated component for it instead of using a dummy one.
 
---ZaLhVnTV656g8HC5
+That's not such a clear statement in this case.  The thing with the
+hostless links Qualcomm are trying to use here is that we don't actually
+want to do any DMA ops at all, these paths never go to memory.  Really
+they're CODEC to CODEC links but done in an older way.  There's only DMA
+ops there because we need something to keep userspace happy, they don't
+actually mean anything and we'd never want them to be used if anything
+else is providing actual parameters.
+
+It would be cleaner if these systems were to use a CODEC to CODEC link
+but I'm not sure how well that plays with DPCM - the whole thing is a
+bit of a house of cards there.
+
+In any case, any news on a fix for this?  The suggestion of a
+custom/variant version of the dummy component that explicitly flags that
+it's supposed to be used in a hostless configuration does seem like the
+least fragile thing.
+
+--HUl3QIjGhIGNJsM5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOA760ACgkQJNaLcl1U
-h9AbGQf8DU5taCni14mMU6fynqkh7yKurRTLz9mFlcMRLG8sITPW111j63OVvyMz
-3YYoM82KHpSn/a5OARqwJv5LBbWd622n9j7fA8FlSQUDVwTLpR5p2QP7ZO9xsObf
-hqO+2JD3l2GJ3CaxqGoJirsvgVoeToXsDLJ1Neu/lcTcI+CY+JTqbZn/MjkGPKkD
-nRzOvRDc20W+RmJPy0pnh/G/XprEjKAcXMRQPhOy39+L/o4URAO+423ZWQ6W8JPa
-UXx65xHsByvPfB6Wpqi7LyU+kpBimoJPCF/tmgM6lXnIophTr+NXMRK6adtIg/Yd
-P59oEi7WuAZxofvfyl6FAyCh91aTXA==
-=vHoo
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOA+ccACgkQJNaLcl1U
+h9CUkQf/SB+F/fJRMkW/r8eddijO5Ln3I0fISd1tXTRik+cP9XteKX6wTXe4QHeB
+uPUEKoA4w9btnikUh5TR79Zi6EzRROBDYPR9LHu9WhEmfsUVRaP5BhpO53UTMNlh
+kRDGc+af2gxk3p+I58Tt+l+kUz1+7Yv9v48C354dPuak+Iseclzp6oKBjBS5GSAe
+D4Iy1V1XrYF6EOB095zbL0Gbi0Xl4vinJCx/XTIYD/b5sgsvmKZEQMfwjzmKrmee
+WwePtPsx1ARZr5MagPizfMqvX0wtHXRrV0R2vZZ2br/Q1+Zu6GrM7GpMD/5GMt5Y
+SmD18kWR8r8v6dy+bZ76mQImNVkYCA==
+=G2Ly
 -----END PGP SIGNATURE-----
 
---ZaLhVnTV656g8HC5--
+--HUl3QIjGhIGNJsM5--

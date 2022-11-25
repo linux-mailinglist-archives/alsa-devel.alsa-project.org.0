@@ -2,73 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D1AB637B22
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Nov 2022 15:11:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10BC6638490
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 08:41:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4537B16F8;
-	Thu, 24 Nov 2022 15:11:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4537B16F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74D111718;
+	Fri, 25 Nov 2022 08:40:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74D111718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669299116;
-	bh=JHDkPOypecPT8gUO0VEkZ9FdA8xG2FSpSAm3OzsOs2Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O8rolcI385cGIPBCuTJKMiYAV+VnX0TN4d0Tdd3xY89scapp+DfmLQnWfrtsmTIDC
-	 l6U4+/1spmUSeOWGhBHIw5EvsTtOssaOoOy6esp5FA+5yCnaQeJHLHQIilxhVZfzZj
-	 qQodJnDBTq0HCsTrR7ii2LOwOPYBZfGt6rfks3hQ=
+	s=default; t=1669362064;
+	bh=8xedil928i2RmeJFOc+MNJES+LH7RIO/Mk8jTMAX5QY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=C3bFvAMnZ+D8xF1VBaIX7t4mWS768Nj5ruNGFk146QS8LEUNhaN4VNbsG5nvsUgag
+	 rTDXEDumOCAyE5qOKfGwKb+Fi44uQYKU5yNJZdtjLNSdQLXYaxaR1WSzfZTpch6TGB
+	 n+aIOqTvO/z00oPT8J/lSHO9IUbgNMwIpxz6v/vM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5583F80115;
-	Thu, 24 Nov 2022 15:11:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0918EF8047C;
+	Fri, 25 Nov 2022 08:40:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13490F8014E; Thu, 24 Nov 2022 15:10:59 +0100 (CET)
+ id 99F86F80236; Fri, 25 Nov 2022 08:40:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE, T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED, 
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_ZEN_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3643BF8014E
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 15:10:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3643BF8014E
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 095276214B;
- Thu, 24 Nov 2022 14:10:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6C0C433C1;
- Thu, 24 Nov 2022 14:10:44 +0000 (UTC)
-Message-ID: <95cf026d-b37c-0b89-881a-325756645dae@xs4all.nl>
-Date: Thu, 24 Nov 2022 15:10:43 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F178F800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 08:40:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F178F800F4
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4NJRZf3c78z15Mrl;
+ Fri, 25 Nov 2022 15:39:22 +0800 (CST)
+Received: from kwepemm600014.china.huawei.com (7.193.23.54) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 25 Nov 2022 15:39:55 +0800
+Received: from huawei.com (10.90.53.225) by kwepemm600014.china.huawei.com
+ (7.193.23.54) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 25 Nov
+ 2022 15:39:55 +0800
+From: Zhang Qilong <zhangqilong3@huawei.com>
+To: <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+ <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH] ASoC: qcom: Fix build error if CONFIG_SOUNDWIRE=m
+Date: Fri, 25 Nov 2022 15:44:58 +0800
+Message-ID: <20221125074458.117347-1-zhangqilong3@huawei.com>
+X-Mailer: git-send-email 2.26.0.106.g9fadedd
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [PATCH 1/7] media: videobuf-dma-contig: use dma_mmap_coherent
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alexandra Winter <wintera@linux.ibm.com>, Wenjia Zhang
- <wenjia@linux.ibm.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Russell King <linux@armlinux.org.uk>, Robin Murphy <robin.murphy@arm.com>
-References: <20221113163535.884299-1-hch@lst.de>
- <20221113163535.884299-2-hch@lst.de>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-In-Reply-To: <20221113163535.884299-2-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.225]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ kwepemm600014.china.huawei.com (7.193.23.54)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,94 +78,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Christoph,
+If CONFIG_SND_SOC_APQ8016_SBC=y || CONFIG_SND_SOC_MSM8996=y,
+CONFIG_SND_SOC_QCOM_COMMON=y, CONFIG_SOUNDWIRE=m, building fails:
 
-On 13/11/2022 17:35, Christoph Hellwig wrote:
-> dma_alloc_coherent does not return a physical address, but a DMA address,
-> which might be remapped or have an offset.  Passing the DMA address to
-> vm_iomap_memory is thus broken.
-> 
-> Use the proper dma_mmap_coherent helper instead, and stop passing
-> __GFP_COMP to dma_alloc_coherent, as the memory management inside the
-> DMA allocator is hidden from the callers and does not require it.
-> 
-> With this the gfp_t argument to __videobuf_dc_alloc can be removed and
-> hard coded to GFP_KERNEL.
-> 
-> Fixes: a8f3c203e19b ("[media] videobuf-dma-contig: add cache support")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/media/v4l2-core/videobuf-dma-contig.c | 22 +++++++------------
+sound/soc/qcom/common.o: in function `qcom_snd_sdw_hw_free':
+common.c:(.text+0x294): undefined reference to `sdw_disable_stream'
+common.c:(.text+0x2a0): undefined reference to `sdw_deprepare_stream'
+sound/soc/qcom/common.o: in function `qcom_snd_sdw_prepare':
+common.c:(.text+0x314): undefined reference to `sdw_prepare_stream'
+common.c:(.text+0x324): undefined reference to `sdw_enable_stream'
+common.c:(.text+0x364): undefined reference to `sdw_disable_stream'
+common.c:(.text+0x36c): undefined reference to `sdw_deprepare_stream'
+common.c:(.text+0x3a8): undefined reference to `sdw_deprepare_stream'
 
-Very, very old code :-) Hopefully in the not-too-distant future we can kill off
-the old videobuf framework. But for now:
+Make SND_SOC_APQ8016_SBC,SND_SOC_MSM8996 depends on
+'SOUNDWIRE || !SOUNDWIRE' to fix this.
 
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Fixes: 3bd975f3ae0a ("ASoC: qcom: sm8250: move some code to common")
+Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+---
+ sound/soc/qcom/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I assume you take this? If not, then let me know and I will pick it up for the media
-subsystem.
-
-Regards,
-
-	Hans
-
->  1 file changed, 8 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/videobuf-dma-contig.c b/drivers/media/v4l2-core/videobuf-dma-contig.c
-> index 52312ce2ba056..f2c4393595574 100644
-> --- a/drivers/media/v4l2-core/videobuf-dma-contig.c
-> +++ b/drivers/media/v4l2-core/videobuf-dma-contig.c
-> @@ -36,12 +36,11 @@ struct videobuf_dma_contig_memory {
->  
->  static int __videobuf_dc_alloc(struct device *dev,
->  			       struct videobuf_dma_contig_memory *mem,
-> -			       unsigned long size, gfp_t flags)
-> +			       unsigned long size)
->  {
->  	mem->size = size;
-> -	mem->vaddr = dma_alloc_coherent(dev, mem->size,
-> -					&mem->dma_handle, flags);
-> -
-> +	mem->vaddr = dma_alloc_coherent(dev, mem->size, &mem->dma_handle,
-> +					GFP_KERNEL);
->  	if (!mem->vaddr) {
->  		dev_err(dev, "memory alloc size %ld failed\n", mem->size);
->  		return -ENOMEM;
-> @@ -258,8 +257,7 @@ static int __videobuf_iolock(struct videobuf_queue *q,
->  			return videobuf_dma_contig_user_get(mem, vb);
->  
->  		/* allocate memory for the read() method */
-> -		if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(vb->size),
-> -					GFP_KERNEL))
-> +		if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(vb->size)))
->  			return -ENOMEM;
->  		break;
->  	case V4L2_MEMORY_OVERLAY:
-> @@ -295,22 +293,18 @@ static int __videobuf_mmap_mapper(struct videobuf_queue *q,
->  	BUG_ON(!mem);
->  	MAGIC_CHECK(mem->magic, MAGIC_DC_MEM);
->  
-> -	if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(buf->bsize),
-> -				GFP_KERNEL | __GFP_COMP))
-> +	if (__videobuf_dc_alloc(q->dev, mem, PAGE_ALIGN(buf->bsize)))
->  		goto error;
->  
-> -	/* Try to remap memory */
-> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> -
->  	/* the "vm_pgoff" is just used in v4l2 to find the
->  	 * corresponding buffer data structure which is allocated
->  	 * earlier and it does not mean the offset from the physical
->  	 * buffer start address as usual. So set it to 0 to pass
-> -	 * the sanity check in vm_iomap_memory().
-> +	 * the sanity check in dma_mmap_coherent().
->  	 */
->  	vma->vm_pgoff = 0;
-> -
-> -	retval = vm_iomap_memory(vma, mem->dma_handle, mem->size);
-> +	retval = dma_mmap_coherent(q->dev, vma, mem->vaddr, mem->dma_handle,
-> +				   mem->size);
->  	if (retval) {
->  		dev_err(q->dev, "mmap: remap failed with error %d. ",
->  			retval);
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 8c7398bc1ca8..f5f0b48d74af 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -58,6 +58,7 @@ config SND_SOC_STORM
+ 
+ config SND_SOC_APQ8016_SBC
+ 	tristate "SoC Audio support for APQ8016 SBC platforms"
++	depends on SOUNDWIRE || !SOUNDWIRE
+ 	select SND_SOC_LPASS_APQ8016
+ 	select SND_SOC_QCOM_COMMON
+ 	help
+@@ -141,6 +142,7 @@ config SND_SOC_MSM8996
+ 	tristate "SoC Machine driver for MSM8996 and APQ8096 boards"
+ 	depends on QCOM_APR
+ 	depends on COMMON_CLK
++	depends on SOUNDWIRE || !SOUNDWIRE
+ 	select SND_SOC_QDSP6
+ 	select SND_SOC_QCOM_COMMON
+ 	help
+-- 
+2.25.1
 

@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407CC638FB7
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 19:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C83C638FB9
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 19:26:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D25801760;
-	Fri, 25 Nov 2022 19:24:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25801760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F494175E;
+	Fri, 25 Nov 2022 19:25:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F494175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669400747;
-	bh=YYr68HhZ+L4FesseDLwEdDzpnAYwmqzen9qKgoG1iKs=;
+	s=default; t=1669400769;
+	bh=en2PQi9Mj4TtqEg71x55herGNoXHfj08m/EXmc9L5m4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mFO3VKFLGnVl0NRy04gahWiOjGwoWqKw5ohJtkoeTbMcbIIHHwVYgyu1kn2/cWCqC
-	 JCygD64bQDM2XBtFRZj6Kc7iLhzzYaFOHJ43pIl5WhUvoqlhCiBJae1/Ws4AWs8jZF
-	 GCBGtssxYKL8HhZMQL1/+LJJbFUbLcHKvqIa/vxw=
+	b=l7ogA1XHlPc6nncz9BmU6Ndv5f+GvV8iFJU5VJnGjJhKtKxIEQYcsSL0tSdcL9Q4M
+	 9pU7ggT2Up9+b4yqP8efgsJRhZfjXXFSvEWJkBrAOaA4fD7PC2hY/IEZXbFOQ6mfo0
+	 iVhZ4XYjSMURMEFkOTED02Hmdui5f96wQ84kObeU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECF36F8057A;
-	Fri, 25 Nov 2022 19:23:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73031F8057E;
+	Fri, 25 Nov 2022 19:23:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D11FF80559; Fri, 25 Nov 2022 19:23:47 +0100 (CET)
+ id D495FF80567; Fri, 25 Nov 2022 19:23:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8CDDF80533
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 19:23:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8CDDF80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6FBFF80536
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 19:23:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6FBFF80536
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="YBcM2jkO"
+ header.b="U5/OZ6ex"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669400618; x=1700936618;
+ t=1669400620; x=1700936620;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YYr68HhZ+L4FesseDLwEdDzpnAYwmqzen9qKgoG1iKs=;
- b=YBcM2jkO+KObCaNWt8eyFdj0I/s+yNnsXvEbhMaOb0y6Z67U/iHyo8Wo
- EV6JjmDXwXkIqgk6NXQ3NCT96Mz6phH3I3QizNjgajk+6E3lltZhSqxJS
- SkMWJsew6JGQZQVKreICxchTG8y/9YFcmV0cW+vBaeZmfYMeHkYsNQcLM
- uHsO+K0mhmVjOMuoU2vCTXDOKjVipQ314SiKJrukN9rkv63UIRfmj8SMN
- bzCnjhxDbfcLNu0XXmliX5Pn858wcXuVmA9SI+wimIgTJRsS8IgcW4bEO
- in7buXJy2vJresm6w64UgLmctGHSO3EXPVZ48rFUOMCRyUm0WTi92D7Kj Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="294909221"
-X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="294909221"
+ bh=en2PQi9Mj4TtqEg71x55herGNoXHfj08m/EXmc9L5m4=;
+ b=U5/OZ6exNdj4bVmFAGZ/McuqhZ+3FSN0dR1IkLMs2pJC6ftuwph6Ch9K
+ lPSM0UABXXWGJwys5jPqbV/X49c+yKQi8VMHX9n5jbd0oLuY6UCNvaZhz
+ +G+Gy/LfNUwuKNL2zVHGYSoP3/u0RUuI1AP3Vg/pW1S97hdrMiItAJsvM
+ FvObP/s29qyINl2czyzL6rnoo8ZdnBaNvbuiEE1feODfH5x25J+hT7mhF
+ tr7Sqr752Dr+e1f0tH5CiFJjC4g89ez1wzljMg0otjj9Sh4U3nuiPK+5A
+ Oj/bMJEpRFgVsVNLfhZJXHMb2JtPt/lTpo3nB/kbPiEZpBPn16Gdnq//v g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="294909223"
+X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="294909223"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2022 10:23:36 -0800
+ 25 Nov 2022 10:23:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="785005526"
-X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="785005526"
+X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="785005531"
+X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="785005531"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 25 Nov 2022 10:23:34 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 25 Nov 2022 10:23:36 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 04/11] ASoC: Intel: avs: rt274: Refer to DAI name through a
- constant
-Date: Fri, 25 Nov 2022 19:40:25 +0100
-Message-Id: <20221125184032.2565979-5-cezary.rojewski@intel.com>
+Subject: [PATCH 05/11] ASoC: Intel: avs: rt274: Refactor jack handling
+Date: Fri, 25 Nov 2022 19:40:26 +0100
+Message-Id: <20221125184032.2565979-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221125184032.2565979-1-cezary.rojewski@intel.com>
 References: <20221125184032.2565979-1-cezary.rojewski@intel.com>
@@ -95,28 +94,87 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-There is existing define for codec DAI name, make use of it when setting
-codec DAI name.
+Use link->exit() rather than pdev->remove() to unassign jack during card
+unbind procedure so codec link initialization and exit procedures are
+symmetrical.
+
+Also, there is no need to perform search for codec dai in suspend_pre()
+and resume_post() ourselves. Use snd_soc_card_get_codec_dai() instead.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/boards/rt274.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/avs/boards/rt274.c | 28 +++++++++++-----------------
+ 1 file changed, 11 insertions(+), 17 deletions(-)
 
 diff --git a/sound/soc/intel/avs/boards/rt274.c b/sound/soc/intel/avs/boards/rt274.c
-index afef5a3ca60b..9937cfe9996e 100644
+index 9937cfe9996e..6a1e121f082f 100644
 --- a/sound/soc/intel/avs/boards/rt274.c
 +++ b/sound/soc/intel/avs/boards/rt274.c
-@@ -160,7 +160,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+@@ -119,6 +119,11 @@ static int avs_rt274_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 	return 0;
+ }
  
- 	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
- 	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-INT34C2:00");
--	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, "rt274-aif1");
-+	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, RT274_CODEC_DAI);
- 	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
- 		return -ENOMEM;
++static void avs_rt274_codec_exit(struct snd_soc_pcm_runtime *rtd)
++{
++	snd_soc_component_set_jack(asoc_rtd_to_codec(rtd, 0)->component, NULL, NULL);
++}
++
+ static int avs_rt274_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_interval *rate, *channels;
+@@ -171,6 +176,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+ 	dl->id = 0;
+ 	dl->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
+ 	dl->init = avs_rt274_codec_init;
++	dl->exit = avs_rt274_codec_exit;
+ 	dl->be_hw_params_fixup = avs_rt274_be_fixup;
+ 	dl->nonatomic = 1;
+ 	dl->no_pcm = 1;
+@@ -214,30 +220,19 @@ static int avs_create_dapm_routes(struct device *dev, int ssp_port,
+ 	return 0;
+ }
  
+-static int avs_card_set_jack(struct snd_soc_card *card, struct snd_soc_jack *jack)
+-{
+-	struct snd_soc_component *component;
+-
+-	for_each_card_components(card, component)
+-		snd_soc_component_set_jack(component, jack, NULL);
+-	return 0;
+-}
+-
+-static int avs_card_remove(struct snd_soc_card *card)
+-{
+-	return avs_card_set_jack(card, NULL);
+-}
+-
+ static int avs_card_suspend_pre(struct snd_soc_card *card)
+ {
+-	return avs_card_set_jack(card, NULL);
++	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, RT274_CODEC_DAI);
++
++	return snd_soc_component_set_jack(codec_dai->component, NULL, NULL);
+ }
+ 
+ static int avs_card_resume_post(struct snd_soc_card *card)
+ {
++	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, RT274_CODEC_DAI);
+ 	struct snd_soc_jack *jack = snd_soc_card_get_drvdata(card);
+ 
+-	return avs_card_set_jack(card, jack);
++	return snd_soc_component_set_jack(codec_dai->component, jack, NULL);
+ }
+ 
+ static int avs_rt274_probe(struct platform_device *pdev)
+@@ -275,7 +270,6 @@ static int avs_rt274_probe(struct platform_device *pdev)
+ 	card->name = "avs_rt274";
+ 	card->dev = dev;
+ 	card->owner = THIS_MODULE;
+-	card->remove = avs_card_remove;
+ 	card->suspend_pre = avs_card_suspend_pre;
+ 	card->resume_post = avs_card_resume_post;
+ 	card->dai_link = dai_link;
 -- 
 2.25.1
 

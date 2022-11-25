@@ -2,97 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D677638670
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 10:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B296263867B
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 10:45:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A18651726;
-	Fri, 25 Nov 2022 10:43:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18651726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5595F1732;
+	Fri, 25 Nov 2022 10:44:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5595F1732
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669369450;
-	bh=WwUxQGuZZcCTTxUvcxDekoFEE/xDxHDx2OFyAc4Oy2U=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nknI++L+2rHuMzOb8h59/6sX9EsQq/F0JxEgV4FEMVR1Dcs/tk+O5D0lVI4Lbl/IW
-	 GAWysrh90oeiN4ZZcIRSc5jbwEhP2vHPQWtCSRObjLBmBfYDT3hcS3y72ku1MhTKFE
-	 qk8VOgIk+UZpKfILGtXYb2yVcLOsx1x6r7gETsYg=
+	s=default; t=1669369528;
+	bh=35kv5OFexv3T6+e2TkgjY1DGuyfEoaznjOGUHck6DAQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IzOeKFHCFhMzgaokR2se4VQzQos5Xh5M62fgR5m6dtounppdfKRRMfo8Bzkp9T6Hq
+	 zapD8xNfC7EOyi+P0tUTMtvuhkEvSvoB4N+FBE5hXl5mqwhWC5ovQ2fLUO/kJOKwYD
+	 r2wmw3xpWqOrZNzaXT1vbB9Lu6BeVUkomPdd7wec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15CDCF8047C;
-	Fri, 25 Nov 2022 10:43:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D653F80533;
+	Fri, 25 Nov 2022 10:44:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0D19F800F4; Fri, 25 Nov 2022 10:43:12 +0100 (CET)
+ id C8294F80236; Fri, 25 Nov 2022 10:44:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 159B3F800F4
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 10:43:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 159B3F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23B13F800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 10:44:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23B13F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="RIq1CCGS"
-Received: by mail-wm1-x32f.google.com with SMTP id
- v124-20020a1cac82000000b003cf7a4ea2caso5751125wme.5
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 01:43:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BtoCJqUpK4o5szevvw+ybfVTb/LNHn5NkHemMgXxags=;
- b=RIq1CCGS1Wy//7bL7UDssjZV6iSmgRRpEEsXZIHIH5LIzgWYus6V80uiQfneQg+azX
- 5BjASqgh+TvA1DzUn0M0qq7tJf+ETQkQPfMpErMmI7ywBlFJhnCWqSaHv0Hp95hBd8A8
- 5bc/ml/2Qq4vbYw2HSt5fQC4djAzwLo4m1hn1rYit2OfBv93hBUGDc4dzuu50xAjxjz4
- yvGbIBdQM/sANhStoY2zULaxDGXcWr/Hm+oRCiMkdeJaiIvc6CZs1mfbkKLYpAo/vQGu
- ep3Fo1Gf2vS2Lc6T94mXHiylTXPM3d2Tve/VEh7DCwZw8fcViKrED8EbnzylDWAiOPiB
- W4rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BtoCJqUpK4o5szevvw+ybfVTb/LNHn5NkHemMgXxags=;
- b=1fPu7bro0oCQtwtvUH490zeXYXQvp5Xn2jX5QdShmxc/61EOPX1/IbMBDl+MAmC1q1
- LI8TVXEkdXEV/DK0nRJqcMKaTznXa2gR5FeASw8N3FQE5gRtacbudmntTapQ25HwFDM7
- m0NvbUNX1NT5Tf2LWnU1XlifAu4EYTrzzbIAH7yLZsyDHMOGsrApNvZvi15/fbyUsL04
- AHc1tdtygwARy4qlh2UaCDnuzr3ypAcPHudd3cEKfdIruYcEKr5O6VW2zu/XmVqXdpNM
- 1EnOlbF+QKxWRKpUJ6atwGQhUDLeaYHC687E8oi3wDoP5dC26OGI5IQaljeRc2NQMtv0
- /OUA==
-X-Gm-Message-State: ANoB5pkDZ+qd9EOxMMLsIsXVr5OdXFKTmxk0J3Fjfcz4pdZAmIoHfnJ7
- chqz2ny2wm2ZMcOo8SgUkLW62G57asAfSA==
-X-Google-Smtp-Source: AA0mqf4sFKwnaFLm9VUzLrAKTNaebOAx2sGm+q9PGsK/IvMojE7dvatbEZyuGMpB3ORSaUWeMHlTlA==
-X-Received: by 2002:a7b:cc85:0:b0:3bf:d1e2:1d9 with SMTP id
- p5-20020a7bcc85000000b003bfd1e201d9mr20274173wma.115.1669369385088; 
- Fri, 25 Nov 2022 01:43:05 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- o9-20020a5d4a89000000b00241fde8fe04sm3326606wrq.7.2022.11.25.01.43.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Nov 2022 01:43:04 -0800 (PST)
-Message-ID: <d8b9222f-e5a0-9686-732e-fd8530167678@linaro.org>
-Date: Fri, 25 Nov 2022 09:43:03 +0000
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="bxU1vu7J"
+X-UUID: 8ee212f72d8a4543850579fe2e21b2f1-20221125
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=OIPMmjppnFUNnchCS+G3oU3JvoXj7RK/eWKev7o99SQ=; 
+ b=bxU1vu7JWbBZ57GEfblKC9dxy/usRBoXhfK65+mEU7icakcz0ODLID0z3+9dLtarTG8Yjdy1A8pm4pD/5U+Sva6hixIwihkmiT30nXkIMA7s+tvVAxicUPNlA3WgO5CV4ZrreUECHyQo17rAHFXtq2f+NMuUFe3ZgJ9TSgM9MEk=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.14, REQID:6d2c5c0f-7043-414d-9d8b-0b30e592dc79, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:dcaaed0, CLOUDID:58843ddc-6ad4-42ff-91f3-18e0272db660,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:1,EDM:-3,IP:nil,U
+ RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+X-UUID: 8ee212f72d8a4543850579fe2e21b2f1-20221125
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1723778188; Fri, 25 Nov 2022 17:44:17 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Fri, 25 Nov 2022 17:44:15 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
+ Frontend Transport; Fri, 25 Nov 2022 17:44:14 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <robert.foss@linaro.org>,
+ <Laurent.pinchart@ideasonboard.com>, <kuninori.morimoto.gx@renesas.com>,
+ <angelogioacchino.delregno@collabora.com>, <nfraprado@collabora.com>
+Subject: [PATCH v2 0/3] ASoC: mediatek:mt8186: fix both the speaker and hdmi
+Date: Fri, 25 Nov 2022 17:44:10 +0800
+Message-ID: <20221125094413.4940-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] ASoC: qcom: Fix build error if CONFIG_SOUNDWIRE=m
-To: Zhang Qilong <zhangqilong3@huawei.com>, bgoswami@quicinc.com,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-References: <20221125074458.117347-1-zhangqilong3@huawei.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20221125074458.117347-1-zhangqilong3@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, chunxu.li@mediatek.com,
+ allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ ajye_huang@compal.corp-partner.google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,58 +101,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The speaker and hdmi of mt8186 platform are shared the same port of I2S,
+when connect the external display, use build-in speakers to play audio,
+they both playback at the same time. So we want to manage the playback
+device through DAPM events.
 
+Change since v1:
+    Support audio function for it6505 bridge to hdmi-codec
 
-On 25/11/2022 07:44, Zhang Qilong wrote:
-> If CONFIG_SND_SOC_APQ8016_SBC=y || CONFIG_SND_SOC_MSM8996=y,
-> CONFIG_SND_SOC_QCOM_COMMON=y, CONFIG_SOUNDWIRE=m, building fails:
-> 
-> sound/soc/qcom/common.o: in function `qcom_snd_sdw_hw_free':
-> common.c:(.text+0x294): undefined reference to `sdw_disable_stream'
-> common.c:(.text+0x2a0): undefined reference to `sdw_deprepare_stream'
-> sound/soc/qcom/common.o: in function `qcom_snd_sdw_prepare':
-> common.c:(.text+0x314): undefined reference to `sdw_prepare_stream'
-> common.c:(.text+0x324): undefined reference to `sdw_enable_stream'
-> common.c:(.text+0x364): undefined reference to `sdw_disable_stream'
-> common.c:(.text+0x36c): undefined reference to `sdw_deprepare_stream'
-> common.c:(.text+0x3a8): undefined reference to `sdw_deprepare_stream'
-> 
-> Make SND_SOC_APQ8016_SBC,SND_SOC_MSM8996 depends on
-> 'SOUNDWIRE || !SOUNDWIRE' to fix this.
+Jiaxin Yu (3):
+  ASoC: hdmi-codec: Add event handler for hdmi TX
+  ASoC: mediatek: mt8186: correct the HDMI widgets
+  drm/bridge: it6505: Add audio support
 
-This is not really the case, QCOM_COMMON is the one depending on soundwire
+ drivers/gpu/drm/bridge/ite-it6505.c           | 81 +++++++++++++++++--
+ include/sound/hdmi-codec.h                    |  6 ++
+ sound/soc/codecs/hdmi-codec.c                 | 37 ++++++++-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    |  2 +-
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  2 +-
+ 5 files changed, 116 insertions(+), 12 deletions(-)
 
+-- 
+2.18.0
 
-I have submitted a patch to clean this up.
-
-https://lore.kernel.org/lkml/20221124140351[PATCH]%20ASoC:%20qcom:%20cleanup%20and%20fix%20dependency%20of%20QCOM_COMMON.407506-1-srinivas.kandagatla@linaro.org/T/#u
-
-
-
---srini
-> 
-> Fixes: 3bd975f3ae0a ("ASoC: qcom: sm8250: move some code to common")
-> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
-> -- >   sound/soc/qcom/Kconfig | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> index 8c7398bc1ca8..f5f0b48d74af 100644
-> --- a/sound/soc/qcom/Kconfig
-> +++ b/sound/soc/qcom/Kconfig
-> @@ -58,6 +58,7 @@ config SND_SOC_STORM
->   
->   config SND_SOC_APQ8016_SBC
->   	tristate "SoC Audio support for APQ8016 SBC platforms"
-> +	depends on SOUNDWIRE || !SOUNDWIRE
->   	select SND_SOC_LPASS_APQ8016
->   	select SND_SOC_QCOM_COMMON
->   	help
-> @@ -141,6 +142,7 @@ config SND_SOC_MSM8996
->   	tristate "SoC Machine driver for MSM8996 and APQ8096 boards"
->   	depends on QCOM_APR
->   	depends on COMMON_CLK
-> +	depends on SOUNDWIRE || !SOUNDWIRE
->   	select SND_SOC_QDSP6
->   	select SND_SOC_QCOM_COMMON
->   	help

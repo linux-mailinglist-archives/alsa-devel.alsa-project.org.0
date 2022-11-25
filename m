@@ -2,84 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A2D3639471
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:10:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7037639499
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:18:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F213186C;
-	Sat, 26 Nov 2022 09:09:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F213186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C2EF17D3;
+	Sat, 26 Nov 2022 09:17:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C2EF17D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450233;
-	bh=fp6XqQpL9EV6MCaRRytTNHroBgmTNRjgfEMJDkvpH/4=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Reply-To:From;
-	b=e6/9buJhdSrqPKaYwj+AGZbOhrkaT8CKKmit8A35thf5Rwb1CmvEvlGKDwxGnMo6j
-	 R76WHQY2UQRkcezac6utrHXemBmuIxAV5eld1iWabuRVE434Dn7bT9hLn7NsB9lmEz
-	 fW7zyf8O20mtXN6y59LeuZIJ1nRxUYwAXk33gQNc=
+	s=default; t=1669450686;
+	bh=1w7DlFxD3WCX2blZmMM059sDBEdCeLcVaS46TaDQB2k=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BX0mDbImxeEyHyXnk2PCGMHY5Rh6z0K+ZN0VUEkaAsP5TYsEJoCbjINKh4md+U2vd
+	 fBRarqknDfywG8yzYouHQJoBe/daIDjKLuAcA9h0+asFOFA4ZXHthVFss4/MGsPyrt
+	 T9J3L4BpA71WhpitxwH1Ee1KXSD8lZHTUZwG1x8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6F81F80640;
-	Sat, 26 Nov 2022 08:59:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D407F80814;
+	Sat, 26 Nov 2022 09:00:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18C5BF80236; Fri, 25 Nov 2022 09:52:13 +0100 (CET)
+ id 4522CF80236; Fri, 25 Nov 2022 12:55:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FREEMAIL_REPLYTO,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBC9DF800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 09:52:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC9DF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0D9BF800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 12:55:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D9BF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="U25EnEfO"
-Received: by mail-il1-x129.google.com with SMTP id bp12so1716669ilb.9
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 00:52:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
- :subject:date:message-id:reply-to;
- bh=isTCofvVL7P9dcD3ZjO24cUl7DxiMDU3I93o15gZ/9c=;
- b=U25EnEfOZZVYs8FjvGI5gQhqb6IT6wAuDc14dIyaxkrl4QHUKrSLJJU+tKy0AZv65E
- /5Ex3VbBz3u34znyupN2qhvzV/GGLiYuQ1bYyDdKAP3CgEa1JzzYf3FMPYmz4Rukchnz
- HWWBzdJRpcxm7j20tFM/YEX87lgv183221h3LMNHGoNSW7IZGnmQn0VzjLorn3iWOxa3
- I84u4oK0duAL0TCfAFSZCaOAmRXKQuCh9KjIbzWifgQmaxVJRm73ow35hAn5gf3Vw6Cy
- yZdvy4YrZD06IjjiBuBgjEJbWBqGafSKpwdD7mBunyfTAyMYL3dhqZnKsr+tsz7BDjdo
- SUFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:reply-to:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=isTCofvVL7P9dcD3ZjO24cUl7DxiMDU3I93o15gZ/9c=;
- b=LY/HZKXTrg7j8HKyHMts3Vqff4LtiOOgUf3EXspGEqDWpxZ4+9MMrCZEwR157gEaly
- Qkj1v+tC/ZiDhQXrQ2pStdDS+fFkECUOwpQ02va1MZvxN0yuoVwqW8W2//k4JbWGQBNL
- Tv5QhsfRPfkmjl3uU3frzJZiR9t3fR+sGrLivGum8MNDBYoCGO+Q1VSMRa3Q+OcxiDqk
- 6Uc3969TX1B1QGH661jRB/WYmJ1PZTP4alMZIkkp69jBOXOs+MzL8JwyQakoLecMgr5n
- nWdJWazbLmrVC6+j4rg0rjWwt4qD371sEC6VT8XjpdI4GL4uyVl/DKt8t5m6hCLFoOTa
- x/qA==
-X-Gm-Message-State: ANoB5pmTZPSE6CFFdo1KiXPRa9HOH7hjB9SklW8esPSSZJta8SsUxYtR
- Wsmz28HGMAR6kchovKBcNucX5PLcH+JhaYr0vhA=
-X-Google-Smtp-Source: AA0mqf5H9G3SzpdncpPet9d//MPYqe5QUDuNoMnk8hLUsTV6TJ3wQJd+HzFTKQm/xY00bwcElLibzoa2erdtv5S9b+k=
-X-Received: by 2002:a92:6e12:0:b0:302:abfb:51d5 with SMTP id
- j18-20020a926e12000000b00302abfb51d5mr8856626ilc.196.1669366327251; Fri, 25
- Nov 2022 00:52:07 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="h3uPBlKc"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DF5CCB82A8B;
+ Fri, 25 Nov 2022 11:55:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479F7C433C1;
+ Fri, 25 Nov 2022 11:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669377346;
+ bh=1w7DlFxD3WCX2blZmMM059sDBEdCeLcVaS46TaDQB2k=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=h3uPBlKcpDiYp9ziolAxWVZdUguFj5hvAwv74KIXFQy6vksbPTdUmi8viJGNuP5wm
+ LcjzdwO7traA0ZjPUDk1wvjh9j3H/M91Ck6g6IAbLUbaTjAblkZPQztsppsCx/HX+n
+ ndVblE0PSz9rHBQw3ou59l8thvFk8P/o7yamtjmA3EDfpwMtvK1AV7a541iG/wnVUg
+ PMpgkuv7zSQZVQAN07VsH3zeWiBeoO2wPbRrAL3L35DbSunM9X5JUNxLW3hvJKypKj
+ kNO4K/jWzEyNouVUP2uCnDdv97ImxYhNg+K4JCF3vBLYVa2/RbWK4KqKAGdnEFsJnK
+ pPcLXwb1y+4EQ==
+Date: Fri, 25 Nov 2022 11:55:29 +0000
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 2/5] driver core: make struct class.devnode() take a
+ const *
+Message-ID: <20221125115529.05af1513@sal.lan>
+In-Reply-To: <20221123122523.1332370-2-gregkh@linuxfoundation.org>
+References: <20221123122523.1332370-1-gregkh@linuxfoundation.org>
+ <20221123122523.1332370-2-gregkh@linuxfoundation.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-From: Ivan Mrva <ivanmrva@gmail.com>
-Date: Fri, 25 Nov 2022 09:51:56 +0100
-Message-ID: <CACVs=vJpoCp2jfFof62HbQFtk75azbGCdWgRW0n12sVsdxQo-g@mail.gmail.com>
-Subject: PROBLEM: No sound on HP Firefly 14 G9 laptop
-To: tiwai@suse.com
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:51 +0100
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
+Cc: alsa-devel@alsa-project.org, Justin Sanders <justin@coraid.com>,
+ Anton Vorontsov <anton@enomsg.org>, Sean Young <sean@mess.org>, "Michael S.
+ Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ John Stultz <jstultz@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Eli Cohen <elic@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kees Cook <keescook@chromium.org>,
+ Parav Pandit <parav@nvidia.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, kvm@vger.kernel.org,
+ Leon Romanovsky <leon@kernel.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ linux-rdma@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>, x86@kernel.org,
+ Frank Haverkamp <haver@linux.ibm.com>, Dan Carpenter <error27@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
+ linux-input@vger.kernel.org, Laura Abbott <labbott@redhat.com>,
+ virtualization@lists.linux-foundation.org, linux-media@vger.kernel.org,
+ Fenghua Yu <fenghua.yu@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, Colin Cross <ccross@android.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Gautam Dawar <gautam.dawar@xilinx.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Reinette Chatre <reinette.chatre@intel.com>, Jens Axboe <axboe@kernel.dk>,
+ linux-block@vger.kernel.org, Tony Luck <tony.luck@intel.com>,
+ linux-scsi@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-kernel@vger.kernel.org, Liam Mark <lmark@codeaurora.org>,
+ Brian Starkey <Brian.Starkey@arm.com>,
+ FUJITA Tomonori <fujita.tomonori@lab.ntt.co.jp>,
+ Xie Yongji <xieyongji@bytedance.com>,
+ Maxime Coquelin <maxime.coquelin@redhat.com>, linux-usb@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,66 +118,455 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: ivan.mrva@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[1.] One line summary of the problem:
-No sound on HP Firefly 14 G9
+Em Wed, 23 Nov 2022 13:25:20 +0100
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
 
-[2.] Full description of the problem/report:
-Although the corresponding kernel module is loaded successfully and I can
-also see a sound output being produced on the software level (in
-gnome-control-center), physically there is still no sound coming out of the
-speakers. My HW card was identified with the code "0x103c" "0x896d", for
-which a patch was already submitted in the following commit:
-https://github.com/torvalds/linux/commit/f86bfeb689f2c4ebe12782ef0578ef778fb1a050.
-Unfortunately not working in my case. Also the patch identified the model
-as "HP Zbook Firefly 16 G9", however in my case the model is used "HP Zbook
-Firefly 14 G6" (14 not 16).
+> The devnode() in struct class should not be modifying the device that is
+> passed into it, so mark it as a const * and propagate the function
+> signature changes out into all relevant subsystems that use this
+> callback.
 
-[4.1.] Kernel version:
-6.1-rc6
-
-[8.3.] Module information:
-snd_hda_scodec_cs35l41_i2c
-
-[8.4.] Loaded driver and hardware information (/proc/ioports, /proc/iomem):
-Here some relevant output from systemd's journalctl:
-
-Nov 24 20:52:43 laptop-brn alsactl[2916]: Found hardware: "HDA-Intel"
-"Realtek ALC245" "HDA:10ec0245,103c8972,00100001
-HDA:8086281c,80860101,00100000" "0x103c" "0x896d"
-Nov 24 21:07:26 laptop-brn alsactl[2937]: Found hardware: "HDA-Intel"
-"Realtek ALC245" "HDA:10ec0245,103c8972,00100001
-HDA:8086281c,80860101,00100000" "0x103c" "0x896d"
-
-Nov 25 07:34:11 laptop-brn kernel: snd_hda_intel 0000:00:1f.3: DSP detected
-with PCI class/subclass/prog-if info 0x040100
-Nov 25 07:34:11 laptop-brn kernel: snd_hda_intel 0000:00:1f.3: Digital mics
-found on Skylake+ platform, using SOF driver
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
-autoconfig for ALC245: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
- speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
- hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
- mono: mono_out=0x0
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
- inputs:
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
- Mic=0x19
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0: ASoC:
-sink widget AIF1TX overwritten
-Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0: ASoC:
-source widget AIF1RX overwritten
-
-[X.] Other notes, patches, fixes, workarounds:
-I don't know by myself how to fix it - not sure what exactly is relevant on
-the HW side to be checked and how to patch it in the patch_realtek.c
-exactly. Would be glad if you could help me navigate here (what HW
-information should I look for) and would be happy to try to patch it and
-test by myself on my machine.
-
-Thank you.
+Acked-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+>=20
+> Cc: Fenghua Yu <fenghua.yu@intel.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: x86@kernel.org
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: FUJITA Tomonori <fujita.tomonori@lab.ntt.co.jp>
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: Justin Sanders <justin@coraid.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> Cc: Liam Mark <lmark@codeaurora.org>
+> Cc: Laura Abbott <labbott@redhat.com>
+> Cc: Brian Starkey <Brian.Starkey@arm.com>
+> Cc: John Stultz <jstultz@google.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Leon Romanovsky <leon@kernel.org>
+> Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Sean Young <sean@mess.org>
+> Cc: Frank Haverkamp <haver@linux.ibm.com>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: "Michael S. Tsirkin" <mst@redhat.com>
+> Cc: Jason Wang <jasowang@redhat.com>
+> Cc: Alex Williamson <alex.williamson@redhat.com>
+> Cc: Cornelia Huck <cohuck@redhat.com>
+> Cc: Kees Cook <keescook@chromium.org>
+> Cc: Anton Vorontsov <anton@enomsg.org>
+> Cc: Colin Cross <ccross@android.com>
+> Cc: Tony Luck <tony.luck@intel.com>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> Cc: Xie Yongji <xieyongji@bytedance.com>
+> Cc: Gautam Dawar <gautam.dawar@xilinx.com>
+> Cc: Dan Carpenter <error27@gmail.com>
+> Cc: Eli Cohen <elic@nvidia.com>
+> Cc: Parav Pandit <parav@nvidia.com>
+> Cc: Maxime Coquelin <maxime.coquelin@redhat.com>
+> Cc: alsa-devel@alsa-project.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: kvm@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: linux-block@vger.kernel.org
+> Cc: linux-input@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-rdma@vger.kernel.org
+> Cc: linux-scsi@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> Cc: virtualization@lists.linux-foundation.org
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  arch/x86/kernel/cpu/resctrl/pseudo_lock.c  | 4 ++--
+>  arch/x86/kernel/cpuid.c                    | 2 +-
+>  arch/x86/kernel/msr.c                      | 2 +-
+>  block/bsg.c                                | 2 +-
+>  drivers/block/aoe/aoechr.c                 | 2 +-
+>  drivers/char/mem.c                         | 2 +-
+>  drivers/char/misc.c                        | 4 ++--
+>  drivers/dma-buf/dma-heap.c                 | 2 +-
+>  drivers/gpu/drm/drm_sysfs.c                | 2 +-
+>  drivers/infiniband/core/user_mad.c         | 2 +-
+>  drivers/infiniband/core/uverbs_main.c      | 2 +-
+>  drivers/infiniband/hw/hfi1/device.c        | 4 ++--
+>  drivers/input/input.c                      | 2 +-
+>  drivers/media/dvb-core/dvbdev.c            | 4 ++--
+>  drivers/media/pci/ddbridge/ddbridge-core.c | 4 ++--
+>  drivers/media/rc/rc-main.c                 | 2 +-
+>  drivers/misc/genwqe/card_base.c            | 2 +-
+>  drivers/tty/tty_io.c                       | 2 +-
+>  drivers/usb/core/file.c                    | 2 +-
+>  drivers/vdpa/vdpa_user/vduse_dev.c         | 2 +-
+>  drivers/vfio/vfio_main.c                   | 2 +-
+>  fs/pstore/pmsg.c                           | 2 +-
+>  include/linux/device/class.h               | 2 +-
+>  sound/sound_core.c                         | 2 +-
+>  24 files changed, 29 insertions(+), 29 deletions(-)
+>=20
+> diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/=
+cpu/resctrl/pseudo_lock.c
+> index d961ae3ed96e..4e4231a58f38 100644
+> --- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+> +++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+> @@ -1560,9 +1560,9 @@ static const struct file_operations pseudo_lock_dev=
+_fops =3D {
+>  	.mmap =3D		pseudo_lock_dev_mmap,
+>  };
+> =20
+> -static char *pseudo_lock_devnode(struct device *dev, umode_t *mode)
+> +static char *pseudo_lock_devnode(const struct device *dev, umode_t *mode)
+>  {
+> -	struct rdtgroup *rdtgrp;
+> +	const struct rdtgroup *rdtgrp;
+> =20
+>  	rdtgrp =3D dev_get_drvdata(dev);
+>  	if (mode)
+> diff --git a/arch/x86/kernel/cpuid.c b/arch/x86/kernel/cpuid.c
+> index 6f7b8cc1bc9f..621ba9c0f17a 100644
+> --- a/arch/x86/kernel/cpuid.c
+> +++ b/arch/x86/kernel/cpuid.c
+> @@ -139,7 +139,7 @@ static int cpuid_device_destroy(unsigned int cpu)
+>  	return 0;
+>  }
+> =20
+> -static char *cpuid_devnode(struct device *dev, umode_t *mode)
+> +static char *cpuid_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "cpu/%u/cpuid", MINOR(dev->devt));
+>  }
+> diff --git a/arch/x86/kernel/msr.c b/arch/x86/kernel/msr.c
+> index ed8ac6bcbafb..708751311786 100644
+> --- a/arch/x86/kernel/msr.c
+> +++ b/arch/x86/kernel/msr.c
+> @@ -250,7 +250,7 @@ static int msr_device_destroy(unsigned int cpu)
+>  	return 0;
+>  }
+> =20
+> -static char *msr_devnode(struct device *dev, umode_t *mode)
+> +static char *msr_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "cpu/%u/msr", MINOR(dev->devt));
+>  }
+> diff --git a/block/bsg.c b/block/bsg.c
+> index 2ab1351eb082..08046bd9207d 100644
+> --- a/block/bsg.c
+> +++ b/block/bsg.c
+> @@ -232,7 +232,7 @@ struct bsg_device *bsg_register_queue(struct request_=
+queue *q,
+>  }
+>  EXPORT_SYMBOL_GPL(bsg_register_queue);
+> =20
+> -static char *bsg_devnode(struct device *dev, umode_t *mode)
+> +static char *bsg_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "bsg/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/block/aoe/aoechr.c b/drivers/block/aoe/aoechr.c
+> index 8eea2529da20..7a368c90467d 100644
+> --- a/drivers/block/aoe/aoechr.c
+> +++ b/drivers/block/aoe/aoechr.c
+> @@ -273,7 +273,7 @@ static const struct file_operations aoe_fops =3D {
+>  	.llseek =3D noop_llseek,
+>  };
+> =20
+> -static char *aoe_devnode(struct device *dev, umode_t *mode)
+> +static char *aoe_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "etherd/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/char/mem.c b/drivers/char/mem.c
+> index 5611d127363e..83bf2a4dcb57 100644
+> --- a/drivers/char/mem.c
+> +++ b/drivers/char/mem.c
+> @@ -746,7 +746,7 @@ static const struct file_operations memory_fops =3D {
+>  	.llseek =3D noop_llseek,
+>  };
+> =20
+> -static char *mem_devnode(struct device *dev, umode_t *mode)
+> +static char *mem_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode && devlist[MINOR(dev->devt)].mode)
+>  		*mode =3D devlist[MINOR(dev->devt)].mode;
+> diff --git a/drivers/char/misc.c b/drivers/char/misc.c
+> index cba19bfdc44d..88c6995b9a3d 100644
+> --- a/drivers/char/misc.c
+> +++ b/drivers/char/misc.c
+> @@ -254,9 +254,9 @@ void misc_deregister(struct miscdevice *misc)
+>  }
+>  EXPORT_SYMBOL(misc_deregister);
+> =20
+> -static char *misc_devnode(struct device *dev, umode_t *mode)
+> +static char *misc_devnode(const struct device *dev, umode_t *mode)
+>  {
+> -	struct miscdevice *c =3D dev_get_drvdata(dev);
+> +	const struct miscdevice *c =3D dev_get_drvdata(dev);
+> =20
+>  	if (mode && c->mode)
+>  		*mode =3D c->mode;
+> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> index 8f5848aa144f..4d7150791315 100644
+> --- a/drivers/dma-buf/dma-heap.c
+> +++ b/drivers/dma-buf/dma-heap.c
+> @@ -299,7 +299,7 @@ struct dma_heap *dma_heap_add(const struct dma_heap_e=
+xport_info *exp_info)
+>  	return err_ret;
+>  }
+> =20
+> -static char *dma_heap_devnode(struct device *dev, umode_t *mode)
+> +static char *dma_heap_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "dma_heap/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+> index 430e00b16eec..14bf156b3f1b 100644
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+> @@ -90,7 +90,7 @@ static void drm_sysfs_acpi_register(void) { }
+>  static void drm_sysfs_acpi_unregister(void) { }
+>  #endif
+> =20
+> -static char *drm_devnode(struct device *dev, umode_t *mode)
+> +static char *drm_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "dri/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/infiniband/core/user_mad.c b/drivers/infiniband/core=
+/user_mad.c
+> index 98cb594cd9a6..f83954180a33 100644
+> --- a/drivers/infiniband/core/user_mad.c
+> +++ b/drivers/infiniband/core/user_mad.c
+> @@ -1224,7 +1224,7 @@ static struct attribute *umad_class_dev_attrs[] =3D=
+ {
+>  };
+>  ATTRIBUTE_GROUPS(umad_class_dev);
+> =20
+> -static char *umad_devnode(struct device *dev, umode_t *mode)
+> +static char *umad_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "infiniband/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/infiniband/core/uverbs_main.c b/drivers/infiniband/c=
+ore/uverbs_main.c
+> index d54434088727..bdb179a09d77 100644
+> --- a/drivers/infiniband/core/uverbs_main.c
+> +++ b/drivers/infiniband/core/uverbs_main.c
+> @@ -1237,7 +1237,7 @@ static void ib_uverbs_remove_one(struct ib_device *=
+device, void *client_data)
+>  	put_device(&uverbs_dev->dev);
+>  }
+> =20
+> -static char *uverbs_devnode(struct device *dev, umode_t *mode)
+> +static char *uverbs_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode)
+>  		*mode =3D 0666;
+> diff --git a/drivers/infiniband/hw/hfi1/device.c b/drivers/infiniband/hw/=
+hfi1/device.c
+> index 8ceff7141baf..1f4496032170 100644
+> --- a/drivers/infiniband/hw/hfi1/device.c
+> +++ b/drivers/infiniband/hw/hfi1/device.c
+> @@ -72,7 +72,7 @@ const char *class_name(void)
+>  	return hfi1_class_name;
+>  }
+> =20
+> -static char *hfi1_devnode(struct device *dev, umode_t *mode)
+> +static char *hfi1_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode)
+>  		*mode =3D 0600;
+> @@ -85,7 +85,7 @@ static const char *class_name_user(void)
+>  	return hfi1_class_name_user;
+>  }
+> =20
+> -static char *hfi1_user_devnode(struct device *dev, umode_t *mode)
+> +static char *hfi1_user_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode)
+>  		*mode =3D 0666;
+> diff --git a/drivers/input/input.c b/drivers/input/input.c
+> index ebb2b7f0f8ff..50597165dc54 100644
+> --- a/drivers/input/input.c
+> +++ b/drivers/input/input.c
+> @@ -1913,7 +1913,7 @@ static const struct device_type input_dev_type =3D {
+>  #endif
+>  };
+> =20
+> -static char *input_devnode(struct device *dev, umode_t *mode)
+> +static char *input_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "input/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvb=
+dev.c
+> index 6ef18bab9648..e73f5240cc2c 100644
+> --- a/drivers/media/dvb-core/dvbdev.c
+> +++ b/drivers/media/dvb-core/dvbdev.c
+> @@ -1018,9 +1018,9 @@ static int dvb_uevent(const struct device *dev, str=
+uct kobj_uevent_env *env)
+>  	return 0;
+>  }
+> =20
+> -static char *dvb_devnode(struct device *dev, umode_t *mode)
+> +static char *dvb_devnode(const struct device *dev, umode_t *mode)
+>  {
+> -	struct dvb_device *dvbdev =3D dev_get_drvdata(dev);
+> +	const struct dvb_device *dvbdev =3D dev_get_drvdata(dev);
+> =20
+>  	return kasprintf(GFP_KERNEL, "dvb/adapter%d/%s%d",
+>  		dvbdev->adapter->num, dnames[dvbdev->type], dvbdev->id);
+> diff --git a/drivers/media/pci/ddbridge/ddbridge-core.c b/drivers/media/p=
+ci/ddbridge/ddbridge-core.c
+> index fe833f39698a..ee8087f29b2c 100644
+> --- a/drivers/media/pci/ddbridge/ddbridge-core.c
+> +++ b/drivers/media/pci/ddbridge/ddbridge-core.c
+> @@ -2716,9 +2716,9 @@ static const struct file_operations ddb_fops =3D {
+>  	.release        =3D ddb_release,
+>  };
+> =20
+> -static char *ddb_devnode(struct device *device, umode_t *mode)
+> +static char *ddb_devnode(const struct device *device, umode_t *mode)
+>  {
+> -	struct ddb *dev =3D dev_get_drvdata(device);
+> +	const struct ddb *dev =3D dev_get_drvdata(device);
+> =20
+>  	return kasprintf(GFP_KERNEL, "ddbridge/card%d", dev->nr);
+>  }
+> diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> index eba0cd30e314..527d9324742b 100644
+> --- a/drivers/media/rc/rc-main.c
+> +++ b/drivers/media/rc/rc-main.c
+> @@ -1017,7 +1017,7 @@ static void ir_close(struct input_dev *idev)
+>  }
+> =20
+>  /* class for /sys/class/rc */
+> -static char *rc_devnode(struct device *dev, umode_t *mode)
+> +static char *rc_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "rc/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/misc/genwqe/card_base.c b/drivers/misc/genwqe/card_b=
+ase.c
+> index 693981891870..0f00687f72d4 100644
+> --- a/drivers/misc/genwqe/card_base.c
+> +++ b/drivers/misc/genwqe/card_base.c
+> @@ -1349,7 +1349,7 @@ static struct pci_driver genwqe_driver =3D {
+>   * Default mode should be rw for everybody. Do not change default
+>   * device name.
+>   */
+> -static char *genwqe_devnode(struct device *dev, umode_t *mode)
+> +static char *genwqe_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode)
+>  		*mode =3D 0666;
+> diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+> index de06c3c2ff70..aad8171f6c21 100644
+> --- a/drivers/tty/tty_io.c
+> +++ b/drivers/tty/tty_io.c
+> @@ -3494,7 +3494,7 @@ void tty_default_fops(struct file_operations *fops)
+>  	*fops =3D tty_fops;
+>  }
+> =20
+> -static char *tty_devnode(struct device *dev, umode_t *mode)
+> +static char *tty_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (!mode)
+>  		return NULL;
+> diff --git a/drivers/usb/core/file.c b/drivers/usb/core/file.c
+> index 558890ada0e5..da7d88e069e6 100644
+> --- a/drivers/usb/core/file.c
+> +++ b/drivers/usb/core/file.c
+> @@ -62,7 +62,7 @@ static struct usb_class {
+>  	struct class *class;
+>  } *usb_class;
+> =20
+> -static char *usb_devnode(struct device *dev, umode_t *mode)
+> +static char *usb_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	struct usb_class_driver *drv;
+> =20
+> diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/=
+vduse_dev.c
+> index 35dceee3ed56..0dd3c1f291da 100644
+> --- a/drivers/vdpa/vdpa_user/vduse_dev.c
+> +++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+> @@ -1656,7 +1656,7 @@ static const struct file_operations vduse_ctrl_fops=
+ =3D {
+>  	.llseek		=3D noop_llseek,
+>  };
+> =20
+> -static char *vduse_devnode(struct device *dev, umode_t *mode)
+> +static char *vduse_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "vduse/%s", dev_name(dev));
+>  }
+> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+> index 6e8804fe0095..5bf4b3454918 100644
+> --- a/drivers/vfio/vfio_main.c
+> +++ b/drivers/vfio/vfio_main.c
+> @@ -1812,7 +1812,7 @@ EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+>  /*
+>   * Module/class support
+>   */
+> -static char *vfio_devnode(struct device *dev, umode_t *mode)
+> +static char *vfio_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	return kasprintf(GFP_KERNEL, "vfio/%s", dev_name(dev));
+>  }
+> diff --git a/fs/pstore/pmsg.c b/fs/pstore/pmsg.c
+> index d8542ec2f38c..b31c9c72d90b 100644
+> --- a/fs/pstore/pmsg.c
+> +++ b/fs/pstore/pmsg.c
+> @@ -46,7 +46,7 @@ static int pmsg_major;
+>  #undef pr_fmt
+>  #define pr_fmt(fmt) PMSG_NAME ": " fmt
+> =20
+> -static char *pmsg_devnode(struct device *dev, umode_t *mode)
+> +static char *pmsg_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (mode)
+>  		*mode =3D 0220;
+> diff --git a/include/linux/device/class.h b/include/linux/device/class.h
+> index 94b1107258e5..42cc3fb44a84 100644
+> --- a/include/linux/device/class.h
+> +++ b/include/linux/device/class.h
+> @@ -60,7 +60,7 @@ struct class {
+>  	struct kobject			*dev_kobj;
+> =20
+>  	int (*dev_uevent)(const struct device *dev, struct kobj_uevent_env *env=
+);
+> -	char *(*devnode)(struct device *dev, umode_t *mode);
+> +	char *(*devnode)(const struct device *dev, umode_t *mode);
+> =20
+>  	void (*class_release)(struct class *class);
+>  	void (*dev_release)(struct device *dev);
+> diff --git a/sound/sound_core.c b/sound/sound_core.c
+> index 3332fe321737..3e7dd6fcb7cf 100644
+> --- a/sound/sound_core.c
+> +++ b/sound/sound_core.c
+> @@ -30,7 +30,7 @@ MODULE_DESCRIPTION("Core sound module");
+>  MODULE_AUTHOR("Alan Cox");
+>  MODULE_LICENSE("GPL");
+> =20
+> -static char *sound_devnode(struct device *dev, umode_t *mode)
+> +static char *sound_devnode(const struct device *dev, umode_t *mode)
+>  {
+>  	if (MAJOR(dev->devt) =3D=3D SOUND_MAJOR)
+>  		return NULL;

@@ -2,98 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C643F638681
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 10:46:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41201638722
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 11:13:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 603E9172C;
-	Fri, 25 Nov 2022 10:45:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 603E9172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3BD61728;
+	Fri, 25 Nov 2022 11:12:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3BD61728
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669369588;
-	bh=UwvSl25T+uVkzBHusj/ZfvPG4fwltz4qX4Lbjf/3M1k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669371207;
+	bh=c0Z1xzOGBYSqdaAqRRZKFzaOvv62dN6zn5zT7vvIaP8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g3ojKeZYBs+hkJw32CesgXnhBIVirRxDWKqmAB4X/bjL45DVxwrrnxFjmBliVb3xW
-	 yhLjLLT0DvZWiHaR2Z3g7C98wZJCtPeBIAVAlQXNVoXlWXKDs3lWtvF7GcAO7FHKod
-	 3NjesnWCIJVbEkzvcHnVF3Jt/FXFgiZbZ/vVpCKE=
+	b=QglxT0lJobQ0c1zXZ22ivnCTJfLRwoCKVal8K/TFG7iTzCk3mhYH797VEIq/Fk41z
+	 iIiBMmCgMbif+/V3rcRtZL3nOCS05hkPJ3V+e9AqdUC/RVc27tPQ5dtM5ah4GkrOc+
+	 J1CFRzi3qRHNOfJgaEZu7KZCydXmZLqfBP+czxfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0B35F80564;
-	Fri, 25 Nov 2022 10:44:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AF39F8014E;
+	Fri, 25 Nov 2022 11:12:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD990F8055A; Fri, 25 Nov 2022 10:44:40 +0100 (CET)
+ id 564D3F80236; Fri, 25 Nov 2022 11:12:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30B3CF80236
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 10:44:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30B3CF80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BF6DF800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 11:12:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BF6DF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="gfzpOjLy"
-X-UUID: d7b13b76b8ca41439f178262884ac1ef-20221125
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=JypvWOdNIEwz4ySGYXhZj/2FoIW7K0jRr/E327f+FUM=; 
- b=gfzpOjLywtPVCJsbZSnPvfHNTndgTWxnbMctwJlUDjrFBFvXwy9rRtnoJ/9FtrkOPLqZZtw5HvA6yIICYgoKppIXodZ7KdCd4Y2zilkYzIS2GWckPR78+13ot9RtSDU2f3ndaJnrSz8uCcFGXR1peua/3jSGCEizapkABWB9d5w=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.14, REQID:4d4efb44-c9d1-4d32-bb52-4da65630d1fe, IP:0,
- U
- RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:70
-X-CID-INFO: VERSION:1.1.14, REQID:4d4efb44-c9d1-4d32-bb52-4da65630d1fe, IP:0,
- URL
- :0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
- ON:quarantine,TS:70
-X-CID-META: VersionHash:dcaaed0, CLOUDID:d4144ff9-3a34-4838-abcf-dfedf9dd068e,
- B
- ulkID:221125174421V9P0XGPU,BulkQuantity:0,Recheck:0,SF:38|28|17|19|48,TC:n
- il,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: d7b13b76b8ca41439f178262884ac1ef-20221125
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1112659408; Fri, 25 Nov 2022 17:44:20 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Fri, 25 Nov 2022 17:44:19 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Fri, 25 Nov 2022 17:44:18 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <robert.foss@linaro.org>,
- <Laurent.pinchart@ideasonboard.com>, <kuninori.morimoto.gx@renesas.com>,
- <angelogioacchino.delregno@collabora.com>, <nfraprado@collabora.com>
-Subject: [PATCH v2 3/3] drm/bridge: it6505: Add audio support
-Date: Fri, 25 Nov 2022 17:44:13 +0800
-Message-ID: <20221125094413.4940-4-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221125094413.4940-1-jiaxin.yu@mediatek.com>
-References: <20221125094413.4940-1-jiaxin.yu@mediatek.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="e16GuGdc"
+Received: by mail-lf1-x12d.google.com with SMTP id s8so6139116lfc.8
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 02:12:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TbWKCCPxLunlxbdneM/JxjgPFo6YmYtt/BvmY61TNsY=;
+ b=e16GuGdcTCVD2H2ehZyzzLAqWRpYAEi249hresoJfY08kjiTuKUJwGc+FzuokMnGVv
+ OTRPxtwPBbZ3PGjBun8FwkfAhMlOaeOVgkZb5gO7DrGdveTttSiVa0bSKFaXSvX1bjSr
+ oRyaBz1CAIG9/Y3Bu9I3u5w+GZ7IX8HDCvb0ZwwIxKgJIBEu0miYeFET6N6C8n7qeJKE
+ GtLivVc5NVzqu7ddvoIn9oarzYcllBroQGM8kRQTipuIhteda/DbM6yYKsQlggl6yvuB
+ F2Lc0cYsj3TPQjK7kAo+0TzfiZ3g649gxVehdpzdXRSFyPQiq8ll4jgh3Ngq8B56qQmW
+ CQ6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TbWKCCPxLunlxbdneM/JxjgPFo6YmYtt/BvmY61TNsY=;
+ b=LnfuoGUMqkq+Fs1Fv3MBDtjmQG/bBD9Ie7FcVYZia8Fc22TwLK+syLlPP9Lz/6fmLd
+ cQbRLUV1pKoCjrebWd7YHbk99YHqTqbEuMereuNsghut+3QU3VGtQpbjzMQI2wPz/m0Y
+ 6ZGxGenrZHfjhFIhBrVMYgmdsRKYmcT6sbp9WKJ+GODzZmhPtIVXdhgOF0ssfNHU9zN+
+ Qp0GIpEhPp6KrvuPp+y6H+P8mHOKbSHdk7sH7TLybInQkOq+8d/ngN7Slymfs6sZlXSC
+ TToyxBHZkVCFRgJUcStkgWs+TSByHIPlWAf7JMxTALz23eCP/xbLpzRd6SYtbUbSI1Fq
+ BqJw==
+X-Gm-Message-State: ANoB5plUrA47j+MTyG+RY5GTh0MiZvLbZO09IcnSYv1UpPk1ua1A3xuq
+ LnZIQkl+XVX4HzNLBccbF4hadg==
+X-Google-Smtp-Source: AA0mqf5cWGzd+0J6yHtbBz4TpxgelNKErELh8DafNvQuSx4vLkjQcfYaorLzdrBVj0fB3tK3BO0LYQ==
+X-Received: by 2002:ac2:4ade:0:b0:4a9:f2e3:3cf0 with SMTP id
+ m30-20020ac24ade000000b004a9f2e33cf0mr12075510lfp.545.1669371143608; 
+ Fri, 25 Nov 2022 02:12:23 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ b7-20020a056512060700b00492e3c8a986sm459839lfe.264.2022.11.25.02.12.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Nov 2022 02:12:23 -0800 (PST)
+Message-ID: <9cf9170a-bb01-ce61-2295-998fdf3b0909@linaro.org>
+Date: Fri, 25 Nov 2022 11:12:21 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, chunxu.li@mediatek.com,
- allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- ajye_huang@compal.corp-partner.google.com,
- linux-arm-kernel@lists.infradead.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [patch v5 0/5] ASoC: codecs: Add Awinic AW883XX audio amplifier
+ driver
+To: wangweidong.a@awinic.com, broonie@kernel.org, perex@perex.cz,
+ alsa-devel@alsa-project.org, tiwai@suse.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, ckeepax@opensource.cirrus.com,
+ tanureal@opensource.cirrus.com, quic_potturu@quicinc.com,
+ pierre-louis.bossart@linux.intel.com, cy_huang@richtek.com
+References: <20221115022423.6437-2-wangweidong.a@awinic.com>
+ <20221125092727.17414-1-wangweidong.a@awinic.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221125092727.17414-1-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: duanyibo@awinic.com, yijiangtao@awinic.com, zhangjianming@awinic.com,
+ zhaolei@awinic.com, liweilei@awinic.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,139 +115,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add audio support for it6505
+On 25/11/2022 10:27, wangweidong.a@awinic.com wrote:
+> From: Weidong Wang <wangweidong.a@awinic.com>
+> 
+> The Awinic AW883XX is an I2S/TDM input, high efficiency
+> digital Smart K audio amplifier with an integrated 10.25V
+> smart boost convert
+> 
+> Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
+> controlled using I2C.
 
-1. Bridge to hdmi-codec to support audio feature. At the same time,
-   the function of automatically detecting audio is removed.
-2. It is observed that some DP-to-HDMI dongles will get into bad
-   states if sending InfoFrame without audio data. Defer to enable
-   it6505's audio feature when PCM triggers START or RESUME.
+Do not attach your patchsets to some other patchsets. Each patchset is a
+separate email thread. The 5th patch is missing from the set - I don't
+know if because some sending/threading/spam problems....
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
- drivers/gpu/drm/bridge/ite-it6505.c | 81 ++++++++++++++++++++++++++---
- 1 file changed, 75 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index dfe4351c9bdd..1f1f37b3df83 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -2159,7 +2159,6 @@ static void it6505_stop_link_train(struct it6505 *it6505)
- 
- static void it6505_link_train_ok(struct it6505 *it6505)
- {
--	struct device *dev = &it6505->client->dev;
- 
- 	it6505->link_state = LINK_OK;
- 	/* disalbe mute enable avi info frame */
-@@ -2167,11 +2166,6 @@ static void it6505_link_train_ok(struct it6505 *it6505)
- 	it6505_set_bits(it6505, REG_INFOFRAME_CTRL,
- 			EN_VID_CTRL_PKT, EN_VID_CTRL_PKT);
- 
--	if (it6505_audio_input(it6505)) {
--		DRM_DEV_DEBUG_DRIVER(dev, "Enable audio!");
--		it6505_enable_audio(it6505);
--	}
--
- 	if (it6505->hdcp_desired)
- 		it6505_start_hdcp(it6505);
- }
-@@ -2823,6 +2817,45 @@ static void __maybe_unused it6505_audio_shutdown(struct device *dev, void *data)
- 		it6505_disable_audio(it6505);
- }
- 
-+static int it6505_audio_hw_params(struct device *dev, void *data,
-+				  struct hdmi_codec_daifmt *daifmt,
-+				  struct hdmi_codec_params *params)
-+{
-+	struct it6505 *it6505 = dev_get_drvdata(dev);
-+
-+	return it6505_audio_setup_hw_params(it6505, params);
-+}
-+
-+static int it6505_audio_setup_trigger(struct it6505 *it6505, int cmd)
-+{
-+	struct device *dev = &it6505->client->dev;
-+
-+	DRM_DEV_DEBUG_DRIVER(dev, "event: %d", cmd);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+		queue_delayed_work(system_wq, &it6505->delayed_audio,
-+				   msecs_to_jiffies(180));
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+		cancel_delayed_work(&it6505->delayed_audio);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int it6505_audio_trigger(struct device *dev, int cmd)
-+{
-+	struct it6505 *it6505 = dev_get_drvdata(dev);
-+
-+	return it6505_audio_setup_trigger(it6505, cmd);
-+}
-+
- static int __maybe_unused it6505_audio_hook_plugged_cb(struct device *dev,
- 						       void *data,
- 						       hdmi_codec_plugged_cb fn,
-@@ -2837,6 +2870,36 @@ static int __maybe_unused it6505_audio_hook_plugged_cb(struct device *dev,
- 	return 0;
- }
- 
-+static const struct hdmi_codec_ops it6505_audio_codec_ops = {
-+	.hw_params = it6505_audio_hw_params,
-+	.trigger = it6505_audio_trigger,
-+	.audio_shutdown = it6505_audio_shutdown,
-+	.hook_plugged_cb = it6505_audio_hook_plugged_cb,
-+};
-+
-+static int it6505_register_audio_driver(struct device *dev)
-+{
-+	struct it6505 *it6505 = dev_get_drvdata(dev);
-+	struct hdmi_codec_pdata codec_data = {
-+		.ops = &it6505_audio_codec_ops,
-+		.max_i2s_channels = 8,
-+		.i2s = 1,
-+		.data = it6505,
-+	};
-+	struct platform_device *pdev;
-+
-+	pdev = platform_device_register_data(dev, HDMI_CODEC_DRV_NAME,
-+					     PLATFORM_DEVID_AUTO, &codec_data,
-+					     sizeof(codec_data));
-+	if (IS_ERR(pdev))
-+		return PTR_ERR(pdev);
-+
-+	INIT_DELAYED_WORK(&it6505->delayed_audio, it6505_delayed_audio);
-+	DRM_DEV_DEBUG_DRIVER(dev, "bound to %s", HDMI_CODEC_DRV_NAME);
-+
-+	return 0;
-+}
-+
- static inline struct it6505 *bridge_to_it6505(struct drm_bridge *bridge)
- {
- 	return container_of(bridge, struct it6505, bridge);
-@@ -3302,6 +3365,12 @@ static int it6505_i2c_probe(struct i2c_client *client,
- 		return err;
- 	}
- 
-+	err = it6505_register_audio_driver(dev);
-+	if (err < 0) {
-+		DRM_DEV_ERROR(dev, "Failed to register audio driver: %d", err);
-+		return err;
-+	}
-+
- 	INIT_WORK(&it6505->link_works, it6505_link_training_work);
- 	INIT_WORK(&it6505->hdcp_wait_ksv_list, it6505_hdcp_wait_ksv_list);
- 	INIT_DELAYED_WORK(&it6505->hdcp_work, it6505_hdcp_work);
--- 
-2.18.0
+Best regards,
+Krzysztof
 

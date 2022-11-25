@@ -2,86 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92F92638E54
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 17:38:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1CB3638E5A
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 17:40:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B5DB1758;
-	Fri, 25 Nov 2022 17:38:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B5DB1758
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53CE51760;
+	Fri, 25 Nov 2022 17:39:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53CE51760
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669394335;
-	bh=7BOt1YQIxBZ2zLTf/I2vQYxagl+FZYUheFzJV5Jx36w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669394419;
+	bh=zVQuLd3xpn1r3J0Croeg/y3AKxR/ZMXPyRpOSGkGOTo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NQ++btyrUjEv9tHNS5sH5KTsUm2Z7hYHt/+7vx8+bdCmj/IlmNm02WyR5zN7N/700
-	 V0P9dt8gUs9G2lCG+RZ05G/iGfWDC52krS1+c9kj1imD/UjwgQ9cMyll6Zv8mtmFAI
-	 d5g3G5cRWftE6uI0FUPOtlF271Gx1xh8L6tNYoH8=
+	b=PhUVBG1jlUTwAt4CCJfEKR6x/Zj+//kj5yJaj/TliOOPqCF4hURw5IUBAKqFl0/uw
+	 BW6i0LK9+0IKaIKkHMsNTsKgxz8raTn+11fgdmwbgrt6C4bz241agiMq25bhLXttkq
+	 7806OmZn/PfvwpNj+JIyKwj9Xc2vbsR/qM3krp08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADD2FF800B6;
-	Fri, 25 Nov 2022 17:37:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 078D0F80171;
+	Fri, 25 Nov 2022 17:39:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1797F8047C; Fri, 25 Nov 2022 17:37:58 +0100 (CET)
+ id 945A4F80236; Fri, 25 Nov 2022 17:39:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DAFCF800F4
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 17:39:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DAFCF800F4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pCEhc/Q8"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7A1FF800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 17:37:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7A1FF800B6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="OsTAzDSQ"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2APEqclc007763; Fri, 25 Nov 2022 10:37:51 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=JOnBe8PaN6BKKGWUSWp01EsxgiZ7afN4H0C4l2ndZOw=;
- b=OsTAzDSQzh4jAINUVYg49rssW+4KWTqOsFNNJvkzZ/ueB1cyRVGNxIApYGPbK5oJ4GQ2
- CS/+mZvftguHzjNbWQlUsRCO+b3NpzCjX+9/rXeywvVaH0Qj3YnrKn13w7vhe67I6Rb9
- yfflKV8YlHcrpiEmHOIDPy4Mi05xWqkv5V9Q0m155KNaXgwUs1y5cIiKlmq9fu7qkUte
- c77U0DQaU4M5zbm40vS8zmn/1zJNt93fSE1DVQ9zRzDkGyzCx//dGk42AgyG0O2iQ+WY
- qRJ9RLKS7+MvR1PTSJbWRfEaEYY5PVnYhMLvXXv7OFej+OlmJh6egLhiTiBDhNs8O9pD hg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3kxwe6yhc4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Nov 2022 10:37:50 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Fri, 25 Nov
- 2022 10:37:48 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
- Frontend Transport; Fri, 25 Nov 2022 10:37:48 -0600
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C4FA9B10;
- Fri, 25 Nov 2022 16:37:48 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH v2 2/2] ASoC: cs42l51: Correct PGA Volume minimum value
-Date: Fri, 25 Nov 2022 16:37:48 +0000
-Message-ID: <20221125163748.1288942-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20221125163748.1288942-1-ckeepax@opensource.cirrus.com>
-References: <20221125163748.1288942-1-ckeepax@opensource.cirrus.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7D098B82B4F;
+ Fri, 25 Nov 2022 16:39:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1C3C433C1;
+ Fri, 25 Nov 2022 16:39:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669394357;
+ bh=zVQuLd3xpn1r3J0Croeg/y3AKxR/ZMXPyRpOSGkGOTo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pCEhc/Q83yg9znwZ6PfqpjIDkFfm3GqyOFbXQ+UqU97vwz/1b19A78xU4sARMLHgn
+ 9T2nSTvNIIPbSqpFRTVaBX1azQUGcPtt2hSLRqxIbfi5o/M7NVWED5q2QDIE6J57Ib
+ qHZAy6o4uVdH6zUyNAKlneKb8k1NwZ/4si6HLJuRlKMB3z7fRX/NYt7Nfep5G/1/d/
+ v7KrG2hvFfFWJn5VDOT7doX8FMLk1cT1Ud2VqxDhS7FUsU33lQLmFTnKE0b+rENBR+
+ Dx9f3opt1iKNwW3+JVfX/DXbuBtkG7pclp8Kp31tCZ54699MoPi56L/nYxsgH+Ipid
+ +u3eg44cRCLzw==
+Date: Fri, 25 Nov 2022 16:39:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 1/2] ASoC: ops: Correct bounds check for second channel
+ on SX controls
+Message-ID: <Y4DvrsMyTZjPmvdA@sirena.org.uk>
+References: <20221125162348.1288005-1-ckeepax@opensource.cirrus.com>
+ <Y4DthUIxViHZnh/Q@sirena.org.uk>
+ <20221125163509.GG105268@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: r9LahVjSgH7wlvUHveYmosLx5W6aPcP4
-X-Proofpoint-GUID: r9LahVjSgH7wlvUHveYmosLx5W6aPcP4
-X-Proofpoint-Spam-Reason: safe
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZaLhVnTV656g8HC5"
+Content-Disposition: inline
+In-Reply-To: <20221125163509.GG105268@ediswmail.ad.cirrus.com>
+X-Cookie: Time and tide wait for no man.
 Cc: alsa-devel@alsa-project.org, guille.rodriguez@gmail.com,
  patches@opensource.cirrus.com, lgirdwood@gmail.com, david.rhodes@cirrus.com,
  james.schulman@cirrus.com
@@ -100,32 +91,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The table in the datasheet actually shows the volume values in the wrong
-order, with the two -3dB values being reversed. This appears to have
-caused the lower of the two values to be used in the driver when the
-higher should have been, correct this mixup.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
+--ZaLhVnTV656g8HC5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-No changes since v1.
+On Fri, Nov 25, 2022 at 04:35:09PM +0000, Charles Keepax wrote:
+> On Fri, Nov 25, 2022 at 04:29:57PM +0000, Mark Brown wrote:
 
- sound/soc/codecs/cs42l51.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > You probably mean 97eea946b93961fffd29448dcda7398d0d51c4b2.
 
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index 51721edd8f53c..e88d9ff95cdfc 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -143,7 +143,7 @@ static const struct snd_kcontrol_new cs42l51_snd_controls[] = {
- 			0, 0xA0, 96, adc_att_tlv),
- 	SOC_DOUBLE_R_SX_TLV("PGA Volume",
- 			CS42L51_ALC_PGA_CTL, CS42L51_ALC_PGB_CTL,
--			0, 0x19, 30, pga_tlv),
-+			0, 0x1A, 30, pga_tlv),
- 	SOC_SINGLE("Playback Deemphasis Switch", CS42L51_DAC_CTL, 3, 1, 0),
- 	SOC_SINGLE("Auto-Mute Switch", CS42L51_DAC_CTL, 2, 1, 0),
- 	SOC_SINGLE("Soft Ramp Switch", CS42L51_DAC_CTL, 1, 1, 0),
--- 
-2.30.2
+> Sigh, sorry about that will send a new version.
 
+No, it's fine.
+
+--ZaLhVnTV656g8HC5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOA760ACgkQJNaLcl1U
+h9AbGQf8DU5taCni14mMU6fynqkh7yKurRTLz9mFlcMRLG8sITPW111j63OVvyMz
+3YYoM82KHpSn/a5OARqwJv5LBbWd622n9j7fA8FlSQUDVwTLpR5p2QP7ZO9xsObf
+hqO+2JD3l2GJ3CaxqGoJirsvgVoeToXsDLJ1Neu/lcTcI+CY+JTqbZn/MjkGPKkD
+nRzOvRDc20W+RmJPy0pnh/G/XprEjKAcXMRQPhOy39+L/o4URAO+423ZWQ6W8JPa
+UXx65xHsByvPfB6Wpqi7LyU+kpBimoJPCF/tmgM6lXnIophTr+NXMRK6adtIg/Yd
+P59oEi7WuAZxofvfyl6FAyCh91aTXA==
+=vHoo
+-----END PGP SIGNATURE-----
+
+--ZaLhVnTV656g8HC5--

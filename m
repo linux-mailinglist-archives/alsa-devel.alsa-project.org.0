@@ -2,94 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03722639498
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:17:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2D3639471
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:10:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9461117C1;
-	Sat, 26 Nov 2022 09:17:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9461117C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F213186C;
+	Sat, 26 Nov 2022 09:09:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F213186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450670;
-	bh=IvHYWDLn1DgR8LH4t7rSubz36Ju+jzSqmPmYrOhNPlo=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IU7IXl10XRlfyAatxAyB5iEfU4hBSJG9dFQr1c6OKeIv/RGWLAmM5Na9hnM9S5yxe
-	 uSd0nvJiIZ08dukP+CjiKXrzNxCF9NkRztMr/x7kQ2QDyWyjh9uj7TTu6RHaJW5zI5
-	 uFhuO1Q9nPXxu0sTVsCGwb616UqxPgi5wqpHiZY4=
+	s=default; t=1669450233;
+	bh=fp6XqQpL9EV6MCaRRytTNHroBgmTNRjgfEMJDkvpH/4=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Reply-To:From;
+	b=e6/9buJhdSrqPKaYwj+AGZbOhrkaT8CKKmit8A35thf5Rwb1CmvEvlGKDwxGnMo6j
+	 R76WHQY2UQRkcezac6utrHXemBmuIxAV5eld1iWabuRVE434Dn7bT9hLn7NsB9lmEz
+	 fW7zyf8O20mtXN6y59LeuZIJ1nRxUYwAXk33gQNc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F4A5F80809;
-	Sat, 26 Nov 2022 09:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6F81F80640;
+	Sat, 26 Nov 2022 08:59:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85A76F80431; Thu, 24 Nov 2022 17:04:19 +0100 (CET)
+ id 18C5BF80236; Fri, 25 Nov 2022 09:52:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,FREEMAIL_REPLYTO,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FE6EF80115
- for <alsa-devel@alsa-project.org>; Thu, 24 Nov 2022 17:04:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE6EF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBC9DF800B6
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 09:52:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC9DF800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WlxvzM22"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 382A7B82874;
- Thu, 24 Nov 2022 16:04:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4356C433D6;
- Thu, 24 Nov 2022 16:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669305852;
- bh=IvHYWDLn1DgR8LH4t7rSubz36Ju+jzSqmPmYrOhNPlo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=WlxvzM22NwMDCoQChrQhXcrqFDVCZNvtWkzovYYg2PyBCYEXL4YaJuKbp1dQByKcF
- FmlwRuCiw0oQRKp2ZSDzDV/aqXNW4V8kWhrIBPIdh+/S7edLrqRPFuSS4MdSBm7BLH
- IDnPtjktIvP1hka5/d8VaQhqX7Yn6GZ5Hx+IOBEDhJbY4qMOFPtHIuaB8I1wIuGdL6
- g1de0tQjk0TcZc+A64jFItQC3XsxmvpZZRqGF7esQ3Lb9AgP1rdwW/lFgi93zL+mqf
- sGYMjME4SGIBJuwf4qC9yYSwep3N56gpSQJ5vy76O58xNPbhd+xJcjeFicKz9acOhD
- lG4G9UHzWi0mA==
-From: Mark Brown <broonie@kernel.org>
-To: Uwe Kleine-König <uwe@kleine-koenig.org>, Lee Jones <lee.jones@linaro.org>, Wolfram Sang <wsa@kernel.org>,
- Angel Iglesias <ang.iglesiasg@gmail.com>, Grant Likely <grant.likely@linaro.org>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166930584463.436148.7438729312416805991.b4-ty@kernel.org>
-Date: Thu, 24 Nov 2022 16:04:04 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="U25EnEfO"
+Received: by mail-il1-x129.google.com with SMTP id bp12so1716669ilb.9
+ for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 00:52:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=isTCofvVL7P9dcD3ZjO24cUl7DxiMDU3I93o15gZ/9c=;
+ b=U25EnEfOZZVYs8FjvGI5gQhqb6IT6wAuDc14dIyaxkrl4QHUKrSLJJU+tKy0AZv65E
+ /5Ex3VbBz3u34znyupN2qhvzV/GGLiYuQ1bYyDdKAP3CgEa1JzzYf3FMPYmz4Rukchnz
+ HWWBzdJRpcxm7j20tFM/YEX87lgv183221h3LMNHGoNSW7IZGnmQn0VzjLorn3iWOxa3
+ I84u4oK0duAL0TCfAFSZCaOAmRXKQuCh9KjIbzWifgQmaxVJRm73ow35hAn5gf3Vw6Cy
+ yZdvy4YrZD06IjjiBuBgjEJbWBqGafSKpwdD7mBunyfTAyMYL3dhqZnKsr+tsz7BDjdo
+ SUFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:reply-to:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=isTCofvVL7P9dcD3ZjO24cUl7DxiMDU3I93o15gZ/9c=;
+ b=LY/HZKXTrg7j8HKyHMts3Vqff4LtiOOgUf3EXspGEqDWpxZ4+9MMrCZEwR157gEaly
+ Qkj1v+tC/ZiDhQXrQ2pStdDS+fFkECUOwpQ02va1MZvxN0yuoVwqW8W2//k4JbWGQBNL
+ Tv5QhsfRPfkmjl3uU3frzJZiR9t3fR+sGrLivGum8MNDBYoCGO+Q1VSMRa3Q+OcxiDqk
+ 6Uc3969TX1B1QGH661jRB/WYmJ1PZTP4alMZIkkp69jBOXOs+MzL8JwyQakoLecMgr5n
+ nWdJWazbLmrVC6+j4rg0rjWwt4qD371sEC6VT8XjpdI4GL4uyVl/DKt8t5m6hCLFoOTa
+ x/qA==
+X-Gm-Message-State: ANoB5pmTZPSE6CFFdo1KiXPRa9HOH7hjB9SklW8esPSSZJta8SsUxYtR
+ Wsmz28HGMAR6kchovKBcNucX5PLcH+JhaYr0vhA=
+X-Google-Smtp-Source: AA0mqf5H9G3SzpdncpPet9d//MPYqe5QUDuNoMnk8hLUsTV6TJ3wQJd+HzFTKQm/xY00bwcElLibzoa2erdtv5S9b+k=
+X-Received: by 2002:a92:6e12:0:b0:302:abfb:51d5 with SMTP id
+ j18-20020a926e12000000b00302abfb51d5mr8856626ilc.196.1669366327251; Fri, 25
+ Nov 2022 00:52:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: linux-fbdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+From: Ivan Mrva <ivanmrva@gmail.com>
+Date: Fri, 25 Nov 2022 09:51:56 +0100
+Message-ID: <CACVs=vJpoCp2jfFof62HbQFtk75azbGCdWgRW0n12sVsdxQo-g@mail.gmail.com>
+Subject: PROBLEM: No sound on HP Firefly 14 G9 laptop
+To: tiwai@suse.com
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:51 +0100
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,88 +92,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Reply-To: ivan.mrva@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022 23:35:34 +0100, Uwe Kleine-König wrote:
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
-> 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
-> 
-> [...]
+[1.] One line summary of the problem:
+No sound on HP Firefly 14 G9
 
-Applied to
+[2.] Full description of the problem/report:
+Although the corresponding kernel module is loaded successfully and I can
+also see a sound output being produced on the software level (in
+gnome-control-center), physically there is still no sound coming out of the
+speakers. My HW card was identified with the code "0x103c" "0x896d", for
+which a patch was already submitted in the following commit:
+https://github.com/torvalds/linux/commit/f86bfeb689f2c4ebe12782ef0578ef778fb1a050.
+Unfortunately not working in my case. Also the patch identified the model
+as "HP Zbook Firefly 16 G9", however in my case the model is used "HP Zbook
+Firefly 14 G6" (14 not 16).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+[4.1.] Kernel version:
+6.1-rc6
 
-Thanks!
+[8.3.] Module information:
+snd_hda_scodec_cs35l41_i2c
 
-[538/606] regulator: act8865-regulator: Convert to i2c's .probe_new()
-          commit: 3d2a78ae5df5d7f48c002e5f73d18d8c7628d266
-[539/606] regulator: ad5398: Convert to i2c's .probe_new()
-          commit: 7f69edba960bbdcbc829d8d0995b1117ce29e8b1
-[540/606] regulator: da9121-regulator: Convert to i2c's .probe_new()
-          commit: 020cf73b47414a84b666d3e6736a6ae957e27840
-[541/606] regulator: fan53555: Convert to i2c's .probe_new()
-          commit: 655425650f5e361224a86aa11bf3c044bf04df2a
-[542/606] regulator: isl6271a-regulator: Convert to i2c's .probe_new()
-          commit: 69518d21deaa448be65b7c0be67aab230e88eaa7
-[543/606] regulator: lp3972: Convert to i2c's .probe_new()
-          commit: 2532d5f8d5c20d5a0a8a0d57a311bc5df00dea04
-[544/606] regulator: lp872x: Convert to i2c's .probe_new()
-          commit: 87feccb347b25f5dc6ff451123b832c9ad5dddfe
-[545/606] regulator: lp8755: Convert to i2c's .probe_new()
-          commit: cb28f74b4809a00b40fdf0c44ccf51ab950581d3
-[546/606] regulator: ltc3589: Convert to i2c's .probe_new()
-          commit: 78c8f6cdb51d471928d481ed3b2c82dbc110a1ed
-[547/606] regulator: max1586: Convert to i2c's .probe_new()
-          commit: 3d54f7ba248b0ad1791bc356e9ad3d9020a1c472
-[548/606] regulator: max8649: Convert to i2c's .probe_new()
-          commit: 3cf4417385d0ac8f02f22888e12a6d21d97d89fc
-[549/606] regulator: max8660: Convert to i2c's .probe_new()
-          commit: dbf31dac703009174226bb87b3914bd092040327
-[550/606] regulator: max8952: Convert to i2c's .probe_new()
-          commit: c20c36735949b3b7984692fbab3d92b0e8a845ec
-[551/606] regulator: max8973-regulator: Convert to i2c's .probe_new()
-          commit: 4e85e5d64f66ac5e4b0286ee4b6f8e8ce1044d42
-[552/606] regulator: pca9450-regulator: Convert to i2c's .probe_new()
-          commit: ed56fa6e804cb13bbe29e9214792308817f6e553
-[553/606] regulator: pfuze100-regulator: Convert to i2c's .probe_new()
-          commit: 8348c710b51bac713a6fd2e07d64eb71d5680e2e
-[554/606] regulator: pv88080-regulator: Convert to i2c's .probe_new()
-          commit: c9f9ef15b84222f4cc686b1013ee3fd192b0bab8
-[555/606] regulator: rpi-panel-attiny-regulator: Convert to i2c's .probe_new()
-          commit: d85d02d17a608b558d44510e9824668c5d4fe5d8
-[556/606] regulator: tps51632-regulator: Convert to i2c's .probe_new()
-          commit: d4885f306304ff29eec06b9ad5f526a1099e0418
-[557/606] regulator: tps62360-regulator: Convert to i2c's .probe_new()
-          commit: 18804160277ec2ab992373385f86c6af2322b28b
-[558/606] regulator: tps6286x-regulator: Convert to i2c's .probe_new()
-          commit: e34782316281c78c5911f86d4699d4f35a607c9d
-[559/606] regulator: tps65023-regulator: Convert to i2c's .probe_new()
-          commit: 3b5b07dde998f6ade7433a8db019cf816c7e35af
+[8.4.] Loaded driver and hardware information (/proc/ioports, /proc/iomem):
+Here some relevant output from systemd's journalctl:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Nov 24 20:52:43 laptop-brn alsactl[2916]: Found hardware: "HDA-Intel"
+"Realtek ALC245" "HDA:10ec0245,103c8972,00100001
+HDA:8086281c,80860101,00100000" "0x103c" "0x896d"
+Nov 24 21:07:26 laptop-brn alsactl[2937]: Found hardware: "HDA-Intel"
+"Realtek ALC245" "HDA:10ec0245,103c8972,00100001
+HDA:8086281c,80860101,00100000" "0x103c" "0x896d"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Nov 25 07:34:11 laptop-brn kernel: snd_hda_intel 0000:00:1f.3: DSP detected
+with PCI class/subclass/prog-if info 0x040100
+Nov 25 07:34:11 laptop-brn kernel: snd_hda_intel 0000:00:1f.3: Digital mics
+found on Skylake+ platform, using SOF driver
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+autoconfig for ALC245: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+ speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+ hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+ mono: mono_out=0x0
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+ inputs:
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0:
+ Mic=0x19
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0: ASoC:
+sink widget AIF1TX overwritten
+Nov 25 07:34:15 laptop-brn kernel: snd_hda_codec_realtek ehdaudio0D0: ASoC:
+source widget AIF1RX overwritten
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+[X.] Other notes, patches, fixes, workarounds:
+I don't know by myself how to fix it - not sure what exactly is relevant on
+the HW side to be checked and how to patch it in the patch_realtek.c
+exactly. Would be glad if you could help me navigate here (what HW
+information should I look for) and would be happy to try to patch it and
+test by myself on my machine.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Thank you.

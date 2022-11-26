@@ -2,94 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ACB063949B
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:18:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 879B5639473
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 09:11:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323711831;
-	Sat, 26 Nov 2022 09:17:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323711831
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16BCD1899;
+	Sat, 26 Nov 2022 09:10:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16BCD1899
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669450715;
-	bh=flrWhKxQcLgnkz5HWwKc3eGDBXHd2DZVGZMjdcPc5hY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CjIo5Fo31ZOgIxopDkKJnA5U+tqEdpK6FkT101DJQvd4a50XjeI2EmMCyFW5+PMrl
-	 QJGRG0OtoKx2+l5Fc967DK4vsFxS/OWA7uDelUhjWxF/k3rj9WgODebwn7/A3wOC0T
-	 HS9Cs1JyQzMh4NI58tYb+fSFj2OgrqQyeLWYU3xs=
+	s=default; t=1669450263;
+	bh=bQEHs0ksyDCEztSr+RSr7r/9PhT5NIpLSvUlR/6Mg1M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RwwjykZkhlifvQxuNVMAGhNmfoyMZHoLJOLgmNkI3Q5/ZDSBF7zqqZkQ2pqcK0/f6
+	 gnHLlsYFV6Kzrjiu7DzDRvcEtZZxbKT4pyAHKNHtXifP60tccQqWYXOixCe1y9aaQZ
+	 WhToy0K4LjLA7SwedmpVpwTfCrcizDo7GKMPpKfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA6D3F807DE;
-	Sat, 26 Nov 2022 09:00:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E842F8064C;
+	Sat, 26 Nov 2022 08:59:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDE92F805AB; Fri, 25 Nov 2022 15:27:17 +0100 (CET)
+ id 83028F80236; Sat, 26 Nov 2022 02:27:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66263F805A1
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 15:27:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66263F805A1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CyHabUYc"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 168EEB82B02;
- Fri, 25 Nov 2022 14:27:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59CBC433D6;
- Fri, 25 Nov 2022 14:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669386434;
- bh=flrWhKxQcLgnkz5HWwKc3eGDBXHd2DZVGZMjdcPc5hY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=CyHabUYcBi83iBg+IXQCXTmWKh/Vsse6jNqtBrOcjWNjpEEPUkYxmD/0nZ5c5ugKO
- jo6Z8/gl+MgvM2sAwEq6RdlT5vgN1k6ZJ+hqcP93CQj09ymCKeE30N8oa3t0Dyb2ta
- 8+lhrsfn7LySe/twThGMfi4tdsvHPQplnQuaeGcZds17fbxEN/133XbiwZ446jPLS9
- 1J6PAAF8g/44RhMnx0oz0XFgtuVlOhD80/f7Dhydm3vHtZMKjn7bF0j0c8/R2UsycZ
- cywT0qiXBo9L2PFUprEkr+T5u7/lhadYuK2q+CTR0j12IAxjD6y0soSJBSn9D8biJo
- PV6iVB08gZr+A==
-From: Mark Brown <broonie@kernel.org>
-To: Angel Iglesias <ang.iglesiasg@gmail.com>, Wolfram Sang <wsa@kernel.org>, Lee Jones <lee.jones@linaro.org>,
- Grant Likely <grant.likely@linaro.org>, Uwe Kleine-König <uwe@kleine-koenig.org>
-In-Reply-To: <20221118224540.619276-1-uwe@kleine-koenig.org>
-References: <20221118224540.619276-1-uwe@kleine-koenig.org>
-Subject: Re: (subset) [PATCH 000/606] i2c: Complete conversion to i2c_probe_new
-Message-Id: <166938642447.506633.10798171870515262916.b4-ty@kernel.org>
-Date: Fri, 25 Nov 2022 14:27:04 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14941F800F4
+ for <alsa-devel@alsa-project.org>; Sat, 26 Nov 2022 02:27:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14941F800F4
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4NJvG51fGyzmW9k;
+ Sat, 26 Nov 2022 09:26:37 +0800 (CST)
+Received: from dggpemm100009.china.huawei.com (7.185.36.113) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sat, 26 Nov 2022 09:27:12 +0800
+Received: from huawei.com (10.175.113.32) by dggpemm100009.china.huawei.com
+ (7.185.36.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Sat, 26 Nov
+ 2022 09:27:11 +0800
+From: Liu Shixin <liushixin2@huawei.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: asihpi: fix missing pci_disable_device()
+Date: Sat, 26 Nov 2022 10:14:29 +0800
+Message-ID: <20221126021429.3029562-1-liushixin2@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:52 +0100
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Purism Kernel Team <kernel@puri.sm>,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain
+X-Originating-IP: [10.175.113.32]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpemm100009.china.huawei.com (7.185.36.113)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Sat, 26 Nov 2022 08:58:51 +0100
+Cc: Liu Shixin <liushixin2@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,49 +78,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Nov 2022 23:35:34 +0100, Uwe Kleine-König wrote:
-> since commit b8a1a4cd5a98 ("i2c: Provide a temporary .probe_new()
-> call-back type") from 2016 there is a "temporary" alternative probe
-> callback for i2c drivers.
-> 
-> This series completes all drivers to this new callback (unless I missed
-> something). It's based on current next/master.
-> A part of the patches depend on commit 662233731d66 ("i2c: core:
-> Introduce i2c_client_get_device_id helper function"), there is a branch that
-> you can pull into your tree to get it:
-> 
-> [...]
+pci_disable_device() need be called while module exiting, switch to use
+pcim_enable(), pci_disable_device() will be called in pcim_release().
 
-Applied to
+Fixes: 3285ea10e9b0 ("ALSA: asihpi - Interrelated HPI tidy up.")
+Signed-off-by: Liu Shixin <liushixin2@huawei.com>
+---
+ sound/pci/asihpi/hpioctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/pci/asihpi/hpioctl.c b/sound/pci/asihpi/hpioctl.c
+index bb31b7fe867d..477a5b4b50bc 100644
+--- a/sound/pci/asihpi/hpioctl.c
++++ b/sound/pci/asihpi/hpioctl.c
+@@ -361,7 +361,7 @@ int asihpi_adapter_probe(struct pci_dev *pci_dev,
+ 		pci_dev->device, pci_dev->subsystem_vendor,
+ 		pci_dev->subsystem_device, pci_dev->devfn);
+ 
+-	if (pci_enable_device(pci_dev) < 0) {
++	if (pcim_enable_device(pci_dev) < 0) {
+ 		dev_err(&pci_dev->dev,
+ 			"pci_enable_device failed, disabling device\n");
+ 		return -EIO;
+-- 
+2.25.1
 
-Thanks!
-
-[601/606] ASoC: codecs: es8326: Convert to i2c's .probe_new()
-          commit: 784252bac835c831e10c48be633cd1ff0d697326
-[602/606] ASoC: max98396: Convert to i2c's .probe_new()
-          commit: 2ff85020ec5db4af3b55d35f5b8385e830c39fdd
-[603/606] ASoC: codecs: src4xxx-i2c: Convert to i2c's .probe_new()
-          commit: 830a35aa2121258d0c8283abe45ebb5c3d2fd791
-[604/606] ASoC: codecs: tas2780: Convert to i2c's .probe_new()
-          commit: 88ade2abba1e46fe581610911240054538f8db88
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

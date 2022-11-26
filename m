@@ -2,79 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DA6963912C
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Nov 2022 22:41:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E5A06393C6
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Nov 2022 04:53:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AD0A1720;
-	Fri, 25 Nov 2022 22:40:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AD0A1720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF341775;
+	Sat, 26 Nov 2022 04:52:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF341775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669412467;
-	bh=60OYuwERXmeJ082oTHm4vNOnTl4qAPQKBRpMhBKDRrg=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1669434789;
+	bh=Krvv7Uq7cqlZIdQk4l48SVqhHW8/Ezb/qyCbK1VBKgU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rl825r+1SMvu1jNoA67f5JFgqYL3qtsGJzOzuqasO+qObSqNeHGBWdjYu2RRkRfJg
-	 o/Hj9RfxV+UXeIFoQeOA3s1DlUmzUHgZ+urxhS7mAM0ii3vVpQtZZx5qNl1RqNwAoF
-	 R/GvBjATtw2lxcPUgK+IAmYYnroVrBO0LHzK7jFg=
+	b=dyn4qjfNMei7jqwk3nEd3FYs/l0kXRipQb3dMfkgEBv7XTjStF+CRLm+gpO6S73T2
+	 oPYH8kRm2YAemXUqwqNSlYra28Q5bjPp5/dhBhEUfIJF+sSmQiFVHJk+4OMbWhE/Xo
+	 eYBBfRDOgIwUOzA3C8gFUIQ3Z4ytEnSMqO4XFKSg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA512F8047C;
-	Fri, 25 Nov 2022 22:40:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E548F80238;
+	Sat, 26 Nov 2022 04:52:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A10EAF80236; Fri, 25 Nov 2022 22:40:09 +0100 (CET)
+ id CE079F8016D; Sat, 26 Nov 2022 04:52:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E0D6F800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Nov 2022 22:40:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E0D6F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C314F800B6
+ for <alsa-devel@alsa-project.org>; Sat, 26 Nov 2022 04:51:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C314F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nGITamug"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3107060ECF;
- Fri, 25 Nov 2022 21:40:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43494C433C1;
- Fri, 25 Nov 2022 21:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669412404;
- bh=60OYuwERXmeJ082oTHm4vNOnTl4qAPQKBRpMhBKDRrg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nGITamugCR2YRPeV8yeGPa7FCVN/G1LQAcnkE0xX1oDb80dSSVO4nvB4RaCNHXE/V
- YTmyxm6GKwkWIX8Id7rvTSUFXJ9BsgyTZ7YZgPkB24z5m0YoW4tXACGf5StxLGE7Dy
- cF5YYi5g9SQ1uPq2PzrNSnDhosH0UxSXRKhLQ36yFHb6Sp5SUmOHHmPw9j9yGNjUW6
- V666PpdDk5lOvaAhcwSFq0i236E7+Nx375A7TimVo1GuK6dNS85OEONtV2yPyIWWJb
- B6FxMooDqFCL3s3PtlP2jsBP1SMugXeN0WKK+4wnxJEhDiSal8PyFe8zLKpa3XG8xj
- nDgWfrj8KVsxg==
-From: Mark Brown <broonie@kernel.org>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-In-Reply-To: <20221025124132.399729-1-frattaroli.nicolas@gmail.com>
-References: <20221025124132.399729-1-frattaroli.nicolas@gmail.com>
-Subject: Re: [PATCH 0/4] RK3588 Audio Support
-Message-Id: <166941240197.2098666.9516708665413168178.b4-ty@kernel.org>
-Date: Fri, 25 Nov 2022 21:40:01 +0000
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="OSXff/yK"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="kSskeQjj"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id BB46A5C0091;
+ Fri, 25 Nov 2022 22:51:57 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 25 Nov 2022 22:51:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm1; t=1669434717; x=1669521117; bh=3u
+ jM8UHyuDfcDioa+M62k3cGA6eq9x6NleABe6i0rIo=; b=OSXff/yKbOzqJ4VjHo
+ 0AzQXoY/Cgm4kAoHpuLf3fmnM6oyR8zYe9LO5z3xIgeUHaJO7pYfONYaJ37Quaiu
+ yL7ZY7AYIH92j5FwD3OJhRBr1PvueYjG5quQ2AsPToz+m628jzCRNrWE6yiXlk2Z
+ kLEzYjWW367DSzSIKHHCk4THmDEfCAEae7/KsV3ou81/oXL6EabW14NYO5BFCWzQ
+ ARgmcq/K7JC2+CQKULxhMXkfO97Ic+nW5n4F8UZoeVS5/LIPsYiveK1SlWolQ3ja
+ xWM4VcIHXYcMhemjB+KgvVXCV8emf3ixyDurACUBWAxK/0BJas0Ro0E039mRywuW
+ T6tA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1669434717; x=1669521117; bh=3ujM8UHyuDfcDioa+M62k3cGA6eq
+ 9x6NleABe6i0rIo=; b=kSskeQjjXBH/+cGyNinWVFjlldEqh7D1TzIv8XgWJ6yE
+ wogW5pD2MT48iw5DvYq1tlZ2EeA8eCqYGMQUJMABVqn7eA5w4Z4DwzFUCRr4zS/r
+ L7u+QpucUIpoq/Uqg7f7Y/cqZ+gn2651ziwd6VG4cXxgg1wsp/aUfbYcAzK+bdbM
+ vTME9luoi/FgWHsxWLRXFXXZeHQQNtZ/aAyq6mUXpni1zdCOyE7YMgOcEcpSDZmb
+ kXE5usXncVt1qXR1dEamQyfZTHzdfIiTXiZnKhTZtLprQCl1kDYm8IxsYB3kiJRO
+ LlkGnERwGPGSKQl9KgOgHuQS8TMTB3dfNGtG6pNrpw==
+X-ME-Sender: <xms:XY2BY7IVPdOILlT--EWAGBcAlkAOvFWqPuJYUhlx2q9pqHZe95bjnQ>
+ <xme:XY2BY_JEjnZUURzaGLT69tstknT6bxDpaL8XAWlgYQAnCBAyiv74oyymwCWopWKvT
+ bk1Onj1-quU0VGXJKU>
+X-ME-Received: <xmr:XY2BYzsf_a5u1Q8YfxSDxcAT5YU-So-gYG7H5NSUmsux3Qy6OyVkkmlP6xsFA-mDxZjOtvLqCFKTlVoQZ9dX0GOzIMNlFyB_8KMv>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrieeigdeivdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeevieelhfdukeffheekffduudevvdefudelleefgeei
+ leejheejuedvgefhteevvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:XY2BY0a6HCU64g7q4YPnU5DVrwIM-PepyyTXEdwxhHFB5W5h_QDnKQ>
+ <xmx:XY2BYyb4YUWDAFwUSIDX1MDk6SNf9Nxvsg7XOmIeGjvNtwzaYd4WFA>
+ <xmx:XY2BY4Bol8csEH1Rj6gTRhgkirHM-mXqk0mA8k1ozqmKhJbZ1vcN_w>
+ <xmx:XY2BYxmkCf9kLuNaVgN1kAlXgBTPSrkUrYL-99y7SpCL5bkM7Bh-kQ>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 25 Nov 2022 22:51:56 -0500 (EST)
+Date: Sat, 26 Nov 2022 12:51:53 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: John Keeping <john@metanate.com>
+Subject: Re: [PATCH] ALSA: pcm: fix tracing reason in hw_ptr_error
+Message-ID: <Y4GNWYcQBUKn3KSa@workstation>
+Mail-Followup-To: John Keeping <john@metanate.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
+References: <20221125162327.297440-1-john@metanate.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221125162327.297440-1-john@metanate.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,47 +121,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 Oct 2022 14:41:28 +0200, Nicolas Frattaroli wrote:
-> This patchset refactors the Rockchip I2S/TDM driver in order to
-> support the RK3588 SoC, and then adds the necessary compatible
-> string to load the driver for it.
+Hi,
+
+On Fri, Nov 25, 2022 at 04:23:26PM +0000, John Keeping wrote:
+> Strings need to be specially marked in trace events to ensure the
+> content is captured, othewise the trace just shows the value of the
+> pointer.
 > 
-> Patch 1 rectifies a problem with the bindings where we were too
-> strict about requiring the rockchip,grf property. Most features
-> of this audio device don't need access to the GRF to function.
-> 
-> [...]
+> Signed-off-by: John Keeping <john@metanate.com>
+> ---
+>  sound/core/pcm_trace.h | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+ 
+Thanks for the patch, while I have a slight concern about the intension
+of change.
 
-Applied to
+Let's see message in below commit to add 'trace_safe_str()' in
+'kernel/trace/trace.c':
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9a6944fee68
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+"The proper way to handle displaying any string that is not guaranteed to be
+in the kernel core rodata section, is to copy it into the ring buffer via
+the __string(), __assign_str() and __get_str() helper macros."
 
-Thanks!
+Additionally, the macros looks to be alias to __dynamic_array() or so.
 
-[1/4] ASoC: dt-bindings: rockchip: i2s-tdm: Make grf property optional
-      commit: 1024a5b29e90a18530588b3f161e81cf3fae7dcf
-[2/4] ASoC: rockchip: i2s_tdm: Make the grf property optional
-      commit: d980004e349049a3fcbffc6096d14896f6a122ed
-[3/4] ASoC: dt-bindings: rockchip: i2s-tdm: Add RK3588 compatible
-      commit: 0643fd3669f5c33bab5b05a813459a2d00a83465
-[4/4] ASoC: rockchip: i2s_tdm: Add support for RK3588
-      commit: c619bd4268ff9895760dab303b4eb15ed3d0f7e9
+In our case, the pointer of 'why' argument should points to two
+hardcoded strings; "hw_ptr skipping" and "Unexpected hw_ptr". As long as
+I know, they are put into any of .rodata section.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+```
+$ objdump -s sound/core/snd-pcm.ko -j .rodata.str1.1
+```
+ 0830 74757265 20436861 6e6e656c 204d6170  ture Channel Map
+ 0840 00585255 4e3a2025 730a0055 6e657870  .XRUN: %s..Unexp
+ 0850 65637465 64206877 5f707472 0068775f  ected hw_ptr.hw_
+ 0860 70747220 736b6970 70696e67 004c6f73  ptr skipping.Los
+ 0870 7420696e 74657272 75707473 3f00756e  t interrupts?.un
+```
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I think current implementation is enough safe.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Nevertheless, explicit usage of the macros are developer friendly in my
+opinion since string buffer in C language tends to bring problems and
+the usage of macro would reduce careless future mistakes. In the case,
+when probing the event, the string is copied to memory for event
+structure, thus it adds slight overhead than current implementation. I
+leave the decision to maintainer.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+To maintainer, if you apply the patch to your tree, feel free to add my
+review tag.
 
-Thanks,
-Mark
+Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+
+> diff --git a/sound/core/pcm_trace.h b/sound/core/pcm_trace.h
+> index f18da2050772..350b40b906ca 100644
+> --- a/sound/core/pcm_trace.h
+> +++ b/sound/core/pcm_trace.h
+> @@ -88,19 +88,19 @@ TRACE_EVENT(hw_ptr_error,
+>  		__field( unsigned int, device )
+>  		__field( unsigned int, number )
+>  		__field( unsigned int, stream )
+> -		__field( const char *, reason )
+> +		__string( reason, why )
+>  	),
+>  	TP_fast_assign(
+>  		__entry->card = (substream)->pcm->card->number;
+>  		__entry->device = (substream)->pcm->device;
+>  		__entry->number = (substream)->number;
+>  		__entry->stream = (substream)->stream;
+> -		__entry->reason = (why);
+> +		__assign_str(reason, why);
+>  	),
+>  	TP_printk("pcmC%dD%d%s/sub%d: ERROR: %s",
+>  		  __entry->card, __entry->device,
+>  		  __entry->stream == SNDRV_PCM_STREAM_PLAYBACK ? "p" : "c",
+> -		  __entry->number, __entry->reason)
+> +		  __entry->number, __get_str(reason))
+>  );
+>  
+>  TRACE_EVENT(applptr,
+> -- 
+> 2.38.1
+
+
+Regards
+
+Takashi Sakamoto

@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DE863AFB6
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:44:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A93663AFBA
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:44:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF36F1745;
-	Mon, 28 Nov 2022 18:43:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF36F1745
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0AB31746;
+	Mon, 28 Nov 2022 18:44:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0AB31746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669657485;
-	bh=8NQ2yYvJE9GIMsCi3LRAdY8S2/zPeVhGFmNsRnCjWdM=;
+	s=default; t=1669657498;
+	bh=UaURbPuHpQtA0YRB1oWG4r32xC1LDY9emPmigIFWxUI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EAEqGg6RKWpI3ERs5QEiH1IsxrwS6yVADFXt2BjcVmS/I2/qyB+GwA7n68En/Vxpo
-	 iJotad32+IDi0/Tm4//ZGBGn8Difk9U3QsckCferH1F/GJtqp4fCFOYoXw1oUZdxZm
-	 gSgng18uHJi8GKub6ZE1d5ZQpRsZBjotF3dmXG6E=
+	b=ZGcVjSkuajo2TrbD4iRUoGQTLySP50yqyOlafaDh0tsn2E9okXNkS8uwx/z8Yx85y
+	 Hd5oZQxa/EWkvsZuehttAAweOlIFQaRJrjyB8fr3RmoTXg+IHsKKYdRnF3tGH5FXaB
+	 0TRrcb9Ph7RW2rvrB5xALUss5UF0KvpiZ+WgHUNk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BAE4F80571;
-	Mon, 28 Nov 2022 18:43:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACCF9F80166;
+	Mon, 28 Nov 2022 18:43:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFFDBF80566; Mon, 28 Nov 2022 18:43:26 +0100 (CET)
+ id B7866F8028B; Mon, 28 Nov 2022 18:43:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D352EF801D8
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:43:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D352EF801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8A8AF8028B
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:43:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8A8AF8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fZ4Z9B/d"
+ header.b="NnFAE8U/"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C6501612E4;
+ by ams.source.kernel.org (Postfix) with ESMTPS id CE813B80E56;
+ Mon, 28 Nov 2022 17:43:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FEDC4347C;
  Mon, 28 Nov 2022 17:43:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB80C433C1;
- Mon, 28 Nov 2022 17:43:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669657399;
- bh=8NQ2yYvJE9GIMsCi3LRAdY8S2/zPeVhGFmNsRnCjWdM=;
+ s=k20201202; t=1669657400;
+ bh=UaURbPuHpQtA0YRB1oWG4r32xC1LDY9emPmigIFWxUI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fZ4Z9B/dvm/tXHZtpwB+M4YJt3WGvLhXWCxxqWoj7Nnj4LmVIGPnqXLZ3jJGFPJoQ
- wg8sk2q2a0yMzNKNgtY0TQh1/woIOhfH96/ehGdzp4ez5o6KAV6nHbAxM8iKtSfSWM
- 2xwPE5de0EXw91ZF4BcXWoQB6ygSAkU3ZTqP6dtEo+Te32PHJzz9Clxnu5YYDl5LMn
- Ihv8PtCdwuljd1YXeMOU+rBWyDm534WBiER+oZZZBK7ABt4uj/SD6Fy9u47g++ZwIH
- Moa22ldE9neF8yJm14cWimkvz5eC3YlqNQmGvK+SQDCOuMj3++W1qVkrDqcnMm6SxL
- kbb6kSoQsHFCg==
+ b=NnFAE8U//65EYUu9hyrlt2RTwnzs4YXW1KMkTTwlyNdtClkVGqShHm0ZHI4meiDtG
+ dwrsTkI0RjjgWEObKCZu20mu9azJ0Lrub/aYdO6wzKZivXgdKU96xsxSgi9/oKnJ/N
+ GttKfkJCa1FpcSbRYy5wNdJHEETRgu90lXM067uytFWuIV4A7cOP1upLMCNL/sG3Fb
+ L691IKlAEY7Te+iDhqWG6tJxSslQXayvDGWdL+m1wbfsIoiqQjBMcy4Rx/SiyECkeJ
+ I8LCfXIsnkYGWbXd/TUS4mjedh/JH598KQ/g9hJtbTpighHrfrIMIR3FakdtuvXwCC
+ jZQiR46Zbhu1A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 6/9] ALSA: seq: Fix function prototype mismatch
- in snd_seq_expand_var_event
-Date: Mon, 28 Nov 2022 12:42:59 -0500
-Message-Id: <20221128174303.1443008-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 7/9] ASoC: soc-pcm: Add NULL check in BE
+ reparenting
+Date: Mon, 28 Nov 2022 12:43:00 -0500
+Message-Id: <20221128174303.1443008-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221128174303.1443008-1-sashal@kernel.org>
 References: <20221128174303.1443008-1-sashal@kernel.org>
@@ -72,10 +72,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kees Cook <keescook@chromium.org>, Takashi Iwai <tiwai@suse.de>,
- llvm@lists.linux.dev, ndesaulniers@google.com,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- nathan@kernel.org, kernel test robot <lkp@intel.com>
+ lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,74 +89,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kees Cook <keescook@chromium.org>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 
-[ Upstream commit 05530ef7cf7c7d700f6753f058999b1b5099a026 ]
+[ Upstream commit db8f91d424fe0ea6db337aca8bc05908bbce1498 ]
 
-With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
-indirect call targets are validated against the expected function
-pointer prototype to make sure the call target is valid to help mitigate
-ROP attacks. If they are not identical, there is a failure at run time,
-which manifests as either a kernel panic or thread getting killed.
+Add NULL check in dpcm_be_reparent API, to handle
+kernel NULL pointer dereference error.
+The issue occurred in fuzzing test.
 
-seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
-matching snd_seq_dump_func_t. Adjust this and remove the casts. There
-are not resulting binary output differences.
-
-This was found as a result of Clang's new -Wcast-function-type-strict
-flag, which is more sensitive than the simpler -Wcast-function-type,
-which only checks for type width mismatches.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Link: https://lore.kernel.org/r/20221118232346.never.380-kees@kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Link: https://lore.kernel.org/r/1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/seq/seq_memory.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ sound/soc/soc-pcm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index ab1112e90f88..6f413c711535 100644
---- a/sound/core/seq/seq_memory.c
-+++ b/sound/core/seq/seq_memory.c
-@@ -126,15 +126,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
-  * expand the variable length event to linear buffer space.
-  */
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index e995e96ab903..3a9c875534c1 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1168,6 +1168,8 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+ 		return;
  
--static int seq_copy_in_kernel(char **bufptr, const void *src, int size)
-+static int seq_copy_in_kernel(void *ptr, void *src, int size)
- {
-+	char **bufptr = ptr;
-+
- 	memcpy(*bufptr, src, size);
- 	*bufptr += size;
- 	return 0;
- }
+ 	be_substream = snd_soc_dpcm_get_substream(be, stream);
++	if (!be_substream)
++		return;
  
--static int seq_copy_in_user(char __user **bufptr, const void *src, int size)
-+static int seq_copy_in_user(void *ptr, void *src, int size)
- {
-+	char __user **bufptr = ptr;
-+
- 	if (copy_to_user(*bufptr, src, size))
- 		return -EFAULT;
- 	*bufptr += size;
-@@ -163,8 +167,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
- 		return newlen;
- 	}
- 	err = snd_seq_dump_var_event(event,
--				     in_kernel ? (snd_seq_dump_func_t)seq_copy_in_kernel :
--				     (snd_seq_dump_func_t)seq_copy_in_user,
-+				     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
- 				     &buf);
- 	return err < 0 ? err : newlen;
- }
+ 	list_for_each_entry(dpcm, &be->dpcm[stream].fe_clients, list_fe) {
+ 		if (dpcm->fe == fe)
 -- 
 2.35.1
 

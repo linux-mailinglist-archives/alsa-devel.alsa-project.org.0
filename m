@@ -2,78 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E5D63AFC7
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04DA563B21B
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 20:21:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 380951726;
-	Mon, 28 Nov 2022 18:44:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 380951726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 759C51674;
+	Mon, 28 Nov 2022 20:20:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 759C51674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669657534;
-	bh=mYDS8NhRtn6iHirANvokxO19PldCMN2N89AlLM3kj5s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669663282;
+	bh=6YwIpJSQ9MX0ulJqbq6elPOO5wlBc10628Ojd0gBb4E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GKMSI5CKM29khK+NclW2d0TEQRfrf+VLrkQKbCeCsdTnlra0c65K6wLVFvtHc1NmS
-	 lfLUu3Uy+Rg85DWfmvNhWE+tSnEdVxwWi6w3X+nzibBjIcLM27HnTlmYOLeVx4tIfH
-	 ma8m1yYiTZCTAltbxHygyQPtLkrPM+5DPNvNP9+Q=
+	b=O8E/NnltS2tubGmtuRj61P5NQNoKrESNslzjlgD3jTBR6w+NwNOJWtOM/PhdskdN3
+	 Sbr0Bn6y/VOpO1r4CdwYCPBYDXNkk4DzQGncOjWW5BCVoDgaO0Sh8xDsMtNXDicJ5u
+	 p2G3ehLQkg70D6zuOEWs7cefnscnBv8nsM9pfeOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C837F8057E;
-	Mon, 28 Nov 2022 18:43:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 285C9F8024C;
+	Mon, 28 Nov 2022 20:20:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4573F8057A; Mon, 28 Nov 2022 18:43:42 +0100 (CET)
+ id 4D707F8020D; Mon, 28 Nov 2022 20:20:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B27EF8057A
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:43:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B27EF8057A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C/2HPI6u"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ RDNS_NONE,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 333896130B;
- Mon, 28 Nov 2022 17:43:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5B6C43141;
- Mon, 28 Nov 2022 17:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669657414;
- bh=mYDS8NhRtn6iHirANvokxO19PldCMN2N89AlLM3kj5s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C/2HPI6udJk+NmsRVsQLYP6owdJQ9/ItPQy6+KzwrtgtSdHqcngBzr0zkSTmgUmk5
- DBikLAcJq3kWNn2jerVywa+vBkwqPGiUxtUTnBoA5iNklnrd0veEa36q2wSwP+cDst
- mKFXhWySDeU9ekx27CgKZvrrJEtgkEhwOMl62JjrFHFz3HwpVvaA8YGB/lk2rCd0nX
- g2gV9KDrk2Z8z3aZS260aoDpLUsLn8EXWq2lsJ2glDNTVIc0peSzilkOsCzIACBKb3
- 2KgTNGvF25ZU4lR6cDz2UwlbjK9zzIRUZIFFnTQdOSDhWyeKifnHRYuNeHDl3jjE+Z
- subU+myQCxb/w==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 5/5] ASoC: soc-pcm: Add NULL check in BE
- reparenting
-Date: Mon, 28 Nov 2022 12:43:23 -0500
-Message-Id: <20221128174324.1443132-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221128174324.1443132-1-sashal@kernel.org>
-References: <20221128174324.1443132-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 382F9F80166
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 20:20:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 382F9F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
+ header.b="PNmxFpSK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=metanate.com; s=stronger; h=In-Reply-To:Content-Type:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description; bh=r137AssrJXVYmY3OjLXheXtN7yuxhyQR1OJqI3kZFPs=; b=PNmxF
+ pSKb6RMRGqzzuajMCDJpv4MhkotfpWGbHMtdu9kol4N9HnrlbDQkgygbJlwCCX2tJHzPdoh5/Wjhe
+ B77atnoQ9p58XZGXkaKb+Saz93tJmdVMPlk66jibn5maA+Ek7mEp6P6NEW7LVmLUWQFnJNB5K/lBL
+ L7xCqufNay6viLEjQkf4ZqMoYDjPMEpB5TC0JgjvGRuYfXEvNCfyCLF8C6BKyAC7TqAZUY/qmNKb3
+ uMmWdyoqPsnxGR/plKnDaLQauLniyXOdLFd0CmNkz+CAlkbc5nCuoSvh1aUnvigfmq+mF6/9G1zTw
+ p8AiY0rq3oZGo7tPcRslpM/iWaXiQ==;
+Received: from [81.174.171.191] (helo=donbot)
+ by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.95) (envelope-from <john@metanate.com>) id 1ozjfi-0006Ll-Ip;
+ Mon, 28 Nov 2022 19:20:07 +0000
+Date: Mon, 28 Nov 2022 19:20:05 +0000
+From: John Keeping <john@metanate.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for Tascam Model 12
+Message-ID: <Y4UJ5VcgR4/uOgWL@donbot>
+References: <20221128122353.763696-1-john@metanate.com>
+ <87lenvyyp8.wl-tiwai@suse.de>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87lenvyyp8.wl-tiwai@suse.de>
+X-Authenticated: YES
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +82,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+On Mon, Nov 28, 2022 at 02:51:15PM +0100, Takashi Iwai wrote:
+> On Mon, 28 Nov 2022 13:23:52 +0100,
+> John Keeping wrote:
+> > 
+> > Tascam's Model 12 is a mixer which can also operate as a USB audio
+> > interface.  The audio interface uses explicit feedback but it seems that
+> > it does not correctly handle missing isochronous frames.
+> > 
+> > When injecting an xrun (or doing anything else that pauses the playback
+> > stream) the feedback rate climbs (for example, at 44,100Hz nominal, I
+> > see a stable rate around 44,099 but xrun injection sees this peak at
+> > around 44,135 in most cases) and glitches are heard in the audio stream
+> > for several seconds - this is significantly worse than the single glitch
+> > expected for an underrun.
+> > 
+> > While the stream does normally recover and the feedback rate returns to
+> > a stable value, I have seen some occurrences where this does not happen
+> > and the rate continues to increase while no audio is heard from the
+> > output.  I have not found a solid reproduction for this.
+> > 
+> > This misbehaviour can be avoided by totally resetting the stream state
+> > by switching the interface to alt 0 and back before restarting the
+> > playback stream.
+> > 
+> > Add a new quirk flag which forces the endpoint and interface to be
+> > reconfigured whenever the stream is stopped, and use this for the Tascam
+> > Model 12.
+> > 
+> > Signed-off-by: John Keeping <john@metanate.com>
+> 
+> Thanks for the patch, it's an interesting case.
+> About the code change:
+> 
+> > --- a/sound/usb/endpoint.c
+> > +++ b/sound/usb/endpoint.c
+> > @@ -1673,6 +1673,13 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
+> >  		stop_urbs(ep, false, keep_pending);
+> >  		if (ep->clock_ref)
+> >  			atomic_dec(&ep->clock_ref->locked);
+> > +
+> > +		if (ep->chip->quirk_flags & QUIRK_FLAG_FORCE_IFACE_RESET &&
+> > +		    usb_pipeout(ep->pipe)) {
+> > +			ep->need_setup = true;
 
-[ Upstream commit db8f91d424fe0ea6db337aca8bc05908bbce1498 ]
+It seems I missed this when forward porting the patch from 5.15 - this
+should be setting ep->need_prepare and will change in v2.
 
-Add NULL check in dpcm_be_reparent API, to handle
-kernel NULL pointer dereference error.
-The issue occurred in fuzzing test.
+> > +			if (ep->iface_ref)
+> > +				ep->iface_ref->need_setup = true;
+> > +		}
+> 
+> Is this the forced reset always safe?  Imagine that you have
+> individual playback and capture streams, and what if only one of them
+> gets stopped and restarted while another keeps running?
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Link: https://lore.kernel.org/r/1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/soc-pcm.c | 2 ++
- 1 file changed, 2 insertions(+)
+I /think/ this is okay because the interfaces for capture & playback are
+separate (although the clock is shared).
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 6c31a909845c..f6cebe2b3cbb 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1182,6 +1182,8 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
- 		return;
- 
- 	be_substream = snd_soc_dpcm_get_substream(be, stream);
-+	if (!be_substream)
-+		return;
- 
- 	list_for_each_entry(dpcm, &be->dpcm[stream].fe_clients, list_fe) {
- 		if (dpcm->fe == fe)
--- 
-2.35.1
-
+There are two endpoints on the playback interface - the playback data
+and explicit feedback endpoints - but these are always stopped and
+started at the same time so I can't see any problem here.  (Only the
+data endpoint will trigger the reset request here due to the
+usb_pipeout() check.) 

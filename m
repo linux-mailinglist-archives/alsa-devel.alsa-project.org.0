@@ -2,77 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7305663AF5C
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:41:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2866C63AF81
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:42:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30AE01706;
-	Mon, 28 Nov 2022 18:40:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30AE01706
+	by alsa0.perex.cz (Postfix) with ESMTPS id B70751703;
+	Mon, 28 Nov 2022 18:42:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70751703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669657284;
-	bh=ksNf/YddouAnHYSNO35e1eWHI7ypXSlIfibrJFdWEf4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1669657370;
+	bh=DPPczfweauoHm+8fcnAinxuupRv+3HXZOb4CpCady1A=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=juNUlXOpGuOcUqupy0zMMGM1YRrmLjwYJyAlACDCo3mABfuwP9Vl+8my2UMQ9PK0A
-	 UqWqVJHegQx5ydqEgBKC/nu1o4h8dFwA/8KhQO7lFJFmqnlJ4nnO80fD+AWJ4fdJOG
-	 bWVQ4dCmofiWpP1eBb+aXa96Qlv/ZAS3obnBIRk8=
+	b=BKDtpoJWXgJQYCIf9dIABJ3kbJ0oII8B3yTpaUJd7Bu2FuBxayTuPbFes5Ej2s/Qk
+	 jI2JiLzTgP99gSZZGtpo1oM13DnSqxxYS1RPhrOKz12BCdE9bTk1lbG8v5NuNuugOI
+	 EWYBTyv9iqa1NfFv7A9pKNSu/At8hYKJm9fJpMDM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D05CEF8024C;
-	Mon, 28 Nov 2022 18:40:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A47A6F80166;
+	Mon, 28 Nov 2022 18:41:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01A2FF801D8; Mon, 28 Nov 2022 18:40:31 +0100 (CET)
+ id CEFCEF8024C; Mon, 28 Nov 2022 18:41:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64A1BF801D8
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:40:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64A1BF801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id D07F3F80166
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:41:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D07F3F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Osc1H1Y2"
+ header.b="ZCRNOGpy"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F3526612E9;
- Mon, 28 Nov 2022 17:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C351C433D6;
- Mon, 28 Nov 2022 17:40:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 07DDDB80E56;
+ Mon, 28 Nov 2022 17:41:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797D7C433D7;
+ Mon, 28 Nov 2022 17:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669657226;
- bh=ksNf/YddouAnHYSNO35e1eWHI7ypXSlIfibrJFdWEf4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Osc1H1Y2dd/1zAyoQv+CJvEfOBepdr9KnkC0Zq43CfxEmyEQzwk67A9puNnYw1UAG
- O7eYNatbOG5Z14pGD8hrppnia2Ca1TJvKAzr96aG88MMS/18dMhTP38B9tjfH3zMta
- YqQR6azn+QEVmFrzUXaVXRPwFej2H01vc+BY0ce5spLiGefmYlCDipt0DhT9Q/yvmS
- hc7EKRFdHf93+NgdMwL47eGE10e3kiqHQqqsBa/sHM/+o+IenCpufIpc78A+zKNHDF
- gZ3Sq/2abivOb7aykWQsyg+5mbBuDoihw6NCLvLqoHlYm07PhN7incrFBJbmaAy2Ym
- 3o1u0nuxP+WUw==
-From: Mark Brown <broonie@kernel.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <lgirdwood@gmail.com>, 
- Takashi Iwai <tiwai@suse.com>, Ricardo Ribalda <ribalda@chromium.org>
-In-Reply-To: <20221128-mt8173-afe-v1-0-70728221628f@chromium.org>
-References: <20221128-mt8173-afe-v1-0-70728221628f@chromium.org>
-Subject: Re: [PATCH] ASoC: mediatek: mt8173: Enable IRQ when pdata is ready
-Message-Id: <166965722420.688163.18006301242962769416.b4-ty@kernel.org>
-Date: Mon, 28 Nov 2022 17:40:24 +0000
+ s=k20201202; t=1669657299;
+ bh=DPPczfweauoHm+8fcnAinxuupRv+3HXZOb4CpCady1A=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZCRNOGpyReN81FmMDiMlTu2uCIgruXZdo/TCZ+ycUQfuKamS1LfUAkOL8x/n5hD5V
+ 2eIh8xkBYjE9Jinly8Dfi2GIUje+5ECK3CpYnsGkxPeRV/PpXWiwDrLtgvMLvdp0FE
+ Gp95aJm1xov5zzlZOqmCExFtXvBoRLB5/NFxinvoL47Rlf4LQdqmQDLBBEZFErRGC7
+ HNL8j49R7hzYWpppIzaZWNbWxXTKobrY88UrZsQyQd33PyfE/ODPI+93RJdGHIaQmw
+ 5KuY39CPvywP41w/jUqfMgvjoUqS5iGRjcS52fVO25xoZ1eEZ73czr1HCTfMFEkIVc
+ VKJQDY17WnJhQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 08/19] ASoC: wm8962: Wait for updated value of
+ WM8962_CLOCKING1 register
+Date: Mon, 28 Nov 2022 12:41:08 -0500
+Message-Id: <20221128174120.1442235-8-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221128174120.1442235-1-sashal@kernel.org>
+References: <20221128174120.1442235-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, chi.minghao@zte.com.cn,
+ Mark Brown <broonie@kernel.org>, Chancel Liu <chancel.liu@nxp.com>,
+ steve@sk2.org, aford173@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,45 +91,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Nov 2022 11:49:16 +0100, Ricardo Ribalda wrote:
-> If the device does not come straight from reset, we might receive an IRQ
-> before we are ready to handle it.
-> 
-> Fixes:
-> 
-> [    2.334737] Unable to handle kernel read from unreadable memory at virtual address 00000000000001e4
-> [    2.522601] Call trace:
-> [    2.525040]  regmap_read+0x1c/0x80
-> [    2.528434]  mt8173_afe_irq_handler+0x40/0xf0
-> ...
-> [    2.598921]  start_kernel+0x338/0x42c
-> 
-> [...]
+From: Chancel Liu <chancel.liu@nxp.com>
 
-Applied to
+[ Upstream commit 3ca507bf99611c82dafced73e921c1b10ee12869 ]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+DSPCLK_DIV field in WM8962_CLOCKING1 register is used to generate
+correct frequency of LRCLK and BCLK. Sometimes the read-only value
+can't be updated timely after enabling SYSCLK. This results in wrong
+calculation values. Delay is introduced here to wait for newest value
+from register. The time of the delay should be at least 500~1000us
+according to test.
 
-Thanks!
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20221109121354.123958-1-chancel.liu@nxp.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/wm8962.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-[1/1] ASoC: mediatek: mt8173: Enable IRQ when pdata is ready
-      commit: 4cbb264d4e9136acab2c8fd39e39ab1b1402b84b
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 21574447650c..57aeded978c2 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -2489,6 +2489,14 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+ 				WM8962_SYSCLK_ENA_MASK, WM8962_SYSCLK_ENA);
+ 
++	/* DSPCLK_DIV field in WM8962_CLOCKING1 register is used to generate
++	 * correct frequency of LRCLK and BCLK. Sometimes the read-only value
++	 * can't be updated timely after enabling SYSCLK. This results in wrong
++	 * calculation values. Delay is introduced here to wait for newest
++	 * value from register. The time of the delay should be at least
++	 * 500~1000us according to test.
++	 */
++	usleep_range(500, 1000);
+ 	dspclk = snd_soc_component_read(component, WM8962_CLOCKING1);
+ 
+ 	if (snd_soc_component_get_bias_level(component) != SND_SOC_BIAS_ON)
+-- 
+2.35.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

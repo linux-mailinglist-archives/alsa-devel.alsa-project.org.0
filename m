@@ -2,104 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9465263A4F5
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 10:27:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3132763A55C
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 10:49:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 375751650;
-	Mon, 28 Nov 2022 10:27:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 375751650
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18A53164D;
+	Mon, 28 Nov 2022 10:48:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A53164D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669627675;
-	bh=MAHFi5hwpuOxqHfnfuNAMoOLVEaTn8sk8xbSbi7BW6Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1669628976;
+	bh=he6z0QczvAwDyxM7/GpmILjYMt9s70Kg0BeQsNQapSs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A+RU0VVn3Cmbi+LZ/tOSh1sbC8gBJTZ8BHXZ0Igh7rzub65yK7VNU+jQ3JgKQdTiH
-	 lgz/HQZutUgtrr8XOFfmik8M9g2tclEJNpiyQpYJY7RFenS4GjO2i+oY5hX3ZAZ/v8
-	 lYRIcE9T5nqA3WcTqph+hWlcrN5aVMl+/rOq7O+8=
+	b=WxzdlGg2pOPMJmhwfCuJVTR3Ck+whkM+0p4wiqScmZjSfzykNqunx5FlY/VsvXND2
+	 wwpNVv1+inwZ3hnbKEDv467M4ly5ZAZMk9mpXSwBEi8Wfu40C2jhpIbS2aS5zeckVw
+	 Yh5bQ26VmWAZN/fEluGSh5l6f4PHiCo3VeV0TqHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8CE2F801D8;
-	Mon, 28 Nov 2022 10:26:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A01BF8024C;
+	Mon, 28 Nov 2022 10:48:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E533F8020D; Mon, 28 Nov 2022 10:26:58 +0100 (CET)
+ id 8C7C8F8020D; Mon, 28 Nov 2022 10:48:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_76,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5003FF8016E
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 10:26:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5003FF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D423F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 10:48:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D423F8016E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="fHupL+kN"
-Received: by mail-il1-x135.google.com with SMTP id z9so4735944ilu.10
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 01:26:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=rSjenL36nx6dkpFfPvUHmLRtB3WtAx9+34Fs2KvTI98=;
- b=fHupL+kNUU1LXHaNAPqGC7s6qKRyRPCDbj2c4DTGlg6mKcXeZ8CxSpies/1a1MiyxC
- 9R37c6cxx+9Gj9y2jpUJ7JrfUg72+3QkWD0oOtVoYFn1NtQPrK435X11qQ0dITnz8Muj
- naVVWUn+elbnLK9DPkHY6lwo+3xYSdr2hKNZE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rSjenL36nx6dkpFfPvUHmLRtB3WtAx9+34Fs2KvTI98=;
- b=X1333InzcIWmtfZLaVAT7fh3pNcQJZL53bMr1pqBqy+m4wYsjMjR79W5Jg/NgM1ioB
- uRu9uahMESp1xNRPp3Xm1YWfhq13NniC7LP8T5Wxchuk7XMlBKYxwzLUZLJEJ3u6wyET
- QECD6EpKgS0uNpEbaJZ6Kw5iiK4B6bwS3vvggFaB6gi8iSu+UkQvspQl1ZyQDmI/TUoL
- xEauB+tQEKxew7yoWCwJYHiHRS6Xo21zhhlZZgO75AINYaTc0pL6Nplbh/QgqCxMJVQV
- DwhWVa3YCbjcDojTKKcUnQEbhRxcb7a6DOCfWwyhzQaoHuKkTYQB3lNmausziHIXepX8
- lRRA==
-X-Gm-Message-State: ANoB5pkaHkrmYLwUOVDgioE2+DH7Hg+GHG4+1eONF/qQ0y2DvBXyCeuF
- wGnJ/EQeE+1exyML1bxmalIXBIpqouLe2g==
-X-Google-Smtp-Source: AA0mqf55NYMLV2+X24NeqYPg4OWkOJhOtYpt8eyKm28ksD+ikrUF1dGnoFBZS3HFbY6ZCwiHfbb8kA==
-X-Received: by 2002:a05:6e02:13d1:b0:302:d470:1ca8 with SMTP id
- v17-20020a056e0213d100b00302d4701ca8mr13369234ilj.103.1669627609475; 
- Mon, 28 Nov 2022 01:26:49 -0800 (PST)
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com.
- [209.85.166.52]) by smtp.gmail.com with ESMTPSA id
- g4-20020a92d7c4000000b00300ea3a86e2sm3666271ilq.68.2022.11.28.01.26.48
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Nov 2022 01:26:48 -0800 (PST)
-Received: by mail-io1-f52.google.com with SMTP id q21so7141840iod.4
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 01:26:48 -0800 (PST)
-X-Received: by 2002:a02:c897:0:b0:374:100a:b0c7 with SMTP id
- m23-20020a02c897000000b00374100ab0c7mr14573933jao.185.1669627607759; Mon, 28
- Nov 2022 01:26:47 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="HFZeZw5E"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AS94pmb031089; Mon, 28 Nov 2022 03:48:31 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=PODMain02222019;
+ bh=u4kN8qSEdRaoC/vqF/vqkLOv5Fb0wByigupORQ9e7T4=;
+ b=HFZeZw5EXFWT0K+c0O1zwZ5MfXWEEI5BNwspt5VNq+/I6hbLluAUpAADAAHnrELazX6c
+ CWITOBu6mqwGgiWT2HTuKWdBVdyh70DOHZGYf4mf5zJbGv0vAPM4iejFrNk8r/013i0x
+ XuNt8YUHurdSpEhp4qlrf/mQ/CysQbh9MEx22lCXb7IwGLFARtCRAgcfCjVgdI/kjtEV
+ d+A007NqSfh3a54EQE8WU/dEOtyGwp1Sd6VV4h08MFcSoabL1PpjfDLa+Up3Nud86Huo
+ 0Y59TCtDDolJtroEyPFCp/9K34p2/ODBJKK3qE1HZg03rwVWjjdI1SeVvJMZNkaIukZV vg== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3m3g3vhr1h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Nov 2022 03:48:31 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Mon, 28 Nov
+ 2022 03:48:29 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.20 via Frontend Transport; Mon, 28 Nov 2022 03:48:29 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 49E18B06;
+ Mon, 28 Nov 2022 09:48:29 +0000 (UTC)
+Date: Mon, 28 Nov 2022 09:48:29 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Guillermo Rodriguez Garcia <guille.rodriguez@gmail.com>
+Subject: Re: [PATCH v2 2/2] ASoC: cs42l51: Correct PGA Volume minimum value
+Message-ID: <20221128094829.GH105268@ediswmail.ad.cirrus.com>
+References: <20221125163748.1288942-1-ckeepax@opensource.cirrus.com>
+ <20221125163748.1288942-2-ckeepax@opensource.cirrus.com>
+ <CABDcavbtBBU7ySPK32104nZB5RHf2=LFuOOYOF-Ze1EDoM+etw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20221127-snd-freeze-v3-0-a2eda731ca14@chromium.org>
- <87wn7fzb2g.wl-tiwai@suse.de>
-In-Reply-To: <87wn7fzb2g.wl-tiwai@suse.de>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Nov 2022 10:26:36 +0100
-X-Gmail-Original-Message-ID: <CANiDSCtSAM3seszVWfjJPaYFO3v223P-tYEtdpW4+pQQ3bcf0g@mail.gmail.com>
-Message-ID: <CANiDSCtSAM3seszVWfjJPaYFO3v223P-tYEtdpW4+pQQ3bcf0g@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] ALSA: core: Fix deadlock when shutdown a frozen
- userspace
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Len Brown <len.brown@intel.com>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABDcavbtBBU7ySPK32104nZB5RHf2=LFuOOYOF-Ze1EDoM+etw@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: ZEDHlPXu5bBf9ccLXcsIqrx688hrB6BJ
+X-Proofpoint-ORIG-GUID: ZEDHlPXu5bBf9ccLXcsIqrx688hrB6BJ
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, david.rhodes@cirrus.com, broonie@kernel.org,
+ james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,86 +104,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi
-
-Thanks for your prompt reply
-
-On Mon, 28 Nov 2022 at 10:24, Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 28 Nov 2022 10:10:12 +0100,
-> Ricardo Ribalda wrote:
+On Sat, Nov 26, 2022 at 12:15:10PM +0100, Guillermo Rodriguez Garcia wrote:
+> El vie, 25 nov 2022 a las 17:37, Charles Keepax
+> (<ckeepax@opensource.cirrus.com>) escribió:
 > >
-> > Since 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
-> > we wait for userspace to close its fds.
->
-> IMO, the fix above brought more problem.  If you'd need to want to
-> avoid later accesses during shutdown, the driver should rather just
-> disconnect devices without waiting for the user-space completion.
-> And, for that, a simple call of snd_card_disconnect() should suffice.
->
-> > But that will never occur with a frozen userspace (like during kexec()).
+> > The table in the datasheet actually shows the volume values in the wrong
+> > order, with the two -3dB values being reversed. This appears to have
+> > caused the lower of the two values to be used in the driver when the
+> > higher should have been, correct this mixup.
 > >
-> > Lets detect the frozen userpace and act accordingly.
->
-> ... and skipping the user-space sync at snd_card_disconnect_sync() as
-> of this patch set is a dangerous move, I'm afraid.  The user-space
-> gets frozen also at the normal suspend/resume, and it implies that the
-> sync will be lost even for the normal PM, too (although it must be a
-> very corner case).
->
-
-And what about checking kexec_in_progress instead?
-
-Thanks!
-
->
-> thanks,
->
-> Takashi
->
-> >
-> > To: Jaroslav Kysela <perex@perex.cz>
-> > To: Takashi Iwai <tiwai@suse.com>
-> > To: "Rafael J. Wysocki" <rafael@kernel.org>
-> > To: Pavel Machek <pavel@ucw.cz>
-> > To: Len Brown <len.brown@intel.com>
-> > To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > To: Mark Brown <broonie@kernel.org>
-> > Cc: alsa-devel@alsa-project.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: "Joel Fernandes (Google)" <joel@joelfernandes.org>
-> > Cc: linux-pm@vger.kernel.org
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 > > ---
-> > Changes in v3:
-> > - Wrap pm_freezing in a function
-> > - Link to v2: https://lore.kernel.org/r/20221127-snd-freeze-v2-0-d8a425ea9663@chromium.org
 > >
-> > Changes in v2:
-> > - Only use pm_freezing if CONFIG_FREEZER
-> > - Link to v1: https://lore.kernel.org/r/20221127-snd-freeze-v1-0-57461a366ec2@chromium.org
+> > No changes since v1.
 > >
-> > ---
-> > Ricardo Ribalda (2):
-> >       freezer: Add processes_frozen()
-> >       ALSA: core: Fix deadlock when shutdown a frozen userspace
+> >  sound/soc/codecs/cs42l51.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> >  include/linux/freezer.h |  2 ++
-> >  kernel/freezer.c        | 11 +++++++++++
-> >  sound/core/init.c       | 13 +++++++++++++
-> >  3 files changed, 26 insertions(+)
-> > ---
-> > base-commit: 4312098baf37ee17a8350725e6e0d0e8590252d4
-> > change-id: 20221127-snd-freeze-1ee143228326
-> >
-> > Best regards,
-> > --
-> > Ricardo Ribalda <ribalda@chromium.org>
-> >
+> > diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
+> > index 51721edd8f53c..e88d9ff95cdfc 100644
+> > --- a/sound/soc/codecs/cs42l51.c
+> > +++ b/sound/soc/codecs/cs42l51.c
+> > @@ -143,7 +143,7 @@ static const struct snd_kcontrol_new cs42l51_snd_controls[] = {
+> >                         0, 0xA0, 96, adc_att_tlv),
+> >         SOC_DOUBLE_R_SX_TLV("PGA Volume",
+> >                         CS42L51_ALC_PGA_CTL, CS42L51_ALC_PGB_CTL,
+> > -                       0, 0x19, 30, pga_tlv),
+> > +                       0, 0x1A, 30, pga_tlv),
+> 
+> The original patch where this control was added [1] already used 0x1A,
+> however this was later changed to 0x19 in [2]. Your patch now reverts
+> that change. Does this mean [2] was incorrect? If that is the case,
+> shouldn't the commit message for this patch mention that it fixes [2]
+> ?
+> 
+>  [1]: https://lore.kernel.org/all/20200918134317.22574-1-guille.rodriguez@gmail.com/
+>  [2]: https://lore.kernel.org/all/20220602162119.3393857-7-ckeepax@opensource.cirrus.com/
+> 
 
+Hmm... good digging, I didn't realise it was me who broke that.
+Apologies in that chain I went around and checked a bunch of SX
+controls to make sure they matched the datasheets, but it seems
+I got a bit confused by the weird ordering of the values in the
+datasheet. Since you have hardware would you be able to check,
+before we merge this revert? A simple check that writing 0 to the
+control sets the register value to 0x1A and writing 30 sets the
+register to 0x18 would suffice.
 
-
--- 
-Ricardo Ribalda
+Thanks,
+Charles

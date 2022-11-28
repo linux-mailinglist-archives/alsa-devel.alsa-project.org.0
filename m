@@ -2,78 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB56F63AF88
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:43:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF0A63AF99
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 18:43:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4800F16F2;
-	Mon, 28 Nov 2022 18:42:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4800F16F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30130172A;
+	Mon, 28 Nov 2022 18:42:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30130172A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669657390;
-	bh=r+M0HEP+Ms20Msc00++GW4FmaUoT610zznhTa2+T19I=;
+	s=default; t=1669657421;
+	bh=2nnZXA8RaZrSVvCN6ByjHxeIL4WuKWU/gteG+urh8OQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jJK6gz81VT5Mlu2mg9h4K8fUfC7RDUCYJv9oA/2w+NHSj2HgvGazMO572uasusYz9
-	 OHmnA5Zm6mTpYk0/G1EdBKAfDOlCh0dunqFaGWcoGgXNUax2SBKdZpR3fzIze+kYWF
-	 gDhUvOfdEYklsewGrnT1NW6WC1FcrjpzeKSk9rfo=
+	b=VjzaDEDfRlD4tqnka3DZvMJhiZv8mUCjEMDLD4kd/szYXarxhqAHJGd1TWUX/SKG4
+	 82A10qDUmaXU3Dss9+tXe2khIPIuSlorI1H0wY2xiSw2ijCjKYjfz/a1rSVJFoqEBz
+	 sS/IAykyEWA1CqGOWwqGAJeA4+xgHCERMbtnUiYY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2DDAF8028B;
-	Mon, 28 Nov 2022 18:41:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF71FF80559;
+	Mon, 28 Nov 2022 18:42:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 096FAF80579; Mon, 28 Nov 2022 18:41:54 +0100 (CET)
+ id E20E5F80558; Mon, 28 Nov 2022 18:42:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 673ECF8056F
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:41:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 673ECF8056F
+ by alsa1.perex.cz (Postfix) with ESMTPS id F4036F8027D
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 18:42:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4036F8027D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="W/JI3km0"
+ header.b="Y/rzmGaz"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 03949612FB;
- Mon, 28 Nov 2022 17:41:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED057C43155;
- Mon, 28 Nov 2022 17:41:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 23FAAB80E9C;
+ Mon, 28 Nov 2022 17:42:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5A1C433C1;
+ Mon, 28 Nov 2022 17:42:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669657309;
- bh=r+M0HEP+Ms20Msc00++GW4FmaUoT610zznhTa2+T19I=;
+ s=k20201202; t=1669657343;
+ bh=2nnZXA8RaZrSVvCN6ByjHxeIL4WuKWU/gteG+urh8OQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=W/JI3km0X6qN8YqRbZPi1TpRjQ1429UaprHmYShK82Wn4sRVd2PS9hMOnUyWahfqj
- MGd/xZL3q+9j6sUuPfC6edLuNqMwJJ87uirsXEoOILmovagyVbU8aCboanYOfIHDsk
- p0ROXGCrhEWngSt08OgGKFkV2n4URLGlc+p7gBD5CiT+squHOGXe+JGkmRevkgNZt9
- blJImeIFTVB/tPb3dBgYLuLU2yaH3+wVQ9d8yAGFx2/dhFUEION79XQdmtzbDQITcx
- +aJT8Yzud6zbIjTpU6sEtmk8EZxC7nTSretKgosyPQGni+kiu1nTXy5mWp90cuiDAf
- 3RAgFosMf0t2w==
+ b=Y/rzmGazxMkZ6y0TJ15hZpedP8r1u7t2cGGeteqBp5ptgAp57Wmzd81BxNQWwJ4n/
+ BVzhl1U+5N2qtgYHuuahECI2MpWCvCiu4WHmvsoUZxUDbJfSUK6z8qSjIc3jztqioo
+ PyE7iUrlqTgsFSmkNR2HvsD/elZE21gfqRnnQt8jv0X4Cckp+njwFgB/K77qZZhdk/
+ oaNcHu9aE+9dc20DzdY2v4rv7zEQRQ6z5QwBPF9C7ijUb2LSuAh++p8+GmkVLZnovO
+ /aLcLjAg9r11S0a8bz92Q7H2ja+1OMOcoQwAtfmhIOoaFBnKp7nlmH4gTmUO8xdOu4
+ TqgIRN6jt69fA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 14/19] ASoC: soc-pcm: Add NULL check in BE
- reparenting
-Date: Mon, 28 Nov 2022 12:41:14 -0500
-Message-Id: <20221128174120.1442235-14-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 10/16] ALSA: seq: Fix function prototype mismatch
+ in snd_seq_expand_var_event
+Date: Mon, 28 Nov 2022 12:41:53 -0500
+Message-Id: <20221128174201.1442499-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221128174120.1442235-1-sashal@kernel.org>
-References: <20221128174120.1442235-1-sashal@kernel.org>
+In-Reply-To: <20221128174201.1442499-1-sashal@kernel.org>
+References: <20221128174201.1442499-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+ Kees Cook <keescook@chromium.org>, Takashi Iwai <tiwai@suse.de>,
+ llvm@lists.linux.dev, ndesaulniers@google.com,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ nathan@kernel.org, kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +91,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+From: Kees Cook <keescook@chromium.org>
 
-[ Upstream commit db8f91d424fe0ea6db337aca8bc05908bbce1498 ]
+[ Upstream commit 05530ef7cf7c7d700f6753f058999b1b5099a026 ]
 
-Add NULL check in dpcm_be_reparent API, to handle
-kernel NULL pointer dereference error.
-The issue occurred in fuzzing test.
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Link: https://lore.kernel.org/r/1669098673-29703-1-git-send-email-quic_srivasam@quicinc.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
+matching snd_seq_dump_func_t. Adjust this and remove the casts. There
+are not resulting binary output differences.
+
+This was found as a result of Clang's new -Wcast-function-type-strict
+flag, which is more sensitive than the simpler -Wcast-function-type,
+which only checks for type width mismatches.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20221118232346.never.380-kees@kernel.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-pcm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/core/seq/seq_memory.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 8b8a9aca2912..9a60d62f12fe 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1159,6 +1159,8 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
- 		return;
+diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
+index 65db1a7c77b7..bb76a2dd0a2f 100644
+--- a/sound/core/seq/seq_memory.c
++++ b/sound/core/seq/seq_memory.c
+@@ -112,15 +112,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
+  * expand the variable length event to linear buffer space.
+  */
  
- 	be_substream = snd_soc_dpcm_get_substream(be, stream);
-+	if (!be_substream)
-+		return;
+-static int seq_copy_in_kernel(char **bufptr, const void *src, int size)
++static int seq_copy_in_kernel(void *ptr, void *src, int size)
+ {
++	char **bufptr = ptr;
++
+ 	memcpy(*bufptr, src, size);
+ 	*bufptr += size;
+ 	return 0;
+ }
  
- 	for_each_dpcm_fe(be, stream, dpcm) {
- 		if (dpcm->fe == fe)
+-static int seq_copy_in_user(char __user **bufptr, const void *src, int size)
++static int seq_copy_in_user(void *ptr, void *src, int size)
+ {
++	char __user **bufptr = ptr;
++
+ 	if (copy_to_user(*bufptr, src, size))
+ 		return -EFAULT;
+ 	*bufptr += size;
+@@ -149,8 +153,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+ 		return newlen;
+ 	}
+ 	err = snd_seq_dump_var_event(event,
+-				     in_kernel ? (snd_seq_dump_func_t)seq_copy_in_kernel :
+-				     (snd_seq_dump_func_t)seq_copy_in_user,
++				     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
+ 				     &buf);
+ 	return err < 0 ? err : newlen;
+ }
 -- 
 2.35.1
 

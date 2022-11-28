@@ -2,106 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6419C63A65C
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 11:50:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D2063A665
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 11:51:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB8411682;
-	Mon, 28 Nov 2022 11:49:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8411682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 835091630;
+	Mon, 28 Nov 2022 11:51:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 835091630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669632628;
-	bh=1iNfBQprbCL5uuwJdOOHqaHKJMFyiY6IxXgcAY+v+5g=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=orYY/E5XvYxI4u0EyufqoOj89InKNJsFSfMg6qP6dRi6xP0miqesXtA1XVufzYziW
-	 gbGTWuEexNT26usP3ZLUgf+cYfOBEWxu8fhmYLKU1Ps1JEcrCXKCpZ6rCSgO32EmrV
-	 61kMlehiSvdVm14HUVSRLXgDKM6GRHDNKh78ArRA=
+	s=default; t=1669632719;
+	bh=W3e2k+t/PrxESbRs6xIFpwpSa6wFn+J4PQGTE5cPpXM=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mgDj6R0MhlI3YKcMcFCs5cDp3KmZ1AxKuQ7cnLA7fjGfXiA0BmfDFz1G71NsxTsYs
+	 wRzIn0ycW/xC7Ka1mxgVUL+7JR6uoaX0sdRAerwZU4ARSdy3XvWF2843QbstkN8JMU
+	 xAPdtsZwCnl0OxHGw3ivIiJ1dWV61UBpcxEtryaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7509DF8024C;
-	Mon, 28 Nov 2022 11:49:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F73EF80166;
+	Mon, 28 Nov 2022 11:51:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E235F8020D; Mon, 28 Nov 2022 11:49:30 +0100 (CET)
+ id 33212F8020D; Mon, 28 Nov 2022 11:51:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B147F80166
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 11:49:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B147F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48F07F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 11:50:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48F07F8016E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="g1wT1jbJ"
-Received: by mail-ed1-x532.google.com with SMTP id z18so14812449edb.9
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 02:49:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Vs91y4YHGaU4u34bShI3KgPuCoRDr3inolegFmFOmPY=;
- b=g1wT1jbJufkUIzwh72l46wsx1uYKO6vUXth/QRDGsWDYmz2itJuh2wgRz8gFB54ual
- 76YJb90ReXIyTt4Key/8F9QfduafhRtX1068ym/ARwB/w3JJhr4W7HkfdQ4HaSrDoWWJ
- 9yhqFuIIlIl5iPlcxM9r1KT+oCOFR18mXqDpQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Vs91y4YHGaU4u34bShI3KgPuCoRDr3inolegFmFOmPY=;
- b=ejLNzR+Z0AdVOk+jvt7LdJvUP3YzOAzvu/3tIcoTcs9Fa/DiAWgeLoPKNPozQzTNBB
- j8MBH2EqmxkD7qDjEu/sgUFOnUZmd/1HT7jCciNASy8Az5rg8U2WrSCKnjD8uj3s1K4u
- kZfIQgIrXt94aRwmHScobJwjqsmj2kllqPWnTMeE4HxQocWU+MuwJFlYl/+B2t/hBKfn
- alwHHrsdC693wHcmihvElwF60bm+N4ddF9wLnkNjrf5CQ13yZtUsbBESJifwM0I42QcB
- 516+xXX1A80d1l7NGKv2C0wDxfR1UMwJRgkVbNQt2Tar6sHWe0/9aHmYLSLsLwtniKzJ
- RjOQ==
-X-Gm-Message-State: ANoB5pkRzECgpo5cvH0Vtx7v5JqsBjAsQ+uL6gArHh9znwuN6hGJ61wg
- qMf0hrMQlJn/Eyu3FgEDpPn1aA==
-X-Google-Smtp-Source: AA0mqf5hrXjmKOSXxjiJqKrhc6FaO+hU2zOidPRgql2hNwlfmPs5esNtOtTjU/0Dp9iwo7rwPZ433w==
-X-Received: by 2002:a05:6402:25c6:b0:461:b825:d7cb with SMTP id
- x6-20020a05640225c600b00461b825d7cbmr23424438edb.167.1669632562801; 
- Mon, 28 Nov 2022 02:49:22 -0800 (PST)
-Received: from alco.roam.corp.google.com (80.71.134.83.ipv4.parknet.dk.
- [80.71.134.83]) by smtp.gmail.com with ESMTPSA id
- e16-20020a170906315000b0078d793e7927sm4804807eje.4.2022.11.28.02.49.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Nov 2022 02:49:22 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Nov 2022 11:49:16 +0100
-Subject: [PATCH] ASoC: mediatek: mt8173: Enable IRQ when pdata is ready
+ dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
+ header.b="StGmSK0a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=metanate.com; s=stronger; h=In-Reply-To:Content-Type:References:Message-ID:
+ Subject:To:From:Date:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
+ Content-Description; bh=rkH4EDzFj5GJH/oZZwg9Xi75afujMR0gQt8dEe9YYLI=; b=StGmS
+ K0ahOhPDsedu2XVpS4qA7mxW25pQt+Bj/H+sLEbWNdphHaKe28AHetDF8ZJ1iKnLFbRCGhbunG/1P
+ nEtII5K2CEyCD4mlLcjO9W0KbwjDg5rHmwQ52KHUGN9tc1N/6fngh/sm44wzWBQpj+R5IPjLTFS3W
+ tmri3aBeI+dUvg7ziKOE5MCMXSigSWLPFt/5l3716ZnbyWq5L+hHAU0gVhfkP7luhv3P3OJhST/Xb
+ TkpK4km2FmmcrE45m6LYSLlKKgYHm1rgehEZS+FQltP0zHJyxnPCk6mjrFeEdD8tLNzGqmuUePnMO
+ 9XrKFSURFeau9RZOKs2/pkXc080ow==;
+Received: from [81.174.171.191] (helo=donbot)
+ by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.95) (envelope-from <john@metanate.com>) id 1ozbiv-0004Ry-79;
+ Mon, 28 Nov 2022 10:50:53 +0000
+Date: Mon, 28 Nov 2022 10:50:52 +0000
+From: John Keeping <john@metanate.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH] ALSA: pcm: fix tracing reason in hw_ptr_error
+Message-ID: <Y4SSjO8gnIz22vt3@donbot>
+References: <20221125162327.297440-1-john@metanate.com>
+ <Y4GNWYcQBUKn3KSa@workstation>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20221128-mt8173-afe-v1-0-70728221628f@chromium.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.11.0-dev-696ae
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2420; i=ribalda@chromium.org; 
- h=from:subject:message-id;
- bh=1iNfBQprbCL5uuwJdOOHqaHKJMFyiY6IxXgcAY+v+5g=; 
- b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjhJIviHDnwbhEMYFc1DDyoI7BOTyJsA2fKfNMrK8p
- kvF64PuJAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4SSLwAKCRDRN9E+zzrEiP7nD/
- 44biNT3txpSfvfha5zX+nfGnR6vEZ5/aUznIE7t3v5EjRczkRaxGRDUahFKxVrfRp0FA49fA7X4sFd
- KVwoYZDahx0sO2UZxEkDCC2LgvSbZzCEdIBWK5khVTH5HskDhrUhnGNGMnla7oNl7syeaiWE2TK0M9
- N1fva9c3htr0ZJ4TTVsX3/QgzTcX3yjBBGsWuEEMKJOsZbv2Etaxg5SdJ9iiHbLW/Hy9Zf5gHWTx1J
- gscAlxKYeJVhkbwzm14KK4VZvycIxGcN7ct4cPbdxBz9r7fmPE1hSgAgqGX8Bw2awcXoEpEe0eOuCs
- yxvMeHXMK7dqnwhM+kXYPhljHkACNAwQORPRj1kvh+UnQQ/rE9yW9+5vyXrUGT0h8YsjMYqXSdMu9p
- fqp2TviL9spcEmukM+bgvHcAr/gzuJE+2xWosZ9Jt+Ybc0kwbc2pk755JkN7A5i2TdRHUz86L2xwhZ
- Qqz5NG6qp+qhX6wxx/dEiBOKhrr3MlAyVNVRohBN+iuAJ4ZfirvCLaI6Q/9YgyvlXszvfCWDna9Len
- bTmuYjX7Dqe1S6kyc25W/v6t+rlWao7KXbvFxUuRa0trMISstb93p+uLXVzc9eHR5uqgp+sralQNnL
- hu3L2ogYp6R3e3Gj58KOCtpPWzOgnY4fNwe77KAuxySKgrqpyu2TSBpelY0g==
-X-Developer-Key: i=ribalda@chromium.org; a=openpgp;
- fpr=9EC3BB66E2FC129A6F90B39556A0D81F9F782DA9
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Ricardo Ribalda <ribalda@chromium.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y4GNWYcQBUKn3KSa@workstation>
+X-Authenticated: YES
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,76 +81,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the device does not come straight from reset, we might receive an IRQ
-before we are ready to handle it.
+On Sat, Nov 26, 2022 at 12:51:53PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> On Fri, Nov 25, 2022 at 04:23:26PM +0000, John Keeping wrote:
+> > Strings need to be specially marked in trace events to ensure the
+> > content is captured, othewise the trace just shows the value of the
+> > pointer.
+> > 
+> > Signed-off-by: John Keeping <john@metanate.com>
+> > ---
+> >  sound/core/pcm_trace.h | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+>  
+> Thanks for the patch, while I have a slight concern about the intension
+> of change.
+> 
+> Let's see message in below commit to add 'trace_safe_str()' in
+> 'kernel/trace/trace.c':
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9a6944fee68
+> 
+> "The proper way to handle displaying any string that is not guaranteed to be
+> in the kernel core rodata section, is to copy it into the ring buffer via
+> the __string(), __assign_str() and __get_str() helper macros."
+> 
+> Additionally, the macros looks to be alias to __dynamic_array() or so.
+> 
+> In our case, the pointer of 'why' argument should points to two
+> hardcoded strings; "hw_ptr skipping" and "Unexpected hw_ptr". As long as
+> I know, they are put into any of .rodata section.
+> 
+> ```
+> $ objdump -s sound/core/snd-pcm.ko -j .rodata.str1.1
+> ```
+>  0830 74757265 20436861 6e6e656c 204d6170  ture Channel Map
+>  0840 00585255 4e3a2025 730a0055 6e657870  .XRUN: %s..Unexp
+>  0850 65637465 64206877 5f707472 0068775f  ected hw_ptr.hw_
+>  0860 70747220 736b6970 70696e67 004c6f73  ptr skipping.Los
+>  0870 7420696e 74657272 75707473 3f00756e  t interrupts?.un
+> ```
+> 
+> I think current implementation is enough safe.
 
-Fixes:
+Thanks for this analysis - I hadn't looked into the history of this.
 
-[    2.334737] Unable to handle kernel read from unreadable memory at virtual address 00000000000001e4
-[    2.522601] Call trace:
-[    2.525040]  regmap_read+0x1c/0x80
-[    2.528434]  mt8173_afe_irq_handler+0x40/0xf0
-...
-[    2.598921]  start_kernel+0x338/0x42c
+It seems that trace-cmd's record/report functionality does not support
+rodata strings in this way though.  Without this patch, the trace log is
+not very informative:
 
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- sound/soc/mediatek/mt8173/mt8173-afe-pcm.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+	$ trace-cmd record -e snd_pcm:hw_ptr_error
+	^C
+	$ trace-cmd report
+	 irq/49-ehci_hcd-111   [002]    65.785147: hw_ptr_error:         pcmC1D0p/sub0: ERROR: c0b1b3c7
 
-diff --git a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-index dcaeeeb8aac7..bc155dd937e0 100644
---- a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
-@@ -1070,16 +1070,6 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
- 
- 	afe->dev = &pdev->dev;
- 
--	irq_id = platform_get_irq(pdev, 0);
--	if (irq_id <= 0)
--		return irq_id < 0 ? irq_id : -ENXIO;
--	ret = devm_request_irq(afe->dev, irq_id, mt8173_afe_irq_handler,
--			       0, "Afe_ISR_Handle", (void *)afe);
--	if (ret) {
--		dev_err(afe->dev, "could not request_irq\n");
--		return ret;
--	}
--
- 	afe->base_addr = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(afe->base_addr))
- 		return PTR_ERR(afe->base_addr);
-@@ -1185,6 +1175,16 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_cleanup_components;
- 
-+	irq_id = platform_get_irq(pdev, 0);
-+	if (irq_id <= 0)
-+		return irq_id < 0 ? irq_id : -ENXIO;
-+	ret = devm_request_irq(afe->dev, irq_id, mt8173_afe_irq_handler,
-+			       0, "Afe_ISR_Handle", (void *)afe);
-+	if (ret) {
-+		dev_err(afe->dev, "could not request_irq\n");
-+		goto err_pm_disable;
-+	}
-+
- 	dev_info(&pdev->dev, "MT8173 AFE driver initialized.\n");
- 	return 0;
- 
+With this patch applied this becomes:
 
----
-base-commit: 4312098baf37ee17a8350725e6e0d0e8590252d4
-change-id: 20221128-mt8173-afe-5fda4512e8b5
+	 irq/49-ehci_hcd-111   [002]   435.758754: hw_ptr_error:         pcmC2D0p/sub0: ERROR: Lost interrupts?
 
-Best regards,
--- 
-Ricardo Ribalda <ribalda@chromium.org>
+> Nevertheless, explicit usage of the macros are developer friendly in my
+> opinion since string buffer in C language tends to bring problems and
+> the usage of macro would reduce careless future mistakes. In the case,
+> when probing the event, the string is copied to memory for event
+> structure, thus it adds slight overhead than current implementation. I
+> leave the decision to maintainer.
+> 
+> To maintainer, if you apply the patch to your tree, feel free to add my
+> review tag.
+> 
+> Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> 
+> > diff --git a/sound/core/pcm_trace.h b/sound/core/pcm_trace.h
+> > index f18da2050772..350b40b906ca 100644
+> > --- a/sound/core/pcm_trace.h
+> > +++ b/sound/core/pcm_trace.h
+> > @@ -88,19 +88,19 @@ TRACE_EVENT(hw_ptr_error,
+> >  		__field( unsigned int, device )
+> >  		__field( unsigned int, number )
+> >  		__field( unsigned int, stream )
+> > -		__field( const char *, reason )
+> > +		__string( reason, why )
+> >  	),
+> >  	TP_fast_assign(
+> >  		__entry->card = (substream)->pcm->card->number;
+> >  		__entry->device = (substream)->pcm->device;
+> >  		__entry->number = (substream)->number;
+> >  		__entry->stream = (substream)->stream;
+> > -		__entry->reason = (why);
+> > +		__assign_str(reason, why);
+> >  	),
+> >  	TP_printk("pcmC%dD%d%s/sub%d: ERROR: %s",
+> >  		  __entry->card, __entry->device,
+> >  		  __entry->stream == SNDRV_PCM_STREAM_PLAYBACK ? "p" : "c",
+> > -		  __entry->number, __entry->reason)
+> > +		  __entry->number, __get_str(reason))
+> >  );
+> >  
+> >  TRACE_EVENT(applptr,
+> > -- 
+> > 2.38.1

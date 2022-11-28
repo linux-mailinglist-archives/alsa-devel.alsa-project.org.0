@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2D163AA2D
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 14:55:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA7463AA3A
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 14:57:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B525C15CA;
-	Mon, 28 Nov 2022 14:54:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B525C15CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7654416E5;
+	Mon, 28 Nov 2022 14:56:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7654416E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669643713;
-	bh=RfGtaI4BrVhkeJwZrB0rL8IucMJf4EsMzUVVa23D81E=;
+	s=default; t=1669643860;
+	bh=3h/E77oVbD5mvN70sgSTcqGxqcrMca1Hc6ryD6CnJT0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qeLc9t+K90SVGyJmnAeNR/2Aw5/Ole5vCbRsP6zhE0kdOhJ9DElw4CaL3C/WfmsXH
-	 Pt0D/+8vSBCqdIHLmdtk9zk9Ncw0Ona4gBfPuD52CSWw0wLjR52cKoLZzwlImkRnxk
-	 xQgo5bbEkkqNhxz93zRDBgKyE4Lh2gzfdb02uCmc=
+	b=oLSFoIUegX5W2DMtBHT+4uhrF5c+paYrDU7P/tdqlVKhwtgJFgy48dMheIGJuP7np
+	 O0xu9GOxw9bq6lmFU669usIcGQU2CreEIsCxIw0n861EY5zpfTSgucwo0WmwcfsVaV
+	 B79akXmvtmPwBMCQRXq/h7uUuWGPAT9N5gZAtRtE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6308EF8024C;
-	Mon, 28 Nov 2022 14:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 298FDF800B6;
+	Mon, 28 Nov 2022 14:56:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E9EFF8020D; Mon, 28 Nov 2022 14:54:16 +0100 (CET)
+ id 522EFF801D8; Mon, 28 Nov 2022 14:56:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3C05F800B6
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 14:54:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3C05F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 555EDF8016E
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 14:56:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 555EDF8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ez8FpgEM"; 
+ header.b="LUNK0Z6e"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TxkGB6Dy"
+ header.b="hsXZVBOP"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C99761F891;
- Mon, 28 Nov 2022 13:54:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B69C921B8F;
+ Mon, 28 Nov 2022 13:56:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669643653; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669643796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ipsGjAePSRWQXHePTdUHAIDQwEp3fqNPEG6d13olGuU=;
- b=Ez8FpgEMmZydvO7wPLGZWGYJeNVle+MHyzILf5gQ/KAn6ar+vf1LMZ6H8fTBUo+hBSbV6/
- zBXoOCFjU+nXZTeHVqfnQvNETiPG9Ok2joCO86Bet+8FAxrG9UzvmTGvRMV7wLlzz1phLc
- FrjhnE7EBqJ83YgSfgO86g7a14gXxDA=
+ bh=9wTzr7P00ZqlaJ/8ucvmk0XYg82ZvQTOl/Mx499qBGM=;
+ b=LUNK0Z6ep1vGyfkcwo+1Y3oLpjricTjC/0xTb/sH3yGlN4PrC+0Bh09t26qGv3V3bt0iCB
+ w6PSm/RzUL0sli8igZgrct8KBw+JJh37PdT8hFerkiPXis22efFdBmFDNfvRNvhIe98cL5
+ +Bew8R3179GEKwodAezpBi1fviw89Zs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669643653;
+ s=susede2_ed25519; t=1669643796;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ipsGjAePSRWQXHePTdUHAIDQwEp3fqNPEG6d13olGuU=;
- b=TxkGB6Dy1k+Sv/wrLAy+xPkU8vBC16BDJeNNLyUyvZG7AhKs+e369wlvpxNIXUPq150sIU
- g2Egsk7ln+M07XAw==
+ bh=9wTzr7P00ZqlaJ/8ucvmk0XYg82ZvQTOl/Mx499qBGM=;
+ b=hsXZVBOPtJ7R6njq3fUVS6kbBOAaFiCnplH2Q8/jHUAMVmlY6itirYTqbtBxPuRBsPsg5w
+ Uoe60mxVhtC8UWCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AAA0F1326E;
- Mon, 28 Nov 2022 13:54:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 938801326E;
+ Mon, 28 Nov 2022 13:56:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EEtTKIW9hGNrFAAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 28 Nov 2022 13:54:13 +0000
-Date: Mon, 28 Nov 2022 14:54:13 +0100
-Message-ID: <87k03fyyka.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ydw6IxS+hGOlFQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 28 Nov 2022 13:56:36 +0000
+Date: Mon, 28 Nov 2022 14:56:36 +0100
+Message-ID: <87ilizyygb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Liu Shixin <liushixin2@huawei.com>
-Subject: Re: [PATCH] ALSA: asihpi: fix missing pci_disable_device()
-In-Reply-To: <20221126021429.3029562-1-liushixin2@huawei.com>
-References: <20221126021429.3029562-1-liushixin2@huawei.com>
+To: John Keeping <john@metanate.com>
+Subject: Re: [PATCH] ALSA: pcm: fix tracing reason in hw_ptr_error
+In-Reply-To: <Y4SSjO8gnIz22vt3@donbot>
+References: <20221125162327.297440-1-john@metanate.com>
+ <Y4GNWYcQBUKn3KSa@workstation> <Y4SSjO8gnIz22vt3@donbot>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -100,16 +102,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Nov 2022 03:14:29 +0100,
-Liu Shixin wrote:
+On Mon, 28 Nov 2022 11:50:52 +0100,
+John Keeping wrote:
 > 
-> pci_disable_device() need be called while module exiting, switch to use
-> pcim_enable(), pci_disable_device() will be called in pcim_release().
+> On Sat, Nov 26, 2022 at 12:51:53PM +0900, Takashi Sakamoto wrote:
+> > Hi,
+> > 
+> > On Fri, Nov 25, 2022 at 04:23:26PM +0000, John Keeping wrote:
+> > > Strings need to be specially marked in trace events to ensure the
+> > > content is captured, othewise the trace just shows the value of the
+> > > pointer.
+> > > 
+> > > Signed-off-by: John Keeping <john@metanate.com>
+> > > ---
+> > >  sound/core/pcm_trace.h | 6 +++---
+> > >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >  
+> > Thanks for the patch, while I have a slight concern about the intension
+> > of change.
+> > 
+> > Let's see message in below commit to add 'trace_safe_str()' in
+> > 'kernel/trace/trace.c':
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9a6944fee68
+> > 
+> > "The proper way to handle displaying any string that is not guaranteed to be
+> > in the kernel core rodata section, is to copy it into the ring buffer via
+> > the __string(), __assign_str() and __get_str() helper macros."
+> > 
+> > Additionally, the macros looks to be alias to __dynamic_array() or so.
+> > 
+> > In our case, the pointer of 'why' argument should points to two
+> > hardcoded strings; "hw_ptr skipping" and "Unexpected hw_ptr". As long as
+> > I know, they are put into any of .rodata section.
+> > 
+> > ```
+> > $ objdump -s sound/core/snd-pcm.ko -j .rodata.str1.1
+> > ```
+> >  0830 74757265 20436861 6e6e656c 204d6170  ture Channel Map
+> >  0840 00585255 4e3a2025 730a0055 6e657870  .XRUN: %s..Unexp
+> >  0850 65637465 64206877 5f707472 0068775f  ected hw_ptr.hw_
+> >  0860 70747220 736b6970 70696e67 004c6f73  ptr skipping.Los
+> >  0870 7420696e 74657272 75707473 3f00756e  t interrupts?.un
+> > ```
+> > 
+> > I think current implementation is enough safe.
 > 
-> Fixes: 3285ea10e9b0 ("ALSA: asihpi - Interrelated HPI tidy up.")
-> Signed-off-by: Liu Shixin <liushixin2@huawei.com>
+> Thanks for this analysis - I hadn't looked into the history of this.
+> 
+> It seems that trace-cmd's record/report functionality does not support
+> rodata strings in this way though.  Without this patch, the trace log is
+> not very informative:
+> 
+> 	$ trace-cmd record -e snd_pcm:hw_ptr_error
+> 	^C
+> 	$ trace-cmd report
+> 	 irq/49-ehci_hcd-111   [002]    65.785147: hw_ptr_error:         pcmC1D0p/sub0: ERROR: c0b1b3c7
+> 
+> With this patch applied this becomes:
+> 
+> 	 irq/49-ehci_hcd-111   [002]   435.758754: hw_ptr_error:         pcmC2D0p/sub0: ERROR: Lost interrupts?
 
-Thanks, applied now.
-
+Fair enough, I applied now as is.
+Thanks!
 
 Takashi

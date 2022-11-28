@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA7463AA3A
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 14:57:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D1263AB55
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Nov 2022 15:42:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7654416E5;
-	Mon, 28 Nov 2022 14:56:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7654416E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B7B516D6;
+	Mon, 28 Nov 2022 15:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B7B516D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669643860;
-	bh=3h/E77oVbD5mvN70sgSTcqGxqcrMca1Hc6ryD6CnJT0=;
+	s=default; t=1669646579;
+	bh=yns+R2HE+8EQwUjsmVT40C2yEbZABretYQlqqfAW/0c=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oLSFoIUegX5W2DMtBHT+4uhrF5c+paYrDU7P/tdqlVKhwtgJFgy48dMheIGJuP7np
-	 O0xu9GOxw9bq6lmFU669usIcGQU2CreEIsCxIw0n861EY5zpfTSgucwo0WmwcfsVaV
-	 B79akXmvtmPwBMCQRXq/h7uUuWGPAT9N5gZAtRtE=
+	b=sYPU2rbRh5KqY7EentJrQXth3b1hh4T6O2Da5+KBbaolSvUXl7tHkm4b1pWPjrkz/
+	 znHoR3Huwiiy1gV6rpNkrfZp06oHRkZs2sVXhmD653ywSAGeVT5IjUr1pj+qZ7KdTM
+	 4jUJJ0lbNIAFECHcrbEhLlweMmFotkcTBcNlcLo8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 298FDF800B6;
-	Mon, 28 Nov 2022 14:56:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B152F804AC;
+	Mon, 28 Nov 2022 15:42:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 522EFF801D8; Mon, 28 Nov 2022 14:56:43 +0100 (CET)
+ id 2AB0DF8020D; Mon, 28 Nov 2022 15:42:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 555EDF8016E
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 14:56:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 555EDF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B644FF80166;
+ Mon, 28 Nov 2022 15:41:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B644FF80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LUNK0Z6e"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hsXZVBOP"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B69C921B8F;
- Mon, 28 Nov 2022 13:56:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669643796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9wTzr7P00ZqlaJ/8ucvmk0XYg82ZvQTOl/Mx499qBGM=;
- b=LUNK0Z6ep1vGyfkcwo+1Y3oLpjricTjC/0xTb/sH3yGlN4PrC+0Bh09t26qGv3V3bt0iCB
- w6PSm/RzUL0sli8igZgrct8KBw+JJh37PdT8hFerkiPXis22efFdBmFDNfvRNvhIe98cL5
- +Bew8R3179GEKwodAezpBi1fviw89Zs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669643796;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9wTzr7P00ZqlaJ/8ucvmk0XYg82ZvQTOl/Mx499qBGM=;
- b=hsXZVBOPtJ7R6njq3fUVS6kbBOAaFiCnplH2Q8/jHUAMVmlY6itirYTqbtBxPuRBsPsg5w
- Uoe60mxVhtC8UWCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 938801326E;
- Mon, 28 Nov 2022 13:56:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ydw6IxS+hGOlFQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 28 Nov 2022 13:56:36 +0000
-Date: Mon, 28 Nov 2022 14:56:36 +0100
-Message-ID: <87ilizyygb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: John Keeping <john@metanate.com>
-Subject: Re: [PATCH] ALSA: pcm: fix tracing reason in hw_ptr_error
-In-Reply-To: <Y4SSjO8gnIz22vt3@donbot>
-References: <20221125162327.297440-1-john@metanate.com>
- <Y4GNWYcQBUKn3KSa@workstation> <Y4SSjO8gnIz22vt3@donbot>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Djh0oCHL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669646519; x=1701182519;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=yns+R2HE+8EQwUjsmVT40C2yEbZABretYQlqqfAW/0c=;
+ b=Djh0oCHLdwQPCws+TX+gW9l0//4qnE65t8biAQWy3x9hAvUV8D7RX+CR
+ gcblladURAqAJXpBXfRRlO5tREfJNBKssstN+SlAXqdF9z7Ec4aqy61o6
+ FwBiyuZwEhbYqGG4QOHpuyApzrX01sa9/DeyByq2w77iiId+yaeCDMBGc
+ Q04FBn+TvYyc9nEVpphMajwaJz7h2aD2etlqjZ1PF7LSsnTf6Q29YFrA6
+ oYqx41TZLp4K5FGRGkdW2YeWDRtlF0V3TVhSoE/yowwgTMTqIOw40UPqy
+ c+54x4sh+5v9KSG2VeRg/FSFxN+5Cme5jwAf2Yhvzos1J9KQqHqOaEPmq Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="295232813"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="295232813"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 06:41:52 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="972284888"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="972284888"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 06:41:49 -0800
+Date: Mon, 28 Nov 2022 16:41:33 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Ricardo Ribalda <ribalda@chromium.org>
+Subject: Re: [PATCH v5] ASoC: SOF: Fix deadlock when shutdown a frozen
+ userspace
+In-Reply-To: <20221127-snd-freeze-v5-0-4ededeb08ba0@chromium.org>
+Message-ID: <alpine.DEB.2.22.394.2211281629120.3532114@eliteleevi.tm.intel.com>
+References: <20221127-snd-freeze-v5-0-4ededeb08ba0@chromium.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: Alsa-devel <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,67 +99,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Nov 2022 11:50:52 +0100,
-John Keeping wrote:
-> 
-> On Sat, Nov 26, 2022 at 12:51:53PM +0900, Takashi Sakamoto wrote:
-> > Hi,
-> > 
-> > On Fri, Nov 25, 2022 at 04:23:26PM +0000, John Keeping wrote:
-> > > Strings need to be specially marked in trace events to ensure the
-> > > content is captured, othewise the trace just shows the value of the
-> > > pointer.
-> > > 
-> > > Signed-off-by: John Keeping <john@metanate.com>
-> > > ---
-> > >  sound/core/pcm_trace.h | 6 +++---
-> > >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >  
-> > Thanks for the patch, while I have a slight concern about the intension
-> > of change.
-> > 
-> > Let's see message in below commit to add 'trace_safe_str()' in
-> > 'kernel/trace/trace.c':
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9a6944fee68
-> > 
-> > "The proper way to handle displaying any string that is not guaranteed to be
-> > in the kernel core rodata section, is to copy it into the ring buffer via
-> > the __string(), __assign_str() and __get_str() helper macros."
-> > 
-> > Additionally, the macros looks to be alias to __dynamic_array() or so.
-> > 
-> > In our case, the pointer of 'why' argument should points to two
-> > hardcoded strings; "hw_ptr skipping" and "Unexpected hw_ptr". As long as
-> > I know, they are put into any of .rodata section.
-> > 
-> > ```
-> > $ objdump -s sound/core/snd-pcm.ko -j .rodata.str1.1
-> > ```
-> >  0830 74757265 20436861 6e6e656c 204d6170  ture Channel Map
-> >  0840 00585255 4e3a2025 730a0055 6e657870  .XRUN: %s..Unexp
-> >  0850 65637465 64206877 5f707472 0068775f  ected hw_ptr.hw_
-> >  0860 70747220 736b6970 70696e67 004c6f73  ptr skipping.Los
-> >  0870 7420696e 74657272 75707473 3f00756e  t interrupts?.un
-> > ```
-> > 
-> > I think current implementation is enough safe.
-> 
-> Thanks for this analysis - I hadn't looked into the history of this.
-> 
-> It seems that trace-cmd's record/report functionality does not support
-> rodata strings in this way though.  Without this patch, the trace log is
-> not very informative:
-> 
-> 	$ trace-cmd record -e snd_pcm:hw_ptr_error
-> 	^C
-> 	$ trace-cmd report
-> 	 irq/49-ehci_hcd-111   [002]    65.785147: hw_ptr_error:         pcmC1D0p/sub0: ERROR: c0b1b3c7
-> 
-> With this patch applied this becomes:
-> 
-> 	 irq/49-ehci_hcd-111   [002]   435.758754: hw_ptr_error:         pcmC2D0p/sub0: ERROR: Lost interrupts?
+Hi,
 
-Fair enough, I applied now as is.
-Thanks!
+On Mon, 28 Nov 2022, Ricardo Ribalda wrote:
 
-Takashi
+> During kexec(), the userspace is frozen. Therefore we cannot wait for it
+> to complete.
+> 
+> Avoid running snd_sof_machine_unregister during shutdown.
+[...]
+>  	/*
+> -	 * make sure clients and machine driver(s) are unregistered to force
+> -	 * all userspace devices to be closed prior to the DSP shutdown sequence
+> +	 * make sure clients are unregistered prior to the DSP shutdown
+> +	 * sequence.
+>  	 */
+>  	sof_unregister_clients(sdev);
+>  
+> -	snd_sof_machine_unregister(sdev, pdata);
+> -
+>  	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
+
+this is problematic as removing that machine_unregister() call will (at 
+least) bring back an issue on Intel platforms (rare problem hitting S5 on 
+Chromebooks).
+
+Not sure how to solve this, but if that call needs to be removed 
+(unsafe to call at shutdown), then we need to rework how SOF 
+does the cleanup.
+
+Br, Kai

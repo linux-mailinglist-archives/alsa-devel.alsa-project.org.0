@@ -2,90 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51C7863BB10
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 08:54:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FB7163BC33
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 09:54:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEA4D16A9;
-	Tue, 29 Nov 2022 08:54:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEA4D16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C7D6164F;
+	Tue, 29 Nov 2022 09:53:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C7D6164F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669708493;
-	bh=EXwxD/c1DwYg73B5x0ggDxcrVKGK8mFZmShroz/yd+E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Dqa5r7xI9I30b2UDcFMAsw1/JhfumsPGIX3cPvPoq6Jp5RwRtPwz85nCmG++CUEDs
-	 Yex2cTULBVCEOJqyvOJvOYDpLIl6V5KnwJiTiuDak/afLjkSBF0j4CziMMvsXKW+3+
-	 ldinmY9ZvabD7XdkswWES95QAOufIWe/w1UX+xkI=
+	s=default; t=1669712065;
+	bh=OXJHGABVUryCsc0cQCu1OJiE8wYMy8xGVZqgKccRz10=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ipyU3qVMWTr+LLLHYAAhspVHGcohwdNH3beFnE9O5fG9iZhrAI6sB6LFQhT0KW7JJ
+	 cYiv2kGz/kBdJjJGE4FwcHuv9k3u4UBdqyDVQtWZ58KDibKWH7aAkADwBaiNYoiN+S
+	 NDnoO1h8BDLt7qPkJdYCoSR+zxHQU65RAPzu3bb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DF48F80212;
-	Tue, 29 Nov 2022 08:53:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCBD1F80137;
+	Tue, 29 Nov 2022 09:53:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01125F801F7; Tue, 29 Nov 2022 08:53:56 +0100 (CET)
+ id ADBC3F801F7; Tue, 29 Nov 2022 09:53:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
+ URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C264AF80137
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 08:53:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C264AF80137
-Received: by mail-qt1-f174.google.com with SMTP id h16so8400861qtu.2
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 23:53:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bDVov8d4BN3qgelRFS6S1eSfJ2eIIEzv+2+tNAw/t+c=;
- b=Ys59UmgS66HGVIZkGUYpE9COgnUWNn2YVcF/UXYbkQX50TGBBPKJCnBYOYh2x/Y2Ew
- pLtV0to1RrNEtYw8H7I+2jn2cDIopZKScN4mQpfktKrtG5riUpWKbpZAJCJg/4pXjuup
- 9ueDY0mHI7v/beN9TH/QequXMEcDpcrJFg6Bp7uUrZvN+EFoIUCOEGiPF3r19/KEoQwK
- xC8jC02JB615cCHLa9k7syXLLSRpz3wubUNCw5bz8QPezWGksn8rnpyPyN4wUo4Gy3um
- pTfhpzG0poXhpII5y7zb6gk9O3foOxJVjoOh2oO4S3ONd0BU7j76ArX/1l4CD21G1I1J
- HUUQ==
-X-Gm-Message-State: ANoB5pnMiiDiJ4UaRL+6veSIXnAyjZJjKbov3pdPH0z4vqDB6gSaG/6r
- vveFa/HkSvfXfAYe4TIhya/R0CGYZ++jqA==
-X-Google-Smtp-Source: AA0mqf72H11P5wEoLdnbw0u/sws1PCWRQZbxlmjwL3EHaHeNqZ4PIp/PnnH0UYhhO9Lx+7gYIkFj8w==
-X-Received: by 2002:ac8:7154:0:b0:399:2e73:5498 with SMTP id
- h20-20020ac87154000000b003992e735498mr50558563qtp.36.1669708429173; 
- Mon, 28 Nov 2022 23:53:49 -0800 (PST)
-Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com.
- [209.85.219.172]) by smtp.gmail.com with ESMTPSA id
- az36-20020a05620a172400b006fc3fa1f589sm10103153qkb.114.2022.11.28.23.53.46
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Nov 2022 23:53:47 -0800 (PST)
-Received: by mail-yb1-f172.google.com with SMTP id z192so16454732yba.0
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 23:53:46 -0800 (PST)
-X-Received: by 2002:a25:bcc6:0:b0:6dd:1c5c:5602 with SMTP id
- l6-20020a25bcc6000000b006dd1c5c5602mr54295291ybm.36.1669708426532; Mon, 28
- Nov 2022 23:53:46 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74A75F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 09:53:16 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B8315A003F;
+ Tue, 29 Nov 2022 09:53:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B8315A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1669711995; bh=ZuqTF/kXfHsbw0RNdeSEEjlfrwG1HBuYOcJUr8ozmoA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=TUUoj/v8diqQRVMVro47GIJ+3Li0ah1ewNuG3GglLIOJyTVgTj6hZwzwzCdqYtchy
+ i1n5YYCYVfTrSBzTqtfghK7GvUTFKz2zrVF50nW+IY7uUNpOwsWcupMPWpmDLw7j+6
+ lNkJjXDCxINFdmwoPs7vY5PT4iXbaX/rBcoVAN+E=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 29 Nov 2022 09:53:09 +0100 (CET)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH] selftests: alsa - move shared library configuration code to
+ conf.c
+Date: Tue, 29 Nov 2022 09:53:06 +0100
+Message-Id: <20221129085306.2345763-1-perex@perex.cz>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <1669621742-28524-1-git-send-email-quic_srivasam@quicinc.com>
-In-Reply-To: <1669621742-28524-1-git-send-email-quic_srivasam@quicinc.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 29 Nov 2022 08:53:34 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUBojHkaAPsjOEadfaikth+L0R_NrKzvqXrmZS9Kc5zHw@mail.gmail.com>
-Message-ID: <CAMuHMdUBojHkaAPsjOEadfaikth+L0R_NrKzvqXrmZS9Kc5zHw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add system suspend/resume PM ops
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
- srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
- quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,98 +77,315 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Srinivasa,
+The minimal alsa-lib configuration code is similar in both mixer
+and pcm tests. Move this code to the shared conf.c source file.
 
-On Mon, Nov 28, 2022 at 8:50 AM Srinivasa Rao Mandadapu
-<quic_srivasam@quicinc.com> wrote:
-> Update lpass sc7180 platform driver with PM ops, such as
-> system supend and resume callbacks.
-> This update is required to disable clocks during supend and
-> avoid XO shutdown issue.
->
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Tested-by: Rahul Ajmeriya <quic_rajmeriy@quicinc.com>
+Also, fix the build rules inspired by rseq tests. Build libatest.so
+which is linked to the both test utilities dynamically.
 
-Thanks for your patch, which is now commit 2d68148f8f85ca5a ("ASoC:
-qcom: lpass-sc7180: Add system suspend/resume PM ops") in next-20221129.
+Also, set the TEST_FILES variable for lib.mk.
 
-> --- a/sound/soc/qcom/lpass-sc7180.c
-> +++ b/sound/soc/qcom/lpass-sc7180.c
-> @@ -12,6 +12,7 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
->  #include <dt-bindings/sound/sc7180-lpass.h>
->  #include <sound/pcm.h>
->  #include <sound/soc.h>
-> @@ -156,10 +157,34 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
->         struct lpass_data *drvdata = platform_get_drvdata(pdev);
->
->         clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-> +       return 0;
-> +}
-> +
-> +static int sc7180_lpass_dev_resume(struct device *dev)
-> +{
-> +       int ret = 0;
-> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
->
-> +       ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-> +       if (ret) {
-> +               dev_err(dev, "sc7180 clk prepare and enable failed\n");
-> +               return ret;
-> +       }
-> +       return ret;
-> +}
-> +
-> +static int sc7180_lpass_dev_suspend(struct device *dev)
-> +{
-> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
-> +
-> +       clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
->         return 0;
->  }
+Cc: linux-kselftest@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>
+Reported-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ tools/testing/selftests/alsa/Makefile     | 13 ++++-
+ tools/testing/selftests/alsa/alsa-local.h |  2 +
+ tools/testing/selftests/alsa/conf.c       | 69 ++++++++++++++++++++++
+ tools/testing/selftests/alsa/mixer-test.c | 53 +----------------
+ tools/testing/selftests/alsa/pcm-test.c   | 70 -----------------------
+ 5 files changed, 85 insertions(+), 122 deletions(-)
 
-noreply@ellerman.id.au reports for e.g. m68k-allmodconfig:
-
-    sound/soc/qcom/lpass-sc7180.c:179:12: error:
-'sc7180_lpass_dev_suspend' defined but not used
-[-Werror=unused-function]
-    sound/soc/qcom/lpass-sc7180.c:166:12: error:
-'sc7180_lpass_dev_resume' defined but not used
-[-Werror=unused-function]
-
->
-> +static const struct dev_pm_ops sc7180_lpass_pm_ops = {
-> +       SET_SYSTEM_SLEEP_PM_OPS(sc7180_lpass_dev_suspend, sc7180_lpass_dev_resume)
-> +};
-
-Please use DEFINE_SIMPLE_DEV_PM_OPS()...
-
-> +
->  static struct lpass_variant sc7180_data = {
->         .i2sctrl_reg_base       = 0x1000,
->         .i2sctrl_reg_stride     = 0x1000,
-> @@ -293,6 +318,7 @@ static struct platform_driver sc7180_lpass_cpu_platform_driver = {
->         .driver = {
->                 .name = "sc7180-lpass-cpu",
->                 .of_match_table = of_match_ptr(sc7180_lpass_cpu_device_id),
-> +               .pm = &sc7180_lpass_pm_ops,
-
-... and pm_sleep_ptr().
-
->         },
->         .probe = asoc_qcom_lpass_cpu_platform_probe,
->         .remove = asoc_qcom_lpass_cpu_platform_remove,
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
+index 8ac22d2eb2ba..a8c0383878d3 100644
+--- a/tools/testing/selftests/alsa/Makefile
++++ b/tools/testing/selftests/alsa/Makefile
+@@ -6,9 +6,20 @@ LDLIBS += $(shell pkg-config --libs alsa)
+ ifeq ($(LDLIBS),)
+ LDLIBS += -lasound
+ endif
++CFLAGS += -L$(OUTPUT) -Wl,-rpath=./
++
++OVERRIDE_TARGETS = 1
+ 
+ TEST_GEN_PROGS := mixer-test pcm-test
+ 
+-pcm-test: pcm-test.c conf.c
++TEST_GEN_PROGS_EXTENDED := libatest.so
++
++TEST_FILES := conf.d
+ 
+ include ../lib.mk
++
++$(OUTPUT)/libatest.so: conf.c alsa-local.h
++	$(CC) $(CFLAGS) -shared -fPIC $< $(LDLIBS) -o $@
++
++$(OUTPUT)/%: %.c $(TEST_GEN_PROGS_EXTENDED) alsa-local.h
++	$(CC) $(CFLAGS) $< $(LDLIBS) -latest -o $@
+diff --git a/tools/testing/selftests/alsa/alsa-local.h b/tools/testing/selftests/alsa/alsa-local.h
+index fd0771ac600d..65f197ea9773 100644
+--- a/tools/testing/selftests/alsa/alsa-local.h
++++ b/tools/testing/selftests/alsa/alsa-local.h
+@@ -10,6 +10,8 @@
+ 
+ #include <alsa/asoundlib.h>
+ 
++snd_config_t *get_alsalib_config(void);
++
+ void conf_load(void);
+ void conf_free(void);
+ snd_config_t *conf_by_card(int card);
+diff --git a/tools/testing/selftests/alsa/conf.c b/tools/testing/selftests/alsa/conf.c
+index dd6aa90deef9..c7ffc8f04195 100644
+--- a/tools/testing/selftests/alsa/conf.c
++++ b/tools/testing/selftests/alsa/conf.c
+@@ -28,6 +28,75 @@ struct card_data {
+ 
+ static struct card_data *conf_cards;
+ 
++static const char *alsa_config =
++"ctl.hw {\n"
++"	@args [ CARD ]\n"
++"	@args.CARD.type string\n"
++"	type hw\n"
++"	card $CARD\n"
++"}\n"
++"pcm.hw {\n"
++"	@args [ CARD DEV SUBDEV ]\n"
++"	@args.CARD.type string\n"
++"	@args.DEV.type integer\n"
++"	@args.SUBDEV.type integer\n"
++"	type hw\n"
++"	card $CARD\n"
++"	device $DEV\n"
++"	subdevice $SUBDEV\n"
++"}\n"
++;
++
++#ifdef SND_LIB_VER
++#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
++#define LIB_HAS_LOAD_STRING
++#endif
++#endif
++
++#ifndef LIB_HAS_LOAD_STRING
++static int snd_config_load_string(snd_config_t **config, const char *s,
++				  size_t size)
++{
++	snd_input_t *input;
++	snd_config_t *dst;
++	int err;
++
++	assert(config && s);
++	if (size == 0)
++		size = strlen(s);
++	err = snd_input_buffer_open(&input, s, size);
++	if (err < 0)
++		return err;
++	err = snd_config_top(&dst);
++	if (err < 0) {
++		snd_input_close(input);
++		return err;
++	}
++	err = snd_config_load(dst, input);
++	snd_input_close(input);
++	if (err < 0) {
++		snd_config_delete(dst);
++		return err;
++	}
++	*config = dst;
++	return 0;
++}
++#endif
++
++snd_config_t *get_alsalib_config(void)
++{
++	snd_config_t *config;
++	int err;
++
++	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
++	if (err < 0) {
++		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
++			       snd_strerror(err));
++		ksft_exit_fail();
++	}
++	return config;
++}
++
+ static struct card_data *conf_data_by_card(int card, bool msg)
+ {
+ 	struct card_data *conf;
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index a38b89c28030..05f1749ae19d 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -26,6 +26,7 @@
+ #include <stdint.h>
+ 
+ #include "../kselftest.h"
++#include "alsa-local.h"
+ 
+ #define TESTS_PER_CONTROL 7
+ 
+@@ -50,56 +51,11 @@ struct ctl_data {
+ 	struct ctl_data *next;
+ };
+ 
+-static const char *alsa_config =
+-"ctl.hw {\n"
+-"	@args [ CARD ]\n"
+-"	@args.CARD.type string\n"
+-"	type hw\n"
+-"	card $CARD\n"
+-"}\n"
+-;
+-
+ int num_cards = 0;
+ int num_controls = 0;
+ struct card_data *card_list = NULL;
+ struct ctl_data *ctl_list = NULL;
+ 
+-#ifdef SND_LIB_VER
+-#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
+-#define LIB_HAS_LOAD_STRING
+-#endif
+-#endif
+-
+-#ifndef LIB_HAS_LOAD_STRING
+-static int snd_config_load_string(snd_config_t **config, const char *s,
+-				  size_t size)
+-{
+-	snd_input_t *input;
+-	snd_config_t *dst;
+-	int err;
+-
+-	assert(config && s);
+-	if (size == 0)
+-		size = strlen(s);
+-	err = snd_input_buffer_open(&input, s, size);
+-	if (err < 0)
+-		return err;
+-	err = snd_config_top(&dst);
+-	if (err < 0) {
+-		snd_input_close(input);
+-		return err;
+-	}
+-	err = snd_config_load(dst, input);
+-	snd_input_close(input);
+-	if (err < 0) {
+-		snd_config_delete(dst);
+-		return err;
+-	}
+-	*config = dst;
+-	return 0;
+-}
+-#endif
+-
+ static void find_controls(void)
+ {
+ 	char name[32];
+@@ -112,12 +68,7 @@ static void find_controls(void)
+ 	if (snd_card_next(&card) < 0 || card < 0)
+ 		return;
+ 
+-	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
+-	if (err < 0) {
+-		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
+-			       snd_strerror(err));
+-		ksft_exit_fail();
+-	}
++	config = get_alsalib_config();
+ 
+ 	while (card >= 0) {
+ 		sprintf(name, "hw:%d", card);
+diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
+index 2814d8f74f82..6e7dfc395b98 100644
+--- a/tools/testing/selftests/alsa/pcm-test.c
++++ b/tools/testing/selftests/alsa/pcm-test.c
+@@ -31,26 +31,6 @@ struct pcm_data {
+ 	struct pcm_data *next;
+ };
+ 
+-static const char *alsa_config =
+-"ctl.hw {\n"
+-"	@args [ CARD ]\n"
+-"	@args.CARD.type string\n"
+-"	type hw\n"
+-"	card $CARD\n"
+-"}\n"
+-"pcm.hw {\n"
+-"	@args [ CARD DEV SUBDEV ]\n"
+-"	@args.CARD.type string\n"
+-"	@args.DEV.type integer\n"
+-"	@args.SUBDEV.type integer\n"
+-"	type hw\n"
+-"	card $CARD\n"
+-"	device $DEV\n"
+-"	subdevice $SUBDEV\n"
+-"}\n"
+-
+-;
+-
+ int num_pcms = 0;
+ struct pcm_data *pcm_list = NULL;
+ 
+@@ -77,56 +57,6 @@ long long timestamp_diff_ms(timestamp_t *tstamp)
+ 	return (diff.tv_sec * 1000) + ((diff.tv_nsec + 500000L) / 1000000L);
+ }
+ 
+-#ifdef SND_LIB_VER
+-#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
+-#define LIB_HAS_LOAD_STRING
+-#endif
+-#endif
+-
+-#ifndef LIB_HAS_LOAD_STRING
+-static int snd_config_load_string(snd_config_t **config, const char *s,
+-				  size_t size)
+-{
+-	snd_input_t *input;
+-	snd_config_t *dst;
+-	int err;
+-
+-	assert(config && s);
+-	if (size == 0)
+-		size = strlen(s);
+-	err = snd_input_buffer_open(&input, s, size);
+-	if (err < 0)
+-		return err;
+-	err = snd_config_top(&dst);
+-	if (err < 0) {
+-		snd_input_close(input);
+-		return err;
+-	}
+-	err = snd_config_load(dst, input);
+-	snd_input_close(input);
+-	if (err < 0) {
+-		snd_config_delete(dst);
+-		return err;
+-	}
+-	*config = dst;
+-	return 0;
+-}
+-#endif
+-
+-static snd_config_t *get_alsalib_config(void)
+-{
+-	snd_config_t *config;
+-	int err;
+-
+-	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
+-	if (err < 0) {
+-		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
+-			       snd_strerror(err));
+-		ksft_exit_fail();
+-	}
+-	return config;
+-}
+-
+ static long device_from_id(snd_config_t *node)
+ {
+ 	const char *id;
+-- 
+2.35.3

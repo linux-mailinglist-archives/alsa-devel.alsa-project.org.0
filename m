@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56EF963BA75
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 08:14:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DDB763BAE4
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 08:46:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF78F1692;
-	Tue, 29 Nov 2022 08:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF78F1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4F731698;
+	Tue, 29 Nov 2022 08:45:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F731698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669706088;
-	bh=ZjcH1t4tGTH6zA2ZRdFMoVKuKmdG7GHcsea1x5r+7M0=;
+	s=default; t=1669707978;
+	bh=VFqR5ZNUPxhptSVNVqJDZIynwEj5yVvybAahkgvu0zM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cyNYU8TEAs3LmoDVeXMSxnBCHzGP2BCk5rEp26KNcIb0toBdSBqq/gqBq/2qatQOj
-	 CUCl9icxb2km5JAWhah1AmlOH/7WPCFUaJbKbV/oOCHFtng+lOJCr4QFLls2tgXoxI
-	 B48YAGtunIn6KcM/7p9FX2EBsJb/XGHW0/I70jqE=
+	b=paeCscp+B6BxlA1jL7HGQm9cd0fItriQ1Rtt832s2kuMU0VwvKADgaL945J71+upN
+	 Q8wJoA2V+1CCSW/LYQ28AQbeHyy1g2FkCgjgyjfsoJV6Tc0cXhbqBFjb/jiwuJhf+E
+	 is313jjDmhEYLaZBXvmUE/Lp59AGtw+noeK5f3G4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61CEDF800B6;
-	Tue, 29 Nov 2022 08:13:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37AE5F80212;
+	Tue, 29 Nov 2022 08:45:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2542F801F7; Tue, 29 Nov 2022 08:13:50 +0100 (CET)
+ id 43F52F801F7; Tue, 29 Nov 2022 08:45:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1623BF800B6
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 08:13:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1623BF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E124F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 08:45:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E124F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZGqZ0RZz"; 
+ header.b="kyds5+SV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Pp2lRUou"
+ header.b="QON2JS6p"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4AE201FDDE;
- Tue, 29 Nov 2022 07:13:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ACF1B1FDDE;
+ Tue, 29 Nov 2022 07:45:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669706022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669707915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QiMam+oshjx/yNuPlMI/ctZOd3E1xzj79VjC523hfhg=;
- b=ZGqZ0RZzvPAzwA0aYaGe9sZJrjavEpcHfsTSG6iURrYBxT5BPbUrh/zAUc7OZHFhOVdjzf
- zktlqcj44mJNJ72NYM6iztCz2B0SUVu1ErMAfHdwMTfgU84ei9AqISl47vFMUIqxEZpxpp
- wdewX7E8FoVLDDYMJH2tkYS4NwEW9dA=
+ bh=TTBFOy/AKg2r60+qBKF0GRguOrBUAtYGRUBMJUxsWAw=;
+ b=kyds5+SVuyqZ0H3LuuxBUFkwcPWm7CgNSxenA4wvnkgsvF/FtNuJ7pndkWDNWCMBKQVcsb
+ dcOU9/4oUe40KwhEF3yzCBf2l2Fmmq+wWkKwFe/njMW5ncxBkt61tLCzMc2rn6YH9d/mDv
+ LDwGkPHqW7UELghavMGln5Kb6v3LpvM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669706022;
+ s=susede2_ed25519; t=1669707915;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QiMam+oshjx/yNuPlMI/ctZOd3E1xzj79VjC523hfhg=;
- b=Pp2lRUouRGIydu9M5Uw3wEPduO1qHZZ2bYvoSj+6JDuEGGjFYCySrbWL224ireRAFzp0bV
- wy7r7iaHpheLZ8DA==
+ bh=TTBFOy/AKg2r60+qBKF0GRguOrBUAtYGRUBMJUxsWAw=;
+ b=QON2JS6pYBFmd5/FrTyzhnKept7hRQHzFyhFrT31cMYu+pM40t1QT5kJSxl8u4ZiQ9V8zO
+ MC04MUn33XDU8QDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 176EB13428;
- Tue, 29 Nov 2022 07:13:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8BB9D13428;
+ Tue, 29 Nov 2022 07:45:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nVbpBCaxhWMjXQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 07:13:42 +0000
-Date: Tue, 29 Nov 2022 08:13:41 +0100
-Message-ID: <87h6yiqllm.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id MU9TIYu4hWP1bAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 07:45:15 +0000
+Date: Tue, 29 Nov 2022 08:45:14 +0100
+Message-ID: <87fse2qk51.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: John Keeping <john@metanate.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for Tascam Model 12
-In-Reply-To: <Y4UJ5VcgR4/uOgWL@donbot>
-References: <20221128122353.763696-1-john@metanate.com>
- <87lenvyyp8.wl-tiwai@suse.de> <Y4UJ5VcgR4/uOgWL@donbot>
+To: Carl Hetherington <lists@carlh.net>
+Subject: Re: Query about xrun on usb/pcm
+In-Reply-To: <baa6589-184f-6751-71be-1d5d67f8a6d5@carlh.net>
+References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
+ <87y1s3v4ba.wl-tiwai@suse.de>
+ <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
+ <87edtv6pi6.wl-tiwai@suse.de>
+ <baa6589-184f-6751-71be-1d5d67f8a6d5@carlh.net>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,75 +103,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Nov 2022 20:20:05 +0100,
-John Keeping wrote:
+On Mon, 28 Nov 2022 23:51:55 +0100,
+Carl Hetherington wrote:
 > 
-> On Mon, Nov 28, 2022 at 02:51:15PM +0100, Takashi Iwai wrote:
-> > On Mon, 28 Nov 2022 13:23:52 +0100,
-> > John Keeping wrote:
-> > > 
-> > > Tascam's Model 12 is a mixer which can also operate as a USB audio
-> > > interface.  The audio interface uses explicit feedback but it seems that
-> > > it does not correctly handle missing isochronous frames.
-> > > 
-> > > When injecting an xrun (or doing anything else that pauses the playback
-> > > stream) the feedback rate climbs (for example, at 44,100Hz nominal, I
-> > > see a stable rate around 44,099 but xrun injection sees this peak at
-> > > around 44,135 in most cases) and glitches are heard in the audio stream
-> > > for several seconds - this is significantly worse than the single glitch
-> > > expected for an underrun.
-> > > 
-> > > While the stream does normally recover and the feedback rate returns to
-> > > a stable value, I have seen some occurrences where this does not happen
-> > > and the rate continues to increase while no audio is heard from the
-> > > output.  I have not found a solid reproduction for this.
-> > > 
-> > > This misbehaviour can be avoided by totally resetting the stream state
-> > > by switching the interface to alt 0 and back before restarting the
-> > > playback stream.
-> > > 
-> > > Add a new quirk flag which forces the endpoint and interface to be
-> > > reconfigured whenever the stream is stopped, and use this for the Tascam
-> > > Model 12.
-> > > 
-> > > Signed-off-by: John Keeping <john@metanate.com>
-> > 
-> > Thanks for the patch, it's an interesting case.
-> > About the code change:
-> > 
-> > > --- a/sound/usb/endpoint.c
-> > > +++ b/sound/usb/endpoint.c
-> > > @@ -1673,6 +1673,13 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
-> > >  		stop_urbs(ep, false, keep_pending);
-> > >  		if (ep->clock_ref)
-> > >  			atomic_dec(&ep->clock_ref->locked);
-> > > +
-> > > +		if (ep->chip->quirk_flags & QUIRK_FLAG_FORCE_IFACE_RESET &&
-> > > +		    usb_pipeout(ep->pipe)) {
-> > > +			ep->need_setup = true;
+> Hi Takashi,
 > 
-> It seems I missed this when forward porting the patch from 5.15 - this
-> should be setting ep->need_prepare and will change in v2.
+> Thank you for your continued attention with this!
 > 
-> > > +			if (ep->iface_ref)
-> > > +				ep->iface_ref->need_setup = true;
-> > > +		}
-> > 
-> > Is this the forced reset always safe?  Imagine that you have
-> > individual playback and capture streams, and what if only one of them
-> > gets stopped and restarted while another keeps running?
+> [snip]
 > 
-> I /think/ this is okay because the interfaces for capture & playback are
-> separate (although the clock is shared).
+> > > I'll see if can apply a similar fix to this case, though to my naive
+> > > eyes it looks a little trickier as the xrun is found in the snd_pcm
+> > > code rather than the USB code.  Any suggestions most welcome!
+> >
+> > OK, then it's a bit different problem, and not so trivial to fix in
+> > the kernel side alone, I'm afraid.  Basically it's a race between
+> > start and stop of two streams.  The key point is that, for stopping a
+> > (USB) stream, a sync-stop operation is needed, and this can't be
+> > performed at the PCM trigger itself (which is an atomic operation).
+> > So, the kernel trigger may at most return an error there.
+> >
+> > I assume that it's from snd_usb_endpoint_start() and it returning
+> > -EPIPE error.  If so, we may change the PCM core code to set the PCM
+> > state again XRUN in such an error case, so that application may repeat
+> > the standard recovery process.  Something like below.
 > 
-> There are two endpoints on the playback interface - the playback data
-> and explicit feedback endpoints - but these are always stopped and
-> started at the same time so I can't see any problem here.  (Only the
-> data endpoint will trigger the reset request here due to the
-> usb_pipeout() check.) 
+> Thanks for the suggestion.  I experimented a little with this, but I
+> think the problem I'm seeing is that (even if the application knows it
+> should retry the snd_pcm_prepare() step) we still end up with an endpoint
+> in EP_STATE_STOPPING while the corresponding stop_operating flag is 0.
 
-Ah OK, then it should be safe -- and it'd be worth to mention it in
-the changelog, too (hint for the resubmission :)
+Ah, I guess that's a fallout in the logic.  When XRUN happens at start
+-- receiving an -EPIPE error at snd_pcm_do_start() -- then the patch
+sets the XRUN state.  This assumed that the stream gets stopped the
+following snd_pcm_undo_start() call.  Indeed it does stop but there we
+forgot setting stop_operating flag unlike what snd_pcm_stop() does.
+
+> This means that snd_pcm_sync_stop will never call the USB sync_stop
+> handler, which AFAICS is the only way (?) the endpoint can get back to
+> EP_STATE_STOPPED.
+> 
+> In my error case, the code in snd_pcm_sync_stop sets stop_operating to
+> false (perhaps assuming that substream->ops->sync_stop will "succeed"
+> in setting any STOPPING endpoints to STOPPED) but then this doesn't
+> happen because of this xrun that arrives halfway through the sync_stop
+> operation.
+> 
+> I experimented with removing the check at the top of snd_pcm_sync_stop,
+> so that we enter the if body regardless of
+> substream->runtime->stop_operating, and making my application retry
+> snd_pcm_prepare() if it fails with -EPIPE, and this seems to "fix" my
+> problem.  Obviously this causes more (unnecessary) calls to the
+> sync_stop() entry point...
+> 
+> I'd be grateful of any thoughts you have about that.
+
+How about the revised patch below?
 
 
 Takashi
+
+-- 8< --
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -1424,16 +1424,28 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,
+ static int snd_pcm_do_start(struct snd_pcm_substream *substream,
+ 			    snd_pcm_state_t state)
+ {
++	int err;
++
+ 	if (substream->runtime->trigger_master != substream)
+ 		return 0;
+-	return substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
++	err = substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
++	/* XRUN happened during the start; usually we do trigger(STOP)
++	 * then set the PCM state to XRUN, but in this case, the stream
++	 * is stopped in snd_pcm_undo_start() right after this point without
++	 * knowing the reason -- so set the PCM state beforehand as exception.
++	 */
++	if (err == -EPIPE)
++		__snd_pcm_set_state(substream->runtime, SNDRV_PCM_STATE_XRUN);
++	return err;
+ }
+ 
+ static void snd_pcm_undo_start(struct snd_pcm_substream *substream,
+ 			       snd_pcm_state_t state)
+ {
+-	if (substream->runtime->trigger_master == substream)
++	if (substream->runtime->trigger_master == substream) {
+ 		substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_STOP);
++		substream->runtime->stop_operating = true;
++	}
+ }
+ 
+ static void snd_pcm_post_start(struct snd_pcm_substream *substream,

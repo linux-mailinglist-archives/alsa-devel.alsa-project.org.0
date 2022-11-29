@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E419763C4AA
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 17:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86A3763C516
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 17:25:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3101650;
-	Tue, 29 Nov 2022 17:06:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3101650
+	by alsa0.perex.cz (Postfix) with ESMTPS id 140B61666;
+	Tue, 29 Nov 2022 17:25:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 140B61666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669738020;
-	bh=J1V3lMbkah+OkD2VRvQKWFgOy3p2gZiM1S+bTvQGf2Y=;
+	s=default; t=1669739151;
+	bh=dLQEflsUvo5LEl0AlQija2iFki6kDQNQhHT+jFHOjZg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ULFO+SoU87t+6Cj/t1qtyONOCAtlQSpkf/vRRTnQbsUlAKNm+GhUchqJlg3M6Gc93
-	 oX2XwSV3R6MnghnipQR5ddJEQ7nj7qhTwAO+Wvh647wKCFywMKghp3PCp+0QBTpMCU
-	 L76vUterpZb8lamTXwdE+uFlTVyciQRVZrnQ/1Qc=
+	b=TIWxgeKfPHMlonNHmbzpfX0GhPzcqK+e0TkIbEwtU87vbm12vZlzW+pbMvaQjFA2T
+	 ztVODUPOfFXD8nYS8ANpnfgD7jCYHRTAhHdAfKhFv0OVPzSwu/CEE8Zcggy5+Jo0tT
+	 osiM0aSBHmTz5W2xES1YN9I0/gPpyspGr3At90so=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E3B1F80212;
-	Tue, 29 Nov 2022 17:06:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA0A3F80212;
+	Tue, 29 Nov 2022 17:24:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD11EF801F7; Tue, 29 Nov 2022 17:06:03 +0100 (CET)
+ id EE400F801F7; Tue, 29 Nov 2022 17:24:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62058F80137
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 17:05:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62058F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id B544AF800B6
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 17:24:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B544AF800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WZLJ14E8"
+ header.b="mAzRk/Q8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 1B5ADCE1366;
- Tue, 29 Nov 2022 16:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59839C433C1;
- Tue, 29 Nov 2022 16:05:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A5CB0617E4;
+ Tue, 29 Nov 2022 16:24:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B065CC433C1;
+ Tue, 29 Nov 2022 16:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669737949;
- bh=J1V3lMbkah+OkD2VRvQKWFgOy3p2gZiM1S+bTvQGf2Y=;
+ s=k20201202; t=1669739085;
+ bh=dLQEflsUvo5LEl0AlQija2iFki6kDQNQhHT+jFHOjZg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WZLJ14E89JorGzLxOMTFFH4QVsaSRTIM12lhAOCSyXUvHqve1H6SQVeqaKnCYSXgy
- 9p/NgKzhuQRHiNhMwSA0HZKq3z3QU7nLqYdJfcfwJS7jktWDoGvPrPpHO1HaTvbcvc
- I+0vzuIeugtNjMgCXuI52GbvCe41lg55NVX2wRyAPJO5xVYVbvrOEqdaXJz6FPiu0v
- 52rsov2Cs+wI9+cqlNbP2lT/tKTw6MyBYa+ZRyXKx8AU5SZO8wYj86ShUAc7xEdLaP
- /TvX2CH+9TLnRsI+Q272sYX2irtlykNIfjNfNggR5rAgV7TGt/CoW9/GaQ5NANveNe
- FUnW0owfZn2dQ==
-Date: Tue, 29 Nov 2022 09:05:46 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for
- system PM ops
-Message-ID: <Y4Yt2oEZm+Yb/wyr@dev-arch.thelio-3990X>
-References: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
- <Y4YpELN4/0cesonb@dev-arch.thelio-3990X>
- <65fd2068-4744-221f-f398-da4303b64fca@quicinc.com>
+ b=mAzRk/Q8pYpzFtK9hRITswWF1hyIIU/Jyo2X9gtbPQyIlttSbV5WrjFoMqw4ctw+l
+ OwrykBDl6X5DZsscjBeFmgW7qCx6jrUd+wLzSekwNJA1UhAi7wqjJswV9qtF3p2XSF
+ QV+DH+20wNX4ubkQqcJDO+lj3J3Hlxra7P049ydkj9lYNkjUFcHS/Q/MfhXmv7+qQh
+ Dy8kUcpcxrjDTFt1H5mgduXeB+PNw1oFWC2EJGZbWlJzOJAaNb3Rh/+GzbXJx42moy
+ Ag645LGOMsuXwZv23ir3bKJ+oU2D/5J/Qe5RRZaFiJfBO3ISfAKO73+UmcR3h6nC68
+ wyAX5U4FO+2Kg==
+Date: Tue, 29 Nov 2022 16:24:40 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 10/11] ASoC: Intel: avs: rt5682: Add define for codec DAI
+ name
+Message-ID: <Y4YySIFSZB5/NfYh@sirena.org.uk>
+References: <20221125184032.2565979-1-cezary.rojewski@intel.com>
+ <20221125184032.2565979-11-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PtDy2VbqywO78IBz"
 Content-Disposition: inline
-In-Reply-To: <65fd2068-4744-221f-f398-da4303b64fca@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
- srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
- quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <20221125184032.2565979-11-cezary.rojewski@intel.com>
+X-Cookie: I invented skydiving in 1989!
+Cc: hdegoede@redhat.com, alsa-devel@alsa-project.org,
+ amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,54 +90,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 29, 2022 at 09:28:33PM +0530, Srinivasa Rao Mandadapu wrote:
-> Thanks for your tie Nathan!!!
-> 
-> On 11/29/2022 9:15 PM, Nathan Chancellor wrote:
-> > On Tue, Nov 29, 2022 at 06:23:48PM +0530, Srinivasa Rao Mandadapu wrote:
-> > > Add __maybe_unused tag for system PM ops suspend and resume.
-> > > This is required to fix allmodconfig compilation issue.
-> > > Fixes: c3bf7699747c ("ASoC: qcom: lpass-sc7280: Add system suspend/resume PM ops")
-> > > 
-> > > Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> > A better solution would be replacing SET_SYSTEM_SLEEP_PM_OPS() with
-> > SYSTEM_SLEEP_PM_OPS(), which was added to avoid needing to add these
-> > '__maybe_unused' attributes to these functions. See commit 1a3c7bb08826
-> > ("PM: core: Add new *_PM_OPS macros, deprecate old ones") for more info.
-> 
-> Tried this option but as this patch required for Kernel 5.4 version code
-> base,
-> 
-> SYSTEM_SLEEP_PM_OPS didn't work.
 
-Ah right, it is a more recent macro. I did not realize this patch was
-needed to fix a patch destined for stable.
+--PtDy2VbqywO78IBz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Perhaps keep this patch but add a second patch after it that converts
-to using SYSTEM_SLEEP_PM_OPS() for future releases?
+On Fri, Nov 25, 2022 at 07:40:31PM +0100, Cezary Rojewski wrote:
+> From: Amadeusz S=C5=82awi=C5=84ski <amadeuszx.slawinski@linux.intel.com>
+>=20
+> Following commits will make use of it to find codec DAI, define it
+> first.
 
-> > > ---
-> > >   sound/soc/qcom/lpass-sc7180.c | 4 ++--
-> > >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-> > > index b96b85a..41db661 100644
-> > > --- a/sound/soc/qcom/lpass-sc7180.c
-> > > +++ b/sound/soc/qcom/lpass-sc7180.c
-> > > @@ -163,14 +163,14 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
-> > >   	return 0;
-> > >   }
-> > > -static int sc7180_lpass_dev_resume(struct device *dev)
-> > > +static int __maybe_unused sc7180_lpass_dev_resume(struct device *dev)
-> > >   {
-> > >   	struct lpass_data *drvdata = dev_get_drvdata(dev);
-> > >   	return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-> > >   }
-> > > -static int sc7180_lpass_dev_suspend(struct device *dev)
-> > > +static int __maybe_unused sc7180_lpass_dev_suspend(struct device *dev)
-> > >   {
-> > >   	struct lpass_data *drvdata = dev_get_drvdata(dev);
-> > > -- 
-> > > 2.7.4
-> > > 
-> > > 
+This breaks an x86 allmodconfig build:
+
+/build/stage/linux/sound/soc/intel/avs/boards/rt5682.c: In function =E2=80=
+=98avs_create_dai_link=E2=80=99:
+/build/stage/linux/sound/soc/intel/avs/boards/rt5682.c:198:20: error: =E2=
+=80=98avs_rt5682_codec_exit=E2=80=99 undeclared (first use in this function=
+); did you mean =E2=80=98avs_rt5682_codec_init=E2=80=99?
+  198 |         dl->exit =3D avs_rt5682_codec_exit;
+      |                    ^~~~~~~~~~~~~~~~~~~~~
+      |                    avs_rt5682_codec_init
+
+and looks out of place in this commit, it at least deserves calling out
+in the commit log?
+
+--PtDy2VbqywO78IBz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOGMkcACgkQJNaLcl1U
+h9Ar+Af/b8YAFKuu5pB9PReLKVnKxBirf4iZjlUbwh5Q/Oi39ALHLtBy4ZyMAVUI
+kpwPAeQfTZwFvhwY632B/RyNbM0mvaMhsy+qDmHO6S97nac08N8OlETxR0YSazs/
+qTE8xsUZnKFbuoGAfO7nSlmTXpzjo+TQBBtT4CeLcT8ug48iFIjaneB9QRdAOLk0
+xnLc/0KjR+mORNEmJw2UsRRFgiANK/tq04wZXiTj1eUbj4p0vd1sJm2DnY7NVYQ9
+46pZSKva9kMOj8fg5isO3hnfAhY5x1bmtXe6OYK1L1prkqyKWYphp29Nv9/ptUsl
+3PR3CyzZ7doi9kMcIQ+XLHRGJ6nhNg==
+=XBPj
+-----END PGP SIGNATURE-----
+
+--PtDy2VbqywO78IBz--

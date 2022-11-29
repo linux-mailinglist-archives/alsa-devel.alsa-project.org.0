@@ -2,91 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32CE63C1DB
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 15:07:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634FB63C2E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 15:43:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44D5516C2;
-	Tue, 29 Nov 2022 15:06:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44D5516C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E492A1696;
+	Tue, 29 Nov 2022 15:42:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E492A1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669730836;
-	bh=sGgLOgjAgwximAEzWGZnJ4j4MMYG9wRZpjiOq59jOM8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669733029;
+	bh=C5ZoA8u7CjRfuYRa/p8LS+BgNNm4KfyQQxeH4LtrxiQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kLI5UPLTT5Zd2z1M08JbXJS5f6bf6dUdOWNkfK6hSwb0jaq2dVBXeoWRROxYAbsDK
-	 rH969M0EuUg2Ag2EHjqdKtdiZeJt1pZWyRBr0GSoZAwZlyTItZP7DWweOgof57pEib
-	 PafqhdK9yecRONrLrsLvUuEQDGtmNOu5oWq7NX9E=
+	b=LvDPB2gkXyqS0JnTfHo3uzPsNnm+nH+kIhjI0NoycX4/124AI2iQk7Mt9cfBjY1Ck
+	 j44lzG31ROjIexj8cURDzfj6aFhhb6sPLa0NQv02XJkE+cexgtKEubvZ1+BCqyIN74
+	 u5K7oYP3N0agPk9GTNT+uYg9lu2/Dcj8KNXe8ICU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8D41F80212;
-	Tue, 29 Nov 2022 15:06:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB980F80482;
+	Tue, 29 Nov 2022 15:42:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A161BF801F7; Tue, 29 Nov 2022 15:06:19 +0100 (CET)
+ id 3F6A3F801F7; Tue, 29 Nov 2022 15:42:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9426AF801F5
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 15:06:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9426AF801F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10747F800B6;
+ Tue, 29 Nov 2022 15:42:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10747F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="aowAWYF+"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="SNZUYOCM"
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Xf6SFudo"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 30C2621B30;
- Tue, 29 Nov 2022 14:06:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669730773; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cTdgtCUXVOpYNOCl7WgkwkarX2ZzQ/+LGpnDx/ObHCE=;
- b=aowAWYF+RhzZdrBSarz4wTsIer/0TOoSs+up5VNnkXyl46LD7TG2Q6c1sYMOUmohBNRlu3
- I/TL9b2ipvcpztPABHhgTjGFswBoPZPRHMOBLsx3Vng8IeT9x/lgjIRnnVZx0lgSE9aXKu
- jxtNwX0EZw4QJDtCfz5HQxcXXdVzc2U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669730773;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cTdgtCUXVOpYNOCl7WgkwkarX2ZzQ/+LGpnDx/ObHCE=;
- b=SNZUYOCMh3stCN7rCfgPp0skHn4GGF/4dHqtjr3S5OTx+Dsw/LpyGV8iTGe6wpIn8tCdW0
- 4ErFeF9FAiFeasBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F321613428;
- Tue, 29 Nov 2022 14:06:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IdVeOtQRhmOXRQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 14:06:12 +0000
-Date: Tue, 29 Nov 2022 15:06:12 +0100
-Message-ID: <87r0xlq2i3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] selftests: alsa - move shared library configuration code
- to conf.c
-In-Reply-To: <20221129085306.2345763-1-perex@perex.cz>
-References: <20221129085306.2345763-1-perex@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8967F61778;
+ Tue, 29 Nov 2022 14:42:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1A62C433D6;
+ Tue, 29 Nov 2022 14:42:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669732958;
+ bh=C5ZoA8u7CjRfuYRa/p8LS+BgNNm4KfyQQxeH4LtrxiQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Xf6SFudoEy7GIMULtvUWMiRkg5KY9wX+mngk6qerxcWP0globLzzXMje0gTEe0tGe
+ C2s26B6VLRa2VUvzzeIZ6D5dk3zsVxBr3KmsrEkARFx0fHibTjWbtGsBJnY4OFDYCa
+ 61x3aNeTr6xkiR+N/01Z/U6yOdp4YJkdcS972Rn0jDqS3wigEGPiyDptnDJFXqQUCo
+ lTcV9pRKjjgc3NmmmEOanZRc/RDCAiwU7HUeXrxiufLoU2Ihu0V9I4N/d25UTc/I1e
+ k7aKv8P4h8CuQW/IiCvDtysCUenKjwqrnL0BO6ut8z26MseykaXXFJgkISlV0xrCfB
+ iqr2TTRCWqb0A==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
+In-Reply-To: <20221129100102.826781-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+References: <20221129100102.826781-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+Subject: Re: [PATCH v2 1/1] ASoC: SOF: Add DAI configuration support for AMD
+ platforms.
+Message-Id: <166973295442.182170.11091349433910086035.b4-ty@kernel.org>
+Date: Tue, 29 Nov 2022 14:42:34 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, venkataprasad.potturu@amd.com,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, open list <linux-kernel@vger.kernel.org>,
+ Rander Wang <rander.wang@intel.com>, Chao Song <chao.song@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
+ <sound-open-firmware@alsa-project.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ ssabakar@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,23 +98,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 29 Nov 2022 09:53:06 +0100,
-Jaroslav Kysela wrote:
+On Tue, 29 Nov 2022 15:30:59 +0530, V sujith kumar Reddy wrote:
+> From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 > 
-> The minimal alsa-lib configuration code is similar in both mixer
-> and pcm tests. Move this code to the shared conf.c source file.
+> Add support for configuring sp and hs DAI from topology.
 > 
-> Also, fix the build rules inspired by rseq tests. Build libatest.so
-> which is linked to the both test utilities dynamically.
+> Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 > 
-> Also, set the TEST_FILES variable for lib.mk.
+> Changes since v1
+>     -- Apply on latest broonie-git for-next
 > 
-> Cc: linux-kselftest@vger.kernel.org
-> Cc: Shuah Khan <shuah@kernel.org>
-> Reported-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> [...]
 
-Thanks, applied now.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/1] ASoC: SOF: Add DAI configuration support for AMD platforms.
+      commit: 75af41991955205fa0958feb587ce22b35aaa7b0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

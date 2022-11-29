@@ -2,66 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 572B263C1A1
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 15:01:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E8363C1CA
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 15:05:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D819816B1;
-	Tue, 29 Nov 2022 15:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D819816B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82D7516B4;
+	Tue, 29 Nov 2022 15:05:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82D7516B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669730503;
-	bh=7Dp5fGDdIZzDbj5Lb0FM/xsq2jQ7hW5HxlbbGcRIG2I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669730759;
+	bh=bKBl/NQDEeGXHW5gRVL1ozbv+evF2wPxyCw6iaQRaCg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LeW94L/zI9eMvDEyIiTvCYmnr4R+QYkReGj/b8RNnf1XKxJ2zuM66XgePKgcZhfAA
-	 MCODx7XvTwP5PTzi87pfSsr3L92Jy84cvvqvJKnUTuoCjjt0v2x1SseoQkhUx+3gxK
-	 +p2ccqeTgBMUehXEMNaPwNIcbtKlJ7skwCViG9I4=
+	b=Ht2aGiLdNwHVcz495InktPSVt2mZgYN7WCQAr1Dz8PquQbBgXNcHwNnYDCS3WtxjQ
+	 mJSNy3ALeZIr6TWn5xugEjs65ukswI21LbqGuv0lkSfD20HOb9wRWckQNfUpsxWmdC
+	 L6FGJYs3qgpbHHzVQBfURgyT4eFuU+llP14klYq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D55FF80212;
-	Tue, 29 Nov 2022 15:00:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24C30F80137;
+	Tue, 29 Nov 2022 15:05:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30637F801F7; Tue, 29 Nov 2022 15:00:45 +0100 (CET)
+ id E0154F801F7; Tue, 29 Nov 2022 15:05:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D271CF800B6
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 15:00:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D271CF800B6
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 5BDAA6732D; Tue, 29 Nov 2022 15:00:35 +0100 (CET)
-Date: Tue, 29 Nov 2022 15:00:34 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Subject: Re: [PATCH 1/7] media: videobuf-dma-contig: use dma_mmap_coherent
-Message-ID: <20221129140034.GA15560@lst.de>
-References: <20221113163535.884299-1-hch@lst.de>
- <20221113163535.884299-2-hch@lst.de>
- <95cf026d-b37c-0b89-881a-325756645dae@xs4all.nl>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <95cf026d-b37c-0b89-881a-325756645dae@xs4all.nl>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Cc: linux-s390@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-media@vger.kernel.org, Alexandra Winter <wintera@linux.ibm.com>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Wenjia Zhang <wenjia@linux.ibm.com>,
- iommu@lists.linux.dev, Russell King <linux@armlinux.org.uk>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D42CF800B6
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 15:04:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D42CF800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="rWQX87Xc"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="uZ2Ako6m"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5292421B0E;
+ Tue, 29 Nov 2022 14:04:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1669730692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=irwTfed7jhUDL3QvqQKxnlDd5lsqKyydbwPabpuneq4=;
+ b=rWQX87XckFJaw45/QxzqE6D2vCVsuKQFrb1c/ApufLafZ08Gj6K8KccnaOWA8/Ju4T9hi0
+ VEd81EZzBahIzXV1xXGD2nRUfuZkY4G0AYkb6/LdZBwR50ChbTCBOC7oILKp/up8zp9Eiq
+ U72GuuOmVUoHSmUFYn46uJAuDks/56Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1669730692;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=irwTfed7jhUDL3QvqQKxnlDd5lsqKyydbwPabpuneq4=;
+ b=uZ2Ako6mj0YyNmMN0H3+5bzv+X1Xvbc3/loYP7THajbB+fqOj9FcHP/Vfa8DQ9GvEHiiKE
+ xDLxjE7tlvV6/sCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18A1A13428;
+ Tue, 29 Nov 2022 14:04:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3+X4BIQRhmPFRAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 14:04:52 +0000
+Date: Tue, 29 Nov 2022 15:04:51 +0100
+Message-ID: <87sfi1q2kc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: John Keeping <john@metanate.com>
+Subject: Re: [PATCH v2] ALSA: usb-audio: Add quirk for Tascam Model 12
+In-Reply-To: <20221129130100.1257904-1-john@metanate.com>
+References: <20221129130100.1257904-1-john@metanate.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,18 +100,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 24, 2022 at 03:10:43PM +0100, Hans Verkuil wrote:
-> Very, very old code :-) Hopefully in the not-too-distant future we can kill off
-> the old videobuf framework.
-
-That would be great for various reasons.
-
-> But for now:
+On Tue, 29 Nov 2022 14:00:59 +0100,
+John Keeping wrote:
 > 
-> Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> Tascam's Model 12 is a mixer which can also operate as a USB audio
+> interface.  The audio interface uses explicit feedback but it seems that
+> it does not correctly handle missing isochronous frames.
 > 
-> I assume you take this? If not, then let me know and I will pick it up for the media
-> subsystem.
+> When injecting an xrun (or doing anything else that pauses the playback
+> stream) the feedback rate climbs (for example, at 44,100Hz nominal, I
+> see a stable rate around 44,099 but xrun injection sees this peak at
+> around 44,135 in most cases) and glitches are heard in the audio stream
+> for several seconds - this is significantly worse than the single glitch
+> expected for an underrun.
+> 
+> While the stream does normally recover and the feedback rate returns to
+> a stable value, I have seen some occurrences where this does not happen
+> and the rate continues to increase while no audio is heard from the
+> output.  I have not found a solid reproduction for this.
+> 
+> This misbehaviour can be avoided by totally resetting the stream state
+> by switching the interface to alt 0 and back before restarting the
+> playback stream.
+> 
+> Add a new quirk flag which forces the endpoint and interface to be
+> reconfigured whenever the stream is stopped, and use this for the Tascam
+> Model 12.
+> 
+> Separate interfaces are used for the playback and capture endpoints, so
+> resetting the playback interface here will not affect the capture stream
+> if it is running.  While there are two endpoints on the interface,
+> these are the OUT data endpoint and the IN explicit feedback endpoint
+> corresponding to it and these are always stopped and started together.
+> 
+> Signed-off-by: John Keeping <john@metanate.com>
+> ---
+> v2:
+> - Set ep->need_prepare not ep->need_setup; this was missed when forward
+>   porting the patch as need_prepare is new in 6.1
+> - Add more details to the commit message about why it is safe to reset
+>   the interface here
 
-I've actually picked it up a while ago.  So without a reabse I can't
-add your formal ACK, but I hope Linus is fine with that.
+Thanks, applied now.
+
+
+Takashi

@@ -2,95 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F4863C614
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 18:04:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36C4463C61A
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 18:07:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6B34168C;
-	Tue, 29 Nov 2022 18:03:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6B34168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE517161E;
+	Tue, 29 Nov 2022 18:07:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE517161E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669741484;
-	bh=Fb39RWbxqtwTO7AZZkD+MqgY7EAraRBYG/dUjKsOxd0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1669741674;
+	bh=JPO6DnTqIBrTe5U2WHb3aJ/oUJK3P1/2bJLU2ZyVkz4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=glsjyhUwsvu7me5tBedisWfkydJNXV1kAeEx6M0S2VzXlNwmayQPLyRgQDvJ6G5bN
-	 +jKb3LKc+YuFh0P33CfM/GCEx64oW3SuetgQZwrcBffcRbiOfhKCJk2F6+1QSMZCNL
-	 vQt3eM5Yz1D0VJQ0K71HLYhLrn7aaIzSoM5xTGns=
+	b=p6/6kHMsbilzlGR9DDI9B+zib8H5PKktfkWN68LcbLiF0wRNjHGHV7ykb9Cjcn0Fd
+	 uV0MqguovbkAqsw9LLbO6jTAJ8IHll77Lmv4p2s71wBzYHxL9RxITw+xlHwClnja7j
+	 Lv4GwTRjQ1jLtAvvzGCqE3UzZx4WTkZ5BP2v/XwE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79310F80137;
-	Tue, 29 Nov 2022 18:03:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 580F0F80212;
+	Tue, 29 Nov 2022 18:06:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE3C2F801F7; Tue, 29 Nov 2022 18:03:46 +0100 (CET)
+ id 8FE40F801F7; Tue, 29 Nov 2022 18:06:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CC91F800B6
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 18:03:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CC91F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82451F800B6
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 18:06:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82451F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ljTM73sT"
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-14286d5ebc3so17787986fac.3
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 09:03:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=bAXWficdb5Gh5FzYn9UMAwDhZ8CYJoMoqCIJ7//eDF4=;
- b=ljTM73sTaDXWg3oaSywePDjqX298nSKxGHlaRqrv/LsDQrh3Mk9juSNxGkuzLumWxy
- /O1+AvGM4FAywdTpyxCQGuYt9iKWmSXYzMbOF8AqODsFHqIaEIKHAcDeYgoOxqm3Fr4o
- TBRSen1aQi9VAoZMPuBILu+kBDk8UQm+R3FRy3pdzsmnDkxBuftdOqpEmxAanK+Th54j
- b8OVtjKBlDakl7FEtLr3q1dHi6yezL2+/uByMQUdbFwTiXZVM3v9O0eFVdNSo9ZoknNt
- vw3QrBqFV9EaNlDr4769W5eAGUfmEToEGJFnua/uUW+Qw2+N1owsFPR77QI/qPD9Wf6L
- rAGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bAXWficdb5Gh5FzYn9UMAwDhZ8CYJoMoqCIJ7//eDF4=;
- b=ERbwRCEcYyU/TVVmyO1Ih4UAPjHprspzwsK4GgV9FKAx88W1MVlc02SB6BSHO73IKG
- 6boniZQaB2AFSdRg0CmWXqTuCjWG5VjyG8k8n39w6WkSaSU7tbNH3seMjXGOryhD84hz
- 4QIqTPGL5WN9jao5tJEmSDEp2/triuYzirw3R4n29KMASFbjVOANY60/ytiTnflTWk6T
- xEXmnMimDSpOudWXBs5VIxrJy+rK6qq+9nbGvv+RiHwtO/AN3Yn+Y6zBsRFNXsCrQux0
- UN3tR5XePFHhATud8a+81tZa7L7+a9zER7zD5bxvJArVWBpTXtkCZiOzsFffLcdNld3N
- VqBg==
-X-Gm-Message-State: ANoB5plsCssl7gbDOZvuvqjZGqq9yKSx41d8sAxcKPrCDq5NXZ8u+TSW
- X/xvemCcFvzdnBeap8RusVmQapQWl1Y3mZJTKmQgxw==
-X-Google-Smtp-Source: AA0mqf6Tdo6X8IWcObQq2o/3ErG6HPcwPrWCjYttmbMFTp3CWvG1wKOXHHCA+4UMzfOIMYG1UrxXlV2FAe3l3HjF3RI=
-X-Received: by 2002:a05:6870:7988:b0:13c:84e6:96d2 with SMTP id
- he8-20020a056870798800b0013c84e696d2mr36802093oab.72.1669741416887; Tue, 29
- Nov 2022 09:03:36 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SX6HPgNe"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DE95CB816D4;
+ Tue, 29 Nov 2022 17:06:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F7CC433C1;
+ Tue, 29 Nov 2022 17:06:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669741610;
+ bh=JPO6DnTqIBrTe5U2WHb3aJ/oUJK3P1/2bJLU2ZyVkz4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SX6HPgNe5KQ+A66KV1Wd+eYWwuBk1TT4vsiq7vvKwz1uCrSjT+w6PCzkUdT0m2ulo
+ Cl0HPR0E71+G1H9wpxAgQHJSprNDtkZf+JzTsNMs48bCqQwAUxKDA0sekVucdohcbf
+ tr/mDMf6z+X5ZeoPAFA8LzweOEreGFH15fkEDWLL455BYXpMkhBYUmWRLiBeDpUcmP
+ R8xYV8gtYsUZVnW7uMg7HczEmnCF/BYW+GhGL0yNRm0TELESJhA1NbaWn/JDLAYks7
+ qIzzX8kQNPp5lHmPGVXKsds3W1gcVguKLJThUksCB1R2z141nDnsp4tXDJi9VppnWy
+ 33cacQCiqfoAA==
+Date: Tue, 29 Nov 2022 17:06:46 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Subject: Re: [PATCH 1/2] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
+Message-ID: <Y4Y8JhR/9gOMLPix@sirena.org.uk>
+References: <20220914103854.11351-1-kiseok.jo@irondevice.com>
+ <20220914103854.11351-2-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-References: <20221124085436.24900-1-jiaxin.yu@mediatek.com>
- <20221124085436.24900-3-jiaxin.yu@mediatek.com>
-In-Reply-To: <20221124085436.24900-3-jiaxin.yu@mediatek.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Tue, 29 Nov 2022 18:03:26 +0100
-Message-ID: <CAG3jFyvLAHfxtKVoFFUOwUacO+t+FC3x5J9Eg-qWOUVBnU8JfQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] ASoC: hdmi-codec: Add event handler for hdmi TX
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: neil.armstrong@linaro.org, alsa-devel@alsa-project.org,
- chunxu.li@mediatek.com, nfraprado@collabora.com,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, Laurent.pinchart@ideasonboard.com,
- andrzej.hajda@intel.com, allen-kh.cheng@mediatek.com,
- ajye_huang@compal.corp-partner.google.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5nQpPhQWL85bRBfL"
+Content-Disposition: inline
+In-Reply-To: <20220914103854.11351-2-kiseok.jo@irondevice.com>
+X-Cookie: An apple a day makes 365 apples a year.
+Cc: alsa-devel@alsa-project.org, application@irondevice.com,
+ Gyuhwa Park <gyuhwa.park@irondevice.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,114 +88,359 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 24 Nov 2022 at 09:54, Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
->
-> If the speaker and hdmi are connect to the same port of I2S,
-> when try to switch to speaker playback, we will find that hdmi
-> is always turned on automatically. The way of switching is
-> through SOC_DAPM_PIN_SWITCH, however, such events can not be
-> handled in hdmi-codec driver.
->
-> So add event handler for hdmi TX to solve the above issue.
->
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->  include/sound/hdmi-codec.h    |  6 ++++++
->  sound/soc/codecs/hdmi-codec.c | 37 +++++++++++++++++++++++++++++++----
->  2 files changed, 39 insertions(+), 4 deletions(-)
->
-> diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-> index 48ad33aba393..dcbc09254144 100644
-> --- a/include/sound/hdmi-codec.h
-> +++ b/include/sound/hdmi-codec.h
-> @@ -81,6 +81,12 @@ struct hdmi_codec_ops {
->                        struct hdmi_codec_daifmt *fmt,
->                        struct hdmi_codec_params *hparms);
->
-> +       /*
-> +        * PCM trigger callback.
-> +        * Mandatory
-> +        */
-> +       int (*trigger)(struct device *dev, int cmd);
-> +
->         /*
->          * Shuts down the audio stream.
->          * Mandatory
-> diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-> index 0b1cdb2d6049..cb4479372e09 100644
-> --- a/sound/soc/codecs/hdmi-codec.c
-> +++ b/sound/soc/codecs/hdmi-codec.c
-> @@ -276,7 +276,31 @@ struct hdmi_codec_priv {
->         u8 iec_status[AES_IEC958_STATUS_SIZE];
->  };
->
-> +static int hdmi_tx_event(struct snd_soc_dapm_widget *w,
-> +               struct snd_kcontrol *kcontrol, int event)
 
-checkpatch --strict caught this alignment issue.
+--5nQpPhQWL85bRBfL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-ASoC: hdmi-codec: Add event handler for hdmi TX
--:44: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#44: FILE: sound/soc/codecs/hdmi-codec.c:280:
-+static int hdmi_tx_event(struct snd_soc_dapm_widget *w,
-+        struct snd_kcontrol *kcontrol, int event)
+On Wed, Sep 14, 2022 at 07:38:53PM +0900, Kiseok Jo wrote:
 
+> The Iron Device SMA1303 is a boosted Class-D audio amplifier.
 
+This is looking quite a bit cleaner but there's still a bunch of things
+here where the driver could do to fit more cleanly into the standard
+kernel APIs.  I don't think there's anything here that should be too
+hard to deal with, but it's all generally all some combination of
+removing custom code to use framework features or stylistic stuff rather
+than anything too major.
 
+> @@ -0,0 +1,2119 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/* sma1303.c -- sma1303 ALSA SoC Audio driver
+> + *
+> + * Copyright 2022 Iron Device Corporation
+> + *
+
+Please make the entire comment a C++ one so things look more
+intentional.
+
+> +static int sma1303_regmap_write(struct regmap *map, struct device *dev,
+> +				unsigned int reg, unsigned int val)
 > +{
-> +       struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-> +       struct hdmi_codec_priv *hcp = snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
 > +
-> +       switch (event) {
-> +       case SND_SOC_DAPM_PRE_PMU:
-> +               if (hcp->hcd.ops->trigger)
-> +                       hcp->hcd.ops->trigger(component->dev->parent, SNDRV_PCM_TRIGGER_START);
-> +               break;
-> +       case SND_SOC_DAPM_POST_PMD:
-> +               if (hcp->hcd.ops->trigger)
-> +                       hcp->hcd.ops->trigger(component->dev->parent, SNDRV_PCM_TRIGGER_STOP);
-> +               break;
-> +       default:
-> +               break;
-> +       }
+> +	ret = regmap_write(map, reg, val);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to write, register: 0x%02X, ret: %d\n",
+> +			       reg, ret);
+> +	}
+> +	return ret;
+> +}
+
+If we want these erorr logs adding it probably makes sense to do
+sometihng in regmap rather than locally in the driver - regmap already
+has the dev to hand so it's one less parameter too.
+
+> +static int bytes_ext_get(struct snd_kcontrol *kcontrol,
+> +			struct snd_ctl_elem_value *ucontrol, int reg)
+> +{
+
+It'd be better to add a driver specific name for this.
+
+> +static int bytes_ext_put(struct snd_kcontrol *kcontrol,
+> +			struct snd_ctl_elem_value *ucontrol, int reg)
+> +{
+
+> +	for (i = 0; i < params->max; i++) {
+> +		ret = sma1303_regmap_write(
+> +				sma1303->regmap, component->dev,
+> +				reg + i, *(val + i));
+> +		if (ret < 0) {
+> +			kfree(data);
+> +			return ret;
+> +		}
+> +	}
+> +	kfree(data);
 > +
-> +       return 0;
+> +	return 0;
+
+This should return 1 if the value is different.
+
+> +	if (sma1303->usage_status)
+> +		dev_info(component->dev, "Amplifier Power Control Enabled\n");
+> +	else
+> +		dev_info(component->dev, "Amplifier Power Control Disabled\n");
+
+Remove this logging, it allows userspace to spam the logs and hide
+things.  Same issue in lots of other places in the driver.  There's
+already a *lot* of standard trace available for things like DAPM.
+
+> +	if ((sma1303->usage_status
+> +			!= ucontrol->value.integer.value[0])
+> +			&& (!ucontrol->value.integer.value[0])) {
+> +		dev_info(component->dev, "%s\n", "Force AMP Power Down");
+> +		ret = sma1303_shutdown(component);
+> +		if (ret < 0) {
+> +			ucontrol->value.integer.value[0]
+> +			       = sma1303->usage_status;
+> +			return ret;
+> +		}
+> +
+> +	}
+
+Why would we have a userspace control for this - why not just let DAPM
+manage the power?
+
+> +static const char * const sma1303_amp_mode_text[] = {
+> +	"1 Chip", "Mono on 2 chips", "Left in 2 chips", "Right in 2chips"};
+> +
+> +static const struct soc_enum sma1303_amp_mode_enum =
+> +	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(sma1303_amp_mode_text),
+> +			sma1303_amp_mode_text);
+
+I still think it'd be easier to just merge a simple per chip driver and
+then build the multiple device support on top since that's unusual and
+new.  Though...
+
+> +	switch (sma1303->amp_mode) {
+> +	case ONE_CHIP_SOLUTION:
+> +	case MONO_TWO_CHIP_SOLUTION:
+> +		ret += sma1303_regmap_update_bits(
+> +				sma1303->regmap, component->dev,
+> +				SMA1303_11_SYSTEM_CTRL2,
+> +				MONOMIX_MASK, MONOMIX_ON);
+> +		ret += sma1303_regmap_update_bits(
+> +				sma1303->regmap, component->dev,
+> +				SMA1303_11_SYSTEM_CTRL2,
+> +				LR_DATA_SW_MASK, LR_DATA_SW_NORMAL);
+> +		break;
+
+...this just looks like normal audio path routing stuff which I'd expect
+to be controlled with some combination of DAPM and hw_params.  See the
+mono mix control options in other drivers for example.  People might
+want to use things like mono mixes or L/R channel selection for other
+reasons - for example some people use mono mixes for accessibility
+purposes.
+
+> +static const char * const sma1303_outport_config_text[] = {
+> +	"Enable", "Disable"};
+> +
+> +static const struct soc_enum sma1303_outport_config_enum =
+> +	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(sma1303_outport_config_text),
+> +			sma1303_outport_config_text);
+> +
+
+As mentioned on an earlier version on/off controls should be simple
+booleans.
+
+> +static const char * const sma1303_spkmute_text[] = {
+> +	"Unmute", "Mute"};
+
+This applies to mutes too.
+
+> +	case 0:
+> +		val = EN_POST_SCALER;
+> +		break;
+> +	case 1:
+> +		val = BYP_POST_SCALER;
+> +		break;
+
+The on/off control for the post scaler should be a separate control,
+this should enable you to use standard _BYTES and switch controls.
+
+> +	ret = regmap_read(sma1303->regmap, SMA1303_A4_TOP_MAN3, &data);
+> +	val = data & O_FORMAT_MASK;
+> +	switch (val) {
+> +	case O_FMT_LJ:
+> +		ucontrol->value.integer.value[0] = 0;
+> +		break;
+> +	case O_FMT_I2S:
+> +		ucontrol->value.integer.value[0] = 1;
+> +		break;
+> +	case O_FMT_TDM:
+> +		ucontrol->value.integer.value[0] = 2;
+> +		break;
+
+The DAI format definitely should not be user controllable, implement a
+DAI set_fmt() operation.
+
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +
+> +		if (sma1303->usage_status &&
+> +			(sma1303->sys_clk_id == SMA1303_PLL_CLKIN_MCLK
+> +			|| sma1303->sys_clk_id == SMA1303_PLL_CLKIN_BCLK)) {
+> +
+> +			if (sma1303->last_bclk != bclk) {
+> +				if (sma1303->amp_power_status) {
+> +					sma1303_shutdown(component);
+> +					sma1303_setup_pll(component, bclk);
+> +					sma1303_startup(component);
+> +				} else
+> +					sma1303_setup_pll(component, bclk);
+> +
+> +				sma1303->last_bclk = bclk;
+> +			}
+> +		}
+
+If the driver can't change clock rate while there's active audio then it
+should set constraints - there's a bunch of other drivers with examples
+of constraints code you could look at.
+
+> +		case 24000:
+> +		case 32000:
+> +		case 44100:
+> +		case 48000:
+> +		case 96000:
+> +		ret += sma1303_regmap_update_bits(
+> +				sma1303->regmap, component->dev,
+> +				SMA1303_A2_TOP_MAN1,
+> +				DAC_DN_CONV_MASK, DAC_DN_CONV_DISABLE);
+
+Please follow the kernel coding style for indentation, all this switch
+stuff is off.
+
+> +static struct snd_soc_dai_driver sma1303_dai[] = {
+> +{
+> +	.name = "sma1303-amplifier",
+> +	.id = 0,
+> +	.playback = {
+
+Again, please follow the kernel coding style.
+
+> +static void sma1303_check_fault_worker(struct work_struct *work)
+> +{
+> +	struct sma1303_priv *sma1303 =
+> +		container_of(work, struct sma1303_priv, check_fault_work.work);
+> +	int ret = 0;
+> +	unsigned int over_temp, ocp_val, uvlo_val;
+> +
+> +	mutex_lock(&sma1303->lock);
+
+Nothing else seems to take this lock, what is it actually protecting?
+
+> +#ifdef CONFIG_PM
+> +static int sma1303_suspend(struct snd_soc_component *component)
+> +{
+> +	return 0;
 > +}
 > +
->  static const struct snd_soc_dapm_widget hdmi_widgets[] = {
-> +       SND_SOC_DAPM_OUT_DRV_E("SDB", SND_SOC_NOPM, 0, 0, NULL, 0, hdmi_tx_event,
-> +                              SND_SOC_DAPM_POST_PMD | SND_SOC_DAPM_PRE_PMU),
->         SND_SOC_DAPM_OUTPUT("TX"),
->         SND_SOC_DAPM_OUTPUT("RX"),
->  };
-> @@ -808,18 +832,23 @@ static int hdmi_dai_probe(struct snd_soc_dai *dai)
->         struct hdmi_codec_daifmt *daifmt;
->         struct snd_soc_dapm_route route[] = {
->                 {
-> -                       .sink = "TX",
-> +                       .sink = dai->driver->capture.stream_name,
-> +                       .source = "RX",
-> +               },
-> +               {
-> +                       .sink = "SDB",
->                         .source = dai->driver->playback.stream_name,
->                 },
->                 {
-> -                       .sink = dai->driver->capture.stream_name,
-> -                       .source = "RX",
-> +                       .sink = "TX",
-> +                       .source = "SDB",
->                 },
+> +static int sma1303_resume(struct snd_soc_component *component)
+> +{
+> +	return 0;
+> +}
+> +#else
+> +#define sma1303_suspend NULL
+> +#define sma1303_resume NULL
+> +#endif
+
+Just remove the suspend/resume operations if they're not implemented.
+
+> +static int sma1303_probe(struct snd_soc_component *component)
+> +{
+> +	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
+> +	struct snd_soc_dapm_context *dapm =
+> +		snd_soc_component_get_dapm(component);
+> +	char *dapm_widget_str = NULL;
+> +	int prefix_len = 0, str_max = 30, ret = 0, i = 0;
+> +	unsigned int status, otp_stat;
 > +
->         };
->         int ret;
->
->         dapm = snd_soc_component_get_dapm(dai->component);
-> -       ret = snd_soc_dapm_add_routes(dapm, route, 2);
-> +       ret = snd_soc_dapm_add_routes(dapm, route, ARRAY_SIZE(route));
->         if (ret)
->                 return ret;
->
-> --
-> 2.18.0
->
+> +	if (component->name_prefix != NULL) {
+> +		dev_info(component->dev, "%s : component name prefix - %s\n",
+> +			__func__, component->name_prefix);
+> +
+> +		prefix_len = strlen(component->name_prefix);
+> +		dapm_widget_str = kzalloc(prefix_len + str_max, GFP_KERNEL);
+> +
+> +		if (!dapm_widget_str) {
+> +			kfree(dapm_widget_str);
+> +			return -ENOMEM;
+> +		}
+
+The core will handle prefixing for you, no need for the driver to do
+anything.
+
+> +	ret += sma1303_regmap_update_bits(
+> +			sma1303->regmap, component->dev,
+> +			SMA1303_00_SYSTEM_CTRL,
+> +			RESETBYI2C_MASK, RESETBYI2C_RESET);
+> +
+> +	ret += regmap_read(sma1303->regmap, SMA1303_FF_DEVICE_INDEX, &status);
+> +	if (ret < 0) {
+> +		dev_err(sma1303->dev,
+> +			"failed to read, register: %02X, ret: %d\n",
+> +				SMA1303_FF_DEVICE_INDEX, ret);
+> +		return ret;
+> +	}
+> +	sma1303->rev_num = status & REV_NUM_STATUS;
+> +	if (sma1303->rev_num == REV_NUM_TV0)
+> +		dev_info(component->dev, "SMA1303 Trimming Version 0\n");
+> +	else if (sma1303->rev_num == REV_NUM_TV1)
+> +		dev_info(component->dev, "SMA1303 Trimming Version 1\n");
+
+Move all this basic enumeration stuff to the device level probe, no need
+to repeat it every time the card probes and if there's any problem it's
+better to fail early.
+
+> +	for (i = 0; i < (unsigned int)ARRAY_SIZE(sma1303_reg_def); i++)
+> +		ret += sma1303_regmap_write(
+> +				sma1303->regmap, component->dev,
+> +				sma1303_reg_def[i].reg,
+> +				sma1303_reg_def[i].def);
+
+Why are we writing out the defaults, if there's a reason it needs a
+comment?  Also the cast on the ARRAY_SIZE() is weird.
+
+> +
+> +	ret += sma1303_regmap_write(sma1303->regmap, component->dev,
+> +			SMA1303_0A_SPK_VOL, sma1303->init_vol);
+
+Let userspace configure volumes, the driver shouldn't have any defaults
+separate to that especially not configurable ones.
+
+> +static struct attribute *sma1303_attr[] = {
+> +	&dev_attr_check_fault_period.attr,
+> +	&dev_attr_check_fault_status.attr,
+> +	NULL,
+> +};
+> +
+> +static struct attribute_group sma1303_attr_group = {
+> +	.attrs = sma1303_attr,
+> +};
+
+If this is configurable it'd be better to expose it via ALSA controls,
+though for things like the poll interval it's not clear to me why we'd
+make it configurable.
+
+> +	dev_info(&client->dev, "%s is here. Driver version REV018\n", __func__);
+
+We don't version drivers separately to the kernel upstream, it's
+something that generally looses all meaning.
+
+> +static int __init sma1303_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = i2c_add_driver(&sma1303_i2c_driver);
+> +
+> +	if (ret)
+> +		pr_err("Failed to register sma1303 I2C driver: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static void __exit sma1303_exit(void)
+> +{
+> +	i2c_del_driver(&sma1303_i2c_driver);
+> +}
+> +
+> +module_init(sma1303_init);
+> +module_exit(sma1303_exit);
+
+module_i2c_driver()
+
+--5nQpPhQWL85bRBfL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOGPCUACgkQJNaLcl1U
+h9AV6Qf/UvWRYWStRvj1Fja1iB1YOpOKUCmETRdjiNekGOTYMfC0fCWnzCGZYane
+v1IutS8N63kGS7djegxj7xi8KA9MHPH7Ed0pSeZQMhfz8ejbFnXRc7oUSvf6vEpg
+m7fgZBEGH32fei5er4lRM9gCfOCHuih9aG8pPMyjaI5fixsOKW1mN7oOu5ATvLbZ
+vdC50oJdWz6npSZY97EcccvehbuYEu/FExvVFKj6j+gm+VpKt3jleHK5c8CxMUhU
+VPrrx5699ct3ldEoapUqiiRKS5hKUWcMOFfOLhXb579U0I9yelxUxPVB/G8Pv5rM
+Jo3f6j7giPsWob2PXGFw3lvfRJxLqw==
+=d2vY
+-----END PGP SIGNATURE-----
+
+--5nQpPhQWL85bRBfL--

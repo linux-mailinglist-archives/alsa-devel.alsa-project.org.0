@@ -2,85 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E867363B631
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 00:58:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB0E863B676
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 01:18:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75ADA168F;
-	Tue, 29 Nov 2022 00:57:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75ADA168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 794A51695;
+	Tue, 29 Nov 2022 01:17:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 794A51695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669679915;
-	bh=Tvb04B8qulmmO4t/XjT4/PPN4xjLoCXvhvef9ekUxIA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c0qcFB+4MQI1oN0ucDf4tIYoeHpneb1IzanNSSc0pqj+pv9HvdUVqqda9MYPDFDzW
-	 lgdGL3hFC5JpOne450Fg1x44LUIPgP40kGaOA81SuCfZ9DAGqutj4gQtzZhuQuYLtU
-	 d3yh1uaGed717ZD4+Q+k0PwS+kD/Np0GJNCuoM1Q=
+	s=default; t=1669681083;
+	bh=x5J8+kLqLXIzYjvfw1LhMuIeGhJTWDs2YXkaYMfwO6U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l5qXbIHU6VHSncQifebi+uFs6DmGHQEPGUImH/AwBJC3KKY4y61yDe9jXUR25jWR1
+	 2bJfvUZbbrxtd2ktACt8ur0jk8WjaVMKz18VO2GDaResAUkeuHyIDGlhcA3nCiZSxH
+	 vzWfKGNrdOgu7UwGb6o+Qp4Qogrptd9M4Ngba1N0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1A02F800B6;
-	Tue, 29 Nov 2022 00:57:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F13D0F8024C;
+	Tue, 29 Nov 2022 01:17:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48092F8020D; Tue, 29 Nov 2022 00:57:38 +0100 (CET)
+ id 17861F8020D; Tue, 29 Nov 2022 01:17:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=FSL_HELO_FAKE,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
- [209.85.166.174])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF515F800B6
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 00:57:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF515F800B6
-Received: by mail-il1-f174.google.com with SMTP id bp12so5854754ilb.9
- for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 15:57:31 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E198EF80166
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 01:16:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E198EF80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="DQs1Hqu7"
+Received: by mail-io1-xd29.google.com with SMTP id h206so8935373iof.10
+ for <alsa-devel@alsa-project.org>; Mon, 28 Nov 2022 16:16:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gA7jpYl6yV6P4juXicdMOmof7r1j/N5hUrukqrPzGdk=;
+ b=DQs1Hqu73bNAJW0k4CHMP/GFzfmwIUvzkUhQZaJ16ASZJ+TVA84Uz1ZP4lfZD1yEpm
+ KGFsQvcP4ne79puTyiCDAu2YusMevht3J9nQCgk5pWCogA/prSxN+g1dt8YrLpRHll0O
+ 8D3SjMY5yHIP9U9huqa3c15zkiE1NJbD9ihwE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=x00pKbn9+H6xDvVmnJr0fVpmzLwRZcBMKb+33fEVyHU=;
- b=oiyPoDHXSnIjC856nhazNLmkf5x6iDziIpOgQ2dYdx960dHb7G9xt8PnWm5STIwCIw
- TVRBu9Gi8TP0y/WihEGuriyGBddimuSD5LM4WPVN+YXuOzrCI9AQzyqN6JDCD0DQhuVc
- BMYHtdAQE04dFWQiHEUXTjzqIR1X88Li0VxxKeocrWk+KWtCEskSrzMN3v38rZPx0rZI
- QRhNNMmgZPJtTHP/KWvNl1Y5NqaeJDe6ZRIwFPYA4TBV/557jMkRNNh2gCki++M6n6Zi
- B+KYXSF1eLUQilK9lgIuKt0kC2wu69ielaMpWYRQT8Qb8XSfeJWx2ooqYBHrtLAZXDHk
- NqMw==
-X-Gm-Message-State: ANoB5plomKYn+wMJC2bi7t5rr5d0BJOTWg6ctwQaBIT/oq3vPcon7inK
- V2elo7KaoalB8S4skLvZ7BnU3g==
-X-Google-Smtp-Source: AA0mqf5SlAkoGQ/TCkMXOmL4n4pQuC48iVJEBauxfEbjXjep4YjY3Xye9sciBmjr3kykO/yVPeMpjA==
-X-Received: by 2002:a05:6e02:4ac:b0:303:395:7359 with SMTP id
- e12-20020a056e0204ac00b0030303957359mr5806045ils.253.1669679849932; 
- Mon, 28 Nov 2022 15:57:29 -0800 (PST)
-Received: from google.com (30.23.70.34.bc.googleusercontent.com. [34.70.23.30])
- by smtp.gmail.com with ESMTPSA id
- n2-20020a027142000000b003585ff0233asm4799183jaf.150.2022.11.28.15.57.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Nov 2022 15:57:29 -0800 (PST)
-Date: Mon, 28 Nov 2022 23:57:26 +0000
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gA7jpYl6yV6P4juXicdMOmof7r1j/N5hUrukqrPzGdk=;
+ b=LMYXIa1PJ93f7ddE0OW+lt9HRea0wvvrTkEXEtNVIbn3WUchRhDy3GBAGF7A0tt0pK
+ 9LkMZ7or20nH88BJtB802YPHVm2Bg7c/MPQFN+2Cuao3iKT8piCdD+EvqTfpIu2J6hsX
+ eLXfJPDus1MDT140dY7SoyCHZLJaV9sMTmgwTmwmOAZZR5uH6dtTQDelQF0XHWbC962u
+ 6EXlnp1e/FMDRc2lIYx8z9XXC7oTcXYIw2bLQxjk4uz1yGv9E0DSxWekD60RK5eDhlY5
+ ZD7JDxdfiRtTX6hSWcAmh0k1/cCyhaZNkBRPiY5qGg4qQZR4SMjwgVWKpyV43AJDYz1L
+ DXhQ==
+X-Gm-Message-State: ANoB5pn6JPw3QgkH3iIze8gUhMokepRi2MP6AnhHvgtL12ZVuWhT8YII
+ ekimUrvCEh3au74PcIzpQBmbSw==
+X-Google-Smtp-Source: AA0mqf5O/zpf9bI5X01LNRcc5En7D9DRQc+o4PEsnb6Zkk3bOUWAm6FvBfwZDdw+4jQexdhSlJqa/Q==
+X-Received: by 2002:a05:6638:535:b0:375:b7f:daec with SMTP id
+ j21-20020a056638053500b003750b7fdaecmr6888722jar.154.1669681017666; 
+ Mon, 28 Nov 2022 16:16:57 -0800 (PST)
+Received: from localhost (30.23.70.34.bc.googleusercontent.com. [34.70.23.30])
+ by smtp.gmail.com with UTF8SMTPSA id
+ m12-20020a02a14c000000b003636cb862d0sm4884318jah.42.2022.11.28.16.16.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Nov 2022 16:16:57 -0800 (PST)
 From: Matthias Kaehlcke <mka@chromium.org>
-To: Doug Anderson <dianders@chromium.org>
-Subject: Re: [PATCH 2/2] ASoC: qcom: lpass-sc7180: Return 0 instead of 'ret'
- at the end of _resume()
-Message-ID: <Y4VK5ijXW7Kqnfjn@google.com>
-References: <20221128221152.1.Ia805c688ee968fbbec7b93dc10742876fdef8024@changeid>
- <20221128221152.2.I8d1993f41f0da1eac0ecba321678ac489f9c0b9b@changeid>
- <CAD=FV=Uf3JiNf=339ktULYSUjreRU2k_tR2Q=LSNb+u-U4hQ6A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=Uf3JiNf=339ktULYSUjreRU2k_tR2Q=LSNb+u-U4hQ6A@mail.gmail.com>
-Cc: Judy Hsiao <judyhsiao@google.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ASoC: qcom: lpass-sc7180: Delete redundant error log from
+ _resume()
+Date: Tue, 29 Nov 2022 00:16:54 +0000
+Message-Id: <20221129001633.v2.1.I8d1993f41f0da1eac0ecba321678ac489f9c0b9b@changeid>
+X-Mailer: git-send-email 2.38.1.584.g0f3c55d4c2-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Judy Hsiao <judyhsiao@google.com>,
+ Banajit Goswami <bgoswami@codeaurora.org>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Douglas Anderson <dianders@chromium.org>,
+ Matthias Kaehlcke <mka@chromium.org>,
  Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,63 +104,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 28, 2022 at 02:48:28PM -0800, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Nov 28, 2022 at 2:12 PM Matthias Kaehlcke <mka@chromium.org> wrote:
-> >
-> > sc7180_lpass_dev_resume() returns 'ret' at the end of the function,
-> > where 'ret' is always 0. Just return 0 to make it plain obvious that
-> > this is always the success path.
-> >
-> > Also add an empty line between the error handling path and the
-> > return.
-> >
-> > Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-> > ---
-> >
-> >  sound/soc/qcom/lpass-sc7180.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-> > index 7a81e609727c..30a28e3152cb 100644
-> > --- a/sound/soc/qcom/lpass-sc7180.c
-> > +++ b/sound/soc/qcom/lpass-sc7180.c
-> > @@ -173,7 +173,8 @@ static int sc7180_lpass_dev_resume(struct device *dev)
-> >                 dev_err(dev, "sc7180 clk prepare and enable failed\n");
-> >                 return ret;
-> >         }
-> > -       return ret;
-> > +
-> > +       return 0;
-> 
-> Yeah, I noticed this too when I was approving your pick. FWIW, I
-> probably would have written this way, but it's 6 of one and half dozen
-> of the other:
-> 
-> if (ret)
->   dev_err(dev, ...);
-> return ret;
+sc7180_lpass_dev_resume() logs an error if clk_bulk_prepare_enable()
+fails. The clock framework already generates error logs if anything
+goes wrong, so the logging in _resume() is redundant, drop it.
 
-Yeah, I was considering this too, either is fine IMO :)
+Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+---
 
-> ...but I just dug a tiny bit deeper and actually, there's no need for
-> the error print here and it's just wasteful. clk_bulk_prepare_enable()
-> already prints errors for you. So really this whole function could
-> just be:
-> 
-> struct lpass_data *drvdata = dev_get_drvdata(dev);
-> return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+Changes in v2:
+- removed the log in the error path (requested by Doug)
+- updated subject (was "ASoC: qcom: lpass-sc7180: Return 0 instead
+  of 'ret' at the end of _resume()") and commit message
 
-Right, the log isn't really needed if clk_bulk_prepare_enable() already
-logs errors. I'll adjust the patch accordingly, and drop the first one
-since 'ret' is going away.
+ sound/soc/qcom/lpass-sc7180.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-> I guess theoretically one could even go further and look at pm_clk,
-> but perhaps that's overboard.
+diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+index 6ad1c5b5f2de..db3be15cf14c 100644
+--- a/sound/soc/qcom/lpass-sc7180.c
++++ b/sound/soc/qcom/lpass-sc7180.c
+@@ -162,15 +162,9 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
+ 
+ static int sc7180_lpass_dev_resume(struct device *dev)
+ {
+-	int ret = 0;
+ 	struct lpass_data *drvdata = dev_get_drvdata(dev);
+ 
+-	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+-	if (ret) {
+-		dev_err(dev, "sc7180 clk prepare and enable failed\n");
+-		return ret;
+-	}
+-	return ret;
++	return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+ }
+ 
+ static int sc7180_lpass_dev_suspend(struct device *dev)
+-- 
+2.38.1.584.g0f3c55d4c2-goog
 
-Maybe let's leave that for another iteration :)
-
-Thanks for the review!
-
-m.

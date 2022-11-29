@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4007863BE3B
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 11:48:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E32B63BE48
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 11:54:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC05C164D;
-	Tue, 29 Nov 2022 11:47:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC05C164D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D793A16BB;
+	Tue, 29 Nov 2022 11:53:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D793A16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669718888;
-	bh=zRWis2Rb3tSuAZMFC95CO7QVeTvxLvvvIRtUELeKLHk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1669719266;
+	bh=aYZ4/diRmYfTVwQVwka9YG6YN5W5wVGCScqdXSK42es=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tyc91qpjpSkM+F3EzCkUjYq1enR2i/F2t0X2XuG8FcF3uBh6bB358ExqhYL1i9cRM
-	 HXLT8oi71nrCjpxijeBbe36+jSmG5UD7Jx0gV2DP6Vf3xVzOQ1NVt162dKmJfdVoDj
-	 XkIkazo3IHGtUZlhaNO1CBy2NyDQLJSM4Ijp5lnU=
+	b=JArauomnssokfhSNPDyvk6VTvPrLx4Z+Y/cnXy5N7Tkls3CYC8rDsGHYi4l02kTJ+
+	 WAf4FkBmEpbZQiMkDa4h5bEeFQmXN5xlixJi5gAeQ6e1YjzPNOrxCLxGEnWLJFOe7R
+	 vCr2IPIihAXQK1H00PaNoeOr9M6NJzGu7K+mEPbs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69425F80212;
-	Tue, 29 Nov 2022 11:47:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F918F80212;
+	Tue, 29 Nov 2022 11:53:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A593DF801F7; Tue, 29 Nov 2022 11:47:12 +0100 (CET)
+ id 44F9BF801F7; Tue, 29 Nov 2022 11:53:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,PRX_BODY_76,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24E11F80137
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 11:47:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24E11F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="DuY8md47"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2ATAMhQk001998; Tue, 29 Nov 2022 04:47:07 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=CMHRDKTEunINPo71b13+tNusCsC0jxBYJhiaETYoUJo=;
- b=DuY8md47tso5kvSNNyb91PSw1WdCQ+bZOCOmrXxy3EzEQoqS9uwVnUemIsMo8THdZgWq
- hLX5B7r/u6sO9lSwZM7wtvA7IZJMai8Bag8kR0tFd65jfYo8UL0Z60nxkgSdOHwP6Va1
- i0X1jznhz/gWaYIaEtYvKLtR4ylii6YrAEN3c7SgzWj0bNs6odNQDPz8nemxEwK8r7WY
- U4nK8h1+bJV5ZF6082ZRPBEbTW4QZIlMUJ9BjE5XZftWkeh3S0SSYx2RQxKMcTREnPYX
- koohuD64X1GZ5Kofyh4waCGC2N3Ea6Hix/95WpnzR6Q3d9vKJJH/yN6ZW03gIkGRU4ws ng== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3m5g9200yt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Nov 2022 04:47:06 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Tue, 29 Nov
- 2022 04:47:05 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Tue, 29 Nov 2022 04:47:05 -0600
-Received: from [198.90.251.111] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.111])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E2483B10;
- Tue, 29 Nov 2022 10:47:04 +0000 (UTC)
-Message-ID: <ea8c3ce8-b625-d70a-07f9-4470aec2cb17@opensource.cirrus.com>
-Date: Tue, 29 Nov 2022 10:47:04 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 031C4F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 11:53:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 031C4F80137
+Received: by mail-qv1-f54.google.com with SMTP id a17so7657235qvt.9
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 02:53:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=byCqNO9wNjp3bMa2bdQ4RMa3BFEO/vUEjR67iUdLdSk=;
+ b=eULYUuO4gU2fefQKG4m0A9fru6l2BMBZkjQPjmzx40d1X4ey6hf9EnEk+O8EQH+Zv/
+ oe+6hI5DNagQmuU7/fEN9VfAYiS1WBG7ECjr7iRd35+cMpNDCaqRrIUpe54qFX1n2MfX
+ D95Cv0BIhd1QmSgXDn9tEryfjvv/vzb/zbhzv6pSdy7hT3nSLNldMUbLamjec64PrajB
+ PeL0VNDVb5Q0G9Pvx0HiCDwcJrfhmyXAY5xH95kYQbtJojtORfyd0i5DjVoISKn3gHlg
+ 8vy02hTkp9jE19TkxdEm4e3RJdnV8BzDFKQMGBYjssw/AarTYgFqqx3xWVw7EG27+oXl
+ 2ypQ==
+X-Gm-Message-State: ANoB5pkz+MjCaONnqRxtZUndTU6lgCJMxWIme3pNeEKlRmgstni5yW8a
+ 2IipNEJkTL6zz0QyLoBCURK6GTO9cXkkIA==
+X-Google-Smtp-Source: AA0mqf57quo+h983i1jLExHfap5im/QVZpa2DlyK9UlnumjaL3DtQxz8H160ORGrsAWRCGlpl+PtJA==
+X-Received: by 2002:a05:6214:a61:b0:4bb:746b:b643 with SMTP id
+ ef1-20020a0562140a6100b004bb746bb643mr33474883qvb.19.1669719203377; 
+ Tue, 29 Nov 2022 02:53:23 -0800 (PST)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com.
+ [209.85.128.172]) by smtp.gmail.com with ESMTPSA id
+ cf22-20020a05622a401600b0039cc47752casm8384767qtb.77.2022.11.29.02.53.22
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Nov 2022 02:53:23 -0800 (PST)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-3bfd998fa53so81687487b3.5
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 02:53:22 -0800 (PST)
+X-Received: by 2002:a05:690c:b81:b0:37e:6806:a5f9 with SMTP id
+ ck1-20020a05690c0b8100b0037e6806a5f9mr36739244ywb.47.1669719202235; Tue, 29
+ Nov 2022 02:53:22 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH] soundwire: bus_type: Avoid lockdep assert in
- sdw_drv_probe()
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <sanyog.r.kale@intel.com>
-References: <20221121162453.1834170-1-rf@opensource.cirrus.com>
- <2d207a51-d415-726b-3bc1-8788df2f06fd@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <2d207a51-d415-726b-3bc1-8788df2f06fd@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 4sidqpR4KEjP7fvhBtiiqglQJoYDPJVH
-X-Proofpoint-ORIG-GUID: 4sidqpR4KEjP7fvhBtiiqglQJoYDPJVH
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+References: <1669621742-28524-1-git-send-email-quic_srivasam@quicinc.com>
+ <CAMuHMdUBojHkaAPsjOEadfaikth+L0R_NrKzvqXrmZS9Kc5zHw@mail.gmail.com>
+ <3b00c04c-cb6d-9e9a-ba0c-0ce093b4a3fb@quicinc.com>
+In-Reply-To: <3b00c04c-cb6d-9e9a-ba0c-0ce093b4a3fb@quicinc.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 29 Nov 2022 11:53:10 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUfRJmy56eO=ET-Togg-EOgxSjnTgAUYWmixD_zVonipA@mail.gmail.com>
+Message-ID: <CAMuHMdUfRJmy56eO=ET-Togg-EOgxSjnTgAUYWmixD_zVonipA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add system suspend/resume PM ops
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
+ quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -106,283 +104,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28/11/2022 17:18, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 11/21/22 10:24, Richard Fitzgerald wrote:
->> Don't hold sdw_dev_lock while calling the peripheral driver
->> probe() and remove() callbacks.
->>
->> Holding sdw_dev_lock around the probe() and remove() calls
->> causes a theoretical mutex inversion which lockdep will
->> assert on. The peripheral driver probe will probably register
->> a soundcard, which will take ALSA and ASoC locks. During
-> 
-> It's extremely unlikely that a peripheral driver would register a sound
-> card, this is what machine drivers do.
-> 
-> Which leads me to the question: is this a real problem?
-> 
+Hi Srinivasa,
 
-Yes, try turning on lockdep checking and you will get an assert.
-During probe the existing code takes sdw_dev_lock and then calls the
-codec driver probe, so you will get a mutex sequence like:
+On Tue, Nov 29, 2022 at 11:36 AM Srinivasa Rao Mandadapu
+<quic_srivasam@quicinc.com> wrote:
+> On 11/29/2022 1:23 PM, Geert Uytterhoeven wrote:
+> > On Mon, Nov 28, 2022 at 8:50 AM Srinivasa Rao Mandadapu
+> > <quic_srivasam@quicinc.com> wrote:
+> >> Update lpass sc7180 platform driver with PM ops, such as
+> >> system supend and resume callbacks.
+> >> This update is required to disable clocks during supend and
+> >> avoid XO shutdown issue.
+> >>
+> >> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> >> Tested-by: Rahul Ajmeriya <quic_rajmeriy@quicinc.com>
+> > Thanks for your patch, which is now commit 2d68148f8f85ca5a ("ASoC:
+> > qcom: lpass-sc7180: Add system suspend/resume PM ops") in next-20221129.
+> >
+> >> --- a/sound/soc/qcom/lpass-sc7180.c
+> >> +++ b/sound/soc/qcom/lpass-sc7180.c
+> >> @@ -12,6 +12,7 @@
+> >>   #include <linux/module.h>
+> >>   #include <linux/of.h>
+> >>   #include <linux/platform_device.h>
+> >> +#include <linux/pm_runtime.h>
+> >>   #include <dt-bindings/sound/sc7180-lpass.h>
+> >>   #include <sound/pcm.h>
+> >>   #include <sound/soc.h>
+> >> @@ -156,10 +157,34 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
+> >>          struct lpass_data *drvdata = platform_get_drvdata(pdev);
+> >>
+> >>          clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int sc7180_lpass_dev_resume(struct device *dev)
+> >> +{
+> >> +       int ret = 0;
+> >> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
+> >>
+> >> +       ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+> >> +       if (ret) {
+> >> +               dev_err(dev, "sc7180 clk prepare and enable failed\n");
+> >> +               return ret;
+> >> +       }
+> >> +       return ret;
+> >> +}
+> >> +
+> >> +static int sc7180_lpass_dev_suspend(struct device *dev)
+> >> +{
+> >> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
+> >> +
+> >> +       clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> >>          return 0;
+> >>   }
+> > noreply@ellerman.id.au reports for e.g. m68k-allmodconfig:
+> >
+> >      sound/soc/qcom/lpass-sc7180.c:179:12: error:
+> > 'sc7180_lpass_dev_suspend' defined but not used
+> > [-Werror=unused-function]
+> >      sound/soc/qcom/lpass-sc7180.c:166:12: error:
+> > 'sc7180_lpass_dev_resume' defined but not used
+> > [-Werror=unused-function]
+> >
+> >> +static const struct dev_pm_ops sc7180_lpass_pm_ops = {
+> >> +       SET_SYSTEM_SLEEP_PM_OPS(sc7180_lpass_dev_suspend, sc7180_lpass_dev_resume)
+> >> +};
+> > Please use DEFINE_SIMPLE_DEV_PM_OPS()...
+> Actually, we need to use this patch in in previous kernels 5.4 and 5.15.
+> I think these changes won't apply on previous kernel.
+> Hence ignoring for now and will take care next time.
 
-sdw_dev_lock -> controls_rw_sem -> pcm_mutex
+In that case you should add __maybe_unused tags to
+sc7180_lpass_dev_suspend() and sc7180_lpass_dev_resume() first, so it
+can be backported to 5.4 and 5.15, and do the DEFINE_SIMPLE_DEV_PM_OPS()
+conversion later.
 
-but in normal operation the ALSA/ASoC code will take its mutexes first
-and call runtime_resume which then takes the sdw_dev_lock, so you get
+Gr{oetje,eeting}s,
 
-pcm_mutex -> sdw_dev_lock
+                        Geert
 
-and lockdep will assert on that opposite ordering.
-The full assert is at the end of this email.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> Or did you mean 'register components', and if yes what would the problem
-> with lockdep be?
-> 
-
-Argh. Yes, I meant snd_soc_register_component(). I'll re-send this with
-the comment fixed.
-
->> normal operation a runtime resume suspend can be triggered
->> while these locks are held and will then take sdw_dev_lock.
->>
->> It's not necessary to hold sdw_dev_lock when calling the
->> probe() and remove(), it is only used to prevent the bus core
->> calling the driver callbacks if there isn't a driver or the
->> driver is removing.
-> 
-> 
->> If sdw_dev_lock is held while setting and clearing the
->> 'probed' flag this is sufficient to guarantee the safety of
->> callback functions.
-> 
-> not really, the 'probed' flag was kept for convenience. what this lock
-> really protects is the dereferencing of ops after the driver .remove
-> happens.
-> 
-
-Yes, I thought about removing it but that's a larger code change that's
-not necessary for the fix. The point is that we don't need to hold the
-mutex around the remove call, only around clearing 'probed' (or, if
-probed was removed, NULLing the callback pointers)
-
->> The potential race of a bus event happening while probe() is
->> executing is the same as the existing race of the bus event
->> handler taking the mutex first and processing the event
->> before probe() can run. In both cases the event has already
->> happened before the driver is probed and ready to accept
->> callbacks.
-> 
-> Sorry, I wasn't able to parse the first sentence in this paragraph. what
-> 'existing race' are you referring to?
-> 
-
-I will re-write that. The point was that without the lock the probe()
-can run in parallel with a status update. But that is already a race
-with the existing code because the status update could take the
-sdw_dev_lock first. So I think that this change isn't introducing any
-new races.
-
-The lockdep assert looks like this:
-[   46.098514] ======================================================
-[   46.104736] WARNING: possible circular locking dependency detected
-[   46.110961] 6.1.0-rc4-jamerson #1 Tainted: G            E
-[   46.116842] ------------------------------------------------------
-[   46.123063] mpg123/1130 is trying to acquire lock:
-[   46.127883] ffff8b445031fb80 (&slave->sdw_dev_lock){+.+.}-{3:3}, at: 
-sdw_update_slave_status+0x26/0x70
-[   46.137225]
-                but task is already holding lock:
-[   46.143074] ffffffffc1455310 (&card->pcm_mutex){+.+.}-{3:3}, at: 
-dpcm_fe_dai_open+0x49/0x830
-[   46.151536]
-                which lock already depends on the new lock.[   46.159732]
-                the existing dependency chain (in reverse order) is:
-[   46.167231]
-                -> #4 (&card->pcm_mutex){+.+.}-{3:3}:
-[   46.173428]        __mutex_lock+0x94/0x920
-[   46.177542]        snd_soc_dpcm_runtime_update+0x2e/0x100
-[   46.182958]        snd_soc_dapm_put_enum_double+0x1c2/0x200
-[   46.188548]        snd_ctl_elem_write+0x10c/0x1d0
-[   46.193268]        snd_ctl_ioctl+0x126/0x850
-[   46.197556]        __x64_sys_ioctl+0x87/0xc0
-[   46.201845]        do_syscall_64+0x38/0x90
-[   46.205959]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.211553]
-                -> #3 (&card->controls_rwsem){++++}-{3:3}:
-[   46.218188]        down_write+0x2b/0xd0
-[   46.222038]        snd_ctl_add_replace+0x39/0xb0
-[   46.226672]        snd_soc_add_controls+0x53/0x80
-[   46.231393]        soc_probe_component+0x1e4/0x2a0
-[   46.236202]        snd_soc_bind_card+0x51a/0xc80
-[   46.240836]        devm_snd_soc_register_card+0x43/0x90
-[   46.246079]        mc_probe+0x982/0xfe0 [snd_soc_sof_sdw]
-[   46.251500]        platform_probe+0x3c/0xa0
-[   46.255700]        really_probe+0xde/0x390
-[   46.259814]        __driver_probe_device+0x78/0x180
-[   46.264710]        driver_probe_device+0x1e/0x90
-[   46.269347]        __driver_attach+0x9f/0x1f0
-[   46.273721]        bus_for_each_dev+0x78/0xc0
-[   46.278098]        bus_add_driver+0x1ac/0x200
-[   46.282473]        driver_register+0x8f/0xf0
-[   46.286759]        do_one_initcall+0x58/0x310
-[   46.291136]        do_init_module+0x4c/0x1f0
-[   46.295422]        __do_sys_finit_module+0xb4/0x130
-[   46.300321]        do_syscall_64+0x38/0x90
-[   46.304434]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.310027]
-                -> #2 (&card->mutex){+.+.}-{3:3}:
-[   46.315883]        __mutex_lock+0x94/0x920
-[   46.320000]        snd_soc_bind_card+0x3e/0xc80
-[   46.324551]        devm_snd_soc_register_card+0x43/0x90
-[   46.329798]        mc_probe+0x982/0xfe0 [snd_soc_sof_sdw]
-[   46.335219]        platform_probe+0x3c/0xa0
-[   46.339420]        really_probe+0xde/0x390
-[   46.343532]        __driver_probe_device+0x78/0x180
-[   46.348430]        driver_probe_device+0x1e/0x90
-[   46.353065]        __driver_attach+0x9f/0x1f0
-[   46.357437]        bus_for_each_dev+0x78/0xc0
-[   46.361812]        bus_add_driver+0x1ac/0x200
-[   46.366716]        driver_register+0x8f/0xf0
-[   46.371528]        do_one_initcall+0x58/0x310
-[   46.376424]        do_init_module+0x4c/0x1f0
-[   46.381239]        __do_sys_finit_module+0xb4/0x130
-[   46.386665]        do_syscall_64+0x38/0x90
-[   46.391299]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.397416]
-                -> #1 (client_mutex){+.+.}-{3:3}:
-[   46.404307]        __mutex_lock+0x94/0x920
-[   46.408941]        snd_soc_add_component+0x24/0x2c0
-[   46.414345]        devm_snd_soc_register_component+0x54/0xa0
-[   46.420522]        cs35l56_common_probe+0x280/0x370 [snd_soc_cs35l56]
-[   46.427487]        cs35l56_sdw_probe+0xf4/0x170 [snd_soc_cs35l56_sdw]
-[   46.434442]        sdw_drv_probe+0x80/0x1a0
-[   46.439136]        really_probe+0xde/0x390
-[   46.443738]        __driver_probe_device+0x78/0x180
-[   46.449120]        driver_probe_device+0x1e/0x90
-[   46.454247]        __driver_attach+0x9f/0x1f0
-[   46.459106]        bus_for_each_dev+0x78/0xc0
-[   46.463971]        bus_add_driver+0x1ac/0x200
-[   46.468825]        driver_register+0x8f/0xf0
-[   46.473592]        do_one_initcall+0x58/0x310
-[   46.478441]        do_init_module+0x4c/0x1f0
-[   46.483202]        __do_sys_finit_module+0xb4/0x130
-[   46.488572]        do_syscall_64+0x38/0x90
-[   46.493158]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.499229]
-                -> #0 (&slave->sdw_dev_lock){+.+.}-{3:3}:
-[   46.506737]        __lock_acquire+0x1121/0x1df0
-[   46.511765]        lock_acquire+0xd5/0x300
-[   46.516360]        __mutex_lock+0x94/0x920
-[   46.520949]        sdw_update_slave_status+0x26/0x70
-[   46.526409]        sdw_clear_slave_status+0xd8/0xe0
-[   46.531783]        intel_resume_runtime+0x139/0x2a0
-[   46.537155]        __rpm_callback+0x41/0x120
-[   46.541919]        rpm_callback+0x5d/0x70
-[   46.546422]        rpm_resume+0x531/0x7e0
-[   46.550920]        __pm_runtime_resume+0x4a/0x80
-[   46.556024]        snd_soc_pcm_component_pm_runtime_get+0x2f/0xc0
-[   46.562611]        __soc_pcm_open+0x62/0x520
-[   46.567375]        dpcm_be_dai_startup+0x116/0x210
-[   46.572661]        dpcm_fe_dai_open+0xf7/0x830
-[   46.577597]        snd_pcm_open_substream+0x54a/0x8b0
-[   46.583145]        snd_pcm_open.part.0+0xdc/0x200
-[   46.588341]        snd_pcm_playback_open+0x51/0x80
-[   46.593625]        chrdev_open+0xc0/0x250
-[   46.598129]        do_dentry_open+0x15f/0x430
-[   46.602981]        path_openat+0x75e/0xa80
-[   46.607575]        do_filp_open+0xb2/0x160
-[   46.612162]        do_sys_openat2+0x9a/0x160
-[   46.616922]        __x64_sys_openat+0x53/0xa0
-[   46.621767]        do_syscall_64+0x38/0x90
-[   46.626352]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.632414]
-                other info that might help us debug this:[   46.641862] 
-Chain exists of:
-                  &slave->sdw_dev_lock --> &card->controls_rwsem --> 
-&card->pcm_mutex[   46.655145]  Possible unsafe locking scenario:[   
-46.662048]        CPU0                    CPU1
-[   46.667080]        ----                    ----
-[   46.672108]   lock(&card->pcm_mutex);
-[   46.676267]                                lock(&card->controls_rwsem);
-[   46.683382]                                lock(&card->pcm_mutex);
-[   46.690063]   lock(&slave->sdw_dev_lock);
-[   46.694574]
-                 *** DEADLOCK ***[   46.701942] 2 locks held by mpg123/1130:
-[   46.706356]  #0: ffff8b4457b22b90 (&pcm->open_mutex){+.+.}-{3:3}, at: 
-snd_pcm_open.part.0+0xc9/0x200
-[   46.715999]  #1: ffffffffc1455310 (&card->pcm_mutex){+.+.}-{3:3}, at: 
-dpcm_fe_dai_open+0x49/0x830
-[   46.725390]
-                stack backtrace:
-[   46.730752] CPU: 0 PID: 1130 Comm: mpg123 Tainted: G            E     
-  6.1.0-rc4-jamerson #1
-[   46.739703] Hardware name: AAEON UP-WHL01/UP-WHL01, BIOS UPW1AM19 
-11/10/2020
-[   46.747270] Call Trace:
-[   46.750239]  <TASK>
-[   46.752857]  dump_stack_lvl+0x56/0x73
-[   46.757045]  check_noncircular+0x102/0x120
-[   46.761664]  __lock_acquire+0x1121/0x1df0
-[   46.766197]  lock_acquire+0xd5/0x300
-[   46.770292]  ? sdw_update_slave_status+0x26/0x70
-[   46.775432]  ? lock_is_held_type+0xe2/0x140
-[   46.780143]  __mutex_lock+0x94/0x920
-[   46.784241]  ? sdw_update_slave_status+0x26/0x70
-[   46.789387]  ? find_held_lock+0x2b/0x80
-[   46.793750]  ? sdw_update_slave_status+0x26/0x70
-[   46.798894]  ? lock_release+0x147/0x2f0
-[   46.803262]  ? lockdep_init_map_type+0x47/0x250
-[   46.808315]  ? sdw_update_slave_status+0x26/0x70
-[   46.813456]  sdw_update_slave_status+0x26/0x70
-[   46.818422]  sdw_clear_slave_status+0xd8/0xe0
-[   46.823302]  ? pm_generic_runtime_suspend+0x30/0x30
-[   46.828706]  intel_resume_runtime+0x139/0x2a0
-[   46.833583]  ? _raw_spin_unlock_irq+0x24/0x50
-[   46.838462]  ? pm_generic_runtime_suspend+0x30/0x30
-[   46.843866]  __rpm_callback+0x41/0x120
-[   46.848142]  ? pm_generic_runtime_suspend+0x30/0x30
-[   46.853550]  rpm_callback+0x5d/0x70
-[   46.857568]  rpm_resume+0x531/0x7e0
-[   46.861578]  ? _raw_spin_lock_irqsave+0x62/0x70
-[   46.866634]  __pm_runtime_resume+0x4a/0x80
-[   46.871258]  snd_soc_pcm_component_pm_runtime_get+0x2f/0xc0
-[   46.877358]  __soc_pcm_open+0x62/0x520
-[   46.881634]  ? dpcm_add_paths.isra.0+0x35d/0x4c0
-[   46.886784]  dpcm_be_dai_startup+0x116/0x210
-[   46.891592]  dpcm_fe_dai_open+0xf7/0x830
-[   46.896046]  ? debug_mutex_init+0x33/0x50
-[   46.900591]  snd_pcm_open_substream+0x54a/0x8b0
-[   46.905658]  snd_pcm_open.part.0+0xdc/0x200
-[   46.910376]  ? wake_up_q+0x90/0x90
-[   46.914312]  snd_pcm_playback_open+0x51/0x80
-[   46.919118]  chrdev_open+0xc0/0x250
-[   46.923147]  ? cdev_device_add+0x90/0x90
-[   46.927608]  do_dentry_open+0x15f/0x430
-[   46.931976]  path_openat+0x75e/0xa80
-[   46.936086]  do_filp_open+0xb2/0x160
-[   46.940194]  ? lock_release+0x147/0x2f0
-[   46.944563]  ? _raw_spin_unlock+0x29/0x50
-[   46.949101]  do_sys_openat2+0x9a/0x160
-[   46.953377]  __x64_sys_openat+0x53/0xa0
-[   46.957733]  do_syscall_64+0x38/0x90
-[   46.961829]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-[   46.967402] RIP: 0033:0x7fa6397ccd3b
-[   46.971506] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 
-00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 
-05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
-[   46.991413] RSP: 002b:00007fff838e8990 EFLAGS: 00000246 ORIG_RAX: 
-0000000000000101
-[   46.999580] RAX: ffffffffffffffda RBX: 0000000000080802 RCX: 
-00007fa6397ccd3b
-[   47.007311] RDX: 0000000000080802 RSI: 00007fff838e8b50 RDI: 
-00000000ffffff9c
-[   47.015047] RBP: 00007fff838e8b50 R08: 0000000000000000 R09: 
-0000000000000011
-[   47.022787] R10: 0000000000000000 R11: 0000000000000246 R12: 
-0000000000080802
-[   47.030539] R13: 0000000000000004 R14: 0000000000000000 R15: 
-00007fff838e8b50
-[   47.038289]  </TASK>
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

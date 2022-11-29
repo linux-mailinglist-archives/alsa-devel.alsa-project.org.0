@@ -2,66 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB7163BC33
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 09:54:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C14C63BC63
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 09:59:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C7D6164F;
-	Tue, 29 Nov 2022 09:53:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C7D6164F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8F40169A;
+	Tue, 29 Nov 2022 09:58:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8F40169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669712065;
-	bh=OXJHGABVUryCsc0cQCu1OJiE8wYMy8xGVZqgKccRz10=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ipyU3qVMWTr+LLLHYAAhspVHGcohwdNH3beFnE9O5fG9iZhrAI6sB6LFQhT0KW7JJ
-	 cYiv2kGz/kBdJjJGE4FwcHuv9k3u4UBdqyDVQtWZ58KDibKWH7aAkADwBaiNYoiN+S
-	 NDnoO1h8BDLt7qPkJdYCoSR+zxHQU65RAPzu3bb0=
+	s=default; t=1669712380;
+	bh=PfWcdXTaqJ4c+TZe40SH2r60n5F2cqiwXp66UMLlvvI=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=npxXX1EsQ/RGn0KthE9aE2nPHdeQlEsZPFT7ZgOcW67uc11mILO5udc3UYG0dwN+k
+	 bpzuLjGE4nECX1NCcV+wXbxb9FqKt2N0rDNtZJ53DGqFDtuq26BL8bZ2eY4HOqNj3e
+	 Frf8AICdYW3ppjiXLmPs56fGFslYKzvQZmhKO9qw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCBD1F80137;
-	Tue, 29 Nov 2022 09:53:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D1C6F80212;
+	Tue, 29 Nov 2022 09:58:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADBC3F801F7; Tue, 29 Nov 2022 09:53:27 +0100 (CET)
+ id 15AA5F801F7; Tue, 29 Nov 2022 09:58:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74A75F80137
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 09:53:16 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BD85F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 09:58:36 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B8315A003F;
- Tue, 29 Nov 2022 09:53:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B8315A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 71286A0042;
+ Tue, 29 Nov 2022 09:58:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 71286A0042
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1669711995; bh=ZuqTF/kXfHsbw0RNdeSEEjlfrwG1HBuYOcJUr8ozmoA=;
- h=From:To:Cc:Subject:Date:From;
- b=TUUoj/v8diqQRVMVro47GIJ+3Li0ah1ewNuG3GglLIOJyTVgTj6hZwzwzCdqYtchy
- i1n5YYCYVfTrSBzTqtfghK7GvUTFKz2zrVF50nW+IY7uUNpOwsWcupMPWpmDLw7j+6
- lNkJjXDCxINFdmwoPs7vY5PT4iXbaX/rBcoVAN+E=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ t=1669712316; bh=E1j35Db5ErEl01vccrMNKDU/5Gu/3sMqvX5B78FVOmA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YzV8ZDmhzTA4dxt9l12FKKc03DhKIf0lXcp7NwQPaVEo3HUxVcG6nW0RceTkyhcCX
+ WWNM0kKOR76hqwMyxb5tWwhH28qBKWgycN620692mWhAcDBgpAcCCMqH2PdDCnfgMA
+ TWUI874Lysmx7QjqpOHAqqI3raxHlcvwFtf5RUdQ=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 29 Nov 2022 09:53:09 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] selftests: alsa - move shared library configuration code to
- conf.c
-Date: Tue, 29 Nov 2022 09:53:06 +0100
-Message-Id: <20221129085306.2345763-1-perex@perex.cz>
-X-Mailer: git-send-email 2.35.3
+ Tue, 29 Nov 2022 09:58:27 +0100 (CET)
+Message-ID: <07e6e0b8-dff2-6637-3f12-c6215cc9ee18@perex.cz>
+Date: Tue, 29 Nov 2022 09:58:26 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] [RFC] selftests: alsa - add PCM test
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20221108115914.3751090-1-perex@perex.cz>
+ <Y4USPRrDqIfu50hh@sirena.org.uk>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <Y4USPRrDqIfu50hh@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>, Takashi Iwai <tiwai@suse.de>,
+ Brian Norris <briannorris@chromium.org>,
+ Curtis Malainey <cujomalainey@google.com>,
+ Liam Girdwood <liam.r.girdwood@intel.com>, Jesse Barnes <jsbarnes@google.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,315 +86,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The minimal alsa-lib configuration code is similar in both mixer
-and pcm tests. Move this code to the shared conf.c source file.
+On 28. 11. 22 20:55, Mark Brown wrote:
+> On Tue, Nov 08, 2022 at 12:59:14PM +0100, Jaroslav Kysela wrote:
+> 
+>> --- a/tools/testing/selftests/alsa/Makefile
+>> +++ b/tools/testing/selftests/alsa/Makefile
+>> @@ -7,6 +7,8 @@ ifeq ($(LDLIBS),)
+>>   LDLIBS += -lasound
+>>   endif
+>>   
+>> -TEST_GEN_PROGS := mixer-test
+>> +TEST_GEN_PROGS := mixer-test pcm-test
+>> +
+>> +pcm-test: pcm-test.c conf.c
+>>   
+>>   include ../lib.mk
+> 
+> This breaks out of tree kselftest builds - if you specify an output
+> directory with O= (as all the main automated test systems do) then any
+> target specific rules need to prepend $(OUTPUT)/ to specify the right
+> location for the output (this also works fine with in tree builds, a
+> default OUTPUT is generated).  Unfortunately looking at this just now
+> simply fixing that is causing only pcm-test to be built and not the
+> existing mixer-test, and explicitly specifying commands for mixer-test
+> causes that to be built and not pcm-test even explicitly asking to build
+> "all" as the target for reasons I'm not yet clear on.
+> 
+> You can see an example failure in:
+> 
+>     https://storage.kernelci.org/next/master/next-20221128/arm64/defconfig/gcc-10/logs/kselftest.log
+> 
+> The whole kselftest build setup is rather fragile and frustrating to
+> work with unfortunately, especially with tests built from multiple
+> objects.  The only fix I've come up with thus far is to inline conf.c
+> into pcm-test.c (a #include will do the trick) which isn't great.
 
-Also, fix the build rules inspired by rseq tests. Build libatest.so
-which is linked to the both test utilities dynamically.
+Thanks Mark for the feedback. I tried to resolve this issue using the rules 
+found in the rseq tests programs - create a shared library and link both test 
+programs to this library. It seems working for me. Patch [1].
 
-Also, set the TEST_FILES variable for lib.mk.
+					Jaroslav
 
-Cc: linux-kselftest@vger.kernel.org
-Cc: Shuah Khan <shuah@kernel.org>
-Reported-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
----
- tools/testing/selftests/alsa/Makefile     | 13 ++++-
- tools/testing/selftests/alsa/alsa-local.h |  2 +
- tools/testing/selftests/alsa/conf.c       | 69 ++++++++++++++++++++++
- tools/testing/selftests/alsa/mixer-test.c | 53 +----------------
- tools/testing/selftests/alsa/pcm-test.c   | 70 -----------------------
- 5 files changed, 85 insertions(+), 122 deletions(-)
+[1] https://lore.kernel.org/alsa-devel/20221129085306.2345763-1-perex@perex.cz/
 
-diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
-index 8ac22d2eb2ba..a8c0383878d3 100644
---- a/tools/testing/selftests/alsa/Makefile
-+++ b/tools/testing/selftests/alsa/Makefile
-@@ -6,9 +6,20 @@ LDLIBS += $(shell pkg-config --libs alsa)
- ifeq ($(LDLIBS),)
- LDLIBS += -lasound
- endif
-+CFLAGS += -L$(OUTPUT) -Wl,-rpath=./
-+
-+OVERRIDE_TARGETS = 1
- 
- TEST_GEN_PROGS := mixer-test pcm-test
- 
--pcm-test: pcm-test.c conf.c
-+TEST_GEN_PROGS_EXTENDED := libatest.so
-+
-+TEST_FILES := conf.d
- 
- include ../lib.mk
-+
-+$(OUTPUT)/libatest.so: conf.c alsa-local.h
-+	$(CC) $(CFLAGS) -shared -fPIC $< $(LDLIBS) -o $@
-+
-+$(OUTPUT)/%: %.c $(TEST_GEN_PROGS_EXTENDED) alsa-local.h
-+	$(CC) $(CFLAGS) $< $(LDLIBS) -latest -o $@
-diff --git a/tools/testing/selftests/alsa/alsa-local.h b/tools/testing/selftests/alsa/alsa-local.h
-index fd0771ac600d..65f197ea9773 100644
---- a/tools/testing/selftests/alsa/alsa-local.h
-+++ b/tools/testing/selftests/alsa/alsa-local.h
-@@ -10,6 +10,8 @@
- 
- #include <alsa/asoundlib.h>
- 
-+snd_config_t *get_alsalib_config(void);
-+
- void conf_load(void);
- void conf_free(void);
- snd_config_t *conf_by_card(int card);
-diff --git a/tools/testing/selftests/alsa/conf.c b/tools/testing/selftests/alsa/conf.c
-index dd6aa90deef9..c7ffc8f04195 100644
---- a/tools/testing/selftests/alsa/conf.c
-+++ b/tools/testing/selftests/alsa/conf.c
-@@ -28,6 +28,75 @@ struct card_data {
- 
- static struct card_data *conf_cards;
- 
-+static const char *alsa_config =
-+"ctl.hw {\n"
-+"	@args [ CARD ]\n"
-+"	@args.CARD.type string\n"
-+"	type hw\n"
-+"	card $CARD\n"
-+"}\n"
-+"pcm.hw {\n"
-+"	@args [ CARD DEV SUBDEV ]\n"
-+"	@args.CARD.type string\n"
-+"	@args.DEV.type integer\n"
-+"	@args.SUBDEV.type integer\n"
-+"	type hw\n"
-+"	card $CARD\n"
-+"	device $DEV\n"
-+"	subdevice $SUBDEV\n"
-+"}\n"
-+;
-+
-+#ifdef SND_LIB_VER
-+#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
-+#define LIB_HAS_LOAD_STRING
-+#endif
-+#endif
-+
-+#ifndef LIB_HAS_LOAD_STRING
-+static int snd_config_load_string(snd_config_t **config, const char *s,
-+				  size_t size)
-+{
-+	snd_input_t *input;
-+	snd_config_t *dst;
-+	int err;
-+
-+	assert(config && s);
-+	if (size == 0)
-+		size = strlen(s);
-+	err = snd_input_buffer_open(&input, s, size);
-+	if (err < 0)
-+		return err;
-+	err = snd_config_top(&dst);
-+	if (err < 0) {
-+		snd_input_close(input);
-+		return err;
-+	}
-+	err = snd_config_load(dst, input);
-+	snd_input_close(input);
-+	if (err < 0) {
-+		snd_config_delete(dst);
-+		return err;
-+	}
-+	*config = dst;
-+	return 0;
-+}
-+#endif
-+
-+snd_config_t *get_alsalib_config(void)
-+{
-+	snd_config_t *config;
-+	int err;
-+
-+	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
-+	if (err < 0) {
-+		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
-+			       snd_strerror(err));
-+		ksft_exit_fail();
-+	}
-+	return config;
-+}
-+
- static struct card_data *conf_data_by_card(int card, bool msg)
- {
- 	struct card_data *conf;
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index a38b89c28030..05f1749ae19d 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -26,6 +26,7 @@
- #include <stdint.h>
- 
- #include "../kselftest.h"
-+#include "alsa-local.h"
- 
- #define TESTS_PER_CONTROL 7
- 
-@@ -50,56 +51,11 @@ struct ctl_data {
- 	struct ctl_data *next;
- };
- 
--static const char *alsa_config =
--"ctl.hw {\n"
--"	@args [ CARD ]\n"
--"	@args.CARD.type string\n"
--"	type hw\n"
--"	card $CARD\n"
--"}\n"
--;
--
- int num_cards = 0;
- int num_controls = 0;
- struct card_data *card_list = NULL;
- struct ctl_data *ctl_list = NULL;
- 
--#ifdef SND_LIB_VER
--#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
--#define LIB_HAS_LOAD_STRING
--#endif
--#endif
--
--#ifndef LIB_HAS_LOAD_STRING
--static int snd_config_load_string(snd_config_t **config, const char *s,
--				  size_t size)
--{
--	snd_input_t *input;
--	snd_config_t *dst;
--	int err;
--
--	assert(config && s);
--	if (size == 0)
--		size = strlen(s);
--	err = snd_input_buffer_open(&input, s, size);
--	if (err < 0)
--		return err;
--	err = snd_config_top(&dst);
--	if (err < 0) {
--		snd_input_close(input);
--		return err;
--	}
--	err = snd_config_load(dst, input);
--	snd_input_close(input);
--	if (err < 0) {
--		snd_config_delete(dst);
--		return err;
--	}
--	*config = dst;
--	return 0;
--}
--#endif
--
- static void find_controls(void)
- {
- 	char name[32];
-@@ -112,12 +68,7 @@ static void find_controls(void)
- 	if (snd_card_next(&card) < 0 || card < 0)
- 		return;
- 
--	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
--	if (err < 0) {
--		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
--			       snd_strerror(err));
--		ksft_exit_fail();
--	}
-+	config = get_alsalib_config();
- 
- 	while (card >= 0) {
- 		sprintf(name, "hw:%d", card);
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index 2814d8f74f82..6e7dfc395b98 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -31,26 +31,6 @@ struct pcm_data {
- 	struct pcm_data *next;
- };
- 
--static const char *alsa_config =
--"ctl.hw {\n"
--"	@args [ CARD ]\n"
--"	@args.CARD.type string\n"
--"	type hw\n"
--"	card $CARD\n"
--"}\n"
--"pcm.hw {\n"
--"	@args [ CARD DEV SUBDEV ]\n"
--"	@args.CARD.type string\n"
--"	@args.DEV.type integer\n"
--"	@args.SUBDEV.type integer\n"
--"	type hw\n"
--"	card $CARD\n"
--"	device $DEV\n"
--"	subdevice $SUBDEV\n"
--"}\n"
--
--;
--
- int num_pcms = 0;
- struct pcm_data *pcm_list = NULL;
- 
-@@ -77,56 +57,6 @@ long long timestamp_diff_ms(timestamp_t *tstamp)
- 	return (diff.tv_sec * 1000) + ((diff.tv_nsec + 500000L) / 1000000L);
- }
- 
--#ifdef SND_LIB_VER
--#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
--#define LIB_HAS_LOAD_STRING
--#endif
--#endif
--
--#ifndef LIB_HAS_LOAD_STRING
--static int snd_config_load_string(snd_config_t **config, const char *s,
--				  size_t size)
--{
--	snd_input_t *input;
--	snd_config_t *dst;
--	int err;
--
--	assert(config && s);
--	if (size == 0)
--		size = strlen(s);
--	err = snd_input_buffer_open(&input, s, size);
--	if (err < 0)
--		return err;
--	err = snd_config_top(&dst);
--	if (err < 0) {
--		snd_input_close(input);
--		return err;
--	}
--	err = snd_config_load(dst, input);
--	snd_input_close(input);
--	if (err < 0) {
--		snd_config_delete(dst);
--		return err;
--	}
--	*config = dst;
--	return 0;
--}
--#endif
--
--static snd_config_t *get_alsalib_config(void)
--{
--	snd_config_t *config;
--	int err;
--
--	err = snd_config_load_string(&config, alsa_config, strlen(alsa_config));
--	if (err < 0) {
--		ksft_print_msg("Unable to parse custom alsa-lib configuration: %s\n",
--			       snd_strerror(err));
--		ksft_exit_fail();
--	}
--	return config;
--}
--
- static long device_from_id(snd_config_t *node)
- {
- 	const char *id;
 -- 
-2.35.3
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

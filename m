@@ -2,137 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD27A63BD73
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 11:02:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F393763BE17
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 11:37:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 585541694;
-	Tue, 29 Nov 2022 11:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 585541694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EC8B16BA;
+	Tue, 29 Nov 2022 11:37:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EC8B16BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669716133;
-	bh=4L4L2MxqCN8VoxusiSf9eUYV8l3X9kcKGv4ivqwjmiI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uhBgIHwyDsfK5fOaMDAnlvJE0q0H2sSiDCGdRKD9+YuANZITHr/kzzpBLBKWN5EeG
-	 3t9TeBcnyZciyymMRm2fZwryZf59BCj7QZMAvyE9CUaDV0TKfhtqRRAPsfnHcgJPso
-	 KpDHU6qQF5UljDf7Gtcpii3G7HoaTHL+GF4GkUYo=
+	s=default; t=1669718271;
+	bh=+0rlhYbtJm4ohiB+dxNQTNKGailM9ygOPJRvr3b/OiU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=svkxS1X6lv1Y/alSMKROgXfRSxIPA95dAp/aTGrqjICIpy7QqbvCgEfzSoZc8A1CW
+	 50SYOkpSJpwdwvMSxsqa/ROB1UgDUCToBJBsgriE0R2hfgyZpVz9m3lM+JPPQDpzGQ
+	 /D2uDf0w5/QttZWQIU+868YBo2Q5ez50XfETptzk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 053ECF800B6;
-	Tue, 29 Nov 2022 11:01:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02929F80212;
+	Tue, 29 Nov 2022 11:36:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7841EF801F5; Tue, 29 Nov 2022 11:01:15 +0100 (CET)
+ id 5D970F801F7; Tue, 29 Nov 2022 11:36:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::606])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_135,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B894F80166;
- Tue, 29 Nov 2022 11:01:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B894F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D3B7F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 11:36:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D3B7F80137
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="uqBmUXGI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=StWipuOsZ0qAgyGSWfQzz+hCPgmeHGflcfmsVk2Q3DhHLWsruuDT63NFO86beGCSFCr10cAQ/D4CN1fPsD/lTRHVEXF9GVjPzHqiNEy2+jmN7BN6x/UsjcvHNm+bM7UguDSFfYf4agWx2ragvOnotnn19vpfa5gQu+pvtDTqKXOp9UcusGsHZ3ogyJ+zkdFiYX5RWpptS+2dTmm9oDvwM1VpaIIWPwoSD6utvV3z9J9L4vG3eu8VqeXE7PB0wSIhn/GsJ7iciYGE2cH8S8+xIf1+oHNgMg4e0/CxzzdaXGVwLSP1KwJEdXuUtL7BcFFV7SXVrE+WVV7KkQgOR03GzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/QT9zcfydyYsahX8yopwy9T44k/KOJPjfDNl7iTN7T4=;
- b=ERcpwcfQ0d2J3/6J2KkTs5Ubi3nkCmNzx+SUvGbcpJ2vyNmVFGZIEaJjfAuVH24vWG5JAlVQ1FiSG2IieGkFnfaNrOiL+vQEASAyX5wXWNujSAwSB2xPyvwBbt8LVXIoTp/nbGk47NODsqx90PtD7fNSfTwgB/w4pTwCtYOZbu5pqM+tbf5RWe67HOanGuvPCGHVSzc20mPucibtmfVHVO1soR+7yuANlW3rkZT7H/o4Tazsp+9UTxiwm+8LMc0EFMxqgBi9GrSQ1EwVCY9elwk5UxdCzTBtowG3tz+9XSZxhhms8JjWtA3QutCpEm0obyasP9V9hUUFG5344o0I4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org
- smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
- pct=100) action=oreject header.from=amd.corp-partner.google.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/QT9zcfydyYsahX8yopwy9T44k/KOJPjfDNl7iTN7T4=;
- b=uqBmUXGIMvcoU/zlvQ+WBb8SZamyOcJwxnss1ItKGkiZXiEu5pQnkUFDxt3VA6cMJQfjCmQg5Gsn6xI61nW3qEaL4h8TTJhVrsi+dSh/3dBXtNlJV+AAKHEZv/rll20uOWGRWcHqYYpRoM0P+zSyu5aGi/zHofm5IR9Jh+B1ULrJvzNCXTKaTbA4OS52Nxptwe7WOiocfptMQ3x7x/2UOmbBP5PqQXyQuCXCObP9yaldcehZPWuE4AN5+Io2cQPc/vBPWnjFmKSJjeen2EhLRvu8aB4JzKWxBFYctiGLov+t+GhBRu12fmQYXddPfJ2DFGdWjTcL1udCaAYLLVgQ1Q==
-Received: from DM6PR04CA0029.namprd04.prod.outlook.com (2603:10b6:5:334::34)
- by LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Tue, 29 Nov
- 2022 10:01:00 +0000
-Received: from DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:334:cafe::c2) by DM6PR04CA0029.outlook.office365.com
- (2603:10b6:5:334::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Tue, 29 Nov 2022 10:01:00 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=amd.corp-partner.google.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
- sender)
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT093.mail.protection.outlook.com (10.13.172.235) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.18 via Frontend Transport; Tue, 29 Nov 2022 10:01:00 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 29 Nov
- 2022 04:00:59 -0600
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 29 Nov 2022 04:00:53 -0600
-From: V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v2 1/1] ASoC: SOF: Add DAI configuration support for AMD
- platforms.
-Date: Tue, 29 Nov 2022 15:30:59 +0530
-Message-ID: <20221129100102.826781-1-vsujithkumar.reddy@amd.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="UBXDWgGo"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AT9pNxj007856; Tue, 29 Nov 2022 10:36:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=49Ttj4zeLRKtXUQ2iiLm1EzCQ/EuPogtM4kufqhs5Uc=;
+ b=UBXDWgGoUszM01aQDbG1N66lp30hi4FdoDDlTawTwaAKq6yOZP1QzzSap5pUBRCncdUR
+ Nlp7uHJPvPbSaWEvVNtJzHkIO7mP6Qks5s2l4/AP/I6K5W44tr4IY6MxvIMWZ4+vtoWx
+ YkHVYE1XuK7X04H6k06cCPRix6JX+kTlCm8C0ZlkRM/xIsxhK9hZsB3iLBlbTAA+C8gH
+ KVvv92hrKAAjoC9dwvslCLel29Wh+BauNdGCmUzjbNlhHq3IcueYzC/ZTZmb5akMzPPR
+ xSKw+Hy8Q4vKbKeamnF9EX7orNjDaYsCpouEt1vJFHZ9DJQhRs9MKhjwY719UdDHTw30 Fw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m56c69h3v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Nov 2022 10:36:44 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2ATAahE9020469
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Nov 2022 10:36:43 GMT
+Received: from [10.216.62.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 29 Nov
+ 2022 02:36:38 -0800
+Message-ID: <3b00c04c-cb6d-9e9a-ba0c-0ce093b4a3fb@quicinc.com>
+Date: Tue, 29 Nov 2022 16:05:41 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT093:EE_|LV2PR12MB5869:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcd2f180-bbb0-46af-6b08-08dad1f09e1e
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dkw5N3/GVt+fH3fy9+ix4hcm/PlpXRvzWSXiG+njK6Tnq5hcE+6fd2DsqruOlT5omOiZ4aHW/U9/HjyIWw9viUvMYTyjYKpw+gg326XXo+xQ9yHByI7nxg22Wf6E+UGHBNCKw+Hm/rMzDkKkz0lvbIJu+mmqjj17u+G5IfPU09OwHsmhknUhYfsPyLfXmdeBgpNPlD9qLo0rqPqNtO3Bpnz+vLf3x3yT6b7WdHK+wkgDqpPpaNS4Nkf5eSHgaIRS8UBmktwKA5Blg7H5TQURa57Ic1HSAHvSuVQmj7n4G6QUol+sulOwf8jdX3/VqNTMp0FDMkwG/k68z1xJiIK6NRtRk9c/vMqEF9upL8m2+EKhp3U3fPcdUHxnnyk9n3pqw8AbBWw6tqHzH9IumOCmQ2e/dyqubTTejdRQkhZBHtSPogZOctfIoYy8JeVLgNRFq/ci1bfeBzyVFY69yDhfCwCh+MYl7af7QyjmQqazhXWkYfvg2AlK7a8fZ3kBBsKJtYpk3xn2/oR0g4cNzgpNYNAyAivfgXuu22TXkNLysx12nlRv8IRPjgs9rAXqbmD0+7Q+IB/0Cbw8xND7DIWtDNyBHqiKoXN6Oylc/mvfM7o4mvmiIK6shD/ufuqoAB+5u0JPDHo2XzFkDpMfzqIDgm8DaEYxeiNmUix0opRhcOcjBZJ/LzeG/L27Aijc5f5ZORa+mfV54HylUCV9sVdccA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199015)(40470700004)(46966006)(7416002)(8936002)(2906002)(40480700001)(35950700001)(40460700003)(86362001)(82740400003)(81166007)(356005)(1076003)(2616005)(498600001)(336012)(82310400005)(70206006)(70586007)(5660300002)(54906003)(316002)(76482006)(83380400001)(41300700001)(4326008)(47076005)(110136005)(8676002)(26005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 10:01:00.0715 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcd2f180-bbb0-46af-6b08-08dad1f09e1e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5869
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, venkataprasad.potturu@amd.com, Bard
- Liao <yung-chuan.liao@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Chao Song <chao.song@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
- Rander Wang <rander.wang@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Ajit
- Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE
- \(SOF\) DRIVERS" <sound-open-firmware@alsa-project.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add system suspend/resume PM ops
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <1669621742-28524-1-git-send-email-quic_srivasam@quicinc.com>
+ <CAMuHMdUBojHkaAPsjOEadfaikth+L0R_NrKzvqXrmZS9Kc5zHw@mail.gmail.com>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <CAMuHMdUBojHkaAPsjOEadfaikth+L0R_NrKzvqXrmZS9Kc5zHw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: y7qbBzVgVThROMFrnCjQzpa-c2HaquO_
+X-Proofpoint-GUID: y7qbBzVgVThROMFrnCjQzpa-c2HaquO_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-29_07,2022-11-29_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 adultscore=0
+ mlxscore=0 phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211290065
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
+ quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,220 +122,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Hi Geert,
 
-Add support for configuring sp and hs DAI from topology.
+Thanks for your time!!!
 
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-
-Changes since v1
-    -- Apply on latest broonie-git for-next
-
----
- include/sound/sof/dai-amd.h     |  1 +
- include/sound/sof/dai.h         |  2 ++
- include/uapi/sound/sof/tokens.h |  5 +++++
- sound/soc/sof/ipc3-pcm.c        |  2 ++
- sound/soc/sof/ipc3-topology.c   | 36 +++++++++++++++++++++++++--------
- sound/soc/sof/sof-audio.h       |  1 +
- sound/soc/sof/topology.c        | 10 +++++++++
- 7 files changed, 49 insertions(+), 8 deletions(-)
-
-diff --git a/include/sound/sof/dai-amd.h b/include/sound/sof/dai-amd.h
-index 92f45c180b7c..9df7ac824efe 100644
---- a/include/sound/sof/dai-amd.h
-+++ b/include/sound/sof/dai-amd.h
-@@ -17,6 +17,7 @@ struct sof_ipc_dai_acp_params {
- 
- 	uint32_t fsync_rate;    /* FSYNC frequency in Hz */
- 	uint32_t tdm_slots;
-+	uint32_t tdm_mode;
- } __packed;
- 
- /* ACPDMIC Configuration Request - SOF_IPC_DAI_AMD_CONFIG */
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index 9fbd3832bcdc..3041f5805b7b 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -86,6 +86,8 @@ enum sof_ipc_dai_type {
- 	SOF_DAI_AMD_DMIC,		/**< AMD ACP DMIC */
- 	SOF_DAI_MEDIATEK_AFE,		/**< Mediatek AFE */
- 	SOF_DAI_AMD_HS,			/**< Amd HS */
-+	SOF_DAI_AMD_SP_VIRTUAL,		/**< AMD ACP SP VIRTUAL */
-+	SOF_DAI_AMD_HS_VIRTUAL,		/**< AMD ACP HS VIRTUAL */
- };
- 
- /* general purpose DAI configuration */
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index f187dfbd9325..bacaf8a6317e 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -198,4 +198,9 @@
- /* COPIER */
- #define SOF_TKN_INTEL_COPIER_NODE_TYPE		1980
- 
-+/* ACP I2S */
-+#define SOF_TKN_AMD_ACPI2S_RATE			1700
-+#define SOF_TKN_AMD_ACPI2S_CH			1701
-+#define SOF_TKN_AMD_ACPI2S_TDM_MODE		1702
-+
- #endif
-diff --git a/sound/soc/sof/ipc3-pcm.c b/sound/soc/sof/ipc3-pcm.c
-index dad57bef38f6..f10bfc9bd5cb 100644
---- a/sound/soc/sof/ipc3-pcm.c
-+++ b/sound/soc/sof/ipc3-pcm.c
-@@ -336,6 +336,7 @@ static int sof_ipc3_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 			channels->min, channels->max);
- 		break;
- 	case SOF_DAI_AMD_SP:
-+	case SOF_DAI_AMD_SP_VIRTUAL:
- 		rate->min = private->dai_config->acpsp.fsync_rate;
- 		rate->max = private->dai_config->acpsp.fsync_rate;
- 		channels->min = private->dai_config->acpsp.tdm_slots;
-@@ -347,6 +348,7 @@ static int sof_ipc3_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 			channels->min, channels->max);
- 		break;
- 	case SOF_DAI_AMD_HS:
-+	case SOF_DAI_AMD_HS_VIRTUAL:
- 		rate->min = private->dai_config->acphs.fsync_rate;
- 		rate->max = private->dai_config->acphs.fsync_rate;
- 		channels->min = private->dai_config->acphs.tdm_slots;
-diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 0720e1eae084..b94cc40485ed 100644
---- a/sound/soc/sof/ipc3-topology.c
-+++ b/sound/soc/sof/ipc3-topology.c
-@@ -276,6 +276,16 @@ static const struct sof_topology_token acpdmic_tokens[] = {
- 		offsetof(struct sof_ipc_dai_acpdmic_params, pdm_ch)},
- };
- 
-+/* ACPI2S */
-+static const struct sof_topology_token acpi2s_tokens[] = {
-+	{SOF_TKN_AMD_ACPI2S_RATE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, fsync_rate)},
-+	{SOF_TKN_AMD_ACPI2S_CH, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, tdm_slots)},
-+	{SOF_TKN_AMD_ACPI2S_TDM_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_acp_params, tdm_mode)},
-+};
-+
- /* Core tokens */
- static const struct sof_topology_token core_tokens[] = {
- 	{SOF_TKN_COMP_CORE_ID, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-@@ -311,6 +321,7 @@ static const struct sof_token_info ipc3_token_list[SOF_TOKEN_COUNT] = {
- 	[SOF_SAI_TOKENS] = {"SAI tokens", sai_tokens, ARRAY_SIZE(sai_tokens)},
- 	[SOF_AFE_TOKENS] = {"AFE tokens", afe_tokens, ARRAY_SIZE(afe_tokens)},
- 	[SOF_ACPDMIC_TOKENS] = {"ACPDMIC tokens", acpdmic_tokens, ARRAY_SIZE(acpdmic_tokens)},
-+	[SOF_ACPI2S_TOKENS]   = {"ACPI2S tokens", acpi2s_tokens, ARRAY_SIZE(acpi2s_tokens)},
- };
- 
- /**
-@@ -1193,6 +1204,7 @@ static int sof_link_acp_sp_load(struct snd_soc_component *scomp, struct snd_sof_
- 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
- 	struct sof_dai_private_data *private = dai->private;
- 	u32 size = sizeof(*config);
-+	int ret;
- 
- 	/* handle master/slave and inverted clocks */
- 	sof_dai_set_format(hw_config, config);
-@@ -1201,12 +1213,15 @@ static int sof_link_acp_sp_load(struct snd_soc_component *scomp, struct snd_sof_
- 	memset(&config->acpsp, 0, sizeof(config->acpsp));
- 	config->hdr.size = size;
- 
--	config->acpsp.fsync_rate = le32_to_cpu(hw_config->fsync_rate);
--	config->acpsp.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
-+	ret = sof_update_ipc_object(scomp, &config->acpsp, SOF_ACPI2S_TOKENS, slink->tuples,
-+				    slink->num_tuples, size, slink->num_hw_configs);
-+	if (ret < 0)
-+		return ret;
- 
--	dev_info(scomp->dev, "ACP_SP config ACP%d channel %d rate %d\n",
-+
-+	dev_info(scomp->dev, "ACP_SP config ACP%d channel %d rate %d tdm_mode %d\n",
- 		 config->dai_index, config->acpsp.tdm_slots,
--		 config->acpsp.fsync_rate);
-+		 config->acpsp.fsync_rate, config->acpsp.tdm_mode);
- 
- 	dai->number_configs = 1;
- 	dai->current_config = 0;
-@@ -1223,6 +1238,7 @@ static int sof_link_acp_hs_load(struct snd_soc_component *scomp, struct snd_sof_
- 	struct snd_soc_tplg_hw_config *hw_config = slink->hw_configs;
- 	struct sof_dai_private_data *private = dai->private;
- 	u32 size = sizeof(*config);
-+	int ret;
- 
- 	/* Configures the DAI hardware format and inverted clocks */
- 	sof_dai_set_format(hw_config, config);
-@@ -1231,12 +1247,14 @@ static int sof_link_acp_hs_load(struct snd_soc_component *scomp, struct snd_sof_
- 	memset(&config->acphs, 0, sizeof(config->acphs));
- 	config->hdr.size = size;
- 
--	config->acphs.fsync_rate = le32_to_cpu(hw_config->fsync_rate);
--	config->acphs.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
-+	ret = sof_update_ipc_object(scomp, &config->acphs, SOF_ACPI2S_TOKENS, slink->tuples,
-+				    slink->num_tuples, size, slink->num_hw_configs);
-+	if (ret < 0)
-+		return ret;
- 
--	dev_info(scomp->dev, "ACP_HS config ACP%d channel %d rate %d\n",
-+	dev_info(scomp->dev, "ACP_HS config ACP%d channel %d rate %d tdm_mode %d\n",
- 		 config->dai_index, config->acphs.tdm_slots,
--		 config->acphs.fsync_rate);
-+		 config->acphs.fsync_rate, config->acphs.tdm_mode);
- 
- 	dai->number_configs = 1;
- 	dai->current_config = 0;
-@@ -1545,9 +1563,11 @@ static int sof_ipc3_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 			ret = sof_link_acp_bt_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_SP:
-+		case SOF_DAI_AMD_SP_VIRTUAL:
- 			ret = sof_link_acp_sp_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_HS:
-+		case SOF_DAI_AMD_HS_VIRTUAL:
- 			ret = sof_link_acp_hs_load(scomp, slink, config, dai);
- 			break;
- 		case SOF_DAI_AMD_DMIC:
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 1b5b3ea53a6e..29cf951e3526 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -248,6 +248,7 @@ enum sof_tokens {
- 	SOF_COPIER_FORMAT_TOKENS,
- 	SOF_GAIN_TOKENS,
- 	SOF_ACPDMIC_TOKENS,
-+	SOF_ACPI2S_TOKENS,
- 
- 	/* this should be the last */
- 	SOF_TOKEN_COUNT,
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 9d9fcaa2a948..c668bd9d21ec 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -289,6 +289,9 @@ static const struct sof_dai_types sof_dais[] = {
- 	{"ACPDMIC", SOF_DAI_AMD_DMIC},
- 	{"ACPHS", SOF_DAI_AMD_HS},
- 	{"AFE", SOF_DAI_MEDIATEK_AFE},
-+	{"ACPSP_VIRTUAL", SOF_DAI_AMD_SP_VIRTUAL},
-+	{"ACPHS_VIRTUAL", SOF_DAI_AMD_HS_VIRTUAL},
-+
- };
- 
- static enum sof_ipc_dai_type find_dai(const char *name)
-@@ -1895,6 +1898,13 @@ static int sof_link_load(struct snd_soc_component *scomp, int index, struct snd_
- 		token_id = SOF_ACPDMIC_TOKENS;
- 		num_tuples += token_list[SOF_ACPDMIC_TOKENS].count;
- 		break;
-+	case SOF_DAI_AMD_SP:
-+	case SOF_DAI_AMD_HS:
-+	case SOF_DAI_AMD_SP_VIRTUAL:
-+	case SOF_DAI_AMD_HS_VIRTUAL:
-+		token_id = SOF_ACPI2S_TOKENS;
-+		num_tuples += token_list[SOF_ACPI2S_TOKENS].count;
-+		break;
- 	default:
- 		break;
- 	}
--- 
-2.25.1
-
+On 11/29/2022 1:23 PM, Geert Uytterhoeven wrote:
+> Hi Srinivasa,
+>
+> On Mon, Nov 28, 2022 at 8:50 AM Srinivasa Rao Mandadapu
+> <quic_srivasam@quicinc.com> wrote:
+>> Update lpass sc7180 platform driver with PM ops, such as
+>> system supend and resume callbacks.
+>> This update is required to disable clocks during supend and
+>> avoid XO shutdown issue.
+>>
+>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>> Tested-by: Rahul Ajmeriya <quic_rajmeriy@quicinc.com>
+> Thanks for your patch, which is now commit 2d68148f8f85ca5a ("ASoC:
+> qcom: lpass-sc7180: Add system suspend/resume PM ops") in next-20221129.
+>
+>> --- a/sound/soc/qcom/lpass-sc7180.c
+>> +++ b/sound/soc/qcom/lpass-sc7180.c
+>> @@ -12,6 +12,7 @@
+>>   #include <linux/module.h>
+>>   #include <linux/of.h>
+>>   #include <linux/platform_device.h>
+>> +#include <linux/pm_runtime.h>
+>>   #include <dt-bindings/sound/sc7180-lpass.h>
+>>   #include <sound/pcm.h>
+>>   #include <sound/soc.h>
+>> @@ -156,10 +157,34 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
+>>          struct lpass_data *drvdata = platform_get_drvdata(pdev);
+>>
+>>          clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+>> +       return 0;
+>> +}
+>> +
+>> +static int sc7180_lpass_dev_resume(struct device *dev)
+>> +{
+>> +       int ret = 0;
+>> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
+>>
+>> +       ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+>> +       if (ret) {
+>> +               dev_err(dev, "sc7180 clk prepare and enable failed\n");
+>> +               return ret;
+>> +       }
+>> +       return ret;
+>> +}
+>> +
+>> +static int sc7180_lpass_dev_suspend(struct device *dev)
+>> +{
+>> +       struct lpass_data *drvdata = dev_get_drvdata(dev);
+>> +
+>> +       clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+>>          return 0;
+>>   }
+> noreply@ellerman.id.au reports for e.g. m68k-allmodconfig:
+>
+>      sound/soc/qcom/lpass-sc7180.c:179:12: error:
+> 'sc7180_lpass_dev_suspend' defined but not used
+> [-Werror=unused-function]
+>      sound/soc/qcom/lpass-sc7180.c:166:12: error:
+> 'sc7180_lpass_dev_resume' defined but not used
+> [-Werror=unused-function]
+>
+>> +static const struct dev_pm_ops sc7180_lpass_pm_ops = {
+>> +       SET_SYSTEM_SLEEP_PM_OPS(sc7180_lpass_dev_suspend, sc7180_lpass_dev_resume)
+>> +};
+> Please use DEFINE_SIMPLE_DEV_PM_OPS()...
+Actually, we need to use this patch in in previous kernels 5.4 and 5.15.
+I think these changes won't apply on previous kernel.
+Hence ignoring for now and will take care next time.
+>
+>> +
+>>   static struct lpass_variant sc7180_data = {
+>>          .i2sctrl_reg_base       = 0x1000,
+>>          .i2sctrl_reg_stride     = 0x1000,
+>> @@ -293,6 +318,7 @@ static struct platform_driver sc7180_lpass_cpu_platform_driver = {
+>>          .driver = {
+>>                  .name = "sc7180-lpass-cpu",
+>>                  .of_match_table = of_match_ptr(sc7180_lpass_cpu_device_id),
+>> +               .pm = &sc7180_lpass_pm_ops,
+> ... and pm_sleep_ptr().
+>
+>>          },
+>>          .probe = asoc_qcom_lpass_cpu_platform_probe,
+>>          .remove = asoc_qcom_lpass_cpu_platform_remove,
+> Gr{oetje,eeting}s,
+>
+>                          Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds

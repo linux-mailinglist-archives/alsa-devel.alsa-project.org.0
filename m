@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E455063C3FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 16:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 004DF63C407
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 16:46:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72659168D;
-	Tue, 29 Nov 2022 16:41:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72659168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91E201630;
+	Tue, 29 Nov 2022 16:45:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E201630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669736510;
-	bh=p/2op5xe90YZqfKCHeiXyi+GWHBoal/ykuWpwuZF5HA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1669736790;
+	bh=OBajQxyPKWk4eBVakGjlcr0afXEUapA11McgDnqCERY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d8vjCEnzkAmBMppYXfTBQFpO1XFOBkY7dZyncN5deVoZMijnQYdiY/HDBCvbizX8u
-	 s/2SWl9G0YdqKtvCIWeQi44qPKbXVPQqv6t38A81jJfv28SZBikwqZbWgJ5pYkmMtT
-	 8OmaInT2AjOkqdBOuZclVnvXiYl9Q83WQwvFgChA=
+	b=WcJeOslMTGeuHsGss+VRtNUQwLLSI4Xf704xbDPzswTtl7rAXWPzfFnGQIiSuwEYn
+	 nUkqakK4XTrJu5vr49XJnHpMFgjkFGBewZspZSJf/r6q9YYyjKx3z1ZiuQFHB80nn4
+	 RlktYCjTpss/RHctgXC075XX8FDP1e2D3IPr32pk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A488F80212;
-	Tue, 29 Nov 2022 16:40:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47015F80166;
+	Tue, 29 Nov 2022 16:45:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E30BF801F7; Tue, 29 Nov 2022 16:40:53 +0100 (CET)
+ id 9FDADF801F7; Tue, 29 Nov 2022 16:45:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E533F80166
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 16:40:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E533F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39631F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 16:45:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39631F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SYKIMHIh"
+ header.b="o2Ho0a2R"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id D8B8BCE1376;
- Tue, 29 Nov 2022 15:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CF4C433C1;
- Tue, 29 Nov 2022 15:40:37 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C2792617A7;
+ Tue, 29 Nov 2022 15:45:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A20C433C1;
+ Tue, 29 Nov 2022 15:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669736440;
- bh=p/2op5xe90YZqfKCHeiXyi+GWHBoal/ykuWpwuZF5HA=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=SYKIMHIh69WWqbGhnSDWnaE4HIN2P25f7edgu3zzDaJhWHikmjmi5ITve+cwQIi36
- dQ5oQ9g4/jT0Er0/VDw8wJh/Vu177KuG0Xvr/+9Tmq5IR7wwMmjh1MLljNJsY4sp7/
- nEqiFAo8whB0HvLrq7F+CDLKeSjgrpLa/1E0YBgk40pVnHc8Ud9tNS1ATkBCojTrW8
- GnkMPV5lSJH7Kxnn6XM2RLuhVxKEdkCi1VUMuaLEDoPU+uE3itul9Nbpq8sT1nIXMY
- FahjiVEEMci+O8XATbBqkuRI8w2ZOSYnLkyWlTgFZUx8uadSpkD9g4H7cbCCQKwyww
- CewGoawitoNhA==
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, andersson@kernel.org, bgoswami@quicinc.com,
- swboyd@chromium.org, 
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
- quic_plai@quicinc.com, judyhsiao@chromium.org, quic_rohkumar@quicinc.com,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, tiwai@suse.com, 
- robh+dt@kernel.org, perex@perex.cz, srinivas.kandagatla@linaro.org,
- agross@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
+ s=k20201202; t=1669736723;
+ bh=OBajQxyPKWk4eBVakGjlcr0afXEUapA11McgDnqCERY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o2Ho0a2RYST8CGg8p8OHCzolQz82thLT7OpRnlwIAlED6f+4ob2GTjF49zM7kQfut
+ fHmCMle3msv6TgsC318FXf48vL02wg3f/4+wfledN5W3CT2jakO9ER4TRC+fo/+FYy
+ wzUU5epLEqVvkC81KSou9ozbbkv31MrakAysRe6rgb9zQqaCZJhgBLsqn++GIQ12tg
+ C96EkZH/sz7f6JbPCmQvWIj0MJMNyCil8oSCETDJjAVMh9GzThPlZ0s0GZ5iQG1QmO
+ m8I2X4ZM8yHxxwQMT83W6m9QgIf41vGyiMXU2D4Y3QNJKF0BW+swDFuTP/vr4FTlWl
+ J/N5LZR1T5FbQ==
+Date: Tue, 29 Nov 2022 08:45:20 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for
+ system PM ops
+Message-ID: <Y4YpELN4/0cesonb@dev-arch.thelio-3990X>
 References: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for system
- PM ops
-Message-Id: <166973643691.238721.1254998116262856593.b4-ty@kernel.org>
-Date: Tue, 29 Nov 2022 15:40:36 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, broonie@kernel.org, bgoswami@quicinc.com,
+ quic_plai@quicinc.com, swboyd@chromium.org, judyhsiao@chromium.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 29 Nov 2022 18:23:48 +0530, Srinivasa Rao Mandadapu wrote:
+On Tue, Nov 29, 2022 at 06:23:48PM +0530, Srinivasa Rao Mandadapu wrote:
 > Add __maybe_unused tag for system PM ops suspend and resume.
 > This is required to fix allmodconfig compilation issue.
 > Fixes: c3bf7699747c ("ASoC: qcom: lpass-sc7280: Add system suspend/resume PM ops")
 > 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+
+A better solution would be replacing SET_SYSTEM_SLEEP_PM_OPS() with
+SYSTEM_SLEEP_PM_OPS(), which was added to avoid needing to add these
+'__maybe_unused' attributes to these functions. See commit 1a3c7bb08826
+("PM: core: Add new *_PM_OPS macros, deprecate old ones") for more info.
+
+> ---
+>  sound/soc/qcom/lpass-sc7180.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for system PM ops
-      commit: e8679db2970f04ee5281c042977fff880a3c045a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+> index b96b85a..41db661 100644
+> --- a/sound/soc/qcom/lpass-sc7180.c
+> +++ b/sound/soc/qcom/lpass-sc7180.c
+> @@ -163,14 +163,14 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> -static int sc7180_lpass_dev_resume(struct device *dev)
+> +static int __maybe_unused sc7180_lpass_dev_resume(struct device *dev)
+>  {
+>  	struct lpass_data *drvdata = dev_get_drvdata(dev);
+>  
+>  	return clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+>  }
+>  
+> -static int sc7180_lpass_dev_suspend(struct device *dev)
+> +static int __maybe_unused sc7180_lpass_dev_suspend(struct device *dev)
+>  {
+>  	struct lpass_data *drvdata = dev_get_drvdata(dev);
+>  
+> -- 
+> 2.7.4
+> 
+> 

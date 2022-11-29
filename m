@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03A9D63C70A
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 19:10:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31CBC63C72D
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 19:28:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88B211F0;
-	Tue, 29 Nov 2022 19:09:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B211F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C36471695;
+	Tue, 29 Nov 2022 19:27:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36471695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669745404;
-	bh=6tXxDqzaCsbud+v5SEAgblRZWiVBpuwVcPW35Z6aN9E=;
+	s=default; t=1669746515;
+	bh=Bn1EjV5Z2D/9rZ4hniykDLaoKLrRx2gea+VyDgC6Ql4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ge35jJG6bCzHT/ODT79TsCukWZIcjxgJlrPrKiL5s0AgJlB5NHEmqoRIiipXvrx4z
-	 ZkvGRapCbgLi5VcC7SgOlkPwBfefgZys+JEtKpu2b4xU9vgqgWVbXvRzA7LATMK+eL
-	 PMcFO69tcpifJ0nguKYyCwRo22qVHAyEGnZWv3Jk=
+	b=EMoKZF5UaM5cwGNiWR7AYXrtk383L0YV4sCXhP0/KWQ19ypoqFll59xeP65ciKZ/R
+	 ChQVkNYZZz+RLOtLCU+JghEvmSI70dA5dKLbKN7EWxXM3PBg4PZWldPQb37Kc5fwm4
+	 Zu7Jlhq1m1x+zEGXG9N5bw95njcn7bsTGw3tWIHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EA48F80212;
-	Tue, 29 Nov 2022 19:09:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D940F80212;
+	Tue, 29 Nov 2022 19:27:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1139F801F7; Tue, 29 Nov 2022 19:09:07 +0100 (CET)
+ id 1381CF801F7; Tue, 29 Nov 2022 19:27:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 535ADF80166
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 19:09:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 535ADF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E86BF80166
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 19:27:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E86BF80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FFU5FibY"
+ header.b="o0fYEYXu"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5100461727;
- Tue, 29 Nov 2022 18:08:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6876EC433D6;
- Tue, 29 Nov 2022 18:08:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E170561892;
+ Tue, 29 Nov 2022 18:27:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D174C433D6;
+ Tue, 29 Nov 2022 18:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669745337;
- bh=6tXxDqzaCsbud+v5SEAgblRZWiVBpuwVcPW35Z6aN9E=;
+ s=k20201202; t=1669746448;
+ bh=Bn1EjV5Z2D/9rZ4hniykDLaoKLrRx2gea+VyDgC6Ql4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FFU5FibYn3UcrkFKwGoDHpB2eD0rHdmOWabtzHGzhGCvdury9WVgcFeJZrJIZD0Ep
- QJqUAr+a8OaeP8KDSeW+Duk0sAwuTiek+jhssmfbo5pigzHJQovUWZcHhpHUtejV5q
- RIe/w60Qdug9uW3DhUWlLR/IPKUNCxQtBlqdClJwtDVy/6QouayFZoPkgQly2aNKcf
- Rem+9AGiA2xxU0FEXxJ5DSWUFFb1khnlHVu/N9pUgOE/ovEb2l6CGuGrnAQosQnPtK
- JLAqyKzVvuyHtqUg2xDvv8pVpKNFYey7/VERQ+BBWPDCibJ+gUX+WLfCARujaFa2qe
- cz26Ub+fDHYqA==
-Date: Tue, 29 Nov 2022 18:08:51 +0000
+ b=o0fYEYXuXRTPGWaasYTj0gwLduZbOilJm4sUhilmGWXEUwmrgx11TyqvyKErG4Qxf
+ 1cg9joxfRTViNkIs9oU9sCIyoonBC2Vis5X/uZ0uSfY1E6V+t1cf3iLB+FpJO57KkI
+ cUkh2COcZqSuB1y3/380KgPMEcevhPoEmSbZwHDoMnvfTPIrsMH0oLmiVpsVyhbO3G
+ e2z4R9BVPb33qnch47QKLmTg0r9yfBz+qr2hj1qDLz5oIhtddy3qbFkuLDGZYdnT0P
+ o6W4vKOLHrGGOE0kuofWwg5FjxY48K70Z2GA2JRYT4+E+6ZTvjK9nuMQ0CCH1n3T6G
+ sirec0kLTDRBg==
+Date: Tue, 29 Nov 2022 18:27:21 +0000
 From: Mark Brown <broonie@kernel.org>
 To: wangweidong.a@awinic.com
-Subject: Re: [patch v5 1/5] ASoC: codecs: Add i2c and codec registration for
- aw883xx and their associated operation functions
-Message-ID: <Y4ZKs21o4TfcWvqL@sirena.org.uk>
+Subject: Re: [patch v5 2/5] ASoC: codecs: Implementation of aw883xx
+ configuration file parsing function
+Message-ID: <Y4ZPCa1rIM8dFVXp@sirena.org.uk>
 References: <20221115022423.6437-2-wangweidong.a@awinic.com>
  <20221125092727.17414-1-wangweidong.a@awinic.com>
- <20221125092727.17414-2-wangweidong.a@awinic.com>
+ <20221125092727.17414-3-wangweidong.a@awinic.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="h2wUVeElwoPuge/f"
+ protocol="application/pgp-signature"; boundary="2ZQpEXguQlZNjbtt"
 Content-Disposition: inline
-In-Reply-To: <20221125092727.17414-2-wangweidong.a@awinic.com>
+In-Reply-To: <20221125092727.17414-3-wangweidong.a@awinic.com>
 X-Cookie: An apple a day makes 365 apples a year.
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
@@ -94,192 +95,89 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---h2wUVeElwoPuge/f
+--2ZQpEXguQlZNjbtt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 25, 2022 at 05:27:23PM +0800, wangweidong.a@awinic.com wrote:
+On Fri, Nov 25, 2022 at 05:27:24PM +0800, wangweidong.a@awinic.com wrote:
 
-> +static int aw883xx_fade_time_info(struct snd_kcontrol *kcontrol,
-> +					struct snd_ctl_elem_info *uinfo)
+> +	check_sum = GET_32_DATA(*(p_check_sum + 3), *(p_check_sum + 2),
+> +				*(p_check_sum + 1), *(p_check_sum));
+
+We've got the be32_to_cpu() and so on macros - I suspect that
+GET_32_DATA() should be one of those.
+
+> +static int aw_check_data_version(struct aw_bin *bin, int bin_num)
 > +{
-> +	/* set kcontrol info */
-> +	uinfo->type =3D SNDRV_CTL_ELEM_TYPE_INTEGER;
-> +	uinfo->count =3D 1;
-> +	uinfo->value.integer.min =3D 0;
-> +	uinfo->value.integer.max =3D 1000000;
-
-This info callback reports bounds on the value...
-
-> +static int aw883xx_set_fade_in_time(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_soc_kcontrol_component(kcon=
-trol);
-> +	struct aw883xx *aw883xx =3D snd_soc_component_get_drvdata(component);
-> +	struct aw_device *aw_dev =3D aw883xx->aw_pa;
+> +	int i = 0;
 > +
-> +	if ((ucontrol->value.integer.value[0] > FADE_TIME_MAX) ||
-> +		(ucontrol->value.integer.value[0] < FADE_TIME_MIN)) {
-
-=2E..which aren't the same as the values being validated on put.  It'd
-also help if the callbacks included the name of the op they're
-implementing, it'd make things eaiser to follow.
-
-> +		dev_err(aw883xx->dev, "set val %ld overflow %d or  less than :%d",
-> +			ucontrol->value.integer.value[0], FADE_TIME_MAX, FADE_TIME_MAX);
-
-Userspace can use this to spam the logs, just return the error.
-
-
-> +		return -1;
-
-Return a real error code like -EINVAL.
-
-> +	aw883xx_dev_set_fade_time(ucontrol->value.integer.value[0], true, aw_de=
-v);
-> +
-> +	dev_dbg(aw883xx->dev, "step time %ld", ucontrol->value.integer.value[0]=
-);
-> +	return 1;
+> +	for (i = DATA_VERSION_V1; i < DATA_VERSION_MAX; i++) {
+> +		if (bin->header_info[bin_num].bin_data_ver == i)
+> +			return 0;
+> +	}
+> +	pr_err("aw_bin_parse Unrecognized this bin data version\n");
+> +	return -DATA_VER_ERR;
 > +}
 
-This will always report a change, generating spurious events.  Test with
-the mixer-test kselftest to make sure everything is fine.
+This seems like an inefficient way of writing
 
-> +static int aw883xx_dynamic_create_controls(struct aw883xx *aw883xx)
+	if (bin->header_info[bin_num].bin_data_ver < DATA_VERSION_V1 ||
+	    bin->header_info[bin_num].bin_data_ver > DATA_VERSION_MAX ||)
+
+surely?
+
+> +static void aw_get_single_bin_header_1_0_0(struct aw_bin *bin)
 > +{
-> +	struct snd_kcontrol_new *aw883xx_dev_control =3D NULL;
-> +	char *kctl_name =3D NULL;
+> +	int i;
 > +
-> +	aw883xx_dev_control =3D devm_kzalloc(aw883xx->codec->dev,
-> +			sizeof(struct snd_kcontrol_new) * AW_KCONTROL_NUM, GFP_KERNEL);
-> +	if (!aw883xx_dev_control)
-> +		return -ENOMEM;
-> +
-> +	kctl_name =3D devm_kzalloc(aw883xx->codec->dev, AW_NAME_BUF_MAX, GFP_KE=
-RNEL);
-> +	if (!kctl_name)
-> +		return -ENOMEM;
-> +
-> +	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%u_prof",
-> +		aw883xx->aw_pa->channel);
-> +
-> +	aw883xx_dev_control[0].name =3D kctl_name;
-> +	aw883xx_dev_control[0].iface =3D SNDRV_CTL_ELEM_IFACE_MIXER;
-> +	aw883xx_dev_control[0].info =3D aw883xx_profile_info;
-> +	aw883xx_dev_control[0].get =3D aw883xx_profile_get;
-> +	aw883xx_dev_control[0].put =3D aw883xx_profile_set;
+> +	bin->header_info[bin->all_bin_parse_num].header_len = 60;
+> +	bin->header_info[bin->all_bin_parse_num].check_sum =
+> +		GET_32_DATA(*(bin->p_addr + 3), *(bin->p_addr + 2),
+> +				*(bin->p_addr + 1), *(bin->p_addr));
 
-As far as I can see this dynamic creation stuff is being done so that
-channel (which I can't find the initialisation for?) can be put into the
-control names.  I can't tell why, if this is to distinguish multiple
-instances of these devices in the same system the core already has
-name_prefix which exists for this purpose and allows systems to provide
-meaningful names.
+The standard way of writing this would be with a packed struct with
+endianness annotations, that's a bit less error prone than this.  I also
+didn't spot the size validation that ensures that we're not walking past
+the end of the binary image anywhere in the code, it might've been there
+but it could do with being rather more obvious.  There are some size
+checks further down but it's not clear that they align with what's going
+on here.
 
-> +	memcpy(aw883xx->aw_cfg->data, cont->data, cont->size);
-> +	ret =3D aw883xx_dev_load_acf_check(aw883xx->aw_cfg);
-> +	if (ret < 0) {
-> +		dev_err(aw883xx->dev, "Load [%s] failed ....!", AW883XX_ACF_FILE);
-> +		vfree(aw883xx->aw_cfg);
-> +		aw883xx->aw_cfg =3D NULL;
-> +		release_firmware(cont);
-> +		return ret;
+> +static int aw_parse_each_of_multi_bins_1_0_0(unsigned int bin_num, int bin_serial_num,
+> +				      struct aw_bin *bin)
+> +{
+
+Given a function with an each_of name I'd expect to see a loop over
+multiple binaries?  I see the loop in the caller but it's a bit
+confusing.  Perhaps one_of.
+
+> +	for (i = 0; i < cfg_hdr->a_ddt_num; ++i) {
+> +		if ((cfg_dde[i].data_type == ACF_SEC_TYPE_MUTLBIN) &&
+> +			(aw_dev->chip_id == cfg_dde[i].chip_id) &&
+> +			((aw_dev->i2c->adapter->nr == cfg_dde[i].dev_bus) &&
+> +			(aw_dev->i2c->addr == cfg_dde[i].dev_addr))) {
+> +			(*scene_num)++;
+> +			}
 > +	}
-> +	release_firmware(cont);
 
-We could just release the firmware immediately after the memcpy().
+Some of the indentation in this code is really hard to read - for
+example here it'd be better to align the if conditions with the brackets
+in the if statement to separate from the code that gets run if the
+condition is true.
 
-> +static const struct snd_soc_dapm_widget aw883xx_dapm_widgets[] =3D {
-> +	 /* playback */
-> +	SND_SOC_DAPM_AIF_IN("AIF_RX", "Speaker_Playback", 0, SND_SOC_NOPM, 0, 0=
-),
-> +	SND_SOC_DAPM_OUTPUT("audio_out"),
-> +	/* capture */
-> +	SND_SOC_DAPM_AIF_OUT("AIF_TX", "Speaker_Capture", 0, SND_SOC_NOPM, 0, 0=
-),
-> +	SND_SOC_DAPM_INPUT("iv_in"),
-> +};
-
-Generally the inputs and outputs should correspond to the names of the
-physical pins on the device so they can be used in the DT bindings to
-connect things to them.
-
-> +static int aw883xx_add_widgets(struct aw883xx *aw883xx)
-> +{
-> +	struct snd_soc_dapm_widget *aw_widgets =3D NULL;
-> +	struct snd_soc_dapm_route *aw_route =3D NULL;
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_component_get_dapm(aw883x=
-x->codec);
-> +
-> +	/*add widgets*/
-> +	aw_widgets =3D devm_kzalloc(aw883xx->dev,
-> +				sizeof(struct snd_soc_dapm_widget) *
-> +				ARRAY_SIZE(aw883xx_dapm_widgets),
-> +				GFP_KERNEL);
-> +	if (!aw_widgets)
-> +		return -ENOMEM;
-> +
-> +	memcpy(aw_widgets, aw883xx_dapm_widgets,
-> +			sizeof(struct snd_soc_dapm_widget) * ARRAY_SIZE(aw883xx_dapm_widgets)=
-);
-> +
-> +	snd_soc_dapm_new_controls(dapm, aw_widgets, ARRAY_SIZE(aw883xx_dapm_wid=
-gets));
-
-I'm not sure why we're doing the alloc and copy here?
-
-> +static ssize_t rw_store(struct device *dev,
-> +				struct device_attribute *attr, const char *buf,
-> +				size_t count)
-> +{
-> +	struct aw883xx *aw883xx =3D dev_get_drvdata(dev);
-> +	unsigned int databuf[2] =3D { 0 };
-> +
-> +	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) =3D=3D 2) {
-> +		aw883xx->reg_addr =3D (uint8_t)databuf[0];
-> +		if (aw883xx->aw_pa->ops.aw_check_rd_access(databuf[0]))
-> +			regmap_write(aw883xx->regmap, databuf[0], databuf[1]);
-> +	} else {
-> +		if (sscanf(buf, "%x", &databuf[0]) =3D=3D 1)
-> +			aw883xx->reg_addr =3D (uint8_t)databuf[0];
-> +	}
-> +
-> +	return count;
-> +}
-
-Remove all this, if there's a need for this for debug purposes then
-there's code in the regmap core to provide direct regmap read/write via
-debugfs.  For production use provide ALSA controls for whatever needs
-controlling.  We shouldn't have userspace able to do uncontrolled
-register writes, that means it can trivially do things which conflict
-with what the kernel is doing - we've got no real idea what state the
-device is in.=20
-
-All this sysfs stuff looks like it should go, or at least be in separate
-clearly explained patches.
-
-> +static ssize_t fade_enable_show(struct device *dev,
-> +	struct device_attribute *attr, char *buf)
-> +{
-
-This is something that's already exposed via the ALSA API.
-
---h2wUVeElwoPuge/f
+--2ZQpEXguQlZNjbtt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOGSrIACgkQJNaLcl1U
-h9CW8gf+Jm6JUjdetHenNZdaMs5ANxO0e/SeVe0mBhQ4P+nssEyWtWZXM4xJ3+ez
-6fRMtSeLvNPm/b+u3mmfNrvEsdjXmdVoYpGNnyH8nmByjfja1CcpxPT3KfA7BWW2
-y3Whg94Jo9JkEFECPDPmOkuak29YDlI0xRM7uuIIEMqr4fCG2c3nJx1kfYoOOhzU
-kys25WSe0eDh+gfPE3YrxDMFrwFDd6fVQT+wDEUOKgSYqUhVQQTKcbqKZF38NrDq
-F/MKuF2waDnBA4qRfKh5fhaZdek0oHktjar8weVcJ0DjNwylgQta5c8Kqv98RBbf
-XF2MutQ+BiJ92HhOtiCWzZc+QVTiMQ==
-=gG4h
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOGTwgACgkQJNaLcl1U
+h9BSbQf/UPYBwUuZJvZzStHf0MBZLMXnbUBfVxq++Dnf8K+h1fy2H0tsPwgFWLaV
+qN8FsJNmtE2VEQIztZ0699Q6JPgDaydZYcJwYlnPPo+lNBrWILlkbTm7/bvpC3iN
+7LJoV8U+6Roo3tpDn33ahp6lJRNKkZvkMcCnZ1lC7D9qrG9VBX9i5cYQiAhFG37Z
+TerCJzNVEJpSx5R2FZBnRws6Mjey9OOje9Mgp2/hz+5FITlHQJ0CpWPdp2k17t8f
+ul43xkDivw9hc7LnfizrJpJWlOQIP433+zcMjmwpZlO6xFIN++21fLFi3kHXX4R+
+7SN3JA3oFj8qWEmIkDxmz/ikw1SsRg==
+=jzKH
 -----END PGP SIGNATURE-----
 
---h2wUVeElwoPuge/f--
+--2ZQpEXguQlZNjbtt--

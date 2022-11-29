@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4FD163C536
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 17:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC5163C5D2
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 17:58:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DB031690;
-	Tue, 29 Nov 2022 17:32:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DB031690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BEF5168B;
+	Tue, 29 Nov 2022 17:57:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BEF5168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669739622;
-	bh=RsiqyQgyj8Z5PLoLgztsickTRKrGI0VYzWKzSjnKRDw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1669741112;
+	bh=CpZ6gT7uGV+SQxKzoeZYVIuIko1cajmackRKjYZva2Q=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aYP9AT1aqQbWmrM5J7s8lb1m9mn8wHuInXnYZp+PeFkdNVkUnTOiKMlCcCqFbWlX/
-	 XLH1AyA5jeLHqoMvekDKv9e/e5WbrhXVfbKoEZQw9nFq9MmAIyb0nN4WztNY92qzks
-	 A84gxlOXPCgM47gedub4QrkTa2Hd8TCgq1BwQ6Nw=
+	b=c5eCcpJiAeMFs9kpGqweyuzd52ME8iDblXv2IKpVkLXGZpDITI8J/6a/73Pv4CObX
+	 1st7rb9syX5a3M4yLqkeVdF34Z8c1/18zMG55SHfWdr2lHaDtxVApDfQsRsW39zgbm
+	 VAa7eD9OlY8Qtt+N2rq5BMXQtJ7U/IkhrhmWqzCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CF16F800B6;
-	Tue, 29 Nov 2022 17:32:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A797BF80137;
+	Tue, 29 Nov 2022 17:57:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BBEEF801F7; Tue, 29 Nov 2022 17:32:45 +0100 (CET)
+ id 6C3D3F801F7; Tue, 29 Nov 2022 17:57:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98771F80137
+ for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 17:57:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98771F80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bjYwSySa"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8160F800B6
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 17:32:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8160F800B6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="cnT0dxB4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669739559; x=1701275559;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=RsiqyQgyj8Z5PLoLgztsickTRKrGI0VYzWKzSjnKRDw=;
- b=cnT0dxB41/Y38wyfmOojPJXAJhOt4lR63q1eYB1KJoafgxpF6MQQOnQs
- GIrG252iBkQt4yOlJLrHoBUmqx0t2PHCkJ4mbUztq+0Le/TMZT+A/RQnD
- 5fhhcSDji+cTFltm+Y9l/rRXQZMPwGa2dPyL1X2jwnEUuilts2EZkwcsa
- MiRDo1u95LPkudKmKWs9/PHlEj3Qyuas/wX1Js4Tcr2yIGutn5Z6gpu5q
- SCmDOeIuOqOGEf2mbM96hSsU3I6WdRpOzsHa5PV6aadrNZFxtzymHOLq/
- R4Ao4kfiHwL1ypjDoEOfffG8PSGAVHGHOv0KPDz/CU/dC202rzVl56Xo9 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10546"; a="294853021"
-X-IronPort-AV: E=Sophos;i="5.96,203,1665471600"; d="scan'208";a="294853021"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2022 08:31:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10546"; a="749915187"
-X-IronPort-AV: E=Sophos;i="5.96,203,1665471600"; d="scan'208";a="749915187"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.114])
- ([10.99.249.114])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2022 08:31:15 -0800
-Message-ID: <2be35f9b-089b-581d-2982-8b0e1a91b58f@linux.intel.com>
-Date: Tue, 29 Nov 2022 17:31:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH 10/11] ASoC: Intel: avs: rt5682: Add define for codec DAI
- name
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E4181617F3;
+ Tue, 29 Nov 2022 16:57:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E727C433D6;
+ Tue, 29 Nov 2022 16:57:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669741046;
+ bh=CpZ6gT7uGV+SQxKzoeZYVIuIko1cajmackRKjYZva2Q=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=bjYwSySa7zsXcoBK1MAUMf/eK7HaZCMTOjOdZ4nCzwVQQ0aPt9eonk2222v7AhfY5
+ DjWLBqCY+zaE8gP3sepPHyXW9aTNfkf1nELunQjLqoTmp1rC6upG0HRzL/8e3u/zYj
+ QNlnoO8mWMogKeBVtx+RUFOD4ENKcTz8KzI04M1NXl/xJzxhPHmSLvUfQZoEIckfqM
+ K24Lqm+HR65dg3RTjlRUdLQwl4q3r+/JHaSWJR3ncRsuZ9in8wHpTyTBBHC0QxCfMU
+ f32Y9S/GTlz4sAgAE0G7zWDoOwuc6AWkeTjbFNBYNGo/PaiOCBFtb/+ZoN928CQ+wP
+ AUSO0axu1/KHA==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20221125184032.2565979-1-cezary.rojewski@intel.com>
 References: <20221125184032.2565979-1-cezary.rojewski@intel.com>
- <20221125184032.2565979-11-cezary.rojewski@intel.com>
- <Y4YySIFSZB5/NfYh@sirena.org.uk>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <Y4YySIFSZB5/NfYh@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 00/11] ASoC: Intel: avs: Refactor jack handling
+Message-Id: <166974104510.322279.17804831081622628308.b4-ty@kernel.org>
+Date: Tue, 29 Nov 2022 16:57:25 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: hdegoede@redhat.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,24 +86,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/29/2022 5:24 PM, Mark Brown wrote:
-> On Fri, Nov 25, 2022 at 07:40:31PM +0100, Cezary Rojewski wrote:
->> From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
->>
->> Following commits will make use of it to find codec DAI, define it
->> first.
+On Fri, 25 Nov 2022 19:40:21 +0100, Cezary Rojewski wrote:
+> For all the boards included in this patchset, a similar set of changes
+> is proposed:
 > 
-> This breaks an x86 allmodconfig build:
+> 1) Move jack unassignment from platform_device->remove() to
+>    dai_link->exit(). This is done to make jack init and deinit flows
+>    symmetric
+> 2) Remove platform_device->remove() function
+> 3) Simplify card->suspend_pre() and card->resume_post() by making use of
+>    snd_soc_card_get_codec_dai() helper
 > 
-> /build/stage/linux/sound/soc/intel/avs/boards/rt5682.c: In function ‘avs_create_dai_link’:
-> /build/stage/linux/sound/soc/intel/avs/boards/rt5682.c:198:20: error: ‘avs_rt5682_codec_exit’ undeclared (first use in this function); did you mean ‘avs_rt5682_codec_init’?
->    198 |         dl->exit = avs_rt5682_codec_exit;
->        |                    ^~~~~~~~~~~~~~~~~~~~~
->        |                    avs_rt5682_codec_init
-> 
-> and looks out of place in this commit, it at least deserves calling out
-> in the commit log?
+> [...]
 
-Oops.. that seems like patch split gone wrong, it is added in following 
-commit. Other patches add dl->exit in the "second" patch, so this chunk 
-should be part of patch 11, instead of this one.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[01/11] ASoC: Intel: bdw_rt286: Refactor jack handling
+        commit: d60a197e50eca5017076b3867c1a49cb5118d597
+[02/11] ASoC: Intel: avs: da7219: Refactor jack handling
+        commit: 833e250ef592c3c02dda400c1c44306f74241d33
+[03/11] ASoC: Intel: avs: nau8825: Refactor jack handling
+        commit: 9febcd7a0180b1ea5b49cda1838aef49ef936805
+[04/11] ASoC: Intel: avs: rt274: Refer to DAI name through a constant
+        commit: 58391e7ca04be3960579a51d9a47d0fbc1b1607e
+[05/11] ASoC: Intel: avs: rt274: Refactor jack handling
+        commit: a08797afc1f9792b16356f59ba047114dd06a25e
+[06/11] ASoC: Intel: avs: rt286: Add define for codec DAI name
+        commit: af8ced412d6ee680faca06700fa784bbef6de702
+[07/11] ASoC: Intel: avs: rt286: Refactor jack handling
+        commit: 2f292443b4c88ccd469e724d022c669349abcbb5
+[08/11] ASoC: Intel: avs: rt298: Add define for codec DAI name
+        commit: 1fa675a00a5028f4f49bd19eaab016ea2d765ba8
+[09/11] ASoC: Intel: avs: rt298: Refactor jack handling
+        commit: 28baae9bfc1fb9fdaff2e8bd328b2a5b12a14273
+[10/11] ASoC: Intel: avs: rt5682: Add define for codec DAI name
+        (no commit info)
+[11/11] ASoC: Intel: avs: rt5682: Refactor jack handling
+        (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

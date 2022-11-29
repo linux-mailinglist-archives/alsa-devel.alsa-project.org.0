@@ -2,92 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DDB763BAE4
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 08:46:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C8263BB02
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Nov 2022 08:53:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4F731698;
-	Tue, 29 Nov 2022 08:45:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F731698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F4AB1673;
+	Tue, 29 Nov 2022 08:52:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F4AB1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669707978;
-	bh=VFqR5ZNUPxhptSVNVqJDZIynwEj5yVvybAahkgvu0zM=;
+	s=default; t=1669708399;
+	bh=IFYpdx6XG7TJyAro4CjJgb6S0OfbX6LfgYpCv9Bhswc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=paeCscp+B6BxlA1jL7HGQm9cd0fItriQ1Rtt832s2kuMU0VwvKADgaL945J71+upN
-	 Q8wJoA2V+1CCSW/LYQ28AQbeHyy1g2FkCgjgyjfsoJV6Tc0cXhbqBFjb/jiwuJhf+E
-	 is313jjDmhEYLaZBXvmUE/Lp59AGtw+noeK5f3G4=
+	b=WCyELaA/raw533BLqAW21RSQVeAanfCLu8GY0ecpi33vPpksB8WyrfNHWgxqBgwUj
+	 9a6KtF2KqV9PG9DPgkm+GVvm8IojCvBtusRBHqNMUmTG/sh9KJ5P/c+0Xpgm2W3nN0
+	 nWBVzhm4NjXMw6AQ5SDNexhBESHZDK2mb2YpJijM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37AE5F80212;
-	Tue, 29 Nov 2022 08:45:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AE7DF801F5;
+	Tue, 29 Nov 2022 08:52:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43F52F801F7; Tue, 29 Nov 2022 08:45:21 +0100 (CET)
+ id CD61EF801F7; Tue, 29 Nov 2022 08:52:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E124F80137
- for <alsa-devel@alsa-project.org>; Tue, 29 Nov 2022 08:45:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E124F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC888F80137;
+ Tue, 29 Nov 2022 08:52:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC888F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kyds5+SV"; 
+ header.b="w2WuPzBe"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QON2JS6p"
+ header.b="jd4pQJzt"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ACF1B1FDDE;
- Tue, 29 Nov 2022 07:45:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 383601FDE2;
+ Tue, 29 Nov 2022 07:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669707915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669708335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=TTBFOy/AKg2r60+qBKF0GRguOrBUAtYGRUBMJUxsWAw=;
- b=kyds5+SVuyqZ0H3LuuxBUFkwcPWm7CgNSxenA4wvnkgsvF/FtNuJ7pndkWDNWCMBKQVcsb
- dcOU9/4oUe40KwhEF3yzCBf2l2Fmmq+wWkKwFe/njMW5ncxBkt61tLCzMc2rn6YH9d/mDv
- LDwGkPHqW7UELghavMGln5Kb6v3LpvM=
+ bh=UCtXcvqaOALnEXAnaeywfxvt3BaAGjAT6PCuZBjIu8U=;
+ b=w2WuPzBeAs1MfNmadXyGfVU7XEo/xH1XPlDu5ki2ZRFXbijfTybWEQ6idq1JEd7ez3I5Wk
+ vUg+i+5NrABlFQW/5l5WEREHF+IUO4iMjKjPfrkuMkydu1A0edIsnE5XrRV9pGgfR0M+er
+ HNLl5xkMERfEjnlgQEN83wbbrJ1xCAU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669707915;
+ s=susede2_ed25519; t=1669708335;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=TTBFOy/AKg2r60+qBKF0GRguOrBUAtYGRUBMJUxsWAw=;
- b=QON2JS6pYBFmd5/FrTyzhnKept7hRQHzFyhFrT31cMYu+pM40t1QT5kJSxl8u4ZiQ9V8zO
- MC04MUn33XDU8QDA==
+ bh=UCtXcvqaOALnEXAnaeywfxvt3BaAGjAT6PCuZBjIu8U=;
+ b=jd4pQJztqijSHbDWUB9WprF7eznFZ0UG4K4ozQvp3E5JUKwj6c2aH8eCuaxNdAbG9E5mFA
+ QzJpEDCBLMnTgWBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8BB9D13428;
- Tue, 29 Nov 2022 07:45:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E047413428;
+ Tue, 29 Nov 2022 07:52:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MU9TIYu4hWP1bAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 07:45:15 +0000
-Date: Tue, 29 Nov 2022 08:45:14 +0100
-Message-ID: <87fse2qk51.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id EJcFNi66hWPEcAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 29 Nov 2022 07:52:14 +0000
+Date: Tue, 29 Nov 2022 08:52:14 +0100
+Message-ID: <87edtmqjtd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Carl Hetherington <lists@carlh.net>
-Subject: Re: Query about xrun on usb/pcm
-In-Reply-To: <baa6589-184f-6751-71be-1d5d67f8a6d5@carlh.net>
-References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
- <87y1s3v4ba.wl-tiwai@suse.de>
- <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
- <87edtv6pi6.wl-tiwai@suse.de>
- <baa6589-184f-6751-71be-1d5d67f8a6d5@carlh.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v4] ALSA: core: Fix deadlock when shutdown a frozen
+ userspace
+In-Reply-To: <16ddcbb9-8afa-ff18-05f9-2e9e01baf3ea@linux.intel.com>
+References: <20221127-snd-freeze-v4-0-51ca64b7f2ab@chromium.org>
+ <5171929e-b750-d2f1-fec9-b34d76c18dcb@linux.intel.com>
+ <87mt8bqaca.wl-tiwai@suse.de>
+ <16ddcbb9-8afa-ff18-05f9-2e9e01baf3ea@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Ricardo Ribalda <ribalda@chromium.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,97 +111,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Nov 2022 23:51:55 +0100,
-Carl Hetherington wrote:
+On Mon, 28 Nov 2022 18:26:03 +0100,
+Pierre-Louis Bossart wrote:
 > 
-> Hi Takashi,
 > 
-> Thank you for your continued attention with this!
 > 
-> [snip]
+> On 11/28/22 11:04, Takashi Iwai wrote:
+> > On Mon, 28 Nov 2022 17:49:20 +0100,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >>
+> >>
+> >> On 11/28/22 07:42, Ricardo Ribalda wrote:
+> >>> During kexec(), the userspace is frozen. Therefore we cannot wait for it
+> >>> to complete.
+> >>>
+> >>> Avoid running snd_sof_machine_unregister during shutdown.
+> >>>
+> >>> This fixes:
+> >>>
+> >>> [   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
+> >>> [  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
+> >>> [  246.819035] Call Trace:
+> >>> [  246.821782]  <TASK>
+> >>> [  246.824186]  __schedule+0x5f9/0x1263
+> >>> [  246.828231]  schedule+0x87/0xc5
+> >>> [  246.831779]  snd_card_disconnect_sync+0xb5/0x127
+> >>> ...
+> >>> [  246.889249]  snd_sof_device_shutdown+0xb4/0x150
+> >>> [  246.899317]  pci_device_shutdown+0x37/0x61
+> >>> [  246.903990]  device_shutdown+0x14c/0x1d6
+> >>> [  246.908391]  kernel_kexec+0x45/0xb9
+> >>>
+> >>> And:
+> >>>
+> >>> [  246.893222] INFO: task kexec-lite:4891 blocked for more than 122 seconds.
+> >>> [  246.927709] Call Trace:
+> >>> [  246.930461]  <TASK>
+> >>> [  246.932819]  __schedule+0x5f9/0x1263
+> >>> [  246.936855]  ? fsnotify_grab_connector+0x5c/0x70
+> >>> [  246.942045]  schedule+0x87/0xc5
+> >>> [  246.945567]  schedule_timeout+0x49/0xf3
+> >>> [  246.949877]  wait_for_completion+0x86/0xe8
+> >>> [  246.954463]  snd_card_free+0x68/0x89
+> >>> ...
+> >>> [  247.001080]  platform_device_unregister+0x12/0x35
+> >>>
+> >>> Cc: stable@vger.kernel.org
+> >>> Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
+> >>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> >>> ---
+> >>> To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >>> To: Liam Girdwood <lgirdwood@gmail.com>
+> >>> To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >>> To: Bard Liao <yung-chuan.liao@linux.intel.com>
+> >>> To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> >>> To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> >>> To: Daniel Baluta <daniel.baluta@nxp.com>
+> >>> To: Mark Brown <broonie@kernel.org>
+> >>> To: Jaroslav Kysela <perex@perex.cz>
+> >>> To: Takashi Iwai <tiwai@suse.com>
+> >>> Cc: sound-open-firmware@alsa-project.org
+> >>> Cc: alsa-devel@alsa-project.org
+> >>> Cc: linux-kernel@vger.kernel.org
+> >>> ---
+> >>> Changes in v4:
+> >>> - Do not call snd_sof_machine_unregister from shutdown.
+> >>> - Link to v3: https://lore.kernel.org/r/20221127-snd-freeze-v3-0-a2eda731ca14@chromium.org
+> >>>
+> >>> Changes in v3:
+> >>> - Wrap pm_freezing in a function
+> >>> - Link to v2: https://lore.kernel.org/r/20221127-snd-freeze-v2-0-d8a425ea9663@chromium.org
+> >>>
+> >>> Changes in v2:
+> >>> - Only use pm_freezing if CONFIG_FREEZER 
+> >>> - Link to v1: https://lore.kernel.org/r/20221127-snd-freeze-v1-0-57461a366ec2@chromium.org
+> >>> ---
+> >>>  sound/soc/sof/core.c | 7 ++-----
+> >>>  1 file changed, 2 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+> >>> index 3e6141d03770..9616ba607ded 100644
+> >>> --- a/sound/soc/sof/core.c
+> >>> +++ b/sound/soc/sof/core.c
+> >>> @@ -475,19 +475,16 @@ EXPORT_SYMBOL(snd_sof_device_remove);
+> >>>  int snd_sof_device_shutdown(struct device *dev)
+> >>>  {
+> >>>  	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+> >>> -	struct snd_sof_pdata *pdata = sdev->pdata;
+> >>>  
+> >>>  	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+> >>>  		cancel_work_sync(&sdev->probe_work);
+> >>>  
+> >>>  	/*
+> >>> -	 * make sure clients and machine driver(s) are unregistered to force
+> >>> -	 * all userspace devices to be closed prior to the DSP shutdown sequence
+> >>> +	 * make sure clients are unregistered prior to the DSP shutdown
+> >>> +	 * sequence.
+> >>>  	 */
+> >>>  	sof_unregister_clients(sdev);
+> >>>  
+> >>> -	snd_sof_machine_unregister(sdev, pdata);
+> >>> -
+> >>
+> >> The comment clearly says that we do want all userspace devices to be
+> >> closed. This was added in 83bfc7e793b5 ("ASoC: SOF: core: unregister
+> >> clients and machine drivers in .shutdown") precisely to avoid a platform
+> >> hang if the devices are used after the shutdown completes.
+> > 
+> > The problem is that it wants the *close* of the user-space programs
+> > unnecessarily.  Basically the shutdown can be seen as a sort of device
+> > hot unplug; i.e. the disconnection of the device files and the cleanup
+> > of device state are the main task.  The difference is that the hot
+> > unplug (unbind) usually follows the sync for the all processes being
+> > closed (so that you can release all resources gracefully), while this
+> > step is skipped for the shutdown (no need for resource-free).
 > 
-> > > I'll see if can apply a similar fix to this case, though to my naive
-> > > eyes it looks a little trickier as the xrun is found in the snd_pcm
-> > > code rather than the USB code.  Any suggestions most welcome!
-> >
-> > OK, then it's a bit different problem, and not so trivial to fix in
-> > the kernel side alone, I'm afraid.  Basically it's a race between
-> > start and stop of two streams.  The key point is that, for stopping a
-> > (USB) stream, a sync-stop operation is needed, and this can't be
-> > performed at the PCM trigger itself (which is an atomic operation).
-> > So, the kernel trigger may at most return an error there.
-> >
-> > I assume that it's from snd_usb_endpoint_start() and it returning
-> > -EPIPE error.  If so, we may change the PCM core code to set the PCM
-> > state again XRUN in such an error case, so that application may repeat
-> > the standard recovery process.  Something like below.
+> Sorry Takashi, I don't have enough background to follow your explanations.
 > 
-> Thanks for the suggestion.  I experimented a little with this, but I
-> think the problem I'm seeing is that (even if the application knows it
-> should retry the snd_pcm_prepare() step) we still end up with an endpoint
-> in EP_STATE_STOPPING while the corresponding stop_operating flag is 0.
+> As Kai mentioned it, this step helped with a S5 issue earlier in 2022.
+> Removing this will mechanically bring the issue back and break other
+> Chromebooks.
 
-Ah, I guess that's a fallout in the logic.  When XRUN happens at start
--- receiving an -EPIPE error at snd_pcm_do_start() -- then the patch
-sets the XRUN state.  This assumed that the stream gets stopped the
-following snd_pcm_undo_start() call.  Indeed it does stop but there we
-forgot setting stop_operating flag unlike what snd_pcm_stop() does.
+Yeah I don't mean that this fix is right, either.  But the earlier fix
+has apparently a problem and needs another fix.
 
-> This means that snd_pcm_sync_stop will never call the USB sync_stop
-> handler, which AFAICS is the only way (?) the endpoint can get back to
-> EP_STATE_STOPPED.
-> 
-> In my error case, the code in snd_pcm_sync_stop sets stop_operating to
-> false (perhaps assuming that substream->ops->sync_stop will "succeed"
-> in setting any STOPPING endpoints to STOPPED) but then this doesn't
-> happen because of this xrun that arrives halfway through the sync_stop
-> operation.
-> 
-> I experimented with removing the check at the top of snd_pcm_sync_stop,
-> so that we enter the if body regardless of
-> substream->runtime->stop_operating, and making my application retry
-> snd_pcm_prepare() if it fails with -EPIPE, and this seems to "fix" my
-> problem.  Obviously this causes more (unnecessary) calls to the
-> sync_stop() entry point...
-> 
-> I'd be grateful of any thoughts you have about that.
-
-How about the revised patch below?
+Though, it's not clear why the full unregister of clients is needed at
+the first place; judging only from the patch description of commit
+83bfc7e793b5, what we want is only to shut up the further user space
+action?  If so, just call snd_card_disconnect() would suffice?
 
 
 Takashi
-
--- 8< --
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1424,16 +1424,28 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,
- static int snd_pcm_do_start(struct snd_pcm_substream *substream,
- 			    snd_pcm_state_t state)
- {
-+	int err;
-+
- 	if (substream->runtime->trigger_master != substream)
- 		return 0;
--	return substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
-+	err = substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_START);
-+	/* XRUN happened during the start; usually we do trigger(STOP)
-+	 * then set the PCM state to XRUN, but in this case, the stream
-+	 * is stopped in snd_pcm_undo_start() right after this point without
-+	 * knowing the reason -- so set the PCM state beforehand as exception.
-+	 */
-+	if (err == -EPIPE)
-+		__snd_pcm_set_state(substream->runtime, SNDRV_PCM_STATE_XRUN);
-+	return err;
- }
- 
- static void snd_pcm_undo_start(struct snd_pcm_substream *substream,
- 			       snd_pcm_state_t state)
- {
--	if (substream->runtime->trigger_master == substream)
-+	if (substream->runtime->trigger_master == substream) {
- 		substream->ops->trigger(substream, SNDRV_PCM_TRIGGER_STOP);
-+		substream->runtime->stop_operating = true;
-+	}
- }
- 
- static void snd_pcm_post_start(struct snd_pcm_substream *substream,

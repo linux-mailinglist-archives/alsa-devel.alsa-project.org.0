@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371DB63CC3C
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 01:08:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989E063CC38
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 01:08:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 627E616C3;
-	Wed, 30 Nov 2022 01:07:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 627E616C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320D816B3;
+	Wed, 30 Nov 2022 01:07:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320D816B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669766923;
-	bh=441OKhiJgVCddtFNAx9Epxfx+yKvkKD9MnnbzjxJBFo=;
+	s=default; t=1669766902;
+	bh=wqpaOP9IsZBH4xn9d7qF8ePQ5O6RD8RKVwSH35DW6JU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B/DEcPFeZTP2pbtcCEUs2JbIrx09KilcYFtdiOeXI+6L9XxjOKJPZPR9UVKmTR9Ru
-	 I1iGySZzTOEKrAFuryHNcPLOPzu5xNG3XLaEOvwqKc7S8cFYLSsn1gFA2VVpNv5hX6
-	 l2Rpek1wUHN/xd2c26uya4ACYqagCuzA9xjrR+VA=
+	b=DV3LmqsvSiIBihdY7GYvnLB0Ji8zY9QsJ9H+96ljIs0BZ6yOUoVnFrM+aOVEqRxR3
+	 Se6Arabp3KHX6xxMtvgaDpq5V2azPcJrCxiEtvw4wKAltkMT+ww0Z0O3UqnsYI1Tq9
+	 kW+82RQWun+wGDJXy2OH+aEGqsICu7hsunJxfX6E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00013F80482;
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BAB8F80495;
 	Wed, 30 Nov 2022 01:07:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A25DF80495; Wed, 30 Nov 2022 01:07:04 +0100 (CET)
+ id D36BAF8053D; Wed, 30 Nov 2022 01:07:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4242F80166
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 01:06:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4242F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC571F801F7
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 01:07:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC571F801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Sww73/2l"
+ header.b="pzg9Lrsv"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7EA24B81997;
- Wed, 30 Nov 2022 00:06:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BC7C43470;
- Wed, 30 Nov 2022 00:06:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A7BF46195B;
+ Wed, 30 Nov 2022 00:06:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21CAC433B5;
+ Wed, 30 Nov 2022 00:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669766815;
- bh=441OKhiJgVCddtFNAx9Epxfx+yKvkKD9MnnbzjxJBFo=;
+ s=k20201202; t=1669766817;
+ bh=wqpaOP9IsZBH4xn9d7qF8ePQ5O6RD8RKVwSH35DW6JU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sww73/2lJHu91+zcY3fgythvMBaW0QXhLKwVXQyD3QLrzAC0xhJSOfH6wkxxU/+s/
- ktT8B2zlPWPMpnSEhC+GGqHSysk3yq0eBNC4IDXE21Q+j+ohEf5dOYZMsH59JXmsnl
- 8Y9bOa+J3Q+vYrmdJpi7sdcVJGQjF+3Cus6lAEQFCRSaRzsj8RLwTIG7gIbv/jj8gx
- LBKAfjlfrawnSf8vF5Ehu3VA0P2AljlDEl1AwZlv8nfmXtIDDPBQlDChDQHVymBf3m
- wDirIjzhpdPyikTGvTWcgbPWHT0M0OMGZq5QAVT15+Jz9do0XSijzuIt6D2ke4nFe1
- flHLOcpgO9s2Q==
+ b=pzg9LrsvWEBJN7bAuXvrptbKPXn+k3MOzdQsc03W0U2yB7xE1wLAZSqd5zWe9v11g
+ utn/GeuyqrvWNjUms+nVCNonG2oPraHksmVqfZ8NN84/e+tSlKsMGUQnuv6DBY97vA
+ gQslbLlamDGy8GArqCHjFZsqnZitPD4045N7sOGYgFx3W4SEFm7xSo/bFD3HJDoh8h
+ q6+dbmsWzetI5tnt0af3YxNDarXv2Otove+RUvKFbw/y/+OVhq/9HLZlfM2wOsgGrF
+ 0SAdkPdTcz4r3We+7yIKtwFONN5R/rsnfeeCCh2qYY4Ih0gCvnJBXHClfn4K37qyaY
+ s1nVYZkNp0AqA==
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
  Shuah Khan <shuah@kernel.org>
-Subject: [PATCH v1 1/6] kselftest/alsa: Refactor pcm-test to list the tests to
- run in a struct
-Date: Wed, 30 Nov 2022 00:06:03 +0000
-Message-Id: <20221130000608.519574-2-broonie@kernel.org>
+Subject: [PATCH v1 2/6] kselftest/alsa: Report failures to set the requested
+ sample rate as skips
+Date: Wed, 30 Nov 2022 00:06:04 +0000
+Message-Id: <20221130000608.519574-3-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221130000608.519574-1-broonie@kernel.org>
 References: <20221130000608.519574-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5316; i=broonie@kernel.org;
- h=from:subject; bh=441OKhiJgVCddtFNAx9Epxfx+yKvkKD9MnnbzjxJBFo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjhp5rGwhQdFbiniftIokUorQjjrV1ranWwhmL5ru6
- nZQqrk+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4aeawAKCRAk1otyXVSH0LifB/
- oCrFFsdd9oQg3cpDBQszgz4t/u2B7OZU1yvoKwDkRAc24mjA9HMfRMZWmhbpN5P+yYsiUgny/b1GfI
- n1rWjB6ACmfetUFagcQDQRujtdfa7id09aRq+6mt5DpoJrysXLkd3fQhGo+aY6T1aCfd9IC1b9AOVC
- WxOCViGfbUmDtXXwhad3fovW6VWtBOTwWzdB9lUa/oP5iJZXCsXDDfXm7rGBNpustrTxl5+JcLGgak
- eehbj/d1fiOHnfM7nGwmHioLH9S45bQiMev8pWqa2YFcEV3mkKnE/HympA1lIn+o3Azsedf+3Euja3
- MeD1xX6Rm0DhkLUImB2xubdt5WPjfu
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2201; i=broonie@kernel.org;
+ h=from:subject; bh=wqpaOP9IsZBH4xn9d7qF8ePQ5O6RD8RKVwSH35DW6JU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjhp5sBJwm+lWb68cs/Kqx+6TVtUwnlH1Z4xrws870
+ u3bklPeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4aebAAKCRAk1otyXVSH0Lw2B/
+ 0SOPiFYC3iUaqOGezP5DUzGqUqe4Z68//nb3p1BMeDnELLkK7eIj12TGHaewlYHfKGkXUKcuDMHkAd
+ UWRER1A+GZfGVwQidHIDV1ZhWjL0KC/YrpcKxsH+/ODtUy1KOzw4IazeZNHhNl0APY1PJvYmk/Epmv
+ 3JjUmZR7RsXJCEmo8GmmTBGxGutXsocHwAIou3UWzvgW8EuW3kDkDqAxaZvlrbYwJvE+awd9OlrBYA
+ HQReQvrOnS5leguzyjYi2TUbcj3PSaFPCAQb2syWOcXmDqNq3Zq4LCxERxYZbDlD3duYx35BXh3qk0
+ OHO3Zcf3Dqin5dKUUWXYQYo6PRWcFW
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -97,145 +97,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In order to help make the list of tests a bit easier to maintain refactor
-things so we pass the tests around as a struct with the parameters in,
-enabling us to add new tests by adding to a table with comments saying
-what each of the number are. We could also use named initializers if we get
-more parameters.
+If constraint selection gives us a sample rate other than the one that we
+asked for that isn't a failure, that is the device implementing sample
+rate constraints and advertising that it can't support whatever we asked
+for. Report such cases as a test skip rather than failure so we don't have
+false positives.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/selftests/alsa/pcm-test.c | 53 +++++++++++++++----------
- 1 file changed, 33 insertions(+), 20 deletions(-)
+ tools/testing/selftests/alsa/pcm-test.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index 2814d8f74f82..b8923e494e50 100644
+index b8923e494e50..6a9e4af828ee 100644
 --- a/tools/testing/selftests/alsa/pcm-test.c
 +++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -57,6 +57,15 @@ struct pcm_data *pcm_list = NULL;
- int num_missing = 0;
- struct pcm_data *pcm_missing = NULL;
+@@ -317,6 +317,7 @@ static void test_pcm_time1(struct pcm_data *data,
+ 	bool pass = false, automatic = true;
+ 	snd_pcm_hw_params_t *hw_params;
+ 	snd_pcm_sw_params_t *sw_params;
++	bool skip = false;
  
-+struct time_test_def {
-+	const char *cfg_prefix;
-+	const char *format;
-+	long rate;
-+	long channels;
-+	long period_size;
-+	long buffer_size;
-+};
-+
- void timestamp_now(timestamp_t *tstamp)
- {
- 	if (clock_gettime(CLOCK_MONOTONIC_RAW, tstamp))
-@@ -290,9 +299,7 @@ static void find_pcms(void)
- }
- 
- static void test_pcm_time1(struct pcm_data *data,
--			   const char *cfg_prefix, const char *sformat,
--			   long srate, long schannels,
--			   long speriod_size, long sbuffer_size)
-+			   const struct time_test_def *test)
- {
- 	char name[64], key[128], msg[256];
- 	const char *cs;
-@@ -314,20 +321,20 @@ static void test_pcm_time1(struct pcm_data *data,
  	snd_pcm_hw_params_alloca(&hw_params);
  	snd_pcm_sw_params_alloca(&sw_params);
- 
--	cs = conf_get_string(data->pcm_config, cfg_prefix, "format", sformat);
-+	cs = conf_get_string(data->pcm_config, test->cfg_prefix, "format", test->format);
- 	format = snd_pcm_format_value(cs);
- 	if (format == SND_PCM_FORMAT_UNKNOWN)
- 		ksft_exit_fail_msg("Wrong format '%s'\n", cs);
--	rate = conf_get_long(data->pcm_config, cfg_prefix, "rate", srate);
--	channels = conf_get_long(data->pcm_config, cfg_prefix, "channels", schannels);
--	period_size = conf_get_long(data->pcm_config, cfg_prefix, "period_size", speriod_size);
--	buffer_size = conf_get_long(data->pcm_config, cfg_prefix, "buffer_size", sbuffer_size);
-+	rate = conf_get_long(data->pcm_config, test->cfg_prefix, "rate", test->rate);
-+	channels = conf_get_long(data->pcm_config, test->cfg_prefix, "channels", test->channels);
-+	period_size = conf_get_long(data->pcm_config, test->cfg_prefix, "period_size", test->period_size);
-+	buffer_size = conf_get_long(data->pcm_config, test->cfg_prefix, "buffer_size", test->buffer_size);
- 
--	automatic = strcmp(sformat, snd_pcm_format_name(format)) == 0 &&
--			srate == rate &&
--			schannels == channels &&
--			speriod_size == period_size &&
--			sbuffer_size == buffer_size;
-+	automatic = strcmp(test->format, snd_pcm_format_name(format)) == 0 &&
-+			test->rate == rate &&
-+			test->channels == channels &&
-+			test->period_size == period_size &&
-+			test->buffer_size == buffer_size;
- 
- 	samples = malloc((rate * channels * snd_pcm_format_physical_width(format)) / 8);
- 	if (!samples)
-@@ -363,7 +370,7 @@ static void test_pcm_time1(struct pcm_data *data,
- 		if (automatic && format == SND_PCM_FORMAT_S16_LE) {
- 			format = SND_PCM_FORMAT_S32_LE;
- 			ksft_print_msg("%s.%d.%d.%d.%s.%s format S16_LE -> S32_LE\n",
--					 cfg_prefix,
-+					 test->cfg_prefix,
- 					 data->card, data->device, data->subdevice,
- 					 snd_pcm_stream_name(data->stream),
- 					 snd_pcm_access_name(access));
-@@ -432,7 +439,7 @@ static void test_pcm_time1(struct pcm_data *data,
+@@ -391,7 +392,8 @@ static void test_pcm_time1(struct pcm_data *data,
+ 		goto __close;
  	}
- 
- 	ksft_print_msg("%s.%d.%d.%d.%s hw_params.%s.%s.%ld.%ld.%ld.%ld sw_params.%ld\n",
--			 cfg_prefix,
-+			 test->cfg_prefix,
- 			 data->card, data->device, data->subdevice,
- 			 snd_pcm_stream_name(data->stream),
- 			 snd_pcm_access_name(access),
-@@ -481,7 +488,7 @@ static void test_pcm_time1(struct pcm_data *data,
+ 	if (rrate != rate) {
+-		snprintf(msg, sizeof(msg), "rate mismatch %ld != %ld", rate, rrate);
++		snprintf(msg, sizeof(msg), "rate unsupported %ld != %ld", rate, rrate);
++		skip = true;
+ 		goto __close;
+ 	}
+ 	rperiod_size = period_size;
+@@ -487,11 +489,20 @@ static void test_pcm_time1(struct pcm_data *data,
+ 	msg[0] = '\0';
  	pass = true;
  __close:
- 	ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
--			 cfg_prefix,
-+			 test->cfg_prefix,
- 			 data->card, data->device, data->subdevice,
- 			 snd_pcm_stream_name(data->stream),
- 			 msg[0] ? " " : "", msg);
-@@ -490,11 +497,16 @@ static void test_pcm_time1(struct pcm_data *data,
+-	ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
+-			 test->cfg_prefix,
+-			 data->card, data->device, data->subdevice,
+-			 snd_pcm_stream_name(data->stream),
+-			 msg[0] ? " " : "", msg);
++	if (!skip) {
++		ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
++				 test->cfg_prefix,
++				 data->card, data->device, data->subdevice,
++				 snd_pcm_stream_name(data->stream),
++				 msg[0] ? " " : "", msg);
++	} else {
++		ksft_test_result_skip("%s.%d.%d.%d.%s%s%s\n",
++				      test->cfg_prefix,
++				      data->card, data->device,
++				      data->subdevice,
++				      snd_pcm_stream_name(data->stream),
++				      msg[0] ? " " : "", msg);
++	}
+ 	free(samples);
+ 	if (handle)
  		snd_pcm_close(handle);
- }
- 
--#define TESTS_PER_PCM 2
-+static const struct time_test_def time_tests[] = {
-+	/* name          format     rate   chan  period  buffer */
-+	{ "test.time1",  "S16_LE",  48000, 2,      512,    4096 },
-+	{ "test.time2",  "S16_LE",  48000, 2,    24000,  192000 },
-+};
- 
- int main(void)
- {
- 	struct pcm_data *pcm;
-+	int i;
- 
- 	ksft_print_header();
- 
-@@ -502,7 +514,7 @@ int main(void)
- 
- 	find_pcms();
- 
--	ksft_set_plan(num_missing + num_pcms * TESTS_PER_PCM);
-+	ksft_set_plan(num_missing + num_pcms * ARRAY_SIZE(time_tests));
- 
- 	for (pcm = pcm_missing; pcm != NULL; pcm = pcm->next) {
- 		ksft_test_result(false, "test.missing.%d.%d.%d.%s\n",
-@@ -511,8 +523,9 @@ int main(void)
- 	}
- 
- 	for (pcm = pcm_list; pcm != NULL; pcm = pcm->next) {
--		test_pcm_time1(pcm, "test.time1", "S16_LE", 48000, 2, 512, 4096);
--		test_pcm_time1(pcm, "test.time2", "S16_LE", 48000, 2, 24000, 192000);
-+		for (i = 0; i < ARRAY_SIZE(time_tests); i++) {
-+			test_pcm_time1(pcm, &time_tests[i]);
-+		}
- 	}
- 
- 	conf_free();
 -- 
 2.30.2
 

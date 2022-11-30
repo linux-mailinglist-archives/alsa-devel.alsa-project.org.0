@@ -2,101 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D6AB63D647
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 14:07:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9EA263D708
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 14:43:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3063116ED;
-	Wed, 30 Nov 2022 14:06:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3063116ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 434F516C7;
+	Wed, 30 Nov 2022 14:43:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 434F516C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669813639;
-	bh=Fr7F1yWPu50avQ0tllDAUfE+IuKtIzFJnuMjcCoKpIU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HN34uz91HS5wsc6b0cajW2IVcrO24e95V0C1nqMFYb2d8QeEWqJ2YrIqol4DM7PEE
-	 H1cxn+/6scsAuM/qKmp1efpb/3Rp1ucWkvj9cw4PeRSxYC13N3UzeO9VbuJLhiI2tv
-	 TQRUpSUA+hZhoDiDoBWVm0WxZAlbMQnz8zCsRNl4=
+	s=default; t=1669815839;
+	bh=Z4YsbSuW2L2E0PCaV/Fdm4TGFl+eiPGNZpF4YJdVjRI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KawrSG9hMf1mU0sCTFf7pXmqK0n71c+xzjs0OWtPD0//pL9g4TRdEG078ZfXmcSts
+	 T88KQ7KWBfNDEMsQ7jSz1L2j9t5f5+KTOVUHfDoF6r/FfEQqJfbo6TcV0AJRV8M9b/
+	 ooCc9TyefMmf3bjp2jsUG5LlORbyysdES//oHARQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96E25F803DD;
-	Wed, 30 Nov 2022 14:06:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E29B0F803DD;
+	Wed, 30 Nov 2022 14:43:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C00D9F8023A; Wed, 30 Nov 2022 14:06:21 +0100 (CET)
+ id 47A6CF8023A; Wed, 30 Nov 2022 14:43:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE, T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 494B4F80118
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 14:06:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 494B4F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id A69BAF80118
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 14:42:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A69BAF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="k++w+PQK"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Nl5EY1Wh"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0AAD15C00C7;
- Wed, 30 Nov 2022 08:06:10 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 30 Nov 2022 08:06:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm1; t=1669813570; x=1669899970; bh=n03KMEO/9c
- voahW97c3DR62dVdR1Q9sWEupAej+/YVg=; b=k++w+PQKrX8BdFqoW3W2G5FoFG
- qxBzT0hxPE56ua4Et/4/kY4ZsMELTrFhzWUFw9XiLCxDbzt5VIn5QsjNnAqfpZH6
- wAwuKWpcL1y2PVqG7gECpgMJAzoSlvkfi6M1uF7udxuIq6L0Recfg6I/ZxjjfAhi
- 0L8+v0sN/KWJ7P0fjopNSqa/dgNTCqf6Og+WGnL9FwCwkuw0JcJFt8TXcYh62HXg
- RKZ9JmpKr7RgJ/gqBgAmZ7bZZWrgfTX4HENhdKl1TgAG35gypz4GfZRdoBOzgE48
- t6GTvk2VKagS05t9IxHiOPrQbRDMHXvqFZF6XRV7N0/t/HrtpOfUGSVxouNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1669813570; x=1669899970; bh=n03KMEO/9cvoahW97c3DR62dVdR1Q9sWEup
- Aej+/YVg=; b=Nl5EY1Wh3Kqa0SiWfYTWBgjLcSUv5ULU0VdZ0Ptzzx4N/w/b9Ku
- d0pwadUGAYNSRYJUuVwcCD38aUznOfUVKjRnegevH1LsZZB5XEKIrl7jJfENG3kv
- ojYMS6r7dIvWFVcIV7/fN7hJquALi/Cqi08MRnOsbXVpiLlvbTX7FtobuGh38Xjf
- BnUdfWldmTaQF9X3PCRvw5gGnu3K/WTA0I3bxuzvMWkowl86Ze0RBJXsaFalIql9
- dud5a6UIAQW+TpKUcc+HttchqzHiFqWe9SZrmfxBgMPWUDTY3Tb7TSrKzPBAIqZi
- lobVsOfQxE0u/ukvbv9zbtY/BL0hpvLy0vg==
-X-ME-Sender: <xms:QVWHYxyYz_xmXTNlPlrq98pRwb5kyhuoPncRZMaE4mta4XQIMCYbGg>
- <xme:QVWHYxQI0_BXxuqzVwBItGos1pB5NqOiknGYDV3xrLtTnvMggI2qxZDOY7DanEfN3
- QMhPybT9jXiHyKKf1k>
-X-ME-Received: <xmr:QVWHY7XA7OTUEeuwHyaIG4IXkY96tJmQGAMoc3LQOERDh-rYFcYIITiU8SxtGdMl60gpoTZna6yU9e4ourjlFUn2XFQx4FVJQaJfsxPP_GuK0p9yQj-PpmA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrtdefgdeghecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffdvueelffevke
- duhfetjeduffeghfettdfguedtgfdvgfeufeduheevheevkeeknecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:QVWHYzgXsA_ATLH2IS0uOIZaU25mkL9x6t1lv73-I1m2EwZR9xb8pQ>
- <xmx:QVWHYzD3uRYZOA66iFM_ccbjcQpVYgSkThmNjScPyuyb5Z_Z2A96VQ>
- <xmx:QVWHY8L7acKhp9srItPD9lfiqacTraHrPsq2kbUfIiMg2vukrHFu3w>
- <xmx:QlWHY2O6OrXW9td8uz-ioO5utG7YJE9NKxE927HK376QHJU1yjWoPg>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Nov 2022 08:06:08 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: dice: fix regression for Lexicon I-ONIX FW810S
-Date: Wed, 30 Nov 2022 22:06:04 +0900
-Message-Id: <20221130130604.29774-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XyR2Kz6+"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B5ABFB81B47;
+ Wed, 30 Nov 2022 13:42:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D8FC433C1;
+ Wed, 30 Nov 2022 13:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669815774;
+ bh=Z4YsbSuW2L2E0PCaV/Fdm4TGFl+eiPGNZpF4YJdVjRI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XyR2Kz6+biAaiJlvVFQ/U4ogycAIRUiaMBSJsn/fsw/WLHQaYCvGiyLj0u3bv8BIy
+ FII2X/UKnB5X1Qa4bHra0dXMzdeQUgLJ9w/MP53Q85NLkJrNyXI0Tbp1KyY9HhCaDc
+ LTjo1C0AGnLa7iMbBURtKMAQOsqkDDqUzNrPiJfj98EDVF30FH5BXrM8Dx7Lax1eP/
+ ps6oEpw+BRd9ObXPtl4+0H6Y0GdahKS8YYNwGvidyR5hHZpil6zkaLBhAN10LRPb95
+ A/LRSubrmC8cIh+TVkAjgUpJ/qLRfy4rfxP0MN9LqBJi++GU2LJOqbWO6QUr+DSN05
+ r9w1VuptGnUig==
+Date: Wed, 30 Nov 2022 13:42:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
+ Shuah Khan <shuah@kernel.org>
+Subject: Re: [PATCH v1 6/6] kselftest/alsa: Add more coverage of sample rates
+ and channel counts
+Message-ID: <Y4dd2b2cgkhGkR85@sirena.org.uk>
+References: <20221130000608.519574-1-broonie@kernel.org>
+ <20221130000608.519574-7-broonie@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LkXPArDBIQ+IlES9"
+Content-Disposition: inline
+In-Reply-To: <20221130000608.519574-7-broonie@kernel.org>
+X-Cookie: Jesus is my POSTMASTER GENERAL ...
+Cc: alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,58 +89,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For Lexicon I-ONIX FW810S, the call of ioctl(2) with
-SNDRV_PCM_IOCTL_HW_PARAMS can returns -ETIMEDOUT. This is a regression due
-to the commit 41319eb56e19 ("ALSA: dice: wait just for
-NOTIFY_CLOCK_ACCEPTED after GLOBAL_CLOCK_SELECT operation"). The device
-does not emit NOTIFY_CLOCK_ACCEPTED notification when accepting
-GLOBAL_CLOCK_SELECT operation with the same parameters as current ones.
 
-This commit fixes the regression. When receiving no notification, return
--ETIMEDOUT as long as operating for any change.
+--LkXPArDBIQ+IlES9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: 41319eb56e19 ("ALSA: dice: wait just for NOTIFY_CLOCK_ACCEPTED after GLOBAL_CLOCK_SELECT operation")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/dice/dice-stream.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+On Wed, Nov 30, 2022 at 12:06:08AM +0000, Mark Brown wrote:
 
-diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
-index f99e00083141..4c677c8546c7 100644
---- a/sound/firewire/dice/dice-stream.c
-+++ b/sound/firewire/dice/dice-stream.c
-@@ -59,7 +59,7 @@ int snd_dice_stream_get_rate_mode(struct snd_dice *dice, unsigned int rate,
- 
- static int select_clock(struct snd_dice *dice, unsigned int rate)
- {
--	__be32 reg;
-+	__be32 reg, new;
- 	u32 data;
- 	int i;
- 	int err;
-@@ -83,15 +83,17 @@ static int select_clock(struct snd_dice *dice, unsigned int rate)
- 	if (completion_done(&dice->clock_accepted))
- 		reinit_completion(&dice->clock_accepted);
- 
--	reg = cpu_to_be32(data);
-+	new = cpu_to_be32(data);
- 	err = snd_dice_transaction_write_global(dice, GLOBAL_CLOCK_SELECT,
--						&reg, sizeof(reg));
-+						&new, sizeof(new));
- 	if (err < 0)
- 		return err;
- 
- 	if (wait_for_completion_timeout(&dice->clock_accepted,
--			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0)
--		return -ETIMEDOUT;
-+			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0) {
-+		if (reg != new)
-+			return -ETIMEDOUT;
-+	}
- 
- 	return 0;
- }
--- 
-2.37.2
+> +	{ "8k.1.big",    "S16_LE",   8000, 2,     2000,   16000 },
+> +	{ "8k.2.big",    "S16_LE",   8000, 2,     4000,   32000 },
+> +	{ "44k1.2.big",  "S16_LE",  44100, 2,    22050,  192000 },
+> +	{ "48k.2.small", "S16_LE",  48000, 2,      512,    4096 },
+> +	{ "48k.2.big",   "S16_LE",  48000, 2,    24000,  192000 },
+> +	{ "48k.6.big",   "S16_LE",  48000, 6,    48000,  576000 },
+> +	{ "96k.2.big",   "S16_LE",  96000, 2,    48000,  384000 },
 
+It looks like the period/buffer size numbers need some tuning other than
+for 44.1kHz and 48kHz 6 channel, if I do any more fiddling with this
+series I'll split the problematic ones out into a separate commit if I
+don't get things sorted (but we could just leave things as-is and fix
+incrementally too I guess).
+
+--LkXPArDBIQ+IlES9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOHXdgACgkQJNaLcl1U
+h9CNLwf+JBoVVimM0Q6TBFs+OndC25sjt/A5hINKDUvit734gJFzUwd7LExgG7gH
+J7teCnR5q2E9y37AjkE2Q8r7jU+AYpVQdG5yT3RJDoJVoX6RA/w+glxKXWNcSv6O
+2BKzNFRksolSoJcNKLtJq58O+kO5tPGQrtk3d+2tLYaQer3t+C31huKYopEudNiT
+VEqm2+zN075A4Zd5sDzh+vfdCKfuY1qmgsOlPtxgu9Q4JSC+Gpj8R/kcAxCRd3t8
+4Dy6TG0SuQNovCDisTFGr9XXjdTGMftbMKiwwU/WZH+wKsPnnV0Cw4lv7pScu4a8
+GY+JrR1mac0BZ5/VOu2LB4Jvr1k9eg==
+=cwHx
+-----END PGP SIGNATURE-----
+
+--LkXPArDBIQ+IlES9--

@@ -2,74 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D0A63D5F3
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 13:49:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D6AB63D647
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 14:07:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DBBC16E2;
-	Wed, 30 Nov 2022 13:48:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DBBC16E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3063116ED;
+	Wed, 30 Nov 2022 14:06:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3063116ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669812554;
-	bh=BLAKdb4dnsjbP0lYTaCvKJAcBM9q6yWu8b6MFiBT2UA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jF/gfzrLF5V2lnrvNV69yxRc2fK8CHIfGQs7UTznb1zJgkkUFyx81oFZo+QIgp8d4
-	 SIhcEWYRnKV2DGUcrWUcBOzrmXy8PMxBsKH050CpZUrDdJ24kweZoikaI2VH5Nc5gF
-	 f+Wuw5OD5dlFmw+Q57Tu1yyzPVKcnYQ3UZZFpgjQ=
+	s=default; t=1669813639;
+	bh=Fr7F1yWPu50avQ0tllDAUfE+IuKtIzFJnuMjcCoKpIU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HN34uz91HS5wsc6b0cajW2IVcrO24e95V0C1nqMFYb2d8QeEWqJ2YrIqol4DM7PEE
+	 H1cxn+/6scsAuM/qKmp1efpb/3Rp1ucWkvj9cw4PeRSxYC13N3UzeO9VbuJLhiI2tv
+	 TQRUpSUA+hZhoDiDoBWVm0WxZAlbMQnz8zCsRNl4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67A22F80118;
-	Wed, 30 Nov 2022 13:48:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96E25F803DD;
+	Wed, 30 Nov 2022 14:06:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D70EF80507; Wed, 30 Nov 2022 13:47:57 +0100 (CET)
+ id C00D9F8023A; Wed, 30 Nov 2022 14:06:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE, T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB95CF80118
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 13:47:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB95CF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 494B4F80118
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 14:06:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 494B4F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X+olPv4y"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 439EDB81B34;
- Wed, 30 Nov 2022 12:47:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A058C433D6;
- Wed, 30 Nov 2022 12:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669812471;
- bh=BLAKdb4dnsjbP0lYTaCvKJAcBM9q6yWu8b6MFiBT2UA=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=X+olPv4y6WYjDc7MSsAE/qe6J3xjPn0IorKeeom46CFZG8X8lcAvYai4f/4BmmIah
- VSUD31DnzKkt7oxcophN17qTSZI4Op/mtR6uDGPFWveZ836efRKrDxcP8GlHtUQ553
- Qmj7akMObBY2JOM1uCJlxDTkEncbDwHZ2svNtJC8n14J83VA16+cQ5DlJjn2igGOCs
- hSKfmycOsxMtFZyBVPA6oRYJIJXUBzHPtocFopaZce6U8FSb/bNu1sptU6hyjLm3Ki
- cpDibtSoamRw8XFSzVSyps1k6WhhL/1ldUKkusprUgV2pGvifGGfgiWboYtEvxKHuQ
- UH4mFxsezhlJA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Artem Lukyanov <dukzcry@ya.ru>
-In-Reply-To: <20221130085247.85126-1-dukzcry@ya.ru>
-References: <20221130085247.85126-1-dukzcry@ya.ru>
-Subject: Re: [RESEND PATCH -next] ASoC: amd: yc: Add Xiaomi Redmi Book Pro 14
- 2022 into DMI table
-Message-Id: <166981247022.67172.14005315296527818647.b4-ty@kernel.org>
-Date: Wed, 30 Nov 2022 12:47:50 +0000
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="k++w+PQK"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="Nl5EY1Wh"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0AAD15C00C7;
+ Wed, 30 Nov 2022 08:06:10 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 30 Nov 2022 08:06:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-transfer-encoding:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to; s=fm1; t=1669813570; x=1669899970; bh=n03KMEO/9c
+ voahW97c3DR62dVdR1Q9sWEupAej+/YVg=; b=k++w+PQKrX8BdFqoW3W2G5FoFG
+ qxBzT0hxPE56ua4Et/4/kY4ZsMELTrFhzWUFw9XiLCxDbzt5VIn5QsjNnAqfpZH6
+ wAwuKWpcL1y2PVqG7gECpgMJAzoSlvkfi6M1uF7udxuIq6L0Recfg6I/ZxjjfAhi
+ 0L8+v0sN/KWJ7P0fjopNSqa/dgNTCqf6Og+WGnL9FwCwkuw0JcJFt8TXcYh62HXg
+ RKZ9JmpKr7RgJ/gqBgAmZ7bZZWrgfTX4HENhdKl1TgAG35gypz4GfZRdoBOzgE48
+ t6GTvk2VKagS05t9IxHiOPrQbRDMHXvqFZF6XRV7N0/t/HrtpOfUGSVxouNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:message-id
+ :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1669813570; x=1669899970; bh=n03KMEO/9cvoahW97c3DR62dVdR1Q9sWEup
+ Aej+/YVg=; b=Nl5EY1Wh3Kqa0SiWfYTWBgjLcSUv5ULU0VdZ0Ptzzx4N/w/b9Ku
+ d0pwadUGAYNSRYJUuVwcCD38aUznOfUVKjRnegevH1LsZZB5XEKIrl7jJfENG3kv
+ ojYMS6r7dIvWFVcIV7/fN7hJquALi/Cqi08MRnOsbXVpiLlvbTX7FtobuGh38Xjf
+ BnUdfWldmTaQF9X3PCRvw5gGnu3K/WTA0I3bxuzvMWkowl86Ze0RBJXsaFalIql9
+ dud5a6UIAQW+TpKUcc+HttchqzHiFqWe9SZrmfxBgMPWUDTY3Tb7TSrKzPBAIqZi
+ lobVsOfQxE0u/ukvbv9zbtY/BL0hpvLy0vg==
+X-ME-Sender: <xms:QVWHYxyYz_xmXTNlPlrq98pRwb5kyhuoPncRZMaE4mta4XQIMCYbGg>
+ <xme:QVWHYxQI0_BXxuqzVwBItGos1pB5NqOiknGYDV3xrLtTnvMggI2qxZDOY7DanEfN3
+ QMhPybT9jXiHyKKf1k>
+X-ME-Received: <xmr:QVWHY7XA7OTUEeuwHyaIG4IXkY96tJmQGAMoc3LQOERDh-rYFcYIITiU8SxtGdMl60gpoTZna6yU9e4ourjlFUn2XFQx4FVJQaJfsxPP_GuK0p9yQj-PpmA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrtdefgdeghecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffdvueelffevke
+ duhfetjeduffeghfettdfguedtgfdvgfeufeduheevheevkeeknecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:QVWHYzgXsA_ATLH2IS0uOIZaU25mkL9x6t1lv73-I1m2EwZR9xb8pQ>
+ <xmx:QVWHYzD3uRYZOA66iFM_ccbjcQpVYgSkThmNjScPyuyb5Z_Z2A96VQ>
+ <xmx:QVWHY8L7acKhp9srItPD9lfiqacTraHrPsq2kbUfIiMg2vukrHFu3w>
+ <xmx:QlWHY2O6OrXW9td8uz-ioO5utG7YJE9NKxE927HK376QHJU1yjWoPg>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Nov 2022 08:06:08 -0500 (EST)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: dice: fix regression for Lexicon I-ONIX FW810S
+Date: Wed, 30 Nov 2022 22:06:04 +0900
+Message-Id: <20221130130604.29774-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.0-dev-fc921
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +112,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 30 Nov 2022 11:52:47 +0300, Artem Lukyanov wrote:
-> This model requires an additional detection quirk to enable the
-> internal microphone - BIOS doesn't seem to support AcpDmicConnected
-> (nothing in acpidump output).
-> 
-> 
+For Lexicon I-ONIX FW810S, the call of ioctl(2) with
+SNDRV_PCM_IOCTL_HW_PARAMS can returns -ETIMEDOUT. This is a regression due
+to the commit 41319eb56e19 ("ALSA: dice: wait just for
+NOTIFY_CLOCK_ACCEPTED after GLOBAL_CLOCK_SELECT operation"). The device
+does not emit NOTIFY_CLOCK_ACCEPTED notification when accepting
+GLOBAL_CLOCK_SELECT operation with the same parameters as current ones.
 
-Applied to
+This commit fixes the regression. When receiving no notification, return
+-ETIMEDOUT as long as operating for any change.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Fixes: 41319eb56e19 ("ALSA: dice: wait just for NOTIFY_CLOCK_ACCEPTED after GLOBAL_CLOCK_SELECT operation")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/dice/dice-stream.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-Thanks!
+diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
+index f99e00083141..4c677c8546c7 100644
+--- a/sound/firewire/dice/dice-stream.c
++++ b/sound/firewire/dice/dice-stream.c
+@@ -59,7 +59,7 @@ int snd_dice_stream_get_rate_mode(struct snd_dice *dice, unsigned int rate,
+ 
+ static int select_clock(struct snd_dice *dice, unsigned int rate)
+ {
+-	__be32 reg;
++	__be32 reg, new;
+ 	u32 data;
+ 	int i;
+ 	int err;
+@@ -83,15 +83,17 @@ static int select_clock(struct snd_dice *dice, unsigned int rate)
+ 	if (completion_done(&dice->clock_accepted))
+ 		reinit_completion(&dice->clock_accepted);
+ 
+-	reg = cpu_to_be32(data);
++	new = cpu_to_be32(data);
+ 	err = snd_dice_transaction_write_global(dice, GLOBAL_CLOCK_SELECT,
+-						&reg, sizeof(reg));
++						&new, sizeof(new));
+ 	if (err < 0)
+ 		return err;
+ 
+ 	if (wait_for_completion_timeout(&dice->clock_accepted,
+-			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0)
+-		return -ETIMEDOUT;
++			msecs_to_jiffies(NOTIFICATION_TIMEOUT_MS)) == 0) {
++		if (reg != new)
++			return -ETIMEDOUT;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.37.2
 
-[1/1] ASoC: amd: yc: Add Xiaomi Redmi Book Pro 14 2022 into DMI table
-      commit: c1dd6bf6199752890d8c59d895dd45094da51d1f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,86 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A0163DFF5
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 19:52:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60CC463E07E
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 20:13:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0663316D9;
-	Wed, 30 Nov 2022 19:51:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0663316D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E346816D1;
+	Wed, 30 Nov 2022 20:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E346816D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669834339;
-	bh=7rchmQwwpf0qyHWnrfpjZ55imPhKUM7g/iOAEeSrAZY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669835610;
+	bh=7/PmRXrq9zlqvQApzLYyYr2iRBg23UOELSQ0LVfNJ8k=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GzSW85zC0CaPEGAmynjZqWXIOhjkSHZ/ud9punr9usnCHc3d5kex8ow9f5VbTA0Ob
-	 prp/SyK0WIoEO2CltJND1Wog+gN19kgDZGmAIbjOZBXXR/Nvi3h3EababVhPMYYd9x
-	 WzT1p0FGV/q7CTQt1jKHgOzclbIQz4fSMIpBGvX8=
+	b=CJbB2sfdibrBpbd+zrrrtXKkAgZHpV1b8g8U/U/9h7wk/GC4zNNLYb8IEfyZmA2Bg
+	 u0BAIZo1Iv+RPhDgX6vQ8DFpBGcd36lSjJonCQ/0t0jiRzEa5QAakV/DcgHe+Yd+4X
+	 pBeCuuTGTHNDUsxOuPxcXqbTiT+sg4zF1KqbnDkY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3DB6F80507;
-	Wed, 30 Nov 2022 19:51:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DFFAF800B6;
+	Wed, 30 Nov 2022 20:12:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8731FF80507; Wed, 30 Nov 2022 19:51:00 +0100 (CET)
+ id 19094F8023A; Wed, 30 Nov 2022 20:12:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3E45F8016B
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 19:50:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3E45F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A65FAF800B6
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 20:12:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A65FAF800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SGWXV98z"
+ header.b="uxG6GHRb"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 43F32B81CB3;
- Wed, 30 Nov 2022 18:50:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23760C43144;
- Wed, 30 Nov 2022 18:50:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9B16F61D72;
+ Wed, 30 Nov 2022 19:12:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A70C433D6;
+ Wed, 30 Nov 2022 19:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669834255;
- bh=7rchmQwwpf0qyHWnrfpjZ55imPhKUM7g/iOAEeSrAZY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SGWXV98zY7hb6M2PfO82HH5l/bJFjmNx97q7L9XtTtr4/PTvg9AKJWsVkIm7JJJlm
- +4ZOWjxJqopTH9DJaqplGyGpfkBtW9e5gdjshMCBc0jyL+Pa4AGKCx8d1IgkvpVGAd
- H6m1Ti55DJEGnfmh98KtUszTPBdFWFhzEs1ygDj2VgitynaV3BG8A2w1iTdSWNX/a9
- AgfwZkiupO/npHVgsoL1ImM4hgUgngAKgZyTZkC2CdWlhcAEpv4ndYNlj4F9eQ8m5p
- HDp8KsdPJFp5JQxdjloimKhYhY4HLMe2HOdM0+IjtSGIcWktmgL40BPtTBw8/oGoeK
- kVxkeFL7T2xLg==
+ s=k20201202; t=1669835548;
+ bh=7/PmRXrq9zlqvQApzLYyYr2iRBg23UOELSQ0LVfNJ8k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uxG6GHRbl0BoIBYr+GpnFqa7iZ5d6WuBRII+WEgu6cHbjQH6CSNuezpNqqgcU+k7S
+ 9+wygEZGbaspf2ZoQH2YSbLLRWF6d1p/1TBc57LCgkWJUg84YCpeGPB/leJ6F2Wxn8
+ yiFJdVHqzzlgOTiquZGiRQjINWai/GDjDVsN+7mc3O3+nos2b7BSgzSI9gsLtuOseR
+ OieYfp8JlW4H7dgmTcJMh39cxVm1GhAa4Y5RMYQTB2q9M0rGSMCEl6kG89pPzy8Aen
+ V5h6RG26HF3n3IzYL9taskFWUKg7XxCg5MLNKnJYjOdg3M33n7GNrq881GJukMUHdK
+ zCQcSDqHKO+uw==
+Date: Wed, 30 Nov 2022 19:12:21 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Russell King <linux@armlinux.org.uk>
-Subject: [PATCH v1 2/2] drm: tda99x: Don't advertise non-existent capture
- support
-Date: Wed, 30 Nov 2022 18:46:44 +0000
-Message-Id: <20221130184644.464820-3-broonie@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20221130184644.464820-1-broonie@kernel.org>
-References: <20221130184644.464820-1-broonie@kernel.org>
+To: Matthias Kaehlcke <mka@chromium.org>
+Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for
+ system PM ops
+Message-ID: <Y4erFaRfGXbSJLMm@sirena.org.uk>
+References: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
+ <Y4eN4utrDnEnKu/8@google.com> <Y4eP2yFKsmxzyX/4@sirena.org.uk>
+ <Y4eU7ra4w3Fm+wLM@google.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=798; i=broonie@kernel.org;
- h=from:subject; bh=7rchmQwwpf0qyHWnrfpjZ55imPhKUM7g/iOAEeSrAZY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjh6UTedNv0xVqTR7Dw1xzmjfKdGNa9K5/CBent9LN
- wMp7dAKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4elEwAKCRAk1otyXVSH0AYqB/
- 46oFKO98t1TlWfUOCgLyoWn4Cvg8+vjFQwPlheEw48l55Du9rYCeD2gp9R9KFle+DjuvrSNQzfXx3k
- sQYSLWy471HwAMVtpiyNdBy9WyDlve/KJmP9motnF8gk0y0Tpsjo9DkNrc1ib1iy6y3/Ji8TRDjova
- GzpVz0DYBCEsC7tSW9yWUdBkNJ1GEg2hqllztZvO+SBZ3gq4bGKr7b0SJ7KD2dsgXkUYRz8qT0wJLY
- 4vwumBp+nPwaP9bOX65TjCc9QW1bhjwEsbqtaMRQ4Dh5IA1lPGb8B57wODdnHaJ3YU9vdav1X4vj7+
- +IIRUmfdRSs0Bugt51pOlis80t9Ydt
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- dri-devel@lists.freedesktop.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="s1pYjTMRz+F+fT4W"
+Content-Disposition: inline
+In-Reply-To: <Y4eU7ra4w3Fm+wLM@google.com>
+X-Cookie: Jesus is my POSTMASTER GENERAL ...
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
+ swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,27 +93,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As far as I can tell none of the tda998x devices support audio capture so
-don't advertise support for it, ensuring that we don't confuse userspace.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/gpu/drm/i2c/tda998x_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+--s1pYjTMRz+F+fT4W
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/i2c/tda998x_drv.c b/drivers/gpu/drm/i2c/tda998x_drv.c
-index d444e7fffb54..a14d2896aebb 100644
---- a/drivers/gpu/drm/i2c/tda998x_drv.c
-+++ b/drivers/gpu/drm/i2c/tda998x_drv.c
-@@ -1174,6 +1174,8 @@ static int tda998x_audio_codec_init(struct tda998x_priv *priv,
- 	struct hdmi_codec_pdata codec_data = {
- 		.ops = &audio_codec_ops,
- 		.max_i2s_channels = 2,
-+		.no_i2s_capture = 1,
-+		.no_spdif_capture = 1,
- 	};
- 
- 	if (priv->audio_port_enable[AUDIO_ROUTE_I2S])
--- 
-2.30.2
+On Wed, Nov 30, 2022 at 05:37:50PM +0000, Matthias Kaehlcke wrote:
 
+> The tag of the applied patch is incorrect too, which is actually what I n=
+oticed:
+>=20
+> Fixes: a3a96e93cc88 ("ASoC: qcom: lpass-sc7280: Add system suspend/resume=
+ PM ops")
+>=20
+> This patch is for sc7180, so it should be:
+>=20
+> Fixes: 2d68148f8f85 ("ASoC: qcom: lpass-sc7180: Add system suspend/resume=
+ PM ops")
+
+Oh, well.  It's just a fixes tag for something that has only been in
+-next, it doesn't really matter that much.
+
+--s1pYjTMRz+F+fT4W
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOHqxQACgkQJNaLcl1U
+h9DOSAf7BTiWGZhA0UbkwiQEXLZETjGS0qh2Tl7tkdQlpncLUU0hNi0Jzd6Ql4eH
+uXUNDqRlRqKmsVM0VzSCESQNEAXIau9rYdpe1dR+cW2+a9jUBUfCcV/tYaoIvOuG
+rr4vwWg4vFEleOqXCHGUqMyoONyefdj8ZB8PaiZ+98WU/Syz/GIAvRxWErCOWI2s
+xErZ8rzIq3w+AEtHw41neAl5kyPpkwceuxI+h7Gv3cjC0QMCLD1QfQJJLnQx/hvW
+wIRHWTXFpyZoO2u4oZkyq4KepyuACdhDfet4UeEp3AB/FFV92SABhsg4Lgo3upbv
+SxI9wVuIDTxfFiXnNMg8+DIJqkbvhw==
+=H3n3
+-----END PGP SIGNATURE-----
+
+--s1pYjTMRz+F+fT4W--

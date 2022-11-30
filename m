@@ -2,116 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD0163D9D9
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 16:49:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D28BB63D9E6
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Nov 2022 16:50:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2743F16F7;
-	Wed, 30 Nov 2022 16:48:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2743F16F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6530616F4;
+	Wed, 30 Nov 2022 16:49:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6530616F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669823354;
-	bh=z1BRJ78WvLmPHnisXXoQjw9rs0LQQZ8YHVqPdLBDGn8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1669823445;
+	bh=TLhDwCYHauzbEk81/8qacu+Jf+6XR6zvd8lM/a1CvHM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KpmVAoPBuOPoAgX1Tr9BWkujdIe5vvlS605KkyFev8+MTWGPIgjQBHOAiWjeZggvI
-	 OjGEsLQNYeIrF3U4ki8VP0D8dJft4+BkjxxrCYIdV/sjx5jvfLn4AkC/LkEOOdQj60
-	 iqqPAueKUCyyFapw7tbeiRElu2avX5ewQc89KoQ0=
+	b=iL6vMwToTsN0NTQBS17KHxdyq3s/ecjifkvgs3buwmrmN0Pfm+LGJ8KHv31r+aRP2
+	 BC7a2C5jMtY7QkDFHwBBbCJtwaZ53rDsQ2as7+Bbc/mIv0o50Fh6IDOt+ezCsHoPBq
+	 ryqwOi6b00zaC31IPoDM0NRQNIBBUfM67zr5q0gI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AF3DF8053D;
-	Wed, 30 Nov 2022 16:48:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10EE5F804FF;
+	Wed, 30 Nov 2022 16:49:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A9EAF80559; Wed, 30 Nov 2022 16:47:58 +0100 (CET)
+ id C7543F803DD; Wed, 30 Nov 2022 16:49:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BCF8F804E6
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 16:47:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BCF8F804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4651FF80118
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 16:49:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4651FF80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="RLfl+m/7"
-Received: by mail-ed1-x52f.google.com with SMTP id l11so24616966edb.4
- for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 07:47:47 -0800 (PST)
+ header.b="Uy+DDhU4"
+Received: by mail-il1-x132.google.com with SMTP id s16so5610231iln.4
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 07:49:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/fLIsVAH72GYN4wSnEbMTMIto1VdntwqvQJh4XKX1N8=;
- b=RLfl+m/7E/E0w+XzZDQvyhYuzJclHPZLb/xSf+gTZ1X7y2BNXGynHFx0l2nbPf2//u
- QVuR8KoO0bXq/0ozfPU06OZ1ONR6QEfqUq2KJ24AvftES2ghu4Sqfn2ST/mcihAn89Nw
- DoGH5G8fkqo6dsa7Pf7WSY5UXM7UtHAfjZSvY=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=cITkc4ydx3t5/WaE8B5C64mzt1Dr4iTKfrMxsULtWPc=;
+ b=Uy+DDhU4KWNCz4MeUi8ThR7KIclQ1LieLw0rWkPEBf4NX8Ph3SIGeBRdZGkwVg5BsC
+ dfxDBeN3+ZPXROGSwwCjAOZVCHechH+KMEJcMGuBIsNdgi1fazzNt9MCXQpXaHrhEYqJ
+ Bcq1QY0JVJr737F9dJ0qI9L6814xZjqjUJSNc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/fLIsVAH72GYN4wSnEbMTMIto1VdntwqvQJh4XKX1N8=;
- b=ZbKjlAJ+mcqW4RsUDPEO9+u06q0rbkXcBoBsnc6OFIA1S+yMx3ECaayFwSi+hbIbMT
- Dwf58i/4UeanG8kcufLnwdi9XLc24ngYbEkXEp7x7rF4m5o9zqRRjmeUhNskEGgcoMzh
- SptTVd7M4hdgxnV0P87925F3NyH+psU1HDY/8sUgfaMVlUQZgrla5rRZ4yxIYteRwsNt
- ZnLVhzjJfRdTmx8oq8pOSQPiRoLqxhHANY3iD75yCaEnhBIy1uF4WwvKu/3h5eyg0H3I
- qKvbE8Jm1fu1B8eJ9eaExQIMMcHLzmTRP7Er6KWpGM3jXs0At1Hv5HAlychvIhsphxXP
- mgDg==
-X-Gm-Message-State: ANoB5pnDLEwh8RdMke11hODvjhsWOECy6wVP7caf5NofDU+bc/4s4k3z
- EwXKe3L4FAAF/yJGN93Qi4rnZg==
-X-Google-Smtp-Source: AA0mqf4IYiD9H16IuGz/np51rmxmX2exbBKAoU9sx6CGbOo8xnMm+kZ7DVDgJ9emxgRoPNGt2ivddw==
-X-Received: by 2002:a05:6402:1f85:b0:462:2410:9720 with SMTP id
- c5-20020a0564021f8500b0046224109720mr12193484edc.84.1669823266173; 
- Wed, 30 Nov 2022 07:47:46 -0800 (PST)
-Received: from alco.roam.corp.google.com ([2620:0:1059:10:5b33:e3f2:6a0b:dcdd])
- by smtp.gmail.com with ESMTPSA id
- j9-20020a17090623e900b007bf24b8f80csm775075ejg.63.2022.11.30.07.47.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Nov 2022 07:47:45 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 30 Nov 2022 16:47:16 +0100
-Subject: [PATCH v6 2/2] ASoC: SOF: Fix deadlock when shutdown a frozen
- userspace
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cITkc4ydx3t5/WaE8B5C64mzt1Dr4iTKfrMxsULtWPc=;
+ b=AnfoaW7DZy5DNHKtnF0FxJpjkG9/BuvCx6PIlzerNiAlY4F83yQi/ULZfPEBxHW8OX
+ 8KHq5c4dv6nU2owE4jWyIN9XhPj4m9DPMisUnqJQo7yA/pm5FI3IFnAGhE+b4C/JETUf
+ KpryHWye3NqtIuw33X2v5sBMUAF+B3FEh59zW3Mfaz10O8NKhHRLG4zLjedLuzV9t35j
+ eTMG3EyIw9sq8ltmu9ikHQxfhWuMkwFNAVulhfMPQvB5ZoQ01l8Pw8GQsNAgMkpaFjzx
+ r2afaFbAKeRHsHru9pH01FpvXf6a7fWHxYRfNgVndMmv86gmUofcS4C8LdIOq6jb/bUW
+ O2Lw==
+X-Gm-Message-State: ANoB5plRt7fhfVnHt0NYitH1ZXN6lStNz0JAc4+sbOLzxKmiZfYqltRE
+ 28IQ3aUcvap8ilLFgeNuUgAIP0BdIxKZydnT
+X-Google-Smtp-Source: AA0mqf7r4X7MIt4LGk3j4/xSXTHlHnSy+xVdd59D0RgZXjcdnMBR70bqwRD6HRPtHtI+jkK0KZT+lA==
+X-Received: by 2002:a92:6a11:0:b0:300:ece2:e3b8 with SMTP id
+ f17-20020a926a11000000b00300ece2e3b8mr20104590ilc.255.1669823378626; 
+ Wed, 30 Nov 2022 07:49:38 -0800 (PST)
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com.
+ [209.85.166.172]) by smtp.gmail.com with ESMTPSA id
+ g13-20020a05663810ed00b0036c8a246f54sm687891jae.142.2022.11.30.07.49.37
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Nov 2022 07:49:37 -0800 (PST)
+Received: by mail-il1-f172.google.com with SMTP id x12so5354189ilg.1
+ for <alsa-devel@alsa-project.org>; Wed, 30 Nov 2022 07:49:37 -0800 (PST)
+X-Received: by 2002:a92:ca8b:0:b0:303:19d2:9def with SMTP id
+ t11-20020a92ca8b000000b0030319d29defmr6089993ilo.21.1669823377096; Wed, 30
+ Nov 2022 07:49:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20221127-snd-freeze-v6-2-3e90553f64a5@chromium.org>
-References: <20221127-snd-freeze-v6-0-3e90553f64a5@chromium.org>
-In-Reply-To: <20221127-snd-freeze-v6-0-3e90553f64a5@chromium.org>
-To: Chromeos Kdump <chromeos-kdump@google.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
+References: <20221127-snd-freeze-v4-0-51ca64b7f2ab@chromium.org>
+ <5171929e-b750-d2f1-fec9-b34d76c18dcb@linux.intel.com>
+ <87mt8bqaca.wl-tiwai@suse.de>
+ <16ddcbb9-8afa-ff18-05f9-2e9e01baf3ea@linux.intel.com>
+ <87edtmqjtd.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2211291355350.3532114@eliteleevi.tm.intel.com>
+In-Reply-To: <alpine.DEB.2.22.394.2211291355350.3532114@eliteleevi.tm.intel.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Wed, 30 Nov 2022 16:49:26 +0100
+X-Gmail-Original-Message-ID: <CANiDSCsGZBo=C+Bep8TQp15mA+-4ZRCPwSJzyndFuwokt7Byyw@mail.gmail.com>
+Message-ID: <CANiDSCsGZBo=C+Bep8TQp15mA+-4ZRCPwSJzyndFuwokt7Byyw@mail.gmail.com>
+Subject: Re: [PATCH v4] ALSA: core: Fix deadlock when shutdown a frozen
+ userspace
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ stable@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Eric Biederman <ebiederm@xmission.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Jaroslav Kysela <perex@perex.cz>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Mark Brown <broonie@kernel.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Steven Rostedt <rostedt@goodmis.org>
-X-Mailer: b4 0.11.0-dev-696ae
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2174; i=ribalda@chromium.org; 
- h=from:subject:message-id;
- bh=z1BRJ78WvLmPHnisXXoQjw9rs0LQQZ8YHVqPdLBDGn8=; 
- b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjh3scbdrJzfpRqMNqZtaSFQjjhLnKBxlJMQeOOkOM
- m5234GiJAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4d7HAAKCRDRN9E+zzrEiN/ID/
- 9+jG5ZH/OSbpevz4Xx7ZmZUrjhaPMR5rVP35OfUsqfj/ADrCAhJC2vlwQpcs2lie7FAUKfb1BM4VWQ
- 7EozfqEAJPYlbN6HiKf8Xidp9z8sW4/g/0gSEQ60cMBSEnM8UlVrqt2eFXi4ARZeoUzjr58IEXMjVu
- Rr37vapYJMliIJKpJ8oI3Bn8vwDFjC1hLjhEb5ZgTCIESl+/ZZb+jfCIlS2qytNrH4zjpoX5Hk8QZR
- GiiHXMQVXR/ynfZbB8tJI7mn024lZ/0OWniech+uJArvwaJxOM5zt5kxzweiQ9QH/L6IwPwzhfSYJV
- i2rmkKdEI1PYKK1MbUH0ep2XRYWO/B8w8MHBLK6JsqA8fSwJ+5YRMAnN96rHs7hUD6+J8P7rPrkkO0
- cIpHzcnsBkm8JJTTLEkkQI8gzeNzRjjW8yNlqoFnQnR7wi+wgcKAGzESkwWWysMGq7kvLU7+Q6Bwn6
- T9c+1s/pVqGANlQ4BuVOKgO1pgLNzRqfef1yz7c53cJ+VBHCGYGOZDIc29r/tH+Cep1mpSbhJSA2vj
- IGcfgZhuOGIhR9dctOZ/M8+g2BC5LwhhncH5hK6xPdecknFPpzElV3oXw8U8w9FLa/Bhgje6cPjGmS
- Phput94//O2tfEsQ92F9dOxUP5sj5cBNz6LJljSdByoRowt/YVTcfvnHkNkw==
-X-Developer-Key: i=ribalda@chromium.org; a=openpgp;
- fpr=9EC3BB66E2FC129A6F90B39556A0D81F9F782DA9
-Cc: alsa-devel@alsa-project.org, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Ricardo Ribalda <ribalda@chromium.org>, sound-open-firmware@alsa-project.org
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,69 +119,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-During kexec(), the userspace is frozen. Therefore we cannot wait for it
-to complete.
+Hi
 
-Avoid running snd_sof_machine_unregister during shutdown.
+I just sent a v6 that only avoids unregistering the clients during
+kexec... let me know if that works for you
 
-This fixes:
+Thanks!
 
-[   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
-[  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
-[  246.819035] Call Trace:
-[  246.821782]  <TASK>
-[  246.824186]  __schedule+0x5f9/0x1263
-[  246.828231]  schedule+0x87/0xc5
-[  246.831779]  snd_card_disconnect_sync+0xb5/0x127
-...
-[  246.889249]  snd_sof_device_shutdown+0xb4/0x150
-[  246.899317]  pci_device_shutdown+0x37/0x61
-[  246.903990]  device_shutdown+0x14c/0x1d6
-[  246.908391]  kernel_kexec+0x45/0xb9
+On Tue, 29 Nov 2022 at 13:12, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
+>
+> Hi
+>
+> On Tue, 29 Nov 2022, Takashi Iwai wrote:
+>
+> > On Mon, 28 Nov 2022 18:26:03 +0100, Pierre-Louis Bossart wrote:
+> > > As Kai mentioned it, this step helped with a S5 issue earlier in 2022.
+> > > Removing this will mechanically bring the issue back and break other
+> > > Chromebooks.
+> >
+> > Yeah I don't mean that this fix is right, either.  But the earlier fix
+> > has apparently a problem and needs another fix.
+> >
+> > Though, it's not clear why the full unregister of clients is needed at
+> > the first place; judging only from the patch description of commit
+> > 83bfc7e793b5, what we want is only to shut up the further user space
+> > action?  If so, just call snd_card_disconnect() would suffice?
+>
+> I think the snd_card_disconnect() is what we are looking after here, but
+> it's just easiest to do via unregister in SOF as that will trigger will
+> look up the platform device, unregister it, and it eventually the driver
+> owning the card will do the disconnect. Possibility for sure to do a more
+> direct implementation and not run the full unregister.
+>
+> On the other end of the solution spectrum, we had this alternative to let
+> user-space stay connected and just have the DSP implementations handle
+> any pending work in their respective shutdown handlers. I.e. we had
+> "ASoC: SOF: Intel: pci-tgl: unblock S5 entry if DMA stop has failed"
+> https://github.com/thesofproject/linux/pull/3388
+>
+> This was eventually dropped (and never sent upstream) as 83bfc7e793b5 got
+> the same result, and covered all SOF platforms with a single code path.
+> Bringing this back is of course one option, but then this might suprise
+> other platforms (which might have got used to user-space getting
+> disconnected at shutdown via 83bfc7e793b5).
+>
+> Br, Kai
 
-And:
 
-[  246.893222] INFO: task kexec-lite:4891 blocked for more than 122 seconds.
-[  246.927709] Call Trace:
-[  246.930461]  <TASK>
-[  246.932819]  __schedule+0x5f9/0x1263
-[  246.936855]  ? fsnotify_grab_connector+0x5c/0x70
-[  246.942045]  schedule+0x87/0xc5
-[  246.945567]  schedule_timeout+0x49/0xf3
-[  246.949877]  wait_for_completion+0x86/0xe8
-[  246.954463]  snd_card_free+0x68/0x89
-...
-[  247.001080]  platform_device_unregister+0x12/0x35
-
-Cc: stable@vger.kernel.org
-Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- sound/soc/sof/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 3e6141d03770..4301f347bb90 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -9,6 +9,7 @@
- //
- 
- #include <linux/firmware.h>
-+#include <linux/kexec.h>
- #include <linux/module.h>
- #include <sound/soc.h>
- #include <sound/sof.h>
-@@ -484,7 +485,8 @@ int snd_sof_device_shutdown(struct device *dev)
- 	 * make sure clients and machine driver(s) are unregistered to force
- 	 * all userspace devices to be closed prior to the DSP shutdown sequence
- 	 */
--	sof_unregister_clients(sdev);
-+	if (!kexec_with_frozen_processes())
-+		sof_unregister_clients(sdev);
- 
- 	snd_sof_machine_unregister(sdev, pdata);
- 
 
 -- 
-2.38.1.584.g0f3c55d4c2-goog-b4-0.11.0-dev-696ae
+Ricardo Ribalda

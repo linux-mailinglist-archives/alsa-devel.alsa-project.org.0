@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0860563F5FF
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:12:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5084F63F602
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:12:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 616A81785;
-	Thu,  1 Dec 2022 18:11:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 616A81785
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1E7A1772;
+	Thu,  1 Dec 2022 18:11:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E7A1772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669914736;
-	bh=pnwhTaL4cklkLrb4nD4efWonXmmY0uhDdK7dG34JuoY=;
+	s=default; t=1669914765;
+	bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BpmubymyzDTLf7RUBhiQWKpUnB2G87lX90yQlTxLfEMnf5LZgzZpuxZ284pSmnPNu
-	 NVXFcGpNaNKWFuKLYzBkqzaCUOlhBq4ihVnF0U9PX0Tpj1kzZTdnPVI5iDdopSkgrr
-	 5qe2mcg8+xVKLZ+Z/WdU4jlLT2mVk00Y3QwcGNMU=
+	b=NdvAP6GbSHDlk1dD/bsgJs8M0TyK9hkGRLDsy9AZGObHP5CRZQCdTjrK87t5QHX90
+	 QK1p9Yjx4hig0736vqoBqZnhTXqXcuDoQHM57UccvoQvPQ3cjXOGCDu0N+vVi8yFYZ
+	 PmxC0wNfYCBrcu8I0AdipTUhJaSgP1HCity+Jtmo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48CABF80166;
-	Thu,  1 Dec 2022 18:11:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8668CF80563;
+	Thu,  1 Dec 2022 18:11:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC9E4F8053D; Thu,  1 Dec 2022 18:11:04 +0100 (CET)
+ id 945A0F804D0; Thu,  1 Dec 2022 18:11:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B6F4F80166
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:11:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B6F4F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14E3EF804D0
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:11:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E3EF804D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HuyGnrfE"
+ header.b="WuHnmiUC"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A3EE62096;
- Thu,  1 Dec 2022 17:10:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD28C433D6;
- Thu,  1 Dec 2022 17:10:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 246CE62085;
+ Thu,  1 Dec 2022 17:11:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284BBC43470;
+ Thu,  1 Dec 2022 17:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669914658;
- bh=pnwhTaL4cklkLrb4nD4efWonXmmY0uhDdK7dG34JuoY=;
+ s=k20201202; t=1669914660;
+ bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HuyGnrfESgnWeThOwodXT6+gB97jtrTzxfMgqTyGAUL+8f5hUa7y5ksGNZRfNzn9x
- o682f0c8S6FauPCkdNNAeye3HYwI8kLzZId/sfOpVTydTSxbCAHlveZBbvfC7rYUv5
- IwzWkD8hrzrgayzb/6L7I8AvZKB6wb4UYSubRS+UUdE9LQtITmMiTUYvXOy+79ZZsl
- rzeYPs7niBLtAa+kPqi4+smfIeVIdy0erKwWrJec/rWZxD2+6dJjPqUcyxj5exbO5X
- M7QJYp8c40tQYeh38CQoMW7Fa2XpQ72qv7SJt0mDjDmbr5bcj+Iez63wlBMWMHysRJ
- kCv4ZoFxIDjXw==
+ b=WuHnmiUCo8afADDANn9QgPs8GQ7RgKXk3JWzyqJgkXzRW80BMnfJEL8QGFApZlUZX
+ G6Mtsue/khwntl0RreET6tboa7twAFk7tY57wyHnJ4KdwiDByjFs2xew/Ywlu0i0D3
+ 8Bjx2+rroobbTv6y2p7pdvDLLJdBL6oJmgVpfuxJt0VqS82/SnTb6tfvfIT4wfTrvb
+ s5WVnm7znQoqVGAFkmtg9cWgCJRPP1HPBZVpYqaTqcXxEBX1iEqVqx094+I6ns6dnc
+ rgZw8I2bRIiueukYlKO5B2EOw8Uu+TcPtMiEdu/6/fKmeNdNWZch9WLBzWaD7uE1gO
+ QXZ4mPwNZKvaA==
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
  Shuah Khan <shuah@kernel.org>
-Subject: [PATCH v2 2/6] kselftest/alsa: Report failures to set the requested
- sample rate as skips
-Date: Thu,  1 Dec 2022 17:07:41 +0000
-Message-Id: <20221201170745.1111236-3-broonie@kernel.org>
+Subject: [PATCH v2 3/6] kselftest/alsa: Report failures to set the requested
+ channels as skips
+Date: Thu,  1 Dec 2022 17:07:42 +0000
+Message-Id: <20221201170745.1111236-4-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221201170745.1111236-1-broonie@kernel.org>
 References: <20221201170745.1111236-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2201; i=broonie@kernel.org;
- h=from:subject; bh=pnwhTaL4cklkLrb4nD4efWonXmmY0uhDdK7dG34JuoY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiN9d+nbh+A0A7qkli2I8bk2WGKpIqwgz2FKcpvFJ
- iTWyxCWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4jfXQAKCRAk1otyXVSH0EBiB/
- 0ZMRMnkhJIG249GtRBPM1Z+78KAI8+3h6ezqBLuHtuOfrtRBPMuZ9E2+sLUJ92jigMHNx2ykJqZBef
- bqOZkGgx9mxPR3hO0iYW2chNmnp5zgiSLtMRChhCocrEVsEYzeCvRFwB5Q1axb6Zz9l01PWv/nGhhd
- raik7W/e+BcfnA/luI28EZ0xaoxK41+PNtrfRvrA/t4ySDKeicUxnpY3JdvGDo/LS/yq1aOZP6xRvZ
- dihe8tZdtQyyQ1Omz9jXEw25NNYiHoEdEhWD31wDM0e2tTSHUKTcCk5VNDvvK1CI8kBeaJ4uZNHCLS
- B1eDLXgni833r2EZPg2WbHWk05DqWZ
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1760; i=broonie@kernel.org;
+ h=from:subject; bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiN9eR7uP9EzG5VK5o5gRFLzZsY2kfcSSreuW3Kux
+ n6kDJHSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4jfXgAKCRAk1otyXVSH0Fa+B/
+ 0VJdL2Vj+N0HWUPKMqKb9QvaC/cIsB254npMyUlxVqfzBdfLS0TCgDo1traEiYk8bcVSgYcUgcw7wD
+ /smZpJa/v6xrSZOTATC7u2Cxk/rVv4/Co16BmC5HoPuM4dyW1W5XVcCMXDsobhe6KSw7KdzSYP/ING
+ ETTjuBZydaNvgK+3hQ1Q0J/2J+tltCVGN3no7lTGg7slXd3WD6G7TpRNGL+BwDCLIoskPoanvrFk1M
+ HA79t9MnREVaHgSbmLNqULIWNIfXbzFKE/cR8fRk/lrbfncz66mIy2uPITBYb6ADQhl8gG7l/Nz9Bv
+ pHZSsQH7bc3RbCwCeIyOXp07C49koY
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -97,65 +97,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If constraint selection gives us a sample rate other than the one that we
-asked for that isn't a failure, that is the device implementing sample
-rate constraints and advertising that it can't support whatever we asked
+If constraint selection gives us a number of channels other than the one
+that we asked for that isn't a failure, that is the device implementing
+constraints and advertising that it can't support whatever we asked
 for. Report such cases as a test skip rather than failure so we don't have
 false positives.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/selftests/alsa/pcm-test.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ tools/testing/selftests/alsa/pcm-test.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index dc36f4099954..edb820fe2ee6 100644
+index edb820fe2ee6..c701cf507a95 100644
 --- a/tools/testing/selftests/alsa/pcm-test.c
 +++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -247,6 +247,7 @@ static void test_pcm_time1(struct pcm_data *data,
- 	bool pass = false, automatic = true;
- 	snd_pcm_hw_params_t *hw_params;
- 	snd_pcm_sw_params_t *sw_params;
-+	bool skip = false;
- 
- 	snd_pcm_hw_params_alloca(&hw_params);
- 	snd_pcm_sw_params_alloca(&sw_params);
-@@ -321,7 +322,8 @@ static void test_pcm_time1(struct pcm_data *data,
+@@ -241,6 +241,7 @@ static void test_pcm_time1(struct pcm_data *data,
+ 	snd_pcm_sframes_t frames;
+ 	long long ms;
+ 	long rate, channels, period_size, buffer_size;
++	unsigned int rchannels;
+ 	unsigned int rrate;
+ 	snd_pcm_uframes_t rperiod_size, rbuffer_size, start_threshold;
+ 	timestamp_t tstamp;
+@@ -310,11 +311,17 @@ static void test_pcm_time1(struct pcm_data *data,
+ 					   snd_pcm_format_name(format), snd_strerror(err));
  		goto __close;
  	}
- 	if (rrate != rate) {
--		snprintf(msg, sizeof(msg), "rate mismatch %ld != %ld", rate, rrate);
-+		snprintf(msg, sizeof(msg), "rate unsupported %ld != %ld", rate, rrate);
+-	err = snd_pcm_hw_params_set_channels(handle, hw_params, channels);
++	rchannels = channels;
++	err = snd_pcm_hw_params_set_channels_near(handle, hw_params, &rchannels);
+ 	if (err < 0) {
+ 		snprintf(msg, sizeof(msg), "snd_pcm_hw_params_set_channels %ld: %s", channels, snd_strerror(err));
+ 		goto __close;
+ 	}
++	if (rchannels != channels) {
++		snprintf(msg, sizeof(msg), "channels unsupported %ld != %ld", channels, rchannels);
 +		skip = true;
- 		goto __close;
- 	}
- 	rperiod_size = period_size;
-@@ -417,11 +419,20 @@ static void test_pcm_time1(struct pcm_data *data,
- 	msg[0] = '\0';
- 	pass = true;
- __close:
--	ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
--			 test->cfg_prefix,
--			 data->card, data->device, data->subdevice,
--			 snd_pcm_stream_name(data->stream),
--			 msg[0] ? " " : "", msg);
-+	if (!skip) {
-+		ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
-+				 test->cfg_prefix,
-+				 data->card, data->device, data->subdevice,
-+				 snd_pcm_stream_name(data->stream),
-+				 msg[0] ? " " : "", msg);
-+	} else {
-+		ksft_test_result_skip("%s.%d.%d.%d.%s%s%s\n",
-+				      test->cfg_prefix,
-+				      data->card, data->device,
-+				      data->subdevice,
-+				      snd_pcm_stream_name(data->stream),
-+				      msg[0] ? " " : "", msg);
++		goto __close;
 +	}
- 	free(samples);
- 	if (handle)
- 		snd_pcm_close(handle);
+ 	rrate = rate;
+ 	err = snd_pcm_hw_params_set_rate_near(handle, hw_params, &rrate, 0);
+ 	if (err < 0) {
 -- 
 2.30.2
 

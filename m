@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B15963F1FF
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 14:49:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010A063F202
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 14:49:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3A93172E;
-	Thu,  1 Dec 2022 14:48:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3A93172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D4491736;
+	Thu,  1 Dec 2022 14:49:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D4491736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669902589;
-	bh=Uyd503AUpFQ+wB60JzDX21uxeFYPmKS/1xEV6a/+nC0=;
+	s=default; t=1669902596;
+	bh=GWM+B74HgZm8hg965LkIrG7utJXhrwWC6OA28kyyUjA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wx7B+juojLxntF+ZpetQBUzOY9OU2j4YXnDtPX8qpojfuuFFN3CR6kzK8W6TbTmra
-	 Nd2ONiYrFNaf8JuVTt/mdxp/cOGHhTU0iuEJW01aEtNVzewmFwSaQRUXN8Mh1Yimmn
-	 5x4P+mGbeWDvEUkemCCQ3utcsf/rZKmPzAHGNFI8=
+	b=I0H2HtPymaUxUmVYGaRp7ODo76SdcnYN7hx1dTxFshz30sSO5yoMCHUkNN3v16GxA
+	 cn+lNS35JXMvDH5AZRV+cCSJqzav0ihJaCuWU8xSW5TzGM9nncd44u+hk0Loy0fiBs
+	 w48DbeNqvBHvsTH1K3XM67UCU3zIR/TpdfH21qOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 122D6F8055A;
+	by alsa1.perex.cz (Postfix) with ESMTP id D0829F8055C;
 	Thu,  1 Dec 2022 14:48:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E102AF80166; Thu,  1 Dec 2022 12:08:59 +0100 (CET)
+ id DE5C3F80558; Thu,  1 Dec 2022 12:09:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44134F804D0
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 12:08:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44134F804D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60BE4F80519
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 12:08:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60BE4F80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="K5kXuHcE"
-Received: by mail-ej1-x62c.google.com with SMTP id o13so3382681ejm.1
- for <alsa-devel@alsa-project.org>; Thu, 01 Dec 2022 03:08:52 -0800 (PST)
+ header.b="ihhHeh07"
+Received: by mail-ej1-x62a.google.com with SMTP id b2so3334652eja.7
+ for <alsa-devel@alsa-project.org>; Thu, 01 Dec 2022 03:08:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hPnx0twxhgnGZjrXWsF/2vKaeMeI6ZYYmbIIcD69SUE=;
- b=K5kXuHcEfBkPvXptT5Y+mfQkEfSuimVpWQKHjhZ9y+kPOfG6EGLbLQqZ7Vmi4Ht6xT
- AXJ/oi2Z0ArL4gZ9JbiQ5Dx7wPbrhxkR+aVJKyp6AwkIvHoR6IysS+toCXipubShsonE
- oHPeSUt0tvViAKC1UQK6OZfmPOR3FZyq1ixgo=
+ :reply-to; bh=SFyJfR2WUZBDHeWemxJgoKouNxxtAGHlmHCCEO9QQfg=;
+ b=ihhHeh07lyLQ9+bLJAT02xtbEUUwBhwmY6NbvI/an2JMfUbxhGOKl7udb7lLh5mId9
+ jw5dKTuvmRP+w2K8ZYng51eJLaluDUotqflfy43/10yqWgw/yG+fgTeB0ukeRPMWa9sh
+ dgPYzjd9Y05h6Utm7j5Kxf9v/xCIYLObtVbqg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hPnx0twxhgnGZjrXWsF/2vKaeMeI6ZYYmbIIcD69SUE=;
- b=rUxiqs3gtmWwARuWFN9c7OohpOiMG2obheGKXUXwCQ+LiR0Jp3eBWBVj+WCw9znKH+
- eQi7cVtMxkTYwHBngPa6E9Ze1GCv/qTfHcv7lulwEiQSM9IixNIPhgeaYkar2GqAYDV3
- nrJVFXhODGXHsNVY3E1GXuBK/cOtGKOXV5mw7CrcviGnnufCH5iO6TWcYBv9DtM8EJ2A
- T3ZCg4YGbNIUldSf4cGh+lJCkur8oyw1fwfVU8X/eBLMJEcxPzzzdiAf26ryHuynppQ5
- PcWK2KJa4pMTU2jSe/Y8tabn8Phyc0Zztvi9v7ZpNVCXu2UIu6Sel1P2r7AlvQnNLCtG
- 6KjA==
-X-Gm-Message-State: ANoB5pmY9FSooNmEPBhpwocwc0XZkqhD3UUdraVupC5Cvu2CmpBjRZ/y
- 41jZBceUobKSYWr2jE1RdWYL0A==
-X-Google-Smtp-Source: AA0mqf6QA9epHr8ruPFiQGAKYscNsrTjXBsKaW09DtpGXeORJbLVCQptI5poBuY2TVEd05qONnm0EQ==
-X-Received: by 2002:a17:906:7d13:b0:7bc:addd:2c54 with SMTP id
- u19-20020a1709067d1300b007bcaddd2c54mr14248196ejo.24.1669892930375; 
- Thu, 01 Dec 2022 03:08:50 -0800 (PST)
+ bh=SFyJfR2WUZBDHeWemxJgoKouNxxtAGHlmHCCEO9QQfg=;
+ b=aadXG9mlOwWpvNB9icKJuEQRQB7EYsB+hnzw1IdfQoUf3RQ0nMxoF0akOAjcV7vA9n
+ WfFIGFV9WHuDa1r/N8oY3O4sdcDPLp8CiWeiI575lbSE/6R8M8t4phwTmlXG13j8k26y
+ EG7EBu/+TxJBaEJ8puGBesIUoIFiyKzSSWiWUlHMBW0+C9DO0GyVKMZ/tn9q45bBBrzS
+ 7zWAS1hgtL1uCvLN+he1zAzVHJXutVWsayhUt0QZQ+hFVqF6bakw+vfx8SzEYUt0osOc
+ w36Gvx0AFrgUQOdjYhqr72cI6eHFKwAfT9rVST9y6YI79u27ralwU5le0++0G39wFOaC
+ pKIg==
+X-Gm-Message-State: ANoB5pk5UtQCqY4vkzyWpOuPTd7jy9HnoLxkiX5Pgtip4cUgLRdOPO3b
+ kWneP+x9B/RkN9PR+VB+KZiCPQ==
+X-Google-Smtp-Source: AA0mqf5n8q8ZMG+bv3DehJEYX5ANkxpTsyIzmCnCUsZmiYp8gdzbFTHhMnsW4dhR0VzoX//sUAQsMg==
+X-Received: by 2002:a17:906:7f09:b0:7c0:b3a8:a5f9 with SMTP id
+ d9-20020a1709067f0900b007c0b3a8a5f9mr1338546ejr.154.1669892932820; 
+ Thu, 01 Dec 2022 03:08:52 -0800 (PST)
 Received: from alco.roam.corp.google.com ([2620:0:1059:10:f554:724a:f89a:73db])
  by smtp.gmail.com with ESMTPSA id
- v17-20020a170906293100b0078e0973d1f5sm1663824ejd.0.2022.12.01.03.08.48
+ v17-20020a170906293100b0078e0973d1f5sm1663824ejd.0.2022.12.01.03.08.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Dec 2022 03:08:50 -0800 (PST)
+ Thu, 01 Dec 2022 03:08:52 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 01 Dec 2022 12:08:22 +0100
-Subject: [PATCH v8 2/3] freezer: refactor pm_freezing into a function.
+Date: Thu, 01 Dec 2022 12:08:23 +0100
+Subject: [PATCH v8 3/3] ASoC: SOF: Fix deadlock when shutdown a frozen
+ userspace
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20221127-snd-freeze-v8-2-3bc02d09f2ce@chromium.org>
+Message-Id: <20221127-snd-freeze-v8-3-3bc02d09f2ce@chromium.org>
 References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
 In-Reply-To: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
 To: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>,
@@ -105,20 +107,20 @@ To: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
  x86@kernel.org
 X-Mailer: b4 0.11.0-dev-696ae
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3690; i=ribalda@chromium.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2398; i=ribalda@chromium.org; 
  h=from:subject:message-id;
- bh=Uyd503AUpFQ+wB60JzDX21uxeFYPmKS/1xEV6a/+nC0=; 
- b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjiIs47YRD/lKW5LPJ0JDcZ66XVU0S36xAkU2Fyjx2
- 2sg9wC6JAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4iLOAAKCRDRN9E+zzrEiGFvD/
- 97DssDxiQasPTlsNtz7Jry8QHtrWcpbeSa2Bm4gtZx1yhISwwBKhlnlj6KgFHG54yWyqPjrrVR0XTb
- DRsh8oxIzLjCsOJSaFHQVRhF6FQ+Sjacqhya5R4CgkbgCfYqD9BuqRs3k+WVdFOubhN2LtNG3lkx4T
- ue+l5QsOBRqMlPIvwRtgq2tpT+YUFNt5mgxSdvVT17WVelRA7EPFXF8dyd8oIs1E2iKfJpEnF/7Q4c
- 7SZhnlSjo1D/vgoGmvCA0YHqwNf+Gd0soCFD8VDqMs3MsHI+0iHfFmvW9qis9BQ6eEQXsouG9nOnqA
- GHMdhq3WU7pGrL5DkzQU30oUH+Tdpk7c8hfRF3dIlk9oU1KXSXe9pg/38OguyIttqFUH/iSKDS0L92
- 5vIDNhT9WlDT2uxzTt/kS9e7RVM3tR0vHpUMY48SrLT4ybX2MU+uX8pRhqF9B6yT+wCUozZXdnnFHC
- juHBoEPqlJn6F7z5v1GGk+dMOrd3JDk/aqI3cue3Q30WnL9D73CfUZ6MD9yALvFt8oSzUw8eMxA54/
- ac6QXsBUvXHMT4klIUFhVCOtry1lTKgmIF+hciCKQi7qleoR5g5iI9YQ1pERS75u9s0tp/U5COC9rF
- H128taN2NiXJoQ2/mDCQbYyiZZ7qAhM+BNxsaDYWxtgKxmCMfSlcBFUTo+xA==
+ bh=GWM+B74HgZm8hg965LkIrG7utJXhrwWC6OA28kyyUjA=; 
+ b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjiIs5X8qunJcdzh4yNadWVeViZgDn3gq/06nr8kdj
+ kdUAnBmJAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4iLOQAKCRDRN9E+zzrEiBePD/
+ 4n9U/k8s8PcSMHwaDWquOwoHUGMa1OTSXQAeS+zkfPMUpMhgcoTNo49nWa43GN+Y810XaYiML51562
+ eLirizXRSalXPpYVLlUge+rUD8YTV54zGi5OoX528K7lwHG8z+THm4BSy0/gmpmwdgB3GttlQH5Xh0
+ P4IRFzzQUndzF5+V+rD7ZDsOIqsqHLEl2xVrPlelt3OtQTf7xzm+FTwEgxz8fg42kpdkTUjKNidLBa
+ PVVihXzxaPSrNmIcrlXDWrTscOrbX2UGlosoMD4NyfKwacu0juZk+QLlYCoIBu78E/d04Top6bsU/I
+ uqQOeIB3UrGvmdWb9fO9H/WX4GIFLG+w7VCfaLbEd22SI+WITCvp/dDA/ZO8fzX1wgQBHvFZRLIuM4
+ 0mqtOEszlCVB4pMNrAVJcSULhKWOxrKI7MkUyf/otZRJ67hrWlDDaOmlBsOkJTF1T5obHSRoblMSSE
+ UwMVB1vp64JD4LAxJGmFWSPjZ3BMJJK0mblOTi/qOiMm2QR7iraSkhMsUcpx9HI4IeSwbTJszKQ1Hb
+ BgqjW0c2l0BpHzIlEvkoUHxIGQdKJLMfmy8GbTMKne5zBzPRx9+b+cGgNvRa/zWp72+v9Fm0r2l8rk
+ 2c1+78340GIwSb9Ffj750Evz1ISy6b5FAAiC5q+SWoZEFW2mWMAN+3crcCZw==
 X-Developer-Key: i=ribalda@chromium.org; a=openpgp;
  fpr=9EC3BB66E2FC129A6F90B39556A0D81F9F782DA9
 X-Mailman-Approved-At: Thu, 01 Dec 2022 14:48:05 +0100
@@ -143,121 +145,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a way to let the drivers know if the processes are frozen.
+If we are shutting down due to kexec and the userspace is frozen, the
+system will stall forever waiting for userspace to complete.
 
-This is needed by drivers that are waiting for processes to end on their
-shutdown path.
+Do not wait for the clients to complete in that case.
 
-Convert pm_freezing into a function and export it, so it can be used by
-drivers that are either built-in or modules.
+This fixes:
+
+[   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
+[  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
+[  246.819035] Call Trace:
+[  246.821782]  <TASK>
+[  246.824186]  __schedule+0x5f9/0x1263
+[  246.828231]  schedule+0x87/0xc5
+[  246.831779]  snd_card_disconnect_sync+0xb5/0x127
+...
+[  246.889249]  snd_sof_device_shutdown+0xb4/0x150
+[  246.899317]  pci_device_shutdown+0x37/0x61
+[  246.903990]  device_shutdown+0x14c/0x1d6
+[  246.908391]  kernel_kexec+0x45/0xb9
+
+And:
+
+[  246.893222] INFO: task kexec-lite:4891 blocked for more than 122 seconds.
+[  246.927709] Call Trace:
+[  246.930461]  <TASK>
+[  246.932819]  __schedule+0x5f9/0x1263
+[  246.936855]  ? fsnotify_grab_connector+0x5c/0x70
+[  246.942045]  schedule+0x87/0xc5
+[  246.945567]  schedule_timeout+0x49/0xf3
+[  246.949877]  wait_for_completion+0x86/0xe8
+[  246.954463]  snd_card_free+0x68/0x89
+...
+[  247.001080]  platform_device_unregister+0x12/0x35
 
 Cc: stable@vger.kernel.org
 Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-
-sdad
 ---
- include/linux/freezer.h |  3 ++-
- kernel/freezer.c        |  3 +--
- kernel/power/process.c  | 24 ++++++++++++++++++++----
- 3 files changed, 23 insertions(+), 7 deletions(-)
+ sound/soc/sof/core.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/freezer.h b/include/linux/freezer.h
-index b303472255be..3413c869d68b 100644
---- a/include/linux/freezer.h
-+++ b/include/linux/freezer.h
-@@ -13,7 +13,7 @@
- #ifdef CONFIG_FREEZER
- DECLARE_STATIC_KEY_FALSE(freezer_active);
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 3e6141d03770..9587b6a85103 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -9,6 +9,8 @@
+ //
  
--extern bool pm_freezing;		/* PM freezing in effect */
-+bool pm_freezing(void);
- extern bool pm_nosig_freezing;		/* PM nosig freezing in effect */
+ #include <linux/firmware.h>
++#include <linux/kexec.h>
++#include <linux/freezer.h>
+ #include <linux/module.h>
+ #include <sound/soc.h>
+ #include <sound/sof.h>
+@@ -484,9 +486,10 @@ int snd_sof_device_shutdown(struct device *dev)
+ 	 * make sure clients and machine driver(s) are unregistered to force
+ 	 * all userspace devices to be closed prior to the DSP shutdown sequence
+ 	 */
+-	sof_unregister_clients(sdev);
+-
+-	snd_sof_machine_unregister(sdev, pdata);
++	if (!(kexec_in_progress() && pm_freezing())) {
++		sof_unregister_clients(sdev);
++		snd_sof_machine_unregister(sdev, pdata);
++	}
  
- /*
-@@ -80,6 +80,7 @@ static inline int freeze_processes(void) { return -ENOSYS; }
- static inline int freeze_kernel_threads(void) { return -ENOSYS; }
- static inline void thaw_processes(void) {}
- static inline void thaw_kernel_threads(void) {}
-+static inline bool pm_freezing(void) { return false; }
- 
- static inline bool try_to_freeze(void) { return false; }
- 
-diff --git a/kernel/freezer.c b/kernel/freezer.c
-index 4fad0e6fca64..2d3530ebdb7e 100644
---- a/kernel/freezer.c
-+++ b/kernel/freezer.c
-@@ -20,7 +20,6 @@ EXPORT_SYMBOL(freezer_active);
-  * indicate whether PM freezing is in effect, protected by
-  * system_transition_mutex
-  */
--bool pm_freezing;
- bool pm_nosig_freezing;
- 
- /* protects freezing and frozen transitions */
-@@ -46,7 +45,7 @@ bool freezing_slow_path(struct task_struct *p)
- 	if (pm_nosig_freezing || cgroup_freezing(p))
- 		return true;
- 
--	if (pm_freezing && !(p->flags & PF_KTHREAD))
-+	if (pm_freezing() && !(p->flags & PF_KTHREAD))
- 		return true;
- 
- 	return false;
-diff --git a/kernel/power/process.c b/kernel/power/process.c
-index ddd9988327fe..8a4d0e2c8c20 100644
---- a/kernel/power/process.c
-+++ b/kernel/power/process.c
-@@ -108,6 +108,22 @@ static int try_to_freeze_tasks(bool user_only)
- 	return todo ? -EBUSY : 0;
- }
- 
-+/*
-+ * Indicate whether PM freezing is in effect, protected by
-+ * system_transition_mutex.
-+ */
-+static bool pm_freezing_internal;
-+
-+/**
-+ * pm_freezing - indicate whether PM freezing is in effect.
-+ *
-+ */
-+bool pm_freezing(void)
-+{
-+	return pm_freezing_internal;
-+}
-+EXPORT_SYMBOL(pm_freezing);
-+
- /**
-  * freeze_processes - Signal user space processes to enter the refrigerator.
-  * The current thread will not be frozen.  The same process that calls
-@@ -126,12 +142,12 @@ int freeze_processes(void)
- 	/* Make sure this task doesn't get frozen */
- 	current->flags |= PF_SUSPEND_TASK;
- 
--	if (!pm_freezing)
-+	if (!pm_freezing())
- 		static_branch_inc(&freezer_active);
- 
- 	pm_wakeup_clear(0);
- 	pr_info("Freezing user space processes ... ");
--	pm_freezing = true;
-+	pm_freezing_internal = true;
- 	error = try_to_freeze_tasks(true);
- 	if (!error) {
- 		__usermodehelper_set_disable_depth(UMH_DISABLED);
-@@ -187,9 +203,9 @@ void thaw_processes(void)
- 	struct task_struct *curr = current;
- 
- 	trace_suspend_resume(TPS("thaw_processes"), 0, true);
--	if (pm_freezing)
-+	if (pm_freezing())
- 		static_branch_dec(&freezer_active);
--	pm_freezing = false;
-+	pm_freezing_internal = false;
- 	pm_nosig_freezing = false;
- 
- 	oom_killer_enable();
+ 	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
+ 		return snd_sof_shutdown(sdev);
 
 -- 
 2.39.0.rc0.267.gcb52ba06e7-goog-b4-0.11.0-dev-696ae

@@ -2,88 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65BD363F7E6
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 20:07:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F349F63F899
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 20:53:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A538178D;
-	Thu,  1 Dec 2022 20:06:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A538178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 844F11788;
+	Thu,  1 Dec 2022 20:52:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 844F11788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669921669;
-	bh=N9TJySIU7DevwbuyRkBvbmEkNkEpAlFeMB8KXxIYODA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669924404;
+	bh=E8LneJJGahSRzAFyNkoofCvon5tjAeUOeY9NwqMnrrE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tD6zK9i7Crql2JDVqpU4FeHra9bMRsCrISNiwfJkm/Y8lp6NyspKj4Tp/KvZ8IK/E
-	 bqeVwslYUb+GC1BO6dXnw32QJ7Qj6NrA3/zLE+NPy2Spa+tLnZu+Dlj5lYnCY9Aag7
-	 291av0oggtMvUXA8OlvTGVbMKGLwquZr+d+njyJ8=
+	b=Jde7efX2He+Vzn0kGctAz2QD6roBYp8jCdHC/1jEgIfBhMqkvtbd84gAlYL+FM8Py
+	 fFEPQmkp12qrwWUT9WmRl/5JfGVq9TJBn6s6Nk8Bf2/O8o8b2hgRenBEl3cvvfq6KL
+	 ugHDuBOZid0hwLc1vhkoZgst2dI4FZNkcvo3mU50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D3CDF80162;
-	Thu,  1 Dec 2022 20:06:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06397F80162;
+	Thu,  1 Dec 2022 20:52:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2773F804ED; Thu,  1 Dec 2022 20:06:48 +0100 (CET)
+ id 590F7F80166; Thu,  1 Dec 2022 20:52:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F4BDF80166
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 20:06:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F4BDF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10925F80116
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 20:52:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10925F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="T1m1syjd"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bB8NQv2S"
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qugjgLZB"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 06D8C21BFF;
- Thu,  1 Dec 2022 19:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669921606; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zuqewNI7Y4IpAWz52JMnmqjq+qD+9w3xPRRjPt/q054=;
- b=T1m1syjdlb3ne3pueAkw9dEI/KCDiCM1ezKqG2PyaBRE5UMmX/N+0KdS1c4Jmn8RhFchID
- TYvXvOHLjKu7+IKyPzKZNDALnzbhqNr+NnETmg9TyKKZDF2cgP8lqw7ZtAwfGAOixJi99h
- vVzLzwTe61o/O+qq9XcjMRex7QLNLcg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669921606;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zuqewNI7Y4IpAWz52JMnmqjq+qD+9w3xPRRjPt/q054=;
- b=bB8NQv2SJuOyC7yPMHvNJNRZRjpAoDx086N/NnnK+E9i8Me4TryUd/K3Mh6VMiHL18ogkL
- oN69rQblxSeAk0Dg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id CEDCC13503;
- Thu,  1 Dec 2022 19:06:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id zncHMUX7iGPEPQAAGKfGzw
- (envelope-from <tiwai@suse.de>); Thu, 01 Dec 2022 19:06:45 +0000
-Date: Thu, 01 Dec 2022 20:06:45 +0100
-Message-ID: <871qpjlz96.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 0/6] kselftest/alsa: pcm-test improvements
-In-Reply-To: <20221201170745.1111236-1-broonie@kernel.org>
-References: <20221201170745.1111236-1-broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
+ by ams.source.kernel.org (Postfix) with ESMTPS id EB05FB82032;
+ Thu,  1 Dec 2022 19:52:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6015AC433D6;
+ Thu,  1 Dec 2022 19:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669924337;
+ bh=E8LneJJGahSRzAFyNkoofCvon5tjAeUOeY9NwqMnrrE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qugjgLZBohQvVbkv30NRqEvnOaw6oSDnrPjIBYfO3PdIWw8bd7ovMFLtrSENV0LWH
+ zbehtN12UnGwFxKSTtzy4SjsRH5l8vXltSg12S6BpR35gMEQtRkb+uZ+6TSHu5BmN0
+ 9BRI6BRDlNv+uySSJLoKBhJNEMGGp36gx3LGUwqm7/504gzUXmfboELlIcr22BZsok
+ CbAfxISX2y0gu5alDa63X9tpWSrbZYtXA17yheZw0fqNw3zeyA3TkxNZNdi3wYkuAd
+ gKBdfIhCPjd1ACPpg9P+UZJaJSpZ+od2XQFesneprDf7bxuG4n0YkQtXaDJCh2mxW6
+ tR98rgUqpCmtw==
+Date: Thu, 1 Dec 2022 19:52:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] kselftests/alsa: pcm - move more configuration to
+ configuration files
+Message-ID: <Y4kF7fG70EySxDQn@sirena.org.uk>
+References: <20221201173333.2494019-1-perex@perex.cz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="53hJecbtB+xfMhYR"
+Content-Disposition: inline
+In-Reply-To: <20221201173333.2494019-1-perex@perex.cz>
+X-Cookie: Leveraging always beats prototyping.
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>, Shuah Khan <shuah@kernel.org>,
  linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -100,26 +89,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Dec 2022 18:07:39 +0100,
-Mark Brown wrote:
-> 
-> This series provides a bunch of quick updates which should make the
-> coverage from pcm-test a bit more useful, it adds some support for
-> skipping tests when the hardware/driver is unable to support the
-> requested configuration and then expands the set of cases we cover to
-> include more sample rates and channel counts.  This should exercise
-> switching between 8kHz and 44.1kHz based rates and ensure that clocking
-> doesn't get confused by non-stereo channel counts, both of which are I
-> expect common real world errors, at least for embedded cards.
-> 
-> v2:
->  - Rebase onto Takashi's current tree.
->  - Tweak the buffer sizes for the newly added cases, don't be quite
->    so ambitious in how big a buffer we request for 96kHz and don't
->    go quite so small for 8kHz since some devices start hitting lower
->    limits on period size and struggle to deliver accurate timing.
 
-Applied now.  Thanks.
+--53hJecbtB+xfMhYR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Dec 01, 2022 at 06:33:33PM +0100, Jaroslav Kysela wrote:
 
-Takashi
+> Obtain all test parameters from the configuration files. The defaults
+> are defined in the pcm-test.conf file. The test count and parameters
+> may be variable per specific hardware.
+
+> Also, handle alt_formats field now (with the fixes in the format loop).
+> It replaces the original "automatic" logic which is not so universal.
+
+> The code may be further extended to skip various tests based
+> on the configuration hints, if the exact PCM hardware parameters
+> are not available for the given hardware.
+
+> --- a/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+> +++ b/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+> @@ -55,6 +55,14 @@ card.hda {
+>  				period_size 24000
+>  				buffer_size 192000
+>  			}
+> +			test.time3 {
+> +				access RW_INTERLEAVED
+> +				format S16_LE
+> +				rate 44100
+> +				channels 2
+> +				period_size 24000
+> +				buffer_size 192000
+> +			}
+
+I really do think we should be giving these names which help people
+understand what the tests are intending to cover, it'll make it easier
+to both understand the results and maintian the configurations going
+forward.  Or at least commenting things, but names is probably better.
+Since the timeN is also used to figure out what type of test we're doing
+that'd mean either adding an explicit test_type field=20
+
+	pcm.test.48k2_S16 {
+		test_type time
+
+or block
+
+	pcm.test.time.48k2_S16
+
+or alternatively adding a human reabale name field
+
+	pcm.test.time1 {
+		description "48kHz Stereo S16_LE"
+
+which is more readable but does mean that automated systems aren't going
+to surface the meaningful name for users so readily - you get things
+like
+
+	https://linux.kernelci.org/test/plan/id/6388c0cba8274c94402abd12/
+	https://linux.kernelci.org/test/plan/id/6388ce6efef77e61ab2abd10/
+
+so there's a UI barrier before people see the test.
+
+mixer-test is kind of "fun" in how many test results it can generate on
+bigger systems but hey, and there's some output corruption going on in
+the first link which looses us the capture tests.  I have toyed with the
+idea of putting the control names into the mixer test names, but some of
+the test systems currently struggle with parsing spaces in the test
+name.
+
+I do see this is all kind of baked into snd_config_get_type()
+unfortunately so perhaps the new description/name field is the best
+option here?  We could add that incrementally.
+
+>  	for (pcm =3D pcm_list; pcm !=3D NULL; pcm =3D pcm->next) {
+> -		test_pcm_time1(pcm, "test.time1", "S16_LE", 48000, 2, 512, 4096);
+> -		test_pcm_time1(pcm, "test.time2", "S16_LE", 48000, 2, 24000, 192000);
+> +		cfg =3D pcm->pcm_config;
+> +		if (cfg =3D=3D NULL)
+> +			cfg =3D default_pcm_config;
+> +		cfg =3D conf_get_subtree(cfg, "test", NULL);
+> +		if (cfg =3D=3D NULL)
+> +			continue;
+> +		snd_config_for_each(i, next, cfg) {
+
+I can see the benefit in moving the defaults to a configuration file
+instead of code but rather than having it be an either/or it seems much
+better to have the board specific configuration file extend the
+defaults, resulting in us looping over both files if we've got both.
+We'd need to have something that avoided collisions, perhaps the
+simplest thing would be to just add an element into the printed test
+name for the source of the config so we get output like:
+
+	ok 1 test.default.time1.0.0.0.PLAYBACK
+	ok 2 test.system.time1.0.0.0.PLAYBACK
+
+That does mean that the system test list can't replace the generic test
+list but like I said elsewhere I think that would be a good thing for
+clarity anyway ("X works on system A but not the very similar system B,
+what's broken about system B...").
+
+> --- /dev/null
+> +++ b/tools/testing/selftests/alsa/pcm-test.conf
+> @@ -0,0 +1,16 @@
+> +pcm.test.time1 {
+> +	format S16_LE
+> +	alt_formats [ S32_LE ]
+> +	rate 48000
+> +	channels 2
+> +	period_size 512
+> +	buffer_size 4096
+> +}
+> +pcm.test.time2 {
+> +	format S16_LE
+> +	alt_formats [ S32_LE ]
+> +	rate 48000
+> +	channels 2
+> +	period_size 24000
+> +	buffer_size 192000
+> +}
+
+It's probably especially important that anything in a default
+configuration should skip on the constraints not being satisfied since
+we've no idea what the hardware we're running on is.  Rather than
+requiring skipping to be explicitly configured perhaps we could just set
+a flag based on if we're reading the default tests or a system specific
+file, I'm not sure I see a sensible use case for system specific tests
+specifying a configuration that can't be satisfied.  Doing things that
+way the flag could either mean we add skipping or that we report two
+results for each configured test:
+
+	not ok 1 test.system.time1.0.0.0.PLAYBACK.constraints
+	ok 2 test.system.time1.0.0.0.PLAYBACK # SKIP
+
+which is perhaps marginally simpler to implement and makes it clearer in
+the results if it was a straight up logic failure rather than a timing
+failure.
+
+I would also like to see 44.1kHz, 96kHz and at least one mono and one 6
+channel configuration adding (in my patches I added 8kHz mono since it's
+the most common practical mono format and 8kHz stereo so if 8kHz mono
+doesn't work it's a bit more obvious if it's mono or 8kHz that's broken).
+That could definitely be done incrementally though.
+
+--53hJecbtB+xfMhYR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOJBewACgkQJNaLcl1U
+h9AwhQf+J4U/pJ+kkchlGBmuS0cYhVtEf6P11C55p0kWxXnizGRG0xKdzx8ZYxPy
+2E520aiMi1lbaLolobgOVo8CZFEjY+W8fBMOLfJbC9Lqui5/2DCGck/bc29KTHS2
+K5lFqwm0AZnKscwG4HkPx2FVPm3Og9EmAwA0iOHVGUciEnqSxPh+TGFkrAdYhky9
+CxhneiMRqZ1Cy2LjkAO/+6CFRELCPk5GyXylUvqBDjqnAYuCZEn1NG+Wy/q0fwLl
+JWIs+rqlRm0L2rpYGY94CKOQKNxCR4Ya0HNaM3G3CCeXe49FDCynPjcvC7UAlQ/1
+CnIRaVhnxpiUJlade6k9XLWeXnhwyA==
+=4Ams
+-----END PGP SIGNATURE-----
+
+--53hJecbtB+xfMhYR--

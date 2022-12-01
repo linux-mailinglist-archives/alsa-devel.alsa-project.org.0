@@ -2,101 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F71663E821
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 04:02:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E85F63E85A
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 04:32:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5F5D16C5;
-	Thu,  1 Dec 2022 04:01:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5F5D16C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 007D116C2;
+	Thu,  1 Dec 2022 04:31:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 007D116C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669863738;
-	bh=dhWtqFEyDC7zWbv136PzGQetITyGMuj8umn6Mv/zggM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SqEBsTKgh7AxIxloybOthWqvcFQjILjSzrF2IPkl0BmmDoZAiOcFec3DUv2qKSHyo
-	 iIWcqG8Zge7ptbizQ57DK+gKOZrmfIJaOx7kU5kSyrKkotoVJ66lP/BBJA/m5+53is
-	 NNjQh54AWXgn7UgFeHOfe7N3OHMSDngoqurHEsZQ=
+	s=default; t=1669865565;
+	bh=unRnKAAFASBbchrx4qaCr5T6bx/sytSYcrhmuW/Lvo8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ccm9iI8QyhJKCXzihK/u+sRVHXOTTvSMlOw4oZh/zVWD+T0hBDTbxGMDgw0lHUWEQ
+	 o9NLVZFEkIXsRXdg5hZivHfPpWp0XY4SEPxvyddgPEo5xtnZcmsQQJ25jZgR2d+Q0D
+	 ChioKovz8H9inlPQnUPxTnf6nfg7FdY2CabIF+o0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84DEEF804B1;
-	Thu,  1 Dec 2022 04:01:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 852FFF80116;
+	Thu,  1 Dec 2022 04:31:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C03DCF8028D; Thu,  1 Dec 2022 04:01:20 +0100 (CET)
+ id 1BF87F8028D; Thu,  1 Dec 2022 04:31:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 447C3F80116
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 04:01:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 447C3F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0F6FF80116
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 04:31:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0F6FF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Egyx7uTU"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="T528DOCV"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 856C45C018D;
- Wed, 30 Nov 2022 22:01:05 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 30 Nov 2022 22:01:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm1; t=1669863665; x=1669950065; bh=XWBVwkoYld
- NlK/GqR1ak1DHTMeWXhw64yhrIsg/buos=; b=Egyx7uTU6p2Cu1OWJBs+FySuxj
- i3WAiH36+rQKW01j+EAlFaCtZ9/hDQLgzbgcAtUKjZBLjR4no4NlebdbKhoClhyo
- Py48iljF3VGUm4jXFB2bdGQGqoX4KcKjgZC9BdN+D/8TZVcurD8oGyOalh9+21PJ
- UBmVPqrlJlvxm/sWXhC5NELLqpwC7z4ZWmy1bgcyh8pPcII1Uxz//okSC3lahyn3
- YtK6gphti4uAjUml+l+biiBSl0D5cYYcR+0AMG0O0zjxG7xnwwDPng5QgHjHmjky
- FwOMsW6wsDF00uRHGINXDihGMXZxmjmXU7XmM29fKNT2Zzt+ew6J9N2/JQ5A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1669863665; x=1669950065; bh=XWBVwkoYldNlK/GqR1ak1DHTMeWXhw64yhr
- Isg/buos=; b=T528DOCVXeYRAr+sOvYS5+RvwP5xSqoTkelXkrJerOGf7B9Rd20
- 3SSfGKjvH2B2z7xPYX5exPJKK9EisMJCCXaI7nzIle5lLaJMtHM1BSn3vPpiznKY
- pQ/GRVdFeJoYyewDX6VSDqdvWthfhuSl7rvRG7D+6NEMhVHOgXBRMANB/ZYEUvxb
- OxOVPnCeh0rt21DKsGOIKlywL5FFrIC/ZFgbG4O+56ANZ0hKzUlFOoPA0g37xIOY
- GJReqKASwCMWpq13VQGB7725JFZ77ZdwGBT5WN3LTy3Bi/hBHEaA+FSJfskHHFm1
- Cv1c+NXyMkBD5RKTkL1uGMx6JyIBsbuznjQ==
-X-ME-Sender: <xms:8BiIY4v8YfwPM81I94As3mJoMM1akdsbjoW0vXXDliOOVif5WpMeBw>
- <xme:8BiIY1eFtyA9UhyAzEHGhsT7AjzlA9lJ84Np9-90uo4rBDn56IJGVa7dolt2i80PU
- gNPSrnxCbZ_bKcHeX8>
-X-ME-Received: <xmr:8BiIYzxIhCV3-ikP29LUIVkc9sIA-DNm33wHWdmx35E1CvJfuVjT4OjXmZJ2iTu0CKqsTbZ55cb7p425c353tYAphYuN2Yo-Alp6Ke-uGZeTK019HcZlNZA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrtdeggdehgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffdvueelffevke
- duhfetjeduffeghfettdfguedtgfdvgfeufeduheevheevkeeknecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:8RiIY7MVbLZ5i4dmmYU5B6aaU_45HjC_uiuCJJOkqObeshVFrolK0w>
- <xmx:8RiIY4_Tyz6xHbemUqQ716dWccjiAoCXtxOgg-LDytX1LIEWaIva0Q>
- <xmx:8RiIYzUqlmcCTgQaFPLPzSee9U2k2H3XjtO1juxA4HAaOe80SNer-Q>
- <xmx:8RiIY2kEnxA-y2I-SqHRqANpYYBlWp6W-Ki3sHmRCGR5N0Xj8MeiTg>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Nov 2022 22:01:03 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: dice: Remove left-over license text
-Date: Thu,  1 Dec 2022 12:01:00 +0900
-Message-Id: <20221201030100.31495-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
+ dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="d2Bx1Plw"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B12ioum019070; Thu, 1 Dec 2022 03:31:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=BfBVfHL55y4El2LYn+90PYn4HEvJdNfd0rEfXcfans8=;
+ b=d2Bx1PlwMWwhIAG7DwvtHLc+p62MU1u4nuXX640KzeoPIyJMZ0woHtPpOvpbXdSJe0Gb
+ D/+iJRbIottkcTyumxQzMMz/9JQhOeZzMvoFf5irAjau1JM3wWTAoOnw6KBWfFHUJ1Tw
+ lkdE6ND7gGj+NcN0i0cut1H6Gy3zg7UAV7lt6+1P3Y3f9eMa8/wrLnBpbKrXw1V/JOee
+ P2XT1zrCHpopTYrGMIbaiP3ApAqoWiTdvYWGW2LxvmPdPjAefFYj6bZ1il3+OTPpnvf9
+ k1QNNnt8IMNOgUOJrKq68GK/EvirkF67QOup/gplEpNyQ/0lPsQ1CcaBw5tZWv6osD/D jw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m6k3yg67t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Dec 2022 03:31:34 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B13VXGY004783
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Dec 2022 03:31:33 GMT
+Received: from [10.216.5.116] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 30 Nov
+ 2022 19:31:26 -0800
+Message-ID: <24f8252f-b843-4a48-0a98-addf1f56cab5@quicinc.com>
+Date: Thu, 1 Dec 2022 09:01:23 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] ASoC: qcom: lpass-sc7180: Add maybe_unused tag for system
+ PM ops
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Matthias Kaehlcke <mka@chromium.org>
+References: <1669726428-3140-1-git-send-email-quic_srivasam@quicinc.com>
+ <Y4eN4utrDnEnKu/8@google.com> <Y4eP2yFKsmxzyX/4@sirena.org.uk>
+ <Y4eU7ra4w3Fm+wLM@google.com> <Y4erFaRfGXbSJLMm@sirena.org.uk>
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <Y4erFaRfGXbSJLMm@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PgCB5VPgXqdJlAIFZEeTFpcNsyD3VJyQ
+X-Proofpoint-ORIG-GUID: PgCB5VPgXqdJlAIFZEeTFpcNsyD3VJyQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-01_02,2022-11-30_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0 mlxscore=0
+ lowpriorityscore=0 impostorscore=0 mlxlogscore=703 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2212010020
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, quic_plai@quicinc.com,
+ swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,28 +122,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Following a commit 1dd0dd0b1fef ("ALSA: firewire: Remove some left-over
-license text in sound/firewire"), this patch removes it added carelessly.
 
-Fixes: 2133dc91d665 ("ALSA: dice: add support for Focusrite Saffire Pro 40 with TCD3070 ASIC")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/dice/dice-focusrite.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/sound/firewire/dice/dice-focusrite.c b/sound/firewire/dice/dice-focusrite.c
-index caf9f620c5d0..ea27cfb01cc0 100644
---- a/sound/firewire/dice/dice-focusrite.c
-+++ b/sound/firewire/dice/dice-focusrite.c
-@@ -2,8 +2,6 @@
- // dice-focusrite.c - a part of driver for DICE based devices
- //
- // Copyright (c) 2022 Takashi Sakamoto
--//
--// Licensed under the terms of the GNU General Public License, version 2.
- 
- #include "dice.h"
- 
--- 
-2.37.2
-
+On 12/1/2022 12:42 AM, Mark Brown wrote:
+> On Wed, Nov 30, 2022 at 05:37:50PM +0000, Matthias Kaehlcke wrote:
+>
+>> The tag of the applied patch is incorrect too, which is actually what I noticed:
+>>
+>> Fixes: a3a96e93cc88 ("ASoC: qcom: lpass-sc7280: Add system suspend/resume PM ops")
+>>
+>> This patch is for sc7180, so it should be:
+>>
+>> Fixes: 2d68148f8f85 ("ASoC: qcom: lpass-sc7180: Add system suspend/resume PM ops")
+Actually with the fix already posted v2.
+> Oh, well.  It's just a fixes tag for something that has only been in
+> -next, it doesn't really matter that much.
+Okay. Sorry for Inconvenience.

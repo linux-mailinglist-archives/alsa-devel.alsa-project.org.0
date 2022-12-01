@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC1BD63F651
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:42:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 131DB63F653
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:43:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59C0817F4;
-	Thu,  1 Dec 2022 18:41:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59C0817F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A068617DA;
+	Thu,  1 Dec 2022 18:42:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A068617DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669916555;
-	bh=j4fRVh7JqO7XwGkD0X2LNVlJObb0km1r7I0KRiPO11o=;
+	s=default; t=1669916581;
+	bh=iA3BYuG6HBd6gbReisCxP6CXflqm/Bhc9mWBC0gI6n0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fag8NPxGYO23ZiQhrsLr+xNDs7KuwX/4Vg8FCfD5i/uUtE24EiBW6G149hlVO18au
-	 qg15lWCHpDMc0f+ikBhskL8NvAMtYtOV3WtPNQ4zmF53Lv62/1Poxi3Y7v2aLczq+K
-	 y/viR8eZ12WWYJKSZO0IE0GOQvxID5WrOpGf2V/o=
+	b=SB4LGb96a1f85O0FR4DRxk6byR8A2KtAuoLGmPOvJAoOu3/PrISAochsVeFehE2Ns
+	 hhL5fRn5UnGByjaqiMiOmDRQ46uim32UxqIU4/Xgm7RvKZgTzcLjLhmBorIuDhb9VL
+	 Jo5QHYUSIFZnOIuesAkoj6HM3G851aORjJ6qOsqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13636F8059F;
-	Thu,  1 Dec 2022 18:39:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E3E4F805B5;
+	Thu,  1 Dec 2022 18:39:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80402F8057F; Thu,  1 Dec 2022 18:39:38 +0100 (CET)
+ id 2122DF805B4; Thu,  1 Dec 2022 18:39:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 484D4F8055C
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:39:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 484D4F8055C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFEC4F80589
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:39:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFEC4F80589
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ZMPd30cv"
+ header.b="nDv7/2nW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669916375; x=1701452375;
+ t=1669916380; x=1701452380;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=j4fRVh7JqO7XwGkD0X2LNVlJObb0km1r7I0KRiPO11o=;
- b=ZMPd30cv9W1C0Ljpq/JWzdPOZx2KsuR9IYdJkEjgF3IJmE1w8chDY9ik
- n7jVU6WmVlumgX5kFS6QAaRigDIm0+vgS/OY+Qh4/smaHBU9cTzbnzx6+
- ccdqggk3SKILEgzrToNkmm9+kAUQYxPva4i2Lbz2+/2MQaZvezZCIHLhG
- OIlcAOwBSgxZjhPaRoaQhGwxhKRWtfZGRG6Eb2HZe1Te7Az29hUStuhlx
- CeDkE7I32RqfVM/0RlF6ocfCGapNveuO+t2/SXfIV/oSl1E88UdzJDpZP
- olxVnkebHllh17gdwV7kusjRQQN+D/lP5w2y4UcTBqcsZ9bUg+SmlUkdi Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="377908375"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="377908375"
+ bh=iA3BYuG6HBd6gbReisCxP6CXflqm/Bhc9mWBC0gI6n0=;
+ b=nDv7/2nWJE4+/71cDnEv84Eo9Ay/paPel797nrwFNKfNzraYR11rgQY5
+ JA9xUnh/HK3rK2QGi/sMwWzHfadgHVBvsw7Yw7wthSQ+QfKQG1aT1eR/g
+ MKCUEMyFNY2aLTFVKzHdHzJKbSya/KTuWR6G40IELJ4++kpf3KdZFmBPZ
+ U10Xj1npY+XRO48y+ddLnE0uQ0wHGyz6xpa3KZ0o8A1qCwtG6N+s2Awic
+ 16T+iz82aP2Vs0RWvtSvpgOWcr8IW4+7M7USZhtT9pOwyRwsn0gCEeXjE
+ P22viW3ls1ade/F8yvc0EWw1D4XXGUiriGHz3c+kRsUEZ1M3otsOGokVS Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="377908402"
+X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="377908402"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2022 09:39:33 -0800
+ 01 Dec 2022 09:39:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="889823954"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="889823954"
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="889823980"
+X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="889823980"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2022 09:39:31 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2022 09:39:33 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 08/16] ASoC: Intel: avs: Drop usage of debug members in
- non-debug code
-Date: Thu,  1 Dec 2022 18:56:11 +0100
-Message-Id: <20221201175619.504758-9-cezary.rojewski@intel.com>
+Subject: [PATCH 09/16] ASoC: Intel: avs: Add data probing requests
+Date: Thu,  1 Dec 2022 18:56:12 +0100
+Message-Id: <20221201175619.504758-10-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221201175619.504758-1-cezary.rojewski@intel.com>
 References: <20221201175619.504758-1-cezary.rojewski@intel.com>
@@ -93,176 +91,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Switch to debug-context aware wrappers instead of accessing debug
-members directly allowing for readable separation of debug and non-debug
-related code. Duplicates are removed along the way.
+Data probing is a cAVS firmware functionality that allows for data
+extraction and injection directly from or to DMA stream. To support it,
+new functions and types are added. These facilitate communication
+with the firmware.
+
+Total of eight IPCs:
+- probe module initialization and cleanup
+- addition and removal of probe points
+- addition and removal of injection DMAs
+- dumping list of currently connected probe points or enlisted DMAs
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/apl.c     | 11 ++++-------
- sound/soc/intel/avs/avs.h     | 16 ++--------------
- sound/soc/intel/avs/debugfs.c | 18 ++++++++++++++++++
- sound/soc/intel/avs/skl.c     |  5 ++---
- sound/soc/intel/avs/utils.c   | 18 ------------------
- 5 files changed, 26 insertions(+), 42 deletions(-)
+ sound/soc/intel/avs/Makefile   |  2 +-
+ sound/soc/intel/avs/messages.c | 78 ++++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h | 53 +++++++++++++++++++++++
+ sound/soc/intel/avs/probes.c   | 46 ++++++++++++++++++++
+ 4 files changed, 178 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/intel/avs/probes.c
 
-diff --git a/sound/soc/intel/avs/apl.c b/sound/soc/intel/avs/apl.c
-index beef308c9428..02683dce277a 100644
---- a/sound/soc/intel/avs/apl.c
-+++ b/sound/soc/intel/avs/apl.c
-@@ -59,21 +59,18 @@ static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg
+diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
+index a211a0b7b4a8..1c6924a1ebca 100644
+--- a/sound/soc/intel/avs/Makefile
++++ b/sound/soc/intel/avs/Makefile
+@@ -10,7 +10,7 @@ snd-soc-avs-objs += trace.o
+ CFLAGS_trace.o := -I$(src)
  
- 	memcpy_fromio(&layout, addr, sizeof(layout));
+ ifneq ($(CONFIG_DEBUG_FS),)
+-snd-soc-avs-objs += debugfs.o
++snd-soc-avs-objs += probes.o debugfs.o
+ endif
  
--	if (!kfifo_initialized(&adev->dbg.trace_fifo))
-+	if (!avs_logging_fw(adev))
- 		/* consume the logs regardless of consumer presence */
- 		goto update_read_ptr;
- 
- 	buf = apl_log_payload_addr(addr);
- 
- 	if (layout.read_ptr > layout.write_ptr) {
--		__kfifo_fromio(&adev->dbg.trace_fifo, buf + layout.read_ptr,
--			       apl_log_payload_size(adev) - layout.read_ptr);
-+		avs_dump_fw_log(adev, buf + layout.read_ptr,
-+				apl_log_payload_size(adev) - layout.read_ptr);
- 		layout.read_ptr = 0;
- 	}
--	__kfifo_fromio(&adev->dbg.trace_fifo, buf + layout.read_ptr,
--		       layout.write_ptr - layout.read_ptr);
--
--	wake_up(&adev->dbg.trace_waitq);
-+	avs_dump_fw_log_wakeup(adev, buf + layout.read_ptr, layout.write_ptr - layout.read_ptr);
- 
- update_read_ptr:
- 	writel(layout.write_ptr, addr);
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index f8f11d8b5936..7a9fb27d3845 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -94,15 +94,6 @@ struct avs_fw_entry {
- 	struct list_head node;
- };
- 
--struct avs_debug {
--	struct kfifo trace_fifo;
--	spinlock_t trace_lock;	/* serialize debug window I/O between each LOG_BUFFER_STATUS */
--	wait_queue_head_t trace_waitq;
--	u32 aging_timer_period;
--	u32 fifo_full_timer_period;
--	u32 logged_resources;	/* context dependent: core or library */
--};
--
- /*
-  * struct avs_dev - Intel HD-Audio driver data
-  *
-@@ -146,7 +137,6 @@ struct avs_dev {
- 	spinlock_t path_list_lock;
- 	struct mutex path_mutex;
- 
--	struct avs_debug dbg;
- 	spinlock_t trace_lock;	/* serialize debug window I/O between each LOG_BUFFER_STATUS */
- #ifdef CONFIG_DEBUG_FS
- 	struct kfifo trace_fifo;
-@@ -339,8 +329,6 @@ void avs_unregister_all_boards(struct avs_dev *adev);
- 
- /* Firmware tracing helpers */
- 
--unsigned int __kfifo_fromio(struct kfifo *fifo, const void __iomem *src, unsigned int len);
--
- #define avs_log_buffer_size(adev) \
- 	((adev)->fw_cfg.trace_log_bytes / (adev)->hw_cfg.dsp_cores)
- 
-@@ -356,9 +344,9 @@ static inline int avs_log_buffer_status_locked(struct avs_dev *adev, union avs_n
- 	unsigned long flags;
- 	int ret;
- 
--	spin_lock_irqsave(&adev->dbg.trace_lock, flags);
-+	spin_lock_irqsave(&adev->trace_lock, flags);
- 	ret = avs_dsp_op(adev, log_buffer_status, msg);
--	spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
-+	spin_unlock_irqrestore(&adev->trace_lock, flags);
- 
- 	return ret;
+ obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
+diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
+index f734d49e42be..e11ae4246416 100644
+--- a/sound/soc/intel/avs/messages.c
++++ b/sound/soc/intel/avs/messages.c
+@@ -722,4 +722,82 @@ int avs_ipc_set_system_time(struct avs_dev *adev)
+ 	return avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
+ 					AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
  }
-diff --git a/sound/soc/intel/avs/debugfs.c b/sound/soc/intel/avs/debugfs.c
-index ac3889e21542..78705bcb09fb 100644
---- a/sound/soc/intel/avs/debugfs.c
-+++ b/sound/soc/intel/avs/debugfs.c
-@@ -11,6 +11,24 @@
- #include <linux/wait.h>
- #include "avs.h"
- 
-+static unsigned int __kfifo_fromio(struct kfifo *fifo, const void __iomem *src, unsigned int len)
++
++int avs_ipc_probe_get_dma(struct avs_dev *adev, struct avs_probe_dma **dmas, size_t *num_dmas)
 +{
-+	struct __kfifo *__fifo = &fifo->kfifo;
-+	unsigned int l, off;
++	size_t payload_size;
++	u32 module_id;
++	u8 *payload;
++	int ret;
 +
-+	len = min(len, kfifo_avail(fifo));
-+	off = __fifo->in & __fifo->mask;
-+	l = min(len, kfifo_size(fifo) - off);
++	module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
 +
-+	memcpy_fromio(__fifo->data + off, src, l);
-+	memcpy_fromio(__fifo->data, src + l, len - l);
-+	/* Make sure data copied from SRAM is visible to all CPUs. */
-+	smp_mb();
-+	__fifo->in += len;
++	ret = avs_ipc_get_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_INJECTION_DMA,
++				       NULL, 0, &payload, &payload_size);
++	if (ret)
++		return ret;
 +
-+	return len;
++	*dmas = (struct avs_probe_dma *)payload;
++	*num_dmas = payload_size / sizeof(**dmas);
++
++	return 0;
 +}
 +
- bool avs_logging_fw(struct avs_dev *adev)
- {
- 	return kfifo_initialized(&adev->trace_fifo);
-diff --git a/sound/soc/intel/avs/skl.c b/sound/soc/intel/avs/skl.c
-index c5edb0b0df14..6bb8bbc70442 100644
---- a/sound/soc/intel/avs/skl.c
-+++ b/sound/soc/intel/avs/skl.c
-@@ -59,7 +59,7 @@ skl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
- 	void __iomem *buf;
- 	u16 size, write, offset;
++int avs_ipc_probe_attach_dma(struct avs_dev *adev, struct avs_probe_dma *dmas, size_t num_dmas)
++{
++	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++
++	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_INJECTION_DMA,
++					(u8 *)dmas, array_size(sizeof(*dmas), num_dmas));
++}
++
++int avs_ipc_probe_detach_dma(struct avs_dev *adev, union avs_connector_node_id *node_ids,
++			     size_t num_node_ids)
++{
++	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++
++	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID,
++					AVS_PROBE_INJECTION_DMA_DETACH, (u8 *)node_ids,
++					array_size(sizeof(*node_ids), num_node_ids));
++}
++
++int avs_ipc_probe_get_points(struct avs_dev *adev, struct avs_probe_point_desc **descs,
++			     size_t *num_descs)
++{
++	size_t payload_size;
++	u32 module_id;
++	u8 *payload;
++	int ret;
++
++	module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++
++	ret = avs_ipc_get_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_POINTS, NULL,
++				       0, &payload, &payload_size);
++	if (ret)
++		return ret;
++
++	*descs = (struct avs_probe_point_desc *)payload;
++	*num_descs = payload_size / sizeof(**descs);
++
++	return 0;
++}
++
++int avs_ipc_probe_connect_points(struct avs_dev *adev, struct avs_probe_point_desc *descs,
++				 size_t num_descs)
++{
++	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++
++	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_POINTS,
++					(u8 *)descs, array_size(sizeof(*descs), num_descs));
++}
++
++int avs_ipc_probe_disconnect_points(struct avs_dev *adev, union avs_probe_point_id *ids,
++				    size_t num_ids)
++{
++	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++
++	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID,
++					AVS_PROBE_POINTS_DISCONNECT, (u8 *)ids,
++					array_size(sizeof(*ids), num_ids));
++}
+ #endif
+diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
+index 02b3b7a74783..9dd835527e02 100644
+--- a/sound/soc/intel/avs/messages.h
++++ b/sound/soc/intel/avs/messages.h
+@@ -802,4 +802,57 @@ int avs_ipc_copier_set_sink_format(struct avs_dev *adev, u16 module_id,
+ 				   const struct avs_audio_format *src_fmt,
+ 				   const struct avs_audio_format *sink_fmt);
  
--	if (!kfifo_initialized(&adev->dbg.trace_fifo))
-+	if (!avs_logging_fw(adev))
- 		return 0;
- 
- 	size = avs_log_buffer_size(adev) / 2;
-@@ -69,8 +69,7 @@ skl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
- 
- 	/* Address is guaranteed to exist in SRAM2. */
- 	buf = avs_log_buffer_addr(adev, msg->log.core) + offset;
--	__kfifo_fromio(&adev->dbg.trace_fifo, buf, size);
--	wake_up(&adev->dbg.trace_waitq);
-+	avs_dump_fw_log_wakeup(adev, buf, size);
- 
- 	return 0;
- }
-diff --git a/sound/soc/intel/avs/utils.c b/sound/soc/intel/avs/utils.c
-index 75ad434d7dfb..82416b86662d 100644
---- a/sound/soc/intel/avs/utils.c
-+++ b/sound/soc/intel/avs/utils.c
-@@ -300,21 +300,3 @@ void avs_release_firmwares(struct avs_dev *adev)
- 		kfree(entry);
- 	}
- }
--
--unsigned int __kfifo_fromio(struct kfifo *fifo, const void __iomem *src, unsigned int len)
--{
--	struct __kfifo *__fifo = &fifo->kfifo;
--	unsigned int l, off;
--
--	len = min(len, kfifo_avail(fifo));
--	off = __fifo->in & __fifo->mask;
--	l = min(len, kfifo_size(fifo) - off);
--
--	memcpy_fromio(__fifo->data + off, src, l);
--	memcpy_fromio(__fifo->data, src + l, len - l);
--	/* Make sure data copied from SRAM is visible to all CPUs. */
--	smp_mb();
--	__fifo->in += len;
--
--	return len;
--}
++#define AVS_PROBE_INST_ID	0
++
++enum avs_probe_runtime_param {
++	AVS_PROBE_INJECTION_DMA = 1,
++	AVS_PROBE_INJECTION_DMA_DETACH,
++	AVS_PROBE_POINTS,
++	AVS_PROBE_POINTS_DISCONNECT,
++};
++
++struct avs_probe_dma {
++	union avs_connector_node_id node_id;
++	u32 dma_buffer_size;
++} __packed;
++
++enum avs_probe_type {
++	AVS_PROBE_TYPE_INPUT = 0,
++	AVS_PROBE_TYPE_OUTPUT,
++	AVS_PROBE_TYPE_INTERNAL
++};
++
++union avs_probe_point_id {
++	u32 value;
++	struct {
++		u32 module_id:16;
++		u32 instance_id:8;
++		u32 type:2;
++		u32 index:6;
++	} id;
++} __packed;
++
++enum avs_connection_purpose {
++	AVS_CONNECTION_PURPOSE_EXTRACT = 0,
++	AVS_CONNECTION_PURPOSE_INJECT,
++	AVS_CONNECTION_PURPOSE_INJECT_REEXTRACT,
++};
++
++struct avs_probe_point_desc {
++	union avs_probe_point_id id;
++	u32 purpose;
++	union avs_connector_node_id node_id;
++} __packed;
++
++int avs_ipc_probe_get_dma(struct avs_dev *adev, struct avs_probe_dma **dmas, size_t *num_dmas);
++int avs_ipc_probe_attach_dma(struct avs_dev *adev, struct avs_probe_dma *dmas, size_t num_dmas);
++int avs_ipc_probe_detach_dma(struct avs_dev *adev, union avs_connector_node_id *node_ids,
++			     size_t num_node_ids);
++int avs_ipc_probe_get_points(struct avs_dev *adev, struct avs_probe_point_desc **descs,
++			     size_t *num_descs);
++int avs_ipc_probe_connect_points(struct avs_dev *adev, struct avs_probe_point_desc *descs,
++				 size_t num_descs);
++int avs_ipc_probe_disconnect_points(struct avs_dev *adev, union avs_probe_point_id *ids,
++				    size_t num_ids);
++
+ #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
+diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
+new file mode 100644
+index 000000000000..339bad6fec22
+--- /dev/null
++++ b/sound/soc/intel/avs/probes.c
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
++//
++// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
++//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
++//
++
++#include "avs.h"
++#include "messages.h"
++
++__maybe_unused
++static int avs_dsp_init_probe(struct avs_dev *adev, union avs_connector_node_id node_id,
++			      size_t buffer_size)
++
++{
++	struct avs_probe_cfg cfg = {{0}};
++	struct avs_module_entry mentry;
++	u16 dummy;
++
++	avs_get_module_entry(adev, &AVS_PROBE_MOD_UUID, &mentry);
++
++	/*
++	 * Probe module uses no cycles, audio data format and input and output
++	 * frame sizes are unused. It is also not owned by any pipeline.
++	 */
++	cfg.base.ibs = 1;
++	/* BSS module descriptor is always segment of index=2. */
++	cfg.base.is_pages = mentry.segments[2].flags.length;
++	cfg.gtw_cfg.node_id = node_id;
++	cfg.gtw_cfg.dma_buffer_size = buffer_size;
++
++	return avs_dsp_init_module(adev, mentry.module_id, INVALID_PIPELINE_ID, 0, 0, &cfg,
++				   sizeof(cfg), &dummy);
++}
++
++__maybe_unused
++static void avs_dsp_delete_probe(struct avs_dev *adev)
++{
++	struct avs_module_entry mentry;
++
++	avs_get_module_entry(adev, &AVS_PROBE_MOD_UUID, &mentry);
++
++	/* There is only ever one probe module instance. */
++	avs_dsp_delete_module(adev, mentry.module_id, 0, INVALID_PIPELINE_ID, 0);
++}
 -- 
 2.25.1
 

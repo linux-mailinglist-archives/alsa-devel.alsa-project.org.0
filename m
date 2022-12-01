@@ -2,76 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE0E63F7B5
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 19:45:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE2E063F945
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 21:39:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3852D174E;
-	Thu,  1 Dec 2022 19:44:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3852D174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A19B17A7;
+	Thu,  1 Dec 2022 21:39:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A19B17A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669920325;
-	bh=8Wa22vlIxqVif+YEexm4N5G0Rd6iBZ12UZO/kMJlisM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1669927199;
+	bh=zELu1XGPksGPNPCJ7usRTQUQut5ZdnmhS1HI4ZrCSWM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DZRGNVJ6tU7ax/aMnVNMugiUTXRw92bBEgfLHQ0deE3OT1EKPQAYlkYfQBvwtvZJL
-	 j+OiTielizQW5ylXf+X5HGR3iocTkclo+TS18Xj2cPdIQOYJj8vBkVL03Vp+APgQ3f
-	 DaNR8MEylnR4fEqM8+MPa6nQ1s584lsg9se7uyMU=
+	b=Hlov0AO+wWl0jcfyl6Bu/uxB0yKJuOilcN+S0pfvLea+TcnTmyLNMrCxuCWGUFU5S
+	 XRWRRk+woklo4Qh8mKLfcgRCgNOl2+Wuyi7EJ1dOhfsq7guldZcXeZFtOM0pXR3/IO
+	 pZ6XMwC45ctOBtJX2zepo+sMd0Q+Aeu/T9fSzGrA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8319F804B1;
-	Thu,  1 Dec 2022 19:44:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E3C7F80118;
+	Thu,  1 Dec 2022 21:38:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29DA6F8028D; Thu,  1 Dec 2022 19:44:28 +0100 (CET)
+ id 68F21F80116; Thu,  1 Dec 2022 21:38:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6151BF80118
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 19:44:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6151BF80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="o060qC+W"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 81824B81FCD;
- Thu,  1 Dec 2022 18:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7EAFC433C1;
- Thu,  1 Dec 2022 18:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669920262;
- bh=8Wa22vlIxqVif+YEexm4N5G0Rd6iBZ12UZO/kMJlisM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=o060qC+WesGG7xYXaauKt1r6m3dGhrfZZBJuixDk7j1JsVNF29q/OYWUTL1T6OsLu
- ceD6BT5eGvQkrKsFMvnrhh06SFl96cbT24Xr+YMes45lNPbpMH1qY9AhVCgK3OVUhg
- 3Wexq8mBN8PMT+UD17M2isspjmvt5rjRsQHZD/KPyW1KkRw8Ew3L7LuaN97JmBftok
- 2fqo38/7PWR6+TeR12eBk4WskHLS2ygZrEDDjlOuBXo9tRBMDmbRxILAW3bDfDMFjx
- 3h+x/YXn3chps16e3xcaUbpiEcpZO6TeyUnmAsU44W9Z1sCTdsVi5e5GxTn8Z71Zam
- aRqchK1Qgxpsg==
-Date: Thu, 1 Dec 2022 18:44:17 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v1 0/6] kselftest/alsa: pcm-test improvements
-Message-ID: <Y4j2AS/UuLwqxARU@sirena.org.uk>
-References: <20221130000608.519574-1-broonie@kernel.org>
- <a55212fc-a676-2335-b861-94ba8d10f207@perex.cz>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34739F80116
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 21:38:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34739F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="lC6+MMTP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669927114; x=1701463114;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=zELu1XGPksGPNPCJ7usRTQUQut5ZdnmhS1HI4ZrCSWM=;
+ b=lC6+MMTPZOY5/DoreDp71VwusVRGCms38L+sqRzAKrgaqnR1R+Aqmt/0
+ 2iPwO4X/e1lYwNMzMcwPTjocMKm1fhsvdPC0iplGsDk6GA2DOAEa/1c2m
+ 4EtBS3Q6hidkwzYmYcEDrBF8vZUTBynmzOtDv9hCMvDRr0jZmBNxLqi4u
+ iFFB/j/Ch6mzowcRT6NHw9dzqeMjUZ4C11ITZSDmnzHdoH+I/+8b7IHvB
+ t6ytVBMrkhGrEB9NICmNVIHX4JcZDjhil8+SBSJhQJsvod4L6+zWmuTLF
+ reh7KHJngOXPUc7ixWu2V30YydSLnirROWWVhhnC62vrmMDzgOK4d1aCd w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="314498370"
+X-IronPort-AV: E=Sophos;i="5.96,210,1665471600"; d="scan'208";a="314498370"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2022 12:38:04 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="644781654"
+X-IronPort-AV: E=Sophos;i="5.96,210,1665471600"; d="scan'208";a="644781654"
+Received: from twcarol-mobl.amr.corp.intel.com (HELO [10.212.10.40])
+ ([10.212.10.40])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2022 12:38:03 -0800
+Message-ID: <ad92df90-3a5f-91ee-59d5-23116b03264a@linux.intel.com>
+Date: Thu, 1 Dec 2022 11:49:02 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SOEil+iW0YdK9KEO"
-Content-Disposition: inline
-In-Reply-To: <a55212fc-a676-2335-b861-94ba8d10f207@perex.cz>
-X-Cookie: Leveraging always beats prototyping.
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 1/3] soundwire: cadence: Don't overflow the command FIFOs
+Content-Language: en-US
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org
+References: <20221201134845.4055907-1-rf@opensource.cirrus.com>
+ <20221201134845.4055907-2-rf@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20221201134845.4055907-2-rf@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,81 +97,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---SOEil+iW0YdK9KEO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Dec 01, 2022 at 06:42:22PM +0100, Jaroslav Kysela wrote:
+On 12/1/22 07:48, Richard Fitzgerald wrote:
+> The command FIFOs are 8 entries long, so change CDNS_MCP_CMD_LEN to 8.
+> 
+> CDNS_MCP_CMD_LEN was originally 32, which would lead to cdns_xfer_msg()
+> writing up to 32 commands into the FIFO, so any message longer than 8
+> commands would fail.
 
-> The current code allows to override "test.time1 {} test.time2 {}" blocks in
-> the configuration files which is equivalent to "test { time1 {} time2 {} }".
+The change is correct for all instances of SoundWire on Intel platforms.
+That said, maybe we should capture that the Cadence IP can handle
+4/8/16/32 entries - this is a hardware configuration option.
 
-Right, I was leaving that in place but just renaming so that the intent
-of the test was clearer and expanding the standard coverage - trying to
-make it clearer what the test was trying to accomplish when someone
-comes along trying to do something later on.  It did however cross my
-mind that we might be better off having the tests read from the config
-file be in addition to the standard tests rather than overriding them,
-I think that'd work out a lot clearer in the end.
+We should also mention that so far we have not sent multiple commands so
+far so the code is only broken when grouping commands.
 
-> This changeset will introduce configuration lookups like
-> "pcm.0.0.PLAYBACK.44k1.2.big {}" which creates another configuration
-> structure. The '.' (compound level delimiter) should not be used in the test
-> name.
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-I see, we could use another delimiter there easily enough (though if we
-segregated the built in and loaded test configurations I'm not sure it'd
-matter so much).
-
-> My original idea for the next improvement was to parse the
-> "pcm.0.0.PLAYBACK.test" compound and gather the tests for the given pcm. If
-> this compound is missing, we can continue with the hard-coded defaults.
-
-While it is useful to be able to specify additional tests through
-configuration I don't think we should be relying on that for coverage,
-we should have a more substantial baseline of tests so that systems like
-KernelCI get reasonable coverage without having to get changes
-individually integrated for boards (and then wait for them to filter out
-into the trees being tested).  It doesn't scale out so well over the
-number of systems that we might be running on, especially if we come up
-with new tests and have to loop back over existing boards, and isn't
-really idiomatic for kselftest.
-
-I'm also a bit worried about the way we currently override the built in
-tests, it creates additional potential for confusion when looking at
-results if the test might've been turned into something different by the
-configuration file.
-
-> About the skips - the test should probably keep to support also the exact
-> parameters. For example - if the hardware must support 6 channels, it should
-> not be a skip but an error. Everything may be broken, including the PCM
-> configuration refining.
-
-Yes, there's a tension there between hard coded tests and the explicitly
-specified per board ones.  I think the solution here is to add two tests
-for things we read from the configuration file rather than just adding
-by default, one verifying that we managed to configure the settings we
-asked for and one for the actual test.
-
-> I just sent the patch with my changes for comments [1]. It's just the base
-> code which may be extended with your requirements. The skips may be
-> implemented using configuration field like 'skip_if_rate_error yes' or so.
-> Let me know, if I can stack your changes on top, or perhaps, you may be
-> willing to adapt them.
-
---SOEil+iW0YdK9KEO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOI9gAACgkQJNaLcl1U
-h9B/jQf8DMxv5OpmFAq0vIExqHv3nDip4HRsjAwLbj3Egv9RcjdKpGNjjCpvHZof
-NB8QXCfPW3YejcROBd984HkQIoqyt1DXycYd5qi52pfbjFxy+KCiv/Tqr2cArUiQ
-O/H0/ZGKbZOmhPd6KVR9aTJrVsV3W9NdlKc43FhI5aJVeF2AV5WR777ypeeRPTO+
-oEK0PcJMaUyX9ms/xwUGSc4n8HHrmiSDx2zU6b2bSNgq7kasGAsSWBl3jDzeNypR
-WcXgO8Jb+OiQjyYdw0PTBK7eeOQ9UxidjmVRcvjwUyN8hbbPeb9i2bPhn4pzQ/Zy
-8ys5B5xz/6zpfxeQB5FMXnrGP3PTZA==
-=TB2E
------END PGP SIGNATURE-----
-
---SOEil+iW0YdK9KEO--
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> Fixes: 2f52a5177caa ("soundwire: cdns: Add cadence library")
+> ---
+>  drivers/soundwire/cadence_master.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> index a1de363eba3f..27699f341f2c 100644
+> --- a/drivers/soundwire/cadence_master.c
+> +++ b/drivers/soundwire/cadence_master.c
+> @@ -127,7 +127,8 @@ MODULE_PARM_DESC(cdns_mcp_int_mask, "Cadence MCP IntMask");
+>  
+>  #define CDNS_MCP_CMD_BASE			0x80
+>  #define CDNS_MCP_RESP_BASE			0x80
+> -#define CDNS_MCP_CMD_LEN			0x20
+> +/* FIFO can hold 8 commands */
+> +#define CDNS_MCP_CMD_LEN			8
+>  #define CDNS_MCP_CMD_WORD_LEN			0x4
+>  
+>  #define CDNS_MCP_CMD_SSP_TAG			BIT(31)

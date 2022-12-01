@@ -2,93 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 244BD63ECB4
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 10:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F2A63F1F8
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 14:49:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8E9F171B;
-	Thu,  1 Dec 2022 10:42:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8E9F171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1D711716;
+	Thu,  1 Dec 2022 14:48:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1D711716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669887796;
-	bh=VdGBaS0XWeFJmcCrunXO7sc+tv9eoriihu4qmG553GA=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ygcu/QPBsotQOdJJbozLYM6ey/VvV1XtqGBSU7nFk2dgNXkAiTU30/n/pn5GdmshJ
-	 /GfQ2nbNULxMwuZWl0GTYmdAkgfvQWSTn1+QU4yilY5We5MajIkZv7KEp1Jz19pk7G
-	 Ry+YIL1DMdlIcZIpZcaUC0pxDSBavSM5Chke7po8=
+	s=default; t=1669902542;
+	bh=Rud9IUdbPKIRkkkE6G4uaTZbcmuiccX+lZS5manvrHM=;
+	h=Subject:From:Date:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VL6uD1XB00pMhX4WCXn88ZRPxrQQLJ6GOQpxiLinskXtsdsl+lgvV1PTEaJR9OuJ8
+	 sCP6lnMxaNERss51MjqQFbQWofvSPPnNoZ6uIMxurxSTFrqUn6RlGa4+e+5uzROSSv
+	 6dbKyYjkFbUjVWsEze4Q6kJU5496nMh753/cAmQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4735DF804B1;
-	Thu,  1 Dec 2022 10:42:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BFD7F80118;
+	Thu,  1 Dec 2022 14:48:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63C96F8028D; Thu,  1 Dec 2022 10:42:19 +0100 (CET)
+ id 6CCBCF80166; Thu,  1 Dec 2022 12:08:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24298F80116
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 10:42:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24298F80116
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB29FF80166
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 12:08:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB29FF80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="NSZBzHBU"
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id DA94D66025DF;
- Thu,  1 Dec 2022 09:42:10 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1669887731;
- bh=VdGBaS0XWeFJmcCrunXO7sc+tv9eoriihu4qmG553GA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=NSZBzHBUHkeY2OuO+h2pNjHg/Ubz8w5zyptGtmmW3HASRCOA42oynDVSQVo17MNCD
- q2iF4uFpLXRhPRW8FTQLVr5VkrdMzGnXuXswiZFFsnqcF+1SX2Ctiu9AsphaJJ7eDy
- QSR52YDp3Hvy55/9AAI/lIviHHxrFoX9xSGYbsyUbIvvJgIElR9E4A/xAhPem2w1Hn
- LGqEwhkb+AMaJmfEHXbwfvUTJe0rIC6At1+MSgkM5DrB0fYCKZKjxjMdshAAhVYJ7Q
- zLq1djNofBb3WKjH7DaUaBivb50xgjZg7lydi3X2SLo5jSYC9R0NMubNuiDlHyM6n6
- 5foWAcXBfpV5A==
-Message-ID: <6c8343c4-a8ed-1a4c-a518-1c49a9d6b056@collabora.com>
-Date: Thu, 1 Dec 2022 10:42:08 +0100
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ZRHyoajE"
+Received: by mail-ed1-x52f.google.com with SMTP id f7so1861734edc.6
+ for <alsa-devel@alsa-project.org>; Thu, 01 Dec 2022 03:08:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:message-id:date:from:content-transfer-encoding:mime-version
+ :subject:from:to:cc:subject:date:message-id:reply-to;
+ bh=lGm4cyBDbhcC+E+E+8rSuqE3igb1lprN1pN6/M3QLys=;
+ b=ZRHyoajEwFC4By5LI1rVbOp/xLGzBq//9Xi/KMCz0lo8z9Pc1kxGrZQGSfdmpQmaMd
+ 1GnniREAshZoCU4tyHuy1piJbRVEDqwJVixje9ZJzJ77PtUXKFFljT/b8/IV0BWReOGd
+ SqBdcc0wshVkJyGCE+uvwuRmeLcgRNVAq9pdQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:message-id:date:from:content-transfer-encoding:mime-version
+ :subject:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lGm4cyBDbhcC+E+E+8rSuqE3igb1lprN1pN6/M3QLys=;
+ b=MId5f4+pXKLnLxeM9hu6+c4kyORVvsMNJSjrUAlubh4LLnF4ZZRWwtPQR23ytaNkDM
+ wkCwNOXG/3chPBw8VMFEH0DbG15P9b16LHXvH0GKqeNLcdaE9D0qm/27UXsa8oxUp6R6
+ 5C2NXE6SvH8NqWsm99n02ZBYKgja9ZHuNrP9kIE4SHciYS47pBJjCJ3uOL75U5Z0MLnD
+ vCiHeqEHEXib+GjiL9GEg9sswbVYtpmglwsQWjmEThpGgXcph7Wse0YpTzQIOJmjH0O2
+ kri1cDs/eO2hjnhOhzu/KZtQpAPJR0shM0a4ewvFRmIhxk0M/8NLG8ZcxBka7w8wstNR
+ KRiQ==
+X-Gm-Message-State: ANoB5pmqC/cxdS0s6HGAymfHUczMMsxiUf3Im0W1UVo2nnIKgDo3W+MA
+ 5AcF5OUhgq3ZPpBIlWtADCAUEg==
+X-Google-Smtp-Source: AA0mqf5zzNn9de5BfFPh0J6RLCpw0dw9HFYWDLvw7kVxPfSHwhQH5HyYQ8cKCqwRv03JB5G51Q4CsA==
+X-Received: by 2002:a05:6402:4516:b0:467:b88c:f3af with SMTP id
+ ez22-20020a056402451600b00467b88cf3afmr43151776edb.24.1669892925587; 
+ Thu, 01 Dec 2022 03:08:45 -0800 (PST)
+Received: from alco.roam.corp.google.com ([2620:0:1059:10:f554:724a:f89a:73db])
+ by smtp.gmail.com with ESMTPSA id
+ v17-20020a170906293100b0078e0973d1f5sm1663824ejd.0.2022.12.01.03.08.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Dec 2022 03:08:44 -0800 (PST)
+Subject: [PATCH v8 0/3] ASoC: SOF: Fix deadlock when shutdown a frozen
+ userspace
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v2 03/12] ASoC: mediatek: mt8188: support audsys clock
-Content-Language: en-US
-To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>, "tiwai@suse.com"
- <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
-References: <20221021082719.18325-1-trevor.wu@mediatek.com>
- <20221021082719.18325-4-trevor.wu@mediatek.com>
- <de66f0e3-7694-7315-c896-9211259a1a17@collabora.com>
- <776557c0fda5a538549ee0d4f4b7f482b0d69934.camel@mediatek.com>
- <473d67ed-198f-82c6-9f32-5827c1f8c852@collabora.com>
- <500f80b1ac84101af482bdfcb46671d523d51068.camel@mediatek.com>
- <360a5f27-8abc-938c-04c7-13ea65b5a89f@collabora.com>
- <7dfdb4866ccf7356c2a8beb0359e5b62df4f245f.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <7dfdb4866ccf7356c2a8beb0359e5b62df4f245f.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACSLiGMC/3XPzWrDMAwA4FcpPs8jln/b095j7CA7SmNoHbDXwF
+ by7tN2HDY6CAk+/TxFo5qpicvpKSrtueWtcBFeTiKtWK4k88y1gAlAKfCylVkuleibpCJSRgMEDU
+ 4wiNhIxoolrUzK43bj5prb51a//hbsitN7d9au5CStN06hdo4SvKW1bvf8uL9u9So+eNIOYw2s54
+ AGLOHZOd3Reqw1awSa0WuVUJmONmNtfi9n50z0C2DsaDvWlrWhmSNOIeLU0W6sHWtN58lavTiDtq
+ P9WHvW3Es2wMIP/P/7OI4f/KJYEyACAAA=
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 01 Dec 2022 12:08:20 +0100
+Message-Id: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
+To: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>,
+ Chromeos Kdump <chromeos-kdump@google.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Len Brown <len.brown@intel.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Eric Biederman <ebiederm@xmission.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Joel Fernandes <joel@joelfernandes.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Pavel Machek <pavel@ucw.cz>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Steven Rostedt <rostedt@goodmis.org>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Ingo Molnar <mingo@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Dexuan Cui <decui@microsoft.com>, Takashi Iwai <tiwai@suse.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org
+X-Mailer: b4 0.11.0-dev-696ae
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4368; i=ribalda@chromium.org; 
+ h=from:subject:message-id;
+ bh=Rud9IUdbPKIRkkkE6G4uaTZbcmuiccX+lZS5manvrHM=; 
+ b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjiIsuiQZl7CGQiKdplkqC0gHCzURIkJXoavQjeFfS
+ sEPmEE6JAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4iLLgAKCRDRN9E+zzrEiIaWD/
+ 9SLVqH6ELG3Nj4DmzbcOc+YbsFvyvs/zS4DGTKOm4a1dsJ6EojOhIs9fpuGLT8o3p3+9VsWHC0In/y
+ k6Iuhsi7YI2K91jtIDrxVIf4dUlmsglcYsc4qe5s+tqH0tWT7y7OlpaNM4+W605lNX2FMTKjGgKfHe
+ jHVMfBfB0ebLbt7OhLXieR55yYucbmtChn3v49MHNc8u6oY5Zy9bC4bNkMJDJtd+ce/qqb8Bp4QeMA
+ rOQjtJMeieO5qtXaDb8EfsUc4gu1PYL42HfoTN2sr18FL9SKNzVejr4Jq0RhUCNg/rf+Oqoqn7EEmV
+ sjud45VDHbBcOD8OQJa/GQAuRwLJQYje6ycI76nIB/gnEiR08+uB3nK3tlAkKMMWbb4wS5vuWnCX2U
+ 3YF/ZK8xWASICm+G0JmfVBdajYCKUxaboXr7DPbP7oCUFU3bLEQqtBpNgeyfU46D4Q0gnTD8/frbVt
+ UgY++3lpoKK+Pxg3zbTIKOvN4fumazPJdSB+a586EbWiw7LhOtWns3EsiPZqFybXoW0BptbVq0Aqan
+ TLmIsVZkJSOl85YER762XGxsWyl9LeYioTLO/h4ozDLEbfseFlKxfz67nGgS7NBgsHBJDuc7Pu2/XP
+ dfaTOEkimDz87TdwqvVEa5v67H9Ve4p2lif6Z3g7ymf71PA6yB0dtq2z/ZqQ==
+X-Developer-Key: i=ribalda@chromium.org; a=openpgp;
+ fpr=9EC3BB66E2FC129A6F90B39556A0D81F9F782DA9
+X-Mailman-Approved-At: Thu, 01 Dec 2022 14:48:05 +0100
+Cc: alsa-devel@alsa-project.org, linux-efi@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, kexec@lists.infradead.org,
+ linux-hyperv@vger.kernel.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>,
+ xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,211 +146,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 01/12/22 09:43, Trevor Wu (吳文良) ha scritto:
-> On Wed, 2022-10-26 at 10:18 +0200, AngeloGioacchino Del Regno wrote:
->> Il 26/10/22 06:10, Trevor Wu (吳文良) ha scritto:
->>> On Tue, 2022-10-25 at 12:18 +0200, AngeloGioacchino Del Regno
->>> wrote:
->>>> Il 21/10/22 11:58, Trevor Wu (吳文良) ha scritto:
->>>>> On Fri, 2022-10-21 at 10:41 +0200, AngeloGioacchino Del Regno
->>>>> wrote:
->>>>>> Il 21/10/22 10:27, Trevor Wu ha scritto:
->>>>>>> Add mt8188 audio cg clock control. Audio clock gates are
->>>>>>> registered
->>>>>>> to CCF
->>>>>>> for reference count and clock parent management.
->>>>>>>
->>>>>>> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
->>>>>>> ---
->>>>>>>      sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 206
->>>>>>> ++++++++++++++++++
->>>>>>>      sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  15 ++
->>>>>>>      .../soc/mediatek/mt8188/mt8188-audsys-clkid.h |  83
->>>>>>> +++++++
->>>>>>>      3 files changed, 304 insertions(+)
->>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
->>>>>>> audsys-
->>>>>>> clk.c
->>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
->>>>>>> audsys-
->>>>>>> clk.h
->>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
->>>>>>> audsys-
->>>>>>> clkid.h
->>>>>>>
->>>>>>> diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>>>> b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>>>> new file mode 100644
->>>>>>> index 000000000000..1f294231d4c2
->>>>>>> --- /dev/null
->>>>>>> +++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
->>>>>>> @@ -0,0 +1,206 @@
->>>>>>> +// SPDX-License-Identifier: GPL-2.0
->>>>>>> +/*
->>>>>>> + * mt8188-audsys-clk.c  --  MediaTek 8188 audsys clock
->>>>>>> control
->>>>>>> + *
->>>>>>> + * Copyright (c) 2022 MediaTek Inc.
->>>>>>> + * Author: Chun-Chia Chiu <chun-chia.chiu@mediatek.com>
->>>>>>> + */
->>>>>>> +
->>>>>>> +#include <linux/clk.h>
->>>>>>> +#include <linux/clk-provider.h>
->>>>>>> +#include <linux/clkdev.h>
->>>>>>> +#include "mt8188-afe-common.h"
->>>>>>> +#include "mt8188-audsys-clk.h"
->>>>>>> +#include "mt8188-audsys-clkid.h"
->>>>>>> +#include "mt8188-reg.h"
->>>>>>> +
->>>>>>> +struct afe_gate {
->>>>>>> +	int id;
->>>>>>> +	const char *name;
->>>>>>> +	const char *parent_name;
->>>>>>> +	int reg;
->>>>>>> +	u8 bit;
->>>>>>> +	const struct clk_ops *ops;
->>>>>>> +	unsigned long flags;
->>>>>>> +	u8 cg_flags;
->>>>>>> +};
->>>>>>> +
->>>>>>> +#define GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,
->>>>>>> _flags,
->>>>>>> _cgflags) {\
->>>>>>> +		.id = _id,					
->>>>>>> \
->>>>>>> +		.name = _name,					
->>>>>>> \
->>>>>>> +		.parent_name = _parent,				
->>>>>>> \
->>>>>>> +		.reg = _reg,					
->>>>>>> \
->>>>>>> +		.bit = _bit,					
->>>>>>> \
->>>>>>> +		.flags = _flags,				
->>>>>>> \
->>>>>>> +		.cg_flags = _cgflags,				
->>>>>>> \
->>>>>>> +	}
->>>>>>> +
->>>>>>> +#define GATE_AFE(_id, _name, _parent, _reg, _bit)		
->>>>>>> \
->>>>>>> +	GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,		
->>>>>>> \
->>>>>>> +		       CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
->>>>>>> CLK_GATE_SET_TO_DISABLE)
->>>>>>
->>>>>> Can you please explain what's the reason for
->>>>>> CLK_IGNORE_UNUSED
->>>>>> here?
->>>>>> Maybe we can solve some issue that you're facing in a cleaner
->>>>>> way.
->>>>>>
->>>>>> Regards,
->>>>>> Angelo
->>>>>
->>>>> Hi Angelo,
->>>>>
->>>>> Because clk_disable_unused() calls clk_core_is_enabled(),
->>>>> register
->>>>> access happens in is_enabled() ops.
->>>>> At the moment, the power for register access is not enabled, so
->>>>> the
->>>>> register read results in CPU hang.
->>>>>
->>>>> That's why I added CLK_IGNORE_UNUSED here, but it can't resolve
->>>>> all
->>>>> issues. Actually, we met same problem when "cat
->>>>> /sys/kernel/debug/clk/clk_summary" is used. We are still
->>>>> suffering
->>>>> the
->>>>> problem.
->>>>>
->>>>> I'm not sure if I can implement clk ops by myself, and exclude
->>>>> the
->>>>> registration of is_enabled() ops.
->>>>>
->>>>
->>>> Is the power for register access enabled with a power domain?
->>>>
->>>> Check drivers/clk/clk.c, grep for core->rpm_enabled.
->>>>
->>>> If you enable runtime PM before registering the clocks, and you
->>>> register them
->>>> with the right struct device, the clock API will enable power for
->>>> you
->>>> before
->>>> trying to read the clock enable status.
->>>>
->>>> Regards,
->>>> Angelo
->>>>
->>>
->>> Hi Angelo,
->>>
->>> I tried the way in MT8195, but it caused circular lock problem.
->>>
->>> Because mtcmos depends on some clocks, clk_bulk_prepare_enable is
->>> also
->>> used in scpsys_power_on()[1].
->>> If the clock also depends on the power domain, this results in the
->>> circular lock problem.
->>> That's why I don't bind the power domain with these clocks.
->>>
->>
->> This is not supposed to happen... can you please give me a (MT8195)
->> patch to
->> reproduce the issue that you're seeing?
->>
->> I would like to investigate that to check if I can come up with a
->> good solution.
->>
->> Thanks,
->> Angelo
-> 
-> 
-> Hi Angelo,
-> 
-> Sorry for replying late.
-> The original implementation about clock depending on power domain was a
-> cusotomized request, and it's not based on upstream code base. So I
-> can't apply the implementation directly. I tried to implement the
-> suggested solution in upstream code, but I can't reproduce the problem
-> successfully.
-> 
-> At the same time, we reviewed the difference between MT8195 and MT8188.
-> It's found that ADSP_INFRA should be kept ON to resolve the register
-> r/w access limitation in MT8188, so we can match the hardware design in
-> MT8195.
-> 
-> After discussing internally, we decided in favour of ADSP_INFRA
-> soloution. Althought the lock problem can't be seen, the new lock
-> relationship(prepare_lock -> genpd lock) is actually created.
-> 
-> In conclusion, ADSP_INFRA will be kept always on and I will remove
-> CLK_IGNORE_UNUSED flag in V3.
-> 
+Since: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
+we wait for all the workloads to be completed during shutdown. This was done to 
+avoid a stall once the device is started again.
 
-As far as the power consumption increase is ignorable (so, power consumption
-is very little more), that's a good decision and I support that.
+Unfortunately this has the side effect of stalling kexec(), if the userspace
+is frozen. Let's handle that case.
 
-Regards,
-Angelo
+To: Joel Fernandes <joel@joelfernandes.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Eric Biederman <ebiederm@xmission.com>
+To: Chromeos Kdump <chromeos-kdump@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Michael Ellerman <mpe@ellerman.id.au>
+To: Nicholas Piggin <npiggin@gmail.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: "K. Y. Srinivasan" <kys@microsoft.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>
+To: Wei Liu <wei.liu@kernel.org>
+To: Dexuan Cui <decui@microsoft.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+To: Ingo Molnar <mingo@redhat.com>
+To: Borislav Petkov <bp@alien8.de>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: x86@kernel.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+To: Juergen Gross <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+To: Len Brown <len.brown@intel.com>
+Cc: stable@vger.kernel.org
+Cc: sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: kexec@lists.infradead.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-hyperv@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
+Cc: linux-efi@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v8:
+- Wrap pm_freezing and kexec_inprogress in functions.
+- Do not run snd_sof_machine_unregister(sdev, pdata) during kexec (Thanks Kai).
+- Link to v7: https://lore.kernel.org/r/20221127-snd-freeze-v7-0-127c582f1ca4@chromium.org
 
-> Thanks,
-> Trevor
-> 
->>
->>> [1]
->>>
-> https://urldefense.com/v3/__https://elixir.bootlin.com/linux/v6.1-rc2/source/drivers/soc/mediatek/mtk-pm-domains.c__;!!CTRNKA9wMg0ARbw!yVFCD-B4VZOxDXTGgDtpB0mJbVoY9tHODeICxthAC33lXMq6LRVTGS-4V-Dj129_cA$
->>>   
->>>
->>> Thanks,
->>> Trevor
->>>
->>>
->>
->>
->>
+Changes in v7:
+- Fix commit message (Thanks Pierre-Louis).
+- Link to v6: https://lore.kernel.org/r/20221127-snd-freeze-v6-0-3e90553f64a5@chromium.org
 
+Changes in v6:
+- Check if we are in kexec with the userspace frozen.
+- Link to v5: https://lore.kernel.org/r/20221127-snd-freeze-v5-0-4ededeb08ba0@chromium.org
 
+Changes in v5:
+- Edit subject prefix.
+- Link to v4: https://lore.kernel.org/r/20221127-snd-freeze-v4-0-51ca64b7f2ab@chromium.org
+
+Changes in v4:
+- Do not call snd_sof_machine_unregister from shutdown.
+- Link to v3: https://lore.kernel.org/r/20221127-snd-freeze-v3-0-a2eda731ca14@chromium.org
+
+Changes in v3:
+- Wrap pm_freezing in a function.
+- Link to v2: https://lore.kernel.org/r/20221127-snd-freeze-v2-0-d8a425ea9663@chromium.org
+
+Changes in v2:
+- Only use pm_freezing if CONFIG_FREEZER .
+- Link to v1: https://lore.kernel.org/r/20221127-snd-freeze-v1-0-57461a366ec2@chromium.org
+
+---
+Ricardo Ribalda (3):
+      kexec: Refactor kexec_in_progress into a function
+      freezer: refactor pm_freezing into a function.
+      ASoC: SOF: Fix deadlock when shutdown a frozen userspace
+
+ arch/powerpc/platforms/pseries/vio.c |  2 +-
+ arch/x86/kernel/cpu/mshyperv.c       |  6 +++---
+ arch/x86/xen/enlighten_hvm.c         |  2 +-
+ drivers/firmware/efi/efi.c           |  2 +-
+ drivers/pci/pci-driver.c             |  2 +-
+ include/linux/freezer.h              |  3 ++-
+ include/linux/kexec.h                |  5 ++---
+ kernel/freezer.c                     |  3 +--
+ kernel/kexec_core.c                  | 12 ++++++++++--
+ kernel/power/process.c               | 24 ++++++++++++++++++++----
+ sound/soc/sof/core.c                 |  9 ++++++---
+ 11 files changed, 48 insertions(+), 22 deletions(-)
+---
+base-commit: 4312098baf37ee17a8350725e6e0d0e8590252d4
+change-id: 20221127-snd-freeze-1ee143228326
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>

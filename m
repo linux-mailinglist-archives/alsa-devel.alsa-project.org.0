@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5084F63F602
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:12:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBB363F603
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 18:13:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1E7A1772;
-	Thu,  1 Dec 2022 18:11:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E7A1772
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCE9D17BF;
+	Thu,  1 Dec 2022 18:12:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE9D17BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669914765;
-	bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
+	s=default; t=1669914786;
+	bh=Kn+BswH7rAycY9VeynvDcjRtACgC1wb2IYiNOSjS+Q8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NdvAP6GbSHDlk1dD/bsgJs8M0TyK9hkGRLDsy9AZGObHP5CRZQCdTjrK87t5QHX90
-	 QK1p9Yjx4hig0736vqoBqZnhTXqXcuDoQHM57UccvoQvPQ3cjXOGCDu0N+vVi8yFYZ
-	 PmxC0wNfYCBrcu8I0AdipTUhJaSgP1HCity+Jtmo=
+	b=bkNOMnHV0uiDQLFzW7rT0aGsBx7w595PZ9VdZB3hlmjYwHKa55tNYHOPGevwzrASl
+	 noxdp6eLkEa9ypNoq7XYY2Oh1xWWYdBzoaRydNveGlNTDnBvYQLZjJ288HD5BRr701
+	 KjRivgb3c02y1096BhKPYPqhR/k3lgheEVsPZQWg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8668CF80563;
-	Thu,  1 Dec 2022 18:11:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD77DF80579;
+	Thu,  1 Dec 2022 18:11:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 945A0F804D0; Thu,  1 Dec 2022 18:11:06 +0100 (CET)
+ id F151DF80558; Thu,  1 Dec 2022 18:11:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E3EF804D0
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:11:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E3EF804D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E800F80557
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 18:11:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E800F80557
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WuHnmiUC"
+ header.b="CkRtaRQp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 246CE62085;
- Thu,  1 Dec 2022 17:11:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284BBC43470;
- Thu,  1 Dec 2022 17:10:58 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9EEB5B81FAF;
+ Thu,  1 Dec 2022 17:11:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028FAC433C1;
+ Thu,  1 Dec 2022 17:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669914660;
- bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
+ s=k20201202; t=1669914662;
+ bh=Kn+BswH7rAycY9VeynvDcjRtACgC1wb2IYiNOSjS+Q8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WuHnmiUCo8afADDANn9QgPs8GQ7RgKXk3JWzyqJgkXzRW80BMnfJEL8QGFApZlUZX
- G6Mtsue/khwntl0RreET6tboa7twAFk7tY57wyHnJ4KdwiDByjFs2xew/Ywlu0i0D3
- 8Bjx2+rroobbTv6y2p7pdvDLLJdBL6oJmgVpfuxJt0VqS82/SnTb6tfvfIT4wfTrvb
- s5WVnm7znQoqVGAFkmtg9cWgCJRPP1HPBZVpYqaTqcXxEBX1iEqVqx094+I6ns6dnc
- rgZw8I2bRIiueukYlKO5B2EOw8Uu+TcPtMiEdu/6/fKmeNdNWZch9WLBzWaD7uE1gO
- QXZ4mPwNZKvaA==
+ b=CkRtaRQp6x7iwTvF6XjTffEjvgtpwLH/Se4dvQttOtl6J4dv5C99vVHBYoYYNTSDQ
+ 92iI4DDI1OPIJU2mTOqNcJ6K+4HMdGLROxTbDCFqj6TkiOh5/jHVCVI1MBSwv/MRN+
+ A1nWEq9Bm9sC3zhgHywWgPEpTle6Wt/DvvhRLPlIc8+70iORa3UCY+XGasu5hT2ynT
+ AIOSC5CqZDxTNdrKCO+tdYMnuxan7Flc5wt6F8qYkl5bOovsj7geYBhYApjr+ePlMw
+ 0curbL4zE5cMwEfxhMPs0JExBqU8q5aXp8TRFZ955RAVWfDrEH5vEr0sbNagVLHzNy
+ FA9z3iPOYH7jA==
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
  Shuah Khan <shuah@kernel.org>
-Subject: [PATCH v2 3/6] kselftest/alsa: Report failures to set the requested
- channels as skips
-Date: Thu,  1 Dec 2022 17:07:42 +0000
-Message-Id: <20221201170745.1111236-4-broonie@kernel.org>
+Subject: [PATCH v2 4/6] kselftest/alsa: Don't any configuration in the sample
+ config
+Date: Thu,  1 Dec 2022 17:07:43 +0000
+Message-Id: <20221201170745.1111236-5-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221201170745.1111236-1-broonie@kernel.org>
 References: <20221201170745.1111236-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1760; i=broonie@kernel.org;
- h=from:subject; bh=Ea1T10TIvTWq1qGzKDGwlwL7b3yoxRpm/4uRvtv+CWo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiN9eR7uP9EzG5VK5o5gRFLzZsY2kfcSSreuW3Kux
- n6kDJHSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4jfXgAKCRAk1otyXVSH0Fa+B/
- 0VJdL2Vj+N0HWUPKMqKb9QvaC/cIsB254npMyUlxVqfzBdfLS0TCgDo1traEiYk8bcVSgYcUgcw7wD
- /smZpJa/v6xrSZOTATC7u2Cxk/rVv4/Co16BmC5HoPuM4dyW1W5XVcCMXDsobhe6KSw7KdzSYP/ING
- ETTjuBZydaNvgK+3hQ1Q0J/2J+tltCVGN3no7lTGg7slXd3WD6G7TpRNGL+BwDCLIoskPoanvrFk1M
- HA79t9MnREVaHgSbmLNqULIWNIfXbzFKE/cR8fRk/lrbfncz66mIy2uPITBYb6ADQhl8gG7l/Nz9Bv
- pHZSsQH7bc3RbCwCeIyOXp07C49koY
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1748; i=broonie@kernel.org;
+ h=from:subject; bh=Kn+BswH7rAycY9VeynvDcjRtACgC1wb2IYiNOSjS+Q8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiN9fa5wTLCtYT9notHr7El4eyPGnYoYICD8o+gE3
+ 8SBIShiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4jfXwAKCRAk1otyXVSH0K+vB/
+ 4jhJBvtqbxPvVCaIt3Nmv4O/SMt/nFZjEiK40mVWdP6p6cZtuMufcWu0yElXfkHqdlM5GfHlK0JKY4
+ YjcbKzMos2akkn1OQFWcZOkg2Qy6FAnuqgzz9wZ7gT7SNmjLfr/r8o5xXbzqWpRX3b2XWyAwTNPezF
+ DRgrajELlpmgJ7IbNK44+8vV2+bjQhMuFD38xNbHiWeuDSbLt0pt9dFbPVva9lFqX14eYIY0q693Py
+ 3t7l9r4BtGrbDiw5PQnFmeJ4+Gx8ZkLe7dkSI4rGaoOPIkKxbSqXinOTswgolGhjV+mxX+P6TABT8G
+ /Gx2Uv8VblE2QYnzx5jx98HXDnbFXG
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -97,48 +98,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If constraint selection gives us a number of channels other than the one
-that we asked for that isn't a failure, that is the device implementing
-constraints and advertising that it can't support whatever we asked
-for. Report such cases as a test skip rather than failure so we don't have
-false positives.
+The values in the one example configuration file we currently have are the
+default values for the two tests we have so there's no need to actually set
+them. Comment them out as examples, with a rename for the tests so that we
+can update the tests in the code more easily.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/selftests/alsa/pcm-test.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ .../alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf  | 35 ++++++++++---------
+ 1 file changed, 19 insertions(+), 16 deletions(-)
 
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index edb820fe2ee6..c701cf507a95 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -241,6 +241,7 @@ static void test_pcm_time1(struct pcm_data *data,
- 	snd_pcm_sframes_t frames;
- 	long long ms;
- 	long rate, channels, period_size, buffer_size;
-+	unsigned int rchannels;
- 	unsigned int rrate;
- 	snd_pcm_uframes_t rperiod_size, rbuffer_size, start_threshold;
- 	timestamp_t tstamp;
-@@ -310,11 +311,17 @@ static void test_pcm_time1(struct pcm_data *data,
- 					   snd_pcm_format_name(format), snd_strerror(err));
- 		goto __close;
- 	}
--	err = snd_pcm_hw_params_set_channels(handle, hw_params, channels);
-+	rchannels = channels;
-+	err = snd_pcm_hw_params_set_channels_near(handle, hw_params, &rchannels);
- 	if (err < 0) {
- 		snprintf(msg, sizeof(msg), "snd_pcm_hw_params_set_channels %ld: %s", channels, snd_strerror(err));
- 		goto __close;
- 	}
-+	if (rchannels != channels) {
-+		snprintf(msg, sizeof(msg), "channels unsupported %ld != %ld", channels, rchannels);
-+		skip = true;
-+		goto __close;
-+	}
- 	rrate = rate;
- 	err = snd_pcm_hw_params_set_rate_near(handle, hw_params, &rrate, 0);
- 	if (err < 0) {
+diff --git a/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf b/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+index 0a83f35d43eb..9eca985e0c08 100644
+--- a/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
++++ b/tools/testing/selftests/alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf
+@@ -39,22 +39,25 @@ card.hda {
+ 	#
+ 	pcm.0.0 {
+ 		PLAYBACK {
+-			test.time1 {
+-				access RW_INTERLEAVED	# can be omitted - default
+-				format S16_LE		# can be omitted - default
+-				rate 48000		# can be omitted - default
+-				channels 2		# can be omitted - default
+-				period_size 512
+-				buffer_size 4096
+-			}
+-			test.time2 {
+-				access RW_INTERLEAVED
+-				format S16_LE
+-				rate 48000
+-				channels 2
+-				period_size 24000
+-				buffer_size 192000
+-			}
++			#
++			# Uncomment to override values for specific tests
++			#
++			#test_name1 {
++			#	access RW_INTERLEAVED
++			#	format S16_LE
++			#	rate 48000
++			#	channels 2
++			#	period_size 512
++			#	buffer_size 4096
++			#}
++			#test_name2 {
++			#	access RW_INTERLEAVED
++			#	format S16_LE
++			#	rate 48000
++			#	channels 2
++			#	period_size 24000
++			#	buffer_size 192000
++			#}
+ 		}
+ 		CAPTURE {
+ 			# use default tests, check for the presence
 -- 
 2.30.2
 

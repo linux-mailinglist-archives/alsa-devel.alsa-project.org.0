@@ -2,63 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7867063F20C
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 14:51:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74FD863F20D
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 14:51:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A360167D;
-	Thu,  1 Dec 2022 14:50:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A360167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1009B1748;
+	Thu,  1 Dec 2022 14:51:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1009B1748
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669902703;
-	bh=jM/9Aq+0jCfh9mMtJMWa4jKQ1kN4ZBi45RfHWxP9sQ8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Y/6XSRE0Bjh4XLykMdYjbu896hI3xoxBgyHqHjztMGx3Lh6/sJmF9+6eiHtw/9JC8
-	 bDihIYxk+w/Io4QiatAiEOy2x3Q/ASk6pU5grqAJiMnT6NuABri45YRovSuHK8pHCU
-	 Ss7RtLkUU0xG/Zp3vREOpf8dZXmHU1ud21eCtF1o=
+	s=default; t=1669902717;
+	bh=kD0kEAeoldjlqC1C6apG3EA9mbg2KW87/ZXQsBYFTEM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fDUJOxB8CYi57hZQajQjhaBo9ZfEtfP9I9Kgq9tHSeYstc8eb5AMZ4edKyP8aby/9
+	 PlWUaa96KTCB0QGVFP5LYXzATo54RSk9lSOdJ9l0xeCq32aCiEZeQECFlx0HHLsc3S
+	 s6LkCneHm0RhE1RBT6OFUH39v3o/ekze3Q5eQFiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D269F805BF;
-	Thu,  1 Dec 2022 14:48:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DABA9F80557;
+	Thu,  1 Dec 2022 14:48:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DF42F805BB; Thu,  1 Dec 2022 14:48:53 +0100 (CET)
+ id A5727F805C0; Thu,  1 Dec 2022 14:48:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_32,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE92DF805B5
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 14:48:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE92DF805B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78ACBF804D0
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 14:48:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78ACBF804D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="HNvqyFZ5"
+ header.b="q+T7YibB"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2B17UFFc025878; Thu, 1 Dec 2022 07:48:48 -0600
+ 2B15l1vA016609; Thu, 1 Dec 2022 07:48:49 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=gmXNj8zROSVD1MbqgWwzVfwby4Ly7Y38b4HHl5SlK/M=;
- b=HNvqyFZ5xufUCGcBuZv+RTCI7Q7LfQBvVhxoWS9srOdqaIUsN8uwtqujfejiqIlYzDer
- Mnt1p4Sm2W2vBzmDDguh65cLYqOMkBwYZUttzobqld7zXo5MHVUaSdXemzqJDyppM04z
- qbkawUNs8UZ8Qh1clict2RR4DxHln87qUtWmNRaXmb+AH3iH3Sz3pdqTFpnQXSCrAAeL
- AY/7XaqYyI82Qv7S2XXpB9jCdoaWY4J0gSCCzyhkhgw6HIQL/VuHx03uKHgVBR0iIYEk
- bxlLDGenJ/ne20poNxo0gFszX0lzY7eQAV4GVPVuCZIV39ahbLAluc0CoL8cCrospcJg XA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3m6k75rhqk-1
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=PODMain02222019;
+ bh=UDUObvTRaFOUdD9rv8GBXPx2j6+kC61QN/WmZ7u8zjc=;
+ b=q+T7YibByzd765Cy9Tf6/b7PaEDV5TokX6BcNq0l2al3IS8SoLTy4Rr+G7C29DGNDZD3
+ StoDnLZK4PcPNMtCt2rhxmZXCcFQO94zjzSpWS8SXFQoFPbHegfI/3HBgaGLo1MLZm+F
+ eAbJOX166t0FuR93mhtE8aMdf+h2Zv8ETIH7TLSBqAIuH+Pe9DFMjM0/ZisjATBIMpi2
+ eV7n8GhAQLajEDYIn0aiGkFdf4L5FBP+a07/OUIARZWhnULLOMWx46elWndHIq9A1Zqb
+ VQzcYve9BfOLMqPQVsU3j8r0P4zysJgL+sZbz3ZNvzlFeLsJfb4V9sX75gAWmRnXUanI 4Q== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3m6k75rhqm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Thu, 01 Dec 2022 07:48:48 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Thu, 1 Dec
  2022 07:48:45 -0600
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
@@ -66,19 +67,21 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
  Frontend Transport; Thu, 1 Dec 2022 07:48:45 -0600
 Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
  [198.90.251.111])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C8FFBB10;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D93F1B12;
  Thu,  1 Dec 2022 13:48:45 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <vkoul@kernel.org>, <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 0/3] soundwire: cadence: Fix oversized FIFO size define
-Date: Thu, 1 Dec 2022 13:48:42 +0000
-Message-ID: <20221201134845.4055907-1-rf@opensource.cirrus.com>
+Subject: [PATCH 1/3] soundwire: cadence: Don't overflow the command FIFOs
+Date: Thu, 1 Dec 2022 13:48:43 +0000
+Message-ID: <20221201134845.4055907-2-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20221201134845.4055907-1-rf@opensource.cirrus.com>
+References: <20221201134845.4055907-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: eEq9QWAMdEGspgc6f2zCYtGcS6UNNH_c
-X-Proofpoint-GUID: eEq9QWAMdEGspgc6f2zCYtGcS6UNNH_c
+X-Proofpoint-ORIG-GUID: lr2PW5dGGM8nM_Q84jPzwDLaJ1nemvP8
+X-Proofpoint-GUID: lr2PW5dGGM8nM_Q84jPzwDLaJ1nemvP8
 X-Proofpoint-Spam-Reason: safe
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  linux-kernel@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
@@ -98,22 +101,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As determined by experimentation and asking a hardware person, the FIFO
-in the Cadence IP is actually only 8 entries long, not 32. This is fixed
-in patch #1.
+The command FIFOs are 8 entries long, so change CDNS_MCP_CMD_LEN to 8.
 
-As a bonus, patches #2 and #3 fix two other things I noticed while
-debugging this.
+CDNS_MCP_CMD_LEN was originally 32, which would lead to cdns_xfer_msg()
+writing up to 32 commands into the FIFO, so any message longer than 8
+commands would fail.
 
-Richard Fitzgerald (3):
-  soundwire: cadence: Don't overflow the command FIFOs
-  soundwire: cadence: Remove wasted space in response_buf
-  soundwire: cadence: Drain the RX FIFO after an IO timeout
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fixes: 2f52a5177caa ("soundwire: cdns: Add cadence library")
+---
+ drivers/soundwire/cadence_master.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/soundwire/cadence_master.c | 45 +++++++++++++++++++-----------
- drivers/soundwire/cadence_master.h |  2 +-
- 2 files changed, 29 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index a1de363eba3f..27699f341f2c 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -127,7 +127,8 @@ MODULE_PARM_DESC(cdns_mcp_int_mask, "Cadence MCP IntMask");
+ 
+ #define CDNS_MCP_CMD_BASE			0x80
+ #define CDNS_MCP_RESP_BASE			0x80
+-#define CDNS_MCP_CMD_LEN			0x20
++/* FIFO can hold 8 commands */
++#define CDNS_MCP_CMD_LEN			8
+ #define CDNS_MCP_CMD_WORD_LEN			0x4
+ 
+ #define CDNS_MCP_CMD_SSP_TAG			BIT(31)
 -- 
 2.30.2
 

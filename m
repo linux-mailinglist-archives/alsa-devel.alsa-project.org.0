@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3E4D63EBF5
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 10:06:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244BD63ECB4
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Dec 2022 10:43:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C52D168F;
-	Thu,  1 Dec 2022 10:05:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C52D168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8E9F171B;
+	Thu,  1 Dec 2022 10:42:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8E9F171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669885587;
-	bh=v7Pv5GvsnRCoGfNqd6OZfahTWZAr3UlME0JbK+tDt9s=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669887796;
+	bh=VdGBaS0XWeFJmcCrunXO7sc+tv9eoriihu4qmG553GA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mT5QkzIA9BWva6jJ3STOYImAabQOQCEdT4siitsF6aKi1sVuh9KPVPYFOk4y4sBOM
-	 rqfp/K0mEro+PtHA2XQ5eq0jJS5rFsoQ1E0xfqrgtDK9ot8Oi/8jVDkWkM/e5p+jhf
-	 a5xin35GQWKrjQV1PBSRQ4p8LIwferA6L5bUYt+I=
+	b=Ygcu/QPBsotQOdJJbozLYM6ey/VvV1XtqGBSU7nFk2dgNXkAiTU30/n/pn5GdmshJ
+	 /GfQ2nbNULxMwuZWl0GTYmdAkgfvQWSTn1+QU4yilY5We5MajIkZv7KEp1Jz19pk7G
+	 Ry+YIL1DMdlIcZIpZcaUC0pxDSBavSM5Chke7po8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01690F804B1;
-	Thu,  1 Dec 2022 10:05:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4735DF804B1;
+	Thu,  1 Dec 2022 10:42:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4ACFBF8028D; Thu,  1 Dec 2022 10:05:30 +0100 (CET)
+ id 63C96F8028D; Thu,  1 Dec 2022 10:42:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E1E6F80118;
- Thu,  1 Dec 2022 10:04:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E1E6F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24298F80116
+ for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 10:42:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24298F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SeLrwh6i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669885461; x=1701421461;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=v7Pv5GvsnRCoGfNqd6OZfahTWZAr3UlME0JbK+tDt9s=;
- b=SeLrwh6ii4HX9PdPE7n8vKZe/Y6/voTtQdJtDv7e7nmm7EeYSa5V7Vsk
- KuC5U4ryTjgkGypDaUvszLSTUSMl2xopJntL0sFG6dE1sq8qTYpFM+oGV
- +YDsQVTai95igs8V7bz0RRmMlsOWueLcnUKPuggBXxQ3gfFgi/U7ia0VO
- kGDOBeHU79hPJaX3RtvkAlAZbGtTUaiXHN89WMH1Q3wUUSb9FuKnVpGVl
- LDDvFiXl7UfPNrJAqrsi2IduSwoCtbAN0Q98KKTKMYRpQ78cD4JAbJB6K
- mu+YMKu7o9NkVNVIiNkFQS1/PRM3jOknafCht0ucgTZdTGyTVOQiT5tFM A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="317492460"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="317492460"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2022 01:04:03 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="750716088"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="750716088"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2022 01:03:59 -0800
-Date: Thu, 1 Dec 2022 11:03:46 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Ricardo Ribalda <ribalda@chromium.org>
-Subject: Re: [PATCH v7 2/2] ASoC: SOF: Fix deadlock when shutdown a frozen
- userspace
-In-Reply-To: <20221127-snd-freeze-v7-2-127c582f1ca4@chromium.org>
-Message-ID: <alpine.DEB.2.22.394.2212011053540.3532114@eliteleevi.tm.intel.com>
-References: <20221127-snd-freeze-v7-0-127c582f1ca4@chromium.org>
- <20221127-snd-freeze-v7-2-127c582f1ca4@chromium.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="NSZBzHBU"
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id DA94D66025DF;
+ Thu,  1 Dec 2022 09:42:10 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1669887731;
+ bh=VdGBaS0XWeFJmcCrunXO7sc+tv9eoriihu4qmG553GA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=NSZBzHBUHkeY2OuO+h2pNjHg/Ubz8w5zyptGtmmW3HASRCOA42oynDVSQVo17MNCD
+ q2iF4uFpLXRhPRW8FTQLVr5VkrdMzGnXuXswiZFFsnqcF+1SX2Ctiu9AsphaJJ7eDy
+ QSR52YDp3Hvy55/9AAI/lIviHHxrFoX9xSGYbsyUbIvvJgIElR9E4A/xAhPem2w1Hn
+ LGqEwhkb+AMaJmfEHXbwfvUTJe0rIC6At1+MSgkM5DrB0fYCKZKjxjMdshAAhVYJ7Q
+ zLq1djNofBb3WKjH7DaUaBivb50xgjZg7lydi3X2SLo5jSYC9R0NMubNuiDlHyM6n6
+ 5foWAcXBfpV5A==
+Message-ID: <6c8343c4-a8ed-1a4c-a518-1c49a9d6b056@collabora.com>
+Date: Thu, 1 Dec 2022 10:42:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Alsa-devel <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, kexec@lists.infradead.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Chromeos Kdump <chromeos-kdump@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org,
- sound-open-firmware@alsa-project.org,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-kernel@vger.kernel.org,
- Eric Biederman <ebiederm@xmission.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH v2 03/12] ASoC: mediatek: mt8188: support audsys clock
+Content-Language: en-US
+To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, "tiwai@suse.com"
+ <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
+References: <20221021082719.18325-1-trevor.wu@mediatek.com>
+ <20221021082719.18325-4-trevor.wu@mediatek.com>
+ <de66f0e3-7694-7315-c896-9211259a1a17@collabora.com>
+ <776557c0fda5a538549ee0d4f4b7f482b0d69934.camel@mediatek.com>
+ <473d67ed-198f-82c6-9f32-5827c1f8c852@collabora.com>
+ <500f80b1ac84101af482bdfcb46671d523d51068.camel@mediatek.com>
+ <360a5f27-8abc-938c-04c7-13ea65b5a89f@collabora.com>
+ <7dfdb4866ccf7356c2a8beb0359e5b62df4f245f.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <7dfdb4866ccf7356c2a8beb0359e5b62df4f245f.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,41 +104,211 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Il 01/12/22 09:43, Trevor Wu (吳文良) ha scritto:
+> On Wed, 2022-10-26 at 10:18 +0200, AngeloGioacchino Del Regno wrote:
+>> Il 26/10/22 06:10, Trevor Wu (吳文良) ha scritto:
+>>> On Tue, 2022-10-25 at 12:18 +0200, AngeloGioacchino Del Regno
+>>> wrote:
+>>>> Il 21/10/22 11:58, Trevor Wu (吳文良) ha scritto:
+>>>>> On Fri, 2022-10-21 at 10:41 +0200, AngeloGioacchino Del Regno
+>>>>> wrote:
+>>>>>> Il 21/10/22 10:27, Trevor Wu ha scritto:
+>>>>>>> Add mt8188 audio cg clock control. Audio clock gates are
+>>>>>>> registered
+>>>>>>> to CCF
+>>>>>>> for reference count and clock parent management.
+>>>>>>>
+>>>>>>> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+>>>>>>> ---
+>>>>>>>      sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 206
+>>>>>>> ++++++++++++++++++
+>>>>>>>      sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  15 ++
+>>>>>>>      .../soc/mediatek/mt8188/mt8188-audsys-clkid.h |  83
+>>>>>>> +++++++
+>>>>>>>      3 files changed, 304 insertions(+)
+>>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
+>>>>>>> audsys-
+>>>>>>> clk.c
+>>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
+>>>>>>> audsys-
+>>>>>>> clk.h
+>>>>>>>      create mode 100644 sound/soc/mediatek/mt8188/mt8188-
+>>>>>>> audsys-
+>>>>>>> clkid.h
+>>>>>>>
+>>>>>>> diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
+>>>>>>> b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
+>>>>>>> new file mode 100644
+>>>>>>> index 000000000000..1f294231d4c2
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
+>>>>>>> @@ -0,0 +1,206 @@
+>>>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>>>>> +/*
+>>>>>>> + * mt8188-audsys-clk.c  --  MediaTek 8188 audsys clock
+>>>>>>> control
+>>>>>>> + *
+>>>>>>> + * Copyright (c) 2022 MediaTek Inc.
+>>>>>>> + * Author: Chun-Chia Chiu <chun-chia.chiu@mediatek.com>
+>>>>>>> + */
+>>>>>>> +
+>>>>>>> +#include <linux/clk.h>
+>>>>>>> +#include <linux/clk-provider.h>
+>>>>>>> +#include <linux/clkdev.h>
+>>>>>>> +#include "mt8188-afe-common.h"
+>>>>>>> +#include "mt8188-audsys-clk.h"
+>>>>>>> +#include "mt8188-audsys-clkid.h"
+>>>>>>> +#include "mt8188-reg.h"
+>>>>>>> +
+>>>>>>> +struct afe_gate {
+>>>>>>> +	int id;
+>>>>>>> +	const char *name;
+>>>>>>> +	const char *parent_name;
+>>>>>>> +	int reg;
+>>>>>>> +	u8 bit;
+>>>>>>> +	const struct clk_ops *ops;
+>>>>>>> +	unsigned long flags;
+>>>>>>> +	u8 cg_flags;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +#define GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,
+>>>>>>> _flags,
+>>>>>>> _cgflags) {\
+>>>>>>> +		.id = _id,					
+>>>>>>> \
+>>>>>>> +		.name = _name,					
+>>>>>>> \
+>>>>>>> +		.parent_name = _parent,				
+>>>>>>> \
+>>>>>>> +		.reg = _reg,					
+>>>>>>> \
+>>>>>>> +		.bit = _bit,					
+>>>>>>> \
+>>>>>>> +		.flags = _flags,				
+>>>>>>> \
+>>>>>>> +		.cg_flags = _cgflags,				
+>>>>>>> \
+>>>>>>> +	}
+>>>>>>> +
+>>>>>>> +#define GATE_AFE(_id, _name, _parent, _reg, _bit)		
+>>>>>>> \
+>>>>>>> +	GATE_AFE_FLAGS(_id, _name, _parent, _reg, _bit,		
+>>>>>>> \
+>>>>>>> +		       CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
+>>>>>>> CLK_GATE_SET_TO_DISABLE)
+>>>>>>
+>>>>>> Can you please explain what's the reason for
+>>>>>> CLK_IGNORE_UNUSED
+>>>>>> here?
+>>>>>> Maybe we can solve some issue that you're facing in a cleaner
+>>>>>> way.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Angelo
+>>>>>
+>>>>> Hi Angelo,
+>>>>>
+>>>>> Because clk_disable_unused() calls clk_core_is_enabled(),
+>>>>> register
+>>>>> access happens in is_enabled() ops.
+>>>>> At the moment, the power for register access is not enabled, so
+>>>>> the
+>>>>> register read results in CPU hang.
+>>>>>
+>>>>> That's why I added CLK_IGNORE_UNUSED here, but it can't resolve
+>>>>> all
+>>>>> issues. Actually, we met same problem when "cat
+>>>>> /sys/kernel/debug/clk/clk_summary" is used. We are still
+>>>>> suffering
+>>>>> the
+>>>>> problem.
+>>>>>
+>>>>> I'm not sure if I can implement clk ops by myself, and exclude
+>>>>> the
+>>>>> registration of is_enabled() ops.
+>>>>>
+>>>>
+>>>> Is the power for register access enabled with a power domain?
+>>>>
+>>>> Check drivers/clk/clk.c, grep for core->rpm_enabled.
+>>>>
+>>>> If you enable runtime PM before registering the clocks, and you
+>>>> register them
+>>>> with the right struct device, the clock API will enable power for
+>>>> you
+>>>> before
+>>>> trying to read the clock enable status.
+>>>>
+>>>> Regards,
+>>>> Angelo
+>>>>
+>>>
+>>> Hi Angelo,
+>>>
+>>> I tried the way in MT8195, but it caused circular lock problem.
+>>>
+>>> Because mtcmos depends on some clocks, clk_bulk_prepare_enable is
+>>> also
+>>> used in scpsys_power_on()[1].
+>>> If the clock also depends on the power domain, this results in the
+>>> circular lock problem.
+>>> That's why I don't bind the power domain with these clocks.
+>>>
+>>
+>> This is not supposed to happen... can you please give me a (MT8195)
+>> patch to
+>> reproduce the issue that you're seeing?
+>>
+>> I would like to investigate that to check if I can come up with a
+>> good solution.
+>>
+>> Thanks,
+>> Angelo
+> 
+> 
+> Hi Angelo,
+> 
+> Sorry for replying late.
+> The original implementation about clock depending on power domain was a
+> cusotomized request, and it's not based on upstream code base. So I
+> can't apply the implementation directly. I tried to implement the
+> suggested solution in upstream code, but I can't reproduce the problem
+> successfully.
+> 
+> At the same time, we reviewed the difference between MT8195 and MT8188.
+> It's found that ADSP_INFRA should be kept ON to resolve the register
+> r/w access limitation in MT8188, so we can match the hardware design in
+> MT8195.
+> 
+> After discussing internally, we decided in favour of ADSP_INFRA
+> soloution. Althought the lock problem can't be seen, the new lock
+> relationship(prepare_lock -> genpd lock) is actually created.
+> 
+> In conclusion, ADSP_INFRA will be kept always on and I will remove
+> CLK_IGNORE_UNUSED flag in V3.
+> 
 
-On Wed, 30 Nov 2022, Ricardo Ribalda wrote:
+As far as the power consumption increase is ignorable (so, power consumption
+is very little more), that's a good decision and I support that.
 
-> During kexec(), the userspace might frozen. Therefore we cannot wait
-> for it to complete.
-[...]
-> --- a/sound/soc/sof/core.c
-> +++ b/sound/soc/sof/core.c
-> @@ -9,6 +9,7 @@
->  //
->  
->  #include <linux/firmware.h>
-> +#include <linux/kexec.h>
->  #include <linux/module.h>
->  #include <sound/soc.h>
->  #include <sound/sof.h>
-> @@ -484,7 +485,8 @@ int snd_sof_device_shutdown(struct device *dev)
->  	 * make sure clients and machine driver(s) are unregistered to force
->  	 * all userspace devices to be closed prior to the DSP shutdown sequence
->  	 */
-> -	sof_unregister_clients(sdev);
-> +	if (!kexec_with_frozen_processes())
-> +		sof_unregister_clients(sdev);
->  
->  	snd_sof_machine_unregister(sdev, pdata);
+Regards,
+Angelo
 
-I think the case you hit was specifically snd_card_disconnect_sync() that 
-gets called via snd_sof_machine_unregister(), right, so you'd have to skip 
-both sof_unregister_clients() and the machine_unregister().
+> Thanks,
+> Trevor
+> 
+>>
+>>> [1]
+>>>
+> https://urldefense.com/v3/__https://elixir.bootlin.com/linux/v6.1-rc2/source/drivers/soc/mediatek/mtk-pm-domains.c__;!!CTRNKA9wMg0ARbw!yVFCD-B4VZOxDXTGgDtpB0mJbVoY9tHODeICxthAC33lXMq6LRVTGS-4V-Dj129_cA$
+>>>   
+>>>
+>>> Thanks,
+>>> Trevor
+>>>
+>>>
+>>
+>>
+>>
 
-Skipping ok might be an ok solution here. There's clearly a problem and we 
-cannot just drop these calls in the general case (when we are going to 
-S5), but in the specific case of kexec, this is probably safe. And I agree 
-one way or another this needs to be fixed. Pierre and others what do you 
-think?
 
-Br, Kai

@@ -2,92 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7ED664028B
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 09:54:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1BD66402B5
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 09:57:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C7D6179B;
-	Fri,  2 Dec 2022 09:53:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C7D6179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 528851757;
+	Fri,  2 Dec 2022 09:57:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 528851757
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669971263;
-	bh=lyR2F+1Nn8xn8AeOHfonLCQdEWRv26ddHVk7L6m19II=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1669971472;
+	bh=UlNx30RPtgKeL9nLa/AiSZM8JyUCfmYHC1NkKo8Ot/o=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hsqnh0ZU3cPXl3G+Xymu7PBEeIzBeB0pWz1BhiW5tjJvmIj0x446j9zW7PaT3+3gg
-	 9w3xUQrj7vzfi1NYh/kbBeAw94bb0deIaE+9pbpDdHsSxrMb/FgmWu4eKB++G3xeKt
-	 2F9+MiJVn5jz02bH2m/dbuA8n6rO758P6n9es9As=
+	b=DKGrE2YKvwb8+Ya8+etb9vCbmpqpTsM8XtGnwAiDGTX0kYq7h4z4L+AP1I3KtPjpT
+	 /wBQSp172kG9dSLfBAMLBG4IFvWI0e+azQdx9PjGFGl9sCL622OGpVFs0E75U1xxDQ
+	 qoUmw+6cGF4bf5YBOQtjtnOPEAaE6H/yTtT9PGFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2334EF80162;
-	Fri,  2 Dec 2022 09:53:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9830F8026A;
+	Fri,  2 Dec 2022 09:56:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C0B9F80310; Fri,  2 Dec 2022 09:53:26 +0100 (CET)
+ id A2E2AF80310; Fri,  2 Dec 2022 09:56:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4B7AF8026A
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 09:56:45 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9B05FA0040;
+ Fri,  2 Dec 2022 09:56:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9B05FA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1669971404; bh=Szcg+AUOhSUn375yy3z3M665b76gaws9om5cfurJA/M=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eR7xUP0fMvc645RJl6zmSOo+x0e83wj58nQz+qalhuYHRhiaBi8iVWbvFl+xBW9MB
+ bmFaDn8eKzG3s7G83NM4z32Xt/+LquD4uHf8CMTE4DTQMrgwcVtCpu9M45aILfs+a4
+ 3U3U0hasrRCtMD6XyMRlC7tHYEfiePK5fuOCKD0A=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34BA6F80162
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 09:53:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34BA6F80162
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="uloiqxNv"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="iEQDSzdB"
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AF19721C11;
- Fri,  2 Dec 2022 08:53:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669971199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YiqiZx+Dvbizvxc032tZShyuOs6N3DdL38h1SWsqTag=;
- b=uloiqxNvF2zPQrYTgBfnzbyI3zGQ7P2dlDpfTNSonLobZYKTjKS1FzeunCa3jRODi7ZFGW
- whBfMMX6t3Bo6L86I6cGfBFVrWVQ1C+vqMS8YCX0KSfWMPdnySQlkHTsq3yrBZYvRgA9lZ
- EUloY8DOKvZ4b9SMuLcnWZv5UdxVDV4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669971199;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YiqiZx+Dvbizvxc032tZShyuOs6N3DdL38h1SWsqTag=;
- b=iEQDSzdBuEWF7RoXdqaG6QTMGK7z1K0lq+Xj0QCgFGz+ChA6OruKhnQtuKzgcJd2b21YFx
- kEraxM8gNpA9xYBw==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 7C410133DE;
- Fri,  2 Dec 2022 08:53:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 8op9Hf+8iWOQMwAAGKfGzw
- (envelope-from <tiwai@suse.de>); Fri, 02 Dec 2022 08:53:19 +0000
-Date: Fri, 02 Dec 2022 09:53:19 +0100
-Message-ID: <87h6yekwzk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH 03/16] ALSA: hda: Interrupt servicing and BDL setup for
- compress streams
-In-Reply-To: <20221201175619.504758-4-cezary.rojewski@intel.com>
-References: <20221201175619.504758-1-cezary.rojewski@intel.com>
- <20221201175619.504758-4-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Divya Prakash <divya1.prakash@intel.com>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- broonie@kernel.org, amadeuszx.slawinski@linux.intel.com
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri,  2 Dec 2022 09:56:39 +0100 (CET)
+Message-ID: <66bef382-e38f-85d5-0e07-3cf672a89882@perex.cz>
+Date: Fri, 2 Dec 2022 09:56:39 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v1 0/6] kselftest/alsa: pcm-test improvements
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+References: <20221130000608.519574-1-broonie@kernel.org>
+ <a55212fc-a676-2335-b861-94ba8d10f207@perex.cz> <87359zlz9t.wl-tiwai@suse.de>
+ <Y4kOvNi5I8/GK1yU@sirena.org.uk> <87y1rqkzto.wl-tiwai@suse.de>
+ <87wn7akzp7.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <87wn7akzp7.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,111 +84,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Dec 2022 18:56:06 +0100,
-Cezary Rojewski wrote:
+On 02. 12. 22 8:54, Takashi Iwai wrote:
+> On Fri, 02 Dec 2022 08:52:03 +0100,
+> Takashi Iwai wrote:
+>>
+>> On Thu, 01 Dec 2022 21:29:48 +0100,
+>> Mark Brown wrote:
+>>>
+>>> On Thu, Dec 01, 2022 at 08:06:22PM +0100, Takashi Iwai wrote:
+>>>> On Thu, 01 Dec 2022 18:42:22 +0100,
+>>>> Jaroslav Kysela wrote:
+>>>>>
+>>>>> Let me know, if I can stack your changes on top, or perhaps, you may
+>>>>> be willing to adapt them.
+>>>>
+>>>> As Mark has already sent a v2 series, I applied his v2 at first.
+>>>> Could you rebase and resubmit on top of my for-next branch?
+>>>
+>>> Oh, this is getting a little confusing - I'd just picked Jaroslav's
+>>> patch into my tree and was in the middle redoing my ideas on top of his
+>>> code!  I might have something more later this evening...  I think we can
+>>> converge here, let me continue taking a look.
+>>
+>> Ah then it was my misunderstanding, and everything should be fine now
+>> ;)  Thanks!
 > 
-> Account for compress streams when receiving and servicing buffer
-> completed interrupts. In case of compress stream enlisting hdac_stream
-> for data transfer, setup BDL entries much like it is the case for PCM
-> streams.
+> Erm, you meant sent as *v3*.  I've seen now.
 > 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Divya Prakash <divya1.prakash@intel.com>
+> As the v2 patches were already merged, could you rather rebase and
+> resubmit?  I'd like to avoid rebase the full series that are already
+> included in linux-next.
 
-Usually the person who submitted the patch signs off at the last.
+It's rebased. The first patch from the set drops the previous Mark's changes.
 
-For the content:
+						Jaroslav
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
-
-
-thanks,
-
-Takashi
-
-
-> ---
->  sound/hda/hdac_controller.c |  4 ++--
->  sound/hda/hdac_stream.c     | 26 ++++++++++++++++++++------
->  2 files changed, 22 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-> index 9a60bfdb39ba..3c7af6558249 100644
-> --- a/sound/hda/hdac_controller.c
-> +++ b/sound/hda/hdac_controller.c
-> @@ -578,8 +578,8 @@ int snd_hdac_bus_handle_stream_irq(struct hdac_bus *bus, unsigned int status,
->  			sd_status = snd_hdac_stream_readb(azx_dev, SD_STS);
->  			snd_hdac_stream_writeb(azx_dev, SD_STS, SD_INT_MASK);
->  			handled |= 1 << azx_dev->index;
-> -			if (!azx_dev->substream || !azx_dev->running ||
-> -			    !(sd_status & SD_INT_COMPLETE))
-> +			if ((!azx_dev->substream && !azx_dev->cstream) ||
-> +			    !azx_dev->running || !(sd_status & SD_INT_COMPLETE))
->  				continue;
->  			if (ack)
->  				ack(bus, azx_dev);
-> diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-> index 8a12c6347914..4e236719bdd1 100644
-> --- a/sound/hda/hdac_stream.c
-> +++ b/sound/hda/hdac_stream.c
-> @@ -7,6 +7,7 @@
->  #include <linux/delay.h>
->  #include <linux/export.h>
->  #include <linux/clocksource.h>
-> +#include <sound/compress_driver.h>
->  #include <sound/core.h>
->  #include <sound/pcm.h>
->  #include <sound/hdaudio.h>
-> @@ -487,14 +488,20 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
->  {
->  	struct hdac_bus *bus = azx_dev->bus;
->  	struct snd_pcm_substream *substream = azx_dev->substream;
-> +	struct snd_compr_stream *cstream = azx_dev->cstream;
->  	struct snd_pcm_runtime *runtime;
->  	struct snd_dma_buffer *dmab;
->  	__le32 *bdl;
->  	int i, ofs, periods, period_bytes;
->  	int pos_adj, pos_align;
->  
-> -	runtime = substream->runtime;
-> -	dmab = snd_pcm_get_dma_buf(substream);
-> +	if (substream) {
-> +		runtime = substream->runtime;
-> +		dmab = snd_pcm_get_dma_buf(substream);
-> +	} else if (cstream) {
-> +		runtime = NULL;
-> +		dmab = snd_pcm_get_dma_buf(cstream);
-> +	}
->  
->  	/* reset BDL address */
->  	snd_hdac_stream_writel(azx_dev, SD_BDLPL, 0);
-> @@ -562,15 +569,22 @@ int snd_hdac_stream_set_params(struct hdac_stream *azx_dev,
->  				 unsigned int format_val)
->  {
->  	struct snd_pcm_substream *substream = azx_dev->substream;
-> +	struct snd_compr_stream *cstream = azx_dev->cstream;
->  	unsigned int bufsize, period_bytes;
->  	unsigned int no_period_wakeup;
->  	int err;
->  
-> -	if (!substream)
-> +	if (substream) {
-> +		bufsize = snd_pcm_lib_buffer_bytes(substream);
-> +		period_bytes = snd_pcm_lib_period_bytes(substream);
-> +		no_period_wakeup = substream->runtime->no_period_wakeup;
-> +	} else if (cstream) {
-> +		bufsize = cstream->runtime->buffer_size;
-> +		period_bytes = cstream->runtime->fragment_size;
-> +		no_period_wakeup = 0;
-> +	} else {
->  		return -EINVAL;
-> -	bufsize = snd_pcm_lib_buffer_bytes(substream);
-> -	period_bytes = snd_pcm_lib_period_bytes(substream);
-> -	no_period_wakeup = substream->runtime->no_period_wakeup;
-> +	}
->  
->  	if (bufsize != azx_dev->bufsize ||
->  	    period_bytes != azx_dev->period_bytes ||
-> -- 
-> 2.25.1
-> 
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

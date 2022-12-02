@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1987640927
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:16:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C676D640915
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:14:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36BC8185D;
-	Fri,  2 Dec 2022 16:15:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BC8185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B4C3184E;
+	Fri,  2 Dec 2022 16:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B4C3184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669994194;
-	bh=iA3BYuG6HBd6gbReisCxP6CXflqm/Bhc9mWBC0gI6n0=;
+	s=default; t=1669994083;
+	bh=g/xYhaaSrqDNg685TxmOzMH9uogfuXFyRbpfHxE1fGs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E3/Pc8pRUbskG3koitA6HA7Psfi0OaMICIWVzVWeGI62zlzZ43iRJ6NmFAOsiXqZb
-	 cuV+3KZg/H3+GEsmZaEv3hKzL6HzwTj83sEhuyZwIiCFDV1k4olfAYuGjabv6JTET7
-	 l0/B+vQnxwkcdQ+AHQyZRbi63cEQA74AptRqmO50=
+	b=F8sWsNOJGP3XgIRAILGJRiw5yxFHaSoprDlldvE75X4OWqMhtnN1+Srij9x698LXG
+	 u+O+a+o9oCjvcyJUhMe5B6UhyWF+4ZLuVg56MIG/OZwDOyZ6sZriBRHujw7Fkq7lXK
+	 QII+YRPt2kCy42yHB4KcoqPC3KwFmV8ZHAkSbovc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90A88F804E2;
-	Fri,  2 Dec 2022 16:13:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32F15F805B1;
+	Fri,  2 Dec 2022 16:12:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B29D0F804FC; Fri,  2 Dec 2022 16:13:11 +0100 (CET)
+ id 92EC1F805B1; Fri,  2 Dec 2022 16:12:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,
- URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78E4CF8057B
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:11:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78E4CF8057B
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB21AF80589
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:11:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB21AF80589
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="g73Wi29h"
+ header.b="J6xYNTni"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669993913; x=1701529913;
+ t=1669993919; x=1701529919;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iA3BYuG6HBd6gbReisCxP6CXflqm/Bhc9mWBC0gI6n0=;
- b=g73Wi29hbWp3dvKqn9BYGJ63/KwoNu2t5mHcUx7XOfUbl8piTfYpYSJv
- RWGFV2CiJYhg+3hElcy349YyOUWzvHg2iqRhd2D4T+ppPrI91jEjHgNXf
- 3K6Dg4bRgYqpWH9M+EOqAeQgFCT7TpboiFXwRot+ZxI8d7IwpBiR+2w1C
- Rae0KNBWCg2LP4/pkEoDZEXLmxGK+RabwyS6BRIw7iuiKyYoJKDExTVg+
- XLpMjTT7+QqKkIGt0qZdMZi9fkXQIO11aLcZQ8fz7GTOnpy/9n5NwnAB0
- 1t0qnktOaD9a6Lm+8xsFh/JC2lWggZ3gkXBgeStOg1skiRuSSzt4r720p g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251786"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251786"
+ bh=g/xYhaaSrqDNg685TxmOzMH9uogfuXFyRbpfHxE1fGs=;
+ b=J6xYNTniM30XwKpfyUqxUtwaZIQ64t4nVuCOLr4XRwnDWpt1AxLBqQoW
+ UPyUc7vR0bJtwybX8AtcH3BRnc6BssJgZytiIqIpQ1XRxff0QhjuviDG9
+ v/qnUtV31zGPJ/kP3Z8/0fY/hRtIJxvWZLP6vRG1HMupMYrs1HIiSc+b7
+ xZdzcGgMbDyuWA02YoaFztqhafznxAMSVLSIZgQDL9zGbEcQkQ17Obwnq
+ LjjogsvEH4Glrg8NB+HMkBrW2wUHm6JMNjWkeYWL0EPFg88h9Rmc2cQ6X
+ 4vALrs3VqcvbjyK7yhcTZGUjUn84nvBX+LJ/u9CgxyZZfxpOhPO/+TIqp g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251798"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251798"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 07:11:52 -0800
+ 02 Dec 2022 07:11:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504727"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504727"
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504738"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504738"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:49 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:52 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 09/16] ASoC: Intel: avs: Add data probing requests
-Date: Fri,  2 Dec 2022 16:28:34 +0100
-Message-Id: <20221202152841.672536-10-cezary.rojewski@intel.com>
+Subject: [PATCH v2 10/16] ASoC: Intel: avs: Probe compress operations
+Date: Fri,  2 Dec 2022 16:28:35 +0100
+Message-Id: <20221202152841.672536-11-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221202152841.672536-1-cezary.rojewski@intel.com>
 References: <20221202152841.672536-1-cezary.rojewski@intel.com>
@@ -92,240 +91,294 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Data probing is a cAVS firmware functionality that allows for data
-extraction and injection directly from or to DMA stream. To support it,
-new functions and types are added. These facilitate communication
-with the firmware.
-
-Total of eight IPCs:
-- probe module initialization and cleanup
-- addition and removal of probe points
-- addition and removal of injection DMAs
-- dumping list of currently connected probe points or enlisted DMAs
+Add compress operations handlers for data extraction through probes. A
+single HDAudio stream is enlisted for said purpose. Operations follow
+same protocol as for standard PCM streaming on HOST side.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/Makefile   |  2 +-
- sound/soc/intel/avs/messages.c | 78 ++++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/messages.h | 53 +++++++++++++++++++++++
- sound/soc/intel/avs/probes.c   | 46 ++++++++++++++++++++
- 4 files changed, 178 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/intel/avs/probes.c
+ sound/soc/intel/Kconfig      |   1 +
+ sound/soc/intel/avs/avs.h    |   3 +
+ sound/soc/intel/avs/probes.c | 224 ++++++++++++++++++++++++++++++++++-
+ 3 files changed, 225 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index a211a0b7b4a8..1c6924a1ebca 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -10,7 +10,7 @@ snd-soc-avs-objs += trace.o
- CFLAGS_trace.o := -I$(src)
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index ac799de4f7fd..4b9e498e3303 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -217,6 +217,7 @@ config SND_SOC_INTEL_AVS
+ 	select SND_SOC_ACPI if ACPI
+ 	select SND_SOC_TOPOLOGY
+ 	select SND_SOC_HDA
++	select SND_SOC_COMPRESS if DEBUG_FS
+ 	select SND_HDA_EXT_CORE
+ 	select SND_HDA_DSP_LOADER
+ 	select SND_INTEL_DSP_CONFIG
+diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
+index 7a9fb27d3845..e5e7c72eb511 100644
+--- a/sound/soc/intel/avs/avs.h
++++ b/sound/soc/intel/avs/avs.h
+@@ -144,6 +144,9 @@ struct avs_dev {
+ 	u32 aging_timer_period;
+ 	u32 fifo_full_timer_period;
+ 	u32 logged_resources;	/* context dependent: core or library */
++	/* probes */
++	struct hdac_ext_stream *extractor;
++	unsigned int num_probe_streams;
+ #endif
+ };
  
- ifneq ($(CONFIG_DEBUG_FS),)
--snd-soc-avs-objs += debugfs.o
-+snd-soc-avs-objs += probes.o debugfs.o
- endif
+diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
+index 339bad6fec22..e90284ec8500 100644
+--- a/sound/soc/intel/avs/probes.c
++++ b/sound/soc/intel/avs/probes.c
+@@ -6,13 +6,15 @@
+ //          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+ //
  
- obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
-diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index f734d49e42be..e11ae4246416 100644
---- a/sound/soc/intel/avs/messages.c
-+++ b/sound/soc/intel/avs/messages.c
-@@ -722,4 +722,82 @@ int avs_ipc_set_system_time(struct avs_dev *adev)
- 	return avs_ipc_set_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
- 					AVS_BASEFW_SYSTEM_TIME, (u8 *)&sys_time, sizeof(sys_time));
++#include <sound/compress_driver.h>
++#include <sound/hdaudio_ext.h>
++#include <sound/hdaudio.h>
++#include <sound/soc.h>
+ #include "avs.h"
+ #include "messages.h"
+ 
+-__maybe_unused
+ static int avs_dsp_init_probe(struct avs_dev *adev, union avs_connector_node_id node_id,
+ 			      size_t buffer_size)
+-
+ {
+ 	struct avs_probe_cfg cfg = {{0}};
+ 	struct avs_module_entry mentry;
+@@ -34,7 +36,6 @@ static int avs_dsp_init_probe(struct avs_dev *adev, union avs_connector_node_id
+ 				   sizeof(cfg), &dummy);
+ }
+ 
+-__maybe_unused
+ static void avs_dsp_delete_probe(struct avs_dev *adev)
+ {
+ 	struct avs_module_entry mentry;
+@@ -44,3 +45,220 @@ static void avs_dsp_delete_probe(struct avs_dev *adev)
+ 	/* There is only ever one probe module instance. */
+ 	avs_dsp_delete_module(adev, mentry.module_id, 0, INVALID_PIPELINE_ID, 0);
  }
 +
-+int avs_ipc_probe_get_dma(struct avs_dev *adev, struct avs_probe_dma **dmas, size_t *num_dmas)
++static inline struct hdac_ext_stream *avs_compr_get_host_stream(struct snd_compr_stream *cstream)
 +{
-+	size_t payload_size;
-+	u32 module_id;
-+	u8 *payload;
-+	int ret;
++	return cstream->runtime->private_data;
++}
 +
-+	module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++static int avs_probe_compr_open(struct snd_compr_stream *cstream, struct snd_soc_dai *dai)
++{
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	struct hdac_bus *bus = &adev->base.core;
++	struct hdac_ext_stream *host_stream;
 +
-+	ret = avs_ipc_get_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_INJECTION_DMA,
-+				       NULL, 0, &payload, &payload_size);
-+	if (ret)
-+		return ret;
++	if (adev->extractor) {
++		dev_err(dai->dev, "Cannot open more than one extractor stream\n");
++		return -EEXIST;
++	}
 +
-+	*dmas = (struct avs_probe_dma *)payload;
-+	*num_dmas = payload_size / sizeof(**dmas);
++	host_stream = snd_hdac_ext_cstream_assign(bus, cstream);
++	if (!host_stream) {
++		dev_err(dai->dev, "Failed to assign HDAudio stream for extraction\n");
++		return -EBUSY;
++	}
++
++	adev->extractor = host_stream;
++	hdac_stream(host_stream)->curr_pos = 0;
++	cstream->runtime->private_data = host_stream;
 +
 +	return 0;
 +}
 +
-+int avs_ipc_probe_attach_dma(struct avs_dev *adev, struct avs_probe_dma *dmas, size_t num_dmas)
++static int avs_probe_compr_free(struct snd_compr_stream *cstream, struct snd_soc_dai *dai)
 +{
-+	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++	struct hdac_ext_stream *host_stream = avs_compr_get_host_stream(cstream);
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	struct avs_probe_point_desc *desc;
++	/* Extractor node identifier. */
++	unsigned int vindex = INVALID_NODE_ID.vindex;
++	size_t num_desc;
++	int i, ret;
 +
-+	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_INJECTION_DMA,
-+					(u8 *)dmas, array_size(sizeof(*dmas), num_dmas));
++	/* Disconnect all probe points. */
++	ret = avs_ipc_probe_get_points(adev, &desc, &num_desc);
++	if (ret) {
++		dev_err(dai->dev, "get probe points failed: %d\n", ret);
++		ret = AVS_IPC_RET(ret);
++		goto exit;
++	}
++
++	for (i = 0; i < num_desc; i++)
++		if (desc[i].node_id.vindex == vindex)
++			avs_ipc_probe_disconnect_points(adev, &desc[i].id, 1);
++	kfree(desc);
++
++exit:
++	if (adev->num_probe_streams) {
++		adev->num_probe_streams--;
++		if (!adev->num_probe_streams) {
++			avs_dsp_delete_probe(adev);
++			avs_dsp_enable_d0ix(adev);
++		}
++	}
++
++	snd_hdac_stream_cleanup(hdac_stream(host_stream));
++	hdac_stream(host_stream)->prepared = 0;
++	snd_hdac_ext_stream_release(host_stream, HDAC_EXT_STREAM_TYPE_HOST);
++
++	snd_compr_free_pages(cstream);
++	adev->extractor = NULL;
++
++	return ret;
 +}
 +
-+int avs_ipc_probe_detach_dma(struct avs_dev *adev, union avs_connector_node_id *node_ids,
-+			     size_t num_node_ids)
++static int avs_probe_compr_set_params(struct snd_compr_stream *cstream,
++				      struct snd_compr_params *params, struct snd_soc_dai *dai)
 +{
-+	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++	struct hdac_ext_stream *host_stream = avs_compr_get_host_stream(cstream);
++	struct snd_compr_runtime *rtd = cstream->runtime;
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	/* compr params do not store bit depth, default to S32_LE. */
++	snd_pcm_format_t format = SNDRV_PCM_FORMAT_S32_LE;
++	unsigned int format_val;
++	int bps, ret;
 +
-+	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID,
-+					AVS_PROBE_INJECTION_DMA_DETACH, (u8 *)node_ids,
-+					array_size(sizeof(*node_ids), num_node_ids));
-+}
++	hdac_stream(host_stream)->bufsize = 0;
++	hdac_stream(host_stream)->period_bytes = 0;
++	hdac_stream(host_stream)->format_val = 0;
++	cstream->dma_buffer.dev.type = SNDRV_DMA_TYPE_DEV_SG;
++	cstream->dma_buffer.dev.dev = adev->dev;
 +
-+int avs_ipc_probe_get_points(struct avs_dev *adev, struct avs_probe_point_desc **descs,
-+			     size_t *num_descs)
-+{
-+	size_t payload_size;
-+	u32 module_id;
-+	u8 *payload;
-+	int ret;
-+
-+	module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
-+
-+	ret = avs_ipc_get_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_POINTS, NULL,
-+				       0, &payload, &payload_size);
-+	if (ret)
++	ret = snd_compr_malloc_pages(cstream, rtd->buffer_size);
++	if (ret < 0)
++		return ret;
++	bps = snd_pcm_format_physical_width(format);
++	if (bps < 0)
++		return bps;
++	format_val = snd_hdac_calc_stream_format(params->codec.sample_rate, params->codec.ch_out,
++						 format, bps, 0);
++	ret = snd_hdac_stream_set_params(hdac_stream(host_stream), format_val);
++	if (ret < 0)
++		return ret;
++	ret = snd_hdac_stream_setup(hdac_stream(host_stream));
++	if (ret < 0)
 +		return ret;
 +
-+	*descs = (struct avs_probe_point_desc *)payload;
-+	*num_descs = payload_size / sizeof(**descs);
++	hdac_stream(host_stream)->prepared = 1;
++
++	if (!adev->num_probe_streams) {
++		union avs_connector_node_id node_id;
++
++		/* D0ix not allowed during probing. */
++		ret = avs_dsp_disable_d0ix(adev);
++		if (ret)
++			return ret;
++
++		node_id.vindex = hdac_stream(host_stream)->stream_tag - 1;
++		node_id.dma_type = AVS_DMA_HDA_HOST_INPUT;
++
++		ret = avs_dsp_init_probe(adev, node_id, rtd->dma_bytes);
++		if (ret < 0) {
++			dev_err(dai->dev, "probe init failed: %d\n", ret);
++			avs_dsp_enable_d0ix(adev);
++			return ret;
++		}
++	}
++
++	adev->num_probe_streams++;
++	return 0;
++}
++
++static int avs_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
++				   struct snd_soc_dai *dai)
++{
++	struct hdac_ext_stream *host_stream = avs_compr_get_host_stream(cstream);
++	struct avs_dev *adev = to_avs_dev(dai->dev);
++	struct hdac_bus *bus = &adev->base.core;
++	unsigned long cookie;
++
++	if (!hdac_stream(host_stream)->prepared)
++		return -EPIPE;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++	case SNDRV_PCM_TRIGGER_RESUME:
++		spin_lock_irqsave(&bus->reg_lock, cookie);
++		snd_hdac_stream_start(hdac_stream(host_stream), true);
++		spin_unlock_irqrestore(&bus->reg_lock, cookie);
++		break;
++
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_STOP:
++		spin_lock_irqsave(&bus->reg_lock, cookie);
++		snd_hdac_stream_stop(hdac_stream(host_stream));
++		spin_unlock_irqrestore(&bus->reg_lock, cookie);
++		break;
++
++	default:
++		return -EINVAL;
++	}
 +
 +	return 0;
 +}
 +
-+int avs_ipc_probe_connect_points(struct avs_dev *adev, struct avs_probe_point_desc *descs,
-+				 size_t num_descs)
++static int avs_probe_compr_pointer(struct snd_compr_stream *cstream,
++				   struct snd_compr_tstamp *tstamp, struct snd_soc_dai *dai)
 +{
-+	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++	struct hdac_ext_stream *host_stream = avs_compr_get_host_stream(cstream);
++	struct snd_soc_pcm_stream *pstream;
 +
-+	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID, AVS_PROBE_POINTS,
-+					(u8 *)descs, array_size(sizeof(*descs), num_descs));
++	pstream = &dai->driver->capture;
++	tstamp->copied_total = hdac_stream(host_stream)->curr_pos;
++	tstamp->sampling_rate = snd_pcm_rate_bit_to_rate(pstream->rates);
++
++	return 0;
 +}
 +
-+int avs_ipc_probe_disconnect_points(struct avs_dev *adev, union avs_probe_point_id *ids,
-+				    size_t num_ids)
++static int avs_probe_compr_copy(struct snd_soc_component *comp, struct snd_compr_stream *cstream,
++				char __user *buf, size_t count)
 +{
-+	u32 module_id = avs_get_module_id(adev, &AVS_PROBE_MOD_UUID);
++	struct snd_compr_runtime *rtd = cstream->runtime;
++	unsigned int offset, n;
++	void *ptr;
++	int ret;
 +
-+	return avs_ipc_set_large_config(adev, module_id, AVS_PROBE_INST_ID,
-+					AVS_PROBE_POINTS_DISCONNECT, (u8 *)ids,
-+					array_size(sizeof(*ids), num_ids));
-+}
- #endif
-diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index 02b3b7a74783..9dd835527e02 100644
---- a/sound/soc/intel/avs/messages.h
-+++ b/sound/soc/intel/avs/messages.h
-@@ -802,4 +802,57 @@ int avs_ipc_copier_set_sink_format(struct avs_dev *adev, u16 module_id,
- 				   const struct avs_audio_format *src_fmt,
- 				   const struct avs_audio_format *sink_fmt);
- 
-+#define AVS_PROBE_INST_ID	0
++	if (count > rtd->buffer_size)
++		count = rtd->buffer_size;
 +
-+enum avs_probe_runtime_param {
-+	AVS_PROBE_INJECTION_DMA = 1,
-+	AVS_PROBE_INJECTION_DMA_DETACH,
-+	AVS_PROBE_POINTS,
-+	AVS_PROBE_POINTS_DISCONNECT,
-+};
++	div_u64_rem(rtd->total_bytes_transferred, rtd->buffer_size, &offset);
++	ptr = rtd->dma_area + offset;
++	n = rtd->buffer_size - offset;
 +
-+struct avs_probe_dma {
-+	union avs_connector_node_id node_id;
-+	u32 dma_buffer_size;
-+} __packed;
++	if (count < n) {
++		ret = copy_to_user(buf, ptr, count);
++	} else {
++		ret = copy_to_user(buf, ptr, n);
++		ret += copy_to_user(buf + n, rtd->dma_area, count - n);
++	}
 +
-+enum avs_probe_type {
-+	AVS_PROBE_TYPE_INPUT = 0,
-+	AVS_PROBE_TYPE_OUTPUT,
-+	AVS_PROBE_TYPE_INTERNAL
-+};
-+
-+union avs_probe_point_id {
-+	u32 value;
-+	struct {
-+		u32 module_id:16;
-+		u32 instance_id:8;
-+		u32 type:2;
-+		u32 index:6;
-+	} id;
-+} __packed;
-+
-+enum avs_connection_purpose {
-+	AVS_CONNECTION_PURPOSE_EXTRACT = 0,
-+	AVS_CONNECTION_PURPOSE_INJECT,
-+	AVS_CONNECTION_PURPOSE_INJECT_REEXTRACT,
-+};
-+
-+struct avs_probe_point_desc {
-+	union avs_probe_point_id id;
-+	u32 purpose;
-+	union avs_connector_node_id node_id;
-+} __packed;
-+
-+int avs_ipc_probe_get_dma(struct avs_dev *adev, struct avs_probe_dma **dmas, size_t *num_dmas);
-+int avs_ipc_probe_attach_dma(struct avs_dev *adev, struct avs_probe_dma *dmas, size_t num_dmas);
-+int avs_ipc_probe_detach_dma(struct avs_dev *adev, union avs_connector_node_id *node_ids,
-+			     size_t num_node_ids);
-+int avs_ipc_probe_get_points(struct avs_dev *adev, struct avs_probe_point_desc **descs,
-+			     size_t *num_descs);
-+int avs_ipc_probe_connect_points(struct avs_dev *adev, struct avs_probe_point_desc *descs,
-+				 size_t num_descs);
-+int avs_ipc_probe_disconnect_points(struct avs_dev *adev, union avs_probe_point_id *ids,
-+				    size_t num_ids);
-+
- #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
-diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
-new file mode 100644
-index 000000000000..339bad6fec22
---- /dev/null
-+++ b/sound/soc/intel/avs/probes.c
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
-+
-+#include "avs.h"
-+#include "messages.h"
-+
-+__maybe_unused
-+static int avs_dsp_init_probe(struct avs_dev *adev, union avs_connector_node_id node_id,
-+			      size_t buffer_size)
-+
-+{
-+	struct avs_probe_cfg cfg = {{0}};
-+	struct avs_module_entry mentry;
-+	u16 dummy;
-+
-+	avs_get_module_entry(adev, &AVS_PROBE_MOD_UUID, &mentry);
-+
-+	/*
-+	 * Probe module uses no cycles, audio data format and input and output
-+	 * frame sizes are unused. It is also not owned by any pipeline.
-+	 */
-+	cfg.base.ibs = 1;
-+	/* BSS module descriptor is always segment of index=2. */
-+	cfg.base.is_pages = mentry.segments[2].flags.length;
-+	cfg.gtw_cfg.node_id = node_id;
-+	cfg.gtw_cfg.dma_buffer_size = buffer_size;
-+
-+	return avs_dsp_init_module(adev, mentry.module_id, INVALID_PIPELINE_ID, 0, 0, &cfg,
-+				   sizeof(cfg), &dummy);
++	if (ret)
++		return count - ret;
++	return count;
 +}
 +
 +__maybe_unused
-+static void avs_dsp_delete_probe(struct avs_dev *adev)
-+{
-+	struct avs_module_entry mentry;
++static const struct snd_soc_cdai_ops avs_probe_dai_ops = {
++	.startup = avs_probe_compr_open,
++	.shutdown = avs_probe_compr_free,
++	.set_params = avs_probe_compr_set_params,
++	.trigger = avs_probe_compr_trigger,
++	.pointer = avs_probe_compr_pointer,
++};
 +
-+	avs_get_module_entry(adev, &AVS_PROBE_MOD_UUID, &mentry);
-+
-+	/* There is only ever one probe module instance. */
-+	avs_dsp_delete_module(adev, mentry.module_id, 0, INVALID_PIPELINE_ID, 0);
-+}
++__maybe_unused
++static const struct snd_compress_ops avs_probe_compress_ops = {
++	.copy = avs_probe_compr_copy,
++};
 -- 
 2.25.1
 

@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0A963FCDF
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 01:23:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58B463FCE3
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 01:23:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59D4B17F7;
-	Fri,  2 Dec 2022 01:22:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59D4B17F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D86717ED;
+	Fri,  2 Dec 2022 01:22:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D86717ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669940590;
-	bh=VjJcFh/HJTKeoERtrWYk8wR4SBvW6e/w/fSZ2fzzO9g=;
+	s=default; t=1669940615;
+	bh=xM72S9RCtumzTMDAzQRoqiJbjv0iOLzdTFKbCIv6+tk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nij6vgqSqi0Y5q8yCiBnG8n55Ac87SVaypFUetF/ls7qHpC/MtQa4ffLuEQb33ZRn
-	 YRq2vLcJ8tj1g+vtni5dXykTpQciSMXbwfTgLUQwKhaRsIYTa3jary5phTIT5agLVs
-	 3K71NSDV8DA9Qs5PkPyNk/hWbeFuz+IxpP3eBu7Q=
+	b=ZmtIpDNzKiQiebwWejNZch3OLHX7UKPj2nHyVKfxY+AtlRfwdBlms2V53CCYsG+Zb
+	 F4d3yFnv40bimU9GD4+zOakGBeAoDLKbKEFKksARFUU4+n0+4QWB+05KK7YRbXzk8l
+	 CZcCq2RvztxdVByqlHmNxF7BiFPrxnKAFbIcnPNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8016EF80567;
-	Fri,  2 Dec 2022 01:21:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D85EEF80571;
+	Fri,  2 Dec 2022 01:21:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34D22F8055B; Fri,  2 Dec 2022 01:21:31 +0100 (CET)
+ id 76CD9F80570; Fri,  2 Dec 2022 01:21:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8920AF804D0
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 01:21:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8920AF804D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D58C9F8055B
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 01:21:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D58C9F8055B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nFDtMqMF"
+ header.b="eRTMZNsl"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EF5C9621D5;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D8E60621BD;
+ Fri,  2 Dec 2022 00:21:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE6FEC433D7;
  Fri,  2 Dec 2022 00:21:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0804BC433B5;
- Fri,  2 Dec 2022 00:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669940486;
- bh=VjJcFh/HJTKeoERtrWYk8wR4SBvW6e/w/fSZ2fzzO9g=;
+ s=k20201202; t=1669940488;
+ bh=xM72S9RCtumzTMDAzQRoqiJbjv0iOLzdTFKbCIv6+tk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nFDtMqMFuOT3pNWTE4JvGeBVXVKn48m4FOrEzhsuZa8Kim1ENlVn0QsKGgRCGyMKr
- mVZxffkt6nEBZifglTyMoOcWpx86xLCyWCx+0oMptvAGuO0aZnoXHiiopEL2HRZfW2
- eNsKvffHLD7pTZZaw7z28EkoFa8DzpwX3TsF5ONi/i6j5mAwxsTgn0K92wMSN8wMMA
- An+mVsA+xgegCLPUPStnUrg87tpXGV7En05yWmPcAl/FJH6n+NEZmJ0Om8VX0yh4nj
- FNHN82dvH/vag6nt681oNP/vqx5miT/KokFEcaOmQEVXDuYezs9x3hupyteiBlj7II
- 9qCSjYxbm/1ww==
+ b=eRTMZNslFYjgxOiyn43bu9kUJhAoELNHqlW/5G5t9mZZj+Oe209QnvG9nSG4jkpE2
+ A/41Y8aSlLichCadxL5MkGcnOHXAJ8hpG6QHK4pBnKNJJn4uXU3Nqp7ErBsIcmFF2a
+ SHN0E7PlLuCLVRGg+kBH5b63rvFABYdjz17/24V+qkP+XZDa4YlVia03rN3B1H/khQ
+ fQvMvc9APNBvSL8FoYoXWSkuGhpoJ8V5+68u9JxGONCqMZLRKpnR8W8Sa1sHQzeHDF
+ Qhk6rr3g4Jhe9HLdxm1kzeEP0dAAcc2UtMgi4xOgTmabNftX4lQ0HH490b7xQRzpaZ
+ HFWrOYylzOgbQ==
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>,
  Shuah Khan <shuah@kernel.org>
-Subject: [PATCH v3 3/7] kselftest/alsa: pcm - Always run the default set of
- tests
-Date: Fri,  2 Dec 2022 00:17:45 +0000
-Message-Id: <20221202001749.3321187-4-broonie@kernel.org>
+Subject: [PATCH v3 4/7] kselftest/alsa: pcm - skip tests when we fail to set
+ params
+Date: Fri,  2 Dec 2022 00:17:46 +0000
+Message-Id: <20221202001749.3321187-5-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221202001749.3321187-1-broonie@kernel.org>
 References: <20221202001749.3321187-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5457; i=broonie@kernel.org;
- h=from:subject; bh=VjJcFh/HJTKeoERtrWYk8wR4SBvW6e/w/fSZ2fzzO9g=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiUQomFHuneC4OAE/C8y+DXPHDcAVGpoOXSRz4+hL
- Omb4IEmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4lEKAAKCRAk1otyXVSH0OQgB/
- wPNvQK8q2z/XmM++1/kWVLS5UiodZim0MuxTbIBQJfrBPPTXi9X6MGkx22FJ70yPUFln8D3zS1JR0Y
- H2AgBhzzOHQfXAQ4yPZXf3LqYztBVVkOgjkgQnSkbBsD2LH+61F3GqzSreYFnh3Jrj2f+NT7q4jtmK
- sUGa0Jj3mWJoDZdM9nLmmFM5UxULx/Ud2P9TjQr/R2QFawu69QXZtZTSQhyqCyanh81BJiu3e6FqFB
- XpxWmOIUw56tUwo0dXmpsqHojMcWMbMG56aDmA7/pJTb5I3HQaccfxcgW5YzvjBqp/ttBbZqTIJNAQ
- o0dZdttXK9Psd3LSmPq47BSXS1WiRA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3156; i=broonie@kernel.org;
+ h=from:subject; bh=xM72S9RCtumzTMDAzQRoqiJbjv0iOLzdTFKbCIv6+tk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjiUQpMTnE2tYxkvT9IJiGFReql/viP2++U9qyvEl4
+ jkU4p+6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY4lEKQAKCRAk1otyXVSH0BhmB/
+ 9p4SNkOb8QReTY9iSBl6XFTYCXxvoEK+g7u/IA7Xz2BpG77L9CEKb3rVjvUOksXFDn1okj83bEq3bD
+ KjN3/HkV2hnvysUdPhrp8DWsaTzA+zcQ50iwNCafJQcCENBe5qIVG0Cq5AJE0Rg+FFq+P3oFsZGLkA
+ ZkS8XkSipyq6VwU6hxEPy+KhfeudZMde+yAaNfJWUoEeDvRAWLXONyaRKyrN03wyDcUJZxrFtz+MDt
+ zSqT8A3PkUchBtMkXPr89gjxan3FFn8Dm8gqwg5b/SrkOlNi+uWx8WdleE0YoWWttwX7N3tueoWwxw
+ xM2wGjJZ0ae03mSLVZbZOce8WY9B1x
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -98,168 +98,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Rather than allowing the system specific tests to replace the default set
-of tests instead run them in addition to the standard set of tests. In
-order to avoid name collisions in the reported tests we add an additional
-test class element to the reported tests. Doing this means we always get a
-consistent baseline of coverage no matter what card we run on but retain
-the ability to specify specific coverage for a given system.
+Since we don't know what the capabilities of an unknown card is any of our
+standard tests may fail due to not being supported by the system. Set a
+flag once we've configured the stream, just before we start data, to say
+that the system accepted our stream configuration.
+
+Since there shouldn't be a use case for tests that are specified for the
+individual system failing for those tests we also add a new test which
+fails if we are unable to configure the settings specified in the system
+specific configuration file.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/selftests/alsa/pcm-test.c | 83 +++++++++++++++++--------
- 1 file changed, 58 insertions(+), 25 deletions(-)
+ tools/testing/selftests/alsa/pcm-test.c | 39 +++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 6 deletions(-)
 
 diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index e973b03ae1fd..afc616ddc820 100644
+index afc616ddc820..5fbb3ff517aa 100644
 --- a/tools/testing/selftests/alsa/pcm-test.c
 +++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -36,6 +36,11 @@ struct pcm_data *pcm_list = NULL;
- int num_missing = 0;
- struct pcm_data *pcm_missing = NULL;
- 
-+enum test_class {
-+	TEST_CLASS_DEFAULT,
-+	TEST_CLASS_SYSTEM,
-+};
-+
- void timestamp_now(timestamp_t *tstamp)
- {
- 	if (clock_gettime(CLOCK_MONOTONIC_RAW, tstamp))
-@@ -217,7 +222,8 @@ static void find_pcms(void)
- 	snd_config_delete(config);
- }
- 
--static void test_pcm_time(struct pcm_data *data, const char *test_name, snd_config_t *pcm_cfg)
-+static void test_pcm_time(struct pcm_data *data, enum test_class class,
-+			  const char *test_name, snd_config_t *pcm_cfg)
- {
- 	char name[64], key[128], msg[256];
- 	const char *cs;
-@@ -236,6 +242,19 @@ static void test_pcm_time(struct pcm_data *data, const char *test_name, snd_conf
- 	bool pass = false;
+@@ -243,6 +243,7 @@ static void test_pcm_time(struct pcm_data *data, enum test_class class,
  	snd_pcm_hw_params_t *hw_params;
  	snd_pcm_sw_params_t *sw_params;
-+	const char *test_class_name;
+ 	const char *test_class_name;
++	bool skip = true;
+ 
+ 	switch (class) {
+ 	case TEST_CLASS_DEFAULT:
+@@ -395,6 +396,9 @@ static void test_pcm_time(struct pcm_data *data, enum test_class class,
+ 			 (long)rperiod_size, (long)rbuffer_size,
+ 			 (long)start_threshold);
+ 
++	/* Set all the params, actually run the test */
++	skip = false;
 +
-+	switch (class) {
-+	case TEST_CLASS_DEFAULT:
-+		test_class_name = "default";
-+		break;
-+	case TEST_CLASS_SYSTEM:
-+		test_class_name = "system";
-+		break;
-+	default:
-+		ksft_exit_fail_msg("Unknown test class %d\n", class);
-+		break;
-+	}
- 
- 	snd_pcm_hw_params_alloca(&hw_params);
- 	snd_pcm_sw_params_alloca(&sw_params);
-@@ -366,8 +385,8 @@ static void test_pcm_time(struct pcm_data *data, const char *test_name, snd_conf
- 		goto __close;
- 	}
- 
--	ksft_print_msg("%s.%d.%d.%d.%s hw_params.%s.%s.%ld.%ld.%ld.%ld sw_params.%ld\n",
--			 test_name,
-+	ksft_print_msg("%s.%s.%d.%d.%d.%s hw_params.%s.%s.%ld.%ld.%ld.%ld sw_params.%ld\n",
-+		         test_class_name, test_name,
- 			 data->card, data->device, data->subdevice,
- 			 snd_pcm_stream_name(data->stream),
- 			 snd_pcm_access_name(access),
-@@ -415,8 +434,9 @@ static void test_pcm_time(struct pcm_data *data, const char *test_name, snd_conf
+ 	timestamp_now(&tstamp);
+ 	for (i = 0; i < 4; i++) {
+ 		if (data->stream == SND_PCM_STREAM_PLAYBACK) {
+@@ -434,12 +438,34 @@ static void test_pcm_time(struct pcm_data *data, enum test_class class,
  	msg[0] = '\0';
  	pass = true;
  __close:
--	ksft_test_result(pass, "%s.%d.%d.%d.%s%s%s\n",
--			 test_name,
-+
-+	ksft_test_result(pass, "%s.%s.%d.%d.%d.%s%s%s\n",
-+			 test_class_name, test_name,
- 			 data->card, data->device, data->subdevice,
- 			 snd_pcm_stream_name(data->stream),
- 			 msg[0] ? " " : "", msg);
-@@ -425,13 +445,37 @@ static void test_pcm_time(struct pcm_data *data, const char *test_name, snd_conf
- 		snd_pcm_close(handle);
- }
- 
-+void run_time_tests(struct pcm_data *pcm, enum test_class class,
-+		    snd_config_t *cfg)
-+{
-+	const char *test_name, *test_type;
-+	snd_config_t *pcm_cfg;
-+	snd_config_iterator_t i, next;
-+
-+	if (!cfg)
-+		return;
-+
-+	cfg = conf_get_subtree(cfg, "test", NULL);
-+	if (cfg == NULL)
-+		return;
-+
-+	snd_config_for_each(i, next, cfg) {
-+		pcm_cfg = snd_config_iterator_entry(i);
-+		if (snd_config_get_id(pcm_cfg, &test_name) < 0)
-+			ksft_exit_fail_msg("snd_config_get_id\n");
-+		test_type = conf_get_string(pcm_cfg, "type", NULL, "time");
-+		if (strcmp(test_type, "time") == 0)
-+			test_pcm_time(pcm, class, test_name, pcm_cfg);
-+		else
-+			ksft_exit_fail_msg("unknown test type '%s'\n", test_type);
++	switch (class) {
++	case TEST_CLASS_SYSTEM:
++		test_class_name = "system";
++		/*
++		 * Anything specified as specific to this system
++		 * should always be supported.
++		 */
++		ksft_test_result(!skip, "%s.%s.%d.%d.%d.%s.params\n",
++				 test_class_name, test_name,
++				 data->card, data->device, data->subdevice,
++				 snd_pcm_stream_name(data->stream));
++		break;
++	default:
++		break;
 +	}
-+}
-+
- int main(void)
- {
- 	struct pcm_data *pcm;
- 	snd_config_t *global_config, *default_pcm_config, *cfg, *pcm_cfg;
--	snd_config_iterator_t i, next;
--	int num_pcm_tests = 0, num_tests;
--	const char *test_name, *test_type;
-+	int num_pcm_tests = 0, num_tests, num_std_pcm_tests;
  
- 	ksft_print_header();
- 
-@@ -444,10 +488,13 @@ int main(void)
- 
- 	find_pcms();
- 
-+	num_std_pcm_tests = conf_get_count(default_pcm_config, "test", NULL);
-+
- 	for (pcm = pcm_list; pcm != NULL; pcm = pcm->next) {
-+		num_pcm_tests += num_std_pcm_tests;
+-	ksft_test_result(pass, "%s.%s.%d.%d.%d.%s%s%s\n",
+-			 test_class_name, test_name,
+-			 data->card, data->device, data->subdevice,
+-			 snd_pcm_stream_name(data->stream),
+-			 msg[0] ? " " : "", msg);
++	if (!skip)
++		ksft_test_result(pass, "%s.%s.%d.%d.%d.%s%s%s\n",
++				 test_class_name, test_name,
++				 data->card, data->device, data->subdevice,
++				 snd_pcm_stream_name(data->stream),
++				 msg[0] ? " " : "", msg);
++	else
++		ksft_test_result_skip("%s.%s.%d.%d.%d.%s%s%s\n",
++				 test_class_name, test_name,
++				 data->card, data->device, data->subdevice,
++				 snd_pcm_stream_name(data->stream),
++				 msg[0] ? " " : "", msg);
+ 	free(samples);
+ 	if (handle)
+ 		snd_pcm_close(handle);
+@@ -495,7 +521,8 @@ int main(void)
  		cfg = pcm->pcm_config;
  		if (cfg == NULL)
--			cfg = default_pcm_config;
-+			continue;
- 		num_tests = conf_get_count(cfg, "test", NULL);
+ 			continue;
+-		num_tests = conf_get_count(cfg, "test", NULL);
++		/* Setting params is reported as a separate test */
++		num_tests = conf_get_count(cfg, "test", NULL) * 2;
  		if (num_tests > 0)
  			num_pcm_tests += num_tests;
-@@ -462,22 +509,8 @@ int main(void)
  	}
- 
- 	for (pcm = pcm_list; pcm != NULL; pcm = pcm->next) {
--		cfg = pcm->pcm_config;
--		if (cfg == NULL)
--			cfg = default_pcm_config;
--		cfg = conf_get_subtree(cfg, "test", NULL);
--		if (cfg == NULL)
--			continue;
--		snd_config_for_each(i, next, cfg) {
--			pcm_cfg = snd_config_iterator_entry(i);
--			if (snd_config_get_id(pcm_cfg, &test_name) < 0)
--				ksft_exit_fail_msg("snd_config_get_id\n");
--			test_type = conf_get_string(pcm_cfg, "type", NULL, "time");
--			if (strcmp(test_type, "time") == 0)
--				test_pcm_time(pcm, test_name, pcm_cfg);
--			else
--				ksft_exit_fail_msg("unknown test type '%s'\n", test_type);
--		}
-+		run_time_tests(pcm, TEST_CLASS_DEFAULT, default_pcm_config);
-+		run_time_tests(pcm, TEST_CLASS_SYSTEM, pcm->pcm_config);
- 	}
- 
- 	snd_config_delete(global_config);
 -- 
 2.30.2
 

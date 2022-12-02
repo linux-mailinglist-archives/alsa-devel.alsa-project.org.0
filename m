@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF8A64091A
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:15:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27991640917
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:15:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71A8A1856;
-	Fri,  2 Dec 2022 16:14:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71A8A1856
+	by alsa0.perex.cz (Postfix) with ESMTPS id B69AC17D5;
+	Fri,  2 Dec 2022 16:14:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69AC17D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669994112;
-	bh=h9gcwFwo0WsEgG4cCHo/H2blt9yFolIlibTnwho3juw=;
+	s=default; t=1669994100;
+	bh=FqpfiovHF+2KcxXkLOOP+nWMHHV3gxU5jNKKz4Px7qw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iBbVfvdIHvNz7VaSCWAvDk65hyZC58PBQ4C00XzMgBpjYor7GndcSe5Q74MbQRFMT
-	 s2ZPjJ7lWwG8n6hpzwTw122w3A2TyF8B6k9kk3z2YtEYHf6bKcRvmMeTy9ssa+lA9T
-	 MNE87W87PdySK5B+CEk6CULdf/lHWg5b1ykoO6dg=
+	b=pSkEpUGCSLwTM38KlA7GVusAwwm9KRiiKKSNaJkHMVerPKIX0GSwpUmOS5czKztm6
+	 Am79j/jUq3bknd5M3JvLLWF2E2vijPxkDluZUW9uHo/xsWyD86Vrc60VSUcHQvw0m3
+	 3b0RVIjBNdVRv3ERXkkHEOsSgB0akK6DYq6PqT10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CB66F805BA;
-	Fri,  2 Dec 2022 16:12:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE15BF805B4;
+	Fri,  2 Dec 2022 16:12:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F5C3F805BD; Fri,  2 Dec 2022 16:12:06 +0100 (CET)
+ id BBA06F805B5; Fri,  2 Dec 2022 16:12:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B863F805A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FC66F805AE
  for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B863F805A9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FC66F805AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="LiHRYN8B"
+ header.b="frw5rQCe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669993920; x=1701529920;
+ t=1669993921; x=1701529921;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=h9gcwFwo0WsEgG4cCHo/H2blt9yFolIlibTnwho3juw=;
- b=LiHRYN8B48jXQSMXSZPUQvP+ZBLYGryaZpWyDsPX5GEJt+AcVsbhOp8o
- rXWxxe9aA9cGlyqv+0v1I+VCnKPcgPi5c09eXMpt4GzxdUpJqnHzUnhjx
- R66Kw2v6DOjOUv0N6qzt3hO5G74VHc4JWgwYalVJrvhZcZToD50wIE8yp
- jEYKfdBYXMLviyUaEwAuHH21rFrbtC6/AkmKkPlPiKtVKvuP/xb/oKuQq
- LP9VcfruIawts45/WSDWz7Xt0FGehCtA8Ao/Lbi/gAWZPPEO/5gEq0qmU
- s344a2360cZlr+Fpa+coKziHVQTQUkhex0vVjv1Me9Bzx4l9tN7LsOAwq Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251808"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251808"
+ bh=FqpfiovHF+2KcxXkLOOP+nWMHHV3gxU5jNKKz4Px7qw=;
+ b=frw5rQCekUDF+C/Ic4xVeYYbwfONiuvq6txf9T4KuhHLwacsmBNRbN1T
+ ZXG1/7o0QSHjfJZ/yCC5qH75B8xPDZpuwslbpOxOf1J1ZkNA1gvNsp+Ua
+ ftn8kfgG5aLs1U/mfmSGfuPcAFrQR8FI90g1DGg3GTemqOvC0tc2jelt6
+ /NrX4EMcsvxobjnuevMZY2pdrPMJ+jRoJWNMJO8B+283lV/B5ZGvrwTdB
+ 1YBU5bnZKUuNke1tjPkZE2Gj3YOZpgF7zmp1eJ/2t/yyt4HVGqp1Xh+oK
+ zG8h1aZs8qSMSbu6ClEHVISUeK4lB/jIgcofMraZZEQhC5sb78QvuNL5i w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251818"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251818"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 07:11:57 -0800
+ 02 Dec 2022 07:11:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504752"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504752"
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504755"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504755"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:55 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:57 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 11/16] ASoC: Intel: avs: Data probing soc-component
-Date: Fri,  2 Dec 2022 16:28:36 +0100
-Message-Id: <20221202152841.672536-12-cezary.rojewski@intel.com>
+Subject: [PATCH v2 12/16] ASoC: Intel: avs: Add probe machine board
+Date: Fri,  2 Dec 2022 16:28:37 +0100
+Message-Id: <20221202152841.672536-13-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221202152841.672536-1-cezary.rojewski@intel.com>
 References: <20221202152841.672536-1-cezary.rojewski@intel.com>
@@ -91,141 +92,178 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define stub component for data probing. Stub as most operations from
-standard PCM case do not apply here. Specific bits are CPU DAIs and
-compress_ops. FE DAIs can link against these new CPU DAI to create new
-compress devices.
+Stub machine board driver with no custom DAPM routes and single FE DAI
+link for userspace to interact with.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/avs.h    | 10 +++++++
- sound/soc/intel/avs/pcm.c    |  6 ++--
- sound/soc/intel/avs/probes.c | 53 ++++++++++++++++++++++++++++++++++--
- 3 files changed, 64 insertions(+), 5 deletions(-)
+ sound/soc/intel/avs/board_selection.c | 33 ++++++++++++++
+ sound/soc/intel/avs/boards/Kconfig    |  8 ++++
+ sound/soc/intel/avs/boards/Makefile   |  2 +
+ sound/soc/intel/avs/boards/probe.c    | 64 +++++++++++++++++++++++++++
+ 4 files changed, 107 insertions(+)
+ create mode 100644 sound/soc/intel/avs/boards/probe.c
 
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index e5e7c72eb511..e19d8d89455d 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -322,6 +322,9 @@ struct avs_soc_component {
- 
- extern const struct snd_soc_dai_ops avs_dai_fe_ops;
- 
-+int avs_soc_component_register(struct device *dev, const char *name,
-+			       const struct snd_soc_component_driver *drv,
-+			       struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais);
- int avs_dmic_platform_register(struct avs_dev *adev, const char *name);
- int avs_i2s_platform_register(struct avs_dev *adev, const char *name, unsigned long port_mask,
- 			      unsigned long *tdms);
-@@ -373,6 +376,8 @@ struct apl_log_buffer_layout {
- bool avs_logging_fw(struct avs_dev *adev);
- void avs_dump_fw_log(struct avs_dev *adev, const void __iomem *src, unsigned int len);
- void avs_dump_fw_log_wakeup(struct avs_dev *adev, const void __iomem *src, unsigned int len);
-+
-+int avs_probe_platform_register(struct avs_dev *adev, const char *name);
- #else
- #define AVS_SET_ENABLE_LOGS_OP(name)
- 
-@@ -389,6 +394,11 @@ static inline void
- avs_dump_fw_log_wakeup(struct avs_dev *adev, const void __iomem *src, unsigned int len)
- {
+diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
+index 02cc1ce8f5f5..b2823c2107f7 100644
+--- a/sound/soc/intel/avs/board_selection.c
++++ b/sound/soc/intel/avs/board_selection.c
+@@ -291,6 +291,33 @@ static void board_pdev_unregister(void *data)
+ 	platform_device_unregister(data);
  }
-+
-+static inline int avs_probe_platform_register(struct avs_dev *adev, const char *name)
+ 
++static int __maybe_unused avs_register_probe_board(struct avs_dev *adev)
 +{
++	struct platform_device *board;
++	struct snd_soc_acpi_mach mach = {{0}};
++	int ret;
++
++	ret = avs_probe_platform_register(adev, "probe-platform");
++	if (ret < 0)
++		return ret;
++
++	mach.mach_params.platform = "probe-platform";
++
++	board = platform_device_register_data(NULL, "avs_probe_mb", PLATFORM_DEVID_NONE,
++					      (const void *)&mach, sizeof(mach));
++	if (IS_ERR(board)) {
++		dev_err(adev->dev, "probe board register failed\n");
++		return PTR_ERR(board);
++	}
++
++	ret = devm_add_action(adev->dev, board_pdev_unregister, board);
++	if (ret < 0) {
++		platform_device_unregister(board);
++		return ret;
++	}
 +	return 0;
 +}
- #endif
- 
- #endif /* __SOUND_SOC_INTEL_AVS_H */
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 70d687fa9923..f930c5e86a84 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -1126,9 +1126,9 @@ static const struct snd_soc_component_driver avs_component_driver = {
- 	.topology_name_prefix	= "intel/avs",
- };
- 
--static int avs_soc_component_register(struct device *dev, const char *name,
--				      const struct snd_soc_component_driver *drv,
--				      struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais)
-+int avs_soc_component_register(struct device *dev, const char *name,
-+			       const struct snd_soc_component_driver *drv,
-+			       struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais)
++
+ static int avs_register_dmic_board(struct avs_dev *adev)
  {
- 	struct avs_soc_component *acomp;
+ 	struct platform_device *codec, *board;
+@@ -500,6 +527,12 @@ int avs_register_all_boards(struct avs_dev *adev)
+ {
  	int ret;
-diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
-index e90284ec8500..29d63f2a9616 100644
---- a/sound/soc/intel/avs/probes.c
-+++ b/sound/soc/intel/avs/probes.c
-@@ -249,7 +249,6 @@ static int avs_probe_compr_copy(struct snd_soc_component *comp, struct snd_compr
- 	return count;
- }
  
--__maybe_unused
- static const struct snd_soc_cdai_ops avs_probe_dai_ops = {
- 	.startup = avs_probe_compr_open,
- 	.shutdown = avs_probe_compr_free,
-@@ -258,7 +257,57 @@ static const struct snd_soc_cdai_ops avs_probe_dai_ops = {
- 	.pointer = avs_probe_compr_pointer,
- };
- 
--__maybe_unused
- static const struct snd_compress_ops avs_probe_compress_ops = {
- 	.copy = avs_probe_compr_copy,
- };
++#ifdef CONFIG_DEBUG_FS
++	ret = avs_register_probe_board(adev);
++	if (ret < 0)
++		dev_warn(adev->dev, "enumerate PROBE endpoints failed: %d\n", ret);
++#endif
 +
-+static struct snd_soc_dai_driver probe_cpu_dais[] = {
-+{
-+	.name = "Probe Extraction CPU DAI",
-+	.compress_new = snd_soc_new_compress,
-+	.cops = &avs_probe_dai_ops,
-+	.capture = {
-+		.stream_name = "Probe Extraction",
-+		.channels_min = 1,
-+		.channels_max = 8,
-+		.rates = SNDRV_PCM_RATE_48000,
-+		.rate_min = 48000,
-+		.rate_max = 48000,
+ 	ret = avs_register_dmic_board(adev);
+ 	if (ret < 0)
+ 		dev_warn(adev->dev, "enumerate DMIC endpoints failed: %d\n",
+diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
+index 9bd40fdd9028..e4c230efe8d7 100644
+--- a/sound/soc/intel/avs/boards/Kconfig
++++ b/sound/soc/intel/avs/boards/Kconfig
+@@ -77,6 +77,14 @@ config SND_SOC_INTEL_AVS_MACH_NAU8825
+ 	   Say Y or m if you have such a device. This is a recommended option.
+ 	   If unsure select "N".
+ 
++config SND_SOC_INTEL_AVS_MACH_PROBE
++	tristate "Probing (data) board"
++	depends on DEBUG_FS
++	select SND_HWDEP
++	help
++	   This adds support for data probing board which can be used to
++	   gather data from runtime stream over compress operations.
++
+ config SND_SOC_INTEL_AVS_MACH_RT274
+ 	tristate "rt274 in I2S mode"
+ 	depends on I2C
+diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
+index 4d70b8d09ce5..b81343420370 100644
+--- a/sound/soc/intel/avs/boards/Makefile
++++ b/sound/soc/intel/avs/boards/Makefile
+@@ -8,6 +8,7 @@ snd-soc-avs-max98927-objs := max98927.o
+ snd-soc-avs-max98357a-objs := max98357a.o
+ snd-soc-avs-max98373-objs := max98373.o
+ snd-soc-avs-nau8825-objs := nau8825.o
++snd-soc-avs-probe-objs := probe.o
+ snd-soc-avs-rt274-objs := rt274.o
+ snd-soc-avs-rt286-objs := rt286.o
+ snd-soc-avs-rt298-objs := rt298.o
+@@ -22,6 +23,7 @@ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98927) += snd-soc-avs-max98927.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98357A) += snd-soc-avs-max98357a.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_MAX98373) += snd-soc-avs-max98373.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_NAU8825) += snd-soc-avs-nau8825.o
++obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_PROBE) += snd-soc-avs-probe.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT274) += snd-soc-avs-rt274.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT286) += snd-soc-avs-rt286.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT298) += snd-soc-avs-rt298.o
+diff --git a/sound/soc/intel/avs/boards/probe.c b/sound/soc/intel/avs/boards/probe.c
+new file mode 100644
+index 000000000000..411acaee74f9
+--- /dev/null
++++ b/sound/soc/intel/avs/boards/probe.c
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
++//
++// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
++//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
++//
++
++#include <linux/device.h>
++#include <linux/module.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++
++SND_SOC_DAILINK_DEF(dummy, DAILINK_COMP_ARRAY(COMP_DUMMY()));
++SND_SOC_DAILINK_DEF(probe_cp, DAILINK_COMP_ARRAY(COMP_CPU("Probe Extraction CPU DAI")));
++SND_SOC_DAILINK_DEF(platform, DAILINK_COMP_ARRAY(COMP_PLATFORM("probe-platform")));
++
++static struct snd_soc_dai_link probe_mb_dai_links[] = {
++	{
++		.name = "Compress Probe Capture",
++		.nonatomic = 1,
++		SND_SOC_DAILINK_REG(probe_cp, dummy, platform),
 +	},
-+},
 +};
 +
-+static int avs_probe_component_probe(struct snd_soc_component *component)
++static int avs_probe_mb_probe(struct platform_device *pdev)
 +{
-+	struct avs_soc_component *acomp = to_avs_soc_component(component);
-+	struct avs_dev *adev = to_avs_dev(component->dev);
++	struct device *dev = &pdev->dev;
++	struct snd_soc_acpi_mach *mach;
++	struct snd_soc_card *card;
++	int ret;
 +
-+	mutex_lock(&adev->comp_list_mutex);
-+	list_add_tail(&acomp->node, &adev->comp_list);
-+	mutex_unlock(&adev->comp_list_mutex);
-+	return 0;
++	mach = dev_get_platdata(dev);
++
++	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
++	if (!card)
++		return -ENOMEM;
++
++	card->name = "avs_probe_mb";
++	card->dev = dev;
++	card->owner = THIS_MODULE;
++	card->dai_link = probe_mb_dai_links;
++	card->num_links = ARRAY_SIZE(probe_mb_dai_links);
++	card->fully_routed = true;
++
++	ret = snd_soc_fixup_dai_links_platform_name(card, mach->mach_params.platform);
++	if (ret)
++		return ret;
++
++	return devm_snd_soc_register_card(dev, card);
 +}
 +
-+static void avs_probe_component_remove(struct snd_soc_component *component)
-+{
-+	struct avs_soc_component *acomp = to_avs_soc_component(component);
-+	struct avs_dev *adev = to_avs_dev(component->dev);
-+
-+	mutex_lock(&adev->comp_list_mutex);
-+	list_del(&acomp->node);
-+	mutex_unlock(&adev->comp_list_mutex);
-+}
-+
-+static const struct snd_soc_component_driver avs_probe_component_driver = {
-+	.name			= "avs-probe-compr",
-+	.probe			= avs_probe_component_probe,
-+	.remove			= avs_probe_component_remove,
-+	.compress_ops		= &avs_probe_compress_ops,
-+	.module_get_upon_open	= 1, /* increment refcount when a stream is opened */
++static struct platform_driver avs_probe_mb_driver = {
++	.probe = avs_probe_mb_probe,
++	.driver = {
++		.name = "avs_probe_mb",
++		.pm = &snd_soc_pm_ops,
++	},
 +};
 +
-+int avs_probe_platform_register(struct avs_dev *adev, const char *name)
-+{
-+	return avs_soc_component_register(adev->dev, name, &avs_probe_component_driver,
-+					  probe_cpu_dais, ARRAY_SIZE(probe_cpu_dais));
-+}
++module_platform_driver(avs_probe_mb_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:avs_probe_mb");
 -- 
 2.25.1
 

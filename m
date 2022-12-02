@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E8E640155
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 08:53:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5742764015F
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 08:55:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 228751779;
-	Fri,  2 Dec 2022 08:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 228751779
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4AF01799;
+	Fri,  2 Dec 2022 08:54:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4AF01799
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669967591;
-	bh=7HRelqucKX0WSGej2q3IZpcrfTzfZvBmirT7cTAmww0=;
+	s=default; t=1669967743;
+	bh=kj89dQpXm7mFKVvLqNAgpUIXn2neOZ+vVxhb+l7WmR4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iLagVSqAMmmgyfGpD6rSsKy4jo9Y1xk1SWa5oU6hv6uSul8xFiraWmKMqYEgP1j17
-	 evoKvH4uArCyqCa4079KlNy8CkfGTvwTgqGDrMyUzbScOv6COchOWfKVQLuU03E4Cv
-	 qy3iW2EvF6jLewJTEPb5f0hMLiGPgoVXNIt3uwl0=
+	b=KQj7pVURPwXqUW3OzM9BUiO9FokatjXkBBvSUdd/VPrgnvzmgmg+RXo+KSOcjDI4y
+	 D4k/FyyKA9N3XwTTKO0ikDzmc5xJK1MWfHNW+7haiL757kFk5KZbj6L7SPL3rwx9Xz
+	 s/rpXP5Z/H9syQ6HjfOMa84fnB+0xvqcUexolg8Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10C21F80162;
-	Fri,  2 Dec 2022 08:52:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7188EF804B3;
+	Fri,  2 Dec 2022 08:54:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB58DF80310; Fri,  2 Dec 2022 08:52:10 +0100 (CET)
+ id 94EE7F80310; Fri,  2 Dec 2022 08:54:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C0F7F80162
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 08:52:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C0F7F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3996FF80162
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 08:54:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3996FF80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jJvTDR1+"; 
+ header.b="aKxPtLCo"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="L6Blb3L1"
+ header.b="IX3aH0Ua"
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C27E01FD83;
- Fri,  2 Dec 2022 07:52:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 59D9321BDC;
+ Fri,  2 Dec 2022 07:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669967522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669967683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3agc/ogR7a15Jo/lFM0go+I/GeFV8zWnhBZvASG5u/U=;
- b=jJvTDR1+HbejYxPdEvPQ0LQ4S54oasgFSXjRU775qe2eD++PtFa+kCJCH/ZJBEvtGKg362
- UXJsE41YvgSkSVUMD8lyeprY3+x3vXfxDtcw3dKsWZSp7w7lI4hwGICfru/pZYepy80WXd
- wyS5gAzn81NF5hKyQwC8rsYunrDtfGY=
+ bh=SZRVzq8sY0vftKWe+iY9HQ+3uMjMKDXQEOhQ9QaYl2c=;
+ b=aKxPtLCo1Y16oXbEIOJP38Nzd3pxMdR2M4vW1C8hZU2G+5VqYY1lPlQfxQZWfb8wFDDlKA
+ ZtiDgL1nMXNcrEFLoX/0+jcLYZgb3A6snsWIotoRJTkFRTDcoToIqb0jegkZwuSeD/M0/n
+ UrN50y4I8+SgF/rzwOFmJSWahvoz9XM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669967522;
+ s=susede2_ed25519; t=1669967683;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3agc/ogR7a15Jo/lFM0go+I/GeFV8zWnhBZvASG5u/U=;
- b=L6Blb3L1w2aq/16D6qG8d3+8X4AcmfxkXcrtnJnquGE603BUIk6G2P4loFJ2TE5E1Otper
- t7lqvgzRw+MV94Dw==
+ bh=SZRVzq8sY0vftKWe+iY9HQ+3uMjMKDXQEOhQ9QaYl2c=;
+ b=IX3aH0UaL//a0qV2Bgw6KRctrBom7YC3wKxTnQUUdIOmkUJji+WIxc/WoE+i5gnBTmpytJ
+ E2mCVm/kPYVZtvDg==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 9C7E713644;
- Fri,  2 Dec 2022 07:52:02 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 36CF713644;
+ Fri,  2 Dec 2022 07:54:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id D1JRJaKuiWMdEwAAGKfGzw
- (envelope-from <tiwai@suse.de>); Fri, 02 Dec 2022 07:52:02 +0000
-Date: Fri, 02 Dec 2022 08:52:03 +0100
-Message-ID: <87y1rqkzto.wl-tiwai@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id 68uQC0OviWOqFAAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Fri, 02 Dec 2022 07:54:43 +0000
+Date: Fri, 02 Dec 2022 08:54:44 +0100
+Message-ID: <87wn7akzp7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH v1 0/6] kselftest/alsa: pcm-test improvements
-In-Reply-To: <Y4kOvNi5I8/GK1yU@sirena.org.uk>
+In-Reply-To: <87y1rqkzto.wl-tiwai@suse.de>
 References: <20221130000608.519574-1-broonie@kernel.org>
  <a55212fc-a676-2335-b861-94ba8d10f207@perex.cz>
  <87359zlz9t.wl-tiwai@suse.de> <Y4kOvNi5I8/GK1yU@sirena.org.uk>
+ <87y1rqkzto.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -102,26 +103,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Dec 2022 21:29:48 +0100,
-Mark Brown wrote:
+On Fri, 02 Dec 2022 08:52:03 +0100,
+Takashi Iwai wrote:
 > 
-> On Thu, Dec 01, 2022 at 08:06:22PM +0100, Takashi Iwai wrote:
-> > On Thu, 01 Dec 2022 18:42:22 +0100,
-> > Jaroslav Kysela wrote:
-> > > 
-> > > Let me know, if I can stack your changes on top, or perhaps, you may
-> > > be willing to adapt them.
+> On Thu, 01 Dec 2022 21:29:48 +0100,
+> Mark Brown wrote:
 > > 
-> > As Mark has already sent a v2 series, I applied his v2 at first.
-> > Could you rebase and resubmit on top of my for-next branch?
+> > On Thu, Dec 01, 2022 at 08:06:22PM +0100, Takashi Iwai wrote:
+> > > On Thu, 01 Dec 2022 18:42:22 +0100,
+> > > Jaroslav Kysela wrote:
+> > > > 
+> > > > Let me know, if I can stack your changes on top, or perhaps, you may
+> > > > be willing to adapt them.
+> > > 
+> > > As Mark has already sent a v2 series, I applied his v2 at first.
+> > > Could you rebase and resubmit on top of my for-next branch?
+> > 
+> > Oh, this is getting a little confusing - I'd just picked Jaroslav's
+> > patch into my tree and was in the middle redoing my ideas on top of his
+> > code!  I might have something more later this evening...  I think we can
+> > converge here, let me continue taking a look.
 > 
-> Oh, this is getting a little confusing - I'd just picked Jaroslav's
-> patch into my tree and was in the middle redoing my ideas on top of his
-> code!  I might have something more later this evening...  I think we can
-> converge here, let me continue taking a look.
+> Ah then it was my misunderstanding, and everything should be fine now
+> ;)  Thanks!
 
-Ah then it was my misunderstanding, and everything should be fine now
-;)  Thanks!
+Erm, you meant sent as *v3*.  I've seen now.
+
+As the v2 patches were already merged, could you rather rebase and
+resubmit?  I'd like to avoid rebase the full series that are already
+included in linux-next.
+
+Apologies for the mess.
 
 
 Takashi

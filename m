@@ -2,81 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A52640925
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:16:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 463DB640A7D
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 17:20:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4766B184D;
-	Fri,  2 Dec 2022 16:15:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4766B184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F0AB1872;
+	Fri,  2 Dec 2022 17:19:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F0AB1872
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669994179;
-	bh=ZUO2Xh3/mt/TDW+MY4Lc0/z+D/4ZkLLW6lTtunZ01fw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nFUS6TPrNPT8QdM9KSgb4C++Qfh+I66s60Cf6HdEARZ/1sLojElLaoh767MocJ1KA
-	 faIPVvvhKLf43T/i3i/4U7mYwyO6hyAT3ex8YIxFfP7E9umD2wXAhi2f395QMNZnpN
-	 UCcG0yDZnlG6RT84mWyqrVSskiw0TZbnSxq3fMiM=
+	s=default; t=1669998007;
+	bh=HUZrQfZ8zWBtxKbZ7tqB72s/BYGKYcuqFUcMZvFpy6I=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gL6SomEsHpXRR95U7d6f1B3fSJpvDNJk23MzLUNOcdnnCHlKxTDibx3709WHUpigR
+	 V5sM6lzwO4tL47bYGlQocWa5sgT8WkzvyfGea5wcMDX579nwAHzTRk4e/ePC15rK1c
+	 0jPMbrM5/sUab6zTGgYi1p1JBQVTiGl6YyKP/ApA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98AB0F805D6;
-	Fri,  2 Dec 2022 16:12:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBCD1F8055B;
+	Fri,  2 Dec 2022 17:18:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6949DF805C5; Fri,  2 Dec 2022 16:12:16 +0100 (CET)
+ id 60D31F8055B; Fri,  2 Dec 2022 17:18:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_32,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7270F805C5
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:12:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7270F805C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2828F8026A
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 17:18:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2828F8026A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="h6KSLn5d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669993930; x=1701529930;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ZUO2Xh3/mt/TDW+MY4Lc0/z+D/4ZkLLW6lTtunZ01fw=;
- b=h6KSLn5dqFS92fuY2zt0/qmH7f/PynxnMq+z2Kpk+PvuNjVEZrxwpRqf
- H9w4p1gJVp2GAwfWUbJE8AtfwuHwXhjEtNPpyCjzL5h4GYUr/nsUZTzbl
- vkxYxhjI2KePRL6+m9HrDu7Hf8xaYZ++HxBGNjvAj0hka/lnzuXZ+LksH
- 92j0jGipIkArNV5hgVUzPGC4tG9dYgZSckC1d6dXF8UOy5ProZEzXvVU3
- vC9i0S05poa3x3DQpJIfvFbyyZsxT9rBuRrIYIvobXgP1ycXW9AIEh5UT
- pQBELc7aNT1rboc5Q47de0kHr8EpDZB5twGN1umObRp+IS0LzPKJK9J3j w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251857"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251857"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 07:12:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504786"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504786"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:12:05 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH v2 16/16] ASoC: Intel: avs: Allow for dumping debug window
- snapshot
-Date: Fri,  2 Dec 2022 16:28:41 +0100
-Message-Id: <20221202152841.672536-17-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221202152841.672536-1-cezary.rojewski@intel.com>
-References: <20221202152841.672536-1-cezary.rojewski@intel.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="mAE7Tqx7"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B28j12k022681; Fri, 2 Dec 2022 10:18:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=RIFCmyy6/4s76okPuZ7eQuTU58jGZcnvgrzMHZqxzxY=;
+ b=mAE7Tqx7LOPHnchN2hJ3/2V2i231GtpO4kElveA8j+WCzOAc80n4NmkTlqEoSZD0gVnG
+ be56TQwteIRDe1Z3RoOO+ZzPZ9x2RqzVIuAVjpiCy6wr01GfqAovyAUmSMbsWC2zqEul
+ wzkWI1IetFJXQTCWNgNvRL6vc/JMi0nw3Gczy7Wvd6EmCQjXIia//LStczR2ubvptL++
+ Ezf+OgYtsGM/M+pgpmUDYXtPRYx3RZXOMg9a0R03xnEBani+6dcboONc2WuZEV1nXJCR
+ z80hHYo/z8EdTHeLpkl6+fd2cGSMF9Ehk3KqTALxsRYeQ3zDXH3cGoLjbajN5PJmjBHE aA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3m6k2vt0n6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Dec 2022 10:18:14 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Fri, 2 Dec
+ 2022 10:18:12 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
+ Frontend Transport; Fri, 2 Dec 2022 10:18:12 -0600
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.111])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 71E17B10;
+ Fri,  2 Dec 2022 16:18:12 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 0/3] soundwire: cadence: Fix oversized FIFO size define
+Date: Fri, 2 Dec 2022 16:18:09 +0000
+Message-ID: <20221202161812.4186897-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: s3b6a1tc7ugk36PbSMbViYKf154AY-yy
+X-Proofpoint-ORIG-GUID: s3b6a1tc7ugk36PbSMbViYKf154AY-yy
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,73 +98,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add new read-only debugfs entry which dumps entire content of the SRAM
-window 2 i.e.: the debug window.
+As determined by experimentation and asking a hardware person, the FIFO
+in the Cadence IP is actually only 8 entries long, not 32. This is fixed
+in patch #1.
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/debugfs.c   | 26 ++++++++++++++++++++++++++
- sound/soc/intel/avs/registers.h |  3 ++-
- 2 files changed, 28 insertions(+), 1 deletion(-)
+As a bonus, patches #2 and #3 fix two other things I noticed while
+debugging this.
 
-diff --git a/sound/soc/intel/avs/debugfs.c b/sound/soc/intel/avs/debugfs.c
-index e9042d4328c4..bdd388ec01ea 100644
---- a/sound/soc/intel/avs/debugfs.c
-+++ b/sound/soc/intel/avs/debugfs.c
-@@ -71,6 +71,31 @@ static const struct file_operations fw_regs_fops = {
- 	.llseek = no_llseek,
- };
- 
-+static ssize_t debug_window_read(struct file *file, char __user *to, size_t count, loff_t *ppos)
-+{
-+	struct avs_dev *adev = file->private_data;
-+	size_t size;
-+	char *buf;
-+	int ret;
-+
-+	size = adev->hw_cfg.dsp_cores * AVS_WINDOW_CHUNK_SIZE;
-+	buf = kzalloc(size, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	memcpy_fromio(buf, avs_sram_addr(adev, AVS_DEBUG_WINDOW), size);
-+
-+	ret = simple_read_from_buffer(to, count, ppos, buf, size);
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct file_operations debug_window_fops = {
-+	.open = simple_open,
-+	.read = debug_window_read,
-+	.llseek = no_llseek,
-+};
-+
- static ssize_t probe_points_read(struct file *file, char __user *to, size_t count, loff_t *ppos)
- {
- 	struct avs_dev *adev = file->private_data;
-@@ -393,6 +418,7 @@ void avs_debugfs_init(struct avs_dev *adev)
- 	debugfs_create_file("strace", 0444, adev->debugfs_root, adev, &strace_fops);
- 	debugfs_create_file("trace_control", 0644, adev->debugfs_root, adev, &trace_control_fops);
- 	debugfs_create_file("fw_regs", 0444, adev->debugfs_root, adev, &fw_regs_fops);
-+	debugfs_create_file("debug_window", 0444, adev->debugfs_root, adev, &debug_window_fops);
- 
- 	debugfs_create_u32("trace_aging_period", 0644, adev->debugfs_root,
- 			   &adev->aging_timer_period);
-diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
-index 95be86148cf3..2b464e466ed5 100644
---- a/sound/soc/intel/avs/registers.h
-+++ b/sound/soc/intel/avs/registers.h
-@@ -59,7 +59,8 @@
- #define AVS_FW_REG_STATUS(adev)		(AVS_FW_REG_BASE(adev) + 0x0)
- #define AVS_FW_REG_ERROR_CODE(adev)	(AVS_FW_REG_BASE(adev) + 0x4)
- 
--#define AVS_FW_REGS_SIZE		PAGE_SIZE
-+#define AVS_WINDOW_CHUNK_SIZE		PAGE_SIZE
-+#define AVS_FW_REGS_SIZE		AVS_WINDOW_CHUNK_SIZE
- #define AVS_FW_REGS_WINDOW		0
- /* DSP -> HOST communication window */
- #define AVS_UPLINK_WINDOW		AVS_FW_REGS_WINDOW
+Changes since v1:
+- Rewrite commit message of patch #1
+- Only reduce response_buf to 34 (32 + 2)
+- Trim RX_FIFO_AVAIL to length of response_buf instead of expected
+  FIFO size
+
+Richard Fitzgerald (3):
+  soundwire: cadence: Don't overflow the command FIFOs
+  soundwire: cadence: Remove wasted space in response_buf
+  soundwire: cadence: Drain the RX FIFO after an IO timeout
+
+ drivers/soundwire/cadence_master.c | 46 +++++++++++++++++++-----------
+ drivers/soundwire/cadence_master.h | 13 ++++++++-
+ 2 files changed, 41 insertions(+), 18 deletions(-)
+
 -- 
-2.25.1
+2.30.2
 

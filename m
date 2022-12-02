@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3B3C640282
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 09:52:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2090A640284
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 09:52:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53B1217DC;
-	Fri,  2 Dec 2022 09:51:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53B1217DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE6117E7;
+	Fri,  2 Dec 2022 09:51:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE6117E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669971124;
-	bh=13CBI9dvygyWp69VpCDRxV2NCMU0gRPVBDH1Yi5ohzI=;
+	s=default; t=1669971169;
+	bh=sDTLMv9WgCRqmr8XRSEA+D4H4FQnD+mNw6QfSvbXIrI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gmvly8ba7syfru6u3zzgP12VOhZ49tN8tS4217BN2uHHiMQgFmsMrMJJs7Pfzn4EX
-	 43Y4qBo18WK0SMNqp9rzxV9j/48YfCA2+RK+FlY0Yb0F3TcEpET4qQys1tt0quWnOb
-	 KhVSAGkafEPjIoDGbyY6R9JxQrVG9EwPGJR/z+I8=
+	b=cZ5HetqLyatpZLnKC990MeXaRPh5EwOfkJ9YrtxXnOw9ADNbaXZIaJok0IA8CqJ1O
+	 Wq7lNBgv4ss3iHfSr4EMbk2r2A9H1lfP6RoU2Qi0xRru+9tIO0gGcG7UAWECVEANbk
+	 qPMPlZLc8frAga7rLiMrN4PLUZCl444zI7HOhAvo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEAE2F8026A;
-	Fri,  2 Dec 2022 09:51:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A1BEF80162;
+	Fri,  2 Dec 2022 09:51:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41DD9F80310; Fri,  2 Dec 2022 09:51:07 +0100 (CET)
+ id 16A85F804E2; Fri,  2 Dec 2022 09:51:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,54 +34,53 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90042F80162
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 09:51:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90042F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15432F804B3
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 09:51:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15432F804B3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="umN8AQHM"; 
+ header.b="MChUkUo+"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="/Cm/MJTG"
+ header.b="JdeWDCZ7"
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2D1D91FE11;
- Fri,  2 Dec 2022 08:51:01 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C61451FE17;
+ Fri,  2 Dec 2022 08:51:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1669971061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1669971110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=VoGXpVN7kyCiNaDa/EXBYT8cMKPPbx/8aySOuC+OA6A=;
- b=umN8AQHMZtnqBycQ0mwuVzyLUQvzZ7S/9ygSmVNkq+KlkwuNcNu5zG/KKiBtsU3jFRrDJ0
- 3FEkjGtlM8FGNjXSNtEAyAEzuVqxxsuinHPqyRJa7AR4RUX9eJZSQTUzxVjWKAb/vSkOSz
- Hre6TkqcMntCmRHH4rbOdVSJfrAm0KI=
+ bh=7CcGnjptI6yxXD/83uG/R6QCAVCr9hhrKfxghVeMD4o=;
+ b=MChUkUo+/9ffvxEviw5hqBeis3zd/KcEqTbgqN7ePnOrq0l0FsTuOMxLkCTHVHqwpCBsDd
+ o6sIn5dz8f2PXg8HHtLJh4yfJGbxvduLw5r8PC5REDp3SUpbHvPRloyJQRo34WX9GuNMzz
+ eHPFqfZOPp9rdfDWv21+IJ25p1tPSGc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1669971061;
+ s=susede2_ed25519; t=1669971110;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=VoGXpVN7kyCiNaDa/EXBYT8cMKPPbx/8aySOuC+OA6A=;
- b=/Cm/MJTGyE3hWxxyXHkTHAWSmm4Y2GPA6/yks5lxrnAogaWLpWmgib7hrbStbCHj1+f+oV
- XYUuZJisDVBnk5DA==
+ bh=7CcGnjptI6yxXD/83uG/R6QCAVCr9hhrKfxghVeMD4o=;
+ b=JdeWDCZ7DAymILQUSpOna/eNFELifRo+dLDYN/PjAt9n8txf8d1hsBWQdVF9JFIIF3KJVL
+ ZKGBFpahUDvkxfBg==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E93A9133DE;
- Fri,  2 Dec 2022 08:51:00 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 98104133DE;
+ Fri,  2 Dec 2022 08:51:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id rNlHOHS8iWNlMgAAGKfGzw
- (envelope-from <tiwai@suse.de>); Fri, 02 Dec 2022 08:51:00 +0000
-Date: Fri, 02 Dec 2022 09:51:00 +0100
-Message-ID: <87k03akx3f.wl-tiwai@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id X4hcJKa8iWPAMgAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Fri, 02 Dec 2022 08:51:50 +0000
+Date: Fri, 02 Dec 2022 09:51:50 +0100
+Message-ID: <87iliukx21.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH 01/16] ALSA: hda: Allow for compress stream to
- hdac_ext_stream assignment
-In-Reply-To: <20221201175619.504758-2-cezary.rojewski@intel.com>
+Subject: Re: [PATCH 02/16] ALSA: hda: Prepare for compress stream support
+In-Reply-To: <20221201175619.504758-3-cezary.rojewski@intel.com>
 References: <20221201175619.504758-1-cezary.rojewski@intel.com>
- <20221201175619.504758-2-cezary.rojewski@intel.com>
+ <20221201175619.504758-3-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -103,13 +102,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Dec 2022 18:56:04 +0100,
+On Thu, 01 Dec 2022 18:56:05 +0100,
 Cezary Rojewski wrote:
 > 
-> Currently only PCM streams can enlist hdac_stream for their data
-> transfer. Add cstream field to hdac_ext_stream to expose possibility of
-> compress stream assignment in place of PCM one.
-> Limited to HOST-type only as there no other users on the horizon.
+> Before introducing compress specific changes, adjust BDL and parameters
+> setup functions so these are not tightly coupled with PCM streams.
 > 
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
@@ -121,79 +118,99 @@ thanks,
 Takashi
 
 > ---
->  include/sound/hdaudio_ext.h     |  2 ++
->  sound/hda/ext/hdac_ext_stream.c | 41 +++++++++++++++++++++++++++++++++
->  2 files changed, 43 insertions(+)
+>  sound/hda/hdac_stream.c | 32 ++++++++++++++++----------------
+>  1 file changed, 16 insertions(+), 16 deletions(-)
 > 
-> diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-> index 68ab89211de2..511211f4a2b6 100644
-> --- a/include/sound/hdaudio_ext.h
-> +++ b/include/sound/hdaudio_ext.h
-> @@ -75,6 +75,8 @@ struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
->  					   struct snd_pcm_substream *substream,
->  					   int type);
->  void snd_hdac_ext_stream_release(struct hdac_ext_stream *hext_stream, int type);
-> +struct hdac_ext_stream *snd_hdac_ext_cstream_assign(struct hdac_bus *bus,
-> +						    struct snd_compr_stream *cstream);
->  void snd_hdac_ext_stream_decouple_locked(struct hdac_bus *bus,
->  					 struct hdac_ext_stream *hext_stream, bool decouple);
->  void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
-> diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
-> index 2a071a09224d..11b7119cc47e 100644
-> --- a/sound/hda/ext/hdac_ext_stream.c
-> +++ b/sound/hda/ext/hdac_ext_stream.c
-> @@ -14,6 +14,7 @@
->  #include <sound/pcm.h>
->  #include <sound/hda_register.h>
->  #include <sound/hdaudio_ext.h>
-> +#include <sound/compress_driver.h>
+> diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
+> index 3b250ee7f6a7..8a12c6347914 100644
+> --- a/sound/hda/hdac_stream.c
+> +++ b/sound/hda/hdac_stream.c
+> @@ -487,11 +487,15 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
+>  {
+>  	struct hdac_bus *bus = azx_dev->bus;
+>  	struct snd_pcm_substream *substream = azx_dev->substream;
+> -	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	struct snd_pcm_runtime *runtime;
+> +	struct snd_dma_buffer *dmab;
+>  	__le32 *bdl;
+>  	int i, ofs, periods, period_bytes;
+>  	int pos_adj, pos_align;
 >  
->  /**
->   * snd_hdac_ext_stream_init - initialize each stream (aka device)
-> @@ -367,3 +368,43 @@ void snd_hdac_ext_stream_release(struct hdac_ext_stream *hext_stream, int type)
+> +	runtime = substream->runtime;
+> +	dmab = snd_pcm_get_dma_buf(substream);
+> +
+>  	/* reset BDL address */
+>  	snd_hdac_stream_writel(azx_dev, SD_BDLPL, 0);
+>  	snd_hdac_stream_writel(azx_dev, SD_BDLPU, 0);
+> @@ -505,7 +509,7 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
+>  	azx_dev->frags = 0;
 >  
->  }
->  EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_release);
-> +
-> +/**
-> + * snd_hdac_ext_cstream_assign - assign a host stream for compress
-> + * @bus: HD-audio core bus
-> + * @cstream: Compress stream to assign
-> + *
-> + * Assign an unused host stream for the given compress stream.
-> + * If no stream is free, NULL is returned. Stream is decoupled
-> + * before assignment.
-> + */
-> +struct hdac_ext_stream *snd_hdac_ext_cstream_assign(struct hdac_bus *bus,
-> +						    struct snd_compr_stream *cstream)
-> +{
-> +	struct hdac_ext_stream *res = NULL;
-> +	struct hdac_stream *hstream;
-> +
-> +	spin_lock_irq(&bus->reg_lock);
-> +	list_for_each_entry(hstream, &bus->stream_list, list) {
-> +		struct hdac_ext_stream *hext_stream = stream_to_hdac_ext_stream(hstream);
-> +
-> +		if (hstream->direction != cstream->direction)
-> +			continue;
-> +
-> +		if (!hstream->opened) {
-> +			res = hext_stream;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (res) {
-> +		snd_hdac_ext_stream_decouple_locked(bus, res, true);
-> +		res->hstream.opened = 1;
-> +		res->hstream.running = 0;
-> +		res->hstream.cstream = cstream;
-> +	}
-> +	spin_unlock_irq(&bus->reg_lock);
-> +
-> +	return res;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_hdac_ext_cstream_assign);
+>  	pos_adj = bus->bdl_pos_adj;
+> -	if (!azx_dev->no_period_wakeup && pos_adj > 0) {
+> +	if (runtime && !azx_dev->no_period_wakeup && pos_adj > 0) {
+>  		pos_align = pos_adj;
+>  		pos_adj = DIV_ROUND_UP(pos_adj * runtime->rate, 48000);
+>  		if (!pos_adj)
+> @@ -518,8 +522,7 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
+>  				 pos_adj);
+>  			pos_adj = 0;
+>  		} else {
+> -			ofs = setup_bdle(bus, snd_pcm_get_dma_buf(substream),
+> -					 azx_dev,
+> +			ofs = setup_bdle(bus, dmab, azx_dev,
+>  					 &bdl, ofs, pos_adj, true);
+>  			if (ofs < 0)
+>  				goto error;
+> @@ -529,13 +532,11 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
+>  
+>  	for (i = 0; i < periods; i++) {
+>  		if (i == periods - 1 && pos_adj)
+> -			ofs = setup_bdle(bus, snd_pcm_get_dma_buf(substream),
+> -					 azx_dev, &bdl, ofs,
+> -					 period_bytes - pos_adj, 0);
+> +			ofs = setup_bdle(bus, dmab, azx_dev,
+> +					 &bdl, ofs, period_bytes - pos_adj, 0);
+>  		else
+> -			ofs = setup_bdle(bus, snd_pcm_get_dma_buf(substream),
+> -					 azx_dev, &bdl, ofs,
+> -					 period_bytes,
+> +			ofs = setup_bdle(bus, dmab, azx_dev,
+> +					 &bdl, ofs, period_bytes,
+>  					 !azx_dev->no_period_wakeup);
+>  		if (ofs < 0)
+>  			goto error;
+> @@ -560,26 +561,25 @@ EXPORT_SYMBOL_GPL(snd_hdac_stream_setup_periods);
+>  int snd_hdac_stream_set_params(struct hdac_stream *azx_dev,
+>  				 unsigned int format_val)
+>  {
+> -
+> -	unsigned int bufsize, period_bytes;
+>  	struct snd_pcm_substream *substream = azx_dev->substream;
+> -	struct snd_pcm_runtime *runtime;
+> +	unsigned int bufsize, period_bytes;
+> +	unsigned int no_period_wakeup;
+>  	int err;
+>  
+>  	if (!substream)
+>  		return -EINVAL;
+> -	runtime = substream->runtime;
+>  	bufsize = snd_pcm_lib_buffer_bytes(substream);
+>  	period_bytes = snd_pcm_lib_period_bytes(substream);
+> +	no_period_wakeup = substream->runtime->no_period_wakeup;
+>  
+>  	if (bufsize != azx_dev->bufsize ||
+>  	    period_bytes != azx_dev->period_bytes ||
+>  	    format_val != azx_dev->format_val ||
+> -	    runtime->no_period_wakeup != azx_dev->no_period_wakeup) {
+> +	    no_period_wakeup != azx_dev->no_period_wakeup) {
+>  		azx_dev->bufsize = bufsize;
+>  		azx_dev->period_bytes = period_bytes;
+>  		azx_dev->format_val = format_val;
+> -		azx_dev->no_period_wakeup = runtime->no_period_wakeup;
+> +		azx_dev->no_period_wakeup = no_period_wakeup;
+>  		err = snd_hdac_stream_setup_periods(azx_dev);
+>  		if (err < 0)
+>  			return err;
 > -- 
 > 2.25.1
 > 

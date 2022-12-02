@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D7464090B
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:13:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403A7640928
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 16:16:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC407850;
-	Fri,  2 Dec 2022 16:12:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC407850
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8AE11861;
+	Fri,  2 Dec 2022 16:16:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8AE11861
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669994018;
-	bh=v8tvg6vAeBgApAzccWiMZov4CD5WfpL8Xm6BZJmYC4w=;
+	s=default; t=1669994211;
+	bh=MVA22SgVccU7nYC02ZMmY1CiVHpLrTesbL06gzdzuEk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pKsP82sLN7yZZoKUAU0Ws6D0TxC6FXrFg86rECoePn4XCwUXwD536u4VBeJAfidEm
-	 I6mcCy4nA34O7BJHyjlIhCFmadm/OUyafcVb8xG33KpdXLbzivrFsyd5wjEDqXgCZu
-	 tJNIopMQLiPLSpuPaMXY1y94gRzvjMgyqPCXUPvY=
+	b=aJnSHQaEaxlS9LlaVLaEG9UaqstC3o7jCxkNkr4VgLWPl8OVlAhfdq1RkISXWeau/
+	 FDwDJ4wU9PUnmMCOnMG97g3sF0zSqAMPSZoKgSsWWiIOoeERyYck7XCZmv3E8bV8lq
+	 9z0klV4qa7JPz/v3zEatYtpyF9VCxdeiEKoH06bk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5971FF80571;
-	Fri,  2 Dec 2022 16:11:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4431EF80558;
+	Fri,  2 Dec 2022 16:13:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D351AF80579; Fri,  2 Dec 2022 16:11:49 +0100 (CET)
+ id BAF8EF800BD; Fri,  2 Dec 2022 16:13:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,URIBL_ZEN_BLOCKED_OPENDNS
  autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4336F804E2
- for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:11:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4336F804E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7131F804B3
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 16:11:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7131F804B3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="d4sACnPZ"
+ header.b="Q5dfW5w4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669993904; x=1701529904;
+ t=1669993905; x=1701529905;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v8tvg6vAeBgApAzccWiMZov4CD5WfpL8Xm6BZJmYC4w=;
- b=d4sACnPZxgQ2daG6miKAEP/Ze9gMmkhA3/YkD5gj5Cz8qhmr+8PMI9F8
- mLvMQsRDE800NneH5sut9m41SrG1AdEfwqVcl7Z1Q2HGzBenV+29surGC
- DJN1AYZY5c0upvYPFMmNbPynCu2ATxyl0+IOhqfxTFoim21M977ugRwDr
- t2jN9wE7lxAk1gRUEQg3YmCiG2IVCI9qLJyNCXDvR5Z3P12m22aq+8Yac
- 0RtoNu13rDXX8dTn5LDg914Nd9gkbrbGJVp3DHG/eXtP7Vnx8quhEwYFe
- qTpymWxSZqYEKYB5dQN1CdMxdceg3pSEbiZTkeywHpjYos52D+qzTtpgG g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251737"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251737"
+ bh=MVA22SgVccU7nYC02ZMmY1CiVHpLrTesbL06gzdzuEk=;
+ b=Q5dfW5w4UBb9yKQYVr+KcOGnL1u33RjNmviHSGXPiQnxp+KGumEkJT/I
+ bdfNFMEZwyR9B4C913gSbMksP8KVywAotBRnDUAERa/pzyRKSY6Kn+aut
+ 5qpfsU5Vnh5E4om7E/s/+nsnSnO/Lo3XVV0Xo62qajh5avql1pkru6mef
+ 5QnNwozVomN3LG0VZkpBgScR2VKlBHvP0NZ4CX0G7+yQAA9qUUKsjz/OA
+ Awf0aPZStwG0vl6lIO0nqdRe5pOP9MQkKtPOfDFSiT9jvoYPHBH330pGo
+ 1J2KXeX19tocx1kvVDti8rXsmZNrVOpm+uS5aHESyJrz0LdQzBZ2uTHW/ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="402251749"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="402251749"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 07:11:41 -0800
+ 02 Dec 2022 07:11:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504680"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504680"
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="708504692"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="708504692"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:39 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2022 07:11:41 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 04/16] ASoC: Intel: avs: Introduce
- avs_log_buffer_status_locked()
-Date: Fri,  2 Dec 2022 16:28:29 +0100
-Message-Id: <20221202152841.672536-5-cezary.rojewski@intel.com>
+Subject: [PATCH v2 05/16] ASoC: Intel: avs: Drop fifo_lock
+Date: Fri,  2 Dec 2022 16:28:30 +0100
+Message-Id: <20221202152841.672536-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221202152841.672536-1-cezary.rojewski@intel.com>
 References: <20221202152841.672536-1-cezary.rojewski@intel.com>
@@ -93,118 +92,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Simplify locking of firmware log gathering by providing single location
-for such purpose.
+Log gathering is already locked, thanks to ->trace_lock.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/apl.c |  5 +----
- sound/soc/intel/avs/avs.h | 12 ++++++++++++
- sound/soc/intel/avs/ipc.c |  2 +-
- sound/soc/intel/avs/skl.c |  7 +------
- 4 files changed, 15 insertions(+), 11 deletions(-)
+ sound/soc/intel/avs/apl.c   | 9 ++++-----
+ sound/soc/intel/avs/avs.h   | 4 +---
+ sound/soc/intel/avs/skl.c   | 2 +-
+ sound/soc/intel/avs/utils.c | 6 +-----
+ 4 files changed, 7 insertions(+), 14 deletions(-)
 
 diff --git a/sound/soc/intel/avs/apl.c b/sound/soc/intel/avs/apl.c
-index 7c8ce98eda9d..821d5a9ad25f 100644
+index 821d5a9ad25f..66672ffd95df 100644
 --- a/sound/soc/intel/avs/apl.c
 +++ b/sound/soc/intel/avs/apl.c
-@@ -50,7 +50,6 @@ static int apl_enable_logs(struct avs_dev *adev, enum avs_log_enable enable, u32
- static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
- {
- 	struct apl_log_buffer_layout layout;
--	unsigned long flags;
- 	void __iomem *addr, *buf;
+@@ -65,13 +65,12 @@ static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg
+ 	buf = apl_log_payload_addr(addr);
  
- 	addr = avs_log_buffer_addr(adev, msg->log.core);
-@@ -59,7 +58,6 @@ static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg
+ 	if (layout.read_ptr > layout.write_ptr) {
+-		__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf + layout.read_ptr,
+-				      apl_log_payload_size(adev) - layout.read_ptr,
+-				      &adev->dbg.fifo_lock);
++		__kfifo_fromio(&adev->dbg.trace_fifo, buf + layout.read_ptr,
++			       apl_log_payload_size(adev) - layout.read_ptr);
+ 		layout.read_ptr = 0;
+ 	}
+-	__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf + layout.read_ptr,
+-			      layout.write_ptr - layout.read_ptr, &adev->dbg.fifo_lock);
++	__kfifo_fromio(&adev->dbg.trace_fifo, buf + layout.read_ptr,
++		       layout.write_ptr - layout.read_ptr);
  
- 	memcpy_fromio(&layout, addr, sizeof(layout));
- 
--	spin_lock_irqsave(&adev->dbg.trace_lock, flags);
- 	if (!kfifo_initialized(&adev->dbg.trace_fifo))
- 		/* consume the logs regardless of consumer presence */
- 		goto update_read_ptr;
-@@ -78,7 +76,6 @@ static int apl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg
  	wake_up(&adev->dbg.trace_waitq);
  
- update_read_ptr:
--	spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
- 	writel(layout.write_ptr, addr);
- 	return 0;
- }
-@@ -140,7 +137,7 @@ static int apl_coredump(struct avs_dev *adev, union avs_notify_msg *msg)
- 		 * gathered before dumping stack
- 		 */
- 		lbs_msg.log.core = msg->ext.coredump.core_id;
--		avs_dsp_op(adev, log_buffer_status, &lbs_msg);
-+		avs_log_buffer_status_locked(adev, &lbs_msg);
- 	}
- 
- 	pos = dump + AVS_FW_REGS_SIZE;
 diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 8d05b27608fe..1c89af6240d2 100644
+index 1c89af6240d2..957151ecf39a 100644
 --- a/sound/soc/intel/avs/avs.h
 +++ b/sound/soc/intel/avs/avs.h
-@@ -344,6 +344,18 @@ unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src,
- 			 (avs_sram_addr(adev, AVS_DEBUG_WINDOW) + __offset); \
- })
+@@ -95,7 +95,6 @@ struct avs_fw_entry {
  
-+static inline int avs_log_buffer_status_locked(struct avs_dev *adev, union avs_notify_msg *msg)
-+{
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&adev->dbg.trace_lock, flags);
-+	ret = avs_dsp_op(adev, log_buffer_status, msg);
-+	spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
-+
-+	return ret;
-+}
-+
- struct apl_log_buffer_layout {
- 	u32 read_ptr;
- 	u32 write_ptr;
-diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
-index af8a260093f4..bdf013c3dd12 100644
---- a/sound/soc/intel/avs/ipc.c
-+++ b/sound/soc/intel/avs/ipc.c
-@@ -266,7 +266,7 @@ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
- 		break;
+ struct avs_debug {
+ 	struct kfifo trace_fifo;
+-	spinlock_t fifo_lock;	/* serialize I/O for trace_fifo */
+ 	spinlock_t trace_lock;	/* serialize debug window I/O between each LOG_BUFFER_STATUS */
+ 	wait_queue_head_t trace_waitq;
+ 	u32 aging_timer_period;
+@@ -331,8 +330,7 @@ void avs_unregister_all_boards(struct avs_dev *adev);
  
- 	case AVS_NOTIFY_LOG_BUFFER_STATUS:
--		avs_dsp_op(adev, log_buffer_status, &msg);
-+		avs_log_buffer_status_locked(adev, &msg);
- 		break;
+ /* Firmware tracing helpers */
  
- 	case AVS_NOTIFY_EXCEPTION_CAUGHT:
+-unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
+-				   spinlock_t *lock);
++unsigned int __kfifo_fromio(struct kfifo *fifo, const void __iomem *src, unsigned int len);
+ 
+ #define avs_log_buffer_size(adev) \
+ 	((adev)->fw_cfg.trace_log_bytes / (adev)->hw_cfg.dsp_cores)
 diff --git a/sound/soc/intel/avs/skl.c b/sound/soc/intel/avs/skl.c
-index dc98b5cf900f..ff690e99d960 100644
+index ff690e99d960..936cd44eb73e 100644
 --- a/sound/soc/intel/avs/skl.c
 +++ b/sound/soc/intel/avs/skl.c
-@@ -55,15 +55,11 @@ int skl_log_buffer_offset(struct avs_dev *adev, u32 core)
- static int
- skl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
- {
--	unsigned long flags;
- 	void __iomem *buf;
- 	u16 size, write, offset;
+@@ -68,7 +68,7 @@ skl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
  
--	spin_lock_irqsave(&adev->dbg.trace_lock, flags);
--	if (!kfifo_initialized(&adev->dbg.trace_fifo)) {
--		spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
-+	if (!kfifo_initialized(&adev->dbg.trace_fifo))
- 		return 0;
--	}
- 
- 	size = avs_log_buffer_size(adev) / 2;
- 	write = readl(avs_sram_addr(adev, AVS_FW_REGS_WINDOW) + FW_REGS_DBG_LOG_WP(msg->log.core));
-@@ -74,7 +70,6 @@ skl_log_buffer_status(struct avs_dev *adev, union avs_notify_msg *msg)
+ 	/* Address is guaranteed to exist in SRAM2. */
  	buf = avs_log_buffer_addr(adev, msg->log.core) + offset;
- 	__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf, size, &adev->dbg.fifo_lock);
+-	__kfifo_fromio_locked(&adev->dbg.trace_fifo, buf, size, &adev->dbg.fifo_lock);
++	__kfifo_fromio(&adev->dbg.trace_fifo, buf, size);
  	wake_up(&adev->dbg.trace_waitq);
--	spin_unlock_irqrestore(&adev->dbg.trace_lock, flags);
  
  	return 0;
+diff --git a/sound/soc/intel/avs/utils.c b/sound/soc/intel/avs/utils.c
+index 13611dee9787..75ad434d7dfb 100644
+--- a/sound/soc/intel/avs/utils.c
++++ b/sound/soc/intel/avs/utils.c
+@@ -301,14 +301,11 @@ void avs_release_firmwares(struct avs_dev *adev)
+ 	}
+ }
+ 
+-unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src, unsigned int len,
+-				   spinlock_t *lock)
++unsigned int __kfifo_fromio(struct kfifo *fifo, const void __iomem *src, unsigned int len)
+ {
+ 	struct __kfifo *__fifo = &fifo->kfifo;
+-	unsigned long flags;
+ 	unsigned int l, off;
+ 
+-	spin_lock_irqsave(lock, flags);
+ 	len = min(len, kfifo_avail(fifo));
+ 	off = __fifo->in & __fifo->mask;
+ 	l = min(len, kfifo_size(fifo) - off);
+@@ -318,7 +315,6 @@ unsigned int __kfifo_fromio_locked(struct kfifo *fifo, const void __iomem *src,
+ 	/* Make sure data copied from SRAM is visible to all CPUs. */
+ 	smp_mb();
+ 	__fifo->in += len;
+-	spin_unlock_irqrestore(lock, flags);
+ 
+ 	return len;
  }
 -- 
 2.25.1

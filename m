@@ -2,106 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 375CA640784
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 14:12:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B12640785
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Dec 2022 14:12:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD41C17B4;
-	Fri,  2 Dec 2022 14:11:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD41C17B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF18A1820;
+	Fri,  2 Dec 2022 14:12:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF18A1820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1669986751;
-	bh=p4GYPrcLemfL1H4zQdK4YSafqKxYl8uzcCcsuNR5Mug=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RrnSFEAPIvImykuRkwlN0Cn/dgGSGu+JsndXb9eYbzny0DopBhlqW/Dqnib5zLkym
-	 2oAOYgtbR1/enryaFzqHGm+cko9rGj4mi90eT1r5oxHPcilrRTInVoB6Y+7t85yO1o
-	 VmVLDNdmkuRvAkLErg/6PaZtV8AjU9Cog4jFUIQg=
+	s=default; t=1669986776;
+	bh=RaWutj1hAjbFchST0UEEck3QPAAGMQvhqaD4EVAXFS4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SAkc1QERvBy8Q5FGAxIfz4BWX2aZQcoP0sN1Yhgq61Mp+WW5cky8XMe9PgNeY7el4
+	 4NgDwThMShjCPA/pc79eryCHqoRc/b5HVZcx1ezeKhf0uz5sRTKe6OnHxaxxVh1XTu
+	 6jmUTH14Ai7OYiHlLL8nlsC4pSoU/kv145yChdwo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7458BF8026A;
-	Fri,  2 Dec 2022 14:11:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1740AF80557;
+	Fri,  2 Dec 2022 14:11:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BCD8F8028D; Thu,  1 Dec 2022 19:43:30 +0100 (CET)
+ id 7548AF80310; Fri,  2 Dec 2022 09:29:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, PRX_BODY_30, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FDB2F80116
- for <alsa-devel@alsa-project.org>; Thu,  1 Dec 2022 19:43:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FDB2F80116
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="a2BoPen0"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01olkn2081e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feae::81e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id ADE6A620C3;
- Thu,  1 Dec 2022 18:43:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208F8C433D6;
- Thu,  1 Dec 2022 18:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1669920204;
- bh=p4GYPrcLemfL1H4zQdK4YSafqKxYl8uzcCcsuNR5Mug=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=a2BoPen065qBe8Og5canw6L1zfhJNTp7AhJG9KCJ6kiqz0PbaFOGVhFTqYEHLQC/3
- txrNOo/kDMMWMmzGqvPwfOzgrz6vwm2Q1DicWoYbq+xwADN5A7BOVkCSHc8BU+fkbm
- ahiTJmpUWGq4d9z7eAd6F7xiHvrsPEH9AaFENflI=
-Date: Thu, 1 Dec 2022 19:43:20 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Matthew Wilcox <willy@infradead.org>
-Subject: Re: [PATCH 3/5] driver core: make struct device_type.uevent() take a
- const *
-Message-ID: <Y4j1yPD4Ypze7jx5@kroah.com>
-References: <Y34hgIW8p1RlQTBB@smile.fi.intel.com>
- <97be39ed-3cea-d55a-caa6-c2652baef399@gmail.com>
- <Y34zyzdbRUdyOSkA@casper.infradead.org>
- <Y34+V2bCDdqujBDk@kroah.com> <Y35JfNJDppRp5bLX@ziepe.ca>
- <Y35R+/eQJYI7VaDS@kroah.com> <Y35YlI93UBuTfgYy@ziepe.ca>
- <Y35dMIaNYSE0Cykd@casper.infradead.org> <Y35enjI+dhhqiG3B@ziepe.ca>
- <Y35ftyYlE8FX8xQO@casper.infradead.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A80FFF80162
+ for <alsa-devel@alsa-project.org>; Fri,  2 Dec 2022 09:29:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A80FFF80162
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
+ header.b="YZrgIQq+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h45j8ak8pCMvptvI54apD+z4bL7vyr+EAoJkHF83PIGWhLI9KY5h5XNSGynQXkctg8S9GQhUyix9FhtK/BGOQzJbYi8Qy1Zjijw+VrO6vDdPtQGBvKFZRWRVYGDYRmY/asRA4fj5LUh8P0pfrnBVH4fkT6H8Kvww2SCLYWaufVQffyAUSs6Ef+y8mcEyy6uHefEfskGSX08lqqrY7rOKY/hGCezDXDRDk1seZoQ/5h2JWn2k/bgCH22uQbebembjDcYJaETt3PfvBd3ygRMtP/bw5kxjuu2LsqeqJMHfElQRxYL7VOSnvpopz4fzMbktRvOxYylPF3c6w0fFktnpcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9HcybZ2vfQ+EwoEYW4hg8k8tIiUXVbxURLLrGUvdwNY=;
+ b=GTnOYSgYTJ5v8XBOar5pgpBASuBLVthYlsGapl+gwcLixGbiJD0d42dP47aDHkePYWntrpkzYFLFFFe7Jz0Si8gf7x2/ISLTyxJFe7ohuwLf9HLdOBma2hd6yClzV+44YaubHlqLo4kxiWVaaMxLxzSanqfsoMUL/I2A8oYz2IeS4pe8mD3Z0b/MkW/8i8yafkJ/UA4TkBkQaKWXaW16fsBX22cGiVmeQZNP1q7fDMBqppWp2gngy/ox1u0rjA9+UcYYqdKQ1eI3wrldF0jPfv1rURDZROHylfV7931Xo1wU5wrqvbtYQjKc/1ckox/KW+Hhjokoyj62PTouS84ghw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9HcybZ2vfQ+EwoEYW4hg8k8tIiUXVbxURLLrGUvdwNY=;
+ b=YZrgIQq+1c4SDuGhqzajKt+DeA52mJuGAd8IGQIaZMqMSrARIh7lXJw4BPDmmsmcmS1cFVNu5V0fMK9OtDrxDZ/h2r04uA8znXkzeqqhILI3bjav7XYRpNm19e3bwwJzpGsTX8hsjE8YUm2E1q9HGGO0+9WhUJysGPI/FqhPWtcT2bnzUAHWNjEYrWY+nqHHwaH+qDPFWcrlwRaKdZ95zq34WkDzDSp0xQguS8bpPzivJhVP6J/i/0/OrMbjcXNY773vpQJ0tdKav+moRJGnYZhH05n7O0m76+eAPPOv1UvwRGXLXBp4nQZt2Krux9adHeT8s4eWyINkk1l4SOTr2Q==
+Received: from SG2PR02MB5878.apcprd02.prod.outlook.com (2603:1096:4:1d2::9) by
+ SI2PR02MB4522.apcprd02.prod.outlook.com (2603:1096:4:109::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5857.21; Fri, 2 Dec 2022 08:29:29 +0000
+Received: from SG2PR02MB5878.apcprd02.prod.outlook.com
+ ([fe80::2c81:c803:d49b:eebb]) by SG2PR02MB5878.apcprd02.prod.outlook.com
+ ([fe80::2c81:c803:d49b:eebb%4]) with mapi id 15.20.5880.010; Fri, 2 Dec 2022
+ 08:29:28 +0000
+From: Dicheng Wang <wangdicheng123@hotmail.com>
+To: perex@perex.cz, tiwai@suse.com, sdoregor@sdore.me,
+ john-linux@pelago.org.uk, hahnjo@hahnjo.de, wangdicheng@kylinos.cn,
+ connerknoxpublic@gmail.com
+Subject: [PATCH -next] The USB audio driver does not contain the VID and PID
+ of this sound card, so the driver is not loaded.
+Date: Fri,  2 Dec 2022 16:29:08 +0800
+Message-ID: <SG2PR02MB5878D3E800F2D571A7C2234F8A179@SG2PR02MB5878.apcprd02.prod.outlook.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-TMN: [456Z0W/WKjSUg/mAEv8OI1fVDlW5lOi65hvD1mi52zI=]
+X-ClientProxiedBy: SI2PR02CA0029.apcprd02.prod.outlook.com
+ (2603:1096:4:195::6) To SG2PR02MB5878.apcprd02.prod.outlook.com
+ (2603:1096:4:1d2::9)
+X-Microsoft-Original-Message-ID: <20221202082908.290632-1-wangdicheng123@hotmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y35ftyYlE8FX8xQO@casper.infradead.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PR02MB5878:EE_|SI2PR02MB4522:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9c38405-167d-4915-c8e0-08dad43f5427
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2vEaOTpHPClu+fGxcvAMh2DUqh/pddLKzjOb9LJg8Qhgq1r9yMhrGdmKMbhLnQutCBl7YZCQO/cvPWU7cmE0zdg7FFHpe4hS569FKUQBKcrhUpiw18f1WwKsjnaXCUbHnYBD3k+Dl/xGYyAxum750XfrYmhglb7YWjzpEQ7Wm+yjbb9Sj3RB2WSlDn2CbzF4foXkRMw5ztA8dOeS/3mwPrcxI22CX1gdUYxcK7Q0Ffdt95OHDJMNCkxEOFCzgaTP5WhStT/q8XkAlHGCBGl1cARJIvfekPKzaf8no7KMYpthdrx0UtC2m0mTZqIiOcUVHrqDkQdbQunZBW5TnLY5bycWoq6OeEaeT330JGMyzEtd+i7bThdJk/meiIcpZqAiyTi3j04KwFgCtCglfgQUzi+78Wo2tvqPpisFRlWgJhY4gJvv6rdJdxYSS5g+mEQtVfRQlClP62h+stay/0dFkkxcRkBGHkXDdc8SPlfpJaN64aLcDlFoXv2iQTmKcoqdfyZCaTepqqof3HHAnE2wV5z/mHoBBEmuLa+6PLnq2H0fEjX77u9eRZWxtyn7+NM5QOdj4wANLBTXdQ3SBjDz8p+R+PDuDR+b0ykbTDTt4j8=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VUOn0T5R7Z76wQE/lCxtAexn31SPkWYwCW/LbYJEHlW+jAW7umvlumvyA138?=
+ =?us-ascii?Q?AWsCZjq816U2jnGH3GUvpif8eU+0U+9BYiViE3irlKk6zXRyuSTdm3PDkO2I?=
+ =?us-ascii?Q?djl4PrYlW0ApOms48gXL/FgcBhrrvhgmXEL6F67KBfGmPT1yOcNJnI9JQiBo?=
+ =?us-ascii?Q?BhouX9eYEm9cFAF66eMKS14t2AFzZwAh2TUOVowvjkVPuQlKGVsEUJFPagdC?=
+ =?us-ascii?Q?CR+Hb6N/+ObsEHln5ttcdCHdcOGmzG2BHbkOfBYr8HDqK+KnXcpkc1CCiecz?=
+ =?us-ascii?Q?Nn/mEQznbUApYcjOLsjv+jRJfNS+e7UBQ62edAGe3FmXs10PcMg/hdSfA0nX?=
+ =?us-ascii?Q?zykUqMmEkCYBiWbcCZxEN5z6s4a8//Bq/VdbjpdOb5BOpGDi/PJ6sSnv8GHU?=
+ =?us-ascii?Q?xS0ZqXZLwau2GDUHOJYWoZcjzYQofiKfK44joRi7CfMvigLgdLYR16f8oOM4?=
+ =?us-ascii?Q?do5M5K5phJGnq0i9gqQX8Zbprus/lghhZ/3eMsGQHjFEq6P6ZStmN7AOiTC8?=
+ =?us-ascii?Q?QR+jNVVClGpjHkz6iYVs+tkbAyVdX730G2plVJrnXD0nQp2k9MQMOAdueEPB?=
+ =?us-ascii?Q?+5EZpAnZRk/EupzlkQr/B1TYMS/4E0DJzLIeTKVynMzZDv5emtmDIwa8mj/2?=
+ =?us-ascii?Q?iacozFTIWDSV1uOnLS3bCn4yr1gxDNy7DmyWPUdWkFvSWaJgecUgNMhBC18S?=
+ =?us-ascii?Q?uPotbN+W9cKUU52sEm54wnXftgSoEBMazAxfK+93cyy9CWvnEWZ1lQkHoWxk?=
+ =?us-ascii?Q?RIvdreoiFHvQMekQRIqlZtLbHhKCZmpqlHy8zzqfycosmQ04e2BBDqnzNjV4?=
+ =?us-ascii?Q?yFGqcl5KfWlJr8pSTEBdjCAhZUlQXBFLA+cgAZAkeP285HprDz4VRPaA3voW?=
+ =?us-ascii?Q?NmH0236gwYkmv0pKG7wdFbgc+9ssfIyfinsoo11xY4baTYa2NbHnGOihNOb7?=
+ =?us-ascii?Q?yrbfl61f3KnhDCpkLE+VSq7i6Au22zsEfBuLurl+umfSxfE+yHYrLjVXjae5?=
+ =?us-ascii?Q?uJcPvXmw8Zp5JJRCoflQuVxkgCM0/CwsCae9WB/Lled6biBuHpOaCWkUAGmx?=
+ =?us-ascii?Q?rw01uO1FPltRnN8AEvhGBQgLD/YNq0QEjhtzm8L3USE9T8YNNIs9A8KgwQOJ?=
+ =?us-ascii?Q?BOZIe6WOic/tv0I3diUM6tjQzrf576POo0Clmukk53iQiQ3R7B2QGKJlQoUX?=
+ =?us-ascii?Q?ih0f75RJqb5dLg4dztPbL52hu3m1gHnMoWO/jM2kI0McHrUJordo73lxFK2L?=
+ =?us-ascii?Q?A9OoHjUFgsoEm/pMe/Tvb/BxIuoPirhEylJWGoZi9+3VPWHebHO/JXQpPdG2?=
+ =?us-ascii?Q?KJc=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-20e34.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9c38405-167d-4915-c8e0-08dad43f5427
+X-MS-Exchange-CrossTenant-AuthSource: SG2PR02MB5878.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2022 08:29:28.9236 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR02MB4522
 X-Mailman-Approved-At: Fri, 02 Dec 2022 14:11:34 +0100
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sean Young <sean@mess.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, alsa-devel@alsa-project.org,
- platform-driver-x86@vger.kernel.org, linux-i2c@vger.kernel.org,
- Andreas Noever <andreas.noever@gmail.com>, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, Frank Rowand <frowand.list@gmail.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-acpi@vger.kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Alan Stern <stern@rowland.harvard.edu>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Won Chung <wonchung@google.com>, Len Brown <lenb@kernel.org>,
- devicetree@vger.kernel.org, Chaitanya Kulkarni <kch@nvidia.com>,
- Ira Weiny <ira.weiny@intel.com>, Michael Jamet <michael.jamet@intel.com>,
- Ming Lei <ming.lei@redhat.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Jiri Slaby <jirislaby@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Jilin Yuan <yuanjilin@cdjrlc.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Stefan Richter <stefanr@s5r6.in-berlin.de>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Yehezkel Bernat <YehezkelShB@gmail.com>, Sanyog Kale <sanyog.r.kale@intel.com>,
- linux-media@vger.kernel.org, Maximilian Luz <luzmaximilian@gmail.com>,
- linux-usb@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,35 +139,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 23, 2022 at 06:00:23PM +0000, Matthew Wilcox wrote:
-> On Wed, Nov 23, 2022 at 01:55:42PM -0400, Jason Gunthorpe wrote:
-> > On Wed, Nov 23, 2022 at 05:49:36PM +0000, Matthew Wilcox wrote:
-> > > On Wed, Nov 23, 2022 at 01:29:56PM -0400, Jason Gunthorpe wrote:
-> > > > #define generic_container_of(in_type, in, out_type, out_member) \
-> > > > 	_Generic(in,                                        \
-> > > >                   const in_type *: ((const out_type *)container_of(in, out_type, out_member)),   \
-> > > >                   in_type *: ((out_type *)container_of(in, out_type, out_member)) \
-> > > > 		  )
-> > > 
-> > > There's a neat trick I found in seqlock.h:
-> > > 
-> > > #define generic_container_of(in_t, in, out_t, m)			\
-> > > 	_Generic(*(in),							\
-> > > 		const in_t: ((const out_t *)container_of(in, out_t, m)), \
-> > > 		in_t: ((out_t *)container_of(in, out_type, m))	\
-> > > 	)
-> > >
-> > > and now it fits in 80 columns ;-)
-> > 
-> > Aside from less letters, is their another benifit to using *(in) ?
-> 
-> I don't think so.  It just looks nicer to me than putting the star in
-> each case.  If I'd thought of it, I would have done it to page_folio(),
-> but I won't change it now.
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Ah, but your trick will not work, that blows up and will not build.  The
-original one from Jason here does work.  _Generic is tricky...
+Add relevant information to the quirks-table.h file.
+The test passes and the sound source file plays normally.
 
-thanks,
+Cc: stable@vger.kernel.org
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+ sound/usb/quirks-table.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-greg k-h
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 874fcf245747..1fb183895da0 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -2802,6 +2802,13 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 	.idProduct = 0x1020,
+ },
+ 
++/* Ktmicro Usb_audio device */
++{
++	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
++	.idVendor = 0x31b2,
++	.idProduct = 0x0011,
++},
++
+ /* QinHeng devices */
+ {
+ 	USB_DEVICE(0x1a86, 0x752d),
+-- 
+2.25.1
+

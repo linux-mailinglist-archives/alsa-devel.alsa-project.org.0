@@ -2,135 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07217644524
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2998D644527
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:59:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 952BF18E7;
-	Tue,  6 Dec 2022 14:58:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 952BF18E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA23118CD;
+	Tue,  6 Dec 2022 14:58:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA23118CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670335132;
-	bh=sx5+KXUP8Y+FFoz03b8FePEJmkx2XTNr9yRPFUuTYsI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QqkSfWM5ES/Rf7TGzqxKdAlbGaST7quqlReVYoj+rPGMvKAjOTm6NB+UYJUf0RJsv
-	 fjMaWs0imKM9G7+WcGJVbWq08JiTP1EGPn1r3D6ze87TWa2g55XdRnO+uomD9Ka5q0
-	 KsXQ4C+4eTNtvMotPb/g0LdOLPbcqSgNGlbJeGHI=
+	s=default; t=1670335145;
+	bh=TDMtuIw66n1/32kerpv7wVaqyX5b8LRtqB1sttnaodg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OtbiUvWyZJoJxQqTW7cc/9EU3PU10zTtcg2r0z0c90XDBAy7JIUusgO1fpNWpLdwv
+	 bFIYhawlRdCGI9HHdR5nokuYJOGDJnbz/59RABe66sFxg02CRnGoTkPTWV5idZ7dfG
+	 jSTjcLhE0nKh2CrHZihaurYtO8Q6IMhYT+rXw2nE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 335D0F805E4;
+	by alsa1.perex.cz (Postfix) with ESMTP id B3565F805E5;
 	Tue,  6 Dec 2022 14:53:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE135F800BD; Mon,  5 Dec 2022 16:37:35 +0100 (CET)
+ id 9970AF80236; Mon,  5 Dec 2022 17:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01olkn2082f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::82f])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17B98F800BD
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 16:37:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17B98F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 474FDF800BD
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 17:37:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 474FDF800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
- header.b="goRXTvDY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g4qbe3q5GUm3+djFxGLY0FHhc1fl94A/l/I18KWxQS6c5a7kO2tpTyGpSuie1zbjsCQNn9dbs9uVCDgPdyDRtrHBT48xOFmFULzB1Qc9MfzUMJkxMp7o+Lqz3/LHrrkp7lymZSVecOjeMEHb98xgQBYeeGsqDpECIFDY92iLZi5ypPKyF7w0DZIOrwWhAest8gN6Xf5p7fK7MSNJVAMT2nXGsBpQricxVYTvq4V7zt3II+puSDAHPigVsDKWQfJlNr3SCWIKUw3QeNVoNC5pJaBhC7Un6kKmWhw1pueqR2djj4K6NNsOud6KyMjwv5Q/ZCpDGqYNZqAqmtYcRY2zyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C8XYQmGsFxifbE4krxLLsTBSxb5z+JZd35HhshTCv/A=;
- b=PVbUPuKlXpU8REE3ZpCaUjuZ3sBGMksG2vWr0nZGL5vng74+f1al3/NJnthVtJQH4ErDvVCcCFdulvDhhvtIzYqyokZlyOJPJT6C8l4NNiXs+7vhqjLRLAl1HDCzPMS+vlJMs6sU4+2/or7kU48KLVJrEEOxN4LVvE8pJyeWjlIq3boBxodptcvcHM2xw/6/XGVRaNnCilHUUSDhF88k6xR6PdX+CLixqd4syZu47HCz7cAKGexnIUqV+rcHGpvd/XHt4CuLT5xc84+m4NqtbvHacQhb5zXSwKgPSPWChHS//jX5EbTPQEiQXi7cJUjka0CPd5zwH53chDLTeNB0ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C8XYQmGsFxifbE4krxLLsTBSxb5z+JZd35HhshTCv/A=;
- b=goRXTvDYD25aH8m7HwC2u7COsS9oiRP7W8ZY6/pyNbXG1qxHyqFZQwXHuW9vCqxYezW91VzZ3LjTmPMOxBsD7Ojn18A0wfTrpiETCol9gT+xBDNiC/lWBeklU50P4qKYWXA8wjFpvQ0eCY9agiB/mr6uTf6dJ9h6y8TeEKHwmbe7ZfB3Z9lia5TSzgICj/PX9WXukyPMrabJs+2zVk1uCfav3TIr2k/yuKa7Y6Y+ERPaECEWYU8LIRnXz09J0f0c2JRMKMy6edQv71wUvf2am/5gh+OgUCaqS/ynTQNr2tvWZugwLZLjAbi8oDCkGoy9lXof5+JzIbDEIULQhux2Wg==
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:152::9)
- by TYYP286MB1787.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:f9::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Mon, 5 Dec
- 2022 15:37:22 +0000
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605]) by TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605%5]) with mapi id 15.20.5880.014; Mon, 5 Dec 2022
- 15:37:22 +0000
-From: Dawei Li <set_pte_at@outlook.com>
-To: gregkh@linuxfoundation.org
-Subject: [PATCH 6/6] soundbus: make remove callback of soundbus driver void
- returned
-Date: Mon,  5 Dec 2022 23:36:44 +0800
-Message-ID: <TYCP286MB2323BBFCE929111043E60D3BCA189@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221205153644.60909-1-set_pte_at@outlook.com>
-References: <20221205153644.60909-1-set_pte_at@outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [WWyl4X8Xy2TdiUTL3/a5BJJAkOeQUgge]
-X-ClientProxiedBy: SG2PR02CA0046.apcprd02.prod.outlook.com
- (2603:1096:3:18::34) To TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:152::9)
-X-Microsoft-Original-Message-ID: <20221205153644.60909-7-set_pte_at@outlook.com>
+ dkim=pass (2048-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="G8cxqjXg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
+ t=1670258256; bh=TDMtuIw66n1/32kerpv7wVaqyX5b8LRtqB1sttnaodg=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=G8cxqjXgJYTsALawOim/atZZlgv+aNJVQHvDBAWTG94qiapYt7EHeTXjgRcZfL5i5
+ 6ZisZDJeouMdgyPfaL6Va/aCTTitkhsTHdK4wSYh3b2VNEy1srQF4ybtn5ntwV4k10
+ hZpCL/djGKjXmJVSiff8WcSPX60GSJc2Dw987Et04D+GXDoqtNEDKVBBrrwmF/jF+t
+ EqGV8suyiOxlaqyoAFKl4k8zWQnXEDRsddpMwuNCkEpd3tjDRXM4i7TygnjNSXpOZc
+ Wn6Fe/kl4QFBymlyAGKdTcRiIm5eq5I0QGSgtEzxhjFZy9pnSn5OAqYVCAN5OrRkgE
+ xRQ6BS0qPrlVQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from yoga9 ([46.114.196.142]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M8QS8-1p6cBz3XZg-004TXg; Mon, 05
+ Dec 2022 17:37:36 +0100
+From: Philipp Jungkamp <p.jungkamp@gmx.net>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ALSA: patch_realtek: Fix Dell Inspiron Plus 16
+Date: Mon,  5 Dec 2022 17:37:13 +0100
+Message-Id: <20221205163713.7476-1-p.jungkamp@gmx.net>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCP286MB2323:EE_|TYYP286MB1787:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54577305-65dd-4f2f-4d1a-08dad6d69a41
-X-MS-Exchange-SLBlob-MailProps: /OoUGmN/RpVKD6y7RJd2fRTadJ6Pq1ot8vlKKmA/hNHf/9uXSEfxNcy1cE9dsFBTSU4rE2OHL/YSf/94pMqv/IC1U95CqFfOvuXoXCzOFsq1S8gJM/GNIgTLxNY8CXbn/hAfm9S8eI+3vaesaIP+Rv2/iB3t3j786KjU5NDoaNXNpP2SfqwiA0VTUzZS9wqefozxmQa1Qfnx/DdA/NqHMzcmb4WkUbWC9wk5Un/UBg4FPZE0RI1leoxhJbyN7vLubLcR9pyi54bq2f0Qx+1nngufqtBcAQWC/XEFeyFrm9j90ixn9rsoofeIhdDAU3WJ3GQ8aGvm2E2lkO37uImtIraQ+SF9JEr45aybi5nuw6je2FgKr0F1u1G5B66PNid6IknTKzvgmHpynLEfl8JgMwOPFymajtHhhrHaDSkSjZSlmgZaI8i4yWBN+5ZNYSW6jlkD2+LtkfwY729x7PCuEDY2sY+b8E7bF/Pbahq5EQtQua8gutUhKL+8ScpGXqtTUvpC2RIm2SWzS3GwqcoPr16SkxnoxAq4cPCQd2/qToH496Br1VWVRnL2YH954QA8uY/qJED2TaQBDuB2WEzI1Gh4LAGBHuBZep9fMGcSvM/KNwkX68Yu4iW/+3gBQ3ItHzISBHDYno5UN09+MGuiOdDR+YAL2/0nFPqB0faWZ/TMrqM9JyEaPIn/UJvkkTxsMULetGzyGgXtsJieSeUYagPJYKaltdxKEYlUJWzsGBlpZv34x1Z4BVYAMdc+GL2U
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0zQ/1p94AxsYQNCIY71ncaAalqnIBL26GIUPx4Nx1LEit8C69gJyGYYfdv5wtBBt/5LkqF7FJ3/HcWJhztDzZQ2Q35BIYgTpl0iz8UnIgLW7OyfElPTusolx1OFrbX1kZjcd5R72BWVnuUdTQhFdQqx6vMUETus0B4h95CTTD4cH+s0bQ4GXl3RdC31Ak1X79Olq5kaKOoBAyooJVJi6ckZV5OC5YjguKt3qhfkpi7Mj50LgYoZx2gVHsz0kUDjQe6AGDaT+eAKXe2wvwfcmk5Vd9rnLS11EN+nFJ6X6lge+q0J3p5vdwNjAqgXc8Vs85E1oevZgHTyGrRIa7DOezgF8c1DaMxwtU3wBGoN0Sjm0FT3Yplzt1SHXnnT4KivFXSysvP71MkgBlY1AEyRx40lKSzI1A39XoRqRsis68LhqxbjdknJgEhpLnP3cpfaLlHcTlfZOTqI/ipvbjUUF8ZgR7cu7rFoyxkj7kSUgWLD+joX/U8N9xbsCrfwVAyWsDB7xfPHmgFuEqolRlfydckcbPtHbTI3/bl6WUqyNc/g/EFPHPoyoMlzv42bNBH+fFPbqgaz3H6DSj/+ViiUy9VPKRMdOMVybBrSWjYorefODeXQ+AiIUSS9Cln3Mf1CtZiPVSXmn4XQ3ADQz9KLoTw==
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Y9FBxjtsf/d3x6C+Cbl4Z7xezNuEyGWC64Z3rvpZ6h12emPWw6ZNgonBCu9j?=
- =?us-ascii?Q?e9hbNhkhGUR6M7gMFntho3lmT+tswhmZW7MuK4Y9iHwcrwikVYr3J/2liZcD?=
- =?us-ascii?Q?BdZuksVpnxij4ZAp2Y2O9V/b4/uuXPp1A1+6Pqj95AMqSO6wKqrTJh8uB0Si?=
- =?us-ascii?Q?LjzDvdXIawHHEAJdMXjPpJORT3pGEnI4YxdtkpRwV/1jXzA+W3oVEBD4tO2S?=
- =?us-ascii?Q?3Ov8wMr10c7FeJhB2E9PDqutd0P9OFwL7brgV1/G7aDSw9POMkACI05CRibc?=
- =?us-ascii?Q?s/YRMi0CQoq67VFzZJeJ/edxKBzbPkjP3RZuGopI8XkQZ5o5lYbIMoZG4Ojn?=
- =?us-ascii?Q?5uJFwfthlCJ1Re6aD3MN/l0m6PaAypeHLQKWwiu5onXx09mmIXOvcjKlEsrg?=
- =?us-ascii?Q?wbIAOvCHcuDOs/NT2OvefotDXZ2pibo+4u9p6arI0UB+S08g9nBOW+rV4YVm?=
- =?us-ascii?Q?Ed6gnoNfL6WDfJCHV3/5TsLAx0d1qbPwykL4KFX13KJZvny4jlUFDk2nLktm?=
- =?us-ascii?Q?HJdnoW77QH+PJxtzPHHADiJNgA4Wa2rNXHrXqaWmjwBrnyWp+/gnyXVBVrwW?=
- =?us-ascii?Q?bxtJwgCxoedb2kc+Y60R304N1GrKNXl8L7skGpf8stX4BLBmzJ4KcjPK0HSP?=
- =?us-ascii?Q?DQZ1ym2KWwhhN7rpWAOui849zmhu6q5EYd7IQo2aZl8SJkB24QRa/TAgfioV?=
- =?us-ascii?Q?gzR3imIJ56iuoD8gMP92WQMVDsvjHmuqFW78TfHl538TuajkgS/cHrNG1Exx?=
- =?us-ascii?Q?10YISMUN0pXgpwS+a92G5+J2cKNwixh6Sn8VQRIGU1dvPQuXO6QEDIcU9pnc?=
- =?us-ascii?Q?wiBpOagdQlA5M01X2pFGX8Nj/pgoZMpXCd8suT5+3kC6rBqNwWzdIfuuvbk4?=
- =?us-ascii?Q?VjRktKthPnjRzj64racXptvKaFtwzpj70v00xypt7i5VHTPO6rmI/Yu8L9yc?=
- =?us-ascii?Q?NP50av5UOZUxDNTxSJVD/UBWo6zwxthv9lWhrktxI+QmmeQJ/6Jaj/lT7aeo?=
- =?us-ascii?Q?h88b0EsOwUoppvWv9kr7bBm/Ls3OkePfn9BueMrX9pwi7QYAJUPZw09CGL9O?=
- =?us-ascii?Q?JTnqBz04wFUogMjBcCjHb1rRnQk57SpdeHwY3aX4sP67vDiHoubFPUp7dQ8d?=
- =?us-ascii?Q?2n7Lbod3N6gvzmJ+FF3hoQG+8RQWCJoIMdfTg63LviXSz0gBiEIeDmCYu2ZK?=
- =?us-ascii?Q?dnlA1vFw5Oxn07Xjd7LV+oXw/Knwqsw4uTgzFtUPw1SnAurDXyXOyzs/Irum?=
- =?us-ascii?Q?HIJHI50/Mb+LGZGpcseB9SNY7nW6fPpSlk/WGTKzAg=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54577305-65dd-4f2f-4d1a-08dad6d69a41
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2022 15:37:22.8631 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB1787
-X-Mailman-Approved-At: Tue, 06 Dec 2022 14:53:23 +0100
-Cc: jgross@suse.com, wei.liu@kernel.org, sstabellini@kernel.org,
- linux-hyperv@vger.kernel.org, mpe@ellerman.id.au, haiyangz@microsoft.com,
- linuxppc-dev@lists.ozlabs.org, decui@microsoft.com,
- alsa-devel@alsa-project.org, npiggin@gmail.com, linux-kernel@vger.kernel.org,
- oleksandr_tyshchenko@epam.com, srinivas.kandagatla@linaro.org,
- christophe.leroy@csgroup.eu, bgoswami@quicinc.com,
- xen-devel@lists.xenproject.org, johannes@sipsolutions.net, kys@microsoft.com,
- robert.jarzmik@free.fr, Dawei Li <set_pte_at@outlook.com>,
- roger.pau@citrix.com
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Xn+yN3D8E3HoB6TOrMrwMwzklSkbrClxzOjMWaho3V5jEABIGYK
+ x3FG42KWNIXSr/0EaREke+P/mmqKaPzubf1+syyNUDwXci/1efs4mPoTrYouFalpY0rTKrb
+ poLOzYzaNeI/hsHy6KtdS9M1w5uygL3aBIpUS2wNF7P3gnsp287a1UCSAWavnA7TNo+4I6d
+ 4SMVjqxMnmYQYLrjzjoeg==
+UI-OutboundReport: notjunk:1;M01:P0:reHec01F1uE=;rdQLzPmAIpwAMiK28d3yTEX/FzG
+ ErhjF6GqQKTUP2RtpfhCF2XjAV30R/rArxhY/iglCd1sX9j3Y9y40SJVnqfxSSgatws8uQKaq
+ FGuypdKCpRQdjPT39ml5Lv+jv+207Wv3JIQvQywelGmm1OawLp3xi3YeVKNWX9ynGDx8UvUp2
+ NdVOMnCXM6HZEDL6ZaTVb6z+jcKwSeWMjE+vy9ZNNOOn26r8tcqHvd7sebcqjS4ltwCDhhWsC
+ bNOuuCtC6jXRaQ5K/msupFYOzE5wFuGhX0iMvFF05tHHcfW2rEuncbEJzFF6ZInavJWDQvSFM
+ Xt6y6wGHx4Vj5SoYc6Ldr2CCIR5t6tkf1Xhv+fCz/DhoPyGlkC3LNBoXWKcd6VIuqpI0ZxnCS
+ JgEDh10X7IyS262kfF5UHzGsZFsk91gEgf+uVEfSxcBjWrVaIJJrE6oTeU2+7yvSY/7K670pc
+ UXfZN8egTA/QRHgPRvURWEIJHMwXVAysXjSg8Yk4nEFsKlkHM8X5R+73euWaoLnXPwxYjFQ7m
+ SAaAioELS+nVR4yK16VsuiCca1x5fJ2J++326s8hxGgu0oReaJT7p4+tXwPlvYdXi3JRHXLYR
+ 7xBwSP5j6hwtKaHPb5v5MPzs+/t/fNGWE0yePYlKVE9wyenM8/aLE3YAPtRxUjERLzwd3z47T
+ OT/7woFpzY3Z/rcXFuJvDdOeKeCD7aCNPBpERFMFlfCNJEENB9v62hCev6ypTWG5iSh09M3WZ
+ 8lKxV7QgkvTy+3JpmE5YSr36rNrWZfPewhEseHmdKJ5MvAG+BHEhOQnNKctWwu0Stv76zjMCN
+ yDWYLGTAnBrUpxv6BzIOaLXElBWSQfgcpWy6PG3K9aNZS6sdv2ph7n2yaOFVC5AYgo8tKK1lS
+ TOkn6oriCDtRt6FUtSK65QfkN3LvHQud4xoCJYPXJMXvgM9q+tyiVc9H5/op/gyuoynlImM+H
+ caM3Bg==
+X-Mailman-Approved-At: Tue, 06 Dec 2022 14:53:24 +0100
+Cc: Philipp Jungkamp <p.jungkamp@gmx.net>, alsa-devel@alsa-project.org,
+ lakotamm@gmail.com, tom@tlvince.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,58 +97,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since commit fc7a6209d571 ("bus: Make remove callback return
-void") forces bus_type::remove be void-returned, it doesn't
-make much sense for any bus based driver implementing remove
-callbalk to return non-void to its caller.
+The Dell Inspiron Plus 16, in both laptop and 2in1 form factor, has top
+speakers connected on NID 0x17, which the codec reports as unconnected.
+These speakers should be connected to the DAC on NID 0x03.
 
-This change is for soundbus based drivers.
+Signed-off-by: Philipp Jungkamp <p.jungkamp@gmx.net>
+=2D--
+This is a pretty late follow up to the v1 in september.
+Two people have tested this patch, one for each subsystem id.
+The popping sound on the headphone jack after audio playback stopped was
+gone after adding the suggested alc_fixup_no_shutup.
 
-Signed-off-by: Dawei Li <set_pte_at@outlook.com>
----
- sound/aoa/fabrics/layout.c    | 3 +--
- sound/aoa/soundbus/soundbus.h | 6 +++---
- 2 files changed, 4 insertions(+), 5 deletions(-)
+Regards,
+Philipp Jungkamp
 
-diff --git a/sound/aoa/fabrics/layout.c b/sound/aoa/fabrics/layout.c
-index ec4ef18555bc..850dc8c53e9b 100644
---- a/sound/aoa/fabrics/layout.c
-+++ b/sound/aoa/fabrics/layout.c
-@@ -1094,7 +1094,7 @@ static int aoa_fabric_layout_probe(struct soundbus_dev *sdev)
- 	return -ENODEV;
+v2:
+- add 'Signed-off-by' to commit
+- add subsystem of the 2-in-1 version of the laptop
+- add alc_fixup_no_shutup to stop headphone jack popping sound on audio su=
+spend
+
+ sound/pci/hda/patch_realtek.c | 37 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index cf7c825078dc..5f51f8fc7fdc 100644
+=2D-- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6903,6 +6903,34 @@ static void alc287_fixup_yoga9_14iap7_bass_spk_pin(=
+struct hda_codec *codec,
+ 	}
  }
- 
--static int aoa_fabric_layout_remove(struct soundbus_dev *sdev)
-+static void aoa_fabric_layout_remove(struct soundbus_dev *sdev)
- {
- 	struct layout_dev *ldev = dev_get_drvdata(&sdev->ofdev.dev);
- 	int i;
-@@ -1123,7 +1123,6 @@ static int aoa_fabric_layout_remove(struct soundbus_dev *sdev)
- 	kfree(ldev);
- 	sdev->pcmid = -1;
- 	sdev->pcmname = NULL;
--	return 0;
- }
- 
- #ifdef CONFIG_PM_SLEEP
-diff --git a/sound/aoa/soundbus/soundbus.h b/sound/aoa/soundbus/soundbus.h
-index 3a99c1f1a3ca..230dfa1ba270 100644
---- a/sound/aoa/soundbus/soundbus.h
-+++ b/sound/aoa/soundbus/soundbus.h
-@@ -184,10 +184,10 @@ struct soundbus_driver {
- 
- 	/* we don't implement any matching at all */
- 
--	int	(*probe)(struct soundbus_dev* dev);
--	int	(*remove)(struct soundbus_dev* dev);
-+	int	(*probe)(struct soundbus_dev *dev);
-+	void	(*remove)(struct soundbus_dev *dev);
- 
--	int	(*shutdown)(struct soundbus_dev* dev);
-+	int	(*shutdown)(struct soundbus_dev *dev);
- 
- 	struct device_driver driver;
+
++static void alc295_fixup_dell_inspiron_top_speakers(struct hda_codec *cod=
+ec,
++					  const struct hda_fixup *fix, int action)
++{
++	static const struct hda_pintbl pincfgs[] =3D {
++		{ 0x14, 0x90170151 },
++		{ 0x17, 0x90170150 },
++		{ }
++	};
++	static const hda_nid_t conn[] =3D { 0x02, 0x03 };
++	static const hda_nid_t preferred_pairs[] =3D {
++		0x14, 0x02,
++		0x17, 0x03,
++		0x21, 0x02,
++		0
++	};
++	struct alc_spec *spec =3D codec->spec;
++
++	alc_fixup_no_shutup(codec, fix, action);
++
++	switch (action) {
++	case HDA_FIXUP_ACT_PRE_PROBE:
++		snd_hda_apply_pincfgs(codec, pincfgs);
++		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn), conn);
++		spec->gen.preferred_dacs =3D preferred_pairs;
++		break;
++	}
++}
++
+ enum {
+ 	ALC269_FIXUP_GPIO2,
+ 	ALC269_FIXUP_SONY_VAIO,
+@@ -7146,6 +7174,7 @@ enum {
+ 	ALC287_FIXUP_LEGION_16ITHG6,
+ 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK,
+ 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN,
++	ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS,
  };
--- 
-2.25.1
+
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -9095,6 +9124,12 @@ static const struct hda_fixup alc269_fixups[] =3D {
+ 		.chained =3D true,
+ 		.chain_id =3D ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK,
+ 	},
++	[ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS] =3D {
++		.type =3D HDA_FIXUP_FUNC,
++		.v.func =3D alc295_fixup_dell_inspiron_top_speakers,
++		.chained =3D true,
++		.chain_id =3D ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
++	},
+ };
+
+ static const struct snd_pci_quirk alc269_fixup_tbl[] =3D {
+@@ -9195,6 +9230,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]=
+ =3D {
+ 	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_M=
+IC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x0b19, "Dell XPS 15 9520", ALC289_FIXUP_DUAL_SPK)=
+,
+ 	SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_S=
+PK),
++	SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620 2-in-1", ALC29=
+5_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
++	SND_PCI_QUIRK(0x1028, 0x0b71, "Dell Inspiron 16 Plus 7620", ALC295_FIXUP=
+_DELL_INSPIRON_TOP_SPEAKERS),
+ 	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE=
+),
+ 	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE=
+),
+ 	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
+=2D-
+2.38.1
 

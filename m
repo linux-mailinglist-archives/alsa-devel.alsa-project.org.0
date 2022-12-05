@@ -2,78 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 575B16429A6
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 14:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C69642A85
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 15:40:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1E91185C;
-	Mon,  5 Dec 2022 14:41:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1E91185C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 326521785;
+	Mon,  5 Dec 2022 15:39:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326521785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670247714;
-	bh=9BwwjWTjae5Sx6WsU/KbmXmPJ41/awjUpJ2CY0ac+cU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XpbtpgbjCIAT7ESY/N9HSkl9+UiET44V3NruTpynYdE9Od4Xo+ANtxWvvopmd4AZB
-	 1MC1SJxQ9WFmYl/hSeZbcngfmnrvrWIvKV86+Jfr1jbgwfv7JHP25xMRlo+qtGJOwD
-	 /bMpFvOOT/GQA1fz765hvb8fECYOfSQOuvBw1YfE=
+	s=default; t=1670251242;
+	bh=AnaMvEcs8TK8AN0yw7g/tLVZOJROPioUVHHiXDltnMk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vCUU7t6m4q4eWojFN6nfunZ48xQWwrOvhevh9NiWnOpLfNW7xAgIv8MTRJZH+OKYg
+	 wd4EbxwX9WaZ37g/b8iB6HtoWwl15MOX9z5G3jbY9ZE4DgWYxQPz1A4XABBVDIX//1
+	 UmAj8e6K1CMu7/CGf6DV5hgoxvipi1jw7DN3+RNg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9555BF80155;
-	Mon,  5 Dec 2022 14:40:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D09EEF8047C;
+	Mon,  5 Dec 2022 15:39:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A094F8014C; Mon,  5 Dec 2022 14:40:56 +0100 (CET)
+ id 74652F80236; Mon,  5 Dec 2022 15:39:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE509F8014C
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 14:40:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE509F8014C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EZmRIVHb"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 05AAD6112F;
- Mon,  5 Dec 2022 13:40:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2DFDC433D6;
- Mon,  5 Dec 2022 13:40:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670247647;
- bh=9BwwjWTjae5Sx6WsU/KbmXmPJ41/awjUpJ2CY0ac+cU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EZmRIVHbtZRJc0+QMZtqYwUAQmn70Ns75jeMF1cB1JNVBI7mAlDM9S8EZgewtLcCb
- FaqpIrtmz/Uddf/COe12oW5Ey5/hCmgu/l/7fZRo9p154CDvVhQnBVK9bvPBVrR5ot
- fLH+9tGLDjsLG245yDa0Nu5FT9bLygFx1zeffwmmYhL53Akw3ZTg08oA1XMT/N1TvO
- 6R6lKWAE1xGS2N98EO5ED7MiyEgRPg7nW+jQJovQw/ES805sd7yzjdhK0Sc2kGoKRe
- FJ4w/QsfviltVz8td+OdbRNndBSMbxlMuU7dItekPXhyJWSnZdwH8MZsb0IM7wPL4J
- oarJoec5LLagQ==
-Date: Mon, 5 Dec 2022 13:40:41 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?77+977+977+977+977+977+9?= <s47.kang@samsung.com>
-Subject: Re: [PATCH] ASoC: soc-compress: Reposition and add pcm_mutex
-Message-ID: <Y4302Y5hnW6Ovf0a@sirena.org.uk>
-References: <CGME20221205051742epcas2p4e4724276da916d308b9c1a4aaccca672@epcas2p4.samsung.com>
- <700072760.81670217603154.JavaMail.epsvc@epcpadp3>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D80FF800BD
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 15:39:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D80FF800BD
+Received: from dggpemm500007.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NQmPw1zgHzFqpB;
+ Mon,  5 Dec 2022 22:38:44 +0800 (CST)
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 5 Dec
+ 2022 22:39:30 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: sof_es8336: fix possible use-after-free in
+ sof_es8336_remove()
+Date: Mon, 5 Dec 2022 22:37:21 +0800
+Message-ID: <20221205143721.3988988-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="HZAt4ZnEdryDGFUR"
-Content-Disposition: inline
-In-Reply-To: <700072760.81670217603154.JavaMail.epsvc@epcpadp3>
-X-Cookie: If it ain't broke, don't fix it.
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.de, lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- cpgs@samsung.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+Cc: cezary.rojewski@intel.com, zhuning0077@gmail.com,
+ kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ broonie@kernel.org, yangyingliang@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,43 +75,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+sof_es8336_remove() calls cancel_delayed_work(). However, that
+function does not wait until the work function finishes. This
+means that the callback function may still be running after
+the driver's remove function has finished, which would result
+in a use-after-free.
 
---HZAt4ZnEdryDGFUR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fix by calling cancel_delayed_work_sync(), which ensures that
+the work is properly cancelled, no longer running, and unable
+to re-schedule itself.
 
-On Mon, Dec 05, 2022 at 02:17:42PM +0900, =EF=BF=BD=EF=BF=BD=EF=BF=BD=EF=BF=
-=BD=EF=BF=BD=EF=BF=BD wrote:
-> From 3f8fd1efedd77331d948b16a8e44ffa6cf0e811f Mon Sep 17 00:00:00 2001
->=20
-> From: "s47.kang" <s47.kang@samsung.com>
->=20
-> Date: Fri, 2 Dec 2022 18:32:35 +0900
->=20
-> Subject: [PATCH] [COMMON] ASoC: soc-compress.c: Reposition and add
-> pcm_mutex.
->=20
-> =20
->=20
-> If panic_on_warn is set and compress stream(DPCM) is started,
+Fixes: 89cdb224f2ab ("ASoC: sof_es8336: reduce pop noise on speaker")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ sound/soc/intel/boards/sof_es8336.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This mail is still really badly corrupted, it's got lots of blank lines
-added, other whitespace damage and I think is word wrapped as well.
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index 70713e4b07dc..773e5d1d87d4 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -783,7 +783,7 @@ static int sof_es8336_remove(struct platform_device *pdev)
+ 	struct snd_soc_card *card = platform_get_drvdata(pdev);
+ 	struct sof_es8336_private *priv = snd_soc_card_get_drvdata(card);
+ 
+-	cancel_delayed_work(&priv->pcm_pop_work);
++	cancel_delayed_work_sync(&priv->pcm_pop_work);
+ 	gpiod_put(priv->gpio_speakers);
+ 	device_remove_software_node(priv->codec_dev);
+ 	put_device(priv->codec_dev);
+-- 
+2.25.1
 
---HZAt4ZnEdryDGFUR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmON9NkACgkQJNaLcl1U
-h9B3nwf9Ekwj79NULn2aFtyLRoJVSkRNrX6YxVsln2wTXvnzVWCxx6HouLIddquG
-SAJ1cJdWCn5Skuht0T4Uyv8s937rWWI6U0SjMO2ltx8Ghho723byDKJy1apfj2/2
-or8yIt2hrEP0InM80m9IpWHTAPWzHH52hIJmx0BzNIKuXurF+03aQ5zfOfiazYIR
-DQRG5hC4igstH2yFkhE3C4T9x5Ss1iQ4PTMUwDYY/QHKGV/t0qnp7y2uKrNWq/nv
-eedQ0Xsyz9H+/4Twz4/kHZrw5SswL3qHjp/GsqexRNXYn8qYEry+CaR34HUAcZ/W
-lQGna+TgiNtx9zwUC+/i2wcuJciXiA==
-=2hVZ
------END PGP SIGNATURE-----
-
---HZAt4ZnEdryDGFUR--

@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B67D644512
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45148644513
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:56:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4BE118C2;
-	Tue,  6 Dec 2022 14:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4BE118C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D59F618BA;
+	Tue,  6 Dec 2022 14:55:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D59F618BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670334989;
+	s=default; t=1670335009;
 	bh=842QCpsTxGXPZfAW5OBCkqtVxLhgLWi4RC+FIW7vuvM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GclFW3+IyqhVrtgprm2mS4Xjnu+eVhMEchdpVjswVFF5GlpjiTDeCJJfurCXyCwpu
-	 BHlQELiyokR9PuVrhhuBtcXT913Bvp+7N95xdQpnGySqSDMf4KDb3/fdr/DLw2qe1U
-	 fSLWossuPbuKekEiiGdSE/kgj4fGrfmG8/EDvk/4=
+	b=GCW2yHJnFQu8dsp/JW8XDlcgApiC8xw7wPEJ6bT1RXzpQcr8As+9MEV/WdUmoax3w
+	 PVe7/lzGbchxyzGQV3Py3XwLXS9ecxUeLmsJoeNIRETwwAaEj/sNjay0vr7GeGIqmo
+	 BWefY+Pan44lP5pkcpZyYQQ/pt0LXq8CdbslcoKo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95601F805B2;
-	Tue,  6 Dec 2022 14:53:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C7E2F805B6;
+	Tue,  6 Dec 2022 14:53:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14077F80155; Mon,  5 Dec 2022 03:22:52 +0100 (CET)
+ id A377BF80236; Mon,  5 Dec 2022 04:07:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+ autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7376F800BD
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 03:22:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7376F800BD
-Received: from kwepemm600017.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NQS3j1s7BzRpj3;
- Mon,  5 Dec 2022 10:21:53 +0800 (CST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82ED4F8014C
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 04:07:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82ED4F8014C
+Received: from kwepemm600017.china.huawei.com (unknown [172.30.72.54])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4NQSzD5n1WzqStT;
+ Mon,  5 Dec 2022 11:03:04 +0800 (CST)
 Received: from zelda.huawei.com (10.175.103.14) by
  kwepemm600017.china.huawei.com (7.193.23.234) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 5 Dec 2022 10:22:39 +0800
+ 15.1.2375.31; Mon, 5 Dec 2022 11:07:11 +0800
 From: Wang Jingjin <wangjingjin1@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <heiko@sntech.de>, <sugar.zhang@rock-chips.com>,
  <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: rockchip: spdif: Add missing clk_disable_unprepare() in
+Subject: [PATCH] ASoC: rockchip: pdm: Add missing clk_disable_unprepare() in
  rockchip_pdm_runtime_resume()
-Date: Mon, 5 Dec 2022 10:43:17 +0800
-Message-ID: <20221205024317.2422223-1-wangjingjin1@huawei.com>
+Date: Mon, 5 Dec 2022 11:28:02 +0800
+Message-ID: <20221205032802.2422983-1-wangjingjin1@huawei.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.175.103.14]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemm600017.china.huawei.com (7.193.23.234)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 06 Dec 2022 14:53:23 +0100

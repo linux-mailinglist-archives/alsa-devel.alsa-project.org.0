@@ -2,89 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C8C7642D6A
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 17:45:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214E8642EC8
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 18:30:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2994417F1;
-	Mon,  5 Dec 2022 17:45:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2994417F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64481848;
+	Mon,  5 Dec 2022 18:29:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64481848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670258751;
-	bh=LTc59N4nZ9cLIbD+UAxQmPbi7igpZaPV1WXEVnhzqlo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1670261432;
+	bh=qEvLyHNV7Ss9WZ2ubeO4+eopAKpla3iPV1553qghz4o=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c37nTUwpHvrpCt0SGvqklrd9dI8v39T8kVrCBcx5dB+LTv7VHBsS9sE+J3XeOmE5x
-	 8uR1ypBfe6qdyTjgRAczuLAi7S1DMnRA03nwVxExOR6ehA7TvBQV5KStmdS5rvmgqo
-	 iveC2X2kyWG7r8TVCrUG96bHR+tlK7Lc8URnMOD4=
+	b=rzc5+SIyNOghbpy5YunXHQZIpA2oHYtnydABGFNiid2sysID8KkZYORmq4gkwIsmS
+	 qclwkzFtQ3tIg4in4p3RDWfmEZ8+87gDzJAttnxVbh319fW4E000U5SLQ0S/Z5IOr4
+	 gbR88mi57j//Tacyh11SpIMZyazzcJd0WKqsXNjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE302F8047C;
-	Mon,  5 Dec 2022 17:44:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8A5FF8054A;
+	Mon,  5 Dec 2022 18:29:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D783F80155; Mon,  5 Dec 2022 17:44:52 +0100 (CET)
+ id 19EC3F8047C; Mon,  5 Dec 2022 18:29:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E21E5F80155
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 17:44:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E21E5F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id C87C5F800BD
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 18:29:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C87C5F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="o2R16uj6"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="t6JgZja1"
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BWL/d3p+"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 232382269B;
- Mon,  5 Dec 2022 16:44:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670258688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oERq42Rf9MhkXqYk+Dl+OlvbyNkxydoYRdQSUFlcjQo=;
- b=o2R16uj6et4cqpPs7cjefNV3E/pjIisjt8YGeyaj+Ph7hsZ882EqYGa734Dg90SA+Bx6CS
- ni4SYY0/fD4amhsJkJIKt5+wZfKrinDZ51WAAqjXcvmThhatiNWrQPRT5voO+L/Zv+pxQ4
- JFx4RDi4mtnYwtdRWMUMtvX1gv2wThI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670258688;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oERq42Rf9MhkXqYk+Dl+OlvbyNkxydoYRdQSUFlcjQo=;
- b=t6JgZja1PS5DGeIsr8sPmYIS+XNyZtW1hTMZ92iEANJ17RTX0Hf7nQWoSYWSmb3WjQQaVH
- 4LLtN2v+HESPQOAw==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E35581348F;
- Mon,  5 Dec 2022 16:44:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id YonjNv8fjmMlXQAAGKfGzw
- (envelope-from <tiwai@suse.de>); Mon, 05 Dec 2022 16:44:47 +0000
-Date: Mon, 05 Dec 2022 17:44:47 +0100
-Message-ID: <87r0xdvlz4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Philipp Jungkamp <p.jungkamp@gmx.net>
-Subject: Re: [PATCH v2] ALSA: patch_realtek: Fix Dell Inspiron Plus 16
-In-Reply-To: <20221205163713.7476-1-p.jungkamp@gmx.net>
-References: <20221205163713.7476-1-p.jungkamp@gmx.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tom@tlvince.com, Takashi Iwai <tiwai@suse.com>,
- lakotamm@gmail.com
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0D53CB8118F;
+ Mon,  5 Dec 2022 17:29:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBF0C433D6;
+ Mon,  5 Dec 2022 17:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670261339;
+ bh=qEvLyHNV7Ss9WZ2ubeO4+eopAKpla3iPV1553qghz4o=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=BWL/d3p+lHPnnOOSGwKOFAExfqjSlNsa7uTFSPirBXhEJTLWWQSD5zOjMJAIU4P23
+ RSVYC41HWAiFZQn0DmPL1F8Vjt7yQqI08QAnSO3smdw5qRSyHNTbQw+aLxDx4P5leb
+ Rfj0JMnRvsqGx75rDutGrq58CIpTcL8oWAj2nv/IPehUau4SbXawi2msOdq1Rhojw3
+ EWhAZ+bhByjQqcFAxk9sBbM+fSvCiyI/A9FMsP+zcj4MolizM2CeVDt6faXhYXZUEZ
+ r1T60gwbI1ofv+rStgaj6SAWyAEcp43Hc3GEhmcGWpiarRtFoVnqJ6sWWd8Vh1J8Ad
+ veVGVYvLDi/9Q==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ linux-arm-kernel@lists.infradead.org, Takashi Iwai <tiwai@suse.com>,
+ Colin Ian King <colin.i.king@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ Masami Hiramatsu <mhiramat@kernel.org>
+In-Reply-To: <20221202164156.1812971-1-colin.i.king@gmail.com>
+References: <20221202164156.1812971-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] ASoC: uniphier: aio-core: Make some read-only
+ arrays static const
+Message-Id: <167026133758.536379.12650121708842082067.b4-ty@kernel.org>
+Date: Mon, 05 Dec 2022 17:28:57 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.10.0-dev-fc921
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,29 +91,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Dec 2022 17:37:13 +0100,
-Philipp Jungkamp wrote:
+On Fri, 2 Dec 2022 16:41:56 +0000, Colin Ian King wrote:
+> Don't populate the read-only arrays slotsel_2ch, slotsel_multi, v_pll
+> and v_div on the stack but instead make them static const. Also makes
+> the object code a little smaller.
 > 
-> The Dell Inspiron Plus 16, in both laptop and 2in1 form factor, has top
-> speakers connected on NID 0x17, which the codec reports as unconnected.
-> These speakers should be connected to the DAC on NID 0x03.
 > 
-> Signed-off-by: Philipp Jungkamp <p.jungkamp@gmx.net>
-> ---
-> This is a pretty late follow up to the v1 in september.
-> Two people have tested this patch, one for each subsystem id.
-> The popping sound on the headphone jack after audio playback stopped was
-> gone after adding the suggested alc_fixup_no_shutup.
-> 
-> Regards,
-> Philipp Jungkamp
-> 
-> v2:
-> - add 'Signed-off-by' to commit
-> - add subsystem of the 2-in-1 version of the laptop
-> - add alc_fixup_no_shutup to stop headphone jack popping sound on audio suspend
 
-Thanks, applied now.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/1] ASoC: uniphier: aio-core: Make some read-only arrays static const
+      commit: cb870fdcf1332ee791d7de6bbf350f15fc19c989
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

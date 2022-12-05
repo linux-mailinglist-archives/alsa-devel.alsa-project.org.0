@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FC0642ECF
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 18:31:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E21642ED0
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 18:31:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C715C172C;
-	Mon,  5 Dec 2022 18:30:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C715C172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAFDD189B;
+	Mon,  5 Dec 2022 18:31:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAFDD189B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670261502;
-	bh=0uTGIuEBp5/Yv/xATwCrLsgELl6xETLxJwbbf9T7tjs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1670261511;
+	bh=WtogiyI9yS+8qdzbaPH6wEOhtLw5jgAaFfE/irD6Kog=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=re400OG8mAFzSUnhIg6cQCjV+rQdCg4QD5O9o66K0DNJcwyxCvCRvGh+5/vBF0aOL
-	 rZK8LxbJA9rBjkhFZEwkbCEbGpkr/MRZmDgTTujC96YzXm1IuvDHLH+QThvOMEBaPG
-	 vKHljY0ojnS77hVc+tJy7moR2sMaJbdAJ1UEyA0M=
+	b=Iwa0i21Z+27mg5+baMaBkiGqTD5oOMB8/EwxFRNW18lrzKyQnq1KHPUZ3R+lau9jX
+	 cXdL0W2DzMSb6yN21ss3VKL0EBqMtKzSfcBQ+tRGZAU4bpVPGcNX2+EYdRqiJSTSct
+	 /KC0VLqMRXu1xWOfDzRJK1D/rrwI1NkANGqV812Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94B0EF80587;
-	Mon,  5 Dec 2022 18:29:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AB88F8058C;
+	Mon,  5 Dec 2022 18:29:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54D54F80580; Mon,  5 Dec 2022 18:29:36 +0100 (CET)
+ id B9E84F80589; Mon,  5 Dec 2022 18:29:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,48 +35,43 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42035F80567
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 18:29:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42035F80567
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67163F8057E
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 18:29:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67163F8057E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TBXtT8yf"
+ header.b="uGo/vioF"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3162361269;
- Mon,  5 Dec 2022 17:29:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E68FC433D6;
- Mon,  5 Dec 2022 17:29:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 120F76126B;
+ Mon,  5 Dec 2022 17:29:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E317C43146;
+ Mon,  5 Dec 2022 17:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670261369;
- bh=0uTGIuEBp5/Yv/xATwCrLsgELl6xETLxJwbbf9T7tjs=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=TBXtT8yf/8wq5ve5atb5btpuDC5rvHUw+4grdwQNyt3cU3/Y/lG+SM1Y5XeIKYLSb
- sSuU29KA8BxnquU4bKwBsc9GXZuw7d55Zh3MPoBZTh28AubCIUiWKLG1eFt0qPJTj7
- sQyibAArQAAbqcyqxVpH5UWsovoWghYSV321ffFoaG9VhcWRKkW1EBMN8Bs5/5iN4n
- fPx0ycweDEhciX76wmsS/Ilz2txrs492Y3SCSGfx/d5KNv0QTf679xRoTIIo0qxvak
- +mbtPgrMlMaF6MFyl0Hg3lVKZoYrrwljlP13iaqywzj/+VNjKNJWVlnuBa9y5cUYD+
- KO23iIH0pZn/g==
+ s=k20201202; t=1670261371;
+ bh=WtogiyI9yS+8qdzbaPH6wEOhtLw5jgAaFfE/irD6Kog=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=uGo/vioF256l6K2fJcPUZWKUFVL51ehy1XdZGkw8thCdNbRtN5qgW10cqSwuIZpuc
+ pfTupO8eKgacG6Yz6Dfyy9OtmvEc1mG7+9DhvmNSelsLZY+30s3y4OEfl05clN15Hc
+ 0bpjX5FAYIwJ4kctljKW27MGJGSBCyF9bC7sQWqRZGM6S/q6xAsYsAjNMwgA0XjT0q
+ 1bT7tmcsmNWdSjHAepOvKtv4WZxbJNDeP2Zsp9j/XKEVa5E3NpKvaHuWOtfyYwNDP+
+ Cb2QI9H5PAFYc+NNqhumB4Qn16aes5KTa0vDurpDie6kBhdE5p7NmE5MSNxuACwtQJ
+ X5CsSUsSRwBfg==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
- linux-kernel@vger.kernel.org, judyhsiao@chromium.org, 
- andersson@kernel.org, lgirdwood@gmail.com, bgoswami@quicinc.com,
- robh+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
- perex@perex.cz, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- quic_rohkumar@quicinc.com, tiwai@suse.com, 
- swboyd@chromium.org, srinivas.kandagatla@linaro.org, agross@kernel.org,
- quic_plai@quicinc.com
-In-Reply-To: <1670219333-32526-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1670219333-32526-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-sc7280: Add maybe_unused tag for system
- PM ops
-Message-Id: <167026136595.536379.7143811448400492677.b4-ty@kernel.org>
-Date: Mon, 05 Dec 2022 17:29:25 +0000
+To: alsa-devel@alsa-project.org,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+In-Reply-To: <20221205120649.1950576-1-Vsujithkumar.Reddy@amd.com>
+References: <20221205120649.1950576-1-Vsujithkumar.Reddy@amd.com>
+Subject: Re: [PATCH 0/2] Add SOF panic dump support for AMD platform.
+Message-Id: <167026136984.536379.15476603342497228865.b4-ty@kernel.org>
+Date: Mon, 05 Dec 2022 17:29:29 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.10.0-dev-fc921
+Cc: venkataprasad.potturu@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, ssabakar@amd.com, Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,13 +87,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 5 Dec 2022 11:18:53 +0530, Srinivasa Rao Mandadapu wrote:
-> Add __maybe_unused tag for system PM ops suspend and resume.
-> This is required to fix allmodconfig compilation issue.
+On Mon, 5 Dec 2022 17:36:47 +0530, V sujith kumar Reddy wrote:
+> This patch series consists of
+> 	>> Use poll function instead of simple read ACP_SHA_DSP_FW_QUALIFIER
+> 	>> Add support for IPC and DSP dumps
 > 
-> Fixes: a3a96e93cc88 ("ASoC: qcom: lpass-sc7280: Add system suspend/resume PM ops")
+> Ajye Huang (1):
+>   ASoC: SOF: amd: Use poll function instead to read
+>     ACP_SHA_DSP_FW_QUALIFIER
 > 
-> 
+> [...]
 
 Applied to
 
@@ -106,8 +104,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: lpass-sc7280: Add maybe_unused tag for system PM ops
-      commit: ab148b461c5cd767762bfcba5749c770ca836079
+[1/2] ASoC: SOF: amd: Use poll function instead to read ACP_SHA_DSP_FW_QUALIFIER
+      commit: 2a2f5f2384b9791a028901aac3f49c488839d073
+[2/2] ASoC : SOF: amd: Add support for IPC and DSP dumps
+      commit: 41cfad23b5ebef2dbddecff2ddeb27ca973f98a8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

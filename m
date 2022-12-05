@@ -2,122 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4F2644515
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:57:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4C9644516
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 14:57:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 606C718CA;
-	Tue,  6 Dec 2022 14:56:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606C718CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68CFA18BD;
+	Tue,  6 Dec 2022 14:56:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68CFA18BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670335024;
-	bh=YW579P+x3gE5RsQNfafGB8rSKwOGCMkonfBbdjp3bT4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CW2lpLWOqYD4xhnQi1eWVj0U7iaFq87NZHjqnEJ9+2IjVOrVLI7/uZ8UgZRYEv/Wa
-	 nxJyIYyOcMdo5xEAn4IdkJd7GrUsy6lSJ6ZTLkeRUyDhBKKCz9iJ2pyiLXQHVK/VlE
-	 cmOw8vuFW0K6nKzfG5QMt6XvcVeq9fKhwUib9rig=
+	s=default; t=1670335037;
+	bh=Gu/bYRRitzjsX5T+8nfiV9PHVY1knKApDQaruWnsrIw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sn8uLOd0B0GhgjsVrMZiMh0bg4m656uxIKnWYXxlmCUo2xEyY96wEdzpSTgZkphhS
+	 aauP0j3iArDFOmdsAEFCajMo8Be7u1VZ2/eo+faSJSn4SX4jCswLRAv+FhegqsclMn
+	 PPYhlTX4pcgL7CFlnudZEdSHI4sNxW4xVbMouHRc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 885BBF805BE;
-	Tue,  6 Dec 2022 14:53:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DF3CF805C2;
+	Tue,  6 Dec 2022 14:53:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DF9FF80155; Mon,  5 Dec 2022 13:06:02 +0100 (CET)
+ id C9C1EF8047C; Mon,  5 Dec 2022 16:37:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
- [IPv6:2607:f8b0:4864:20::a2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01acsn20805.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::805])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1004BF80155
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 13:05:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1004BF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E0F8F80155
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 16:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E0F8F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="FEmiEyAf"
-Received: by mail-vk1-xa2e.google.com with SMTP id s125so3327476vkg.2
- for <alsa-devel@alsa-project.org>; Mon, 05 Dec 2022 04:05:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=je642uC/QM2q2uiJ455cWQgJTQZ2s2VIKEuHkYSqLSY=;
- b=FEmiEyAfYIdpKkVVrcM2myJBq9Gd26hAz6+4yOpADnvfMVE0aPesCBgx342rXF08lp
- TCQyXF8GkzmtS6Z9YrWkolPOItK1xsEU+96tzXEDb1AlyAmzgDCo23jDO4Kl30xB1XIr
- tkvIYPgXOQR4RxorORzC5LorpFYswRYs8vLVc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=je642uC/QM2q2uiJ455cWQgJTQZ2s2VIKEuHkYSqLSY=;
- b=wCyaP164PXZkeZ46VrBnDLleS8y1ynODt1toWHW1HtRxtOPmWkdokrHN7NyyYx5FuO
- F1XtUujpVnYWBdv0rnwkf/D1BKzcGpBGGzg1Fz4bqDxe3IX15RFc55qC58WQKvE4O+Y3
- hYBtdgdzwaWe4tZgaiUcoiMzuHUD6Gy39UlHpFcaDM+/M8wzzTQDHmV+//IiDAel8N6w
- uEotnuXy9ZCLAxKWhWuEv0gBUmtAT/SGkM1s4BahTDxc714XrZ9o6CsRkrgVGT5jF31D
- 6Ttowo6hFe+nXCOlfr/qM0BPiLbrEFe/7Sfp8XOFytk0nLDuJSSLPVHkPY8tbBtAOzYS
- zDHg==
-X-Gm-Message-State: ANoB5plwuZxlDkKyAiB3JAFxVwu+OUIumJKi7Ef8LLgQSkr1ocn5B+Pl
- yxTLWYPW73Sm9FYthwQxyRsLq5JVWVmat30G
-X-Google-Smtp-Source: AA0mqf7YbziK3wajfP0PR/B66+3g3mPbr8S5GsppguRsStSZ/e+Gpm2qnx9TFCOp726QHC7NvygWQQ==
-X-Received: by 2002:ac5:cd5a:0:b0:3bd:ae87:dadd with SMTP id
- n26-20020ac5cd5a000000b003bdae87daddmr1366141vkm.18.1670241952940; 
- Mon, 05 Dec 2022 04:05:52 -0800 (PST)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com.
- [209.85.221.178]) by smtp.gmail.com with ESMTPSA id
- w15-20020ab0614f000000b00418ccf714cfsm2047746uan.10.2022.12.05.04.05.51
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 04:05:52 -0800 (PST)
-Received: by mail-vk1-f178.google.com with SMTP id b81so5187626vkf.1
- for <alsa-devel@alsa-project.org>; Mon, 05 Dec 2022 04:05:51 -0800 (PST)
-X-Received: by 2002:a17:902:7d93:b0:186:9cf4:e53b with SMTP id
- a19-20020a1709027d9300b001869cf4e53bmr68703080plm.50.1670241940337; Mon, 05
- Dec 2022 04:05:40 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
+ header.b="vDsXVUhl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aYyNM5umB/YlYyZFjHHO83Nsk29pNBut/O3cYc6qwQImzDXea5JAaDwaiA5JyYfxifWl1vwR5/6+g8puQUU7FljDX3Z8Jji/Jxm5J0eGNI0TLnxGtNJVMaQ51wmllQRgBHWWQp1Oa7lPbo6JanngWlg8hw9RTIuz2qXJ9q6zbCNN1CMRCrjsFhjiRxZS6pcAUsf2jDq1yAVDWDk96bTN09aaCCFgQ0qQNQW+vse0oaa3YF/CA13Bd8bRICjgKw0hhr09oPetcgae2pFLvqtuGPSgxRhN0SUDtkt+L4ibeGP1/qnawhEhB9ouCZbMgukGUo0vLEBHabfy+jE9TBMYQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=idjo0qiw5FRuENJqgeM1GJb0xhD361R10FEVg+6EwgI=;
+ b=grQV9OBfNncScimeEqcCsVRnAKQKBpUbGR6clhTSMxy9GeKRV8CSIJsp4KSYtBc6xkHAi6dYM66J3SQbstkTITdY8XgdgKWUHK9fJ8xmSmmY1e/2zWoeCdbSZ0rSTXdqYlTyNh+wBEYUgwGL5dW2wFLc7pnxnk1tcZjdy1fRNGmR042c0JAYJvzIBHnRhudhu0dn/uBPrt9P8yb8oL0N/7S5fZZxId25hOK2asTvWRoI3tEtkYEmWNX35yZp8f4zIXtU8pUZ5wkkIkt9Cnfp540PIs//rUN11X6sc4paa14pU4fua3wK98xuHD/0bE7I7ywSAvD9ScbfOyBP3xS2RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=idjo0qiw5FRuENJqgeM1GJb0xhD361R10FEVg+6EwgI=;
+ b=vDsXVUhltjwMXORD4KVdUt1GOkZIu1tdiTJ3BOgVzx0KMEzqjh89CWCetQMV0MyTgCdA4wqLphkA1XWc/fFVnzvb6Ukt73yun15vq31uj16L0Cw5UPaLcIgKKnG4q4IWeqsDWZLFD+BLe1Ar40HJNZHWLPg3XS+AlEx6q7oOZui11xUUYuW8yuUfiKWViATafCUJJdXOOMElIGRjuEwmcPD9ehhqfpXkyzE7Rl6KYHLSQ4qDjQj0PNyy0krIL4e2Hss6nM9F4xaEzaWaFI390C+m6/16s80jUO4zf2u7nrIS4wR6c9IlV55VjNMvv1SOkA6xx7IZ8n4mZVHUMPVuxg==
+Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:152::9)
+ by TYYP286MB1787.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:f9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Mon, 5 Dec
+ 2022 15:37:00 +0000
+Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::ff96:9cb6:e047:c605]) by TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::ff96:9cb6:e047:c605%5]) with mapi id 15.20.5880.014; Mon, 5 Dec 2022
+ 15:37:00 +0000
+From: Dawei Li <set_pte_at@outlook.com>
+To: gregkh@linuxfoundation.org
+Subject: [PATCH 0/6] Make remove() of any bus based driver void returned
+Date: Mon,  5 Dec 2022 23:36:38 +0800
+Message-ID: <TYCP286MB23234ABCCF40E3FC42FD09A4CA189@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-TMN: [UNXCpyl4RA3GK+ciwc5f+GWb8JB5tMkE]
+X-ClientProxiedBy: SG2PR02CA0046.apcprd02.prod.outlook.com
+ (2603:1096:3:18::34) To TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:152::9)
+X-Microsoft-Original-Message-ID: <20221205153644.60909-1-set_pte_at@outlook.com>
 MIME-Version: 1.0
-References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
- <20221127-snd-freeze-v8-2-3bc02d09f2ce@chromium.org>
- <CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn=-Om5QP2-7ocuGdq8R9w@mail.gmail.com>
-In-Reply-To: <CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn=-Om5QP2-7ocuGdq8R9w@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 5 Dec 2022 13:05:29 +0100
-X-Gmail-Original-Message-ID: <CANiDSCt2+2EQpXvgQqTA3VwbfwDb=BsXn_YNcc05GK9xdTpVkA@mail.gmail.com>
-Message-ID: <CANiDSCt2+2EQpXvgQqTA3VwbfwDb=BsXn_YNcc05GK9xdTpVkA@mail.gmail.com>
-Subject: Re: [PATCH v8 2/3] freezer: refactor pm_freezing into a function.
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 06 Dec 2022 14:53:24 +0100
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
- x86@kernel.org, linux-pci@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, linux-hyperv@vger.kernel.org,
- linux-efi@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
- "H. Peter Anvin" <hpa@zytor.com>, Joel Fernandes <joel@joelfernandes.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Ard Biesheuvel <ardb@kernel.org>,
- sound-open-firmware@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Takashi Iwai <tiwai@suse.com>, Dexuan Cui <decui@microsoft.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Chromeos Kdump <chromeos-kdump@google.com>, xen-devel@lists.xenproject.org,
- Len Brown <len.brown@intel.com>, linux-pm@vger.kernel.org,
- Haiyang Zhang <haiyangz@microsoft.com>, Steven Rostedt <rostedt@goodmis.org>,
- Mark Brown <broonie@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Nicholas Piggin <npiggin@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Juergen Gross <jgross@suse.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, kexec@lists.infradead.org,
- Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Eric Biederman <ebiederm@xmission.com>, linuxppc-dev@lists.ozlabs.org
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCP286MB2323:EE_|TYYP286MB1787:EE_
+X-MS-Office365-Filtering-Correlation-Id: aedce035-d51e-41c8-6e4b-08dad6d68b90
+X-MS-Exchange-SLBlob-MailProps: ZRuQdVKRmYsFuMRaXb5//B01o/cN+noGWrg39EjfTQXunQwIDnBNGuuug4/KoHir8EFf0cr6w6gPVExnXvsev3xsuBD1BIaekqlE/uEzcar4E7aoIN5bHHWITdhmJaYXDpd2HhJ3IAFOHLAbqtmiSvinQwUiPLaEyPm9vT8zZrNiqCMSBC05XKFo/uDKXwjVjxlkFEK3e3rg5N0Q5L22vuMhcTe2EGhHqtDomBhXjX30qXqKLq9J4g3VEqSgx4zLmuOhQPIy2VO4rtZz4M11WAswWRGLfW0APpfqcV3IN0LtccA9TptjLTABsB47yWZVdyb7o+tCgAb5NeEb0Oo7kQg0ULtoR4+qLRx0KU12DgccklSt38OPJhKFa3PnXjLhpAI4jcHDXHqx3NIE8jdq2C4HS7igGHXO5B3CnXCzCx1EWhidysbyP4K2A9hc1ENARed57QK31bHvb5BH+6ZeBNCI8OmnbRJt6bG9PSe1L34f55RGXCGqqhwV7m41Se6ysolhquogekoWbDLZH5bSRxifpbdEEIxU/sCcMFxvqtAWR+AiQCmwaR72ottkjxbIM4BXPAAhrIXF+USAlrCJOqOzSxuMu1U/clROYqxwUV6vFyLMGp7Muxm2z689tT2K9HlaJRkAJxH47uUfpOL2WrUl3IxDEQzCNppe+yCIJihgwsZu+Hhj3RF9OLwPnELMuGJyZNC3zhLga7o7wYdGT2v2H4fcm1bH
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zGLnvyXv0fD6CDEHBIolniphzNkSmzBHMpXSdaYDHfiFUo506g9rEVf1fEJ45TUnM2aq5pjVIx3FKoZ94IhH2ranBQWlRiuxF6NRlH/kB+N8GAiLLbyIFD9qyrv5C8bk2h/i6ZV9yeENrY1e2SbZU4RXurxXaUZ1i9Amsq5tKmrEl8RSzcZ1r24MIF1p6zI+BjZSgokOZUunPrY5cDtq/PJzxD1EYVZnaq8o4t2+4xNvWJ/86jo/NspBOHOt7Wr355BVQabP5xU5CuXst41Z8ABPti/kmb0IS8urxRTboYB9r+Kc5K/4MdqDaKeB7YTQUgcBX2AQ7P4kmSaEPgQ5dKJJ6KIRSoQC3m8a5kt8k4wSYdCoDOJbMO5mDtQFaZo6xCvqiPoA6cWo5sQtY9j/F1croiOQFteX9Cn1AhTCyzRWkhnoY3swt5SP//843zbfYdpmfOoXHQ/pBJUs7k+BxKnPZi2svhH73cm+LujSUcje5baRUWtQm9gffSjivZR+yEtCVVckjYmf71iJnMfcWTs01Gog8SFAmOzGjOlXFjdUWs1IL3rp9XNbNDpvqUj6nDcAIXVYqzH6GwnPZa7qdtqZ7mCGJR2xzrhQ4C4XgrCj80grl2tkzk24fwQLgiYx91LCWm112cCSMBXC6gwrRQ==
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QRBTP8FnMx9BraTxM3xGIeujBWDR1n1+I3fxhWoTJSykREz6EqHLu90Zidj+?=
+ =?us-ascii?Q?6UOogrOop8rfehSZb1RqSN5+dqjHmo0ByE3kyOrpY9T8UQGYAvXdOBPzv2BM?=
+ =?us-ascii?Q?iyUiOESAAGutorftWnaH6GFJPdCjantLSBEyUXH+oNOnurQJv65ds6gzcGgc?=
+ =?us-ascii?Q?p2OS6DCPFzLBsYgm42evehpZVjWh/5MBX8CGjtveguaxihJD94Vld7p1rBY3?=
+ =?us-ascii?Q?6K3tzfEZYtFWnoiCUhYSkdJoNmwoo1zzx4d40kQy+dAyn2HVsmDGxQIVutO9?=
+ =?us-ascii?Q?xEplfkhbLDdZcgSYqEXcJvSJOQU2BYXBrUmWAPqeNNd7lz/XMe8N3u22kAWZ?=
+ =?us-ascii?Q?EeK2EtBbEznK4IhILxnb5rMS6pNjicdH2RpenTnLT7y2IrwG7K+nkFVRtCbs?=
+ =?us-ascii?Q?RtEhltW46OZkxIFsAsUd5kZpffYoPjYEKdCTVOodl46+4dReg26gO0KFAp3t?=
+ =?us-ascii?Q?vvjzoWow6VIBfWXUD/ftguEJPfLeLA9TSVDUKbtwivzKrnxDlnrgyYzqtl96?=
+ =?us-ascii?Q?FbGnPqXNJufWQIBCESeiHYKpWW10OB0R7+tobIPI72Dgcw1dVfPy9uxjSVpd?=
+ =?us-ascii?Q?aM0L9r8/ikA4aOLLzzAw5u87v9MmWN0wvvmAO80pMb5eefKlTYH9AVhXzgX/?=
+ =?us-ascii?Q?qy+iM4b3xo0WFVRljQ0wzA/514sxeOOyauGNJxa0OrLo2dsBQP5KUSY4rpp0?=
+ =?us-ascii?Q?yySYPsbsP92rBnryZSgHLzRclhq3Dr5LoFNHQlvfNG0YQWvo5XSUr/z/3Lju?=
+ =?us-ascii?Q?yLTaFgHlFOCXXzB611uLgcQz2SdI0ZctPCC1jRG5A7Xu4nzW7pkT1Tr7Dtz9?=
+ =?us-ascii?Q?AZ/T3JMRN5fvG5KJNg4wiTTXBIOsHasT7+shJIN0VAbdf63EQo/iHQWXDWY+?=
+ =?us-ascii?Q?QuoIuURBpTxW34FpEQyMDUNrhluNKmrc1Hg2/Bs2zcJDlU1iVRyZNkQjqPvX?=
+ =?us-ascii?Q?BgO+W0BY1IIu6V3mrEyc9J0Qjkbk7UeX1iavS+2rGLHeYzjKhiJkiazDilMR?=
+ =?us-ascii?Q?EeYsJxiHj4+K7PPru7RYrtYnghs2RsrSzzxFA18VihfPgqKsPaWp5t3cXdpU?=
+ =?us-ascii?Q?pEGR9UxdUuw67b7kLXZ1ncKkcHcrIPN5/6wYuC/5eON0mmxLIkcK6WbXfXrP?=
+ =?us-ascii?Q?/Qvo7nzmjz7SO/ItZhpOEOx6xoaH/mUB6E3uE4MPjc9RYUTLmqv6WNx1+sds?=
+ =?us-ascii?Q?DDTliP/mBqgvUQeM7pYBzyo40XQzuL3Ppq0XJIHDj9tK6b4zJHaewNFWXnjH?=
+ =?us-ascii?Q?ojHK1SmW45QnQOaPqs1nZafLveMIfUwNN+ITvqj+gw=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aedce035-d51e-41c8-6e4b-08dad6d68b90
+X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2022 15:37:00.2471 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB1787
+X-Mailman-Approved-At: Tue, 06 Dec 2022 14:53:23 +0100
+Cc: jgross@suse.com, wei.liu@kernel.org, sstabellini@kernel.org,
+ linux-hyperv@vger.kernel.org, mpe@ellerman.id.au, haiyangz@microsoft.com,
+ linuxppc-dev@lists.ozlabs.org, decui@microsoft.com,
+ alsa-devel@alsa-project.org, npiggin@gmail.com, linux-kernel@vger.kernel.org,
+ oleksandr_tyshchenko@epam.com, srinivas.kandagatla@linaro.org,
+ christophe.leroy@csgroup.eu, bgoswami@quicinc.com,
+ xen-devel@lists.xenproject.org, johannes@sipsolutions.net, kys@microsoft.com,
+ robert.jarzmik@free.fr, Dawei Li <set_pte_at@outlook.com>,
+ roger.pau@citrix.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,155 +142,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rafael
+For bus-based driver, device removal is implemented as:
+device_remove() => bus->remove() => driver->remove()
 
-On Fri, 2 Dec 2022 at 18:48, Rafael J. Wysocki <rafael@kernel.org> wrote:
->
-> On Thu, Dec 1, 2022 at 12:08 PM Ricardo Ribalda <ribalda@chromium.org> wrote:
-> >
-> > Add a way to let the drivers know if the processes are frozen.
-> >
-> > This is needed by drivers that are waiting for processes to end on their
-> > shutdown path.
-> >
-> > Convert pm_freezing into a function and export it, so it can be used by
-> > drivers that are either built-in or modules.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->
-> Why can't you export the original pm_freezing variable and why is this
-> fixing anything?
+Driver core needs no feedback from bus driver about the result of
+remove callback. In which case, commit fc7a6209d571 ("bus: Make
+remove callback return void") forces bus_type::remove be void-returned.
 
-Because then any module will be able to modify the content of the variable.
+Now we have the situation that both 1st & 2nd part of calling chain
+are void returned, so it does not make much sense for the last one
+(driver->remove) to return non-void to its caller.
 
-The Fixes: is because the last patch on the set is doing a real fix.
-If you only cherry-pick the last patch on a stable branch, the build
-will fail. (Also, the zero-day builder complains)
+So the basic idea behind this patchset is making remove() callback of
+any bus-based driver to be void returned.
 
-Anyway, I think we can hold this patch for a bit. The snd people are
-discussing if this the way to handle it, or if we should handle
-.shutdown in a different way.
+This patchset includes changes for drivers below:
+1. hyperv
+2. macio
+3. apr
+4. xen
+5. ac87
+6. soundbus
 
-Thanks!
+Q: Why not platform drivers?
+A: Too many of them.(maybe 4K+)
 
+Dawei Li (6):
+  hyperv: Make remove callback of hyperv driver void returned
+  macio: Make remove callback of macio driver void returned
+  apr: make remove callback of apr driver void returned
+  xen: make remove callback of xen driver void returned
+  ac97: make remove callback of ac97 driver void returned
+  soundbus: make remove callback of soundbus driver void returned
 
->
-> > ---
-> >  include/linux/freezer.h |  3 ++-
-> >  kernel/freezer.c        |  3 +--
-> >  kernel/power/process.c  | 24 ++++++++++++++++++++----
-> >  3 files changed, 23 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/include/linux/freezer.h b/include/linux/freezer.h
-> > index b303472255be..3413c869d68b 100644
-> > --- a/include/linux/freezer.h
-> > +++ b/include/linux/freezer.h
-> > @@ -13,7 +13,7 @@
-> >  #ifdef CONFIG_FREEZER
-> >  DECLARE_STATIC_KEY_FALSE(freezer_active);
-> >
-> > -extern bool pm_freezing;               /* PM freezing in effect */
-> > +bool pm_freezing(void);
-> >  extern bool pm_nosig_freezing;         /* PM nosig freezing in effect */
-> >
-> >  /*
-> > @@ -80,6 +80,7 @@ static inline int freeze_processes(void) { return -ENOSYS; }
-> >  static inline int freeze_kernel_threads(void) { return -ENOSYS; }
-> >  static inline void thaw_processes(void) {}
-> >  static inline void thaw_kernel_threads(void) {}
-> > +static inline bool pm_freezing(void) { return false; }
-> >
-> >  static inline bool try_to_freeze(void) { return false; }
-> >
-> > diff --git a/kernel/freezer.c b/kernel/freezer.c
-> > index 4fad0e6fca64..2d3530ebdb7e 100644
-> > --- a/kernel/freezer.c
-> > +++ b/kernel/freezer.c
-> > @@ -20,7 +20,6 @@ EXPORT_SYMBOL(freezer_active);
-> >   * indicate whether PM freezing is in effect, protected by
-> >   * system_transition_mutex
-> >   */
-> > -bool pm_freezing;
-> >  bool pm_nosig_freezing;
-> >
-> >  /* protects freezing and frozen transitions */
-> > @@ -46,7 +45,7 @@ bool freezing_slow_path(struct task_struct *p)
-> >         if (pm_nosig_freezing || cgroup_freezing(p))
-> >                 return true;
-> >
-> > -       if (pm_freezing && !(p->flags & PF_KTHREAD))
-> > +       if (pm_freezing() && !(p->flags & PF_KTHREAD))
-> >                 return true;
-> >
-> >         return false;
-> > diff --git a/kernel/power/process.c b/kernel/power/process.c
-> > index ddd9988327fe..8a4d0e2c8c20 100644
-> > --- a/kernel/power/process.c
-> > +++ b/kernel/power/process.c
-> > @@ -108,6 +108,22 @@ static int try_to_freeze_tasks(bool user_only)
-> >         return todo ? -EBUSY : 0;
-> >  }
-> >
-> > +/*
-> > + * Indicate whether PM freezing is in effect, protected by
-> > + * system_transition_mutex.
-> > + */
-> > +static bool pm_freezing_internal;
-> > +
-> > +/**
-> > + * pm_freezing - indicate whether PM freezing is in effect.
-> > + *
-> > + */
-> > +bool pm_freezing(void)
-> > +{
-> > +       return pm_freezing_internal;
-> > +}
-> > +EXPORT_SYMBOL(pm_freezing);
->
-> Use EXPORT_SYMBOL_GPL() instead, please.
->
-> > +
-> >  /**
-> >   * freeze_processes - Signal user space processes to enter the refrigerator.
-> >   * The current thread will not be frozen.  The same process that calls
-> > @@ -126,12 +142,12 @@ int freeze_processes(void)
-> >         /* Make sure this task doesn't get frozen */
-> >         current->flags |= PF_SUSPEND_TASK;
-> >
-> > -       if (!pm_freezing)
-> > +       if (!pm_freezing())
-> >                 static_branch_inc(&freezer_active);
-> >
-> >         pm_wakeup_clear(0);
-> >         pr_info("Freezing user space processes ... ");
-> > -       pm_freezing = true;
-> > +       pm_freezing_internal = true;
-> >         error = try_to_freeze_tasks(true);
-> >         if (!error) {
-> >                 __usermodehelper_set_disable_depth(UMH_DISABLED);
-> > @@ -187,9 +203,9 @@ void thaw_processes(void)
-> >         struct task_struct *curr = current;
-> >
-> >         trace_suspend_resume(TPS("thaw_processes"), 0, true);
-> > -       if (pm_freezing)
-> > +       if (pm_freezing())
-> >                 static_branch_dec(&freezer_active);
-> > -       pm_freezing = false;
-> > +       pm_freezing_internal = false;
-> >         pm_nosig_freezing = false;
-> >
-> >         oom_killer_enable();
-> >
-> > --
->
-> --
-> You received this message because you are subscribed to the Google Groups "Chromeos Kdump" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to chromeos-kdump+unsubscribe@google.com.
-> To view this discussion on the web, visit https://groups.google.com/a/google.com/d/msgid/chromeos-kdump/CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn%3D-Om5QP2-7ocuGdq8R9w%40mail.gmail.com.
+ arch/powerpc/include/asm/macio.h                | 12 ++++++------
+ drivers/ata/pata_macio.c                        |  4 +---
+ drivers/block/xen-blkback/xenbus.c              |  4 +---
+ drivers/block/xen-blkfront.c                    |  3 +--
+ drivers/char/tpm/xen-tpmfront.c                 |  3 +--
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c         |  4 +---
+ drivers/gpu/drm/xen/xen_drm_front.c             |  3 +--
+ drivers/hid/hid-hyperv.c                        |  4 +---
+ drivers/hv/hv_balloon.c                         |  5 +----
+ drivers/hv/hv_util.c                            |  4 +---
+ drivers/input/misc/xen-kbdfront.c               |  5 ++---
+ drivers/input/serio/hyperv-keyboard.c           |  4 +---
+ drivers/macintosh/rack-meter.c                  |  4 +---
+ drivers/mfd/wm97xx-core.c                       |  4 +---
+ drivers/net/ethernet/apple/bmac.c               |  4 +---
+ drivers/net/ethernet/apple/mace.c               |  4 +---
+ drivers/net/hyperv/netvsc_drv.c                 |  4 +---
+ drivers/net/wireless/intersil/orinoco/airport.c |  4 +---
+ drivers/net/xen-netback/xenbus.c                |  3 +--
+ drivers/net/xen-netfront.c                      |  4 +---
+ drivers/pci/controller/pci-hyperv.c             |  3 +--
+ drivers/pci/xen-pcifront.c                      |  4 +---
+ drivers/scsi/mac53c94.c                         |  5 +----
+ drivers/scsi/mesh.c                             |  5 +----
+ drivers/scsi/storvsc_drv.c                      |  4 +---
+ drivers/scsi/xen-scsifront.c                    |  4 +---
+ drivers/tty/hvc/hvc_xen.c                       |  4 ++--
+ drivers/tty/serial/pmac_zilog.c                 |  7 ++-----
+ drivers/uio/uio_hv_generic.c                    |  5 ++---
+ drivers/usb/host/xen-hcd.c                      |  4 +---
+ drivers/video/fbdev/hyperv_fb.c                 |  5 +----
+ drivers/video/fbdev/xen-fbfront.c               |  6 ++----
+ drivers/xen/pvcalls-back.c                      |  3 +--
+ drivers/xen/pvcalls-front.c                     |  3 +--
+ drivers/xen/xen-pciback/xenbus.c                |  4 +---
+ drivers/xen/xen-scsiback.c                      |  4 +---
+ include/linux/hyperv.h                          |  2 +-
+ include/linux/soc/qcom/apr.h                    |  2 +-
+ include/sound/ac97/codec.h                      |  6 +++---
+ include/xen/xenbus.h                            |  2 +-
+ net/9p/trans_xen.c                              |  3 +--
+ net/vmw_vsock/hyperv_transport.c                |  4 +---
+ sound/ac97/bus.c                                |  5 ++---
+ sound/aoa/fabrics/layout.c                      |  3 +--
+ sound/aoa/soundbus/i2sbus/core.c                |  4 +---
+ sound/aoa/soundbus/soundbus.h                   |  6 +++---
+ sound/soc/qcom/qdsp6/q6core.c                   |  4 +---
+ sound/xen/xen_snd_front.c                       |  3 +--
+ 48 files changed, 63 insertions(+), 137 deletions(-)
 
+-- 
+2.25.1
 
-
---
-Ricardo Ribalda

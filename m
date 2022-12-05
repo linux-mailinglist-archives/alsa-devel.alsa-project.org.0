@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90220642D58
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 17:44:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8C7642D6A
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 17:45:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AD1B183E;
-	Mon,  5 Dec 2022 17:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AD1B183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2994417F1;
+	Mon,  5 Dec 2022 17:45:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2994417F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670258673;
-	bh=3v0rnl7k1mvCTwRZCt+sWkrLm2o+962Qdj1PXCSefqA=;
+	s=default; t=1670258751;
+	bh=LTc59N4nZ9cLIbD+UAxQmPbi7igpZaPV1WXEVnhzqlo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AgTtbz7th9M9vJIfyMj/KV6apIyfLSDaQ6IYkZUx9jM+PC0jeyJGVXZkKzgnM5wuK
-	 SFhfYU+AHnUlGIWoZuIW0bwC64Nom4LwsLmTTATllYIFLbFe5Vz62exSTEj/ATfEyM
-	 pRw6PZS1LYBVoZksNHu67fWW+Sj2p6golJZOeJww=
+	b=c37nTUwpHvrpCt0SGvqklrd9dI8v39T8kVrCBcx5dB+LTv7VHBsS9sE+J3XeOmE5x
+	 8uR1ypBfe6qdyTjgRAczuLAi7S1DMnRA03nwVxExOR6ehA7TvBQV5KStmdS5rvmgqo
+	 iveC2X2kyWG7r8TVCrUG96bHR+tlK7Lc8URnMOD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39AA3F8052E;
-	Mon,  5 Dec 2022 17:43:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE302F8047C;
+	Mon,  5 Dec 2022 17:44:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CDA8F804C2; Mon,  5 Dec 2022 17:43:20 +0100 (CET)
+ id 8D783F80155; Mon,  5 Dec 2022 17:44:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2AB52F80236
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 17:43:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AB52F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id E21E5F80155
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 17:44:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E21E5F80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="znWN4ZnQ"; 
+ header.b="o2R16uj6"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="oc5gerhX"
+ header.b="t6JgZja1"
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 82F951FE11;
- Mon,  5 Dec 2022 16:43:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 232382269B;
+ Mon,  5 Dec 2022 16:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670258593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1670258688; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Puk88wb6ST6drPj+/RYMhAKRAT7y6GWleXLj7J6+ruY=;
- b=znWN4ZnQv+ls7LqvfiGPy8ZBPgEHV8XoDv0nfT3sZOSgpuMV0XNM34ZRdyjGffDGx+CSkx
- nd813EFSHyyp56pPSkjlP75P587FTZTGF4g1FaXsz7v6+fDTM4xX/UcSb+27RR1XfqS2TG
- QD8xlh3aXeHOpAmulYn4kYrYj9mdyk8=
+ bh=oERq42Rf9MhkXqYk+Dl+OlvbyNkxydoYRdQSUFlcjQo=;
+ b=o2R16uj6et4cqpPs7cjefNV3E/pjIisjt8YGeyaj+Ph7hsZ882EqYGa734Dg90SA+Bx6CS
+ ni4SYY0/fD4amhsJkJIKt5+wZfKrinDZ51WAAqjXcvmThhatiNWrQPRT5voO+L/Zv+pxQ4
+ JFx4RDi4mtnYwtdRWMUMtvX1gv2wThI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670258593;
+ s=susede2_ed25519; t=1670258688;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Puk88wb6ST6drPj+/RYMhAKRAT7y6GWleXLj7J6+ruY=;
- b=oc5gerhXON0NE3rnEXB7RqHPIwFqoC7mE9Uv24cqYa9UaP2s57UFGhWuWE6sjF21sHjdvV
- f2LzGxY2mkWe8mBg==
+ bh=oERq42Rf9MhkXqYk+Dl+OlvbyNkxydoYRdQSUFlcjQo=;
+ b=t6JgZja1PS5DGeIsr8sPmYIS+XNyZtW1hTMZ92iEANJ17RTX0Hf7nQWoSYWSmb3WjQQaVH
+ 4LLtN2v+HESPQOAw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 6009B1348F;
- Mon,  5 Dec 2022 16:43:13 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E35581348F;
+ Mon,  5 Dec 2022 16:44:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 48u9FqEfjmNrXAAAGKfGzw
- (envelope-from <tiwai@suse.de>); Mon, 05 Dec 2022 16:43:13 +0000
-Date: Mon, 05 Dec 2022 17:43:12 +0100
-Message-ID: <87sfhtvm1r.wl-tiwai@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id YonjNv8fjmMlXQAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Mon, 05 Dec 2022 16:44:47 +0000
+Date: Mon, 05 Dec 2022 17:44:47 +0100
+Message-ID: <87r0xdvlz4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH] ALSA: hda/cirrus: Add extra 10 ms delay to allow PLL
- settle and lock.
-In-Reply-To: <20221205145713.23852-1-vitalyr@opensource.cirrus.com>
-References: <20221205145713.23852-1-vitalyr@opensource.cirrus.com>
+To: Philipp Jungkamp <p.jungkamp@gmx.net>
+Subject: Re: [PATCH v2] ALSA: patch_realtek: Fix Dell Inspiron Plus 16
+In-Reply-To: <20221205163713.7476-1-p.jungkamp@gmx.net>
+References: <20221205163713.7476-1-p.jungkamp@gmx.net>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, tom@tlvince.com, Takashi Iwai <tiwai@suse.com>,
+ lakotamm@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,16 +100,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Dec 2022 15:57:13 +0100,
-Vitaly Rodionov wrote:
+On Mon, 05 Dec 2022 17:37:13 +0100,
+Philipp Jungkamp wrote:
 > 
-> New HW platforms with multiple CS42L42 parts, faster CPU and i2c
-> requre some extra delay to allow PLL to settle and lock. Adding
-> extra 10ms delay.
+> The Dell Inspiron Plus 16, in both laptop and 2in1 form factor, has top
+> speakers connected on NID 0x17, which the codec reports as unconnected.
+> These speakers should be connected to the DAC on NID 0x03.
 > 
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> Signed-off-by: Philipp Jungkamp <p.jungkamp@gmx.net>
+> ---
+> This is a pretty late follow up to the v1 in september.
+> Two people have tested this patch, one for each subsystem id.
+> The popping sound on the headphone jack after audio playback stopped was
+> gone after adding the suggested alc_fixup_no_shutup.
+> 
+> Regards,
+> Philipp Jungkamp
+> 
+> v2:
+> - add 'Signed-off-by' to commit
+> - add subsystem of the 2-in-1 version of the laptop
+> - add alc_fixup_no_shutup to stop headphone jack popping sound on audio suspend
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

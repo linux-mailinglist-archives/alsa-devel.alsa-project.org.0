@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E06B6424CE
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 09:38:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455CB6424CF
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Dec 2022 09:39:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E40AC1717;
-	Mon,  5 Dec 2022 09:37:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E40AC1717
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFE421752;
+	Mon,  5 Dec 2022 09:38:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFE421752
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670229526;
-	bh=gXfSGnPfL+Q635d2cehZtogy9MtbXl2+EV/nOLXsI2g=;
+	s=default; t=1670229546;
+	bh=cghulDz9lzLKc3N6pm9sxANchOK0gH9CRgJeMT3rKrc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZFP+W7XJVztecF03Zh/UCnDp8osxWXndOm7VbVzXJWk2fL4EiX/N3csjLUHHYF1pR
-	 ixbYYXpWXfjhdegfhrbYmjiZbeV+36OyXb791xhi6l7W4VezozFqkYCbVB3K21aF4Y
-	 9I228dWmqcEVcF0S2pr4ofofUKPpXaMogqHy5Fng=
+	b=MFh18AEUJTklnWm+Op0RcZSxrBy8eYFQlTa85WU9VXxpXmNYzvxJyYarcRIlw3E2m
+	 kVZpGUmidcwWjdMDeV20fkOPAZY4gTbRHzXBITeRMiKbflOmTJjUzxX1HEa7+2ZbKw
+	 j9Rw28PpJl75tpQUJYZiPnJ7ayiuN7pvaJ7iUPsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75DEAF80579;
-	Mon,  5 Dec 2022 09:36:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02F00F8057F;
+	Mon,  5 Dec 2022 09:37:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B651F8054A; Mon,  5 Dec 2022 09:36:43 +0100 (CET)
+ id 44C0EF80155; Mon,  5 Dec 2022 09:37:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC3A3F8054A
- for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 09:36:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC3A3F8054A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B031CF80155
+ for <alsa-devel@alsa-project.org>; Mon,  5 Dec 2022 09:36:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B031CF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="VE7aVVT7"
+ header.b="cE+lAwDk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670229401; x=1701765401;
+ t=1670229420; x=1701765420;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gXfSGnPfL+Q635d2cehZtogy9MtbXl2+EV/nOLXsI2g=;
- b=VE7aVVT7Iry7oHaJOTtv5ZZtfqRt7HDphggev3pU3ojdgYLqSdkoAnNU
- sdUbQDuHOCyZhrbRRCJ7BtO/Dw+AIUgl8xbIWQ8DznzK3dH/nxgR/FJlQ
- VFXydWi+6X63JUs5uvwqNlUUEpCSjB7vD4xO0RA9A7reS6lkGe5dkWZLD
- IRInLcMcoOBXq6Ou/HAcaUaJpo5P3YIn2fl2fCcCrm3x/6TkJvsJgqeBO
- GJKStIss3KDi1ui0uzaXFZWdFu2cM732qmr/PaMkM/GNsq3YinMXK91J7
- liL1xjaRJFc1N9Huendgfny8b7zj57lZcjlD+LWML4Ie7ju418H/2XUP2 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10551"; a="343288365"
-X-IronPort-AV: E=Sophos;i="5.96,218,1665471600"; d="scan'208";a="343288365"
+ bh=cghulDz9lzLKc3N6pm9sxANchOK0gH9CRgJeMT3rKrc=;
+ b=cE+lAwDkVgCqDKnmdUzLBbxxn2/0bbRDq0xxUzYr6Ui2i5rsAWqWGr2g
+ BKm8H3EfYewjNm2sLAZt5N/MPbuoZWLzKaBOfB+aj/8bMVCcxCpc00S4s
+ TzqB61YiZfyQQqSB6rfB9KtDxoocqY5o0ssaHru5D3yrUtHg4B61Unu+2
+ IN8vaq6uen9O5IpezdEjnqfsZg197CVSb6i/RlATY6HsK4VRVYcsUgWQT
+ wWx6Snm95Jt5W1rDmatFcxvIv15GTkBEZKpqA8nqJv9Ns02pgbnW2sEcJ
+ LUKjFHoPYgKECig6hhRxvOUGGAMj0EXcAD4rlIY8b5R7dzmwAXv4sSzXF A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10551"; a="343288458"
+X-IronPort-AV: E=Sophos;i="5.96,218,1665471600"; d="scan'208";a="343288458"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2022 00:36:38 -0800
+ 05 Dec 2022 00:36:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10551"; a="647866237"
-X-IronPort-AV: E=Sophos;i="5.96,218,1665471600"; d="scan'208";a="647866237"
+X-IronPort-AV: E=McAfee;i="6500,9779,10551"; a="647866255"
+X-IronPort-AV: E=Sophos;i="5.96,218,1665471600"; d="scan'208";a="647866255"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga007.fm.intel.com with ESMTP; 05 Dec 2022 00:36:36 -0800
+ by fmsmga007.fm.intel.com with ESMTP; 05 Dec 2022 00:36:38 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH v2 5/6] ASoC: Intel: Skylake: Fix driver hang during shutdown
-Date: Mon,  5 Dec 2022 09:53:29 +0100
-Message-Id: <20221205085330.857665-6-cezary.rojewski@intel.com>
+Subject: [PATCH v2 6/6] ASoC: Intel: Skylake: Use SG allocation for SKL-based
+ firmware load
+Date: Mon,  5 Dec 2022 09:53:30 +0100
+Message-Id: <20221205085330.857665-7-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221205085330.857665-1-cezary.rojewski@intel.com>
 References: <20221205085330.857665-1-cezary.rojewski@intel.com>
@@ -93,31 +94,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-AudioDSP cores and HDAudio links need to be turned off on shutdown to
-ensure no communication or data transfer occurs during the procedure.
+Resign from ->alloc_dma_buf() and use snd_dma_alloc_pages() directly.
+For data i.e.: base firmware binary transfer, make use of SG allocation
+to better adapt to memory-limited environment. For BDL descriptor, given
+its small size this is not required.
 
-Fixes: c5a76a246989 ("ASoC: Intel: Skylake: Add shutdown callback")
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/skylake/skl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/intel/skylake/skl-sst-cldma.c | 27 +++++++++++++++----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index 9bd9f9866898..998bd0232cf1 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -1107,7 +1107,10 @@ static void skl_shutdown(struct pci_dev *pci)
- 	if (!skl->init_done)
- 		return;
+diff --git a/sound/soc/intel/skylake/skl-sst-cldma.c b/sound/soc/intel/skylake/skl-sst-cldma.c
+index b91f7a652a2b..b0204ea00f07 100644
+--- a/sound/soc/intel/skylake/skl-sst-cldma.c
++++ b/sound/soc/intel/skylake/skl-sst-cldma.c
+@@ -11,6 +11,7 @@
+ #include <linux/io.h>
+ #include <linux/mm.h>
+ #include <linux/delay.h>
++#include <sound/hda_register.h>
+ #include "../common/sst-dsp.h"
+ #include "../common/sst-dsp-priv.h"
  
--	snd_hdac_stop_streams_and_chip(bus);
-+	snd_hdac_stop_streams(bus);
-+	snd_hdac_ext_bus_link_power_down_all(bus);
-+	skl_dsp_sleep(skl->dsp);
+@@ -79,21 +80,25 @@ static void skl_cldma_setup_bdle(struct sst_dsp *ctx,
+ 		__le32 **bdlp, int size, int with_ioc)
+ {
+ 	__le32 *bdl = *bdlp;
++	int remaining = ctx->cl_dev.bufsize;
++	int offset = 0;
+ 
+ 	ctx->cl_dev.frags = 0;
+-	while (size > 0) {
+-		phys_addr_t addr = virt_to_phys(dmab_data->area +
+-				(ctx->cl_dev.frags * ctx->cl_dev.bufsize));
++	while (remaining > 0) {
++		phys_addr_t addr;
++		int chunk;
+ 
++		addr = snd_sgbuf_get_addr(dmab_data, offset);
+ 		bdl[0] = cpu_to_le32(lower_32_bits(addr));
+ 		bdl[1] = cpu_to_le32(upper_32_bits(addr));
++		chunk = snd_sgbuf_get_chunk_size(dmab_data, offset, size);
++		bdl[2] = cpu_to_le32(chunk);
+ 
+-		bdl[2] = cpu_to_le32(ctx->cl_dev.bufsize);
+-
+-		size -= ctx->cl_dev.bufsize;
+-		bdl[3] = (size || !with_ioc) ? 0 : cpu_to_le32(0x01);
++		remaining -= chunk;
++		bdl[3] = (remaining > 0) ? 0 : cpu_to_le32(0x01);
+ 
+ 		bdl += 4;
++		offset += chunk;
+ 		ctx->cl_dev.frags++;
+ 	}
+ }
+@@ -338,15 +343,15 @@ int skl_cldma_prepare(struct sst_dsp *ctx)
+ 	ctx->cl_dev.ops.cl_stop_dma = skl_cldma_stop;
+ 
+ 	/* Allocate buffer*/
+-	ret = ctx->dsp_ops.alloc_dma_buf(ctx->dev,
+-			&ctx->cl_dev.dmab_data, ctx->cl_dev.bufsize);
++	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, ctx->dev, ctx->cl_dev.bufsize,
++				  &ctx->cl_dev.dmab_data);
+ 	if (ret < 0) {
+ 		dev_err(ctx->dev, "Alloc buffer for base fw failed: %x\n", ret);
+ 		return ret;
+ 	}
 +
- 	list_for_each_entry(s, &bus->stream_list, list) {
- 		stream = stream_to_hdac_ext_stream(s);
- 		snd_hdac_ext_stream_decouple(bus, stream, false);
+ 	/* Setup Code loader BDL */
+-	ret = ctx->dsp_ops.alloc_dma_buf(ctx->dev,
+-			&ctx->cl_dev.dmab_bdl, PAGE_SIZE);
++	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, ctx->dev, BDL_SIZE, &ctx->cl_dev.dmab_bdl);
+ 	if (ret < 0) {
+ 		dev_err(ctx->dev, "Alloc buffer for blde failed: %x\n", ret);
+ 		ctx->dsp_ops.free_dma_buf(ctx->dev, &ctx->cl_dev.dmab_data);
 -- 
 2.25.1
 

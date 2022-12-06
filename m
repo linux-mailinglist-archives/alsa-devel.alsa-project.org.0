@@ -2,127 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D22D6643FF1
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 10:38:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE2B64403B
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 10:50:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EFC41684;
-	Tue,  6 Dec 2022 10:37:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EFC41684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17D3E16F3;
+	Tue,  6 Dec 2022 10:49:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17D3E16F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670319494;
-	bh=hgi6+L9kksqAgRfPDHY8HHnRytMiVcGZa7Is8yLmRvo=;
+	s=default; t=1670320230;
+	bh=6n4Bm0ycM73dP38b0rr7ZAIppKs6PXLxvgCOtqGB2aM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Uoe3zQJ/n4SYrSwHYlHiUnHaONDkfZWWXf1omsP56HMsqhkArcp2285/Ot71dWNdR
-	 YbiNhZuqOXVd9I5ia7C6Cp+xodNND1HUGwhBO0pKnhr3CUP0g346uOxXxnDt34zo1C
-	 4ojgXqPof+FQuNJwk8TawjxOseglL7lGuIYR+IyU=
+	b=BVjW5VqfvQo5/3wKVOUOHt/LpeZFos3PDZUoAztqT8P/RawV6Z90rYmT3NFF1kWgo
+	 mhCfp+5DZpeED+dfW+ubvSyLM8xvOcxgtf6RAM0aLS+95iU2ScG54nJbJRf/s9ZEHv
+	 u8TWUDf0Mo9CkEdOoeUyskcfXhu4u5QkFG/XAJdg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CFB0F80121;
-	Tue,  6 Dec 2022 10:37:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7D20F8014C;
+	Tue,  6 Dec 2022 10:49:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 693D1F80121; Tue,  6 Dec 2022 10:37:16 +0100 (CET)
+ id 7507FF80121; Tue,  6 Dec 2022 10:49:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FORGED_HOTMAIL_RCVD2,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01olkn2081b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feab::81b])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DE0AF80121
+ for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 10:49:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DE0AF80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BJIfuLmM"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FE7EF80121
- for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 10:37:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FE7EF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com
- header.b="fgytWXOT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KqXpQb3/49Xp4Bg+RjSCcR2Url+ugfad9yLlRDd6G+tUCo1YzA8kHm897gSZsK5GI3fqXQff8TOq1s2+BOs/eXfalpLCdbzXM8nRm/u4OGTFbY/dFNoSKepIQ3xDQM7bLrAXRhwKIVFEqEOe9yXecV4x2xtZqe4Oxr5euW5M7sN6UMqETHplIojpoZBT8H+VGjTFZ7E2NlGm7dTaz9o/r2sbtgKjHTTjx4omi2PByL4XC1gd12eg+N+761jMgQvl5l1/j4+y3P1YfN4s1MsECchqORZi1eAMMK+aD4TmWRucJOITBccxXVax1UHNNlb8NLSb0DUD6fgNnguF9QwR7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u6IaMZZ9tebl5XumMYBGTVA6TlDmw79NvGt3X27cSVs=;
- b=UB94Tcnnb/45DL5a7IHbuyTSoCvpTk2REKFWeCxxalHiDFf/9kSzwxTzzsFqKdDBn8/fxOq+YGUGxWldMTiOI9ePvd4mAmS/Ic1WBJfRghqEjeVEbE/GanRc1xChpdLXvarRqPGUwY3bbkQ60AlwtcAyDv4ow81dJm+bKLbI8Jh81Y2VFCSxmayFVHFg4pcGC/UGOMokMbeknFeOrI/QdIQqWoNm5P4dmS5sZnyxJoq0AJmvY1e2qaB3QhDTNhzzlei1pVBvBPUZ71AzExXTIjo3+ZcCQ1siGZ0uZSc7Lm/U8Mwsx9qnWRNWePTv0RglfnyTnKJ+saH+nZq9MxTkUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u6IaMZZ9tebl5XumMYBGTVA6TlDmw79NvGt3X27cSVs=;
- b=fgytWXOT9ZGCm0aIfzuY3lZm4j+A5iOwG5gHgK0nFAJcPRcyHwQI+YxH28MyZwchjM1D1xanCAeFFaRmeDpTuooT9C8iGsNLvMsKCf3xfdYal8KXd/0d4/eOvW/EzvDB9/Rx07MFNncrJuP8vQyZHfi2hvrNowbvyJ394AJJ+iTcK/oLBe25Q4IeiR/20D+2i9BUF01PKwDh0ZD2oD4ltjs6R42nZHTagF4d3SBfGST0zKvESN82MRA+0AuocsBfM1d96zacRmkjgJSKbyCPM5Bjh6rrirXRl7q0nFN2xmS6aUzbkyCt7XesJEec/RDAWe4MWxSRClRxZ+2Lx8SvxA==
-Received: from SG2PR02MB5878.apcprd02.prod.outlook.com (2603:1096:4:1d2::9) by
- TY0PR02MB5790.apcprd02.prod.outlook.com (2603:1096:400:1b5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 09:37:02 +0000
-Received: from SG2PR02MB5878.apcprd02.prod.outlook.com
- ([fe80::2c81:c803:d49b:eebb]) by SG2PR02MB5878.apcprd02.prod.outlook.com
- ([fe80::2c81:c803:d49b:eebb%6]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
- 09:37:02 +0000
-From: Dicheng Wang <wangdicheng123@hotmail.com>
-To: perex@perex.cz, tiwai@suse.com, sdoregor@sdore.me,
- connerknoxpublic@gmail.com, wangdicheng@kylinos.cn, hahnjo@hahnjo.de,
- john-linux@pelago.org.uk
-Subject: [PATCH v2 -next] ALSA:usb-audio:Add the information of KT0206 device
- driven by USB audio
-Date: Tue,  6 Dec 2022 17:36:37 +0800
-Message-ID: <SG2PR02MB58780ED138433086A3213AE98A1B9@SG2PR02MB5878.apcprd02.prod.outlook.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [kOYsakc9vfiiplObWFNDSx+Ar7j0WU7oP/cCeTZ1vPY=]
-X-ClientProxiedBy: TYAPR01CA0129.jpnprd01.prod.outlook.com
- (2603:1096:404:2d::21) To SG2PR02MB5878.apcprd02.prod.outlook.com
- (2603:1096:4:1d2::9)
-X-Microsoft-Original-Message-ID: <20221206093637.20093-1-wangdicheng123@hotmail.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 16221615FD;
+ Tue,  6 Dec 2022 09:49:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71067C433C1;
+ Tue,  6 Dec 2022 09:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670320161;
+ bh=6n4Bm0ycM73dP38b0rr7ZAIppKs6PXLxvgCOtqGB2aM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=BJIfuLmMfExlNA6Sg919/ovJ4fcp5ydVxdt2kWIizE9plXBPiRX6kjCw8yNapiHW9
+ yOl3tVR34lBkT4KmABxsDHfPNpuVLNvF0o8fghU0MNw5YndL75beK3siRtDQnywrtF
+ ScYjfWQPWI+moEDBTUsjHFKUocpyfphyjSbh+jpsqTYcdPO8bGInk6WN3ug38cRpmc
+ GCu9rX2H1PHFvQPGHeb+3Ji0IWVOW0iyGsJNAiHrjniiHJyE64IkmN+YBtbYR4VWlX
+ J4CvrMJG6Zo44U4rTvhPGSJD7MHAo8YZ/Z3jPOvbNWcAF/aCP5y1uqfFNbLUbT/418
+ YbiWKo4hacOdw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.0 01/13] ASoC: fsl_micfil: explicitly clear software
+ reset bit
+Date: Tue,  6 Dec 2022 04:49:04 -0500
+Message-Id: <20221206094916.987259-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PR02MB5878:EE_|TY0PR02MB5790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ffd90ad-788b-4e66-de53-08dad76d6dae
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iw39xBgGz6/a4q3CW9PP4vsGPDJemFqlHS6elDwKIGZWoYrGb10xtj28dffvo8y59umC7RDe7IKKLZ8pIP5sL6o2saPCylBki2tKr3Hd3Q6B5svCjCaLVOvY4+Y+l3BofFoL/uCutKR72xxg7Dsgus9KLgQIRo+kYkPd07yxv47bWezn7Blb/ZUt0Sd0+bhMX57GdcPrF8SElfcyBdYUwOACxqR393AJOuAOxNqULqClMhdrETQQgR9wrWzpMcYCtHQ9W/D9mhDmIIqJjzm9R0ndTZBdX0iw0GjrDZ8rCatF5mrszswuaDlpulvZrPUEteimYdUrafAteE3JKEb9uOP9X6GBBJPJ/5/IfJpxQ7HQH8UV+Of235anuGddX7LBSbGjb8ZdomfCSFY8aVLZofktSbJl91/x4t2bhy78AJSIQKm8YbVZ/2Jq99hPL6miS/865AMsi+Ahs74w5tgvRDQuWJO199NmGajcI5YOk//XoOWQet+ARFheRf1FvlkS3sdW6OnoRoLf+kHjxxnAVe1VEYz9uyPk6wCNv3SIrzvB4EFZY9EROGkn7XPS/21iyaEgF0qJugBNGohytNQLvoMfgOvBSp34s12I1jiZRd0=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Hnotf4Shh3yWV2bMpP8gAuDO6wpX+tEq9fsYqOpCMecasVLR8zKOyXGPmOd8?=
- =?us-ascii?Q?DkXdAuh2181wY2E2EOo4l9sVYNDaLFYrU8sMinS7dniCEzg7igBOsSjy0IQE?=
- =?us-ascii?Q?TSRqYLp1CjsuV416pWB+AiN95ojTjWMK0CWFLADcAodT4lO1kxGBV5rutOhE?=
- =?us-ascii?Q?fd+7IgEAdmJxBcjx4ntNwe2C1xW6nPjhqDIFDfNlUZ5cEhuO/eIzO7nTpBxZ?=
- =?us-ascii?Q?qroaUCJAHADNHLhAJ+9OpVAGYCesrmly/PV1kQ1H+9XQe/q+zPS1O2lANC9T?=
- =?us-ascii?Q?OZcj7OOk+jSIAoRw+8qZqlIaJcMvT+PcNo6POQhazEn0N6Wd0OEN3QLSOM9p?=
- =?us-ascii?Q?2F10IXHH5KiKUuRajNG/jgqzqqWpPeHidb3/SJlTHY24J51f5N7X9kMkC4PH?=
- =?us-ascii?Q?o3t6gBDXkk+K6HmnitkIKYU1Q5OFxmLSgaONZ+730n8vQbGsDtBHk/o3uiSY?=
- =?us-ascii?Q?LekJZIjnUuyGsIJ692D8kNNmeu/S+pvDwY3jabZpXSqgeZDSg1KHBtz67IJ2?=
- =?us-ascii?Q?SJaXRP2+5CuguFme6W1ojf5YXXmEuPost35EPQU7u953DSje72xQZ5sgb5rx?=
- =?us-ascii?Q?itVSVBs2ppMcu99lxs7h9WMFmX6bQnN8stjKZQg824AuTLBI/1Xji/re6Wr4?=
- =?us-ascii?Q?IBNRsUTStSKe9kW5bA34neVgm5XNDnl8DweH5y4oZYiO9GsZ9lfpriekTHpi?=
- =?us-ascii?Q?6wcLsEaIVgx+/x1VP6AxvEyhpubQ/E2HZj2oRPjNW1dNoMGBEVhuF+QeA4Q/?=
- =?us-ascii?Q?MeYHpLAN8EGOv9lE7hh6eEsfXPB1aHkcX+PkhjTNwQ+0uEr98+yux9z96eOR?=
- =?us-ascii?Q?OF6Uwa/O5qQKIsYsPuYYGHYFuky0H/Q+ZlhGgTr/PAtoVig+hqdcGF54Jqra?=
- =?us-ascii?Q?81WXjSy9np8AjuPK8w5TSgV/mT2tP3iaRUK4rb6q0TmSyyexteNP+6GIjP3r?=
- =?us-ascii?Q?vUO7Kf7IkUa1DnMEHESE5SyQVnGojJadahhf9lA2e6jJcg2Y3BS/0pm5B+9s?=
- =?us-ascii?Q?Y4Yjno/soOWEsTDrjCwFLW+lHNVLlfFrJ3/B6yTuCQkTSah9Ixbflmt4VVzV?=
- =?us-ascii?Q?WwsrbWQbtJ53dbVfx6U7p8J2e6xWxGVaaAibOOtanGtV66St+cgdZBjyBAlO?=
- =?us-ascii?Q?EHqoNuo/xfnwG8SDGhsySdBrPVz1jvwUoA/yztegsjaeDhB/L5xvShk+PHjz?=
- =?us-ascii?Q?KFMLXr+PJr1rMA4DFEd/1Zyd5BMioojySFKaulQ7bbYdSweO5f0hhGyL5edp?=
- =?us-ascii?Q?CVv8oTQpb1l5npX1NXPXoqT7FosZR+F1Okko/wuLPjJ4M7MbR9rNaUT09hXi?=
- =?us-ascii?Q?YKM=3D?=
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-20e34.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ffd90ad-788b-4e66-de53-08dad76d6dae
-X-MS-Exchange-CrossTenant-AuthSource: SG2PR02MB5878.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 09:37:02.4491 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR02MB5790
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,29 +87,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: wangdicheng <wangdicheng@kylinos.cn>
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Cc: stable@vger.kernel.org
-Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+[ Upstream commit 292709b9cf3ba470af94b62c9bb60284cc581b79 ]
+
+SRES is self-cleared bit, but REG_MICFIL_CTRL1 is defined as
+non volatile register, it still remain in regmap cache after set,
+then every update of REG_MICFIL_CTRL1, software reset happens.
+to avoid this, clear it explicitly.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://lore.kernel.org/r/1651925654-32060-1-git-send-email-shengjiu.wang@nxp.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:use USB_DEVICE_VENDOR_SPEC() suggested by Takashi Iwai
+ sound/soc/fsl/fsl_micfil.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
- sound/usb/quirks-table.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 874fcf245747..271884e35003 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -76,6 +76,8 @@
- { USB_DEVICE_VENDOR_SPEC(0x041e, 0x3f0a) },
- /* E-Mu 0204 USB */
- { USB_DEVICE_VENDOR_SPEC(0x041e, 0x3f19) },
-+/* Ktmicro Usb_audio device */
-+{ USB_DEVICE_VENDOR_SPEC(0x31b2, 0x0011) },
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 79ef4e269bc9..8aa6871e0d42 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -194,6 +194,17 @@ static int fsl_micfil_reset(struct device *dev)
+ 	if (ret)
+ 		return ret;
  
- /*
-  * Creative Technology, Ltd Live! Cam Sync HD [VF0770]
++	/*
++	 * SRES is self-cleared bit, but REG_MICFIL_CTRL1 is defined
++	 * as non-volatile register, so SRES still remain in regmap
++	 * cache after set, that every update of REG_MICFIL_CTRL1,
++	 * software reset happens. so clear it explicitly.
++	 */
++	ret = regmap_clear_bits(micfil->regmap, REG_MICFIL_CTRL1,
++				MICFIL_CTRL1_SRES);
++	if (ret)
++		return ret;
++
+ 	return 0;
+ }
+ 
 -- 
-2.25.1
+2.35.1
 

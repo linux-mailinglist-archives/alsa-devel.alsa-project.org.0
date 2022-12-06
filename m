@@ -2,62 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21878643D05
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 07:11:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50AFA643DD3
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 08:52:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44F651729;
-	Tue,  6 Dec 2022 07:10:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F651729
+	by alsa0.perex.cz (Postfix) with ESMTPS id C95B2173F;
+	Tue,  6 Dec 2022 08:51:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C95B2173F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670307078;
-	bh=nAU2cVGo0cMwQxA17GlUKs04Np5diHMGJCRzwBQaLsg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tIkBnH9ktNcUoIv8WgcJMIZWIM7rCSbzQTO/GRwmsDxwdvQBo4Hb/TxlIyp7Brfpg
-	 k+ok+swV1rAYXMRpoRqx/FBIMKSSVDcPghQGpqmthDv/C8nr7EWkaqVesav26gMcee
-	 /pX18oFKM6x8TI6X1DQHSAvQ7/jZ5CfsobQ7qTOE=
+	s=default; t=1670313133;
+	bh=Hgzl/K0YKcNXLHlFPNIrDsHpPZoYwqLvjMHsHhfdMKo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oLTDVCtY2qCOUpMHU90QXdnEGsf74uS1X+D1gOXKNeniTa+/Gvz4h9ps3y2Igk1Ih
+	 BMm2EvXczBJc8U02TjQHXWEBgP1CLxi0xCjkBXuGLe19jlR2sj7wEtdmaDPWdQqtNf
+	 jEUZr8GJtwwKbDwNygd37rNiVBVuZy6cbMnljddA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7B7DF80290;
-	Tue,  6 Dec 2022 07:10:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74B18F80290;
+	Tue,  6 Dec 2022 08:51:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58C95F80155; Tue,  6 Dec 2022 07:10:19 +0100 (CET)
+ id DAC2BF80246; Tue,  6 Dec 2022 08:51:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A7ADF80155
- for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 07:10:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A7ADF80155
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4NR93d62fDz15N5D;
- Tue,  6 Dec 2022 14:09:17 +0800 (CST)
-Received: from cgs.huawei.com (10.244.148.83) by
- kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 6 Dec 2022 14:10:05 +0800
-From: Gaosheng Cui <cuigaosheng1@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <cuigaosheng1@huawei.com>,
- <mk@phasorlab.de>
-Subject: [PATCH] ALSA: mts64: fix possible null-ptr-defer in
- snd_mts64_interrupt
-Date: Tue, 6 Dec 2022 14:10:04 +0800
-Message-ID: <20221206061004.1222966-1-cuigaosheng1@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.244.148.83]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A9F7F8014E
+ for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 08:51:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A9F7F8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Av8uURWA"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UI76kqJp"
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9335A1FE6F;
+ Tue,  6 Dec 2022 07:51:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1670313070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DguXlop+XBAnXQ345bnp4rHU580l8eGeAodTU3A7miA=;
+ b=Av8uURWAMDah9hoVkBPiokzwzy9ikjADBS2xYWhgQpXqVTu0mcxPX2C3HsV2mKc/fnf0ek
+ qlgGqzaf+PvH5EO4uX7WbhbC1AD1nXzY5twGxpo1cDZbGsLSuuWJcWSDeL4A/CNmR1yWI4
+ ArwDzYrSkz3zTsQ8URILKb7O/ZAKHnE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1670313070;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DguXlop+XBAnXQ345bnp4rHU580l8eGeAodTU3A7miA=;
+ b=UI76kqJpSHpKz1uQ3sTIJ5JolUTK8vHK1zGIHaqgyE9H8SF6e9l4sZXju7lwp8gF1aBqTh
+ 3V0ySk2gT3/5ArDw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 2C26513326;
+ Tue,  6 Dec 2022 07:51:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id S4IGCm70jmNQXAAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Tue, 06 Dec 2022 07:51:10 +0000
+Date: Tue, 06 Dec 2022 08:51:10 +0100
+Message-ID: <87k035ug0h.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Carl Hetherington <lists@carlh.net>
+Subject: Re: Query about xrun on usb/pcm
+In-Reply-To: <5145ccb-4845-17c3-cac9-3dc4dadf5ec3@carlh.net>
+References: <b4e71631-4a94-613-27b2-fb595792630@carlh.net>
+ <87y1s3v4ba.wl-tiwai@suse.de>
+ <e830ee7b-e79e-54fb-a2ca-ffffd777b3f@carlh.net>
+ <87edtv6pi6.wl-tiwai@suse.de>
+ <baa6589-184f-6751-71be-1d5d67f8a6d5@carlh.net>
+ <87fse2qk51.wl-tiwai@suse.de>
+ <18aa8f93-92c7-eea-101f-8982292b6e18@carlh.net>
+ <87cz93o9ab.wl-tiwai@suse.de>
+ <656d9d2-a0ec-7a3-394c-7a84b17afa11@carlh.net>
+ <87lenmm3m3.wl-tiwai@suse.de>
+ <5145ccb-4845-17c3-cac9-3dc4dadf5ec3@carlh.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -74,94 +109,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I got a null-ptr-defer error report when I do the following tests
-on the qemu platform:
+On Mon, 05 Dec 2022 19:53:26 +0100,
+Carl Hetherington wrote:
+> 
+> Hi Takashi,
+> 
+> > I'm going to submit fix patches and put you to Cc.  I believe that the
+> > former patches are also valid, although it doesn't influence in your
+> > case, so they'll be included.
+> >
+> > The fixes will be likely included in 6.2-rc1.
+> 
+> Thank you, that is great!
+> 
+> I should have mentioned before that I actually tested the patch against
+> 5.15.48 (where it doesn't quite apply cleanly).  Sorry for the
+> confusion.
+> 
+> If it would help to test against a newer kernel, let me know and I can
+> give it a try.
 
-make defconfig and CONFIG_PARPORT=m, CONFIG_PARPORT_PC=m,
-CONFIG_SND_MTS64=m
+It's OK with 5.15.x, as the endpoint management hasn't been changed
+much since then.
 
-Then making test scripts:
-cat>test_mod1.sh<<EOF
-modprobe snd-mts64
-modprobe snd-mts64
-EOF
 
-Executing the script, perhaps several times, we will get a null-ptr-defer
-report, as follow:
+thanks,
 
-syzkaller:~# ./test_mod.sh
-snd_mts64: probe of snd_mts64.0 failed with error -5
-modprobe: ERROR: could not insert 'snd_mts64': No such device
- BUG: kernel NULL pointer dereference, address: 0000000000000000
- #PF: supervisor write access in kernel mode
- #PF: error_code(0x0002) - not-present page
- PGD 0 P4D 0
- Oops: 0002 [#1] PREEMPT SMP PTI
- CPU: 0 PID: 205 Comm: modprobe Not tainted 6.1.0-rc8-00588-g76dcd734eca2 #6
- Call Trace:
-  <IRQ>
-  snd_mts64_interrupt+0x24/0xa0 [snd_mts64]
-  parport_irq_handler+0x37/0x50 [parport]
-  __handle_irq_event_percpu+0x39/0x190
-  handle_irq_event_percpu+0xa/0x30
-  handle_irq_event+0x2f/0x50
-  handle_edge_irq+0x99/0x1b0
-  __common_interrupt+0x5d/0x100
-  common_interrupt+0xa0/0xc0
-  </IRQ>
-  <TASK>
-  asm_common_interrupt+0x22/0x40
- RIP: 0010:_raw_write_unlock_irqrestore+0x11/0x30
-  parport_claim+0xbd/0x230 [parport]
-  snd_mts64_probe+0x14a/0x465 [snd_mts64]
-  platform_probe+0x3f/0xa0
-  really_probe+0x129/0x2c0
-  __driver_probe_device+0x6d/0xc0
-  driver_probe_device+0x1a/0xa0
-  __device_attach_driver+0x7a/0xb0
-  bus_for_each_drv+0x62/0xb0
-  __device_attach+0xe4/0x180
-  bus_probe_device+0x82/0xa0
-  device_add+0x550/0x920
-  platform_device_add+0x106/0x220
-  snd_mts64_attach+0x2e/0x80 [snd_mts64]
-  port_check+0x14/0x20 [parport]
-  bus_for_each_dev+0x6e/0xc0
-  __parport_register_driver+0x7c/0xb0 [parport]
-  snd_mts64_module_init+0x31/0x1000 [snd_mts64]
-  do_one_initcall+0x3c/0x1f0
-  do_init_module+0x46/0x1c6
-  load_module+0x1d8d/0x1e10
-  __do_sys_finit_module+0xa2/0xf0
-  do_syscall_64+0x37/0x90
-  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-  </TASK>
- Kernel panic - not syncing: Fatal exception in interrupt
- Rebooting in 1 seconds..
-
-The mts wa not initialized during interrupt,  we add check for
-mts to fix this bug.
-
-Fixes: 68ab801e32bb ("[ALSA] Add snd-mts64 driver for ESI Miditerminal 4140")
-Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
----
- sound/drivers/mts64.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/drivers/mts64.c b/sound/drivers/mts64.c
-index d3bc9e8c407d..f0d34cf70c3e 100644
---- a/sound/drivers/mts64.c
-+++ b/sound/drivers/mts64.c
-@@ -815,6 +815,9 @@ static void snd_mts64_interrupt(void *private)
- 	u8 status, data;
- 	struct snd_rawmidi_substream *substream;
- 
-+	if (!mts)
-+		return;
-+
- 	spin_lock(&mts->lock);
- 	ret = mts64_read(mts->pardev->port);
- 	data = ret & 0x00ff;
--- 
-2.25.1
-
+Takashi

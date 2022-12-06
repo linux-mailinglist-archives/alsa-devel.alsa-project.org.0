@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EAA9644113
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 11:14:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 901B4644149
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 11:31:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA9C618A2;
-	Tue,  6 Dec 2022 11:13:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA9C618A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F3411714;
+	Tue,  6 Dec 2022 11:30:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F3411714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670321650;
-	bh=uR5zaQZZyabSjsnjvz9PFS1cLIju9z1AaHXID2JEd20=;
+	s=default; t=1670322664;
+	bh=OBV8C641Wj1pQP9QGWF0Z22KKhkk/bo0xU601f0MjR0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S/zNemHKUtnCD8ioNqKn/CWWVi9Yf5MFtHh4gz1c+CSueBakesEJ7pvrs9XExrinF
-	 W/bc1RD71Dcryh86hODSpO2H9kkPxqh2vQhyCWUlpJWbDpl2/BRh41KqIGrikQZwIH
-	 2Bx8z24T8wrBwEm8+y2T7UEsfVs+q1euq/TOFpro=
+	b=LDOmpNhr72EyXiArNQMQiX2/nLtzWzPX63ZLfHhVOl3SRze2UBiQvAsCvYKI7LKJK
+	 R6/DzLxBgLeLWkoZ+IPfN3YjtPA6Z2JuBby/McSSdYByZO99Vk0V/kWYktC0uSUzUV
+	 oeH6weClHeqTM5Du6Yaaq7TJyp0znz3Xdyj7hZ4A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2247F80290;
-	Tue,  6 Dec 2022 11:13:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD25BF80290;
+	Tue,  6 Dec 2022 11:30:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BB60F80246; Tue,  6 Dec 2022 11:13:11 +0100 (CET)
+ id ED2C7F80246; Tue,  6 Dec 2022 11:30:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_26, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CAAFF80121
- for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 11:13:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CAAFF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9373AF8014E
+ for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 11:30:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9373AF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="q40BP1vQ"; 
+ header.b="0bX744f4"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="r5avva31"
+ header.b="KhT+eqnQ"
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CD04121BAC;
- Tue,  6 Dec 2022 10:13:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B7A5421C2E;
+ Tue,  6 Dec 2022 10:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670321584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1670322601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=X75I9o2qEzbKiG9VEdnvbgrCxQjlW83oXhXPywiq644=;
- b=q40BP1vQ/NeVPIo9S3RH+9u9j+54kv6x1nONT59YHm5wvlr82efKZtGPYyBs6cHV5hjhoK
- 8ooO2mOD1kv6BFdoftS6ji9V/EG7aQ6h2KrpGwlhqfh+QHUjfPbtHiCFc1o85qKkz3olf7
- MEbDlN1Ctu6tGWfzUpwvYk28M8/AmTM=
+ bh=MPzgt7M/tf+ubyWrTk44Q/GOTQwG0OMk9l8ymOeAFRc=;
+ b=0bX744f43E1pLvZDa3zAlyNvv2A+2Y8MnnEB765W9Q6i9QlVaK5MM0IlwzpGouhPz8/k7j
+ gI1sSVRwOBsHw68IKTESQH5wing5jIm5SYiykWNp/qq3LH7ft2OL2IJMwSvlGhUJLN/lX/
+ ayEyaG6Vuxa3L9zcOiltSGYTwhrsYt8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670321584;
+ s=susede2_ed25519; t=1670322601;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=X75I9o2qEzbKiG9VEdnvbgrCxQjlW83oXhXPywiq644=;
- b=r5avva312bAcQMCiPLhtYocc93oGLXVt3AxIMosJnxrUBj5oubP6mQ3cobt3zlU+Znuyy8
- UnpTCb0FCkk0GRBQ==
+ bh=MPzgt7M/tf+ubyWrTk44Q/GOTQwG0OMk9l8ymOeAFRc=;
+ b=KhT+eqnQ1tdeSD1fYodsAsCwk+ulToIFUy+nRUPbqr++pkeWFXDBf3JxOfEsvKasAZ5oWN
+ KcOZsyNg4JsiYhBg==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id A610D132F3;
- Tue,  6 Dec 2022 10:13:04 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 905CB132F3;
+ Tue,  6 Dec 2022 10:30:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id MiTqJ7AVj2M0JQAAGKfGzw
- (envelope-from <tiwai@suse.de>); Tue, 06 Dec 2022 10:13:04 +0000
-Date: Tue, 06 Dec 2022 11:13:04 +0100
-Message-ID: <878rjkvo0f.wl-tiwai@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id 3YKCIqkZj2P3LAAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Tue, 06 Dec 2022 10:30:01 +0000
+Date: Tue, 06 Dec 2022 11:30:01 +0100
+Message-ID: <874ju8vn86.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>
-Subject: Re: [PATCH] ALSA: mts64: fix possible null-ptr-defer in
- snd_mts64_interrupt
-In-Reply-To: <20221206061004.1222966-1-cuigaosheng1@huawei.com>
-References: <20221206061004.1222966-1-cuigaosheng1@huawei.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC updates for v6.2
+In-Reply-To: <20221205184140.5CAA8C433C1@smtp.kernel.org>
+References: <20221205184140.5CAA8C433C1@smtp.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: mk@phasorlab.de, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,84 +99,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 06 Dec 2022 07:10:04 +0100,
-Gaosheng Cui wrote:
+On Mon, 05 Dec 2022 19:41:32 +0100,
+Mark Brown wrote:
 > 
-> I got a null-ptr-defer error report when I do the following tests
-> on the qemu platform:
+> The following changes since commit 3d1bb6cc1a654c8693a85b1d262e610196edec8b:
 > 
-> make defconfig and CONFIG_PARPORT=m, CONFIG_PARPORT_PC=m,
-> CONFIG_SND_MTS64=m
+>   ASoC: cs42l51: Correct PGA Volume minimum value (2022-11-25 16:29:52 +0000)
 > 
-> Then making test scripts:
-> cat>test_mod1.sh<<EOF
-> modprobe snd-mts64
-> modprobe snd-mts64
-> EOF
+> are available in the Git repository at:
 > 
-> Executing the script, perhaps several times, we will get a null-ptr-defer
-> report, as follow:
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.2
 > 
-> syzkaller:~# ./test_mod.sh
-> snd_mts64: probe of snd_mts64.0 failed with error -5
-> modprobe: ERROR: could not insert 'snd_mts64': No such device
->  BUG: kernel NULL pointer dereference, address: 0000000000000000
->  #PF: supervisor write access in kernel mode
->  #PF: error_code(0x0002) - not-present page
->  PGD 0 P4D 0
->  Oops: 0002 [#1] PREEMPT SMP PTI
->  CPU: 0 PID: 205 Comm: modprobe Not tainted 6.1.0-rc8-00588-g76dcd734eca2 #6
->  Call Trace:
->   <IRQ>
->   snd_mts64_interrupt+0x24/0xa0 [snd_mts64]
->   parport_irq_handler+0x37/0x50 [parport]
->   __handle_irq_event_percpu+0x39/0x190
->   handle_irq_event_percpu+0xa/0x30
->   handle_irq_event+0x2f/0x50
->   handle_edge_irq+0x99/0x1b0
->   __common_interrupt+0x5d/0x100
->   common_interrupt+0xa0/0xc0
->   </IRQ>
->   <TASK>
->   asm_common_interrupt+0x22/0x40
->  RIP: 0010:_raw_write_unlock_irqrestore+0x11/0x30
->   parport_claim+0xbd/0x230 [parport]
->   snd_mts64_probe+0x14a/0x465 [snd_mts64]
->   platform_probe+0x3f/0xa0
->   really_probe+0x129/0x2c0
->   __driver_probe_device+0x6d/0xc0
->   driver_probe_device+0x1a/0xa0
->   __device_attach_driver+0x7a/0xb0
->   bus_for_each_drv+0x62/0xb0
->   __device_attach+0xe4/0x180
->   bus_probe_device+0x82/0xa0
->   device_add+0x550/0x920
->   platform_device_add+0x106/0x220
->   snd_mts64_attach+0x2e/0x80 [snd_mts64]
->   port_check+0x14/0x20 [parport]
->   bus_for_each_dev+0x6e/0xc0
->   __parport_register_driver+0x7c/0xb0 [parport]
->   snd_mts64_module_init+0x31/0x1000 [snd_mts64]
->   do_one_initcall+0x3c/0x1f0
->   do_init_module+0x46/0x1c6
->   load_module+0x1d8d/0x1e10
->   __do_sys_finit_module+0xa2/0xf0
->   do_syscall_64+0x37/0x90
->   entry_SYSCALL_64_after_hwframe+0x63/0xcd
->   </TASK>
->  Kernel panic - not syncing: Fatal exception in interrupt
->  Rebooting in 1 seconds..
+> for you to fetch changes up to 9472382db38452df15f9f2f74b1dff34848e56b2:
 > 
-> The mts wa not initialized during interrupt,  we add check for
-> mts to fix this bug.
+>   Add SOF panic dump support for AMD platform. (2022-12-05 17:28:07 +0000)
 > 
-> Fixes: 68ab801e32bb ("[ALSA] Add snd-mts64 driver for ESI Miditerminal 4140")
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+> ----------------------------------------------------------------
+> ASoC: Updates for v6.2
+> 
+> This is a fairly sedate release for the core code, but there's been a
+> lot of driver work especially around the x86 platforms and device tree
+> updates:
+> 
+>  - More cleanups of the DAPM code from Morimoto-san.
+>  - Factoring out of mapping hw_params onto SoundWire configuration by
+>    Charles Keepax.
+>  - The ever ongoing overhauls of the Intel DSP code continue, including
+>    support for loading libraries and probes with IPC4 on SOF.
+>  - Support for more sample formats on JZ4740.
+>  - Lots of device tree conversions and fixups.
+>  - Support for Allwinner D1, a range of AMD and Intel systems, Mediatek
+>    systems with multiple DMICs, Nuvoton NAU8318, NXP fsl_rpmsg and
+>    i.MX93, Qualcomm AudioReach Enable, MFC and SAL, RealTek RT1318 and
+>    Rockchip RK3588
+> 
+> There's more cross tree updates than usual, though all fairly minor:
+> 
+>  - Some OMAP board file updates that were depedencies for removing their
+>    providers in ASoC, as part of a wider effort removing the support for
+>    the relevant OMAP platforms.
+>  - A new I2C API required for updates to the new I2C probe API.
+>  - A DRM update making use of a new API for fixing the capabilities
+>    advertised via hdmi-codec.
+> 
+> Since this is being sent early I might send some more stuff if you've
+> not yet sent your pull request and there's more come in.
 
-Thanks, applied now.
-
-Although it's maybe better fixed by rearranging the initialization
-code, this patch looks simple enough and effective.
+Pulled now.  Thanks!
 
 
 Takashi

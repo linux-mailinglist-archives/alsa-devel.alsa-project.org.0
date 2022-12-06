@@ -2,80 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A880B644059
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 10:51:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5125644061
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Dec 2022 10:51:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E21E1893;
-	Tue,  6 Dec 2022 10:50:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E21E1893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52BC017D3;
+	Tue,  6 Dec 2022 10:50:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52BC017D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670320290;
-	bh=xApacaaiV8UL0u+br9ApSOYSXQZmwwuKKkSLgb+ZMvg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=U0kGlhBhLK0K5WgChkz4Zm5oeXV/X8UnoMyjWeEPZ/YHtUuR9cBconI5gGmbV9HgY
-	 buUls0tGAdVKjTrgZ5l6ho7jrwyUWjc8Yo8o1+wRn/UT8cCscCdmfm670qkUS6SfFE
-	 Y6SXa09lwB2RWbWQMtChhN6EAJrqzXdW2vHBwEPQ=
+	s=default; t=1670320304;
+	bh=TqBnjsY6W9h8nVSTWhKJucNnSNV9DfSlrfaeFN+ZBDM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kSA2EDJluWVpQkNTRKRL3NMGn2TEfjLkdxEGP3YFxvtmZ9qeRksta8tnsI4xMggDN
+	 wOU8FJz3IfqrRNFsV7h92kwXv3xKP3YuDGx7HhXoXQmuDf1G7hgB1NHdWJfYE9QnuG
+	 DZguGaEbJhAnbnsCK8JFYbaeiXX3pxOju0oW8snw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5809F80571;
-	Tue,  6 Dec 2022 10:49:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37659F80578;
+	Tue,  6 Dec 2022 10:50:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FE84F80570; Tue,  6 Dec 2022 10:49:55 +0100 (CET)
+ id 47D72F80564; Tue,  6 Dec 2022 10:50:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD1B6F80564
- for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 10:49:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD1B6F80564
+ by alsa1.perex.cz (Postfix) with ESMTPS id 370E1F80564
+ for <alsa-devel@alsa-project.org>; Tue,  6 Dec 2022 10:50:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 370E1F80564
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HpxF3IeD"
+ header.b="Tuhr277J"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5D64A61601;
- Tue,  6 Dec 2022 09:49:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C990FC433D6;
- Tue,  6 Dec 2022 09:49:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A97D9B818E3;
+ Tue,  6 Dec 2022 09:50:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CADC433C1;
+ Tue,  6 Dec 2022 09:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670320187;
- bh=xApacaaiV8UL0u+br9ApSOYSXQZmwwuKKkSLgb+ZMvg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HpxF3IeDvdljyozWwEky1dkELuzJS+s5EbUpWmk2QnrZ/WccOorSqTkgLjru9r/++
- mfELsCqKyKm9LBIRLUvtsUwvd0wLco8bW7+qxvsFEKd1Wq8CHGtv9kR57bKM8mUvQf
- Lb0r6/OJTickN/ZNj1TmCkhL38IQGinDAOzioi8ikm3U7fYNrVgl9HCnvOKZiIrR8n
- CMnSJQow3+71tOr0+LQ5bfVdYsTWDTfOok0LkYNaGhC4E6ELu8Dueb/PHFZBOK+vPN
- ujvHPuIMo/l+VWeB6rCEpbp4Jmpb7ki45W5oNlG0UTZLgTfywk9ouq/RdjuE/pgcRn
- fOceDq7Kns1ig==
+ s=k20201202; t=1670320199;
+ bh=TqBnjsY6W9h8nVSTWhKJucNnSNV9DfSlrfaeFN+ZBDM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Tuhr277J49r+XybroMGnii1O6GQF3TSQ/eyFx2FfI77tszZwki0W/s/yLdQ7sDpft
+ rvccw2ylRscyIMl/vMixKKYst416i/MeLISCcBimMYZ1lY8AyQqPYvSvq5yEH9CNu8
+ lqOzkqCzk8UxoqkIaTxy3ovewNlcztcRLo3naJWoWJsIl2rmP/gPn1/F9Lp+oczyvY
+ DQwDz+OJP6b4Lwg2E2LCWLl9UCj5L+RlssGqlwbYwyqZjxSRvX4BY0SM46afSOt8qt
+ dSxGnSA/2pooP7vRxlhBussdMrpRlDnq7FL29bgLk2R/WwtOTuy3v/kSt9m9d0nKjm
+ c/Owtx+g5Ixnw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 10/13] ASoC: cs42l51: Correct PGA Volume minimum
- value
-Date: Tue,  6 Dec 2022 04:49:13 -0500
-Message-Id: <20221206094916.987259-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 01/12] ASoC: fsl_micfil: explicitly clear
+ software reset bit
+Date: Tue,  6 Dec 2022 04:49:43 -0500
+Message-Id: <20221206094955.987437-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221206094916.987259-1-sashal@kernel.org>
-References: <20221206094916.987259-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, tanureal@opensource.cirrus.com,
- patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
- david.rhodes@cirrus.com, rf@opensource.cirrus.com,
- Mark Brown <broonie@kernel.org>, james.schulman@cirrus.com
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, shengjiu.wang@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,36 +88,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-[ Upstream commit 3d1bb6cc1a654c8693a85b1d262e610196edec8b ]
+[ Upstream commit 292709b9cf3ba470af94b62c9bb60284cc581b79 ]
 
-The table in the datasheet actually shows the volume values in the wrong
-order, with the two -3dB values being reversed. This appears to have
-caused the lower of the two values to be used in the driver when the
-higher should have been, correct this mixup.
+SRES is self-cleared bit, but REG_MICFIL_CTRL1 is defined as
+non volatile register, it still remain in regmap cache after set,
+then every update of REG_MICFIL_CTRL1, software reset happens.
+to avoid this, clear it explicitly.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20221125162348.1288005-2-ckeepax@opensource.cirrus.com
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://lore.kernel.org/r/1651925654-32060-1-git-send-email-shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l51.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/fsl_micfil.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index 51721edd8f53..e88d9ff95cdf 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -143,7 +143,7 @@ static const struct snd_kcontrol_new cs42l51_snd_controls[] = {
- 			0, 0xA0, 96, adc_att_tlv),
- 	SOC_DOUBLE_R_SX_TLV("PGA Volume",
- 			CS42L51_ALC_PGA_CTL, CS42L51_ALC_PGB_CTL,
--			0, 0x19, 30, pga_tlv),
-+			0, 0x1A, 30, pga_tlv),
- 	SOC_SINGLE("Playback Deemphasis Switch", CS42L51_DAC_CTL, 3, 1, 0),
- 	SOC_SINGLE("Auto-Mute Switch", CS42L51_DAC_CTL, 2, 1, 0),
- 	SOC_SINGLE("Soft Ramp Switch", CS42L51_DAC_CTL, 1, 1, 0),
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 9f90989ac59a..cb84d95c3aac 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -191,6 +191,17 @@ static int fsl_micfil_reset(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	/*
++	 * SRES is self-cleared bit, but REG_MICFIL_CTRL1 is defined
++	 * as non-volatile register, so SRES still remain in regmap
++	 * cache after set, that every update of REG_MICFIL_CTRL1,
++	 * software reset happens. so clear it explicitly.
++	 */
++	ret = regmap_clear_bits(micfil->regmap, REG_MICFIL_CTRL1,
++				MICFIL_CTRL1_SRES);
++	if (ret)
++		return ret;
++
+ 	return 0;
+ }
+ 
 -- 
 2.35.1
 

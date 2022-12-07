@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E56B64615F
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 20:02:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2631A6462F2
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 22:06:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADF631820;
-	Wed,  7 Dec 2022 20:01:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADF631820
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB55C16AE;
+	Wed,  7 Dec 2022 22:05:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB55C16AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670439760;
-	bh=2vhrKfL5f5Th8736PXYY9evBIgWxXb6E39AhM7EvysA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1670447165;
+	bh=ySSPPoq/swi2WcD6kgQKifwpywyuBetdwyVhpvcCEuc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I7U381M2AgkseU367Ms1Ue7XGKqC8blngBPBOXt/YfjvMDl1jzOMS4ztZCCRsz8bx
-	 2sRlI5/LuczF70EbU3MrjvbueIIqzb16r8rqcvNMiUFbz9zh00Q2HuVCgwnXXoTCOs
-	 utPj+EAo1kTNkeJO9RwQhzjP5fZdKvgAIwBwpOmI=
+	b=hczqwmFWQK/46qmX9ms0S+IYz/EBREuSJNMvNfTgevbKOKGP9NrvKJskelI+QhZHj
+	 a8LJRQi8jMtl3D46edc0vsH5V0hO0aq7psfMk6k0m6gakeOBFJUhtbms3i+azlZQyG
+	 c8qZ1TaLfMMdJV9OjQgJkho1Lm6xPKnK9vvqSeGg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49843F80301;
-	Wed,  7 Dec 2022 20:01:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F4CDF800EE;
+	Wed,  7 Dec 2022 22:05:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D81DF802BE; Wed,  7 Dec 2022 20:01:41 +0100 (CET)
+ id 78BF0F80121; Wed,  7 Dec 2022 22:05:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0429BF80121
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 20:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0429BF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44151F80121
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 22:05:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44151F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sq0zbvj1"
+ header.b="Co9391eI"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CA885B82052;
- Wed,  7 Dec 2022 19:01:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D80C433D7;
- Wed,  7 Dec 2022 19:01:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 73ADEB82132;
+ Wed,  7 Dec 2022 21:05:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2AEC433D7;
+ Wed,  7 Dec 2022 21:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670439692;
- bh=2vhrKfL5f5Th8736PXYY9evBIgWxXb6E39AhM7EvysA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=sq0zbvj1RpcD2DkI+5o/yE00jR1KMvYaD0n2qpFbzwiVT40gHWm3lfwW6dm2QdNqZ
- fiUAczDpUN/AcVcacvuwCIVH9euRhN3h7T5xZlKdvOB56/avUOM+9PgcYH0WExIdbD
- E4Wq+c3tsvjVrBdZPxQScukgUEbd+LbiOZOKEuQUS735lK3DvNaz8NVBqBAVjTpYFa
- yN7lCkvi35HX4ek9YdHGcQb4sP2s1j0QZzvVuiMDakp2aGib/TeaG+jAHqxWgTNTuU
- sMmvlK3O+2nDYauJv5WAl0e39VkL1kJPD1sH+NlDgxPt2g7mxNp7Lu1axTL3PCAtmI
- sJx3KwPMHOTJA==
+ s=k20201202; t=1670447101;
+ bh=ySSPPoq/swi2WcD6kgQKifwpywyuBetdwyVhpvcCEuc=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=Co9391eI+6Omj/U8d4PJXsrphkgH8y3rMt+I0NK97CbNqHv4KFHZl87uNJQSaNEhq
+ xHeZLN9ZqTSZdHi0KB0OdHHuMckPEoyGhcRVg5enip8RfQTre1pb6rSbS3aT7FWV0f
+ qTc4jsuKgXj9o2yeL5+HTttMxjT+rOA9wY/vc9YBUScvxP/0BPbWIeBUplGSNSDIVK
+ LXxXuw+NDucRvCWc2FCChHxLOtrMfxZGrxTa1U9tyJ2+kmYqqavjLOoS8Mu0DJxfSL
+ h8S7FwrQphAmCWPQ28L/LEMJN7x+2q7SwuhQiSplpiOfzv25cNmU0FBUqDz5b5b6tg
+ svAHm2DGZobBQ==
 From: Mark Brown <broonie@kernel.org>
-To: srinivas.kandagatla@linaro.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20221205073507.36071-1-jiapeng.chong@linux.alibaba.com>
-References: <20221205073507.36071-1-jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH] ASoC: codecs: wcd-clsh: Remove the unused function
-Message-Id: <167043969025.414898.9604459872443283940.b4-ty@kernel.org>
-Date: Wed, 07 Dec 2022 19:01:30 +0000
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Chancel Liu <chancel.liu@nxp.com>
+In-Reply-To: <20221128060950.3540845-1-chancel.liu@nxp.com>
+References: <20221128060950.3540845-1-chancel.liu@nxp.com>
+Subject: Re: [PATCH] ASoC: soc-pcm.c: Clear DAIs parameters after
+ stream_active is updated
+Message-Id: <167044709968.572887.4310845274377067555.b4-ty@kernel.org>
+Date: Wed, 07 Dec 2022 21:04:59 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.11.0-dev-b77ec
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, bgoswami@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,13 +86,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Dec 2022 15:35:07 +0800, Jiapeng Chong wrote:
-> The function wcd_clsh_set_buck_mode() is defined in the wcd-clsh-v2.c
-> file, but not called elsewhere, so remove this unused function.
+On Mon, 28 Nov 2022 14:09:50 +0800, Chancel Liu wrote:
+> DAIs parameters should be cleared if there's no active stream. Before,
+> we implemented it in soc_pcm_hw_free() by detecting stream_active. If
+> the running stream is the last active stream, we're going to clear
+> parameters.
 > 
-> sound/soc/codecs/wcd-clsh-v2.c:133:20: warning: unused function 'wcd_clsh_enable_status'.
+> However it will cause DAIs parameters never be cleared if there're
+> more than one stream. For example, we have stream1 and stream2 about
+> to stop. stream2 executes soc_pcm_hw_free() before stream1 executes
+> soc_pcm_close(). At the moment, stream2 should clear DAIs parameters.
+> Since stream_active is not yet updated by stream1 in soc_pcm_close(),
+> stream2 will not clear DAIs parameters. In result both stream1 and
+> stream2 don't clear the parameters.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -102,8 +108,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd-clsh: Remove the unused function
-      commit: 81ed7d9de18768fe0cb3d74a7a163a8c082e1346
+[1/1] ASoC: soc-pcm.c: Clear DAIs parameters after stream_active is updated
+      commit: 1da681e52853f0abfbfff8c69833d31e538ff9c0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A63F6646075
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 18:40:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E56B64615F
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 20:02:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C3AB185D;
-	Wed,  7 Dec 2022 18:39:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C3AB185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADF631820;
+	Wed,  7 Dec 2022 20:01:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADF631820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670434840;
-	bh=wIPK8Lo1xAG3OpzHn/xY1jvAEAat6BBZrKsVhqE9mCc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1670439760;
+	bh=2vhrKfL5f5Th8736PXYY9evBIgWxXb6E39AhM7EvysA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rb/r2du+uvDv3V6JXiFQXZjTV7BKx6AjAMJguqtD7OlBg9gCEbDymZbxUzgRs9Ia8
-	 IEmxQR1T4yxFhjea/QAmXeuhXDhxhIFAxSGX2otNFDbKA6ToChtK9shjS7pROHylEP
-	 TgGWSWLfpE/rjKIvk2vZJBJsXKIdohe00E6x2nfM=
+	b=I7U381M2AgkseU367Ms1Ue7XGKqC8blngBPBOXt/YfjvMDl1jzOMS4ztZCCRsz8bx
+	 2sRlI5/LuczF70EbU3MrjvbueIIqzb16r8rqcvNMiUFbz9zh00Q2HuVCgwnXXoTCOs
+	 utPj+EAo1kTNkeJO9RwQhzjP5fZdKvgAIwBwpOmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E55DF80580;
-	Wed,  7 Dec 2022 18:38:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49843F80301;
+	Wed,  7 Dec 2022 20:01:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4686CF8059F; Wed,  7 Dec 2022 18:38:00 +0100 (CET)
+ id 2D81DF802BE; Wed,  7 Dec 2022 20:01:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E677AF80580
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 18:37:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E677AF80580
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0429BF80121
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 20:01:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0429BF80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BP0jVm+8"
+ header.b="sq0zbvj1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5066161B84;
- Wed,  7 Dec 2022 17:37:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5ECC433C1;
- Wed,  7 Dec 2022 17:37:54 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CA885B82052;
+ Wed,  7 Dec 2022 19:01:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D80C433D7;
+ Wed,  7 Dec 2022 19:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670434675;
- bh=wIPK8Lo1xAG3OpzHn/xY1jvAEAat6BBZrKsVhqE9mCc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BP0jVm+8KSJqdzxK9MF1D18Zcm81PfNwU3RO/rNvLg8mTPE+53ekPBCUBMqrzDhJx
- Try7AXltMrm1ClQN8tC7smgdodyuQon/V7sQ2McNLGcl2ykuB8vzd6emkhl9RrWbZB
- 0OBhI2zam3Ur0CeyO5UZFSaaO4842ZZtGfLp9zdAzB6kHLf4iV+EvFGTH1BDQEBD2d
- /Uk0KzX1f2fXBcbYP7pYC76pmJs2LxfJEXyGSSB5YTRfoFHgcd+Q/60JVFM3WLcoTN
- ClyAEhSyKL1BVZ3DCgeXtxBQDVUnuRCmSjidgqxrmtky71KjrTEGN8C/1t1UlnPC1F
- woZolBxapVGQw==
-Date: Wed, 7 Dec 2022 17:37:50 +0000
+ s=k20201202; t=1670439692;
+ bh=2vhrKfL5f5Th8736PXYY9evBIgWxXb6E39AhM7EvysA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=sq0zbvj1RpcD2DkI+5o/yE00jR1KMvYaD0n2qpFbzwiVT40gHWm3lfwW6dm2QdNqZ
+ fiUAczDpUN/AcVcacvuwCIVH9euRhN3h7T5xZlKdvOB56/avUOM+9PgcYH0WExIdbD
+ E4Wq+c3tsvjVrBdZPxQScukgUEbd+LbiOZOKEuQUS735lK3DvNaz8NVBqBAVjTpYFa
+ yN7lCkvi35HX4ek9YdHGcQb4sP2s1j0QZzvVuiMDakp2aGib/TeaG+jAHqxWgTNTuU
+ sMmvlK3O+2nDYauJv5WAl0e39VkL1kJPD1sH+NlDgxPt2g7mxNp7Lu1axTL3PCAtmI
+ sJx3KwPMHOTJA==
 From: Mark Brown <broonie@kernel.org>
-To: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Subject: Re: Simple card and PLL/FLL
-Message-ID: <Y5DPbhXQazD8OWX1@sirena.org.uk>
-References: <4172f4b2-9198-dfc8-a2b0-d75a95265e14@gmail.com>
+To: srinivas.kandagatla@linaro.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20221205073507.36071-1-jiapeng.chong@linux.alibaba.com>
+References: <20221205073507.36071-1-jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH] ASoC: codecs: wcd-clsh: Remove the unused function
+Message-Id: <167043969025.414898.9604459872443283940.b4-ty@kernel.org>
+Date: Wed, 07 Dec 2022 19:01:30 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Of0uaj+ZrZYZV20x"
-Content-Disposition: inline
-In-Reply-To: <4172f4b2-9198-dfc8-a2b0-d75a95265e14@gmail.com>
-X-Cookie: What!?  Me worry?
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- emanuele.ghidoli@toradex.com, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.11.0-dev-b77ec
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, bgoswami@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +88,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 05 Dec 2022 15:35:07 +0800, Jiapeng Chong wrote:
+> The function wcd_clsh_set_buck_mode() is defined in the wcd-clsh-v2.c
+> file, but not called elsewhere, so remove this unused function.
+> 
+> sound/soc/codecs/wcd-clsh-v2.c:133:20: warning: unused function 'wcd_clsh_enable_status'.
+> 
+> 
 
---Of0uaj+ZrZYZV20x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Wed, Dec 07, 2022 at 01:41:24PM +0100, Emanuele Ghidoli wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> I guess what is the "right/better" implementation? Have we to add the
-> set_pll call in simple-card? Or have we to add it to e.g. fsl_sai driver?
-> Or, in some way, the wm8904 codec driver is approaching in the right way?
->=20
-> Is there any documentation that explain all of that (I have already looked
-> at Documentation/sound)? Any driver that is considered well written and
-> complete I should use as a reference?
+Thanks!
 
-It's kind of a taste thing.  There's some devices where the clocking is
-sufficently complicated and flexible that definitely needs a set_pll()
-operation and specific machine driver support, but for simpler devices
-like the WM8904 where there's an obvious thing to do it's much easier to
-just hide that from everything outside the driver and only deal with the
-input clock.  I don't know what the clocking for the SAI looks like so
-it's hard to comment specifically on what makes sense there.
+[1/1] ASoC: codecs: wcd-clsh: Remove the unused function
+      commit: 81ed7d9de18768fe0cb3d74a7a163a8c082e1346
 
---Of0uaj+ZrZYZV20x
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOQz24ACgkQJNaLcl1U
-h9BnvQgAgYd+5FrZNXMwqR5BkB8c0Uwft8CQXWAv4BA+n+qwMfhGQSWO7ug0B9N6
-wDjaei/etwWDxe/FgAUAZxz1EIXtWnzSNqofNv9TCF0KXmrbKQrBdHDf6uwFh4U2
-nxu3z73XySDJ9sA1eL/JewLlIqAGoxBysXysZUux7jM/+9SP+0odlImYflyH/Ga3
-qw5FIt5CkP84gKiKu8mtSi4eSVS9JJfSQLsZ+l01b7847uXVrmpzpAFJ3GIWIwbS
-j709c09VsHExrx5gr8oTueTi2mm+BTN4GeIHE7rDuNy1gDGPS+2/KmvM5uNFuDar
-rNIzA/g4T+EF1jnZd/aN83kUTlh4Jw==
-=dsUn
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---Of0uaj+ZrZYZV20x--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

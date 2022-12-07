@@ -2,77 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D403645BAE
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 14:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 215B7645BFD
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 15:06:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0449E192F;
-	Wed,  7 Dec 2022 14:58:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0449E192F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBAD618AB;
+	Wed,  7 Dec 2022 15:05:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBAD618AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670421577;
-	bh=RIC1Cb1hSR/PoVvVlchvFUy6mScD0XG2dUhLJIgDbnw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1670421972;
+	bh=vQdlm4JjxIy4o2bYv7V+Ob4SM3ru3nonGJq9vcTPA30=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sCpwEMwt8m4pnY3IOKaPtWTXavnmXvdUftnE8gPK8Qb7sT2u4lClzj2fY5NM0ELjD
-	 y/oVM+EWxRtNQ1h83YSGiPGUMhwoa+AgtED1XUK70L5GS/6RpvuUDogHb928ZIZ73q
-	 kJdYr38GiY0TQ+KVnBqPomwEjLG2NWtHtB9Tpj9M=
+	b=jMJ4CJAGs5XY7L3oTF/GWTVPQs0q4rsZVTx3syg7CoRpaZlQDzjjRIr73y1kyUgdO
+	 7VrJl0lrHYGuELbGDMYUcV+XtoWB8I8WEInxhLEgaUVQD40co6el/4diBayhJKlzv4
+	 Efsn0uB6s2jV2HpkBv7rglRBCzTo50j8Q2aJafQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BF09F80301;
-	Wed,  7 Dec 2022 14:58:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4ED79F80301;
+	Wed,  7 Dec 2022 15:05:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D132F802BE; Wed,  7 Dec 2022 14:58:38 +0100 (CET)
+ id 99BBFF802BE; Wed,  7 Dec 2022 15:05:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
- URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E92CF80121
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 14:58:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E92CF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tcHuDKAi"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D406B616F6;
- Wed,  7 Dec 2022 13:58:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288DCC433C1;
- Wed,  7 Dec 2022 13:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670421509;
- bh=RIC1Cb1hSR/PoVvVlchvFUy6mScD0XG2dUhLJIgDbnw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tcHuDKAix1m05GVzFUIB4skjq7TswGJZAvs1HDb4mp9YiO5Jr1/hLbOd/kSnLUjyC
- TIuipnB6EgbXdGKkBoOKKaysXl3oKWpe9IAbFlkuehQRVtH/smAHnFV6EJvP/B7sUj
- PVJIwq57X2tzVq9TWx51dew5jQv3SJLg3wAe0zG3tYvZ2+ttJAQWap2EoCQ15Ft4fT
- ik1dH0vmDfAieN/JzrBgYZY8LYCkaTpPUSgx0EnL4L2X+Vy4CezKbDHOaIdmYQSXn2
- pAgMd+G3cqGw0QuLmopfX0uLuDOHMO86VwYUdYFBLQ00jtA51PoDXPbFPgjKi/u/Oq
- uH0mmVDXPKd1Q==
-Date: Wed, 7 Dec 2022 13:58:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Wang Jingjin <wangjingjin1@huawei.com>
-Subject: Re: [PATCH] ASoC: rockchip: spdif: Add missing
- clk_disable_unprepare() in rockchip_pdm_runtime_resume()
-Message-ID: <Y5Cb/1kRQVOrOT0Q@sirena.org.uk>
-References: <20221205024317.2422223-1-wangjingjin1@huawei.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 887AEF800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 15:05:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 887AEF800EE
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Yfqkupk0cs8hEwm8"
-Content-Disposition: inline
-In-Reply-To: <20221205024317.2422223-1-wangjingjin1@huawei.com>
-X-Cookie: What!?  Me worry?
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de, linux-kernel@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, sugar.zhang@rock-chips.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1670421906207937956-webhooks-bot@alsa-project.org>
+References: <1670421906207937956-webhooks-bot@alsa-project.org>
+Subject: topology: plugins: nhlt: fix ssp debug
+Message-Id: <20221207140513.99BBFF802BE@alsa1.perex.cz>
+Date: Wed,  7 Dec 2022 15:05:13 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,39 +60,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-utils pull request #180 was opened from juimonen:
 
---Yfqkupk0cs8hEwm8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Nhlt ssp plugin debug feature was broken due to recent change in ssp indexing, thus fix it.
 
-On Mon, Dec 05, 2022 at 10:43:17AM +0800, Wang Jingjin wrote:
-> The clk_disable_unprepare() should be called in the error handling of
-> rockchip_pdm_runtime_resume().
->=20
-> Fixes: fc05a5b22253 ("ASoC: rockchip: add support for pdm controller")
-> Signed-off-by: Wang Jingjin <wangjingjin1@huawei.com>
-> ---
->  sound/soc/rockchip/rockchip_pdm.c | 1 +
->  1 file changed, 1 insertion(+)
+Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 
-The subject line says this is a fix for the S/PDIF driver but the patch
-is for the PDM driver and I see you sent a separate fix for the PDM
-driver.
-
---Yfqkupk0cs8hEwm8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOQm/8ACgkQJNaLcl1U
-h9ClSAf+PYmaTOX76hZfmg6lP/5WGJr8lhDunNZmxMYdQc2BEK/H/wN2l+nR6ES8
-v6jxI3ceMQ+78mMpQebV8Hiuvd880D3jjaPh/dZKObPYQvIP6sUthPwAr9nlZh91
-s/EDK3rgQcJuOxR2gQdACyfIM+PvJ0HlNaz8RrGKyM3yq2Ik7ZqjeBJ6gPjODOUg
-eXG5J5GD0Z64hhs572q95LKTTjtCPtcQ3uXqOSmhSqqPbb/pNqZAik069u3/UesA
-JMInss8miBtQv7RfI9ffz4LiINXZpIAFJCeA2BfaLdpenSzz1zfEUfoNZtkQUqJI
-6yCz5HFdPCyky7EA/IrsAO8EDNtTUw==
-=TDQy
------END PGP SIGNATURE-----
-
---Yfqkupk0cs8hEwm8--
+Request URL   : https://github.com/alsa-project/alsa-utils/pull/180
+Patch URL     : https://github.com/alsa-project/alsa-utils/pull/180.patch
+Repository URL: https://github.com/alsa-project/alsa-utils

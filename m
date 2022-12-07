@@ -2,90 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447EB645F5A
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 17:56:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4D964606C
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 18:39:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2E2617A5;
-	Wed,  7 Dec 2022 17:55:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2E2617A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52CE217F7;
+	Wed,  7 Dec 2022 18:38:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52CE217F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670432171;
-	bh=FoYXqvf/RGO8HnAjboAtBChf8PSxV22TRx7xbkHaZ/Y=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1670434744;
+	bh=+TAgcM6IIYThNuWu5Z8xJ21gWH+pc54KBLLLvEE45RA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WCVGAsND+znxgYBbHiit9qK1+7jWho6Ty1UT6Y3sqrpiHpl/TXW+TqShICbtwqe+f
-	 7PY2yrwmVdenqehNByQlCsVnqlCxYaZnzRehy5eh3As7APiv270RcUL5oyK+OIJH2Y
-	 cONvv2Qk0PyuTFnGD0kooIjpwtUmoX5rzdNrn1sY=
+	b=uOqIjRBG3x0OAQGtQ9MZ/atyOonKkJM/jM/565PLia4F/c/OR22nxR1HMpZZV/kZU
+	 tzVUMlmEwx7p8sedGAM/2wqT/kWvRd8bZH2OmxO/GljnWkdiO8PfxNCohfW/QGEmpe
+	 yi3kdKSpnsTvSBrwcNCy4iUy/0jWlcYu0muV9pPY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50B44F800EE;
-	Wed,  7 Dec 2022 17:55:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DB99F80526;
+	Wed,  7 Dec 2022 18:37:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D74A2F802BE; Wed,  7 Dec 2022 17:55:12 +0100 (CET)
+ id 595D5F8021D; Wed,  7 Dec 2022 18:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93A23F800EE
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 17:55:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93A23F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F3FAF800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 18:37:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F3FAF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="v5+ooeK/"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Pnd0/mln"
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="isPBUwl2"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 084332002E;
- Wed,  7 Dec 2022 16:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670432109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oU82cZadfNpNjRFYyusw41ToDIXH3/2n/Y3r6CDEA/c=;
- b=v5+ooeK/VRIOlTkCIw6frGmn3/d1kyd2abLmqD4ILJ2oTvX92670mkq8hmnoXZati0J8vW
- FXVn9hQIOBabVuPEzGj8PpXDn3AMthwgG0Tbp7CeISg2A4gfaIQV0NVTZ6tpm6hkhHZ7bt
- 4oOGEuZBlXp/M1rRduuIQfhEVmpIwoE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670432109;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oU82cZadfNpNjRFYyusw41ToDIXH3/2n/Y3r6CDEA/c=;
- b=Pnd0/mlnC/qCtF+u5STZ1BKCZAUNO3hfvGQcbUlZt4hrpAVKJaSAP/y/PFMLwHh5jHdD1H
- OOJ4/fLD5QGglCBA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E1306134CD;
- Wed,  7 Dec 2022 16:55:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id t585NmzFkGOwYAAAGKfGzw
- (envelope-from <tiwai@suse.de>); Wed, 07 Dec 2022 16:55:08 +0000
-Date: Wed, 07 Dec 2022 17:55:08 +0100
-Message-ID: <875yen9ms3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [bug report] ALSA: hda: Interrupt servicing and BDL setup for
- compress streams
-In-Reply-To: <8868a1c7-8bfc-5576-09f6-52af96dd26ee@intel.com>
-References: <Y5CjDmg5B/8J5Yim@kili>
- <8868a1c7-8bfc-5576-09f6-52af96dd26ee@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Dan Carpenter <error27@gmail.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id A0D1BB81FE8;
+ Wed,  7 Dec 2022 17:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E70C433D6;
+ Wed,  7 Dec 2022 17:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670434653;
+ bh=+TAgcM6IIYThNuWu5Z8xJ21gWH+pc54KBLLLvEE45RA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=isPBUwl2Ju/UVzfGtYAKkxwNPPwFpmJE3oCHrA26OsUcqIkciWVz8PH9K3MSY44Wq
+ ZkqfK4jONyvmo/ZOc9mPdzuTLB6HkTvs3wiRUyn5wbOWQnlbs358SeVeXQVuPzghoa
+ jytxQK4pEMnB2IZyEH/bBFyb2OAvZ5lp5rmtMkNuz4BUHqbcT+YLXchNy4jk1+HPjB
+ 2Voekic0yQdH4S5RQYA+R5rlzSmPI4hkRPT6Gk/8KmCBUEyXPXBB8aSjdP6pHcgpkc
+ LOUyhbQJDtypzTq5n77+GkWW/ZcSadz++57N79sF0IZpNPzRxDIjZ+Fd7fDG0VYQoz
+ FrP3WPYlvDLvQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ Wang Yufen <wangyufen@huawei.com>
+In-Reply-To: <1670228127-13835-1-git-send-email-wangyufen@huawei.com>
+References: <1670228127-13835-1-git-send-email-wangyufen@huawei.com>
+Subject: Re: [PATCH] ASoC: audio-graph-card: fix refcount leak of cpu_ep in
+ __graph_for_each_link()
+Message-Id: <167043465144.393374.778239377734908576.b4-ty@kernel.org>
+Date: Wed, 07 Dec 2022 17:37:31 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.11.0-dev-b77ec
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,60 +87,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 07 Dec 2022 15:35:12 +0100,
-Cezary Rojewski wrote:
+On Mon, 05 Dec 2022 16:15:27 +0800, Wang Yufen wrote:
+> The of_get_next_child() returns a node with refcount incremented, and
+> decrements the refcount of prev. So in the error path of the while loop,
+> of_node_put() needs be called for cpu_ep.
 > 
-> On 2022-12-07 3:28 PM, Dan Carpenter wrote:
-> > Hello Cezary Rojewski,
-> > 
-> > The patch 3e9582267e3a: "ALSA: hda: Interrupt servicing and BDL setup
-> > for compress streams" from Dec 2, 2022, leads to the following Smatch
-> > static checker warning:
-> > 
-> > 	sound/hda/hdac_stream.c:544 snd_hdac_stream_setup_periods()
-> > 	error: uninitialized symbol 'dmab'.
-> > 
-> > sound/hda/hdac_stream.c
-> >     487  int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
-> >     488  {
-> >     489          struct hdac_bus *bus = azx_dev->bus;
-> >     490          struct snd_pcm_substream *substream = azx_dev->substream;
-> >     491          struct snd_compr_stream *cstream = azx_dev->cstream;
-> >     492          struct snd_pcm_runtime *runtime = NULL;
-> >     493          struct snd_dma_buffer *dmab;
-> >     494          __le32 *bdl;
-> >     495          int i, ofs, periods, period_bytes;
-> >     496          int pos_adj, pos_align;
-> >     497
-> >     498          if (substream) {
-> >     499                  runtime = substream->runtime;
-> >     500                  dmab = snd_pcm_get_dma_buf(substream);
-> >     501          } else if (cstream) {
-> >     502                  dmab = snd_pcm_get_dma_buf(cstream);
-> >     503          }
-> > 
-> > dmab is not initialized on else path.
 > 
-> Hello,
-> 
-> Thanks for the report. Perhaps I should just do: s/else if/else/ as
-> the situation with ->substream AND ->cstream being uninitialized is
-> invalid.
-> 
-> Before support for compress stream was added in this part of the code,
-> it was always assumed ->substream is valid.
-> 
-> So, either s/else if/else or append:
-> 	} else {
-> 		return -EINVAL;
-> 	}
-> 
-> Takashi, what do you think?
 
-The return -EINVAL would be OK.  As this must not happen, it can be
-even with WARN_ON().
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-thanks,
+Thanks!
 
-Takashi
+[1/1] ASoC: audio-graph-card: fix refcount leak of cpu_ep in __graph_for_each_link()
+      commit: 8ab2d12c726f0fde0692fa5d81d8019b3dcd62d0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,96 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ADA66459C9
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 13:24:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5076459CB
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 13:25:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16D9617FD;
-	Wed,  7 Dec 2022 13:23:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16D9617FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04A2D190C;
+	Wed,  7 Dec 2022 13:25:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04A2D190C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670415879;
-	bh=us+CAWNYN24Y/ZN9EAM8po4MTVmg74TvvD66n8PLdi4=;
+	s=default; t=1670415954;
+	bh=u6qhqPmqk/mjWTifh7QOebUtyhItPYYidBnbECSRRz8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T8FIgAVV7ZlhTZImUHQB+DE8Rs4Bc6V15tw/MOLykhGpb2VCrMoFDxkusvjAiKv2s
-	 nWXqk1TvtZivwMJ3TFeaW60EPEx9rDzmxEO22MnB8QFSuKvnF0iFuJ2W//XEAS3nlc
-	 hfF8uiq5h8PJXFYQEwEHe/J5m2Y+7dDRd/3yf7I0=
+	b=X7k/kAZjD3ua/t269zkeBCEtrshP9qBHaOq+yvECnnzxrEvnJQSUHaY/wKtc+fSlI
+	 MHMJTt034IPPyPXmqQuqXZ33kitFMD7ZmRVb32LhXmk4vik9EHWPLAl73tBs4oZRGl
+	 CzxKqN/FCipMgqW2FjxZtqm51lq4CW2OtxY75bOA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A517AF80121;
-	Wed,  7 Dec 2022 13:23:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9536F80301;
+	Wed,  7 Dec 2022 13:24:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89268F802BE; Wed,  7 Dec 2022 13:23:40 +0100 (CET)
+ id CECA0F802BE; Wed,  7 Dec 2022 13:24:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, PRX_BODY_94, RCVD_IN_ZEN_BLOCKED_OPENDNS, SPF_HELO_NONE,
- SPF_NONE, 
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7918CF80121
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 13:23:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7918CF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A5C3F800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 13:24:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A5C3F800EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LXOxhGYm"; 
+ header.b="Z6m7OEHD"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+KVE59kQ"
+ header.b="XtSMxOfv"
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 778B61FD7A;
- Wed,  7 Dec 2022 12:23:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3D05D21C79;
+ Wed,  7 Dec 2022 12:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670415813; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1670415892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=loYT0A86SX2WIBPzHmVKDox+axk7EDHNAyPrWekbXbk=;
- b=LXOxhGYm+9p4++SMpgRnRsQ0WhtzKsYZv9OtR75NL6ZUB2ZCPtH386Hx82yf5OMup1DjQi
- f/OGvULMo7vhWSxuQQCbMsdJWIn4OKbD2xkpybA8hs+7+2rGSxjRkLLXnuq+57inILhuMm
- 888rt4TOJ2/j4eofilNkgAbaGgrw4y4=
+ bh=YI+/lXKw6a9FENGBAbfBokcwRp68k8AO3BMIR8iGLr4=;
+ b=Z6m7OEHDI3Fe6NFxMJLgxgG9KsD111s82x0xz2KMFvbuKTtRisgGAc5LhqVS/mLy8hof2Q
+ KbZQKPoNdp0FwvkB1B7oHhUlDy4V5I0B2qL4k85w3eRPHx7R5+0WzYnFZ2K2dAl9Xm/BFO
+ kAINSXhNIeCEMQhhLOnN9g2ym2WmPJ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670415813;
+ s=susede2_ed25519; t=1670415892;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=loYT0A86SX2WIBPzHmVKDox+axk7EDHNAyPrWekbXbk=;
- b=+KVE59kQ2HWV0RFbHpBCAowJZUAFLd8rils8ooCiT3igCSRpStb5XfVSIckJur5y10jvHW
- 4GMyr98i4pocpXCw==
+ bh=YI+/lXKw6a9FENGBAbfBokcwRp68k8AO3BMIR8iGLr4=;
+ b=XtSMxOfvK03mJfZg3AtXjuMKGOQAGp126+tq+pNrRSTjChEw56qaASqkqrLhzp0cD0JVsa
+ IGGImmMx+0KS/eDw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 559E1134CD;
- Wed,  7 Dec 2022 12:23:33 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 2FF1C134CD;
+ Wed,  7 Dec 2022 12:24:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id TVtFFMWFkGNjSgAAGKfGzw
- (envelope-from <tiwai@suse.de>); Wed, 07 Dec 2022 12:23:33 +0000
-Date: Wed, 07 Dec 2022 13:23:32 +0100
-Message-ID: <87edtb8ksb.wl-tiwai@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id H/UhCxSGkGMESwAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Wed, 07 Dec 2022 12:24:52 +0000
+Date: Wed, 07 Dec 2022 13:24:51 +0100
+Message-ID: <87cz8v8kq4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: edward-p <edward@edward-p.xyz>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo TianYi510Pro-14IOB
-In-Reply-To: <20221206180459.44260-1-edward@edward-p.xyz>
-References: <20221206180459.44260-1-edward@edward-p.xyz>
+To: Jiao Zhou <jiaozhou@google.com>
+Subject: Re: [PATCH v2] ALSA: hda/hdmi: Add HP Device 0x8711 to force connect
+ list
+In-Reply-To: <20221206185311.3669950-1-jiaozhou@google.com>
+References: <20221206185311.3669950-1-jiaozhou@google.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
- Kailang Yang <kailang@realtek.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
- Tim Crawford <tcrawford@system76.com>, Takashi Iwai <tiwai@suse.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,21 +100,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 06 Dec 2022 19:04:58 +0100,
-edward-p wrote:
+On Tue, 06 Dec 2022 19:53:11 +0100,
+Jiao Zhou wrote:
 > 
-> Lenovo TianYi510Pro-14IOB (17aa:3742)
-> require quirk for enabling headset-mic
+> HDMI audio is not working on the HP EliteDesk 800 G6 because the pin is
+> unconnected. This issue can be resolved by using the 'hdajackretask'
+> tool to override the unconnected pin to force it to connect.
 > 
-> Signed-off-by: edward-p <edward@edward-p.xyz>
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=216756
+> Signed-off-by: Jiao Zhou <jiaozhou@google.com>
 
-The code change looks OK, but the Signed-off-by line has to be with
-the real full name.  As it's a legal requirement, it's mandatory.
+Thanks, applied now.
 
-Could you correct and resubmit?
-
-
-thanks,
 
 Takashi

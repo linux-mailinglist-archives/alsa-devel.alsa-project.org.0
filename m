@@ -2,85 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12F24645A3E
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 13:57:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F623645B04
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 14:35:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A49781917;
-	Wed,  7 Dec 2022 13:56:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A49781917
+	by alsa0.perex.cz (Postfix) with ESMTPS id C56E91918;
+	Wed,  7 Dec 2022 14:35:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C56E91918
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670417829;
-	bh=0mCc63PYXRSLNyoU3BugGf4BruhyAiG1jc49h4GgrDo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1670420157;
+	bh=WkQOwn8nAbwlCz0oBgQguM/x7qYAFXc4DCdej09mQCw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GGQem5MZsYudaU0D1rhfU/D3YlXBUlK/CU55w62yxi/EBV2myhvszTmYWE36TxZgm
-	 sV3l31AANswdfA//fdyCCb+PsMEP2x/9+Hkc9SLfVfi8rWdmFX2tuHuEd8t9ZSeGVT
-	 yEFLWqUmUfCuFZJmWI14OuWa8cobB+DOdLwgyPrc=
+	b=QkFFiF5C+wQvz6A1c0RFh4MolSEhoqFD3JxG4X77NqJZR7nzEmmt3PRue0yRXNJsI
+	 brKJOPJqAXgv8Lr18HjbJFvTrhYoyYw/5oOXkGdgsLZr+XpKGxoTID8UJFYBFMFzLT
+	 qq2sHr1h4xo/yd48ogNC20SCwi/N2ObS7fQ+16PU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A041F80169;
-	Wed,  7 Dec 2022 13:56:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D2D2F80301;
+	Wed,  7 Dec 2022 14:34:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FEF7F802BE; Wed,  7 Dec 2022 13:56:11 +0100 (CET)
+ id F265BF802BE; Wed,  7 Dec 2022 14:34:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mail.edward-p.xyz (mail.edward-p.xyz [103.150.8.150])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03089F80169
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 13:56:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03089F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E72BF800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 14:34:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E72BF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IGMdNTIM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670417769; x=1701953769;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=0mCc63PYXRSLNyoU3BugGf4BruhyAiG1jc49h4GgrDo=;
- b=IGMdNTIMehLy5J9ZwP9lWwr3jxwZbTLPm1tmBuLHW/kedR/nD9sCG/Uj
- fdKeqvQSICdZ1sKazTGxzpXDOGIBmPdPmoyZTQMya4GGpLS3sYFoU+LGL
- q8GerBf0gfZMYcEgoVsZRZ3360lSAcZQkWdbedHWRt2B3M3NIdHtAxe8A
- NRybsijH3DZhb35EhcKeDcqEbpNQ1KLPr37Yl5K2yeh3tIa3p+um6IDCC
- Gs1rwNYwAjdlElnNtnBHFCTUSXpvgcOVOFUb68Bia0XFSfyyF4sYe/qsK
- VCfwXywdSwlfzjifGk0BUN3J1Y9hWjK9Ju57EDdLaWdjj9kAO/tQxEi8u A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="318026084"
-X-IronPort-AV: E=Sophos;i="5.96,225,1665471600"; d="scan'208";a="318026084"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2022 04:56:05 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="624292451"
-X-IronPort-AV: E=Sophos;i="5.96,225,1665471600"; d="scan'208";a="624292451"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2022 04:56:03 -0800
-Date: Wed, 7 Dec 2022 14:55:45 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ASoc: SOF: Fix sof-audio-pci-intel-tgl shutdown timeout
- during hibernation
-In-Reply-To: <87cz8va4hc.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2212071452350.3532114@eliteleevi.tm.intel.com>
-References: <20221207102229.25962-1-nizhen@uniontech.com>
- <87cz8va4hc.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ dkim=pass (2048-bit key) header.d=edward-p.xyz header.i=@edward-p.xyz
+ header.b="Z18MGrQQ"
+DKIM-Signature: a=rsa-sha256; bh=6jsHNyzS4Eh+VmABET0Qlk1NGmAhNmu3M916IuPxh1I=; 
+ c=relaxed/relaxed; d=edward-p.xyz;
+ h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
+ i=@edward-p.xyz; s=default; t=1670420054; v=1; x=1670852054;
+ b=Z18MGrQQd2OrZuAR4SP11U5vVwOURqrKa9kQbWwthiGuk1dNmmPt/NGVWLagdoLTtDq9IcHC
+ wqCqW9uoUhUf6UKNtYyxkAGIUxMTAjw6LmT6bKJiRUG3ymHWzhDG7Ux48YJvXKwYJwffsinYJxU
+ 8fOCpWluawwBrk1K4GTYB+aeyI/EbgFCeM3m1v+MisJAIzGvrmCjQVjif2+HDbPJZCQOGNCH7Kz
+ LZw3+N1vBx+D6i6PE9qfyvEFbOc/8mF6OT0h6FebwJn9I6jriNFlsv7r5hVHLGZb7id/rx7nAIb
+ RItYiy/EmLN/BEZst6A7QYZ09EuiYIf98d9v2qVsopbgw==
+Received: by mail.edward-p.xyz (envelope-sender <edward@edward-p.xyz>) with
+ ESMTPS id a8bf764e; Wed, 07 Dec 2022 21:34:14 +0800
+From: Edward Pacman <edward@edward-p.xyz>
+To: tiwai@suse.de
+Subject: [PATCH v1] ALSA: hda/realtek: Add quirk for Lenovo TianYi510Pro-14IOB
+Date: Wed,  7 Dec 2022 21:32:18 +0800
+Message-Id: <20221207133218.18989-1-edward@edward-p.xyz>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <87edtb8ksb.wl-tiwai@suse.de>
+References: <87edtb8ksb.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Zhen Ni <nizhen@uniontech.com>,
- tiwai@suse.com, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ricardo Ribalda <ribalda@chromium.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
+ tanureal@opensource.cirrus.com, tangmeng@uniontech.com, p.jungkamp@gmx.net,
+ tiwai@suse.com, tcrawford@system76.com, edward@edward-p.xyz,
+ linux-kernel@vger.kernel.org, sbinding@opensource.cirrus.com,
+ kai.heng.feng@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,30 +81,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Lenovo TianYi510Pro-14IOB (17aa:3742)
+require quirk for enabling headset-mic
 
-On Wed, 7 Dec 2022, Takashi Iwai wrote:
+Signed-off-by: Edward Pacman <edward@edward-p.xyz>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216756
+---
+ sound/pci/hda/patch_realtek.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-> On Wed, 07 Dec 2022 11:22:29 +0100, Zhen Ni wrote:
-> > On Dell Latitude 3420 Notebook, sof-audio-pci-intel-tgl may fail to shutdown
-> > sporadically during hibernation as following log:
-> > 
-> > [   43.281110] PM: Image saving done
-> > [   43.281699] PM: hibernation: Wrote 2828852 kbytes in 2.78 seconds(1017.57 MB/s)
-> > [   43.282359] PM: SI
-> > [   43.345156] kvm: exiting hardware virtualization
-> > [   43.345865] auxiliary snd_sof.hda-probes.0: shutdown
->
-> 
-> It's a known problem and being discussed (although it's a slightly
-> different code path):
->   https://lore.kernel.org/r/20221127-snd-freeze-v4-0-51ca64b7f2ab@chromium.org
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index e5c036385666..a2e1bdc06468 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10960,6 +10960,17 @@ static void alc897_fixup_lenovo_headset_mic(struct hda_codec *codec,
+ 	}
+ }
+ 
++static void alc897_fixup_lenovo_headset_mode(struct hda_codec *codec,
++				     const struct hda_fixup *fix, int action)
++{
++	struct alc_spec *spec = codec->spec;
++
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
++		spec->gen.hp_automute_hook = alc897_hp_automute_hook;
++	}
++}
++
+ static const struct coef_fw alc668_coefs[] = {
+ 	WRITE_COEF(0x01, 0xbebe), WRITE_COEF(0x02, 0xaaaa), WRITE_COEF(0x03,    0x0),
+ 	WRITE_COEF(0x04, 0x0180), WRITE_COEF(0x06,    0x0), WRITE_COEF(0x07, 0x0f80),
+@@ -11043,6 +11054,8 @@ enum {
+ 	ALC897_FIXUP_LENOVO_HEADSET_MIC,
+ 	ALC897_FIXUP_HEADSET_MIC_PIN,
+ 	ALC897_FIXUP_HP_HSMIC_VERB,
++	ALC897_FIXUP_LENOVO_HEADSET_MODE,
++	ALC897_FIXUP_HEADSET_MIC_PIN2,
+ };
+ 
+ static const struct hda_fixup alc662_fixups[] = {
+@@ -11469,6 +11482,19 @@ static const struct hda_fixup alc662_fixups[] = {
+ 			{ }
+ 		},
+ 	},
++	[ALC897_FIXUP_LENOVO_HEADSET_MODE] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc897_fixup_lenovo_headset_mode,
++	},
++	[ALC897_FIXUP_HEADSET_MIC_PIN2] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x1a, 0x01a11140 }, /* use as headset mic, without its own jack detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC897_FIXUP_LENOVO_HEADSET_MODE
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
+@@ -11521,6 +11547,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x32cb, "Lenovo ThinkCentre M70", ALC897_FIXUP_HEADSET_MIC_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x32cf, "Lenovo ThinkCentre M950", ALC897_FIXUP_HEADSET_MIC_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x32f7, "Lenovo ThinkCentre M90", ALC897_FIXUP_HEADSET_MIC_PIN),
++	SND_PCI_QUIRK(0x17aa, 0x3742, "Lenovo TianYi510Pro-14IOB", ALC897_FIXUP_HEADSET_MIC_PIN2),
+ 	SND_PCI_QUIRK(0x17aa, 0x38af, "Lenovo Ideapad Y550P", ALC662_FIXUP_IDEAPAD),
+ 	SND_PCI_QUIRK(0x17aa, 0x3a0d, "Lenovo Ideapad Y550", ALC662_FIXUP_IDEAPAD),
+ 	SND_PCI_QUIRK(0x1849, 0x5892, "ASRock B150M", ALC892_FIXUP_ASROCK_MOBO),
+-- 
+2.38.1
 
-thanks Zhen Ni for the report and patch. We have a fix candidate
-in review+testing at:
-https://github.com/thesofproject/linux/pull/4072
-
-... that should help in your case as well. Once testing is complete,
-we'll be sending the patch series to alsa-devel.
-
-Br, Kai

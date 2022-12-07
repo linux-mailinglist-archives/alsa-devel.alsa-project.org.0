@@ -2,63 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1696452A7
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 04:47:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90980645469
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 08:14:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65AAB17ED;
-	Wed,  7 Dec 2022 04:46:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65AAB17ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 112C2186B;
+	Wed,  7 Dec 2022 08:13:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 112C2186B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670384851;
-	bh=oEEcSsLXBMalNMOMBVVh1LlRpBTeMcF4TkaEJmroifQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mXgrT4ppcQt/ta4hvrZcDiblRFWL3zeGZENws9LdAnwnEcT7X38YCJcM6Zrqs9dQO
-	 HoTAu80iL6ouMJRuY6SL0qylzE4cUUNwKXXr6nqJhaAlbhSlROaRK+W6NVwG5/cPBf
-	 /myN5/XVcKg3YFlgu7ovY4PVGlLZS4uGT+2pT2YQ=
+	s=default; t=1670397253;
+	bh=SnJZwq6XZGUWZpNuhmRFN9PiqDjOfH6NdVQmGbm/GY0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fc2Q0EzjfQ+cdTK4r5PBftyJUjjJ5y7WN+yNohWxBAEjDC1bbYrcIICxSWg9WRaNK
+	 02FOlEulwLY7LvYYYxtmqBbngwHAsm7SC/K7uyogn12n3U4Z7haDybqg/J4tPSf2QI
+	 F4DIdK9IptiM/EIihxrnQ1qy3UyZRmL8XZhOZNPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04E2AF80121;
-	Wed,  7 Dec 2022 04:46:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3C3BF80424;
+	Wed,  7 Dec 2022 08:13:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 247FEF802BE; Wed,  7 Dec 2022 04:46:33 +0100 (CET)
+ id AEA0BF8021D; Wed,  7 Dec 2022 08:13:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.edward-p.xyz (mail.edward-p.xyz [103.150.8.150])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45FC3F80121
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 04:46:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45FC3F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 743E4F800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 08:13:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 743E4F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=edward-p.xyz header.i=@edward-p.xyz
- header.b="R+sSwSq9"
-DKIM-Signature: a=rsa-sha256; bh=T+en6e3AXE3m/+a/1SsKJ6NeYBJ+M/f4BlVdIYx79zE=; 
- c=relaxed/relaxed; d=edward-p.xyz;
- h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:Message-Id:Message-Id:References:Autocrypt:Openpgp;
- i=@edward-p.xyz; s=default; t=1670384779; v=1; x=1670816779;
- b=R+sSwSq9Ei5s1NQVMDHSx3aludIKBbhS42QQUCy3sHB2a7dejw7fb81oiTighw7jXvO/B5dF
- UgjxalD8kkOVNaneYlXPblY3m3By5giGS6kt9OKsE/lSaocdGLtwSfhG/Pu0rWPUuxFR4LVSUPF
- 5u6CvbTP6WG3iCmAtcAHKNgHqG2x+5vgslLZ+NXMqdRgrR5I9RDwFpeKw0RVOu/a2CH45mDrEX0
- drvom6luWcHbs4JgL1eF82TcR826TAL+OToZV8hVxfZsWVT7TCFhdlfj09okx7K8P3/Map0RqUk
- sdgmx6CsQMnaoiE/osox9oKehMZSO0Jl0Sig93UCMbD6A==
-Received: by mail.edward-p.xyz (envelope-sender <edward@edward-p.xyz>) with
- ESMTPS id 22cd2ccf; Wed, 07 Dec 2022 11:46:19 +0800
-From: edward-p <edward@edward-p.xyz>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo TianYi510Pro-14IOB
-Date: Wed,  7 Dec 2022 11:45:35 +0800
-Message-Id: <20221207034535.2150-1-edward@edward-p.xyz>
-X-Mailer: git-send-email 2.38.1
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="cc4WU7G0"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C864C601D7;
+ Wed,  7 Dec 2022 07:13:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E3AC433C1;
+ Wed,  7 Dec 2022 07:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1670397184;
+ bh=SnJZwq6XZGUWZpNuhmRFN9PiqDjOfH6NdVQmGbm/GY0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cc4WU7G0EPGsDWR3dst6hcxPjyPoqgAWsnMbOGBVceuz8I5RcvSs9QjUsN+3TmNjf
+ Qg6o2hkNSw2ifvUd3UknLJIYJdeV/hmjWumJkE7JjdCnYt9OrKN7PBjJme7tg9et5e
+ j82uLTs6nww9LE580XZTb/ugHgCeZDjNnvy3knl0=
+Date: Wed, 7 Dec 2022 08:13:01 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Dicheng Wang <wangdicheng123@hotmail.com>
+Subject: Re: [PATCH v3 -next] ALSA:usb-audio:add the information of KT0206
+ device driven by USB audio
+Message-ID: <Y5A8/bpWoG4Dp2Nx@kroah.com>
+References: <Y480pd/XynYddrHk@kroah.com>
+ <SG2PR02MB58789FBF9A2EA801AF49D5E88A1A9@SG2PR02MB5878.apcprd02.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, edward-p <edward@edward-p.xyz>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SG2PR02MB58789FBF9A2EA801AF49D5E88A1A9@SG2PR02MB5878.apcprd02.prod.outlook.com>
+Cc: alsa-devel@alsa-project.org, john-linux@pelago.org.uk,
+ connerknoxpublic@gmail.com, sdoregor@sdore.me, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, tiwai@suse.com, hahnjo@hahnjo.de,
+ wangdicheng@kylinos.cn
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,74 +86,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Lenovo TianYi510Pro-14IOB (17aa:3742)
-require quirk for enabling headset-mic
+On Wed, Dec 07, 2022 at 11:20:23AM +0800, Dicheng Wang wrote:
+> From: wangdicheng <wangdicheng@kylinos.cn>
 
-Signed-off-by: edward-p <edward@edward-p.xyz>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=216756
----
- sound/pci/hda/patch_realtek.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+This name and email address does not match the name on the From: line.
+Please work with your company to allow you to send out kernel patches
+properly, spoofing through a hotmail.com address is not something that
+your company wants to have happen, as anyone can impersonate an address
+from them (and this one doesn't even pass basic email verification
+checks) :(
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e5c036385666..a2e1bdc06468 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -10960,6 +10960,17 @@ static void alc897_fixup_lenovo_headset_mic(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc897_fixup_lenovo_headset_mode(struct hda_codec *codec,
-+				     const struct hda_fixup *fix, int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+
-+	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-+		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
-+		spec->gen.hp_automute_hook = alc897_hp_automute_hook;
-+	}
-+}
-+
- static const struct coef_fw alc668_coefs[] = {
- 	WRITE_COEF(0x01, 0xbebe), WRITE_COEF(0x02, 0xaaaa), WRITE_COEF(0x03,    0x0),
- 	WRITE_COEF(0x04, 0x0180), WRITE_COEF(0x06,    0x0), WRITE_COEF(0x07, 0x0f80),
-@@ -11043,6 +11054,8 @@ enum {
- 	ALC897_FIXUP_LENOVO_HEADSET_MIC,
- 	ALC897_FIXUP_HEADSET_MIC_PIN,
- 	ALC897_FIXUP_HP_HSMIC_VERB,
-+	ALC897_FIXUP_LENOVO_HEADSET_MODE,
-+	ALC897_FIXUP_HEADSET_MIC_PIN2,
- };
- 
- static const struct hda_fixup alc662_fixups[] = {
-@@ -11469,6 +11482,19 @@ static const struct hda_fixup alc662_fixups[] = {
- 			{ }
- 		},
- 	},
-+	[ALC897_FIXUP_LENOVO_HEADSET_MODE] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc897_fixup_lenovo_headset_mode,
-+	},
-+	[ALC897_FIXUP_HEADSET_MIC_PIN2] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x1a, 0x01a11140 }, /* use as headset mic, without its own jack detect */
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC897_FIXUP_LENOVO_HEADSET_MODE
-+	},
- };
- 
- static const struct snd_pci_quirk alc662_fixup_tbl[] = {
-@@ -11521,6 +11547,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x32cb, "Lenovo ThinkCentre M70", ALC897_FIXUP_HEADSET_MIC_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x32cf, "Lenovo ThinkCentre M950", ALC897_FIXUP_HEADSET_MIC_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x32f7, "Lenovo ThinkCentre M90", ALC897_FIXUP_HEADSET_MIC_PIN),
-+	SND_PCI_QUIRK(0x17aa, 0x3742, "Lenovo TianYi510Pro-14IOB", ALC897_FIXUP_HEADSET_MIC_PIN2),
- 	SND_PCI_QUIRK(0x17aa, 0x38af, "Lenovo Ideapad Y550P", ALC662_FIXUP_IDEAPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3a0d, "Lenovo Ideapad Y550", ALC662_FIXUP_IDEAPAD),
- 	SND_PCI_QUIRK(0x1849, 0x5892, "ASRock B150M", ALC892_FIXUP_ASROCK_MOBO),
--- 
-2.38.1
+thanks,
 
+greg k-h

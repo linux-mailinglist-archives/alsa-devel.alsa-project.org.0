@@ -2,49 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215B7645BFD
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 15:06:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31BF645C03
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Dec 2022 15:06:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBAD618AB;
-	Wed,  7 Dec 2022 15:05:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBAD618AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1581930;
+	Wed,  7 Dec 2022 15:06:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1581930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670421972;
-	bh=vQdlm4JjxIy4o2bYv7V+Ob4SM3ru3nonGJq9vcTPA30=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1670422012;
+	bh=zGCBd1dXcsYE8LVBCHGovs6sjtdFUQxgK8iMVHjTcWM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jMJ4CJAGs5XY7L3oTF/GWTVPQs0q4rsZVTx3syg7CoRpaZlQDzjjRIr73y1kyUgdO
-	 7VrJl0lrHYGuELbGDMYUcV+XtoWB8I8WEInxhLEgaUVQD40co6el/4diBayhJKlzv4
-	 Efsn0uB6s2jV2HpkBv7rglRBCzTo50j8Q2aJafQs=
+	b=Yl7VTQ+EOOjtAVul+MoHMa7YBQn+7r7R1X79idS/PADQMeKvc16jSCXhOoSgZI+pv
+	 63uFAf9p5tqEQpYTvLWefBEJ4S+YpYmtlhrra2nlZ4+1mM6RhGxsrlVpsrWwUJWtuL
+	 DDrA4Szty8xBQkCOvTq8UMOybxV/2aBe4Xzsduqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4ED79F80301;
-	Wed,  7 Dec 2022 15:05:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F216FF80121;
+	Wed,  7 Dec 2022 15:05:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99BBFF802BE; Wed,  7 Dec 2022 15:05:13 +0100 (CET)
+ id 05DB3F804F2; Wed,  7 Dec 2022 15:05:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 887AEF800EE
- for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 15:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 887AEF800EE
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1670421906207937956-webhooks-bot@alsa-project.org>
-References: <1670421906207937956-webhooks-bot@alsa-project.org>
-Subject: topology: plugins: nhlt: fix ssp debug
-Message-Id: <20221207140513.99BBFF802BE@alsa1.perex.cz>
-Date: Wed,  7 Dec 2022 15:05:13 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E99AAF80121
+ for <alsa-devel@alsa-project.org>; Wed,  7 Dec 2022 15:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E99AAF80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ztm9ECFj"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="s3+rlkHs"
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EAC6521D81;
+ Wed,  7 Dec 2022 14:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1670421946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Qq5OiLkgVXCayyo7solNPwk8u5a7kfYrFsTvuJOij3E=;
+ b=ztm9ECFjewaEnQ/jgpdvwMoqPTj7CUe7BCwpplwXoFvW7yjDZlx+HoGNMJbzwp/k85e37M
+ FwUGFircWRCxJRG1lBTy7h5BxUll2jt73VnRV3BXwhIYi/8U/jR4q30dTB+R8yTuD7+M0l
+ OpRhK55rqwY3tlffsYrwebMN+Q3PZ0Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1670421946;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Qq5OiLkgVXCayyo7solNPwk8u5a7kfYrFsTvuJOij3E=;
+ b=s3+rlkHsZ8FcnynsDwMVq5TIBRQeD6mtGv8IAVQw34OsIekcQ3l+nqLTrJjroXy2bccimw
+ PRqQVXTSSLEj9fDQ==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id CD17F136B4;
+ Wed,  7 Dec 2022 14:05:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id VfOrMbqdkGOuBgAAGKfGzw
+ (envelope-from <tiwai@suse.de>); Wed, 07 Dec 2022 14:05:46 +0000
+Date: Wed, 07 Dec 2022 15:05:46 +0100
+Message-ID: <87359r8g1x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Edward Pacman <edward@edward-p.xyz>
+Subject: Re: [PATCH v1] ALSA: hda/realtek: Add quirk for Lenovo
+ TianYi510Pro-14IOB
+In-Reply-To: <20221207133218.18989-1-edward@edward-p.xyz>
+References: <87edtb8ksb.wl-tiwai@suse.de>
+ <20221207133218.18989-1-edward@edward-p.xyz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
+ tanureal@opensource.cirrus.com, tangmeng@uniontech.com, p.jungkamp@gmx.net,
+ tiwai@suse.com, tcrawford@system76.com, linux-kernel@vger.kernel.org,
+ sbinding@opensource.cirrus.com, kai.heng.feng@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,12 +104,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils pull request #180 was opened from juimonen:
+On Wed, 07 Dec 2022 14:32:18 +0100,
+Edward Pacman wrote:
+> 
+> Lenovo TianYi510Pro-14IOB (17aa:3742)
+> require quirk for enabling headset-mic
+> 
+> Signed-off-by: Edward Pacman <edward@edward-p.xyz>
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=216756
 
-Nhlt ssp plugin debug feature was broken due to recent change in ssp indexing, thus fix it.
+Thanks, applied now.
 
-Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/180
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/180.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+Takashi

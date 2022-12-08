@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421386473AF
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 16:58:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1C8647432
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 17:26:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB9C3191A;
-	Thu,  8 Dec 2022 16:57:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB9C3191A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D04616AD;
+	Thu,  8 Dec 2022 17:25:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D04616AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670515118;
-	bh=Lu2ukRuwJQ5sD2B1Vt7v8/RFdBuigEu0Y3uzSBNJohU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1670516796;
+	bh=UgZMaJNVDbsqnMpEhkJkw2Xg5u/rG6Zyijp9PDtnyxY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H9cYMHyQCfjw+3Wi8iHVNEnBN9DemwV0bU9wZ73kq4T54fYjIbi2t3t71M4Vot7nc
-	 dxP8zGrLga44eeV8R69oc/oWQZsM+6z1EwTGWduVWF3MdXzB4HBpgKKrtq1UUiYJqu
-	 H1lNc1C87ehq4JepXKe7KRcPIr+HzmCXoOQKrlgA=
+	b=g+tRe+BXNy3WTglf2djKW2bM9mpIJeEBqFgDotb75glB5iBCsz3oNycs4FqND//qz
+	 onrBWHBo7SAOxVGe5QeTpPGuTRjk9pcteCAZ5s+d5g0l18QxbsfSViCDErvmS4TfKJ
+	 m0Cz0e4/aAg/acwLlAsFRZ2yQV1Vu02WYby3yaK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77CC9F80089;
-	Thu,  8 Dec 2022 16:57:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E82E4F8024C;
+	Thu,  8 Dec 2022 17:25:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4958F8024C; Thu,  8 Dec 2022 16:57:39 +0100 (CET)
+ id 83946F80089; Thu,  8 Dec 2022 17:25:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
  URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D72C5F801D8
- for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 16:57:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D72C5F801D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D5L3qOqE"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2130BB822AF
- for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 15:57:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7F35C433B5
- for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 15:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670515051;
- bh=Lu2ukRuwJQ5sD2B1Vt7v8/RFdBuigEu0Y3uzSBNJohU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=D5L3qOqEbM/owqy4PQggYUmTR8JbgrwviOoY4E4u8OBk93FkurGuoTuF8dWr6Lj0N
- PR7Ff+x91xvyz0UODDhCo/i2xATLSystqDN4ZKiAU/RhFm65kdZXf9xjxA89FJVAzL
- S9UDm7UPIJgpR4dyv//ilH1sZ7HpjRhvxMAL1hYwGFT0zMhPyCIX8UWqN2hzZ+QO9t
- J0Yo3g3Ylehj9M/u65pXw5dF22BgGN8Bo6UIOnJUP5AdgIOQM3xpIk54UAyKJl3+IS
- gYfvkunlsDuA2R/5gUDSNY5s4XHXX+qyJCqy1pWG94LrV4yyf+NHqrRuF7DZbmbuB/
- 6/5igH3E1sj0Q==
-Received: by mail-vs1-f44.google.com with SMTP id t5so1836998vsh.8
- for <alsa-devel@alsa-project.org>; Thu, 08 Dec 2022 07:57:31 -0800 (PST)
-X-Gm-Message-State: ANoB5pmmEv1aKy07Le0+uvW/3ZiwMlVs5eZDsEojsycQoIxNfj5UgO4/
- RYt7kjE4R8i3R3tDSfEl4YnHzJ1tHGjnvs6xtw==
-X-Google-Smtp-Source: AA0mqf4yuhDONNJsRFGAFHqxU8nxx3OP+EV2sEqtLI8yuo8fBJJfDtDFo/Rmxy0u05gAvo+gPcLGeh3ld6J4XGyGO6w=
-X-Received: by 2002:a67:af07:0:b0:3b1:1713:ba12 with SMTP id
- v7-20020a67af07000000b003b11713ba12mr13069517vsl.6.1670515050721; Thu, 08 Dec
- 2022 07:57:30 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 441ACF80089
+ for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 17:25:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 441ACF80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="VRUqopMr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1670516732; x=1702052732;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=UgZMaJNVDbsqnMpEhkJkw2Xg5u/rG6Zyijp9PDtnyxY=;
+ b=VRUqopMrw3j34nKPiNmnaYOoGH1RFjO5Vg9nnutBIe8PfDzBg+qKl5h6
+ LlROAujEMyVvTWVUNShukZpL/UN051ZCtAjUanX7ffh4vU7roni3Z+1hR
+ VCObqTl21WIZs/zFUD7/o/YxMJyYqQMns/dFnRz3+VXZMVq00VWxrYiuB
+ hAWmUAM7GueTiAFrH8qljO62MBHxo4SrFA2u+OAg8T8YMuA9OhX9jXhBW
+ Wnv23378MQmoP1FrfQ4npkdJaYKX+q6aNAqTAldlequ6EHz9NKZk8CmZ7
+ hHbWBQk5uRf7cpoRNoUkbuk3zbPIUnTxozGgy0PRMm5QVBEpF4JG7RHnC Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="296903754"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="296903754"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 08:25:26 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="677810622"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="677810622"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.223])
+ ([10.99.249.223])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 08:25:24 -0800
+Message-ID: <5dd6e067-bc93-ad01-8cf2-3bb5c9a45443@linux.intel.com>
+Date: Thu, 8 Dec 2022 17:25:21 +0100
 MIME-Version: 1.0
-References: <20221208122313.55118-1-wangweidong.a@awinic.com>
- <20221208122313.55118-6-wangweidong.a@awinic.com>
-In-Reply-To: <20221208122313.55118-6-wangweidong.a@awinic.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Thu, 8 Dec 2022 09:57:19 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqL8SScxB+TiML1joKKWQ_vZQ8+We+C-x84mYX0JsysSzA@mail.gmail.com>
-Message-ID: <CAL_JsqL8SScxB+TiML1joKKWQ_vZQ8+We+C-x84mYX0JsysSzA@mail.gmail.com>
-Subject: Re: [PATCH V6 5/5] ASoC: dt-bindings: Add schema for "awinic, aw883xx"
-To: wangweidong.a@awinic.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
- duanyibo@awinic.com, liweilei@awinic.com, tiwai@suse.com, zhaolei@awinic.com,
- cy_huang@richtek.com, yijiangtao@awinic.com, broonie@kernel.org,
- zhangjianming@awinic.com, krzysztof.kozlowski+dt@linaro.org,
- quic_potturu@quicinc.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH 1/3] ALSA: hda/hdmi: fix i915 silent stream programming
+ flow
+Content-Language: en-US
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
+ tiwai@suse.de
+References: <20221208154358.3848764-1-kai.vehmanen@linux.intel.com>
+ <20221208154358.3848764-2-kai.vehmanen@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20221208154358.3848764-2-kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,47 +98,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 8, 2022 at 6:28 AM <wangweidong.a@awinic.com> wrote:
->
-> From: Weidong Wang <wangweidong.a@awinic.com>
->
-> Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
-> controlled using I2C.
-
-blank line
-
-Pretty sure I said this before, but resend to the DT list if you want
-this reviewed.
-
-> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+On 12/8/2022 4:43 PM, Kai Vehmanen wrote:
+> The i915 display codec may not successfully transition to
+> normal audio streaming mode, if the stream id is programmed
+> while codec is actively transmitting data. This can happen
+> when silent stream is enabled in KAE mode.
+> 
+> Fix the issue by implementing a i915 specific programming
+> flow, where the silent streaming is temporarily stopped,
+> a small delay is applied to ensure display codec becomes
+> idle, and then proceed with reprogramming the stream ID.
+> 
+> Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
+> Link: https://gitlab.freedesktop.org/drm/intel/-/issues/7353
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Tested-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 > ---
->  .../bindings/sound/awinic,aw883xx.yaml        | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
-> new file mode 100644
-> index 000000000000..b72c9177ebb7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/awinic,aw883xx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Awinic AW883xx Smart Audio Amplifier
-> +
-> +maintainers:
-> +  - Stephan Gerhold <stephan@gerhold.net>
-> +
-> +description:
-> +  The Awinic AW883XX is an I2S/TDM input, high efficiency
-> +  digital Smart K audio amplifier with an integrated 10.25V
-> +  smart boost convert.
-> +
-> +allOf:
-> +  - $ref: name-prefix.yaml#
+>   sound/pci/hda/patch_hdmi.c | 23 +++++++++++++++++++++--
+>   1 file changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+> index 7a40ddfd695a..a0ba24165ae2 100644
+> --- a/sound/pci/hda/patch_hdmi.c
+> +++ b/sound/pci/hda/patch_hdmi.c
+> @@ -2879,9 +2879,28 @@ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+>   				 hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+>   				 int format)
+>   {
+> +	struct hdmi_spec *spec = codec->spec;
+> +	int pin_idx = pin_id_to_pin_index(codec, pin_nid, dev_id);
 
-I think this file has now been renamed upstream.
+Shouldn't return value from pin_id_to_pin_index() be checked? It seems 
+that it can return -EINVAL.
+
+> +	struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
+> +	int res;
+> +
+>   	haswell_verify_D0(codec, cvt_nid, pin_nid);
+> -	return hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
+> -				 stream_tag, format);
+> +
+> +	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+> +		silent_stream_set_kae(codec, per_pin, false);
+> +		/* wait for pending transfers in codec to clear */
+> +		usleep_range(100, 200);
+> +	}
+> +
+> +	res = hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
+> +				stream_tag, format);
+> +
+> +	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+> +		usleep_range(100, 200);
+> +		silent_stream_set_kae(codec, per_pin, true);
+> +	}
+> +
+> +	return res;
+>   }
+>   
+>   /* pin_cvt_fixup ops override for HSW+ and VLV+ */
+
